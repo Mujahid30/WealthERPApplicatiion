@@ -181,7 +181,7 @@ namespace WealthERP.OffLineOrderManagement
                     ViewOrderList(orderId);
                     btnConfirmOrder.Visible = false;
                     btnAddMore.Visible = false;
-                    
+
                     if (action1 == "View")
                     {
                         btnUpdate.Visible = false;
@@ -241,15 +241,15 @@ namespace WealthERP.OffLineOrderManagement
             txtPaymentNumber.Enabled = value;
             txtPansearch.Enabled = value;
             GetDematAccountDetails(int.Parse(txtCustomerId.Value));
-            if (rbtnAuthentication.Checked )
+            if (rbtnAuthentication.Checked)
             {
                 rbtnAuthentication.Enabled = false;
-                
+
             }
             else
             {
                 rbtnAuthentication.Enabled = value;
-                
+
             }
         }
         protected void lnkEdit_OnClick(object sender, EventArgs e)
@@ -302,6 +302,8 @@ namespace WealthERP.OffLineOrderManagement
                         lblAssociatetext.Text = string.Empty;
 
                     // }
+                    hdnCustomerId.Value = dr["C_CustomerId"].ToString();
+                    customerVo = customerBo.GetCustomer(int.Parse(hdnCustomerId.Value));
                     txtPansearch.Text = dr["C_PANNum"].ToString();
                     txtAssociateSearch.Text = dr["AAC_AgentCode"].ToString();
                     //ddlsearch.SelectedValue = "1";
@@ -310,7 +312,7 @@ namespace WealthERP.OffLineOrderManagement
                     lblgetcust.Text = dr["Customer_Name"].ToString();
                     lblgetPan.Text = dr["C_PANNum"].ToString();
                     txtAssociateSearch.Text = dr["AAC_AgentCode"].ToString();
-                    // lblBranchName.Text = dr["AB_BranchName"].ToString();
+                    lblGetBranch.Text = customerVo.BranchName;
                     string issue = dr["AIM_IssueId"].ToString();
                     BindIPOIssueList(issue);
                     BindCustomerNCDIssueList();
@@ -346,7 +348,7 @@ namespace WealthERP.OffLineOrderManagement
                     if (dr["CO_IsAuthenticated"].ToString() != "True")
                     {
                         rbtnAuthentication.Checked = false;
-                        
+
                     }
                     else
                     {
@@ -376,9 +378,9 @@ namespace WealthERP.OffLineOrderManagement
                     //foreach (GridFooterItem footeritem in RadGridIPOBid.MasterTableView.GetItems(GridItemType.Footer))
                     //{
                     Label lblFinalBidAmountPayable = (Label)ftItemAmount["BidAmountPayable"].FindControl("lblFinalBidAmountPayable");
-                        lblFinalBidAmountPayable.Text = dr1["payable"].ToString();
-                        decimal maxPaybleAmount = Convert.ToDecimal(((TextBox)ftItemAmount.FindControl("txtFinalBidValue")).Text);//accessing Button inside 
-                        maxPaybleAmount = Convert.ToDecimal(dr1["payable"].ToString());
+                    lblFinalBidAmountPayable.Text = dr1["payable"].ToString();
+                    decimal maxPaybleAmount = Convert.ToDecimal(((TextBox)ftItemAmount.FindControl("txtFinalBidValue")).Text);//accessing Button inside 
+                    maxPaybleAmount = Convert.ToDecimal(dr1["payable"].ToString());
                     //}
                 }
             }
@@ -505,9 +507,9 @@ namespace WealthERP.OffLineOrderManagement
                 //foreach(DataRow dr1 in dr.Rows)
                 drIPOBid["DetailsId"] = dr.Rows[radgridRowNo]["COID_DetailsId"].ToString();
                 dtIPOBidTransactionDettails.Rows.Add(drIPOBid);
-                if (rbtnAuthentication.Checked == true )
+                if (rbtnAuthentication.Checked == true)
                 {
-                    lbResult = OfflineBondOrderBo.CancelBondsFDBookOrder(orderNo, txtRejectReseaon.Text, userVo.UserId,  true);
+                    lbResult = OfflineBondOrderBo.CancelBondsFDBookOrder(orderNo, txtRejectReseaon.Text, userVo.UserId, true);
                 }
                 //foreach (GridDataItem radItem in RadGridIPOBid.MasterTableView.Items)
                 //{
@@ -1465,7 +1467,7 @@ namespace WealthERP.OffLineOrderManagement
             string errorMsg = string.Empty;
             bool isBidsVallid = false;
             Page.Validate("btnConfirmOrder");
-            if (Validation() && Page.IsValid)
+            if (Validation() && Page.IsValid && DematValidation())
             {
                 isBidsVallid = ValidateIPOBids(out errorMsg, 0);
 
@@ -1697,12 +1699,12 @@ namespace WealthERP.OffLineOrderManagement
             if (orderId != 0)
                 if (isCutOffTimeOver)
                 {
-                    userMessage = "Order placed successfully, Order reference no is " + orderId.ToString() + " & Application no. " + txtApplicationNo.Text + ", Order will process next business day.";
+                    userMessage = "Order placed successfully, Order reference no is " + orderId.ToString() + ", Order will process next business day.";
                 }
                 else
                 {
 
-                    userMessage = "Order placed successfully, Order reference no is " + orderId.ToString() + " and application no is " + txtApplicationNo.Text;
+                    userMessage = "Order placed successfully, Order reference no is " + orderId.ToString();
                 }
 
             return userMessage;
@@ -2055,6 +2057,31 @@ namespace WealthERP.OffLineOrderManagement
                 throw exBase;
 
             }
+            return result;
+        }
+        public bool DematValidation()
+        {
+            bool result = false;
+            int count = 0;
+            foreach (GridDataItem item in gvDematDetailsTeleR.MasterTableView.Items)
+            {
+                CheckBox chk = (CheckBox)item.FindControl("chkDematId");
+                if (chk.Checked)
+                {
+                    count++;
+                }
+            }
+            if (count > 1 || count == 0)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select One Demat from List!');", true);
+                result = false;
+            }
+            if (count == 1)
+            {
+                result = true;
+            }
+
+
             return result;
         }
         protected void rbtnIndividual_CheckedChanged(object sender, EventArgs e)

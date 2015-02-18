@@ -174,7 +174,7 @@
 <script type="text/javascript">
     var crnt = 0;
     function PreventClicks() {
-        Validate();
+      
 
         if (typeof (Page_ClientValidate('btnConfirmOrder')) == 'function') {
             Page_ClientValidate();
@@ -190,66 +190,14 @@
         else {
             return false;
         }
-
-
     }
-
-
     function Validate() {
-        TestCheckBox();
         var isValid = false;
         isValid = Page_ClientValidate('btnConfirmOrder');
         if (isValid) {
             isValid = Page_ClientValidate('btnTC');
-
-
-
         }
-
         return isValid;
-    }
-
-
-    //    window.onload = function() {
-    //        try {
-
-    //            //get target base control.
-    //           
-
-    //        }
-    //        catch (err) {
-    //            TargetBaseControl = null;
-    //        }
-    //    }
-
-    function TestCheckBox() {
-        var TargetBaseControl = null;
-        var TragetBaseControl2 = null;
-        TargetBaseControl =
-           document.getElementById('<%=this.gvDematDetailsTeleR.ClientID %>');
-        if (TargetBaseControl == null) return false;
-
-        //get target child control.
-        var TargetChildControl = "chkDematId";
-        var Count = 0;
-        //get all the control of the type INPUT in the base control.
-        var Inputs = TargetBaseControl.getElementsByTagName("input");
-
-        for (var n = 0; n < Inputs.length; ++n)
-            if (Inputs[n].type == 'checkbox' &&
-            Inputs[n].id.indexOf(TargetChildControl, 0) >= 0 &&
-            Inputs[n].checked)
-            Count++;
-        if (Count > 1) {
-            alert('Please Select One Demat!');
-            return false;
-        }
-        else if (Count == 0) {
-            alert('Please Select Aleast One Demat!');
-            return false;
-        }
-
-        return true;
     }
 </script>
 
@@ -1258,12 +1206,12 @@
                         GridLines="None" ShowFooter="true" PagerStyle-AlwaysVisible="false" ShowStatusBar="True"
                         Skin="Telerik" AllowFilteringByColumn="false" FooterStyle-BackColor="#2475C7"
                         OnItemDataBound="RadGridIPOBid_ItemDataBound">
-                        <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
+                        <MasterTableView AllowMultiColumnSorting="false" AllowSorting="false" AutoGenerateColumns="false"
                             DataKeyNames="IssueBidNo,COID_TransactionType" Width="100%" PagerStyle-AlwaysVisible="false">
                             <Columns>
-                                <telerik:GridBoundColumn DataField="BidOptions" HeaderStyle-Width="120px" CurrentFilterFunction="Contains"
-                                    ShowFilterIcon="true" AutoPostBackOnFilter="true" HeaderText="Bidding Options"
-                                    UniqueName="BidOptions" SortExpression="BidOptions">
+                                <telerik:GridBoundColumn DataField="BidOptions" AllowFiltering="false" HeaderStyle-Width="120px"
+                                    CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="false"
+                                    HeaderText="Bidding Options" UniqueName="BidOptions" SortExpression="BidOptions">
                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="80px"
@@ -1413,7 +1361,7 @@
         <tr>
             <td class="leftField">
                 <asp:Button ID="btnConfirmOrder" runat="server" Text="Submit Order" OnClick="btnConfirmOrder_Click"
-                    CssClass="PCGMediumButton" ValidationGroup="btnConfirmOrder, btnTC" OnClientClick="javascript: return  PreventClicks(); Validate();  TestCheckBox();" />
+                    CssClass="PCGMediumButton" ValidationGroup="btnConfirmOrder, btnTC" OnClientClick="javascript: return  PreventClicks(); Validate();" />
             </td>
             <td class="rightField">
                 <asp:Button ID="btnAddMore" runat="server" Text="Add More IPO Order" CssClass="PCGMediumButton"
