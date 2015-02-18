@@ -801,7 +801,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
                 ddlAmc.SelectedValue = mfProductAMCSchemePlanDetailsVo.AMCCode.ToString();
             }
-            
+
 
 
             if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.AssetCategoryCode))
@@ -1117,7 +1117,7 @@ namespace WealthERP.OnlineOrderBackOffice
             txtRedemptionMultiplesUnits.Text = mfProductAMCSchemePlanDetailsVo.RedemptionMultiplesUnits.ToString();
             txtSwitchMultipleAmount.Text = mfProductAMCSchemePlanDetailsVo.SwitchMultipleAmount.ToString();
             txtSwitchMultipleUnits.Text = mfProductAMCSchemePlanDetailsVo.SwitchMultiplesUnits.ToString();
-            if (mfProductAMCSchemePlanDetailsVo.SecurityCode!="0")
+            if (mfProductAMCSchemePlanDetailsVo.SecurityCode != "0")
                 txtSecuritycode.Text = mfProductAMCSchemePlanDetailsVo.SecurityCode.ToString();
             txtinvestment.Text = mfProductAMCSchemePlanDetailsVo.PASPD_MaxInvestment.ToString();
 
@@ -2413,7 +2413,7 @@ namespace WealthERP.OnlineOrderBackOffice
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique External System Scheme Code.');", true);
                             return;
                         }
-                        else if (count == 0)
+                        else
                         {
                             bool bResult = OnlineOrderBackOfficeBo.UpdateSchemeSetUpDetail(mfProductAMCSchemePlanDetailsVo, schemeplancode, userVo.UserId);
                             message = CreateUserMessage(schemeplancode);
@@ -2422,9 +2422,9 @@ namespace WealthERP.OnlineOrderBackOffice
                             lnkEdit.Visible = true;
                             btnupdate.Visible = false;
                             ControlMode(false);
+
                         }
                     }
-
                     else
                     {
                         bool bResult = OnlineOrderBackOfficeBo.UpdateSchemeSetUpDetail(mfProductAMCSchemePlanDetailsVo, schemeplancode, userVo.UserId);
@@ -2436,6 +2436,17 @@ namespace WealthERP.OnlineOrderBackOffice
                         ControlMode(false);
                     }
                 }
+                else
+                {
+                    bool bResult = OnlineOrderBackOfficeBo.UpdateSchemeSetUpDetail(mfProductAMCSchemePlanDetailsVo, schemeplancode, userVo.UserId);
+                    message = CreateUserMessage(schemeplancode);
+                    ShowMessage(message);
+                    lbBack.Visible = true;
+                    lnkEdit.Visible = true;
+                    btnupdate.Visible = false;
+                    ControlMode(false);
+                }
+
             }
 
             catch (BaseApplicationException Ex)
@@ -2686,14 +2697,14 @@ namespace WealthERP.OnlineOrderBackOffice
                 //ddlSystematicType.Items[0].Enabled = true;
                 BindSystematicDetails();
                 pnlSIPDetails.Visible = true;
-               
+
             }
             else
             {
                 //trsystematic.Visible = false;
                 pnlSIPDetails.Visible = false;
                 //ddlSystematicType.Items[0].Enabled = false;
-                
+
             }
         }
         protected void ChkISSWP_OnCheckedChanged(object sender, EventArgs e)
@@ -2707,14 +2718,14 @@ namespace WealthERP.OnlineOrderBackOffice
                 //ddlSystematicType.Items[1].Enabled = true;
                 BindSystematicDetails();
                 pnlSIPDetails.Visible = true;
-               
+
             }
             else
             {
                 //trsystematic.Visible = false;
                 //pnlSIPDetails.Visible = false;
                 //ddlSystematicType.Items[1].Enabled = false;
-               
+
             }
 
         }
@@ -2728,7 +2739,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 //ddlSystematicType.Items[2].Enabled = true;
                 BindSystematicDetails();
                 pnlSIPDetails.Visible = true;
-               
+
             }
             else
             {
@@ -2855,12 +2866,12 @@ namespace WealthERP.OnlineOrderBackOffice
                 DropDownList ddlSystematicType = (DropDownList)gefi.FindControl("ddlSystematicType");
 
                 if (ChkISSIP.Checked == true)
-              
+
                     ddlSystematicType.Items[0].Enabled = true;
-               
+
                 else
                     ddlSystematicType.Items[0].Enabled = false;
-                if(ChkISSWP.Checked==true)
+                if (ChkISSWP.Checked == true)
 
                     ddlSystematicType.Items[1].Enabled = true;
 
