@@ -115,7 +115,7 @@
 
         var customerId = document.getElementById("<%=txtCustomerId.ClientID %>").value;
         var customerPortfolioId = document.getElementById("<%=hdnPortfolioId.ClientID %>").value;
-       
+
         if (customerId != 0) {
             window.open('PopUp.aspx?PageId=AddDematAccountDetails&CustomerId=' + customerId + '&CustomerPortfolioId=' + customerPortfolioId, 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
 
@@ -353,8 +353,6 @@
                 </table>
             </div>
         </td>
-    </tr>
-    <tr>
     </tr>
 </table>
 <%--<asp:UpdatePanel ID="UpdatePanel1" UpdateMode="Always" runat="server">
@@ -667,33 +665,55 @@
                 </div>
             </td>
         </tr>
-        <tr style="width: 30%" align="center">
+        <tr>
+            <td align="right" style="width: 20%">
+            </td>
             <td id="tdauthentication" runat="server">
                 <%--<asp:CheckBox ID="chkAuthentication" runat="server" CssClass="cmbFielde" Text="Authenticate"
                     OnCheckedChanged="chkAuthentication_OnCheckedChanged" AutoPostBack="true" />--%>
                 <asp:RadioButton ID="rbtnAuthentication" runat="server" CssClass="txtField" Text="Authenticate"
-                    GroupName="rejAut" AutoPostBack="true" OnCheckedChanged="rbtnAuthentication_OnCheckedChanged" />
+                    GroupName="rejAut" AutoPostBack="true" OnCheckedChanged="rbtnAuthentication_OnCheckedChanged" Checked="true"/>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:RadioButton ID="rbtnReject" runat="server" CssClass="txtField" Text="Rejected"
                     GroupName="rejAut" AutoPostBack="true" OnCheckedChanged="rbtnReject_CheckedChanged" />
                 <%--  <asp:CustomValidator ID="CustomValidator1" runat="server" ValidationGroup="location"
                     ErrorMessage="Please select one of the radio button" Display="Dynamic"></asp:CustomValidator>--%>
             </td>
-            <td id="tdlblReject" class="leftField" style="width: 20%" visible="false">
+            <td align="right">
+                <asp:Label runat="server" ID="lblBrokerCode" CssClass="FieldName" Text="Select Broker:"></asp:Label>
+            </td>
+            <td align="left">
+                <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField">
+                </asp:DropDownList>
+                <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator13" ControlToValidate="ddlBrokerCode"
+                    ErrorMessage="<br />Please Select Broker" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                    ValidationGroup="btnSubmitAuthenticate" InitialValue=""></asp:RequiredFieldValidator>--%>
+            </td>
+        </tr>
+        <tr>
+            <td id="tdauthenticationDetails" runat="server" align="right" style="width: 20%">
+                <asp:Label ID="lblAuthenticated" runat="server" Text="Authenticated/Rejected By:"
+                    CssClass="FieldName"></asp:Label>
+            </td>
+            <td style="width: 38%;">
+                <asp:Label ID="lblAuthenticatedBy" runat="server" CssClass="FieldName"></asp:Label><br />
+                <asp:Label ID="lblAuthenticationDate" runat="server" CssClass="FieldName"></asp:Label>
+            </td>
+            <td id="tdlblReject" visible="false" align="right">
                 <asp:Label ID="lblRejectRes" runat="server" Text="Reject Reseaon:" CssClass="FieldName">           
                 </asp:Label>
             </td>
-            <td id="tdtxtReject" class="rightField" style="width: 20%" visible="false">
+            <td id="tdtxtReject" visible="false">
                 <asp:TextBox ID="txtRejectReseaon" runat="server" CssClass="txtField" />
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator12" ControlToValidate="txtRejectReseaon"
                     ErrorMessage="<br />Please Enter Remarks" Display="Dynamic" runat="server" CssClass="rfvPCG"
-                    ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+                    ValidationGroup="btnSubmitAuthenticate" InitialValue=""></asp:RequiredFieldValidator>
             </td>
-            <td id="tdauthenticationDetails" runat="server">
-                <asp:Label ID="lblAuthenticated" runat="server" Text="Authenticated/Rejected By:"
-                    CssClass="FieldName"></asp:Label>
-                <asp:Label ID="lblAuthenticatedBy" runat="server" CssClass="FieldName"></asp:Label><br />
-                <asp:Label ID="lblAuthenticationDate" runat="server" CssClass="FieldName"></asp:Label>
+        </tr>
+        <tr>
+            <td align="right">
+                <asp:Button runat="server" ID="btnSubmitAuthenticate" CssClass="PCGButton" runat="server"
+                    Text="Submit" OnClick="btnSubmitAuthenticate_btnSubmit" ValidationGroup="btnSubmitAuthenticate" />
             </td>
         </tr>
     </table>
@@ -723,7 +743,7 @@
                     <td align="right">
                         <asp:Label ID="lblsearch" runat="server" CssClass="FieldName" Text="Search for:"></asp:Label>
                     </td>
-                    <td style="width: 23.5%">
+                    <td style="width: 39%">
                         <asp:DropDownList ID="ddlsearch" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlsearch_Selectedindexchanged"
                             AutoPostBack="true" TabIndex="1">
                             <asp:ListItem Text="Select" Value="0"></asp:ListItem>
@@ -806,7 +826,7 @@
                         <asp:Label ID="lblgetPan" runat="server" Text="" CssClass="FieldName"></asp:Label>
                     </td>
                     <td align="right" runat="server" visible="false">
-                        <asp:Label ID="lblRM" runat="server" Text="RM: " CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblRM" runat="server" Text="RM:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
                         <asp:Label ID="lblGetRM" runat="server" Text="" CssClass="FieldName"></asp:Label>
@@ -814,13 +834,13 @@
                 </tr>
                 <tr>
                     <td align="right">
-                        <asp:Label ID="lblBranch" runat="server" Text="Branch: " CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblBranch" runat="server" Text="Branch:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
                         <asp:Label ID="lblGetBranch" runat="server" Text="" CssClass="FieldName"></asp:Label>
                     </td>
                     <td align="right" runat="server" visible="false">
-                        <asp:Label ID="Label1" runat="server" Text="EUIN: " CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="Label1" runat="server" Text="EUIN:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td runat="server" visible="false">
                         <asp:Label ID="lb1EUIN" runat="server" Text="" CssClass="FieldName"></asp:Label>
@@ -1473,7 +1493,7 @@
                     </td>
                 </tr>
                 <tr id="trBtnSubmit" runat="server">
-                    <td align="left" colspan="3"> 
+                    <td align="left" colspan="3">
                         <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmit_Click"
                             ValidationGroup="MFSubmit" TabIndex="33" />
                         <asp:Button ID="btnAddMore" runat="server" Text="Save & AddMore" CssClass="PCGMediumButton"

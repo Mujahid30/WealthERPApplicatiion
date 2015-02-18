@@ -268,8 +268,8 @@ namespace WealthERP.OffLineOrderManagement
                 string OrderStepCode = gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WOS_OrderStep"].ToString();
                 if (gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IsCancelAllowed"].ToString() != string.Empty)
                     isCancel = Convert.ToBoolean(gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IsCancelAllowed"].ToString());
-                //  string extractionStepCode = gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WES_COde"].ToString();
-                if (OrderStepCode == "INPROCESS" && isCancel != false)
+                  string authenticated = gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_IsAuthenticated"].ToString();
+                  if (OrderStepCode == "INPROCESS" && isCancel != false && authenticated !="Yes")
                 {
                     lbtnMarkAsReject.Visible = true;
 

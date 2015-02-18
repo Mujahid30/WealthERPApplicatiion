@@ -904,5 +904,46 @@ namespace DaoOps
             }
             return dtGetAuthenticate;
         }
+        public DataTable GetSubBroker(int issueId)
+        {
+            Database db;
+            DbCommand GetSubBrokercmd;
+            DataTable dtGetSubBroker;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetSubBrokercmd = db.GetStoredProcCommand("SPROC_GetissueBrokerMapping");
+                db.AddInParameter(GetSubBrokercmd, "@issueId", DbType.Int32, issueId);
+                dtGetSubBroker = db.ExecuteDataSet(GetSubBrokercmd).Tables[0]; ;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dtGetSubBroker;
+        }
+        public bool UpdateAuthenticate(int OrderId,int isAuthenticate,int userId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand UpdateAuthenticateCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                UpdateAuthenticateCmd = db.GetStoredProcCommand("SPROC_DeleteDocuments");
+                db.AddInParameter(UpdateAuthenticateCmd, "@OrderId", DbType.Int32, OrderId);
+                db.AddInParameter(UpdateAuthenticateCmd, "@isAuthenticate", DbType.Int32, isAuthenticate);
+                db.AddInParameter(UpdateAuthenticateCmd, "@userId", DbType.Int32, userId);
+                if (db.ExecuteNonQuery(UpdateAuthenticateCmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw ex;
+            }
+            return bResult;
+
+        }
     }
 }

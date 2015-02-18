@@ -196,6 +196,7 @@ namespace WealthERP.OffLineOrderManagement
                     if (Request.QueryString["action"].Trim() == "Edit")
                     {
                         orderId = int.Parse(Request.QueryString["orderId"].ToString());
+                        ViewState["orderId"] = orderId;
                         txtCustomerId.Value = Request.QueryString["customeId"].ToString();
                         if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
                             GetUserType();
@@ -223,6 +224,7 @@ namespace WealthERP.OffLineOrderManagement
                     {
                         orderId = int.Parse(Request.QueryString["orderId"].ToString());
                         txtCustomerId.Value = Request.QueryString["customeId"].ToString();
+                        ViewState["orderId"] = orderId;
                         lblAssociate.Visible = true;
                         if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
                             GetUserType();
@@ -1062,13 +1064,7 @@ namespace WealthERP.OffLineOrderManagement
             {
                 //if (chkAuthentication.Checked == true)
                 //    fiorderVo.authenticId = 1;
-                bool lbResult = false;
-                orderId = orderVo.OrderNumber;
-
-                if (rbtnAuthentication.Checked == true || rbtnReject.Checked == true)
-                {
-                    lbResult = OfflineBondOrderBo.CancelBondsFDBookOrder(orderId, txtRejectReseaon.Text, userVo.UserId, (rbtnReject.Checked) ? false : true);
-                }
+               
 
                 OrderIds = fiorderBo.CreateOrderFIDetails(orderVo, fiorderVo, userVo.UserId, "Update");
                 orderId = fiorderVo.OrderNumber;
@@ -4314,11 +4310,12 @@ namespace WealthERP.OffLineOrderManagement
                 FIScheme(advisorVo.advisorId, ddlCategory.SelectedValue);
                 ddlScheme.SelectedValue = dr["AIM_IssueId"].ToString();
                 DDLSchemeSelection();
+                BindSubbroker(int.Parse(dr["AIM_IssueId"].ToString()));
                 FISeries(int.Parse(dr["AIM_IssueId"].ToString()));
                 ddlSeries.SelectedValue = dr["AID_IssueDetailId"].ToString();
                 ddlTranstype.SelectedValue = dr["CFIOD_TransactionType"].ToString();
                 TransactionTypeChanges(ddlTranstype.SelectedValue);
-
+                ddlBrokerCode.SelectedValue = dr["XB_BrokerIdentifier"].ToString();
                 txtApplicationNumber.Text = dr["CO_ApplicationNo"].ToString();
                 if (!string.IsNullOrEmpty(dr["CO_ApplicationReceivedDate"].ToString()))
                 {
@@ -4387,6 +4384,13 @@ namespace WealthERP.OffLineOrderManagement
                     lblOrderNumber.Text = "Order No.";
                     lblGetOrderNo.Text = dr["Co_OrderId"].ToString();
                 }
+                if (dr["WOS_OrderStepCode"].ToString() == "RJ")
+                {
+                    rbtnReject.Checked = true;
+                    btnSubmitAuthenticate.Visible = false;
+                    lblAuthenticatedBy.Text = dr["U_FirstName"].ToString();
+                }
+               
                 if (dr["CO_IsAuthenticated"].ToString() != "True")
                 {
                     rbtnAuthentication.Checked = false;
@@ -4396,6 +4400,7 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     rbtnAuthentication.Checked = true;
                     lblAuthenticatedBy.Text = dr["U_FirstName"].ToString();
+                    btnSubmitAuthenticate.Visible = false;
                 }
                 GetDematAccountDetails(int.Parse(dr["C_CustomerId"].ToString()));
                 foreach (GridDataItem gdi in gvDematDetailsTeleR.MasterTableView.Items)
@@ -5010,6 +5015,25 @@ namespace WealthERP.OffLineOrderManagement
 
             }
         }
-
+        protected void BindSubbroker(int issueId)
+        {
+            DataTable dtBindSubbroker = fiorderBo.GetSubBroker(issueId);
+            if (dtBindSubbroker.Rows.Count > 0)
+            {
+                ddlBrokerCode.DataSource = dtBindSubbroker;
+                ddlBrokerCode.DataValueField = dtBindSubbroker.Columns["XB_BrokerIdentifier"].ToString();
+                ddlBrokerCode.DataTextField = dtBindSubbroker.Columns["XB_BrokerShortName"].ToString();
+                ddlBrokerCode.DataBind();
+            }
+        }
+        protected void btnSubmitAuthenticate_btnSubmit(object sender, EventArgs e)
+        {
+            bool lbResult = false;
+            if (rbtnAuthentication.Checked == true || rbtnReject.Checked == true)
+            {
+                lbResult = OfflineBondOrderBo.CancelBondsFDBookOrder(int.Parse(ViewState["orderId"].ToString()), txtRejectReseaon.Text, userVo.UserId, (rbtnReject.Checked) ? false : true, ddlBrokerCode.SelectedValue);
+                btnSubmitAuthenticate.Visible = false;
+            }
+        }
     }
 }

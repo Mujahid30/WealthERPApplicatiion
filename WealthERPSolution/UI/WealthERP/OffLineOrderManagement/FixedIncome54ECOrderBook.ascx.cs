@@ -203,7 +203,8 @@ namespace WealthERP.OffLineOrderManagement
             Int32 customeId = Convert.ToInt32(gv54FDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["C_CustomerId"].ToString());
             string agentcode = gv54FDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AAC_AgentCode"].ToString();
             string associatename = gv54FDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AssociatesName"].ToString();
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FixedIncome54ECOrderEntry", "loadcontrol( 'FixedIncome54ECOrderEntry','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&customeId=" + customeId + "&agentcode=" + agentcode + "&associatename=" + associatename + "');", true);
+            string OrderStepCode = Convert.ToString(gv54FDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["Orderstep"]);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FixedIncome54ECOrderEntry", "loadcontrol( 'FixedIncome54ECOrderEntry','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&customeId=" + customeId + "&agentcode=" + agentcode + "&associatename=" + associatename + "&OrderStepCode=" + OrderStepCode + "');", true);
         }
         private void BindOrderStatus()
         {
@@ -240,7 +241,7 @@ namespace WealthERP.OffLineOrderManagement
                 strRemark = txtRemark.Text;
                 LinkButton buttonEdit = editItem["MarkAsReject"].Controls[0] as LinkButton;
                 Int32 orderId = Convert.ToInt32(gv54FDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
-                lbResult = OfflineBondOrderBo.CancelBondsFDBookOrder(orderId, txtRemark.Text,userVo.UserId,false);
+                lbResult = OfflineBondOrderBo.CancelBondsFDBookOrder(orderId, txtRemark.Text,userVo.UserId,false,null);
                     if (lbResult == true)
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Rejected Successfully');", true);
@@ -270,7 +271,7 @@ namespace WealthERP.OffLineOrderManagement
                 }
                 if (OrderStepCode == "REJECTED")
                 {
-                    ddlAction.Items[1].Enabled = false;
+                    //ddlAction.Items[1].Enabled = false;
                     ddlAction.Items[2].Enabled = false;
                 }
                 else

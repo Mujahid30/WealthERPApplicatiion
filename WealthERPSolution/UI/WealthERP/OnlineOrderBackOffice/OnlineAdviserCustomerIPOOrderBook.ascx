@@ -164,7 +164,7 @@
                                
                                         <telerik:GridBoundColumn DataField="CO_OrderId" HeaderText="Transaction No." SortExpression="CO_OrderId"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                            UniqueName="CO_OrderId" FooterStyle-HorizontalAlign="Left">
+                                            UniqueName="CO_OrderId" FooterStyle-HorizontalAlign="Left" DataType="System.Double">
                                             <ItemStyle Width="60px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="CO_ApplicationNumber" AllowFiltering="true" HeaderText="Application No."
@@ -248,7 +248,7 @@
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="60px" UniqueName="MarkAsReject"
-                                            EditText="Cancel" CancelText="Cancel" UpdateText="OK" HeaderText="Cancel">
+                                            EditText="Cancel" CancelText="Cancel" UpdateText="OK" HeaderText="Cancel" >
                                         </telerik:GridEditCommandColumn>
                                         <%-- <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="100px" UniqueName="Action"
                                             HeaderText="Action">

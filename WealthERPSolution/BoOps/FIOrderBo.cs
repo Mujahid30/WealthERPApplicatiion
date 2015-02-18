@@ -456,5 +456,31 @@ namespace BoOps
              }
              return dt;
          }
+         public DataTable GetSubBroker(int issueId)
+         {
+             DataTable dt;
+             try
+             {
+                 dt = fiOrderDao.GetSubBroker(issueId);
+             }
+             catch (BaseApplicationException Ex)
+             {
+                 throw Ex;
+             }
+             return dt;
+         }
+         public bool UpdateAuthenticate(int OrderId, int isAuthenticate, int userId)
+         {
+             bool bResult = false;
+             try
+             {
+                 fiOrderDao.UpdateAuthenticate(OrderId, isAuthenticate, userId);
+             }
+             catch (BaseApplicationException Ex)
+             {
+                 throw Ex;
+             }
+             return bResult;
+         }
     }
 }
