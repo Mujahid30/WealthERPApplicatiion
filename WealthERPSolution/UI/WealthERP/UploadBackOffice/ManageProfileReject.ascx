@@ -156,6 +156,13 @@
                                         Text="Save" />
                                 </FooterTemplate>
                             </telerik:GridTemplateColumn>
+                            <telerik:GridBoundColumn AllowFiltering="true" DataField="ReqId"
+                                AutoPostBackOnFilter="true" Visible="true" HeaderText="Req. Id"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" UniqueName="ReqId"
+                                SortExpression="ReqId" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
+                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn AllowFiltering="true" DataField="RejectedReasonDescription"
                                 AutoPostBackOnFilter="true" Visible="true" HeaderText="RejectedReasonDescription"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" UniqueName="RejectedReasonDescription"

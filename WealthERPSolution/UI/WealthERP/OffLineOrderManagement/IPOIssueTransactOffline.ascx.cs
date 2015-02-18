@@ -258,14 +258,18 @@ namespace WealthERP.OffLineOrderManagement
             lnkBtnDemat.Enabled = true;
             controlvisiblity(true);
             gvDematDetailsTeleR.Visible = true;
+            gvDematDetailsTeleR.Enabled = false;
             tdlnkbtn.Visible = true;
+            lnkEdit.Visible = false;
         }
         private void ViewOrderList(int orderId)
         {
             trCust.Visible = true;
             Panel1.Visible = true;
             gvDematDetailsTeleR.Visible = true;
+            gvDematDetailsTeleR.Enabled = false;
             tdlnkbtn.Visible = false;
+            ImageButton1.Enabled = false;
             DataSet dsGetMFOrderDetails = OfflineIPOOrderBo.GetIPOIssueOrderDetails(orderId);
             if (dsGetMFOrderDetails.Tables[0].Rows.Count > 0)
             {
@@ -312,7 +316,7 @@ namespace WealthERP.OffLineOrderManagement
                     BindCustomerNCDIssueList();
                     ddlIssueList.SelectedValue = dr["AIM_IssueId"].ToString();
                     txtApplicationNo.Text = dr["CO_ApplicationNo"].ToString();
-
+                    ViewState["demateId"] = dr["CEDA_DematAccountId"].ToString();
                     txtDematid.Text = dr["CEDA_DPClientId"].ToString();
                     ViewState["BenificialAccountNo"] = dr["CEDA_DPClientId"].ToString();
                     txtRemarks.Text = dr["CO_Remarks"].ToString();
@@ -332,6 +336,7 @@ namespace WealthERP.OffLineOrderManagement
                         txtBranchName.Text = dr["CO_BankBranchName"].ToString();
                         ddlPaymentMode.SelectedValue = "CQ";
                         txtPaymentNumber.Text = dr["CO_ChequeNumber"].ToString();
+                        txtPaymentInstDate.MinDate = Convert.ToDateTime(dr["CO_PaymentDate"].ToString());
                         txtPaymentInstDate.SelectedDate = Convert.ToDateTime(dr["CO_PaymentDate"].ToString());
                         txtBankAccount.Text = dr["COID_DepCustBankAccId"].ToString();
                         trPINo.Visible = true;
@@ -367,13 +372,14 @@ namespace WealthERP.OffLineOrderManagement
                 RadGridIPOBid.DataBind();
                 foreach (DataRow dr1 in dsGetMFOrderDetails.Tables[2].Rows)
                 {
-                    foreach (GridFooterItem footeritem in RadGridIPOBid.MasterTableView.GetItems(GridItemType.Footer))
-                    {
-                        Label lblFinalBidAmountPayable = (Label)footeritem["BidAmountPayable"].FindControl("lblFinalBidAmountPayable");
+                    GridFooterItem ftItemAmount = (GridFooterItem)RadGridIPOBid.MasterTableView.GetItems(GridItemType.Footer)[0];
+                    //foreach (GridFooterItem footeritem in RadGridIPOBid.MasterTableView.GetItems(GridItemType.Footer))
+                    //{
+                    Label lblFinalBidAmountPayable = (Label)ftItemAmount["BidAmountPayable"].FindControl("lblFinalBidAmountPayable");
                         lblFinalBidAmountPayable.Text = dr1["payable"].ToString();
-                        decimal maxPaybleAmount = Convert.ToDecimal(((TextBox)footeritem.FindControl("txtFinalBidValue")).Text);//accessing Button inside 
+                        decimal maxPaybleAmount = Convert.ToDecimal(((TextBox)ftItemAmount.FindControl("txtFinalBidValue")).Text);//accessing Button inside 
                         maxPaybleAmount = Convert.ToDecimal(dr1["payable"].ToString());
-                    }
+                    //}
                 }
             }
         }
@@ -540,6 +546,7 @@ namespace WealthERP.OffLineOrderManagement
                     OfflineIPOOrderBo.UpdateIPOBidOrderDetails(dtIPOBidTransactionDettails, orderNo, txtDematid.Text);
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('IPO Order Updated Successfully!!');", true);
                     btnUpdate.Visible = false;
+                    lnkEdit.Visible = true;
                 }
             }
         }
