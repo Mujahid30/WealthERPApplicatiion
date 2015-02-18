@@ -697,6 +697,7 @@ namespace WealthERP.OffLineOrderManagement
                 lblPANNotExist.Text = "Entered PAN not found.";
                 //txtPansearch.Text = "";
             }
+            txtPansearch.Focus();
         }
 
         protected void OnAssociateTextchanged(object sender, EventArgs e)
@@ -735,7 +736,7 @@ namespace WealthERP.OffLineOrderManagement
                 }
 
             }
-
+            txtAssociateSearch.Focus();
         }
 
         protected void txtAgentId_ValueChanged1(object sender, EventArgs e)
@@ -820,10 +821,20 @@ namespace WealthERP.OffLineOrderManagement
             }
             return dtCustomerAssociates;
         }
+
+        protected void txtASBALocation_OnTextChanged(object sender, EventArgs e)
+        {
+            txtASBALocation.Focus();
+        }
+        protected void txtPaymentInstDate_OnSelectedDateChanged(object sender, EventArgs e)
+        {
+            txtPaymentInstDate.Focus();
+        }
         protected void ddlPaymentMode_SelectedIndexChanged(object sender, EventArgs e)
         {
             PaymentMode(ddlPaymentMode.SelectedValue);
             BindBank();
+            ddlPaymentMode.Focus();
         }
 
         private void PaymentMode(string type)
@@ -1102,6 +1113,7 @@ namespace WealthERP.OffLineOrderManagement
                 BindIPOIssueList(ddlIssueList.SelectedValue.ToString());
                 BindIPOBidGrid(3);
             }
+            ddlIssueList.Focus();
         }
 
         protected void lnkBtnEdit_Click(object sender, EventArgs e)

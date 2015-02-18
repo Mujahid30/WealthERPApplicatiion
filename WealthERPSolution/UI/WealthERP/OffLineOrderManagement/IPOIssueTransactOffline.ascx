@@ -174,7 +174,7 @@
 <script type="text/javascript">
     var crnt = 0;
     function PreventClicks() {
-      
+
 
         if (typeof (Page_ClientValidate('btnConfirmOrder')) == 'function') {
             Page_ClientValidate();
@@ -331,7 +331,7 @@
             <td class="rightField" style="width: 20%">
                 <asp:TextBox ID="txtPansearch" runat="server" CssClass="txtField" AutoComplete="Off"
                     AutoPostBack="True" onclientClick="ShowIsa()" OnTextChanged="OnAssociateTextchanged1"
-                    TabIndex="2">
+                    TabIndex="1">
                 </asp:TextBox><span id="Span1" class="spnRequiredField">*</span>
                 <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" TargetControlID="txtPansearch"
                     WatermarkText="Enter few chars of PAN" runat="server" EnableViewState="false">
@@ -543,7 +543,7 @@
             <td class="rightField" style="width: 20%">
                 <asp:TextBox ID="txtAssociateSearch" onkeydown="return (event.keyCode!=13);" runat="server"
                     CssClass="txtField" AutoComplete="Off" OnTextChanged="OnAssociateTextchanged"
-                    AutoPostBack="True" TabIndex="4">
+                    AutoPostBack="True" TabIndex="2">
                 </asp:TextBox><span id="Span7" class="spnRequiredField">*</span>
                 <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" TargetControlID="txtAssociateSearch"
                     WatermarkText="Enter few chars of Agent code" runat="server" EnableViewState="false">
@@ -872,7 +872,7 @@
             </td>
             <td class="rightField" colspan="5" style="width: 20%">
                 <asp:DropDownList ID="ddlIssueList" runat="server" AutoPostBack="true" CssClass="cmbExtraLongField"
-                    OnSelectedIndexChanged="ddlIssueList_OnSelectedIndexChanged">
+                    OnSelectedIndexChanged="ddlIssueList_OnSelectedIndexChanged" TabIndex="3">
                 </asp:DropDownList>
                 <asp:RequiredFieldValidator ID="rfvIssueList" runat="server" ControlToValidate="ddlIssueList"
                     ErrorMessage="</br>Please select the Issue Name" CssClass="rfvPCG" Display="Dynamic"
@@ -885,7 +885,8 @@
             </td>
             <td class="rightField" style="width: 20%">
                 <asp:TextBox ID="txtApplicationNo" MaxLength="9" onkeydown="return (event.keyCode!=13);"
-                    runat="server" CssClass="txtField" OnKeypress="javascript:return isNumberKey(event);"></asp:TextBox>
+                    runat="server" CssClass="txtField" OnKeypress="javascript:return isNumberKey(event);"
+                    TabIndex="4"></asp:TextBox>
                 <span id="Span2" class="spnRequiredField">*</span>
                 <asp:RegularExpressionValidator ID="revPan" runat="server" Display="Dynamic" ValidationGroup="btnConfirmOrder"
                     ErrorMessage="<br/>Please Enter Numeric" ControlToValidate="txtApplicationNo"
@@ -963,7 +964,7 @@
             </td>
             <td class="rightField" style="width: 20%">
                 <asp:DropDownList ID="ddlPaymentMode" runat="server" AutoPostBack="true" CssClass="cmbField"
-                    OnSelectedIndexChanged="ddlPaymentMode_SelectedIndexChanged">
+                    OnSelectedIndexChanged="ddlPaymentMode_SelectedIndexChanged" TabIndex="5">
                     <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
                     <asp:ListItem Text="Cheque/Demand Draft" Value="CQ"></asp:ListItem>
                     <asp:ListItem Text="ASBA" Value="ES"></asp:ListItem>
@@ -988,7 +989,7 @@
             </td>
             <td class="rightField" style="width: 20%">
                 <asp:TextBox ID="txtPaymentNumber" onkeydown="return (event.keyCode!=13);" OnKeypress="javascript:return isNumberKey(event);"
-                    runat="server" MaxLength="6" CssClass="txtField" TabIndex="16"></asp:TextBox>
+                    runat="server" MaxLength="6" CssClass="txtField" TabIndex="6"></asp:TextBox>
                 <span id="Span12" class="spnRequiredField">*</span>
                 <asp:RegularExpressionValidator ID="revtxtPaymentNumber" runat="server" Display="Dynamic"
                     ValidationGroup="btnConfirmOrder" ErrorMessage="<br/>Please Enter Numeric" ControlToValidate="txtPaymentNumber"
@@ -1004,7 +1005,7 @@
             <td class="rightField" style="width: 20%">
                 <telerik:RadDatePicker ID="txtPaymentInstDate" onkeydown="return (event.keyCode!=13);"
                     CssClass="txtField" runat="server" Culture="English (United States)" Skin="Telerik"
-                    EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01" TabIndex="17">
+                    EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01" TabIndex="7" OnSelectedDateChanged="txtPaymentInstDate_OnSelectedDateChanged">
                     <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                         Skin="Telerik" EnableEmbeddedSkins="false">
                     </Calendar>
@@ -1027,7 +1028,7 @@
             </td>
             <td class="rightField" style="width: 20%">
                 <asp:TextBox ID="txtASBANO" onkeydown="return (event.keyCode!=13);" runat="server"
-                    MaxLength="16" CssClass="txtField"></asp:TextBox>
+                    MaxLength="16" CssClass="txtField" TabIndex="8"></asp:TextBox>
                 <span id="Span5" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="txtASBANO"
                     ErrorMessage="<br />Please Enter Account No." Display="Dynamic" runat="server"
@@ -1038,7 +1039,7 @@
             </td>
             <td class="rightField" style="width: 20%">
                 <asp:TextBox ID="txtASBALocation" onkeydown="return (event.keyCode!=13);" runat="server"
-                    CssClass="txtField" AutoComplete="Off" AutoPostBack="True" TabIndex="4">
+                    CssClass="txtField" AutoComplete="Off" AutoPostBack="True" TabIndex="9" OnTextChanged="txtASBALocation_OnTextChanged">
                 </asp:TextBox><span id="Span6" class="spnRequiredField">*</span>
                 <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" TargetControlID="txtASBALocation"
                     WatermarkText="Enter few chars of Location" runat="server" EnableViewState="false">
@@ -1060,7 +1061,7 @@
             </td>
             <td class="rightField" style="width: 20%">
                 <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="false"
-                    AppendDataBoundItems="true" TabIndex="18">
+                    AppendDataBoundItems="true" TabIndex="10">
                 </asp:DropDownList>
                 <span id="Span4" class="spnRequiredField">*</span>
                 <asp:ImageButton ID="imgAddBank" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
@@ -1084,7 +1085,7 @@
             </td>
             <td class="rightField" style="width: 20%" id="tdBankBranch">
                 <asp:TextBox ID="txtBranchName" onkeydown="return (event.keyCode!=13);" runat="server"
-                    CssClass="txtField" Visible="false"></asp:TextBox>
+                    CssClass="txtField" Visible="false" TabIndex="11"></asp:TextBox>
                 <%--<span id="Span3" class="spnRequiredField" visible="false">*</span>--%>
                 <asp:Label ID="lblBankBranchName" runat="server" Text="*" class="spnRequiredField"
                     Visible="false"></asp:Label>
@@ -1234,7 +1235,7 @@
                                     ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <asp:TextBox ID="txtBidQuantity" runat="server" Text='<%# Bind("BidQty")%>' CssClass='<% #(Convert.ToString(Eval("COID_TransactionType"))=="D") ? "txtDisableField" : "txtField" %>'
-                                            OnTextChanged="BidQuantity_TextChanged" AutoPostBack="true" onkeypress="return isNumberKey(event)"
+                                            OnTextChanged="BidQuantity_TextChanged" TabIndex="12" AutoPostBack="true" onkeypress="return isNumberKey(event)"
                                             ReadOnly='<% #(Convert.ToString(Eval("COID_TransactionType"))=="D") ? true : false %>'
                                             ToolTip='<% #(Convert.ToString(Eval("COID_TransactionType"))=="D") ? "The bid Cannot be edited because it was Cancelled previously" : "" %>'>
                                             
@@ -1264,7 +1265,7 @@
                                     ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center" FooterStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <asp:TextBox ID="txtBidPrice" runat="server" Text='<%# Bind("BidPrice")%>' CssClass='<% #(Convert.ToString(Eval("COID_TransactionType"))=="D") ? "txtDisableField" : "txtField" %>'
-                                            AutoPostBack="true" OnTextChanged="BidPrice_TextChanged" onkeypress="return isNumberKey(event)"
+                                            AutoPostBack="true" OnTextChanged="BidPrice_TextChanged" TabIndex="13" onkeypress="return isNumberKey(event)"
                                             ReadOnly='<% #(Convert.ToString(Eval("COID_TransactionType"))=="D") ? true : false %>'
                                             ToolTip='<% #(Convert.ToString(Eval("COID_TransactionType"))=="D") ? "The bid Cannot be edited because it was Cancelled previously" : "" %>'> </asp:TextBox>
                                         <a href="#" class="popper" data-popbox="divBidPrice" style="display: none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
@@ -1355,21 +1356,23 @@
             </td>
             <td class="rightField" style="width: 25%">
                 <asp:TextBox ID="txtRemarks" Width="400px" TextMode="MultiLine" MaxLength="300" Height="40px"
-                    onkeydown="return (event.keyCode!=13);" runat="server" CssClass="txtField"></asp:TextBox>
+                    onkeydown="return (event.keyCode!=13);" runat="server" CssClass="txtField" TabIndex="14"></asp:TextBox>
             </td>
         </tr>
         <tr>
             <td class="leftField">
                 <asp:Button ID="btnConfirmOrder" runat="server" Text="Submit Order" OnClick="btnConfirmOrder_Click"
-                    CssClass="PCGMediumButton" ValidationGroup="btnConfirmOrder, btnTC" OnClientClick="javascript: return  PreventClicks(); Validate();" />
+                    CssClass="PCGMediumButton" ValidationGroup="btnConfirmOrder, btnTC" OnClientClick="javascript: return  PreventClicks(); Validate();"
+                    TabIndex="15" />
             </td>
             <td class="rightField">
                 <asp:Button ID="btnAddMore" runat="server" Text="Add More IPO Order" CssClass="PCGMediumButton"
-                    ValidationGroup="btnConfirmOrder" OnClientClick="return  PreventClicks();" OnClick="btnAddMore_Click" />
+                    ValidationGroup="btnConfirmOrder" OnClientClick="return  PreventClicks();" OnClick="btnAddMore_Click"
+                    TabIndex="16" />
             </td>
             <td>
                 <asp:Button ID="btnUpdate" runat="server" Text="Update" OnClick="btnUpdate_OnClick"
-                    CssClass="PCGButton" Visible="false" ValidationGroup="btnConfirmOrder" />
+                    CssClass="PCGButton" Visible="false" ValidationGroup="btnConfirmOrder" TabIndex="17" />
             </td>
         </tr>
     </table>
@@ -1478,13 +1481,13 @@
         </table>
     </ContentTemplate>
 </telerik:RadWindow>
-<tr>
+<%--<tr>
     <td colspan="4">
         <asp:ValidationSummary ID="vsSummary" runat="server" CssClass="rfvPCG" Visible="true"
             ValidationGroup="btnConfirmOrder" ShowSummary="true" DisplayMode="BulletList"
             OnClientClick="javascript:return  TestCheckBox();" />
     </td>
-</tr>
+</tr>--%>
 <%--</ContentTemplate>
     <Triggers>
     </Triggers>
