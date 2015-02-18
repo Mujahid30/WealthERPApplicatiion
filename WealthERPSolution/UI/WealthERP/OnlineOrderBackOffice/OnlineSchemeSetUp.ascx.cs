@@ -3264,12 +3264,19 @@ namespace WealthERP.OnlineOrderBackOffice
                         isUpdated = OnlineOrderBackOfficeBo.UpdateProductcode(productmappingcode, txtgproductcode.Text, userVo.UserId);
                     }
                 }
-            }
-            if (e.CommandName == RadGrid.RebindGridCommandName)
-            {
-                gvproductcode.Rebind();
-            }
 
+            }
+            if (e.CommandName == RadGrid.DeleteCommandName)
+            {
+                bool isDelete = false;
+                int productmappingcode = int.Parse(gvproductcode.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PASM_Id"].ToString());
+                isDelete = OnlineOrderBackOfficeBo.ProductcodeDelete(productmappingcode);
+                if (isDelete == true)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Product Code Deleted.');", true);
+                }
+
+            }
             BindProductcode();
         }
         protected void btncancelproductcode_OnClick(object sender, EventArgs e)

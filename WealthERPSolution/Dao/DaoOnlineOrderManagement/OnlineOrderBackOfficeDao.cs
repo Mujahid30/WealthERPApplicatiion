@@ -2876,5 +2876,25 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetUTIAMCDetails;
         }
+        public bool ProductcodeDelete(int ScheneMappingId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand ProductcodeDeletecmd;
+            try
+            {
+                
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                ProductcodeDeletecmd = db.GetStoredProcCommand("SPROC_DeleteProductCode");
+                db.AddInParameter(ProductcodeDeletecmd, "@ScheneMappingId", DbType.Int32, ScheneMappingId);
+                if (db.ExecuteNonQuery(ProductcodeDeletecmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
     }
 }

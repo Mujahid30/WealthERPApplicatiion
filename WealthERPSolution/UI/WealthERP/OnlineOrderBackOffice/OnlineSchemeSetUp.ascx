@@ -1383,6 +1383,11 @@
                                     AllowFiltering="true">
                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                 </telerik:GridBoundColumn>
+                                <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
+                                        ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                                        Text="Delete" HeaderStyle-Width="80px">
+                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="150px" Wrap="false" />
+                                    </telerik:GridButtonColumn>
                             </Columns>
                             <EditFormSettings FormTableStyle-Height="100px" EditFormType="Template" FormTableStyle-Width="100px"
                                 PopUpSettings-Width="300px" PopUpSettings-Height="100px" CaptionFormatString="Add product Code">

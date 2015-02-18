@@ -2377,5 +2377,19 @@ namespace BoOnlineOrderManagement
             }
             return dt;
         }
+        public bool ProductcodeDelete(int ScheneMappingId)
+        {
+            bool bResult = false;
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+               bResult= OnlineOrderBackOfficeDao.ProductcodeDelete(ScheneMappingId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
     }
 }
