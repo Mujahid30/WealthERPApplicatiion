@@ -264,6 +264,7 @@ namespace WealthERP.OffLineOrderManagement
             if (e.Item is GridDataItem)
             {
                 GridDataItem dataItem = e.Item as GridDataItem;
+                DropDownList ddlAction = (DropDownList)dataItem.FindControl("ddlAction");
                 LinkButton lbtnMarkAsReject = dataItem["MarkAsReject"].Controls[0] as LinkButton;
                 string OrderStepCode = gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WOS_OrderStep"].ToString();
                 if (gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IsCancelAllowed"].ToString() != string.Empty)
@@ -278,6 +279,14 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     lbtnMarkAsReject.Visible = false;
                 }
+                  if (OrderStepCode == "REJECTED")
+                  {
+                      ddlAction.Items[2].Enabled = false;
+                  }
+                  else
+                  {
+                      ddlAction.Items[2].Enabled = true;
+                  }
             }
         }
         //protected void ddlAction_SelectedIndexChanged(object sender, EventArgs e)
@@ -426,7 +435,9 @@ namespace WealthERP.OffLineOrderManagement
             Int32 orderId = Convert.ToInt32(gvNCDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["CO_OrderId"].ToString());
             int associateid = Convert.ToInt32(gvNCDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AgenId"].ToString());
             string agentId = gvNCDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AAC_AgentCode"].ToString();
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueTransactOffline", "loadcontrol( 'NCDIssueTransactOffline','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&associateid=" + associateid + "&agentId=" + agentId + "');", true);
+            string OrderStepCode = gvNCDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["WOS_OrderStep"].ToString();
+
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueTransactOffline", "loadcontrol( 'NCDIssueTransactOffline','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&associateid=" + associateid + "&agentId=" + agentId + "&OrderStepCode=" + OrderStepCode + "');", true);
         }
     }
 }

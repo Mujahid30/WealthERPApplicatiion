@@ -329,7 +329,7 @@
         <tr>
             <td align="right">
                 <asp:Button runat="server" ID="btnSubmitAuthenticate" CssClass="PCGButton" runat="server"
-                    Text="Submit" OnClick="btnSubmitAuthenticate_btnSubmit" ValidationGroup="btnSubmitAuthenticate" />
+                    Text="Submit" OnClick="btnSubmitAuthenticate_btnSubmit" ValidationGroup="btnSubmitAuthenticate" Visible="false"/>
             </td>
         </tr>
     </table>

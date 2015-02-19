@@ -156,18 +156,27 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     string action1 = Request.QueryString["action"];
                     int orderId = Convert.ToInt32(Request.QueryString["orderId"].ToString());
+
                     hdnOrderId.Value = orderId.ToString();
                     ViewOrderList(orderId);
                     trOfficeUse.Visible = true;
                     btnConfirmOrder.Visible = false;
                     btnAddMore.Visible = false;
+                    
                     //controlvisiblity();
                     if (action1 == "View")
                     {
                         btnUpdate.Visible = false;
                         lnkBtnDemat.Enabled = false;
-                        lnkEdit.Visible = true;
+                      
                         Label3.Visible = false;
+                        if ("REJECTED" == Request.QueryString["OrderStepCode"].ToString())
+                        {
+                            lnkEdit.Visible = false;
+                            txtRejectReseaon.Visible = true;
+                        }
+                        else
+                            lnkEdit.Visible = true;
                     }
                     else
                     {
@@ -2056,6 +2065,8 @@ namespace WealthERP.OffLineOrderManagement
                     rbtnReject.Checked = true;
                     btnSubmitAuthenticate.Visible = false;
                     lblAuthenticatedBy.Text = dr["U_FirstName"].ToString();
+                    txtRejectReseaon.Text = dr["COS_Reason"].ToString();
+                    txtRejectReseaon.Visible = true;
                 }
                
                 if (dr["CO_IsAuthenticated"].ToString() != "True")
@@ -2156,6 +2167,7 @@ namespace WealthERP.OffLineOrderManagement
         {
             btnUpdate.Visible = true;
             lnkEdit.Visible = false;
+            btnSubmitAuthenticate.Visible = true;
         }
         protected void rbtnAuthentication_OnCheckedChanged(object sender, EventArgs e)
         {
@@ -2194,7 +2206,7 @@ namespace WealthERP.OffLineOrderManagement
             OfflineBondOrderBo OfflineBondOrderBo = new OfflineBondOrderBo();
             if (rbtnAuthentication.Checked == true || rbtnReject.Checked == true)
             {
-                lbResult = OfflineBondOrderBo.CancelBondsFDBookOrder(int.Parse(ViewState["orderId"].ToString()), txtRejectReseaon.Text, userVo.UserId, (rbtnReject.Checked) ? false : true, ddlBrokerCode.SelectedValue);
+                lbResult = OfflineBondOrderBo.CancelBondsFDBookOrder(int.Parse(hdnOrderId.Value), txtRejectReseaon.Text, userVo.UserId, (rbtnReject.Checked) ? false : true, ddlBrokerCode.SelectedValue);
                 btnSubmitAuthenticate.Visible = false;
             }
         }
