@@ -253,32 +253,56 @@
             </div>
         </td>
     </tr>
-    <tr style="width: 30%" align="center">
+    <tr>
+        <td align="right" style="width: 20%">
+        </td>
         <td id="tdauthentication" runat="server">
             <%--<asp:CheckBox ID="chkAuthentication" runat="server" CssClass="cmbFielde" Text="Authenticate"
                     OnCheckedChanged="chkAuthentication_OnCheckedChanged" AutoPostBack="true" />--%>
             <asp:RadioButton ID="rbtnAuthentication" runat="server" CssClass="txtField" Text="Authenticate"
-                GroupName="rejAut" AutoPostBack="true" OnCheckedChanged="rbtnAuthentication_OnCheckedChanged" />
+                GroupName="rejAut" AutoPostBack="true" OnCheckedChanged="rbtnAuthentication_OnCheckedChanged"
+                Checked="true" />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <%--<asp:RadioButton ID="rbtnReject" runat="server" CssClass="txtField" Text="Rejected"
-                GroupName="rejAut" AutoPostBack="true" OnCheckedChanged="rbtnReject_CheckedChanged" />--%>
+            <asp:RadioButton ID="rbtnReject" runat="server" CssClass="txtField" Text="Rejected"
+                GroupName="rejAut" AutoPostBack="true" OnCheckedChanged="rbtnReject_CheckedChanged" />
             <%--  <asp:CustomValidator ID="CustomValidator1" runat="server" ValidationGroup="location"
                     ErrorMessage="Please select one of the radio button" Display="Dynamic"></asp:CustomValidator>--%>
         </td>
-        <td id="tdlblReject" class="leftField" style="width: 20%" visible="false">
+        <td align="right">
+            <asp:Label runat="server" ID="lblBrokerCode" CssClass="FieldName" Text="Select Broker:"></asp:Label>
+        </td>
+        <td align="left">
+            <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField">
+            </asp:DropDownList>
+            <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator13" ControlToValidate="ddlBrokerCode"
+                    ErrorMessage="<br />Please Select Broker" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                    ValidationGroup="btnSubmitAuthenticate" InitialValue=""></asp:RequiredFieldValidator>--%>
+        </td>
+    </tr>
+    <tr>
+        <td id="tdauthenticationDetails" runat="server" align="right" style="width: 20%">
+            <asp:Label ID="lblAuthenticated" runat="server" Text="Authenticated/Rejected By:"
+                CssClass="FieldName"></asp:Label>
+        </td>
+        <td style="width: 38%;">
+            <asp:Label ID="lblAuthenticatedBy" runat="server" CssClass="FieldName"></asp:Label><br />
+            <asp:Label ID="lblAuthenticationDate" runat="server" CssClass="FieldName"></asp:Label>
+        </td>
+        <td id="tdlblReject" visible="false" align="right">
             <asp:Label ID="lblRejectRes" runat="server" Text="Reject Reseaon:" CssClass="FieldName">           
             </asp:Label>
         </td>
-        <td id="tdtxtReject" class="rightField" style="width: 20%" visible="false">
+        <td id="tdtxtReject" visible="false">
             <asp:TextBox ID="txtRejectReseaon" runat="server" CssClass="txtField" />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtRejectReseaon"
                 ErrorMessage="<br />Please Enter Remarks" Display="Dynamic" runat="server" CssClass="rfvPCG"
-                ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
+                ValidationGroup="btnSubmitAuthenticate" InitialValue=""></asp:RequiredFieldValidator>
         </td>
-        <td id="tdauthenticationDetails" runat="server">
-            <asp:Label ID="lblAuthenticated" runat="server" Text="Authenticated By:" CssClass="FieldName"></asp:Label>
-            <asp:Label ID="lblAuthenticatedBy" runat="server" CssClass="FieldName"></asp:Label><br />
-            <asp:Label ID="lblAuthenticationDate" runat="server" CssClass="FieldName"></asp:Label>
+    </tr>
+    <tr>
+        <td align="right">
+            <asp:Button runat="server" ID="btnSubmitAuthenticate" CssClass="PCGButton" runat="server"
+                Text="Submit" OnClick="btnSubmitAuthenticate_btnSubmit" ValidationGroup="btnSubmitAuthenticate" />
         </td>
     </tr>
 </table>
@@ -1005,7 +1029,8 @@
             <td class="rightField" style="width: 20%">
                 <telerik:RadDatePicker ID="txtPaymentInstDate" onkeydown="return (event.keyCode!=13);"
                     CssClass="txtField" runat="server" Culture="English (United States)" Skin="Telerik"
-                    EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01" TabIndex="7" OnSelectedDateChanged="txtPaymentInstDate_OnSelectedDateChanged">
+                    EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01" TabIndex="7"
+                    OnSelectedDateChanged="txtPaymentInstDate_OnSelectedDateChanged">
                     <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                         Skin="Telerik" EnableEmbeddedSkins="false">
                     </Calendar>
