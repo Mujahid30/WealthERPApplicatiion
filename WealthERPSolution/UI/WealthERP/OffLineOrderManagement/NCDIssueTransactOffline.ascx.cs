@@ -173,7 +173,8 @@ namespace WealthERP.OffLineOrderManagement
                         if ("REJECTED" == Request.QueryString["OrderStepCode"].ToString())
                         {
                             lnkEdit.Visible = false;
-                            txtRejectReseaon.Visible = true;
+                            tdtxtReject.Visible = true;
+                            tdlblReject.Visible = true;
                         }
                         else
                             lnkEdit.Visible = true;

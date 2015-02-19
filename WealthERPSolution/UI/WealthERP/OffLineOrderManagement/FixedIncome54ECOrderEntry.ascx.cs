@@ -233,7 +233,15 @@ namespace WealthERP.OffLineOrderManagement
                         lblAssociatetext.Visible = true;
                         lblAssociateReport.Visible = true;
                         btnImgAddCustomer.Visible = false;
+                        if ("REJECTED" == Request.QueryString["OrderStepCode"].ToString())
+                        {
+                            lnkBtnFIEdit.Visible = false;
+                            tdtxtReject.Visible = true;
+                            tdlblReject.Visible = true;
 
+                        }
+                        else
+                            lnkBtnFIEdit.Visible = true;
                         lblAssociatetext.Text = Request.QueryString["associatename"].ToString();
                         txtAssociateSearch.Text = Request.QueryString["agentcode"].ToString();
                         GetcustomerDetails();
@@ -242,7 +250,6 @@ namespace WealthERP.OffLineOrderManagement
                         View54ECOrderDetails(orderId);
                         lnkBtnEdit();
                         tbUploadDocument.Visible = true;
-                        lnkBtnFIEdit.Visible = true;
                         btnUpdate.Visible = false;
                         SetFICOntrolsEnablity(false);
 
@@ -4389,6 +4396,7 @@ namespace WealthERP.OffLineOrderManagement
                     rbtnReject.Checked = true;
                     btnSubmitAuthenticate.Visible = false;
                     lblAuthenticatedBy.Text = dr["U_FirstName"].ToString();
+                    txtRejectReseaon.Text = dr["COS_Reason"].ToString();
                 }
                
                 if (dr["CO_IsAuthenticated"].ToString() != "True")
