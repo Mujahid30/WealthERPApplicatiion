@@ -988,7 +988,7 @@
             </td>
             <td class="rightField" style="width: 20%">
                 <asp:DropDownList ID="ddlPaymentMode" runat="server" AutoPostBack="true" CssClass="cmbField"
-                    OnSelectedIndexChanged="ddlPaymentMode_SelectedIndexChanged" TabIndex="5">
+                    OnSelectedIndexChanged="ddlPaymentMode_SelectedIndexChanged" TabIndex="5" Width="185">
                     <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
                     <asp:ListItem Text="Cheque/Demand Draft" Value="CQ"></asp:ListItem>
                     <asp:ListItem Text="ASBA" Value="ES"></asp:ListItem>
@@ -1086,7 +1086,7 @@
             </td>
             <td class="rightField" style="width: 20%">
                 <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="false"
-                    AppendDataBoundItems="true" TabIndex="10">
+                    AppendDataBoundItems="true" TabIndex="10" Width="380px">
                 </asp:DropDownList>
                 <span id="Span4" class="spnRequiredField">*</span>
                 <asp:ImageButton ID="imgAddBank" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"

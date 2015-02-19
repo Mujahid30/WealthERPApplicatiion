@@ -515,7 +515,7 @@
                         </td>
                         <td>
                             <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click"
-                                BackColor="#2475C7" ForeColor="White" Font-Bold="true" ValidationGroup="CustomerProfileSubmit" />
+                                CssClass="PCGButton" ValidationGroup="CustomerProfileSubmit" />
                         </td>
                     </tr>
                 </table>
@@ -735,7 +735,7 @@
                         </td>
                         <td class="rightField">
                             <asp:Button ID="btnDemateDetails" runat="server" Text="Submit" OnClick="DematebtnSubmit_Click"
-                                ValidationGroup="btnsubmitdemate" BackColor="#2475C7" ForeColor="White" Font-Bold="true" />
+                                ValidationGroup="btnsubmitdemate" CssClass="PCGButton" />
                         </td>
                     </tr>
                 </table>
@@ -1212,7 +1212,7 @@
             </td>
             <td class="rightField" style="width: 20%">
                 <asp:DropDownList ID="ddlPaymentMode" runat="server" AutoPostBack="true" CssClass="cmbField"
-                    OnSelectedIndexChanged="ddlPaymentMode_SelectedIndexChanged">
+                    OnSelectedIndexChanged="ddlPaymentMode_SelectedIndexChanged" Width="180">
                     <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
                     <asp:ListItem Text="Cheque/Demand Draft" Value="CQ"></asp:ListItem>
                     <asp:ListItem Text="ASBA" Value="ES"></asp:ListItem>
@@ -1288,7 +1288,7 @@
             </td>
             <td class="rightField" style="width: 20%">
                 <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="false"
-                    AppendDataBoundItems="true" TabIndex="18">
+                    AppendDataBoundItems="true" TabIndex="18" Width="380px">
                 </asp:DropDownList>
                 <span id="Span4" class="spnRequiredField">*</span>
                 <asp:ImageButton ID="imgAddBank" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
@@ -1347,46 +1347,46 @@
                 <table width="100%">
                     <tr>
                         <td>
-                            <telerik:RadGrid ID="gvIssueList" runat="server" AllowSorting="True" enableloadondemand="True"
+                            <telerik:RadGrid ID="gvIssueList" runat="server" AllowSorting="false" enableloadondemand="True"
                                 PageSize="10" AllowPaging="false" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="false" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
                                 Skin="Telerik" AllowFilteringByColumn="false">
-                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIM_IssueName,IssueTimeType,AIM_MInQty,AIM_MaxQty"
+                                <MasterTableView AllowMultiColumnSorting="false" AllowSorting="true" DataKeyNames="AIM_IssueId,AIM_IssueName,IssueTimeType,AIM_MInQty,AIM_MaxQty"
                                     AutoGenerateColumns="false" Width="100%">
                                     <Columns>
                                         <telerik:GridBoundColumn DataField="AIM_IssueName" HeaderStyle-Width="200px" CurrentFilterFunction="Contains"
-                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Issue" UniqueName="AIM_IssueName"
+                                            ShowFilterIcon="false" AutoPostBackOnFilter="false" HeaderText="Issue" UniqueName="AIM_IssueName"
                                             SortExpression="AIM_IssueName">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn Visible="false" DataField="AIM_IssueId" HeaderStyle-Width="60px"
-                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="false"
                                             HeaderText="Scrip ID" UniqueName="AIM_IssueId" SortExpression="AIM_IssueId">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width=" " Wrap="true" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn Visible="false" DataField="PI_IssuerId" HeaderStyle-Width="60px"
-                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="false"
                                             HeaderText="Scrip ID" UniqueName="PI_IssuerId" SortExpression="PI_IssuerId">
-                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width=" " Wrap="true" />
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width=" " Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn Visible="false" DataField="PI_IssuerCode" HeaderStyle-Width="70px"
-                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="false"
                                             HeaderText="Issuer" UniqueName="PI_IssuerCode" SortExpression="PI_IssuerCode">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIM_NatureOfBond" HeaderStyle-Width="100px" CurrentFilterFunction="Contains"
-                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Type" UniqueName="AIM_NatureOfBond"
+                                            ShowFilterIcon="false" AutoPostBackOnFilter="false" HeaderText="Type" UniqueName="AIM_NatureOfBond"
                                             SortExpression="AIM_NatureOfBond" Visible="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn Visible="true" DataField="PAIC_AssetInstrumentCategoryName"
                                             HeaderStyle-Width="60px" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                            AutoPostBackOnFilter="true" HeaderText="Category" UniqueName="PAIC_AssetInstrumentCategoryName"
+                                            AutoPostBackOnFilter="false" HeaderText="Category" UniqueName="PAIC_AssetInstrumentCategoryName"
                                             SortExpression="false" AllowFiltering="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width=" " Wrap="true" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIM_Rating" HeaderStyle-Width="70px" HeaderText="Rating"
-                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="false"
                                             UniqueName="AIM_Rating" Visible="true">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
@@ -1397,21 +1397,21 @@
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="MinMaxCatCollection" HeaderStyle-Width="140px"
                                             HeaderText="Min-Max Qty(Across All Series)" CurrentFilterFunction="Contains"
-                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="MinMaxCatCollection">
+                                            ShowFilterIcon="false" AutoPostBackOnFilter="false" UniqueName="MinMaxCatCollection">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIM_MInQty" HeaderStyle-Width="120px" HeaderText="Min. Qty (accross all series)"
-                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="false"
                                             DataFormatString="{0:N0}" UniqueName="AIM_MInQty" Visible="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIM_MaxQty" HeaderStyle-Width="140px" HeaderText="Max Qty"
-                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="false"
                                             UniqueName="AIM_MaxQty" DataFormatString="{0:N0}" Visible="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIM_FaceValue" HeaderStyle-Width="80px" HeaderText="Minimum Application Amount"
-                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="false"
                                             UniqueName="FaceValue" Visible="true" DataFormatString="{0:N0}">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
@@ -1421,33 +1421,33 @@
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="Maxamount" HeaderStyle-Width="110px" HeaderText="Max Amt"
-                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="false"
                                             UniqueName="Maxamount" Visible="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIM_TradingInMultipleOf" HeaderStyle-Width="110px"
                                             HeaderText=" Multiples of" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                            AutoPostBackOnFilter="true" UniqueName="AIM_TradingInMultipleOf" Visible="true">
+                                            AutoPostBackOnFilter="false" UniqueName="AIM_TradingInMultipleOf" Visible="true">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridDateTimeColumn DataField="AIM_OpenDate" DataFormatString="{0:D}" HeaderStyle-Width="110px"
-                                            CurrentFilterFunction="EqualTo" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            CurrentFilterFunction="EqualTo" ShowFilterIcon="false" AutoPostBackOnFilter="false"
                                             HeaderText="Opening Date" SortExpression="AIM_OpenDate" UniqueName="AIM_OpenDate">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridDateTimeColumn>
                                         <telerik:GridDateTimeColumn DataField="AIM_CloseDate" DataFormatString="{0:D}" HeaderStyle-Width="110px"
-                                            CurrentFilterFunction="EqualTo" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            CurrentFilterFunction="EqualTo" ShowFilterIcon="false" AutoPostBackOnFilter="false"
                                             HeaderText="Closing Date" UniqueName="AIM_CloseDate" SortExpression="AIM_CloseDate">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridDateTimeColumn>
                                         <telerik:GridDateTimeColumn DataField="Timing" DataFormatString="{0:dd/MM/yyyy HH:mm:ss}"
                                             HeaderStyle-Width="110px" CurrentFilterFunction="EqualTo" ShowFilterIcon="false"
-                                            AutoPostBackOnFilter="true" HeaderText="Timing" UniqueName="Timing" SortExpression="Timing">
+                                            AutoPostBackOnFilter="false" HeaderText="Timing" UniqueName="Timing" SortExpression="Timing">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridDateTimeColumn>
                                         <telerik:GridBoundColumn DataField="IsDematFacilityAvail" HeaderStyle-Width="110px"
                                             HeaderText="Is Demat" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                            AutoPostBackOnFilter="true" UniqueName="IsDematFacilityAvail" Visible="true">
+                                            AutoPostBackOnFilter="false" UniqueName="IsDematFacilityAvail" Visible="true">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <%-- <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="110px"
@@ -1480,7 +1480,7 @@
                     <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="LiveBondList">
                     </ExportSettings>
                     <PagerStyle AlwaysVisible="True" />
-                    <MasterTableView AllowMultiColumnSorting="True" AllowSorting="false" DataKeyNames="AID_SeriesFaceValue,AID_IssueDetailId,AIM_IssueId,AID_DefaultInterestRate,AID_Tenure,AIM_FaceValue,AIM_TradingInMultipleOf,AIM_MInQty,AIM_MaxQty,AIM_MaxApplNo,AIDCSR_Id"
+                    <MasterTableView AllowMultiColumnSorting="false" AllowSorting="false" DataKeyNames="AID_SeriesFaceValue,AID_IssueDetailId,AIM_IssueId,AID_DefaultInterestRate,AID_Tenure,AIM_FaceValue,AIM_TradingInMultipleOf,AIM_MInQty,AIM_MaxQty,AIM_MaxApplNo,AIDCSR_Id"
                         AutoGenerateColumns="false" Width="100%" ShowFooter="true">
                         <CommandItemSettings ExportToPdfText="Export to Pdf" />
                         <Columns>
@@ -1495,109 +1495,109 @@
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>--%>
                             <telerik:GridBoundColumn DataField="AID_IssueDetailName" HeaderStyle-Width="60px"
-                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="false"
                                 HeaderText="Series" UniqueName="AID_IssueDetailName" SortExpression="AID_IssueDetailName">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CatColection" HeaderStyle-Width="60px" CurrentFilterFunction="Contains"
-                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Categories" UniqueName="CatColection"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="false" HeaderText="Categories" UniqueName="CatColection"
                                 SortExpression="CatColection">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CouponRateCollection" HeaderStyle-Width="160px"
-                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="false"
                                 HeaderText="Coupon Rate (%)" UniqueName="CouponRateCollection" SortExpression="CouponRateCollection">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="YieldatMatCollection" HeaderStyle-Width="160px"
-                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="false"
                                 HeaderText="Yield at Maturity (%)" UniqueName="YieldatMatCollection" SortExpression="YieldatMatCollection">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="BidCollection" HeaderStyle-Width="60px" CurrentFilterFunction="Contains"
-                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Bidding Rates"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="false" HeaderText="Bidding Rates"
                                 UniqueName="BidCollection" SortExpression="BidCollection" Visible="false">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="AID_Sequence" HeaderStyle-Width="60px"
-                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="false"
                                 HeaderText="Sequence" UniqueName="AID_Sequence" SortExpression="AID_Sequence">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="AIM_IssueId" HeaderStyle-Width="60px"
-                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="false"
                                 HeaderText="Scrip ID" UniqueName="AIM_IssueId" SortExpression="AIM_IssueId">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width=" " Wrap="true" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="PI_IssuerId" HeaderStyle-Width="70px"
-                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="false"
                                 HeaderText="Issuer Id" UniqueName="PI_IssuerId" SortExpression="PI_IssuerId">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="PI_IssuerCode" HeaderStyle-Width="70px"
-                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="false"
                                 HeaderText="Issuer" UniqueName="PI_IssuerCode" SortExpression="PI_IssuerCode">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="AID_IssueDetailId" HeaderStyle-Width="60px"
-                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="false"
                                 HeaderText="Series" UniqueName="AID_IssueDetailId" SortExpression="AID_IssueDetailId">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="AIM_FaceValue" HeaderStyle-Width="80px"
                                 HeaderText="Face Value" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                AutoPostBackOnFilter="true" UniqueName="AIM_FaceValue" DataFormatString="{0:N0}">
+                                AutoPostBackOnFilter="false" UniqueName="AIM_FaceValue" DataFormatString="{0:N0}">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="AID_Tenure" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
-                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Tenure" UniqueName="AID_Tenure"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="false" HeaderText="Tenure" UniqueName="AID_Tenure"
                                 SortExpression="AID_Tenure">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="true" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="AID_CouponFreq" HeaderStyle-Width="85px" CurrentFilterFunction="Contains"
-                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Frequency of Coupon Payment"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="false" HeaderText="Frequency of Coupon Payment"
                                 UniqueName="AID_CouponFreq" SortExpression="AID_CouponFreq">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CouponRate" HeaderStyle-Width="90px" CurrentFilterFunction="Contains"
-                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Coupon Rate(%)"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="false" HeaderText="Coupon Rate(%)"
                                 UniqueName="CouponRate" SortExpression="CouponRate" Visible="false">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="AID_RenewCouponRate" HeaderStyle-Width="100px"
-                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="false"
                                 HeaderText="Renew Coupon Rate(%)" UniqueName="AID_RenewCouponRate" SortExpression="AID_RenewCouponRate">
                                 <HeaderStyle Width="100px" />
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100px" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="AID_LockingPeriod" HeaderStyle-Width="100px"
                                 HeaderText="Lock-in Period" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                DataFormatString="{0:N0}" AutoPostBackOnFilter="true" UniqueName="AID_LockingPeriod">
+                                DataFormatString="{0:N0}" AutoPostBackOnFilter="false" UniqueName="AID_LockingPeriod">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="AID_DefaultInterestRate" HeaderStyle-Width="80px"
                                 HeaderText="Yield at Call(%)" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                AutoPostBackOnFilter="true" UniqueName="AID_DefaultInterestRate">
+                                AutoPostBackOnFilter="false" UniqueName="AID_DefaultInterestRate">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CatSubTypeCode" HeaderStyle-Width="105px" HeaderText="SubType Code"
-                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="false"
                                 UniqueName="CatSubTypeCode" Visible="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="AIDCSR_RedemptionDate" HeaderStyle-Width="105px"
                                 HeaderText="Redemption Date Note" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                AutoPostBackOnFilter="true" UniqueName="AIDCSR_RedemptionDate" Visible="true">
+                                AutoPostBackOnFilter="false" UniqueName="AIDCSR_RedemptionDate" Visible="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="AIDCSR_RedemptionAmount " HeaderStyle-Width="105px"
                                 HeaderText="Redemption Amount(Per Bond)" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                AutoPostBackOnFilter="true" UniqueName="AIDCSR_RedemptionAmount " Visible="true">
+                                AutoPostBackOnFilter="false" UniqueName="AIDCSR_RedemptionAmount " Visible="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="LockinPeriodCollection " HeaderStyle-Width="105px"
                                 HeaderText="Lock In Period" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                AutoPostBackOnFilter="true" UniqueName="LockinPeriodCollection " Visible="true">
+                                AutoPostBackOnFilter="false" UniqueName="LockinPeriodCollection " Visible="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="YieldAtMAturity" HeaderStyle-Width="100px"
@@ -1612,37 +1612,37 @@
                             </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="AID_YieldatBuyBack" HeaderStyle-Width="105px"
                                 HeaderText="Yield at BuyBack(%)" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                AutoPostBackOnFilter="true" UniqueName="AID_YieldatBuyBack">
+                                AutoPostBackOnFilter="false" UniqueName="AID_YieldatBuyBack">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="AID_CallOption" HeaderStyle-Width="80px"
                                 HeaderText="Call Option" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                AutoPostBackOnFilter="true" UniqueName="AID_CallOption">
+                                AutoPostBackOnFilter="false" UniqueName="AID_CallOption">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="AID_BuyBackFacility" HeaderStyle-Width="120px"
                                 HeaderText="Is Buy Back Facility" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                AutoPostBackOnFilter="true" UniqueName="AID_BuyBackFacility">
+                                AutoPostBackOnFilter="false" UniqueName="AID_BuyBackFacility">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="AID_SeriesFaceValue " HeaderStyle-Width="120px"
                                 HeaderText="Face Value" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                AutoPostBackOnFilter="true" UniqueName="AID_SeriesFaceValue ">
+                                AutoPostBackOnFilter="false" UniqueName="AID_SeriesFaceValue ">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="AIM_MInQty" HeaderStyle-Width="140px"
                                 HeaderText="Min Qty(across all series)" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                AutoPostBackOnFilter="true" UniqueName="AIM_MInQty" DataFormatString="{0:N0}">
+                                AutoPostBackOnFilter="false" UniqueName="AIM_MInQty" DataFormatString="{0:N0}">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="AIM_MaxQty" HeaderStyle-Width="140px"
                                 HeaderText="Max Quantity" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                AutoPostBackOnFilter="true" UniqueName="AIM_MaxQty" DataFormatString="{0:N0}">
+                                AutoPostBackOnFilter="false" UniqueName="AIM_MaxQty" DataFormatString="{0:N0}">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="AIM_TradingInMultipleOf" HeaderStyle-Width="110px"
                                 HeaderText="Multiple allowed" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                AutoPostBackOnFilter="true" UniqueName="AIM_TradingInMultipleOf">
+                                AutoPostBackOnFilter="false" UniqueName="AIM_TradingInMultipleOf">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
@@ -1760,7 +1760,7 @@
                     OnClick="btnConfirmOrder_Click" CssClass="PCGButton" ValidationGroup="btnConfirmOrder" />
             </td>
             <td id="tdAddMore" runat="server" class="rightField">
-                <asp:Button ID="btnAddMore" runat="server" Text="Add Ncd Order" CssClass="PCGMediumButton"
+                <asp:Button ID="btnAddMore" runat="server" Text="Add NCD order" CssClass="PCGMediumButton"
                     ValidationGroup="btnConfirmOrder" OnClick="btnAddMore_Click" OnClientClick="return  PreventClicks(); Validate(); " />
             </td>
         </tr>
