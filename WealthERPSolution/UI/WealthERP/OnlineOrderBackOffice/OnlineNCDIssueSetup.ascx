@@ -878,7 +878,7 @@
                     <asp:DropDownList ID="ddlOpenTimeSeconds" runat="server" CssClass="cmbField" AutoPostBack="true"
                         Width="64px" />
                     <%-- <asp:TextBox ID="txtOpenTimes" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>--%>
-                    <asp:Label id="lblSpan20" class="spnRequiredField" runat="server">*</asp:Label>
+                    <asp:Label ID="lblSpan20" class="spnRequiredField" runat="server">*</asp:Label>
                     <br />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator17" runat="server" CssClass="rfvPCG"
                         ErrorMessage="Please Enter Time" Display="Dynamic" ControlToValidate="ddlOpenTimeHours"
@@ -914,8 +914,7 @@
                         Width="64px" />
                     <asp:DropDownList ID="ddlCloseTimeSeconds" runat="server" CssClass="cmbField" AutoPostBack="true"
                         Width="64px" />
-                        
-                    <asp:Label id="lblSpan35" runat="server" class="spnRequiredField" >*</asp:Label>
+                    <asp:Label ID="lblSpan35" runat="server" class="spnRequiredField">*</asp:Label>
                     <br />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator30" runat="server" CssClass="rfvPCG"
                         ErrorMessage="Please Enter  Time" Display="Dynamic" ControlToValidate="ddlCloseTimeHours"
@@ -1298,18 +1297,17 @@
                     <asp:Label ID="lblBrokerCode" runat="server" CssClass="FieldName" Text="Broker:"></asp:Label>
                 </td>
                 <td id="tdBroker" runat="server">
-                    <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField" Width="165px">
-                    </asp:DropDownList>
+                    <%--<asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField" Width="165px">
+                    </asp:DropDownList>--%>
+                    <asp:LinkButton ID="lbBrokerCode" runat="server" Text="Click To Add Broker" OnClick="lbBrokerCode_OnClick" CssClass="LinkButtons"></asp:LinkButton>
                     <span id="Span41" class="spnRequiredField">*</span>
                     <asp:ImageButton ID="ImagddlBrokerCode" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                         AlternateText="Add" runat="server" ToolTip="Click here to Add Broker" OnClick="ImagddlBrokerCode_Click"
                         Height="15px" Width="15px"></asp:ImageButton>
                     <br />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator49" runat="server" CssClass="rfvPCG"
-                        ErrorMessage="Please select broker" Display="Dynamic" ControlToValidate="ddlBrokerCode"
-                        InitialValue="0" ValidationGroup="SetUpSubmit">
-                    </asp:RequiredFieldValidator>
+                    <asp:Label ID="lblBrokerIds" runat="server" CssClass="FieldName" ></asp:Label>
                 </td>
+                
             </tr>
             <tr>
                 <%-- <td class="leftLabel">
@@ -1999,7 +1997,7 @@
                                                                     ErrorMessage="Please Enter Tenure Units" Display="Dynamic" ControlToValidate="ddlTenureUnits"
                                                                     ValidationGroup="btnOK" InitialValue="Select">
                                                                 </asp:RequiredFieldValidator>
-                                                                <asp:Label ID="Label20" runat="server"  CssClass="FieldName"></asp:Label>
+                                                                <asp:Label ID="Label20" runat="server" CssClass="FieldName"></asp:Label>
                                                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator24" runat="server" CssClass="rfvPCG"
                                                                     ErrorMessage="<br />Please Enter Tenure" Display="Dynamic" ControlToValidate="txtTenure"
                                                                     ValidationGroup="btnOK" InitialValue="">
@@ -2546,6 +2544,7 @@
         </tr>
     </table>
 </asp:Panel>--%>
+<asp:HiddenField ID="hdnBrokerIds" runat="server" />
         <telerik:RadWindow ID="RadRegister" runat="server" VisibleOnPageLoad="false" Height="30%"
             Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
             Title="Add New Register" RestrictionZoneID="radWindowZone">
@@ -2596,13 +2595,26 @@
                 <table>
                     <tr>
                         <td align="right">
-                            <asp:Label ID="lblBrokercodeadd" runat="server" Text="Broker:" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="lblBrokercodeadd" runat="server" Text="Broker Name:" CssClass="FieldName"></asp:Label>
                         </td>
                         <td>
                             <asp:TextBox ID="txtBrokercodeadd" runat="server" CssClass="txtField" MaxLength="50"></asp:TextBox>
                             <span id="spntxtField" class="spnRequiredField">*</span>
                             <asp:RequiredFieldValidator ID="ReqlblBrokercodeadd" runat="server" CssClass="rfvPCG"
                                 ErrorMessage="Please Enter Broker" Display="Dynamic" ControlToValidate="txtBrokercodeadd"
+                                ValidationGroup="btnOKbtnBrokercodeadd" InitialValue="">
+                            </asp:RequiredFieldValidator>
+                        </td>
+                    </tr>
+                    <tr>
+                    <td align="right">
+                            <asp:Label ID="lblBrokerIdentifier" runat="server" Text="Broker Code:" CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:TextBox ID="txtBrokerIdentifier" runat="server" CssClass="txtField" MaxLength="28"></asp:TextBox>
+                            <span id="Span20" class="spnRequiredField">*</span>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator39" runat="server" CssClass="rfvPCG"
+                                ErrorMessage="Please Enter Broker Code" Display="Dynamic" ControlToValidate="txtBrokerIdentifier"
                                 ValidationGroup="btnOKbtnBrokercodeadd" InitialValue="">
                             </asp:RequiredFieldValidator>
                         </td>
@@ -2616,8 +2628,34 @@
                 </table>
             </ContentTemplate>
         </telerik:RadWindow>
+        <telerik:RadWindow ID="RadIssueBroker" runat="server" VisibleOnPageLoad="false" Height="30%"
+            Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
+            Title="Select Broker For Issue" RestrictionZoneID="radWindowZone">
+            <ContentTemplate>
+            
+                <table  style="padding-left:80px;" >
+                    <tr>
+                        <td align="center">
+                       <asp:Panel runat="server" ID="pnlBroker"  Height="250px" Width="280px" ScrollBars="Vertical">
+                           <asp:CheckBoxList ID="chblBroker" runat="server" CssClass="cmbFielde"  BorderWidth="2">
+                            </asp:CheckBoxList >
+                             </asp:Panel>
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <td style="padding-left:80px;">
+                            <asp:Button ID="btnIssueTOBrokerMapping" runat="server" Text="Submit" CssClass="PCGButton"
+                                OnClick="btnIssueTOBrokerMapping_OnClick"/>
+                        </td>
+                        
+                    </tr>
+                </table>
+               
+            </ContentTemplate>
+        </telerik:RadWindow>
     </ContentTemplate>
     <Triggers>
-    <asp:PostBackTrigger ControlID="btnSetUpSubmit" />
+        <asp:PostBackTrigger ControlID="btnSetUpSubmit" />
     </Triggers>
 </asp:UpdatePanel>

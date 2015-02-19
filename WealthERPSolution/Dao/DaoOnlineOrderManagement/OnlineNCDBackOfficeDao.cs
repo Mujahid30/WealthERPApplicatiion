@@ -335,6 +335,41 @@ namespace DaoOnlineOrderManagement
             }
             return DupseqNo;
         }
+        public bool ValidateBrokerCode(string brokerCode)
+        {
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand dbCommand;
+            bool isValidCode=true;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_ValidateBrokerCode");
+                db.AddInParameter(dbCommand, "@brokerCode", DbType.String, brokerCode);
+                db.AddInParameter(dbCommand, "@isValidCode", DbType.Boolean, isValidCode);
+                if (db.ExecuteScalar(dbCommand) != null)
+                    isValidCode = Convert.ToBoolean(db.ExecuteScalar(dbCommand).ToString());
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:ValidateBrokerCode(string brokerCode)");
+                object[] objects = new object[2];
+                objects[1] = isValidCode;
+                objects[2] = brokerCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return isValidCode;
+        }
 
         public int ChekSeriesSequence(int seqNo, int issueId, int adviserId, int seriesId)
         {
@@ -552,7 +587,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@MultipleApplicationAllowed", DbType.Int32, onlineNCDBackOfficeVo.MultipleApplicationAllowed);
                 db.AddInParameter(createCmd, "@IsCancelAllowed", DbType.Int32, onlineNCDBackOfficeVo.IsCancelAllowed);
                 db.AddInParameter(createCmd, "@Syndicateid", DbType.Int32, onlineNCDBackOfficeVo.syndicateId);
-                db.AddInParameter(createCmd, "@Broker", DbType.Int32, onlineNCDBackOfficeVo.broker);
+                db.AddInParameter(createCmd, "@Broker", DbType.String, onlineNCDBackOfficeVo.issueBrokerIds);
                 db.AddInParameter(createCmd, "@BusinessId", DbType.Int32, onlineNCDBackOfficeVo.BusinessChannelId);
                 if (onlineNCDBackOfficeVo.OfflineCutOffTime != DateTime.MinValue)
                     db.AddInParameter(createCmd, "@OfflineCutOffTime", DbType.Time, onlineNCDBackOfficeVo.OfflineCutOffTime);
@@ -925,7 +960,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@MultipleApplicationAllowed", DbType.Int32, onlineNCDBackOfficeVo.MultipleApplicationAllowed);
                 db.AddInParameter(createCmd, "@IsCancelAllowed", DbType.Int32, onlineNCDBackOfficeVo.IsCancelAllowed);
                 db.AddInParameter(createCmd, "@Syndicateid", DbType.Int32, onlineNCDBackOfficeVo.syndicateId);
-                db.AddInParameter(createCmd, "@Broker", DbType.Int32, onlineNCDBackOfficeVo.broker);
+                db.AddInParameter(createCmd, "@BrokerIds", DbType.String, onlineNCDBackOfficeVo.issueBrokerIds);
                 db.AddInParameter(createCmd, "@BusinessId", DbType.Int32, onlineNCDBackOfficeVo.BusinessChannelId);
                 if (onlineNCDBackOfficeVo.OfflineCutOffTime==DateTime.MinValue)
                     db.AddInParameter(createCmd, "@OfflineCutOffTime", DbType.Time, DBNull.Value);
@@ -3595,7 +3630,7 @@ namespace DaoOnlineOrderManagement
             }
             return dtBindBroker;
         }
-        public bool CreateBroker(string BrokerName, int userid)
+        public bool CreateBroker(string BrokerName, int userid,string brokerCode)
         {
             bool bResult = false;
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -3606,6 +3641,7 @@ namespace DaoOnlineOrderManagement
                 CreateBrokerCmd = db.GetStoredProcCommand("SPROC_CreateBroker");
                 db.AddInParameter(CreateBrokerCmd, "@brokerShortName", DbType.String, BrokerName);
                 db.AddInParameter(CreateBrokerCmd, "@userId", DbType.Int32, userid);
+                db.AddInParameter(CreateBrokerCmd, "@brokerCode", DbType.String, brokerCode);
                 if (db.ExecuteNonQuery(CreateBrokerCmd) != 0)
                     bResult = true;
             }

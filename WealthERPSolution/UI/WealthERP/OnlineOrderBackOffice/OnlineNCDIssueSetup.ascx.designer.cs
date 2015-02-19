@@ -1909,6 +1909,16 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtRating;
         protected global::System.Web.UI.WebControls.Label lblSpan20;
         protected global::System.Web.UI.WebControls.Label lblSpan35;
+        protected global::Telerik.Web.UI.RadWindow RadIssueBroker;
+        protected global::System.Web.UI.WebControls.LinkButton lbBrokerCode;
+        protected global::System.Web.UI.WebControls.Button btnIssueTOBrokerMapping;
+        protected global::System.Web.UI.WebControls.CheckBoxList chblBroker;
+        protected global::System.Web.UI.WebControls.HiddenField hdnBrokerIds;
+        protected global::System.Web.UI.WebControls.Label lblBrokerIds;
+        protected global::System.Web.UI.WebControls.TextBox txtBrokerIdentifier;
+
+
+
 
              
 

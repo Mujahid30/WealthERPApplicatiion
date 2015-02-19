@@ -120,7 +120,7 @@ namespace BoOnlineOrderManagement
             }
         }
 
-        public int UpdateIssue(VoOnlineOrderManagemnet.OnlineNCDBackOfficeVo onlineNCDBackOfficeVo,int userID)
+        public int UpdateIssue(VoOnlineOrderManagemnet.OnlineNCDBackOfficeVo onlineNCDBackOfficeVo, int userID)
         {
             try
             {
@@ -131,6 +131,32 @@ namespace BoOnlineOrderManagement
             {
                 throw Ex;
             }
+        }
+        public Boolean ValidateBrokerCode(string brokerCode)
+        {
+            try
+            {
+                onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+                return onlineNCDBackOfficeDao.ValidateBrokerCode(brokerCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:ValidateBrokerCode(string brokerCode)");
+                object[] objects = new object[1];
+                objects[0] = brokerCode;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
         }
         public bool UpdateOnlineEnablement(int issueId)
         {
@@ -526,7 +552,7 @@ namespace BoOnlineOrderManagement
             return dt;
         }
 
-         public DataTable GetFrequency()
+        public DataTable GetFrequency()
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
@@ -829,7 +855,7 @@ namespace BoOnlineOrderManagement
 
         }
 
-        public DataSet GetIssuerIssue(int advisorId, string product,int businessChannel,string orderStatus,string subCategoryCode)
+        public DataSet GetIssuerIssue(int advisorId, string product, int businessChannel, string orderStatus, string subCategoryCode)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
@@ -950,7 +976,7 @@ namespace BoOnlineOrderManagement
 
 
 
-        public void GenerateOnlineNcdExtract(int AdviserId, int UserId, string ExternalSource, string ProductAsset, int issueId, ref int isExtracted,int isOnline)
+        public void GenerateOnlineNcdExtract(int AdviserId, int UserId, string ExternalSource, string ProductAsset, int issueId, ref int isExtracted, int isOnline)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             onlineNCDBackOfficeDao.GenereateNcdExtract(AdviserId, UserId, ExternalSource, ProductAsset, issueId, ref isExtracted, isOnline);
@@ -1077,7 +1103,7 @@ namespace BoOnlineOrderManagement
         }
 
 
-        public DataTable GetOnlineNcdExtractPreview(DateTime extractDate, int adviserId, int fileTypeId, string extSource, int issueId,string modificationType,int isonline)
+        public DataTable GetOnlineNcdExtractPreview(DateTime extractDate, int adviserId, int fileTypeId, string extSource, int issueId, string modificationType, int isonline)
         {
 
             KeyValuePair<string, string>[] headers = GetHeaderMapping(fileTypeId, extSource);
@@ -1085,7 +1111,7 @@ namespace BoOnlineOrderManagement
             int AID_SeriesCount = 0;
             if (onlineNCDBackOfficeDao == null) onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
 
-            DataTable dtExtract = onlineNCDBackOfficeDao.GetOnlineNcdExtractPreview(extractDate, adviserId, fileTypeId, issueId, extSource, modificationType,isonline, out AID_SeriesCount).Tables[0];
+            DataTable dtExtract = onlineNCDBackOfficeDao.GetOnlineNcdExtractPreview(extractDate, adviserId, fileTypeId, issueId, extSource, modificationType, isonline, out AID_SeriesCount).Tables[0];
 
             if (fileTypeId == 5)
             {
@@ -1544,7 +1570,7 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
         }
-        public DataSet GetAdviserOrders(int IssueId, string Product, int adviserid, int BusinessChannel,string userType,string agentCode,string category)
+        public DataSet GetAdviserOrders(int IssueId, string Product, int adviserid, int BusinessChannel, string userType, string agentCode, string category)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
@@ -1823,7 +1849,7 @@ namespace BoOnlineOrderManagement
             }
             return result;
         }
-        public DataTable UploadAllotmentFile(DataTable dtCheckOrder, int fileTypeId, int issueId, ref string isEligbleIssue, int adviserid, string source, ref string result, string product, string filePath, int userId,int isOnline,string SubCategoryCode)
+        public DataTable UploadAllotmentFile(DataTable dtCheckOrder, int fileTypeId, int issueId, ref string isEligbleIssue, int adviserid, string source, ref string result, string product, string filePath, int userId, int isOnline, string SubCategoryCode)
         {
             DataTable dtUploadAllotment = new DataTable();
             try
@@ -1858,7 +1884,7 @@ namespace BoOnlineOrderManagement
             return dtUploadAllotment;
 
         }
-        public int UploadCheckOrderFile(DataTable dtCheckOrder, int fileTypeId, int issueId, ref string isEligbleIssue, int adviserid, string source, ref string result, string product, string filePath, int userId,int isOnline)
+        public int UploadCheckOrderFile(DataTable dtCheckOrder, int fileTypeId, int issueId, ref string isEligbleIssue, int adviserid, string source, ref string result, string product, string filePath, int userId, int isOnline)
         {
 
             int nRows = 0;
@@ -1920,7 +1946,7 @@ namespace BoOnlineOrderManagement
                         }
                         else if (product == "IP")
                         {
-                            nRows = daoOnlNcdBackOff.IPOUploadBidSuccessData(dtCheckOrder, issueId,isOnline);
+                            nRows = daoOnlNcdBackOff.IPOUploadBidSuccessData(dtCheckOrder, issueId, isOnline);
                         }
 
                     }
@@ -2046,20 +2072,20 @@ namespace BoOnlineOrderManagement
             }
             return blResult;
         }
-        public DataTable GetIssueList(int adviserId,int type, int customerId, string productAssetGroup)
+        public DataTable GetIssueList(int adviserId, int type, int customerId, string productAssetGroup)
         {
-          
+
             OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
             try
             {
-                return daoOnlNcdBackOff.GetIssueList(adviserId,type, customerId, productAssetGroup);
-                
+                return daoOnlNcdBackOff.GetIssueList(adviserId, type, customerId, productAssetGroup);
+
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
-           
+
         }
         public void DeleteAvaliable(int adviserid, int InvestorCatgeoryId, int AIICST_Id, int AIDCSR_Id, int IssueDetailId, int issueId)
         {
@@ -2278,13 +2304,13 @@ namespace BoOnlineOrderManagement
             }
             return result;
         }
-        public bool CreateRegister(string register,int userid)
+        public bool CreateRegister(string register, int userid)
         {
             OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
             bool bResult = false;
             try
             {
-                bResult = daoOnlNcdBackOff.CreateRegister(register,userid);
+                bResult = daoOnlNcdBackOff.CreateRegister(register, userid);
 
             }
             catch (BaseApplicationException Ex)
@@ -2293,7 +2319,7 @@ namespace BoOnlineOrderManagement
             }
             return bResult;
         }
-      
+
         public DataSet BindSyndiacteAndBusinessChannel()
         {
             DataSet ds;
@@ -2331,13 +2357,13 @@ namespace BoOnlineOrderManagement
             }
             return dtBindBroker;
         }
-        public bool CreateBroker(string BrokerName, int userid)
+        public bool CreateBroker(string BrokerName, int userid,string brokerCode)
         {
             OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
             bool bResult = false;
             try
             {
-                bResult = daoOnlNcdBackOff.CreateBroker(BrokerName, userid);
+                bResult = daoOnlNcdBackOff.CreateBroker(BrokerName, userid, brokerCode);
 
             }
             catch (BaseApplicationException Ex)

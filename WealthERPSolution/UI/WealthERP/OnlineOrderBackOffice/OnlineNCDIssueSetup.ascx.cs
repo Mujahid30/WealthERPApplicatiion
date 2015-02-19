@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -45,6 +46,7 @@ namespace WealthERP.OnlineOrderBackOffice
             RadBroker.VisibleOnPageLoad = false;
             radIssuerPopUp.VisibleOnPageLoad = false;
             radIssuerPopUp.Visible = false;
+            RadIssueBroker.VisibleOnPageLoad = false;
             if (!IsPostBack)
             {
 
@@ -697,12 +699,24 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
                     if (!string.IsNullOrEmpty(dr["XB_BrokerId"].ToString()))
                     {
-                        ddlBrokerCode.SelectedValue = dr["XB_BrokerId"].ToString();
+                        StringBuilder sbBroker = new StringBuilder();
+                        string[] ar = dr["XB_BrokerId"].ToString().Split(',');
+                        foreach (ListItem li in chblBroker.Items)
+                        {
+                            for (int i = 0; i < ar.Length; i++)
+                            {
+                                if (li.Value == ar[i])
+                                {
+                                    li.Selected = true;
+                                    sbBroker = sbBroker.Append(li.Text + ',');
+                                }
+                            }
+                        }
+                        lblBrokerIds.Text = sbBroker.ToString().TrimEnd(',');
                     }
-                    else
-                    {
-                        ddlBrokerCode.SelectedValue = "";
-                    }
+
+
+
                     if (!string.IsNullOrEmpty(dr["WCMV_BussinessChannelId"].ToString()))
                     {
                         ddlBssChnl.SelectedValue = dr["WCMV_BussinessChannelId"].ToString();
@@ -846,7 +860,7 @@ namespace WealthERP.OnlineOrderBackOffice
             txtIssueSizeAmt.Enabled = value;
             txtBankName.Enabled = value;
             txtBankBranch.Enabled = value;
-            ddlBrokerCode.Enabled = value;
+            //ddlBrokerCode.Enabled = value;
             txtName.Enabled = value;
             ddlIssuer.Enabled = value;
 
@@ -1291,14 +1305,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.syndicateId = 0;
                 }
-                if (!string.IsNullOrEmpty(ddlBrokerCode.SelectedValue))
+                if (!string.IsNullOrEmpty(hdnBrokerIds.Value))
                 {
-                    onlineNCDBackOfficeVo.broker = int.Parse(ddlBrokerCode.SelectedValue);
+                    onlineNCDBackOfficeVo.issueBrokerIds = hdnBrokerIds.Value;
                 }
-                else
-                {
-                    onlineNCDBackOfficeVo.broker = 0;
-                }
+
                 if (!string.IsNullOrEmpty(txtIssueSizeQty.Text))
                 {
                     onlineNCDBackOfficeVo.IssueSizeQty = Convert.ToInt32(txtIssueSizeQty.Text);
@@ -3564,14 +3575,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.syndicateId = 0;
                 }
-                if (!string.IsNullOrEmpty(ddlBrokerCode.SelectedValue))
+                if (!string.IsNullOrEmpty(hdnBrokerIds.Value.ToString()))
                 {
-                    onlineNCDBackOfficeVo.broker = int.Parse(ddlBrokerCode.SelectedValue);
+                    onlineNCDBackOfficeVo.issueBrokerIds = hdnBrokerIds.Value.ToString();
                 }
-                else
-                {
-                    onlineNCDBackOfficeVo.broker = 0;
-                }
+
                 if (!string.IsNullOrEmpty(txtIssueSizeQty.Text))
                 {
                     onlineNCDBackOfficeVo.IssueSizeQty = Convert.ToInt32(txtIssueSizeQty.Text);
@@ -5863,11 +5871,10 @@ namespace WealthERP.OnlineOrderBackOffice
             dtBindBrokerCode = onlineNCDBackOfficeBo.BindBroker();
             if (dtBindBrokerCode.Rows.Count > 0)
             {
-                ddlBrokerCode.DataSource = dtBindBrokerCode;
-                ddlBrokerCode.DataValueField = dtBindBrokerCode.Columns["XB_BrokerId"].ToString();
-                ddlBrokerCode.DataTextField = dtBindBrokerCode.Columns["XB_BrokerShortName"].ToString();
-                ddlBrokerCode.DataBind();
-                ddlBrokerCode.Items.Insert(0, new ListItem("Select", "0"));
+                chblBroker.DataSource = dtBindBrokerCode;
+                chblBroker.DataValueField = dtBindBrokerCode.Columns["XB_BrokerId"].ToString();
+                chblBroker.DataTextField = dtBindBrokerCode.Columns["XB_BrokerShortName"].ToString();
+                chblBroker.DataBind();
             }
         }
         protected void ImagddlBrokerCode_Click(object sender, EventArgs e)
@@ -5880,9 +5887,37 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void btnBrokercodeadd_OnClick(object sender, EventArgs e)
         {
-            onlineNCDBackOfficeBo.CreateBroker(txtBrokercodeadd.Text, userVo.UserId);
-            BindBrokerCode();
-            RadBroker.VisibleOnPageLoad = false;
+            if (onlineNCDBackOfficeBo.ValidateBrokerCode(txtBrokerIdentifier.Text.TrimEnd()))
+            {
+                onlineNCDBackOfficeBo.CreateBroker(txtBrokercodeadd.Text.TrimEnd(), userVo.UserId, txtBrokerIdentifier.Text.TrimEnd());
+                BindBrokerCode();
+                RadBroker.VisibleOnPageLoad = false;
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Broker Code Already Exists.');", true);
+                return;
+            }
+        }
+        protected void lbBrokerCode_OnClick(object sender, EventArgs e)
+        {
+            RadIssueBroker.VisibleOnPageLoad = true;
+        }
+        protected void btnIssueTOBrokerMapping_OnClick(object sender, EventArgs e)
+        {
+            StringBuilder str = new StringBuilder();
+            StringBuilder brokerName = new StringBuilder();
+            foreach (ListItem li in chblBroker.Items)
+            {
+                if (li.Selected)
+                {
+                    str = str.Append(li.Value + ',');
+                    brokerName = brokerName.Append(li.Text + ',');
+                }
+            }
+            hdnBrokerIds.Value = str.ToString().TrimEnd(',');
+            RadIssueBroker.VisibleOnPageLoad = false;
+            lblBrokerIds.Text = brokerName.ToString().TrimEnd(',');
         }
         private void EnablityOfControlsonCategoryTypeSelection(string category)
         {
@@ -5895,6 +5930,7 @@ namespace WealthERP.OnlineOrderBackOffice
             trIssueqtySize.Visible = false;
             trTradinglotBidding.Visible = false;
             txtIsPrefix.Visible = true;
+
             //Ipo
             trIssueTypes.Visible = false;
             trBookBuildingAndCapprices.Visible = false;
@@ -5926,8 +5962,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 trFloorAndFixedPrices.Visible = false;
                 trMinQty.Visible = true;
                 trMaxQty.Visible = true;
-                lblBrokerCode.Visible = true;
-                tdBroker.Visible = true;
+                //lblBrokerCode.Visible = true;
+                //tdBroker.Visible = true;
                 //chkIsActive.Enabled = false;
                 trExchangeCode.Visible = true;
                 tdlblCategory.Visible = true;
@@ -5992,11 +6028,12 @@ namespace WealthERP.OnlineOrderBackOffice
                 RequiredFieldValidator44.Enabled = false;
                 lblSpan20.Visible = false;
                 lblSpan35.Visible = false;
-                
+
             }
             else
             {
-
+                lblBrokerCode.Visible = true;
+                tdBroker.Visible = true;
                 lb1RevisionDate.Visible = true;
                 txtRevisionDates.Visible = true;
                 lblSubBrokerCode.Visible = true;
@@ -6004,7 +6041,6 @@ namespace WealthERP.OnlineOrderBackOffice
                 lb1IsPrefix.Visible = true;
                 chkIsPrefix.Visible = true;
                 txtIsPrefix.Visible = true;
-                tdBroker.Visible = false;
                 tdlb1ModeofTrading.Visible = true;
                 tdtxtModeofTrading.Visible = true;
                 lb1Trading.Visible = true;
@@ -6012,7 +6048,6 @@ namespace WealthERP.OnlineOrderBackOffice
                 lb1ModeOfTrading.Visible = true;
                 trRange.Visible = true;
                 trModeofIssue.Visible = true;
-                lblBrokerCode.Visible = false;
                 lb1InitialCqNo.Visible = true;
                 txtInitialCqNo.Visible = true;
                 tdLabel21.Visible = true;
@@ -6021,14 +6056,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 tdcuttoffonffine.Visible = true;
                 lb1Trading.Visible = true;
                 txtTradingInMultipleOf.Visible = true;
-                //trExchangeCode.Visible = true;
                 trRevisionDate.Visible = true;
                 chkTradebleExchange.Visible = true;
-                //trlblSyndicatet.Visible = false;
                 trIsCancelAllowed.Visible = true;
-                //trNomineeReQuired.Visible = true;
                 chkPutCallOption.Visible = true;
-                //rgEligibleInvestorCategories.Visible = true;
                 lblAssetsApplication.Visible = false;
                 txtBankName.Visible = false;
                 lb1BankName.Visible = true;
@@ -6036,8 +6067,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 trExchangeCode.Visible = true;
                 tdlb1MinQty.Visible = false;
                 tdltxtMinQty.Visible = false;
-                //lb1ddlModeofIssue.Visible = true;
-                //ddlModeofIssue.Visible = false;
+
             }
 
         }

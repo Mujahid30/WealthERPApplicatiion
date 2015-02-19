@@ -130,6 +130,7 @@ namespace VoOnlineOrderManagemnet
         public int broker {get;set;}
         public int BusinessChannelId { get; set; }
         public string applicationBank { get; set; }
+        public string issueBrokerIds { get; set; }
     }
 
     public class OnlineIssueHeader
