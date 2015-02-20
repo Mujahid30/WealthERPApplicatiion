@@ -263,15 +263,14 @@ namespace WealthERP.OffLineOrderManagement
                     ddlAction.Items[2].Enabled = false;
                     ddlAction.ToolTip = "Order Cannot Be Modified in Executed Status";
                 }
-                if (DateTime.Now < closeDateTime)
-                {
-                    ddlAction.Enabled = true;
-                }
-                else
-                {
-                    ddlAction.Items[1].Enabled = false;
-                    ddlAction.Items[2].Enabled = false;
-                }
+                //if ()
+                //{
+                //    ddlAction.Enabled = true;
+                //}
+                //else
+                //{
+                //    ddlAction.Items[2].Enabled = false;
+                //}
                 if (OrderStepCode == "ORDERED" )
                 {
                     lbtnMarkAsReject.Visible = true;
@@ -281,7 +280,7 @@ namespace WealthERP.OffLineOrderManagement
                     lbtnMarkAsReject.Visible = false;
 
                 }
-                if (OrderStepCode == "REJECTED" )
+                if ((OrderStepCode == "REJECTED") || (DateTime.Now > closeDateTime))
                 {
                     ddlAction.Items[1].Enabled = true;
                     ddlAction.Items[2].Enabled = false;
@@ -403,8 +402,9 @@ namespace WealthERP.OffLineOrderManagement
             int associateid = Convert.ToInt32(gvIPOOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AgenId"].ToString());
             string agentId = gvIPOOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AAC_AgentCode"].ToString();
             string OrderStepCode = Convert.ToString(gvIPOOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["WOS_OrderStep"]);
+            string CloseDate = Convert.ToString(gvIPOOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AIM_CloseDate"]);
 
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "IPOIssueTransactOffline", "loadcontrol( 'IPOIssueTransactOffline','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&associateid=" + associateid + "&agentId=" + agentId + "&OrderStepCode=" + OrderStepCode + "');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "IPOIssueTransactOffline", "loadcontrol( 'IPOIssueTransactOffline','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&associateid=" + associateid + "&agentId=" + agentId + "&OrderStepCode=" + OrderStepCode + "&CloseDate=" + CloseDate + "');", true);
         }
     }
 }

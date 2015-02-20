@@ -85,13 +85,13 @@ namespace BoOfflineOrderManagement
             }
             return dsGetIPOIssueOrderDetails;
         }
-        public bool UpdateIPOBidOrderDetails(DataTable dtIPOBidTransactionDettails,int orderNo,string benificialAcc)
+        public bool UpdateIPOBidOrderDetails(DataTable dtIPOBidTransactionDettails,int orderNo,string benificialAcc,string brokerCode)
         {
             bool bResult = false;
             OfflineIPOOrderDao OfflineIPOOrderDao = new OfflineIPOOrderDao();
             try
             {
-                bResult = OfflineIPOOrderDao.UpdateIPOBidOrderDetails(dtIPOBidTransactionDettails, orderNo, benificialAcc);
+                bResult = OfflineIPOOrderDao.UpdateIPOBidOrderDetails(dtIPOBidTransactionDettails, orderNo, benificialAcc, brokerCode);
             }
             catch (BaseApplicationException Ex)
             {
