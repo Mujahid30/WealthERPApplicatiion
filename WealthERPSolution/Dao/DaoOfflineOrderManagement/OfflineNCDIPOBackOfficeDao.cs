@@ -131,7 +131,7 @@ namespace DaoOfflineOrderManagement
             }
             return dsGetNCDIssueOrderDetails;
         }
-        public bool UpdateNCDDetails(int orderid, int userid, DataTable dtOrderDetails)
+        public bool UpdateNCDDetails(int orderid, int userid, DataTable dtOrderDetails, string brokerCode)
         {
 
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -148,7 +148,7 @@ namespace DaoOfflineOrderManagement
                 db.AddInParameter(UpdateNCDDetailscmd, "@xmlBondsOrder", DbType.Xml, dsUpdateUpdateNCDDetails.GetXml().ToString());
                 db.AddInParameter(UpdateNCDDetailscmd, "@orderId", DbType.Int32, orderid);
                 db.AddInParameter(UpdateNCDDetailscmd, "@UserId", DbType.Int32, userid);
-                
+                db.AddInParameter(UpdateNCDDetailscmd, "@brokerCode", DbType.String, brokerCode);
                 
                 db.ExecuteNonQuery(UpdateNCDDetailscmd);
                 bResult = true;

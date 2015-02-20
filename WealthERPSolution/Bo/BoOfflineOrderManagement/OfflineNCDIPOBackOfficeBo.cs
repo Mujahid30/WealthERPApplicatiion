@@ -84,13 +84,13 @@ namespace BoOfflineOrderManagement
             }
             return dsGetNCDIssueOrderDetails;
         }
-        public bool UpdateNCDDetails(int orderid, int userid, DataTable dtOrderDetails)
+        public bool UpdateNCDDetails(int orderid, int userid, DataTable dtOrderDetails,string brokerCode)
         {
             bool result = false;
             offlineNCDBackOfficeDao = new OfflineNCDIPOBackOfficeDao();
             try
             {
-                result = offlineNCDBackOfficeDao.UpdateNCDDetails(orderid, userid, dtOrderDetails);
+                result = offlineNCDBackOfficeDao.UpdateNCDDetails(orderid, userid, dtOrderDetails, brokerCode);
             }
             catch (BaseApplicationException Ex)
             {
