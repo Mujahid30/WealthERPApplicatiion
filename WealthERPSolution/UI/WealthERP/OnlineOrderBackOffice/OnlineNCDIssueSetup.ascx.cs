@@ -946,7 +946,7 @@ namespace WealthERP.OnlineOrderBackOffice
             lbBrokerCode.Enabled = value;
             ImagddlBrokerCode.Enabled = value;
             ImageddlRegistrar.Enabled = value;
-            
+
             if (ddlProduct.SelectedValue == "IP")
             {
                 pnlSeries.Visible = false;
@@ -1087,8 +1087,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     onlineNCDBackOfficeVo.TradingLot = Convert.ToDecimal(txtTradingLot.Text);
                 if (!string.IsNullOrEmpty(txtBiddingLot.Text))
                     onlineNCDBackOfficeVo.BiddingLot = Convert.ToDecimal(txtBiddingLot.Text);
-
-                onlineNCDBackOfficeVo.MinApplicationSize = Convert.ToInt32(txtMinAplicSize.Text);
+                if (!string.IsNullOrEmpty(txtMinAplicSize.Text))
+                    onlineNCDBackOfficeVo.MinApplicationSize = Convert.ToInt32(txtMinAplicSize.Text);
                 if (!string.IsNullOrEmpty(txtIsPrefix.Text))
                 {
                     onlineNCDBackOfficeVo.IsPrefix = Convert.ToInt32(txtIsPrefix.Text);
@@ -1097,8 +1097,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.IsPrefix = 0;
                 }
-
-                onlineNCDBackOfficeVo.TradingInMultipleOf = Convert.ToInt32(txtTradingInMultipleOf.Text);
+                if (!string.IsNullOrEmpty(txtTradingInMultipleOf.Text))
+                    onlineNCDBackOfficeVo.TradingInMultipleOf = Convert.ToInt32(txtTradingInMultipleOf.Text);
 
                 //if (!string.IsNullOrEmpty(ddlListedInExchange.SelectedValue))
                 //{
@@ -5123,13 +5123,8 @@ namespace WealthERP.OnlineOrderBackOffice
             trRegistrarAddressAndTelNo.Visible = false;
             trRegistrarFaxNoAndInvestorGrievenceEmail.Visible = false;
             trWebsiteAndContactPerson.Visible = false;
-
-            //both
-            //trFloorAndFixedPrices.Visible = true;
             trExchangeCode.Visible = false;
-            //trRatingAndModeofTrading.Visible = true;
             trSBIRegistationNoAndISINNumber.Visible = true;
-
 
             if (product == "NCD")
             {
@@ -5138,12 +5133,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 trRatingAndModeofTrading.Visible = true;
                 trModeofIssue.Visible = true;
                 trFloorAndFixedPrices.Visible = false;
-
                 txtMaxQty.Visible = false;
                 lblMaxError.Visible = false;
-
                 Label15.Visible = false;
-                //chkIsActive.Enabled = false;
                 trExchangeCode.Visible = true;
                 tdlblCategory.Visible = true;
                 tdddlCategory.Visible = true;
@@ -5154,8 +5146,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 tdtxtModeofTrading.Visible = true;
                 tdlb1SBIRegistationNo.Visible = false;
                 tdtxtSBIRegistationNo.Visible = false;
-                trlblSyndicatet.Visible = false;
+                tdlblSyndicatet.Visible = false;
+                tdddllblSyndicatet.Visible = false;
                 lb1Rating.Text = "Rating:";
+                lblBrokerCode.Visible = true;
+                tdBroker.Visible = true;
                 EnablityOfControlsonCategoryTypeSelection(ddlSubInstrCategory.SelectedValue);
             }
             else if (product == "IP")
@@ -5172,7 +5167,6 @@ namespace WealthERP.OnlineOrderBackOffice
                 RequiredFieldValidator38.Visible = true;
                 lblMaxError.Visible = true;
                 tdBroker.Visible = true;
-
                 Label15.Visible = true;
                 trExchangeCode.Visible = true;
                 trTradinglotBidding.Visible = true;
@@ -5185,8 +5179,6 @@ namespace WealthERP.OnlineOrderBackOffice
                 trRegistrarFaxNoAndInvestorGrievenceEmail.Visible = true;
                 trWebsiteAndContactPerson.Visible = true;
                 trSBIRegistationNoAndISINNumber.Visible = true;
-                //chkIsActive.Visible = true;
-                //chkIsActive.Enabled = false;
                 tdlb1ModeofTrading.Visible = false;
                 tdtxtModeofTrading.Visible = false;
                 tdlb1SBIRegistationNo.Visible = true;

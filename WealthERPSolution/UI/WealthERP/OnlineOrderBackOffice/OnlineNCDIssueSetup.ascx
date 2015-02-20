@@ -1319,10 +1319,10 @@
                 </td>
             </tr>
             <tr id="trlblSyndicatet" runat="server">
-                <td align="right" id="tdlblSyndicatet">
+                <td align="right" id="tdlblSyndicatet" runat="server" visible="false" >
                     <asp:Label ID="lblSyndicatet" runat="server" Text="Syndicate:" CssClass="FieldName"></asp:Label>
                 </td>
-                <td id="tdddllblSyndicatet">
+                <td id="tdddllblSyndicatet" runat="server" visible="false" >
                     <asp:DropDownList ID="ddllblSyndicatet" runat="server" CssClass="cmbField" Width="165px">
                     </asp:DropDownList>
                     <span id="Span40" class="spnRequiredField">*</span>
