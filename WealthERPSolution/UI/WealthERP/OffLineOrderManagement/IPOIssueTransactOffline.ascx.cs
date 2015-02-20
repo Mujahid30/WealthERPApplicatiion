@@ -329,7 +329,9 @@ namespace WealthERP.OffLineOrderManagement
                     txtDematid.Text = dr["CEDA_DPClientId"].ToString();
                     ViewState["BenificialAccountNo"] = dr["CEDA_DPClientId"].ToString();
                     txtRemarks.Text = dr["CO_Remarks"].ToString();
+                    BindSubbroker(int.Parse(dr["AIM_IssueId"].ToString()));
                     ddlBrokerCode.SelectedValue = dr["XB_BrokerIdentifier"].ToString();
+
                     if (dr["CO_ASBAAccNo"].ToString() != "")
                     {
                         txtASBALocation.Text = dr["CO_BankBranchName"].ToString();
@@ -547,6 +549,7 @@ namespace WealthERP.OffLineOrderManagement
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('IPO Order Updated Successfully!!');", true);
                     btnUpdate.Visible = false;
                     lnkEdit.Visible = true;
+                    SetFICOntrolsEnablity(false);
                 }
             }
         }
@@ -2672,6 +2675,7 @@ namespace WealthERP.OffLineOrderManagement
                 ddlBrokerCode.DataValueField = dtBindSubbroker.Columns["XB_BrokerIdentifier"].ToString();
                 ddlBrokerCode.DataTextField = dtBindSubbroker.Columns["XB_BrokerShortName"].ToString();
                 ddlBrokerCode.DataBind();
+                ddlBrokerCode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
             }
         }
         //protected void rbtnReject_CheckedChanged(object sender, EventArgs e)

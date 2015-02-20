@@ -358,7 +358,7 @@
                                             UniqueName="CEDA_DPClientId">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="CO_IsAuthenticated" AllowFiltering="true" HeaderText="Is Authenticated"
+                                       <%-- <telerik:GridBoundColumn DataField="CO_IsAuthenticated" AllowFiltering="true" HeaderText="Is Authenticated"
                                             HeaderStyle-Width="70px" UniqueName="CO_IsAuthenticated" SortExpression="CO_IsAuthenticated"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -372,7 +372,7 @@
                                             HeaderStyle-Width="70px" UniqueName="CO_AuthenticatedDate" SortExpression="CO_AuthenticatedDate"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
+                                        </telerik:GridBoundColumn>--%>
                                         <telerik:GridBoundColumn DataField="ReportingManagerName" SortExpression="ReportingManagerName"
                                             AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                             AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="ReportingManagerName"
