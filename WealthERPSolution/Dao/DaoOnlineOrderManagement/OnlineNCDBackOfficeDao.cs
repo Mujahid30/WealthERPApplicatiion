@@ -597,6 +597,10 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@ModifiedBy", DbType.Int32, userID);
                 db.AddInParameter(createCmd, "@CreatedBy", DbType.Int32, userID);
                 db.AddInParameter(createCmd, "@applicationBank", DbType.String, onlineNCDBackOfficeVo.applicationBank);
+                if(onlineNCDBackOfficeVo.minAmt!=0)
+                    db.AddInParameter(createCmd, "@MinAmt", DbType.Decimal, onlineNCDBackOfficeVo.minAmt);
+                if (onlineNCDBackOfficeVo.maxAmt != 0)
+                    db.AddInParameter(createCmd, "@MaxAmt", DbType.Decimal, onlineNCDBackOfficeVo.maxAmt);
                 issueId = db.ExecuteNonQuery(createCmd);
             }
             catch (BaseApplicationException Ex)
@@ -969,6 +973,10 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@ModifiedBy", DbType.Int32, userID);
                 db.AddInParameter(createCmd, "@CreatedBy", DbType.Int32, userID);
                 db.AddInParameter(createCmd, "@applicationBank", DbType.String, onlineNCDBackOfficeVo.applicationBank);
+                if(onlineNCDBackOfficeVo.minAmt!=0)
+                    db.AddInParameter(createCmd, "@MinAmt", DbType.Decimal, onlineNCDBackOfficeVo.minAmt);
+                if(onlineNCDBackOfficeVo.maxAmt!=0)
+                    db.AddInParameter(createCmd, "@MaxAmt", DbType.Decimal, onlineNCDBackOfficeVo.maxAmt);
                 if (db.ExecuteNonQuery(createCmd) != 0)
                 {
                     issueId = Convert.ToInt32(db.GetParameterValue(createCmd, "AIM_IssueId").ToString());

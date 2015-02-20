@@ -178,7 +178,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trlblSyndicatet;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdmaxqty;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdBroker;
-       protected global::System.Web.UI.WebControls.Label lblMaxError;
+        protected global::System.Web.UI.WebControls.Label lblMaxError;
         /// <summary>
         /// lblCategory control.
         /// </summary>
@@ -1892,7 +1892,7 @@ namespace WealthERP.OnlineOrderBackOffice
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid rgSeries;
-        protected global::System.Web.UI.WebControls.DropDownList  ddlBssChnl;
+        protected global::System.Web.UI.WebControls.DropDownList ddlBssChnl;
         protected global::System.Web.UI.WebControls.DropDownList ddlNcdSubCategory;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trRange;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trbank;
@@ -1916,13 +1916,11 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::System.Web.UI.WebControls.HiddenField hdnBrokerIds;
         protected global::System.Web.UI.WebControls.Label lblBrokerIds;
         protected global::System.Web.UI.WebControls.TextBox txtBrokerIdentifier;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trAmount;
+        protected global::System.Web.UI.WebControls.TextBox txtMaxAmt;
+        protected global::System.Web.UI.WebControls.TextBox txtMinAmt;
+        protected global::System.Web.UI.WebControls.ImageButton ImageddlRegistrar;
 
 
-
-
-             
-
-
-    
     }
 }

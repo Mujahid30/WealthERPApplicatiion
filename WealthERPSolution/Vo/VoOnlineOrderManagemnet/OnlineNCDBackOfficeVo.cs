@@ -131,6 +131,9 @@ namespace VoOnlineOrderManagemnet
         public int BusinessChannelId { get; set; }
         public string applicationBank { get; set; }
         public string issueBrokerIds { get; set; }
+        public decimal minAmt { get; set; }
+        public decimal maxAmt { get; set; }
+
     }
 
     public class OnlineIssueHeader

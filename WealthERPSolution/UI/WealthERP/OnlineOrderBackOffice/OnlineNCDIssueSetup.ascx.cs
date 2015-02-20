@@ -697,6 +697,10 @@ namespace WealthERP.OnlineOrderBackOffice
                     {
                         ddllblSyndicatet.SelectedValue = "";
                     }
+                    if (!string.IsNullOrEmpty(dr["AIM_MinAmount"].ToString()))
+                        txtMinAmt.Text = dr["AIM_MinAmount"].ToString();
+                    if (!string.IsNullOrEmpty(dr["AIM_MaxAmount"].ToString()))
+                        txtMaxAmt.Text = dr["AIM_MaxAmount"].ToString();
                     if (!string.IsNullOrEmpty(dr["XB_BrokerId"].ToString()))
                     {
                         StringBuilder sbBroker = new StringBuilder();
@@ -937,8 +941,12 @@ namespace WealthERP.OnlineOrderBackOffice
             //lnkBtnEdit.Visible = true;
             lnlBack.Visible = boolBtnsVisblity;
             //lnkDelete.Visible = boolBtnsVisblity;
-
-
+            txtMaxAmt.Enabled = value;
+            txtMinAmt.Enabled = value;
+            lbBrokerCode.Enabled = value;
+            ImagddlBrokerCode.Enabled = value;
+            ImageddlRegistrar.Enabled = value;
+            
             if (ddlProduct.SelectedValue == "IP")
             {
                 pnlSeries.Visible = false;
@@ -1432,6 +1440,10 @@ namespace WealthERP.OnlineOrderBackOffice
                     onlineNCDBackOfficeVo.BusinessChannelId = int.Parse(ddlBssChnl.SelectedValue);
 
                 onlineNCDBackOfficeVo.IssueId = Convert.ToInt32(txtIssueId.Text);
+                if (!string.IsNullOrEmpty(txtMinAmt.Text.TrimEnd()))
+                    onlineNCDBackOfficeVo.minAmt = Convert.ToDecimal(txtMinAmt.Text.TrimEnd());
+                if (!string.IsNullOrEmpty(txtMaxAmt.Text.TrimEnd()))
+                    onlineNCDBackOfficeVo.maxAmt = Convert.ToDecimal(txtMaxAmt.Text.TrimEnd());
                 if (!string.IsNullOrEmpty(txtBankName.Text))
                     onlineNCDBackOfficeVo.applicationBank = txtBankName.Text;
                 if (ddlSubInstrCategory.SelectedValue != "FICGCG" && ddlSubInstrCategory.SelectedValue != "FINPNP" && ddlSubInstrCategory.SelectedValue != "FICDCD")
@@ -3722,7 +3734,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.IsCancelAllowed = 1;
                 }
-
+                if (!string.IsNullOrEmpty(txtMinAmt.Text.TrimEnd()))
+                    onlineNCDBackOfficeVo.minAmt = Convert.ToDecimal(txtMinAmt.Text.TrimEnd());
+                if (!string.IsNullOrEmpty(txtMaxAmt.Text.TrimEnd()))
+                    onlineNCDBackOfficeVo.maxAmt = Convert.ToDecimal(txtMaxAmt.Text.TrimEnd());
                 if (chkIsCancelNotAllowed.Checked == true)
                 {
                     onlineNCDBackOfficeVo.IsCancelAllowed = 0;
@@ -5070,14 +5085,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 return;
             }
             trFloorAndFixedPrices.Visible = true;
-            //trBookBuildingAndCapprices.Visible = true;      
-            //trSyndicateAndMemberCodes.Visible = true;
-            //trRegistrarAndNoofBidsAlloweds.Visible = true;
             if (issueType == "FixedPrice")
             {
                 tdLbFixedPrice.Visible = true;
                 tdtxtFixedPrice.Visible = true;
-
                 trBookBuildingAndCapprices.Visible = false;
                 tdLbFloorPrice.Visible = false;
                 tdTxtFloorPrice.Visible = false;
@@ -5087,7 +5098,6 @@ namespace WealthERP.OnlineOrderBackOffice
                 trBookBuildingAndCapprices.Visible = true;
                 tdLbFloorPrice.Visible = true;
                 tdTxtFloorPrice.Visible = true;
-
                 tdLbFixedPrice.Visible = false;
                 tdtxtFixedPrice.Visible = false;
             }
@@ -5767,18 +5777,6 @@ namespace WealthERP.OnlineOrderBackOffice
             CheckBox chkBuyAvailability = (CheckBox)sender;
             GridEditableItem editedItem = chkBuyAvailability.NamingContainer as GridEditableItem;
             RadGrid rgSeriesCat = (RadGrid)editedItem.FindControl("rgSeriesCat");
-            //foreach (GridColumn column in rgSeriesCat.Columns)
-            //{
-            //    if (column.UniqueName == "YieldAtBuyBack")
-            //    {
-            //        column.Visible = false;
-            //    }
-            //    else
-            //    {
-            //        column.Visible = true;
-
-            //    }
-            //}
             foreach (GridDataItem gdi in rgSeriesCat.Items)
             {
                 if (chkBuyAvailability.Checked == true)
@@ -5798,26 +5796,6 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
 
             }
-
-
-
-
-            //foreach (GridDataItem gdi in rgSeries.Items)
-            //{
-            //    if (((CheckBox)gdi.FindControl("chkBuyAvailability")).Checked == true)
-            //    {
-            //        TextBox txtYieldAtBuyBack = (TextBox)gdi.FindControl("txtYieldAtBuyBack");
-            //        txtYieldAtBuyBack.Visible = true;
-            //    }
-            //    else
-            //    {
-            //        TextBox txtYieldAtBuyBack = (TextBox)gdi.FindControl("txtYieldAtBuyBack");
-            //        if (txtYieldAtBuyBack != null)
-            //            txtYieldAtBuyBack.Visible = false;
-
-            //    }
-            //}
-
         }
 
         private void UpdateOnlineEnblement(int issueId)
@@ -5952,7 +5930,7 @@ namespace WealthERP.OnlineOrderBackOffice
             RequiredFieldValidator44.Enabled = true;
             lblSpan20.Visible = true;
             lblSpan35.Visible = true;
-
+            trAmount.Visible = false;
             if (category == "FICGCG" || category == "FICDCD" || category == "FINPNP")
             {
                 RequiredFieldValidator38.Visible = true;
@@ -6028,6 +6006,12 @@ namespace WealthERP.OnlineOrderBackOffice
                 RequiredFieldValidator44.Enabled = false;
                 lblSpan20.Visible = false;
                 lblSpan35.Visible = false;
+                if (category == "FICDCD")
+                {
+                    trAmount.Visible = true;
+                    trMinQty.Visible = false;
+                    trMaxQty.Visible = false;
+                }
 
             }
             else

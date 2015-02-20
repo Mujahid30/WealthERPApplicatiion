@@ -155,7 +155,7 @@
         <telerik:RadWindow ID="radAplicationPopUp" runat="server" VisibleOnPageLoad="false"
             Height="30%" Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false"
             Behaviors="Resize, Close, Move" Title="Add New Active Range">
-            <ContentTemplate>
+            <contenttemplate>
                 <div style="padding: 20px">
                     <table width="100%">
                         <tr>
@@ -279,13 +279,13 @@
                         </tr>
                     </table>
                 </div>
-            </ContentTemplate>
+            </contenttemplate>
         </telerik:RadWindow>
         <telerik:RadWindow ID="radIssuerPopUp" runat="server" VisibleOnPageLoad="false" Height="30%"
             Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
             Title="Add New Issuer" RestrictionZoneID="radWindowZone" OnClientShow="setCustomPosition"
             Top="10" Left="20">
-            <ContentTemplate>
+            <contenttemplate>
                 <div style="padding: 20px">
                     <table width="100%">
                         <tr>
@@ -402,7 +402,7 @@
                         </tr>
                     </table>
                 </div>
-            </ContentTemplate>
+            </contenttemplate>
         </telerik:RadWindow>
         <table width="100%" runat="server" id="tbIssue">
             <tr>
@@ -821,12 +821,12 @@
                     <telerik:RadDatePicker ID="txtOpenDate" CssClass="txtField" runat="server" Culture="English (United States)"
                         Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
                         TabIndex="17" Width="206px" AutoPostBack="true">
-                        <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                            Skin="Telerik" EnableEmbeddedSkins="false">
-                        </Calendar>
-                        <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                        <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                        </DateInput>
+                        <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
+                            skin="Telerik" enableembeddedskins="false">
+                        </calendar>
+                        <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                        <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
+                        </dateinput>
                     </telerik:RadDatePicker>
                     <span id="Span18" class="spnRequiredField">*</span>
                     <br />
@@ -845,12 +845,12 @@
                     <telerik:RadDatePicker ID="txtCloseDate" CssClass="txtField" runat="server" Culture="English (United States)"
                         Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
                         Width="206px" TabIndex="17">
-                        <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                            Skin="Telerik" EnableEmbeddedSkins="false">
-                        </Calendar>
-                        <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                        <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                        </DateInput>
+                        <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
+                            skin="Telerik" enableembeddedskins="false">
+                        </calendar>
+                        <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                        <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
+                        </dateinput>
                     </telerik:RadDatePicker>
                     <span id="Span19" class="spnRequiredField">*</span>
                     <br />
@@ -1100,6 +1100,48 @@
                     </asp:RegularExpressionValidator>
                 </td>
             </tr>
+            <tr runat="server" id="trAmount" visible="true" >
+                <td class="leftLabel">
+                    <asp:Label ID="lblMinAmt" runat="server" Text="Min Amount:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightData">
+                    <asp:TextBox ID="txtMinAmt" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
+                    <span id="Span30" class="spnRequiredField">*</span>
+                    <br />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator41" runat="server" CssClass="rfvPCG"
+                        ErrorMessage="Please Enter Min Qty" Display="Dynamic" ControlToValidate="txtMinAmt"
+                        InitialValue="" ValidationGroup="SetUpSubmit">
+                    </asp:RequiredFieldValidator>
+                     <asp:RegularExpressionValidator ID="RegularExpressionValidator19" ControlToValidate="txtMinAmt"
+                        runat="server" Display="Dynamic" ErrorMessage="Please Enter Numeric Value" CssClass="cvPCG"
+                        ValidationExpression="^[1-9]\d*(\.\d+)?$" ValidationGroup="txtMinAmt">     
+                    </asp:RegularExpressionValidator>
+                    <asp:CompareValidator ID="CompareValidator9" ControlToValidate="txtMinAmt" runat="server"
+                        ControlToCompare="txtMaxAmt" Display="Dynamic" ErrorMessage="<br/>Min Amount be Less Than Max Amount"
+                        Type="Double" Operator="LessThan" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
+                </td>
+                <td class="leftLabel">
+                    <asp:Label ID="lblMaxAmt" runat="server" Text="Max Amount:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td id="td9" runat="server" class="rightData">
+                    <asp:TextBox ID="txtMaxAmt" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
+                    <asp:Label ID="Label26" runat="server" CssClass="spnRequiredField" Text="*"></asp:Label></span>
+                    <br />
+                    
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator49" runat="server" CssClass="rfvPCG"
+                        ErrorMessage="Please Enter Max Qty" Display="Dynamic" ControlToValidate="txtMaxAmt"
+                        InitialValue="" ValidationGroup="SetUpSubmit" Visible="false">
+                    </asp:RequiredFieldValidator>
+                     <asp:RegularExpressionValidator ID="RegularExpressionValidator20" ControlToValidate="txtMaxAmt"
+                        runat="server" Display="Dynamic" ErrorMessage="Please Enter Numeric Value" CssClass="cvPCG"
+                        ValidationExpression="^[1-9]\d*(\.\d+)?$" ValidationGroup="txtMaxAmt">     
+                    </asp:RegularExpressionValidator>
+                    <asp:CompareValidator ID="CompareValidator12" ControlToValidate="txtMaxAmt" runat="server"
+                        ControlToCompare="txtMinAmt" Display="Dynamic" ErrorMessage="<br/>Max Amount be Greater Than Min Amount"
+                        Type="Double" Operator="GreaterThan" CssClass="cvPCG" ValidationGroup="SetUpSubmit"
+                        Visible="false"></asp:CompareValidator>
+                </td>
+            </tr>
             <tr runat="server" id="trMinQty" visible="true">
                 <td class="leftLabel" visible="false" id="tdlb1MinQty">
                     <asp:Label ID="lb1MinApplicationsize" runat="server" Text="Min Qty:" CssClass="FieldName"></asp:Label>
@@ -1243,12 +1285,12 @@
                     <telerik:RadDatePicker ID="txtRevisionDates" CssClass="txtField" runat="server" Culture="English (United States)"
                         Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
                         Width="208px" TabIndex="17">
-                        <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                            Skin="Telerik" EnableEmbeddedSkins="false">
-                        </Calendar>
-                        <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                        <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                        </DateInput>
+                        <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
+                            skin="Telerik" enableembeddedskins="false">
+                        </calendar>
+                        <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                        <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
+                        </dateinput>
                     </telerik:RadDatePicker>
                     <asp:CompareValidator ID="CmptxtRevisionDates1" ControlToValidate="txtRevisionDates"
                         runat="server" ControlToCompare="txtCloseDate" Display="Dynamic" ErrorMessage="<br/>Revision Date between open date and close date"
@@ -1264,12 +1306,12 @@
                     <telerik:RadDatePicker ID="txtAllotmentDate" CssClass="txtField" runat="server" Culture="English (United States)"
                         Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
                         Width="208px" TabIndex="17">
-                        <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                            Skin="Telerik" EnableEmbeddedSkins="false">
-                        </Calendar>
-                        <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                        <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                        </DateInput>
+                        <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
+                            skin="Telerik" enableembeddedskins="false">
+                        </calendar>
+                        <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                        <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
+                        </dateinput>
                     </telerik:RadDatePicker>
                     <asp:CompareValidator ID="cmp" ControlToValidate="txtAllotmentDate" runat="server"
                         ControlToCompare="txtCloseDate" Display="Dynamic" ErrorMessage="<br/>Allotment Date Should Be Greater Than Close Date"
@@ -1299,15 +1341,15 @@
                 <td id="tdBroker" runat="server">
                     <%--<asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField" Width="165px">
                     </asp:DropDownList>--%>
-                    <asp:LinkButton ID="lbBrokerCode" runat="server" Text="Click To Add Broker" OnClick="lbBrokerCode_OnClick" CssClass="LinkButtons"></asp:LinkButton>
+                    <asp:LinkButton ID="lbBrokerCode" runat="server" Text="Click To Add Broker" OnClick="lbBrokerCode_OnClick"
+                        CssClass="LinkButtons"></asp:LinkButton>
                     <span id="Span41" class="spnRequiredField">*</span>
                     <asp:ImageButton ID="ImagddlBrokerCode" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                         AlternateText="Add" runat="server" ToolTip="Click here to Add Broker" OnClick="ImagddlBrokerCode_Click"
                         Height="15px" Width="15px"></asp:ImageButton>
                     <br />
-                    <asp:Label ID="lblBrokerIds" runat="server" CssClass="FieldName" ></asp:Label>
+                    <asp:Label ID="lblBrokerIds" runat="server" CssClass="FieldName"></asp:Label>
                 </td>
-                
             </tr>
             <tr>
                 <%-- <td class="leftLabel">
@@ -1474,9 +1516,9 @@
                                         GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="false"
                                         ShowStatusBar="True" Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgEligibleInvestorCategories_OnNeedDataSource"
                                         OnItemCommand="rgEligibleInvestorCategories_ItemCommand" OnItemDataBound="rgEligibleInvestorCategories_ItemDataBound">
-                                        <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIIC_InvestorCatgeoryId"
-                                            AutoGenerateColumns="false" Width="100%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Create InvestorCategory"
-                                            CommandItemDisplay="Top">
+                                        <mastertableview allowmulticolumnsorting="True" allowsorting="true" datakeynames="AIM_IssueId,AIIC_InvestorCatgeoryId"
+                                            autogeneratecolumns="false" width="100%" editmode="PopUp" commanditemsettings-addnewrecordtext="Create InvestorCategory"
+                                            commanditemdisplay="Top">
                                             <Columns>
                                                 <telerik:GridTemplateColumn AllowFiltering="false">
                                                     <ItemTemplate>
@@ -1828,9 +1870,9 @@
                                                     </table>
                                                 </FormTemplate>
                                             </EditFormSettings>
-                                        </MasterTableView>
-                                        <ClientSettings>
-                                        </ClientSettings>
+                                        </mastertableview>
+                                        <clientsettings>
+                                        </clientsettings>
                                     </telerik:RadGrid>
                                 </td>
                             </tr>
@@ -1854,9 +1896,9 @@
                                         ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" OnItemDataBound="rgSeries_ItemDataBound"
                                         Skin="Telerik" AllowFilteringByColumn="True" OnNeedDataSource="rgSeries_OnNeedDataSource"
                                         OnItemCommand="rgSeries_ItemCommand" AllowPaging="false">
-                                        <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AID_IssueDetailId"
-                                            AutoGenerateColumns="false" Width="100%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Create New Series"
-                                            CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false">
+                                        <mastertableview allowmulticolumnsorting="True" allowsorting="true" datakeynames="AID_IssueDetailId"
+                                            autogeneratecolumns="false" width="100%" editmode="PopUp" commanditemsettings-addnewrecordtext="Create New Series"
+                                            commanditemdisplay="Top" commanditemsettings-showrefreshbutton="false">
                                             <%--   <CommandItemTemplate>
                                         <asp:LinkButton ID="LinkButton3" runat="server" Text="raj" CommandName='<%# rgSeries.MasterTableView.IsItemInserted %>'>
                                      Add this Customer</asp:LinkButton>
@@ -2265,7 +2307,7 @@
                                                     </table>
                                                 </FormTemplate>
                                             </EditFormSettings>
-                                        </MasterTableView>
+                                        </mastertableview>
                                     </telerik:RadGrid>
                                 </td>
                             </tr>
@@ -2544,11 +2586,11 @@
         </tr>
     </table>
 </asp:Panel>--%>
-<asp:HiddenField ID="hdnBrokerIds" runat="server" />
+        <asp:HiddenField ID="hdnBrokerIds" runat="server" />
         <telerik:RadWindow ID="RadRegister" runat="server" VisibleOnPageLoad="false" Height="30%"
             Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
             Title="Add New Register" RestrictionZoneID="radWindowZone">
-            <ContentTemplate>
+            <contenttemplate>
                 <table>
                     <tr>
                         <td align="right">
@@ -2565,12 +2607,12 @@
                         </td>
                     </tr>
                 </table>
-            </ContentTemplate>
+            </contenttemplate>
         </telerik:RadWindow>
         <telerik:RadWindow ID="RadSyndicate" runat="server" VisibleOnPageLoad="false" Height="30%"
             Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
             Title="Add New Syndicate" RestrictionZoneID="radWindowZone">
-            <ContentTemplate>
+            <contenttemplate>
                 <table>
                     <tr>
                         <td align="right">
@@ -2586,12 +2628,12 @@
                         </td>
                     </tr>
                 </table>
-            </ContentTemplate>
+            </contenttemplate>
         </telerik:RadWindow>
         <telerik:RadWindow ID="RadBroker" runat="server" VisibleOnPageLoad="false" Height="30%"
             Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
             Title="Add New Broker" RestrictionZoneID="radWindowZone">
-            <ContentTemplate>
+            <contenttemplate>
                 <table>
                     <tr>
                         <td align="right">
@@ -2626,12 +2668,12 @@
                         </td>
                     </tr>
                 </table>
-            </ContentTemplate>
+            </contenttemplate>
         </telerik:RadWindow>
         <telerik:RadWindow ID="RadIssueBroker" runat="server" VisibleOnPageLoad="false" Height="30%"
             Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
             Title="Select Broker For Issue" RestrictionZoneID="radWindowZone">
-            <ContentTemplate>
+            <contenttemplate>
             
                 <table  style="padding-left:80px;" >
                     <tr>
@@ -2652,7 +2694,7 @@
                     </tr>
                 </table>
                
-            </ContentTemplate>
+            </contenttemplate>
         </telerik:RadWindow>
     </ContentTemplate>
     <Triggers>
