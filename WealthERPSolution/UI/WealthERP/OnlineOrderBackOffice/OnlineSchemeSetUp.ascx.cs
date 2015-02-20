@@ -1117,7 +1117,7 @@ namespace WealthERP.OnlineOrderBackOffice
             txtRedemptionMultiplesUnits.Text = mfProductAMCSchemePlanDetailsVo.RedemptionMultiplesUnits.ToString();
             txtSwitchMultipleAmount.Text = mfProductAMCSchemePlanDetailsVo.SwitchMultipleAmount.ToString();
             txtSwitchMultipleUnits.Text = mfProductAMCSchemePlanDetailsVo.SwitchMultiplesUnits.ToString();
-            if (mfProductAMCSchemePlanDetailsVo.SecurityCode != "0")
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.SecurityCode))
                 txtSecuritycode.Text = mfProductAMCSchemePlanDetailsVo.SecurityCode.ToString();
             txtinvestment.Text = mfProductAMCSchemePlanDetailsVo.PASPD_MaxInvestment.ToString();
 
