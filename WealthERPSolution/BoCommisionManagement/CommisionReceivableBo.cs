@@ -19,9 +19,14 @@ namespace BoCommisionManagement
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
             DataSet dsLookupData;
+            DataTable dt;
             try
             {
                 dsLookupData = commisionReceivableDao.GetLookupDataForReceivableSetUP(adviserId, product);
+                //dt = dsLookupData.Tables[2];
+                //dt.Rows.Add("IN1", "Incentive Mobilised");
+                //dt.Rows.Add("IN2", "Incentive Special");
+                //dt.Rows.Add("IN3", "Incentive Adhoc");
 
             }
             catch (BaseApplicationException Ex)
@@ -143,13 +148,13 @@ namespace BoCommisionManagement
 
         }
 
-        public void CreateAdviserPayableRuleToAgentCategoryMapping(int StructureId, string userType, string Category,DataTable dtRuleMapping,string ruleId, out Int32 mappingId)
+        public void CreateAdviserPayableRuleToAgentCategoryMapping(int StructureId, string userType, string Category, DataTable dtRuleMapping, string ruleId, out Int32 mappingId)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
 
             try
             {
-                commisionReceivableDao.CreateAdviserPayableRuleToAgentCategoryMapping(StructureId, userType, Category, dtRuleMapping,ruleId, out   mappingId);
+                commisionReceivableDao.CreateAdviserPayableRuleToAgentCategoryMapping(StructureId, userType, Category, dtRuleMapping, ruleId, out   mappingId);
 
             }
             catch (BaseApplicationException Ex)
@@ -279,7 +284,7 @@ namespace BoCommisionManagement
             int ruleId = 0;
             try
             {
-               ruleId= commisionReceivableDao.CreateCommissionStructureRule(commissionStructureRuleVo, userId, ruleHash);
+                ruleId = commisionReceivableDao.CreateCommissionStructureRule(commissionStructureRuleVo, userId, ruleHash);
 
             }
             catch (BaseApplicationException Ex)
@@ -362,14 +367,14 @@ namespace BoCommisionManagement
             return result;
         }
 
-        public int IssueMappingDuplicateChecks(int issueId, DateTime validityStart, DateTime validityEnd, int structureId )
+        public int IssueMappingDuplicateChecks(int issueId, DateTime validityStart, DateTime validityEnd, int structureId)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
             int result = 0;
             try
             {
-                result = commisionReceivableDao.IssueMappingDuplicateChecks(issueId, validityStart, validityEnd, structureId );
-                
+                result = commisionReceivableDao.IssueMappingDuplicateChecks(issueId, validityStart, validityEnd, structureId);
+
 
             }
             catch (BaseApplicationException Ex)
@@ -429,13 +434,13 @@ namespace BoCommisionManagement
             return dsLookupData;
         }
 
-        public int CreateUpdateDeleteCommissionTypeBrokerage(int ruleId, int commissionType, string brokerageUnit, decimal brokeragageValue,string ruleName, string commandType, int RuleDetailsId, int structureRuleDetailsId)
+        public int CreateUpdateDeleteCommissionTypeBrokerage(int ruleId, int commissionType, string brokerageUnit, decimal brokeragageValue, string ruleName, string commandType, int RuleDetailsId, int structureRuleDetailsId, string BrokerIdentifier)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
 
             try
             {
-                return commisionReceivableDao.CreateUpdateDeleteCommissionTypeBrokerage(ruleId, commissionType, brokerageUnit, brokeragageValue,ruleName, commandType, RuleDetailsId, structureRuleDetailsId);
+                return commisionReceivableDao.CreateUpdateDeleteCommissionTypeBrokerage(ruleId, commissionType, brokerageUnit, brokeragageValue, ruleName, commandType, RuleDetailsId, structureRuleDetailsId, BrokerIdentifier);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1259,7 +1264,7 @@ namespace BoCommisionManagement
         }
         public DataTable GetMappedStructure(int ruleid)
         {
-           DataTable dt;
+            DataTable dt;
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
             try
             {
@@ -1284,6 +1289,38 @@ namespace BoCommisionManagement
                 throw Ex;
             }
             return dt;
+        }
+        public DataTable GetCategory(int IssueId)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            DataTable dtCategory;
+            try
+            {
+                dtCategory = commisionReceivableDao.GetCategory(IssueId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtCategory;
+
+        }
+        public DataTable GetSeriese(int issueId,int categoryId)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            DataTable dtSeriese;
+            try
+            {
+                dtSeriese = commisionReceivableDao.GetSeriese(issueId,categoryId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtSeriese;
+
         }
     }
 }

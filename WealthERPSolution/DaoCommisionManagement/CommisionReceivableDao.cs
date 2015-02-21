@@ -24,7 +24,7 @@ namespace DaoCommisionManagement
             Database db;
             DbCommand cmdGetLookupDataForReceivable;
             DataSet ds = null;
-
+           
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -33,6 +33,8 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdGetLookupDataForReceivable, "@Product", DbType.String, product);
 
                 ds = db.ExecuteDataSet(cmdGetLookupDataForReceivable);
+               
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -590,12 +592,16 @@ namespace DaoCommisionManagement
 
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@UsetId", DbType.Int32, userId);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_CommissionRuleHash", DbType.String, ruleHash);
-                db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_ReducedValue", DbType.Decimal, commissionStructureRuleVo.TaxValue);
-                db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_ServiceTaxValue", DbType.Decimal, commissionStructureRuleVo.TDSValue);
+                db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_ReducedValue", DbType.Decimal,commissionStructureRuleVo.TDSValue );
+                db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_ServiceTaxValue", DbType.Decimal, commissionStructureRuleVo.TaxValue);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@CommissionSubType", DbType.String, commissionStructureRuleVo.CommissionSubType);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@CO_ApplicationNo", DbType.String, commissionStructureRuleVo.applicationNo);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@RuleValidateFrom", DbType.DateTime, commissionStructureRuleVo.RuleValidateFrom);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@RuleValidateTo", DbType.DateTime, commissionStructureRuleVo.RuleValidateTo);
+                db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_Mode", DbType.String, commissionStructureRuleVo.mode);
+                db.AddInParameter(cmdCreateCommissionStructureRule, "@AID_IssueDetailId", DbType.Int32, commissionStructureRuleVo.series);
+                db.AddInParameter(cmdCreateCommissionStructureRule, "@AIIC_InvestorCatgeoryId", DbType.Int32, commissionStructureRuleVo.Category);
+                db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_EForm", DbType.Int32, commissionStructureRuleVo.eForm);
                 db.AddOutParameter(cmdCreateCommissionStructureRule, "@CommissionRuleId", DbType.Int32, 0);
                 ////db.ExecuteNonQuery(cmdCreateCommissionStructureRule);
                 if (db.ExecuteNonQuery(cmdCreateCommissionStructureRule) != 0)
@@ -694,7 +700,7 @@ namespace DaoCommisionManagement
             }
             return ds;
         }
-        public int CreateUpdateDeleteCommissionTypeBrokerage(int ruleId, int commissionType, string brokerageUnit, decimal brokeragageValue,string ruleName, string commandType,int RuleDetailsId, int structureRuleDetailsId)
+        public int CreateUpdateDeleteCommissionTypeBrokerage(int ruleId, int commissionType, string brokerageUnit, decimal brokeragageValue, string ruleName, string commandType, int RuleDetailsId, int structureRuleDetailsId, string BrokerIdentifier)
             //string issuerName, string commandType)
         {
            
@@ -713,7 +719,7 @@ namespace DaoCommisionManagement
                 db.AddInParameter(createCmd, "@RuleDetailsId", DbType.String, RuleDetailsId);
                 db.AddOutParameter(createCmd, "@structureRuleDetailsId", DbType.Int32, structureRuleDetailsId);
                 db.AddInParameter(createCmd, "@CSRD_RateName", DbType.String, ruleName);
-
+                db.AddInParameter(createCmd, "@XB_BrokerIdentifier", DbType.String, BrokerIdentifier);
                 
                 if (db.ExecuteNonQuery(createCmd) != 0)
                 {
@@ -1198,6 +1204,10 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@CO_ApplicationNo", DbType.String, commissionStructureRuleVo.applicationNo);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@RuleValidateFrom", DbType.DateTime, commissionStructureRuleVo.RuleValidateFrom);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@RuleValidateTo", DbType.DateTime, commissionStructureRuleVo.RuleValidateTo);
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_Mode", DbType.String, commissionStructureRuleVo.mode);
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@AID_IssueDetailId", DbType.Int32, commissionStructureRuleVo.series);
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@AIIC_InvestorCatgeoryId", DbType.Int32, commissionStructureRuleVo.Category);
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_EForm", DbType.Int32, commissionStructureRuleVo.eForm);
                 db.ExecuteNonQuery(cmdUpdateCommissionStructureRule);
 
             }
@@ -1860,6 +1870,47 @@ namespace DaoCommisionManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetIncentiveType = db.GetStoredProcCommand("SPROC_GetIncentiveType");
                 ds = db.ExecuteDataSet(cmdGetIncentiveType);
+                dt = ds.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dt;
+        }
+        public DataTable GetCategory(int IssueId)
+        {
+            Database db;
+            DbCommand cmdGetCategory;
+            DataSet ds = null;
+            DataTable dt;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetCategory = db.GetStoredProcCommand("SPROC_GetCategory");
+                db.AddInParameter(cmdGetCategory, "@issueId", DbType.Int32, IssueId);
+                ds = db.ExecuteDataSet(cmdGetCategory);
+                dt = ds.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dt;
+        }
+        public DataTable GetSeriese(int issueId,int categoryId)
+        {
+            Database db;
+            DbCommand cmdGetSeriese;
+            DataSet ds = null;
+            DataTable dt;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetSeriese = db.GetStoredProcCommand("SPROC_GetSerieseName");
+                db.AddInParameter(cmdGetSeriese, "@issueId", DbType.Int32, issueId);
+                db.AddInParameter(cmdGetSeriese, "@InvestorCatgeoryId", DbType.Int32, categoryId);
+                ds = db.ExecuteDataSet(cmdGetSeriese);
                 dt = ds.Tables[0];
             }
             catch (BaseApplicationException Ex)

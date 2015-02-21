@@ -23,8 +23,8 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.ScriptManager scrptMgr;
         protected global::Telerik.Web.UI.RadWindow RadWDCommissionTypeBrokerage;
         protected global::Telerik.Web.UI.RadGrid gvPayaMapping;
-
-        
+        protected global::System.Web.UI.WebControls.DropDownList ddlCategorys;
+        protected global::System.Web.UI.WebControls.DropDownList ddlBrokerCode;
         /// <summary>
         /// pnl1 control.
         /// </summary>
@@ -42,6 +42,16 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblCategory;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlCategorys;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblSerise;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlSeries;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblMode;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlMode;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblBrokerCode;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlBrokerCode;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlCategory;
+
         
         /// <summary>
         /// trStepOneHeading control.
@@ -102,6 +112,7 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCommissionype;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSeries;
         
         /// <summary>
         /// RequiredFieldValidator6 control.
@@ -890,8 +901,6 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label5;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblCategory;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlCategory;
 
         /// <summary>
         /// ddlMapping control.

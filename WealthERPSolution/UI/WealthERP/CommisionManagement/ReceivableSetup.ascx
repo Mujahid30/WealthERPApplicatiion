@@ -444,9 +444,9 @@
 <table width="100%">
     <tr>
         <td>
-            <telerik:RadWindow ID="RadWDCommissionTypeBrokerage" runat="server" VisibleOnPageLoad="false"
-                Height="30%" Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false"
-                Behaviors="Resize, Close, Move" Title="Add New Active Range">
+            <telerik:radwindow id="RadWDCommissionTypeBrokerage" runat="server" visibleonpageload="false"
+                height="30%" width="400px" modal="true" backcolor="#DADADA" visiblestatusbar="false"
+                behaviors="Resize, Close, Move" title="Add New Active Range">
                 <ContentTemplate>
                     <div style="padding: 20px">
                         <table width="100%">
@@ -564,7 +564,7 @@
                         </table>
                     </div>
                 </ContentTemplate>
-            </telerik:RadWindow>
+            </telerik:radwindow>
         </td>
     </tr>
 </table>
@@ -640,7 +640,7 @@
                     </td>
                     <td align="rightData" id="tdddlCategory" runat="server" visible="false">
                         <asp:DropDownList ID="ddlSubInstrCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
-                            Width="205px">
+                            Width="205px" OnSelectedIndexChanged="ddlSubInstrCategory_OnSelectedIndexChanged">
                         </asp:DropDownList>
                         <asp:Label ID="lblcategoryerror" runat="server" Text="*" Visible="false" CssClass="Error"></asp:Label><br />
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ErrorMessage="Please Select Category"
@@ -685,9 +685,9 @@
                     <td class="rightData">
                     </td>
                     <td rowspan="5" class="rightDataTwoColumn">
-                        <telerik:RadListBox ID="rlbAssetSubCategory" runat="server" CheckBoxes="true" CssClass="txtField"
-                            Width="220px" Height="200px">
-                        </telerik:RadListBox>
+                        <telerik:radlistbox id="rlbAssetSubCategory" runat="server" checkboxes="true" cssclass="txtField"
+                            width="220px" height="200px">
+                        </telerik:radlistbox>
                     </td>
                 </tr>
                 <tr>
@@ -697,12 +697,12 @@
                     <td class="rightData">
                         <asp:TextBox ID="txtValidityFrom" runat="server" CssClass="txtField"></asp:TextBox>
                         <span id="Span1" class="spnRequiredField">*</span>
-                        <cc1:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtValidityFrom"
-                            Format="dd/MM/yyyy">
-                        </cc1:CalendarExtender>
-                        <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtValidityFrom"
-                            WatermarkText="dd/mm/yyyy">
-                        </cc1:TextBoxWatermarkExtender>
+                        <cc1:calendarextender id="CalendarExtender2" runat="server" targetcontrolid="txtValidityFrom"
+                            format="dd/MM/yyyy">
+                        </cc1:calendarextender>
+                        <cc1:textboxwatermarkextender id="TextBoxWatermarkExtender2" runat="server" targetcontrolid="txtValidityFrom"
+                            watermarktext="dd/mm/yyyy">
+                        </cc1:textboxwatermarkextender>
                         <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br/>Please enter a valid date."
                             Type="Date" ControlToValidate="txtValidityFrom" CssClass="cvPCG" Operator="DataTypeCheck"
                             ValidationGroup="vgBtnSubmitTemp" ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
@@ -717,12 +717,12 @@
                     <td class="rightData">
                         <asp:TextBox ID="txtValidityTo" runat="server" CssClass="txtField"></asp:TextBox>
                         <span id="Span3" class="spnRequiredField">*</span>
-                        <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtValidityTo"
-                            Format="dd/MM/yyyy">
-                        </cc1:CalendarExtender>
-                        <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtValidityTo"
-                            WatermarkText="dd/mm/yyyy">
-                        </cc1:TextBoxWatermarkExtender>
+                        <cc1:calendarextender id="CalendarExtender1" runat="server" targetcontrolid="txtValidityTo"
+                            format="dd/MM/yyyy">
+                        </cc1:calendarextender>
+                        <cc1:textboxwatermarkextender id="TextBoxWatermarkExtender1" runat="server" targetcontrolid="txtValidityTo"
+                            watermarktext="dd/mm/yyyy">
+                        </cc1:textboxwatermarkextender>
                         <asp:CompareValidator ID="CVReceivedDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
                             Type="Date" ControlToValidate="txtValidityTo" CssClass="cvPCG" Operator="DataTypeCheck"
                             ValidationGroup="vgBtnSubmitTemp" ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
@@ -811,13 +811,13 @@
                             <table width="75%">
                                 <tr>
                                     <td>
-                                        <telerik:RadGrid ID="gvMappedSchemes" AllowSorting="false" runat="server" AllowAutomaticInserts="false"
-                                            AllowPaging="True" AutoGenerateColumns="False" AllowFilteringByColumn="true"
-                                            enableloadondemand="true" EnableEmbeddedSkins="false" GridLines="none" ShowFooter="true"
-                                            PagerStyle-AlwaysVisible="true" EnableViewState="true" ShowStatusBar="true" Skin="Telerik"
-                                            OnPageSizeChanged="gvMappedSchemes_PageSizeChanged" OnNeedDataSource="gvMappedSchemes_NeedDataSource"
-                                            OnItemCreated="gvMappedSchemes_OnItemCreated" OnPageIndexChanged="gvMappedSchemes_PageIndexChanged"
-                                            OnUpdateCommand="gvMappedSchemes_UpdateCommand" OnDeleteCommand="gvMappedSchemes_DeleteCommand">
+                                        <telerik:radgrid id="gvMappedSchemes" allowsorting="false" runat="server" allowautomaticinserts="false"
+                                            allowpaging="True" autogeneratecolumns="False" allowfilteringbycolumn="true"
+                                            enableloadondemand="true" enableembeddedskins="false" gridlines="none" showfooter="true"
+                                            pagerstyle-alwaysvisible="true" enableviewstate="true" showstatusbar="true" skin="Telerik"
+                                            onpagesizechanged="gvMappedSchemes_PageSizeChanged" onneeddatasource="gvMappedSchemes_NeedDataSource"
+                                            onitemcreated="gvMappedSchemes_OnItemCreated" onpageindexchanged="gvMappedSchemes_PageIndexChanged"
+                                            onupdatecommand="gvMappedSchemes_UpdateCommand" ondeletecommand="gvMappedSchemes_DeleteCommand">
                                             <HeaderContextMenu EnableEmbeddedSkins="False">
                                             </HeaderContextMenu>
                                             <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="MappedSchemes"
@@ -858,7 +858,7 @@
                                                 <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                                                 <Resizing AllowColumnResize="true" />
                                             </ClientSettings>
-                                        </telerik:RadGrid>
+                                        </telerik:radgrid>
                                     </td>
                                 </tr>
                             </table>
@@ -886,12 +886,12 @@
                             <asp:Label ID="lblPeriodStart" runat="server" CssClass="FieldName" Text="Available Between: "></asp:Label>
                         </td>
                         <td class="rightData">
-                            <telerik:RadDatePicker ID="rdpPeriodStart" runat="server">
-                            </telerik:RadDatePicker>
+                            <telerik:raddatepicker id="rdpPeriodStart" runat="server">
+                            </telerik:raddatepicker>
                         </td>
                         <td class="leftLabel">
-                            <telerik:RadDatePicker ID="rdpPeriodEnd" runat="server">
-                            </telerik:RadDatePicker>
+                            <telerik:raddatepicker id="rdpPeriodEnd" runat="server">
+                            </telerik:raddatepicker>
                         </td>
                         <td class="rightData">
                             <asp:Button ID="btn_GetAvailableSchemes" runat="server" Text="Schemes" CssClass="PCGButton"
@@ -953,17 +953,17 @@
                             &nbsp;
                         </td>
                         <td rowspan="2" class="rightData">
-                            <telerik:RadListBox SelectionMode="Multiple" EnableDragAndDrop="true" AllowTransferOnDoubleClick="true"
-                                AllowTransferDuplicates="false" EnableViewState="true" EnableMarkMatches="true"
-                                runat="server" ID="rlbAvailSchemes" Height="200px" Width="250px" AllowTransfer="true"
-                                TransferToID="rlbMappedSchemes" CssClass="cmbField">
+                            <telerik:radlistbox selectionmode="Multiple" enabledraganddrop="true" allowtransferondoubleclick="true"
+                                allowtransferduplicates="false" enableviewstate="true" enablemarkmatches="true"
+                                runat="server" id="rlbAvailSchemes" height="200px" width="250px" allowtransfer="true"
+                                transfertoid="rlbMappedSchemes" cssclass="cmbField">
                                 <ButtonSettings TransferButtons="All" />
-                            </telerik:RadListBox>
+                            </telerik:radlistbox>
                         </td>
                         <td rowspan="2" class="leftLabel">
-                            <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" SelectionMode="Multiple"
-                                ID="rlbMappedSchemes" Height="200px" Width="220px" CssClass="cmbField">
-                            </telerik:RadListBox>
+                            <telerik:radlistbox runat="server" autopostbackontransfer="true" selectionmode="Multiple"
+                                id="rlbMappedSchemes" height="200px" width="220px" cssclass="cmbField">
+                            </telerik:radlistbox>
                         </td>
                         <td>
                             &nbsp;
@@ -1002,12 +1002,12 @@
                             <asp:Label ID="lblMappedFrom" runat="server" CssClass="FieldName" Text="Mapping Period: "></asp:Label>
                         </td>
                         <td class="rightData">
-                            <telerik:RadDatePicker ID="rdpMappedFrom" runat="server">
-                            </telerik:RadDatePicker>
+                            <telerik:raddatepicker id="rdpMappedFrom" runat="server">
+                            </telerik:raddatepicker>
                         </td>
                         <td class="leftLabel">
-                            <telerik:RadDatePicker ID="rdpMappedTill" runat="server">
-                            </telerik:RadDatePicker>
+                            <telerik:raddatepicker id="rdpMappedTill" runat="server">
+                            </telerik:raddatepicker>
                         </td>
                         <td class="rightData">
                             <asp:Button ID="btnMapSchemes" CssClass="PCGButton" runat="server" Text="Map" OnClick="btnMapSchemes_Click" />
@@ -1093,15 +1093,15 @@
                                 <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text="Mapped AgentCodes">
                                 </asp:Label>
                                 <br />
-                                <telerik:RadListBox SelectionMode="Multiple" EnableDragAndDrop="true" AccessKey="y"
-                                    AllowTransferOnDoubleClick="true" AllowTransferDuplicates="false" EnableViewState="true"
-                                    EnableMarkMatches="true" runat="server" ID="LBAgentCodes" Height="200px" Width="250px"
-                                    AllowTransfer="true" TransferToID="RadListBoxSelectedAgentCodes" CssClass="cmbFielde"
-                                    Visible="true">
-                                </telerik:RadListBox>
-                                <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" SelectionMode="Multiple"
-                                    ID="RadListBoxSelectedAgentCodes" Height="200px" Width="220px" CssClass="cmbField">
-                                </telerik:RadListBox>
+                                <telerik:radlistbox selectionmode="Multiple" enabledraganddrop="true" accesskey="y"
+                                    allowtransferondoubleclick="true" allowtransferduplicates="false" enableviewstate="true"
+                                    enablemarkmatches="true" runat="server" id="LBAgentCodes" height="200px" width="250px"
+                                    allowtransfer="true" transfertoid="RadListBoxSelectedAgentCodes" cssclass="cmbFielde"
+                                    visible="true">
+                                </telerik:radlistbox>
+                                <telerik:radlistbox runat="server" autopostbackontransfer="true" selectionmode="Multiple"
+                                    id="RadListBoxSelectedAgentCodes" height="200px" width="220px" cssclass="cmbField">
+                                </telerik:radlistbox>
                             </asp:Panel>
                         </div>
                     </td>
@@ -1192,11 +1192,11 @@
                         </td>
                         <td>
                             <div id="dvIssueList" runat="server" style="width: auto;">
-                                <telerik:RadGrid ID="gvMappedIssueList" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" Skin="Telerik"
-                                    EnableEmbeddedSkins="false" Width="100%" AllowAutomaticInserts="false" ExportSettings-FileName="Issue List"
-                                    OnNeedDataSource="gvMappedIssueList_OnNeedDataSource" OnItemCommand="gvMappedIssueList_ItemCommand">
-                                    <MasterTableView Width="100%" AllowMultiColumnSorting="True" DataKeyNames="ACSTSM_SetupId"
+                                <telerik:radgrid id="gvMappedIssueList" runat="server" gridlines="None" autogeneratecolumns="False"
+                                    pagesize="10" allowsorting="true" allowpaging="True" showstatusbar="True" skin="Telerik"
+                                    enableembeddedskins="false" width="100%" allowautomaticinserts="false" exportsettings-filename="Issue List"
+                                    onneeddatasource="gvMappedIssueList_OnNeedDataSource" onitemcommand="gvMappedIssueList_ItemCommand">
+                                    <MasterTableView Width="100%" AllowMultiColumnSorting="True" DataKeyNames="ACSTSM_SetupId,AIM_IssueId"
                                         AutoGenerateColumns="false" CommandItemDisplay="None">
                                         <Columns>
                                             <telerik:GridButtonColumn CommandName="Delete" Text="Delete" ConfirmText="Do you want to delete this rule? Click OK to proceed"
@@ -1221,7 +1221,7 @@
                                             </telerik:GridBoundColumn>
                                         </Columns>
                                     </MasterTableView>
-                                </telerik:RadGrid>
+                                </telerik:radgrid>
                             </div>
                         </td>
                         <td>
@@ -1269,19 +1269,21 @@
                 <tr>
                     <td>
                         <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="82%" ScrollBars="Horizontal">
-                            <telerik:RadGrid ID="RadGridStructureRule" runat="server" CssClass="RadGrid" GridLines="Both"
-                                AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
-                                ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
-                                AllowAutomaticUpdates="false" Skin="Telerik" OnItemDataBound="RadGridStructureRule_ItemDataBound"
-                                OnNeedDataSource="RadGridStructureRule_NeedDataSource" OnInsertCommand="RadGridStructureRule_InsertCommand"
-                                OnItemCommand="RadGridStructureRule_ItemCommand" OnDeleteCommand="RadGridStructureRule_DeleteCommand"
-                                OnUpdateCommand="RadGridStructureRule_UpdateCommand" Width="90%" OnCancelCommand="RadGridStructureRule_OnCancelCommand">
+                            <telerik:radgrid id="RadGridStructureRule" runat="server" cssclass="RadGrid" gridlines="Both"
+                                allowpaging="True" pagesize="20" allowsorting="True" autogeneratecolumns="false"
+                                showstatusbar="true" allowautomaticdeletes="True" allowautomaticinserts="false"
+                                allowautomaticupdates="false" skin="Telerik" onitemdatabound="RadGridStructureRule_ItemDataBound"
+                                onneeddatasource="RadGridStructureRule_NeedDataSource" oninsertcommand="RadGridStructureRule_InsertCommand"
+                                onitemcommand="RadGridStructureRule_ItemCommand" ondeletecommand="RadGridStructureRule_DeleteCommand"
+                                onupdatecommand="RadGridStructureRule_UpdateCommand" width="98%" oncancelcommand="RadGridStructureRule_OnCancelCommand">
                                 <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="CommissionStructureRule">
                                 </ExportSettings>
                                 <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
                                     EditMode="EditForms" CommandItemSettings-AddNewRecordText="Add Rule" DataKeyNames="ACSR_CommissionStructureRuleName,ACSR_CommissionStructureRuleId,ACSR_MinTenure,WCT_CommissionTypeCode,XCT_CustomerTypeCode,ACSR_TenureUnit,
                                 ACSR_TransactionType,WCU_UnitCode,WCCO_CalculatedOnCode,ACSM_AUMFrequency,ACSR_MaxTenure,ACSR_SIPFrequency,ACG_CityGroupID,
-                                ACSR_ReceivableRuleFrequency,WCAL_ApplicableLevelCode,ACSR_IsServiceTaxReduced,ACSR_IsTDSReduced,ACSM_IsOtherTaxReduced,PaybleValue,PaybleUnit,RecievableValue,RecievableUnit,ACSR_ServiceTaxValue,ASCR_WCMV_IncentiveType,CO_ApplicationNo,ACSR_ValidilityStart,ACSR_ValidilityEnd">
+                                ACSR_ReceivableRuleFrequency,WCAL_ApplicableLevelCode,ACSR_IsServiceTaxReduced,ACSR_IsTDSReduced,ACSM_IsOtherTaxReduced,PaybleValue,PaybleUnit,RecievableValue,RecievableUnit,ACSR_ServiceTaxValue,ASCR_WCMV_IncentiveType,CO_ApplicationNo,ACSR_ValidilityStart,ACSR_ValidilityEnd
+                                ,AID_IssueDetailId,ACSR_Mode,AIIC_InvestorCatgeoryId,ACSR_EForm">
+                                
                                     <Columns>
                                         <telerik:GridEditCommandColumn EditText="Edit" UniqueName="Edit">
                                         </telerik:GridEditCommandColumn>
@@ -1344,9 +1346,7 @@
                                             DataField="ASCR_WCMV_IncentiveType" Visible="false">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="WCMV_Name" HeaderText="Incentive Type" DataField="WCMV_Name">
-                                            <HeaderStyle></HeaderStyle>
-                                        </telerik:GridBoundColumn>
+                                       
                                         <telerik:GridBoundColumn UniqueName="ACSR_MaxNumberOfApplications" HeaderText="Max. No. of App."
                                             DataField="ACSR_MaxNumberOfApplications">
                                             <HeaderStyle></HeaderStyle>
@@ -1397,99 +1397,169 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td class="leftLabel">
-                                                        <asp:Label ID="lb1RuleName" runat="server" Text="Rule Name" CssClass="FieldName"></asp:Label>
-                                                    </td>
-                                                    <td class="rightData" colspan="2">
-                                                        <asp:TextBox ID="TxtRuleName" runat="server" CssClass="txtField" Width="400px"></asp:TextBox>
-                                                        <span id="Span14" class="spnRequiredField" runat="server" visible="true">*</span>
-                                                        <asp:RequiredFieldValidator runat="server" ID="ReqRuleName" ValidationGroup="btnSubmitRule"
-                                                            Display="Dynamic" ControlToValidate="TxtRuleName" ErrorMessage="<br />Enter Rule Name"
-                                                            Text="" />
-                                                    </td>
-                                                    <%-- 
+                                               
+                                                            <tr>
+                                                                <td class="leftLabel">
+                                                                    <asp:Label ID="lb1RuleName" runat="server" Text="Rule:" CssClass="FieldName"></asp:Label>
+                                                                </td>
+                                                                <td class="rightData" colspan="2">
+                                                                    <asp:TextBox ID="TxtRuleName" runat="server" CssClass="txtField" Width="400px"></asp:TextBox>
+                                                                    <span id="Span14" class="spnRequiredField" runat="server" visible="true">*</span>
+                                                                    <asp:RequiredFieldValidator runat="server" ID="ReqRuleName" ValidationGroup="btnSubmitRule"
+                                                                        Display="Dynamic" ControlToValidate="TxtRuleName" ErrorMessage="<br />Enter Rule Name"
+                                                                        Text="" />
+                                                                </td>
+                                                                <%-- 
                                                         <asp:CheckBox ID="chkSpecial" runat="server" CssClass="cmbFielde" Text="Special Incentive"
                                                             Checked='<%# Eval("ACSR_IsSpecialIncentive") == DBNull.Value ? false : Convert.ToBoolean(Eval("ACSR_IsSpecialIncentive")) %>' />
                                                     </td>--%>
-                                                </tr>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="leftLabel">
+                                                                    <asp:Label ID="lblRuleStart" runat="server" CssClass="FieldName" Text="Validity Start:"></asp:Label>
+                                                                </td>
+                                                                <td class="rightData">
+                                                                    <asp:TextBox ID="txtRuleValidityFrom" runat="server" CssClass="txtField" Text='<% # (Eval("ACSR_ValidilityStart") != null && Eval("ACSR_ValidilityStart") is DateTime) ?Convert.ToDateTime(Eval("ACSR_ValidilityStart")) : (DateTime?)null%>'></asp:TextBox>
+                                                                    <span id="Span1" class="spnRequiredField">*</span>
+                                                                    <cc1:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtRuleValidityFrom"
+                                                                        Format="dd/MM/yyyy">
+                                                                    </cc1:CalendarExtender>
+                                                                    <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtRuleValidityFrom"
+                                                                        WatermarkText="dd/mm/yyyy">
+                                                                    </cc1:TextBoxWatermarkExtender>
+                                                                    <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br/>Please enter a valid date."
+                                                                        Type="Date" ControlToValidate="txtRuleValidityFrom" CssClass="cvPCG" Operator="DataTypeCheck"
+                                                                        ValidationGroup="vgBtnSubmitTemp" ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+                                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtRuleValidityFrom"
+                                                                        ErrorMessage="<br />Please enter a validity from Date" Display="Dynamic" CssClass="rfvPCG"
+                                                                        runat="server" InitialValue="">
+                                                                    </asp:RequiredFieldValidator>
+                                                                </td>
+                                                                <td class="leftLabel">
+                                                                    <asp:Label ID="lblValidityEnd" runat="server" CssClass="FieldName" Text="Validity End:"></asp:Label>
+                                                                </td>
+                                                                <td class="rightData">
+                                                                    <asp:TextBox ID="txtRuleValidityTo" runat="server" CssClass="txtField" Text='<%#(Eval("ACSR_ValidilityEnd") != null && Eval("ACSR_ValidilityEnd") is DateTime) ?Convert.ToDateTime(Eval("ACSR_ValidilityEnd")) : (DateTime?)null %>'></asp:TextBox>
+                                                                    <span id="Span3" class="spnRequiredField">*</span>
+                                                                    <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtRuleValidityTo"
+                                                                        Format="dd/MM/yyyy">
+                                                                    </cc1:CalendarExtender>
+                                                                    <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtRuleValidityTo"
+                                                                        WatermarkText="dd/mm/yyyy">
+                                                                    </cc1:TextBoxWatermarkExtender>
+                                                                    <asp:CompareValidator ID="CVReceivedDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
+                                                                        Type="Date" ControlToValidate="txtRuleValidityTo" CssClass="cvPCG" Operator="DataTypeCheck"
+                                                                        ValidationGroup="vgBtnSubmitTemp" ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+                                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtRuleValidityTo"
+                                                                        ErrorMessage="<br />Please enter a validity to Date" Display="Dynamic" CssClass="rfvPCG"
+                                                                        runat="server" InitialValue="">
+                                                                    </asp:RequiredFieldValidator>
+                                                                    <asp:CompareValidator ControlToCompare="txtRuleValidityFrom" ControlToValidate="txtRuleValidityTo"
+                                                                        Display="Dynamic" CssClass="rfvPCG" ValidationGroup="btnStrAddUpdate" ErrorMessage="The Validity To must be greater than or equal to Validity From"
+                                                                        ID="CompareValidator2" Operator="GreaterThanEqual" Type="Date" runat="server" />
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="leftLabel">
+                                                                    <asp:Label ID="lblCommissionType" runat="server" Text="Commission Type:" CssClass="FieldName"></asp:Label>
+                                                                </td>
+                                                                <td class="rightData">
+                                                                    <asp:DropDownList ID="ddlCommissionType" runat="server" CssClass="cmbField" AutoPostBack="true"
+                                                                        OnSelectedIndexChanged="ddlCommissionType_Selectedindexchanged">
+                                                                    </asp:DropDownList>
+                                                                    <span id="Span16" class="spnRequiredField">*</span>
+                                                                    <br />
+                                                                    <asp:RequiredFieldValidator runat="server" ID="rfvCommissionType" ValidationGroup="btnSubmitRule"
+                                                                        Display="Dynamic" ControlToValidate="ddlCommissionType" Visible="true" ErrorMessage="Please Select Commission Type"
+                                                                        InitialValue="0" />
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="leftLabel">
+                                                                    <asp:Label ID="lblInvestorType" runat="server" Text="Investor type:" CssClass="FieldName"></asp:Label>
+                                                                </td>
+                                                                <td class="rightData">
+                                                                    <asp:DropDownList ID="ddlInvestorType" runat="server" CssClass="cmbField">
+                                                                    </asp:DropDownList>
+                                                                </td>
+                                                            </tr>
+                                                            <tr id="trincentive" runat="server" visible="false">
+                                                                <td class="leftLabel">
+                                                                    <asp:Label ID="lblType" runat="server" CssClass="FieldName" Text="Commision Sub Type:"></asp:Label>
+                                                                </td>
+                                                                <td class="rightData">
+                                                                    <asp:DropDownList ID="ddlIncentiveType" runat="server" CssClass="cmbField"
+                                                                      >
+                                                                    </asp:DropDownList>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                            <td colspan="5">
+                                                            <table style=" border: 1px solid #6DBEE1;width:100%">
+                                                            <tr>
+                                                            <td align="right" style="width:17.5%;">
+                                                            <label class="FieldName">Applicable Parameter:</label>
+                                                            </td>
+                                                                <td colspan="2" style="width:21%">
+                                                                    <asp:CheckBox ID="chkCategory" runat="server" Text="Category" AutoPostBack="true"
+                                                                        CssClass="cmbFielde" OnCheckedChanged="chkCategory_OnCheckedChanged" />
+                                                                    <asp:CheckBox ID="chkSeries" runat="server" Text="Series" AutoPostBack="true" CssClass="cmbFielde"
+                                                                        OnCheckedChanged="chkSeries_OnCheckedChanged" />
+                                                                
+                                                                    <asp:CheckBox ID="chkMode" runat="server" Text="Mode" AutoPostBack="true" CssClass="cmbFielde"
+                                                                        OnCheckedChanged="chkMode_OnCheckedChanged" />
+                                                               
+                                                                    <asp:CheckBox ID="chkEForm" runat="server" Text="e-Form"  CssClass="cmbFielde"
+                                                                       Checked='<%# Eval("ACSR_EForm") == DBNull.Value ? false : Convert.ToBoolean(Eval("ACSR_EForm")) %>' />
+                                                                    </td>
+                                                                    <td>
+                                                                    <asp:CheckBoxList ID="chkListApplyTax" runat="server" CssClass="txtField" RepeatDirection="Horizontal"
+                                                                        AutoPostBack="true" OnSelectedIndexChanged="chkListApplyTax_CheckChanged" Width="150px">
+                                                                        <asp:ListItem Text="Service Tax" Value="ServiceTax"></asp:ListItem>
+                                                                        <asp:ListItem Text="TDS" Value="TDS"></asp:ListItem>
+                                                                    </asp:CheckBoxList>
+                                                                    <%-- <asp:CheckBoxList>
+                                                        <asp:CheckBox ID="chkServiceTax" runat="server" CssClass="txtField" OnCheckedChanged="chkListApplyTax_CheckChanged"
+                                                        AutoPostBack="true" />
+                                                        <asp:CheckBox ID="chkTDS" runat="server" CssClass="txtField" OnCheckedChanged="chkListApplyTax_CheckChanged"
+                                                        AutoPostBack="true" />--%>
+                                                                </td>
+                                                                 </tr>
+                                                                 </table>
+                                                            </td>
+                                                          </tr>  
+                                                       
+                                               
                                                 <tr>
-                                                    <td class="leftLabel">
-                                                        <asp:Label ID="lblRuleStart" runat="server" CssClass="FieldName" Text="Validity Start"></asp:Label>
+                                                    <td class="leftLabel" id="tdlblCategory" runat="server" visible="false">
+                                                        <asp:Label ID="lblCategory" runat="server" CssClass="FieldName" Text="Category:"></asp:Label>
                                                     </td>
-                                                    <td class="rightData">
-                                                        <asp:TextBox ID="txtRuleValidityFrom" runat="server" CssClass="txtField" Text='<% # (Eval("ACSR_ValidilityStart") != null && Eval("ACSR_ValidilityStart") is DateTime) ?Convert.ToDateTime(Eval("ACSR_ValidilityStart")) : (DateTime?)null%>'></asp:TextBox>
-                                                        <span id="Span1" class="spnRequiredField">*</span>
-                                                        <cc1:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtRuleValidityFrom"
-                                                            Format="dd/MM/yyyy">
-                                                        </cc1:CalendarExtender>
-                                                        <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtRuleValidityFrom"
-                                                            WatermarkText="dd/mm/yyyy">
-                                                        </cc1:TextBoxWatermarkExtender>
-                                                        <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br/>Please enter a valid date."
-                                                            Type="Date" ControlToValidate="txtRuleValidityFrom" CssClass="cvPCG" Operator="DataTypeCheck"
-                                                            ValidationGroup="vgBtnSubmitTemp" ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtRuleValidityFrom"
-                                                            ErrorMessage="<br />Please enter a validity from Date" Display="Dynamic" CssClass="rfvPCG"
-                                                            runat="server" InitialValue="">
-                                                        </asp:RequiredFieldValidator>
-                                                    </td>
-                                                    <td class="leftLabel">
-                                                        <asp:Label ID="lblValidityEnd" runat="server" CssClass="FieldName" Text="Validity End:"></asp:Label>
-                                                    </td>
-                                                    <td class="rightData">
-                                                        <asp:TextBox ID="txtRuleValidityTo" runat="server" CssClass="txtField" Text='<%#(Eval("ACSR_ValidilityEnd") != null && Eval("ACSR_ValidilityEnd") is DateTime) ?Convert.ToDateTime(Eval("ACSR_ValidilityEnd")) : (DateTime?)null %>'></asp:TextBox>
-                                                        <span id="Span3" class="spnRequiredField">*</span>
-                                                        <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtRuleValidityTo"
-                                                            Format="dd/MM/yyyy">
-                                                        </cc1:CalendarExtender>
-                                                        <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtRuleValidityTo"
-                                                            WatermarkText="dd/mm/yyyy">
-                                                        </cc1:TextBoxWatermarkExtender>
-                                                        <asp:CompareValidator ID="CVReceivedDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
-                                                            Type="Date" ControlToValidate="txtRuleValidityTo" CssClass="cvPCG" Operator="DataTypeCheck"
-                                                            ValidationGroup="vgBtnSubmitTemp" ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtRuleValidityTo"
-                                                            ErrorMessage="<br />Please enter a validity to Date" Display="Dynamic" CssClass="rfvPCG"
-                                                            runat="server" InitialValue="">
-                                                        </asp:RequiredFieldValidator>
-                                                        <asp:CompareValidator ControlToCompare="txtRuleValidityFrom" ControlToValidate="txtRuleValidityTo"
-                                                            Display="Dynamic" CssClass="rfvPCG" ValidationGroup="btnStrAddUpdate" ErrorMessage="The Validity To must be greater than or equal to Validity From"
-                                                            ID="CompareValidator2" Operator="GreaterThanEqual" Type="Date" runat="server" />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="leftLabel">
-                                                        <asp:Label ID="lblCommissionType" runat="server" Text="Commission Type:" CssClass="FieldName"></asp:Label>
-                                                    </td>
-                                                    <td class="rightData">
-                                                        <asp:DropDownList ID="ddlCommissionType" runat="server" CssClass="cmbField" AutoPostBack="true"
-                                                            OnSelectedIndexChanged="ddlCommissionType_Selectedindexchanged">
+                                                    <td class="rightData" id="tdddlCategorys" runat="server" visible="false">
+                                                        <asp:DropDownList ID="ddlCategorys" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlCategorys_OnSelectedIndexChanged"
+                                                            AutoPostBack="true">
                                                         </asp:DropDownList>
-                                                        <span id="Span12" class="spnRequiredField">*</span>
-                                                        <br />
-                                                        <asp:RequiredFieldValidator runat="server" ID="rfvCommissionType" ValidationGroup="btnSubmitRule"
-                                                            Display="Dynamic" ControlToValidate="ddlCommissionType" Visible="true" ErrorMessage="Please Select Commission Type"
-                                                            InitialValue="0" />
                                                     </td>
-                                                    <td class="leftLabel">
-                                                        <asp:Label ID="lblInvestorType" runat="server" Text="Investor type:" CssClass="FieldName"></asp:Label>
+                                                    <td class="leftLabel" id="tdlblSerise" runat="server" visible="false">
+                                                        <asp:Label ID="lblSerise" runat="server" CssClass="FieldName" Text="Serise:"></asp:Label>
                                                     </td>
-                                                    <td class="rightData">
-                                                        <asp:DropDownList ID="ddlInvestorType" runat="server" CssClass="cmbField">
+                                                    <td class="rightData" id="tdddlSeries" runat="server" visible="false">
+                                                        <asp:DropDownList ID="ddlSeries" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlSeries_OnSelectedIndexChanged"
+                                                            AutoPostBack="true">
                                                         </asp:DropDownList>
                                                     </td>
                                                 </tr>
-                                                <tr id="trincentive" runat="server" visible="false">
-                                                    <td class="leftLabel">
-                                                        <asp:Label ID="lblType" runat="server" CssClass="FieldName" Text="Commision Sub Type:"></asp:Label>
-                                                    </td>
-                                                    <td class="rightData">
-                                                        <asp:DropDownList ID="ddlIncentiveType" runat="server" CssClass="cmbField" AutoPostBack="true"
-                                                            OnSelectedIndexChanged="ddlInvestorType_OnSelectedIndexChanged">
-                                                        </asp:DropDownList>
-                                                    </td>
-                                                </tr>
+                                                 <tr>
+                                                                <td class="leftLabel" id="tdlblMode" runat="server" visible="false">
+                                                                    <asp:Label ID="lblMode" runat="server" CssClass="FieldName" Text="Select Mode:"></asp:Label>
+                                                                </td>
+                                                                <td class="rightData" id="tdddlMode" runat="server" visible="false">
+                                                                    <asp:DropDownList ID="ddlMode" runat="server" CssClass="cmbField">
+                                                                        <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
+                                                                        <asp:ListItem Text="Demat" Value="DMT"></asp:ListItem>
+                                                                        <asp:ListItem Text="Physical" Value="PHY"></asp:ListItem>
+                                                                    </asp:DropDownList>
+                                                                </td>
+                                                            </tr>
                                                 <tr>
                                                     <td class="leftLabel">
                                                         <asp:Label ID="lblAppCityGroup" runat="server" Text="App for city group:" CssClass="FieldName"></asp:Label>
@@ -1518,20 +1588,8 @@
                                                         <span id="Span9" class="spnRequiredField">*</span>
                                                     </td>
                                                     <td class="leftLabel">
-                                                        <asp:Label ID="lblApplyTaxes" runat="server" Text="Apply Taxes(%):" CssClass="FieldName"></asp:Label>
-                                                    </td>
-                                                    <td>
-                                                        <asp:CheckBoxList ID="chkListApplyTax" runat="server" CssClass="txtField" RepeatLayout="Flow"
-                                                            RepeatDirection="Vertical" AutoPostBack="true" OnSelectedIndexChanged="chkListApplyTax_CheckChanged"
-                                                            Width="100px">
-                                                            <asp:ListItem Text="Service Tax" Value="ServiceTax"></asp:ListItem>
-                                                            <asp:ListItem Text="TDS" Value="TDS"></asp:ListItem>
-                                                        </asp:CheckBoxList>
-                                                        <%-- <asp:CheckBoxList>
-                                                        <asp:CheckBox ID="chkServiceTax" runat="server" CssClass="txtField" OnCheckedChanged="chkListApplyTax_CheckChanged"
-                                                        AutoPostBack="true" />
-                                                        <asp:CheckBox ID="chkTDS" runat="server" CssClass="txtField" OnCheckedChanged="chkListApplyTax_CheckChanged"
-                                                        AutoPostBack="true" />--%>
+                                                        <asp:Label ID="lblApplyTaxes" runat="server" Text="Apply Taxes(%):" CssClass="FieldName"
+                                                            Visible="false"></asp:Label>
                                                     </td>
                                                     <td>
                                                         <table>
@@ -1539,7 +1597,7 @@
                                                                 <td>
                                                                     <asp:TextBox ID="txtTaxValue" Text='<%# Bind( "ACSR_ServiceTaxValue") %>' runat="server"
                                                                         CssClass="txtField" Visible="false"></asp:TextBox>
-                                                                    <cc1:TextBoxWatermarkExtender ID="twtxtTaxValue" TargetControlID="txtTaxValue" WatermarkText="Enter the Value"
+                                                                    <cc1:TextBoxWatermarkExtender ID="twtxtTaxValue" TargetControlID="txtTaxValue" WatermarkText="Enter Service Tax"
                                                                         runat="server" EnableViewState="false">
                                                                     </cc1:TextBoxWatermarkExtender>
                                                                 </td>
@@ -1548,7 +1606,7 @@
                                                                 <td>
                                                                     <asp:TextBox ID="txtTDS" Text='<%# Bind( "ACSR_ReducedValue") %>' runat="server"
                                                                         CssClass="txtField" Visible="false"></asp:TextBox>
-                                                                    <cc1:TextBoxWatermarkExtender ID="twttxtTDS" TargetControlID="txtTDS" WatermarkText="Enter the TDS"
+                                                                    <cc1:TextBoxWatermarkExtender ID="twttxtTDS" TargetControlID="txtTDS" WatermarkText="Enter  TDS Tax"
                                                                         runat="server" EnableViewState="false">
                                                                     </cc1:TextBoxWatermarkExtender>
                                                                 </td>
@@ -1726,7 +1784,7 @@
                                                         <asp:Button ID="btnSubmitRule" ValidationGroup="btnSubmitRule" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
                                                             CssClass="PCGButton" runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
                                                             CausesValidation="true"></asp:Button>&nbsp;
-                                                        <asp:Button ID="Button2" CssClass="PCGButton" Text="Cancel" runat="server" CausesValidation="false"
+                                                        <asp:Button ID="Button2" CssClass="PCGButton" Text="Close" runat="server" CausesValidation="false"
                                                             CommandName="Cancel"></asp:Button>
                                                     </td>
                                                 </tr>
@@ -1764,13 +1822,14 @@
                                                     <td colspan="2">
                                                         <telerik:RadGrid ID="rgCommissionTypeCaliculation" runat="server" AllowSorting="True"
                                                             enableloadondemand="True" PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
-                                                            GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="false"
-                                                            ShowStatusBar="True" Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgCommissionTypeCaliculation_OnNeedDataSource"
+                                                            GridLines="None" ShowFooter="false" PagerStyle-AlwaysVisible="true" AllowPaging="false"
+                                                            ShowStatusBar="True" Skin="Telerik" AllowFilteringByColumn="false" OnNeedDataSource="rgCommissionTypeCaliculation_OnNeedDataSource"
                                                             OnItemCommand="rgCommissionTypeCaliculation_ItemCommand" OnItemDataBound="rgCommissionTypeCaliculation_ItemDataBound"
                                                             Visible="false">
                                                             <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
                                                                 Width="100%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Add Rates"
-                                                                CommandItemDisplay="Top" DataKeyNames="CSRD_StructureRuleDetailsId" CommandItemSettings-ShowRefreshButton="false">
+                                                                CommandItemDisplay="Top" DataKeyNames="CSRD_StructureRuleDetailsId,XB_BrokerIdentifier"
+                                                                CommandItemSettings-ShowRefreshButton="false">
                                                                 <Columns>
                                                                     <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
                                                                         UpdateText="Update" HeaderStyle-Width="20px">
@@ -1784,6 +1843,12 @@
                                                                     <telerik:GridBoundColumn DataField="CSRD_RateName" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
                                                                         ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Rate Name" UniqueName="CSRD_RateName"
                                                                         SortExpression="CSRD_RateName" AllowFiltering="true">
+                                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                                    </telerik:GridBoundColumn>
+                                                                    <telerik:GridBoundColumn DataField="XB_BrokerShortName" HeaderStyle-Width="20px"
+                                                                        CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                                                        HeaderText="Broker" UniqueName="XB_BrokerShortName" SortExpression="XB_BrokerShortName"
+                                                                        AllowFiltering="true">
                                                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                     </telerik:GridBoundColumn>
                                                                     <telerik:GridBoundColumn DataField="ACSR_CommissionStructureRuleId" HeaderStyle-Width="20px"
@@ -1830,13 +1895,26 @@
                                                                                     <asp:Label ID="Label3" runat="server" Text="Commission Type:" CssClass="FieldName"></asp:Label>
                                                                                 </td>
                                                                                 <td class="rightData">
-                                                                                    <asp:DropDownList ID="ddlCommissionype" runat="server" CssClass="cmbField" AutoPostBack="true">
+                                                                                    <asp:DropDownList ID="ddlCommissionype" runat="server" CssClass="cmbField" AutoPostBack="true"
+                                                                                        OnSelectedIndexChanged="ddlCommissionype_OnSelectedIndexChanged">
                                                                                     </asp:DropDownList>
                                                                                     <br />
                                                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" CssClass="rfvPCG"
                                                                                         ErrorMessage="Please Select CommissionType" Display="Dynamic" ControlToValidate="ddlCommissionype"
                                                                                         InitialValue="Select" ValidationGroup="rgApllOk">
                                                                                     </asp:RequiredFieldValidator>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="leftLabel" id="tdlblBrokerCode" runat="server" visible="true">
+                                                                                    <asp:Label runat="server" ID="lblBrokerCode" CssClass="FieldName" Text="Broker:"></asp:Label>
+                                                                                </td>
+                                                                                <td class="rightData" id="tdddlBrokerCode" runat="server" visible="true">
+                                                                                    <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField">
+                                                                                    </asp:DropDownList>
+                                                                                    <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator13" ControlToValidate="ddlBrokerCode"
+                    ErrorMessage="<br />Please Select Broker" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                    ValidationGroup="btnSubmitAuthenticate" InitialValue=""></asp:RequiredFieldValidator>--%>
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
@@ -1861,6 +1939,10 @@
                                                                                 <td class="rightData">
                                                                                     <asp:DropDownList ID="ddlBrokerageUnit" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlBrokerageUnit_OnSelectedIndexChanged">
                                                                                     </asp:DropDownList>
+                                                                                    <span id="Span15" class="spnRequiredField" runat="server" visible="true">*</span>
+                                                                                    <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator11" ValidationGroup="rgApllOk"
+                                                                                        Display="Dynamic" ControlToValidate="ddlBrokerageUnit" ErrorMessage="<br />Brokerage Unit"
+                                                                                        InitialValue="0" />
                                                                                 </td>
                                                                                 <td class="leftLabel">
                                                                                 </td>
@@ -1905,10 +1987,7 @@
                                                     </td>--%>
                                                 <%--  </tr> --%>
                                             </table>
-                                        </FormTemplate>
-                                    </EditFormSettings>
-                                </MasterTableView>
-                            </telerik:RadGrid>
+            </FormTemplate> </EditFormSettings> </MasterTableView> </telerik:radgrid>
                         </asp:Panel>
                     </td>
                 </tr>
@@ -1934,12 +2013,12 @@
                 </tr>
                 <tr>
                     <td>
-                        <telerik:RadGrid ID="gvPayaMapping" AllowSorting="false" runat="server" AllowAutomaticInserts="false"
-                            AllowPaging="True" AutoGenerateColumns="False" AllowFilteringByColumn="true"
-                             EnableEmbeddedSkins="false" GridLines="none" ShowFooter="true"
-                            PagerStyle-AlwaysVisible="true" EnableViewState="true" ShowStatusBar="true" Skin="Telerik"
-                            OnNeedDataSource="gvPayaMapping_NeedDataSource" OnItemCommand="gvPayaMapping_ItemCommand" Visible="false">
-                            <HeaderContextMenu EnableEmbeddedSkins="False" >
+                        <telerik:radgrid id="gvPayaMapping" allowsorting="false" runat="server" allowautomaticinserts="false"
+                            allowpaging="True" autogeneratecolumns="False" allowfilteringbycolumn="true"
+                            enableembeddedskins="false" gridlines="none" showfooter="true" pagerstyle-alwaysvisible="true"
+                            enableviewstate="true" showstatusbar="true" skin="Telerik" onneeddatasource="gvPayaMapping_NeedDataSource"
+                            onitemcommand="gvPayaMapping_ItemCommand" visible="false">
+                            <HeaderContextMenu EnableEmbeddedSkins="False">
                             </HeaderContextMenu>
                             <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="PayableMapping"
                                 IgnorePaging="true">
@@ -2009,7 +2088,7 @@
                                 <Resizing AllowColumnResize="true" />
                             </ClientSettings>
                             <%--<FilterMenu EnableEmbeddedSkins="False"></FilterMenu>--%>
-                        </telerik:RadGrid>
+                        </telerik:radgrid>
                     </td>
                 </tr>
             </table>
@@ -2025,8 +2104,8 @@
                                 }  OnClientClick="Confirm();"
                             </script>--%>
             </td> </tr> </table>
-            <asp:Button ID="btnIssueMap" runat="server" CssClass="PCGButton" Text="Map" OnClick="Map_btnIssueMap"
-                OnClientClick="Confirm()" Visible="false" />
+            <asp:Button ID="btnIssueMap" runat="server" CssClass="PCGButton" Text="Map Associate"
+                OnClick="Map_btnIssueMap" OnClientClick="Confirm()" Visible="false" />
             <div>
                 <asp:HiddenField ID="hidCommissionStructureName" runat="server" />
                 <asp:HiddenField ID="hdnProductId" runat="server" />

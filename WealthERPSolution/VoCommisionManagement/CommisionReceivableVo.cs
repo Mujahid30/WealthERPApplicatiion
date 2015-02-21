@@ -95,6 +95,12 @@ namespace VoCommisionManagement
         public DateTime RuleValidateFrom { get; set; }
         public DateTime RuleValidateTo { get; set; }
         public string CommissionSubType { get; set; }
+        public string mode { get; set; }
+        public int Category { get; set; }
+        public int series { get; set; }
+        public Boolean eForm { get; set; }
+
+
     }
 
 
