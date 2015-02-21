@@ -2546,7 +2546,7 @@ namespace WealthERP.OffLineOrderManagement
                     BindgvFamilyAssociate(result);
                     GetDematAccountDetails(customerId);
                     tdDemate.Visible = false;
-                    chkDematId.f
+                   
                 }
                 catch (Exception ex)
                 {
