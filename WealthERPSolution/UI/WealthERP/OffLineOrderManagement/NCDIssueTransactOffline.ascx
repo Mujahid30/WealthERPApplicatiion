@@ -323,7 +323,8 @@
                         <asp:Label runat="server" ID="lblBrokerCode" CssClass="FieldName" Text="Select Broker:"></asp:Label>
                     </td>
                     <td class="rightField" style="width: 20%">
-                        <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField" TabIndex="1" ValidationGroup="ddlBrokerCode">
+                        <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField" TabIndex="1"
+                            ValidationGroup="ddlBrokerCode">
                         </asp:DropDownList>
                         <asp:RequiredFieldValidator ID="RFVBrokerCode" ControlToValidate="ddlBrokerCode"
                             ErrorMessage="<br />Please Select Broker" Display="Dynamic" runat="server" CssClass="rfvPCG"
@@ -659,6 +660,9 @@
                                     <td class="rightField" width="51%">
                                         <asp:TextBox ID="txtDpName" runat="server" CssClass="txtField" Width="250px"></asp:TextBox>
                                         <span id="Span25" class="spnRequiredField">*</span>
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtDpName"
+                                            ErrorMessage="</br>Dp Name Required" CssClass="cvPCG" ValidationGroup="btnsubmitdemate"
+                                            Display="Dynamic"></asp:RequiredFieldValidator>
                                     </td>
                                     <td class="leftField" style="width: 150px;">
                                         &nbsp;<asp:Label ID="lblDPId" runat="server" Text="DP Id:" CssClass="FieldName"></asp:Label>
@@ -669,7 +673,7 @@
                                 </tr>
                                 <tr>
                                     <td class="leftField">
-                                        <asp:Label ID="Label16" runat="server" Text="Beneficiary Acct No:" CssClass="FieldName"></asp:Label>
+                                        <asp:Label ID="Label16" runat="server" Text="Beneficiary Acct. No:" CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td class="rightField">
                                         <asp:TextBox ID="txtDpClientId" runat="server" CssClass="txtField"></asp:TextBox>
@@ -704,6 +708,9 @@
                                             <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                                             </DateInput>
                                         </telerik:RadDatePicker>--%>
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ControlToValidate="txtAccountOpeningDate"
+                                            ErrorMessage="</br>AccountOpeningDate Required" CssClass="cvPCG" ValidationGroup="btnsubmitdemate"
+                                            Display="Dynamic"></asp:RequiredFieldValidator>
                                         <asp:CompareValidator ID="CompareValidator6" runat="server" ControlToValidate="txtAccountOpeningDate"
                                             Type="Date" Operator="DataTypeCheck" ErrorMessage="Please Enter a Valid Date"
                                             Display="Dynamic" CssClass="cvPCG" ValidationGroup="btnsubmitdemate" />
@@ -790,7 +797,7 @@
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="false" CurrentFilterFunction="Contains"
                                             DataField="CEDA_DPClientId" FilterControlWidth="50px" HeaderStyle-Width="67px"
-                                            HeaderText="Beneficiary Acct No" ShowFilterIcon="false" SortExpression="CEDA_DPClientId"
+                                            HeaderText="Beneficiary Acct. No" ShowFilterIcon="false" SortExpression="CEDA_DPClientId"
                                             UniqueName="CEDA_DPClientId">
                                             <HeaderStyle Width="120px" />
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="100px" Wrap="false" />

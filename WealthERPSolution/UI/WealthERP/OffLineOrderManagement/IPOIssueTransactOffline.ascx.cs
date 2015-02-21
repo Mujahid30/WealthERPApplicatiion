@@ -1715,12 +1715,12 @@ namespace WealthERP.OffLineOrderManagement
             if (orderId != 0)
                 if (isCutOffTimeOver)
                 {
-                    userMessage = "Order placed successfully, Order reference no is " + orderId.ToString() + ", Order will process next business day.";
+                    userMessage = "Order placed successfully, Order reference no. is " + orderId.ToString() + ", Order will process next business day.";
                 }
                 else
                 {
 
-                    userMessage = "Order placed successfully, Order reference no is " + orderId.ToString();
+                    userMessage = "Order placed successfully, Order reference no. is " + orderId.ToString();
                 }
 
             return userMessage;
@@ -2499,6 +2499,7 @@ namespace WealthERP.OffLineOrderManagement
             txtDPId.Text = "";
             txtDpName.Text = "";
             txtAccountOpeningDate.Text = "";
+            ImageButton1.Focus();
         }
         protected void ddlModeOfHolding_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -2525,7 +2526,9 @@ namespace WealthERP.OffLineOrderManagement
                 {
 
                     if (!string.IsNullOrEmpty(accountopeningdate.Trim()))
-                        //GetcustomerDetails();
+                        //GridViewRow grdrow = (GridViewRow)((gvDematDetailsTeleR)sender).NamingContainer;
+                        //GridDataItem gvr in gvDematDetailsTeleR.MasterTableVie
+                        //CheckBox chkDematId=(CheckBox)gvr.FindControl("chkDematId");
                         hdnPortfolioId.Value = Convert.ToString(ViewState["PortfolioId"].ToString());
                         demataccountvo.AccountOpeningDate = DateTime.Parse(accountopeningdate);
                     demataccountvo.DpclientId = txtDpClientId.Text;
@@ -2543,6 +2546,7 @@ namespace WealthERP.OffLineOrderManagement
                     BindgvFamilyAssociate(result);
                     GetDematAccountDetails(customerId);
                     tdDemate.Visible = false;
+                    chkDematId.f
                 }
                 catch (Exception ex)
                 {

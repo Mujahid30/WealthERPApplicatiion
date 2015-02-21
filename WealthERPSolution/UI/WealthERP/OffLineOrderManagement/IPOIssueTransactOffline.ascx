@@ -21,6 +21,7 @@
         }
     });
 </script>
+
 <script type="text/javascript">
     function ValGroup() {
         var isValid = false;
@@ -30,7 +31,8 @@
         }
         return isValid;
     }
-    </script>
+</script>
+
 <script runat="server">
   
     protected void rbtnNo_Load(object sender, EventArgs e)
@@ -363,7 +365,7 @@
                     <td colspan="2" align="center">
                         <asp:Label ID="lblPANNotExist" runat="server" CssClass="cvPCG" ForeColor="Red"></asp:Label>
                         <asp:LinkButton ID="lnkAddcustomer" runat="server" CssClass="FieldName" Text="Add Customer"
-                            OnClick="lnkAddcustomer_OnClick"></asp:LinkButton>
+                            OnClick="lnkAddcustomer_OnClick" TabIndex="2"></asp:LinkButton>
                     </td>
                 </tr>
                 <tr id="trCustomerAdd" runat="server" visible="false">
@@ -375,16 +377,18 @@
                                 </td>
                                 <td>
                                     <asp:RadioButton ID="rbtnIndividual" runat="server" CssClass="txtField" Text="Individual"
-                                        GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnIndividual_CheckedChanged" />
+                                        GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnIndividual_CheckedChanged"
+                                        TabIndex="3" />
                                     &nbsp;&nbsp;
                                     <asp:RadioButton ID="rbtnNonIndividual" runat="server" CssClass="txtField" Text="Non Individual"
-                                        GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnNonIndividual_CheckedChanged" />
+                                        GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnNonIndividual_CheckedChanged"
+                                        TabIndex="4" />
                                 </td>
                                 <td>
                                     <asp:Label ID="lblCustomerSubType" runat="server" CssClass="FieldName" Text="Customer Sub Type:"></asp:Label>
                                 </td>
                                 <td>
-                                    <asp:DropDownList ID="ddlCustomerSubType" runat="server" CssClass="cmbField">
+                                    <asp:DropDownList ID="ddlCustomerSubType" runat="server" CssClass="cmbField" TabIndex="5">
                                     </asp:DropDownList>
                                     <span id="Span19" class="spnRequiredField">*</span> &nbsp;
                                     <br />
@@ -398,7 +402,8 @@
                                     <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Branch Name:"></asp:Label>
                                 </td>
                                 <td>
-                                    <asp:DropDownList ID="ddlAdviserBranchList" AutoPostBack="true" runat="server" CssClass="cmbField">
+                                    <asp:DropDownList ID="ddlAdviserBranchList" AutoPostBack="true" runat="server" CssClass="cmbField"
+                                        TabIndex="6">
                                     </asp:DropDownList>
                                     <span id="Span3" class="spnRequiredField">*</span>
                                     <br />
@@ -414,7 +419,7 @@
                                     <asp:Label ID="lblRMName" runat="server" CssClass="FieldName" Text="Select RM:"></asp:Label>
                                 </td>
                                 <td>
-                                    <asp:DropDownList ID="ddlAdviseRMList" runat="server" CssClass="cmbField">
+                                    <asp:DropDownList ID="ddlAdviseRMList" runat="server" CssClass="cmbField" TabIndex="7">
                                     </asp:DropDownList>
                                     <span id="Span8" class="spnRequiredField">*</span>
                                     <br />
@@ -429,10 +434,11 @@
                                     <asp:Label ID="lblPanNum" runat="server" CssClass="FieldName" Text="PAN:"></asp:Label>
                                 </td>
                                 <td class="rightField" width="51%">
-                                    <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
+                                    <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField" MaxLength="10"
+                                        TabIndex="8"></asp:TextBox>
                                     <span id="Span13" class="spnRequiredField">*</span> &nbsp;
                                     <asp:CheckBox ID="chkdummypan" runat="server" Visible="false" CssClass="txtField"
-                                        Text="Dummy PAN" AutoPostBack="true" />
+                                        Text="Dummy PAN" AutoPostBack="true" TabIndex="9" />
                                     <br />
                                     <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPanNumber" ErrorMessage="Please enter a PAN Number"
                                         Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="CustomerProfileSubmit">
@@ -450,7 +456,8 @@
                                                 <asp:Label ID="lblName" runat="server" CssClass="FieldName" Text="Name:"></asp:Label>
                                             </td>
                                             <td>
-                                                <asp:TextBox ID="txtFirstName" runat="server" MaxLength="75" CssClass="txtField"></asp:TextBox>
+                                                <asp:TextBox ID="txtFirstName" runat="server" MaxLength="75" CssClass="txtField"
+                                                    TabIndex="10"></asp:TextBox>
                                                 <span id="Span14" class="spnRequiredField">*</span>
                                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator12" ControlToValidate="txtFirstName"
                                                     ErrorMessage="<br />Please enter the First Name" Display="Dynamic" runat="server"
@@ -463,7 +470,7 @@
                                                 <asp:Label ID="lblCompanyName" runat="server" CssClass="FieldName" Text="Company Name:"></asp:Label>
                                             </td>
                                             <td>
-                                                <asp:TextBox ID="txtCompanyName" CssClass="txtField" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtCompanyName" CssClass="txtField" runat="server" TabIndex="11"></asp:TextBox>
                                                 <span id="Span15" class="spnRequiredField">*</span>
                                                 <br />
                                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator13" ControlToValidate="txtCompanyName"
@@ -484,7 +491,7 @@
                                 </td>
                                 <td>
                                     <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click"
-                                        CssClass="PCGMediumButton" ValidationGroup="CustomerProfileSubmit" />
+                                        CssClass="PCGMediumButton" ValidationGroup="CustomerProfileSubmit" TabIndex="12" />
                                 </td>
                             </tr>
                         </table>
@@ -548,7 +555,7 @@
                     <td class="rightField" style="width: 20%">
                         <asp:TextBox ID="txtAssociateSearch" onkeydown="return (event.keyCode!=13);" runat="server"
                             CssClass="txtField" AutoComplete="Off" OnTextChanged="OnAssociateTextchanged"
-                            AutoPostBack="True" TabIndex="2">
+                            AutoPostBack="True" TabIndex="13">
                         </asp:TextBox><span id="Span7" class="spnRequiredField">*</span>
                         <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" TargetControlID="txtAssociateSearch"
                             WatermarkText="Enter few chars of Agent code" runat="server" EnableViewState="false">
@@ -576,7 +583,7 @@
                     </td>
                     <td visible="false">
                         <asp:DropDownList ID="ddlTax" runat="server" CssClass="cmbField" AutoPostBack="true"
-                            TabIndex="6">
+                            TabIndex="14">
                         </asp:DropDownList>
                         <%--<asp:TextBox ID="txtTax" runat="server" CssClass="txtField" AutoComplete="Off" ReadOnly="true"   />  --%>
                     </td>
@@ -600,12 +607,12 @@
                     </td>
                     <td class="rightField" style="width: 20%">
                         <asp:DropDownList ID="ddlCustomerISAAccount" runat="server" CssClass="cmbField" AutoPostBack="true"
-                            OnSelectedIndexChanged="ddlCustomerISAAccount_SelectedIndexChanged">
+                            OnSelectedIndexChanged="ddlCustomerISAAccount_SelectedIndexChanged" TabIndex="15">
                         </asp:DropDownList>
                         &nbsp
                         <asp:ImageButton ID="btnIsa" ImageUrl="~/App_Themes/Maroon/Images/user_add.png" AlternateText="Add"
                             runat="server" ToolTip="Click here to Request ISA" OnClick="ISA_Onclick" Height="15px"
-                            Width="15px"></asp:ImageButton>
+                            Width="15px" TabIndex="16"></asp:ImageButton>
                     </td>
                 </tr>
                 <tr>
@@ -626,12 +633,12 @@
                     <tr id="tdlnkbtn" runat="server">
                         <td class="leftField" style="width: 20%; visibility: hidden;">
                             <asp:LinkButton ID="lnkBtnDemat" runat="server" OnClick="lnkBtnDemat_onClick" CssClass="LinkButtons"
-                                Text="Click to select Demat Details" CausesValidation="false"></asp:LinkButton>
+                                Text="Click to select Demat Details" CausesValidation="false" TabIndex="17"></asp:LinkButton>
                         </td>
                         <td id="Td5" class="rightField" style="width: 20%" colspan="2">
                             <asp:ImageButton ID="ImageButton1" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                                 AlternateText="Add Demat Account" runat="server" ToolTip="Click here to Add Demat Account"
-                                OnClick="ImageButton1_OnClick" Height="15px" Width="15px" TabIndex="3" CausesValidation="false">
+                                OnClick="ImageButton1_OnClick" Height="15px" Width="15px" TabIndex="18" CausesValidation="false">
                             </asp:ImageButton>
                         </td>
                     </tr>
@@ -643,28 +650,31 @@
                                         <asp:Label ID="lblDpName" runat="server" Text="DP Name:" CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td class="rightField" width="51%">
-                                        <asp:TextBox ID="txtDpName" runat="server" CssClass="txtField" Width="250px"></asp:TextBox>
+                                        <asp:TextBox ID="txtDpName" runat="server" CssClass="txtField" Width="250px" TabIndex="19"></asp:TextBox>
                                         <span id="Span16" class="spnRequiredField">*</span>
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtDpName"
+                                            ErrorMessage="</br>Dp Name Required" CssClass="cvPCG" ValidationGroup="btnsubmitdemate"
+                                            Display="Dynamic"></asp:RequiredFieldValidator>
                                     </td>
                                     <td class="leftField" style="width: 150px;">
                                         &nbsp;<asp:Label ID="lblDPId" runat="server" Text="DP Id:" CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td class="rightField">
-                                        <asp:TextBox ID="txtDPId" runat="server" CssClass="txtField"></asp:TextBox>
+                                        <asp:TextBox ID="txtDPId" runat="server" CssClass="txtField" TabIndex="20"></asp:TextBox>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="leftField">
-                                        <asp:Label ID="Label4" runat="server" Text="Beneficiary Acct No:" CssClass="FieldName"></asp:Label>
+                                        <asp:Label ID="Label4" runat="server" Text="Beneficiary Acct. No:" CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td class="rightField">
-                                        <asp:TextBox ID="txtDpClientId" runat="server" CssClass="txtField"></asp:TextBox>
+                                        <asp:TextBox ID="txtDpClientId" runat="server" CssClass="txtField" TabIndex="21"></asp:TextBox>
                                         <span id="Span17" class="spnRequiredField">*</span>
                                         <asp:RegularExpressionValidator ID="rev" runat="server" ControlToValidate="txtDpClientId"
                                             ValidationGroup="btnsubmit" ErrorMessage="Special Character are not allowed!"
                                             CssClass="cvPCG" Display="Dynamic" ValidationExpression="^[a-zA-Z0-9]+(?:--?[a-zA-Z0-9]+)*$" />
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator14" runat="server" ControlToValidate="txtDpClientId"
-                                            ErrorMessage="Client Id Required" CssClass="cvPCG" ValidationGroup="btnsubmitdemate"
+                                            ErrorMessage="</br>Client Id Required" CssClass="cvPCG" ValidationGroup="btnsubmitdemate"
                                             Display="Dynamic"></asp:RequiredFieldValidator>
                                     </td>
                                     <td class="leftField">
@@ -672,7 +682,7 @@
                                             CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td class="rightField">
-                                        <asp:TextBox ID="txtAccountOpeningDate" runat="server" CssClass="txtField"></asp:TextBox>
+                                        <asp:TextBox ID="txtAccountOpeningDate" runat="server" CssClass="txtField" TabIndex="22"></asp:TextBox>
                                         <span id="Span20" class="spnRequiredField">*</span>
                                         <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtAccountOpeningDate"
                                             Format="dd/MM/yyyy">
@@ -690,6 +700,9 @@
                                             <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                                             </DateInput>
                                         </telerik:RadDatePicker>--%>
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtAccountOpeningDate"
+                                            ErrorMessage="</br>AccountOpeningDate Required" CssClass="cvPCG" ValidationGroup="btnsubmitdemate"
+                                            Display="Dynamic"></asp:RequiredFieldValidator>
                                         <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="txtAccountOpeningDate"
                                             Type="Date" Operator="DataTypeCheck" ErrorMessage="Please Enter a Valid Date"
                                             Display="Dynamic" CssClass="cvPCG" ValidationGroup="btnsubmitdemate" />
@@ -701,17 +714,18 @@
                                     </td>
                                     <td class="rightField">
                                         <asp:RadioButton ID="rbtnYes" runat="server" Text="Yes" GroupName="IsHeldJointly"
-                                            CssClass="txtField" AutoPostBack="True" OnCheckedChanged="RadioButton_CheckChanged" />
+                                            CssClass="txtField" AutoPostBack="True" OnCheckedChanged="RadioButton_CheckChanged"
+                                            TabIndex="23" />
                                         <asp:RadioButton ID="rbtnNo" runat="server" Text="No" GroupName="IsHeldJointly" CssClass="txtField"
                                             AutoPostBack="True" OnCheckedChanged="rbtnNo_CheckChanged" OnLoad="rbtnNo_Load"
-                                            Checked="true" />
+                                            Checked="true" TabIndex="24" />
                                     </td>
                                     <td class="leftField">
                                         &nbsp;<asp:Label ID="lblDepositoryName" runat="server" Text="Depository Name:" CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td class="rightField">
                                         <asp:DropDownList ID="ddlDepositoryName" runat="server" CssClass="cmbField" AutoPostBack="true"
-                                            OnSelectedIndexChanged="ddlDepositoryName_SelectedIndexChanged">
+                                            OnSelectedIndexChanged="ddlDepositoryName_SelectedIndexChanged" TabIndex="25">
                                         </asp:DropDownList>
                                         <span id="Span18" class="spnRequiredField">*</span>
                                         <br />
@@ -727,14 +741,14 @@
                                     </td>
                                     <td class="rightField">
                                         <asp:DropDownList ID="ddlModeOfHolding" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlModeOfHolding_SelectedIndexChanged"
-                                            CssClass="cmbField">
+                                            CssClass="cmbField" TabIndex="26">
                                         </asp:DropDownList>
                                     </td>
                                     <td>
                                     </td>
                                     <td class="rightField">
                                         <asp:Button ID="btnDemateDetails" runat="server" Text="Submit" OnClick="DematebtnSubmit_Click"
-                                            ValidationGroup="btnsubmitdemate" CssClass="PCGMediumButton" />
+                                            ValidationGroup="btnsubmitdemate" CssClass="PCGMediumButton" TabIndex="27" />
                                     </td>
                                 </tr>
                             </table>
@@ -758,7 +772,7 @@
                                                 UniqueName="Action">
                                                 <ItemTemplate>
                                                     <asp:CheckBox ID="chkDematId" runat="server" OnCheckedChanged="btnAddDemat_Click"
-                                                        AutoPostBack="true" />
+                                                        AutoPostBack="true" TabIndex="28" />
                                                 </ItemTemplate>
                                             </telerik:GridTemplateColumn>
                                             <telerik:GridBoundColumn AllowFiltering="false" CurrentFilterFunction="Contains"
@@ -774,7 +788,7 @@
                                                 <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="67px" Wrap="false" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn AllowFiltering="true" CurrentFilterFunction="Contains" DataField="CEDA_DPClientId"
-                                                FilterControlWidth="50px" HeaderStyle-Width="67px" HeaderText="Beneficiary Acct No"
+                                                FilterControlWidth="50px" HeaderStyle-Width="67px" HeaderText="Beneficiary Acct. No."
                                                 ShowFilterIcon="false" SortExpression="CEDA_DPClientId" UniqueName="CEDA_DPClientId">
                                                 <HeaderStyle Width="120px" />
                                                 <ItemStyle HorizontalAlign="left" VerticalAlign="top" Width="100px" Wrap="false" />
@@ -907,7 +921,7 @@
                         </td>
                         <td class="rightField" colspan="5" style="width: 20%">
                             <asp:DropDownList ID="ddlIssueList" runat="server" AutoPostBack="true" CssClass="cmbExtraLongField"
-                                OnSelectedIndexChanged="ddlIssueList_OnSelectedIndexChanged" TabIndex="3">
+                                OnSelectedIndexChanged="ddlIssueList_OnSelectedIndexChanged">
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rfvIssueList" runat="server" ControlToValidate="ddlIssueList"
                                 ErrorMessage="</br>Please select the Issue Name" CssClass="rfvPCG" Display="Dynamic"
@@ -920,8 +934,7 @@
                         </td>
                         <td class="rightField" style="width: 20%">
                             <asp:TextBox ID="txtApplicationNo" MaxLength="9" onkeydown="return (event.keyCode!=13);"
-                                runat="server" CssClass="txtField" OnKeypress="javascript:return isNumberKey(event);"
-                                TabIndex="4"></asp:TextBox>
+                                runat="server" CssClass="txtField" OnKeypress="javascript:return isNumberKey(event);"></asp:TextBox>
                             <span id="Span2" class="spnRequiredField">*</span>
                             <asp:RegularExpressionValidator ID="revPan" runat="server" Display="Dynamic" ValidationGroup="btnConfirmOrder"
                                 ErrorMessage="<br/>Please Enter Numeric" ControlToValidate="txtApplicationNo"
@@ -999,7 +1012,7 @@
                         </td>
                         <td class="rightField" style="width: 20%">
                             <asp:DropDownList ID="ddlPaymentMode" runat="server" AutoPostBack="true" CssClass="cmbField"
-                                OnSelectedIndexChanged="ddlPaymentMode_SelectedIndexChanged" TabIndex="5" Width="185">
+                                OnSelectedIndexChanged="ddlPaymentMode_SelectedIndexChanged" Width="185">
                                 <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
                                 <asp:ListItem Text="Cheque/Demand Draft" Value="CQ"></asp:ListItem>
                                 <asp:ListItem Text="ASBA" Value="ES"></asp:ListItem>
@@ -1014,7 +1027,7 @@
                         </td>
                         <td id="Td4" class="rightField" style="width: 20%" runat="server" visible="false">
                             <asp:TextBox ID="txtBankAccount" runat="server" CssClass="txtField" onkeydown="return (event.keyCode!=13);"
-                                OnKeypress="javascript:return isNumberKey(event);" MaxLength="9" TabIndex="6"></asp:TextBox>
+                                OnKeypress="javascript:return isNumberKey(event);" MaxLength="9"></asp:TextBox>
                         </td>
                     </tr>
                     <tr id="trPINo" runat="server" visible="false">
@@ -1024,7 +1037,7 @@
                         </td>
                         <td class="rightField" style="width: 20%">
                             <asp:TextBox ID="txtPaymentNumber" onkeydown="return (event.keyCode!=13);" OnKeypress="javascript:return isNumberKey(event);"
-                                runat="server" MaxLength="6" CssClass="txtField" TabIndex="7"></asp:TextBox>
+                                runat="server" MaxLength="6" CssClass="txtField"></asp:TextBox>
                             <span id="Span12" class="spnRequiredField">*</span>
                             <asp:RegularExpressionValidator ID="revtxtPaymentNumber" runat="server" Display="Dynamic"
                                 ValidationGroup="btnConfirmOrder" ErrorMessage="<br/>Please Enter Numeric" ControlToValidate="txtPaymentNumber"
@@ -1041,7 +1054,7 @@
                             <telerik:RadDatePicker ID="txtPaymentInstDate" onkeydown="return (event.keyCode!=13);"
                                 CssClass="txtField" runat="server" Culture="English (United States)" Skin="Telerik"
                                 AutoPostBack="true" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
-                                TabIndex="8" OnSelectedDateChanged="txtPaymentInstDate_OnSelectedDateChanged">
+                                OnSelectedDateChanged="txtPaymentInstDate_OnSelectedDateChanged">
                                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                     Skin="Telerik" EnableEmbeddedSkins="false">
                                 </Calendar>
@@ -1064,7 +1077,7 @@
                         </td>
                         <td class="rightField" style="width: 20%">
                             <asp:TextBox ID="txtASBANO" onkeydown="return (event.keyCode!=13);" runat="server"
-                                MaxLength="16" CssClass="txtField" TabIndex="9"></asp:TextBox>
+                                MaxLength="16" CssClass="txtField"></asp:TextBox>
                             <span id="Span5" class="spnRequiredField">*</span>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="txtASBANO"
                                 ErrorMessage="<br />Please Enter Account No." Display="Dynamic" runat="server"
@@ -1075,7 +1088,7 @@
                         </td>
                         <td class="rightField" style="width: 20%">
                             <asp:TextBox ID="txtASBALocation" onkeydown="return (event.keyCode!=13);" runat="server"
-                                CssClass="txtField" AutoComplete="Off" AutoPostBack="True" TabIndex="10" OnTextChanged="txtASBALocation_OnTextChanged">
+                                CssClass="txtField" AutoComplete="Off" AutoPostBack="True" OnTextChanged="txtASBALocation_OnTextChanged">
                             </asp:TextBox><span id="Span6" class="spnRequiredField">*</span>
                             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" TargetControlID="txtASBALocation"
                                 WatermarkText="Enter few chars of Location" runat="server" EnableViewState="false">
@@ -1097,7 +1110,7 @@
                         </td>
                         <td class="rightField" style="width: 20%">
                             <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="false"
-                                AppendDataBoundItems="true" TabIndex="11" Width="380px">
+                                AppendDataBoundItems="true" Width="380px">
                             </asp:DropDownList>
                             <span id="Span4" class="spnRequiredField">*</span>
                             <asp:ImageButton ID="imgAddBank" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
@@ -1121,7 +1134,7 @@
                         </td>
                         <td class="rightField" style="width: 20%" id="tdBankBranch">
                             <asp:TextBox ID="txtBranchName" onkeydown="return (event.keyCode!=13);" runat="server"
-                                CssClass="txtField" Visible="false" TabIndex="12"></asp:TextBox>
+                                CssClass="txtField" Visible="false"></asp:TextBox>
                             <%--<span id="Span3" class="spnRequiredField" visible="false">*</span>--%>
                             <asp:Label ID="lblBankBranchName" runat="server" Text="*" class="spnRequiredField"
                                 Visible="false"></asp:Label>
@@ -1392,24 +1405,22 @@
                         </td>
                         <td class="rightField" style="width: 25%">
                             <asp:TextBox ID="txtRemarks" Width="400px" TextMode="MultiLine" MaxLength="300" Height="40px"
-                                onkeydown="return (event.keyCode!=13);" runat="server" CssClass="txtField" TabIndex="15"></asp:TextBox>
+                                onkeydown="return (event.keyCode!=13);" runat="server" CssClass="txtField"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="leftField">
                             <asp:Button ID="btnConfirmOrder" runat="server" Text="Submit Order" OnClick="btnConfirmOrder_Click"
-                                CssClass="PCGMediumButton" ValidationGroup="btnConfirmOrder, btnTC" OnClientClick="javascript: return  PreventClicks(); Validate();"
-                                TabIndex="16" />
+                                CssClass="PCGMediumButton" ValidationGroup="btnConfirmOrder, btnTC" OnClientClick="javascript: return  PreventClicks(); Validate();" />
                         </td>
                         <td class="rightField">
                             <asp:Button ID="btnAddMore" runat="server" Text="Add More IPO Order" CssClass="PCGMediumButton"
-                                ValidationGroup="btnConfirmOrder" OnClientClick="return  PreventClicks();" OnClick="btnAddMore_Click"
-                                TabIndex="17" />
+                                ValidationGroup="btnConfirmOrder" OnClientClick="return  PreventClicks();" OnClick="btnAddMore_Click" />
                         </td>
                         <td>
                             <asp:Button ID="btnUpdate" runat="server" Text="Update" OnClick="btnUpdate_OnClick"
                                 CssClass="PCGButton" Visible="false" ValidationGroup="btnConfirmOrder,ddlBrokerCode"
-                                TabIndex="18" OnClientClick="javascript: return  ValGroup();" />
+                                OnClientClick="javascript: return  ValGroup();" />
                         </td>
                     </tr>
                 </table>
