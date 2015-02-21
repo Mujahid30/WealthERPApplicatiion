@@ -779,6 +779,7 @@ namespace WealthERP.OffLineOrderManagement
             hdnCustomerId.Value = txtCustomerId.Value;
             lblgetcust.Text = customerVo.FirstName + ' ' + customerVo.MiddleName + ' ' + customerVo.LastName;
             hdnPortfolioId.Value = customerPortfolioVo.PortfolioId.ToString();
+            ViewState["PortfolioId"] = customerPortfolioVo.PortfolioId.ToString();
             customerId = int.Parse(txtCustomerId.Value);
             //if (ddlsearch.SelectedItem.Value == "2")
             txtPansearch.Text = customerVo.PANNum;
@@ -2524,7 +2525,8 @@ namespace WealthERP.OffLineOrderManagement
                 {
 
                     if (!string.IsNullOrEmpty(accountopeningdate.Trim()))
-                        GetcustomerDetails();
+                        //GetcustomerDetails();
+                        hdnPortfolioId.Value = Convert.ToString(ViewState["PortfolioId"].ToString());
                         demataccountvo.AccountOpeningDate = DateTime.Parse(accountopeningdate);
                     demataccountvo.DpclientId = txtDpClientId.Text;
                     demataccountvo.DpId = txtDPId.Text;
