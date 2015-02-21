@@ -2550,5 +2550,13 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnPortfolioId;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdLblQty;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdTxtQty;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblADRNo;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtADRNo;
+        protected global::System.Web.UI.WebControls.TextBox txtADRNo;
+
+
+
     }
 }

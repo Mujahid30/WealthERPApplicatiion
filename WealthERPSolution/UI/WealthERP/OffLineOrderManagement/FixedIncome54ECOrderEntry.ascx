@@ -355,6 +355,14 @@
         </td>
     </tr>
 </table>
+ <table id="tblMessage" width="100%" runat="server" visible="false" style="padding-top: 20px;">
+                <tr id="trSumbitSuccess">
+                    <td align="center">
+                        <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
+                        </div>
+                    </td>
+                </tr>
+            </table>
 <%--<asp:UpdatePanel ID="UpdatePanel1" UpdateMode="Always" runat="server">
     <ContentTemplate>--%>
 <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" Height="700px"
@@ -666,9 +674,8 @@
             </td>
         </tr>
         <tr>
-            <td align="right" style="width: 20%">
-            </td>
-            <td id="tdauthentication" runat="server">
+            
+            <td id="tdauthentication" runat="server" style="padding-left:10%;">
                 <%--<asp:CheckBox ID="chkAuthentication" runat="server" CssClass="cmbFielde" Text="Authenticate"
                     OnCheckedChanged="chkAuthentication_OnCheckedChanged" AutoPostBack="true" />--%>
                 <asp:RadioButton ID="rbtnAuthentication" runat="server" CssClass="txtField" Text="Authenticate"
@@ -679,23 +686,13 @@
                 <%--  <asp:CustomValidator ID="CustomValidator1" runat="server" ValidationGroup="location"
                     ErrorMessage="Please select one of the radio button" Display="Dynamic"></asp:CustomValidator>--%>
             </td>
-            <td align="right">
-                <asp:Label runat="server" ID="lblBrokerCode" CssClass="FieldName" Text="Select Broker:"></asp:Label>
-            </td>
-            <td align="left">
-                <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField">
-                </asp:DropDownList>
-                <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator13" ControlToValidate="ddlBrokerCode"
-                    ErrorMessage="<br />Please Select Broker" Display="Dynamic" runat="server" CssClass="rfvPCG"
-                    ValidationGroup="btnSubmitAuthenticate" InitialValue=""></asp:RequiredFieldValidator>--%>
-            </td>
-        </tr>
-        <tr>
+            
+       
             <td id="tdauthenticationDetails" runat="server" align="right" style="width: 20%">
                 <asp:Label ID="lblAuthenticated" runat="server" Text="Authenticated/Rejected By:"
                     CssClass="FieldName"></asp:Label>
             </td>
-            <td style="width: 38%;">
+            <td >
                 <asp:Label ID="lblAuthenticatedBy" runat="server" CssClass="FieldName"></asp:Label><br />
                 <asp:Label ID="lblAuthenticationDate" runat="server" CssClass="FieldName"></asp:Label>
             </td>
@@ -711,7 +708,7 @@
             </td>
         </tr>
         <tr>
-            <td align="right">
+            <td align="right" style="padding-left:90%;">
                 <asp:Button runat="server" ID="btnSubmitAuthenticate" CssClass="PCGButton" runat="server"
                     Text="Submit" OnClick="btnSubmitAuthenticate_btnSubmit" ValidationGroup="btnSubmitAuthenticate" />
             </td>
@@ -719,14 +716,7 @@
     </table>
     <asp:UpdatePanel ID="UpdatePanel1" UpdateMode="Always" runat="server">
         <ContentTemplate>
-            <table id="tblMessage" width="100%" runat="server" visible="false" style="padding-top: 20px;">
-                <tr id="trSumbitSuccess">
-                    <td align="center">
-                        <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
-                        </div>
-                    </td>
-                </tr>
-            </table>
+           
             <table width="100%">
                 <tr id="trCustSect" runat="server">
                     <td colspan="5">
@@ -763,6 +753,17 @@
                             CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an ARN"
                             Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare=""></asp:CompareValidator>
                     </td>
+                    <td align="right">
+                <asp:Label runat="server" ID="lblBrokerCode" CssClass="FieldName" Text="Select Broker:"></asp:Label>
+            </td>
+            <td align="left">
+                <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField">
+                </asp:DropDownList>
+                <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator13" ControlToValidate="ddlBrokerCode"
+                    ErrorMessage="<br />Please Select Broker" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                    ValidationGroup="btnSubmitAuthenticate" InitialValue=""></asp:RequiredFieldValidator>--%>
+            </td>
+                    
                 </tr>
                 <tr id="trpan" runat="server" visible="false">
                     <td align="right">
@@ -1208,11 +1209,11 @@
                     </td>
                 </tr>
                 <tr id="trQtyAndAmt" runat="server">
-                    <td class="leftField" style="width: 20%">
+                    <td class="leftField" style="width: 20%" id="tdLblQty" visible="true">
                         <asp:Label ID="lb1Qty" runat="server" Text="Qty:" CssClass="FieldName">           
                         </asp:Label>
                     </td>
-                    <td class="rightField" style="width: 20%">
+                    <td class="rightField" style="width: 20%" id="tdTxtQty" visible="true">
                         <asp:TextBox ID="txtQty" runat="server" CssClass="txtField" AutoPostBack="True" onKeyPress="text_Changed()"
                             OnTextChanged="OnQtychanged" TabIndex="21" />
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtQty"
@@ -1227,8 +1228,7 @@
                             ErrorMessage="<br />Please Enter Qty" Display="Dynamic" runat="server" InitialValue=""
                             ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
                     </td>
-                    <td style="width: 5%">
-                    </td>
+                    
                     <td align="right" style="width: 15%">
                         <asp:Label ID="lb1PurchaseAmt" runat="server" Text="Purchase Amount:" CssClass="FieldName"></asp:Label>
                     </td>
@@ -1243,6 +1243,20 @@
                             runat="server" Display="Dynamic" ErrorMessage="Please Enter Integer Value" CssClass="cvPCG"
                             ValidationExpression="[1-9]\d*$" ValidationGroup="MFSubmit">     
                         </asp:RegularExpressionValidator>
+                    </td>
+                    <td style="width: 5%">
+                    </td>
+                    <td align="right" style="width: 15%" id="tdlblADRNo" visible="false">
+                    <asp:Label ID="lblADRNo" runat="server" Text="ADR NO:" CssClass="FieldName"></asp:Label>
+                    </td>
+                   <td style="width: 30%" id="tdtxtADRNo" visible="false">
+                        <asp:TextBox ID="txtADRNo" runat="server" CssClass="txtField" AutoComplete="Off"
+                              TabIndex="22" MaxLength="45" />
+                        <span id="Span17" runat="server" class="spnRequiredField">*</span>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator13" ControlToValidate="txtADRNo" CssClass="rfvPCG"
+                            ErrorMessage="<br />Please Enter ADR NO." Display="Dynamic" runat="server" InitialValue=""
+                            ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+                        
                     </td>
                 </tr>
                 <tr id="trMatAmtDate" runat="server" visible="false">

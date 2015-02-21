@@ -157,6 +157,8 @@ namespace VoOps
         public string AssetInstrumentCategory { get; set; }
         public int authenticatedbyId { get; set; }
         public int authenticId { get; set; }
+        public string BrokerCode { get; set; }
+        public string ADRNo { get; set; }
         //private int m_OrderId;
 
         ////public int OrderId

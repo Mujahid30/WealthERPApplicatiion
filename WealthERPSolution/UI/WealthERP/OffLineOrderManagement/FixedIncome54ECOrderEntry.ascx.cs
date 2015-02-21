@@ -140,7 +140,7 @@ namespace WealthERP.OffLineOrderManagement
             GetUserType();
             if (!IsPostBack)
             {
-                
+
                 if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 {
                     txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
@@ -256,7 +256,7 @@ namespace WealthERP.OffLineOrderManagement
                     }
 
                 }
-                
+
             }
             repoBo = new RepositoryBo();
 
@@ -302,7 +302,7 @@ namespace WealthERP.OffLineOrderManagement
                 Table3.Visible = true;
                 Panel1.Visible = true;
             }
-            if (ddlsearch.SelectedValue=="2")
+            if (ddlsearch.SelectedValue == "2")
             {
                 txtPansearch.Focus();
             }
@@ -310,7 +310,7 @@ namespace WealthERP.OffLineOrderManagement
             {
                 txtCustomerName.Focus();
             }
-          
+
         }
 
         private void BindBanks(int customerId)
@@ -422,7 +422,7 @@ namespace WealthERP.OffLineOrderManagement
                     txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
                     txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
                 }
-                
+
             }
             ddlsearch.Focus();
         }
@@ -446,7 +446,7 @@ namespace WealthERP.OffLineOrderManagement
                     // lb1EUIN.Text = string.Empty;
                 }
             }
-            
+
         }
 
         public void GetUserType()
@@ -490,7 +490,12 @@ namespace WealthERP.OffLineOrderManagement
         {
             DataTable dt = new DataTable();
             ddlSeries.DataSource = dt;
-
+            lblMinQty.Text = "Min. Qty:";
+            lblMaxQty.Text = "Max. Qty:";
+            tdLblQty.Visible = true;
+            tdTxtQty.Visible = true;
+            tdlblADRNo.Visible = false;
+            tdtxtADRNo.Visible = false;
             if (ddlCategory.SelectedIndex != 0)
             {
 
@@ -515,11 +520,23 @@ namespace WealthERP.OffLineOrderManagement
             {
                 tdLabel11.Visible = false;
                 tdddlTranstype.Visible = false;
+
             }
             else
             {
                 tdLabel11.Visible = true;
                 tdddlTranstype.Visible = true;
+            }
+            //Changing value for Company FD//
+            //Its called reusibility////
+            if (ddlCategory.SelectedValue == "FICDCD")
+            {
+                lblMinQty.Text = "Min.Amnt:";
+                lblMaxQty.Text = "Max.Amnt:";
+                tdLblQty.Visible = false;
+                tdTxtQty.Visible = false;
+                tdlblADRNo.Visible = true;
+                tdtxtADRNo.Visible = true;
             }
             ddlCategory.Focus();
         }
@@ -570,6 +587,7 @@ namespace WealthERP.OffLineOrderManagement
 
             DDLSchemeSelection();
             ddlScheme.Focus();
+            BindSubbroker(int.Parse(ddlScheme.SelectedValue));
         }
 
         private void DDLSchemeSelection()
@@ -679,16 +697,19 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            bool result = false; ;
+            
+            txtQty.Text = (ddlCategory.SelectedValue == "FICDCD") ? TxtPurAmt.Text : txtQty.Text;
+
+            bool result = false;
             var hdMax = (object)Cache["HiddenMaxid" + userVo.UserId.ToString()];
             var hdMin = (object)Cache["HiddenMinid" + userVo.UserId.ToString()];
-            if ((Convert.ToDouble(txtQty.Text) <= Convert.ToDouble(hdMax)))
+            if ((Convert.ToDouble(txtQty.Text) <= Convert.ToDouble(lblMaxQuentity.Text)))
             {
                 result = true;
             }
             if (result == true)
             {
-                if ((Convert.ToDouble(txtQty.Text) >= Convert.ToDouble(hdMin)))
+                if ((Convert.ToDouble(txtQty.Text) >= Convert.ToDouble(lblMinQuentity.Text)))
                 {
                     result = true;
 
@@ -698,7 +719,6 @@ namespace WealthERP.OffLineOrderManagement
                     result = false;
                 }
             }
-
             if (string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please select Customer Name.');", true);
@@ -750,16 +770,18 @@ namespace WealthERP.OffLineOrderManagement
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             btnSubmit.Enabled = false;
+            txtQty.Text = (ddlCategory.SelectedValue == "FICDCD") ? TxtPurAmt.Text : txtQty.Text;
+
             bool result = false;
             var hdMax = (object)Cache["HiddenMaxid" + userVo.UserId.ToString()];
             var hdMin = (object)Cache["HiddenMinid" + userVo.UserId.ToString()];
-            if ((Convert.ToDouble(txtQty.Text) <= Convert.ToDouble(hdMax)))
+            if ((Convert.ToDouble(txtQty.Text) <= Convert.ToDouble(lblMaxQuentity.Text)))
             {
                 result = true;
             }
             if (result == true)
             {
-                if ((Convert.ToDouble(txtQty.Text) >= Convert.ToDouble(hdMin)))
+                if ((Convert.ToDouble(txtQty.Text) >= Convert.ToDouble(lblMinQuentity.Text)))
                 {
                     result = true;
 
@@ -880,6 +902,7 @@ namespace WealthERP.OffLineOrderManagement
             btnImgAddCustomer.Enabled = Val;
             lnkBtnDemat.Enabled = Val;
             ImageButton1.Enabled = Val;
+            ddlBrokerCode.Enabled = Val;
         }
 
         protected void lnkBtnFIEdit_Click(object sender, EventArgs e)
@@ -1007,12 +1030,16 @@ namespace WealthERP.OffLineOrderManagement
 
             fiorderVo.Frequency = ddlFrequency.SelectedValue;
             fiorderVo.Qty = Convert.ToDouble(txtQty.Text);
+           
 
             //if (ddlPaymentMode.SelectedIndex != 0)
             orderVo.PaymentMode = ddlPaymentMode.SelectedValue;
             //else
             //    orderVo.PaymentMode = "ES";
-
+            if (ddlBrokerCode.SelectedValue.ToString() != string.Empty || ddlBrokerCode.SelectedValue.ToString() != "Select")
+                fiorderVo.BrokerCode = ddlBrokerCode.SelectedValue.ToString();
+            if (!string.IsNullOrEmpty(txtADRNo.Text))
+                fiorderVo.ADRNo = txtADRNo.Text;
             if (!string.IsNullOrEmpty(txtPaymentNumber.Text.ToString().Trim()))
                 orderVo.ChequeNumber = txtPaymentNumber.Text;
             else
@@ -1071,7 +1098,7 @@ namespace WealthERP.OffLineOrderManagement
             {
                 //if (chkAuthentication.Checked == true)
                 //    fiorderVo.authenticId = 1;
-               
+
 
                 OrderIds = fiorderBo.CreateOrderFIDetails(orderVo, fiorderVo, userVo.UserId, "Update");
                 orderId = fiorderVo.OrderNumber;
@@ -1144,21 +1171,38 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void OnAmtchanged(object sender, EventArgs e)
         {
+            
             if (!string.IsNullOrEmpty(TxtPurAmt.Text))
             {
-                if (Convert.ToInt32(TxtPurAmt.Text) <= (Convert.ToInt32(lblMaxQuentity.Text) * GetFaceValue()))
+                if (ddlCategory.SelectedValue != "FICDCD")
                 {
-                    txtQty.Text = string.Empty;
-                    txtQty.Text = (Convert.ToInt32(TxtPurAmt.Text) / GetFaceValue()).ToString();
+                    if (Convert.ToInt32(TxtPurAmt.Text) <= (Convert.ToInt32(lblMaxQuentity.Text) * GetFaceValue()))
+                    {
+                        txtQty.Text = string.Empty;
+                        txtQty.Text = (Convert.ToInt32(TxtPurAmt.Text) / GetFaceValue()).ToString();
+                        
+
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Purchase Amount Should be less than  Multiple of Face Value and Max.Qty!');", true);
+                        txtQty.Text = string.Empty;
+                        TxtPurAmt.Text = string.Empty;
+                    }
                 }
                 else
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Purchase Amount Should be less than  Multiple of Face Value and Max.Qty!');", true);
-                    txtQty.Text = string.Empty;
-                    TxtPurAmt.Text = string.Empty;
+                    if (decimal.Parse(TxtPurAmt.Text) > decimal.Parse(lblMinQuentity.Text) && decimal.Parse(TxtPurAmt.Text) > decimal.Parse(lblMaxQuentity.Text))
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Purchase Amount Should be Between Min. Amount and Max.Amount!');", true);
+                        txtQty.Text = string.Empty;
+                        TxtPurAmt.Text = string.Empty;
+                    }
+                    
                 }
+
+                TxtPurAmt.Focus();
             }
-            TxtPurAmt.Focus();
         }
 
         protected void OnQtychanged(object sender, EventArgs e)
@@ -1316,7 +1360,7 @@ namespace WealthERP.OffLineOrderManagement
             //string strRenameFilename = file.GetName();
             //strRenameFilename = strRenameFilename.Replace(' ', '_');
             //string newFileName = advisorVo.advisorId + "_" + strGuid + "_" + strRenameFilename;
-            string newFileName = ranDomNo+"_"+ filename + fileExtension; ;
+            string newFileName = ranDomNo + "_" + filename + fileExtension; ;
             // Save adviser repository file in the path
 
             file.SaveAs(strPath + "\\" + newFileName);
@@ -1370,12 +1414,22 @@ namespace WealthERP.OffLineOrderManagement
                 foreach (DataRow dr in dtSeriesDetails.Rows)
                 {
                     lblTenureRate.Text = dr["PFISD_Tenure"].ToString();
-                    //hdnSeriesDetails.Value = dr["SeriesDetails"].ToString();
-                    hdnMinQty.Value = dr["MinQty"].ToString();
-                    hdnMaxQty.Value = dr["MaxQty"].ToString();
+                    //Changing value for Company FD//
+                    //Its called reusibility////
+                    if (ddlCategory.SelectedValue == "FICDCD")
+                    {
+                        lblMinQuentity.Text = dr["AIM_MinAmount"].ToString();
+                        lblMaxQuentity.Text = dr["AIM_MaxAmount"].ToString();
+                    }
+                    else
+                    {
+
+                        hdnMinQty.Value = dr["MinQty"].ToString();
+                        hdnMaxQty.Value = dr["MaxQty"].ToString();
+                        lblMinQuentity.Text = dr["MinQty"].ToString();
+                        lblMaxQuentity.Text = dr["MaxQty"].ToString();
+                    }
                     lblCoupenRate.Text = dr["CouponRate"].ToString();
-                    lblMinQuentity.Text = dr["MinQty"].ToString();
-                    lblMaxQuentity.Text = dr["MaxQty"].ToString();
                     lblFaceValue.Text = dr["AID_SeriesFaceValue"].ToString();
                     if (Cache["HiddenMaxid" + userVo.UserId.ToString()] == null)
                     {
@@ -4314,6 +4368,15 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     ddlCategory.SelectedValue = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
                 }
+                if (ddlCategory.SelectedValue == "FICDCD")
+                {
+                    lblMinQty.Text = "Min.Amnt:";
+                    lblMaxQty.Text = "Max.Amnt:";
+                    tdLblQty.Visible = false;
+                    tdTxtQty.Visible = false;
+                    tdlblADRNo.Visible = true;
+                    tdtxtADRNo.Visible = true;
+                }
                 FIScheme(advisorVo.advisorId, ddlCategory.SelectedValue);
                 ddlScheme.SelectedValue = dr["AIM_IssueId"].ToString();
                 DDLSchemeSelection();
@@ -4346,7 +4409,10 @@ namespace WealthERP.OffLineOrderManagement
                     ddlPaymentMode.SelectedValue = dr["XPM_PaymentModeCode"].ToString();
                     PaymentMode(ddlPaymentMode.SelectedValue);
                 }
-
+                if (!string.IsNullOrEmpty(dr["CFIOD_ADRNO"].ToString()))
+                {
+                    txtADRNo.Text = dr["CFIOD_ADRNO"].ToString();
+                }
                 if (!string.IsNullOrEmpty(dr["CO_ChequeNumber"].ToString()))
                 {
                     txtPaymentNumber.Text = dr["CO_ChequeNumber"].ToString();
@@ -4398,7 +4464,7 @@ namespace WealthERP.OffLineOrderManagement
                     lblAuthenticatedBy.Text = dr["U_FirstName"].ToString();
                     txtRejectReseaon.Text = dr["COS_Reason"].ToString();
                 }
-               
+
                 if (dr["CO_IsAuthenticated"].ToString() != "True")
                 {
                     rbtnAuthentication.Checked = false;
@@ -5032,6 +5098,8 @@ namespace WealthERP.OffLineOrderManagement
                 ddlBrokerCode.DataValueField = dtBindSubbroker.Columns["XB_BrokerIdentifier"].ToString();
                 ddlBrokerCode.DataTextField = dtBindSubbroker.Columns["XB_BrokerShortName"].ToString();
                 ddlBrokerCode.DataBind();
+                if(dtBindSubbroker.Rows.Count > 1)
+                    ddlBrokerCode.Items.Insert(0, new ListItem("Select", "Select"));
             }
         }
         protected void btnSubmitAuthenticate_btnSubmit(object sender, EventArgs e)

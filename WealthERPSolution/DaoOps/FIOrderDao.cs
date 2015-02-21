@@ -590,6 +590,10 @@ namespace DaoOps
                 db.AddInParameter(createFIOrderTrackingCmd, "@AssetInstrumentCategory", DbType.String, FIorderVo.AssetInstrumentCategory);
                 if (FIorderVo.authenticId != 0)
                     db.AddInParameter(createFIOrderTrackingCmd, "@Isauthenticated", DbType.String, FIorderVo.authenticId);
+                if (!string.IsNullOrEmpty(FIorderVo.BrokerCode))
+                    db.AddInParameter(createFIOrderTrackingCmd, "@BrokerCode", DbType.String, FIorderVo.BrokerCode);
+                if(!string.IsNullOrEmpty(FIorderVo.ADRNo))
+                    db.AddInParameter(createFIOrderTrackingCmd, "@ADRNO", DbType.String, FIorderVo.ADRNo);
                 if (db.ExecuteNonQuery(createFIOrderTrackingCmd) != 0)
                 {
                     if (Mode == "Submit")
