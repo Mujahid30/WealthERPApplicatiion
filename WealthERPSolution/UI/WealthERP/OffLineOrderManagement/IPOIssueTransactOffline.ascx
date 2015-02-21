@@ -21,7 +21,16 @@
         }
     });
 </script>
-
+<script type="text/javascript">
+    function ValGroup() {
+        var isValid = false;
+        isValid = Page_ClientValidate('btnConfirmOrder');
+        if (isValid) {
+            isValid = Page_ClientValidate('ddlBrokerCode');
+        }
+        return isValid;
+    }
+    </script>
 <script runat="server">
   
     protected void rbtnNo_Load(object sender, EventArgs e)
@@ -243,42 +252,43 @@
         </table>
     </ContentTemplate>
 </asp:UpdatePanel>
-<%--<asp:UpdatePanel ID="UpdatePanel2" UpdateMode="Always" runat="server">
-<ContentTemplate>--%>
-<table width="100%" id="trOfficeUse" runat="server" visible="false">
-    <tr>
-        <td colspan="5">
-            <div class="divSectionHeading" style="vertical-align: text-bottom">
-                For Office Use
-            </div>
-        </td>
-    </tr>
-    <tr>
-        <td>
-        </td>
-        <td class="leftField" style="width: 20%">
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <asp:Label runat="server" ID="lblBrokerCode" CssClass="FieldName" Text="Select Broker:"></asp:Label>
-        </td>
-        <td class="rightField" style="width: 20%">
-            <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField">
-            </asp:DropDownList>
-        </td>
-        <td>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </td>
-    </tr>
-    <%--<tr>
+<asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" Height="75%"
+    ScrollBars="Vertical">
+    <asp:UpdatePanel ID="UpdatePanel2" UpdateMode="Always" runat="server">
+        <ContentTemplate>
+            <table width="100%" id="trOfficeUse" runat="server" visible="false">
+                <tr>
+                    <td colspan="5">
+                        <div class="divSectionHeading" style="vertical-align: text-bottom">
+                            For Office Use
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+                    <td class="leftField" style="width: 20%">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <asp:Label runat="server" ID="lblBrokerCode" CssClass="FieldName" Text="Select Broker:"></asp:Label>
+                    </td>
+                    <td class="rightField" style="width: 20%">
+                        <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField">
+                        </asp:DropDownList>
+                        <asp:RequiredFieldValidator ID="RFVBrokerCode" ControlToValidate="ddlBrokerCode"
+                            ErrorMessage="<br />Please Select Broker" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                            ValidationGroup="ddlBrokerCode" InitialValue="0"></asp:RequiredFieldValidator>
+                    </td>
+                    <td>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                </tr>
+                <%--<tr>
         <td align="right">
             <asp:Button runat="server" ID="btnSubmitAuthenticate" CssClass="PCGButton" runat="server"
                 Text="Submit" OnClick="btnSubmitAuthenticate_btnSubmit" ValidationGroup="btnSubmitAuthenticate" />
         </td>
     </tr>--%>
-</table>
-<asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" Height="75%"
-    ScrollBars="Vertical">
-    <asp:UpdatePanel ID="UpdatePanel2" UpdateMode="Always" runat="server">
-        <ContentTemplate>
+            </table>
             <table width="100%">
                 <tr>
                     <td colspan="6">
@@ -662,8 +672,15 @@
                                             CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td class="rightField">
-                                        <!-- calAccountOpeningDate -->
-                                        <telerik:RadDatePicker ID="txtAccountOpeningDate" CssClass="txtTo" runat="server"
+                                        <asp:TextBox ID="txtAccountOpeningDate" runat="server" CssClass="txtField"></asp:TextBox>
+                                        <span id="Span20" class="spnRequiredField">*</span>
+                                        <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtAccountOpeningDate"
+                                            Format="dd/MM/yyyy">
+                                        </cc1:CalendarExtender>
+                                        <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtAccountOpeningDate"
+                                            WatermarkText="dd/mm/yyyy">
+                                        </cc1:TextBoxWatermarkExtender>
+                                        <%-- <telerik:RadDatePicker ID="txtAccountOpeningDate" CssClass="txtTo" runat="server"
                                             Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
                                             ShowAnimation-Type="Fade" MinDate="1900-01-01">
                                             <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
@@ -672,7 +689,7 @@
                                             <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                                             <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                                             </DateInput>
-                                        </telerik:RadDatePicker>
+                                        </telerik:RadDatePicker>--%>
                                         <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="txtAccountOpeningDate"
                                             Type="Date" Operator="DataTypeCheck" ErrorMessage="Please Enter a Valid Date"
                                             Display="Dynamic" CssClass="cvPCG" ValidationGroup="btnsubmitdemate" />
@@ -1022,9 +1039,9 @@
                         </td>
                         <td class="rightField" style="width: 20%">
                             <telerik:RadDatePicker ID="txtPaymentInstDate" onkeydown="return (event.keyCode!=13);"
-                                CssClass="txtField" runat="server" Culture="English (United States)" Skin="Telerik" AutoPostBack="true"
-                                EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01" TabIndex="8" 
-                                OnSelectedDateChanged="txtPaymentInstDate_OnSelectedDateChanged">
+                                CssClass="txtField" runat="server" Culture="English (United States)" Skin="Telerik"
+                                AutoPostBack="true" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
+                                TabIndex="8" OnSelectedDateChanged="txtPaymentInstDate_OnSelectedDateChanged">
                                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                     Skin="Telerik" EnableEmbeddedSkins="false">
                                 </Calendar>
@@ -1391,18 +1408,19 @@
                         </td>
                         <td>
                             <asp:Button ID="btnUpdate" runat="server" Text="Update" OnClick="btnUpdate_OnClick"
-                                CssClass="PCGButton" Visible="false" ValidationGroup="btnConfirmOrder" TabIndex="18" />
+                                CssClass="PCGButton" Visible="false" ValidationGroup="btnConfirmOrder,ddlBrokerCode"
+                                TabIndex="18" OnClientClick="javascript: return  ValGroup();" />
                         </td>
                     </tr>
                 </table>
             </asp:Panel>
         </ContentTemplate>
         <Triggers>
-
-          <asp:PostBackTrigger ControlID="btnConfirmOrder" />
+            <asp:PostBackTrigger ControlID="btnConfirmOrder" />
             <asp:PostBackTrigger ControlID="btnAddMore" />
             <asp:PostBackTrigger ControlID="btnUpdate" />
-             <asp:PostBackTrigger ControlID="btnDemateDetails" />
+            <asp:PostBackTrigger ControlID="btnDemateDetails" />
+            <asp:AsyncPostBackTrigger ControlID="ImageButton1" />
         </Triggers>
     </asp:UpdatePanel>
 </asp:Panel>

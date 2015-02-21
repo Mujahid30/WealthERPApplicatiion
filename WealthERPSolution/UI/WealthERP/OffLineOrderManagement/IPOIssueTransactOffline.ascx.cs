@@ -792,15 +792,12 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void txtCustomerId_ValueChanged1(object sender, EventArgs e)
         {
-            if (txtPansearch.Text != "" && hdnCustomerId.Value == "")
-            {
-
                 if (!string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
                 {
 
                     GetcustomerDetails();
+                    trCustomerAdd.Visible = false;
                 }
-            }
         }
 
         public DataTable LoadNomineesJointHolder(string type)
@@ -1731,10 +1728,16 @@ namespace WealthERP.OffLineOrderManagement
 
         public void btnAddMore_Click(object sender, EventArgs e)
         {
-            ClearAllFields();
-            btnAddMore.Visible = false;
+            //foreach (GridDataItem gvr in gvDematDetailsTeleR.MasterTableView.Items)
+            //{
+            // CheckBox chkDematId=(CheckBox)gvr.FindControl("chkDematId");
+            //    chkDematId.Checked=false;
+            //}
+            //ClearAllFields();
+            //btnAddMore.Visible = false;
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IPOIssueTransactOffline','login');", true);
             btnConfirmOrder.Visible = true;
-            SetFICOntrolsEnablity(true);
+            //SetFICOntrolsEnablity(true);
         }
         internal void LoadJScript()
         {
@@ -2384,7 +2387,7 @@ namespace WealthERP.OffLineOrderManagement
                     GetcustomerDetails();
                     ViewState["customerID"] = customerIds[1];
                     //BindCustomerNCDIssueList();
-
+                    trCustomerAdd.Visible = false;
                     if (customerIds != null)
                     {
 
@@ -2494,7 +2497,7 @@ namespace WealthERP.OffLineOrderManagement
             txtDpClientId.Text = "";
             txtDPId.Text = "";
             txtDpName.Text = "";
-
+            txtAccountOpeningDate.Text = "";
         }
         protected void ddlModeOfHolding_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -2503,7 +2506,7 @@ namespace WealthERP.OffLineOrderManagement
         protected void DematebtnSubmit_Click(object sender, EventArgs e)
         {
             int result = 0;
-            string accountopeningdate = txtAccountOpeningDate.SelectedDate.ToString();
+            string accountopeningdate = Convert.ToDateTime(txtAccountOpeningDate.Text).ToString();
             int customerId = 0;
             if (ViewState["customerID"] != null)
             {
@@ -2675,7 +2678,7 @@ namespace WealthERP.OffLineOrderManagement
                 ddlBrokerCode.DataValueField = dtBindSubbroker.Columns["XB_BrokerIdentifier"].ToString();
                 ddlBrokerCode.DataTextField = dtBindSubbroker.Columns["XB_BrokerShortName"].ToString();
                 ddlBrokerCode.DataBind();
-                ddlBrokerCode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+                ddlBrokerCode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
             }
         }
         //protected void rbtnReject_CheckedChanged(object sender, EventArgs e)
