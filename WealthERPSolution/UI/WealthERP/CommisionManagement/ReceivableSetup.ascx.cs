@@ -1716,7 +1716,7 @@ namespace WealthERP.Receivable
                 {
                     chkListTtansactionType.Visible = true;
                 }
-                if (ddlCategory.SelectedValue == "FICGCG")
+                if (ddlSubInstrCategory.SelectedValue == "FICGCG")
                 {
                     chkCategory.Visible = false;
                 }
