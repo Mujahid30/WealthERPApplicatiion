@@ -1538,26 +1538,41 @@
                                                         <asp:DropDownList ID="ddlCategorys" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlCategorys_OnSelectedIndexChanged"
                                                             AutoPostBack="true">
                                                         </asp:DropDownList>
+                                                        <span id="Span17" class="spnRequiredField">*</span>
+                                                                    <br />
+                                                                    <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator12" ValidationGroup="btnSubmitRule"
+                                                                        Display="Dynamic" ControlToValidate="ddlCategorys" Visible="true" ErrorMessage="Please Select Category"
+                                                                        InitialValue="0" />
                                                     </td>
                                                     <td class="leftLabel" id="tdlblSerise" runat="server" visible="false">
-                                                        <asp:Label ID="lblSerise" runat="server" CssClass="FieldName" Text="Serise:"></asp:Label>
+                                                        <asp:Label ID="lblSerise" runat="server" CssClass="FieldName" Text="Series:"></asp:Label>
                                                     </td>
                                                     <td class="rightData" id="tdddlSeries" runat="server" visible="false">
                                                         <asp:DropDownList ID="ddlSeries" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlSeries_OnSelectedIndexChanged"
                                                             AutoPostBack="true">
                                                         </asp:DropDownList>
+                                                         <span id="Span18" class="spnRequiredField">*</span>
+                                                                    <br />
+                                                                    <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator13" ValidationGroup="btnSubmitRule"
+                                                                        Display="Dynamic" ControlToValidate="ddlSeries" Visible="true" ErrorMessage="Please Select Category"
+                                                                        InitialValue="0" />
                                                     </td>
                                                 </tr>
                                                  <tr>
                                                                 <td class="leftLabel" id="tdlblMode" runat="server" visible="false">
                                                                     <asp:Label ID="lblMode" runat="server" CssClass="FieldName" Text="Select Mode:"></asp:Label>
                                                                 </td>
-                                                                <td class="rightData" id="tdddlMode" runat="server" visible="false">
+                                                                <td class="rightData" id="tdddlMode" runat="server" visible="false" >
                                                                     <asp:DropDownList ID="ddlMode" runat="server" CssClass="cmbField">
                                                                         <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
                                                                         <asp:ListItem Text="Demat" Value="DMT"></asp:ListItem>
                                                                         <asp:ListItem Text="Physical" Value="PHY"></asp:ListItem>
                                                                     </asp:DropDownList>
+                                                                     <span id="Span19" class="spnRequiredField">*</span>
+                                                                    <br />
+                                                                    <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator14" ValidationGroup="btnSubmitRule"
+                                                                        Display="Dynamic" ControlToValidate="ddlMode" Visible="true" ErrorMessage="Please Select Category"
+                                                                        InitialValue="Select" />
                                                                 </td>
                                                             </tr>
                                                 <tr>

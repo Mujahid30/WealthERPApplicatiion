@@ -1919,5 +1919,37 @@ namespace DaoCommisionManagement
             }
             return dt;
         }
+        public DataSet BindNcdCategory(string type, string catCode)
+        {
+            DataSet dsGetSeriesCategories;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand dbCommand;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_GetNcdCategorysbrokrage");
+                db.AddInParameter(dbCommand, "@Type", DbType.String, type);
+                db.AddInParameter(dbCommand, "@catCode", DbType.String, catCode);
+
+                dsGetSeriesCategories = db.ExecuteDataSet(dbCommand);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:BindNcdCategory()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetSeriesCategories;
+        }
+
     }
 }
