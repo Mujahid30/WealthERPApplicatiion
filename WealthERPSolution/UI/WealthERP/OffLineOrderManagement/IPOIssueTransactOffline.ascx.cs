@@ -544,7 +544,7 @@ namespace WealthERP.OffLineOrderManagement
                 }
                 else
                 {
-                    OfflineIPOOrderBo.UpdateIPOBidOrderDetails(dtIPOBidTransactionDettails, orderNo, txtDematid.Text, ddlBrokerCode.SelectedValue);
+                    OfflineIPOOrderBo.UpdateIPOBidOrderDetails(dtIPOBidTransactionDettails, orderNo, txtDematid.Text, ddlBrokerCode.SelectedValue, userVo.UserId);
                     ShowMessage("IPO Order Updated Successfully,Order reference no. is " + orderNo.ToString());
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('IPO Order Updated Successfully!!');", true);
                     btnUpdate.Visible = false;
@@ -776,6 +776,7 @@ namespace WealthERP.OffLineOrderManagement
             Session["customerVo"] = customerVo;
             lblGetBranch.Text = customerVo.BranchName;
             //lblgetPan.Text = customerVo.PANNum;
+            ViewState["customerID"] = txtCustomerId.Value;
             hdnCustomerId.Value = txtCustomerId.Value;
             lblgetcust.Text = customerVo.FirstName + ' ' + customerVo.MiddleName + ' ' + customerVo.LastName;
             hdnPortfolioId.Value = customerPortfolioVo.PortfolioId.ToString();
@@ -1205,9 +1206,7 @@ namespace WealthERP.OffLineOrderManagement
 
         private void BindIPOIssueList(string issueId, int type)
         {
-
-
-
+            txtCustomerId.Value = Convert.ToString(ViewState["customerID"]);
             dtOnlineIPOIssueList = OfflineIPOOrderBo.GetIPOIssueList(advisorVo.advisorId, Convert.ToInt32(issueId), type, int.Parse(txtCustomerId.Value));
             RadGridIPOIssueList.DataSource = dtOnlineIPOIssueList;
             RadGridIPOIssueList.DataBind();
@@ -1553,6 +1552,7 @@ namespace WealthERP.OffLineOrderManagement
                 cutOff = Convert.ToDateTime(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_CutOffTime"].ToString());
             DataTable dtIPOBidTransactionDettails = CreateTable();
             DataRow drIPOBid;
+            txtCustomerId.Value = Convert.ToString(ViewState["customerID"]);
             onlineIPOOrderVo.CustomerId = int.Parse(txtCustomerId.Value);
             onlineIPOOrderVo.IssueId = issueId;
             onlineIPOOrderVo.AssetGroup = "IP";
@@ -2583,7 +2583,7 @@ namespace WealthERP.OffLineOrderManagement
             {
                 txtDPId.Enabled = false;
             }
-
+            ddlDepositoryName.Focus();
         }
         protected void BindDepositoryType()
         {
@@ -2658,6 +2658,7 @@ namespace WealthERP.OffLineOrderManagement
             txtFirstName.Text = "";
             txtPanNumber.Text = txtPansearch.Text;
             trPanExist.Visible = false;
+            //rbtnAuthentication.Focus();
         }
         protected void rbtnAuthentication_OnCheckedChanged(object sender, EventArgs e)
         {

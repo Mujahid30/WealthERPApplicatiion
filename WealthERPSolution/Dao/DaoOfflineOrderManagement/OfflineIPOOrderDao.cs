@@ -122,7 +122,7 @@ namespace DaoOfflineOrderManagement
             }
             return dsGetIPOIssueOrderDetails;
         }
-        public bool UpdateIPOBidOrderDetails(DataTable dtIPOBidTransactionDettails, int orderNo, string benificialAcc, string brokerCode)
+        public bool UpdateIPOBidOrderDetails(DataTable dtIPOBidTransactionDettails, int orderNo, string benificialAcc, string brokerCode, int userId)
         {
             Database db;
             DataSet dsIssueBidList = new DataSet(); ;
@@ -140,6 +140,7 @@ namespace DaoOfflineOrderManagement
                 db.AddInParameter(cmdUpdateIPOBidOrderDetails, "@orderId", DbType.Int32, orderNo);
                 db.AddInParameter(cmdUpdateIPOBidOrderDetails, "@benificialAcc", DbType.String, benificialAcc);
                 db.AddInParameter(cmdUpdateIPOBidOrderDetails, "@brokerCode", DbType.String, brokerCode);
+                db.AddInParameter(cmdUpdateIPOBidOrderDetails, "@UserId", DbType.Int32, userId);
                 if (db.ExecuteNonQuery(cmdUpdateIPOBidOrderDetails) != 0)
                     bResult = true;
             }

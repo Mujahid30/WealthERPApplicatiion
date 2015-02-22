@@ -427,7 +427,7 @@ namespace WealthERP.OffLineOrderManagement
                 lblPANNotExist.Text = "Entered PAN not found.";
                 //txtPansearch.Text = "";
             }
-            txtAssociateSearch.Focus();
+        
         }
         protected void BindDepositoryType()
         {
@@ -480,9 +480,9 @@ namespace WealthERP.OffLineOrderManagement
 
                     txtAssociateSearch.Text = "";
                 }
-                txtAssociateSearch.Focus();
+               
             }
-
+            txtAssociateSearch.Focus();
         }
 
         protected void txtAgentId_ValueChanged1(object sender, EventArgs e)
@@ -1374,6 +1374,7 @@ namespace WealthERP.OffLineOrderManagement
                 btnConfirmOrder.Visible = false;
                 btnAddMore.Visible = true;
                 SetCOntrolsEnablity(false);
+                btnAddMore.Focus();
             }
             else
             {
@@ -1851,6 +1852,7 @@ namespace WealthERP.OffLineOrderManagement
                     GetcustomerDetails();
                     ViewState["customerID"] = customerIds[1];
                     trCustomerAdd.Visible = false;
+                    txtAssociateSearch.Focus();
                     if (customerIds != null)
                     {
 
@@ -1935,6 +1937,7 @@ namespace WealthERP.OffLineOrderManagement
             txtFirstName.Text = "";
             txtPanNumber.Text = txtPansearch.Text;
             trPanExist.Visible = false;
+            //rbtnAuthentication.Focus();
         }
         protected void DematebtnSubmit_Click(object sender, EventArgs e)
         {
@@ -1975,6 +1978,7 @@ namespace WealthERP.OffLineOrderManagement
                     BindgvFamilyAssociate(result);
                     GetDematAccountDetails(customerId);
                     tdDemate.Visible = false;
+                    ddlIssueList.Focus();
                 }
                 catch (Exception ex)
                 {
@@ -2007,7 +2011,7 @@ namespace WealthERP.OffLineOrderManagement
             {
                 txtDPId.Enabled = false;
             }
-
+            ddlDepositoryName.Focus();
         }
 
         protected void BindModeofHolding()
@@ -2029,7 +2033,7 @@ namespace WealthERP.OffLineOrderManagement
             txtDpName.Text = "";
             txtDPId.Enabled = true;
             txtAccountOpeningDate.Text = "";
-            
+            ImageButton4.Focus();
 
         }
         protected void gvDematDetailsTeleR_OnItemDataBound(object sender, GridItemEventArgs e)
