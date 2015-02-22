@@ -972,7 +972,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (ddlProduct.SelectedValue == "IP")
                 {
                     onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = "FIIP";
-                    onlineNCDBackOfficeVo.AssetInstrumentSubCategoryCode = "FIIP";
+                    onlineNCDBackOfficeVo.AssetInstrumentSubCategoryCode = "FIFIIP";
                 }
                 else
                 {
