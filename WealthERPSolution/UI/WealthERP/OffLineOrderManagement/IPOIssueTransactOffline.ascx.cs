@@ -1276,29 +1276,28 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void BidQuantity_TextChanged(object sender, EventArgs e)
         {
+            
             int currentRowidex = (((GridDataItem)((TextBox)sender).NamingContainer).RowIndex / 2) - 1;
             ReseIssueBidValues(currentRowidex, false);
-
-            Page.Validate("btnConfirmOrder");
-
+            Page.Validate("btnConfirmOrder");  
         }
 
         protected void BidPrice_TextChanged(object sender, EventArgs e)
         {
+
             int currentRowidex = (((GridDataItem)((TextBox)sender).NamingContainer).RowIndex / 2) - 1;
             ReseIssueBidValues(currentRowidex, true);
             CustomValidator1.IsValid = true;
             Page.Validate("btnConfirmOrder");
-
         }
 
         protected void CutOffCheckBox_Changed(object sender, EventArgs e)
         {
             int currentRowindex = (((GridDataItem)((CheckBox)sender).NamingContainer).RowIndex / 2) - 1;
             ReseIssueBidValues(currentRowindex, false);
-            //CheckBox chkCutOff = (CheckBox)RadGridIPOBid.MasterTableView.Items[currentRowindex]["CheckCutOff"].FindControl("cbCutOffCheck");
+            CheckBox chkCutOff = (CheckBox)RadGridIPOBid.MasterTableView.Items[currentRowindex]["CheckCutOff"].FindControl("cbCutOffCheck");
             Page.Validate("btnConfirmOrder");
-
+            chkCutOff.Focus();
         }
 
         protected void ReseIssueBidValues(int row, bool isBidPriceChange)
@@ -1500,6 +1499,7 @@ namespace WealthERP.OffLineOrderManagement
                     ControlsVisblity(true);
                     btnAddMore.Visible = true;
                     SetFICOntrolsEnablity(false);
+                    btnAddMore.Focus();
                 }
             }
 
@@ -1738,6 +1738,7 @@ namespace WealthERP.OffLineOrderManagement
             //btnAddMore.Visible = false;
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IPOIssueTransactOffline','login');", true);
             btnConfirmOrder.Visible = true;
+            txtPansearch.Focus();
             //SetFICOntrolsEnablity(true);
         }
         internal void LoadJScript()
@@ -2006,8 +2007,10 @@ namespace WealthERP.OffLineOrderManagement
             {
                 if (((CheckBox)gvr.FindControl("chkDematId")).Checked == true)
                 {
+                    CheckBox chk = (CheckBox)gvr.FindControl("chkDematId");
                     dematAccountId = int.Parse(gvDematDetailsTeleR.MasterTableView.DataKeyValues[gvr.ItemIndex]["CEDA_DematAccountId"].ToString());
                     txtDematid.Text = gvDematDetailsTeleR.MasterTableView.DataKeyValues[gvr.ItemIndex]["CEDA_DPClientId"].ToString();
+                    chk.Focus();
                     break;
                 }
                 else
@@ -2389,6 +2392,7 @@ namespace WealthERP.OffLineOrderManagement
                     ViewState["customerID"] = customerIds[1];
                     //BindCustomerNCDIssueList();
                     trCustomerAdd.Visible = false;
+                    txtAssociateSearch.Focus();
                     if (customerIds != null)
                     {
 
@@ -2546,7 +2550,7 @@ namespace WealthERP.OffLineOrderManagement
                     BindgvFamilyAssociate(result);
                     GetDematAccountDetails(customerId);
                     tdDemate.Visible = false;
-                   
+                    ddlIssueList.Focus();
                 }
                 catch (Exception ex)
                 {
@@ -2684,7 +2688,10 @@ namespace WealthERP.OffLineOrderManagement
                 ddlBrokerCode.DataValueField = dtBindSubbroker.Columns["XB_BrokerIdentifier"].ToString();
                 ddlBrokerCode.DataTextField = dtBindSubbroker.Columns["XB_BrokerShortName"].ToString();
                 ddlBrokerCode.DataBind();
-                ddlBrokerCode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
+                if (dtBindSubbroker.Rows.Count > 1)
+                {
+                    ddlBrokerCode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
+                }
             }
         }
         //protected void rbtnReject_CheckedChanged(object sender, EventArgs e)
