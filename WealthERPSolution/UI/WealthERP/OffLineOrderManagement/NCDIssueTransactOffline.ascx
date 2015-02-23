@@ -303,37 +303,11 @@
         </table>
     </ContentTemplate>
 </asp:UpdatePanel>
-<asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" Height="75%"
+<asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" Height="1000px"
     ScrollBars="None">
     <asp:UpdatePanel ID="UpdatePanel2" UpdateMode="Always" runat="server">
         <ContentTemplate>
-            <table width="100%" id="trOfficeUse" runat="server" visible="false">
-                <tr>
-                    <td colspan="5">
-                        <div class="divSectionHeading" style="vertical-align: text-bottom">
-                            For Office Use
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                    </td>
-                    <td class="leftField" style="width: 20%">
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <asp:Label runat="server" ID="lblBrokerCode" CssClass="FieldName" Text="Select Broker:"></asp:Label>
-                    </td>
-                    <td class="rightField" style="width: 20%">
-                        <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField" ValidationGroup="ddlBrokerCode">
-                        </asp:DropDownList>
-                        <%--<asp:RequiredFieldValidator ID="RFVBrokerCode" ControlToValidate="ddlBrokerCode"
-                            ErrorMessage="<br />Please Select Broker" Display="Dynamic" runat="server" CssClass="rfvPCG"
-                            ValidationGroup="ddlBrokerCode" InitialValue="0"></asp:RequiredFieldValidator>--%>
-                    </td>
-                    <td>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                </tr>
-            </table>
+     
             <table width="100%">
                 <tr>
                     <td colspan="6">
@@ -557,7 +531,7 @@
                 </tr>
                 <tr>
                     <td class="leftField" style="width: 20%">
-                        <asp:Label ID="lblAssociateSearch" runat="server" CssClass="FieldName" Text="Sub Broker Code:"></asp:Label>
+                        <asp:Label ID="lblAssociateSearch" runat="server" CssClass="FieldName" Text="Agent Code:"></asp:Label>
                     </td>
                     <td class="rightField" style="width: 20%">
                         <asp:TextBox ID="txtAssociateSearch" onkeydown="return (event.keyCode!=13);" runat="server"
@@ -574,7 +548,7 @@
                             CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                             UseContextKey="True" DelimiterCharacters="" Enabled="True" />
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtAssociateSearch"
-                            ErrorMessage="<br />Please Enter a agent code" Display="Dynamic" runat="server"
+                            ErrorMessage="<br />Please Enter an agent code" Display="Dynamic" runat="server"
                             CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
                     </td>
                     <td class="leftField" style="width: 20%">
@@ -660,7 +634,7 @@
                                         <asp:TextBox ID="txtDpName" runat="server" CssClass="txtField" Width="250px" TabIndex="19"></asp:TextBox>
                                         <span id="Span25" class="spnRequiredField">*</span>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtDpName"
-                                            ErrorMessage="</br>Dp Name Required" CssClass="cvPCG" ValidationGroup="btnsubmitdemate"
+                                            ErrorMessage="</br>DP Name Required" CssClass="cvPCG" ValidationGroup="btnsubmitdemate"
                                             Display="Dynamic"></asp:RequiredFieldValidator>
                                     </td>
                                     <td class="leftField" style="width: 150px;">
@@ -672,7 +646,7 @@
                                 </tr>
                                 <tr>
                                     <td class="leftField">
-                                        <asp:Label ID="Label16" runat="server" Text="Beneficiary Acct. No:" CssClass="FieldName"></asp:Label>
+                                        <asp:Label ID="Label16" runat="server" Text="Beneficiary Acct. No.:" CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td class="rightField">
                                         <asp:TextBox ID="txtDpClientId" runat="server" CssClass="txtField" TabIndex="21"></asp:TextBox>
@@ -681,7 +655,7 @@
                                             ValidationGroup="btnsubmit" ErrorMessage="Special Character are not allowed!"
                                             CssClass="cvPCG" Display="Dynamic" ValidationExpression="^[a-zA-Z0-9]+(?:--?[a-zA-Z0-9]+)*$" />
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator20" runat="server" ControlToValidate="txtDpClientId"
-                                            ErrorMessage="Client Id Required" CssClass="cvPCG" ValidationGroup="btnsubmitdemate"
+                                            ErrorMessage="Beneficiary Acct. No. Required" CssClass="cvPCG" ValidationGroup="btnsubmitdemate"
                                             Display="Dynamic"></asp:RequiredFieldValidator>
                                     </td>
                                     <td class="leftField">
@@ -835,7 +809,7 @@
                     </tr>
                     <tr>
                         <td class="leftField" style="width: 25%">
-                            <asp:Label ID="lblDpClientId" runat="server" Text="Beneficiary Acct No.:" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="lblDpClientId" runat="server" Text="Beneficiary Acct. No.:" CssClass="FieldName"></asp:Label>
                         </td>
                         <td class="rightField" style="width: 20%">
                             <asp:TextBox ID="txtDematid" Enabled="false" onkeydown="return (event.keyCode!=13);"
@@ -1179,6 +1153,20 @@
                         </td>
                     </tr>
                     <tr>
+                     </td>
+                    <td class="leftField" style="width: 20%">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <asp:Label runat="server" ID="lblBrokerCode" CssClass="FieldName" Text="Select Broker:"></asp:Label>
+                    </td>
+                    <td class="rightField" style="width: 20%">
+                        <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField" ValidationGroup="ddlBrokerCode">
+                        </asp:DropDownList>
+                        <%--<asp:RequiredFieldValidator ID="RFVBrokerCode" ControlToValidate="ddlBrokerCode"
+                            ErrorMessage="<br />Please Select Broker" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                            ValidationGroup="ddlBrokerCode" InitialValue="0"></asp:RequiredFieldValidator>--%>
+                    </td>
+                    </tr>
+                    <tr>
                         <td class="leftField" style="width: 20%">
                             <asp:Label ID="lblApplicationNo" runat="server" Text="Application No.: " CssClass="FieldName"></asp:Label>
                         </td>
@@ -1188,7 +1176,7 @@
                                 TabIndex="30"></asp:TextBox>
                             <span id="Span2" class="spnRequiredField">*</span>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtApplicationNo"
-                                ErrorMessage="<br />Please Enter Application No" Display="Dynamic" runat="server"
+                                ErrorMessage="<br />Please Enter Application No." Display="Dynamic" runat="server"
                                 CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
                             <asp:Label ID="lblApplicationDuplicate" runat="server" CssClass="Error" Text="Application Number already exists"
                                 Visible="false"></asp:Label>
@@ -1239,7 +1227,7 @@
                             </asp:DropDownList>
                             <span id="Span10" class="spnRequiredField">*</span>
                             <asp:CompareValidator ID="CompareValidator13" runat="server" ControlToValidate="ddlPaymentMode"
-                                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select  Mode Of Payment"
+                                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select  Mode of Payment"
                                 Operator="NotEqual" ValidationGroup="btnConfirmOrder" ValueToCompare="Select"></asp:CompareValidator>
                         </td>
                         <td class="leftField" style="width: 20%" runat="server" visible="false">
@@ -1324,7 +1312,7 @@
                                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a Bank"
                                 Operator="NotEqual" ValidationGroup="btnConfirmOrder" ValueToCompare="Select"></asp:CompareValidator>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator22" ControlToValidate="ddlBankName"
-                                CssClass="rfvPCG" ErrorMessage="<br />Please select an Bank" Display="Dynamic"
+                                CssClass="rfvPCG" ErrorMessage="<br />Please select a Bank" Display="Dynamic"
                                 runat="server" InitialValue="" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
                         </td>
                         <td class="leftField" style="width: 20%">

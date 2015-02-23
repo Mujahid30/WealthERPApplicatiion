@@ -271,16 +271,8 @@ namespace WealthERP.OffLineOrderManagement
                 //{
                 //    ddlAction.Items[2].Enabled = false;
                 //}
-                if (OrderStepCode == "ORDERED" )
-                {
-                    lbtnMarkAsReject.Visible = true;
-                }
-                else
-                {
-                    lbtnMarkAsReject.Visible = false;
-
-                }
-                if ((OrderStepCode == "REJECTED") || (DateTime.Now > closeDateTime))
+               
+                if ((OrderStepCode == "REJECTED"))
                 {
                     ddlAction.Items[1].Enabled = true;
                     ddlAction.Items[2].Enabled = false;
@@ -289,6 +281,28 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     ddlAction.Items[1].Enabled = true;
                     ddlAction.Items[2].Enabled = true;
+                }
+                if (OrderStepCode == "ORDERED")
+                {
+
+                    if (DateTime.Now > closeDateTime)
+                    {
+                        lbtnMarkAsReject.Visible = true;
+                        ddlAction.Items[1].Enabled = true;
+                        ddlAction.Items[2].Enabled = false;
+
+                    }
+                    else
+                    {
+                        ddlAction.Items[1].Enabled = true;
+                        ddlAction.Items[2].Enabled = true;
+                        lbtnMarkAsReject.Visible = true;
+                    }
+                }
+                else
+                {
+                    lbtnMarkAsReject.Visible = false;
+
                 }
             }
         }

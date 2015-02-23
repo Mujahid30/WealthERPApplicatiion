@@ -185,35 +185,38 @@ namespace WealthERP.OffLineOrderManagement
                     ViewOrderList(orderId, Convert.ToDateTime(Request.QueryString["CloseDate"].ToString()));
                     btnConfirmOrder.Visible = false;
                     btnAddMore.Visible = false;
-                    trOfficeUse.Visible = true;
                     lblAssociateReport.Visible = true;
                     if (action1 == "View")
                     {
                         SetFICOntrolsEnablity(false);
-
+                        RadGridIPOBid.Enabled = false;
                         if (("REJECTED" == Request.QueryString["OrderStepCode"].ToString()) || (DateTime.Now > Convert.ToDateTime(Request.QueryString["CloseDate"].ToString())))
                         {
                             lnkEdit.Visible = false;
                         }
                         else
                             lnkEdit.Visible = true;
-
+                       
                         controlvisiblity(false);
                         if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
                             GetUserType();
-                        else
-                            trOfficeUse.Visible = true;
                     }
                     else
                     {
-                        SetFICOntrolsEnablity(true);
+                        if (("ORDERED" == Request.QueryString["OrderStepCode"].ToString()))
+                        {
+                            SetFICOntrolsEnablity(false);
+                            RadGridIPOBid.Enabled = true;
+                        }
+                        else
+                        {
+                            SetFICOntrolsEnablity(true);
+                        }
                         btnUpdate.Visible = true;
                         lnkBtnDemat.Enabled = true;
                         controlvisiblity(true);
                         if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
                             GetUserType();
-                        else
-                            trOfficeUse.Visible = true;
                     }
 
                     //    //ShowPaymentSectionBasedOnTransactionType(ddltransType.SelectedValue, ViewForm);
@@ -242,16 +245,16 @@ namespace WealthERP.OffLineOrderManagement
         {
             //ddlsearch.Enabled = false;
             //txtCustomerName.Enabled = value;
-            txtAssociateSearch.Enabled = value;
-            ddlIssueList.Enabled = value;
-            txtApplicationNo.Enabled = value;
-            ddlPaymentMode.Enabled = value;
-            txtASBANO.Enabled = value;
-            ddlBankName.Enabled = value;
-            txtBranchName.Enabled = value;
-            txtBankAccount.Enabled = value;
-            txtPaymentNumber.Enabled = value;
-            txtPansearch.Enabled = value;
+            //txtAssociateSearch.Enabled = value;
+            //ddlIssueList.Enabled = value;
+            //txtApplicationNo.Enabled = value;
+            //ddlPaymentMode.Enabled = value;
+            //txtASBANO.Enabled = value;
+            //ddlBankName.Enabled = value;
+            //txtBranchName.Enabled = value;
+            //txtBankAccount.Enabled = value;
+            //txtPaymentNumber.Enabled = value;
+            //txtPansearch.Enabled = value;
             GetDematAccountDetails(int.Parse(txtCustomerId.Value));
         }
         protected void lnkEdit_OnClick(object sender, EventArgs e)
@@ -263,7 +266,15 @@ namespace WealthERP.OffLineOrderManagement
             gvDematDetailsTeleR.Enabled = false;
             tdlnkbtn.Visible = true;
             lnkEdit.Visible = false;
-            SetFICOntrolsEnablity(true);
+            if (("ORDERED" == Request.QueryString["OrderStepCode"].ToString()))
+            {
+                SetFICOntrolsEnablity(false);
+                RadGridIPOBid.Enabled = true;
+            }
+            else
+            {
+                SetFICOntrolsEnablity(true);
+            }
         }
         private void ViewOrderList(int orderId, DateTime issueCloseDate)
         {
@@ -503,11 +514,16 @@ namespace WealthERP.OffLineOrderManagement
                         drIPOBid["ChequeDate"] = txtPaymentInstDate.SelectedDate.Value.ToString("yyyy/MM/dd");
 
                 }
+                if (ddlPaymentMode.SelectedValue == "ES")
+                    drIPOBid["BranchName"] = txtASBALocation.Text.Trim();
+                else
+                    drIPOBid["BranchName"] = txtBranchName.Text.Trim();
                 drIPOBid["DematId"] = dematAccountId;
                 drIPOBid["Remarks"] = txtRemarks.Text.Trim();
                 DataTable dr = (DataTable)ViewState["Detais"];
                 //foreach(DataRow dr1 in dr.Rows)
                 drIPOBid["DetailsId"] = dr.Rows[radgridRowNo]["COID_DetailsId"].ToString();
+                drIPOBid["OrderID"] = orderNo.ToString();
                 dtIPOBidTransactionDettails.Rows.Add(drIPOBid);
 
                 //foreach (GridDataItem radItem in RadGridIPOBid.MasterTableView.Items)
@@ -550,6 +566,7 @@ namespace WealthERP.OffLineOrderManagement
                     btnUpdate.Visible = false;
                     lnkEdit.Visible = true;
                     SetFICOntrolsEnablity(false);
+                    RadGridIPOBid.Enabled = false;
                 }
             }
         }
@@ -577,12 +594,6 @@ namespace WealthERP.OffLineOrderManagement
                     if (Request.QueryString["action"] != null)
                     {
                         usertype = fiorderBo.GetUserType(advisorVo.advisorId, associateuserheirarchyVo.AdviserAgentId);
-                        if (usertype == "RM" || usertype == "BM")
-                        {
-                            trOfficeUse.Visible = true;
-                        }
-                        else
-                            trOfficeUse.Visible = false;
                     }
                 }
                 else
@@ -706,23 +717,6 @@ namespace WealthERP.OffLineOrderManagement
 
             if (!string.IsNullOrEmpty(txtAssociateSearch.Text))
             {
-                int recCount = 0;
-                //customerBo.ChkAssociateCode(advisorVo.advisorId, txtAssociateSearch.Text);
-                if (userType == "associates")
-                {
-                    recCount = customerBo.ChkAssociateCode(advisorVo.advisorId, associateuserheirarchyVo.AgentCode, txtAssociateSearch.Text, userType);
-                }
-                else
-                {
-                    recCount = customerBo.ChkAssociateCode(advisorVo.advisorId, "", txtAssociateSearch.Text, userType);
-
-                }
-                if (recCount == 0)
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Agent Code is invalid!');", true);
-                    txtAssociateSearch.Text = string.Empty;
-                    return;
-                }
                 Agentname = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
                 if (Agentname.Rows.Count > 0)
                 {
@@ -734,12 +728,10 @@ namespace WealthERP.OffLineOrderManagement
                     lblAssociatetext.Text = "";
                     lblAssociateReportTo.Text = "";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('SubBroker Code is invalid!');", true);
-
                     txtAssociateSearch.Text = "";
                 }
                 txtAssociateSearch.Focus();
             }
-
         }
 
         protected void txtAgentId_ValueChanged1(object sender, EventArgs e)
@@ -1114,6 +1106,7 @@ namespace WealthERP.OffLineOrderManagement
 
                 BindIPOIssueList(ddlIssueList.SelectedValue.ToString(), 1);
                 BindIPOBidGrid(3);
+                BindSubbroker(int.Parse(ddlIssueList.SelectedValue));
             }
             ddlIssueList.Focus();
         }
@@ -1529,6 +1522,8 @@ namespace WealthERP.OffLineOrderManagement
             dtIPOBidTransactionDettails.Columns.Add("Remarks");
             dtIPOBidTransactionDettails.Columns.Add("BankAccountNo");
             dtIPOBidTransactionDettails.Columns.Add("DetailsId", typeof(Int32), null);
+            dtIPOBidTransactionDettails.Columns.Add("OrderId", typeof(Int32), null);
+            dtIPOBidTransactionDettails.Columns.Add("BrokerCode");
             return dtIPOBidTransactionDettails;
         }
         private void CreateIPOOrder()
@@ -1640,7 +1635,14 @@ namespace WealthERP.OffLineOrderManagement
                     drIPOBid["BranchName"] = txtASBALocation.Text.Trim();
                 else
                     drIPOBid["BranchName"] = txtBranchName.Text.Trim();
-
+                if (!string.IsNullOrEmpty(ddlBrokerCode.SelectedValue))
+                {
+                    drIPOBid["BrokerCode"] = ddlBrokerCode.SelectedValue;
+                }
+                else
+                {
+                    drIPOBid["BrokerCode"] = DBNull.Value;
+                }
                 if (ddlPaymentMode.SelectedValue == "CQ")
                 {
                     if (!string.IsNullOrEmpty(txtPaymentNumber.Text.Trim()))

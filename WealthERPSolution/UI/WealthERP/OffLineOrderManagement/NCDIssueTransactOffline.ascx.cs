@@ -158,7 +158,7 @@ namespace WealthERP.OffLineOrderManagement
                     int orderId = Convert.ToInt32(Request.QueryString["orderId"].ToString());
                     hdnOrderId.Value = orderId.ToString();
                     ViewOrderList(orderId);
-                    trOfficeUse.Visible = true;
+                    //trOfficeUse.Visible = true;
                     btnConfirmOrder.Visible = false;
                     btnAddMore.Visible = false;
 
@@ -446,26 +446,8 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void OnAssociateTextchanged(object sender, EventArgs e)
         {
-
             if (!string.IsNullOrEmpty(txtAssociateSearch.Text))
             {
-                int recCount = 0;
-                //customerBo.ChkAssociateCode(advisorVo.advisorId, txtAssociateSearch.Text);
-                if (userType == "associates")
-                {
-                    recCount = customerBo.ChkAssociateCode(advisorVo.advisorId, associateuserheirarchyVo.AgentCode, txtAssociateSearch.Text, userType);
-                }
-                else
-                {
-                    recCount = customerBo.ChkAssociateCode(advisorVo.advisorId, "", txtAssociateSearch.Text, userType);
-
-                }
-                if (recCount == 0)
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('SubBroker Code is invalid!');", true);
-                    txtAssociateSearch.Text = string.Empty;
-                    return;
-                }
                 Agentname = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
                 if (Agentname.Rows.Count > 0)
                 {
@@ -477,10 +459,8 @@ namespace WealthERP.OffLineOrderManagement
                     lblAssociatetext.Text = "";
                     lblAssociateReportTo.Text = "";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Agent Code is invalid!');", true);
-
                     txtAssociateSearch.Text = "";
                 }
-               
             }
             txtAssociateSearch.Focus();
         }
@@ -807,6 +787,7 @@ namespace WealthERP.OffLineOrderManagement
                 BindStructureRuleGrid(advisorVo.advisorId, int.Parse(ddlIssueList.SelectedValue), 1, int.Parse(hdnCustomerId.Value), customerVo.TaxStatusCustomerSubTypeId);
                 BindStructureRuleGrid(int.Parse(ddlIssueList.SelectedValue), int.Parse(hdnCustomerId.Value), customerVo.TaxStatusCustomerSubTypeId);
                 pnlNCDOOrder.Visible = true;
+                BindSubbroker(int.Parse(ddlIssueList.SelectedValue));
             }
             ddlIssueList.Focus();
         }
@@ -1141,6 +1122,7 @@ namespace WealthERP.OffLineOrderManagement
             dt.Columns.Add("ChequeDate");
             dt.Columns.Add("ChequeNo");
             dt.Columns.Add("Remarks");
+            dt.Columns.Add("BrokerCode");
             foreach (GridDataItem gvr in gvDematDetailsTeleR.MasterTableView.Items)
             {
                 if (((CheckBox)gvr.FindControl("chkDematId")).Checked == true)
@@ -1166,6 +1148,14 @@ namespace WealthERP.OffLineOrderManagement
                 OnlineBondVo.PaymentMode = ddlPaymentMode.SelectedValue;
                 OnlineBondVo.BankBranchName = txtBranchName.Text;
                 OnlineBondVo.Remarks = txtRemarks.Text;
+                if (!string.IsNullOrEmpty(ddlBrokerCode.SelectedValue))
+                {
+                    OnlineBondVo.BrokerCode = ddlBrokerCode.SelectedValue;
+                }
+                else
+                {
+                    OnlineBondVo.BrokerCode = DBNull.Value.ToString();
+                }
                 if (ddlPaymentMode.SelectedValue == "CQ")
                 {
                     OnlineBondVo.ChequeNumber = txtPaymentNumber.Text;
@@ -1204,6 +1194,7 @@ namespace WealthERP.OffLineOrderManagement
                         dt.Rows[tableRow]["BranchName"] = OnlineBondVo.BankBranchName;
                         dt.Rows[tableRow]["DematId"] = dematAccountId;
                         dt.Rows[tableRow]["Remarks"] = OnlineBondVo.Remarks;
+                        dt.Rows[tableRow]["BrokerCode"] = OnlineBondVo.BrokerCode;
                         if (ddlPaymentMode.SelectedValue == "CQ")
                         {
                             dt.Rows[tableRow]["ChequeDate"] = OnlineBondVo.PaymentDate.ToString("yyyy/MM/dd");
@@ -2152,6 +2143,7 @@ namespace WealthERP.OffLineOrderManagement
                                 txtQuantity.ToolTip = "The Category Cannot be edited because it was Cancelled previously";
                                 txtQuantity.ReadOnly = true;
                                 txtAmount.CssClass = "txtDisableField";
+                                txtAmount.ToolTip = "The Amount Cannot be edited because it was Cancelled previously";
                                 txtAmount.ReadOnly = true;
                             }
                         }
@@ -2217,6 +2209,7 @@ namespace WealthERP.OffLineOrderManagement
             ddlBankName.Enabled = Val;
             txtASBANO.Enabled = Val;
             txtBranchName.Enabled = Val;
+            ImageButton4.Enabled = Val;
             lnkBtnDemat.Enabled = Val;
             txtRemarks.Enabled = Val;
             ddlBrokerCode.Enabled = Val;

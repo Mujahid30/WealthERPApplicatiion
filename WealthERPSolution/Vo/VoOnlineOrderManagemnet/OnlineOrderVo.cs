@@ -37,7 +37,7 @@ namespace VoOnlineOrderManagemnet
         public bool IsOnlineOrder { get; set; }
         public char OrderModificationType { get; set; }
         public bool IsDeclarationAccepted { get; set; }
-        
+        public string BrokerCode { get; set; }
 
 
     }

@@ -96,8 +96,8 @@
                 </asp:CompareValidator>
             </td>
             <td>
-                <asp:Label runat="server" CssClass="FieldName" Text="Authenticated:" ID="lblAuthenticate"></asp:Label>
-                <asp:DropDownList ID="ddlAuthenticate" runat="server" CssClass="cmbField">
+                <asp:Label runat="server" CssClass="FieldName" Text="Authenticated:" ID="lblAuthenticate" Visible="false"></asp:Label>
+                <asp:DropDownList ID="ddlAuthenticate" runat="server" CssClass="cmbField" Visible="false">
                     <asp:ListItem Text="All" Value="2"></asp:ListItem>
                     <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
                     <asp:ListItem Text="No" Value="0"></asp:ListItem>

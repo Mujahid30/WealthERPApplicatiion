@@ -25,10 +25,12 @@ namespace VoOnlineOrderManagemnet
         public string PFISD_CallOption { get; set; }
         public string PFISD_BuyBackFacility { get; set; }
         public int Qty { get; set; }
+        public string BrokerCode { get; set; }
         public double Amount { get; set; }
         public int BankAccid { get; set; }
         public int applicationNo { get; set; }
         public string Remarks { get; set; }
+        
 
     }
 }
