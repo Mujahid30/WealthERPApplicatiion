@@ -240,6 +240,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         ddlInstrCat.SelectedValue = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
                         ddlProduct.SelectedValue = "NCD";
                         BindIssuer(product);
+                        
                         // ddlInstrCat.SelectedValue=
                     }
                     else if (product == "FIFIIP")
@@ -302,6 +303,11 @@ namespace WealthERP.OnlineOrderBackOffice
                     //ddlProduct.SelectedValue =dr["PAIC_AssetInstrumentCategoryCode"].ToString();
                     EnablityOfControlsonProductAndIssueTypeSelection(ddlProduct.SelectedValue);
                     EnablityOfControlsonIssueTypeSelection(ddlIssueType.SelectedValue);
+                    if (ddlSubInstrCategory.SelectedValue == "FICDCD")
+                    {
+                        rgEligibleInvestorCategories.Visible = true;
+                        pnlCategory.Visible = true;
+                    }
                     //EnablityOfControlsonCategoryTypeSelection(ddlSubInstrCategory.SelectedValue);
                     // ddlSubInstrCategory.SelectedValue = "NCD";
                     txtName.Text = dr["AIM_IssueName"].ToString();
@@ -956,6 +962,8 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 pnlSeries.Visible = true;
                 //trMaxQty.Visible = true;
+                if(ddlSubInstrCategory.SelectedValue=="FICDCD")
+                    rgEligibleInvestorCategories.Enabled = true;
             }
             //if(ddlSubInstrCategory.SelectedValue=="FICDCD")
             //    rgEligibleInvestorCategories.Enabled =true;
@@ -1670,7 +1678,7 @@ namespace WealthERP.OnlineOrderBackOffice
             int count = 0;
             int categoryGridcount = rgEligibleInvestorCategories.Items.Count;
             string attachedCatId = string.Empty;
-            if (categoryGridcount == 0 && ddlSubInstrCategory.SelectedValue != "FICGCG" && ddlSubInstrCategory.SelectedValue != "FICDCD" && ddlSubInstrCategory.SelectedValue != "FINPNP")
+            if (categoryGridcount == 0 && ddlSubInstrCategory.SelectedValue != "FICGCG"  && ddlSubInstrCategory.SelectedValue != "FINPNP")
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please Fill Categories.');", true);
                 // return;
@@ -1734,7 +1742,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
 
                 onlineNCDBackOfficeBo.IsSameSubTypeCatAttchedtoSeries(attachedCatId, Convert.ToInt32(txtIssueId.Text), ref attachedCatId);
-                if (attachedCatId != String.Empty && ddlSubInstrCategory.SelectedValue != "FICGCG" && ddlSubInstrCategory.SelectedValue != "FICDCD" && ddlSubInstrCategory.SelectedValue != "FINPNP")
+                if (attachedCatId != String.Empty && ddlSubInstrCategory.SelectedValue != "FICGCG"  && ddlSubInstrCategory.SelectedValue != "FINPNP")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert( '" + attachedCatId + "');", true);
                     e.Canceled = true;
@@ -3160,6 +3168,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     SeriesAndCategoriesGridsVisiblity(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
                     VisblityAndEnablityOfScreen("Submited");
+                    if (ddlSubInstrCategory.SelectedValue == "FICDCD")
+                    {
+                        rgEligibleInvestorCategories.Visible = true;
+                        pnlCategory.Visible = true;
+                    }
                     CompareValidator2.Visible = false;
                     CompareValidator3.Visible = false;
                     btnSetUpSubmit.Visible = false;
@@ -3241,6 +3254,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 pnlCategory.Visible = true;
                 BindEligibleInvestorsGrid(issuerId, issueId);
             }
+           
             else
             {
 
@@ -4401,6 +4415,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 DropDownList ddlCategory = (DropDownList)gefi.FindControl("ddlCategory");
                 System.Web.UI.HtmlControls.HtmlTableRow trcategory = (System.Web.UI.HtmlControls.HtmlTableRow)gefi.FindControl("trcategory");
                 BindCategory(ddlCategory);
+                radIssuerPopUp.VisibleOnPageLoad = true;
                 if (ddlProduct.SelectedValue == "IP")
                 {
                     trcategory.Visible = false;
@@ -6018,6 +6033,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 RequiredFieldValidator44.Enabled = false;
                 lblSpan20.Visible = false;
                 lblSpan35.Visible = false;
+               
                 if (category == "FICDCD")
                 {
                     trAmount.Visible = true;

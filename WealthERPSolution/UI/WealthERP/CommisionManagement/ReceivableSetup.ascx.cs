@@ -3786,10 +3786,7 @@ namespace WealthERP.Receivable
         protected void ddlSubInstrCategory_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             DropDownList ddlSubInstrCategory = (DropDownList)sender;
-            //GridEditFormInsertItem gdi = (GridEditFormInsertItem)ddlSubInstrCategory.NamingContainer;
-            //DropDownList ddlSeries = (DropDownList)gdi.FindControl("ddlSeries");
-            //DropDownList ddlCategory = (DropDownList)gdi.FindControl("ddlCategory");
-            //CheckBox chkSeries = (CheckBox)gdi.FindControl("chkSeries");
+            
         }
 
 
@@ -3797,33 +3794,17 @@ namespace WealthERP.Receivable
         {
             FIOrderBo fiorderBo = new FIOrderBo();
             DataTable dtBindSubbroker = fiorderBo.GetSubBroker(issueId);
-            //if (dtBindSubbroker.Rows.Count > 0)
-            //{
+           
             ddlBrokerCode.DataSource = dtBindSubbroker;
             ddlBrokerCode.DataValueField = dtBindSubbroker.Columns["XB_BrokerIdentifier"].ToString();
             ddlBrokerCode.DataTextField = dtBindSubbroker.Columns["XB_BrokerShortName"].ToString();
             ddlBrokerCode.DataBind();
-
-            //}
-            //ddlBrokerCode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+            ddlBrokerCode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+            
         }
         protected void ddlCommissionype_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            //DropDownList ddlCommissionype = (DropDownList)sender;
-            //GridEditFormInsertItem gdi = (GridEditFormInsertItem)ddlCommissionype.NamingContainer;
-            //DropDownList ddlBrokerCode = (DropDownList)gdi.FindControl("ddlBrokerCode");
-            //System.Web.UI.HtmlControls.HtmlTableCell tdlblBrokerCode = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdlblBrokerCode");
-            //System.Web.UI.HtmlControls.HtmlTableCell tdddlBrokerCode = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdddlBrokerCode");
-            //if (ddlCommissionype.SelectedValue == "16020")
-            //{
-            //    tdlblBrokerCode.Visible = false;
-            //    tdddlBrokerCode.Visible = false;
-            //}
-            //else
-            //{
-            //    tdlblBrokerCode.Visible = true;
-            //    tdddlBrokerCode.Visible = true;
-            //}
+            
         }
     }
 }
