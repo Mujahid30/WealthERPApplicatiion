@@ -532,8 +532,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@AIM_BankBranch", DbType.String, onlineNCDBackOfficeVo.BankBranch);
                 db.AddInParameter(createCmd, "@AIM_PutCallOption", DbType.String, onlineNCDBackOfficeVo.PutCallOption);
                 db.AddOutParameter(createCmd, "@AIM_IssueId", DbType.Int32, 0);
-                db.AddInParameter(createCmd, "@FromRange", DbType.Int64, onlineNCDBackOfficeVo.FromRange);
-                db.AddInParameter(createCmd, "@ToRange", DbType.Int64, onlineNCDBackOfficeVo.ToRange);
+                db.AddInParameter(createCmd, "@FromRange", DbType.Decimal, onlineNCDBackOfficeVo.FromRange);
+                db.AddInParameter(createCmd, "@ToRange", DbType.Decimal, onlineNCDBackOfficeVo.ToRange);
                 db.AddInParameter(createCmd, "@IsActive", DbType.Int32, onlineNCDBackOfficeVo.IsActive);
                 db.AddInParameter(createCmd, "@IsNominationRequired", DbType.Int32, onlineNCDBackOfficeVo.IsNominationRequired);
 
@@ -921,8 +921,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@AIM_BankBranch", DbType.String, onlineNCDBackOfficeVo.BankBranch);
                 db.AddInParameter(createCmd, "@AIM_PutCallOption", DbType.String, onlineNCDBackOfficeVo.PutCallOption);
                 db.AddOutParameter(createCmd, "@AIM_IssueId", DbType.Int32, 0);
-                db.AddInParameter(createCmd, "@FromRange", DbType.Int64, onlineNCDBackOfficeVo.FromRange);
-                db.AddInParameter(createCmd, "@ToRange", DbType.Int64, onlineNCDBackOfficeVo.ToRange);
+                db.AddInParameter(createCmd, "@FromRange", DbType.Decimal, onlineNCDBackOfficeVo.FromRange);
+                db.AddInParameter(createCmd, "@ToRange", DbType.Decimal, onlineNCDBackOfficeVo.ToRange);
                 db.AddInParameter(createCmd, "@IsActive", DbType.Int32, onlineNCDBackOfficeVo.IsActive);
                 db.AddInParameter(createCmd, "@IsNominationRequired", DbType.Int32, onlineNCDBackOfficeVo.IsNominationRequired);
 

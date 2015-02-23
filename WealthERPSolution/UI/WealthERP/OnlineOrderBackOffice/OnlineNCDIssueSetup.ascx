@@ -1109,7 +1109,7 @@
                     <span id="Span30" class="spnRequiredField">*</span>
                     <br />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator41" runat="server" CssClass="rfvPCG"
-                        ErrorMessage="Please Enter Min Qty" Display="Dynamic" ControlToValidate="txtMinAmt"
+                        ErrorMessage="Please Enter Min. Amt." Display="Dynamic" ControlToValidate="txtMinAmt"
                         InitialValue="" ValidationGroup="SetUpSubmit">
                     </asp:RequiredFieldValidator>
                      <asp:RegularExpressionValidator ID="RegularExpressionValidator19" ControlToValidate="txtMinAmt"
@@ -1117,7 +1117,7 @@
                         ValidationExpression="^[1-9]\d*(\.\d+)?$" ValidationGroup="txtMinAmt">     
                     </asp:RegularExpressionValidator>
                     <asp:CompareValidator ID="CompareValidator9" ControlToValidate="txtMinAmt" runat="server"
-                        ControlToCompare="txtMaxAmt" Display="Dynamic" ErrorMessage="<br/>Min Amount be Less Than Max Amount"
+                        ControlToCompare="txtMaxAmt" Display="Dynamic" ErrorMessage="<br/>Min. Amount be Less Than Max. Amount"
                         Type="Double" Operator="LessThan" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
                 </td>
                 <td class="leftLabel">
@@ -1127,19 +1127,18 @@
                     <asp:TextBox ID="txtMaxAmt" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
                     <asp:Label ID="Label26" runat="server" CssClass="spnRequiredField" Text="*"></asp:Label></span>
                     <br />
-                    
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator49" runat="server" CssClass="rfvPCG"
-                        ErrorMessage="Please Enter Max Qty" Display="Dynamic" ControlToValidate="txtMaxAmt"
-                        InitialValue="" ValidationGroup="SetUpSubmit" Visible="false">
+                        ErrorMessage="Please Enter Max. Amt." Display="Dynamic" ControlToValidate="txtMaxAmt"
+                        InitialValue="" ValidationGroup="SetUpSubmit" Visible="true">
                     </asp:RequiredFieldValidator>
                      <asp:RegularExpressionValidator ID="RegularExpressionValidator20" ControlToValidate="txtMaxAmt"
                         runat="server" Display="Dynamic" ErrorMessage="Please Enter Numeric Value" CssClass="cvPCG"
                         ValidationExpression="^[1-9]\d*(\.\d+)?$" ValidationGroup="txtMaxAmt">     
                     </asp:RegularExpressionValidator>
                     <asp:CompareValidator ID="CompareValidator12" ControlToValidate="txtMaxAmt" runat="server"
-                        ControlToCompare="txtMinAmt" Display="Dynamic" ErrorMessage="<br/>Max Amount be Greater Than Min Amount"
+                        ControlToCompare="txtMinAmt" Display="Dynamic" ErrorMessage="<br/>Max Amount be Greater Than Min. Amount"
                         Type="Double" Operator="GreaterThan" CssClass="cvPCG" ValidationGroup="SetUpSubmit"
-                        Visible="false"></asp:CompareValidator>
+                        Visible="true"></asp:CompareValidator>
                 </td>
             </tr>
             <tr runat="server" id="trMinQty" visible="true">
@@ -1151,7 +1150,7 @@
                     <span id="Span23" class="spnRequiredField">*</span>
                     <br />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator20" runat="server" CssClass="rfvPCG"
-                        ErrorMessage="Please Enter Min Qty" Display="Dynamic" ControlToValidate="txtMinAplicSize"
+                        ErrorMessage="Please Enter Min. Qty." Display="Dynamic" ControlToValidate="txtMinAplicSize"
                         InitialValue="" ValidationGroup="SetUpSubmit">
                     </asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator7" ControlToValidate="txtMinAplicSize"
@@ -1159,7 +1158,7 @@
                         ValidationExpression="[1-9]\d*$" ValidationGroup="txtMinAplicSize">     
                     </asp:RegularExpressionValidator>
                     <asp:CompareValidator ID="CompareValidator10" ControlToValidate="txtMinAplicSize"
-                        runat="server" ControlToCompare="txtMaxQty" Display="Dynamic" ErrorMessage="<br/>Min Qty be Less Than Max Qty"
+                        runat="server" ControlToCompare="txtMaxQty" Display="Dynamic" ErrorMessage="<br/>Min. Qty. be Less Than Max Qty"
                         Type="Integer" Operator="LessThan" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
                 </td>
                 <td align="right">
@@ -1182,11 +1181,11 @@
                         ValidationExpression="[1-9]\d*$" ValidationGroup="SetUpSubmit" Visible="false">                     
                     </asp:RegularExpressionValidator>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator38" runat="server" CssClass="rfvPCG"
-                        ErrorMessage="Please Enter Max Qty" Display="Dynamic" ControlToValidate="txtMaxQty"
+                        ErrorMessage="Please Enter Max. Qty." Display="Dynamic" ControlToValidate="txtMaxQty"
                         InitialValue="" ValidationGroup="SetUpSubmit" Visible="false">
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="CompareValidator8" ControlToValidate="txtMaxQty" runat="server"
-                        ControlToCompare="txtMinAplicSize" Display="Dynamic" ErrorMessage="<br/>Max Qty be Greater Than Min Qty"
+                        ControlToCompare="txtMinAplicSize" Display="Dynamic" ErrorMessage="<br/>Max. Qty. be Greater Than Min. Qty."
                         Type="Integer" Operator="GreaterThan" CssClass="cvPCG" ValidationGroup="SetUpSubmit"
                         Visible="false"></asp:CompareValidator>
                 </td>
@@ -1341,7 +1340,7 @@
                 <td id="tdBroker" runat="server">
                     <%--<asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField" Width="165px">
                     </asp:DropDownList>--%>
-                    <asp:LinkButton ID="lbBrokerCode" runat="server" Text="Click To Add Broker" OnClick="lbBrokerCode_OnClick"
+                    <asp:LinkButton ID="lbBrokerCode" runat="server" Text="Click To Select Broker" OnClick="lbBrokerCode_OnClick"
                         CssClass="LinkButtons"></asp:LinkButton>
                     <span id="Span41" class="spnRequiredField">*</span>
                     <asp:ImageButton ID="ImagddlBrokerCode" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
@@ -1349,6 +1348,7 @@
                         Height="15px" Width="15px"></asp:ImageButton>
                     <br />
                     <asp:Label ID="lblBrokerIds" runat="server" CssClass="FieldName"></asp:Label>
+                    
                 </td>
             </tr>
             <tr>
@@ -2589,7 +2589,7 @@
         <asp:HiddenField ID="hdnBrokerIds" runat="server" />
         <telerik:RadWindow ID="RadRegister" runat="server" VisibleOnPageLoad="false" Height="30%"
             Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
-            Title="Add New Register" RestrictionZoneID="radWindowZone">
+            Title="Add New Register" RestrictionZoneID="radWindowZone" Top="100px" Left="200">
             <contenttemplate>
                 <table>
                     <tr>
@@ -2611,7 +2611,7 @@
         </telerik:RadWindow>
         <telerik:RadWindow ID="RadSyndicate" runat="server" VisibleOnPageLoad="false" Height="30%"
             Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
-            Title="Add New Syndicate" RestrictionZoneID="radWindowZone">
+            Title="Add New Syndicate" RestrictionZoneID="radWindowZone" Top="400px" Left="200">
             <contenttemplate>
                 <table>
                     <tr>
@@ -2632,7 +2632,7 @@
         </telerik:RadWindow>
         <telerik:RadWindow ID="RadBroker" runat="server" VisibleOnPageLoad="false" Height="30%"
             Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
-            Title="Add New Broker" RestrictionZoneID="radWindowZone">
+            Title="Add New Broker" RestrictionZoneID="radWindowZone" Top="400px" Left="200">
             <contenttemplate>
                 <table>
                     <tr>
@@ -2672,7 +2672,7 @@
         </telerik:RadWindow>
         <telerik:RadWindow ID="RadIssueBroker" runat="server" VisibleOnPageLoad="false" Height="30%"
             Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
-            Title="Select Broker For Issue" RestrictionZoneID="radWindowZone">
+            Title="Select Broker For Issue" RestrictionZoneID="radWindowZone" Top="400px" Left="200">
             <contenttemplate>
             
                 <table  style="padding-left:80px;" >

@@ -957,6 +957,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 pnlSeries.Visible = true;
                 //trMaxQty.Visible = true;
             }
+            //if(ddlSubInstrCategory.SelectedValue=="FICDCD")
+            //    rgEligibleInvestorCategories.Enabled =true;
 
 
         }
@@ -991,9 +993,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 onlineNCDBackOfficeVo.IssueName = txtName.Text;
                 onlineNCDBackOfficeVo.IssuerId = Convert.ToInt32(ddlIssuer.SelectedValue);
                 if (!string.IsNullOrEmpty(txtFormRange.Text))
-                    onlineNCDBackOfficeVo.FromRange = Convert.ToInt64(txtFormRange.Text);
+                    onlineNCDBackOfficeVo.FromRange = Convert.ToDecimal(txtFormRange.Text);
                 if (!string.IsNullOrEmpty(txtToRange.Text))
-                    onlineNCDBackOfficeVo.ToRange = Convert.ToInt64(txtToRange.Text);
+                    onlineNCDBackOfficeVo.ToRange = Convert.ToDecimal(txtFormRange.Text);
 
                 if (!string.IsNullOrEmpty(txtInitialCqNo.Text))
                 {
@@ -2886,7 +2888,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     GridEditFormItem editform = (GridEditFormItem)e.Item;
                     RadGrid rgSeriesCat = (RadGrid)editform.FindControl("rgSeriesCat");
                     LinkButton Detailslink = (LinkButton)editform.FindControl("Detailslink");
-                    if (ddlSubInstrCategory.SelectedValue == "FISDSD")
+                    if (ddlSubInstrCategory.SelectedValue == "FISDSD" || ddlSubInstrCategory.SelectedValue =="FICDCD")
                         BindCategory(rgSeriesCat, Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
                     else
                     {
@@ -3158,6 +3160,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     SeriesAndCategoriesGridsVisiblity(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
                     VisblityAndEnablityOfScreen("Submited");
+                    CompareValidator2.Visible = false;
+                    CompareValidator3.Visible = false;
                     btnSetUpSubmit.Visible = false;
                     lnkBtnEdit.Visible = true;
                 }
@@ -3182,7 +3186,8 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
             int result = UpdateIssue();
-
+            CompareValidator2.Visible = false;
+            CompareValidator3.Visible = false;
             SeriesAndCategoriesGridsVisiblity(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
         }
 
@@ -3270,10 +3275,10 @@ namespace WealthERP.OnlineOrderBackOffice
 
                 if (!string.IsNullOrEmpty(txtFormRange.Text))
                 {
-                    onlineNCDBackOfficeVo.FromRange = Convert.ToInt64(txtFormRange.Text);
+                    onlineNCDBackOfficeVo.FromRange = Convert.ToDecimal(txtFormRange.Text);
                 }
                 if (!string.IsNullOrEmpty(txtToRange.Text))
-                    onlineNCDBackOfficeVo.ToRange = Convert.ToInt64(txtToRange.Text);
+                    onlineNCDBackOfficeVo.ToRange = Convert.ToDecimal(txtToRange.Text);
 
                 if (!string.IsNullOrEmpty(txtInitialCqNo.Text))
                 {
@@ -3752,6 +3757,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
                 }
                 issueId = onlineNCDBackOfficeBo.CreateIssue(onlineNCDBackOfficeVo, advisorVo.advisorId, userVo.UserId);
+              
                 if (issueId > 0)
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Issue added successfully.');", true);
@@ -5151,6 +5157,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 lb1Rating.Text = "Rating:";
                 lblBrokerCode.Visible = true;
                 tdBroker.Visible = true;
+                RequiredFieldValidator38.Visible=false;
                 EnablityOfControlsonCategoryTypeSelection(ddlSubInstrCategory.SelectedValue);
             }
             else if (product == "IP")
@@ -5192,6 +5199,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 lb1ModeOfTrading.Visible = false;
                 lb1Trading.Visible = true;
                 txtTradingInMultipleOf.Visible = true;
+                txtMaxQty.Visible = true;
+                trMinQty.Visible = true;
+                lb1IsPrefix.Visible = true;
+                chkIsPrefix.Visible = true;
+                trRange.Visible = true;
             }
 
         }
@@ -5383,9 +5395,16 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 issuerId = Convert.ToInt32(rgIssuer.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PI_IssuerId"].ToString());
                 CreateUpdateDeleteIssuer(issuerId, "", "", "DELETE");
+                if (ddlProduct.SelectedValue == "IP")
+                {
+                    category = "FIFIIP";
+                }
+                else
+                    category = ddlSubInstrCategory.SelectedValue;
 
             }
             //BindIssuerGrid();
+           
             BindIssuer(category);
 
         }
@@ -5851,6 +5870,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             RadBroker.VisibleOnPageLoad = true;
             txtBrokercodeadd.Text = "";
+            txtBrokerIdentifier.Text = "";
             RadRegister.VisibleOnPageLoad = false;
             RadSyndicate.VisibleOnPageLoad = false;
 
