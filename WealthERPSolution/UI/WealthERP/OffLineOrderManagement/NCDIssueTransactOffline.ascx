@@ -303,7 +303,7 @@
         </table>
     </ContentTemplate>
 </asp:UpdatePanel>
-<asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" Height="1000px"
+<asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" Height="3000px"
     ScrollBars="None">
     <asp:UpdatePanel ID="UpdatePanel2" UpdateMode="Always" runat="server">
         <ContentTemplate>
@@ -1771,7 +1771,7 @@
                                 TabIndex="41" />
                         </td>
                         <td id="tdAddMore" runat="server" class="rightField">
-                            <asp:Button ID="btnAddMore" runat="server" Text="Add NCD order" CssClass="PCGMediumButton"
+                            <asp:Button ID="btnAddMore" runat="server" Text="Add More" CssClass="PCGMediumButton"
                                 ValidationGroup="btnConfirmOrder" OnClick="btnAddMore_Click" OnClientClick="return  PreventClicks(); Validate(); "
                                 TabIndex="42" />
                         </td>

@@ -194,7 +194,7 @@
         </table>
     </ContentTemplate>
 </asp:UpdatePanel>
-<asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" Height="75%"
+<asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" Height="3000px"
     ScrollBars="Vertical">
     <asp:UpdatePanel ID="UpdatePanel2" UpdateMode="Always" runat="server">
         <ContentTemplate>

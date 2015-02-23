@@ -168,7 +168,7 @@ namespace WealthERP.OffLineOrderManagement
                         SetCOntrolsEnablity(false);
                         btnUpdate.Visible = false;
                         lnkBtnDemat.Enabled = false;
-
+                        gvCommMgmt.Enabled = true;
                         Label3.Visible = false;
                         if ("REJECTED" == Request.QueryString["OrderStepCode"].ToString())
                         {
@@ -181,7 +181,15 @@ namespace WealthERP.OffLineOrderManagement
                     }
                     else
                     {
-                        SetCOntrolsEnablity(true);
+                        if (("ORDERED" == Request.QueryString["OrderStepCode"].ToString()))
+                        {
+                            SetCOntrolsEnablity(false);
+                            gvCommMgmt.Enabled = true;
+                        }
+                        else
+                        {
+                            SetCOntrolsEnablity(true);
+                        }
                         btnUpdate.Visible = true;
                         lnkBtnDemat.Enabled = true;
                         Label3.Visible = false;
@@ -791,41 +799,6 @@ namespace WealthERP.OffLineOrderManagement
             }
             ddlIssueList.Focus();
         }
-
-        protected void lnkBtnEdit_Click(object sender, EventArgs e)
-        {
-
-
-        }
-
-        protected void lnlBack_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void btnUpdate_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-        //protected void ddlBankName_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    int BankAccountId = 0;
-        //    DataTable dtgetBankBranch;
-        //    if (ddlBankName.SelectedIndex != 0)
-        //    {
-        //        BankAccountId = int.Parse(ddlBankName.SelectedValue);
-        //        dtgetBankBranch = mfOrderBo.GetBankBranch(BankAccountId);
-        //        if (dtgetBankBranch.Rows.Count > 0)
-        //        {
-        //            DataRow dr = dtgetBankBranch.Rows[0];
-        //            txtBranchName.Text = dr["BBL_BranchName"].ToString();
-        //        }
-        //        hdnBankName.Value = ddlBankName.SelectedItem.Text;
-        //    }
-        //}
 
         protected void lnkDelete_Click(object sender, EventArgs e)
         {
@@ -2178,7 +2151,15 @@ namespace WealthERP.OffLineOrderManagement
             gvDematDetailsTeleR.Enabled = false;
             btnUpdate.Visible = true;
             lnkEdit.Visible = false;
-            SetCOntrolsEnablity(true);
+            if (("ORDERED" == Request.QueryString["OrderStepCode"].ToString()))
+            {
+                SetCOntrolsEnablity(false);
+                gvCommMgmt.Enabled = true;
+            }
+            else
+            {
+                SetCOntrolsEnablity(true);
+            }
         }
 
         protected void BindSubbroker(int issueId)
