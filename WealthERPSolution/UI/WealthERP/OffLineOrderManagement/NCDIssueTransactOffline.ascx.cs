@@ -2159,6 +2159,7 @@ namespace WealthERP.OffLineOrderManagement
             else
             {
                 SetCOntrolsEnablity(true);
+                gvCommMgmt.Enabled = true;
             }
         }
 

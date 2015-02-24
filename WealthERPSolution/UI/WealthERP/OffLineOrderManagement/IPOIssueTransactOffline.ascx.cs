@@ -274,6 +274,7 @@ namespace WealthERP.OffLineOrderManagement
             else
             {
                 SetFICOntrolsEnablity(true);
+                RadGridIPOBid.Enabled = true;
             }
         }
         private void ViewOrderList(int orderId, DateTime issueCloseDate)
