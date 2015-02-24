@@ -604,7 +604,7 @@
                             </div>
                             <div class="divViewEdit">
                                 <asp:LinkButton ID="lnkAddNewStructure" Text="Add" runat="server" CssClass="LinkButtons"
-                                    ToolTip="Add new commission structure" OnClick="lnkAddNewStructure_Click">
+                                    ToolTip="Add new commission structure" OnClick="lnkAddNewStructure_Click" Visible="false">
                                 </asp:LinkButton>
                             </div>
                             <div class="divViewEdit">

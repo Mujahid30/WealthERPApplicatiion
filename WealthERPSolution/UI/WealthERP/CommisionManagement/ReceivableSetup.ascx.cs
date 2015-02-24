@@ -574,6 +574,7 @@ namespace WealthERP.Receivable
                 SpanSubCategory.Visible = true;
                 tdlblCategory.Visible = false;
                 tdddlCategory.Visible = false;
+                GetCategory("MF");
 
             }
             else if (asset == "FI")
@@ -634,7 +635,7 @@ namespace WealthERP.Receivable
             ddlProductType.DataBind();
             //ddlProductType.SelectedValue = "MF";
 
-            GetCategory(ddlProductType.SelectedValue);
+            //GetCategory(ddlProductType.SelectedValue);
 
         }
 
@@ -694,6 +695,7 @@ namespace WealthERP.Receivable
 
                 ddlProductType.SelectedValue = "MF";
                 ddlCategory.SelectedValue = "MFDT";
+                GetCategory("MF");
 
             }
             else if (assetType == "FI")
@@ -2650,7 +2652,7 @@ namespace WealthERP.Receivable
                 lnkEditStructure.Visible = true;
                 lnkEditStructure.Text = "Edit";
                 lnkEditStructure.ToolTip = "Edit commission structure section";
-                lnkAddNewStructure.Visible = true;
+                lnkAddNewStructure.Visible = false;
                 btnStructureSubmit.Visible = false;
                 btnStructureUpdate.Visible = false;
 
