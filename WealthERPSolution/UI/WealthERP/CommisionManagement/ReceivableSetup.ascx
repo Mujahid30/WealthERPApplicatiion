@@ -51,8 +51,8 @@
     function Confirm() {
 
         var minValue = document.getElementById('<%=hdnViewMode.ClientID%>').value;
-
-        if (minValue == "ViewEdit") {
+        var eligible = document.getElementById('<%=hdneligible.ClientID%>').value;
+        if (minValue == "ViewEdit" && eligible=="Eligible") {
             var confirm_value = document.createElement("INPUT");
             confirm_value.type = "hidden";
             confirm_value.name = "confirm_value";
@@ -2113,6 +2113,7 @@
                                 }  OnClientClick="Confirm();"
                             </script>--%>
             </td> </tr> </table>
+            <asp:Label ID="lblEligible" runat="server"></asp:Label>
             <asp:Button ID="btnIssueMap" runat="server" CssClass="PCGButton" Text="Map Associate"
                 OnClick="Map_btnIssueMap" OnClientClick="Confirm()" Visible="false" />
             <div>

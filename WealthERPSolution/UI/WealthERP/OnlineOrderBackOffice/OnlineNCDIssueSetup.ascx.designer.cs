@@ -1920,7 +1920,9 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::System.Web.UI.WebControls.TextBox txtMaxAmt;
         protected global::System.Web.UI.WebControls.TextBox txtMinAmt;
         protected global::System.Web.UI.WebControls.ImageButton ImageddlRegistrar;
-
-
+        protected global::System.Web.UI.WebControls.HiddenField hdnMaxInvestment;
+        protected global::System.Web.UI.WebControls.HiddenField hdnMinInvestment;
+        protected global::System.Web.UI.WebControls.HiddenField hdnMinBid;
+        protected global::System.Web.UI.WebControls.HiddenField hdnMaxBid;
     }
 }

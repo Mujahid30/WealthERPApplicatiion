@@ -1950,6 +1950,38 @@ namespace DaoCommisionManagement
             }
             return dsGetSeriesCategories;
         }
+        public bool DeleteMappedIssue(int structureId)
+        {
+            bool bResult = false;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand DeleteMappedIssueCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                DeleteMappedIssueCmd = db.GetStoredProcCommand("SPROC_DeleteStructureMappedAssociates");
+                db.AddInParameter(DeleteMappedIssueCmd, "@CommissionStructureId", DbType.Int32, structureId);
+
+                if (db.ExecuteNonQuery(DeleteMappedIssueCmd) != 0)
+                    bResult = true;
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:DeleteIssueinvestor(int investorcategoryid)");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+
+        }
 
     }
 }

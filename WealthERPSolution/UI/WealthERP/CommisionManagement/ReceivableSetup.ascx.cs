@@ -47,7 +47,8 @@ namespace WealthERP.Receivable
                 if (Request.QueryString["StructureId"] != null)
                 {
                     structureId = Convert.ToInt32(Request.QueryString["StructureId"].ToString());
-                    hdnViewMode.Value = "ViewEdit";
+                    //hdnViewMode.Value = "ViewEdit";
+                    //hdneligible.Value = "Eligible";
                     btnIssueMap.Visible = true;
                     hidCommissionStructureName.Value = structureId.ToString();
                     BindPayableGrid();
@@ -1303,7 +1304,7 @@ namespace WealthERP.Receivable
                 {
                     chkCategory.Visible = false;
                 }
-               
+
                 if (ddlProductType.SelectedValue == "IP")
                 {
                     chkSeries.Visible = false;
@@ -1443,7 +1444,7 @@ namespace WealthERP.Receivable
                 //       txtTDS
                 BindSeries(ddlSeries, int.Parse(gvMappedIssueList.MasterTableView.DataKeyValues[0]["AIM_IssueId"].ToString()), 0);
                 BindCategory(ddlCategorys, int.Parse(gvMappedIssueList.MasterTableView.DataKeyValues[0]["AIM_IssueId"].ToString()));
-              
+
                 //CheckBox chkSpecial = (CheckBox)e.Item.FindControl("chkSpecial");
 
                 if (dsCommissionLookup != null)
@@ -1528,7 +1529,7 @@ namespace WealthERP.Receivable
                 if (e.Item.RowIndex != -1)
                 {
 
-                   
+
                     string strCommissionType = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WCT_CommissionTypeCode"].ToString();
                     string strCustomerCategory = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["XCT_CustomerTypeCode"].ToString();
                     string strTenureUnit = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_TenureUnit"].ToString();
@@ -3556,23 +3557,48 @@ namespace WealthERP.Receivable
 
         protected void Map_btnIssueMap(object sender, EventArgs e)
         {
+            int associateid = 0;
 
             if (Request.QueryString["StructureId"] != null)
             {
-                //associateid = commisionReceivableBo.RuleAssociate(Request.QueryString["StructureId"]);
-                string confirmValue = Request.Form["confirm_value"];
-                if (confirmValue == "Yes")
+                associateid = commisionReceivableBo.RuleAssociate(Request.QueryString["StructureId"]);
+                if (associateid > 0)
                 {
-
+                    
+                    string confirmValue = Request.Form["confirm_value"];
+                    if (confirmValue == "Yes")
+                    {
+                        commisionReceivableBo.DeleteMappedIssue(int.Parse(hidCommissionStructureName.Value));
+                        string myscript = "window.open('PopUp.aspx?ID=" + hidCommissionStructureName.Value + "&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=1000,height=600,scrollbars=yes,location=no')";
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), Guid.NewGuid().ToString(), "<script>" + myscript + "</script>", false);
+                    }
+                }
+                else
+                {
                     string myscript = "window.open('PopUp.aspx?ID=" + hidCommissionStructureName.Value + "&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=1000,height=600,scrollbars=yes,location=no')";
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), Guid.NewGuid().ToString(), "<script>" + myscript + "</script>", false);
                 }
-
             }
             else
             {
-                string myscript = "window.open('PopUp.aspx?ID=" + hidCommissionStructureName.Value + "&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=1000,height=600,scrollbars=yes,location=no')";
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), Guid.NewGuid().ToString(), "<script>" + myscript + "</script>", false);
+                if (gvPayaMapping.Items.Count > 0)
+                {
+                  
+                    string confirmValue = Request.Form["confirm_value"];
+                    if (confirmValue == "Yes")
+                    {
+                        commisionReceivableBo.DeleteMappedIssue(int.Parse(hidCommissionStructureName.Value));
+                        string myscript = "window.open('PopUp.aspx?ID=" + hidCommissionStructureName.Value + "&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=1000,height=600,scrollbars=yes,location=no')";
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), Guid.NewGuid().ToString(), "<script>" + myscript + "</script>", false);
+                    }
+                }
+                //string myscript = "window.open('PopUp.aspx?ID=" + hidCommissionStructureName.Value + "&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=1000,height=600,scrollbars=yes,location=no')";
+                //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), Guid.NewGuid().ToString(), "<script>" + myscript + "</script>", false);
+                else
+                {
+                    string myscript = "window.open('PopUp.aspx?ID=" + hidCommissionStructureName.Value + "&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=1000,height=600,scrollbars=yes,location=no')";
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), Guid.NewGuid().ToString(), "<script>" + myscript + "</script>", false);
+                }
             }
 
         }
@@ -3675,6 +3701,16 @@ namespace WealthERP.Receivable
         protected void OnClick_imgMapping(object sender, ImageClickEventArgs e)
         {
             BindPayableGrid();
+            if (gvPayaMapping.Items.Count > 0)
+            {
+                hdneligible.Value = "Eligible";
+                hdnViewMode.Value = "ViewEdit";
+            }
+            else
+            {
+                hdneligible.Value = "";
+                hdnViewMode.Value = "";
+            }
         }
         protected void chkCategory_OnCheckedChanged(object sender, EventArgs e)
         {
@@ -3688,17 +3724,17 @@ namespace WealthERP.Receivable
             System.Web.UI.HtmlControls.HtmlTableCell tdddlSeries = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdddlSeries");
             if (chkCategory.Checked == true)
             {
-                
+
                 tdlblCategory.Visible = true;
                 tdddlCategorys.Visible = true;
-                
+
                 BindCategory(ddl, int.Parse(gvMappedIssueList.MasterTableView.DataKeyValues[0]["AIM_IssueId"].ToString()));
-                if(ddlProductType.SelectedValue !="IP")
+                if (ddlProductType.SelectedValue != "IP")
                 {
-                chkSeries.Checked = true;
-                chkSeries.Enabled = false;
-                tdlblSerise.Visible = true;
-                tdddlSeries.Visible = true;
+                    chkSeries.Checked = true;
+                    chkSeries.Enabled = false;
+                    tdlblSerise.Visible = true;
+                    tdddlSeries.Visible = true;
                 }
             }
             else

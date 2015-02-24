@@ -1347,5 +1347,20 @@ namespace BoCommisionManagement
             }
 
         }
+        public bool DeleteMappedIssue(int structureId)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            bool bResult = false;
+            try
+            {
+                bResult = commisionReceivableDao.DeleteMappedIssue(structureId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
     }
 }

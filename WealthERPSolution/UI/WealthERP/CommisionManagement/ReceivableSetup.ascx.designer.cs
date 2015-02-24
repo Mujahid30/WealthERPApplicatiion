@@ -25,6 +25,7 @@ namespace WealthERP.Receivable {
         protected global::Telerik.Web.UI.RadGrid gvPayaMapping;
         protected global::System.Web.UI.WebControls.DropDownList ddlCategorys;
         protected global::System.Web.UI.WebControls.DropDownList ddlBrokerCode;
+       protected global::System.Web.UI.WebControls.Label lblEligible;
         /// <summary>
         /// pnl1 control.
         /// </summary>
