@@ -26,6 +26,9 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.WebControls.DropDownList ddlCategorys;
         protected global::System.Web.UI.WebControls.DropDownList ddlBrokerCode;
        protected global::System.Web.UI.WebControls.Label lblEligible;
+        protected global::System.Web.UI.WebControls.ImageButton ImageButton3;
+        protected global::System.Web.UI.WebControls.ImageButton ImageButton5;
+        protected global::System.Web.UI.WebControls.ImageButton imgBuy1;
         /// <summary>
         /// pnl1 control.
         /// </summary>

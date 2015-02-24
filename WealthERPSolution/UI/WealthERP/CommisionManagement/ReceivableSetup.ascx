@@ -613,9 +613,9 @@
                                 </asp:LinkButton>
                             </div>
                             <div class="divTextCenter">
-                                <asp:ImageButton ID="ImageButton3" runat="server" ImageUrl="../Images/Telerik/gp.gif"
-                                    alt="Collapse/Expand" OnClick="imgBuy_Click" Height="20px" Width="20px" Style="float: right;
-                                    cursor: hand;" />&nbsp;&nbsp;
+                                <asp:ImageButton ID="ImageButton3" runat="server" ImageUrl="~/Images/toggle-collapse-alt_blue.png"
+                                    alt="Collapse/Expand" OnClick="imgBuy_Click" Height="28px" Width="30px" Style="float: right;
+                                    cursor: hand;" ToolTip="Collapse/Expand" ImageAlign="Top"/>&nbsp;&nbsp;
                             </div>
                     </td>
                 </tr>
@@ -1134,8 +1134,8 @@
                                     Width="25px"></asp:ImageButton>
                             </div>
                             <div class="divTextCenter">
-                                <asp:ImageButton ID="ImageButton5" runat="server" alt="Collapse/Expand" ImageUrl="../Images/Telerik/gp.gif"
-                                    Height="20px" Width="20px" Style="float: right; cursor: hand;" OnClick="imgNcd_Click" />
+                                <asp:ImageButton ID="ImageButton5" runat="server" alt="Collapse/Expand" ImageUrl="~/Images/toggle-collapse-alt_blue.png"
+                                    Height="28px" Width="30px" Style="float: right; cursor: hand;" OnClick="imgNcd_Click" ToolTip="Collapse/Expand"/>
                             </div>
                         </div>
                     </td>
@@ -1258,8 +1258,8 @@
                                 </asp:LinkButton>
                             </div>
                             <div class="divTextCenter">
-                                <asp:ImageButton ID="imgBuy1" runat="server" alt="Collapse/Expand" ImageUrl="../Images/Telerik/gp.gif"
-                                    Height="20px" Width="20px" Style="float: right; cursor: hand;" OnClick="imgBuy1_Click" />
+                                <asp:ImageButton ID="imgBuy1" runat="server" alt="Collapse/Expand" ImageUrl="~/Images/toggle-collapse-alt_blue.png"
+                                    Height="28px" Width="30px" Style="float: right; cursor: hand;" OnClick="imgBuy1_Click" ToolTip="Collapse/Expand"/>
                             </div>
                         </div>
                     </td>

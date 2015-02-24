@@ -108,12 +108,15 @@ namespace WealthERP.Receivable
 
             if (tb1.Visible == true)
             {
+                //toggle-collapse-alt_blue
                 tb1.Visible = false;
+
+                ImageButton3.ImageUrl = "~/Images/toggle-expand-alt_blue.png";
             }
             else
             {
                 tb1.Visible = true;
-
+                ImageButton3.ImageUrl = "~/Images/toggle-collapse-alt_blue.png";
             }
 
         }
@@ -156,13 +159,14 @@ namespace WealthERP.Receivable
                     // Table4.Visible = false;
                     tbNcdIssueList.Visible = false;
                     pnlIssueList.Visible = false;
+                    ImageButton5.ImageUrl = "~/Images/toggle-expand-alt_blue.png";
                 }
                 else
                 {
                     // Table4.Visible = true;
                     tbNcdIssueList.Visible = true;
                     pnlIssueList.Visible = true;
-
+                    ImageButton5.ImageUrl = "~/Images/toggle-collapse-alt_blue.png";
                 }
 
 
@@ -173,11 +177,12 @@ namespace WealthERP.Receivable
             if (tblCommissionStructureRule1.Visible == true)
             {
                 tblCommissionStructureRule1.Visible = false;
+                imgBuy1.ImageUrl = "~/Images/toggle-expand-alt_blue.png";
             }
             else
             {
                 tblCommissionStructureRule1.Visible = true;
-
+                imgBuy1.ImageUrl = "~/Images/toggle-collapse-alt_blue.png";
             }
         }
 
