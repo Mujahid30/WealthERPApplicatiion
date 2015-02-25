@@ -20,7 +20,7 @@ namespace DaoOfflineOrderManagement
     {
         string allotmentDataTable;
 
-        public DataTable GetOfflineCustomerNCDOrderBook(int adviserId, int issueNo, string status, DateTime dtFrom, DateTime dtTo, string userType, string agentCode, int orderNo,int authenticateType)
+        public DataTable GetOfflineCustomerNCDOrderBook(int adviserId, int issueNo, string status, DateTime dtFrom, DateTime dtTo, string userType, string agentCode, int orderNo, string ModificationType )
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DataSet dsNCDOrder;
@@ -56,7 +56,7 @@ namespace DaoOfflineOrderManagement
                     db.AddInParameter(cmd, "@AgentCode", DbType.String, agentCode);
                 else
                     db.AddInParameter(cmd, "@AgentCode", DbType.String, DBNull.Value);
-                db.AddInParameter(cmd, "@AuthenticateStatus ", DbType.Int32, authenticateType);
+                db.AddInParameter(cmd, "@ModificationType", DbType.String, ModificationType);
                 dsNCDOrder = db.ExecuteDataSet(cmd);
                 dtNCDOrder = dsNCDOrder.Tables[0];
             }
@@ -131,7 +131,7 @@ namespace DaoOfflineOrderManagement
             }
             return dsGetNCDIssueOrderDetails;
         }
-        public bool UpdateNCDDetails(int orderid, int userid, DataTable dtOrderDetails, string brokerCode)
+        public bool UpdateNCDDetails(int orderid, int userid, DataTable dtOrderDetails, string brokerCode, int agentId)
         {
 
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -149,7 +149,7 @@ namespace DaoOfflineOrderManagement
                 db.AddInParameter(UpdateNCDDetailscmd, "@orderId", DbType.Int32, orderid);
                 db.AddInParameter(UpdateNCDDetailscmd, "@UserId", DbType.Int32, userid);
                 db.AddInParameter(UpdateNCDDetailscmd, "@brokerCode", DbType.String, brokerCode);
-                
+                db.AddInParameter(UpdateNCDDetailscmd, "@AgentId", DbType.Int32, agentId);
                 db.ExecuteNonQuery(UpdateNCDDetailscmd);
                 bResult = true;
             }

@@ -718,7 +718,7 @@ namespace WealthERP.OffLineOrderManagement
             if (!string.IsNullOrEmpty(txtAssociateSearch.Text))
             {
                 Agentname = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
-                if (Agentname.Rows.Count > 0)
+                if (!string.IsNullOrEmpty(Agentname.Rows[0][2].ToString()))
                 {
                     lblAssociatetext.Text = Agentname.Rows[0][0].ToString();
                     lblAssociateReportTo.Text = Agentname.Rows[0][2].ToString();
@@ -727,7 +727,7 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     lblAssociatetext.Text = "";
                     lblAssociateReportTo.Text = "";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('SubBroker Code is invalid!');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Agent Code is invalid!');", true);
                     txtAssociateSearch.Text = "";
                 }
                 txtAssociateSearch.Focus();

@@ -232,8 +232,8 @@ var div_position = document.getElementById("div_position");
         </table>
     </ContentTemplate>
 </asp:UpdatePanel>
-<asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" Height="3000px"
-    ScrollBars="Vertical" >
+<asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" Height="1000px"
+    ScrollBars="None" >
     <asp:UpdatePanel ID="UpdatePanel2" UpdateMode="Always" runat="server">
         <ContentTemplate>
             <table width="100%">

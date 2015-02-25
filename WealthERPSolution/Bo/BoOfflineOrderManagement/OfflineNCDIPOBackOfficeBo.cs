@@ -20,13 +20,13 @@ namespace BoOfflineOrderManagement
     public class OfflineNCDIPOBackOfficeBo
     {
         OfflineNCDIPOBackOfficeDao offlineNCDBackOfficeDao;
-        public DataTable GetOfflineCustomerNCDOrderBook(int adviserId, int issueNo, string status, DateTime dtFrom, DateTime dtTo, string userType, string agentCode, int orderNo,int authenticateType)
+        public DataTable GetOfflineCustomerNCDOrderBook(int adviserId, int issueNo, string status, DateTime dtFrom, DateTime dtTo, string userType, string agentCode, int orderNo, string ModificationType)
         {
             DataTable dtNCDOrder;
             offlineNCDBackOfficeDao = new OfflineNCDIPOBackOfficeDao();
             try
             {
-                dtNCDOrder = offlineNCDBackOfficeDao.GetOfflineCustomerNCDOrderBook(adviserId, issueNo, status, dtFrom, dtTo, userType, agentCode, orderNo, authenticateType);
+                dtNCDOrder = offlineNCDBackOfficeDao.GetOfflineCustomerNCDOrderBook(adviserId, issueNo, status, dtFrom, dtTo, userType, agentCode, orderNo, ModificationType);
             }
             catch (BaseApplicationException Ex)
             {
@@ -84,13 +84,13 @@ namespace BoOfflineOrderManagement
             }
             return dsGetNCDIssueOrderDetails;
         }
-        public bool UpdateNCDDetails(int orderid, int userid, DataTable dtOrderDetails,string brokerCode)
+        public bool UpdateNCDDetails(int orderid, int userid, DataTable dtOrderDetails, string brokerCode, int agentId)
         {
             bool result = false;
             offlineNCDBackOfficeDao = new OfflineNCDIPOBackOfficeDao();
             try
             {
-                result = offlineNCDBackOfficeDao.UpdateNCDDetails(orderid, userid, dtOrderDetails, brokerCode);
+                result = offlineNCDBackOfficeDao.UpdateNCDDetails(orderid, userid, dtOrderDetails, brokerCode, agentId);
             }
             catch (BaseApplicationException Ex)
             {

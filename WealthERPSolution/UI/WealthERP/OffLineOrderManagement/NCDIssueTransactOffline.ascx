@@ -307,7 +307,6 @@
     ScrollBars="None">
     <asp:UpdatePanel ID="UpdatePanel2" UpdateMode="Always" runat="server">
         <ContentTemplate>
-     
             <table width="100%">
                 <tr>
                     <td colspan="6">
@@ -362,10 +361,12 @@
                                 </td>
                                 <td>
                                     <asp:RadioButton ID="rbtnIndividual" runat="server" CssClass="txtField" Text="Individual"
-                                        GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnIndividual_CheckedChanged"  TabIndex="3" />
+                                        GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnIndividual_CheckedChanged"
+                                        TabIndex="3" />
                                     &nbsp;&nbsp;
                                     <asp:RadioButton ID="rbtnNonIndividual" runat="server" CssClass="txtField" Text="Non Individual"
-                                        GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnNonIndividual_CheckedChanged"  TabIndex="4"/>
+                                        GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnNonIndividual_CheckedChanged"
+                                        TabIndex="4" />
                                 </td>
                                 <td>
                                     <asp:Label ID="lblCustomerSubType" runat="server" CssClass="FieldName" Text="Customer Sub Type:"></asp:Label>
@@ -385,7 +386,8 @@
                                     <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Branch Name:"></asp:Label>
                                 </td>
                                 <td>
-                                    <asp:DropDownList ID="ddlAdviserBranchList" AutoPostBack="true" runat="server" CssClass="cmbField" TabIndex="6"> 
+                                    <asp:DropDownList ID="ddlAdviserBranchList" AutoPostBack="true" runat="server" CssClass="cmbField"
+                                        TabIndex="6">
                                     </asp:DropDownList>
                                     <span id="Span8" class="spnRequiredField">*</span>
                                     <br />
@@ -416,7 +418,8 @@
                                     <asp:Label ID="lblPanNum" runat="server" CssClass="FieldName" Text="PAN:"></asp:Label>
                                 </td>
                                 <td class="rightField" width="51%">
-                                    <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField" MaxLength="10" TabIndex="8"></asp:TextBox>
+                                    <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField" MaxLength="10"
+                                        TabIndex="8"></asp:TextBox>
                                     <span id="Span14" class="spnRequiredField">*</span> &nbsp;
                                     <asp:CheckBox ID="chkdummypan" runat="server" Visible="false" CssClass="txtField"
                                         Text="Dummy PAN" AutoPostBack="true" />
@@ -437,7 +440,8 @@
                                                 <asp:Label ID="lblName" runat="server" CssClass="FieldName" Text="Name:"></asp:Label>
                                             </td>
                                             <td>
-                                                <asp:TextBox ID="txtFirstName" runat="server" MaxLength="75" CssClass="txtField" TabIndex="9"></asp:TextBox>
+                                                <asp:TextBox ID="txtFirstName" runat="server" MaxLength="75" CssClass="txtField"
+                                                    TabIndex="9"></asp:TextBox>
                                                 <span id="Span15" class="spnRequiredField">*</span>
                                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator12" ControlToValidate="txtFirstName"
                                                     ErrorMessage="<br />Please enter the First Name" Display="Dynamic" runat="server"
@@ -471,7 +475,7 @@
                                 </td>
                                 <td>
                                     <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click"
-                                        CssClass="PCGButton" ValidationGroup="CustomerProfileSubmit" TabIndex="11"/>
+                                        CssClass="PCGButton" ValidationGroup="CustomerProfileSubmit" TabIndex="11" />
                                 </td>
                             </tr>
                         </table>
@@ -524,7 +528,7 @@
                         <asp:Label ID="lblBranch" runat="server" Text="Branch: " CssClass="FieldName"></asp:Label>
                     </td>
                     <td class="rightField" style="width: 20%">
-                        <asp:Label ID="lblGetBranch" runat="server" Text="" CssClass="FieldName" ></asp:Label>
+                        <asp:Label ID="lblGetBranch" runat="server" Text="" CssClass="FieldName"></asp:Label>
                     </td>
                     <td colspan="2">
                     </td>
@@ -619,8 +623,8 @@
                         <td id="Td5" class="rightField" style="width: 20%" colspan="2">
                             <asp:ImageButton ID="ImageButton4" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                                 AlternateText="Add Demat Account" runat="server" ToolTip="Click here to Add Demat Account"
-                                OnClick="ImageButton1_OnClick" Height="15px" Width="15px" CausesValidation="false" TabIndex="18">
-                            </asp:ImageButton>
+                                OnClick="ImageButton1_OnClick" Height="15px" Width="15px" CausesValidation="false"
+                                TabIndex="18"></asp:ImageButton>
                         </td>
                     </tr>
                     <tr>
@@ -695,10 +699,11 @@
                                     </td>
                                     <td class="rightField">
                                         <asp:RadioButton ID="rbtnYes" runat="server" Text="Yes" GroupName="IsHeldJointly"
-                                            CssClass="txtField" AutoPostBack="True" OnCheckedChanged="RadioButton_CheckChanged" TabIndex="23" />
+                                            CssClass="txtField" AutoPostBack="True" OnCheckedChanged="RadioButton_CheckChanged"
+                                            TabIndex="23" />
                                         <asp:RadioButton ID="rbtnNo" runat="server" Text="No" GroupName="IsHeldJointly" CssClass="txtField"
                                             AutoPostBack="True" OnCheckedChanged="rbtnNo_CheckChanged" OnLoad="rbtnNo_Load"
-                                            Checked="true" TabIndex="24"/>
+                                            Checked="true" TabIndex="24" />
                                     </td>
                                     <td class="leftField">
                                         &nbsp;<asp:Label ID="lblDepositoryName" runat="server" Text="Depository Name:" CssClass="FieldName"></asp:Label>
@@ -720,7 +725,8 @@
                                         &nbsp;<asp:Label ID="lblModeOfHolding" runat="server" Text="Mode Of Holding:" CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td class="rightField">
-                                        <asp:DropDownList ID="ddlModeOfHolding" runat="server" AutoPostBack="True" CssClass="cmbField" TabIndex="26">
+                                        <asp:DropDownList ID="ddlModeOfHolding" runat="server" AutoPostBack="True" CssClass="cmbField"
+                                            TabIndex="26">
                                         </asp:DropDownList>
                                     </td>
                                     <td>
@@ -739,7 +745,7 @@
                                 AllowFilteringByColumn="false" AllowPaging="true" AllowSorting="false" AutoGenerateColumns="False"
                                 EnableEmbeddedSkins="false" EnableHeaderContextMenu="true" fAllowAutomaticDeletes="false"
                                 GridLines="none" ShowFooter="true" ShowStatusBar="false" Skin="Telerik" OnItemDataBound="gvDematDetailsTeleR_OnItemDataBound"
-                                FooterStyle-BackColor="#2475C7">
+                                 FooterStyle-BackColor="#2475C7">
                                 <%--<HeaderContextMenu EnableEmbeddedSkins="False">
                                 </HeaderContextMenu>--%>
                                 <ExportSettings HideStructureColumns="true">
@@ -1153,18 +1159,18 @@
                         </td>
                     </tr>
                     <tr>
-                     </td>
-                    <td class="leftField" style="width: 20%">
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <asp:Label runat="server" ID="lblBrokerCode" CssClass="FieldName" Text="Select Broker:"></asp:Label>
-                    </td>
-                    <td class="rightField" style="width: 20%">
-                        <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField" ValidationGroup="ddlBrokerCode">
-                        </asp:DropDownList>
-                        <%--<asp:RequiredFieldValidator ID="RFVBrokerCode" ControlToValidate="ddlBrokerCode"
+                        </td>
+                        <td class="leftField" style="width: 20%">
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <asp:Label runat="server" ID="lblBrokerCode" CssClass="FieldName" Text="Select Broker:"></asp:Label>
+                        </td>
+                        <td class="rightField" style="width: 20%">
+                            <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField" ValidationGroup="ddlBrokerCode">
+                            </asp:DropDownList>
+                            <%--<asp:RequiredFieldValidator ID="RFVBrokerCode" ControlToValidate="ddlBrokerCode"
                             ErrorMessage="<br />Please Select Broker" Display="Dynamic" runat="server" CssClass="rfvPCG"
                             ValidationGroup="ddlBrokerCode" InitialValue="0"></asp:RequiredFieldValidator>--%>
-                    </td>
+                        </td>
                     </tr>
                     <tr>
                         <td class="leftField" style="width: 20%">
@@ -1483,7 +1489,7 @@
                             <telerik:RadGrid ID="gvCommMgmt" AllowSorting="false" runat="server" EnableLoadOnDemand="True"
                                 AllowPaging="false" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
                                 ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" Skin="Telerik"
-                                AllowFilteringByColumn="false" OnNeedDataSource="gvCommMgmt_OnNeedDataSource"
+                                AllowFilteringByColumn="false" OnNeedDataSource="gvCommMgmt_OnNeedDataSource"  OnItemDataBound="gvCommMgmt_ItemDataBound"
                                 FooterStyle-BackColor="#2475C7">
                                 <HeaderContextMenu EnableEmbeddedSkins="False">
                                 </HeaderContextMenu>
@@ -1682,6 +1688,12 @@
                                                 <asp:Label runat="server" ID="lblAmount" AutoPostBack="true"></asp:Label>
                                             </FooterTemplate>
                                         </telerik:GridTemplateColumn>
+                                         <telerik:GridBoundColumn DataField="COID_ExchangeRefrenceNo" HeaderStyle-Width="120px"
+                                                CurrentFilterFunction="Contains" ShowFilterIcon="true" AutoPostBackOnFilter="true"
+                                                HeaderText="ExchangeRefrenceNo" UniqueName="COID_ExchangeRefrenceNo" SortExpression="COID_ExchangeRefrenceNo"
+                                                Visible="false">
+                                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                            </telerik:GridBoundColumn>
                                         <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
                                             Visible="false" UniqueName="Check" HeaderText="Check Order">
                                             <ItemTemplate>
@@ -1786,6 +1798,8 @@
                 </table>
             </asp:Panel>
             <asp:HiddenField ID="hdnCustomerId" runat="server" />
+            <asp:HiddenField ID="txtCustomerId" runat="server" OnValueChanged="txtCustomerId_ValueChanged1" />
+            <asp:HiddenField ID="hdnPortfolioId" runat="server" />
         </ContentTemplate>
         <Triggers>
             <asp:PostBackTrigger ControlID="btnConfirmOrder" />
@@ -1793,7 +1807,8 @@
             <asp:PostBackTrigger ControlID="btnUpdate" />
             <asp:PostBackTrigger ControlID="btnDemateDetails" />
             <asp:PostBackTrigger ControlID="hdnCustomerId" />
-            <asp:AsyncPostBackTrigger ControlID="ImageButton4" />
+            <asp:PostBackTrigger ControlID="ImageButton4" />
+            <asp:PostBackTrigger ControlID="ImageButton4" />
         </Triggers>
     </asp:UpdatePanel>
 </asp:Panel>
@@ -1950,10 +1965,8 @@
     </ContentTemplate>
 </telerik:RadWindow>
 <asp:HiddenField ID="txtTotAmt" runat="server" />
-<asp:HiddenField ID="txtCustomerId" runat="server" OnValueChanged="txtCustomerId_ValueChanged1" />
 <asp:HiddenField ID="hdnType" runat="server" />
 <asp:HiddenField ID="hdnSchemeCode" runat="server" />
-<asp:HiddenField ID="hdnPortfolioId" runat="server" />
 <asp:HiddenField ID="hdnAccountId" runat="server" />
 <asp:HiddenField ID="hdnAmcCode" runat="server" />
 <asp:HiddenField ID="hdnSchemeName" runat="server" />

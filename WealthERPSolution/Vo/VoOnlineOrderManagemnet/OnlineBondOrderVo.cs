@@ -30,7 +30,8 @@ namespace VoOnlineOrderManagemnet
         public int BankAccid { get; set; }
         public int applicationNo { get; set; }
         public string Remarks { get; set; }
-        
+        public string PanNo { get; set; }
+        public string AgentNo { get; set; }
 
     }
 }

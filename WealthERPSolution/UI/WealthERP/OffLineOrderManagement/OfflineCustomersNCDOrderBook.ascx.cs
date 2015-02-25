@@ -175,7 +175,7 @@ namespace WealthERP.OffLineOrderManagement
             if (Request.QueryString["orderId"] != null)
             {
 
-                dtNCDOrder = offlineNCDBackOfficeBo.GetOfflineCustomerNCDOrderBook(advisorVo.advisorId,0, "0", fromDate, toDate, userType, AgentCode, int.Parse(ViewState["OrderId"].ToString()),2);
+                dtNCDOrder = offlineNCDBackOfficeBo.GetOfflineCustomerNCDOrderBook(advisorVo.advisorId, 0, "0", fromDate, toDate, userType, AgentCode, int.Parse(ViewState["OrderId"].ToString()), ddlBidType.SelectedValue);
 
             }
             else
@@ -184,7 +184,7 @@ namespace WealthERP.OffLineOrderManagement
                     fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
                 if (txtOrderTo.SelectedDate != null)
                     toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
-                dtNCDOrder = offlineNCDBackOfficeBo.GetOfflineCustomerNCDOrderBook(advisorVo.advisorId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), hdnOrderStatus.Value, fromDate, toDate, userType, AgentCode, 0,int.Parse(ddlAuthenticate.SelectedValue));
+                dtNCDOrder = offlineNCDBackOfficeBo.GetOfflineCustomerNCDOrderBook(advisorVo.advisorId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), hdnOrderStatus.Value, fromDate, toDate, userType, AgentCode, 0,ddlBidType.SelectedValue);
             }
                 if (dtNCDOrder.Rows.Count >= 0)
             {
@@ -271,7 +271,7 @@ namespace WealthERP.OffLineOrderManagement
                     isCancel = Convert.ToBoolean(gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IsCancelAllowed"].ToString());
                   string authenticated = gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_IsAuthenticated"].ToString();
                   DateTime closeDateTime = Convert.ToDateTime(gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["BBEndDate"].ToString());
-                  if (OrderStepCode == "INPROCESS" && isCancel != false && authenticated !="Yes")
+                  if (OrderStepCode == "INPROCESS" && isCancel != false)
                 {
                     lbtnMarkAsReject.Visible = true;
 
@@ -307,7 +307,7 @@ namespace WealthERP.OffLineOrderManagement
                   }
                   else
                   {
-                      lbtnMarkAsReject.Visible = false;
+                      lbtnMarkAsReject.Visible = true;
 
                   }
             }
