@@ -2555,8 +2555,7 @@ namespace WealthERP.OffLineOrderManagement {
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblADRNo;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtADRNo;
         protected global::System.Web.UI.WebControls.TextBox txtADRNo;
-
-
+        protected global::System.Web.UI.WebControls.Label lblADRNo;
 
     }
 }

@@ -99,7 +99,6 @@ namespace WealthERP.OffLineOrderManagement
         FIOrderBo fiorderBo = new FIOrderBo();
         protected void Page_Load(object sender, EventArgs e)
         {
-
             SessionBo.CheckSession();
             associatesVo = (AssociatesVO)Session["associatesVo"];
 
@@ -110,7 +109,7 @@ namespace WealthERP.OffLineOrderManagement
             GetUserType();
             tblMessage.Visible = false;
             rwTermsCondition.VisibleOnPageLoad = false;
-
+          
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
             {
                 //txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
@@ -826,7 +825,7 @@ namespace WealthERP.OffLineOrderManagement
             txtPaymentInstDate.Focus();
         }
         protected void ddlPaymentMode_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        { 
             PaymentMode(ddlPaymentMode.SelectedValue);
             BindBank();
             ddlPaymentMode.Focus();
@@ -1493,6 +1492,9 @@ namespace WealthERP.OffLineOrderManagement
                     btnAddMore.Visible = true;
                     SetFICOntrolsEnablity(false);
                     btnAddMore.Focus();
+                    RadGridIPOBid.Enabled = false;
+                    gvDematDetailsTeleR.Enabled = false;
+                    RadGridIPOBid.Enabled = false;
                 }
             }
 

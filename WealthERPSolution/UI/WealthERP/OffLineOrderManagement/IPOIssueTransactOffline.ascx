@@ -3,7 +3,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
-<asp:ScriptManager ID="scrptMgr" runat="server">
+<asp:ScriptManager ID="scrptMgr" runat="server" EnablePageMethods="true">
     <Services>
         <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
     </Services>
@@ -116,6 +116,44 @@
     } 
 </script>
 
+
+<%--<script type="text/javascript">
+window.onload = function () {
+var div = document.getElementById('<%= this.div_position.ClientID %>');
+
+var div_position = document.getElementById("div_position");
+    var position = parseInt('<%=Request.Form["div_position"] %>');
+    if (isNaN(position)) {
+        position = 0;
+    }
+    div.scrollTop = position;
+    div.onscroll = function () {
+        div_position.value = div.scrollTop;
+    };
+};
+</script>--%>
+<script type="text/javascript">
+     function abc() {
+        var x = 0, y = 0;
+        if (typeof (window.pageYOffset) == 'number') {
+            // Netscape
+            x = window.pageXOffset;
+            y = window.pageYOffset;
+        } else if (document.body && (document.body.scrollLeft || document.body.scrollTop)) {
+            // DOM
+            x = document.body.scrollLeft;
+            y = document.body.scrollTop;
+        } else if (document.documentElement && (document.documentElement.scrollLeft || document.documentElement.scrollTop)) {
+            // IE6 standards compliant mode
+            x = document.documentElement.scrollLeft;
+            y = document.documentElement.scrollTop;
+        }
+        alert(x);
+        alert(y);
+        
+    }
+</script>
+
 <script type="text/javascript">
     function isNumberKey(evt) { // Numbers only
         var charCode = (evt.which) ? evt.which : event.keyCode;
@@ -195,7 +233,7 @@
     </ContentTemplate>
 </asp:UpdatePanel>
 <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" Height="3000px"
-    ScrollBars="Vertical">
+    ScrollBars="Vertical" >
     <asp:UpdatePanel ID="UpdatePanel2" UpdateMode="Always" runat="server">
         <ContentTemplate>
             <table width="100%">
@@ -404,7 +442,7 @@
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtCustomerName"
                     ErrorMessage="<br />Please Enter Customer Name" Display="Dynamic" runat="server"
                     CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
-            </td>--%>
+            </td>
                     <%--<td class="leftField" style="width: 20%">
                 <asp:Label ID="lblPan" runat="server" Text="PAN: " CssClass="FieldName"></asp:Label>
             </td>
@@ -1466,3 +1504,5 @@
 <asp:HiddenField ID="HiddenField1" runat="server" OnValueChanged="HiddenField1_ValueChanged1" />
 <asp:HiddenField ID="hidAmt" runat="server" />
 <asp:HiddenField ID="hdnCloseDate" runat="server" />
+<asp:HiddenField ID="div_position" runat="server" />
+ 
