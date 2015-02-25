@@ -52,7 +52,7 @@
 
         var minValue = document.getElementById('<%=hdnViewMode.ClientID%>').value;
         var eligible = document.getElementById('<%=hdneligible.ClientID%>').value;
-        if (minValue == "ViewEdit" && eligible=="Eligible") {
+        if (minValue == "ViewEdit" && eligible == "Eligible") {
             var confirm_value = document.createElement("INPUT");
             confirm_value.type = "hidden";
             confirm_value.name = "confirm_value";
@@ -615,7 +615,7 @@
                             <div class="divTextCenter">
                                 <asp:ImageButton ID="ImageButton3" runat="server" ImageUrl="~/Images/toggle-collapse-alt_blue.png"
                                     alt="Collapse/Expand" OnClick="imgBuy_Click" Height="28px" Width="30px" Style="float: right;
-                                    cursor: hand;" ToolTip="Collapse/Expand" ImageAlign="Top"/>&nbsp;&nbsp;
+                                    cursor: hand;" ToolTip="Collapse" ImageAlign="Top" />&nbsp;&nbsp;
                             </div>
                     </td>
                 </tr>
@@ -796,8 +796,9 @@
                                     Width="25px"></asp:ImageButton>
                             </div>
                             <div class="divTextCenter">
-                                <asp:ImageButton ID="ImageButton4" runat="server" alt="Collapse/Expand" ImageUrl="../Images/Telerik/gp.gif"
-                                    Height="20px" Width="20px" Style="float: right; cursor: hand;" OnClick="imgBuyMapping_Click" />
+                                <asp:ImageButton ID="ImageButton4" runat="server" alt="Collapse/Expand" ImageUrl="~/Images/toggle-collapse-alt_blue.png"
+                                    Height="20px" Width="20px" Style="float: right; cursor: hand;" OnClick="imgBuyMapping_Click"
+                                    ToolTip="Collapse" />
                             </div>
                         </div>
                     </td>
@@ -1135,7 +1136,8 @@
                             </div>
                             <div class="divTextCenter">
                                 <asp:ImageButton ID="ImageButton5" runat="server" alt="Collapse/Expand" ImageUrl="~/Images/toggle-collapse-alt_blue.png"
-                                    Height="28px" Width="30px" Style="float: right; cursor: hand;" OnClick="imgNcd_Click" ToolTip="Collapse/Expand"/>
+                                    Height="28px" Width="30px" Style="float: right; cursor: hand;" OnClick="imgNcd_Click"
+                                    ToolTip="Collapse" />
                             </div>
                         </div>
                     </td>
@@ -1259,7 +1261,8 @@
                             </div>
                             <div class="divTextCenter">
                                 <asp:ImageButton ID="imgBuy1" runat="server" alt="Collapse/Expand" ImageUrl="~/Images/toggle-collapse-alt_blue.png"
-                                    Height="28px" Width="30px" Style="float: right; cursor: hand;" OnClick="imgBuy1_Click" ToolTip="Collapse/Expand"/>
+                                    Height="28px" Width="30px" Style="float: right; cursor: hand;" OnClick="imgBuy1_Click"
+                                    ToolTip="Collapse" />
                             </div>
                         </div>
                     </td>
@@ -1502,8 +1505,9 @@
                                                                     <asp:CheckBox ID="chkSeries" runat="server" Text="Series" AutoPostBack="true" CssClass="cmbFielde"
                                                                         OnCheckedChanged="chkSeries_OnCheckedChanged" />
                                                                     <asp:CheckBox ID="chkMode" runat="server" Text="Mode" AutoPostBack="true" CssClass="cmbFielde"
-                                                                        OnCheckedChanged="chkMode_OnCheckedChanged" />
-                                                                    <asp:CheckBox ID="chkEForm" runat="server" Text="e-Form" CssClass="cmbFielde" Checked='<%# Eval("ACSR_EForm") == DBNull.Value ? false : Convert.ToBoolean(Eval("ACSR_EForm")) %>' />
+                                                                        OnCheckedChanged="chkMode_OnCheckedChanged" Visible="false" />
+                                                                    <asp:CheckBox ID="chkEForm" runat="server" Text="e-Form" CssClass="cmbFielde" Checked='<%# Eval("ACSR_EForm") == DBNull.Value ? false : Convert.ToBoolean(Eval("ACSR_EForm")) %>'
+                                                                        Visible="false" />
                                                                 </td>
                                                                 <td>
                                                                     <asp:CheckBoxList ID="chkListApplyTax" runat="server" CssClass="txtField" RepeatDirection="Horizontal"
@@ -2013,11 +2017,15 @@
                             <div class="divSectionHeadingNumber1 fltlftStep" style="width: 200px;">
                                 <asp:Label ID="Label15" runat="server" Text="Associate Payable Mapped"></asp:Label>
                             </div>
+                            <div class="divTextCenter">
+                                
+                            </div>
                         </div>
                     </td>
                     <td>
-                        <asp:ImageButton ID="imgMapping" runat="server" ImageUrl="~/Images/rollback.png"
-                            OnClick="OnClick_imgMapping" />
+                    <asp:ImageButton ID="imgMapping" runat="server" ImageUrl="~/Images/index.png" OnClick="OnClick_imgMapping"
+                                    ToolTip="Click here to reload the associate payable mapped" Height="35px" Width="35px"
+                                    Style="float: right; cursor: hand;" />
                     </td>
                 </tr>
                 <tr>

@@ -180,7 +180,7 @@
                                         UniqueName="WCU_UnitCode" SortExpression="WCU_UnitCode" AllowFiltering="true">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>--%>
-                        <telerik:GridTemplateColumn HeaderText="Rate(%)" AllowFiltering="true" DataField="CSRD_StructureRuleDetailsId">
+                        <telerik:GridTemplateColumn HeaderText="Broker/Rate(%)" AllowFiltering="true" DataField="CSRD_StructureRuleDetailsId">
                             <%--<ItemTemplate>
                                             <asp:Repeater ID="repradiobutton" runat="server"  >--%>
                             <ItemTemplate>

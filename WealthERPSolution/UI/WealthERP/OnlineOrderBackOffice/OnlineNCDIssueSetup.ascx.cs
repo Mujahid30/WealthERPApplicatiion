@@ -2405,8 +2405,11 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
                     TextBox txtMinInvestmentAmount = ((TextBox)(gdi.FindControl("txtMinInvestmentAmount")));
                     TextBox txtMaxInvestmentAmount = ((TextBox)(gdi.FindControl("txtMaxInvestmentAmount")));
-                    hdnMaxInvestment.Value = txtMinInvestmentAmount.Text;
-                    hdnMinInvestment.Value = txtMaxInvestmentAmount.Text;
+                    if (txtMinInvestmentAmount.Text != "")
+                    {
+                        hdnMaxInvestment.Value = txtMinInvestmentAmount.Text;
+                        hdnMinInvestment.Value = txtMaxInvestmentAmount.Text;
+                    }
                 }
                 if (count == 0)
                 {
@@ -2414,7 +2417,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     e.Canceled = true;
                     return;
                 }
-                if (int.Parse(hdnMaxInvestment.Value) < int.Parse(hdnMinBid.Value) || int.Parse(hdnMinInvestment.Value) > int.Parse(hdnMaxBid.Value))
+                if (Convert.ToDecimal(hdnMaxInvestment.Value) < Convert.ToDecimal(hdnMinBid.Value) || Convert.ToDecimal(hdnMinInvestment.Value) > Convert.ToDecimal(hdnMaxBid.Value))
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please Enter max.investment amount & min. investment amount between Bid max. and Bid min. amt.');", true);
                     e.Canceled = true;
@@ -2451,7 +2454,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
                 }
                 BindEligibleInvestorsGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
-
+                e.Canceled = false;
             }
             else if (e.CommandName == RadGrid.UpdateCommandName)
             {

@@ -112,11 +112,13 @@ namespace WealthERP.Receivable
                 tb1.Visible = false;
 
                 ImageButton3.ImageUrl = "~/Images/toggle-expand-alt_blue.png";
+                ImageButton3.ToolTip = "Expend";
             }
             else
             {
                 tb1.Visible = true;
                 ImageButton3.ImageUrl = "~/Images/toggle-collapse-alt_blue.png";
+                ImageButton3.ToolTip = "Collapse";
             }
 
         }
@@ -131,10 +133,14 @@ namespace WealthERP.Receivable
                     pnlAddSchemes.Visible = false;
                     gvMappedSchemes.Visible = false;
                     //Table2.Visible = false;
+                    ImageButton4.ToolTip = "Expend";
+                    ImageButton4.ImageUrl = "~/Images/toggle-expand-alt_blue.png";
                 }
                 else
                 {
                     pnlAddSchemes.Visible = true;
+                    ImageButton4.ImageUrl = "~/Images/toggle-collapse-alt_blue.png";
+                    ImageButton4.ToolTip = "Collapse";
                     if (gvMappedSchemes.Items.Count > 0)
                         gvMappedSchemes.Visible = true;
                     //Table2.Visible = true;
@@ -159,6 +165,7 @@ namespace WealthERP.Receivable
                     // Table4.Visible = false;
                     tbNcdIssueList.Visible = false;
                     pnlIssueList.Visible = false;
+                    ImageButton5.ToolTip = "Expend";
                     ImageButton5.ImageUrl = "~/Images/toggle-expand-alt_blue.png";
                 }
                 else
@@ -167,6 +174,7 @@ namespace WealthERP.Receivable
                     tbNcdIssueList.Visible = true;
                     pnlIssueList.Visible = true;
                     ImageButton5.ImageUrl = "~/Images/toggle-collapse-alt_blue.png";
+                    ImageButton5.ToolTip = "Collapse";
                 }
 
 
@@ -178,11 +186,13 @@ namespace WealthERP.Receivable
             {
                 tblCommissionStructureRule1.Visible = false;
                 imgBuy1.ImageUrl = "~/Images/toggle-expand-alt_blue.png";
+                imgBuy1.ToolTip = "Expend";
             }
             else
             {
                 tblCommissionStructureRule1.Visible = true;
                 imgBuy1.ImageUrl = "~/Images/toggle-collapse-alt_blue.png";
+                imgBuy1.ToolTip = "Collapse";
             }
         }
 
@@ -779,6 +789,7 @@ namespace WealthERP.Receivable
                 {
                     strSubCategoryCode.Append(ddlSubInstrCategory.SelectedValue);
                     commissionStructureMasterVo.AssetSubCategory = strSubCategoryCode;
+                    commissionStructureMasterVo.AssetCategory = "FICD";
                 }
                 string subcategoryIds = commissionStructureMasterVo.AssetSubCategory.ToString();
                 subcategoryIds = subcategoryIds.Replace("~", ",");
@@ -1301,8 +1312,11 @@ namespace WealthERP.Receivable
                 TextBox txtRuleValidityFrom = (TextBox)e.Item.FindControl("txtRuleValidityFrom");
                 CheckBox chkCategory = (CheckBox)e.Item.FindControl("chkCategory");
                 CheckBox chkSeries = (CheckBox)e.Item.FindControl("chkSeries");
+                CheckBox chkMode = (CheckBox)e.Item.FindControl("chkMode");
                 System.Web.UI.HtmlControls.HtmlTableCell tdddlSeries = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdddlSeries");
                 System.Web.UI.HtmlControls.HtmlTableCell tdlblSerise = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdlblSerise");
+                System.Web.UI.HtmlControls.HtmlTableCell tdlblMode = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdlblMode");
+                System.Web.UI.HtmlControls.HtmlTableCell tdddlMode = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdddlMode");
                 txtRuleValidityTo.Text = hdnRuleEnd.Value;
                 txtRuleValidityFrom.Text = hdnRulestart.Value;
                 ddlCommisionCalOn.SelectedValue = "INAM";
@@ -1311,7 +1325,12 @@ namespace WealthERP.Receivable
                 {
                     chkCategory.Visible = false;
                 }
-
+                if (ddlSubInstrCategory.SelectedValue == "FISDSD")
+                {
+                    chkMode.Visible = true;
+                    tdddlMode.Visible = true;
+                    tdlblMode.Visible = true;
+                }  
                 if (ddlProductType.SelectedValue == "IP")
                 {
                     chkSeries.Visible = false;
@@ -1735,6 +1754,12 @@ namespace WealthERP.Receivable
                     tdddlSeries.Visible = false;
                     tdlblSerise.Visible = false;
                 }
+                if (ddlSubInstrCategory.SelectedValue == "FISDSD")
+                {
+                    chkMode.Visible = true;
+                    tdddlMode.Visible = true;
+                    tdlblMode.Visible = true;
+                }  
             }
             //if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)
             //{
@@ -2628,12 +2653,12 @@ namespace WealthERP.Receivable
                 //ddlReceivableFrequency.Enabled = true;
                 txtNote.Enabled = true;
 
-                lnkEditStructure.Text = "View";
-                lnkEditStructure.ToolTip = "View commission structure section";
+                //lnkEditStructure.Text = "View";
+                //lnkEditStructure.ToolTip = "View commission structure section";
                 btnStructureSubmit.Visible = false;
                 btnStructureUpdate.Visible = true;
                 Table5.Visible = true;
-
+                lnkEditStructure.Visible = false;
 
             }
             else
@@ -2655,7 +2680,7 @@ namespace WealthERP.Receivable
                 txtNote.Enabled = false;
 
                 lnkEditStructure.Visible = true;
-                lnkEditStructure.Text = "Edit";
+                lnkEditStructure.Visible=true;
                 lnkEditStructure.ToolTip = "Edit commission structure section";
                 lnkAddNewStructure.Visible = false;
                 btnStructureSubmit.Visible = false;
@@ -3696,7 +3721,16 @@ namespace WealthERP.Receivable
 
             DataSet dsPayable = new DataSet();
             dsPayable = commisionReceivableBo.GetPayableMappings(int.Parse(structureId));
-
+            if (dsPayable.Tables[0].Rows.Count > 0)
+            {
+                hdneligible.Value = "Eligible";
+                hdnViewMode.Value = "ViewEdit";
+            }
+            else
+            {
+                hdneligible.Value = "";
+                hdnViewMode.Value = "";
+            }
             gvPayaMapping.DataSource = dsPayable;
             gvPayaMapping.DataBind();
             gvPayaMapping.Visible = true;
@@ -3708,16 +3742,7 @@ namespace WealthERP.Receivable
         protected void OnClick_imgMapping(object sender, ImageClickEventArgs e)
         {
             BindPayableGrid();
-            if (gvPayaMapping.Items.Count > 0)
-            {
-                hdneligible.Value = "Eligible";
-                hdnViewMode.Value = "ViewEdit";
-            }
-            else
-            {
-                hdneligible.Value = "";
-                hdnViewMode.Value = "";
-            }
+          
         }
         protected void chkCategory_OnCheckedChanged(object sender, EventArgs e)
         {
