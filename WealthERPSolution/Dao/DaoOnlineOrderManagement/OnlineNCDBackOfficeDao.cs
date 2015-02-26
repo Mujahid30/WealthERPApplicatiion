@@ -339,7 +339,7 @@ namespace DaoOnlineOrderManagement
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbCommand;
-            bool isValidCode=true;
+            bool isValidCode = true;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -593,11 +593,11 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(createCmd, "@OfflineCutOffTime", DbType.Time, onlineNCDBackOfficeVo.OfflineCutOffTime);
                 else
                     db.AddInParameter(createCmd, "@OfflineCutOffTime", DbType.Time, DBNull.Value);
-                 
+
                 db.AddInParameter(createCmd, "@ModifiedBy", DbType.Int32, userID);
                 db.AddInParameter(createCmd, "@CreatedBy", DbType.Int32, userID);
                 db.AddInParameter(createCmd, "@applicationBank", DbType.String, onlineNCDBackOfficeVo.applicationBank);
-                if(onlineNCDBackOfficeVo.minAmt!=0)
+                if (onlineNCDBackOfficeVo.minAmt != 0)
                     db.AddInParameter(createCmd, "@MinAmt", DbType.Decimal, onlineNCDBackOfficeVo.minAmt);
                 if (onlineNCDBackOfficeVo.maxAmt != 0)
                     db.AddInParameter(createCmd, "@MaxAmt", DbType.Decimal, onlineNCDBackOfficeVo.maxAmt);
@@ -906,9 +906,9 @@ namespace DaoOnlineOrderManagement
                 {
                     db.AddInParameter(createCmd, "@AllotmentDate", DbType.Date, DBNull.Value);
                 }
-                if (onlineNCDBackOfficeVo.OpenTime!=DateTime.MinValue)
+                if (onlineNCDBackOfficeVo.OpenTime != DateTime.MinValue)
                     db.AddInParameter(createCmd, "@AIM_OpenTime", DbType.Time, onlineNCDBackOfficeVo.OpenTime);
-                if (onlineNCDBackOfficeVo.CloseTime!=DateTime.MinValue)
+                if (onlineNCDBackOfficeVo.CloseTime != DateTime.MinValue)
                     db.AddInParameter(createCmd, "@AIM_CloseTime", DbType.Time, onlineNCDBackOfficeVo.CloseTime);
                 //db.AddInParameter(createCmd, "@IssueRevis", DbType.Date, onlineNCDBackOfficeVo.IssueRevis);
                 db.AddInParameter(createCmd, "@TradingLot", DbType.Int32, onlineNCDBackOfficeVo.TradingLot);
@@ -947,7 +947,7 @@ namespace DaoOnlineOrderManagement
                 //db.AddInParameter(createCmd, "@BSECode", DbType.String, onlineNCDBackOfficeVo.BSECode);
                 db.AddInParameter(createCmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(createCmd, "@Tradableexchane", DbType.Int32, onlineNCDBackOfficeVo.TradableExchange);
-                if (onlineNCDBackOfficeVo.CutOffTime==DateTime.MinValue)
+                if (onlineNCDBackOfficeVo.CutOffTime == DateTime.MinValue)
                     db.AddInParameter(createCmd, "@CutOffTime", DbType.Time, DBNull.Value);
                 else
                     db.AddInParameter(createCmd, "@CutOffTime", DbType.Time, onlineNCDBackOfficeVo.CutOffTime);
@@ -966,16 +966,16 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@Syndicateid", DbType.Int32, onlineNCDBackOfficeVo.syndicateId);
                 db.AddInParameter(createCmd, "@BrokerIds", DbType.String, onlineNCDBackOfficeVo.issueBrokerIds);
                 db.AddInParameter(createCmd, "@BusinessId", DbType.Int32, onlineNCDBackOfficeVo.BusinessChannelId);
-                if (onlineNCDBackOfficeVo.OfflineCutOffTime==DateTime.MinValue)
+                if (onlineNCDBackOfficeVo.OfflineCutOffTime == DateTime.MinValue)
                     db.AddInParameter(createCmd, "@OfflineCutOffTime", DbType.Time, DBNull.Value);
                 else
                     db.AddInParameter(createCmd, "@OfflineCutOffTime", DbType.Time, onlineNCDBackOfficeVo.OfflineCutOffTime);
                 db.AddInParameter(createCmd, "@ModifiedBy", DbType.Int32, userID);
                 db.AddInParameter(createCmd, "@CreatedBy", DbType.Int32, userID);
                 db.AddInParameter(createCmd, "@applicationBank", DbType.String, onlineNCDBackOfficeVo.applicationBank);
-                if(onlineNCDBackOfficeVo.minAmt!=0)
+                if (onlineNCDBackOfficeVo.minAmt != 0)
                     db.AddInParameter(createCmd, "@MinAmt", DbType.Decimal, onlineNCDBackOfficeVo.minAmt);
-                if(onlineNCDBackOfficeVo.maxAmt!=0)
+                if (onlineNCDBackOfficeVo.maxAmt != 0)
                     db.AddInParameter(createCmd, "@MaxAmt", DbType.Decimal, onlineNCDBackOfficeVo.maxAmt);
                 if (db.ExecuteNonQuery(createCmd) != 0)
                 {
@@ -1663,7 +1663,7 @@ namespace DaoOnlineOrderManagement
             return dsGetSubCategory;
         }
 
-        public DataSet GetIssuerIssue(int advisorId, string product, int businessChannel, string orderStatus,string subCategoryCode)
+        public DataSet GetIssuerIssue(int advisorId, string product, int businessChannel, string orderStatus, string subCategoryCode)
         {
             DataSet dsGetIssuerIssue;
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -1675,7 +1675,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(dbCommand, "@adviserId", DbType.Int32, advisorId);
                 db.AddInParameter(dbCommand, "@product", DbType.String, product);
                 db.AddInParameter(dbCommand, "@businessChannel", DbType.Int32, businessChannel);
-                if(subCategoryCode!="0")
+                if (subCategoryCode != "0")
                     db.AddInParameter(dbCommand, "@subCategoryCode", DbType.String, subCategoryCode);
                 dsGetIssuerIssue = db.ExecuteDataSet(dbCommand);
             }
@@ -2436,7 +2436,7 @@ namespace DaoOnlineOrderManagement
             }
             return result;
         }
-        public DataTable UploadAllotmentIssueDataDynamic(DataTable dtData, int issueId, ref string isValidated, string product, string filePath, int userId, int isOnline,string subCategoryCode)
+        public DataTable UploadAllotmentIssueDataDynamic(DataTable dtData, int issueId, ref string isValidated, string product, string filePath, int userId, int isOnline, string subCategoryCode)
         {
             int result = 0;
             UploadData(dtData);
@@ -2514,7 +2514,7 @@ namespace DaoOnlineOrderManagement
             return result;
         }
 
-        public int IPOUploadBidSuccessData(DataTable dtData, int issueId,int isOnline)
+        public int IPOUploadBidSuccessData(DataTable dtData, int issueId, int isOnline)
         {
             int result;
             try
@@ -2527,7 +2527,7 @@ namespace DaoOnlineOrderManagement
                 cmdProc.CommandType = CommandType.StoredProcedure;
                 cmdProc.Parameters.AddWithValue("@Details", dtData);
                 cmdProc.Parameters.AddWithValue("@issueId", issueId);
-              
+
                 cmdProc.CommandTimeout = 60 * 60;
                 result = cmdProc.ExecuteNonQuery();
 
@@ -3524,7 +3524,7 @@ namespace DaoOnlineOrderManagement
             }
             return bResult;
         }
-        public DataTable GetIssueList(int adviserId, int type, int customerId, string productAssetGroup)
+        public DataTable GetIssueList(int adviserId, int type, int customerSubtypeId, string productAssetGroup)
         {
             DataTable dtIssueList;
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -3536,7 +3536,7 @@ namespace DaoOnlineOrderManagement
                 getIssueListCmd = db.GetStoredProcCommand("SPROC_OFF_GetIssueList");
                 db.AddInParameter(getIssueListCmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(getIssueListCmd, "@type", DbType.Int32, type);
-                db.AddInParameter(getIssueListCmd, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(getIssueListCmd, "@CustomerSubTypeId", DbType.Int32, customerSubtypeId);
                 db.AddInParameter(getIssueListCmd, "@productAssetGroup", DbType.String, productAssetGroup);
                 dtIssueList = db.ExecuteDataSet(getIssueListCmd).Tables[0];
             }
@@ -3549,7 +3549,10 @@ namespace DaoOnlineOrderManagement
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:GetIssueList()");
-                object[] objects = new object[0];
+                object[] objects = new object[3];
+                objects[0] = adviserId;
+                objects[1] = type;
+                objects[2] = customerSubtypeId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -3638,7 +3641,7 @@ namespace DaoOnlineOrderManagement
             }
             return dtBindBroker;
         }
-        public bool CreateBroker(string BrokerName, int userid,string brokerCode)
+        public bool CreateBroker(string BrokerName, int userid, string brokerCode)
         {
             bool bResult = false;
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
