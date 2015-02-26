@@ -12,5 +12,16 @@ namespace VoOnlineOrderManagemnet
         public double IPOIssueBidPrice { set; get; }
         public double IPOIssueBidAmount { set; get; }
 
+        public string CustomerName { set; get; }
+        public string CustomerPAN { set; get; }
+        public string CustomerType { set; get; }
+        public int CustomerSubTypeId { set; get; }
+        public string DematBeneficiaryAccountNum { set; get; }
+        public string DematDepositoryName { set; get; }
+        public string DematDPId { set; get; }
+        
+        
+
+
     }
 }
