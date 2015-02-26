@@ -33,5 +33,13 @@ namespace VoOnlineOrderManagemnet
         public string PanNo { get; set; }
         public string AgentNo { get; set; }
 
+        public string CustomerName { set; get; }
+        public string CustomerPAN { set; get; }
+        public string CustomerType { set; get; }
+        public int CustomerSubTypeId { set; get; }
+        public string DematBeneficiaryAccountNum { set; get; }
+        public string DematDepositoryName { set; get; }
+        public string DematDPId { set; get; }
+
     }
 }
