@@ -13,7 +13,7 @@ namespace DaoOfflineOrderManagement
 {
     public class OfflineBondOrderDao
     {
-        public DataSet GetOfflineAdviserIssuerList(int adviserId, int issueId, int type, int customerId, int CustomerSubType)
+        public DataSet GetOfflineAdviserIssuerList(int adviserId, int issueId, int type, int CustomerSubType)
         {
             Database db;
             DbCommand cmdGetCommissionStructureRules;
@@ -30,7 +30,6 @@ namespace DaoOfflineOrderManagement
                     db.AddInParameter(cmdGetCommissionStructureRules, "@IssueId", DbType.Int32, 0);
 
                 db.AddInParameter(cmdGetCommissionStructureRules, "@type", DbType.Int32, type);
-                db.AddInParameter(cmdGetCommissionStructureRules, "@customerId", DbType.Int32, customerId);
                 db.AddInParameter(cmdGetCommissionStructureRules, "@CustomerSubType", DbType.Int32, CustomerSubType);
                 ds = db.ExecuteDataSet(cmdGetCommissionStructureRules);
             }
@@ -52,7 +51,7 @@ namespace DaoOfflineOrderManagement
             }
             return ds;
         }
-        public DataSet GetOfflineLiveBondTransaction(int SeriesId, int customerId, int CustomerSubType)
+        public DataSet GetOfflineLiveBondTransaction(int SeriesId,  int CustomerSubType)
         {
             Database db;
             DbCommand cmdGetCommissionStructureRules;
@@ -62,9 +61,7 @@ namespace DaoOfflineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetCommissionStructureRules = db.GetStoredProcCommand("SPROC_OFF_GetLiveBondTransaction");
-
                 db.AddInParameter(cmdGetCommissionStructureRules, "@IssueId", DbType.Int32, SeriesId);
-                db.AddInParameter(cmdGetCommissionStructureRules, "@CustomerId", DbType.Int32, customerId);
                 db.AddInParameter(cmdGetCommissionStructureRules, "@customerSubType", DbType.Int32, CustomerSubType);
                 ds = db.ExecuteDataSet(cmdGetCommissionStructureRules);
             }
@@ -124,7 +121,7 @@ namespace DaoOfflineOrderManagement
                 throw exBase;
             }
         }
-        public IDictionary<string, string> CreateOfflineBondTransact(DataTable BondORder, int adviserId, int IssuerId, int agentId, string agentCode, int userId)
+        public IDictionary<string, string> CreateOfflineBondTransact(DataTable BondORder, int adviserId, OnlineBondOrderVo OnlineBondVo, int agentId, string agentCode, int userId)
         {
             //List<int> orderIds = new List<int>();
             IDictionary<string, string> OrderIds = new Dictionary<string, string>();
@@ -144,15 +141,20 @@ namespace DaoOfflineOrderManagement
                 cmdOfflineBondTransact = db.GetStoredProcCommand("SPROC_OFF_OfflineBondTransaction");
                 db.AddInParameter(cmdOfflineBondTransact, "@xmlBondsOrder", DbType.Xml, sb);
                 db.AddInParameter(cmdOfflineBondTransact, "@AdviserId", DbType.Int32, adviserId);
-                db.AddInParameter(cmdOfflineBondTransact, "@AIM_IssueId", DbType.Int32, IssuerId);
+                //db.AddInParameter(cmdOfflineBondTransact, "@AIM_IssueId", DbType.Int32, IssuerId);
                 db.AddInParameter(cmdOfflineBondTransact, "@AgentId", DbType.Int32, agentId);
                 db.AddInParameter(cmdOfflineBondTransact, "@AgentCode", DbType.String, agentCode);
                 db.AddInParameter(cmdOfflineBondTransact, "@UserId", DbType.Int32, userId);
                 db.AddOutParameter(cmdOfflineBondTransact, "@Order_Id", DbType.Int32, 10);
                 db.AddOutParameter(cmdOfflineBondTransact, "@application", DbType.Int32, 10);
                 db.AddOutParameter(cmdOfflineBondTransact, "@aplicationNoStatus", DbType.String, 10);
-
-
+                db.AddInParameter(cmdOfflineBondTransact, "@CustomerName", DbType.String, OnlineBondVo.CustomerName);
+                db.AddInParameter(cmdOfflineBondTransact, "@CustomerPAN", DbType.String, OnlineBondVo.PanNo);
+                db.AddInParameter(cmdOfflineBondTransact, "@CustomerType", DbType.String, OnlineBondVo.CustomerType);
+                db.AddInParameter(cmdOfflineBondTransact, "@CustomerSubTypeId", DbType.Int32, OnlineBondVo.CustomerSubTypeId);
+                db.AddInParameter(cmdOfflineBondTransact, "@DematBeneficiaryAccountNum", DbType.String, OnlineBondVo.DematBeneficiaryAccountNum);
+                db.AddInParameter(cmdOfflineBondTransact, "@DematDepositoryName", DbType.String, OnlineBondVo.DematDepositoryName);
+                db.AddInParameter(cmdOfflineBondTransact, "@DematDPId", DbType.Int32, OnlineBondVo.DematDPId);
                 if (db.ExecuteNonQuery(cmdOfflineBondTransact) != 0)
                 {
 
@@ -275,5 +277,48 @@ namespace DaoOfflineOrderManagement
             }
             return bResult;
         }
+        public void GetCustomerCat(int issueId,  int adviserId,int customerSubType, double amt, ref string catName, ref int issueDetId, ref int categoryId, ref string Description)
+        {
+            Database db;
+            DbCommand dbCommand;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_Off_GetCustomerCat");
+                db.AddInParameter(dbCommand, "@issueId", DbType.Int32, issueId);
+                db.AddInParameter(dbCommand, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(dbCommand, "@amt", DbType.Double, amt);
+                db.AddOutParameter(dbCommand, "@catName", DbType.String, 500);
+                db.AddOutParameter(dbCommand, "@OrdDetID", DbType.Int32, 0);
+                db.AddOutParameter(dbCommand, "@categoryId", DbType.Int32, 0);
+                db.AddOutParameter(dbCommand, "@description", DbType.String, 500);
+                db.AddInParameter(dbCommand, "@issueDetId", DbType.Int32, issueDetId);
+                db.AddInParameter(dbCommand, "@customerSubType", DbType.Int32, customerSubType);
+                ds = db.ExecuteDataSet(dbCommand);
+                Description = db.GetParameterValue(dbCommand, "description").ToString();
+                catName = db.GetParameterValue(dbCommand, "catName").ToString();
+                issueDetId = Convert.ToInt32(db.GetParameterValue(dbCommand, "OrdDetID").ToString());
+                categoryId = Convert.ToInt32(db.GetParameterValue(dbCommand, "categoryId").ToString());
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:GetExtractStepCode()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+           
+        }
+
     }
 }

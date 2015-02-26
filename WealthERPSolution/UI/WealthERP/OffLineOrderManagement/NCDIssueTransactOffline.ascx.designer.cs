@@ -8,11 +8,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WealthERP.OffLineOrderManagement {
-    
-    
-    public partial class NCDIssueTransactOffline {
-        
+namespace WealthERP.OffLineOrderManagement
+{
+
+
+    public partial class NCDIssueTransactOffline
+    {
+
         /// <summary>
         /// scrptMgr control.
         /// </summary>
@@ -21,7 +23,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager scrptMgr;
-        
+
         /// <summary>
         /// lnkEdit control.
         /// </summary>
@@ -30,7 +32,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkEdit;
-        
+
         /// <summary>
         /// trOfficeUse control.
         /// </summary>
@@ -39,7 +41,8 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTable trOfficeUse;
-        
+        protected global::System.Web.UI.WebControls.Panel pnlNCDControlContainer;
+
         /// <summary>
         /// tdauthentication control.
         /// </summary>
@@ -48,7 +51,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdauthentication;
-        
+
         /// <summary>
         /// rbtnAuthentication control.
         /// </summary>
@@ -57,7 +60,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton rbtnAuthentication;
-        
+
         /// <summary>
         /// rbtnReject control.
         /// </summary>
@@ -66,7 +69,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton rbtnReject;
-        
+
         /// <summary>
         /// lblBrokerCode control.
         /// </summary>
@@ -75,7 +78,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblBrokerCode;
-        
+
         /// <summary>
         /// ddlBrokerCode control.
         /// </summary>
@@ -84,7 +87,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlBrokerCode;
-        
+
         /// <summary>
         /// tdauthenticationDetails control.
         /// </summary>
@@ -93,7 +96,8 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdauthenticationDetails;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdIssueList;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdCommMgmt;
         /// <summary>
         /// lblAuthenticated control.
         /// </summary>
@@ -102,7 +106,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAuthenticated;
-        
+
         /// <summary>
         /// lblAuthenticatedBy control.
         /// </summary>
@@ -111,7 +115,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAuthenticatedBy;
-        
+
         /// <summary>
         /// lblAuthenticationDate control.
         /// </summary>
@@ -120,7 +124,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAuthenticationDate;
-        
+
         /// <summary>
         /// tdlblReject control.
         /// </summary>
@@ -129,7 +133,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblReject;
-        
+
         /// <summary>
         /// lblRejectRes control.
         /// </summary>
@@ -138,7 +142,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblRejectRes;
-        
+
         /// <summary>
         /// tdtxtReject control.
         /// </summary>
@@ -147,7 +151,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtReject;
-        
+
         /// <summary>
         /// txtRejectReseaon control.
         /// </summary>
@@ -156,7 +160,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtRejectReseaon;
-        
+
         /// <summary>
         /// RequiredFieldValidator6 control.
         /// </summary>
@@ -165,7 +169,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator6;
-        
+
         /// <summary>
         /// btnSubmitAuthenticate control.
         /// </summary>
@@ -174,7 +178,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSubmitAuthenticate;
-        
+
         /// <summary>
         /// UpdatePanel1 control.
         /// </summary>
@@ -183,7 +187,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
-        
+
         /// <summary>
         /// tblMessage control.
         /// </summary>
@@ -192,7 +196,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTable tblMessage;
-        
+
         /// <summary>
         /// trSumbitSuccess control.
         /// </summary>
@@ -201,7 +205,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trSumbitSuccess;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trMessage;
         /// <summary>
         /// msgRecordStatus control.
         /// </summary>
@@ -210,7 +214,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgRecordStatus;
-        
+
         /// <summary>
         /// trinsufficentmessage control.
         /// </summary>
@@ -219,7 +223,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trinsufficentmessage;
-        
+
         /// <summary>
         /// lblinsufficent control.
         /// </summary>
@@ -228,7 +232,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblinsufficent;
-        
+
         /// <summary>
         /// pnl_OrderSection control.
         /// </summary>
@@ -237,7 +241,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnl_OrderSection;
-        
+
         /// <summary>
         /// trpan control.
         /// </summary>
@@ -246,7 +250,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trpan;
-        
+
         /// <summary>
         /// lblPansearch control.
         /// </summary>
@@ -255,7 +259,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPansearch;
-        
+
         /// <summary>
         /// txtPansearch control.
         /// </summary>
@@ -264,7 +268,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPansearch;
-        
+
         /// <summary>
         /// TextBoxWatermarkExtender1 control.
         /// </summary>
@@ -273,7 +277,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender1;
-        
+
         /// <summary>
         /// AutoCompleteExtender1 control.
         /// </summary>
@@ -282,7 +286,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.AutoCompleteExtender AutoCompleteExtender1;
-        
+
         /// <summary>
         /// RequiredFieldValidator1 control.
         /// </summary>
@@ -291,7 +295,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
-        
+
         /// <summary>
         /// label2 control.
         /// </summary>
@@ -300,7 +304,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label label2;
-        
+
         /// <summary>
         /// lblgetcust control.
         /// </summary>
@@ -309,7 +313,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblgetcust;
-        
+
         /// <summary>
         /// trPanExist control.
         /// </summary>
@@ -318,7 +322,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trPanExist;
-        
+
         /// <summary>
         /// lblPANNotExist control.
         /// </summary>
@@ -327,7 +331,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPANNotExist;
-        
+
         /// <summary>
         /// lnkAddcustomer control.
         /// </summary>
@@ -336,7 +340,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkAddcustomer;
-        
+
         /// <summary>
         /// trCustomerAdd control.
         /// </summary>
@@ -345,7 +349,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trCustomerAdd;
-        
+
         /// <summary>
         /// lblCustomerType control.
         /// </summary>
@@ -354,7 +358,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCustomerType;
-        
+
         /// <summary>
         /// rbtnIndividual control.
         /// </summary>
@@ -363,7 +367,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton rbtnIndividual;
-        
+
         /// <summary>
         /// rbtnNonIndividual control.
         /// </summary>
@@ -372,7 +376,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton rbtnNonIndividual;
-        
+
         /// <summary>
         /// lblCustomerSubType control.
         /// </summary>
@@ -381,7 +385,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCustomerSubType;
-        
+
         /// <summary>
         /// ddlCustomerSubType control.
         /// </summary>
@@ -390,7 +394,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCustomerSubType;
-        
+
         /// <summary>
         /// CompareValidator1 control.
         /// </summary>
@@ -399,7 +403,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator1;
-        
+
         /// <summary>
         /// trBranchlist control.
         /// </summary>
@@ -408,7 +412,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trBranchlist;
-        
+
         /// <summary>
         /// Label4 control.
         /// </summary>
@@ -417,7 +421,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label4;
-        
+
         /// <summary>
         /// ddlAdviserBranchList control.
         /// </summary>
@@ -426,7 +430,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlAdviserBranchList;
-        
+
         /// <summary>
         /// ddlAdviserBranchList_CompareValidator2 control.
         /// </summary>
@@ -435,7 +439,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator ddlAdviserBranchList_CompareValidator2;
-        
+
         /// <summary>
         /// trRMlist control.
         /// </summary>
@@ -444,7 +448,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trRMlist;
-        
+
         /// <summary>
         /// lblRMName control.
         /// </summary>
@@ -453,7 +457,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblRMName;
-        
+
         /// <summary>
         /// ddlAdviseRMList control.
         /// </summary>
@@ -462,7 +466,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlAdviseRMList;
-        
+
         /// <summary>
         /// CompareValidator2 control.
         /// </summary>
@@ -471,7 +475,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator2;
-        
+
         /// <summary>
         /// lblPanNum control.
         /// </summary>
@@ -480,7 +484,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPanNum;
-        
+
         /// <summary>
         /// txtPanNumber control.
         /// </summary>
@@ -489,7 +493,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPanNumber;
-        
+
         /// <summary>
         /// chkdummypan control.
         /// </summary>
@@ -498,7 +502,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkdummypan;
-        
+
         /// <summary>
         /// rfvPanNumber control.
         /// </summary>
@@ -507,7 +511,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPanNumber;
-        
+
         /// <summary>
         /// RegularExpressionValidator1 control.
         /// </summary>
@@ -516,7 +520,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
-        
+
         /// <summary>
         /// lblPanDuplicate control.
         /// </summary>
@@ -525,7 +529,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPanDuplicate;
-        
+
         /// <summary>
         /// trIndividualName control.
         /// </summary>
@@ -534,7 +538,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trIndividualName;
-        
+
         /// <summary>
         /// lblName control.
         /// </summary>
@@ -543,7 +547,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblName;
-        
+
         /// <summary>
         /// txtFirstName control.
         /// </summary>
@@ -552,7 +556,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtFirstName;
-        
+
         /// <summary>
         /// RequiredFieldValidator12 control.
         /// </summary>
@@ -561,7 +565,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator12;
-        
+
         /// <summary>
         /// trNonIndividualName control.
         /// </summary>
@@ -570,7 +574,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trNonIndividualName;
-        
+
         /// <summary>
         /// lblCompanyName control.
         /// </summary>
@@ -579,7 +583,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCompanyName;
-        
+
         /// <summary>
         /// txtCompanyName control.
         /// </summary>
@@ -588,7 +592,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCompanyName;
-        
+
         /// <summary>
         /// RequiredFieldValidator13 control.
         /// </summary>
@@ -597,7 +601,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator13;
-        
+
         /// <summary>
         /// btnSubmit control.
         /// </summary>
@@ -606,7 +610,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSubmit;
-        
+
         /// <summary>
         /// trCust control.
         /// </summary>
@@ -615,7 +619,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trCust;
-        
+
         /// <summary>
         /// lblCustomer control.
         /// </summary>
@@ -624,7 +628,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCustomer;
-        
+
         /// <summary>
         /// txtCustomerName control.
         /// </summary>
@@ -633,7 +637,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCustomerName;
-        
+
         /// <summary>
         /// btnImgAddCustomer control.
         /// </summary>
@@ -642,7 +646,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnImgAddCustomer;
-        
+
         /// <summary>
         /// txtCustomer_water control.
         /// </summary>
@@ -651,7 +655,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender txtCustomer_water;
-        
+
         /// <summary>
         /// txtCustomerName_autoCompleteExtender control.
         /// </summary>
@@ -660,7 +664,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.AutoCompleteExtender txtCustomerName_autoCompleteExtender;
-        
+
         /// <summary>
         /// RequiredFieldValidator2 control.
         /// </summary>
@@ -669,7 +673,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
-        
+
         /// <summary>
         /// lblPan control.
         /// </summary>
@@ -678,7 +682,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPan;
-        
+
         /// <summary>
         /// lblgetPan control.
         /// </summary>
@@ -687,7 +691,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblgetPan;
-        
+
         /// <summary>
         /// lblBranch control.
         /// </summary>
@@ -696,7 +700,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblBranch;
-        
+
         /// <summary>
         /// lblGetBranch control.
         /// </summary>
@@ -705,7 +709,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblGetBranch;
-        
+
         /// <summary>
         /// lblAssociateSearch control.
         /// </summary>
@@ -714,7 +718,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAssociateSearch;
-        
+
         /// <summary>
         /// txtAssociateSearch control.
         /// </summary>
@@ -723,7 +727,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAssociateSearch;
-        
+
         /// <summary>
         /// TextBoxWatermarkExtender2 control.
         /// </summary>
@@ -732,7 +736,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender2;
-        
+
         /// <summary>
         /// AutoCompleteExtender2 control.
         /// </summary>
@@ -741,7 +745,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.AutoCompleteExtender AutoCompleteExtender2;
-        
+
         /// <summary>
         /// RequiredFieldValidator3 control.
         /// </summary>
@@ -750,7 +754,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
-        
+
         /// <summary>
         /// lblAssociate control.
         /// </summary>
@@ -759,7 +763,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAssociate;
-        
+
         /// <summary>
         /// lblAssociatetext control.
         /// </summary>
@@ -768,7 +772,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAssociatetext;
-        
+
         /// <summary>
         /// trIsa control.
         /// </summary>
@@ -777,7 +781,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trIsa;
-        
+
         /// <summary>
         /// lblIsa control.
         /// </summary>
@@ -786,7 +790,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblIsa;
-        
+
         /// <summary>
         /// ddlCustomerISAAccount control.
         /// </summary>
@@ -795,7 +799,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCustomerISAAccount;
-        
+
         /// <summary>
         /// btnIsa control.
         /// </summary>
@@ -804,7 +808,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnIsa;
-        
+
         /// <summary>
         /// Panel2 control.
         /// </summary>
@@ -813,7 +817,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel Panel2;
-        
+
         /// <summary>
         /// tdlnkbtn control.
         /// </summary>
@@ -822,7 +826,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow tdlnkbtn;
-        
+
         /// <summary>
         /// lnkBtnDemat control.
         /// </summary>
@@ -831,7 +835,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnDemat;
-        
+
         /// <summary>
         /// Td5 control.
         /// </summary>
@@ -840,7 +844,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell Td5;
-        
+
         /// <summary>
         /// ImageButton4 control.
         /// </summary>
@@ -849,7 +853,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton ImageButton4;
-        
+
         /// <summary>
         /// tdDemate control.
         /// </summary>
@@ -858,7 +862,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdDemate;
-        
+
         /// <summary>
         /// lblDpName control.
         /// </summary>
@@ -867,7 +871,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDpName;
-        
+
         /// <summary>
         /// txtDpName control.
         /// </summary>
@@ -876,7 +880,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDpName;
-        
+
         /// <summary>
         /// lblDPId control.
         /// </summary>
@@ -885,7 +889,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDPId;
-        
+
         /// <summary>
         /// txtDPId control.
         /// </summary>
@@ -894,7 +898,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDPId;
-        
+
         /// <summary>
         /// Label16 control.
         /// </summary>
@@ -903,7 +907,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label16;
-        
+
         /// <summary>
         /// txtDpClientId control.
         /// </summary>
@@ -912,7 +916,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDpClientId;
-        
+
         /// <summary>
         /// rev control.
         /// </summary>
@@ -921,7 +925,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator rev;
-        
+
         /// <summary>
         /// RequiredFieldValidator20 control.
         /// </summary>
@@ -930,7 +934,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator20;
-        
+
         /// <summary>
         /// lblAccountOpeningDate control.
         /// </summary>
@@ -939,7 +943,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAccountOpeningDate;
-        
+
         /// <summary>
         /// txtAccountOpeningDate control.
         /// </summary>
@@ -948,7 +952,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAccountOpeningDate;
-        
+
         /// <summary>
         /// CompareValidator6 control.
         /// </summary>
@@ -957,7 +961,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator6;
-        
+
         /// <summary>
         /// lblIsHeldJointly control.
         /// </summary>
@@ -966,7 +970,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblIsHeldJointly;
-        
+
         /// <summary>
         /// rbtnYes control.
         /// </summary>
@@ -975,7 +979,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton rbtnYes;
-        
+
         /// <summary>
         /// rbtnNo control.
         /// </summary>
@@ -984,7 +988,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton rbtnNo;
-        
+
         /// <summary>
         /// lblDepositoryName control.
         /// </summary>
@@ -993,7 +997,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDepositoryName;
-        
+
         /// <summary>
         /// ddlDepositoryName control.
         /// </summary>
@@ -1002,7 +1006,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlDepositoryName;
-        
+
         /// <summary>
         /// RequiredFieldValidator21 control.
         /// </summary>
@@ -1011,7 +1015,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator21;
-        
+
         /// <summary>
         /// lblModeOfHolding control.
         /// </summary>
@@ -1020,7 +1024,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblModeOfHolding;
-        
+
         /// <summary>
         /// ddlModeOfHolding control.
         /// </summary>
@@ -1029,7 +1033,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlModeOfHolding;
-        
+
         /// <summary>
         /// btnDemateDetails control.
         /// </summary>
@@ -1038,7 +1042,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnDemateDetails;
-        
+
         /// <summary>
         /// gvDematDetailsTeleR control.
         /// </summary>
@@ -1047,7 +1051,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvDematDetailsTeleR;
-        
+
         /// <summary>
         /// lblDpClientId control.
         /// </summary>
@@ -1056,7 +1060,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDpClientId;
-        
+
         /// <summary>
         /// txtDematid control.
         /// </summary>
@@ -1065,7 +1069,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDematid;
-        
+
         /// <summary>
         /// RequiredFieldValidator23 control.
         /// </summary>
@@ -1074,7 +1078,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator23;
-        
+
         /// <summary>
         /// pnlJointHolderNominee control.
         /// </summary>
@@ -1083,7 +1087,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlJointHolderNominee;
-        
+
         /// <summary>
         /// gvAssociate control.
         /// </summary>
@@ -1092,7 +1096,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvAssociate;
-        
+
         /// <summary>
         /// PnlNCDApplicationDetails control.
         /// </summary>
@@ -1101,7 +1105,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel PnlNCDApplicationDetails;
-        
+
         /// <summary>
         /// lblIssueName control.
         /// </summary>
@@ -1110,7 +1114,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblIssueName;
-        
+
         /// <summary>
         /// ddlIssueList control.
         /// </summary>
@@ -1119,7 +1123,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlIssueList;
-        
+
         /// <summary>
         /// rfvIssueList control.
         /// </summary>
@@ -1128,7 +1132,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvIssueList;
-        
+
         /// <summary>
         /// lblApplicationNo control.
         /// </summary>
@@ -1137,7 +1141,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblApplicationNo;
-        
+
         /// <summary>
         /// txtApplicationNo control.
         /// </summary>
@@ -1146,7 +1150,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtApplicationNo;
-        
+
         /// <summary>
         /// RequiredFieldValidator5 control.
         /// </summary>
@@ -1155,7 +1159,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator5;
-        
+
         /// <summary>
         /// lblApplicationDuplicate control.
         /// </summary>
@@ -1164,7 +1168,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblApplicationDuplicate;
-        
+
         /// <summary>
         /// lblDepository control.
         /// </summary>
@@ -1173,7 +1177,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDepository;
-        
+
         /// <summary>
         /// DropDownList4 control.
         /// </summary>
@@ -1182,7 +1186,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownList4;
-        
+
         /// <summary>
         /// ImageddlSyndicate control.
         /// </summary>
@@ -1191,7 +1195,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton ImageddlSyndicate;
-        
+
         /// <summary>
         /// RequiredFieldValidator4 control.
         /// </summary>
@@ -1200,7 +1204,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4;
-        
+
         /// <summary>
         /// Label5 control.
         /// </summary>
@@ -1209,7 +1213,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label5;
-        
+
         /// <summary>
         /// ddlPaymentMode control.
         /// </summary>
@@ -1218,7 +1222,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlPaymentMode;
-        
+
         /// <summary>
         /// CompareValidator13 control.
         /// </summary>
@@ -1227,7 +1231,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator13;
-        
+
         /// <summary>
         /// lblAmount control.
         /// </summary>
@@ -1236,7 +1240,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAmount;
-        
+
         /// <summary>
         /// txtAmount control.
         /// </summary>
@@ -1245,7 +1249,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAmount;
-        
+
         /// <summary>
         /// trPINo control.
         /// </summary>
@@ -1254,7 +1258,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trPINo;
-        
+
         /// <summary>
         /// lblPaymentNumber control.
         /// </summary>
@@ -1263,7 +1267,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPaymentNumber;
-        
+
         /// <summary>
         /// txtPaymentNumber control.
         /// </summary>
@@ -1272,7 +1276,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPaymentNumber;
-        
+
         /// <summary>
         /// RequiredFieldValidator8 control.
         /// </summary>
@@ -1281,7 +1285,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator8;
-        
+
         /// <summary>
         /// lblPIDate control.
         /// </summary>
@@ -1290,7 +1294,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPIDate;
-        
+
         /// <summary>
         /// txtPaymentInstDate control.
         /// </summary>
@@ -1299,7 +1303,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadDatePicker txtPaymentInstDate;
-        
+
         /// <summary>
         /// CompareValidator14 control.
         /// </summary>
@@ -1308,7 +1312,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator14;
-        
+
         /// <summary>
         /// RequiredFieldValidator10 control.
         /// </summary>
@@ -1317,7 +1321,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator10;
-        
+
         /// <summary>
         /// trASBA control.
         /// </summary>
@@ -1326,7 +1330,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trASBA;
-        
+
         /// <summary>
         /// lblASBANo control.
         /// </summary>
@@ -1335,7 +1339,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblASBANo;
-        
+
         /// <summary>
         /// txtASBANO control.
         /// </summary>
@@ -1344,7 +1348,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtASBANO;
-        
+
         /// <summary>
         /// RequiredFieldValidator9 control.
         /// </summary>
@@ -1353,7 +1357,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator9;
-        
+
         /// <summary>
         /// trBankName control.
         /// </summary>
@@ -1362,7 +1366,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trBankName;
-        
+
         /// <summary>
         /// lblBankName control.
         /// </summary>
@@ -1371,7 +1375,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblBankName;
-        
+
         /// <summary>
         /// ddlBankName control.
         /// </summary>
@@ -1380,7 +1384,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlBankName;
-        
+
         /// <summary>
         /// imgAddBank control.
         /// </summary>
@@ -1389,7 +1393,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton imgAddBank;
-        
+
         /// <summary>
         /// imgBtnRefereshBank control.
         /// </summary>
@@ -1398,7 +1402,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton imgBtnRefereshBank;
-        
+
         /// <summary>
         /// CompareValidator18 control.
         /// </summary>
@@ -1407,7 +1411,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator18;
-        
+
         /// <summary>
         /// RequiredFieldValidator22 control.
         /// </summary>
@@ -1416,7 +1420,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator22;
-        
+
         /// <summary>
         /// lblBranchName control.
         /// </summary>
@@ -1425,7 +1429,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblBranchName;
-        
+
         /// <summary>
         /// txtBranchName control.
         /// </summary>
@@ -1434,7 +1438,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtBranchName;
-        
+
         /// <summary>
         /// RequiredFieldValidator7 control.
         /// </summary>
@@ -1443,7 +1447,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator7;
-        
+
         /// <summary>
         /// pnlNCDOOrder control.
         /// </summary>
@@ -1452,7 +1456,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlNCDOOrder;
-        
+
         /// <summary>
         /// pnlIssuList control.
         /// </summary>
@@ -1461,7 +1465,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlIssuList;
-        
+
         /// <summary>
         /// tblCommissionStructureRule control.
         /// </summary>
@@ -1470,7 +1474,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTable tblCommissionStructureRule;
-        
+
         /// <summary>
         /// gvIssueList control.
         /// </summary>
@@ -1479,7 +1483,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvIssueList;
-        
+
         /// <summary>
         /// pnlNCDTransact control.
         /// </summary>
@@ -1488,7 +1492,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlNCDTransact;
-        
+
         /// <summary>
         /// gvCommMgmt control.
         /// </summary>
@@ -1497,7 +1501,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvCommMgmt;
-        
+
         /// <summary>
         /// lb1AvailbleCat control.
         /// </summary>
@@ -1506,7 +1510,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1AvailbleCat;
-        
+
         /// <summary>
         /// trTermsCondition control.
         /// </summary>
@@ -1515,7 +1519,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trTermsCondition;
-        
+
         /// <summary>
         /// chkTermsCondition control.
         /// </summary>
@@ -1524,7 +1528,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkTermsCondition;
-        
+
         /// <summary>
         /// lnkTermsCondition control.
         /// </summary>
@@ -1533,7 +1537,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkTermsCondition;
-        
+
         /// <summary>
         /// CustomValidator1 control.
         /// </summary>
@@ -1542,7 +1546,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CustomValidator CustomValidator1;
-        
+
         /// <summary>
         /// trSubmit control.
         /// </summary>
@@ -1551,7 +1555,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trSubmit;
-        
+
         /// <summary>
         /// lb1CustOffTimeMsg control.
         /// </summary>
@@ -1560,7 +1564,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1CustOffTimeMsg;
-        
+
         /// <summary>
         /// lnlBack control.
         /// </summary>
@@ -1569,7 +1573,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnlBack;
-        
+
         /// <summary>
         /// PnlSubmit control.
         /// </summary>
@@ -1578,7 +1582,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel PnlSubmit;
-        
+
         /// <summary>
         /// lblRemarks control.
         /// </summary>
@@ -1587,7 +1591,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblRemarks;
-        
+
         /// <summary>
         /// txtRemarks control.
         /// </summary>
@@ -1596,7 +1600,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtRemarks;
-        
+
         /// <summary>
         /// tdsubmit control.
         /// </summary>
@@ -1605,7 +1609,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdsubmit;
-        
+
         /// <summary>
         /// Label3 control.
         /// </summary>
@@ -1614,7 +1618,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label3;
-        
+
         /// <summary>
         /// btnConfirmOrder control.
         /// </summary>
@@ -1623,7 +1627,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnConfirmOrder;
-        
+
         /// <summary>
         /// tdAddMore control.
         /// </summary>
@@ -1632,7 +1636,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdAddMore;
-        
+
         /// <summary>
         /// btnAddMore control.
         /// </summary>
@@ -1641,7 +1645,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAddMore;
-        
+
         /// <summary>
         /// btnUpdate control.
         /// </summary>
@@ -1650,7 +1654,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnUpdate;
-        
+
         /// <summary>
         /// tdupdate control.
         /// </summary>
@@ -1659,7 +1663,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdupdate;
-        
+
         /// <summary>
         /// Label1 control.
         /// </summary>
@@ -1668,7 +1672,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label1;
-        
+
         /// <summary>
         /// rwDematDetails control.
         /// </summary>
@@ -1677,7 +1681,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadWindow rwDematDetails;
-        
+
         /// <summary>
         /// btnAddDemat control.
         /// </summary>
@@ -1686,7 +1690,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAddDemat;
-        
+
         /// <summary>
         /// RadDepository control.
         /// </summary>
@@ -1695,7 +1699,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadWindow RadDepository;
-        
+
         /// <summary>
         /// lblDepositoryAdd control.
         /// </summary>
@@ -1704,7 +1708,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDepositoryAdd;
-        
+
         /// <summary>
         /// txtDepository control.
         /// </summary>
@@ -1713,7 +1717,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDepository;
-        
+
         /// <summary>
         /// lblDescription control.
         /// </summary>
@@ -1722,7 +1726,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDescription;
-        
+
         /// <summary>
         /// txtDescription control.
         /// </summary>
@@ -1731,7 +1735,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDescription;
-        
+
         /// <summary>
         /// btnDepository control.
         /// </summary>
@@ -1740,7 +1744,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnDepository;
-        
+
         /// <summary>
         /// rwTermsCondition control.
         /// </summary>
@@ -1749,7 +1753,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadWindow rwTermsCondition;
-        
+
         /// <summary>
         /// btnAccept control.
         /// </summary>
@@ -1758,7 +1762,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAccept;
-        
+
         /// <summary>
         /// txtTotAmt control.
         /// </summary>
@@ -1767,7 +1771,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField txtTotAmt;
-        
+
         /// <summary>
         /// txtCustomerId control.
         /// </summary>
@@ -1776,7 +1780,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField txtCustomerId;
-        
+
         /// <summary>
         /// hdnCustomerId control.
         /// </summary>
@@ -1785,7 +1789,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnCustomerId;
-        
+
         /// <summary>
         /// hdnType control.
         /// </summary>
@@ -1794,7 +1798,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnType;
-        
+
         /// <summary>
         /// hdnSchemeCode control.
         /// </summary>
@@ -1803,7 +1807,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnSchemeCode;
-        
+
         /// <summary>
         /// hdnPortfolioId control.
         /// </summary>
@@ -1812,7 +1816,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnPortfolioId;
-        
+
         /// <summary>
         /// hdnAccountId control.
         /// </summary>
@@ -1821,7 +1825,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnAccountId;
-        
+
         /// <summary>
         /// hdnAmcCode control.
         /// </summary>
@@ -1830,7 +1834,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnAmcCode;
-        
+
         /// <summary>
         /// hdnSchemeName control.
         /// </summary>
@@ -1839,7 +1843,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnSchemeName;
-        
+
         /// <summary>
         /// hdnSchemeSwitch control.
         /// </summary>
@@ -1848,7 +1852,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnSchemeSwitch;
-        
+
         /// <summary>
         /// hdnBankName control.
         /// </summary>
@@ -1857,7 +1861,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnBankName;
-        
+
         /// <summary>
         /// hdnIsSubscripted control.
         /// </summary>
@@ -1866,7 +1870,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnIsSubscripted;
-        
+
         /// <summary>
         /// txtSwitchSchemeCode control.
         /// </summary>
@@ -1875,7 +1879,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField txtSwitchSchemeCode;
-        
+
         /// <summary>
         /// txtAgentId control.
         /// </summary>
@@ -1884,7 +1888,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField txtAgentId;
-        
+
         /// <summary>
         /// hdnAplicationNo control.
         /// </summary>
@@ -1893,7 +1897,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnAplicationNo;
-        
+
         /// <summary>
         /// hidValidCheck control.
         /// </summary>
@@ -1902,7 +1906,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidValidCheck;
-        
+
         /// <summary>
         /// HiddenField1 control.
         /// </summary>
@@ -1911,7 +1915,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField HiddenField1;
-        
+
         /// <summary>
         /// hidAmt control.
         /// </summary>
@@ -1920,7 +1924,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidAmt;
-        
+
         /// <summary>
         /// hdnOrderId control.
         /// </summary>

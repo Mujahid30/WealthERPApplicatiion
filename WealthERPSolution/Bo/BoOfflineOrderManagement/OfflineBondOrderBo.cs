@@ -9,20 +9,20 @@ using System.Data;
 using System.Data.Common;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
-
+using VoOnlineOrderManagemnet;
 namespace BoOfflineOrderManagement
 {
     public class OfflineBondOrderBo
     {
-        
-        public DataSet GetOfflineAdviserIssuerList(int adviserId, int issueId, int type, int custmerId, int customerSubtype)
+
+        public DataSet GetOfflineAdviserIssuerList(int adviserId, int issueId, int type, int customerSubtype)
         {
             OfflineBondOrderDao offlineBondDao = new OfflineBondOrderDao();
             DataSet dsCommissionStructureRules = new DataSet();
-            
+
             try
             {
-                dsCommissionStructureRules = offlineBondDao.GetOfflineAdviserIssuerList(adviserId, issueId, type, custmerId,customerSubtype);
+                dsCommissionStructureRules = offlineBondDao.GetOfflineAdviserIssuerList(adviserId, issueId, type, customerSubtype);
 
             }
             catch (BaseApplicationException Ex)
@@ -43,13 +43,13 @@ namespace BoOfflineOrderManagement
             }
             return dsCommissionStructureRules;
         }
-        public DataSet GetOfflineLiveBondTransaction(int SeriesId, int customerId, int customerSubType)
+        public DataSet GetOfflineLiveBondTransaction(int SeriesId, int customerSubType)
         {
             OfflineBondOrderDao offlineBondDao = new OfflineBondOrderDao();
             DataSet dsCommissionStructureRules = new DataSet();
             try
             {
-                dsCommissionStructureRules = offlineBondDao.GetOfflineLiveBondTransaction(SeriesId, customerId, customerSubType);
+                dsCommissionStructureRules = offlineBondDao.GetOfflineLiveBondTransaction(SeriesId, customerSubType);
 
             }
             catch (BaseApplicationException Ex)
@@ -95,7 +95,7 @@ namespace BoOfflineOrderManagement
             }
 
         }
-        public IDictionary<string, string> OfflineBOndtransact(DataTable OnlineBondOrder, int adviserId, int IssuerId, int agentId, string agentCode, int userId)
+        public IDictionary<string, string> OfflineBOndtransact(DataTable OnlineBondOrder, int adviserId, OnlineBondOrderVo OnlineBondVo, int agentId, string agentCode, int userId)
         {
             IDictionary<string, string> OrderIds = new Dictionary<string, string>();
             OfflineBondOrderDao offlineBondDao = new OfflineBondOrderDao();
@@ -103,7 +103,7 @@ namespace BoOfflineOrderManagement
             //int orderIds = 0; 
             try
             {
-                OrderIds = offlineBondDao.CreateOfflineBondTransact(OnlineBondOrder, adviserId, IssuerId, agentId, agentCode, userId);
+                OrderIds = offlineBondDao.CreateOfflineBondTransact(OnlineBondOrder, adviserId, OnlineBondVo, agentId, agentCode, userId);
 
             }
             catch (BaseApplicationException Ex)
@@ -152,11 +152,11 @@ namespace BoOfflineOrderManagement
             }
             return dt;
         }
-        public bool CancelBondsFDBookOrder(int orderId, string remarks, int userId, Boolean IsAuthenticated,string brokerCode)
+        public bool CancelBondsFDBookOrder(int orderId, string remarks, int userId, Boolean IsAuthenticated, string brokerCode)
         {
             bool bResult = false;
             OfflineBondOrderDao offlineBondDao = new OfflineBondOrderDao();
-            
+
             try
             {
                 bResult = offlineBondDao.CancelBondsFDBookOrder(orderId, remarks, userId, IsAuthenticated, brokerCode);
@@ -179,6 +179,20 @@ namespace BoOfflineOrderManagement
                 throw exBase;
             }
             return bResult;
+        }
+        public void GetCustomerCat(int issueId, int adviserId,int customerSubType, double amt, ref string catName, ref int issueDetId, ref int categoryId, ref string Description)
+        {
+            // bool result = false;
+            OfflineBondOrderDao offlineBondDao = new OfflineBondOrderDao();
+
+            try
+            {
+                offlineBondDao.GetCustomerCat(issueId, adviserId,customerSubType, amt, ref catName, ref issueDetId, ref categoryId, ref Description);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
         }
 
     }
