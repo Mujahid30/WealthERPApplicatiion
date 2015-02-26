@@ -1330,7 +1330,7 @@ namespace WealthERP.Receivable
                     chkMode.Visible = true;
                     tdddlMode.Visible = true;
                     tdlblMode.Visible = true;
-                }  
+                }
                 if (ddlProductType.SelectedValue == "IP")
                 {
                     chkSeries.Visible = false;
@@ -1759,7 +1759,7 @@ namespace WealthERP.Receivable
                     chkMode.Visible = true;
                     tdddlMode.Visible = true;
                     tdlblMode.Visible = true;
-                }  
+                }
             }
             //if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)
             //{
@@ -1988,8 +1988,6 @@ namespace WealthERP.Receivable
             try
             {
 
-
-
                 Label lb1RuleName = (Label)e.Item.FindControl("lb1RuleName");
                 TextBox TxtRuleName = (TextBox)e.Item.FindControl("TxtRuleName");
 
@@ -2048,30 +2046,20 @@ namespace WealthERP.Receivable
                 commissionStructureRuleVo.CommissionStructureRuleName = TxtRuleName.Text;
                 if (!string.IsNullOrEmpty(ddlCommissionType.SelectedValue))
                 {
-                    if (ddlCommissionType.SelectedValue == "IN")
+                    commissionStructureRuleVo.CommissionType = ddlCommissionType.SelectedValue;
+                    switch (ddlCommissionType.SelectedValue)
                     {
-                        commissionStructureRuleVo.CommissionType = ddlCommissionType.SelectedValue;
-                        commissionStructureRuleVo.CommissionSubType = "N";
-                    }
-                    else if (ddlCommissionType.SelectedValue == "IM")
-                    {
-                        commissionStructureRuleVo.CommissionType = ddlCommissionType.SelectedValue;
-                        commissionStructureRuleVo.CommissionSubType = "MBl";
-                    }
-                    else if (ddlCommissionType.SelectedValue == "IS")
-                    {
-                        commissionStructureRuleVo.CommissionType = ddlCommissionType.SelectedValue;
-                        commissionStructureRuleVo.CommissionSubType = "SPl";
-                    }
-                    else if (ddlCommissionType.SelectedValue == "IA")
-                    {
-                        commissionStructureRuleVo.CommissionType = ddlCommissionType.SelectedValue;
-                        commissionStructureRuleVo.CommissionSubType = "N";
-                    }
-                    else
-                    {
-                        commissionStructureRuleVo.CommissionType = ddlCommissionType.SelectedValue;
-                        commissionStructureRuleVo.CommissionSubType = "o";
+                        case "IN": commissionStructureRuleVo.CommissionSubType = "N";
+                                   break;
+                        case "IM": commissionStructureRuleVo.CommissionSubType = "MBl";
+                                   break;
+                        case "IS": commissionStructureRuleVo.CommissionSubType = "SPl";
+                                   break;
+                        case "IA": commissionStructureRuleVo.CommissionSubType = "N";
+                                   break;
+                        case "UF": commissionStructureRuleVo.CommissionSubType = "0";
+                                   break;
+
                     }
                 }
                 commissionStructureRuleVo.CustomerType = ddlInvestorType.SelectedValue;
@@ -2680,7 +2668,7 @@ namespace WealthERP.Receivable
                 txtNote.Enabled = false;
 
                 lnkEditStructure.Visible = true;
-                lnkEditStructure.Visible=true;
+                lnkEditStructure.Visible = true;
                 lnkEditStructure.ToolTip = "Edit commission structure section";
                 lnkAddNewStructure.Visible = false;
                 btnStructureSubmit.Visible = false;
@@ -3596,7 +3584,7 @@ namespace WealthERP.Receivable
                 associateid = commisionReceivableBo.RuleAssociate(Request.QueryString["StructureId"]);
                 if (associateid > 0)
                 {
-                    
+
                     string confirmValue = Request.Form["confirm_value"];
                     if (confirmValue == "Yes")
                     {
@@ -3615,7 +3603,7 @@ namespace WealthERP.Receivable
             {
                 if (gvPayaMapping.Items.Count > 0)
                 {
-                  
+
                     string confirmValue = Request.Form["confirm_value"];
                     if (confirmValue == "Yes")
                     {
@@ -3742,7 +3730,7 @@ namespace WealthERP.Receivable
         protected void OnClick_imgMapping(object sender, ImageClickEventArgs e)
         {
             BindPayableGrid();
-          
+
         }
         protected void chkCategory_OnCheckedChanged(object sender, EventArgs e)
         {
@@ -3854,7 +3842,7 @@ namespace WealthERP.Receivable
         protected void ddlSubInstrCategory_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             DropDownList ddlSubInstrCategory = (DropDownList)sender;
-            
+
         }
 
 
@@ -3862,17 +3850,17 @@ namespace WealthERP.Receivable
         {
             FIOrderBo fiorderBo = new FIOrderBo();
             DataTable dtBindSubbroker = fiorderBo.GetSubBroker(issueId);
-           
+
             ddlBrokerCode.DataSource = dtBindSubbroker;
             ddlBrokerCode.DataValueField = dtBindSubbroker.Columns["XB_BrokerIdentifier"].ToString();
             ddlBrokerCode.DataTextField = dtBindSubbroker.Columns["XB_BrokerShortName"].ToString();
             ddlBrokerCode.DataBind();
             ddlBrokerCode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
-            
+
         }
         protected void ddlCommissionype_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
     }
 }
