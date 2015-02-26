@@ -819,9 +819,8 @@ var div_position = document.getElementById("div_position");
                     <asp:Button ID="btnConfirmOrder" runat="server" Text="Submit Order" OnClick="btnConfirmOrder_Click"
                         CssClass="PCGMediumButton" ValidationGroup="btnConfirmOrder, btnTC" OnClientClick="javascript: return  PreventClicks(); Validate();"
                         TabIndex="46" />
-                    <asp:Button ID="btnAddMore" runat="server" Text="Add More" CssClass="PCGMediumButton"
-                        ValidationGroup="btnConfirmOrder" OnClientClick="return  PreventClicks();" OnClick="btnAddMore_Click"
-                        TabIndex="47" />
+                    <asp:Button ID="btnAddMore" runat="server" Text="Add another order" CssClass="PCGMediumButton"
+                        OnClick="btnAddMore_Click" TabIndex="47" />
                     <asp:Button ID="btnUpdate" runat="server" Text="Update" OnClick="btnUpdate_OnClick"
                         CssClass="PCGButton" Visible="false" ValidationGroup="btnConfirmOrder,ddlBrokerCode"
                         OnClientClick="javascript: return  ValGroup();" TabIndex="48" />
