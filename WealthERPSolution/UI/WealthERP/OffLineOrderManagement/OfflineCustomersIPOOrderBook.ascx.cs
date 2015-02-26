@@ -24,23 +24,19 @@ namespace WealthERP.OffLineOrderManagement
         int AIMissueId = 0;
         int orderId = 0;
         string userType;
-        string UserTitle;
+        string UserTitle = string.Empty;
+        string OrderStepCode = string.Empty;
         string AgentCode;
         string agentCode;
+
         BoOnlineOrderManagement.OnlineBondOrderBo BoOnlineBondOrder = new BoOnlineOrderManagement.OnlineBondOrderBo();
         OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
-        OnlineIPOBackOfficeBo OnlineIPOBackOfficeBo = new OnlineIPOBackOfficeBo();
-        OfflineNCDIPOBackOfficeBo onlineNCDIPOBackOfficeBo = new OfflineNCDIPOBackOfficeBo();
         OfflineIPOBackOfficeBo OfflineIPOBackOfficeBo = new OfflineIPOBackOfficeBo();
         AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
-
         protected void Page_Load(object sender, EventArgs e)
         {
             userVo = (UserVo)Session[SessionContents.UserVo];
             advisorVo = (AdvisorVo)Session["advisorVo"];
-            //fromDate = DateTime.Now.AddMonths(-1);
-            //txtOrderFrom.SelectedDate = fromDate.Date;
-            //txtOrderTo.SelectedDate = DateTime.Now;
             BindOrderStatus();
             BindIssueName();
             associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
@@ -78,7 +74,7 @@ namespace WealthERP.OffLineOrderManagement
                 }
                 BindOrderStatus();
                 BindIssueName();
-           
+
                 if (Request.QueryString["AIMissueId"] != null && Request.QueryString["orderId"] != null && Request.QueryString["fromDate"] != null && Request.QueryString["toDate"] != null)
                 {
                     AIMissueId = int.Parse(Request.QueryString["AIMissueId"].ToString());
@@ -89,12 +85,11 @@ namespace WealthERP.OffLineOrderManagement
                     txtOrderTo.SelectedDate = toDate;
                     ddlOrderStatus.SelectedValue = "PR";
                     ddlIssueName.SelectedValue = AIMissueId.ToString();
-                    //hdnOrderStatus.Value = "PR";
                     BindAdviserNCCOrderBook();
                 }
                 if (Request.QueryString["orderId"] != null)
                 {
-                   ViewState["OrderId"]  = int.Parse(Request.QueryString["orderId"].ToString());
+                    ViewState["OrderId"] = int.Parse(Request.QueryString["orderId"].ToString());
                     BindAdviserNCCOrderBook();
                     divConditional.Visible = false;
                 }
@@ -103,7 +98,6 @@ namespace WealthERP.OffLineOrderManagement
         protected void BindIssueName()
         {
             DataTable dtGetIssueName = new DataTable();
-
             dtGetIssueName = onlineNCDBackOfficeBo.GetIssueName(advisorVo.advisorId, "IP");
             ddlIssueName.DataSource = dtGetIssueName;
             ddlIssueName.DataValueField = dtGetIssueName.Columns["AIM_IssueId"].ToString();
@@ -111,18 +105,7 @@ namespace WealthERP.OffLineOrderManagement
             ddlIssueName.DataBind();
             ddlIssueName.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
         }
-        private void SetParameter()
-        {
-            if (ddlOrderStatus.SelectedIndex != 0)
-            {
-                hdnOrderStatus.Value = ddlOrderStatus.SelectedValue;
-                ViewState["OrderstatusDropDown"] = hdnOrderStatus.Value;
-            }
-            else
-            {
-                hdnOrderStatus.Value = "0";
-            }
-        }
+
         /// <summary>
         /// Get Bind Orderstatus
         /// </summary>
@@ -140,12 +123,12 @@ namespace WealthERP.OffLineOrderManagement
                 ddlOrderStatus.DataTextField = dtOrderStatus.Columns["WOS_OrderStep"].ToString();
                 ddlOrderStatus.DataValueField = dtOrderStatus.Columns["WOS_OrderStepCode"].ToString();
                 ddlOrderStatus.DataBind();
+                ddlOrderStatus.Items.Insert(0, new ListItem("All", "0"));
             }
-            ddlOrderStatus.Items.Insert(0, new ListItem("All", "0"));
+
         }
         protected void btnViewOrder_Click(object sender, EventArgs e)
         {
-            SetParameter();
             BindAdviserNCCOrderBook();
         }
         protected void BindAdviserNCCOrderBook()
@@ -153,7 +136,6 @@ namespace WealthERP.OffLineOrderManagement
             if (userType == "rm" || userType == "bm")
             {
                 agentCode = associateuserheirarchyVo.AgentCode;
-
             }
             else if (userType == "associates")
             {
@@ -163,7 +145,7 @@ namespace WealthERP.OffLineOrderManagement
             DataTable dtIPOOrder;
             if (Request.QueryString["orderId"] != null)
             {
-                dtIPOOrder = OfflineIPOBackOfficeBo.GetOfflineIPOOrderBook(advisorVo.advisorId, 0, "0", fromDate, toDate, int.Parse(  ViewState["OrderId"].ToString()), userType, agentCode, ddlBidType.SelectedValue);
+                dtIPOOrder = OfflineIPOBackOfficeBo.GetOfflineIPOOrderBook(advisorVo.advisorId, 0, "0", fromDate, toDate, int.Parse(ViewState["OrderId"].ToString()), userType, agentCode, ddlBidType.SelectedValue);
             }
             else
             {
@@ -173,7 +155,7 @@ namespace WealthERP.OffLineOrderManagement
                     toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
                 dtIPOOrder = OfflineIPOBackOfficeBo.GetOfflineIPOOrderBook(advisorVo.advisorId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), ddlOrderStatus.SelectedValue, fromDate, toDate, orderId, userType, agentCode, ddlBidType.SelectedValue);
             }
-                if (dtIPOOrder.Rows.Count >= 0)
+            if (dtIPOOrder.Rows.Count >= 0)
             {
                 if (Cache["IPOBookList" + userVo.UserId.ToString()] == null)
                 {
@@ -189,48 +171,38 @@ namespace WealthERP.OffLineOrderManagement
                 ibtExportSummary.Visible = true;
                 pnlGrid.Visible = true;
             }
-            else
-            {
-                ibtExportSummary.Visible = false;
-                gvIPOOrderBook.DataSource = dtIPOOrder;
-                gvIPOOrderBook.DataBind();
-                pnlGrid.Visible = true;
-            }
+
         }
         protected void gvIPOOrderBook_UpdateCommand(object source, GridCommandEventArgs e)
         {
             bool lbResult = false;
             string strRemark = string.Empty;
+            string extractionStepCode;
             if (e.CommandName == RadGrid.UpdateCommandName)
             {
                 GridEditableItem editItem = e.Item as GridEditableItem;
                 TextBox txtRemark = (TextBox)e.Item.FindControl("txtRemark");
                 strRemark = txtRemark.Text;
                 LinkButton buttonEdit = editItem["MarkAsReject"].Controls[0] as LinkButton;
-                //   Label extractStepCode = editItem["WES_Code"].Controls[1] as Label;
-                Int32 orderId = Convert.ToInt32(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
-                string extractionStepCode = gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WES_Code"].ToString();
+                orderId = Convert.ToInt32(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
+                extractionStepCode = gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WES_Code"].ToString();
                 if (extractionStepCode == string.Empty)
                 {
                     string AcntId = gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_CustCode"].ToString();
                     double AmountPayable = Convert.ToDouble(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["Amount"].ToString());
                     lbResult = BoOnlineBondOrder.cancelBondsBookOrder(orderId, 2, txtRemark.Text);
-                    //BoOnlineBondOrder.DebitRMSUserAccountBalance(AcntId, AmountPayable, 0);
                     if (lbResult == true)
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Cancelled Successfully');", true);
                     }
                     BindAdviserNCCOrderBook();
-
                 }
                 else
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Cant be Cancelled as it is Extracted.');", true);
-
                 }
             }
         }
-
         protected void gvIPOOrderBook_ItemDataBound(object sender, GridItemEventArgs e)
         {
 
@@ -240,84 +212,62 @@ namespace WealthERP.OffLineOrderManagement
                 LinkButton lbtnMarkAsReject = dataItem["MarkAsReject"].Controls[0] as LinkButton;
                 DropDownList ddlAction = (DropDownList)dataItem.FindControl("ddlAction");
                 ddlAction.Enabled = true;
-                string OrderStepCode = Convert.ToString(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WOS_OrderStep"]);
+                ddlAction.Items[1].Enabled = false;
+                ddlAction.Items[2].Enabled = false;
+                lbtnMarkAsReject.Visible = false;
+                OrderStepCode = Convert.ToString(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WOS_OrderStep"]);
                 Boolean isCancel = Convert.ToBoolean(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IsCancelAllowed"].ToString());
                 DateTime closeDateTime = Convert.ToDateTime(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_CloseDate"].ToString());
-                string isAuthenticate = Convert.ToString(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_IsAuthenticated"].ToString());
                 if (OrderStepCode == "INPROCESS" && isCancel != false)
                 {
                     lbtnMarkAsReject.Visible = true;
-                }
-                else
-                {
-                    lbtnMarkAsReject.Visible = false;
+                    ddlAction.Items[1].Enabled = true;
+                    ddlAction.Items[2].Enabled = true;
                 }
                 if (OrderStepCode == "CANCELLED")
                 {
-                    ddlAction.Items[1].Enabled = false;
+                    ddlAction.Items[1].Enabled = true;
                     ddlAction.Items[2].Enabled = false;
                 }
                 if (OrderStepCode == "EXECUTED")
                 {
-                    ddlAction.Items[1].Enabled = false;
+                    ddlAction.Items[1].Enabled = true;
                     ddlAction.Items[2].Enabled = false;
                     ddlAction.ToolTip = "Order Cannot Be Modified in Executed Status";
                 }
-                //if ()
-                //{
-                //    ddlAction.Enabled = true;
-                //}
-                //else
-                //{
-                //    ddlAction.Items[2].Enabled = false;
-                //}
-               
-                if ((OrderStepCode == "REJECTED"))
+                if ((OrderStepCode == "REJECTED") || (OrderStepCode == "ACCEPTED"))
                 {
                     ddlAction.Items[1].Enabled = true;
                     ddlAction.Items[2].Enabled = false;
                 }
-                else
-                {
-                    ddlAction.Items[1].Enabled = true;
-                    ddlAction.Items[2].Enabled = true;
-                }
                 if (OrderStepCode == "ORDERED")
                 {
-
                     if (DateTime.Now > closeDateTime)
                     {
                         lbtnMarkAsReject.Visible = true;
                         ddlAction.Items[1].Enabled = true;
                         ddlAction.Items[2].Enabled = false;
-
                     }
                     else
                     {
                         ddlAction.Items[1].Enabled = true;
                         ddlAction.Items[2].Enabled = true;
-                        lbtnMarkAsReject.Visible = true;
+                        lbtnMarkAsReject.Visible = false;
                     }
-                }
-                else
-                {
-                    lbtnMarkAsReject.Visible = false;
-
                 }
             }
         }
-
-
         protected void btnExpandAll_Click(object sender, EventArgs e)
         {
             int strIssuerId = 0;
             LinkButton buttonlink = (LinkButton)sender;
             GridDataItem gdi;
             gdi = (GridDataItem)buttonlink.NamingContainer;
-            strIssuerId = int.Parse(gvIPOOrderBook.MasterTableView.DataKeyValues[gdi.ItemIndex]["AIM_IssueId"].ToString());
-            int orderId = int.Parse(gvIPOOrderBook.MasterTableView.DataKeyValues[gdi.ItemIndex]["CO_OrderId"].ToString());
             RadGrid gvIPODetails = (RadGrid)gdi.FindControl("gvIPODetails");
             Panel PnlChild = (Panel)gdi.FindControl("pnlchild");
+            strIssuerId = int.Parse(gvIPOOrderBook.MasterTableView.DataKeyValues[gdi.ItemIndex]["AIM_IssueId"].ToString());
+            orderId = int.Parse(gvIPOOrderBook.MasterTableView.DataKeyValues[gdi.ItemIndex]["CO_OrderId"].ToString());
+
             if (PnlChild.Visible == false)
             {
                 PnlChild.Visible = true;
@@ -340,11 +290,9 @@ namespace WealthERP.OffLineOrderManagement
             {
                 gvIPOOrderBook.DataSource = dtIPOOrderBook;
             }
-
         }
         public void ibtExport_OnClick(object sender, ImageClickEventArgs e)
         {
-            //  gvIPOOrderBook.MasterTableView.DetailTables[0].HierarchyDefaultExpanded = true;
             gvIPOOrderBook.MasterTableView.HierarchyLoadMode = GridChildLoadMode.ServerBind;
             gvIPOOrderBook.ExportSettings.OpenInNewWindow = true;
             gvIPOOrderBook.ExportSettings.IgnorePaging = true;
@@ -353,19 +301,7 @@ namespace WealthERP.OffLineOrderManagement
             gvIPOOrderBook.ExportSettings.FileName = "IPO Order Book";
             gvIPOOrderBook.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvIPOOrderBook.MasterTableView.ExportToExcel();
-
         }
-        //protected void btnView_Click(object sender, EventArgs e)
-        //{
-        //    Response.Redirect("ControlHost.aspx?pageid=IPOIssueTransactOffline", false);
-
-        //}
-        //protected void gvIPOOrderBook_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
-        //{
-        //    Int32 orderId = Convert.ToInt32(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
-        //    string custCode = gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_CustCode"].ToString();
-        //    //Response.Redirect("ControlHost.aspx?pageid=IPOIssueTransactOffline&orderId=" + orderId + "&custCode=" + custCode + "", false);
-        //}
         protected void btnExpand_Click(object sender, EventArgs e)
         {
             LinkButton button1 = (LinkButton)sender;
@@ -373,14 +309,13 @@ namespace WealthERP.OffLineOrderManagement
             {
                 foreach (GridDataItem gvr in this.gvIPOOrderBook.Items)
                 {
-
                     DataTable dtIssueDetail;
                     int strIssuerId = 0;
                     LinkButton button = (LinkButton)gvr.FindControl("lbDetails");
                     RadGrid gvIPODetails = (RadGrid)gvr.FindControl("gvIPODetails");
                     Panel PnlChild = (Panel)gvr.FindControl("pnlchild");
                     strIssuerId = int.Parse(gvIPOOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AIM_IssueId"].ToString());
-                    int orderId = int.Parse(gvIPOOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["CO_OrderId"].ToString());
+                    orderId = int.Parse(gvIPOOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["CO_OrderId"].ToString());
                     DataTable dtIPOOrderBook = OfflineIPOBackOfficeBo.GetOfflineIPOOrderSubBook(advisorVo.advisorId, strIssuerId, orderId);
                     dtIssueDetail = dtIPOOrderBook;
                     gvIPODetails.DataSource = dtIssueDetail;
@@ -406,18 +341,16 @@ namespace WealthERP.OffLineOrderManagement
                 }
                 button1.Text = "+";
             }
-
         }
         protected void ddlAction_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             DropDownList ddlAction = (DropDownList)sender;
             GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
-            Int32 orderId = Convert.ToInt32(gvIPOOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["CO_OrderId"].ToString());
+            orderId = int.Parse(gvIPOOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["CO_OrderId"].ToString());
             int associateid = Convert.ToInt32(gvIPOOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AgenId"].ToString());
             string agentId = gvIPOOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AAC_AgentCode"].ToString();
-            string OrderStepCode = Convert.ToString(gvIPOOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["WOS_OrderStep"]);
+            OrderStepCode = Convert.ToString(gvIPOOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["WOS_OrderStep"]);
             string CloseDate = Convert.ToString(gvIPOOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AIM_CloseDate"]);
-
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "IPOIssueTransactOffline", "loadcontrol( 'IPOIssueTransactOffline','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&associateid=" + associateid + "&agentId=" + agentId + "&OrderStepCode=" + OrderStepCode + "&CloseDate=" + CloseDate + "');", true);
         }
     }

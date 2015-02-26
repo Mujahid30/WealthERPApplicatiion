@@ -111,15 +111,6 @@
                     Display="Dynamic">
                 </asp:CompareValidator>
             </td>
-            <%-- <td>
-                <asp:Label runat="server" CssClass="FieldName" Text="Authenticated:" ID="lblAuthenticate"
-                    Visible="false"></asp:Label>
-                <asp:DropDownList ID="ddlAuthenticate" runat="server" CssClass="cmbField" Visible="false">
-                    <asp:ListItem Text="All" Value="2"></asp:ListItem>
-                    <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
-                    <asp:ListItem Text="No" Value="0"></asp:ListItem>
-                </asp:DropDownList>
-            </td>--%>
             <td id="tdBtnOrder" runat="server">
                 <asp:Button ID="btnViewOrder" runat="server" CssClass="PCGButton" Text="Go" ValidationGroup="btnViewOrder"
                     OnClick="btnViewOrder_Click" />
@@ -140,7 +131,7 @@
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
                                 OnItemDataBound="gvNCDOrderBook_OnItemDataCommand" Skin="Telerik" AllowFilteringByColumn="false"
                                 OnNeedDataSource="gvNCDOrderBook_OnNeedDataSource" OnUpdateCommand="gvNCDOrderBook_UpdateCommand">
-                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,Scrip,WTS_TransactionStatusCode,WOS_OrderStepCode,BBAmounttoinvest,CO_IsAuthenticated,C_CustCode,WES_Code,WOS_OrderStep,AIM_IsCancelAllowed,AAC_AgentCode,AgenId,BBEndDate"
+                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,Scrip,WTS_TransactionStatusCode,WOS_OrderStepCode,BBAmounttoinvest,CO_IsAuthenticated,WES_Code,WOS_OrderStep,AIM_IsCancelAllowed,AAC_AgentCode,AgenId,BBEndDate"
                                     Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" AllowFilteringByColumn="true">
                                     <Columns>
                                         <telerik:GridTemplateColumn AllowFiltering="false">
@@ -192,11 +183,11 @@
                                             HeaderStyle-Width="160px" HeaderText="PAN Num" UniqueName="C_PANNum">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="CustomerAssociate" SortExpression="CustomerAssociate"
+                                       <%-- <telerik:GridBoundColumn DataField="CustomerAssociate" SortExpression="CustomerAssociate"
                                             AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                             AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="User Type" UniqueName="CustomerAssociate">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
+                                        </telerik:GridBoundColumn>--%>
                                         <telerik:GridBoundColumn DataField="CO_BankName" SortExpression="CO_BankName" AutoPostBackOnFilter="true"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
                                             HeaderStyle-Width="160px" HeaderText="Bank Name" UniqueName="CO_BankName">
@@ -286,11 +277,6 @@
                                             FilterControlWidth="60px">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <%-- <telerik:GridBoundColumn DataField="Scrip" SortExpression="Scrip" AutoPostBackOnFilter="true"
-                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
-                                HeaderStyle-Width="160px" HeaderText="Scrip Name" UniqueName="Scrip">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>--%>
                                         <telerik:GridBoundColumn DataField="BBStartDate" SortExpression="BBStartDate" AutoPostBackOnFilter="true"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
                                             DataFormatString="{0:dd/MM/yyyy HH:mm:ss}" HeaderText="Start Date" UniqueName="BBStartDate"
@@ -308,11 +294,7 @@
                                             FilterControlWidth="60px">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <%--<telerik:GridBoundColumn DataField="BBAmounttoinvest" AllowFiltering="true" HeaderText="Amount to invest" 
-                                            UniqueName="BBAmounttoinvest" CurrentFilterFunction="Contains" HeaderStyle-Width="77px" SortExpression="BBAmounttoinvest" 
-                                            ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>--%>
+
                                         <telerik:GridBoundColumn DataField="WOS_OrderStep" AllowFiltering="true" HeaderText="Status"
                                             HeaderStyle-Width="70px" UniqueName="WOS_OrderStep" SortExpression="WOS_OrderStep"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
@@ -388,21 +370,6 @@
                                             UniqueName="CEDA_DPClientId">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <%--<telerik:GridBoundColumn DataField="CO_IsAuthenticated" AllowFiltering="true" HeaderText="Is Authenticated"
-                                            HeaderStyle-Width="70px" UniqueName="CO_IsAuthenticated" SortExpression="CO_IsAuthenticated"
-                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
-                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="U_FirstName" AllowFiltering="true" HeaderText="Authenticated By"
-                                            HeaderStyle-Width="70px" UniqueName="U_FirstName" SortExpression="U_FirstName"
-                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
-                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="CO_AuthenticatedDate" AllowFiltering="true" HeaderText="Authenticated Date"
-                                            HeaderStyle-Width="70px" UniqueName="CO_AuthenticatedDate" SortExpression="CO_AuthenticatedDate"
-                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
-                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>--%>
                                         <telerik:GridBoundColumn DataField="CO_CreatedBy" SortExpression="CO_CreatedBy" AutoPostBackOnFilter="true"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
                                             HeaderStyle-Width="160px" HeaderText="Created By" UniqueName="CO_CreatedBy">
@@ -428,20 +395,6 @@
                                             ShowFilterIcon="false" SortExpression="CO_Remarks">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <%--</telerik:GridBoundColumn>
-                                          <telerik:GridBoundColumn DataField="WTS_TransactionStatusCode" AllowFiltering="false"
-                                            HeaderText="Cancel" HeaderStyle-Width="70px" UniqueName="WTS_TransactionStatusCode"
-                                            SortExpression="WTS_TransactionStatusCode" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                            AutoPostBackOnFilter="true">
-                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>--%>
-                                            <%--<telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="100px" UniqueName="Action"
-                                                HeaderText="Action">
-                                                <itemtemplate>
-                                                <asp:ImageButton ID="imgCancel" runat="server" CommandName="Cancel" ImageUrl="~/Images/Cancel.jpg"
-                                                    ToolTip="Cancel" />&nbsp;
-                                            </itemtemplate>
-                                            </telerik:GridTemplateColumn>--%>
                                             <telerik:GridEditCommandColumn HeaderStyle-Width="60px" UniqueName="MarkAsReject"
                                                 EditText="Cancel" CancelText="Cancel" UpdateText="OK" HeaderText="Cancel" Visible="true">
                                             </telerik:GridEditCommandColumn>
@@ -451,7 +404,6 @@
                                                     <td colspan="100%">
                                                         <asp:Panel ID="pnlchild" runat="server" Style="display: inline" CssClass="Landscape"
                                                             Width="100%" ScrollBars="Both" Visible="false">
-                                                            <%-- <div style="display: inline; position: relative; left: 25px;">--%>
                                                             <telerik:RadGrid ID="gvChildDetails" runat="server" AutoGenerateColumns="False" enableloadondemand="True"
                                                                 PageSize="10" AllowPaging="false" EnableEmbeddedSkins="False" GridLines="None"
                                                                 ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" Skin="Telerik"
@@ -459,11 +411,6 @@
                                                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,CO_OrderId,AID_IssueDetailId"
                                                                     AutoGenerateColumns="false" Width="100%">
                                                                     <Columns>
-                                                                        <%--<telerik:GridBoundColumn DataField="AID_Sequence" HeaderStyle-Width="60px" CurrentFilterFunction="Contains"
-                                                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Series" UniqueName="AID_Sequence"
-                                                                            SortExpression="AID_Sequence">
-                                                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                                                        </telerik:GridBoundColumn>--%>
                                                                         <telerik:GridBoundColumn DataField="AID_IssueDetailName" HeaderStyle-Width="60px"
                                                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                                                             HeaderText="Series" UniqueName="AID_IssueDetailName" SortExpression="AID_IssueDetailName">
@@ -583,9 +530,6 @@
                                                         &nbsp;
                                                     </td>
                                                 </tr>
-                                                <%--  <td colspan="2">
-                                                    &nbsp;
-                                                </td>--%>
                                                 <tr>
                                                     <td>
                                                         &nbsp;
@@ -593,10 +537,8 @@
                                                     <td align="left">
                                                         <asp:Button ID="Button1" Text="OK" runat="server" CssClass="PCGButton" CommandName="Update"
                                                             ValidationGroup="btnSubmit">
-                                                            <%-- OnClientClick='<%# (Container is GridEditFormInsertItem) ?  " javascript:return ShowPopup();": "" %>'--%>
                                                         </asp:Button>
-                                                        <%--</td>
-                                                    <td  >--%>
+
                                                         <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
                                                             CommandName="Cancel"></asp:Button>
                                                     </td>
