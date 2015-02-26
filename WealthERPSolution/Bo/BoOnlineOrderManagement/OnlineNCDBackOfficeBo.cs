@@ -1746,7 +1746,7 @@ namespace BoOnlineOrderManagement
         {
             DataColumn serialNo = new DataColumn("SN", System.Type.GetType("System.Int32"));
             DataColumn errorCol = new DataColumn("Remarks", System.Type.GetType("System.String"), "");
-            if (fileTypeId == 27 || fileTypeId == 28 || fileTypeId == 29 || fileTypeId == 30 || fileTypeId == 46)
+            if (fileTypeId == 27 || fileTypeId == 28 || fileTypeId == 29 || fileTypeId == 30 || fileTypeId == 46 || fileTypeId == 47)
             {
                 DataColumn Status = new DataColumn("Status", System.Type.GetType("System.String"), "");
                 DataColumn processId = new DataColumn("ProcessId", System.Type.GetType("System.Int32"));
