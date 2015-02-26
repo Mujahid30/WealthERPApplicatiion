@@ -2072,13 +2072,13 @@ namespace BoOnlineOrderManagement
             }
             return blResult;
         }
-        public DataTable GetIssueList(int adviserId, int type, int customerId, string productAssetGroup)
+        public DataTable GetIssueList(int adviserId, int type, int customerSubtypeId, string productAssetGroup)
         {
 
             OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
             try
             {
-                return daoOnlNcdBackOff.GetIssueList(adviserId, type, customerId, productAssetGroup);
+                return daoOnlNcdBackOff.GetIssueList(adviserId, type, customerSubtypeId, productAssetGroup);
 
             }
             catch (BaseApplicationException Ex)
