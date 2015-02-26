@@ -68,7 +68,7 @@ namespace DaoOfflineOrderManagement
                 CreateIPOBidOrderCmd = db.GetStoredProcCommand("SPROC_OFF_CreateIPOBidOrderDetails");
                 db.AddInParameter(CreateIPOBidOrderCmd, "@AdviserId", DbType.Int32, adviserId);
                 db.AddInParameter(CreateIPOBidOrderCmd, "@UserId", DbType.Int32, userId);
-                db.AddInParameter(CreateIPOBidOrderCmd, "@C_CustomerId", DbType.Int32, onlineIPOOrderVo.CustomerId);
+                //db.AddInParameter(CreateIPOBidOrderCmd, "@C_CustomerId", DbType.Int32, onlineIPOOrderVo.CustomerId);
                 db.AddInParameter(CreateIPOBidOrderCmd, "@OrderDate", DbType.Date, onlineIPOOrderVo.OrderDate);
                 db.AddInParameter(CreateIPOBidOrderCmd, "@AIM_IssueId", DbType.Int32, onlineIPOOrderVo.IssueId);
                 db.AddInParameter(CreateIPOBidOrderCmd, "@ApplicationNo", DbType.Int32, onlineIPOOrderVo.ApplicationNumber);
@@ -77,6 +77,18 @@ namespace DaoOfflineOrderManagement
                 db.AddInParameter(CreateIPOBidOrderCmd, "@XMLIPOBids", DbType.Xml, dsIssueBidList.GetXml().ToString());
                 db.AddInParameter(CreateIPOBidOrderCmd, "@AgentId", DbType.Int32, agentId);
                 db.AddInParameter(CreateIPOBidOrderCmd, "@AgentCode", DbType.String, agentCode);
+
+                db.AddInParameter(CreateIPOBidOrderCmd, "@CustomerName", DbType.String, onlineIPOOrderVo.CustomerName);
+                db.AddInParameter(CreateIPOBidOrderCmd, "@CustomerPAN", DbType.String, onlineIPOOrderVo.CustomerPAN);
+                db.AddInParameter(CreateIPOBidOrderCmd, "@CustomerType", DbType.String, onlineIPOOrderVo.CustomerType);
+                db.AddInParameter(CreateIPOBidOrderCmd, "@CustomerSubTypeId", DbType.Int16, onlineIPOOrderVo.CustomerSubTypeId);
+                db.AddInParameter(CreateIPOBidOrderCmd, "@DematBeneficiaryAccountNum", DbType.String, onlineIPOOrderVo.DematBeneficiaryAccountNum);
+                db.AddInParameter(CreateIPOBidOrderCmd, "@DematDepositoryName", DbType.String, onlineIPOOrderVo.DematDepositoryName);
+                if (!string.IsNullOrEmpty(onlineIPOOrderVo.DematDPId))
+                db.AddInParameter(CreateIPOBidOrderCmd, "@DematDPId", DbType.String, onlineIPOOrderVo.DematDPId);
+                
+
+                
                 db.AddOutParameter(CreateIPOBidOrderCmd, "@OrderId", DbType.Int32, 1000000);
                 if (db.ExecuteNonQuery(CreateIPOBidOrderCmd) != 0)
                 {
