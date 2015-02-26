@@ -1817,7 +1817,7 @@
                                                                                     <span id="Spanamount" class="spnRequiredField">*</span>
                                                                                     <asp:CompareValidator ID="cmp" ControlToValidate="txtMinInvestmentAmount" runat="server"
                                                                                         ControlToCompare="txtMaxInvestmentAmount" Display="Dynamic" ErrorMessage="<br/>MinInvestmentAmt  Should Be less Than MaxInvestmentAmt "
-                                                                                        Type="Double" Operator="LessThan"></asp:CompareValidator>
+                                                                                        Type="Double" Operator="LessThan" ValidationGroup="btnOK"></asp:CompareValidator>
                                                                                     <asp:RegularExpressionValidator ID="RegularExpressionValidatormin" ControlToValidate="txtMinInvestmentAmount"
                                                                                         runat="server" Display="Dynamic" ErrorMessage="Please Enter Digits" CssClass="cvPCG"
                                                                                         ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">   </asp:RegularExpressionValidator>
@@ -1845,10 +1845,10 @@
                                                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator34" runat="server" ErrorMessage="Max Investment Amount"
                                                                                         CssClass="rfvPCG" ControlToValidate="txtMaxInvestmentAmount" ValidationGroup="btnOK"
                                                                                         Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
-                                                                                    <asp:CustomValidator ID="CustomValidator1" runat="server" Text="Min. invest amount should be less than Max. invest"
+                                                                                   <%-- <asp:CustomValidator ID="CustomValidator1" runat="server" Text="Min. invest amount should be less than Max. invest"
                                                                                         ControlToValidate="txtMaxInvestmentAmount" ClientValidationFunction="InvestmentAmountValidation"
                                                                                         ValidateEmptyText="true" ValidationGroup="btnOK" Display="Dynamic" SetFocusOnError="true">
-                                                                                    </asp:CustomValidator>
+                                                                                    </asp:CustomValidator>--%>
                                                                                 </ItemTemplate>
                                                                             </telerik:GridTemplateColumn>
                                                                             <telerik:GridTemplateColumn HeaderText="Select" ShowFilterIcon="false" AllowFiltering="false"
@@ -1876,7 +1876,7 @@
                                                                 <asp:Button ID="btnAddMore" Text="Add More" runat="server" CssClass="PCGButton" CommandName="btnAddMore"
                                                                     CausesValidation="True" ValidationGroup="btnOK" OnClick="btnAddMore_Click" />
                                                                 <asp:Button ID="btnOK" Text="Submit" runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
-                                                                    CausesValidation="True" ValidationGroup="btnOK" />
+                                                                    CausesValidation="true" ValidationGroup="btnOK" />
                                                             </td>
                                                             <td class="rightData">
                                                                 <asp:Button ID="btnRemove" Text="Remove" runat="server" CausesValidation="False"

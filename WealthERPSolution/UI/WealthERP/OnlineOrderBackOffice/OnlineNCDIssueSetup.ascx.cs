@@ -2353,201 +2353,207 @@ namespace WealthERP.OnlineOrderBackOffice
             string description = string.Empty;
             string discountType = string.Empty;
             int count = 0;
-            if (e.CommandName == RadGrid.PerformInsertCommandName)
+            if ((e.CommandName == "Update" && Page.IsValid == true) || (e.CommandName == "PerformInsert" && Page.IsValid == true) || e.CommandName == "Edit" || e.CommandName == "Insert" || e.CommandName == "InitInsert")
             {
-                int categoryId;
+                if (e.CommandName == RadGrid.PerformInsertCommandName)
+                {
+                    int categoryId;
 
-                TextBox txtCategoryName = (TextBox)e.Item.FindControl("txtCategoryName");
-                TextBox txtCategoryDescription = (TextBox)e.Item.FindControl("txtCategoryDescription");
-                TextBox txtChequePayableTo = (TextBox)e.Item.FindControl("txtChequePayableTo");
-                TextBox txtMinBidAmount = (TextBox)e.Item.FindControl("txtMinBidAmount");
-                TextBox txtMaxBidAmount = (TextBox)e.Item.FindControl("txtMaxBidAmount");
-                DropDownList ddlDiscountType = (DropDownList)e.Item.FindControl("ddlDiscountType");
-                TextBox txtDiscountValue = (TextBox)e.Item.FindControl("txtDiscountValue");
-                RadGrid rgSubCategories = (RadGrid)e.Item.FindControl("rgSubCategories");
+                    TextBox txtCategoryName = (TextBox)e.Item.FindControl("txtCategoryName");
+                    TextBox txtCategoryDescription = (TextBox)e.Item.FindControl("txtCategoryDescription");
+                    TextBox txtChequePayableTo = (TextBox)e.Item.FindControl("txtChequePayableTo");
+                    TextBox txtMinBidAmount = (TextBox)e.Item.FindControl("txtMinBidAmount");
+                    TextBox txtMaxBidAmount = (TextBox)e.Item.FindControl("txtMaxBidAmount");
+                    DropDownList ddlDiscountType = (DropDownList)e.Item.FindControl("ddlDiscountType");
+                    TextBox txtDiscountValue = (TextBox)e.Item.FindControl("txtDiscountValue");
+                    RadGrid rgSubCategories = (RadGrid)e.Item.FindControl("rgSubCategories");
 
-                hdnMinBid.Value = txtMinBidAmount.Text;
-                hdnMaxBid.Value = txtMaxBidAmount.Text;
-                if (string.IsNullOrEmpty(txtMinBidAmount.Text))
-                {
-                    txtMinBidAmount.Text = 0.ToString();
-                }
-
-                if (string.IsNullOrEmpty(txtMaxBidAmount.Text))
-                {
-                    txtMaxBidAmount.Text = 0.ToString();
-                }
-
-                if (ddlDiscountType.SelectedValue == "Per")
-                {
-                    discountType = "PE";
-                }
-                else if (ddlDiscountType.SelectedValue == "Amt")
-                {
-                    discountType = "AM";
-                }
-                if (txtDiscountValue.Text == "")
-                {
-                    txtDiscountValue.Text = 0.ToString();
-                }
-                int isExist = onlineNCDBackOfficeBo.IsValidBidRange(Convert.ToInt32(txtIssueId.Text), Convert.ToDouble(txtMinBidAmount.Text), Convert.ToDouble(txtMaxBidAmount.Text));
-                if (isExist > 0)
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('This Bid Range Exist');", true);
-                    e.Canceled = true;
-                    return;
-                }
-                foreach (GridDataItem gdi in rgSubCategories.Items)
-                {
-                    if (((TextBox)gdi.FindControl("txtSubCategoryCode")).Text != string.Empty && ((DropDownList)gdi.FindControl("ddlSubCategory")).SelectedValue != "Select")
+                    hdnMinBid.Value = txtMinBidAmount.Text;
+                    hdnMaxBid.Value = txtMaxBidAmount.Text;
+                    if (string.IsNullOrEmpty(txtMinBidAmount.Text))
                     {
-                        count++;
+                        txtMinBidAmount.Text = 0.ToString();
                     }
-                    TextBox txtMinInvestmentAmount = ((TextBox)(gdi.FindControl("txtMinInvestmentAmount")));
-                    TextBox txtMaxInvestmentAmount = ((TextBox)(gdi.FindControl("txtMaxInvestmentAmount")));
-                    if (txtMinInvestmentAmount.Text != "")
-                    {
-                        hdnMaxInvestment.Value = txtMinInvestmentAmount.Text;
-                        hdnMinInvestment.Value = txtMaxInvestmentAmount.Text;
-                    }
-                }
-                if (count == 0)
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Pls Add one Subcategory');", true);
-                    e.Canceled = true;
-                    return;
-                }
-                if (Convert.ToDecimal(hdnMaxInvestment.Value) < Convert.ToDecimal(hdnMinBid.Value) || Convert.ToDecimal(hdnMinInvestment.Value) > Convert.ToDecimal(hdnMaxBid.Value))
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please Enter max.investment amount & min. investment amount between Bid max. and Bid min. amt.');", true);
-                    e.Canceled = true;
-                    return;
-                }
-                categoryId = CreateUpdateDeleteCategory(Convert.ToInt32(txtIssueId.Text), 0, txtCategoryName.Text, txtCategoryDescription.Text, txtChequePayableTo.Text, Convert.ToDecimal(txtMinBidAmount.Text), Convert.ToDecimal(txtMaxBidAmount.Text), discountType, Convert.ToDecimal(txtDiscountValue.Text), "Insert");
 
-                foreach (GridDataItem gdi in rgSubCategories.Items)
-                {
-                    if (((TextBox)gdi.FindControl("txtSubCategoryCode")).Text != string.Empty && ((DropDownList)gdi.FindControl("ddlSubCategory")).SelectedValue != "Select")
+                    if (string.IsNullOrEmpty(txtMaxBidAmount.Text))
                     {
-                        //int lookupId = Convert.ToInt32(gdi["WCMV_LookupId"].Text);
-                        DropDownList ddlSubCategory = (DropDownList)gdi.FindControl("ddlSubCategory");
-                        int lookupId = Convert.ToInt32(ddlSubCategory.SelectedValue);
-                        TextBox txtSubCategoryCode = ((TextBox)(gdi.FindControl("txtSubCategoryCode")));
+                        txtMaxBidAmount.Text = 0.ToString();
+                    }
+
+                    if (ddlDiscountType.SelectedValue == "Per")
+                    {
+                        discountType = "PE";
+                    }
+                    else if (ddlDiscountType.SelectedValue == "Amt")
+                    {
+                        discountType = "AM";
+                    }
+                    if (txtDiscountValue.Text == "")
+                    {
+                        txtDiscountValue.Text = 0.ToString();
+                    }
+                    int isExist = onlineNCDBackOfficeBo.IsValidBidRange(Convert.ToInt32(txtIssueId.Text), Convert.ToDouble(txtMinBidAmount.Text), Convert.ToDouble(txtMaxBidAmount.Text));
+                    if (isExist > 0)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('This Bid Range Exist');", true);
+                        e.Canceled = true;
+                        return;
+                    }
+                    foreach (GridDataItem gdi in rgSubCategories.Items)
+                    {
+                        if (((TextBox)gdi.FindControl("txtSubCategoryCode")).Text != string.Empty && ((DropDownList)gdi.FindControl("ddlSubCategory")).SelectedValue != "Select")
+                        {
+                            count++;
+                        }
                         TextBox txtMinInvestmentAmount = ((TextBox)(gdi.FindControl("txtMinInvestmentAmount")));
                         TextBox txtMaxInvestmentAmount = ((TextBox)(gdi.FindControl("txtMaxInvestmentAmount")));
-                        TextBox txtSubCategoryId = ((TextBox)(gdi.FindControl("txtSubCategoryId")));
-
-                       
-
-                        if (string.IsNullOrEmpty(txtMinInvestmentAmount.Text))
+                        hdnMaxInvestment.Value = txtMaxInvestmentAmount.Text;
+                        hdnMinInvestment.Value = txtMinInvestmentAmount.Text;
+                        if (txtMinInvestmentAmount.Text != "" && txtMaxInvestmentAmount.Text != "")
                         {
-                            txtMinInvestmentAmount.Text = 0.ToString();
+                            if (Convert.ToDecimal(hdnMinInvestment.Value) < Convert.ToDecimal(hdnMinBid.Value) || Convert.ToDecimal(hdnMaxInvestment.Value) > Convert.ToDecimal(hdnMaxBid.Value))
+                            {
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please Enter max.investment amount & min. investment amount between Bid max. and Bid min. amt.');", true);
+                                e.Canceled = true;
+                                return;
+                            }
                         }
-
-                        if (string.IsNullOrEmpty(txtMaxInvestmentAmount.Text))
-                        {
-                            txtMaxInvestmentAmount.Text = 0.ToString();
-                        }
-                        //  
-                        if (txtSubCategoryId.Text == string.Empty)
-                            CreateUpdateDeleteCategoryDetails(categoryId, 0, lookupId, txtSubCategoryCode.Text, Convert.ToDecimal(txtMinInvestmentAmount.Text), Convert.ToDecimal(txtMaxInvestmentAmount.Text), "Insert");
                     }
-                }
-                BindEligibleInvestorsGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
-                e.Canceled = false;
-            }
-            else if (e.CommandName == RadGrid.UpdateCommandName)
-            {
-                int categoryId;
-                int result;
-
-                categoryId = Convert.ToInt32(rgEligibleInvestorCategories.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIIC_InvestorCatgeoryId"].ToString());
-                TextBox txtCategoryName = (TextBox)e.Item.FindControl("txtCategoryName");
-                TextBox txtCategoryDescription = (TextBox)e.Item.FindControl("txtCategoryDescription");
-                TextBox txtChequePayableTo = (TextBox)e.Item.FindControl("txtChequePayableTo");
-                TextBox txtMinBidAmount = (TextBox)e.Item.FindControl("txtMinBidAmount");
-                TextBox txtMaxBidAmount = (TextBox)e.Item.FindControl("txtMaxBidAmount");
-                DropDownList ddlDiscountType = (DropDownList)e.Item.FindControl("ddlDiscountType");
-                TextBox txtDiscountValue = (TextBox)e.Item.FindControl("txtDiscountValue");
-                hdnMinBid.Value = txtMinBidAmount.Text;
-                hdnMaxBid.Value = txtMaxBidAmount.Text;
-                if (string.IsNullOrEmpty(txtMinBidAmount.Text))
-                {
-                    txtMinBidAmount.Text = 0.ToString();
-                }
-
-                if (string.IsNullOrEmpty(txtMaxBidAmount.Text))
-                {
-                    txtMaxBidAmount.Text = 0.ToString();
-                }
-                if (ddlDiscountType.SelectedValue == "Per")
-                {
-                    discountType = "PE";
-                }
-                else if (ddlDiscountType.SelectedValue == "Amt")
-                {
-                    discountType = "AM";
-                }
-                if (txtDiscountValue.Text == "")
-                {
-                    txtDiscountValue.Text = 0.ToString();
-                }
-                result = CreateUpdateDeleteCategory(0, categoryId, txtCategoryName.Text, txtCategoryDescription.Text, txtChequePayableTo.Text, Convert.ToDecimal(txtMinBidAmount.Text), Convert.ToDecimal(txtMaxBidAmount.Text), discountType, Convert.ToDecimal(txtDiscountValue.Text), "Update");
-                RadGrid rgSubCategories = (RadGrid)e.Item.FindControl("rgSubCategories");
-
-
-                foreach (GridDataItem gdi in rgSubCategories.Items)
-                {
-                    //if (((CheckBox)gdi.FindControl("cbSubCategories")).Checked == true)
-                    if (((TextBox)gdi.FindControl("txtSubCategoryCode")).Text != string.Empty && ((DropDownList)gdi.FindControl("ddlSubCategory")).SelectedValue != "Select")
+                    if (count == 0)
                     {
-                        //TextBox txtSubCategoryId = ((TextBox)(gdi.FindControl("txtSubCategoryId")));
-                        TextBox txtSubCategoryCode = ((TextBox)(gdi.FindControl("txtSubCategoryCode")));
-                        DropDownList ddlSubCategory = (DropDownList)gdi.FindControl("ddlSubCategory");
-                        int lookupId = Convert.ToInt32(ddlSubCategory.SelectedValue);
-                        TextBox txtSubCategoryId = ((TextBox)(gdi.FindControl("txtSubCategoryId")));
-                        TextBox txtMinInvestmentAmount = ((TextBox)(gdi.FindControl("txtMinInvestmentAmount")));
-                        TextBox txtMaxInvestmentAmount = ((TextBox)(gdi.FindControl("txtMaxInvestmentAmount")));
-                        hdnMaxInvestment.Value = txtMinInvestmentAmount.Text;
-                        hdnMinInvestment.Value = txtMaxInvestmentAmount.Text;
-                        if (string.IsNullOrEmpty(txtMinInvestmentAmount.Text))
-                        {
-                            txtMinInvestmentAmount.Text = 0.ToString();
-                        }
-
-                        if (string.IsNullOrEmpty(txtMaxInvestmentAmount.Text))
-                        {
-                            txtMaxInvestmentAmount.Text = 0.ToString();
-                        }
-                        if (Convert.ToDecimal(hdnMaxInvestment.Value) < Convert.ToDecimal(hdnMinBid.Value) || Convert.ToDecimal(hdnMinInvestment.Value) > Convert.ToDecimal(hdnMaxBid.Value))
-                        {
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please Enter max.investment amount & min. investment amount between Bid max. and Bid min. amt.');", true);
-                            e.Canceled = true;
-                            return;
-                        }
-                        if (txtSubCategoryId.Text == string.Empty)
-                            CreateUpdateDeleteCategoryDetails(categoryId, 0, lookupId, txtSubCategoryCode.Text, Convert.ToDecimal(txtMinInvestmentAmount.Text), Convert.ToDecimal(txtMaxInvestmentAmount.Text), "Insert");
-
-                        else if (Convert.ToInt32(txtSubCategoryId.Text) > 0)
-                            CreateUpdateDeleteCategoryDetails(categoryId, Convert.ToInt32(txtSubCategoryId.Text), lookupId, txtSubCategoryCode.Text, Convert.ToDecimal(txtMinInvestmentAmount.Text), Convert.ToDecimal(txtMaxInvestmentAmount.Text), "Update");
-
-
-
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Pls Add one Subcategory');", true);
+                        e.Canceled = true;
+                        return;
                     }
+
+                    categoryId = CreateUpdateDeleteCategory(Convert.ToInt32(txtIssueId.Text), 0, txtCategoryName.Text, txtCategoryDescription.Text, txtChequePayableTo.Text, Convert.ToDecimal(txtMinBidAmount.Text), Convert.ToDecimal(txtMaxBidAmount.Text), discountType, Convert.ToDecimal(txtDiscountValue.Text), "Insert");
+
+                    foreach (GridDataItem gdi in rgSubCategories.Items)
+                    {
+                        if (((TextBox)gdi.FindControl("txtSubCategoryCode")).Text != string.Empty && ((DropDownList)gdi.FindControl("ddlSubCategory")).SelectedValue != "Select")
+                        {
+                            //int lookupId = Convert.ToInt32(gdi["WCMV_LookupId"].Text);
+                            DropDownList ddlSubCategory = (DropDownList)gdi.FindControl("ddlSubCategory");
+                            int lookupId = Convert.ToInt32(ddlSubCategory.SelectedValue);
+                            TextBox txtSubCategoryCode = ((TextBox)(gdi.FindControl("txtSubCategoryCode")));
+                            TextBox txtMinInvestmentAmount = ((TextBox)(gdi.FindControl("txtMinInvestmentAmount")));
+                            TextBox txtMaxInvestmentAmount = ((TextBox)(gdi.FindControl("txtMaxInvestmentAmount")));
+                            TextBox txtSubCategoryId = ((TextBox)(gdi.FindControl("txtSubCategoryId")));
+
+
+
+                            if (string.IsNullOrEmpty(txtMinInvestmentAmount.Text))
+                            {
+                                txtMinInvestmentAmount.Text = 0.ToString();
+                            }
+
+                            if (string.IsNullOrEmpty(txtMaxInvestmentAmount.Text))
+                            {
+                                txtMaxInvestmentAmount.Text = 0.ToString();
+                            }
+                            //  
+                            if (txtSubCategoryId.Text == string.Empty)
+                                CreateUpdateDeleteCategoryDetails(categoryId, 0, lookupId, txtSubCategoryCode.Text, Convert.ToDecimal(txtMinInvestmentAmount.Text), Convert.ToDecimal(txtMaxInvestmentAmount.Text), "Insert");
+                        }
+                    }
+                    BindEligibleInvestorsGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
+                    e.Canceled = false;
                 }
+                else if (e.CommandName == RadGrid.UpdateCommandName)
+                {
+                    int categoryId;
+                    int result;
 
-                BindEligibleInvestorsGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
+                    categoryId = Convert.ToInt32(rgEligibleInvestorCategories.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIIC_InvestorCatgeoryId"].ToString());
+                    TextBox txtCategoryName = (TextBox)e.Item.FindControl("txtCategoryName");
+                    TextBox txtCategoryDescription = (TextBox)e.Item.FindControl("txtCategoryDescription");
+                    TextBox txtChequePayableTo = (TextBox)e.Item.FindControl("txtChequePayableTo");
+                    TextBox txtMinBidAmount = (TextBox)e.Item.FindControl("txtMinBidAmount");
+                    TextBox txtMaxBidAmount = (TextBox)e.Item.FindControl("txtMaxBidAmount");
+                    DropDownList ddlDiscountType = (DropDownList)e.Item.FindControl("ddlDiscountType");
+                    TextBox txtDiscountValue = (TextBox)e.Item.FindControl("txtDiscountValue");
+                    hdnMinBid.Value = txtMinBidAmount.Text;
+                    hdnMaxBid.Value = txtMaxBidAmount.Text;
+                    if (string.IsNullOrEmpty(txtMinBidAmount.Text))
+                    {
+                        txtMinBidAmount.Text = 0.ToString();
+                    }
+
+                    if (string.IsNullOrEmpty(txtMaxBidAmount.Text))
+                    {
+                        txtMaxBidAmount.Text = 0.ToString();
+                    }
+                    if (ddlDiscountType.SelectedValue == "Per")
+                    {
+                        discountType = "PE";
+                    }
+                    else if (ddlDiscountType.SelectedValue == "Amt")
+                    {
+                        discountType = "AM";
+                    }
+                    if (txtDiscountValue.Text == "")
+                    {
+                        txtDiscountValue.Text = 0.ToString();
+                    }
+                    result = CreateUpdateDeleteCategory(0, categoryId, txtCategoryName.Text, txtCategoryDescription.Text, txtChequePayableTo.Text, Convert.ToDecimal(txtMinBidAmount.Text), Convert.ToDecimal(txtMaxBidAmount.Text), discountType, Convert.ToDecimal(txtDiscountValue.Text), "Update");
+                    RadGrid rgSubCategories = (RadGrid)e.Item.FindControl("rgSubCategories");
 
 
+                    foreach (GridDataItem gdi in rgSubCategories.Items)
+                    {
+                        //if (((CheckBox)gdi.FindControl("cbSubCategories")).Checked == true)
+                        if (((TextBox)gdi.FindControl("txtSubCategoryCode")).Text != string.Empty && ((DropDownList)gdi.FindControl("ddlSubCategory")).SelectedValue != "Select")
+                        {
+                            //TextBox txtSubCategoryId = ((TextBox)(gdi.FindControl("txtSubCategoryId")));
+                            TextBox txtSubCategoryCode = ((TextBox)(gdi.FindControl("txtSubCategoryCode")));
+                            DropDownList ddlSubCategory = (DropDownList)gdi.FindControl("ddlSubCategory");
+                            int lookupId = Convert.ToInt32(ddlSubCategory.SelectedValue);
+                            TextBox txtSubCategoryId = ((TextBox)(gdi.FindControl("txtSubCategoryId")));
+                            TextBox txtMinInvestmentAmount = ((TextBox)(gdi.FindControl("txtMinInvestmentAmount")));
+                            TextBox txtMaxInvestmentAmount = ((TextBox)(gdi.FindControl("txtMaxInvestmentAmount")));
+                            hdnMaxInvestment.Value = txtMaxInvestmentAmount.Text;
+                            hdnMinInvestment.Value = txtMinInvestmentAmount.Text;
+                            if (string.IsNullOrEmpty(txtMinInvestmentAmount.Text))
+                            {
+                                txtMinInvestmentAmount.Text = 0.ToString();
+                            }
+
+                            if (string.IsNullOrEmpty(txtMaxInvestmentAmount.Text))
+                            {
+                                txtMaxInvestmentAmount.Text = 0.ToString();
+                            }
+                            if (txtMinInvestmentAmount.Text != "" && txtMaxInvestmentAmount.Text != "")
+                            {
+                                if (Convert.ToDecimal(hdnMinInvestment.Value) < Convert.ToDecimal(hdnMinBid.Value) || Convert.ToDecimal(hdnMaxInvestment.Value) > Convert.ToDecimal(hdnMaxBid.Value))
+                                {
+                                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please Enter max.investment amount & min. investment amount between Bid max. and Bid min. amt.');", true);
+                                    e.Canceled = true;
+                                    return;
+                                }
+                            }
+                            if (txtSubCategoryId.Text == string.Empty)
+                                CreateUpdateDeleteCategoryDetails(categoryId, 0, lookupId, txtSubCategoryCode.Text, Convert.ToDecimal(txtMinInvestmentAmount.Text), Convert.ToDecimal(txtMaxInvestmentAmount.Text), "Insert");
+
+                            else if (Convert.ToInt32(txtSubCategoryId.Text) > 0)
+                                CreateUpdateDeleteCategoryDetails(categoryId, Convert.ToInt32(txtSubCategoryId.Text), lookupId, txtSubCategoryCode.Text, Convert.ToDecimal(txtMinInvestmentAmount.Text), Convert.ToDecimal(txtMaxInvestmentAmount.Text), "Update");
+
+
+
+                        }
+                    }
+
+                    BindEligibleInvestorsGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
+
+
+                }
+                else if (e.CommandName == RadGrid.DeleteCommandName)
+                {
+                    int categoryId = Convert.ToInt32(rgEligibleInvestorCategories.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIIC_InvestorCatgeoryId"].ToString());
+                    int result = CreateUpdateDeleteCategory(0, categoryId, "", "", "", 0, 0, "", 0, "Delete");
+
+
+                }
             }
-            else if (e.CommandName == RadGrid.DeleteCommandName)
-            {
-                int categoryId = Convert.ToInt32(rgEligibleInvestorCategories.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIIC_InvestorCatgeoryId"].ToString());
-                int result = CreateUpdateDeleteCategory(0, categoryId, "", "", "", 0, 0, "", 0, "Delete");
-
-
-            }
-
 
         }
 
