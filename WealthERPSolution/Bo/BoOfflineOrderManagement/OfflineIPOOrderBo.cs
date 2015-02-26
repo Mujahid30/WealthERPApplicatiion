@@ -14,14 +14,14 @@ namespace BoOfflineOrderManagement
 {
     public class OfflineIPOOrderBo
     {
-        public DataTable GetIPOIssueList(int adviserId, int issueId, int type, int customerId)
+        public DataTable GetIPOIssueList(int adviserId, int issueId, int type, int customerSubTypeId)
         {
             DataTable dtIPOIssueList;
             OfflineIPOOrderDao offlineIPOOrderDao = new OfflineIPOOrderDao();
 
             try
             {
-                dtIPOIssueList = offlineIPOOrderDao.GetIPOIssueList(adviserId, issueId, type, customerId);
+                dtIPOIssueList = offlineIPOOrderDao.GetIPOIssueList(adviserId, issueId, type, customerSubTypeId);
 
             }
             catch (BaseApplicationException Ex)
