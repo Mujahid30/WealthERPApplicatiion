@@ -131,7 +131,7 @@ namespace DaoOfflineOrderManagement
             }
             return dsGetNCDIssueOrderDetails;
         }
-        public bool UpdateNCDDetails(int orderid, int userid, DataTable dtOrderDetails, string brokerCode, int agentId)
+        public bool UpdateNCDDetails(int orderid, int userid, DataTable dtOrderDetails, string brokerCode, int agentId, OnlineBondOrderVo OnlineBondOrderVo)
         {
 
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -150,6 +150,13 @@ namespace DaoOfflineOrderManagement
                 db.AddInParameter(UpdateNCDDetailscmd, "@UserId", DbType.Int32, userid);
                 db.AddInParameter(UpdateNCDDetailscmd, "@brokerCode", DbType.String, brokerCode);
                 db.AddInParameter(UpdateNCDDetailscmd, "@AgentId", DbType.Int32, agentId);
+                db.AddInParameter(UpdateNCDDetailscmd, "@CustomerName", DbType.String, OnlineBondOrderVo.CustomerName);
+                db.AddInParameter(UpdateNCDDetailscmd, "@CustomerPAN", DbType.String, OnlineBondOrderVo.PanNo);
+                db.AddInParameter(UpdateNCDDetailscmd, "@CustomerType", DbType.String, OnlineBondOrderVo.CustomerType);
+                db.AddInParameter(UpdateNCDDetailscmd, "@CustomerSubTypeId", DbType.Int32, OnlineBondOrderVo.CustomerSubTypeId);
+                db.AddInParameter(UpdateNCDDetailscmd, "@DematBeneficiaryAccountNum", DbType.String, OnlineBondOrderVo.DematBeneficiaryAccountNum);
+                db.AddInParameter(UpdateNCDDetailscmd, "@DematDepositoryName", DbType.String, OnlineBondOrderVo.DematDepositoryName);
+                db.AddInParameter(UpdateNCDDetailscmd, "@DematDPId", DbType.String, OnlineBondOrderVo.DematDPId);
                 db.ExecuteNonQuery(UpdateNCDDetailscmd);
                 bResult = true;
             }

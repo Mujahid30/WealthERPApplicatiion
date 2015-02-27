@@ -141,7 +141,6 @@ namespace DaoOfflineOrderManagement
                 cmdOfflineBondTransact = db.GetStoredProcCommand("SPROC_OFF_OfflineBondTransaction");
                 db.AddInParameter(cmdOfflineBondTransact, "@xmlBondsOrder", DbType.Xml, sb);
                 db.AddInParameter(cmdOfflineBondTransact, "@AdviserId", DbType.Int32, adviserId);
-                //db.AddInParameter(cmdOfflineBondTransact, "@AIM_IssueId", DbType.Int32, IssuerId);
                 db.AddInParameter(cmdOfflineBondTransact, "@AgentId", DbType.Int32, agentId);
                 db.AddInParameter(cmdOfflineBondTransact, "@AgentCode", DbType.String, agentCode);
                 db.AddInParameter(cmdOfflineBondTransact, "@UserId", DbType.Int32, userId);
@@ -154,7 +153,7 @@ namespace DaoOfflineOrderManagement
                 db.AddInParameter(cmdOfflineBondTransact, "@CustomerSubTypeId", DbType.Int32, OnlineBondVo.CustomerSubTypeId);
                 db.AddInParameter(cmdOfflineBondTransact, "@DematBeneficiaryAccountNum", DbType.String, OnlineBondVo.DematBeneficiaryAccountNum);
                 db.AddInParameter(cmdOfflineBondTransact, "@DematDepositoryName", DbType.String, OnlineBondVo.DematDepositoryName);
-                db.AddInParameter(cmdOfflineBondTransact, "@DematDPId", DbType.Int32, OnlineBondVo.DematDPId);
+                db.AddInParameter(cmdOfflineBondTransact, "@DematDPId", DbType.String, OnlineBondVo.DematDPId);
                 if (db.ExecuteNonQuery(cmdOfflineBondTransact) != 0)
                 {
 

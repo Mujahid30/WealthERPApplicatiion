@@ -3,6 +3,11 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+
+<script src="../Scripts/JScript.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.js" type="text/javascript"></script>
+
 <style type="text/css">
     .style1
     {
@@ -221,10 +226,12 @@
             </tr>
             <tr id="trMessage" runat="server" visible="false">
                 <td colspan="6">
-                    <table width="100%" style="padding-top: 20px;">
-                        <tr id="trSumbitSuccess" runat="server">
+                    <table class="tblMessage" cellpadding="10" cellspacing="0">
+                        <tr>
                             <td align="center">
-                                <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
+                                <div id="divMessage" align="center">
+                                </div>
+                                <div style="clear: both">
                                 </div>
                             </td>
                         </tr>
@@ -583,18 +590,18 @@
             </tr>
             <tr>
                 <td colspan="6" id="tdIssueList" runat="server" visible="true">
-                    <asp:Panel ID="pnlNCDControlContainer" runat="server" ScrollBars="Horizontal" Width="93%"
-                        Visible="false" style="padding-left:0px;">
+                    <asp:Panel ID="pnlNCDControlContainer" runat="server" ScrollBars="Horizontal" Width="90%"
+                        Visible="false" Style="padding-left: 0px;">
                         <div id="divControlContainer" class="divControlContiner" runat="server">
-                            <table width="92%">
+                            <table width="89%">
                                 <tr>
                                     <td>
                                         <telerik:RadGrid ID="gvIssueList" runat="server" AllowSorting="false" enableloadondemand="True"
                                             PageSize="10" AllowPaging="false" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                             GridLines="None" ShowFooter="false" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
-                                            Skin="Telerik" AllowFilteringByColumn="false" Width="100%">
+                                            Skin="Telerik" AllowFilteringByColumn="false" Width="90%">
                                             <MasterTableView AllowMultiColumnSorting="false" AllowSorting="false" DataKeyNames="AIM_IssueId,AIM_IssueName,IssueTimeType,AIM_MInQty,AIM_MaxQty"
-                                                AutoGenerateColumns="false" >
+                                                AutoGenerateColumns="false">
                                                 <Columns>
                                                     <telerik:GridBoundColumn DataField="AIM_IssueName" HeaderStyle-Width="200px" CurrentFilterFunction="Contains"
                                                         ShowFilterIcon="false" AutoPostBackOnFilter="false" HeaderText="Issue" UniqueName="AIM_IssueName"
@@ -706,19 +713,19 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
+                                    <td colspan="4" style="width: 90%;">
                                         <telerik:RadGrid ID="gvCommMgmt" AllowSorting="false" runat="server" EnableLoadOnDemand="True"
                                             AllowPaging="false" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
                                             ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" Skin="Telerik"
                                             AllowFilteringByColumn="false" OnNeedDataSource="gvCommMgmt_OnNeedDataSource"
-                                            OnItemDataBound="gvCommMgmt_ItemDataBound" FooterStyle-BackColor="#2475C7" Width="100%">
+                                            OnItemDataBound="gvCommMgmt_ItemDataBound" FooterStyle-BackColor="#2475C7" Width="90%">
                                             <HeaderContextMenu EnableEmbeddedSkins="False">
                                             </HeaderContextMenu>
                                             <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="LiveBondList">
                                             </ExportSettings>
                                             <PagerStyle AlwaysVisible="True" />
                                             <MasterTableView AllowMultiColumnSorting="false" AllowSorting="false" DataKeyNames="AID_SeriesFaceValue,AID_IssueDetailId,AIM_IssueId,AID_DefaultInterestRate,AID_Tenure,AIM_FaceValue,AIM_TradingInMultipleOf,AIM_MInQty,AIM_MaxQty,AIM_MaxApplNo,AIDCSR_Id"
-                                                AutoGenerateColumns="false"  ShowFooter="true">
+                                                AutoGenerateColumns="false" ShowFooter="true">
                                                 <CommandItemSettings ExportToPdfText="Export to Pdf" />
                                                 <Columns>
                                                     <telerik:GridBoundColumn DataField="AID_IssueDetailName" HeaderStyle-Width="60px"
