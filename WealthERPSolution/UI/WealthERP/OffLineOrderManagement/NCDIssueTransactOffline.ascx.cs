@@ -628,6 +628,7 @@ namespace WealthERP.OffLineOrderManagement
                 OnlineBondVo.DematBeneficiaryAccountNum = txtDpClientId.Text;
                 OnlineBondVo.DematDPId = txtDPId.Text;
                 OnlineBondVo.DematDepositoryName = ddlDepositoryName.SelectedValue;
+                OnlineBondVo.CustomerSubTypeId = int.Parse(ddlCustomerSubType.SelectedValue);
                      if (rbtnIndividual.Checked)
                 OnlineBondVo.CustomerType = "IND";
             else
