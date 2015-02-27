@@ -131,7 +131,7 @@
                                 ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true"
                                 AllowAutomaticInserts="false" Width="120%" OnItemDataBound="gvIPOOrderBook_ItemDataBound"
                                 OnUpdateCommand="gvIPOOrderBook_UpdateCommand">
-                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,AIM_IssueName,Amount,WES_Code,WOS_OrderStep,AIM_IsCancelAllowed,AgenId,AAC_AgentCode,AIM_CloseDate,CO_IsAuthenticated,AIM_CloseDate"
+                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,AIM_IssueName,Amount,WES_Code,WOS_OrderStepCode,WOS_OrderStep,AIM_IsCancelAllowed,AgenId,AAC_AgentCode,AIM_CloseDate,CO_IsAuthenticated,AIM_CloseDate"
                                     Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None"
                                     EditMode="PopUp">
                                     <Columns>

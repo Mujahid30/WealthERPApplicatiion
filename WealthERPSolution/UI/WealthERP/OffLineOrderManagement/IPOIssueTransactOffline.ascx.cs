@@ -1338,6 +1338,7 @@ namespace WealthERP.OffLineOrderManagement
         {
             string errorMsg = string.Empty;
             bool isBidsVallid = false;
+            if (!Validation()) return;
             Page.Validate("btnConfirmOrder");
             if (Page.IsValid)
             {
@@ -1660,7 +1661,8 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void txtApplicationNo_OnTextChanged(object sender, EventArgs e)
         {
-            Validation();
+            if (!Validation())
+                return;
         }
         protected void btnAccept_Click(object sender, EventArgs e)
         {
@@ -1880,7 +1882,7 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     result = false;
                     lblApplicationDuplicate.Visible = true;
-                    RequiredFieldValidator5.IsValid=false;
+                   
                 }
                 else
                 {  
@@ -2127,7 +2129,7 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void ddlIssueList_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            if ((ddlIssueList.SelectedIndex < -1) || (ddlCustomerSubType.SelectedIndex < -1)) return;
+            if ((ddlIssueList.SelectedIndex < 1) || (ddlCustomerSubType.SelectedIndex < 1)) return;
             BindIPOIssueList(Convert.ToInt16(ddlIssueList.SelectedValue), 1, Convert.ToInt16(ddlCustomerSubType.SelectedValue));
             BindIPOBidGrid(3);
             BindSubbroker(int.Parse(ddlIssueList.SelectedValue));
@@ -2167,7 +2169,7 @@ namespace WealthERP.OffLineOrderManagement
             ddlIssueList.DataValueField = dtIssueList.Columns["AIM_IssueId"].ToString();
             ddlIssueList.DataSource = dtIssueList;
             ddlIssueList.DataBind();
-            ddlIssueList.Items.Insert(0, new ListItem("--SELECT--", "0"));
+            ddlIssueList.Items.Insert(0, new ListItem("--SELECT--", "1"));
         }
         private void BindSubTypeDropDown(int lookupParentId)
         {

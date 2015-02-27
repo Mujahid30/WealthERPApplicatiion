@@ -138,7 +138,6 @@ var div_position = document.getElementById("div_position");
     {
         width: 5%;
     }
-    
 </style>
 <asp:UpdatePanel ID="UpdatePanel2" UpdateMode="Always" runat="server">
     <ContentTemplate>
@@ -364,9 +363,10 @@ var div_position = document.getElementById("div_position");
                     <asp:DropDownList ID="ddlIssueList" runat="server" AutoPostBack="true" CssClass="cmbExtraLongField"
                         OnSelectedIndexChanged="ddlIssueList_OnSelectedIndexChanged" TabIndex="30">
                     </asp:DropDownList>
+                    <span id="Span1" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="rfvIssueList" runat="server" ControlToValidate="ddlIssueList"
                         ErrorMessage="</br>Please select the Issue Name" CssClass="rfvPCG" Display="Dynamic"
-                        ValidationGroup="btnConfirmOrder" InitialValue="0"></asp:RequiredFieldValidator>
+                        ValidationGroup="btnConfirmOrder" InitialValue="1"></asp:RequiredFieldValidator>
                 </td>
                 <td class="Page_Right_Padding">
                 </td>
@@ -400,12 +400,9 @@ var div_position = document.getElementById("div_position");
                         CssClass="rfvPCG" ValidationExpression="^([0-9]*[1-9])\d*$">
                     </asp:RegularExpressionValidator>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtApplicationNo"
-                        ErrorMessage="" Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
-                    <br />
-                    <%--<asp:RequiredFieldValidator ID="RFVApllicationDuplicate" ErrorMessage="</br>Application Number already exists" Display="Dynamic"
-                        runat="server" CssClass="rfvPCG"  ></asp:RequiredFieldValidator>--%>
-                    <br />
-                    <asp:Label ID="lblApplicationDuplicate" CssClass="rfvPCG" runat="server"  Text="Application Number already exists"></asp:Label>
+                        ErrorMessage="" Display="Dynamic" runat="server" CssClass="rfvPCG" Style="color: Red;"
+                        ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
+                    <asp:Label ID="lblApplicationDuplicate" CssClass="Error" runat="server" Text="Application Number already exists"></asp:Label>
                 </td>
                 <td class="Page_Right_Padding">
                 </td>
@@ -825,6 +822,16 @@ var div_position = document.getElementById("div_position");
                 <td class="Page_Right_Padding">
                 </td>
             </tr>
+            <tr>
+                <td class="Page_Left_Padding">
+                </td>
+                <td colspan="4">
+                    <asp:ValidationSummary ID="vsSummary" runat="server" CssClass="rfvPCG" Visible="true"
+                        ValidationGroup="btnConfirmOrder" ShowSummary="true" DisplayMode="BulletList" />
+                </td>
+                <td class="Page_Right_Padding">
+                </td>
+            </tr>
         </table>
     </ContentTemplate>
     <Triggers>
@@ -832,8 +839,6 @@ var div_position = document.getElementById("div_position");
 </asp:UpdatePanel>
 <tr>
     <td colspan="4">
-        <asp:ValidationSummary ID="vsSummary" runat="server" CssClass="rfvPCG" Visible="true"
-            ValidationGroup="btnConfirmOrder" ShowSummary="true" DisplayMode="BulletList" />
     </td>
 </tr>
 <asp:HiddenField ID="txtTotAmt" runat="server" />

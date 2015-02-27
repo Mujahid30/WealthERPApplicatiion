@@ -215,15 +215,20 @@ namespace WealthERP.OffLineOrderManagement
                 ddlAction.Items[1].Enabled = false;
                 ddlAction.Items[2].Enabled = false;
                 lbtnMarkAsReject.Visible = false;
-                OrderStepCode = Convert.ToString(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WOS_OrderStep"]);
+                OrderStepCode = Convert.ToString(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WOS_OrderStepCode"]);
                 Boolean isCancel = Convert.ToBoolean(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IsCancelAllowed"].ToString());
                 DateTime closeDateTime = Convert.ToDateTime(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_CloseDate"].ToString());
-                if (OrderStepCode == "INPROCESS" && isCancel != false)
+                if (OrderStepCode == "AL" || isCancel != false )
                 {
                     lbtnMarkAsReject.Visible = true;
                     ddlAction.Items[1].Enabled = true;
                     ddlAction.Items[2].Enabled = true;
                 }
+                //else
+                //{ 
+                //    if(OrderStepCode == "CN" || OrderStepCode== "IP" || OrderStepCode== "RJ" || OrderStepCode== "PR" ||)
+                           
+                //}
                 if (OrderStepCode == "CANCELLED")
                 {
                     ddlAction.Items[1].Enabled = true;
