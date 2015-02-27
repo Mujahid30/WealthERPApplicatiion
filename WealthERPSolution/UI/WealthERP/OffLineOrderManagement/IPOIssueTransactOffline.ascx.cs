@@ -104,36 +104,29 @@ namespace WealthERP.OffLineOrderManagement
 
             userVo = (UserVo)Session[SessionContents.UserVo];
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
-
-
             GetUserType();
-            tblMessagee.Visible = false;
-
-
-
-
+           
+            
             if (!IsPostBack)
             {
                 if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 {
                     AutoCompleteExtender2.ContextKey = advisorVo.advisorId.ToString();
                     AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetails";
-
                 }
                 else if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
                 {
                     AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode + "/" + advisorVo.advisorId.ToString();
                     AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetailsForAssociates";
-
                 }
                 BindDepositoryType();
-
-
                 txtPaymentInstDate.MinDate = DateTime.Now.AddDays(-10);
                 txtPaymentInstDate.MaxDate = DateTime.Now.AddDays(10);
-
                 btnAddMore.Visible = false;
                 lblApplicationDuplicate.Visible = false;
+                 rbtnIndividual.Checked = true;
+                 BindSubTypeDropDown(1001);
+                 BindIssueListBasedOnCustomerTypeSelection();
                 if (AgentCode != null)
                 {
                     txtAssociateSearch.Text = AgentCode;
@@ -1346,7 +1339,7 @@ namespace WealthERP.OffLineOrderManagement
             string errorMsg = string.Empty;
             bool isBidsVallid = false;
             Page.Validate("btnConfirmOrder");
-            if (Validation() && Page.IsValid)
+            if (Page.IsValid)
             {
                 isBidsVallid = ValidateIPOBids(out errorMsg, 0);
 
@@ -1366,6 +1359,7 @@ namespace WealthERP.OffLineOrderManagement
                     btnAddMore.Focus();
                     RadGridIPOBid.Enabled = false;
                     RadGridIPOBid.Enabled = false;
+                    
                 }
             }
 
@@ -1567,18 +1561,25 @@ namespace WealthERP.OffLineOrderManagement
                 agentId = int.Parse(dtAgentId.Rows[0][1].ToString());
             }
             orderId = OfflineIPOOrderBo.CreateIPOBidOrderDetails(advisorVo.advisorId, userVo.UserId, dtIPOBidTransactionDettails, onlineIPOOrderVo, agentId, txtAssociateSearch.Text);
-
-            userMessage = CreateUserMessage(orderId, accountDebitStatus, isCutOffTimeOver);
-
-            ShowMessage(userMessage);
+            if (orderId != 0)
+            {
+                userMessage = CreateUserMessage(orderId, accountDebitStatus, isCutOffTimeOver);
+                ShowMessage(userMessage);                
+            }
 
 
         }
 
         private void ShowMessage(string msg)
         {
-            //tblMessage.Visible = true;
-            msgRecordStatus.InnerText = msg;
+            //tblMessagee.Visible = true;
+            //msgRecordStatus.InnerText = msg;
+            //--S(success)
+            //--F(failure)
+            //--W(warning)
+            //--I(information)
+            tblMessagee.Visible = true;
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','" + "S" + "');", true);
         }
 
         private string CreateUserMessage(int orderId, bool accountDebitStatus, bool isCutOffTimeOver)
@@ -1657,6 +1658,10 @@ namespace WealthERP.OffLineOrderManagement
             rwTermsCondition.VisibleOnPageLoad = true;
         }
 
+        protected void txtApplicationNo_OnTextChanged(object sender, EventArgs e)
+        {
+            Validation();
+        }
         protected void btnAccept_Click(object sender, EventArgs e)
         {
             rwTermsCondition.VisibleOnPageLoad = false;
@@ -1865,10 +1870,6 @@ namespace WealthERP.OffLineOrderManagement
             //  RadDepository.VisibleOnPageLoad = true;
 
         }
-
-
-
-
         public bool Validation()
         {
             bool result = true;
@@ -1879,9 +1880,10 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     result = false;
                     lblApplicationDuplicate.Visible = true;
+                    RequiredFieldValidator5.IsValid=false;
                 }
                 else
-                {
+                {  
                     lblApplicationDuplicate.Visible = false;
                 }
             }
@@ -1949,8 +1951,6 @@ namespace WealthERP.OffLineOrderManagement
             btnSubmit.Enabled = false;
 
         }
-
-
         protected void ddlModeOfHolding_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -2046,7 +2046,6 @@ namespace WealthERP.OffLineOrderManagement
         }
         private void SetFICOntrolsEnablity(bool Val)
         {
-
             txtPaymentNumber.Enabled = Val;
             txtAssociateSearch.Enabled = Val;
             ddlIssueList.Enabled = Val;
@@ -2070,8 +2069,6 @@ namespace WealthERP.OffLineOrderManagement
             txtDPId.Enabled = Val;
 
         }
-
-
         protected void rbtnAuthentication_OnCheckedChanged(object sender, EventArgs e)
         {
             if (rbtnAuthentication.Checked)
@@ -2091,29 +2088,6 @@ namespace WealthERP.OffLineOrderManagement
             tdlblReject.Visible = true;
             tdtxtReject.Visible = true;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         protected void ddlDepositoryName_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlDepositoryName.SelectedItem.Text == "NSDL")
@@ -2122,6 +2096,7 @@ namespace WealthERP.OffLineOrderManagement
             }
             else if (ddlDepositoryName.SelectedItem.Text == "CDSL")
             {
+                txtDPId.Text = "";
                 txtDPId.Enabled = false;
             }
             ddlDepositoryName.Focus();
@@ -2192,7 +2167,7 @@ namespace WealthERP.OffLineOrderManagement
             ddlIssueList.DataValueField = dtIssueList.Columns["AIM_IssueId"].ToString();
             ddlIssueList.DataSource = dtIssueList;
             ddlIssueList.DataBind();
-            ddlIssueList.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
+            ddlIssueList.Items.Insert(0, new ListItem("--SELECT--", "0"));
         }
         private void BindSubTypeDropDown(int lookupParentId)
         {
@@ -2201,9 +2176,10 @@ namespace WealthERP.OffLineOrderManagement
             ddlCustomerSubType.DataTextField = "WCMV_Name";
             ddlCustomerSubType.DataValueField = "WCMV_LookupId";
             ddlCustomerSubType.DataBind();
+            ddlCustomerSubType.Items.Insert(0, new ListItem("--SELECT--", "0"));
             if (rbtnIndividual.Checked == true)
                 ddlCustomerSubType.SelectedValue = "2017";
-            ddlCustomerSubType.Items.Insert(0, new ListItem("--SELECT--", "0"));
+           
         }
         protected void BindSubbroker(int issueId)
         {

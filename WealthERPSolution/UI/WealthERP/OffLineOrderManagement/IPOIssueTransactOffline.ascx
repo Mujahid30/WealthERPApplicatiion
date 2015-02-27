@@ -10,16 +10,9 @@
 </asp:ScriptManager>
 <%@ Register Src="~/Customer/CustomerType.ascx" TagName="Customerprofileadd" TagPrefix="uc" %>
 
-<script type="text/javascript">
-    function ValGroup() {
-        var isValid = false;
-        isValid = Page_ClientValidate('btnConfirmOrder');
-        if (isValid) {
-            isValid = Page_ClientValidate('ddlBrokerCode');
-        }
-        return isValid;
-    }
-</script>
+<script src="../Scripts/JScript.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.js" type="text/javascript"></script>
 
 <script type="text/javascript" language="javascript">
 
@@ -110,7 +103,7 @@ var div_position = document.getElementById("div_position");
 <script type="text/javascript">
     var crnt = 0;
     function PreventClicks() {
-
+        alert(crnt);
 
         if (typeof (Page_ClientValidate('btnConfirmOrder')) == 'function') {
             Page_ClientValidate();
@@ -146,6 +139,7 @@ var div_position = document.getElementById("div_position");
     {
         width: 5%;
     }
+    
 </style>
 <asp:UpdatePanel ID="UpdatePanel2" UpdateMode="Always" runat="server">
     <ContentTemplate>
@@ -171,10 +165,12 @@ var div_position = document.getElementById("div_position");
             </tr>
             <tr id="tblMessagee" runat="server" visible="false">
                 <td colspan="6">
-                    <table width="100%" style="padding-top: 20px;">
-                        <tr id="trSumbitSuccess">
+                    <table class="tblMessage">
+                        <tr>
                             <td align="center">
-                                <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
+                                <div id="divMessage" align="center">
+                                </div>
+                                <div style="clear: both">
                                 </div>
                             </td>
                         </tr>
@@ -202,7 +198,7 @@ var div_position = document.getElementById("div_position");
                     <span id="Span14" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator12" ControlToValidate="txtFirstName"
                         ErrorMessage="<br />Please enter the First Name" Display="Dynamic" runat="server"
-                        CssClass="rfvPCG" ValidationGroup="CustomerProfileSubmit">
+                        CssClass="rfvPCG" ValidationGroup="btnConfirmOrder">
                     </asp:RequiredFieldValidator>
                 </td>
                 <td class="leftField">
@@ -216,11 +212,11 @@ var div_position = document.getElementById("div_position");
                             Text="Dummy PAN" AutoPostBack="true" TabIndex="9" />--%>
                     <br />
                     <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPanNumber" ErrorMessage="Please enter a PAN Number"
-                        Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="CustomerProfileSubmit">
+                        Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnConfirmOrder">
                     </asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" Display="Dynamic"
                         CssClass="rfvPCG" ErrorMessage="Please check PAN Format" ControlToValidate="txtPanNumber"
-                        ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}" ValidationGroup="CustomerProfileSubmit">
+                        ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}" ValidationGroup="btnConfirmOrder">
                     </asp:RegularExpressionValidator>
                     <asp:Label ID="lblPanDuplicate" runat="server" CssClass="Error" Text="PAN Number already exists"
                         Visible="false"></asp:Label>
@@ -253,8 +249,8 @@ var div_position = document.getElementById("div_position");
                     <span id="Span19" class="spnRequiredField">*</span> &nbsp;
                     <br />
                     <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlCustomerSubType"
-                        ErrorMessage="Please select a Customer Sub-Type" Operator="NotEqual" ValueToCompare="Select"
-                        CssClass="cvPCG" Display="Dynamic" ValidationGroup="CustomerProfileSubmit"></asp:CompareValidator>
+                        ErrorMessage="Please select a Customer Sub-Type" Operator="NotEqual" ValueToCompare="0"
+                        CssClass="cvPCG" Display="Dynamic" ValidationGroup="btnConfirmOrder"></asp:CompareValidator>
                 </td>
                 <td class="Page_Right_Padding">
                 </td>
@@ -272,7 +268,7 @@ var div_position = document.getElementById("div_position");
                         ValidationGroup="btnsubmit" ErrorMessage="Special Character are not allowed!"
                         CssClass="cvPCG" Display="Dynamic" ValidationExpression="^[a-zA-Z0-9]+(?:--?[a-zA-Z0-9]+)*$" />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator14" runat="server" ControlToValidate="txtDpClientId"
-                        ErrorMessage="</br>Beneficiary Acct. No. Required" CssClass="cvPCG" ValidationGroup="btnsubmitdemate"
+                        ErrorMessage="</br>Beneficiary Acct. No. Required" CssClass="cvPCG" ValidationGroup="btnConfirmOrder"
                         Display="Dynamic"></asp:RequiredFieldValidator>
                 </td>
                 <td class="leftField">
@@ -286,7 +282,7 @@ var div_position = document.getElementById("div_position");
                     <br />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator15" runat="server" ControlToValidate="ddlDepositoryName"
                         CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select Depository Name"
-                        InitialValue="Select" ValidationGroup="btnsubmitdemate">
+                        InitialValue="Select" ValidationGroup="btnConfirmOrder">
                     </asp:RequiredFieldValidator>
                 </td>
                 <td class="Page_Right_Padding">
@@ -371,7 +367,7 @@ var div_position = document.getElementById("div_position");
                     </asp:DropDownList>
                     <asp:RequiredFieldValidator ID="rfvIssueList" runat="server" ControlToValidate="ddlIssueList"
                         ErrorMessage="</br>Please select the Issue Name" CssClass="rfvPCG" Display="Dynamic"
-                        ValidationGroup="btnConfirmOrder" InitialValue="Select"></asp:RequiredFieldValidator>
+                        ValidationGroup="btnConfirmOrder" InitialValue="0"></asp:RequiredFieldValidator>
                 </td>
                 <td class="Page_Right_Padding">
                 </td>
@@ -397,18 +393,20 @@ var div_position = document.getElementById("div_position");
                 </td>
                 <td class="rightField" colspan="3">
                     <asp:TextBox ID="txtApplicationNo" MaxLength="9" onkeydown="return (event.keyCode!=13);"
-                        runat="server" CssClass="txtField" OnKeypress="javascript:return isNumberKey(event);"
-                        TabIndex="31"></asp:TextBox>
+                        runat="server" AutoPostBack="true" CssClass="txtField" OnKeypress="javascript:return isNumberKey(event);"
+                        TabIndex="31" OnTextChanged="txtApplicationNo_OnTextChanged"></asp:TextBox>
                     <span id="Span2" class="spnRequiredField">*</span>
                     <asp:RegularExpressionValidator ID="revPan" runat="server" Display="Dynamic" ValidationGroup="btnConfirmOrder"
                         ErrorMessage="<br/>Please Enter Numeric" ControlToValidate="txtApplicationNo"
                         CssClass="rfvPCG" ValidationExpression="^([0-9]*[1-9])\d*$">
                     </asp:RegularExpressionValidator>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtApplicationNo"
-                        ErrorMessage="<br />Please Enter Application No." Display="Dynamic" runat="server"
-                        CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
+                        ErrorMessage="" Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
                     <br />
-                    <asp:Label ID="lblApplicationDuplicate" runat="server" CssClass="Error" Text="Application Number already exists"></asp:Label>
+                    <%--<asp:RequiredFieldValidator ID="RFVApllicationDuplicate" ErrorMessage="</br>Application Number already exists" Display="Dynamic"
+                        runat="server" CssClass="rfvPCG"  ></asp:RequiredFieldValidator>--%>
+                    <br />
+                    <asp:Label ID="lblApplicationDuplicate" CssClass="rfvPCG" runat="server"  Text="Application Number already exists"></asp:Label>
                 </td>
                 <td class="Page_Right_Padding">
                 </td>
@@ -560,7 +558,7 @@ var div_position = document.getElementById("div_position");
                         Visible="false"></asp:Label>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtBranchName"
                         CssClass="rfvPCG" ErrorMessage="<br />Please Enter Bank Branch" Display="Dynamic"
-                        runat="server" InitialValue="" ValidationGroup="btnConfirmOrder" Visible="false"></asp:RequiredFieldValidator>
+                        runat="server" InitialValue="" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
                 </td>
                 <td class="Page_Right_Padding">
                 </td>
@@ -817,7 +815,7 @@ var div_position = document.getElementById("div_position");
                 </td>
                 <td class="rightField" colspan="3">
                     <asp:Button ID="btnConfirmOrder" runat="server" Text="Submit Order" OnClick="btnConfirmOrder_Click"
-                        CssClass="PCGMediumButton" ValidationGroup="btnConfirmOrder, btnTC" OnClientClick="javascript: return  PreventClicks(); Validate();"
+                        CssClass="PCGMediumButton" ValidationGroup="btnConfirmOrder, btnTC" OnClientClick="javascript: return  PreventClicks();"
                         TabIndex="46" />
                     <asp:Button ID="btnAddMore" runat="server" Text="Add another order" CssClass="PCGMediumButton"
                         OnClick="btnAddMore_Click" TabIndex="47" />

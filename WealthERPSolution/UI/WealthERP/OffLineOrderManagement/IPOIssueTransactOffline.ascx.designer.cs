@@ -1868,5 +1868,6 @@ namespace WealthERP.OffLineOrderManagement {
         protected global::System.Web.UI.WebControls.Label lblAssociateReportTo;
         protected global::System.Web.UI.WebControls.TextBox txtBidQuantity;
         protected global::System.Web.UI.WebControls.TextBox txtBidPrice;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RFVApllicationDuplicate;
     }
 }
