@@ -351,7 +351,7 @@ namespace WealthERP.BusinessMIS
 
         }
         protected void GdBind_Click(Object sender, EventArgs e)
-       {
+        {
             SetParameters();
             DataSet ds = new DataSet();
             //ds.ReadXml(Server.MapPath(@"\Sample.xml"));
