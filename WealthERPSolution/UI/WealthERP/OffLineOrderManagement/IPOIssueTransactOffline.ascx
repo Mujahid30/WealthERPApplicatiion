@@ -101,7 +101,6 @@ var div_position = document.getElementById("div_position");
 </script>
 
 <script type="text/javascript">
-    var crnt = 0;
     function PreventClicks() {
         alert(crnt);
 
