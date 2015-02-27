@@ -215,11 +215,6 @@
                                             AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="Modified On" UniqueName="CO_ModifiedOn">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="CustomerAssociate" SortExpression="CustomerAssociate"
-                                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                            AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="User Type" UniqueName="CustomerAssociate">
-                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIM_IssueName" SortExpression="AIM_IssueName"
                                             AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                             AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="Issue Name" UniqueName="AIM_IssueName">
@@ -359,11 +354,6 @@
                                             UniqueName="ReportingManagerName">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <%--<telerik:GridBoundColumn DataField="UserType" SortExpression="UserType" AutoPostBackOnFilter="true"
-                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
-                                            HeaderStyle-Width="160px" HeaderText="User Type" UniqueName="UserType">
-                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>--%>
                                         <telerik:GridBoundColumn DataField="COS_Reason" AllowFiltering="false" HeaderText="Remarks"
                                             HeaderStyle-Width="70px" UniqueName="COS_Reason" SortExpression="COS_Reason"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
@@ -464,8 +454,7 @@
                                                     </td>
                                                     <td align="left">
                                                         <asp:Button ID="Button1" Text="OK" runat="server" CssClass="PCGButton" CommandName="Update"
-                                                            ValidationGroup="btnSubmit">
-                                                        </asp:Button>
+                                                            ValidationGroup="btnSubmit"></asp:Button>
                                                         <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
                                                             CommandName="Cancel"></asp:Button>
                                                     </td>

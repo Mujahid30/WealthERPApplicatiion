@@ -215,50 +215,21 @@ namespace WealthERP.OffLineOrderManagement
                 ddlAction.Items[1].Enabled = false;
                 ddlAction.Items[2].Enabled = false;
                 lbtnMarkAsReject.Visible = false;
-                OrderStepCode = Convert.ToString(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WOS_OrderStepCode"]);
+                OrderStepCode = Convert.ToString(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WOS_OrderStepCode"]).Trim();
                 Boolean isCancel = Convert.ToBoolean(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IsCancelAllowed"].ToString());
                 DateTime closeDateTime = Convert.ToDateTime(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_CloseDate"].ToString());
-                if (OrderStepCode == "AL" || isCancel != false )
+                if (OrderStepCode == "CN" || OrderStepCode == "IP" || OrderStepCode == "RJ"
+                    || OrderStepCode == "PR" || OrderStepCode == "OR" || OrderStepCode == "AL" || OrderStepCode == "NA")
+                {
+                    ddlAction.Items[1].Enabled = true;
+                    if (OrderStepCode == "AL" || (OrderStepCode == "OR" && (DateTime.Now > closeDateTime)))
+                    {
+                        ddlAction.Items[2].Enabled = true;
+                    }
+                }
+                if (isCancel && OrderStepCode == "AL")
                 {
                     lbtnMarkAsReject.Visible = true;
-                    ddlAction.Items[1].Enabled = true;
-                    ddlAction.Items[2].Enabled = true;
-                }
-                //else
-                //{ 
-                //    if(OrderStepCode == "CN" || OrderStepCode== "IP" || OrderStepCode== "RJ" || OrderStepCode== "PR" ||)
-                           
-                //}
-                if (OrderStepCode == "CANCELLED")
-                {
-                    ddlAction.Items[1].Enabled = true;
-                    ddlAction.Items[2].Enabled = false;
-                }
-                if (OrderStepCode == "EXECUTED")
-                {
-                    ddlAction.Items[1].Enabled = true;
-                    ddlAction.Items[2].Enabled = false;
-                    ddlAction.ToolTip = "Order Cannot Be Modified in Executed Status";
-                }
-                if ((OrderStepCode == "REJECTED") || (OrderStepCode == "ACCEPTED"))
-                {
-                    ddlAction.Items[1].Enabled = true;
-                    ddlAction.Items[2].Enabled = false;
-                }
-                if (OrderStepCode == "ORDERED")
-                {
-                    if (DateTime.Now > closeDateTime)
-                    {
-                        lbtnMarkAsReject.Visible = true;
-                        ddlAction.Items[1].Enabled = true;
-                        ddlAction.Items[2].Enabled = false;
-                    }
-                    else
-                    {
-                        ddlAction.Items[1].Enabled = true;
-                        ddlAction.Items[2].Enabled = true;
-                        lbtnMarkAsReject.Visible = false;
-                    }
                 }
             }
         }
