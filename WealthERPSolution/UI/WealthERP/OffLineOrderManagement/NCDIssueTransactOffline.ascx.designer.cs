@@ -51,7 +51,8 @@ namespace WealthERP.OffLineOrderManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdauthentication;
-
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td3;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td4;
         /// <summary>
         /// rbtnAuthentication control.
         /// </summary>
@@ -78,7 +79,7 @@ namespace WealthERP.OffLineOrderManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblBrokerCode;
-
+        protected global::System.Web.UI.WebControls.TextBox txtBankAccount;
         /// <summary>
         /// ddlBrokerCode control.
         /// </summary>

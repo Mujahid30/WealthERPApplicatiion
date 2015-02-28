@@ -344,12 +344,15 @@ namespace WealthERP.OffLineOrderManagement
                 trPINo.Visible = true;
                 RequiredFieldValidator8.Enabled = true;
                 CompareValidator14.Enabled = true;
-
+                Td3.Visible = true;
+                Td4.Visible = true;
             }
             else if (ddlPaymentMode.SelectedValue == "ES")
             {
                 trASBA.Visible = true;
                 RequiredFieldValidator9.Enabled = true;
+                Td3.Visible = false;
+                Td4.Visible = false;
             }
 
         }
@@ -646,10 +649,11 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     OnlineBondVo.ChequeNumber = txtPaymentNumber.Text;
                     OnlineBondVo.PaymentDate = DateTime.Parse(txtPaymentInstDate.SelectedDate.ToString());
+                    OnlineBondVo.BankAccid =int.Parse(txtBankAccount.Text);
                 }
                 OnlineBondVo.PanNo = txtPanNumber.Text;
                 OnlineBondVo.AgentNo = txtAssociateSearch.Text;
-                OnlineBondVo.BankAccid = 1002321521;
+              
                 OnlineBondVo.PFISD_SeriesId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AID_IssueDetailId"].ToString());
                 OnlineBondVo.IssueId = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AIM_IssueId"].ToString());
                 CheckBox Check = (CheckBox)gvCommMgmt.MasterTableView.Items[rowNo]["Check"].FindControl("cbOrderCheck");
@@ -1042,6 +1046,9 @@ namespace WealthERP.OffLineOrderManagement
                         ddlPaymentMode.SelectedValue = "CQ";
                         txtPaymentNumber.Text = dr["CO_ChequeNumber"].ToString();
                         txtPaymentInstDate.SelectedDate = Convert.ToDateTime(dr["CO_PaymentDate"].ToString());
+                        txtBankAccount.Text = dr["COID_DepCustBankAccId"].ToString();
+                        Td3.Visible = true;
+                        Td4.Visible = true;
                         trPINo.Visible = true;
                     }
 
