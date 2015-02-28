@@ -105,8 +105,8 @@ namespace WealthERP.OffLineOrderManagement
             userVo = (UserVo)Session[SessionContents.UserVo];
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             GetUserType();
-           
-            
+
+
             if (!IsPostBack)
             {
                 if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
@@ -123,10 +123,10 @@ namespace WealthERP.OffLineOrderManagement
                 txtPaymentInstDate.MinDate = DateTime.Now.AddDays(-10);
                 txtPaymentInstDate.MaxDate = DateTime.Now.AddDays(10);
                 btnAddMore.Visible = false;
-                lblApplicationDuplicate.Visible = false;
-                 rbtnIndividual.Checked = true;
-                 BindSubTypeDropDown(1001);
-                 BindIssueListBasedOnCustomerTypeSelection();
+                //lblApplicationDuplicate.Visible = false;
+                rbtnIndividual.Checked = true;
+                BindSubTypeDropDown(1001);
+                BindIssueListBasedOnCustomerTypeSelection();
                 if (AgentCode != null)
                 {
                     txtAssociateSearch.Text = AgentCode;
@@ -1101,10 +1101,21 @@ namespace WealthERP.OffLineOrderManagement
             }
 
         }
+        protected void CVApplicationNo_ServerValidat(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)
+        {
+            int issueId = int.Parse(ddlIssueList.SelectedValue.ToString());
 
+            if (OfflineIPOOrderBo.ApplicationDuplicateCheck(issueId, int.Parse(txtApplicationNo.Text)))
+            {
 
+                args.IsValid = false;
 
-
+            }
+            else
+            {
+                args.IsValid = true;
+            }
+        }
         protected void CVBidQtyMultiple_ServerValidate(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)
         {
             int issueQtyMultiple = 0;
@@ -1338,7 +1349,6 @@ namespace WealthERP.OffLineOrderManagement
         {
             string errorMsg = string.Empty;
             bool isBidsVallid = false;
-            if (!Validation()) return;
             Page.Validate("btnConfirmOrder");
             if (Page.IsValid)
             {
@@ -1360,7 +1370,7 @@ namespace WealthERP.OffLineOrderManagement
                     btnAddMore.Focus();
                     RadGridIPOBid.Enabled = false;
                     RadGridIPOBid.Enabled = false;
-                    
+
                 }
             }
 
@@ -1565,7 +1575,7 @@ namespace WealthERP.OffLineOrderManagement
             if (orderId != 0)
             {
                 userMessage = CreateUserMessage(orderId, accountDebitStatus, isCutOffTimeOver);
-                ShowMessage(userMessage);                
+                ShowMessage(userMessage);
             }
 
 
@@ -1661,8 +1671,7 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void txtApplicationNo_OnTextChanged(object sender, EventArgs e)
         {
-            if (!Validation())
-                return;
+            
         }
         protected void btnAccept_Click(object sender, EventArgs e)
         {
@@ -1882,10 +1891,10 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     result = false;
                     lblApplicationDuplicate.Visible = true;
-                   
+
                 }
                 else
-                {  
+                {
                     lblApplicationDuplicate.Visible = false;
                 }
             }
@@ -2155,6 +2164,7 @@ namespace WealthERP.OffLineOrderManagement
         protected void ddlCustomerSubType_SelectedIndexChanged(object sender, EventArgs e)
         {
             BindIssueListBasedOnCustomerTypeSelection();
+            ddlCustomerSubType.Focus();
         }
 
         private void BindIssueListBasedOnCustomerTypeSelection()
@@ -2181,7 +2191,7 @@ namespace WealthERP.OffLineOrderManagement
             ddlCustomerSubType.Items.Insert(0, new ListItem("--SELECT--", "0"));
             if (rbtnIndividual.Checked == true)
                 ddlCustomerSubType.SelectedValue = "2017";
-           
+
         }
         protected void BindSubbroker(int issueId)
         {

@@ -175,7 +175,7 @@
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AAC_AgentCode" SortExpression="AAC_AgentCode"
                                             AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                            AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="SubBroker Code" UniqueName="AAC_AgentCode">
+                                            AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="Agent Code" UniqueName="AAC_AgentCode">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="C_PANNum" SortExpression="C_PANNum" AutoPostBackOnFilter="true"
