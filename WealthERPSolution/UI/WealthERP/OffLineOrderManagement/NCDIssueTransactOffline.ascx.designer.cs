@@ -42,6 +42,8 @@ namespace WealthERP.OffLineOrderManagement
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTable trOfficeUse;
         protected global::System.Web.UI.WebControls.Panel pnlNCDControlContainer;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblgvIssueList;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblgvCommMgmt;
 
         /// <summary>
         /// tdauthentication control.

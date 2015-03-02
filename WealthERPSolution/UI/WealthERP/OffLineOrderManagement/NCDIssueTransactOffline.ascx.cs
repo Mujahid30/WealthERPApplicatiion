@@ -346,6 +346,7 @@ namespace WealthERP.OffLineOrderManagement
                 CompareValidator14.Enabled = true;
                 Td3.Visible = true;
                 Td4.Visible = true;
+                txtASBANO.Text = "";
             }
             else if (ddlPaymentMode.SelectedValue == "ES")
             {
@@ -353,6 +354,7 @@ namespace WealthERP.OffLineOrderManagement
                 RequiredFieldValidator9.Enabled = true;
                 Td3.Visible = false;
                 Td4.Visible = false;
+                txtPaymentNumber.Text = "";
             }
 
         }
@@ -417,7 +419,7 @@ namespace WealthERP.OffLineOrderManagement
 
             DataTable dtIssue = new DataTable();
             //1--- For Curent Issues
-            pnlNCDControlContainer.Visible = true;
+            tblgvIssueList.Visible = true;
             dtIssue = offlineBondBo.GetOfflineAdviserIssuerList(adviserId, issueId, IssueStatus, TaxStatusCustomerSubTypeId).Tables[0];
 
           
@@ -445,7 +447,7 @@ namespace WealthERP.OffLineOrderManagement
                 gvCommMgmt.DataSource = dtTransact;
                 ViewState["Transact"] = dtTransact;
                 gvCommMgmt.DataBind();
-                pnlNCDControlContainer.Visible = true;
+                tblgvCommMgmt.Visible = true;
         }
         protected void gvCommMgmt_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
