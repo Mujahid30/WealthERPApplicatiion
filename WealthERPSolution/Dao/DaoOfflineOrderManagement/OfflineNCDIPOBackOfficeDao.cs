@@ -157,6 +157,8 @@ namespace DaoOfflineOrderManagement
                 db.AddInParameter(UpdateNCDDetailscmd, "@DematBeneficiaryAccountNum", DbType.String, OnlineBondOrderVo.DematBeneficiaryAccountNum);
                 db.AddInParameter(UpdateNCDDetailscmd, "@DematDepositoryName", DbType.String, OnlineBondOrderVo.DematDepositoryName);
                 db.AddInParameter(UpdateNCDDetailscmd, "@DematDPId", DbType.String, OnlineBondOrderVo.DematDPId);
+                db.AddInParameter(UpdateNCDDetailscmd, "@AID_Sequence", DbType.Int32, OnlineBondOrderVo.PFISM_SchemeId);
+                
                 db.ExecuteNonQuery(UpdateNCDDetailscmd);
                 bResult = true;
             }

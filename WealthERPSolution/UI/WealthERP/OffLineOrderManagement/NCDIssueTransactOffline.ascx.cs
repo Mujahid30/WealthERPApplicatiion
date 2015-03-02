@@ -156,7 +156,7 @@ namespace WealthERP.OffLineOrderManagement
                         {
                             lnkEdit.Visible = true;
                         }
-                        if ( Request.QueryString["OrderStepCode"].ToString()=="ORDERED")
+                        if (Request.QueryString["OrderStepCode"].ToString() == "ORDERED" || Request.QueryString["OrderStepCode"].ToString() == "EXECUTED")
                         {
                             lnkEdit.Visible = false;
                         }
@@ -167,12 +167,12 @@ namespace WealthERP.OffLineOrderManagement
                         {
                             SetCOntrolsEnablity(false);
                             gvCommMgmt.Enabled = true;
-                           
+
                         }
                         else
                         {
                             SetCOntrolsEnablity(true);
-                           
+
                         }
                         btnUpdate.Visible = true;
                         Label3.Visible = false;
@@ -360,9 +360,9 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void ddlCustomerSubType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-              if (ddlCustomerSubType.SelectedIndex < -1) return;
+            if (ddlCustomerSubType.SelectedIndex < -1) return;
             BindCustomerNCDIssueList(Convert.ToInt16(ddlCustomerSubType.SelectedValue));
-           
+
         }
         private void BindCustomerNCDIssueList(int customerSubtypeId)
         {
@@ -422,32 +422,32 @@ namespace WealthERP.OffLineOrderManagement
             tblgvIssueList.Visible = true;
             dtIssue = offlineBondBo.GetOfflineAdviserIssuerList(adviserId, issueId, IssueStatus, TaxStatusCustomerSubTypeId).Tables[0];
 
-          
-                if (Cache["NCDIssueList" + userVo.UserId.ToString()] != null)
-                {
-                    Cache.Remove("NCDIssueList" + userVo.UserId.ToString());
-                }
-                    Cache.Insert("NCDIssueList" + userVo.UserId.ToString(), dtIssue);
-                
-                gvIssueList.DataSource = dtIssue;
-                gvIssueList.DataBind();
+
+            if (Cache["NCDIssueList" + userVo.UserId.ToString()] != null)
+            {
+                Cache.Remove("NCDIssueList" + userVo.UserId.ToString());
+            }
+            Cache.Insert("NCDIssueList" + userVo.UserId.ToString(), dtIssue);
+
+            gvIssueList.DataSource = dtIssue;
+            gvIssueList.DataBind();
 
         }
         protected void BindStructureRuleGrid(int IssuerId, int TaxStatusCustomerSubTypeId)
         {
             DataSet dsStructureRules = offlineBondBo.GetOfflineLiveBondTransaction(IssuerId, TaxStatusCustomerSubTypeId);
             DataTable dtTransact = dsStructureRules.Tables[0];
-           
-                if (Cache["NCDTransactList" + userVo.UserId.ToString()] != null)
-                {
-                    Cache.Remove("NCDTransactList" + userVo.UserId.ToString());
-                }
-                Cache.Insert("NCDTransactList" + userVo.UserId.ToString(), dtTransact);
-                
-                gvCommMgmt.DataSource = dtTransact;
-                ViewState["Transact"] = dtTransact;
-                gvCommMgmt.DataBind();
-                tblgvCommMgmt.Visible = true;
+
+            if (Cache["NCDTransactList" + userVo.UserId.ToString()] != null)
+            {
+                Cache.Remove("NCDTransactList" + userVo.UserId.ToString());
+            }
+            Cache.Insert("NCDTransactList" + userVo.UserId.ToString(), dtTransact);
+
+            gvCommMgmt.DataSource = dtTransact;
+            ViewState["Transact"] = dtTransact;
+            gvCommMgmt.DataBind();
+            tblgvCommMgmt.Visible = true;
         }
         protected void gvCommMgmt_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
@@ -456,6 +456,11 @@ namespace WealthERP.OffLineOrderManagement
             if (dtIssueDetail != null)
             {
                 gvCommMgmt.DataSource = dtIssueDetail;
+            }
+            if (Request.QueryString["action"] != null)
+            {
+                DataSet dt = (DataSet)Cache["NCDTransactQty" + userVo.UserId.ToString()];
+                BindQtyandAmt(dt);
             }
         }
         protected void gvCommMgmt_ItemDataBound(object sender, GridItemEventArgs e)
@@ -470,7 +475,9 @@ namespace WealthERP.OffLineOrderManagement
                         gvCommMgmt.MasterTableView.GetColumn("COID_ExchangeRefrenceNo").Visible = true;
                     }
                 }
+              
             }
+         
         }
         protected void txtQuantity_TextChanged(object sender, EventArgs e)
         {
@@ -576,7 +583,7 @@ namespace WealthERP.OffLineOrderManagement
             //--F(failure)
             //--W(warning)
             //--I(information)
-            trMessage.Visible = true;           
+            trMessage.Visible = true;
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','" + type.ToString() + "');", true);
         }
 
@@ -590,7 +597,7 @@ namespace WealthERP.OffLineOrderManagement
             dtOrderDetails = null;
             if (gvCommMgmt.MasterTableView.DataKeyValues[0]["AIM_MaxApplNo"].ToString() == "" || gvCommMgmt.MasterTableView.DataKeyValues[0]["AIM_FaceValue"].ToString() == "")
                 return false;
-            string  MaxAppNo = gvCommMgmt.MasterTableView.DataKeyValues[0]["AIM_MaxApplNo"].ToString();
+            string MaxAppNo = gvCommMgmt.MasterTableView.DataKeyValues[0]["AIM_MaxApplNo"].ToString();
             FaceValue = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[0]["AIM_FaceValue"].ToString());
             int minQty = int.Parse(gvIssueList.MasterTableView.DataKeyValues[0]["AIM_MInQty"].ToString());
             int maxQty = int.Parse(gvIssueList.MasterTableView.DataKeyValues[0]["AIM_MaxQty"].ToString());
@@ -613,7 +620,7 @@ namespace WealthERP.OffLineOrderManagement
             dt.Columns.Add("BrokerCode");
             dt.Columns.Add("AgentCode");
 
-            
+
             foreach (GridDataItem CBOrder in gvCommMgmt.MasterTableView.Items)
             {
 
@@ -635,10 +642,10 @@ namespace WealthERP.OffLineOrderManagement
                 OnlineBondVo.DematDPId = txtDPId.Text;
                 OnlineBondVo.DematDepositoryName = ddlDepositoryName.SelectedValue;
                 OnlineBondVo.CustomerSubTypeId = int.Parse(ddlCustomerSubType.SelectedValue);
-                     if (rbtnIndividual.Checked)
-                OnlineBondVo.CustomerType = "IND";
-            else
-                OnlineBondVo.CustomerType = "NIND";
+                if (rbtnIndividual.Checked)
+                    OnlineBondVo.CustomerType = "IND";
+                else
+                    OnlineBondVo.CustomerType = "NIND";
                 if (!string.IsNullOrEmpty(ddlBrokerCode.SelectedValue))
                 {
                     OnlineBondVo.BrokerCode = ddlBrokerCode.SelectedValue;
@@ -651,13 +658,14 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     OnlineBondVo.ChequeNumber = txtPaymentNumber.Text;
                     OnlineBondVo.PaymentDate = DateTime.Parse(txtPaymentInstDate.SelectedDate.ToString());
-                    OnlineBondVo.BankAccid =int.Parse(txtBankAccount.Text);
+                    OnlineBondVo.BankAccid = int.Parse(txtBankAccount.Text);
                 }
                 OnlineBondVo.PanNo = txtPanNumber.Text;
                 OnlineBondVo.AgentNo = txtAssociateSearch.Text;
-              
+
                 OnlineBondVo.PFISD_SeriesId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AID_IssueDetailId"].ToString());
                 OnlineBondVo.IssueId = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AIM_IssueId"].ToString());
+                OnlineBondVo.PFISM_SchemeId = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AID_Sequence"].ToString());
                 CheckBox Check = (CheckBox)gvCommMgmt.MasterTableView.Items[rowNo]["Check"].FindControl("cbOrderCheck");
                 catId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AIDCSR_Id"].ToString());
 
@@ -695,16 +703,16 @@ namespace WealthERP.OffLineOrderManagement
                         Label lblSum = (Label)footerItemAmount.FindControl("lblAmount");
                         txtAmount.Text = OnlineBondVo.Amount.ToString();
                         dtOrderDetails = dt;
-                        //if (Request.QueryString["action"] == null && Convert.ToDouble(lblSum.Text) != 0)
-                        //{
-                            offlineBondBo.GetCustomerCat(OnlineBondVo.IssueId, advisorVo.advisorId, int.Parse(ddlCustomerSubType.SelectedValue), Convert.ToDouble(lblSum.Text), ref catName, ref issueDetId, ref EligblecatId, ref Description);
-                            ViewState["CustCat"] = catName;
-                            if (EligblecatId == 0)
-                            {
-                                ShowMessage("Application amount should be between Min Quantity and Max Quantity.", 'W');
-                                return false;
-                            }
-                        //}
+                        if (Request.QueryString["action"] == null )
+                        {
+                        offlineBondBo.GetCustomerCat(OnlineBondVo.IssueId, advisorVo.advisorId, int.Parse(ddlCustomerSubType.SelectedValue), Convert.ToDouble(lblSum.Text), ref catName, ref issueDetId, ref EligblecatId, ref Description);
+                        ViewState["CustCat"] = catName;
+                        if (EligblecatId == 0)
+                        {
+                            ShowMessage("Application amount should be between Min Quantity and Max Quantity.", 'W');
+                            return false;
+                        }
+                        }
                         dt.Rows[tableRow]["CatId"] = catId;
                         dt.Rows[tableRow]["AcceptableCatId"] = EligblecatId;
 
@@ -730,8 +738,8 @@ namespace WealthERP.OffLineOrderManagement
                 isValid = false;
                 if (Validation())
                 {
-                    //if (!string.IsNullOrEmpty(lblQuantity.Text.Trim()) && !string.IsNullOrEmpty(lbltotAmt.Text.Trim()))
-                    //{
+                    if (Request.QueryString["action"] == null)
+                    {
                         if (Request.QueryString["action"] != null)
                         {
                             Quantity = int.Parse(lblQuantity.Text);
@@ -790,7 +798,11 @@ namespace WealthERP.OffLineOrderManagement
                                 lblSum.Text = "";
                             }
 
-                        //}
+                            //}
+                        }
+                        else
+                            isValid = true;
+
                     }
                     else
                         isValid = true;
@@ -808,43 +820,43 @@ namespace WealthERP.OffLineOrderManagement
             bool isValid = CollectOrderDetails(sender, e, out dtOrderDetails);
             GridFooterItem ftItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
             Label lbltotAmt = (Label)ftItemAmount.FindControl("lblAmount");
-         
-                if (isValid)
-                {
-                   
-                    IDictionary<string, string> orderIds = new Dictionary<string, string>();
-              
-                    int totalOrderAmt = int.Parse(ViewState["Sum"].ToString());
-                    string message;
-                    string aplicationNoStatus = string.Empty;
-                    int orderId = 0;
-                    if (!String.IsNullOrEmpty(txtAssociateSearch.Text))
-                        dtAgentId = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
-                    if (dtAgentId.Rows.Count > 0)
-                    {
-                        agentId = int.Parse(dtAgentId.Rows[0][1].ToString());
-                    }
 
-                    orderIds = offlineBondBo.OfflineBOndtransact(dtOrderDetails, advisorVo.advisorId, OnlineBondVo, agentId, txtAssociateSearch.Text, userVo.UserId);
-                    orderId = int.Parse(orderIds["Order_Id"].ToString());
-                    aplicationNoStatus = orderIds["aplicationNoStatus"].ToString();
-                    ViewState["OrderId"] = orderId;
-                    hdnOrderId.Value = orderId.ToString();
-                    btnConfirmOrder.Enabled = false;
-                    Label3.Visible = false;
-                    message = CreateUserMessage(orderId, aplicationNoStatus);
-                    ShowMessage(message,'S');
-                    btnConfirmOrder.Visible = false;
-                    btnAddMore.Visible = true;
-                    SetCOntrolsEnablity(false);
-                    btnAddMore.Focus();
-                }
-                else
+            if (isValid)
+            {
+
+                IDictionary<string, string> orderIds = new Dictionary<string, string>();
+
+                int totalOrderAmt = int.Parse(ViewState["Sum"].ToString());
+                string message;
+                string aplicationNoStatus = string.Empty;
+                int orderId = 0;
+                if (!String.IsNullOrEmpty(txtAssociateSearch.Text))
+                    dtAgentId = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
+                if (dtAgentId.Rows.Count > 0)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert(' Quantity should be between Min Quantity and Max Quantity.')", true);
+                    agentId = int.Parse(dtAgentId.Rows[0][1].ToString());
                 }
+
+                orderIds = offlineBondBo.OfflineBOndtransact(dtOrderDetails, advisorVo.advisorId, OnlineBondVo, agentId, txtAssociateSearch.Text, userVo.UserId);
+                orderId = int.Parse(orderIds["Order_Id"].ToString());
+                aplicationNoStatus = orderIds["aplicationNoStatus"].ToString();
+                ViewState["OrderId"] = orderId;
+                hdnOrderId.Value = orderId.ToString();
+                btnConfirmOrder.Enabled = false;
+                Label3.Visible = false;
+                message = CreateUserMessage(orderId, aplicationNoStatus);
+                ShowMessage(message, 'S');
+                btnConfirmOrder.Visible = false;
+                btnAddMore.Visible = true;
+                SetCOntrolsEnablity(false);
+                btnAddMore.Focus();
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert(' Quantity should be between Min Quantity and Max Quantity.')", true);
+            }
         }
-      
+
         private string CreateUserMessage(int orderId, string aplicationNoStatus)
         {
             string userMessage = string.Empty;
@@ -1057,10 +1069,11 @@ namespace WealthERP.OffLineOrderManagement
                     ddlBankName.SelectedValue = dr["CO_BankName"].ToString();
                 }
             }
-
-
-            if (dtOrderDetails.Tables[1].Rows.Count > 0)
-            {
+            BindQtyandAmt(dtOrderDetails);
+        }
+        protected void BindQtyandAmt(DataSet dtOrderDetails)
+        {
+           
                 foreach (DataRow dr1 in dtOrderDetails.Tables[1].Rows)
                 {
                     GridFooterItem ftItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
@@ -1068,6 +1081,11 @@ namespace WealthERP.OffLineOrderManagement
                     Label lblQuantity = (Label)ftItemAmount["Quantity"].FindControl("lblQuantity");
                     lblAmount.Text = dr1["payable"].ToString();
                     lblQuantity.Text = dr1["Quantity"].ToString();
+                    if (Cache["NCDTransactQtyandAmt" + userVo.UserId.ToString()] != null)
+                    {
+                        Cache.Remove("NCDTransactQtyandAmt" + userVo.UserId.ToString());
+                    }
+                    Cache.Insert("NCDTransactQtyandAmt" + userVo.UserId.ToString(), dtOrderDetails);
                     foreach (GridDataItem gdi in gvCommMgmt.MasterTableView.Items)
                     {
                         int detailsid = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[gdi.ItemIndex]["AID_IssueDetailId"].ToString());
@@ -1078,7 +1096,7 @@ namespace WealthERP.OffLineOrderManagement
                             txtQuantity.Text = dr1["COID_Quantity"].ToString();
                             txtAmount.Text = dr1["COID_AmountPayable"].ToString();
 
-                            if (dr1["COID_TransactionType"].ToString() == "D")
+                            if (dr1["COID_TransactionType"].ToString() == "D" || dr1["COID_TransactionType"].ToString() == "ND")
                             {
                                 txtQuantity.CssClass = "txtDisableField";
                                 txtQuantity.ToolTip = "The Category Cannot be edited because it was Cancelled previously";
@@ -1090,8 +1108,6 @@ namespace WealthERP.OffLineOrderManagement
                         }
                     }
                 }
-
-            }
         }
         protected void btnUpdate_OnClick(object sender, EventArgs e)
         {
@@ -1113,34 +1129,31 @@ namespace WealthERP.OffLineOrderManagement
             else
             {
                 bool resule = false;
-                resule = OfflineNCDIPOBackOfficeBo.UpdateNCDDetails(int.Parse(hdnOrderId.Value), userVo.UserId, dtOrderDetails, ddlBrokerCode.SelectedValue, agentId,OnlineBondVo);
+                resule = OfflineNCDIPOBackOfficeBo.UpdateNCDDetails(int.Parse(hdnOrderId.Value), userVo.UserId, dtOrderDetails, ddlBrokerCode.SelectedValue, agentId, OnlineBondVo);
                 if (resule != false)
                 {
                     lnkEdit.Visible = true;
                     btnUpdate.Visible = false;
                     SetCOntrolsEnablity(false);
                     gvCommMgmt.Enabled = false;
-                    ShowMessage("NCD Order Updated Successfully,Order reference no. is " + hdnOrderId.Value.ToString(),'S');
+                    ShowMessage("NCD Order Updated Successfully,Order reference no. is " + hdnOrderId.Value.ToString(), 'S');
                 }
             }
         }
         protected void lnkEdit_LinkButtons(object sender, EventArgs e)
         {
-            gvDematDetailsTeleR.Visible = true;
-            gvDematDetailsTeleR.Enabled = true;
+
             btnUpdate.Visible = true;
             lnkEdit.Visible = false;
             if (("ORDERED" == Request.QueryString["OrderStepCode"].ToString()))
             {
                 SetCOntrolsEnablity(false);
                 gvCommMgmt.Enabled = true;
-                gvDematDetailsTeleR.Enabled = false;
             }
             else
             {
                 SetCOntrolsEnablity(true);
                 gvCommMgmt.Enabled = true;
-                gvDematDetailsTeleR.Enabled = true;
             }
         }
 
@@ -1161,22 +1174,80 @@ namespace WealthERP.OffLineOrderManagement
             }
         }
         private void SetCOntrolsEnablity(bool Val)
-       {
-        //    txtPansearch.Enabled = Val;
-        //    txtPaymentNumber.Enabled = Val;
-        //    txtAssociateSearch.Enabled = Val;
-        //    ddlIssueList.Enabled = Val;
-        //    txtApplicationNo.Enabled = Val;
-        //    ddlPaymentMode.Enabled = Val;
-        //    txtPaymentInstDate.Enabled = Val;
-        //    ddlBankName.Enabled = Val;
-        //    txtASBANO.Enabled = Val;
-        //    txtBranchName.Enabled = Val;
-        //    ImageButton4.Enabled = Val;
-        //    lnkBtnDemat.Enabled = Val;
-        //    txtRemarks.Enabled = Val;
-        //    ddlBrokerCode.Enabled = Val;
+        {
+            txtFirstName.Enabled = Val;
+            txtPanNumber.Enabled = Val;
+            txtDpClientId.Enabled = Val;
+            ddlIssueList.Enabled = Val;
+            txtApplicationNo.Enabled = Val;
+            ddlPaymentMode.Enabled = Val;
+            txtPaymentInstDate.Enabled = Val;
+            ddlBankName.Enabled = Val;
+            txtASBANO.Enabled = Val;
+            txtBranchName.Enabled = Val;
+            txtRemarks.Enabled = Val;
+            ddlBrokerCode.Enabled = Val;
+            ddlDepositoryName.Enabled = Val;
+            ddlCustomerSubType.Enabled = Val;
+            txtDPId.Enabled = Val;
+            txtAssociateSearch.Enabled = Val;
+        }
+        protected void gvCommMgmt_OnItemCommand(object source, GridCommandEventArgs e)
+        {
+            int rowNo = 0;
+            DataSet dtOrderDetails;
+            if (e.CommandName == RadGrid.DeleteCommandName)
+            {
+                //GridEditFormItem gvCommMgmt=(GridEditFormItem)e.Item.FindControl("gvCommMgmt");
+                TextBox txtQuantity = (TextBox)e.Item.FindControl("txtQuantity");
+                TextBox txtAmount = (TextBox)e.Item.FindControl("txtAmount");
+                //TextBox txtQuantity = (TextBox)e.Item.FindControl("txtQuantity");
+                int id = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AID_IssueDetailId"].ToString());
+                clearText(txtQuantity, txtAmount, id);
+                
+                dtOrderDetails = (DataSet)Cache["NCDTransactQtyandAmt" + userVo.UserId.ToString()];
+                foreach (DataRow dr in dtOrderDetails.Tables[1].Rows)
+                {  
+                    if (id == int.Parse(dr["AID_IssueDetailId"].ToString()))
+                    {
+                        dtOrderDetails.Tables[1].Rows[rowNo]["COID_Quantity"] = "0";
+                        dtOrderDetails.Tables[1].Rows[rowNo]["COID_AmountPayable"] = "0";
+                        //dtOrderDetails.Tables[0].Rows[rowNo]["COID_Quentity"].ToString() = 0;
+                    }
+                }
+                dtOrderDetails.Tables[1].AcceptChanges();
+                DataTable dt = dtOrderDetails.Tables[1];
+                if (Cache["NCDTransactQty" + userVo.UserId.ToString()] != null)
+                {
+                    Cache.Remove("NCDTransactQty" + userVo.UserId.ToString());
+                }
+                Cache.Insert("NCDTransactQty" + userVo.UserId.ToString(), dtOrderDetails);
+                //if (id != 0)
+                //{
+                //    txtQuantity.Text = "0";
+                //    txtAmount.Text = "0";
+                //}
+                //foreach (GridDataItem CBOrder in gvCommMgmt.MasterTableView.Items)
+                //{
 
+                //    TextBox txtQuantity = (TextBox)gvCommMgmt.MasterTableView.Items[rowNo]["Quantity"].FindControl("txtQuantity");
+                //    if (txtQuantity.Text == string.Empty)
+                //    {
+                //        if (rowNo < gvCommMgmt.MasterTableView.Items.Count)
+                //        {
+                //            rowNo = rowNo + 1;
+                //        }
+                //        continue;
+                //    }
+                //}
+               
+            }
+           
+        }
+        protected void clearText(TextBox txtQuantity,TextBox txtAmount, int id)
+        {
+            txtQuantity.Text = "0";
+            txtAmount.Text = "0";
         }
     }
 

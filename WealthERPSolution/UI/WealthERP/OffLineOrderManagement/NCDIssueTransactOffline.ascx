@@ -206,7 +206,7 @@
                                 <td>
                                     <div class="divViewEdit" style="float: right; padding-right: 50px">
                                         <asp:LinkButton ID="lnkEdit" runat="server" OnClick="lnkEdit_LinkButtons" CssClass="LinkButtons"
-                                            Text="Edit" Visible="true"></asp:LinkButton>
+                                            Text="Edit" Visible="false"></asp:LinkButton>
                                     </div>
                                 </td>
                             </tr>
@@ -714,13 +714,13 @@
                         AllowPaging="false" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
                         ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" Skin="Telerik"
                         AllowFilteringByColumn="false" OnNeedDataSource="gvCommMgmt_OnNeedDataSource"
-                        OnItemDataBound="gvCommMgmt_ItemDataBound" FooterStyle-BackColor="#2475C7">
+                        OnItemDataBound="gvCommMgmt_ItemDataBound" FooterStyle-BackColor="#2475C7" OnItemCommand="gvCommMgmt_OnItemCommand">
                         <HeaderContextMenu EnableEmbeddedSkins="False">
                         </HeaderContextMenu>
                         <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="LiveBondList">
                         </ExportSettings>
                         <PagerStyle AlwaysVisible="True" />
-                        <MasterTableView AllowMultiColumnSorting="false" AllowSorting="false" DataKeyNames="AID_SeriesFaceValue,AID_IssueDetailId,AIM_IssueId,AID_DefaultInterestRate,AID_Tenure,AIM_FaceValue,AIM_TradingInMultipleOf,AIM_MInQty,AIM_MaxQty,AIM_MaxApplNo,AIDCSR_Id"
+                        <MasterTableView AllowMultiColumnSorting="false" AllowSorting="false" DataKeyNames="AID_SeriesFaceValue,AID_IssueDetailId,AIM_IssueId,AID_DefaultInterestRate,AID_Tenure,AIM_FaceValue,AIM_TradingInMultipleOf,AIM_MInQty,AIM_MaxQty,AIM_MaxApplNo,AIDCSR_Id,AID_Sequence"
                             AutoGenerateColumns="false" ShowFooter="true" Width="100%">
                             <CommandItemSettings ExportToPdfText="Export to Pdf" />
                             <Columns>
@@ -909,6 +909,9 @@
                                     Visible="false" HeaderStyle-Wrap="true">
                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="true" />
                                 </telerik:GridBoundColumn>
+                                <telerik:GridButtonColumn HeaderStyle-Width="100px" Text="Delete" ButtonType="PushButton"
+                                    ConfirmText="Do u want to delete" CommandName="Delete" Visible="false">
+                                </telerik:GridButtonColumn>
                                 <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
                                     Visible="false" UniqueName="Check" HeaderText="Check Order">
                                     <ItemTemplate>
