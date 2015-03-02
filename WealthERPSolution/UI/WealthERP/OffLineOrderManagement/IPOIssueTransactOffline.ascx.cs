@@ -150,20 +150,20 @@ namespace WealthERP.OffLineOrderManagement
                     {
                         SetFICOntrolsEnablity(false);
                         RadGridIPOBid.Enabled = false;
-                        if (("REJECTED" == Request.QueryString["OrderStepCode"].ToString()) || (DateTime.Now > Convert.ToDateTime(Request.QueryString["CloseDate"].ToString())))
+                        if (("RJ" == Request.QueryString["OrderStepCode"].ToString()) || (DateTime.Now > Convert.ToDateTime(Request.QueryString["CloseDate"].ToString())))
                         {
                             lnkEdit.Visible = false;
                         }
                         else
+                        {
                             lnkEdit.Visible = true;
-
-                        //controlvisiblity(false);
+                        }
                         if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
                             GetUserType();
                     }
                     else
                     {
-                        if (("ORDERED" == Request.QueryString["OrderStepCode"].ToString()))
+                        if (("OR" == Request.QueryString["OrderStepCode"].ToString()))
                         {
                             SetFICOntrolsEnablity(false);
                             RadGridIPOBid.Enabled = true;
@@ -173,8 +173,6 @@ namespace WealthERP.OffLineOrderManagement
                             SetFICOntrolsEnablity(true);
                         }
                         btnUpdate.Visible = true;
-                        //lnkBtnDemat.Enabled = true;
-                        //controlvisiblity(true);
                         if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
                             GetUserType();
                     }
@@ -260,7 +258,7 @@ namespace WealthERP.OffLineOrderManagement
 
                     ddlIssueList.SelectedValue = dr["AIM_IssueId"].ToString();
                     txtApplicationNo.Text = dr["CO_ApplicationNo"].ToString();
-
+                    hdnApplicationNo.Value = txtApplicationNo.Text;
                     txtRemarks.Text = dr["CO_Remarks"].ToString();
                     BindSubbroker(int.Parse(dr["AIM_IssueId"].ToString()));
                     ddlBrokerCode.SelectedValue = dr["XB_BrokerIdentifier"].ToString();
@@ -303,15 +301,18 @@ namespace WealthERP.OffLineOrderManagement
                         txtBranchName.Text = dr["CO_BankBranchName"].ToString();
                         ddlPaymentMode.SelectedValue = "CQ";
                         txtPaymentNumber.Text = dr["CO_ChequeNumber"].ToString();
-                        txtPaymentInstDate.MinDate = Convert.ToDateTime(dr["CO_PaymentDate"].ToString());
-                        txtPaymentInstDate.SelectedDate = Convert.ToDateTime(dr["CO_PaymentDate"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CO_PaymentDate"].ToString()))
+                        {
+                            txtPaymentInstDate.SelectedDate = Convert.ToDateTime(dr["CO_PaymentDate"].ToString());
+                        }
+                        
                         txtBankAccount.Text = dr["COID_DepCustBankAccId"].ToString();
                         trPINo.Visible = true;
                         lblBankAccount.Visible = true;
                         txtBankAccount.Visible = true;
                     }
-                    BindCustomerIPOIssueList(Convert.ToInt16(dr["OCD_WCMV_TaxStatus_Id"].ToString()));
-                    BindIPOIssueList(Convert.ToInt16(dr["AIM_IssueId"].ToString()), 1, Convert.ToInt16(dr["OCD_WCMV_TaxStatus_Id"].ToString()));
+                    BindCustomerIPOIssueList(Convert.ToInt16(dr["OCD_WCMV_TaxStatus_Id"].ToString()), (issueCloseDate >= DateTime.Now) ? 1 : 2);
+                    BindIPOIssueList(Convert.ToInt16(dr["AIM_IssueId"].ToString()),(issueCloseDate >= DateTime.Now) ? 1 : 2, Convert.ToInt16(dr["OCD_WCMV_TaxStatus_Id"].ToString()));
                     BindBank();
                     ddlBankName.SelectedValue = dr["CO_BankName"].ToString();
 
@@ -360,12 +361,12 @@ namespace WealthERP.OffLineOrderManagement
             string apllicationNoStatus = String.Empty;
             double maxPaybleBidAmount = 0;
             bool lbResult = false;
+            hdnApplicationNo.Value = txtApplicationNo.Text;
             DateTime cutOff = DateTime.Now;
             int issueId = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_IssueId"].ToString());
             if (!string.IsNullOrEmpty(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_CutOffTime"].ToString()))
                 cutOff = Convert.ToDateTime(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_CutOffTime"].ToString());
             DataRow drIPOBid;
-            //onlineIPOOrderVo.CustomerId = int.Parse(txtCustomerId.Value);
             onlineIPOOrderVo.IssueId = issueId;
             onlineIPOOrderVo.AssetGroup = "IP";
             onlineIPOOrderVo.IsOrderClosed = false;
@@ -374,7 +375,7 @@ namespace WealthERP.OffLineOrderManagement
             onlineIPOOrderVo.OrderDate = DateTime.Now;
 
             onlineIPOOrderVo.CustomerName = txtFirstName.Text.Trim();
-            onlineIPOOrderVo.CustomerName = txtPanNumber.Text.Trim();
+            onlineIPOOrderVo.CustomerPAN = txtPanNumber.Text.Trim();
             if (rbtnIndividual.Checked)
                 onlineIPOOrderVo.CustomerType = "IND";
             else
@@ -663,14 +664,6 @@ namespace WealthERP.OffLineOrderManagement
             }
             txtPansearch.Focus();
         }
-
-
-
-        protected void txtAgentId_ValueChanged1(object sender, EventArgs e)
-        {
-
-        }
-
         protected void HiddenField1_ValueChanged1(object sender, EventArgs e)
         {
             customerVo = (CustomerVo)Session["customerVo"];
@@ -784,7 +777,8 @@ namespace WealthERP.OffLineOrderManagement
                 lblBankAccount.Visible = true;
                 txtBankAccount.Visible = true;
                 lblBranchName.Visible = true;
-                //tdBankBranch.Visible = true;
+                txtASBANO.Text = "";
+                txtASBALocation.Text = "";
 
             }
             else if (ddlPaymentMode.SelectedValue == "ES")
@@ -795,31 +789,13 @@ namespace WealthERP.OffLineOrderManagement
                 txtBranchName.Visible = false;
                 lblBankBranchName.Visible = false;
                 RequiredFieldValidator7.Enabled = false;
-                //tdBankBranch.Visible = false;
+                txtPaymentNumber.Text = "";
+                txtBankAccount.Text = "";
+                txtPaymentInstDate.SelectedDate = null;
             }
 
 
         }
-        //protected void ddlBankName_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    int BankAccountId = 0;
-        //    DataTable dtgetBankBranch;
-        //    if (ddlBankName.SelectedIndex != 0)
-        //    {
-        //        BankAccountId = int.Parse(ddlBankName.SelectedValue);
-        //        dtgetBankBranch = mfOrderBo.GetBankBranch(BankAccountId);
-        //        if (dtgetBankBranch.Rows.Count > 0)
-        //        {
-        //            DataRow dr = dtgetBankBranch.Rows[0];
-        //            txtBranchName.Text = dr["BBL_BranchName"].ToString();
-        //        }
-        //        hdnBankName.Value = ddlBankName.SelectedItem.Text;
-        //    }
-        //}
-
-
-
-
         private void BindBank()
         {
             CommonLookupBo commonLookupBo = new CommonLookupBo();
@@ -1104,12 +1080,12 @@ namespace WealthERP.OffLineOrderManagement
         protected void CVApplicationNo_ServerValidat(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)
         {
             int issueId = int.Parse(ddlIssueList.SelectedValue.ToString());
-
             if (OfflineIPOOrderBo.ApplicationDuplicateCheck(issueId, int.Parse(txtApplicationNo.Text)))
             {
-
-                args.IsValid = false;
-
+                if (hdnApplicationNo.Value != txtApplicationNo.Text)
+                {
+                    args.IsValid = false;
+                }
             }
             else
             {
@@ -1154,8 +1130,7 @@ namespace WealthERP.OffLineOrderManagement
         {
 
             int currentRowidex = (((GridDataItem)((TextBox)sender).NamingContainer).RowIndex / 2) - 1;
-            ReseIssueBidValues(currentRowidex, true);
-            CustomValidator1.IsValid = true;
+            ReseIssueBidValues(currentRowidex, true);           
             Page.Validate("btnConfirmOrder");
         }
 
@@ -1426,7 +1401,7 @@ namespace WealthERP.OffLineOrderManagement
                 cutOff = Convert.ToDateTime(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_CutOffTime"].ToString());
             DataTable dtIPOBidTransactionDettails = CreateTable();
             DataRow drIPOBid;
-            txtCustomerId.Value = Convert.ToString(ViewState["customerID"]);
+      
             //onlineIPOOrderVo.CustomerId = int.Parse(txtCustomerId.Value);
             onlineIPOOrderVo.IssueId = issueId;
             onlineIPOOrderVo.AssetGroup = "IP";
@@ -1643,7 +1618,8 @@ namespace WealthERP.OffLineOrderManagement
             txtPaymentNumber.Text = "";
             txtPaymentInstDate.SelectedDate = null;
             txtASBANO.Text = "";
-            pnlIPOControlContainer.Visible = false;
+            tblgvCommMgmt.Visible = false;
+            tblgvIssueList.Visible = false;
             txtRemarks.Text = "";
 
             txtAssociateSearch.Text = "";
@@ -1671,7 +1647,7 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void txtApplicationNo_OnTextChanged(object sender, EventArgs e)
         {
-            
+            txtApplicationNo.Focus();
         }
         protected void btnAccept_Click(object sender, EventArgs e)
         {
@@ -2170,11 +2146,11 @@ namespace WealthERP.OffLineOrderManagement
         private void BindIssueListBasedOnCustomerTypeSelection()
         {
             if (ddlCustomerSubType.SelectedIndex < -1) return;
-            BindCustomerIPOIssueList(Convert.ToInt16(ddlCustomerSubType.SelectedValue));
+            BindCustomerIPOIssueList(Convert.ToInt16(ddlCustomerSubType.SelectedValue),1);
         }
-        private void BindCustomerIPOIssueList(int customerSubtypeId)
+        private void BindCustomerIPOIssueList(int customerSubtypeId,int type)
         {
-            DataTable dtIssueList = dtIssueList = onlineNCDBackOfficeBO.GetIssueList(advisorVo.advisorId, 1, customerSubtypeId, "IP");
+            DataTable dtIssueList = dtIssueList = onlineNCDBackOfficeBO.GetIssueList(advisorVo.advisorId, type, customerSubtypeId, "IP");
             ddlIssueList.DataTextField = dtIssueList.Columns["AIM_IssueName"].ToString();
             ddlIssueList.DataValueField = dtIssueList.Columns["AIM_IssueId"].ToString();
             ddlIssueList.DataSource = dtIssueList;
@@ -2212,7 +2188,10 @@ namespace WealthERP.OffLineOrderManagement
 
         private void BindIPOIssueList(int issueId, int type, int customerSubTypeId)
         {
-            pnlIPOControlContainer.Visible = true;
+           
+            tblgvCommMgmt.Visible = true;
+            tblgvIssueList.Visible = true;
+
             dtOnlineIPOIssueList = OfflineIPOOrderBo.GetIPOIssueList(advisorVo.advisorId, issueId, type, customerSubTypeId);
             RadGridIPOIssueList.DataSource = dtOnlineIPOIssueList;
             RadGridIPOIssueList.DataBind();

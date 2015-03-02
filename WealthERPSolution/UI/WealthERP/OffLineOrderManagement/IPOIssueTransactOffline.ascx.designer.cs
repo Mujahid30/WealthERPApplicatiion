@@ -1863,11 +1863,13 @@ namespace WealthERP.OffLineOrderManagement {
         protected global::System.Web.UI.HtmlControls.HtmlTable trOfficeUse;
         protected global::System.Web.UI.WebControls.Button btnSubmitAuthenticate;
         protected global::System.Web.UI.WebControls.DropDownList ddlBrokerCode;
-        protected global::System.Web.UI.WebControls.HiddenField hdnCloseDate;
+        protected global::System.Web.UI.WebControls.HiddenField hdnApplicationNo;
         protected global::System.Web.UI.WebControls.Label lblAssociateReport;
         protected global::System.Web.UI.WebControls.Label lblAssociateReportTo;
         protected global::System.Web.UI.WebControls.TextBox txtBidQuantity;
         protected global::System.Web.UI.WebControls.TextBox txtBidPrice;
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RFVApllicationDuplicate;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblgvIssueList;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblgvCommMgmt;
     }
 }

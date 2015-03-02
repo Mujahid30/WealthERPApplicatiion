@@ -188,7 +188,7 @@ namespace WealthERP.OffLineOrderManagement
                 extractionStepCode = gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WES_Code"].ToString();
                 if (extractionStepCode == string.Empty)
                 {
-                    string AcntId = gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_CustCode"].ToString();
+                    //string AcntId = gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_CustCode"].ToString();
                     double AmountPayable = Convert.ToDouble(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["Amount"].ToString());
                     lbResult = BoOnlineBondOrder.cancelBondsBookOrder(orderId, 2, txtRemark.Text);
                     if (lbResult == true)
@@ -219,10 +219,10 @@ namespace WealthERP.OffLineOrderManagement
                 Boolean isCancel = Convert.ToBoolean(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IsCancelAllowed"].ToString());
                 DateTime closeDateTime = Convert.ToDateTime(gvIPOOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_CloseDate"].ToString());
                 if (OrderStepCode == "CN" || OrderStepCode == "IP" || OrderStepCode == "RJ"
-                    || OrderStepCode == "PR" || OrderStepCode == "OR" || OrderStepCode == "AL" || OrderStepCode == "NA")
+                    || OrderStepCode == "PR" || OrderStepCode == "OR" || OrderStepCode == "AL" || OrderStepCode == "NA" )
                 {
                     ddlAction.Items[1].Enabled = true;
-                    if (OrderStepCode == "AL" || (OrderStepCode == "OR" && (DateTime.Now > closeDateTime)))
+                    if (OrderStepCode == "AL" || (OrderStepCode == "OR" && (DateTime.Now < closeDateTime)))
                     {
                         ddlAction.Items[2].Enabled = true;
                     }
@@ -325,7 +325,7 @@ namespace WealthERP.OffLineOrderManagement
             orderId = int.Parse(gvIPOOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["CO_OrderId"].ToString());
             int associateid = Convert.ToInt32(gvIPOOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AgenId"].ToString());
             string agentId = gvIPOOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AAC_AgentCode"].ToString();
-            OrderStepCode = Convert.ToString(gvIPOOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["WOS_OrderStep"]);
+            OrderStepCode = Convert.ToString(gvIPOOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["WOS_OrderStepCode"]).Trim();
             string CloseDate = Convert.ToString(gvIPOOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AIM_CloseDate"]);
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "IPOIssueTransactOffline", "loadcontrol( 'IPOIssueTransactOffline','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&associateid=" + associateid + "&agentId=" + agentId + "&OrderStepCode=" + OrderStepCode + "&CloseDate=" + CloseDate + "');", true);
         }

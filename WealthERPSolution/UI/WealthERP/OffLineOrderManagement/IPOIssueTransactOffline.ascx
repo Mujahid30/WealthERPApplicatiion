@@ -52,22 +52,6 @@
     } 
 </script>
 
-<%--<script type="text/javascript">
-window.onload = function () {
-var div = document.getElementById('<%= this.div_position.ClientID %>');
-
-var div_position = document.getElementById("div_position");
-    var position = parseInt('<%=Request.Form["div_position"] %>');
-    if (isNaN(position)) {
-        position = 0;
-    }
-    div.scrollTop = position;
-    div.onscroll = function () {
-        div_position.value = div.scrollTop;
-    };
-};
-</script>--%>
-
 <script type="text/javascript">
     function abc() {
         var x = 0, y = 0;
@@ -209,14 +193,14 @@ var div_position = document.getElementById("div_position");
                     <%--<asp:CheckBox ID="chkdummypan" runat="server" Visible="false" CssClass="txtField"
                             Text="Dummy PAN" AutoPostBack="true" TabIndex="9" />--%>
                     <br />
-                    <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPanNumber" ErrorMessage="Please enter a PAN Number"
+                    <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPanNumber" ErrorMessage="Please enter a PAN"
                         Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnConfirmOrder">
                     </asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" Display="Dynamic"
                         CssClass="rfvPCG" ErrorMessage="Please check PAN Format" ControlToValidate="txtPanNumber"
                         ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}" ValidationGroup="btnConfirmOrder">
                     </asp:RegularExpressionValidator>
-                    <asp:Label ID="lblPanDuplicate" runat="server" CssClass="Error" Text="PAN Number already exists"
+                    <asp:Label ID="lblPanDuplicate" runat="server" CssClass="Error" Text="PAN already exists"
                         Visible="false"></asp:Label>
                 </td>
                 <td class="Page_Right_Padding">
@@ -378,7 +362,8 @@ var div_position = document.getElementById("div_position");
                     <asp:Label runat="server" ID="lblBrokerCode" CssClass="FieldName" Text="Select Broker:"></asp:Label>
                 </td>
                 <td class="rightField" colspan="3">
-                    <asp:DropDownList ID="ddlBrokerCode" runat="server" Width="280px" CssClass="cmbField" TabIndex="11">
+                    <asp:DropDownList ID="ddlBrokerCode" runat="server" Width="280px" CssClass="cmbField"
+                        TabIndex="11">
                     </asp:DropDownList>
                 </td>
                 <td class="Page_Right_Padding">
@@ -392,7 +377,7 @@ var div_position = document.getElementById("div_position");
                 </td>
                 <td class="rightField" colspan="3">
                     <asp:TextBox ID="txtApplicationNo" MaxLength="9" onkeydown="return (event.keyCode!=13);"
-                        runat="server" AutoPostBack="true" CssClass="txtField" OnKeypress="javascript:return isNumberKey(event);"
+                        runat="server" AutoPostBack="true" AutoComplete="Off" CssClass="txtField" OnKeypress="javascript:return isNumberKey(event);"
                         TabIndex="12" OnTextChanged="txtApplicationNo_OnTextChanged"></asp:TextBox>
                     <span id="Span2" class="spnRequiredField">*</span>
                     <asp:RegularExpressionValidator ID="revPan" runat="server" Display="Dynamic" ValidationGroup="btnConfirmOrder"
@@ -556,121 +541,118 @@ var div_position = document.getElementById("div_position");
                     <asp:Label ID="lblBankBranchName" runat="server" Text="*" class="spnRequiredField"
                         Visible="false"></asp:Label>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtBranchName"
-                        CssClass="rfvPCG" ErrorMessage="<br />Please Enter Bank Branch" Display="Dynamic"
+                        CssClass="rfvPCG" ErrorMessage="<br />Please Enter Bank Branch Name" Display="Dynamic"
                         runat="server" InitialValue="" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
                 </td>
                 <td class="Page_Right_Padding">
                 </td>
             </tr>
         </table>
-        <table width="100%">
+        <table width="100%" id="tblgvIssueList" runat="server" visible="false">
             <tr>
-                <td colspan="6">
-                    <asp:Panel ID="pnlIPOControlContainer" runat="server" ScrollBars="Horizontal" Width="85%"
-                        Visible="false">
-                        <div id="divControlContainer" class="divControlContiner" runat="server">
-                            <table width="100%">
-                                <tr>
-                                    <td>
-                                        <telerik:RadGrid ID="RadGridIPOIssueList" runat="server" AllowSorting="false" enableloadondemand="True"
-                                            PageSize="10" AllowPaging="false" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
-                                            GridLines="None" ShowFooter="false" PagerStyle-AlwaysVisible="false" ShowStatusBar="True"
-                                            Skin="Telerik" AllowFilteringByColumn="false">
-                                            <MasterTableView AllowMultiColumnSorting="false" AllowSorting="false" DataKeyNames="AIM_IssueId,AIIC_PriceDiscountType,AIM_IsMultipleApplicationsallowed,AIIC_PriceDiscountValue,AIM_CutOffTime,AIM_TradingInMultipleOf,AIM_MInQty,AIM_MaxQty,AIIC_MInBidAmount,AIIC_MaxBidAmount,AIM_CloseDate"
-                                                AutoGenerateColumns="false" Width="100%" PagerStyle-AlwaysVisible="false">
-                                                <Columns>
-                                                    <telerik:GridBoundColumn DataField="AIM_IssueName" HeaderStyle-Width="200px" CurrentFilterFunction="Contains"
-                                                        ShowFilterIcon="true" HeaderText="Issue Name" UniqueName="AIM_IssueName" SortExpression="AIM_IssueName">
-                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="AIM_IssueSizeQty" HeaderStyle-Width="200px" HeaderText="Issue Size"
-                                                        ShowFilterIcon="false" UniqueName="AIM_IssueSizeQty" Visible="true">
-                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="AIM_IssueSizeAmt" HeaderStyle-Width="200px" HeaderText="Issue Size Amount"
-                                                        ShowFilterIcon="false" UniqueName="AIM_IssueSizeAmt" Visible="true">
-                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="AIM_Rating" HeaderStyle-Width="200px" ShowFilterIcon="false"
-                                                        HeaderText="Grading" UniqueName="AIM_Rating" SortExpression="AIM_Rating">
-                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="AIM_IsBookBuilding" HeaderStyle-Width="200px"
-                                                        ShowFilterIcon="false" HeaderText="Basis" UniqueName="AIM_IsBookBuilding" SortExpression="AIM_IsBookBuilding">
-                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="AIM_FaceValue" HeaderStyle-Width="200px" HeaderText="Face Value"
-                                                        ShowFilterIcon="false" UniqueName="AIM_FaceValue" Visible="true">
-                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="AIM_MInQty" HeaderStyle-Width="200px" HeaderText="Minimum Qty"
-                                                        ShowFilterIcon="false" UniqueName="AIM_MInQty" Visible="true">
-                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="AIM_TradingInMultipleOf" HeaderStyle-Width="200px"
-                                                        HeaderText="Multiples of Qty" ShowFilterIcon="false" UniqueName="AIM_TradingInMultipleOf"
-                                                        Visible="true">
-                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="AIM_MaxQty" HeaderStyle-Width="200px" HeaderText="Maximum Qty"
-                                                        ShowFilterIcon="false" UniqueName="AIM_MaxQty" Visible="true">
-                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="AIM_FloorPrice" HeaderStyle-Width="200px" HeaderText="Min. Bid Price"
-                                                        ShowFilterIcon="false" UniqueName="AIM_FloorPrice" Visible="true" DataType="System.Decimal"
-                                                        DataFormatString="{0:0.00}">
-                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="AIM_CapPrice" HeaderStyle-Width="200px" HeaderText="Max. Bid Price"
-                                                        ShowFilterIcon="false" UniqueName="AIM_CapPrice" Visible="true" DataType="System.Decimal"
-                                                        DataFormatString="{0:0.00}">
-                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="AIM_FixedPrice" HeaderStyle-Width="200px" HeaderText="Max. Bid Price"
-                                                        Visible="false" ShowFilterIcon="false" UniqueName="AIM_FixedPrice">
-                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="AIIC_MInBidAmount" HeaderStyle-Width="200px"
-                                                        HeaderText="Min. Bid Amount" ShowFilterIcon="false" UniqueName="AIIC_MInBidAmount"
-                                                        Visible="true" DataType="System.Decimal" DataFormatString="{0:0.00}">
-                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="AIIC_MaxBidAmount" HeaderStyle-Width="200px"
-                                                        HeaderText="Max. Bid Amount" Visible="true" ShowFilterIcon="false" UniqueName="AIIC_MaxBidAmount">
-                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="AIM_OpenDate" HeaderStyle-Width="200px" HeaderText="Open Date"
-                                                        ShowFilterIcon="false" UniqueName="AIM_OpenDate" Visible="true">
-                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="AIM_CloseDate" HeaderStyle-Width="200px" HeaderText="Close Date"
-                                                        ShowFilterIcon="false" UniqueName="AIM_CloseDate" Visible="true">
-                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="DiscountType" HeaderStyle-Width="200px" HeaderText="Discount Type"
-                                                        ShowFilterIcon="false" UniqueName="DiscountType" Visible="true">
-                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                                    </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="DiscountValue" HeaderStyle-Width="200px" HeaderText="Discount Value/Bid Qty"
-                                                        ShowFilterIcon="false" UniqueName="DiscountValue" Visible="true" DataFormatString="{0:0.00}">
-                                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                                    </telerik:GridBoundColumn>
-                                                </Columns>
-                                            </MasterTableView>
-                                        </telerik:RadGrid>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <telerik:RadGrid ID="RadGridIPOBid" runat="server" AllowSorting="True" enableloadondemand="True"
+                <td>
+                    <telerik:RadGrid ID="RadGridIPOIssueList" runat="server" AllowSorting="false" enableloadondemand="True"
+                        PageSize="10" AllowPaging="false" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
+                        GridLines="None" ShowFooter="false" PagerStyle-AlwaysVisible="false" ShowStatusBar="True"
+                        Skin="Telerik" AllowFilteringByColumn="false">
+                        <MasterTableView AllowMultiColumnSorting="false" AllowSorting="false" DataKeyNames="AIM_IssueId,AIIC_PriceDiscountType,AIM_IsMultipleApplicationsallowed,AIIC_PriceDiscountValue,AIM_CutOffTime,AIM_TradingInMultipleOf,AIM_MInQty,AIM_MaxQty,AIIC_MInBidAmount,AIIC_MaxBidAmount,AIM_CloseDate"
+                            AutoGenerateColumns="false" Width="100%" PagerStyle-AlwaysVisible="false">
+                            <Columns>
+                                <telerik:GridBoundColumn DataField="AIM_IssueName" HeaderStyle-Width="150px" CurrentFilterFunction="Contains"
+                                    ShowFilterIcon="true" HeaderText="Issue Name" UniqueName="AIM_IssueName" SortExpression="AIM_IssueName">
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="AIM_IssueSizeQty" HeaderStyle-Width="200px" HeaderText="Issue Size"
+                                    ShowFilterIcon="false" UniqueName="AIM_IssueSizeQty" Visible="true">
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="AIM_IssueSizeAmt" HeaderStyle-Width="200px" HeaderText="Issue Size Amount"
+                                    ShowFilterIcon="false" UniqueName="AIM_IssueSizeAmt" Visible="true">
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="AIM_Rating" HeaderStyle-Width="200px" ShowFilterIcon="false"
+                                    HeaderText="Grading" UniqueName="AIM_Rating" SortExpression="AIM_Rating">
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="AIM_IsBookBuilding" HeaderStyle-Width="200px"
+                                    ShowFilterIcon="false" HeaderText="Basis" UniqueName="AIM_IsBookBuilding" SortExpression="AIM_IsBookBuilding">
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="AIM_FaceValue" HeaderStyle-Width="200px" HeaderText="Face Value"
+                                    ShowFilterIcon="false" UniqueName="AIM_FaceValue" Visible="true">
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="AIM_MInQty" HeaderStyle-Width="120px" HeaderText="Minimum Qty"
+                                    ShowFilterIcon="false" UniqueName="AIM_MInQty" Visible="true">
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="AIM_TradingInMultipleOf" HeaderStyle-Width="120px"
+                                    HeaderText="Multiples of Qty" ShowFilterIcon="false" UniqueName="AIM_TradingInMultipleOf"
+                                    Visible="true">
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="AIM_MaxQty" HeaderStyle-Width="120px" HeaderText="Maximum Qty"
+                                    ShowFilterIcon="false" UniqueName="AIM_MaxQty" Visible="true">
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="AIM_FloorPrice" HeaderStyle-Width="200px" HeaderText="Min. Bid Price"
+                                    ShowFilterIcon="false" UniqueName="AIM_FloorPrice" Visible="true" DataType="System.Decimal"
+                                    DataFormatString="{0:0.00}">
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="AIM_CapPrice" HeaderStyle-Width="200px" HeaderText="Max. Bid Price"
+                                    ShowFilterIcon="false" UniqueName="AIM_CapPrice" Visible="true" DataType="System.Decimal"
+                                    DataFormatString="{0:0.00}">
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="AIM_FixedPrice" HeaderStyle-Width="200px" HeaderText="Max. Bid Price"
+                                    Visible="false" ShowFilterIcon="false" UniqueName="AIM_FixedPrice">
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="AIIC_MInBidAmount" HeaderStyle-Width="200px"
+                                    HeaderText="Min. Bid Amount" ShowFilterIcon="false" UniqueName="AIIC_MInBidAmount"
+                                    Visible="true" DataType="System.Decimal" DataFormatString="{0:0.00}">
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="AIIC_MaxBidAmount" HeaderStyle-Width="200px"
+                                    HeaderText="Max. Bid Amount" Visible="true" ShowFilterIcon="false" UniqueName="AIIC_MaxBidAmount">
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="AIM_OpenDate" HeaderStyle-Width="200px" HeaderText="Open Date"
+                                    ShowFilterIcon="false" UniqueName="AIM_OpenDate" Visible="true">
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="AIM_CloseDate" HeaderStyle-Width="200px" HeaderText="Close Date"
+                                    ShowFilterIcon="false" UniqueName="AIM_CloseDate" Visible="true">
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="DiscountType" HeaderStyle-Width="200px" HeaderText="Discount Type"
+                                    ShowFilterIcon="false" UniqueName="DiscountType" Visible="true">
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="DiscountValue" HeaderStyle-Width="200px" HeaderText="Discount Value/Bid Qty"
+                                    ShowFilterIcon="false" UniqueName="DiscountValue" Visible="true" DataFormatString="{0:0.00}">
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                            </Columns>
+                        </MasterTableView>
+                    </telerik:RadGrid>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+            </tr>
+        </table>
+        
+         <table width="100%" id="tblgvCommMgmt" runat="server" visible="false">
+            <tr>
+                <td>
+                <telerik:RadGrid ID="RadGridIPOBid" runat="server" AllowSorting="True" enableloadondemand="True"
                                             PageSize="10" AllowPaging="false" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                             GridLines="None" ShowFooter="true" PagerStyle-AlwaysVisible="false" ShowStatusBar="True"
                                             Skin="Telerik" AllowFilteringByColumn="false" FooterStyle-BackColor="#2475C7"
@@ -788,13 +770,11 @@ var div_position = document.getElementById("div_position");
                                                 </Columns>
                                             </MasterTableView>
                                         </telerik:RadGrid>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </asp:Panel>
                 </td>
             </tr>
+        </table>
+        
+        <table  width="100%">
             <tr>
                 <td class="Page_Left_Padding">
                 </td>
@@ -836,6 +816,7 @@ var div_position = document.getElementById("div_position");
                 </td>
             </tr>
         </table>
+<asp:HiddenField ID="hdnApplicationNo" runat="server" />
     </ContentTemplate>
     <Triggers>
     </Triggers>
@@ -847,20 +828,7 @@ var div_position = document.getElementById("div_position");
 <asp:HiddenField ID="txtTotAmt" runat="server" />
 <asp:HiddenField ID="txtCustomerId" runat="server" OnValueChanged="txtCustomerId_ValueChanged1" />
 <asp:HiddenField ID="hdnCustomerId" runat="server" />
-<asp:HiddenField ID="hdnType" runat="server" />
-<asp:HiddenField ID="hdnSchemeCode" runat="server" />
 <asp:HiddenField ID="hdnPortfolioId" runat="server" />
-<asp:HiddenField ID="hdnAccountId" runat="server" />
-<asp:HiddenField ID="hdnAmcCode" runat="server" />
-<asp:HiddenField ID="hdnSchemeName" runat="server" />
-<asp:HiddenField ID="hdnSchemeSwitch" runat="server" />
-<asp:HiddenField ID="hdnBankName" runat="server" />
 <asp:HiddenField ID="hdnIsSubscripted" runat="server" />
-<asp:HiddenField ID="txtSwitchSchemeCode" runat="server" />
-<asp:HiddenField ID="txtAgentId" runat="server" OnValueChanged="txtAgentId_ValueChanged1" />
-<asp:HiddenField ID="hdnAplicationNo" runat="server" OnValueChanged="txtAgentId_ValueChanged1" />
-<asp:HiddenField ID="hidValidCheck" runat="server" EnableViewState="true" />
 <asp:HiddenField ID="HiddenField1" runat="server" OnValueChanged="HiddenField1_ValueChanged1" />
-<asp:HiddenField ID="hidAmt" runat="server" />
-<asp:HiddenField ID="hdnCloseDate" runat="server" />
-<asp:HiddenField ID="div_position" runat="server" />
+
