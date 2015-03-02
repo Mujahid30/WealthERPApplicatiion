@@ -230,7 +230,7 @@ namespace WealthERP.OffLineOrderManagement
                       || OrderStepCode == "PR" || OrderStepCode == "OR" || OrderStepCode == "AL" || OrderStepCode == "NA")
                 {
                     ddlAction.Items[1].Enabled = true;
-                    if (OrderStepCode == "AL" || (OrderStepCode == "OR" && (DateTime.Now > closeDateTime)))
+                    if (OrderStepCode == "AL" || (OrderStepCode == "OR" && (DateTime.Now < closeDateTime)))
                     {
                         ddlAction.Items[2].Enabled = true;
                     }
