@@ -3212,6 +3212,13 @@
     <Compile Include="OnlineOrderManagement\SIPBookSummmaryList.ascx.designer.cs">
       <DependentUpon>SIPBookSummmaryList.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrder\Banner.ascx.cs">
+      <DependentUpon>Banner.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrder\Banner.ascx.designer.cs">
+      <DependentUpon>Banner.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrder\MFOnlineOrder.aspx.cs">
       <DependentUpon>MFOnlineOrder.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -8179,6 +8186,7 @@
     <Content Include="OnlineOrderBackOffice\OnlineOrderExtract.ascx" />
     <Content Include="OnlineOrderManagement\OnlineOrderUnauthorizedUser.ascx" />
     <Content Include="OnlineOrderManagement\SIPBookSummmaryList.ascx" />
+    <Content Include="OnlineOrder\Banner.ascx" />
     <Content Include="OnlineOrder\MFOnlineOrder.aspx" />
     <Content Include="OnlineOrder\OnlineOrderDummyTopMenu.ascx" />
     <Content Include="OnlineOrder\OnlineOrderTopMenu.ascx" />
