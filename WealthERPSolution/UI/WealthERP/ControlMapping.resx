@@ -2033,4 +2033,12 @@
     <value>OnlineOrderBackOffice//UTIAMCManage.ascx</value>
     <comment>OnlineOrderBackOffice//UTIAMCManage.ascx</comment>
   </data>
+  <data name="Banner" xml:space="preserve">
+    <value>OnlineOrder//Banner.ascx</value>
+    <comment>OnlineOrder//Banner.ascx</comment>
+  </data>
+  <data name="BannerManage" xml:space="preserve">
+    <value>OnlineOrderBackOffice//BannerManage.ascx</value>
+    <comment>OnlineOrderBackOffice//BannerManage.ascx</comment>
+  </data>
 </root>
