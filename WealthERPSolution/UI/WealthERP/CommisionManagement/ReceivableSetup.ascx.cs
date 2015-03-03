@@ -453,10 +453,6 @@ namespace WealthERP.Receivable
                 ddlCommissionype.DataTextField = "WCMV_Name";
                 ddlCommissionype.DataBind();
                 ddlCommissionype.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
-                if (hdnIsSpecialIncentive.Value == "SPl")
-                    ddlCommissionype.Items[1].Enabled = false;
-
-
                 DataSet dsCommissionLookup;
                 dsCommissionLookup = (DataSet)Session["CommissionLookUpData"];
                 ddlBrokerageUnit.DataSource = dsCommissionLookup.Tables[3];
@@ -893,7 +889,7 @@ namespace WealthERP.Receivable
         }
 
         private void MapPingLinksBasedOnCpmmissionTypes(string lookUpId)
-        {
+        { 
             if (lookUpId == "16019")
             {
                 btnMapToscheme.Text = "Map Scheme";
