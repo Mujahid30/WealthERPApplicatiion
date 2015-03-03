@@ -116,7 +116,7 @@ namespace WealthERP.OffLineOrderManagement
                 BindDepositoryType();
                 BindSubTypeDropDown(1001);
                 btnAddMore.Visible = false;
-                lblApplicationDuplicate.Visible = false;
+                //lblApplicationDuplicate.Visible = false;
                 if (AgentCode != null)
                 {
                     txtAssociateSearch.Text = AgentCode;
@@ -595,6 +595,7 @@ namespace WealthERP.OffLineOrderManagement
             int tableRow = 0;
             int FaceValue = 0;
             dtOrderDetails = null;
+         
             if (gvCommMgmt.MasterTableView.DataKeyValues[0]["AIM_MaxApplNo"].ToString() == "" || gvCommMgmt.MasterTableView.DataKeyValues[0]["AIM_FaceValue"].ToString() == "")
                 return false;
             string MaxAppNo = gvCommMgmt.MasterTableView.DataKeyValues[0]["AIM_MaxApplNo"].ToString();
@@ -658,6 +659,7 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     OnlineBondVo.ChequeNumber = txtPaymentNumber.Text;
                     OnlineBondVo.PaymentDate = DateTime.Parse(txtPaymentInstDate.SelectedDate.ToString());
+                    if(!string.IsNullOrEmpty(txtBankAccount.Text))
                     OnlineBondVo.BankAccid = int.Parse(txtBankAccount.Text);
                 }
                 OnlineBondVo.PanNo = txtPanNumber.Text;
@@ -735,11 +737,10 @@ namespace WealthERP.OffLineOrderManagement
             Label lblQuantity = (Label)ftItemAmount.FindControl("lblQuantity");
             if (isValid)
             {
-                isValid = false;
-                if (Validation())
-                {
-                    if (Request.QueryString["action"] == null)
-                    {
+                //isValid = false;
+                //if (Validation())
+                //{
+                   
                         if (Request.QueryString["action"] != null)
                         {
                             Quantity = int.Parse(lblQuantity.Text);
@@ -750,7 +751,7 @@ namespace WealthERP.OffLineOrderManagement
                             Quantity = int.Parse(ViewState["Qty"].ToString());
                             sum = int.Parse(ViewState["Sum"].ToString());
                         }
-                        if (ViewState["CustCat"] == null)
+                        if (ViewState["CustCat"] == null && Request.QueryString["action"] == null)
                         {
 
                             string category = (string)ViewState["CustCat"];
@@ -758,12 +759,12 @@ namespace WealthERP.OffLineOrderManagement
                                 ShowMessage("Please enter no of bonds within the range permissible.", 'w');
 
                         }
-                        else if (FaceValue > sum)
+                        else if (FaceValue > sum && sum >0)
                         {
                             ShowMessage("Application amount is less than minimum application amount.", 'w');
 
                         }
-                        else if (Quantity < minQty)
+                        else if (Quantity < minQty && Quantity > 0)
                         {
                             foreach (GridDataItem CBOrder in gvCommMgmt.MasterTableView.Items)
                             {
@@ -774,13 +775,14 @@ namespace WealthERP.OffLineOrderManagement
                                 GridFooterItem footerItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
                                 Label lblSum = (Label)footerItemAmount.FindControl("lblAmount");
                                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Order cannot be processed.Please enter quantity greater than or equal to min quantity required')", true);
-                                txtsumQuantity.Text = "";
-                                txtsumAmount.Text = "";
-                                lblQty.Text = "";
-                                lblSum.Text = "";
+                                //txtsumQuantity.Text = "";
+                                //txtsumAmount.Text = "";
+                                //lblQty.Text = "";
+                                //lblSum.Text = "";
+                                isValid = false;
                             }
                         }
-                        else if (Quantity > maxQty)
+                        else if (Quantity > maxQty && Quantity > 0)
                         {
                             foreach (GridDataItem CBOrder in gvCommMgmt.MasterTableView.Items)
                             {
@@ -791,11 +793,11 @@ namespace WealthERP.OffLineOrderManagement
                                 GridFooterItem footerItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
                                 Label lblSum = (Label)footerItemAmount.FindControl("lblAmount");
                                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Order cannot be processed.Please enter quantity less than or equal to maximum quantity allowed for this issue')", true);
-
-                                txtsumQuantity.Text = "";
-                                txtsumAmount.Text = "";
-                                lblQty.Text = "";
-                                lblSum.Text = "";
+                                isValid = false;
+                                //txtsumQuantity.Text = "";
+                                //txtsumAmount.Text = "";
+                                //lblQty.Text = "";
+                                //lblSum.Text = "";
                             }
 
                             //}
@@ -803,12 +805,11 @@ namespace WealthERP.OffLineOrderManagement
                         else
                             isValid = true;
 
-                    }
-                    else
-                        isValid = true;
+                    //}
+                    //else
+                    //    isValid = true;
 
-
-                }
+                
             }
             return isValid;
 
@@ -820,41 +821,44 @@ namespace WealthERP.OffLineOrderManagement
             bool isValid = CollectOrderDetails(sender, e, out dtOrderDetails);
             GridFooterItem ftItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
             Label lbltotAmt = (Label)ftItemAmount.FindControl("lblAmount");
+             Page.Validate("btnConfirmOrder");
+             if (Page.IsValid)
+             {
+                 if (isValid)
+                 {
 
-            if (isValid)
-            {
+                     IDictionary<string, string> orderIds = new Dictionary<string, string>();
 
-                IDictionary<string, string> orderIds = new Dictionary<string, string>();
+                     int totalOrderAmt = int.Parse(ViewState["Sum"].ToString());
+                     string message;
+                     string aplicationNoStatus = string.Empty;
+                     int orderId = 0;
+                     if (!String.IsNullOrEmpty(txtAssociateSearch.Text))
+                         dtAgentId = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
+                     if (dtAgentId.Rows.Count > 0)
+                     {
+                         agentId = int.Parse(dtAgentId.Rows[0][1].ToString());
+                     }
 
-                int totalOrderAmt = int.Parse(ViewState["Sum"].ToString());
-                string message;
-                string aplicationNoStatus = string.Empty;
-                int orderId = 0;
-                if (!String.IsNullOrEmpty(txtAssociateSearch.Text))
-                    dtAgentId = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
-                if (dtAgentId.Rows.Count > 0)
-                {
-                    agentId = int.Parse(dtAgentId.Rows[0][1].ToString());
-                }
-
-                orderIds = offlineBondBo.OfflineBOndtransact(dtOrderDetails, advisorVo.advisorId, OnlineBondVo, agentId, txtAssociateSearch.Text, userVo.UserId);
-                orderId = int.Parse(orderIds["Order_Id"].ToString());
-                aplicationNoStatus = orderIds["aplicationNoStatus"].ToString();
-                ViewState["OrderId"] = orderId;
-                hdnOrderId.Value = orderId.ToString();
-                btnConfirmOrder.Enabled = false;
-                Label3.Visible = false;
-                message = CreateUserMessage(orderId, aplicationNoStatus);
-                ShowMessage(message, 'S');
-                btnConfirmOrder.Visible = false;
-                btnAddMore.Visible = true;
-                SetCOntrolsEnablity(false);
-                btnAddMore.Focus();
-            }
-            else
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert(' Quantity should be between Min Quantity and Max Quantity.')", true);
-            }
+                     orderIds = offlineBondBo.OfflineBOndtransact(dtOrderDetails, advisorVo.advisorId, OnlineBondVo, agentId, txtAssociateSearch.Text, userVo.UserId);
+                     orderId = int.Parse(orderIds["Order_Id"].ToString());
+                     aplicationNoStatus = orderIds["aplicationNoStatus"].ToString();
+                     ViewState["OrderId"] = orderId;
+                     hdnOrderId.Value = orderId.ToString();
+                     btnConfirmOrder.Enabled = false;
+                     Label3.Visible = false;
+                     message = CreateUserMessage(orderId, aplicationNoStatus);
+                     ShowMessage(message, 'S');
+                     btnConfirmOrder.Visible = false;
+                     btnAddMore.Visible = true;
+                     SetCOntrolsEnablity(false);
+                     btnAddMore.Focus();
+                 }
+                 else
+                 {
+                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert(' Quantity should be between Min Quantity and Max Quantity.')", true);
+                 }
+             }
         }
 
         private string CreateUserMessage(int orderId, string aplicationNoStatus)
@@ -1024,6 +1028,7 @@ namespace WealthERP.OffLineOrderManagement
                     ddlIssueList.SelectedValue = dr["AIM_IssueId"].ToString();
                     BindSubbroker(int.Parse(dr["AIM_IssueId"].ToString()));
                     txtApplicationNo.Text = dr["CO_ApplicationNo"].ToString();
+                    hdnApplicationNo.Value = txtApplicationNo.Text;
                     txtFirstName.Text = dr["OCD_Name"].ToString();
                     txtPanNumber.Text = dr["OCD_Pan"].ToString();
                     if (dr["XCT_CustomerTypeCode"].ToString() == "IND")
@@ -1121,22 +1126,26 @@ namespace WealthERP.OffLineOrderManagement
             {
                 agentId = int.Parse(dtAgentId.Rows[0][1].ToString());
             }
-            if (isValid == false)
+            Page.Validate("btnConfirmOrder");
+            if (Page.IsValid)
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Quantity')", true);
-                return;
-            }
-            else
-            {
-                bool resule = false;
-                resule = OfflineNCDIPOBackOfficeBo.UpdateNCDDetails(int.Parse(hdnOrderId.Value), userVo.UserId, dtOrderDetails, ddlBrokerCode.SelectedValue, agentId, OnlineBondVo);
-                if (resule != false)
+                if (isValid == false)
                 {
-                    lnkEdit.Visible = true;
-                    btnUpdate.Visible = false;
-                    SetCOntrolsEnablity(false);
-                    gvCommMgmt.Enabled = false;
-                    ShowMessage("NCD Order Updated Successfully,Order reference no. is " + hdnOrderId.Value.ToString(), 'S');
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Quantity')", true);
+                    return;
+                }
+                else
+                {
+                    bool resule = false;
+                    resule = OfflineNCDIPOBackOfficeBo.UpdateNCDDetails(int.Parse(hdnOrderId.Value), userVo.UserId, dtOrderDetails, ddlBrokerCode.SelectedValue, agentId, OnlineBondVo);
+                    if (resule != false)
+                    {
+                        lnkEdit.Visible = true;
+                        btnUpdate.Visible = false;
+                        SetCOntrolsEnablity(false);
+                        gvCommMgmt.Enabled = false;
+                        ShowMessage("NCD Order Updated Successfully,Order reference no. is " + hdnOrderId.Value.ToString(), 'S');
+                    }
                 }
             }
         }
@@ -1248,6 +1257,21 @@ namespace WealthERP.OffLineOrderManagement
         {
             txtQuantity.Text = "0";
             txtAmount.Text = "0";
+        }
+        protected void CVApplicationNo_ServerValidat(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)
+        {
+            int issueId = int.Parse(ddlIssueList.SelectedValue.ToString());
+            if (OfflineIPOOrderBo.ApplicationDuplicateCheck(issueId, int.Parse(txtApplicationNo.Text)))
+            {
+                if (hdnApplicationNo.Value != txtApplicationNo.Text)
+                {
+                    args.IsValid = false;
+                }
+            }
+            else
+            {
+                args.IsValid = true;
+            }
         }
     }
 

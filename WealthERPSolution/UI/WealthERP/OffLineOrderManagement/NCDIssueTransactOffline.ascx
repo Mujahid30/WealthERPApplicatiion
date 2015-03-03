@@ -455,8 +455,12 @@
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtApplicationNo"
                         ErrorMessage="<br />Please Enter Application No." Display="Dynamic" runat="server"
                         CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
-                    <asp:Label ID="lblApplicationDuplicate" runat="server" CssClass="Error" Text="Application Number Already Exists"
-                        Visible="false"></asp:Label>
+                   <%-- <asp:Label ID="lblApplicationDuplicate" runat="server" CssClass="Error" Text="Application Number Already Exists"
+                        Visible="false"></asp:Label>--%>
+                        <asp:CustomValidator ID="CVApplicationNo" runat="server" OnServerValidate="CVApplicationNo_ServerValidat"
+                        Text="" ErrorMessage="Application Number already exists" ControlToValidate="txtApplicationNo"
+                        Display="Dynamic" ValidationGroup="btnConfirmOrder" CssClass="rfvPCG">                                                
+                    </asp:CustomValidator>
                 </td>
                 <td class="Page_Right_Padding">
                 </td>
@@ -910,7 +914,7 @@
                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="true" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridButtonColumn HeaderStyle-Width="100px" Text="Delete" ButtonType="PushButton"
-                                    ConfirmText="Do u want to delete" CommandName="Delete" Visible="false">
+                                    ConfirmText="Do you want to delete" CommandName="Delete" Visible="false">
                                 </telerik:GridButtonColumn>
                                 <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
                                     Visible="false" UniqueName="Check" HeaderText="Check Order">
@@ -977,6 +981,7 @@
             </tr>
         </table>
         <asp:HiddenField ID="hdnPortfolioId" runat="server" />
+        <asp:HiddenField ID="hdnApplicationNo" runat="server" />
     </ContentTemplate>
     <Triggers>
         <asp:PostBackTrigger ControlID="btnConfirmOrder" />
