@@ -19,6 +19,8 @@ namespace VoOnlineOrderManagemnet
         public string DematBeneficiaryAccountNum { set; get; }
         public string DematDepositoryName { set; get; }
         public string DematDPId { set; get; }
+        public string AgentNo { set; get; }
+        public int AgentId { set; get; }
         
         
 

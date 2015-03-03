@@ -85,13 +85,13 @@ namespace BoOfflineOrderManagement
             }
             return dsGetIPOIssueOrderDetails;
         }
-        public bool UpdateIPOBidOrderDetails(DataTable dtIPOBidTransactionDettails, int orderNo, string benificialAcc, string brokerCode, int userId)
+        public bool UpdateIPOBidOrderDetails(DataTable dtIPOBidTransactionDettails, int orderNo, string benificialAcc, string brokerCode, int userId, OnlineIPOOrderVo onlineIPOOrderVo)
         {
             bool bResult = false;
             OfflineIPOOrderDao OfflineIPOOrderDao = new OfflineIPOOrderDao();
             try
             {
-                bResult = OfflineIPOOrderDao.UpdateIPOBidOrderDetails(dtIPOBidTransactionDettails, orderNo, benificialAcc, brokerCode, userId);
+                bResult = OfflineIPOOrderDao.UpdateIPOBidOrderDetails(dtIPOBidTransactionDettails, orderNo, benificialAcc, brokerCode, userId, onlineIPOOrderVo);
             }
             catch (BaseApplicationException Ex)
             {
@@ -119,6 +119,33 @@ namespace BoOfflineOrderManagement
                 object[] objects = new object[2];
                 objects[0] = issueId;
                 objects[1] = applicationNo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+        public bool OrderedDuplicateCheck(int orderId)
+        {
+            bool bResult = false;
+            OfflineIPOOrderDao OfflineIPOOrderDao = new OfflineIPOOrderDao();
+            try
+            {
+                bResult = OfflineIPOOrderDao.OrderedDuplicateCheck(orderId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OfflineIPOOrderDao.cs:PANNumberDuplicateCheck()");
+                object[] objects = new object[2];
+                objects[0] = orderId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);

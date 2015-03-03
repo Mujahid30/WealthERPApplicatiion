@@ -134,7 +134,7 @@ namespace DaoOfflineOrderManagement
             }
             return dsGetIPOIssueOrderDetails;
         }
-        public bool UpdateIPOBidOrderDetails(DataTable dtIPOBidTransactionDettails, int orderNo, string benificialAcc, string brokerCode, int userId)
+        public bool UpdateIPOBidOrderDetails(DataTable dtIPOBidTransactionDettails, int orderNo, string benificialAcc, string brokerCode, int userId, OnlineIPOOrderVo onlineIPOOrderVo)
         {
             Database db;
             DataSet dsIssueBidList = new DataSet(); ;
@@ -153,6 +153,15 @@ namespace DaoOfflineOrderManagement
                 db.AddInParameter(cmdUpdateIPOBidOrderDetails, "@benificialAcc", DbType.String, benificialAcc);
                 db.AddInParameter(cmdUpdateIPOBidOrderDetails, "@brokerCode", DbType.String, brokerCode);
                 db.AddInParameter(cmdUpdateIPOBidOrderDetails, "@UserId", DbType.Int32, userId);
+                db.AddInParameter(cmdUpdateIPOBidOrderDetails, "@AgentCode", DbType.String, onlineIPOOrderVo.AgentNo);
+                db.AddInParameter(cmdUpdateIPOBidOrderDetails, "@AgentId", DbType.Int32, onlineIPOOrderVo.AgentId);
+                db.AddInParameter(cmdUpdateIPOBidOrderDetails, "@CustomerName", DbType.String, onlineIPOOrderVo.CustomerName);
+                db.AddInParameter(cmdUpdateIPOBidOrderDetails, "@CustomerPAN", DbType.String, onlineIPOOrderVo.CustomerPAN);
+                db.AddInParameter(cmdUpdateIPOBidOrderDetails, "@CustomerType", DbType.String, onlineIPOOrderVo.CustomerType);
+                db.AddInParameter(cmdUpdateIPOBidOrderDetails, "@CustomerSubTypeId", DbType.Int32, onlineIPOOrderVo.CustomerSubTypeId);
+                db.AddInParameter(cmdUpdateIPOBidOrderDetails, "@DematBeneficiaryAccountNum", DbType.String, onlineIPOOrderVo.DematBeneficiaryAccountNum);
+                db.AddInParameter(cmdUpdateIPOBidOrderDetails, "@DematDepositoryName", DbType.String, onlineIPOOrderVo.DematDepositoryName);
+                db.AddInParameter(cmdUpdateIPOBidOrderDetails, "@DematDPId", DbType.String, onlineIPOOrderVo.DematDPId);
                 if (db.ExecuteNonQuery(cmdUpdateIPOBidOrderDetails) != 0)
                     bResult = true;
             }
@@ -202,6 +211,48 @@ namespace DaoOfflineOrderManagement
                 object[] objects = new object[2];
                 objects[0] = issueId;
                 objects[1] = applicationNo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+        public bool OrderedDuplicateCheck(int orderId)
+        {
+            Database db;
+            DbCommand cmdOrderedDuplicateCheck;
+            bool bResult = false;
+            int count = 0;
+            DataSet ds;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //Adding Data to the table 
+                cmdOrderedDuplicateCheck = db.GetStoredProcCommand("SP_OrderedDuplicateCheck");
+                db.AddInParameter(cmdOrderedDuplicateCheck, "@OrderId", DbType.Int32, orderId);
+                db.AddOutParameter(cmdOrderedDuplicateCheck, "@Count", DbType.Int32, 100);
+                db.ExecuteNonQuery(cmdOrderedDuplicateCheck);
+                int objCount = Convert.ToInt32(db.GetParameterValue(cmdOrderedDuplicateCheck, "Count").ToString());
+                if (objCount != 0)
+                    count = int.Parse(db.GetParameterValue(cmdOrderedDuplicateCheck, "@count").ToString());
+                else
+                    count = 0;
+                if (count > 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OfflineIPOOrderDao.cs:ApplicationDuplicateCheck()");
+                object[] objects = new object[2];
+                objects[0] = orderId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
