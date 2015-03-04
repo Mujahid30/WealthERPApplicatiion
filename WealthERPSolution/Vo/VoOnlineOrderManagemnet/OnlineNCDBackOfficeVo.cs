@@ -34,7 +34,7 @@ namespace VoOnlineOrderManagemnet
         public decimal MInBidAmount { get; set; }
         public decimal MaxBidAmount { get; set; }
         public string Subbrokercode { get; set; }
-        public int LockInPeriodapplicable { get; set; }
+        public string LockInPeriodapplicable { get; set; }
         
         public int LookUpId { get; set; }
         public string SubCatgeoryTypeCode { get; set; }

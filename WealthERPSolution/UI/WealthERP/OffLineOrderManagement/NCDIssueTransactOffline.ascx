@@ -437,6 +437,10 @@
                 <td class="rightField" colspan="3">
                     <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField" TabIndex="11">
                     </asp:DropDownList>
+                       <span id="Span1" class="spnRequiredField">*</span>
+                    <asp:RequiredFieldValidator ID="ReqddlBrokerCode" ControlToValidate="ddlBrokerCode"
+                        ErrorMessage="<br />Please Select Broker" Display="Dynamic" runat="server"
+                        CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
                 </td>
                 <td class="Page_Right_Padding">
                 </td>
@@ -488,7 +492,7 @@
                 </td>
                 <td id="Td4" class="rightField" runat="server" visible="false">
                     <asp:TextBox ID="txtBankAccount" runat="server" CssClass="txtField" onkeydown="return (event.keyCode!=13);"
-                        OnKeypress="javascript:return isNumberKey(event);" MaxLength="9" TabIndex="14"></asp:TextBox>
+                        OnKeypress="javascript:return isNumberKey(event);" MaxLength="16" TabIndex="14"></asp:TextBox>
                 </td>
                 <td class="Page_Right_Padding">
                 </td>

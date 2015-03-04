@@ -2031,10 +2031,10 @@
                 <tr>
                     <td>
                         <telerik:RadGrid ID="gvPayaMapping" AllowSorting="false" runat="server" AllowAutomaticInserts="false"
-                            AllowPaging="True" AutoGenerateColumns="False" AllowFilteringByColumn="true"
+                            AllowPaging="True" AutoGenerateColumns="False" AllowFilteringByColumn="true" ShowHeader="true"
                             EnableEmbeddedSkins="false" GridLines="none" ShowFooter="true" PagerStyle-AlwaysVisible="true"
                             EnableViewState="true" ShowStatusBar="true" Skin="Telerik" OnNeedDataSource="gvPayaMapping_NeedDataSource"
-                            OnItemCommand="gvPayaMapping_ItemCommand" Visible="false">
+                            OnItemCommand="gvPayaMapping_ItemCommand" Visible="false" >
                             <HeaderContextMenu EnableEmbeddedSkins="False">
                             </HeaderContextMenu>
                             <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="PayableMapping"
@@ -2053,6 +2053,11 @@
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="RuleName" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
                                         ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Rule Name" UniqueName="RuleName"
+                                        ReadOnly="true">
+                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="40px" Wrap="false" />
+                                    </telerik:GridBoundColumn>
+                                      <telerik:GridBoundColumn DataField="CSRD_BrokageValue" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
+                                        ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Broker/Rate(%)" UniqueName="CSRD_BrokageValue"
                                         ReadOnly="true">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="40px" Wrap="false" />
                                     </telerik:GridBoundColumn>

@@ -239,7 +239,7 @@ namespace WealthERP.CommisionManagement
             {
                 ruleId = ruleId.TrimEnd(',');
                 DataTable dtRuleMapping = new DataTable();
-                dtRuleMapping.Columns.Add("agentId");
+                dtRuleMapping.Columns.Add("agentId",typeof(string));
                 dtRuleMapping.Columns.Add("ruleids");
                 //dtRuleMapping.Columns.Add("categoryId", typeof(Int32));
                 DataRow drRuleMapping;

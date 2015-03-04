@@ -1334,7 +1334,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.issueBrokerIds = hdnBrokerIds.Value;
                 }
-
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please Select Broker.');", true);
+                    return 0;
+                }
                 if (!string.IsNullOrEmpty(txtIssueSizeQty.Text))
                 {
                     onlineNCDBackOfficeVo.IssueSizeQty = Convert.ToInt32(txtIssueSizeQty.Text);
@@ -1851,7 +1855,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
                         CreateUpdateDeleteSeriesCategories(seriesId, categoryId, Convert.ToDouble(txtInterestRate.Text), Convert.ToDouble(txtAnnualizedYield.Text), Convert.ToDouble(txtRenCpnRate.Text),
-                            Convert.ToDouble(txtYieldAtCall.Text), Convert.ToDouble(txtYieldAtBuyBack.Text), txtRedemptionDate.Text, Convert.ToDouble(txtRedemptionAmount.Text), int.Parse(txtLockInPeriod.Text), "Insert");
+                            Convert.ToDouble(txtYieldAtCall.Text), Convert.ToDouble(txtYieldAtBuyBack.Text), txtRedemptionDate.Text, Convert.ToDouble(txtRedemptionAmount.Text), txtLockInPeriod.Text, "Insert");
                     }
                 }
                 BindSeriesGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
@@ -1988,7 +1992,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         {
                             txtLockInPeriod.Text = 0.ToString();
                         }
-                        CreateUpdateDeleteSeriesCategories(seriesId, categoryId, Convert.ToDouble(txtInterestRate.Text), Convert.ToDouble(txtAnnualizedYield.Text), Convert.ToDouble(txtRenCpnRate.Text), Convert.ToDouble(txtYieldAtCall.Text), Convert.ToDouble(txtYieldAtBuyBack.Text), txtRedemptionDate.Text, Convert.ToDouble(txtRedemptionAmount.Text), int.Parse(txtLockInPeriod.Text), "Update");
+                        CreateUpdateDeleteSeriesCategories(seriesId, categoryId, Convert.ToDouble(txtInterestRate.Text), Convert.ToDouble(txtAnnualizedYield.Text), Convert.ToDouble(txtRenCpnRate.Text), Convert.ToDouble(txtYieldAtCall.Text), Convert.ToDouble(txtYieldAtBuyBack.Text), txtRedemptionDate.Text, Convert.ToDouble(txtRedemptionAmount.Text),txtLockInPeriod.Text, "Update");
                     }
                 }
                 BindSeriesGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
@@ -3645,6 +3649,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.issueBrokerIds = hdnBrokerIds.Value.ToString();
                 }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please Select Broker.');", true);
+                    return 0;
+                }
 
                 if (!string.IsNullOrEmpty(txtIssueSizeQty.Text))
                 {
@@ -3884,7 +3893,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         }
 
-        private void CreateUpdateDeleteSeriesCategories(int seriesId, int catgeoryId, double defaultInterestRate, double annualizedYieldUpto, double renCpnRate, double yieldAtCall, double yieldAtBuyBack, string redemptiondate, double redemptionAmount, int txtLockInPeriod, string commandType)
+        private void CreateUpdateDeleteSeriesCategories(int seriesId, int catgeoryId, double defaultInterestRate, double annualizedYieldUpto, double renCpnRate, double yieldAtCall, double yieldAtBuyBack, string redemptiondate, double redemptionAmount, string txtLockInPeriod, string commandType)
         {
             bool result;
             try
