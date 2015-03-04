@@ -217,7 +217,8 @@ namespace WealthERP.OffLineOrderManagement
                         btnUpdate.Visible = true;
                         lnkBtnFIEdit.Visible = false;
                         SetFICOntrolsEnablity(true);
-
+                        ddlCategory.Enabled = false;
+                        ddlScheme.Enabled = false;
                     }
 
                     else
@@ -252,7 +253,8 @@ namespace WealthERP.OffLineOrderManagement
                         tbUploadDocument.Visible = true;
                         btnUpdate.Visible = false;
                         SetFICOntrolsEnablity(false);
-
+                        ddlCategory.Enabled = false;
+                        ddlScheme.Enabled = false;
                     }
 
                 }
@@ -697,7 +699,7 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            
+
             txtQty.Text = (ddlCategory.SelectedValue == "FICDCD") ? TxtPurAmt.Text : txtQty.Text;
 
             bool result = false;
@@ -856,9 +858,9 @@ namespace WealthERP.OffLineOrderManagement
             ddlBankName.Enabled = Val;
 
 
-            ddlCategory.Enabled = Val;
+            ddlCategory.Enabled = false;
             ddlIssuer.Enabled = Val;
-            ddlScheme.Enabled = Val;
+            ddlScheme.Enabled = false;
             ddlSeries.Enabled = Val;
             ddlTranstype.Enabled = Val;
             txtSeries.Enabled = Val;
@@ -871,8 +873,16 @@ namespace WealthERP.OffLineOrderManagement
             }
             else
             {
-                rbtnAuthentication.Enabled = Val;
-                rbtnReject.Enabled = Val;
+                if (hdnButtonAction.Value == "Submit")
+                {
+                    rbtnAuthentication.Enabled = true;
+                    rbtnReject.Enabled = true;
+                }
+                else
+                {
+                    rbtnAuthentication.Enabled = Val;
+                    rbtnReject.Enabled = Val;
+                }
             }
             //if (rbtnReject.Checked)
             //{
@@ -908,19 +918,57 @@ namespace WealthERP.OffLineOrderManagement
         protected void lnkBtnFIEdit_Click(object sender, EventArgs e)
         {
             lnkBtnFIEdit.Visible = false;
+            GetAuthentication();
             lnkBtnEdit();
+            
             msgRecordStatus.Visible = false;
 
         }
 
         protected void lnkBtnEdit()
         {
-            //lnkBtnFIEdit.Visible = true;
+            trOfficeUse.Visible = true;
             btnUpdate.Visible = true;
             ViewForm = "Edit";
             SetFICOntrolsEnablity(true);
             btnUpdate.Visible = true;
             btnSubmit.Visible = false;
+            ddlCategory.Enabled = false;
+            ddlScheme.Enabled = false;
+        }
+        private void GetAuthentication()
+        {
+            if (Request.QueryString["orderId"] != null)
+            {
+                orderId = int.Parse(ViewState["orderId"].ToString());
+            }
+            else
+            {
+                orderId = int.Parse(ViewState["orderno"].ToString());
+            }
+            DataTable dtGetRejectionAuthention = fiorderBo.GetRejectionAuthention(orderId);
+            foreach (DataRow dr in dtGetRejectionAuthention.Rows)
+            {
+                if (dr["WOS_OrderStepCode"].ToString() == "RJ")
+                {
+                    rbtnReject.Checked = true;
+                    btnSubmitAuthenticate.Visible = false;
+                    lblAuthenticatedBy.Text = dr["U_FirstName"].ToString();
+                    txtRejectReseaon.Text = dr["COS_Reason"].ToString();
+                }
+
+                if (dr["CO_IsAuthenticated"].ToString() != "True")
+                {
+                    rbtnAuthentication.Checked = false;
+
+                }
+                else
+                {
+                    rbtnAuthentication.Checked = true;
+                    lblAuthenticatedBy.Text = dr["U_FirstName"].ToString();
+                    btnSubmitAuthenticate.Visible = false;
+                }
+            }
         }
         protected void ddlPaymentMode_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1030,7 +1078,7 @@ namespace WealthERP.OffLineOrderManagement
 
             fiorderVo.Frequency = ddlFrequency.SelectedValue;
             fiorderVo.Qty = Convert.ToDouble(txtQty.Text);
-           
+
 
             //if (ddlPaymentMode.SelectedIndex != 0)
             orderVo.PaymentMode = ddlPaymentMode.SelectedValue;
@@ -1171,7 +1219,7 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void OnAmtchanged(object sender, EventArgs e)
         {
-            
+
             if (!string.IsNullOrEmpty(TxtPurAmt.Text))
             {
                 if (ddlCategory.SelectedValue != "FICDCD")
@@ -1180,7 +1228,7 @@ namespace WealthERP.OffLineOrderManagement
                     {
                         txtQty.Text = string.Empty;
                         txtQty.Text = (Convert.ToInt32(TxtPurAmt.Text) / GetFaceValue()).ToString();
-                        
+
 
                     }
                     else
@@ -1198,7 +1246,7 @@ namespace WealthERP.OffLineOrderManagement
                         txtQty.Text = string.Empty;
                         TxtPurAmt.Text = string.Empty;
                     }
-                    
+
                 }
 
                 TxtPurAmt.Focus();
@@ -5098,17 +5146,27 @@ namespace WealthERP.OffLineOrderManagement
                 ddlBrokerCode.DataValueField = dtBindSubbroker.Columns["XB_BrokerIdentifier"].ToString();
                 ddlBrokerCode.DataTextField = dtBindSubbroker.Columns["XB_BrokerShortName"].ToString();
                 ddlBrokerCode.DataBind();
-                if(dtBindSubbroker.Rows.Count > 1)
+                if (dtBindSubbroker.Rows.Count > 1)
                     ddlBrokerCode.Items.Insert(0, new ListItem("Select", "Select"));
             }
         }
         protected void btnSubmitAuthenticate_btnSubmit(object sender, EventArgs e)
         {
             bool lbResult = false;
+            if(Request.QueryString["orderId"]!=null)
+            {
+                orderId= int.Parse(ViewState["orderId"].ToString());
+            }
+            else
+            {
+               orderId= int.Parse(ViewState["orderno"].ToString());
+            }
             if (rbtnAuthentication.Checked == true || rbtnReject.Checked == true)
             {
-                lbResult = OfflineBondOrderBo.CancelBondsFDBookOrder(int.Parse(ViewState["orderId"].ToString()), txtRejectReseaon.Text, userVo.UserId, (rbtnReject.Checked) ? false : true, ddlBrokerCode.SelectedValue);
+                lbResult = OfflineBondOrderBo.CancelBondsFDBookOrder(orderId, txtRejectReseaon.Text, userVo.UserId, (rbtnReject.Checked) ? false : true, ddlBrokerCode.SelectedValue);
                 btnSubmitAuthenticate.Visible = false;
+                rbtnAuthentication.Enabled = false;
+                rbtnReject.Enabled=false;
             }
         }
     }

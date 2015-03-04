@@ -482,5 +482,18 @@ namespace BoOps
              }
              return bResult;
          }
+         public DataTable GetRejectionAuthention(int orderId)
+         {
+             DataTable dt;
+             try
+             {
+                 dt = fiOrderDao.GetRejectionAuthention(orderId);
+             }
+             catch (BaseApplicationException Ex)
+             {
+                 throw Ex;
+             }
+             return dt;
+         }
     }
 }

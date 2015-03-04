@@ -588,8 +588,6 @@ namespace DaoOps
                 db.AddInParameter(createFIOrderTrackingCmd, "@BranchName", DbType.String, orderVo.BankBranchName);
 
                 db.AddInParameter(createFIOrderTrackingCmd, "@AssetInstrumentCategory", DbType.String, FIorderVo.AssetInstrumentCategory);
-                if (FIorderVo.authenticId != 0)
-                    db.AddInParameter(createFIOrderTrackingCmd, "@Isauthenticated", DbType.String, FIorderVo.authenticId);
                 if (!string.IsNullOrEmpty(FIorderVo.BrokerCode))
                     db.AddInParameter(createFIOrderTrackingCmd, "@BrokerCode", DbType.String, FIorderVo.BrokerCode);
                 if(!string.IsNullOrEmpty(FIorderVo.ADRNo))
@@ -948,6 +946,26 @@ namespace DaoOps
             }
             return bResult;
 
+        }
+        public DataTable GetRejectionAuthention(int orderId)
+        {
+            DataSet dsGet54ECOrderDetails;
+            Database db;
+            DbCommand getGet54ECOrderDetails;
+            DataTable dtGet54ECOrderDetails;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getGet54ECOrderDetails = db.GetStoredProcCommand("SPROC_GetAuthentication");
+                db.AddInParameter(getGet54ECOrderDetails, "@orderId", DbType.Int32, orderId);
+                dsGet54ECOrderDetails = db.ExecuteDataSet(getGet54ECOrderDetails);
+                dtGet54ECOrderDetails = dsGet54ECOrderDetails.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dtGet54ECOrderDetails;
         }
     }
 }
