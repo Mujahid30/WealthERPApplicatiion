@@ -141,13 +141,13 @@ namespace DaoOps
 
         }
 
-        public List<int> CreateOrderMFDetails(OrderVo orderVo, MFOrderVo mforderVo, int userId, SystematicSetupVo systematicSetupVo)
+        public List<int> CreateOrderMFDetails(OrderVo orderVo, MFOrderVo mforderVo, int userId, SystematicSetupVo systematicSetupVo,out int setupId)
         {
             List<int> orderIds = new List<int>();
             int OrderId;
             Database db;
             DbCommand createMFOrderTrackingCmd;
-
+            setupId = 0;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -297,11 +297,14 @@ namespace DaoOps
                     db.AddInParameter(createMFOrderTrackingCmd, "@CO_Remarks", DbType.String, mforderVo.Remarks);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@CO_Remarks", DbType.String, DBNull.Value);
+                db.AddOutParameter(createMFOrderTrackingCmd, "@SetupId", DbType.Int32, 10);
 
                 if (db.ExecuteNonQuery(createMFOrderTrackingCmd) != 0)
                 {
                     OrderId = Convert.ToInt32(db.GetParameterValue(createMFOrderTrackingCmd, "CO_OrderId").ToString());
-
+                    setupId = Convert.ToInt32(db.GetParameterValue(createMFOrderTrackingCmd, "SetupId").ToString());
+                  
+                    
                     orderIds.Add(OrderId);
                 }
                 else
@@ -515,7 +518,7 @@ namespace DaoOps
 
         }
 
-        public DataSet GetSipControlDetails(int Scheme )
+        public DataSet GetSipControlDetails(int Scheme,string frequency )
         {
             DataSet dsGetControlDetails;
             Database db;
@@ -525,6 +528,9 @@ namespace DaoOps
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetGetControlDetailsCmd = db.GetStoredProcCommand("SPROC_Offline_SipDetails");
                 db.AddInParameter(GetGetControlDetailsCmd, "@PASP_SchemePlanCode", DbType.Int32, Scheme);
+
+                db.AddInParameter(GetGetControlDetailsCmd, "@XF_SystematicFrequencyCode", DbType.String, frequency);
+                
                 
 
                 dsGetControlDetails = db.ExecuteDataSet(GetGetControlDetailsCmd);

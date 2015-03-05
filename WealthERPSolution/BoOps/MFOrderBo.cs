@@ -51,12 +51,12 @@ namespace BoOps
             }
             return AplicationNODuplicates;
         }
-        public List<int> CreateCustomerMFOrderDetails(OrderVo orderVo, MFOrderVo mforderVo, int userId, SystematicSetupVo SystematicSetupVo)
+        public List<int> CreateCustomerMFOrderDetails(OrderVo orderVo, MFOrderVo mforderVo, int userId, SystematicSetupVo SystematicSetupVo,out int setupId)
         {
             List<int> orderIds = new List<int>();
             try
             {
-                orderIds = mfOrderDao.CreateOrderMFDetails(orderVo, mforderVo, userId, SystematicSetupVo);
+                orderIds = mfOrderDao.CreateOrderMFDetails(orderVo, mforderVo, userId, SystematicSetupVo, out setupId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -221,13 +221,13 @@ namespace BoOps
         }
 
 
-        public DataSet GetSipControlDetails(int scheme )
+        public DataSet GetSipControlDetails(int scheme, string frequency)
         {
             DataSet ds = null;
 
             try
             {
-                ds = mfOrderDao.GetSipControlDetails(scheme  );
+                ds = mfOrderDao.GetSipControlDetails(scheme, frequency);
             }
             catch (BaseApplicationException Ex)
             {

@@ -9,6 +9,14 @@
     </Services>
 </asp:ScriptManager>
 
+<script src="../Scripts/jquery.js" type="text/javascript"></script>
+
+<script src="../Scripts/JScript.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.bxslider.js" type="text/javascript"></script>
+
 <script type="text/javascript">
     function Confirm() {
         var confirm_value = document.createElement("INPUT");
@@ -428,6 +436,30 @@
                                 </td>
                             </tr>
                         </table>
+                    </div>
+                </td>
+            </tr>
+             <tr id="trMessage" runat="server"  >
+                <td colspan="6">
+                    <table class="tblMessage" cellspacing="0">
+                        <tr>
+                            <td align="center">
+                                <div id="div4" align="center">
+                                </div>
+                                <div style="clear: both">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <table class="tblMessage" cellpadding="0" cellspacing="0">
+            <tr>
+                <td align="center">
+                    <div id="divMessage" align="center">
+                    </div>
+                    <div style="clear: both">
                     </div>
                 </td>
             </tr>
