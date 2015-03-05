@@ -2391,5 +2391,35 @@ namespace BoOnlineOrderManagement
             }
             return bResult;
         }
+        public bool InsertUpdateDeleteOnBannerDetails(int id, string assetGroupCode, int userId, string imageName, DateTime expiryDate,int isDelete)
+        {
+            bool bResult = false;
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                bResult = OnlineOrderBackOfficeDao.InsertUpdateDeleteOnBannerDetails( id,  assetGroupCode,  userId,  imageName,  expiryDate, isDelete);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+        public DataTable GetBannerDetailsWithAssetGroup()
+        {
+
+
+            OnlineOrderBackOfficeDao onlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            DataTable dt;
+            try
+            {
+                dt = onlineOrderBackOfficeDao.GetBannerDetailsWithAssetGroup();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dt;
+        }
     }
 }

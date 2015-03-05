@@ -4,13 +4,13 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 
+
 <script src="../Scripts/jquery.js" type="text/javascript"></script>
 
 <script src="../Scripts/JScript.js" type="text/javascript"></script>
 
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
 
-<script src="../Scripts/jquery.bxslider.js" type="text/javascript"></script>
 
 <asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
@@ -54,14 +54,7 @@
 </script>
 
 <script type="text/jscript">
-    jQuery(document).ready(function($) {
-        $('.bxslider').bxSlider(
-    {
-        auto: true,
-        autoControls: true
-    }
-    );
-    });
+  
 
     Sys.WebForms.PageRequestManager.getInstance().add_endRequest(PopupEndRequestHandler);
     
@@ -514,23 +507,5 @@
     <Triggers>
     </Triggers>
 </asp:UpdatePanel>
-<table width="100%" style="padding: 25px;">
-    <tr>
-        <td align="center">
-            <div style="float: left; width: 98%">
-                <ul class="bxslider">
-                    <li>
-                        <img src="../Images/InvestorPageSlider/1.jpg" /></li>
-                    <li>
-                        <img src="../Images/InvestorPageSlider/2.jpg" /></li>
-                    <li>
-                        <img src="../Images/InvestorPageSlider/3.jpg" /></li>
-                    <li>
-                        <img src="../Images/InvestorPageSlider/4.jpg" /></li>
-                    <li>
-                        <img src="../Images/InvestorPageSlider/5.jpg" /></li>
-                </ul>
-            </div>
-        </td>
-    </tr>
-</table>
+
+ <Banner:footer ID="MyHeader" assetCategory="MF" runat="server" />

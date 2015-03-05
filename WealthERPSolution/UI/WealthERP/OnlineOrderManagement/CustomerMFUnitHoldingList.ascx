@@ -10,7 +10,7 @@
 
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
 
-<script src="../Scripts/jquery.bxslider.js" type="text/javascript"></script>
+
 
 <asp:ScriptManager ID="scriptmanager" runat="server">
 </asp:ScriptManager>
@@ -21,18 +21,6 @@
     }
 </style>
 
-<script type="text/jscript">
-    jQuery(document).ready(function($) {
-        $('.bxslider').bxSlider(
-    {
-        auto: true,
-        autoControls: true
-    }
-    );
-    });
-
-        
-</script>
 
 <div class="divOnlinePageHeading" style="float: right; width: 100%">
     <div style="float: right; padding-right: 100px; height: 41px;">
@@ -429,24 +417,5 @@
         </tr>
     </table>
 </asp:Panel>
-<table width="100%" style="padding: 25px;">
-    <tr>
-        <td align="center">
-            <div style="float: left; width: 98%">
-                <ul class="bxslider">
-                    <li>
-                        <img src="../Images/InvestorPageSlider/1.jpg" /></li>
-                    <li>
-                        <img src="../Images/InvestorPageSlider/2.jpg" /></li>
-                    <li>
-                        <img src="../Images/InvestorPageSlider/3.jpg" /></li>
-                    <li>
-                        <img src="../Images/InvestorPageSlider/4.jpg" /></li>
-                    <li>
-                        <img src="../Images/InvestorPageSlider/5.jpg" /></li>
-                </ul>
-            </div>
-        </td>
-    </tr>
-</table>
+<Banner:footer ID="MyHeader" assetCategory="MF" runat="server" />
 <asp:HiddenField ID="hdnAccount" runat="server" Value="0" />

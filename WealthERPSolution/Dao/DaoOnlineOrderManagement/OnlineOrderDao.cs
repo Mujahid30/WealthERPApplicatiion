@@ -118,5 +118,26 @@ namespace DaoOnlineOrderManagement
             return dtClientKYC;
 
         }
+        public DataTable GetImageListForBanner(string assetGroupCode)
+        {
+            DataSet dsGetImageListForBanner;
+            DataTable dtGetImageListForBanner;
+            Database db;
+            DbCommand cmdGetImageListForBanner;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetImageListForBanner = db.GetStoredProcCommand("SPROC_GetImageListForBanner");
+                db.AddInParameter(cmdGetImageListForBanner, "@AssetGroupCode", DbType.String, assetGroupCode);
+
+                dsGetImageListForBanner = db.ExecuteDataSet(cmdGetImageListForBanner);
+                dtGetImageListForBanner = dsGetImageListForBanner.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetImageListForBanner;
+        }
     }
 }

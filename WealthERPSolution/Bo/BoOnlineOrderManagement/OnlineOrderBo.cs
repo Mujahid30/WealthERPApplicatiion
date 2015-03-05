@@ -162,5 +162,21 @@ namespace BoOnlineOrderManagement
             }
             return message;
         }
+        public DataTable GetImageListForBanner(string assetGroupCode)
+        {
+
+
+            OnlineOrderDao onlineOrderDao = new OnlineOrderDao();
+            DataTable dt;
+            try
+            {
+                dt = onlineOrderDao.GetImageListForBanner(assetGroupCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dt;
+        }
     }
 }

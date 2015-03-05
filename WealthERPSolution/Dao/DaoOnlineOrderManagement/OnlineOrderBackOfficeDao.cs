@@ -2628,7 +2628,7 @@ namespace DaoOnlineOrderManagement
             bool bResult = false;
             Database db;
             DbCommand UpdateNewSubBrokerCode;
-            DataSet dsUpdateNewSubBrokerCode = new DataSet();  
+            DataSet dsUpdateNewSubBrokerCode = new DataSet();
 
             try
             {
@@ -2854,7 +2854,7 @@ namespace DaoOnlineOrderManagement
             return bResult;
 
         }
-        public DataTable GetUTIAMCDetails(int adviserId,DateTime fromDate,DateTime toDate)
+        public DataTable GetUTIAMCDetails(int adviserId, DateTime fromDate, DateTime toDate)
         {
             DataSet dsGetUTIAMCDetails;
             DataTable dtGetUTIAMCDetails;
@@ -2883,7 +2883,7 @@ namespace DaoOnlineOrderManagement
             DbCommand ProductcodeDeletecmd;
             try
             {
-                
+
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 ProductcodeDeletecmd = db.GetStoredProcCommand("SPROC_DeleteProductCode");
                 db.AddInParameter(ProductcodeDeletecmd, "@ScheneMappingId", DbType.Int32, ScheneMappingId);
@@ -2895,6 +2895,53 @@ namespace DaoOnlineOrderManagement
                 throw Ex;
             }
             return bResult;
+        }
+        public bool InsertUpdateDeleteOnBannerDetails(int id, string assetGroupCode, int userId, string imageName, DateTime expiryDate, int isDelete)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand insertUpdateDeleteOnBannerDetailscmd;
+            try
+            {
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                insertUpdateDeleteOnBannerDetailscmd = db.GetStoredProcCommand("SPROC_InsertUpdateDeleteOnBannerDetails");
+                db.AddInParameter(insertUpdateDeleteOnBannerDetailscmd, "@AssetGroupCode", DbType.String, assetGroupCode);
+                db.AddInParameter(insertUpdateDeleteOnBannerDetailscmd, "@UserId", DbType.Int32, userId);
+                db.AddInParameter(insertUpdateDeleteOnBannerDetailscmd, "@ImageName", DbType.String, imageName);
+                db.AddInParameter(insertUpdateDeleteOnBannerDetailscmd, "@ExpiryDate", DbType.DateTime, expiryDate);
+                db.AddInParameter(insertUpdateDeleteOnBannerDetailscmd, "@ID", DbType.Int32, id);
+                db.AddInParameter(insertUpdateDeleteOnBannerDetailscmd, "@IsDelete", DbType.Int32, isDelete);
+                if (db.ExecuteNonQuery(insertUpdateDeleteOnBannerDetailscmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+
+        public DataTable GetBannerDetailsWithAssetGroup()
+        {
+            DataSet dsGetBannerDetailsWithAssetGroup;
+            DataTable dtGetBannerDetailsWithAssetGroup;
+            Database db;
+            DbCommand cmdGetBannerDetailsWithAssetGroup;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetBannerDetailsWithAssetGroup = db.GetStoredProcCommand("SPROC_GetBannerDetailsWithAssetGroup");
+                //db.AddInParameter(cmdGetUTIAMCDetails, "@adviserId", DbType.Int32, adviserId);
+
+                dsGetBannerDetailsWithAssetGroup = db.ExecuteDataSet(cmdGetBannerDetailsWithAssetGroup);
+                dtGetBannerDetailsWithAssetGroup = dsGetBannerDetailsWithAssetGroup.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetBannerDetailsWithAssetGroup;
         }
     }
 }
