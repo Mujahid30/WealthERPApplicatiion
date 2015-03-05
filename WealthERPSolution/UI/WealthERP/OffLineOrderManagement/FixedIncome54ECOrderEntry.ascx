@@ -509,7 +509,7 @@
                                 AutoPostBack="false" Checked="true" onclick="javascript:ShowSubmitAndSave();" />
                             <br />--%>
                             <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="ddlCustomerSubType"
-                                ErrorMessage="<br />Please select a Customer Sub Type" Operator="NotEqual" ValueToCompare="0"
+                                ErrorMessage="<br />Please select a Customer Sub-Type" Operator="NotEqual" ValueToCompare="0"
                                 CssClass="cvPCG" Display="Dynamic" ValidationGroup="btnCustomerSubmit"></asp:CompareValidator>
                         </td>
                     </tr>
@@ -523,7 +523,7 @@
                             <asp:CheckBox ID="chkdummypan" runat="server" Visible="false" CssClass="txtField"
                                 Text="Dummy PAN" AutoPostBack="true" />
                             <br />
-                            <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPanNumber" ErrorMessage="Please Enter a PAN Number"
+                            <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPanNumber" ErrorMessage="Please enter a PAN Number"
                                 Display="Dynamic" runat="server" ValidationGroup="btnCustomerSubmit" CssClass="rfvPCG">
                             </asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="revPan" runat="server" Display="Dynamic" CssClass="rfvPCG"
@@ -567,7 +567,7 @@
                                 Enabled="True" TargetControlID="txtLastName" WatermarkText="LastName">
                             </cc1:TextBoxWatermarkExtender>--%>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="txtFirstName"
-                                ErrorMessage="<br />Please Enter the First Name" ValidationGroup="btnCustomerSubmit"
+                                ErrorMessage="<br />Please enter the First Name" ValidationGroup="btnCustomerSubmit"
                                 Display="Dynamic" runat="server" CssClass="rfvPCG">
                             </asp:RequiredFieldValidator>
                         </td>
@@ -610,7 +610,7 @@
                                 ValidationExpression="^\d{10,10}$">
                             </asp:RegularExpressionValidator>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator11" ControlToValidate="txtMobileNumber"
-                                ErrorMessage="Please Enter Mobile No." ValidationGroup="btnCustomerSubmit"
+                                ErrorMessage="Please enter a Contact Number" ValidationGroup="btnCustomerSubmit"
                                 Display="Dynamic" runat="server" CssClass="rfvPCG">
                             </asp:RequiredFieldValidator>
                         </td>
@@ -681,6 +681,12 @@
                     <td id="tdauthentication" runat="server" class="rightField" style="width: 20%;">
                         <%--<asp:CheckBox ID="chkAuthentication" runat="server" CssClass="cmbFielde" Text="Authenticate"
                     OnCheckedChanged="chkAuthentication_OnCheckedChanged" AutoPostBack="true" />--%>
+                <asp:RadioButton ID="rbtnAuthentication" runat="server" CssClass="txtField" Text="Authenticate"
+                    GroupName="rejAut" AutoPostBack="true" OnCheckedChanged="rbtnAuthentication_OnCheckedChanged" />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:RadioButton ID="rbtnReject" runat="server" CssClass="txtField" Text="Rejected"
+                    GroupName="rejAut" AutoPostBack="true" OnCheckedChanged="rbtnReject_CheckedChanged" />
+                <%--  <asp:CustomValidator ID="CustomValidator1" runat="server" ValidationGroup="location"
                         <asp:RadioButton ID="rbtnAuthentication" runat="server" CssClass="txtField" Text="Authenticate"
                             GroupName="rejAut" AutoPostBack="true" OnCheckedChanged="rbtnAuthentication_OnCheckedChanged"
                             Checked="true" />
@@ -860,7 +866,7 @@
                             CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem" CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                             UseContextKey="True" DelimiterCharacters="" Enabled="True" ShowOnlyCurrentWordInCompletionListItem="true" />
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtAssociateSearch"
-                            ErrorMessage="<br />Please Enter a Sub Broker Code" Display="Dynamic" runat="server"
+                            ErrorMessage="<br />Please Enter a  Broker Code" Display="Dynamic" runat="server"
                             CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
                     </td>
                     <td align="right">
@@ -1014,13 +1020,13 @@
                             </tr>
                             <tr>
                                 <td align="right">
-                                    <asp:Label ID="lblMinQty" runat="server" CssClass="FieldName" Text="Min. Qty:"></asp:Label>
+                                    <asp:Label ID="lblMinQty" runat="server" CssClass="FieldName" Text="Min. Qty.:"></asp:Label>
                                 </td>
                                 <td>
                                     <asp:Label ID="lblMinQuentity" runat="server" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="right">
-                                    <asp:Label ID="lblMaxQty" runat="server" CssClass="FieldName" Text="Max. Qty:"></asp:Label>
+                                    <asp:Label ID="lblMaxQty" runat="server" CssClass="FieldName" Text="Max. Qty.:"></asp:Label>
                                 </td>
                                 <td>
                                     <asp:Label ID="lblMaxQuentity" runat="server" CssClass="FieldName"></asp:Label>
@@ -1198,8 +1204,7 @@
                         <asp:TextBox ID="txtExistDepositreceiptno" runat="server" CssClass="txtField" AutoComplete="Off"
                             AutoPostBack="True" TabIndex="20" />
                     </td>
-                    <td style="width: 5%">
-                    </td>
+                    
                     <td class="leftField" style="width: 10%">
                         <asp:Label ID="Label17" runat="server" Text="Renewal Amount:" CssClass="FieldName"
                             OnTextChanged="OnPayAmtTextchanged"></asp:Label>
@@ -1245,7 +1250,7 @@
                         </asp:RegularExpressionValidator>
                     </td>
                     <td align="right" style="width: 15%" id="tdlblADRNo" visible="false">
-                        <asp:Label ID="lblADRNo" runat="server" Text="ADR NO:" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblADRNo" runat="server" Text="FDR NO:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td style="width: 30%" id="tdtxtADRNo" visible="false">
                         <asp:TextBox ID="txtADRNo" runat="server" CssClass="txtField" AutoComplete="Off"
@@ -1394,8 +1399,8 @@
                     </td>
                 </tr>
                 <tr id="trAmount" runat="server">
-                    <td class="leftField" style="width: 15%">
-                        <asp:Label ID="lblMode" runat="server" Text="Mode of Payment:" CssClass="FieldName"></asp:Label>
+                    <td class="leftField">
+                        <asp:Label ID="lblMode" runat="server" Text="Mode Of Payment:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td class="rightField" style="width: 20%">
                         <asp:DropDownList ID="ddlPaymentMode" runat="server" AutoPostBack="true" CssClass="cmbField"
@@ -1505,8 +1510,9 @@
                     <td align="left" colspan="3">
                         <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmit_Click"
                             ValidationGroup="MFSubmit" TabIndex="38" />
-                        <asp:Button ID="btnAddMore" runat="server" Text="Save & AddMore" CssClass="PCGMediumButton"
-                            Visible="false" ValidationGroup="MFSubmit" TabIndex="39" />
+                            
+                        <asp:Button ID="btnAddMore" runat="server" Text="AddMore" CssClass="PCGMediumButton"
+                            Visible="false" ValidationGroup="MFSubmit" TabIndex="39" OnClick="btnAddMore_OnClick"/>
                         <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="PCGButton" ValidationGroup="MFSubmit"
                             Visible="false" OnClick="btnUpdate_Click" TabIndex="40" />
                     </td>
@@ -1636,3 +1642,4 @@
 <asp:HiddenField ID="hdnButtonAction" runat="server" />
 <asp:HiddenField ID="hdnMaxQty" runat="server" />
 <asp:HiddenField ID="hdnPortfolioId" runat="server" />
+<asp:HiddenField ID="hdnOrderNo" runat="server" />

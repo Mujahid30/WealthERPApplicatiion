@@ -39,6 +39,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnFIEdit;
+        protected global::System.Web.UI.WebControls.HiddenField hdnOrderNo;
         
         /// <summary>
         /// lnlFIBack control.

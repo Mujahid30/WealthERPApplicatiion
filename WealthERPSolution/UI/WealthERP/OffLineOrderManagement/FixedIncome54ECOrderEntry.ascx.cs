@@ -197,6 +197,7 @@ namespace WealthERP.OffLineOrderManagement
                     {
                         orderId = int.Parse(Request.QueryString["orderId"].ToString());
                         ViewState["orderId"] = orderId;
+                        hdnOrderNo.Value = orderId.ToString();
                         txtCustomerId.Value = Request.QueryString["customeId"].ToString();
                         if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
                             GetUserType();
@@ -347,7 +348,7 @@ namespace WealthERP.OffLineOrderManagement
                 if (dtDpProofTypes.Tables[0].Rows.Count > 0)
                 {
                     ddlTax.DataSource = dtDpProofTypes.Tables[0];
-                    ddlTax.DataValueField = dtDpProofTypes.Tables[0].Columns["WCMV_Name"].ToString();
+                    ddlTax.DataValueField = dtDpProofTypes.Tables[0].Columns["C_WCMV_TaxStatus_Id"].ToString();
                     ddlTax.DataTextField = dtDpProofTypes.Tables[0].Columns["WCMV_Name"].ToString();
                     ddlTax.DataBind();
                 }
@@ -498,10 +499,10 @@ namespace WealthERP.OffLineOrderManagement
             tdTxtQty.Visible = true;
             tdlblADRNo.Visible = false;
             tdtxtADRNo.Visible = false;
-            if (ddlCategory.SelectedIndex != 0)
+            if (ddlCategory.SelectedIndex != 0 && ddlTax.SelectedValue!=string.Empty)
             {
 
-                FIScheme(advisorVo.advisorId, ddlCategory.SelectedValue);
+                FIScheme(advisorVo.advisorId, ddlCategory.SelectedValue, int.Parse(ddlTax.SelectedValue));
             }
 
             // FIIssuer(advisorVo.advisorId);
@@ -825,13 +826,14 @@ namespace WealthERP.OffLineOrderManagement
                 GetFICOntrolsValues();
                 SetFICOntrolsEnablity(false);
                 btnSubmit.Visible = false;
-                btnAddMore.Visible = false;
+                btnAddMore.Visible = true;
                 lnkBtnFIEdit.Visible = true;
                 btnSubmit.Enabled = true;
                 tbUploadDocument.Visible = true;
                 gvUploadDocument.Visible = true;
                 //BtnFileupload.Visible = true;
                 // btnUpdate.Visible = true;
+                ReqQty.Visible = false;
                 SetFICOntrolsEnablity(false);
             }
             else
@@ -920,7 +922,7 @@ namespace WealthERP.OffLineOrderManagement
             lnkBtnFIEdit.Visible = false;
             GetAuthentication();
             lnkBtnEdit();
-            
+            trOfficeUse.Visible = true;
             msgRecordStatus.Visible = false;
 
         }
@@ -1135,7 +1137,7 @@ namespace WealthERP.OffLineOrderManagement
                 lblGetOrderNo.Text = orderId.ToString();
                 lblOrderNumber.Text = "Order No.";
                 ViewState["orderno"] = orderId;
-
+                hdnOrderNo.Value = orderId.ToString();
                 ShowMessage("Order placed successfully, Order reference no. is " + lblGetOrderNo.Text);
                 //   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
                 tbUploadDocument.Visible = true;
@@ -1513,7 +1515,7 @@ namespace WealthERP.OffLineOrderManagement
         protected void ddlIssuer_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlIssuer.SelectedIndex != 0)
-                FIScheme(advisorVo.advisorId, ddlIssuer.SelectedValue);
+                FIScheme(advisorVo.advisorId, ddlIssuer.SelectedValue,int.Parse(ddlTax.SelectedValue));
         }
 
         protected void OnPayAmtTextchanged(object sender, EventArgs e)
@@ -1559,7 +1561,10 @@ namespace WealthERP.OffLineOrderManagement
             rwDematDetails.VisibleOnPageLoad = false;
 
         }
-
+        protected void btnAddMore_OnClick(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderEntry','login');", true);
+        }
         private void BindgvFamilyAssociate(int demataccountid)
         {
             gvAssociate.Visible = true;
@@ -1604,12 +1609,12 @@ namespace WealthERP.OffLineOrderManagement
             }
         }
 
-        private void FIScheme(int AdviserId, string category)
+        private void FIScheme(int AdviserId, string category,int custCategory)
         {
             DataSet dsScheme = new DataSet();
             ddlScheme.DataSource = dsScheme;
             Label12.Text = string.Empty;
-            dsScheme = fiorderBo.GetFIScheme(AdviserId, category);
+            dsScheme = fiorderBo.GetFIScheme(AdviserId, category, int.Parse(ddlTax.SelectedValue));
             if (dsScheme.Tables[0].Rows.Count > 0)
             {
                 ddlScheme.DataSource = dsScheme;
@@ -4424,9 +4429,16 @@ namespace WealthERP.OffLineOrderManagement
                     tdTxtQty.Visible = false;
                     tdlblADRNo.Visible = true;
                     tdtxtADRNo.Visible = true;
+                    FIScheme(advisorVo.advisorId, ddlCategory.SelectedValue, int.Parse(ddlTax.SelectedValue));
+                    ddlScheme.SelectedValue = dr["AIM_IssueId"].ToString();
+
                 }
-                FIScheme(advisorVo.advisorId, ddlCategory.SelectedValue);
-                ddlScheme.SelectedValue = dr["AIM_IssueId"].ToString();
+                else
+                {
+                    FIScheme(advisorVo.advisorId, ddlCategory.SelectedValue,0);
+                    ddlScheme.SelectedValue = dr["AIM_IssueId"].ToString();
+
+                }
                 DDLSchemeSelection();
                 BindSubbroker(int.Parse(dr["AIM_IssueId"].ToString()));
                 FISeries(int.Parse(dr["AIM_IssueId"].ToString()));
@@ -5153,17 +5165,10 @@ namespace WealthERP.OffLineOrderManagement
         protected void btnSubmitAuthenticate_btnSubmit(object sender, EventArgs e)
         {
             bool lbResult = false;
-            if(Request.QueryString["orderId"]!=null)
-            {
-                orderId= int.Parse(ViewState["orderId"].ToString());
-            }
-            else
-            {
-               orderId= int.Parse(ViewState["orderno"].ToString());
-            }
+           
             if (rbtnAuthentication.Checked == true || rbtnReject.Checked == true)
             {
-                lbResult = OfflineBondOrderBo.CancelBondsFDBookOrder(orderId, txtRejectReseaon.Text, userVo.UserId, (rbtnReject.Checked) ? false : true, ddlBrokerCode.SelectedValue);
+                lbResult = OfflineBondOrderBo.CancelBondsFDBookOrder(int.Parse(hdnOrderNo.Value), txtRejectReseaon.Text, userVo.UserId, (rbtnReject.Checked) ? false : true, ddlBrokerCode.SelectedValue);
                 btnSubmitAuthenticate.Visible = false;
                 rbtnAuthentication.Enabled = false;
                 rbtnReject.Enabled=false;

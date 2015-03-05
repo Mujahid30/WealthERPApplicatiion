@@ -162,6 +162,7 @@ namespace DaoOfflineOrderManagement
                 db.AddInParameter(cmdUpdateIPOBidOrderDetails, "@DematBeneficiaryAccountNum", DbType.String, onlineIPOOrderVo.DematBeneficiaryAccountNum);
                 db.AddInParameter(cmdUpdateIPOBidOrderDetails, "@DematDepositoryName", DbType.String, onlineIPOOrderVo.DematDepositoryName);
                 db.AddInParameter(cmdUpdateIPOBidOrderDetails, "@DematDPId", DbType.String, onlineIPOOrderVo.DematDPId);
+                db.AddInParameter(cmdUpdateIPOBidOrderDetails, "@customerbankAccId", DbType.Int64, onlineIPOOrderVo.BankAccountNo);
                 if (db.ExecuteNonQuery(cmdUpdateIPOBidOrderDetails) != 0)
                     bResult = true;
             }

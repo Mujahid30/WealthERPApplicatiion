@@ -148,12 +148,12 @@ namespace BoOps
 
         }
 
-        public DataSet GetFIScheme(int AdviserID, string IssuerID)
+        public DataSet GetFIScheme(int AdviserID, string IssuerID, int customerSubType)
         {
             DataSet dsGetFIScheme;
             try
             {
-                dsGetFIScheme = fiOrderDao.GetFIScheme(AdviserID, IssuerID);
+                dsGetFIScheme = fiOrderDao.GetFIScheme(AdviserID, IssuerID, customerSubType);
             }
             catch (BaseApplicationException Ex)
             {

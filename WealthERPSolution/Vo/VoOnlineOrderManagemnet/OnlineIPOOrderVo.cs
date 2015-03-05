@@ -11,7 +11,7 @@ namespace VoOnlineOrderManagemnet
         public int IPOIssueBidQuantity { set; get; }
         public double IPOIssueBidPrice { set; get; }
         public double IPOIssueBidAmount { set; get; }
-
+        public long BankAccountNo { get; set; }
         public string CustomerName { set; get; }
         public string CustomerPAN { set; get; }
         public string CustomerType { set; get; }

@@ -301,8 +301,8 @@ namespace WealthERP.OffLineOrderManagement
                         {
                             txtPaymentInstDate.SelectedDate = Convert.ToDateTime(dr["CO_PaymentDate"].ToString());
                         }
-                        
-                        txtBankAccount.Text = dr["COID_DepCustBankAccId"].ToString();
+
+                        txtBankAccount.Text = dr["COID_DepCustBankAccId"].ToString().Substring(0, dr["COID_DepCustBankAccId"].ToString().IndexOf('.'));
                         trPINo.Visible = true;
                         lblBankAccount.Visible = true;
                         txtBankAccount.Visible = true;
@@ -468,6 +468,8 @@ namespace WealthERP.OffLineOrderManagement
                         drIPOBid["ChequeNo"] = txtPaymentNumber.Text.Trim();
                     if (!string.IsNullOrEmpty(txtPaymentInstDate.SelectedDate.ToString()))
                         drIPOBid["ChequeDate"] = txtPaymentInstDate.SelectedDate.Value.ToString("yyyy/MM/dd");
+                    if (!string.IsNullOrEmpty(txtBankAccount.Text))
+                        onlineIPOOrderVo.BankAccountNo = Int64.Parse(txtBankAccount.Text);
 
                 }
                 if (ddlPaymentMode.SelectedValue == "ES")
