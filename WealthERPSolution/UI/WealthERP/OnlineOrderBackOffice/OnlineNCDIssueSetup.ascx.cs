@@ -710,6 +710,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     if (!string.IsNullOrEmpty(dr["XB_BrokerId"].ToString()))
                     {
                         StringBuilder sbBroker = new StringBuilder();
+                        StringBuilder sbBrokerId = new StringBuilder();
+
                         string[] ar = dr["XB_BrokerId"].ToString().Split(',');
                         foreach (ListItem li in chblBroker.Items)
                         {
@@ -719,10 +721,12 @@ namespace WealthERP.OnlineOrderBackOffice
                                 {
                                     li.Selected = true;
                                     sbBroker = sbBroker.Append(li.Text + ',');
+                                    sbBrokerId = sbBrokerId.Append(li.Value + ',');
                                 }
                             }
                         }
                         lblBrokerIds.Text = sbBroker.ToString().TrimEnd(',');
+                        hdnBrokerIds.Value = sbBrokerId.ToString().TrimEnd(',');
                     }
 
 
