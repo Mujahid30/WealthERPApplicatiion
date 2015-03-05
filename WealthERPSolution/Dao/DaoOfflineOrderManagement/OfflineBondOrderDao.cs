@@ -154,6 +154,8 @@ namespace DaoOfflineOrderManagement
                 db.AddInParameter(cmdOfflineBondTransact, "@DematBeneficiaryAccountNum", DbType.String, OnlineBondVo.DematBeneficiaryAccountNum);
                 db.AddInParameter(cmdOfflineBondTransact, "@DematDepositoryName", DbType.String, OnlineBondVo.DematDepositoryName);
                 db.AddInParameter(cmdOfflineBondTransact, "@DematDPId", DbType.String, OnlineBondVo.DematDPId);
+                db.AddInParameter(cmdOfflineBondTransact, "@customerBankAccountID", DbType.Double, OnlineBondVo.BankAccountNo);
+                
                 if (db.ExecuteNonQuery(cmdOfflineBondTransact) != 0)
                 {
 

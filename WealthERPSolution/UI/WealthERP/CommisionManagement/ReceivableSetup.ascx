@@ -2018,23 +2018,28 @@
                                 <asp:Label ID="Label15" runat="server" Text="Associate Payable Mapped"></asp:Label>
                             </div>
                             <div class="divTextCenter">
-                                
                             </div>
                         </div>
                     </td>
                     <td>
-                    <asp:ImageButton ID="imgMapping" runat="server" ImageUrl="~/Images/index.png" OnClick="OnClick_imgMapping"
-                                    ToolTip="Click here to reload the associate payable mapped" Height="35px" Width="35px"
-                                    Style="float: right; cursor: hand;" />
+                        <asp:ImageButton ID="ImageButton6" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                            runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="ibtExport_OnClick"
+                            Height="25px" Width="25px" Visible="false"></asp:ImageButton>
+                    </td>
+                    <td>
+                        <asp:ImageButton ID="imgMapping" runat="server" ImageUrl="~/Images/index.png" OnClick="OnClick_imgMapping"
+                            ToolTip="Click here to reload the associate payable mapped" Height="35px" Width="35px"
+                            Style="float: right; cursor: hand;" />
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <telerik:RadGrid ID="gvPayaMapping" AllowSorting="false" runat="server" AllowAutomaticInserts="false"
-                            AllowPaging="True" AutoGenerateColumns="False" AllowFilteringByColumn="true" ShowHeader="true"
-                            EnableEmbeddedSkins="false" GridLines="none" ShowFooter="true" PagerStyle-AlwaysVisible="true"
-                            EnableViewState="true" ShowStatusBar="true" Skin="Telerik" OnNeedDataSource="gvPayaMapping_NeedDataSource"
-                            OnItemCommand="gvPayaMapping_ItemCommand" Visible="false" >
+                            AllowPaging="True" AutoGenerateColumns="False" AllowFilteringByColumn="true"
+                            ShowHeader="true" EnableEmbeddedSkins="false" GridLines="none" ShowFooter="true"
+                            PagerStyle-AlwaysVisible="true" EnableViewState="true" ShowStatusBar="true" Skin="Telerik"
+                            OnNeedDataSource="gvPayaMapping_NeedDataSource" OnItemCommand="gvPayaMapping_ItemCommand"
+                            Visible="false">
                             <HeaderContextMenu EnableEmbeddedSkins="False">
                             </HeaderContextMenu>
                             <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="PayableMapping"
@@ -2056,9 +2061,9 @@
                                         ReadOnly="true">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="40px" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                      <telerik:GridBoundColumn DataField="CSRD_BrokageValue" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
-                                        ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Broker/Rate(%)" UniqueName="CSRD_BrokageValue"
-                                        ReadOnly="true">
+                                    <telerik:GridBoundColumn DataField="CSRD_BrokageValue" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
+                                        ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Broker/Rate(%)"
+                                        UniqueName="CSRD_BrokageValue" ReadOnly="true">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="40px" Wrap="false" />
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="AAC_AdviserAgentId" HeaderStyle-Width="70px"

@@ -30,6 +30,7 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.WebControls.ImageButton ImageButton5;
         protected global::System.Web.UI.WebControls.ImageButton imgBuy1;
         protected global::System.Web.UI.WebControls.ImageButton ImageButton4;
+        protected global::System.Web.UI.WebControls.ImageButton ImageButton6;
         /// <summary>
         /// pnl1 control.
         /// </summary>

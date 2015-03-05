@@ -660,7 +660,7 @@ namespace WealthERP.OffLineOrderManagement
                     OnlineBondVo.ChequeNumber = txtPaymentNumber.Text;
                     OnlineBondVo.PaymentDate = DateTime.Parse(txtPaymentInstDate.SelectedDate.ToString());
                     if(!string.IsNullOrEmpty(txtBankAccount.Text))
-                    OnlineBondVo.BankAccid = int.Parse(txtBankAccount.Text);
+                        OnlineBondVo.BankAccountNo = Int64.Parse(txtBankAccount.Text);
                 }
                 OnlineBondVo.PanNo = txtPanNumber.Text;
                 OnlineBondVo.AgentNo = txtAssociateSearch.Text;
@@ -1065,7 +1065,7 @@ namespace WealthERP.OffLineOrderManagement
                         ddlPaymentMode.SelectedValue = "CQ";
                         txtPaymentNumber.Text = dr["CO_ChequeNumber"].ToString();
                         txtPaymentInstDate.SelectedDate = Convert.ToDateTime(dr["CO_PaymentDate"].ToString());
-                        txtBankAccount.Text = dr["COID_DepCustBankAccId"].ToString();
+                        txtBankAccount.Text = dr["COID_DepCustBankAccId"].ToString().Substring( 0, dr["COID_DepCustBankAccId"].ToString().IndexOf('.'));
                         Td3.Visible = true;
                         Td4.Visible = true;
                         trPINo.Visible = true;

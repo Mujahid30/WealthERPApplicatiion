@@ -32,7 +32,7 @@ namespace VoOnlineOrderManagemnet
         public string Remarks { get; set; }
         public string PanNo { get; set; }
         public string AgentNo { get; set; }
-
+        public long BankAccountNo { get; set; }
         public string CustomerName { set; get; }
         public string CustomerPAN { set; get; }
         public string CustomerType { set; get; }

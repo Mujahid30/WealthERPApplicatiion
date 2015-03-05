@@ -3718,6 +3718,7 @@ namespace WealthERP.Receivable
             gvPayaMapping.DataSource = dsPayable;
             gvPayaMapping.DataBind();
             gvPayaMapping.Visible = true;
+            ImageButton6.Visible = true;
             if (Cache[userVo.UserId.ToString() + "CommissionPayable"] != null)
                 Cache.Remove(userVo.UserId.ToString() + "CommissionPayable");
             Cache.Insert(userVo.UserId.ToString() + "CommissionPayable", dsPayable);
@@ -3856,6 +3857,19 @@ namespace WealthERP.Receivable
         }
         protected void ddlCommissionype_OnSelectedIndexChanged(object sender, EventArgs e)
         {
+
+        }
+        public void ibtExport_OnClick(object sender, ImageClickEventArgs e)
+        {
+            //  gvIPOOrderBook.MasterTableView.DetailTables[0].HierarchyDefaultExpanded = true;
+            gvPayaMapping.MasterTableView.HierarchyLoadMode = GridChildLoadMode.ServerBind;
+            gvPayaMapping.ExportSettings.OpenInNewWindow = true;
+            gvPayaMapping.ExportSettings.IgnorePaging = true;
+            gvPayaMapping.ExportSettings.HideStructureColumns = true;
+            gvPayaMapping.ExportSettings.ExportOnlyData = true;
+            gvPayaMapping.ExportSettings.FileName = "Associate Payable List";
+            gvPayaMapping.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvPayaMapping.MasterTableView.ExportToExcel();
 
         }
     }
