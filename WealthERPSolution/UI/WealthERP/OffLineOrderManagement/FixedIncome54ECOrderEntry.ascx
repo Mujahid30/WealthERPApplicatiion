@@ -958,9 +958,10 @@
                     <td align="left" style="width: 35%">
                         <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField" TabIndex="10">
                         </asp:DropDownList>
-                        <asp:RequiredFieldValidator ID="rcvBrokerCode" ControlToValidate="ddlBrokerCode"
+                         <span id="Span18" runat="server" class="spnRequiredField">*</span>
+                     <%--   <asp:RequiredFieldValidator ID="rcvBrokerCode" ControlToValidate="ddlBrokerCode"
                             ErrorMessage="<br />Please Select Broker" Display="Dynamic" runat="server" CssClass="rfvPCG"
-                            ValidationGroup="MFSubmit" InitialValue=""></asp:RequiredFieldValidator>
+                            ValidationGroup="MFSubmit" InitialValue=""></asp:RequiredFieldValidator>--%>
                     </td>
                 </tr>
                 <tr>

@@ -1922,9 +1922,10 @@
                                                                                 <td class="rightData" id="tdddlBrokerCode" runat="server" visible="true">
                                                                                     <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField">
                                                                                     </asp:DropDownList>
-                                                                                    <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator13" ControlToValidate="ddlBrokerCode"
-                    ErrorMessage="<br />Please Select Broker" Display="Dynamic" runat="server" CssClass="rfvPCG"
-                    ValidationGroup="btnSubmitAuthenticate" InitialValue=""></asp:RequiredFieldValidator>--%>
+                                                                                    <span id="Span13" class="spnRequiredField">*</span>
+                                                                                    <asp:RequiredFieldValidator ID="ReqddlBrokerCode" ControlToValidate="ddlBrokerCode"
+                                                                                        ErrorMessage="<br />Please Select Broker" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                                                                                        ValidationGroup="rgApllOk" InitialValue="0"></asp:RequiredFieldValidator>
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>

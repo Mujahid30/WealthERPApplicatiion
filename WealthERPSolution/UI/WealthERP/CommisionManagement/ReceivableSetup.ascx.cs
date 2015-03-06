@@ -1323,9 +1323,9 @@ namespace WealthERP.Receivable
                 }
                 if (ddlSubInstrCategory.SelectedValue == "FISDSD")
                 {
-                    chkMode.Visible = true;
-                    tdddlMode.Visible = true;
-                    tdlblMode.Visible = true;
+                    chkMode.Visible = false;
+                    tdddlMode.Visible = false;
+                    tdlblMode.Visible = false;
                 }
                 if (ddlProductType.SelectedValue == "IP")
                 {
@@ -1582,9 +1582,9 @@ namespace WealthERP.Receivable
                     if (mode != "")
                     {
                         ddlMode.SelectedValue = mode;
-                        chkMode.Checked = true;
-                        tdlblMode.Visible = true;
-                        tdddlMode.Visible = true;
+                        chkMode.Checked = false;
+                        tdlblMode.Visible = false;
+                        tdddlMode.Visible = false;
                     }
                     //DropDownList ddlCommisionCalOn = (DropDownList)RadGridStructureRule.FindControl("ddlCommisionCalOn");
                     if (seriseid != 0)
@@ -1752,9 +1752,9 @@ namespace WealthERP.Receivable
                 }
                 if (ddlSubInstrCategory.SelectedValue == "FISDSD")
                 {
-                    chkMode.Visible = true;
-                    tdddlMode.Visible = true;
-                    tdlblMode.Visible = true;
+                    chkMode.Visible = false;
+                    tdddlMode.Visible = false;
+                    tdlblMode.Visible = false;
                 }
             }
             //if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)
@@ -3793,8 +3793,8 @@ namespace WealthERP.Receivable
             System.Web.UI.HtmlControls.HtmlTableCell tdddlMode = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdddlMode");
             if (chkMode.Checked == true)
             {
-                tdlblMode.Visible = true;
-                tdddlMode.Visible = true;
+                tdlblMode.Visible = false;
+                tdddlMode.Visible = false;
             }
             else
             {

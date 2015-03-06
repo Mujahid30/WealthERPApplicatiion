@@ -922,6 +922,7 @@ namespace WealthERP.OffLineOrderManagement
             lnkBtnFIEdit.Visible = false;
             GetAuthentication();
             lnkBtnEdit();
+            btnAddMore.Visible = false;
             trOfficeUse.Visible = true;
             msgRecordStatus.Visible = false;
 
