@@ -126,12 +126,23 @@
                         <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                             ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
                         <Columns>
-                            <telerik:GridBoundColumn DataField="CMFSS_RegistrationDate" DataFormatString="{0:dd/MM/yyyy HH:mm:ss}"
+                          <%--  <telerik:GridBoundColumn DataField="CMFSS_RegistrationDate" 
                                 AllowFiltering="true" HeaderText="Request Date/Time" UniqueName="CMFSS_RegistrationDate"
                                 SortExpression="CMFSS_RegistrationDate" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="120px" FilterControlWidth="60px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top"  />
+                            </telerik:GridBoundColumn>--%>
+                            
+                            
+                             <telerik:GridBoundColumn DataField="CMFSS_RegistrationDate" AllowFiltering="false" HeaderText="Request Date/Time"
+                                HeaderStyle-Width="80px" UniqueName="CMFSS_RegistrationDate" SortExpression="CMFSS_RegistrationDate"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
+                            
+                            
+                            
+                            
                             <telerik:GridBoundColumn AllowFiltering="true" DataField="CMFSS_SystematicSetupId"
                                 AutoPostBackOnFilter="true" HeaderText="Request No." ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="CMFSS_SystematicSetupId" FooterStyle-HorizontalAlign="Right"

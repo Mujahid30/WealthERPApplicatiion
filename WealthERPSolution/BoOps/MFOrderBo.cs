@@ -51,6 +51,64 @@ namespace BoOps
             }
             return AplicationNODuplicates;
         }
+
+        public DateTime[] GetSipStartDates(int schemePlanCode, string sipFreqCode)
+        {
+            DataSet dsSipDetails = null;
+         
+            List<DateTime> lstSipStartDates = new List<DateTime>();
+
+            try
+            {
+                dsSipDetails = mfOrderDao.GetSipDetails(schemePlanCode, sipFreqCode);
+                if (dsSipDetails == null) return lstSipStartDates.ToArray();
+
+                string sipStartDates = dsSipDetails.Tables[0].Rows[0]["PASPSD_StatingDates"].ToString();
+
+                List<int> lstSipDates = new List<int>();
+                string[] temp = sipStartDates.Split(';');
+                foreach (string date in temp)
+                {
+                    if (!string.IsNullOrEmpty(date.Trim()))
+                        lstSipDates.Add(int.Parse(date.Trim()));
+                }
+
+
+                DateTime dateCurr = DateTime.Now;
+                //if (DateTime.Now.TimeOfDay > System.TimeSpan.Parse("12:59:00"))
+                //    dateCurr = DateTime.Now.AddDays(1);
+
+                while (dateCurr <= DateTime.Now.AddMonths(3))
+                {
+                    int res = lstSipDates.Find(delegate(int date)
+                    {
+                        return date == dateCurr.Day;
+                    });
+
+                    if (res > 0) lstSipStartDates.Add(dateCurr);
+                    dateCurr = dateCurr.AddDays(1);
+                }
+                return lstSipStartDates.ToArray();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OrderBo.cs:GetSipStartDates(int schemePlanCode, string sipFreqCode)");
+                object[] objects = new object[2];
+                objects[0] = schemePlanCode;
+                objects[1] = sipFreqCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
         public List<int> CreateCustomerMFOrderDetails(OrderVo orderVo, MFOrderVo mforderVo, int userId, SystematicSetupVo SystematicSetupVo,out int setupId)
         {
             List<int> orderIds = new List<int>();
@@ -168,6 +226,22 @@ namespace BoOps
             }
             return IsMarked;
         }
+
+        public string GetDividendOptions(int schemePlanCode)
+        {
+            string schemeOption = "";
+            
+            try
+            {
+                schemeOption = mfOrderDao.GetDividendOptions(schemePlanCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return schemeOption;
+        }
+
         public bool ChkOnlineOrder(int OrderId)
         {
             try

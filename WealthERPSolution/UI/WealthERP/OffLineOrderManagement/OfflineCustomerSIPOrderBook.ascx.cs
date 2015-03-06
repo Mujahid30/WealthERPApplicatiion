@@ -288,7 +288,7 @@ namespace WealthERP.OffLineOrderManagement
                 drSIPOrderBook["U_UMId"] = drSIP["U_UMId"];
                 if (!string.IsNullOrEmpty(drSIP["CMFSS_RegistrationDate"].ToString()))
                 {
-                    drSIPOrderBook["CMFSS_RegistrationDate"] = DateTime.Parse(drSIP["CMFSS_RegistrationDate"].ToString()).ToShortDateString();
+                    drSIPOrderBook["CMFSS_RegistrationDate"] = DateTime.Parse(drSIP["CMFSS_RegistrationDate"].ToString()) ;
 
                 }
                 if (!string.IsNullOrEmpty(drSIP["CMFSS_StartDate"].ToString()))

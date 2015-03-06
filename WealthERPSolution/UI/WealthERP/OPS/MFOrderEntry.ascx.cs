@@ -255,10 +255,11 @@ namespace WealthERP.OPS
         protected void BindStartDates()
         {
             ddlStartDate.Items.Clear();
-
+            if (ddlFrequencySIP.SelectedValue == "0")
+                return;
             DateTime[] dtStartdates;
 
-            dtStartdates = boOnlineOrder.GetSipStartDates(Convert.ToInt32(txtSchemeCode.Value), ddlFrequencySIP.SelectedValue);
+            dtStartdates = mfOrderBo.GetSipStartDates(Convert.ToInt32(txtSchemeCode.Value), ddlFrequencySIP.SelectedValue);
             //else dtStartdates = boOnlineOrder.GetSipStartDates(Convert.ToInt32(onlineMFOrderVo.SchemePlanCode), onlineMFOrderVo.FrequencyCode);
 
             foreach (DateTime d in dtStartdates) ddlStartDate.Items.Add(new ListItem(d.ToString("dd-MMM-yyyy")));
@@ -270,13 +271,13 @@ namespace WealthERP.OPS
         private string CreateUserMessage(int orderId, int sipId )
         {
             string userMessage = string.Empty;
-            
 
-            if (ddltransType.SelectedValue != "SIP")
+
+            if (ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "ABY" || ddltransType.SelectedValue == "Sel")
             {
                 userMessage = "Order placed successfully, Order reference no. is " + orderId.ToString();
             }
-            else if (ddltransType.SelectedValue == "SIP")
+            else if (ddltransType.SelectedValue == "SIP" || ddltransType.SelectedValue == "SWP")
             {
                 userMessage = "SIP Requested successfully, SIP reference no. is " + sipId.ToString();
             }
@@ -299,6 +300,8 @@ namespace WealthERP.OPS
 
         protected void ddlFrequencySIP_SelectedIndexChanged(object sender, EventArgs e)
         {
+            DividendendOption();
+            ddlStartDate.DataSource = null;
             GetControlDetails(int.Parse(txtSchemeCode.Value), null, ddlFrequencySIP.SelectedValue);
             BindTotalInstallments();
             BindStartDates();
@@ -967,6 +970,26 @@ namespace WealthERP.OPS
                 SelectionBasedOnScheme(int.Parse(txtSchemeCode.Value));
             }
             txtSearchScheme.Focus();
+
+            DividendendOption();
+        }
+
+        private void DividendendOption()
+        {
+            string schemeOption = "";
+
+            schemeOption = mfOrderBo.GetDividendOptions(int.Parse(txtSchemeCode.Value));
+             
+            if (schemeOption == "GR")
+            {
+                tdlblDivType.Visible = false;
+                tdddlDivType.Visible = false;
+            }
+            else
+            {
+                tdlblDivType.Visible = true;
+                tdddlDivType.Visible = true;
+            }
         }
 
         private void SelectionBasedOnScheme(int schemeCode)
@@ -1091,16 +1114,7 @@ namespace WealthERP.OPS
                     string date = Convert.ToDateTime(dsNav.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
                     lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + date;
                 }
-                if (lookUpValue == "Growth")
-                {
-                    tdlblDivType.Visible = false;
-                    tdddlDivType.Visible = false;
-                }
-                else
-                {
-                    tdlblDivType.Visible = true;
-                    tdddlDivType.Visible = true;
-                }
+               
             }
 
         }
