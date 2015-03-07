@@ -195,7 +195,7 @@ namespace WealthERP.OffLineOrderManagement
                 string extractionStepCode = gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WES_Code"].ToString();
                 if (extractionStepCode == string.Empty)
                 {
-                    string AcntId = gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_CustCode"].ToString();
+                    
                     double AmountPayable = Convert.ToDouble(gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["BBAmounttoinvest"].ToString());
                     lbResult = BoOnlineBondOrder.cancelBondsBookOrder(orderId, 2, txtRemark.Text);
                     if (lbResult == true)
