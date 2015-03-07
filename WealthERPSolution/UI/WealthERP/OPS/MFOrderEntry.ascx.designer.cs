@@ -32,6 +32,30 @@ namespace WealthERP.OPS {
         protected global::Telerik.Web.UI.RadWindow radwindowPopup;
         protected global::Telerik.Web.UI.RadWindow radWindowSwitchScheme;
 
+        protected global::System.Web.UI.WebControls.DropDownList ddlAdviseRMList;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCustomerSubType;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trIndividualName;
+        protected global::System.Web.UI.WebControls.RadioButton rbtnIndividual;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trNonIndividualName;
+        protected global::System.Web.UI.WebControls.Label lblPanDuplicate;
+        protected global::System.Web.UI.WebControls.TextBox txtFirstName;
+        protected global::System.Web.UI.WebControls.TextBox txtCompanyName;
+        protected global::System.Web.UI.WebControls.TextBox txtPanNumber;
+        protected global::System.Web.UI.WebControls.Panel Panel1;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTax;
+        protected global::System.Web.UI.WebControls.TextBox txtMobileNumber;
+        protected global::System.Web.UI.WebControls.TextBox txtEmail;
+
+        protected global::System.Web.UI.WebControls.DropDownList ddlSalutation;
+
+        /// <summary>
+        /// rbtnNonIndividual control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbtnNonIndividual;
          
         /// <summary>
         /// lblAMCName control.
@@ -41,9 +65,12 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAMCName;
+        protected global::System.Web.UI.WebControls.Label lb1RepTo;        
         protected global::System.Web.UI.WebControls.TextBox txtBranchName;
         protected global::System.Web.UI.WebControls.DropDownList ddlTotalInstallments;
         protected global::System.Web.UI.WebControls.DropDownList ddlStartDate;
+        protected global::Telerik.Web.UI.RadWindow radCustomApp;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAdviserBranchList;
 
 
         /// <summary>

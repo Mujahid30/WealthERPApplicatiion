@@ -326,6 +326,16 @@ namespace WealthERP.OffLineOrderManagement
 
         }
 
+        protected void btnExportFilteredDupData_OnClick(object sender, ImageClickEventArgs e)
+        {
+           gvSIPSummaryBookMIS.ExportSettings.OpenInNewWindow = true;
+            gvSIPSummaryBookMIS.ExportSettings.IgnorePaging = true;
+            gvSIPSummaryBookMIS.ExportSettings.HideStructureColumns = true;
+            gvSIPSummaryBookMIS.ExportSettings.ExportOnlyData = true;
+            gvSIPSummaryBookMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvSIPSummaryBookMIS.MasterTableView.ExportToExcel();
+        }
+
         protected DataTable CreateSIPBookDataTable()
         {
             DataTable dtSIPOrderBook = new DataTable();

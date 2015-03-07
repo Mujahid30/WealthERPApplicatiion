@@ -16,12 +16,16 @@
                 <table width="100%">
                     <tr>
                         <td align="left">
-                            SIP Offline Book
+                            Systematic Book    
                         </td>
                         <td align="right">
-                            <asp:ImageButton ID="ibtExportSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                          <asp:ImageButton ID="btnExportFilteredDupData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredDupData_OnClick"
+                                OnClientClick="setFormat('CSV')" Height="25px" Width="25px" Visible="true">
+                            </asp:ImageButton>
+                            <%--<asp:ImageButton ID="ibtExportSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" Height="25px"
-                                Width="25px" Visible="false"></asp:ImageButton>
+                                Width="25px" Visible="true"></asp:ImageButton>--%>
                         </td>
                     </tr>
                 </table>
@@ -118,7 +122,7 @@
                     Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AllowAutomaticInserts="false"
                     OnNeedDataSource="gvSIPSummaryBookMIS_OnNeedDataSource" OnUpdateCommand="gvSIPSummaryBookMIS_UpdateCommand"
                     OnItemCommand="gvSIPSummaryBookMIS_OnItemCommand">
-                    <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="OrderMIS">
+                    <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="Systematic Book">
                     </ExportSettings>
                     <MasterTableView DataKeyNames="WMTT_TransactionClassificationCode,CMFSS_SystematicSetupId,CMFSS_IsCanceled,AcceptCount,InProcessCount,RejectedCount,CMFA_AccountId,PASP_SchemePlanCode,CMFSS_IsSourceAA,C_CustomerId,CMFSS_TotalInstallment,CMFSS_CurrentInstallmentNumber,CMFSS_EndDate"
                         Width="90%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None"
@@ -164,7 +168,7 @@
                                 UniqueName="C_FirstName" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CustCode" HeaderText="Client Id" AllowFiltering="true"
+                            <telerik:GridBoundColumn DataField="CustCode" HeaderText="Client Code" AllowFiltering="true"
                                 HeaderStyle-Wrap="false" SortExpression="CustCode" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="100px" UniqueName="CustCode" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />

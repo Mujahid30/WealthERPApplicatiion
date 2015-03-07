@@ -477,7 +477,7 @@
                             <telerik:GridBoundColumn DataField="XF_FrequencyCode" HeaderText="Frequency" AllowFiltering="true"
                                 HeaderStyle-Wrap="false" SortExpression="XF_FrequencyCode" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="100px"
-                                UniqueName="XF_FrequencyCode" FooterStyle-HorizontalAlign="Left">
+                                UniqueName="XF_FrequencyCode" FooterStyle-HorizontalAlign="Left" Visible="false">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CMFOD_ApprovalDate" DataFormatString="{0:dd/MM/yyyy}"
