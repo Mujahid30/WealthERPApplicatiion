@@ -284,6 +284,7 @@ namespace WealthERP.CommisionManagement
             {
                 //BindPayableGrid();
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Mapping Created SuccessFully');", true);
+                BindPayableGrid(int.Parse(hdnStructId.Value));
 
             }
 
