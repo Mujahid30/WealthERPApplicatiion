@@ -240,7 +240,7 @@ namespace DaoOfflineOrderManagement
             }
             return dtGetFD54IssueOrder;
         }
-        public bool CancelBondsFDBookOrder(int orderId, string remarks, int userId, Boolean IsAuthenticated, string brokerCode)
+        public bool CancelBondsFDBookOrder(int orderId, string remarks, int userId, bool IsAuthenticated)
         {
             bool bResult = false;
             Database db;

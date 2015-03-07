@@ -1386,7 +1386,7 @@ namespace WealthERP.OPS
         }
         private void FIScheme(int AdviserId, string IssuerID)
         {
-            DataSet dsScheme = fiorderBo.GetFIScheme(AdviserId, IssuerID);
+            DataSet dsScheme = fiorderBo.GetFIScheme(AdviserId, IssuerID,0);
             if (dsScheme.Tables[0].Rows.Count > 0)
             {
                 ddlScheme.DataSource = dsScheme;

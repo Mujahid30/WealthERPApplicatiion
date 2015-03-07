@@ -1243,7 +1243,7 @@ namespace WealthERP.OffLineOrderManagement
                 }
                 else
                 {
-                    if (decimal.Parse(TxtPurAmt.Text) > decimal.Parse(lblMinQuentity.Text) && decimal.Parse(TxtPurAmt.Text) > decimal.Parse(lblMaxQuentity.Text))
+                    if (decimal.Parse(TxtPurAmt.Text) < decimal.Parse(lblMinQuentity.Text) || decimal.Parse(TxtPurAmt.Text) > decimal.Parse(lblMaxQuentity.Text))
                     {
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Purchase Amount Should be Between Min. Amount and Max.Amount!');", true);
                         txtQty.Text = string.Empty;
@@ -1440,7 +1440,7 @@ namespace WealthERP.OffLineOrderManagement
             int minTenure = 0;
             int maxTenure = 0;
 
-            if (ddlSeries.SelectedIndex > 0)
+            if (ddlSeries.SelectedIndex > -1)
             {
                 FISeriesDetails(Convert.ToInt32(ddlSeries.SelectedValue));
 
@@ -4444,6 +4444,7 @@ namespace WealthERP.OffLineOrderManagement
                 BindSubbroker(int.Parse(dr["AIM_IssueId"].ToString()));
                 FISeries(int.Parse(dr["AIM_IssueId"].ToString()));
                 ddlSeries.SelectedValue = dr["AID_IssueDetailId"].ToString();
+                FISeriesDetails(Convert.ToInt32(ddlSeries.SelectedValue));
                 ddlTranstype.SelectedValue = dr["CFIOD_TransactionType"].ToString();
                 TransactionTypeChanges(ddlTranstype.SelectedValue);
                 ddlBrokerCode.SelectedValue = dr["XB_BrokerIdentifier"].ToString();
@@ -5169,7 +5170,7 @@ namespace WealthERP.OffLineOrderManagement
            
             if (rbtnAuthentication.Checked == true || rbtnReject.Checked == true)
             {
-                lbResult = OfflineBondOrderBo.CancelBondsFDBookOrder(int.Parse(hdnOrderNo.Value), txtRejectReseaon.Text, userVo.UserId, (rbtnReject.Checked) ? false : true, ddlBrokerCode.SelectedValue);
+                lbResult = OfflineBondOrderBo.CancelBondsFDBookOrder(int.Parse(hdnOrderNo.Value), txtRejectReseaon.Text, userVo.UserId, (rbtnReject.Checked) ? false : true);
                 btnSubmitAuthenticate.Visible = false;
                 rbtnAuthentication.Enabled = false;
                 rbtnReject.Enabled=false;
