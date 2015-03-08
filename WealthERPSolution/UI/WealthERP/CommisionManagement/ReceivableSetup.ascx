@@ -1152,7 +1152,7 @@
                         <asp:DropDownList ID="ddlIssueType" runat="server" CssClass="cmbField" AutoPostBack="true"
                             Width="205px" OnSelectedIndexChanged="ddlIssueType_Selectedindexchanged">
                             <asp:ListItem Value="Select">Select</asp:ListItem>
-                            <asp:ListItem Value="OpenIssue">Open Issue</asp:ListItem>
+                            <asp:ListItem Value="OpenIssue">Current Issue</asp:ListItem>
                             <asp:ListItem Value="ClosedIssue">Closed Issue</asp:ListItem>
                             <asp:ListItem Value="FutureIssue">Future Issue</asp:ListItem>
                         </asp:DropDownList>

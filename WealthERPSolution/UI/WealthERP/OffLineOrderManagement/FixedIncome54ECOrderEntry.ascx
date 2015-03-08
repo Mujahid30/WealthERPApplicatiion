@@ -302,7 +302,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr id="Tr1" runat="server">
                         <td align="left">
-                            FD/54EC & NPS Order Entry
+                            FD/54EC Order Entry
                         </td>
                         <td align="right">
                             <%--   <asp:LinkButton ID="LinkButton1" runat="server"  CausesValidation="false"  Text="test"   OnClick ="lnlFIBack_Click"/>

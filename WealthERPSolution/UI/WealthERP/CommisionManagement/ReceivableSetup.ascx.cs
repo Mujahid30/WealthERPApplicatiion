@@ -73,6 +73,7 @@ namespace WealthERP.Receivable
                         pnlAddSchemesButton.Visible = true;
                         Table2.Visible = true;
                         CreateMappedSchemeGrid();
+                        pnlIssueList.Visible = false;
 
                     }
                     else if (ddlProductType.SelectedValue != "MF")
@@ -445,9 +446,18 @@ namespace WealthERP.Receivable
                 DropDownList ddlCommissionype = (DropDownList)e.Item.FindControl("ddlCommissionype");
                 DropDownList ddlBrokerageUnit = (DropDownList)e.Item.FindControl("ddlBrokerageUnit");
                 DropDownList ddlBrokerCode = (DropDownList)e.Item.FindControl("ddlBrokerCode");
+                System.Web.UI.HtmlControls.HtmlTableCell tdlblBrokerCode = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdlblBrokerCode");
+                System.Web.UI.HtmlControls.HtmlTableCell tdddlBrokerCode = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdddlBrokerCode");
+                tdlblBrokerCode.Visible = false;
+                tdddlBrokerCode.Visible = false;
                 DataSet dscommissionTypes;
                 dscommissionTypes = commisionReceivableBo.GetCommisionTypes();
-                BindBrokerCode(ddlBrokerCode, int.Parse(gvMappedIssueList.MasterTableView.DataKeyValues[0]["AIM_IssueId"].ToString()));
+                if (ddlProductType.SelectedValue != "MF")
+                {
+                    tdlblBrokerCode.Visible = true;
+                    tdddlBrokerCode.Visible = true;
+                    BindBrokerCode(ddlBrokerCode, int.Parse(gvMappedIssueList.MasterTableView.DataKeyValues[0]["AIM_IssueId"].ToString()));
+                }
                 ddlCommissionype.DataSource = dscommissionTypes.Tables[0];
                 ddlCommissionype.DataValueField = "WCMV_LookupId";
                 ddlCommissionype.DataTextField = "WCMV_Name";
@@ -461,8 +471,7 @@ namespace WealthERP.Receivable
                 ddlBrokerageUnit.DataBind();
                 ddlBrokerageUnit.SelectedValue = "PER";
                 ddlBrokerageUnit.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
-
-
+               
             }
             else if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode) && e.Item.ItemIndex != -1)
             {
@@ -1283,7 +1292,7 @@ namespace WealthERP.Receivable
             //trMinMaxTenure.Visible = !enablement;
             //trMinMaxAge.Visible = !enablement;
             //tdMinNumberOfApplication.Visible = !enablement;
-
+              
 
 
             ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(lblReceivableFrequency, ddlReceivableFrequency, trTransactionTypeSipFreq, tdlb1SipFreq, tdddlSipFreq, trMinMaxTenure, trMinMaxAge, tdlb1MinNumberOfApplication, tdtxtMinNumberOfApplication, ddlProductType.SelectedValue, ddlCommissionType.SelectedValue
@@ -1332,6 +1341,7 @@ namespace WealthERP.Receivable
                     chkSeries.Visible = false;
                     tdddlSeries.Visible = false;
                     tdlblSerise.Visible = false;
+                    chkCategory.Visible = true;
                 }
 
             }
@@ -1464,9 +1474,11 @@ namespace WealthERP.Receivable
                 Label lblApplyTaxes = (Label)editform.FindControl("lblApplyTaxes");
                 //TextBox   txtTaxValue=(TextBox)editform.FindControl("txtTaxValue");
                 //       txtTDS
-                BindSeries(ddlSeries, int.Parse(gvMappedIssueList.MasterTableView.DataKeyValues[0]["AIM_IssueId"].ToString()), 0);
-                BindCategory(ddlCategorys, int.Parse(gvMappedIssueList.MasterTableView.DataKeyValues[0]["AIM_IssueId"].ToString()));
-
+                if (ddlProductType.SelectedValue != "MF")
+                {
+                    BindSeries(ddlSeries, int.Parse(gvMappedIssueList.MasterTableView.DataKeyValues[0]["AIM_IssueId"].ToString()), 0);
+                    BindCategory(ddlCategorys, int.Parse(gvMappedIssueList.MasterTableView.DataKeyValues[0]["AIM_IssueId"].ToString()));
+                }
                 //CheckBox chkSpecial = (CheckBox)e.Item.FindControl("chkSpecial");
 
                 if (dsCommissionLookup != null)
@@ -1749,6 +1761,7 @@ namespace WealthERP.Receivable
                     chkSeries.Visible = false;
                     tdddlSeries.Visible = false;
                     tdlblSerise.Visible = false;
+                    chkCategory.Visible = true;
                 }
                 if (ddlSubInstrCategory.SelectedValue == "FISDSD")
                 {
@@ -2036,6 +2049,7 @@ namespace WealthERP.Receivable
                     commissionStructureRuleVo.mode = ddlMode.SelectedValue;
                 if (!string.IsNullOrEmpty(ddlCategorys.SelectedValue))
                     commissionStructureRuleVo.Category = int.Parse(ddlCategorys.SelectedValue);
+                if (!string.IsNullOrEmpty(ddlSeries.SelectedValue))
                 commissionStructureRuleVo.series = int.Parse(ddlSeries.SelectedValue);
                 commissionStructureRuleVo.CommissionStructureId = Convert.ToInt32(hidCommissionStructureName.Value);
 
@@ -3248,11 +3262,19 @@ namespace WealthERP.Receivable
 
             System.Web.UI.HtmlControls.HtmlTableCell tdlblApplicationNo = (System.Web.UI.HtmlControls.HtmlTableCell)editform.FindControl("tdlblApplicationNo");
             System.Web.UI.HtmlControls.HtmlTableCell tdApplicationNo = (System.Web.UI.HtmlControls.HtmlTableCell)editform.FindControl("tdApplicationNo");
-
-
+            System.Web.UI.HtmlControls.HtmlTableCell tdddlSeries = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdddlSeries");
+            System.Web.UI.HtmlControls.HtmlTableCell tdlblSerise = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdlblSerise");
+            CheckBox chkCategory = (CheckBox)e.Item.FindControl("chkCategory");
+            CheckBox chkSeries = (CheckBox)e.Item.FindControl("chkSeries");
 
             //RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_MinTenure"].ToString();
-
+            if (ddlProductType.SelectedValue == "MF")
+            {
+                tdddlSeries.Visible = false;
+                tdlblSerise.Visible = false;
+                chkCategory.Visible = false;
+                chkSeries.Visible = false;
+            }
             lblInvestorType1.Visible = flag;
             lblAppCityGroup.Visible = flag;
             lblReceivableFrequency.Visible = flag;

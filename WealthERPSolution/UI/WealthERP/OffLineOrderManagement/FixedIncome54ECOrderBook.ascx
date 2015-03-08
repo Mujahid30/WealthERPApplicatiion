@@ -11,7 +11,7 @@
                 <table cellspacing="0" cellpadding="2" width="100%">
                     <tr>
                         <td align="left">
-                            FD/54EC & NPS Order Book
+                            FD/54EC Order Book
                         </td>
                         <td align="right" style="width: 10px">
                             <asp:ImageButton ID="imgexportButton" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
