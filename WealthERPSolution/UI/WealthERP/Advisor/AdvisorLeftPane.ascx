@@ -103,6 +103,12 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Category" Value="Category">
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Advertisement" Value="Advertisement">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="Advertisement Manage" Value="Advertisement_Manage">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <%--<telerik:RadPanelItem runat="server" Text="Product Group setup" Value="Product Group setup">
@@ -834,6 +840,12 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Alert Configuration" Value="Alert Configuration">
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Advertisement" Value="Advertisement">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="Advertisement Manage" Value="Advertisement_Manage">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <%-- <telerik:RadPanelItem runat="server" Text="Organization" Value="Organization">
@@ -942,7 +954,7 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
-                                     <telerik:RadPanelItem runat="server" Text="Product" Value="Product" PostBack="false">
+                                    <telerik:RadPanelItem runat="server" Text="Product" Value="Product" PostBack="false">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="MF" Value="MF">
                                                 <Items>
@@ -980,15 +992,15 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="MF Order Book" Value="Order_List">
                                                     </telerik:RadPanelItem>
-                                                      <telerik:RadPanelItem runat="server" Text="SIP Offline Book" Value="SIP_Offline_Book">
+                                                    <telerik:RadPanelItem runat="server" Text="SIP Offline Book" Value="SIP_Offline_Book">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Add NCD Order" Value="Add_NCD_Order">
                                                     </telerik:RadPanelItem>
-                                                     <telerik:RadPanelItem runat="server" Text="NCD Order Book" Value="NCD_Offline_Book">
+                                                    <telerik:RadPanelItem runat="server" Text="NCD Order Book" Value="NCD_Offline_Book">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Add IPO/FPO Order" Value="Add_IPO_Order">
                                                     </telerik:RadPanelItem>
-                                                      <telerik:RadPanelItem runat="server" Text="IPO/FPO Order Book" Value="IPO_Offline_Order_Book">
+                                                    <telerik:RadPanelItem runat="server" Text="IPO/FPO Order Book" Value="IPO_Offline_Order_Book">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Add FD/54EC order" Value="ProductOrderMaster">
                                                     </telerik:RadPanelItem>
@@ -1018,7 +1030,7 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
-                                     <telerik:RadPanelItem runat="server" Text="Transaction" Value="Transaction">
+                                    <telerik:RadPanelItem runat="server" Text="Transaction" Value="Transaction">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Add MF Transactions" Value="Add EQ Transactions">
                                             </telerik:RadPanelItem>
@@ -1045,7 +1057,7 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
-                                     <telerik:RadPanelItem runat="server" Text="File Extract" Value="File_Extract">
+                                    <telerik:RadPanelItem runat="server" Text="File Extract" Value="File_Extract">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Accounting" Value="File_Extraction">
                                             </telerik:RadPanelItem>
@@ -1057,7 +1069,6 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
-                                    
                                     <telerik:RadPanelItem runat="server" Text="File Upload" Value="File_Upload">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Online Upload" Value="Start_Upload">
@@ -1114,9 +1125,6 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
-                                  
-                                  
-                                   
                                     <telerik:RadPanelItem runat="server" Text="Bulk Data Request" Value="Bulk_Request">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Add Request" Value="Add_Request">
@@ -1168,7 +1176,7 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
-                                      <telerik:RadPanelItem runat="server" Text="User Management" Value="User_Management">
+                                    <telerik:RadPanelItem runat="server" Text="User Management" Value="User_Management">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Staff User Management" Value="Staff User Management">
                                             </telerik:RadPanelItem>
@@ -1552,7 +1560,6 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
-                                    
                                     <telerik:RadPanelItem runat="server" Text="Business MIS" Value="Business MIS">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="MF" Value="MIS_MF">
