@@ -273,7 +273,7 @@ namespace WealthERP.OPS
             ddlStartDate.SelectedIndex = 0;
         }
 
-        private string CreateUserMessage(int orderId, int sipId )
+        private string CreateUserMessage(int orderId, int sipId)
         {
             string userMessage = string.Empty;
 
@@ -347,7 +347,7 @@ namespace WealthERP.OPS
             DateTime dtEndDate = boOnlineOrder.GetSipEndDate(Convert.ToDateTime(ddlStartDate.SelectedValue), ddlFrequencySIP.SelectedValue, Convert.ToInt32(ddlTotalInstallments.SelectedValue) - 1);
             txtendDateSIP.SelectedDate = dtEndDate;
         }
- 
+
 
         private void SerachBoxes()
         {
@@ -410,7 +410,7 @@ namespace WealthERP.OPS
 
             //BindScheme(0);
             //Sflag = 0;
-            BindAMC(0);
+            //BindAMC(0);
             // BindScheme(ddltransType.SelectedValue, Convert.ToInt32(ddlAMCList.SelectedValue));
 
             BindCategory();
@@ -806,14 +806,14 @@ namespace WealthERP.OPS
             //}
             //else
             //{
-                txtSearchScheme_autoCompleteExtender.ContextKey = amcCode.ToString();
-                txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSchemeNames";
+            txtSearchScheme_autoCompleteExtender.ContextKey = amcCode.ToString();
+            txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSchemeNames";
 
-                //parameters = string.Empty;
-                //parameters = (amcCode + "/" + categoryCode + "/" + 1 + "/" + 1);
-                //txtSearchScheme_autoCompleteExtender.ContextKey = parameters;
-                //txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSchemeName";
-          //  }
+            //parameters = string.Empty;
+            //parameters = (amcCode + "/" + categoryCode + "/" + 1 + "/" + 1);
+            //txtSearchScheme_autoCompleteExtender.ContextKey = parameters;
+            //txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSchemeName";
+            //  }
 
 
         }
@@ -923,9 +923,6 @@ namespace WealthERP.OPS
         {
             if (schmePlanCode != 0)
             {
-                //string transactionType = "";
-                //int schemeCode = 0;
-                //string FileName = "";
 
                 hdnSchemeCode.Value = schmePlanCode.ToString();
                 txtSchemeCode.Value = schmePlanCode.ToString();
@@ -984,7 +981,7 @@ namespace WealthERP.OPS
             string schemeOption = "";
 
             schemeOption = mfOrderBo.GetDividendOptions(int.Parse(txtSchemeCode.Value));
-             
+
             if (schemeOption == "GR")
             {
                 tdlblDivType.Visible = false;
@@ -1026,10 +1023,8 @@ namespace WealthERP.OPS
         {
             dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(schemeCode, ddlFrequencySIP.SelectedValue.ToString(), "SIP");
 
-            // SetLatestNav();
             BindFrequencies();
-            // BindAllControlsWithSIPData();
-            //  BindFolioNumber(int.Parse(ddlAmc.SelectedValue));
+
         }
 
 
@@ -1103,15 +1098,6 @@ namespace WealthERP.OPS
                         lbltime.Text = dr["CutOffTime"].ToString();
                     }
 
-
-                    //if (!string.IsNullOrEmpty(dr["divFrequency"].ToString()))
-                    //{
-                    //    // lbldftext.Text = dr["divFrequency"].ToString();
-                    //}
-                    //if (!string.IsNullOrEmpty(dr["url"].ToString()))
-                    //{
-                    //    // lnkFactSheet.PostBackUrl = dr["url"].ToString();
-                    //}
                 }
                 DataSet dsNav = commonLookupBo.GetLatestNav(int.Parse(txtSchemeCode.Value));
                 if (dsNav.Tables[0].Rows.Count > 0)
@@ -1119,7 +1105,7 @@ namespace WealthERP.OPS
                     string date = Convert.ToDateTime(dsNav.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
                     lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + date;
                 }
-               
+
             }
 
         }
@@ -3297,22 +3283,11 @@ namespace WealthERP.OPS
                         customerVo.Type = "IND";
 
                         customerVo.TaxStatusCustomerSubTypeId = Int16.Parse(ddlCustomerSubType.SelectedValue.ToString());
-                        //customerVo.IsRealInvestor = chkRealInvestor.Checked;
                         customerVo.FirstName = txtFirstName.Text.ToString();
-                        //customerVo.MiddleName = txtMiddleName.Text.ToString();
-                        //customerVo.LastName = txtLastName.Text.ToString();
-                        //if (ddlSalutation.SelectedIndex == 0)
-                        //{
-                        //    customerVo.Salutation = "";
-                        //}
-                        //else
-                        //{
-                        //    customerVo.Salutation = ddlSalutation.SelectedValue.ToString();
-                        //}
+
 
                         userVo.FirstName = txtFirstName.Text.ToString();
-                        //userVo.MiddleName = txtMiddleName.Text.ToString();
-                        //userVo.LastName = txtLastName.Text.ToString();
+
                     }
                     else if (rbtnNonIndividual.Checked)
                     {
@@ -3377,19 +3352,14 @@ namespace WealthERP.OPS
                         familyVo.CustomerId = customerIds[1];
                         familyVo.Relationship = "SELF";
                         familyBo.CreateCustomerFamily(familyVo, customerIds[1], userVo.UserId);
-                        //trCustomerAdd.Visible = false;
-                        //DataTable dtcustomer = OfflineIPOOrderBo.GetAddedCustomer(customerid);
-                        //foreach (DataRow dr in dtcustomer.Rows)
-                        //{
-                        //    lblgetPan.Text = dr["C_PANNum"].ToString();
-                        //    txtCustomerName.Text = dr["CustomerName"].ToString();
-                        //    lblGetBranch.Text = dr["AB_BranchName"].ToString();
-                        //}
 
                     }
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Customer inserted successfully');", true);
+                    //  Response.Write(@"<script language='javascript'>alert('Customer inserted successfully');</script>");
 
-                    Response.Write(@"<script language='javascript'>alert('Customer inserted successfully');</script>");
-                    //Response.Write("<script>window.close();</" + "script>");
+                    //ControlsEnblity("New");
+                    //pnl_OrderDetailsSection.Visible = true;
+
                 }
 
 
@@ -3755,9 +3725,11 @@ namespace WealthERP.OPS
             try
             {
                 if (Aflag == 0)
-                    dsProductAmc = productMFBo.GetProductAmc();
+                    dsProductAmc = productMFBo.GetProductAmc();             
                 else
                     dsProductAmc = operationBo.GetAMCForOrderEntry(Aflag, int.Parse(txtCustomerId.Value));
+
+                    //dsProductAmc = operationBo.Get_NFO_AMC();
 
                 if (dsProductAmc.Tables.Count > 0)
                 {
@@ -3911,8 +3883,11 @@ namespace WealthERP.OPS
             //}
             //else
             //{
-                BindAMC(0);
+            BindAMC(0);
             //}
+
+            //if (transactionType == "NFO")
+           
         }
         protected void ddltransType_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -4616,6 +4591,12 @@ namespace WealthERP.OPS
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid SubBroker Code.');", true);
                 return;
             }
+            if ((string.IsNullOrEmpty(hidFolioNumber.Value)) && (!string.IsNullOrEmpty(txtFolioNumber.Text)))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Folio Number.');", true);
+                return;
+            }
+
 
             if (string.IsNullOrEmpty(txtCustomerId.Value))
             {
@@ -4650,8 +4631,8 @@ namespace WealthERP.OPS
 
                 ShowMessage(CreateUserMessage(Convert.ToInt32(lblGetOrderNo.Text), setupId), 's');
 
-               
-              //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
+
+                //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
             }
 
         }
@@ -5018,35 +4999,17 @@ namespace WealthERP.OPS
                 lblGetOrderNo.Text = OrderIds[0].ToString();
                 rgvOrderSteps.Visible = true;
                 BindOrderStepsGrid(Convert.ToInt32(lblGetOrderNo.Text));
-                lblGetOrderNo.Text = orderNumber.ToString();
+
                 ShowMessage(CreateUserMessage(Convert.ToInt32(lblGetOrderNo.Text), setupId), 's');
-              
-                // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
 
-                //ButtonsEnablement("Submitted");
-                //ControlsEnblity("View");
-                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
             }
-            //List<int> OrderIds = new List<int>(); ;
-            //SaveOrderDetails();
-            //OrderIds = mfOrderBo.CreateCustomerMFOrderDetails(orderVo, mforderVo, userVo.UserId, systematicSetupVo);
+            
             ButtonsEnablement("Save_And_More");
-
-
-            //orderId = int.Parse(OrderIds[0].ToString());
-            //rgvOrderSteps.Visible = false;
-            //orderNumber = mfOrderBo.GetOrderNumber(orderId);
-            //lblOrderNumber.Visible = true;
-            // lblGetOrderNo.Visible = true;
-
             ClearAllFields();
-
             txtCustomerName.Text = "";
             lblGetRM.Text = "";
             lblGetBranch.Text = "";
             lblgetPan.Text = "";
-
-
         }
         protected void ddlPeriodSelection_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -5727,8 +5690,10 @@ namespace WealthERP.OPS
                 accountId = customerAccountBo.CreateCustomerMFAccountBasic(customerAccountVo, userVo.UserId);
                 if (accountId != 0)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Folio created successfully, now search for folio !');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Folio created successfully.');", true);
                     radwindowPopup.VisibleOnPageLoad = false;
+                    hidFolioNumber.Value = accountId.ToString();
+                    txtFolioNumber.Text = txtNewFolio.Text;
                 }
             }
             else

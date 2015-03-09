@@ -224,10 +224,11 @@
                 txtFolioNuber.value = "";
                 returnValue = false;
             }
-        } else {
-            if (txtFolioNuber.value != "")
-                alert("Valid folio found");
         }
+        //         else {
+        //            if (txtFolioNuber.value != "")
+        //                alert("Valid folio found");
+        //        }
         return returnValue;
 
 
@@ -256,11 +257,13 @@
         }
     }
 </script>
+
 <script type="text/javascript">
     function setCustomPosition(sender, args) {
         sender.moveTo(sender.get_left(), sender.get_top());
     }
 </script>
+
 <script type="text/javascript">
     function checkFolioDuplicate() {
         $("#<%= hidValidCheck.ClientID %>").val("0");
@@ -304,230 +307,214 @@
    
 </script>
 
-<asp:UpdatePanel ID="UpdatePanel1" runat="server">
-    <%-- <Triggers>
-        <asp:AsyncPostBackTrigger ControlID="btnSubmit" />
-    </Triggers>--%>
+<telerik:RadWindow ID="radCustomApp" Visible="false" runat="server" VisibleOnPageLoad="false"
+    Height="30%" Width="600px" Modal="true" BackColor="#DADADA" Top="10" Left="20"
+    VisibleStatusbar="false" OnClientShow="setCustomPosition" Behaviors="close,Move"
+    Title="Add New Customer">
     <ContentTemplate>
-    
-    
-     <telerik:RadWindow ID="radCustomApp" Visible="false" runat="server" VisibleOnPageLoad="false"
-        Height="30%" Width="600px" Modal="true" BackColor="#DADADA" Top="10" Left="20"
-        VisibleStatusbar="false" OnClientShow="setCustomPosition" Behaviors="close,Move"
-        Title="Add New Customer">
-        <ContentTemplate>
-            <div style="padding: 20px">
-                <table width="100%" class="TableBackground">
-                    <tr>
-                        <td colspan="3">
-                            <div class="divPageHeading">
-                                <table cellspacing="0" cellpadding="3" width="100%">
-                                    <tr>
-                                        <td align="left">
-                                            Add Customer
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-                <table width="100%">
-                    <tr id="trBtnSaveMsg" runat="server" visible="false">
-                        <td class="leftField">
-                        </td>
-                        <td>
-                            <asp:Label ID="lblbtnSaveMsg" runat="server" Text="Customer Added Successfully" CssClass="FieldName"
-                                Font-Size="Medium"></asp:Label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="leftField" style="width: 20%">
-                            <asp:Label ID="lblCustomerType" runat="server" CssClass="FieldName" Text="Customer Type:"></asp:Label>
-                        </td>
-                        <td class="rightField">
-                            <asp:RadioButton ID="rbtnIndividual" runat="server" CssClass="txtField" Text="Individual"
-                                GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnIndividual_CheckedChanged" />
-                            &nbsp;&nbsp;
-                            <asp:RadioButton ID="rbtnNonIndividual" runat="server" CssClass="txtField" Text="Non Individual"
-                                GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnNonIndividual_CheckedChanged" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="leftField">
-                            <asp:Label ID="lblCustomerSubType" runat="server" CssClass="FieldName" Text="Customer Sub Type:"></asp:Label>
-                        </td>
-                        <td>
-                            <asp:DropDownList ID="ddlCustomerSubType" runat="server" CssClass="cmbField">
-                            </asp:DropDownList>
-                            <span id="Span30" class="spnRequiredField">*</span> &nbsp;
-                            <%-- <asp:CheckBox ID="chkRealInvestor" runat="server" CssClass="txtField" Text="Investor"
-                                AutoPostBack="false" Checked="true" onclick="javascript:ShowSubmitAndSave();" />
-                            <br />--%>
-                            <asp:CompareValidator ID="CompareValidatorSubtype" runat="server" ControlToValidate="ddlCustomerSubType"
-                                ErrorMessage="<br />Please select a Customer Sub-Type" Operator="NotEqual" ValueToCompare="0"
-                                CssClass="cvPCG" Display="Dynamic" ValidationGroup="btnCustomerSubmit"></asp:CompareValidator>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="leftField">
-                            <asp:Label ID="lblPanNum" runat="server" CssClass="FieldName" Text="PAN Number:"></asp:Label>
-                        </td>
-                        <td class="rightField" width="75%">
-                            <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
-                            <span id="Span31" class="spnRequiredField">*</span> &nbsp;
-                            <asp:CheckBox ID="chkdummypan" runat="server" Visible="false" CssClass="txtField"
-                                Text="Dummy PAN" AutoPostBack="true" />
-                            <br />
-                            <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPanNumber" ErrorMessage="Please enter a PAN Number"
-                                Display="Dynamic" runat="server" ValidationGroup="btnCustomerSubmit" CssClass="rfvPCG">
-                            </asp:RequiredFieldValidator>
-                            <asp:RegularExpressionValidator ID="revPan" runat="server" Display="Dynamic" CssClass="rfvPCG"
-                                ErrorMessage="Please check PAN Format" ControlToValidate="txtPanNumber" ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}">
-                            </asp:RegularExpressionValidator>
-                            <asp:Label ID="lblPanDuplicate" runat="server" Visible="false" CssClass="Error" Text="PAN already exists"></asp:Label>
-                        </td>
-                    </tr>
-                    <tr id="trSalutation" runat="server" visible="false">
-                        <td class="leftField">
-                            <asp:Label ID="Label8" runat="server" CssClass="FieldName" Text="Salutation:"></asp:Label>
-                        </td>
-                        <td class="rightField" width="75%">
-                            <asp:DropDownList ID="ddlSalutation" runat="server" CssClass="cmbField">
-                                <asp:ListItem>Select a Salutation</asp:ListItem>
-                                <asp:ListItem>Mr.</asp:ListItem>
-                                <asp:ListItem>Mrs.</asp:ListItem>
-                                <asp:ListItem>Ms.</asp:ListItem>
-                                <asp:ListItem>M/S.</asp:ListItem>
-                                <asp:ListItem>Dr.</asp:ListItem>
-                            </asp:DropDownList>
-                        </td>
-                    </tr>
-                    <tr id="trIndividualName" runat="server">
-                        <td class="leftField">
-                            <asp:Label ID="lblName" runat="server" CssClass="FieldName" Text="Name:"></asp:Label>
-                        </td>
-                        <td class="rightField">
-                            <asp:TextBox ID="txtFirstName" runat="server" MaxLength="75" Style="width: 30%" CssClass="txtField"></asp:TextBox>
-                            <cc1:TextBoxWatermarkExtender ID="txtFirstName_TextBoxWatermarkExtender" runat="server"
-                                Enabled="True" TargetControlID="txtFirstName" WatermarkText="FirstName">
-                            </cc1:TextBoxWatermarkExtender>
-                            <span id="Span32" class="spnRequiredField">*</span>
-                            
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator25" ControlToValidate="txtFirstName"
-                                ErrorMessage="<br />Please enter the First Name" ValidationGroup="btnCustomerSubmit"
-                                Display="Dynamic" runat="server" CssClass="rfvPCG">
-                            </asp:RequiredFieldValidator>
-                        </td>
-                    </tr>
-                    <tr id="trNonIndividualName" runat="server">
-                        <td class="leftField">
-                            <asp:Label ID="lblCompanyName" runat="server" CssClass="FieldName" Text="Company Name:"></asp:Label>
-                        </td>
-                        <td>
-                            <asp:TextBox ID="txtCompanyName" CssClass="txtField" Style="width: 30%" runat="server"></asp:TextBox>
-                            <span id="Span33" class="spnRequiredField">*</span>
-                            <br />
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator26" ControlToValidate="txtCompanyName"
-                                ErrorMessage="Please enter the Company Name" Display="Dynamic" ValidationGroup="btnCustomerSubmit"
-                                runat="server" CssClass="rfvPCG">
-                            </asp:RequiredFieldValidator>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="leftField">
-                            <asp:Label ID="lblEmail" runat="server" CssClass="FieldName" Text="Email Id:"></asp:Label>
-                        </td>
-                        <td>
-                            <asp:TextBox ID="txtEmail" runat="server" Style="width: 30%" CssClass="txtField"></asp:TextBox>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="txtEmail"
-                                ErrorMessage="Please enter a valid Email ID" Display="Dynamic" runat="server"
-                                ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="revPCG"></asp:RegularExpressionValidator>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="leftField">
-                            <asp:Label ID="Label20" runat="server" CssClass="FieldName" Text="Mobile No:"></asp:Label>
-                        </td>
-                        <td class="rightField" colspan="3">
-                            <asp:TextBox ID="txtMobileNumber" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
-                            <span id="Span34" class="spnRequiredField">*</span>
-                            <br />
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator14" ControlToValidate="txtMobileNumber"
-                                Display="Dynamic" runat="server" CssClass="rfvPCG" ErrorMessage="Not acceptable format"
-                                ValidationExpression="^\d{10,10}$">
-                            </asp:RegularExpressionValidator>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator27" ControlToValidate="txtMobileNumber"
-                                ErrorMessage="Please enter a Contact Number" ValidationGroup="btnCustomerSubmit"
-                                Display="Dynamic" runat="server" CssClass="rfvPCG">
-                            </asp:RequiredFieldValidator>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr id="trBranchlist" runat="server" visible="false">
-                        <td>
-                            <asp:Label ID="Label9" runat="server" CssClass="FieldName" Text="Branch Name:"></asp:Label>
-                        </td>
-                        <td>
-                            <asp:DropDownList ID="ddlAdviserBranchList" AutoPostBack="true" runat="server" CssClass="cmbField">
-                            </asp:DropDownList>
-                            <span id="Span35" class="spnRequiredField">*</span>
-                            <br />
-                            <asp:CompareValidator ID="ddlAdviserBranchList_CompareValidator2" runat="server"
-                                ControlToValidate="ddlAdviserBranchList" ErrorMessage="Please select a Branch"
-                                Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic"
-                                ValidationGroup="btnCustomerSubmit">
-                            </asp:CompareValidator>
-                        </td>
-                    </tr>
-                    <tr id="trRMlist" runat="server" visible="false">
-                        <td>
-                            <asp:Label ID="lblRMName" runat="server" CssClass="FieldName" Text="Select RM:"></asp:Label>
-                        </td>
-                        <td>
-                            <asp:DropDownList ID="ddlAdviseRMList" runat="server" CssClass="cmbField">
-                            </asp:DropDownList>
-                            <span id="Span36" class="spnRequiredField">*</span>
-                            <br />
-                            <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="ddlAdviseRMList"
-                                ErrorMessage=" " Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG"
-                                Display="Dynamic" ValidationGroup="btnCustomerSubmit">
-                            </asp:CompareValidator>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="leftField">
-                        </td>
-                        <td class="rightField">
-                            <asp:Button ID="btnChannelSubmit" runat="server" Text="Submit" CssClass="PCGButton"
-                                ValidationGroup="btnCustomerSubmit" OnClick="btnCustomerSubmit_Click" />
-                            <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
-                                CommandName="Cancel"></asp:Button>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </ContentTemplate>
-    </telerik:RadWindow>
-    
-    
-    <%-- <telerik:RadWindow ID="radwindowPopup" Visible="false" runat="server" VisibleOnPageLoad="false"
-        Height="30%" Width="600px" Modal="true" BackColor="#DADADA" Top="10" Left="20"
-        VisibleStatusbar="false" OnClientShow="setCustomPosition" Behaviors="close,Move"
-        Title="Add New Folio">--%>
-    
-        <telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false" Height="30%"
-            Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false"  
-            Title="Add New Folio" OnClientShow="setCustomPosition" Behaviors="close,Move">
+        <div style="padding: 20px">
+            <table width="100%" class="TableBackground">
+                <tr>
+                    <td colspan="3">
+                        <div class="divPageHeading">
+                            <table cellspacing="0" cellpadding="3" width="100%">
+                                <tr>
+                                    <td align="left">
+                                        Add Customer
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <table width="100%">
+                <tr id="trBtnSaveMsg" runat="server" visible="false">
+                    <td class="leftField">
+                    </td>
+                    <td>
+                        <asp:Label ID="lblbtnSaveMsg" runat="server" Text="Customer Added Successfully" CssClass="FieldName"
+                            Font-Size="Medium"></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField" style="width: 20%">
+                        <asp:Label ID="lblCustomerType" runat="server" CssClass="FieldName" Text="Customer Type:"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:RadioButton ID="rbtnIndividual" runat="server" CssClass="txtField" Text="Individual"
+                            GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnIndividual_CheckedChanged" />
+                        &nbsp;&nbsp;
+                        <asp:RadioButton ID="rbtnNonIndividual" runat="server" CssClass="txtField" Text="Non Individual"
+                            GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnNonIndividual_CheckedChanged" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="lblCustomerSubType" runat="server" CssClass="FieldName" Text="Customer Sub Type:"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:DropDownList ID="ddlCustomerSubType" runat="server" CssClass="cmbField">
+                        </asp:DropDownList>
+                        <span id="Span30" class="spnRequiredField">*</span> &nbsp;
+                        <asp:CompareValidator ID="CompareValidatorSubtype" runat="server" ControlToValidate="ddlCustomerSubType"
+                            ErrorMessage="<br />Please select a Customer Sub-Type" Operator="NotEqual" ValueToCompare="0"
+                            CssClass="cvPCG" Display="Dynamic" ValidationGroup="btnCustomerSubmit"></asp:CompareValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="lblPanNum" runat="server" CssClass="FieldName" Text="PAN Number:"></asp:Label>
+                    </td>
+                    <td class="rightField" width="75%">
+                        <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
+                        <span id="Span31" class="spnRequiredField">*</span> &nbsp;
+                        <asp:CheckBox ID="chkdummypan" runat="server" Visible="false" CssClass="txtField"
+                            Text="Dummy PAN" AutoPostBack="true" />
+                        <br />
+                        <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPanNumber" ErrorMessage="Please enter a PAN Number"
+                            Display="Dynamic" runat="server" ValidationGroup="btnCustomerSubmit" CssClass="rfvPCG">
+                        </asp:RequiredFieldValidator>
+                        <asp:RegularExpressionValidator ID="revPan" runat="server" Display="Dynamic" CssClass="rfvPCG"
+                            ErrorMessage="Please check PAN Format" ControlToValidate="txtPanNumber" ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}">
+                        </asp:RegularExpressionValidator>
+                        <asp:Label ID="lblPanDuplicate" runat="server" Visible="false" CssClass="Error" Text="PAN already exists"></asp:Label>
+                    </td>
+                </tr>
+                <tr id="trSalutation" runat="server" visible="false">
+                    <td class="leftField">
+                        <asp:Label ID="Label8" runat="server" CssClass="FieldName" Text="Salutation:"></asp:Label>
+                    </td>
+                    <td class="rightField" width="75%">
+                        <asp:DropDownList ID="ddlSalutation" runat="server" CssClass="cmbField">
+                            <asp:ListItem>Select a Salutation</asp:ListItem>
+                            <asp:ListItem>Mr.</asp:ListItem>
+                            <asp:ListItem>Mrs.</asp:ListItem>
+                            <asp:ListItem>Ms.</asp:ListItem>
+                            <asp:ListItem>M/S.</asp:ListItem>
+                            <asp:ListItem>Dr.</asp:ListItem>
+                        </asp:DropDownList>
+                    </td>
+                </tr>
+                <tr id="trIndividualName" runat="server">
+                    <td class="leftField">
+                        <asp:Label ID="lblName" runat="server" CssClass="FieldName" Text="Name:"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtFirstName" runat="server" MaxLength="75" Style="width: 30%" CssClass="txtField"></asp:TextBox>
+                        <cc1:TextBoxWatermarkExtender ID="txtFirstName_TextBoxWatermarkExtender" runat="server"
+                            Enabled="True" TargetControlID="txtFirstName" WatermarkText="FirstName">
+                        </cc1:TextBoxWatermarkExtender>
+                        <span id="Span32" class="spnRequiredField">*</span>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator25" ControlToValidate="txtFirstName"
+                            ErrorMessage="<br />Please enter the First Name" ValidationGroup="btnCustomerSubmit"
+                            Display="Dynamic" runat="server" CssClass="rfvPCG">
+                        </asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                <tr id="trNonIndividualName" runat="server">
+                    <td class="leftField">
+                        <asp:Label ID="lblCompanyName" runat="server" CssClass="FieldName" Text="Company Name:"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtCompanyName" CssClass="txtField" Style="width: 30%" runat="server"></asp:TextBox>
+                        <span id="Span33" class="spnRequiredField">*</span>
+                        <br />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator26" ControlToValidate="txtCompanyName"
+                            ErrorMessage="Please enter the Company Name" Display="Dynamic" ValidationGroup="btnCustomerSubmit"
+                            runat="server" CssClass="rfvPCG">
+                        </asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="lblEmail" runat="server" CssClass="FieldName" Text="Email Id:"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtEmail" runat="server" Style="width: 30%" CssClass="txtField"></asp:TextBox>
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="txtEmail"
+                            ErrorMessage="Please enter a valid Email ID" Display="Dynamic" runat="server"
+                            ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="revPCG"></asp:RegularExpressionValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="Label20" runat="server" CssClass="FieldName" Text="Mobile No:"></asp:Label>
+                    </td>
+                    <td class="rightField" colspan="3">
+                        <asp:TextBox ID="txtMobileNumber" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
+                        <span id="Span34" class="spnRequiredField">*</span>
+                        <br />
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator14" ControlToValidate="txtMobileNumber"
+                            Display="Dynamic" runat="server" CssClass="rfvPCG" ErrorMessage="Not acceptable format"
+                            ValidationExpression="^\d{10,10}$">
+                        </asp:RegularExpressionValidator>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator27" ControlToValidate="txtMobileNumber"
+                            ErrorMessage="Please enter a Contact Number" ValidationGroup="btnCustomerSubmit"
+                            Display="Dynamic" runat="server" CssClass="rfvPCG">
+                        </asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr id="trBranchlist" runat="server" visible="false">
+                    <td>
+                        <asp:Label ID="Label9" runat="server" CssClass="FieldName" Text="Branch Name:"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:DropDownList ID="ddlAdviserBranchList" AutoPostBack="true" runat="server" CssClass="cmbField">
+                        </asp:DropDownList>
+                        <span id="Span35" class="spnRequiredField">*</span>
+                        <br />
+                        <asp:CompareValidator ID="ddlAdviserBranchList_CompareValidator2" runat="server"
+                            ControlToValidate="ddlAdviserBranchList" ErrorMessage="Please select a Branch"
+                            Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic"
+                            ValidationGroup="btnCustomerSubmit">
+                        </asp:CompareValidator>
+                    </td>
+                </tr>
+                <tr id="trRMlist" runat="server" visible="false">
+                    <td>
+                        <asp:Label ID="lblRMName" runat="server" CssClass="FieldName" Text="Select RM:"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:DropDownList ID="ddlAdviseRMList" runat="server" CssClass="cmbField">
+                        </asp:DropDownList>
+                        <span id="Span36" class="spnRequiredField">*</span>
+                        <br />
+                        <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="ddlAdviseRMList"
+                            ErrorMessage=" " Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG"
+                            Display="Dynamic" ValidationGroup="btnCustomerSubmit">
+                        </asp:CompareValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                    </td>
+                    <td class="rightField">
+                        <asp:Button ID="btnChannelSubmit" runat="server" Text="Submit" CssClass="PCGButton"
+                            ValidationGroup="btnCustomerSubmit" OnClick="btnCustomerSubmit_Click"  />
+                        <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
+                            CommandName="Cancel"></asp:Button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </ContentTemplate>
+</telerik:RadWindow>
+<asp:UpdatePanel ID="UpdatePanel1" runat="server" Visible="true" EnableViewState="true">
+    <ContentTemplate>
+        <telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false" Height="10%"
+            Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Title="Add New Folio"
+            OnClientShow="setCustomPosition" Behaviors="close,Move">
             <ContentTemplate>
                 <div style="padding: 20px">
                     <table width="100%">
@@ -684,16 +671,8 @@
                 </td>
             </tr>
         </table>
-        <%-- <tr>
-        <td colspan="5">
-        </td>
-    </tr>
-    <tr>
-        <td colspan="5">
-        </td>
-    </tr>--%>
         <asp:Panel ID="pnl_OrderSection" runat="server" class="Landscape" Width="120%" Height="300%"
-            ScrollBars="None">
+            ScrollBars="None" >
             <table width="100%">
                 <tr>
                     <td colspan="6">
@@ -764,13 +743,13 @@
                         <asp:Label ID="lblCustomer" runat="server" Text="Customer Name:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                   <%-- openpopupAddCustomer_Click--%>
+                        <%-- OnClientClick="return openpopupAddCustomer()"--%>
                         <asp:TextBox ID="txtCustomerName" runat="server" CssClass="txtField" AutoComplete="Off"
                             onclientClick="ShowIsa()" AutoPostBack="True" TabIndex="4" Width="200px">
                         </asp:TextBox><span id="spnCustomer" class="spnRequiredField">*</span>
                         <asp:ImageButton ID="btnImgAddCustomer" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
-                            AlternateText="Add" runat="server" ToolTip="Click here to Add Customer" OnClientClick="return openpopupAddCustomer()"
-                            Height="15px" Width="15px"></asp:ImageButton>
+                            AlternateText="Add" runat="server" ToolTip="Click here to Add Customer" OnClick="openpopupAddCustomer_Click"
+                            Height="15px" Width="15px" CausesValidation="false"></asp:ImageButton>
                         <cc1:TextBoxWatermarkExtender ID="txtCustomer_water" TargetControlID="txtCustomerName"
                             WatermarkText="Enter few chars of Customer" runat="server" EnableViewState="false">
                         </cc1:TextBoxWatermarkExtender>
@@ -852,13 +831,11 @@
                     </td>
                     <td align="right">
                         <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text="Reporting To:"></asp:Label>
-                    
                     </td>
-                  
                     <td>
                         <asp:Label ID="lb1RepTo" runat="server" CssClass="FieldName" Enabled="false"></asp:Label>
                     </td>
-                      <td>
+                    <td>
                     </td>
                 </tr>
                 <tr id="trIsa" runat="server">
@@ -938,6 +915,7 @@
                             <asp:ListItem Text="Switch" Value="SWB"></asp:ListItem>
                             <asp:ListItem Text="Change Of Address Form" Value="CAF" Enabled="false"></asp:ListItem>
                             <asp:ListItem Text="Transfer IN" Value="TI" Enabled="false"></asp:ListItem>
+                            <asp:ListItem Text="NFO" Value="NFO" Enabled="false"></asp:ListItem>                            
                         </asp:DropDownList>
                         <span id="spnTransType" class="spnRequiredField">*</span>
                         <asp:CompareValidator ID="CVTrxType" runat="server" ControlToValidate="ddltransType"
@@ -1117,8 +1095,8 @@
                     </td>
                     <td>
                         <asp:HiddenField ID="hidFolioNumber" runat="server" OnValueChanged="hidFolioNumber_ValueChanged" />
-                        <asp:TextBox ID="txtFolioNumber" runat="server" CssClass="txtField" onblur="return ValidateFolioSelection(this)"
-                            AutoPostBack="true" TabIndex="15">
+                        <asp:TextBox ID="txtFolioNumber" runat="server" CssClass="txtField" AutoPostBack="true"
+                            TabIndex="15">
                         </asp:TextBox>
                         <span id="spnExistingFolio"></span>
                         <asp:ImageButton ID="imgFolioAdd" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
@@ -1591,55 +1569,6 @@
                 </tr>
             </table>
         </asp:Panel>
-        <%--    <asp:Panel ID="pnl_SEL_PaymentSection" runat="server" class="Landscape" Width="100%" Height="80%"
-    ScrollBars="None"  >
-    <table id="tb_SEL_PaymentSection">
-    <tr id="trRedeemed" runat="server">
-        <td class="leftField" style="width: 20%">
-            <asp:Label ID="lblReedeemed" runat="server" Text="Redeem/Switch:" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightField" style="width: 20%">
-            <asp:RadioButton ID="rbtAmount" Class="cmbFielde" runat="server" GroupName="AmountUnit"
-                Checked="True" Text="Amount" />
-            <asp:RadioButton ID="rbtUnit" Class="cmbFielde" runat="server" GroupName="AmountUnit"
-                Text="Units" />
-        </td>
-        <td class="leftField" style="width: 20%">
-            <asp:Label ID="lblAmountUnits" runat="server" Text="Amount/Unit:" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightField" style="width: 20%">
-            <asp:TextBox ID="txtNewAmount" runat="server" CssClass="txtField" TabIndex="23"></asp:TextBox><span
-                id="Span2" class="spnRequiredField">*</span>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtNewAmount"
-                CssClass="rfvPCG" ErrorMessage="<br />Please select Amount/Unit" Display="Dynamic"
-                runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
-            <asp:CompareValidator ID="CompareValidator9" ControlToValidate="txtNewAmount" runat="server"
-                Display="Dynamic" ErrorMessage="<br />Please enter a numeric value" Type="Double"
-                Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
-            <asp:RangeValidator ID="RangeValidator3" Display="Dynamic" ValidationGroup="MFSubmit"
-                runat="server" ErrorMessage="<br />Please enter a valid amount" ControlToValidate="txtNewAmount"
-                MaximumValue="2147483647" MinimumValue="1" Type="Double" CssClass="cvPCG"></asp:RangeValidator>
-        </td>
-    </tr>
-    
-   
-    <tr id="trScheme" runat="server" visible="false">
-        <td class="leftField" style="width: 20%">
-            <asp:Label ID="lblSchemeSwitch" runat="server" Text="To Scheme:" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightField" style="width: 20%">
-            <asp:DropDownList ID="ddlSchemeSwitch" runat="server" CssClass="cmbLongField" TabIndex="24">
-            </asp:DropDownList>
-            <span id="Span3" runat="server" class="spnRequiredField">*</span>
-            <asp:CompareValidator ID="CompareValidator10" runat="server" ControlToValidate="ddlSchemeSwitch"
-                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a scheme"
-                Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
-        </td>
-        <td class="leftField" colspan="2" style="width: 40%">
-        </td>
-    </tr>
-    </table>
-    </asp:Panel>--%>
         <table id="Table1" runat="server" visible="false">
             <tr id="trFrequencySTP" runat="server" visible="false">
                 <td class="leftField" style="width: 20%">
@@ -1896,34 +1825,6 @@
             <%-- </tr>--%>
         </table>
         <table>
-            <%--<tr id="trSystematicDate" runat="server" visible="false">
-        <td class="leftField" width="25%">
-            <asp:Label ID="lblPeriod" runat="server" Text="Tenure:" CssClass="FieldName"></asp:Label>
-        </td>
-        <td colspan="3">
-            <asp:TextBox ID="txtPeriod" runat="server" CssClass="txtField" AutoPostBack="true"
-                ValidationGroup="MFSubmit" CausesValidation="true" OnTextChanged="txtPeriod_TextChanged"></asp:TextBox>
-            <span id="Span21" class="spnRequiredField">*</span>
-            <asp:DropDownList ID="ddlPeriodSelection" runat="server" AutoPostBack="true" CssClass="cmbField"
-                CausesValidation="true" ValidationGroup="MFSubmit" OnSelectedIndexChanged="ddlPeriodSelection_SelectedIndexChanged">
-                <asp:ListItem Text="Days" Value="DA"></asp:ListItem>
-                <asp:ListItem Text="Months" Value="MN"></asp:ListItem>
-                <asp:ListItem Text="Years" Value="YR"></asp:ListItem>
-            </asp:DropDownList>
-            <asp:Label ID="lblUnits" runat="server" Text="&nbsp;&nbsp;(Units)" CssClass="FieldName"></asp:Label>
-            <asp:RequiredFieldValidator ID="rfvPeriod" ControlToValidate="txtPeriod" ErrorMessage="<br />Please Enter a Period"
-                Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="MFSubmit">
-            </asp:RequiredFieldValidator>&nbsp;&nbsp;
-            <asp:CompareValidator ID="CompareValidator_txtPeriod" runat="server" ControlToValidate="txtPeriod"
-                ErrorMessage="<br />Please Enter a numeric Value" Operator="DataTypeCheck" Type="Integer"
-                ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic" ValidationGroup="MFSubmit">
-            </asp:CompareValidator>
-            <asp:CompareValidator ID="CompareValidator4" runat="server" ControlToValidate="txtPeriod"
-                ErrorMessage="<br />Please update the  value" Operator="GreaterThan" Type="Integer"
-                ValueToCompare="0" CssClass="cvPCG" Display="Dynamic" ValidationGroup="MFSubmit">
-            </asp:CompareValidator>
-        </td>
-    </tr>--%>
             <tr id="trRegistrationDate" runat="server" visible="false">
                 <td class="leftField" width="25%">
                     <asp:Label ID="lblRegistrationDate" runat="server" Text="Registration Date in R&T system: "
@@ -1967,6 +1868,7 @@
     </ContentTemplate>
     <Triggers>
         <asp:PostBackTrigger ControlID="lnkBtnEdit" />
+        <asp:PostBackTrigger ControlID="btnImgAddCustomer" />
     </Triggers>
 </asp:UpdatePanel>
 <asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" Height="600px"
@@ -1974,7 +1876,7 @@
     <table runat="server">
         <tr id="trRemarks" runat="server">
             <td>
-                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; 
             </td>
             <td class="leftField">
                 <asp:Label ID="lblRemarks" runat="server" Text="Remarks:" CssClass="FieldName"></asp:Label>
