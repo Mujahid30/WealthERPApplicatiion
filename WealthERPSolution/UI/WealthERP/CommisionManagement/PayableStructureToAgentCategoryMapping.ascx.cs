@@ -230,14 +230,23 @@ namespace WealthERP.CommisionManagement
             //}
             foreach (GridDataItem gdi in rgPayableMapping.MasterTableView.Items)
             {
-                RadioButtonList rbtnListRate = (RadioButtonList)gdi.FindControl("rbtnListRate");
-                if (rbtnListRate.SelectedItem != null)
-                    ruleId += rbtnListRate.SelectedValue + ",";
+                //RadioButtonList rbtnListRate = (RadioButtonList)gdi.FindControl("rbtnListRate");
+                CheckBoxList chkListrate = (CheckBoxList)gdi.FindControl("chkListrate");
+                for (int i = 0; i < chkListrate.Items.Count; i++)
+                {
+                    if (chkListrate.Items[i].Selected)
+                    {
+                        //Storing the selected values
+                        ruleId = ruleId + "," + chkListrate.Items[i].Value;
+                    }
+                }
+                //if (chkListrate.SelectedItem != null)
+                //    ruleId += chkListrate.SelectedValue + ",";
                
             }
             if (ruleId != "")
             {
-                ruleId = ruleId.TrimEnd(',');
+                ruleId = ruleId.Trim(',');
                 DataTable dtRuleMapping = new DataTable();
                 dtRuleMapping.Columns.Add("agentId",typeof(string));
                 dtRuleMapping.Columns.Add("ruleids");
@@ -405,35 +414,37 @@ namespace WealthERP.CommisionManagement
             DataSet dsratelist = (DataSet)ViewState["dsrate"];
             if (e.Item is GridDataItem)
             {
-                RadioButtonList rbtnListRate = e.Item.FindControl("rbtnListRate") as RadioButtonList;
+                CheckBoxList chkListrate = e.Item.FindControl("chkListrate") as CheckBoxList;
+                //RadioButtonList rbtnListRate = e.Item.FindControl("rbtnListRate") as RadioButtonList;
                 int ruleId = int.Parse(rgPayableMapping.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_CommissionStructureRuleId"].ToString());
 
                 DataView dv = dsratelist.Tables[1].DefaultView;
                 dv.RowFilter = "ACSR_CommissionStructureRuleId = '" + ruleId.ToString() + "'";
-                if (rbtnListRate != null)
+                if (chkListrate != null)
                 {
-                    rbtnListRate.DataSource = dv;
-                    rbtnListRate.DataValueField = "CSRD_StructureRuleDetailsId";
-                    rbtnListRate.DataTextField = "CSRD_BrokageValue";
-                    rbtnListRate.DataBind();
+
+                    chkListrate.DataSource = dv;
+                    chkListrate.DataValueField = "CSRD_StructureRuleDetailsId";
+                    chkListrate.DataTextField = "CSRD_BrokageValue";
+                    chkListrate.DataBind();
                     //rbtnListRate.Items[0].Selected = true;
 
-                    if (Request.QueryString["StructureId"] != null)
-                    {
-                        int ruleids = int.Parse(Request.QueryString["StructureId"].ToString());
-                        DataTable dt = commisionReceivableBo.GetMappedStructure(ruleids);
-                        foreach (DataRow dr in dt.Rows)
-                        {
-                            foreach (ListItem obj1 in rbtnListRate.Items)
-                            {
-                                if (dr["CSRD_StructureRuleDetailsId"].ToString() == obj1.Value)
-                                {
-                                    obj1.Selected = true;
-                                    hdneligible.Value = "Eligible";
-                                }
-                            }
-                        }
-                    }
+                    //if (Request.QueryString["StructureId"] != null)
+                    //{
+                    //    int ruleids = int.Parse(Request.QueryString["StructureId"].ToString());
+                    //    DataTable dt = commisionReceivableBo.GetMappedStructure(ruleids);
+                    //    foreach (DataRow dr in dt.Rows)
+                    //    {
+                    //        foreach (ListItem obj1 in chkListrate.Items)
+                    //        {
+                    //            if (dr["CSRD_StructureRuleDetailsId"].ToString() == obj1.Value)
+                    //            {
+                    //                obj1.Selected = true;
+                    //                hdneligible.Value = "Eligible";
+                    //            }
+                    //        }
+                    //    }
+                    //}
                 }
             }
         }

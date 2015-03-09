@@ -301,7 +301,7 @@ namespace WealthERP.OffLineOrderManagement
                         {
                             txtPaymentInstDate.SelectedDate = Convert.ToDateTime(dr["CO_PaymentDate"].ToString());
                         }
-
+                        if (dr["COID_DepCustBankAccId"].ToString() != string.Empty)
                         txtBankAccount.Text = dr["COID_DepCustBankAccId"].ToString().Substring(0, dr["COID_DepCustBankAccId"].ToString().IndexOf('.'));
                         trPINo.Visible = true;
                         lblBankAccount.Visible = true;

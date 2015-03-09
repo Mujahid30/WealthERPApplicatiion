@@ -184,8 +184,9 @@
                             <%--<ItemTemplate>
                                             <asp:Repeater ID="repradiobutton" runat="server"  >--%>
                             <ItemTemplate>
-                                <asp:RadioButtonList ID="rbtnListRate" runat="server" RepeatDirection="Vertical">
-                                </asp:RadioButtonList>
+                            <asp:CheckBoxList ID="chkListrate" runat="server" RepeatDirection="Vertical"></asp:CheckBoxList>
+                               <%-- <asp:RadioButtonList ID="rbtnListRate" runat="server" RepeatDirection="Vertical">
+                                </asp:RadioButtonList>--%>
                             </ItemTemplate>
                             <%-- <asp:Repeater ID="rptUnitValue" runat="server" DataMember="WCU_UnitCode"></asp:Repeater>--%>
                             <%--     </asp:Repeater>
