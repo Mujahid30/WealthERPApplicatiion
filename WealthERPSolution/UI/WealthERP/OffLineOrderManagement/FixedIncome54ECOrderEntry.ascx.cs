@@ -226,6 +226,7 @@ namespace WealthERP.OffLineOrderManagement
                     {
                         orderId = int.Parse(Request.QueryString["orderId"].ToString());
                         txtCustomerId.Value = Request.QueryString["customeId"].ToString();
+                        hdnOrderNo.Value = orderId.ToString();
                         ViewState["orderId"] = orderId;
                         lblAssociate.Visible = true;
                         if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")

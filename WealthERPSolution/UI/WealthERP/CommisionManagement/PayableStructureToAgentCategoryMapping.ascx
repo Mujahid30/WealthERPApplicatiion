@@ -6,6 +6,15 @@
         <asp:ServiceReference Path="AutoComplete.asmx" />
     </Services>
 </telerik:RadScriptManager>
+<telerik:RadAjaxManager ID="AjaxManagerMain" runat="server">
+    <AjaxSettings>
+        <telerik:AjaxSetting AjaxControlID="LBAgentCodes">
+            <UpdatedControls>
+                <telerik:AjaxUpdatedControl ControlID="PLCustomer" LoadingPanelID="AjaxLoadingPanelMain" />
+            </UpdatedControls>
+        </telerik:AjaxSetting>
+    </AjaxSettings>
+</telerik:RadAjaxManager>
 <style type="text/css">
     .table
     {
@@ -106,14 +115,14 @@
                     <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Mapped AgentCodes">
                     </asp:Label>
                     <br />
-                    <telerik:RadListBox SelectionMode="Multiple" EnableDragAndDrop="true" AccessKey="y"
+                    <telerik:RadListBox ID="LBAgentCodes" SelectionMode="Multiple" EnableDragAndDrop="true" AccessKey="y"
                         AllowTransferOnDoubleClick="true" AllowTransferDuplicates="false" EnableViewState="true"
-                        EnableMarkMatches="true" runat="server" ID="LBAgentCodes" Height="200px" Width="250px"
+                        EnableMarkMatches="true" runat="server"  Height="200px" Width="250px"  
                         OnTransferred="ListBoxSource_Transferred" AllowTransfer="true" TransferToID="RadListBoxSelectedAgentCodes"
                         CssClass="cmbFielde" Visible="true">
                     </telerik:RadListBox>
                     <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" SelectionMode="Multiple"
-                        ID="RadListBoxSelectedAgentCodes" Height="200px" Width="220px" CssClass="cmbField">
+                        ID="RadListBoxSelectedAgentCodes" Height="200px" Width="220px" CssClass="cmbField" AutoPostBackOnReorder="true">
                     </telerik:RadListBox>
                 </asp:Panel>
             </div>
