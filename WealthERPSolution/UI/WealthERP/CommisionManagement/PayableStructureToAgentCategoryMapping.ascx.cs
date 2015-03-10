@@ -16,6 +16,7 @@ using Telerik.Web.UI;
 using System.Text;
 using System.Data;
 using BoAdvisorProfiling;
+using System.Web.Configuration;
 
 namespace WealthERP.CommisionManagement
 {
@@ -220,70 +221,91 @@ namespace WealthERP.CommisionManagement
 
         private int CreatePayableMapping()
          {
-            string ruleId = string.Empty;
-            //string[] ruleid=new string[];
-            //int ruleId = 0;
-            //if (Request.QueryString["ruleId"] != null)
-            //{
-            //    ruleId = Request.QueryString["ruleId"].ToString();
-            //    //ruleid=ruleId.Split(',');
-            //}
-            foreach (GridDataItem gdi in rgPayableMapping.MasterTableView.Items)
-            {
-                //RadioButtonList rbtnListRate = (RadioButtonList)gdi.FindControl("rbtnListRate");
-                CheckBoxList chkListrate = (CheckBoxList)gdi.FindControl("chkListrate");
-                for (int i = 0; i < chkListrate.Items.Count; i++)
-                {
-                    if (chkListrate.Items[i].Selected)
-                    {
-                        //Storing the selected values
-                        ruleId = ruleId + "," + chkListrate.Items[i].Value;
-                    }
-                }
-                //if (chkListrate.SelectedItem != null)
-                //    ruleId += chkListrate.SelectedValue + ",";
+            StringBuilder sbAgentid= new StringBuilder();
+            StringBuilder sbRuleid = new StringBuilder();
+             string ruleId = string.Empty;
+
+             try
+             {
+                
+                 foreach (GridDataItem gdi in rgPayableMapping.MasterTableView.Items)
+                 {
+
+                     CheckBoxList chkListrate = (CheckBoxList)gdi.FindControl("chkListrate");
+                     for (int i = 0; i < chkListrate.Items.Count; i++)
+                     {
+                         if (chkListrate.Items[i].Selected)
+                         {
+                             //Storing the selected values
+                             ruleId = ruleId + "," + chkListrate.Items[i].Value;
+                         }
+                     }
+                    
+                 }
+                 if (ruleId != "")
+                 {
+                     ruleId = ruleId.Trim(',');
+                     DataTable dtRuleMapping = new DataTable();
+                     dtRuleMapping.Columns.Add("agentId", typeof(string));
+                     dtRuleMapping.Columns.Add("ruleids");
+
+                     DataRow drRuleMapping;
+                     int mappingId = 0;
+                     string agentId = string.Empty;
+                     string categoryId = string.Empty;
+                     if (ddlType.SelectedValue == "Custom")
+                     {
+                         foreach (RadListBoxItem ListItem in this.RadListBoxSelectedAgentCodes.Items)
+                         {
+
+                             agentId = ListItem.Value;
+                             sbAgentid.Append(ListItem.Value);
+                             foreach (object rule in ruleId.Split(','))
+                             {
+                                 drRuleMapping = dtRuleMapping.NewRow();
+                                 drRuleMapping["agentId"] = agentId;
+                                 drRuleMapping["ruleids"] = rule;
+                                 dtRuleMapping.Rows.Add(drRuleMapping);
+                             }
+                         }
+
+                     }
+                     else
+                     {
+                         categoryId = ddlAdviserCategory.SelectedValue;
+                     }
+
+                     commisionReceivableBo.CreateAdviserPayableRuleToAgentCategoryMapping(Convert.ToInt32(hdnStructId.Value), ddlMapping.SelectedValue, categoryId, dtRuleMapping, ruleId.TrimEnd(','), out mappingId);
+                     int x = 1;
+                     int y = 0;
+                     int z = x / y;
+                     return mappingId;
+                 }
+                 else
+                 {
+                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select rate(%)');", true);
+                     return 0;
+                 }
+             }
+             catch (BaseApplicationException Ex)
+             {
+                 throw Ex;
+             }
+             catch (Exception Ex)
+             {
                
-            }
-            if (ruleId != "")
-            {
-                ruleId = ruleId.Trim(',');
-                DataTable dtRuleMapping = new DataTable();
-                dtRuleMapping.Columns.Add("agentId",typeof(string));
-                dtRuleMapping.Columns.Add("ruleids");
-                //dtRuleMapping.Columns.Add("categoryId", typeof(Int32));
-                DataRow drRuleMapping;
-                int mappingId = 0;
-                string agentId = "";
-                string categoryId = string.Empty;
-                if (ddlType.SelectedValue == "Custom")
-                {
-                    foreach (RadListBoxItem ListItem in this.RadListBoxSelectedAgentCodes.Items)
-                    {
-
-                        agentId = ListItem.Value;
-                        foreach (object rule in ruleId.Split(','))
-                        {
-                            drRuleMapping = dtRuleMapping.NewRow();
-                            drRuleMapping["agentId"] = agentId;
-                            drRuleMapping["ruleids"] = rule;
-                            dtRuleMapping.Rows.Add(drRuleMapping);
-                        }
-                    }
-
-                }
-                else
-                {
-                    categoryId = ddlAdviserCategory.SelectedValue;
-                }
-
-                commisionReceivableBo.CreateAdviserPayableRuleToAgentCategoryMapping(Convert.ToInt32(hdnStructId.Value), ddlMapping.SelectedValue, categoryId, dtRuleMapping, ruleId.TrimEnd(','), out mappingId);
-                return mappingId;
-            }
-            else
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select rate(%)');", true);
-                return 0;
-            }
+                 string filePath = WebConfigurationManager.AppSettings["filePath"];
+                 System.IO.StreamWriter file = new System.IO.StreamWriter(filePath+"\\log.txt");
+                 file.WriteLine("RuleId"+ ruleId+"::" +"AgentId" +sbAgentid);
+                 file.WriteLine();
+                 file.Close(); 
+                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                 NameValueCollection FunctionInfo = new NameValueCollection();
+                 FunctionInfo.Add("Method", "CommissionStructureToSchemeMapping.ascx.cs:CreatePayableMapping()");
+                 exBase.AdditionalInformation = FunctionInfo;
+                 ExceptionManager.Publish(exBase);
+                 throw exBase;
+             }
         }
         protected void btnGo_Click(object sender, EventArgs e)
         {
