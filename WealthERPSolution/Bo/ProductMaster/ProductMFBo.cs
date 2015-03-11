@@ -385,7 +385,21 @@ namespace BoProductMaster
             return dsGetScheme;
 
         }
+        public DataSet GetNFOSchemeNames(string prefixText, int amcCode)
+        {
+            ProductMFDao productMFDao = new ProductMFDao();
+            DataSet dsGetScheme;
+            try
+            {
+                dsGetScheme = productMFDao.GetNFOSchemeNames(prefixText, amcCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetScheme;
 
+        }
         public DataSet GetSchemeName(int amcCode, string categoryCode, int all, int status)
         {
             ProductMFDao productMFDao = new ProductMFDao();

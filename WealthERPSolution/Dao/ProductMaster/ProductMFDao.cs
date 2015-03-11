@@ -564,6 +564,30 @@ namespace DaoProductMaster
 
         }
 
+        public DataSet GetNFOSchemeNames(string prefixText, int amcCode)
+        {
+            Database db;
+            DbCommand getSchemeNameCmd;
+            DataSet dsSchemeName;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getSchemeNameCmd = db.GetStoredProcCommand("SPROC_OFFLine_GetMF_NFO_Schemes");
+                db.AddInParameter(getSchemeNameCmd, "@prefixText", DbType.String, prefixText);
+                db.AddInParameter(getSchemeNameCmd, "@amcCode", DbType.Int32, amcCode);
+
+                dsSchemeName = db.ExecuteDataSet(getSchemeNameCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dsSchemeName;
+
+        }
+
         public DataSet GetSchemeName(int amcCode, string categoryCode, int all, int status)
         {
             Database db;

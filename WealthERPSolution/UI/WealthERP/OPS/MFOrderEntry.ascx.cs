@@ -129,6 +129,7 @@ namespace WealthERP.OPS
                 AutoCompleteExtender1.ContextKey = advisorVo.advisorId.ToString();
                 AutoCompleteExtender1.ServiceMethod = "GetAdviserCustomerPan";
                 txtAssociateSearch.Text = associateuserheirarchyVo.AgentCode;
+                 txtAgentId.Value = associateuserheirarchyVo.AdviserAgentId.ToString();
                 GetAgentName(associateuserheirarchyVo.AdviserAgentId);
                 AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode + "/" + advisorVo.advisorId.ToString();
                 AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetailsForAssociates";
@@ -259,17 +260,16 @@ namespace WealthERP.OPS
 
         protected void BindStartDates()
         {
+          
             ddlStartDate.Items.Clear();
             if (ddlFrequencySIP.SelectedValue == "0")
                 return;
             DateTime[] dtStartdates;
 
             dtStartdates = mfOrderBo.GetSipStartDates(Convert.ToInt32(txtSchemeCode.Value), ddlFrequencySIP.SelectedValue);
-            //else dtStartdates = boOnlineOrder.GetSipStartDates(Convert.ToInt32(onlineMFOrderVo.SchemePlanCode), onlineMFOrderVo.FrequencyCode);
 
             foreach (DateTime d in dtStartdates) ddlStartDate.Items.Add(new ListItem(d.ToString("dd-MMM-yyyy")));
             ddlStartDate.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
-            //ddlStartDate.Items.Insert(0, new ListItem("--SELECT--"));
             ddlStartDate.SelectedIndex = 0;
         }
 
@@ -278,7 +278,7 @@ namespace WealthERP.OPS
             string userMessage = string.Empty;
 
 
-            if (ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "ABY" || ddltransType.SelectedValue == "Sel")
+            if (ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "ABY" || ddltransType.SelectedValue == "Sel" ||  ddltransType.SelectedValue == "NFO")
             {
                 userMessage = "Order placed successfully, Order reference no. is " + orderId.ToString();
             }
@@ -362,13 +362,11 @@ namespace WealthERP.OPS
                 {
                     if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "SWB")
                     {
-
                         BindFolioNumberSearch(0, 0);
                     }
                     else
                     {
                         BindFolioNumberSearch(1, 0);
-
                     }
                 }
             }
@@ -451,13 +449,9 @@ namespace WealthERP.OPS
             ddlAMCList.Enabled = value;
             ddlCategory.Enabled = value;
             txtSearchScheme.Enabled = value;
-
-            //ddltransType.Enabled = !value;
-            // txtFolioNumber.Enabled = !value;
-            //imgFolioAdd.Enabled = !value;
-
-
+           
         }
+
         private void ViewOrderList(int orderId)
         {
             int agentId = 0;
@@ -647,6 +641,7 @@ namespace WealthERP.OPS
                         BindSchemeSwitch();
                         ddlSchemeSwitch.SelectedValue = dr["PASP_SchemePlanSwitch"].ToString();
                     }
+                  
                     BindStartDates();
 
 
@@ -806,8 +801,16 @@ namespace WealthERP.OPS
             //}
             //else
             //{
-            txtSearchScheme_autoCompleteExtender.ContextKey = amcCode.ToString();
-            txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSchemeNames";
+            if (transactionType == "NFO")
+            {
+                txtSearchScheme_autoCompleteExtender.ContextKey = amcCode.ToString();
+                txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetNFOSchemeNames";
+            }
+            else
+            {
+                txtSearchScheme_autoCompleteExtender.ContextKey = amcCode.ToString();
+                txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSchemeNames";
+            }
 
             //parameters = string.Empty;
             //parameters = (amcCode + "/" + categoryCode + "/" + 1 + "/" + 1);
@@ -2801,7 +2804,7 @@ namespace WealthERP.OPS
             txtFolioNumber.Enabled = true;
             imgFolioAdd.Enabled = true;
 
-            if (transType == "BUY" | transType == "ABY")
+            if (transType == "BUY" | transType == "ABY" | transType == "NFO")
             {
                 pnl_BUY_ABY_SIP_PaymentSection.Visible = true;
                 //if (transType == "BUY")
@@ -3725,11 +3728,11 @@ namespace WealthERP.OPS
             try
             {
                 if (Aflag == 0)
-                    dsProductAmc = productMFBo.GetProductAmc();             
-                else
+                    dsProductAmc = productMFBo.GetProductAmc();
+                else if (Aflag == 1)
                     dsProductAmc = operationBo.GetAMCForOrderEntry(Aflag, int.Parse(txtCustomerId.Value));
-
-                    //dsProductAmc = operationBo.Get_NFO_AMC();
+                else
+                    dsProductAmc = operationBo.Get_NFO_AMC();
 
                 if (dsProductAmc.Tables.Count > 0)
                 {
@@ -3883,11 +3886,20 @@ namespace WealthERP.OPS
             //}
             //else
             //{
-            BindAMC(0);
+          //  BindAMC(0);
             //}
 
-            //if (transactionType == "NFO")
-           
+            if (transactionType == "NFO")
+            {
+                BindAMC(2);
+
+            }
+            else
+            {
+                BindAMC(0);
+
+            }
+
         }
         protected void ddltransType_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -5003,7 +5015,7 @@ namespace WealthERP.OPS
                 ShowMessage(CreateUserMessage(Convert.ToInt32(lblGetOrderNo.Text), setupId), 's');
 
             }
-            
+
             ButtonsEnablement("Save_And_More");
             ClearAllFields();
             txtCustomerName.Text = "";

@@ -319,6 +319,30 @@ namespace BoOps
             return dsProductAMC;
         }
 
+        public DataSet Get_NFO_AMC( )
+        {
+            DataSet dsProductAMC;
+            try
+            {
+                dsProductAMC = operationDao.Get_NFO_AMC();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationBo.cs:GetAMCForOrderEntry()");
+                object[] objects = new object[2];                
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsProductAMC;
+        }
         public DataSet GetSchemeFor_OFlline_MF_OrderEntry(int amcCode, int customerId, string prefixText)
         {
             DataSet dsScheme;

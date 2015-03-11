@@ -414,6 +414,36 @@ namespace DaoOps
             return dsProductAMC;
         }
 
+        public DataSet Get_NFO_AMC( )
+        {
+            DataSet dsProductAMC;
+            Database db;
+            DbCommand getProductAMCcmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getProductAMCcmd = db.GetStoredProcCommand("SP_Get_NFO_AMC");                 
+                getProductAMCcmd.CommandTimeout = 60 * 60;
+                dsProductAMC = db.ExecuteDataSet(getProductAMCcmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationDao.cs:GetAMCForOrderEntry()");
+                object[] objects = new object[0];                
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsProductAMC;
+        }
+
         public DataSet GetSchemeForOrderEntry(int amcCode, string categoryCode, int Sflag, int customerId)
         {
             DataSet dsScheme;

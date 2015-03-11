@@ -915,7 +915,7 @@
                             <asp:ListItem Text="Switch" Value="SWB"></asp:ListItem>
                             <asp:ListItem Text="Change Of Address Form" Value="CAF" Enabled="false"></asp:ListItem>
                             <asp:ListItem Text="Transfer IN" Value="TI" Enabled="false"></asp:ListItem>
-                            <asp:ListItem Text="NFO" Value="NFO" Enabled="false"></asp:ListItem>                            
+                            <asp:ListItem Text="NFO" Value="NFO" Enabled="true"></asp:ListItem>                            
                         </asp:DropDownList>
                         <span id="spnTransType" class="spnRequiredField">*</span>
                         <asp:CompareValidator ID="CVTrxType" runat="server" ControlToValidate="ddltransType"
