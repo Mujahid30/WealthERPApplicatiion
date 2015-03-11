@@ -3907,6 +3907,7 @@ namespace WealthERP.Receivable
             int mappingId = CreatePayableMapping();
             if (mappingId > 0)
             {
+                RadListBoxSelectedAgentCodes.Items.Clear();
                 BindPayableGrid();
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Mapping Created SuccessFully');", true);
                 //BindPayableGrid(int.Parse(hdnStructId.Value));
@@ -4123,6 +4124,21 @@ namespace WealthERP.Receivable
                 lblAssetCategory.Visible = true;
                 ddlAdviserCategory.Visible = true;
                 BindClassification();
+            }
+        }
+        protected void ImageButton7_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvPayaMapping.Visible == true)
+            {
+                gvPayaMapping.Visible = false;
+                ImageButton7.ImageUrl = "~/Images/toggle-expand-alt_blue.png";
+                ImageButton7.ToolTip = "Expend";
+            }
+            else
+            {
+                gvPayaMapping.Visible = true;
+                ImageButton7.ImageUrl = "~/Images/toggle-collapse-alt_blue.png";
+                ImageButton7.ToolTip = "Collapse";
             }
         }
     }
