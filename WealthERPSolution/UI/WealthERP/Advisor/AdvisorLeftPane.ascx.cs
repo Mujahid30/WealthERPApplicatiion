@@ -557,7 +557,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "View_AMC")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AMCManage','login');", true);
-                }
+                } 
                 else if (e.Item.Value == "Advertisement_Manage")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('BannerManager','login');", true);
