@@ -1050,73 +1050,8 @@
                     </td>
                 </tr>
             </table>
-            <table id="tblMapping" runat="server" width="100%" visible="false">
-                <tr>
-                    <td class="leftLabel">
-                        <asp:Label ID="Label5" runat="server" Text="Mapping For:" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td class="rightData">
-                        <asp:DropDownList ID="ddlMapping" runat="server" CssClass="cmbField" AutoPostBack="true">
-                            <asp:ListItem Text="Staff" Value="Staff"></asp:ListItem>
-                            <asp:ListItem Text="Associate" Value="Associate"></asp:ListItem>
-                        </asp:DropDownList>
-                    </td>
-                    <td class="leftLabel">
-                        <asp:Label ID="Label6" runat="server" Text="Type: " CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td class="rightData">
-                        <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlType_Selectedindexchanged"
-                            AutoPostBack="true">
-                            <asp:ListItem Text="Custom" Value="Custom"></asp:ListItem>
-                            <asp:ListItem Text="UserCategory" Value="UserCategory"></asp:ListItem>
-                        </asp:DropDownList>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="leftLabel">
-                        <asp:Label ID="lblAssetCategory" CssClass="FieldName" runat="server" Text="Associate Category:"></asp:Label>
-                    </td>
-                    <td class="rightData">
-                        <asp:DropDownList ID="ddlAdviserCategory" runat="server" CssClass="cmbField">
-                        </asp:DropDownList>
-                    </td>
-                </tr>
-            </table>
-            <table>
-                <tr runat="server" id="trListControls" visible="false">
-                    <td>
-                        <div class="clearfix" style="margin-bottom: 1em;">
-                            <asp:Panel ID="PLCustomer" runat="server" Style="float: left; padding-left: 150px;">
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <asp:Label ID="lblSelectBranch" runat="server" CssClass="FieldName" Text="Existing AgentCodes">
-                                </asp:Label>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text="Mapped AgentCodes">
-                                </asp:Label>
-                                <br />
-                                <telerik:RadListBox SelectionMode="Multiple" EnableDragAndDrop="true" AccessKey="y"
-                                    AllowTransferOnDoubleClick="true" AllowTransferDuplicates="false" EnableViewState="true"
-                                    EnableMarkMatches="true" runat="server" ID="LBAgentCodes" Height="200px" Width="250px"
-                                    AllowTransfer="true" TransferToID="RadListBoxSelectedAgentCodes" CssClass="cmbFielde"
-                                    Visible="true">
-                                </telerik:RadListBox>
-                                <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" SelectionMode="Multiple"
-                                    ID="RadListBoxSelectedAgentCodes" Height="200px" Width="220px" CssClass="cmbField">
-                                </telerik:RadListBox>
-                            </asp:Panel>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-            <table>
-                <tr>
-                    <td class="rightData" colspan="2">
-                        <asp:Button ID="btnPaybleMapping" ValidationGroup="btnSubmitRule" CssClass="PCGButton"
-                            OnClick="btnPaybleMapping_Click" Visible="false" Text="Submit" runat="server"
-                            CausesValidation="true"></asp:Button>&nbsp;
-                    </td>
-                </tr>
-            </table>
+            
+           
             <table id="Table4" runat="server" width="100%" visible="false" style="clear: both">
                 <tr id="tr3" runat="server">
                     <td class="tdSectionHeading">
@@ -2027,11 +1962,7 @@
                             runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="ibtExport_OnClick"
                             Height="25px" Width="25px" Visible="false"></asp:ImageButton>
                     </td>
-                    <td>
-                        <asp:ImageButton ID="imgMapping" runat="server" ImageUrl="~/Images/index.png" OnClick="OnClick_imgMapping"
-                            ToolTip="Click here to reload the associate payable mapped" Height="35px" Width="35px"
-                            Style="float: right; cursor: hand;" />
-                    </td>
+                   
                 </tr>
                 <tr>
                     <td>
@@ -2135,6 +2066,137 @@
             <asp:Label ID="lblEligible" runat="server"></asp:Label>
             <asp:Button ID="btnIssueMap" runat="server" CssClass="PCGButton" Text="Map Associate"
                 OnClick="Map_btnIssueMap" OnClientClick="Confirm()" Visible="false" />
+            <telerik:RadWindow ID="radAplicationPopUp" runat="server" VisibleOnPageLoad="false"
+                Height="500px" Width="900px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false"
+                Behaviors="Resize, Close, Move" Title="Map Associate" Left="10px" Top="20Px">
+                <ContentTemplate>
+                    <table id="tblMapping" runat="server" width="100%">
+                        <tr>
+                            <td class="leftLabel">
+                                <asp:Label ID="Label5" runat="server" Text="Mapping For:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:DropDownList ID="ddlMapping" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlMapping_Selectedindexchanged">
+                                    <asp:ListItem Text="Staff" Value="Staff"></asp:ListItem>
+                                    <asp:ListItem Text="Associate" Value="Associate"></asp:ListItem>
+                                </asp:DropDownList>
+                            </td>
+                            <td class="leftLabel">
+                                <asp:Label ID="Label6" runat="server" Text="Type: " CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlType_Selectedindexchanged"
+                                    AutoPostBack="true">
+                                    <asp:ListItem Text="Custom" Value="Custom"></asp:ListItem>
+                                    <asp:ListItem Text="UserCategory" Value="UserCategory"></asp:ListItem>
+                                </asp:DropDownList>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblAssetCategory" CssClass="FieldName" runat="server" Text="Associate Category:" Visible="false"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:DropDownList ID="ddlAdviserCategory" runat="server" CssClass="cmbField" Visible="false">
+                                </asp:DropDownList>
+                            </td>
+                        </tr>
+                    </table>
+                 <table>
+                <tr runat="server" id="trListControls" >
+                    <td>
+                        <div class="clearfix" style="margin-bottom: 1em;">
+                            <asp:Panel ID="PLCustomer" runat="server" Style="float: left; padding-left: 150px;">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <asp:Label ID="lblSelectBranch" runat="server" CssClass="FieldName" Text="Existing AgentCodes">
+                                </asp:Label>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text="Mapped AgentCodes">
+                                </asp:Label>
+                                <br />
+                                <telerik:RadListBox SelectionMode="Multiple" EnableDragAndDrop="true" AccessKey="y"
+                                    AllowTransferOnDoubleClick="true" AllowTransferDuplicates="false" EnableViewState="true"
+                                    EnableMarkMatches="true" runat="server" ID="LBAgentCodes" Height="200px" Width="250px"
+                                    AllowTransfer="true" TransferToID="RadListBoxSelectedAgentCodes" CssClass="cmbFielde"
+                                    Visible="true">
+                                </telerik:RadListBox>
+                                <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" SelectionMode="Multiple"
+                                    ID="RadListBoxSelectedAgentCodes" Height="200px" Width="220px" CssClass="cmbField">
+                                </telerik:RadListBox>
+                            </asp:Panel>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+                    <table>
+                        <tr style="margin-left: 10%;">
+                            <td>
+                            </td>
+                            <td style="margin-left: 10%;">
+                                <div class="clearfix" style="margin-left: 150px;">
+                                    <telerik:RadGrid ID="rgPayableMapping" runat="server" AllowSorting="True" enableloadondemand="True"
+                                        PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
+                                        ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="false" ShowStatusBar="True"
+                                        Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgPayableMapping_OnNeedDataSource"
+                                        Width="70%" OnItemDataBound="rgPayableMapping_OnItemDataBound" Visible="false">
+                                        <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
+                                            Width="100%" DataKeyNames="ACSR_CommissionStructureRuleId">
+                                            <Columns>
+                                          
+                                                <telerik:GridBoundColumn DataField="ACSR_CommissionStructureRuleName" HeaderStyle-Width="20px"
+                                                    CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                                    HeaderText="Rule Name" UniqueName="ACSR_CommissionStructureRuleName" SortExpression="ACSR_CommissionStructureRuleName"
+                                                    AllowFiltering="true">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                            
+                                                <telerik:GridBoundColumn DataField="WCT_CommissionType" HeaderStyle-Width="20px"
+                                                    CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                                    HeaderText="Commission Type" UniqueName="WCT_CommissionType" SortExpression="WCT_CommissionType"
+                                                    AllowFiltering="true">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn DataField="WCMV_Name" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                                    ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Commission Sub Type"
+                                                    UniqueName="WCMV_Name" SortExpression="WCMV_Name" AllowFiltering="true">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                            
+                                                <telerik:GridTemplateColumn HeaderText="Broker/Rate(%)" AllowFiltering="true" DataField="CSRD_StructureRuleDetailsId">
+                                           
+                                                    <ItemTemplate>
+                                                        <asp:CheckBoxList ID="chkListrate" runat="server" RepeatDirection="Vertical">
+                                                        </asp:CheckBoxList>
+                                                        <%-- <asp:RadioButtonList ID="rbtnListRate" runat="server" RepeatDirection="Vertical">
+                                </asp:RadioButtonList>--%>
+                                                    </ItemTemplate>
+                                               
+                                                </telerik:GridTemplateColumn>
+                                          
+                                                <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
+                                                    ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                                                    Text="Delete" Visible="false">
+                                                    <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                                                </telerik:GridButtonColumn>
+                                            </Columns>
+                                        </MasterTableView>
+                                    </telerik:RadGrid>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <td class="rightData" colspan="2">
+                                <asp:Button ID="btnGo" ValidationGroup="btnSubmitRule" CssClass="PCGButton" OnClick="btnGo_Click"
+                                    Text="Submit" runat="server" CausesValidation="true"></asp:Button>&nbsp;
+                                <%--  <asp:Button ID="Button2" CssClass="PCGButton" Text="Cancel" runat="server" CausesValidation="false"
+                                                        CommandName="Cancel"></asp:Button>--%>
+                            </td>
+                        </tr>
+                    </table>
+                </ContentTemplate>
+            </telerik:RadWindow>
             <div>
                 <asp:HiddenField ID="hidCommissionStructureName" runat="server" />
                 <asp:HiddenField ID="hdnProductId" runat="server" />

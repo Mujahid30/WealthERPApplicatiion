@@ -42,6 +42,7 @@ namespace WealthERP.Receivable
             advisorVo = (AdvisorVo)Session["advisorVo"];
             rmVo = (RMVo)Session["rmVo"];
             int structureId = 0;
+            radAplicationPopUp.VisibleOnPageLoad = false;
             if (!IsPostBack)
             {
                 if (Request.QueryString["StructureId"] != null)
@@ -471,7 +472,7 @@ namespace WealthERP.Receivable
                 ddlBrokerageUnit.DataBind();
                 ddlBrokerageUnit.SelectedValue = "PER";
                 ddlBrokerageUnit.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
-               
+
             }
             else if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode) && e.Item.ItemIndex != -1)
             {
@@ -898,7 +899,7 @@ namespace WealthERP.Receivable
         }
 
         private void MapPingLinksBasedOnCpmmissionTypes(string lookUpId)
-        { 
+        {
             if (lookUpId == "16019")
             {
                 btnMapToscheme.Text = "Map Scheme";
@@ -1292,7 +1293,7 @@ namespace WealthERP.Receivable
             //trMinMaxTenure.Visible = !enablement;
             //trMinMaxAge.Visible = !enablement;
             //tdMinNumberOfApplication.Visible = !enablement;
-              
+
 
 
             ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(lblReceivableFrequency, ddlReceivableFrequency, trTransactionTypeSipFreq, tdlb1SipFreq, tdddlSipFreq, trMinMaxTenure, trMinMaxAge, tdlb1MinNumberOfApplication, tdtxtMinNumberOfApplication, ddlProductType.SelectedValue, ddlCommissionType.SelectedValue
@@ -2050,7 +2051,7 @@ namespace WealthERP.Receivable
                 if (!string.IsNullOrEmpty(ddlCategorys.SelectedValue))
                     commissionStructureRuleVo.Category = int.Parse(ddlCategorys.SelectedValue);
                 if (!string.IsNullOrEmpty(ddlSeries.SelectedValue))
-                commissionStructureRuleVo.series = int.Parse(ddlSeries.SelectedValue);
+                    commissionStructureRuleVo.series = int.Parse(ddlSeries.SelectedValue);
                 commissionStructureRuleVo.CommissionStructureId = Convert.ToInt32(hidCommissionStructureName.Value);
 
                 commissionStructureRuleVo.CommissionStructureRuleName = TxtRuleName.Text;
@@ -2060,15 +2061,15 @@ namespace WealthERP.Receivable
                     switch (ddlCommissionType.SelectedValue)
                     {
                         case "IN": commissionStructureRuleVo.CommissionSubType = "N";
-                                   break;
+                            break;
                         case "IM": commissionStructureRuleVo.CommissionSubType = "MBl";
-                                   break;
+                            break;
                         case "IS": commissionStructureRuleVo.CommissionSubType = "SPl";
-                                   break;
+                            break;
                         case "IA": commissionStructureRuleVo.CommissionSubType = "N";
-                                   break;
+                            break;
                         case "UF": commissionStructureRuleVo.CommissionSubType = "0";
-                                   break;
+                            break;
 
                     }
                 }
@@ -3007,10 +3008,10 @@ namespace WealthERP.Receivable
             }
         }
 
-        protected void btnGo_Click(object sender, EventArgs e)
-        {
-            CreateMappedSchemeGrid();
-        }
+        //protected void btnGo_Click(object sender, EventArgs e)
+        //{
+        //    CreateMappedSchemeGrid();
+        //}
 
         protected void btnEdit_Click(object sender, EventArgs e)
         {
@@ -3295,37 +3296,37 @@ namespace WealthERP.Receivable
 
 
         }
-        private void DefaultAssignments()
-        {
-            ddlMapping.SelectedValue = "Associate";
-            ddlType.SelectedValue = "UserCategory";
-            GetControlsBasedOnType(ddlType.SelectedValue);
-        }
+        //private void DefaultAssignments()
+        //{
+        //    ddlMapping.SelectedValue = "Associate";
+        //    ddlType.SelectedValue = "UserCategory";
+        //    GetControlsBasedOnType(ddlType.SelectedValue);
+        //}
 
 
-        protected void ddlType_Selectedindexchanged(object sender, EventArgs e)
-        {
-            GetControlsBasedOnType(ddlType.SelectedValue);
-        }
+        //protected void ddlType_Selectedindexchanged(object sender, EventArgs e)
+        //{
+        //    GetControlsBasedOnType(ddlType.SelectedValue);
+        //}
 
-        private void GetControlsBasedOnType(string type)
-        {
-            if (type == "Custom")
-            {
-                trListControls.Visible = true;
-                ddlAdviserCategory.Visible = false;
-                lblAssetCategory.Visible = false;
-                BindAgentCodes();
-            }
-            else
-            {
-                trListControls.Visible = false;
-                ddlAdviserCategory.Visible = true;
-                lblAssetCategory.Visible = true;
+        //private void GetControlsBasedOnType(string type)
+        //{
+        //    if (type == "Custom")
+        //    {
+        //        trListControls.Visible = true;
+        //        ddlAdviserCategory.Visible = false;
+        //        lblAssetCategory.Visible = false;
+        //        BindAgentCodes();
+        //    }
+        //    else
+        //    {
+        //        trListControls.Visible = false;
+        //        ddlAdviserCategory.Visible = true;
+        //        lblAssetCategory.Visible = true;
 
-                BindClassification();
-            }
-        }
+        //        BindClassification();
+        //    }
+        //}
 
         private void BindClassification()
         {
@@ -3355,39 +3356,39 @@ namespace WealthERP.Receivable
 
 
 
-        private int CreatePayableMapping()
-        {
+        //private int CreatePayableMapping()
+        //{
 
-            int mappingId = 0;
-            string agentId = "";
-            string categoryId = string.Empty;
-            if (ddlType.SelectedValue == "Custom")
-            {
-                foreach (RadListBoxItem ListItem in this.RadListBoxSelectedAgentCodes.Items)
-                {
-                    agentId = agentId + ListItem.Value.ToString() + ",";
-                }
-            }
-            else
-            {
-                categoryId = ddlAdviserCategory.SelectedValue;
-            }
+        //    int mappingId = 0;
+        //    string agentId = "";
+        //    string categoryId = string.Empty;
+        //    if (ddlType.SelectedValue == "Custom")
+        //    {
+        //        foreach (RadListBoxItem ListItem in this.RadListBoxSelectedAgentCodes.Items)
+        //        {
+        //            agentId = agentId + ListItem.Value.ToString() + ",";
+        //        }
+        //    }
+        //    else
+        //    {
+        //        categoryId = ddlAdviserCategory.SelectedValue;
+        //    }
 
-            commisionReceivableBo.CreatePayableAgentCodeMapping(Convert.ToInt32(hidCommissionStructureName.Value), ddlMapping.SelectedValue, categoryId, agentId, out mappingId);
-            return mappingId;
+        //    commisionReceivableBo.CreatePayableAgentCodeMapping(Convert.ToInt32(hidCommissionStructureName.Value), ddlMapping.SelectedValue, categoryId, agentId, out mappingId);
+        //    return mappingId;
 
-        }
-        protected void btnPaybleMapping_Click(object sender, EventArgs e)
-        {
+        //}
+        //protected void btnPaybleMapping_Click(object sender, EventArgs e)
+        //{
 
-            int mappingId = CreatePayableMapping();
-            if (mappingId > 0)
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Mapping Created SuccessFully');", true);
+        //    int mappingId = CreatePayableMapping();
+        //    if (mappingId > 0)
+        //    {
+        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Mapping Created SuccessFully');", true);
 
-            }
+        //    }
 
-        }
+        //}
         private void BindAgentCodes()
         {
             DataSet dsAdviserBranchList = new DataSet();
@@ -3596,7 +3597,8 @@ namespace WealthERP.Receivable
         protected void Map_btnIssueMap(object sender, EventArgs e)
         {
             int associateid = 0;
-
+            DefaultAssignments();
+            BindPayableGridMapping(int.Parse(hidCommissionStructureName.Value));
             if (Request.QueryString["StructureId"] != null)
             {
                 associateid = commisionReceivableBo.RuleAssociate(Request.QueryString["StructureId"]);
@@ -3607,14 +3609,16 @@ namespace WealthERP.Receivable
                     if (confirmValue == "Yes")
                     {
                         commisionReceivableBo.DeleteMappedIssue(int.Parse(hidCommissionStructureName.Value));
-                        string myscript = "window.open('PopUp.aspx?ID=" + hidCommissionStructureName.Value + "&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=1000,height=600,scrollbars=yes,location=no')";
-                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), Guid.NewGuid().ToString(), "<script>" + myscript + "</script>", false);
+                        radAplicationPopUp.VisibleOnPageLoad = true;
+                        //string myscript = "window.open('PopUp.aspx?ID=" + hidCommissionStructureName.Value + "&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=1000,height=600,scrollbars=yes,location=no')";
+                        //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), Guid.NewGuid().ToString(), "<script>" + myscript + "</script>", false);
                     }
                 }
                 else
                 {
-                    string myscript = "window.open('PopUp.aspx?ID=" + hidCommissionStructureName.Value + "&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=1000,height=600,scrollbars=yes,location=no')";
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), Guid.NewGuid().ToString(), "<script>" + myscript + "</script>", false);
+                    radAplicationPopUp.VisibleOnPageLoad = true;
+                    //string myscript = "window.open('PopUp.aspx?ID=" + hidCommissionStructureName.Value + "&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=1000,height=600,scrollbars=yes,location=no')";
+                    //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), Guid.NewGuid().ToString(), "<script>" + myscript + "</script>", false);
                 }
             }
             else
@@ -3625,17 +3629,20 @@ namespace WealthERP.Receivable
                     string confirmValue = Request.Form["confirm_value"];
                     if (confirmValue == "Yes")
                     {
-                        commisionReceivableBo.DeleteMappedIssue(int.Parse(hidCommissionStructureName.Value));
-                        string myscript = "window.open('PopUp.aspx?ID=" + hidCommissionStructureName.Value + "&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=1000,height=600,scrollbars=yes,location=no')";
-                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), Guid.NewGuid().ToString(), "<script>" + myscript + "</script>", false);
+                        radAplicationPopUp.VisibleOnPageLoad = true;
+
+                        //commisionReceivableBo.DeleteMappedIssue(int.Parse(hidCommissionStructureName.Value));
+                        //string myscript = "window.open('PopUp.aspx?ID=" + hidCommissionStructureName.Value + "&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=1000,height=600,scrollbars=yes,location=no')";
+                        //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), Guid.NewGuid().ToString(), "<script>" + myscript + "</script>", false);
                     }
                 }
                 //string myscript = "window.open('PopUp.aspx?ID=" + hidCommissionStructureName.Value + "&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=1000,height=600,scrollbars=yes,location=no')";
                 //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), Guid.NewGuid().ToString(), "<script>" + myscript + "</script>", false);
                 else
                 {
-                    string myscript = "window.open('PopUp.aspx?ID=" + hidCommissionStructureName.Value + "&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=1000,height=600,scrollbars=yes,location=no')";
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), Guid.NewGuid().ToString(), "<script>" + myscript + "</script>", false);
+                    radAplicationPopUp.VisibleOnPageLoad = true;
+                    //string myscript = "window.open('PopUp.aspx?ID=" + hidCommissionStructureName.Value + "&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=1000,height=600,scrollbars=yes,location=no')";
+                    //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), Guid.NewGuid().ToString(), "<script>" + myscript + "</script>", false);
                 }
             }
 
@@ -3748,7 +3755,7 @@ namespace WealthERP.Receivable
         }
         protected void OnClick_imgMapping(object sender, ImageClickEventArgs e)
         {
-            BindPayableGrid();
+        
 
         }
         protected void chkCategory_OnCheckedChanged(object sender, EventArgs e)
@@ -3893,6 +3900,230 @@ namespace WealthERP.Receivable
             gvPayaMapping.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvPayaMapping.MasterTableView.ExportToExcel();
 
+        }
+        protected void btnGo_Click(object sender, EventArgs e)
+        {
+
+            int mappingId = CreatePayableMapping();
+            if (mappingId > 0)
+            {
+                BindPayableGrid();
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Mapping Created SuccessFully');", true);
+                //BindPayableGrid(int.Parse(hdnStructId.Value));
+            }
+
+        }
+        private int CreatePayableMapping()
+        {
+            StringBuilder sbAgentid = new StringBuilder();
+            StringBuilder sbRuleid = new StringBuilder();
+            string ruleId = string.Empty;
+
+            try
+            {
+
+                foreach (GridDataItem gdi in rgPayableMapping.MasterTableView.Items)
+                {
+
+                    CheckBoxList chkListrate = (CheckBoxList)gdi.FindControl("chkListrate");
+                    for (int i = 0; i < chkListrate.Items.Count; i++)
+                    {
+                        if (chkListrate.Items[i].Selected)
+                        {
+                            //Storing the selected values
+                            ruleId = ruleId + "," + chkListrate.Items[i].Value;
+                        }
+                    }
+
+                }
+                if (ruleId != "")
+                {
+                    ruleId = ruleId.Trim(',');
+                    ruleId = ruleId.TrimEnd(',');
+                    DataTable dtRuleMapping = new DataTable();
+                    dtRuleMapping.Columns.Add("agentId", typeof(string));
+                    dtRuleMapping.Columns.Add("ruleids");
+
+                    DataRow drRuleMapping;
+                    int mappingId = 0;
+                    string agentId = string.Empty;
+                    string categoryId = string.Empty;
+                    if (ddlType.SelectedValue == "Custom")
+                    {
+                        foreach (RadListBoxItem ListItem in this.RadListBoxSelectedAgentCodes.Items)
+                        {
+
+                            agentId = ListItem.Value;
+                            sbAgentid.Append(ListItem.Value);
+                            foreach (object rule in ruleId.Split(','))
+                            {
+                                drRuleMapping = dtRuleMapping.NewRow();
+                                drRuleMapping["agentId"] = agentId;
+                                drRuleMapping["ruleids"] = rule;
+                                dtRuleMapping.Rows.Add(drRuleMapping);
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        categoryId = ddlAdviserCategory.SelectedValue;
+                    }
+
+                    commisionReceivableBo.CreateAdviserPayableRuleToAgentCategoryMapping(Convert.ToInt32(hidCommissionStructureName.Value), ddlMapping.SelectedValue, categoryId, dtRuleMapping, ruleId.TrimEnd(','), out mappingId);
+
+                    return mappingId;
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select rate(%)');", true);
+                    radAplicationPopUp.VisibleOnPageLoad = true; ;
+                    return 0;
+
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+        protected void rgPayableMapping_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            RadGrid rgCommissionTypeCaliculation = (RadGrid)sender;
+
+            DataTable dtLookupData;
+            dtLookupData = (DataTable)Cache[userVo.UserId.ToString() + "RulePayableDet"];
+            if (dtLookupData != null)
+            {
+                rgPayableMapping.DataSource = dtLookupData;
+            }
+
+        }
+        private void BindPayableGridMapping(int structureId)
+        {
+            DataSet dsLookupData;
+            dsLookupData = commisionReceivableBo.GetPayableCommissionTypeBrokerage(structureId);
+            ViewState["dsrate"] = dsLookupData;
+            rgPayableMapping.DataSource = dsLookupData;
+            rgPayableMapping.DataBind();
+            rgPayableMapping.Visible = true;
+            //rgchecklist.DataSource = dsLookupData;
+            //rgchecklist.DataBind();
+            //btnIssueMap.Visible = true;
+            //Table5.Visible = true;
+
+            if (Cache[userVo.UserId.ToString() + "RulePayableDet"] != null)
+                Cache.Remove(userVo.UserId.ToString() + "RulePayableDet");
+            Cache.Insert(userVo.UserId.ToString() + "RulePayableDet", dsLookupData.Tables[0]);
+        }
+        protected void rgPayableMapping_OnItemDataBound(object sender, GridItemEventArgs e)
+        {
+            //if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
+            //{
+            //}
+            DataSet dsratelist = (DataSet)ViewState["dsrate"];
+            if (e.Item is GridDataItem)
+            {
+                CheckBoxList chkListrate = e.Item.FindControl("chkListrate") as CheckBoxList;
+                //RadioButtonList rbtnListRate = e.Item.FindControl("rbtnListRate") as RadioButtonList;
+                int ruleId = int.Parse(rgPayableMapping.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_CommissionStructureRuleId"].ToString());
+
+                DataView dv = dsratelist.Tables[1].DefaultView;
+                dv.RowFilter = "ACSR_CommissionStructureRuleId = '" + ruleId.ToString() + "'";
+                if (chkListrate != null)
+                {
+
+                    chkListrate.DataSource = dv;
+                    chkListrate.DataValueField = "CSRD_StructureRuleDetailsId";
+                    chkListrate.DataTextField = "CSRD_BrokageValue";
+                    chkListrate.DataBind();
+                    //rbtnListRate.Items[0].Selected = true;
+
+                    //if (Request.QueryString["StructureId"] != null)
+                    //{
+                    //    int ruleids = int.Parse(Request.QueryString["StructureId"].ToString());
+                    //    DataTable dt = commisionReceivableBo.GetMappedStructure(ruleids);
+                    //    foreach (DataRow dr in dt.Rows)
+                    //    {
+                    //        foreach (ListItem obj1 in chkListrate.Items)
+                    //        {
+                    //            if (dr["CSRD_StructureRuleDetailsId"].ToString() == obj1.Value)
+                    //            {
+                    //                obj1.Selected = true;
+                    //                hdneligible.Value = "Eligible";
+                    //            }
+                    //        }
+                    //    }
+                    //}
+                }
+            }
+        }
+        private void DefaultAssignments()
+        {
+            ddlMapping.SelectedValue = "Associate";
+            ddlType.SelectedValue = "Custom";
+            GetControlsBasedOnType(ddlType.SelectedValue);
+        }
+        protected void ddlType_Selectedindexchanged(object sender, EventArgs e)
+        {
+            radAplicationPopUp.VisibleOnPageLoad = true;
+            GetControlsBasedOnType(ddlType.SelectedValue);
+        }
+
+        protected void ddlMapping_Selectedindexchanged(object sender, EventArgs e)
+        {
+            radAplicationPopUp.VisibleOnPageLoad = true;
+            SelectionsBasedOnMappingFor();
+            GetControlsBasedOnType(ddlType.SelectedValue);
+        }
+
+
+        private void SelectionsBasedOnMappingFor()
+        {
+            if (ddlMapping.SelectedValue == "Staff")
+            {
+                ddlType.SelectedValue = "Custom";
+                ddlType.Enabled = false;
+                lblAssetCategory.Visible=false;
+                ddlAdviserCategory.Visible = false;
+                RadListBoxSelectedAgentCodes.Items.Clear();
+            }
+            else
+            {
+
+                if (ddlType.SelectedValue == "Custom")
+                {
+                    RadListBoxSelectedAgentCodes.Items.Clear();
+                }
+                ddlType.SelectedValue = "Custom";
+                ddlType.Enabled = true;
+                lblAssetCategory.Visible = true;
+                ddlAdviserCategory.Visible = true;
+
+
+            }
+        }
+
+
+        private void GetControlsBasedOnType(string type)
+        {
+            if (type == "Custom")
+            {
+                trListControls.Visible = true;
+                //trAssetCategory.Visible = false;
+                lblAssetCategory.Visible = false;
+                ddlAdviserCategory.Visible = false;
+                BindAgentCodes();
+                ddlType.SelectedValue = "Custom";
+            }
+            else
+            {
+                trListControls.Visible = false;
+                //trAssetCategory.Visible = true;
+                lblAssetCategory.Visible = true;
+                ddlAdviserCategory.Visible = true;
+                BindClassification();
+            }
         }
     }
 }

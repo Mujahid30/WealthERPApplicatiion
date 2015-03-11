@@ -23,6 +23,8 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.ScriptManager scrptMgr;
         protected global::Telerik.Web.UI.RadWindow RadWDCommissionTypeBrokerage;
         protected global::Telerik.Web.UI.RadGrid gvPayaMapping;
+        protected global::Telerik.Web.UI.RadGrid rgPayableMapping;
+        protected global::Telerik.Web.UI.RadWindow radAplicationPopUp;
         protected global::System.Web.UI.WebControls.DropDownList ddlCategorys;
         protected global::System.Web.UI.WebControls.DropDownList ddlBrokerCode;
        protected global::System.Web.UI.WebControls.Label lblEligible;
@@ -31,6 +33,7 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.WebControls.ImageButton imgBuy1;
         protected global::System.Web.UI.WebControls.ImageButton ImageButton4;
         protected global::System.Web.UI.WebControls.ImageButton ImageButton6;
+       protected global::System.Web.UI.WebControls.HiddenField hdnStructId;
         /// <summary>
         /// pnl1 control.
         /// </summary>
