@@ -129,7 +129,7 @@ namespace WealthERP.OPS
                 AutoCompleteExtender1.ContextKey = advisorVo.advisorId.ToString();
                 AutoCompleteExtender1.ServiceMethod = "GetAdviserCustomerPan";
                 txtAssociateSearch.Text = associateuserheirarchyVo.AgentCode;
-                 txtAgentId.Value = associateuserheirarchyVo.AdviserAgentId.ToString();
+                txtAgentId.Value = associateuserheirarchyVo.AdviserAgentId.ToString();
                 GetAgentName(associateuserheirarchyVo.AdviserAgentId);
                 AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode + "/" + advisorVo.advisorId.ToString();
                 AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetailsForAssociates";
@@ -650,18 +650,18 @@ namespace WealthERP.OPS
                         string startDates = Convert.ToDateTime(dr["CMFSS_StartDate"].ToString()).ToString("dd-MMM-yyyy");
                         ddlStartDate.SelectedValue = startDates;
                     }
-                    //else
-                    //    txtstartDateSIP.SelectedDate = txtstartDateSTP.MinDate;// DateTime.MinValue;
-                    BindTotalInstallments();
-                    ddlTotalInstallments.SelectedValue = dr["CMFSS_TotalInstallment"].ToString();
-                    CaliculateEndDate();
+
+
+
+                    if (ddltransType.SelectedValue == "SIP" | ddltransType.SelectedValue == "SWP" | ddltransType.SelectedValue == "STP")
+                    {
+                        BindTotalInstallments();
+                        ddlTotalInstallments.SelectedValue = dr["CMFSS_TotalInstallment"].ToString();
+                        CaliculateEndDate();
+                    }
                     if (!string.IsNullOrEmpty(dr["CMFSS_EndDate"].ToString()))
                         txtendDateSIP.SelectedDate = DateTime.Parse(dr["CMFSS_EndDate"].ToString());
-                    //else
-                    //    txtendDateSIP.SelectedDate = txtendDateSIP.MinDate; // DateTime.MinValue;
-
-                    // txtPeriod.Text = dr["CMFSS_TotalInstallment"].ToString();
-                    // txtSystematicdates.Text = dr["CMFSS_SystematicDate"].ToString();
+                     
                     ddlPeriodSelection.SelectedValue = dr["XF_FrequencyCode"].ToString();
                     if (!string.IsNullOrEmpty(dr["CO_Remarks"].ToString()))
                         txtRemarks.Text = dr["CO_Remarks"].ToString();
