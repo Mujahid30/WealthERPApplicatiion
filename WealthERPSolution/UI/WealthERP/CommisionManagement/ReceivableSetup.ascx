@@ -2068,7 +2068,7 @@
                 OnClick="Map_btnIssueMap" OnClientClick="Confirm()" Visible="false" />
             <telerik:RadWindow ID="radAplicationPopUp" runat="server" VisibleOnPageLoad="false"
                 Height="500px" Width="900px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false"
-                Behaviors="Resize, Close, Move" Title="Map Associate" Left="10px" Top="20Px">
+                Behaviors="Resize, Close, Move" Title="Map Associate" Left="10" Top="20" OnClientShow="setCustomPosition">
                 <ContentTemplate>
                     <table id="tblMapping" runat="server" width="100%">
                         <tr>
@@ -2229,3 +2229,8 @@
         </Triggers>
     </asp:UpdatePanel>
 </asp:Panel>
+<script type="text/javascript">
+    function setCustomPosition(sender, args) {
+        sender.moveTo(sender.get_left(), sender.get_top());
+    }
+</script>
