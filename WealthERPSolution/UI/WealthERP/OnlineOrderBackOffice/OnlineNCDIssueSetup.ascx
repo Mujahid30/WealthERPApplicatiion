@@ -306,7 +306,7 @@
                                     PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
                                     ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="true" ShowStatusBar="True"
                                     Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgIssuer_OnNeedDataSource"
-                                    OnItemCommand="rgIssuer_ItemCommand" OnItemDataBound="rgIssuer_ItemDataBound">
+                                    OnItemCommand="rgIssuer_ItemCommand" OnItemDataBound="rgIssuer_ItemDataBound" Visible="false">
                                     <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="PI_IssuerId,PAISC_AssetInstrumentSubCategoryCode,PI_IssuerName"
                                         AutoGenerateColumns="false" Width="100%" CommandItemSettings-AddNewRecordText="Create Issuer"
                                         CommandItemDisplay="Top">

@@ -45,7 +45,7 @@ namespace WealthERP.OnlineOrderBackOffice
             RadSyndicate.VisibleOnPageLoad = false;
             RadBroker.VisibleOnPageLoad = false;
             radIssuerPopUp.VisibleOnPageLoad = false;
-            radIssuerPopUp.Visible = false;
+            //radIssuerPopUp.Visible = false;
             RadIssueBroker.VisibleOnPageLoad = false;
             if (!IsPostBack)
             {
@@ -4511,7 +4511,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
             if (e.Item is GridPagerItem)
             {
-                radIssuerPopUp.VisibleOnPageLoad = true;
+                //radIssuerPopUp.VisibleOnPageLoad = true;
                 RadGrid rgIssuerr = (RadGrid)e.Item.FindControl("rgIssuer");
                 GridPagerItem pager = (GridPagerItem)e.Item;
                 ((e.Item as GridPagerItem).FindControl("PageSizeComboBox") as RadComboBox).Enabled = false;
@@ -5471,6 +5471,15 @@ namespace WealthERP.OnlineOrderBackOffice
                     category = ddlSubInstrCategory.SelectedValue;
 
             }
+            else if (e.CommandName == RadGrid.CancelCommandName)
+            {
+                if (ddlProduct.SelectedValue == "IP")
+                {
+                    category = "FIFIIP";
+                }
+                else
+                    category = ddlSubInstrCategory.SelectedValue;
+            }
             //BindIssuerGrid();
 
             BindIssuer(category);
@@ -5547,6 +5556,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     radIssuerPopUp.Visible = true;
                     // BindIssuer();
                     BindIssuerGrid();
+                    rgIssuer.Visible = true;
 
                 }
                 else
@@ -5558,6 +5568,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 radIssuerPopUp.VisibleOnPageLoad = true;
                 radIssuerPopUp.Visible = true;
+                rgIssuer.Visible = true;
                 // BindIssuer();
                 BindIssuerGrid();
             }
