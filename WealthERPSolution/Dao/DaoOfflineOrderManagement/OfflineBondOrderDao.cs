@@ -51,7 +51,7 @@ namespace DaoOfflineOrderManagement
             }
             return ds;
         }
-        public DataSet GetOfflineLiveBondTransaction(int SeriesId,  int CustomerSubType)
+        public DataSet GetOfflineLiveBondTransaction(int SeriesId,  int CustomerSubType, int orderId)
         {
             Database db;
             DbCommand cmdGetCommissionStructureRules;
@@ -60,7 +60,13 @@ namespace DaoOfflineOrderManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                cmdGetCommissionStructureRules = db.GetStoredProcCommand("SPROC_OFF_GetLiveBondTransaction");
+                if (orderId != 0)
+                {
+                    cmdGetCommissionStructureRules = db.GetStoredProcCommand("SPROC_OFF_GetLiveBondTransactionTViewOrderdBid");
+                    db.AddInParameter(cmdGetCommissionStructureRules, "@orderId", DbType.Int32, orderId);
+                }
+                else
+                    cmdGetCommissionStructureRules = db.GetStoredProcCommand("SPROC_OFF_GetLiveBondTransaction");
                 db.AddInParameter(cmdGetCommissionStructureRules, "@IssueId", DbType.Int32, SeriesId);
                 db.AddInParameter(cmdGetCommissionStructureRules, "@customerSubType", DbType.Int32, CustomerSubType);
                 ds = db.ExecuteDataSet(cmdGetCommissionStructureRules);

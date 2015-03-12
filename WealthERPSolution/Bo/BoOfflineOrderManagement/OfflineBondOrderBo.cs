@@ -43,13 +43,13 @@ namespace BoOfflineOrderManagement
             }
             return dsCommissionStructureRules;
         }
-        public DataSet GetOfflineLiveBondTransaction(int SeriesId, int customerSubType)
+        public DataSet GetOfflineLiveBondTransaction(int SeriesId, int customerSubType, int orderId)
         {
             OfflineBondOrderDao offlineBondDao = new OfflineBondOrderDao();
             DataSet dsCommissionStructureRules = new DataSet();
             try
             {
-                dsCommissionStructureRules = offlineBondDao.GetOfflineLiveBondTransaction(SeriesId, customerSubType);
+                dsCommissionStructureRules = offlineBondDao.GetOfflineLiveBondTransaction(SeriesId, customerSubType, orderId);
 
             }
             catch (BaseApplicationException Ex)

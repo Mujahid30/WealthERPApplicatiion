@@ -740,12 +740,12 @@
                                 <telerik:GridBoundColumn DataField="CatColection" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
                                     ShowFilterIcon="false" AutoPostBackOnFilter="false" HeaderText="Categories" UniqueName="CatColection"
                                     SortExpression="CatColection">
-                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100Px" Wrap="false" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="CouponRateCollection" HeaderStyle-Width="120px"
                                     CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="false"
                                     HeaderText="Coupon Rate (%)" UniqueName="CouponRateCollection" SortExpression="CouponRateCollection">
-                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100Px" Wrap="false" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="YieldatMatCollection" HeaderStyle-Width="120px"
                                     CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="false"
@@ -825,7 +825,7 @@
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="AIDCSR_RedemptionDate" HeaderStyle-Width="105px"
                                     HeaderText="Redemption Date Note" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                    AutoPostBackOnFilter="false" UniqueName="AIDCSR_RedemptionDate" Visible="true">
+                                    AutoPostBackOnFilter="false" UniqueName="AIDCSR_RedemptionDate" Visible="false">
                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="AIDCSR_RedemptionAmount " HeaderStyle-Width="105px"
@@ -835,7 +835,7 @@
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="LockinPeriodCollection " HeaderStyle-Width="105px"
                                     HeaderText="Lock In Period" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                    AutoPostBackOnFilter="false" UniqueName="LockinPeriodCollection " Visible="true">
+                                    AutoPostBackOnFilter="false" UniqueName="LockinPeriodCollection " Visible="false">
                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridTemplateColumn AllowFiltering="false" DataField="YieldAtMAturity" HeaderStyle-Width="100px"
@@ -884,11 +884,11 @@
                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="70px"
-                                    UniqueName="Quantity" HeaderText="Enter Purchase Qty" HeaderStyle-Wrap="true">
+                                    UniqueName="Quantity" HeaderText="Enter Purchase Qty" HeaderStyle-Wrap="true"  >
                                     <ItemTemplate>
                                         <asp:TextBox ID="txtQuantity" runat="server" OnTextChanged="txtQuantity_TextChanged"
                                             ForeColor="White" MaxLength="5" Text='<%# Bind("COID_Quantity")%>' Width="50px"
-                                            AutoPostBack="true" BackColor="Gray" OnKeypress="javascript:return isNumberKey(event);"></asp:TextBox>
+                                            AutoPostBack="true" BackColor="Gray" OnKeypress="javascript:return isNumberKey(event);" ></asp:TextBox>
                                         <%--  <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="*Required"
                                         ClientValidationFunction="ValidateTextValue(this)"></asp:CustomValidator>--%>
                                         <%--  <asp:RequiredFieldValidator ID="RequiredFieldValidator" ControlToValidate="txtQuantity"
@@ -896,8 +896,8 @@
                                         runat="server" CssClass="rfvPCG">
                                     </asp:RequiredFieldValidator>--%>
                                     </ItemTemplate>
-                                    <FooterTemplate>
-                                        <asp:Label runat="server" ID="lblQuantity"></asp:Label>
+                                    <FooterTemplate >
+                                        <asp:Label runat="server" ID="lblQuantity" ></asp:Label>
                                     </FooterTemplate>
                                 </telerik:GridTemplateColumn>
                                 <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="70px"
@@ -918,7 +918,7 @@
                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="true" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridButtonColumn HeaderStyle-Width="100px" Text="Delete" ButtonType="PushButton"
-                                    ConfirmText="Do you want to delete" CommandName="Delete" Visible="false">
+                                    ConfirmText="Do you want to delete" CommandName="Delete" Visible="false" UniqueName="DeleteBid">
                                 </telerik:GridButtonColumn>
                                 <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
                                     Visible="false" UniqueName="Check" HeaderText="Check Order">

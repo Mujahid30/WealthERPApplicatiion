@@ -380,7 +380,7 @@ namespace WealthERP.OffLineOrderManagement
             {
 
                 BindStructureRuleGrid(advisorVo.advisorId, int.Parse(ddlIssueList.SelectedValue), 1, int.Parse(ddlCustomerSubType.SelectedValue));
-                BindStructureRuleGrid(int.Parse(ddlIssueList.SelectedValue), int.Parse(ddlCustomerSubType.SelectedValue));
+                BindStructureRuleGrid(int.Parse(ddlIssueList.SelectedValue), int.Parse(ddlCustomerSubType.SelectedValue), 0);
                 BindSubbroker(int.Parse(ddlIssueList.SelectedValue));
             }
             ddlIssueList.Focus();
@@ -433,9 +433,9 @@ namespace WealthERP.OffLineOrderManagement
             gvIssueList.DataBind();
 
         }
-        protected void BindStructureRuleGrid(int IssuerId, int TaxStatusCustomerSubTypeId)
+        protected void BindStructureRuleGrid(int IssuerId, int TaxStatusCustomerSubTypeId, int orderId)
         {
-            DataSet dsStructureRules = offlineBondBo.GetOfflineLiveBondTransaction(IssuerId, TaxStatusCustomerSubTypeId);
+            DataSet dsStructureRules = offlineBondBo.GetOfflineLiveBondTransaction(IssuerId, TaxStatusCustomerSubTypeId, orderId);
             DataTable dtTransact = dsStructureRules.Tables[0];
 
             if (Cache["NCDTransactList" + userVo.UserId.ToString()] != null)
@@ -457,27 +457,36 @@ namespace WealthERP.OffLineOrderManagement
             {
                 gvCommMgmt.DataSource = dtIssueDetail;
             }
-            if (Request.QueryString["action"] != null)
-            {
-                DataSet dt = (DataSet)Cache["NCDTransactQty" + userVo.UserId.ToString()];
-                BindQtyandAmt(dt);
-            }
+
         }
         protected void gvCommMgmt_ItemDataBound(object sender, GridItemEventArgs e)
         {
-
             if (e.Item is GridDataItem)
             {
+
                 GridDataItem dataform = (GridDataItem)e.Item;
                 {
                     if (Request.QueryString["action"] != null && (e.Item.ItemIndex != -1))
                     {
                         gvCommMgmt.MasterTableView.GetColumn("COID_ExchangeRefrenceNo").Visible = true;
+                        gvCommMgmt.MasterTableView.GetColumn("DeleteBid").Visible = true;
+
                     }
                 }
-              
+
             }
-         
+            if (Request.QueryString["action"] != null && ViewState["amt"] !=null)
+            {
+                if (e.Item is GridFooterItem)
+                {
+                    GridFooterItem ftItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
+                    Label lblAmount = (Label)ftItemAmount["Amount"].FindControl("lblAmount");
+                    Label lblQuantity = (Label)ftItemAmount["Quantity"].FindControl("lblQuantity");
+                        lblAmount.Text = ViewState["amt"].ToString();
+                        lblQuantity.Text = ViewState["qty"].ToString();
+                }
+            }
+
         }
         protected void txtQuantity_TextChanged(object sender, EventArgs e)
         {
@@ -595,7 +604,7 @@ namespace WealthERP.OffLineOrderManagement
             int tableRow = 0;
             int FaceValue = 0;
             dtOrderDetails = null;
-         
+
             if (gvCommMgmt.MasterTableView.DataKeyValues[0]["AIM_MaxApplNo"].ToString() == "" || gvCommMgmt.MasterTableView.DataKeyValues[0]["AIM_FaceValue"].ToString() == "")
                 return false;
             string MaxAppNo = gvCommMgmt.MasterTableView.DataKeyValues[0]["AIM_MaxApplNo"].ToString();
@@ -659,7 +668,7 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     OnlineBondVo.ChequeNumber = txtPaymentNumber.Text;
                     OnlineBondVo.PaymentDate = DateTime.Parse(txtPaymentInstDate.SelectedDate.ToString());
-                    if(!string.IsNullOrEmpty(txtBankAccount.Text))
+                    if (!string.IsNullOrEmpty(txtBankAccount.Text))
                         OnlineBondVo.BankAccountNo = Int64.Parse(txtBankAccount.Text);
                 }
                 OnlineBondVo.PanNo = txtPanNumber.Text;
@@ -705,15 +714,15 @@ namespace WealthERP.OffLineOrderManagement
                         Label lblSum = (Label)footerItemAmount.FindControl("lblAmount");
                         txtAmount.Text = OnlineBondVo.Amount.ToString();
                         dtOrderDetails = dt;
-                        if (Request.QueryString["action"] == null )
+                        if (Request.QueryString["action"] == null)
                         {
-                        offlineBondBo.GetCustomerCat(OnlineBondVo.IssueId, advisorVo.advisorId, int.Parse(ddlCustomerSubType.SelectedValue), Convert.ToDouble(lblSum.Text), ref catName, ref issueDetId, ref EligblecatId, ref Description);
-                        ViewState["CustCat"] = catName;
-                        if (EligblecatId == 0)
-                        {
-                            ShowMessage("Application amount should be between Min Quantity and Max Quantity.", 'W');
-                            return false;
-                        }
+                            offlineBondBo.GetCustomerCat(OnlineBondVo.IssueId, advisorVo.advisorId, int.Parse(ddlCustomerSubType.SelectedValue), Convert.ToDouble(lblSum.Text), ref catName, ref issueDetId, ref EligblecatId, ref Description);
+                            ViewState["CustCat"] = catName;
+                            if (EligblecatId == 0)
+                            {
+                                ShowMessage("Application amount should be between Min Quantity and Max Quantity.", 'W');
+                                return false;
+                            }
                         }
                         dt.Rows[tableRow]["CatId"] = catId;
                         dt.Rows[tableRow]["AcceptableCatId"] = EligblecatId;
@@ -740,76 +749,76 @@ namespace WealthERP.OffLineOrderManagement
                 //isValid = false;
                 //if (Validation())
                 //{
-                   
-                        if (Request.QueryString["action"] != null)
-                        {
-                            Quantity = int.Parse(lblQuantity.Text);
-                            sum = Convert.ToDouble(lbltotAmt.Text);
-                        }
-                        else
-                        {
-                            Quantity = int.Parse(ViewState["Qty"].ToString());
-                            sum = int.Parse(ViewState["Sum"].ToString());
-                        }
-                        if (ViewState["CustCat"] == null && Request.QueryString["action"] == null)
-                        {
 
-                            string category = (string)ViewState["CustCat"];
-                            if (category == string.Empty)
-                                ShowMessage("Please enter no of bonds within the range permissible.", 'w');
+                if (Request.QueryString["action"] != null)
+                {
+                    Quantity = int.Parse(lblQuantity.Text);
+                    sum = Convert.ToDouble(lbltotAmt.Text);
+                }
+                else
+                {
+                    Quantity = int.Parse(ViewState["Qty"].ToString());
+                    sum = int.Parse(ViewState["Sum"].ToString());
+                }
+                if (ViewState["CustCat"] == null && Request.QueryString["action"] == null)
+                {
 
-                        }
-                        else if (FaceValue > sum && sum >0)
-                        {
-                            ShowMessage("Application amount is less than minimum application amount.", 'w');
+                    string category = (string)ViewState["CustCat"];
+                    if (category == string.Empty)
+                        ShowMessage("Please enter no of bonds within the range permissible.", 'w');
 
-                        }
-                        else if (Quantity < minQty && Quantity > 0)
-                        {
-                            foreach (GridDataItem CBOrder in gvCommMgmt.MasterTableView.Items)
-                            {
-                                TextBox txtsumQuantity = (TextBox)gvCommMgmt.MasterTableView.Items[CBOrder.ItemIndex]["Quantity"].FindControl("txtQuantity");
-                                TextBox txtsumAmount = (TextBox)gvCommMgmt.MasterTableView.Items[CBOrder.ItemIndex]["Amount"].FindControl("txtAmount");
-                                GridFooterItem footerItem = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
-                                Label lblQty = (Label)footerItem.FindControl("lblQuantity");
-                                GridFooterItem footerItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
-                                Label lblSum = (Label)footerItemAmount.FindControl("lblAmount");
-                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Order cannot be processed.Please enter quantity greater than or equal to min quantity required')", true);
-                                //txtsumQuantity.Text = "";
-                                //txtsumAmount.Text = "";
-                                //lblQty.Text = "";
-                                //lblSum.Text = "";
-                                isValid = false;
-                            }
-                        }
-                        else if (Quantity > maxQty && Quantity > 0)
-                        {
-                            foreach (GridDataItem CBOrder in gvCommMgmt.MasterTableView.Items)
-                            {
-                                TextBox txtsumQuantity = (TextBox)gvCommMgmt.MasterTableView.Items[CBOrder.ItemIndex]["Quantity"].FindControl("txtQuantity");
-                                TextBox txtsumAmount = (TextBox)gvCommMgmt.MasterTableView.Items[CBOrder.ItemIndex]["Amount"].FindControl("txtAmount");
-                                GridFooterItem footerItem = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
-                                Label lblQty = (Label)footerItem.FindControl("lblQuantity");
-                                GridFooterItem footerItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
-                                Label lblSum = (Label)footerItemAmount.FindControl("lblAmount");
-                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Order cannot be processed.Please enter quantity less than or equal to maximum quantity allowed for this issue')", true);
-                                isValid = false;
-                                //txtsumQuantity.Text = "";
-                                //txtsumAmount.Text = "";
-                                //lblQty.Text = "";
-                                //lblSum.Text = "";
-                            }
+                }
+                else if (FaceValue > sum && sum > 0)
+                {
+                    ShowMessage("Application amount is less than minimum application amount.", 'w');
 
-                            //}
-                        }
-                        else
-                            isValid = true;
+                }
+                else if (Quantity < minQty && Quantity > 0)
+                {
+                    foreach (GridDataItem CBOrder in gvCommMgmt.MasterTableView.Items)
+                    {
+                        TextBox txtsumQuantity = (TextBox)gvCommMgmt.MasterTableView.Items[CBOrder.ItemIndex]["Quantity"].FindControl("txtQuantity");
+                        TextBox txtsumAmount = (TextBox)gvCommMgmt.MasterTableView.Items[CBOrder.ItemIndex]["Amount"].FindControl("txtAmount");
+                        GridFooterItem footerItem = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
+                        Label lblQty = (Label)footerItem.FindControl("lblQuantity");
+                        GridFooterItem footerItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
+                        Label lblSum = (Label)footerItemAmount.FindControl("lblAmount");
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Order cannot be processed.Please enter quantity greater than or equal to min quantity required')", true);
+                        //txtsumQuantity.Text = "";
+                        //txtsumAmount.Text = "";
+                        //lblQty.Text = "";
+                        //lblSum.Text = "";
+                        isValid = false;
+                    }
+                }
+                else if (Quantity > maxQty && Quantity > 0)
+                {
+                    foreach (GridDataItem CBOrder in gvCommMgmt.MasterTableView.Items)
+                    {
+                        TextBox txtsumQuantity = (TextBox)gvCommMgmt.MasterTableView.Items[CBOrder.ItemIndex]["Quantity"].FindControl("txtQuantity");
+                        TextBox txtsumAmount = (TextBox)gvCommMgmt.MasterTableView.Items[CBOrder.ItemIndex]["Amount"].FindControl("txtAmount");
+                        GridFooterItem footerItem = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
+                        Label lblQty = (Label)footerItem.FindControl("lblQuantity");
+                        GridFooterItem footerItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
+                        Label lblSum = (Label)footerItemAmount.FindControl("lblAmount");
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Order cannot be processed.Please enter quantity less than or equal to maximum quantity allowed for this issue')", true);
+                        isValid = false;
+                        //txtsumQuantity.Text = "";
+                        //txtsumAmount.Text = "";
+                        //lblQty.Text = "";
+                        //lblSum.Text = "";
+                    }
 
                     //}
-                    //else
-                    //    isValid = true;
+                }
+                else
+                    isValid = true;
 
-                
+                //}
+                //else
+                //    isValid = true;
+
+
             }
             return isValid;
 
@@ -821,44 +830,44 @@ namespace WealthERP.OffLineOrderManagement
             bool isValid = CollectOrderDetails(sender, e, out dtOrderDetails);
             GridFooterItem ftItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
             Label lbltotAmt = (Label)ftItemAmount.FindControl("lblAmount");
-             Page.Validate("btnConfirmOrder");
-             if (Page.IsValid)
-             {
-                 if (isValid)
-                 {
+            Page.Validate("btnConfirmOrder");
+            if (Page.IsValid)
+            {
+                if (isValid)
+                {
 
-                     IDictionary<string, string> orderIds = new Dictionary<string, string>();
+                    IDictionary<string, string> orderIds = new Dictionary<string, string>();
 
-                     int totalOrderAmt = int.Parse(ViewState["Sum"].ToString());
-                     string message;
-                     string aplicationNoStatus = string.Empty;
-                     int orderId = 0;
-                     if (!String.IsNullOrEmpty(txtAssociateSearch.Text))
-                         dtAgentId = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
-                     if (dtAgentId.Rows.Count > 0)
-                     {
-                         agentId = int.Parse(dtAgentId.Rows[0][1].ToString());
-                     }
+                    int totalOrderAmt = int.Parse(ViewState["Sum"].ToString());
+                    string message;
+                    string aplicationNoStatus = string.Empty;
+                    int orderId = 0;
+                    if (!String.IsNullOrEmpty(txtAssociateSearch.Text))
+                        dtAgentId = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
+                    if (dtAgentId.Rows.Count > 0)
+                    {
+                        agentId = int.Parse(dtAgentId.Rows[0][1].ToString());
+                    }
 
-                     orderIds = offlineBondBo.OfflineBOndtransact(dtOrderDetails, advisorVo.advisorId, OnlineBondVo, agentId, txtAssociateSearch.Text, userVo.UserId);
-                     orderId = int.Parse(orderIds["Order_Id"].ToString());
-                     aplicationNoStatus = orderIds["aplicationNoStatus"].ToString();
-                     ViewState["OrderId"] = orderId;
-                     hdnOrderId.Value = orderId.ToString();
-                     btnConfirmOrder.Enabled = false;
-                     Label3.Visible = false;
-                     message = CreateUserMessage(orderId, aplicationNoStatus);
-                     ShowMessage(message, 'S');
-                     btnConfirmOrder.Visible = false;
-                     btnAddMore.Visible = true;
-                     SetCOntrolsEnablity(false);
-                     btnAddMore.Focus();
-                 }
-                 else
-                 {
-                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert(' Quantity should be between Min Quantity and Max Quantity.')", true);
-                 }
-             }
+                    orderIds = offlineBondBo.OfflineBOndtransact(dtOrderDetails, advisorVo.advisorId, OnlineBondVo, agentId, txtAssociateSearch.Text, userVo.UserId);
+                    orderId = int.Parse(orderIds["Order_Id"].ToString());
+                    aplicationNoStatus = orderIds["aplicationNoStatus"].ToString();
+                    ViewState["OrderId"] = orderId;
+                    hdnOrderId.Value = orderId.ToString();
+                    btnConfirmOrder.Enabled = false;
+                    Label3.Visible = false;
+                    message = CreateUserMessage(orderId, aplicationNoStatus);
+                    ShowMessage(message, 'S');
+                    btnConfirmOrder.Visible = false;
+                    btnAddMore.Visible = true;
+                    SetCOntrolsEnablity(false);
+                    btnAddMore.Focus();
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert(' Quantity should be between Min Quantity and Max Quantity.')", true);
+                }
+            }
         }
 
         private string CreateUserMessage(int orderId, string aplicationNoStatus)
@@ -1023,7 +1032,7 @@ namespace WealthERP.OffLineOrderManagement
                     txtAssociateSearch.Text = dr["AAC_AgentCode"].ToString();
                     string issue = dr["AIM_IssueId"].ToString();
                     BindStructureRuleGrid(advisorVo.advisorId, int.Parse(dr["AIM_IssueId"].ToString()), 1, int.Parse(dr["OCD_WCMV_TaxStatus_Id"].ToString()));
-                    BindStructureRuleGrid(int.Parse(dr["AIM_IssueId"].ToString()), int.Parse(dr["OCD_WCMV_TaxStatus_Id"].ToString()));
+                    BindStructureRuleGrid(int.Parse(dr["AIM_IssueId"].ToString()), int.Parse(dr["OCD_WCMV_TaxStatus_Id"].ToString()), orderId);
                     BindCustomerNCDIssueList(int.Parse(dr["OCD_WCMV_TaxStatus_Id"].ToString()));
                     ddlIssueList.SelectedValue = dr["AIM_IssueId"].ToString();
                     BindSubbroker(int.Parse(dr["AIM_IssueId"].ToString()));
@@ -1065,8 +1074,8 @@ namespace WealthERP.OffLineOrderManagement
                         ddlPaymentMode.SelectedValue = "CQ";
                         txtPaymentNumber.Text = dr["CO_ChequeNumber"].ToString();
                         txtPaymentInstDate.SelectedDate = Convert.ToDateTime(dr["CO_PaymentDate"].ToString());
-                        if(dr["COID_DepCustBankAccId"].ToString()!=string.Empty)
-                        txtBankAccount.Text = dr["COID_DepCustBankAccId"].ToString().Substring( 0, dr["COID_DepCustBankAccId"].ToString().IndexOf('.'));
+                        if (dr["COID_DepCustBankAccId"].ToString() != string.Empty)
+                            txtBankAccount.Text = dr["COID_DepCustBankAccId"].ToString().Substring(0, dr["COID_DepCustBankAccId"].ToString().IndexOf('.'));
                         Td3.Visible = true;
                         Td4.Visible = true;
                         trPINo.Visible = true;
@@ -1075,45 +1084,73 @@ namespace WealthERP.OffLineOrderManagement
                     ddlBankName.SelectedValue = dr["CO_BankName"].ToString();
                 }
             }
-            BindQtyandAmt(dtOrderDetails);
-        }
-        protected void BindQtyandAmt(DataSet dtOrderDetails)
-        {
-           
-                foreach (DataRow dr1 in dtOrderDetails.Tables[1].Rows)
+            foreach (DataRow dr1 in dtOrderDetails.Tables[1].Rows)
+            {
+                GridFooterItem ftItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
+                Label lblAmount = (Label)ftItemAmount["Amount"].FindControl("lblAmount");
+                Label lblQuantity = (Label)ftItemAmount["Quantity"].FindControl("lblQuantity");
+                lblAmount.Text = dr1["payable"].ToString();
+                lblQuantity.Text = dr1["Quantity"].ToString();
+                foreach (GridDataItem gdi in gvCommMgmt.MasterTableView.Items)
                 {
-                    GridFooterItem ftItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
-                    Label lblAmount = (Label)ftItemAmount["Amount"].FindControl("lblAmount");
-                    Label lblQuantity = (Label)ftItemAmount["Quantity"].FindControl("lblQuantity");
-                    lblAmount.Text = dr1["payable"].ToString();
-                    lblQuantity.Text = dr1["Quantity"].ToString();
-                    if (Cache["NCDTransactQtyandAmt" + userVo.UserId.ToString()] != null)
+                    int detailsid = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[gdi.ItemIndex]["AID_IssueDetailId"].ToString());
+                    TextBox txtQuantity = (TextBox)gdi.FindControl("txtQuantity");
+                    TextBox txtAmount = (TextBox)gdi.FindControl("txtAmount");
+                    if (detailsid == int.Parse(dr1["AID_IssueDetailId"].ToString()))
                     {
-                        Cache.Remove("NCDTransactQtyandAmt" + userVo.UserId.ToString());
-                    }
-                    Cache.Insert("NCDTransactQtyandAmt" + userVo.UserId.ToString(), dtOrderDetails);
-                    foreach (GridDataItem gdi in gvCommMgmt.MasterTableView.Items)
-                    {
-                        int detailsid = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[gdi.ItemIndex]["AID_IssueDetailId"].ToString());
-                        TextBox txtQuantity = (TextBox)gdi.FindControl("txtQuantity");
-                        TextBox txtAmount = (TextBox)gdi.FindControl("txtAmount");
-                        if (detailsid == int.Parse(dr1["AID_IssueDetailId"].ToString()))
+                        if (dr1["COID_TransactionType"].ToString() == "D" || dr1["COID_TransactionType"].ToString() == "ND")
                         {
-                            txtQuantity.Text = dr1["COID_Quantity"].ToString();
-                            txtAmount.Text = dr1["COID_AmountPayable"].ToString();
-
-                            if (dr1["COID_TransactionType"].ToString() == "D" || dr1["COID_TransactionType"].ToString() == "ND")
-                            {
-                                txtQuantity.CssClass = "txtDisableField";
-                                txtQuantity.ToolTip = "The Category Cannot be edited because it was Cancelled previously";
-                                txtQuantity.ReadOnly = true;
-                                txtAmount.CssClass = "txtDisableField";
-                                txtAmount.ToolTip = "The Amount Cannot be edited because it was Cancelled previously";
-                                txtAmount.ReadOnly = true;
-                            }
+                            txtQuantity.CssClass = "txtDisableField";
+                            txtQuantity.ToolTip = "The Category Cannot be edited because it was Cancelled previously";
+                            txtQuantity.ReadOnly = true;
+                            txtAmount.CssClass = "txtDisableField";
+                            txtAmount.ToolTip = "The Amount Cannot be edited because it was Cancelled previously";
+                            txtAmount.ReadOnly = true;
+                             gvCommMgmt.MasterTableView.GetColumn("DeleteBid").Display = false;
+                          
                         }
                     }
                 }
+            }
+            //BindQtyandAmt(dtOrderDetails.Tables[1]);
+        }
+        protected void BindQtyandAmt(DataTable dtOrderDetails)
+        {
+
+            foreach (DataRow dr1 in dtOrderDetails.Rows)
+            {
+                GridFooterItem ftItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
+                Label lblAmount = (Label)ftItemAmount["Amount"].FindControl("lblAmount");
+                Label lblQuantity = (Label)ftItemAmount["Quantity"].FindControl("lblQuantity");
+                lblAmount.Text = dr1["payable"].ToString();
+                lblQuantity.Text = dr1["Quantity"].ToString();
+                if (Cache["NCDTransactList" + userVo.UserId.ToString()] != null)
+                {
+                    Cache.Remove("NCDTransactList" + userVo.UserId.ToString());
+                }
+                Cache.Insert("NCDTransactList" + userVo.UserId.ToString(), dtOrderDetails);
+                foreach (GridDataItem gdi in gvCommMgmt.MasterTableView.Items)
+                {
+                    int detailsid = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[gdi.ItemIndex]["AID_IssueDetailId"].ToString());
+                    TextBox txtQuantity = (TextBox)gdi.FindControl("txtQuantity");
+                    TextBox txtAmount = (TextBox)gdi.FindControl("txtAmount");
+                    if (detailsid == int.Parse(dr1["AID_IssueDetailId"].ToString()))
+                    {
+                        txtQuantity.Text = dr1["COID_Quantity"].ToString();
+                        txtAmount.Text = dr1["COID_AmountPayable"].ToString();
+
+                        if (dr1["COID_TransactionType"].ToString() == "D" || dr1["COID_TransactionType"].ToString() == "ND")
+                        {
+                            txtQuantity.CssClass = "txtDisableField";
+                            txtQuantity.ToolTip = "The Category Cannot be edited because it was Cancelled previously";
+                            txtQuantity.ReadOnly = true;
+                            txtAmount.CssClass = "txtDisableField";
+                            txtAmount.ToolTip = "The Amount Cannot be edited because it was Cancelled previously";
+                            txtAmount.ReadOnly = true;
+                        }
+                    }
+                }
+            }
         }
         protected void btnUpdate_OnClick(object sender, EventArgs e)
         {
@@ -1204,57 +1241,53 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void gvCommMgmt_OnItemCommand(object source, GridCommandEventArgs e)
         {
-            int rowNo = 0;
-            DataSet dtOrderDetails;
+            DataTable dtOrderDetails;
+
             if (e.CommandName == RadGrid.DeleteCommandName)
             {
-                //GridEditFormItem gvCommMgmt=(GridEditFormItem)e.Item.FindControl("gvCommMgmt");
                 TextBox txtQuantity = (TextBox)e.Item.FindControl("txtQuantity");
                 TextBox txtAmount = (TextBox)e.Item.FindControl("txtAmount");
-                //TextBox txtQuantity = (TextBox)e.Item.FindControl("txtQuantity");
                 int id = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AID_IssueDetailId"].ToString());
-                clearText(txtQuantity, txtAmount, id);
-                
-                dtOrderDetails = (DataSet)Cache["NCDTransactQtyandAmt" + userVo.UserId.ToString()];
-                foreach (DataRow dr in dtOrderDetails.Tables[1].Rows)
-                {  
+                dtOrderDetails = (DataTable)Cache["NCDTransactList" + userVo.UserId.ToString()];
+                foreach (DataRow dr in dtOrderDetails.Rows)
+                {
                     if (id == int.Parse(dr["AID_IssueDetailId"].ToString()))
                     {
-                        dtOrderDetails.Tables[1].Rows[rowNo]["COID_Quantity"] = "0";
-                        dtOrderDetails.Tables[1].Rows[rowNo]["COID_AmountPayable"] = "0";
-                        //dtOrderDetails.Tables[0].Rows[rowNo]["COID_Quentity"].ToString() = 0;
+                        dtOrderDetails.Rows[e.Item.ItemIndex]["COID_Quantity"] = "0";
+                        dtOrderDetails.Rows[e.Item.ItemIndex]["COID_AmountPayable"] = "0";
                     }
                 }
-                dtOrderDetails.Tables[1].AcceptChanges();
-                DataTable dt = dtOrderDetails.Tables[1];
-                if (Cache["NCDTransactQty" + userVo.UserId.ToString()] != null)
-                {
-                    Cache.Remove("NCDTransactQty" + userVo.UserId.ToString());
-                }
-                Cache.Insert("NCDTransactQty" + userVo.UserId.ToString(), dtOrderDetails);
-                //if (id != 0)
-                //{
-                //    txtQuantity.Text = "0";
-                //    txtAmount.Text = "0";
-                //}
-                //foreach (GridDataItem CBOrder in gvCommMgmt.MasterTableView.Items)
-                //{
 
-                //    TextBox txtQuantity = (TextBox)gvCommMgmt.MasterTableView.Items[rowNo]["Quantity"].FindControl("txtQuantity");
-                //    if (txtQuantity.Text == string.Empty)
-                //    {
-                //        if (rowNo < gvCommMgmt.MasterTableView.Items.Count)
-                //        {
-                //            rowNo = rowNo + 1;
-                //        }
-                //        continue;
-                //    }
-                //}
-               
+
+                dtOrderDetails.AcceptChanges();
+                //for (int i = 0; i <= dtOrderDetails.Rows.Count; i++)
+                //{
+                int qty = 0, amt = 0;
+                foreach (DataRow dr in dtOrderDetails.Rows)
+                {
+
+                    if (dr["COID_Quantity"].ToString() != "")
+                    {
+                        qty += int.Parse(dr["COID_Quantity"].ToString());
+                        //j = j + r;
+                    }
+                    if (dr["COID_AmountPayable"].ToString() != "")
+                    {
+                        amt += int.Parse(dr["COID_AmountPayable"].ToString());
+                    }
+                }
+                ViewState["qty"] = qty.ToString();
+                ViewState["amt"] = amt.ToString();
+                DataTable dt = dtOrderDetails;
+
+                if (Cache["NCDTransactList" + userVo.UserId.ToString()] != null)
+                {
+                    Cache.Remove("NCDTransactList" + userVo.UserId.ToString());
+                }
+                Cache.Insert("NCDTransactList" + userVo.UserId.ToString(), dtOrderDetails);
             }
-           
         }
-        protected void clearText(TextBox txtQuantity,TextBox txtAmount, int id)
+        protected void clearText(TextBox txtQuantity, TextBox txtAmount, int id)
         {
             txtQuantity.Text = "0";
             txtAmount.Text = "0";
