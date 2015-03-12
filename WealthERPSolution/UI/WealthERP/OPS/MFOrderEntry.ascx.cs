@@ -641,7 +641,8 @@ namespace WealthERP.OPS
                         BindSchemeSwitch();
                         ddlSchemeSwitch.SelectedValue = dr["PASP_SchemePlanSwitch"].ToString();
                     }
-                  
+                   if (ddltransType.SelectedValue == "SIP" | ddltransType.SelectedValue == "SWP" | ddltransType.SelectedValue == "STP")
+                    {
                     BindStartDates();
 
 
@@ -653,8 +654,7 @@ namespace WealthERP.OPS
 
 
 
-                    if (ddltransType.SelectedValue == "SIP" | ddltransType.SelectedValue == "SWP" | ddltransType.SelectedValue == "STP")
-                    {
+                   
                         BindTotalInstallments();
                         ddlTotalInstallments.SelectedValue = dr["CMFSS_TotalInstallment"].ToString();
                         CaliculateEndDate();
@@ -670,6 +670,7 @@ namespace WealthERP.OPS
 
                 }
             }
+
         }
 
         private void ControlsEnblity(string type)
@@ -2744,6 +2745,8 @@ namespace WealthERP.OPS
             ddlFrequencySIP.DataTextField = "Frequency";
             ddlFrequencySIP.DataValueField = "FrequencyCode";
             ddlFrequencySIP.DataBind();
+            ddlFrequencySIP.Items.Insert(0, new ListItem("Select", "0"));
+
             //---------------------------------------------
             ddlFrequencySTP.DataSource = dtFrequency;
             ddlFrequencySTP.DataTextField = "Frequency";
@@ -4866,11 +4869,11 @@ namespace WealthERP.OPS
                 mforderVo.Remarks = txtRemarks.Text;
             else
                 mforderVo.Remarks = "";
-            //if (ddltransType.SelectedValue == "SIP")
-            //{
-            if (!string.IsNullOrEmpty((ddlFrequencySIP.SelectedValue).ToString().Trim()))
-                mforderVo.FrequencyCode = ddlFrequencySIP.SelectedValue;
-
+            if (ddltransType.SelectedValue != "BUY" | ddltransType.SelectedValue != "ABY" | ddltransType.SelectedValue != "Sel" | ddltransType.SelectedValue != "NFO")
+            {
+                if (!string.IsNullOrEmpty((ddlFrequencySIP.SelectedValue).ToString().Trim()))
+                    mforderVo.FrequencyCode = ddlFrequencySIP.SelectedValue;
+            }
             if (!string.IsNullOrEmpty(ddlStartDate.SelectedValue) && ddlStartDate.SelectedValue != "0")
             {
 
@@ -4987,13 +4990,13 @@ namespace WealthERP.OPS
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Customer Name.');", true);
                 return;
             }
-            else if ((isvalidOfflineFolio) && (ddltransType.SelectedValue.ToUpper() == "ABY" || ddltransType.SelectedValue.ToUpper() == "SEL"))
+            else if ((!isvalidOfflineFolio) && (ddltransType.SelectedValue.ToUpper() == "ABY" || ddltransType.SelectedValue.ToUpper() == "SEL"))
             {
 
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Folio Number.');", true);
                 return;
             }
-            else if (ddltransType.SelectedValue.ToUpper() == "SIP" && (!string.IsNullOrEmpty(txtFolioNumber.Text)) && (isvalidOfflineFolio))
+            else if (ddltransType.SelectedValue.ToUpper() == "SIP" && (!string.IsNullOrEmpty(txtFolioNumber.Text)) && (!isvalidOfflineFolio))
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Folio Number.');", true);
                 return;
