@@ -2041,4 +2041,8 @@
     <value>OnlineOrderBackOffice//BannerManage.ascx</value>
     <comment>OnlineOrderBackOffice//BannerManage.ascx</comment>
   </data>
+  <data name="BannerManager" xml:space="preserve">
+    <value>OnlineOrderBackOffice//BannerManager.ascx</value>
+    <comment>OnlineOrderBackOffice//BannerManager.ascx</comment>
+  </data>
 </root>

@@ -736,6 +736,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderBackOffice//BannerManager.ascx.
+        /// </summary>
+        internal static string BannerManager {
+            get {
+                return ResourceManager.GetString("BannerManager", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Advisor//BMBranchAssociation.ascx.
         /// </summary>
         internal static string BMBranchAssociation {
