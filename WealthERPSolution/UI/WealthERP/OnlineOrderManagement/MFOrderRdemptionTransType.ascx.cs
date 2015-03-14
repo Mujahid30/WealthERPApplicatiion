@@ -319,7 +319,7 @@ namespace WealthERP.OnlineOrderManagement
                 string date = Convert.ToDateTime(dsNav.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
                 lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + date;
             }
-            CalculateCurrentholding(ds, out finalunits, out finalamt, dsNav.Tables[0].Rows[0][1].ToString());
+            CalculateCurrentholding(ds, out finalunits, out finalamt, dsNav.Tables[0].Rows.Count > 0 ?Convert.ToString(dsNav.Tables[0].Rows[0][1]):"0");
             lblUnitsheldDisplay.Text = Math.Round(finalunits, 2).ToString();
             lblCurrentValueDisplay.Text = Math.Round(finalamt, 2).ToString();
 
