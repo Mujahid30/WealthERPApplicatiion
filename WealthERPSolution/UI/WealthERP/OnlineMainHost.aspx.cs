@@ -167,15 +167,17 @@ namespace WealthERP
                     break;
                 case "IPO":
                     divIPOMenu.Visible = true;
-                    lblOnlieProductType.Text = "IPO Order";
+                    lblOnlieProductType.Text = "IPO/FPO Order";
                     break;
             }
         }
 
         protected void SetDefaultPageSetting(string ProductType)
         {
+            defaultProductPageSetting.Clear();
             switch (ProductType.ToUpper())
             {
+
                 case "MF":
                     defaultProductPageSetting.Add("ProductType", ProductType.ToUpper());
                     defaultProductPageSetting.Add("ProductMenu", "trMFOrderMenuTransactTab");
