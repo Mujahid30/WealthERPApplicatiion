@@ -1103,7 +1103,7 @@
                             AlternateText="Add" runat="server" ToolTip="Click here to Add folio" OnClick="btnOpenPopup_Click"
                             Height="15px" Width="15px" CausesValidation="false"></asp:ImageButton>
                         <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtFolioNumber"
-                            WatermarkText="Type the folio name">
+                            WatermarkText="Enter Three Characters Of Folio">
                         </cc1:TextBoxWatermarkExtender>
                         <ajaxToolkit:AutoCompleteExtender ID="txtFolioNumber_autoCompleteExtender" runat="server"
                             TargetControlID="txtFolioNumber" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"

@@ -109,7 +109,6 @@ namespace WealthERP.OPS
                 AutoCompleteExtender1.ServiceMethod = "GetAdviserCustomerPan";
                 AutoCompleteExtender2.ContextKey = advisorVo.advisorId.ToString();
                 AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetails";
-
             }
             else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
             {
@@ -212,8 +211,8 @@ namespace WealthERP.OPS
 
             }
             SerachBoxes();
-
         }
+
         protected void BindTotalInstallments()
         {
             ddlTotalInstallments.Items.Clear();
@@ -223,16 +222,10 @@ namespace WealthERP.OPS
 
             int minDues;
             int maxDues;
-            //if (strAction != "Edit")
-            //{
+            
             minDues = Convert.ToInt32(dtGetAllSIPDataForOrder.Rows[0]["PASPSD_MinDues"]);
             maxDues = Convert.ToInt32(dtGetAllSIPDataForOrder.Rows[0]["PASPSD_MaxDues"]);
-            //}
-            //else
-            //{
-            //    minDues = Convert.ToInt32(onlineMFOrderVo.MinDues);
-            //    maxDues = Convert.ToInt32(onlineMFOrderVo.MaxDues);
-            //}
+            
             StringBuilder strTotalInstallments = new StringBuilder();
 
             for (int i = minDues; i <= maxDues; i++) strTotalInstallments.Append(i + "~");
@@ -284,7 +277,7 @@ namespace WealthERP.OPS
             }
             else if (ddltransType.SelectedValue == "SIP" || ddltransType.SelectedValue == "SWP")
             {
-                userMessage = "SIP Requested successfully, SIP reference no. is " + sipId.ToString();
+                userMessage = ddltransType.SelectedValue+" Requested successfully,"+ ddltransType.SelectedValue+" reference no. is " + sipId.ToString();
             }
 
             return userMessage;
@@ -474,20 +467,21 @@ namespace WealthERP.OPS
 
                     if (agentId != 0)
                     {
-                        AgentId = customerBo.GetAgentId(advisorVo.advisorId, int.Parse(agentId.ToString()));
-                        if (AgentId.Rows.Count > 0)
-                        {
-                            txtAssociateSearch.Text = AgentId.Rows[0][2].ToString();
-                        }
-                        else
-                            txtAssociateSearch.Text = string.Empty;
-                        Agentname = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
-                        if (Agentname.Rows.Count > 0)
-                        {
-                            lblAssociatetext.Text = Agentname.Rows[0][0].ToString();
-                        }
-                        else
-                            lblAssociatetext.Text = string.Empty;
+                        GetAgentName(agentId);
+                        //AgentId = customerBo.GetAgentId(advisorVo.advisorId, int.Parse(agentId.ToString()));
+                        //if (AgentId.Rows.Count > 0)
+                        //{
+                        //    txtAssociateSearch.Text = AgentId.Rows[0][2].ToString();
+                        //}
+                        //else
+                        //    txtAssociateSearch.Text = string.Empty;
+                        //Agentname = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
+                        //if (Agentname.Rows.Count > 0)
+                        //{
+                        //    lblAssociatetext.Text = Agentname.Rows[0][0].ToString();
+                        //}
+                        //else
+                        //    lblAssociatetext.Text = string.Empty;
 
                     }
 
@@ -519,6 +513,10 @@ namespace WealthERP.OPS
                         ddlAMCList.SelectedValue = dr["PA_AMCCode"].ToString();
                     else
                         ddlAMCList.SelectedValue = "0";
+                    if ((ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWB") && ddlAMCList.SelectedIndex != 0)
+                    {
+                        BindSchemeSwitch();
+                    }
                     if (!string.IsNullOrEmpty(dr["PAIC_AssetInstrumentCategoryCode"].ToString().Trim()))
                         ddlCategory.SelectedValue = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
 
@@ -539,6 +537,7 @@ namespace WealthERP.OPS
                         SelectionBasedOnScheme(int.Parse(dr["PASP_SchemePlanCode"].ToString()));
 
                     }
+                    DividendendOption();
                     if (int.Parse(dr["CMFA_accountid"].ToString()) != 0)
                         hidFolioNumber.Value = dr["CMFA_accountid"].ToString();
                     else
@@ -951,7 +950,7 @@ namespace WealthERP.OPS
                                 lblGetAvailableUnits.Text = dtGetAmountUnits.Rows[0]["CMFNP_NetHoldings"].ToString();
                             }
                         }
-                        if ((ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "Switch") && ddlAMCList.SelectedIndex != 0)
+                        if ((ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWB") && ddlAMCList.SelectedIndex != 0)
                         {
                             BindSchemeSwitch();
                         }
@@ -3700,7 +3699,7 @@ namespace WealthERP.OPS
             //txtendDateSIP.SelectedDate = null;
             txtstartDateSTP.SelectedDate = null;
             txtendDateSTP.SelectedDate = null;
-
+        
             lblGetLine1.Text = "";
             lblGetLine2.Text = "";
             lblGetline3.Text = "";
@@ -3712,15 +3711,20 @@ namespace WealthERP.OPS
 
             txtNewAmount.Text = "";
             txtRemarks.Text = "";
-
-
+            lblMultiple.Text = string.Empty;
+            txtReceivedDate.SelectedDate = null;
+            txtOrderDate.SelectedDate = null;
+            lblMintxt.Text = string.Empty ;
+            lblNavDisplay.Text = string.Empty;
+            lblAssociatetext.Text = string.Empty;
+            lb1RepTo.Text = string.Empty;
 
             txtSystematicdates.Text = "";
             txtPeriod.Text = "";
             txtRegistrationDate.Text = "";
             txtCeaseDate.Text = "";
 
-
+            lblMulti.Text = string.Empty;
         }
 
         private void BindAMC(int Aflag)
@@ -4433,6 +4437,10 @@ namespace WealthERP.OPS
             BindScheme(ddltransType.SelectedValue, Convert.ToInt32(ddlAMCList.SelectedValue));
             txtSearchScheme.Text = string.Empty;
             ddlAMCList.Focus();
+            if ((ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWB") && ddlAMCList.SelectedIndex != 0)
+            {
+                BindSchemeSwitch();
+            }
             //if (ddlAMCList.SelectedIndex != 0)
             //{
             //    BindFolioNumberSearch(0, 0);
@@ -4580,10 +4588,11 @@ namespace WealthERP.OPS
             {
                 lbltime.Text = DateTime.Now.ToString();
             }
-            if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "SWP")
+            if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "STB"|| ddltransType.SelectedValue == "SWB")
             {
                 txtAmount.Text = txtNewAmount.Text;
             }
+ 
 
             int retVal = commonLookupBo.IsRuleCorrect(float.Parse(txtAmount.Text), float.Parse(lblMintxt.Text), float.Parse(txtAmount.Text), float.Parse(lblMulti.Text), DateTime.Parse(lbltime.Text));
             if (retVal != 0)
@@ -4629,7 +4638,7 @@ namespace WealthERP.OPS
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Folio Number.');", true);
                 return;
             }
-            if (ddltransType.SelectedValue == "SWB")
+            if (ddltransType.SelectedValue == "SWB" || ddltransType.SelectedValue == "STB")
             {
                 CreatePurchaseOrderType();
             }
@@ -4683,7 +4692,7 @@ namespace WealthERP.OPS
             onlinemforderVo[1].TransactionCode = "SI";
             string message = string.Empty;
             lsonlinemforder.Add(onlinemforderVo[1]);
-            OrderIds = mfOrderBo.CreateOffLineMFSwitchOrderDetails(lsonlinemforder, userVo.UserId, customerVo.CustomerId);
+            OrderIds = mfOrderBo.CreateOffLineMFSwitchOrderDetails(lsonlinemforder, userVo.UserId, Convert.ToInt32(txtCustomerId.Value));
             int OrderId = int.Parse(OrderIds[0].ToString());
             // char msgType = 's';
             lblGetOrderNo.Text = OrderIds[0].ToString();
