@@ -32,6 +32,7 @@ namespace WealthERP.OffLineOrderManagement {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         protected global::System.Web.UI.UpdatePanel UpdatePanel2;
         protected global::System.Web.UI.WebControls.Panel Panel2;
+        protected global::System.Web.UI.WebControls.Panel pnlIPOIssueList;
         /// <summary>
         /// tblMessage control.
         /// </summary>

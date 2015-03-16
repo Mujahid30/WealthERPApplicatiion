@@ -1612,6 +1612,7 @@ namespace WealthERP.OffLineOrderManagement
             txtASBANO.Text = "";
             tblgvCommMgmt.Visible = false;
             tblgvIssueList.Visible = false;
+            pnlIPOIssueList.Visible = false;
             txtRemarks.Text = "";
 
             txtAssociateSearch.Text = "";
@@ -2183,7 +2184,7 @@ namespace WealthERP.OffLineOrderManagement
            
             tblgvCommMgmt.Visible = true;
             tblgvIssueList.Visible = true;
-
+            pnlIPOIssueList.Visible = true;
             dtOnlineIPOIssueList = OfflineIPOOrderBo.GetIPOIssueList(advisorVo.advisorId, issueId, type, customerSubTypeId);
             RadGridIPOIssueList.DataSource = dtOnlineIPOIssueList;
             RadGridIPOIssueList.DataBind();

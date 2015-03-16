@@ -32,6 +32,7 @@ namespace WealthERP.OffLineOrderManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkEdit;
+        protected global::System.Web.UI.WebControls.Panel pnlNCDIssueList;
 
         /// <summary>
         /// trOfficeUse control.

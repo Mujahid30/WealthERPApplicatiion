@@ -420,6 +420,7 @@ namespace WealthERP.OffLineOrderManagement
             DataTable dtIssue = new DataTable();
             //1--- For Curent Issues
             tblgvIssueList.Visible = true;
+            pnlNCDIssueList.Visible = true;
             dtIssue = offlineBondBo.GetOfflineAdviserIssuerList(adviserId, issueId, IssueStatus, TaxStatusCustomerSubTypeId).Tables[0];
 
 
@@ -447,7 +448,9 @@ namespace WealthERP.OffLineOrderManagement
             gvCommMgmt.DataSource = dtTransact;
             ViewState["Transact"] = dtTransact;
             gvCommMgmt.DataBind();
+            pnlNCDIssueList.Visible = true;
             tblgvCommMgmt.Visible = true;
+
         }
         protected void gvCommMgmt_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {

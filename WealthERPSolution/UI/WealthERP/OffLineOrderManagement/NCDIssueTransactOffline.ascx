@@ -589,13 +589,14 @@
             </tr>
             <tr>
                 <td colspan="6">
-                    <div class="divSectionHeading" style="vertical-align: text-bottom; width: auto%;">
+                    <div class="divSectionHeading" style="vertical-align: text-bottom; width: auto;">
                         NCD Issue Details
                     </div>
                 </td>
             </tr>
         </table>
-        <table width="100%" id="tblgvIssueList" runat="server" visible="false">
+        <asp:Panel ID="pnlNCDIssueList" runat="server" ScrollBars="Vertical" Width="100%" Visible="false">
+                <table width="100%" id="tblgvIssueList" runat="server" visible="false">
             <tr>
                 <td>
                     <telerik:RadGrid ID="gvIssueList" runat="server" AllowSorting="false" enableloadondemand="True"
@@ -825,7 +826,7 @@
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="AIDCSR_RedemptionDate" HeaderStyle-Width="105px"
                                     HeaderText="Redemption Date Note" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                    AutoPostBackOnFilter="false" UniqueName="AIDCSR_RedemptionDate" Visible="false">
+                                    AutoPostBackOnFilter="false" UniqueName="AIDCSR_RedemptionDate" Visible="true">
                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="AIDCSR_RedemptionAmount " HeaderStyle-Width="105px"
@@ -835,7 +836,7 @@
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="LockinPeriodCollection " HeaderStyle-Width="105px"
                                     HeaderText="Lock In Period" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                    AutoPostBackOnFilter="false" UniqueName="LockinPeriodCollection " Visible="false">
+                                    AutoPostBackOnFilter="false" UniqueName="LockinPeriodCollection " Visible="true">
                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridTemplateColumn AllowFiltering="false" DataField="YieldAtMAturity" HeaderStyle-Width="100px"
@@ -950,6 +951,7 @@
                 </td>
             </tr>
         </table>
+        </asp:Panel>
         <table width="100%">
             <tr>
                 <td class="Page_Left_Padding">

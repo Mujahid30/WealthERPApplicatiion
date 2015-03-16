@@ -556,6 +556,8 @@
                 </td>
             </tr>
         </table>
+        <asp:Panel ID="pnlIPOIssueList" runat="server" ScrollBars="Vertical" Width="100%" Visible="false">
+        
         <table width="100%" id="tblgvIssueList" runat="server" visible="false">
             <tr>
                 <td>
@@ -780,6 +782,7 @@
                 </td>
             </tr>
         </table>
+        </asp:Panel>
         <table width="100%">
             <tr>
                 <td class="Page_Left_Padding">
