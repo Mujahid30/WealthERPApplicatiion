@@ -505,7 +505,7 @@ namespace WealthERP.OffLineOrderManagement
                     return;
                 }
                 else
-                {
+                 {
                     OfflineIPOOrderBo.UpdateIPOBidOrderDetails(dtIPOBidTransactionDettails, orderNo, string.Empty, ddlBrokerCode.SelectedValue, userVo.UserId, onlineIPOOrderVo);
                     ShowMessage("IPO Order Updated Successfully,Order reference no. is " + orderNo.ToString());
                     btnUpdate.Visible = false;

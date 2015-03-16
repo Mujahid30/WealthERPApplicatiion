@@ -95,24 +95,29 @@ namespace WealthERP.OffLineOrderManagement
             userVo = (UserVo)Session[SessionContents.UserVo];
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
-            //GetUserType();
+            GetUserType();
 
-            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
-            {
-                AutoCompleteExtender2.ContextKey = advisorVo.advisorId.ToString();
-                AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetails";
-
-            }
-            else if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
-            {
-                AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode + "/" + advisorVo.advisorId.ToString();
-                AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetailsForAssociates";
-
-            }
-
+          
 
             if (!IsPostBack)
             {
+                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                {
+                    AutoCompleteExtender2.ContextKey = advisorVo.advisorId.ToString();
+                    AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetails";
+
+                }
+                else if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
+                {
+                    AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode + "/" + advisorVo.advisorId.ToString();
+                    AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetailsForAssociates";
+
+                }
+                if (AgentCode != null)
+                {
+                    txtAssociateSearch.Text = AgentCode;
+                    OnAssociateTextchanged(this, null);
+                }
                 BindDepositoryType();
                 BindSubTypeDropDown(1001);
                 btnAddMore.Visible = false;

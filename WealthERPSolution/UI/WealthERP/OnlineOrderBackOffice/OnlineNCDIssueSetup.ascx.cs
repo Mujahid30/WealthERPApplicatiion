@@ -739,7 +739,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     {
                         ddlBssChnl.SelectedValue = "";
                     }
-                    if (ddlIssuer.SelectedValue == "Select")
+                    if (ddlIssuer.SelectedValue == "Select" )
                         return;
                     SeriesAndCategoriesGridsVisiblity(Convert.ToInt32(ddlIssuer.SelectedValue), issueNo);
                 }
@@ -3229,9 +3229,23 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void btnProspect_Click(object sender, EventArgs e)
         {
+            string product = string.Empty;
             if (txtIssueId.Text != string.Empty)
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "loadcontrol('ManageRepository','NCDProspect=NCDProspect&issueId=" + txtIssueId.Text + "');", true);
+                if (Request.QueryString["action"] != null || Request.QueryString["ProspectUsaction"] != null)
+                {
+                    product = Request.QueryString["product"].ToString();
+                }
+                else
+                {
+                    if (ddlProduct.SelectedValue == "IP")
+                        product = "FIFIIP";
+                    else
+                    {
+                        product = ddlSubInstrCategory.SelectedValue;
+                    }
+                }
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "loadcontrol('ManageRepository','NCDProspect=NCDProspect&issueId=" + txtIssueId.Text + "&product=" + product + "');", true);
             }
             else
             {

@@ -2632,7 +2632,7 @@
         </telerik:RadWindow>
         <telerik:RadWindow ID="RadSyndicate" runat="server" VisibleOnPageLoad="false" Height="30%"
             Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
-            Title="Add New Syndicate" RestrictionZoneID="radWindowZone" Top="400px" Left="200">
+            Title="Add New Syndicate" RestrictionZoneID="radWindowZone" Top="30" Left="90" OnClientShow="setCustomPosition">
             <ContentTemplate>
                 <table>
                     <tr>
@@ -2653,7 +2653,7 @@
         </telerik:RadWindow>
         <telerik:RadWindow ID="RadBroker" runat="server" VisibleOnPageLoad="false" Height="30%"
             Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
-            Title="Add New Broker" RestrictionZoneID="radWindowZone" Top="400px" Left="200">
+            Title="Add New Broker" RestrictionZoneID="radWindowZone" Top="10" Left="20" OnClientShow="setCustomPosition">
             <ContentTemplate>
                 <table>
                     <tr>
@@ -2693,8 +2693,7 @@
         </telerik:RadWindow>
         <telerik:RadWindow ID="RadIssueBroker" runat="server" VisibleOnPageLoad="false" Height="30%"
             Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
-            Title="Select Broker For Issue" RestrictionZoneID="radWindowZone" Top="400px"
-            Left="200">
+            Title="Select Broker For Issue" RestrictionZoneID="radWindowZone" Top="30" Left="90" OnClientShow="setCustomPosition">
             <ContentTemplate>
                 <table style="padding-left: 80px;">
                     <tr>

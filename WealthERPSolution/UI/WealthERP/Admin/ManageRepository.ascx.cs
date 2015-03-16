@@ -767,7 +767,7 @@ namespace WealthERP.Admin
         }
         protected void lnkButton_Click(object sender, EventArgs e)
         {
-            int IssueId;
+            int IssueId; string product = string.Empty;
             if (Request.QueryString["IssueId"] != null)
             {
                 if (Request.QueryString["IssueId"] == string.Empty)
@@ -778,8 +778,9 @@ namespace WealthERP.Admin
                 else
                 {
                     IssueId = int.Parse(Request.QueryString["IssueId"].ToString());
+                    product = Request.QueryString["product"].ToString();
                 }
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineNCDIssueSetup", "loadcontrol('OnlineNCDIssueSetup','ProspectUsaction=viewFromProspect&product=FI&issueNo=" + IssueId + "');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineNCDIssueSetup", "loadcontrol('OnlineNCDIssueSetup','ProspectUsaction=viewFromProspect&product=" + product + "&issueNo=" + IssueId + "');", true);
             }
         }
     }
