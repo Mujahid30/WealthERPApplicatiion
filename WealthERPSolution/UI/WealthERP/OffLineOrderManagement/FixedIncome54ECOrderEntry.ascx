@@ -753,6 +753,9 @@
                             <asp:ListItem Text="PAN" Value="2"></asp:ListItem>
                         </asp:DropDownList>
                         <span id="Span14" class="spnRequiredField">*</span>
+                         <asp:CompareValidator ID="CompareValidator4" runat="server" ControlToValidate="ddlsearch"
+                            CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please Select Customer/PAN"
+                            Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="0"></asp:CompareValidator>
                     </td>
                     <td align="right" runat="server" visible="false">
                         <asp:Label ID="lblARNNo" runat="server" CssClass="FieldName" Text="ARN No:"></asp:Label>
@@ -866,7 +869,7 @@
                             CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem" CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                             UseContextKey="True" DelimiterCharacters="" Enabled="True" ShowOnlyCurrentWordInCompletionListItem="true" />
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtAssociateSearch"
-                            ErrorMessage="<br />Please Enter a  Broker Code" Display="Dynamic" runat="server"
+                            ErrorMessage="<br />Please Enter a  Agent Code" Display="Dynamic" runat="server"
                             CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
                     </td>
                     <td align="right">
@@ -1242,7 +1245,7 @@
                         <asp:TextBox ID="TxtPurAmt" runat="server" CssClass="txtField" AutoComplete="Off"
                             AutoPostBack="True" OnTextChanged="OnAmtchanged" TabIndex="23" />
                         <span id="Span3" runat="server" class="spnRequiredField">*</span>
-                        <asp:RequiredFieldValidator ID="ReqQty" ControlToValidate="txtQty" CssClass="rfvPCG"
+                        <asp:RequiredFieldValidator ID="ReqQty" ControlToValidate="TxtPurAmt" CssClass="rfvPCG"
                             ErrorMessage="<br />Please Enter Amount" Display="Dynamic" runat="server" InitialValue=""
                             ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="TxtPurAmt"
@@ -1258,7 +1261,7 @@
                             TabIndex="24" MaxLength="45" />
                         <span id="Span17" runat="server" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator13" ControlToValidate="txtADRNo"
-                            CssClass="rfvPCG" ErrorMessage="<br />Please Enter ADR NO." Display="Dynamic"
+                            CssClass="rfvPCG" ErrorMessage="<br />Please Enter FDR NO." Display="Dynamic"
                             runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
                     </td>
                 </tr>

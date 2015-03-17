@@ -701,9 +701,7 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-
             txtQty.Text = (ddlCategory.SelectedValue == "FICDCD") ? TxtPurAmt.Text : txtQty.Text;
-
             bool result = false;
             var hdMax = (object)Cache["HiddenMaxid" + userVo.UserId.ToString()];
             var hdMin = (object)Cache["HiddenMinid" + userVo.UserId.ToString()];
@@ -738,9 +736,7 @@ namespace WealthERP.OffLineOrderManagement
                 btnUpdate.Visible = false;
                 lnkBtnFIEdit.Visible = true;
                 //BtnFileupload.Visible = true;
-
                 SetFICOntrolsEnablity(false);
-
             }
             else
             {
@@ -772,6 +768,7 @@ namespace WealthERP.OffLineOrderManagement
 
 
         protected void btnSubmit_Click(object sender, EventArgs e)
+        
         {
             btnSubmit.Enabled = false;
             txtQty.Text = (ddlCategory.SelectedValue == "FICDCD") ? TxtPurAmt.Text : txtQty.Text;
@@ -834,7 +831,7 @@ namespace WealthERP.OffLineOrderManagement
                 gvUploadDocument.Visible = true;
                 //BtnFileupload.Visible = true;
                 // btnUpdate.Visible = true;
-                ReqQty.Visible = false;
+                ReqQty.Visible = true;
                 SetFICOntrolsEnablity(false);
             }
             else
@@ -887,19 +884,7 @@ namespace WealthERP.OffLineOrderManagement
                     rbtnReject.Enabled = Val;
                 }
             }
-            //if (rbtnReject.Checked)
-            //{
-            //    rbtnReject.Enabled = false;
-            //    rbtnAuthentication.Enabled = false;
-            //}
-            //else
-            //{
-            //    rbtnReject.Enabled = Val;
-            //}
-            //ddlModeofHOlding.Enabled = Val;
-
             lblGetOrderNo.Enabled = Val;
-            //txtOrderDate.Enabled = Val;
             txtApplicationNumber.Enabled = Val;
             txtApplicationDate.Enabled = Val;
             txtExistDepositreceiptno.Enabled = Val;
@@ -959,6 +944,13 @@ namespace WealthERP.OffLineOrderManagement
                     btnSubmitAuthenticate.Visible = false;
                     lblAuthenticatedBy.Text = dr["U_FirstName"].ToString();
                     txtRejectReseaon.Text = dr["COS_Reason"].ToString();
+                }
+                else
+                {
+                    rbtnReject.Checked = false;
+                    lblRejectRes.Visible = false;
+                    txtRejectReseaon.Visible = false;
+                    lblAuthenticatedBy.Text = "";
                 }
 
                 if (dr["CO_IsAuthenticated"].ToString() != "True")
@@ -4584,6 +4576,7 @@ namespace WealthERP.OffLineOrderManagement
                 lblAuthenticatedBy.Text = "";
             tdlblReject.Visible = true;
             tdtxtReject.Visible = true;
+            txtRejectReseaon.Visible = true;
         }
         protected void GetcustomerDetails()
         {
