@@ -400,6 +400,36 @@ namespace BoProductMaster
             return dsGetScheme;
 
         }
+        public DataSet GetSIPSchemeNames(string prefixText, int amcCode)
+        {
+            ProductMFDao productMFDao = new ProductMFDao();
+            DataSet dsGetScheme;
+            try
+            {
+                dsGetScheme = productMFDao.GetSIPSchemeNames(prefixText, amcCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetScheme;
+
+        }
+        public DataSet GetSWPSchemeNames(string prefixText, int amcCode)
+        {
+            ProductMFDao productMFDao = new ProductMFDao();
+            DataSet dsGetScheme;
+            try
+            {
+                dsGetScheme = productMFDao.GetSWPSchemeNames(prefixText, amcCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetScheme;
+
+        }
         public DataSet GetSchemeName(int amcCode, string categoryCode, int all, int status)
         {
             ProductMFDao productMFDao = new ProductMFDao();

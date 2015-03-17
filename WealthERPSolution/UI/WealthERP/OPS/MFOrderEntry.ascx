@@ -911,8 +911,8 @@
                             <asp:ListItem Text="Redemption" Value="Sel"></asp:ListItem>
                             <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
                             <asp:ListItem Text="SWP" Value="SWP"></asp:ListItem>
-                            <asp:ListItem Text="STP" Value="STB"></asp:ListItem>
-                            <asp:ListItem Text="Switch" Value="SWB"></asp:ListItem>
+                            <asp:ListItem Text="STP" Value="STB" Enabled="false"></asp:ListItem>
+                            <asp:ListItem Text="Switch" Value="SWB" Enabled="false"></asp:ListItem>
                             <asp:ListItem Text="Change Of Address Form" Value="CAF" Enabled="false"></asp:ListItem>
                             <asp:ListItem Text="Transfer IN" Value="TI" Enabled="false"></asp:ListItem>
                             <asp:ListItem Text="NFO" Value="NFO" Enabled="true"></asp:ListItem>                            

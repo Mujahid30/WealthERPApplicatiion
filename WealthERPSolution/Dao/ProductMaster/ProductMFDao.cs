@@ -588,6 +588,52 @@ namespace DaoProductMaster
 
         }
 
+        public DataSet GetSIPSchemeNames(string prefixText, int amcCode)
+        {
+            Database db;
+            DbCommand getSchemeNameCmd;
+            DataSet dsSchemeName;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getSchemeNameCmd = db.GetStoredProcCommand("SPROC_OFFLine_GetSipSchemes");
+                db.AddInParameter(getSchemeNameCmd, "@prefixText", DbType.String, prefixText);
+                db.AddInParameter(getSchemeNameCmd, "@PA_AMCCode", DbType.Int32, amcCode);
+
+                dsSchemeName = db.ExecuteDataSet(getSchemeNameCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dsSchemeName;
+
+        }
+
+        public DataSet GetSWPSchemeNames(string prefixText, int amcCode)
+        {
+            Database db;
+            DbCommand getSchemeNameCmd;
+            DataSet dsSchemeName;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getSchemeNameCmd = db.GetStoredProcCommand("SPROC_OFFLine_GetSwpSchemes");
+                db.AddInParameter(getSchemeNameCmd, "@prefixText", DbType.String, prefixText);
+                db.AddInParameter(getSchemeNameCmd, "@PA_AMCCode", DbType.Int32, amcCode);
+
+                dsSchemeName = db.ExecuteDataSet(getSchemeNameCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsSchemeName;
+        }
+
         public DataSet GetSchemeName(int amcCode, string categoryCode, int all, int status)
         {
             Database db;

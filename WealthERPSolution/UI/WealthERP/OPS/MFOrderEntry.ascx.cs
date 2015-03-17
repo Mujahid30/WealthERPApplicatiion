@@ -806,12 +806,17 @@ namespace WealthERP.OPS
                 txtSearchScheme_autoCompleteExtender.ContextKey = amcCode.ToString();
                 txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetNFOSchemeNames";
             }
+            else   if (transactionType == "SIP")
+            {
+                txtSearchScheme_autoCompleteExtender.ContextKey = amcCode.ToString();
+                txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSIPSchemeNames";
+            }
             else
             {
                 txtSearchScheme_autoCompleteExtender.ContextKey = amcCode.ToString();
                 txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSchemeNames";
             }
-
+            
             //parameters = string.Empty;
             //parameters = (amcCode + "/" + categoryCode + "/" + 1 + "/" + 1);
             //txtSearchScheme_autoCompleteExtender.ContextKey = parameters;
@@ -3729,7 +3734,7 @@ namespace WealthERP.OPS
 
         private void BindAMC(int Aflag)
         {
-            DataSet dsProductAmc;
+            DataSet dsProductAmc=new DataSet();
             DataTable dtProductAMC;
 
             try
@@ -3738,8 +3743,9 @@ namespace WealthERP.OPS
                     dsProductAmc = productMFBo.GetProductAmc();
                 else if (Aflag == 1)
                     dsProductAmc = operationBo.GetAMCForOrderEntry(Aflag, int.Parse(txtCustomerId.Value));
-                else
+                else if (Aflag == 2)
                     dsProductAmc = operationBo.Get_NFO_AMC();
+                
 
                 if (dsProductAmc.Tables.Count > 0)
                 {
@@ -3765,13 +3771,11 @@ namespace WealthERP.OPS
             }
 
         }
+
         private void BindScheme(int Sflag)
         {
 
-
-
-
-            try
+              try
             {
                 DataSet dsScheme = new DataSet();
                 DataTable dtScheme;
@@ -4772,10 +4776,7 @@ namespace WealthERP.OPS
                 mforderVo.FutureTriggerCondition = txtFutureTrigger.Text;
             else
                 mforderVo.FutureTriggerCondition = "";
-            if (!string.IsNullOrEmpty((txtAmount.Text).ToString().Trim()))
-                mforderVo.Amount = double.Parse(txtAmount.Text);
-            else
-                mforderVo.Amount = 0;
+
 
             if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "SWB")
             {
@@ -4786,7 +4787,7 @@ namespace WealthERP.OPS
                     else
                         mforderVo.Amount = 0;
                 }
-                if (rbtUnit.Checked == true)
+                else if (rbtUnit.Checked == true)
                 {
                     if (!string.IsNullOrEmpty((txtNewAmount.Text).ToString().Trim()))
                         mforderVo.Units = double.Parse(txtNewAmount.Text);
@@ -4794,6 +4795,13 @@ namespace WealthERP.OPS
                         mforderVo.Units = 0;
                 }
 
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty((txtAmount.Text).ToString().Trim()))
+                    mforderVo.Amount = double.Parse(txtAmount.Text);
+                else
+                    mforderVo.Amount = 0;
             }
             if (txtAmount.Text != "0" & txtAmount.Text != string.Empty)
                 hidAmt.Value = txtAmount.Text;
