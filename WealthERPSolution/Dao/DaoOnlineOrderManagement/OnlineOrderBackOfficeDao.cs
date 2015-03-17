@@ -586,6 +586,14 @@ namespace DaoOnlineOrderManagement
                         {
                             mfProductAMCSchemePlanDetailsVo.IsOnlineEnablement = 0;
                         }
+                        if (dr["PASPD_IsETFType"].ToString() == "True")
+                        {
+                            mfProductAMCSchemePlanDetailsVo.IsETFT = 1;
+                        }
+                        else
+                        {
+                            mfProductAMCSchemePlanDetailsVo.IsETFT = 0;
+                        }
                     }
                 }
 
@@ -1271,6 +1279,9 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_ModifiedBy", DbType.Int32, userid);
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@XESExternal", DbType.String, mfProductAMCSchemePlanDetailsVo.SourceCode);
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_IsOnlineEnablement", DbType.Boolean, Convert.ToBoolean(mfProductAMCSchemePlanDetailsVo.IsOnlineEnablement));
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@isETFL", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsETFT);//23
+
+                
                 // db.ExecuteNonQuery(updateSchemeSetUpDetailsCmd);
                 if (db.ExecuteNonQuery(updateSchemeSetUpDetailsCmd) != 0)
                     blResult = true;
@@ -2046,6 +2057,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_ModifiedBy", DbType.Int32, userId);
                 db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@XESExternal", DbType.String, mfProductAMCSchemePlanDetailsVo.SourceCode);
                 db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_IsOnlineEnablement", DbType.String, mfProductAMCSchemePlanDetailsVo.IsOnlineEnablement);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@isETFL", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsETFT);
 
                 db.ExecuteNonQuery(CreateOnlineSchemeSetupPlanDetailsCmd);
             }
@@ -2674,7 +2686,7 @@ namespace DaoOnlineOrderManagement
             }
             return count;
         }
-        public string GetExternalCode(int AMCCode)
+        public string GetExternalCode(int AMCCode, int productmappingcode)
         {
             Database db;
             DataSet ds;
@@ -2686,6 +2698,8 @@ namespace DaoOnlineOrderManagement
                 //checking year
                 cmdGetExternalCode = db.GetStoredProcCommand("SPROC_GetSchemeCode");
                 db.AddInParameter(cmdGetExternalCode, "@AMCCode", DbType.Int32, AMCCode);
+                db.AddInParameter(cmdGetExternalCode, "@productmappingcode", DbType.Int32, productmappingcode);
+
                 db.AddOutParameter(cmdGetExternalCode, "@PASC_AMC_ExternalCode", DbType.String, 20);
                 ds = db.ExecuteDataSet(cmdGetExternalCode);
                 if (db.ExecuteNonQuery(cmdGetExternalCode) != 0)
@@ -2942,6 +2956,58 @@ namespace DaoOnlineOrderManagement
                 throw Ex;
             }
             return dtGetBannerDetailsWithAssetGroup;
+        }
+        public int SchemeCodeonline(string externalcode, int AMCCode)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmdSchemeCode;
+            int count = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //checking year
+                cmdSchemeCode = db.GetStoredProcCommand("SPROC_GetSchemeCodeOnline");
+                db.AddInParameter(cmdSchemeCode, "@Externalcode", DbType.String, externalcode);
+                db.AddInParameter(cmdSchemeCode, "@AMCCode", DbType.Int32, AMCCode);
+                db.AddOutParameter(cmdSchemeCode, "@count", DbType.Int32, 0);
+
+                ds = db.ExecuteDataSet(cmdSchemeCode);
+                if (db.ExecuteNonQuery(cmdSchemeCode) != 0)
+                {
+                    count = Convert.ToInt32(db.GetParameterValue(cmdSchemeCode, "count").ToString());
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return count;
+        }
+        public string GetExternalCodeOnline(int AMCCode)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmdGetExternalCode;
+            string extCode = string.Empty;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //checking year
+                cmdGetExternalCode = db.GetStoredProcCommand("SPROC_GetSchemeCodeOnlinescheme");
+                db.AddInParameter(cmdGetExternalCode, "@AMCCode", DbType.Int32, AMCCode);
+                db.AddOutParameter(cmdGetExternalCode, "@PASC_AMC_ExternalCode", DbType.String, 20);
+                ds = db.ExecuteDataSet(cmdGetExternalCode);
+                if (db.ExecuteNonQuery(cmdGetExternalCode) != 0)
+                {
+                    extCode = db.GetParameterValue(cmdGetExternalCode, "PASC_AMC_ExternalCode").ToString();
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return extCode;
         }
     }
 }

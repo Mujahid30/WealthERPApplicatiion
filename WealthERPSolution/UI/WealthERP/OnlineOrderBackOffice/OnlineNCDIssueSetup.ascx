@@ -631,7 +631,7 @@
                     <asp:TextBox ID="txtBrokerCode" runat="server" CssClass="txtField" Width="200px" TabIndex="13"></asp:TextBox>
                 </td>
             </tr>
-            <tr id="trRegistrarAndNoofBidsAlloweds" runat="server">
+            <tr id="trRegistrarAndNoofBidsAlloweds" runat="server" visible="false">
                 <td id="Td5" runat="server" class="leftLabel">
                     <asp:Label ID="Label13" runat="server" Text="Registrar:" CssClass="FieldName"></asp:Label>
                 </td>

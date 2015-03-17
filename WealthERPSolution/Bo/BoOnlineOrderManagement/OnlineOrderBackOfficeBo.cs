@@ -2218,13 +2218,13 @@ namespace BoOnlineOrderManagement
             }
             return result;
         }
-        public string GetExternalCode(int AMCCode)
+        public string GetExternalCode(int AMCCode, int productmappingcode)
         {
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             string extCode = string.Empty;
             try
             {
-                extCode = OnlineOrderBackOfficeDao.GetExternalCode(AMCCode);
+                extCode = OnlineOrderBackOfficeDao.GetExternalCode(AMCCode, productmappingcode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -2420,6 +2420,34 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
             return dt;
+        }
+        public int SchemeCodeonline(string externalcode, int AMCCode)
+        {
+            int result = 0;
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                result = OnlineOrderBackOfficeDao.SchemeCodeonline(externalcode, AMCCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
+        }
+        public string GetExternalCodeOnline(int AMCCode)
+        {
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            string extCode = string.Empty;
+            try
+            {
+                extCode = OnlineOrderBackOfficeDao.GetExternalCodeOnline(AMCCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return extCode;
         }
     }
 }

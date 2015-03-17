@@ -443,7 +443,8 @@
                     <asp:RequiredFieldValidator ID="rfvtxtSecuritycode" runat="server" ErrorMessage="Please Enter Security Code"
                         CssClass="rfvPCG" ControlToValidate="txtSecuritycode" ValidationGroup="btnsubmit"
                         Display="Dynamic"></asp:RequiredFieldValidator>--%>
-            </td>
+                        <asp:CheckBox ID="chkIsETFT" runat="server" CssClass="cmbFielde" Text="IS ETFT" OnCheckedChanged="chkIsETFT_OnCheckedChanged" AutoPostBack="true"/>
+            </td> 
         </tr>
         <tr>
             <td align="right">
@@ -596,13 +597,13 @@
                     ValidationGroup="btnsubmit">
                 </asp:RegularExpressionValidator>
                 <asp:RangeValidator ID="rngtxtHH" runat="server" Type="Integer" MinimumValue="0"
-                    CssClass="rfvPCG" MaximumValue="24" ControlToValidate="txtHH" ErrorMessage="HH must be between 0 to 23"
+                    CssClass="rfvPCG" MaximumValue="24" ControlToValidate="txtHH" ErrorMessage="HH must be between 0 to 24"
                     ValidationGroup="btnsubmit"></asp:RangeValidator>
                 <asp:RangeValidator ID="rngtxtMM" runat="server" Type="Integer" MinimumValue="0"
-                    CssClass="rfvPCG" MaximumValue="60" ControlToValidate="txtMM" ErrorMessage="MIN must be between 0 to 59"
+                    CssClass="rfvPCG" MaximumValue="60" ControlToValidate="txtMM" ErrorMessage="MIN must be between 0 to 60"
                     ValidationGroup="btnsubmit"></asp:RangeValidator>
                 <asp:RangeValidator ID="rngtxtSS" runat="server" Type="Integer" MinimumValue="0"
-                    CssClass="rfvPCG" MaximumValue="60" ControlToValidate="txtSS" ErrorMessage="SEC must be between 0 to 59"
+                    CssClass="rfvPCG" MaximumValue="60" ControlToValidate="txtSS" ErrorMessage="SEC must be between 0 to 60"
                     ValidationGroup="btnsubmit"></asp:RangeValidator>
             </td>
         </tr>

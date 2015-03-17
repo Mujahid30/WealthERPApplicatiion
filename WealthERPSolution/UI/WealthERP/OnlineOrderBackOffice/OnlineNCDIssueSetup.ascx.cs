@@ -5200,7 +5200,7 @@ namespace WealthERP.OnlineOrderBackOffice
             trIssueTypes.Visible = false;
             trBookBuildingAndCapprices.Visible = false;
             trSyndicateAndMemberCodes.Visible = false;
-            trRegistrarAndNoofBidsAlloweds.Visible = false;
+            //trRegistrarAndNoofBidsAlloweds.Visible = false;
             trIsActiveandPutCallOption.Visible = true;
 
             trRegistrarAddressAndTelNo.Visible = false;
@@ -5259,6 +5259,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 trIssueqtySize.Visible = true;
                 tdlb1MinQty.Visible = true;
                 tdltxtMinQty.Visible = true;
+                trRegistrarAndNoofBidsAlloweds.Visible = true;
                 trRegistrarAddressAndTelNo.Visible = true;
                 trRegistrarFaxNoAndInvestorGrievenceEmail.Visible = true;
                 trWebsiteAndContactPerson.Visible = true;
@@ -6018,7 +6019,7 @@ namespace WealthERP.OnlineOrderBackOffice
             trIssueTypes.Visible = false;
             trBookBuildingAndCapprices.Visible = false;
             trSyndicateAndMemberCodes.Visible = false;
-            trRegistrarAndNoofBidsAlloweds.Visible = false;
+            //trRegistrarAndNoofBidsAlloweds.Visible = false;
             trIsActiveandPutCallOption.Visible = true;
             trRegistrarAddressAndTelNo.Visible = false;
             trRegistrarFaxNoAndInvestorGrievenceEmail.Visible = false;
@@ -6157,7 +6158,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 trExchangeCode.Visible = true;
                 tdlb1MinQty.Visible = false;
                 tdltxtMinQty.Visible = false;
-
+                trRegistrarAndNoofBidsAlloweds.Visible = false;
             }
 
         }
