@@ -10,8 +10,6 @@
 
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
 
-
-
 <asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
 <style>
@@ -496,7 +494,7 @@
         </div>
         <telerik:RadWindow ID="rwTermsCondition" runat="server" VisibleOnPageLoad="false"
             Width="1000px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Move, Resize,Close"
-            Title="Terms & Conditions" EnableShadow="true" Left="580" Top="-8">
+            Title="Terms & Conditions" EnableShadow="true" Left="15%" Top="100" OnClientShow="setCustomPosition">
             <ContentTemplate>
                 <div style="padding: 0px; width: 100%">
                     <table width="100%" cellpadding="0" cellpadding="0">
@@ -547,7 +545,7 @@
         <telerik:RadWindowManager runat="server" ID="RadWindowManager1">
             <Windows>
                 <telerik:RadWindow ID="rw_customConfirm" Modal="true" Behaviors="Close, Move" VisibleStatusbar="false"
-                    Width="700px" Height="160px" runat="server" Title="EUIN Confirm">
+                    Width="700px" Height="160px" runat="server" Title="EUIN Confirm" Left="15%" Top="100" OnClientShow="setCustomPosition">
                     <ContentTemplate>
                         <div class="rwDialogPopup radconfirm">
                             <div class="rwDialogText">
@@ -571,3 +569,10 @@
     </Triggers>
 </asp:UpdatePanel>
 <Banner:footer ID="MyHeader" assetCategory="MF" runat="server" />
+
+<script type="text/javascript">
+    function setCustomPosition(sender, args) {
+        sender.moveTo(sender.get_left(), sender.get_top());
+    }
+</script>
+

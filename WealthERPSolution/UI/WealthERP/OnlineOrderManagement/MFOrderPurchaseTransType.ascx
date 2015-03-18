@@ -32,20 +32,7 @@
     }
 </script>
 
-<script type="text/jscript">
-    jQuery(document).ready(function($) {
-        $('.bxslider').bxSlider(
-    {
-        auto: true,
-        autoControls: true,
-        speed:1000
-    }
-    );
-    });
 
-    Sys.WebForms.PageRequestManager.getInstance().add_endRequest(PopupEndRequestHandler);
-    
-</script>
 
 <script language="javascript" type="text/javascript">
     var crnt = 0;
@@ -453,7 +440,7 @@
         </div>
         <telerik:RadWindow ID="rwTermsCondition" runat="server" VisibleOnPageLoad="false"
             Width="1000px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Move, Resize,Close"
-            Title="Terms & Conditions" EnableShadow="true" Left="580" Top="-8">
+            Title="Terms & Conditions" EnableShadow="true" Left="15%" Top="100" OnClientShow="setCustomPosition">
             <ContentTemplate>
                 <div style="padding: 0px; width: 100%">
                     <table width="100%" cellpadding="0" cellpadding="0">
@@ -477,7 +464,7 @@
         <telerik:RadWindowManager runat="server" ID="RadWindowManager1">
             <Windows>
                 <telerik:RadWindow ID="rw_customConfirm" Modal="true" Behaviors="Close, Move" VisibleStatusbar="false"
-                    Width="700px" Height="160px" runat="server" Title="EUIN Confirm">
+                    Width="700px" Height="160px" runat="server" Title="EUIN Confirm" Left="15%" Top="100" OnClientShow="setCustomPosition">
                     <ContentTemplate>
                         <div class="rwDialogPopup radconfirm">
                             <div class="rwDialogText">
@@ -498,23 +485,12 @@
     <Triggers>
     </Triggers>
 </asp:UpdatePanel>
-<table width="100%" style="padding: 25px;">
-    <tr>
-        <td align="center">
-            <div style="float: left; width: 98%">
-                <ul class="bxslider">
-                    <li>
-                        <img src="../Images/InvestorPageSlider/1.jpg" /></li>
-                    <li>
-                        <img src="../Images/InvestorPageSlider/2.jpg" /></li>
-                    <li>
-                        <img src="../Images/InvestorPageSlider/3.jpg" /></li>
-                    <li>
-                        <img src="../Images/InvestorPageSlider/4.jpg" /></li>
-                    <li>
-                        <img src="../Images/InvestorPageSlider/5.jpg" /></li>
-                </ul>
-            </div>
-        </td>
-    </tr>
-</table>
+<Banner:footer ID="MyHeader" assetCategory="MF" runat="server" />
+
+<script type="text/javascript">
+    function setCustomPosition(sender, args) {
+        sender.moveTo(sender.get_left(), sender.get_top());
+    }
+</script>
+
+
