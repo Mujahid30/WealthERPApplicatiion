@@ -1601,7 +1601,7 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlSctype.Enabled = true;
             btnsubmit.Visible = false;
             btnupdate.Visible = true;
-
+            chkIsETFT.Enabled = true;
         }
         protected void ddlSchemeList_OnSelectedIndexChanged(object sender, EventArgs e)
         {
