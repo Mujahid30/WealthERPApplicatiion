@@ -764,7 +764,7 @@ namespace DaoOnlineOrderManagement
             }
         }
 
-        public int GetValidateFrom(int fromRange, int adviserId, int issueId, int formRangeId, ref string status)
+        public int GetValidateFrom(long fromRange, int adviserId, int issueId, int formRangeId, ref string status)
         {
 
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -774,10 +774,10 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createCmd = db.GetStoredProcCommand("SPROC_GetValidateFrom");
-                db.AddInParameter(createCmd, "@FromRange", DbType.String, fromRange);
+                db.AddInParameter(createCmd, "@FromRange", DbType.Int64, fromRange);
                 db.AddInParameter(createCmd, "@AdviserId", DbType.Int32, adviserId);
                 db.AddInParameter(createCmd, "@issueId", DbType.String, issueId);
-                db.AddInParameter(createCmd, "@formRangeId", DbType.String, formRangeId);
+                db.AddInParameter(createCmd, "@formRangeId", DbType.Int32, formRangeId);
                 db.AddOutParameter(createCmd, "@status", DbType.String, 500);
 
                 if (db.ExecuteNonQuery(createCmd) != 0)
@@ -797,7 +797,7 @@ namespace DaoOnlineOrderManagement
             }
         }
 
-        public int CreateUpdateDeleteAplicationNos(int fromRange, int toRange, int adviserId, int issueId, int formRangeId, string commandType, ref string status)
+        public int CreateUpdateDeleteAplicationNos(long fromRange, long toRange, int adviserId, int issueId, int formRangeId, string commandType, ref string status)
         {
 
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -807,8 +807,8 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createCmd = db.GetStoredProcCommand("SPROC_CreateUpdateDeletetAplicationNos");
-                db.AddInParameter(createCmd, "@FromRange", DbType.String, fromRange);
-                db.AddInParameter(createCmd, "@ToRange", DbType.String, toRange);
+                db.AddInParameter(createCmd, "@FromRange", DbType.Int64, fromRange);
+                db.AddInParameter(createCmd, "@ToRange", DbType.Int64, toRange);
                 db.AddInParameter(createCmd, "@AdviserId", DbType.Int32, adviserId);
                 db.AddInParameter(createCmd, "@issueId", DbType.String, issueId);
                 db.AddInParameter(createCmd, "@formRangeId", DbType.String, formRangeId);

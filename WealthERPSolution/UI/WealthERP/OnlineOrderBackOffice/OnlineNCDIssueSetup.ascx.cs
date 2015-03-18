@@ -385,11 +385,13 @@ namespace WealthERP.OnlineOrderBackOffice
 
                         //txtOpenTimes.Text = dr["AIM_OpenTime"].ToString(); ; //SelectedDate.Value.ToShortTimeString().ToString();
                     }
+                    string openDateTime = String.Format("{0:dd/MM/yyyy}", dr["AIM_OpenDate"])+' '+dr["AIM_OpenTime"].ToString();
+                    ViewState["openDateTime"] = openDateTime;
                     if (!string.IsNullOrEmpty(dr["AIM_IssueRevisionDate"].ToString()))
                     {
-                        txtRevisionDates.SelectedDate = Convert.ToDateTime(dr["AIM_IssueRevisionDate"].ToString());
+                        txtRevisionDates.SelectedDate =DateTime.Now;
                     }
-                    // txtRevisionDates.SelectedDate = DateTime.Now;
+                    txtRevisionDates.SelectedDate = DateTime.Now;
 
                     if (!string.IsNullOrEmpty(dr["AIM_TradingLot"].ToString()))
                     {
@@ -4548,7 +4550,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 GridEditFormItem editform = (GridEditFormItem)e.Item;
                 int formrangeId = Convert.ToInt32(rgAplication.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIFR_Id"].ToString());
-
+                radAplicationPopUp.VisibleOnPageLoad = true;
                 TextBox txtFrom = (TextBox)editform.FindControl("txtFrom");
                 TextBox txtTo = (TextBox)editform.FindControl("txtTo");
                 DataTable dtIssuer = new DataTable();
@@ -4561,6 +4563,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     txtFrom.Text = dr["AIFR_From"].ToString();
                     txtTo.Text = dr["AIFR_To"].ToString();
+                }
+                if (Convert.ToDateTime(ViewState["openDateTime"]) < DateTime.Now)
+                {
+                    txtFrom.Enabled = false;
                 }
             }
 
@@ -5337,7 +5343,7 @@ namespace WealthERP.OnlineOrderBackOffice
             RefOrders.Add("lookupId1", SubCategories["lookupId"].ToString());
         }
 
-        private void CreateUpdateDeleteAplication(int fromRange, int toRange, int adviserId, int issueId, int formRangeId, string commandType)
+        private void CreateUpdateDeleteAplication(long fromRange, long toRange, int adviserId, int issueId, int formRangeId, string commandType)
         {
             string status = string.Empty;
             int i = onlineNCDBackOfficeBo.GetValidateFrom(fromRange, adviserId, issueId, formRangeId, ref status);
@@ -5510,7 +5516,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 TextBox txtFrom = (TextBox)e.Item.FindControl("txtFrom");
                 TextBox txtTo = (TextBox)e.Item.FindControl("txtTo");
 
-                CreateUpdateDeleteAplication(Convert.ToInt32(txtFrom.Text), Convert.ToInt32(txtTo.Text), advisorVo.advisorId, Convert.ToInt32(txtIssueId.Text), 0, "INSERT");
+                CreateUpdateDeleteAplication(Convert.ToInt64(txtFrom.Text), Convert.ToInt64(txtTo.Text), advisorVo.advisorId, Convert.ToInt32(txtIssueId.Text), 0, "INSERT");
                 BindApplGrid();
             }
             else if (e.CommandName == RadGrid.UpdateCommandName)
@@ -5519,9 +5525,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 TextBox txtFrom = (TextBox)e.Item.FindControl("txtFrom");
                 TextBox txtTo = (TextBox)e.Item.FindControl("txtTo");
 
-                CreateUpdateDeleteAplication(Convert.ToInt32(txtFrom.Text), Convert.ToInt32(txtTo.Text), advisorVo.advisorId, Convert.ToInt32(txtIssueId.Text), formRangeId, "UPDATE");
+                CreateUpdateDeleteAplication(Convert.ToInt64(txtFrom.Text), Convert.ToInt64(txtTo.Text), advisorVo.advisorId, Convert.ToInt32(txtIssueId.Text), formRangeId, "UPDATE");
                 BindApplGrid();
-
+                radAplicationPopUp.VisibleOnPageLoad = false;
             }
             else if (e.CommandName == RadGrid.DeleteCommandName)
             {

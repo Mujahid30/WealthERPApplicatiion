@@ -242,7 +242,7 @@ namespace BoOnlineOrderManagement
 
 
 
-        public int GetValidateFrom(int fromRange, int adviserId, int issueId, int formRangeId, ref string status)
+        public int GetValidateFrom(long fromRange, int adviserId, int issueId, int formRangeId, ref string status)
         {
 
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
@@ -269,7 +269,7 @@ namespace BoOnlineOrderManagement
         }
 
 
-        public int CreateUpdateDeleteAplicationNos(int fromRange, int toRange, int adviserId, int issueId, int formRangeId, string commandType, ref string status)
+        public int CreateUpdateDeleteAplicationNos(long fromRange, long toRange, int adviserId, int issueId, int formRangeId, string commandType, ref string status)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try

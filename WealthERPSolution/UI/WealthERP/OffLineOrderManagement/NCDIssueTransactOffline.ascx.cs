@@ -161,14 +161,14 @@ namespace WealthERP.OffLineOrderManagement
                         {
                             lnkEdit.Visible = true;
                         }
-                        if (Request.QueryString["OrderStepCode"].ToString() == "ORDERED" || Request.QueryString["OrderStepCode"].ToString() == "EXECUTED")
+                        if ( Request.QueryString["OrderStepCode"].ToString() == "EXECUTED")
                         {
                             lnkEdit.Visible = false;
                         }
                     }
                     else
                     {
-                        if (("ORDERED" == Request.QueryString["OrderStepCode"].ToString()))
+                        if (Request.QueryString["OrderStepCode"].ToString()=="ORDERED")
                         {
                             SetCOntrolsEnablity(false);
                             gvCommMgmt.Enabled = true;

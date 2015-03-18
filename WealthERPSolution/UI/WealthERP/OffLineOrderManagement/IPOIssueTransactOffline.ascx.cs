@@ -299,6 +299,7 @@ namespace WealthERP.OffLineOrderManagement
                         txtPaymentNumber.Text = dr["CO_ChequeNumber"].ToString();
                         if (!string.IsNullOrEmpty(dr["CO_PaymentDate"].ToString()))
                         {
+                            txtPaymentInstDate.MinDate = Convert.ToDateTime(dr["CO_PaymentDate"].ToString());
                             txtPaymentInstDate.SelectedDate = Convert.ToDateTime(dr["CO_PaymentDate"].ToString());
                         }
                         if (dr["COID_DepCustBankAccId"].ToString() != string.Empty)
@@ -322,7 +323,15 @@ namespace WealthERP.OffLineOrderManagement
             if (dsGetMFOrderDetails.Tables[2].Rows.Count > 0)
             {
                 ViewState["Detais"] = dsGetMFOrderDetails.Tables[2];
-                RadGridIPOBid.DataSource = dsGetMFOrderDetails.Tables[2];
+                DataTable dtOrderDetails;
+                dtOrderDetails = dsGetMFOrderDetails.Tables[2];
+                if (Cache["IPOTransactList" + userVo.UserId.ToString()] != null)
+                {
+                    Cache.Remove("IPOTransactList" + userVo.UserId.ToString());
+                }
+                Cache.Insert("IPOTransactList" + userVo.UserId.ToString(), dtOrderDetails);
+
+                RadGridIPOBid.DataSource = dtOrderDetails;
                 RadGridIPOBid.DataBind();
                 foreach (DataRow dr1 in dsGetMFOrderDetails.Tables[2].Rows)
                 {
@@ -1786,52 +1795,68 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void RadGridIPOBid_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            if (dtOnlineIPOIssueList.Rows.Count > 0)
+            if (dtOnlineIPOIssueList != null)
             {
-                if (e.Item is GridDataItem)
+
+                if (dtOnlineIPOIssueList.Rows.Count > 0)
                 {
-                    GridDataItem dataform = (GridDataItem)e.Item;
-                    RangeValidator rvQuantity = (RangeValidator)dataform.FindControl("rvQuantity");
-                    RangeValidator rvBidPrice = (RangeValidator)dataform.FindControl("rvBidPrice");
-                    int minQuantity = 0;
-                    int maxQuantity = 0;
-                    double minBidPrice = 0;
-                    double maxBidPrice = 0;
-
+                    if (e.Item is GridDataItem)
                     {
-                        int.TryParse(dtOnlineIPOIssueList.Rows[0]["AIM_MInQty"].ToString(), out minQuantity);
-                        int.TryParse(dtOnlineIPOIssueList.Rows[0]["AIM_MaxQty"].ToString(), out maxQuantity);
-                        string basic = dtOnlineIPOIssueList.Rows[0]["AIM_IsBookBuilding"].ToString();
-                        double.TryParse(dtOnlineIPOIssueList.Rows[0]["AIM_FloorPrice"].ToString(), out minBidPrice);
-                        double.TryParse(dtOnlineIPOIssueList.Rows[0]["AIM_CapPrice"].ToString(), out maxBidPrice);
+                        GridDataItem dataform = (GridDataItem)e.Item;
+                        RangeValidator rvQuantity = (RangeValidator)dataform.FindControl("rvQuantity");
+                        RangeValidator rvBidPrice = (RangeValidator)dataform.FindControl("rvBidPrice");
+                        int minQuantity = 0;
+                        int maxQuantity = 0;
+                        double minBidPrice = 0;
+                        double maxBidPrice = 0;
 
-                        if (e.Item.RowIndex != -1)
                         {
-                            rvQuantity.MinimumValue = minQuantity.ToString();
-                            rvQuantity.MaximumValue = maxQuantity.ToString();
+                            int.TryParse(dtOnlineIPOIssueList.Rows[0]["AIM_MInQty"].ToString(), out minQuantity);
+                            int.TryParse(dtOnlineIPOIssueList.Rows[0]["AIM_MaxQty"].ToString(), out maxQuantity);
+                            string basic = dtOnlineIPOIssueList.Rows[0]["AIM_IsBookBuilding"].ToString();
+                            double.TryParse(dtOnlineIPOIssueList.Rows[0]["AIM_FloorPrice"].ToString(), out minBidPrice);
+                            double.TryParse(dtOnlineIPOIssueList.Rows[0]["AIM_CapPrice"].ToString(), out maxBidPrice);
 
-                            rvBidPrice.MinimumValue = minBidPrice.ToString();
-                            rvBidPrice.MaximumValue = maxBidPrice.ToString();
-
-                            if (basic == "Fixed" && dataform.RowIndex == 4)
+                            if (e.Item.RowIndex != -1)
                             {
-                                int currentRowindex = (dataform.RowIndex / 4) - 1;
-                                CheckBox chkCutOff = (CheckBox)RadGridIPOBid.MasterTableView.Items[currentRowindex]["CheckCutOff"].FindControl("cbCutOffCheck");
-                                chkCutOff.Checked = true;
-                                chkCutOff.Enabled = false;
-                                ReseIssueBidValues(currentRowindex, false);
+                                rvQuantity.MinimumValue = minQuantity.ToString();
+                                rvQuantity.MaximumValue = maxQuantity.ToString();
+
+                                rvBidPrice.MinimumValue = minBidPrice.ToString();
+                                rvBidPrice.MaximumValue = maxBidPrice.ToString();
+
+                                if (basic == "Fixed" && dataform.RowIndex == 4)
+                                {
+                                    int currentRowindex = (dataform.RowIndex / 4) - 1;
+                                    CheckBox chkCutOff = (CheckBox)RadGridIPOBid.MasterTableView.Items[currentRowindex]["CheckCutOff"].FindControl("cbCutOffCheck");
+                                    chkCutOff.Checked = true;
+                                    chkCutOff.Enabled = false;
+                                    ReseIssueBidValues(currentRowindex, false);
+
+                                }
 
                             }
+                            if (Request.QueryString["action"] != null && (e.Item.ItemIndex != -1))
+                            {
+                                RadGridIPOBid.MasterTableView.GetColumn("COID_ExchangeRefrenceNo").Visible = true;
 
-                        }
-                        if (Request.QueryString["action"] != null && (e.Item.ItemIndex != -1))
-                        {
-                            RadGridIPOBid.MasterTableView.GetColumn("COID_ExchangeRefrenceNo").Visible = true;
-
+                            }
                         }
                     }
                 }
             }
+            if (Request.QueryString["action"] != null && ViewState["amt"] != null)
+            {
+                if (e.Item is GridFooterItem)
+                {
+                    GridFooterItem ftItemAmount = (GridFooterItem)RadGridIPOBid.MasterTableView.GetItems(GridItemType.Footer)[0];
+                    Label lblAmount = (Label)ftItemAmount["Amount"].FindControl("lblAmount");
+                    Label lblQuantity = (Label)ftItemAmount["Quantity"].FindControl("lblQuantity");
+                    lblAmount.Text = ViewState["amt"].ToString();
+                    lblQuantity.Text = ViewState["qty"].ToString();
+                }
+            }
+
 
         }
         protected void lnlktoviewIPOissue_Click(object sender, EventArgs e)
@@ -2219,7 +2244,11 @@ namespace WealthERP.OffLineOrderManagement
                 dtIPOBid.Rows.Add(drIPOBid);
 
             }
-
+            if (Cache["IPOTransactList" + userVo.UserId.ToString()] != null)
+            {
+                Cache.Remove("IPOTransactList" + userVo.UserId.ToString());
+            }
+            Cache.Insert("IPOTransactList" + userVo.UserId.ToString(), dtIPOBid);
             RadGridIPOBid.DataSource = dtIPOBid;
             RadGridIPOBid.DataBind();
 
@@ -2240,11 +2269,64 @@ namespace WealthERP.OffLineOrderManagement
             ddlDepositoryName.Items.Insert(0, new ListItem("Select", "Select"));
 
         }
+        protected void RadGridIPOBid_OnItemCommand(object source, GridCommandEventArgs e)
+        {
+            DataTable dtOrderDetails;
 
+            if (e.CommandName == RadGrid.DeleteCommandName)
+            {
+                TextBox txtBidQuantity = (TextBox)e.Item.FindControl("txtBidQuantity");
+                TextBox txtBidPrice = (TextBox)e.Item.FindControl("txtBidPrice");
+                int id = Convert.ToInt32(RadGridIPOBid.MasterTableView.DataKeyValues[e.Item.ItemIndex]["IssueBidNo"].ToString());
+                dtOrderDetails = (DataTable)Cache["IPOTransactList" + userVo.UserId.ToString()];
+                foreach (DataRow dr in dtOrderDetails.Rows)
+                {
+                    if (id == int.Parse(dr["IssueBidNo"].ToString()))
+                    {
+                        dtOrderDetails.Rows[e.Item.ItemIndex]["BidQty"] =0;
+                        dtOrderDetails.Rows[e.Item.ItemIndex]["BidPrice"] =0;
+                    }
+                }
+
+
+                dtOrderDetails.AcceptChanges();
+                //for (int i = 0; i <= dtOrderDetails.Rows.Count; i++)
+                //{
+                int qty = 0, amt = 0;
+                foreach (DataRow dr in dtOrderDetails.Rows)
+                {
+
+                    //if (dr["COID_Quantity"].ToString() != "")
+                    //{
+                    //    qty += int.Parse(dr["COID_Quantity"].ToString());
+                    //    //j = j + r;
+                    //}
+                    //if (dr["COID_AmountPayable"].ToString() != "")
+                    //{
+                    //    amt += int.Parse(dr["COID_AmountPayable"].ToString());
+                    //}
+                }
+                //ViewState["qty"] = qty.ToString();
+                //ViewState["amt"] = amt.ToString();
+                DataTable dt = dtOrderDetails;
+
+                 if (Cache["IPOTransactList" + userVo.UserId.ToString()] != null)
+                {
+                    Cache.Remove("IPOTransactList" + userVo.UserId.ToString());
+                }
+                Cache.Insert("IPOTransactList" + userVo.UserId.ToString(), dtOrderDetails);
+            }
+        }
+        protected void RadGridIPOBid_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtIssueDetail;
+            dtIssueDetail = (DataTable)Cache["IPOTransactList" + userVo.UserId.ToString()];
+            if (dtIssueDetail != null)
+            {
+                RadGridIPOBid.DataSource = dtIssueDetail;
+            }
+
+        }
     }
-
-
-
-
 
 }
