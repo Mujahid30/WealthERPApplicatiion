@@ -259,7 +259,7 @@ namespace WealthERP.OnlineOrderManagement
                 pnlchild.Visible = false;
                 buttonlink.Text = "+";
             }
-            DataSet ds = OnlineBondBo.GetIssueDetail(strIssuerId, customerVo.CustomerId);
+            DataSet ds = OnlineBondBo.GetLiveBondTransaction(strIssuerId, customerVo.CustomerId, customerVo.TaxStatusCustomerSubTypeId);
             dtIssueDetail = ds.Tables[0];
             gvchildIssue.DataSource = dtIssueDetail;
             gvchildIssue.DataBind();

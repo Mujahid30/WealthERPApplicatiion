@@ -676,51 +676,42 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="width: 5%;" class="leftField">
+                    <td colspan="6">
                     </td>
-                    <td id="tdauthentication" runat="server" class="rightField" style="width: 20%;">
-                        <%--<asp:CheckBox ID="chkAuthentication" runat="server" CssClass="cmbFielde" Text="Authenticate"
-                    OnCheckedChanged="chkAuthentication_OnCheckedChanged" AutoPostBack="true" />--%>
-                <asp:RadioButton ID="rbtnAuthentication" runat="server" CssClass="txtField" Text="Authenticate"
-                    GroupName="rejAut" AutoPostBack="true" OnCheckedChanged="rbtnAuthentication_OnCheckedChanged" />
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:RadioButton ID="rbtnReject" runat="server" CssClass="txtField" Text="Rejected"
-                    GroupName="rejAut" AutoPostBack="true" OnCheckedChanged="rbtnReject_CheckedChanged" />
-                <%--  <asp:CustomValidator ID="CustomValidator1" runat="server" ValidationGroup="location"
+                </tr>
+                <tr id="trAuthenticate" runat="server">
+                    <td id="tdauthentication" runat="server" align="right" style="width: 20%">
                         <asp:RadioButton ID="rbtnAuthentication" runat="server" CssClass="txtField" Text="Authenticate"
-                            GroupName="rejAut" AutoPostBack="true" OnCheckedChanged="rbtnAuthentication_OnCheckedChanged"
-                            Checked="true" />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            GroupName="rejAut" AutoPostBack="true" OnCheckedChanged="rbtnAuthentication_OnCheckedChanged" />
+                    </td>
+                    <td style="width: 20%">
                         <asp:RadioButton ID="rbtnReject" runat="server" CssClass="txtField" Text="Rejected"
                             GroupName="rejAut" AutoPostBack="true" OnCheckedChanged="rbtnReject_CheckedChanged" />
-                        <%--  <asp:CustomValidator ID="CustomValidator1" runat="server" ValidationGroup="location"
-                    ErrorMessage="Please select one of the radio button" Display="Dynamic"></asp:CustomValidator>--%>
                     </td>
-                    <td style="width: 15%;">
+                    <td class="leftField" style="width: 10%">
                     </td>
-                    <td id="tdlblReject" visible="false" class="leftField">
+                    <td id="tdlblReject" visible="false" class="leftField" style="width: 20%">
                         <asp:Label ID="lblRejectRes" runat="server" Text="Reject Reseaon:" CssClass="FieldName">           
                         </asp:Label>
                     </td>
-                    <td id="tdtxtReject" visible="false" class="rightField">
+                    <td id="tdtxtReject" visible="false" style="width: 20%">
                         <asp:TextBox ID="txtRejectReseaon" runat="server" CssClass="txtField" />
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator12" ControlToValidate="txtRejectReseaon"
                             ErrorMessage="<br />Please Enter Remarks" Display="Dynamic" runat="server" CssClass="rfvPCG"
                             ValidationGroup="btnSubmitAuthenticate" InitialValue=""></asp:RequiredFieldValidator>
                     </td>
-                    <td style="width: 20%;">
+                    <td class="rightField">
                     </td>
                 </tr>
-                <tr>
-                    <td style="width: 5%;">
+                <tr id="trSubmitAuthenticate" runat="server">
+                    <td class="leftField" style="width: 20%">
                     </td>
-                    <td class="leftField">
+                    <td class="rightField">
                         <asp:Button runat="server" ID="btnSubmitAuthenticate" CssClass="PCGButton" runat="server"
                             Text="Submit" OnClick="btnSubmitAuthenticate_btnSubmit" ValidationGroup="btnSubmitAuthenticate" />
                     </td>
-                    <td class="rightField" style="width: 10%;">
-                    </td>
-                    <td id="tdauthenticationDetails" runat="server" class="leftField" style="width: 30%;">
+                    <td style="width: 5%;"></td>
+                    <td id="tdauthenticationDetails" runat="server" align="right" style="width: 15%;">
                         <asp:Label ID="lblAuthenticated" runat="server" Text="Authenticated/Rejected By:"
                             CssClass="FieldName"></asp:Label>
                     </td>
@@ -753,7 +744,7 @@
                             <asp:ListItem Text="PAN" Value="2"></asp:ListItem>
                         </asp:DropDownList>
                         <span id="Span14" class="spnRequiredField">*</span>
-                         <asp:CompareValidator ID="CompareValidator4" runat="server" ControlToValidate="ddlsearch"
+                        <asp:CompareValidator ID="CompareValidator4" runat="server" ControlToValidate="ddlsearch"
                             CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please Select Customer/PAN"
                             Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="0"></asp:CompareValidator>
                     </td>
@@ -961,8 +952,8 @@
                     <td align="left" style="width: 35%">
                         <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField" TabIndex="10">
                         </asp:DropDownList>
-                         <span id="Span18" runat="server" class="spnRequiredField">*</span>
-                     <%--   <asp:RequiredFieldValidator ID="rcvBrokerCode" ControlToValidate="ddlBrokerCode"
+                        <span id="Span18" runat="server" class="spnRequiredField">*</span>
+                        <%--   <asp:RequiredFieldValidator ID="rcvBrokerCode" ControlToValidate="ddlBrokerCode"
                             ErrorMessage="<br />Please Select Broker" Display="Dynamic" runat="server" CssClass="rfvPCG"
                             ValidationGroup="MFSubmit" InitialValue=""></asp:RequiredFieldValidator>--%>
                     </td>
@@ -1208,7 +1199,6 @@
                         <asp:TextBox ID="txtExistDepositreceiptno" runat="server" CssClass="txtField" AutoComplete="Off"
                             AutoPostBack="True" TabIndex="20" />
                     </td>
-                    
                     <td class="leftField" style="width: 10%">
                         <asp:Label ID="Label17" runat="server" Text="Renewal Amount:" CssClass="FieldName"
                             OnTextChanged="OnPayAmtTextchanged"></asp:Label>
@@ -1259,10 +1249,10 @@
                     <td style="width: 30%" id="tdtxtADRNo" visible="false">
                         <asp:TextBox ID="txtADRNo" runat="server" CssClass="txtField" AutoComplete="Off"
                             TabIndex="24" MaxLength="45" />
-                        <span id="Span17" runat="server" class="spnRequiredField">*</span>
+                       <%-- <span id="Span17" runat="server" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator13" ControlToValidate="txtADRNo"
                             CssClass="rfvPCG" ErrorMessage="<br />Please Enter FDR NO." Display="Dynamic"
-                            runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+                            runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>--%>
                     </td>
                 </tr>
                 <tr id="trMatAmtDate" runat="server" visible="false">
@@ -1514,9 +1504,8 @@
                     <td align="left" colspan="3">
                         <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmit_Click"
                             ValidationGroup="MFSubmit" TabIndex="38" />
-                            
                         <asp:Button ID="btnAddMore" runat="server" Text="AddMore" CssClass="PCGMediumButton"
-                            Visible="false" ValidationGroup="MFSubmit" TabIndex="39" OnClick="btnAddMore_OnClick"/>
+                            Visible="false" ValidationGroup="MFSubmit" TabIndex="39" OnClick="btnAddMore_OnClick" />
                         <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="PCGButton" ValidationGroup="MFSubmit"
                             Visible="false" OnClick="btnUpdate_Click" TabIndex="40" />
                     </td>
