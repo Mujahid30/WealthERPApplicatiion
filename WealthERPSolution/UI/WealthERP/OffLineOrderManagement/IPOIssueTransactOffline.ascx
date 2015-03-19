@@ -736,7 +736,7 @@
                                                 <p>
                                                     1)Please enter value between Min Bid Price and Min Max Price.
                                                     <br />
-                                                        2)In case of cutoff cheked Max Bid price will be use for same field</p>
+                                                    2)In case of cutoff cheked Max Bid price will be use for same field</p>
                                             </div>
                                             <asp:RangeValidator ID="rvBidPrice" runat="server" ControlToValidate="txtBidPrice"
                                                 ValidationGroup="btnConfirmOrder" Type="Double" CssClass="rfvPCG" Text="*" ErrorMessage="BidPrice should be between Min Bid Price and Min Max Price"
@@ -777,9 +777,11 @@
                                         Visible="false">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridButtonColumn HeaderStyle-Width="100px" Text="Delete" ButtonType="PushButton"
-                                        ConfirmText="Do you want to delete" CommandName="Delete" Visible="false" UniqueName="DeleteBid">
-                                    </telerik:GridButtonColumn>
+                                    <telerik:GridTemplateColumn HeaderStyle-Width="100px" Visible="true" UniqueName="DeleteBid">
+                                    <ItemTemplate>
+                                    <asp:Button ID="btnDelete" runat="server" CssClass="PCGButton" Text="Delete"  OnClick="btnDelete_OnClick"/>
+                                    </ItemTemplate>
+                                    </telerik:GridTemplateColumn>
                                 </Columns>
                             </MasterTableView>
                         </telerik:RadGrid>
