@@ -1857,8 +1857,14 @@ namespace BoOnlineOrderManagement
                 OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
                 isEligbleIssue = "";
                 string extractStepCode = daoOnlNcdBackOff.GetExtractStepCode(fileTypeId);
-
-                daoOnlNcdBackOff.IsIssueAlloted(issueId, ref   result);
+                if (SubCategoryCode != "FICGCG")
+                {
+                    daoOnlNcdBackOff.IsIssueAlloted(issueId, ref   result);
+                }
+                else
+                {
+                    result = "1"; 
+                }
                 if (result != string.Empty && result != "0")
                     dtUploadAllotment = daoOnlNcdBackOff.UploadAllotmentIssueDataDynamic(dtCheckOrder, issueId, ref  result, product, filePath, userId, isOnline, SubCategoryCode);
                 else
