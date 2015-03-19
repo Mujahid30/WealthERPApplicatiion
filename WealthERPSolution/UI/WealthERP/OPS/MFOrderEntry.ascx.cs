@@ -468,20 +468,20 @@ namespace WealthERP.OPS
                     if (agentId != 0)
                     {
                         GetAgentName(agentId);
-                        //AgentId = customerBo.GetAgentId(advisorVo.advisorId, int.Parse(agentId.ToString()));
-                        //if (AgentId.Rows.Count > 0)
-                        //{
-                        //    txtAssociateSearch.Text = AgentId.Rows[0][2].ToString();
-                        //}
-                        //else
-                        //    txtAssociateSearch.Text = string.Empty;
-                        //Agentname = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
-                        //if (Agentname.Rows.Count > 0)
-                        //{
-                        //    lblAssociatetext.Text = Agentname.Rows[0][0].ToString();
-                        //}
-                        //else
-                        //    lblAssociatetext.Text = string.Empty;
+                        AgentId = customerBo.GetAgentId(advisorVo.advisorId, int.Parse(agentId.ToString()));
+                        if (AgentId.Rows.Count > 0)
+                        {
+                            txtAssociateSearch.Text = AgentId.Rows[0][2].ToString();
+                        }
+                        else
+                            txtAssociateSearch.Text = string.Empty;
+                        Agentname = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
+                        if (Agentname.Rows.Count > 0)
+                        {
+                            lblAssociatetext.Text = Agentname.Rows[0][0].ToString();
+                        }
+                        else
+                            lblAssociatetext.Text = string.Empty;
 
                     }
 
