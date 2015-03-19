@@ -1839,23 +1839,13 @@ namespace WealthERP.OffLineOrderManagement
                             if (Request.QueryString["action"] != null && (e.Item.ItemIndex != -1))
                             {
                                 RadGridIPOBid.MasterTableView.GetColumn("COID_ExchangeRefrenceNo").Visible = true;
-
+                                RadGridIPOBid.MasterTableView.GetColumn("DeleteBid").Visible = true;
                             }
                         }
                     }
                 }
             }
-            if (Request.QueryString["action"] != null && ViewState["amt"] != null)
-            {
-                if (e.Item is GridFooterItem)
-                {
-                    GridFooterItem ftItemAmount = (GridFooterItem)RadGridIPOBid.MasterTableView.GetItems(GridItemType.Footer)[0];
-                    Label lblAmount = (Label)ftItemAmount["Amount"].FindControl("lblAmount");
-                    Label lblQuantity = (Label)ftItemAmount["Quantity"].FindControl("lblQuantity");
-                    lblAmount.Text = ViewState["amt"].ToString();
-                    lblQuantity.Text = ViewState["qty"].ToString();
-                }
-            }
+         
 
 
         }

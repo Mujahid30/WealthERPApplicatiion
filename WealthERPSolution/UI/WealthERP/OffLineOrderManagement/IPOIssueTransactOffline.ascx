@@ -777,7 +777,7 @@
                                         Visible="false">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridTemplateColumn HeaderStyle-Width="100px" Visible="true" UniqueName="DeleteBid">
+                                    <telerik:GridTemplateColumn HeaderStyle-Width="100px" Visible="false" UniqueName="DeleteBid" >
                                     <ItemTemplate>
                                     <asp:Button ID="btnDelete" runat="server" CssClass="PCGButton" Text="Delete"  OnClick="btnDelete_OnClick"/>
                                     </ItemTemplate>
