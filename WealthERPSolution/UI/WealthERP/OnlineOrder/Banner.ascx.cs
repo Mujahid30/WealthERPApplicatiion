@@ -25,7 +25,7 @@ namespace WealthERP.OnlineOrder
 
                 foreach (DataRow dr in dtProductBannerDetails.Rows)
                 {
-                    innerHtml += string.Format(@"<li><img src=""{0}/{1}"" /></li>", path.Replace("~", ".."), dr["PDB_BannerImage"].ToString());
+                    innerHtml += string.Format(@"<li><img src=""{0}{1}"" /></li>", path.Replace("~", ".."), dr["PDB_BannerImage"].ToString());
                 }
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "SetBannerImageDetails", @"SetBannerImageDetails('" + innerHtml + "');", true);
             //}
