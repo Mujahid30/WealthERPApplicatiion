@@ -198,8 +198,8 @@
             </td>
             <td>
                 <asp:DropDownList ID="ddlRT" runat="server" CssClass="cmbField" AutoPostBack="false">
-                    <asp:ListItem Text="Select" Value="Select" Selected="False" />
-                    <%--<asp:ListItem Text="Select" Value="Select" Selected="true"/>--%>
+                     <%--<asp:ListItem Text="Select" Value="Select" Selected="False" />
+                   <asp:ListItem Text="Select" Value="Select" Selected="true"/>--%>
                     <%-- <asp:ListItem Text="Select" Value="Select" Selected="true" />
                <asp:ListItem Text="CAMS" Value="CAMS"></asp:ListItem>
                 <asp:ListItem Text="Deutsche" Value="Deutsche" Enabled="false">
@@ -294,7 +294,7 @@
                 <span id="Span7" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="appRecidRequiredFieldValidator" ControlToValidate="txtNFOStartDate"
                     CssClass="rfvPCG" ErrorMessage="<br />Please select NFO Date" Display="Dynamic"
-                    runat="server" InitialValue="" ValidationGroup="btnsubmit"></asp:RequiredFieldValidator>
+                    runat="server" ValidationGroup="btnbasicsubmit"></asp:RequiredFieldValidator>
             </td>
             <td align="right">
                 <asp:Label ID="lblNfoEnddate" runat="server" Text="NFO End Date:" CssClass="FieldName"></asp:Label>
@@ -311,13 +311,13 @@
                     </DateInput>
                 </telerik:RadDatePicker>
                 <span id="Span1" class="spnRequiredField">*</span>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtNFOStartDate"
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtNFOendDate"
                     CssClass="rfvPCG" ErrorMessage="<br />Please select NFO End Date" Display="Dynamic"
-                    runat="server" InitialValue="" ValidationGroup="btnsubmit"></asp:RequiredFieldValidator>
+                    runat="server" InitialValue="" ValidationGroup="btnbasicsubmit"></asp:RequiredFieldValidator>
                 <asp:CompareValidator ID="CompareValidator14" runat="server" ControlToValidate="txtNFOendDate"
                     ErrorMessage="<br/> NFO END Date should be greater than from date" Type="Date"
                     Operator="GreaterThanEqual" ControlToCompare="txtNFOStartDate" CssClass="cvPCG"
-                    ValidationGroup="btnsubmit" Display="Dynamic">
+                    ValidationGroup="btnbasicsubmit" Display="Dynamic">
                 </asp:CompareValidator>
             </td>
         </tr>
@@ -343,7 +343,7 @@
                 <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="txtSchemeStartDate"
                     ErrorMessage="<br/> NFO Scheme Start Date should be greater than from NFO end date"
                     Type="Date" Operator="GreaterThan" ControlToCompare="txtNFOendDate" CssClass="cvPCG"
-                    ValidationGroup="btnsubmit" Display="Dynamic">
+                    ValidationGroup="btnbasicsubmit" Display="Dynamic">
                 </asp:CompareValidator>
             </td>
             <td align="right">
