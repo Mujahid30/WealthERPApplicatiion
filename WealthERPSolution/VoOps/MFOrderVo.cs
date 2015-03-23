@@ -5,7 +5,7 @@ using System.Text;
 
 namespace VoOps
 {
-    public class MFOrderVo:OrderVo
+    public class MFOrderVo : OrderVo
     {
         #region Fields
 
@@ -50,6 +50,9 @@ namespace VoOps
         private string m_Remarks;
         public int AssociateId { get; set; }
         public int BankBranchId { get; set; }
+        public int AccountIdSwitch { get; set; }
+
+
         #endregion
 
         #region Properties
@@ -253,7 +256,7 @@ namespace VoOps
             get { return m_DivOption; }
             set { m_DivOption = value; }
         }
-        
+
         #endregion
 
     }
