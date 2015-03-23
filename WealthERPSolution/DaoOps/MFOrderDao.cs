@@ -89,7 +89,7 @@ namespace DaoOps
 
         }
 
-        public List<int> CreateOffLineMFSwitchOrderDetails(DataTable dtSwitchOrder, int userId, int customerId)
+        public List<int> CreateOffLineMFSwitchOrderDetails(DataTable dtSwitchOrder, int userId, int customerId, DateTime appliRecDate, DateTime orderDate, string applicationNo,int agentid,string subbrokerCode)
         {
             List<int> orderIds = new List<int>();
             int sICO_OrderId, sOCO_OrderId;
@@ -112,6 +112,13 @@ namespace DaoOps
                 db.AddInParameter(CreateOnlineMFSwitchOrderDetailsCmd, "@customerId", DbType.Int32, customerId);
                 db.AddOutParameter(CreateOnlineMFSwitchOrderDetailsCmd, "@SICO_OrderId", DbType.Int32, 10);
                 db.AddOutParameter(CreateOnlineMFSwitchOrderDetailsCmd, "@SOCO_OrderId", DbType.Int32, 10);
+                db.AddInParameter(CreateOnlineMFSwitchOrderDetailsCmd, "@appliRecDate", DbType.DateTime, appliRecDate);
+                db.AddInParameter(CreateOnlineMFSwitchOrderDetailsCmd, "@orderDate", DbType.DateTime, orderDate);
+                db.AddInParameter(CreateOnlineMFSwitchOrderDetailsCmd, "@applicationNo", DbType.String, applicationNo);
+                db.AddInParameter(CreateOnlineMFSwitchOrderDetailsCmd, "@agentid", DbType.Int32, agentid);
+                db.AddInParameter(CreateOnlineMFSwitchOrderDetailsCmd, "@subbrokerCode", DbType.String, subbrokerCode);
+
+
                 if (db.ExecuteNonQuery(CreateOnlineMFSwitchOrderDetailsCmd) != 0)
                 {
                     sICO_OrderId = Convert.ToInt32(db.GetParameterValue(CreateOnlineMFSwitchOrderDetailsCmd, "SICO_OrderId").ToString());

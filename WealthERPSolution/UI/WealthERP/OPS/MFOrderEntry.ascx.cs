@@ -222,10 +222,10 @@ namespace WealthERP.OPS
 
             int minDues;
             int maxDues;
-            
+
             minDues = Convert.ToInt32(dtGetAllSIPDataForOrder.Rows[0]["PASPSD_MinDues"]);
             maxDues = Convert.ToInt32(dtGetAllSIPDataForOrder.Rows[0]["PASPSD_MaxDues"]);
-            
+
             StringBuilder strTotalInstallments = new StringBuilder();
 
             for (int i = minDues; i <= maxDues; i++) strTotalInstallments.Append(i + "~");
@@ -253,7 +253,7 @@ namespace WealthERP.OPS
 
         protected void BindStartDates()
         {
-          
+
             ddlStartDate.Items.Clear();
             if (ddlFrequencySIP.SelectedValue == "0")
                 return;
@@ -271,13 +271,13 @@ namespace WealthERP.OPS
             string userMessage = string.Empty;
 
 
-            if (ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "ABY" || ddltransType.SelectedValue == "Sel" ||  ddltransType.SelectedValue == "NFO")
+            if (ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "ABY" || ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "NFO" || ddltransType.SelectedValue == "SWB")
             {
                 userMessage = "Order placed successfully, Order reference no. is " + orderId.ToString();
             }
             else if (ddltransType.SelectedValue == "SIP" || ddltransType.SelectedValue == "SWP")
             {
-                userMessage = ddltransType.SelectedValue+" Requested successfully,"+ ddltransType.SelectedValue+" reference no. is " + sipId.ToString();
+                userMessage = ddltransType.SelectedValue + " Requested successfully," + ddltransType.SelectedValue + " reference no. is " + sipId.ToString();
             }
 
             return userMessage;
@@ -442,7 +442,7 @@ namespace WealthERP.OPS
             ddlAMCList.Enabled = value;
             ddlCategory.Enabled = value;
             txtSearchScheme.Enabled = value;
-           
+
         }
 
         private void ViewOrderList(int orderId)
@@ -498,15 +498,19 @@ namespace WealthERP.OPS
                     lblGetBranch.Text = dr["AB_BranchName"].ToString();
                     lblgetPan.Text = dr["C_PANNum"].ToString();
 
-                    ddltransType.SelectedValue = dr["WMTT_TransactionClassificationCode"].ToString();
-                    if (ddltransType.SelectedValue == "SWB")
+                    if (!string.IsNullOrEmpty(dr["WMTT_TransactionClassificationCode"].ToString()))
                     {
-                        BindAMC(1);
+                        if (dr["WMTT_TransactionClassificationCode"].ToString() == "SWB" || dr["WMTT_TransactionClassificationCode"].ToString() == "SWS")
+                        {
+                            ddltransType.SelectedValue = "SWB";
+                        }
+                        else
+                        {
+                            ddltransType.SelectedValue = dr["WMTT_TransactionClassificationCode"].ToString();
+                        }
                     }
-                    else
-                    {
-                        BindAMC(0);
-                    }
+                    GetAmcBasedonTransactionType(ddltransType.SelectedValue);
+
 
 
                     if (!string.IsNullOrEmpty(dr["PA_AMCCode"].ToString().Trim()))
@@ -640,27 +644,27 @@ namespace WealthERP.OPS
                         BindSchemeSwitch();
                         ddlSchemeSwitch.SelectedValue = dr["PASP_SchemePlanSwitch"].ToString();
                     }
-                   if (ddltransType.SelectedValue == "SIP" | ddltransType.SelectedValue == "SWP" | ddltransType.SelectedValue == "STP")
+                    if (ddltransType.SelectedValue == "SIP" | ddltransType.SelectedValue == "SWP" | ddltransType.SelectedValue == "STP")
                     {
-                    BindStartDates();
+                        BindStartDates();
 
 
-                    if (!string.IsNullOrEmpty(dr["CMFSS_StartDate"].ToString()))
-                    {
-                        string startDates = Convert.ToDateTime(dr["CMFSS_StartDate"].ToString()).ToString("dd-MMM-yyyy");
-                        ddlStartDate.SelectedValue = startDates;
-                    }
+                        if (!string.IsNullOrEmpty(dr["CMFSS_StartDate"].ToString()))
+                        {
+                            string startDates = Convert.ToDateTime(dr["CMFSS_StartDate"].ToString()).ToString("dd-MMM-yyyy");
+                            ddlStartDate.SelectedValue = startDates;
+                        }
 
 
 
-                   
+
                         BindTotalInstallments();
                         ddlTotalInstallments.SelectedValue = dr["CMFSS_TotalInstallment"].ToString();
                         CaliculateEndDate();
                     }
                     if (!string.IsNullOrEmpty(dr["CMFSS_EndDate"].ToString()))
                         txtendDateSIP.SelectedDate = DateTime.Parse(dr["CMFSS_EndDate"].ToString());
-                     
+
                     ddlPeriodSelection.SelectedValue = dr["XF_FrequencyCode"].ToString();
                     if (!string.IsNullOrEmpty(dr["CO_Remarks"].ToString()))
                         txtRemarks.Text = dr["CO_Remarks"].ToString();
@@ -792,21 +796,13 @@ namespace WealthERP.OPS
 
             categoryCode = ddlCategory.SelectedValue;
 
-            //if (transactionType == "SWB" || transactionType == "SWP" || transactionType == "STB" || transactionType == "Sel" || transactionType == "ABY")
-            //{
-            //    parameters = string.Empty;
-            //    parameters = (amcCode + "/" + txtCustomerId.Value);
-            //    txtSearchScheme_autoCompleteExtender.ContextKey = parameters;
-            //    txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSchemeForMFOrderEntry";
-            //}
-            //else
-            //{
+
             if (transactionType == "NFO")
             {
                 txtSearchScheme_autoCompleteExtender.ContextKey = amcCode.ToString();
                 txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetNFOSchemeNames";
             }
-            else   if (transactionType == "SIP")
+            else if (transactionType == "SIP")
             {
                 txtSearchScheme_autoCompleteExtender.ContextKey = amcCode.ToString();
                 txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSIPSchemeNames";
@@ -816,12 +812,7 @@ namespace WealthERP.OPS
                 txtSearchScheme_autoCompleteExtender.ContextKey = amcCode.ToString();
                 txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSchemeNames";
             }
-            
-            //parameters = string.Empty;
-            //parameters = (amcCode + "/" + categoryCode + "/" + 1 + "/" + 1);
-            //txtSearchScheme_autoCompleteExtender.ContextKey = parameters;
-            //txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSchemeName";
-            //  }
+
 
 
         }
@@ -3704,7 +3695,7 @@ namespace WealthERP.OPS
             //txtendDateSIP.SelectedDate = null;
             txtstartDateSTP.SelectedDate = null;
             txtendDateSTP.SelectedDate = null;
-        
+
             lblGetLine1.Text = "";
             lblGetLine2.Text = "";
             lblGetline3.Text = "";
@@ -3719,7 +3710,7 @@ namespace WealthERP.OPS
             lblMultiple.Text = string.Empty;
             txtReceivedDate.SelectedDate = null;
             txtOrderDate.SelectedDate = null;
-            lblMintxt.Text = string.Empty ;
+            lblMintxt.Text = string.Empty;
             lblNavDisplay.Text = string.Empty;
             lblAssociatetext.Text = string.Empty;
             lb1RepTo.Text = string.Empty;
@@ -3734,7 +3725,7 @@ namespace WealthERP.OPS
 
         private void BindAMC(int Aflag)
         {
-            DataSet dsProductAmc=new DataSet();
+            DataSet dsProductAmc = new DataSet();
             DataTable dtProductAMC;
 
             try
@@ -3745,7 +3736,7 @@ namespace WealthERP.OPS
                     dsProductAmc = operationBo.GetAMCForOrderEntry(Aflag, int.Parse(txtCustomerId.Value));
                 else if (Aflag == 2)
                     dsProductAmc = operationBo.Get_NFO_AMC();
-                
+
 
                 if (dsProductAmc.Tables.Count > 0)
                 {
@@ -3775,7 +3766,7 @@ namespace WealthERP.OPS
         private void BindScheme(int Sflag)
         {
 
-              try
+            try
             {
                 DataSet dsScheme = new DataSet();
                 DataTable dtScheme;
@@ -3897,7 +3888,7 @@ namespace WealthERP.OPS
             //}
             //else
             //{
-          //  BindAMC(0);
+            //  BindAMC(0);
             //}
 
             if (transactionType == "NFO")
@@ -4592,11 +4583,11 @@ namespace WealthERP.OPS
             {
                 lbltime.Text = DateTime.Now.ToString();
             }
-            if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "STB"|| ddltransType.SelectedValue == "SWB")
+            if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWB")
             {
                 txtAmount.Text = txtNewAmount.Text;
             }
- 
+
 
             int retVal = commonLookupBo.IsRuleCorrect(float.Parse(txtAmount.Text), float.Parse(lblMintxt.Text), float.Parse(txtAmount.Text), float.Parse(lblMulti.Text), DateTime.Parse(lbltime.Text));
             if (retVal != 0)
@@ -4680,32 +4671,57 @@ namespace WealthERP.OPS
             onlinemforderVo[0] = new MFOrderVo();
             onlinemforderVo[0].SchemePlanCode = Int32.Parse(txtSchemeCode.Value);
             onlinemforderVo[0].accountid = Int32.Parse(hidFolioNumber.Value);
-
+            onlinemforderVo[0].SchemePlanSwitch = int.Parse(ddlSchemeSwitch.SelectedValue.ToString());
+            if (!string.IsNullOrEmpty(hdnAccountIdSwitch.Value))
+            {
+                onlinemforderVo[0].AccountIdSwitch = int.Parse(hdnAccountIdSwitch.Value);
+            }
+            else
+            {
+                onlinemforderVo[0].AccountIdSwitch = 0;
+            }
             List<int> OrderIds = new List<int>();
             onlinemforderVo[0].Amount = double.Parse(txtNewAmount.Text.ToString());
-
-            onlinemforderVo[0].TransactionCode = "SO";
+            onlinemforderVo[0].TransactionCode = "SWS";
             lsonlinemforder.Add(onlinemforderVo[0]);
             onlinemforderVo[1] = new MFOrderVo();
-            onlinemforderVo[1].accountid = int.Parse(hidFolioNumber.Value);
+
+            if (!string.IsNullOrEmpty(hdnAccountIdSwitch.Value))
+            {
+                onlinemforderVo[1].accountid = int.Parse(hdnAccountIdSwitch.Value);
+            }
+            else
+            {
+                onlinemforderVo[1].accountid = 0;
+            }
+
+            // onlinemforderVo[1].accountid = int.Parse(hdnAccountIdSwitch.Value);
             onlinemforderVo[1].SchemePlanCode = int.Parse(ddlSchemeSwitch.SelectedValue.ToString());
             onlinemforderVo[1].Amount = int.Parse(txtNewAmount.Text.ToString());
-            //if(ddlSwitchDvdnType.SelectedValue != "")
-            //onlinemforderVo[1].DivOption = ddlSwitchDvdnType.SelectedValue.ToString();
-            // onlinemforderVo[1].DivOption = string.Empty;
-            onlinemforderVo[1].TransactionCode = "SI";
+            onlinemforderVo[1].SchemePlanSwitch = Int32.Parse(txtSchemeCode.Value);
+            if (!string.IsNullOrEmpty(hidFolioNumber.Value))
+            {
+                onlinemforderVo[0].AccountIdSwitch = int.Parse(hidFolioNumber.Value);
+            }
+            else
+            {
+                onlinemforderVo[0].AccountIdSwitch = 0;
+            }
+            // onlinemforderVo[1].AccountIdSwitch = int.Parse(hidFolioNumber.Value);
+            onlinemforderVo[1].TransactionCode = "SWB";
             string message = string.Empty;
             lsonlinemforder.Add(onlinemforderVo[1]);
-            OrderIds = mfOrderBo.CreateOffLineMFSwitchOrderDetails(lsonlinemforder, userVo.UserId, Convert.ToInt32(txtCustomerId.Value));
+
+            OrderIds = mfOrderBo.CreateOffLineMFSwitchOrderDetails(lsonlinemforder, userVo.UserId, Convert.ToInt32(txtCustomerId.Value), Convert.ToDateTime(txtReceivedDate.SelectedDate.ToString()),
+ Convert.ToDateTime(txtOrderDate.SelectedDate), txtApplicationNumber.Text, Convert.ToInt32(txtAgentId.Value), txtAssociateSearch.Text);
             int OrderId = int.Parse(OrderIds[0].ToString());
-            // char msgType = 's';
             lblGetOrderNo.Text = OrderIds[0].ToString();
             rgvOrderSteps.Visible = true;
             BindOrderStepsGrid(Convert.ToInt32(lblGetOrderNo.Text));
             ButtonsEnablement("Submitted");
             ControlsEnblity("View");
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
-
+            ShowMessage(CreateUserMessage(Convert.ToInt32(lblGetOrderNo.Text), 0), 's');
+            ShowMessage(CreateUserMessage(OrderIds[1], 0), 's');
         }
 
         protected void BindSchemeDividendTypes(int schemeId)
@@ -5699,6 +5715,7 @@ namespace WealthERP.OPS
                 accountId = customerAccountBo.CreateCustomerMFAccountBasic(customerAccountVo, userVo.UserId);
                 if (accountId != 0)
                 {
+                    hdnAccountIdSwitch.Value = accountId.ToString();
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Folio created successfully, now search for folio !');", true);
                     radWindowSwitchScheme.VisibleOnPageLoad = false;
                 }
@@ -5707,8 +5724,8 @@ namespace WealthERP.OPS
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Folio already Exists !');", true);
             }
-
         }
+
         protected void btnOk_Click(object sender, EventArgs e)
         {
             int accountId;

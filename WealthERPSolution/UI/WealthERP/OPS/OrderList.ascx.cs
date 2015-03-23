@@ -747,21 +747,25 @@ namespace WealthERP.OPS
 
         protected void gvOrderList_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            if (userVo.UserType == "Advisor") return;
-
             if ((e.Item is GridDataItem) == false) return;
-
             GridDataItem item = (GridDataItem)e.Item;
-            DateTime orderDate = DateTime.Parse(gvOrderList.MasterTableView.DataKeyValues[item.ItemIndex]["CO_OrderDate"].ToString());
-
-            //if (userVo.UserType == "Advisor" && orderDate.Date == DateTime.Now.Date) return;
-
-            RadComboBox actions = (RadComboBox)item.FindControl("ddlMenu");
+            string WMTT_TransactionType = gvOrderList.MasterTableView.DataKeyValues[item.ItemIndex]["WMTT_TransactionType"].ToString();
+            DropDownList actions = (DropDownList)item.FindControl("ddlMenu1");
             if (actions != null)
             {
-                RadComboBoxItem rbcItem = actions.Items.FindItemByValue("Edit", true);
-                rbcItem.Visible = false;
+                ListItem rbcItem = actions.Items.FindByValue("Edit");
+
+                if (userVo.UserType != "Advisor" || WMTT_TransactionType == "Switch Buy")
+                {
+                    rbcItem.Enabled = false;
+                }
             }
+            //else
+            //{
+            //    rbcItem.Visible = true;
+
+            //}
+            
         }
 
         protected void gvFIOrderList_ItemCommand(object source, GridCommandEventArgs e)

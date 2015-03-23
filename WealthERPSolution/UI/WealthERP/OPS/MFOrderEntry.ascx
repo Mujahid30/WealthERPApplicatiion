@@ -911,8 +911,8 @@
                             <asp:ListItem Text="Redemption" Value="Sel"></asp:ListItem>
                             <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
                             <asp:ListItem Text="SWP" Value="SWP"></asp:ListItem>
-                            <asp:ListItem Text="STP" Value="STB" Enabled="false"></asp:ListItem>
-                            <asp:ListItem Text="Switch" Value="SWB" Enabled="false"></asp:ListItem>
+                            <asp:ListItem Text="STP" Value="STB" Enabled="true"></asp:ListItem>
+                            <asp:ListItem Text="Switch" Value="SWB" Enabled="true"></asp:ListItem>
                             <asp:ListItem Text="Change Of Address Form" Value="CAF" Enabled="false"></asp:ListItem>
                             <asp:ListItem Text="Transfer IN" Value="TI" Enabled="false"></asp:ListItem>
                             <asp:ListItem Text="NFO" Value="NFO" Enabled="true"></asp:ListItem>                            
@@ -1876,7 +1876,7 @@
     <table runat="server">
         <tr id="trRemarks" runat="server">
             <td>
-                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; 
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;
             </td>
             <td class="leftField">
                 <asp:Label ID="lblRemarks" runat="server" Text="Remarks:" CssClass="FieldName"></asp:Label>
@@ -1989,3 +1989,4 @@
 <asp:HiddenField ID="hidValidCheck" runat="server" EnableViewState="true" />
 <asp:HiddenField ID="HiddenField1" runat="server" OnValueChanged="HiddenField1_ValueChanged1" />
 <asp:HiddenField ID="hidAmt" runat="server" />
+<asp:HiddenField ID="hdnAccountIdSwitch" runat="server" />

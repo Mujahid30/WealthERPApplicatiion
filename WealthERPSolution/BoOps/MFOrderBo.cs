@@ -123,7 +123,7 @@ namespace BoOps
             return orderIds;
         }
 
-        public List<int> CreateOffLineMFSwitchOrderDetails(List<MFOrderVo> lsonlinemforder, int userId, int customerId)
+        public List<int> CreateOffLineMFSwitchOrderDetails(List<MFOrderVo> lsonlinemforder, int userId, int customerId ,DateTime appliRecDate, DateTime orderDate, string applicationNo,int agentid,string subbrokerCode)
         {
 
             DataTable dtSwitchOrder = new DataTable();
@@ -132,7 +132,7 @@ namespace BoOps
             try
             {
                 dtSwitchOrder = creataTableForSwitch(lsonlinemforder);
-                OrderIds = mfOrderDao.CreateOffLineMFSwitchOrderDetails(dtSwitchOrder, userId, customerId);
+                OrderIds = mfOrderDao.CreateOffLineMFSwitchOrderDetails(dtSwitchOrder, userId, customerId, appliRecDate, orderDate, applicationNo, agentid, subbrokerCode);
 
             }
 
@@ -168,6 +168,9 @@ namespace BoOps
             dtSwitchOrder.Columns.Add("CMFSO_TransactionType");
             dtSwitchOrder.Columns.Add("CMFSO_DivOption");
             dtSwitchOrder.Columns.Add("CO_OrderId");
+            dtSwitchOrder.Columns.Add("CMFSO_SchemePlanSwitch");
+            dtSwitchOrder.Columns.Add("CMFSO_AccountIdSwitch");
+           
 
             DataRow drOrderDetails;
             for (int i = 0; i < lsonlinemforder.Count; i++)
@@ -182,10 +185,14 @@ namespace BoOps
                     drOrderDetails["CMFSO_DivOption"] = offlineMFOrderVo.DivOption.ToString();
                 else
                     drOrderDetails["CMFSO_DivOption"] = null;
+                
+                drOrderDetails["CMFSO_SchemePlanSwitch"] = offlineMFOrderVo.SchemePlanSwitch;
+                drOrderDetails["CMFSO_AccountIdSwitch"] = offlineMFOrderVo.AccountIdSwitch;
+                //drOrderDetails["CMFSO_OrderDate"] = offlineMFOrderVo.OrderDate.ToString();
+
                 dtSwitchOrder.Rows.Add(drOrderDetails);
             }
             return dtSwitchOrder;
-
         }
 
         public DataSet GetCustomerMFOrderMIS(int AdviserId, DateTime FromDate, DateTime ToDate, string branchId, string rmId, string transactionType, string status, string orderType, string amcCode, string customerId, int isOnline)
