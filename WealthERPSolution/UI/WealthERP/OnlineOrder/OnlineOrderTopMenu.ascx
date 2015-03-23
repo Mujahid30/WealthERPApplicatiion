@@ -177,7 +177,7 @@
                         Skin="Telerik" EnableEmbeddedSkins="False" MultiPageID="RMPIPOOrderMenuTransact"
                         SelectedIndex="0" AutoPostBack="true" OnTabClick="RTSIPOOrderMenuTransact_TabClick">
                         <Tabs>
-                            <telerik:RadTab runat="server" Text="IPO ISSUE LIST" Value="RTSIPOOrderMenuTransactIPOIssueList"
+                            <telerik:RadTab runat="server" Text="IPO/FPO ISSUE LIST" Value="RTSIPOOrderMenuTransactIPOIssueList"
                                 TabIndex="0" PageViewID="RPVIPOIssueList" Selected="True">
                             </telerik:RadTab>
                         </Tabs>
@@ -195,7 +195,7 @@
                         Skin="Telerik" EnableEmbeddedSkins="False" MultiPageID="RMPIPOOrderMenuBooks"
                         SelectedIndex="0" AutoPostBack="true" OnTabClick="RTSIPPOOrderMenuBooks_TabClick">
                         <Tabs>
-                            <telerik:RadTab runat="server" Text="IPO BOOK" Value="RTSIPOOrderMenuBooksIPOBook"
+                            <telerik:RadTab runat="server" Text="IPO/FPO BOOK" Value="RTSIPOOrderMenuBooksIPOBook"
                                 TabIndex="0" PageViewID="RPVIPOBook" Selected="True">
                             </telerik:RadTab>
                         </Tabs>
@@ -213,7 +213,7 @@
                         Skin="Telerik" EnableEmbeddedSkins="False" MultiPageID="RMPIPOOrderMenuBooks"
                         SelectedIndex="0" AutoPostBack="true" OnTabClick="RTSIPOOrderMenuHoldingsIPO_TabClick">
                         <Tabs>
-                            <telerik:RadTab runat="server" Text="IPO HOLDINGS" Value="RTSIPOOrderMenuHoldingsIPOHolding"
+                            <telerik:RadTab runat="server" Text="IPO/FPO HOLDINGS" Value="RTSIPOOrderMenuHoldingsIPOHolding"
                                 TabIndex="0" PageViewID="RPVIPOHoldings" Selected="True">
                             </telerik:RadTab>
                         </Tabs>

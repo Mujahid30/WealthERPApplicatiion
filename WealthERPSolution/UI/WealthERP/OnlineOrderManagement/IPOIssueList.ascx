@@ -28,7 +28,7 @@
                         <table cellspacing="0" cellpadding="3" width="100%">
                             <tr>
                                 <td align="left">
-                                    IPO Issue List
+                                    IPO/FPO Issue List
                                 </td>
                                 <td align="right">
                                     <%-- <asp:ImageButton ID="btnNcdIssueList" runat="server" ImageUrl="~/Images/Export_Excel.png"

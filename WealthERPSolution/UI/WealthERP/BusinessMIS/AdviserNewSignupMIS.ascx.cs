@@ -10,6 +10,7 @@ using System.Data;
 using BoAdvisorProfiling;
 using VoUser;
 using WealthERP.Base;
+using VOAssociates;
 
 namespace WealthERP.BusinessMIS
 {
@@ -21,14 +22,15 @@ namespace WealthERP.BusinessMIS
         AdvisorVo adviserVo = new AdvisorVo();
         DateTime dtFromDate = new DateTime();
         DateTime dtToDate = new DateTime();
-
+        AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
         string userType;
-
+        RMVo rmVo = new RMVo();
+        string AgentCode;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
             adviserVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
-
+            GetUserType();
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 userType = "advisor";
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
@@ -52,6 +54,32 @@ namespace WealthERP.BusinessMIS
             
             }
 
+        }
+        public void GetUserType()
+        {
+
+            if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
+                adviserVo = (AdvisorVo)Session["advisorVo"];
+            if (!string.IsNullOrEmpty(Session[SessionContents.RmVo].ToString()))
+                rmVo = (RMVo)Session[SessionContents.RmVo];
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                userType = "advisor";
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
+                userType = "bm";
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
+                userType = "rm";
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+            {
+                userType = "associates";
+                associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                if (associateuserheirarchyVo.AgentCode != null)
+                {
+                    AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+
+                }
+                else
+                    AgentCode = "0";
+            }
         }
 
         protected void gvNewCustomerSignUpMIS_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
@@ -95,7 +123,7 @@ namespace WealthERP.BusinessMIS
             dtFromDate = Convert.ToDateTime(rdpFromDate.SelectedDate);
             dtToDate = Convert.ToDateTime(rdpToDate.SelectedDate);
             DataSet dsSIP;
-            dsSIP = advisorBranchBo.GetSIPSignUp(adviserVo.advisorId, dtFromDate, dtToDate, int.Parse(ddlTypes.SelectedValue));
+            dsSIP = advisorBranchBo.GetSIPSignUp(adviserVo.advisorId, dtFromDate, dtToDate, int.Parse(ddlTypes.SelectedValue),userType,AgentCode);
             DataTable dtSIP = dsSIP.Tables[0];
             if (dtSIP == null)
             {
@@ -126,7 +154,7 @@ namespace WealthERP.BusinessMIS
             dtFromDate = Convert.ToDateTime(rdpFromDate.SelectedDate);
             dtToDate = Convert.ToDateTime(rdpToDate.SelectedDate);
             DataSet dsFolio;
-            dsFolio = advisorBranchBo.GetFolioSignUp(adviserVo.advisorId, dtFromDate, dtToDate, int.Parse(ddlTypes.SelectedValue));
+            dsFolio = advisorBranchBo.GetFolioSignUp(adviserVo.advisorId, dtFromDate, dtToDate, int.Parse(ddlTypes.SelectedValue),userType,AgentCode);
             DataTable dtFolio = dsFolio.Tables[0];
             if (dtFolio == null)
             {
@@ -159,7 +187,7 @@ namespace WealthERP.BusinessMIS
             dtToDate = Convert.ToDateTime(rdpToDate.SelectedDate);
             dsNEWSignupMISDetails = new DataSet();
 
-            dsNEWSignupMISDetails = advisorBranchBo.GetNEWSignupMISDetails(adviserVo.advisorId, dtFromDate, dtToDate, int.Parse(ddlTypes.SelectedValue));
+            dsNEWSignupMISDetails = advisorBranchBo.GetNEWSignupMISDetails(adviserVo.advisorId, dtFromDate, dtToDate, int.Parse(ddlTypes.SelectedValue),userType,AgentCode);
             gvNewCustomerSignUpMIS.DataSource = dsNEWSignupMISDetails;
             gvNewCustomerSignUpMIS.DataBind();
             if (dsNEWSignupMISDetails.Tables[0].Rows.Count > 0)

@@ -2269,7 +2269,7 @@ namespace DaoAdvisorProfiling
             return ds;
         }
 
-        public DataSet GetNEWSignupMISDetails(int adviserId, DateTime fromDate, DateTime toDate, int type)
+        public DataSet GetNEWSignupMISDetails(int adviserId, DateTime fromDate, DateTime toDate, int type,string usertype, string agentcode)
         {
 
             Database db;
@@ -2283,7 +2283,10 @@ namespace DaoAdvisorProfiling
             db.AddInParameter(getGetNEWSignupMISDetailsCmd, "@FromDate", DbType.DateTime, fromDate);
             db.AddInParameter(getGetNEWSignupMISDetailsCmd, "@ToDate", DbType.DateTime, toDate);
             db.AddInParameter(getGetNEWSignupMISDetailsCmd, "@online", DbType.Int32, type);
+              db.AddInParameter(getGetNEWSignupMISDetailsCmd, "@UserType", DbType.String, usertype);
+                db.AddInParameter(getGetNEWSignupMISDetailsCmd, "@AgentCode", DbType.String, agentcode);
             getNEWSignupMISDetailsDs = db.ExecuteDataSet(getGetNEWSignupMISDetailsCmd);
+
             return getNEWSignupMISDetailsDs;
         }
 
@@ -2667,7 +2670,7 @@ namespace DaoAdvisorProfiling
             }
             return ds;
         }
-        public DataSet GetFolioSignUp(int adviserId, DateTime dtFromDate, DateTime dtToDate,int type)
+        public DataSet GetFolioSignUp(int adviserId, DateTime dtFromDate, DateTime dtToDate, int type, string usertype, string agentcode)
         {
             Database db;
             DbCommand getGetCmd;
@@ -2680,6 +2683,8 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getGetCmd, "@FromDate", DbType.DateTime, dtFromDate);
                 db.AddInParameter(getGetCmd, "@ToDate", DbType.DateTime, dtToDate);
                 db.AddInParameter(getGetCmd, "@online", DbType.Int32, type);
+                //db.AddInParameter(getGetCmd, "@UserType", DbType.String, usertype);
+                //db.AddInParameter(getGetCmd, "@AgentCode", DbType.String, agentcode);
 
                 dsGetFolio = db.ExecuteDataSet(getGetCmd);
             }
@@ -2690,7 +2695,7 @@ namespace DaoAdvisorProfiling
             return dsGetFolio;
         }
 
-        public DataSet GetSIPSignUp(int adviserId, DateTime dtFromDate, DateTime dtToDate,int Type)
+        public DataSet GetSIPSignUp(int adviserId, DateTime dtFromDate, DateTime dtToDate, int Type, string usertype, string agentcode)
         {
             Database db;
             DbCommand getGetCmd;
@@ -2703,6 +2708,8 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getGetCmd, "@FromDate", DbType.DateTime, dtFromDate);
                 db.AddInParameter(getGetCmd, "@ToDate", DbType.DateTime, dtToDate);
                 db.AddInParameter(getGetCmd, "@online", DbType.Int32, Type);
+                db.AddInParameter(getGetCmd, "@UserType", DbType.String, usertype);
+                db.AddInParameter(getGetCmd, "@AgentCode", DbType.String, agentcode);
 
                 dsGetsip = db.ExecuteDataSet(getGetCmd);
             }
