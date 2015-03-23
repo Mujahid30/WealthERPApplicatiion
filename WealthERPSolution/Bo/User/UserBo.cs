@@ -111,6 +111,39 @@ namespace BoUser
             }
             return userVo;
         }
+        public UserVo GetUserReset(string username, string email, string pan)
+        {
+            UserVo userVo = null;
+            UserDao userDao = new UserDao();
+            try
+            {
+                userVo = userDao.GetUserReset(username,email,pan);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UserBo.cs:GetUserReset()");
+
+
+                object[] objects = new object[1];
+                objects[0] = username;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return userVo;
+
+
+        }
 
 
         public UserVo GetUserDetails(int userId)
@@ -184,6 +217,40 @@ namespace BoUser
         }
 
       //  public bool updateUser(AdvisorVo advisorVo)
+        public bool UpdateUserReset(UserVo userVo)
+        {
+            bool bResult = false;
+            UserDao userDao = new UserDao();
+            try
+            {
+                userDao.UpdateUserReset(userVo);
+                bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UserBo.cs:updateUser()");
+
+
+                object[] objects = new object[1];
+                objects[0] = userVo;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+
+
         public bool UpdateUser(UserVo userVo)
         {
             bool bResult = false;

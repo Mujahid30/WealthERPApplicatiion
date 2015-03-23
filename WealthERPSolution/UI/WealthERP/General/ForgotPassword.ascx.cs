@@ -31,41 +31,82 @@ namespace WealthERP.General
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            userVo = userBo.GetUser(txtLoginId.Text);
-            if (userVo != null && userVo.Email == txtEmail.Text)
+           // userVo = userBo.GetUser(txtLoginId.Text);
+            userVo = userBo.GetUserReset(txtLoginId.Text,txtEmail.Text,TxtPan.Text);
+            Random r = new Random();
+            OneWayEncryption encryption;
+            encryption = new OneWayEncryption();
+            bool isSuccess = false;
+
+            if (userVo != null)  // && userVo.Email == txtEmail.Text )
             {
-                userVo.Password = r.Next(20000, 100000).ToString();
+                  
+               string hassedPassword = string.Empty;
+                string saltValue = string.Empty;
+                string password = r.Next(20000, 100000).ToString();
+
+                //userVo = userBo.GetUserDetails(userId);
+              //  string userName = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
+                encryption.GetHashAndSaltString(password, out hassedPassword, out saltValue);
+                userVo.Password = hassedPassword;
+                userVo.PasswordSaltValue = saltValue;
+                userVo.OriginalPassword = password;
                 userVo.IsTempPassword = 1;
-                userVo.Password = Encryption.Encrypt(userVo.Password);
-                userBo.UpdateUser(userVo);
-
-
-                //Send email
-                //
-                //string EmailPath = Server.MapPath(ConfigurationManager.AppSettings["EmailPath"].ToString());
-                //email.SendForgotPasswordMail("admin@wealtherp.net", userVo.Email, userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName, userVo.LoginId, userVo.Password, EmailPath);
-                bool isMailSent = SendMail(userVo);
-                //
-                if (!isMailSent)
-                    lblMailSent.Text = "An error occurred while sending mail to your Email ID";
-
-                lblMailSent.Visible = true;
-                lblError.Visible = false;
-                trEmail.Visible = false;
-                trLogin.Visible = false;
-                btnSubmit.Visible = false;
-                lnkSignIn.Visible = true;
+             //  isSuccess = userBo.UpdateUser(userVo);
+               isSuccess = userBo.UpdateUserReset(userVo);
             }
-            else if (userVo == null || userVo.Email != txtEmail.Text)
+
+            if (isSuccess)
             {
-                lblError.Text = "Login ID and Email ID do not match";
-                lblError.Visible = true;
-            }
+                tblMessage.Visible = true;
+                SuccessMsg.Visible = true;
+                ErrorMessage.Visible = false;
+                SuccessMsg.InnerText = "Password has been reset successfully...";
+                txtLoginId.Text = "";
+                txtEmail.Text = "";
+                TxtPan.Text = "";
+              }
             else
             {
-                lblError.Visible = true;
-                lblMailSent.Visible = false;
+                tblMessage.Visible = true;
+                SuccessMsg.Visible = false;
+                ErrorMessage.Visible = true;
+                ErrorMessage.InnerText = "An error occurred while reseting password.";
+
             }
+            //{
+            //    userVo.Password = r.Next(20000, 100000).ToString();
+            //    userVo.IsTempPassword = 1;
+            //    userVo.Password = Encryption.Encrypt(userVo.Password);
+            //    userBo.UpdateUser(userVo);
+
+
+            //    //Send email
+            //    //
+            //    //string EmailPath = Server.MapPath(ConfigurationManager.AppSettings["EmailPath"].ToString());
+            //    //email.SendForgotPasswordMail("admin@wealtherp.net", userVo.Email, userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName, userVo.LoginId, userVo.Password, EmailPath);
+            //    bool isMailSent = SendMail(userVo);
+            //    //
+            //    if (!isMailSent)
+            //        lblMailSent.Text = "An error occurred while sending mail to your Email ID";
+
+            //    lblMailSent.Visible = true;
+            //    lblError.Visible = false;
+            //    trEmail.Visible = false;
+            //    trLogin.Visible = false;
+            //    btnSubmit.Visible = false;
+            //    lnkSignIn.Visible = true;
+            //}
+            //else if (userVo == null || userVo.Email != txtEmail.Text)
+            //{
+            //    lblError.Text = "Login ID and Email ID do not match";
+            //    lblError.Visible = true;
+            //}
+            //else
+            //{
+            //    lblError.Visible = true;
+            //    lblMailSent.Visible = false;
+            //}
 
 
         }

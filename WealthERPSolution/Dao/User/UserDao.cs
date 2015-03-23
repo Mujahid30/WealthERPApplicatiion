@@ -77,6 +77,74 @@ namespace DaoUser
             }
             return userId;
         }
+        public UserVo GetUserReset(string username,string email,string pan)
+        {
+            UserVo userVo = null;
+            Database db;
+            DbCommand getUserCmd;
+            DataSet getUserDs;
+            DataRow dr;
+            
+
+             try
+             {
+                 db = DatabaseFactory.CreateDatabase("wealtherp");
+                 getUserCmd=db.GetStoredProcCommand("SP_GetUserDetailsReset");
+                  db.AddInParameter(getUserCmd, "@U_LoginId", DbType.String, username.ToString());
+                  db.AddInParameter(getUserCmd, "@U_Email", DbType.String,email.ToString());
+                  db.AddInParameter(getUserCmd, "@AA_Pan", DbType.String, pan.ToString());
+
+
+
+
+                  getUserDs = db.ExecuteDataSet(getUserCmd);
+                 if (getUserDs.Tables[0].Rows.Count > 0)
+                {
+                    userVo = new UserVo();
+                    dr = getUserDs.Tables[0].Rows[0];
+                     userVo.LoginId = dr["U_LoginId"].ToString();
+                     userVo.Email = dr["U_Email"].ToString();
+                     userVo.Pan=dr["AA_PAN"].ToString();
+                     userVo.UserId = int.Parse(dr["U_UserId"].ToString());
+                 }
+                //  if (getUserDs.Tables[1].Rows.Count > 0)
+                //{
+                //    foreach(DataRow drRole in getUserDs.Tables[1].Rows)
+                //    {
+                //        adviserRole.Add(Convert.ToInt16(drRole["AR_RoleId"].ToString()), drRole["AR_Role"].ToString());
+                //    }
+                //}
+
+                //if(adviserRole.Count!=0)
+                //userVo.AdviserRole=adviserRole;
+
+
+             }
+           catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UserDao.cs:GetUserReset()");
+
+
+                object[] objects = new object[1];
+                objects[0] = username;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return userVo;
+
+        }
+
 
         public UserVo GetUser(string username)
         {
@@ -342,6 +410,51 @@ namespace DaoUser
             }
             return bResult;
         }
+        public bool UpdateUserReset(UserVo userVo)
+        {
+            bool bResult = false;
+
+            Database db;
+            DbCommand updateUserCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                updateUserCmd = db.GetStoredProcCommand("SP_UpdateUserPassword");
+                db.AddInParameter(updateUserCmd, "@U_UserId", DbType.Int32, userVo.UserId);
+              //  db.AddInParameter(updateUserCmd, "@U_LoginId", DbType.String, userVo.LoginId);
+                db.AddInParameter(updateUserCmd, "@U_Password", DbType.String, userVo.Password);
+                if (!string.IsNullOrEmpty(userVo.PasswordSaltValue))
+                    db.AddInParameter(updateUserCmd, "@U_PasswordSaltValue", DbType.String, userVo.PasswordSaltValue);
+                db.AddInParameter(updateUserCmd, "@U_IsTempPassword", DbType.String, userVo.IsTempPassword);
+              
+                db.ExecuteNonQuery(updateUserCmd);
+                bResult = true;
+            }
+             catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UserDao.cs:updateUserReset()");
+
+
+                object[] objects = new object[1];
+                objects[0] = userVo;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        
+        }
+
 
         public bool UpdateUser(UserVo userVo)
         {

@@ -16,6 +16,18 @@
         <td>
         </td>
     </tr>
+     <table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server" visible="false">
+    <tr>
+    <td align="center">
+    <div class="success-msg" id="SuccessMsg" runat="server" visible="false" align="center">
+       
+    </div>
+    <div class="failure-msg" id="ErrorMessage" runat="server" visible="false" align="center">
+      
+    </div>
+    </td>
+    </tr>
+ </table>
     <tr id="trLogin" runat="server">
         <td width="25%" class="leftField">
             <asp:Label ID="lblLoginId" runat="server" Text="Login Id:" CssClass="FieldName"></asp:Label>
@@ -54,12 +66,22 @@
         </td>
     </tr>
     <tr>
+    <td width="25%" class="leftField"><asp:Label ID="lblPan" runat="server" Text="PAN.No:" CssClass="FieldName"></asp:Label>
+    </td>
+    <td><asp:TextBox ID="TxtPan" runat="server" CssClass="txtField"></asp:TextBox>
+    </td>
+    <td>  
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator21" runat="server" ControlToValidate="TxtPan"  
+                    Display="Dynamic" ForeColor="Red" ErrorMessage="InValid PAN Card" ValidationExpression="[A-Z]{5}\d{4}[A-Z]{1}"></asp:RegularExpressionValidator>  
+            </td>  
+     
+    <tr>
         <td>
         </td>
     </tr>
     <tr>
         <td colspan="2" align="center">
-            <asp:Button ID="btnSubmit" runat="server" OnClick="btnSubmit_Click" Text="Submit"
+            <asp:Button ID="btnSubmit" runat="server" OnClick="btnSubmit_Click" Text="Reset"
                 CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_ForgotPassword_btnSignIn');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_ForgotPassword_btnSignIn');" />
         </td>

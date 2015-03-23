@@ -22,8 +22,10 @@ namespace VoUser
         private string m_Email;
         private string m_UserType;
         private int m_IsTempPassword;
+        private string m_PanNo;
         public string[] PermisionList { get; set; } 
         public string[] RoleList { get; set; }
+       
         public Dictionary<Int16,string> AdviserRole { get; set; } 
 
         public int IsTempPassword
@@ -92,6 +94,11 @@ namespace VoUser
         {
             get { return m_UserType; }
             set { m_UserType = value; }
+        }
+        public string Pan
+        {
+            get { return m_PanNo; }
+            set { m_PanNo = value; }
         }
 
         public string theme { get; set; }
