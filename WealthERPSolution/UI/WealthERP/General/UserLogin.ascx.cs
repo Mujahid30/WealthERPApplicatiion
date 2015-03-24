@@ -867,6 +867,10 @@ namespace WealthERP.General
                 }
             }
         }
+        protected  void lnkForgetPassword_OnClick(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ForgotPassword", "loadcontrol('ForgotPassword');", true);
+        }
 
         private bool ValidateSingleSessionPerUser(string userId)
         {

@@ -63,8 +63,6 @@
         margin: 5px 1px 3px 0px;
         border: 1px solid rgba(81, 203, 238, 1);
     }
-   
-  
     .LABEL
     {
         color: #3399cc;
@@ -100,7 +98,7 @@
             <table width="100%" style="padding-top: 50px;">
                 <tr>
                     <td width="100%" align="center" runat="server" id="dynamicLoginContent">
-                        <table  class="table">
+                        <table class="table">
                             <tr>
                                 <td align="center">
                                     <asp:Label ID="lblCompanyName" runat="server" ForeColor="#1F71C4" Font-Bold="true"
@@ -138,10 +136,14 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="left" style="padding-left:60px; height:30px;" >
+                                <td align="left" style="padding-left: 60px; height: 30px;">
                                     <asp:Button ID="btnSignIn" runat="server" Text="Login" OnClick="btnSignIn_Click"
                                         CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_Userlogin_btnSignIn', 'S');"
                                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_Userlogin_btnSignIn', 'S');" />
+                                </td>
+                                <td align="left">
+                                    <asp:LinkButton ID="lnkForgetPassword" runat="server" CssClass="LinkButtons" Text="Forget Password?" OnClick="lnkForgetPassword_OnClick"
+                                        CausesValidation="false"></asp:LinkButton>
                                 </td>
                             </tr>
                             <tr>
@@ -149,8 +151,8 @@
                                     <asp:Label ID="lblIllegal" Text="" runat="server" CssClass="Error" />
                                 </td>
                             </tr>
-                            </table>
-                            <table>
+                        </table>
+                        <table>
                             <tr>
                                 <td colspan="2">
                                     <span class="FieldName">
