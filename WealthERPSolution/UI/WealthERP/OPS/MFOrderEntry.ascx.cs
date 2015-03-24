@@ -275,7 +275,7 @@ namespace WealthERP.OPS
             {
                 userMessage = "Order placed successfully, Order reference no. is " + orderId.ToString();
             }
-            else if (ddltransType.SelectedValue == "SIP" || ddltransType.SelectedValue == "SWP")
+            else if (ddltransType.SelectedValue == "SIP" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "STB")
             {
                 userMessage = ddltransType.SelectedValue + " Requested successfully," + ddltransType.SelectedValue + " reference no. is " + sipId.ToString();
             }
@@ -353,14 +353,14 @@ namespace WealthERP.OPS
             {
                 if (!string.IsNullOrEmpty(txtSchemeCode.Value.ToString().Trim()))
                 {
-                    if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "SWB")
-                    {
-                        BindFolioNumberSearch(0, 0);
-                    }
-                    else
-                    {
-                        BindFolioNumberSearch(1, 0);
-                    }
+                    //if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "SWB")
+                    //{
+                    //    BindFolioNumberSearch(0, 0);
+                    //}
+                    //else
+                    //{
+                    BindFolioNumberSearch(1, 0);
+                    //}
                 }
             }
 
@@ -3840,6 +3840,10 @@ namespace WealthERP.OPS
                     txtFolioNumber_autoCompleteExtender.ServiceMethod = "GetCustomerFolioAccount";
 
 
+                    //AutoCompleteExtender3.ContextKey = parameters;
+                    //AutoCompleteExtender3.ServiceMethod = "GetCustomerFolioAccount";
+
+
                 }
                 //else
                 //{
@@ -4633,13 +4637,12 @@ namespace WealthERP.OPS
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Folio Number.');", true);
                 return;
             }
-            if (ddltransType.SelectedValue == "SWB" || ddltransType.SelectedValue == "STB")
+
+            int setupId = 0;
+
+
+            if (ddltransType.SelectedValue != "SWB")
             {
-                CreatePurchaseOrderType();
-            }
-            else
-            {
-                int setupId = 0;
                 SaveOrderDetails();
                 OrderIds = mfOrderBo.CreateCustomerMFOrderDetails(orderVo, mforderVo, userVo.UserId, systematicSetupVo, out setupId);
                 lblGetOrderNo.Text = OrderIds[0].ToString();
@@ -4649,16 +4652,17 @@ namespace WealthERP.OPS
                 ControlsEnblity("View");
 
                 ShowMessage(CreateUserMessage(Convert.ToInt32(lblGetOrderNo.Text), setupId), 's');
-
-
-                //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
+            }
+            if (ddltransType.SelectedValue == "SWB" || ddltransType.SelectedValue == "STB")
+            {
+                CreatePurchaseOrderType(setupId);
             }
 
         }
 
 
 
-        private void CreatePurchaseOrderType()
+        private void CreatePurchaseOrderType(int systematicId)
         {
             if (string.IsNullOrEmpty(hidFolioNumber.Value))
             {
@@ -4682,7 +4686,17 @@ namespace WealthERP.OPS
             }
             List<int> OrderIds = new List<int>();
             onlinemforderVo[0].Amount = double.Parse(txtNewAmount.Text.ToString());
-            onlinemforderVo[0].TransactionCode = "SWS";
+            if (ddltransType.SelectedValue == "STB")
+            {
+                onlinemforderVo[0].TransactionCode = "STS";
+
+            }
+            else
+            {
+
+                onlinemforderVo[0].TransactionCode = "SWS";
+            }
+
             lsonlinemforder.Add(onlinemforderVo[0]);
             onlinemforderVo[1] = new MFOrderVo();
 
@@ -4695,25 +4709,31 @@ namespace WealthERP.OPS
                 onlinemforderVo[1].accountid = 0;
             }
 
-            // onlinemforderVo[1].accountid = int.Parse(hdnAccountIdSwitch.Value);
             onlinemforderVo[1].SchemePlanCode = int.Parse(ddlSchemeSwitch.SelectedValue.ToString());
             onlinemforderVo[1].Amount = int.Parse(txtNewAmount.Text.ToString());
             onlinemforderVo[1].SchemePlanSwitch = Int32.Parse(txtSchemeCode.Value);
             if (!string.IsNullOrEmpty(hidFolioNumber.Value))
             {
-                onlinemforderVo[0].AccountIdSwitch = int.Parse(hidFolioNumber.Value);
+                onlinemforderVo[1].AccountIdSwitch = int.Parse(hidFolioNumber.Value);
             }
             else
             {
-                onlinemforderVo[0].AccountIdSwitch = 0;
+                onlinemforderVo[1].AccountIdSwitch = 0;
             }
-            // onlinemforderVo[1].AccountIdSwitch = int.Parse(hidFolioNumber.Value);
-            onlinemforderVo[1].TransactionCode = "SWB";
+            if (ddltransType.SelectedValue == "STB")
+            {
+                onlinemforderVo[1].TransactionCode = "STB";
+
+            }
+            else
+            {
+                onlinemforderVo[1].TransactionCode = "SWB";
+            }
             string message = string.Empty;
             lsonlinemforder.Add(onlinemforderVo[1]);
 
             OrderIds = mfOrderBo.CreateOffLineMFSwitchOrderDetails(lsonlinemforder, userVo.UserId, Convert.ToInt32(txtCustomerId.Value), Convert.ToDateTime(txtReceivedDate.SelectedDate.ToString()),
- Convert.ToDateTime(txtOrderDate.SelectedDate), txtApplicationNumber.Text, Convert.ToInt32(txtAgentId.Value), txtAssociateSearch.Text);
+ Convert.ToDateTime(txtOrderDate.SelectedDate), txtApplicationNumber.Text, Convert.ToInt32(txtAgentId.Value), txtAssociateSearch.Text, systematicId);
             int OrderId = int.Parse(OrderIds[0].ToString());
             lblGetOrderNo.Text = OrderIds[0].ToString();
             rgvOrderSteps.Visible = true;
@@ -4777,6 +4797,8 @@ namespace WealthERP.OPS
             else
                 mforderVo.accountid = 0;
             mforderVo.FolioNumber = txtFolioNumber.Text;
+
+            
 
             // mforderVo.OrderNumber = int.Parse(lblGetOrderNo.Text);
             if (rbtnImmediate.Checked == true)
@@ -4869,6 +4891,17 @@ namespace WealthERP.OPS
                 mforderVo.SchemePlanSwitch = 0;
             }
 
+            if (!string.IsNullOrEmpty(hdnAccountIdSwitch.Value))
+            {
+                mforderVo.AccountIdSwitch = int.Parse(hdnAccountIdSwitch.Value);
+            }
+            else
+            {
+                mforderVo.AccountIdSwitch = 0;
+
+            }
+
+
             if (!string.IsNullOrEmpty(txtCorrAdrLine1.Text.ToString().Trim()))
                 mforderVo.AddrLine1 = txtCorrAdrLine1.Text;
             else
@@ -4913,7 +4946,7 @@ namespace WealthERP.OPS
                 mforderVo.StartDate = DateTime.Parse(ddlStartDate.SelectedValue);
 
             }
-            //DateTime.Parse(txtstartDateSIP.SelectedDate.ToString());
+            
             else
                 mforderVo.StartDate = DateTime.MinValue;
 
@@ -4926,20 +4959,7 @@ namespace WealthERP.OPS
                 mforderVo.BankBranchId = Convert.ToInt32(ddlBranch.SelectedValue);
             else
                 mforderVo.BankBranchId = 0;
-            //}
-            //else if (ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWP")
-            //{
-            //    if (!string.IsNullOrEmpty((ddlFrequencySTP.SelectedValue).ToString().Trim()))
-            //        mforderVo.FrequencyCode = ddlFrequencySTP.SelectedValue;
-            //    if (!string.IsNullOrEmpty((txtstartDateSTP.SelectedDate).ToString().Trim()))
-            //        mforderVo.StartDate = DateTime.Parse(txtstartDateSTP.SelectedDate.ToString());
-            //    else
-            //        mforderVo.StartDate = DateTime.MinValue;
-            //    if (!string.IsNullOrEmpty((txtendDateSTP.SelectedDate).ToString().Trim()))
-            //        mforderVo.EndDate = DateTime.Parse(txtendDateSTP.SelectedDate.ToString());
-            //    else
-            //        mforderVo.EndDate = DateTime.MinValue;
-            //}
+            
             if (ddlARNNo.SelectedIndex != 0)
                 mforderVo.ARNNo = ddlARNNo.SelectedItem.Text;
             if (!String.IsNullOrEmpty(txtAssociateSearch.Text))
@@ -4972,6 +4992,7 @@ namespace WealthERP.OPS
             else
                 systematicSetupVo.CeaseDate = DateTime.MinValue;
 
+       
 
             Session["orderVo"] = orderVo;
             Session["mforderVo"] = mforderVo;
@@ -5034,23 +5055,45 @@ namespace WealthERP.OPS
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Folio Number.');", true);
                 return;
             }
-            if (ddltransType.SelectedValue == "SWB")
-            {
-                CreatePurchaseOrderType();
-            }
-            else
-            {
-                int setupId = 0;
 
+            int setupId = 0;
+            if (ddltransType.SelectedValue != "SWB")
+            {
                 SaveOrderDetails();
                 OrderIds = mfOrderBo.CreateCustomerMFOrderDetails(orderVo, mforderVo, userVo.UserId, systematicSetupVo, out setupId);
                 lblGetOrderNo.Text = OrderIds[0].ToString();
                 rgvOrderSteps.Visible = true;
                 BindOrderStepsGrid(Convert.ToInt32(lblGetOrderNo.Text));
+                ButtonsEnablement("Submitted");
+                ControlsEnblity("View");
 
                 ShowMessage(CreateUserMessage(Convert.ToInt32(lblGetOrderNo.Text), setupId), 's');
-
             }
+            if (ddltransType.SelectedValue == "SWB" || ddltransType.SelectedValue == "STB")
+            {
+                CreatePurchaseOrderType(setupId);
+            }
+
+
+
+
+            //if (ddltransType.SelectedValue == "SWB")
+            //{
+            //    CreatePurchaseOrderType();
+            //}
+            //else
+            //{
+            //    int setupId = 0;
+
+            //    SaveOrderDetails();
+            //    OrderIds = mfOrderBo.CreateCustomerMFOrderDetails(orderVo, mforderVo, userVo.UserId, systematicSetupVo, out setupId);
+            //    lblGetOrderNo.Text = OrderIds[0].ToString();
+            //    rgvOrderSteps.Visible = true;
+            //    BindOrderStepsGrid(Convert.ToInt32(lblGetOrderNo.Text));
+
+            //    ShowMessage(CreateUserMessage(Convert.ToInt32(lblGetOrderNo.Text), setupId), 's');
+
+            //}
 
             ButtonsEnablement("Save_And_More");
             ClearAllFields();
@@ -5708,7 +5751,7 @@ namespace WealthERP.OPS
 
             CustomerAccountsVo customerAccountVo = new CustomerAccountsVo();
             customerAccountVo.CustomerId = int.Parse(txtCustomerId.Value);
-            customerAccountVo.AccountNum = txtNewFolio.Text;
+            customerAccountVo.AccountNum = txtSwitchFolio.Text;
             customerAccountVo.AMCCode = int.Parse(ddlAMCList.SelectedValue);
             if (!customerAccountBo.CheckFolioDuplicate(advisorVo.advisorId, customerAccountVo.AccountNum))
             {

@@ -123,7 +123,7 @@ namespace BoOps
             return orderIds;
         }
 
-        public List<int> CreateOffLineMFSwitchOrderDetails(List<MFOrderVo> lsonlinemforder, int userId, int customerId ,DateTime appliRecDate, DateTime orderDate, string applicationNo,int agentid,string subbrokerCode)
+        public List<int> CreateOffLineMFSwitchOrderDetails(List<MFOrderVo> lsonlinemforder, int userId, int customerId, DateTime appliRecDate, DateTime orderDate, string applicationNo, int agentid, string subbrokerCode, int systematicId)
         {
 
             DataTable dtSwitchOrder = new DataTable();
@@ -132,10 +132,8 @@ namespace BoOps
             try
             {
                 dtSwitchOrder = creataTableForSwitch(lsonlinemforder);
-                OrderIds = mfOrderDao.CreateOffLineMFSwitchOrderDetails(dtSwitchOrder, userId, customerId, appliRecDate, orderDate, applicationNo, agentid, subbrokerCode);
-
+                OrderIds = mfOrderDao.CreateOffLineMFSwitchOrderDetails(dtSwitchOrder, userId, customerId, appliRecDate, orderDate, applicationNo, agentid, subbrokerCode, systematicId);
             }
-
             catch (BaseApplicationException Ex)
             {
                 throw Ex;

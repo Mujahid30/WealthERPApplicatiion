@@ -755,7 +755,7 @@ namespace WealthERP.OPS
             {
                 ListItem rbcItem = actions.Items.FindByValue("Edit");
 
-                if (userVo.UserType != "Advisor" || WMTT_TransactionType == "Switch Buy")
+                if (userVo.UserType != "Advisor" || WMTT_TransactionType == "Switch Buy" ||WMTT_TransactionType =="STP Buy")
                 {
                     rbcItem.Enabled = false;
                 }

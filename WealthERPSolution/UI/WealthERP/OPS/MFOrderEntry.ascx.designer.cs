@@ -44,6 +44,11 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.Panel Panel1;
         protected global::System.Web.UI.WebControls.DropDownList ddlTax;
         protected global::System.Web.UI.WebControls.TextBox txtMobileNumber;
+        protected global::System.Web.UI.WebControls.TextBox txtSwitchFolioNo;
+
+
+        
+
         protected global::System.Web.UI.WebControls.TextBox txtEmail;
 
         protected global::System.Web.UI.WebControls.DropDownList ddlSalutation;
@@ -318,6 +323,8 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.AutoCompleteExtender AutoCompleteExtender1;
+        protected global::AjaxControlToolkit.AutoCompleteExtender txtSwitchFolioNo_autoCompleteExtender;
+
         
         /// <summary>
         /// RequiredFieldValidator1 control.

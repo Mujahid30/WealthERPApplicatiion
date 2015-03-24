@@ -73,7 +73,7 @@
                 <asp:ListItem Value="All" Text="All" Selected="True" Enabled="false"></asp:ListItem>
                 <asp:ListItem Value="MF" Text="Mutual Fund"></asp:ListItem>
                 <asp:ListItem Value="IN" Text="Life Insurance" Enabled="false"></asp:ListItem>
-                <asp:ListItem Value="FI" Text="FixedIncome"></asp:ListItem>
+                <asp:ListItem Value="FI" Text="FixedIncome" Enabled="false"></asp:ListItem>
             </asp:DropDownList>
         </td>
     </tr>

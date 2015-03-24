@@ -89,7 +89,7 @@ namespace DaoOps
 
         }
 
-        public List<int> CreateOffLineMFSwitchOrderDetails(DataTable dtSwitchOrder, int userId, int customerId, DateTime appliRecDate, DateTime orderDate, string applicationNo,int agentid,string subbrokerCode)
+        public List<int> CreateOffLineMFSwitchOrderDetails(DataTable dtSwitchOrder, int userId, int customerId, DateTime appliRecDate, DateTime orderDate, string applicationNo, int agentid, string subbrokerCode, int systematicId)
         {
             List<int> orderIds = new List<int>();
             int sICO_OrderId, sOCO_OrderId;
@@ -117,8 +117,9 @@ namespace DaoOps
                 db.AddInParameter(CreateOnlineMFSwitchOrderDetailsCmd, "@applicationNo", DbType.String, applicationNo);
                 db.AddInParameter(CreateOnlineMFSwitchOrderDetailsCmd, "@agentid", DbType.Int32, agentid);
                 db.AddInParameter(CreateOnlineMFSwitchOrderDetailsCmd, "@subbrokerCode", DbType.String, subbrokerCode);
+                db.AddInParameter(CreateOnlineMFSwitchOrderDetailsCmd, "@systematicId", DbType.Int32, systematicId);
 
-
+                
                 if (db.ExecuteNonQuery(CreateOnlineMFSwitchOrderDetailsCmd) != 0)
                 {
                     sICO_OrderId = Convert.ToInt32(db.GetParameterValue(CreateOnlineMFSwitchOrderDetailsCmd, "SICO_OrderId").ToString());
@@ -338,6 +339,8 @@ namespace DaoOps
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@CO_Remarks", DbType.String, DBNull.Value);
                 db.AddOutParameter(createMFOrderTrackingCmd, "@SetupId", DbType.Int32, 10);
+                db.AddInParameter(createMFOrderTrackingCmd, "@PASP_SchemePlanCodeSwitch", DbType.Int32, mforderVo.SchemePlanSwitch);
+                db.AddInParameter(createMFOrderTrackingCmd, "@CMFA_AccountIdSwitch", DbType.Int32,mforderVo.AccountIdSwitch  );
 
                 if (db.ExecuteNonQuery(createMFOrderTrackingCmd) != 0)
                 {
