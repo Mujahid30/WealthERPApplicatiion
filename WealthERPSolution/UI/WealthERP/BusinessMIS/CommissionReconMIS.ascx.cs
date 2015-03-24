@@ -64,7 +64,7 @@ namespace WealthERP.BusinessMIS
                     AgentCode = associateuserheirarchyVo.AgentCode.ToString();
                     ddlSearchType.Items.FindByText("Receivables").Enabled = false;
                     ddlSelectMode.Items.FindByText("Both").Enabled = false;
-                    ddlSelectMode.Items.FindByText("Online").Enabled = false;
+                    ddlSelectMode.Items.FindByText("Online-Only").Enabled = false;
                 }
             }
 
