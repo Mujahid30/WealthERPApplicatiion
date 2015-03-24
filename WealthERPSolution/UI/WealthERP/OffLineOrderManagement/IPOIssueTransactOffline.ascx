@@ -132,7 +132,7 @@
                         <table cellspacing="0" cellpadding="3" width="100%">
                             <tr>
                                 <td align="left">
-                                    IPO Order Entry
+                                    IPO/FPO Order Entry
                                 </td>
                                 <td>
                                     <div class="divViewEdit" style="float: right; padding-right: 50px">
