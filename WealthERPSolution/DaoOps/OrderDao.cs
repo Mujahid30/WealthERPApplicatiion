@@ -979,7 +979,7 @@ namespace DaoOps
             return dtDemateDetails;
         }
 
-        public DataTable GetOrderList(int systematicId, int advisorId, string rmId, string branchId, DateTime toDate, DateTime fromDate, string status, string customerId, string orderType, string usertype, int AgentId, string SubBrokerCode, string AgentCode, int orderId)
+        public DataTable GetOrderList(int systematicId, int advisorId, string rmId, string branchId, DateTime toDate, DateTime fromDate, string status, string customerId, string orderType, string usertype, int AgentId, string SubBrokerCode, string AgentCode, int orderId,string transactionType)
         {
             DataSet dsOrder = null;
             DataTable dtOrder;
@@ -1029,10 +1029,7 @@ namespace DaoOps
                     db.AddInParameter(dbOrder, "@AgentCode", DbType.String, AgentCode);
                 else
                   db.AddInParameter(dbOrder, "@AgentCode", DbType.String, DBNull.Value);
-                //if (SubBrokerName != "0")
-                //    db.AddInParameter(dbOrder, "@SubBrokerName", DbType.String, SubBrokerName);
-                //else
-                //    db.AddInParameter(dbOrder, "@SubBrokerName", DbType.String, DBNull.Value);
+                
                 db.AddInParameter(dbOrder, "@status", DbType.String, status);
                 if (customerId != "")
                     db.AddInParameter(dbOrder, "@C_CustomerId", DbType.String, customerId);
@@ -1052,6 +1049,10 @@ namespace DaoOps
                     db.AddInParameter(dbOrder, "@OrderId", DbType.Int32, orderId);
                 else
                     db.AddInParameter(dbOrder, "@OrderId", DbType.Int32, 0);
+                if (transactionType == "ALL")
+                    db.AddInParameter(dbOrder, "@transactionType", DbType.String, null );
+                else
+                    db.AddInParameter(dbOrder, "@transactionType", DbType.String, transactionType);
                 dsOrder = db.ExecuteDataSet(dbOrder);
                 dtOrder = dsOrder.Tables[0];
 

@@ -36,43 +36,27 @@
 
     function GetCustomerId(source, eventArgs) {
         isItemSelected = true;
-        //         document.getElementById("lblgetPan").innerHTML = "";
+
         document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
 
         return false;
     }
     function GeAgentId(source, eventArgs) {
         isItemSelected = true;
-        //         document.getElementById("lblgetPan").innerHTML = "";
+
         document.getElementById("<%= txtAgentId.ClientID %>").value = eventArgs.get_value();
 
         return false;
     }
-    //    function GetAplicationNo(source, eventArgs) {
-    //        isItemSelected = true;
-    //        //         document.getElementById("lblgetPan").innerHTML = "";
-    //        document.getElementById("<%= hdnAplicationNo.ClientID %>").value = eventArgs.get_value();
 
-    //        return false;
-    //    }
 
     function CheckPanno() {
-        //        var Val, val1;
-        //        Val = document.getElementById("<%= txtPansearch.ClientID %>").value;
-
-        //        if (Val != "") {
-        //            val1 = document.getElementById("<%= lblgetcust.ClientID %>").value;
-        //            if (val1 == "") {
-        //                document.getElementById("<%= txtPansearch.ClientID %>").Focus();
-        //            }
-        //        }
-
 
     }
 
 
     function ValidateAssociateName() {
-        //        var x = document.forms["form1"]["TextBoxName"].value;
+
         document.getElementById("<%=  lblAssociatetext.ClientID %>").value = eventArgs.get_value();
         document.getElementById("lblAssociatetext").innerHTML = "AgentCode Required";
         return true;
@@ -118,21 +102,11 @@
         window.open('PopUp.aspx?PageId=AddBankAccount&bankId=0&action=OfflineMF&custId=' + custId, 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
         return false;
 
-        //        document.getElementById("<%= HiddenField1.ClientID %>").value = 1;
+       
 
     }
 
-
-
-
-
-    //    function closepopupAddBank() {
-    //        window.close('PopUp.aspx?PageId=CustomerType', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
-    //        return false;
-    ////     window.close('
-    ////    for (var i = 0; i < popups.length; i++) {
-    ////        popups[i].close();
-    //    }
+ 
 </script>
 
 <script type="text/javascript">
@@ -164,24 +138,11 @@
 
         var hdn = document.getElementById("<%=hdnIsSubscripted.ClientID%>").value;
 
-        //        if (hdn == "True") {
-
-        //            document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'visible';
-        //            document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'visible';
-
-        //        }
-        //        else {
-        //            document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'collapse';
-        //            document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'collapse';
-
-        //        }
+        
 
     }
     function ShowInitialIsa() {
-
-        //        document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'collapse';
-        //        document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'collapse';
-
+ 
     }
     function CheckSubscription() {
 
@@ -209,6 +170,12 @@
     function GetFolioAccount(source, eventArgs) {
         isValidFolio = true;
         document.getElementById("<%= hidFolioNumber.ClientID %>").value = eventArgs.get_value();
+
+        return false;
+    };
+    function GetSwitchFolioAccount(source, eventArgs) {
+        isValidFolio = true;
+        document.getElementById("<%= hdnAccountIdSwitch.ClientID %>").value = eventArgs.get_value();
 
         return false;
     };
@@ -501,7 +468,7 @@
                     </td>
                     <td class="rightField">
                         <asp:Button ID="btnChannelSubmit" runat="server" Text="Submit" CssClass="PCGButton"
-                            ValidationGroup="btnCustomerSubmit" OnClick="btnCustomerSubmit_Click"  />
+                            ValidationGroup="btnCustomerSubmit" OnClick="btnCustomerSubmit_Click" />
                         <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
                             CommandName="Cancel"></asp:Button>
                     </td>
@@ -672,7 +639,7 @@
             </tr>
         </table>
         <asp:Panel ID="pnl_OrderSection" runat="server" class="Landscape" Width="120%" Height="300%"
-            ScrollBars="None" >
+            ScrollBars="None">
             <table width="100%">
                 <tr>
                     <td colspan="6">
@@ -915,7 +882,7 @@
                             <asp:ListItem Text="Switch" Value="SWB" Enabled="true"></asp:ListItem>
                             <asp:ListItem Text="Change Of Address Form" Value="CAF" Enabled="false"></asp:ListItem>
                             <asp:ListItem Text="Transfer IN" Value="TI" Enabled="false"></asp:ListItem>
-                            <asp:ListItem Text="NFO" Value="NFO" Enabled="true"></asp:ListItem>                            
+                            <asp:ListItem Text="NFO" Value="NFO" Enabled="true"></asp:ListItem>
                         </asp:DropDownList>
                         <span id="spnTransType" class="spnRequiredField">*</span>
                         <asp:CompareValidator ID="CVTrxType" runat="server" ControlToValidate="ddltransType"
@@ -1254,12 +1221,12 @@
                     <td style="width: 22%">
                         <asp:DropDownList ID="ddlStartDate" CssClass="cmbField" runat="server" AutoPostBack="True"
                             OnSelectedIndexChanged="ddlStartDate_SelectedIndexChanged" ValidationGroup="btnSubmit"
-                            TabIndex="21">
+                            TabIndex="21" Visible="false">
                             <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                         </asp:DropDownList>
                         <telerik:RadDatePicker ID="txtstartDateSIP" CssClass="txtField" runat="server" Culture="English (United States)"
                             Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
-                            TabIndex="22" Visible="false">
+                            TabIndex="22" Visible="true">
                             <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                 Skin="Telerik" EnableEmbeddedSkins="false">
                             </Calendar>
@@ -1310,16 +1277,15 @@
                     </td>
                     <td>
                         <asp:TextBox ID="txtSystematicdates" runat="server" CssClass="txtField" TabIndex="24"></asp:TextBox>
-                        <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtSystematicdates"
-                            Format="dd">
+                        <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtSystematicdates">
                         </cc1:CalendarExtender>
                         <span id="Span24" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator19" ControlToValidate="txtSystematicdates"
                             CssClass="rfvPCG" ErrorMessage="<br />Please select Date of Systematic Trx" Display="Dynamic"
                             runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
-                        <asp:RangeValidator ID="RangeValidator4" Display="Dynamic" ValidationGroup="MFSubmit"
+                        <%-- <asp:RangeValidator ID="RangeValidator4" Display="Dynamic" ValidationGroup="MFSubmit"
                             runat="server" ErrorMessage="<br />Date of Systematic Trx between 1 to 30" ControlToValidate="txtSystematicdates"
-                            MaximumValue="30" MinimumValue="1" Type="Integer" CssClass="cvPCG"></asp:RangeValidator>
+                            MaximumValue="30" MinimumValue="1" Type="Integer" CssClass="cvPCG"></asp:RangeValidator>--%>
                     </td>
                 </tr>
                 <tr id="trSystematicDate" runat="server">
@@ -1427,8 +1393,8 @@
                     </td>
                     <td>
                         <asp:HiddenField ID="hdnSwitchFolioNo" runat="server" OnValueChanged="hidFolioNumber_ValueChanged" />
-                        <asp:TextBox ID="txtSwitchFolioNo" runat="server" CssClass="txtField" onblur="return ValidateFolioSelection(this)"
-                            AutoPostBack="true" TabIndex="30">
+                        <asp:TextBox ID="txtSwitchFolioNo" runat="server" CssClass="txtField" AutoPostBack="true"
+                            TabIndex="30">
                         </asp:TextBox>
                         <span id="Span27"></span>
                         <asp:ImageButton ID="ImageButton1" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
@@ -1442,7 +1408,7 @@
                             MinimumPrefixLength="3" EnableCaching="false" CompletionSetCount="1" CompletionInterval="1"
                             CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
                             CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
-                            UseContextKey="true" OnClientItemSelected="GetFolioAccount" />
+                            UseContextKey="true" OnClientItemSelected="GetSwitchFolioAccount" />
                     </td>
                 </tr>
             </table>
@@ -1876,7 +1842,7 @@
     <table runat="server">
         <tr id="trRemarks" runat="server">
             <td>
-                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
             </td>
             <td class="leftField">
                 <asp:Label ID="lblRemarks" runat="server" Text="Remarks:" CssClass="FieldName"></asp:Label>

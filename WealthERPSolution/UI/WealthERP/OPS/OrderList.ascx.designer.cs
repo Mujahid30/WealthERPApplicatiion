@@ -49,6 +49,7 @@ namespace WealthERP.OPS {
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlOrderType;
         protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTrxType;
 
         
         

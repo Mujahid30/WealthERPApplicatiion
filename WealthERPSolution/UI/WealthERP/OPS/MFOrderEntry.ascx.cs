@@ -335,9 +335,9 @@ namespace WealthERP.OPS
 
         private void CaliculateEndDate()
         {
-            if (ddlTotalInstallments.SelectedIndex == 0 || ddlStartDate.SelectedIndex == 0 || ddlFrequencySIP.SelectedIndex == 0) return;
+            if (ddlTotalInstallments.SelectedIndex == 0 ||   ddlFrequencySIP.SelectedIndex == 0) return;
 
-            DateTime dtEndDate = boOnlineOrder.GetSipEndDate(Convert.ToDateTime(ddlStartDate.SelectedValue), ddlFrequencySIP.SelectedValue, Convert.ToInt32(ddlTotalInstallments.SelectedValue) - 1);
+            DateTime dtEndDate = boOnlineOrder.GetSipEndDate(Convert.ToDateTime(txtstartDateSIP.SelectedDate), ddlFrequencySIP.SelectedValue, Convert.ToInt32(ddlTotalInstallments.SelectedValue) - 1);
             txtendDateSIP.SelectedDate = dtEndDate;
         }
 
@@ -500,9 +500,14 @@ namespace WealthERP.OPS
 
                     if (!string.IsNullOrEmpty(dr["WMTT_TransactionClassificationCode"].ToString()))
                     {
-                        if (dr["WMTT_TransactionClassificationCode"].ToString() == "SWB" || dr["WMTT_TransactionClassificationCode"].ToString() == "SWS")
+                        if (dr["WMTT_TransactionClassificationCode"].ToString() == "SWB" || dr["WMTT_TransactionClassificationCode"].ToString() == "SWS" )
                         {
                             ddltransType.SelectedValue = "SWB";
+                        }
+                        else if (dr["WMTT_TransactionClassificationCode"].ToString() == "STB" || dr["WMTT_TransactionClassificationCode"].ToString() == "STS")
+                        {
+                            ddltransType.SelectedValue = "STB";
+
                         }
                         else
                         {
@@ -520,6 +525,8 @@ namespace WealthERP.OPS
                     if ((ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWB") && ddlAMCList.SelectedIndex != 0)
                     {
                         BindSchemeSwitch();
+                        ddlSchemeSwitch.SelectedValue = dr["PASP_SchemePlanSwitch"].ToString();
+
                     }
                     if (!string.IsNullOrEmpty(dr["PAIC_AssetInstrumentCategoryCode"].ToString().Trim()))
                         ddlCategory.SelectedValue = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
@@ -612,7 +619,7 @@ namespace WealthERP.OPS
 
                     //if (ddltransType.SelectedValue == "SIP")
                     //{
-
+                    BindFrequency();
                     if (!string.IsNullOrEmpty(dr["XF_FrequencyCode"].ToString()))
                         ddlFrequencySIP.SelectedValue = dr["XF_FrequencyCode"].ToString();
                     else
@@ -644,20 +651,15 @@ namespace WealthERP.OPS
                         BindSchemeSwitch();
                         ddlSchemeSwitch.SelectedValue = dr["PASP_SchemePlanSwitch"].ToString();
                     }
-                    if (ddltransType.SelectedValue == "SIP" | ddltransType.SelectedValue == "SWP" | ddltransType.SelectedValue == "STP")
+                    if (ddltransType.SelectedValue == "SIP" | ddltransType.SelectedValue == "SWB" | ddltransType.SelectedValue == "STB" )
                     {
                         BindStartDates();
-
-
                         if (!string.IsNullOrEmpty(dr["CMFSS_StartDate"].ToString()))
                         {
                             string startDates = Convert.ToDateTime(dr["CMFSS_StartDate"].ToString()).ToString("dd-MMM-yyyy");
                             ddlStartDate.SelectedValue = startDates;
+                            txtstartDateSIP.SelectedDate = DateTime.Parse(dr["CMFSS_StartDate"].ToString());
                         }
-
-
-
-
                         BindTotalInstallments();
                         ddlTotalInstallments.SelectedValue = dr["CMFSS_TotalInstallment"].ToString();
                         CaliculateEndDate();
@@ -3678,7 +3680,7 @@ namespace WealthERP.OPS
             txtPaymentNumber.Text = "";
             txtPaymentInstDate.SelectedDate = null;
             ddlBankName.SelectedIndex = -1;
-            ddlBranch.SelectedIndex = 0;
+            ddlBranch.SelectedIndex = -1;
             lblGetAvailableAmount.Text = "";
             lblGetAvailableUnits.Text = "";
             ddlSchemeSwitch.SelectedIndex = -1;
@@ -3840,26 +3842,12 @@ namespace WealthERP.OPS
                     txtFolioNumber_autoCompleteExtender.ServiceMethod = "GetCustomerFolioAccount";
 
 
-                    //AutoCompleteExtender3.ContextKey = parameters;
-                    //AutoCompleteExtender3.ServiceMethod = "GetCustomerFolioAccount";
+                    AutoCompleteExtender3.ContextKey = parameters;
+                    AutoCompleteExtender3.ServiceMethod = "GetCustomerFolioAccount";
 
 
                 }
-                //else
-                //{
-
-                //    if (ddlAMCList.SelectedValue != "Select")
-                //        amcCode = int.Parse(ddlAMCList.SelectedValue);
-                //    amcSchemePlanCode = int.Parse(txtSchemeCode.Value);//ddlAmcSchemeList.SelectedValue);
-                //    parameters = string.Empty;
-                //    parameters = txtCustomerId.Value + "/" + amcCode + "/" + amcSchemePlanCode + "/" + Fflag + "/" + isaAccount;
-                //    txtFolioNumber_autoCompleteExtender.ContextKey = parameters;
-                //    txtFolioNumber_autoCompleteExtender.ServiceMethod = "GetCustomerFolioAccount";
-
-
-                //}
-
-
+     
             }
             catch (BaseApplicationException Ex)
             {
@@ -3915,155 +3903,7 @@ namespace WealthERP.OPS
             PaymentMode(ddlPaymentMode.SelectedValue);
             FrequencyEnablityForTransactionType(ddltransType.SelectedValue);
             ddltransType.Focus();
-            //lblAMC.Visible = true; ddlAMCList.Visible = true;
-            //lblCategory.Visible = true; ddlCategory.Visible = true;
-            //lblSearchScheme.Visible = true; ddlAmcSchemeList.Visible = true;
-            //lblFolioNumber.Visible = true; txtFolioNumber.Visible = true;
-            //spnAMC.Visible = true; spnScheme.Visible = true;
-            //CompareValidator1.Visible = true; CompareValidator2.Visible = true;
-            //txtSearchScheme.Visible = true; Span9.Visible = true; imgFolioAdd.Visible = true;
-            //if ((string.IsNullOrEmpty(txtPansearch.Text) && string.IsNullOrEmpty(txtCustomerName.Text)))
-            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please select a customer');", true);
-            //else
-            //{
-            //    hdnType.Value = ddltransType.SelectedValue.ToString();
-            //    if (ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "ABY" || ddltransType.SelectedValue == "SIP")
-            //    {
-
-            //        ShowTransactionType(1);
-
-            //        if (ddltransType.SelectedValue == "BUY")
-            //        {
-            //            BindAMC(0);
-            //            BindScheme(0);
-            //            Sflag = 0;
-            //            trFrequency.Visible = false;
-            //            trSIPStartDate.Visible = false;
-
-
-
-            //            txtFolioNumber.Enabled = false;
-            //            imgFolioAdd.Enabled = false;
-            //        }
-            //        else if (ddltransType.SelectedValue == "SIP")
-            //        {
-            //            BindAMC(0);
-            //            BindScheme(0);
-            //            Sflag = 0;
-            //            trFrequency.Visible = true;
-            //            trSIPStartDate.Visible = true;
-
-            //        }
-            //        else
-            //        {
-            //            BindAMC(0);
-            //            BindScheme(0);
-            //            Sflag = 0;
-            //            trFrequency.Visible = false;
-            //            trSIPStartDate.Visible = false;
-
-
-            //        }
-            //    }
-            //    else if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "SWB")
-            //    {
-            //        ShowTransactionType(2);
-            //        if (ddltransType.SelectedValue == "SWB")
-            //        {
-            //            //sai-D   trScheme.Visible = true;
-            //            trFrequencySTP.Visible = false;
-            //            trSTPStart.Visible = false;
-
-            //            //sai    trSystematicDateChk1.Visible = false ;;
-
-
-            //        }
-            //        else if (ddltransType.SelectedValue == "STB")
-            //        {
-            //            //sai-D   trScheme.Visible = true;
-            //            //sai-D trFrequencySTP.Visible = true;
-            //            //sai-D   trSTPStart.Visible = true;
-            //        }
-            //        else if (ddltransType.SelectedValue == "SWP")
-            //        {
-            //            trScheme.Visible = false;
-            //            //sai-D trFrequencySTP.Visible = true;
-            //            //sai-D   trSTPStart.Visible = true;
-
-
-            //        }
-            //        else
-            //        {
-            //            trFrequencySTP.Visible = false;
-            //            trSTPStart.Visible = false;
-            //            trScheme.Visible = false;
-            //            trPINo.Visible = false;
-
-
-
-
-            //        }
-            //        BindAMC(0);
-            //        BindScheme(0);
-            //        Sflag = 0;
-
-            //    }
-            //    else if (ddltransType.SelectedValue == "CAF")
-            //    {
-            //        ShowTransactionType(3);
-            //        if (!string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
-            //        {
-            //            customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
-            //            Session["customerVo"] = customerVo;
-            //            if (customerVo != null)
-            //            {
-            //                lblGetLine1.Text = customerVo.Adr1Line1;
-            //                lblGetLine2.Text = customerVo.Adr1Line2;
-            //                lblGetline3.Text = customerVo.Adr1Line3;
-            //                lblgetCity.Text = customerVo.Adr1City;
-            //                lblGetstate.Text = customerVo.Adr1State;
-            //                lblGetPin.Text = customerVo.Adr1PinCode.ToString();
-            //                lblGetCountry.Text = customerVo.Adr1Country;
-            //            }
-            //            else
-            //            {
-            //                lblGetLine1.Text = "";
-            //                lblGetLine2.Text = "";
-            //                lblGetline3.Text = "";
-            //                lblgetCity.Text = "";
-            //                lblGetstate.Text = "";
-            //                lblGetPin.Text = "";
-            //                lblGetCountry.Text = "";
-            //            }
-
-            //        }
-            //        lblAMC.Visible = false; ddlAMCList.Visible = false;
-            //        lblCategory.Visible = false; ddlCategory.Visible = false;
-            //        lblSearchScheme.Visible = false; ddlAmcSchemeList.Visible = false;
-            //        lblFolioNumber.Visible = false; txtFolioNumber.Visible = false;
-            //        imgFolioAdd.Visible = false;
-            //        spnAMC.Visible = false; spnScheme.Visible = false;
-            //        CompareValidator1.Visible = false; CompareValidator2.Visible = false;
-            //        txtSearchScheme.Visible = false;
-            //        RequiredFieldValidator9.Visible = false;
-            //        Span9.Visible = false;
-            //    }
-
-
-            //    btnSubmit.Visible = true;
-            //}
-
-            //if (advisorVo.A_AgentCodeBased == 1)
-            //{
-            //    trGetAmount.Visible = false;
-            //}
-            //else
-            //{
-            //    trGetAmount.Visible = true;
-            //}
-
-            // Sipvisblity(hdnType.Value, "");
-
+           
         }
 
         private void Sipvisblity(string transactiontype, string mode)
@@ -4940,16 +4780,18 @@ namespace WealthERP.OPS
                 if (!string.IsNullOrEmpty((ddlFrequencySIP.SelectedValue).ToString().Trim()))
                     mforderVo.FrequencyCode = ddlFrequencySIP.SelectedValue;
             }
-            if (!string.IsNullOrEmpty(ddlStartDate.SelectedValue) && ddlStartDate.SelectedValue != "0")
-            {
+            //if (!string.IsNullOrEmpty(ddlStartDate.SelectedValue) && ddlStartDate.SelectedValue != "0")
+            //{
+            //    mforderVo.StartDate = DateTime.Parse(ddlStartDate.SelectedValue);
+            //}            
+            //else
+            //    mforderVo.StartDate = DateTime.MinValue;
 
-                mforderVo.StartDate = DateTime.Parse(ddlStartDate.SelectedValue);
-
-            }
-            
+            if (!string.IsNullOrEmpty((txtstartDateSIP.SelectedDate).ToString().Trim()))
+                mforderVo.StartDate = DateTime.Parse(txtstartDateSIP.SelectedDate.ToString());
             else
                 mforderVo.StartDate = DateTime.MinValue;
-
+             
             if (!string.IsNullOrEmpty((txtendDateSIP.SelectedDate).ToString().Trim()))
                 mforderVo.EndDate = DateTime.Parse(txtendDateSIP.SelectedDate.ToString());
             else
@@ -5012,6 +4854,9 @@ namespace WealthERP.OPS
         {
 
             List<int> OrderIds = new List<int>();
+
+            // string confirmValue = Request.Form["confirm_value"];
+
             bool isvalidOfflineFolio = mfOrderBo.ChkOfflineValidFolio(txtFolioNumber.Text);
             if (string.IsNullOrEmpty(lblMintxt.Text))
             {
@@ -5025,6 +4870,11 @@ namespace WealthERP.OPS
             {
                 lbltime.Text = DateTime.Now.ToString();
             }
+            if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWB")
+            {
+                txtAmount.Text = txtNewAmount.Text;
+            }
+
 
             int retVal = commonLookupBo.IsRuleCorrect(float.Parse(txtAmount.Text), float.Parse(lblMintxt.Text), float.Parse(txtAmount.Text), float.Parse(lblMulti.Text), DateTime.Parse(lbltime.Text));
             if (retVal != 0)
@@ -5032,19 +4882,34 @@ namespace WealthERP.OPS
                 if (retVal == -2)
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You have entered amount less than Minimum Initial amount allowed');", true); return;
+
                 }
                 if (retVal == -1)
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You should enter the amount in multiples of Subsequent amount ');", true); return;
+
                 }
 
             }
+
+            if (string.IsNullOrEmpty(txtAgentId.Value))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid SubBroker Code.');", true);
+                return;
+            }
+            if ((string.IsNullOrEmpty(hidFolioNumber.Value)) && (!string.IsNullOrEmpty(txtFolioNumber.Text)))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Folio Number.');", true);
+                return;
+            }
+
+
             if (string.IsNullOrEmpty(txtCustomerId.Value))
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Customer Name.');", true);
                 return;
             }
-            else if ((!isvalidOfflineFolio) && (ddltransType.SelectedValue.ToUpper() == "ABY" || ddltransType.SelectedValue.ToUpper() == "SEL"))
+            else if ((!(isvalidOfflineFolio)) && (ddltransType.SelectedValue.ToUpper() == "ABY" || ddltransType.SelectedValue.ToUpper() == "SEL"))
             {
 
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Folio Number.');", true);
@@ -5056,6 +4921,7 @@ namespace WealthERP.OPS
                 return;
             }
 
+
             int setupId = 0;
             if (ddltransType.SelectedValue != "SWB")
             {
@@ -5065,7 +4931,7 @@ namespace WealthERP.OPS
                 rgvOrderSteps.Visible = true;
                 BindOrderStepsGrid(Convert.ToInt32(lblGetOrderNo.Text));
                 ButtonsEnablement("Submitted");
-                ControlsEnblity("View");
+                ControlsEnblity("Edit");
 
                 ShowMessage(CreateUserMessage(Convert.ToInt32(lblGetOrderNo.Text), setupId), 's');
             }

@@ -324,6 +324,7 @@ namespace WealthERP.OPS {
         /// </remarks>
         protected global::AjaxControlToolkit.AutoCompleteExtender AutoCompleteExtender1;
         protected global::AjaxControlToolkit.AutoCompleteExtender txtSwitchFolioNo_autoCompleteExtender;
+        protected global::AjaxControlToolkit.AutoCompleteExtender AutoCompleteExtender3;
 
         
         /// <summary>

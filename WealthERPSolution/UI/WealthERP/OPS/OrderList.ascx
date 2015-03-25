@@ -60,12 +60,13 @@
         </td>
     </tr>
 </table>
-<table width="80%" cellspacing="0" cellpadding="3" onkeypress="return keyPress(this, event)" id="tblOrder" runat="server">
+<table width="80%" cellspacing="0" cellpadding="3" onkeypress="return keyPress(this, event)"
+    id="tblOrder" runat="server">
     <tr>
-        <td class="leftField">
+        <td align="right">
             <asp:Label ID="lblOrderType" runat="server" CssClass="FieldName" Text="Order Type:"></asp:Label>
         </td>
-        <td class="rightField">
+        <td align="left">
             <%--<asp:RadioButton runat="server" ID="rdoPickCustomer" Text="Pick Customer" AutoPostBack="true"
               Class="cmbField" GroupName="SelectCustomer" oncheckedchanged="rdoPickCustomer_CheckedChanged"/>--%>
             <asp:DropDownList ID="ddlOrderType" Style="vertical-align: middle" runat="server"
@@ -74,6 +75,22 @@
                 <asp:ListItem Value="MF" Text="Mutual Fund"></asp:ListItem>
                 <asp:ListItem Value="IN" Text="Life Insurance" Enabled="false"></asp:ListItem>
                 <asp:ListItem Value="FI" Text="FixedIncome" Enabled="false"></asp:ListItem>
+            </asp:DropDownList>
+        </td>
+        <td> <span></span></td>
+        <td align="right" >
+            <asp:Label ID="lblTransactionType" runat="server" Text="Transaction Type: " CssClass="FieldName"></asp:Label>
+        </td>
+        <td align="left">
+            <asp:DropDownList ID="ddlTrxType" runat="server" CssClass="cmbField">
+                <asp:ListItem Text="ALL" Value="ALL"></asp:ListItem>            
+                <asp:ListItem Text="New Purchase" Value="BUY"></asp:ListItem>
+                <asp:ListItem Text="Additional Purchase" Value="ABY"></asp:ListItem>
+                <asp:ListItem Text="Redemption" Value="Sel"></asp:ListItem>
+                <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
+                <asp:ListItem Text="SWP" Value="SWP"></asp:ListItem>
+                <asp:ListItem Text="STP" Value="STP"></asp:ListItem>
+                <asp:ListItem Text="Switch" Value="SWB"></asp:ListItem>
             </asp:DropDownList>
         </td>
     </tr>
@@ -126,51 +143,6 @@
             </asp:CompareValidator>
         </td>
     </tr>
-    <%-- <tr>
-        <td align="right">
-            <asp:Label ID="lblFrom" runat="server" Text=" Order From Date: " CssClass="FieldName"></asp:Label>
-        </td>
-        <td>
-            <asp:TextBox ID="txtFrom" runat="server" CssClass="txtField">
-            </asp:TextBox><span id="spnFromDate" class="spnRequiredField">*</span>
-            <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtFrom"
-                Format="dd/MM/yyyy">
-            </cc1:CalendarExtender>
-            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtFrom"
-                WatermarkText="dd/mm/yyyy">
-            </cc1:TextBoxWatermarkExtender>
-            <asp:RequiredFieldValidator ID="rvFromdate" ControlToValidate="txtFrom" CssClass="rfvPCG"
-                ErrorMessage="<br />Please select a  Date" Display="Dynamic" runat="server" InitialValue=""
-                ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
-            <asp:CompareValidator ID="CompareValidator1" runat="server" CssClass="rfvPCG" ControlToValidate="txtFrom"
-                Display="Dynamic" ErrorMessage="Invalid Date" ValidationGroup="MFSubmit" Operator="DataTypeCheck"
-                Type="Date">
-            </asp:CompareValidator>
-        </td>
-        <td align="right">
-            <asp:Label ID="lblTo" runat="server" Text="Order ToDate: " CssClass="FieldName"></asp:Label>
-        </td>
-        <td colspan="3">
-            <asp:TextBox ID="txtTo" runat="server" CssClass="txtField"></asp:TextBox>
-            <span id="spnToDate" class="spnRequiredField">*</span>
-            <cc1:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtTo"
-                Format="dd/MM/yyyy">
-            </cc1:CalendarExtender>
-            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtTo"
-                WatermarkText="dd/mm/yyyy">
-            </cc1:TextBoxWatermarkExtender>
-            <asp:RequiredFieldValidator ID="rvtoDate" ControlToValidate="txtTo" CssClass="rfvPCG"
-                ErrorMessage="<br />Please select a Date" Display="Dynamic" runat="server" InitialValue=""
-                ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
-            <asp:CompareValidator ID="CompareValidator2" runat="server" CssClass="rfvPCG" ControlToValidate="txtTo"
-                Display="Dynamic" ErrorMessage="Invalid Date" ValidationGroup="MFSubmit" Operator="DataTypeCheck"
-                Type="Date">
-            </asp:CompareValidator>
-            <asp:CompareValidator ID="cvtodate" runat="server" ErrorMessage="<br/>To Date should not less than From Date"
-                Type="Date" ControlToValidate="txtTo" ControlToCompare="txtFrom" Operator="GreaterThanEqual"
-                CssClass="cvPCG" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
-        </td>
-    </tr>--%>
     <tr id="trRMbranch" runat="server" visible="false">
         <td align="right">
             <asp:Label ID="lblBranch" runat="server" Text="Select The Branch: " CssClass="FieldName"></asp:Label>
@@ -248,32 +220,6 @@
         <td>
         </td>
     </tr>
-    <%--<td align="right">
-            <asp:Label ID="lblZonal" runat="server" Text="Zonal Manager: " CssClass="FieldName"></asp:Label>
-        </td>
-        <td>
-            <asp:DropDownList ID="ddlZonalHead" runat="server" CssClass="cmbField" AutoPostBack="true"
-                OnSelectedIndexChanged="ddlZonal_SelectedIndexChanged">
-                <asp:ListItem Text="All" Value="0"></asp:ListItem>
-            </asp:DropDownList>
-        </td>
-        <td align="right">
-            <asp:Label ID="lblCluster" runat="server" Text="Area Manager: " CssClass="FieldName"></asp:Label>
-        </td>
-        <td>
-            <asp:DropDownList ID="ddlClusterHead" runat="server" CssClass="cmbField">
-                <asp:ListItem Text="All" Value="0"></asp:ListItem>
-            </asp:DropDownList>
-        </td>
-        <td align="right">
-            <asp:Label ID="lblChannel" runat="server" Text="Channel Manager: " CssClass="FieldName"></asp:Label>
-        </td>
-        <td>
-            <asp:DropDownList ID="ddlChannelManager" runat="server" CssClass="cmbField">
-                <asp:ListItem Text="All" Value="0"></asp:ListItem>
-            </asp:DropDownList>
-        </td>--%>
-    <%-- </tr>--%>
     <tr>
         <td colspan="2" align="left">
         </td>
@@ -283,15 +229,6 @@
         </td>
     </tr>
     <tr>
-        <%-- <td colspan="2">
-           <asp:DropDownList ID="DropDownList1" Style="vertical-align: middle" runat="server"
-                CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlOrderType_SelectedIndexChanged">
-               <asp:ListItem Value="MF" Text="Mutual Fund"></asp:ListItem>
-                <asp:ListItem Value="SetTheme" Text="SetTheme"  ></asp:ListItem>
-               
-                 
-            </asp:DropDownList>
-        </td>--%>
         <td colspan="2" align="left">
             <asp:Button ID="btnGo" runat="server" Text="GO" CssClass="PCGButton" ValidationGroup="MFSubmit"
                 OnClick="btnGo_Click" />
@@ -324,7 +261,7 @@
                     OnNeedDataSource="gvOrderList_OnNeedDataSource" OnItemDataBound="gvOrderList_ItemDataBound">
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="OrderMIS">
                     </ExportSettings>
-                    <MasterTableView DataKeyNames="CO_OrderId,C_CustomerId,PAG_AssetGroupCode,CO_OrderDate,WMTT_TransactionType"
+                    <MasterTableView DataKeyNames="CO_OrderId,C_CustomerId,PAG_AssetGroupCode,CO_OrderDate,WMTT_TransactionType,WMTT_TransactionClassificationCode"
                         Width="102%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                         <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                             ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
@@ -339,26 +276,6 @@
                                     </asp:DropDownList>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                            <%-- <telerik:RadComboBox ID="ddlMenu" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged"
-                                        CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
-                                        AllowCustomText="true" Width="100px" AutoPostBack="true">
-                                        <Items>
-                                            <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="0" Selected="true" >
-                                            </telerik:RadComboBoxItem>
-                                            <telerik:RadComboBoxItem Text="View" Value="View" ImageUrl="~/Images/DetailedView.png"
-                                                runat="server"></telerik:RadComboBoxItem>
-                                            <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Edit" Value="Edit"
-                                                runat="server"></telerik:RadComboBoxItem>
-                                            <%--<telerik:RadComboBoxItem ImageUrl="~/Images/DeleteRecord.png" Text="Delete" Value="Delete"
-                                            runat="server"></telerik:RadComboBoxItem>--%>
-                            <%--  </Items>
-                                    </telerik:RadComboBox>
-                                </ItemTemplate>
-                            </telerik:GridTemplateColumn> --%>
-                            <%-- <telerik:GridButtonColumn ButtonType="LinkButton" CommandName="Redirect" UniqueName="CO_OrderId"
-                                HeaderText="Order No." DataTextField="CO_OrderId" FooterStyle-HorizontalAlign="Right">
-                                <ItemStyle HorizontalAlign="Right" />
-                            </telerik:GridButtonColumn>--%>
                             <telerik:GridBoundColumn DataField="CO_OrderId" AllowFiltering="true" HeaderText="Order No."
                                 UniqueName="CO_OrderId" SortExpression="CO_OrderId" ShowFilterIcon="false" CurrentFilterFunction="EqualTo"
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="85px" FilterControlWidth="50px">
@@ -491,6 +408,12 @@
                                 HeaderStyle-Width="80px" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="WMTT_TransactionClassificationCode" AllowFiltering="true"
+                                HeaderText="Transaction Code" UniqueName="WMTT_TransactionClassificationCode"
+                                SortExpression="WMTT_TransactionClassificationCode" ShowFilterIcon="false" HeaderStyle-Width="80px"
+                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="XS_Status" AllowFiltering="true" HeaderText="Order Status"
                                 HeaderStyle-Width="80px" UniqueName="XS_Status" SortExpression="XS_Status" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
@@ -553,50 +476,6 @@
                                 ShowFilterIcon="false" SortExpression="CO_Remarks">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <%--<telerik:GridBoundColumn DataField="IS_SchemeName" AllowFiltering="false" HeaderText="Scheme Name"
-                                UniqueName="IS_SchemeName">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="XII_InsuranceIssuerName" AllowFiltering="false"
-                                HeaderText="Issuer Name" UniqueName="XII_InsuranceIssuerName">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>--%>
-                            <%--<telerik:GridBoundColumn DataField="CO_ApplicationReceivedDate" DataFormatString="{0:dd/MM/yyyy}"
-                                AllowFiltering="false" HeaderText="Application Received Date" UniqueName="CO_ApplicationReceivedDate">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CIOD_PolicyMaturityDate" DataFormatString="{0:dd/MM/yyyy}"
-                                AllowFiltering="false" HeaderText="Maturity Date" UniqueName="CIOD_PolicyMaturityDate">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CO_PaymentDate" DataFormatString="{0:dd/MM/yyyy}"
-                                AllowFiltering="false" HeaderText="Payment Date" UniqueName="CO_PaymentDate">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="WOSR_SourceName" AllowFiltering="false" HeaderText="Source Type"
-                                UniqueName="WOSR_SourceName">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>--%>
-                            <%--<telerik:GridBoundColumn DataField="XPM_PaymentMode" AllowFiltering="false" HeaderText="Payment Mode"
-                                UniqueName="XPM_PaymentMode">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CO_ChequeNumber" AllowFiltering="false" HeaderText="Cheque Number"
-                                UniqueName="CO_ChequeNumber">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CB_BankName" AllowFiltering="false" HeaderText="Bank Name"
-                                UniqueName="CB_BankName">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CIOD_SumAssured" AllowFiltering="false" HeaderText="Sum Assured"
-                                UniqueName="CIOD_SumAssured">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="XF_Frequency" AllowFiltering="false" HeaderText="Frequency"
-                                UniqueName="XF_Frequency">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>--%>
                         </Columns>
                     </MasterTableView>
                     <ClientSettings>
