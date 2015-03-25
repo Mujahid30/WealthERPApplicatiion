@@ -903,7 +903,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "MF Commission MIS")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('Commissiondashboard','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorMISCommission','login');", true);
                 }
                 else if (e.Item.Value == "Equity MIS")
                 {
@@ -2170,7 +2170,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "MF Commission MIS")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('Commissiondashboard','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorMISCommission','login');", true);
                 }
                 else if (e.Item.Value == "Equity MIS")
                 {
@@ -3809,7 +3809,7 @@ namespace WealthERP.Advisor
 
                 else if (e.Item.Value == "MF Commission MIS")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('Commissiondashboard','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorMISCommission','login');", true);
                 }
                 else if (e.Item.Value == "MF systematic MIS")
                 {

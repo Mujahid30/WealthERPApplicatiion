@@ -549,31 +549,31 @@
                                 <telerik:GridBoundColumn HeaderText="Zone" HeaderTooltip="Zone" DataField="ZoneName"
                                     UniqueName="ZoneName" SortExpression="ZoneName" FooterText="Grand Total:" AllowFiltering="true"
                                     AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" ForeColor="Black" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn HeaderText="Cluster" HeaderTooltip="Cluster" DataField="ClusterName"
                                     UniqueName="ClusterName" SortExpression="ClusterName" AutoPostBackOnFilter="true"
                                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" ForeColor="Black" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn HeaderText="Branch" HeaderTooltip="Branch Name" DataField="BranchName"
                                     Aggregate="Count" FooterText="Row Count : " UniqueName="BranchName" SortExpression="BranchName"
                                     AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" ForeColor="Black" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn HeaderTooltip="Brokerage Amount" HeaderText="Brokerage Amount"
                                     DataField="Brokerage" HeaderStyle-HorizontalAlign="Right" UniqueName="Brokerage"
                                     SortExpression="Brokerage" AutoPostBackOnFilter="true" AllowFiltering="false"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
                                     Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
-                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" ForeColor="Black" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn HeaderTooltip="Trail Commission" HeaderText="Trail Commission"
                                     DataField="trailFee" HeaderStyle-HorizontalAlign="Right" UniqueName="trailFee"
                                     SortExpression="trailFee" AutoPostBackOnFilter="true" AllowFiltering="false"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
                                     Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
-                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" ForeColor="Black"/>
                                 </telerik:GridBoundColumn>
                             </Columns>
                         </MasterTableView>

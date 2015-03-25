@@ -61,7 +61,7 @@ namespace WealthERP.Receivable
 
                 if (structureId != 0)
                 {
-
+                    ddlProductType.SelectedValue = Request.QueryString["ProductType"].ToString();
                     BindAllDropdown();
                     LoadStructureDetails(structureId);
                     BindCommissionStructureRuleGrid(structureId);
@@ -2313,7 +2313,7 @@ namespace WealthERP.Receivable
                     trTransactionTypeSipFreq.Visible = !enablement;
                     trMinMaxTenure.Visible = !enablement;
 
-                    trMinAndMaxNumberOfApplication.Visible = !enablement;
+                    trMinAndMaxNumberOfApplication.Visible = false;
                     chkListTtansactionType.Visible = enablement;
                     lblTransactionType.Visible = !enablement;
                     ddlTransaction.Visible = !enablement;
@@ -2340,6 +2340,8 @@ namespace WealthERP.Receivable
                     ddlCommisionCalOn.Items[0].Enabled = true;
                     ddlCommisionCalOn.SelectedValue = "AGAM";
                     ddlCommisionCalOn.Enabled = false;
+                    tdApplicationNo.Visible = false;
+                    tdlblApplicationNo.Visible = false;
                     foreach (ListItem chkItems in chkListTtansactionType.Items)
                     {
 
@@ -3275,6 +3277,8 @@ namespace WealthERP.Receivable
                 tdlblSerise.Visible = false;
                 chkCategory.Visible = false;
                 chkSeries.Visible = false;
+                tdlblApplicationNo.Visible = false;
+                tdApplicationNo.Visible = false;
             }
             lblInvestorType1.Visible = flag;
             lblAppCityGroup.Visible = flag;
@@ -3285,8 +3289,7 @@ namespace WealthERP.Receivable
             trTransactionTypeSipFreq.Visible = flag;
             trMinMaxTenure.Visible = flag;
             trMinMaxAge.Visible = flag;
-            tdlblApplicationNo.Visible = flag;
-            tdApplicationNo.Visible = flag;
+            
             //trTransaction.Visible = flag;
 
 

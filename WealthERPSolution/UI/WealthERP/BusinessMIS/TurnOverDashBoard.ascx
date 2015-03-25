@@ -41,7 +41,7 @@
                                                 </asp:LinkButton>
                                             </div>
                                         </asp:TableCell>
-                                    <asp:TableCell id="td2" runat="server" align="center">
+                                    <asp:TableCell id="td2" runat="server" align="center" Visible="false">
                                         <div class="divRectangleLinks" onmouseout="this.className='divRectangleLinks'" onmouseover="this.className='divRectangleMouseOverLinks'">
                                             <asp:LinkButton ID="lnkTurnoverTreeNode2" Font-Underline="false" CssClass="LinkTextBig"
                                                 Text='<%# Eval("TreeNodeText2").ToString() %>' runat="server" CommandName="Tree_Navi_Row2"
