@@ -140,8 +140,7 @@
                                     <asp:Button ID="btnSignIn" runat="server" Text="Login" OnClick="btnSignIn_Click"
                                         CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_Userlogin_btnSignIn', 'S');"
                                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_Userlogin_btnSignIn', 'S');" />
-                                </td>
-                                <td align="left">
+                               &nbsp;&nbsp;
                                     <asp:LinkButton ID="lnkForgetPassword" runat="server" CssClass="LinkButtons" Text="Forget Password?" OnClick="lnkForgetPassword_OnClick"
                                         CausesValidation="false"></asp:LinkButton>
                                 </td>
@@ -163,6 +162,7 @@
                             </tr>
                             <tr id="Tr1" runat="server" visible="false">
                                 <td colspan="2" align="right">
+                                <td></td>
                                     <span class="FieldName">Forgot Password?
                                         <asp:LinkButton ID="lnkForgotPassword" runat="server" OnClick="ForgotPassword_Click">Click Here</asp:LinkButton>
                                     </span>
