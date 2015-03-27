@@ -88,6 +88,54 @@ namespace WealthERP.Advisor
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrderentry", "loadcontrol('MFOrderEntry','login');", true);
 
         }
+        public void ImageNCDORder_OnClick(object sender, EventArgs e)
+        {
+            Session["NodeType"] = "MFOrderEntry";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrderentry", "loadcontrol('NCDIssueTransactOffline','login');", true);
+
+        }
+        public void lnkNCDOrder_OnClick(object sender, EventArgs e)
+        {
+            Session["NodeType"] = "MFOrderEntry";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrderentry", "loadcontrol('NCDIssueTransactOffline','login');", true);
+
+        }
+        public void imgIPOOrder_OnClick(object sender, EventArgs e)
+        {
+            Session["NodeType"] = "MFOrderEntry";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrderentry", "loadcontrol('IPOIssueTransactOffline','login');", true);
+
+        }
+        public void lnkIPOOrder_OnClick(object sender, EventArgs e)
+        {
+            Session["NodeType"] = "MFOrderEntry";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrderentry", "loadcontrol('IPOIssueTransactOffline','login');", true);
+
+        }
+        public void Img54ECEntry_OnClick(object sender, EventArgs e)
+        {
+            Session["NodeType"] = "MFOrderEntry";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrderentry", "loadcontrol('FixedIncome54ECOrderBook','login');", true);
+
+        }
+        public void lnk54ECOrder_OnClick(object sender, EventArgs e)
+        {
+            Session["NodeType"] = "MFOrderEntry";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrderentry", "loadcontrol('FixedIncome54ECOrderBook','login');", true);
+
+        }
         public void imgbtnFPClients_OnClick(object sender, EventArgs e)
         {
             Session["NodeType"] = "AddProspectList";

@@ -25,7 +25,7 @@ namespace VoUser
         private string m_PanNo;
         public string[] PermisionList { get; set; } 
         public string[] RoleList { get; set; }
-       
+        public int rmid { get; set; }
         public Dictionary<Int16,string> AdviserRole { get; set; } 
 
         public int IsTempPassword

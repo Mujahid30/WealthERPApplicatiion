@@ -106,6 +106,7 @@ namespace DaoUser
                      userVo.Email = dr["U_Email"].ToString();
                      userVo.Pan=dr["AA_PAN"].ToString();
                      userVo.UserId = int.Parse(dr["U_UserId"].ToString());
+                     userVo.rmid = int.Parse(dr["AR_RMId"].ToString());
                  }
                 //  if (getUserDs.Tables[1].Rows.Count > 0)
                 //{

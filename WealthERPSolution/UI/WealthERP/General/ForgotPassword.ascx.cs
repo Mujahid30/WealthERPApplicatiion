@@ -126,7 +126,7 @@ namespace WealthERP.General
                 email.To.Add(userVo.Email);
 
                 AdviserStaffSMTPBo adviserStaffSMTPBo = new AdviserStaffSMTPBo();
-                int rmId = Convert.ToInt32(ViewState["rmId"]);
+                int rmId = userVo.rmid;
                 AdviserStaffSMTPVo adviserStaffSMTPVo = adviserStaffSMTPBo.GetSMTPCredentials(rmId);
                 if (adviserStaffSMTPVo.HostServer != null && adviserStaffSMTPVo.HostServer != string.Empty)
                 {
@@ -168,11 +168,7 @@ namespace WealthERP.General
                     txtLoginId.Text = "";
                     txtEmail.Text = "";
                     TxtPan.Text = "";
-           
-                                  
                 }
-              //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "UserLogin", "loadcontrol('UserLogin');", true);
-
             }
             else
             {
@@ -184,7 +180,6 @@ namespace WealthERP.General
                 txtLoginId.Text = "";
                 txtEmail.Text = "";
                 TxtPan.Text = "";
-
             }
             //if (isSuccess)
             //{
