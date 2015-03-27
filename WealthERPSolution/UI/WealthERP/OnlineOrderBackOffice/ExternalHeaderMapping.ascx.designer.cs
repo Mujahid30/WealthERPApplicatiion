@@ -91,5 +91,6 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::Telerik.Web.UI.RadGrid gvHeaderMappingDetails;
         protected global::System.Web.UI.WebControls.DropDownList ddlXMLHeaderName;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblRTA;
+        protected global::System.Web.UI.WebControls.HiddenField hdnPrevEHName;
     }
 }

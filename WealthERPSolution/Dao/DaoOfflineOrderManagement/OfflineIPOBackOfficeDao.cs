@@ -184,7 +184,7 @@ namespace DaoOfflineOrderManagement
             }
             return dsHeaderMapping;
         }
-        public int CreateUpdateExternalHeader(string externalHeader, int XMLHeaderId, string rtaType)
+        public int CreateUpdateExternalHeader(string externalHeader, int XMLHeaderId, string rtaType, string ecommand,string prevEHname)
         {
 
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -200,6 +200,8 @@ namespace DaoOfflineOrderManagement
                     db.AddInParameter(createCmd, "@RTAType", DbType.String, rtaType);
                 else
                     db.AddInParameter(createCmd, "@RTAType", DbType.String, DBNull.Value);
+                db.AddInParameter(createCmd, "@CommandType", DbType.String, ecommand);
+                db.AddInParameter(createCmd, "@PrevExternalHeader", DbType.String, prevEHname);
                 if (db.ExecuteNonQuery(createCmd) != 0)
                 {
                     return XMLHeaderId;

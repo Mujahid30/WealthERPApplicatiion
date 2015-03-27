@@ -92,7 +92,21 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (Cache[userVo.UserId.ToString() + "Requests"] != null)
                     Cache.Remove(userVo.UserId.ToString() + "Requests");
                 Cache.Insert(userVo.UserId.ToString() + "Requests", dtType);
-
+                if (ddlType.SelectedValue == "8")
+                {
+                    rgRequests.MasterTableView.GetColumn("Cutomercreated").Visible = true;
+                    rgRequests.MasterTableView.GetColumn("FolioCreated").Visible = true;
+                    rgRequests.MasterTableView.GetColumn("TransactionCreated").Visible = false;
+                    rgRequests.MasterTableView.GetColumn("RejectReseaon").Visible = true;
+                }
+                else
+                    if (ddlType.SelectedValue == "9")
+                    {
+                        rgRequests.MasterTableView.GetColumn("Cutomercreated").Visible = true;
+                        rgRequests.MasterTableView.GetColumn("FolioCreated").Visible = true;
+                        rgRequests.MasterTableView.GetColumn("TransactionCreated").Visible = true;
+                        rgRequests.MasterTableView.GetColumn("RejectReseaon").Visible = true;
+                    }
             }
             catch (BaseApplicationException Ex)
             {

@@ -215,10 +215,13 @@
                                 AllowFilteringByColumn="true" AllowAutomaticInserts="false">
                                 <ExportSettings HideStructureColumns="true">
                                 </ExportSettings>
-                                <MasterTableView DataKeyNames="WUXHM_XMLHeaderId" Width="100%" AllowMultiColumnSorting="True"
+                                <MasterTableView DataKeyNames="WUXHM_XMLHeaderId,WEHXHM_ExternalHeaderName" Width="100%" AllowMultiColumnSorting="True"
                                     AutoGenerateColumns="false" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Add External Header"
                                     CommandItemDisplay="Top">
                                     <Columns>
+                                        <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
+                                            UpdateText="Update">
+                                        </telerik:GridEditCommandColumn>
                                         <%-- <telerik:GridTemplateColumn AllowFiltering="false">
                                             <HeaderTemplate>
                                                 <asp:LinkButton ID="AllDetailslink" runat="server" CommandName="ExpandAllCollapse"
@@ -252,16 +255,21 @@
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn SortExpression="XMLHeaderName" HeaderText="XML Header Name"
                                             HeaderButtonType="TextButton" UniqueName="WUXHM_XMLHeaderName" DataField="WUXHM_XMLHeaderName"
-                                            AllowFiltering="true" HeaderStyle-Width="90px" FilterControlWidth="70px" CurrentFilterFunction="Contains"
+                                            AllowFiltering="true" HeaderStyle-Width="90px" FilterControlWidth="70px" CurrentFilterFunction="EqualTo"
                                             ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                             <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn SortExpression="ExternalHeaderName" HeaderText="External Header Name"
                                             HeaderButtonType="TextButton" UniqueName="WEHXHM_ExternalHeaderName" DataField="WEHXHM_ExternalHeaderName"
-                                            AllowFiltering="true" HeaderStyle-Width="90px" FilterControlWidth="70px" CurrentFilterFunction="Contains"
+                                            AllowFiltering="true" HeaderStyle-Width="90px" FilterControlWidth="70px" CurrentFilterFunction="EqualTo"
                                             ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                             <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                         </telerik:GridBoundColumn>
+                                        <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
+                                            ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                                            Text="Delete">
+                                            <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                                        </telerik:GridButtonColumn>
                                     </Columns>
                                     <EditFormSettings EditFormType="Template" PopUpSettings-Height="200px" PopUpSettings-Width="400px">
                                         <FormTemplate>
@@ -341,3 +349,4 @@
         </tr>
     </table>
 </asp:Panel>
+<asp:HiddenField ID="hdnPrevEHName" runat="server" />

@@ -183,6 +183,26 @@
                                             UniqueName="Success" FooterStyle-HorizontalAlign="Left">
                                             <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="Cutomercreated" HeaderText="No of Customer Created"
+                                            SortExpression="Cutomercreated" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            AutoPostBackOnFilter="true" UniqueName="Cutomercreated" FooterStyle-HorizontalAlign="Left" Visible="false">
+                                            <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="FolioCreated" HeaderText="No of Folio Created"
+                                            SortExpression="FolioCreated" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            AutoPostBackOnFilter="true" UniqueName="FolioCreated" FooterStyle-HorizontalAlign="Left" Visible="false">
+                                            <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="TransactionCreated" HeaderText="No of Transaction Created"
+                                            SortExpression="TransactionCreated" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            AutoPostBackOnFilter="true" UniqueName="TransactionCreated" FooterStyle-HorizontalAlign="Left" Visible="false">
+                                            <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="RejectReseaon" HeaderText="External Header Mapping Message"
+                                            SortExpression="RejectReseaon" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            AutoPostBackOnFilter="true" UniqueName="RejectReseaon" FooterStyle-HorizontalAlign="Left" Visible="false">
+                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
                                         <telerik:GridTemplateColumn AllowFiltering="false">
                                             <ItemTemplate>
                                                 <tr>

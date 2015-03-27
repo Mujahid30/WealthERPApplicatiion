@@ -47,6 +47,15 @@ namespace WealthERP.OnlineOrderBackOffice
                     Cache.Remove("HeaderMapping" + userVo.UserId.ToString());
                     Cache.Insert("HeaderMapping" + userVo.UserId.ToString(), dtHeaderMapping);
                 }
+                if (Cache["HeaderMapping1" + userVo.UserId.ToString()] == null)
+                {
+                    Cache.Insert("HeaderMapping1" + userVo.UserId.ToString(), dtHeaderMapping);
+                }
+                else
+                {
+                    Cache.Remove("HeaderMapping1" + userVo.UserId.ToString());
+                    Cache.Insert("HeaderMapping1" + userVo.UserId.ToString(), dtHeaderMapping);
+                }
                 gvHeaderMapping.DataSource = dsHeaderMapping;
                 gvHeaderMapping.DataBind();
                 pnlGrid.Visible = true;
@@ -154,38 +163,80 @@ namespace WealthERP.OnlineOrderBackOffice
         //}
         protected void gvHeaderMapping_ItemCommand(object source, GridCommandEventArgs e)
         {
-
+            string ecommand = null;
             if (e.CommandName == "PerformInsert")
             {
+                ecommand = "IN";
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
                 RadGrid gvHeaderMapping = (RadGrid)e.Item.FindControl("gvHeaderMapping");
                 DropDownList ddlXMLHeaderName = (DropDownList)e.Item.FindControl("ddlXMLHeaderName");
                 int XMLHeaderId = Convert.ToInt32(ddlXMLHeaderName.SelectedValue);
                 TextBox txtExHeader = (TextBox)e.Item.FindControl("txtExHeader");
-                OfflineIPOBackOfficeBo.CreateUpdateExternalHeader(txtExHeader.Text, XMLHeaderId, ddlRTA.SelectedValue);
+                OfflineIPOBackOfficeBo.CreateUpdateExternalHeader(txtExHeader.Text.TrimEnd(), XMLHeaderId, ddlRTA.SelectedValue, ecommand, "");
                 Response.Write(@"<script language='javascript'>alert('External Header " + txtExHeader.Text + " Added  successfully');</script>");
 
             }
-            else if (e.CommandName == RadGrid.UpdateCommandName)
+            if (e.CommandName == RadGrid.UpdateCommandName)
             {
+                ecommand = "UP";
+                GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
+                RadGrid gvHeaderMapping = (RadGrid)e.Item.FindControl("gvHeaderMapping");
+                DropDownList ddlXMLHeaderName = (DropDownList)e.Item.FindControl("ddlXMLHeaderName");
+                int XMLHeaderId = Convert.ToInt32(ddlXMLHeaderName.SelectedValue);
+                TextBox txtExHeader = (TextBox)e.Item.FindControl("txtExHeader");
+                OfflineIPOBackOfficeBo.CreateUpdateExternalHeader(txtExHeader.Text.TrimEnd(), XMLHeaderId, ddlRTA.SelectedValue, ecommand, hdnPrevEHName.Value);
+                Response.Write(@"<script language='javascript'>alert('External Header " + txtExHeader.Text + "Updated successfully');</script>");
 
+            }
+            if (e.CommandName == RadGrid.DeleteCommandName)
+            {
+                ecommand = "DLT";
+                GridDataItem dataItem = (GridDataItem)e.Item;
+                TableCell headerId = dataItem["WUXHM_XMLHeaderId"];
+                TableCell externalHeader = dataItem["WEHXHM_ExternalHeaderName"];
+                GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
+                RadGrid gvHeaderMapping = (RadGrid)e.Item.FindControl("gvHeaderMapping");
+                int XMLHeaderId = int.Parse(headerId.Text);
+              string   txtExHeader= externalHeader.Text;
+              OfflineIPOBackOfficeBo.CreateUpdateExternalHeader(txtExHeader.ToString().TrimEnd(),XMLHeaderId, ddlRTA.SelectedValue, ecommand, hdnPrevEHName.Value);
+                Response.Write(@"<script language='javascript'>alert('External Header " + txtExHeader  + "Deleted successfully');</script>");
             }
             BindHeaderMapping();
         }
         protected void gvHeaderMapping_ItemDataBound(object sender, GridItemEventArgs e)
         {
             DropDownList ddlXMLHeaderName = (DropDownList)e.Item.FindControl("ddlXMLHeaderName");
-            DataSet dsXmlHeader;
             if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
             {
-
-                dsXmlHeader = OfflineIPOBackOfficeBo.GetHeaderMapping(Convert.ToInt32(ddlMappingType.SelectedValue), ddlRTA.SelectedValue);
-
-                ddlXMLHeaderName.DataSource = dsXmlHeader.Tables[0];
+               DataTable dtHeaderMapping1 = (DataTable)Cache["HeaderMapping1" + userVo.UserId.ToString()];
+               ddlXMLHeaderName.DataSource = dtHeaderMapping1.DefaultView.ToTable(true, new string[] { "WUXHM_XMLHeaderId", "WUXHM_XMLHeaderName" });
                 ddlXMLHeaderName.DataValueField = "WUXHM_XMLHeaderId";
                 ddlXMLHeaderName.DataTextField = "WUXHM_XMLHeaderName";
                 ddlXMLHeaderName.DataBind();
                 ddlXMLHeaderName.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
+            }
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataItem = e.Item as GridDataItem;
+                LinkButton buttonEdit = dataItem["editColumn"].Controls[0] as LinkButton;
+                LinkButton buttonDelete = dataItem["deleteColumn"].Controls[0] as LinkButton; 
+            }
+
+            if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)
+            {
+                DataTable dtHeaderMapping1 = (DataTable)Cache["HeaderMapping1" + userVo.UserId.ToString()];
+                ddlXMLHeaderName.DataSource = dtHeaderMapping1.DefaultView.ToTable(true, new string[] { "WUXHM_XMLHeaderId", "WUXHM_XMLHeaderName" });
+                ddlXMLHeaderName.DataValueField = "WUXHM_XMLHeaderId";
+                ddlXMLHeaderName.DataTextField = "WUXHM_XMLHeaderName";
+                ddlXMLHeaderName.DataBind();
+                ddlXMLHeaderName.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
+                string strExtType = gvHeaderMapping.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WUXHM_XMLHeaderId"].ToString();
+                string strExtType1 = gvHeaderMapping.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WEHXHM_ExternalHeaderName"].ToString();
+                GridEditFormItem editedItem = (GridEditFormItem)e.Item;
+                TextBox txtExHeader = (TextBox)editedItem.FindControl("txtExHeader");
+                ddlXMLHeaderName.SelectedValue = strExtType;
+                txtExHeader.Text = strExtType1;
+                hdnPrevEHName.Value = strExtType1;
             }
         }
         //protected void gvHeaderMapping_DetailTableDataBind(object source, Telerik.Web.UI.GridDetailTableDataBindEventArgs e)
