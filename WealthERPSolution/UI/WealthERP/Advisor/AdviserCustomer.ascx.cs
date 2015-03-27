@@ -104,7 +104,7 @@ namespace WealthERP.Advisor
             {
                 txtCustomerName_autoCompleteExtender.ContextKey = rbtnReg + "/" + adviserVo.advisorId.ToString();
                 txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserAllCustomerName";
-                txtPansearch_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
+                txtPansearch_autoCompleteExtender.ContextKey = rbtnReg + "/" + adviserVo.advisorId.ToString();
                 txtPansearch_autoCompleteExtender.ServiceMethod = "GetAdviserAllCustomerPan";
                 txtClientCode_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
                 txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
@@ -138,12 +138,15 @@ namespace WealthERP.Advisor
                 AgentId = associatesVo.AAC_AdviserAgentId;
                 branchHeadId = rmVo.RMId;
                 assocUsrHeirVo = (AssociatesUserHeirarchyVo)Session["associatesUserHeirarchyVo"];
+                rbtnRegister.Visible = false;
+                    //rbtnNonRegister.Checked = true;
+
                 // assocUsrHeirVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
                 AgentCode = assocUsrHeirVo.AgentCode;
                 ddlCOption.Items[3].Enabled = false;
                 ddlCOption.Items[0].Enabled = false;
-                ddlCOption.Items[1].Enabled = false;
-                ddlCOption.Items[2].Enabled = false;
+                //ddlCOption.Items[1].Enabled = false;
+                //ddlCOption.Items[2].Enabled = false;
                 ddlCOption.Items[4].Enabled = false;
                 ddlCOption.Items[5].Enabled = false;
 

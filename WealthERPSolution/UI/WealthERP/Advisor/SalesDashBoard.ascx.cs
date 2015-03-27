@@ -125,7 +125,7 @@ namespace WealthERP.Advisor
             Session["NodeType"] = "MFOrderEntry";
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
 
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrderentry", "loadcontrol('FixedIncome54ECOrderBook','login');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrderentry", "loadcontrol('FixedIncome54ECOrderEntry','login');", true);
 
         }
         public void lnk54ECOrder_OnClick(object sender, EventArgs e)
@@ -133,7 +133,7 @@ namespace WealthERP.Advisor
             Session["NodeType"] = "MFOrderEntry";
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
 
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrderentry", "loadcontrol('FixedIncome54ECOrderBook','login');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrderentry", "loadcontrol('FixedIncome54ECOrderEntry','login');", true);
 
         }
         public void imgbtnFPClients_OnClick(object sender, EventArgs e)
