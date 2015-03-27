@@ -141,7 +141,7 @@
                                         CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_Userlogin_btnSignIn', 'S');"
                                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_Userlogin_btnSignIn', 'S');" />
                                &nbsp;&nbsp;
-                                    <asp:LinkButton ID="lnkForgetPassword" runat="server" CssClass="LinkButtons" Text="Forget Password?" OnClick="lnkForgetPassword_OnClick"
+                                    <asp:LinkButton ID="lnkForgetPassword" runat="server" CssClass="LinkButtons" Text="Forgot Password?" OnClick="lnkForgetPassword_OnClick"
                                         CausesValidation="false"></asp:LinkButton>
                                 </td>
                             </tr>
