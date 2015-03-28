@@ -93,14 +93,14 @@ namespace BoOfflineOrderManagement
             }
             return dsHeaderMapping;
         }
-        public int CreateUpdateExternalHeader(string externalHeader, int XMLHeaderId, string rtaType, string ecommand,string prevEHname)
+        public int CreateUpdateExternalHeader(string externalHeader, int XMLHeaderId, string rtaType, string ecommand, string prevEHname, int externalHeaderId)
         {
 
             OfflineIPOBackOfficeDao OfflineIPOBackOfficeDao = new OfflineIPOBackOfficeDao();
 
             try
             {
-                return OfflineIPOBackOfficeDao.CreateUpdateExternalHeader(externalHeader, XMLHeaderId, rtaType, ecommand, prevEHname);
+                return OfflineIPOBackOfficeDao.CreateUpdateExternalHeader(externalHeader, XMLHeaderId, rtaType, ecommand, prevEHname, externalHeaderId);
             }
             catch (BaseApplicationException Ex)
             {

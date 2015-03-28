@@ -215,7 +215,7 @@
                                 AllowFilteringByColumn="true" AllowAutomaticInserts="false">
                                 <ExportSettings HideStructureColumns="true">
                                 </ExportSettings>
-                                <MasterTableView DataKeyNames="WUXHM_XMLHeaderId,WEHXHM_ExternalHeaderName" Width="100%" AllowMultiColumnSorting="True"
+                                <MasterTableView DataKeyNames="WUXHM_XMLHeaderId,WEHXHM_ExternalHeaderName,WEHXHM_Id" Width="100%" AllowMultiColumnSorting="True"
                                     AutoGenerateColumns="false" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Add External Header"
                                     CommandItemDisplay="Top">
                                     <Columns>
@@ -241,19 +241,19 @@
                                                     Font-Bold="false" UniqueName="ViewDetailslink" Text="View" Visible="false"></asp:LinkButton>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>--%>
-                                        <telerik:GridBoundColumn SortExpression="WUXFT_XMLFileTypeId" HeaderText="XML File TypeId"
+                                        <telerik:GridBoundColumn SortExpression="WUXFT_XMLFileTypeId" HeaderText="Internal File Type Id"
                                             HeaderButtonType="TextButton" ShowFilterIcon="false" DataField="WUXFT_XMLFileTypeId"
                                             Visible="true" AllowFiltering="true" HeaderStyle-Width="90px" FilterControlWidth="70px"
                                             CurrentFilterFunction="EqualTo" AutoPostBackOnFilter="true">
                                             <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn SortExpression="WUXHM_XMLHeaderId" HeaderText="XMLHeader Id"
+                                        <telerik:GridBoundColumn SortExpression="WUXHM_XMLHeaderId" HeaderText="Internal Header Id"
                                             HeaderButtonType="TextButton" DataField="WUXHM_XMLHeaderId" Visible="true" AllowFiltering="true"
                                             HeaderStyle-Width="90px" FilterControlWidth="70px" CurrentFilterFunction="EqualTo"
                                             ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                             <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn SortExpression="XMLHeaderName" HeaderText="XML Header Name"
+                                        <telerik:GridBoundColumn SortExpression="XMLHeaderName" HeaderText="Internal Header Name"
                                             HeaderButtonType="TextButton" UniqueName="WUXHM_XMLHeaderName" DataField="WUXHM_XMLHeaderName"
                                             AllowFiltering="true" HeaderStyle-Width="90px" FilterControlWidth="70px" CurrentFilterFunction="EqualTo"
                                             ShowFilterIcon="false" AutoPostBackOnFilter="true">
