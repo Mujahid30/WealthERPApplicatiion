@@ -4970,13 +4970,13 @@ namespace BoUploads
             }
             return dsReqRej;
         }
-        public bool UpdateRequestRejects(string clientCode, int Id, int tableNo, string city, string state, string pincode, string mobileno, string occupation, string accounttype, string bankname, string personalstatus, string address1, string address2, string address3, string country, string officePhoneNo, string officeExtensionNo, string officeFaxNo, string homePhoneNo, string homeFaxNo, string annualIncome, string pan1, string pan2, string pan3, string emailId, string transactionType, string transactionNature, string transactionHead, string transactionDescription)
+        public bool UpdateRequestRejects(string clientCode, int Id, int tableNo, string city, string state, string pincode, string mobileno, string occupation, string accounttype, string bankname, string personalstatus, string address1, string address2, string address3, string country, string officePhoneNo, string officeExtensionNo, string officeFaxNo, string homePhoneNo, string homeFaxNo, string annualIncome, string pan1, string pan2, string pan3, string emailId, string transactionType, string transactionNature, string transactionHead, string transactionDescription, string productCode)
         {
             bool result = false;
             UploadsCommonDao uploadDAO = new UploadsCommonDao();
             try
             {
-                result = uploadDAO.UpdateRequestRejects(clientCode, Id, tableNo, city, state, pincode, mobileno, occupation, accounttype, bankname, personalstatus, address1, address2, address3, country, officePhoneNo, officeExtensionNo, officeFaxNo, homePhoneNo, homeFaxNo, annualIncome, pan1, pan2, pan3, emailId, transactionType, transactionNature, transactionHead, transactionDescription);
+                result = uploadDAO.UpdateRequestRejects(clientCode, Id, tableNo, city, state, pincode, mobileno, occupation, accounttype, bankname, personalstatus, address1, address2, address3, country, officePhoneNo, officeExtensionNo, officeFaxNo, homePhoneNo, homeFaxNo, annualIncome, pan1, pan2, pan3, emailId, transactionType, transactionNature, transactionHead, transactionDescription,productCode);
             }
             catch (BaseApplicationException Ex)
             {

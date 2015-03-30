@@ -165,18 +165,18 @@ namespace WealthERP.OnlineOrderBackOffice
         //}
         protected void gvHeaderMapping_ItemCommand(object source, GridCommandEventArgs e)
         {
-            DataTable dt=(DataTable)Cache["HeaderMapping" + userVo.UserId.ToString()];
+            DataTable dt = (DataTable)Cache["HeaderMapping" + userVo.UserId.ToString()];
             string ecommand = null;
             if (e.CommandName == "PerformInsert")
             {
-                
+
                 ecommand = "IN";
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
                 RadGrid gvHeaderMapping = (RadGrid)e.Item.FindControl("gvHeaderMapping");
                 DropDownList ddlXMLHeaderName = (DropDownList)e.Item.FindControl("ddlXMLHeaderName");
                 int XMLHeaderId = Convert.ToInt32(ddlXMLHeaderName.SelectedValue);
                 TextBox txtExHeader = (TextBox)e.Item.FindControl("txtExHeader");
-                if (dt.Select("WEHXHM_ExternalHeaderName='" + txtExHeader.Text+"'").LongLength > 0)
+                if (dt.Select("WEHXHM_ExternalHeaderName='" + txtExHeader.Text + "'").LongLength > 0)
                 {
                     Response.Write(@"<script language='javascript'>alert('External Header " + txtExHeader.Text + " Exist');</script>");
                 }
@@ -185,7 +185,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     OfflineIPOBackOfficeBo.CreateUpdateExternalHeader(txtExHeader.Text.TrimEnd(), XMLHeaderId, ddlRTA.SelectedValue, ecommand, "", 0);
                     Response.Write(@"<script language='javascript'>alert('External Header " + txtExHeader.Text + " Added  successfully');</script>");
                 }
-               
+
 
             }
             if (e.CommandName == RadGrid.UpdateCommandName)
@@ -197,10 +197,13 @@ namespace WealthERP.OnlineOrderBackOffice
                 int XMLHeaderId = Convert.ToInt32(ddlXMLHeaderName.SelectedValue);
                 TextBox txtExHeader = (TextBox)e.Item.FindControl("txtExHeader");
                 int externalHeaderId = Convert.ToInt32(gvHeaderMapping.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WEHXHM_Id"].ToString());
-                if (dt.Select("WEHXHM_ExternalHeaderName='" + txtExHeader.Text+"'").LongLength > 0)
+                 string externalHeaderName = gvHeaderMapping.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WEHXHM_ExternalHeaderName"].ToString();
+                if (dt.Select("WEHXHM_ExternalHeaderName='" + txtExHeader.Text + "'").LongLength > 0 && txtExHeader.Text.TrimEnd()!=externalHeaderName)
                 {
-                    Response.Write(@"<script language='javascript'>alert('External Header " + txtExHeader.Text + " Exist');</script>");
+
+                        Response.Write(@"<script language='javascript'>alert('External Header " + txtExHeader.Text + " Exist');</script>");
                 }
+
                 else
                 {
                     OfflineIPOBackOfficeBo.CreateUpdateExternalHeader(txtExHeader.Text.TrimEnd(), XMLHeaderId, ddlRTA.SelectedValue, ecommand, hdnPrevEHName.Value, externalHeaderId);
@@ -215,12 +218,12 @@ namespace WealthERP.OnlineOrderBackOffice
                 TableCell headerId = dataItem["WUXHM_XMLHeaderId"];
                 TableCell externalHeader = dataItem["WEHXHM_ExternalHeaderName"];
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
-                
+
                 int XMLHeaderId = int.Parse(headerId.Text);
-              string   txtExHeader= externalHeader.Text;
-              int externalHeaderId = Convert.ToInt32(gvHeaderMapping.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WEHXHM_Id"].ToString());
-              OfflineIPOBackOfficeBo.CreateUpdateExternalHeader(txtExHeader.ToString().TrimEnd(), XMLHeaderId, ddlRTA.SelectedValue, ecommand, hdnPrevEHName.Value, externalHeaderId);
-                Response.Write(@"<script language='javascript'>alert('External Header " + txtExHeader  + "Deleted successfully');</script>");
+                string txtExHeader = externalHeader.Text;
+                int externalHeaderId = Convert.ToInt32(gvHeaderMapping.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WEHXHM_Id"].ToString());
+                OfflineIPOBackOfficeBo.CreateUpdateExternalHeader(txtExHeader.ToString().TrimEnd(), XMLHeaderId, ddlRTA.SelectedValue, ecommand, hdnPrevEHName.Value, externalHeaderId);
+                Response.Write(@"<script language='javascript'>alert('External Header " + txtExHeader + "Deleted successfully');</script>");
             }
             BindHeaderMapping();
         }
@@ -229,8 +232,8 @@ namespace WealthERP.OnlineOrderBackOffice
             DropDownList ddlXMLHeaderName = (DropDownList)e.Item.FindControl("ddlXMLHeaderName");
             if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
             {
-               DataTable dtHeaderMapping1 = (DataTable)Cache["HeaderMapping1" + userVo.UserId.ToString()];
-               ddlXMLHeaderName.DataSource = dtHeaderMapping1.DefaultView.ToTable(true, new string[] { "WUXHM_XMLHeaderId", "WUXHM_XMLHeaderName" });
+                DataTable dtHeaderMapping1 = (DataTable)Cache["HeaderMapping1" + userVo.UserId.ToString()];
+                ddlXMLHeaderName.DataSource = dtHeaderMapping1.DefaultView.ToTable(true, new string[] { "WUXHM_XMLHeaderId", "WUXHM_XMLHeaderName" });
                 ddlXMLHeaderName.DataValueField = "WUXHM_XMLHeaderId";
                 ddlXMLHeaderName.DataTextField = "WUXHM_XMLHeaderName";
                 ddlXMLHeaderName.DataBind();
@@ -240,13 +243,13 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 GridDataItem dataItem = e.Item as GridDataItem;
                 LinkButton buttonEdit = dataItem["editColumn"].Controls[0] as LinkButton;
-                LinkButton buttonDelete = dataItem["deleteColumn"].Controls[0] as LinkButton; 
+                LinkButton buttonDelete = dataItem["deleteColumn"].Controls[0] as LinkButton;
             }
 
             if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)
             {
                 DataTable dtHeaderMapping1 = (DataTable)Cache["HeaderMapping1" + userVo.UserId.ToString()];
-                ddlXMLHeaderName.DataSource = dtHeaderMapping1.DefaultView.ToTable(true, new string[] {"WUXHM_XMLHeaderId","WUXHM_XMLHeaderName"});
+                ddlXMLHeaderName.DataSource = dtHeaderMapping1.DefaultView.ToTable(true, new string[] { "WUXHM_XMLHeaderId", "WUXHM_XMLHeaderName" });
                 ddlXMLHeaderName.DataValueField = "WUXHM_XMLHeaderId";
                 ddlXMLHeaderName.DataTextField = "WUXHM_XMLHeaderName";
                 ddlXMLHeaderName.DataBind();

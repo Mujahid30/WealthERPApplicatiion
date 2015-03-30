@@ -4515,7 +4515,7 @@ namespace DaoUploads
 
             return dsReqRej;
         }
-        public bool UpdateRequestRejects(string clientCode, int Id, int tableNo, string city, string state, string pincode, string mobileno, string occupation, string accounttype, string bankname, string personalstatus, string address1, string address2, string address3, string country, string officePhoneNo, string officeExtensionNo, string officeFaxNo, string homePhoneNo, string homeFaxNo, string annualIncome, string pan1, string pan2, string pan3, string emailId, string transactionType, string transactionNature, string transactionHead, string transactionDescription)
+        public bool UpdateRequestRejects(string clientCode, int Id, int tableNo, string city, string state, string pincode, string mobileno, string occupation, string accounttype, string bankname, string personalstatus, string address1, string address2, string address3, string country, string officePhoneNo, string officeExtensionNo, string officeFaxNo, string homePhoneNo, string homeFaxNo, string annualIncome, string pan1, string pan2, string pan3, string emailId, string transactionType, string transactionNature, string transactionHead, string transactionDescription, string productCode)
         {
             bool result = false;
             Database db;
@@ -4636,6 +4636,10 @@ namespace DaoUploads
                     db.AddInParameter(UpdateRequestRejectCmd, "@TransactionDescription", DbType.String, transactionDescription);
                 else
                     db.AddInParameter(UpdateRequestRejectCmd, "@TransactionDescription", DbType.String, DBNull.Value);
+                if (!string.IsNullOrEmpty(productCode))
+                    db.AddInParameter(UpdateRequestRejectCmd, "@ProductCode", DbType.String, productCode);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@ProductCode", DbType.String, DBNull.Value);
 
                 db.ExecuteNonQuery(UpdateRequestRejectCmd);
                 result = true;

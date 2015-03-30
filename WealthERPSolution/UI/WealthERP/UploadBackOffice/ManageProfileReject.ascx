@@ -135,7 +135,8 @@
                 <telerik:RadGrid ID="gvProfileIncreamenetReject" Visible="true" runat="server" GridLines="None"
                     AutoGenerateColumns="False" PageSize="10" AllowSorting="true" AllowPaging="True"
                     ShowStatusBar="True" ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false"
-                    AllowFilteringByColumn="true" Width="100%" AllowAutomaticInserts="false" OnNeedDataSource="gvProfileIncreamenetReject_OnNeedDataSource">
+                    AllowFilteringByColumn="true" Width="100%" AllowAutomaticInserts="false" OnNeedDataSource="gvProfileIncreamenetReject_OnNeedDataSource"
+                    OnItemDataBound="gvProfileIncreamenetReject_ItemDataBound" OnPreRender="gvProfileIncreamenetReject_PreRender">
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="OrderMIS">
                     </ExportSettings>
                     <MasterTableView Width="102%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
@@ -156,20 +157,47 @@
                                         Text="Save" />
                                 </FooterTemplate>
                             </telerik:GridTemplateColumn>
-                            <telerik:GridBoundColumn AllowFiltering="true" DataField="ReqId"
-                                AutoPostBackOnFilter="true" Visible="true" HeaderText="Req. Id"
-                                ShowFilterIcon="false" CurrentFilterFunction="Contains" UniqueName="ReqId"
-                                SortExpression="ReqId" FooterStyle-HorizontalAlign="Right"
+                            <telerik:GridBoundColumn AllowFiltering="true" DataField="ReqId" AutoPostBackOnFilter="true"
+                                Visible="true" HeaderText="Req. Id" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="ReqId" SortExpression="ReqId" FooterStyle-HorizontalAlign="Right"
                                 HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn AllowFiltering="true" DataField="RejectedReasonDescription"
+                            <telerik:GridBoundColumn DataField="RejectedReasonDescription" AllowFiltering="true"
+                                HeaderText="RejectedReasonDescription" HeaderStyle-Width="270px" UniqueName="RejectedReasonDescription"
+                                SortExpression="RejectedReasonDescription" AutoPostBackOnFilter="false" ShowFilterIcon="false">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                <FilterTemplate>
+                                    <telerik:RadComboBox ID="RadComboBoxRR" Width="180px" CssClass="cmbField" AllowFiltering="true"
+                                        AutoPostBack="true" OnSelectedIndexChanged="RadComboBoxRR_SelectedIndexChanged"
+                                        IsFilteringEnabled="true" AppendDataBoundItems="true" AutoPostBackOnFilter="false"
+                                        OnPreRender="rcbContinents1_PreRender" EnableViewState="true" SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("RejectedReasonDescription").CurrentFilterValue %>'
+                                        runat="server">
+                                        <%--OnPreRender="rcbContinents_PreRender"--%>
+                                        <Items>
+                                            <telerik:RadComboBoxItem Text="All" Value="" Selected="false"></telerik:RadComboBoxItem>
+                                        </Items>
+                                    </telerik:RadComboBox>
+                                    <telerik:RadScriptBlock ID="RadScriptBlock2" runat="server">
+
+                                        <script type="text/javascript">
+                                            function InvesterNameIndexChanged(sender, args) {
+                                                var tableView = $find("<%#((GridItem)Container).OwnerTableView.ClientID %>");
+                                                //////sender.value = args.get_item().get_value();
+                                                tableView.filter("RejectReason", args.get_item().get_value(), "EqualTo");
+                                            } 
+                                        </script>
+
+                                    </telerik:RadScriptBlock>
+                                </FilterTemplate>
+                            </telerik:GridBoundColumn>
+                            <%-- <telerik:GridBoundColumn AllowFiltering="true" DataField="RejectedReasonDescription"
                                 AutoPostBackOnFilter="true" Visible="true" HeaderText="RejectedReasonDescription"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" UniqueName="RejectedReasonDescription"
                                 SortExpression="RejectedReasonDescription" FooterStyle-HorizontalAlign="Right"
                                 HeaderStyle-Width="250px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-                            </telerik:GridBoundColumn>
+                            </telerik:GridBoundColumn>--%>
                             <telerik:GridTemplateColumn AllowFiltering="true" DataField="ClientCode" AutoPostBackOnFilter="true"
                                 HeaderText="ClientCode" ShowFilterIcon="false" CurrentFilterFunction="EqualTo"
                                 UniqueName="ClientCode" SortExpression="ClientCode" FooterStyle-HorizontalAlign="Right"
@@ -857,12 +885,26 @@
                                 UniqueName="IFSC" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn AllowFiltering="true" DataField="ProductCode" AutoPostBackOnFilter="true"
+                            <telerik:GridTemplateColumn AllowFiltering="true" DataField="ProductCode" AutoPostBackOnFilter="true"
                                 HeaderText="ProductCode" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 UniqueName="ProductCode" SortExpression="ProductCode" FooterStyle-HorizontalAlign="Right"
                                 HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-                            </telerik:GridBoundColumn>
+                                <itemtemplate>
+                                    <asp:TextBox ID="txtProductCode" CssClass="txtField" runat="server" Text='<%# Bind("ProductCode") %>'></asp:TextBox>
+                                    <asp:RegularExpressionValidator ID="revPan12" runat="server" Display="Dynamic" ValidationGroup="btnSave"
+                                        CssClass="rfvPCG" ErrorMessage="Please check Product Code" ControlToValidate="txtProductCode">
+                                        
+                                    </asp:RegularExpressionValidator>
+                                </itemtemplate>
+                                <footertemplate>
+                                    <asp:TextBox ID="txtProductCodeFooter" CssClass="txtField" runat="server" />
+                                    <asp:RegularExpressionValidator ID="revPan11" runat="server" Display="Dynamic" ValidationGroup="btnSave"
+                                        CssClass="rfvPCG" ErrorMessage="Please check Product Code" ControlToValidate="txtProductCodeFooter"
+                                        ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}">
+                                    </asp:RegularExpressionValidator>
+                                </footertemplate>
+                            </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn AllowFiltering="true" DataField="BranchAdrLine1" AutoPostBackOnFilter="true"
                                 HeaderText="BranchAdrLine1" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 UniqueName="BranchAdrLine1" SortExpression="BranchAdrLine1" FooterStyle-HorizontalAlign="Right"
