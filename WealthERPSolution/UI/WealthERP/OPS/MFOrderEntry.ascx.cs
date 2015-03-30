@@ -488,9 +488,11 @@ namespace WealthERP.OPS
                     if (!string.IsNullOrEmpty(dr["CMFOD_ARNNo"].ToString()))
                     {
                         ddlARNNo.SelectedValue = Convert.ToString(dr["CMFOD_ARNNo"]);
-                        trCust.Visible = true;
-                        ddlsearch.SelectedValue = "1";
+                        //trCust.Visible = true;
+                        //ddlsearch.SelectedValue = "1";
                     }
+                    trCust.Visible = true;
+                    ddlsearch.SelectedValue = "1";
                     txtCustomerId.Value = dr["C_CustomerId"].ToString();
                     txtCustomerName.Text = dr["Customer_Name"].ToString();
 
@@ -651,7 +653,7 @@ namespace WealthERP.OPS
                         BindSchemeSwitch();
                         ddlSchemeSwitch.SelectedValue = dr["PASP_SchemePlanSwitch"].ToString();
                     }
-                    if (ddltransType.SelectedValue == "SIP" | ddltransType.SelectedValue == "SWB" | ddltransType.SelectedValue == "STB" )
+                    if (ddltransType.SelectedValue == "SIP" | ddltransType.SelectedValue == "SWP" | ddltransType.SelectedValue == "STB")
                     {
                         BindStartDates();
                         if (!string.IsNullOrEmpty(dr["CMFSS_StartDate"].ToString()))
@@ -4151,6 +4153,7 @@ namespace WealthERP.OPS
             {
                 clearPancustomerDetails();
                 trCust.Visible = true;
+
                 trpan.Visible = false;
                 if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 {
@@ -4433,21 +4436,21 @@ namespace WealthERP.OPS
             }
 
 
-            int retVal = commonLookupBo.IsRuleCorrect(float.Parse(txtAmount.Text), float.Parse(lblMintxt.Text), float.Parse(txtAmount.Text), float.Parse(lblMulti.Text), DateTime.Parse(lbltime.Text));
-            if (retVal != 0)
-            {
-                if (retVal == -2)
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You have entered amount less than Minimum Initial amount allowed');", true); return;
+            //int retVal = commonLookupBo.IsRuleCorrect(float.Parse(txtAmount.Text), float.Parse(lblMintxt.Text), float.Parse(txtAmount.Text), float.Parse(lblMulti.Text), DateTime.Parse(lbltime.Text));
+            //if (retVal != 0)
+            //{
+            //    if (retVal == -2)
+            //    {
+            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You have entered amount less than Minimum Initial amount allowed');", true); return;
 
-                }
-                if (retVal == -1)
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You should enter the amount in multiples of Subsequent amount ');", true); return;
+            //    }
+            //    if (retVal == -1)
+            //    {
+            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You should enter the amount in multiples of Subsequent amount ');", true); return;
 
-                }
+            //    }
 
-            }
+            //}
 
             if (string.IsNullOrEmpty(txtAgentId.Value))
             {
@@ -4876,21 +4879,21 @@ namespace WealthERP.OPS
             }
 
 
-            int retVal = commonLookupBo.IsRuleCorrect(float.Parse(txtAmount.Text), float.Parse(lblMintxt.Text), float.Parse(txtAmount.Text), float.Parse(lblMulti.Text), DateTime.Parse(lbltime.Text));
-            if (retVal != 0)
-            {
-                if (retVal == -2)
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You have entered amount less than Minimum Initial amount allowed');", true); return;
+            //int retVal = commonLookupBo.IsRuleCorrect(float.Parse(txtAmount.Text), float.Parse(lblMintxt.Text), float.Parse(txtAmount.Text), float.Parse(lblMulti.Text), DateTime.Parse(lbltime.Text));
+            //if (retVal != 0)
+            //{
+            //    if (retVal == -2)
+            //    {
+            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You have entered amount less than Minimum Initial amount allowed');", true); return;
 
-                }
-                if (retVal == -1)
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You should enter the amount in multiples of Subsequent amount ');", true); return;
+            //    }
+            //    if (retVal == -1)
+            //    {
+            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You should enter the amount in multiples of Subsequent amount ');", true); return;
 
-                }
+            //    }
 
-            }
+            //}
 
             if (string.IsNullOrEmpty(txtAgentId.Value))
             {
