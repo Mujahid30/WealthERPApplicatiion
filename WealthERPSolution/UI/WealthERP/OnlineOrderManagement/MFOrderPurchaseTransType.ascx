@@ -12,10 +12,27 @@
 
 <script src="../Scripts/jquery.bxslider.js" type="text/javascript"></script>
 
+<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
+
 <asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
 
 <script type="text/javascript">
+    function Information() {
+
+        resizey = $find("<%=RadInformation.ClientID %>").show();
+        resizey.returnValue = false;
+        return true;
+
+    }
     function ValidateTermsConditions(sender, args) {
 
         if (document.getElementById("<%=chkTermsCondition.ClientID %>").checked == true) {
@@ -31,8 +48,6 @@
         $find("<%=rw_customConfirm.ClientID %>").close();
     }
 </script>
-
-
 
 <script language="javascript" type="text/javascript">
     var crnt = 0;
@@ -90,7 +105,7 @@
                 <tr class="spaceUnder">
                     <td>
                     </td>
-                    <td align="right" style="vertical-align: top;">
+                    <td align="right" style="vertical-align: centre;>
                         <asp:Label ID="lblAmc" runat="server" Text="AMC:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
@@ -104,6 +119,8 @@
                         </asp:RequiredFieldValidator>
                     </td>
                     <td colspan="2">
+                        <asp:ImageButton ID="imgInformation" runat="server" ImageUrl="../Images/help.png"
+                            OnClick="imgInformation_OnClick" ToolTip="Help" Style="cursor: hand;" />
                     </td>
                 </tr>
                 <tr class="spaceUnder">
@@ -163,8 +180,8 @@
                                 <td rowspan="4">
                                     <a href="#" class="popper" data-popbox="divSchemeRatingDetails"><span class="FieldName">
                                         Scheme Rating </span>
-                                         <asp:Label ID="lblSchemeRatingAsOn" runat="server" CssClass="FieldName"></asp:Label>
-                                         <br />
+                                        <asp:Label ID="lblSchemeRatingAsOn" runat="server" CssClass="FieldName"></asp:Label>
+                                        <br />
                                         <asp:Image runat="server" ID="imgSchemeRating" />
                                     </a>
                                 </td>
@@ -193,7 +210,7 @@
                                         <table border="1" cellpadding="1" cellspacing="2" style="border-collapse: collapse;">
                                             <tr>
                                                 <td>
-                                                     <asp:Label ID="lblRatingAsOnPopUp" runat="server" CssClass="readOnlyField"></asp:Label>
+                                                    <asp:Label ID="lblRatingAsOnPopUp" runat="server" CssClass="readOnlyField"></asp:Label>
                                                 </td>
                                                 <td>
                                                     <span class="readOnlyField">RATING</span>
@@ -259,7 +276,6 @@
                                     </div>
                                 </td>
                             </tr>
-                           
                         </table>
                     </td>
                 </tr>
@@ -464,7 +480,8 @@
         <telerik:RadWindowManager runat="server" ID="RadWindowManager1">
             <Windows>
                 <telerik:RadWindow ID="rw_customConfirm" Modal="true" Behaviors="Close, Move" VisibleStatusbar="false"
-                    Width="700px" Height="160px" runat="server" Title="EUIN Confirm" Left="15%" Top="100" OnClientShow="setCustomPosition">
+                    Width="700px" Height="160px" runat="server" Title="EUIN Confirm" Left="15%" Top="100"
+                    OnClientShow="setCustomPosition">
                     <ContentTemplate>
                         <div class="rwDialogPopup radconfirm">
                             <div class="rwDialogText">
@@ -481,6 +498,23 @@
                 </telerik:RadWindow>
             </Windows>
         </telerik:RadWindowManager>
+        <telerik:RadWindow ID="RadInformation" Modal="true" Behaviors="Close, Move" VisibleStatusbar="false"
+            Width="760px" Height="580px" runat="server" Left="300" Top="50" OnClientShow="setCustomPosition" >
+            <ContentTemplate>
+                <div style="padding: 0px; width: 100%; height:100%;">
+                    <%--<table width="100%" cellpadding="0" cellpadding="0" Height="100%">
+                        <tr>
+                            <td align="left">--%>
+                                <%--  <a href="../ReferenceFiles/MF-Terms-Condition.html">../ReferenceFiles/MF-Terms-Condition.html</a>--%>
+                                
+                                <iframe src="../ReferenceFiles/HelpNewPurchaseInformation.htm" name="iframeTermsCondition"
+                                    style="width: 100%; height:100%"></iframe>
+                           <%-- </td>
+                        </tr>
+                    </table>--%>
+                </div>
+            </ContentTemplate>
+        </telerik:RadWindow>
     </ContentTemplate>
     <Triggers>
     </Triggers>
@@ -492,5 +526,4 @@
         sender.moveTo(sender.get_left(), sender.get_top());
     }
 </script>
-
 

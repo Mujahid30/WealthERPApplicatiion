@@ -47,6 +47,7 @@ namespace WealthERP.OnlineOrderManagement
             customerVo = (CustomerVo)Session["customerVo"];
             userVo = (UserVo)Session["userVo"];
             Session["OrderId"] = OrderId;
+            RadInformation.VisibleOnPageLoad = false;
             if (!IsPostBack)
             {
                 clientMFAccessCode = onlineMforderBo.GetClientMFAccessStatus(customerVo.CustomerId);
@@ -532,8 +533,10 @@ namespace WealthERP.OnlineOrderManagement
             }
 
         }
-
-
-
+            protected void imgInformation_OnClick(object sender, EventArgs e)
+        {
+            RadInformation.VisibleOnPageLoad = true;
+            
+        }
     }
 }

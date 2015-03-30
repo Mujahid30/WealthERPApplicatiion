@@ -534,6 +534,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadWindowManager RadWindowManager1;
+        protected global::Telerik.Web.UI.RadWindow RadInformation;
         
         /// <summary>
         /// rw_customConfirm control.

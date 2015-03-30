@@ -36,8 +36,8 @@ namespace WealthERP.BusinessMIS
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
             {
                 userType = "associates";
-                lblTypes.Visible = false;
-                ddlTypes.Visible = false;
+                
+                ddlTypes.Items[0].Enabled = false;
             }
             else
                 userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
