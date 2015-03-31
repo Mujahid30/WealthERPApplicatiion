@@ -176,28 +176,30 @@ namespace WealthERP.BusinessMIS
             tdDdlCategory.Visible = false;
             ddlProductCategory.Items.Clear();
             ddlProductCategory.DataBind();
+            
             if (asset == "MF")
             {
                 trSelectMutualFund.Visible = true;
                 trNCDIPO.Visible = false;
-                tdFromDate.Visible = true;
-                tdToDate.Visible = true;
                 tdFrom.Visible = true;
                 tdTolbl.Visible = true;
                 cvddlIssueType.Enabled = false;
-
+                Label1.Visible = true;
+                ddlCommType.Visible = true;
+                
+               
             }
             else if (asset == "FI" || asset == "IP")
             {
                 trSelectMutualFund.Visible = false;
                 trNCDIPO.Visible = true;
-                tdFromDate.Visible = false;
-                tdToDate.Visible = false;
-                tdFrom.Visible = false;
                 tdTolbl.Visible = false;
                 ddlIssueName.Items.Clear();
                 ddlIssueName.DataBind();
                 cvddlIssueType.Enabled = true;
+                Label1.Visible = false;
+                ddlCommType.Visible = false;
+
 
             }
             if (asset == "FI")
@@ -205,12 +207,7 @@ namespace WealthERP.BusinessMIS
                 BindBondCategories();
                 tdCategory.Visible = true;
                 tdDdlCategory.Visible = true;
-
-
-
             }
-
-
 
         }
         private void BindNAVCategory()
@@ -234,8 +231,6 @@ namespace WealthERP.BusinessMIS
         {
             if (ddlProductCategory.SelectedValue != "FISDSD" || ddlProductCategory.SelectedValue != "FIFIIP")
             {
-                tdFromDate.Visible = true;
-                tdToDate.Visible = true;
                 tdFrom.Visible = true;
                 tdTolbl.Visible = true;
             }
@@ -362,6 +357,7 @@ namespace WealthERP.BusinessMIS
             {
                 if (ddlProduct.SelectedValue.ToString() == "MF")
                 {
+                   
                     btnExportFilteredData.Visible = true;
                     dvMfMIS.Visible = true;
                     gvCommissionReceiveRecon.DataSource = ds.Tables[0];
@@ -378,6 +374,7 @@ namespace WealthERP.BusinessMIS
                 }
                 else
                 {
+
                     btnExportFilteredData.Visible = true;
                     dvNCDIPOMIS.Visible = true;
                     rgNCDIPOMIS.DataSource = ds.Tables[0];
@@ -387,19 +384,22 @@ namespace WealthERP.BusinessMIS
                         Cache.Remove("rgNCDIPOMIS" + userVo.UserId.ToString());
                     }
                         Cache.Insert("rgNCDIPOMIS" + userVo.UserId.ToString(), ds.Tables[0]);
-                   
+                       
                 }
             }
 
         }
         protected void ddlProduct_SelectedIndexChanged(object source, EventArgs e)
         {
+            
             if (ddlProduct.SelectedValue != "Select")
             {
                 if (ddlProduct.SelectedValue == "MF")
                 {
+                  
                     ddlOrderStatus.Items[2].Enabled = false;
                     ddlOrderStatus.Items[1].Enabled = true;
+                    
                 }
                 else
                 {
@@ -409,6 +409,7 @@ namespace WealthERP.BusinessMIS
                 }
                 if (ddlProduct.SelectedValue == "FI")
                 {
+                    
                     ddlCommType.Items[2].Enabled = false;
                 }
                 else
