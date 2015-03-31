@@ -2764,6 +2764,13 @@
     <Compile Include="OffLineOrderManagement\NCDIssueTransactOffline.ascx.designer.cs">
       <DependentUpon>NCDIssueTransactOffline.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OffLineOrderManagement\OfflineCustomerMerge.ascx.cs">
+      <DependentUpon>OfflineCustomerMerge.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OffLineOrderManagement\OfflineCustomerMerge.ascx.designer.cs">
+      <DependentUpon>OfflineCustomerMerge.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OffLineOrderManagement\OfflineCustomersIPOOrderBook.ascx.cs">
       <DependentUpon>OfflineCustomersIPOOrderBook.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2784,6 +2791,13 @@
     </Compile>
     <Compile Include="OffLineOrderManagement\OfflineCustomersNCDOrderBook.ascx.designer.cs">
       <DependentUpon>OfflineCustomersNCDOrderBook.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="OffLineOrderManagement\OnlineOfflineOrderRecon.ascx.cs">
+      <DependentUpon>OnlineOfflineOrderRecon.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OffLineOrderManagement\OnlineOfflineOrderRecon.ascx.designer.cs">
+      <DependentUpon>OnlineOfflineOrderRecon.ascx</DependentUpon>
     </Compile>
     <Compile Include="OnlineBottomHost.aspx.cs">
       <DependentUpon>OnlineBottomHost.aspx</DependentUpon>
@@ -8129,9 +8143,11 @@
     <Content Include="OffLineOrderManagement\IPOIssueTransactOffline.ascx" />
     <Content Include="OffLineOrderManagement\MFOrderBuyTransTypeOffline.ascx" />
     <Content Include="OffLineOrderManagement\NCDIssueTransactOffline.ascx" />
+    <Content Include="OffLineOrderManagement\OfflineCustomerMerge.ascx" />
     <Content Include="OffLineOrderManagement\OfflineCustomersIPOOrderBook.ascx" />
     <Content Include="OffLineOrderManagement\OfflineCustomerSIPOrderBook.ascx" />
     <Content Include="OffLineOrderManagement\OfflineCustomersNCDOrderBook.ascx" />
+    <Content Include="OffLineOrderManagement\OnlineOfflineOrderRecon.ascx" />
     <Content Include="OnlineBottomHost.aspx" />
     <Content Include="OnlineMainHost.aspx" />
     <Content Include="OnlineOrderBackOffice\AMCManage.ascx" />

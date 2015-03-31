@@ -2045,4 +2045,12 @@
     <value>OnlineOrderBackOffice//BannerManager.ascx</value>
     <comment>OnlineOrderBackOffice//BannerManager.ascx</comment>
   </data>
+  <data name="OfflineCustomerMerge" xml:space="preserve">
+    <value>OffLineOrderManagement//OfflineCustomerMerge.ascx</value>
+    <comment>OffLineOrderManagement//OfflineCustomerMerge.ascx</comment>
+  </data>
+  <data name="OnlineOfflineOrderRecon" xml:space="preserve">
+    <value>OffLineOrderManagement//OnlineOfflineOrderRecon.ascx</value>
+    <comment>OffLineOrderManagement//OnlineOfflineOrderRecon.ascx</comment>
+  </data>
 </root>
