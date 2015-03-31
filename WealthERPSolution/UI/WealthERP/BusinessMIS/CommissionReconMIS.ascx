@@ -279,14 +279,14 @@
                             Text="Update Expected Amt"  OnClick="btnSave_Click"/>
                     </FooterTemplate>
                 </telerik:GridTemplateColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="RuleName" DataField="ACSR_StructureRuleName"
+                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="RuleName" DataField="ACSR_CommissionStructureRuleName"
                     HeaderStyle-HorizontalAlign="Center" UniqueName="ACSR_CommissionStructureRuleName" SortExpression="ACSR_CommissionStructureRuleName"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="100px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                  <telerik:GridBoundColumn HeaderStyle-Width="90px" HeaderText="Customer Name" DataField="CMFT_SubBrokerCode"
-                    HeaderStyle-HorizontalAlign="Center" UniqueName="CustomerName" SortExpression="CMFT_SubBrokerCode"
+                  <telerik:GridBoundColumn HeaderStyle-Width="90px" HeaderText="Customer Name" DataField="CustomerName"
+                    HeaderStyle-HorizontalAlign="Center" UniqueName="CustomerName" SortExpression="CustomerName"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
@@ -297,11 +297,11 @@
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>  
-                <telerik:GridBoundColumn HeaderStyle-Width="90px" HeaderText="Folio No" DataField="CMFT_SubBrokerCode"
-                    HeaderStyle-HorizontalAlign="Center" UniqueName="CMFT_SubBrokerCode" SortExpression="CMFT_SubBrokerCode"
+                <telerik:GridBoundColumn HeaderStyle-Width="90px" HeaderText="Folio No" DataField="CMFA_FolioNum"
+                    HeaderStyle-HorizontalAlign="Center" UniqueName="CMFA_FolioNum" SortExpression="CMFA_FolioNum"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right">
-                    <ItemStyle Width HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                <telerik:GridBoundColumn HeaderStyle-Width="113px" HeaderText="Transaction Date" DataField="transactiondate"
                     UniqueName="transactiondate" SortExpression="transactiondate" AutoPostBackOnFilter="true"
@@ -313,13 +313,13 @@
                     ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:d}" HeaderStyle-HorizontalAlign="Center">
                     <ItemStyle width="140px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="90px" HeaderText="Sub Broker Code" DataField="AAC_AgentCode"
-                    HeaderStyle-HorizontalAlign="Center" UniqueName="AAC_AgentCode" SortExpression="AAC_AgentCode"
+                <telerik:GridBoundColumn HeaderStyle-Width="90px" HeaderText="Sub Broker Code" DataField="CMFT_SubBrokerCode"
+                    HeaderStyle-HorizontalAlign="Center" UniqueName="CMFT_SubBrokerCode" SortExpression="CMFT_SubBrokerCode"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="113px" HeaderText="Associates" DataField="AA_ContactPersonName"
+                <%--<telerik:GridBoundColumn HeaderStyle-Width="113px" HeaderText="Associates" DataField="AA_ContactPersonName"
                     UniqueName="AA_ContactPersonName" SortExpression="AA_ContactPersonName" AutoPostBackOnFilter="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:d}" HeaderStyle-HorizontalAlign="Center">
                     <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -328,33 +328,33 @@
                     UniqueName="Parents" SortExpression="ParentName" AutoPostBackOnFilter="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:d}">
                     <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
+                </telerik:GridBoundColumn>--%>
                 <telerik:GridBoundColumn HeaderStyle-Width="113px" HeaderText="Commission Type" DataField="commissionType" HeaderStyle-HorizontalAlign="Center"
                     UniqueName="commissionType" SortExpression="commissionType" AutoPostBackOnFilter="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:d}">
                     <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                 <telerik:GridBoundColumn HeaderStyle-Width="113px" HeaderText="CalculatedOn" DataField="calculatedOn" HeaderStyle-HorizontalAlign="Center"
-                    UniqueName="Calculated On" SortExpression="calculatedOn" AutoPostBackOnFilter="true"
+                 <telerik:GridBoundColumn HeaderStyle-Width="113px" HeaderText="CalculatedOn" DataField="WCCO_CalculatedOn" HeaderStyle-HorizontalAlign="Center"
+                    UniqueName="WCCO_CalculatedOn" SortExpression="WCCO_CalculatedOn" AutoPostBackOnFilter="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:d}">
                     <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                 <telerik:GridBoundColumn HeaderStyle-Width="113px" HeaderText="Commission SubType" DataField="IncentiveType" HeaderStyle-HorizontalAlign="Center"
+                 <%--<telerik:GridBoundColumn HeaderStyle-Width="113px" HeaderText="Commission SubType" DataField="IncentiveType" HeaderStyle-HorizontalAlign="Center"
                     UniqueName="Commission SubType" SortExpression="IncentiveType" AutoPostBackOnFilter="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:d}">
                     <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
+                </telerik:GridBoundColumn>--%>
                 <%-- <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Issue" DataField="AIM_IssueName"
                     UniqueName="AIM_IssueName" SortExpression="AIM_IssueName" AutoPostBackOnFilter="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:d}">
                     <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>--%>
-               <telerik:GridBoundColumn HeaderStyle-Width="113px" HeaderText="Ordered Qty\Accepted Quantity SubType" DataField="transactiondate"
-                     HeaderStyle-HorizontalAlign="Center" UniqueName="Ordered Qty\Accepted Quantity SubType" SortExpression="transactiondate" AutoPostBackOnFilter="true"
+              <%-- <telerik:GridBoundColumn HeaderStyle-Width="113px" HeaderText="transactiondate" DataField="transactiondate"
+                     HeaderStyle-HorizontalAlign="Center" UniqueName="transactiondate" SortExpression="transactiondate" AutoPostBackOnFilter="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:d}">
                     <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="113px" HeaderText="Holdings Amount" DataField="holdings"
+                </telerik:GridBoundColumn>--%>
+                <%--<telerik:GridBoundColumn HeaderStyle-Width="113px" HeaderText="Holdings Amount" DataField="holdings"
                      HeaderStyle-HorizontalAlign="Center" UniqueName="Holdings Amount" SortExpression="holdings" AutoPostBackOnFilter="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:d}">
                     <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -364,7 +364,7 @@
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
+                </telerik:GridBoundColumn>--%>
             <%-- <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Category" DataField="AIIC_InvestorCatgeoryName"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="AIIC_InvestorCatgeoryName" SortExpression="AIIC_InvestorCatgeoryName"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
@@ -377,8 +377,8 @@
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>--%>
-                <telerik:GridBoundColumn HeaderStyle-Width="90px" HeaderText="Brokerage Rate" DataField="rate"
-                    HeaderStyle-HorizontalAlign="Center" UniqueName="rate" SortExpression="rate"
+                <telerik:GridBoundColumn HeaderStyle-Width="90px" HeaderText="Brokerage Rate" DataField="ACSR_BrokerageValue"
+                    HeaderStyle-HorizontalAlign="Center" UniqueName="ACSR_BrokerageValue" SortExpression="ACSR_BrokerageValue"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
@@ -401,8 +401,8 @@
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="90px" HeaderText="Expected Commission" DataField="brokeragevalue"
-                    HeaderStyle-HorizontalAlign="Center" UniqueName="brokeragevalue" SortExpression="brokeragevalue"
+                <telerik:GridBoundColumn HeaderStyle-Width="90px" HeaderText="Expected Commission" DataField="expectedamount"
+                    HeaderStyle-HorizontalAlign="Center" UniqueName="expectedamount" SortExpression="expectedamount"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
@@ -600,12 +600,12 @@
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Commission SubType" DataField="IncentiveType"
+               <%-- <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Commission SubType" DataField="IncentiveType"
                     HeaderStyle-HorizontalAlign="Left" UniqueName="IncentiveType" SortExpression="IncentiveType"
                     AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
+                </telerik:GridBoundColumn>--%>
                 
                 <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="User Type" DataField="CustomerAssociate"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="CustomerAssociate" SortExpression="CustomerAssociate"
@@ -623,12 +623,12 @@
                     ShowFilterIcon="false" CurrentFilterFunction="Contains" AllowFiltering="false">
                     <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Holdings Amount" DataField="holdings"
+                <%--<telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Holdings Amount" DataField="holdings"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="holdings" SortExpression="holdings"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
+                </telerik:GridBoundColumn>--%>
                  <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Brokerage Name" DataField="XB_BrokerShortName"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="XB_BrokerShortName" SortExpression="XB_BrokerShortName" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
