@@ -88,6 +88,7 @@ namespace WealthERP.Advisor
                 txtClientCode_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
                 txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
 
+
             }
             else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
             {
@@ -108,7 +109,6 @@ namespace WealthERP.Advisor
                 txtPansearch_autoCompleteExtender.ServiceMethod = "GetAdviserAllCustomerPan";
                 txtClientCode_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
                 txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
-
             }
             if (userVo.UserType == "SuperAdmin")
             {
@@ -230,25 +230,28 @@ namespace WealthERP.Advisor
                 tdtxtCustomerName.Visible = true;
                 tdtxtClientCode.Visible = false;
                 tdtxtPansearch.Visible = false;
+                tdRequestId.Visible = false;
             }
             else if (ddlCOption.SelectedValue == "Panno")
             {
                 tdtxtPansearch.Visible = true;
                 tdtxtCustomerName.Visible = false;
                 tdtxtClientCode.Visible = false;
+                tdRequestId.Visible = false;
             }
             else if (ddlCOption.SelectedValue == "Clientcode")
             {
                 tdtxtClientCode.Visible = true;
                 tdtxtPansearch.Visible = false;
                 tdtxtCustomerName.Visible = false;
+                tdRequestId.Visible = false;
             }
-            else
+            else if (ddlCOption.SelectedValue == "ReqId")
             {
+                tdRequestId.Visible = true;
                 tdtxtClientCode.Visible = false;
                 tdtxtPansearch.Visible = false;
                 tdtxtCustomerName.Visible = false;
-
             }
         }
         protected void hdnCustomerId_ValueChanged(object sender, EventArgs e)
@@ -413,7 +416,7 @@ namespace WealthERP.Advisor
                 rbtnReg = 1;
                 
             }
-            dtcustomerList = BindOnDemamd(adviserId, rmId, AgentId, UserRole, branchHeadId, AgentCode, rbtnReg, GetSelectedFilterValue(), (!string.IsNullOrEmpty(txtCustomerId.Value)) ? int.Parse(txtCustomerId.Value) : 0, null, null, (!string.IsNullOrEmpty(custCode)) ? custCode : null, null, null, (!string.IsNullOrEmpty(pan)) ? pan : null, null, null, null, null, null, null, null, null, null, gvCustomerList.PageSize, gvCustomerList.CurrentPageIndex + 1, out genDictParent, out genDictRM, out genDictReassignRM, out RowCount);
+            dtcustomerList = BindOnDemamd(adviserId, rmId, AgentId, UserRole, branchHeadId, AgentCode, rbtnReg, GetSelectedFilterValue(), (!string.IsNullOrEmpty(txtCustomerId.Value)) ? int.Parse(txtCustomerId.Value) : 0, null, null, (!string.IsNullOrEmpty(custCode)) ? custCode : null, null, null, (!string.IsNullOrEmpty(pan)) ? pan : null, null, null, null, null, null, null, null, null, null, gvCustomerList.PageSize, gvCustomerList.CurrentPageIndex + 1, out genDictParent, out genDictRM, out genDictReassignRM, out RowCount, (!string.IsNullOrEmpty(txtRequestId.Text)) ? int.Parse(txtRequestId.Text) : 0);
             gvCustomerList.DataSource = dtcustomerList;
             gvCustomerList.VirtualItemCount = RowCount;
             gvCustomerList.DataBind();
@@ -663,7 +666,7 @@ namespace WealthERP.Advisor
             try
             {
                 GetGridFilters();
-                dtcustomerList = BindOnDemamd(adviserId, rmId, AgentId, UserRole, branchHeadId, AgentCode,rbtnReg, GetSelectedFilterValue(), (!string.IsNullOrEmpty(txtCustomerId.Value)) ? int.Parse(txtCustomerId.Value) : 0, hdncustomerCategoryFilter.Value, hdnSystemId.Value, hdnClientId.Value, hdnName.Value, hdnGroup.Value, hdnPAN.Value, hdnBranch.Value, rmType, hdnArea.Value, hdnCity.Value, hdnPincode.Value, hdnIsProspect.Value, hdnIsActive.Value, hdnIsMFKYC.Value, hdnProcessId.Value, gvCustomerList.PageSize, gvCustomerList.CurrentPageIndex + 1, out genDictParent, out genDictRM, out genDictReassignRM, out RowCount);
+                dtcustomerList = BindOnDemamd(adviserId, rmId, AgentId, UserRole, branchHeadId, AgentCode, rbtnReg, GetSelectedFilterValue(), (!string.IsNullOrEmpty(txtCustomerId.Value)) ? int.Parse(txtCustomerId.Value) : 0, hdncustomerCategoryFilter.Value, hdnSystemId.Value, hdnClientId.Value, hdnName.Value, hdnGroup.Value, hdnPAN.Value, hdnBranch.Value, rmType, hdnArea.Value, hdnCity.Value, hdnPincode.Value, hdnIsProspect.Value, hdnIsActive.Value, hdnIsMFKYC.Value, hdnProcessId.Value, gvCustomerList.PageSize, gvCustomerList.CurrentPageIndex + 1, out genDictParent, out genDictRM, out genDictReassignRM, out RowCount, int.Parse(txtRequestId.Text));
                 gvCustomerList.DataSource = dtcustomerList;
                 gvCustomerList.VirtualItemCount = RowCount;
 
@@ -1498,7 +1501,7 @@ namespace WealthERP.Advisor
 
 
         }
-        protected DataTable BindOnDemamd(int adviserId, int rmId, int AgentId, string UserRole, int branchHeadId, string agentCode, int rbtnReg, string filterOn, int customerId, string customerCategoryFilter, string customerFilter, string custcodeFilter, string nameFilter, string parentFilter, string panFilter, string BranchFilter, string Rmfilter, string areaFilter, string cityFilter, string pincodeFilter, string IsProspectFilter, string isActiveFilter, string iskycavailableFilter, string processFilter, int pageSize, int pageindex, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM, out int RowCount)
+        protected DataTable BindOnDemamd(int adviserId, int rmId, int AgentId, string UserRole, int branchHeadId, string agentCode, int rbtnReg, string filterOn, int customerId, string customerCategoryFilter, string customerFilter, string custcodeFilter, string nameFilter, string parentFilter, string panFilter, string BranchFilter, string Rmfilter, string areaFilter, string cityFilter, string pincodeFilter, string IsProspectFilter, string isActiveFilter, string iskycavailableFilter, string processFilter, int pageSize, int pageindex, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM, out int RowCount,int reqId)
         {
             AdvisorBo adviserBo = new AdvisorBo();
             List<CustomerVo> customerList = new List<CustomerVo>();
@@ -1507,7 +1510,7 @@ namespace WealthERP.Advisor
             try
             {
 
-                customerList = adviserBo.GetStaffUserCustomerList(adviserId, rmId, AgentId, UserRole, branchHeadId, AgentCode, rbtnReg, filterOn, customerId, customerCategoryFilter, customerFilter, custcodeFilter, nameFilter, parentFilter, panFilter, BranchFilter, Rmfilter, areaFilter, cityFilter, pincodeFilter, IsProspectFilter, isActiveFilter, iskycavailableFilter, processFilter, gvCustomerList.PageSize, gvCustomerList.CurrentPageIndex + 1, out genDictParent, out genDictRM, out genDictReassignRM, out RowCount);
+                customerList = adviserBo.GetStaffUserCustomerList(adviserId, rmId, AgentId, UserRole, branchHeadId, AgentCode, rbtnReg, filterOn, customerId, customerCategoryFilter, customerFilter, custcodeFilter, nameFilter, parentFilter, panFilter, BranchFilter, Rmfilter, areaFilter, cityFilter, pincodeFilter, IsProspectFilter, isActiveFilter, iskycavailableFilter, processFilter, gvCustomerList.PageSize, gvCustomerList.CurrentPageIndex + 1, out genDictParent, out genDictRM, out genDictReassignRM, out RowCount, reqId);
                 if (customerList != null)
                 {
 
@@ -1664,6 +1667,7 @@ namespace WealthERP.Advisor
             txtCustomerName.Text = "";
             txtPansearch.Text = "";
             txtCustomerId.Value = string.Empty;
+            txtRequestId.Text = string.Empty; ;
 
 
 
@@ -1677,6 +1681,7 @@ namespace WealthERP.Advisor
             trSearchtype.Visible = true;
             ddlCOption.Items[3].Enabled= true;
             ddlCOption.Items[5].Enabled = false;
+            ddlCOption.Items[6].Enabled = false;
         }
         protected void rbtnNonRegister_CheckedChanged(object sender, EventArgs e)
         {
@@ -1684,6 +1689,7 @@ namespace WealthERP.Advisor
             ddlCOption.Items[5].Enabled = false;
             ddlCOption.Items[3].Enabled = false;
             tdtxtClientCode.Visible = false;
+            ddlCOption.Items[6].Enabled = true;
             
         }
 

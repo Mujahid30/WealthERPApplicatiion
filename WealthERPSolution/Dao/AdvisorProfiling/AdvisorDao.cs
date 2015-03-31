@@ -3042,7 +3042,7 @@ namespace DaoAdvisorProfiling
         /// <param name="genDictRM"></param>
         /// <param name="genDictReassignRM"></param>
         /// <returns>will return the list of the customers from the data base accroding to the parameters assigned</returns>
-        public List<CustomerVo> GetStaffUserCustomerList(int adviserId, int rmId, int AgentId, string UserRole, int branchHeadId, string agentCode, int rbtnReg, string filterOn, int customerId, string customerCategoryFilter, string customerFilter, string custcodeFilter, string nameFilter, string parentFilter, string panFilter, string BranchFilter, string Rmfilter, string areaFilter, string cityFilter, string pincodeFilter, string IsProspectFilter, string isActiveFilter, string iskycavailableFilter, string processFilter, int pageSize, int pageindex, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM, out int RowCount)
+        public List<CustomerVo> GetStaffUserCustomerList(int adviserId, int rmId, int AgentId, string UserRole, int branchHeadId, string agentCode, int rbtnReg, string filterOn, int customerId, string customerCategoryFilter, string customerFilter, string custcodeFilter, string nameFilter, string parentFilter, string panFilter, string BranchFilter, string Rmfilter, string areaFilter, string cityFilter, string pincodeFilter, string IsProspectFilter, string isActiveFilter, string iskycavailableFilter, string processFilter, int pageSize, int pageindex, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM, out int RowCount,int reqId)
         {
             List<CustomerVo> customerList = null;
             CustomerVo customerVo;
@@ -3056,7 +3056,7 @@ namespace DaoAdvisorProfiling
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                if (filterOn == "customer")
+                if (filterOn == "customer" || filterOn == "ReqId")
                 {
                     getCustomerListCmd = db.GetStoredProcCommand("SPROC_ONL_GetStaffCustomerDetails");
                     db.AddInParameter(getCustomerListCmd, "@A_AdviserId", DbType.Int32, adviserId);
@@ -3071,8 +3071,12 @@ namespace DaoAdvisorProfiling
                         db.AddInParameter(getCustomerListCmd, "@custcode", DbType.String, custcodeFilter);
                     if (panFilter != null)
                         db.AddInParameter(getCustomerListCmd, "@pan", DbType.String, panFilter);
-                    if (UserRole == "associates") { db.AddInParameter(getCustomerListCmd, "@agentCode", DbType.String, agentCode); }
-
+                    if (UserRole == "associates") { db.AddInParameter(getCustomerListCmd, "@agentCode", DbType.String, agentCode);
+                    }
+                    if (reqId != 0)
+                        db.AddInParameter(getCustomerListCmd, "@RequestId", DbType.Int32, reqId);
+                    else
+                        db.AddInParameter(getCustomerListCmd, "@RequestId", DbType.Int32, DBNull.Value);
                 }
                 else
                 {
@@ -3152,6 +3156,7 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(getCustomerListCmd, "@pageSize", DbType.Int32, pageSize);
                     db.AddInParameter(getCustomerListCmd, "@pageindex", DbType.Int32, pageindex);
                     db.AddOutParameter(getCustomerListCmd, "@RowCount", DbType.Int32, 5000);
+                    
                     getCustomerListCmd.CommandTimeout = 60 * 60;
                     if (db.ExecuteNonQuery(getCustomerListCmd) != 0)
                         RowCount = Int32.Parse(db.GetParameterValue(getCustomerListCmd, "RowCount").ToString());

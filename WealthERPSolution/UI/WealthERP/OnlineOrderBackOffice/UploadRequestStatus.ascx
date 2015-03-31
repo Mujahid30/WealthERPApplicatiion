@@ -188,39 +188,24 @@
                                             UniqueName="Success" FooterStyle-HorizontalAlign="Left">
                                             <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridTemplateColumn DataField="Cutomercreated" HeaderText="No of Customer Created"
+                                        <telerik:GridBoundColumn DataField="Cutomercreated" HeaderText="No of Customer Created"
                                             SortExpression="Cutomercreated" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                             AutoPostBackOnFilter="true" UniqueName="Cutomercreated" FooterStyle-HorizontalAlign="Left"
                                             Visible="false">
                                             <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
-                                            <%--<ItemTemplate>
-                                                <asp:LinkButton ID="lnkCustmCreated" runat="server" OnClick="lnkCustmCreated_Click"
-                                                    CommandName="Select" Text='<%# Eval("Cutomercreated").ToString() %>'>
-                                                </asp:LinkButton>
-                                            </ItemTemplate>--%>
-                                        </telerik:GridTemplateColumn>
-                                        <telerik:GridTemplateColumn DataField="FolioCreated" HeaderText="No of Folio Created"
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="FolioCreated" HeaderText="No of Folio Created"
                                             SortExpression="FolioCreated" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                             AutoPostBackOnFilter="true" UniqueName="FolioCreated" FooterStyle-HorizontalAlign="Left"
                                             Visible="false">
                                             <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
-                                            <%--<ItemTemplate>
-                                                <asp:LinkButton ID="lnkFolioCreated" runat="server" OnClick="lnkFolioCreated_Click"
-                                                    CommandName="Select" Text='<%# Eval("FolioCreated").ToString() %>'>
-                                                </asp:LinkButton>
-                                            </ItemTemplate>--%>
-                                        </telerik:GridTemplateColumn>
-                                        <telerik:GridTemplateColumn DataField="TransactionCreated" HeaderText="No of Transaction Created"
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="TransactionCreated" HeaderText="No of Transaction Created"
                                             SortExpression="TransactionCreated" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                             AutoPostBackOnFilter="true" UniqueName="TransactionCreated" FooterStyle-HorizontalAlign="Left"
                                             Visible="false">
                                             <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
-                                            <%--<ItemTemplate>
-                                                <asp:LinkButton ID="lnkTransactionCreated" runat="server" OnClick="lnklnkTransactionCreated_Click"
-                                                    CommandName="Select" Text='<%# Eval("lnkTransactionCreated").ToString() %>'>
-                                                </asp:LinkButton>
-                                            </ItemTemplate>--%>
-                                        </telerik:GridTemplateColumn>
+                                        </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="RejectReseaon" HeaderText="External Header Mapping Message"
                                             SortExpression="RejectReseaon" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                             AutoPostBackOnFilter="true" UniqueName="RejectReseaon" FooterStyle-HorizontalAlign="Left"

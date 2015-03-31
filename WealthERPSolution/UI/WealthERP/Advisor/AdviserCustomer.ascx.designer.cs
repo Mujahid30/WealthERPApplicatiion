@@ -59,6 +59,7 @@ namespace WealthERP.Advisor
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdLblAdviser;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdRequestId;
 
         /// <summary>
         /// lblAdviser control.
@@ -149,7 +150,14 @@ namespace WealthERP.Advisor
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPansearch;
-
+        /// <summary>
+        /// txtPansearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtRequestId;
         /// <summary>
         /// TextBoxWatermarkExtender1 control.
         /// </summary>
@@ -257,7 +265,14 @@ namespace WealthERP.Advisor
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.AutoCompleteExtender txtCustomerName_autoCompleteExtender;
-
+        /// <summary>
+        /// txtRequestId_autoCompleteExtender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.AutoCompleteExtender txtRequestId_autoCompleteExtender;
         /// <summary>
         /// RequiredFieldValidator2 control.
         /// </summary>

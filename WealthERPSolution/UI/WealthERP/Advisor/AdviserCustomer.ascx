@@ -29,6 +29,13 @@
 
         return false;
     }
+    function GetReqId(source, eventArgs) {
+        isItemSelected = true;
+        //         document.getElementById("lblgetPan").innerHTML = "";
+        document.getElementById("<%= txtRequestId.ClientID %>").value = eventArgs.get_value();
+
+        return false;
+    }
 </script>
 
 <script type="text/javascript">
@@ -262,6 +269,7 @@
                 <asp:ListItem Text="KYC" Value="kyc" />
                 <%--<asp:ListItem Text="All MF Investor" Value="allmfinvestor"  />--%>
                 <asp:ListItem Text="Real Investor" Value="realinvestor" />
+                <asp:ListItem Text="Req. Id" Value="ReqId" />
                 <asp:ListItem Text="All" Value="all"></asp:ListItem>
             </asp:DropDownList>
             <asp:RequiredFieldValidator ID="rFVddlCOption" runat="server" ErrorMessage="</br>Please Select Filter"
@@ -320,6 +328,22 @@
                 ErrorMessage="<br />Please Enter Customer Name" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" ValidationGroup="btnGo"></asp:RequiredFieldValidator>
         </td>
+        <td align="left" id="tdRequestId" runat="server" visible="false">
+            <asp:TextBox ID="txtRequestId" runat="server" CssClass="txtField" AutoComplete="Off"
+                AutoPostBack="false" onclientClick="ShowIsa()" Width="250px"></asp:TextBox>
+            <cc1:TextBoxWatermarkExtender ID="txtRequestId_water" TargetControlID="txtRequestId"
+                WatermarkText="Enter few characters of Request Id" runat="server" EnableViewState="false">
+            </cc1:TextBoxWatermarkExtender>
+            <%--<ajaxToolkit:AutoCompleteExtender ID="txtRequestId_autoCompleteExtender" runat="server"
+                TargetControlID="txtRequestId" ServiceMethod="GetRequestId" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
+                CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                UseContextKey="True" OnClientItemSelected="GetReqId" DelimiterCharacters="" Enabled="True" />--%>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtRequestId"
+                ErrorMessage="<br />Please Enter Request Id" Display="Dynamic" runat="server"
+                CssClass="rfvPCG" ValidationGroup="btnGo"></asp:RequiredFieldValidator>
+        </td>
         <td>
             <asp:Button ID="btngo" runat="server" CssClass="PCGButton" OnClick="click_Go" Text="Go"
                 ValidationGroup="btnGo" />
@@ -334,13 +358,13 @@
                 <td id="tdcustomerlist" runat="server" visible="false">
                     <div id="DivCustomerList" runat="server" style="width: 100%; padding-left: 5px;"
                         visible="false">
-                        <telerik:RadGrid ID="gvCustomerList" runat="server" fAllowAutomaticDeletes="false"
-                            EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
-                            ShowStatusBar="false" ShowFooter="false" AllowPaging="true" AllowSorting="true"
-                            GridLines="none" AllowAutomaticInserts="false" OnItemCreated="gvCustomerList_ItemCreated"
-                            OnItemDataBound="gvCustomerList_ItemDataBound" Skin="Telerik" EnableHeaderContextMenu="true"
-                            OnNeedDataSource="gvCustomerList_OnNeedDataSource" OnPreRender="gvCustomerList_PreRender"
-                            OnItemCommand="gvCustomerList_ItemCommand" AllowCustomPaging="true">
+                        <telerik:RadGrid ID="gvCustomerList" runat="server" AllowAutomaticDeletes="false"
+                            EnableEmbeddedSkins="false" AllowFilteringByColumn="true" PageSize="10" ShowFooter="true" AutoGenerateColumns="False"
+                            ShowStatusBar="true" AllowPaging="true" AllowSorting="true" GridLines="none"
+                            AllowAutomaticInserts="false" OnItemCreated="gvCustomerList_ItemCreated" OnItemDataBound="gvCustomerList_ItemDataBound"
+                            Skin="Telerik" EnableHeaderContextMenu="true" OnNeedDataSource="gvCustomerList_OnNeedDataSource"
+                            OnPreRender="gvCustomerList_PreRender" OnItemCommand="gvCustomerList_ItemCommand"
+                            AllowCustomPaging="true">
                             <ExportSettings HideStructureColumns="true">
                             </ExportSettings>
                             <MasterTableView DataKeyNames="CustomerId,UserId,RMId" Width="99%" AllowMultiColumnSorting="True"
@@ -1118,3 +1142,4 @@
 <asp:HiddenField ID="hdncustomerCategoryFilter" runat="server" />
 <asp:HiddenField ID="hdnPincode" runat="server" />
 <asp:HiddenField ID="hdnIsRealInvester" runat="server" />
+<asp:HiddenField ID="hdnRequestId" runat="server" />
