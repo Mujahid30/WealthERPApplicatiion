@@ -218,8 +218,13 @@ namespace WealthERP.OPS
             ddlTotalInstallments.Items.Clear();
 
             dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(txtSchemeCode.Value), ddlFrequencySIP.SelectedValue.ToString(), "SIP");
-            if (dtGetAllSIPDataForOrder == null) return;
-
+            if (dtGetAllSIPDataForOrder == null)
+            {                return;
+            }
+            if (dtGetAllSIPDataForOrder.Rows.Count == 0)
+            {
+                return;
+            }
             int minDues;
             int maxDues;
 
@@ -335,7 +340,7 @@ namespace WealthERP.OPS
 
         private void CaliculateEndDate()
         {
-            if (ddlTotalInstallments.SelectedIndex == 0 ||   ddlFrequencySIP.SelectedIndex == 0) return;
+            if (ddlTotalInstallments.SelectedIndex == -1 ||   ddlFrequencySIP.SelectedIndex == 0) return;
 
             DateTime dtEndDate = boOnlineOrder.GetSipEndDate(Convert.ToDateTime(txtstartDateSIP.SelectedDate), ddlFrequencySIP.SelectedValue, Convert.ToInt32(ddlTotalInstallments.SelectedValue) - 1);
             txtendDateSIP.SelectedDate = dtEndDate;
@@ -500,16 +505,26 @@ namespace WealthERP.OPS
                     lblGetBranch.Text = dr["AB_BranchName"].ToString();
                     lblgetPan.Text = dr["C_PANNum"].ToString();
 
+                    
                     if (!string.IsNullOrEmpty(dr["WMTT_TransactionClassificationCode"].ToString()))
                     {
                         if (dr["WMTT_TransactionClassificationCode"].ToString() == "SWB" || dr["WMTT_TransactionClassificationCode"].ToString() == "SWS" )
                         {
                             ddltransType.SelectedValue = "SWB";
+                            if (dr["WMTT_TransactionClassificationCode"].ToString() == "SWB")
+                            {                       
+                               
+                                lnkBtnEdit.Text = string.Empty;
+                            }
                         }
                         else if (dr["WMTT_TransactionClassificationCode"].ToString() == "STB" || dr["WMTT_TransactionClassificationCode"].ToString() == "STS")
                         {
                             ddltransType.SelectedValue = "STB";
-
+                            if (dr["WMTT_TransactionClassificationCode"].ToString() == "STB")
+                            {
+                                lnkBtnEdit.Visible = false;
+                                lnkBtnEdit.Text = string.Empty;
+                            }
                         }
                         else
                         {
@@ -517,6 +532,7 @@ namespace WealthERP.OPS
                         }
                     }
                     GetAmcBasedonTransactionType(ddltransType.SelectedValue);
+
 
 
 
@@ -655,16 +671,17 @@ namespace WealthERP.OPS
                     }
                     if (ddltransType.SelectedValue == "SIP" | ddltransType.SelectedValue == "SWP" | ddltransType.SelectedValue == "STB")
                     {
-                        BindStartDates();
+                       // BindStartDates();
                         if (!string.IsNullOrEmpty(dr["CMFSS_StartDate"].ToString()))
                         {
                             string startDates = Convert.ToDateTime(dr["CMFSS_StartDate"].ToString()).ToString("dd-MMM-yyyy");
                             ddlStartDate.SelectedValue = startDates;
                             txtstartDateSIP.SelectedDate = DateTime.Parse(dr["CMFSS_StartDate"].ToString());
+                            BindTotalInstallments();
+                            ddlTotalInstallments.SelectedValue = dr["CMFSS_TotalInstallment"].ToString();
+                            CaliculateEndDate();
                         }
-                        BindTotalInstallments();
-                        ddlTotalInstallments.SelectedValue = dr["CMFSS_TotalInstallment"].ToString();
-                        CaliculateEndDate();
+                      
                     }
                     if (!string.IsNullOrEmpty(dr["CMFSS_EndDate"].ToString()))
                         txtendDateSIP.SelectedDate = DateTime.Parse(dr["CMFSS_EndDate"].ToString());
