@@ -8247,9 +8247,13 @@
     <Content Include="Admin\UploadRejects.ascx" />
     <Content Include="Admin\ViewRepository.ascx" />
     <Content Include="Admin\WERPAdminDownloadProcessLog.ascx" />
+    <Content Include="ReferenceFiles\HelpAdditional Purchase.htm" />
     <Content Include="ReferenceFiles\HelpNewPurchaseInformation.htm" />
+    <Content Include="ReferenceFiles\HelpRedeem.htm" />
+    <Content Include="ReferenceFiles\HelpSIP.htm" />
     <Content Include="ReferenceFiles\IPO-Terms-Condition.htm" />
     <Content Include="ReferenceFiles\MF-Terms-Condition.html" />
+    <Content Include="ReferenceFiles\MFOrderbook.htm" />
     <Content Include="ReferenceFiles\NCD-Terms-Condition.html" />
     <Content Include="Register.aspx" />
     <Content Include="RegistrationConfirmation.aspx" />
