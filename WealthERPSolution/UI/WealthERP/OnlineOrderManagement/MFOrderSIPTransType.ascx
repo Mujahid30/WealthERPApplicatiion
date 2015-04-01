@@ -18,6 +18,10 @@
     {
         padding-bottom: .5em;
     }
+    #tbpurchase
+    {
+        width: 103%;
+    }
 </style>
 
 <script type="text/javascript">
@@ -109,8 +113,8 @@
                 </td>
             </tr>
         </table>
-        <div style="float: left;" id="divControlContainer" runat="server">
-            <table>
+        <div style="float: left;" width="100%" id="divControlContainer" runat="server">
+            <table id="tbpurchase"  width="100%">
                 <tr class="spaceUnder">
                     <td>
                     </td>
@@ -126,7 +130,12 @@
                         <asp:RequiredFieldValidator ID="rfvAmc" runat="server" CssClass="rfvPCG" ErrorMessage="Please Select an AMC"
                             Display="Dynamic" ControlToValidate="ddlAmc" InitialValue="0" ValidationGroup="btnSubmit">Please Select an AMC</asp:RequiredFieldValidator>
                     </td>
-                    <td>
+                   
+                   <td align="right" style="float:right;width:200px;">
+                                                      
+                        <asp:ImageButton ID="imgInformation" runat="server" ImageUrl="../Images/help.png"
+                            OnClick="imgInformation_OnClick" ToolTip="Help" Style="cursor: hand;" />
+                    
                     </td>
                     <td>
                     </td>
@@ -629,6 +638,23 @@
                 </telerik:RadWindow>
             </Windows>
         </telerik:RadWindowManager>
+        <telerik:RadWindow ID="RadInformation" Modal="true" Behaviors="Close, Move" VisibleStatusbar="false"
+            Width="760px" Height="580px" runat="server" Left="300" Top="50" OnClientShow="setCustomPosition" >
+            <ContentTemplate>
+                <div style="padding: 0px; width: 100%; height:100%;">
+                    <%--<table width="100%" cellpadding="0" cellpadding="0" Height="100%">
+                        <tr>
+                            <td align="left">--%>
+                                <%--  <a href="../ReferenceFiles/MF-Terms-Condition.html">../ReferenceFiles/MF-Terms-Condition.html</a>--%>
+                                
+                                <iframe src="../ReferenceFiles/HelpSIP.htm" name="iframeTermsCondition"
+                                    style="width: 100%; height:100%"></iframe>
+                           <%-- </td>
+                        </tr>
+                    </table>--%>
+                </div>
+            </ContentTemplate>
+        </telerik:RadWindow>
         <div style="float: inherit;">
             <asp:HiddenField ID="hdnAccountId" runat="server" />
         </div>

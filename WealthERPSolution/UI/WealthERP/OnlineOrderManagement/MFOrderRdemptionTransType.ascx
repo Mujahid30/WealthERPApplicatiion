@@ -122,7 +122,10 @@
                             InitialValue="0" ValidationGroup="btnSubmit">
                         </asp:RequiredFieldValidator>
                     </td>
-                    <td colspan="2">
+                    <td align="right" style="float:right;width:200px;">
+                    
+                    <asp:ImageButton ID="imgInformation" runat="server" ImageUrl="../Images/help.png"
+                            OnClick="imgInformation_OnClick" ToolTip="Help" Style="cursor: hand;" />
                     </td>
                 </tr>
                 <tr class="spaceUnder">
@@ -562,6 +565,23 @@
                 </telerik:RadWindow>
             </Windows>
         </telerik:RadWindowManager>
+         <telerik:RadWindow ID="RadInformation" Modal="true" Behaviors="Close, Move" VisibleStatusbar="false"
+            Width="760px" Height="580px" runat="server" Left="300" Top="50" OnClientShow="setCustomPosition" >
+            <ContentTemplate>
+                <div style="padding: 0px; width: 100%; height:100%;">
+                    <%--<table width="100%" cellpadding="0" cellpadding="0" Height="100%">
+                        <tr>
+                            <td align="left">--%>
+                                <%--  <a href="../ReferenceFiles/MF-Terms-Condition.html">../ReferenceFiles/MF-Terms-Condition.html</a>--%>
+                                <iframe src="../ReferenceFiles/HelpRedeem.htm" name="iframeTermsCondition"
+                                style="width: 100%; height:100%"></iframe>
+                                            style="width: 100%; height:100%"></iframe>
+                           <%-- </td>
+                        </tr>
+                    </table>--%>
+                </div>
+            </ContentTemplate>
+        </telerik:RadWindow>
         <div style="float: inherit;">
         </div>
     </ContentTemplate>

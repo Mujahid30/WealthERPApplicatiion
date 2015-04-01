@@ -50,6 +50,7 @@ namespace WealthERP.OnlineOrderManagement
             OnlineUserSessionBo.CheckSession();
             customerVo = (CustomerVo)Session["customerVo"];
             userVo = (UserVo)Session["userVo"];
+            RadInformation.VisibleOnPageLoad = false;
             if (!IsPostBack)
             {
                 clientMFAccessCode = onlineMforderBo.GetClientMFAccessStatus(customerVo.CustomerId);
@@ -728,6 +729,11 @@ namespace WealthERP.OnlineOrderManagement
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "loadcontrol('MFOrderRdemptionTransType')", true);
                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('IPOIssueTransact','&issueId=" + issueId + "')", true);
             }
+        }
+        protected void imgInformation_OnClick(object sender, EventArgs e)
+        {
+            RadInformation.VisibleOnPageLoad = true;
+
         }
 
     }

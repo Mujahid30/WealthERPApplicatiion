@@ -71,6 +71,8 @@ namespace WealthERP.OnlineOrderManagement
             adviserVo = (AdvisorVo)Session["advisorVo"];
             customerVo = (CustomerVo)Session["CustomerVo"];
             custPortVo = (CustomerPortfolioVo)Session["CustomerPortfolioVo"];
+            RadInformation.VisibleOnPageLoad = false;
+
             if (custPortVo == null)
             {
                 custPortVo = portfolioBo.GetCustomerDefaultPortfolio(customerVo.CustomerId);
@@ -1001,6 +1003,11 @@ namespace WealthERP.OnlineOrderManagement
                 ddlDividendFreq.Items.Insert(0, new ListItem("--SELECT--", "0"));
 
             }
+
+        }
+        protected void imgInformation_OnClick(object sender, EventArgs e)
+        {
+            RadInformation.VisibleOnPageLoad = true;
 
         }
     }
