@@ -673,7 +673,7 @@ namespace DaoCustomerProfiling
                     if (!string.IsNullOrEmpty(dr["C_Category"].ToString()))
                         customerVo.Category = dr["C_Category"].ToString();
 
-            
+
                 }
             }
 
@@ -1136,7 +1136,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(editCustomerCmd, "@C_LastName", DbType.String, customerVo.LastName);
                 db.AddInParameter(editCustomerCmd, "@C_Gender", DbType.String, customerVo.Gender);
                 db.AddInParameter(editCustomerCmd, "@XCT_CustomerTypeCode", DbType.String, customerVo.Type);
-                    if (customerVo.SubType != "")
+                if (customerVo.SubType != "")
                     db.AddInParameter(editCustomerCmd, "@XCST_CustomerSubTypeCode", DbType.String, customerVo.SubType);
                 else
                     db.AddInParameter(editCustomerCmd, "@XCST_CustomerSubTypeCode", DbType.String, DBNull.Value);
@@ -2012,8 +2012,8 @@ namespace DaoCustomerProfiling
                     db.AddInParameter(createCustomerCmd, "@U_LastName", DbType.String, userVo.LastName);
                 else
                     db.AddInParameter(createCustomerCmd, "@U_LastName", DbType.String, DBNull.Value);
-                if(userVo.Email!=null)
-                db.AddInParameter(createCustomerCmd, "@U_Email", DbType.String, userVo.Email.ToString());
+                if (userVo.Email != null)
+                    db.AddInParameter(createCustomerCmd, "@U_Email", DbType.String, userVo.Email.ToString());
                 else
                     db.AddInParameter(createCustomerCmd, "@U_Email", DbType.String, DBNull.Value);
 
@@ -3388,8 +3388,8 @@ namespace DaoCustomerProfiling
             }
             return dtCustomerNames;
         }
-     
-     
+
+
         public DataTable GetAdviserCustomerName(string prefixText, int adviserId)
         {
 
@@ -6087,7 +6087,7 @@ namespace DaoCustomerProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 //To retreive data from the table 
                 cmdGetGroupSubBrokerName = db.GetStoredProcCommand("GetAssociateNames");
-                db.AddInParameter(cmdGetGroupSubBrokerName, "@agentId", DbType.Int32, agentId);                
+                db.AddInParameter(cmdGetGroupSubBrokerName, "@agentId", DbType.Int32, agentId);
                 dsSubBrokerName = db.ExecuteDataSet(cmdGetGroupSubBrokerName);
                 dtSubBrokerName = dsSubBrokerName.Tables[0];
             }
@@ -6357,7 +6357,7 @@ namespace DaoCustomerProfiling
             }
             return isInserted;
         }
-        public bool EditTempletonDataTranslateMappingDetalis(string prevTransactionType,string TransactionType, string TransactionClassificationCode)
+        public bool EditTempletonDataTranslateMappingDetalis(string prevTransactionType, string TransactionType, string TransactionClassificationCode)
         {
             bool isUpdated = false;
             Database db;
@@ -6865,7 +6865,7 @@ namespace DaoCustomerProfiling
             }
             return dtGetRMStaffList;
         }
-     
+
         public DataTable GetSystematicId(string prefixText, int Adviserid)
         {
 
@@ -6994,5 +6994,112 @@ namespace DaoCustomerProfiling
             }
             return dtGetNcdIssuenameDetails;
         }
+        public DataTable GetDummyPanCustomer(string pan, string dob, string email, string moblile, int advisorId)
+        {
+
+            Database db;
+            DbCommand cmdGetDummyPanCustomer;
+            DataSet dsGetDummyPanCustomer;
+            DataTable dtGetDummyPanCustomer;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetDummyPanCustomer = db.GetStoredProcCommand("SPROC_GetDummyPanCustomer");
+                db.AddInParameter(cmdGetDummyPanCustomer, "@pan", DbType.String, pan);
+                db.AddInParameter(cmdGetDummyPanCustomer, "@dob", DbType.String, dob);
+                db.AddInParameter(cmdGetDummyPanCustomer, "@email", DbType.String, dob);
+                db.AddInParameter(cmdGetDummyPanCustomer, "@moblile", DbType.String, dob);
+                db.AddInParameter(cmdGetDummyPanCustomer, "@advisorId", DbType.String, advisorId);
+
+
+                dsGetDummyPanCustomer = db.ExecuteDataSet(cmdGetDummyPanCustomer);
+                dtGetDummyPanCustomer = dsGetDummyPanCustomer.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetDummyPanCustomer;
+        }
+
+
+        public DataTable GetCriteriaMatches(string pan, string dob, string email, string moblile, int customerId)
+        {
+
+            Database db;
+            DbCommand cmdGetDummyPanCustomer;
+            DataSet dsGetDummyPanCustomer;
+            DataTable dtGetDummyPanCustomer;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetDummyPanCustomer = db.GetStoredProcCommand("SPROC_GetCriteria");
+                db.AddInParameter(cmdGetDummyPanCustomer, "@pan", DbType.String, pan);
+                db.AddInParameter(cmdGetDummyPanCustomer, "@dob", DbType.String, dob);
+                db.AddInParameter(cmdGetDummyPanCustomer, "@email", DbType.String, email);
+                db.AddInParameter(cmdGetDummyPanCustomer, "@mobile", DbType.String, moblile);
+                db.AddInParameter(cmdGetDummyPanCustomer, "@customerId", DbType.Int32, customerId);
+
+
+                dsGetDummyPanCustomer = db.ExecuteDataSet(cmdGetDummyPanCustomer);
+                dtGetDummyPanCustomer = dsGetDummyPanCustomer.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetDummyPanCustomer;
+        }
+
+        public DataTable GetAutoMergeCriteria(string pan, string dob, string email, string moblile, int customerId)
+        {
+            Database db;
+            DbCommand cmdGetDummyPanCustomer;
+            DataSet dsGetDummyPanCustomer;
+            DataTable dtGetDummyPanCustomer;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetDummyPanCustomer = db.GetStoredProcCommand("SPROC_GetAutoMergeCriteria");
+                db.AddInParameter(cmdGetDummyPanCustomer, "@pan", DbType.String, pan);
+                db.AddInParameter(cmdGetDummyPanCustomer, "@dob", DbType.String, dob);
+                db.AddInParameter(cmdGetDummyPanCustomer, "@email", DbType.String, email);
+                db.AddInParameter(cmdGetDummyPanCustomer, "@mobile", DbType.String, moblile);
+                db.AddInParameter(cmdGetDummyPanCustomer, "@customerId", DbType.Int32, customerId);
+
+                dsGetDummyPanCustomer = db.ExecuteDataSet(cmdGetDummyPanCustomer);
+                dtGetDummyPanCustomer = dsGetDummyPanCustomer.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetDummyPanCustomer;
+        }
+
+
+        public int CreateCustomerMerge(int deletingCustomerId, int matchCustomerId)
+        {
+            int result = 0;
+            Database db;
+            DbCommand createCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createCmd = db.GetStoredProcCommand("SPROC_GetClinentMerge");
+                db.AddInParameter(createCmd, "@deletingCustomerId", DbType.Int32, deletingCustomerId);
+                db.AddInParameter(createCmd, "@matchCustomerId", DbType.Int32, matchCustomerId);
+                result = db.ExecuteNonQuery(createCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
+        }
+
+
     }
 }

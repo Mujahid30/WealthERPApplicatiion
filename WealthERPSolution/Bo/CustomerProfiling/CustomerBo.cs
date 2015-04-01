@@ -1658,7 +1658,67 @@ namespace BoCustomerProfiling
             return dtGetCustomerRelation;
         }
 
+        public DataTable GetDummyPanCustomer(string pan, string dob, string email, string moblile,int advisorId)
+        {
+            CustomerDao customerDao = new CustomerDao();
 
+            DataTable dtGetDummyPan = new DataTable();
+            try
+            {
+                dtGetDummyPan = customerDao.GetDummyPanCustomer(pan, dob, email, moblile, advisorId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetCustomerRelation()");
+                object[] objects = new object[0];
+                objects[0] = "BoRelationshipProblem";
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtGetDummyPan;
+        }
+
+
+        public DataTable GetCriteriaMatches(string pan, string dob, string email, string moblile, int customerId)
+        {
+            CustomerDao customerDao = new CustomerDao();
+
+            DataTable dtGetCriteriaMatches = new DataTable();
+            try
+            {
+                dtGetCriteriaMatches = customerDao.GetCriteriaMatches(pan, dob, email, moblile, customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetCriteriaMatches;
+        }
+
+        public DataTable GetAutoMergeCriteria(string pan, string dob, string email, string moblile, int customerId)
+        {
+            CustomerDao customerDao = new CustomerDao();
+
+            DataTable dtAutoMergeCriteria = new DataTable();
+            try
+            {
+                dtAutoMergeCriteria = customerDao.GetAutoMergeCriteria(pan, dob, email, moblile, customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtAutoMergeCriteria;
+        }
         /// <summary>
         /// Used ot Get Customer Details for Prospect List
         /// </summary>
@@ -1868,6 +1928,22 @@ namespace BoCustomerProfiling
             }
             return expiryAge;
         }
+
+        public int CreateCustomerMerge(int deletingCustomerId, int matchCustomerId)
+        {
+            CustomerDao customerDao = new CustomerDao();
+            int result;
+            try
+            {
+                result = customerDao.CreateCustomerMerge(deletingCustomerId, matchCustomerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
+        }
+
         public DataSet GetAllCustomersAssumptions(int customerId, int adviserId)
         {
             CustomerDao customerDao = new CustomerDao();
