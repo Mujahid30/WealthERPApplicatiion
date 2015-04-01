@@ -361,7 +361,7 @@
                                                             <asp:Label ID="lb1IssuerCode" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
                                                         </td>
                                                         <td class="rightField" style="width: 25%">
-                                                            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField">
+                                                            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" >
                                                             </asp:DropDownList>
                                                             <asp:TextBox ID="txtIssuerCode" runat="server" CssClass="txtField" Visible="false"></asp:TextBox><br />
                                                             <span id="spnNewFolioValidation"></span>
@@ -1404,9 +1404,19 @@
                         InitialValue="0" ValidationGroup="SetUpSubmit">
                     </asp:RequiredFieldValidator>
                 </td>
-                <td class="leftLabel" colspan="3">
+             
+                <td class="leftLabel" colspan="2">
                     &nbsp;
                 </td>
+            </tr>
+               <tr> 
+       <td class="leftLabel">
+            <asp:label ID="lblPrivilegeRemark" runat="server" Text="Remark(Related Privilege)" CssClass="FieldName" Visible="false"></asp:label>
+            </td>
+         <td class="rightData">
+            <asp:TextBox ID="txtPrivilegeRemark" runat="server" CssClass="txtField" Width="200px" TabIndex="60" Visible="false">
+            </asp:TextBox>
+            </td>
             </tr>
             <tr id="trMultipleApplicationAllowed" runat="server">
                 <td>
@@ -1536,7 +1546,7 @@
                 <td class="rightData">
                     <asp:TextBox ID="txtIssueId" runat="server" CssClass="txtField" Visible="false"></asp:TextBox>
                 </td>
-                <td class="leftLabel" colspan="3">
+                <td class="leftLabel" colspan="2">
                     &nbsp;
                 </td>
             </tr>

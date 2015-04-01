@@ -133,6 +133,7 @@ namespace VoOnlineOrderManagemnet
         public string issueBrokerIds { get; set; }
         public decimal minAmt { get; set; }
         public decimal maxAmt { get; set; }
+        public string PrivilegeRemark { get; set; }
 
     }
 

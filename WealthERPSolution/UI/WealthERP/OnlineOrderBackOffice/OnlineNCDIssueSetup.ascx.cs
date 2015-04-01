@@ -709,6 +709,16 @@ namespace WealthERP.OnlineOrderBackOffice
                         txtMinAmt.Text = dr["AIM_MinAmount"].ToString();
                     if (!string.IsNullOrEmpty(dr["AIM_MaxAmount"].ToString()))
                         txtMaxAmt.Text = dr["AIM_MaxAmount"].ToString();
+                    if (!string.IsNullOrEmpty(dr["AIM_PrivilegeRemark"].ToString()))
+                    {
+                        txtPrivilegeRemark.Text = dr["AIM_PrivilegeRemark"].ToString();
+                    }
+                    else
+                    {
+                        txtPrivilegeRemark.Text = "";
+                    }
+
+
                     if (!string.IsNullOrEmpty(dr["XB_BrokerId"].ToString()))
                     {
                         StringBuilder sbBroker = new StringBuilder();
@@ -966,9 +976,14 @@ namespace WealthERP.OnlineOrderBackOffice
             txtInvestorGrievenceEmail.Enabled = value;
             txtContactPerson.Enabled = value;
             txtISINNo.Enabled = value;
+           
+            
+
             if (ddlProduct.SelectedValue == "IP")
             {
                 pnlSeries.Visible = false;
+                txtPrivilegeRemark.Visible = false;
+                lblPrivilegeRemark.Visible = false;
                 //trMaxQty.Visible = false;
             }
             else if (ddlProduct.SelectedValue == "NCD")
@@ -3825,8 +3840,12 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.IsCancelAllowed = 0;
                 }
+                 if(!string.IsNullOrEmpty(txtPrivilegeRemark.Text))
+
+                     onlineNCDBackOfficeVo.PrivilegeRemark = txtPrivilegeRemark.Text;
+               
                 if (!string.IsNullOrEmpty(txtBankName.Text))
-                    onlineNCDBackOfficeVo.applicationBank = txtBankName.Text;
+                    onlineNCDBackOfficeVo.applicationBank= txtBankName.Text;
 
                 if (ddlSubInstrCategory.SelectedValue != "FICGCG" && ddlSubInstrCategory.SelectedValue != "FINPNP" && ddlSubInstrCategory.SelectedValue != "FICDCD")
                 {
@@ -4883,6 +4902,16 @@ namespace WealthERP.OnlineOrderBackOffice
             if (ddlProduct.SelectedValue == "NCD")
             {
                 BindIssuer(ddlSubInstrCategory.SelectedValue);
+            }
+            if (ddlSubInstrCategory.SelectedValue == "FICDCD")
+            {
+                txtPrivilegeRemark.Visible = true;
+                lblPrivilegeRemark.Visible = true;
+            }
+            else
+            {
+                txtPrivilegeRemark.Visible = false;
+                lblPrivilegeRemark.Visible = false;
             }
             imgIssuer.Visible = true;
             BindInstCate(ddlSubInstrCategory.SelectedValue);
@@ -6124,6 +6153,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     trAmount.Visible = true;
                     trMinQty.Visible = false;
                     trMaxQty.Visible = false;
+                    lblPrivilegeRemark.Visible = true;
+                    txtPrivilegeRemark.Visible = true;
                 }
 
             }

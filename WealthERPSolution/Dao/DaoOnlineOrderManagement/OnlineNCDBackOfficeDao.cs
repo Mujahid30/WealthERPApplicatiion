@@ -66,6 +66,7 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbCommand = db.GetStoredProcCommand("SPROC_GetIssueDetails");
+
                 db.AddInParameter(dbCommand, "@issueId", DbType.Int32, issueId);
                 db.AddInParameter(dbCommand, "@adviserId", DbType.Int32, adviserId);
                 dsIssueDetails = db.ExecuteDataSet(dbCommand);
@@ -601,6 +602,7 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(createCmd, "@MinAmt", DbType.Decimal, onlineNCDBackOfficeVo.minAmt);
                 if (onlineNCDBackOfficeVo.maxAmt != 0)
                     db.AddInParameter(createCmd, "@MaxAmt", DbType.Decimal, onlineNCDBackOfficeVo.maxAmt);
+                db.AddInParameter(createCmd, "@RemarkPrivilege", DbType.String, onlineNCDBackOfficeVo.PrivilegeRemark);
                 issueId = db.ExecuteNonQuery(createCmd);
             }
             catch (BaseApplicationException Ex)
@@ -977,6 +979,7 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(createCmd, "@MinAmt", DbType.Decimal, onlineNCDBackOfficeVo.minAmt);
                 if (onlineNCDBackOfficeVo.maxAmt != 0)
                     db.AddInParameter(createCmd, "@MaxAmt", DbType.Decimal, onlineNCDBackOfficeVo.maxAmt);
+                db.AddInParameter(createCmd, "@RemarkPrivilege", DbType.String, onlineNCDBackOfficeVo.PrivilegeRemark);
                 if (db.ExecuteNonQuery(createCmd) != 0)
                 {
                     issueId = Convert.ToInt32(db.GetParameterValue(createCmd, "AIM_IssueId").ToString());
