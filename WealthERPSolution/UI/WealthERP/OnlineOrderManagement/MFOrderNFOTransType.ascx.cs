@@ -48,6 +48,9 @@ namespace WealthERP.OnlineOrderManagement
             customerVo = (CustomerVo)Session["customerVo"];
             userVo = (UserVo)Session["userVo"];
             Session["OrderId"] = OrderId;
+            RadInformation.VisibleOnPageLoad = false;
+
+          
             if (!IsPostBack)
             {
                 clientMFAccessCode = onlineMforderBo.GetClientMFAccessStatus(customerVo.CustomerId);
@@ -107,13 +110,13 @@ namespace WealthERP.OnlineOrderManagement
             lbltime.Text = "";
             lbldftext.Text = "";
             txtAmt.Text = "";
-            lblNavDisplay.Text = "";
+           //lblNavDisplay.Text = "";
             ddlScheme.SelectedIndex = 0;
             ddlFolio.SelectedIndex = 0;
 
             ddlDivType.SelectedIndex = 0;
 
-
+            
         }
         protected void GetControlDetails(int scheme, string folio)
         {
@@ -487,5 +490,12 @@ namespace WealthERP.OnlineOrderManagement
             }
 
         }
+        protected void imgInformation_OnClick(object sender, EventArgs e)
+        {
+            RadInformation.VisibleOnPageLoad = true;
+
+        }
+      
+
     }
 }
