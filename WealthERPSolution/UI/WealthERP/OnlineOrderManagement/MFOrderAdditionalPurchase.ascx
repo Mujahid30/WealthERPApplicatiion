@@ -496,7 +496,7 @@
                                 <%--  <a href="../ReferenceFiles/MF-Terms-Condition.html">../ReferenceFiles/MF-Terms-Condition.html</a>--%>
                                 <iframe src="../ReferenceFiles/HelpAdditional Purchase.htm" name="iframeTermsCondition"
                                 style="width: 100%; height:100%"></iframe>
-                                            style="width: 100%; height:100%"></iframe>
+                                            
                            <%-- </td>
                         </tr>
                     </table>--%>
