@@ -210,12 +210,12 @@
                                             Visible="false">
                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <%-- <telerik:GridTemplateColumn UniqueName="ReProcess" ItemStyle-Width="100Px" AllowFiltering="false"
+                                      <%--  <%-- <telerik:GridTemplateColumn UniqueName="ReProcess" ItemStyle-Width="100Px" AllowFiltering="false"
                                             HeaderText="ReProcess">
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="lbtnWelcomeletter" Visible='<%# Eval("XMLStatus").Equals('2')?"True" : "False" %>'
                                                     runat="server">ReProcess</asp:LinkButton>
-                                                <%-- Visible='<%# Convert.ToInt16(Eval("XMLStatus")).ToString() = 2 ? "True" : "False" %>'--%>
+                                                <%-- Visible='<%# Convert.ToInt16(Eval("XMLStatus")).ToString() = 2 ? "True" : "False" %>'
                                         </ItemTemplate> </telerik:GridTemplateColumn>--%>
                                         <telerik:GridTemplateColumn AllowFiltering="false">
                                             <ItemTemplate>
