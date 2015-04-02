@@ -90,284 +90,172 @@ namespace WealthERP.CustomerPortfolio
             try
             {
                 SessionBo.CheckSession();
-                this.Page.Culture = "en-GB";
-                userVo = (UserVo)Session["userVo"];
-                advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
-                rmVo = (RMVo)Session[SessionContents.RmVo];
-                associatesVo = (AssociatesVO)Session["associatesVo"];
-                path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
-                if (advisorVo.A_AgentCodeBased == 0)
+                if (Request.QueryString["reqId"] != null)
                 {
-                    if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin")
-                        userType = "advisor";
-
-                    else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
-                        userType = "rm";
-                    else if (Session["IsCustomerDrillDown"] != null)
-                    {
-                        userType = "Customer";
-
-                    }
-                    //else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "Customer")
-                    //    userType = "Customer";
-                    else
-                        userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
-
-                }
-                else if (advisorVo.A_AgentCodeBased == 1)
-                {
-                    if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin")
-                        userType = "advisor";
-
-                    else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
-                        userType = "rm";
-                    else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
-                    {
-                        tdCustomerGroup.Visible = false;
-                        ddlAgentCode.Items[1].Enabled = false;
-                        
-                        userType = "associates";
-                        associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
-                        if (associateuserheirarchyVo.UserTitle == "SubBroker")
-                        {
-                            if (associateuserheirarchyVo.AgentCode != null)
-                            {
-                                AgentCode = associateuserheirarchyVo.AgentCode.ToString();
-                            }
-                            else
-                            {
-                                AgentCode = "0";
-                            }
-                        }
-                        else
-                        {
-                            if (associateuserheirarchyVo.AgentCode != null)
-                            {
-                                AgentCode =  associateuserheirarchyVo.AgentCode.ToString();
-                            }
-                            else
-                            {
-                                AgentCode = "0";
-                            }
-                        }
-                    }
-                    else if (Session["IsCustomerDrillDown"] != null)
-                    {
-                        userType = "Customer";
-
-                    }
-                    //else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "Customer")
-                    //    userType = "Customer";
-                    else
-                        userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
-                }
-                customerVo = (CustomerVo)Session["CustomerVo"];
-                if (Session["CustomerVo"] != null)
-                {
-                    customerId = customerVo.CustomerId;
-                    trRangeNcustomer.Visible = false;
-                    tdCustomerGroup.Visible = false;
-                    lblAgentCode.Visible = false;
-                    ddlAgentCode.Visible = false;
-                    //trRange.Visible = false;
-
-                }
-                lbBack.Attributes.Add("onClick", "javascript:history.back(); return false;");
-
-
-                if (!IsPostBack)
-                {
-
-
-                    if (Session["CustomerVo"] != null)
-                    {
-                        ddlDisplayType.Items.RemoveAt(2);
-                    }
-
-                    BindAMC();
-                    //BindCategory();
-                    Bindscheme();
-                    Cache.Remove("ViewTrailCommissionDetails" + advisorVo.advisorId);
-                    trGroupHead.Visible = false;
-                    hdnProcessIdSearch.Value = "0";
-                    Panel2.Visible = false;
-                    Panel1.Visible = false;
-                    gvMFTransactions.Visible = false;
+                    this.Page.Culture = "en-GB";
+                    userVo = (UserVo)Session["userVo"];
+                    advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
+                    rmVo = (RMVo)Session[SessionContents.RmVo];
+                    associatesVo = (AssociatesVO)Session["associatesVo"];
+                    ViewState.Remove("TransactionStatus");
+                    BindGrid(convertedFromDate, convertedToDate);
+                    hdnExportType.Value = "TV";
                     gvBalanceView.Visible = false;
+                    Panel1.Visible = false;
                     gvTrail.Visible = false;
                     divTrail.Visible = false;
-                    hdnSchemeSearch.Value = string.Empty;
-                    hdnTranType.Value = string.Empty;
-                    hdnCustomerNameSearch.Value = string.Empty;
-                    hdnFolioNumber.Value = string.Empty;
-                    hdnCategory.Value = string.Empty;
-                    hdnAMC.Value = "0";
-                    rbtnPickDate.Checked = true;
-                    rbtnPickPeriod.Checked = false;
-                 //   trRange.Visible = true;
-                    trPeriod.Visible = false;
-                    //tdGroupHead.Visible = false;
-                    //lblGroupHead.Visible = false;
-                    //txtParentCustomer.Visible = false;
-                    if (userType == "associates")
-                    {
-                        //trZCCS.Visible = true;
-                        BindSubBrokerAgentCode(AgentCode);//commented
-                    }
-
-
-                    if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
-                    {
-                        txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                        txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
-                    }
-                    else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
-                    {
-                        txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                        txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
-                        txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                        txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-                        txtClientCode_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                        txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
-
-                    }
-                    else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
-                    {
-                        txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                        txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetBMParentCustomerNames";
-
-                    }
-                    BindLink();
-                    //if (Request.QueryString["folionum"] != null && Request.QueryString["SchemePlanCode"] != null )
-                    //{                       
-                    //    int accountId = int.Parse(Request.QueryString["folionum"].ToString());
-                    //    int SchemePlanCode = int.Parse(Request.QueryString["SchemePlanCode"].ToString());                        
-                    //    PasssedFolioValue = accountId;
-                    //    BindLastTradeDate();
-                    //    string fromdate = "01-01-1990";
-                    //    txtFromDate.SelectedDate = DateTime.Parse(fromdate);
-                    //    ViewState["SchemePlanCode"] = SchemePlanCode;
-
-                    //    if (Request.QueryString["name"] != null)
-                    //    {
-                    //        column = Request.QueryString["name"].ToString();
-                    //        if (column == "Select1" || column == "SelectAmt")
-                    //        {
-                    //            ddlDisplayType.SelectedValue = "TV";
-                    //            BindGrid(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
-                    //            Panel2.Visible = true;
-                    //            Panel1.Visible = false;
-                    //            divTrail.Visible = false;
-                    //        }
-                    //        else if (column == "Select2" || column == "SelectTrail")
-                    //        {
-                    //            ddlDisplayType.SelectedValue = "TCV";
-                    //            BindGridTrailCommission(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
-                    //            Panel2.Visible = false;
-                    //            Panel1.Visible = false;
-                    //            divTrail.Visible = true;
-                    //            hdnExportType.Value = "TCV";
-                    //        }
-                    //        else if (column == "Select")
-                    //        {
-                    //            ddlDisplayType.SelectedValue = "RHV";
-                    //            lbBack.Visible = true;
-                    //            BindGridBalance(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
-                    //            Panel2.Visible = false;
-                    //            Panel1.Visible = true;
-                    //            divTrail.Visible = false;
-                    //            hdnExportType.Value = "RHV";
-                    //        }
-                    //    }
-                    //    else
-                    //    {
-                    //        ddlDisplayType.SelectedValue = "TV";
-                    //        BindGrid(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
-                    //        lnkBackHolding.Visible = true;
-                    //        Panel2.Visible = true;
-                    //        Panel1.Visible = false;
-                    //        divTrail.Visible = false;
-                    //        hdnExportType.Value = "TV";
-                    //    }
-                    //}
-                    //if (Request.QueryString["CategoryCode"] != null)
-                    //{
-                    //    string CategoryCode = Request.QueryString["CategoryCode"].ToString();
-                    //    BindLastTradeDate();
-                    //    string fromdate = "01-01-1990";
-                    //    txtFromDate.SelectedDate = DateTime.Parse(fromdate);
-                    //    ViewState["CategoryCode"] = CategoryCode;
-                    //    if (Request.QueryString["name"] != null)
-                    //    {
-                    //        column = Request.QueryString["name"].ToString();
-                    //        if (column == "SelectAmt")
-                    //        {
-                    //            ddlDisplayType.SelectedValue = "TV";
-                    //            BindGrid(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
-                    //            Panel2.Visible = true;
-                    //            Panel1.Visible = false;
-                    //            divTrail.Visible = false;
-                    //            hdnExportType.Value = "TV";
-                    //        }
-                    //        else if (column == "SelectTrail")
-                    //        {
-                    //            ddlDisplayType.SelectedValue = "TCV";
-                    //            BindGridTrailCommission(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
-                    //            Panel2.Visible = false;
-                    //            Panel1.Visible = false;
-                    //            divTrail.Visible = true;
-                    //            hdnExportType.Value = "TCV";
-                    //        }
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    BindLastTradeDate();
-
-                    //    // this session to fil gvMFTransactions grid while clicking on back button->ViewMfTRansaction
-                    //    if (Session["gvMFTransactions"] != null)
-                    //    {
-                    //        Panel2.Visible = true;
-                    //        Panel1.Visible = true;
-                    //        gvMFTransactions.Visible = true;
-                    //        string fromdate = "01-01-1990";
-                    //        txtFromDate.SelectedDate = DateTime.Parse(fromdate);
-                    //        gvMFTransactions.DataSource = (DataTable)Session["gvMFTransactions"];
-                    //        gvMFTransactions.DataBind();
-                    //        Session.Remove("gvMFTransactions");
-                    //    }
-
-                    //}
-                    //if (Session["tranDates"] != null)
-                    //{
-                    //    ht = (Hashtable)Session["tranDates"];
-                    //    txtFromDate.SelectedDate = DateTime.Parse(ht["From"].ToString());
-                    //    txtToDate.SelectedDate = DateTime.Parse(ht["To"].ToString());
-                    //    schemePlanCode = Convert.ToInt32(ht["SchemePlanCode"].ToString());
-                    //    PasssedFolioValue = Convert.ToInt32(ht["Account"].ToString());
-                    //    BindGrid(DateTime.Parse((txtFromDate.SelectedDate).ToString()), DateTime.Parse((txtToDate.SelectedDate).ToString()));
-                    //    Session.Remove("tranDates");
-                    //    hdnExportType.Value = "TV";
-                    //}
-
-                    //if (Session["tranDates"] != null)
-                    //{
-                    //    ht = (Hashtable)Session["tranDates"];
-                    //    txtFromDate.SelectedDate = DateTime.Parse(ht["From"].ToString());
-                    //    txtToDate.SelectedDate = DateTime.Parse(ht["To"].ToString());
-                    //    BindGrid(DateTime.Parse((txtFromDate.SelectedDate).ToString()), DateTime.Parse((txtToDate.SelectedDate).ToString()));
-                    //    Session.Remove("tranDates");
-                    //}
-                    //else
-                    //{
-                    //    txtFromDate.SelectedDate = DateTime.Now;
-                    //    txtToDate.SelectedDate = DateTime.Now;
-                    //    BindGrid(DateTime.Parse((txtFromDate.SelectedDate).ToString()), DateTime.Parse((txtToDate.SelectedDate).ToString()));
-                    //}
-                    lnkBackHolding.Attributes.Add("onClick", "javascript:Window.history.go(-2); return true;");
-                    ErrorMessage.Visible = false;
+                    trRangeNcustomer.Visible = false;
+                    trCustomer.Visible = false;
+                    trAMC.Visible = false;
+                    trBtnGo.Visible = false;
                 }
-                //radwindowForManualMerge.Visible = false;
+                else
+                {
+                    this.Page.Culture = "en-GB";
+                    userVo = (UserVo)Session["userVo"];
+                    advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
+                    rmVo = (RMVo)Session[SessionContents.RmVo];
+                    associatesVo = (AssociatesVO)Session["associatesVo"];
+                    path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
+                    if (advisorVo.A_AgentCodeBased == 0)
+                    {
+                        if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin")
+                            userType = "advisor";
+
+                        else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
+                            userType = "rm";
+                        else if (Session["IsCustomerDrillDown"] != null)
+                        {
+                            userType = "Customer";
+
+                        }
+                        //else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "Customer")
+                        //    userType = "Customer";
+                        else
+                            userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
+
+                    }
+                    else if (advisorVo.A_AgentCodeBased == 1)
+                    {
+                        if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin")
+                            userType = "advisor";
+
+                        else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
+                            userType = "rm";
+                        else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+                        {
+                            tdCustomerGroup.Visible = false;
+                            ddlAgentCode.Items[1].Enabled = false;
+
+                            userType = "associates";
+                            associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                            if (associateuserheirarchyVo.UserTitle == "SubBroker")
+                            {
+                                if (associateuserheirarchyVo.AgentCode != null)
+                                {
+                                    AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                                }
+                                else
+                                {
+                                    AgentCode = "0";
+                                }
+                            }
+                            else
+                            {
+                                if (associateuserheirarchyVo.AgentCode != null)
+                                {
+                                    AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                                }
+                                else
+                                {
+                                    AgentCode = "0";
+                                }
+                            }
+                        }
+                        else if (Session["IsCustomerDrillDown"] != null)
+                        {
+                            userType = "Customer";
+
+                        }
+                        //else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "Customer")
+                        //    userType = "Customer";
+                        else
+                            userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
+                    }
+                    customerVo = (CustomerVo)Session["CustomerVo"];
+                    if (Session["CustomerVo"] != null)
+                    {
+                        customerId = customerVo.CustomerId;
+                        trRangeNcustomer.Visible = false;
+                        tdCustomerGroup.Visible = false;
+                        lblAgentCode.Visible = false;
+                        ddlAgentCode.Visible = false;
+                        //trRange.Visible = false;
+
+                    }
+                    lbBack.Attributes.Add("onClick", "javascript:history.back(); return false;");
+
+
+                    if (!IsPostBack)
+                    {
+
+
+                        if (Session["CustomerVo"] != null)
+                        {
+                            ddlDisplayType.Items.RemoveAt(2);
+                        }
+
+                        BindAMC();
+                        //BindCategory();
+                        Bindscheme();
+                        Cache.Remove("ViewTrailCommissionDetails" + advisorVo.advisorId);
+                        trGroupHead.Visible = false;
+                        hdnProcessIdSearch.Value = "0";
+                        Panel2.Visible = false;
+                        Panel1.Visible = false;
+                        gvMFTransactions.Visible = false;
+                        gvBalanceView.Visible = false;
+                        gvTrail.Visible = false;
+                        divTrail.Visible = false;
+                        hdnSchemeSearch.Value = string.Empty;
+                        hdnTranType.Value = string.Empty;
+                        hdnCustomerNameSearch.Value = string.Empty;
+                        hdnFolioNumber.Value = string.Empty;
+                        hdnCategory.Value = string.Empty;
+                        hdnAMC.Value = "0";
+                        rbtnPickDate.Checked = true;
+                        rbtnPickPeriod.Checked = false;
+                        trPeriod.Visible = false;
+                        if (userType == "associates")
+                        {
+                            BindSubBrokerAgentCode(AgentCode);//commented
+                        }
+                        if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                        {
+                            txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                            txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
+                        }
+                        else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                        {
+                            txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                            txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
+                            txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                            txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                            txtClientCode_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                            txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
+
+                        }
+                        else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
+                        {
+                            txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                            txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetBMParentCustomerNames";
+                        }
+                        BindLink();
+                        lnkBackHolding.Attributes.Add("onClick", "javascript:Window.history.go(-2); return true;");
+                        ErrorMessage.Visible = false;
+                    }
+                }
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -646,7 +534,7 @@ namespace WealthERP.CustomerPortfolio
             }
             else if (rbtnPickPeriod.Checked == true)
             {
-               // trRange.Visible = false;
+                // trRange.Visible = false;
                 trPeriod.Visible = true;
                 BindPeriodDropDown();
             }
@@ -864,7 +752,7 @@ namespace WealthERP.CustomerPortfolio
 
         protected void BindLink()
         {
-            if (Request.QueryString["folionum"] != null && Request.QueryString["SchemePlanCode"] != null && Request.QueryString["AMC"] != null || Request.QueryString["subBrokerCode"] !=null)
+            if (Request.QueryString["folionum"] != null && Request.QueryString["SchemePlanCode"] != null && Request.QueryString["AMC"] != null || Request.QueryString["subBrokerCode"] != null)
             {
                 int accountId = int.Parse(Request.QueryString["folionum"].ToString());
                 int SchemePlanCode = int.Parse(Request.QueryString["SchemePlanCode"].ToString());
@@ -1184,18 +1072,26 @@ namespace WealthERP.CustomerPortfolio
             //}
             try
             {//pramod if (rbtnGroup.Checked || rbtnIndividual.Checked)
-                if (ddlsearchcustomertype.SelectedValue != "All" && ddlsearchcustomertype.SelectedValue != "Individual")
+                if (Request.QueryString["reqId"] != null)
                 {
-                    mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, customerId, IsfolioOnline, convertedFromDate, convertedToDate, 1, PasssedFolioValue, false, schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, userType, int.Parse(ddlAgentCode.SelectedValue));
-                }
-                else if (Convert.ToString(Session["IsCustomerDrillDown"]) == "Yes")
-                {
-                    customerId = customerVo.CustomerId;
-                    mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, customerId, IsfolioOnline, convertedFromDate, convertedToDate, 1, PasssedFolioValue, true, schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, "Customer", int.Parse(ddlAgentCode.SelectedValue));
+                    int requestId = int.Parse(Request.QueryString["reqId"]);
+                    mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, advisorVo.advisorId, customerVo.CustomerId, IsfolioOnline, convertedFromDate, convertedToDate, 1, PasssedFolioValue, false, 0, 0, string.Empty, advisorVo.A_AgentCodeBased, string.Empty, null, int.Parse(ddlAgentCode.SelectedValue),requestId);
                 }
                 else
                 {
-                    mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, customerId, IsfolioOnline, convertedFromDate, convertedToDate, 1, PasssedFolioValue, false, schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, userType, int.Parse(ddlAgentCode.SelectedValue));
+                    if (ddlsearchcustomertype.SelectedValue != "All" && ddlsearchcustomertype.SelectedValue != "Individual")
+                    {
+                        mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, customerId, IsfolioOnline, convertedFromDate, convertedToDate, 1, PasssedFolioValue, false, schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, userType, int.Parse(ddlAgentCode.SelectedValue),0);
+                    }
+                    else if (Convert.ToString(Session["IsCustomerDrillDown"]) == "Yes")
+                    {
+                        customerId = customerVo.CustomerId;
+                        mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, customerId, IsfolioOnline, convertedFromDate, convertedToDate, 1, PasssedFolioValue, true, schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, "Customer", int.Parse(ddlAgentCode.SelectedValue),0);
+                    }
+                    else
+                    {
+                        mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, customerId, IsfolioOnline, convertedFromDate, convertedToDate, 1, PasssedFolioValue, false, schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, userType, int.Parse(ddlAgentCode.SelectedValue),0);
+                    }
                 }
 
                 if (mfTransactionList.Count != 0)
@@ -1337,7 +1233,7 @@ namespace WealthERP.CustomerPortfolio
                             gvMFTransactions.Visible = true;
                             btnTrnxExport.Visible = true;
                             pnlMFTransactionWithoutAgentCode.Visible = false;
-                            
+
                         }
                         else
                         {
@@ -1395,7 +1291,7 @@ namespace WealthERP.CustomerPortfolio
                     pnlMFTransactionWithoutAgentCode.Visible = false;
 
                 }
-                
+
             }
             catch (Exception e)
             {

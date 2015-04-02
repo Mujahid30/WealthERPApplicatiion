@@ -1414,14 +1414,14 @@ namespace BoCustomerPortfolio
 
         }
 
-        public List<MFTransactionVo> GetRMCustomerMFTransactions(int RMId, int AdviserID, int GroupHeadId,int IsfolioOnline, DateTime From, DateTime To, int Manage, int AccountId, bool isCustomerTransactionOnly, int SchemePlanCode, int AmcCode, string Category, int A_AgentCodeBased, string AgentCode, string UserType,int agentType)
+        public List<MFTransactionVo> GetRMCustomerMFTransactions(int RMId, int AdviserID, int GroupHeadId,int IsfolioOnline, DateTime From, DateTime To, int Manage, int AccountId, bool isCustomerTransactionOnly, int SchemePlanCode, int AmcCode, string Category, int A_AgentCodeBased, string AgentCode, string UserType,int agentType,int requestId)
         {
             CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
             List<MFTransactionVo> mfTransactionsList = new List<MFTransactionVo>();
             try
             {
 
-                mfTransactionsList = customerTransactionDao.GetRMCustomerMFTransactions(RMId, AdviserID, GroupHeadId, IsfolioOnline, From, To, Manage, AccountId, isCustomerTransactionOnly, SchemePlanCode, AmcCode, Category, A_AgentCodeBased, AgentCode, UserType, agentType);
+                mfTransactionsList = customerTransactionDao.GetRMCustomerMFTransactions(RMId, AdviserID, GroupHeadId, IsfolioOnline, From, To, Manage, AccountId, isCustomerTransactionOnly, SchemePlanCode, AmcCode, Category, A_AgentCodeBased, AgentCode, UserType, agentType, requestId);
 
             }
             catch (BaseApplicationException Ex)

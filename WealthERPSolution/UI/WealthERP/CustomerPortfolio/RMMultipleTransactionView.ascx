@@ -435,7 +435,7 @@
                                 </table>
                             </td>
                         </tr>
-                        <tr>
+                        <tr id="trCustomer" runat="server">
                             <%--  <td align="right">
                                 <asp:Label ID="lblType" runat="server" Text="Select Type:" CssClass="FieldName"></asp:Label>
                             </td>
@@ -459,7 +459,6 @@
                                     <asp:ListItem Text="All" Value="0" Enabled="false"></asp:ListItem>
                                 </asp:DropDownList>
                             </td>
-                                &nbsp; &nbsp;
                                 <td ID="tdCustomerGroup" runat="server" colspan="2">
                                     <asp:Label ID="lblCustomerGroup" runat="server" CssClass="FieldName" 
                                         Text="Search Customer:"></asp:Label>
@@ -585,7 +584,7 @@
                                 &nbsp;
                             </td>
                         </tr>
-                        <tr>
+                        <tr id="trAMC" runat="server">
                             <td align="right" width="10%">
                                 <asp:Label ID="lblAMC" runat="server" Text="AMC:" CssClass="FieldName"></asp:Label>
                             </td>
@@ -615,7 +614,7 @@
                             <td>
                                 &nbsp;
                             </td>
-                            <tr>
+                            <tr  id="trBtnGo" runat="server"> 
                                 <td>
                                     <asp:Button ID="btnGo" runat="server" CssClass="PCGButton" 
                                         OnClick="btnGo_Click" onmouseout="javascript:ChangeButtonCss('out',

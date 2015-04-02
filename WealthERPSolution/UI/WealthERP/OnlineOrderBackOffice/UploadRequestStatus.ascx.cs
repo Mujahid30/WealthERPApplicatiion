@@ -6,16 +6,12 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using BoUser;
 using VoUser;
-
 using Telerik.Web.UI;
 using System.Data;
 using WealthERP.Base;
 using System.Collections.Specialized;
 using System.Collections;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
-
-
-
 using BoCommon;
 using BoUploads;
 
@@ -24,40 +20,26 @@ namespace WealthERP.OnlineOrderBackOffice
     public partial class UploadRequestStatus : System.Web.UI.UserControl
     {
         UserBo userBo;
-        // ReqRejects
         UserVo userVo;
         AdvisorVo advisorVo;
         UploadCommonBo uploadCommonBo = new UploadCommonBo();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //SessionBo.CheckSession();
-            //userBo = new UserBo();
-            //userVo = (UserVo)Session[SessionContents.UserVo];
-            //if (Session["Theme"] != null)
-            //{
-            //    ddlTheme.SelectedValue = Session["Theme"].ToString();
-            //}
             SessionBo.CheckSession();
             userVo = (UserVo)Session[SessionContents.UserVo];
             advisorVo = (AdvisorVo)Session["advisorVo"];
             txtReqDate.SelectedDate = DateTime.Now.Date;
-
-
-
             if (!IsPostBack)
             {
                 GetTypes();
             }
         }
-
-
         protected void btnGo_Click(object sender, EventArgs e)
         {
             pnlRequest.Visible = true;
             btnexport.Visible = true;
             GetRequests();
-
         }
         private void GetTypes()
         {
@@ -75,7 +57,6 @@ namespace WealthERP.OnlineOrderBackOffice
                 throw Ex;
             }
         }
-
         private void GetRequests()
         {
             try
@@ -112,37 +93,10 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 throw Ex;
             }
-
         }
-
-        //private void GetRequestWiseRejects(int reqId, RadGrid rgReqWiseRejects)
-        //{
-        //    try
-        //    {
-        //        DataTable dtReqReje = new DataTable();
-        //        DataSet dsRej = new DataSet();
-        //        dsRej = uploadCommonBo.RequestWiseRejects(reqId);
-        //        if (dsRej.Tables.Count == 0)
-        //            return;
-        //        dtReqReje = dsRej.Tables[0];
-        //        rgReqWiseRejects.DataSource = dtReqReje;
-        //        rgReqWiseRejects.DataBind();
-
-        //        if (Cache[userVo.UserId.ToString() + "RequestsWiseRejects"] != null)
-        //            Cache.Remove(userVo.UserId.ToString() + "RequestsWiseRejects");
-        //        Cache.Insert(userVo.UserId.ToString() + "RequestsWiseRejects", dtReqReje);
-
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-
-        //}
         public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
-            rgRequests.ExportSettings.OpenInNewWindow = true;
-            // rgRequests.MasterTableView.Caption = "Adviser:" + adviserVo.OrganizationName+' '+"RM:"+ rmVo.FirstName;            
+            rgRequests.ExportSettings.OpenInNewWindow = true;       
             rgRequests.ExportSettings.IgnorePaging = true;
             rgRequests.ExportSettings.HideStructureColumns = true;
             rgRequests.ExportSettings.ExportOnlyData = true;
@@ -150,7 +104,6 @@ namespace WealthERP.OnlineOrderBackOffice
             rgRequests.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             rgRequests.MasterTableView.ExportToExcel();
         }
-
         protected void rgRequests_ItemDataBound(object sender, GridItemEventArgs e)
         {
             if (e.Item is GridDataItem && e.Item.ItemIndex != -1)
@@ -170,8 +123,25 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
             }
         }
+        //protected void rgRequests_ItemCommand(object source, GridCommandEventArgs e)
+        //{
+        //    DataTable dt = (DataTable)Cache[userVo.UserId.ToString() + "Requests"];
+        //    string ecommand = null;
+            
+        //    if (e.CommandName == RadGrid.UpdateCommandName)
+        //    {
+        //        ecommand = "UP";
+        //        GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
+        //        TextBox txtExHeader = (TextBox)e.Item.FindControl("txtExHeader");
+        //        int requestId = Convert.ToInt32(rgRequests.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ReqId"].ToString());
 
+        //        //uploadCommonBo.CreateUpdateExternalHeader();
+        //            Response.Write(@"<script language='javascript'>alert('External Header " + txtExHeader.Text + "Updated successfully');</script>");
+                
 
+        //    }
+      
+        //}
         protected void rgRequests_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dtRequests = new DataTable();
@@ -180,7 +150,6 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 rgRequests.DataSource = dtRequests;
             }
-
         }
         protected void rgRequestRejects_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
@@ -191,9 +160,46 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 rgRequestRejects.DataSource = dtRequestsWiseRejects;
             }
-
         }
-       
+        protected void lnkCustmCreated_Click(object sender, EventArgs e)
+        {
+            LinkButton lnkOrderNo = (LinkButton)sender;
+            GridDataItem gdi;
+            gdi = (GridDataItem)lnkOrderNo.NamingContainer;
+            int selectedRow = gdi.ItemIndex + 1;
+            int reqId = int.Parse((rgRequests.MasterTableView.DataKeyValues[selectedRow - 1]["ReqId"].ToString()));
+
+            if (reqId!=0)
+            {
+                Response.Redirect("ControlHost.aspx?pageid=AdviserCustomer&reqId=" + reqId + "", false);
+            }           
+        }
+        protected void lnkFolioCreated_Click(object sender, EventArgs e)
+        {
+            LinkButton lnkOrderNo = (LinkButton)sender;
+            GridDataItem gdi;
+            gdi = (GridDataItem)lnkOrderNo.NamingContainer;
+            int selectedRow = gdi.ItemIndex + 1;
+            int reqId = int.Parse((rgRequests.MasterTableView.DataKeyValues[selectedRow - 1]["ReqId"].ToString()));
+
+            if (reqId != 0)
+            {
+                Response.Redirect("ControlHost.aspx?pageid=AdvisorCustomerAccounts&reqId=" + reqId + "", false);
+            }          
+        }
+        protected void lnkTransactionCreated_Click(object sender, EventArgs e)
+        {
+            LinkButton lnkOrderNo = (LinkButton)sender;
+            GridDataItem gdi;
+            gdi = (GridDataItem)lnkOrderNo.NamingContainer;
+            int selectedRow = gdi.ItemIndex + 1;
+            int reqId = int.Parse((rgRequests.MasterTableView.DataKeyValues[selectedRow - 1]["ReqId"].ToString()));
+
+            if (reqId != 0)
+            {
+                Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&reqId=" + reqId + "", false);
+            }           
+        }
         protected void btnCategoriesExpandAll_Click(object sender, EventArgs e)
         {
             int reqId = 0;
@@ -205,26 +211,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 reqId = int.Parse(rgRequests.MasterTableView.DataKeyValues[gdi.ItemIndex]["ReqId"].ToString());
                 transactionId = Convert.ToInt32(ddlType.SelectedValue);
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageProfileReject", "loadcontrol('ManageProfileReject','?ReqId=" + reqId + "&transactionId=" + transactionId + "');", true);
-
             }
-            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageProfileReject", "loadcontrol('ManageProfileReject','?ReqId=" + reqId + "', &transactionId = " + transactionId + "'));", true);
-            //else
-            //{
-            //    reqId = 0;
-            //}
-            //RadGrid rgReqWiseRejects = (RadGrid)gdi.FindControl("rgRequestRejects");
-            //Panel pnlchild = (Panel)gdi.FindControl("pnlchild");
-            //GetRequestWiseRejects(reqId, rgReqWiseRejects);
-            //if (pnlchild.Visible == false)
-            //{
-            //    pnlchild.Visible = true;
-            //    buttonlink.Text = "-";
-            //}
-            //else if (pnlchild.Visible == true)
-            //{
-            //    pnlchild.Visible = false;
-            //    buttonlink.Text = "+";
-            //}
         }
     }
 }

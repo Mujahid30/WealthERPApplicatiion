@@ -80,23 +80,6 @@
         </td>
     </tr>
 </table>
-<%--<table width="100%" id="btnexport" visible="false">
-    <tr>
-        <td>
-            <div class="divPageHeading" visible="false">
-                <table cellspacing="0" cellpadding="3" width="100%" visible="false">
-                    <tr>
-                        <td align="right" visible="false">
-                            <asp:ImageButton ID="ImageButton1" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                                OnClientClick="setFormat('excel')" Height="20px" Width="25px" Visible="false"></asp:ImageButton>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </td>
-    </tr>
-</table>--%>
 <table id="btnexport" runat="server" visible="false" style="width: 100%" cellpadding="2"
     cellspacing="5">
     <tr>
@@ -133,7 +116,7 @@
                                 ShowStatusBar="True" Skin="Telerik" AllowFilteringByColumn="true" OnItemDataBound="rgRequests_ItemDataBound"
                                 OnNeedDataSource="rgRequests_OnNeedDataSource">
                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
-                                    Width="100%" DataKeyNames="ReqId">
+                                    Width="100%" DataKeyNames="ReqId,XMLStatus">
                                     <Columns>
                                         <telerik:GridTemplateColumn AllowFiltering="false">
                                             <ItemTemplate>
@@ -188,30 +171,52 @@
                                             UniqueName="Success" FooterStyle-HorizontalAlign="Left">
                                             <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="Cutomercreated" HeaderText="No of Customer Created"
+                                        <telerik:GridTemplateColumn DataField="Cutomercreated" HeaderText="No of Customer Created"
                                             SortExpression="Cutomercreated" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                             AutoPostBackOnFilter="true" UniqueName="Cutomercreated" FooterStyle-HorizontalAlign="Left"
                                             Visible="false">
                                             <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="FolioCreated" HeaderText="No of Folio Created"
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="lnkCustmCreated" runat="server" OnClick="lnkCustmCreated_Click"
+                                                    CommandName="Select" Text='<%# Eval("Cutomercreated").ToString() %>'>
+                                                </asp:LinkButton>
+                                            </ItemTemplate>
+                                        </telerik:GridTemplateColumn>
+                                        <telerik:GridTemplateColumn DataField="FolioCreated" HeaderText="No of Folio Created"
                                             SortExpression="FolioCreated" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                             AutoPostBackOnFilter="true" UniqueName="FolioCreated" FooterStyle-HorizontalAlign="Left"
                                             Visible="false">
                                             <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="TransactionCreated" HeaderText="No of Transaction Created"
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="lnkFolioCreated" runat="server" OnClick="lnkFolioCreated_Click"
+                                                    CommandName="Select" Text='<%# Eval("FolioCreated").ToString() %>'>
+                                                </asp:LinkButton>
+                                            </ItemTemplate>
+                                        </telerik:GridTemplateColumn>
+                                        <telerik:GridTemplateColumn DataField="TransactionCreated" HeaderText="No of Transaction Created"
                                             SortExpression="TransactionCreated" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                             AutoPostBackOnFilter="true" UniqueName="TransactionCreated" FooterStyle-HorizontalAlign="Left"
                                             Visible="false">
                                             <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="lnkTransactionCreated" runat="server" OnClick="lnkTransactionCreated_Click"
+                                                    CommandName="Select" Text='<%# Eval("TransactionCreated").ToString() %>'>
+                                                </asp:LinkButton>
+                                            </ItemTemplate>
+                                        </telerik:GridTemplateColumn>
                                         <telerik:GridBoundColumn DataField="RejectReseaon" HeaderText="External Header Mapping Message"
                                             SortExpression="RejectReseaon" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                             AutoPostBackOnFilter="true" UniqueName="RejectReseaon" FooterStyle-HorizontalAlign="Left"
                                             Visible="false">
                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
+                                        <%-- <telerik:GridTemplateColumn UniqueName="ReProcess" ItemStyle-Width="100Px" AllowFiltering="false"
+                                            HeaderText="ReProcess">
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="lbtnWelcomeletter" Visible='<%# Eval("XMLStatus").Equals('2')?"True" : "False" %>'
+                                                    runat="server">ReProcess</asp:LinkButton>
+                                                <%-- Visible='<%# Convert.ToInt16(Eval("XMLStatus")).ToString() = 2 ? "True" : "False" %>'--%>
+                                        </ItemTemplate> </telerik:GridTemplateColumn>--%>
                                         <telerik:GridTemplateColumn AllowFiltering="false">
                                             <ItemTemplate>
                                                 <tr>
@@ -226,16 +231,6 @@
                                                                 ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" Skin="Telerik"
                                                                 AllowFilteringByColumn="true" OnNeedDataSource="rgRequestRejects_OnNeedDataSource"
                                                                 AllowPaging="false">
-                                                                <%-- <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIIC_InvestorCatgeoryId,AIICST_Id"
-                                                                    AutoGenerateColumns="false">--%>
-                                                                <%--<Columns>
-                                                                        <telerik:GridBoundColumn DataField="WCMV_Name" HeaderStyle-Width="30px" UniqueName="WCMV_Name"
-                                                                            CurrentFilterFunction="Contains" HeaderText="Investor Type" SortExpression="WCMV_Name"
-                                                                            AllowFiltering="true">
-                                                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
-                                                                        </telerik:GridBoundColumn>
-                                                                    </Columns>--%>
-                                                                <%--   </MasterTableView>--%>
                                                             </telerik:RadGrid>
                                                         </asp:Panel>
                                                     </td>

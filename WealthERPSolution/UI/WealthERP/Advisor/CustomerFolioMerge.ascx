@@ -409,9 +409,9 @@
                     <mastertableview datakeynames="CustomerId,AMCCode,Count,portfilionumber,CMFA_AccountId"
                         commanditemdisplay="None" width="90%">
                         <Columns>
-                            <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="40px">
+                            <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="40px" UniqueName="rdbGVRowId">
                                 <ItemTemplate>
-                                    <asp:CheckBox ID="rdbGVRow" OnCheckedChanged="rdbGVRow_CheckedChanged" onclick="javascript:CheckOtherIsCheckedByGVID(this);"
+                                    <asp:CheckBox ID="rdbGVRow" OnCheckedChanged="rdbGVRow_CheckedChanged"   onclick="javascript:CheckOtherIsCheckedByGVID(this);"
                                         runat="server" AutoPostBack="true" />
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>

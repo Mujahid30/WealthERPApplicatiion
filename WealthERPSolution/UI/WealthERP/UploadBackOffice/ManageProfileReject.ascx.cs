@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Text;
 using System.Web.UI.WebControls;
 using BoUser;
 using VoUser;
@@ -187,6 +188,7 @@ namespace WealthERP.UploadBackOffice
             string transactionHead = string.Empty;
             string transactionDescription = string.Empty;
             string productCode = string.Empty;
+            string accountNo = string.Empty;
             //string guardianDOB = string.Empty;
             uploadCommonBo = new UploadCommonBo();
             GridFooterItem footerRow = (GridFooterItem)gvProfileIncreamenetReject.MasterTableView.GetItems(GridItemType.Footer)[0];
@@ -416,6 +418,14 @@ namespace WealthERP.UploadBackOffice
                 {
                     productCode = ((TextBox)footerRow.FindControl("txtProductCodeFooter")).Text;
                 }
+                if (((TextBox)footerRow.FindControl("txtAccountNoFooter")).Text.Trim() == "")
+                {
+                    accountNo =((TextBox)dr.FindControl("txtAccountNo")).Text;
+                }
+                else
+                {
+                    accountNo = ((TextBox)footerRow.FindControl("txtAccountNoFooter")).Text;
+                }
                 CheckBox checkBox = (CheckBox)dr.FindControl("chkId");
                 if (checkBox.Checked == true)
                 {
@@ -425,7 +435,7 @@ namespace WealthERP.UploadBackOffice
                     selectedRow = gdi.ItemIndex + 1;
                     Id = int.Parse((gvProfileIncreamenetReject.MasterTableView.DataKeyValues[selectedRow - 1]["ID"].ToString()));
                     tableNo = int.Parse((gvProfileIncreamenetReject.MasterTableView.DataKeyValues[selectedRow - 1]["TableNo"].ToString()));
-                    blResult = uploadCommonBo.UpdateRequestRejects(clientCode, Id, tableNo, city, state, pincode, mobileno, occupation, accounttype, bankname, personalstatus, address1, address2, address3, country, officePhoneNo, officeExtensionNo, officeFaxNo, homePhoneNo, homeFaxNo, annualIncome, pan1, pan2, pan3, emailId, transactionType, transactionNature, transactionHead, transactionDescription, productCode);
+                    blResult = uploadCommonBo.UpdateRequestRejects(clientCode, Id, tableNo, city, state, pincode, mobileno, occupation, accounttype, bankname, personalstatus, address1, address2, address3, country, officePhoneNo, officeExtensionNo, officeFaxNo, homePhoneNo, homeFaxNo, annualIncome, pan1, pan2, pan3, emailId, transactionType, transactionNature, transactionHead, transactionDescription, productCode, accountNo);
 
                 }
 
@@ -437,15 +447,28 @@ namespace WealthERP.UploadBackOffice
         }
         protected void gvProfileIncreamenetReject_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
+             string rcbType = string.Empty;
             DataTable dtRequests = new DataTable();
             DataSet dtProcessLogDetails = new DataSet();
             //dtRequests = (DataTable)Cache[userVo.UserId.ToString() + "RequestReject"];
             dtRequests = (DataTable)Cache["RequestReject" + userVo.UserId.ToString()];
             if (dtRequests != null)
             {
-                gvProfileIncreamenetReject.DataSource = dtRequests;
-            }
+               
+                if (ViewState["RejectReason"] != null)
+                    rcbType = ViewState["RejectReason"].ToString();
+                if (!string.IsNullOrEmpty(rcbType))
+                {
+                    DataView dvStaffList = new DataView(dtRequests, "RejectedReasonDescription = '" + rcbType + "'", "", DataViewRowState.CurrentRows);
+                    gvProfileIncreamenetReject.DataSource = dvStaffList.ToTable();
 
+                }
+                else
+                {
+                    gvProfileIncreamenetReject.DataSource = dtRequests;
+                }
+
+            }
         }
         protected void gvProfileIncreamenetReject_ItemDataBound(object sender, GridItemEventArgs e)
         {
@@ -461,14 +484,21 @@ namespace WealthERP.UploadBackOffice
                 foreach (DataRow dr in dtReject1.Rows)
                 {
                     drcustMIS = dtcustMIS.NewRow();
+                    string str = dr["RejectedReasonDescription"].ToString();
                     drcustMIS["RejectedReasonDescription"] = dr["RejectedReasonDescription"].ToString();
                     dtcustMIS.Rows.Add(drcustMIS);
                 }
                 DataView view = new DataView(dtReject1);
                 DataTable distinctValues = view.ToTable(true, "RejectedReasonDescription");
+                DataColumn dc = new DataColumn("RejectedReasonDescriptionText");
+                distinctValues.Columns.Add(dc);
+                foreach (DataRow dr in distinctValues.Rows)
+                {
+                    dr["RejectedReasonDescriptionText"] = dr["RejectedReasonDescription"].ToString().Replace("<br />", "");
+                }
                 RadComboBoxIN.DataSource = distinctValues;
-                RadComboBoxIN.DataValueField = dtcustMIS.Columns["RejectedReasonDescription"].ToString();
-                RadComboBoxIN.DataTextField = dtcustMIS.Columns["RejectedReasonDescription"].ToString();
+                RadComboBoxIN.DataValueField = distinctValues.Columns["RejectedReasonDescription"].ToString();
+                RadComboBoxIN.DataTextField = distinctValues.Columns["RejectedReasonDescriptionText"].ToString();
                 RadComboBoxIN.DataBind();
             }
 
@@ -574,10 +604,10 @@ namespace WealthERP.UploadBackOffice
         {
             RadComboBox Combo = sender as RadComboBox;
             ////persist the combo selected value  
-            if (ViewState["RejectedReasonDescription"] != null)
+            if (ViewState["RejectReason"] != null)
             {
 
-                Combo.SelectedValue = ViewState["RejectedReasonDescription"].ToString();
+                Combo.SelectedValue = ViewState["RejectReason"].ToString();
             }
 
         }
@@ -589,7 +619,8 @@ namespace WealthERP.UploadBackOffice
             if (ViewState["RejectReason"] != null)
             {
                 GridColumn column = gvProfileIncreamenetReject.MasterTableView.GetColumnSafe("RejectedReasonDescription");
-                column.CurrentFilterFunction = GridKnownFunction.EqualTo;
+                column.CurrentFilterFunction = GridKnownFunction.Contains;
+                //column.CurrentFilterValue = dropdown.SelectedValue.ToString();
                 gvProfileIncreamenetReject.MasterTableView.Rebind();
 
             }
@@ -597,7 +628,7 @@ namespace WealthERP.UploadBackOffice
             {
                 // gvWERPTrans.MasterTableView.FilterExpression = "0";
                 GridColumn column = gvProfileIncreamenetReject.MasterTableView.GetColumnSafe("RejectedReasonDescription");
-                column.CurrentFilterFunction = GridKnownFunction.EqualTo;
+                column.CurrentFilterFunction = GridKnownFunction.Contains;
                 gvProfileIncreamenetReject.MasterTableView.Rebind();
 
 

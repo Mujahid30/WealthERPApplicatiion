@@ -4640,7 +4640,7 @@ namespace DaoUploads
                     db.AddInParameter(UpdateRequestRejectCmd, "@ProductCode", DbType.String, productCode);
                 else
                     db.AddInParameter(UpdateRequestRejectCmd, "@ProductCode", DbType.String, DBNull.Value);
-
+                
                 db.ExecuteNonQuery(UpdateRequestRejectCmd);
                 result = true;
             }

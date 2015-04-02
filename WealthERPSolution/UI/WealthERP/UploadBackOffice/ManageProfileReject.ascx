@@ -168,8 +168,8 @@
                                 SortExpression="RejectedReasonDescription" AutoPostBackOnFilter="false" ShowFilterIcon="false">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 <FilterTemplate>
-                                    <telerik:RadComboBox ID="RadComboBoxRR" Width="180px" CssClass="cmbField" AllowFiltering="true"
-                                        AutoPostBack="true" OnSelectedIndexChanged="RadComboBoxRR_SelectedIndexChanged"
+                                    <telerik:RadComboBox ID="RadComboBoxRR" Width="250px" CssClass="cmbField" AllowFiltering="true"
+                                        AutoPostBack="true" OnSelectedIndexChanged="RadComboBoxRR_SelectedIndexChanged" Height="150px"
                                         IsFilteringEnabled="true" AppendDataBoundItems="true" AutoPostBackOnFilter="false"
                                         OnPreRender="rcbContinents1_PreRender" EnableViewState="true" SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("RejectedReasonDescription").CurrentFilterValue %>'
                                         runat="server">
@@ -184,7 +184,7 @@
                                             function InvesterNameIndexChanged(sender, args) {
                                                 var tableView = $find("<%#((GridItem)Container).OwnerTableView.ClientID %>");
                                                 //////sender.value = args.get_item().get_value();
-                                                tableView.filter("RejectReason", args.get_item().get_value(), "EqualTo");
+                                                tableView.filter("RejectedReasonDescription", args.get_item().get_value(), "Contains");
                                             } 
                                         </script>
 
@@ -211,8 +211,8 @@
                             </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn AllowFiltering="true" DataField="ClientName" AutoPostBackOnFilter="true"
                                 UniqueName="ClientName" HeaderText="ClientName" ShowFilterIcon="false" DataType="System.String"
-                                CurrentFilterFunction="Contains" SortExpression="ClientName" FooterStyle-HorizontalAlign="Right"
-                                HeaderStyle-Width="90px">
+                                CurrentFilterFunction="Contains" SortExpression="ClientName" FooterStyle-HorizontalAlign="Left"
+                                HeaderStyle-Width="180px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
                             <telerik:GridTemplateColumn AllowFiltering="true" DataField="PANNO1" AutoPostBackOnFilter="true"
