@@ -65,6 +65,7 @@ namespace WealthERP.UploadBackOffice
                 }
                 gvProfileIncreamenetReject.DataSource = dtReqReje;
                 gvProfileIncreamenetReject.DataBind();
+
                 gvProfileIncreamenetReject.Visible = true;
                 if (transactionId == 3 || transactionId == 4)
                 {
@@ -420,7 +421,7 @@ namespace WealthERP.UploadBackOffice
                 }
                 if (((TextBox)footerRow.FindControl("txtAccountNoFooter")).Text.Trim() == "")
                 {
-                    accountNo =((TextBox)dr.FindControl("txtAccountNo")).Text;
+                    accountNo = ((TextBox)dr.FindControl("txtAccountNo")).Text;
                 }
                 else
                 {
@@ -442,19 +443,33 @@ namespace WealthERP.UploadBackOffice
             }
 
             if (Request.QueryString["ReqId"] != null)
+            {
                 reqId = Int32.Parse(Request.QueryString["ReqId"].ToString());
-            GetProfileIncreamentRejection(reqId);
+                {
+                    if (ViewState["RejectReason"] != null)
+                    {
+                        GridColumn column = gvProfileIncreamenetReject.MasterTableView.GetColumnSafe("RejectedReasonDescription");
+                        column.CurrentFilterFunction = GridKnownFunction.Contains;
+                        gvProfileIncreamenetReject.MasterTableView.Rebind();
+
+                    }
+                    else
+                    {
+                        GetProfileIncreamentRejection(reqId);
+                    }
+                }
+            }
         }
         protected void gvProfileIncreamenetReject_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-             string rcbType = string.Empty;
+            string rcbType = string.Empty;
             DataTable dtRequests = new DataTable();
             DataSet dtProcessLogDetails = new DataSet();
             //dtRequests = (DataTable)Cache[userVo.UserId.ToString() + "RequestReject"];
             dtRequests = (DataTable)Cache["RequestReject" + userVo.UserId.ToString()];
             if (dtRequests != null)
             {
-               
+
                 if (ViewState["RejectReason"] != null)
                     rcbType = ViewState["RejectReason"].ToString();
                 if (!string.IsNullOrEmpty(rcbType))
@@ -633,7 +648,7 @@ namespace WealthERP.UploadBackOffice
 
 
             }
-         
+
         }
         protected void gvProfileIncreamenetReject_PreRender(object sender, EventArgs e)
         {

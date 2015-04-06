@@ -2391,7 +2391,9 @@ namespace DaoCustomerPortfolio
                 //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@processId", DbType.Int32, DBNull.Value);
                 //}
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@UserType", DbType.String, UserType);
+                if (From != DateTime.MinValue)
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@FromDate", DbType.DateTime, From);
+                if (To != DateTime.MinValue)
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@ToDate", DbType.DateTime, To);
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Manage", DbType.Int32, Manage);
                 if (AccountId != 0)
