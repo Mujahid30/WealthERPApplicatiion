@@ -3,6 +3,10 @@
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server" />
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+
+
 
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
 
@@ -68,7 +72,10 @@
             <td>
                 <asp:DropDownList CssClass="cmbField" ID="ddlOrderStatus" runat="server" AutoPostBack="false">
                 </asp:DropDownList>
-            </td>
+            </td><td align="right" style="float:right;width:300px;">
+             <asp:ImageButton ID="imgInformation" runat="server" ImageUrl="../Images/help.png"
+                            OnClick="imgInformation_OnClick" ToolTip="Help" Style="cursor: hand;" />
+                            </td>
         </tr>
         <tr>
             <td id="tdlblFromDate" runat="server" align="left">
@@ -338,9 +345,30 @@
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                     </ClientSettings>
                 </telerik:RadGrid>
+                
             </td>
         </tr>
     </table>
 </asp:Panel>
-<asp:HiddenField ID="hdnAmc" runat="server" />
-<asp:HiddenField ID="hdnOrderStatus" runat="server" />
+
+<asp:Panel ID="pnlHelp1" runat="server">
+    <telerik:RadWindowManager runat="server" ID="RadWindowManager2">
+        <Windows>
+            <telerik:RadWindow ID="RadInformation" Modal="true" Behaviors="Close, Move" VisibleOnPageLoad="false"
+                Width="760px" Height="580px" runat="server" Left="300px" Top="50px" OnClientShow="setCustomPosition">
+                <ContentTemplate>
+                    <div style="padding: 0px; width: 100%; height: 100%;">
+                        <iframe src="../ReferenceFiles/MFOrderbook.htm" name="iframeTermsCondition" style="width: 100%;
+                            height: 100%"></iframe>
+                    </div>
+                </ContentTemplate>
+            </telerik:RadWindow>
+        </Windows>
+    </telerik:RadWindowManager>
+</asp:Panel>
+ <script type="text/javascript">
+     function setCustomPosition(sender, args) {
+         sender.moveTo(sender.get_left(), sender.get_top());
+     }
+</script>
+

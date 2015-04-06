@@ -48,6 +48,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblRejectReason;
+        protected global::Telerik.Web.UI.RadWindow RadInformation1;
         
         /// <summary>
         /// lblAccount control.

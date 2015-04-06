@@ -45,6 +45,7 @@ namespace WealthERP.OnlineOrderManagement
             customerAccountsVo = (CustomerAccountsVo)Session["FolioVo"];                    
             BindAmc();
             BindOrderStatus();
+            RadInformation.VisibleOnPageLoad = false;
             if (!Page.IsPostBack)
             {
                 Cache.Remove("OrderList" + advisorVo.advisorId);               
@@ -286,5 +287,11 @@ namespace WealthERP.OnlineOrderManagement
             gvOrderBookMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvOrderBookMIS.MasterTableView.ExportToExcel();
         }
+        protected void imgInformation_OnClick(object sender, EventArgs e)
+        {
+            RadInformation.VisibleOnPageLoad = true;
+
+        }
+      
     }
 }

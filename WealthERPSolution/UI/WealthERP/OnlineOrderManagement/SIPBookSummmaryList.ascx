@@ -2,6 +2,8 @@
     Inherits="WealthERP.OnlineOrderManagement.SIPBookSummmaryList" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
 <script src="../Scripts/jquery.js" type="text/javascript"></script>
 
@@ -31,6 +33,12 @@
     });
 
         
+</script>
+
+<script type="text/javascript">
+    function setCustomPosition(sender, args) {
+        sender.moveTo(sender.get_left(), sender.get_top());
+    }
 </script>
 
 <%--<table width="100%">
@@ -97,6 +105,10 @@
             <td id="tdBtnOrder" runat="server">
                 <asp:Button ID="btnViewSIP" runat="server" CssClass="PCGButton" Text="Go" ValidationGroup="btnViewSIP"
                     OnClick="btnViewOrder_Click" />
+            </td>
+            <td align="right" style="float: right; width: 850px;">
+                <asp:ImageButton ID="imgInformation" runat="server" ImageUrl="../Images/help.png"
+                    OnClick="imgInformation_OnClick" ToolTip="Help" Style="cursor: hand;" />
             </td>
     </table>
 </div>
@@ -577,8 +589,32 @@
                 </telerik:RadGrid>
             </td>
         </tr>
+        <tr>
+            <td>
+            </td>
+        </tr>
     </table>
 </asp:Panel>
 <asp:HiddenField ID="hdnAmc" runat="server" />
 <asp:HiddenField ID="hdnOrderStatus" runat="server" />
 <asp:HiddenField ID="hdnsystamaticType" runat="server" Value="" />
+<asp:Panel ID="pnlHelp" runat="server">
+    <telerik:RadWindowManager runat="server" ID="RadWindowManager1">
+        <Windows>
+            <telerik:RadWindow ID="RadInformation1" Modal="true" Behaviors="Close, Move" VisibleOnPageLoad="false"
+                Width="760px" Height="580px" runat="server" Left="300px" Top="50px" OnClientShow="setCustomPosition" >
+                <ContentTemplate>
+                    <div style="padding: 0px; width: 100%; height: 100%;">
+                        <iframe src="../ReferenceFiles/MFOrderbook.htm" name="iframeTermsCondition" style="width: 100%;
+                            height: 100%"></iframe>
+                    </div>
+                </ContentTemplate>
+            </telerik:RadWindow>
+        </Windows>
+    </telerik:RadWindowManager>
+</asp:Panel>
+<script type="text/javascript">
+    function setCustomPosition(sender, args) {
+        sender.moveTo(sender.get_left(), sender.get_top());
+    }
+</script>

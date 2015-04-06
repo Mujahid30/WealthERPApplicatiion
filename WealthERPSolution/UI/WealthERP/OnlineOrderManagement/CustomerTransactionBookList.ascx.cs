@@ -52,6 +52,7 @@ namespace WealthERP.OnlineOrderManagement
             customerVO = (CustomerVo)Session["customerVo"];
             userVo = (UserVo)Session["userVo"];
             customerId = customerVO.CustomerId;
+            RadInformation.VisibleOnPageLoad = false;
             BindOrderStatus();
             BindLink();
             BindAmc();
@@ -452,6 +453,11 @@ namespace WealthERP.OnlineOrderManagement
                     
                  }
             }
+        }
+        protected void imgInformation_OnClick(object sender, EventArgs e)
+        {
+            RadInformation.VisibleOnPageLoad = true;
+
         }
        
 

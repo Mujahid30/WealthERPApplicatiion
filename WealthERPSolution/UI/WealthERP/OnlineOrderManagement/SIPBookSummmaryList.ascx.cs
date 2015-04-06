@@ -43,6 +43,7 @@ namespace WealthERP.OnlineOrderManagement
             hdnsystamaticType.Value = "";
             //BindAmc();
             BindOrderStatus();
+            RadInformation1.VisibleOnPageLoad = false;
             if (!Page.IsPostBack)
             {
 
@@ -601,6 +602,12 @@ namespace WealthERP.OnlineOrderManagement
             }
 
         }
+        protected void imgInformation_OnClick(object sender, EventArgs e)
+        {
+            RadInformation1.VisibleOnPageLoad = true;
+
+        }
+      
     }
 }
 

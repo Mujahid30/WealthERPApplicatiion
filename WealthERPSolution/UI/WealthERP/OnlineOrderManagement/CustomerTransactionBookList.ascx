@@ -3,6 +3,10 @@
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server" />
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+
+
 <%--<table width="100%">
     <tr>
         <td>
@@ -117,9 +121,14 @@
                 <asp:Button ID="btnViewTransaction" runat="server" CssClass="PCGButton" Text="Go"
                     ValidationGroup="btnViewTransaction" OnClick="btnViewTransaction_Click" />
             </td>
+            <td align="right" style="float:right;width:400px;">
+             <asp:ImageButton ID="imgInformation" runat="server" ImageUrl="../Images/help.png"
+                            OnClick="imgInformation_OnClick" ToolTip="Help" Style="cursor: hand;" />
+                            </td>
         </tr>
     </table>
 </div>
+ 
 <table style="width: 100%" class="TableBackground">
     <tr id="trNoRecords" runat="server" visible="false">
         <td align="center">
@@ -364,7 +373,37 @@
                 </div>
             </td>
         </tr>
+        <tr>
+        <td></td></tr>
     </table>
 </asp:Panel>
 <asp:HiddenField ID="hdnAmc" runat="server" />
 <asp:HiddenField ID="hdnOrderStatus" runat="server" />
+<asp:Panel ID="pnlHelp2" runat="server">
+    <telerik:RadWindowManager runat="server" ID="RadWindowManager3">
+        <Windows>
+<telerik:RadWindow ID="RadInformation" Modal="true" Behaviors="Close, Move" VisibleStatusbar="false"
+            Width="760px" Height="580px" runat="server" Left="300" Top="50" OnClientShow="setCustomPosition">
+            <ContentTemplate>
+                <div style="padding: 0px; width: 100%; height:100%;">
+                    <%--<table width="100%" cellpadding="0" cellpadding="0" Height="100%">
+                        <tr>
+                            <td align="left">--%>
+                                <%--  <a href="../ReferenceFiles/MF-Terms-Condition.html">../ReferenceFiles/MF-Terms-Condition.html</a>--%>
+                                
+                                <iframe src="../ReferenceFiles/MFOrderbook.htm" name="iframeTermsCondition"
+                                    style="width: 100%; height:100%"></iframe>
+                           <%-- </td>
+                        </tr>
+                    </table>--%>
+                </div>
+            </ContentTemplate>
+        </telerik:RadWindow>
+        </Windows>
+    </telerik:RadWindowManager>
+    </asp:Panel>
+    <script type="text/javascript">
+    function setCustomPosition(sender, args) {
+        sender.moveTo(sender.get_left(), sender.get_top());
+    }
+</script>
