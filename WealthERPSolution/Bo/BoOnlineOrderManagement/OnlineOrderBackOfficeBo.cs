@@ -153,7 +153,7 @@ namespace BoOnlineOrderManagement
         }
 
 
-        public List<RTAExtractHeadeInfoVo> GetRtaColumnDetails(string RtaIdentifier,bool isFatca)
+        public List<RTAExtractHeadeInfoVo> GetRtaColumnDetails(string RtaIdentifier, bool isFatca)
         {
             List<RTAExtractHeadeInfoVo> lsHeaderMapping = new List<RTAExtractHeadeInfoVo>();
             try
@@ -245,14 +245,14 @@ namespace BoOnlineOrderManagement
             {
 
                 List<RTAExtractHeadeInfoVo> headerMap = GetRtaColumnDetails((OrderType == "AMCBANK" || OrderType == "SIPBOOK") ? OrderType : RtaIdentifier, (OrderType == "FATCA_OTH" || OrderType == "FATCA_SIP") ? true : false);
-                switch(OrderType)
+                switch (OrderType)
                 {
                     case "FATCA_OTH":
                         OrderType = "OTH";
                         break;
                     case "FATCA_SIP":
                         OrderType = "SIP";
-                        break;                        
+                        break;
                 }
                 DataSet dsOrderExtract = GetMfOrderExtract(ExecutionDate, AdviserId, OrderType, RtaIdentifier, AmcCode);
                 dtOrderExtract = new DataTable("OrderExtract");
@@ -269,8 +269,8 @@ namespace BoOnlineOrderManagement
                         if (werpColName == "UNKNOWN") { lsItems.Add(""); continue; }
                         lsItems.Add(row[werpColName]);
                     }
-                    if (lsItems.Count>0)
-                    dtOrderExtract.Rows.Add(lsItems.ToArray());
+                    if (lsItems.Count > 0)
+                        dtOrderExtract.Rows.Add(lsItems.ToArray());
                 }
             }
             catch (Exception Ex)
@@ -314,7 +314,7 @@ namespace BoOnlineOrderManagement
                 colList.Append(col.ColumnName);
                 //colList += col.ColumnName;
                 --cCols;
-                if (cCols > 0) colList.Append(","); 
+                if (cCols > 0) colList.Append(",");
             }
 
             return colList.ToString();
@@ -345,10 +345,10 @@ namespace BoOnlineOrderManagement
             return filename;
         }
 
-        public string CreatDbfFile(DataTable OrderExtract, string RnTType, string workDir, string type,bool isFatca)
+        public string CreatDbfFile(DataTable OrderExtract, string RnTType, string workDir, string type, bool isFatca)
         {
-            string seedFileName = (isFatca == true) ? RnTType + "_FATCA" : RnTType; 
-            
+            string seedFileName = (isFatca == true) ? RnTType + "_FATCA" : RnTType;
+
 
             switch (type)
             {
@@ -384,7 +384,7 @@ namespace BoOnlineOrderManagement
 
             try
             {
-                
+
                 daRead.SelectCommand = cmdSel;
                 daRead.DeleteCommand = cmdDel;
 
@@ -2277,13 +2277,14 @@ namespace BoOnlineOrderManagement
             return ds;
         }
 
-        public bool CreateAMC(string amcName, int isOnline, int userId)
+
+        public bool CreateAMC(string amcName, int isOnline, int userId, string AmcCode)
         {
             bool bResult = false;
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                bResult = OnlineOrderBackOfficeDao.CreateAMC(amcName, isOnline, userId);
+                bResult = OnlineOrderBackOfficeDao.CreateAMC(amcName, isOnline, userId, AmcCode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -2307,12 +2308,12 @@ namespace BoOnlineOrderManagement
             return bResult;
         }
 
-        public bool UpdateAMC(string amcName, int isOnline, int userId, int amcCode)
+        public bool UpdateAMC(string amcName, int isOnline, int userId, int amcCode, string AmcCode)
         {
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                return OnlineOrderBackOfficeDao.UpdateAMC(amcName, isOnline, userId, amcCode);
+                return OnlineOrderBackOfficeDao.UpdateAMC(amcName, isOnline, userId, amcCode, AmcCode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -2383,7 +2384,7 @@ namespace BoOnlineOrderManagement
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-               bResult= OnlineOrderBackOfficeDao.ProductcodeDelete(ScheneMappingId);
+                bResult = OnlineOrderBackOfficeDao.ProductcodeDelete(ScheneMappingId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -2391,13 +2392,13 @@ namespace BoOnlineOrderManagement
             }
             return bResult;
         }
-        public bool InsertUpdateDeleteOnBannerDetails(int id, string assetGroupCode, int userId, string imageName, DateTime expiryDate,int isDelete)
+        public bool InsertUpdateDeleteOnBannerDetails(int id, string assetGroupCode, int userId, string imageName, DateTime expiryDate, int isDelete)
         {
             bool bResult = false;
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                bResult = OnlineOrderBackOfficeDao.InsertUpdateDeleteOnBannerDetails( id,  assetGroupCode,  userId,  imageName,  expiryDate, isDelete);
+                bResult = OnlineOrderBackOfficeDao.InsertUpdateDeleteOnBannerDetails(id, assetGroupCode, userId, imageName, expiryDate, isDelete);
             }
             catch (BaseApplicationException Ex)
             {
@@ -2448,6 +2449,34 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
             return extCode;
+        }
+        public int GetAMCCode(string AMCCode)
+        {
+            int result = 0;
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                result = OnlineOrderBackOfficeDao.GetAMCCode(AMCCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
+        }
+        public string CheckAMCCode(int AMCCode)
+        {
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            string amcCode = string.Empty;
+            try
+            {
+                amcCode = OnlineOrderBackOfficeDao.CheckAMCCode(AMCCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return amcCode;
         }
     }
 }

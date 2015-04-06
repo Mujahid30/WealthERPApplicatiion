@@ -24,21 +24,22 @@
 </table>
 <div style="margin-left: 50; overflow: None;">
     <telerik:RadGrid ID="gvAMCManage" runat="server" AllowPaging="true" AutoGenerateColumns="False"
-        ShowStatusBar="true" ShowHeader="true" ShowFooter="true" enableloadondemand="True" Skin="Telerik" EnableEmbeddedSkins="false"
-        Width="60%" AllowSorting="true" GridLines="None" PageSize="10" OnNeedDataSource="gvAMCManage_OnNeedDataSource"
-        OnItemCommand="gvAMCManage_OnItemCommand">
+        ShowStatusBar="true" ShowHeader="true" ShowFooter="true" enableloadondemand="True"
+        Skin="Telerik" EnableEmbeddedSkins="false" Width="60%" AllowSorting="true" GridLines="None"
+        PageSize="10" OnNeedDataSource="gvAMCManage_OnNeedDataSource" OnItemCommand="gvAMCManage_OnItemCommand">
         <ExportSettings HideStructureColumns="true">
         </ExportSettings>
         <MasterTableView AllowMultiColumnSorting="True" Width="100%" Height="20px" AutoGenerateColumns="false"
             AllowSorting="true" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Add AMC"
-            CommandItemSettings-ShowRefreshButton="false" AllowFilteringByColumn="true" CommandItemDisplay="Top" DataKeyNames="PA_AMCCode,PA_AMCName,PA_IsOnline">
+            CommandItemSettings-ShowRefreshButton="false" AllowFilteringByColumn="true" CommandItemDisplay="Top"
+            DataKeyNames="PA_AMCCode,PA_AMCName,PA_IsOnline,PA_AMCCodeRT">
             <Columns>
                 <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
                     UpdateText="Update" HeaderStyle-Width="20px">
                 </telerik:GridEditCommandColumn>
-                <telerik:GridBoundColumn DataField="PA_AMCCode" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
-                    ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="AMC Code" UniqueName="PA_AMCCode"
-                    SortExpression="PA_AMCCode" AllowFiltering="true">
+                <telerik:GridBoundColumn DataField="PA_AMCCodeRT" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="AMC Code" UniqueName="PA_AMCCodeRT"
+                    SortExpression="PA_AMCCodeRT" AllowFiltering="true">
                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn DataField="PA_AMCName" HeaderStyle-Width="40px" CurrentFilterFunction="Contains"
@@ -76,6 +77,21 @@
                         </tr>
                         <tr>
                             <td align="right">
+                              <asp:Label ID="lblAmcCode" runat="server" Text="AMC Code:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td>
+                             <asp:TextBox ID="txtAmcCode" runat="server" CssClass="cmbFielde" Width=" 200 px"
+                                    Text='<% # Bind("PA_AMCCodeRT") %>'></asp:TextBox>
+                                     <span id="Span2" class="spnRequiredField">*</span>
+                                <br />
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="cmbFielde"
+                                    ErrorMessage="Please Enter AMC Code" Display="Dynamic" ControlToValidate="txtAmcCode"
+                                    ValidationGroup="btnOK" InitialValue="">                                      
+                                </asp:RequiredFieldValidator>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">
                                 <asp:Label ID="lblIsOnline" runat="server" Text="Is Online:" CssClass="FieldName"></asp:Label>
                             </td>
                             <td>
@@ -102,7 +118,7 @@
         </MasterTableView>
         <ClientSettings>
             <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-            <Resizing AllowColumnResize="true"  />
+            <Resizing AllowColumnResize="true" />
             <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="250px" />
         </ClientSettings>
     </telerik:RadGrid>

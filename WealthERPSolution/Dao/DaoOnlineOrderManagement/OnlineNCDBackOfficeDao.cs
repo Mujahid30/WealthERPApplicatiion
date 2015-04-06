@@ -3685,6 +3685,79 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetIssuercategorywise;
         }
+        public DataTable GetOrderMissMatchDetails( int issueid, string orderstapcode, string category)
+        {
+            DataTable dtGetOrderMissMatchDetails;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand dbGetOrderMissMatchDetails;
+            DataSet dsGetOrderMissMatchDetails;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                if(category =="IP")
+                dbGetOrderMissMatchDetails = db.GetStoredProcCommand("SPROC_IPOOrderMissMatch");
+                else
+                    dbGetOrderMissMatchDetails = db.GetStoredProcCommand("SPROC_54ECANDCDOrderMissMatchDetails");
+
+                db.AddInParameter(dbGetOrderMissMatchDetails, "@Searchtype", DbType.Int32, 1);
+                db.AddInParameter(dbGetOrderMissMatchDetails, "@issueid", DbType.Int32, issueid);
+                db.AddInParameter(dbGetOrderMissMatchDetails, "@orderstapcode", DbType.String, orderstapcode);
+                db.AddInParameter(dbGetOrderMissMatchDetails, "@category", DbType.String, category);
+
+                dsGetOrderMissMatchDetails = db.ExecuteDataSet(dbGetOrderMissMatchDetails);
+                dtGetOrderMissMatchDetails = dsGetOrderMissMatchDetails.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetOrderMissMatchDetails;
+        }
+        public DataTable GetIssueNamePRoductWise( string product)
+        {
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand cmdGetIssueName;
+            DataTable dtGetIssueName;
+            DataSet dsGetIssueName = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+
+                //To retreive data from the table 
+                cmdGetIssueName = db.GetStoredProcCommand("SPROC_GetAllIssueaAmeProductWise");
+                db.AddInParameter(cmdGetIssueName, "@product", DbType.String, product);
+                dsGetIssueName = db.ExecuteDataSet(cmdGetIssueName);
+                dtGetIssueName = dsGetIssueName.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetIssueName;
+        }
+        public bool UpdateAllotedMissMatchOrder(int AllotmentId,int qty, string brokerCode,string PAN)
+        {
+            bool bResult = false;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand UpdateAllotedMissMatchOrderCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                UpdateAllotedMissMatchOrderCmd = db.GetStoredProcCommand("SPROC_Update54ECFDAllotmentMissMatch");
+                db.AddInParameter(UpdateAllotedMissMatchOrderCmd, "@Quantity", DbType.Int32, qty);
+                db.AddInParameter(UpdateAllotedMissMatchOrderCmd, "@SubBrokerCode", DbType.String, brokerCode);
+                db.AddInParameter(UpdateAllotedMissMatchOrderCmd, "@PAN", DbType.String, PAN);
+                db.AddInParameter(UpdateAllotedMissMatchOrderCmd, "@allotmentId", DbType.Int32, AllotmentId);
+                if (db.ExecuteNonQuery(UpdateAllotedMissMatchOrderCmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
     }
 }
 

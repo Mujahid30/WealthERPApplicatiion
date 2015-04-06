@@ -28,7 +28,7 @@
     </tr>
 </table>
 <table>
-    <tr>
+    <tr id="trSearchType" runat="server">
         <td align="right">
             <asp:Label ID="lblType" runat="server" CssClass="FieldName" Text="Search Type:"></asp:Label>
         </td>

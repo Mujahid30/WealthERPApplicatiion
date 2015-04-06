@@ -2765,7 +2765,7 @@ namespace DaoOnlineOrderManagement
 
             return ds;
         }
-        public bool CreateAMC(string amcName, int isOnline, int userId)
+        public bool CreateAMC(string amcName, int isOnline, int userId, string AmcCode)
         {
             bool bResult = false;
             Database db;
@@ -2777,7 +2777,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(CreateAMCCmd, "@amcName", DbType.String, amcName);
                 db.AddInParameter(CreateAMCCmd, "@isOnline", DbType.Int32, isOnline);
                 db.AddInParameter(CreateAMCCmd, "@userId", DbType.Int32, userId);
-
+                db.AddInParameter(CreateAMCCmd, "@AmcCode", DbType.String, AmcCode);
                 db.ExecuteNonQuery(CreateAMCCmd);
                 bResult = true;
             }
@@ -2789,7 +2789,7 @@ namespace DaoOnlineOrderManagement
         }
 
 
-        public bool UpdateAMC(string amcName, int isOnline, int userId, int amcCode)
+        public bool UpdateAMC(string amcName, int isOnline, int userId, int amcCode, string AmcCode)
         {
             bool blResult = false;
             Database db;
@@ -2803,8 +2803,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(UpdateAMCCmd, "@isOnline", DbType.Int32, isOnline); //2
                 db.AddInParameter(UpdateAMCCmd, "@userId", DbType.Int32, userId);//3
                 db.AddInParameter(UpdateAMCCmd, "@amcCode", DbType.Int32, amcCode);
-
-
+                db.AddInParameter(UpdateAMCCmd, "@AmcCodes", DbType.String, AmcCode);
                 // db.ExecuteNonQuery(updateSchemeSetUpDetailsCmd);
                 if (db.ExecuteNonQuery(UpdateAMCCmd) != 0)
                     blResult = true;
@@ -3008,6 +3007,56 @@ namespace DaoOnlineOrderManagement
                 throw Ex;
             }
             return extCode;
+        }
+        public int GetAMCCode(string AMCCode)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmdGetAMCCode;
+            int count = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //checking year
+                cmdGetAMCCode = db.GetStoredProcCommand("SPROC_AMCCodeCheck");
+                db.AddInParameter(cmdGetAMCCode, "@AMCCode", DbType.String, AMCCode);
+                db.AddOutParameter(cmdGetAMCCode, "@count", DbType.Int32, 0);
+                ds = db.ExecuteDataSet(cmdGetAMCCode);
+                if (db.ExecuteNonQuery(cmdGetAMCCode) != 0)
+                {
+                    count = Convert.ToInt32(db.GetParameterValue(cmdGetAMCCode, "count").ToString());
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return count;
+        }
+        public string CheckAMCCode(int AMCCode)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmdCheckAMCCode;
+            string amccode = string.Empty;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //checking year
+                cmdCheckAMCCode = db.GetStoredProcCommand("SPROC_CheckAMCCode");
+                db.AddInParameter(cmdCheckAMCCode, "@amcId", DbType.Int32, AMCCode);
+                db.AddOutParameter(cmdCheckAMCCode, "@amcCode", DbType.String, 20);
+                ds = db.ExecuteDataSet(cmdCheckAMCCode);
+                if (db.ExecuteNonQuery(cmdCheckAMCCode) != 0)
+                {
+                    amccode = db.GetParameterValue(cmdCheckAMCCode, "amcCode").ToString();
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return amccode;
         }
     }
 }

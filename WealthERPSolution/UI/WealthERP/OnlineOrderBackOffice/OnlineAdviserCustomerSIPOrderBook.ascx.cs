@@ -59,7 +59,15 @@ namespace WealthERP.OnlineOrderBackOffice
                     txtOrderNo.Visible = false;
                     txtOrderNo.Text = "";
                 }
-
+                if (Request.QueryString["orderId"] != null)
+                {
+                    ViewState["OrderId"] = int.Parse(Request.QueryString["orderId"].ToString());
+                    trSearchType.Visible = false;
+                    btnViewSIP.Visible = false;
+                    SetParameter();
+                    BindSIPBook(DateTime.Parse("01-01-1990"), DateTime.Now);
+                    divConditional.Visible = false;
+                }
             }
 
         }
@@ -195,12 +203,16 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             DataSet dsSIPBookMIS = new DataSet();
             DataTable dtSIPBookMIS = new DataTable();
-            if (ddlType.SelectedValue != "ON")
+            if (ddlType.SelectedValue != "ON" && Request.QueryString["orderId"] == null)
             {
                 if (txtFrom.SelectedDate != null)
                     fromDate = DateTime.Parse(txtFrom.SelectedDate.ToString());
                 if (txtTo.SelectedDate != null)
                     toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
+            }
+            else
+            {
+                fromDate = DateTime.Parse("01-01-1990");
             }
             systematicId = Convert.ToInt32(ViewState["systematicId"]);
             //string OrderStatus = ViewState["OrderStatus"].ToString();
@@ -210,7 +222,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else
             {
-                dsSIPBookMIS = OnlineOrderMISBo.GetSIPBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), hdnOrderStatus.Value, systematicId, fromDate, toDate, (!string.IsNullOrEmpty(txtOrderNo.Text)) ? int.Parse(txtOrderNo.Text) :0);
+                dsSIPBookMIS = OnlineOrderMISBo.GetSIPBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), hdnOrderStatus.Value, systematicId, fromDate, toDate, (!string.IsNullOrEmpty(txtOrderNo.Text)) ? int.Parse(txtOrderNo.Text) :(ViewState["OrderId"]!=null?int.Parse(ViewState["OrderId"].ToString()):0));
             }
 
             dtSIPBookMIS = dsSIPBookMIS.Tables[0];

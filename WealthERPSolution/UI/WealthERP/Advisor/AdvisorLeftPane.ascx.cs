@@ -3959,7 +3959,7 @@ namespace WealthERP.Advisor
         }
         public void imgButton_OnClick(object sender, ImageClickEventArgs e)
         {
-            int orderId = 0, isonline = 0; string productcode = string.Empty; string subCategoryType = string.Empty;
+            int orderId = 0, isonline = 0; string productcode = string.Empty; string subCategoryType = string.Empty; string Type = string.Empty;
             OnlineOrderBackOfficeBo OnlineOrderBackOfficeBo = new OnlineOrderBackOfficeBo();
             if (ddlSearchtype.SelectedValue == "ON")
             {
@@ -3972,11 +3972,17 @@ namespace WealthERP.Advisor
                         isonline = int.Parse(dr["CO_IsOnline"].ToString());
                         productcode = dr["PAG_AssetGroupCode"].ToString();
                         subCategoryType = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+                        Type = dr["WMTT_TransactionClassificationCode"].ToString();
                     }
 
-                    if (productcode == "MF" && isonline == 1)
+                    if (productcode == "MF" && isonline == 1 && Type !="SIP")
                     {
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineAdviserCustomerOrderBook", "loadcontrol('OnlineAdviserCustomerOrderBook','?orderId=" + orderId + "');", true);
+
+                    }
+                    if (productcode == "MF" && isonline == 1 && Type=="SIP")
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineAdviserCustomerSIPOrderBook", "loadcontrol('OnlineAdviserCustomerSIPOrderBook','?orderId=" + orderId + "');", true);
 
                     }
                     if (productcode == "FI" && isonline == 1)

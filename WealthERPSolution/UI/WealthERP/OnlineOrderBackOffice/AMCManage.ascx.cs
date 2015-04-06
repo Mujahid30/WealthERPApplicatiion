@@ -67,20 +67,39 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void gvAMCManage_OnItemCommand(object source, GridCommandEventArgs e)
         {
-            RadGrid gvAMCManage = (RadGrid)source;
+            int result = 0;
             if (e.CommandName == RadGrid.PerformInsertCommandName)
             {
                 TextBox txtAMCName = (TextBox)e.Item.FindControl("txtAMCName");
                 CheckBox chkIsOnline = (CheckBox)e.Item.FindControl("chkIsOnline");
-                onlineorderbackofficeBO.CreateAMC(txtAMCName.Text, chkIsOnline.Checked ? 1 : 0, userVo.UserId);
+                TextBox txtAmcCode = (TextBox)e.Item.FindControl("txtAmcCode");
+                result = onlineorderbackofficeBO.GetAMCCode(txtAmcCode.Text);
+                if (result == 0)
+                    onlineorderbackofficeBO.CreateAMC(txtAMCName.Text, chkIsOnline.Checked ? 1 : 0, userVo.UserId, txtAmcCode.Text);
+                else
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Enter Unique Alphabets');", true);
 
             }
             if (e.CommandName == RadGrid.UpdateCommandName)
             {
                 TextBox txtAMCName = (TextBox)e.Item.FindControl("txtAMCName");
                 CheckBox chkIsOnline = (CheckBox)e.Item.FindControl("chkIsOnline");
+                TextBox txtAmcCode = (TextBox)e.Item.FindControl("txtAmcCode");
                 int amcCode = int.Parse(gvAMCManage.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PA_AMCCode"].ToString());
-                onlineorderbackofficeBO.UpdateAMC(txtAMCName.Text, chkIsOnline.Checked ? 1 : 0, userVo.UserId, amcCode);
+                string amccodes = onlineorderbackofficeBO.CheckAMCCode(amcCode);
+                if (txtAmcCode.Text != amccodes)
+                {
+                    result = onlineorderbackofficeBO.GetAMCCode(txtAmcCode.Text);
+                    if (result > 0)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Enter Unique Alphabets');", true);
+                    }
+                    else
+                    onlineorderbackofficeBO.UpdateAMC(txtAMCName.Text, chkIsOnline.Checked ? 1 : 0, userVo.UserId, amcCode, txtAmcCode.Text);
+
+                }
+                else
+                onlineorderbackofficeBO.UpdateAMC(txtAMCName.Text, chkIsOnline.Checked ? 1 : 0, userVo.UserId, amcCode, txtAmcCode.Text);
 
             }
 

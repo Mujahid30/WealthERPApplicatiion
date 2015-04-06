@@ -2378,5 +2378,48 @@ namespace BoOnlineOrderManagement
             }
             return bResult;
         }
+        public DataTable GetOrderMissMatchDetails( int issueid, string orderstapcode, string category)
+        {
+            DataTable dtGetOrderMissMatchDetails; 
+            try
+            {
+                onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+                dtGetOrderMissMatchDetails = onlineNCDBackOfficeDao.GetOrderMissMatchDetails(issueid,orderstapcode,category);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetOrderMissMatchDetails;
+        }
+        public DataTable GetIssueNamePRoductWise(string product)
+        {
+            DataTable dtGetIssueNamePRoductWise; 
+            try
+            {
+                onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+                dtGetIssueNamePRoductWise = onlineNCDBackOfficeDao.GetIssueNamePRoductWise(product);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetIssueNamePRoductWise;
+        }
+        public bool UpdateAllotedMissMatchOrder(int AllotmentId, int qty, string brokerCode, string PAN)
+        {
+            OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
+            bool bResult = false;
+            try
+            {
+                bResult = daoOnlNcdBackOff.UpdateAllotedMissMatchOrder(AllotmentId, qty, brokerCode,PAN);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
     }
 }
