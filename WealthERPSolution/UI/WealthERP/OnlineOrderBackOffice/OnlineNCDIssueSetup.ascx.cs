@@ -1488,6 +1488,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     onlineNCDBackOfficeVo.maxAmt = Convert.ToDecimal(txtMaxAmt.Text.TrimEnd());
                 if (!string.IsNullOrEmpty(txtBankName.Text))
                     onlineNCDBackOfficeVo.applicationBank = txtBankName.Text;
+                if (!string.IsNullOrEmpty(txtPrivilegeRemark.Text))
+                    onlineNCDBackOfficeVo.PrivilegeRemark = txtPrivilegeRemark.Text;
                 if (ddlSubInstrCategory.SelectedValue != "FICGCG" && ddlSubInstrCategory.SelectedValue != "FINPNP" && ddlSubInstrCategory.SelectedValue != "FICDCD")
                 {
                     if (!NSCEBSCEcode())
@@ -3276,6 +3278,7 @@ namespace WealthERP.OnlineOrderBackOffice
             CompareValidator2.Visible = false;
             CompareValidator3.Visible = false;
             SeriesAndCategoriesGridsVisiblity(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
+           
         }
 
         protected void lnkBtnEdit_Click(object sender, EventArgs e)

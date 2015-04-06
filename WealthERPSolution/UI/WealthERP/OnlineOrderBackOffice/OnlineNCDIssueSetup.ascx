@@ -1411,7 +1411,7 @@
             </tr>
                <tr> 
        <td class="leftLabel">
-            <asp:label ID="lblPrivilegeRemark" runat="server" Text="Remark(Related Privilege)" CssClass="FieldName" Visible="false"></asp:label>
+            <asp:label ID="lblPrivilegeRemark" runat="server" Text="Remark(Related Privilege):" CssClass="FieldName" Visible="false"></asp:label>
             </td>
          <td class="rightData">
             <asp:TextBox ID="txtPrivilegeRemark" runat="server" CssClass="txtField" Width="200px" TabIndex="60" Visible="false">

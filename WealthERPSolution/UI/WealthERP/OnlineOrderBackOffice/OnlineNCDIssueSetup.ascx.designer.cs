@@ -156,7 +156,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblCategory;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trcategory;
         /// <summary>
         /// lblCategory control.
         /// </summary>
@@ -165,7 +165,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCategory;
-        
+     
         /// <summary>
         /// tdddlCategory control.
         /// </summary>
@@ -174,8 +174,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlCategory;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell trcategory;
-        
+       
         /// <summary>
         /// ddlSubInstrCategory control.
         /// </summary>
@@ -184,7 +183,6 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSubInstrCategory;
-        
         /// <summary>
         /// lblcategoryerror control.
         /// </summary>
@@ -220,8 +218,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1Name;
-        protected global::System.Web.UI.WebControls.TextBox txtPrivilegeRemark;
-        protected global::System.Web.UI.WebControls.Label lblPrivilegeRemark;
+        
         /// <summary>
         /// txtName control.
         /// </summary>
@@ -2552,6 +2549,24 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator50;
+        
+        /// <summary>
+        /// lblPrivilegeRemark control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPrivilegeRemark;
+        
+        /// <summary>
+        /// txtPrivilegeRemark control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPrivilegeRemark;
         
         /// <summary>
         /// trMultipleApplicationAllowed control.
