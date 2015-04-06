@@ -957,6 +957,12 @@
                             ErrorMessage="<br />Please Select Broker" Display="Dynamic" runat="server" CssClass="rfvPCG"
                             ValidationGroup="MFSubmit" InitialValue=""></asp:RequiredFieldValidator>--%>
                     </td>
+                    <td class="leftField" align="right"  style="width:15%"> 
+               <asp:label ID="lblPrivilegeRemark1" runat="server" Text="Remark(Related Privilege):" CssClass="FieldName" Visible="false"></asp:label>
+            </td>
+           <td class="rightField" align="left"  style="width:20%">
+           <asp:Label ID="lblPrivilegeRemark2" runat="server" Text=""  CssClass="FieldName" Visible="false"></asp:Label>
+           </td>
                 </tr>
                 <tr>
                     <td align="right" style="width: 10%">
@@ -1084,9 +1090,7 @@
                     </td>
                     <td style="width: 5%">
                     </td>
-                    <td align="right" style="width: 10%">
-                        <asp:Label ID="Label22" runat="server" Text="Privilege:" CssClass="FieldName"></asp:Label>
-                    </td>
+                   
                     <td style="width: 35%">
                         <asp:CheckBox ID="ChkSeniorcitizens" runat="server" CssClass="txtField" Text="Senior Citizen">
                         </asp:CheckBox>

@@ -524,7 +524,7 @@ namespace WealthERP.OffLineOrderManagement
             {
                 tdLabel11.Visible = false;
                 tdddlTranstype.Visible = false;
-
+               
             }
             else
             {
@@ -541,7 +541,9 @@ namespace WealthERP.OffLineOrderManagement
                 tdTxtQty.Visible = false;
                 tdlblADRNo.Visible = true;
                 tdtxtADRNo.Visible = true;
+                
             }
+
             ddlCategory.Focus();
         }
 
@@ -1497,9 +1499,21 @@ namespace WealthERP.OffLineOrderManagement
                     ////txtSeries.Text = "Tenure-" + Tenure + "/" + "InterestRate-" + hdnDefaulteInteresRate.Value + "/" + "InterestType-" + CouponType;
                     //Label12.Text = hdnSeriesDetails.Value;
 
+                    if (ddlCategory.SelectedValue == "FICDCD")
+                    {
+
+                        lblPrivilegeRemark1.Visible = true;
+                        lblPrivilegeRemark2.Visible = true;
+                        lblPrivilegeRemark2.Text = dr["AIM_PrivilegeRemark"].ToString();
+
+                    }
+                    else
+                    {
+                        lblPrivilegeRemark1.Visible = false;
+                        lblPrivilegeRemark2.Visible = false;
+                    }
+
                 }
-
-
 
             }
 
