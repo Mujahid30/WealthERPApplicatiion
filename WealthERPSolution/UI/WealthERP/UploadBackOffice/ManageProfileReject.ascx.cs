@@ -28,6 +28,7 @@ namespace WealthERP.UploadBackOffice
         DataTable dtReject2 = new DataTable();
         int reqId;
         int transactionId;
+        string rcbType = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -444,10 +445,19 @@ namespace WealthERP.UploadBackOffice
 
             if (Request.QueryString["ReqId"] != null)
             {
+                DataTable dtRequests = new DataTable();
+                DataSet dtProcessLogDetails = new DataSet();
+
                 reqId = Int32.Parse(Request.QueryString["ReqId"].ToString());
+                GetProfileIncreamentRejection(reqId);
+                dtRequests = (DataTable)Cache["RequestReject" + userVo.UserId.ToString()];
                 {
                     if (ViewState["RejectReason"] != null)
+                        rcbType = ViewState["RejectReason"].ToString();
+                    if (!string.IsNullOrEmpty(rcbType))
                     {
+                        DataView dvStaffList = new DataView(dtRequests, "RejectedReasonDescription = '" + rcbType + "'", "", DataViewRowState.CurrentRows);
+                        gvProfileIncreamenetReject.DataSource = dvStaffList.ToTable();
                         GridColumn column = gvProfileIncreamenetReject.MasterTableView.GetColumnSafe("RejectedReasonDescription");
                         column.CurrentFilterFunction = GridKnownFunction.Contains;
                         gvProfileIncreamenetReject.MasterTableView.Rebind();
@@ -462,7 +472,7 @@ namespace WealthERP.UploadBackOffice
         }
         protected void gvProfileIncreamenetReject_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            string rcbType = string.Empty;
+
             DataTable dtRequests = new DataTable();
             DataSet dtProcessLogDetails = new DataSet();
             //dtRequests = (DataTable)Cache[userVo.UserId.ToString() + "RequestReject"];
