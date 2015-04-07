@@ -2277,14 +2277,16 @@ namespace DaoAdvisorProfiling
             DataSet getNEWSignupMISDetailsDs;
 
             db = DatabaseFactory.CreateDatabase("wealtherp");
+            getGetNEWSignupMISDetailsCmd = db.GetStoredProcCommand("SPROC_GetCustomerSignUp");
+
             //getGetNEWSignupMISDetailsCmd = db.GetStoredProcCommand("SP_GetNEWSignupMISDetails");
-            getGetNEWSignupMISDetailsCmd = db.GetStoredProcCommand("SPROC_GetCustomerSignUpDetails");
+            //getGetNEWSignupMISDetailsCmd = db.GetStoredProcCommand("SPROC_GetCustomerSignUpDetails");
             db.AddInParameter(getGetNEWSignupMISDetailsCmd, "@AdviserID", DbType.Int32, adviserId);
             db.AddInParameter(getGetNEWSignupMISDetailsCmd, "@FromDate", DbType.DateTime, fromDate);
             db.AddInParameter(getGetNEWSignupMISDetailsCmd, "@ToDate", DbType.DateTime, toDate);
             db.AddInParameter(getGetNEWSignupMISDetailsCmd, "@online", DbType.Int32, type);
-              db.AddInParameter(getGetNEWSignupMISDetailsCmd, "@UserType", DbType.String, usertype);
-                db.AddInParameter(getGetNEWSignupMISDetailsCmd, "@AgentCode", DbType.String, agentcode);
+            db.AddInParameter(getGetNEWSignupMISDetailsCmd, "@UserType", DbType.String, usertype);
+            db.AddInParameter(getGetNEWSignupMISDetailsCmd, "@AgentCode", DbType.String, agentcode);
             getNEWSignupMISDetailsDs = db.ExecuteDataSet(getGetNEWSignupMISDetailsCmd);
 
             return getNEWSignupMISDetailsDs;
@@ -2682,7 +2684,8 @@ namespace DaoAdvisorProfiling
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                getGetCmd = db.GetStoredProcCommand("SPROC_GetFolioSignUpDetails");
+                //getGetCmd = db.GetStoredProcCommand("SPROC_GetFolioSignUpDetails");
+                getGetCmd = db.GetStoredProcCommand("SPROC_GetFolioSignUp");                
                 db.AddInParameter(getGetCmd, "@AdviserID", DbType.Int32, adviserId);
                 db.AddInParameter(getGetCmd, "@FromDate", DbType.DateTime, dtFromDate);
                 db.AddInParameter(getGetCmd, "@ToDate", DbType.DateTime, dtToDate);
@@ -2707,7 +2710,9 @@ namespace DaoAdvisorProfiling
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                getGetCmd = db.GetStoredProcCommand("SPROC_GetSIPSignUpDetails");
+                //getGetCmd = db.GetStoredProcCommand("SPROC_GetSIPSignUpDetails");
+                getGetCmd = db.GetStoredProcCommand("SPROC_GetSIPSignUp");
+
                 db.AddInParameter(getGetCmd, "@AdviserID", DbType.Int32, adviserId);
                 db.AddInParameter(getGetCmd, "@FromDate", DbType.DateTime, dtFromDate);
                 db.AddInParameter(getGetCmd, "@ToDate", DbType.DateTime, dtToDate);

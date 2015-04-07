@@ -36,7 +36,7 @@ namespace WealthERP.BusinessMIS
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
             {
                 userType = "associates";
-                
+
                 ddlTypes.Items[0].Enabled = false;
             }
             else
@@ -45,16 +45,15 @@ namespace WealthERP.BusinessMIS
             if (!IsPostBack)
             {
                 DataSet ds = new DataSet();
-                Cache["gvSchemeDetailsForMappinginSuperAdmin"] =ds;
+                Cache["gvProductWiseCustomersCount"] = ds;
 
                 pnlFolio.Visible = false;
                 pnlSIP.Visible = false;
                 rdpFromDate.SelectedDate = DateTime.Now.AddMonths(-1);
                 rdpToDate.SelectedDate = DateTime.Now.Date;
-            
             }
-
         }
+
         public void GetUserType()
         {
 
@@ -82,12 +81,13 @@ namespace WealthERP.BusinessMIS
             }
         }
 
-        protected void gvNewCustomerSignUpMIS_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        protected void gvProductWiseCustomersCount_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
+           
             DataSet dsNEWSignupMISDetails = new DataSet();
-            dsNEWSignupMISDetails = (DataSet)Cache["gvSchemeDetailsForMappinginSuperAdmin"];
+            dsNEWSignupMISDetails = (DataSet)Cache["gvProductWiseCustomersCount"];
             if (dsNEWSignupMISDetails.Tables.Count > 0)
-                gvNewCustomerSignUpMIS.DataSource = dsNEWSignupMISDetails;
+                gvProductWiseCustomersCount.DataSource = dsNEWSignupMISDetails;
 
         }
 
@@ -123,7 +123,7 @@ namespace WealthERP.BusinessMIS
             dtFromDate = Convert.ToDateTime(rdpFromDate.SelectedDate);
             dtToDate = Convert.ToDateTime(rdpToDate.SelectedDate);
             DataSet dsSIP;
-            dsSIP = advisorBranchBo.GetSIPSignUp(adviserVo.advisorId, dtFromDate, dtToDate, int.Parse(ddlTypes.SelectedValue),userType,AgentCode);
+            dsSIP = advisorBranchBo.GetSIPSignUp(adviserVo.advisorId, dtFromDate, dtToDate, int.Parse(ddlTypes.SelectedValue), userType, AgentCode);
             DataTable dtSIP = dsSIP.Tables[0];
             if (dtSIP == null)
             {
@@ -154,7 +154,7 @@ namespace WealthERP.BusinessMIS
             dtFromDate = Convert.ToDateTime(rdpFromDate.SelectedDate);
             dtToDate = Convert.ToDateTime(rdpToDate.SelectedDate);
             DataSet dsFolio;
-            dsFolio = advisorBranchBo.GetFolioSignUp(adviserVo.advisorId, dtFromDate, dtToDate, int.Parse(ddlTypes.SelectedValue),userType,AgentCode);
+            dsFolio = advisorBranchBo.GetFolioSignUp(adviserVo.advisorId, dtFromDate, dtToDate, int.Parse(ddlTypes.SelectedValue), userType, AgentCode);
             DataTable dtFolio = dsFolio.Tables[0];
             if (dtFolio == null)
             {
@@ -187,9 +187,10 @@ namespace WealthERP.BusinessMIS
             dtToDate = Convert.ToDateTime(rdpToDate.SelectedDate);
             dsNEWSignupMISDetails = new DataSet();
 
-            dsNEWSignupMISDetails = advisorBranchBo.GetNEWSignupMISDetails(adviserVo.advisorId, dtFromDate, dtToDate, int.Parse(ddlTypes.SelectedValue),userType,AgentCode);
-            gvNewCustomerSignUpMIS.DataSource = dsNEWSignupMISDetails;
-            gvNewCustomerSignUpMIS.DataBind();
+            dsNEWSignupMISDetails = advisorBranchBo.GetNEWSignupMISDetails(adviserVo.advisorId, dtFromDate, dtToDate, int.Parse(ddlTypes.SelectedValue), userType, AgentCode);
+            gvProductWiseCustomersCount.DataSource = dsNEWSignupMISDetails;
+            gvProductWiseCustomersCount.DataBind();
+
             if (dsNEWSignupMISDetails.Tables[0].Rows.Count > 0)
             {
                 btnExportFilteredData.Visible = true;
@@ -198,31 +199,45 @@ namespace WealthERP.BusinessMIS
             }
             else
                 btnExportFilteredData.Visible = false;
-            if (Cache["gvSchemeDetailsForMappinginSuperAdmin"] == null)
+
+            if (Cache["gvProductWiseCustomersCount" + adviserVo.advisorId] == null)
             {
-                Cache.Insert("gvSchemeDetailsForMappinginSuperAdmin", dsNEWSignupMISDetails);
+                Cache.Insert("gvProductWiseCustomersCount" + adviserVo.advisorId, dsNEWSignupMISDetails.Tables[0]);
             }
             else
             {
-                Cache.Remove("gvSchemeDetailsForMappinginSuperAdmin");
-                Cache.Insert("gvSchemeDetailsForMappinginSuperAdmin", dsNEWSignupMISDetails);
+                Cache.Remove("gvProductWiseCustomersCount" + adviserVo.advisorId);
+                Cache.Insert("gvProductWiseCustomersCount" + adviserVo.advisorId, dsNEWSignupMISDetails.Tables[0]);
             }
+            
+            
+            
+            
+            //if (Cache["gvProductWiseCustomersCount"] == null)
+            //{
+            //    Cache.Insert("gvProductWiseCustomersCount", dsNEWSignupMISDetails);
+            //}
+            //else
+            //{
+            //    Cache.Remove("gvProductWiseCustomersCount");
+            //    Cache.Insert("gvProductWiseCustomersCount", dsNEWSignupMISDetails);
+            //}
 
         }
 
         public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
-            DataSet dtGvNewCustomerSignUpMIS = new DataSet();
-            dtGvNewCustomerSignUpMIS = (DataSet)Cache["gvSchemeDetailsForMappinginSuperAdmin"];
-            gvNewCustomerSignUpMIS.DataSource = dtGvNewCustomerSignUpMIS;
+            DataSet dtgvProductWiseCustomersCount = new DataSet();
+            dtgvProductWiseCustomersCount = (DataSet)Cache["gvProductWiseCustomersCount"];
+            gvProductWiseCustomersCount.DataSource = dtgvProductWiseCustomersCount;
 
-            gvNewCustomerSignUpMIS.ExportSettings.OpenInNewWindow = true;
-            gvNewCustomerSignUpMIS.ExportSettings.IgnorePaging = true;
-            gvNewCustomerSignUpMIS.ExportSettings.HideStructureColumns = true;
-            gvNewCustomerSignUpMIS.ExportSettings.ExportOnlyData = true;
-            gvNewCustomerSignUpMIS.ExportSettings.FileName = "NEW customer Signup Details";
-            gvNewCustomerSignUpMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvNewCustomerSignUpMIS.MasterTableView.ExportToExcel();
+            gvProductWiseCustomersCount.ExportSettings.OpenInNewWindow = true;
+            gvProductWiseCustomersCount.ExportSettings.IgnorePaging = true;
+            gvProductWiseCustomersCount.ExportSettings.HideStructureColumns = true;
+            gvProductWiseCustomersCount.ExportSettings.ExportOnlyData = true;
+            gvProductWiseCustomersCount.ExportSettings.FileName = "NEW customer Signup Details";
+            gvProductWiseCustomersCount.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvProductWiseCustomersCount.MasterTableView.ExportToExcel();
         }
         protected void gvSIP_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
@@ -241,19 +256,23 @@ namespace WealthERP.BusinessMIS
 
         }
 
-        protected void gvNewCustomerSignUpMIS_ItemDataBound(object sender, GridItemEventArgs e)
+        protected void gvProductWiseCustomersCount_OnItemDataBound(object sender, GridItemEventArgs e)
         {
-            if (e.Item is GridHeaderItem)
+            if (e.Item is GridDataItem)
             {
-                if (!Convert.ToBoolean(adviserVo.MultiBranch))
+                if (ddlTypes.SelectedValue == "1")
                 {
-                    if (adviserVo.MultiBranch != 1)
-                    {
-                        gvNewCustomerSignUpMIS.MasterTableView.GetColumn("ZoneName").Visible = false;
-                        gvNewCustomerSignUpMIS.MasterTableView.GetColumn("ClusterName").Visible = false;
-                    }
-                }
+                    gvProductWiseCustomersCount.MasterTableView.GetColumn("AAC_AgentCode").Visible = false;
+                    gvProductWiseCustomersCount.MasterTableView.GetColumn("PAISC_AssetInstrumentSubCategoryName").Visible = false;
 
+                }
+                else
+                {
+                    //PnlCustomerWise.Width = "70%";
+                    gvProductWiseCustomersCount.MasterTableView.GetColumn("AAC_AgentCode").Visible = true;
+                    gvProductWiseCustomersCount.MasterTableView.GetColumn("PAISC_AssetInstrumentSubCategoryName").Visible = true;
+
+                }
             }
         }
 
