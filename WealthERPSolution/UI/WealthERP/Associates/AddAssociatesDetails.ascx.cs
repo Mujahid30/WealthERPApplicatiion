@@ -120,7 +120,7 @@ namespace WealthERP.Associates
                         head.InnerText = "Edit Associate";
                         associateId = associatesVo.AdviserAssociateId;
                         ddlTitleList.Enabled = false;
-                        ddlBranch.Enabled = false;
+                        ddlBranch.Enabled = true;
                         ddlRM.Enabled = false;
                         lnkBtnEdit.Visible = false;
                         lnlBack.Visible = true;
@@ -1009,6 +1009,9 @@ namespace WealthERP.Associates
                 associatesVo.EndDate = DateTime.MinValue;
             else
                 associatesVo.EndDate = Convert.ToDateTime(txtEndDate.SelectedDate);
+            if (!string.IsNullOrEmpty(ddlBranch.SelectedValue))
+                associatesVo.BranchId = Convert.ToInt32(ddlBranch.SelectedValue);           
+
             associatesBo.UpdateAssociateDetails(associatesVo, userId, associateid, agentcode);
             controlEnable(0);
             btnAssociateUpdate.Visible = false;
@@ -1534,6 +1537,8 @@ namespace WealthERP.Associates
                 chkbldepart.Enabled = true;
                 btnAssociateUpdate.Visible = true;
                 lbkbtnAddChildCodes.Enabled = true;
+                ddlBranch.Enabled = true;
+
             }
         }
         protected void BindRegistration()

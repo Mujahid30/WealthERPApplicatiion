@@ -683,7 +683,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Set Theme")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OfflineCustomerMerge','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SetTheme','login');", true);
                 }
                 else if (e.Item.Value == "User_Role")
                 {

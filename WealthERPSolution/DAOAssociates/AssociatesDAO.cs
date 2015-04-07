@@ -2209,6 +2209,7 @@ namespace DAOAssociates
                 db.AddInParameter(UpdateAssociateCmd, "@U_UserId", DbType.Int32, userId);
                 db.AddInParameter(UpdateAssociateCmd, "@AAC_AdviserAgentId", DbType.Int32, agentId);
                 db.AddInParameter(UpdateAssociateCmd, "@AA_AdviserAssociateId", DbType.Int32, associateId);
+
                 if (db.ExecuteNonQuery(UpdateAssociateCmd) != 0)
                     bResult = true;
             }
@@ -2274,6 +2275,8 @@ namespace DAOAssociates
                 else
                     db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_ExpiryDate", DbType.DateTime, DBNull.Value);
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_IsActive", DbType.Int32, associatesVo.IsActive);
+                db.AddInParameter(UpdateAssociateDetailsCmd, "@AB_BranchId", DbType.Int32, associatesVo.BranchId);
+
                 if (db.ExecuteNonQuery(UpdateAssociateDetailsCmd) != 0)
                     bResult = true;
             }
