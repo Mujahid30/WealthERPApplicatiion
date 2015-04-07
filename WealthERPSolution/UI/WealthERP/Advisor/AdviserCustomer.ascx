@@ -333,7 +333,7 @@
             <asp:TextBox ID="txtRequestId" runat="server" CssClass="txtField" AutoComplete="Off"
                 AutoPostBack="false" onclientClick="ShowIsa()" Width="250px"></asp:TextBox>
             <cc1:TextBoxWatermarkExtender ID="txtRequestId_water" TargetControlID="txtRequestId"
-                WatermarkText="Enter few characters of Request Id" runat="server" EnableViewState="false">
+                WatermarkText="Enter a Request Id" runat="server" EnableViewState="false">
             </cc1:TextBoxWatermarkExtender>
             <%--<ajaxToolkit:AutoCompleteExtender ID="txtRequestId_autoCompleteExtender" runat="server"
                 TargetControlID="txtRequestId" ServiceMethod="GetRequestId" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
