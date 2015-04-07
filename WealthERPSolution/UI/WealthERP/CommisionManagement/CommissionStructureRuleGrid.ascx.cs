@@ -166,7 +166,14 @@ namespace WealthERP.CommisionManagement
 
         protected void ddProduct_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (ddProduct.SelectedValue != "MF")
+            {
+                ddIssuer.SelectedValue = "0";
+                ddCategory.Items.Clear();
+                ddSubCategory.Items.Clear();
+            }
             BindCategoryDropdown(ddProduct.SelectedValue);
+           
             ShowHideControlsBasedOnProduct(ddProduct.SelectedValue);
         }
 

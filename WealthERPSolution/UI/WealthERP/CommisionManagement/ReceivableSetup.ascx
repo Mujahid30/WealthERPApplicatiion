@@ -1512,7 +1512,7 @@
                                                         </asp:DropDownList>
                                                     </td>
                                                     <td class="leftLabel">
-                                                        <asp:Label ID="lblReceivableFrequency" runat="server" Text="Receivable Fre:" CssClass="FieldName"></asp:Label>
+                                                        <asp:Label ID="lblReceivableFrequency" runat="server" Text="Receivable Fre:" CssClass="FieldName" ></asp:Label>
                                                     </td>
                                                     <td class="rightData">
                                                         <asp:DropDownList ID="ddlReceivableFrequency" runat="server" CssClass="cmbField">

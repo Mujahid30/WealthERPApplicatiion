@@ -1583,6 +1583,7 @@ namespace WealthERP.Receivable
                     string strIsOtherTaxReduced = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSM_IsOtherTaxReduced"].ToString();
                     string IncentiveType = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ASCR_WCMV_IncentiveType"].ToString();
                     if (RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AID_IssueDetailId"].ToString() != string.Empty)
+               
                     {
                         seriseid = int.Parse(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AID_IssueDetailId"].ToString());
                     }
@@ -1691,20 +1692,24 @@ namespace WealthERP.Receivable
                     //}
                     //ddlAUMFrequency.SelectedValue = strAUMFrequency;
                     TxtRuleName.Text = hdnRuleName.Value;
-                    if (strCommissionType == "IN" && (strInvestmentTransactionType.Contains("SIP") || strInvestmentTransactionType.Contains("STB")))
+                    if ((strCommissionType == "IN" ||strCommissionType =="TC") && (strInvestmentTransactionType.Contains("SIP") || strInvestmentTransactionType.Contains("STB")))
                     {
                         ddlTransaction.Visible = true;
                         ddlTransaction.SelectedValue = "SIP";
+                        trMinMaxTenure.Visible = true;
                         foreach (ListItem chkItems in chkListTtansactionType.Items)
                         {
                             if (chkItems.Value == "SIP" || chkItems.Value == "STB")
                                 chkItems.Enabled = true;
                             else
+                            {
                                 chkItems.Enabled = false;
+                                chkItems.Selected = false;
+                            }
                         }
 
                     }
-                    else if (strCommissionType == "IN")
+                    else if (strCommissionType == "IN" || strCommissionType =="TC")
                     {
                         foreach (ListItem chkItems in chkListTtansactionType.Items)
                         {
@@ -1717,12 +1722,14 @@ namespace WealthERP.Receivable
                         ddlTransaction.Visible = true;
 
                         ddlTransaction.SelectedValue = "NonSIP";
+                        trMinMaxTenure.Visible = false;
+
                     }
-                    foreach (ListItem chkItems in chkListTtansactionType.Items)
-                    {
-                        if (strInvestmentTransactionType.Contains(chkItems.Value))
-                            chkItems.Selected = true;
-                    }
+                    //foreach (ListItem chkItems in chkListTtansactionType.Items)
+                    //{
+                    //    if (strInvestmentTransactionType.Contains(chkItems.Value))
+                    //        chkItems.Selected = true;
+                    //}
                     ddlSIPFrequency.SelectedValue = strSIPFrequency;
                     //if (Request.QueryString["StructureId"] != null)
                     //{
@@ -2318,6 +2325,10 @@ namespace WealthERP.Receivable
                     lblTransactionType.Visible = !enablement;
                     ddlTransaction.Visible = !enablement;
                     ddlCommisionCalOn.Items[0].Enabled = false;
+                    ddlCommisionCalOn.Items[1].Enabled = false;
+                    ddlCommisionCalOn.Items[2].Enabled = false;
+                    ddlCommisionCalOn.Items[3].Enabled = false;
+                    ddlCommisionCalOn.Items[5].Enabled = false;
                     foreach (ListItem chkItems in chkListTtansactionType.Items)
                     {
 
@@ -2332,11 +2343,11 @@ namespace WealthERP.Receivable
                     trMinMaxAge.Visible = !enablement;
                     tdlb1SipFreq.Visible = enablement;
                     tdddlSipFreq.Visible = enablement;
-                    lblReceivableFrequency.Visible = !enablement;
-                    ddlReceivableFrequency.Visible = !enablement;
+                    lblReceivableFrequency.Visible = enablement;
+                    ddlReceivableFrequency.Visible = enablement;
                     chkListTtansactionType.Visible = !enablement;
                     lblTransactionType.Visible = !enablement;
-                    ddlTransaction.Visible = enablement;
+                    //ddlTransaction.Visible = enablement;
                     ddlCommisionCalOn.Items[0].Enabled = true;
                     ddlCommisionCalOn.SelectedValue = "AGAM";
                     ddlCommisionCalOn.Enabled = false;
@@ -2356,7 +2367,7 @@ namespace WealthERP.Receivable
                     trTransactionTypeSipFreq.Visible = !enablement;
                     chkListTtansactionType.Visible = !enablement;
                     lblTransactionType.Visible = !enablement;
-                    ddlTransaction.Visible = enablement;
+                    //ddlTransaction.Visible = enablement;
                     ddlCommissionApplicableLevel.Enabled = true;
                     foreach (ListItem chkItems in chkListTtansactionType.Items)
                     {
@@ -3287,6 +3298,7 @@ namespace WealthERP.Receivable
             ddlAppCityGroup.Visible = flag;
             ddlInvestorType.Visible = flag;
             trTransactionTypeSipFreq.Visible = flag;
+           
             trMinMaxTenure.Visible = flag;
             trMinMaxAge.Visible = flag;
             
@@ -3913,6 +3925,8 @@ namespace WealthERP.Receivable
                 RadListBoxSelectedAgentCodes.Items.Clear();
                 BindPayableGrid();
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Mapping Created SuccessFully');", true);
+                radAplicationPopUp.VisibleOnPageLoad = true;
+                RadListBoxSelectedAgentCodes.Items.Clear();
                 //BindPayableGrid(int.Parse(hdnStructId.Value));
             }
 
