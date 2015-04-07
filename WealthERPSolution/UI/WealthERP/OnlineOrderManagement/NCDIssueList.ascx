@@ -236,8 +236,8 @@
                                 PageSize="10" AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
                                 Skin="Telerik" AllowFilteringByColumn="true" OnItemDataBound="gvCommMgmt_ItemDataBound"
-                                OnItemCommand="gvCommMgmt_ItemCommand" OnNeedDataSource="gvCommMgmt_OnNeedDataSource">
-                                <MasterTableView AllowMultiColumnSorting="false" AllowSorting="false" DataKeyNames="AIM_IssueId,AIM_IssueName,AIM_MInQty,AIM_MaxQty,IssueTimeType,AR_Filename"
+                                OnItemCommand="gvCommMgmt_ItemCommand" OnNeedDataSource="gvCommMgmt_OnNeedDataSource" >
+                                <MasterTableView AllowMultiColumnSorting="true" AllowSorting="true" DataKeyNames="AIM_IssueId,AIM_IssueName,AIM_MInQty,AIM_MaxQty,IssueTimeType,AR_Filename"
                                     AutoGenerateColumns="false" Width="100%">
                                     <Columns>
                                         <telerik:GridTemplateColumn ShowFilterIcon="false" AllowFiltering="false" CurrentFilterFunction="Contains">
@@ -281,7 +281,7 @@
                                         <telerik:GridBoundColumn DataField="AIM_Rating" HeaderStyle-Width="70px" HeaderText="Rating"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                             UniqueName="AIM_Rating" Visible="true" AllowFiltering="false">
-                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="true" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIM_MInQty" HeaderStyle-Width="120px" HeaderText="Min Qty"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
