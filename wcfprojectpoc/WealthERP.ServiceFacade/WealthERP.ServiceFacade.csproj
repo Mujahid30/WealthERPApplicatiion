@@ -58,7 +58,7 @@
     <Compile Include="WERPCommonLookup\WERPCommonLookupServiceFacade.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\WERP_SBI_10thJAN\Bo\Common\BoCommon\BoCommon.csproj">
+    <ProjectReference Include="..\..\WealthERPSolution\Bo\Common\BoCommon\BoCommon.csproj">
       <Project>{F034F6F7-2938-4126-921E-9847633F0624}</Project>
       <Name>BoCommon</Name>
     </ProjectReference>

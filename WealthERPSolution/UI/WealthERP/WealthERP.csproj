@@ -2708,6 +2708,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="InvestorOnline.aspx.cs">
+      <DependentUpon>InvestorOnline.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InvestorOnline.aspx.designer.cs">
+      <DependentUpon>InvestorOnline.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Messages\MessageCompose.ascx.cs">
       <DependentUpon>MessageCompose.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -8128,6 +8135,7 @@
     <Content Include="Images\WealthERP_logo.png" />
     <Content Include="Images\werplogo.jpg" />
     <Content Include="Images\word.png" />
+    <Content Include="InvestorOnline.aspx" />
     <Content Include="LookUps\Questions.xml" />
     <Content Include="MarketDataDownloadFiles\AMFIData.txt" />
     <Content Include="MarketDataDownloadFiles\AMFIData.xml" />
