@@ -534,7 +534,7 @@
             GroupLoadMode="Client" ShowGroupFooter="true">
             <Columns>
             <telerik:GridBoundColumn HeaderStyle-Width="20%" HeaderText="Rule Name"
-                    DataField="ACSR_StructureRuleName" HeaderStyle-HorizontalAlign="Left" UniqueName="ACSR_CommissionStructureRuleName"
+                    DataField="ACSR_CommissionStructureRuleName" HeaderStyle-HorizontalAlign="Left" UniqueName="ACSR_CommissionStructureRuleName"
                     SortExpression="ACSR_CommissionStructureRuleName" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Left">
                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top"/>
@@ -545,7 +545,7 @@
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="15%" HeaderText="Customer Name" DataField="CMFT_SubBrokerCode"
+                <telerik:GridBoundColumn HeaderStyle-Width="15%" HeaderText="Customer Name" DataField="CustomerName"
                     HeaderStyle-HorizontalAlign="Left" UniqueName="CustomerName" SortExpression="CMFT_SubBrokerCode"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Left">
