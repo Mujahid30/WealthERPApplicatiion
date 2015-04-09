@@ -554,15 +554,20 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageLookups','login');", true);
                 }
+                else if (e.Item.Value == "Non-MF_Recon")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineOfflineOrderRecon','login');", true);
+
+                }
                 else if (e.Item.Value == "View_AMC")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AMCManage','login');", true);
-                } 
+                }
                 else if (e.Item.Value == "Advertisement_Manage")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('BannerManager','login');", true);
                 }
-                else if (e.Item.Value == "View_UTIAMC")  
+                else if (e.Item.Value == "View_UTIAMC")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('UTIAMCManage','login');", true);
                 }
@@ -1840,6 +1845,16 @@ namespace WealthERP.Advisor
                 if (e.Item.Value == "Manage Lookups")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageLookups','login');", true);
+                }
+                else if (e.Item.Value == "OfflineCustomerMerge")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OfflineCustomerMerge','login');", true);
+
+                }
+                else if (e.Item.Value == "Non-MF_Recon")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineOfflineOrderRecon','login');", true);
+
                 }
                 else if (e.Item.Value == "Advertisement_Manage")
                 {
@@ -3975,12 +3990,12 @@ namespace WealthERP.Advisor
                         Type = dr["WMTT_TransactionClassificationCode"].ToString();
                     }
 
-                    if (productcode == "MF" && isonline == 1 && Type !="SIP")
+                    if (productcode == "MF" && isonline == 1 && Type != "SIP")
                     {
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineAdviserCustomerOrderBook", "loadcontrol('OnlineAdviserCustomerOrderBook','?orderId=" + orderId + "');", true);
 
                     }
-                    if (productcode == "MF" && isonline == 1 && Type=="SIP")
+                    if (productcode == "MF" && isonline == 1 && Type == "SIP")
                     {
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineAdviserCustomerSIPOrderBook", "loadcontrol('OnlineAdviserCustomerSIPOrderBook','?orderId=" + orderId + "');", true);
 
@@ -4009,7 +4024,7 @@ namespace WealthERP.Advisor
                     {
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OfflineCustomersIPOOrderBook", "loadcontrol('OfflineCustomersIPOOrderBook','?orderId=" + orderId + "');", true);
                     }
-                     if (productcode == "FI" && isonline == 0 && (subCategoryType == "FICDCD" || subCategoryType == "FICGCG" || subCategoryType == "FINPNP"))
+                    if (productcode == "FI" && isonline == 0 && (subCategoryType == "FICDCD" || subCategoryType == "FICGCG" || subCategoryType == "FINPNP"))
                     {
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FixedIncome54ECOrderBook", "loadcontrol('FixedIncome54ECOrderBook','?orderId=" + orderId + "&category=" + subCategoryType + "');", true);
                     }
@@ -4017,10 +4032,10 @@ namespace WealthERP.Advisor
             }
             else
             {
-                if(txtClentCode.Text !="")
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdviserCustomer", "loadcontrol('AdviserCustomer','?CustCode=" + txtClentCode.Text + "&customerId=" + ddlSearchtype.SelectedValue + "');", true);
+                if (txtClentCode.Text != "")
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdviserCustomer", "loadcontrol('AdviserCustomer','?CustCode=" + txtClentCode.Text + "&customerId=" + ddlSearchtype.SelectedValue + "');", true);
                 else
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdviserCustomer", "loadcontrol('AdviserCustomer');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdviserCustomer", "loadcontrol('AdviserCustomer');", true);
 
             }
         }
@@ -4030,11 +4045,11 @@ namespace WealthERP.Advisor
             if (ddlSearchtype.SelectedValue == "ON")
             {
                 tdOrderNo.Visible = true;
-                trClientCode.Visible=false;
+                trClientCode.Visible = false;
             }
             else
             {
-                tdOrderNo.Visible =false ;
+                tdOrderNo.Visible = false;
                 trClientCode.Visible = true;
             }
         }

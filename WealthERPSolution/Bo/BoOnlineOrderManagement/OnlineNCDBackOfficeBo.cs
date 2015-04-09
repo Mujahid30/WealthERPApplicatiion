@@ -2406,13 +2406,43 @@ namespace BoOnlineOrderManagement
             }
             return dtGetIssueNamePRoductWise;
         }
-        public bool UpdateAllotedMissMatchOrder(int AllotmentId, int qty, string brokerCode, string PAN)
+        public bool UpdateAllotedMissMatchOrder(int AllotmentId, int qty, string brokerCode, string PAN, string category)
         {
             OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
             bool bResult = false;
             try
             {
-                bResult = daoOnlNcdBackOff.UpdateAllotedMissMatchOrder(AllotmentId, qty, brokerCode,PAN);
+                bResult = daoOnlNcdBackOff.UpdateAllotedMissMatchOrder(AllotmentId, qty, brokerCode, PAN, category);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+        public List<int> GetOrderRelatedDetails(int issueId, string category)
+        {
+            List<int> issueIds = new List<int>();
+            OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
+            try
+            {
+                issueIds = daoOnlNcdBackOff.GetOrderRelatedDetails(issueId, category);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return issueIds;
+        }
+        public bool UpdateOrderMissMatchOrder(int fixIncomeId, int orderId, int qty, string brokerCode, int subbrokerId,  string product)
+        {
+            bool bResult = false;
+            OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
+
+            try
+            {
+                bResult = daoOnlNcdBackOff.UpdateOrderMissMatchOrder(fixIncomeId, orderId, qty, brokerCode, subbrokerId, product);
 
             }
             catch (BaseApplicationException Ex)

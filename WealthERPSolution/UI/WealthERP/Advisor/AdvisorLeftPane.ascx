@@ -381,6 +381,8 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="RTA Unit Recon" Value="RTA_Unit_Recon">
                                             </telerik:RadPanelItem>
+                                             <telerik:RadPanelItem runat="server" Text="Non MF Recon" Value="Non-MF_Recon">
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Audit Log" Value="Audit_Log">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="SubBroker Code Cleansing" Value="SubBroker_Code_Cleansing">
@@ -920,6 +922,8 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Customer List" Value="CustomerList">
                                             </telerik:RadPanelItem>
+                                             <telerik:RadPanelItem runat="server" Text="Customer Merge" Value="OfflineCustomerMerge">
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View Customer Association(Offline)" Value="View_Customer_Association">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Add Customer" Value="Add Customer">
@@ -1112,6 +1116,8 @@
                                     <telerik:RadPanelItem runat="server" Text="Reconciliation" Value="Reconciliation">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="MFOrder Recon" Value="OrderMIS">
+                                            </telerik:RadPanelItem>
+                                              <telerik:RadPanelItem runat="server" Text="Non MF Recon" Value="Non-MF_Recon">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="NCD and IPO Order Match" Value="NcdIpoRecon">
                                             </telerik:RadPanelItem>

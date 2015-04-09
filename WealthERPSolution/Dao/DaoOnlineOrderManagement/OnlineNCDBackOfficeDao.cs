@@ -3736,7 +3736,7 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetIssueName;
         }
-        public bool UpdateAllotedMissMatchOrder(int AllotmentId,int qty, string brokerCode,string PAN)
+        public bool UpdateAllotedMissMatchOrder(int AllotmentId,int qty, string brokerCode,string PAN ,string category)
         {
             bool bResult = false;
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -3749,6 +3749,62 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(UpdateAllotedMissMatchOrderCmd, "@SubBrokerCode", DbType.String, brokerCode);
                 db.AddInParameter(UpdateAllotedMissMatchOrderCmd, "@PAN", DbType.String, PAN);
                 db.AddInParameter(UpdateAllotedMissMatchOrderCmd, "@allotmentId", DbType.Int32, AllotmentId);
+                db.AddInParameter(UpdateAllotedMissMatchOrderCmd, "@category", DbType.String, category);
+
+                if (db.ExecuteNonQuery(UpdateAllotedMissMatchOrderCmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+        public List<int> GetOrderRelatedDetails(int issueId, string category)
+        {
+            List<int> issueIds = new List<int>();
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DataSet ds;
+            DbCommand cmdGetOrderRelatedDetails;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //checking year
+                cmdGetOrderRelatedDetails = db.GetStoredProcCommand("SPROC_GetIssueDetais");
+                db.AddInParameter(cmdGetOrderRelatedDetails, "@issueId", DbType.Int32, issueId);
+                db.AddInParameter(cmdGetOrderRelatedDetails, "@category", DbType.String, category);
+                db.AddOutParameter(cmdGetOrderRelatedDetails, "@min", DbType.Int32, 0);
+                db.AddOutParameter(cmdGetOrderRelatedDetails, "@max", DbType.Int32, 0);
+
+                ds = db.ExecuteDataSet(cmdGetOrderRelatedDetails);
+                if (db.ExecuteNonQuery(cmdGetOrderRelatedDetails) != 0)
+                {
+                    issueIds.Add(Convert.ToInt32(db.GetParameterValue(cmdGetOrderRelatedDetails, "min").ToString()));
+                    issueIds.Add(Convert.ToInt32(db.GetParameterValue(cmdGetOrderRelatedDetails, "max").ToString()));
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return issueIds;
+        }
+        public bool UpdateOrderMissMatchOrder(int fixIncomeId,int orderId, int qty, string brokerCode, int subbrokerId,string product)
+        {
+            bool bResult = false;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand UpdateAllotedMissMatchOrderCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                UpdateAllotedMissMatchOrderCmd = db.GetStoredProcCommand("SPROC_Off_Updateorderrelatedchange");
+                db.AddInParameter(UpdateAllotedMissMatchOrderCmd, "@fixedIncomeId", DbType.Int32, fixIncomeId);
+                db.AddInParameter(UpdateAllotedMissMatchOrderCmd, "@orderId", DbType.Int32, orderId);
+                db.AddInParameter(UpdateAllotedMissMatchOrderCmd, "@quentity", DbType.Int32, qty);
+                db.AddInParameter(UpdateAllotedMissMatchOrderCmd, "@SubBrokerCode", DbType.String, brokerCode);
+                db.AddInParameter(UpdateAllotedMissMatchOrderCmd, "@agentCode", DbType.Int32, subbrokerId);
+                db.AddInParameter(UpdateAllotedMissMatchOrderCmd, "@amountPayable", DbType.Int32, 0);
+                db.AddInParameter(UpdateAllotedMissMatchOrderCmd, "@productType", DbType.String, product);
                 if (db.ExecuteNonQuery(UpdateAllotedMissMatchOrderCmd) != 0)
                     bResult = true;
             }
