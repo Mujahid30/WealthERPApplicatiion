@@ -389,9 +389,9 @@ namespace WealthERP.OnlineOrderBackOffice
                     ViewState["openDateTime"] = openDateTime;
                     if (!string.IsNullOrEmpty(dr["AIM_IssueRevisionDate"].ToString()))
                     {
-                        txtRevisionDates.SelectedDate =DateTime.Now;
+                        txtRevisionDates.SelectedDate = Convert.ToDateTime(dr["AIM_IssueRevisionDate"].ToString());
                     }
-                    txtRevisionDates.SelectedDate = DateTime.Now;
+                   
 
                     if (!string.IsNullOrEmpty(dr["AIM_TradingLot"].ToString()))
                     {
