@@ -193,7 +193,7 @@ namespace WealthERP.BusinessMIS
             {
                 trSelectMutualFund.Visible = false;
                 trNCDIPO.Visible = true;
-                tdTolbl.Visible = false;
+                tdTolbl.Visible = true;
                 ddlIssueName.Items.Clear();
                 ddlIssueName.DataBind();
                 cvddlIssueType.Enabled = true;
@@ -229,11 +229,24 @@ namespace WealthERP.BusinessMIS
         }
         protected void ddlProductCategory_OnSelectedIndexChanged(object Sender, EventArgs e)
         {
+            //string a = ddlProductCategory.SelectedValue;
             if (ddlProductCategory.SelectedValue != "FISDSD" || ddlProductCategory.SelectedValue != "FIFIIP")
             {
                 tdFrom.Visible = true;
                 tdTolbl.Visible = true;
             }
+            if (ddlProductCategory.SelectedValue == "FICDCD" || ddlProductCategory.SelectedValue == "FICGCG")
+            {
+                Label3.Visible = true;
+                ddlOrderType.Visible = true;
+            }
+            else
+            {
+                Label3.Visible = false;
+                ddlOrderType.Visible = false;
+               
+            }
+            
         }
         private void LoadAllSchemeList(int amcCode)
         {
@@ -391,6 +404,10 @@ namespace WealthERP.BusinessMIS
         }
         protected void ddlProduct_SelectedIndexChanged(object source, EventArgs e)
         {
+           
+            
+                ddlCommType.Items[3].Enabled = false;
+            
             
             if (ddlProduct.SelectedValue != "Select")
             {
@@ -399,6 +416,8 @@ namespace WealthERP.BusinessMIS
                   
                     ddlOrderStatus.Items[2].Enabled = false;
                     ddlOrderStatus.Items[1].Enabled = true;
+                    ddlCommType.Items[3].Enabled = false;
+                   
                     
                 }
                 else
@@ -416,6 +435,8 @@ namespace WealthERP.BusinessMIS
                 {
                     ddlCommType.Items[2].Enabled = true;
                 }
+                //string b = ddlCommType.SelectedValue;
+          
 
 
                 ShowHideControlsBasedOnProduct(ddlProduct.SelectedValue);
@@ -528,6 +549,7 @@ namespace WealthERP.BusinessMIS
         {
 
         }
+       
 
     }
 }

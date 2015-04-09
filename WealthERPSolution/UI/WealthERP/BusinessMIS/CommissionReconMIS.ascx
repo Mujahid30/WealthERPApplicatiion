@@ -102,7 +102,7 @@
     </tr>
     <tr id="trSelectProduct" runat="server">
        <td align="left" class="leftField" width="20%">
-            <asp:Label ID="Label2" runat="server" Text="Order Status" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label2" runat="server" Text="Order Status:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
             <asp:DropDownList ID="ddlOrderStatus" runat="server" CssClass="cmbField">
@@ -134,7 +134,7 @@
                 <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
                 <asp:ListItem Text="Upfront" Value="UF" Selected="True"></asp:ListItem>
                 <asp:ListItem Text="Trail" Value="TC"></asp:ListItem>
-                <asp:ListItem Text="Incentive" Value="IN"></asp:ListItem>
+             <asp:ListItem Text="Incentive" Value="IN"></asp:ListItem>
             </asp:DropDownList>
             <asp:CompareValidator ID="CompareValidator4" runat="server" ControlToValidate="ddlCommType"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Commission type"
@@ -235,8 +235,8 @@
         </td>
         <td class="rightField" id="td2" runat="server" >
             <asp:DropDownList ID="ddlOrderType" runat="server" CssClass="cmbField">
-                <asp:ListItem Text="Yes" Value="true" Selected="True"></asp:ListItem>
-                <asp:ListItem Text="No" Value="false"></asp:ListItem>
+                <asp:ListItem Text="Yes" Value="true" ></asp:ListItem>
+                <asp:ListItem Text="No" Value="false" Selected="True"></asp:ListItem>
             </asp:DropDownList>
            
         </td>
