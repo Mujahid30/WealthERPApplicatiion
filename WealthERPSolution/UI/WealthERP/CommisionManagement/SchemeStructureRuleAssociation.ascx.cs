@@ -119,14 +119,14 @@ namespace WealthERP.CommisionManagement
             LinkButton lnkStruct = (LinkButton)sender;
             GridDataItem item = (GridDataItem)lnkStruct.NamingContainer;
             int structureId = int.Parse(RadGridSchemeRule.MasterTableView.DataKeyValues[item.ItemIndex]["ACSM_CommissionStructureId"].ToString());
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ReceivableSetup','StructureId=" + structureId + "');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ReceivableSetup','StructureId=" + structureId + "&ProductType=" + ddlProductType.SelectedValue + "');", true);
         }
         protected void lbtStructs_Click(object sender, EventArgs e)
         {
             LinkButton lnkStruct = (LinkButton)sender;
             GridDataItem item = (GridDataItem)lnkStruct.NamingContainer;
             int structureId = int.Parse(RadGridIssueStructureRule.MasterTableView.DataKeyValues[item.ItemIndex]["ACSM_CommissionStructureId"].ToString());
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ReceivableSetup','StructureId=" + structureId + "');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ReceivableSetup','StructureId=" + structureId + "&ProductType=" + ddlProductType.SelectedValue +"');", true);
         }
     }
 }
