@@ -159,7 +159,9 @@ namespace WealthERP.Advisor
                         if (userType == "advisor" || userType == "rm")
                         {
                             BindBranchDropDown();
-                            BindRMDropDown();
+                            BindRMDropDown(); trBranchRM.Visible = false;
+                            tdGoBtn.Visible = false;
+                            trSelect.Visible = true;
                             if (userType == "rm")
                             {
                                 ddlBranch.Enabled = false;
@@ -693,7 +695,7 @@ namespace WealthERP.Advisor
             DataTable dtCustomerFolio = new DataTable();
             try
             {
-                
+
 
                 if (Request.QueryString["reqId"] != null)
                 {
@@ -1291,7 +1293,7 @@ namespace WealthERP.Advisor
                     if (((CheckBox)dr.FindControl("rdbGVRow")).Checked == true)
                     {
 
-                        customerId = Convert.ToInt32(dKey);
+                        customerId = Convert.ToInt32(dKey); 
                         bindDropdownPortfolio(customerId);
                         return;
                     }

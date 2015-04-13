@@ -109,7 +109,7 @@
                     Skin="Telerik" AllowFilteringByColumn="true" OnItemDataBound="gvOrderRecon_ItemDataBound"
                     OnNeedDataSource="gvOrderRecon_OnNeedDataSource" OnItemCommand="gvOrderRecon_OnItemCommand"
                     OnItemCreated="gvOrderRecon_ItemCreated" OnPreRender="gvOrderRecon_PreRender">
-                    <MasterTableView AllowMultiColumnSorting="false" AllowSorting="false" DataKeyNames="COAD_Id,CFIOD_Quantity,AAC_AgentCode,C_PANNum,CO_OrderId,C_CustomerId,AIM_IssueId,CFIOD_DetailsId,AAC_AdviserAgentId"
+                    <MasterTableView AllowMultiColumnSorting="false" AllowSorting="false" DataKeyNames="COAD_Id,CFIOD_Quantity,AAC_AgentCode,C_PANNum,CO_OrderId,AIM_IssueId,CFIOD_DetailsId,AAC_AdviserAgentId"
                         EditMode="PopUp" AutoGenerateColumns="false" Width="100%" CommandItemSettings-ShowRefreshButton="false">
                         <Columns>
                             <telerik:GridEditCommandColumn EditText="Allotment Edit" UniqueName="editColumn"
@@ -144,7 +144,7 @@
                                 </FilterTemplate>
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="COAD_Quantity" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
-                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="" UniqueName="COAD_Quantity"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Alloted Quentity" UniqueName="COAD_Quantity"
                                 SortExpression="COAD_Quantity" AllowFiltering="true" Visible="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
@@ -250,7 +250,7 @@
         <Windows>
             <telerik:RadWindow ID="radOrderDetails" Modal="true" Behaviors="Close, Move" Width="350px"
                 Height="200px" runat="server" Title="Order Details" Left="50%" Top="100" OnClientShow="setCustomPosition"
-                VisibleOnPageLoad="false">
+                VisibleOnPageLoad="false" Visible="false">
                 <ContentTemplate>
                     <div id="divorderQty" runat="server" visible="false">
                         <table>

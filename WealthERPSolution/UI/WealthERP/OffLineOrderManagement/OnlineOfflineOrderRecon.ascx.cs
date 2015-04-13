@@ -27,7 +27,7 @@ namespace WealthERP.OffLineOrderManagement
             userBo = new UserBo();
             userVo = (UserVo)Session[SessionContents.UserVo];
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
-            //radOrderDetails.VisibleOnPageLoad = false;
+            radOrderDetails.VisibleOnPageLoad = false;
           
             if (!IsPostBack)
             {
@@ -39,18 +39,18 @@ namespace WealthERP.OffLineOrderManagement
                     AutoCompleteExtender2_txtOrderSubbrokerCode.ServiceMethod = "GetAgentCodeAssociateDetails";
 
                 }
-                if (Request.QueryString["product"] != null)
-                {
-                    ddlProduct.SelectedValue = Request.QueryString["product"].ToString();
-                    if (ddlProduct.SelectedValue == "Bonds")
-                        BindNcdCategory();
-                    ddlCategory.SelectedValue = Request.QueryString["category"].ToString();
-                    BindIssueName(ddlCategory.SelectedValue);
-                    ddlIssueName.SelectedValue = Request.QueryString["issueId"].ToString();
-                    ddlOrderStatus.SelectedValue = Request.QueryString["orderstatus"].ToString();
-                    ddlSearchType.SelectedValue = Request.QueryString["searchtype"].ToString();
-                    BindOrderMissMatchDetails();
-                }
+                //if (Request.QueryString["product"] != null)
+                //{
+                //    ddlProduct.SelectedValue = Request.QueryString["product"].ToString();
+                //    if (ddlProduct.SelectedValue == "Bonds")
+                //        BindNcdCategory();
+                //    ddlCategory.SelectedValue = Request.QueryString["category"].ToString();
+                //    BindIssueName(ddlCategory.SelectedValue);
+                //    ddlIssueName.SelectedValue = Request.QueryString["issueId"].ToString();
+                //    ddlOrderStatus.SelectedValue = Request.QueryString["orderstatus"].ToString();
+                //    ddlSearchType.SelectedValue = Request.QueryString["searchtype"].ToString();
+                //    BindOrderMissMatchDetails();
+                //}
             }
 
         }
@@ -184,7 +184,6 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void gvOrderRecon_ItemDataBound(object sender, GridItemEventArgs e)
         {
-         
             if (e.Item is GridDataItem)
             {
                 GridDataItem item = (GridDataItem)e.Item;
@@ -198,14 +197,13 @@ namespace WealthERP.OffLineOrderManagement
             {
                 GridHeaderItem header = (GridHeaderItem)e.Item;
 
-                if (ddlCategory.SelectedValue == "FICGCG")
+                if (ddlCategory.SelectedValue == "FICDCD")
                 {
-                    header["COAD_Quantity"].Text = "Alloted Quantity";
-                    header["CFIOD_Quantity"].Text = "Orderd Quantity";
-                }
-                else
                     header["COAD_Quantity"].Text = "Alloted Amt.";
-                header["CFIOD_Quantity"].Text = "Order AMt.";
+                    header["CFIOD_Quantity"].Text = "Order AMt.";
+                }
+               
+                  
             }
 
             if (e.Item is GridFilteringItem && e.Item.ItemIndex == -1)
@@ -248,7 +246,7 @@ namespace WealthERP.OffLineOrderManagement
 
                 if ((txtAllotedQty.Text == orderQty.ToString()) && (txtAllotedSubBrokerCode.Text == odrerSubbroker) && (txtPAN.Text == orderPAN))
                 {
-                    result = onlineNCDBackOfficeBo.UpdateAllotedMissMatchOrder(allotedOrderId, Convert.ToInt32(txtAllotedQty.Text), txtAllotedSubBrokerCode.Text, txtPAN.Text,ddlCategory.SelectedValue);
+                    result = onlineNCDBackOfficeBo.UpdateAllotedMissMatchOrder(allotedOrderId, Convert.ToInt32(txtAllotedQty.Text), txtAllotedSubBrokerCode.Text, txtPAN.Text, (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "IP");
                 }
                 else
                 {
@@ -263,7 +261,7 @@ namespace WealthERP.OffLineOrderManagement
         protected void OnClick_lnkOrderEntry(object sender, EventArgs e)
         {
             divorderQty.Visible = true;
-            radOrderDetails.VisibleOnPageLoad = true;
+            radOrderDetails.VisibleOnPageLoad = true; radOrderDetails.Visible = true;
             LinkButton lnkOrderEntry = (LinkButton)sender;
             GridDataItem grd = (GridDataItem)lnkOrderEntry.NamingContainer;
             txtOrderSubbrokerCode.Text = gvOrderRecon.MasterTableView.DataKeyValues[grd.ItemIndex]["AAC_AgentCode"].ToString();
@@ -275,6 +273,8 @@ namespace WealthERP.OffLineOrderManagement
             txtAgentId.Value = gvOrderRecon.MasterTableView.DataKeyValues[grd.ItemIndex]["AAC_AdviserAgentId"].ToString();
             if (ddlCategory.SelectedValue != "FICDCD")
                 lblOrderQty.Text = "Order Amt.";
+            if (ddlProduct.SelectedValue == "IP")
+                txtOrderQty.Enabled = false;
             //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FixedIncome54ECOrderEntry", "loadcontrol( 'FixedIncome54ECOrderEntry','action=" + "Edit" + "&orderId=" + orderId + "&agentcode=" + agentcode + "&customeId=" + customeId + "&product=" + ddlProduct.SelectedValue +
             //    "&category=" + ddlCategory.SelectedValue + "&issueId=" + ddlIssueName.SelectedValue + "&orderstatus=" + ddlOrderStatus.SelectedValue + "&searchtype=" + ddlSearchType.SelectedValue + "');", true);
         }
@@ -283,6 +283,8 @@ namespace WealthERP.OffLineOrderManagement
         {
             RadComboBox Combo = sender as RadComboBox;
             ////persist the combo selected value  
+            radOrderDetails.VisibleOnPageLoad = true;
+
             if (ViewState["MissmatchType"] != null)
             {
 
@@ -334,6 +336,15 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void gvOrderRecon_PreRender(object sender, EventArgs e)
         {
+            //if (IsPostBack)
+            //{
+            //    radOrderDetails.VisibleOnPageLoad = false;
+            //    if (!IsPostBack)
+            //        radOrderDetails.VisibleOnPageLoad = true;
+            //}
+
+            //radOrderDetails.VisibleOnPageLoad = false;
+
             if (gvOrderRecon.MasterTableView.FilterExpression != string.Empty)
             {
                 RefreshCombos();
@@ -364,8 +375,8 @@ namespace WealthERP.OffLineOrderManagement
 
                 }
             }
-            else
-            {
+           if(ddlCategory.SelectedValue=="FICGCG")
+           {
                 if (Convert.ToInt32(txtOrderQty.Text) >= issuedetails[0] && Convert.ToInt32(txtOrderQty.Text) <= issuedetails[1])
                 {
                     onlineNCDBackOfficeBo.UpdateOrderMissMatchOrder(int.Parse(hdnFIorderId.Value), int.Parse(hdnorderId.Value), int.Parse(txtOrderQty.Text), txtOrderSubbrokerCode.Text, int.Parse(txtAgentId.Value), ddlCategory.SelectedValue);
@@ -374,7 +385,11 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please enter correct information')" + issuedetails[0] + issuedetails[0], true);
                 }
-            }
+           }
+           if (ddlProduct.SelectedValue == "IP")
+           {
+               onlineNCDBackOfficeBo.UpdateOrderMissMatchOrder(int.Parse(hdnFIorderId.Value), int.Parse(hdnorderId.Value),(!string.IsNullOrEmpty(txtOrderQty.Text))? int.Parse(txtOrderQty.Text):0, txtOrderSubbrokerCode.Text, int.Parse(txtAgentId.Value), "IP");
+           }
             BindOrderMissMatchDetails();
         }
     }
