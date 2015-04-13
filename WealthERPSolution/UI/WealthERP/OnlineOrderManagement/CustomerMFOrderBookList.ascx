@@ -371,4 +371,6 @@
          sender.moveTo(sender.get_left(), sender.get_top());
      }
 </script>
+<asp:HiddenField ID="hdnAmc" runat="server" />
+<asp:HiddenField ID="hdnOrderStatus" runat="server" />
 
