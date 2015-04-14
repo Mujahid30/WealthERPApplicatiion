@@ -62,9 +62,11 @@
     <tr>
         <td valign="top" colspan="4" align="left">
             <div id="divDateRange" runat="server" visible="false" style="float: left;">
-               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName">From:</asp:Label>
-                &nbsp;<telerik:RadDatePicker ID="txtFromDate" CssClass="txtField" runat="server" Culture="English (United States)"
-                    Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName">From:</asp:Label>
+                &nbsp;<telerik:RadDatePicker ID="txtFromDate" CssClass="txtField" runat="server"
+                    Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
+                    ShowAnimation-Type="Fade" MinDate="1900-01-01">
                     <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
                         ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
                     </Calendar>
@@ -106,7 +108,8 @@
     </tr>
     <tr>
         <td>
-           &nbsp; <asp:Label ID="lblFilter" runat="server" Text="Select Type:" CssClass="FieldName"></asp:Label>
+            &nbsp;
+            <asp:Label ID="lblFilter" runat="server" Text="Select Type:" CssClass="FieldName"></asp:Label>
             <asp:DropDownList ID="ddlFilter" runat="server" CssClass="cmbField">
                 <asp:ListItem Value="S">Select</asp:ListItem>
                 <asp:ListItem Value="1">Online</asp:ListItem>
@@ -132,7 +135,8 @@
 </td> </tr>
 <tr>
     <td colspan="4">
-       &nbsp;&nbsp;  <asp:Label ID="lblMis" runat="server" CssClass="FieldName" Text="Select MIS:"></asp:Label>
+        &nbsp;&nbsp;
+        <asp:Label ID="lblMis" runat="server" CssClass="FieldName" Text="Select MIS:"></asp:Label>
         <asp:LinkButton ID="lnkBtnSubBrokerCustomer" Text="CUSTOMER/FOLIO" CssClass="LinkButtonsWithoutUnderLine"
             runat="server" ValidationGroup="vgBtnGo" OnClick="lnkBtnSubBrokerCustomer_Click"></asp:LinkButton>
         <span>|</span>
@@ -999,7 +1003,8 @@
                         PageSize="15" AllowPaging="True" AllowSorting="true" ShowStatusBar="true" ShowFooter="true"
                         Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                         AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" EnableHeaderContextMenu="true"
-                        EnableHeaderContextFilterMenu="true" OnNeedDataSource="gvMember_OnNeedDataSource" OnItemDataBound="gvMember_ItemDataBound">
+                        EnableHeaderContextFilterMenu="true" OnNeedDataSource="gvMember_OnNeedDataSource"
+                        OnItemDataBound="gvMember_ItemDataBound">
                         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                             FileName="Member Details" Excel-Format="ExcelML">
                         </ExportSettings>
@@ -1441,6 +1446,22 @@
         </td>
     </tr>
 </table>
+  <table width="100%">
+            <tr>
+                <td>
+                    <asp:Label ID="LabelMainNote" runat="server" Font-Size="Small" CssClass="FieldName" 
+                    Text="Note:1.To sort on a field click on its label. <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.To know field details browse over the label.<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.You can group/ungroup or hide/unhide fields by a right click on the grid label and then making the selection.<br />
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.Gross Investment : BUY,DVR,SIP,SWB,STB,BCI,BIR,BNS,CNI,DSI,HLD,NFO,RRJ. <br />
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5.Gross Redemption : SELL,STS,SWP,SWS,SRJ,BCO,CNO,DSO. <br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  6.DVP & PRJ : Excluded from both categories."
+            
+            
+                        ></asp:Label>
+                </td>
+            </tr>
+        </table>
 <asp:HiddenField ID="hdnbranchId" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnbranchHeadId" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnsubBrokerCode" runat="server" Visible="false" />

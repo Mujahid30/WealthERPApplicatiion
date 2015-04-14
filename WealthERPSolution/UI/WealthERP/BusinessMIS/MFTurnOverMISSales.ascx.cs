@@ -339,8 +339,8 @@ namespace WealthERP.BusinessMIS
                 pnlMember.Visible = true;
                 gvMember.Visible = true;
                 btnExpMember.Visible = true;
-                btnExpOrganization.Visible = false;
-                btnExpProduct.Visible = false;
+                //btnExpOrganization.Visible = false;
+                //btnExpProduct.Visible = false;
                 this.gvMember.GroupingSettings.RetainGroupFootersVisibility = true;
                 if (Cache["gvMember" + advisorVo.advisorId] == null)
                 {
@@ -591,8 +591,8 @@ namespace WealthERP.BusinessMIS
                 gvOrganization.DataBind();
                 pnlProduct.Visible = true;
                 btnExpOrganization.Visible = true;
-                btnExpProduct.Visible = false;
-                btnExpMember.Visible = false;
+                //btnExpProduct.Visible = false;
+                //btnExpMember.Visible = false;
                 gvOrganization.Visible = true;
                 pnlOrganization.Visible = true;
                 this.gvOrganization.GroupingSettings.RetainGroupFootersVisibility = true;
@@ -645,6 +645,7 @@ namespace WealthERP.BusinessMIS
                 BindProductGrid();
                 lblMFMISType.Text = "PRODUCT";
                 trPnlProduct.Visible = true;
+                btnExpProduct.Visible = true;
                 trPnlOrganization.Visible = false;
                 trMember.Visible = false;
             }
@@ -859,7 +860,7 @@ namespace WealthERP.BusinessMIS
                     Cache.Remove("gvProduct" + advisorVo.advisorId);
                     Cache.Insert("gvProduct" + advisorVo.advisorId, dtGetProductDetailFromMFOrder);
                 }
-
+                btnExpProduct.Visible = true;
             }
         }
         private void SetParameters()
@@ -929,33 +930,58 @@ namespace WealthERP.BusinessMIS
         }
         protected void btnExpProduct_Click(object sender, ImageClickEventArgs e)
         {
+            gvProduct.MasterTableView.HierarchyLoadMode = GridChildLoadMode.ServerBind;
             gvProduct.ExportSettings.OpenInNewWindow = true;
             gvProduct.ExportSettings.IgnorePaging = true;
-            foreach (GridFilteringItem filter in gvProduct.MasterTableView.GetItems(GridItemType.FilteringItem))
-            {
-                filter.Visible = false;
-            }
+            gvProduct.ExportSettings.HideStructureColumns = true;
+            gvProduct.ExportSettings.ExportOnlyData = true;
+            gvProduct.ExportSettings.FileName = "Product";
+            gvProduct.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvProduct.MasterTableView.ExportToExcel();
+
+            //gvProduct.ExportSettings.OpenInNewWindow = true;
+            //gvProduct.ExportSettings.IgnorePaging = true;
+            //foreach (GridFilteringItem filter in gvProduct.MasterTableView.GetItems(GridItemType.FilteringItem))
+            //{
+            //    filter.Visible = false;
+            //}
+            //gvProduct.MasterTableView.ExportToExcel();
         }
         protected void btnExpOrganization_Click(object sender, ImageClickEventArgs e)
         {
+            gvOrganization.MasterTableView.HierarchyLoadMode = GridChildLoadMode.ServerBind;
             gvOrganization.ExportSettings.OpenInNewWindow = true;
             gvOrganization.ExportSettings.IgnorePaging = true;
-            foreach (GridFilteringItem filter in gvOrganization.MasterTableView.GetItems(GridItemType.FilteringItem))
-            {
-                filter.Visible = false;
-            }
+            gvOrganization.ExportSettings.HideStructureColumns = true;
+            gvOrganization.ExportSettings.ExportOnlyData = true;
+            gvOrganization.ExportSettings.FileName = "Organization";
+            gvOrganization.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvOrganization.MasterTableView.ExportToExcel();
+            //gvOrganization.ExportSettings.OpenInNewWindow = true;
+            //gvOrganization.ExportSettings.IgnorePaging = true;
+            //foreach (GridFilteringItem filter in gvOrganization.MasterTableView.GetItems(GridItemType.FilteringItem))
+            //{
+            //    filter.Visible = false;
+            //}
+            //gvOrganization.MasterTableView.ExportToExcel();
         }
         protected void btnExpMember_Click(object sender, ImageClickEventArgs e)
         {
+            gvMember.MasterTableView.HierarchyLoadMode = GridChildLoadMode.ServerBind;
             gvMember.ExportSettings.OpenInNewWindow = true;
             gvMember.ExportSettings.IgnorePaging = true;
-            foreach (GridFilteringItem filter in gvMember.MasterTableView.GetItems(GridItemType.FilteringItem))
-            {
-                filter.Visible = false;
-            }
+            gvMember.ExportSettings.HideStructureColumns = true;
+            gvMember.ExportSettings.ExportOnlyData = true;
+            gvMember.ExportSettings.FileName = "Customer";
+            gvMember.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvMember.MasterTableView.ExportToExcel();
+            //gvMember.ExportSettings.OpenInNewWindow = true;
+            //gvMember.ExportSettings.IgnorePaging = true;
+            //foreach (GridFilteringItem filter in gvMember.MasterTableView.GetItems(GridItemType.FilteringItem))
+            //{
+            //    filter.Visible = false;
+            //}
+            //gvMember.MasterTableView.ExportToExcel();
         }
 
         protected void gvProduct_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)

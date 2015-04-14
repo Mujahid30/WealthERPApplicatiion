@@ -14,11 +14,24 @@
                     <tr>
                         <td align="left" style="width: 33%; text-align: left">
                             MF Turnover Order MIS
+                          
                         </td>
                         <td style="width: 34%;" align="center">
                         </td>
                         <td align="right" style="width: 33%; padding-bottom: 2px;">
-                            <asp:ImageButton ID="btnExpProduct" ImageUrl="~/Images/Export_Excel.png" Visible="false"
+                            
+                        </td>
+                    </tr>
+                </table>
+               
+            </div>
+        </td>
+    </tr>
+</table>
+ <table>
+                <tr>
+                <td>
+                  <asp:ImageButton ID="btnExpProduct" ImageUrl="~/Images/Export_Excel.png" Visible="false"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
                                 Height="25px" Width="25px" OnClick="btnExpProduct_Click"></asp:ImageButton>
                             <asp:ImageButton ID="btnExpOrganization" ImageUrl="~/Images/Export_Excel.png" Visible="false"
@@ -26,14 +39,7 @@
                                 Height="25px" Width="25px" OnClick="btnExpOrganization_Click"></asp:ImageButton>
                             <asp:ImageButton ID="btnExpMember" ImageUrl="~/Images/Export_Excel.png" Visible="false"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
-                                Height="25px" Width="25px" OnClick="btnExpMember_Click"></asp:ImageButton>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </td>
-    </tr>
-</table>
+                                Height="25px" Width="25px" OnClick="btnExpMember_Click"></asp:ImageButton></td></tr></table>
 <asp:UpdatePanel runat="server" ID="UpdatePanel1"><ContentTemplate>
 
 <table class="TableBackground" width="100%">
@@ -152,6 +158,7 @@
                             <asp:Label ID="lblMFMISType" runat="server" CssClass="LinkButtons"></asp:Label>
                         </td>
                         <td style="width: 34%">
+                        
                         </td>
                         <td style="width: 33%">
                         </td>
@@ -754,6 +761,22 @@
         </td>
     </tr>
 </table>
+  <table width="100%">
+            <tr>
+                <td>
+                    <asp:Label ID="LabelMainNote" runat="server" Font-Size="Small" CssClass="FieldName" 
+                    Text="Note:1.To sort on a field click on its label. <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.To know field details browse over the label.<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.You can group/ungroup or hide/unhide fields by a right click on the grid label and then making the selection.<br />
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.Gross Investment : BUY,DVR,SIP,SWB,STB,BCI,BIR,BNS,CNI,DSI,HLD,NFO,RRJ. <br />
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5.Gross Redemption : SELL,STS,SWP,SWS,SRJ,BCO,CNO,DSO. <br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  6.DVP & PRJ : Excluded from both categories."
+            
+            
+                        ></asp:Label>
+                </td>
+            </tr>
+        </table>
 </ContentTemplate></asp:UpdatePanel>
 <asp:HiddenField ID="hdnbranchId" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnbranchHeadId" runat="server" Visible="false" />
