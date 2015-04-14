@@ -155,6 +155,7 @@ namespace WealthERP.OffLineOrderManagement
             gvOrderRecon.DataSource = dBindOrderMissMatchDetails;
             gvOrderRecon.DataBind();
             pnlOrderRecon.Visible = true;
+            ibtExportSummary.Visible = true;
         }
         protected void gvOrderRecon_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
@@ -184,14 +185,24 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void gvOrderRecon_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            if (e.Item is GridDataItem)
-            {
-                GridDataItem item = (GridDataItem)e.Item;
-                AjaxControlToolkit.AutoCompleteExtender a = (AjaxControlToolkit.AutoCompleteExtender)item.FindControl("AutoCompleteExtender2");
-                AutoCompleteExtender AutoCompleteExtender2 = (AutoCompleteExtender)item.FindControl("AutoCompleteExtender2");
-                //AutoCompleteExtender2.ContextKey = advisorVo.advisorId.ToString();
-                //AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetails";
+            //if (e.Item is GridDataItem)
+            //{
+            //    GridDataItem item = (GridDataItem)e.Item;
+            //    AjaxControlToolkit.AutoCompleteExtender a = (AjaxControlToolkit.AutoCompleteExtender)item.FindControl("AutoCompleteExtender2");
+            //    AutoCompleteExtender AutoCompleteExtender2 = (AutoCompleteExtender)item.FindControl("AutoCompleteExtender2");
+            //    //AutoCompleteExtender2.ContextKey = advisorVo.advisorId.ToString();
+            //    //AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetails";
 
+            //}
+            if (e.Item is GridEditFormItem && e.Item.IsInEditMode)
+            {
+                GridEditFormItem item = e.Item as GridEditFormItem;
+                //TextBox txt_lect_in = item.FindControl("txt_lect_in") as TextBox;
+                AutoCompleteExtender AutoCompleteExtender2 = (AutoCompleteExtender)item.FindControl("AutoCompleteExtender2");
+                AutoCompleteExtender2.ContextKey = advisorVo.advisorId.ToString();
+                AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetails";
+
+                //Access your textbox heer
             }
             if (e.Item is GridHeaderItem)
             {
@@ -250,7 +261,7 @@ namespace WealthERP.OffLineOrderManagement
                 }
                 else
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please enter correct information')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please fill all the information same as ordered ')", true);
 
                 }
 
@@ -283,8 +294,7 @@ namespace WealthERP.OffLineOrderManagement
         {
             RadComboBox Combo = sender as RadComboBox;
             ////persist the combo selected value  
-            radOrderDetails.VisibleOnPageLoad = true;
-
+          
             if (ViewState["MissmatchType"] != null)
             {
 
@@ -386,11 +396,23 @@ namespace WealthERP.OffLineOrderManagement
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please enter correct information')" + issuedetails[0] + issuedetails[0], true);
                 }
            }
-           if (ddlProduct.SelectedValue == "IP")
+           if (ddlProduct.SelectedValue == "IP" || ddlCategory.SelectedValue == "FISDSD")
            {
-               onlineNCDBackOfficeBo.UpdateOrderMissMatchOrder(int.Parse(hdnFIorderId.Value), int.Parse(hdnorderId.Value),(!string.IsNullOrEmpty(txtOrderQty.Text))? int.Parse(txtOrderQty.Text):0, txtOrderSubbrokerCode.Text, int.Parse(txtAgentId.Value), "IP");
+               onlineNCDBackOfficeBo.UpdateOrderMissMatchOrder(int.Parse(hdnFIorderId.Value), int.Parse(hdnorderId.Value), (!string.IsNullOrEmpty(txtOrderQty.Text)) ? int.Parse(txtOrderQty.Text) : 0, txtOrderSubbrokerCode.Text, int.Parse(txtAgentId.Value), (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "IP");
            }
             BindOrderMissMatchDetails();
+        }
+        public void ibtExport_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvOrderRecon.MasterTableView.HierarchyLoadMode = GridChildLoadMode.ServerBind;
+            gvOrderRecon.ExportSettings.OpenInNewWindow = true;
+            gvOrderRecon.ExportSettings.IgnorePaging = true;
+            gvOrderRecon.ExportSettings.HideStructureColumns = true;
+            gvOrderRecon.ExportSettings.ExportOnlyData = true;
+            gvOrderRecon.ExportSettings.FileName = "Non MF Recon";
+            gvOrderRecon.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvOrderRecon.MasterTableView.ExportToExcel();
+
         }
     }
 }

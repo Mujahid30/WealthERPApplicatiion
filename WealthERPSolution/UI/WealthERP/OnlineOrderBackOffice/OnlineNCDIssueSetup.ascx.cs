@@ -1362,7 +1362,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 if (!string.IsNullOrEmpty(txtIssueSizeQty.Text))
                 {
-                    onlineNCDBackOfficeVo.IssueSizeQty = Convert.ToInt32(txtIssueSizeQty.Text);
+                    onlineNCDBackOfficeVo.IssueSizeQty = Convert.ToInt64(txtIssueSizeQty.Text);
                 }
                 else
                 {
@@ -3695,7 +3695,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
                 if (!string.IsNullOrEmpty(txtIssueSizeQty.Text))
                 {
-                    onlineNCDBackOfficeVo.IssueSizeQty = Convert.ToInt32(txtIssueSizeQty.Text);
+                    onlineNCDBackOfficeVo.IssueSizeQty = Convert.ToInt64(txtIssueSizeQty.Text);
                 }
                 else
                 {

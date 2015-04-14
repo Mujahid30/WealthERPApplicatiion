@@ -551,7 +551,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@NoOfBidAllowed", DbType.Int32, onlineNCDBackOfficeVo.NoOfBidAllowed);
                 db.AddInParameter(createCmd, "@RtaSourceCode", DbType.Int32, onlineNCDBackOfficeVo.RtaSourceCode);
                 db.AddInParameter(createCmd, "@MaxQty", DbType.Int32, onlineNCDBackOfficeVo.MaxQty);
-                db.AddInParameter(createCmd, "@IssueSizeQty", DbType.Int32, onlineNCDBackOfficeVo.IssueSizeQty);
+                db.AddInParameter(createCmd, "@IssueSizeQty", DbType.Int64, onlineNCDBackOfficeVo.IssueSizeQty);
                 db.AddInParameter(createCmd, "@IssueSizeAmt", DbType.Decimal, onlineNCDBackOfficeVo.IssueSizeAmt);
                 db.AddInParameter(createCmd, "@issueID", DbType.Int32, onlineNCDBackOfficeVo.IssueId);
                 db.AddInParameter(createCmd, "@Tradableexchange", DbType.Int32, onlineNCDBackOfficeVo.TradableExchange);
@@ -941,7 +941,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@NoOfBidAllowed", DbType.Int32, onlineNCDBackOfficeVo.NoOfBidAllowed);
                 db.AddInParameter(createCmd, "@RtaSourceCode", DbType.Int32, onlineNCDBackOfficeVo.RtaSourceCode);
                 db.AddInParameter(createCmd, "@MaxQty", DbType.Int32, onlineNCDBackOfficeVo.MaxQty);
-                db.AddInParameter(createCmd, "@IssueSizeQty", DbType.Int32, onlineNCDBackOfficeVo.IssueSizeQty);
+                db.AddInParameter(createCmd, "@IssueSizeQty", DbType.Int64, onlineNCDBackOfficeVo.IssueSizeQty);
                 db.AddInParameter(createCmd, "@IssueSizeAmt", DbType.Decimal, onlineNCDBackOfficeVo.IssueSizeAmt);
                 //db.AddInParameter(createCmd, "@IsListedinBSE", DbType.Int32, onlineNCDBackOfficeVo.IsListedinBSE); 
                 //db.AddInParameter(createCmd, "@IsListedinNSE", DbType.Int32, onlineNCDBackOfficeVo.IsListedinNSE); 
@@ -3694,7 +3694,7 @@ namespace DaoOnlineOrderManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                if(category =="IP")
+                if (category == "IP" || category=="FISDSD")
                 dbGetOrderMissMatchDetails = db.GetStoredProcCommand("SPROC_IPOOrderMissMatch");
                 else
                     dbGetOrderMissMatchDetails = db.GetStoredProcCommand("SPROC_54ECANDCDOrderMissMatchDetails");

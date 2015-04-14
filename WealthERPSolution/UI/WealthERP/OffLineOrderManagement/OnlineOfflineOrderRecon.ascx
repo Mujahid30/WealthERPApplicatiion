@@ -36,7 +36,12 @@
                 <table width="100%">
                     <tr>
                         <td align="left">
-                            Online/Offline Order Recon
+                            Non MF Recon
+                        </td>
+                          <td align="right">
+                            <asp:ImageButton ID="ibtExportSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="ibtExport_OnClick"
+                                Height="25px" Width="25px" Visible="false"></asp:ImageButton>
                         </td>
                     </tr>
                 </table>
@@ -162,17 +167,17 @@
                             <telerik:GridBoundColumn DataField="CFIOD_Quantity" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Order Quantity"
                                 UniqueName="CFIOD_Quantity" SortExpression="CFIOD_Quantity" AllowFiltering="true"
-                                Visible="true">
+                                Visible="true" HeaderStyle-ForeColor="Black">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="AAC_AgentCode" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Order SubBrokerCode"
-                                UniqueName="AAC_AgentCode" SortExpression="AAC_AgentCode" AllowFiltering="true">
+                                UniqueName="AAC_AgentCode" SortExpression="AAC_AgentCode" AllowFiltering="true" HeaderStyle-ForeColor="Black">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="C_PANNum" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Order PAN" UniqueName="C_PANNum"
-                                SortExpression="C_PANNum" AllowFiltering="true">
+                                SortExpression="C_PANNum" AllowFiltering="true" HeaderStyle-ForeColor="Black">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridTemplateColumn HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
@@ -267,7 +272,7 @@
                                     <asp:Label ID="lblOrderSubbrokerCode" runat="server" CssClass="FieldName" Text="Order SubbrokerCode"></asp:Label>
                                 </td>
                                 <td>
-                                    <asp:TextBox ID="txtOrderSubbrokerCode" runat="server" CssClass="txtField" AutoPostBack="True"></asp:TextBox>
+                                    <asp:TextBox ID="txtOrderSubbrokerCode" runat="server" CssClass="txtField" ></asp:TextBox>
                                     <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender2_txtOrderSubbrokerCode"
                                         runat="server" TargetControlID="txtOrderSubbrokerCode" ServiceMethod="GetAgentCodeAssociateDetails"
                                         ServicePath="~/CustomerPortfolio/AutoComplete.asmx" MinimumPrefixLength="1" EnableCaching="False"

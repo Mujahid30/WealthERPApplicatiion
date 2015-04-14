@@ -114,7 +114,7 @@ namespace VoOnlineOrderManagemnet
 
         public int MaxQty { get; set; }
 
-        public int IssueSizeQty { get; set; }
+        public long IssueSizeQty { get; set; }
 
         public decimal IssueSizeAmt { get; set; }
 

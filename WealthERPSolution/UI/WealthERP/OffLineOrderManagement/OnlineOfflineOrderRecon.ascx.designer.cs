@@ -37,6 +37,7 @@ namespace WealthERP.OffLineOrderManagement
         protected global::System.Web.UI.WebControls.HiddenField hdnorderId;
         protected global::System.Web.UI.WebControls.HiddenField hdnFIorderId;
         protected global::System.Web.UI.WebControls.Label lblOrderQty;
+       protected global::System.Web.UI.WebControls.ImageButton ibtExportSummary;
 
 
 

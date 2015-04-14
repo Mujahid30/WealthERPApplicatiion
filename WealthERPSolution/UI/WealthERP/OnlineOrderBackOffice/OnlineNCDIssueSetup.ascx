@@ -1064,7 +1064,7 @@
                 </td>
                 <td class="rightData">
                     <asp:TextBox ID="txtIssueSizeQty" runat="server" CssClass="txtField" Width="200px"
-                        MaxLength="9" onblur="Calculate();" TabIndex="44"></asp:TextBox>
+                        MaxLength="20" onblur="Calculate();" TabIndex="44"></asp:TextBox>
                     <%-- <span id="Span31" class="spnRequiredField">*</span>--%>
                     <br />
                     <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator39" runat="server" CssClass="rfvPCG"
