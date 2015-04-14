@@ -629,7 +629,7 @@
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>--%>
-                 <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Brokerage Name" DataField="XB_BrokerShortName"
+                 <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Broker Name" DataField="XB_BrokerShortName"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="XB_BrokerShortName" SortExpression="XB_BrokerShortName" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right">
