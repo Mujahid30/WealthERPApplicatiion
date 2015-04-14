@@ -6928,7 +6928,7 @@ namespace DaoCustomerProfiling
             }
             return dtGetASBABankLocation;
         }
-        public DataSet GetNcdIssueSetUp(int issueId, DateTime fromModificationDate, DateTime toModificationDate, int advisorId, string TypeofAudit)
+        public DataSet GetNcdIssueSetUp(int issueId, DateTime fromModificationDate, DateTime toModificationDate, int advisorId, string TypeofAudit, string category, string product)
         {
             Database db;
             DbCommand cmdNdcissueListAudit;
@@ -6944,6 +6944,8 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(cmdNdcissueListAudit, "@ToModificationDate", DbType.DateTime, toModificationDate);
                 db.AddInParameter(cmdNdcissueListAudit, "@TypeofAudit", DbType.String, TypeofAudit);
                 db.AddInParameter(cmdNdcissueListAudit, "@AdvisorId", DbType.Int32, advisorId);
+                db.AddInParameter(cmdNdcissueListAudit, "@category", DbType.String, category);
+                db.AddInParameter(cmdNdcissueListAudit, "@product", DbType.String, product);
                 dsNcdIssueListAudit = db.ExecuteDataSet(cmdNdcissueListAudit);
 
 
@@ -6971,7 +6973,7 @@ namespace DaoCustomerProfiling
             return dsNcdIssueListAudit;
 
         }
-        public DataTable GetNcdIssuenameDetails(string prefixText, int adviserId)
+        public DataTable GetNcdIssuenameDetails(string prefixText,string category, int adviserId)
         {
 
             Database db;
@@ -6984,6 +6986,7 @@ namespace DaoCustomerProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetNcdIssuenameDetails = db.GetStoredProcCommand("SPROC_GetNcdIssueName");
                 db.AddInParameter(cmdGetNcdIssuenameDetails, "@prefixText", DbType.String, prefixText);
+                db.AddInParameter(cmdGetNcdIssuenameDetails, "@Category", DbType.String, category);
                 db.AddInParameter(cmdGetNcdIssuenameDetails, "@adviserId", DbType.Int32, adviserId);
                 dsGetNcdIssuenameDetails = db.ExecuteDataSet(cmdGetNcdIssuenameDetails);
                 dtGetNcdIssuenameDetails = dsGetNcdIssuenameDetails.Tables[0];

@@ -26,6 +26,7 @@ using VOAssociates;
 using BOAssociates;
 using Telerik.Web.UI;
 using System.Text.RegularExpressions;
+using BoOnlineOrderManagement;
 
 namespace WealthERP.OnlineOrderBackOffice
 {
@@ -37,7 +38,7 @@ namespace WealthERP.OnlineOrderBackOffice
         AdvisorVo adviserVo = new AdvisorVo();
         AssociatesVO associatesVo = new AssociatesVO();
         AdvisorPreferenceVo advisorPrefernceVo = new AdvisorPreferenceVo();
-
+        OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -64,8 +65,17 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtSubBrokerCode_AutoCompleteExtender.ServiceMethod = "GetAgentCodeDetails";
                 txtSystematicID_AutoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
                 txtSystematicID_AutoCompleteExtender.ServiceMethod = "GetSystematicId";
-                txtNcdIssueSetup_AutoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
+                //txtNcdIssueSetup_AutoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
+                if (ddlProduct.SelectedValue == "Bonds")
+                {
+                     txtNcdIssueSetup_AutoCompleteExtender.ContextKey = ddlCategory.SelectedValue + "/" + adviserVo.advisorId.ToString();
+                }
+                else if (ddlProduct.SelectedValue == "IP")
+                {
+                     txtNcdIssueSetup_AutoCompleteExtender.ContextKey = "FIFIIP" + "/" + adviserVo.advisorId.ToString();
+                }
                 txtNcdIssueSetup_AutoCompleteExtender.ServiceMethod = "GetNcdIssueName";
+             
             }
             else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
             {
@@ -288,6 +298,7 @@ namespace WealthERP.OnlineOrderBackOffice
             tblCustomerDematAssociatesHeading.Visible = false;
             tableCustomerTransaction.Visible = false;
             tableTransaction.Visible = false;
+            pnlCustomerProfile.Visible = false;
             DataSet dsGetCustomerProfileAuditData = new DataSet();
             dsGetCustomerProfileAuditData = customerBo.GetCustomerProfileAuditDetails((!string.IsNullOrEmpty(hdnCustomerId.Value)) ? int.Parse(hdnCustomerId.Value) : 0, rdpFromModificationDate.SelectedDate.Value, rdpToDate.SelectedDate.Value, adviserVo.advisorId, ddlAuditType.SelectedValue);
             switch (ddlAuditType.SelectedValue.ToString())
@@ -349,8 +360,9 @@ namespace WealthERP.OnlineOrderBackOffice
             tbNcdIssueSeries.Visible = false;
             tblNcdSubCategory.Visible = false;
             tbNcdSubCategory.Visible = false;
+            tblProfileData.Visible = false;
             DataSet dsGetNcdIssueSetupData = new DataSet();
-            dsGetNcdIssueSetupData = customerBo.GetNcdIssueSetUp((!string.IsNullOrEmpty(hdnIssueId.Value)) ? int.Parse(hdnIssueId.Value) : 0, rdpFromModificationDate.SelectedDate.Value, rdpToDate.SelectedDate.Value, adviserVo.advisorId, ddlNcdIssueSetup.SelectedValue);
+            dsGetNcdIssueSetupData = customerBo.GetNcdIssueSetUp((!string.IsNullOrEmpty(hdnIssueId.Value)) ? int.Parse(hdnIssueId.Value) : 0, rdpFromModificationDate.SelectedDate.Value, rdpToDate.SelectedDate.Value, adviserVo.advisorId, ddlNcdIssueSetup.SelectedValue, ddlCategory.SelectedValue, ddlProduct.SelectedValue);
             switch (ddlNcdIssueSetup.SelectedValue.ToString())
             {
                 case "NIS": rdNcdIssueAudit.DataSource = dsGetNcdIssueSetupData.Tables[0];
@@ -494,6 +506,14 @@ namespace WealthERP.OnlineOrderBackOffice
                 tbNcdIssueSeries.Visible = false;
                 tblNcdSubCategory.Visible = false;
                 tbNcdSubCategory.Visible = false;
+                trProduct.Visible = false;
+                lb1IssuerCode.Visible = false;
+                ddlCategory.Visible = false;
+                trNcdIssueSetup.Visible = false;
+                tdtxtNcdIssueSetup.Visible = false;
+                ddlNcdOption.SelectedValue = "0";
+                ddlProduct.SelectedValue = "0";
+                
             }
             else if (ddlType.SelectedValue == "Schemeplan")
             {
@@ -540,6 +560,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 tbNcdIssueSeries.Visible = false;
                 tblNcdSubCategory.Visible = false;
                 tbNcdSubCategory.Visible = false;
+                trProduct.Visible = false;
+                lb1IssuerCode.Visible = false;
+                ddlCategory.Visible = false;
+                tdtxtNcdIssueSetup.Visible = false;
+                ddlProduct.SelectedValue = "0";
             }
             else if (ddlType.SelectedValue == "StaffDetails")
             {
@@ -585,6 +610,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 tbNcdIssueSeries.Visible = false;
                 tblNcdSubCategory.Visible = false;
                 tbNcdSubCategory.Visible = false;
+                trProduct.Visible = false;
+                lb1IssuerCode.Visible = false;
+                ddlCategory.Visible = false;
+                tdtxtNcdIssueSetup.Visible = false;
             }
             else if (ddlType.SelectedValue == "AssociateDetails")
             {
@@ -631,15 +660,20 @@ namespace WealthERP.OnlineOrderBackOffice
                 tbNcdSubCategory.Visible = false;
                 tblSchemePlan.Visible = false;
                 taSchemeAudit.Visible = false;
+                trProduct.Visible = false;
+                lb1IssuerCode.Visible = false;
+                ddlCategory.Visible = false;
+                tdtxtNcdIssueSetup.Visible = false;
+
             }
             else if (ddlType.SelectedValue == "NCDIssueSetup")
             {
-
-                trNcdIssueSetup.Visible = true;
-                tdTodate.Visible = true;
-                tdFromDate.Visible = true;
-                tdTodate1.Visible = true;
-                tdFromDate1.Visible = true;
+                
+                trNcdIssueSetup.Visible = false;
+                tdTodate.Visible = false;
+                tdFromDate.Visible = false;
+                tdTodate1.Visible = false;
+                tdFromDate1.Visible = false;
                 tblNcdIssueId.Visible = false;
                 tbNcdIssueId.Visible = false;
                 tblNcdCategory.Visible = false;
@@ -678,10 +712,20 @@ namespace WealthERP.OnlineOrderBackOffice
                 tbAssociateAudit.Visible = false;
                 tblSchemePlan.Visible = false;
                 taSchemeAudit.Visible = false;
+                trProduct.Visible = true;
+                lb1IssuerCode.Visible = false;
+                ddlCategory.Visible = false;
+                btnSubmit.Visible = true;
+                ddlProduct.SelectedValue = "0";
+                trNcdIssueSetup.Visible = false;
+                tdtxtNcdIssueSetup.Visible = false;
+                ddlProduct.SelectedValue = "0";
+                
+             
             }
             else
             {
-                trSystematicId.Visible = true;
+                trSystematicId.Visible = false;
                 trAssociates.Visible = true;
                 tdTodate.Visible = true;
                 tdFromDate.Visible = true;
@@ -723,6 +767,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 tbNcdSubCategory.Visible = false;
                 tblSchemePlan.Visible = false;
                 taSchemeAudit.Visible = false;
+                trProduct.Visible = false;
+                lb1IssuerCode.Visible = false;
+                ddlCategory.Visible = false;
             }
         }
         protected void clearControls1()
@@ -822,6 +869,13 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 tdtxtNcdIssueSetup.Visible = true;
 
+            }
+            else
+            {
+                if (ddlNcdOption.SelectedValue == "Select")
+                {
+                    tdtxtNcdIssueSetup.Visible = false;
+                }
             }
         }
         protected void btnExportFilteredData_OnClick1(object sender, EventArgs e)
@@ -954,6 +1008,94 @@ namespace WealthERP.OnlineOrderBackOffice
             rdNcdIssueSeries.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             rdNcdIssueSeries.MasterTableView.ExportToExcel();
         }
+        protected void ddlProduct_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlProduct.SelectedValue == "Bonds")
+            {
+                lb1IssuerCode.Visible = true;
+                ddlCategory.Visible = true;
+                tdTodate.Visible = false;
+                tdFromDate.Visible = false;
+                tdTodate1.Visible = false;
+                tdFromDate1.Visible = false;
+                btnSubmit.Visible = true;
+                tblNcdIssueId.Visible = false;
+                tbNcdIssueId.Visible = false;
+                tblNcdCategory.Visible = false;
+                tbNcdCategoryAudit.Visible = false;
+                tblNcdIssueSeries.Visible = false;
+                tbNcdIssueSeries.Visible = false;
+                trNcdIssueSetup.Visible = false;
+                txtNcdIssueSetup.Text = "";
+                rdpFromModificationDate.SelectedDate = DateTime.Now;
+                rdpToDate.SelectedDate = DateTime.Now;
+                ddlNcdIssueSetup.SelectedValue = "0";
+                ddlNcdOption.SelectedValue = "0";
+                
+              
+            }
+                else
+                {
+                    if (ddlProduct.SelectedValue == "IP")
+                    lb1IssuerCode.Visible = false;
+                    ddlCategory.Visible = false;
+                    tdTodate.Visible = true;
+                    tdFromDate.Visible = true;
+                    tdTodate1.Visible = true;
+                    tdFromDate1.Visible = true;
+                    btnSubmit.Visible = true;
+                    tblNcdIssueId.Visible = false;
+                    tbNcdIssueId.Visible = false;
+                    tblNcdCategory.Visible = false;
+                    tbNcdCategoryAudit.Visible = false;
+                    tblNcdIssueSeries.Visible = false;
+                    tbNcdIssueSeries.Visible = false;
+                    trNcdIssueSetup.Visible = true;
+                    txtNcdIssueSetup.Text = "";
+                    ddlNcdOption.SelectedValue = "0";
+                    ddlNcdIssueSetup.SelectedValue = "0";
+                  
+                }
+
+                BindNcdCategory();
+            }
+        
+        private void BindNcdCategory()
+        {
+            DataTable dtCategory = new DataTable();
+            dtCategory = onlineNCDBackOfficeBo.BindNcdCategory("SubInstrumentCat", "").Tables[0];
+            if (dtCategory.Rows.Count > 0)
+            {
+                ddlCategory.DataSource = dtCategory;
+                ddlCategory.DataValueField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                ddlCategory.DataTextField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                ddlCategory.DataBind();
+            }
+            ddlCategory.Items.Insert(0, new ListItem("Select", "Select"));
+        }
+
+        protected void ddlCategory_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlCategory.SelectedValue == "FICDCD" || ddlCategory.SelectedValue=="FICGCG" || ddlCategory.SelectedValue=="FINPNP" || ddlCategory.SelectedValue=="FISDSD")
+            {
+                trNcdIssueSetup.Visible = true;
+                tdTodate.Visible = true;
+                tdFromDate.Visible = true;
+                tdTodate1.Visible = true;
+                tdFromDate1.Visible = true;
+                
+            }
+            else
+            {
+                trNcdIssueSetup.Visible = false;
+                tdTodate.Visible = false;
+                tdFromDate.Visible = false;
+                tdTodate1.Visible = false;
+                tdFromDate1.Visible = false;
+            }
+        }
+
+
 
     }
 }

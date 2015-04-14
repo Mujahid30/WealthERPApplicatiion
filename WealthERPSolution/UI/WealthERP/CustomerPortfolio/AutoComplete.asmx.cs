@@ -1010,12 +1010,16 @@ namespace WealthERP.CustomerPortfolio
         [WebMethod]
         public string[] GetNcdIssueName(string prefixText, int count, string contextKey)
         {
+            string[] parts = contextKey.Split('/');
+
+            string category = (parts[0]).ToString();
+            int adviserId = Convert.ToInt32(parts[1]);
             CustomerBo customerBo = new CustomerBo();
             DataTable dtNcdIssueName = new DataTable();
             int i = 0;
             List<string> names = new List<string>();
 
-            dtNcdIssueName = customerBo.GetNcdIssuenameDetails(prefixText, int.Parse(contextKey));
+            dtNcdIssueName = customerBo.GetNcdIssuenameDetails(prefixText, category, adviserId);
             //string[] customerNameList = new string[dtCustomerName.Rows.Count];
 
             foreach (DataRow dr in dtNcdIssueName.Rows)

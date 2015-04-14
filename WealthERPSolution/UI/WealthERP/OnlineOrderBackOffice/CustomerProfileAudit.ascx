@@ -97,7 +97,7 @@
             <td class="rightField">
                 <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlType_OnSelectedIndexChanged"
                     AutoPostBack="true">
-                    <asp:ListItem Text="Select" Value="select"></asp:ListItem>
+                    <asp:ListItem Text="Select" Value="select" Selected="True"></asp:ListItem>
                     <asp:ListItem Text="Customer Profile" Value="CustomerProfile"></asp:ListItem>
                     <asp:ListItem Text="Scheme" Value="Schemeplan"></asp:ListItem>
                     <asp:ListItem Text="Staff" Value="StaffDetails"></asp:ListItem>
@@ -105,6 +105,10 @@
                     <asp:ListItem Text="Systematic Setup" Value="SystematicSetup"></asp:ListItem>
                     <asp:ListItem Text="Issue Setup" Value="NCDIssueSetup"></asp:ListItem>
                 </asp:DropDownList>
+                <span id="Span5" class="spnRequiredField">*</span>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator22" ControlToValidate="ddlType"
+                    Text="Please Select Audit Type" ErrorMessage="<br/>Please Select Audit Type"
+                    Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="BtnGo">Please Select Audit Type</asp:RequiredFieldValidator>
             </td>
         </tr>
     </table>
@@ -118,7 +122,7 @@
                     AutoComplete="Off" Width="300px"></asp:TextBox>
                 <%-- <span id="Span5" class="spnRequiredField">*</span>--%>
                 <cc1:TextBoxWatermarkExtender ID="txtSchemeName_water" TargetControlID="txtSchemeName"
-                    WatermarkText="Enter Three Characters" runat="server" EnableViewState="false">
+                    WatermarkText="Enter Three Characters Of SchemePlan Name" runat="server" EnableViewState="false">
                 </cc1:TextBoxWatermarkExtender>
                 <ajaxToolkit:AutoCompleteExtender ID="txtSchemeName_AutoCompleteExtender" runat="server"
                     TargetControlID="txtSchemeName" ServiceMethod="GetSchemeName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
@@ -141,7 +145,7 @@
                     AutoComplete="Off" Width="300px"></asp:TextBox>
                 <%--<span id="Span7" class="spnRequiredField">*</span>--%>
                 <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" TargetControlID="txtStaffName"
-                    WatermarkText="Enter Three Characters" runat="server" EnableViewState="false">
+                    WatermarkText="Enter Three Characters Of Staff Name" runat="server" EnableViewState="false">
                 </cc1:TextBoxWatermarkExtender>
                 <ajaxToolkit:AutoCompleteExtender ID="txtStaffName_AutoCompleteExtender" runat="server"
                     TargetControlID="txtStaffName" ServiceMethod="GetStaffName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
@@ -227,8 +231,43 @@
                     UseContextKey="True" OnClientItemSelected="GetSystematicID" DelimiterCharacters=""
                     Enabled="True" />
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator11" ControlToValidate="txtSystematicID"
-                    ErrorMessage="<br />Please Enter Systematic  Id" Display="Dynamic" runat="server"
+                    ErrorMessage="<br/>Please Enter Systematic  Id" Display="Dynamic" runat="server"
                     CssClass="rfvPCG" ValidationGroup="BtnGo"></asp:RequiredFieldValidator>
+            </td>
+        </tr>
+        <tr id="trProduct" runat="server" visible="false">
+            <td class="leftField" style="width: 12%">
+                <asp:Label ID="Label8" runat="server" Text="Select Product:" CssClass="FieldName"></asp:Label>
+            </td>
+            <td class="rightField" style="width: 25%">
+                <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" AutoPostBack="true"
+                    Width="180px" OnSelectedIndexChanged="ddlProduct_OnSelectedIndexChanged">
+                    <%-- <asp:ListItem Value="Select">Select</asp:ListItem>--%>
+                    <asp:ListItem Text="Select" Value="0" Selected="true" />
+                    <asp:ListItem Value="Bonds">Bonds</asp:ListItem>
+                    <asp:ListItem Value="IP">IPO</asp:ListItem>
+                </asp:DropDownList>
+                <span id="Span8" class="spnRequiredField">*</span>
+                <br />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator13" runat="server" ErrorMessage="Please Select Product Type"
+                    CssClass="rfvPCG" ControlToValidate="ddlProduct" ValidationGroup="btnGo" Display="Dynamic"
+                    InitialValue="Select"></asp:RequiredFieldValidator>
+            </td>
+            <td class="leftField" style="width: 12%">
+                <asp:Label ID="lb1IssuerCode" runat="server" Text="Select Category:" CssClass="FieldName"></asp:Label>
+            </td>
+            <td class="rightField" style="width: 80px;">
+                <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" Width="180px"
+                    OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged" AutoPostBack="true">
+                </asp:DropDownList>
+                <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="ddlCategory" ErrorMessage="Please Select Category"
+                    ValidationGroup="rgIssuerOk" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                    InitialValue="Select" ValidationGroup1="BtnGo">
+                </asp:RequiredFieldValidator>
+            </td>
+            <td>
+                <asp:TextBox ID="txtIssuerCode" runat="server" CssClass="txtField" Visible="false"></asp:TextBox><br />
+                <span id="spnNewFolioValidation"></span>
             </td>
         </tr>
         <tr id="trNcdIssueSetup" runat="server" visible="false">
@@ -239,17 +278,17 @@
             <td class="rightField" width="17%">
                 <asp:DropDownList ID="ddlNcdOption" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlNcdOption_SelectedIndexChanged"
                     AutoPostBack="true">
-                    <asp:ListItem Text="Select" Value="Select" Selected="true" />
+                    <asp:ListItem Text="Select" Value="0" Selected="true" />
                     <asp:ListItem Text="Name" Value="Name" />
                 </asp:DropDownList>
-                <span id="Span5" class="spnRequiredField">*</span>
+                <span id="Span5" class="spnRequiredField" visible="false">*</span>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator12" runat="server" ErrorMessage="</br>Please Select Filter"
                     CssClass="rfvPCG" ControlToValidate="ddlNcdOption" ValidationGroup="BtnGo" Display="Dynamic"
                     InitialValue="Select"></asp:RequiredFieldValidator>
             </td>
             <td class="leftField" id="tdtxtNcdIssueSetup" width="21%" runat="server" visible="false">
                 <asp:TextBox ID="txtNcdIssueSetup" runat="server" CssClass="txtField" AutoComplete="Off"
-                    AutoPostBack="True" Width="250px">  </asp:TextBox>
+                    AutoPostBack="True" Width="250px"></asp:TextBox>
                 <cc1:TextBoxWatermarkExtender ID="txtNcdIssueSetup_WaterMark" TargetControlID="txtNcdIssueSetup"
                     WatermarkText="Enter Three Characters of Issue Name" runat="server" EnableViewState="false">
                 </cc1:TextBoxWatermarkExtender>
@@ -260,16 +299,17 @@
                     CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                     UseContextKey="True" OnClientItemSelected="GetIssueId" DelimiterCharacters=""
                     Enabled="True" />
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator13" ControlToValidate="txtNcdIssueSetup"
+            </td>
+            <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator13" ControlToValidate="txtNcdIssueSetup"
                     ErrorMessage="<br />Please Enter Issue Name" Display="Dynamic" runat="server"
                     CssClass="rfvPCG" ValidationGroup="BtnGo"></asp:RequiredFieldValidator>
-            </td>
-            <td id="td2" runat="server" visible="true" class="leftField" width="8%">
+            </td>--%>
+            <td id="td2" runat="server" class="leftField" width="8%">
                 <asp:Label ID="lblIssue" runat="server" Text="Select Type:" CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField" width="30%">
                 <asp:DropDownList ID="ddlNcdIssueSetup" runat="server" CssClass="cmbField" Width="235px">
-                    <asp:ListItem Text="Select" Value="select"></asp:ListItem>
+                    <asp:ListItem Text="Select" Value="0" Selected="true"></asp:ListItem>
                     <asp:ListItem Text="Issue SetUp" Value="NIS"></asp:ListItem>
                     <asp:ListItem Text="Issue SetUp Category" Value="IC"></asp:ListItem>
                     <asp:ListItem Text="Issue New Series" Value="NS"></asp:ListItem>
@@ -303,7 +343,7 @@
                     AutoPostBack="True" onclientClick="ShowIsa()" TabIndex="2" Width="250px">
                 </asp:TextBox><span id="Span1" class="spnRequiredField"></span>
                 <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" TargetControlID="txtPansearch"
-                    WatermarkText="Enter few characters of Pan" runat="server" EnableViewState="false">
+                    WatermarkText="Enter few characters of PAN" runat="server" EnableViewState="false">
                 </cc1:TextBoxWatermarkExtender>
                 <ajaxToolkit:AutoCompleteExtender ID="txtPansearch_autoCompleteExtender" runat="server"
                     TargetControlID="txtPansearch" ServiceMethod="GetAdviserCustomerPan" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
@@ -337,7 +377,7 @@
                 <asp:TextBox ID="txtCustomerName" runat="server" CssClass="txtField" AutoComplete="Off"
                     AutoPostBack="True" onclientClick="ShowIsa()" Width="250px">  </asp:TextBox>
                 <cc1:TextBoxWatermarkExtender ID="txtCustomerName_water" TargetControlID="txtCustomerName"
-                    WatermarkText="Enter Three Characters of Customer" runat="server" EnableViewState="false">
+                    WatermarkText="Enter Three Characters of Customer Name" runat="server" EnableViewState="false">
                 </cc1:TextBoxWatermarkExtender>
                 <ajaxToolkit:AutoCompleteExtender ID="txtCustomerName_autoCompleteExtender" runat="server"
                     TargetControlID="txtCustomerName" ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
@@ -426,7 +466,7 @@
                     <table width="100%">
                         <tr>
                             <td align="left">
-                                <asp:Label ID="Label1" runat="server" Text="Profile Audit Details"></asp:Label>
+                                <asp:Label ID="Label1" runat="server" Text="Customer Profile Details"></asp:Label>
                             </td>
                             <td align="right" style="width: 10px">
                                 <asp:ImageButton Visible="true" ID="btnExport1" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
@@ -443,7 +483,7 @@
         <tr>
             <td>
                 <asp:Panel ID="pnlCustomerProfile" runat="server" Width="40%" ScrollBars="Horizontal"
-                    runat="server" Visible="true">
+                    Visible="true">
                     <telerik:RadGrid ID="rdCustomerProfile" runat="server" AutoGenerateColumns="false"
                         AllowPaging="true" AllowSorting="true" Skin="Telerik" EnableHeaderContextMenu="true"
                         GridLines="Both" EnableEmbeddedSkins="false" Width="100%" ShowFooter="true" PagerStyle-AlwaysVisible="true"
@@ -569,7 +609,7 @@
                     <table width="100%">
                         <tr>
                             <td align="left">
-                                <asp:Label ID="lblBankDetails" runat="server" Text="Bank Audit Details"></asp:Label>
+                                <asp:Label ID="lblBankDetails" runat="server" Text="Customer Profile Bank Details"></asp:Label>
                             </td>
                             <td align="right" style="width: 10px">
                                 <asp:ImageButton Visible="true" ID="btnExport2" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
@@ -718,7 +758,7 @@
                     <table width="100%">
                         <tr>
                             <td align="left">
-                                <asp:Label ID="Label4" runat="server" Text="Demat Audit Details"></asp:Label>
+                                <asp:Label ID="Label4" runat="server" Text="Customer Demat Details"></asp:Label>
                             </td>
                             <td align="right" style="width: 10px">
                                 <asp:ImageButton Visible="true" ID="btnExport3" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
@@ -816,7 +856,7 @@
                     <table width="100%">
                         <tr>
                             <td align="left">
-                                <asp:Label ID="Label3" runat="server" Text="Demat Association Audit Details"></asp:Label>
+                                <asp:Label ID="Label3" runat="server" Text="Customer Demat Association Details"></asp:Label>
                             </td>
                             <td align="right" style="width: 10px">
                                 <asp:ImageButton Visible="true" ID="btnExport4" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
@@ -928,7 +968,7 @@
                     <table width="100%">
                         <tr>
                             <td align="left">
-                                <asp:Label ID="lblCustomerTransaction" runat="server" Text="Customer Transaction Audit"></asp:Label>
+                                <asp:Label ID="lblCustomerTransaction" runat="server" Text="Customer Transaction"></asp:Label>
                             </td>
                             <td align="right" style="width: 10px">
                                 <asp:ImageButton Visible="true" ID="btnExport5" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
@@ -1041,7 +1081,7 @@
                     <table width="100%">
                         <tr>
                             <td align="left">
-                                <asp:Label ID="Label2" runat="server" Text="SchemePlan Audit"></asp:Label>
+                                <asp:Label ID="Label2" runat="server" Text="SchemePlan"></asp:Label>
                             </td>
                             <td align="right" style="width: 10px">
                                 <asp:ImageButton Visible="true" ID="btnExport6" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
@@ -1131,7 +1171,7 @@
                     <table width="100%">
                         <tr>
                             <td align="left">
-                                <asp:Label ID="Label5" runat="server" Text="Staff Audit Details"></asp:Label>
+                                <asp:Label ID="Label5" runat="server" Text="Staff Details"></asp:Label>
                             </td>
                             <td align="right" style="width: 10px">
                                 <asp:ImageButton Visible="true" ID="btnExport7" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
@@ -1242,7 +1282,7 @@
                     <table width="100%">
                         <tr>
                             <td align="left">
-                                <asp:Label ID="Label6" runat="server" Text="Staff Audit Details"></asp:Label>
+                                <asp:Label ID="Label6" runat="server" Text="Staff Details"></asp:Label>
                             </td>
                             <td align="right" style="width: 10px">
                                 <asp:ImageButton Visible="true" ID="btnExport8" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
@@ -1523,7 +1563,7 @@
                     <table width="100%">
                         <tr>
                             <td align="left">
-                                <asp:Label ID="Label12" runat="server" Text="Issue SetUp Audit"></asp:Label>
+                                <asp:Label ID="Label12" runat="server" Text="Issue SetUp"></asp:Label>
                             </td>
                             <td align="right" style="width: 10px">
                                 <asp:ImageButton Visible="true" ID="ImageButton5" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
@@ -1645,7 +1685,7 @@
                     <table width="100%">
                         <tr>
                             <td align="left">
-                                <asp:Label ID="Label9" runat="server" Text="Issue SetUp Category Audit"></asp:Label>
+                                <asp:Label ID="Label9" runat="server" Text="Issue SetUp Category Details"></asp:Label>
                             </td>
                             <td align="right" style="width: 10px">
                                 <asp:ImageButton Visible="true" ID="ImageButton2" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
@@ -1737,7 +1777,7 @@
                     <table width="100%">
                         <tr>
                             <td align="left">
-                                <asp:Label ID="Label11" runat="server" Text="Issue SetUP Sub Category Audit"></asp:Label>
+                                <asp:Label ID="Label11" runat="server" Text="Issue SetUP Sub Category Details"></asp:Label>
                             </td>
                             <td align="right" style="width: 10px">
                                 <asp:ImageButton Visible="true" ID="ImageButton4" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"

@@ -3851,14 +3851,14 @@ namespace BoCustomerProfiling
             return dtGetASBABankLocation;
 
         }
-        public DataSet GetNcdIssueSetUp(int issueId, DateTime fromModificationDate, DateTime toModificationDate, int advisorId, string TypeofAudit)
+        public DataSet GetNcdIssueSetUp(int issueId, DateTime fromModificationDate, DateTime toModificationDate, int advisorId, string TypeofAudit, string category, string product)
         {
             CustomerDao customerDao = new CustomerDao();
 
             DataSet dsNcdIssueAudit = new DataSet();
             try
             {
-                dsNcdIssueAudit = customerDao.GetNcdIssueSetUp(issueId, fromModificationDate, toModificationDate, advisorId, TypeofAudit);
+                dsNcdIssueAudit = customerDao.GetNcdIssueSetUp(issueId, fromModificationDate, toModificationDate, advisorId, TypeofAudit, category, product);
             }
             catch (BaseApplicationException Ex)
             {
@@ -3885,13 +3885,13 @@ namespace BoCustomerProfiling
             }
             return dsNcdIssueAudit;
         }
-        public DataTable GetNcdIssuenameDetails(string prefixText, int adviserId)
+        public DataTable GetNcdIssuenameDetails(string prefixText,string category, int adviserId)
         {
             CustomerDao customerDao = new CustomerDao();
             DataTable dtNcdIssuenameDetails;
             try
             {
-                dtNcdIssuenameDetails = customerDao.GetNcdIssuenameDetails(prefixText, adviserId);
+                dtNcdIssuenameDetails = customerDao.GetNcdIssuenameDetails(prefixText,category, adviserId);
             }
             catch (BaseApplicationException Ex)
             {
