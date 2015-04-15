@@ -506,10 +506,10 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 mfProductAMCSchemePlanDetailsVo.DividendFrequency = ddlDFrequency.SelectedValue;
             }
-            else
-            {
-                ddlDFrequency.SelectedValue = "0";
-            }
+            //else
+            //{
+            //    ddlDFrequency.SelectedValue = "0";
+            //}
             mfProductAMCSchemePlanDetailsVo.GenerationFrequency = ddlGenerationfreq.SelectedValue;
             if (chkInfo.Checked)
             {
@@ -2144,10 +2144,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     mfProductAMCSchemePlanDetailsVo.DividendFrequency = ddlDFrequency.SelectedValue;
                 }
-                else
-                {
-                    ddlDFrequency.SelectedValue = "0";
-                }
+                //else
+                //{
+                //    ddlDFrequency.SelectedValue = "0";
+                //}
                 if (!string.IsNullOrEmpty(txtACno.Text))
                 {
                     mfProductAMCSchemePlanDetailsVo.AccountNumber = txtACno.Text;
