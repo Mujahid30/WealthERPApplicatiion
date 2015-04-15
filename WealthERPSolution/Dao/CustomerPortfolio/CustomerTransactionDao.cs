@@ -2423,7 +2423,8 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@IsagentCode", DbType.Int32, agentCode);
                 if (requestId != 0)
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@RequestId", DbType.Int32, requestId);
-               
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@RequestId", DbType.Int32, DBNull.Value);
                 //else
                 //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@IsAssociate", DbType.Int32, DBNull.Value);
                 //if (All != 0)

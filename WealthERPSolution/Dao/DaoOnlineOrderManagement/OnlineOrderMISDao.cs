@@ -302,7 +302,7 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetAdviserCustomerTransaction;
         }
-        public DataTable GetAdviserCustomerTransactionsBookSIP(int AdviserID, int customerId, int SystematicId, int IsSourceAA, int AccountId, int SchemePlanCode)
+        public DataTable GetAdviserCustomerTransactionsBookSIP(int AdviserID, int customerId, int SystematicId, int IsSourceAA, int AccountId, int SchemePlanCode,int requestId)
         {
             DataTable dtGetAdviserCustomerTransactionsBookSIP;
             Database db;
@@ -339,6 +339,14 @@ namespace DaoOnlineOrderManagement
                 else
                 {
                     db.AddInParameter(GetAdviserCustomerTransactionsBookSIPcmd, "@SystemeticId", DbType.Int32, DBNull.Value);
+                }
+                if (requestId != 0)
+                {
+                    db.AddInParameter(GetAdviserCustomerTransactionsBookSIPcmd, "@RequestId", DbType.Int32, requestId);
+                }
+                else
+                {
+                    db.AddInParameter(GetAdviserCustomerTransactionsBookSIPcmd, "@RequestId", DbType.Int32, DBNull.Value);
                 }
                 GetAdviserCustomerTransactionsBookSIPcmd.CommandTimeout = 60 * 60;
                 dsGetAdviserCustomerTransactionsBookSIP = db.ExecuteDataSet(GetAdviserCustomerTransactionsBookSIPcmd);

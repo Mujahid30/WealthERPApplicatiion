@@ -38,15 +38,26 @@ namespace WealthERP.OnlineOrderBackOffice
         int customerId = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
-            OnlineUserSessionBo.CheckSession();
-            advisorVo = (AdvisorVo)Session["advisorVo"];
-            customerVO = (CustomerVo)Session["customerVo"];
-            userVo = (UserVo)Session["userVo"];
+            if (Request.QueryString["reqId"] != null)
+            {
+                OnlineUserSessionBo.CheckSession();
+                advisorVo = (AdvisorVo)Session["advisorVo"];
+                customerVO = (CustomerVo)Session["customerVo"];
+                userVo = (UserVo)Session["userVo"];
+                BindTransactionGrid();
+            }
+            else
+            {
+                OnlineUserSessionBo.CheckSession();
+                advisorVo = (AdvisorVo)Session["advisorVo"];
+                customerVO = (CustomerVo)Session["customerVo"];
+                userVo = (UserVo)Session["userVo"];
 
-            BindAMC();
-            fromDate = DateTime.Now.AddMonths(-1);
-            txtFrom.SelectedDate = fromDate.Date;
-            txtTo.SelectedDate = DateTime.Now;
+                BindAMC();
+                fromDate = DateTime.Now.AddMonths(-1);
+                txtFrom.SelectedDate = fromDate.Date;
+                txtTo.SelectedDate = DateTime.Now;
+            }
             if (!Page.IsPostBack)
             {
                 if (Request.QueryString["systematicId"] != null && Request.QueryString["AccountId"] != null && Request.QueryString["schemeplanCode"] != null && Request.QueryString["IsSourceAA"] != null && Request.QueryString["customerId"] != null)
@@ -134,10 +145,19 @@ namespace WealthERP.OnlineOrderBackOffice
                 toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
             if (Request.QueryString["systematicId"] != null && Request.QueryString["AccountId"] != null && Request.QueryString["schemeplanCode"] != null)
             {
-                dtBindTransactionGrid = OnlineOrderMISBo.GetAdviserCustomerTransactionsBookSIP(advisorVo.advisorId, customerId, systematicId, IsSourceAA, AccountId, schemeplanCode);
+                dtBindTransactionGrid = OnlineOrderMISBo.GetAdviserCustomerTransactionsBookSIP(advisorVo.advisorId, customerId, systematicId, IsSourceAA, AccountId, schemeplanCode,0);
                 gvTransationBookMIS.DataSource = dtBindTransactionGrid;
                 gvTransationBookMIS.DataBind();
                 pnlTransactionBook.Visible = true;
+            }
+            else if (Request.QueryString["reqId"] != null)
+            {
+                int requestId = int.Parse(Request.QueryString["reqId"]);
+                dtBindTransactionGrid = OnlineOrderMISBo.GetAdviserCustomerTransactionsBookSIP(advisorVo.advisorId, 0, 0, IsSourceAA, 0, schemeplanCode,requestId);
+                gvTransationBookMIS.DataSource = dtBindTransactionGrid;
+                gvTransationBookMIS.DataBind();
+                pnlTransactionBook.Visible = true;
+                trAMC.Visible = false;
             }
             else
             {

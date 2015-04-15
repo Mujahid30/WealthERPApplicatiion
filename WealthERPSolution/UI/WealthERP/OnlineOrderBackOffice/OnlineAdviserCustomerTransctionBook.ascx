@@ -24,16 +24,18 @@
     </tr>
 </table>
 <table>
-    <tr>
-        <td>
+    <tr id="trAMC" runat="server">
+        <td id="tdlblAmc" runat="server" align="left">
             <asp:Label runat="server" class="FieldName" Text="AMC:" ID="lblAccount"></asp:Label>
         </td>
         <td id="tdlblFromDate" runat="server" align="right">
-            
-            <asp:DropDownList CssClass="cmbField" ID="ddlAmc" runat="server" AutoPostBack="false" Width="300px">
+            <asp:DropDownList CssClass="cmbField" ID="ddlAmc" runat="server" AutoPostBack="false"
+                Width="300px">
             </asp:DropDownList>
         </td>
-        <td><asp:Label class="FieldName" ID="lblFromTran" Text="From :" runat="server" /></td>
+        <td>
+            <asp:Label class="FieldName" ID="lblFromTran" Text="From :" runat="server" />
+        </td>
         <td id="tdTxtFromDate" runat="server">
             <telerik:RadDatePicker ID="txtFrom" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
@@ -100,7 +102,7 @@
                         allowfiltering="true" AllowFilteringByColumn="true" PageSize="10" AllowSorting="true"
                         AllowPaging="True" ShowStatusBar="True" ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false"
                         Width="120%" AllowAutomaticInserts="false" AllowCustomPaging="true" OnNeedDataSource="gvTransationBookMIS_OnNeedDataSource"
-                        OnItemCommand="gvTransationBookMIS_ItemCommand" >
+                        OnItemCommand="gvTransationBookMIS_ItemCommand">
                         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
                         </ExportSettings>
                         <MasterTableView DataKeyNames="CMFT_MFTransId" Width="100%" AllowMultiColumnSorting="True"

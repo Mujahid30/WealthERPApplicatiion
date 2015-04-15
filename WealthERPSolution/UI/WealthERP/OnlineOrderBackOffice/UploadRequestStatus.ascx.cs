@@ -194,10 +194,17 @@ namespace WealthERP.OnlineOrderBackOffice
             gdi = (GridDataItem)lnkOrderNo.NamingContainer;
             int selectedRow = gdi.ItemIndex + 1;
             int reqId = int.Parse((rgRequests.MasterTableView.DataKeyValues[selectedRow - 1]["ReqId"].ToString()));
-
+            string IsOnl = rgRequests.MasterTableView.DataKeyValues[selectedRow - 1]["IsOnl"].ToString();
             if (reqId != 0)
             {
-                Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&reqId=" + reqId + "", false);
+                if (IsOnl == "Offline")
+                {
+                    Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&reqId=" + reqId + "", false);
+                }
+                else if (IsOnl == "Online")
+                {
+                    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerTransctionBook&reqId=" + reqId + "", false);
+                }
             }           
         }
         protected void btnCategoriesExpandAll_Click(object sender, EventArgs e)
