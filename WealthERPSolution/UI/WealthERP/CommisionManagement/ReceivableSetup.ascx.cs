@@ -1045,16 +1045,16 @@ namespace WealthERP.Receivable
                     //ddlCommissionApplicableLevel.Enabled = false;
                     foreach (ListItem chkItems in chkListTtansactionType.Items)
                     {
-                        //if (chkItems.Value == "SIP" || chkItems.Value == "STB")
-                        //{
-                        //    chkItems.Enabled = false;
-                        //    chkItems.Selected = false;
-                        //}
-                        //else
-                        //{
-                        chkItems.Enabled = true;
-                        chkItems.Selected = true;
-                        //}
+                        if (chkItems.Value == "SIP" || chkItems.Value == "STB")
+                        {
+                            chkItems.Enabled = false;
+                            chkItems.Selected = false;
+                        }
+                        else
+                        {
+                            chkItems.Enabled = true;
+                            chkItems.Selected = true;
+                        }
                     }
                 }
             }
@@ -2353,6 +2353,7 @@ namespace WealthERP.Receivable
                     ddlCommisionCalOn.Enabled = false;
                     tdApplicationNo.Visible = false;
                     tdlblApplicationNo.Visible = false;
+                    trMinMAxInvAmount.Visible = false;
                     foreach (ListItem chkItems in chkListTtansactionType.Items)
                     {
 
@@ -2368,6 +2369,7 @@ namespace WealthERP.Receivable
                     chkListTtansactionType.Visible = !enablement;
                     lblTransactionType.Visible = !enablement;
                     //ddlTransaction.Visible = enablement;
+                    trMinMAxInvAmount.Visible = true;
                     ddlCommissionApplicableLevel.Enabled = true;
                     foreach (ListItem chkItems in chkListTtansactionType.Items)
                     {

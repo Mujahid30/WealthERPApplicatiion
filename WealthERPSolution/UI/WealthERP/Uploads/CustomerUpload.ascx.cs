@@ -4873,11 +4873,15 @@ namespace WealthERP.Uploads
             if (ddlUploadType.SelectedValue == "KYC" || ddlUploadType.SelectedValue == "CM" || ddlUploadType.SelectedValue == "P" || ddlUploadType.SelectedValue == "PMFF" || ddlUploadType.SelectedValue == "PF" || ddlUploadType.SelectedValue == "MFTN")
             {
                 trRM.Visible = true;
-                ddlRM.Enabled = false;
-                ddlRM.SelectedValue = "4682";
+                if (adviserId == 1021)
+                {
+                    ddlRM.Enabled = false;
+                    ddlRM.SelectedValue = "4682";
+                    ddlListBranch.Enabled = false;
+                    ddlListBranch.SelectedValue = "1339";
+                }
                 trListBranch.Visible = true;
-                ddlListBranch.Enabled = false;
-                ddlListBranch.SelectedValue = "1339";
+
                 if (ddlUploadType.SelectedValue == "MFTN")
                 {
                     trType.Visible = true;

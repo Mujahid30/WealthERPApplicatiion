@@ -1117,6 +1117,9 @@ namespace WealthERP.OffLineOrderManagement
                              gvCommMgmt.MasterTableView.GetColumn("DeleteBid").Display = false;
                           
                         }
+                        else
+                            gvCommMgmt.MasterTableView.GetColumn("DeleteBid").Display = true;
+
                     }
                 }
             }

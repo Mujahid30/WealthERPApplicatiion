@@ -746,7 +746,7 @@
                                 <telerik:GridBoundColumn DataField="CouponRateCollection" HeaderStyle-Width="120px"
                                     CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="false"
                                     HeaderText="Coupon Rate (%)" UniqueName="CouponRateCollection" SortExpression="CouponRateCollection">
-                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100Px" Wrap="false" />
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100Px" Wrap="true" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="YieldatMatCollection" HeaderStyle-Width="120px"
                                     CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="false"
