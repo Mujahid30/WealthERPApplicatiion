@@ -1700,7 +1700,8 @@ namespace WealthERP.Advisor
             trSearchtype.Visible = true;
             ddlCOption.Items[3].Enabled = true;
             ddlCOption.Items[5].Enabled = false;
-            ddlCOption.Items[6].Enabled = false;
+            ddlCOption.Items[6].Enabled = true;
+            ddlCOption.Items[7].Enabled = false;
         }
         protected void rbtnNonRegister_CheckedChanged(object sender, EventArgs e)
         {
@@ -1709,7 +1710,7 @@ namespace WealthERP.Advisor
             ddlCOption.Items[3].Enabled = false;
             tdtxtClientCode.Visible = false;
             ddlCOption.Items[6].Enabled = true;
-
+            ddlCOption.Items[7].Enabled = false;
         }
 
     }
