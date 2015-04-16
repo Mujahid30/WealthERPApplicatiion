@@ -72,6 +72,7 @@ namespace VoCustomerPortfolio
         private string m_DeuptyHead;
         private string m_ClusterMgr;
         private DateTime m_ELSSMaturityDate;
+        private int m_RequestId;
         #endregion Fields
 
         #region Properties
@@ -403,7 +404,11 @@ namespace VoCustomerPortfolio
               set { m_ELSSMaturityDate = value; }
 
           }
-        
+          public int RequestId
+          {
+              get { return m_RequestId; }
+              set { m_RequestId = value; }
+          }
      
         #endregion Properties
 
@@ -441,6 +446,7 @@ namespace VoCustomerPortfolio
             clone.m_XIRR = m_XIRR;
             clone.m_TransactionStatus = m_TransactionStatus;
             clone.m_TransactionStatusCode = m_TransactionStatusCode;
+            clone.m_RequestId = m_RequestId;
             return clone;
         }
         object ICloneable.Clone()

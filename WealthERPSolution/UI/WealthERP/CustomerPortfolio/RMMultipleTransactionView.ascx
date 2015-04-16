@@ -802,9 +802,9 @@
                                                     FooterStyle-HorizontalAlign="Left">
                                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn DataField="ADUL_ProcessId" HeaderText="Process ID" AllowFiltering="true"
-                                                    HeaderStyle-Wrap="false" SortExpression="ADUL_ProcessId" ShowFilterIcon="false"
-                                                    CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="ADUL_ProcessId"
+                                                <telerik:GridBoundColumn DataField="WR_RequestId" HeaderText="Request ID" AllowFiltering="true"
+                                                    HeaderStyle-Wrap="false" SortExpression="WR_RequestId" ShowFilterIcon="false"
+                                                    CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="WR_RequestId"
                                                     FooterStyle-HorizontalAlign="Left">
                                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>

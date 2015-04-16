@@ -1093,7 +1093,6 @@ namespace WealthERP.CustomerPortfolio
                         mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, customerId, IsfolioOnline, convertedFromDate, convertedToDate, 1, PasssedFolioValue, false, schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, userType, int.Parse(ddlAgentCode.SelectedValue),0);
                     }
                 }
-
                 if (mfTransactionList.Count != 0)
                 {
                     ErrorMessage.Visible = false;
@@ -1114,7 +1113,7 @@ namespace WealthERP.CustomerPortfolio
                     dtMFTransactions.Columns.Add("TransactionStatus");
                     dtMFTransactions.Columns.Add("Category");
                     dtMFTransactions.Columns.Add("AMC");
-                    dtMFTransactions.Columns.Add("ADUL_ProcessId");
+                    dtMFTransactions.Columns.Add("WR_RequestId");
                     dtMFTransactions.Columns.Add("CMFT_SubBrokerCode");
                     dtMFTransactions.Columns.Add("PAISC_AssetInstrumentSubCategoryName");
                     dtMFTransactions.Columns.Add("CreatedOn");
@@ -1173,10 +1172,10 @@ namespace WealthERP.CustomerPortfolio
                         drMFTransaction[12] = mfTransactionVo.Category;
                         drMFTransaction[13] = mfTransactionVo.AMCName;
 
-                        if (mfTransactionVo.ProcessId == 0)
+                        if (mfTransactionVo.RequestId == 0)
                             drMFTransaction[14] = "N/A";
                         else
-                            drMFTransaction[14] = int.Parse(mfTransactionVo.ProcessId.ToString());
+                            drMFTransaction[14] = int.Parse(mfTransactionVo.RequestId.ToString());
                         drMFTransaction[15] = mfTransactionVo.SubBrokerCode;
                         drMFTransaction[16] = mfTransactionVo.SubCategoryName;
                         drMFTransaction[17] = mfTransactionVo.CreatedOn;

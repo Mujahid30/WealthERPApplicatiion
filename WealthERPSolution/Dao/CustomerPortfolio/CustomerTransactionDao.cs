@@ -2476,10 +2476,10 @@ namespace DaoCustomerPortfolio
                     {
                         mfTransactionVo = new MFTransactionVo();
 
-                        if (dr["ADUL_ProcessId"].ToString() != null && dr["ADUL_ProcessId"].ToString() != string.Empty)
-                            mfTransactionVo.ProcessId = int.Parse(dr["ADUL_ProcessId"].ToString());
+                        if (dr["WR_RequestId"].ToString() != null && dr["WR_RequestId"].ToString() != string.Empty)
+                            mfTransactionVo.RequestId = int.Parse(dr["WR_RequestId"].ToString());
                         else
-                            mfTransactionVo.ProcessId = 0;
+                            mfTransactionVo.RequestId = 0;
 
                         if (dr["CMFT_SubBrokerCode"].ToString() != null && dr["CMFT_SubBrokerCode"].ToString() != string.Empty)
                             mfTransactionVo.SubBrokerCode = dr["CMFT_SubBrokerCode"].ToString();
