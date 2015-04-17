@@ -17,13 +17,13 @@ namespace BoOnlineOrderManagement
 {
     public class OnlineOrderMISBo
     {
-        public DataSet GetOrderBookMIS(int adviserId, int AmcCode, string OrderStatus, DateTime dtFrom, DateTime dtTo,int orderNo)
+        public DataSet GetOrderBookMIS(int adviserId, int AmcCode, string OrderStatus, DateTime dtFrom, DateTime dtTo,int orderNo,string folioNo)
         {
             DataSet dsOrderBookMIS = null;
             OnlineOrderMISDao OnlineOrderMISDao = new OnlineOrderMISDao();
             try
             {
-                dsOrderBookMIS = OnlineOrderMISDao.GetOrderBookMIS(adviserId, AmcCode, OrderStatus, dtFrom, dtTo, orderNo);
+                dsOrderBookMIS = OnlineOrderMISDao.GetOrderBookMIS(adviserId, AmcCode, OrderStatus, dtFrom, dtTo, orderNo, folioNo);
             }
             catch (BaseApplicationException Ex)
             {
@@ -46,13 +46,13 @@ namespace BoOnlineOrderManagement
             return dsOrderBookMIS;
         }
 
-        public DataSet GetSIPBookMIS(int adviserId, int AmcCode, string OrderStatus, int systematicId, DateTime dtFrom, DateTime dtTo,int orderId)
+        public DataSet GetSIPBookMIS(int adviserId, int AmcCode, string OrderStatus, int systematicId, DateTime dtFrom, DateTime dtTo, int orderId, string folioNo)
         {
             DataSet dsSIPBookMIS = null;
             OnlineOrderMISDao OnlineOrderMISDao = new OnlineOrderMISDao();
             try
             {
-                dsSIPBookMIS = OnlineOrderMISDao.GetSIPBookMIS(adviserId, AmcCode, OrderStatus, systematicId, dtFrom, dtTo, orderId);
+                dsSIPBookMIS = OnlineOrderMISDao.GetSIPBookMIS(adviserId, AmcCode, OrderStatus, systematicId, dtFrom, dtTo, orderId,folioNo);
             }
             catch (BaseApplicationException Ex)
             {

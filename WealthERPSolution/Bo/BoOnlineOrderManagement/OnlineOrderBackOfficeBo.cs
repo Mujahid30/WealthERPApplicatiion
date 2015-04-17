@@ -2232,13 +2232,13 @@ namespace BoOnlineOrderManagement
             }
             return extCode;
         }
-        public DataTable SearchOnPRoduct(int orderNo)
+        public DataTable SearchOnPRoduct(int orderNo, int applicationNo)
         {
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             DataTable dtSearchOnPRoduct;
             try
             {
-                dtSearchOnPRoduct = OnlineOrderBackOfficeDao.SearchOnPRoduct(orderNo);
+                dtSearchOnPRoduct = OnlineOrderBackOfficeDao.SearchOnPRoduct(orderNo, applicationNo);
             }
             catch (BaseApplicationException Ex)
             {
@@ -2477,6 +2477,20 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
             return amcCode;
+        }
+        public DataTable GetProductSearchType(string folioNo)
+        {
+            DataTable dt;
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+               dt= OnlineOrderBackOfficeDao.GetProductSearchType(folioNo);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dt;
         }
     }
 }

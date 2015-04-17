@@ -182,7 +182,7 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Customer List" Value="CustomerList">
                                             </telerik:RadPanelItem>
-                                             <telerik:RadPanelItem runat="server" Text="Customer Merge" Value="OfflineCustomerMerge">
+                                            <telerik:RadPanelItem runat="server" Text="Customer Merge" Value="OfflineCustomerMerge">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View Customer Association(Offline)" Value="View_Customer_Association">
                                             </telerik:RadPanelItem>
@@ -381,7 +381,7 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="RTA Unit Recon" Value="RTA_Unit_Recon">
                                             </telerik:RadPanelItem>
-                                             <telerik:RadPanelItem runat="server" Text="Non MF Recon" Value="Non-MF_Recon">
+                                            <telerik:RadPanelItem runat="server" Text="Non MF Recon" Value="Non-MF_Recon">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Audit Log" Value="Audit_Log">
                                             </telerik:RadPanelItem>
@@ -922,7 +922,7 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Customer List" Value="CustomerList">
                                             </telerik:RadPanelItem>
-                                             <telerik:RadPanelItem runat="server" Text="Customer Merge" Value="OfflineCustomerMerge">
+                                            <telerik:RadPanelItem runat="server" Text="Customer Merge" Value="OfflineCustomerMerge">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View Customer Association(Offline)" Value="View_Customer_Association">
                                             </telerik:RadPanelItem>
@@ -1117,7 +1117,7 @@
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="MFOrder Recon" Value="OrderMIS">
                                             </telerik:RadPanelItem>
-                                              <telerik:RadPanelItem runat="server" Text="Non MF Recon" Value="Non-MF_Recon">
+                                            <telerik:RadPanelItem runat="server" Text="Non MF Recon" Value="Non-MF_Recon">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="NCD and IPO Order Match" Value="NcdIpoRecon">
                                             </telerik:RadPanelItem>
@@ -1744,6 +1744,8 @@
                         <asp:ListItem Text="Order No." Value="ON"></asp:ListItem>
                         <asp:ListItem Text="Client Code" Value="CC"></asp:ListItem>
                         <asp:ListItem Text="PAN" Value="PAN"></asp:ListItem>
+                        <asp:ListItem Text="Folio No." Value="FNO"></asp:ListItem>
+                        <asp:ListItem Text="Application No." Value="APPNO"></asp:ListItem>
                     </asp:DropDownList>
                 </td>
             </tr>
@@ -1760,6 +1762,16 @@
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" CssClass="cvPCG"
                         ControlToValidate="txtClentCode" ErrorMessage="<br>Enter only Alpha/Numeric"
                         ValidationExpression="^[A-Za-z0-9]+$" Display="Dynamic">
+                    </asp:RegularExpressionValidator>
+                </td>
+                <td id="tdFolioNo" runat="server" visible="false">
+                    <asp:TextBox ID="txtFolioNo" runat="server"></asp:TextBox>
+                </td>
+                <td id="tdtxtAppno" runat="server" visible="false">
+                    <asp:TextBox ID="txtAppno" runat="server"></asp:TextBox>
+                      <asp:RegularExpressionValidator ID="RegtxtAppno" runat="server" CssClass="cvPCG"
+                        ControlToValidate="txtAppno" ErrorMessage="<br>Enter only numeric" ValidationExpression="^[0-9+]*$"
+                        Display="Dynamic">
                     </asp:RegularExpressionValidator>
                 </td>
                 <td>

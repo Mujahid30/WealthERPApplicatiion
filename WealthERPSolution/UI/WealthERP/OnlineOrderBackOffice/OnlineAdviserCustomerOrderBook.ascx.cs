@@ -64,9 +64,10 @@ namespace WealthERP.OnlineOrderBackOffice
                         txtOrderTo.SelectedDate = DateTime.Now;
                     }
                 }
-                    if (Request.QueryString["orderId"] != null)
+                if (Request.QueryString["orderId"] != null || Request.QueryString["txtFolioNo"] != null)
                     {
                         ViewState["OrderId"] = int.Parse(Request.QueryString["orderId"].ToString());
+                        ViewState["FolioNo"] = Request.QueryString["txtFolioNo"];
                         BindOrderBook();
                         tblField.Visible = false;
                         tblOrder.Visible = false;
@@ -181,9 +182,9 @@ namespace WealthERP.OnlineOrderBackOffice
              DataSet dsOrderBookMIS = new DataSet();
              DataTable dtOrderBookMIS = new DataTable();
              
-             if (Request.QueryString["orderId"] != null)
+             if (Request.QueryString["orderId"] != null  || Request.QueryString["txtFolioNo"] !=null)
              {
-                 dsOrderBookMIS = OnlineOrderMISBo.GetOrderBookMIS(advisorVo.advisorId, 0, "0", fromDate, toDate, int.Parse(ViewState["OrderId"].ToString()));
+                 dsOrderBookMIS = OnlineOrderMISBo.GetOrderBookMIS(advisorVo.advisorId, 0, "0", fromDate, toDate, (!string.IsNullOrEmpty(ViewState["OrderId"].ToString())) ? int.Parse(ViewState["OrderId"].ToString()) : 0, (!string.IsNullOrEmpty(ViewState["FolioNo"].ToString())) ? ViewState["FolioNo"].ToString() : null);
              }
              else
              {
@@ -194,7 +195,7 @@ namespace WealthERP.OnlineOrderBackOffice
                      if (txtOrderTo.SelectedDate != null)
                          toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
                  }
-                 dsOrderBookMIS = OnlineOrderMISBo.GetOrderBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), hdnOrderStatus.Value, fromDate, toDate, (!string.IsNullOrEmpty(txtOrderNo.Text)) ? int.Parse(txtOrderNo.Text) : 0);
+                 dsOrderBookMIS = OnlineOrderMISBo.GetOrderBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), hdnOrderStatus.Value, fromDate, toDate, (!string.IsNullOrEmpty(txtOrderNo.Text)) ? int.Parse(txtOrderNo.Text) : 0,null);
              }
             dtOrderBookMIS = dsOrderBookMIS.Tables[0];
             if (dtOrderBookMIS.Rows.Count > 0)

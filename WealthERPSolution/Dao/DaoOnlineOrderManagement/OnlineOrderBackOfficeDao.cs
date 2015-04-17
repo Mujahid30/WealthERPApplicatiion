@@ -2713,7 +2713,7 @@ namespace DaoOnlineOrderManagement
             }
             return extCode;
         }
-        public DataTable SearchOnPRoduct(int orderNo)
+        public DataTable SearchOnPRoduct(int orderNo,int applicationNo)
         {
             DataSet dsSearchOnPRoduct;
             DataTable dtSearchOnPRoduct;
@@ -2724,6 +2724,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdSearchOnPRoduct = db.GetStoredProcCommand("SPROC_ProductWiseSearch");
                 db.AddInParameter(cmdSearchOnPRoduct, "@OrderNo", DbType.Int32, orderNo);
+                db.AddInParameter(cmdSearchOnPRoduct, "@applicationNo", DbType.Int32, applicationNo);
                 dsSearchOnPRoduct = db.ExecuteDataSet(cmdSearchOnPRoduct);
                 dtSearchOnPRoduct = dsSearchOnPRoduct.Tables[0];
             }
@@ -3057,6 +3058,26 @@ namespace DaoOnlineOrderManagement
                 throw Ex;
             }
             return amccode;
+        }
+        public DataTable GetProductSearchType(string folioNo)
+        {
+            DataSet dsGetProductSearchType;
+            DataTable dtGetProductSearchType;
+            Database db;
+            DbCommand cmdGetProductSearchType;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetProductSearchType = db.GetStoredProcCommand("SPROC_GetOrderDetailsForSearchType");
+                db.AddInParameter(cmdGetProductSearchType, "@folioNo", DbType.String, folioNo);
+                dsGetProductSearchType = db.ExecuteDataSet(cmdGetProductSearchType);
+                dtGetProductSearchType = dsGetProductSearchType.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetProductSearchType;
         }
     }
 }

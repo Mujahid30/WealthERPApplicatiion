@@ -15,7 +15,7 @@ namespace DaoOnlineOrderManagement
 {
     public class OnlineOrderMISDao
     {
-        public DataSet GetOrderBookMIS(int adviserId, int AmcCode, string OrderStatus, DateTime dtFrom, DateTime dtTo,int orderNo)
+        public DataSet GetOrderBookMIS(int adviserId, int AmcCode, string OrderStatus, DateTime dtFrom, DateTime dtTo,int orderNo,string folioNo)
         {
             DataSet dsOrderBookMIS;
             Database db;
@@ -34,17 +34,18 @@ namespace DaoOnlineOrderManagement
                 else
                     db.AddInParameter(GetOrderBookMISCmd, "@Status", DbType.String, DBNull.Value);
                 if(dtFrom!=DateTime.MinValue)
-                db.AddInParameter(GetOrderBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
+                    db.AddInParameter(GetOrderBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
                 else
                     db.AddInParameter(GetOrderBookMISCmd, "@Fromdate", DbType.DateTime, DBNull.Value);
                 if (dtTo != DateTime.MinValue)
-                db.AddInParameter(GetOrderBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
+                    db.AddInParameter(GetOrderBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
                 else
                     db.AddInParameter(GetOrderBookMISCmd, "@ToDate", DbType.DateTime, DBNull.Value);
                 if(orderNo !=0)
                     db.AddInParameter(GetOrderBookMISCmd, "@orderNo", DbType.Int32, orderNo);
                 else
                     db.AddInParameter(GetOrderBookMISCmd, "@orderNo", DbType.Int32, 0);
+                db.AddInParameter(GetOrderBookMISCmd, "@folioNo", DbType.String, folioNo);
                 GetOrderBookMISCmd.CommandTimeout = 60 * 60;
                 dsOrderBookMIS = db.ExecuteDataSet(GetOrderBookMISCmd);
 
@@ -66,7 +67,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsOrderBookMIS;
         }
-        public DataSet GetSIPBookMIS(int adviserId, int AmcCode, string OrderStatus, int systematicId, DateTime dtFrom, DateTime dtTo,int orderId)
+        public DataSet GetSIPBookMIS(int adviserId, int AmcCode, string OrderStatus, int systematicId, DateTime dtFrom, DateTime dtTo, int orderId, string folioNo)
         {
             DataSet dsSIPBookMIS;
             Database db;
@@ -100,6 +101,8 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(GetSIPBookMISCmd, "@orderNo", DbType.Int32, orderId);
                 else
                     db.AddInParameter(GetSIPBookMISCmd, "@orderNo", DbType.Int32, 0);
+                db.AddInParameter(GetSIPBookMISCmd, "@folioNo", DbType.String, folioNo);
+
                 GetSIPBookMISCmd.CommandTimeout = 60 * 60;
                 dsSIPBookMIS = db.ExecuteDataSet(GetSIPBookMISCmd);
 

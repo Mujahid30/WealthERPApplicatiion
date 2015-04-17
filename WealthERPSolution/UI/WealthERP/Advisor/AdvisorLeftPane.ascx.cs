@@ -3980,7 +3980,7 @@ namespace WealthERP.Advisor
             {
                 if (txtOrderNo.Text != "")
                 {
-                    DataTable dtOrderNo = OnlineOrderBackOfficeBo.SearchOnPRoduct(int.Parse(txtOrderNo.Text));
+                    DataTable dtOrderNo = OnlineOrderBackOfficeBo.SearchOnPRoduct(int.Parse(txtOrderNo.Text),0);
                     foreach (DataRow dr in dtOrderNo.Rows)
                     {
                         orderId = int.Parse(dr["CO_OrderId"].ToString());
@@ -3992,7 +3992,7 @@ namespace WealthERP.Advisor
 
                     if (productcode == "MF" && isonline == 1 && Type != "SIP")
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineAdviserCustomerOrderBook", "loadcontrol('OnlineAdviserCustomerOrderBook','?orderId=" + orderId + "');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineAdviserCustomerOrderBook", "loadcontrol('OnlineAdviserCustomerOrderBook','?orderId=" + orderId + "&txtFolioNo=" + null + "');", true);
 
                     }
                     if (productcode == "MF" && isonline == 1 && Type == "SIP")
@@ -4010,9 +4010,80 @@ namespace WealthERP.Advisor
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineAdviserCustomerIPOOrderBook", "loadcontrol('OnlineAdviserCustomerIPOOrderBook','?orderId=" + orderId + "');", true);
 
                     }
-                    if (productcode == "MF" && isonline == 0)
+                    if (productcode == "MF" && isonline == 0 && Type != "SIP")
                     {
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OrderList", "loadcontrol('OrderList','?orderId=" + orderId + "');", true);
+
+                    }
+                    if (productcode == "FI" && isonline == 0 && subCategoryType != "FICDCD" && subCategoryType != "FICGCG" && subCategoryType != "FINPNP")
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OfflineCustomersNCDOrderBook", "loadcontrol('OfflineCustomersNCDOrderBook','?orderId=" + orderId + "');", true);
+
+                    }
+                    if (productcode == "IP" && isonline == 0)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OfflineCustomersIPOOrderBook", "loadcontrol('OfflineCustomersIPOOrderBook','?orderId=" + orderId + "');", true);
+                    }
+                    if (productcode == "FI" && isonline == 0 && (subCategoryType == "FICDCD" || subCategoryType == "FICGCG" || subCategoryType == "FINPNP"))
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FixedIncome54ECOrderBook", "loadcontrol('FixedIncome54ECOrderBook','?orderId=" + orderId + "&category=" + subCategoryType + "');", true);
+                    }
+                }
+            }
+            else if (ddlSearchtype.SelectedValue == "FNO")
+            {
+                if (txtFolioNo.Text != "")
+                {
+                    DataTable dtFolio = OnlineOrderBackOfficeBo.GetProductSearchType(txtFolioNo.Text);
+                    foreach (DataRow dr in dtFolio.Rows)
+                    {
+                        isonline = int.Parse(dr["CO_IsOnline"].ToString());
+                        productcode = dr["PAG_AssetGroupCode"].ToString();
+                        Type = dr["WMTT_TransactionClassificationCode"].ToString();
+                    }
+                    if (productcode == "MF" && isonline == 1 && Type != "SIP")
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineAdviserCustomerOrderBook", "loadcontrol('OnlineAdviserCustomerOrderBook','?txtFolioNo=" + txtFolioNo.Text + "&orderId=" + 0 + "');", true);
+
+                    }
+                    if (productcode == "MF" && isonline == 1 && Type == "SIP")
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineAdviserCustomerSIPOrderBook", "loadcontrol('OnlineAdviserCustomerSIPOrderBook','?txtFolioNo=" + txtFolioNo.Text + "&orderId=" + 0 + "');", true);
+
+                    }
+                    if (productcode == "MF" && isonline == 0 && Type != "SIP")
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OrderList", "loadcontrol('OrderList','?txtFolioNo=" + txtFolioNo.Text + "');", true);
+
+                    }
+
+                }
+                else
+                {
+
+                }
+            }
+            else if (ddlSearchtype.SelectedValue == "APPNO")
+            {
+                if (txtAppno.Text != "")
+                {
+                    DataTable dtOrderNo = OnlineOrderBackOfficeBo.SearchOnPRoduct(0,int.Parse(txtAppno.Text));
+                    foreach (DataRow dr in dtOrderNo.Rows)
+                    {
+                        orderId = int.Parse(dr["CO_OrderId"].ToString());
+                        isonline = int.Parse(dr["CO_IsOnline"].ToString());
+                        productcode = dr["PAG_AssetGroupCode"].ToString();
+                        subCategoryType = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+                        Type = dr["WMTT_TransactionClassificationCode"].ToString();
+                    }
+                    if (productcode == "FI" && isonline == 1)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineAdviserNCDOrderBook", "loadcontrol('OnlineAdviserNCDOrderBook','?orderId=" + orderId + "');", true);
+
+                    }
+                    if (productcode == "IP" && isonline == 1)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineAdviserCustomerIPOOrderBook", "loadcontrol('OnlineAdviserCustomerIPOOrderBook','?orderId=" + orderId + "');", true);
 
                     }
                     if (productcode == "FI" && isonline == 0 && subCategoryType != "FICDCD" && subCategoryType != "FICGCG" && subCategoryType != "FINPNP")
@@ -4046,11 +4117,30 @@ namespace WealthERP.Advisor
             {
                 tdOrderNo.Visible = true;
                 trClientCode.Visible = false;
+                tdFolioNo.Visible = false;
+                tdtxtAppno.Visible = false;
+            }
+            else if (ddlSearchtype.SelectedValue == "FNO")
+            {
+                tdOrderNo.Visible = false;
+                trClientCode.Visible = false;
+                tdFolioNo.Visible = true;
+                tdtxtAppno.Visible = false;
+
+            }
+            else if (ddlSearchtype.SelectedValue == "APPNO")
+            {
+                tdOrderNo.Visible = false;
+                trClientCode.Visible = false;
+                tdFolioNo.Visible = false;
+                tdtxtAppno.Visible = true;
             }
             else
             {
                 tdOrderNo.Visible = false;
                 trClientCode.Visible = true;
+                tdFolioNo.Visible = false;
+                tdtxtAppno.Visible = false;
             }
         }
     }
