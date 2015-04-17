@@ -262,11 +262,11 @@
         AllowFilteringByColumn="true" AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true"
         EnableHeaderContextMenu="true" OnItemDataBound="gvWERPTrans_ItemDataBound" EnableHeaderContextFilterMenu="true"
         OnNeedDataSource="gvCommissionReceiveRecon_OnNeedDataSource">
-        <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+        <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false"
             CommandItemDisplay="None" GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
             GroupLoadMode="Client" ShowGroupFooter="true" DataKeyNames="CMFT_MFTransId,totalNAV,perDayTrail,PerDayAssets">
             <Columns>
-            <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action" HeaderStyle-Width="10%" Visible="false">
+            <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action"  Visible="false">
                     <HeaderTemplate>
                         <input id="chkIdAll" name="chkIdAll" type="checkbox" onclick="checkAllBoxes()" />
                     </HeaderTemplate>
@@ -527,18 +527,18 @@
                     FooterStyle-HorizontalAlign="Right" Visible="false">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="90px" HeaderText="Retention" DataField="RetentionVal"
-                    HeaderStyle-HorizontalAlign="Center" UniqueName="RetentionVal" SortExpression="RetentionVal"
-                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                    FooterStyle-HorizontalAlign="Right">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
+               
                 <telerik:GridBoundColumn HeaderStyle-Width="90px" HeaderText="Units" DataField="units"
                     HeaderStyle-HorizontalAlign="Center" UniqueName="units" SortExpression="units"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
+                <telerik:GridCalculatedColumn DataFields="borkageExpectedvalue,REC_borkageExpectedvalue"
+                 Expression="{1}-{0}" SortExpression="Retention1" UniqueName="Retention1"  HeaderText="Retention Bonus"    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
+              
+                
+                </telerik:GridCalculatedColumn>
             </Columns>
         </MasterTableView>
         <ClientSettings>
