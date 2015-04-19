@@ -63,6 +63,7 @@ namespace WealthERP.BusinessMIS
                 {
                     AgentCode = associateuserheirarchyVo.AgentCode.ToString();
                     ddlSearchType.Items.FindByText("Receivables").Enabled = false;
+                    ddlSearchType.Items.FindByText("Brokerage").Enabled = false;
                     ddlSelectMode.Items.FindByText("Both").Enabled = false;
                     ddlSelectMode.Items.FindByText("Online-Only").Enabled = false;
                 }
@@ -116,6 +117,16 @@ namespace WealthERP.BusinessMIS
                 ddlIssueName.DataBind();
                 BindMappedIssues(ddlIssueType.SelectedValue, ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), (ddlProductCategory.SelectedValue == "") ? "FIFIIP" : ddlProductCategory.SelectedValue);
 
+            }
+        }
+        protected void ddlSearchType_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            td1.Visible = true;
+            td2.Visible = true;
+            if (ddlSearchType.SelectedValue != "Select" && ddlProduct.SelectedValue=="MF")
+            {
+                td1.Visible = false;
+                td2.Visible = false;
             }
         }
         protected void ddlIssueType_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -176,6 +187,9 @@ namespace WealthERP.BusinessMIS
             tdDdlCategory.Visible = false;
             ddlProductCategory.Items.Clear();
             ddlProductCategory.DataBind();
+            td2.Visible = true;
+            td1.Visible = true;
+            ddlSearchType.Items[1].Enabled = true;
             
             if (asset == "MF")
             {
@@ -186,6 +200,8 @@ namespace WealthERP.BusinessMIS
                 cvddlIssueType.Enabled = false;
                 Label1.Visible = true;
                 ddlCommType.Visible = true;
+                td2.Visible = false;
+                td1.Visible = false;
                 
                
             }
@@ -199,6 +215,9 @@ namespace WealthERP.BusinessMIS
                 cvddlIssueType.Enabled = true;
                 Label1.Visible = false;
                 ddlCommType.Visible = false;
+                ddlSearchType.Items[1].Enabled = false;
+                td2.Visible = false;
+                td1.Visible = false;
 
 
             }
@@ -229,24 +248,19 @@ namespace WealthERP.BusinessMIS
         }
         protected void ddlProductCategory_OnSelectedIndexChanged(object Sender, EventArgs e)
         {
-            //string a = ddlProductCategory.SelectedValue;
-            if (ddlProductCategory.SelectedValue != "FISDSD" || ddlProductCategory.SelectedValue != "FIFIIP")
+            if (ddlProductCategory.SelectedValue != "Select")
             {
-                tdFrom.Visible = true;
-                tdTolbl.Visible = true;
+                td1.Visible = false;
+                td2.Visible = false;
+                if (ddlProductCategory.SelectedValue != "FISDSD")
+                {
+                    tdFrom.Visible = true;
+                    tdTolbl.Visible = true;
+                    td1.Visible = true;
+                    td2.Visible = true;
+                }
+                BindMappedIssues(ddlIssueType.SelectedValue, ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), (ddlProductCategory.SelectedValue == "") ? "FIFIIP" : ddlProductCategory.SelectedValue);
             }
-            if (ddlProductCategory.SelectedValue == "FICDCD" || ddlProductCategory.SelectedValue == "FICGCG")
-            {
-                Label3.Visible = true;
-                ddlOrderType.Visible = true;
-            }
-            else
-            {
-                Label3.Visible = false;
-                ddlOrderType.Visible = false;
-               
-            }
-            
         }
         private void LoadAllSchemeList(int amcCode)
         {
@@ -314,6 +328,16 @@ namespace WealthERP.BusinessMIS
                 gvCommissionReceiveRecon.MasterTableView.GetColumn("action").Visible = false;
                 gvCommissionReceiveRecon.MasterTableView.GetColumn("CMFT_ReceivedCommissionAdjustment").Visible = false;
                 gvCommissionReceiveRecon.MasterTableView.GetColumn("UpdatedExpectedAmount").Visible = false;
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("REC_borkageExpectedvalue").Visible = true;
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("ACSR_BrokerageValue").Visible = true;
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("WCU_UnitCode").Visible = true;
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("expectedamount").Visible = true;
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("borkageExpectedvalue").Visible = true;
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("Retention1").Visible = false;
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_WCU_UnitCode").Visible = true;
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_Expectedamount").Visible = true;
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_ACSR_BrokerageValue").Visible = true;
+              
                 if (ddlCommType.SelectedValue == "TC")
                 {
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("totalNAV").Visible = true;
@@ -328,6 +352,29 @@ namespace WealthERP.BusinessMIS
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("CMFT_ReceivedCommissionAdjustment").Visible = true;
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("UpdatedExpectedAmount").Visible = true;
                 }
+                if (int.Parse(ddlSearchType.SelectedValue) == 16019)
+                {
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("ACSR_BrokerageValue").Visible = false;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("WCU_UnitCode").Visible = false;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("expectedamount").Visible = false;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("borkageExpectedvalue").Visible = false;
+                
+                }
+                else if (int.Parse(ddlSearchType.SelectedValue) == 16020)
+                {
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_WCU_UnitCode").Visible = false;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_Expectedamount").Visible = false;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_ACSR_BrokerageValue").Visible = false;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("REC_borkageExpectedvalue").Visible = false;
+
+                }
+                else
+                {
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("Retention1").Visible = true;
+                    
+                   
+                }
+
             }
 
         }
@@ -404,10 +451,8 @@ namespace WealthERP.BusinessMIS
         }
         protected void ddlProduct_SelectedIndexChanged(object source, EventArgs e)
         {
-           
             
                 ddlCommType.Items[3].Enabled = false;
-            
             
             if (ddlProduct.SelectedValue != "Select")
             {
@@ -417,8 +462,6 @@ namespace WealthERP.BusinessMIS
                     ddlOrderStatus.Items[2].Enabled = false;
                     ddlOrderStatus.Items[1].Enabled = true;
                     ddlCommType.Items[3].Enabled = false;
-                   
-                    
                 }
                 else
                 {
@@ -428,17 +471,12 @@ namespace WealthERP.BusinessMIS
                 }
                 if (ddlProduct.SelectedValue == "FI")
                 {
-                    
                     ddlCommType.Items[2].Enabled = false;
                 }
                 else
                 {
                     ddlCommType.Items[2].Enabled = true;
                 }
-                //string b = ddlCommType.SelectedValue;
-          
-
-
                 ShowHideControlsBasedOnProduct(ddlProduct.SelectedValue);
             }
 
@@ -478,6 +516,7 @@ namespace WealthERP.BusinessMIS
             ddlSearchType.DataTextField = "WCMV_Name";
             ddlSearchType.DataBind();
             ddlSearchType.Items.Insert(0, new ListItem("Select", "Select"));
+            ddlSearchType.Items.Insert(1, new ListItem("Brokerage", "0"));
         }
         private void BindBondCategories()
         {
