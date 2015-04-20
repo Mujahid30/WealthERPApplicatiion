@@ -328,11 +328,11 @@ namespace WealthERP.BusinessMIS
                 gvCommissionReceiveRecon.MasterTableView.GetColumn("action").Visible = false;
                 gvCommissionReceiveRecon.MasterTableView.GetColumn("CMFT_ReceivedCommissionAdjustment").Visible = false;
                 gvCommissionReceiveRecon.MasterTableView.GetColumn("UpdatedExpectedAmount").Visible = false;
-                gvCommissionReceiveRecon.MasterTableView.GetColumn("borkageExpectedvalue1").Visible = true;
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("RecborkageExpectedvalue").Visible = true;
                 gvCommissionReceiveRecon.MasterTableView.GetColumn("ACSR_BrokerageValue").Visible = true;
                 gvCommissionReceiveRecon.MasterTableView.GetColumn("WCU_UnitCode").Visible = true;
                 gvCommissionReceiveRecon.MasterTableView.GetColumn("expectedamount").Visible = true;
-                gvCommissionReceiveRecon.MasterTableView.GetColumn("RECborkageExpectedvalue").Visible = true;
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("PayborkageExpectedvalue").Visible = true;
                 gvCommissionReceiveRecon.MasterTableView.GetColumn("Retention1").Visible = false;
                 gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_WCU_UnitCode").Visible = true;
                 gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_Expectedamount").Visible = true;
@@ -357,7 +357,7 @@ namespace WealthERP.BusinessMIS
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("ACSR_BrokerageValue").Visible = false;
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("WCU_UnitCode").Visible = false;
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("expectedamount").Visible = false;
-                    gvCommissionReceiveRecon.MasterTableView.GetColumn("RECborkageExpectedvalue").Visible = false;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("PayborkageExpectedvalue").Visible = false;
                 
                 }
                 else if (int.Parse(ddlSearchType.SelectedValue) == 16020)
@@ -365,7 +365,7 @@ namespace WealthERP.BusinessMIS
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_WCU_UnitCode").Visible = false;
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_Expectedamount").Visible = false;
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_ACSR_BrokerageValue").Visible = false;
-                    gvCommissionReceiveRecon.MasterTableView.GetColumn("borkageExpectedvalue1").Visible = false;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("RecborkageExpectedvalue").Visible = false;
 
                 }
                 else

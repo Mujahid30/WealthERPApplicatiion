@@ -443,8 +443,8 @@
                
                
                 <telerik:GridCalculatedColumn DataFields="Rec_Expectedamount,ACSR_ReducedValue,ACSR_ServiceTaxValue"
-                    Expression="({0})-({0}*{1}/100)-({0}*{2}/100)" SortExpression="borkageExpectedvalue1" UniqueName="borkageExpectedvalue1" HeaderText="Receivable Net Commission"
-                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" HeaderStyle-Width="2%" ShowFilterIcon="false"   Visible="true" DataType="System.Decimal">
+                    Expression="({0})-({0}*{1}/100)-({0}*{2}/100)" SortExpression="RecborkageExpectedvalue" UniqueName="RecborkageExpectedvalue" HeaderText="Receivable Net Commission"
+                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" HeaderStyle-Width="2%" ShowFilterIcon="false"   Visible="true" DataType="System.Decimal" AllowFiltering="false">
                      <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top"   />
                 </telerik:GridCalculatedColumn>
                  
@@ -468,8 +468,8 @@
                 </telerik:GridBoundColumn>
                
                 <telerik:GridCalculatedColumn DataFields="expectedamount,ACSR_ReducedValue,ACSR_ServiceTaxValue"
-                    Expression="({0})-({0}*{1}/100)-({0}*{2}/100)" SortExpression="RECborkageExpectedvalue" UniqueName="RECborkageExpectedvalue" HeaderText="Payable Net Commission"
-                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" HeaderStyle-Width="2%" ShowFilterIcon="false"   Visible="true" DataType="System.Decimal">
+                    Expression="({0})-({0}*{1}/100)-({0}*{2}/100)" SortExpression="PayborkageExpectedvalue" UniqueName="PayborkageExpectedvalue" HeaderText="Payable Net Commission"
+                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" HeaderStyle-Width="2%" ShowFilterIcon="false"   Visible="true" DataType="System.Decimal" AllowFiltering="false">
                      <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top"   />
                 </telerik:GridCalculatedColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="2%" HeaderText="Age" DataField="Age"
@@ -509,9 +509,9 @@
                     FooterStyle-HorizontalAlign="Right" DataType="System.Decimal">
                     <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                 <telerik:GridCalculatedColumn DataFields="RECborkageExpectedvalue,borkageExpectedvalue1"
+                 <telerik:GridCalculatedColumn DataFields="RecborkageExpectedvalue,PayborkageExpectedvalue"
                     Expression="{0}-{1}" SortExpression="Retention1" UniqueName="Retention1" HeaderText="Retention"
-                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" HeaderStyle-Width="2%" ShowFilterIcon="false"   Visible="false">
+                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" HeaderStyle-Width="2%" ShowFilterIcon="false"   Visible="false" AllowFiltering="false">
                      <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top"   />
                 </telerik:GridCalculatedColumn>
                 <telerik:GridTemplateColumn HeaderStyle-Width="2%" HeaderText="Commission Adjustment Amount"
