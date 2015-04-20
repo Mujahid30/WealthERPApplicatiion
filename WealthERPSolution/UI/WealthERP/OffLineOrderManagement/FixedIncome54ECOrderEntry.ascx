@@ -685,7 +685,7 @@
                             GroupName="rejAut" AutoPostBack="true" OnCheckedChanged="rbtnAuthentication_OnCheckedChanged" />
                     </td>
                     <td style="width: 20%">
-                        <asp:RadioButton ID="rbtnReject" runat="server" CssClass="txtField" Text="Rejected"
+                        <asp:RadioButton ID="rbtnReject" runat="server" CssClass="txtField" Text="Reject"
                             GroupName="rejAut" AutoPostBack="true" OnCheckedChanged="rbtnReject_CheckedChanged" />
                     </td>
                     <td class="leftField" style="width: 10%">
