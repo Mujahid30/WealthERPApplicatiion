@@ -979,7 +979,7 @@ namespace DaoOps
             return dtDemateDetails;
         }
 
-        public DataTable GetOrderList(int systematicId, int advisorId, string rmId, string branchId, DateTime toDate, DateTime fromDate, string status, string customerId, string orderType, string usertype, int AgentId, string SubBrokerCode, string AgentCode, int orderId,string transactionType)
+        public DataTable GetOrderList(int systematicId, int advisorId, string rmId, string branchId, DateTime toDate, DateTime fromDate, string status, string customerId, string orderType, string usertype, int AgentId, string SubBrokerCode, string AgentCode, int orderId, string transactionType, string folioNo)
         {
             DataSet dsOrder = null;
             DataTable dtOrder;
@@ -1053,6 +1053,7 @@ namespace DaoOps
                     db.AddInParameter(dbOrder, "@transactionType", DbType.String, null );
                 else
                     db.AddInParameter(dbOrder, "@transactionType", DbType.String, transactionType);
+                db.AddInParameter(dbOrder, "@folioNo", DbType.String, folioNo);
                 dsOrder = db.ExecuteDataSet(dbOrder);
                 dtOrder = dsOrder.Tables[0];
 

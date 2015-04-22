@@ -541,13 +541,13 @@ namespace BoOps
             return dtDemateDetails;
         }
 
-        public DataTable GetOrderList(int systematicId, int advisorId, string rmId, string branchId, DateTime toDate, DateTime fromDate, string status, string customerId, string orderType, string usertype, int AgentId, string SubBrokerCode, string AgentCode, int orderId, string transactionType)
+        public DataTable GetOrderList(int systematicId, int advisorId, string rmId, string branchId, DateTime toDate, DateTime fromDate, string status, string customerId, string orderType, string usertype, int AgentId, string SubBrokerCode, string AgentCode, int orderId, string transactionType, string folioNo)
         { 
             DataTable dtOrder = null;
             OrderDao orderDao = new OrderDao();
             try
             {
-                dtOrder = orderDao.GetOrderList(systematicId, advisorId, rmId, branchId, toDate, fromDate, status, customerId, orderType, usertype, AgentId, SubBrokerCode, AgentCode, orderId, transactionType);
+                dtOrder = orderDao.GetOrderList(systematicId, advisorId, rmId, branchId, toDate, fromDate, status, customerId, orderType, usertype, AgentId, SubBrokerCode, AgentCode, orderId, transactionType, folioNo);
             }
             catch (BaseApplicationException Ex)
             {

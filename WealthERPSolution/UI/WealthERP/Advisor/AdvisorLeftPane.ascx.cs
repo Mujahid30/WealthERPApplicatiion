@@ -4053,7 +4053,7 @@ namespace WealthERP.Advisor
                     }
                     if (productcode == "MF" && isonline == 0 && Type != "SIP")
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OrderList", "loadcontrol('OrderList','?txtFolioNo=" + txtFolioNo.Text + "');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OrderList", "loadcontrol('OrderList','?txtFolioNo=" + txtFolioNo.Text + "&orderId=" + 0 + "');", true);
 
                     }
 

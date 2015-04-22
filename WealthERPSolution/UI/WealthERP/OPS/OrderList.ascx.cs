@@ -186,9 +186,11 @@ namespace WealthERP.OPS
                 gvFIOrderList.Visible = false;
 
             }
-            if (Request.QueryString["orderId"] != null)
+            if (Request.QueryString["orderId"] != null || Request.QueryString["txtFolioNo"] !=null)
             {
                 ViewState["OrderId"] = int.Parse(Request.QueryString["orderId"].ToString());
+                ViewState["FolioNo"] = Request.QueryString["txtFolioNo"];
+
                 BindGvOrderList();
                 tblOrder.Visible = false;
             }
@@ -630,9 +632,9 @@ namespace WealthERP.OPS
             SetParameterSubbroker();
 
             DataTable dtOrder = new DataTable();
-            if (Request.QueryString["orderId"] != null)
+            if (Request.QueryString["orderId"] != null || Request.QueryString["txtFolioNo"] != null)
             {
-                dtOrder = orderbo.GetOrderList(systematicId, advisorVo.advisorId, hdnRMId.Value, hdnBranchId.Value, DateTime.MinValue, DateTime.MinValue, hdnOrderStatus.Value, hdnCustomerId.Value, hdnOrderType.Value, userType, int.Parse(hdnAgentId.Value), hdnSubBrokerCode.Value, hdnAgentCode.Value, int.Parse(ViewState["OrderId"].ToString()), ddlTrxType.SelectedValue);
+                dtOrder = orderbo.GetOrderList(systematicId, advisorVo.advisorId, hdnRMId.Value, hdnBranchId.Value, DateTime.MinValue, DateTime.MinValue, hdnOrderStatus.Value, hdnCustomerId.Value, hdnOrderType.Value, userType, int.Parse(hdnAgentId.Value), hdnSubBrokerCode.Value, hdnAgentCode.Value, (!string.IsNullOrEmpty(ViewState["OrderId"].ToString())) ? int.Parse(ViewState["OrderId"].ToString()) : 0, ddlTrxType.SelectedValue, (!string.IsNullOrEmpty(ViewState["FolioNo"].ToString())) ? ViewState["FolioNo"].ToString() : null);
 
             }
             else
@@ -640,11 +642,11 @@ namespace WealthERP.OPS
                 if (ViewState["OrderStatus"] != null)
                 {
 
-                    dtOrder = orderbo.GetOrderList(systematicId, advisorVo.advisorId, hdnRMId.Value, hdnBranchId.Value, DateTime.Now, Convert.ToDateTime(ViewState["FromDate"].ToString()), ViewState["OrderStatus"].ToString(), hdnCustomerId.Value, ViewState["transCode"].ToString(), userType, int.Parse(hdnAgentId.Value), hdnSubBrokerCode.Value, hdnAgentCode.Value, 0, ddlTrxType.SelectedValue);
+                    dtOrder = orderbo.GetOrderList(systematicId, advisorVo.advisorId, hdnRMId.Value, hdnBranchId.Value, DateTime.Now, Convert.ToDateTime(ViewState["FromDate"].ToString()), ViewState["OrderStatus"].ToString(), hdnCustomerId.Value, ViewState["transCode"].ToString(), userType, int.Parse(hdnAgentId.Value), hdnSubBrokerCode.Value, hdnAgentCode.Value, 0, ddlTrxType.SelectedValue,null);
                 }
                 else
                 {
-                    dtOrder = orderbo.GetOrderList(systematicId, advisorVo.advisorId, hdnRMId.Value, hdnBranchId.Value, Convert.ToDateTime(hdnTodate.Value), Convert.ToDateTime(hdnFromdate.Value), hdnOrderStatus.Value, hdnCustomerId.Value, hdnOrderType.Value, userType, int.Parse(hdnAgentId.Value), hdnSubBrokerCode.Value, hdnAgentCode.Value, 0, ddlTrxType.SelectedValue);
+                    dtOrder = orderbo.GetOrderList(systematicId, advisorVo.advisorId, hdnRMId.Value, hdnBranchId.Value, Convert.ToDateTime(hdnTodate.Value), Convert.ToDateTime(hdnFromdate.Value), hdnOrderStatus.Value, hdnCustomerId.Value, hdnOrderType.Value, userType, int.Parse(hdnAgentId.Value), hdnSubBrokerCode.Value, hdnAgentCode.Value, 0, ddlTrxType.SelectedValue,null);
 
                 }
             }
