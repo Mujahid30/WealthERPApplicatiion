@@ -168,10 +168,10 @@ namespace WealthERP.OnlineOrderBackOffice
             gdi = (GridDataItem)lnkOrderNo.NamingContainer;
             int selectedRow = gdi.ItemIndex + 1;
             int reqId = int.Parse((rgRequests.MasterTableView.DataKeyValues[selectedRow - 1]["ReqId"].ToString()));
-
+            string IsOnl = rgRequests.MasterTableView.DataKeyValues[selectedRow - 1]["IsOnl"].ToString();
             if (reqId!=0)
             {
-                Response.Redirect("ControlHost.aspx?pageid=AdviserCustomer&reqId=" + reqId + "", false);
+                Response.Redirect("ControlHost.aspx?pageid=AdviserCustomer&reqId=" + reqId + "&IsOnl=" + IsOnl + "", false);
             }           
         }
         protected void lnkFolioCreated_Click(object sender, EventArgs e)

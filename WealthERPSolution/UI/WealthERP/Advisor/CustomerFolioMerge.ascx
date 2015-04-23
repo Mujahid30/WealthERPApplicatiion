@@ -487,7 +487,7 @@
                                 DataField="CMFA_BROKERCODE" HeaderStyle-Width="50px" SortExpression="CMFA_BROKERCODE"
                                 AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                             </telerik:GridBoundColumn>--%>
-                            <telerik:GridBoundColumn UniqueName="processId" HeaderText="Process Id" DataField="processId"
+                            <telerik:GridBoundColumn UniqueName="processId" HeaderText="Request Id" DataField="processId"
                                 HeaderStyle-Width="108px" SortExpression="processId" AllowFiltering="true" ShowFilterIcon="false"
                                 AutoPostBackOnFilter="true">
                                 <HeaderStyle></HeaderStyle>

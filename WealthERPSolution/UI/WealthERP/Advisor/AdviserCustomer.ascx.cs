@@ -427,7 +427,16 @@ namespace WealthERP.Advisor
             }
             if (Request.QueryString["reqId"] != null)
             {
-
+                string isOnln = Request.QueryString["IsOnl"].ToString();
+                if (isOnln == "Online")
+                {
+                    rbtnReg = 0;
+                }
+                else if (isOnln == "Offline")
+                {
+                    rbtnReg = 1;
+                }
+                    
                 txtRequestId.Text = int.Parse(Request.QueryString["reqId"]).ToString();
                 dtcustomerList = BindOnDemamd(adviserId, rmId, AgentId, UserRole, branchHeadId, AgentCode, rbtnReg, GetSelectedFilterValue(), (!string.IsNullOrEmpty(txtCustomerId.Value)) ? int.Parse(txtCustomerId.Value) : 0, null, null, (!string.IsNullOrEmpty(custCode)) ? custCode : null, null, null, (!string.IsNullOrEmpty(pan)) ? pan : null, null, null, null, null, null, null, null, null, null, gvCustomerList.PageSize, gvCustomerList.CurrentPageIndex + 1, out genDictParent, out genDictRM, out genDictReassignRM, out RowCount, (!string.IsNullOrEmpty(txtRequestId.Text)) ? int.Parse(txtRequestId.Text) : 0);
                 trRegister.Visible = false;
