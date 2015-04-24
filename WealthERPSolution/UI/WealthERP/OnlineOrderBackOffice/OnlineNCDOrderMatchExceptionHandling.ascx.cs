@@ -91,7 +91,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             if (!IsPostBack)
             {
-               // BindOrderStatus();
+                // BindOrderStatus();
                 BindBusinessChannel();
                 BindCategory();
                 if (userType == "associates")
@@ -128,7 +128,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     gvOfflineAllotment.MasterTableView.GetColumn("COAD_CertificateNo").Visible = true;
 
                 }
-                
+
             }
         }
         //protected void cbOrderSelect_changed(object sender, EventArgs e)
@@ -238,7 +238,12 @@ namespace WealthERP.OnlineOrderBackOffice
             //}
         }
 
-
+        protected void RadMultiSeries_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtOrder = new DataTable();
+            dtOrder = (DataTable)Cache[userVo.UserId.ToString() + "OrdersMatchMultiSeries"];// Cache["OrderMIS" + userVo.UserId];
+            RadMultiSeries.DataSource = dtOrder;
+        }
         protected void gvOrders_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dtOrder = new DataTable();
@@ -396,12 +401,26 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     pnlGrid.Visible = false;
                     dtOrdersMatch = onlineNCDBackOfficeBo.GetAdviserOrders(int.Parse(ddlIssue.SelectedValue), ddlProduct.SelectedValue, advisorVo.advisorId, 2, userType, AgentCode, ddlSubCategory.SelectedValue).Tables[0];
-                    gvOfflineAllotment.DataSource = dtOrdersMatch;
-                    gvOfflineAllotment.DataBind();
-                    pnlOfflineNCDIPO.Visible = true;
-                    if (Cache[userVo.UserId.ToString() + "HoldingOffline"] != null)
-                        Cache.Remove(userVo.UserId.ToString() + "HoldingOffline");
-                    Cache.Insert(userVo.UserId.ToString() + "HoldingOffline", dtOrdersMatch);
+                    if (ddlType.SelectedValue == "2" && ddlSubCategory.SelectedValue == "FISDSD")
+                    {
+                        RadMultiSeries.DataSource = dtOrdersMatch;
+                        RadMultiSeries.DataBind();
+                        PnlMultiSeries.Visible = true;
+                        pnlOfflineNCDIPO.Visible = false;
+                        if (Cache[userVo.UserId.ToString() + "OrdersMatchMultiSeries"] != null)
+                            Cache.Remove(userVo.UserId.ToString() + "OrdersMatchMultiSeries");
+                        Cache.Insert(userVo.UserId.ToString() + "OrdersMatchMultiSeries", dtOrdersMatch);
+                    }
+                    else
+                    {
+                        gvOfflineAllotment.DataSource = dtOrdersMatch;
+                        gvOfflineAllotment.DataBind();
+                        pnlOfflineNCDIPO.Visible = true;
+                        PnlMultiSeries.Visible = false;
+                        if (Cache[userVo.UserId.ToString() + "HoldingOffline"] != null)
+                            Cache.Remove(userVo.UserId.ToString() + "HoldingOffline");
+                        Cache.Insert(userVo.UserId.ToString() + "HoldingOffline", dtOrdersMatch);
+                    }
                 }
                 else
                 {
@@ -409,17 +428,19 @@ namespace WealthERP.OnlineOrderBackOffice
                     gvOrders.DataSource = dtOrdersMatch;
                     gvOrders.DataBind();
                     pnlGrid.Visible = true;
+                    PnlMultiSeries.Visible = false;
                     pnlOfflineNCDIPO.Visible = false;
                     if (Cache[userVo.UserId.ToString() + "OrdersMatch"] != null)
                         Cache.Remove(userVo.UserId.ToString() + "OrdersMatch");
                     Cache.Insert(userVo.UserId.ToString() + "OrdersMatch", dtOrdersMatch);
+
                 }
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
-           
+
         }
 
         private void BindOrderStatus()
@@ -438,14 +459,14 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlOrderStatus.Items.Insert(0, new ListItem("Select", "Select"));
         }
 
-       
+
 
         private void BindBusinessChannel()
         {
-            
+
             DataTable dtBUsinessChanel;
             dtBUsinessChanel = onlineNCDBackOfficeBo.GetBusinessChannel();
-            
+
             if (dtBUsinessChanel.Rows.Count > 0)
             {
                 ddlBChannnel.DataSource = dtBUsinessChanel;
@@ -465,7 +486,7 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void ddlOrderStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+
 
         }
 
@@ -474,7 +495,7 @@ namespace WealthERP.OnlineOrderBackOffice
             if (ddlProduct.SelectedValue == "FI")
             {
                 tdSubCategory.Visible = true;
-                tdlblSubCategory.Visible=true;
+                tdlblSubCategory.Visible = true;
             }
             else
             {
@@ -482,7 +503,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 tdlblSubCategory.Visible = false;
             }
 
-           
+
 
         }
 
@@ -492,7 +513,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ddlIssue.Items.Clear();
                 DataSet dsIssuer = new DataSet();
-                dsIssuer = onlineNCDBackOfficeBo.GetIssuerIssue(advisorVo.advisorId, ddlProduct.SelectedValue,Convert.ToInt32(ddlBChannnel.SelectedValue),"PR",ddlSubCategory.SelectedValue);
+                dsIssuer = onlineNCDBackOfficeBo.GetIssuerIssue(advisorVo.advisorId, ddlProduct.SelectedValue, Convert.ToInt32(ddlBChannnel.SelectedValue), "PR", ddlSubCategory.SelectedValue);
                 if (dsIssuer.Tables[0].Rows.Count > 0)
                 {
                     ddlIssue.DataSource = dsIssuer;

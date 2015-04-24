@@ -2212,7 +2212,7 @@ namespace DaoOnlineOrderManagement
             }
             return ds;
         }
-
+         
         public DataSet GetAdviserOrders(int IssueId, string Product, int adviserid, int BusinessChannel, string userType, string AgentCode, string category)
         {
             DataSet dsOrders;
@@ -2229,6 +2229,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(dbCommand, "@userType", DbType.String, userType);
                 db.AddInParameter(dbCommand, "@AgentCode", DbType.String, AgentCode);
                 db.AddInParameter(dbCommand, "@Category", DbType.String, category);
+                dbCommand.CommandTimeout = 60 * 60;
                 dsOrders = db.ExecuteDataSet(dbCommand);
             }
             catch (BaseApplicationException Ex)
@@ -3685,7 +3686,7 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetIssuercategorywise;
         }
-        public DataTable GetOrderMissMatchDetails( int issueid, string orderstapcode, string category)
+        public DataTable GetOrderMissMatchDetails(int issueid, string orderstapcode, string category, int isOnline)
         {
             DataTable dtGetOrderMissMatchDetails;
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -3694,8 +3695,11 @@ namespace DaoOnlineOrderManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                if (category == "IP" || category=="FISDSD")
-                dbGetOrderMissMatchDetails = db.GetStoredProcCommand("SPROC_IPOOrderMissMatch");
+                if (category == "IP" || category == "FISDSD")
+                {
+                    dbGetOrderMissMatchDetails = db.GetStoredProcCommand("SPROC_IPOOrderMissMatch");
+                    db.AddInParameter(dbGetOrderMissMatchDetails, "@isOnline", DbType.Int32, isOnline);
+                }
                 else
                     dbGetOrderMissMatchDetails = db.GetStoredProcCommand("SPROC_54ECANDCDOrderMissMatchDetails");
 

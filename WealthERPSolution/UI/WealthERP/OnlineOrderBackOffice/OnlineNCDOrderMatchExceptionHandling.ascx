@@ -143,7 +143,7 @@
                 <asp:ListItem Text="Offline" Value="2"></asp:ListItem>
             </asp:DropDownList>
         </td>
-          <td id="tdlblSubCategory" runat="server" visible="false">
+        <td id="tdlblSubCategory" runat="server" visible="false">
             <asp:Label ID="Label1" runat="server" Text="Select Category" CssClass="FieldName"></asp:Label>
         </td>
         <td id="tdSubCategory" runat="server" visible="false">
@@ -154,8 +154,8 @@
             <span id="Span6" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Please Select Category"
-                CssClass="rfvPCG" ControlToValidate="ddlSubCategory" ValidationGroup="btnGo" Display="Dynamic"
-                InitialValue="Select"></asp:RequiredFieldValidator>
+                CssClass="rfvPCG" ControlToValidate="ddlSubCategory" ValidationGroup="btnGo"
+                Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
         </td>
         <td align="right">
             &nbsp;&nbsp
@@ -198,15 +198,15 @@
         </td>--%>
     </tr>
 </table>
-<asp:Panel ID="pnlGrid" runat="server" ScrollBars="Horizontal" Visible="false" CssClass="table">
+<asp:Panel ID="PnlMultiSeries" runat="server" ScrollBars="Horizontal" Visible="false"
+    CssClass="table">
     <table width="100%" align="left">
         <tr>
             <td>
-                <telerik:RadGrid ID="gvOrders" runat="server" GridLines="None" AutoGenerateColumns="False"
+                <telerik:RadGrid ID="RadMultiSeries" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false" AllowAutomaticInserts="false"
-                    ExportSettings-FileName="NCD Order Recon" OnItemDataBound="gvOrders_ItemDataBound"
-                    OnItemCommand="gvOrders_ItemCommand" OnNeedDataSource="gvOrders_OnNeedDataSource">
+                    ExportSettings-FileName="NCD Order Recon" OnNeedDataSource="RadMultiSeries_OnNeedDataSource">
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                         FileName="Order" Excel-Format="ExcelML">
                     </ExportSettings>
@@ -241,9 +241,9 @@
                                 UniqueName="Customer_Name" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CO_ApplicationNo" HeaderText="Application No" SortExpression="CO_ApplicationNo"
-                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                UniqueName="CO_ApplicationNo" FooterStyle-HorizontalAlign="Left">
+                            <telerik:GridBoundColumn DataField="CO_ApplicationNo" HeaderText="Application No"
+                                SortExpression="CO_ApplicationNo" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="CO_ApplicationNo" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="WOS_OrderStep" HeaderText="Status" SortExpression="WOS_OrderStep"
@@ -305,9 +305,241 @@
                                 UniqueName="AllotmentAmt" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn DataField="COAD_CertificateNo" HeaderText="Certificate No" SortExpression="COAD_CertificateNo"
+                            <telerik:GridBoundColumn DataField="COAD_CertificateNo" HeaderText="Certificate No"
+                                SortExpression="COAD_CertificateNo" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="COAD_CertificateNo" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="COID_SeriesQuantity01" HeaderText="SeriesQuantity01"
+                                SortExpression="COID_SeriesQuantity01" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="COID_SeriesQuantity01" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="AID_SeqId01" HeaderText="Sequence Id1"
+                                SortExpression="AID_SeqId01" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="AID_SeqId01" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="COID_SeriesQuantity02" HeaderText="SeriesQuantity02"
+                                SortExpression="COID_SeriesQuantity02" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="COID_SeriesQuantity02" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="AID_SeqId02" HeaderText="Sequence Id2"
+                                SortExpression="AID_SeqId02" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="AID_SeqId02" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="COID_SeriesQuantity03" HeaderText="SeriesQuantity03"
+                                SortExpression="COID_SeriesQuantity03" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="COID_SeriesQuantity03" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="AID_SeqId03" HeaderText="Sequence Id3"
+                                SortExpression="AID_SeqId03" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="AID_SeqId03" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn DataField="COID_SeriesQuantity04" HeaderText="SeriesQuantity04"
+                                SortExpression="COID_SeriesQuantity04" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="COID_SeriesQuantity04" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="AID_SeqId04" HeaderText="Sequence Id4"
+                                SortExpression="AID_SeqId04" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="AID_SeqId04" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn DataField="COID_SeriesQuantity05" HeaderText="SeriesQuantity05"
+                                SortExpression="COID_SeriesQuantity05" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="COID_SeriesQuantity05" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="AID_SeqId05" HeaderText="Sequence Id5"
+                                SortExpression="AID_SeqId05" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="AID_SeqId05" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="COID_SeriesQuantity06" HeaderText="SeriesQuantity06"
+                                SortExpression="COID_SeriesQuantity06" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="COID_SeriesQuantity06" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="AID_SeqId06" HeaderText="Sequence Id6"
+                                SortExpression="AID_SeqId06" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="AID_SeqId06" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn DataField="COID_SeriesQuantity07" HeaderText="SeriesQuantity07"
+                                SortExpression="COID_SeriesQuantity07" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="COID_SeriesQuantity07" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="AID_SeqId07" HeaderText="Sequence Id7"
+                                SortExpression="AID_SeqId07" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="AID_SeqId07" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="COID_SeriesQuantity08" HeaderText="SeriesQuantity08"
+                                SortExpression="COID_SeriesQuantity08" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="COID_SeriesQuantity08" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="AID_SeqId08" HeaderText="Sequence Id8"
+                                SortExpression="AID_SeqId08" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="AID_SeqId08" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="COID_SeriesQuantity09" HeaderText="SeriesQuantity09"
+                                SortExpression="COID_SeriesQuantity09" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="COID_SeriesQuantity09" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="AID_SeqId09" HeaderText="Sequence Id9"
+                                SortExpression="AID_SeqId09" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="AID_SeqId09" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="COID_SeriesQuantity10" HeaderText="SeriesQuantity10"
+                                SortExpression="COID_SeriesQuantity10" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="COID_SeriesQuantity10" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="AID_SeqId10" HeaderText="Sequence Id10"
+                                SortExpression="AID_SeqId10" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="AID_SeqId10" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="COID_SeriesQuantity11" HeaderText="SeriesQuantity11"
+                                SortExpression="COID_SeriesQuantity11" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="COID_SeriesQuantity11" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="AID_SeqId11" HeaderText="Sequence Id11"
+                                SortExpression="AID_SeqId11" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="AID_SeqId11" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                        </Columns>
+                    </MasterTableView>
+                    <%--<clientsettings>
+                            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                        </clientsettings>--%>
+                </telerik:RadGrid>
+            </td>
+        </tr>
+    </table>
+</asp:Panel>
+<asp:Panel ID="pnlGrid" runat="server" ScrollBars="Horizontal" Visible="false" CssClass="table">
+    <table width="100%" align="left">
+        <tr>
+            <td>
+                <telerik:RadGrid ID="gvOrders" runat="server" GridLines="None" AutoGenerateColumns="False"
+                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                    Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false" AllowAutomaticInserts="false"
+                    ExportSettings-FileName="NCD Order Recon" OnItemDataBound="gvOrders_ItemDataBound"
+                    OnItemCommand="gvOrders_ItemCommand" OnNeedDataSource="gvOrders_OnNeedDataSource">
+                    <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
+                        FileName="Order" Excel-Format="ExcelML">
+                    </ExportSettings>
+                    <MasterTableView DataKeyNames="CO_OrderId,WOS_OrderStepCode,AIM_IssueId" Width="100%"
+                        AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
+                        <Columns>
+                            <telerik:GridBoundColumn DataField="CO_OrderId" HeaderText="Order No" SortExpression="CO_OrderId"
+                                ShowFilterIcon="true" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                UniqueName="CO_OrderId" FooterStyle-HorizontalAlign="Left" AllowSorting="True">
+                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <%--    <telerik:GridTemplateColumn DataField="CO_OrderId" HeaderText="Order/Transaction No."
+                                SortExpression="CO_OrderId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="CO_OrderId" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                <ItemTemplate>
+                                    <asp:LinkButton ID="lnkOrderNo" Font-Underline="false" runat="server" CssClass="cmbFielde" Text='<%# Eval("CO_OrderId") %>'>
+                                    </asp:LinkButton>
+                                </ItemTemplate>
+                            </telerik:GridTemplateColumn>--%>
+                            <telerik:GridTemplateColumn HeaderText="OrderDetID" AllowFiltering="false" DataField="COID_DetailsId"
+                                Visible="false">
+                                <ItemStyle />
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridDateTimeColumn DataField="CO_OrderDate" HeaderText="Order Date" SortExpression="CO_OrderDate"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                UniqueName="COAD_CertificateNo" FooterStyle-HorizontalAlign="Left">
+                                UniqueName="CO_OrderDate" FooterStyle-HorizontalAlign="Left" DataFormatString="{0:d}">
+                                <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridDateTimeColumn>
+                            <telerik:GridBoundColumn DataField="Customer_Name" HeaderText="Customer" SortExpression="Customer_Name"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                UniqueName="Customer_Name" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="CO_ApplicationNo" HeaderText="Application No"
+                                SortExpression="CO_ApplicationNo" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="CO_ApplicationNo" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="WOS_OrderStep" HeaderText="Status" SortExpression="WOS_OrderStep"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                UniqueName="WOS_OrderStep" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <%--  <telerik:GridTemplateColumn DataField="WOS_OrderStep" HeaderText="Status" SortExpression="WOS_OrderStep"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                    UniqueName="WOS_OrderStep" FooterStyle-HorizontalAlign="Left">
+                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblOrderStep" runat="server" Text='<%#Eval("WOS_OrderStep").ToString() %>'> </asp:Label>
+                                    </ItemTemplate>
+                                </telerik:GridTemplateColumn>--%>
+                            <telerik:GridBoundColumn DataField="CEDA_DPId" HeaderText="Dp Id" SortExpression="CEDA_DPId"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                UniqueName="CEDA_DPId" FooterStyle-HorizontalAlign="Left" DataFormatString="{0:n}">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="OrderdQuantity" HeaderText="Qty" SortExpression="OrderdQuantity"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                UniqueName="OrderdQuantity" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="AIM_FaceValue" HeaderText="Face value" SortExpression="AIM_FaceValue"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                UniqueName="AIM_FaceValue" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="purchaseAmt" HeaderText="Purchase Amt" SortExpression="purchaseAmt"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                UniqueName="purchaseAmt" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="COID_Price" HeaderText="Price" SortExpression="COID_Price"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                UniqueName="COID_Price" FooterStyle-HorizontalAlign="Left" Visible="false">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="AIM_AllotmentDate" HeaderText="Allotment Date"
+                                SortExpression="AIM_AllotmentDate" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="AIM_AllotmentDate" FooterStyle-HorizontalAlign="Left"
+                                DataFormatString="{0:d}">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="AllotmentQty" HeaderText="Alloted Qty" SortExpression="AllotmentQty"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                UniqueName="AllotmentQty" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <%--<telerik:GridBoundColumn Visible="false" DataField="AIA_Price" HeaderText="Alloted Price"
+                                SortExpression="AIA_Price" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="AIA_Price" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>--%>
+                            <telerik:GridBoundColumn DataField="AllotmentAmt" HeaderText="Alloted Amt" SortExpression="AllotmentAmt"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                UniqueName="AllotmentAmt" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="COAD_CertificateNo" HeaderText="Certificate No"
+                                SortExpression="COAD_CertificateNo" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="COAD_CertificateNo" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <%--<telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="60px" UniqueName="Match"
@@ -452,9 +684,9 @@
                                 UniqueName="Customer_Name" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CO_ApplicationNo" HeaderText="Application No" SortExpression="CO_ApplicationNo"
-                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                UniqueName="CO_ApplicationNo" FooterStyle-HorizontalAlign="Left">
+                            <telerik:GridBoundColumn DataField="CO_ApplicationNo" HeaderText="Application No"
+                                SortExpression="CO_ApplicationNo" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="CO_ApplicationNo" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="WOS_OrderStep" HeaderText="Status" SortExpression="WOS_OrderStep"
@@ -503,9 +735,9 @@
                                 UniqueName="AllotmentAmt" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="COAD_CertificateNo" HeaderText="CertificateNo" SortExpression="COAD_CertificateNo"
-                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                UniqueName="COAD_CertificateNo" FooterStyle-HorizontalAlign="Left">
+                            <telerik:GridBoundColumn DataField="COAD_CertificateNo" HeaderText="CertificateNo"
+                                SortExpression="COAD_CertificateNo" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="COAD_CertificateNo" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CMFT_SubBrokerCode" HeaderText="Sub-Broker Code"

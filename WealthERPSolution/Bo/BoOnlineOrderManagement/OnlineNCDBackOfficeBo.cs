@@ -2378,13 +2378,13 @@ namespace BoOnlineOrderManagement
             }
             return bResult;
         }
-        public DataTable GetOrderMissMatchDetails( int issueid, string orderstapcode, string category)
+        public DataTable GetOrderMissMatchDetails( int issueid, string orderstapcode, string category,int isOnline)
         {
             DataTable dtGetOrderMissMatchDetails; 
             try
             {
                 onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
-                dtGetOrderMissMatchDetails = onlineNCDBackOfficeDao.GetOrderMissMatchDetails(issueid,orderstapcode,category);
+                dtGetOrderMissMatchDetails = onlineNCDBackOfficeDao.GetOrderMissMatchDetails(issueid, orderstapcode, category, isOnline);
             }
             catch (BaseApplicationException Ex)
             {
