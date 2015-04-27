@@ -278,10 +278,10 @@
                                             AllowFiltering="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="AIM_Rating" HeaderStyle-Width="70px" HeaderText="Rating"
+                                        <telerik:GridBoundColumn DataField="AIM_Rating" HeaderStyle-Width="200px" HeaderText="Rating"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                             UniqueName="AIM_Rating" Visible="true" AllowFiltering="false">
-                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="200px" Wrap="true" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIM_MInQty" HeaderStyle-Width="120px" HeaderText="Min Qty"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
@@ -538,8 +538,7 @@
                                     </Columns>
                                 </MasterTableView>
                                  <ClientSettings>
-                            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                            <Resizing AllowColumnResize="true" />
+                          <%--<Resizing AllowColumnResize="true" />--%>
                         </ClientSettings>
                             </telerik:RadGrid>
                         </td>
