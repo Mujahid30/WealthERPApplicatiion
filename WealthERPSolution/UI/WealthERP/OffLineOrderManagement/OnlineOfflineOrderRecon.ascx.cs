@@ -118,31 +118,31 @@ namespace WealthERP.OffLineOrderManagement
         }
         private void BindOrderStatus()
         {
-            OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();
-            ddlOrderStatus.Items.Clear();
-            DataSet dsOrderStatus;
-            DataTable dtOrderStatus;
-            dsOrderStatus = OnlineMFOrderBo.GetOrderIssueStatus();
-            dtOrderStatus = dsOrderStatus.Tables[0];
-            if (dtOrderStatus.Rows.Count > 0)
-            {
+            //OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();
+            //ddlOrderStatus.Items.Clear();
+            //DataSet dsOrderStatus;
+            //DataTable dtOrderStatus;
+            //dsOrderStatus = OnlineMFOrderBo.GetOrderIssueStatus();
+            //dtOrderStatus = dsOrderStatus.Tables[0];
+            //if (dtOrderStatus.Rows.Count > 0)
+            //{
 
-                for (int i = dtOrderStatus.Rows.Count - 1; i >= 0; i--)
-                {
-                    if (dtOrderStatus.Rows[i][1].ToString() == "INPROCESS" || dtOrderStatus.Rows[i][1].ToString() == "EXECUTED" || dtOrderStatus.Rows[i][1].ToString() == "NOT ALLOTED" || dtOrderStatus.Rows[i][1].ToString() == "REJECTED" || dtOrderStatus.Rows[i][1].ToString() == "ORDERED")
-                        dtOrderStatus.Rows[i].Delete();
-                }
-                dtOrderStatus.AcceptChanges();
-                ddlOrderStatus.DataSource = dtOrderStatus;
-                ddlOrderStatus.DataTextField = dtOrderStatus.Columns["WOS_OrderStep"].ToString();
-                ddlOrderStatus.DataValueField = dtOrderStatus.Columns["WOS_OrderStepCode"].ToString();
-                ddlOrderStatus.DataBind();
-            }
+            //    for (int i = dtOrderStatus.Rows.Count - 1; i >= 0; i--)
+            //    {
+            //        if (dtOrderStatus.Rows[i][1].ToString() == "INPROCESS" || dtOrderStatus.Rows[i][1].ToString() == "EXECUTED" || dtOrderStatus.Rows[i][1].ToString() == "NOT ALLOTED" || dtOrderStatus.Rows[i][1].ToString() == "REJECTED" || dtOrderStatus.Rows[i][1].ToString() == "ORDERED")
+            //            dtOrderStatus.Rows[i].Delete();
+            //    }
+            //    dtOrderStatus.AcceptChanges();
+            //    ddlOrderStatus.DataSource = dtOrderStatus;
+            //    ddlOrderStatus.DataTextField = dtOrderStatus.Columns["WOS_OrderStep"].ToString();
+            //    ddlOrderStatus.DataValueField = dtOrderStatus.Columns["WOS_OrderStepCode"].ToString();
+            //    ddlOrderStatus.DataBind();
+            //}
             //ddlOrderStatus.Items.Insert(0, new ListItem("All", "0"));
         }
         protected void BindOrderMissMatchDetails()
         {
-            dBindOrderMissMatchDetails = onlineNCDBackOfficeBo.GetOrderMissMatchDetails(int.Parse(ddlIssueName.SelectedValue), "PR", (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "IP");
+            dBindOrderMissMatchDetails = onlineNCDBackOfficeBo.GetOrderMissMatchDetails(int.Parse(ddlIssueName.SelectedValue), "PR", (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "IP",int.Parse(ddlOrderStatus.SelectedValue));
             if (Cache["OrderRecon" + userVo.UserId.ToString()] == null)
             {
                 Cache.Insert("OrderRecon" + userVo.UserId.ToString(), dBindOrderMissMatchDetails);

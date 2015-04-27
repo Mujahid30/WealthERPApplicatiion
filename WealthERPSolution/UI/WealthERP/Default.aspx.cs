@@ -32,58 +32,61 @@ namespace WealthERP
         protected void Page_PreInit(object sender, EventArgs e)
         {
             GeneralConfigurationVo generalconfigurationvo = new GeneralConfigurationVo();
-            GeneralConfigurationBo generalvonfigurationbo = new GeneralConfigurationBo();            
+            GeneralConfigurationBo generalvonfigurationbo = new GeneralConfigurationBo();
             HttpCookie UserPreference;
             string userTheme = string.Empty;
+            string url = HttpContext.Current.Request.Url.AbsoluteUri;
 
-           
-
-                if (Request.Cookies["UserPreference"] != null)
-                {
-                    // get the cookie
-                    HttpCookie cookie = Request.Cookies["UserPreference"];
-                    // get the cookie value
-                    userTheme = Request.Cookies["UserPreference"].Values["UserTheme"];
-                    Page.Theme = userTheme;
-                    lnkBrowserIcon.Href = Request.Cookies["UserPreference"].Values["UserICOFilePath"];
-                }
-
-                if (Session["advisorVo"] != null)
-                    advisorVo = (AdvisorVo)Session["advisorVo"];
-                xmlPath = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
-                if (advisorVo.HostId!=0)
-                  generalconfigurationvo = generalvonfigurationbo.GetHostGeneralConfiguration(xmlPath,advisorVo.HostId);
-                else
-                    generalconfigurationvo = generalvonfigurationbo.GetHostGeneralConfiguration(xmlPath, 1000);
-
-                Session[SessionContents.SAC_HostGeneralDetails] = generalconfigurationvo;
-                if (Session[SessionContents.SAC_HostGeneralDetails] != null)
-                {
-                    generalconfigurationvo = (GeneralConfigurationVo)Session[SessionContents.SAC_HostGeneralDetails];
-
-                    if (!string.IsNullOrEmpty(generalconfigurationvo.DefaultTheme))
-                    {
-                        if (Session["Theme"] == null || Session["Theme"].ToString() == string.Empty)
-                        {
-                            if (string.IsNullOrEmpty(userTheme))
-                                userTheme = generalconfigurationvo.DefaultTheme;
-                        }
-                        else if(Session["Theme"]!=null)
-                        {
-                            userTheme = Session["Theme"].ToString();
-                        }
-                        
-                    }
-                    if (!string.IsNullOrEmpty(generalconfigurationvo.ApplicationName))
-                    {
-                        Page.Title = generalconfigurationvo.ApplicationName;
-                    }
-                }
-                //SET THE THEME FROM USER COOKIES OR DEFAULT
+            if (url == "http://122.166.49.40:86/" || url == "http://192.168.0.1:86/")
+            {
+                PCGLabel.Text = "2015 @ Ampsys Consulting Pvt. Ltd.";
+            }
+            if (Request.Cookies["UserPreference"] != null)
+            {
+                // get the cookie
+                HttpCookie cookie = Request.Cookies["UserPreference"];
+                // get the cookie value
+                userTheme = Request.Cookies["UserPreference"].Values["UserTheme"];
                 Page.Theme = userTheme;
-                Session["Theme"] = userTheme;
-               
-            
+                lnkBrowserIcon.Href = Request.Cookies["UserPreference"].Values["UserICOFilePath"];
+            }
+
+            if (Session["advisorVo"] != null)
+                advisorVo = (AdvisorVo)Session["advisorVo"];
+            xmlPath = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
+            if (advisorVo.HostId != 0)
+                generalconfigurationvo = generalvonfigurationbo.GetHostGeneralConfiguration(xmlPath, advisorVo.HostId);
+            else
+                generalconfigurationvo = generalvonfigurationbo.GetHostGeneralConfiguration(xmlPath, 1000);
+
+            Session[SessionContents.SAC_HostGeneralDetails] = generalconfigurationvo;
+            if (Session[SessionContents.SAC_HostGeneralDetails] != null)
+            {
+                generalconfigurationvo = (GeneralConfigurationVo)Session[SessionContents.SAC_HostGeneralDetails];
+
+                if (!string.IsNullOrEmpty(generalconfigurationvo.DefaultTheme))
+                {
+                    if (Session["Theme"] == null || Session["Theme"].ToString() == string.Empty)
+                    {
+                        if (string.IsNullOrEmpty(userTheme))
+                            userTheme = generalconfigurationvo.DefaultTheme;
+                    }
+                    else if (Session["Theme"] != null)
+                    {
+                        userTheme = Session["Theme"].ToString();
+                    }
+
+                }
+                if (!string.IsNullOrEmpty(generalconfigurationvo.ApplicationName))
+                {
+                    Page.Title = generalconfigurationvo.ApplicationName;
+                }
+            }
+            //SET THE THEME FROM USER COOKIES OR DEFAULT
+            Page.Theme = userTheme;
+            Session["Theme"] = userTheme;
+
+
             //if (Session["Theme"] == null || Session["Theme"].ToString() == string.Empty)
             //{
             //    Session["Theme"] = "Maroon";
@@ -100,7 +103,7 @@ namespace WealthERP
                 UserPreference = new HttpCookie("UserPreference");
                 UserPreference.Values["UserLoginPageURL"] = advisorPreferenceVo.WebSiteDomainName;
                 if (!string.IsNullOrEmpty(Page.Theme))
-                UserPreference.Values["UserTheme"] = Page.Theme.ToString();
+                    UserPreference.Values["UserTheme"] = Page.Theme.ToString();
                 UserPreference.Values["UserICOFilePath"] = lnkBrowserIcon.Href.ToString();
                 UserPreference.Expires = DateTime.Now.AddDays(1);
                 Response.Cookies.Add(UserPreference);
@@ -115,7 +118,7 @@ namespace WealthERP
         {
             RMVo rmVo = new RMVo();
             AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
-            GeneralConfigurationVo generalconfigurationvo = new GeneralConfigurationVo();         
+            GeneralConfigurationVo generalconfigurationvo = new GeneralConfigurationVo();
 
             //tdTermsCondition.Visible = false;
             try
@@ -124,7 +127,7 @@ namespace WealthERP
                 //imgLeftPlaceHolder.Style.Add("display", "none");
                 imgCenterPlaceholder.Style.Add("display", "none");
                 imgRightPlaceholder.Style.Add("display", "none");
-                imgIFABanner.Style.Add("display", "none");                
+                imgIFABanner.Style.Add("display", "none");
                 if (Session[SessionContents.SAC_HostGeneralDetails] != null)
                 {
                     generalconfigurationvo = (GeneralConfigurationVo)Session[SessionContents.SAC_HostGeneralDetails];
@@ -160,13 +163,13 @@ namespace WealthERP
                         if (userVo.UserType == "Advisor")
                         {
 
-                          
+
                             //tdGodaddySeal.Visible = true;
                         }
                         else
                         {
                             //tdTermsCondition.Visible = false;
-                            
+
                         }
 
                         if ((!IsPostBack) && (userVo.UserType == "Customer"))
@@ -180,18 +183,18 @@ namespace WealthERP
 
                         lblUserName.Text = "Welcome " + " " + userVo.FirstName + " " + userVo.LastName;
 
-                        if (userVo.PermisionList!=null && userVo.RoleList.Contains("Ops") && userVo.PermisionList.Count()>0)
-                        {   
+                        if (userVo.PermisionList != null && userVo.RoleList.Contains("Ops") && userVo.PermisionList.Count() > 0)
+                        {
                             lblPermissionList.Visible = true;
-                            foreach(string PName in userVo.PermisionList)
+                            foreach (string PName in userVo.PermisionList)
                             {
-                                lblPermissionList.Text+= PName + ",";
-                                
+                                lblPermissionList.Text += PName + ",";
+
                             }
 
                             lblPermissionList.Text = lblPermissionList.Text.TrimEnd(',');
                         }
-                        
+
                         lblSignOut.Text = "SignOut";
                         LinkButtonSignIn.Text = "";
                         imgSessionOut.Visible = false;
@@ -269,7 +272,7 @@ namespace WealthERP
                             if (!string.IsNullOrEmpty(advisorPreferenceVo.BannerImageName))
                             {
                                 imgIFABanner.Style.Add("display", "block");
-                                imgIFABanner.Src = "Images/" + advisorPreferenceVo.BannerImageName;                               
+                                imgIFABanner.Src = "Images/" + advisorPreferenceVo.BannerImageName;
                             }
                             else
                                 imgIFABanner.Style.Add("display", "none");
@@ -321,9 +324,11 @@ namespace WealthERP
                 //    BranchLogo.Style.Add("display", "none");
                 //}
 
-                if (userVo.UserType != "Advisor") {
+                if (userVo.UserType != "Advisor")
+                {
                     MenuItemCollection items = AdvisorMenu.Items;
-                    foreach (MenuItem item in items) {
+                    foreach (MenuItem item in items)
+                    {
                         if (item.Value == @"Transact/Business online") { item.Text = ""; item.SeparatorImageUrl = null; }
                         if (item.Value == @"Repository") { item.Text = ""; item.SeparatorImageUrl = null; }
                         if (item.Value == @"Info links") { item.Text = ""; item.SeparatorImageUrl = null; }
@@ -387,7 +392,7 @@ namespace WealthERP
                 }
             }
         }
-                
+
         [System.Web.Services.WebMethod(EnableSession = true)]
         public static void AjaxSetSession(string key, string value)
         {
@@ -403,7 +408,6 @@ namespace WealthERP
 
         [System.Web.Services.WebMethod(EnableSession = true)]
         public static void AjaxSetLinksSession(string key, string value)
-        
         {
             try
             {
@@ -427,14 +431,14 @@ namespace WealthERP
             return CustType;
         }
 
-        protected void lnkIECompatibilityView_Click(object sender,EventArgs e)
+        protected void lnkIECompatibilityView_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/Images/IECompatibility.jpg");
         }
 
         protected void lblSignOut_Click(object sender, EventArgs e)
         {
-            string currentURL=string.Empty;
+            string currentURL = string.Empty;
             if (Request.ServerVariables["HTTPS"].ToString() == "")
             {
                 currentURL = Request.ServerVariables["SERVER_PROTOCOL"].ToString().ToLower().Substring(0, 4).ToString() + "://" + Request.ServerVariables["SERVER_NAME"].ToString() + ":" + Request.ServerVariables["SERVER_PORT"].ToString() + Request.ServerVariables["SCRIPT_NAME"].ToString();

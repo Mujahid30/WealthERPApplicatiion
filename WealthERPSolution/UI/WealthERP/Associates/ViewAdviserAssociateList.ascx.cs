@@ -158,6 +158,10 @@ namespace WealthERP.Associates
 
         protected void gvAdviserAssociateList_ItemDataBound(Object sender, GridItemEventArgs e)
         {
+            if (advisorVo.advisorId != Convert.ToInt32(ConfigurationSettings.AppSettings["ONLINE_ADVISER"]))
+            {
+                gvAdviserAssociateList.MasterTableView.GetColumn("Welcome").Visible = false;
+            }
             if (userVo.UserType == "Advisor") return;
 
             if ((e.Item is GridDataItem) == false) return;
@@ -167,6 +171,8 @@ namespace WealthERP.Associates
             DropDownList actions = (DropDownList)item.FindControl("ddlMenu");
             if (userType == "associates")
                 gvAdviserAssociateList.Columns[0].Visible = false;
+        
+           
             //column.Visible = false;
 
             //RadComboBoxItem rbcItem = actions.Items.FindItemByValue("Edit", true);

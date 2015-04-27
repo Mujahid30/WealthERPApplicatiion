@@ -52,6 +52,7 @@ namespace WealthERP.Associates
             {
                 associatesVo = (AssociatesVO)Session["associatesVo"];
             }
+         
             if (!IsPostBack)
             {
                 lblPanDuplicate.Visible = false;
@@ -105,8 +106,7 @@ namespace WealthERP.Associates
                         radTABChildCodes.Visible = true;
                         BindChildCodeLabel(associatesVo.AAC_AdviserAgentId);
                         associateId = associatesVo.AdviserAssociateId;
-                        btnPreviewSend.Visible = true;
-                        if (!string.IsNullOrEmpty(associatesVo.WelcomeNotePath))
+                        if (!string.IsNullOrEmpty(associatesVo.WelcomeNotePath) && advisorVo.advisorId == Convert.ToInt32(ConfigurationSettings.AppSettings["ONLINE_ADVISER"]))
                             lbtnPreviewSend.Visible = true;
 
 
@@ -125,10 +125,10 @@ namespace WealthERP.Associates
                         lnkBtnEdit.Visible = false;
                         lnlBack.Visible = true;
                         //btnSubmit.Visible = true;
-                        btnPreviewSend.Visible = true;
+                        //btnPreviewSend.Visible = true;
                         radTABChildCodes.Visible = true;
                         lbkbtnAddChildCodes.Enabled = true;
-                        if (!string.IsNullOrEmpty(associatesVo.WelcomeNotePath))
+                        if (!string.IsNullOrEmpty(associatesVo.WelcomeNotePath) && advisorVo.advisorId == Convert.ToInt32(ConfigurationSettings.AppSettings["ONLINE_ADVISER"]))
                             lbtnPreviewSend.Visible = true;
                         btnContactDetailsUpdate.Visible = true;
                         btnOtherInformationUpdate.Visible = true;
@@ -552,6 +552,16 @@ namespace WealthERP.Associates
 
 
             }
+            if (advisorVo.advisorId == Convert.ToInt32(ConfigurationSettings.AppSettings["ONLINE_ADVISER"]))
+            {
+                btnPreviewSend.Visible=true;
+                lbtnPreviewSend.Visible = true;
+            }
+            else
+            {
+                btnPreviewSend.Visible = false;
+                lbtnPreviewSend.Visible = false;
+            }
 
 
         }
@@ -918,7 +928,11 @@ namespace WealthERP.Associates
             OtherInformation.Visible = true;
             btnCrossPondence.Visible = true;
             btnContactDetails.Visible = true;
-            btnPreviewSend.Visible = true;
+            if (advisorVo.advisorId == Convert.ToInt32(ConfigurationSettings.AppSettings["ONLINE_ADVISER"]))
+            {
+                btnPreviewSend.Visible = true;
+            }
+            btnPreviewSend.Visible = false;
             //btnPreviewSend.PostBackUrl = "~/Reports/Display.aspx?&welcomeNote=1&associateId=" + associateId.ToString();
             //btnPreviewSend.OnClientClick = "window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);";
             Session["associatesVo"] = null;

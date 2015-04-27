@@ -88,10 +88,13 @@
             </asp:DropDownList>
         </td>
         <td>
-            <asp:Label ID="lblOrderStatus" runat="server" Text="Order status:" CssClass="FieldName" Visible="false"></asp:Label>
+            <asp:Label ID="lblOrderStatus" runat="server" Text="status:" CssClass="FieldName" Visible="false"></asp:Label>
         </td>
         <td>
             <asp:DropDownList ID="ddlOrderStatus" runat="server" CssClass="cmbField" Visible="false">
+            <asp:ListItem Text="IsOnline" Value="1"></asp:ListItem>
+            <asp:ListItem Text="IsOffline" Value="2"></asp:ListItem>
+            
             </asp:DropDownList>
         </td>
     </tr>
