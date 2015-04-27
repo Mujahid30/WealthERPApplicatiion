@@ -3698,7 +3698,7 @@ namespace DaoOnlineOrderManagement
                 if (category == "IP" || category == "FISDSD")
                 {
                     dbGetOrderMissMatchDetails = db.GetStoredProcCommand("SPROC_IPOOrderMissMatch");
-                    db.AddInParameter(dbGetOrderMissMatchDetails, "@isOnline", DbType.Int32, isOnline);
+                    //db.AddInParameter(dbGetOrderMissMatchDetails, "@isOnline", DbType.Int32, isOnline);
                 }
                 else
                     dbGetOrderMissMatchDetails = db.GetStoredProcCommand("SPROC_54ECANDCDOrderMissMatchDetails");
