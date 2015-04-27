@@ -44,9 +44,9 @@ namespace WealthERP.OffLineOrderManagement
                 dtDummyPan = customerBo.GetDummyPanCustomer(hdnPan.Value, hdnDOB.Value, hdnEMAIL.Value, hdnMoblile.Value, adviserVo.advisorId);
             gvCustomer.DataSource = dtDummyPan;
             gvCustomer.DataBind();
-            if (Cache[userVo.UserId.ToString() + "GvCustomer"] != null)
-                Cache.Remove(userVo.UserId.ToString() + "GvCustomer");
-            Cache.Insert(userVo.UserId.ToString() + "GvCustomer", dtDummyPan);
+            if (Cache["GvCustomer" + adviserVo.advisorId] != null)
+                Cache.Remove("GvCustomer" + adviserVo.advisorId);
+            Cache.Insert("GvCustomer" + adviserVo.advisorId, dtDummyPan);
              }
             catch (BaseApplicationException Ex)
             {
