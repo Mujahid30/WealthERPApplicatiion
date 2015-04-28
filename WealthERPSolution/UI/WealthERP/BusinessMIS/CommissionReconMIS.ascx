@@ -314,8 +314,14 @@
                     AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="113px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="2%" HeaderText="Transaction Date"
+                <telerik:GridBoundColumn HeaderStyle-Width="2%" HeaderText="Transaction From Date"
                     DataField="transactiondate" UniqueName="transactiondate" SortExpression="transactiondate"
+                    AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    DataFormatString="{0:d}" HeaderStyle-HorizontalAlign="Center">
+                    <ItemStyle Width="140px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="2%" HeaderText="Transaction To Date"
+                    DataField="TransactionAsOnDate" UniqueName="TransactionAsOnDate" SortExpression="TransactionAsOnDate"
                     AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     DataFormatString="{0:d}" HeaderStyle-HorizontalAlign="Center">
                     <ItemStyle Width="140px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
@@ -491,8 +497,20 @@
                     Visible="false">
                     <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="2%" HeaderText="Cumulative Nav" DataField="totalNAV"
+                <telerik:GridBoundColumn HeaderStyle-Width="2%" HeaderText="Cumulative Nav" DataField="CumNAv"
+                    HeaderStyle-HorizontalAlign="Center" UniqueName="CumNAv" SortExpression="CumNAv"
+                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    FooterStyle-HorizontalAlign="Right" DataType="System.Decimal">
+                    <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                 <telerik:GridBoundColumn HeaderStyle-Width="2%" HeaderText="Total Nav" DataField="totalNAV"
                     HeaderStyle-HorizontalAlign="Center" UniqueName="totalNAV" SortExpression="totalNAV"
+                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    FooterStyle-HorizontalAlign="Right" DataType="System.Decimal">
+                    <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="2%" HeaderText="Transaction Nav" DataField="CMFT_NAV"
+                    HeaderStyle-HorizontalAlign="Center" UniqueName="CMFT_NAV" SortExpression="CMFT_NAV"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right" DataType="System.Decimal">
                     <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
