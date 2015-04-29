@@ -204,7 +204,8 @@ namespace WealthERP.OffLineOrderManagement
             string agentcode = gv54FDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AAC_AgentCode"].ToString();
             string associatename = gv54FDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AssociatesName"].ToString();
             string OrderStepCode = Convert.ToString(gv54FDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["Orderstep"]);
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FixedIncome54ECOrderEntry", "loadcontrol( 'FixedIncome54ECOrderEntry','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&customeId=" + customeId + "&agentcode=" + agentcode + "&associatename=" + associatename + "&OrderStepCode=" + OrderStepCode + "');", true);
+            string CloseDate = Convert.ToString(gv54FDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AIM_CloseDate"]);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FixedIncome54ECOrderEntry", "loadcontrol( 'FixedIncome54ECOrderEntry','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&customeId=" + customeId + "&agentcode=" + agentcode + "&associatename=" + associatename + "&OrderStepCode=" + OrderStepCode + "&CloseDate=" + CloseDate + "');", true);
         }
         private void BindOrderStatus()
         {
@@ -269,7 +270,7 @@ namespace WealthERP.OffLineOrderManagement
                     lbtnMarkAsReject.Visible = false;
                    
                 }
-                if (OrderStepCode == "REJECTED")
+                if (OrderStepCode == "REJECTED" || OrderStepCode == "ORDERED")
                 {
                     //ddlAction.Items[1].Enabled = false;
                     ddlAction.Items[2].Enabled = false;

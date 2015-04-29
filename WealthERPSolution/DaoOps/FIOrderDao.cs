@@ -381,7 +381,7 @@ namespace DaoOps
         }
 
 
-        public DataSet GetFIScheme(int AdviserID, string IssuerID,int customerSubType)
+        public DataSet GetFIScheme(int AdviserID, string IssuerID, int customerSubType, int type)
         {
             DataSet dsGetFIIssuer;
             Database db;
@@ -397,6 +397,8 @@ namespace DaoOps
                 db.AddInParameter(getFIIssuercmd, "@AdviserID", DbType.Int32, AdviserID);
                 db.AddInParameter(getFIIssuercmd, "@Category", DbType.String, IssuerID);
                 db.AddInParameter(getFIIssuercmd, "@customerSubType", DbType.Int32, customerSubType);
+                db.AddInParameter(getFIIssuercmd, "@type", DbType.Int32, type);
+
                 dsGetFIIssuer = db.ExecuteDataSet(getFIIssuercmd);
             }
             catch (BaseApplicationException Ex)

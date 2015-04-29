@@ -137,7 +137,7 @@
                                 AllowAutomaticInserts="false" Width="120%" Height="400px" OnItemDataBound="gv54FDOrderBook_ItemDataBound"
                                 OnUpdateCommand="gv54FDOrderBook_UpdateCommand">
                           
-                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,C_CustomerId,AAC_AgentCode,AssociatesName,Orderstep,CO_IsAuthenticated"
+                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,C_CustomerId,AAC_AgentCode,AssociatesName,Orderstep,CO_IsAuthenticated,AIM_CloseDate"
                                     Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" AllowFilteringByColumn="true"
                                     EditMode="PopUp">
                                     <Columns>
@@ -325,6 +325,12 @@
                                             AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="Reject Reason" UniqueName="COS_Reason">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
+                                          <telerik:GridBoundColumn DataField="AIM_CloseDate" SortExpression="AIM_CloseDate"
+                                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                            AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="Reject Reason" UniqueName="AIM_CloseDate" Visible="false">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        
                                         <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="150px" UniqueName="MarkAsReject"
                                             EditText="Mark As Reject" CancelText="Cancel" UpdateText="OK" HeaderText="Reject" AutoPostBackOnFilter="false" >
                                         </telerik:GridEditCommandColumn>

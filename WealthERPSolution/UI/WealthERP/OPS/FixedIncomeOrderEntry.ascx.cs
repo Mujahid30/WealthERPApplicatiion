@@ -106,7 +106,7 @@ namespace WealthERP.OPS
 
                 FICategory();
                 SetEnabilityControls();
-                FIScheme(advisorVo.advisorId, "0");
+                FIScheme(advisorVo.advisorId, "0",1);
 
                 GetFIModeOfHolding();
                 BindProofTypeDP();
@@ -1384,9 +1384,9 @@ namespace WealthERP.OPS
 
             }
         }
-        private void FIScheme(int AdviserId, string IssuerID)
+        private void FIScheme(int AdviserId, string IssuerID,int type)
         {
-            DataSet dsScheme = fiorderBo.GetFIScheme(AdviserId, IssuerID,0);
+            DataSet dsScheme = fiorderBo.GetFIScheme(AdviserId, IssuerID,0, type);
             if (dsScheme.Tables[0].Rows.Count > 0)
             {
                 ddlScheme.DataSource = dsScheme;
@@ -1575,7 +1575,7 @@ namespace WealthERP.OPS
         protected void ddlIssuer_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlIssuer.SelectedIndex != 0)
-                FIScheme(advisorVo.advisorId, ddlIssuer.SelectedValue);
+                FIScheme(advisorVo.advisorId, ddlIssuer.SelectedValue,1);
         }
         protected void ddlScheme_SelectedIndexChanged(object sender, EventArgs e)
         {

@@ -210,7 +210,7 @@ namespace WealthERP.OffLineOrderManagement
                         lblAssociatetext.Text = Request.QueryString["associatename"].ToString();
                         txtAssociateSearch.Text = Request.QueryString["agentcode"].ToString();
                         GetcustomerDetails();
-                        View54ECOrderDetails(orderId);
+                        View54ECOrderDetails(orderId, Convert.ToDateTime(Request.QueryString["CloseDate"].ToString()));
                         lnkBtnEdit();
                         trOrder.Visible = true;
                         tbUploadDocument.Visible = true;
@@ -250,7 +250,7 @@ namespace WealthERP.OffLineOrderManagement
                         GetcustomerDetails();
                         trOrder.Visible = true;
                         BindDocument(orderId);
-                        View54ECOrderDetails(orderId);
+                        View54ECOrderDetails(orderId, Convert.ToDateTime(Request.QueryString["CloseDate"].ToString()));
                         lnkBtnEdit();
                         tbUploadDocument.Visible = true;
                         btnUpdate.Visible = false;
@@ -503,7 +503,7 @@ namespace WealthERP.OffLineOrderManagement
             if (ddlCategory.SelectedIndex != 0 && ddlTax.SelectedValue!=string.Empty)
             {
 
-                FIScheme(advisorVo.advisorId, ddlCategory.SelectedValue, int.Parse(ddlTax.SelectedValue));
+                FIScheme(advisorVo.advisorId, ddlCategory.SelectedValue, int.Parse(ddlTax.SelectedValue),1);
             }
 
             // FIIssuer(advisorVo.advisorId);
@@ -1523,7 +1523,7 @@ namespace WealthERP.OffLineOrderManagement
         protected void ddlIssuer_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlIssuer.SelectedIndex != 0)
-                FIScheme(advisorVo.advisorId, ddlIssuer.SelectedValue,int.Parse(ddlTax.SelectedValue));
+                FIScheme(advisorVo.advisorId, ddlIssuer.SelectedValue,int.Parse(ddlTax.SelectedValue),1);
         }
 
         protected void OnPayAmtTextchanged(object sender, EventArgs e)
@@ -1617,12 +1617,12 @@ namespace WealthERP.OffLineOrderManagement
             }
         }
 
-        private void FIScheme(int AdviserId, string category,int custCategory)
+        private void FIScheme(int AdviserId, string category,int custCategory,int type)
         {
             DataSet dsScheme = new DataSet();
             ddlScheme.DataSource = dsScheme;
             Label12.Text = string.Empty;
-            dsScheme = fiorderBo.GetFIScheme(AdviserId, category, int.Parse(ddlTax.SelectedValue));
+            dsScheme = fiorderBo.GetFIScheme(AdviserId, category, int.Parse(ddlTax.SelectedValue),type);
             if (dsScheme.Tables[0].Rows.Count > 0)
             {
                 ddlScheme.DataSource = dsScheme;
@@ -4420,7 +4420,7 @@ namespace WealthERP.OffLineOrderManagement
         ////    }
         ////}
 
-        protected void View54ECOrderDetails(int orderid)
+        protected void View54ECOrderDetails(int orderid, DateTime issueCloseDate)
         {
             DataTable dtView54ECOrderDetails = fiorderBo.Get54ECOrderDetails(orderid);
             foreach (DataRow dr in dtView54ECOrderDetails.Rows)
@@ -4437,13 +4437,13 @@ namespace WealthERP.OffLineOrderManagement
                     tdTxtQty.Visible = false;
                     tdlblADRNo.Visible = true;
                     tdtxtADRNo.Visible = true;
-                    FIScheme(advisorVo.advisorId, ddlCategory.SelectedValue, int.Parse(ddlTax.SelectedValue));
+                    FIScheme(advisorVo.advisorId, ddlCategory.SelectedValue, int.Parse(ddlTax.SelectedValue), (issueCloseDate >= DateTime.Now) ? 1 : 2);
                     ddlScheme.SelectedValue = dr["AIM_IssueId"].ToString();
 
                 }
                 else
                 {
-                    FIScheme(advisorVo.advisorId, ddlCategory.SelectedValue,0);
+                    FIScheme(advisorVo.advisorId, ddlCategory.SelectedValue, 0, (issueCloseDate >= DateTime.Now) ? 1 : 2);
                     ddlScheme.SelectedValue = dr["AIM_IssueId"].ToString();
 
                 }

@@ -425,10 +425,15 @@ namespace WealthERP.Customer
                 if (ddlDepositoryName.SelectedItem.Text == "NSDL")
                 {
                     txtDPId.Enabled = true;
+                    txtDPId.MaxLength = 8;
+                    txtDpClientId.MaxLength = 8;
+                    txtDpClientId.Text = "";
                 }
                 else if (ddlDepositoryName.SelectedItem.Text == "CDSL")
                 {
                     txtDPId.Enabled = false;
+                    txtDpClientId.MaxLength = 16;
+
                 }
             }
         }

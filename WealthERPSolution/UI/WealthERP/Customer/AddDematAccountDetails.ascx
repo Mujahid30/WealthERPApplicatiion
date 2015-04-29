@@ -51,13 +51,27 @@
             <span id="Span1" class="spnRequiredField">*</span>
         </td>
         <td class="leftField" style="width: 150px;">
+            &nbsp;<asp:Label ID="lblDepositoryName" runat="server" Text="Depository Name:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:DropDownList ID="ddlDepositoryName" runat="server" CssClass="cmbField" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlDepositoryName_SelectedIndexChanged">
+            </asp:DropDownList>
+            <span id="Span4" class="spnRequiredField">*</span>
+            <br />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="ddlDepositoryName"
+                CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select Depository Name"
+                InitialValue="Select" ValidationGroup="btnsubmit">
+            </asp:RequiredFieldValidator>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField">
             &nbsp;<asp:Label ID="lblDPId" runat="server" Text="DP Id:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtDPId" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
-    </tr>
-    <tr>
         <td class="leftField">
             <asp:Label ID="lblDpClientId" runat="server" Text="Beneficiary Acct No:" CssClass="FieldName"></asp:Label>
         </td>
@@ -70,6 +84,18 @@
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtDpClientId"
                 ErrorMessage="Client Id Required" CssClass="cvPCG" ValidationGroup="btnsubmit"
                 Display="Dynamic"></asp:RequiredFieldValidator>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField">
+            <asp:Label ID="lblIsHeldJointly" runat="server" Text="Is Held Jointly:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:RadioButton ID="rbtnYes" runat="server" Text="Yes" GroupName="IsHeldJointly"
+                CssClass="txtField" AutoPostBack="True" OnCheckedChanged="RadioButton_CheckChanged" />
+            <asp:RadioButton ID="rbtnNo" runat="server" Text="No" GroupName="IsHeldJointly" CssClass="txtField"
+                AutoPostBack="True" OnCheckedChanged="rbtnNo_CheckChanged" OnLoad="rbtnNo_Load"
+                Checked="true" />
         </td>
         <td class="leftField">
             &nbsp;<asp:Label ID="lblAccountOpeningDate" runat="server" Text="Account Opening Date:"
@@ -90,32 +116,6 @@
             <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="txtAccountOpeningDate"
                 Type="Date" Operator="DataTypeCheck" ErrorMessage="Please Enter a Valid Date"
                 Display="Dynamic" CssClass="cvPCG" />
-        </td>
-    </tr>
-    <tr>
-        <td class="leftField">
-            <asp:Label ID="lblIsHeldJointly" runat="server" Text="Is Held Jointly:" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:RadioButton ID="rbtnYes" runat="server" Text="Yes" GroupName="IsHeldJointly"
-                CssClass="txtField" AutoPostBack="True" OnCheckedChanged="RadioButton_CheckChanged" />
-            <asp:RadioButton ID="rbtnNo" runat="server" Text="No" GroupName="IsHeldJointly" CssClass="txtField"
-                AutoPostBack="True" OnCheckedChanged="rbtnNo_CheckChanged" OnLoad="rbtnNo_Load"
-                Checked="true" />
-        </td>
-        <td class="leftField">
-            &nbsp;<asp:Label ID="lblDepositoryName" runat="server" Text="Depository Name:" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:DropDownList ID="ddlDepositoryName" runat="server" CssClass="cmbField" AutoPostBack="true"
-                OnSelectedIndexChanged="ddlDepositoryName_SelectedIndexChanged">
-            </asp:DropDownList>
-            <span id="Span4" class="spnRequiredField">*</span>
-            <br />
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="ddlDepositoryName"
-                CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select Depository Name"
-                InitialValue="Select" ValidationGroup="btnsubmit">
-            </asp:RequiredFieldValidator>
         </td>
     </tr>
     <tr>
