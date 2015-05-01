@@ -1281,7 +1281,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_IsOnlineEnablement", DbType.Boolean, Convert.ToBoolean(mfProductAMCSchemePlanDetailsVo.IsOnlineEnablement));
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@isETFL", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsETFT);//23
 
-                
+
                 // db.ExecuteNonQuery(updateSchemeSetUpDetailsCmd);
                 if (db.ExecuteNonQuery(updateSchemeSetUpDetailsCmd) != 0)
                     blResult = true;
@@ -2713,7 +2713,7 @@ namespace DaoOnlineOrderManagement
             }
             return extCode;
         }
-        public DataTable SearchOnPRoduct(int orderNo,int applicationNo)
+        public DataTable SearchOnPRoduct(int orderNo, int applicationNo)
         {
             DataSet dsSearchOnPRoduct;
             DataTable dtSearchOnPRoduct;
@@ -3078,6 +3078,31 @@ namespace DaoOnlineOrderManagement
                 throw Ex;
             }
             return dtGetProductSearchType;
+        }
+        public DataTable GetSchemeDetails(int AMCCode, int Schemeplanecode, string category)
+        {
+            DataTable dtGetSchemeDetails;
+            Database db;
+            DataSet dsGetSchemeDetails;
+            DbCommand cmdGetSchemeDetails;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetSchemeDetails = db.GetStoredProcCommand("SPROC_Onl_GetActulaSchemeDetails");
+                db.AddInParameter(cmdGetSchemeDetails, "@amcCode", DbType.Int32, AMCCode);
+                db.AddInParameter(cmdGetSchemeDetails, "@schemePlanCode", DbType.Int32, Schemeplanecode);
+                if (category != "0")
+                    db.AddInParameter(cmdGetSchemeDetails, "@category", DbType.String, category);
+                else
+                    db.AddInParameter(cmdGetSchemeDetails, "@category", DbType.String, DBNull.Value);
+                dsGetSchemeDetails = db.ExecuteDataSet(cmdGetSchemeDetails);
+                dtGetSchemeDetails = dsGetSchemeDetails.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetSchemeDetails;
         }
     }
 }
