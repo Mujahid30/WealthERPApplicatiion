@@ -2053,4 +2053,8 @@
     <value>OffLineOrderManagement//OnlineOfflineOrderRecon.ascx</value>
     <comment>OffLineOrderManagement//OnlineOfflineOrderRecon.ascx</comment>
   </data>
+  <data name="MFSchemeRelateInformation" xml:space="preserve">
+    <value>OnlineOrderManagement//MFSchemeRelateInformation.ascx</value>
+    <comment>OnlineOrderManagement//MFSchemeRelateInformation.ascx</comment>
+  </data>
 </root>
