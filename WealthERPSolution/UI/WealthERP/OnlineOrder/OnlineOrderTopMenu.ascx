@@ -10,10 +10,13 @@
                 <td>
                     <telerik:RadTabStrip ID="RTSMFOrderMenuTransact" runat="server" EnableTheming="True"
                         Skin="Telerik" EnableEmbeddedSkins="False" MultiPageID="RMPMFOrderMenuTransact"
-                        SelectedIndex="0" AutoPostBack="true" OnTabClick="RTSMFOrderMenuTransact_TabClick">
+                        SelectedIndex="7" AutoPostBack="true" OnTabClick="RTSMFOrderMenuTransact_TabClick">
                         <Tabs>
+                        <telerik:RadTab runat="server" Text="SCHEME SELECTION" Value="RTSMFOrderSCHEMESELECTION"
+                                TabIndex="7" PageViewID="RPVSCHEMESELECTION" Selected="True">
+                            </telerik:RadTab>
                             <telerik:RadTab runat="server" Text="NEW PURCHASE" Value="RTSMFOrderMenuTransactNewPurchase"
-                                TabIndex="0" PageViewID="RPVNewPurchase" Selected="True">
+                                TabIndex="0" PageViewID="RPVNewPurchase" >
                             </telerik:RadTab>
                             <telerik:RadTab runat="server" Text="ADDITIONAL PURCHASE" Value="RTSMFOrderMenuTransactAdditionalPurchase"
                                 TabIndex="1" PageViewID="RPVAdditionalPurchase">

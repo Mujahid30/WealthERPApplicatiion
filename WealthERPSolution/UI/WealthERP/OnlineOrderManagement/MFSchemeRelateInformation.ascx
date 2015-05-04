@@ -42,7 +42,8 @@
             </asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlAMC" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged" AutoPostBack="true">
+            <asp:DropDownList ID="ddlAMC" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged"
+                AutoPostBack="true">
             </asp:DropDownList>
         </td>
         <td align="right">
@@ -74,32 +75,32 @@
                 <telerik:RadGrid ID="rgSchemeDetails" runat="server" PageSize="10" AllowPaging="True"
                     GridLines="None" AutoGenerateColumns="true" Width="100%" ClientSettings-AllowColumnsReorder="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" AllowSorting="true" EnableViewState="true"
-                    AllowFilteringByColumn="true" OnItemDataBound="rgSchemeDetails_ItemDataBound">
+                    AllowFilteringByColumn="true" OnItemDataBound="rgSchemeDetails_ItemDataBound"
+                    OnItemCommand="rgSchemeDetails_OnItemCommand" OnNeedDataSource="rgSchemeDetails_OnNeedDataSource">
                     <%-- OnItemDataBound="rgUnitHolding_ItemDataBound" AllowSorting="true" EnableViewState="true"
                      OnNeedDataSource="rgUnitHolding_OnNeedDataSource" AllowFilteringByColumn="true"--%>
                     <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
-                    <MasterTableView DataKeyNames="PASP_SchemePlanCode" ShowFooter="true"
-                        Width="105%" AutoGenerateColumns="false" CommandItemDisplay="None">
+                    <MasterTableView DataKeyNames="PASP_SchemePlanCode" ShowFooter="true" Width="105%"
+                        AutoGenerateColumns="false" CommandItemDisplay="None">
                         <Columns>
-                            <telerik:GridBoundColumn HeaderStyle-Width="100px" SortExpression="PA_AMCName"
-                                AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                UniqueName="PA_AMCName" HeaderText="AMC" DataField="PA_AMCName" AllowFiltering="true"
-                                 FooterStyle-HorizontalAlign="Right">
+                            <telerik:GridBoundColumn HeaderStyle-Width="200px" SortExpression="PA_AMCName" AutoPostBackOnFilter="true"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="PA_AMCName"
+                                HeaderText="AMC" DataField="PA_AMCName" AllowFiltering="true" FooterStyle-HorizontalAlign="Right">
                                 <ItemStyle HorizontalAlign="left" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn  HeaderStyle-Width="85px" SortExpression="PASP_SchemePlanName"
+                            <telerik:GridBoundColumn HeaderStyle-Width="200px" SortExpression="PASP_SchemePlanName"
                                 AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                UniqueName="PASP_SchemePlanName" HeaderText="SchemePlan Name" DataField="PASP_SchemePlanName" AllowFiltering="true"
-                                FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
+                                UniqueName="PASP_SchemePlanName" HeaderText="SchemePlan Name" DataField="PASP_SchemePlanName"
+                                AllowFiltering="true" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
                                 <ItemStyle HorizontalAlign="left" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn  HeaderStyle-Width="120px" UniqueName="PAIC_AssetInstrumentCategoryName"
-                                SortExpression="PAIC_AssetInstrumentCategoryName" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
-                                ShowFilterIcon="false" HeaderText="Category" DataField="PAIC_AssetInstrumentCategoryName" AllowFiltering="true">
+                            <telerik:GridBoundColumn HeaderStyle-Width="120px" UniqueName="PAIC_AssetInstrumentCategoryName"
+                                SortExpression="PAIC_AssetInstrumentCategoryName" AutoPostBackOnFilter="true"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" HeaderText="Category"
+                                DataField="PAIC_AssetInstrumentCategoryName" AllowFiltering="true">
                                 <ItemStyle HorizontalAlign="Left" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            
-                            <telerik:GridTemplateColumn ItemStyle-Width="250px" AllowFiltering="false" HeaderText="Scheme Rating"
+                            <telerik:GridTemplateColumn ItemStyle-Width="100px" AllowFiltering="false" HeaderText="Scheme Rating"
                                 HeaderStyle-Width="125px" ItemStyle-Wrap="false">
                                 <ItemTemplate>
 
@@ -172,14 +173,15 @@
                                     <asp:Label ID="lblRating10Year" runat="server" CssClass="cmbField" Text='<%# Eval("SchemeRating10Year") %>'
                                         Visible="false">
                                     </asp:Label>
-                                    <div id="divSchemeRatingDetails" class="popbox" runat="server" style="float:left;">
+                                    <div id="divSchemeRatingDetails" class="popbox" runat="server" style="float: left;">
                                         <h2 class="popup-title">
                                             SCHEME RATING DETAILS
                                         </h2>
-                                        <table border="1" cellpadding="1" cellspacing="2" style="border-collapse: collapse;" width="10% !important;">
+                                        <table border="1" cellpadding="1" cellspacing="2" style="border-collapse: collapse;"
+                                            width="10% !important;">
                                             <tr>
                                                 <td>
-                                                     <asp:Label ID="lblRatingAsOnPopUp" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeRatingDate") %>'></asp:Label>
+                                                    <asp:Label ID="lblRatingAsOnPopUp" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeRatingDate") %>'></asp:Label>
                                                 </td>
                                                 <td>
                                                     <span class="readOnlyField">RATING</span>
@@ -243,24 +245,20 @@
                                     </div>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                           
-                            <telerik:GridBoundColumn  HeaderStyle-Width="80px" UniqueName="PASPD_ExitLoadPercentage"
+                            <telerik:GridBoundColumn HeaderStyle-Width="80px" UniqueName="PASPD_ExitLoadPercentage"
                                 HeaderText="Exit Load" DataField="PASPD_ExitLoadPercentage" FooterStyle-HorizontalAlign="Right"
-                                 AllowFiltering="false">
+                                AllowFiltering="false">
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn HeaderStyle-Width="86px" UniqueName="CMFNP_NAVDate " HeaderText="NAV Date"
                                 DataField="CMFNP_NAVDate" AllowFiltering="false" DataFormatString="{0:d}">
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn UniqueName="CMFNP_CurrentValue" HeaderText="Current Value" DataField="CMFNP_CurrentValue"
-                                FooterStyle-HorizontalAlign="Right"  AllowFiltering="false"
-                                HeaderStyle-Width="86px" >
+                            <telerik:GridBoundColumn UniqueName="CMFNP_CurrentValue" HeaderText="NAV" DataField="CMFNP_CurrentValue"
+                                FooterStyle-HorizontalAlign="Right" AllowFiltering="false" HeaderStyle-Width="86px">
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                          
-                           
-                            <telerik:GridTemplateColumn ItemStyle-Width="140px" AllowFiltering="false" HeaderText="Action"
+                            <telerik:GridTemplateColumn ItemStyle-Width="100px" AllowFiltering="false" HeaderText="Action"
                                 ItemStyle-Wrap="false">
                                 <ItemTemplate>
                                     <asp:Label ID="lblSIPSchemeFlag" runat="server" CssClass="cmbField" Text='<%# Eval("IsSchemeSIPType") %>'>
@@ -275,10 +273,6 @@
                             </telerik:GridTemplateColumn>
                         </Columns>
                     </MasterTableView>
-                    <ClientSettings>
-                        <Resizing AllowColumnResize="true" />
-                        <Selecting AllowRowSelect="true" />
-                    </ClientSettings>
                 </telerik:RadGrid>
             </td>
         </tr>

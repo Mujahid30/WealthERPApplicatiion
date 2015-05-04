@@ -42,6 +42,9 @@ namespace WealthERP.OnlineOrder
         {
             switch (e.Tab.Value)
             {
+                case "RTSMFOrderSCHEMESELECTION": // add a new root tab
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFSchemeRelateInformation','login');", true);
+                    break;
                 case "RTSMFOrderMenuTransactNewPurchase": // add a new root tab
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderPurchaseTransType','login');", true);
                     break;

@@ -94,9 +94,57 @@ namespace WealthERP.OnlineOrderManagement
         {
             OnlineOrderBackOfficeBo bo = new OnlineOrderBackOfficeBo();
             DataTable dtBindSchemeRelatedDetails = bo.GetSchemeDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue);
+              if (Cache["UnitHolding" + userVo.UserId] == null)
+                    {
+                        Cache.Insert("BindSchemeRelatedDetails" + userVo.UserId, dtBindSchemeRelatedDetails);
+                    }
+                    else
+                    {
+                        Cache.Remove("BindSchemeRelatedDetails" + userVo.UserId);
+                        Cache.Insert("BindSchemeRelatedDetails" + userVo.UserId, dtBindSchemeRelatedDetails);
+                    }
             rgSchemeDetails.DataSource = dtBindSchemeRelatedDetails;
             rgSchemeDetails.Rebind();
             pnlSchemeDetails.Visible = true;
+        }
+
+        protected void rgSchemeDetails_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtBindSchemeRelatedDetails = new DataTable();
+            dtBindSchemeRelatedDetails = (DataTable)Cache["BindSchemeRelatedDetails" + userVo.UserId.ToString()];
+            if (dtBindSchemeRelatedDetails != null)
+            {
+                rgSchemeDetails.DataSource = dtBindSchemeRelatedDetails;
+                rgSchemeDetails.Visible = true;
+            }
+        }
+        protected void rgSchemeDetails_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
+        {
+            // GridDataItem gvr = (GridDataItem)e.Item;
+            if (e.CommandName == "Buy")
+            {
+                if (Session["PageDefaultSetting"] != null)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderPurchaseTransType')", true);
+                }
+                else
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderPurchaseTransType')", true);
+                }
+
+            }
+            if (e.CommandName == "SIP")
+            {
+                if (Session["PageDefaultSetting"] != null)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderSIPTransType')", true);
+                }
+                else
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderSIPTransType')", true);
+                }
+            }
+          
         }
         public void rgSchemeDetails_ItemDataBound(object sender, GridItemEventArgs e)
         {
