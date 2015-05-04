@@ -6198,7 +6198,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 trExchangeCode.Visible = true;
                 tdlb1MinQty.Visible = false;
                 tdltxtMinQty.Visible = false;
-                //trRegistrarAndNoofBidsAlloweds.Visible = false;
+                trRegistrarAndNoofBidsAlloweds.Visible = true;
                 Td5.Visible = true;
                 Td6.Visible = true;
                 Td7.Visible = false;
