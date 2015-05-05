@@ -14,6 +14,8 @@ using WealthERP.Base;
 using BoCustomerRiskProfiling;
 using BoOps;
 using BoProductMaster;
+using BoWerpAdmin;
+using System.Collections;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -1045,7 +1047,62 @@ namespace WealthERP.CustomerPortfolio
             }
             return allASBALocation.ToArray();
         }
-       
+        [WebMethod]
+        public  ArrayList GetAMCList()
+        {
+            ArrayList list = new ArrayList();
+            PriceBo priceBo = new PriceBo();
+            DataTable dtGetAMCList = new DataTable();
+            dtGetAMCList = priceBo.GetMutualFundList();
+            foreach (DataRow dr in dtGetAMCList.Rows)
+            {
+                list.Add(new System.Web.UI.WebControls.ListItem(
+               dr["PA_AMCName"].ToString(),
+               dr["PA_AMCCode"].ToString()
+                ));
+                           }
+            return list;
+        }
+        [WebMethod]
+        public ArrayList GetSchemeList()
+        {
+            
+           
+            ArrayList schemelist = new ArrayList();
+            PriceBo priceBo = new PriceBo();
+            ProductMFBo productMFBo = new ProductMFBo();
+            DataTable dtGetSchemeList = new DataTable();
+            dtGetSchemeList = productMFBo.GetSchemePlanName(0);
+            //dtGetASBALocation = customerBo.GetASBABankLocation(prefixText);
+            foreach (DataRow dr in dtGetSchemeList.Rows)
+            {
+                schemelist.Add(new System.Web.UI.WebControls.ListItem(
+               dr["PASP_SchemePlanName"].ToString(),
+               dr["PASP_SchemePlanCode"].ToString()
+                ));
+            }
+            return schemelist;
+        }
+        public ArrayList GetAMCWiseSchemeList(int AmcCodes)
+        {
+
+
+            ArrayList AMCWiseSchemeList = new ArrayList();
+            PriceBo priceBo = new PriceBo();
+            ProductMFBo productMFBo = new ProductMFBo();
+            DataTable dtGetSchemeList = new DataTable();
+            dtGetSchemeList = productMFBo.GetSchemePlanName(AmcCodes);
+            //dtGetASBALocation = customerBo.GetASBABankLocation(prefixText);
+            foreach (DataRow dr in dtGetSchemeList.Rows)
+            {
+                AMCWiseSchemeList.Add(new System.Web.UI.WebControls.ListItem(
+               dr["PASP_SchemePlanName"].ToString(),
+               dr["PASP_SchemePlanCode"].ToString()
+                ));
+            }
+            return AMCWiseSchemeList;
+        }
+        
     }
 
 }

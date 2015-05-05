@@ -26,9 +26,9 @@ namespace WealthERP.OnlineOrderManagement
         {
             SessionBo.CheckSession();
             userBo = new UserBo();
-            BindAMC();
+            //BindAMC();
             BindCategory();
-            BindScheme();
+            //BindScheme();
             userVo = (UserVo)Session[SessionContents.UserVo];
         }
         protected void ddlAMC_SelectedIndexChanged(object sender, EventArgs e)
@@ -77,12 +77,12 @@ namespace WealthERP.OnlineOrderManagement
             }
             else
             {
-                dt = productMFBo.GetSchemePlanName(int.Parse(ddlAMC.SelectedValue));
-                ddlScheme.DataSource = dt;
-                ddlScheme.DataValueField = "PASP_SchemePlanCode";
-                ddlScheme.DataTextField = "PASP_SchemePlanName";
-                ddlScheme.DataBind();
-                ddlScheme.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+                //dt = productMFBo.GetSchemePlanName(int.Parse(ddlAMC.SelectedValue));
+                //ddlScheme.DataSource = dt;
+                //ddlScheme.DataValueField = "PASP_SchemePlanCode";
+                //ddlScheme.DataTextField = "PASP_SchemePlanName";
+                //ddlScheme.DataBind();
+                //ddlScheme.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
 
             }
         }

@@ -1,16 +1,21 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="MFSchemeRelateInformation.ascx.cs"
     Inherits="WealthERP.OnlineOrderManagement.MFSchemeRelateInformation" %>
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%--<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
-<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>--%>
 
 <script src="../Scripts/jquery.js" type="text/javascript"></script>
 
 <script src="../Scripts/JScript.js" type="text/javascript"></script>
 
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="Scripts/jquery-1.4.1.js"type="text/javascript"></script>
 
 <asp:ScriptManager ID="scriptmanager" runat="server">
+ <%--<Services>
+        <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
+    </Services>--%>
 </asp:ScriptManager>
 <style type="text/css">
     .style1
@@ -18,6 +23,88 @@
         width: 37%;
     }
 </style>
+
+  <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script type="text/javascript" >
+        $(document).ready(function() {
+        GetDropDownData();
+        GetSchemeLists();
+    });
+        
+ function GetDropDownData() {
+            // Get the DropDownList.
+     var ddlAMC = $('#ddlAMC');
+            var tableName = "AMCList";
+            $.ajax({
+                type: "POST",
+                url: "../CustomerPortfolio/AutoComplete.asmx/GetAMCList",
+                data: '{}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                var Dropdown = $('#<%=ddlAMC.ClientID %>');
+               Dropdown.append(new Option("All", 0));
+               $.each(response.d, function (index, item) {
+                   Dropdown.append(new Option( item.Text,item.Value));
+                    });
+                }
+            });
+        }
+        $(document).ready(function() {
+            GetSchemeLists();
+        });
+        function GetSchemeLists() {
+            // Get the DropDownList.
+            var ddlScheme = $('#ddlScheme');
+            var tableName = "SchemeList";
+            $.ajax({
+                type: "POST",
+                url: "../CustomerPortfolio/AutoComplete.asmx/GetSchemeList",
+                data: '{}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(response) {
+                    var Dropdown1 = $('#<%=ddlScheme.ClientID %>');
+                    Dropdown1.append(new Option("All", 0));
+                    $.each(response.d, function(index, item) {
+                        Dropdown1.append(new Option(item.Text, item.Value));
+                    });
+                }
+            });
+        }
+        function AMCSelection() {
+            // Get the DropDownList.
+            var ddlScheme = $('#ddlScheme');
+            var tableName = "SchemeList";
+            var IndexValuebond = document.getElementById('<%=ddlAMC.ClientID %>');
+            var SelectedValbond = IndexValuebond.value;
+           
+            var AmcCodes = {
+            SelectedValbond: SelectedValbond
+            }
+            $.ajax({
+                type: "POST",
+                url: "../CustomerPortfolio/AutoComplete.asmx/GetAMCWiseSchemeList",
+                data: JSON.stringify(AmcCodes),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(response) {
+                    var Dropdown1 = $('#<%=ddlScheme.ClientID %>');
+                    Dropdown1.append(new Option("All", 0));
+                    $.each(response.d, function(index, item) {
+                        Dropdown1.append(new Option(item.Text, item.Value));
+                    });
+                }
+            });
+        }
+    </script>
+    <script type="text/javascript" >
+//        $(document).ready(function() {
+//        GetSchemeLists();
+//        });
+       
+    </script>
+            
 <table width="100%" class="TableBackground">
     <tr>
         <td colspan="3" style="width: 100%;">
@@ -42,8 +129,7 @@
             </asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlAMC" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged"
-                AutoPostBack="true">
+            <asp:DropDownList ID="ddlAMC" runat="server" CssClass="cmbField" onchange="AMCSelection();" >
             </asp:DropDownList>
         </td>
         <td align="right">
@@ -75,32 +161,32 @@
                 <telerik:RadGrid ID="rgSchemeDetails" runat="server" PageSize="10" AllowPaging="True"
                     GridLines="None" AutoGenerateColumns="true" Width="100%" ClientSettings-AllowColumnsReorder="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" AllowSorting="true" EnableViewState="true"
-                    AllowFilteringByColumn="true" OnItemDataBound="rgSchemeDetails_ItemDataBound"
-                    OnItemCommand="rgSchemeDetails_OnItemCommand" OnNeedDataSource="rgSchemeDetails_OnNeedDataSource">
+                    AllowFilteringByColumn="true" OnItemDataBound="rgSchemeDetails_ItemDataBound">
                     <%-- OnItemDataBound="rgUnitHolding_ItemDataBound" AllowSorting="true" EnableViewState="true"
                      OnNeedDataSource="rgUnitHolding_OnNeedDataSource" AllowFilteringByColumn="true"--%>
                     <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
-                    <MasterTableView DataKeyNames="PASP_SchemePlanCode" ShowFooter="true" Width="105%"
-                        AutoGenerateColumns="false" CommandItemDisplay="None">
+                    <MasterTableView DataKeyNames="PASP_SchemePlanCode" ShowFooter="true"
+                        Width="105%" AutoGenerateColumns="false" CommandItemDisplay="None">
                         <Columns>
-                            <telerik:GridBoundColumn HeaderStyle-Width="200px" SortExpression="PA_AMCName" AutoPostBackOnFilter="true"
-                                CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="PA_AMCName"
-                                HeaderText="AMC" DataField="PA_AMCName" AllowFiltering="true" FooterStyle-HorizontalAlign="Right">
-                                <ItemStyle HorizontalAlign="left" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn HeaderStyle-Width="200px" SortExpression="PASP_SchemePlanName"
+                            <telerik:GridBoundColumn HeaderStyle-Width="200px" SortExpression="PA_AMCName"
                                 AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                UniqueName="PASP_SchemePlanName" HeaderText="SchemePlan Name" DataField="PASP_SchemePlanName"
-                                AllowFiltering="true" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
+                                UniqueName="PA_AMCName" HeaderText="AMC" DataField="PA_AMCName" AllowFiltering="true"
+                                 FooterStyle-HorizontalAlign="Right">
                                 <ItemStyle HorizontalAlign="left" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn HeaderStyle-Width="120px" UniqueName="PAIC_AssetInstrumentCategoryName"
-                                SortExpression="PAIC_AssetInstrumentCategoryName" AutoPostBackOnFilter="true"
-                                CurrentFilterFunction="Contains" ShowFilterIcon="false" HeaderText="Category"
-                                DataField="PAIC_AssetInstrumentCategoryName" AllowFiltering="true">
+                            <telerik:GridBoundColumn  HeaderStyle-Width="200px" SortExpression="PASP_SchemePlanName"
+                                AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                UniqueName="PASP_SchemePlanName" HeaderText="SchemePlan Name" DataField="PASP_SchemePlanName" AllowFiltering="true"
+                                FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
+                                <ItemStyle HorizontalAlign="left" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn  HeaderStyle-Width="120px" UniqueName="PAIC_AssetInstrumentCategoryName"
+                                SortExpression="PAIC_AssetInstrumentCategoryName" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                ShowFilterIcon="false" HeaderText="Category" DataField="PAIC_AssetInstrumentCategoryName" AllowFiltering="true">
                                 <ItemStyle HorizontalAlign="Left" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridTemplateColumn ItemStyle-Width="100px" AllowFiltering="false" HeaderText="Scheme Rating"
+                            
+                            <telerik:GridTemplateColumn ItemStyle-Width="250px" AllowFiltering="false" HeaderText="Scheme Rating"
                                 HeaderStyle-Width="125px" ItemStyle-Wrap="false">
                                 <ItemTemplate>
 
@@ -173,15 +259,14 @@
                                     <asp:Label ID="lblRating10Year" runat="server" CssClass="cmbField" Text='<%# Eval("SchemeRating10Year") %>'
                                         Visible="false">
                                     </asp:Label>
-                                    <div id="divSchemeRatingDetails" class="popbox" runat="server" style="float: left;">
+                                    <div id="divSchemeRatingDetails" class="popbox" runat="server" style="float:left;">
                                         <h2 class="popup-title">
                                             SCHEME RATING DETAILS
                                         </h2>
-                                        <table border="1" cellpadding="1" cellspacing="2" style="border-collapse: collapse;"
-                                            width="10% !important;">
+                                        <table border="1" cellpadding="1" cellspacing="2" style="border-collapse: collapse;" width="10% !important;">
                                             <tr>
                                                 <td>
-                                                    <asp:Label ID="lblRatingAsOnPopUp" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeRatingDate") %>'></asp:Label>
+                                                     <asp:Label ID="lblRatingAsOnPopUp" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeRatingDate") %>'></asp:Label>
                                                 </td>
                                                 <td>
                                                     <span class="readOnlyField">RATING</span>
@@ -245,20 +330,24 @@
                                     </div>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                            <telerik:GridBoundColumn HeaderStyle-Width="80px" UniqueName="PASPD_ExitLoadPercentage"
+                           
+                            <telerik:GridBoundColumn  HeaderStyle-Width="80px" UniqueName="PASPD_ExitLoadPercentage"
                                 HeaderText="Exit Load" DataField="PASPD_ExitLoadPercentage" FooterStyle-HorizontalAlign="Right"
-                                AllowFiltering="false">
+                                 AllowFiltering="false">
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn HeaderStyle-Width="86px" UniqueName="CMFNP_NAVDate " HeaderText="NAV Date"
                                 DataField="CMFNP_NAVDate" AllowFiltering="false" DataFormatString="{0:d}">
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn UniqueName="CMFNP_CurrentValue" HeaderText="NAV" DataField="CMFNP_CurrentValue"
-                                FooterStyle-HorizontalAlign="Right" AllowFiltering="false" HeaderStyle-Width="86px">
+                             <telerik:GridBoundColumn UniqueName="CMFNP_CurrentValue" HeaderText="Current Value" DataField="CMFNP_CurrentValue"
+                                FooterStyle-HorizontalAlign="Right"  AllowFiltering="false"
+                                HeaderStyle-Width="86px" >
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridTemplateColumn ItemStyle-Width="100px" AllowFiltering="false" HeaderText="Action"
+                          
+                           
+                            <telerik:GridTemplateColumn ItemStyle-Width="140px" AllowFiltering="false" HeaderText="Action"
                                 ItemStyle-Wrap="false">
                                 <ItemTemplate>
                                     <asp:Label ID="lblSIPSchemeFlag" runat="server" CssClass="cmbField" Text='<%# Eval("IsSchemeSIPType") %>'>
@@ -273,6 +362,10 @@
                             </telerik:GridTemplateColumn>
                         </Columns>
                     </MasterTableView>
+                    <ClientSettings>
+                        <Resizing AllowColumnResize="true" />
+                        <Selecting AllowRowSelect="true" />
+                    </ClientSettings>
                 </telerik:RadGrid>
             </td>
         </tr>
