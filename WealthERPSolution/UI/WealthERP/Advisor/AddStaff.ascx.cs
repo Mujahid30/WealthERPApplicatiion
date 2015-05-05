@@ -577,6 +577,7 @@ namespace WealthERP.Advisor
                 RadListBoxDestination.Enabled = true;
                 ddlBranch.Enabled = true;
                 ddlChannel.Enabled = false;
+                ddlTeamList.Enabled = false;
                 ddlRportingRole.Enabled = true;
                 ddlReportingMgr.Enabled = true;
 
