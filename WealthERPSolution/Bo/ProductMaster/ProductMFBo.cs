@@ -596,5 +596,12 @@ namespace BoProductMaster
             dtGetSchemePlanName = productMFDao.GetSchemePlanName(AMCCode);
             return dtGetSchemePlanName;
         }
+        public DataTable GetSchemePlanOnline(int AMCCode)
+        {
+            DataTable dtGetSchemePlanOnline;
+            ProductMFDao productMFDao = new ProductMFDao();
+            dtGetSchemePlanOnline = productMFDao.GetSchemePlanOnline(AMCCode);
+            return dtGetSchemePlanOnline;
+        }
     }
 }

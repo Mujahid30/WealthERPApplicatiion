@@ -868,5 +868,29 @@ namespace DaoProductMaster
             }
             return dtGetSchemePlanName;
         }
+        public DataTable GetSchemePlanOnline(int AMCCode)
+        {
+
+            Database db;
+            DbCommand GetSchemePlanOnlineCmd;
+            DataSet dsGetSchemePlanOnline;
+            DataTable dtGetSchemePlanOnline;
+
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetSchemePlanOnlineCmd = db.GetStoredProcCommand("SPROC_Onl_SchemeList");
+                db.AddInParameter(GetSchemePlanOnlineCmd, "@AMCCode", DbType.Int32, AMCCode);
+                dsGetSchemePlanOnline = db.ExecuteDataSet(GetSchemePlanOnlineCmd);
+                dtGetSchemePlanOnline = dsGetSchemePlanOnline.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetSchemePlanOnline;
+        }
     }
 }

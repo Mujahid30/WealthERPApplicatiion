@@ -16,6 +16,7 @@ using BoOps;
 using BoProductMaster;
 using BoWerpAdmin;
 using System.Collections;
+using BoCommon;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -1051,9 +1052,10 @@ namespace WealthERP.CustomerPortfolio
         public  ArrayList GetAMCList()
         {
             ArrayList list = new ArrayList();
+            CommonLookupBo commonLookupBo = new CommonLookupBo();
             PriceBo priceBo = new PriceBo();
             DataTable dtGetAMCList = new DataTable();
-            dtGetAMCList = priceBo.GetMutualFundList();
+            dtGetAMCList=commonLookupBo.GetProdAmc();
             foreach (DataRow dr in dtGetAMCList.Rows)
             {
                 list.Add(new System.Web.UI.WebControls.ListItem(
@@ -1072,7 +1074,7 @@ namespace WealthERP.CustomerPortfolio
             PriceBo priceBo = new PriceBo();
             ProductMFBo productMFBo = new ProductMFBo();
             DataTable dtGetSchemeList = new DataTable();
-            dtGetSchemeList = productMFBo.GetSchemePlanName(0);
+            dtGetSchemeList = productMFBo.GetSchemePlanOnline(0);
             //dtGetASBALocation = customerBo.GetASBABankLocation(prefixText);
             foreach (DataRow dr in dtGetSchemeList.Rows)
             {
