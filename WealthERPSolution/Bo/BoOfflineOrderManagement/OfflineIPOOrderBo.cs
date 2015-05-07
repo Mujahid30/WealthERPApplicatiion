@@ -154,5 +154,11 @@ namespace BoOfflineOrderManagement
             }
             return bResult;
         }
+        public DataTable GetIssueCategory(int issueId)
+        { 
+            OfflineIPOOrderDao OfflineIPOOrderDao = new OfflineIPOOrderDao();
+            DataTable dt = OfflineIPOOrderDao.GetIssueCategory(issueId);
+            return dt;
+        }
     }
 }

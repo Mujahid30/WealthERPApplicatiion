@@ -85,10 +85,10 @@ namespace DaoOfflineOrderManagement
                 db.AddInParameter(CreateIPOBidOrderCmd, "@DematBeneficiaryAccountNum", DbType.String, onlineIPOOrderVo.DematBeneficiaryAccountNum);
                 db.AddInParameter(CreateIPOBidOrderCmd, "@DematDepositoryName", DbType.String, onlineIPOOrderVo.DematDepositoryName);
                 if (!string.IsNullOrEmpty(onlineIPOOrderVo.DematDPId))
-                db.AddInParameter(CreateIPOBidOrderCmd, "@DematDPId", DbType.String, onlineIPOOrderVo.DematDPId);
-                
+                    db.AddInParameter(CreateIPOBidOrderCmd, "@DematDPId", DbType.String, onlineIPOOrderVo.DematDPId);
 
-                
+
+
                 db.AddOutParameter(CreateIPOBidOrderCmd, "@OrderId", DbType.Int32, 1000000);
                 if (db.ExecuteNonQuery(CreateIPOBidOrderCmd) != 0)
                 {
@@ -170,7 +170,7 @@ namespace DaoOfflineOrderManagement
             {
                 throw Ex;
             }
-       
+
             return bResult;
         }
         public bool ApplicationDuplicateCheck(int issueId, int applicationNo)
@@ -186,9 +186,9 @@ namespace DaoOfflineOrderManagement
                 //Adding Data to the table 
                 cmdApplicationDuplicateCheck = db.GetStoredProcCommand("SP_ApplicationDuplicateCheck");
                 db.AddInParameter(cmdApplicationDuplicateCheck, "@Application", DbType.Int32, applicationNo);
-                db.AddInParameter(cmdApplicationDuplicateCheck, "@AIM_IssueId", DbType.Int32,issueId);
+                db.AddInParameter(cmdApplicationDuplicateCheck, "@AIM_IssueId", DbType.Int32, issueId);
                 db.AddOutParameter(cmdApplicationDuplicateCheck, "@Count", DbType.Int32, 100);
-                 db.ExecuteNonQuery(cmdApplicationDuplicateCheck);
+                db.ExecuteNonQuery(cmdApplicationDuplicateCheck);
                 int objCount = Convert.ToInt32(db.GetParameterValue(cmdApplicationDuplicateCheck, "Count").ToString());
                 if (objCount != 0)
                     count = int.Parse(db.GetParameterValue(cmdApplicationDuplicateCheck, "@count").ToString());
@@ -291,6 +291,26 @@ namespace DaoOfflineOrderManagement
                 throw exBase;
             }
             return dtGetAddedCustomer;
+        }
+        public DataTable GetIssueCategory(int issueId)
+        {
+
+            DataTable dtIssueCategory;
+            Database db;
+            DbCommand IssueCategoryCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                IssueCategoryCmd = db.GetStoredProcCommand("SPROC_Off_GetInvestorCategory");
+                db.AddInParameter(IssueCategoryCmd, "@IssueID", DbType.Int32, issueId);
+                dtIssueCategory = db.ExecuteDataSet(IssueCategoryCmd).Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtIssueCategory;
         }
     }
 }

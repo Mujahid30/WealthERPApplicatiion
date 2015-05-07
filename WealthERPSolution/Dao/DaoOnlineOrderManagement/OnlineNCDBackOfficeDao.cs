@@ -3528,7 +3528,7 @@ namespace DaoOnlineOrderManagement
             }
             return bResult;
         }
-        public DataTable GetIssueList(int adviserId, int type, int customerSubtypeId, string productAssetGroup)
+        public DataTable GetIssueList(int adviserId, int type,  string productAssetGroup)
         {
             DataTable dtIssueList;
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -3540,7 +3540,7 @@ namespace DaoOnlineOrderManagement
                 getIssueListCmd = db.GetStoredProcCommand("SPROC_OFF_GetIssueList");
                 db.AddInParameter(getIssueListCmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(getIssueListCmd, "@type", DbType.Int32, type);
-                db.AddInParameter(getIssueListCmd, "@CustomerSubTypeId", DbType.Int32, customerSubtypeId);
+                //db.AddInParameter(getIssueListCmd, "@CustomerSubTypeId", DbType.Int32, customerSubtypeId);
                 db.AddInParameter(getIssueListCmd, "@productAssetGroup", DbType.String, productAssetGroup);
                 dtIssueList = db.ExecuteDataSet(getIssueListCmd).Tables[0];
             }
@@ -3556,7 +3556,7 @@ namespace DaoOnlineOrderManagement
                 object[] objects = new object[3];
                 objects[0] = adviserId;
                 objects[1] = type;
-                objects[2] = customerSubtypeId;
+                
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);

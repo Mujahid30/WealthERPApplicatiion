@@ -206,7 +206,7 @@
                 <td class="Page_Right_Padding">
                 </td>
             </tr>
-            <tr>
+            <tr id="trcustomerType" runat="server" visible="false">
                 <td class="Page_Left_Padding">
                 </td>
                 <td class="leftField">
@@ -241,20 +241,7 @@
                 <td class="Page_Left_Padding">
                 </td>
                 <td class="leftField">
-                    <asp:Label ID="Label4" runat="server" Text="Beneficiary Acct. No.:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td class="rightField">
-                    <asp:TextBox ID="txtDpClientId" runat="server" CssClass="txtField" TabIndex="6"></asp:TextBox>
-                    <span id="Span17" class="spnRequiredField">*</span>
-                    <asp:RegularExpressionValidator ID="rev" runat="server" ControlToValidate="txtDpClientId"
-                        ValidationGroup="btnsubmit" ErrorMessage="Special Character are not allowed!"
-                        CssClass="cvPCG" Display="Dynamic" ValidationExpression="^[a-zA-Z0-9]+(?:--?[a-zA-Z0-9]+)*$" />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator14" runat="server" ControlToValidate="txtDpClientId"
-                        ErrorMessage="</br>Beneficiary Acct. No. Required" CssClass="cvPCG" ValidationGroup="btnConfirmOrder"
-                        Display="Dynamic"></asp:RequiredFieldValidator>
-                </td>
-                <td class="leftField">
-                    &nbsp;<asp:Label ID="lblDepositoryName" runat="server" Text="Depository Name:" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="lblDepositoryName" runat="server" Text="Depository Name:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
                     <asp:DropDownList ID="ddlDepositoryName" runat="server" CssClass="cmbField" AutoPostBack="true"
@@ -266,6 +253,19 @@
                         CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select Depository Name"
                         InitialValue="Select" ValidationGroup="btnConfirmOrder">
                     </asp:RequiredFieldValidator>
+                </td>
+                <td class="leftField">
+                    &nbsp;<asp:Label ID="Label4" runat="server" Text="Beneficiary Acct. No.:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightField">
+                    <asp:TextBox ID="txtDpClientId" runat="server" CssClass="txtField" TabIndex="6"></asp:TextBox>
+                    <span id="Span17" class="spnRequiredField">*</span>
+                    <asp:RegularExpressionValidator ID="rev" runat="server" ControlToValidate="txtDpClientId"
+                        ValidationGroup="btnsubmit" ErrorMessage="Special Character are not allowed!"
+                        CssClass="cvPCG" Display="Dynamic" ValidationExpression="^[a-zA-Z0-9]+(?:--?[a-zA-Z0-9]+)*$" />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator14" runat="server" ControlToValidate="txtDpClientId"
+                        ErrorMessage="</br>Beneficiary Acct. No. Required" CssClass="cvPCG" ValidationGroup="btnConfirmOrder"
+                        Display="Dynamic"></asp:RequiredFieldValidator>
                 </td>
                 <td class="Page_Right_Padding">
                 </td>
@@ -359,9 +359,16 @@
                 <td class="Page_Left_Padding">
                 </td>
                 <td class="leftField">
+                    <asp:Label ID="lblCategory" runat="server" CssClass="FieldName" Text="Category"></asp:Label>
+                </td>
+                <td class="rightField">
+                    <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField">
+                    </asp:DropDownList>
+                </td>
+                <td class="leftField">
                     <asp:Label runat="server" ID="lblBrokerCode" CssClass="FieldName" Text="Select Broker:"></asp:Label>
                 </td>
-                <td class="rightField" colspan="3">
+                <td class="rightField">
                     <asp:DropDownList ID="ddlBrokerCode" runat="server" Width="280px" CssClass="cmbField"
                         TabIndex="11">
                     </asp:DropDownList>
@@ -546,11 +553,11 @@
                 <td class="rightField" id="tdBankBranch">
                     <asp:TextBox ID="txtBranchName" onkeydown="return (event.keyCode!=13);" runat="server"
                         CssClass="txtField" Visible="false" TabIndex="21"></asp:TextBox>
-                    <asp:Label ID="lblBankBranchName" runat="server" Text="*" class="spnRequiredField"
+                    <%--<asp:Label ID="lblBankBranchName" runat="server" Text="*" class="spnRequiredField"
                         Visible="false"></asp:Label>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtBranchName"
                         CssClass="rfvPCG" ErrorMessage="<br />Please Enter Bank Branch Name" Display="Dynamic"
-                        runat="server" InitialValue="" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
+                        runat="server" InitialValue="" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>--%>
                 </td>
                 <td class="Page_Right_Padding">
                 </td>
@@ -777,10 +784,10 @@
                                         Visible="false">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridTemplateColumn HeaderStyle-Width="100px" Visible="false" UniqueName="DeleteBid" >
-                                    <ItemTemplate>
-                                    <asp:Button ID="btnDelete" runat="server" CssClass="PCGButton" Text="Delete"  OnClick="btnDelete_OnClick"/>
-                                    </ItemTemplate>
+                                    <telerik:GridTemplateColumn HeaderStyle-Width="100px" Visible="false" UniqueName="DeleteBid">
+                                        <ItemTemplate>
+                                            <asp:Button ID="btnDelete" runat="server" CssClass="PCGButton" Text="Delete" OnClick="btnDelete_OnClick" />
+                                        </ItemTemplate>
                                     </telerik:GridTemplateColumn>
                                 </Columns>
                             </MasterTableView>

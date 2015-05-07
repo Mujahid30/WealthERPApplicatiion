@@ -1251,6 +1251,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidAmt;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trBtnSaveMsg;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trcustomerType;
 
         /// <summary>
         /// lblbtnSaveMsg control.
@@ -1269,6 +1270,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCustomerType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
 
         /// <summary>
         /// rbtnIndividual control.

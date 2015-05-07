@@ -109,6 +109,7 @@ namespace WealthERP.OffLineOrderManagement
 
             if (!IsPostBack)
             {
+                BindCustomerIPOIssueList(1);
                 if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 {
                     AutoCompleteExtender2.ContextKey = advisorVo.advisorId.ToString();
@@ -308,8 +309,8 @@ namespace WealthERP.OffLineOrderManagement
                         lblBankAccount.Visible = true;
                         txtBankAccount.Visible = true;
                     }
-                    BindCustomerIPOIssueList(Convert.ToInt16(dr["OCD_WCMV_TaxStatus_Id"].ToString()), (issueCloseDate >= DateTime.Now) ? 1 : 2);
-                    BindIPOIssueList(Convert.ToInt16(dr["AIM_IssueId"].ToString()), (issueCloseDate >= DateTime.Now) ? 1 : 2, Convert.ToInt16(dr["OCD_WCMV_TaxStatus_Id"].ToString()));
+                    BindCustomerIPOIssueList((issueCloseDate >= DateTime.Now) ? 1 : 2);
+                    BindIPOIssueList(Convert.ToInt16(dr["AIM_IssueId"].ToString()), (issueCloseDate >= DateTime.Now) ? 1 : 2, 2017);
                     BindBank();
                     ddlBankName.SelectedValue = dr["CO_BankName"].ToString();
 
@@ -773,8 +774,8 @@ namespace WealthERP.OffLineOrderManagement
                 CompareValidator14.Enabled = true;
 
                 txtBranchName.Visible = true;
-                lblBankBranchName.Visible = true;
-                RequiredFieldValidator7.Enabled = true;
+                //lblBankBranchName.Visible = true;
+                //RequiredFieldValidator7.Enabled = true;
                 lblBankAccount.Visible = true;
                 txtBankAccount.Visible = true;
                 lblBranchName.Visible = true;
@@ -788,8 +789,8 @@ namespace WealthERP.OffLineOrderManagement
                 RequiredFieldValidator9.Enabled = true;
                 lblBranchName.Visible = false;
                 txtBranchName.Visible = false;
-                lblBankBranchName.Visible = false;
-                RequiredFieldValidator7.Enabled = false;
+                //lblBankBranchName.Visible = false;
+                //RequiredFieldValidator7.Enabled = false;
                 txtPaymentNumber.Text = "";
                 txtBankAccount.Text = "";
                 txtPaymentInstDate.SelectedDate = null;
@@ -2122,13 +2123,22 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void ddlIssueList_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            if ((ddlIssueList.SelectedIndex < 1) || (ddlCustomerSubType.SelectedIndex < 1)) return;
-            BindIPOIssueList(Convert.ToInt16(ddlIssueList.SelectedValue), 1, Convert.ToInt16(ddlCustomerSubType.SelectedValue));
+            if ((ddlIssueList.SelectedIndex < 1)) return;
+            BindIssueCategory(Convert.ToInt16(ddlIssueList.SelectedValue));
+            BindIPOIssueList(Convert.ToInt16(ddlIssueList.SelectedValue), 1, 2017);
             BindIPOBidGrid(3);
             BindSubbroker(int.Parse(ddlIssueList.SelectedValue));
             ddlIssueList.Focus();
         }
-
+        private void BindIssueCategory(int issueId)
+        {
+            DataTable dt = OfflineIPOOrderBo.GetIssueCategory(issueId);
+            ddlCategory.DataSource = dt;
+            ddlCategory.DataValueField = "AIIC_InvestorCatgeoryId";
+            ddlCategory.DataTextField = "AIIC_InvestorCatgeoryName";
+            ddlCategory.DataBind();
+            ddlCategory.Items.Insert(0, new ListItem("--SELECT--", "1"));
+        }
 
 
         protected void rbtnIndividual_CheckedChanged(object sender, EventArgs e)
@@ -2154,11 +2164,11 @@ namespace WealthERP.OffLineOrderManagement
         private void BindIssueListBasedOnCustomerTypeSelection()
         {
             if (ddlCustomerSubType.SelectedIndex < -1) return;
-            BindCustomerIPOIssueList(Convert.ToInt16(ddlCustomerSubType.SelectedValue), 1);
+          
         }
-        private void BindCustomerIPOIssueList(int customerSubtypeId, int type)
+        private void BindCustomerIPOIssueList( int type)
         {
-            DataTable dtIssueList = dtIssueList = onlineNCDBackOfficeBO.GetIssueList(advisorVo.advisorId, type, customerSubtypeId, "IP");
+            DataTable dtIssueList = dtIssueList = onlineNCDBackOfficeBO.GetIssueList(advisorVo.advisorId, type, "IP");
             ddlIssueList.DataTextField = dtIssueList.Columns["AIM_IssueName"].ToString();
             ddlIssueList.DataValueField = dtIssueList.Columns["AIM_IssueId"].ToString();
             ddlIssueList.DataSource = dtIssueList;
