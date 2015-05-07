@@ -1423,7 +1423,7 @@ namespace WealthERP.OffLineOrderManagement
                 onlineIPOOrderVo.CustomerType = "IND";
             else
                 onlineIPOOrderVo.CustomerType = "NIND";
-            onlineIPOOrderVo.CustomerSubTypeId = Convert.ToInt16(ddlCustomerSubType.SelectedValue);
+            onlineIPOOrderVo.CustomerSubTypeId = Convert.ToInt16(ddlCategory.SelectedValue);
             onlineIPOOrderVo.DematBeneficiaryAccountNum = txtDpClientId.Text.Trim();
             onlineIPOOrderVo.DematDepositoryName = ddlDepositoryName.SelectedValue;
             if (ddlDepositoryName.SelectedValue == "NSDL")
