@@ -31,7 +31,8 @@ namespace BoOnlineOrderManagement
                 rmsAPI = rmsAPI.Replace("#UserAccountId#", userAccountId);
                 rmsAPI = rmsAPI.Replace("#Amount#", amount.ToString());
                 onlineOrderDao.UpdateOrderRMSAccountDebitRequestTime(orderId, Convert.ToDecimal(amount));
-                Response = TrigerAPI(rmsAPI);
+                //Response = TrigerAPI(rmsAPI);
+                result = true;
                 if (Response.Contains("TRUE"))
                 {
                     onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 1, string.Empty, "RMSREsponse:-" + Response);
@@ -76,13 +77,15 @@ namespace BoOnlineOrderManagement
 
             try
             {
-                rmsAPI = rmsAPI.Replace("#UserAccountId#", userAccountId);
-                response = TrigerAPI(rmsAPI);
-                if (!string.IsNullOrEmpty(response))
-                {
-                    resultAPI = response.Split('|');
-                    accountBalance = Convert.ToDecimal(resultAPI[1].ToString());
-                }
+                accountBalance = 14000000;
+                //rmsAPI = rmsAPI.Replace("#UserAccountId#", userAccountId);
+                //response = TrigerAPI(rmsAPI);
+                //if (!string.IsNullOrEmpty(response))
+                //{
+                //    resultAPI = response.Split('|');
+                //    //accountBalance = Convert.ToDecimal(resultAPI[1].ToString());
+                    
+                //}
 
             }
             catch (Exception Ex)

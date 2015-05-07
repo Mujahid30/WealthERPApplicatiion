@@ -273,10 +273,10 @@
                 <td class="Page_Right_Padding">
                 </td>
             </tr>
-            <tr>
+            <tr id="trCustomerType" runat="server" visible="false">
                 <td class="Page_Left_Padding">
                 </td>
-                <td class="leftField">
+                <td class="leftField" >
                     <asp:Label ID="lblCustomerType" runat="server" CssClass="FieldName" Text="Customer Type:"></asp:Label>
                 </td>
                 <td class="rightField">
@@ -308,22 +308,8 @@
             <tr>
                 <td class="Page_Left_Padding">
                 </td>
-                <td class="leftField">
-                    <asp:Label ID="lblBeneficiary" runat="server" Text="Beneficiary Acct. No.:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td class="rightField">
-                    <asp:TextBox ID="txtDpClientId" runat="server" CssClass="txtField" MaxLength="16"
-                        TabIndex="6"></asp:TextBox>
-                    <span id="Span26" class="spnRequiredField">*</span>
-                    <asp:RegularExpressionValidator ID="rev" runat="server" ControlToValidate="txtDpClientId"
-                        ValidationGroup="btnConfirmOrder" ErrorMessage="Special Character Are Not Allowed!"
-                        CssClass="cvPCG" Display="Dynamic" ValidationExpression="^[a-zA-Z0-9]+(?:--?[a-zA-Z0-9]+)*$" />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator20" runat="server" ControlToValidate="txtDpClientId"
-                        ErrorMessage="Please  Enter  Beneficiary Acct. No." CssClass="cvPCG" ValidationGroup="btnConfirmOrder"
-                        Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
-                </td>
-                <td class="leftField">
-                    &nbsp;<asp:Label ID="lblDepositoryName" runat="server" Text="Depository Name:" CssClass="FieldName"></asp:Label>
+                 <td class="leftField">
+                    <asp:Label ID="lblDepositoryName" runat="server" Text="Depository Name:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
                     <asp:DropDownList ID="ddlDepositoryName" runat="server" CssClass="cmbField" AutoPostBack="true"
@@ -336,6 +322,21 @@
                         InitialValue="Select" ValidationGroup="btnConfirmOrder">
                     </asp:RequiredFieldValidator>
                 </td>
+                <td class="leftField">
+                   &nbsp; <asp:Label ID="lblBeneficiary" runat="server" Text="Beneficiary Acct. No.:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightField">
+                    <asp:TextBox ID="txtDpClientId" runat="server" CssClass="txtField" MaxLength="16"
+                        TabIndex="6"></asp:TextBox>
+                    <span id="Span26" class="spnRequiredField">*</span>
+                    <asp:RegularExpressionValidator ID="rev" runat="server" ControlToValidate="txtDpClientId"
+                        ValidationGroup="btnConfirmOrder" ErrorMessage="Special Character Are Not Allowed!"
+                        CssClass="cvPCG" Display="Dynamic" ValidationExpression="^[a-zA-Z0-9]+(?:--?[a-zA-Z0-9]+)*$" />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator20" runat="server" ControlToValidate="txtDpClientId"
+                        ErrorMessage="Please  Enter  Beneficiary Acct. No." CssClass="cvPCG" ValidationGroup="btnConfirmOrder"
+                        Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
+                </td>
+               
                 <td class="Page_Right_Padding">
                 </td>
             </tr>
@@ -431,10 +432,22 @@
             <tr>
                 <td class="Page_Left_Padding">
                 </td>
+                   <td class="leftField">
+                    <asp:Label ID="lblCategory" runat="server" CssClass="FieldName" Text="Category"></asp:Label>
+                </td>
+                <td class="rightField">
+                    <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged" AutoPostBack="true">
+                    </asp:DropDownList>
+                     </asp:DropDownList>
+                       <span id="Span8" class="spnRequiredField">*</span>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="ddlCategory"
+                        ErrorMessage="<br />Please Select Category" Display="Dynamic" runat="server"
+                        CssClass="rfvPCG" ValidationGroup="btnConfirmOrder" InitialValue="0"></asp:RequiredFieldValidator>
+                </td>
                 <td class="leftField">
                     <asp:Label runat="server" ID="lblBrokerCode" CssClass="FieldName" Text="Select Broker:"></asp:Label>
                 </td>
-                <td class="rightField" colspan="3">
+                <td class="rightField">
                     <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField" TabIndex="11">
                     </asp:DropDownList>
                        <span id="Span1" class="spnRequiredField">*</span>
@@ -579,10 +592,10 @@
                 <td class="rightField">
                     <asp:TextBox ID="txtBranchName" onkeydown="return (event.keyCode!=13);" runat="server"
                         CssClass="txtField" TabIndex="19"></asp:TextBox>
-                    <span id="Span3" class="spnRequiredField">*</span>
+                   <%-- <span id="Span3" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtBranchName"
                         CssClass="rfvPCG" ErrorMessage="<br />Please Enter Bank Branch" Display="Dynamic"
-                        runat="server" InitialValue="" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
+                        runat="server" InitialValue="" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>--%>
                 </td>
                 <td class="Page_Right_Padding">
                 </td>

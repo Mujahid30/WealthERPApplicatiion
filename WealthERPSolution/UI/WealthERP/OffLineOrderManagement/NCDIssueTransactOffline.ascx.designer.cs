@@ -210,6 +210,7 @@ namespace WealthERP.OffLineOrderManagement
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trSumbitSuccess;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trMessage;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trCustomerType;
         /// <summary>
         /// msgRecordStatus control.
         /// </summary>
@@ -308,6 +309,7 @@ namespace WealthERP.OffLineOrderManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label label2;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
 
         /// <summary>
         /// lblgetcust control.

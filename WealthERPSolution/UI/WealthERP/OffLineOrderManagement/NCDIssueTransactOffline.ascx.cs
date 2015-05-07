@@ -95,8 +95,8 @@ namespace WealthERP.OffLineOrderManagement
             userVo = (UserVo)Session[SessionContents.UserVo];
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
-            GetUserType();
-
+            //GetUserType();
+          
           
 
             if (!IsPostBack)
@@ -119,7 +119,8 @@ namespace WealthERP.OffLineOrderManagement
                     OnAssociateTextchanged(this, null);
                 }
                 BindDepositoryType();
-                BindSubTypeDropDown(1001);
+                BindCustomerNCDIssueList();
+                //BindSubTypeDropDown(1001);
                 btnAddMore.Visible = false;
                 //lblApplicationDuplicate.Visible = false;
                 if (AgentCode != null)
@@ -366,13 +367,12 @@ namespace WealthERP.OffLineOrderManagement
         protected void ddlCustomerSubType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlCustomerSubType.SelectedIndex < -1) return;
-            BindCustomerNCDIssueList(Convert.ToInt16(ddlCustomerSubType.SelectedValue));
 
         }
-        private void BindCustomerNCDIssueList(int customerSubtypeId)
+        private void BindCustomerNCDIssueList()
         {
             DataTable dtIssueList = new DataTable();
-            dtIssueList = onlineNCDBackOfficeBO.GetIssueList(advisorVo.advisorId, 1, customerSubtypeId, "FI");
+            dtIssueList = onlineNCDBackOfficeBO.GetIssueList(advisorVo.advisorId, 1, "FI");
             ddlIssueList.DataTextField = dtIssueList.Columns["AIM_IssueName"].ToString();
             ddlIssueList.DataValueField = dtIssueList.Columns["AIM_IssueId"].ToString();
             ddlIssueList.DataSource = dtIssueList;
@@ -383,12 +383,28 @@ namespace WealthERP.OffLineOrderManagement
         {
             if (ddlIssueList.SelectedValue.ToLower() != "select")
             {
-
-                BindStructureRuleGrid(advisorVo.advisorId, int.Parse(ddlIssueList.SelectedValue), 1, int.Parse(ddlCustomerSubType.SelectedValue));
-                BindStructureRuleGrid(int.Parse(ddlIssueList.SelectedValue), int.Parse(ddlCustomerSubType.SelectedValue), 0);
+                BindStructureRuleGrid(advisorVo.advisorId, int.Parse(ddlIssueList.SelectedValue), 1,0);
+               
+                BindIssueCategory(int.Parse(ddlIssueList.SelectedValue));
                 BindSubbroker(int.Parse(ddlIssueList.SelectedValue));
             }
             ddlIssueList.Focus();
+        }
+        private void BindIssueCategory(int issueId)
+        {
+            DataTable dt = OfflineIPOOrderBo.GetIssueCategory(issueId);
+            ddlCategory.DataSource = dt;
+            ddlCategory.DataValueField = "WCMV_Lookup_SubTypeId";
+            ddlCategory.DataTextField = "AIIC_InvestorCatgeoryName";
+            ddlCategory.DataBind();
+            ddlCategory.Items.Insert(0, new ListItem("--SELECT--", "0"));
+        }
+        protected void ddlCategory_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlIssueList.SelectedValue != "0")
+            {
+                BindStructureRuleGridList(int.Parse(ddlIssueList.SelectedValue), 0,int.Parse(ddlCategory.SelectedValue));
+            }
         }
         private void RadDateControlBusinessDateValidation(ref RadDatePicker rdtp, int noOfDays, DateTime dtDate, int isPastdateReq)
         {
@@ -419,14 +435,14 @@ namespace WealthERP.OffLineOrderManagement
             }
 
         }
-        protected void BindStructureRuleGrid(int adviserId, int issueId, int IssueStatus, int TaxStatusCustomerSubTypeId)
+        protected void BindStructureRuleGrid(int adviserId, int issueId, int IssueStatus,int category)
         {
 
             DataTable dtIssue = new DataTable();
             //1--- For Curent Issues
             tblgvIssueList.Visible = true;
             pnlNCDIssueList.Visible = true;
-            dtIssue = offlineBondBo.GetOfflineAdviserIssuerList(adviserId, issueId, IssueStatus, TaxStatusCustomerSubTypeId).Tables[0];
+            dtIssue = offlineBondBo.GetOfflineAdviserIssuerList(adviserId, issueId, IssueStatus,0).Tables[0];
 
 
             if (Cache["NCDIssueList" + userVo.UserId.ToString()] != null)
@@ -439,9 +455,9 @@ namespace WealthERP.OffLineOrderManagement
             gvIssueList.DataBind();
 
         }
-        protected void BindStructureRuleGrid(int IssuerId, int TaxStatusCustomerSubTypeId, int orderId)
+        protected void BindStructureRuleGridList(int IssuerId,  int orderId,int category)
         {
-            DataSet dsStructureRules = offlineBondBo.GetOfflineLiveBondTransaction(IssuerId, TaxStatusCustomerSubTypeId, orderId);
+            DataSet dsStructureRules = offlineBondBo.GetOfflineLiveBondTransaction(IssuerId, orderId, category);
             DataTable dtTransact = dsStructureRules.Tables[0];
 
             if (Cache["NCDTransactList" + userVo.UserId.ToString()] != null)
@@ -999,10 +1015,15 @@ namespace WealthERP.OffLineOrderManagement
             if (ddlDepositoryName.SelectedItem.Text == "NSDL")
             {
                 txtDPId.Enabled = true;
+                txtDpClientId.MaxLength = 8;
+                txtDPId.MaxLength = 8;
+                txtDpClientId.Text = "";
             }
             else if (ddlDepositoryName.SelectedItem.Text == "CDSL")
             {
                 txtDPId.Enabled = false;
+                txtDpClientId.MaxLength = 16;
+                txtDPId.Text = "";
             }
             ddlDepositoryName.Focus();
         }
@@ -1039,9 +1060,11 @@ namespace WealthERP.OffLineOrderManagement
                     txtAssociateSearch.Text = dr["AAC_AgentCode"].ToString();
                     txtAssociateSearch.Text = dr["AAC_AgentCode"].ToString();
                     string issue = dr["AIM_IssueId"].ToString();
-                    BindStructureRuleGrid(advisorVo.advisorId, int.Parse(dr["AIM_IssueId"].ToString()), 1, int.Parse(dr["OCD_WCMV_TaxStatus_Id"].ToString()));
-                    BindStructureRuleGrid(int.Parse(dr["AIM_IssueId"].ToString()), int.Parse(dr["OCD_WCMV_TaxStatus_Id"].ToString()), orderId);
-                    BindCustomerNCDIssueList(int.Parse(dr["OCD_WCMV_TaxStatus_Id"].ToString()));
+                    BindIssueCategory(int.Parse(dr["AIM_IssueId"].ToString()));
+                    ddlCategory.SelectedValue = dr["OCD_WCMV_TaxStatus_Id"].ToString();
+                    BindStructureRuleGrid(advisorVo.advisorId, int.Parse(dr["AIM_IssueId"].ToString()), 1,0);
+                    BindStructureRuleGridList(int.Parse(dr["AIM_IssueId"].ToString()),  orderId,int.Parse(dr["OCD_WCMV_TaxStatus_Id"].ToString()));
+                    BindCustomerNCDIssueList();
                     ddlIssueList.SelectedValue = dr["AIM_IssueId"].ToString();
                     BindSubbroker(int.Parse(dr["AIM_IssueId"].ToString()));
                     txtApplicationNo.Text = dr["CO_ApplicationNo"].ToString();

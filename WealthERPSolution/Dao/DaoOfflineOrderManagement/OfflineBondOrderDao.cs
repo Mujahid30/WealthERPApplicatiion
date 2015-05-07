@@ -13,7 +13,7 @@ namespace DaoOfflineOrderManagement
 {
     public class OfflineBondOrderDao
     {
-        public DataSet GetOfflineAdviserIssuerList(int adviserId, int issueId, int type, int CustomerSubType)
+        public DataSet GetOfflineAdviserIssuerList(int adviserId, int issueId, int type,int category)
         {
             Database db;
             DbCommand cmdGetCommissionStructureRules;
@@ -30,7 +30,7 @@ namespace DaoOfflineOrderManagement
                     db.AddInParameter(cmdGetCommissionStructureRules, "@IssueId", DbType.Int32, 0);
 
                 db.AddInParameter(cmdGetCommissionStructureRules, "@type", DbType.Int32, type);
-                db.AddInParameter(cmdGetCommissionStructureRules, "@CustomerSubType", DbType.Int32, CustomerSubType);
+                //db.AddInParameter(cmdGetCommissionStructureRules, "@CustomerSubType", DbType.Int32, CustomerSubType);
                 ds = db.ExecuteDataSet(cmdGetCommissionStructureRules);
             }
             catch (BaseApplicationException Ex)
@@ -51,7 +51,7 @@ namespace DaoOfflineOrderManagement
             }
             return ds;
         }
-        public DataSet GetOfflineLiveBondTransaction(int SeriesId,  int CustomerSubType, int orderId)
+        public DataSet GetOfflineLiveBondTransaction(int SeriesId,  int orderId,int category)
         {
             Database db;
             DbCommand cmdGetCommissionStructureRules;
@@ -68,7 +68,7 @@ namespace DaoOfflineOrderManagement
                 else
                     cmdGetCommissionStructureRules = db.GetStoredProcCommand("SPROC_OFF_GetLiveBondTransaction");
                 db.AddInParameter(cmdGetCommissionStructureRules, "@IssueId", DbType.Int32, SeriesId);
-                db.AddInParameter(cmdGetCommissionStructureRules, "@customerSubType", DbType.Int32, CustomerSubType);
+                db.AddInParameter(cmdGetCommissionStructureRules, "@customerSubType", DbType.Int32, category);
                 ds = db.ExecuteDataSet(cmdGetCommissionStructureRules);
             }
             catch (BaseApplicationException Ex)

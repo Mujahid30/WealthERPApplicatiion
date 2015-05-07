@@ -272,7 +272,7 @@ namespace WealthERP.OffLineOrderManagement
                         rbtnIndividual.Checked = true;
                         BindSubTypeDropDown(1002);
                     }
-                    ddlCustomerSubType.SelectedValue = dr["OCD_WCMV_TaxStatus_Id"].ToString();
+                    //ddlCustomerSubType.SelectedValue = dr["OCD_WCMV_TaxStatus_Id"].ToString();
                     txtDpClientId.Text = dr["OCD_BeneficiaryAccountNum"].ToString();
                     ddlDepositoryName.SelectedValue = dr["OCD_DepositoryName"].ToString();
                     if (ddlDepositoryName.SelectedValue == "NSDL")
@@ -289,8 +289,8 @@ namespace WealthERP.OffLineOrderManagement
                         txtASBANO.Text = dr["CO_ASBAAccNo"].ToString();
                         txtBranchName.Text = dr["CO_BankBranchName"].ToString();
 
-                        //txtBranchName.Visible = false;
-                        //lblBranchName.Visible = false;
+                        txtBranchName.Visible = false;
+                        lblBranchName.Visible = false;
                         trASBA.Visible = true;
                     }
                     else
@@ -308,9 +308,14 @@ namespace WealthERP.OffLineOrderManagement
                         trPINo.Visible = true;
                         lblBankAccount.Visible = true;
                         txtBankAccount.Visible = true;
+                        txtBranchName.Text = dr["CO_BankBranchName"].ToString();
+                        txtBranchName.Visible = true;
+                        lblBranchName.Visible = true;
                     }
                     BindCustomerIPOIssueList((issueCloseDate >= DateTime.Now) ? 1 : 2);
-                    BindIPOIssueList(Convert.ToInt16(dr["AIM_IssueId"].ToString()), (issueCloseDate >= DateTime.Now) ? 1 : 2, 2017);
+                    BindIssueCategory(Convert.ToInt16(dr["AIM_IssueId"].ToString()));
+                    ddlCategory.SelectedValue = dr["OCD_WCMV_TaxStatus_Id"].ToString();
+                    BindIPOIssueList(Convert.ToInt16(dr["AIM_IssueId"].ToString()), (issueCloseDate >= DateTime.Now) ? 1 : 2, int.Parse(dr["OCD_WCMV_TaxStatus_Id"].ToString()));
                     BindBank();
                     ddlBankName.SelectedValue = dr["CO_BankName"].ToString();
 
@@ -2134,7 +2139,7 @@ namespace WealthERP.OffLineOrderManagement
         {
             DataTable dt = OfflineIPOOrderBo.GetIssueCategory(issueId);
             ddlCategory.DataSource = dt;
-            ddlCategory.DataValueField = "AIIC_InvestorCatgeoryId";
+            ddlCategory.DataValueField = "WCMV_Lookup_SubTypeId";
             ddlCategory.DataTextField = "AIIC_InvestorCatgeoryName";
             ddlCategory.DataBind();
             ddlCategory.Items.Insert(0, new ListItem("--SELECT--", "1"));

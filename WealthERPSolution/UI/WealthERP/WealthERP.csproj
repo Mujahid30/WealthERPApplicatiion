@@ -9454,6 +9454,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="App_Themes\Bootstrap\" />
     <Folder Include="FusionChartXMLFiles\" />
     <Folder Include="Images\AdviserLogo_Bulk_Mail\" />
     <Folder Include="Images\AdviserLogo_Bulk_Report\" />
@@ -9476,7 +9477,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>56280</DevelopmentServerPort>
+          <DevelopmentServerPort>55094</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

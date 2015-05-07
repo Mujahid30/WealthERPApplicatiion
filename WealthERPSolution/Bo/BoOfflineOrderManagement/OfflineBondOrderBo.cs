@@ -15,14 +15,14 @@ namespace BoOfflineOrderManagement
     public class OfflineBondOrderBo
     {
 
-        public DataSet GetOfflineAdviserIssuerList(int adviserId, int issueId, int type, int customerSubtype)
+        public DataSet GetOfflineAdviserIssuerList(int adviserId, int issueId, int type,int category)
         {
             OfflineBondOrderDao offlineBondDao = new OfflineBondOrderDao();
             DataSet dsCommissionStructureRules = new DataSet();
 
             try
             {
-                dsCommissionStructureRules = offlineBondDao.GetOfflineAdviserIssuerList(adviserId, issueId, type, customerSubtype);
+                dsCommissionStructureRules = offlineBondDao.GetOfflineAdviserIssuerList(adviserId, issueId, type,0);
 
             }
             catch (BaseApplicationException Ex)
@@ -43,13 +43,13 @@ namespace BoOfflineOrderManagement
             }
             return dsCommissionStructureRules;
         }
-        public DataSet GetOfflineLiveBondTransaction(int SeriesId, int customerSubType, int orderId)
+        public DataSet GetOfflineLiveBondTransaction(int SeriesId, int orderId,int category)
         {
             OfflineBondOrderDao offlineBondDao = new OfflineBondOrderDao();
             DataSet dsCommissionStructureRules = new DataSet();
             try
             {
-                dsCommissionStructureRules = offlineBondDao.GetOfflineLiveBondTransaction(SeriesId, customerSubType, orderId);
+                dsCommissionStructureRules = offlineBondDao.GetOfflineLiveBondTransaction(SeriesId,  orderId,category);
 
             }
             catch (BaseApplicationException Ex)
