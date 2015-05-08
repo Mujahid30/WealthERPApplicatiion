@@ -799,7 +799,7 @@
                                                 <telerik:GridBoundColumn DataField="Portfolio Name" HeaderText="Portfolio Name" AllowFiltering="false"
                                                     HeaderStyle-Wrap="false" SortExpression="Portfolio Name" ShowFilterIcon="false"
                                                     CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="Portfolio Name"
-                                                    FooterStyle-HorizontalAlign="Left">
+                                                    FooterStyle-HorizontalAlign="Left" Visible="false">
                                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn DataField="WR_RequestId" HeaderText="Request ID" AllowFiltering="true"
@@ -810,7 +810,7 @@
                                                 </telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn DataField="CMFT_Area" HeaderText="Area" AllowFiltering="true"
                                                     HeaderStyle-Wrap="false" SortExpression="CMFT_Area" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                    AutoPostBackOnFilter="true" UniqueName="CMFT_Area" FooterStyle-HorizontalAlign="Left">
+                                                    AutoPostBackOnFilter="true" UniqueName="CMFT_Area" FooterStyle-HorizontalAlign="Left" Visible="false">
                                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn DataField="CMFT_EUIN" HeaderText="EUIN" AllowFiltering="true"

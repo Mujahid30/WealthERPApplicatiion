@@ -1002,15 +1002,15 @@ namespace WealthERP.CustomerPortfolio
                 {
                     AdviserId = advisorVo.advisorId;
                     IsAssociates = 0;
-                    gvMFTransactions.Columns[20].Visible = false;
-                    gvMFTransactions.Columns[21].Visible = false;
-                    gvMFTransactions.Columns[22].Visible = false;
-                    gvMFTransactions.Columns[23].Visible = false;
-                    gvMFTransactions.Columns[24].Visible = false;
-                    gvMFTransactions.Columns[25].Visible = false;
-                    gvMFTransactions.Columns[26].Visible = false;
-                    gvMFTransactions.Columns[27].Visible = false;
-                    gvMFTransactions.Columns[28].Visible = false;
+                    //gvMFTransactions.Columns[20].Visible = false;
+                    //gvMFTransactions.Columns[21].Visible = false;
+                    //gvMFTransactions.Columns[22].Visible = false;
+                    //gvMFTransactions.Columns[23].Visible = false;
+                    //gvMFTransactions.Columns[24].Visible = false;
+                    //gvMFTransactions.Columns[25].Visible = false;
+                    //gvMFTransactions.Columns[26].Visible = false;
+                    //gvMFTransactions.Columns[27].Visible = false;
+                    //gvMFTransactions.Columns[28].Visible = false;
                 }
                 else if (userType == "rm")
                 {
@@ -1182,7 +1182,7 @@ namespace WealthERP.CustomerPortfolio
                         drMFTransaction[18] = decimal.Parse(mfTransactionVo.BrokerageAmount.ToString());
                         drMFTransaction["CMFT_Area"] = mfTransactionVo.Area.ToString();
                         drMFTransaction["CMFT_EUIN"] = mfTransactionVo.EUIN.ToString();
-                        if (advisorVo.A_AgentCodeBased == 1)
+                        if (ddlAgentCode.SelectedValue == "1")
                         {
                             drMFTransaction["ZonalManagerName"] = mfTransactionVo.ZMName.ToString();
                             drMFTransaction["AreaManager"] = mfTransactionVo.AName.ToString();

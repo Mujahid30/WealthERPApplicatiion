@@ -2547,7 +2547,7 @@ namespace DaoCustomerPortfolio
                         {
                             mfTransactionVo.UserTransactionNo = "N/A";
                         }
-                        if (A_AgentCodeBased == 1)
+                        if (1 == 1)
                         {
                             if (dr["ZonalManagerName"].ToString() != null && dr["ZonalManagerName"].ToString() != string.Empty)
                             {

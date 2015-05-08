@@ -198,7 +198,7 @@
     </tr>
     <tr>
         <td align="right">
-            <asp:Label ID="lblStartDate" CssClass="FieldName" runat="server" Text="Start Date:"></asp:Label>
+            <asp:Label ID="lblStartDate" CssClass="FieldName" runat="server" Text="Agent Joining Date:"></asp:Label>
         </td>
         <td>
             <telerik:RadDatePicker ID="txtStartDate" CssClass="txtTo" runat="server" Culture="English (United States)"
