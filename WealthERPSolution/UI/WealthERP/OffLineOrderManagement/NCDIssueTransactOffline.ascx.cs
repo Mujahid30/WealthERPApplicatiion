@@ -740,7 +740,7 @@ namespace WealthERP.OffLineOrderManagement
                         dtOrderDetails = dt;
                         if (Request.QueryString["action"] == null)
                         {
-                            offlineBondBo.GetCustomerCat(OnlineBondVo.IssueId, advisorVo.advisorId, int.Parse(ddlCustomerSubType.SelectedValue), Convert.ToDouble(lblSum.Text), ref catName, ref issueDetId, ref EligblecatId, ref Description);
+                            offlineBondBo.GetCustomerCat(OnlineBondVo.IssueId, advisorVo.advisorId, int.Parse(ddlCategory.SelectedValue), Convert.ToDouble(lblSum.Text), ref catName, ref issueDetId, ref EligblecatId, ref Description);
                             ViewState["CustCat"] = catName;
                             if (EligblecatId == 0)
                             {
@@ -1016,7 +1016,6 @@ namespace WealthERP.OffLineOrderManagement
             {
                 txtDPId.Enabled = true;
                 txtDpClientId.MaxLength = 8;
-                txtDPId.MaxLength = 8;
                 txtDpClientId.Text = "";
             }
             else if (ddlDepositoryName.SelectedItem.Text == "CDSL")

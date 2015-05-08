@@ -347,7 +347,7 @@
                     <asp:Label ID="lblDPId" runat="server" Text="DP Id:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtDPId" runat="server" CssClass="txtField" TabIndex="8"></asp:TextBox>
+                    <asp:TextBox ID="txtDPId" runat="server" CssClass="txtField" TabIndex="8" MaxLength="8"></asp:TextBox>
                 </td>
                 <td class="leftField">
                 </td>
