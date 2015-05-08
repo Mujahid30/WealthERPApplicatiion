@@ -337,6 +337,7 @@ namespace WealthERP.BusinessMIS
                 gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_WCU_UnitCode").Visible = true;
                 gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_Expectedamount").Visible = true;
                 gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_ACSR_BrokerageValue").Visible = true;
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("TransactionAsOnDate").Visible = false;
               
                 if (ddlCommType.SelectedValue == "TC")
                 {
@@ -344,6 +345,7 @@ namespace WealthERP.BusinessMIS
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("PerDayAssets").Visible = true;
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("perDayTrail").Visible = true;
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("Age").Visible = true;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("TransactionAsOnDate").Visible = true;
 
                 }
                 if (ddlOrderStatus.SelectedValue == "OR")
