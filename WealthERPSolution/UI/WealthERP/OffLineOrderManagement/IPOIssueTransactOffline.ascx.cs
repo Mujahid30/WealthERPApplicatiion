@@ -2094,11 +2094,14 @@ namespace WealthERP.OffLineOrderManagement
             if (ddlDepositoryName.SelectedItem.Text == "NSDL")
             {
                 txtDPId.Enabled = true;
+                txtDpClientId.MaxLength = 8;
+                txtDpClientId.Text = "";
             }
             else if (ddlDepositoryName.SelectedItem.Text == "CDSL")
             {
-                txtDPId.Text = "";
                 txtDPId.Enabled = false;
+                txtDpClientId.MaxLength = 16;
+                txtDPId.Text = "";
             }
             ddlDepositoryName.Focus();
         }
