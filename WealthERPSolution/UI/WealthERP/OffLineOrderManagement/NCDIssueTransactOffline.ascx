@@ -540,13 +540,13 @@
                         <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                         </DateInput>
                     </telerik:RadDatePicker>
-                    <span id="Span11" class="spnRequiredField">*</span>
+                   <%-- <span id="Span11" class="spnRequiredField">*</span>
                     <asp:CompareValidator ID="CompareValidator14" runat="server" ErrorMessage="<br/>Please enter a valid date."
                         Type="Date" ControlToValidate="txtPaymentInstDate" CssClass="cvPCG" Operator="DataTypeCheck"
                         ValueToCompare="" Display="Dynamic" ValidationGroup="btnConfirmOrder" Enabled="true"></asp:CompareValidator>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtPaymentInstDate"
                         ErrorMessage="<br />Please Enter Cheque Date." Display="Dynamic" runat="server"
-                        CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
+                        CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>--%>
                 </td>
                 <td class="Page_Right_Padding">
                 </td>
