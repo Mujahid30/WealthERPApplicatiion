@@ -343,13 +343,13 @@ namespace WealthERP.OffLineOrderManagement
             trPINo.Visible = false;
             trASBA.Visible = false;
             RequiredFieldValidator8.Enabled = false;
-            CompareValidator14.Enabled = false;
+            //CompareValidator14.Enabled = false;
             RequiredFieldValidator9.Enabled = false;
             if (ddlPaymentMode.SelectedValue == "CQ")
             {
                 trPINo.Visible = true;
                 RequiredFieldValidator8.Enabled = true;
-                CompareValidator14.Enabled = true;
+                //CompareValidator14.Enabled = true;
                 Td3.Visible = true;
                 Td4.Visible = true;
                 txtASBANO.Text = "";
@@ -691,6 +691,7 @@ namespace WealthERP.OffLineOrderManagement
                 if (ddlPaymentMode.SelectedValue == "CQ")
                 {
                     OnlineBondVo.ChequeNumber = txtPaymentNumber.Text;
+                    if(txtPaymentInstDate.SelectedDate!=null)
                     OnlineBondVo.PaymentDate = DateTime.Parse(txtPaymentInstDate.SelectedDate.ToString());
                     if (!string.IsNullOrEmpty(txtBankAccount.Text))
                         OnlineBondVo.BankAccountNo = Int64.Parse(txtBankAccount.Text);
@@ -731,6 +732,7 @@ namespace WealthERP.OffLineOrderManagement
                         dt.Rows[tableRow]["AgentCode"] = OnlineBondVo.AgentNo;
                         if (ddlPaymentMode.SelectedValue == "CQ")
                         {
+                            if (txtPaymentInstDate.SelectedDate != null)
                             dt.Rows[tableRow]["ChequeDate"] = OnlineBondVo.PaymentDate.ToString("yyyy/MM/dd");
                             dt.Rows[tableRow]["ChequeNo"] = OnlineBondVo.ChequeNumber;
                         }
@@ -738,16 +740,16 @@ namespace WealthERP.OffLineOrderManagement
                         Label lblSum = (Label)footerItemAmount.FindControl("lblAmount");
                         txtAmount.Text = OnlineBondVo.Amount.ToString();
                         dtOrderDetails = dt;
-                        if (Request.QueryString["action"] == null)
-                        {
-                            offlineBondBo.GetCustomerCat(OnlineBondVo.IssueId, advisorVo.advisorId, int.Parse(ddlCategory.SelectedValue), Convert.ToDouble(lblSum.Text), ref catName, ref issueDetId, ref EligblecatId, ref Description);
-                            ViewState["CustCat"] = catName;
-                            if (EligblecatId == 0)
-                            {
-                                ShowMessage("Application amount should be between Min Quantity and Max Quantity.", 'W');
-                                return false;
-                            }
-                        }
+                        //if (Request.QueryString["action"] == null)
+                        //{
+                        //    offlineBondBo.GetCustomerCat(OnlineBondVo.IssueId, advisorVo.advisorId, int.Parse(ddlCategory.SelectedValue), Convert.ToDouble(lblSum.Text), ref catName, ref issueDetId, ref EligblecatId, ref Description);
+                        //    ViewState["CustCat"] = catName;
+                        //    if (EligblecatId == 0)
+                        //    {
+                        //        ShowMessage("Application amount should be between Min Quantity and Max Quantity.", 'W');
+                        //        return false;
+                        //    }
+                        //}
                         dt.Rows[tableRow]["CatId"] = catId;
                         dt.Rows[tableRow]["AcceptableCatId"] = EligblecatId;
 

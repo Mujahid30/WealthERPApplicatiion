@@ -770,13 +770,13 @@ namespace WealthERP.OffLineOrderManagement
             lblBankAccount.Visible = false;
             txtBankAccount.Visible = false;
             RequiredFieldValidator8.Enabled = false;
-            CompareValidator14.Enabled = false;
+            //CompareValidator14.Enabled = false;
             RequiredFieldValidator9.Enabled = false;
             if (ddlPaymentMode.SelectedValue == "CQ")
             {
                 trPINo.Visible = true;
                 RequiredFieldValidator8.Enabled = true;
-                CompareValidator14.Enabled = true;
+                //CompareValidator14.Enabled = true;
 
                 txtBranchName.Visible = true;
                 //lblBankBranchName.Visible = true;
