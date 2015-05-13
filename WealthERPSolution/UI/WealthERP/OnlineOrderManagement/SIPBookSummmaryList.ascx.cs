@@ -196,7 +196,8 @@ namespace WealthERP.OnlineOrderManagement
                 //}
 
                 dvSIPOrderDetails = new DataView(dtOrderDetails, "CMFSS_SystematicSetupId=" + drSIP["CMFSS_SystematicSetupId"].ToString(), "CMFSS_SystematicSetupId", DataViewRowState.CurrentRows);
-                if (drSIP["CMFSS_IsCanceled"].ToString() != "Cancelled" && Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString()) <= Convert.ToInt16(drSIP["CMFSS_CurrentInstallmentNumber"].ToString()))
+                if (drSIP["CMFSS_IsCanceled"].ToString() != "Cancelled" && Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString()) <= Convert.ToInt16(drSIP["CMFSS_CurrentInstallmentNumber"].ToString())
+                    && Convert.ToDateTime(drSIP["CMFSS_EndDate"].ToString())>=DateTime.Now)
                 {
                     sipDueCount = (Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString())
                           - ((Convert.ToInt16(drSIP["CMFSS_CurrentInstallmentNumber"].ToString())) - 1));
@@ -551,7 +552,7 @@ namespace WealthERP.OnlineOrderManagement
                 DateTime currentTime = DateTime.Now;
                 DateTime fixedTime = Convert.ToDateTime("08:35:00 AM");
                 int compare = DateTime.Compare(currentTime, fixedTime);
-                if (isCancel == "Cancelled" || totalInstallment == currentInstallmentNumber || endDate < DateTime.Now)
+                if (isCancel == "Cancelled" || totalInstallment == currentInstallmentNumber-1 || endDate < DateTime.Now)
                 {
 
                     buttonCancel.Enabled = false;
