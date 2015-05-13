@@ -85,6 +85,7 @@
     <Compile Include="OfflineMFOrderDao.cs" />
     <Compile Include="OfflineNCDIPOBackOfficeDao.cs" />
     <Compile Include="OfflineOrderDao.cs" />
+    <Compile Include="OnlineMFSchemeDetailsDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

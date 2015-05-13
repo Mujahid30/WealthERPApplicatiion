@@ -2536,6 +2536,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderManagement//MFSchemeDetails.ascx.
+        /// </summary>
+        internal static string MFSchemeDetails {
+            get {
+                return ResourceManager.GetString("MFSchemeDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OnlineOrderManagement//MFSchemeRelateInformation.ascx.
         /// </summary>
         internal static string MFSchemeRelateInformation {

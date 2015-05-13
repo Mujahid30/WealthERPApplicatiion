@@ -54,6 +54,7 @@
     <Compile Include="OnlineIPOBackOfficeVo.cs" />
     <Compile Include="OnlineIPOOrderVo.cs" />
     <Compile Include="OnlineMFOrderVo.cs" />
+    <Compile Include="OnlineMFSchemeDetailsVo.cs" />
     <Compile Include="OnlineNCDBackOfficeVo.cs" />
     <Compile Include="OnlineOrderBackOfficeVo.cs" />
     <Compile Include="OnlineOrderVo.cs" />
