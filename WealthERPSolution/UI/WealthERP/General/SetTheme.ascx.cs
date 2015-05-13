@@ -8,7 +8,12 @@ using BoUser;
 using VoUser;
 using WealthERP.Base;
 using BoCommon;
-
+using System.Collections;
+using BoOnlineOrderManagement;
+using VoOnlineOrderManagemnet;
+using BoWerpAdmin;
+using System.Data;
+using BoProductMaster;
 namespace WealthERP.General
 {
     public partial class SetTheme : System.Web.UI.UserControl
@@ -19,16 +24,19 @@ namespace WealthERP.General
         {
             SessionBo.CheckSession();
             userBo = new UserBo();
+          //  GetAmcSchemeDetails();
             userVo = (UserVo)Session[SessionContents.UserVo];
             if (Session["Theme"] != null)
             {
                 ddlTheme.SelectedValue = Session["Theme"].ToString();
             }
-            
+           
         }
 
         protected void ddlTheme_SelectedIndexChanged(object sender, EventArgs e)
         {
+
+
             if (ddlTheme.SelectedIndex != 0)
             {
                 Session["Theme"] = ddlTheme.SelectedValue;
@@ -36,5 +44,6 @@ namespace WealthERP.General
             }
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "window.parent.location.href = window.parent.location.href;", true);
         }
+    
     }
 }

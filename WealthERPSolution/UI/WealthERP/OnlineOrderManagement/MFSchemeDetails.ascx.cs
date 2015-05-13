@@ -4,14 +4,179 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
+using BoWerpAdmin;
+using BoProductMaster;
+using System.Data;
+using VoOnlineOrderManagemnet;
+using BoOnlineOrderManagement;
+using BoCommon;
+using VoUser;
+using VoCustomerPortfolio;
 namespace WealthERP.OnlineOrderManagement
 {
     public partial class MFSchemeDetails : System.Web.UI.UserControl
     {
+        CustomerVo customerVo = new CustomerVo();
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            OnlineUserSessionBo.CheckSession();
+            customerVo = (CustomerVo)Session["CustomerVo"];
+             if (!IsPostBack)
+            {
+                BindAMC();
+            }
         }
+         protected void ddlAMC_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlAMC.SelectedIndex != 0)
+            {
+                BindScheme();
+                BindCategory();
+            }
+        }
+        private void BindAMC()
+        {
+
+            PriceBo priceBo = new PriceBo();
+            DataTable dtGetAMCList = new DataTable();
+            dtGetAMCList = priceBo.GetMutualFundList();
+            ddlAMC.DataSource = dtGetAMCList;
+            ddlAMC.DataTextField = dtGetAMCList.Columns["PA_AMCName"].ToString();
+            ddlAMC.DataValueField = dtGetAMCList.Columns["PA_AMCCode"].ToString();
+            ddlAMC.DataBind();
+            ddlAMC.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+        }
+        protected void BindScheme()
+        {
+            DataTable dt;
+            ProductMFBo productMFBo = new ProductMFBo();
+            if (ddlAMC.SelectedValue != "0")
+            {
+                dt = productMFBo.GetSchemePlanName(int.Parse(ddlAMC.SelectedValue));
+                ddlScheme.DataSource = dt;
+                ddlScheme.DataValueField = "PASP_SchemePlanCode";
+                ddlScheme.DataTextField = "PASP_SchemePlanName";
+                ddlScheme.DataBind();
+            }
+        }
+        private void BindCategory()
+        {
+            DataSet dsProductAssetCategory;
+            ProductMFBo productMFBo = new ProductMFBo();
+            dsProductAssetCategory = productMFBo.GetProductAssetCategory();
+            DataTable dtCategory = dsProductAssetCategory.Tables[0];
+            ddlCategory.DataSource = dtCategory;
+            ddlCategory.DataValueField = dtCategory.Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
+            ddlCategory.DataTextField = dtCategory.Columns["PAIC_AssetInstrumentCategoryName"].ToString();
+            ddlCategory.DataBind();
+            ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+        }
+        protected void Go_OnClick(object sender, EventArgs e)
+        {
+            GetAmcSchemeDetails();
+        }
+        public void GetAmcSchemeDetails()
+        {
+            OnlineMFSchemeDetailsBo onlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
+            Session["Schemedetails"] = onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue);
+            OnlineMFSchemeDetailsVo mfSchemeDetails = (OnlineMFSchemeDetailsVo)Session["Schemedetails"];
+            lblSchemeName.Text = mfSchemeDetails.schemeName;
+            lblAMC.Text = mfSchemeDetails.schemeName;
+            lblNAV.Text = mfSchemeDetails.NAV.ToString();
+            lblNAVDate.Text = mfSchemeDetails.navDate.ToString();
+            lblCategory.Text = mfSchemeDetails.category;
+            lblBanchMark.Text = mfSchemeDetails.schemeBanchMark;
+            lblFundManager.Text = mfSchemeDetails.fundManager;
+            lblFundReturn1styear.Text = mfSchemeDetails.fundReturn3rdYear.ToString();
+            lblFundReturn3rdyear.Text = mfSchemeDetails.fundReturn5thtYear.ToString();
+            lblFundReturn5thyear.Text = mfSchemeDetails.fundReturn10thYear.ToString();
+            lblBenchmarkReturn.Text = mfSchemeDetails.benchmarkReturn1stYear;
+            lblBenchMarkReturn3rd.Text = mfSchemeDetails.benchmark3rhYear;
+            lblBenchMarkReturn5th.Text = mfSchemeDetails.benchmark5thdYear;
+            lblMinSIP.Text = mfSchemeDetails.minSIPInvestment.ToString();
+            lblSIPMultipleOf.Text = mfSchemeDetails.SIPmultipleOf.ToString();
+            lblExitLoad.Text = mfSchemeDetails.exitLoad.ToString();
+            if (mfSchemeDetails.mornigStar > 0)
+            {
+                //trSchemeRating.Visible = true;
+                imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + 4 + ".png";
+                imgStyleBox.ImageUrl = @"../Images/MorningStarRating/StarStyleBox/" + 7 + ".png";
+                //Rating Overall
+                //imgRatingDetails.ImageUrl = @"../Images/MorningStarRating/RatingOverall/" + mfSchemeDetails.mornigStar + ".png";
+
+                ////Rating yearwise
+                //imgRating3yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + mfSchemeDetails.SchemeRating3Year + ".png";
+                //imgRating5yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + mfSchemeDetails.SchemeRating5Year + ".png";
+                //imgRating10yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + mfSchemeDetails.SchemeRisk10Year + ".png";
+
+                //lblSchemeRetrun3yr.Text = mfSchemeDetails.SchemeReturn3Year;
+                //lblSchemeRetrun5yr.Text = mfSchemeDetails.SchemeReturn5Year;
+                //lblSchemeRetrun10yr.Text = mfSchemeDetails.SchemeReturn10Year;
+
+                //lblSchemeRisk3yr.Text = mfSchemeDetails.SchemeRisk3Year;
+                //lblSchemeRisk5yr.Text = mfSchemeDetails.SchemeRisk5Year;
+                //lblSchemeRisk10yr.Text = mfSchemeDetails.SchemeRisk10Year;
+
+            }
+            else
+            {
+                //trSchemeRating.Visible = false;
+                imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/0.png";
+
+            }
+        }
+        protected void lbBuy_OnClick(object sender, EventArgs e)
+        {
+            if (Session["PageDefaultSetting"] != null)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderAdditionalPurchase','&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "');", true);
+
+            }
+            else
+            {
+                Response.Redirect("ControlHost.aspx?pageid=MFOrderAdditionalPurchase&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "", false);
+               
+            }
+        }
+        protected void lbAddPurchase_OnClick(object sender, EventArgs e)
+        {
+            if (Session["PageDefaultSetting"] != null)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderAdditionalPurchase','&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "');", true);
+
+            }
+            else
+            {
+                Response.Redirect("ControlHost.aspx?pageid=MFOrderAdditionalPurchase&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "", false);
+
+            }
+        }
+        protected void lbSIP_OnClick(object sender, EventArgs e)
+        {
+            if (Session["PageDefaultSetting"] != null)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderSIPTransType','&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "');", true);
+
+            }
+            else
+            {
+                Response.Redirect("ControlHost.aspx?pageid=MFOrderSIPTransType&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "", false);
+
+            }
+        }
+        protected void lbRedem_OnClick(object sender, EventArgs e)
+        {
+            if (Session["PageDefaultSetting"] != null)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderRdemptionTransType','&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "');", true);
+
+            }
+            else
+            {
+                Response.Redirect("ControlHost.aspx?pageid=MFOrderRdemptionTransType&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "", false);
+
+            }
+        }
+
     }
 }

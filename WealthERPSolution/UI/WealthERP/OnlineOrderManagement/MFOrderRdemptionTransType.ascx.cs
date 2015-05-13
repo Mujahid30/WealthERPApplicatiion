@@ -67,16 +67,29 @@ namespace WealthERP.OnlineOrderManagement
                     //lblDividendType.Visible = false;
                     trDividendOption.Visible = false;
                     trRedeemType.Visible = true;
-                    if (Request.QueryString["accountId"] != null && Request.QueryString["SchemeCode"] != null)
+                    if ((Request.QueryString["accountId"] != null && Request.QueryString["SchemeCode"] != null) || Request.QueryString["Amc"] != null)
                     {
                         int accountId = 0;
                         int schemeCode = 0;
                         int amcCode = 0;
                         string category = string.Empty;
-                        accountId = int.Parse(Request.QueryString["accountId"].ToString());
                         schemeCode = int.Parse(Request.QueryString["SchemeCode"].ToString());
-                        commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category);
-                        SetSelectedDisplay(accountId, schemeCode, amcCode, category);
+                        if (Request.QueryString["accountId"] != null)
+                        {
+                            accountId = int.Parse(Request.QueryString["accountId"].ToString());
+                            commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category);
+                            SetSelectedDisplay(accountId, schemeCode, amcCode, category);
+                        }
+                        else
+                        {
+                            ddlAmc.SelectedValue = Request.QueryString["Amc"].ToString();
+                            ddlScheme.SelectedValue = schemeCode.ToString();
+                            ddlCategory.SelectedValue = Request.QueryString["category"].ToString();
+                            BindFolioNumber(int.Parse(ddlAmc.SelectedValue));
+                            SetSelectedDisplay(int.Parse(ddlFolio.SelectedValue), schemeCode, int.Parse(ddlAmc.SelectedValue), category);
+                            BindNomineeAndJointHolders();
+
+                        }
                     }
                 }
                 else
