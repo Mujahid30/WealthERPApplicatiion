@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BoOfflineOrderManagement
+namespace DaoOnlineOrderManagement
 {
-    class OnlineMFSchemeDetailsBo
+    class OnlineMFSchemeDetailsDao
     {
     }
 }

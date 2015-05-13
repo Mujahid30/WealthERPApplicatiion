@@ -77,6 +77,7 @@
     <Compile Include="OnlineIPOBackOfficeBo.cs" />
     <Compile Include="OnlineIPOOrderBo.cs" />
     <Compile Include="OnlineMFOrderBo.cs" />
+    <Compile Include="OnlineMFSchemeDetailsBo.cs" />
     <Compile Include="OnlineNCDBackOfficeBo.cs" />
     <Compile Include="OnlineOrderBackOfficeBo.cs" />
     <Compile Include="OnlineOrderBo.cs" />
