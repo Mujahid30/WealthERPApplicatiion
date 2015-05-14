@@ -25,6 +25,16 @@ namespace WealthERP.OnlineOrder
         protected global::System.Web.UI.ScriptManager ScriptManager;
 
         /// <summary>
+        /// trMFOrderMenuMarketTab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trMFOrderMenuMarketTab;
+
+
+        /// <summary>
         /// trMFOrderMenuTransactTab control.
         /// </summary>
         /// <remarks>
@@ -32,6 +42,7 @@ namespace WealthERP.OnlineOrder
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trMFOrderMenuTransactTab;
+
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trIPOOrderMenuHoldingsTab;
 
         /// <summary>

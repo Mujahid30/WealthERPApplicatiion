@@ -6,17 +6,41 @@
     <ContentTemplate>
         <table cellpadding="0" cellspacing="0" style="top: auto; vertical-align: top; padding-left: 13px;"
             id="tblMF" visible="false" runat="server">
+            <tr id="trMFOrderMenuMarketTab" runat="server" visible="false">
+                <td>
+                    <telerik:RadTabStrip ID="RTSMFOrderMenuHome" runat="server" EnableTheming="True" Skin="Telerik"
+                        EnableEmbeddedSkins="False" MultiPageID="RMPMFOrderMenuTransact" SelectedIndex="7"
+                        AutoPostBack="true" OnTabClick="RTSMFOrderMenuHome_TabClick">
+                        <Tabs>
+                            <telerik:RadTab runat="server" Text="MARKET" Value="RTSMFOrderMenuHomeMarket"
+                                TabIndex="0" PageViewID="RPVMarket" Selected="True">
+                            </telerik:RadTab>
+                            <telerik:RadTab runat="server" Text="SCHEME RESEARCH" Value="RTSMFOrderMenuHomeSchemeResearch"
+                                TabIndex="1" PageViewID="RPVSchemeResearch" Selected="True">
+                            </telerik:RadTab>
+                            <telerik:RadTab runat="server" Text="SCHEME COMPARE" Value="RTSMFOrderMenuHomeSchemeCompare"
+                                TabIndex="1" PageViewID="RPVSchemeCompare" Selected="True">
+                            </telerik:RadTab>
+                        </Tabs>
+                    </telerik:RadTabStrip>
+                    <telerik:RadMultiPage ID="RMPMFOrderMenuMarketHome" EnableViewState="false" runat="server" SelectedIndex="0" Width="100%">
+                        <telerik:RadPageView ID="RPVMarket" runat="server" Style="margin-top: 20px">
+                        </telerik:RadPageView>
+                         <telerik:RadPageView ID="RPVSchemeResearch" runat="server" Style="margin-top: 20px">
+                        </telerik:RadPageView>
+                         <telerik:RadPageView ID="RPVSchemeCompare" runat="server" Style="margin-top: 20px">
+                        </telerik:RadPageView>
+                    </telerik:RadMultiPage>
+                </td>
+            </tr>
             <tr id="trMFOrderMenuTransactTab" runat="server" visible="false">
                 <td>
                     <telerik:RadTabStrip ID="RTSMFOrderMenuTransact" runat="server" EnableTheming="True"
                         Skin="Telerik" EnableEmbeddedSkins="False" MultiPageID="RMPMFOrderMenuTransact"
                         SelectedIndex="7" AutoPostBack="true" OnTabClick="RTSMFOrderMenuTransact_TabClick">
-                        <Tabs>
-                        <telerik:RadTab runat="server" Text="SCHEME SELECTION" Value="RTSMFOrderSCHEMESELECTION"
-                                TabIndex="7" PageViewID="RPVSCHEMESELECTION" Selected="True">
-                            </telerik:RadTab>
+                        <Tabs>                           
                             <telerik:RadTab runat="server" Text="NEW PURCHASE" Value="RTSMFOrderMenuTransactNewPurchase"
-                                TabIndex="0" PageViewID="RPVNewPurchase" >
+                                TabIndex="0" PageViewID="RPVNewPurchase">
                             </telerik:RadTab>
                             <telerik:RadTab runat="server" Text="ADDITIONAL PURCHASE" Value="RTSMFOrderMenuTransactAdditionalPurchase"
                                 TabIndex="1" PageViewID="RPVAdditionalPurchase">
@@ -108,7 +132,6 @@
                     </telerik:RadMultiPage>
                 </td>
             </tr>
-            r
         </table>
         <table cellpadding="0" cellspacing="0" style="top: auto; vertical-align: top; padding-left: 13px;"
             id="tblNCD" visible="false" runat="server">

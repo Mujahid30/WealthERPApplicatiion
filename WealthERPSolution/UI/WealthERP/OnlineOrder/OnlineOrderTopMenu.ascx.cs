@@ -37,14 +37,31 @@ namespace WealthERP.OnlineOrder
             }
 
         }
+        protected void RTSMFOrderMenuHome_TabClick(object sender, RadTabStripEventArgs e)
+        {
+            switch (e.Tab.Value)
+            {
+                case "RTSMFOrderMenuHomeMarket": // add a new root tab
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFSchemeRelateInformation','login');", true);
+                    break;
+
+                case "RTSMFOrderMenuHomeSchemeResearch": // add a new child tab
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFSchemeDetails','login');", true);
+                    break;
+
+                case "RTSMFOrderMenuHomeSchemeCompare": // add a new child tab
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFSchemeCompare','login');", true);
+                    break;
+
+
+            }
+        }
+
 
         protected void RTSMFOrderMenuTransact_TabClick(object sender, RadTabStripEventArgs e)
         {
             switch (e.Tab.Value)
             {
-                case "RTSMFOrderSCHEMESELECTION": // add a new root tab
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFSchemeRelateInformation','login');", true);
-                    break;
                 case "RTSMFOrderMenuTransactNewPurchase": // add a new root tab
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderPurchaseTransType','login');", true);
                     break;
@@ -85,7 +102,7 @@ namespace WealthERP.OnlineOrder
 
                 case "RTSMFOrderMenuBooksSIPBook": // add a new child tab
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('SIPBookSummmaryList','?systematicType=" + "SIP" + "');", true);
-                   // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('SIPBookSummmaryList','login');", true);
+                    // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('SIPBookSummmaryList','login');", true);
                     break;
                 case "RTSMFOrderMenuBooksSWPBook": // add a new child tab
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('SIPBookSummmaryList','?systematicType=" + "SWP" + "');", true);
@@ -206,6 +223,9 @@ namespace WealthERP.OnlineOrder
                         tblMF.Visible = true;
                         switch (productMenu)
                         {
+                            case "trMFOrderMenuMarketTab":
+                                trMFOrderMenuMarketTab.Visible = true;
+                                break;
                             case "trMFOrderMenuTransactTab":
                                 trMFOrderMenuTransactTab.Visible = true;
                                 break;
