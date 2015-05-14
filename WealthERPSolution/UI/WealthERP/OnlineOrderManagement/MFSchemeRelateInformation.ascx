@@ -9,365 +9,361 @@
 <script src="../Scripts/JScript.js" type="text/javascript"></script>
 
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="Scripts/jquery-1.4.1.js"type="text/javascript"></script>
+
+<script src="Scripts/jquery-1.4.1.js" type="text/javascript"></script>
 
 <asp:ScriptManager ID="scriptmanager" runat="server">
- <%--<Services>
+    <%--<Services>
         <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
     </Services>--%>
 </asp:ScriptManager>
 <style type="text/css">
+    .h6
+    {
+        font-stretch: narrower;
+    }
+    .dvRow
+    {
+        font-family:Segoe UI; font-size:14px; color:#565656; padding-bottom:1%
+    }
     .style1
     {
         width: 37%;
     }
+    .leftField
+    {
+        font-weight: bold;
+    }
+    .DivBody
+    {
+        background: #ffffff; /* Old browsers */
+        background: -moz-linear-gradient(top,  #ffffff 0%, #e5e5e5 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* IE10+ */
+        background: linear-gradient(to bottom,  #ffffff 0%,#e5e5e5 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+        box-shadow: 10px 10px 5px grey;
+    }
+    .divRow
+    {
+        background: #ffffff;
+        background: -moz-linear-gradient(top,  #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(47%,#f6f6f6), color-stop(100%,#ededed));
+        background: -webkit-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#ededed 100%);
+        background: -o-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#ededed 100%);
+        background: -ms-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#ededed 100%);
+        background: linear-gradient(to bottom,  #ffffff 0%,#f6f6f6 47%,#ededed 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 );
+    }
+    .header
+    {
+        background: #93cede;
+        background: -moz-linear-gradient(top,  #93cede 0%, #75bdd1 41%, #49a5bf 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#93cede), color-stop(41%,#75bdd1), color-stop(100%,#49a5bf));
+        background: -webkit-linear-gradient(top,  #93cede 0%,#75bdd1 41%,#49a5bf 100%);
+        background: -o-linear-gradient(top,  #93cede 0%,#75bdd1 41%,#49a5bf 100%);
+        background: -ms-linear-gradient(top,  #93cede 0%,#75bdd1 41%,#49a5bf 100%);
+        background: linear-gradient(to bottom,  #93cede 0%,#75bdd1 41%,#49a5bf 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#49a5bf',GradientType=0 );
+    }
 </style>
 
-  <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-    <script type="text/javascript" >
-        $(document).ready(function() {
+<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.js" type="text/javascript"></script>
+
+<script src="../Scripts/JScript.js" type="text/javascript"></script>
+
+<script src="../App_Themes/BootStrap/js/bootstrap.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<link href="../App_Themes/bootstrap/CSS/bootstrap.css" rel="stylesheet" type="text/css" />
+<link href="../App_Themes/bootstrap/CSS/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="../App_Themes/BootStrap/CSS/bootstrap-theme.css" rel="stylesheet" type="text/css" />
+<link href="../App_Themes/BootStrap/CSS/bootstrap-theme.min.css" rel="stylesheet"
+    type="text/css" />
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"
+    type="text/css" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
+
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"
+    type="text/javascript"></script>
+
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<%--<script type="text/javascript">
+    $(document).ready(function() {
         GetDropDownData();
         GetSchemeLists();
     });
-        
- function GetDropDownData() {
-            // Get the DropDownList.
-     var ddlAMC = $('#ddlAMC');
-            var tableName = "AMCList";
-            $.ajax({
-                type: "POST",
-                url: "../CustomerPortfolio/AutoComplete.asmx/GetAMCList",
-                data: '{}',
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
+
+    function GetDropDownData() {
+        // Get the DropDownList.
+        var ddlAMC = $('#ddlAMC');
+        var tableName = "AMCList";
+        $.ajax({
+            type: "POST",
+            url: "../CustomerPortfolio/AutoComplete.asmx/GetAMCList",
+            data: '{}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(response) {
                 var Dropdown = $('#<%=ddlAMC.ClientID %>');
-               Dropdown.append(new Option("All", 0));
-               $.each(response.d, function (index, item) {
-                   Dropdown.append(new Option( item.Text,item.Value));
-                    });
-                }
-            });
-        }
-        $(document).ready(function() {
-            GetSchemeLists();
-        });
-        function GetSchemeLists() {
-            // Get the DropDownList.
-            var ddlScheme = $('#ddlScheme');
-            var tableName = "SchemeList";
-            $.ajax({
-                type: "POST",
-                url: "../CustomerPortfolio/AutoComplete.asmx/GetSchemeList",
-                data: '{}',
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function(response) {
-                    var Dropdown1 = $('#<%=ddlScheme.ClientID %>');
-                    Dropdown1.append(new Option("All", 0));
-                    $.each(response.d, function(index, item) {
-                        Dropdown1.append(new Option(item.Text, item.Value));
-                    });
-                }
-            });
-        }
-        function AMCSelection() {
-            // Get the DropDownList.
-            var ddlScheme = $('#ddlScheme');
-            var tableName = "SchemeList";
-            var IndexValuebond = document.getElementById('<%=ddlAMC.ClientID %>');
-            var SelectedValbond = IndexValuebond.value;
-           
-            var AmcCodes = {
-            SelectedValbond: SelectedValbond
+                Dropdown.append(new Option("All", 0));
+                $.each(response.d, function(index, item) {
+                    Dropdown.append(new Option(item.Text, item.Value));
+                });
             }
-            $.ajax({
-                type: "POST",
-                url: "../CustomerPortfolio/AutoComplete.asmx/GetAMCWiseSchemeList",
-                data: JSON.stringify(AmcCodes),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function(response) {
-                    var Dropdown1 = $('#<%=ddlScheme.ClientID %>');
-                    Dropdown1.append(new Option("All", 0));
-                    $.each(response.d, function(index, item) {
-                        Dropdown1.append(new Option(item.Text, item.Value));
-                    });
-                }
-            });
+        });
+    }
+    $(document).ready(function() {
+        GetSchemeLists();
+    });
+    function GetSchemeLists() {
+        // Get the DropDownList.
+        var ddlScheme = $('#ddlScheme');
+        var tableName = "SchemeList";
+        $.ajax({
+            type: "POST",
+            url: "../CustomerPortfolio/AutoComplete.asmx/GetSchemeList",
+            data: '{}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(response) {
+                var Dropdown1 = $('#<%=ddlScheme.ClientID %>');
+                Dropdown1.append(new Option("All", 0));
+                $.each(response.d, function(index, item) {
+                    Dropdown1.append(new Option(item.Text, item.Value));
+                });
+            }
+        });
+    }
+    function AMCSelection() {
+        // Get the DropDownList.
+        var ddlScheme = $('#ddlScheme');
+        var tableName = "SchemeList";
+        var IndexValuebond = document.getElementById('<%=ddlAMC.ClientID %>');
+        var SelectedValbond = IndexValuebond.value;
+
+        var AmcCodes = {
+            SelectedValbond: SelectedValbond
         }
-    </script>
-    <script type="text/javascript" >
-//        $(document).ready(function() {
-//        GetSchemeLists();
-//        });
+        $.ajax({
+            type: "POST",
+            url: "../CustomerPortfolio/AutoComplete.asmx/GetAMCWiseSchemeList",
+            data: JSON.stringify(AmcCodes),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(response) {
+                var Dropdown1 = $('#<%=ddlScheme.ClientID %>');
+                Dropdown1.append(new Option("All", 0));
+                $.each(response.d, function(index, item) {
+                    Dropdown1.append(new Option(item.Text, item.Value));
+                });
+            }
+        });
+
+    }
+</script>--%>
+
+<script type="text/javascript">
+    //        $(document).ready(function() {
+    //        GetSchemeLists();
+    //        });
        
-    </script>
-            
-<table width="100%" class="TableBackground">
-    <tr>
-        <td colspan="3" style="width: 100%;">
-            <div class="divPageHeading">
-                <table cellspacing="0" width="100%">
-                    <tr>
-                        <td align="left">
-                            Scheme Information
-                        </td>
-                        <td align="right" style="padding-bottom: 2px;">
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </td>
-    </tr>
-</table>
-<table>
-    <tr>
-        <td align="right">
-            <asp:Label ID="lblAMC" runat="server" CssClass="FieldName" Text="AMC:">
-            </asp:Label>
-        </td>
-        <td>
-            <asp:DropDownList ID="ddlAMC" runat="server" CssClass="cmbField" onchange="AMCSelection();" >
+</script>
+
+ <table class="tblMessage" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                    <div class="divOnlinePageHeading">
+                        <div class="divClientAccountBalance" id="divClientAccountBalance" runat="server">
+                            <asp:Label ID="Label1" runat="server" Text="Available Limits:" CssClass="BalanceLabel"> </asp:Label>
+                            <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="BalanceAmount"></asp:Label>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+<div class="row " style="margin-left: 10%; margin-top: 1%; margin-bottom: 2%; padding-top: 1%">
+    <div class="col-md-3">
+        <button type="button" class="btn btn-primary btn-primary">
+            Scheme Details <span class="glyphicon glyphicon-th-list"></span>
+        </button>
+    </div>
+    <div class="col-md-3">
+        <a href="#" class="btn btn-primary btn-primary">NFO List <span class="glyphicon glyphicon-th-list">
+        </span></a>
+    </div>
+    <div class="col-md-3">
+        <a href="#" class="btn btn-primary btn-primary">View Watch list <span class="glyphicon glyphicon-list-alt">
+        </span></a>
+    </div>
+    <div class="col-md-3">
+        <a href="#" class="btn btn-primary btn-primary">Top Ten Schemes <span class="glyphicon glyphicon-th-list">
+        </span></a>
+    </div>
+</div>
+<div id="demo" class="row " style="margin-left: 11%; margin-top: 1%; margin-bottom: 2%;
+    margin-right: 5%; border: 2px solid #a1a1a1; padding-top: 1%; padding-bottom: 1%">
+    <div class="col-md-12 col-xs-12 col-sm-12">
+        <div class="col-md-7">
+            <b>AMC:</b>
+            <asp:DropDownList ID="ddlAMC" runat="server" CssClass="form-control input-sm" Width="100%"
+                OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged" AutoPostBack="true">
             </asp:DropDownList>
-        </td>
-        <td align="right">
-            <asp:Label ID="lblScheme" runat="server" CssClass="FieldName" Text="Scheme:">
-            </asp:Label>
-        </td>
-        <td>
-            <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField">
+            <asp:RequiredFieldValidator ID="rfvAMC" runat="server" ControlToValidate="ddlAMC" InitialValue="0" ErrorMessage="Please Select AMC" Display="Dynamic"></asp:RequiredFieldValidator>
+        </div>
+        <div class="col-md-5">
+            <b>Category: </b>
+            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control input-sm">
             </asp:DropDownList>
-        </td>
-        <td align="right">
-            <asp:Label ID="lblCategory" runat="server" CssClass="FieldName" Text="Category:">
-            </asp:Label>
-        </td>
-        <td>
-            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField">
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="col-md-8">
+            <b>Scheme:</b>
+            <asp:DropDownList ID="ddlScheme" runat="server" CssClass="form-control input-sm"
+                class="form-control">
             </asp:DropDownList>
-        </td>
-        <td>
-            <asp:Button ID="btnGo" runat="server" CssClass="PCGButton" Text="Go" OnClick="Go_OnClick" />
-        </td>
-    </tr>
-</table>
-<asp:Panel ID="pnlSchemeDetails" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal"
-    Visible="false">
-    <table width="100%">
-        <tr>
-            <td>
-                <telerik:RadGrid ID="rgSchemeDetails" runat="server" PageSize="10" AllowPaging="True"
-                    GridLines="None" AutoGenerateColumns="true" Width="100%" ClientSettings-AllowColumnsReorder="true"
-                    Skin="Telerik" EnableEmbeddedSkins="false" AllowSorting="true" EnableViewState="true"
-                    AllowFilteringByColumn="true" OnItemDataBound="rgSchemeDetails_ItemDataBound">
-                    <%-- OnItemDataBound="rgUnitHolding_ItemDataBound" AllowSorting="true" EnableViewState="true"
-                     OnNeedDataSource="rgUnitHolding_OnNeedDataSource" AllowFilteringByColumn="true"--%>
-                    <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
-                    <MasterTableView DataKeyNames="PASP_SchemePlanCode" ShowFooter="true"
-                        Width="105%" AutoGenerateColumns="false" CommandItemDisplay="None">
-                        <Columns>
-                            <telerik:GridBoundColumn HeaderStyle-Width="200px" SortExpression="PA_AMCName"
-                                AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                UniqueName="PA_AMCName" HeaderText="AMC" DataField="PA_AMCName" AllowFiltering="true"
-                                 FooterStyle-HorizontalAlign="Right">
-                                <ItemStyle HorizontalAlign="left" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn  HeaderStyle-Width="200px" SortExpression="PASP_SchemePlanName"
-                                AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                UniqueName="PASP_SchemePlanName" HeaderText="SchemePlan Name" DataField="PASP_SchemePlanName" AllowFiltering="true"
-                                FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
-                                <ItemStyle HorizontalAlign="left" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn  HeaderStyle-Width="120px" UniqueName="PAIC_AssetInstrumentCategoryName"
-                                SortExpression="PAIC_AssetInstrumentCategoryName" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
-                                ShowFilterIcon="false" HeaderText="Category" DataField="PAIC_AssetInstrumentCategoryName" AllowFiltering="true">
-                                <ItemStyle HorizontalAlign="Left" Wrap="false" />
-                            </telerik:GridBoundColumn>
-                            
-                            <telerik:GridTemplateColumn ItemStyle-Width="250px" AllowFiltering="false" HeaderText="Scheme Rating"
-                                HeaderStyle-Width="125px" ItemStyle-Wrap="false">
-                                <ItemTemplate>
-
-                                    <script type="text/jscript">
-
-                                        jQuery(document).ready(function($) {
-                                            var moveLeft = 0;
-                                            var moveDown = 0;
-                                            $('a.popper').hover(function(e) {
-
-                                                //var target = '#' + ($(this).attr('data-popbox'));
-                                                var target = '#' + ($(this).find('img').attr('id')).replace('imgSchemeRating', 'divSchemeRatingDetails');
-
-                                                $(target).show();
-                                                moveLeft = $(this).outerWidth();
-                                                moveDown = ($(target).outerHeight() / 2);
-                                            }, function() {
-                                                //var target = '#' + ($(this).attr('data-popbox'));
-                                                var target = '#' + ($(this).find('img').attr('id')).replace('imgSchemeRating', 'divSchemeRatingDetails');
-                                                $(target).hide();
-                                            });
-
-                                            $('a.popper').mousemove(function(e) {
-                                                //var target = '#' + ($(this).attr('data-popbox'));
-                                                var target = '#' + ($(this).find('img').attr('id')).replace('imgSchemeRating', 'divSchemeRatingDetails');
-
-                                                leftD = e.pageX + parseInt(moveLeft);
-                                                maxRight = leftD + $(target).outerWidth();
-                                                windowLeft = $(window).width() - 40;
-                                                windowRight = 0;
-                                                maxLeft = e.pageX - (parseInt(moveLeft) + $(target).outerWidth() + 20);
-
-                                                if (maxRight > windowLeft && maxLeft > windowRight) {
-                                                    leftD = maxLeft;
-                                                }
-
-                                                topD = e.pageY - parseInt(moveDown);
-                                                maxBottom = parseInt(e.pageY + parseInt(moveDown) + 20);
-                                                windowBottom = parseInt(parseInt($(document).scrollTop()) + parseInt($(window).height()));
-                                                maxTop = topD;
-                                                windowTop = parseInt($(document).scrollTop());
-                                                if (maxBottom > windowBottom) {
-                                                    topD = windowBottom - $(target).outerHeight() - 20;
-                                                } else if (maxTop < windowTop) {
-                                                    topD = windowTop + 20;
-                                                }
-
-                                                $(target).css('top', topD).css('left', leftD);
-
-
-                                            });
-
-                                        });
+        </div>
+        <div class="col-md-4" style="margin-top: 2%">
+            <asp:Button ID="Button1" runat="server" class="btn btn-sm btn-primary" Text="GO"
+                OnClick="Go_OnClick"></asp:Button>
+        </div>
+    </div>
+</div>
+<%--<div class="row container">
+  <h2>Basic Modal Example</h2>
+  <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+</div>--%>
+<!-- Modal -->
+<%--<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
     
-                                    </script>
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>--%>
+<div id="dvSchemeDetailsl" runat="server" class="container-fluid" style="margin-left: 11%;
+    margin-bottom: 2%; margin-right: 5%; border: 2px solid #a1a1a1;" visible="false">
+    <h4 style="padding-left: 40%; font-weight: bolder;">
+        Scheme Details</h4>
+    <asp:Repeater ID="rpSchemeDetails" runat="server" OnItemCommand="rpSchemeDetails_OnItemCommand">
+        <ItemTemplate>
+            <div class="row " style="margin-left: 2%; margin-right: 2%; margin-bottom: 2%; margin-top: 2%;
+                border: 2px solid #a1a1a1;">
+                <div class="col-sm-12">
+                    <div class="row " style="background-color: #286090; margin-bottom: 2%; color: Black">
+                        <div class="col-sm-10">
+                            <h4>
+                                <asp:LinkButton ID="lbSchemeName" runat="server" ToolTip="Click To view Details Information"
+                                    CssClass="btn-primary"  CommandName="schemeDetails" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'> <%# Eval("PASP_SchemePlanName")%>
+                                </asp:LinkButton>
+                                
+                            </h4>
+                        </div>
+                        <div class="col-sm-2 " style="margin-top: 1%">
+                            <asp:LinkButton ID="lbAddToWatch" runat="server" CssClass="btn-primary" CommandName="addToWatch" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'> Add To Watch <span class="glyphicon glyphicon-dashboard">
+                            </span>
+                            </asp:LinkButton>
+                            <asp:LinkButton ID="lbViewWatch" runat="server" CssClass="btn-primary"  CommandName="viewWatchList" Visible="false">In WatchList <span class="glyphicon glyphicon-dashboard">
+                            </span></asp:LinkButton>
+                        </div>
+                        
+                    </div>
+                    <div class="row" style="border-bottom:dotted 2px #a1a1a1; padding-bottom:2%">
+                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2" id="dvRating">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <asp:Image runat="server" ID="imgRatingOvelAll" ImageUrl='<%# string.Format("../Images/MorningStarRating/RatingOverall/{0}.{1}", Eval("SchemeRatingOverall"),"png")%>' />
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-sm-12 col-md-6 col-lg-6" style="border-right:dotted 2px #a1a1a1">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 fk-font-12">
+                                <strong>AMC:
+                                    <%# Eval("PA_AMCName")%>
+                                </strong>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dvRow" >
+                                Fund Manager Rating: <a href="#">Rating</a>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dvRow">
+                                Last NAV Date:
+                                <%# Eval("CMFNP_NAVDate")%>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dvRow">
+                                Initial Amount( Regular / SIP):
+                                <%# Eval("[InitialPrice SIP]")%>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dvRow" >
+                                Additional Purchase ( Regular / SIP):
+                                <%# Eval("[AdditionalPrice SIP]")%>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dvRow">
+                                Scheme And Benchmark Peformance( Over 1/3/5 years): 
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-sm-12 col-md-4 col-lg-4">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <b>Category:
+                                    <%# Eval("PAIC_AssetInstrumentCategoryName")%></b>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dvRow">
+                                Exit Load:
+                                <%# Eval("PASPD_ExitLoadPercentage")%>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dvRow">
+                                FMC Charge:
+                                <%# Eval("PASPD_ExitLoadPercentage")%>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dvRow">
+                                Cut-Off Time:
+                                <%# Eval("PASPD_CutOffTime")%>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dvRow">
+                                Recommendation: Buy
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dvRow">
+                                Third Column, sixth Cell
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-left: 30%; margin-right: 2%; margin-bottom: 2%; margin-top: 2%">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <asp:LinkButton ID="lbBuy" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>' CommandName="Buy" CssClass="btn btn-primary btn-primary" Visible='<%# Eval("IsSchemePurchege")%>'> Buy <span class="glyphicon glyphicon-shopping-cart">
+                            </span></asp:LinkButton>
+                            &nbsp &nbsp
+                            <asp:LinkButton ID="lbAddPurchase" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>' CommandName="ABY" CssClass="btn btn-primary btn-success"> Additional Purchase <span class="glyphicon glyphicon-plus-sign">
+                            </span></asp:LinkButton>
+                            &nbsp &nbsp <asp:LinkButton ID="lbSIP" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>' CommandName="SIP" CssClass="btn btn-primary btn-info" Visible='<%# Eval("IsSchemeSIPType")%>'> SIP <span class="glyphicon glyphicon-th-list">
+                            </span></asp:LinkButton> &nbsp &nbsp
+                            <asp:LinkButton ID="lbRedem" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>' CommandName="Sell" CssClass="btn btn-primary btn-danger" Visible="false"> Redemption <span class="glyphicon glyphicon-minus-sign">
+                            </span></asp:LinkButton> 
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ItemTemplate>
+    </asp:Repeater>
+</div>
 
-                                    <a href="#" class="popper" data-popbox="divSchemeRatingDetails"><span class="FieldName">
-                                    </span>
-                                        <asp:Image runat="server" ID="imgSchemeRating" />
-                                    </a>
-                                    <asp:Label ID="lblSchemeRating" runat="server" CssClass="cmbField" Text='<%# Eval("SchemeRatingOverall") %>'
-                                        Visible="false">
-                                    </asp:Label>
-                                    <asp:Label ID="lblRating3Year" runat="server" CssClass="cmbField" Text='<%# Eval("SchemeRating3Year") %>'
-                                        Visible="false">
-                                    </asp:Label>
-                                    <asp:Label ID="lblRating5Year" runat="server" CssClass="cmbField" Text='<%# Eval("SchemeRating5Year") %>'
-                                        Visible="false">
-                                    </asp:Label>
-                                    <asp:Label ID="lblRating10Year" runat="server" CssClass="cmbField" Text='<%# Eval("SchemeRating10Year") %>'
-                                        Visible="false">
-                                    </asp:Label>
-                                    <div id="divSchemeRatingDetails" class="popbox" runat="server" style="float:left;">
-                                        <h2 class="popup-title">
-                                            SCHEME RATING DETAILS
-                                        </h2>
-                                        <table border="1" cellpadding="1" cellspacing="2" style="border-collapse: collapse;" width="10% !important;">
-                                            <tr>
-                                                <td>
-                                                     <asp:Label ID="lblRatingAsOnPopUp" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeRatingDate") %>'></asp:Label>
-                                                </td>
-                                                <td>
-                                                    <span class="readOnlyField">RATING</span>
-                                                </td>
-                                                <td>
-                                                    <span class="readOnlyField">RETURN</span>
-                                                </td>
-                                                <td>
-                                                    <span class="readOnlyField">RISK</span>
-                                                </td>
-                                                <td>
-                                                    <span class="readOnlyField">RATING OVERALL</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <span class="readOnlyField">3 YEAR</span>
-                                                </td>
-                                                <td>
-                                                    <asp:Image runat="server" ID="imgRating3yr" />
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="lblSchemeRetrun3yr" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeReturn3Year") %>'> </asp:Label>
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="lblSchemeRisk3yr" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeRisk3Year")%>'> </asp:Label>
-                                                </td>
-                                                <td rowspan="3">
-                                                    <asp:Image runat="server" ID="imgRatingOvelAll" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <span class="readOnlyField">5 YEAR</span>
-                                                </td>
-                                                <td>
-                                                    <asp:Image runat="server" ID="imgRating5yr" />
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="lblSchemeRetrun5yr" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeReturn5Year") %>'></asp:Label>
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="lblSchemeRisk5yr" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeRisk5Year")%>'></asp:Label>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <span class="readOnlyField">10 YEAR</span>
-                                                </td>
-                                                <td>
-                                                    <asp:Image runat="server" ID="imgRating10yr" />
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="lblSchemeRetrun10yr" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeReturn10Year") %>'></asp:Label>
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="lblSchemeRisk10yr" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeRisk10Year")%>'></asp:Label>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </ItemTemplate>
-                            </telerik:GridTemplateColumn>
-                           
-                            <telerik:GridBoundColumn  HeaderStyle-Width="80px" UniqueName="PASPD_ExitLoadPercentage"
-                                HeaderText="Exit Load" DataField="PASPD_ExitLoadPercentage" FooterStyle-HorizontalAlign="Right"
-                                 AllowFiltering="false">
-                                <ItemStyle HorizontalAlign="Right" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn HeaderStyle-Width="86px" UniqueName="CMFNP_NAVDate " HeaderText="NAV Date"
-                                DataField="CMFNP_NAVDate" AllowFiltering="false" DataFormatString="{0:d}">
-                                <ItemStyle HorizontalAlign="Right" />
-                            </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn UniqueName="CMFNP_CurrentValue" HeaderText="Current Value" DataField="CMFNP_CurrentValue"
-                                FooterStyle-HorizontalAlign="Right"  AllowFiltering="false"
-                                HeaderStyle-Width="86px" >
-                                <ItemStyle HorizontalAlign="Right" />
-                            </telerik:GridBoundColumn>
-                          
-                           
-                            <telerik:GridTemplateColumn ItemStyle-Width="140px" AllowFiltering="false" HeaderText="Action"
-                                ItemStyle-Wrap="false">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblSIPSchemeFlag" runat="server" CssClass="cmbField" Text='<%# Eval("IsSchemeSIPType") %>'>
-                                    </asp:Label>
-                                    <asp:Label ID="lblIsPurcheseFlag" runat="server" CssClass="cmbField" Text='<%# Eval("IsSchemePurchege")%>'>
-                                    </asp:Label>
-                                    <asp:ImageButton ID="imgBuy" runat="server" CommandName="Buy" ImageUrl="~/Images/Buy-Button.png"
-                                        ToolTip="BUY" />&nbsp;
-                                    <asp:ImageButton ID="imgSip" runat="server" CommandName="SIP" ImageUrl="~/Images/SIP-Button.png"
-                                        ToolTip="SIP" />
-                                </ItemTemplate>
-                            </telerik:GridTemplateColumn>
-                        </Columns>
-                    </MasterTableView>
-                    <ClientSettings>
-                        <Resizing AllowColumnResize="true" />
-                        <Selecting AllowRowSelect="true" />
-                    </ClientSettings>
-                </telerik:RadGrid>
-            </td>
-        </tr>
-    </table>
-</asp:Panel>

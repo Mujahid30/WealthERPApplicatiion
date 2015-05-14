@@ -16,20 +16,34 @@ using BoOnlineOrderManagement;
 using VoOnlineOrderManagemnet;
 using System.Text.RegularExpressions;
 using Telerik.Web.UI;
+using Microsoft.ApplicationBlocks.ExceptionManagement;
+using System.Collections.Specialized;
+using System.Configuration;
 namespace WealthERP.OnlineOrderManagement
 {
     public partial class MFSchemeRelateInformation : System.Web.UI.UserControl
     {
         UserBo userBo;
         UserVo userVo;
+        CustomerVo customerVo = new CustomerVo();
+        OnlineMFOrderBo onlineMforderBo = new OnlineMFOrderBo();
+        string path;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
             userBo = new UserBo();
-            //BindAMC();
-            BindCategory();
-            //BindScheme();
-            userVo = (UserVo)Session[SessionContents.UserVo];
+            path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
+            OnlineUserSessionBo.CheckSession();
+            customerVo = (CustomerVo)Session["customerVo"];
+            userVo = (UserVo)Session["userVo"];
+            if (!IsPostBack)
+            {
+                BindAMC();
+                BindCategory();
+                BindScheme();
+                ShowAvailableLimits();
+                
+            }
         }
         protected void ddlAMC_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -48,7 +62,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlAMC.DataTextField = dtGetAMCList.Columns["PA_AMCName"].ToString();
             ddlAMC.DataValueField = dtGetAMCList.Columns["PA_AMCCode"].ToString();
             ddlAMC.DataBind();
-            ddlAMC.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+            ddlAMC.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
         }
         private void BindCategory()
         {
@@ -66,7 +80,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             DataTable dt;
             ProductMFBo productMFBo = new ProductMFBo();
-            if (ddlAMC.SelectedValue == "0")
+            if (ddlAMC.SelectedValue != "0")
             {
                 dt = productMFBo.GetSchemePlanName(int.Parse(ddlAMC.SelectedValue));
                 ddlScheme.DataSource = dt;
@@ -93,109 +107,132 @@ namespace WealthERP.OnlineOrderManagement
         protected void BindSchemeRelatedDetails()
         {
             OnlineOrderBackOfficeBo bo = new OnlineOrderBackOfficeBo();
+            dvSchemeDetailsl.Visible = true;
             DataTable dtBindSchemeRelatedDetails = bo.GetSchemeDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue);
-              if (Cache["UnitHolding" + userVo.UserId] == null)
-                    {
-                        Cache.Insert("BindSchemeRelatedDetails" + userVo.UserId, dtBindSchemeRelatedDetails);
-                    }
-                    else
-                    {
-                        Cache.Remove("BindSchemeRelatedDetails" + userVo.UserId);
-                        Cache.Insert("BindSchemeRelatedDetails" + userVo.UserId, dtBindSchemeRelatedDetails);
-                    }
-            rgSchemeDetails.DataSource = dtBindSchemeRelatedDetails;
-            rgSchemeDetails.Rebind();
-            pnlSchemeDetails.Visible = true;
+            if (Cache["BindSchemeRelatedDetails" + userVo.UserId] != null)
+            {
+                Cache.Remove("BindSchemeRelatedDetails" + userVo.UserId);
+            }
+            Cache.Insert("BindSchemeRelatedDetails" + userVo.UserId, dtBindSchemeRelatedDetails);
+            rpSchemeDetails.DataSource = dtBindSchemeRelatedDetails;
+            rpSchemeDetails.DataBind();
+            rpSchemeDetails.Visible = true;
         }
-
-        protected void rgSchemeDetails_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        private void ShowAvailableLimits()
         {
-            DataTable dtBindSchemeRelatedDetails = new DataTable();
-            dtBindSchemeRelatedDetails = (DataTable)Cache["BindSchemeRelatedDetails" + userVo.UserId.ToString()];
-            if (dtBindSchemeRelatedDetails != null)
+            if (!string.IsNullOrEmpty(customerVo.AccountId))
             {
-                rgSchemeDetails.DataSource = dtBindSchemeRelatedDetails;
-                rgSchemeDetails.Visible = true;
+                lblAvailableLimits.Text = onlineMforderBo.GetUserRMSAccountBalance(customerVo.AccountId).ToString();
             }
+
         }
-        protected void rgSchemeDetails_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
+        
+        protected void rpSchemeDetails_OnItemCommand(object sender, RepeaterCommandEventArgs e)
         {
-            // GridDataItem gvr = (GridDataItem)e.Item;
-            if (e.CommandName == "Buy")
+            if (!string.IsNullOrEmpty(e.CommandName))
             {
-                if (Session["PageDefaultSetting"] != null)
+                string PASP_SchemePlanCode = e.CommandArgument.ToString();
+                switch (e.CommandName)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderPurchaseTransType')", true);
-                }
-                else
-                {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderPurchaseTransType')", true);
-                }
+                    case "Buy":
+                        if (Session["PageDefaultSetting"] != null)
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderAdditionalPurchase','&SchemeCode=" + PASP_SchemePlanCode + "&AMCode=" + ddlAMC.SelectedValue + "&Category=" + ddlCategory.SelectedValue + "');", true);
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('MFOrderAdditionalPurchase','SchemeCode=" + PASP_SchemePlanCode + "&AMCode=" + ddlAMC.SelectedValue + "&Category=" + ddlCategory.SelectedValue + "');", true);
+                        }
+                        break;
+                    case "ABY":
+                        if (Session["PageDefaultSetting"] != null)
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderAdditionalPurchase','&SchemeCode=" + PASP_SchemePlanCode + "&AMCode=" + ddlAMC.SelectedValue + "&Category=" + ddlCategory.SelectedValue + "');", true);
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('MFOrderAdditionalPurchase','SchemeCode=" + PASP_SchemePlanCode + "&AMCode=" + ddlAMC.SelectedValue + "&Category=" + ddlCategory.SelectedValue + "');", true);
+                        }
+                        break;
+                    case "SIP":
+                        if (Session["PageDefaultSetting"] != null)
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderSIPTransType','&SchemeCode=" + PASP_SchemePlanCode + "&AMCode=" + ddlAMC.SelectedValue + "&Category=" + ddlCategory.SelectedValue + "');", true);
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('MFOrderSIPTransType','SchemeCode=" + PASP_SchemePlanCode + "&AMCode=" + ddlAMC.SelectedValue + "&Category=" + ddlCategory.SelectedValue + "');", true);
+                        }
+                        break;
+                    case "Sell":
+                        if (Session["PageDefaultSetting"] != null)
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderRdemptionTransType','&SchemeCode=" + PASP_SchemePlanCode + "&AMCode=" + ddlAMC.SelectedValue + "&Category=" + ddlCategory.SelectedValue + "');", true);
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('MFOrderRdemptionTransType','SchemeCode=" + PASP_SchemePlanCode + "&AMCode=" + ddlAMC.SelectedValue + "&Category=" + ddlCategory.SelectedValue + "');", true);
+                        }
+                        break;
+                    case "schemeDetails":
 
-            }
-            if (e.CommandName == "SIP")
-            {
-                if (Session["PageDefaultSetting"] != null)
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderSIPTransType')", true);
+                        if (Session["PageDefaultSetting"] != null)
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFSchemeDetails','&SchemeCode=" + PASP_SchemePlanCode + "&AMCode=" + ddlAMC.SelectedValue + "&Category=" + ddlCategory.SelectedValue + "');", true);
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('MFSchemeDetails','SchemeCode=" + PASP_SchemePlanCode + "&AMCode=" + ddlAMC.SelectedValue + "&Category=" + ddlCategory.SelectedValue + "');", true);
+                        }
+                        break;
+                    case "addToWatch":
+                        CustomerAddMFSchemeToWatch(int.Parse(e.CommandArgument.ToString()), e);
+                        break;
+                       
+
                 }
-                else
-                {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderSIPTransType')", true);
-                }
             }
-          
         }
-        public void rgSchemeDetails_ItemDataBound(object sender, GridItemEventArgs e)
+        private void CustomerAddMFSchemeToWatch(int SchemeCode,RepeaterCommandEventArgs e)
         {
-            if (e.Item is GridDataItem)
+            bool rResult = false;
+            OnlineMFSchemeDetailsBo OnlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
+            try
             {
-                Label lblISRedeemFlag = (Label)e.Item.FindControl("lblISRedeemFlag");
-
-                Label lblSIPSchemeFlag = (Label)e.Item.FindControl("lblSIPSchemeFlag");
-                Label lblIsPurcheseFlag = (Label)e.Item.FindControl("lblIsPurcheseFlag");
-                Label lblSchemeRating = (Label)e.Item.FindControl("lblSchemeRating");
-
-                Label lblRating3Year = (Label)e.Item.FindControl("lblRating3Year");
-                Label lblRating5Year = (Label)e.Item.FindControl("lblRating5Year");
-                Label lblRating10Year = (Label)e.Item.FindControl("lblRating10Year");
-                Label lblRatingAsOnPopUp = (Label)e.Item.FindControl("lblRatingAsOnPopUp");
-
-                System.Web.UI.WebControls.Image imgSchemeRating = (System.Web.UI.WebControls.Image)e.Item.FindControl("imgSchemeRating");
-
-                System.Web.UI.WebControls.Image imgRating3Year = (System.Web.UI.WebControls.Image)e.Item.FindControl("imgRating3yr");
-                System.Web.UI.WebControls.Image imgRating5Year = (System.Web.UI.WebControls.Image)e.Item.FindControl("imgRating5yr");
-                System.Web.UI.WebControls.Image imgRating10Year = (System.Web.UI.WebControls.Image)e.Item.FindControl("imgRating10yr");
-                System.Web.UI.WebControls.Image imgRatingOvelAll = (System.Web.UI.WebControls.Image)e.Item.FindControl("imgRatingOvelAll");
-
-                if (lblSIPSchemeFlag.Text.Trim().ToLower() == "false")
+                rResult=OnlineMFSchemeDetailsBo.CustomerAddMFSchemeToWatch(customerVo.CustomerId, SchemeCode, "MF",userVo.UserId);
+                if (rResult == true)
                 {
-                    ImageButton imgSIP = (ImageButton)e.Item.FindControl("imgSip");
-                    imgSIP.Visible = false;
-
+                    LinkButton lbViewWatch = (LinkButton)e.Item.FindControl("lbViewWatch");
+                    LinkButton lbAddToWatch = (LinkButton)e.Item.FindControl("lbAddToWatch");
+                    lbViewWatch.Visible = true;
+                    lbAddToWatch.Visible = false;
                 }
-                if (lblIsPurcheseFlag.Text.Trim().ToLower() == "false")
-                {
-                    ImageButton imgBuy = (ImageButton)e.Item.FindControl("imgBuy");
-                    imgBuy.Visible = false;
-
-                }
-               
-                lblIsPurcheseFlag.Visible = false;
-                lblSIPSchemeFlag.Visible = false;
-
-
-                imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + lblSchemeRating.Text.Trim() + ".png";
-
-                imgRating3Year.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + lblRating3Year.Text.Trim() + ".png";
-                imgRating5Year.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + lblRating5Year.Text.Trim() + ".png";
-                imgRating10Year.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + lblRating10Year.Text.Trim() + ".png";
-
-                imgRatingOvelAll.ImageUrl = @"../Images/MorningStarRating/RatingOverall/" + lblSchemeRating.Text.Trim() + ".png";
-
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineMFSchemeDetailsDao.cs:CustomerAddMFSchemeToWatch()");
+                object[] objects = new object[3];
+                objects[0] = customerVo.CustomerId;
+                objects[1] = SchemeCode;
+                objects[2] = "MF";
+                objects[3] = userVo.UserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
 
             }
 
+
         }
+       
+        
+        
     }
 }
