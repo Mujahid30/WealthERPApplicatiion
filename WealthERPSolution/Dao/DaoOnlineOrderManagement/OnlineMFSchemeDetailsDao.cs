@@ -15,6 +15,8 @@ namespace DaoOnlineOrderManagement
 {
   public  class OnlineMFSchemeDetailsDao
     {
+     
+
        public OnlineMFSchemeDetailsVo GetSchemeDetails(int amcCode,int schemeCode,string category)
        {
            OnlineMFSchemeDetailsVo OnlineMFSchemeDetailsVo = new OnlineMFSchemeDetailsVo();
@@ -66,31 +68,45 @@ namespace DaoOnlineOrderManagement
             }
             return OnlineMFSchemeDetailsVo;
        }
-     
-      public string GetCmotCode(int schemeplanCode)
-        {
-            Database db;
-            DataSet ds;
-            DbCommand cmdGetCmotCode;
-            string cmotCode = string.Empty;
-            try
-            {
-                db = DatabaseFactory.CreateDatabase("wealtherp");
-                //checking year
-                cmdGetCmotCode = db.GetStoredProcCommand("SPROC_Onl_GetCMOTCode");
-                db.AddInParameter(cmdGetCmotCode, "@schemePlanCode", DbType.Int32, schemeplanCode);
-                db.AddOutParameter(cmdGetCmotCode, "@CMOTCode", DbType.String, 20);
-                ds = db.ExecuteDataSet(cmdGetCmotCode);
-                if (db.ExecuteNonQuery(cmdGetCmotCode) != 0)
-                {
-                    cmotCode = db.GetParameterValue(cmdGetCmotCode, "cmotCode").ToString();
-                }
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            return cmotCode;
-        }
+       public bool CustomerAddMFSchemeToWatch(int customerId, int schemeCode, string assetGroup, int userId)
+       {
+           bool bResult = false;
+           Database db;
+           DbCommand createCmd;
+           try
+           {
+               db = DatabaseFactory.CreateDatabase("wealtherp");
+               createCmd = db.GetStoredProcCommand("SPROC_ONL_AddProductToCustomerWatchList");
+               db.AddInParameter(createCmd, "@customerId", DbType.Int32, customerId);
+               db.AddInParameter(createCmd, "@productId", DbType.Int32, schemeCode);
+               db.AddInParameter(createCmd, "@assetGroup", DbType.String, assetGroup);
+               db.AddInParameter(createCmd, "@userId", DbType.Int64, userId);
+               if (db.ExecuteNonQuery(createCmd) != 0)
+                   bResult = true;
+               else
+                   bResult = false;
+           }
+           catch (BaseApplicationException Ex)
+           {
+               throw Ex;
+           }
+           catch (Exception Ex)
+           {
+               BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+               NameValueCollection FunctionInfo = new NameValueCollection();
+               FunctionInfo.Add("Method", "OnlineMFSchemeDetailsDao.cs:CustomerAddMFSchemeToWatch()");
+               object[] objects = new object[3];
+               objects[0] = customerId;
+               objects[1] = schemeCode;
+               objects[2] = assetGroup;
+               objects[3] = userId;
+               FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+               exBase.AdditionalInformation = FunctionInfo;
+               ExceptionManager.Publish(exBase);
+               throw exBase;
+
+           }
+           return bResult;
+       }
     }
 }
