@@ -78,15 +78,11 @@
 
 <script src="../Scripts/JScript.js" type="text/javascript"></script>
 
-<script src="../App_Themes/BootStrap/js/bootstrap.min.js" type="text/javascript"></script>
 
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
 
-<link href="../App_Themes/bootstrap/CSS/bootstrap.css" rel="stylesheet" type="text/css" />
-<link href="../App_Themes/bootstrap/CSS/bootstrap.min.css" rel="stylesheet" type="text/css" />
-<link href="../App_Themes/BootStrap/CSS/bootstrap-theme.css" rel="stylesheet" type="text/css" />
-<link href="../App_Themes/BootStrap/CSS/bootstrap-theme.min.css" rel="stylesheet"
-    type="text/css" />
+
+
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"
     type="text/css" />
 
@@ -182,7 +178,7 @@
  <table class="tblMessage" cellpadding="0" cellspacing="0">
             <tr>
                 <td>
-                    <div class="divOnlinePageHeading">
+                    <div class="divOnlinePageHeading" style="height:25px;">
                         <div class="divClientAccountBalance" id="divClientAccountBalance" runat="server">
                             <asp:Label ID="Label1" runat="server" Text="Available Limits:" CssClass="BalanceLabel"> </asp:Label>
                             <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="BalanceAmount"></asp:Label>
@@ -190,8 +186,9 @@
                     </div>
                 </td>
             </tr>
-        </table>
-<div class="row " style="margin-left: 10%; margin-top: 1%; margin-bottom: 2%; padding-top: 1%">
+  </table>
+
+<div class="row " style="margin-left: 10%; margin-top: 1%; margin-bottom: 2%; padding-top: 1%;">
     <div class="col-md-3">
         <button type="button" class="btn btn-primary btn-primary">
             Scheme Details <span class="glyphicon glyphicon-th-list"></span>

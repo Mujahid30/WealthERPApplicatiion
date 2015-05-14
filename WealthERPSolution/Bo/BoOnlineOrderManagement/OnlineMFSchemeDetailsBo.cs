@@ -35,6 +35,20 @@ namespace BoOnlineOrderManagement
             return OnlineMFSchemeDetailsVo;
         }
 
+        public string GetCmotCode(int schemeplanCode)
+        {
+            string cmotCode = string.Empty;
+            try
+            {
+                cmotCode = OnlineMFSchemeDetailsDao.GetCmotCode(schemeplanCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return cmotCode;
+        }
+
 
 
 
