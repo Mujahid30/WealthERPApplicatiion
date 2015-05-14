@@ -180,9 +180,9 @@ namespace WealthERP
 
                 case "MF":
                     defaultProductPageSetting.Add("ProductType", ProductType.ToUpper());
-                    defaultProductPageSetting.Add("ProductMenu", "trMFOrderMenuTransactTab");
-                    defaultProductPageSetting.Add("ProductMenuItem", "RTSMFOrderMenuTransactNewPurchase");
-                    defaultProductPageSetting.Add("ProductMenuItemPage", "MFOrderPurchaseTransType");
+                    defaultProductPageSetting.Add("ProductMenu", "trMFOrderMenuMarketTab");
+                    defaultProductPageSetting.Add("ProductMenuItem", "RTSMFOrderMenuHomeMarket");
+                    defaultProductPageSetting.Add("ProductMenuItemPage", "MFSchemeRelateInformation");
                     break;
                 case "NCD":
                     defaultProductPageSetting.Add("ProductType", ProductType.ToUpper());
@@ -361,6 +361,11 @@ namespace WealthERP
             //Response.Redirect("http://sspr.sbicapstestlab.com/AGLogout");
         }
 
+        protected void lnkMFOrderMenuHome_Click(object sender, EventArgs e)
+        {
+            ProductMenuItemChange("MF", "Market");
+        }
+
         protected void lnkMFOrderMenuTransact_Click(object sender, EventArgs e)
         {
             ProductMenuItemChange("MF", "Transact");
@@ -412,6 +417,13 @@ namespace WealthERP
                     {
                         switch (menuType)
                         {
+                            case "Market":
+                                defaultProductPageSetting.Add("ProductType", ProductType);
+                                defaultProductPageSetting.Add("ProductMenu", "trMFOrderMenuMarketTab");
+                                defaultProductPageSetting.Add("ProductMenuItem", "RTSMFOrderMenuHomeMarket");
+                                defaultProductPageSetting.Add("ProductMenuItemPage", "MFSchemeRelateInformation");
+                                break;
+
                             case "Transact":
                                 defaultProductPageSetting.Add("ProductType", ProductType);
                                 defaultProductPageSetting.Add("ProductMenu", "trMFOrderMenuTransactTab");
