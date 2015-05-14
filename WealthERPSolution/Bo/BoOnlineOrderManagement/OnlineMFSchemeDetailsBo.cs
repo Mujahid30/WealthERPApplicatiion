@@ -9,10 +9,10 @@ namespace BoOnlineOrderManagement
 {
     public class OnlineMFSchemeDetailsBo
     {
+        OnlineMFSchemeDetailsDao OnlineMFSchemeDetailsDao = new OnlineMFSchemeDetailsDao();
         public OnlineMFSchemeDetailsVo GetSchemeDetails(int amcCode, int schemeCode, string category)
         {
             OnlineMFSchemeDetailsVo OnlineMFSchemeDetailsVo = new OnlineMFSchemeDetailsVo();
-            OnlineMFSchemeDetailsDao OnlineMFSchemeDetailsDao = new OnlineMFSchemeDetailsDao();
             try
             {
                 OnlineMFSchemeDetailsVo = OnlineMFSchemeDetailsDao.GetSchemeDetails(amcCode, schemeCode, category);
@@ -22,6 +22,19 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
             return OnlineMFSchemeDetailsVo;
+        }
+        public string GetCmotCode(int schemeplanCode)
+        {
+            string cmotCode = string.Empty;
+            try
+            {
+                cmotCode = OnlineMFSchemeDetailsDao.GetCmotCode(schemeplanCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return cmotCode;
         }
     }
 }

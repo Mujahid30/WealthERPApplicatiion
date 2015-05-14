@@ -66,5 +66,31 @@ namespace DaoOnlineOrderManagement
             }
             return OnlineMFSchemeDetailsVo;
        }
+     
+      public string GetCmotCode(int schemeplanCode)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmdGetCmotCode;
+            string cmotCode = string.Empty;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //checking year
+                cmdGetCmotCode = db.GetStoredProcCommand("SPROC_Onl_GetCMOTCode");
+                db.AddInParameter(cmdGetCmotCode, "@schemePlanCode", DbType.Int32, schemeplanCode);
+                db.AddOutParameter(cmdGetCmotCode, "@CMOTCode", DbType.String, 20);
+                ds = db.ExecuteDataSet(cmdGetCmotCode);
+                if (db.ExecuteNonQuery(cmdGetCmotCode) != 0)
+                {
+                    cmotCode = db.GetParameterValue(cmdGetCmotCode, "cmotCode").ToString();
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return cmotCode;
+        }
     }
 }

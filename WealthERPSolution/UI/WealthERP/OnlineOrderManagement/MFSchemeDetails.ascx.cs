@@ -12,26 +12,33 @@ using BoOnlineOrderManagement;
 using BoCommon;
 using VoUser;
 using VoCustomerPortfolio;
+using System.Web.Services;
+using System.Web.Script.Services;
+using System.Net;
+using System.IO;
+using System.Configuration;
 namespace WealthERP.OnlineOrderManagement
 {
     public partial class MFSchemeDetails : System.Web.UI.UserControl
     {
+        OnlineMFSchemeDetailsBo onlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
         CustomerVo customerVo = new CustomerVo();
         protected void Page_Load(object sender, EventArgs e)
         {
             OnlineUserSessionBo.CheckSession();
             customerVo = (CustomerVo)Session["CustomerVo"];
-             if (!IsPostBack)
+            if (!IsPostBack)
             {
                 BindAMC();
             }
         }
-         protected void ddlAMC_SelectedIndexChanged(object sender, EventArgs e)
+        protected void ddlAMC_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlAMC.SelectedIndex != 0)
             {
                 BindScheme();
                 BindCategory();
+                BindfundManagerDetails();
             }
         }
         private void BindAMC()
@@ -77,7 +84,6 @@ namespace WealthERP.OnlineOrderManagement
         }
         public void GetAmcSchemeDetails()
         {
-            OnlineMFSchemeDetailsBo onlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
             Session["Schemedetails"] = onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue);
             OnlineMFSchemeDetailsVo mfSchemeDetails = (OnlineMFSchemeDetailsVo)Session["Schemedetails"];
             lblSchemeName.Text = mfSchemeDetails.schemeName;
@@ -98,29 +104,11 @@ namespace WealthERP.OnlineOrderManagement
             lblExitLoad.Text = mfSchemeDetails.exitLoad.ToString();
             if (mfSchemeDetails.mornigStar > 0)
             {
-                //trSchemeRating.Visible = true;
                 imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + 4 + ".png";
                 imgStyleBox.ImageUrl = @"../Images/MorningStarRating/StarStyleBox/" + 7 + ".png";
-                //Rating Overall
-                //imgRatingDetails.ImageUrl = @"../Images/MorningStarRating/RatingOverall/" + mfSchemeDetails.mornigStar + ".png";
-
-                ////Rating yearwise
-                //imgRating3yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + mfSchemeDetails.SchemeRating3Year + ".png";
-                //imgRating5yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + mfSchemeDetails.SchemeRating5Year + ".png";
-                //imgRating10yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + mfSchemeDetails.SchemeRisk10Year + ".png";
-
-                //lblSchemeRetrun3yr.Text = mfSchemeDetails.SchemeReturn3Year;
-                //lblSchemeRetrun5yr.Text = mfSchemeDetails.SchemeReturn5Year;
-                //lblSchemeRetrun10yr.Text = mfSchemeDetails.SchemeReturn10Year;
-
-                //lblSchemeRisk3yr.Text = mfSchemeDetails.SchemeRisk3Year;
-                //lblSchemeRisk5yr.Text = mfSchemeDetails.SchemeRisk5Year;
-                //lblSchemeRisk10yr.Text = mfSchemeDetails.SchemeRisk10Year;
-
             }
             else
             {
-                //trSchemeRating.Visible = false;
                 imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/0.png";
 
             }
@@ -135,7 +123,7 @@ namespace WealthERP.OnlineOrderManagement
             else
             {
                 Response.Redirect("ControlHost.aspx?pageid=MFOrderAdditionalPurchase&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "", false);
-               
+
             }
         }
         protected void lbAddPurchase_OnClick(object sender, EventArgs e)
@@ -177,6 +165,35 @@ namespace WealthERP.OnlineOrderManagement
 
             }
         }
-
+        [WebMethod]
+        [ScriptMethod(UseHttpGet = true, ResponseFormat = ResponseFormat.Json)]
+        //public object GetData()
+        //{
+        protected void BindfundManagerDetails()
+        {
+            string cmotcode=onlineMFSchemeDetailsBo.GetCmotCode(int.Parse(ddlScheme.SelectedValue));
+            string result;
+            string FundManagerDetais =ConfigurationSettings.AppSettings["FUND_MANAGER_DETAILS"] + cmotcode + "/Pre";
+            WebResponse response;
+            WebRequest request = HttpWebRequest.Create(FundManagerDetais);
+            response = request.GetResponse();
+            using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+            {
+                result = reader.ReadToEnd();
+                reader.Close();
+            }
+            DataSet ds = new DataSet();
+            DataTable table = new DataTable();
+            StringReader theReader = new StringReader(result);
+            DataSet theDataSet = new DataSet();
+            theDataSet.ReadXml(theReader);
+            foreach (DataRow dr in theDataSet.Tables[1].Rows)
+            {
+                lblFundMAnagername.Text = dr["FundManager"].ToString();
+                lblQualification.Text = dr["Qualification"].ToString();
+                lblDesignation.Text = dr["Designation"].ToString();
+                lblExperience.Text = dr["experience"].ToString();
+            }
+        }
     }
 }

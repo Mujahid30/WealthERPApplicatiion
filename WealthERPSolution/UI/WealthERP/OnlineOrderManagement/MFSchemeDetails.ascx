@@ -91,7 +91,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="tddate">
+                <tr class="searchable-spec cell top sub-name small bordered">
                     <td style="width: auto;">
                         <b>Scheme Rating</b>
                     </td>
@@ -105,7 +105,7 @@
                         <asp:Label ID="lblSchemeName" runat="server"></asp:Label>
                     </td>
                 </tr>
-                <tr class="tddate">
+                <tr class="searchable-spec cell top sub-name small bordered">
                     <td>
                         <b>AMC Name</b>
                     </td>
@@ -119,7 +119,7 @@
                         <asp:Label ID="lblCategory" runat="server"></asp:Label>
                     </td>
                 </tr>
-                <tr class="tddate">
+                <tr class="searchable-spec cell top sub-name small bordered">
                     <td>
                         <b>Fund Manager</b>
                     </td>
@@ -133,7 +133,7 @@
                         <asp:Label ID="lblBanchMark" runat="server"></asp:Label>
                     </td>
                 </tr>
-                <tr class="tddate">
+                <tr class="searchable-spec cell top sub-name small bordered">
                     <td>
                         <b>Funds Returns 1st Year</b>
                     </td>
@@ -147,7 +147,7 @@
                         <asp:Label ID="lblFundReturn3rdyear" runat="server"></asp:Label>
                     </td>
                 </tr>
-                <tr class="tddate">
+                <tr class="searchable-spec cell top sub-name small bordered">
                     <td>
                         <b>Fund Return 5th Year</b>
                     </td>
@@ -161,7 +161,7 @@
                         <asp:Label ID="lblBenchmarkReturn" runat="server"></asp:Label>
                     </td>
                 </tr>
-                <tr class="tddate">
+                <tr class="searchable-spec cell top sub-name small bordered">
                     <td>
                         <b>Benchmark Return 3rd year</b>
                     </td>
@@ -175,7 +175,7 @@
                         <asp:Label ID="lblBenchMarkReturn5th" runat="server"></asp:Label>
                     </td>
                 </tr>
-                <tr class="tddate">
+                <tr class="searchable-spec cell top sub-name small bordered">
                     <td>
                         <b>NAV Date</b>
                     </td>
@@ -189,7 +189,7 @@
                         <asp:Label ID="lblNAV" runat="server"></asp:Label>
                     </td>
                 </tr>
-                <tr class="tddate">
+                <tr class="searchable-spec cell top sub-name small bordered">
                     <td>
                         <b>Min Investment Amount</b>
                     </td>
@@ -203,7 +203,7 @@
                         <asp:Label ID="lblMinMultipleOf" runat="server"></asp:Label>
                     </td>
                 </tr>
-                <tr class="tddate">
+                <tr class="searchable-spec cell top sub-name small bordered">
                     <td>
                         <b>Min SIP Amount</b>
                     </td>
@@ -217,7 +217,7 @@
                         <asp:Label ID="lblSIPMultipleOf" runat="server"></asp:Label>
                     </td>
                 </tr>
-                <tr class="tddate">
+                <tr class="searchable-spec cell top sub-name small bordered">
                     <td>
                         <b>Exit Load</b>
                     </td>
@@ -255,12 +255,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="tddate">
+                <tr class="searchable-spec cell top sub-name small bordered">
                     <td>
                         <asp:LinkButton ID="lnkSID" runat="server" Text="SID" CssClass="LinkButtons"></asp:LinkButton>
                     </td>
                 </tr>
-                <tr class="tddate">
+                <tr class="searchable-spec cell top sub-name small bordered">
                     <td>
                         <asp:LinkButton ID="lnkSAI" runat="server" Text="SAI" CssClass="LinkButtons"></asp:LinkButton>
                     </td>
@@ -269,18 +269,68 @@
         </table>
     </div>
 </div>
-<div class="row" style="margin-left: 30%; margin-right: 2%; margin-bottom: 2%; margin-top: 2%">
+<div class="row" style="margin-left: 20%; margin-right: 2%; margin-bottom: 2%; margin-top: 2%">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <asp:LinkButton ID="lbBuy" runat="server" CssClass="btn btn-primary btn-primary" OnClick="lbBuy_OnClick"> Buy <span class="glyphicon glyphicon-shopping-cart">
+        <asp:LinkButton ID="lbBuy" runat="server" CssClass="btn btn-primary btn-primary"
+            OnClick="lbBuy_OnClick"> Buy <span class="glyphicon glyphicon-shopping-cart">
                             </span></asp:LinkButton>
         &nbsp &nbsp
-        <asp:LinkButton ID="lbAddPurchase" runat="server" CssClass="btn btn-primary btn-success" OnClick="lbAddPurchase_OnClick"> Additional Purchase <span class="glyphicon glyphicon-plus-sign">
+        <asp:LinkButton ID="lbAddPurchase" runat="server" CssClass="btn btn-primary btn-success"
+            OnClick="lbAddPurchase_OnClick"> Additional Purchase <span class="glyphicon glyphicon-plus-sign">
                             </span></asp:LinkButton>
         &nbsp &nbsp
         <asp:LinkButton ID="lbSIP" runat="server" CssClass="btn btn-primary btn-info" OnClick="lbSIP_OnClick"> SIP <span class="glyphicon glyphicon-th-list">
                             </span></asp:LinkButton>
         &nbsp &nbsp
-        <asp:LinkButton ID="lbRedem" runat="server" CssClass="btn btn-primary btn-danger" OnClick="lbRedem_OnClick"> Redemption <span class="glyphicon glyphicon-minus">
+        <asp:LinkButton ID="lbRedem" runat="server" CssClass="btn btn-primary btn-danger"
+            OnClick="lbRedem_OnClick"> Redemption <span class="glyphicon glyphicon-minus">
                             </span></asp:LinkButton>
+    </div>
+</div>
+<div class="table-responsive" style="margin-left: 5%;">
+    <div class="col-md-3" style="width: 40%;">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="2" class="header">
+                        Fund Manager Profile
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="searchable-spec cell top sub-name small bordered">
+                    <td>
+                        FundManager
+                    </td>
+                    <td>
+                        <asp:Label ID="lblFundMAnagername" runat="server"></asp:Label>
+                    </td>
+                </tr>
+                <tr class="searchable-spec cell top sub-name small bordered">
+                    <td>
+                        Qualification
+                    </td>
+                    <td>
+                        <asp:Label ID="lblQualification" runat="server"></asp:Label>
+                    </td>
+                </tr>
+                <tr class="searchable-spec cell top sub-name small bordered">
+                    <td>
+                        Designation
+                    </td>
+                    <td>
+                        <asp:Label ID="lblDesignation" runat="server"></asp:Label>
+                    </td>
+                </tr>
+                <tr class="searchable-spec cell top sub-name small bordered">
+                    <td>
+                        Experience
+                    </td>
+                    <td>
+                        <asp:Label ID="lblExperience" runat="server"></asp:Label>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
