@@ -30,6 +30,16 @@ namespace WealthERP.OnlineOrderManagement
             if (!IsPostBack)
             {
                 BindAMC();
+                if (Request.QueryString["AMCode"] != null)
+                {
+                    ddlAMC.SelectedValue = Request.QueryString["AMCode"].ToString();
+                    BindCategory();
+                    ddlCategory.SelectedValue = Request.QueryString["Category"].ToString();
+                    BindScheme();
+                    ddlScheme.SelectedValue = Request.QueryString["SchemeCode"].ToString();
+                    GetAmcSchemeDetails();
+                    BindfundManagerDetails();
+                }
             }
         }
         protected void ddlAMC_SelectedIndexChanged(object sender, EventArgs e)
