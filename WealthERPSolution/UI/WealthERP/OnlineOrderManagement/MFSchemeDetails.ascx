@@ -276,10 +276,10 @@
                             </span></asp:LinkButton>
         &nbsp &nbsp
         <asp:LinkButton ID="lbAddPurchase" runat="server" CssClass="btn btn-primary btn-success"
-            OnClick="lbAddPurchase_OnClick"> Additional Purchase <span class="glyphicon glyphicon-plus-sign">
+            OnClick="lbAddPurchase_OnClick" Visible="false"> Additional Purchase <span class="glyphicon glyphicon-plus-sign">
                             </span></asp:LinkButton>
         &nbsp &nbsp
-        <asp:LinkButton ID="lbSIP" runat="server" CssClass="btn btn-primary btn-info" OnClick="lbSIP_OnClick"> SIP <span class="glyphicon glyphicon-th-list">
+        <asp:LinkButton ID="lbSIP" runat="server" CssClass="btn btn-primary btn-info" OnClick="lbSIP_OnClick" Visible="false"> SIP <span class="glyphicon glyphicon-th-list">
                             </span></asp:LinkButton>
         &nbsp &nbsp
         <asp:LinkButton ID="lbRedem" runat="server" CssClass="btn btn-primary btn-danger"

@@ -730,10 +730,10 @@
                     AutoPostBack="true" />
             </td>
             <td align="right">
-                <asp:Label ID="lblchkOnlineEnablement" runat="server" Text="OnlineEnablement:" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblchkOnlineEnablement" runat="server" Text="OnlineEnablement:" CssClass="FieldName" Visible="false"></asp:Label>
             </td>
             <td>
-                <asp:CheckBox ID="chkOnlineEnablement" runat="server" Text="Yes" CssClass="FieldName" />
+                <asp:CheckBox ID="chkOnlineEnablement" runat="server" Text="Yes" CssClass="FieldName" Visible="false"/>
             </td>
         </tr>
         <tr id="trIPAmount" runat="server" visible="false">

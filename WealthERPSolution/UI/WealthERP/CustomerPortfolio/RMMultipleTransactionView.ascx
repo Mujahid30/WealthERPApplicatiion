@@ -454,9 +454,10 @@
                             </td>
                             <td>
                                 <asp:DropDownList ID="ddlAgentCode" runat="server" CssClass="cmbField">
+                                 <asp:ListItem Text="All" Value="3" ></asp:ListItem>
                                     <asp:ListItem Text="Avaliable" Value="1"></asp:ListItem>
                                     <asp:ListItem Text="Not Avaliable" Value="2"></asp:ListItem>
-                                    <asp:ListItem Text="All" Value="0" Enabled="false"></asp:ListItem>
+                                   
                                 </asp:DropDownList>
                             </td>
                             <td id="tdCustomerGroup" runat="server" colspan="2">
