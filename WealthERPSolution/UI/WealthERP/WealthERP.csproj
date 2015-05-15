@@ -7683,6 +7683,10 @@
     <Content Include="Associates\ViewAdviserAssociateList.ascx" />
     <Content Include="Associates\ViewAgentCode.ascx" />
     <Content Include="Associates\ViewAssociates.ascx" />
+    <Content Include="Base\CSS\bootstrap-theme.css" />
+    <Content Include="Base\CSS\bootstrap.css" />
+    <Content Include="Base\CSS\bootstrap.min.css" />
+    <Content Include="Base\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="bin\AjaxControlToolkit.dll" />
     <Content Include="bin\BoAdvisorProfiling.dll" />
     <Content Include="bin\BoAdvisorProfiling.pdb" />
@@ -8780,6 +8784,12 @@
     <Content Include="YUI\rel_interstitial_loading.gif" />
     <Content Include="YUI\slider\slider-min.js" />
     <Content Include="YUI\utilities\utilities.js" />
+    <None Include="Base\CSS\bootstrap-theme.css.map" />
+    <None Include="Base\CSS\bootstrap.css.map" />
+    <None Include="Base\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="Base\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="Base\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="Base\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="FillablePDFForms\AxisEquityFund%28G%29_SIP.pdf" />
     <None Include="FillablePDFForms\FranklinInfotechFund%28G%29_SIP.pdf" />
     <None Include="MarketDataDownloadFiles\BseEquities.CSV" />

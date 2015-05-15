@@ -10,7 +10,7 @@
 
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
 
-<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
 
 <script src="Scripts/jquery-1.4.1.js" type="text/javascript"></script>
 
@@ -72,7 +72,8 @@
     }
 </style>
 
-<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+<script src="../Scripts/bootstrap.js" type="text/javascript"></script>
+
 
 <script src="../Scripts/jquery.js" type="text/javascript"></script>
 
@@ -82,16 +83,14 @@
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
 
 
-
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"
-    type="text/css" />
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
-
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"
-    type="text/javascript"></script>
-
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+
+
+<link href="../Base/CSS/bootstrap-theme.css" rel="stylesheet" type="text/css" />
+<link href="../Base/CSS/bootstrap.css" rel="stylesheet" type="text/css" />
+<link href="../Base/CSS/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
 
 <%--<script type="text/javascript">
     $(document).ready(function() {
