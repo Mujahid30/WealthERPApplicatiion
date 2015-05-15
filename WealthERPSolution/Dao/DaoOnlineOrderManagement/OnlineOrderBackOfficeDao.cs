@@ -1398,7 +1398,6 @@ namespace DaoOnlineOrderManagement
                 NameValueCollection FunctionInfo = new NameValueCollection();
 
                 FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:CreateSystematicDetails()");
-
                 object[] objects = new object[2];
                 objects[0] = mfProductAMCSchemePlanDetailsVo;
                 objects[1] = schemeplancode;
@@ -3079,7 +3078,7 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetProductSearchType;
         }
-        public DataTable GetSchemeDetails(int AMCCode, int Schemeplanecode, string category)
+        public DataTable GetSchemeDetails(int AMCCode, int Schemeplanecode, string category, int customerId, bool SchemeDetails)
         {
             DataTable dtGetSchemeDetails;
             Database db;
@@ -3088,19 +3087,38 @@ namespace DaoOnlineOrderManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                cmdGetSchemeDetails = db.GetStoredProcCommand("SPROC_Onl_GetActulaSchemeDetails");
+                cmdGetSchemeDetails = db.GetStoredProcCommand("SPROC_ONL_GetProductMFSchemeDetails");
                 db.AddInParameter(cmdGetSchemeDetails, "@amcCode", DbType.Int32, AMCCode);
                 db.AddInParameter(cmdGetSchemeDetails, "@schemePlanCode", DbType.Int32, Schemeplanecode);
                 if (category != "0")
                     db.AddInParameter(cmdGetSchemeDetails, "@category", DbType.String, category);
-                else
-                    db.AddInParameter(cmdGetSchemeDetails, "@category", DbType.String, DBNull.Value);
+                if (customerId!=0)
+                    db.AddInParameter(cmdGetSchemeDetails, "@customerId", DbType.Int64, customerId);
+                db.AddInParameter(cmdGetSchemeDetails, "@SchemeDetails", DbType.Boolean, SchemeDetails);
                 dsGetSchemeDetails = db.ExecuteDataSet(cmdGetSchemeDetails);
                 dtGetSchemeDetails = dsGetSchemeDetails.Tables[0];
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineMFSchemeDetailsDao.cs:CustomerAddMFSchemeToWatch()");
+                object[] objects = new object[3];
+                objects[0] = customerId;
+                objects[1] = Schemeplanecode;
+                objects[2] = SchemeDetails;
+                objects[3] = AMCCode;
+                objects[2] = SchemeDetails;
+                objects[3] = AMCCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
             }
             return dtGetSchemeDetails;
         }
