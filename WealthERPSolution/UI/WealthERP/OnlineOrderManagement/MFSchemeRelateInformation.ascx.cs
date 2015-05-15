@@ -26,7 +26,6 @@ namespace WealthERP.OnlineOrderManagement
         UserBo userBo;
         UserVo userVo;
         CustomerVo customerVo = new CustomerVo();
-        OnlineMFOrderBo onlineMforderBo = new OnlineMFOrderBo();
         string path;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -41,7 +40,6 @@ namespace WealthERP.OnlineOrderManagement
                 BindAMC();
                 BindCategory();
                 BindScheme();
-                ShowAvailableLimits();
                 
             }
         }
@@ -118,14 +116,7 @@ namespace WealthERP.OnlineOrderManagement
             rpSchemeDetails.DataBind();
             rpSchemeDetails.Visible = true;
         }
-        private void ShowAvailableLimits()
-        {
-            if (!string.IsNullOrEmpty(customerVo.AccountId))
-            {
-                lblAvailableLimits.Text = onlineMforderBo.GetUserRMSAccountBalance(customerVo.AccountId).ToString();
-            }
 
-        }
         
         protected void rpSchemeDetails_OnItemCommand(object sender, RepeaterCommandEventArgs e)
         {

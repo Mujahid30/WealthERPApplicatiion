@@ -186,7 +186,7 @@
                 </td>
             </tr>
   </table>
-
+  
 <div class="row " style="margin-left: 10%; margin-top: 1%; margin-bottom: 2%; padding-top: 1%;">
     <div class="col-md-3">
         <button type="button" class="btn btn-primary btn-primary">
@@ -206,6 +206,8 @@
         </span></a>
     </div>
 </div>
+<asp:UpdatePanel ID="UpdatePanel1" runat="server">
+    <ContentTemplate>
 <div id="demo" class="row " style="margin-left: 11%; margin-top: 1%; margin-bottom: 2%;
     margin-right: 5%; border: 2px solid #a1a1a1; padding-top: 1%; padding-bottom: 1%">
     <div class="col-md-12 col-xs-12 col-sm-12">
@@ -362,4 +364,8 @@
         </ItemTemplate>
     </asp:Repeater>
 </div>
+</ContentTemplate>
+    <Triggers>
+    </Triggers>
+</asp:UpdatePanel>
 
