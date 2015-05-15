@@ -198,8 +198,9 @@
         </span></a>
     </div>
     <div class="col-md-3">
-        <a href="#" class="btn btn-primary btn-primary">View Watch list <span class="glyphicon glyphicon-list-alt">
-        </span></a>
+        
+        <asp:LinkButton ID="lbViewWatchList" runat="server" OnClick="lbViewWatchList_OnClick" class="btn btn-primary btn-primary" >My Watch list <span class="glyphicon glyphicon-list-alt">
+        </span></asp:LinkButton>
     </div>
     <div class="col-md-3">
         <a href="#" class="btn btn-primary btn-primary">Top Ten Schemes <span class="glyphicon glyphicon-th-list">
@@ -216,7 +217,7 @@
             <asp:DropDownList ID="ddlAMC" runat="server" CssClass="form-control input-sm" Width="100%"
                 OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged" AutoPostBack="true">
             </asp:DropDownList>
-            <asp:RequiredFieldValidator ID="rfvAMC" runat="server" ControlToValidate="ddlAMC" InitialValue="0" ErrorMessage="Please Select AMC" Display="Dynamic"></asp:RequiredFieldValidator>
+            <%--<asp:RequiredFieldValidator ID="rfvAMC" runat="server" ControlToValidate="ddlAMC" InitialValue="0" ErrorMessage="Please Select AMC" Display="Dynamic"></asp:RequiredFieldValidator>--%>
         </div>
         <div class="col-md-5">
             <b>Category: </b>
@@ -281,10 +282,10 @@
                             </h4>
                         </div>
                         <div class="col-sm-2 " style="margin-top: 1%">
-                            <asp:LinkButton ID="lbAddToWatch" runat="server" CssClass="btn-primary" CommandName="addToWatch" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'> Add To Watch <span class="glyphicon glyphicon-dashboard">
+                            <asp:LinkButton ID="lbAddToWatch" runat="server" CssClass="btn-primary" CommandName="addToWatch" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>' Visible='<% #(Convert.ToBoolean(Eval("IsInWatch"))==true) ? false :true %>'> Add To Watch <span class="glyphicon glyphicon-dashboard">
                             </span>
                             </asp:LinkButton>
-                            <asp:LinkButton ID="lbViewWatch" runat="server" CssClass="btn-primary"  CommandName="viewWatchList" Visible="false">In WatchList <span class="glyphicon glyphicon-dashboard">
+                            <asp:LinkButton ID="lbViewWatch" runat="server" CssClass="btn-primary"  CommandName="viewWatchList"  Visible='<% #(Convert.ToBoolean(Eval("IsInWatch"))==true) ? true : false %>'>In WatchList <span class="glyphicon glyphicon-dashboard">
                             </span></asp:LinkButton>
                         </div>
                         

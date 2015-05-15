@@ -100,13 +100,14 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void Go_OnClick(object sender, EventArgs e)
         {
-            BindSchemeRelatedDetails();
+
+            BindSchemeRelatedDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue, customerVo.CustomerId, true);
         }
-        protected void BindSchemeRelatedDetails()
+        protected void BindSchemeRelatedDetails(int amcCode,int SchemeCode,string category,int customerId,bool isSchemeDetails)
         {
             OnlineOrderBackOfficeBo bo = new OnlineOrderBackOfficeBo();
             dvSchemeDetailsl.Visible = true;
-            DataTable dtBindSchemeRelatedDetails = bo.GetSchemeDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue);
+            DataTable dtBindSchemeRelatedDetails = bo.GetSchemeDetails(amcCode, SchemeCode, category, customerId, isSchemeDetails);
             if (Cache["BindSchemeRelatedDetails" + userVo.UserId] != null)
             {
                 Cache.Remove("BindSchemeRelatedDetails" + userVo.UserId);
@@ -115,8 +116,12 @@ namespace WealthERP.OnlineOrderManagement
             rpSchemeDetails.DataSource = dtBindSchemeRelatedDetails;
             rpSchemeDetails.DataBind();
             rpSchemeDetails.Visible = true;
+            
         }
-
+        protected void lbViewWatchList_OnClick(object sender, EventArgs e)
+        {
+            BindSchemeRelatedDetails(0,0,"0", customerVo.CustomerId, false);
+        }
         
         protected void rpSchemeDetails_OnItemCommand(object sender, RepeaterCommandEventArgs e)
         {
