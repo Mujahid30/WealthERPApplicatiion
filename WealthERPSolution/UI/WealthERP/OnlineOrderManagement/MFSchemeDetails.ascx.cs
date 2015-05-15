@@ -112,6 +112,8 @@ namespace WealthERP.OnlineOrderManagement
             lblMinSIP.Text = mfSchemeDetails.minSIPInvestment.ToString();
             lblSIPMultipleOf.Text = mfSchemeDetails.SIPmultipleOf.ToString();
             lblExitLoad.Text = mfSchemeDetails.exitLoad.ToString();
+            lblMinInvestment.Text = mfSchemeDetails.minmumInvestmentAmount.ToString();
+            lblMinMultipleOf.Text = mfSchemeDetails.multipleOf.ToString();
             if (mfSchemeDetails.mornigStar > 0)
             {
                 imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + 4 + ".png";

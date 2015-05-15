@@ -279,11 +279,11 @@
             OnClick="lbAddPurchase_OnClick" Visible="false"> Additional Purchase <span class="glyphicon glyphicon-plus-sign">
                             </span></asp:LinkButton>
         &nbsp &nbsp
-        <asp:LinkButton ID="lbSIP" runat="server" CssClass="btn btn-primary btn-info" OnClick="lbSIP_OnClick" Visible="false"> SIP <span class="glyphicon glyphicon-th-list">
+        <asp:LinkButton ID="lbSIP" runat="server" CssClass="btn btn-primary btn-info" OnClick="lbSIP_OnClick" > SIP <span class="glyphicon glyphicon-th-list">
                             </span></asp:LinkButton>
         &nbsp &nbsp
         <asp:LinkButton ID="lbRedem" runat="server" CssClass="btn btn-primary btn-danger"
-            OnClick="lbRedem_OnClick"> Redemption <span class="glyphicon glyphicon-minus">
+            OnClick="lbRedem_OnClick" Visible="false"> Redemption <span class="glyphicon glyphicon-minus">
                             </span></asp:LinkButton>
     </div>
 </div>

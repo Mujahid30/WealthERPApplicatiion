@@ -58,7 +58,16 @@ namespace DaoOnlineOrderManagement
                             OnlineMFSchemeDetailsVo.SchemeRisk5Year = dr["SchemeRisk5Year"].ToString();
                         if (dr["SchemeRisk10Year"].ToString() != "")
                             OnlineMFSchemeDetailsVo.SchemeRisk10Year = dr["SchemeRisk10Year"].ToString();
-
+                        if (dr["PASPD_IsPurchaseAvailable"].ToString() != "")
+                            OnlineMFSchemeDetailsVo.SchemeRisk10Year = dr["PASPD_IsPurchaseAvailable"].ToString();
+                        if (dr["PASPD_IsRedeemAvailable"].ToString() != "")
+                            OnlineMFSchemeDetailsVo.SchemeRisk10Year = dr["PASPD_IsRedeemAvailable"].ToString();
+                        if (dr["PASPD_IsSIPAvailable"].ToString() != "")
+                            OnlineMFSchemeDetailsVo.SchemeRisk10Year = dr["PASPD_IsSIPAvailable"].ToString();
+                        OnlineMFSchemeDetailsVo.minmumInvestmentAmount = int.Parse(dr["PASPD_InitialPurchaseAmount"].ToString());
+                        OnlineMFSchemeDetailsVo.multipleOf = int.Parse(dr["PASPD_InitialMultipleAmount"].ToString());
+                        OnlineMFSchemeDetailsVo.minSIPInvestment = int.Parse(dr["PASPSD_MinAmount"].ToString());
+                        OnlineMFSchemeDetailsVo.SIPmultipleOf = int.Parse(dr["PASPSD_MultipleAmount"].ToString());
                     }
                 }
             }
