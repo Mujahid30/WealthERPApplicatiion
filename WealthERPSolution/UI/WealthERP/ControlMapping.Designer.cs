@@ -2833,6 +2833,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderManagement//OnlineMFSchemeCompare.ascx.
+        /// </summary>
+        internal static string OnlineMFSchemeCompare {
+            get {
+                return ResourceManager.GetString("OnlineMFSchemeCompare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OnlineOrderBackOffice//OnlineNCDIssueList.ascx.
         /// </summary>
         internal static string OnlineNCDIssueList {

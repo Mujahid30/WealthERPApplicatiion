@@ -2061,4 +2061,8 @@
     <value>OnlineOrderManagement//MFSchemeDetails.ascx</value>
     <comment>OnlineOrderManagement//MFSchemeDetails.ascx</comment>
   </data>
+  <data name="OnlineMFSchemeCompare" xml:space="preserve">
+    <value>OnlineOrderManagement//OnlineMFSchemeCompare.ascx</value>
+    <comment>OnlineOrderManagement//OnlineMFSchemeCompare.ascx</comment>
+  </data>
 </root>
