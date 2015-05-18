@@ -126,8 +126,106 @@
         </tr>
     </table>
     <table width="100%">
-        <tr id="trExportFilteredDupData" runat="server">
+        <tr>
             <td>
+                <telerik:RadGrid ID="rgKycRejectlist" Visible="false" runat="server" GridLines="None"
+                    AutoGenerateColumns="False" PageSize="10" AllowSorting="true" AllowPaging="True"
+                    ShowStatusBar="True" ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false"
+                    AllowFilteringByColumn="true" Width="100%" AllowAutomaticInserts="false" 
+                    OnNeedDataSource="rgKycRejectlist_OnNeedDataSource"
+                    >
+                    <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="KycRejectlist">
+                    </ExportSettings>
+                    <MasterTableView Width="102%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+                        CommandItemDisplay="None" EditMode="PopUp" DataKeyNames="CKVI_ID">
+                        <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="true"
+                            ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
+                        <Columns>
+                         <telerik:GridBoundColumn AllowFiltering="true" DataField="WR_RequestId" AutoPostBackOnFilter="true"
+                                Visible="true" HeaderText="Req. Id" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="WR_RequestId" SortExpression="WR_RequestId" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
+                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn AllowFiltering="true" DataField="RejectedReasonDescription" AutoPostBackOnFilter="true"
+                                Visible="true" HeaderText="Reject Reason" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="RejectedReasonDescription" SortExpression="RejectedReasonDescription" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
+                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn AllowFiltering="true" DataField="CKVI_KycId" AutoPostBackOnFilter="true"
+                                Visible="true" HeaderText="KYC Id" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="CKVI_KycId" SortExpression="CKVI_KycId" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
+                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn AllowFiltering="true" DataField="CKVI_KycType" AutoPostBackOnFilter="true"
+                                Visible="true" HeaderText="Kyc Type" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="CKVI_KycType" SortExpression="CKVI_KycType" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
+                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn AllowFiltering="true" DataField="CKVI_ResStatus" AutoPostBackOnFilter="true"
+                                Visible="true" HeaderText="Status" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="CKVI_ResStatus" SortExpression="CKVI_ResStatus" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
+                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn AllowFiltering="true" DataField="CKVI_CMCode" AutoPostBackOnFilter="true"
+                                Visible="true" HeaderText="CM Code" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="CKVI_CMCode" SortExpression="CKVI_CMCode" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
+                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn AllowFiltering="true" DataField="CKVI_CMName" AutoPostBackOnFilter="true"
+                                Visible="true" HeaderText="CM Name" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="CKVI_CMName" SortExpression="CKVI_CMName" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
+                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn AllowFiltering="true" DataField="CKVI_PanNo" AutoPostBackOnFilter="true"
+                                Visible="true" HeaderText="Pan No" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="CKVI_PanNo" SortExpression="CKVI_PanNo" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
+                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn AllowFiltering="true" DataField="CKVI_AppName" AutoPostBackOnFilter="true"
+                                Visible="true" HeaderText="App Name" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="CKVI_AppName" SortExpression="CKVI_AppName" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
+                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn AllowFiltering="true" DataField="CKVI_KsmStatus" AutoPostBackOnFilter="true"
+                                Visible="true" HeaderText="Ksm Status" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="CKVI_KsmStatus" SortExpression="CKVI_KsmStatus" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
+                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn AllowFiltering="true" DataField="CKVI_ExemptType" AutoPostBackOnFilter="true"
+                                Visible="true" HeaderText="Exempt Type" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="CKVI_ExemptType" SortExpression="CKVI_ExemptType" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
+                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn AllowFiltering="true" DataField="CKVI_EntryDate" AutoPostBackOnFilter="true"
+                                Visible="true" HeaderText="Entry Date" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="CKVI_EntryDate" SortExpression="CKVI_EntryDate" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
+                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            </telerik:GridBoundColumn>
+                               <telerik:GridBoundColumn AllowFiltering="true" DataField="CKVI_VerifiedDate" AutoPostBackOnFilter="true"
+                                Visible="true" HeaderText="Verified Date" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="CKVI_VerifiedDate" SortExpression="CKVI_VerifiedDate" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
+                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            </telerik:GridBoundColumn>
+                        </Columns>
+                         </MasterTableView>
+                    <ClientSettings>
+                        <Resizing AllowColumnResize="true" />
+                        <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                    </ClientSettings>
+                </telerik:RadGrid>
             </td>
         </tr>
         <tr>

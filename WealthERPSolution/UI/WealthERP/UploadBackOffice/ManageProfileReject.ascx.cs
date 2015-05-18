@@ -64,10 +64,22 @@ namespace WealthERP.UploadBackOffice
                     Cache.Remove("RequestReject" + userVo.UserId.ToString());
                     Cache.Insert("RequestReject" + userVo.UserId.ToString(), dtReqReje);
                 }
-                gvProfileIncreamenetReject.DataSource = dtReqReje;
-                gvProfileIncreamenetReject.DataBind();
+                if (transactionId == 10)
+                {
+                    rgKycRejectlist.DataSource = dtReqReje;
+                    rgKycRejectlist.DataBind();
+                    rgKycRejectlist.Visible = true;
+                    gvProfileIncreamenetReject.Visible = false;
+                    btnDelete.Visible = false;
+                    btnReProcess.Visible = false;
+                    LinkButton2.Visible = false;
+                }
+               else {
+                    gvProfileIncreamenetReject.DataSource = dtReqReje;
+                    gvProfileIncreamenetReject.DataBind();
 
-                gvProfileIncreamenetReject.Visible = true;
+                    gvProfileIncreamenetReject.Visible = true;
+                }
                 if (transactionId == 3 || transactionId == 4)
                 {
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("ProductCode").Visible = false;
@@ -157,6 +169,7 @@ namespace WealthERP.UploadBackOffice
             }
 
         }
+
         protected void btnSave_Click(object sender, EventArgs e)
         {
             string city = string.Empty;
@@ -470,6 +483,20 @@ namespace WealthERP.UploadBackOffice
                 }
             }
         }
+
+        protected void rgKycRejectlist_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+
+            DataTable dtRequests = new DataTable();
+            DataSet dtProcessLogDetails = new DataSet();
+            //dtRequests = (DataTable)Cache[userVo.UserId.ToString() + "RequestReject"];
+            dtRequests = (DataTable)Cache["RequestReject" + userVo.UserId.ToString()];
+            if (dtRequests != null)
+            {
+                    rgKycRejectlist.DataSource = dtRequests;
+
+            }
+        }
         protected void gvProfileIncreamenetReject_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
 
@@ -614,16 +641,31 @@ namespace WealthERP.UploadBackOffice
         }
         public void btnExportData_OnClick(object sender, ImageClickEventArgs e)
         {
-            //  gvIPOOrderBook.MasterTableView.DetailTables[0].HierarchyDefaultExpanded = true;
-            gvProfileIncreamenetReject.MasterTableView.HierarchyLoadMode = GridChildLoadMode.ServerBind;
-            gvProfileIncreamenetReject.ExportSettings.OpenInNewWindow = true;
-            gvProfileIncreamenetReject.ExportSettings.IgnorePaging = true;
-            gvProfileIncreamenetReject.ExportSettings.HideStructureColumns = true;
-            gvProfileIncreamenetReject.ExportSettings.ExportOnlyData = true;
-            gvProfileIncreamenetReject.ExportSettings.FileName = "Upload Rejection";
-            gvProfileIncreamenetReject.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvProfileIncreamenetReject.MasterTableView.ExportToExcel();
-
+            transactionId = Convert.ToInt32(Request.QueryString["transactionId"]);
+            reqId = Convert.ToInt32(Request.QueryString["ReqId"]);
+            if (transactionId == 10)
+            {
+                rgKycRejectlist.MasterTableView.HierarchyLoadMode = GridChildLoadMode.ServerBind;
+                rgKycRejectlist.ExportSettings.OpenInNewWindow = true;
+                rgKycRejectlist.ExportSettings.IgnorePaging = true;
+                rgKycRejectlist.ExportSettings.HideStructureColumns = true;
+                rgKycRejectlist.ExportSettings.ExportOnlyData = true;
+                rgKycRejectlist.ExportSettings.FileName = reqId.ToString()+"_Kyc Upload Rejection List";
+                rgKycRejectlist.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+                rgKycRejectlist.MasterTableView.ExportToExcel();
+            }
+            else
+            {
+                //  gvIPOOrderBook.MasterTableView.DetailTables[0].HierarchyDefaultExpanded = true;
+                gvProfileIncreamenetReject.MasterTableView.HierarchyLoadMode = GridChildLoadMode.ServerBind;
+                gvProfileIncreamenetReject.ExportSettings.OpenInNewWindow = true;
+                gvProfileIncreamenetReject.ExportSettings.IgnorePaging = true;
+                gvProfileIncreamenetReject.ExportSettings.HideStructureColumns = true;
+                gvProfileIncreamenetReject.ExportSettings.ExportOnlyData = true;
+                gvProfileIncreamenetReject.ExportSettings.FileName = "Upload Rejection";
+                gvProfileIncreamenetReject.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+                gvProfileIncreamenetReject.MasterTableView.ExportToExcel();
+            }
         }
         protected void rcbContinents1_PreRender(object sender, EventArgs e)
         {

@@ -131,11 +131,6 @@
                                             UniqueName="ReqId" FooterStyle-HorizontalAlign="Left">
                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="IsOnl" HeaderText="Offline/online" SortExpression="IsOnl"
-                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                            UniqueName="IsOnl" FooterStyle-HorizontalAlign="Left">
-                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="ReqDate" HeaderText="Request Date" SortExpression="ReqDate"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                             UniqueName="ReqDate" FooterStyle-HorizontalAlign="Left">
@@ -144,6 +139,16 @@
                                         <telerik:GridBoundColumn DataField="filename" HeaderText="File Name" SortExpression="filename"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                             UniqueName="filename" FooterStyle-HorizontalAlign="Left">
+                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="Status" HeaderText="Status" SortExpression="Status"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                            UniqueName="Status" FooterStyle-HorizontalAlign="Left">
+                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="IsOnl" HeaderText="Offline/online" SortExpression="IsOnl"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                            UniqueName="IsOnl" FooterStyle-HorizontalAlign="Left">
                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="RTA" HeaderText="R&T Name" SortExpression="RTA"
@@ -215,33 +220,6 @@
                                             Visible="false">
                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                      <%--  <%-- <telerik:GridTemplateColumn UniqueName="ReProcess" ItemStyle-Width="100Px" AllowFiltering="false"
-                                            HeaderText="ReProcess">
-                                            <ItemTemplate>
-                                                <asp:LinkButton ID="lbtnWelcomeletter" Visible='<%# Eval("XMLStatus").Equals('2')?"True" : "False" %>'
-                                                    runat="server">ReProcess</asp:LinkButton>
-                                                <%-- Visible='<%# Convert.ToInt16(Eval("XMLStatus")).ToString() = 2 ? "True" : "False" %>'
-                                        </ItemTemplate> </telerik:GridTemplateColumn>--%>
-                                        <telerik:GridTemplateColumn AllowFiltering="false">
-                                            <ItemTemplate>
-                                                <tr>
-                                                    <td colspan="0.2%">
-                                                        &nbsp;
-                                                    </td>
-                                                    <td>
-                                                        <asp:Panel ID="pnlchild" runat="server" Style="display: inline" CssClass="Landscape"
-                                                            ScrollBars="Both" Visible="false">
-                                                            <telerik:RadGrid ID="rgRequestRejects" runat="server" AutoGenerateColumns="true"
-                                                                enableloadondemand="True" PageSize="5" EnableEmbeddedSkins="False" GridLines="None"
-                                                                ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" Skin="Telerik"
-                                                                AllowFilteringByColumn="true" OnNeedDataSource="rgRequestRejects_OnNeedDataSource"
-                                                                AllowPaging="false">
-                                                            </telerik:RadGrid>
-                                                        </asp:Panel>
-                                                    </td>
-                                                </tr>
-                                            </ItemTemplate>
-                                        </telerik:GridTemplateColumn>
                                     </Columns>
                                 </MasterTableView>
                             </telerik:RadGrid>

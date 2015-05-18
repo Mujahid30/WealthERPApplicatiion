@@ -79,6 +79,10 @@ namespace WealthERP.OnlineOrderBackOffice
                     rgRequests.MasterTableView.GetColumn("FolioCreated").Visible = true;
                     rgRequests.MasterTableView.GetColumn("TransactionCreated").Visible = false;
                     rgRequests.MasterTableView.GetColumn("RejectReseaon").Visible = true;
+                    rgRequests.MasterTableView.GetColumn("IsOnl").Visible = true;
+                    rgRequests.MasterTableView.GetColumn("RTA").Visible = true;
+                    rgRequests.MasterTableView.GetColumn("StagingRejects").Visible = true;
+                    rgRequests.MasterTableView.GetColumn("Staging").Visible = true;
                 }
                 else
                     if (ddlType.SelectedValue == "9")
@@ -87,7 +91,36 @@ namespace WealthERP.OnlineOrderBackOffice
                         rgRequests.MasterTableView.GetColumn("FolioCreated").Visible = true;
                         rgRequests.MasterTableView.GetColumn("TransactionCreated").Visible = true;
                         rgRequests.MasterTableView.GetColumn("RejectReseaon").Visible = true;
+                        rgRequests.MasterTableView.GetColumn("IsOnl").Visible = true;
+                        rgRequests.MasterTableView.GetColumn("RTA").Visible = true;
+                        rgRequests.MasterTableView.GetColumn("StagingRejects").Visible = true;
+                        rgRequests.MasterTableView.GetColumn("Staging").Visible = true;
                     }
+                    else
+                        if (ddlType.SelectedValue == "10")
+                        {
+                            rgRequests.MasterTableView.GetColumn("IsOnl").Visible = false;
+                            rgRequests.MasterTableView.GetColumn("RTA").Visible = false;
+                            rgRequests.MasterTableView.GetColumn("StagingRejects").Visible = false;
+                            rgRequests.MasterTableView.GetColumn("Staging").Visible = false;
+                            rgRequests.MasterTableView.GetColumn("RejectReseaon").Visible = false;
+                            rgRequests.MasterTableView.GetColumn("Cutomercreated").Visible = false;
+                            rgRequests.MasterTableView.GetColumn("FolioCreated").Visible = false;
+                            rgRequests.MasterTableView.GetColumn("TransactionCreated").Visible = false;
+                        }
+                        else
+                            if (ddlType.SelectedValue == "3" || ddlType.SelectedValue == "4")
+                            {
+                                rgRequests.MasterTableView.GetColumn("IsOnl").Visible = false;
+                                rgRequests.MasterTableView.GetColumn("RTA").Visible = false;
+                                rgRequests.MasterTableView.GetColumn("StagingRejects").Visible = true;
+                                rgRequests.MasterTableView.GetColumn("Staging").Visible = true;
+                                rgRequests.MasterTableView.GetColumn("RejectReseaon").Visible = false;
+                                rgRequests.MasterTableView.GetColumn("Cutomercreated").Visible = false;
+                                rgRequests.MasterTableView.GetColumn("FolioCreated").Visible = false;
+                                rgRequests.MasterTableView.GetColumn("TransactionCreated").Visible = false;
+                            }
+                           
             }
             catch (BaseApplicationException Ex)
             {
