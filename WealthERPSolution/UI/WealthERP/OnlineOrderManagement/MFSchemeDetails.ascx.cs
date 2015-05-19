@@ -116,8 +116,8 @@ namespace WealthERP.OnlineOrderManagement
             lblMinMultipleOf.Text = mfSchemeDetails.multipleOf.ToString();
             if (mfSchemeDetails.mornigStar > 0)
             {
-                imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + 4 + ".png";
-                imgStyleBox.ImageUrl = @"../Images/MorningStarRating/StarStyleBox/" + 7 + ".png";
+                imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + mfSchemeDetails.mornigStar + ".png";
+                imgStyleBox.ImageUrl = @"../Images/MorningStarRating/StarStyleBox/" + mfSchemeDetails.schemeBox + ".png";
             }
             else
             {
@@ -194,8 +194,6 @@ namespace WealthERP.OnlineOrderManagement
                 result = reader.ReadToEnd();
                 reader.Close();
             }
-            DataSet ds = new DataSet();
-            DataTable table = new DataTable();
             StringReader theReader = new StringReader(result);
             DataSet theDataSet = new DataSet();
             theDataSet.ReadXml(theReader);
@@ -206,6 +204,20 @@ namespace WealthERP.OnlineOrderManagement
                 lblDesignation.Text = dr["Designation"].ToString();
                 lblExperience.Text = dr["experience"].ToString();
             }
+        }
+        protected void lnkAddToCompare_OnClick(object sender, EventArgs e)
+        {
+            List<string> schemelist = new List<string>();
+
+            //if (Session["Schemedetails"] != null)
+            //{
+            //    var information = Session["Schemedetails"];
+            //    schemelist = information.;
+            //}
+            //if (schemelist.Count >= 2)
+            //{
+
+            //}
         }
     }
 }

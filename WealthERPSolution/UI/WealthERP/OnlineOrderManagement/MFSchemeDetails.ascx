@@ -271,7 +271,10 @@
 </div>
 <div class="row" style="margin-left: 20%; margin-right: 2%; margin-bottom: 2%; margin-top: 2%">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <asp:LinkButton ID="lbBuy" runat="server" CssClass="btn btn-primary btn-primary"
+    <asp:LinkButton ID="lnkAddToCompare" runat="server" CssClass="btn btn-primary btn-primary"
+            OnClick="lnkAddToCompare_OnClick"> Add To Compare <span class="glyphicon glyphicon-shopping-list">
+                            </span></asp:LinkButton>
+        &nbsp &nbsp  <asp:LinkButton ID="lbBuy" runat="server" CssClass="btn btn-primary btn-primary"
             OnClick="lbBuy_OnClick"> Buy <span class="glyphicon glyphicon-shopping-cart">
                             </span></asp:LinkButton>
         &nbsp &nbsp
