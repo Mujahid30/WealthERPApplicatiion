@@ -302,7 +302,9 @@ namespace BoOnlineOrderManagement
                 case "QT":
                     multiplier = 3;
                     break;
-
+                case "YR":
+                    multiplier = 12;
+                    break;
             }
 
             return StartDate.AddMonths(multiplier * installments);
