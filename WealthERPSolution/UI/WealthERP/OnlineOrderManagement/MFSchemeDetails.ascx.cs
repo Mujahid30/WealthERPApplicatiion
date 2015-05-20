@@ -209,15 +209,21 @@ namespace WealthERP.OnlineOrderManagement
         {
             List<string> schemelist = new List<string>();
 
-            //if (Session["Schemedetails"] != null)
-            //{
-            //    var information = Session["Schemedetails"];
-            //    schemelist = information.;
-            //}
-            //if (schemelist.Count >= 2)
-            //{
+            if (Session["Schemedetails"] != null)
+            {
+                var information = Session["Schemedetails"];
+                if (Session["PageDefaultSetting"] != null)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('OnlineMFSchemeCompare','&information=" + information + "');", true);
 
-            //}
+                }
+                else
+                {
+                    Response.Redirect("ControlHost.aspx?pageid=OnlineMFSchemeCompare&information=" + information + "", false);
+
+                }
+            }
+            
         }
     }
 }

@@ -26,7 +26,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
 <style>
-    .header
+    .header 
     {
         background: #258dc8; /* Old browsers */
         background: -moz-linear-gradient(top,  #258dc8 0%, #2475c7 100%); /* FF3.6+ */
