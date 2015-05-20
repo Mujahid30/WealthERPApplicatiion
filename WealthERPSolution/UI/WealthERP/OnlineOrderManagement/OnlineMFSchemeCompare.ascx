@@ -61,7 +61,7 @@
             <thead>
                 <tr>
                     <th colspan="5" class="header">
-                        Scheme Compare
+                         <font color="#fff">Scheme Compare</font>
                     </th>
                 </tr>
             </thead>

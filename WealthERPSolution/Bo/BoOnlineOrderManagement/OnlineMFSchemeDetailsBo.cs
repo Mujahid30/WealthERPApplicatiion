@@ -50,8 +50,18 @@ namespace BoOnlineOrderManagement
         }
 
 
-
-
-
+        public List<OnlineMFSchemeDetailsVo> GetCompareMFSchemeDetails(string schemeCompareList)
+        {
+             List<OnlineMFSchemeDetailsVo> OnlineMFSchemeDetailsList=new List<OnlineMFSchemeDetailsVo>();
+             try
+             {
+                 OnlineMFSchemeDetailsList = OnlineMFSchemeDetailsDao.GetCompareMFSchemeDetails(schemeCompareList);
+             }
+             catch (BaseApplicationException Ex)
+             {
+                 throw Ex;
+             }
+             return OnlineMFSchemeDetailsList;
+        }
     }
 }

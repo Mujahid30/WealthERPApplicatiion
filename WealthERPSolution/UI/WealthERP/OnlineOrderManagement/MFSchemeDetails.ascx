@@ -85,8 +85,8 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th colspan="4" class="header">
-                        Scheme Details
+                    <th colspan="4" class="header" >
+                        <font color="#fff">Scheme Details</font>
                     </th>
                 </tr>
             </thead>
@@ -233,7 +233,7 @@
             <thead>
                 <tr>
                     <th class="header">
-                        Morning Star
+                        <font color="#fff"> Morning Star </font>
                     </th>
                 </tr>
             </thead>
@@ -250,7 +250,7 @@
             <thead>
                 <tr>
                     <th colspan="2" class="header">
-                        Additional Information
+                         <font color="#fff"> Additional Information</font>
                     </th>
                 </tr>
             </thead>
@@ -296,7 +296,7 @@
             <thead>
                 <tr>
                     <th colspan="2" class="header">
-                        Fund Manager Profile
+                        <font color="#fff"> Fund Manager Profile </font>
                     </th>
                 </tr>
             </thead>
@@ -337,3 +337,4 @@
         </table>
     </div>
 </div>
+<asp:HiddenField ID="hidCurrentScheme" runat="server" />

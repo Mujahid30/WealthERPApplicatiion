@@ -16,6 +16,8 @@ namespace WealthERP.OnlineOrderManagement
     public partial class OnlineMFSchemeCompare : System.Web.UI.UserControl
     {
         OnlineMFSchemeDetailsBo onlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
+        List<int> schemeCompareList = new List<int>();
+        string str = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
             OnlineUserSessionBo.CheckSession();
@@ -23,11 +25,42 @@ namespace WealthERP.OnlineOrderManagement
             {
                 BindAMC1();
                 BindCategory();
-                if(Request.QueryString["information"]!=null)
+                if (Session["SchemeCompareList"] != null)
                 {
-                    BindSchemeDetais1();
+                    schemeCompareList = (List<int>)Session["SchemeCompareList"];
+                    GetSchemeCompareList(Getschemecode(schemeCompareList), 0);
                 }
-            } 
+            }
+        }
+        protected string Getschemecode(List<int> schemeList)
+        {
+            string CompareSchemeList = string.Empty;
+            foreach (var item in schemeList)
+                CompareSchemeList = CompareSchemeList + item + ",";
+            return CompareSchemeList.TrimEnd(',');
+        }
+        protected void GetSchemeCompareList(string CompareScheme, int schemeColNo)
+        {
+            List<OnlineMFSchemeDetailsVo> OnlineMFSchemeDetailslist = new List<OnlineMFSchemeDetailsVo>();
+            OnlineMFSchemeDetailslist = onlineMFSchemeDetailsBo.GetCompareMFSchemeDetails(CompareScheme);
+            if (schemeColNo == 0)
+            {
+                Session["SchemeCompareList"] = null;
+                int schmeCompareNum = 1;
+                foreach (OnlineMFSchemeDetailsVo onlineMFSchemeDetailsVo in OnlineMFSchemeDetailslist)
+                {
+                    BindSchemeDetais(onlineMFSchemeDetailsVo, schmeCompareNum);
+                    schmeCompareNum += 1;
+                }
+            }
+            else
+            {
+                if (OnlineMFSchemeDetailslist.Count > 0)
+                {
+                    OnlineMFSchemeDetailsVo onlineMFSchemeDetailsVo = OnlineMFSchemeDetailslist[0];
+                    BindSchemeDetais(onlineMFSchemeDetailsVo, schemeColNo);
+                }
+            }
         }
         private void BindAMC1()
         {
@@ -172,179 +205,197 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (ddlSchemeList1.SelectedValue != "")
             {
-                BindSchemeDetais1(); 
+                GetSchemeCompareList(ddlSchemeList1.SelectedValue, 1);
             }
         }
-        protected void BindSchemeDetais1()
-        {
-            ddlAMC1.Visible = false;
-            ddlCategory1.Visible = false;
-            ddlSchemeList1.Visible = false;
-            lnkDelete1.Visible = true;
-            if(Session["Schemedetails"] ==null)
-            Session["Schemedetails"] = onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC1.SelectedValue), int.Parse(ddlSchemeList1.SelectedValue), ddlCategory1.SelectedValue);
-            OnlineMFSchemeDetailsVo mfSchemeDetails = (OnlineMFSchemeDetailsVo)Session["Schemedetails"];
-            lblSchemeName.Text = mfSchemeDetails.schemeName;
-            lblAMC.Text = mfSchemeDetails.schemeName;
-            lblNAV.Text = mfSchemeDetails.NAV.ToString();
-            lblNAVDate.Text = mfSchemeDetails.navDate.ToString();
-            lblCategory.Text = mfSchemeDetails.category;
-            lblBanchMark.Text = mfSchemeDetails.schemeBanchMark;
-            lblFundManager.Text = mfSchemeDetails.fundManager;
-            lblFundReturn1styear.Text = mfSchemeDetails.fundReturn3rdYear.ToString();
-            lblFundReturn3rdyear.Text = mfSchemeDetails.fundReturn5thtYear.ToString();
-            lblFundReturn5thyear.Text = mfSchemeDetails.fundReturn10thYear.ToString();
-            lblBenchmarkReturn.Text = mfSchemeDetails.benchmarkReturn1stYear;
-            lblBenchMarkReturn3rd.Text = mfSchemeDetails.benchmark3rhYear;
-            lblBenchMarkReturn5th.Text = mfSchemeDetails.benchmark5thdYear;
-            lblMinSIP.Text = mfSchemeDetails.minSIPInvestment.ToString();
-            lblSIPMultipleOf.Text = mfSchemeDetails.SIPmultipleOf.ToString();
-            lblExitLoad.Text = mfSchemeDetails.exitLoad.ToString();
-            lblMinInvestment.Text = mfSchemeDetails.minmumInvestmentAmount.ToString();
-            lblMinMultipleOf.Text = mfSchemeDetails.multipleOf.ToString();
-            if (mfSchemeDetails.mornigStar > 0)
-            {
-                imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + mfSchemeDetails.mornigStar + ".png";
-            }
-            else
-            {
-                imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/0.png";
 
-            }
-        }
         protected void ddlSchemeList2_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlSchemeList2.SelectedValue != "")
             {
-
-                ddlAMC2.Visible = false;
-                ddlCategory2.Visible = false;
-                ddlSchemeList2.Visible = false;
-                lnkDelete2.Visible = true;
-                Session["Schemedetails1"] = onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC2.SelectedValue), int.Parse(ddlSchemeList2.SelectedValue), ddlCategory2.SelectedValue);
-                OnlineMFSchemeDetailsVo mfSchemeDetails1 = (OnlineMFSchemeDetailsVo)Session["Schemedetails1"];
-                lblSchemeName1.Text = mfSchemeDetails1.schemeName;
-                lblAMC1.Text = mfSchemeDetails1.schemeName;
-                lblNAV1.Text = mfSchemeDetails1.NAV.ToString();
-                lblNAVDate1.Text = mfSchemeDetails1.navDate.ToString();
-                lblCategory1.Text = mfSchemeDetails1.category;
-                lblBanchMark1.Text = mfSchemeDetails1.schemeBanchMark;
-                lblFundManager1.Text = mfSchemeDetails1.fundManager;
-                lblFundReturn1styear1.Text = mfSchemeDetails1.fundReturn3rdYear.ToString();
-                lblFundReturn3rdyear1.Text = mfSchemeDetails1.fundReturn5thtYear.ToString();
-                lblFundReturn5thyear1.Text = mfSchemeDetails1.fundReturn10thYear.ToString();
-                lblBenchmarkReturn1.Text = mfSchemeDetails1.benchmarkReturn1stYear;
-                lblBenchMarkReturn3rd1.Text = mfSchemeDetails1.benchmark3rhYear;
-                lblBenchMarkReturn5th1.Text = mfSchemeDetails1.benchmark5thdYear;
-                lblMinSIP1.Text = mfSchemeDetails1.minSIPInvestment.ToString();
-                lblSIPMultipleOf1.Text = mfSchemeDetails1.SIPmultipleOf.ToString();
-                lblExitLoad1.Text = mfSchemeDetails1.exitLoad.ToString();
-                lblMinInvestment1.Text = mfSchemeDetails1.minmumInvestmentAmount.ToString();
-                lblMinMultipleOf1.Text = mfSchemeDetails1.multipleOf.ToString();
-                if (mfSchemeDetails1.mornigStar > 0)
-                {
-                    imgSchemeRating1.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + mfSchemeDetails1.mornigStar + ".png";
-                }
-                else
-                {
-                    imgSchemeRating1.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/0.png";
-
-                }
+                GetSchemeCompareList(ddlSchemeList2.SelectedValue, 2);
             }
         }
         protected void ddlSchemeList3_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlSchemeList3.SelectedValue != "")
             {
-
-                ddlAMC3.Visible = false;
-                ddlCategory3.Visible = false;
-                ddlSchemeList3.Visible = false;
-                lnkDelete3.Visible = true;
-                Session["Schemedetails2"] = onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC3.SelectedValue), int.Parse(ddlSchemeList3.SelectedValue), ddlCategory3.SelectedValue);
-                OnlineMFSchemeDetailsVo mfSchemeDetails2 = (OnlineMFSchemeDetailsVo)Session["Schemedetails2"];
-                lblSchemeName2.Text = mfSchemeDetails2.schemeName;
-                lblAMC2.Text = mfSchemeDetails2.schemeName;
-                lblNAV2.Text = mfSchemeDetails2.NAV.ToString();
-                lblNAVDate2.Text = mfSchemeDetails2.navDate.ToString();
-                lblCategory2.Text = mfSchemeDetails2.category;
-                lblBanchMark2.Text = mfSchemeDetails2.schemeBanchMark;
-                lblFundManager2.Text = mfSchemeDetails2.fundManager;
-                lblFundReturn1styear2.Text = mfSchemeDetails2.fundReturn3rdYear.ToString();
-                lblFundReturn3rdyear2.Text = mfSchemeDetails2.fundReturn5thtYear.ToString();
-                lblFundReturn5thyear2.Text = mfSchemeDetails2.fundReturn10thYear.ToString();
-                lblBenchmarkReturn2.Text = mfSchemeDetails2.benchmarkReturn1stYear;
-                lblBenchMarkReturn3rd2.Text = mfSchemeDetails2.benchmark3rhYear;
-                lblBenchMarkReturn5th2.Text = mfSchemeDetails2.benchmark5thdYear;
-                lblMinSIP2.Text = mfSchemeDetails2.minSIPInvestment.ToString();
-                lblSIPMultipleOf2.Text = mfSchemeDetails2.SIPmultipleOf.ToString();
-                lblExitLoad2.Text = mfSchemeDetails2.exitLoad.ToString();
-                lblMinInvestment2.Text = mfSchemeDetails2.minmumInvestmentAmount.ToString();
-                lblMinMultipleOf2.Text = mfSchemeDetails2.multipleOf.ToString();
-                if (mfSchemeDetails2.mornigStar > 0)
-                {
-                    imgSchemeRating2.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + mfSchemeDetails2.mornigStar + ".png";
-                }
-                else
-                {
-                    imgSchemeRating2.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/0.png";
-
-                }
+                GetSchemeCompareList(ddlSchemeList3.SelectedValue, 3);
             }
         }
         protected void ddlSchemeList4_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlSchemeList4.SelectedValue != "")
             {
-
-                ddlAMC4.Visible = false;
-                ddlCategory4.Visible = false;
-                ddlSchemeList4.Visible = false;
-                lnkDelete4.Visible = true;
-                Session["Schemedetails3"] = onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC4.SelectedValue), int.Parse(ddlSchemeList4.SelectedValue), ddlCategory4.SelectedValue);
-                OnlineMFSchemeDetailsVo mfSchemeDetails3 = (OnlineMFSchemeDetailsVo)Session["Schemedetails3"];
-                lblSchemeName3.Text = mfSchemeDetails3.schemeName;
-                lblAMC3.Text = mfSchemeDetails3.schemeName;
-                lblNAV3.Text = mfSchemeDetails3.NAV.ToString();
-                lblNAVDate3.Text = mfSchemeDetails3.navDate.ToString();
-                lblCategory3.Text = mfSchemeDetails3.category;
-                lblBanchMark3.Text = mfSchemeDetails3.schemeBanchMark;
-                lblFundManager3.Text = mfSchemeDetails3.fundManager;
-                lblFundReturn1styear3.Text = mfSchemeDetails3.fundReturn3rdYear.ToString();
-                lblFundReturn3rdyear3.Text = mfSchemeDetails3.fundReturn5thtYear.ToString();
-                lblFundReturn5thyear3.Text = mfSchemeDetails3.fundReturn10thYear.ToString();
-                lblBenchmarkReturn3.Text = mfSchemeDetails3.benchmarkReturn1stYear;
-                lblBenchMarkReturn3rd3.Text = mfSchemeDetails3.benchmark3rhYear;
-                lblBenchMarkReturn5th3.Text = mfSchemeDetails3.benchmark5thdYear;
-                lblMinSIP3.Text = mfSchemeDetails3.minSIPInvestment.ToString();
-                lblSIPMultipleOf3.Text = mfSchemeDetails3.SIPmultipleOf.ToString();
-                lblExitLoad3.Text = mfSchemeDetails3.exitLoad.ToString();
-                lblMinInvestment3.Text = mfSchemeDetails3.minmumInvestmentAmount.ToString();
-                lblMinMultipleOf3.Text = mfSchemeDetails3.multipleOf.ToString();
-                if (mfSchemeDetails3.mornigStar > 0)
-                {
-                    imgSchemeRating3.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + mfSchemeDetails3.mornigStar + ".png";
-                }
-                else
-                {
-                    imgSchemeRating3.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/0.png";
-
-                }
+                GetSchemeCompareList(ddlSchemeList4.SelectedValue, 4);
             }
         }
+        protected void BindSchemeDetais(OnlineMFSchemeDetailsVo onlineMFSchemeDetailsVo, int schmeCompareNum)
+        {
+            switch (schmeCompareNum)
+            {
+                case 1:
+                    ddlAMC1.Visible = false;
+                    ddlCategory1.Visible = false;
+                    ddlSchemeList1.Visible = false;
+                    lnkDelete1.Visible = true;
+                    //if(Session["Schemedetails"] ==null)
+                    //Session["Schemedetails"] = onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC1.SelectedValue), int.Parse(ddlSchemeList1.SelectedValue), ddlCategory1.SelectedValue);
+                    //OnlineMFSchemeDetailsVo onlineMFSchemeDetailsVo = (OnlineMFSchemeDetailsVo)Session["Schemedetails"];
+                    lblSchemeName.Text = onlineMFSchemeDetailsVo.schemeName;
+                    lblAMC.Text = onlineMFSchemeDetailsVo.amcName;
+                    lblNAV.Text = onlineMFSchemeDetailsVo.NAV.ToString();
+                    lblNAVDate.Text = onlineMFSchemeDetailsVo.navDate.ToString();
+                    lblCategory.Text = onlineMFSchemeDetailsVo.category;
+                    lblBanchMark.Text = onlineMFSchemeDetailsVo.schemeBanchMark;
+                    lblFundManager.Text = onlineMFSchemeDetailsVo.fundManager;
+                    lblFundReturn1styear.Text = onlineMFSchemeDetailsVo.fundReturn3rdYear.ToString();
+                    lblFundReturn3rdyear.Text = onlineMFSchemeDetailsVo.fundReturn5thtYear.ToString();
+                    lblFundReturn5thyear.Text = onlineMFSchemeDetailsVo.fundReturn10thYear.ToString();
+                    lblBenchmarkReturn.Text = onlineMFSchemeDetailsVo.benchmarkReturn1stYear;
+                    lblBenchMarkReturn3rd.Text = onlineMFSchemeDetailsVo.benchmark3rhYear;
+                    lblBenchMarkReturn5th.Text = onlineMFSchemeDetailsVo.benchmark5thdYear;
+                    lblMinSIP.Text = onlineMFSchemeDetailsVo.minSIPInvestment.ToString();
+                    lblSIPMultipleOf.Text = onlineMFSchemeDetailsVo.SIPmultipleOf.ToString();
+                    lblExitLoad.Text = onlineMFSchemeDetailsVo.exitLoad.ToString();
+                    lblMinInvestment.Text = onlineMFSchemeDetailsVo.minmumInvestmentAmount.ToString();
+                    lblMinMultipleOf.Text = onlineMFSchemeDetailsVo.multipleOf.ToString();
+                    if (onlineMFSchemeDetailsVo.mornigStar > 0)
+                    {
+                        imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
+                    }
+                    else
+                    {
+                        imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/0.png";
+
+                    }
+                    break;
+                case 2:
+                    ddlAMC2.Visible = false;
+                    ddlCategory2.Visible = false;
+                    ddlSchemeList2.Visible = false;
+                    lnkDelete2.Visible = true;
+                    //Session["Schemedetails1"] = onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC2.SelectedValue), int.Parse(ddlSchemeList2.SelectedValue), ddlCategory2.SelectedValue);
+                    //OnlineMFSchemeDetailsVo onlineMFSchemeDetailsVo = (OnlineMFSchemeDetailsVo)Session["Schemedetails1"];
+                    lblSchemeName1.Text = onlineMFSchemeDetailsVo.schemeName;
+                    lblAMC1.Text = onlineMFSchemeDetailsVo.amcName;
+                    lblNAV1.Text = onlineMFSchemeDetailsVo.NAV.ToString();
+                    lblNAVDate1.Text = onlineMFSchemeDetailsVo.navDate.ToString();
+                    lblCategory1.Text = onlineMFSchemeDetailsVo.category;
+                    lblBanchMark1.Text = onlineMFSchemeDetailsVo.schemeBanchMark;
+                    lblFundManager1.Text = onlineMFSchemeDetailsVo.fundManager;
+                    lblFundReturn1styear1.Text = onlineMFSchemeDetailsVo.fundReturn3rdYear.ToString();
+                    lblFundReturn3rdyear1.Text = onlineMFSchemeDetailsVo.fundReturn5thtYear.ToString();
+                    lblFundReturn5thyear1.Text = onlineMFSchemeDetailsVo.fundReturn10thYear.ToString();
+                    lblBenchmarkReturn1.Text = onlineMFSchemeDetailsVo.benchmarkReturn1stYear;
+                    lblBenchMarkReturn3rd1.Text = onlineMFSchemeDetailsVo.benchmark3rhYear;
+                    lblBenchMarkReturn5th1.Text = onlineMFSchemeDetailsVo.benchmark5thdYear;
+                    lblMinSIP1.Text = onlineMFSchemeDetailsVo.minSIPInvestment.ToString();
+                    lblSIPMultipleOf1.Text = onlineMFSchemeDetailsVo.SIPmultipleOf.ToString();
+                    lblExitLoad1.Text = onlineMFSchemeDetailsVo.exitLoad.ToString();
+                    lblMinInvestment1.Text = onlineMFSchemeDetailsVo.minmumInvestmentAmount.ToString();
+                    lblMinMultipleOf1.Text = onlineMFSchemeDetailsVo.multipleOf.ToString();
+                    if (onlineMFSchemeDetailsVo.mornigStar > 0)
+                    {
+                        imgSchemeRating1.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
+                    }
+                    else
+                    {
+                        imgSchemeRating1.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/0.png";
+
+                    }
+                    break;
+                case 3:
+                    ddlAMC3.Visible = false;
+                    ddlCategory3.Visible = false;
+                    ddlSchemeList3.Visible = false;
+                    lnkDelete3.Visible = true;
+                    //Session["Schemedetails2"] = onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC3.SelectedValue), int.Parse(ddlSchemeList3.SelectedValue), ddlCategory3.SelectedValue);
+                    //OnlineMFSchemeDetailsVo onlineMFSchemeDetailsVo = (OnlineMFSchemeDetailsVo)Session["Schemedetails2"];
+                    lblSchemeName2.Text = onlineMFSchemeDetailsVo.schemeName;
+                    lblAMC2.Text = onlineMFSchemeDetailsVo.amcName;
+                    lblNAV2.Text = onlineMFSchemeDetailsVo.NAV.ToString();
+                    lblNAVDate2.Text = onlineMFSchemeDetailsVo.navDate.ToString();
+                    lblCategory2.Text = onlineMFSchemeDetailsVo.category;
+                    lblBanchMark2.Text = onlineMFSchemeDetailsVo.schemeBanchMark;
+                    lblFundManager2.Text = onlineMFSchemeDetailsVo.fundManager;
+                    lblFundReturn1styear2.Text = onlineMFSchemeDetailsVo.fundReturn3rdYear.ToString();
+                    lblFundReturn3rdyear2.Text = onlineMFSchemeDetailsVo.fundReturn5thtYear.ToString();
+                    lblFundReturn5thyear2.Text = onlineMFSchemeDetailsVo.fundReturn10thYear.ToString();
+                    lblBenchmarkReturn2.Text = onlineMFSchemeDetailsVo.benchmarkReturn1stYear;
+                    lblBenchMarkReturn3rd2.Text = onlineMFSchemeDetailsVo.benchmark3rhYear;
+                    lblBenchMarkReturn5th2.Text = onlineMFSchemeDetailsVo.benchmark5thdYear;
+                    lblMinSIP2.Text = onlineMFSchemeDetailsVo.minSIPInvestment.ToString();
+                    lblSIPMultipleOf2.Text = onlineMFSchemeDetailsVo.SIPmultipleOf.ToString();
+                    lblExitLoad2.Text = onlineMFSchemeDetailsVo.exitLoad.ToString();
+                    lblMinInvestment2.Text = onlineMFSchemeDetailsVo.minmumInvestmentAmount.ToString();
+                    lblMinMultipleOf2.Text = onlineMFSchemeDetailsVo.multipleOf.ToString();
+                    if (onlineMFSchemeDetailsVo.mornigStar > 0)
+                    {
+                        imgSchemeRating2.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
+                    }
+                    else
+                    {
+                        imgSchemeRating2.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/0.png";
+
+                    }
+                    break;
+                case 4:
+                    ddlAMC4.Visible = false;
+                    ddlCategory4.Visible = false;
+                    ddlSchemeList4.Visible = false;
+                    lnkDelete4.Visible = true;
+                    //Session["Schemedetails3"] = onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC4.SelectedValue), int.Parse(ddlSchemeList4.SelectedValue), ddlCategory4.SelectedValue);
+                    //OnlineMFSchemeDetailsVo onlineMFSchemeDetailsVo = (OnlineMFSchemeDetailsVo)Session["Schemedetails3"];
+                    lblSchemeName3.Text = onlineMFSchemeDetailsVo.schemeName;
+                    lblAMC3.Text = onlineMFSchemeDetailsVo.amcName;
+                    lblNAV3.Text = onlineMFSchemeDetailsVo.NAV.ToString();
+                    lblNAVDate3.Text = onlineMFSchemeDetailsVo.navDate.ToString();
+                    lblCategory3.Text = onlineMFSchemeDetailsVo.category;
+                    lblBanchMark3.Text = onlineMFSchemeDetailsVo.schemeBanchMark;
+                    lblFundManager3.Text = onlineMFSchemeDetailsVo.fundManager;
+                    lblFundReturn1styear3.Text = onlineMFSchemeDetailsVo.fundReturn3rdYear.ToString();
+                    lblFundReturn3rdyear3.Text = onlineMFSchemeDetailsVo.fundReturn5thtYear.ToString();
+                    lblFundReturn5thyear3.Text = onlineMFSchemeDetailsVo.fundReturn10thYear.ToString();
+                    lblBenchmarkReturn3.Text = onlineMFSchemeDetailsVo.benchmarkReturn1stYear;
+                    lblBenchMarkReturn3rd3.Text = onlineMFSchemeDetailsVo.benchmark3rhYear;
+                    lblBenchMarkReturn5th3.Text = onlineMFSchemeDetailsVo.benchmark5thdYear;
+                    lblMinSIP3.Text = onlineMFSchemeDetailsVo.minSIPInvestment.ToString();
+                    lblSIPMultipleOf3.Text = onlineMFSchemeDetailsVo.SIPmultipleOf.ToString();
+                    lblExitLoad3.Text = onlineMFSchemeDetailsVo.exitLoad.ToString();
+                    lblMinInvestment3.Text = onlineMFSchemeDetailsVo.minmumInvestmentAmount.ToString();
+                    lblMinMultipleOf3.Text = onlineMFSchemeDetailsVo.multipleOf.ToString();
+                    if (onlineMFSchemeDetailsVo.mornigStar > 0)
+                    {
+                        imgSchemeRating3.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
+                    }
+                    else
+                    {
+                        imgSchemeRating3.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/0.png";
+
+                    }
+                    break;
+
+            }
+        }
+
+
+
         protected void lnkDelete1_OnClick(object sender, EventArgs e)
         {
             ddlAMC1.Visible = true;
             ddlCategory1.Visible = true;
             ddlSchemeList1.Visible = true;
             lnkDelete1.Visible = false;
+            ClearAllField(1);
         }
         protected void lnkDelete2_OnClick(object sender, EventArgs e)
         {
             ddlAMC2.Visible = true;
             ddlCategory2.Visible = true;
-           ddlSchemeList2.Visible = true;
+            ddlSchemeList2.Visible = true;
             lnkDelete2.Visible = false;
+            ClearAllField(2);
         }
         protected void lnkDelete31_OnClick(object sender, EventArgs e)
         {
@@ -352,6 +403,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlCategory3.Visible = true;
             ddlSchemeList3.Visible = true;
             lnkDelete3.Visible = false;
+            ClearAllField(3);
         }
         protected void lnkDelete4_OnClick(object sender, EventArgs e)
         {
@@ -359,6 +411,100 @@ namespace WealthERP.OnlineOrderManagement
             ddlCategory4.Visible = true;
             ddlSchemeList4.Visible = true;
             lnkDelete4.Visible = false;
+            ClearAllField(4);
+        }
+        protected void ClearAllField(int columnNo)
+        {
+            switch (columnNo)
+            {
+                case 1:
+                    imgSchemeRating.ImageUrl = "";
+                    lblSchemeName.Text = "";
+                    lblAMC.Text = "";
+                    lblNAV.Text = "";
+                    lblNAVDate.Text = "";
+                    lblCategory.Text = "";
+                    lblBanchMark.Text = "";
+                    lblFundManager.Text = "";
+                    lblFundReturn1styear.Text = "";
+                    lblFundReturn3rdyear.Text = "";
+                    lblFundReturn5thyear.Text = "";
+                    lblBenchmarkReturn.Text = "";
+                    lblBenchMarkReturn3rd.Text = "";
+                    lblBenchMarkReturn5th.Text = "";
+                    lblMinSIP.Text = "";
+                    lblSIPMultipleOf.Text = "";
+                    lblExitLoad.Text = "";
+                    lblMinInvestment.Text = "";
+                    lblMinMultipleOf.Text = "";
+
+                    break;
+                case 2:
+                    imgSchemeRating1.ImageUrl = "";
+                    lblSchemeName1.Text = "";
+                    lblAMC1.Text = "";
+                    lblNAV1.Text = "";
+                    lblNAVDate1.Text = "";
+                    lblCategory1.Text = "";
+                    lblBanchMark1.Text = "";
+                    lblFundManager1.Text = "";
+                    lblFundReturn1styear1.Text = "";
+                    lblFundReturn3rdyear1.Text = "";
+                    lblFundReturn5thyear1.Text = "";
+                    lblBenchmarkReturn1.Text = "";
+                    lblBenchMarkReturn3rd1.Text = "";
+                    lblBenchMarkReturn5th1.Text = "";
+                    lblMinSIP1.Text = "";
+                    lblSIPMultipleOf1.Text = "";
+                    lblExitLoad1.Text = "";
+                    lblMinInvestment1.Text = "";
+                    lblMinMultipleOf1.Text = "";
+
+                    break;
+                case 3:
+                    imgSchemeRating2.ImageUrl = "";
+                    lblSchemeName2.Text = "";
+                    lblAMC2.Text = "";
+                    lblNAV2.Text = "";
+                    lblNAVDate2.Text = "";
+                    lblCategory2.Text = "";
+                    lblBanchMark2.Text = "";
+                    lblFundManager2.Text = "";
+                    lblFundReturn1styear2.Text = "";
+                    lblFundReturn3rdyear2.Text = "";
+                    lblFundReturn5thyear2.Text = "";
+                    lblBenchmarkReturn2.Text = "";
+                    lblBenchMarkReturn3rd2.Text = "";
+                    lblBenchMarkReturn5th2.Text = "";
+                    lblMinSIP2.Text = "";
+                    lblSIPMultipleOf2.Text = "";
+                    lblExitLoad2.Text = "";
+                    lblMinInvestment2.Text = "";
+                    lblMinMultipleOf2.Text = "";
+
+                    break;
+                case 4:
+                    imgSchemeRating3.ImageUrl = "";
+                    lblSchemeName3.Text = "";
+                    lblAMC3.Text = "";
+                    lblNAV3.Text = "";
+                    lblNAVDate3.Text = "";
+                    lblCategory3.Text = "";
+                    lblBanchMark3.Text = "";
+                    lblFundManager3.Text = "";
+                    lblFundReturn1styear3.Text = "";
+                    lblFundReturn3rdyear3.Text = "";
+                    lblFundReturn5thyear3.Text = "";
+                    lblBenchmarkReturn3.Text = "";
+                    lblBenchMarkReturn3rd3.Text = "";
+                    lblBenchMarkReturn5th3.Text = "";
+                    lblMinSIP3.Text = "";
+                    lblSIPMultipleOf3.Text = "";
+                    lblExitLoad3.Text = "";
+                    lblMinInvestment3.Text = "";
+                    lblMinMultipleOf3.Text = "";
+                    break;
+            }
         }
     }
 }

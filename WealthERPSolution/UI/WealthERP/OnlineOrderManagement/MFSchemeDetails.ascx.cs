@@ -23,6 +23,8 @@ namespace WealthERP.OnlineOrderManagement
     {
         OnlineMFSchemeDetailsBo onlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
         CustomerVo customerVo = new CustomerVo();
+        List<int> schemeCompareList=new List<int>();
+        OnlineMFSchemeDetailsVo onlineMFSchemeDetailsVo;
         protected void Page_Load(object sender, EventArgs e)
         {
             OnlineUserSessionBo.CheckSession();
@@ -90,34 +92,34 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void Go_OnClick(object sender, EventArgs e)
         {
+            hidCurrentScheme.Value = ddlScheme.SelectedValue;
             GetAmcSchemeDetails();
         }
         public void GetAmcSchemeDetails()
         {
-            Session["Schemedetails"] = onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue);
-            OnlineMFSchemeDetailsVo mfSchemeDetails = (OnlineMFSchemeDetailsVo)Session["Schemedetails"];
-            lblSchemeName.Text = mfSchemeDetails.schemeName;
-            lblAMC.Text = mfSchemeDetails.schemeName;
-            lblNAV.Text = mfSchemeDetails.NAV.ToString();
-            lblNAVDate.Text = mfSchemeDetails.navDate.ToString();
-            lblCategory.Text = mfSchemeDetails.category;
-            lblBanchMark.Text = mfSchemeDetails.schemeBanchMark;
-            lblFundManager.Text = mfSchemeDetails.fundManager;
-            lblFundReturn1styear.Text = mfSchemeDetails.fundReturn3rdYear.ToString();
-            lblFundReturn3rdyear.Text = mfSchemeDetails.fundReturn5thtYear.ToString();
-            lblFundReturn5thyear.Text = mfSchemeDetails.fundReturn10thYear.ToString();
-            lblBenchmarkReturn.Text = mfSchemeDetails.benchmarkReturn1stYear;
-            lblBenchMarkReturn3rd.Text = mfSchemeDetails.benchmark3rhYear;
-            lblBenchMarkReturn5th.Text = mfSchemeDetails.benchmark5thdYear;
-            lblMinSIP.Text = mfSchemeDetails.minSIPInvestment.ToString();
-            lblSIPMultipleOf.Text = mfSchemeDetails.SIPmultipleOf.ToString();
-            lblExitLoad.Text = mfSchemeDetails.exitLoad.ToString();
-            lblMinInvestment.Text = mfSchemeDetails.minmumInvestmentAmount.ToString();
-            lblMinMultipleOf.Text = mfSchemeDetails.multipleOf.ToString();
-            if (mfSchemeDetails.mornigStar > 0)
+           onlineMFSchemeDetailsVo= onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue);
+            lblSchemeName.Text = onlineMFSchemeDetailsVo.schemeName;
+            lblAMC.Text = onlineMFSchemeDetailsVo.amcName;
+            lblNAV.Text = onlineMFSchemeDetailsVo.NAV.ToString();
+            lblNAVDate.Text = onlineMFSchemeDetailsVo.navDate.ToString();
+            lblCategory.Text = onlineMFSchemeDetailsVo.category;
+            lblBanchMark.Text = onlineMFSchemeDetailsVo.schemeBanchMark;
+            lblFundManager.Text = onlineMFSchemeDetailsVo.fundManager;
+            lblFundReturn1styear.Text = onlineMFSchemeDetailsVo.fundReturn3rdYear.ToString();
+            lblFundReturn3rdyear.Text = onlineMFSchemeDetailsVo.fundReturn5thtYear.ToString();
+            lblFundReturn5thyear.Text = onlineMFSchemeDetailsVo.fundReturn10thYear.ToString();
+            lblBenchmarkReturn.Text = onlineMFSchemeDetailsVo.benchmarkReturn1stYear;
+            lblBenchMarkReturn3rd.Text = onlineMFSchemeDetailsVo.benchmark3rhYear;
+            lblBenchMarkReturn5th.Text = onlineMFSchemeDetailsVo.benchmark5thdYear;
+            lblMinSIP.Text = onlineMFSchemeDetailsVo.minSIPInvestment.ToString();
+            lblSIPMultipleOf.Text = onlineMFSchemeDetailsVo.SIPmultipleOf.ToString();
+            lblExitLoad.Text = onlineMFSchemeDetailsVo.exitLoad.ToString();
+            lblMinInvestment.Text = onlineMFSchemeDetailsVo.minmumInvestmentAmount.ToString();
+            lblMinMultipleOf.Text = onlineMFSchemeDetailsVo.multipleOf.ToString();
+            if (onlineMFSchemeDetailsVo.mornigStar > 0)
             {
-                imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + mfSchemeDetails.mornigStar + ".png";
-                imgStyleBox.ImageUrl = @"../Images/MorningStarRating/StarStyleBox/" + mfSchemeDetails.schemeBox + ".png";
+                imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
+                imgStyleBox.ImageUrl = @"../Images/MorningStarRating/StarStyleBox/" + onlineMFSchemeDetailsVo.schemeBox + ".png";
             }
             else
             {
@@ -127,54 +129,66 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void lbBuy_OnClick(object sender, EventArgs e)
         {
-            if (Session["PageDefaultSetting"] != null)
+            if (ddlScheme.SelectedValue != "")
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderAdditionalPurchase','&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "');", true);
+                if (Session["PageDefaultSetting"] != null)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderAdditionalPurchase','&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "');", true);
 
-            }
-            else
-            {
-                Response.Redirect("ControlHost.aspx?pageid=MFOrderAdditionalPurchase&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "", false);
+                }
+                else
+                {
+                    Response.Redirect("ControlHost.aspx?pageid=MFOrderAdditionalPurchase&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "", false);
 
+                }
             }
         }
         protected void lbAddPurchase_OnClick(object sender, EventArgs e)
         {
-            if (Session["PageDefaultSetting"] != null)
+            if (ddlScheme.SelectedValue != "")
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderAdditionalPurchase','&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "');", true);
+                if (Session["PageDefaultSetting"] != null)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderAdditionalPurchase','&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "');", true);
 
-            }
-            else
-            {
-                Response.Redirect("ControlHost.aspx?pageid=MFOrderAdditionalPurchase&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "", false);
+                }
+                else
+                {
+                    Response.Redirect("ControlHost.aspx?pageid=MFOrderAdditionalPurchase&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "", false);
 
+                }
             }
         }
         protected void lbSIP_OnClick(object sender, EventArgs e)
         {
-            if (Session["PageDefaultSetting"] != null)
+            if (ddlScheme.SelectedValue != "")
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderSIPTransType','&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "');", true);
+                if (Session["PageDefaultSetting"] != null)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderSIPTransType','&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "');", true);
 
-            }
-            else
-            {
-                Response.Redirect("ControlHost.aspx?pageid=MFOrderSIPTransType&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "", false);
+                }
+                else
+                {
+                    Response.Redirect("ControlHost.aspx?pageid=MFOrderSIPTransType&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "", false);
 
+                }
             }
         }
         protected void lbRedem_OnClick(object sender, EventArgs e)
         {
-            if (Session["PageDefaultSetting"] != null)
+            if (ddlScheme.SelectedValue != "")
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderRdemptionTransType','&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "');", true);
+                if (Session["PageDefaultSetting"] != null)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderRdemptionTransType','&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "');", true);
 
-            }
-            else
-            {
-                Response.Redirect("ControlHost.aspx?pageid=MFOrderRdemptionTransType&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "", false);
+                }
+                else
+                {
+                    Response.Redirect("ControlHost.aspx?pageid=MFOrderRdemptionTransType&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "", false);
 
+                }
             }
         }
         [WebMethod]
@@ -185,45 +199,52 @@ namespace WealthERP.OnlineOrderManagement
         {
             string cmotcode=onlineMFSchemeDetailsBo.GetCmotCode(int.Parse(ddlScheme.SelectedValue));
             string result;
-            string FundManagerDetais =ConfigurationSettings.AppSettings["FUND_MANAGER_DETAILS"] + cmotcode + "/Pre";
-            WebResponse response;
-            WebRequest request = HttpWebRequest.Create(FundManagerDetais);
-            response = request.GetResponse();
-            using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+            if (cmotcode != "")
             {
-                result = reader.ReadToEnd();
-                reader.Close();
-            }
-            StringReader theReader = new StringReader(result);
-            DataSet theDataSet = new DataSet();
-            theDataSet.ReadXml(theReader);
-            foreach (DataRow dr in theDataSet.Tables[1].Rows)
-            {
-                lblFundMAnagername.Text = dr["FundManager"].ToString();
-                lblQualification.Text = dr["Qualification"].ToString();
-                lblDesignation.Text = dr["Designation"].ToString();
-                lblExperience.Text = dr["experience"].ToString();
+                string FundManagerDetais = ConfigurationSettings.AppSettings["FUND_MANAGER_DETAILS"] + cmotcode + "/Pre";
+                WebResponse response;
+                WebRequest request = HttpWebRequest.Create(FundManagerDetais);
+                response = request.GetResponse();
+                using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                {
+                    result = reader.ReadToEnd();
+                    reader.Close();
+                }
+                StringReader theReader = new StringReader(result);
+                DataSet theDataSet = new DataSet();
+                theDataSet.ReadXml(theReader);
+                foreach (DataRow dr in theDataSet.Tables[1].Rows)
+                {
+                    lblFundMAnagername.Text = dr["FundManager"].ToString();
+                    lblQualification.Text = dr["Qualification"].ToString();
+                    lblDesignation.Text = dr["Designation"].ToString();
+                    lblExperience.Text = dr["experience"].ToString();
+                }
             }
         }
         protected void lnkAddToCompare_OnClick(object sender, EventArgs e)
         {
-            List<string> schemelist = new List<string>();
-
-            if (Session["Schemedetails"] != null)
+            if (ddlScheme.SelectedValue != "")
             {
-                var information = Session["Schemedetails"];
-                if (Session["PageDefaultSetting"] != null)
+                if (Session["SchemeCompareList"] != null)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('OnlineMFSchemeCompare','&information=" + information + "');", true);
+                    schemeCompareList = (List<int>)Session["SchemeCompareList"];
+                    schemeCompareList.Add(Convert.ToInt32(hidCurrentScheme.Value));
+                    Session["SchemeCompareList"] = schemeCompareList;
+
+                    if (schemeCompareList.Count > 1)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('OnlineMFSchemeCompare');", true);
+
+                    }
 
                 }
                 else
                 {
-                    Response.Redirect("ControlHost.aspx?pageid=OnlineMFSchemeCompare&information=" + information + "", false);
-
+                    schemeCompareList.Add(Convert.ToInt32(hidCurrentScheme.Value));
+                    Session["SchemeCompareList"] = schemeCompareList;
                 }
             }
-            
         }
     }
 }
