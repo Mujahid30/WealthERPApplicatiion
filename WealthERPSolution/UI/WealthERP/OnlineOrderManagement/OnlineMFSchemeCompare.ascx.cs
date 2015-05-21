@@ -45,7 +45,7 @@ namespace WealthERP.OnlineOrderManagement
             OnlineMFSchemeDetailslist = onlineMFSchemeDetailsBo.GetCompareMFSchemeDetails(CompareScheme);
             if (schemeColNo == 0)
             {
-                Session["SchemeCompareList"] = null;
+                //Session["SchemeCompareList"] = null;
                 int schmeCompareNum = 1;
                 foreach (OnlineMFSchemeDetailsVo onlineMFSchemeDetailsVo in OnlineMFSchemeDetailslist)
                 {

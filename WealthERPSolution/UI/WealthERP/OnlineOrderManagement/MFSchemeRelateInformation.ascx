@@ -210,30 +210,30 @@
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
 <div id="demo" class="row " style="margin-left: 11%; margin-top: 1%; margin-bottom: 2%;
-    margin-right: 5%; border: 2px solid #a1a1a1; padding-top: 1%; padding-bottom: 1%">
+    margin-right: 5%;  padding-top: 1%; padding-bottom: 1%;background-color:#2480C7;">
     <div class="col-md-12 col-xs-12 col-sm-12">
         <div class="col-md-7">
-            <b>AMC:</b>
+            <font color="#fff"> <b>AMC:</b></font>
             <asp:DropDownList ID="ddlAMC" runat="server" CssClass="form-control input-sm" Width="100%"
                 OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged" AutoPostBack="true">
             </asp:DropDownList>
             <%--<asp:RequiredFieldValidator ID="rfvAMC" runat="server" ControlToValidate="ddlAMC" InitialValue="0" ErrorMessage="Please Select AMC" Display="Dynamic"></asp:RequiredFieldValidator>--%>
         </div>
         <div class="col-md-5">
-            <b>Category: </b>
+            <font color="#fff"> <b>Category: </b></font>
             <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control input-sm">
             </asp:DropDownList>
         </div>
     </div>
     <div class="col-md-12">
         <div class="col-md-8">
-            <b>Scheme:</b>
+            <font color="#fff"> <b>Scheme:</b></font>
             <asp:DropDownList ID="ddlScheme" runat="server" CssClass="form-control input-sm"
                 class="form-control">
             </asp:DropDownList>
         </div>
-        <div class="col-md-4" style="margin-top: 2%">
-            <asp:Button ID="Button1" runat="server" class="btn btn-sm btn-primary" Text="GO"
+        <div class="col-md-4" style="margin-top: 1.6%">
+            <asp:Button ID="Button1" runat="server" class="btn btn-sm btn-default" Text="Search Scheme"
                 OnClick="Go_OnClick"></asp:Button>
         </div>
     </div>

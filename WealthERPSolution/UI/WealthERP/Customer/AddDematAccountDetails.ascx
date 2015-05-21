@@ -49,19 +49,23 @@
         <td class="rightField">
             <asp:TextBox ID="txtDpName" runat="server" CssClass="txtField" Width="250px"></asp:TextBox>
             <span id="Span1" class="spnRequiredField">*</span>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtDpName"
+                CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please enter DP Name"
+                InitialValue="" ValidationGroup="btnsubmit">
+            </asp:RequiredFieldValidator>
         </td>
         <td class="leftField" style="width: 150px;">
             &nbsp;<asp:Label ID="lblDepositoryName" runat="server" Text="Depository Name:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:DropDownList ID="ddlDepositoryName" runat="server" CssClass="cmbField" AutoPostBack="true"
+            <asp:DropDownList ID="ddlDepositoryName" runat="server" CssClass="cmbField"  AutoPostBack="true"
                 OnSelectedIndexChanged="ddlDepositoryName_SelectedIndexChanged">
             </asp:DropDownList>
             <span id="Span4" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="ddlDepositoryName"
                 CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select Depository Name"
-                InitialValue="Select" ValidationGroup="btnsubmit">
+                InitialValue="Select" ValidationGroup="btnsubmit" >
             </asp:RequiredFieldValidator>
         </td>
     </tr>
@@ -70,20 +74,20 @@
             &nbsp;<asp:Label ID="lblDPId" runat="server" Text="DP Id:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtDPId" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtDPId" runat="server" CssClass="txtField" MaxLength="8"></asp:TextBox>
         </td>
         <td class="leftField">
-            <asp:Label ID="lblDpClientId" runat="server" Text="Beneficiary Acct No:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblDpClientId" runat="server" Text="Beneficiary Acct No:" CssClass="FieldName" EnableViewState="true"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtDpClientId" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtDpClientId" runat="server" CssClass="txtField" MaxLength="16" ></asp:TextBox>
             <span id="Span2" class="spnRequiredField">*</span>
-            <asp:RegularExpressionValidator ID="rev" runat="server" ControlToValidate="txtDpClientId"
+          <asp:RegularExpressionValidator ID="rev" runat="server" ControlToValidate="txtDpClientId"
                 ValidationGroup="btnsubmit" ErrorMessage="Special Character are not allowed!"
-                CssClass="cvPCG" Display="Dynamic" ValidationExpression="^[a-zA-Z0-9]+(?:--?[a-zA-Z0-9]+)*$" />
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtDpClientId"
-                ErrorMessage="Client Id Required" CssClass="cvPCG" ValidationGroup="btnsubmit"
-                Display="Dynamic"></asp:RequiredFieldValidator>
+                CssClass="cvPCG" Display="Dynamic" ValidationExpression="^[a-zA-Z0-9]+(?:--?[a-zA-Z0-9]+)*$"/>
+           <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtDpClientId"
+                ErrorMessage="Beneficiary Acct No:" CssClass="cvPCG" ValidationGroup="btnsubmit"
+                InitialValue="" Display="Dynamic"></asp:RequiredFieldValidator>
         </td>
     </tr>
     <tr>
@@ -113,9 +117,7 @@
                 <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
-            <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="txtAccountOpeningDate"
-                Type="Date" Operator="DataTypeCheck" ErrorMessage="Please Enter a Valid Date"
-                Display="Dynamic" CssClass="cvPCG" />
+            
         </td>
     </tr>
     <tr>
@@ -145,7 +147,8 @@
         </td>
         <td class="rightField">
             <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click"
-                CssClass="PCGButton" OnClientClick="GetSelectedBranches()" ValidationGroup="btnsubmit" />
+                CssClass="PCGButton"  ValidationGroup="btnsubmit"
+               />
         </td>
     </tr>
 </table>

@@ -325,8 +325,8 @@ namespace WealthERP.Customer
             ArrayList associationIdN = new ArrayList();
             //ArrayList lstassociatedtradeaccount = new ArrayList();
 
-            if (Page.IsValid)
-            {
+            //if (Page.IsValid)
+            //{
                 
                 try
                 {
@@ -334,8 +334,9 @@ namespace WealthERP.Customer
                     {
                         if (!string.IsNullOrEmpty(accountopeningdate.Trim()))
                             demataccountvo.AccountOpeningDate = DateTime.Parse(accountopeningdate);
-                        //    demataccountvo.BeneficiaryAccountNbr = txtBeneficiaryAcctNbr.Text;
+                        //demataccountvo.BeneficiaryAccountNbr = txtBeneficiaryAcctNbr.Text;
                         demataccountvo.DpclientId = txtDpClientId.Text;
+                            //.Text;
                         demataccountvo.DpId = txtDPId.Text;
                         demataccountvo.DpName = txtDpName.Text;
                         demataccountvo.DepositoryName = ddlDepositoryName.SelectedValue;
@@ -348,13 +349,6 @@ namespace WealthERP.Customer
                         else
                             demataccountvo.IsActive = 0;
                         demataccountvo.ModeOfHolding = ddlModeOfHolding.SelectedValue.ToString();
-
-
-
-                       
-                        
-
-
 
                        result= bodemataccount.AddDematDetails(customerId, portfolioid, demataccountvo, rmvo);
                        if (result!=0)
@@ -405,7 +399,7 @@ namespace WealthERP.Customer
                     throw ex;
                 }
             }
-        }
+        //}
 
         
         protected void lbtnBackButton_Click(object sender, EventArgs e)
@@ -427,13 +421,14 @@ namespace WealthERP.Customer
                     txtDPId.Enabled = true;
                     txtDPId.MaxLength = 8;
                     txtDpClientId.MaxLength = 8;
-                    txtDpClientId.Text = "";
+                    //txtDpClientId.Text = "";
                 }
                 else if (ddlDepositoryName.SelectedItem.Text == "CDSL")
                 {
                     txtDPId.Enabled = false;
                     txtDpClientId.MaxLength = 16;
-
+                    txtDPId.Text = "";
+                    //txtDpClientId.Text = "";
                 }
             }
         }

@@ -63,7 +63,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlAMC.DataTextField = dtGetAMCList.Columns["PA_AMCName"].ToString();
             ddlAMC.DataValueField = dtGetAMCList.Columns["PA_AMCCode"].ToString();
             ddlAMC.DataBind();
-            ddlAMC.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+            ddlAMC.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
         }
         protected void BindScheme()
         {
@@ -229,13 +229,20 @@ namespace WealthERP.OnlineOrderManagement
                 if (Session["SchemeCompareList"] != null)
                 {
                     schemeCompareList = (List<int>)Session["SchemeCompareList"];
-                    schemeCompareList.Add(Convert.ToInt32(hidCurrentScheme.Value));
-                    Session["SchemeCompareList"] = schemeCompareList;
-
-                    if (schemeCompareList.Count > 1)
+                    if (schemeCompareList[0] != Convert.ToInt32(hidCurrentScheme.Value))
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('OnlineMFSchemeCompare');", true);
+                        schemeCompareList.Add(Convert.ToInt32(hidCurrentScheme.Value));
+                        Session["SchemeCompareList"] = schemeCompareList;
 
+                        if (schemeCompareList.Count > 1)
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('OnlineMFSchemeCompare');", true);
+
+                        }
+                    }
+                    else
+                    {
+                        ShowMessage("Scheme already added for compare!!", 'I');
                     }
 
                 }
@@ -245,6 +252,15 @@ namespace WealthERP.OnlineOrderManagement
                     Session["SchemeCompareList"] = schemeCompareList;
                 }
             }
+        }
+        private void ShowMessage(string msg, char type)
+        {
+            //--S(success)
+            //--F(failure)
+            //--W(warning)
+            //--I(information)
+            trMessage.Visible = true;
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','" + type.ToString() + "');", true);
         }
     }
 }
