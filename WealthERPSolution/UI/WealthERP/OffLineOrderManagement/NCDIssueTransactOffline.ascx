@@ -675,11 +675,11 @@
                                     UniqueName="AIM_MaxQty" DataFormatString="{0:N0}" Visible="false">
                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="AIM_FaceValue" HeaderStyle-Width="80px" HeaderText="Minimum Application Amount"
+                               <%-- <telerik:GridBoundColumn DataField="AIM_FaceValue" HeaderStyle-Width="80px" HeaderText="Minimum Application Amount"
                                     CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="false"
                                     UniqueName="FaceValue" Visible="true" DataFormatString="{0:N0}">
                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                </telerik:GridBoundColumn>
+                                </telerik:GridBoundColumn>--%>
                                 <telerik:GridBoundColumn DataField="AID_MinApplication" HeaderStyle-Width="110px"
                                     HeaderText="Min Amt" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                     AutoPostBackOnFilter="false" UniqueName="AID_MinApplication" Visible="false">
@@ -742,7 +742,7 @@
                         <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="LiveBondList">
                         </ExportSettings>
                         <PagerStyle AlwaysVisible="True" />
-                        <MasterTableView AllowMultiColumnSorting="false" AllowSorting="false" DataKeyNames="AID_SeriesFaceValue,AID_IssueDetailId,AIM_IssueId,AID_DefaultInterestRate,AID_Tenure,AIM_FaceValue,AIM_TradingInMultipleOf,AIM_MInQty,AIM_MaxQty,AIM_MaxApplNo,AIDCSR_Id,AID_Sequence"
+                        <MasterTableView AllowMultiColumnSorting="false" AllowSorting="false" DataKeyNames="AID_SeriesFaceValue,AID_IssueDetailId,AIM_IssueId,AID_DefaultInterestRate,AID_Tenure,AIM_FaceValue,AIM_TradingInMultipleOf,AIM_MInQty,AIM_MaxQty,AIM_MaxApplNo,AIDCSR_Id,AID_Sequence,AIIC_InvestorCatgeoryId,AIIC_MaxBidAmount,AIIC_MInBidAmount"
                             AutoGenerateColumns="false" ShowFooter="true" Width="100%">
                             <CommandItemSettings ExportToPdfText="Export to Pdf" />
                             <Columns>
@@ -891,6 +891,11 @@
                                     HeaderText="Max Quantity" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                     AutoPostBackOnFilter="false" UniqueName="AIM_MaxQty" DataFormatString="{0:N0}">
                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                </telerik:GridBoundColumn>
+                                  <telerik:GridBoundColumn  DataField="categorywisePrice" HeaderStyle-Width="130px"
+                                    HeaderText="Min-Max Category Amt.(Across All Series)" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                    AutoPostBackOnFilter="false" UniqueName="categorywisePrice" HeaderStyle-Wrap="true" >
+                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="true" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn Visible="false" DataField="AIM_TradingInMultipleOf" HeaderStyle-Width="110px"
                                     HeaderText="Multiple allowed" CurrentFilterFunction="Contains" ShowFilterIcon="false"

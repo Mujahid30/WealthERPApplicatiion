@@ -95,7 +95,7 @@ namespace WealthERP.OffLineOrderManagement
             userVo = (UserVo)Session[SessionContents.UserVo];
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
-            //GetUserType();
+            GetUserType();
           
           
 
@@ -628,11 +628,14 @@ namespace WealthERP.OffLineOrderManagement
             int tableRow = 0;
             int FaceValue = 0;
             dtOrderDetails = null;
-
+            double mincategory=0;
+            double maxcategory = 0;
             if (gvCommMgmt.MasterTableView.DataKeyValues[0]["AIM_MaxApplNo"].ToString() == "" || gvCommMgmt.MasterTableView.DataKeyValues[0]["AIM_FaceValue"].ToString() == "")
                 return false;
             string MaxAppNo = gvCommMgmt.MasterTableView.DataKeyValues[0]["AIM_MaxApplNo"].ToString();
             FaceValue = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[0]["AIM_FaceValue"].ToString());
+            maxcategory = Convert.ToDouble(gvCommMgmt.MasterTableView.DataKeyValues[0]["AIIC_MaxBidAmount"].ToString());
+            mincategory = Convert.ToDouble(gvCommMgmt.MasterTableView.DataKeyValues[0]["AIIC_MInBidAmount"].ToString());
             int minQty = int.Parse(gvIssueList.MasterTableView.DataKeyValues[0]["AIM_MInQty"].ToString());
             int maxQty = int.Parse(gvIssueList.MasterTableView.DataKeyValues[0]["AIM_MaxQty"].ToString());
             DataTable dt = new DataTable();
@@ -704,7 +707,7 @@ namespace WealthERP.OffLineOrderManagement
                 OnlineBondVo.PFISM_SchemeId = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AID_Sequence"].ToString());
                 CheckBox Check = (CheckBox)gvCommMgmt.MasterTableView.Items[rowNo]["Check"].FindControl("cbOrderCheck");
                 catId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AIDCSR_Id"].ToString());
-
+                EligblecatId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AIIC_InvestorCatgeoryId"].ToString());
                 if (Check.Checked == true || Request.QueryString["action"] != null)
                 {
                     if (!string.IsNullOrEmpty(txtQuantity.Text))
@@ -743,16 +746,16 @@ namespace WealthERP.OffLineOrderManagement
                         //if (Request.QueryString["action"] == null)
                         //{
                         //    offlineBondBo.GetCustomerCat(OnlineBondVo.IssueId, advisorVo.advisorId, int.Parse(ddlCategory.SelectedValue), Convert.ToDouble(lblSum.Text), ref catName, ref issueDetId, ref EligblecatId, ref Description);
-                        //    ViewState["CustCat"] = catName;
-                        //    if (EligblecatId == 0)
-                        //    {
-                        //        ShowMessage("Application amount should be between Min Quantity and Max Quantity.", 'W');
-                        //        return false;
-                        //    }
+                            ViewState["CustCat"] = ddlCategory.SelectedItem.Text;
+                            //if (EligblecatId == 0)
+                            //{
+                            //    ShowMessage("Application amount should be between Min Quantity and Max Quantity.", 'W');
+                            //    return false;
+                            //}
                         //}
                         dt.Rows[tableRow]["CatId"] = catId;
                         dt.Rows[tableRow]["AcceptableCatId"] = EligblecatId;
-
+                        
                     }
 
                 }
@@ -786,18 +789,18 @@ namespace WealthERP.OffLineOrderManagement
                     Quantity = int.Parse(ViewState["Qty"].ToString());
                     sum = int.Parse(ViewState["Sum"].ToString());
                 }
-                if (ViewState["CustCat"] == null && Request.QueryString["action"] == null)
+                //if ( Request.QueryString["action"] == null)
+                //{
+
+                //    string category = (string)ViewState["CustCat"];
+                //    if (category == string.Empty)
+                //        ShowMessage("Please enter no of bonds within the range permissible.", 'w');
+
+                //}
+                 if (sum < mincategory)
                 {
-
-                    string category = (string)ViewState["CustCat"];
-                    if (category == string.Empty)
-                        ShowMessage("Please enter no of bonds within the range permissible.", 'w');
-
-                }
-                else if (FaceValue > sum && sum > 0)
-                {
-                    ShowMessage("Application amount is less than minimum application amount.", 'w');
-
+                    ShowMessage("Application amount should be between min. Amt. and Max. Amt.", 'w');
+                    isValid = false;
                 }
                 else if (Quantity < minQty && Quantity > 0)
                 {

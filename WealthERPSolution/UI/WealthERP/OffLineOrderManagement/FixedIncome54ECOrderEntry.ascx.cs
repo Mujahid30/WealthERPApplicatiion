@@ -911,14 +911,12 @@ namespace WealthERP.OffLineOrderManagement
             GetAuthentication();
             lnkBtnEdit();
             btnAddMore.Visible = false;
-            trOfficeUse.Visible = true;
             msgRecordStatus.Visible = false;
 
         }
 
         protected void lnkBtnEdit()
         {
-            trOfficeUse.Visible = true;
             btnUpdate.Visible = true;
             ViewForm = "Edit";
             SetFICOntrolsEnablity(true);
@@ -4585,7 +4583,10 @@ namespace WealthERP.OffLineOrderManagement
         protected void rbtnReject_CheckedChanged(object sender, EventArgs e)
         {
             if (rbtnReject.Checked)
+            {
                 lblAuthenticatedBy.Text = userVo.FirstName + ' ' + userVo.MiddleName + ' ' + userVo.LastName;
+                lblRejectRes.Visible = true;
+            }
             else
                 lblAuthenticatedBy.Text = "";
             tdlblReject.Visible = true;
