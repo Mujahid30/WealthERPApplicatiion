@@ -133,7 +133,9 @@ namespace WealthERP.OnlineOrderManagement
                     case "Buy":
                         if (Session["PageDefaultSetting"] != null)
                         {
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderAdditionalPurchase','&SchemeCode=" + PASP_SchemePlanCode + "&AMCode=" + ddlAMC.SelectedValue + "&Category=" + ddlCategory.SelectedValue + "');", true);
+                            Session["MFSchemePlan"] = PASP_SchemePlanCode;
+                            LoadMFTransactionPage("MFOrderAdditionalPurchase");
+                           
                         }
                         else
                         {
@@ -226,6 +228,20 @@ namespace WealthERP.OnlineOrderManagement
             }
 
 
+        }
+
+        protected void LoadMFTransactionPage(string pageId)
+        {
+            Dictionary<string, string> defaultProductPageSetting = new Dictionary<string, string>();
+
+            defaultProductPageSetting.Clear();
+            defaultProductPageSetting.Add("ProductType", "MF");
+            defaultProductPageSetting.Add("ProductMenu", "trMFOrderMenuTransactTab");
+            defaultProductPageSetting.Add("ProductMenuItem", "RTSMFOrderMenuTransact");
+            defaultProductPageSetting.Add("ProductMenuItemPage", pageId);
+
+            Session["PageDefaultSetting"] = defaultProductPageSetting;
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcd", "LoadTopPanelDefault('OnlineOrderTopMenu');", true);
         }
        
         
