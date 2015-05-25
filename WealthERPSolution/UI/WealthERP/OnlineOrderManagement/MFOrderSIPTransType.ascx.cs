@@ -96,15 +96,15 @@ namespace WealthERP.OnlineOrderManagement
                         orderIdForEdit = Convert.ToInt32(Request.QueryString["orderId"].ToString());
                         customerIdforEdit = Convert.ToInt32(Request.QueryString["customerId"].ToString());
                     }
-                    else if ((Request.QueryString["accountId"] != null && Request.QueryString["SchemeCode"] != null)|| Request.QueryString["Amc"] != null)
+                    else if ((Request.QueryString["accountId"] != null && Request.QueryString["SchemeCode"] != null) || Session["MFSchemePlan"] != null)
                     {
                         int accountId = 0;
                         int schemeCode = 0;
                         int amcCode = 0;
                         string category = string.Empty;
-                        schemeCode = int.Parse(Request.QueryString["SchemeCode"].ToString());
                         if (Request.QueryString["accountId"] != null)
                         {
+                            schemeCode = int.Parse(Request.QueryString["SchemeCode"].ToString());
                             accountId = int.Parse(Request.QueryString["accountId"].ToString());
                             commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category);
                             OnDrillDownBindControlValue(amcCode, category, accountId, schemeCode);
@@ -112,21 +112,23 @@ namespace WealthERP.OnlineOrderManagement
                         }
                         else
                         {
-                            amcCode = int.Parse(Request.QueryString["Amc"].ToString());
-                            ddlAmc.SelectedValue = amcCode.ToString();
-                            ddlCategory.SelectedValue = Request.QueryString["category"].ToString();
+                            //amcCode = int.Parse(Request.QueryString["Amc"].ToString());
+                            //ddlAmc.SelectedValue = amcCode.ToString();
+                            //ddlCategory.SelectedValue = Request.QueryString["category"].ToString();
                              //BindFolioNumber(Convert.ToInt32(ddlAmc.SelectedValue));
-                            BindSipUiOnSchemeSelection(schemeCode);
-                             BindSchemes(Convert.ToInt32(ddlAmc.SelectedValue), ddlCategory.SelectedValue);
+                            commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category);
+                            OnDrillDownBindControlValue(amcCode, category, 0, int.Parse(Session["MFSchemePlan"].ToString()));
+                            BindSipUiOnSchemeSelection(int.Parse(Session["MFSchemePlan"].ToString()));
+                             //BindSchemes(Convert.ToInt32(ddlAmc.SelectedValue), ddlCategory.SelectedValue);
 
                             //SchemeBind(int.Parse(ddlAmc.SelectedValue), null, customerVo.CustomerId);
-                            ddlScheme.SelectedValue = schemeCode.ToString();
+                            //ddlScheme.SelectedValue = schemeCode.ToString();
                             //BindFrequency();
                             //BindAllControlsWithSIPData();
                             //BindFolioNumber(int.Parse(ddlAmc.SelectedValue)); 
                             //SetControlDetails(schemeCode);
                             //SetSelectedDisplay(int.Parse(ddlFolio.SelectedValue), schemeCode, amcCode, category);
-                            BindNomineeAndJointHolders();
+                            //BindNomineeAndJointHolders();
                         }
                     }
 

@@ -145,7 +145,8 @@ namespace WealthERP.OnlineOrderManagement
                     case "ABY":
                         if (Session["PageDefaultSetting"] != null)
                         {
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderAdditionalPurchase','&SchemeCode=" + PASP_SchemePlanCode + "&AMCode=" + ddlAMC.SelectedValue + "&Category=" + ddlCategory.SelectedValue + "');", true);
+                            Session["MFSchemePlan"] = PASP_SchemePlanCode;
+                            LoadMFTransactionPage("MFOrderAdditionalPurchase");
                         }
                         else
                         {
@@ -155,7 +156,8 @@ namespace WealthERP.OnlineOrderManagement
                     case "SIP":
                         if (Session["PageDefaultSetting"] != null)
                         {
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderSIPTransType','&SchemeCode=" + PASP_SchemePlanCode + "&AMCode=" + ddlAMC.SelectedValue + "&Category=" + ddlCategory.SelectedValue + "');", true);
+                            Session["MFSchemePlan"] = PASP_SchemePlanCode;
+                            LoadMFTransactionPage("MFOrderSIPTransType");
                         }
                         else
                         {
@@ -165,7 +167,8 @@ namespace WealthERP.OnlineOrderManagement
                     case "Sell":
                         if (Session["PageDefaultSetting"] != null)
                         {
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderRdemptionTransType','&SchemeCode=" + PASP_SchemePlanCode + "&AMCode=" + ddlAMC.SelectedValue + "&Category=" + ddlCategory.SelectedValue + "');", true);
+                            Session["MFSchemePlan"] = PASP_SchemePlanCode;
+                            LoadMFTransactionPage("MFOrderRdemptionTransType");
                         }
                         else
                         {
@@ -176,7 +179,8 @@ namespace WealthERP.OnlineOrderManagement
 
                         if (Session["PageDefaultSetting"] != null)
                         {
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFSchemeDetails','&SchemeCode=" + PASP_SchemePlanCode + "&AMCode=" + ddlAMC.SelectedValue + "&Category=" + ddlCategory.SelectedValue + "');", true);
+                            Session["MFSchemePlan"] = PASP_SchemePlanCode;
+                            LoadMFTransactionPage("MFSchemeDetails");
                         }
                         else
                         {
@@ -241,7 +245,10 @@ namespace WealthERP.OnlineOrderManagement
             defaultProductPageSetting.Add("ProductMenuItemPage", pageId);
 
             Session["PageDefaultSetting"] = defaultProductPageSetting;
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcd", "LoadTopPanelDefault('OnlineOrderTopMenu');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadTopPanelControl('OnlineOrderTopMenu','login');", true);
+            //Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcd", "LoadTopPanelDefault('OnlineOrderTopMenu');", true);
+         
+            
         }
        
         

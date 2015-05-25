@@ -221,6 +221,10 @@ namespace WealthERP.OnlineOrder
                 case "MF":
                     {
                         tblMF.Visible = true;
+                        trMFOrderMenuMarketTab.Visible = false;
+                        trMFOrderMenuTransactTab.Visible = false;
+                        trMFOrderMenuBooksTab.Visible = false;
+                        trMFOrderMenuHoldingsTab.Visible = false;
                         switch (productMenu)
                         {
                             case "trMFOrderMenuMarketTab":

@@ -57,15 +57,15 @@ namespace WealthERP.OnlineOrderManagement
                     AmcBind();
                     CategoryBind();
 
-                    if ((Request.QueryString["accountId"] != null && Request.QueryString["SchemeCode"] != null) || Request.QueryString["Amc"] != null)
+                    if ((Request.QueryString["accountId"] != null && Request.QueryString["SchemeCode"] != null) || Session["MFSchemePlan"]!= null)
                     {
                         int accountId = 0;
                         int schemeCode = 0;
                         int amcCode = 0;
                         string category = string.Empty;
-                        schemeCode = int.Parse(Request.QueryString["SchemeCode"].ToString());
                         if (Request.QueryString["accountId"] != null)
                         {
+                            schemeCode = int.Parse(Request.QueryString["SchemeCode"].ToString());
                             accountId = int.Parse(Request.QueryString["accountId"].ToString());
                             commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category);
                             SetSelectedDisplay(accountId, schemeCode, amcCode, category);
@@ -73,17 +73,19 @@ namespace WealthERP.OnlineOrderManagement
                         }
                         else
                         {
-                            amcCode = int.Parse(Request.QueryString["Amc"].ToString());
-                            ddlAmc.SelectedValue = amcCode.ToString();
-                            ddlCategory.SelectedValue = Request.QueryString["category"].ToString();
-                            SchemeBind(int.Parse(ddlAmc.SelectedValue), null, customerVo.CustomerId);
-                            ddlScheme.SelectedValue = schemeCode.ToString();
-                            SetControlDetails(schemeCode);
-                            if (ddlFolio.SelectedValue != "")
-                            {
-                                SetSelectedDisplay(int.Parse(ddlFolio.SelectedValue), schemeCode, amcCode, ddlCategory.SelectedValue);
-                                BindNomineeAndJointHolders();
-                            }
+                            commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category);
+                            SetSelectedDisplay(0, int.Parse(Session["MFSchemePlan"].ToString()), amcCode, category);
+                            //amcCode = int.Parse(Request.QueryString["Amc"].ToString());
+                            //ddlAmc.SelectedValue = amcCode.ToString();
+                            //ddlCategory.SelectedValue = Request.QueryString["category"].ToString();
+                            //SchemeBind(int.Parse(ddlAmc.SelectedValue), null, customerVo.CustomerId);
+                            //ddlScheme.SelectedValue = schemeCode.ToString();
+                            //SetControlDetails(schemeCode);
+                            //if (ddlFolio.SelectedValue != "")
+                            //{
+                            //    SetSelectedDisplay(int.Parse(ddlFolio.SelectedValue), schemeCode, amcCode, ddlCategory.SelectedValue);
+                            //    BindNomineeAndJointHolders();
+                            //}
                         }
                     }
                 }
