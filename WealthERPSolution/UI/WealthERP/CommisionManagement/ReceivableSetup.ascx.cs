@@ -50,6 +50,7 @@ namespace WealthERP.Receivable
                     structureId = Convert.ToInt32(Request.QueryString["StructureId"].ToString());
                     //hdnViewMode.Value = "ViewEdit";
                     //hdneligible.Value = "Eligible";
+                    ddlProductType.SelectedValue = "MF";
                     btnIssueMap.Visible = true;
                     hidCommissionStructureName.Value = structureId.ToString();
                     BindPayableGrid();
@@ -489,7 +490,7 @@ namespace WealthERP.Receivable
                 DropDownList ddlBrokerCode = (DropDownList)e.Item.FindControl("ddlBrokerCode");
                 System.Web.UI.HtmlControls.HtmlTableCell tdlblBrokerCode = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdlblBrokerCode");
                 System.Web.UI.HtmlControls.HtmlTableCell tdddlBrokerCode = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdddlBrokerCode");
-
+                if(ddlProductType.SelectedValue!="MF")
                 BindBrokerCode(ddlBrokerCode, int.Parse(gvMappedIssueList.MasterTableView.DataKeyValues[0]["AIM_IssueId"].ToString()));
                 string brokerCode = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["XB_BrokerIdentifier"].ToString();
                 ddlBrokerCode.SelectedValue = brokerCode;

@@ -359,7 +359,7 @@ namespace WealthERP.CommisionManagement
 
         protected void lbtStructureName_Click(object sender, EventArgs e)
         {
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ReceivableSetup','StructureId=" + this.hdnStructId.Value + "');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ReceivableSetup','StructureId=" + this.hdnStructId.Value + "&ProductType=" + "MF" + "');", true);
         }
 
         protected void gvMappedSchemes_UpdateCommand(object sender, GridCommandEventArgs e)
