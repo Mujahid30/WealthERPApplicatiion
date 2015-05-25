@@ -1785,6 +1785,37 @@ namespace BoAdvisorProfiling
             }
             return dsGetMemberDetailFromMFOrder;
         }
+
+        public DataSet GetCommissionReceivableRecon_TrailComparision(string product, int typeOfTransaction, int AdviserId, int schemeid, int month, int year, string category, string recontype, string commtype, int issuer, int issueId, int commissionLookUpId, string orderStatus, string agentCode, string productCategory, bool isAuthenticated)
+        {
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            DataSet dsGetCommissionReconMis = new DataSet();
+            DataTable dtstructure = new DataTable();
+            DataTable dtTrailSet = new DataTable();
+
+            try
+            {
+                dsGetCommissionReconMis = MISDao.GetCommissionReceivableRecon_TrailComparision(product, typeOfTransaction, AdviserId, schemeid, month, year, category, recontype, commtype, issuer, issueId, commissionLookUpId, orderStatus, agentCode, productCategory, isAuthenticated);
+
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetMemberDetailFromMFOrder()");
+
+                object[] objects = new object[3];
+                objects[0] = AdviserId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetCommissionReconMis;
+        }
+
         public DataSet GetCommissionReceivableRecon(string product, int typeOfTransaction, int AdviserId, int schemeid, int month, int year, string category, string recontype, string commtype, int issuer, int issueId, int commissionLookUpId, string orderStatus, string agentCode, string productCategory, bool isAuthenticated)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();

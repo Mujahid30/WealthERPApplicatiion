@@ -15,9 +15,13 @@ using BoUploads;
 using BoCustomerGoalProfiling;
 using Telerik.Web.UI;
 using BoCommon;
-using BoAdvisorProfiling;
 using System.Configuration;
 using BOAssociates;
+using System.Globalization;
+using BoCommisionManagement;
+using VOAssociates;
+using BoOnlineOrderManagement;
+using VoOnlineOrderManagemnet;
 
 namespace WealthERP.BusinessMIS
 {
@@ -28,24 +32,198 @@ namespace WealthERP.BusinessMIS
         UserVo userVo = new UserVo();
         AdvisorMISBo adviserMFMIS = new AdvisorMISBo();
         AssociatesBo associatesBo = new AssociatesBo();
-
-
+        CommisionReceivableBo commisionReceivableBo = new CommisionReceivableBo();
+        AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
         string categoryCode = string.Empty;
         int amcCode = 0;
-        protected void Page_Load(object sender, EventArgs e)
+        string AgentCode = "0";
+
+
+        protected void Page_load(object sender, EventArgs e)
         {
             advisorVo = (AdvisorVo)Session["advisorVo"];
+            SessionBo.CheckSession();
+
             if (!IsPostBack)
             {
                 BindMutualFundDropDowns();
                 BindNAVCategory();
                 LoadAllSchemeList(0);
+                BindProductDropdown();
+                BindMonthsAndYear();
+                GetCommisionTypes();
                 int day = 1;
-                gvCommissionReceiveRecon.Visible = false;
-                txtFrom.SelectedDate = DateTime.Parse(day.ToString() + '/' + DateTime.Today.Month.ToString() + "/" + DateTime.Today.Year.ToString());
-                txtTo.SelectedDate = DateTime.Now;
-                
+                btnExportFilteredData.Visible = false;
+                associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                if (associateuserheirarchyVo != null && associateuserheirarchyVo.AgentCode != null)
+                {
+                    AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                    ddlSearchType.Items.FindByText("Receivables").Enabled = false;
+                    ddlSearchType.Items.FindByText("Brokerage").Enabled = false;
+                    ddlSelectMode.Items.FindByText("Both").Enabled = false;
+                    ddlSelectMode.Items.FindByText("Online-Only").Enabled = false;
+                }
             }
+
+
+        }
+        private void BindMonthsAndYear()
+        {
+            for (int i = 1; i <= 12; i++)
+            {
+                string monthName = DateTimeFormatInfo.CurrentInfo.GetMonthName(i);
+                ddlMnthQtr.Items.Add(new ListItem(monthName, i.ToString().PadLeft(2, '0')));
+            }
+            ddlMnthQtr.Items.Add(new ListItem("Quarter April-June", "13"));
+            ddlMnthQtr.Items.Add(new ListItem("Quarter July-September", "14"));
+            ddlMnthQtr.Items.Add(new ListItem("Quarter October-December", "15"));
+            ddlMnthQtr.Items.Add(new ListItem("Quarter January-March", "16"));
+            ddlMnthQtr.Items.Insert(0, new ListItem("Select", "0"));
+            for (int i = 2008; i <= DateTime.Now.Year; i++)
+            {
+                ddlYear.Items.Add(new ListItem(i.ToString(), i.ToString()));
+            }
+            ddlYear.Items.Insert(0, new ListItem("Select", "0"));
+        }
+
+        protected void ddlIssuer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlIssuer.SelectedIndex != 0)
+            {
+                int amcCode = int.Parse(ddlIssuer.SelectedValue);
+                ddlCategory.SelectedIndex = 0;
+                LoadAllSchemeList(amcCode);
+
+            }
+        }
+        //protected void btnUpload_click(object sender, EventArgs e)
+        //{
+        //}
+
+
+        protected void ddlSelectMode_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlIssueType.SelectedIndex == 0)
+            {
+                return;
+            }
+            else
+            {
+                ddlIssueName.Items.Clear();
+                ddlIssueName.DataBind();
+                BindMappedIssues(ddlIssueType.SelectedValue, ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), (ddlProductCategory.SelectedValue == "") ? "FIFIIP" : ddlProductCategory.SelectedValue);
+
+            }
+        }
+        protected void ddlSearchType_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            td1.Visible = true;
+            td2.Visible = true;
+            if (ddlSearchType.SelectedValue != "Select" && ddlProduct.SelectedValue == "MF")
+            {
+                td1.Visible = false;
+                td2.Visible = false;
+            }
+        }
+        protected void ddlIssueType_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlIssueType.SelectedIndex != 0)
+            {
+                ddlIssueName.Items.Clear();
+                ddlIssueName.DataBind();
+                BindMappedIssues(ddlIssueType.SelectedValue, ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), (ddlProductCategory.SelectedValue == "") ? "FIFIIP" : ddlProductCategory.SelectedValue);
+
+            }
+        }
+        private void BindMappedIssues(string ModeOfIssue, string productType, int isOnlineIssue, string SubCategoryCode)
+        {
+            DataSet dsCommissionReceivable = commisionReceivableBo.GetIssuesStructureMapings(advisorVo.advisorId, "MappedIssue", ModeOfIssue, productType, isOnlineIssue, 0, SubCategoryCode);
+            if (dsCommissionReceivable.Tables[0].Rows.Count > 0)
+            {
+                ddlIssueName.DataSource = dsCommissionReceivable.Tables[0];
+                ddlIssueName.DataTextField = dsCommissionReceivable.Tables[0].Columns["AIM_IssueName"].ToString();
+                ddlIssueName.DataValueField = dsCommissionReceivable.Tables[0].Columns["AIM_IssueId"].ToString();
+                ddlIssueName.DataBind();
+                ddlIssueName.Items.Insert(0, new ListItem("All", "0"));
+            }
+
+        }
+
+        protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlIssuer.SelectedIndex != 0)
+            {
+                if (ddlCategory.SelectedIndex != 0)
+                {
+                    int amcCode = int.Parse(ddlIssuer.SelectedValue);
+                    LoadAllSchemeList(amcCode);
+                    //GdBind_Click(sender,e);
+                }
+
+            }
+
+        }
+
+        public void BindMutualFundDropDowns()
+        {
+            PriceBo priceBo = new PriceBo();
+            DataTable dtGetMutualFundList = new DataTable();
+            dtGetMutualFundList = priceBo.GetMutualFundList();
+            ddlIssuer.DataSource = dtGetMutualFundList;
+            ddlIssuer.DataTextField = dtGetMutualFundList.Columns["PA_AMCName"].ToString();
+            ddlIssuer.DataValueField = dtGetMutualFundList.Columns["PA_AMCCode"].ToString();
+            ddlIssuer.DataBind();
+            ddlIssuer.Items.Insert(0, new ListItem("Select", "Select"));
+
+
+        }
+        private void ShowHideControlsBasedOnProduct(string asset)
+        {
+            tdCategory.Visible = false;
+            tdDdlCategory.Visible = false;
+            ddlProductCategory.Items.Clear();
+            ddlProductCategory.DataBind();
+            td2.Visible = true;
+            td1.Visible = true;
+            ddlSearchType.Items[1].Enabled = true;
+
+            if (asset == "MF")
+            {
+                trSelectMutualFund.Visible = true;
+                trNCDIPO.Visible = false;
+                tdFrom.Visible = true;
+                tdTolbl.Visible = true;
+                cvddlIssueType.Enabled = false;
+                Label1.Visible = true;
+                ddlCommType.Visible = true;
+                td2.Visible = false;
+                td1.Visible = false;
+
+
+            }
+            else if (asset == "FI" || asset == "IP")
+            {
+                trSelectMutualFund.Visible = false;
+                trNCDIPO.Visible = true;
+                tdTolbl.Visible = true;
+                ddlIssueName.Items.Clear();
+                ddlIssueName.DataBind();
+                cvddlIssueType.Enabled = true;
+                Label1.Visible = false;
+                ddlCommType.Visible = false;
+                ddlSearchType.Items[1].Enabled = false;
+                td2.Visible = false;
+                td1.Visible = false;
+
+
+            }
+            if (asset == "FI")
+            {
+                BindBondCategories();
+                tdCategory.Visible = true;
+                tdDdlCategory.Visible = true;
+            }
+
         }
         private void BindNAVCategory()
         {
@@ -64,61 +242,164 @@ namespace WealthERP.BusinessMIS
 
             }
         }
-        protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
+        protected void ddlProductCategory_OnSelectedIndexChanged(object Sender, EventArgs e)
         {
+            if (ddlProductCategory.SelectedValue != "Select")
+            {
+                td1.Visible = false;
+                td2.Visible = false;
+                if (ddlProductCategory.SelectedValue != "FISDSD")
+                {
+                    tdFrom.Visible = true;
+                    tdTolbl.Visible = true;
+                    td1.Visible = true;
+                    td2.Visible = true;
+                }
+                BindMappedIssues(ddlIssueType.SelectedValue, ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), (ddlProductCategory.SelectedValue == "") ? "FIFIIP" : ddlProductCategory.SelectedValue);
+            }
+        }
+        private void LoadAllSchemeList(int amcCode)
+        {
+            DataSet dsLoadAllScheme = new DataSet();
+            DataTable dtLoadAllScheme = new DataTable();
             if (ddlIssuer.SelectedIndex != 0)
             {
-                if (ddlCategory.SelectedIndex != 0)
-                {
-                    int amcCode = int.Parse(ddlIssuer.SelectedValue);
-                    LoadAllSchemeList(amcCode);
-                    //GdBind_Click(sender,e);
-                }
+                amcCode = int.Parse(ddlIssuer.SelectedValue.ToString());
+                categoryCode = ddlCategory.SelectedValue;
+                //dtLoadAllScheme = priceBo.GetAllScehmeList(amcCode);
+                dsLoadAllScheme = priceBo.GetSchemeListCategoryConcatenation(amcCode, categoryCode);
+                dtLoadAllScheme = dsLoadAllScheme.Tables[0];
+            }
 
+            if (dtLoadAllScheme.Rows.Count > 0)
+            {
+                ddlScheme.DataSource = dtLoadAllScheme;
+                ddlScheme.DataTextField = dtLoadAllScheme.Columns["PASP_SchemePlanName"].ToString();
+                ddlScheme.DataValueField = dtLoadAllScheme.Columns["PASP_SchemePlanCode"].ToString();
+                ddlScheme.DataBind();
+                ddlScheme.Items.Insert(0, new ListItem("All", "0"));
+            }
+            else
+            {
+                ddlScheme.Items.Clear();
+                ddlScheme.DataSource = null;
+                ddlScheme.DataBind();
+                ddlScheme.Items.Insert(0, new ListItem("All", "0"));
             }
 
         }
         private void SetParameters()
         {
-            //if (userVo.UserType=="advisor")
-            //{
-            if (string.IsNullOrEmpty(txtFrom.SelectedDate.ToString()) != true)
-                hdnFromDate.Value = txtFrom.SelectedDate.ToString();
-            if (string.IsNullOrEmpty(txtTo.SelectedDate.ToString()) != true)
-                hdnToDate.Value = txtTo.SelectedDate.ToString();
+            if (string.IsNullOrEmpty(ddlMnthQtr.SelectedItem.Value.ToString()) != true)
+                hdnFromDate.Value = ddlMnthQtr.SelectedItem.Value.ToString();
+            if (string.IsNullOrEmpty(ddlYear.SelectedItem.Value.ToString()) != true)
+                hdnToDate.Value = ddlYear.SelectedItem.Value.ToString();
             if (string.IsNullOrEmpty(ddlScheme.SelectedItem.Value.ToString()) != true)
                 hdnschemeId.Value = ddlScheme.SelectedItem.Value.ToString();
             if (string.IsNullOrEmpty(ddlCategory.SelectedItem.Value.ToString()) != true)
                 hdnCategory.Value = ddlCategory.SelectedItem.Value.ToString();
-            if (string.IsNullOrEmpty(ddlReconStatus.SelectedItem.Value.ToString()) != true)
-                hdnrecon.Value = ddlReconStatus.SelectedItem.Value.ToString();
-            if (string.IsNullOrEmpty(ddlIssuer.SelectedItem.Value.ToString()) != true)
+            if (ddlIssuer.SelectedValue.ToString() != "Select")
                 hdnSBbrokercode.Value = ddlIssuer.SelectedItem.Value.ToString();
-            
-
-            //}
-
+            else
+                hdnSBbrokercode.Value = "0";
+            if (string.IsNullOrEmpty(ddlIssueName.SelectedValue.ToString()) != true)
+                hdnIssueId.Value = ddlIssueName.SelectedValue.ToString();
+            else
+                hdnIssueId.Value = "0";
+            if (ddlProductCategory.SelectedValue.ToString() != "Select")
+                hdnProductCategory.Value = ddlProductCategory.SelectedValue.ToString();
+            else
+                hdnProductCategory.Value = "0";
 
         }
+
         protected void gvWERPTrans_ItemDataBound(object sender, GridItemEventArgs e)
         {
             if (e.Item is GridDataItem)
             {
-                if (ddlCommType.SelectedValue != "TC")
-                {
-                    gvCommissionReceiveRecon.MasterTableView.GetColumn("totalNAV").Visible = false;
-                    gvCommissionReceiveRecon.MasterTableView.GetColumn("PerDayAssets").Visible = false;
-                    gvCommissionReceiveRecon.MasterTableView.GetColumn("perDayTrail").Visible = false;
+                 gvCommissionReceiveRecon.MasterTableView.GetColumn("totalNAV").Visible = false;
+                 gvCommissionReceiveRecon.MasterTableView.GetColumn("PerDayAssets").Visible = false;
+               gvCommissionReceiveRecon.MasterTableView.GetColumn("perDayTrail").Visible = false;
+               gvCommissionReceiveRecon.MasterTableView.GetColumn("Age").Visible = false;
+                //gvCommissionReceiveRecon.MasterTableView.GetColumn("action").Visible = false;
+                //gvCommissionReceiveRecon.MasterTableView.GetColumn("CMFT_ReceivedCommissionAdjustment").Visible = false;
+                //gvCommissionReceiveRecon.MasterTableView.GetColumn("UpdatedExpectedAmount").Visible = false;
+                //gvCommissionReceiveRecon.MasterTableView.GetColumn("RecborkageExpectedvalue").Visible = true;
+                //gvCommissionReceiveRecon.MasterTableView.GetColumn("ACSR_BrokerageValue").Visible = true;
+                //gvCommissionReceiveRecon.MasterTableView.GetColumn("WCU_UnitCode").Visible = true;
+                //gvCommissionReceiveRecon.MasterTableView.GetColumn("expectedamount").Visible = true;
+                //gvCommissionReceiveRecon.MasterTableView.GetColumn("PayborkageExpectedvalue").Visible = true;
+                //gvCommissionReceiveRecon.MasterTableView.GetColumn("Retention1").Visible = false;
+                //gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_WCU_UnitCode").Visible = true;
+                //gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_Expectedamount").Visible = true;
+                //gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_ACSR_BrokerageValue").Visible = true;
+                //gvCommissionReceiveRecon.MasterTableView.GetColumn("TransactionAsOnDate").Visible = false;
 
-                }
-                else
-                {
-                    gvCommissionReceiveRecon.MasterTableView.GetColumn("totalNAV").Visible = true;
-                    gvCommissionReceiveRecon.MasterTableView.GetColumn("PerDayAssets").Visible = true;
-                    gvCommissionReceiveRecon.MasterTableView.GetColumn("perDayTrail").Visible = true;
-                   
+                //if (ddlCommType.SelectedValue == "TC")
+                //{
+                //    gvCommissionReceiveRecon.MasterTableView.GetColumn("totalNAV").Visible = true;
+                //    gvCommissionReceiveRecon.MasterTableView.GetColumn("PerDayAssets").Visible = true;
+                //    gvCommissionReceiveRecon.MasterTableView.GetColumn("perDayTrail").Visible = true;
+                //    gvCommissionReceiveRecon.MasterTableView.GetColumn("Age").Visible = true;
+                //    gvCommissionReceiveRecon.MasterTableView.GetColumn("TransactionAsOnDate").Visible = true;
 
+                //}
+                //if (ddlOrderStatus.SelectedValue == "OR")
+                //{
+                //    gvCommissionReceiveRecon.MasterTableView.GetColumn("action").Visible = true;
+                //    gvCommissionReceiveRecon.MasterTableView.GetColumn("CMFT_ReceivedCommissionAdjustment").Visible = true;
+                //    gvCommissionReceiveRecon.MasterTableView.GetColumn("UpdatedExpectedAmount").Visible = true;
+                //}
+               if (int.Parse(ddlSearchType.SelectedValue) == 16019)
+               {
+                   gvCommissionReceiveRecon.MasterTableView.GetColumn("ACSR_BrokerageValue").Visible = false;
+                   gvCommissionReceiveRecon.MasterTableView.GetColumn("WCU_UnitCode").Visible = false;
+                   gvCommissionReceiveRecon.MasterTableView.GetColumn("expectedamount").Visible = false;
+                   gvCommissionReceiveRecon.MasterTableView.GetColumn("PayborkageExpectedvalue").Visible = false;
+
+               }
+               else if (int.Parse(ddlSearchType.SelectedValue) == 16020)
+               {
+                   gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_WCU_UnitCode").Visible = false;
+                   gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_Expectedamount").Visible = false;
+                   gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_ACSR_BrokerageValue").Visible = false;
+                   gvCommissionReceiveRecon.MasterTableView.GetColumn("RecborkageExpectedvalue").Visible = false;
+
+               }
+                //else
+                //{
+                //    gvCommissionReceiveRecon.MasterTableView.GetColumn("Retention1").Visible = true;
+
+
+                //}
+
+            }
+
+        }
+        protected void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            if (ddlProduct.SelectedValue.ToString() == "MF")
+            {
+                gvCommissionReceiveRecon.ExportSettings.OpenInNewWindow = true;
+                gvCommissionReceiveRecon.ExportSettings.IgnorePaging = true;
+                gvCommissionReceiveRecon.ExportSettings.FileName = "CommissionExceptedMIS";
+
+                foreach (GridFilteringItem filter in gvCommissionReceiveRecon.MasterTableView.GetItems(GridItemType.FilteringItem))
+                {
+                    filter.Visible = false;
                 }
+                gvCommissionReceiveRecon.MasterTableView.ExportToExcel();
+            }
+            else
+            {
+                rgNCDIPOMIS.ExportSettings.OpenInNewWindow = true;
+                rgNCDIPOMIS.ExportSettings.IgnorePaging = true;
+                rgNCDIPOMIS.ExportSettings.FileName = "CommissionExceptedMIS";
+                foreach (GridFilteringItem filter in rgNCDIPOMIS.MasterTableView.GetItems(GridItemType.FilteringItem))
+                {
+                    filter.Visible = false;
+                }
+                rgNCDIPOMIS.MasterTableView.ExportToExcel();
             }
 
         }
@@ -127,116 +408,129 @@ namespace WealthERP.BusinessMIS
             SetParameters();
             DataSet ds = new DataSet();
             //ds.ReadXml(Server.MapPath(@"\Sample.xml"));
-
-            //ds = adviserMFMIS.GetCommissionReceivableRecon(advisorVo.advisorId, int.Parse(hdnschemeId.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), hdnCategory.Value, hdnrecon.Value, ddlCommType.SelectedValue, int.Parse(hdnSBbrokercode.Value));
-            if (ds.Tables.Count > 0)
+            dvMfMIS.Visible = false;
+            dvNCDIPOMIS.Visible = false;
+            ds = adviserMFMIS.GetCommissionReceivableRecon_TrailComparision(ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), advisorVo.advisorId, int.Parse(hdnschemeId.Value), int.Parse(hdnFromDate.Value), int.Parse(hdnToDate.Value), hdnCategory.Value, null, ddlCommType.SelectedValue, int.Parse(hdnSBbrokercode.Value), int.Parse(hdnIssueId.Value), Convert.ToInt32(ddlSearchType.SelectedValue), ddlOrderStatus.SelectedValue, AgentCode, hdnProductCategory.Value, Boolean.Parse(ddlOrderType.SelectedValue));
+            if (ds.Tables[0] != null)
             {
-                if (ds.Tables[0] != null)
+                if (ddlProduct.SelectedValue.ToString() == "MF")
                 {
-                    gvCommissionReceiveRecon.Visible = true;
+
+                    btnExportFilteredData.Visible = true;
+                    dvMfMIS.Visible = true;
                     gvCommissionReceiveRecon.DataSource = ds.Tables[0];
                     DataTable dtGetAMCTransactionDeatails = new DataTable();
                     gvCommissionReceiveRecon.DataBind();
-                    if (Cache["gvCommissionReceiveRecon" + userVo.UserId.ToString()] == null)
+                    if (Cache["gvCommissionReconMIs" + userVo.UserId.ToString()] != null)
                     {
-                        Cache.Insert("gvCommissionReceiveRecon" + userVo.UserId.ToString(), ds.Tables[0]);
+                        Cache.Remove("gvCommissionReconMIs" + userVo.UserId.ToString());
+
                     }
-                    else
-                    {
-                        Cache.Remove("gvCommissionReceiveRecon" + userVo.UserId.ToString());
-                        Cache.Insert("gvCommissionReceiveRecon" + userVo.UserId.ToString(), ds.Tables[0]);
-                    }
+                    Cache.Insert("gvCommissionReconMIs" + userVo.UserId.ToString(), ds.Tables[0]);
+
+
                 }
                 else
                 {
-                    gvCommissionReceiveRecon.Visible = false;
+
+                    btnExportFilteredData.Visible = true;
+                    dvNCDIPOMIS.Visible = true;
+                    rgNCDIPOMIS.DataSource = ds.Tables[0];
+                    rgNCDIPOMIS.DataBind();
+                    if (Cache["rgNCDIPOMIS" + userVo.UserId.ToString()] != null)
+                    {
+                        Cache.Remove("rgNCDIPOMIS" + userVo.UserId.ToString());
+                    }
+                    Cache.Insert("rgNCDIPOMIS" + userVo.UserId.ToString(), ds.Tables[0]);
 
                 }
             }
-             
-        }
-        public void BindMutualFundDropDowns()
-        {
-            PriceBo priceBo = new PriceBo();
-            DataTable dtGetMutualFundList = new DataTable();
-            dtGetMutualFundList = priceBo.GetMutualFundList();
-            ddlIssuer.DataSource = dtGetMutualFundList;
-            ddlIssuer.DataTextField = dtGetMutualFundList.Columns["PA_AMCName"].ToString();
-            ddlIssuer.DataValueField = dtGetMutualFundList.Columns["PA_AMCCode"].ToString();
-            ddlIssuer.DataBind();
-            ddlIssuer.Items.Insert(0, new ListItem("All", "0"));
 
         }
-        protected void btnUpload_click(object sender, EventArgs e)
+        protected void ddlProduct_SelectedIndexChanged(object source, EventArgs e)
         {
-            int transid;
-            foreach (GridDataItem dr in gvCommissionReceiveRecon.Items)
+
+            ddlCommType.Items[3].Enabled = false;
+
+            if (ddlProduct.SelectedValue != "Select")
             {
-                if (dr["ReconStatus"].Text == "closed")
+                if (ddlProduct.SelectedValue == "MF")
                 {
-                    msgReconClosed.Visible = true;
+
+                    ddlOrderStatus.Items[2].Enabled = false;
+                    ddlOrderStatus.Items[1].Enabled = true;
+                    ddlCommType.Items[3].Enabled = false;
                 }
                 else
                 {
-                    CheckBox checkBox = (CheckBox)dr.FindControl("chkId");
-                    if (checkBox.Checked)
-                    {
-                        int selectedRow = 0;
-                        GridDataItem gdi;
-                        gdi = (GridDataItem)checkBox.NamingContainer;
-                        selectedRow = gdi.ItemIndex + 1;
-                        transid = int.Parse((gvCommissionReceiveRecon.MasterTableView.DataKeyValues[selectedRow - 1]["CMFT_MFTransId"].ToString()));
-                        bool result = adviserMFMIS.MarkReconStatus(transid);
-                        msgReconComplete.Visible = true;
-                        dr["ReconStatus"].Text = "closed";
-                    }
+                    ddlOrderStatus.Items[1].Enabled = false;
+                    ddlOrderStatus.Items[2].Enabled = true;
+
                 }
+                if (ddlProduct.SelectedValue == "FI")
+                {
+                    ddlCommType.Items[2].Enabled = false;
+                }
+                else
+                {
+                    ddlCommType.Items[2].Enabled = true;
+                }
+                ShowHideControlsBasedOnProduct(ddlProduct.SelectedValue);
             }
+
         }
-        protected void btnSubmit_click(object sender, EventArgs e)
+        protected void gvCommissionReceiveRecon_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            bool blResult = false;
-            int transid;
-            double expectedamount;
-            double adjustedValue;
-            string adjustValue = string.Empty;
-            foreach (GridDataItem dr in gvCommissionReceiveRecon.Items)
-            {
-                if (dr["ReconStatus"].Text == "closed")
-                {
-                    msgReconClosed.Visible = true;
-                }
-                else
-                {
-                    CheckBox checkBox = (CheckBox)dr.FindControl("chkId");
-                    if (checkBox.Checked)
-                    {
-                        int selectedRow = 0;
-                        GridDataItem gdi;
-                        gdi = (GridDataItem)checkBox.NamingContainer;
-                        selectedRow = gdi.ItemIndex + 1;
-                        transid = int.Parse((gvCommissionReceiveRecon.MasterTableView.DataKeyValues[selectedRow - 1]["CMFT_MFTransId"].ToString()));
-                        expectedamount = double.Parse(dr["expectedamount"].Text);
-                        GridFooterItem footerRow = (GridFooterItem)gvCommissionReceiveRecon.MasterTableView.GetItems(GridItemType.Footer)[0];
-                        if (((TextBox)footerRow.FindControl("txtAdjustAmountMultiple")).Text.Trim() == "")
-                        {
-                            adjustValue = ((TextBox)dr.FindControl("txtAdjustAmount")).Text;
-
-                        }
-                        else
-                        {
-                            adjustValue = ((TextBox)footerRow.FindControl("txtAdjustAmountMultiple")).Text;
-
-                        }
-                        blResult = adviserMFMIS.SaveReceivableReconChanges(transid, double.Parse(adjustValue), expectedamount);
-
-                    }
-                }
-
-
-            }
+            DataTable dt = new DataTable();
+            dt = (DataTable)Cache["gvCommissionReconMIs" + userVo.UserId];
+            gvCommissionReceiveRecon.DataSource = dt;
+            gvCommissionReceiveRecon.Visible = true;
         }
 
+        protected void rgNCDIPOMIS_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt = new DataTable();
+            dt = (DataTable)Cache["rgNCDIPOMIS" + userVo.UserId];
+            rgNCDIPOMIS.DataSource = dt;
+            rgNCDIPOMIS.Visible = true;
+        }
+        private void BindProductDropdown()
+        {
+            DataSet dsLookupData = commisionReceivableBo.GetProductType();
+            //Populating the product dropdown
+            ddlProduct.DataSource = dsLookupData.Tables[0];
+            ddlProduct.DataValueField = dsLookupData.Tables[0].Columns["PAG_AssetGroupCode"].ToString();
+            ddlProduct.DataTextField = dsLookupData.Tables[0].Columns["PAG_AssetGroupName"].ToString();
+            ddlProduct.DataBind();
+            ddlProduct.Items.Insert(0, new ListItem("Select", "Select"));
+        }
+        protected void GetCommisionTypes()
+        {
+            DataSet dscommissionTypes;
+            dscommissionTypes = commisionReceivableBo.GetCommisionTypes();
+
+            ddlSearchType.DataSource = dscommissionTypes.Tables[0];
+            ddlSearchType.DataValueField = "WCMV_LookupId";
+            ddlSearchType.DataTextField = "WCMV_Name";
+            ddlSearchType.DataBind();
+            ddlSearchType.Items.Insert(0, new ListItem("Select", "Select"));
+            ddlSearchType.Items.Insert(1, new ListItem("Brokerage", "0"));
+        }
+        private void BindBondCategories()
+        {
+            OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
+            DataTable dtCategory = new DataTable();
+            dtCategory = onlineNCDBackOfficeBo.BindNcdCategory("SubInstrumentCat", "").Tables[0];
+            if (dtCategory.Rows.Count > 0)
+            {
+                ddlProductCategory.DataSource = dtCategory;
+                ddlProductCategory.DataValueField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                ddlProductCategory.DataTextField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                ddlProductCategory.DataBind();
+            }
+            ddlProductCategory.Items.Insert(0, new ListItem("Select", "Select"));
+
+        }
         protected void btnSave_Click(object sender, EventArgs e)
         {
             string adjustValue = string.Empty;
@@ -283,79 +577,13 @@ namespace WealthERP.BusinessMIS
                             dr["UpdatedExpectedAmount"].Text = UpdatedExpectedAmt;
                         }
                     }
-
-
                 }
-
             }
 
         }
 
-        protected void ddlIssuer_SelectedIndexChanged(object sender, EventArgs e)
+        protected void btnUpload_OnClick(object Sender, EventArgs e)
         {
-            if (ddlIssuer.SelectedIndex != 0)
-            {
-                int amcCode = int.Parse(ddlIssuer.SelectedValue);
-                ddlCategory.SelectedIndex = 0;
-                LoadAllSchemeList(amcCode);
-
-
-            }
-        }
-        private void LoadAllSchemeList(int amcCode)
-        {
-            DataSet dsLoadAllScheme = new DataSet();
-            DataTable dtLoadAllScheme = new DataTable();
-            if (ddlIssuer.SelectedIndex != 0)
-            {
-                amcCode = int.Parse(ddlIssuer.SelectedValue.ToString());
-                categoryCode = ddlCategory.SelectedValue;
-                //dtLoadAllScheme = priceBo.GetAllScehmeList(amcCode);
-                dsLoadAllScheme = priceBo.GetSchemeListCategoryConcatenation(amcCode, categoryCode);
-                dtLoadAllScheme = dsLoadAllScheme.Tables[0];
-            }
-
-            if (dtLoadAllScheme.Rows.Count > 0)
-            {
-                ddlScheme.DataSource = dtLoadAllScheme;
-                ddlScheme.DataTextField = dtLoadAllScheme.Columns["PASP_SchemePlanName"].ToString();
-                ddlScheme.DataValueField = dtLoadAllScheme.Columns["PASP_SchemePlanCode"].ToString();
-                ddlScheme.DataBind();
-                ddlScheme.Items.Insert(0, new ListItem("All", "0"));
-            }
-            else
-            {
-                ddlScheme.Items.Clear();
-                ddlScheme.DataSource = null;
-                ddlScheme.DataBind();
-                ddlScheme.Items.Insert(0, new ListItem("All", "0"));
-            }
-
-        }
-
-        protected void gvCommissionReceiveRecon_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
-        {
-            DataTable dt = new DataTable();
-            string rcbType = string.Empty;
-            dt = (DataTable)Cache["gvCommissionReceiveRecon" + userVo.UserId];
-            if (ViewState["CommissionReceiveRecon"] != null)
-                rcbType = ViewState["CommissionReceiveRecon"].ToString();
-            if (!string.IsNullOrEmpty(rcbType))
-            {
-                DataView dvStaffList = new DataView(dt, "CommissionReceiveRecon = '" + rcbType + "'", "schemeplanname,transactiondate,amount,transactiontype,Age,currentvalue,expectedamount,calculatedDate,receivedamount,diff,ACSR_CommissionStructureRuleId,CMFT_MFTransId,CMFT_ReceivableExpectedAmount,CMFT_ReceivedCommissionAdjustment", DataViewRowState.CurrentRows);
-                // DataView dvStaffList = dtMIS.DefaultView;
-                gvCommissionReceiveRecon.DataSource = dvStaffList.ToTable();
-                gvCommissionReceiveRecon.Visible = true;
-
-            }
-            else
-            {
-                gvCommissionReceiveRecon.DataSource = dt;
-                gvCommissionReceiveRecon.Visible = true;
-
-            }
-
-
 
         }
     }

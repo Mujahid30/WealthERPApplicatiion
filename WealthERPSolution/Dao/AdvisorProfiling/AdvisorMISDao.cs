@@ -2629,7 +2629,57 @@ namespace DaoAdvisorProfiling
             return dsMemberTransactionDeatails;
         }
 
+        public DataSet GetCommissionReceivableRecon_TrailComparision(string product, int typeOfTransaction, int AdviserId, int schemeid, int month, int year, string category, string recontype, string commtype, int issuer, int issueId, int commissionLookUpId, string orderStatus, string agentCode, string productCategory, bool isAuthenticated)
+        {
+            Database db;
+            DbCommand getCommissionReconMisCmd;
+            DataSet dsGetCommissionReconMis;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCommissionReconMisCmd = db.GetStoredProcCommand("SPROC_GetCommissionReceivableExceptedMIS_TrailComparision");
+                db.AddInParameter(getCommissionReconMisCmd, "@adviserId", DbType.Int32, AdviserId);
+                db.AddInParameter(getCommissionReconMisCmd, "@schemeid", DbType.Int32, schemeid);
 
+                if (month != 0)
+                    db.AddInParameter(getCommissionReconMisCmd, "@Month", DbType.Int16, month);
+                else
+                    db.AddInParameter(getCommissionReconMisCmd, "@Month", DbType.Int16, DBNull.Value);
+                if (year != 0)
+                    db.AddInParameter(getCommissionReconMisCmd, "@Year", DbType.Int16, year);
+                else
+                    db.AddInParameter(getCommissionReconMisCmd, "@Year", DbType.Int16, DBNull.Value);
+                if (!string.IsNullOrEmpty(category))
+                    db.AddInParameter(getCommissionReconMisCmd, "@Category", DbType.String, category);
+                else
+                    db.AddInParameter(getCommissionReconMisCmd, "@Category", DbType.String, DBNull.Value);
+                if (!string.IsNullOrEmpty(recontype))
+                    db.AddInParameter(getCommissionReconMisCmd, "@recontype", DbType.String, recontype);
+                else
+                    db.AddInParameter(getCommissionReconMisCmd, "@recontype", DbType.Int32, DBNull.Value);
+                if (!string.IsNullOrEmpty(commtype))
+                    db.AddInParameter(getCommissionReconMisCmd, "@commissiontype", DbType.String, commtype);
+                else
+                    db.AddInParameter(getCommissionReconMisCmd, "@commissiontype", DbType.String, DBNull.Value);
+                db.AddInParameter(getCommissionReconMisCmd, "@issuer", DbType.Int32, issuer);
+                db.AddInParameter(getCommissionReconMisCmd, "@productType", DbType.String, product);
+                db.AddInParameter(getCommissionReconMisCmd, "@typeOfTransaction", DbType.Int16, typeOfTransaction);
+                db.AddInParameter(getCommissionReconMisCmd, "@issueId", DbType.Int32, issueId);
+                db.AddInParameter(getCommissionReconMisCmd, "@commissionLookUpId", DbType.Int32, commissionLookUpId);
+                db.AddInParameter(getCommissionReconMisCmd, "@orderStatus", DbType.String, orderStatus);
+                db.AddInParameter(getCommissionReconMisCmd, "@AgentCode", DbType.String, agentCode);
+                db.AddInParameter(getCommissionReconMisCmd, "@ProductCategory", DbType.String, productCategory);
+                db.AddInParameter(getCommissionReconMisCmd, "@IsAuthenticated", DbType.Boolean, isAuthenticated);
+                getCommissionReconMisCmd.CommandTimeout = 60 * 60;
+                dsGetCommissionReconMis = db.ExecuteDataSet(getCommissionReconMisCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+
+            return dsGetCommissionReconMis;
+        }
         public DataSet GetCommissionReceivableRecon(string product, int typeOfTransaction, int AdviserId, int schemeid, int month, int year, string category, string recontype, string commtype, int issuer, int issueId, int commissionLookUpId, string orderStatus, string agentCode, string productCategory, bool isAuthenticated)
         {
             Database db;
