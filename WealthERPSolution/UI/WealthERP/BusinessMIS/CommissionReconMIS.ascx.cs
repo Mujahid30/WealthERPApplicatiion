@@ -338,6 +338,9 @@ namespace WealthERP.BusinessMIS
                 gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_Expectedamount").Visible = true;
                 gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_ACSR_BrokerageValue").Visible = true;
                 gvCommissionReceiveRecon.MasterTableView.GetColumn("TransactionAsOnDate").Visible = false;
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("CumNAv").Visible = false;
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("CMFT_NAV").Visible = false;
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("ClS_NAV").Visible = false;
               
                 if (ddlCommType.SelectedValue == "TC")
                 {
@@ -346,6 +349,9 @@ namespace WealthERP.BusinessMIS
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("perDayTrail").Visible = true;
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("Age").Visible = true;
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("TransactionAsOnDate").Visible = true;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("CumNAv").Visible = true;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("CMFT_NAV").Visible = true;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("ClS_NAV").Visible = true;
 
                 }
                 if (ddlOrderStatus.SelectedValue == "OR")
