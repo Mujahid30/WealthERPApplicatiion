@@ -190,7 +190,7 @@ namespace WealthERP.OffLineOrderManagement
             gv54FDOrderBook.ExportSettings.IgnorePaging = true;
             gv54FDOrderBook.ExportSettings.HideStructureColumns = true;
             gv54FDOrderBook.ExportSettings.ExportOnlyData = true;
-            gv54FDOrderBook.ExportSettings.FileName = "54EC Order Book";
+            gv54FDOrderBook.ExportSettings.FileName = "Order Book";
             gv54FDOrderBook.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gv54FDOrderBook.MasterTableView.ExportToExcel();
 
