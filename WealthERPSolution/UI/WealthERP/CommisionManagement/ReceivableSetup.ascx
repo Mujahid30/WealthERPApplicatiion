@@ -1594,6 +1594,10 @@
                                                         <asp:RequiredFieldValidator runat="server" ID="rfvtxtMinInvestmentAmount" ValidationGroup="btnSubmitRule"
                                                             Display="Dynamic" ControlToValidate="txtMinInvestmentAmount" ErrorMessage="<br />Min. Investment Amount is mandatory"
                                                             Text="" />
+                                                             <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtMinInvestmentAmount"
+                                                            ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
+                                                            ValidationExpression="^[0-9]*$" ValidationGroup="btnSubmitRule">     
+                                                        </asp:RegularExpressionValidator>
                                                     </td>
                                                     <td class="leftLabel">
                                                         <asp:Label ID="lblMaxInvestmentAmount" runat="server" Text="Max. Investment Amount:"
@@ -1606,6 +1610,10 @@
                                                         <asp:RequiredFieldValidator runat="server" ID="rfvtxtMaxInvestmentAmount" ValidationGroup="btnSubmitRule"
                                                             Display="Dynamic" ControlToValidate="txtMaxInvestmentAmount" ErrorMessage="<br />Max. Investment Amount is mandatory"
                                                             Text="" />
+                                                            <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtMaxInvestmentAmount"
+                                                            ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
+                                                            ValidationExpression="^[0-9]*$" ValidationGroup="btnSubmitRule">     
+                                                        </asp:RegularExpressionValidator>
                                                     </td>
                                                     <td class="leftLabel">
                                                     </td>
@@ -1617,6 +1625,10 @@
                                                     <td class="rightData">
                                                         <asp:TextBox ID="txtMinInvestAge" Text='<%# Bind( "ACSR_MinInvestmentAge") %>' runat="server"
                                                             CssClass="txtField"></asp:TextBox>
+                                                             <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="txtMinInvestAge"
+                                                            ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
+                                                            ValidationExpression="^[0-9]*$" ValidationGroup="btnSubmitRule">     
+                                                        </asp:RegularExpressionValidator>
                                                     </td>
                                                     <td class="leftLabel">
                                                         <asp:Label ID="lblMaxInvestAge" runat="server" Text="Max. Investment age :" CssClass="FieldName"></asp:Label>
@@ -1624,6 +1636,10 @@
                                                     <td class="rightData" colspan="2">
                                                         <asp:TextBox ID="txtMaxInvestAge" Text='<%# Bind( "ACSR_MaxInvestmentAge") %>' runat="server"
                                                             CssClass="txtField"></asp:TextBox>
+                                                             <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="txtMaxInvestAge"
+                                                            ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
+                                                            ValidationExpression="^[0-9]*$" ValidationGroup="btnSubmitRule">     
+                                                        </asp:RegularExpressionValidator>
                                                         <asp:DropDownList ID="ddlInvestAgeTenure" runat="server" CssClass="cmbField" Style="width: 100px !Important">
                                                             <asp:ListItem Text="Days" Value="Days"></asp:ListItem>
                                                             <asp:ListItem Text="Years" Value="Years"></asp:ListItem>
@@ -1675,6 +1691,10 @@
                                                     <td class="rightData">
                                                         <asp:TextBox ID="txtMinTenure" Text='<%# Bind( "ACSR_MinTenure") %>' runat="server"
                                                             CssClass="txtField"></asp:TextBox>
+                                                            <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="txtMinTenure"
+                                                            ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
+                                                            ValidationExpression="^[0-9]*$" ValidationGroup="btnSubmitRule">     
+                                                        </asp:RegularExpressionValidator>
                                                     </td>
                                                     <td class="leftLabel">
                                                         <asp:Label ID="lblMaxTenure" runat="server" Text="Max. Tenure:" CssClass="FieldName"></asp:Label>
@@ -1682,6 +1702,10 @@
                                                     <td class="rightData" colspan="2">
                                                         <asp:TextBox ID="txtMaxTenure" Text='<%# Bind( "ACSR_MaxTenure") %>' runat="server"
                                                             CssClass="txtField"></asp:TextBox>
+                                                              <asp:RegularExpressionValidator ID="RegularExpressionValidator6" ControlToValidate="txtMaxTenure"
+                                                            ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
+                                                            ValidationExpression="^[0-9]*$" ValidationGroup="btnSubmitRule">     
+                                                        </asp:RegularExpressionValidator>
                                                         <asp:DropDownList ID="ddlTenureFrequency" runat="server" CssClass="cmbField" Style="width: 100px !Important">
                                                             <asp:ListItem Text="Day" Value="Day"></asp:ListItem>
                                                             <asp:ListItem Text="Month" Value="Month"></asp:ListItem>
@@ -1700,6 +1724,10 @@
                                                     <td class="rightData" runat="server" id="tdtxtMinNumberOfApplication">
                                                         <asp:TextBox ID="txtMinNumberOfApplication" Text='<%# Bind( "ACSR_MinNumberOfApplications") %>'
                                                             runat="server" CssClass="txtField"></asp:TextBox>
+                                                             <asp:RegularExpressionValidator ID="RegularExpressionValidator7" ControlToValidate="txtMinNumberOfApplication"
+                                                            ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
+                                                            ValidationExpression="^[0-9]*$" ValidationGroup="btnSubmitRule">     
+                                                        </asp:RegularExpressionValidator>
                                                     </td>
                                                     <td class="leftLabel" runat="server" id="tdlb1MaxNumberOfApplication">
                                                         <asp:Label ID="lblMaxNumberOfApplication" runat="server" Text="Max. no. of applications:"
@@ -1709,6 +1737,10 @@
                                                     <td class="rightData" runat="server" id="tdtxtMaxNumberOfApplication">
                                                         <asp:TextBox ID="txtMaxNumberOfApplication" Text='<%# Bind( "ACSR_MaxNumberOfApplications") %>'
                                                             runat="server" CssClass="txtField"></asp:TextBox>
+                                                            <asp:RegularExpressionValidator ID="RegularExpressionValidator8" ControlToValidate="txtMaxNumberOfApplication"
+                                                            ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
+                                                            ValidationExpression="^[0-9]*$" ValidationGroup="btnSubmitRule">     
+                                                        </asp:RegularExpressionValidator>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -2182,7 +2214,7 @@
                     <table>
                         <tr>
                             <td class="rightData" colspan="2">
-                                <asp:Button ID="btnGo" ValidationGroup="btnSubmitRule" CssClass="PCGButton" OnClick="btnGo_Click"
+                                <asp:Button ID="btnGo" ValidationGroup="btnSubmitRates" CssClass="PCGButton" OnClick="btnGo_Click"
                                     Text="Submit" runat="server" CausesValidation="true"></asp:Button>&nbsp;
                                 <%--  <asp:Button ID="Button2" CssClass="PCGButton" Text="Cancel" runat="server" CausesValidation="false"
                                                         CommandName="Cancel"></asp:Button>--%>
