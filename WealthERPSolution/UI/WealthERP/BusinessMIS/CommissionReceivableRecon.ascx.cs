@@ -118,11 +118,11 @@ namespace WealthERP.BusinessMIS
         protected void ddlSearchType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             td1.Visible = true;
-            td2.Visible = true;
+          td2.Visible = true;
             if (ddlSearchType.SelectedValue != "Select" && ddlProduct.SelectedValue == "MF")
             {
-                td1.Visible = false;
-                td2.Visible = false;
+               // td1.Visible = false;
+               // td2.Visible = false;
             }
         }
         protected void ddlIssueType_OnSelectedIndexChanged(object sender, EventArgs e)
