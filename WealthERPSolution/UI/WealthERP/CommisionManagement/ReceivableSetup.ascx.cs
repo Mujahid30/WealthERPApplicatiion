@@ -229,6 +229,7 @@ namespace WealthERP.Receivable
             TextBox txtTaxValue = (TextBox)gdi.FindControl("txtTaxValue");
             TextBox txtTDS = (TextBox)gdi.FindControl("txtTDS");
             Label lblApplyTaxes = (Label)gdi.FindControl("lblApplyTaxes");
+            lblApplyTaxes.Visible = false;
             if (chkListApplyTax.Items[0].Selected)
             {
                 txtTaxValue.Visible = true;
@@ -256,6 +257,7 @@ namespace WealthERP.Receivable
                 lblApplyTaxes.Visible = true;
 
             }
+            
 
 
         }
