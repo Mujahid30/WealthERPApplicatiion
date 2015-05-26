@@ -128,8 +128,8 @@ namespace WealthERP.CommisionManagement
             LinkButton lnkStruct = (LinkButton)sender;
             GridDataItem item = (GridDataItem)lnkStruct.NamingContainer;
             int structureId = int.Parse(rgvSchemeToStruct.MasterTableView.DataKeyValues[item.ItemIndex]["StructureId"].ToString());
-
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ReceivableSetup','StructureId=" + structureId + "');", true);
+        
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ReceivableSetup','StructureId=" + structureId + "&ProductType="+ ddlProductType.SelectedValue+"');", true);
         }
     }
 }
