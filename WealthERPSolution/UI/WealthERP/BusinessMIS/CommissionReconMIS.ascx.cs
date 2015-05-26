@@ -519,7 +519,7 @@ namespace WealthERP.BusinessMIS
             ddlSearchType.DataTextField = "WCMV_Name";
             ddlSearchType.DataBind();
             ddlSearchType.Items.Insert(0, new ListItem("Select", "Select"));
-            ddlSearchType.Items.Insert(1, new ListItem("Brokerage", "0"));
+            ddlSearchType.Items.Insert(1, new ListItem("Both", "0"));
         }
         private void BindBondCategories()
         {
