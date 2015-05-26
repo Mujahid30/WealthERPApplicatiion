@@ -556,7 +556,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Commision_Recon")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('Commision Recon','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CommissionReceivableRecon','login');", true);
                 }
                 else if (e.Item.Value == "Non-MF_Recon")
                 {
