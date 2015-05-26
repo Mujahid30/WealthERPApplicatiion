@@ -70,10 +70,10 @@
         </tr>
         <tr id="trEmail" runat="server">
             <td width="25%" class="leftField">
-                <asp:Label ID="lblEmail" runat="server" Text="Email:" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblEmail" runat="server" Text="Email:" CssClass="FieldName" ></asp:Label>
             </td>
             <td>
-                <asp:TextBox ID="txtEmail" runat="server" CssClass="txtField"></asp:TextBox><font
+                <asp:TextBox ID="txtEmail" runat="server" CssClass="txtField" OnTextChanged="txtEmail_OnTextChanged" AutoPostBack="true"></asp:TextBox><font
                     color="red">*</font>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtEmail"
                     ErrorMessage="Please enter an Email" Display="Dynamic" runat="server" CssClass="rfvPCG">
@@ -101,7 +101,8 @@
                 <asp:Label ID="lblPan" runat="server" Text="PAN.No:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-                <asp:TextBox ID="TxtPan" runat="server" CssClass="txtField"></asp:TextBox><font color="red">*</font>
+                <asp:TextBox ID="TxtPan" runat="server" CssClass="txtField" ></asp:TextBox>
+                <font color="red" >*</font>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator21" ControlToValidate="TxtPan"
                     ErrorMessage="Please enter your PAN" Display="Dynamic" runat="server" CssClass="rfvPCG">
                 </asp:RequiredFieldValidator>

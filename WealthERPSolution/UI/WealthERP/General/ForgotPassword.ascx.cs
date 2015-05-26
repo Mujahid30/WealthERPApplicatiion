@@ -33,9 +33,52 @@ namespace WealthERP.General
             //lblError.Visible = false;
             //lblMailSent.Visible = false;
             advisorVo = (AdvisorVo)Session["AdvisorVo"];
+           // ValidateLoginAsStaffOrAssociate();
 
         }
 
+        //private bool ValidateLoginAsStaffOrAssociate()
+        //{
+           // string userType=string.Empty;
+           // int userId=0;
+           // bool result = true;
+           // if (!string.IsNullOrEmpty(txtLoginId.Text))
+           // {
+           //      if (!string.IsNullOrEmpty(txtEmail.Text))
+           //   {
+           //         userBo.ValidateLoginAsStaffOrAssociate(txtLoginId.Text, txtEmail.Text, 0,out userType,out  userId);
+
+           //}
+           // }
+           // return result;
+        //}
+
+        protected void txtEmail_OnTextChanged(object sender, EventArgs e)
+        {
+            string userType = string.Empty;
+            int userId = 0;
+            if (!string.IsNullOrEmpty(txtLoginId.Text))
+            {
+                if (!string.IsNullOrEmpty(txtEmail.Text))
+                {
+                 userBo.ValidateLoginAsStaffOrAssociate(txtLoginId.Text, txtEmail.Text, 0, out userType, out  userId);
+
+                }
+            }
+
+            if (userId >= 0)
+            {
+                if (userType.ToUpper() == "Associates".ToUpper())
+                {
+                    trPan.Visible = true;
+                }
+                else
+                {
+                    trPan.Visible = false;
+
+                }
+            }
+        }
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
 

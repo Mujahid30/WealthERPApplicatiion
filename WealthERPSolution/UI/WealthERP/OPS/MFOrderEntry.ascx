@@ -998,7 +998,7 @@
                         <span id="Span29" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator24" runat="server" CssClass="rfvPCG"
                             ErrorMessage="Please Select an Dividend Type" Display="Dynamic" ControlToValidate="ddlDivType"
-                            InitialValue="0" ValidationGroup="btnSubmit">
+                            InitialValue="0" ValidationGroup="MFSubmit">
                         </asp:RequiredFieldValidator>
                     </td>
                 </tr>

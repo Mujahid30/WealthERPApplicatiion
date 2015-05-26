@@ -77,37 +77,37 @@ namespace DaoUser
             }
             return userId;
         }
-        public UserVo GetUserReset(string username,string email,string pan)
+        public UserVo GetUserReset(string username, string email, string pan)
         {
             UserVo userVo = null;
             Database db;
             DbCommand getUserCmd;
             DataSet getUserDs;
             DataRow dr;
-            
-
-             try
-             {
-                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                 getUserCmd=db.GetStoredProcCommand("SP_GetUserDetailsReset");
-                  db.AddInParameter(getUserCmd, "@U_LoginId", DbType.String, username.ToString());
-                  db.AddInParameter(getUserCmd, "@U_Email", DbType.String,email.ToString());
-                  db.AddInParameter(getUserCmd, "@AA_Pan", DbType.String, pan.ToString());
 
 
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getUserCmd = db.GetStoredProcCommand("SP_GetUserDetailsReset");
+                db.AddInParameter(getUserCmd, "@U_LoginId", DbType.String, username.ToString());
+                db.AddInParameter(getUserCmd, "@U_Email", DbType.String, email.ToString());
+                db.AddInParameter(getUserCmd, "@AA_Pan", DbType.String, pan.ToString());
 
 
-                  getUserDs = db.ExecuteDataSet(getUserCmd);
-                 if (getUserDs.Tables[0].Rows.Count > 0)
+
+
+                getUserDs = db.ExecuteDataSet(getUserCmd);
+                if (getUserDs.Tables[0].Rows.Count > 0)
                 {
                     userVo = new UserVo();
                     dr = getUserDs.Tables[0].Rows[0];
-                     userVo.LoginId = dr["U_LoginId"].ToString();
-                     userVo.Email = dr["U_Email"].ToString();
-                     userVo.Pan=dr["AA_PAN"].ToString();
-                     userVo.UserId = int.Parse(dr["U_UserId"].ToString());
-                     userVo.rmid = int.Parse(dr["AR_RMId"].ToString());
-                 }
+                    userVo.LoginId = dr["U_LoginId"].ToString();
+                    userVo.Email = dr["U_Email"].ToString();
+                    userVo.Pan = dr["AA_PAN"].ToString();
+                    userVo.UserId = int.Parse(dr["U_UserId"].ToString());
+                    userVo.rmid = int.Parse(dr["AR_RMId"].ToString());
+                }
                 //  if (getUserDs.Tables[1].Rows.Count > 0)
                 //{
                 //    foreach(DataRow drRole in getUserDs.Tables[1].Rows)
@@ -120,8 +120,8 @@ namespace DaoUser
                 //userVo.AdviserRole=adviserRole;
 
 
-             }
-           catch (BaseApplicationException Ex)
+            }
+            catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
@@ -155,7 +155,7 @@ namespace DaoUser
             DbCommand getUserCmd;
             DataSet getUserDs;
             DataRow dr;
-            Dictionary <Int16,string> adviserRole=new Dictionary<Int16,string>();
+            Dictionary<Int16, string> adviserRole = new Dictionary<Int16, string>();
 
             try
             {
@@ -192,18 +192,18 @@ namespace DaoUser
 
                 if (getUserDs.Tables[1].Rows.Count > 0)
                 {
-                    foreach(DataRow drRole in getUserDs.Tables[1].Rows)
+                    foreach (DataRow drRole in getUserDs.Tables[1].Rows)
                     {
                         adviserRole.Add(Convert.ToInt16(drRole["AR_RoleId"].ToString()), drRole["AR_Role"].ToString());
                     }
                 }
 
-                if(adviserRole.Count!=0)
-                userVo.AdviserRole=adviserRole;
+                if (adviserRole.Count != 0)
+                    userVo.AdviserRole = adviserRole;
 
             }
 
-                
+
 
 
 
@@ -351,6 +351,44 @@ namespace DaoUser
 
         }
 
+        public void ValidateLoginAsStaffOrAssociate(string loginId, string emailId, int adviserId, out string userType, out int userId)
+        {
+
+            bool bResult = true;
+            Database db;
+            DbCommand chkAvailabilityCmd;
+            userType = "";
+            userId = 0;
+            DataSet ds;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                chkAvailabilityCmd = db.GetStoredProcCommand("SPROC_ValidateLoginAsStaffOrAssociate");
+                db.AddInParameter(chkAvailabilityCmd, "@loginId", DbType.String, loginId);
+                db.AddInParameter(chkAvailabilityCmd, "@emailId", DbType.String, emailId);
+                db.AddInParameter(chkAvailabilityCmd, "@adviserId", DbType.String, adviserId);
+                db.AddOutParameter(chkAvailabilityCmd, "@UserType", DbType.String, 'P');
+                db.AddOutParameter(chkAvailabilityCmd, "@UserId", DbType.Int32, 0);
+
+
+
+                ds = db.ExecuteDataSet(chkAvailabilityCmd);
+                if (!string.IsNullOrEmpty(db.GetParameterValue(chkAvailabilityCmd, "@UserType").ToString()))
+                    userType = db.GetParameterValue(chkAvailabilityCmd, "@UserType").ToString();
+                if (!string.IsNullOrEmpty(db.GetParameterValue(chkAvailabilityCmd, "@UserId").ToString()))
+                    userId = int.Parse(db.GetParameterValue(chkAvailabilityCmd, "@UserId").ToString());
+
+
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+        }
+
         public bool ValidateUser(string username, string password)
         {
 
@@ -422,16 +460,16 @@ namespace DaoUser
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 updateUserCmd = db.GetStoredProcCommand("SP_UpdateUserPassword");
                 db.AddInParameter(updateUserCmd, "@U_UserId", DbType.Int32, userVo.UserId);
-              //  db.AddInParameter(updateUserCmd, "@U_LoginId", DbType.String, userVo.LoginId);
+                //  db.AddInParameter(updateUserCmd, "@U_LoginId", DbType.String, userVo.LoginId);
                 db.AddInParameter(updateUserCmd, "@U_Password", DbType.String, userVo.Password);
                 if (!string.IsNullOrEmpty(userVo.PasswordSaltValue))
                     db.AddInParameter(updateUserCmd, "@U_PasswordSaltValue", DbType.String, userVo.PasswordSaltValue);
                 db.AddInParameter(updateUserCmd, "@U_IsTempPassword", DbType.String, userVo.IsTempPassword);
-              
+
                 db.ExecuteNonQuery(updateUserCmd);
                 bResult = true;
             }
-             catch (BaseApplicationException Ex)
+            catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
@@ -453,7 +491,7 @@ namespace DaoUser
 
             }
             return bResult;
-        
+
         }
 
 

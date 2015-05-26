@@ -47,6 +47,21 @@ namespace BoUser
 
             return userId;
         }
+
+        public void ValidateLoginAsStaffOrAssociate(string loginId, string emailId, int adviserId, out string userType, out int userId)
+        {
+            bool bResult = false;
+            UserDao userDao = new UserDao();
+            try
+            {
+ userDao.ValidateLoginAsStaffOrAssociate(loginId, emailId, adviserId,out userType, out userId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            
+        }
         public bool ChkAvailability(string id)
         {
             bool bResult = false;
