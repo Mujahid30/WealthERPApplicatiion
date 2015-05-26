@@ -1874,5 +1874,6 @@ namespace WealthERP.OffLineOrderManagement {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RFVApllicationDuplicate;
         protected global::System.Web.UI.HtmlControls.HtmlTable tblgvIssueList;
         protected global::System.Web.UI.HtmlControls.HtmlTable tblgvCommMgmt;
+        protected global::System.Web.UI.WebControls.HiddenField hdnMultipleAllow;
     }
 }

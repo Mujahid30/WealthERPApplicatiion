@@ -98,5 +98,19 @@ namespace BoOfflineOrderManagement
             }
             return result;
         }
+        public int GetIPOIssueMultipleAllowed(string PANNo, int AIMissueId)
+        {
+            int result = 0;
+            offlineNCDBackOfficeDao = new OfflineNCDIPOBackOfficeDao();
+            try
+            {
+                result = offlineNCDBackOfficeDao.GetIPOIssueMultipleAllowed(PANNo, AIMissueId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
+        }
     }
 }

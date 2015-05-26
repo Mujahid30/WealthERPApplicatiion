@@ -394,7 +394,7 @@ namespace WealthERP.OffLineOrderManagement
         {
             DataTable dt = OfflineIPOOrderBo.GetIssueCategory(issueId);
             ddlCategory.DataSource = dt;
-            ddlCategory.DataValueField = "WCMV_Lookup_SubTypeId";
+            ddlCategory.DataValueField = "AIIC_InvestorCatgeoryId";
             ddlCategory.DataTextField = "AIIC_InvestorCatgeoryName";
             ddlCategory.DataBind();
             ddlCategory.Items.Insert(0, new ListItem("--SELECT--", "0"));
@@ -1065,9 +1065,9 @@ namespace WealthERP.OffLineOrderManagement
                     txtAssociateSearch.Text = dr["AAC_AgentCode"].ToString();
                     string issue = dr["AIM_IssueId"].ToString();
                     BindIssueCategory(int.Parse(dr["AIM_IssueId"].ToString()));
-                    ddlCategory.SelectedValue = dr["OCD_WCMV_TaxStatus_Id"].ToString();
+                    ddlCategory.SelectedValue = dr["AIIC_ApplicableInvestorCatgeoryId"].ToString();
                     BindStructureRuleGrid(advisorVo.advisorId, int.Parse(dr["AIM_IssueId"].ToString()), 1,0);
-                    BindStructureRuleGridList(int.Parse(dr["AIM_IssueId"].ToString()),  orderId,int.Parse(dr["OCD_WCMV_TaxStatus_Id"].ToString()));
+                    BindStructureRuleGridList(int.Parse(dr["AIM_IssueId"].ToString()), orderId, int.Parse(dr["AIIC_ApplicableInvestorCatgeoryId"].ToString()));
                     BindCustomerNCDIssueList();
                     ddlIssueList.SelectedValue = dr["AIM_IssueId"].ToString();
                     BindSubbroker(int.Parse(dr["AIM_IssueId"].ToString()));
@@ -1075,18 +1075,18 @@ namespace WealthERP.OffLineOrderManagement
                     hdnApplicationNo.Value = txtApplicationNo.Text;
                     txtFirstName.Text = dr["OCD_Name"].ToString();
                     txtPanNumber.Text = dr["OCD_Pan"].ToString();
-                    if (dr["XCT_CustomerTypeCode"].ToString() == "IND")
-                    {
-                        rbtnIndividual.Checked = true;
-                        BindSubTypeDropDown(1001);
-                        ddlCustomerSubType.SelectedValue = dr["OCD_WCMV_TaxStatus_Id"].ToString();
-                    }
-                    else
-                    {
-                        rbtnNonIndividual.Checked = true;
-                        BindSubTypeDropDown(1002);
-                        ddlCustomerSubType.SelectedValue = dr["OCD_WCMV_TaxStatus_Id"].ToString();
-                    }
+                    //if (dr["XCT_CustomerTypeCode"].ToString() == "IND")
+                    //{
+                    //    rbtnIndividual.Checked = true;
+                    //    //BindSubTypeDropDown(1001);
+                    //    //ddlCustomerSubType.SelectedValue = dr["OCD_WCMV_TaxStatus_Id"].ToString();
+                    //}
+                    //else
+                    //{
+                    //    rbtnNonIndividual.Checked = true;
+                    //    //BindSubTypeDropDown(1002);
+                    //    //ddlCustomerSubType.SelectedValue = dr["OCD_WCMV_TaxStatus_Id"].ToString();
+                    //}
                     txtDpClientId.Text = dr["OCD_BeneficiaryAccountNum"].ToString();
                     ddlDepositoryName.SelectedValue = dr["OCD_DepositoryName"].ToString();
                     txtDPId.Text = dr["OCD_DPId"].ToString();
@@ -1108,6 +1108,7 @@ namespace WealthERP.OffLineOrderManagement
                         txtBranchName.Text = dr["CO_BankBranchName"].ToString();
                         ddlPaymentMode.SelectedValue = "CQ";
                         txtPaymentNumber.Text = dr["CO_ChequeNumber"].ToString();
+                        if (dr["CO_PaymentDate"].ToString() != null && dr["CO_PaymentDate"].ToString() !="")
                         txtPaymentInstDate.SelectedDate = Convert.ToDateTime(dr["CO_PaymentDate"].ToString());
                         if (dr["COID_DepCustBankAccId"].ToString() != string.Empty)
                             txtBankAccount.Text = dr["COID_DepCustBankAccId"].ToString().Substring(0, dr["COID_DepCustBankAccId"].ToString().IndexOf('.'));

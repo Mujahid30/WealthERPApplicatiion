@@ -300,7 +300,7 @@ namespace WealthERP.OffLineOrderManagement
                         txtPaymentNumber.Text = dr["CO_ChequeNumber"].ToString();
                         if (!string.IsNullOrEmpty(dr["CO_PaymentDate"].ToString()))
                         {
-                            txtPaymentInstDate.MinDate = Convert.ToDateTime(dr["CO_PaymentDate"].ToString());
+                         if(dr["CO_PaymentDate"].ToString()!=null)
                             txtPaymentInstDate.SelectedDate = Convert.ToDateTime(dr["CO_PaymentDate"].ToString());
                         }
                         if (dr["COID_DepCustBankAccId"].ToString() != string.Empty)
@@ -314,8 +314,8 @@ namespace WealthERP.OffLineOrderManagement
                     }
                     BindCustomerIPOIssueList((issueCloseDate >= DateTime.Now) ? 1 : 2);
                     BindIssueCategory(Convert.ToInt16(dr["AIM_IssueId"].ToString()));
-                    ddlCategory.SelectedValue = dr["OCD_WCMV_TaxStatus_Id"].ToString();
-                    BindIPOIssueList(Convert.ToInt16(dr["AIM_IssueId"].ToString()), (issueCloseDate >= DateTime.Now) ? 1 : 2, int.Parse(dr["OCD_WCMV_TaxStatus_Id"].ToString()));
+                    ddlCategory.SelectedValue = dr["AIIC_ApplicableInvestorCatgeoryId"].ToString();
+                    BindIPOIssueList(Convert.ToInt16(dr["AIM_IssueId"].ToString()), (issueCloseDate >= DateTime.Now) ? 1 : 2, int.Parse(dr["AIIC_ApplicableInvestorCatgeoryId"].ToString()));
                     BindBank();
                     ddlBankName.SelectedValue = dr["CO_BankName"].ToString();
 
@@ -1344,18 +1344,42 @@ namespace WealthERP.OffLineOrderManagement
                 }
                 else
                 {
-                    //LoadJScript();
-                    CreateIPOOrder();
-                    ControlsVisblity(true);
-                    btnAddMore.Visible = true;
-                    SetFICOntrolsEnablity(false);
-                    btnAddMore.Focus();
-                    RadGridIPOBid.Enabled = false;
-                    RadGridIPOBid.Enabled = false;
+                    Boolean isMultipleApplicationAllowed = Convert.ToBoolean(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_IsMultipleApplicationsallowed"].ToString());
+                    if (isMultipleApplicationAllowed == false)
+                    {
+                        OfflineNCDIPOBackOfficeBo OfflineNCDIPOBackOfficeBo = new OfflineNCDIPOBackOfficeBo();
+                        int issueApplicationSubmitCount = OfflineNCDIPOBackOfficeBo.GetIPOIssueMultipleAllowed(txtPanNumber.Text, int.Parse(ddlIssueList.SelectedValue));
+                        if (issueApplicationSubmitCount > 0)
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('You have already invested in selected issue, Please check the order book for the status.Multiple Investment is not allowed in same issue!!');", true);
+                            return;
+                        }
 
+                        else
+                        {
+                            //LoadJScript();
+                            CreateIPOOrder();
+                            ControlsVisblity(true);
+                            btnAddMore.Visible = true;
+                            SetFICOntrolsEnablity(false);
+                            btnAddMore.Focus();
+                            RadGridIPOBid.Enabled = false;
+                            RadGridIPOBid.Enabled = false;
+                        }
+                    }
+                    else
+                    {
+                        CreateIPOOrder();
+                        ControlsVisblity(true);
+                        btnAddMore.Visible = true;
+                        SetFICOntrolsEnablity(false);
+                        btnAddMore.Focus();
+                        RadGridIPOBid.Enabled = false;
+                        RadGridIPOBid.Enabled = false;
+                    }
                 }
             }
-
+             
 
 
 
@@ -2142,10 +2166,10 @@ namespace WealthERP.OffLineOrderManagement
         {
             DataTable dt = OfflineIPOOrderBo.GetIssueCategory(issueId);
             ddlCategory.DataSource = dt;
-            ddlCategory.DataValueField = "WCMV_Lookup_SubTypeId";
+            ddlCategory.DataValueField = "AIIC_InvestorCatgeoryId";
             ddlCategory.DataTextField = "AIIC_InvestorCatgeoryName";
             ddlCategory.DataBind();
-            ddlCategory.Items.Insert(0, new ListItem("--SELECT--", "1"));
+            ddlCategory.Items.Insert(0, new ListItem("--SELECT--", "0"));
         }
 
 

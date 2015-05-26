@@ -129,42 +129,44 @@ namespace WealthERP.Customer
         {
             CustomerPortfolioVo customerportfoliovo = (CustomerPortfolioVo)Session["customerPortfolioVo"];
             customervo = (CustomerVo)Session["CustomerVo"];
-            int customerId = customervo.CustomerId;
-            //int demataccountid = int.Parse(Session["DematAccountId"].ToString());
-            try
+            if (!IsPostBack)
             {
-                
-                
-                DataSet dsDematDetails = bodemataccount.GetDematAccountHolderDetails(customerId);
-                if (dsDematDetails == null)
+                int customerId = customervo.CustomerId;
+                //int demataccountid = int.Parse(Session["DematAccountId"].ToString());
+                try
                 {
-                    gvDematDetailsTeleR.Visible = false;
-                    lblError.Visible = true;
-                    lblError.Text = "No data available to show";
-                }
-                else
-                {
-                    if (dsDematDetails.Tables[0].Rows.Count <= 0)
+
+
+                    DataSet dsDematDetails = bodemataccount.GetDematAccountHolderDetails(customerId);
+                    if (dsDematDetails == null)
                     {
+                        gvDematDetailsTeleR.Visible = false;
                         lblError.Visible = true;
                         lblError.Text = "No data available to show";
-                        //mypager.Visible = false;
                     }
                     else
                     {
-                        lblError.Visible = false;
-                        gvDematDetailsTeleR.Visible = true;
-                        gvDematDetailsTeleR.DataSource = dsDematDetails.Tables[0];
-                        gvDematDetailsTeleR.DataBind();
-                        gvDematDetailsTele.Visible = true;
+                        if (dsDematDetails.Tables[0].Rows.Count <= 0)
+                        {
+                            lblError.Visible = true;
+                            lblError.Text = "No data available to show";
+                            //mypager.Visible = false;
+                        }
+                        else
+                        {
+                            lblError.Visible = false;
+                            gvDematDetailsTeleR.Visible = true;
+                            gvDematDetailsTeleR.DataSource = dsDematDetails.Tables[0];
+                            gvDematDetailsTeleR.DataBind();
+                            gvDematDetailsTele.Visible = true;
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
 
         }
         protected void ddlAction_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -179,7 +181,7 @@ namespace WealthERP.Customer
             {
                 gvr = (GridDataItem)ddlAction.NamingContainer;
                 selectedRow = gvr.ItemIndex;
-                dematAccountId = int.Parse(gvDematDetailsTeleR.MasterTableView.DataKeyValues[selectedRow]["CEDA_DematAccountId"].ToString());
+                dematAccountId = int.Parse(gvDematDetailsTeleR.MasterTableView.DataKeyValues[gvr.ItemIndex]["CEDA_DematAccountId"].ToString());
                 Session["DematAccountId"] = dematAccountId;
                 if (ddlAction.SelectedItem.Value == "View")
                 {

@@ -453,7 +453,7 @@
                        <span id="Span1" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="ReqddlBrokerCode" ControlToValidate="ddlBrokerCode"
                         ErrorMessage="<br />Please Select Broker" Display="Dynamic" runat="server"
-                        CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
+                        CssClass="rfvPCG" ValidationGroup="btnConfirmOrder" InitialValue="0"></asp:RequiredFieldValidator>
                 </td>
                 <td class="Page_Right_Padding">
                 </td>

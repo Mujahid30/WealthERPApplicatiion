@@ -375,7 +375,7 @@
                     <span id="Span3" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="ReqddlBrokerCode" runat="server" ControlToValidate="ddlBrokerCode"
                         ErrorMessage="</br>Please Select Broker" CssClass="rfvPCG" Display="Dynamic"
-                        ValidationGroup="btnConfirmOrder" InitialValue="Select"></asp:RequiredFieldValidator>
+                        ValidationGroup="btnConfirmOrder" InitialValue="0"></asp:RequiredFieldValidator>
                 </td>
                 <td class="Page_Right_Padding">
                 </td>
@@ -839,6 +839,7 @@
             </tr>
         </table>
         <asp:HiddenField ID="hdnApplicationNo" runat="server" />
+        <asp:HiddenField ID="hdnMultipleAllow" runat="server" />
     </ContentTemplate>
     <Triggers>
     </Triggers>

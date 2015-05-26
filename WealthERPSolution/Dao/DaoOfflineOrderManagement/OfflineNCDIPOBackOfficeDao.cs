@@ -168,5 +168,32 @@ namespace DaoOfflineOrderManagement
             }
             return bResult;
         }
+        public int GetIPOIssueMultipleAllowed(string PANNo, int AIMissueId)
+        {
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DataSet ds;
+            DbCommand cmdCheckBankisActive;
+            int Count = 0;
+            try
+            {
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdCheckBankisActive = db.GetStoredProcCommand("SPROC_Off_GetIssueIsMultipalApplicable");
+                db.AddInParameter(cmdCheckBankisActive, "@PANNo", DbType.String, PANNo);
+                db.AddInParameter(cmdCheckBankisActive, "@AIMissueId", DbType.Int32, AIMissueId);
+
+                db.AddOutParameter(cmdCheckBankisActive, "@Count", DbType.Int32, 0);
+                ds = db.ExecuteDataSet(cmdCheckBankisActive);
+                if (db.ExecuteNonQuery(cmdCheckBankisActive) != 0)
+                {
+                    Count = Convert.ToInt32(db.GetParameterValue(cmdCheckBankisActive, "Count").ToString());
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return Count;
+        }
     }
 }

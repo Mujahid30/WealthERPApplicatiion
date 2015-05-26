@@ -77,7 +77,7 @@ namespace WealthERP.Customer
                     lblTitle.Text = "Add Demat Account";
             }
 
-            else if (Session["DematDetailsView"].ToString() == "View")
+            else if (Session["DematDetailsView"].ToString() == "View" && Session["DematAccountId"]!=null)
             {
                 lblTitle.Text = "View Demat Account";
                 # region View Section
@@ -103,7 +103,7 @@ namespace WealthERP.Customer
             }
 
 
-            else if (Session["DematDetailsView"].ToString() == "Edit")
+            else if (Session["DematDetailsView"].ToString() == "Edit" && Session["DematAccountId"] != null)
             {
                 lblTitle.Text = "Demat Account";
                 ddlDepositoryName.Enabled = true;
@@ -178,6 +178,7 @@ namespace WealthERP.Customer
             customervo = (CustomerVo)Session["CustomerVo"];
             customerId = customervo.CustomerId;
             demataccountid = int.Parse(Session["DematAccountId"].ToString());
+            //Session["DematAccountId"] = null;
             dsDematDetails = bodemataccount.GetDematAccountDetails(demataccountid);
             txtDpClientId.Text = dsDematDetails.Tables[0].Rows[0]["DpClientId"].ToString();
             txtDPId.Text = dsDematDetails.Tables[0].Rows[0]["DpId"].ToString();
@@ -198,6 +199,7 @@ namespace WealthERP.Customer
                    if (ddlDepositoryName.SelectedItem.Text == "NSDL")
                    {
                         txtDPId.Enabled = true;
+                        txtDpClientId.MaxLength = 8;
                     }
                     else if (ddlDepositoryName.SelectedItem.Text == "CDSL")
                     {
@@ -354,12 +356,12 @@ namespace WealthERP.Customer
                        if (result!=0)
                        {
                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('DematAccountDetails','none');", true);
-                          Response.Write("<script>alert('DematDeatails has been successfully added');</script>");
+                          Response.Write("<script>alert('Demat Details has been successfully added');</script>");
                            Response.Write("<script>window.close();</" + "script>");
                           
                        }
                     }
-                    else if (Session["DematDetailsView"].ToString() == "Edit")
+                    else 
                     {
                         if (!string.IsNullOrEmpty(accountopeningdate.ToString().Trim()))
                         {
@@ -390,7 +392,7 @@ namespace WealthERP.Customer
                       
 
                         bodemataccount.UpdateDematDetails(customerId, portfolioid, demataccountid, demataccountvo,rmvo);
-                        ViewEditMode();
+                        //ViewEditMode();
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('DematAccountDetails','none');", true);
                     }
                 }

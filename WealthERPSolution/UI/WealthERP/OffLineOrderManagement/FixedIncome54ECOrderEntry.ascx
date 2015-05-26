@@ -941,7 +941,7 @@
                         </asp:DropDownList>
                         <span id="SpanddlScheme" runat="server" class="spnRequiredField">*</span>
                         <asp:CompareValidator ID="CompareValidator6" runat="server" ControlToValidate="ddlScheme"
-                            CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Scheme"
+                            CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Issue"
                             Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
                     </td>
                 </tr>
@@ -953,9 +953,9 @@
                         <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField" TabIndex="10">
                         </asp:DropDownList>
                         <span id="Span18" runat="server" class="spnRequiredField">*</span>
-                        <%--   <asp:RequiredFieldValidator ID="rcvBrokerCode" ControlToValidate="ddlBrokerCode"
+                           <asp:RequiredFieldValidator ID="rcvBrokerCode" ControlToValidate="ddlBrokerCode"
                             ErrorMessage="<br />Please Select Broker" Display="Dynamic" runat="server" CssClass="rfvPCG"
-                            ValidationGroup="MFSubmit" InitialValue=""></asp:RequiredFieldValidator>--%>
+                            ValidationGroup="MFSubmit" InitialValue="Select"></asp:RequiredFieldValidator>
                     </td>
                     <td class="leftField" align="right"  style="width:15%"> 
                <asp:label ID="lblPrivilegeRemark1" runat="server" Text="Remark(Related Privilege):" CssClass="FieldName" Visible="false"></asp:label>
