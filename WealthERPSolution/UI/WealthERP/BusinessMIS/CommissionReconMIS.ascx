@@ -37,7 +37,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                            Expected Commission/Payable MIS
+                            Commission Report
                         </td>
                         <td align="right">
                             <asp:ImageButton ID="btnExportFilteredData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
