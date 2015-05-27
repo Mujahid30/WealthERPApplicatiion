@@ -354,8 +354,8 @@ namespace WealthERP.BusinessMIS
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("ClS_NAV").Visible = true;
 
                 }
-                
-                if (int.Parse(ddlSearchType.SelectedValue) == 16023)
+
+                if (int.Parse(ddlSearchType.SelectedValue) == 16023 || int.Parse(ddlSearchType.SelectedValue) == 16019)
                 {
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("ACSR_BrokerageValue").Visible = false;
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("WCU_UnitCode").Visible = false;
@@ -363,7 +363,7 @@ namespace WealthERP.BusinessMIS
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("PayborkageExpectedvalue").Visible = false;
                 
                 }
-                else if (int.Parse(ddlSearchType.SelectedValue) == 16024)
+                else if (int.Parse(ddlSearchType.SelectedValue) == 16024 || int.Parse(ddlSearchType.SelectedValue) == 16020)
                 {
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_WCU_UnitCode").Visible = false;
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_Expectedamount").Visible = false;
