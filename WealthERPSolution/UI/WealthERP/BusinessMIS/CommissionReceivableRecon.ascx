@@ -268,7 +268,8 @@
         OnNeedDataSource="gvCommissionReceiveRecon_OnNeedDataSource">
         <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None"
             GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true" GroupLoadMode="Client"
-            ShowGroupFooter="true" DataKeyNames="CMFT_MFTransId,totalNAV,perDayTrail,PerDayAssets">
+            ShowGroupFooter="true" >
+            <%--DataKeyNames="CMFT_MFTransId,totalNAV,perDayTrail,PerDayAssets"--%>
             <Columns>
                 <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action"
                     Visible="false" HeaderStyle-Width="3%">
