@@ -118,11 +118,11 @@ namespace WealthERP.BusinessMIS
         protected void ddlSearchType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             td1.Visible = true;
-          td2.Visible = true;
+            td2.Visible = true;
             if (ddlSearchType.SelectedValue != "Select" && ddlProduct.SelectedValue == "MF")
             {
-               // td1.Visible = false;
-               // td2.Visible = false;
+                // td1.Visible = false;
+                // td2.Visible = false;
             }
         }
         protected void ddlIssueType_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -317,61 +317,25 @@ namespace WealthERP.BusinessMIS
         {
             if (e.Item is GridDataItem)
             {
-                 gvCommissionReceiveRecon.MasterTableView.GetColumn("totalNAV").Visible = false;
-                 gvCommissionReceiveRecon.MasterTableView.GetColumn("PerDayAssets").Visible = false;
-               gvCommissionReceiveRecon.MasterTableView.GetColumn("perDayTrail").Visible = false;
-               gvCommissionReceiveRecon.MasterTableView.GetColumn("Age").Visible = false;
-                //gvCommissionReceiveRecon.MasterTableView.GetColumn("action").Visible = false;
-                //gvCommissionReceiveRecon.MasterTableView.GetColumn("CMFT_ReceivedCommissionAdjustment").Visible = false;
-                //gvCommissionReceiveRecon.MasterTableView.GetColumn("UpdatedExpectedAmount").Visible = false;
-                //gvCommissionReceiveRecon.MasterTableView.GetColumn("RecborkageExpectedvalue").Visible = true;
-                //gvCommissionReceiveRecon.MasterTableView.GetColumn("ACSR_BrokerageValue").Visible = true;
-                //gvCommissionReceiveRecon.MasterTableView.GetColumn("WCU_UnitCode").Visible = true;
-                //gvCommissionReceiveRecon.MasterTableView.GetColumn("expectedamount").Visible = true;
-                //gvCommissionReceiveRecon.MasterTableView.GetColumn("PayborkageExpectedvalue").Visible = true;
-                //gvCommissionReceiveRecon.MasterTableView.GetColumn("Retention1").Visible = false;
-                //gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_WCU_UnitCode").Visible = true;
-                //gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_Expectedamount").Visible = true;
-                //gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_ACSR_BrokerageValue").Visible = true;
-                //gvCommissionReceiveRecon.MasterTableView.GetColumn("TransactionAsOnDate").Visible = false;
-
-                //if (ddlCommType.SelectedValue == "TC")
-                //{
-                //    gvCommissionReceiveRecon.MasterTableView.GetColumn("totalNAV").Visible = true;
-                //    gvCommissionReceiveRecon.MasterTableView.GetColumn("PerDayAssets").Visible = true;
-                //    gvCommissionReceiveRecon.MasterTableView.GetColumn("perDayTrail").Visible = true;
-                //    gvCommissionReceiveRecon.MasterTableView.GetColumn("Age").Visible = true;
-                //    gvCommissionReceiveRecon.MasterTableView.GetColumn("TransactionAsOnDate").Visible = true;
-
-                //}
-                //if (ddlOrderStatus.SelectedValue == "OR")
-                //{
-                //    gvCommissionReceiveRecon.MasterTableView.GetColumn("action").Visible = true;
-                //    gvCommissionReceiveRecon.MasterTableView.GetColumn("CMFT_ReceivedCommissionAdjustment").Visible = true;
-                //    gvCommissionReceiveRecon.MasterTableView.GetColumn("UpdatedExpectedAmount").Visible = true;
-                //}
-               if (int.Parse(ddlSearchType.SelectedValue) == 16019)
-               {
-                   gvCommissionReceiveRecon.MasterTableView.GetColumn("ACSR_BrokerageValue").Visible = false;
-                   gvCommissionReceiveRecon.MasterTableView.GetColumn("WCU_UnitCode").Visible = false;
-                   gvCommissionReceiveRecon.MasterTableView.GetColumn("expectedamount").Visible = false;
-                   //gvCommissionReceiveRecon.MasterTableView.GetColumn("PayborkageExpectedvalue").Visible = false;
-
-               }
-               else if (int.Parse(ddlSearchType.SelectedValue) == 16020)
-               {
-                   gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_WCU_UnitCode").Visible = false;
-                   gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_Expectedamount").Visible = false;
-                   gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_ACSR_BrokerageValue").Visible = false;
-                  // gvCommissionReceiveRecon.MasterTableView.GetColumn("RecborkageExpectedvalue").Visible = false;
-
-               }
-                //else
-                //{
-                //    gvCommissionReceiveRecon.MasterTableView.GetColumn("Retention1").Visible = true;
+                 
 
 
-                //}
+                if (ddlCommType.SelectedValue == "UF")
+                {
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("fromDt").Visible = false;
+
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("ToDt").Visible = false;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("Age").Visible = false;
+
+                }
+                else if (ddlCommType.SelectedValue == "TC")
+                {
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("fromDt").Visible = true;
+
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("ToDt").Visible = true;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("Age").Visible = true;
+
+                }
 
             }
 
