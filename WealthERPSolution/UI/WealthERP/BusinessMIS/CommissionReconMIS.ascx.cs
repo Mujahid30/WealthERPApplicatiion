@@ -63,7 +63,7 @@ namespace WealthERP.BusinessMIS
                 {
                     AgentCode = associateuserheirarchyVo.AgentCode.ToString();
                     ddlSearchType.Items.FindByText("Receivables").Enabled = false;
-                    ddlSearchType.Items.FindByText("Brokerage").Enabled = false;
+                    ddlSearchType.Items.FindByText("Both").Enabled = false;
                     ddlSelectMode.Items.FindByText("Both").Enabled = false;
                     ddlSelectMode.Items.FindByText("Online-Only").Enabled = false;
                 }
@@ -177,7 +177,7 @@ namespace WealthERP.BusinessMIS
             ddlIssuer.DataTextField = dtGetMutualFundList.Columns["PA_AMCName"].ToString();
             ddlIssuer.DataValueField = dtGetMutualFundList.Columns["PA_AMCCode"].ToString();
             ddlIssuer.DataBind();
-            ddlIssuer.Items.Insert(0, new ListItem("Select", "Select"));
+            ddlIssuer.Items.Insert(0, new ListItem("All", "0"));
 
 
         }
@@ -215,7 +215,6 @@ namespace WealthERP.BusinessMIS
                 cvddlIssueType.Enabled = true;
                 Label1.Visible = false;
                 ddlCommType.Visible = false;
-                ddlSearchType.Items[1].Enabled = false;
                 td2.Visible = false;
                 td1.Visible = false;
 
@@ -316,7 +315,42 @@ namespace WealthERP.BusinessMIS
                 hdnProductCategory.Value = "0";
  
         }
+        protected void rgNCDIPOMIS_OnItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_rate").Visible = true;
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_WCU_UnitCode").Visible = true;
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_brokeragevalue").Visible = true;
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_borkageExpectedvalue").Visible = true;
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("rate").Visible = true;
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("WCU_UnitCode").Visible = true;
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("brokeragevalue").Visible = true;
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("borkageExpectedvalue").Visible = true;
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("Retention1").Visible = false;
+                if (int.Parse(ddlSearchType.SelectedValue) == 16019 || int.Parse(ddlSearchType.SelectedValue) == 16023)
+                {
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("rate").Visible = false;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("WCU_UnitCode").Visible = false;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("brokeragevalue").Visible = false;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("borkageExpectedvalue").Visible = false;
 
+                }
+                else if (int.Parse(ddlSearchType.SelectedValue) == 16020 || int.Parse(ddlSearchType.SelectedValue) == 16024)
+                {
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_rate").Visible = false;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_WCU_UnitCode").Visible = false;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_brokeragevalue").Visible = false;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_borkageExpectedvalue").Visible = false;
+                }
+                else
+                {
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("Retention1").Visible = true;
+                }
+
+
+            }
+        }
         protected void gvWERPTrans_ItemDataBound(object sender, GridItemEventArgs e)
         {
             if (e.Item is GridDataItem)
