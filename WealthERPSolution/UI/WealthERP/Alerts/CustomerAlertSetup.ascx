@@ -192,9 +192,9 @@
                             AllowFiltering="true" Visible="true">
                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="AAECR_DefaultReminderDay" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
-                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Rule Id" UniqueName="AAECR_DefaultReminderDay"
-                            SortExpression="AAECR_DefaultReminderDay" AllowFiltering="true" Visible="true">
+                        <telerik:GridBoundColumn DataField="AAECR_RuleName" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Rule" UniqueName="AAECR_RuleName"
+                            SortExpression="AAECR_RuleName" AllowFiltering="true" Visible="true">
                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                         </telerik:GridBoundColumn>
                         <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
