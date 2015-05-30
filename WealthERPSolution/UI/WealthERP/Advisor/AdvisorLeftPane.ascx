@@ -1560,7 +1560,7 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Map scheme to structure" Value="Map_scheme">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Calculate Brokerage" Value="Commission_Receivable_Recon">
+                                            <telerik:RadPanelItem runat="server" Text="Brokerage Received" Value="Brokerage_Received">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View Associate Payable Rule" Value="View_Associate_Payable_Rule">
                                             </telerik:RadPanelItem>

@@ -994,49 +994,13 @@ namespace WealthERP.OffLineOrderManagement
 
             orderVo.AssetGroup = "FI";
 
-
-            //if (!String.IsNullOrEmpty(txtAssociateSearch.Text))
-            //    AgentId = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
-            //if (AgentId.Rows.Count > 0)
-            //{
-            //    fiorderVo.AgentId = int.Parse(AgentId.Rows[0][1].ToString());
-            //}
-            //else
-            //    fiorderVo.AgentId = 0;
-
-
-
+            if (!string.IsNullOrEmpty(txtAgentId.Value))
             fiorderVo.AgentId = int.Parse(txtAgentId.Value);
 
             if (!string.IsNullOrEmpty(lblGetOrderNo.Text))
                 orderVo.OrderNumber = Convert.ToInt32(lblGetOrderNo.Text);
             if (ChkSeniorcitizens.Checked == true)
-            {
-                fiorderVo.Privilidge = "Seniorcitizens";
-            }
-            else if (ChkWidow.Checked == true)
-            {
-                fiorderVo.Privilidge = "Widow";
-            }
-            else if (ChkArmedForcePersonnel.Checked == true)
-            {
-                fiorderVo.Privilidge = "ArmedForcePersonnel";
-            }
-            else if (CHKExistingrelationship.Checked == true)
-            {
-                fiorderVo.Privilidge = "Existingrelationship";
-            }
-
-            if (ChkFirstholder.Checked == true)
-            {
-                fiorderVo.Depositpayableto = "Firstholder";
-            }
-            else if (ChkEORS.Checked == true)
-            {
-                fiorderVo.Depositpayableto = "Either or survivor";
-            }
-
-            orderVo.OrderDate = Convert.ToDateTime(txtOrderDate.SelectedDate);
+                       orderVo.OrderDate = Convert.ToDateTime(txtOrderDate.SelectedDate);
             orderVo.ApplicationReceivedDate = Convert.ToDateTime(txtApplicationDate.SelectedDate);
             orderVo.ApplicationNumber = txtApplicationNumber.Text;
             fiorderVo.AssetInstrumentCategory = ddlCategory.SelectedValue;

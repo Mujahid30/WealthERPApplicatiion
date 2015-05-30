@@ -124,31 +124,31 @@ namespace WealthERP.Advisor
         }
         public void imgBusinessMIS_OnClick(object sender, EventArgs e)
         {
-            if (advisorVo.IsOpsEnable == 1)
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Functionality is disabled for current Login. Please Contact Administrator');", true);
-            }
-            else
-            {
+            //if (advisorVo.IsOpsEnable == 1)
+            //{
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Functionality is disabled for current Login. Please Contact Administrator');", true);
+            //}
+            //else
+            //{
                 Session["NodeType"] = "MFDashBoard";
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
 
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadBusinessMIS", "loadcontrol('MFDashBoard','login');", true);
-            }
+            //}
         }
         public void lnkbtnBusinessMIS_OnClick(object sender, EventArgs e)
         {
-            if (advisorVo.IsOpsEnable == 1)
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Functionality is disabled for current Login. Please Contact Administrator');", true);
-            }
-            else
-            {
-                Session["NodeType"] = "IFAAdminMainDashboardOld";
+            //if (advisorVo.IsOpsEnable == 1)
+            //{
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Functionality is disabled for current Login. Please Contact Administrator');", true);
+            //}
+            //else
+            //{
+            Session["NodeType"] = "MFDashBoard";
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
 
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadBusinessMIS", "loadcontrol('IFAAdminMainDashboardOld','login');", true);
-            }
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadBusinessMIS", "loadcontrol('MFDashBoard','login');", true);
+            //}
         }
         public void lnkbtnInbox_OnClick(object sender, EventArgs e)
         {
@@ -156,7 +156,7 @@ namespace WealthERP.Advisor
             Session["NodeType"] = "CustomerReportsDashBoard";
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
 
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrderentry", "loadcontrol('CustomerReportsDashBoard','login');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrderentry", "loadcontrol('CommissionReconMIS','login');", true);
 
             //int flavourId = 0;
             //int.TryParse(hdfFlavourId.Value, out flavourId);
@@ -199,9 +199,9 @@ namespace WealthERP.Advisor
             //}
             //else
             //{
-            Session["NodeType"] = "CustomerReportsDashBoard";
+            //Session["NodeType"] = "CustomerReportsDashBoard";
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('CustomerReportsDashBoard','login');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('CommissionReconMIS','login');", true);
             //}
         }
 

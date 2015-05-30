@@ -3914,7 +3914,7 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CommissionStructureToSchemeMapping','login');", true);
                 }
-                else if (e.Item.Value == "Commission_Receivable_Recon")
+                else if (e.Item.Value == "Brokerage_Received")
                 {
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CommissionReconMIS','login');", true);
