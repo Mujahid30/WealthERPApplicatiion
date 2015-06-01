@@ -145,7 +145,7 @@
     <tr>
         <td>
             <asp:Label ID="lblCustomerSMSAlerts" Text="Customer SMS Alerts" CssClass="HeaderTextSmall"
-                runat="server"></asp:Label>
+                runat="server" Visible="false"></asp:Label>
         </td>
     </tr>
     <tr>
@@ -153,16 +153,16 @@
             <table>
                 <tr>
                     <td>
-                        <asp:Label ID="lblLicenceName" Text="SMS Licence Left:" runat="server" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblLicenceName" Text="SMS Licence Left:" runat="server" CssClass="FieldName" visible="false"></asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="lblLincenceValue" Text="" runat="server" CssClass="Field"></asp:Label>
+                        <asp:Label ID="lblLincenceValue" Text="" runat="server" CssClass="Field" visible="false"></asp:Label>
                     </td>
                 </tr>
             </table>
         </td>
     </tr>
-    <tr align="center" id="trPageCount" runat="server">
+    <tr align="center" id="trPageCount" runat="server" visible="false">
         <td colspan="2" class="leftField">
             <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
@@ -189,31 +189,46 @@
                                 AllowFiltering="true" HeaderText="Customer Name" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="AlertMessage" SortExpression="AlertMessage" UniqueName="AlertMessage"
+                            <telerik:GridBoundColumn DataField="AES_EventMessage" SortExpression="AES_EventMessage" UniqueName="AES_EventMessage"
                                 AllowFiltering="true" HeaderText="Alert Message" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="TimesSMSSent" SortExpression="TimesSMSSent"
+                             <telerik:GridBoundColumn DataField="PASP_SchemePlanName" SortExpression="PASP_SchemePlanName"
+                                UniqueName="PASP_SchemePlanName" AllowFiltering="true" HeaderText="Schemeplan name"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" >
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn DataField="AEL_EventDescription" SortExpression="AEL_EventDescription"
+                                UniqueName="AEL_EventDescription" AllowFiltering="true" HeaderText="Event Description"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" >
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <%--<telerik:GridBoundColumn DataField="TimesSMSSent" SortExpression="TimesSMSSent"
                                 UniqueName="TimesSMSSent" AllowFiltering="true" HeaderText="No of Times SMS Sent" ShowFilterIcon="false"
                                 AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridTemplateColumn DataField="LastSMSDate" SortExpression="LastSMSDate"
+                            </telerik:GridBoundColumn>--%>
+                           <%-- <telerik:GridTemplateColumn DataField="LastSMSDate" SortExpression="LastSMSDate"
                                 UniqueName="LastSMSDate" AllowFiltering="true" HeaderText="Last SMS Date"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" Visible="false">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridTemplateColumn>
-                            <telerik:GridTemplateColumn DataField="AlertDate" SortExpression="AlertDate"
-                                UniqueName="AlertDate" AllowFiltering="true" HeaderText="Alert Date"
-                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" Visible="false">
+                            </telerik:GridTemplateColumn>--%>
+                               <telerik:GridBoundColumn DataField="CMFSS_NextSIPDueDate" SortExpression="CMFSS_NextSIPDueDate"
+                                UniqueName="CMFSS_NextSIPDueDate" AllowFiltering="true" HeaderText="Next SIP DueDate"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" >
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridTemplateColumn>
-                            <telerik:GridBoundColumn DataField="Mobile" SortExpression="Mobile"
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="AAECR_RuleName" SortExpression="AAECR_RuleName"
+                                UniqueName="AAECR_RuleName" AllowFiltering="true" HeaderText="Rule"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" >
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                         <%--   <telerik:GridBoundColumn DataField="Mobile" SortExpression="Mobile"
                                 UniqueName="Mobile" AllowFiltering="true" HeaderText="Mobile No"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 FilterControlWidth="180px" DataType="System.Double">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
+                            </telerik:GridBoundColumn>--%>
                         </Columns>
                     </MasterTableView>
                 </telerik:RadGrid>

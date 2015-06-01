@@ -180,9 +180,9 @@
                             SortExpression="CMFSS_Amount" AllowFiltering="true" Visible="true">
                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="CMFSS_SystematicDate" HeaderStyle-Width="20px"
+                        <telerik:GridBoundColumn DataField="CMFSS_NextSIPDueDate" HeaderStyle-Width="20px"
                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                            HeaderText="SIP Date" UniqueName="CMFSS_SystematicDate" SortExpression="CMFSS_SystematicDate"
+                            HeaderText="Next SIP Date" UniqueName="CMFSS_NextSIPDueDate" SortExpression="CMFSS_NextSIPDueDate"
                             AllowFiltering="true" Visible="true">
                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                         </telerik:GridBoundColumn>
@@ -195,6 +195,11 @@
                         <telerik:GridBoundColumn DataField="AAECR_RuleName" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
                             ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Rule" UniqueName="AAECR_RuleName"
                             SortExpression="AAECR_RuleName" AllowFiltering="true" Visible="true">
+                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                        </telerik:GridBoundColumn>
+                          <telerik:GridBoundColumn DataField="CMFSS_CurrentInstallmentNumber" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Status" UniqueName="CMFSS_CurrentInstallmentNumber"
+                            SortExpression="CMFSS_CurrentInstallmentNumber" AllowFiltering="true" Visible="true">
                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                         </telerik:GridBoundColumn>
                         <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
