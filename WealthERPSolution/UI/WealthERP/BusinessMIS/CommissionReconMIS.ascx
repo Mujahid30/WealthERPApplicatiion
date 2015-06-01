@@ -580,14 +580,14 @@
 <div id="dvNCDIPOMIS" style="width: 100%; overflow: scroll;" runat="server" visible="false">
     <telerik:RadGrid ID="rgNCDIPOMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
         PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-        Skin="Telerik" EnableViewState="true" EnableEmbeddedSkins="false" Width="100%"
+        Skin="Telerik" EnableViewState="true" EnableEmbeddedSkins="false" Width="110%"
         AllowFilteringByColumn="true" AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true"
         EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true" OnNeedDataSource="rgNCDIPOMIS_OnNeedDataSource"
         OnItemDataBound="rgNCDIPOMIS_OnItemDataBound">
         <%--<exportsettings hidestructurecolumns="true" exportonlydata="true" ignorepaging="true"
                     filename="Company/Sector" excel-format="ExcelML">--%>
         <%-- </exportsettings>--%>
-        <MasterTableView Width="150%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+        <MasterTableView Width="180%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
             CommandItemDisplay="None" GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
             GroupLoadMode="Client" ShowGroupFooter="true">
             <Columns>
@@ -704,12 +704,12 @@
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Mobilised Amount" DataField="ParentMobilize_Orders"
+                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Mobilised No Of Application" DataField="ParentMobilize_Orders"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Mobilised No Of Application"
+                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Mobilised Amount"
                     DataField="ParentMobilize_Amount" AllowFiltering="false" ShowFilterIcon="false"
                     CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
@@ -738,14 +738,14 @@
                     ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right" Visible="false">
                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Expected Commission"
+                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Receivable"
                     DataField="Rec_brokeragevalue" HeaderStyle-HorizontalAlign="Right" UniqueName="Rec_brokeragevalue"
                     SortExpression="Rec_brokeragevalue" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right"
                     Aggregate="Sum" Visible="false">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Net Commission" DataField="Rec_borkageExpectedvalue"
+                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Net Receivable" DataField="Rec_borkageExpectedvalue"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="Rec_borkageExpectedvalue" SortExpression="Rec_borkageExpectedvalue"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right" Aggregate="Sum" Visible="false">
@@ -763,14 +763,14 @@
                     FooterStyle-HorizontalAlign="Right" Visible="false">
                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Expected Commission"
+                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Payable"
                     DataField="brokeragevalue" HeaderStyle-HorizontalAlign="Right" UniqueName="brokeragevalue"
                     SortExpression="brokeragevalue" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right"
                     Aggregate="Sum" Visible="false">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Net Commission" DataField="borkageExpectedvalue"
+                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Net Payable" DataField="borkageExpectedvalue"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="borkageExpectedvalue" SortExpression="borkageExpectedvalue"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right" Aggregate="Sum" Visible="false">
@@ -778,7 +778,7 @@
                 </telerik:GridBoundColumn>
                  <telerik:GridCalculatedColumn DataFields="Rec_borkageExpectedvalue,borkageExpectedvalue"
                     Expression="{0}-{1}" SortExpression="Retention1" UniqueName="Retention1" HeaderText="Retention"
-                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" HeaderStyle-Width="2%"
+                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" HeaderStyle-Width="10%"
                     ShowFilterIcon="false" Visible="false" AllowFiltering="false">
                     <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridCalculatedColumn>

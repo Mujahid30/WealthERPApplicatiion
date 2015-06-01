@@ -83,11 +83,11 @@ namespace WealthERP.BusinessMIS
             ddlMnthQtr.Items.Add(new ListItem("Quarter October-December", "15"));
             ddlMnthQtr.Items.Add(new ListItem("Quarter January-March", "16"));
             ddlMnthQtr.Items.Insert(0, new ListItem("Select", "0"));
-            for (int i = 2008; i <= DateTime.Now.Year; i++)
+            for (int i = DateTime.Now.Year; i >= 2008; i--)
             {
                 ddlYear.Items.Add(new ListItem(i.ToString(), i.ToString()));
             }
-            ddlYear.Items.Insert(0, new ListItem("Select", "0"));
+            //ddlYear.Items.Insert(0, new ListItem("Select", "0"));
         }
 
         protected void ddlIssuer_SelectedIndexChanged(object sender, EventArgs e)
