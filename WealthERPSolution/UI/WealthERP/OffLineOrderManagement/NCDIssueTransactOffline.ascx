@@ -333,8 +333,12 @@
                         ValidationGroup="btnConfirmOrder" ErrorMessage="Special Character Are Not Allowed!"
                         CssClass="cvPCG" Display="Dynamic" ValidationExpression="^[a-zA-Z0-9]+(?:--?[a-zA-Z0-9]+)*$" />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator20" runat="server" ControlToValidate="txtDpClientId"
-                        ErrorMessage="Please  Enter  Beneficiary Acct. No." CssClass="cvPCG" ValidationGroup="btnConfirmOrder"
+                        ErrorMessage="</br>Please  Enter  Beneficiary Acct. No." CssClass="cvPCG" ValidationGroup="btnConfirmOrder"
                         Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
+                        <asp:CustomValidator ID="CustomValidator1" runat="server" OnServerValidate="CVBenificalNo_ServerValidat"
+                        Text="" ErrorMessage="Please check Beneficiary Acct. No." ControlToValidate="txtDpClientId"
+                        Display="Dynamic" ValidationGroup="btnConfirmOrder" CssClass="rfvPCG">                                                
+                    </asp:CustomValidator>
                 </td>
                
                 <td class="Page_Right_Padding">
@@ -348,6 +352,10 @@
                 </td>
                 <td class="rightField">
                     <asp:TextBox ID="txtDPId" runat="server" CssClass="txtField" TabIndex="8" MaxLength="8"></asp:TextBox>
+                  <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" Display="Dynamic"
+                        CssClass="rfvPCG" ErrorMessage="DP Id " ControlToValidate="txtDPId"
+                        ValidationExpression="^[A-Za-z0-9]{8}$" ValidationGroup="btnConfirmOrder">
+                    </asp:RegularExpressionValidator>
                 </td>
                 <td class="leftField">
                 </td>

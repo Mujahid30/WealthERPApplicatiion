@@ -2346,7 +2346,17 @@ namespace WealthERP.OffLineOrderManagement
             Label lblFinalBidAmountPayable = (Label)ftItemAmount["BidAmountPayable"].FindControl("lblFinalBidAmountPayable");
             lblFinalBidAmountPayable.Text = finalBidPayableAmount.ToString();
         }
+        protected void CVBenificalNo_ServerValidat(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)
+        {
+            if (ddlDepositoryName.SelectedValue == "NSDL" && txtDpClientId.Text.Length == 8)
 
+                args.IsValid = true;
+
+            else if (ddlDepositoryName.SelectedValue == "CDSL" && txtDpClientId.Text.Length == 16)
+                args.IsValid = true;
+            else
+                args.IsValid = false;
+        }
     }
 
 }

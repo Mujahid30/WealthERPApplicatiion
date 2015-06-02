@@ -266,6 +266,10 @@
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator14" runat="server" ControlToValidate="txtDpClientId"
                         ErrorMessage="</br>Beneficiary Acct. No. Required" CssClass="cvPCG" ValidationGroup="btnConfirmOrder"
                         Display="Dynamic"></asp:RequiredFieldValidator>
+                         <asp:CustomValidator ID="CustomValidator1" runat="server" OnServerValidate="CVBenificalNo_ServerValidat"
+                        Text="" ErrorMessage="Please check Beneficiary Acct. No." ControlToValidate="txtDpClientId"
+                        Display="Dynamic" ValidationGroup="btnConfirmOrder" CssClass="rfvPCG">                                                
+                    </asp:CustomValidator>
                 </td>
                 <td class="Page_Right_Padding">
                 </td>
@@ -278,6 +282,10 @@
                 </td>
                 <td class="rightField" colspan="3">
                     <asp:TextBox ID="txtDPId" runat="server" CssClass="txtField" TabIndex="8" MaxLength="8"></asp:TextBox>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" Display="Dynamic"
+                        CssClass="rfvPCG" ErrorMessage="DP Id should be 8 digit" ControlToValidate="txtDPId"
+                        ValidationExpression="^[A-Za-z0-9]{8}$" ValidationGroup="btnConfirmOrder">
+                        </asp:RegularExpressionValidator>
                 </td>
                 <td class="Page_Right_Padding">
                 </td>
