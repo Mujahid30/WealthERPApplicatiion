@@ -87,6 +87,7 @@
         </td>
         <td align="rightField">
             <asp:DropDownList ID="ddlSearchType" AutoPostBack="true" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlSearchType_OnSelectedIndexChanged">
+            <asp:ListItem Text="Brokerage" Value="0"></asp:ListItem>
             </asp:DropDownList>
             <asp:CompareValidator ID="CompareValidator5" runat="server" ControlToValidate="ddlSearchType"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a Commission type"
@@ -215,16 +216,7 @@
     </td>
     </tr>--%>
     <tr>
-        <td id="tdFromDate" class="leftField" runat="server" visible="true">
-            <asp:Label ID="lblPeriod" Text="Month/Quarter:" runat="server" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightField" id="tdFrom" runat="server" visible="true">
-            <asp:DropDownList ID="ddlMnthQtr" runat="server" CssClass="cmbField">
-            </asp:DropDownList>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="ddlMnthQtr"
-                CssClass="rfvPCG" ErrorMessage="<br />Please Select Month" Display="Dynamic"
-                runat="server" InitialValue="0" ValidationGroup="vgbtnSubmit"> </asp:RequiredFieldValidator>
-        </td>
+      
         <td class="leftField" id="tdTolbl" runat="server" visible="true">
             <asp:Label ID="Label11" runat="server" CssClass="FieldName" Text="Year:"></asp:Label>
         </td>
@@ -233,6 +225,16 @@
             </asp:DropDownList>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="ddlYear"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select a Year" Display="Dynamic"
+                runat="server" InitialValue="0" ValidationGroup="vgbtnSubmit"> </asp:RequiredFieldValidator>
+        </td>
+          <td id="tdFromDate" class="leftField" runat="server" visible="true">
+            <asp:Label ID="lblPeriod" Text="Month/Quarter:" runat="server" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField" id="tdFrom" runat="server" visible="true">
+            <asp:DropDownList ID="ddlMnthQtr" runat="server" CssClass="cmbField">
+            </asp:DropDownList>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="ddlMnthQtr"
+                CssClass="rfvPCG" ErrorMessage="<br />Please Select Month" Display="Dynamic"
                 runat="server" InitialValue="0" ValidationGroup="vgbtnSubmit"> </asp:RequiredFieldValidator>
         </td>
         <td class="leftField" id="td1" runat="server">

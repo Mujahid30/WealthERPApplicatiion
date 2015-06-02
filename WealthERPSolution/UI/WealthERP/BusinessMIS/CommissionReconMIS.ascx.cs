@@ -55,15 +55,13 @@ namespace WealthERP.BusinessMIS
                 LoadAllSchemeList(0);
                 BindProductDropdown();
                 BindMonthsAndYear();
-                GetCommisionTypes();
+                
                 int day = 1;
                 btnExportFilteredData.Visible = false;
                 associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
                 if (associateuserheirarchyVo != null && associateuserheirarchyVo.AgentCode != null)
                 {
                     AgentCode = associateuserheirarchyVo.AgentCode.ToString();
-                    ddlSearchType.Items.FindByText("Receivables").Enabled = false;
-                    ddlSearchType.Items.FindByText("Both").Enabled = false;
                     ddlSelectMode.Items.FindByText("Both").Enabled = false;
                     ddlSelectMode.Items.FindByText("Online-Only").Enabled = false;
                 }
@@ -189,7 +187,7 @@ namespace WealthERP.BusinessMIS
             ddlProductCategory.DataBind();
             td2.Visible = true;
             td1.Visible = true;
-            ddlSearchType.Items[1].Enabled = true;
+            
             
             if (asset == "MF")
             {
@@ -545,15 +543,15 @@ namespace WealthERP.BusinessMIS
         }
         protected void GetCommisionTypes()
         {
-            DataSet dscommissionTypes;
-            dscommissionTypes = commisionReceivableBo.GetCommisionTypes();
+            //DataSet dscommissionTypes;
+            //dscommissionTypes = commisionReceivableBo.GetCommisionTypes();
 
-            ddlSearchType.DataSource = dscommissionTypes.Tables[0];
-            ddlSearchType.DataValueField = "WCMV_LookupId";
-            ddlSearchType.DataTextField = "WCMV_Name";
-            ddlSearchType.DataBind();
+            //ddlSearchType.DataSource = dscommissionTypes.Tables[0];
+            //ddlSearchType.DataValueField = "WCMV_LookupId";
+            //ddlSearchType.DataTextField = "WCMV_Name";
+            //ddlSearchType.DataBind();
             ddlSearchType.Items.Insert(0, new ListItem("Select", "Select"));
-            ddlSearchType.Items.Insert(1, new ListItem("Both", "0"));
+            ddlSearchType.Items.Insert(1, new ListItem("Brokerage", "0"));
         }
         private void BindBondCategories()
         {
