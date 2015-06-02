@@ -143,6 +143,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(GetSIPSummaryBookMISCmd, "@Type", DbType.Int32, searchType);
                 db.AddInParameter(GetSIPSummaryBookMISCmd, "@StatusType", DbType.Int32, statusType);
                 db.AddInParameter(GetSIPSummaryBookMISCmd, "@systematicType", DbType.String, systematicType);
+                GetSIPSummaryBookMISCmd.CommandTimeout = 60 * 60;
                 dsSIPSummaryBookMIS = db.ExecuteDataSet(GetSIPSummaryBookMISCmd);
 
             }
