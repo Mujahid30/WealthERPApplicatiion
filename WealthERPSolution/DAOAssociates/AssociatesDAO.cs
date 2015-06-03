@@ -1033,6 +1033,7 @@ namespace DAOAssociates
                     associatesUserHeirarchyVo.UserTitleId = int.Parse(dr["UserTitleId"].ToString());
                     associatesUserHeirarchyVo.AgentCode = dr["AAC_AgentCode"].ToString();
                     associatesUserHeirarchyVo.RMId = int.Parse(dr["AR_RMId"].ToString());
+                    associatesUserHeirarchyVo.IsBranchOps = short.Parse(dr["IsBranchOps"].ToString());
                 }
             }
             catch (BaseApplicationException Ex)

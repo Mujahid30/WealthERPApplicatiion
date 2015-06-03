@@ -16,7 +16,7 @@ namespace VOAssociates
         public string UserTitle { get; set; }
        // public int AssociateParentId { get; private set; }
         public int UserTitleId { get; set; }
-
+        public short IsBranchOps { get; set; }
 
         #endregion
 
