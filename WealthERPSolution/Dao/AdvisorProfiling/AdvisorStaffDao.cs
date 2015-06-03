@@ -1273,7 +1273,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(updateAdvisorStaffCmd, "@AAC_UserType", DbType.String, rmVo.RMRole);
                 db.AddInParameter(updateAdvisorStaffCmd, "@AAC_AgentCode", DbType.String, rmVo.AAC_AgentCode);
                 db.AddInParameter(updateAdvisorStaffCmd, "@AR_EUIN", DbType.String, rmVo.EUIN);
-
+                db.AddInParameter(updateAdvisorStaffCmd, "@IsBranchOps", DbType.Int16, rmVo.IsBranchOps);
                 if (rmVo.BranchId != 0)
                     db.AddInParameter(updateAdvisorStaffCmd, "@AB_StaffBranchId", DbType.Int32, rmVo.BranchId);
                 if (rmVo.HierarchyRoleId != 0)

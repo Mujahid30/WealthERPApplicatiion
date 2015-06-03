@@ -176,8 +176,8 @@ namespace WealthERP.Advisor
                 rmStaffVo.IsAssociateUser = false;
             else
                 rmStaffVo.IsAssociateUser = true;
-           
-            if (ddlTitleList.SelectedValue == "13")
+
+            if (ddlTeamList.SelectedItem.Text.Trim().ToUpper() == "SALES")
                 rmStaffVo.IsBranchOps = Convert.ToInt16(chkIsBranchOps.Checked);
             else
                 rmStaffVo.IsBranchOps = 0;
