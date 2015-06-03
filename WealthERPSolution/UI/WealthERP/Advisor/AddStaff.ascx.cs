@@ -176,6 +176,12 @@ namespace WealthERP.Advisor
                 rmStaffVo.IsAssociateUser = false;
             else
                 rmStaffVo.IsAssociateUser = true;
+           
+            if (ddlTitleList.SelectedValue == "13")
+                rmStaffVo.IsBranchOps = Convert.ToInt16(chkIsBranchOps.Checked);
+            else
+                rmStaffVo.IsBranchOps = 0;
+
             if (ddlTeamList.SelectedValue.ToUpper() == "OPS")
             {
                 AllBranchId = ddlBranch.SelectedValue;
@@ -482,7 +488,7 @@ namespace WealthERP.Advisor
                     tdDdl1Branch1.Visible = true;
                     tr4.Visible = false;
                     PLCustomer.Visible = false;
-                    
+                    chkIsBranchOps.Visible = false;
                     RequiredFieldValidator7.Enabled = false;
                     lblAgentCodeL.Visible = false;
                     Span10.Visible = false;
@@ -495,7 +501,7 @@ namespace WealthERP.Advisor
                     PLCustomer.Visible = true;
                     tdLb1Branch1.Visible = false;
                     tdDdl1Branch1.Visible = false;
-
+                    chkIsBranchOps.Visible = true;
                     RequiredFieldValidator7.Enabled = true;
                     lblAgentCodeL.Visible = true;
                     Span10.Visible = true;
@@ -564,6 +570,7 @@ namespace WealthERP.Advisor
                 txtFaxSTD.Enabled = false;
                 ddlDepart.Enabled = false;
                 chkbldepart.Enabled = false;
+                chkIsBranchOps.Enabled = false;
             }
             else
             {
@@ -607,7 +614,7 @@ namespace WealthERP.Advisor
                 txtFaxSTD.Enabled = true;
                 ddlDepart.Enabled = true;
                 chkbldepart.Enabled = true;
-
+                chkIsBranchOps.Enabled = true;
             }
 
         }
@@ -816,7 +823,7 @@ namespace WealthERP.Advisor
             txtEUIN.Text = string.Empty;
             ddlChannel.Enabled = false;
 
-
+            chkIsBranchOps.Checked = false;
             //imgBtnReferesh.Enabled = false;
             //imgAddAgentCode.Enabled = false;
 
@@ -843,7 +850,7 @@ namespace WealthERP.Advisor
                 tdDdl1Branch1.Visible = true;
                 tr4.Visible = false;
                 PLCustomer.Visible = false;
-               
+                chkIsBranchOps.Visible = false;
                 RequiredFieldValidator7.Enabled = false;
                 lblAgentCodeL.Visible = false;
                 Span10.Visible = false;
@@ -856,7 +863,7 @@ namespace WealthERP.Advisor
                 PLCustomer.Visible = true;
                 tdLb1Branch1.Visible = false;
                 tdDdl1Branch1.Visible = false;
-
+                chkIsBranchOps.Visible = true;
                 RequiredFieldValidator7.Enabled = true;
                 lblAgentCodeL.Visible = true;
                 Span10.Visible = true;
@@ -867,7 +874,7 @@ namespace WealthERP.Advisor
             AgentCodesvalidation();
             ddlRportingRole.SelectedValue = rmStaffVo.HierarchyRoleId.ToString();
             ddlReportingMgr.SelectedValue = rmStaffVo.ReportingManagerId.ToString();
-
+            chkIsBranchOps.Checked = rmStaffVo.IsBranchOps==1;
 
             txtMobileNumber.Text = rmStaffVo.Mobile.ToString();
             txtEmail.Text = rmStaffVo.Email.ToString();

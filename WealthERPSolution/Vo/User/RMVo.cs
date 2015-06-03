@@ -43,6 +43,7 @@ namespace VoUser
         public bool IsAssociateUser { get; set; }
         public String StaffBranchAssociation { get; set; }
         public string userRole { get; set; }
+        public short IsBranchOps { get; set; }
         #endregion Fields
 
         #region Properties

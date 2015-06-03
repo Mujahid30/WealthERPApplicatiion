@@ -243,7 +243,7 @@ namespace DaoAdvisorProfiling
                 db.AddOutParameter(createRMCmd, "@U_UserId", DbType.Int32, 1000000);
                 db.AddOutParameter(createRMCmd, "@AAC_AdviserAgentId", DbType.Int32, 1000000);
                 db.AddInParameter(createRMCmd, "@roleIds", DbType.String, roleIds);
-
+                db.AddInParameter(createRMCmd, "@IsBranchOps", DbType.Int16, rmVo.IsBranchOps);
                 if (db.ExecuteNonQuery(createRMCmd) != 0)
                 {
 
@@ -949,6 +949,7 @@ namespace DaoAdvisorProfiling
                     dr = getAdvisorStaffDs.Tables[0].Rows[0];
                     rmVo.UserId = int.Parse((dr["U_UserId"].ToString()));
                     rmVo.RMId = int.Parse(dr["AR_RMId"].ToString());
+                    rmVo.IsBranchOps = short.Parse(dr["AR_IsBranchOps"].ToString());
                     rmVo.FirstName = dr["AR_FirstName"].ToString();
                     if (dr["AR_MiddleName"] != DBNull.Value)
                         rmVo.MiddleName = dr["AR_MiddleName"].ToString();

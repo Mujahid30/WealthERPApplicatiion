@@ -265,6 +265,11 @@
                 Display="Dynamic">
             </asp:RequiredFieldValidator>
         </td>
+        <td class="leftLabel">
+        </td>
+        <td class="rightData">
+        <asp:CheckBox ID="chkIsBranchOps" Text="Branch Ops" Visible="false" runat="server" />
+        </td>
     </tr>
     <tr>
         <td class="leftLabel">
@@ -273,7 +278,7 @@
         <td class="rightData" colspan="5">
             <asp:Panel ID="PnlDepartRole" runat="server" ScrollBars="Horizontal" Width="800px"
                 Visible="false">
-                <telerik:RadListBox ID="chkbldepart" runat="server" CheckBoxes="true" AutoPostBack="true">
+                <telerik:RadListBox ID="chkbldepart" runat="server"  CheckBoxes="true" AutoPostBack="true" >
                 </telerik:RadListBox>
                 <span id="Span12" class="spnRequiredField">*</span>
                 <%--<asp:CheckBoxList ID="chkbldepart" runat="server" RepeatDirection="Horizontal" Width="100px" CssClass="cmbField" ></asp:CheckBoxList>--%>
