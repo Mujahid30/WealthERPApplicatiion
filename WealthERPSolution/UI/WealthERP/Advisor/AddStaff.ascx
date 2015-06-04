@@ -268,7 +268,7 @@
         <td class="leftLabel">
         </td>
         <td class="rightData">
-        <asp:CheckBox ID="chkIsBranchOps" Text="Branch Ops" Visible="false" runat="server" />
+        <asp:CheckBox ID="chkIsBranchOps" Text="Branch Ops" Visible="false" runat="server" CssClass="cmbFielde"/>
         </td>
     </tr>
     <tr>
