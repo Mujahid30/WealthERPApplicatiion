@@ -136,7 +136,7 @@ namespace WealthERP.OffLineOrderManagement
             DataTable dt54FDOrderBook;
             if (Request.QueryString["category"] != null)
             {
-                dt54FDOrderBook = OfflineBondOrderBo.GetFD54IssueOrder(advisorVo.advisorId, DateTime.MinValue, DateTime.Now, "0", 0, userType, AgentCode, ViewState["category"].ToString(), 0, orderNo);
+                dt54FDOrderBook = OfflineBondOrderBo.GetFD54IssueOrder(advisorVo.advisorId, DateTime.MinValue, DateTime.Now, "0", 0, userType, AgentCode, ViewState["category"].ToString(), 0, orderNo, userVo.UserId);
             }
             else
             {
@@ -145,7 +145,7 @@ namespace WealthERP.OffLineOrderManagement
                 if (txtOrderTo.SelectedDate != null)
                     toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
 
-                dt54FDOrderBook = OfflineBondOrderBo.GetFD54IssueOrder(advisorVo.advisorId, fromDate, Convert.ToDateTime(txtOrderTo.SelectedDate), ddlOrderStatus.SelectedValue, int.Parse(ddlIssue.SelectedValue), userType, AgentCode, ddlCategory.SelectedValue, int.Parse(ddlAuthenticate.SelectedValue), orderNo);
+                dt54FDOrderBook = OfflineBondOrderBo.GetFD54IssueOrder(advisorVo.advisorId, fromDate, Convert.ToDateTime(txtOrderTo.SelectedDate), ddlOrderStatus.SelectedValue, int.Parse(ddlIssue.SelectedValue), userType, AgentCode, ddlCategory.SelectedValue, int.Parse(ddlAuthenticate.SelectedValue), orderNo,userVo.UserId);
             }
             if (dt54FDOrderBook.Rows.Count >= 0)
             {

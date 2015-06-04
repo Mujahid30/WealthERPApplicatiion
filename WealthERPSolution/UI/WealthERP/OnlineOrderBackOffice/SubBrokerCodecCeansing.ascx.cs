@@ -32,7 +32,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 BindAMC();
                 BindScheme();
-                BindRTA();
+                //BindRTA();
             }
         }
         protected void BindAMC()
@@ -40,24 +40,24 @@ namespace WealthERP.OnlineOrderBackOffice
             DataTable dtBindAMC;
             try
             {
-                if (ddlRTA.SelectedValue == "")
-                {
-                    dtBindAMC = OnlineOrderBackOfficeBo.GetAMCListRNTWise(ddlRTA.SelectedValue);
+            //    if (ddlRTA.SelectedValue == "")
+            //    {
+                dtBindAMC = OnlineOrderBackOfficeBo.GetAMCListRNTWise("Select");
                     ddlAMC.DataSource = dtBindAMC;
                     ddlAMC.DataTextField = dtBindAMC.Columns["PA_AMCName"].ToString();
                     ddlAMC.DataValueField = dtBindAMC.Columns["PA_AMCCode"].ToString();
                     ddlAMC.DataBind();
                     ddlAMC.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
-                }
-                else
-                {
-                    dtBindAMC = OnlineOrderBackOfficeBo.GetAMCListRNTWise(ddlRTA.SelectedValue);
-                    ddlAMC.DataSource = dtBindAMC;
-                    ddlAMC.DataTextField = dtBindAMC.Columns["PA_AMCName"].ToString();
-                    ddlAMC.DataValueField = dtBindAMC.Columns["PA_AMCCode"].ToString();
-                    ddlAMC.DataBind();
-                    //ddlAMC.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
-                }
+                //}
+                //else
+                //{
+                //    dtBindAMC = OnlineOrderBackOfficeBo.GetAMCListRNTWise(ddlRTA.SelectedValue);
+                //    ddlAMC.DataSource = dtBindAMC;
+                //    ddlAMC.DataTextField = dtBindAMC.Columns["PA_AMCName"].ToString();
+                //    ddlAMC.DataValueField = dtBindAMC.Columns["PA_AMCCode"].ToString();
+                //    ddlAMC.DataBind();
+                //    ddlAMC.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+                //}
             }
             catch (BaseApplicationException Ex)
             {
@@ -71,7 +71,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void BindScheme()
         {
             DataTable dt;
-            if (ddlAMC.SelectedValue == "0")
+            if (ddlAMC.SelectedValue == "")
             {
                 dt = productMFBo.GetSchemePlanName(int.Parse(ddlAMC.SelectedValue));
                 ddlScheme.DataSource = dt;
@@ -96,25 +96,25 @@ namespace WealthERP.OnlineOrderBackOffice
             try
             {
 
-                DataTable dtRTA;
-                DataSet dsRTA;
-                dsRTA = OnlineOrderBackOfficeBo.GetRTALists();
-                dtRTA = dsRTA.Tables[0];
-                ddlRTA.DataSource = dtRTA;
-                ddlRTA.DataValueField = dtRTA.Columns["XES_SourceName"].ToString();
-                ddlRTA.DataTextField = dtRTA.Columns["XES_SourceName"].ToString();
-                ddlRTA.DataBind();
-                ddlRTA.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+                //DataTable dtRTA;
+                //DataSet dsRTA;
+                //dsRTA = OnlineOrderBackOfficeBo.GetRTALists();
+                //dtRTA = dsRTA.Tables[0];
+                //ddlRTA.DataSource = dtRTA;
+                //ddlRTA.DataValueField = dtRTA.Columns["XES_SourceName"].ToString();
+                //ddlRTA.DataTextField = dtRTA.Columns["XES_SourceName"].ToString();
+                //ddlRTA.DataBind();
+                //ddlRTA.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
         }
-        protected void ddlRTA_OnSelectedIndexChanged(object sender, EventArgs e)
-        {
-            BindAMC();
-        }
+        //protected void ddlRTA_OnSelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    BindAMC();
+        //}
         protected void Go_OnClick(object sender, EventArgs e)
         {
             BindSubBrokerCleansingLisrt();
@@ -125,7 +125,7 @@ namespace WealthERP.OnlineOrderBackOffice
             DataTable dtBindSubBrokerCleansingLisrt;
             try
             {
-                dtBindSubBrokerCleansingLisrt = OnlineOrderBackOfficeBo.GetSubBrokerCodeCleansing(ddlRTA.SelectedValue, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), advisorVo.advisorId, int.Parse(ddlSubbrokerCode.SelectedValue));
+                dtBindSubBrokerCleansingLisrt = OnlineOrderBackOfficeBo.GetSubBrokerCodeCleansing(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), advisorVo.advisorId, int.Parse(ddlSubbrokerCode.SelectedValue));
                 gvSubBrokerCleansing.DataSource = dtBindSubBrokerCleansingLisrt;
                 gvSubBrokerCleansing.DataBind();
                 pnlgvSubBrokerCleansing.Visible = true;

@@ -134,11 +134,7 @@
                             <asp:Label ID="lblType" runat="server" Text='<%# Bind("PortfolioType") %>' />
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="AUM" ItemStyle-HorizontalAlign="Right">
-                        <ItemTemplate>
-                            <asp:Label ID="lblAUM" runat="server" DataFormatString="{0:b}" Text='<%# Bind("AUM") %>' />
-                        </ItemTemplate>
-                    </asp:TemplateField>
+                   
                     <asp:TemplateField HeaderText="Portfolio Type">
                         <ItemTemplate>
                             <asp:Label ID="lblPMSIdentifier" runat="server" Text='<%# Bind("PMSIdentifier") %>' />

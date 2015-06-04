@@ -145,7 +145,7 @@ namespace WealthERP.OffLineOrderManagement
             DataTable dtIPOOrder;
             if (Request.QueryString["orderId"] != null)
             {
-                dtIPOOrder = OfflineIPOBackOfficeBo.GetOfflineIPOOrderBook(advisorVo.advisorId, 0, "0", fromDate, toDate, int.Parse(ViewState["OrderId"].ToString()), userType, agentCode, ddlBidType.SelectedValue);
+                dtIPOOrder = OfflineIPOBackOfficeBo.GetOfflineIPOOrderBook(advisorVo.advisorId, 0, "0", fromDate, toDate, int.Parse(ViewState["OrderId"].ToString()), userType, agentCode, ddlBidType.SelectedValue,userVo.UserId);
             }
             else
             {
@@ -153,7 +153,7 @@ namespace WealthERP.OffLineOrderManagement
                     fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
                 if (txtOrderTo.SelectedDate != null)
                     toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
-                dtIPOOrder = OfflineIPOBackOfficeBo.GetOfflineIPOOrderBook(advisorVo.advisorId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), ddlOrderStatus.SelectedValue, fromDate, toDate, orderId, userType, agentCode, ddlBidType.SelectedValue);
+                dtIPOOrder = OfflineIPOBackOfficeBo.GetOfflineIPOOrderBook(advisorVo.advisorId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), ddlOrderStatus.SelectedValue, fromDate, toDate, orderId, userType, agentCode, ddlBidType.SelectedValue, userVo.UserId);
             }
             if (dtIPOOrder.Rows.Count >= 0)
             {

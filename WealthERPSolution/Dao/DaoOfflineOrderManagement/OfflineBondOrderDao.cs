@@ -210,12 +210,13 @@ namespace DaoOfflineOrderManagement
             }
             return dtGetFDIddueList;
         }
-        public DataTable GetFD54IssueOrder(int adviserId, DateTime fromDate, DateTime toDate,string status, int issueId,string usrtype,string agentcode,string category,int AuthenticateStatus,int orderNo)
+        public DataTable GetFD54IssueOrder(int adviserId, DateTime fromDate, DateTime toDate, string status, int issueId, string usrtype, string agentcode, string category, int AuthenticateStatus, int orderNo, int userId)
         {
             Database db;
             DbCommand cmdGetFD54IssueOrder;
             DataSet ds = null;
             DataTable dtGetFD54IssueOrder;
+           
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -237,6 +238,7 @@ namespace DaoOfflineOrderManagement
                 db.AddInParameter(cmdGetFD54IssueOrder, "@AuthenticateStatus", DbType.Int32, AuthenticateStatus);
                 if(orderNo !=0)
                     db.AddInParameter(cmdGetFD54IssueOrder, "@orderNo", DbType.Int32, orderNo);
+                db.AddInParameter(cmdGetFD54IssueOrder, "@userId", DbType.Int32, userId);
                 ds = db.ExecuteDataSet(cmdGetFD54IssueOrder);
                 dtGetFD54IssueOrder = ds.Tables[0];
             }

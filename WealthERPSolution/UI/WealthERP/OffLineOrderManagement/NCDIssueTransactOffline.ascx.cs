@@ -109,7 +109,7 @@ namespace WealthERP.OffLineOrderManagement
                 }
                 else if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
                 {
-                    AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode + "/" + advisorVo.advisorId.ToString();
+                    AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode + "/" + advisorVo.advisorId.ToString() + "/" + associateuserheirarchyVo.IsBranchOps;
                     AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetailsForAssociates";
 
                 }

@@ -6156,7 +6156,7 @@ namespace DaoCustomerProfiling
         //}
 
 
-        public DataTable GetAgentCodeAssociateDetailsForAssociates(string prefixText, string agentcode, int adviserId)
+        public DataTable GetAgentCodeAssociateDetailsForAssociates(string prefixText, string agentcode, int adviserId, int isBranchOps)
         {
 
             Database db;
@@ -6172,7 +6172,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(cmdGetAgentCodeAssociateDetails, "@prefixText", DbType.String, prefixText);
                 db.AddInParameter(cmdGetAgentCodeAssociateDetails, "@agentcode", DbType.String, agentcode);
                 db.AddInParameter(cmdGetAgentCodeAssociateDetails, "@adviserId", DbType.Int32, adviserId);
-
+                db.AddInParameter(cmdGetAgentCodeAssociateDetails, "@isBranchOps", DbType.Int32, isBranchOps); 
                 dsCustomerNames = db.ExecuteDataSet(cmdGetAgentCodeAssociateDetails);
                 dtCustomerNames = dsCustomerNames.Tables[0];
 

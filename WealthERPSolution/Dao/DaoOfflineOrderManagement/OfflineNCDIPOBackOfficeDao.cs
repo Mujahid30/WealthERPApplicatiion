@@ -20,7 +20,7 @@ namespace DaoOfflineOrderManagement
     {
         string allotmentDataTable;
 
-        public DataTable GetOfflineCustomerNCDOrderBook(int adviserId, int issueNo, string status, DateTime dtFrom, DateTime dtTo, string userType, string agentCode, int orderNo, string ModificationType )
+        public DataTable GetOfflineCustomerNCDOrderBook(int adviserId, int issueNo, string status, DateTime dtFrom, DateTime dtTo, string userType, string agentCode, int orderNo, string ModificationType ,int userId)
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DataSet dsNCDOrder;
@@ -57,6 +57,7 @@ namespace DaoOfflineOrderManagement
                 else
                     db.AddInParameter(cmd, "@AgentCode", DbType.String, DBNull.Value);
                 db.AddInParameter(cmd, "@ModificationType", DbType.String, ModificationType);
+                db.AddInParameter(cmd, "@userId", DbType.Int32, userId);
                 dsNCDOrder = db.ExecuteDataSet(cmd);
                 dtNCDOrder = dsNCDOrder.Tables[0];
             }

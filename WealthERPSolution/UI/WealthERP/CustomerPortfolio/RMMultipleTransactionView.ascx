@@ -363,6 +363,11 @@
                                                     runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
                                                     Height="23px" Width="25px" OnClick="btnTrnxExport_Click"></asp:ImageButton>
                                             </td>
+                                            <td align="right" style="width: 10px">
+                                                <asp:ImageButton ID="btnTrnxExportMFOffLineWithoutSubbroker" ImageUrl="~/Images/Export_Excel.png" Visible="false"
+                                                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
+                                                    Height="23px" Width="25px" OnClick="btnTrnxExportMFOffLineWithoutSubbroker_Click"></asp:ImageButton>
+                                            </td>
                                             <%-- <asp:ImageButton ID="imgBtnTrail" ImageUrl="~/Images/Export_Excel.png" Visible="false"
                                                     runat="server" AlternateText="Excel" ToolTip="Export To Excel" Height="23px"
                                                     Width="25px" OnClick="btnTrailExport_Click"></asp:ImageButton>--%>

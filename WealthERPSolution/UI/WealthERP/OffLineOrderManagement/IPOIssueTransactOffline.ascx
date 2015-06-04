@@ -267,7 +267,7 @@
                         ErrorMessage="</br>Beneficiary Acct. No. Required" CssClass="cvPCG" ValidationGroup="btnConfirmOrder"
                         Display="Dynamic"></asp:RequiredFieldValidator>
                          <asp:CustomValidator ID="CustomValidator1" runat="server" OnServerValidate="CVBenificalNo_ServerValidat"
-                        Text="" ErrorMessage="Please check Beneficiary Acct. No." ControlToValidate="txtDpClientId"
+                        Text="" ErrorMessage="Beneficiary Acct. No. NSDL-8 characters,CDSL-16 characters" ControlToValidate="txtDpClientId"
                         Display="Dynamic" ValidationGroup="btnConfirmOrder" CssClass="rfvPCG">                                                
                     </asp:CustomValidator>
                 </td>
@@ -283,7 +283,7 @@
                 <td class="rightField" colspan="3">
                     <asp:TextBox ID="txtDPId" runat="server" CssClass="txtField" TabIndex="8" MaxLength="8"></asp:TextBox>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" Display="Dynamic"
-                        CssClass="rfvPCG" ErrorMessage="DP Id should be 8 digit" ControlToValidate="txtDPId"
+                        CssClass="rfvPCG" ErrorMessage="DP Id should be 8 characters" ControlToValidate="txtDPId"
                         ValidationExpression="^[A-Za-z0-9]{8}$" ValidationGroup="btnConfirmOrder">
                         </asp:RegularExpressionValidator>
                 </td>
@@ -440,7 +440,7 @@
                         OnKeypress="javascript:return isNumberKey(event);" MaxLength="16" TabIndex="14"></asp:TextBox>
                     <asp:RegularExpressionValidator ID="RegtxtBankAccount" runat="server" Display="Dynamic"
                         ValidationGroup="btnConfirmOrder" ErrorMessage="<br/>Please Enter Numeric" ControlToValidate="txtBankAccount"
-                        CssClass="rfvPCG" ValidationExpression="^([0-9]*[1-9])\d*$">
+                        CssClass="rfvPCG" ValidationExpression="^([0-9]*[0-9])\d*$">
                     </asp:RegularExpressionValidator>
                 </td>
                 <td class="Page_Right_Padding">

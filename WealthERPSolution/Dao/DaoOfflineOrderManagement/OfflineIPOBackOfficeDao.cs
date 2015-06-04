@@ -13,7 +13,7 @@ namespace DaoOfflineOrderManagement
 {
     public class OfflineIPOBackOfficeDao
     {
-        public DataTable GetOfflineIPOOrderBook(int adviserId, int issueId, string status, DateTime dtFrom, DateTime dtTo, int orderId, string userType, string agentCode, string ModificationType)
+        public DataTable GetOfflineIPOOrderBook(int adviserId, int issueId, string status, DateTime dtFrom, DateTime dtTo, int orderId, string userType, string agentCode, string ModificationType, int userId)
         {
             Database db;
             DataSet dsIPOOrder;
@@ -48,6 +48,8 @@ namespace DaoOfflineOrderManagement
                 else
                     db.AddInParameter(cmd, "@AgentCode", DbType.String, DBNull.Value);
                 db.AddInParameter(cmd, "@ModificationType", DbType.String, ModificationType);
+                db.AddInParameter(cmd, "@userId", DbType.Int32, userId);
+
                 dsIPOOrder = db.ExecuteDataSet(cmd);
                 dtIPOOrder = dsIPOOrder.Tables[0];
 

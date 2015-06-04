@@ -336,7 +336,7 @@
                         ErrorMessage="</br>Please  Enter  Beneficiary Acct. No." CssClass="cvPCG" ValidationGroup="btnConfirmOrder"
                         Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
                         <asp:CustomValidator ID="CustomValidator1" runat="server" OnServerValidate="CVBenificalNo_ServerValidat"
-                        Text="" ErrorMessage="Please check Beneficiary Acct. No." ControlToValidate="txtDpClientId"
+                        Text="" ErrorMessage="Beneficiary Acct. No. NSDL-8 characters,CDSL-16 characters" ControlToValidate="txtDpClientId"
                         Display="Dynamic" ValidationGroup="btnConfirmOrder" CssClass="rfvPCG">                                                
                     </asp:CustomValidator>
                 </td>
@@ -353,7 +353,7 @@
                 <td class="rightField">
                     <asp:TextBox ID="txtDPId" runat="server" CssClass="txtField" TabIndex="8" MaxLength="8"></asp:TextBox>
                   <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" Display="Dynamic"
-                        CssClass="rfvPCG" ErrorMessage="DP Id " ControlToValidate="txtDPId"
+                        CssClass="rfvPCG" ErrorMessage="DP Id should be 8 characters" ControlToValidate="txtDPId"
                         ValidationExpression="^[A-Za-z0-9]{8}$" ValidationGroup="btnConfirmOrder">
                     </asp:RegularExpressionValidator>
                 </td>

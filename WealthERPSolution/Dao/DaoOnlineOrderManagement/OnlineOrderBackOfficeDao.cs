@@ -2582,7 +2582,7 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetAMCListRNTWise;
         }
-        public DataTable GetSubBrokerCodeCleansing(string RNTType, int AMCCode, int schemePlanCode, int adviserId, int subBrokerCode)
+        public DataTable GetSubBrokerCodeCleansing( int AMCCode, int schemePlanCode, int adviserId, int subBrokerCode)
         {
             DataSet dsGetSubBrokerCodeCleansing;
             DataTable dtGetSubBrokerCodeCleansing;
@@ -2602,7 +2602,6 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(cmdGetSubBrokerCodeCleansing, "@AmcCode", DbType.Int32, DBNull.Value);
                 db.AddInParameter(cmdGetSubBrokerCodeCleansing, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(cmdGetSubBrokerCodeCleansing, "@subBrokerType", DbType.Int32, subBrokerCode);
-                db.AddInParameter(cmdGetSubBrokerCodeCleansing, "@ExternalType", DbType.String, RNTType);
                 dsGetSubBrokerCodeCleansing = db.ExecuteDataSet(cmdGetSubBrokerCodeCleansing);
                 dtGetSubBrokerCodeCleansing = dsGetSubBrokerCodeCleansing.Tables[0];
             }

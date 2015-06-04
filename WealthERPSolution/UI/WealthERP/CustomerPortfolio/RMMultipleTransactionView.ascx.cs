@@ -1075,22 +1075,22 @@ namespace WealthERP.CustomerPortfolio
                 if (Request.QueryString["reqId"] != null)
                 {
                     int requestId = int.Parse(Request.QueryString["reqId"]);
-                    mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, advisorVo.advisorId, customerVo.CustomerId, IsfolioOnline, convertedFromDate, convertedToDate, 1, PasssedFolioValue, false, 0, 0, string.Empty, advisorVo.A_AgentCodeBased, string.Empty, null, int.Parse(ddlAgentCode.SelectedValue),requestId);
+                    mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, advisorVo.advisorId, customerVo.CustomerId, IsfolioOnline, convertedFromDate, convertedToDate, 1, PasssedFolioValue, false, 0, 0, string.Empty, advisorVo.A_AgentCodeBased, string.Empty, null, int.Parse(ddlAgentCode.SelectedValue), requestId);
                 }
                 else
                 {
                     if (ddlsearchcustomertype.SelectedValue != "All" && ddlsearchcustomertype.SelectedValue != "Individual")
                     {
-                        mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, customerId, IsfolioOnline, convertedFromDate, convertedToDate, 1, PasssedFolioValue, false, schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, userType, int.Parse(ddlAgentCode.SelectedValue),0);
+                        mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, customerId, IsfolioOnline, convertedFromDate, convertedToDate, 1, PasssedFolioValue, false, schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, userType, int.Parse(ddlAgentCode.SelectedValue), 0);
                     }
                     else if (Convert.ToString(Session["IsCustomerDrillDown"]) == "Yes")
                     {
                         customerId = customerVo.CustomerId;
-                        mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, customerId, IsfolioOnline, convertedFromDate, convertedToDate, 1, PasssedFolioValue, true, schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, "Customer", int.Parse(ddlAgentCode.SelectedValue),0);
+                        mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, customerId, IsfolioOnline, convertedFromDate, convertedToDate, 1, PasssedFolioValue, true, schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, "Customer", int.Parse(ddlAgentCode.SelectedValue), 0);
                     }
                     else
                     {
-                        mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, customerId, IsfolioOnline, convertedFromDate, convertedToDate, 1, PasssedFolioValue, false, schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, userType, int.Parse(ddlAgentCode.SelectedValue),0);
+                        mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, customerId, IsfolioOnline, convertedFromDate, convertedToDate, 1, PasssedFolioValue, false, schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, userType, int.Parse(ddlAgentCode.SelectedValue), 0);
                     }
                 }
                 if (mfTransactionList.Count != 0)
@@ -1266,7 +1266,7 @@ namespace WealthERP.CustomerPortfolio
                             pnlMFTransactionWithoutAgentCode.Visible = true;
                             ErrorMessage.Visible = false;
                             gvMFTransactionWithoutAgentCode.Visible = true;
-                            btnTrnxExport.Visible = true;
+                            btnTrnxExportMFOffLineWithoutSubbroker.Visible = true;
                             Panel2.Visible = false;
                         }
                         else
@@ -1546,12 +1546,7 @@ namespace WealthERP.CustomerPortfolio
         {
             if (hdnExportType == "TV")
             {
-                DataTable dtTransactionDetails = new DataTable();
-                dtTransactionDetails = (DataTable)Cache["ViewTransaction" + userVo.UserId + userType];
-                gvMFTransactions.DataSource = dtTransactionDetails;
-                gvMFTransactions.Visible = true;
 
-                gvMFTransactions.DataSource = dtTransactionDetails;
                 gvMFTransactions.ExportSettings.OpenInNewWindow = true;
                 gvMFTransactions.ExportSettings.IgnorePaging = true;
                 gvMFTransactions.ExportSettings.HideStructureColumns = true;
@@ -2220,6 +2215,20 @@ namespace WealthERP.CustomerPortfolio
                 throw exBase;
 
             }
+        }
+
+        public void btnTrnxExportMFOffLineWithoutSubbroker_Click(object sender, ImageClickEventArgs e)
+        {
+            //  gvIPOOrderBook.MasterTableView.DetailTables[0].HierarchyDefaultExpanded = true;
+            gvMFTransactionWithoutAgentCode.MasterTableView.HierarchyLoadMode = GridChildLoadMode.ServerBind;
+            gvMFTransactionWithoutAgentCode.ExportSettings.OpenInNewWindow = true;
+            gvMFTransactionWithoutAgentCode.ExportSettings.IgnorePaging = true;
+            gvMFTransactionWithoutAgentCode.ExportSettings.HideStructureColumns = true;
+            gvMFTransactionWithoutAgentCode.ExportSettings.ExportOnlyData = true;
+            gvMFTransactionWithoutAgentCode.ExportSettings.FileName = "Transaction Book";
+            gvMFTransactionWithoutAgentCode.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvMFTransactionWithoutAgentCode.MasterTableView.ExportToExcel();
+
         }
     }
 }

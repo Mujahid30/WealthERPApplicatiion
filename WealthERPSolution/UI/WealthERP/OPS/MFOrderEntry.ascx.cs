@@ -130,7 +130,7 @@ namespace WealthERP.OPS
                 txtAssociateSearch.Text = associateuserheirarchyVo.AgentCode;
                 txtAgentId.Value = associateuserheirarchyVo.AdviserAgentId.ToString();
                 GetAgentName(associateuserheirarchyVo.AdviserAgentId);
-                AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode + "/" + advisorVo.advisorId.ToString();
+                AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode + "/" + advisorVo.advisorId.ToString() + "/" + associateuserheirarchyVo.IsBranchOps;
                 AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetailsForAssociates";
 
             }

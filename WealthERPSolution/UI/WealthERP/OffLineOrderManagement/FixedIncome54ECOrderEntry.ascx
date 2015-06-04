@@ -1435,8 +1435,7 @@
                     <td class="rightField" style="width: 20%">
                         <telerik:RadDatePicker ID="txtPaymentInstDate" CssClass="txtField" runat="server"
                             Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
-                            ShowAnimation-Type="Fade" MinDate="1900-01-01" TabIndex="33" AutoPostBack="true"
-                            OnSelectedDateChanged="txtPaymentInstDate_OnSelectedDateChanged">
+                            ShowAnimation-Type="Fade" MinDate="1900-01-01" TabIndex="33" >
                             <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                 Skin="Telerik" EnableEmbeddedSkins="false">
                             </Calendar>

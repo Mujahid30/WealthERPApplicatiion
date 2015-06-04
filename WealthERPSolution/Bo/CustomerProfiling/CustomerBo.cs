@@ -3412,17 +3412,21 @@ namespace BoCustomerProfiling
         public DataTable GetAgentCodeAssociateDetailsForAssociates(string prefixText, string agentcode)
         {
             CustomerDao customerDao = new CustomerDao();
-            int adviserid = 0;
+            int adviserid = 0;int IsBranchOps = 0;
+            string agentcode1=string.Empty;
             DataTable dtCustomerNames = new DataTable();
             try
             {
 
                 if (agentcode.IndexOf("/") != -1)
                 {
-                    adviserid = Convert.ToInt32(agentcode.Substring(agentcode.IndexOf("/") + 1, agentcode.Length - (agentcode.IndexOf("/") + 1)));
-                    agentcode = agentcode.Substring(0, agentcode.IndexOf("/"));
+                    string[] parts = agentcode.Split('/');
+
+                   agentcode1 = (parts[0]).ToString();
+                   adviserid = int.Parse((parts[1]).ToString());
+                   IsBranchOps = int.Parse((parts[2]).ToString());
                 }
-                dtCustomerNames = customerDao.GetAgentCodeAssociateDetailsForAssociates(prefixText, agentcode, adviserid);
+                dtCustomerNames = customerDao.GetAgentCodeAssociateDetailsForAssociates(prefixText, agentcode1, adviserid, IsBranchOps);
             }
             catch (BaseApplicationException Ex)
             {

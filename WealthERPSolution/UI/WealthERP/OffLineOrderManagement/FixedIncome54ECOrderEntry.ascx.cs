@@ -171,8 +171,9 @@ namespace WealthERP.OffLineOrderManagement
                     txtAssociateSearch.Text = associateuserheirarchyVo.AgentCode;
                     GetAgentName(associateuserheirarchyVo.AdviserAgentId);
                     txtAgentId.Value = associateuserheirarchyVo.AdviserAgentId.ToString();
-                    AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode + "/" + advisorVo.advisorId.ToString();
+                    AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode + "/" + advisorVo.advisorId.ToString() + "/" + associateuserheirarchyVo.IsBranchOps;
                     AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetailsForAssociates";
+                   
 
                 }
 

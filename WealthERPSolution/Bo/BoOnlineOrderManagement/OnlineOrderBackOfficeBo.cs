@@ -2162,13 +2162,13 @@ namespace BoOnlineOrderManagement
             }
             return dtGetAMCListRNTWise;
         }
-        public DataTable GetSubBrokerCodeCleansing(string RNTType, int AMCCode, int schemePlanCode, int adviserId, int subBrokerCode)
+        public DataTable GetSubBrokerCodeCleansing( int AMCCode, int schemePlanCode, int adviserId, int subBrokerCode)
         {
             DataTable dtGetSubBrokerCodeCleansing;
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                dtGetSubBrokerCodeCleansing = OnlineOrderBackOfficeDao.GetSubBrokerCodeCleansing(RNTType, AMCCode, schemePlanCode, adviserId, subBrokerCode);
+                dtGetSubBrokerCodeCleansing = OnlineOrderBackOfficeDao.GetSubBrokerCodeCleansing( AMCCode, schemePlanCode, adviserId, subBrokerCode);
             }
             catch (BaseApplicationException Ex)
             {
