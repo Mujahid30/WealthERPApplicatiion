@@ -29,7 +29,8 @@
         }
     }
 </script>
-
+<asp:UpdatePanel ID="UpdatePanel1" runat="server">
+<ContentTemplate>
 <table width="100%">
     <tr>
         <td>
@@ -255,7 +256,24 @@
     </tr>
     <tr>
     </tr>
-    <tr>
+     <tr>
+            <td colspan="6">
+                <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1">
+                    <ProgressTemplate>
+                        <table width="100%">
+                            <tr>
+                                <td align="center">
+                                    <asp:Image ID="imgProgress" ImageUrl="~/Images/ajax-loader.gif"  AlternateText="Processing"
+                                        runat="server" />
+                                </td>
+                            </tr>
+                        </table>
+                        <%--<img alt="Processing" src="~/Images/ajax_loader.gif" style="width: 200px; height: 100px" />--%>
+                    </ProgressTemplate>
+                </asp:UpdateProgress>
+            </td>
+        </tr>
+       <tr>
         <td align="right">
             <asp:Label ID="lblIllegal" runat="server" CssClass="Error" Text="" />
         </td>
@@ -382,7 +400,7 @@
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="2%" HeaderText="Amount" DataField="amount"
                     HeaderStyle-HorizontalAlign="Center" UniqueName="amount" SortExpression="amount"
-                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" Aggregate="Sum" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
@@ -531,15 +549,18 @@
                 </telerik:GridBoundColumn>
                
                 <telerik:GridCalculatedColumn DataFields="expectedamount,ACSR_ReducedValue,ACSR_ServiceTaxValue"
-                    Expression="({0})-({0}*{1}/100)-({0}*{2}/100)" SortExpression="PayborkageExpectedvalue" UniqueName="PayborkageExpectedvalue" HeaderText="Payable Net Commission"
-                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" HeaderStyle-Width="2%" ShowFilterIcon="false"   Visible="true" DataType="System.Decimal" AllowFiltering="false">
+                    Expression="({0})-({0}*{1}/100)-({0}*{2}/100)" SortExpression="PayborkageExpectedvalue" UniqueName="PayborkageExpectedvalue" 
+                    HeaderText="Payable Net Commission"
+                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" HeaderStyle-Width="2%" ShowFilterIcon="false" 
+                      Visible="true" DataType="System.Decimal" AllowFiltering="false">
                      <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top"   />
                 </telerik:GridCalculatedColumn>
-                
-                 <telerik:GridCalculatedColumn DataFields="RecborkageExpectedvalue,PayborkageExpectedvalue"
+                  
+                 <telerik:GridCalculatedColumn DataFields="RecborkageExpectedvalue,PayborkageExpectedvalue,sum"
                     Expression="{0}-{1}" SortExpression="Retention1" UniqueName="Retention1" HeaderText="Retention"
-                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" HeaderStyle-Width="2%" ShowFilterIcon="false"   Visible="false" AllowFiltering="false">
-                     <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top"   />
+                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" HeaderStyle-Width="2%" ShowFilterIcon="false" 
+                      Visible="false" AllowFiltering="false" DataType="System.Decimal" Aggregate="Sum">
+                     <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridCalculatedColumn>
                 <telerik:GridTemplateColumn HeaderStyle-Width="2%" HeaderText="Commission Adjustment Amount"
                     DataField="CMFT_ReceivedCommissionAdjustment" SortExpression="CMFT_ReceivedCommissionAdjustment"
@@ -684,7 +705,7 @@
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Holdings Amount" DataField="holdings"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="holdings" SortExpression="holdings"
-                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" Aggregate="Sum" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
@@ -781,7 +802,7 @@
                  <telerik:GridCalculatedColumn DataFields="Rec_borkageExpectedvalue,borkageExpectedvalue"
                     Expression="{0}-{1}" SortExpression="Retention1" UniqueName="Retention1" HeaderText="Retention"
                     AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" HeaderStyle-Width="10%"
-                    ShowFilterIcon="false" Visible="false" AllowFiltering="false">
+                    ShowFilterIcon="false" Aggregate="Sum" Visible="false" AllowFiltering="false" DataType="System.Decimal">
                     <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridCalculatedColumn>
             </Columns>
@@ -792,6 +813,8 @@
         </ClientSettings>
     </telerik:RadGrid>
 </div>
+</ContentTemplate>
+</asp:UpdatePanel>
 <asp:HiddenField ID="hdnschemeId" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnCategory" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnFromDate" runat="server" />
