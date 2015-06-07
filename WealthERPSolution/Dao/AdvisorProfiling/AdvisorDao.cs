@@ -445,17 +445,17 @@ namespace DaoAdvisorProfiling
                     if (dr["A_IsAssociateModel"].ToString() != "" && dr["A_IsAssociateModel"].ToString() != null)
                         advisorVo.Associates = int.Parse(dr["A_IsAssociateModel"].ToString());
                     if (dr["A_Phone1STD"] != null && dr["A_Phone1STD"].ToString() != "")
-                        advisorVo.Phone1Std = int.Parse(dr["A_Phone1STD"].ToString());
+                        advisorVo.Phone1Std = dr["A_Phone1STD"].ToString();
                     if (dr["A_Phone2STD"] != null && dr["A_Phone2STD"].ToString() != "")
-                        advisorVo.Phone2Std = int.Parse(dr["A_Phone2STD"].ToString());
+                        advisorVo.Phone2Std = dr["A_Phone2STD"].ToString();
 
                     if (dr["A_VaultSize(in MB)"] != null && dr["A_VaultSize(in MB)"].ToString() != "")
                         advisorVo.VaultSize = float.Parse(dr["A_VaultSize(in MB)"].ToString());
 
                     if (dr["A_Phone1ISD"] != null && dr["A_Phone1ISD"].ToString() != "")
-                        advisorVo.Phone1Isd = int.Parse(dr["A_Phone1ISD"].ToString());
+                        advisorVo.Phone1Isd = dr["A_Phone1ISD"].ToString();
                     if (dr["A_Phone2ISD"] != null && dr["A_Phone2ISD"].ToString() != "")
-                        advisorVo.Phone2Isd = int.Parse(dr["A_Phone2ISD"].ToString());
+                        advisorVo.Phone2Isd = dr["A_Phone2ISD"].ToString();
                     if (dr["A_Phone1Number"] != null && dr["A_Phone1Number"].ToString() != "")
                         advisorVo.Phone1Number = int.Parse(dr["A_Phone1Number"].ToString());
                     if (dr["A_Phone2Number"] != null && dr["A_Phone2Number"].ToString() != "")
@@ -1454,17 +1454,23 @@ namespace DaoAdvisorProfiling
                         advisorVo.A_AgentCodeBased = int.Parse(dr["A_AgentCodeBased"].ToString());
 
                     if (dr["A_Phone1STD"] != DBNull.Value && dr["A_Phone1STD"].ToString() != string.Empty)
-                        advisorVo.Phone1Std = int.Parse(dr["A_Phone1STD"].ToString());
+                        advisorVo.Phone1Std = dr["A_Phone1STD"].ToString();
                     if (dr["A_Phone2STD"] != DBNull.Value && dr["A_Phone2STD"].ToString() != string.Empty)
-                        advisorVo.Phone2Std = int.Parse(dr["A_Phone2STD"].ToString());
+                        advisorVo.Phone2Std = dr["A_Phone2STD"].ToString();
+                    if (dr["A_Phone3STD"] != DBNull.Value && dr["A_Phone3STD"].ToString() != string.Empty)
+                        advisorVo.Phone3Std = dr["A_Phone3STD"].ToString();
                     if (dr["A_Phone1ISD"] != DBNull.Value && dr["A_Phone1ISD"].ToString() != string.Empty)
-                        advisorVo.Phone1Isd = int.Parse(dr["A_Phone1ISD"].ToString());
+                        advisorVo.Phone1Isd = dr["A_Phone1ISD"].ToString();
                     if (dr["A_Phone2ISD"] != DBNull.Value && dr["A_Phone2ISD"].ToString() != string.Empty)
-                        advisorVo.Phone2Isd = int.Parse(dr["A_Phone2ISD"].ToString());
+                        advisorVo.Phone2Isd = dr["A_Phone2ISD"].ToString();
+                    if (dr["A_Phone3ISD"] != DBNull.Value && dr["A_Phone3ISD"].ToString() != string.Empty)
+                        advisorVo.Phone3Isd = dr["A_Phone3ISD"].ToString();
                     if (dr["A_Phone1Number"] != DBNull.Value && dr["A_Phone1Number"].ToString() != string.Empty)
                         advisorVo.Phone1Number = int.Parse(dr["A_Phone1Number"].ToString());
                     if (dr["A_Phone2Number"] != DBNull.Value && dr["A_Phone2Number"].ToString() != string.Empty)
                         advisorVo.Phone2Number = int.Parse(dr["A_Phone2Number"].ToString());
+                    if (dr["A_Phone3Number"] != DBNull.Value && dr["A_Phone3Number"].ToString() != string.Empty)
+                        advisorVo.Phone3Number = int.Parse(dr["A_Phone3Number"].ToString());
                     if (dr["A_PinCode"] != DBNull.Value)
                         advisorVo.PinCode = int.Parse(dr["A_PinCode"].ToString());
                     if (dr["A_State"] != DBNull.Value)
@@ -1600,12 +1606,15 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(updateAdvisorUserCmd, "@A_State", DbType.String, advisorVo.State);
                 db.AddInParameter(updateAdvisorUserCmd, "@A_PinCode", DbType.Int32, advisorVo.PinCode);
                 db.AddInParameter(updateAdvisorUserCmd, "@A_Country", DbType.String, advisorVo.Country);
-                db.AddInParameter(updateAdvisorUserCmd, "@A_Phone1ISD", DbType.Int32, advisorVo.Phone1Isd);
-                db.AddInParameter(updateAdvisorUserCmd, "@A_Phone1STD", DbType.Int32, advisorVo.Phone1Std);
+                db.AddInParameter(updateAdvisorUserCmd, "@A_Phone1ISD", DbType.String, advisorVo.Phone1Isd);
+                db.AddInParameter(updateAdvisorUserCmd, "@A_Phone1STD", DbType.String, advisorVo.Phone1Std);
                 db.AddInParameter(updateAdvisorUserCmd, "@A_Phone1Number", DbType.Int32, advisorVo.Phone1Number);
-                db.AddInParameter(updateAdvisorUserCmd, "@A_Phone2ISD", DbType.Int32, advisorVo.Phone2Isd);
-                db.AddInParameter(updateAdvisorUserCmd, "@A_Phone2STD", DbType.Int32, advisorVo.Phone2Std);
+                db.AddInParameter(updateAdvisorUserCmd, "@A_Phone2ISD", DbType.String, advisorVo.Phone2Isd);
+                db.AddInParameter(updateAdvisorUserCmd, "@A_Phone2STD", DbType.String, advisorVo.Phone2Std);
                 db.AddInParameter(updateAdvisorUserCmd, "@A_Phone2Number", DbType.Int32, advisorVo.Phone2Number);
+                db.AddInParameter(updateAdvisorUserCmd, "@A_Phone3ISD", DbType.String, advisorVo.Phone3Isd);
+                db.AddInParameter(updateAdvisorUserCmd, "@A_Phone3STD", DbType.String, advisorVo.Phone3Std);
+                db.AddInParameter(updateAdvisorUserCmd, "@A_Phone3Number", DbType.Int32, advisorVo.Phone3Number);
                 db.AddInParameter(updateAdvisorUserCmd, "@A_FAXISD", DbType.Int32, advisorVo.FaxIsd);
                 db.AddInParameter(updateAdvisorUserCmd, "@A_FAXSTD", DbType.Int32, advisorVo.FaxStd);
                 db.AddInParameter(updateAdvisorUserCmd, "@A_FAX", DbType.Int32, advisorVo.Fax);
@@ -3452,13 +3461,13 @@ namespace DaoAdvisorProfiling
                         advisorVo.Associates = int.Parse(dr["A_IsAssociateModel"].ToString());
 
                     if (dr["A_Phone1STD"] != DBNull.Value && dr["A_Phone1STD"].ToString() != string.Empty)
-                        advisorVo.Phone1Std = int.Parse(dr["A_Phone1STD"].ToString());
+                        advisorVo.Phone1Std = dr["A_Phone1STD"].ToString();
                     if (dr["A_Phone2STD"] != DBNull.Value && dr["A_Phone2STD"].ToString() != string.Empty)
-                        advisorVo.Phone2Std = int.Parse(dr["A_Phone2STD"].ToString());
+                        advisorVo.Phone2Std = dr["A_Phone2STD"].ToString();
                     if (dr["A_Phone1ISD"] != DBNull.Value && dr["A_Phone1ISD"].ToString() != string.Empty)
-                        advisorVo.Phone1Isd = int.Parse(dr["A_Phone1ISD"].ToString());
+                        advisorVo.Phone1Isd = dr["A_Phone1ISD"].ToString();
                     if (dr["A_Phone2ISD"] != DBNull.Value && dr["A_Phone2ISD"].ToString() != string.Empty)
-                        advisorVo.Phone2Isd = int.Parse(dr["A_Phone2ISD"].ToString());
+                        advisorVo.Phone2Isd = dr["A_Phone2ISD"].ToString();
                     if (dr["A_Phone1Number"] != DBNull.Value && dr["A_Phone1Number"].ToString() != string.Empty)
                         advisorVo.Phone1Number = int.Parse(dr["A_Phone1Number"].ToString());
                     if (dr["A_Phone2Number"] != DBNull.Value && dr["A_Phone2Number"].ToString() != string.Empty)

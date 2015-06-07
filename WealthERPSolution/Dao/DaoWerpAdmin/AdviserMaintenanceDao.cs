@@ -65,13 +65,13 @@ namespace DaoWerpAdmin
                      if (dr["A_IsAssociateModel"].ToString() != "" && dr["A_IsAssociateModel"].ToString() != null)
                          adviserVo.Associates = int.Parse(dr["A_IsAssociateModel"].ToString());
                      if (dr["A_Phone1STD"] != null && dr["A_Phone1STD"].ToString() != "")
-                         adviserVo.Phone1Std = int.Parse(dr["A_Phone1STD"].ToString());
+                         adviserVo.Phone1Std = dr["A_Phone1STD"].ToString();
                      if (dr["A_Phone2STD"] != null && dr["A_Phone2STD"].ToString() != "")
-                         adviserVo.Phone2Std = int.Parse(dr["A_Phone2STD"].ToString());
+                         adviserVo.Phone2Std = dr["A_Phone2STD"].ToString();
                      if (dr["A_Phone1ISD"] != null && dr["A_Phone1ISD"].ToString() != "")
-                         adviserVo.Phone1Isd = int.Parse(dr["A_Phone1ISD"].ToString());
+                         adviserVo.Phone1Isd = dr["A_Phone1ISD"].ToString();
                      if (dr["A_Phone2ISD"] != null && dr["A_Phone2ISD"].ToString() != "")
-                         adviserVo.Phone2Isd = int.Parse(dr["A_Phone2ISD"].ToString());
+                         adviserVo.Phone2Isd = dr["A_Phone2ISD"].ToString();
                      if (dr["A_Phone1Number"] != null && dr["A_Phone1Number"].ToString() != "")
                          adviserVo.Phone1Number = int.Parse(dr["A_Phone1Number"].ToString());
                      if (dr["A_Phone2Number"] != null && dr["A_Phone2Number"].ToString() != "")
@@ -332,13 +332,13 @@ namespace DaoWerpAdmin
                     if (dr["A_IsAssociateModel"].ToString() != "" && dr["A_IsAssociateModel"].ToString() != null)
                         adviserVo.Associates = int.Parse(dr["A_IsAssociateModel"].ToString());
                     if (dr["A_Phone1STD"] != null && dr["A_Phone1STD"].ToString() != "")
-                        adviserVo.Phone1Std = int.Parse(dr["A_Phone1STD"].ToString());
+                        adviserVo.Phone1Std = dr["A_Phone1STD"].ToString();
                     if (dr["A_Phone2STD"] != null && dr["A_Phone2STD"].ToString() != "")
-                        adviserVo.Phone2Std = int.Parse(dr["A_Phone2STD"].ToString());
+                        adviserVo.Phone2Std =dr["A_Phone2STD"].ToString();
                     if (dr["A_Phone1ISD"] != null && dr["A_Phone1ISD"].ToString() != "")
-                        adviserVo.Phone1Isd = int.Parse(dr["A_Phone1ISD"].ToString());
+                        adviserVo.Phone1Isd = dr["A_Phone1ISD"].ToString();
                     if (dr["A_Phone2ISD"] != null && dr["A_Phone2ISD"].ToString() != "")
-                        adviserVo.Phone2Isd = int.Parse(dr["A_Phone2ISD"].ToString());
+                        adviserVo.Phone2Isd = dr["A_Phone2ISD"].ToString();
                     if (dr["A_Phone1Number"] != null && dr["A_Phone1Number"].ToString() != "")
                         adviserVo.Phone1Number = int.Parse(dr["A_Phone1Number"].ToString());
                     if (dr["A_Phone2Number"] != null && dr["A_Phone2Number"].ToString() != "")
@@ -430,13 +430,13 @@ namespace DaoWerpAdmin
                     if (dr["A_IsAssociateModel"].ToString() != "" && dr["A_IsAssociateModel"].ToString() != null)
                         adviserVo.Associates = int.Parse(dr["A_IsAssociateModel"].ToString());
                     if (dr["A_Phone1STD"] != null && dr["A_Phone1STD"].ToString() != "")
-                        adviserVo.Phone1Std = int.Parse(dr["A_Phone1STD"].ToString());
+                        adviserVo.Phone1Std = dr["A_Phone1STD"].ToString();
                     if (dr["A_Phone2STD"] != null && dr["A_Phone2STD"].ToString() != "")
-                        adviserVo.Phone2Std = int.Parse(dr["A_Phone2STD"].ToString());
+                        adviserVo.Phone2Std = dr["A_Phone2STD"].ToString();
                     if (dr["A_Phone1ISD"] != null && dr["A_Phone1ISD"].ToString() != "")
-                        adviserVo.Phone1Isd = int.Parse(dr["A_Phone1ISD"].ToString());
+                        adviserVo.Phone1Isd = dr["A_Phone1ISD"].ToString();
                     if (dr["A_Phone2ISD"] != null && dr["A_Phone2ISD"].ToString() != "")
-                        adviserVo.Phone2Isd = int.Parse(dr["A_Phone2ISD"].ToString());
+                        adviserVo.Phone2Isd = dr["A_Phone2ISD"].ToString();
                     if (dr["A_Phone1Number"] != null && dr["A_Phone1Number"].ToString() != "")
                         adviserVo.Phone1Number = int.Parse(dr["A_Phone1Number"].ToString());
                     if (dr["A_Phone2Number"] != null && dr["A_Phone2Number"].ToString() != "")

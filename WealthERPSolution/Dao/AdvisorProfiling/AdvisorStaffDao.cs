@@ -506,11 +506,11 @@ namespace DaoAdvisorProfiling
                         rmVo.LastName = dr["AR_LastName"].ToString();
                         rmVo.StaffCode = dr["AR_StaffCode"].ToString();
                         rmVo.OfficePhoneDirectNumber = int.Parse(dr["AR_OfficePhoneDirect"].ToString());
-                        rmVo.OfficePhoneDirectIsd = int.Parse(dr["AR_OfficePhoneDirectISD"].ToString());
-                        rmVo.OfficePhoneDirectStd = int.Parse(dr["AR_OfficePhoneDirectSTD"].ToString());
+                        rmVo.OfficePhoneDirectIsd = dr["AR_OfficePhoneDirectISD"].ToString();
+                        rmVo.OfficePhoneDirectStd = dr["AR_OfficePhoneDirectSTD"].ToString();
                         rmVo.OfficePhoneExtNumber = int.Parse(dr["AR_OfficePhoneExt"].ToString());
-                        rmVo.OfficePhoneExtIsd = int.Parse(dr["AR_OfficePhoneExtISD"].ToString());
-                        rmVo.OfficePhoneExtStd = int.Parse(dr["AR_OfficePhoneExtSTD"].ToString());
+                        rmVo.OfficePhoneExtIsd = dr["AR_OfficePhoneExtISD"].ToString();
+                        rmVo.OfficePhoneExtStd = dr["AR_OfficePhoneExtSTD"].ToString();
                         rmVo.ResPhoneIsd = int.Parse(dr["AR_ResPhoneISD"].ToString());
                         rmVo.ResPhoneStd = int.Parse(dr["AR_ResPhoneSTD"].ToString());
                         rmVo.ResPhoneNumber = int.Parse(dr["AR_ResPhone"].ToString());
@@ -571,15 +571,15 @@ namespace DaoAdvisorProfiling
                         if (dr["AR_OfficePhoneDirect"].ToString() != "")
                             rmVo.OfficePhoneDirectNumber = int.Parse(dr["AR_OfficePhoneDirect"].ToString());
                         if (dr["AR_OfficePhoneDirectISD"].ToString() != "")
-                            rmVo.OfficePhoneDirectIsd = int.Parse(dr["AR_OfficePhoneDirectISD"].ToString());
+                            rmVo.OfficePhoneDirectIsd = dr["AR_OfficePhoneDirectISD"].ToString();
                         if (dr["AR_OfficePhoneDirectSTD"].ToString() != "")
-                            rmVo.OfficePhoneDirectStd = int.Parse(dr["AR_OfficePhoneDirectSTD"].ToString());
+                            rmVo.OfficePhoneDirectStd = dr["AR_OfficePhoneDirectSTD"].ToString();
                         if (dr["AR_OfficePhoneExt"].ToString() != "")
                             rmVo.OfficePhoneExtNumber = int.Parse(dr["AR_OfficePhoneExt"].ToString());
                         if (dr["AR_OfficePhoneExtISD"].ToString() != "")
-                            rmVo.OfficePhoneExtIsd = int.Parse(dr["AR_OfficePhoneExtISD"].ToString());
+                            rmVo.OfficePhoneExtIsd = dr["AR_OfficePhoneExtISD"].ToString();
                         if (dr["AR_OfficePhoneExtSTD"].ToString() != "")
-                            rmVo.OfficePhoneExtStd = int.Parse(dr["AR_OfficePhoneExtSTD"].ToString());
+                            rmVo.OfficePhoneExtStd = dr["AR_OfficePhoneExtSTD"].ToString();
                         if (dr["AR_ResPhoneISD"].ToString() != "")
                             rmVo.ResPhoneIsd = int.Parse(dr["AR_ResPhoneISD"].ToString());
                         if (dr["AR_ResPhoneSTD"].ToString() != "")
@@ -662,15 +662,15 @@ namespace DaoAdvisorProfiling
                         if (dr["AR_OfficePhoneDirect"].ToString() != "" && dr["AR_OfficePhoneDirect"] != null)
                             rmVo.OfficePhoneDirectNumber = int.Parse(dr["AR_OfficePhoneDirect"].ToString());
                         if (dr["AR_OfficePhoneDirectISD"].ToString() != "" && dr["AR_OfficePhoneDirectISD"] != null)
-                            rmVo.OfficePhoneDirectIsd = int.Parse(dr["AR_OfficePhoneDirectISD"].ToString());
+                            rmVo.OfficePhoneDirectIsd = dr["AR_OfficePhoneDirectISD"].ToString();
                         if (dr["AR_OfficePhoneDirectSTD"].ToString() != "" && dr["AR_OfficePhoneDirectSTD"] != null)
-                            rmVo.OfficePhoneDirectStd = int.Parse(dr["AR_OfficePhoneDirectSTD"].ToString());
+                            rmVo.OfficePhoneDirectStd = dr["AR_OfficePhoneDirectSTD"].ToString();
                         if (dr["AR_OfficePhoneExt"].ToString() != "" && dr["AR_OfficePhoneExt"] != null)
                             rmVo.OfficePhoneExtNumber = int.Parse(dr["AR_OfficePhoneExt"].ToString());
                         if (dr["AR_OfficePhoneExtISD"].ToString() != "" && dr["AR_OfficePhoneExtISD"] != null)
-                            rmVo.OfficePhoneExtIsd = int.Parse(dr["AR_OfficePhoneExtISD"].ToString());
+                            rmVo.OfficePhoneExtIsd = dr["AR_OfficePhoneExtISD"].ToString();
                         if (dr["AR_OfficePhoneExtSTD"].ToString() != "" && dr["AR_OfficePhoneExtSTD"] != null)
-                            rmVo.OfficePhoneExtStd = int.Parse(dr["AR_OfficePhoneExtSTD"].ToString());
+                            rmVo.OfficePhoneExtStd = dr["AR_OfficePhoneExtSTD"].ToString();
                         if (dr["AR_ResPhoneISD"].ToString() != "" && dr["AR_ResPhoneISD"] != null)
                             rmVo.ResPhoneIsd = int.Parse(dr["AR_ResPhoneISD"].ToString());
                         if (dr["AR_ResPhoneSTD"].ToString() != "" && dr["AR_ResPhoneSTD"] != null)
@@ -840,15 +840,15 @@ namespace DaoAdvisorProfiling
                     if (dr["AR_OfficePhoneDirect"] != DBNull.Value)
                         rmVo.OfficePhoneDirectNumber = int.Parse(dr["AR_OfficePhoneDirect"].ToString());
                     if (dr["AR_OfficePhoneDirectISD"] != DBNull.Value)
-                        rmVo.OfficePhoneDirectIsd = int.Parse(dr["AR_OfficePhoneDirectISD"].ToString());
+                        rmVo.OfficePhoneDirectIsd = dr["AR_OfficePhoneDirectISD"].ToString();
                     if (dr["AR_OfficePhoneDirectSTD"] != DBNull.Value)
-                        rmVo.OfficePhoneDirectStd = int.Parse(dr["AR_OfficePhoneDirectSTD"].ToString());
+                        rmVo.OfficePhoneDirectStd =dr["AR_OfficePhoneDirectSTD"].ToString();
                     if (dr["AR_OfficePhoneExt"] != DBNull.Value)
                         rmVo.OfficePhoneExtNumber = int.Parse(dr["AR_OfficePhoneExt"].ToString());
                     if (dr["AR_OfficePhoneExtISD"] != DBNull.Value)
-                        rmVo.OfficePhoneExtIsd = int.Parse(dr["AR_OfficePhoneExtISD"].ToString());
+                        rmVo.OfficePhoneExtIsd = dr["AR_OfficePhoneExtISD"].ToString();
                     if (dr["AR_OfficePhoneExtSTD"] != DBNull.Value)
-                        rmVo.OfficePhoneExtStd = int.Parse(dr["AR_OfficePhoneExtSTD"].ToString());
+                        rmVo.OfficePhoneExtStd = dr["AR_OfficePhoneExtSTD"].ToString();
                     if (dr["AR_ResPhoneISD"] != DBNull.Value)
                         rmVo.ResPhoneIsd = int.Parse(dr["AR_ResPhoneISD"].ToString());
                     if (dr["AR_ResPhoneSTD"] != DBNull.Value)
@@ -966,15 +966,15 @@ namespace DaoAdvisorProfiling
                     if (dr["AR_OfficePhoneDirect"] != DBNull.Value)
                         rmVo.OfficePhoneDirectNumber = int.Parse(dr["AR_OfficePhoneDirect"].ToString());
                     if (dr["AR_OfficePhoneDirectISD"] != DBNull.Value)
-                        rmVo.OfficePhoneDirectIsd = int.Parse(dr["AR_OfficePhoneDirectISD"].ToString());
+                        rmVo.OfficePhoneDirectIsd = dr["AR_OfficePhoneDirectISD"].ToString();
                     if (dr["AR_OfficePhoneDirectSTD"] != DBNull.Value)
-                        rmVo.OfficePhoneDirectStd = int.Parse(dr["AR_OfficePhoneDirectSTD"].ToString());
+                        rmVo.OfficePhoneDirectStd =dr["AR_OfficePhoneDirectSTD"].ToString();
                     if (dr["AR_OfficePhoneExt"] != DBNull.Value)
                         rmVo.OfficePhoneExtNumber = int.Parse(dr["AR_OfficePhoneExt"].ToString());
                     if (dr["AR_OfficePhoneExtISD"] != DBNull.Value)
-                        rmVo.OfficePhoneExtIsd = int.Parse(dr["AR_OfficePhoneExtISD"].ToString());
+                        rmVo.OfficePhoneExtIsd = dr["AR_OfficePhoneExtISD"].ToString();
                     if (dr["AR_OfficePhoneExtSTD"] != DBNull.Value)
-                        rmVo.OfficePhoneExtStd = int.Parse(dr["AR_OfficePhoneExtSTD"].ToString());
+                        rmVo.OfficePhoneExtStd = dr["AR_OfficePhoneExtSTD"].ToString();
                     if (dr["AR_ResPhoneISD"] != DBNull.Value)
                         rmVo.ResPhoneIsd = int.Parse(dr["AR_ResPhoneISD"].ToString());
                     if (dr["AR_ResPhoneSTD"] != DBNull.Value)
@@ -1121,15 +1121,15 @@ namespace DaoAdvisorProfiling
                     if (dr["AR_OfficePhoneDirect"] != DBNull.Value)
                         rmVo.OfficePhoneDirectNumber = int.Parse(dr["AR_OfficePhoneDirect"].ToString());
                     if (dr["AR_OfficePhoneDirectISD"] != DBNull.Value)
-                        rmVo.OfficePhoneDirectIsd = int.Parse(dr["AR_OfficePhoneDirectISD"].ToString());
+                        rmVo.OfficePhoneDirectIsd = dr["AR_OfficePhoneDirectISD"].ToString();
                     if (dr["AR_OfficePhoneDirectSTD"] != DBNull.Value)
-                        rmVo.OfficePhoneDirectStd = int.Parse(dr["AR_OfficePhoneDirectSTD"].ToString());
+                        rmVo.OfficePhoneDirectStd = dr["AR_OfficePhoneDirectSTD"].ToString();
                     if (dr["AR_OfficePhoneExt"] != DBNull.Value)
                         rmVo.OfficePhoneExtNumber = int.Parse(dr["AR_OfficePhoneExt"].ToString());
                     if (dr["AR_OfficePhoneExtISD"] != DBNull.Value)
-                        rmVo.OfficePhoneExtIsd = int.Parse(dr["AR_OfficePhoneExtISD"].ToString());
+                        rmVo.OfficePhoneExtIsd = dr["AR_OfficePhoneExtISD"].ToString();
                     if (dr["AR_OfficePhoneExtSTD"] != DBNull.Value)
-                        rmVo.OfficePhoneExtStd = int.Parse(dr["AR_OfficePhoneExtSTD"].ToString());
+                        rmVo.OfficePhoneExtStd = dr["AR_OfficePhoneExtSTD"].ToString();
                     if (dr["AR_ResPhoneISD"] != DBNull.Value)
                         rmVo.ResPhoneIsd = int.Parse(dr["AR_ResPhoneISD"].ToString());
                     if (dr["AR_ResPhoneSTD"] != DBNull.Value)
