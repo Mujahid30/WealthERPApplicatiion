@@ -877,29 +877,29 @@ namespace WealthERP.Advisor
                     else
                         rmVo.Mobile = Convert.ToInt64(txtMobileNumber.Text.ToString());
                     if (txtPhDirectISD.Text == string.Empty || txtPhDirectISD.Text == "")
-                        rmVo.OfficePhoneDirectIsd = 0;
+                        rmVo.OfficePhoneDirectIsd = string.Empty;
                     else
-                        rmVo.OfficePhoneDirectIsd = int.Parse(txtPhDirectISD.Text.ToString());
+                        rmVo.OfficePhoneDirectIsd = txtPhDirectISD.Text.ToString();
                     if (txtPhDirectPhoneNumber.Text == string.Empty || txtPhDirectPhoneNumber.Text == "")
                         rmVo.OfficePhoneDirectNumber = 0;
                     else
                         rmVo.OfficePhoneDirectNumber = int.Parse(txtPhDirectPhoneNumber.Text.ToString());
                     if (txtPhDirectSTD.Text == string.Empty || txtPhDirectSTD.Text == "")
-                        rmVo.OfficePhoneDirectStd = 0;
+                        rmVo.OfficePhoneDirectStd = string.Empty;
                     else
-                        rmVo.OfficePhoneDirectStd = int.Parse(txtPhDirectSTD.Text.ToString());
+                        rmVo.OfficePhoneDirectStd = txtPhDirectSTD.Text.ToString();
                     if (txtPhExtISD.Text == string.Empty || txtPhExtISD.Text == "")
-                        rmVo.OfficePhoneExtIsd = 0;
+                        rmVo.OfficePhoneExtIsd = string.Empty;
                     else
-                        rmVo.OfficePhoneExtIsd = int.Parse(txtPhExtISD.Text.ToString());
+                        rmVo.OfficePhoneExtIsd =txtPhExtISD.Text.ToString();
                     if (txtPhExtPhoneNumber.Text == string.Empty || txtPhExtPhoneNumber.Text == "")
                         rmVo.OfficePhoneExtNumber = 0;
                     else
                         rmVo.OfficePhoneExtNumber = int.Parse(txtPhExtPhoneNumber.Text.ToString());
                     if (txtExtSTD.Text == string.Empty || txtExtSTD.Text == "")
-                        rmVo.OfficePhoneExtStd = 0;
+                        rmVo.OfficePhoneExtStd = null;
                     else
-                        rmVo.OfficePhoneExtStd = int.Parse(txtExtSTD.Text.ToString());
+                        rmVo.OfficePhoneExtStd = txtExtSTD.Text.ToString();
                     if (txtPhResiISD.Text == string.Empty || txtPhResiISD.Text == "")
                         rmVo.ResPhoneIsd = 0;
                     else

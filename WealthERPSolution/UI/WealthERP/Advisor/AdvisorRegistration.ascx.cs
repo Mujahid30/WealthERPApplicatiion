@@ -393,24 +393,24 @@ namespace WealthERP.Advisor
                     }
                     if (txtISD1.Text == "")
                     {
-                        advisorVo.Phone1Isd = 0;
-                        rmVo.OfficePhoneDirectIsd = 0;
+                        advisorVo.Phone1Isd = String.Empty;
+                        rmVo.OfficePhoneDirectIsd = String.Empty;
                     }
                     else
                     {
-                        advisorVo.Phone1Isd = int.Parse(txtISD1.Text.ToString());
-                        rmVo.OfficePhoneDirectIsd = int.Parse(txtISD1.Text);
+                        advisorVo.Phone1Isd = txtISD1.Text.ToString();
+                        rmVo.OfficePhoneDirectIsd = txtISD1.Text;
                     }
 
                     if (txtISD2.Text == "")
                     {
-                        advisorVo.Phone2Isd = 0;
-                        rmVo.OfficePhoneExtIsd = 0;
+                        advisorVo.Phone2Isd = string.Empty;
+                        rmVo.OfficePhoneExtIsd = string.Empty;
                     }
                     else
                     {
-                        advisorVo.Phone2Isd = int.Parse(txtISD2.Text.ToString());
-                        rmVo.OfficePhoneExtIsd = int.Parse(txtISD2.Text);
+                        advisorVo.Phone2Isd = txtISD2.Text.ToString();
+                        rmVo.OfficePhoneExtIsd = txtISD2.Text;
                     }
 
                     if (txtPhoneNumber1.Text == "")
@@ -436,23 +436,23 @@ namespace WealthERP.Advisor
                     }
                     if (txtSTD1.Text == "")
                     {
-                        advisorVo.Phone1Std = 0;
-                        rmVo.OfficePhoneDirectStd = 0;
+                        advisorVo.Phone1Std = string.Empty;
+                        rmVo.OfficePhoneDirectStd = string.Empty;
                     }
                     else
                     {
-                        advisorVo.Phone1Std = int.Parse(txtSTD1.Text);
-                        rmVo.OfficePhoneDirectStd = int.Parse(txtSTD1.Text);
+                        advisorVo.Phone1Std = txtSTD1.Text;
+                        rmVo.OfficePhoneDirectStd = txtSTD1.Text;
                     }
                     if (txtSTD2.Text == "")
                     {
-                        advisorVo.Phone2Std = 0;
-                        rmVo.OfficePhoneExtStd = 0;
+                        advisorVo.Phone2Std = string.Empty;
+                        rmVo.OfficePhoneExtStd = string.Empty;
                     }
                     else
                     {
-                        advisorVo.Phone2Std = int.Parse(txtSTD2.Text);
-                        rmVo.OfficePhoneExtStd = int.Parse(txtSTD2.Text);
+                        advisorVo.Phone2Std = txtSTD2.Text;
+                        rmVo.OfficePhoneExtStd = txtSTD2.Text;
                     }
 
                     if (multiBranch.ToString().Trim() == "yes")
