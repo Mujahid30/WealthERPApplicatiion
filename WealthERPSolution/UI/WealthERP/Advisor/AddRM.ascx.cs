@@ -355,16 +355,16 @@ namespace WealthERP.Advisor
                     rmVo.LastName = txtLastName.Text.ToString();
                     rmVo.MiddleName = txtMiddleName.Text.ToString();
                     rmVo.Mobile = Convert.ToInt64(txtMobileNumber.Text.ToString());
-                    rmVo.OfficePhoneDirectIsd = int.Parse(txtPhDirectISD.Text.ToString());
+                    rmVo.OfficePhoneDirectIsd = txtPhDirectISD.Text.ToString();
                     rmVo.OfficePhoneDirectNumber = int.Parse(txtPhDirectPhoneNumber.Text.ToString());
 
                     if (txtPhExtISD.Text == "")
                     {
-                        rmVo.OfficePhoneExtIsd = 0;
+                        rmVo.OfficePhoneExtIsd = string.Empty;
                     }
                     else
                     {
-                        rmVo.OfficePhoneExtIsd = int.Parse(txtPhExtISD.Text.ToString());
+                        rmVo.OfficePhoneExtIsd = txtPhExtISD.Text.ToString();
                     }
                     if (txtPhExtPhoneNumber.Text == "")
                     {
@@ -376,11 +376,11 @@ namespace WealthERP.Advisor
                     }
                     if (txtExtSTD.Text == "")
                     {
-                        rmVo.OfficePhoneExtStd = 0;
+                        rmVo.OfficePhoneExtStd = string.Empty;
                     }
                     else
                     {
-                        rmVo.OfficePhoneExtStd = int.Parse(txtExtSTD.Text.ToString());
+                        rmVo.OfficePhoneExtStd = txtExtSTD.Text.ToString();
                     }
                     if (txtPhResiISD.Text == "")
                     {
@@ -408,11 +408,11 @@ namespace WealthERP.Advisor
                     }
                     if (txtPhDirectSTD.Text == "")
                     {
-                        rmVo.OfficePhoneDirectStd = 0;
+                        rmVo.OfficePhoneDirectStd = string.Empty;
                     }
                     else
                     {
-                        rmVo.OfficePhoneDirectStd = int.Parse(txtPhDirectSTD.Text.ToString());
+                        rmVo.OfficePhoneDirectStd = txtPhDirectSTD.Text.ToString();
                     }
 
                     //rmVo.RMRole = ddlRMRole.SelectedValue.ToString();
@@ -713,17 +713,17 @@ namespace WealthERP.Advisor
                 if (txtMobileNumber.Text.ToString() != "")
                     rmVo.Mobile = Convert.ToInt64(txtMobileNumber.Text.ToString());
                 if (!string.IsNullOrEmpty(txtPhDirectISD.Text.ToString()))
-                    rmVo.OfficePhoneDirectIsd = int.Parse(txtPhDirectISD.Text.ToString());
+                    rmVo.OfficePhoneDirectIsd = txtPhDirectISD.Text.ToString();
                 if (!string.IsNullOrEmpty(txtPhDirectPhoneNumber.Text.ToString()))
                     rmVo.OfficePhoneDirectNumber = int.Parse(txtPhDirectPhoneNumber.Text.ToString());
 
                 if (txtPhExtISD.Text == "")
                 {
-                    rmVo.OfficePhoneExtIsd = 0;
+                    rmVo.OfficePhoneExtIsd = string.Empty;
                 }
                 else
                 {
-                    rmVo.OfficePhoneExtIsd = int.Parse(txtPhExtISD.Text.ToString());
+                    rmVo.OfficePhoneExtIsd = txtPhExtISD.Text.ToString();
                 }
                 if (txtPhExtPhoneNumber.Text == "")
                 {
@@ -735,11 +735,11 @@ namespace WealthERP.Advisor
                 }
                 if (txtExtSTD.Text == "")
                 {
-                    rmVo.OfficePhoneExtStd = 0;
+                    rmVo.OfficePhoneExtStd = string.Empty;
                 }
                 else
                 {
-                    rmVo.OfficePhoneExtStd = int.Parse(txtExtSTD.Text.ToString());
+                    rmVo.OfficePhoneExtStd = txtExtSTD.Text.ToString();
                 }
                 if (txtPhResiISD.Text == "")
                 {
@@ -767,11 +767,11 @@ namespace WealthERP.Advisor
                 }
                 if (txtPhDirectSTD.Text == "")
                 {
-                    rmVo.OfficePhoneDirectStd = 0;
+                    rmVo.OfficePhoneDirectStd = string.Empty;
                 }
                 else
                 {
-                    rmVo.OfficePhoneDirectStd = int.Parse(txtPhDirectSTD.Text.ToString());
+                    rmVo.OfficePhoneDirectStd = txtPhDirectSTD.Text.ToString();
                 }
                 if (chkOps.Checked == true)
                 {
@@ -906,17 +906,17 @@ namespace WealthERP.Advisor
                 if (txtMobileNumber.Text.ToString() != "")
                     rmVo.Mobile = Convert.ToInt64(txtMobileNumber.Text.ToString());
                 if (!string.IsNullOrEmpty(txtPhDirectISD.Text.ToString()))
-                    rmVo.OfficePhoneDirectIsd = int.Parse(txtPhDirectISD.Text.ToString());
+                    rmVo.OfficePhoneDirectIsd = txtPhDirectISD.Text.ToString();
                 if (!string.IsNullOrEmpty(txtPhDirectPhoneNumber.Text.ToString()))
                     rmVo.OfficePhoneDirectNumber = int.Parse(txtPhDirectPhoneNumber.Text.ToString());
 
                 if (txtPhExtISD.Text == "")
                 {
-                    rmVo.OfficePhoneExtIsd = 0;
+                    rmVo.OfficePhoneExtIsd = string.Empty;
                 }
                 else
                 {
-                    rmVo.OfficePhoneExtIsd = int.Parse(txtPhExtISD.Text.ToString());
+                    rmVo.OfficePhoneExtIsd = txtPhExtISD.Text.ToString();
                 }
                 if (txtPhExtPhoneNumber.Text == "")
                 {
@@ -928,11 +928,11 @@ namespace WealthERP.Advisor
                 }
                 if (txtExtSTD.Text == "")
                 {
-                    rmVo.OfficePhoneExtStd = 0;
+                    rmVo.OfficePhoneExtStd = string.Empty;
                 }
                 else
                 {
-                    rmVo.OfficePhoneExtStd = int.Parse(txtExtSTD.Text.ToString());
+                    rmVo.OfficePhoneExtStd = txtExtSTD.Text.ToString();
                 }
                 if (txtPhResiISD.Text == "")
                 {
@@ -960,11 +960,11 @@ namespace WealthERP.Advisor
                 }
                 if (txtPhDirectSTD.Text == "")
                 {
-                    rmVo.OfficePhoneDirectStd = 0;
+                    rmVo.OfficePhoneDirectStd = string.Empty;
                 }
                 else
                 {
-                    rmVo.OfficePhoneDirectStd = int.Parse(txtPhDirectSTD.Text.ToString());
+                    rmVo.OfficePhoneDirectStd = txtPhDirectSTD.Text.ToString();
                 }
                 if (ChklistRMBM.Items[0].Selected == true)
                 {

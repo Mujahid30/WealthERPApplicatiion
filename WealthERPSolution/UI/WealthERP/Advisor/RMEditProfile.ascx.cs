@@ -207,12 +207,12 @@ namespace WealthERP.Advisor
                     rmvo.OfficePhoneExtNumber = int.Parse(txtPhDirectPhoneNumber0.Text.ToString());
                     rmvo.ResPhoneNumber = int.Parse(txtPhDirectPhoneNumber1.Text.ToString());
                     rmvo.FaxIsd = int.Parse(txtPhDirectISD2.Text.ToString());
-                    rmvo.OfficePhoneDirectIsd = int.Parse(txtPhDirectISD.Text.ToString());
-                    rmvo.OfficePhoneExtIsd = int.Parse(txtPhDirectISD0.Text.ToString());
+                    rmvo.OfficePhoneDirectIsd = txtPhDirectISD.Text.ToString();
+                    rmvo.OfficePhoneExtIsd = txtPhDirectISD0.Text.ToString();
                     rmvo.ResPhoneIsd = int.Parse(txtPhDirectISD1.Text.ToString());
                     rmvo.FaxStd = int.Parse(txtPhDirectSTD2.Text.ToString());
-                    rmvo.OfficePhoneDirectStd = int.Parse(txtPhDirectSTD.Text.ToString());
-                    rmvo.OfficePhoneExtStd = int.Parse(txtPhDirectSTD0.Text.ToString());
+                    rmvo.OfficePhoneDirectStd = txtPhDirectSTD.Text.ToString();
+                    rmvo.OfficePhoneExtStd = txtPhDirectSTD0.Text.ToString();
                     rmvo.ResPhoneStd = int.Parse(txtPhDirectSTD1.Text.ToString());
                     rmvo.FirstName = userVo.FirstName.ToString();
                     rmvo.LastName = userVo.MiddleName.ToString();

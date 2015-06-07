@@ -138,16 +138,16 @@ namespace WealthERP.Advisor
             rmStaffVo.Mobile = Convert.ToInt64(txtMobileNumber.Text.ToString());
             rmStaffVo.Email = txtEmail.Text.Trim();
             if (!string.IsNullOrEmpty(txtPhDirectISD.Text.Trim()))
-                rmStaffVo.OfficePhoneDirectIsd = int.Parse(txtPhDirectISD.Text.ToString());
+                rmStaffVo.OfficePhoneDirectIsd = txtPhDirectISD.Text.ToString();
             if (!string.IsNullOrEmpty(txtPhDirectPhoneNumber.Text.Trim()))
                 rmStaffVo.OfficePhoneDirectNumber = int.Parse(txtPhDirectPhoneNumber.Text.ToString());
 
             if (!string.IsNullOrEmpty(txtPhExtISD.Text.Trim()))
-                rmStaffVo.OfficePhoneExtIsd = int.Parse(txtPhExtISD.Text.Trim());
+                rmStaffVo.OfficePhoneExtIsd = txtPhExtISD.Text.Trim();
             if (!string.IsNullOrEmpty(txtPhExtPhoneNumber.Text.Trim()))
                 rmStaffVo.OfficePhoneExtNumber = int.Parse(txtPhExtPhoneNumber.Text.Trim());
             if (!string.IsNullOrEmpty(txtExtSTD.Text.Trim()))
-                rmStaffVo.OfficePhoneExtStd = int.Parse(txtExtSTD.Text.Trim());
+                rmStaffVo.OfficePhoneExtStd = txtExtSTD.Text.Trim();
             if (!string.IsNullOrEmpty(txtPhResiISD.Text.Trim()))
                 rmStaffVo.ResPhoneIsd = int.Parse(txtPhResiISD.Text.Trim());
             if (!string.IsNullOrEmpty(txtPhResiPhoneNumber.Text.Trim()))
@@ -155,7 +155,7 @@ namespace WealthERP.Advisor
             if (!string.IsNullOrEmpty(txtResiSTD.Text.Trim()))
                 rmStaffVo.ResPhoneStd = int.Parse(txtResiSTD.Text.Trim());
             if (!string.IsNullOrEmpty(txtPhDirectSTD.Text.Trim()))
-                rmStaffVo.OfficePhoneDirectStd = int.Parse(txtPhDirectSTD.Text.Trim());
+                rmStaffVo.OfficePhoneDirectStd = txtPhDirectSTD.Text.Trim();
             if (!string.IsNullOrEmpty(txtFaxNumber.Text.Trim()))
                 rmStaffVo.Fax = int.Parse(txtFaxNumber.Text.Trim());
             if (!string.IsNullOrEmpty(txtFaxNumber.Text.Trim()))
@@ -888,15 +888,15 @@ namespace WealthERP.Advisor
             }
             BindingDepartmentRoles(Convert.ToInt32(ddlDepart.SelectedValue));
             SetDepartmentRoleIds(rmStaffVo.roleIds);
-            if (rmStaffVo.OfficePhoneDirectIsd != 0)
+            if (!string.IsNullOrEmpty(rmStaffVo.OfficePhoneDirectIsd) )
                 txtPhDirectISD.Text = rmStaffVo.OfficePhoneDirectIsd.ToString();
             if (rmStaffVo.OfficePhoneDirectNumber != 0)
                 txtPhDirectPhoneNumber.Text = rmStaffVo.OfficePhoneDirectNumber.ToString();
-            if (rmStaffVo.OfficePhoneExtIsd != 0)
+            if (! string.IsNullOrEmpty(rmStaffVo.OfficePhoneExtIsd))
                 txtPhExtISD.Text = rmStaffVo.OfficePhoneExtIsd.ToString();
             if (rmStaffVo.OfficePhoneExtNumber != 0)
                 txtPhExtPhoneNumber.Text = rmStaffVo.OfficePhoneExtNumber.ToString();
-            if (rmStaffVo.OfficePhoneExtStd != 0)
+            if (!string.IsNullOrEmpty(rmStaffVo.OfficePhoneExtStd))
                 txtExtSTD.Text = rmStaffVo.OfficePhoneExtStd.ToString();
             if (rmStaffVo.ResPhoneIsd != 0)
                 txtPhResiISD.Text = rmStaffVo.ResPhoneIsd.ToString();
@@ -904,7 +904,7 @@ namespace WealthERP.Advisor
                 txtPhResiPhoneNumber.Text = rmStaffVo.ResPhoneNumber.ToString();
             if (rmStaffVo.ResPhoneStd != 0)
                 txtResiSTD.Text = rmStaffVo.ResPhoneStd.ToString();
-            if (rmStaffVo.OfficePhoneDirectStd != 0)
+            if (!string.IsNullOrEmpty(rmStaffVo.OfficePhoneDirectStd))
                 txtPhDirectSTD.Text = rmStaffVo.OfficePhoneDirectStd.ToString();
             if (rmStaffVo.Fax != 0)
                 txtFaxNumber.Text = rmStaffVo.Fax.ToString();
