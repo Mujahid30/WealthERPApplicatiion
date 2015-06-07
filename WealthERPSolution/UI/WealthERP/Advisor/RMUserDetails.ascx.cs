@@ -48,18 +48,18 @@ namespace WealthERP.Advisor
             {
                 ViewState["rmId"] = 0;
                 //trNoRecords.Visible = false;
-               
+
                 showRMUserDetails();
             }
         }
 
-        
+
 
         public void showRMUserDetails()
         {
             try
             {
-                
+
 
                 UserVo uservo = (UserVo)Session["userVo"];
                 AdvisorStaffBo adviserstaffbo = new AdvisorStaffBo();
@@ -75,7 +75,7 @@ namespace WealthERP.Advisor
 
                 int count = 0;
 
-                rmUserList = advisorStaffBo.GetRMList(advisorVo.advisorId, hdnSort.Value.Trim(),hdnNameFilter.Value.Trim());
+                rmUserList = advisorStaffBo.GetRMList(advisorVo.advisorId, hdnSort.Value.Trim(), hdnNameFilter.Value.Trim());
 
                 //lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
 
@@ -148,8 +148,8 @@ namespace WealthERP.Advisor
                     ErrorMessage.InnerText = "No Records Found...!";
                     trPagger.Visible = false;
                     btnGenerate.Visible = false;
-                   
-                   
+
+
                 }
             }
             catch (BaseApplicationException Ex)
@@ -177,7 +177,7 @@ namespace WealthERP.Advisor
             }
         }
 
-        
+
         protected void lnkReset_Click(object sender, EventArgs e)
         {
             Random r = new Random();
@@ -248,6 +248,7 @@ namespace WealthERP.Advisor
                         {
                             selectedRecords++;
                             int selectedRow = gvr.ItemIndex + 1;
+                            string Phone1Details = string.Empty, phone2Details = string.Empty, phone3Details = string.Empty, PhoneNumber = string.Empty;
                             userId = int.Parse((gvUserMgt.MasterTableView.DataKeyValues[selectedRow - 1]["UserId"].ToString()));
                             Emailer emailer = new Emailer();
                             EmailMessage email = new EmailMessage();
@@ -286,10 +287,68 @@ namespace WealthERP.Advisor
                               email.Body = email.Body.Replace("[DESIGNATION]", advisorVo.Designation.Trim());
                             else
                               email.Body = email.Body.Replace("[DESIGNATION]", string.Empty);
-                            if (!string.IsNullOrEmpty(advisorVo.Phone1Number.ToString()))
-                               email.Body = email.Body.Replace("[PHONE]", advisorVo.Phone1Std.ToString().Trim() + "-" + advisorVo.Phone1Number.ToString().Trim());
+                            if (!string.IsNullOrEmpty(advisorVo.Phone1Number.ToString()) || !string.IsNullOrEmpty(advisorVo.Phone2Number.ToString()) || !string.IsNullOrEmpty(advisorVo.Phone3Number.ToString()))
+                            {
+                                if (!string.IsNullOrEmpty(advisorVo.Phone1Isd) && !string.IsNullOrEmpty(advisorVo.Phone1Std) && advisorVo.Phone1Number > 1)
+                                    Phone1Details = advisorVo.Phone1Isd.ToString() + "-" + advisorVo.Phone1Std.ToString() + "-" + advisorVo.Phone1Number.ToString();
+                                else if (!string.IsNullOrEmpty(advisorVo.Phone1Isd) && !string.IsNullOrEmpty(advisorVo.Phone1Std) && advisorVo.Phone1Number > 1)
+                                    Phone1Details = advisorVo.Phone1Std.ToString() + "-" + advisorVo.Phone1Number.ToString();
+                                else if (!string.IsNullOrEmpty(advisorVo.Phone1Isd) && !string.IsNullOrEmpty(advisorVo.Phone1Std) && advisorVo.Phone1Number > 1)
+                                    Phone1Details = advisorVo.Phone1Isd.ToString() + "-" + advisorVo.Phone1Number.ToString();
+                                else if (string.IsNullOrEmpty(advisorVo.Phone1Isd) && string.IsNullOrEmpty(advisorVo.Phone1Std) && advisorVo.Phone1Number > 1)
+                                    Phone1Details = advisorVo.Phone1Number.ToString();
+
+
+                                if (!string.IsNullOrEmpty(advisorVo.Phone2Isd) && !string.IsNullOrEmpty(advisorVo.Phone2Std) && advisorVo.Phone2Number > 1)
+                                    phone2Details = advisorVo.Phone2Isd.ToString() + "-" + advisorVo.Phone2Std.ToString() + "-" + advisorVo.Phone2Number.ToString();
+                                else if (string.IsNullOrEmpty(advisorVo.Phone2Isd) && !string.IsNullOrEmpty(advisorVo.Phone2Std) && advisorVo.Phone2Number > 1)
+                                    phone2Details = advisorVo.Phone2Std.ToString() + "-" + advisorVo.Phone2Number.ToString();
+                                else if (!string.IsNullOrEmpty(advisorVo.Phone2Isd) && string.IsNullOrEmpty(advisorVo.Phone2Std) && advisorVo.Phone2Number > 1)
+                                    phone2Details = advisorVo.Phone2Isd.ToString() + "-" + advisorVo.Phone2Number.ToString();
+                                else if (string.IsNullOrEmpty(advisorVo.Phone2Isd) && string.IsNullOrEmpty(advisorVo.Phone2Std) && advisorVo.Phone2Number > 1)
+                                    phone2Details = advisorVo.Phone2Number.ToString();
+
+                                if (!string.IsNullOrEmpty(advisorVo.Phone3Isd) && !string.IsNullOrEmpty(advisorVo.Phone3Std) && advisorVo.Phone3Number > 1)
+                                    phone3Details = advisorVo.Phone3Isd.ToString() + "-" + advisorVo.Phone3Std.ToString() + "-" + advisorVo.Phone3Number.ToString();
+                                else if (string.IsNullOrEmpty(advisorVo.Phone3Isd) && !string.IsNullOrEmpty(advisorVo.Phone3Std) && advisorVo.Phone3Number > 1)
+                                    phone3Details = advisorVo.Phone3Std.ToString() + "-" + advisorVo.Phone3Number.ToString();
+                                else if (!string.IsNullOrEmpty(advisorVo.Phone3Isd) && string.IsNullOrEmpty(advisorVo.Phone3Std) && advisorVo.Phone3Number > 1)
+                                    phone3Details = advisorVo.Phone3Isd.ToString() + "-" + advisorVo.Phone3Number.ToString();
+                                else if (string.IsNullOrEmpty(advisorVo.Phone3Isd) && string.IsNullOrEmpty(advisorVo.Phone3Std) && advisorVo.Phone3Number > 1)
+                                    phone3Details = advisorVo.Phone3Number.ToString();
+                                if(!string.IsNullOrEmpty(Phone1Details) && !string.IsNullOrEmpty(phone2Details) && !string.IsNullOrEmpty(phone3Details))
+                                {
+                                  PhoneNumber =Phone1Details + "/"+  phone2Details+ "/" + phone3Details;
+                                }
+                                else if (!string.IsNullOrEmpty(Phone1Details) && !string.IsNullOrEmpty(phone2Details) && string.IsNullOrEmpty(phone3Details))
+                                {
+                                    PhoneNumber = Phone1Details + "/" + phone2Details;
+                                }
+                                else if (string.IsNullOrEmpty(Phone1Details) && !string.IsNullOrEmpty(phone2Details) && !string.IsNullOrEmpty(phone3Details))
+                                {
+                                    PhoneNumber = phone2Details + "/" + phone3Details;
+                                }
+                                else if (!string.IsNullOrEmpty(Phone1Details) && string.IsNullOrEmpty(phone2Details) && !string.IsNullOrEmpty(phone3Details))
+                                {
+                                    PhoneNumber = Phone1Details + "/" + phone3Details;
+                                }
+                                else if (!string.IsNullOrEmpty(Phone1Details) && string.IsNullOrEmpty(phone2Details) && string.IsNullOrEmpty(phone3Details))
+                                {
+                                    PhoneNumber = Phone1Details;
+                                }
+                                else if (string.IsNullOrEmpty(Phone1Details) && !string.IsNullOrEmpty(phone2Details) && string.IsNullOrEmpty(phone3Details))
+                                {
+                                    PhoneNumber = phone2Details;
+                                }
+                                else if (string.IsNullOrEmpty(Phone1Details) && string.IsNullOrEmpty(phone2Details) && !string.IsNullOrEmpty(phone3Details))
+                                {
+                                    PhoneNumber = phone3Details;
+                                }
+
+                                email.Body = email.Body.Replace("[PHONE]", PhoneNumber);
+                            }
                             else
-                                 email.Body = email.Body.Replace("[PHONE]", string.Empty);
+                                email.Body = email.Body.Replace("[PHONE]", string.Empty);
 
                             if (!string.IsNullOrEmpty(advisorVo.Email))
                                email.Body = email.Body.Replace("[EMAIL]", advisorVo.Email.Trim());
@@ -396,7 +455,7 @@ namespace WealthERP.Advisor
 
         protected void gvAssoMgt_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            
+
             DataTable dtCustomer = new DataTable();
             dtCustomer = (DataTable)Cache["customerList" + advisorVo.advisorId];
             gvUserMgt.DataSource = dtCustomer;
@@ -412,6 +471,6 @@ namespace WealthERP.Advisor
             gvUserMgt.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvUserMgt.MasterTableView.ExportToExcel();
         }
-        
+
     }
 }
