@@ -15,11 +15,11 @@ namespace VoUser
         private int m_RMId;
         private int m_AdviserId;
         private string m_StaffCode;
-        private int m_OfficePhoneExtIsd;
-        private int m_OfficePhoneExtStd;
+        private string m_OfficePhoneExtIsd;
+        private string m_OfficePhoneExtStd;
         private int m_OfficePhoneExtNumber;
-        private int m_OfficePhoneDirectIsd;
-        private int m_OfficePhoneDirectStd;
+        private string m_OfficePhoneDirectIsd;
+        private string m_OfficePhoneDirectStd;
         private int m_OfficePhoneDirectNumber;
         private int m_ResPhoneStd;
         private int m_ResPhoneIsd;
@@ -87,14 +87,14 @@ namespace VoUser
             set { m_AdviserId = value; }
         }
    
-        public int OfficePhoneExtIsd
+        public string OfficePhoneExtIsd
         {
             get { return m_OfficePhoneExtIsd; }
             set { m_OfficePhoneExtIsd = value; }
         }
        
 
-        public int OfficePhoneExtStd
+        public string OfficePhoneExtStd
         {
             get { return m_OfficePhoneExtStd; }
             set { m_OfficePhoneExtStd = value; }
@@ -107,13 +107,13 @@ namespace VoUser
             set { m_OfficePhoneExtNumber = value; }
         }
        
-        public int OfficePhoneDirectIsd
+        public string OfficePhoneDirectIsd
         {
             get { return m_OfficePhoneDirectIsd; }
             set { m_OfficePhoneDirectIsd = value; }
         }
        
-        public int OfficePhoneDirectStd
+        public string OfficePhoneDirectStd
         {
             get { return m_OfficePhoneDirectStd; }
             set { m_OfficePhoneDirectStd = value; }
@@ -191,6 +191,9 @@ namespace VoUser
         public int departmentId { get; set; }
 
         public string roleIds { get; set; }
+        public string Phone3Isd { get; set; }
+        public string Phone3Std { get; set; }
+        public string Phone3Number { get; set; }
 
 
         #endregion Properties
