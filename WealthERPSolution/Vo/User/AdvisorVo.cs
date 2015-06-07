@@ -23,12 +23,15 @@ namespace VoUser
         private string m_State;
         private int m_PinCode;
         private string m_Country;
-        private int m_Phone1Std;
-        private int m_Phone1Isd;
+        private string m_Phone1Std;
+        private string m_Phone1Isd;
         private int m_Phone1Number;
-        private int m_Phone2Std;
-        private int m_Phone2Isd;
+        private string m_Phone2Std;
+        private string m_Phone2Isd;
         private int m_Phone2Number;
+        private string m_Phone3Std;
+        private string m_Phone3Isd;
+        private int m_Phone3Number;
         private long m_MobileNumber;       
         private string m_Email;
         private string m_Website;
@@ -119,14 +122,14 @@ namespace VoUser
         }
        
 
-        public int Phone1Std
+        public string Phone1Std
         {
             get { return m_Phone1Std; }
             set { m_Phone1Std = value; }
         }
        
 
-        public int Phone1Isd
+        public string Phone1Isd
         {
             get { return m_Phone1Isd; }
             set { m_Phone1Isd = value; }
@@ -138,18 +141,32 @@ namespace VoUser
             set { m_Phone1Number = value; }
         }
       
-        public int Phone2Std
+        public string Phone2Std
         {
             get { return m_Phone2Std; }
             set { m_Phone2Std = value; }
         }
        
-        public int Phone2Isd
+        public string Phone2Isd
         {
             get { return m_Phone2Isd; }
             set { m_Phone2Isd = value; }
         }
-       
+        public string Phone3Std
+        {
+            get;
+            set;
+        }
+        public string Phone3Isd
+        {
+            get;
+            set;
+        }
+        public int Phone3Number
+        {
+            get;
+            set;
+        }
         public int Phone2Number
         {
             get { return m_Phone2Number; }
