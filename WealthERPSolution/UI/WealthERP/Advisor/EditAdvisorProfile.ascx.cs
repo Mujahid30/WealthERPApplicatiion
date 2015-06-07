@@ -121,9 +121,9 @@ namespace WealthERP.Advisor
                     if (advisorVo.ContactPersonFirstName != null)
                         txtFirstName.Text = advisorVo.ContactPersonFirstName.ToString();
 
-                    if (advisorVo.Phone1Isd != 0)
-                        txtISD1.Text = advisorVo.Phone1Isd.ToString();
-                    if (advisorVo.Phone2Isd != 0)
+                    if (!string.IsNullOrEmpty(advisorVo.Phone1Isd))
+                        txtISD1.Text =advisorVo.Phone1Isd.ToString();
+                    if (!string.IsNullOrEmpty(advisorVo.Phone2Isd))
                         txtISD2.Text = advisorVo.Phone2Isd.ToString();
                     if (advisorVo.ContactPersonLastName != null)
                         txtLastName.Text = advisorVo.ContactPersonLastName.ToString();
@@ -137,11 +137,16 @@ namespace WealthERP.Advisor
                         txtPhoneNumber2.Text = advisorVo.Phone2Number.ToString();
                     if (advisorVo.PinCode != 0)
                         txtPinCode.Text = advisorVo.PinCode.ToString();
-                    if (advisorVo.Phone1Std != 0)
+                    if (!string.IsNullOrEmpty(advisorVo.Phone1Std))
                         txtSTD1.Text = advisorVo.Phone1Std.ToString();
-                    if (advisorVo.Phone2Std != 0)
+                    if (!string.IsNullOrEmpty(advisorVo.Phone2Std))
                         txtSTD2.Text = advisorVo.Phone2Std.ToString();
-
+                    if (!string.IsNullOrEmpty(advisorVo.Phone3Std))
+                        txtSTD3.Text = advisorVo.Phone3Std.ToString();
+                    if (!string.IsNullOrEmpty(advisorVo.Phone3Std))
+                        txtISD3.Text = advisorVo.Phone3Isd.ToString();
+                    if (advisorVo.Phone3Number!=0)
+                        txtPhoneNumber2.Text = advisorVo.Phone2Number.ToString();
                     txtOrganizationName.Text = advisorVo.OrganizationName.ToString();
 
                     txtCity.Text = advisorVo.City.ToString();
@@ -530,13 +535,13 @@ namespace WealthERP.Advisor
                     advisorVo.OrganizationName = txtOrganizationName.Text.Trim().ToString();
                     if (txtISD1.Text.Trim() == "")
                     {
-                        advisorVo.Phone1Isd = 0; 
-                        newRmVo.OfficePhoneDirectIsd = 0;
+                        advisorVo.Phone1Isd = string.Empty;
+                        newRmVo.OfficePhoneDirectIsd = string.Empty;
                     }
                     else
                     {
-                        advisorVo.Phone1Isd = int.Parse(txtISD1.Text.Trim().ToString());
-                        newRmVo.OfficePhoneDirectIsd = int.Parse(txtISD1.Text.Trim().ToString());
+                        advisorVo.Phone1Isd = txtISD1.Text.Trim().ToString();
+                        newRmVo.OfficePhoneDirectIsd = txtISD1.Text.Trim().ToString();
                     }
                     if (txtPhoneNumber1.Text.Trim() != string.Empty)
                     {
@@ -551,25 +556,25 @@ namespace WealthERP.Advisor
 
                     if (txtSTD1.Text.Trim() != string.Empty)
                     {
-                        advisorVo.Phone1Std = int.Parse(txtSTD1.Text.Trim().ToString());
-                        newRmVo.OfficePhoneDirectStd = int.Parse(txtSTD1.Text.Trim().ToString());
+                        advisorVo.Phone1Std = txtSTD1.Text.Trim().ToString();
+                        newRmVo.OfficePhoneDirectStd = txtSTD1.Text.Trim().ToString();
                     }
                     else
                     {
-                        advisorVo.Phone1Std = 0;
-                        newRmVo.OfficePhoneDirectStd = 0;
+                        advisorVo.Phone1Std = string.Empty;
+                        newRmVo.OfficePhoneDirectStd = string.Empty;
                     }
 
                     if (txtISD2.Text.Trim() == string.Empty)
                     {
-                        advisorVo.Phone2Isd = 0;
-                        newRmVo.OfficePhoneExtIsd = 0;
+                        advisorVo.Phone2Isd = string.Empty;
+                        newRmVo.OfficePhoneExtIsd = string.Empty;
                     }
                     else
                     {
-                        int.TryParse(txtISD2.Text.ToString(), out isd2);
-                        advisorVo.Phone2Isd = isd2;
-                        newRmVo.OfficePhoneExtIsd = isd2;
+                        
+                        advisorVo.Phone2Isd = txtISD2.Text.ToString();
+                        newRmVo.OfficePhoneExtIsd = txtISD2.Text.ToString();
                     }
                     if (txtPhoneNumber2.Text.Trim() != "")
                     {
@@ -590,14 +595,29 @@ namespace WealthERP.Advisor
 
                     if (txtSTD2.Text.Trim() == "")
                     {
-                        advisorVo.Phone2Std = 0;
-                        newRmVo.OfficePhoneExtStd = 0;
+                        advisorVo.Phone2Std = string.Empty;
+                        newRmVo.OfficePhoneExtStd = string.Empty;
                     }
                     else
                     {
-                        int.TryParse(txtSTD2.Text.ToString(), out std2);
-                        advisorVo.Phone2Std = std2;
-                        newRmVo.OfficePhoneExtStd = std2;
+                        
+                        advisorVo.Phone2Std = txtSTD2.Text.ToString();
+                        newRmVo.OfficePhoneExtStd = txtSTD2.Text.ToString();
+                    }
+                    if (!string.IsNullOrEmpty(txtSTD3.Text))
+                    {
+                        advisorVo.Phone3Std = txtSTD3.Text.Trim();
+                        newRmVo.Phone3Std = txtSTD3.Text.Trim();
+                    }
+                    if (!string.IsNullOrEmpty(txtISD3.Text))
+                    {
+                        advisorVo.Phone3Isd = txtISD3.Text.Trim();
+                        newRmVo.Phone3Isd = txtISD3.Text.Trim();
+                    }
+                    if (string.IsNullOrEmpty(txtPhoneNumber3.Text))
+                    {
+                        advisorVo.Phone3Number = int.Parse(txtPhoneNumber3.Text.Trim());
+                        newRmVo.Phone3Number = txtPhoneNumber3.Text.Trim();
                     }
                     if (ddlState.SelectedIndex != 0)
                     {

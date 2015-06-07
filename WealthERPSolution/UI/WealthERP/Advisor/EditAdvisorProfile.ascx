@@ -244,6 +244,38 @@
     </tr>
     <tr>
         <td class="leftField">
+            <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Telephone Number3 :"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:TextBox ID="txtISD3" runat="server" Width="55px" MaxLength="4" CssClass="txtField"></asp:TextBox>
+            <%-- <asp:CompareValidator ID="CompareValidator4" runat="server" ErrorMessage="<br/>Not acceptable format"
+                ValidationGroup="btnSubmit" CssClass="rfvPCG" Type="Integer" ControlToValidate="txtISD2"
+                Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>--%>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator13" ControlToValidate="txtISD3"
+                ValidationGroup="btnSubmit" CssClass="rfvPCG" Display="Dynamic" runat="server"
+                ErrorMessage="<br/>Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
+        </td>
+        <td class="rightField">
+            <asp:TextBox ID="txtSTD3" runat="server" Width="55px" MaxLength="4" CssClass="txtField"></asp:TextBox>
+            <%--        <asp:CompareValidator ID="CompareValidator5" runat="server" ErrorMessage="<br/>Not acceptable format"
+                ValidationGroup="btnSubmit" CssClass="rfvPCG" Type="Integer" ControlToValidate="txtSTD2"
+                Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>--%>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator14" ControlToValidate="txtSTD3"
+                ErrorMessage="<br/>Not acceptable format" CssClass="rfvPCG" ValidationGroup="btnSubmit"
+                Display="Dynamic" runat="server" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
+        </td>
+        <td class="rightField">
+            <asp:TextBox ID="txtPhoneNumber3" runat="server" CssClass="txtField" MaxLength="8"></asp:TextBox>
+            <%-- <asp:CompareValidator ID="CompareValidator6" runat="server" ErrorMessage="<br/>Not acceptable format"
+                ValidationGroup="btnSubmit" CssClass="rfvPCG" Type="Integer" ControlToValidate="txtPhoneNumber2"
+                Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>--%>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator15" ControlToValidate="txtPhoneNumber3"
+               ValidationGroup="btnSubmit" CssClass="rfvPCG" Display="Dynamic" runat="server"
+                ErrorMessage="<br/>Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField">
             <asp:Label ID="lblFax" runat="server" CssClass="FieldName" Text="Fax :"></asp:Label>
         </td>
         <td class="rightField">
