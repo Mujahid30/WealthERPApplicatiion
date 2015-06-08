@@ -187,6 +187,30 @@
                                     CurrentFilterFunction="Contains">
                                     <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                 </telerik:GridBoundColumn>
+                                 <telerik:GridBoundColumn Visible="true" DataField="PAIC_CreatedBy" UniqueName="PAIC_CreatedBy"
+                                    HeaderText="Created By" ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                    HeaderStyle-Width="90px" SortExpression="PAIC_CreatedBy" FilterControlWidth="50px"
+                                    CurrentFilterFunction="Contains">
+                                    <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                                </telerik:GridBoundColumn>
+                                 <telerik:GridBoundColumn Visible="true" DataField="PAIC_CreatedOn" UniqueName="PAIC_CreatedOn"
+                                    HeaderText="Created On" ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                    HeaderStyle-Width="90px" SortExpression="PAIC_CreatedOn" FilterControlWidth="50px"
+                                    CurrentFilterFunction="Contains">
+                                    <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                                </telerik:GridBoundColumn>
+                                 <telerik:GridBoundColumn Visible="true" DataField="PAIC_ModifiedBy" UniqueName="PAIC_ModifiedBy"
+                                    HeaderText="Modified By" ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                    HeaderStyle-Width="90px" SortExpression="PAIC_ModifiedBy" FilterControlWidth="50px"
+                                    CurrentFilterFunction="Contains">
+                                    <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                                </telerik:GridBoundColumn>
+                                 <telerik:GridBoundColumn Visible="true" DataField="PAIC_ModifiedOn" UniqueName="PAIC_ModifiedOn"
+                                    HeaderText="Modified On" ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                    HeaderStyle-Width="90px" SortExpression="PAIC_ModifiedOn" FilterControlWidth="50px"
+                                    CurrentFilterFunction="Contains">
+                                    <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                                </telerik:GridBoundColumn>
                             </Columns>
                         </MasterTableView>
                         <ClientSettings>
