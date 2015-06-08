@@ -1555,6 +1555,17 @@ namespace WealthERP.CustomerPortfolio
                 gvMFTransactions.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
                 gvMFTransactions.MasterTableView.ExportToExcel();
             }
+            if (hdnExportType == "TVW")
+            {
+
+                gvMFTransactionWithoutAgentCode.ExportSettings.OpenInNewWindow = true;
+                gvMFTransactionWithoutAgentCode.ExportSettings.IgnorePaging = true;
+                gvMFTransactionWithoutAgentCode.ExportSettings.HideStructureColumns = true;
+                gvMFTransactionWithoutAgentCode.ExportSettings.ExportOnlyData = true;
+                gvMFTransactionWithoutAgentCode.ExportSettings.FileName = "View Transactions Details";
+                gvMFTransactionWithoutAgentCode.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+                gvMFTransactionWithoutAgentCode.MasterTableView.ExportToExcel();
+            }
             if (hdnExportType == "RHV")
             {
                 gvBalanceView.ExportSettings.OpenInNewWindow = true;
@@ -1569,12 +1580,12 @@ namespace WealthERP.CustomerPortfolio
 
             if (hdnExportType == "TCV")
             {
-                DataSet dtFolioDetails = new DataSet();
+                //DataSet dtFolioDetails = new DataSet();
 
-                dtFolioDetails = (DataSet)Cache["ViewTrailCommissionDetails" + advisorVo.advisorId.ToString()];
-                gvTrail.DataSource = dtFolioDetails;
+                //dtFolioDetails = (DataSet)Cache["ViewTrailCommissionDetails" + advisorVo.advisorId.ToString()];
+                //gvTrail.DataSource = dtFolioDetails;
 
-                gvTrail.DataSource = dtFolioDetails;
+                //gvTrail.DataSource = dtFolioDetails;
                 gvTrail.ExportSettings.OpenInNewWindow = true;
                 gvTrail.ExportSettings.IgnorePaging = true;
                 gvTrail.ExportSettings.HideStructureColumns = true;
@@ -2219,16 +2230,8 @@ namespace WealthERP.CustomerPortfolio
 
         public void btnTrnxExportMFOffLineWithoutSubbroker_Click(object sender, ImageClickEventArgs e)
         {
-            //  gvIPOOrderBook.MasterTableView.DetailTables[0].HierarchyDefaultExpanded = true;
-            gvMFTransactionWithoutAgentCode.MasterTableView.HierarchyLoadMode = GridChildLoadMode.ServerBind;
-            gvMFTransactionWithoutAgentCode.ExportSettings.OpenInNewWindow = true;
-            gvMFTransactionWithoutAgentCode.ExportSettings.IgnorePaging = true;
-            gvMFTransactionWithoutAgentCode.ExportSettings.HideStructureColumns = true;
-            gvMFTransactionWithoutAgentCode.ExportSettings.ExportOnlyData = true;
-            gvMFTransactionWithoutAgentCode.ExportSettings.FileName = "Transaction Book";
-            gvMFTransactionWithoutAgentCode.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvMFTransactionWithoutAgentCode.MasterTableView.ExportToExcel();
-
+            ExportGrid("TVW");
+           
         }
     }
 }

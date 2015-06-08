@@ -3206,7 +3206,7 @@ namespace DaoAdvisorProfiling
             }
             return dtGetIFAChannel;
         }
-        public DataTable GetTitleList(int channelId, int adviserId)
+        public DataTable GetTitleList(int channelId, int adviserId,string type)
         {
             Database db;
             DbCommand cmdGetTitleList;
@@ -3217,7 +3217,8 @@ namespace DaoAdvisorProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetTitleList = db.GetStoredProcCommand("SPROC_GetTitle");
                 db.AddInParameter(cmdGetTitleList, "@adviserId", DbType.Int32, adviserId);
-                db.AddInParameter(cmdGetTitleList, "@channelId", DbType.Int32, channelId);
+                db.AddInParameter(cmdGetTitleList, "@titleId", DbType.Int32, channelId);
+                db.AddInParameter(cmdGetTitleList, "@Type", DbType.String, type);
                 dsGetTitleList = db.ExecuteDataSet(cmdGetTitleList);
                 dtGetTitleList = dsGetTitleList.Tables[0];
             }
@@ -3249,7 +3250,7 @@ namespace DaoAdvisorProfiling
             }
             return dtGetStaffList;
         }
-        public DataTable GetStaffAssociateList(string rmId, int adviserId)
+        public DataTable GetStaffAssociateList(string rmId, int adviserId,string type)
         {
             Database db;
             DbCommand cmdGetStaffAssociateList;
@@ -3261,6 +3262,8 @@ namespace DaoAdvisorProfiling
                 cmdGetStaffAssociateList = db.GetStoredProcCommand("SPROC_StaffListUnderReportingManager");
                 db.AddInParameter(cmdGetStaffAssociateList, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(cmdGetStaffAssociateList, "@rmId", DbType.String, rmId);
+                db.AddInParameter(cmdGetStaffAssociateList, "@Type", DbType.String, type);
+
                 dsGetStaffAssociateList = db.ExecuteDataSet(cmdGetStaffAssociateList);
                 dtGetStaffAssociateList = dsGetStaffAssociateList.Tables[0];
             }
@@ -3270,7 +3273,7 @@ namespace DaoAdvisorProfiling
             }
             return dtGetStaffAssociateList;
         }
-        public DataTable GetStaffTitleList(int hierarchyId, int adviserId)
+        public DataTable GetStaffTitleList(int hierarchyId, int adviserId,string type)
         {
             Database db;
             DbCommand cmdGetStaffTitleList;
@@ -3282,6 +3285,8 @@ namespace DaoAdvisorProfiling
                 cmdGetStaffTitleList = db.GetStoredProcCommand("SPROC_GetTitleOfChannel");
                 db.AddInParameter(cmdGetStaffTitleList, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(cmdGetStaffTitleList, "@channelId", DbType.Int32, hierarchyId);
+                db.AddInParameter(cmdGetStaffTitleList, "@Type", DbType.String, type);
+
                 dsGetStaffTitleList = db.ExecuteDataSet(cmdGetStaffTitleList);
                 dtGetStaffTitleList = dsGetStaffTitleList.Tables[0];
             }
@@ -3291,7 +3296,7 @@ namespace DaoAdvisorProfiling
             }
             return dtGetStaffTitleList;
         }
-        public bool UpdateReportingManager(string staffList,int armId,int adviserId)
+        public bool UpdateReportingManager(string staffList,int armId,int adviserId,string type)
         {
             bool bResult = false;
             Database db;
@@ -3304,6 +3309,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(UpdateReportingManagerCmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(UpdateReportingManagerCmd, "@AR_id", DbType.Int32, armId);
                 db.AddInParameter(UpdateReportingManagerCmd, "@staffId", DbType.String, staffList);
+                db.AddInParameter(UpdateReportingManagerCmd, "@Type", DbType.String, type);
                 if (db.ExecuteNonQuery(UpdateReportingManagerCmd) != 0)
 
                     bResult = true;

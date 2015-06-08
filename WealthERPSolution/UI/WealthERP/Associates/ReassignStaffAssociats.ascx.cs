@@ -48,6 +48,19 @@ namespace WealthERP.Associates
                 MappedStaffList.Items.Clear();
             }
         }
+        protected void ddlStaff_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlStaff.SelectedValue != "Staff")
+            {
+                ddlChannel.Items[2].Enabled = false;
+                ddlChannel.Items[4].Enabled = false;
+            }
+            else
+            {
+                ddlChannel.Items[2].Enabled = true;
+                ddlChannel.Items[4].Enabled = true;
+            }
+        }
         protected void ddltitlechannelId_OnSelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -56,6 +69,7 @@ namespace WealthERP.Associates
                 txtNewReporting_autoCompleteExtender.ContextKey = ddltitlechannelId.SelectedValue + "/" + advisorVo.advisorId.ToString();
                 txtNewReporting_autoCompleteExtender.ServiceMethod = "GetRMStaffList";
             }
+            BindTitle();
             radStaffList.Items.Clear();
             ExistingStaffList.Items.Clear();
             MappedStaffList.Items.Clear();
@@ -76,27 +90,27 @@ namespace WealthERP.Associates
         {
             if (ddlChannel.SelectedValue != "Select")
             {
-                if (ddlChannel.SelectedValue == "10")
-                {
-                    ddlStaff.SelectedValue = "Associates";
-                    ddlStaff.Enabled = false;
-                }
-                else
-                {
-                    ddlStaff.Enabled = true;
+                //if (ddlChannel.SelectedValue == "10")
+                //{
+                //    ddlStaff.SelectedValue = "Associates";
+                //    ddlStaff.Enabled = false;
+                //}
+                //else
+                //{
+                //    ddlStaff.Enabled = true;
 
-                }
+                //}
                 radStaffList.Items.Clear();
                 ExistingStaffList.Items.Clear();
                 MappedStaffList.Items.Clear();
                 txtNewReporting.Text = "";
-                BindTitle();
                 BindTitleList(int.Parse(ddlChannel.SelectedValue));
+                //BindTitle();
             }
         }
         protected void BindTitle()
         {
-            DataTable dtTitle = advisorStaffBo.GetTitleList(int.Parse(ddlChannel.SelectedValue), advisorVo.advisorId);
+            DataTable dtTitle = advisorStaffBo.GetTitleList(int.Parse(ddltitlechannelId.SelectedValue), advisorVo.advisorId,ddlStaff.SelectedValue);
             ddlTitle.DataSource = dtTitle;
             ddlTitle.DataValueField = dtTitle.Columns["AH_Id"].ToString();
             ddlTitle.DataTextField = dtTitle.Columns["AH_HierarchyName"].ToString();
@@ -126,7 +140,7 @@ namespace WealthERP.Associates
         }
         protected void BindTitleList(int channelId)
         {
-            DataTable dtBindTitleList = advisorStaffBo.GetStaffTitleList(channelId, advisorVo.advisorId);
+            DataTable dtBindTitleList = advisorStaffBo.GetStaffTitleList(channelId, advisorVo.advisorId,ddlStaff.SelectedValue);
             ddltitlechannelId.DataSource = dtBindTitleList;
             ddltitlechannelId.DataValueField = dtBindTitleList.Columns["AH_Id"].ToString();
             ddltitlechannelId.DataTextField = dtBindTitleList.Columns["AH_HierarchyName"].ToString();
@@ -135,7 +149,7 @@ namespace WealthERP.Associates
         }
         protected void BindAssociateList(string rnIds)
         {
-            DataTable dtBindSourceManager = advisorStaffBo.GetStaffAssociateList(rnIds, advisorVo.advisorId);
+            DataTable dtBindSourceManager = advisorStaffBo.GetStaffAssociateList(rnIds, advisorVo.advisorId,ddlStaff.SelectedValue);
             ExistingStaffList.DataSource = dtBindSourceManager;
             ExistingStaffList.DataValueField = dtBindSourceManager.Columns["AR_RMId"].ToString();
             ExistingStaffList.DataTextField = dtBindSourceManager.Columns["AR_FirstName"].ToString();
@@ -219,7 +233,7 @@ namespace WealthERP.Associates
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Select Existing Staff To Mapped Staff.');", true);
                 return;
             }
-            advisorStaffBo.UpdateReportingManager(mappedStaffAssociate.TrimEnd(','), newManagerId, advisorVo.advisorId);
+            advisorStaffBo.UpdateReportingManager(mappedStaffAssociate.TrimEnd(','), newManagerId, advisorVo.advisorId, ddlStaff.SelectedValue);
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Reporting Manager Change Successfully!!');", true);
 
         }

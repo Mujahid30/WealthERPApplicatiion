@@ -1617,7 +1617,7 @@
                     <div id="divNote" runat="server" class="Note" style="margin: 6px">
                         <label id="lbl">
                             Note:<br />
-                            1:To export excel the count should not exceed 8000 records.
+                            1:To export excel the count should not exceed 4000 records.
                         </label>
                     </div>
                     <asp:HiddenField ID="hdnRecordCount" runat="server" Visible="false" />
@@ -1644,6 +1644,7 @@
     </ContentTemplate>
     <Triggers>
         <asp:PostBackTrigger ControlID="btnTrnxExport" />
+          <asp:PostBackTrigger ControlID="btnTrnxExportMFOffLineWithoutSubbroker" />
         <%-- <asp:PostBackTrigger ControlID="btnbalncExport" />--%>
     </Triggers>
 </asp:UpdatePanel>

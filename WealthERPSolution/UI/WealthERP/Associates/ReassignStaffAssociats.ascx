@@ -47,9 +47,19 @@
 <table width="100%">
     <tr>
         <td align="right">
+            <asp:Label ID="lblUser" runat="server" CssClass="FieldName" Text="User Type:"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlStaff" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlStaff_OnSelectedIndexChanged" AutoPostBack="true">
+                <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
+                <asp:ListItem Text="Staff" Value="Staff"></asp:ListItem>
+                <asp:ListItem Text="Associate" Value="Associates"></asp:ListItem>
+            </asp:DropDownList>
+        </td>
+        <td align="right">
             <asp:Label ID="lblChannel" runat="server" CssClass="FieldName" Text="Channel:"></asp:Label>
         </td>
-        <td style="width: 260px;">
+        <td>
             <asp:DropDownList ID="ddlChannel" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlChannel_OnSelectedIndexChanged"
                 AutoPostBack="true" Width="230px">
             </asp:DropDownList>
@@ -58,14 +68,6 @@
             <asp:RequiredFieldValidator ID="rfvddlChannel" runat="server" ErrorMessage="Please Select Channel"
                 CssClass="rfvPCG" ControlToValidate="ddlChannel" ValidationGroup="btnbasicsubmit"
                 Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
-        </td>
-        <td style="width: 150px;">
-        </td>
-        <td>
-            <asp:DropDownList ID="ddlStaff" runat="server" CssClass="cmbField">
-                <asp:ListItem Text="Staff" Value="Staff"></asp:ListItem>
-                <asp:ListItem Text="Associate" Value="Associates"></asp:ListItem>
-            </asp:DropDownList>
         </td>
     </tr>
     <tr>

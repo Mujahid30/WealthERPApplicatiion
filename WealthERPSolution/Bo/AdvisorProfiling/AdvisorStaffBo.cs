@@ -1710,13 +1710,13 @@ namespace BoAdvisorProfiling
             }
             return dtGetIFAChannel;
         }
-        public DataTable GetTitleList(int channelId, int adviserId)
+        public DataTable GetTitleList(int channelId, int adviserId,string type)
         {
             AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
             DataTable dtGetTitleList;
             try
             {
-                dtGetTitleList = advisorStaffDao.GetTitleList(channelId, adviserId);
+                dtGetTitleList = advisorStaffDao.GetTitleList(channelId, adviserId,type);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1738,13 +1738,13 @@ namespace BoAdvisorProfiling
             }
             return dtGetStaffList;
         }
-        public DataTable GetStaffAssociateList(string rmId, int adviserId)
+        public DataTable GetStaffAssociateList(string rmId, int adviserId,string type)
         {
             AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
             DataTable dtGetStaffAssociateList;
             try
             {
-                dtGetStaffAssociateList = advisorStaffDao.GetStaffAssociateList(rmId, adviserId);
+                dtGetStaffAssociateList = advisorStaffDao.GetStaffAssociateList(rmId, adviserId,type);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1752,13 +1752,13 @@ namespace BoAdvisorProfiling
             }
             return dtGetStaffAssociateList;
         }
-        public DataTable GetStaffTitleList(int hierarchyId, int adviserId)
+        public DataTable GetStaffTitleList(int hierarchyId, int adviserId,string type)
         {
             AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
             DataTable dtGetStaffTitleList;
             try
             {
-                dtGetStaffTitleList = advisorStaffDao.GetStaffTitleList(hierarchyId, adviserId);
+                dtGetStaffTitleList = advisorStaffDao.GetStaffTitleList(hierarchyId, adviserId,type);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1766,13 +1766,13 @@ namespace BoAdvisorProfiling
             }
             return dtGetStaffTitleList;
         }
-        public bool UpdateReportingManager(string staffList, int armId, int adviserId)
+        public bool UpdateReportingManager(string staffList, int armId, int adviserId, string type)
         {
             AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
             bool bResult = false;
             try
             {
-                bResult = advisorStaffDao.UpdateReportingManager(staffList, armId, adviserId);
+                bResult = advisorStaffDao.UpdateReportingManager(staffList, armId, adviserId, type);
             }
             catch (BaseApplicationException Ex)
             {
