@@ -408,7 +408,7 @@ namespace WealthERP.Advisor
                 // ddlChannel.Enabled = false;
                 if (Request.QueryString["RmId"] != null)
                 {
-                    ddlChannel.SelectedValue = "12";
+                    //ddlChannel.SelectedValue = "12";
                     ddlChannel.Enabled = false;
                 }
             }
@@ -585,6 +585,23 @@ namespace WealthERP.Advisor
                 ddlBranch.Enabled = true;
                 ddlChannel.Enabled = false;
                 ddlTeamList.Enabled = false;
+                if (ddlTeamList.SelectedValue == "13" && Request.QueryString["RmId"] != null)
+                {
+                    DataSet ds = advisorStaffBo.GetTitleListForUpdatestaff(Convert.ToInt32( Request.QueryString["RmId"]),advisorVo.advisorId);
+                    if (ds.Tables.Count>0 && ds.Tables[0].Rows.Count > 0)
+                    {
+                        ClearDropList(ddlTitleList);
+                        ddlTitleList.DataSource = ds.Tables[0];
+                        ddlTitleList.DataValueField = ds.Tables[0].Columns["AH_Id"].ToString();
+                        ddlTitleList.DataTextField = ds.Tables[0].Columns["AH_HierarchyName"].ToString();
+                        ddlTitleList.DataBind();
+                        ddlTitleList.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+                    }
+                    ddlTitleList.Enabled = true;
+                }
+                else
+                    ddlTitleList.Enabled = false;
+
                 ddlRportingRole.Enabled = true;
                 ddlReportingMgr.Enabled = true;
 

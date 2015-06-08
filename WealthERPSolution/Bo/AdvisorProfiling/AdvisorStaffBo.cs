@@ -1780,6 +1780,20 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
+        public DataSet GetTitleListForUpdatestaff(int rmId, int adviserId)
+        {
+            AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
+            DataSet ds = new DataSet();
+            try
+            {
+                ds = advisorStaffDao.GetTitleListForUpdatestaff(rmId, adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return ds;
+        }
     }
 
 }

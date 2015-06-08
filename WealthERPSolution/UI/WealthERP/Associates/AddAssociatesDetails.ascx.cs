@@ -119,9 +119,9 @@ namespace WealthERP.Associates
                             SetEditViewControls(associatesVo);
                         head.InnerText = "Edit Associate";
                         associateId = associatesVo.AdviserAssociateId;
-                        ddlTitleList.Enabled = false;
+                        ddlTitleList.Enabled = true;
                         ddlBranch.Enabled = true;
-                        ddlRM.Enabled = false;
+                        ddlRM.Enabled = true;
                         lnkBtnEdit.Visible = false;
                         lnlBack.Visible = true;
                         //btnSubmit.Visible = true;

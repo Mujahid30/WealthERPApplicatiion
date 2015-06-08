@@ -3320,5 +3320,27 @@ namespace DaoAdvisorProfiling
             }
             return bResult;
         }
+        public DataSet GetTitleListForUpdatestaff(int rmId, int adviserId)
+        {
+            Database db;
+            DbCommand cmdGetStaffTitleList;
+            DataSet dsGetStaffTitleList;
+           
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetStaffTitleList = db.GetStoredProcCommand("SPROC_GetTitleListForUpdatestaff");
+                db.AddInParameter(cmdGetStaffTitleList, "@AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdGetStaffTitleList, "@RmID", DbType.Int32, rmId);
+                dsGetStaffTitleList = db.ExecuteDataSet(cmdGetStaffTitleList);
+               
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetStaffTitleList;
+
+        }
     }
 }
