@@ -212,6 +212,27 @@
                                     DataFormatString="{0:d}" UniqueName="AIM_CloseDate" FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
+                                 <telerik:GridBoundColumn DataField="AIM_CreatedOn" HeaderText="Created On" SortExpression="AIM_CreatedOn"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                    DataFormatString="{0:d}" UniqueName="AIM_CreatedOn" FooterStyle-HorizontalAlign="Left">
+                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="AIM_CreatedBy" HeaderText="Created By" SortExpression="AIM_CreatedBy"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                    DataFormatString="{0:d}" UniqueName="AIM_CreatedBy" FooterStyle-HorizontalAlign="Left">
+                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="AIM_ModifiedOn" HeaderText="Modified On" SortExpression="AIM_ModifiedOn"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                    DataFormatString="{0:d}" UniqueName="AIM_ModifiedOn" FooterStyle-HorizontalAlign="Left">
+                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="AIM_ModifiedBy" HeaderText="Modified By" SortExpression="AIM_ModifiedBy"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                    DataFormatString="{0:d}" UniqueName="AIM_ModifiedBy" FooterStyle-HorizontalAlign="Left">
+                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                               
                                 <telerik:GridBoundColumn DataField="AID_IssueDetailName" HeaderText="Issue Detail Name"
                                     SortExpression="AID_IssueDetailName" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     AutoPostBackOnFilter="true" AllowFiltering="true" UniqueName="AID_IssueDetailName"
