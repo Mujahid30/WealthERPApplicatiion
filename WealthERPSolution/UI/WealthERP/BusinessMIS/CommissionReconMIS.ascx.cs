@@ -1,28 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Configuration;
+using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using BoWerpAdmin;
-using System.Globalization;
-using System.Data;
-using Microsoft.ApplicationBlocks.ExceptionManagement;
-using System.Collections.Specialized;
-using WealthERP.Base;
 using BoAdvisorProfiling;
-using VoUser;
-using BoUploads;
-using BoCustomerGoalProfiling;
-using Telerik.Web.UI;
-using BoCommon;
 using BoAdvisorProfiling;
-using System.Configuration;
 using BOAssociates;
 using BoCommisionManagement;
-using BoUser;
-using VOAssociates;
+using BoCommon;
+using BoCustomerGoalProfiling;
 using BoOnlineOrderManagement;
+using BoUploads;
+using BoUser;
+using BoWerpAdmin;
+using Microsoft.ApplicationBlocks.ExceptionManagement;
+using Telerik.Web.UI;
+using VOAssociates;
+using VoUser;
+using WealthERP.Base;
 
 
 
@@ -85,7 +85,7 @@ namespace WealthERP.BusinessMIS
             {
                 ddlYear.Items.Add(new ListItem(i.ToString(), i.ToString()));
             }
-            //ddlYear.Items.Insert(0, new ListItem("Select", "0"));
+            
         }
 
         protected void ddlIssuer_SelectedIndexChanged(object sender, EventArgs e)
@@ -98,9 +98,7 @@ namespace WealthERP.BusinessMIS
 
             }
         }
-        //protected void btnUpload_click(object sender, EventArgs e)
-        //{
-        //}
+       
 
 
         protected void ddlSelectMode_OnSelectedIndexChanged(object sender, EventArgs e)
