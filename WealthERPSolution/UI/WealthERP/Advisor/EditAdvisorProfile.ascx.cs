@@ -143,10 +143,10 @@ namespace WealthERP.Advisor
                         txtSTD2.Text = advisorVo.Phone2Std.ToString();
                     if (!string.IsNullOrEmpty(advisorVo.Phone3Std))
                         txtSTD3.Text = advisorVo.Phone3Std.ToString();
-                    if (!string.IsNullOrEmpty(advisorVo.Phone3Std))
+                    if (!string.IsNullOrEmpty(advisorVo.Phone3Isd))
                         txtISD3.Text = advisorVo.Phone3Isd.ToString();
                     if (advisorVo.Phone3Number!=0)
-                        txtPhoneNumber2.Text = advisorVo.Phone2Number.ToString();
+                        txtPhoneNumber3.Text = advisorVo.Phone3Number.ToString();
                     txtOrganizationName.Text = advisorVo.OrganizationName.ToString();
 
                     txtCity.Text = advisorVo.City.ToString();
@@ -614,7 +614,7 @@ namespace WealthERP.Advisor
                         advisorVo.Phone3Isd = txtISD3.Text.Trim();
                         newRmVo.Phone3Isd = txtISD3.Text.Trim();
                     }
-                    if (string.IsNullOrEmpty(txtPhoneNumber3.Text))
+                    if (!string.IsNullOrEmpty(txtPhoneNumber3.Text))
                     {
                         advisorVo.Phone3Number = int.Parse(txtPhoneNumber3.Text.Trim());
                         newRmVo.Phone3Number = txtPhoneNumber3.Text.Trim();

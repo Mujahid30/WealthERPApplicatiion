@@ -1361,7 +1361,7 @@
                                                         </cc1:TextBoxWatermarkExtender>
                                                         <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br/>Please enter a valid date."
                                                             Type="Date" ControlToValidate="txtRuleValidityFrom" CssClass="cvPCG" Operator="DataTypeCheck"
-                                                            ValidationGroup="vgBtnSubmitTemp" ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+                                                            ValidationGroup="btnSubmitRule" ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtRuleValidityFrom"
                                                             ErrorMessage="<br />Please enter a validity from Date" Display="Dynamic" CssClass="rfvPCG"
                                                             runat="server" InitialValue="">
@@ -1381,13 +1381,13 @@
                                                         </cc1:TextBoxWatermarkExtender>
                                                         <asp:CompareValidator ID="CVReceivedDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
                                                             Type="Date" ControlToValidate="txtRuleValidityTo" CssClass="cvPCG" Operator="DataTypeCheck"
-                                                            ValidationGroup="vgBtnSubmitTemp" ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+                                                            ValidationGroup="btnSubmitRule" ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtRuleValidityTo"
                                                             ErrorMessage="<br />Please enter a validity to Date" Display="Dynamic" CssClass="rfvPCG"
                                                             runat="server" InitialValue="">
                                                         </asp:RequiredFieldValidator>
                                                         <asp:CompareValidator ControlToCompare="txtRuleValidityFrom" ControlToValidate="txtRuleValidityTo"
-                                                            Display="Dynamic" CssClass="rfvPCG" ValidationGroup="btnStrAddUpdate" ErrorMessage="The Validity To must be greater than or equal to Validity From"
+                                                            Display="Dynamic" CssClass="rfvPCG" ValidationGroup="btnSubmitRule" ErrorMessage="The Validity To must be greater than or equal to Validity From"
                                                             ID="CompareValidator2" Operator="GreaterThanEqual" Type="Date" runat="server" />
                                                     </td>
                                                 </tr>

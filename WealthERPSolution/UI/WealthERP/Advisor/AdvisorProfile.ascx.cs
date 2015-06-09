@@ -77,9 +77,9 @@ namespace WealthERP.Advisor
 
                 if (!string.IsNullOrEmpty(advisorVo.Phone1Isd)  && !string.IsNullOrEmpty(advisorVo.Phone1Std)   && advisorVo.Phone1Number > 1)
                     lblPhNumber1.Text = advisorVo.Phone1Isd.ToString() + "-" + advisorVo.Phone1Std.ToString() + "-" + advisorVo.Phone1Number.ToString();
-                else if (!string.IsNullOrEmpty(advisorVo.Phone1Isd) && !string.IsNullOrEmpty(advisorVo.Phone1Std) && advisorVo.Phone1Number > 1)
+                else if (string.IsNullOrEmpty(advisorVo.Phone1Isd) && !string.IsNullOrEmpty(advisorVo.Phone1Std) && advisorVo.Phone1Number > 1)
                     lblPhNumber1.Text = advisorVo.Phone1Std.ToString() + "-" + advisorVo.Phone1Number.ToString();
-                else if (!string.IsNullOrEmpty(advisorVo.Phone1Isd) && !string.IsNullOrEmpty(advisorVo.Phone1Std) && advisorVo.Phone1Number > 1)
+                else if (!string.IsNullOrEmpty(advisorVo.Phone1Isd) && string.IsNullOrEmpty(advisorVo.Phone1Std) && advisorVo.Phone1Number > 1)
                     lblPhNumber1.Text = advisorVo.Phone1Isd.ToString() + "-" + advisorVo.Phone1Number.ToString();
                 else if (string.IsNullOrEmpty(advisorVo.Phone1Isd) && string.IsNullOrEmpty(advisorVo.Phone1Std)  && advisorVo.Phone1Number > 1)
                     lblPhNumber1.Text = advisorVo.Phone1Number.ToString();

@@ -3677,7 +3677,8 @@ namespace WealthERP.Receivable
             bool result = true;
             DateTime start = Convert.ToDateTime(txtRuleValidityFrom.Text);
             DateTime end = Convert.ToDateTime(txtRuleValidityTo.Text);
-            if (!((start >= Convert.ToDateTime(hdnRulestart.Value) && (start <= Convert.ToDateTime(hdnRulestart.Value)) && ((end >= Convert.ToDateTime(hdnRuleEnd.Value))))))
+            if (!(start >=Convert.ToDateTime(hdnStructValidFrom.Value) && end <= Convert.ToDateTime(hdnStructValidTill.Value)))
+
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select rule start and rule end date as on structure date');", true);
                 result = false;
