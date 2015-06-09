@@ -48,6 +48,8 @@ namespace BoCommon
             return dtSubCategory;
         }
 
+ 
+
         public List<OnlineMFOrderVo> GetAllSIPDataForOrderEdit(int orderIDForEdit, int customerIdForEdit)
         {
             List<OnlineMFOrderVo> SIPDataForOrderEditList = new List<OnlineMFOrderVo>();
@@ -55,6 +57,7 @@ namespace BoCommon
 
             return SIPDataForOrderEditList;
         }
+
         public List<string> GetHours()
         {
             List<string> hours = new List<string>();
@@ -369,7 +372,32 @@ namespace BoCommon
 
 
         }
-
+        public DataTable Get_Offline_AllSIPDataForOrder(int schemeCode, string frequencyCode, string systematicType)
+        {
+            DataTable dtAllSIPDataForOrder = new DataTable();
+            try
+            {
+                dtAllSIPDataForOrder = daoCommonLookup.Get_Offline_AllSIPDataForOrder(schemeCode, frequencyCode, systematicType);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupBo.cs:GetCategoryList(string ProductCode, string CategoryCode, string SubCategoryCode)");
+                object[] objParams = new object[3];
+                objParams[0] = schemeCode;
+                objParams[1] = frequencyCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtAllSIPDataForOrder;
+        }
         public DataTable GetAllSIPDataForOrder(int schemeCode, string frequencyCode,string systematicType)
         {
             DataTable dtAllSIPDataForOrder = new DataTable();

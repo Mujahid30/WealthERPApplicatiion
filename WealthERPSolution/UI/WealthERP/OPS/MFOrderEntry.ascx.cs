@@ -411,7 +411,7 @@ namespace WealthERP.OPS
 
             BindCategory();
             BindState();
-            BindFrequency();
+           // BindFrequency();
             BindBank();
             BindSchemeSwitch();
             trpan.Visible = false;
@@ -1022,7 +1022,7 @@ namespace WealthERP.OPS
 
             GetControlDetails(int.Parse(txtSchemeCode.Value), null, null);
 
-            if ((ddltransType.SelectedValue != "BUY") && (ddltransType.SelectedValue != "SIP"))
+            if ((ddltransType.SelectedValue != "BUY") && (ddltransType.SelectedValue != "SIP") && (ddltransType.SelectedValue != "NFO"))
             {
                 mfOrderBo.GetFolio(int.Parse(txtCustomerId.Value), int.Parse(ddlAMCList.SelectedValue), out folioNo, out accountid);
                 txtFolioNumber.Text = folioNo;
@@ -1041,7 +1041,24 @@ namespace WealthERP.OPS
 
         protected void BindSipUiOnSchemeSelection(int schemeCode)
         {
-            dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(schemeCode, ddlFrequencySIP.SelectedValue.ToString(), "SIP");
+ 
+            string frequency=string.Empty ;
+
+            if (ddltransType.SelectedValue == "SWP")
+            {
+                frequency = "SWP";
+            }
+            else if (ddltransType.SelectedValue == "STB")
+            {
+                frequency = "STP";
+            }
+            else
+            {
+                frequency = "SIP";
+            }
+
+
+            dtGetAllSIPDataForOrder = commonLookupBo.Get_Offline_AllSIPDataForOrder(schemeCode, ddlFrequencySIP.SelectedValue.ToString(), frequency);
 
             BindFrequencies();
 
@@ -1053,13 +1070,21 @@ namespace WealthERP.OPS
             ddlFrequencySIP.Items.Clear();
             if (dtGetAllSIPDataForOrder == null) return;
 
-            foreach (DataRow row in dtGetAllSIPDataForOrder.Rows)
-            {
-                if (row["PASP_SchemePlanCode"].ToString() == txtSchemeCode.Value)
-                {
-                    ddlFrequencySIP.Items.Add(new ListItem(row["XF_Frequency"].ToString(), row["XF_FrequencyCode"].ToString()));
-                }
-            }
+
+            ddlFrequencySIP.DataSource = dtGetAllSIPDataForOrder;
+            ddlFrequencySIP.DataValueField = "XF_FrequencyCode";
+            ddlFrequencySIP.DataTextField = "XF_Frequency";
+
+            ddlFrequencySIP.DataBind();
+
+
+            //foreach (DataRow row in dtGetAllSIPDataForOrder.Rows)
+            //{
+            //    if (row["PASP_SchemePlanCode"].ToString() == txtSchemeCode.Value)
+            //    {
+            //        ddlFrequencySIP.Items.Add(new ListItem(row["XF_Frequency"].ToString(), row["XF_FrequencyCode"].ToString()));
+            //    }
+            //}
 
             ddlFrequencySIP.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
 
@@ -2756,18 +2781,18 @@ namespace WealthERP.OPS
         }
         private void BindFrequency()
         {
-            dtFrequency = assetBo.GetFrequencyCode(path);
-            ddlFrequencySIP.DataSource = dtFrequency;
-            ddlFrequencySIP.DataTextField = "Frequency";
-            ddlFrequencySIP.DataValueField = "FrequencyCode";
-            ddlFrequencySIP.DataBind();
-            ddlFrequencySIP.Items.Insert(0, new ListItem("Select", "0"));
+            //dtFrequency = assetBo.GetFrequencyCode(path);
+            //ddlFrequencySIP.DataSource = dtFrequency;
+            //ddlFrequencySIP.DataTextField = "Frequency";
+            //ddlFrequencySIP.DataValueField = "FrequencyCode";
+            //ddlFrequencySIP.DataBind();
+            //ddlFrequencySIP.Items.Insert(0, new ListItem("Select", "0"));
 
-            //---------------------------------------------
-            ddlFrequencySTP.DataSource = dtFrequency;
-            ddlFrequencySTP.DataTextField = "Frequency";
-            ddlFrequencySTP.DataValueField = "FrequencyCode";
-            ddlFrequencySTP.DataBind();
+            ////---------------------------------------------
+            //ddlFrequencySTP.DataSource = dtFrequency;
+            //ddlFrequencySTP.DataTextField = "Frequency";
+            //ddlFrequencySTP.DataValueField = "FrequencyCode";
+            //ddlFrequencySTP.DataBind();
 
         }
         public void ISA_Onclick(object obj, EventArgs e)
@@ -4486,6 +4511,11 @@ namespace WealthERP.OPS
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Customer Name.');", true);
                 return;
             }
+            else if (string.IsNullOrEmpty(txtSchemeCode.Value))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please select valid scheme.');", true);
+                return;
+            }
             else if ((!(isvalidOfflineFolio)) && (ddltransType.SelectedValue.ToUpper() == "ABY" || ddltransType.SelectedValue.ToUpper() == "SEL"))
             {
 
@@ -4927,6 +4957,11 @@ namespace WealthERP.OPS
             if (string.IsNullOrEmpty(txtCustomerId.Value))
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Customer Name.');", true);
+                return;
+            }
+            else if (string.IsNullOrEmpty(txtSchemeCode.Value))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please select valid scheme.');", true);
                 return;
             }
             else if ((!(isvalidOfflineFolio)) && (ddltransType.SelectedValue.ToUpper() == "ABY" || ddltransType.SelectedValue.ToUpper() == "SEL"))
