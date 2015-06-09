@@ -21,7 +21,7 @@
 <div class="divPageHeading">
     <table cellspacing="0"  width="100%">
         <tr>
-        <td align="left">Customer Category</td>
+        <td align="left">Associate Category</td>
         <td  align="right" id="tdGoalExport" runat="server" style="padding-bottom:2px;">
         </td>
         </tr>
