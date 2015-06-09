@@ -276,6 +276,44 @@ namespace DaoCommon
             return dsGetAmcSchemeList.Tables[0];
         }
 
+        public DataTable Get_Offline_AllSIPDataForOrder(int schemdCode, string frequencyCode, string systematicType)
+        {
+            Database db;
+            DbCommand cmd;
+            DataSet dsGetAmcSchemeList = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SP_Offline_GetAllSIPDataForOrder");
+
+                db.AddInParameter(cmd, "@PASP_SchemePlanCode", DbType.Int32, schemdCode);
+                if (frequencyCode != "0")
+                    db.AddInParameter(cmd, "@FrequencyCode", DbType.String, frequencyCode);
+                db.AddInParameter(cmd, "@SystematicType", DbType.String, systematicType);
+
+                dsGetAmcSchemeList = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupDao.cs:GetAllSIPDataForOrder(int schemdCode,string frequencyCode)");
+                object[] objects = new object[3];
+                objects[0] = schemdCode;
+                objects[1] = frequencyCode;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetAmcSchemeList.Tables[0];
+        }
+
         public List<OnlineMFOrderVo> GetAllSIPDataForOrderEdit(int orderIDForEdit, int customerIdForEdit)
         {
             List<OnlineMFOrderVo> SIPDataForOrderEditList = new List<OnlineMFOrderVo>();
