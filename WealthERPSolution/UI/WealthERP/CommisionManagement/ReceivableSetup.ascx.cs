@@ -1941,7 +1941,7 @@ namespace WealthERP.Receivable
                 {
                     return;
                 }
-
+                
 
                 /*******************DUPLICATE CHECK********************/
                 //bool isValidRule = true;
@@ -1965,7 +1965,7 @@ namespace WealthERP.Receivable
                     BindRuleDetGrid(rgCommissionTypeCaliculation, ruleId);
                     Table5.Visible = true;
                     //HiddenField1.Value = hidCommissionStructureName.Value;
-
+                       
                     //RadGrid rgCommissionTypeCaliculation = (RadGrid)e.Item.FindControl("rgCommissionTypeCaliculation");
                     //rgCommissionTypeCaliculation.Visible = true;
                     //DataSet dsLookupData;
@@ -2232,7 +2232,7 @@ namespace WealthERP.Receivable
                     ddlCommisionCalOn.Items[0].Enabled = false;
                     ddlCommisionCalOn.Items[2].Enabled = false;
                     trMinAndMaxNumberOfApplication.Visible = false;
-                    ddlCommisionCalOn.Items[3].Enabled = true;
+                    ddlCommisionCalOn.Items[3].Enabled = false;
                     ddlCommisionCalOn.Items[4].Enabled = true;
                     ddlCommisionCalOn.Items[5].Enabled = false;
                     trMinMAxInvAmount.Visible = true;

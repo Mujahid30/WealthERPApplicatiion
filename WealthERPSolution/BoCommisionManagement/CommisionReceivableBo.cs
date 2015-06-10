@@ -1191,7 +1191,7 @@ namespace BoCommisionManagement
             if (voComStrRule.TransactionType != null) strRule += voComStrRule.TransactionType.ToString();
             if (voComStrRule.ValidityEndDate != null) strRule += voComStrRule.ValidityEndDate.ToString();
             if (voComStrRule.ValidityStartDate != null) strRule += voComStrRule.ValidityStartDate.ToString();
-
+            if (voComStrRule.applicationNo != null) strRule += voComStrRule.applicationNo.ToString();
             char[] chData = strRule.ToCharArray();
             byte[] byData = new byte[chData.Length];
 

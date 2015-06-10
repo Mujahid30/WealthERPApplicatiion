@@ -1597,7 +1597,7 @@
                                                             Text="" />
                                                              <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtMinInvestmentAmount"
                                                             ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
-                                                            ValidationExpression="^[0-9]*$" ValidationGroup="btnSubmitRule">     
+                                                            ValidationExpression="\d+(\.\d{1,3})?" ValidationGroup="btnSubmitRule">     
                                                         </asp:RegularExpressionValidator>
                                                     </td>
                                                     <td class="leftLabel">
@@ -1613,7 +1613,7 @@
                                                             Text="" />
                                                             <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtMaxInvestmentAmount"
                                                             ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
-                                                            ValidationExpression="^[0-9]*$" ValidationGroup="btnSubmitRule">     
+                                                            ValidationExpression="\d+(\.\d{1,3})?" ValidationGroup="btnSubmitRule">     
                                                         </asp:RegularExpressionValidator>
                                                     </td>
                                                     <td class="leftLabel">
