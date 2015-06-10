@@ -2065,4 +2065,8 @@
     <value>OnlineOrderManagement//OnlineMFSchemeCompare.ascx</value>
     <comment>OnlineOrderManagement//OnlineMFSchemeCompare.ascx</comment>
   </data>
+  <data name="OnlineCustomerOrderandTransactionBook" xml:space="preserve">
+    <value>OnlineOrderManagement//OnlineCustomerOrderandTransactionBook.ascx</value>
+    <comment>OnlineOrderManagement//OnlineCustomerOrderandTransactionBook.ascx</comment>
+  </data>
 </root>

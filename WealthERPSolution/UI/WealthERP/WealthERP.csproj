@@ -3240,6 +3240,13 @@
     <Compile Include="OnlineOrderBackOffice\OnlineOrderExtract.ascx.designer.cs">
       <DependentUpon>OnlineOrderExtract.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderManagement\OnlineCustomerOrderandTransactionBook.ascx.cs">
+      <DependentUpon>OnlineCustomerOrderandTransactionBook.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\OnlineCustomerOrderandTransactionBook.ascx.designer.cs">
+      <DependentUpon>OnlineCustomerOrderandTransactionBook.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderManagement\OnlineMFSchemeCompare.ascx.cs">
       <DependentUpon>OnlineMFSchemeCompare.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -8243,6 +8250,7 @@
     <Content Include="OnlineOrderManagement\NCDIssuesetup.ascx" />
     <Content Include="OnlineOrderManagement\NCDIssueTransact.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineOrderExtract.ascx" />
+    <Content Include="OnlineOrderManagement\OnlineCustomerOrderandTransactionBook.ascx" />
     <Content Include="OnlineOrderManagement\OnlineMFSchemeCompare.ascx" />
     <Content Include="OnlineOrderManagement\OnlineOrderUnauthorizedUser.ascx" />
     <Content Include="OnlineOrderManagement\SIPBookSummmaryList.ascx" />

@@ -2806,6 +2806,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderManagement//OnlineCustomerOrderandTransactionBook.ascx.
+        /// </summary>
+        internal static string OnlineCustomerOrderandTransactionBook {
+            get {
+                return ResourceManager.GetString("OnlineCustomerOrderandTransactionBook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OnlineOrderBackOffice//OnlineExternalSourceHeaderManagement.ascx.
         /// </summary>
         internal static string OnlineExternalSourceHeaderManagement {
