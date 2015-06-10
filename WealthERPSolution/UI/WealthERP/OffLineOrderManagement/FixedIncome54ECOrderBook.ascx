@@ -186,17 +186,16 @@
                                             AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="Issue" UniqueName="AIM_IssueName">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="AIM_Series" SortExpression="AIM_Series"
+                                        <telerik:GridBoundColumn DataField="AID_IssueDetailName" SortExpression="AID_IssueDetailName"
                                             AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                            AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="Series" UniqueName="AIM_Series">
+                                            AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="Series" UniqueName="AID_IssueDetailName">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="AIM_Tenture" SortExpression="AIM_Tenture"
-                                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                            AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="Tenture" UniqueName="AIM_Tenture">
-                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        <telerik:GridBoundColumn DataField="AID_Tenure" HeaderStyle-Width="60px"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            HeaderText="Tenure" UniqueName="AID_Tenure" SortExpression="AID_Tenure">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width=" " Wrap="true" />
                                         </telerik:GridBoundColumn>
-                                        
                                          <telerik:GridBoundColumn DataField="CO_OrderDate" DataFormatString="{0:dd/MM/yyyy HH:mm:ss}"
                                             AllowFiltering="true" HeaderText="Order Date" UniqueName="CO_OrderDate" SortExpression="CO_OrderDate"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
@@ -221,11 +220,7 @@
                                             AutoPostBackOnFilter="true">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                         <telerik:GridBoundColumn DataField="AID_Tenure" HeaderStyle-Width="60px"
-                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                            HeaderText="Tenure" UniqueName="AID_Tenure" SortExpression="AIM_IssueId">
-                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width=" " Wrap="true" />
-                                        </telerik:GridBoundColumn>
+                                         
                                         <telerik:GridBoundColumn DataField="CFIOD_Quantity" AllowFiltering="true" HeaderText="Quantity"
                                             HeaderStyle-Width="70px" UniqueName="CFIOD_Quantity" SortExpression="CFIOD_Quantity"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
