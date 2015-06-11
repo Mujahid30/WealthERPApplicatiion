@@ -684,6 +684,9 @@
                             AutoPostBack="True" onclientClick="ShowIsa()" onblur="return checkItemSelected(this)"
                             OnTextChanged="OnAssociateTextchanged1" TabIndex="3">
                         </asp:TextBox><span id="Span1" class="spnRequiredField">*</span>
+                          <asp:ImageButton ID="ImageButton2" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
+                            AlternateText="Add" runat="server" ToolTip="Click here to Add Customer" OnClick="openpopupAddCustomer_Click"
+                            Height="15px" Width="15px" CausesValidation="false"></asp:ImageButton>
                         <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" TargetControlID="txtPansearch"
                             WatermarkText="Enter few chars of Pan" runat="server" EnableViewState="false">
                         </cc1:TextBoxWatermarkExtender>
