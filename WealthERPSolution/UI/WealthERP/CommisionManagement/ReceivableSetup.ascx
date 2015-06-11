@@ -957,13 +957,13 @@
                             <telerik:RadListBox SelectionMode="Multiple" EnableDragAndDrop="true" AllowTransferOnDoubleClick="true"
                                 AllowTransferDuplicates="false" EnableViewState="true" EnableMarkMatches="true"
                                 runat="server" ID="rlbAvailSchemes" Height="200px" Width="250px" AllowTransfer="true"
-                                TransferToID="rlbMappedSchemes" CssClass="cmbField">
+                                TransferToID="rlbMappedSchemes" CssClass="cmbFielde">
                                 <ButtonSettings TransferButtons="All" />
                             </telerik:RadListBox>
                         </td>
                         <td rowspan="2" class="leftLabel">
                             <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" SelectionMode="Multiple"
-                                ID="rlbMappedSchemes" Height="200px" Width="220px" CssClass="cmbField">
+                                ID="rlbMappedSchemes" Height="200px" Width="220px" CssClass="cmbFielde">
                             </telerik:RadListBox>
                         </td>
                         <td>

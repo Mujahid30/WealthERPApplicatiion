@@ -2987,7 +2987,7 @@ namespace WealthERP.Receivable
 
         private void BindMappedSchemesToList()
         {
-            lblMappedSchemes.Text = "Mapped Schemes(" + rlbMappedSchemes.Items.Count.ToString() + ")";
+            lblMappedSchemes.Text = "Mapped Schemes";
         }
 
         private void BindAvailSchemesToList()
