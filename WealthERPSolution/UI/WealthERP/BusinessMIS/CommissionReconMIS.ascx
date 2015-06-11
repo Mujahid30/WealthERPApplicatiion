@@ -583,8 +583,8 @@
                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="ApplicationNo." DataField="CO_ApplicationNumber"
-                    HeaderStyle-HorizontalAlign="Right" UniqueName="Application No" SortExpression="CO_ApplicationNumber"
-                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    HeaderStyle-HorizontalAlign="left" UniqueName="Application No" SortExpression="CO_ApplicationNumber"
+                    AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
@@ -595,13 +595,13 @@
                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Order No." DataField="CO_OrderId"
-                    HeaderStyle-HorizontalAlign="Right" UniqueName="CO_OrderId" SortExpression="CO_OrderId"
+                    HeaderStyle-HorizontalAlign="Left" UniqueName="CO_OrderId" SortExpression="CO_OrderId"
                     AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="Transaction Date." DataField="transactionDate"
-                    HeaderStyle-HorizontalAlign="Right" UniqueName="transactionDate" SortExpression="transactionDate"
+                    HeaderStyle-HorizontalAlign="Left" UniqueName="transactionDate" SortExpression="transactionDate"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
@@ -793,6 +793,7 @@
 <asp:HiddenField ID="hdnSBbrokercode" runat="server" />
 <asp:HiddenField ID="hdnIssueId" runat="server" />
 <asp:HiddenField ID="hdnProductCategory" runat="server" />
+<asp:HiddenField ID="hdnAgentCode" runat="server" />
 <div runat="server" id="divBtnActionSection" visible="false">
     <asp:Button ID="btnUpload" runat="server" Text="Mark Recon Status" CssClass="PCGLongButton"
         OnClick="btnUpload_OnClick" />

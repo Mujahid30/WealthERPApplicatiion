@@ -40,7 +40,7 @@ namespace WealthERP.BusinessMIS
         AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
         string categoryCode = string.Empty;
         int amcCode = 0;
-        string AgentCode = "0";
+        string AgentCode;
 
 
         protected void Page_load(object sender, EventArgs e)
@@ -55,13 +55,14 @@ namespace WealthERP.BusinessMIS
                 LoadAllSchemeList(0);
                 BindProductDropdown();
                 BindMonthsAndYear();
+
+                hdnAgentCode.Value = "0";
                 
-                int day = 1;
                 btnExportFilteredData.Visible = false;
                 associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
                 if (associateuserheirarchyVo != null && associateuserheirarchyVo.AgentCode != null)
                 {
-                    AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                    hdnAgentCode.Value = associateuserheirarchyVo.AgentCode.ToString();
                     ddlSelectMode.Items.FindByText("Both").Enabled = false;
                     ddlSelectMode.Items.FindByText("Online-Only").Enabled = false;
                 }
@@ -323,26 +324,17 @@ namespace WealthERP.BusinessMIS
                 rgNCDIPOMIS.MasterTableView.GetColumn("WCU_UnitCode").Visible = true;
                 rgNCDIPOMIS.MasterTableView.GetColumn("brokeragevalue").Visible = true;
                 rgNCDIPOMIS.MasterTableView.GetColumn("borkageExpectedvalue").Visible = true;
-                rgNCDIPOMIS.MasterTableView.GetColumn("Retention1").Visible = false;
-                if (int.Parse(ddlSearchType.SelectedValue) == 16019 || int.Parse(ddlSearchType.SelectedValue) == 16023)
-                {
-                    rgNCDIPOMIS.MasterTableView.GetColumn("rate").Visible = false;
-                    rgNCDIPOMIS.MasterTableView.GetColumn("WCU_UnitCode").Visible = false;
-                    rgNCDIPOMIS.MasterTableView.GetColumn("brokeragevalue").Visible = false;
-                    rgNCDIPOMIS.MasterTableView.GetColumn("borkageExpectedvalue").Visible = false;
+                rgNCDIPOMIS.MasterTableView.GetColumn("Retention1").Visible = true;
 
-                }
-                else if (int.Parse(ddlSearchType.SelectedValue) == 16020 || int.Parse(ddlSearchType.SelectedValue) == 16024)
+                if (hdnAgentCode.Value.ToString() != "0")
                 {
                     rgNCDIPOMIS.MasterTableView.GetColumn("Rec_rate").Visible = false;
                     rgNCDIPOMIS.MasterTableView.GetColumn("Rec_WCU_UnitCode").Visible = false;
                     rgNCDIPOMIS.MasterTableView.GetColumn("Rec_brokeragevalue").Visible = false;
                     rgNCDIPOMIS.MasterTableView.GetColumn("Rec_borkageExpectedvalue").Visible = false;
+                    rgNCDIPOMIS.MasterTableView.GetColumn("Retention1").Visible = false;
                 }
-                else
-                {
-                    rgNCDIPOMIS.MasterTableView.GetColumn("Retention1").Visible = true;
-                }
+               
 
 
             }
@@ -407,6 +399,13 @@ namespace WealthERP.BusinessMIS
                     
                    
                 }
+                if (hdnAgentCode.Value.ToString() != "0")
+                {
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_WCU_UnitCode").Visible = false;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_Expectedamount").Visible = false;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_ACSR_BrokerageValue").Visible = false;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("RecborkageExpectedvalue").Visible = false;
+                }
 
             }
 
@@ -445,7 +444,7 @@ namespace WealthERP.BusinessMIS
             //ds.ReadXml(Server.MapPath(@"\Sample.xml"));
             dvMfMIS.Visible = false;
             dvNCDIPOMIS.Visible = false;
-            ds = adviserMFMIS.GetCommissionReceivableRecon(ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), advisorVo.advisorId, int.Parse(hdnschemeId.Value), int.Parse(hdnFromDate.Value), int.Parse(hdnToDate.Value), hdnCategory.Value, null, ddlCommType.SelectedValue, int.Parse(hdnSBbrokercode.Value), int.Parse(hdnIssueId.Value), Convert.ToInt32(ddlSearchType.SelectedValue), ddlOrderStatus.SelectedValue, AgentCode, hdnProductCategory.Value, Boolean.Parse(ddlOrderType.SelectedValue));
+            ds = adviserMFMIS.GetCommissionReceivableRecon(ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), advisorVo.advisorId, int.Parse(hdnschemeId.Value), int.Parse(hdnFromDate.Value), int.Parse(hdnToDate.Value), hdnCategory.Value, null, ddlCommType.SelectedValue, int.Parse(hdnSBbrokercode.Value), int.Parse(hdnIssueId.Value), Convert.ToInt32(ddlSearchType.SelectedValue), ddlOrderStatus.SelectedValue, hdnAgentCode.Value.ToString(), hdnProductCategory.Value, Boolean.Parse(ddlOrderType.SelectedValue));
             if (ds.Tables[0] != null)
             {
                 if (ddlProduct.SelectedValue.ToString() == "MF")
