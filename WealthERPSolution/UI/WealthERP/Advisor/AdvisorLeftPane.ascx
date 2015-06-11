@@ -878,7 +878,9 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Staff" Value="Staff">
                                                 <Items>
-                                                    <telerik:RadPanelItem runat="server" Text="Add Staff" Value="Add Staff">
+                                                   <%-- <telerik:RadPanelItem runat="server" Text="Add Staff" Value="Add Staff">
+                                                    </telerik:RadPanelItem>--%>
+                                                      <telerik:RadPanelItem runat="server" Text="Add Staff" Value="Add_Staff_Offline">
                                                     </telerik:RadPanelItem>
                                                      <telerik:RadPanelItem runat="server" Text="Staff Reassign" Value="Staff_ReAssign">
                                                     </telerik:RadPanelItem>
