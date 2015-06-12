@@ -6,6 +6,7 @@ using VoOnlineOrderManagemnet;
 using DaoOnlineOrderManagement;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
+using System.Data;
 namespace BoOnlineOrderManagement
 {
     public class OnlineMFSchemeDetailsBo
@@ -15,12 +16,12 @@ namespace BoOnlineOrderManagement
         public bool CustomerAddMFSchemeToWatch(int customerId, int schemeCode, string assetGroup, int userId)
         {
             bool bResult = false;
-            bResult=OnlineMFSchemeDetailsDao.CustomerAddMFSchemeToWatch(customerId, schemeCode, assetGroup, userId);
+            bResult = OnlineMFSchemeDetailsDao.CustomerAddMFSchemeToWatch(customerId, schemeCode, assetGroup, userId);
             return bResult;
         }
 
-        
-        
+
+
         public OnlineMFSchemeDetailsVo GetSchemeDetails(int amcCode, int schemeCode, string category)
         {
             OnlineMFSchemeDetailsVo OnlineMFSchemeDetailsVo = new OnlineMFSchemeDetailsVo();
@@ -52,16 +53,29 @@ namespace BoOnlineOrderManagement
 
         public List<OnlineMFSchemeDetailsVo> GetCompareMFSchemeDetails(string schemeCompareList)
         {
-             List<OnlineMFSchemeDetailsVo> OnlineMFSchemeDetailsList=new List<OnlineMFSchemeDetailsVo>();
-             try
-             {
-                 OnlineMFSchemeDetailsList = OnlineMFSchemeDetailsDao.GetCompareMFSchemeDetails(schemeCompareList);
-             }
-             catch (BaseApplicationException Ex)
-             {
-                 throw Ex;
-             }
-             return OnlineMFSchemeDetailsList;
+            List<OnlineMFSchemeDetailsVo> OnlineMFSchemeDetailsList = new List<OnlineMFSchemeDetailsVo>();
+            try
+            {
+                OnlineMFSchemeDetailsList = OnlineMFSchemeDetailsDao.GetCompareMFSchemeDetails(schemeCompareList);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return OnlineMFSchemeDetailsList;
+        }
+        public DataSet GetSIPCustomeSchemePlan(int customerId, int AMCCode)
+        {
+            DataSet ds;
+            try
+            {
+                ds = OnlineMFSchemeDetailsDao.GetSIPCustomeSchemePlan(customerId, AMCCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return ds;
         }
     }
 }

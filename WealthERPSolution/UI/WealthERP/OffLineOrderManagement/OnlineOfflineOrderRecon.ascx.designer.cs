@@ -38,7 +38,8 @@ namespace WealthERP.OffLineOrderManagement
         protected global::System.Web.UI.WebControls.HiddenField hdnFIorderId;
         protected global::System.Web.UI.WebControls.Label lblOrderQty;
        protected global::System.Web.UI.WebControls.ImageButton ibtExportSummary;
-
+       protected global::Telerik.Web.UI.RadDatePicker txtOrderFrom;
+       protected global::Telerik.Web.UI.RadDatePicker txtOrderTo;
 
 
     }

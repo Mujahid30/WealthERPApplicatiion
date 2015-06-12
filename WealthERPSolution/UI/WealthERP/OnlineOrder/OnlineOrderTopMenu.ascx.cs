@@ -92,8 +92,8 @@ namespace WealthERP.OnlineOrder
         {
             switch (e.Tab.Value)
             {
-                case "RTSMFOrderMenuBooksOrderBook": // add a new root tab
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerMFOrderBookList','login');", true);
+                case "RTSMFOrderMenuBooksOrderBook": // add a new root tab--CustomerMFOrderBookList
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('OnlineCustomerOrderandTransactionBook','login');", true);
                     break;
 
                 case "RTSMFOrderMenuBooksTransactionBook": // add a new child tab

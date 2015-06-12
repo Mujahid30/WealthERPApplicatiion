@@ -199,5 +199,24 @@ namespace DaoOnlineOrderManagement
             }
             return onlineMFSchemeDetailsList;
         }
+        public DataSet GetSIPCustomeSchemePlan(int customerId, int AMCCode)
+        {
+            DataSet dsGetSIPCustomeSchemePlan;
+            Database db;
+            DbCommand GetSIPCustomeSchemePlancmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetSIPCustomeSchemePlancmd = db.GetStoredProcCommand("SPROC_Onl_CustomerOrderSchemePlan");
+                db.AddInParameter(GetSIPCustomeSchemePlancmd, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(GetSIPCustomeSchemePlancmd, "@AMCCode", DbType.Int32, AMCCode);
+                dsGetSIPCustomeSchemePlan = db.ExecuteDataSet(GetSIPCustomeSchemePlancmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetSIPCustomeSchemePlan;
+        }
     }
 }

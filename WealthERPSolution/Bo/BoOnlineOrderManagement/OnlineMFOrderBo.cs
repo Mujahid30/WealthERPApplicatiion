@@ -146,7 +146,7 @@ namespace BoOnlineOrderManagement
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             try
             {
-                dsSIPBookMIS = OnlineMFOrderDao.GetSIPBookMIS(CustomerId, AmcCode, OrderStatus, systematicId );
+                dsSIPBookMIS = OnlineMFOrderDao.GetSIPBookMIS(CustomerId, AmcCode, OrderStatus, systematicId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -168,13 +168,13 @@ namespace BoOnlineOrderManagement
             }
             return dsSIPBookMIS;
         }
-        public DataSet GetSIPSummaryBookMIS(int CustomerId, int AmcCode,  string systematicType)
+        public DataSet GetSIPSummaryBookMIS(int CustomerId, int AmcCode, string systematicType)
         {
             DataSet dsSIPSummaryBookMIS = null;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             try
             {
-                dsSIPSummaryBookMIS = OnlineMFOrderDao.GetSIPSummaryBookMIS(CustomerId, AmcCode,  systematicType);
+                dsSIPSummaryBookMIS = OnlineMFOrderDao.GetSIPSummaryBookMIS(CustomerId, AmcCode, systematicType);
             }
             catch (BaseApplicationException Ex)
             {
@@ -513,7 +513,7 @@ namespace BoOnlineOrderManagement
         {
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             DataTable dtSwitchOrder = new DataTable();
-            List<int> OrderIds = new List<int>();          
+            List<int> OrderIds = new List<int>();
 
             try
             {
@@ -552,6 +552,20 @@ namespace BoOnlineOrderManagement
             }
 
             return dsOrderStatus;
+        }
+        public DataSet GetCustomerOrderBookTransaction(int customerId, int amcCode, int schemeCode, string orderType)
+        {
+            DataSet dsGetCustomerOrderBookTransaction;
+            OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
+            try
+            {
+                dsGetCustomerOrderBookTransaction = OnlineMFOrderDao.GetCustomerOrderBookTransaction(customerId, amcCode, schemeCode, orderType);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetCustomerOrderBookTransaction;
         }
     }
 }

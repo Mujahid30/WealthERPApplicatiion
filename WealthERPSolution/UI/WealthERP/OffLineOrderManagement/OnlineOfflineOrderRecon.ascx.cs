@@ -142,7 +142,7 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void BindOrderMissMatchDetails()
         {
-            dBindOrderMissMatchDetails = onlineNCDBackOfficeBo.GetOrderMissMatchDetails(int.Parse(ddlIssueName.SelectedValue), "PR", (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "IP",int.Parse(ddlOrderStatus.SelectedValue));
+            dBindOrderMissMatchDetails = onlineNCDBackOfficeBo.GetOrderMissMatchDetails(int.Parse(ddlIssueName.SelectedValue), "PR", (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "IP",int.Parse(ddlOrderStatus.SelectedValue),Convert.ToDateTime(txtOrderFrom.SelectedDate),Convert.ToDateTime(txtOrderTo.SelectedDate));
             if (Cache["OrderRecon" + userVo.UserId.ToString()] == null)
             {
                 Cache.Insert("OrderRecon" + userVo.UserId.ToString(), dBindOrderMissMatchDetails);

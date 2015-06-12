@@ -313,7 +313,7 @@
         </div>
         <div class="bottom-content-frame">
             <iframe name="bottomframe" class="bottomframe" id="bottomframe" onload="javascript:calcIFrameHeight('bottomframe');"
-                src="OnlineBottomHost.aspx" scrolling="no" height="900px"></iframe>
+                src="OnlineBottomHost.aspx" scrolling="no" height="1500px"></iframe>
         </div>
     </div>
     </div>

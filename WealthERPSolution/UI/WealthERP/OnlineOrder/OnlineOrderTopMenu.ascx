@@ -86,7 +86,7 @@
                                 TabIndex="0" PageViewID="RPVOrderBook" Selected="True">
                             </telerik:RadTab>
                             <telerik:RadTab runat="server" Text="TRANSACTION BOOK" Value="RTSMFOrderMenuBooksTransactionBook"
-                                TabIndex="1" PageViewID="RPVTransactionBook">
+                                TabIndex="1" PageViewID="RPVTransactionBook" Visible="false">
                             </telerik:RadTab>
                             <telerik:RadTab runat="server" Text="SIP BOOK" Value="RTSMFOrderMenuBooksSIPBook"
                                 TabIndex="2" PageViewID="RPVSIPBook">

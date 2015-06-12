@@ -3686,7 +3686,7 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetIssuercategorywise;
         }
-        public DataTable GetOrderMissMatchDetails(int issueid, string orderstapcode, string category, int isOnline)
+        public DataTable GetOrderMissMatchDetails(int issueid, string orderstapcode, string category, int isOnline,DateTime from,DateTime to)
         {
             DataTable dtGetOrderMissMatchDetails;
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -3707,7 +3707,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(dbGetOrderMissMatchDetails, "@issueid", DbType.Int32, issueid);
                 db.AddInParameter(dbGetOrderMissMatchDetails, "@orderstapcode", DbType.String, orderstapcode);
                 db.AddInParameter(dbGetOrderMissMatchDetails, "@category", DbType.String, category);
-
+                db.AddInParameter(dbGetOrderMissMatchDetails, "@fromDate", DbType.DateTime, from);
+                db.AddInParameter(dbGetOrderMissMatchDetails, "@toDate", DbType.DateTime, to);
                 dsGetOrderMissMatchDetails = db.ExecuteDataSet(dbGetOrderMissMatchDetails);
                 dtGetOrderMissMatchDetails = dsGetOrderMissMatchDetails.Tables[0];
             }

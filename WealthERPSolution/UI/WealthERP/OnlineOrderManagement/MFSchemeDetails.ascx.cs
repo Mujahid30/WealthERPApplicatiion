@@ -40,7 +40,8 @@ namespace WealthERP.OnlineOrderManagement
                     BindCategory();
                     BindScheme();
                     commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category);
-                    ddlScheme.SelectedValue = Session["MFSchemePlan"].ToString();
+                    int schemecode = int.Parse(Session["MFSchemePlan"].ToString());
+                    ddlScheme.SelectedValue = schemecode.ToString();
                     ddlAMC.SelectedValue = amcCode.ToString();
                     ddlCategory.SelectedValue = category;
                     GetAmcSchemeDetails();
@@ -101,7 +102,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         public void GetAmcSchemeDetails()
         {
-           onlineMFSchemeDetailsVo= onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue);
+           onlineMFSchemeDetailsVo= onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC.SelectedValue), (!string.IsNullOrEmpty(Session["MFSchemePlan"].ToString())) ? int.Parse(Session["MFSchemePlan"].ToString()) : int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue);
             lblSchemeName.Text = onlineMFSchemeDetailsVo.schemeName;
             lblAMC.Text = onlineMFSchemeDetailsVo.amcName;
             lblNAV.Text = onlineMFSchemeDetailsVo.NAV.ToString();
@@ -205,7 +206,7 @@ namespace WealthERP.OnlineOrderManagement
         //{
         protected void BindfundManagerDetails()
         {
-            string cmotcode=onlineMFSchemeDetailsBo.GetCmotCode(int.Parse(ddlScheme.SelectedValue));
+            string cmotcode = onlineMFSchemeDetailsBo.GetCmotCode((!string.IsNullOrEmpty(Session["MFSchemePlan"].ToString())) ? int.Parse(Session["MFSchemePlan"].ToString()) : int.Parse(ddlScheme.SelectedValue));
             string result;
             if (cmotcode != "")
             {

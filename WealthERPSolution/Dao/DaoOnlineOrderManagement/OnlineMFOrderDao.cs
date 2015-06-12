@@ -712,6 +712,27 @@ namespace DaoOnlineOrderManagement
             return dsCustomerSchemeFolioHoldings;
         }
 
+        public DataSet GetCustomerOrderBookTransaction(int customerId, int amcCode, int schemeCode, string orderType)
+        {
+            DataSet dsOGetCustomerOrderBookTransaction;
+            Database db;
+            DbCommand GetCustomerOrderBookTransactionCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetCustomerOrderBookTransactionCmd = db.GetStoredProcCommand("SPROC_Onl_GetCustomerOrDerBookAndTransaction");
+                db.AddInParameter(GetCustomerOrderBookTransactionCmd, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(GetCustomerOrderBookTransactionCmd, "@amcCode", DbType.Int32, amcCode);
+                db.AddInParameter(GetCustomerOrderBookTransactionCmd, "@schemeCode", DbType.Int32, schemeCode);
+                db.AddInParameter(GetCustomerOrderBookTransactionCmd, "@transactionType", DbType.String, orderType);
+                dsOGetCustomerOrderBookTransaction = db.ExecuteDataSet(GetCustomerOrderBookTransactionCmd);
 
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsOGetCustomerOrderBookTransaction;
+        }
     }
 }
