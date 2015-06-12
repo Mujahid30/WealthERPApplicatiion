@@ -1122,7 +1122,7 @@ namespace WealthERP.Advisor
                     {
                         Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
                         Session["customerPortfolioVo"] = customerPortfolioVo;
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerMFOrderBookList','login');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineCustomerOrderandTransactionBook','login');", true);
                     }
                     else
                     {
@@ -1137,7 +1137,7 @@ namespace WealthERP.Advisor
                         }
                         Session[SessionContents.FPS_ProspectList_CustomerId] = ParentId;
                         Session[SessionContents.FPS_AddProspectListActionStatus] = "View";
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerMFOrderBookList','login');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineCustomerOrderandTransactionBook','login');", true);
                         //Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
                     }
                 }
