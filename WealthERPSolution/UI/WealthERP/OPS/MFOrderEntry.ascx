@@ -102,7 +102,7 @@
         window.open('PopUp.aspx?PageId=AddBankAccount&bankId=0&action=OfflineMF&custId=' + custId, 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
         return false;
 
-       
+
 
     }
 
@@ -138,11 +138,11 @@
 
         var hdn = document.getElementById("<%=hdnIsSubscripted.ClientID%>").value;
 
-        
+
 
     }
     function ShowInitialIsa() {
- 
+
     }
     function CheckSubscription() {
 
@@ -681,10 +681,10 @@
                     </td>
                     <td>
                         <asp:TextBox ID="txtPansearch" runat="server" CssClass="txtField" AutoComplete="Off"
-                            AutoPostBack="True" onclientClick="ShowIsa()" onblur="return checkItemSelected(this)"
-                            OnTextChanged="OnAssociateTextchanged1" TabIndex="3">
+                            AutoPostBack="True" onclientClick="ShowIsa()" OnTextChanged="OnAssociateTextchanged1"
+                            TabIndex="3">
                         </asp:TextBox><span id="Span1" class="spnRequiredField">*</span>
-                          <asp:ImageButton ID="ImageButton2" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
+                        <asp:ImageButton ID="btnImgAddPAN" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                             AlternateText="Add" runat="server" ToolTip="Click here to Add Customer" OnClick="openpopupAddCustomer_Click"
                             Height="15px" Width="15px" CausesValidation="false"></asp:ImageButton>
                         <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" TargetControlID="txtPansearch"
@@ -1838,6 +1838,7 @@
     <Triggers>
         <asp:PostBackTrigger ControlID="lnkBtnEdit" />
         <asp:PostBackTrigger ControlID="btnImgAddCustomer" />
+        <asp:PostBackTrigger ControlID="btnImgAddPAN" />
     </Triggers>
 </asp:UpdatePanel>
 <asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" Height="600px"
