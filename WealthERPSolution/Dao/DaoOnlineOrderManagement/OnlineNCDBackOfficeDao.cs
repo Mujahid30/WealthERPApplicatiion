@@ -3819,6 +3819,40 @@ namespace DaoOnlineOrderManagement
             }
             return bResult;
         }
+        public DataSet GetIssuerAllotmentIssues(int advisorId, string product, int businessChannel, string orderStatus, string subCategoryCode)
+        {
+            DataSet dsGetIssuerIssue;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand dbCommand;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_GetIssuerAllotmentIssues");
+                db.AddInParameter(dbCommand, "@adviserId", DbType.Int32, advisorId);
+                db.AddInParameter(dbCommand, "@product", DbType.String, product);
+                db.AddInParameter(dbCommand, "@businessChannel", DbType.Int32, businessChannel);
+                if (subCategoryCode != "0")
+                    db.AddInParameter(dbCommand, "@subCategoryCode", DbType.String, subCategoryCode);
+                dsGetIssuerIssue = db.ExecuteDataSet(dbCommand);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:GetIssuerIssue()");
+                object[] objects = new object[1];
+                objects[1] = advisorId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetIssuerIssue;
+        }
     }
 }
 

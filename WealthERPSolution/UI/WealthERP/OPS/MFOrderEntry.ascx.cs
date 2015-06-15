@@ -216,10 +216,25 @@ namespace WealthERP.OPS
         protected void BindTotalInstallments()
         {
             ddlTotalInstallments.Items.Clear();
+              string frequency = string.Empty;
 
-            dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(txtSchemeCode.Value), ddlFrequencySIP.SelectedValue.ToString(), "SIP");
+            if (ddltransType.SelectedValue == "SWP")
+            {
+                frequency = "SWP";
+            }
+            else if (ddltransType.SelectedValue == "STB")
+            {
+                frequency = "STP";
+            }
+            else
+            {
+                frequency = "SIP";
+            }
+
+            dtGetAllSIPDataForOrder = commonLookupBo.Get_Offline_AllSIPDataForOrder(Convert.ToInt32(txtSchemeCode.Value), ddlFrequencySIP.SelectedValue.ToString(), frequency);
             if (dtGetAllSIPDataForOrder == null)
-            {                return;
+            {
+                return;
             }
             if (dtGetAllSIPDataForOrder.Rows.Count == 0)
             {
@@ -271,18 +286,25 @@ namespace WealthERP.OPS
             ddlStartDate.SelectedIndex = 0;
         }
 
-        private string CreateUserMessage(int orderId, int sipId)
+        private string CreateUserMessage(int orderId, int sipId,string mode)
         {
             string userMessage = string.Empty;
 
-
-            if (ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "ABY" || ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "NFO" || ddltransType.SelectedValue == "SWB")
+            if (mode == "INSERT")
             {
-                userMessage = "Order placed successfully, Order reference no. is " + orderId.ToString();
+                if (ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "ABY" || ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "NFO" || ddltransType.SelectedValue == "SWB")
+                {
+                    userMessage = "Order placed successfully, Order reference no. is " + orderId.ToString();
+                }
+                else if (ddltransType.SelectedValue == "SIP" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "STB")
+                {
+                    userMessage = ddltransType.SelectedValue + " Requested successfully," + ddltransType.SelectedValue + " reference no. is " + sipId.ToString();
+                }
             }
-            else if (ddltransType.SelectedValue == "SIP" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "STB")
+            else if(  mode == "UPDATE")
             {
-                userMessage = ddltransType.SelectedValue + " Requested successfully," + ddltransType.SelectedValue + " reference no. is " + sipId.ToString();
+                userMessage = "Order modified successfully.";
+
             }
 
             return userMessage;
@@ -340,7 +362,7 @@ namespace WealthERP.OPS
 
         private void CaliculateEndDate()
         {
-            if (ddlTotalInstallments.SelectedIndex == -1 ||   ddlFrequencySIP.SelectedIndex == 0) return;
+            if (ddlTotalInstallments.SelectedIndex == -1 || ddlFrequencySIP.SelectedIndex == 0) return;
 
             DateTime dtEndDate = boOnlineOrder.GetSipEndDate(Convert.ToDateTime(txtstartDateSIP.SelectedDate), ddlFrequencySIP.SelectedValue, Convert.ToInt32(ddlTotalInstallments.SelectedValue) - 1);
             txtendDateSIP.SelectedDate = dtEndDate;
@@ -411,7 +433,7 @@ namespace WealthERP.OPS
 
             BindCategory();
             BindState();
-           // BindFrequency();
+            // BindFrequency();
             BindBank();
             BindSchemeSwitch();
             trpan.Visible = false;
@@ -505,15 +527,15 @@ namespace WealthERP.OPS
                     lblGetBranch.Text = dr["AB_BranchName"].ToString();
                     lblgetPan.Text = dr["C_PANNum"].ToString();
 
-                    
+
                     if (!string.IsNullOrEmpty(dr["WMTT_TransactionClassificationCode"].ToString()))
                     {
-                        if (dr["WMTT_TransactionClassificationCode"].ToString() == "SWB" || dr["WMTT_TransactionClassificationCode"].ToString() == "SWS" )
+                        if (dr["WMTT_TransactionClassificationCode"].ToString() == "SWB" || dr["WMTT_TransactionClassificationCode"].ToString() == "SWS")
                         {
                             ddltransType.SelectedValue = "SWB";
                             if (dr["WMTT_TransactionClassificationCode"].ToString() == "SWB")
-                            {                       
-                               
+                            {
+
                                 lnkBtnEdit.Text = string.Empty;
                             }
                         }
@@ -671,7 +693,7 @@ namespace WealthERP.OPS
                     }
                     if (ddltransType.SelectedValue == "SIP" | ddltransType.SelectedValue == "SWP" | ddltransType.SelectedValue == "STB")
                     {
-                       // BindStartDates();
+                        // BindStartDates();
                         if (!string.IsNullOrEmpty(dr["CMFSS_StartDate"].ToString()))
                         {
                             string startDates = Convert.ToDateTime(dr["CMFSS_StartDate"].ToString()).ToString("dd-MMM-yyyy");
@@ -681,7 +703,7 @@ namespace WealthERP.OPS
                             ddlTotalInstallments.SelectedValue = dr["CMFSS_TotalInstallment"].ToString();
                             CaliculateEndDate();
                         }
-                      
+
                     }
                     if (!string.IsNullOrEmpty(dr["CMFSS_EndDate"].ToString()))
                         txtendDateSIP.SelectedDate = DateTime.Parse(dr["CMFSS_EndDate"].ToString());
@@ -1022,6 +1044,13 @@ namespace WealthERP.OPS
 
             GetControlDetails(int.Parse(txtSchemeCode.Value), null, null);
 
+
+            if (string.IsNullOrEmpty(txtCustomerId.Value))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Customer Name.');", true);
+                return;
+            }
+
             if ((ddltransType.SelectedValue != "BUY") && (ddltransType.SelectedValue != "SIP") && (ddltransType.SelectedValue != "NFO"))
             {
                 mfOrderBo.GetFolio(int.Parse(txtCustomerId.Value), int.Parse(ddlAMCList.SelectedValue), out folioNo, out accountid);
@@ -1041,8 +1070,8 @@ namespace WealthERP.OPS
 
         protected void BindSipUiOnSchemeSelection(int schemeCode)
         {
- 
-            string frequency=string.Empty ;
+
+            string frequency = string.Empty;
 
             if (ddltransType.SelectedValue == "SWP")
             {
@@ -3252,14 +3281,22 @@ namespace WealthERP.OPS
             Session["customerVo"] = customerVo;
             lblGetBranch.Text = customerVo.BranchName;
             lblgetPan.Text = customerVo.PANNum;
-            ddlsearch.SelectedValue = "1";
-            trCust.Visible = true;
+
+            if (ddlsearch.SelectedValue == "2")
+            {
+                trCust.Visible = false;
+                trpan.Visible = true;
+            }
+            else if (ddlsearch.SelectedValue == "1")
+            {
+                trCust.Visible = true;
+                trpan.Visible = false;
+            }
+
             txtCustomerName.Text = customerVo.FirstName + ' ' + customerVo.MiddleName + ' ' + customerVo.LastName;
             customerId = int.Parse(txtCustomerId.Value);
-            //if (ddlsearch.SelectedItem.Value == "2")
-            //    lblgetcust.Text = customerVo.FirstName + ' ' + customerVo.MiddleName + ' ' + customerVo.LastName;
             OnTaxStatus();
-            //ddlTax.SelectedValue = int.Parse(customerVo.TaxStatusCustomerSubTypeId.ToString());
+
             GetDematAccountDetails(int.Parse(txtCustomerId.Value));
             Panel1.Visible = true;
             hdnPortfolioId.Value = customerPortfolioVo.PortfolioId.ToString();
@@ -3891,7 +3928,7 @@ namespace WealthERP.OPS
 
 
                 }
-     
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -3947,7 +3984,7 @@ namespace WealthERP.OPS
             PaymentMode(ddlPaymentMode.SelectedValue);
             FrequencyEnablityForTransactionType(ddltransType.SelectedValue);
             ddltransType.Focus();
-           
+
         }
 
         private void Sipvisblity(string transactiontype, string mode)
@@ -4541,7 +4578,7 @@ namespace WealthERP.OPS
                 ButtonsEnablement("Submitted");
                 ControlsEnblity("View");
 
-                ShowMessage(CreateUserMessage(Convert.ToInt32(lblGetOrderNo.Text), setupId), 's');
+                ShowMessage(CreateUserMessage(Convert.ToInt32(lblGetOrderNo.Text), setupId,"INSERT"), 's');
             }
             if (ddltransType.SelectedValue == "SWB" || ddltransType.SelectedValue == "STB")
             {
@@ -4630,8 +4667,8 @@ namespace WealthERP.OPS
             BindOrderStepsGrid(Convert.ToInt32(lblGetOrderNo.Text));
             ButtonsEnablement("Submitted");
             ControlsEnblity("View");
-            ShowMessage(CreateUserMessage(Convert.ToInt32(lblGetOrderNo.Text), 0), 's');
-            ShowMessage(CreateUserMessage(OrderIds[1], 0), 's');
+            ShowMessage(CreateUserMessage(Convert.ToInt32(lblGetOrderNo.Text), 0,"INSERT"), 's');
+            ShowMessage(CreateUserMessage(OrderIds[1], 0,"INSERT"), 's');
         }
 
         protected void BindSchemeDividendTypes(int schemeId)
@@ -4688,7 +4725,7 @@ namespace WealthERP.OPS
                 mforderVo.accountid = 0;
             mforderVo.FolioNumber = txtFolioNumber.Text;
 
-            
+
 
             // mforderVo.OrderNumber = int.Parse(lblGetOrderNo.Text);
             if (rbtnImmediate.Checked == true)
@@ -4841,7 +4878,7 @@ namespace WealthERP.OPS
                 mforderVo.StartDate = DateTime.Parse(txtstartDateSIP.SelectedDate.ToString());
             else
                 mforderVo.StartDate = DateTime.MinValue;
-             
+
             if (!string.IsNullOrEmpty((txtendDateSIP.SelectedDate).ToString().Trim()))
                 mforderVo.EndDate = DateTime.Parse(txtendDateSIP.SelectedDate.ToString());
             else
@@ -4851,7 +4888,7 @@ namespace WealthERP.OPS
                 mforderVo.BankBranchId = Convert.ToInt32(ddlBranch.SelectedValue);
             else
                 mforderVo.BankBranchId = 0;
-            
+
             if (ddlARNNo.SelectedIndex != 0)
                 mforderVo.ARNNo = ddlARNNo.SelectedItem.Text;
             if (!String.IsNullOrEmpty(txtAssociateSearch.Text))
@@ -4884,7 +4921,7 @@ namespace WealthERP.OPS
             else
                 systematicSetupVo.CeaseDate = DateTime.MinValue;
 
-       
+
 
             Session["orderVo"] = orderVo;
             Session["mforderVo"] = mforderVo;
@@ -4988,7 +5025,7 @@ namespace WealthERP.OPS
                 ButtonsEnablement("Submitted");
                 ControlsEnblity("Edit");
 
-                ShowMessage(CreateUserMessage(Convert.ToInt32(lblGetOrderNo.Text), setupId), 's');
+                ShowMessage(CreateUserMessage(Convert.ToInt32(lblGetOrderNo.Text), setupId,"INSERT"), 's');
             }
             if (ddltransType.SelectedValue == "SWB" || ddltransType.SelectedValue == "STB")
             {
@@ -5282,6 +5319,7 @@ namespace WealthERP.OPS
             mfOrderBo.UpdateCustomerMFOrderDetails(orderVo, mforderVo, userVo.UserId, systematicSetupVo);
             ButtonsEnablement("Updated");
             ControlsEnblity("View");
+            ShowMessage(CreateUserMessage(Convert.ToInt32(lblGetOrderNo.Text), 0,"UPDATE"), 's');
 
             //SetEditViewMode(true);
             //imgBtnRefereshBank.Enabled = false;

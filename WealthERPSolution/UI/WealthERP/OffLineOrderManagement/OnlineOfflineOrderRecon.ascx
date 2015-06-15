@@ -196,9 +196,15 @@
                                 </FilterTemplate>
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="COAD_Quantity" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
-                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Alloted Quentity"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Alloted Quantity"
                                 UniqueName="COAD_Quantity" SortExpression="COAD_Quantity" AllowFiltering="true"
                                 Visible="true">
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="CO_ApplicationNumber" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Application Number"
+                                UniqueName="CO_ApplicationNumber" SortExpression="CO_ApplicationNumber" AllowFiltering="true"
+                                Visible="true" HeaderStyle-ForeColor="Black">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="COAD_SubBrokerCode" HeaderStyle-Width="20px"

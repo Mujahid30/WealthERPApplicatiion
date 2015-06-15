@@ -119,20 +119,20 @@
         </td>
         <td align="right">
             &nbsp;&nbsp
-            <asp:Label ID="lb1BChannel" runat="server" Text="Business Channel:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lb1BChannel" runat="server" Text="Business Channel:" CssClass="FieldName" Visible="false"></asp:Label>
         </td>
         <%--  </td>
         <td class="rightLabelData">--%>
         <td>
             <asp:DropDownList ID="ddlBChannnel" runat="server" CssClass="cmbLongField" AutoPostBack="true"
-                OnSelectedIndexChanged="ddlBChannnel_SelectedIndexChanged" Width="150px">
+                OnSelectedIndexChanged="ddlBChannnel_SelectedIndexChanged" Width="150px" Visible="false">
             </asp:DropDownList>
             <%-- <span id="Span10" class="spnRequiredField">*</span>--%>
-            <span id="Span20" class="spnRequiredField">*</span>
+            <%--<span id="Span20" class="spnRequiredField">*</span>--%>
             <br />
             <asp:RequiredFieldValidator ID="REqBChannel" runat="server" ErrorMessage="Please Select Business Channel"
                 CssClass="rfvPCG" ControlToValidate="ddlBChannnel" ValidationGroup="btnGo" Display="Dynamic"
-                InitialValue="Select"></asp:RequiredFieldValidator>
+                InitialValue="Select" Visible="false"></asp:RequiredFieldValidator>
         </td>
         <td>
             <asp:Label ID="lblType" runat="server" Text="Select Type" CssClass="FieldName"></asp:Label>

@@ -2451,5 +2451,30 @@ namespace BoOnlineOrderManagement
             }
             return bResult;
         }
+        public DataSet GetIssuerAllotmentIssues(int advisorId, string product, int businessChannel, string orderStatus, string subCategoryCode)
+        {
+            onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            try
+            {
+                return onlineNCDBackOfficeDao.GetIssuerAllotmentIssues(advisorId, product, businessChannel, orderStatus, subCategoryCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:GetIssuerIssue()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        }
+
     }
 }

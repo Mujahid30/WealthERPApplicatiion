@@ -96,8 +96,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 BindCategory();
                 if (userType == "associates")
                 {
-                    ddlBChannnel.Items[2].Enabled = false;
-                    ddlBChannnel.Items[1].Enabled = false;
+                    //ddlBChannnel.Items[2].Enabled = false;
+                    //ddlBChannnel.Items[1].Enabled = false;
                     ddlType.Items[0].Enabled = false;
 
                 }
@@ -146,13 +146,43 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void btnNcdIpoExport_Click(object sender, ImageClickEventArgs e)
         {
-            gvOrders.ExportSettings.OpenInNewWindow = true;
-            gvOrders.ExportSettings.IgnorePaging = true;
-            gvOrders.ExportSettings.HideStructureColumns = true;
-            gvOrders.ExportSettings.ExportOnlyData = true;
-            gvOrders.ExportSettings.FileName = "NcdIpo Recon";
-            gvOrders.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvOrders.MasterTableView.ExportToExcel();
+            if (ddlType.SelectedValue == "2")
+            {
+                if (ddlSubCategory.SelectedValue == "FISDSD")
+                {
+
+                    RadMultiSeries.ExportSettings.OpenInNewWindow = true;
+                    RadMultiSeries.ExportSettings.IgnorePaging = true;
+                    RadMultiSeries.ExportSettings.HideStructureColumns = true;
+                    RadMultiSeries.ExportSettings.ExportOnlyData = true;
+                    RadMultiSeries.ExportSettings.FileName = "NcdIpo Recon";
+                    RadMultiSeries.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+                    RadMultiSeries.MasterTableView.ExportToExcel();
+                }
+                else
+                {
+                    gvOfflineAllotment.ExportSettings.OpenInNewWindow = true;
+                    gvOfflineAllotment.ExportSettings.IgnorePaging = true;
+                    gvOfflineAllotment.ExportSettings.HideStructureColumns = true;
+                    gvOfflineAllotment.ExportSettings.ExportOnlyData = true;
+                    gvOfflineAllotment.ExportSettings.FileName = "NcdIpo Recon";
+                    gvOfflineAllotment.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+                    gvOfflineAllotment.MasterTableView.ExportToExcel();
+
+                }
+            }
+            else
+            {
+
+                gvOrders.ExportSettings.OpenInNewWindow = true;
+                gvOrders.ExportSettings.IgnorePaging = true;
+                gvOrders.ExportSettings.HideStructureColumns = true;
+                gvOrders.ExportSettings.ExportOnlyData = true;
+                gvOrders.ExportSettings.FileName = "NcdIpo Recon";
+                gvOrders.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+                gvOrders.MasterTableView.ExportToExcel();
+            }
+            
 
         }
         protected void btnManualMatchGo_Click(object sender, EventArgs e)
@@ -513,7 +543,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ddlIssue.Items.Clear();
                 DataSet dsIssuer = new DataSet();
-                dsIssuer = onlineNCDBackOfficeBo.GetIssuerIssue(advisorVo.advisorId, ddlProduct.SelectedValue, Convert.ToInt32(ddlBChannnel.SelectedValue), "PR", ddlSubCategory.SelectedValue);
+                dsIssuer = onlineNCDBackOfficeBo.GetIssuerAllotmentIssues(advisorVo.advisorId, ddlProduct.SelectedValue,0, "PR", ddlSubCategory.SelectedValue);
                 if (dsIssuer.Tables[0].Rows.Count > 0)
                 {
                     ddlIssue.DataSource = dsIssuer;
