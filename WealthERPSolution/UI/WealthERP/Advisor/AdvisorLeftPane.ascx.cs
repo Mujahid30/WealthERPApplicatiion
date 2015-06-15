@@ -558,6 +558,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CommissionReceivableRecon','login');", true);
                 }
+                else if (e.Item.Value == "Brokerage_Recon")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerUploadNew','login');", true);
+                }
                 else if (e.Item.Value == "Non-MF_Recon")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineOfflineOrderRecon','login');", true);

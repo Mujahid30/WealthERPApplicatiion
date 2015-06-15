@@ -375,6 +375,8 @@
                                             </telerik:RadPanelItem>
                                              <telerik:RadPanelItem runat="server" Text="Commision Recon" Value="Commision_Recon">
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Brokerage Recon" Value="Brokerage_Recon">
+                                            </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Reconciliation" Value="Reconciliation">

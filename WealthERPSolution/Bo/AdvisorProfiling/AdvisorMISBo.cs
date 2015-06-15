@@ -1873,5 +1873,61 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
+
+        public DataSet GetWERPCommissionDetails(string product,  int AdviserId, int month, int year, string category,  int issueId,  string productCategory)
+        {
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            DataSet dsGetCommissionReconMis = new DataSet();
+            DataTable dtstructure = new DataTable();
+            DataTable dtTrailSet = new DataTable();
+
+            try
+            {
+                dsGetCommissionReconMis = MISDao.GetWERPCommissionDetails (  product,AdviserId,  month,  year,  category,  issueId, productCategory);
+
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetWERPCommissionDetails()");
+
+                object[] objects = new object[3];
+                objects[0] = AdviserId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetCommissionReconMis;
+        }
+        public bool UpdateActualPayAndRec(int id, int ActPay, int ActRec)
+        {
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            bool bResult = false;
+            try
+            {
+                bResult = MISDao.UpdateActualPayAndRec(id, ActPay, ActRec);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMISBo.cs:UpdateActualPayAndRec()");
+
+                object[] objects = new object[3];
+                objects[0] = id;
+                objects[1] = ActPay;
+                objects[2] = ActRec;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
     }
 }

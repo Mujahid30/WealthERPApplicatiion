@@ -2691,7 +2691,7 @@ namespace DaoAdvisorProfiling
                 getCommissionReconMisCmd = db.GetStoredProcCommand("SPROC_GetCommissionReceivableExceptedMIS");
                 db.AddInParameter(getCommissionReconMisCmd, "@adviserId", DbType.Int32, AdviserId);
                 db.AddInParameter(getCommissionReconMisCmd, "@schemeid", DbType.Int32, schemeid);
-                
+
                 if (month != 0)
                     db.AddInParameter(getCommissionReconMisCmd, "@Month", DbType.Int16, month);
                 else
@@ -2719,7 +2719,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getCommissionReconMisCmd, "@commissionLookUpId", DbType.Int32, commissionLookUpId);
                 db.AddInParameter(getCommissionReconMisCmd, "@orderStatus", DbType.String, orderStatus);
                 db.AddInParameter(getCommissionReconMisCmd, "@AgentCode", DbType.String, agentCode);
-                db.AddInParameter(getCommissionReconMisCmd, "@ProductCategory", DbType.String,productCategory);
+                db.AddInParameter(getCommissionReconMisCmd, "@ProductCategory", DbType.String, productCategory);
                 db.AddInParameter(getCommissionReconMisCmd, "@IsAuthenticated", DbType.Boolean, isAuthenticated);
                 getCommissionReconMisCmd.CommandTimeout = 60 * 60;
                 dsGetCommissionReconMis = db.ExecuteDataSet(getCommissionReconMisCmd);
@@ -2815,6 +2815,93 @@ namespace DaoAdvisorProfiling
                 object[] objects = new object[2];
                 objects[0] = transId;
 
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+
+        public DataSet GetWERPCommissionDetails(string product, int AdviserId, int month, int year, string category, int issueId, string productCategory)
+        {
+            Database db;
+            DbCommand getCommissionReconMisCmd;
+            DataSet dsGetCommissionReconMis;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCommissionReconMisCmd = db.GetStoredProcCommand("SPROC_GetWERPCommissionDetails");
+                db.AddInParameter(getCommissionReconMisCmd, "@adviserId", DbType.Int32, AdviserId);
+                db.AddInParameter(getCommissionReconMisCmd, "@Product", DbType.String, product);
+
+                if (month != 0)
+                    db.AddInParameter(getCommissionReconMisCmd, "@Month", DbType.Int16, month);
+                else
+                    db.AddInParameter(getCommissionReconMisCmd, "@Month", DbType.Int16, DBNull.Value);
+                if (year != 0)
+                    db.AddInParameter(getCommissionReconMisCmd, "@Year", DbType.Int16, year);
+                else
+                    db.AddInParameter(getCommissionReconMisCmd, "@Year", DbType.Int16, DBNull.Value);
+                if (!string.IsNullOrEmpty(category))
+                    db.AddInParameter(getCommissionReconMisCmd, "@Category", DbType.String, category);
+                else
+                    db.AddInParameter(getCommissionReconMisCmd, "@Category", DbType.String, DBNull.Value);
+               
+                //db.AddInParameter(getCommissionReconMisCmd, "@issuer", DbType.Int32, issuer);
+                db.AddInParameter(getCommissionReconMisCmd, "@issueId", DbType.Int32, issueId);
+                //db.AddInParameter(getCommissionReconMisCmd, "@commissionLookUpId", DbType.Int32, commissionLookUpId);
+
+                db.AddInParameter(getCommissionReconMisCmd, "@ProductCategory", DbType.String, productCategory);
+                //db.AddInParameter(getCommissionReconMisCmd, "@IsAuthenticated", DbType.Boolean, isAuthenticated);
+                getCommissionReconMisCmd.CommandTimeout = 60 * 60;
+                dsGetCommissionReconMis = db.ExecuteDataSet(getCommissionReconMisCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+
+            return dsGetCommissionReconMis;
+        }
+
+        public bool UpdateActualPayAndRec(int id, int ActPay, int ActRec)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmdUpdateActualPayAndRec;
+            bool bResult = false;
+            int count = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //Adding Data to the table 
+                cmdUpdateActualPayAndRec = db.GetStoredProcCommand("SaveReceivableReconChanges");
+                db.AddInParameter(cmdUpdateActualPayAndRec, "@Id", DbType.Int32, id);
+                db.AddInParameter(cmdUpdateActualPayAndRec, "@ActPay", DbType.Int32, ActPay);
+                db.AddInParameter(cmdUpdateActualPayAndRec, "@ActRec", DbType.Int32, ActRec);
+
+
+                count = db.ExecuteNonQuery(cmdUpdateActualPayAndRec);
+
+                if (count>0)
+                    bResult=true;
+               
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorMISDao.cs:UpdateActualPayAndRec()");
+                object[] objects = new object[2];
+                objects[0] = id;
+                objects[1] = ActPay;
+                objects[2] = ActRec;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
