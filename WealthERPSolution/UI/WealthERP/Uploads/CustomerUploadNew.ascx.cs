@@ -415,7 +415,7 @@ namespace WealthERP.Uploads
             bool blResult = false;
             foreach (GridDataItem dr in gvbrokerageRecon.Items)
             {
-                CheckBox checkBox = (CheckBox)dr.FindControl("chkId");
+                CheckBox checkBox = (CheckBox)dr.FindControl("Ranjan");
                 if (checkBox.Checked == true)
                 {
                     if (((TextBox)dr.FindControl("txtActRecBrokerage")).Text.Trim() != "")
