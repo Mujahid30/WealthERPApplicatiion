@@ -310,6 +310,8 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="MF SIP MIS" Value="MF systematic MIS">
                                             </telerik:RadPanelItem>
+                                             <telerik:RadPanelItem runat="server" Text="NCD and IPO Order Match" Value="NcdIpoRecon">
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Queries" Value="Queries">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="NCD Allotments" Value="NCD_Allotments">
@@ -391,8 +393,7 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="SubBroker Code Cleansing" Value="SubBroker_Code_Cleansing">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="NCD and IPO Order Match" Value="NcdIpoRecon">
-                                            </telerik:RadPanelItem>
+                                          
                                             <telerik:RadPanelItem runat="server" Text="MF NP & Tranx Compare" Value="MFNP_Tranx_Compare">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Customer Association Recon(Offline)" Value="Customer_Association_Recon">
@@ -1050,6 +1051,7 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="NCD/IPO Allotment" Value="NCD_IPO_Allotments">
                                             </telerik:RadPanelItem>
+                                           
                                             <telerik:RadPanelItem runat="server" Text="MF Folio Accounts" Value="MF Folios">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Transactionss" Value="MFT">
@@ -1127,8 +1129,7 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Non MF Recon" Value="Non-MF_Recon">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="NCD and IPO Order Match" Value="NcdIpoRecon">
-                                            </telerik:RadPanelItem>
+                                            
                                             <telerik:RadPanelItem runat="server" Text="MF NP & Tranx Compare" Value="MFNP_Tranx_Compare">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Customer Association Recon(Offline)" Value="Customer_Association_Recon">

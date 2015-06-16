@@ -204,7 +204,7 @@
                             <telerik:GridBoundColumn DataField="CO_ApplicationNumber" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Application Number"
                                 UniqueName="CO_ApplicationNumber" SortExpression="CO_ApplicationNumber" AllowFiltering="true"
-                                Visible="true" HeaderStyle-ForeColor="Black">
+                                Visible="true"  >
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="COAD_SubBrokerCode" HeaderStyle-Width="20px"
