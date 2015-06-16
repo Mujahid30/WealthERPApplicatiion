@@ -121,7 +121,7 @@
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AllowAutomaticInserts="false"
                     OnNeedDataSource="gvSIPSummaryBookMIS_OnNeedDataSource" OnUpdateCommand="gvSIPSummaryBookMIS_UpdateCommand"
-                    OnItemCommand="gvSIPSummaryBookMIS_OnItemCommand">
+                    OnItemCommand="gvSIPSummaryBookMIS_OnItemCommand" OnItemDataBound="gvSIPSummaryBookMIS_ItemDataBound">
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="Systematic Book">
                     </ExportSettings>
                     <MasterTableView DataKeyNames="WMTT_TransactionClassificationCode,CMFSS_SystematicSetupId,CMFSS_IsCanceled,AcceptCount,InProcessCount,RejectedCount,CMFA_AccountId,PASP_SchemePlanCode,CMFSS_IsSourceAA,C_CustomerId,CMFSS_TotalInstallment,CMFSS_CurrentInstallmentNumber,CMFSS_EndDate"

@@ -328,7 +328,7 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void btnExportFilteredDupData_OnClick(object sender, ImageClickEventArgs e)
         {
-           gvSIPSummaryBookMIS.ExportSettings.OpenInNewWindow = true;
+            gvSIPSummaryBookMIS.ExportSettings.OpenInNewWindow = true;
             gvSIPSummaryBookMIS.ExportSettings.IgnorePaging = true;
             gvSIPSummaryBookMIS.ExportSettings.HideStructureColumns = true;
             gvSIPSummaryBookMIS.ExportSettings.ExportOnlyData = true;
@@ -416,12 +416,41 @@ namespace WealthERP.OffLineOrderManagement
                 TextBox txtRemark = (TextBox)e.Item.FindControl("txtRemark");
                 strRemark = txtRemark.Text;
                 LinkButton buttonEdit = editItem["editColumn"].Controls[0] as LinkButton;
+             
                 Int32 systematicId = Convert.ToInt32(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFSS_SystematicSetupId"].ToString());
+               
+                
                 OnlineMFOrderBo.UpdateCnacleRegisterSIP(systematicId, 1, strRemark, userVo.UserId);
                 BindSIPOfflineBook();
                 buttonEdit.Enabled = false;
             }
         }
+
+        protected void gvSIPSummaryBookMIS_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataItem = e.Item as GridDataItem;
+               
+               // LinkButton cancel = (LinkButton)e.Item.FindControl("editColumn");
+                LinkButton cancel = dataItem["editColumn"].Controls[0] as LinkButton;
+
+                string isCancelled = gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFSS_IsCanceled"].ToString();
+               if (isCancelled == "Cancelled")
+                {
+                    cancel.Visible = false;
+                }
+                else
+                {
+                    cancel.Visible = true;
+                }
+              
+
+            }
+
+        }
+
         protected void gvSIPSummaryBookMIS_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
             if (e.Item is GridDataItem)
