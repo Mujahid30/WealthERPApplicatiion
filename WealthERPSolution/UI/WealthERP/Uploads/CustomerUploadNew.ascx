@@ -1,5 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerUploadNew.ascx.cs"
     Inherits="WealthERP.Uploads.CustomerUploadNew" %>
+
+<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+
 <asp:ScriptManager ID="scrptMgr" runat="server">
     <Services>
         <asp:ServiceReference Path="AutoComplete.asmx" />
@@ -26,7 +29,7 @@
         var gvControl = document.getElementById('<%= gvbrokerageRecon.ClientID %>');
 
         //this is the checkbox in the item template...this has to be the same name as the ID of it
-        var gvChkBoxControl = "chkId";
+        var gvChkBoxControl = "Ranjan";
 
         //this is the checkbox in the header template
         var mainChkBox = document.getElementById("chkIdAll");
@@ -37,8 +40,36 @@
         for (var i = 0; i < inputTypes.length; i++) {
             //if the input type is a checkbox and the id of it is what we set above
             //then check or uncheck according to the main checkbox in the header template
-            if (inputTypes[i].type == 'checkbox' && inputTypes[i].id.indexOf(gvChkBoxControl, 0) >= 0)
+            var chkIdAll = inputTypes[i].id;
+            if (inputTypes[i].type == 'checkbox' && chkIdAll.indexOf(gvChkBoxControl) >= 0)
                 inputTypes[i].checked = mainChkBox.checked;
+        }
+    }
+</script>
+
+<script type="text/javascript">
+    function validation() {
+        var grid = document.getElementById('<%= gvbrokerageRecon.ClientID %>');
+        var inputTypes = grid.getElementsByTagName("input");
+        for (var i = 0; i < inputTypes.length; i++) {
+
+            var txtAmountReceive = $("input[id*=txtActRecBrokerage]")
+            var cbRec = $("input[id*=chkIdRec]")
+        
+            document.getElementById(txtAmountReceive[i].id).readOnly = false;
+           
+            if (document.getElementById(cbRec[i].id).checked==true) {
+                document.getElementById(txtAmountReceive[i].id).readOnly = true;
+
+            }
+            var txtAmountPayble = $("input[id*=txtActPaybrokerage]")
+            var cbPay = $("input[id*=chkIdPay]")
+            document.getElementById(txtAmountPayble[i].id).readOnly = false;
+            
+            if (document.getElementById(cbPay[i].id).checked == true) {
+                document.getElementById(txtAmountPayble[i].id).readOnly = true;
+
+            }
         }
     }
 </script>
@@ -212,24 +243,12 @@
                         <input id="chkIdAll" name="chkIdAll" type="checkbox" onclick="checkAllBoxes()" />
                     </HeaderTemplate>
                     <ItemTemplate>
-                        <asp:CheckBox ID="chkId" runat="server" />
+                        <asp:CheckBox ID="Ranjan" runat="server" />
                     </ItemTemplate>
                     <FooterTemplate>
                         <%--  --%>
                     </FooterTemplate>
                 </telerik:GridTemplateColumn>
-                <%--  <telerik:GridBoundColumn AllowFiltering="true" DataField="RTABrokerageAmt" AutoPostBackOnFilter="true"
-                Visible="true" HeaderText="RTA Brokerage Amount" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                UniqueName="RTABrokerageAmt" SortExpression="ReqId" FooterStyle-HorizontalAlign="Right"
-                HeaderStyle-Width="90px">
-                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-            </telerik:GridBoundColumn>
-            <telerik:GridBoundColumn AllowFiltering="true" DataField="RTABrokerageAmt" AutoPostBackOnFilter="true"
-                Visible="true" HeaderText="RTA Brokerage Amount" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                UniqueName="RTABrokerageAmt" SortExpression="ReqId" FooterStyle-HorizontalAlign="Right"
-                HeaderStyle-Width="90px">
-                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-            </telerik:GridBoundColumn>--%>
                 <telerik:GridBoundColumn AllowFiltering="true" DataField="CO_ApplicationNumber" AutoPostBackOnFilter="true"
                     HeaderText="Application Number" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     UniqueName="CO_ApplicationNumber" SortExpression="CO_ApplicationNumber" FooterStyle-HorizontalAlign="Right"
@@ -280,12 +299,12 @@
                         <asp:TextBox ID="txtActRecBrokerage" CssClass="txtField" runat="server" Text='<%# Bind("WCD_Act_Rec_Brokerage") %>'></asp:TextBox>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
-                <%--   <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="actionRec" DataField="actionRec"
-                HeaderStyle-Width="70px" HeaderText="Lock Received">
-                <ItemTemplate>
-                    <asp:CheckBox ID="chkIdRec" runat="server" />
-                </ItemTemplate>
-            </telerik:GridTemplateColumn>--%>
+                <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="actionRec" DataField="actionRec"
+                    HeaderStyle-Width="70px" HeaderText="Lock Received">
+                    <ItemTemplate>
+                        <asp:CheckBox ID="chkIdRec" runat="server" OnClick="return validation();" />
+                    </ItemTemplate>
+                </telerik:GridTemplateColumn>
                 <telerik:GridBoundColumn AllowFiltering="true" DataField="WCD_Pay_Expectedamount"
                     AutoPostBackOnFilter="true" HeaderText="System Calculated" ShowFilterIcon="false"
                     Aggregate="Sum" CurrentFilterFunction="Contains" UniqueName="WCD_Pay_Expectedamount"
@@ -300,12 +319,12 @@
                         <asp:TextBox ID="txtActPaybrokerage" CssClass="txtField" runat="server" Text='<%# Bind("WCD_Act_Pay_brokerage") %>'></asp:TextBox>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
-                <%--<telerik:GridTemplateColumn AllowFiltering="false" HeaderText="lock Payout" UniqueName="actionPay"
-                DataField="actionPay" HeaderStyle-Width="70px">
-                <ItemTemplate>
-                    <asp:CheckBox ID="chkIdPay" runat="server" />
-                </ItemTemplate>
-            </telerik:GridTemplateColumn>--%>
+                <telerik:GridTemplateColumn AllowFiltering="false" HeaderText="lock Payout" UniqueName="actionPay"
+                    DataField="actionPay" HeaderStyle-Width="70px">
+                    <ItemTemplate>
+                        <asp:CheckBox ID="chkIdPay" OnClick="return validation();" runat="server" />
+                    </ItemTemplate>
+                </telerik:GridTemplateColumn>
             </Columns>
         </MasterTableView>
         <ClientSettings>
