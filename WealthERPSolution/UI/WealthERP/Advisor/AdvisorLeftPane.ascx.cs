@@ -565,7 +565,7 @@ namespace WealthERP.Advisor
 
                 else if (e.Item.Value == "View_Associate_Payout_Report")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderList','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('BulkRequestStatus','login');", true);
                 }
                 else if (e.Item.Value == "Non-MF_Recon")
                 {

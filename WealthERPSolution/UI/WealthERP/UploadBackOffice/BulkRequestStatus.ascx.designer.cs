@@ -14,5 +14,50 @@ namespace WealthERP.UploadBackOffice
 
     public partial class BulkRequestStatus
     {
+        protected global::Telerik.Web.UI.RadGrid rdAssociatePayout;
+        protected global::System.Web.UI.WebControls.RadioButton rbAssocicatieAll;
+        protected global::System.Web.UI.WebControls.RadioButton rdAssociateInd;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblAgentCode;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtAgentCode;
+        protected global::System.Web.UI.WebControls.Button btnSubmit;
+        protected global::System.Web.UI.WebControls.Panel pnlOrderList;
+        protected global::System.Web.UI.WebControls.Label lblFromDate;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblOrder;
+         protected global::System.Web.UI.WebControls.ImageButton btnExportFilteredDupData;
+        /// <summary>
+        /// txtFromDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFromDate;
+
+        /// <summary>
+        /// rvFromdate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rvFromdate;
+
+        /// <summary>
+        /// lblToDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblToDate;
+
+        /// <summary>
+        /// txtToDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtToDate;
     }
 }

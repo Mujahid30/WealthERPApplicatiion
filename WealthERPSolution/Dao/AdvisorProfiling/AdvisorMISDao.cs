@@ -2866,7 +2866,7 @@ namespace DaoAdvisorProfiling
             return dsGetCommissionReconMis;
         }
 
-        public bool UpdateActualPayAndRec(int id, int ActPay, int ActRec, bool IsPayLocked, bool IsRecLocked)
+        public bool UpdateActualPayAndRec(int id, decimal ActPay, decimal ActRec, bool IsPayLocked, bool IsRecLocked)
         {
             Database db;
             DataSet ds;
@@ -2877,10 +2877,10 @@ namespace DaoAdvisorProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 //Adding Data to the table 
-                cmdUpdateActualPayAndRec = db.GetStoredProcCommand("SaveReceivableReconChanges");
+                cmdUpdateActualPayAndRec = db.GetStoredProcCommand("SPROC_UpdateActualPayAndRec");
                 db.AddInParameter(cmdUpdateActualPayAndRec, "@Id", DbType.Int32, id);
-                db.AddInParameter(cmdUpdateActualPayAndRec, "@ActPay", DbType.Int32, ActPay);
-                db.AddInParameter(cmdUpdateActualPayAndRec, "@ActRec", DbType.Int32, ActRec);
+                db.AddInParameter(cmdUpdateActualPayAndRec, "@ActPay", DbType.Decimal, ActPay);
+                db.AddInParameter(cmdUpdateActualPayAndRec, "@ActRec", DbType.Decimal, ActRec);
                 db.AddInParameter(cmdUpdateActualPayAndRec, "@IsPayLocked", DbType.Boolean, IsPayLocked);
                 db.AddInParameter(cmdUpdateActualPayAndRec, "@IsRecLocked", DbType.Boolean, IsRecLocked);
 

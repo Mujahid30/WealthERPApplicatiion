@@ -73,7 +73,24 @@
         }
     }
 </script>
-
+<table width="100%">
+    <tr>
+        <td colspan="3">
+            <div class="divPageHeading">
+                <table cellspacing="0" width="100%">
+                    <tr>
+                        <td align="left">
+                            Brokerage Reconciliation
+                        </td>
+                        <td align="right" style="padding-bottom: 2px;">
+                         
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
 <table width="90%" class="TableBackground" cellspacing="0" cellpadding="2">
     <tr>
         <td align="left" class="leftField" width="20%">
@@ -333,4 +350,4 @@
         </ClientSettings>
     </telerik:RadGrid>
 </div>
-<asp:Button ID="btnSave" CssClass="PCGButton" runat="server" Text="Update" Visible="false" />
+<asp:Button ID="btnSave" CssClass="PCGButton" runat="server" Text="Update" Visible="false" OnClick="btnSave_Click" />

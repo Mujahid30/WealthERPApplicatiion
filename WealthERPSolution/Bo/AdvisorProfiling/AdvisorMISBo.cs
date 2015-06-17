@@ -1903,7 +1903,7 @@ namespace BoAdvisorProfiling
             }
             return dsGetCommissionReconMis;
         }
-        public bool UpdateActualPayAndRec(int id, int ActPay, int ActRec, bool IsPayLocked, bool IsRecLocked)
+        public bool UpdateActualPayAndRec(int id, decimal ActPay, decimal ActRec, bool IsPayLocked, bool IsRecLocked)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             bool bResult = false;
