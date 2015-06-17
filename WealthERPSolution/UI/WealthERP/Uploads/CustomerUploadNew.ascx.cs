@@ -413,6 +413,8 @@ namespace WealthERP.Uploads
             int ActRec = 0;
             int ActPay = 0;
             bool blResult = false;
+            bool IsPayLocked = false;
+            bool IsRecLocked = false;
             foreach (GridDataItem dr in gvbrokerageRecon.Items)
             {
                 CheckBox checkBox = (CheckBox)dr.FindControl("Ranjan");
@@ -426,13 +428,14 @@ namespace WealthERP.Uploads
                     {
                         ActPay = Convert.ToInt32(((TextBox)dr.FindControl("txtActPaybrokerage")).Text);
                     }
-
+                    IsPayLocked = ((CheckBox)dr.FindControl("chkIdPay")).Checked;
+                    IsRecLocked = ((CheckBox)dr.FindControl("chkIdRec")).Checked;
                     int selectedRow = 0;
                     GridDataItem gdi;
                     gdi = (GridDataItem)checkBox.NamingContainer;
                     selectedRow = gdi.ItemIndex ;
-                   id = int.Parse((gvbrokerageRecon.MasterTableView.DataKeyValues[selectedRow]["WCD_Id"].ToString()));
-                    blResult = adviserMFMIS.UpdateActualPayAndRec(id,ActPay,ActRec);
+                    id = int.Parse((gvbrokerageRecon.MasterTableView.DataKeyValues[selectedRow]["WCD_Id"].ToString()));
+                    blResult = adviserMFMIS.UpdateActualPayAndRec(id, ActPay, ActRec, IsPayLocked, IsRecLocked);
 
                 }
                 

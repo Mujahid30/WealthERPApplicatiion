@@ -379,6 +379,8 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Brokerage Recon" Value="Brokerage_Recon">
                                             </telerik:RadPanelItem>
+                                              <telerik:RadPanelItem runat="server" Text="View Associate Payout Report" Value="View_Associate_Payout_Report">
+                                            </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Reconciliation" Value="Reconciliation">

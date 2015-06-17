@@ -2866,7 +2866,7 @@ namespace DaoAdvisorProfiling
             return dsGetCommissionReconMis;
         }
 
-        public bool UpdateActualPayAndRec(int id, int ActPay, int ActRec)
+        public bool UpdateActualPayAndRec(int id, int ActPay, int ActRec, bool IsPayLocked, bool IsRecLocked)
         {
             Database db;
             DataSet ds;
@@ -2881,6 +2881,8 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(cmdUpdateActualPayAndRec, "@Id", DbType.Int32, id);
                 db.AddInParameter(cmdUpdateActualPayAndRec, "@ActPay", DbType.Int32, ActPay);
                 db.AddInParameter(cmdUpdateActualPayAndRec, "@ActRec", DbType.Int32, ActRec);
+                db.AddInParameter(cmdUpdateActualPayAndRec, "@IsPayLocked", DbType.Boolean, IsPayLocked);
+                db.AddInParameter(cmdUpdateActualPayAndRec, "@IsRecLocked", DbType.Boolean, IsRecLocked);
 
 
                 count = db.ExecuteNonQuery(cmdUpdateActualPayAndRec);

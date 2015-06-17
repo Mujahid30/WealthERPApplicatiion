@@ -296,13 +296,13 @@
                     Aggregate="Sum" UniqueName="WCD_Act_Rec_Brokerage" SortExpression="WCD_Act_Rec_Brokerage"
                     FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
                     <ItemTemplate>
-                        <asp:TextBox ID="txtActRecBrokerage" CssClass="txtField" runat="server" Text='<%# Bind("WCD_Act_Rec_Brokerage") %>'></asp:TextBox>
+                        <asp:TextBox ID="txtActRecBrokerage" CssClass="txtField" ReadOnly='<%# Bind("IsRecLocked") %>' runat="server" Text='<%# Bind("WCD_Act_Rec_Brokerage") %>'></asp:TextBox>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
                 <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="actionRec" DataField="actionRec"
                     HeaderStyle-Width="70px" HeaderText="Lock Received">
                     <ItemTemplate>
-                        <asp:CheckBox ID="chkIdRec" runat="server" OnClick="return validation();" />
+                        <asp:CheckBox ID="chkIdRec" runat="server" Checked='<%# Bind("IsRecLocked") %>' OnClick="return validation();" />
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
                 <telerik:GridBoundColumn AllowFiltering="true" DataField="WCD_Pay_Expectedamount"
@@ -316,13 +316,13 @@
                     Aggregate="Sum" CurrentFilterFunction="Contains" SortExpression="WCD_Act_Pay_brokerage"
                     UniqueName="WCD_Act_Pay_brokerage" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
                     <ItemTemplate>
-                        <asp:TextBox ID="txtActPaybrokerage" CssClass="txtField" runat="server" Text='<%# Bind("WCD_Act_Pay_brokerage") %>'></asp:TextBox>
+                        <asp:TextBox ID="txtActPaybrokerage" ReadOnly='<%# Bind("IsPayLocked") %>' CssClass="txtField" runat="server" Text='<%# Bind("WCD_Act_Pay_brokerage") %>'></asp:TextBox>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
                 <telerik:GridTemplateColumn AllowFiltering="false" HeaderText="lock Payout" UniqueName="actionPay"
                     DataField="actionPay" HeaderStyle-Width="70px">
                     <ItemTemplate>
-                        <asp:CheckBox ID="chkIdPay" OnClick="return validation();" runat="server" />
+                        <asp:CheckBox ID="chkIdPay"  Checked='<%# Bind("IsPayLocked") %>' OnClick="return validation();" runat="server" />
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
             </Columns>
