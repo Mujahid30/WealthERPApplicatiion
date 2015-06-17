@@ -18,7 +18,6 @@ using VOAssociates;
 using BOAssociates;
 using VoOps;
 using System.Collections;
-using BoCommisionManagement;
 
 namespace WealthERP.OPS
 {
@@ -35,7 +34,6 @@ namespace WealthERP.OPS
         AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
         FIOrderBo fiorderBo = new FIOrderBo();
         FIOrderVo fiorderVo = new FIOrderVo();
-        CommisionReceivableBo commisionReceivableBo = new CommisionReceivableBo();
         AdvisorVo advisorVo;
         UserVo userVo;
         string userType;
@@ -94,7 +92,16 @@ namespace WealthERP.OPS
                     else
                         AgentCode = "0";
                 }
-                
+                else
+                {
+                    associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                    if (associateuserheirarchyVo.AgentCode != null)
+                    {
+                        AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                    }
+                    else
+                        AgentCode = "0";
+                }
                 txtIndividualCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
                 txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
             }
@@ -102,110 +109,141 @@ namespace WealthERP.OPS
             bmID = rmVo.RMId;
             rmId = rmVo.RMId;
 
-            //gvOrderList.Visible = false;
+            gvOrderList.Visible = false;
             trExportFilteredDupData.Visible = false;
             if (!IsPostBack)
             {
-                //DateTime fromDate = DateTime.Now.AddDays(-1);
-                //txtFromDate.SelectedDate = fromDate;
-                //txtToDate.SelectedDate = DateTime.Now;
-              
-            }
-            
-        }
-        protected void btnSubmit_OnClick(object sender,EventArgs e)
-        {
-            BindAssociatePayoutGrid(advisorVo.advisorId, AgentCode, DateTime.Parse(txtFromDate.Text.ToString()), DateTime.Parse(txtFromDate.Text.ToString()));
-        }
-        private void BindAssociatePayoutGrid(int adviserId,String agentCode,DateTime fromDate,DateTime toDate)
-        {
-            DataTable dtAssociatePayout = new DataTable();
-            try
-            {
-                dtAssociatePayout=commisionReceivableBo.GetAssociateCommissionPayout(adviserId, agentCode, fromDate, toDate);
-                rdAssociatePayout.DataSource = dtAssociatePayout;
-                rdAssociatePayout.DataBind();
-                pnlOrderList.Visible = true;
-                rdAssociatePayout.Visible = true;
-                if (Cache["AssociatePayout" + userVo.UserId] != null)
+                DateTime fromDate = DateTime.Now.AddDays(-1);
+                txtFromDate.SelectedDate = fromDate;
+                txtToDate.SelectedDate = DateTime.Now;
+                BindTransactionType();
+                if (userType == "advisor" || userType == "rm")
                 {
-
-                    Cache.Remove("AssociatePayout" + userVo.UserId);
+                    BindLink();
+                    BindBranchDropDown();
+                    AgentCode = "0";
+                    BindRMDropDown();
+                    trZCCS.Visible = false;
+                    BindSubBrokerCode(userType);
+                    
+                    if (userType == "rm")
+                    {
+                        trZCCS.Visible = false;
+                        trRMbranch.Visible = true;
+                        ddlBranch.Enabled = false;
+                        ddlRM.SelectedValue = rmVo.RMId.ToString();
+                        ddlRM.Enabled = false;
+                    }
                 }
-                    Cache.Insert("AssociatePayout" + userVo.UserId, dtAssociatePayout);
-                
+                else if (userType == "rm")
+                {
+                   
+                }
+                else if (userType == "bm")
+                {
+                    trZCCS.Visible = false;
+                    AgentCode = "0";
+                    trRMbranch.Visible = true;
+                    BindBranchForBMDropDown();
+                    BindRMforBranchDropdown(0, bmID);
+                }
+
+            
+                BindOrderStatus();
+                if (userType == "bm")
+                {
+                    ddlBranch.SelectedValue = bmID.ToString();
+                    
+                }
+                else if (userType == "rm")
+                {
+                    ddlBranch.Enabled = false;
+                    ddlRM.SelectedValue = rmVo.RMId.ToString();
+                    ddlRM.Enabled = false;
+                }
+
+                lblselectCustomer.Visible = true;
+                txtIndividualCustomer.Visible = true;
+                if (userType == "associates")
+                {
+                  
+                    BindBranchDropDown();
+                    BindRMDropDown();
+                    BindSubBrokerAgentCode(AgentCode);
+                    
+                    AgentId = associatesVo.AAC_AdviserAgentId;
+                    
+                    trRMbranch.Visible = false;
+                    lblselectCustomer.Visible = true;
+                    txtIndividualCustomer.Visible = true;
+                    txtIndividualCustomer.Enabled = true;
+
+                }
+
+
+               
+
+                gvFIOrderList.Visible = false;
+
             }
-            catch (BaseApplicationException Ex)
+            if (Request.QueryString["orderId"] != null || Request.QueryString["txtFolioNo"] !=null)
             {
-                throw Ex;
+                ViewState["OrderId"] = int.Parse(Request.QueryString["orderId"].ToString());
+                ViewState["FolioNo"] = Request.QueryString["txtFolioNo"];
+
+                BindGvOrderList();
+                tblOrder.Visible = false;
+
             }
-            catch (Exception Ex)
+            if (Request.QueryString["Mfaction"] != null)
             {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "BindAssociatePayoutGrid(int adviserId,String agentCode,DateTime fromDate,DateTime toDate)");
-                object[] objects = new object[4];
-                objects[0] = adviserId;
-                objects[1] = agentCode;
-                objects[2] = toDate;
-                objects[3] = fromDate;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
+                if (Session["mfParametersHT"] != null)
+                {
+                    btnConunt = 2;
+                    SetMfParameters();
+                    btnGo_Click(this, null);
+                    
+                    Request.QueryString["Mfaction"].Remove(0);
+
+                    return;
+                }
             }
         }
-        protected void rdAssociatePayout_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
-        {
-            DataTable dtGIDetails = new DataTable();
-            dtGIDetails = (DataTable)Cache["AssociatePayout" +userVo.UserId];
-            rdAssociatePayout.Visible = true;
-            rdAssociatePayout.DataSource = dtGIDetails;
-        }
-        protected
-            void rbAssocicatieAll_AssociationSelection(object sender, EventArgs e)
-        {
-            tdlblAgentCode.Visible = false;
-            tdtxtAgentCode.Visible = false;
-            if (rdAssociateInd.Checked == true)
-            {
-                tdlblAgentCode.Visible = true;
-                tdtxtAgentCode.Visible = true;
-            }
-        }
+
+
         private void SetMfParameters()
         {
-            //mfParameters = new Hashtable();
+            mfParameters = new Hashtable();
 
-            //mfParameters = (Hashtable)Session["mfParametersHT"];
-            //ddlBranch.SelectedIndex = Convert.ToInt32(mfParameters["BranchId"]);
-            //ddlRM.SelectedIndex = Convert.ToInt32(mfParameters["RMId"]);
+            mfParameters = (Hashtable)Session["mfParametersHT"];
+            ddlBranch.SelectedIndex = Convert.ToInt32(mfParameters["BranchId"]);
+            ddlRM.SelectedIndex = Convert.ToInt32(mfParameters["RMId"]);
 
-            //txtFromDate.SelectedDate = Convert.ToDateTime(mfParameters["Fromdate"]);
-            //txtToDate.SelectedDate = Convert.ToDateTime(mfParameters["Todate"]);
-            //BindOrderStatus();
-            //ddlOrderStatus.SelectedIndex = Convert.ToInt32(mfParameters["OrderStatus"]);
+            txtFromDate.SelectedDate = Convert.ToDateTime(mfParameters["Fromdate"]);
+            txtToDate.SelectedDate = Convert.ToDateTime(mfParameters["Todate"]);
+            BindOrderStatus();
+            ddlOrderStatus.SelectedIndex = Convert.ToInt32(mfParameters["OrderStatus"]);
 
 
-            //txtIndividualCustomer.Text = mfParameters["Custname"].ToString();
-            //userType = mfParameters["userType"].ToString();
+            txtIndividualCustomer.Text = mfParameters["Custname"].ToString();
+            userType = mfParameters["userType"].ToString();
 
-            //hdnCustomerId.Value = mfParameters["CustId"].ToString();
-            //if (userType == "associates")
-            //{
-            //    AgentCode = mfParameters["AgentCode"].ToString();
-            //    BindSubBrokerAgentCode(AgentCode);
-            //}
-            //else
-            //{
-            //    BindSubBrokerCode(userType);
-            //    trZCCS.Visible = false;
-            //}
+            hdnCustomerId.Value = mfParameters["CustId"].ToString();
+            if (userType == "associates")
+            {
+                AgentCode = mfParameters["AgentCode"].ToString();
+                BindSubBrokerAgentCode(AgentCode);
+            }
+            else
+            {
+                BindSubBrokerCode(userType);
+                trZCCS.Visible = false;
+            }
 
-            ////ddlBrokerCode.SelectedItem.Value = mfParameters["SubBrokerCodeAdv"].ToString();
-            //ddlBrokerCode.SelectedIndex = Convert.ToInt32(mfParameters["SubBrokerCode"]);
-            ////hdnAgentCode.Value = mfParameters["AgentCode"].ToString();
-            ////hdnAgentId.Value = mfParameters["AgentId"].ToString();
+            //ddlBrokerCode.SelectedItem.Value = mfParameters["SubBrokerCodeAdv"].ToString();
+            ddlBrokerCode.SelectedIndex = Convert.ToInt32(mfParameters["SubBrokerCode"]);
+            //hdnAgentCode.Value = mfParameters["AgentCode"].ToString();
+            //hdnAgentId.Value = mfParameters["AgentId"].ToString();
 
         }
         private void BindBranchForBMDropDown()
@@ -451,70 +489,70 @@ namespace WealthERP.OPS
         }
         protected void BindGvFiOrderList()
         {
-            ////  if (userType != "associates")
-            //// {
-            ////SetParameters();
-            ////SetParameterSubbroker();
-            //// }
+            //  if (userType != "associates")
+            // {
             //SetParameters();
             //SetParameterSubbroker();
-            //DataTable dtOrder = new DataTable();
-            ////  dtOrder = fiorderBo.GetOrderList(advisorVo.advisorId, "", "", Convert.ToDateTime(hdnTodate.Value), Convert.ToDateTime(hdnFromdate.Value), "", hdnCustomerId.Value, "FI", userType, 0, "", "");
+            // }
+            SetParameters();
+            SetParameterSubbroker();
+            DataTable dtOrder = new DataTable();
+            //  dtOrder = fiorderBo.GetOrderList(advisorVo.advisorId, "", "", Convert.ToDateTime(hdnTodate.Value), Convert.ToDateTime(hdnFromdate.Value), "", hdnCustomerId.Value, "FI", userType, 0, "", "");
 
-            //dtOrder = fiorderBo.GetOrderList(advisorVo.advisorId, hdnRMId.Value, hdnBranchId.Value, Convert.ToDateTime(hdnTodate.Value), Convert.ToDateTime(hdnFromdate.Value), hdnOrderStatus.Value, hdnCustomerId.Value, hdnOrderType.Value, userType, int.Parse(hdnAgentId.Value), hdnSubBrokerCode.Value, hdnAgentCode.Value);
-            //if (dtOrder.Rows.Count > 0)
-            //{
-            //    // trExportFilteredDupData.Visible = true;
-            //    if (Cache["FIOrderList" + advisorVo.advisorId] == null)
-            //    {
-            //        Cache.Insert("FIOrderList" + advisorVo.advisorId, dtOrder);
-            //    }
-            //    else
-            //    {
-            //        Cache.Remove("FIOrderList" + advisorVo.advisorId);
-            //        Cache.Insert("FIOrderList" + advisorVo.advisorId, dtOrder);
-            //    }
-            //    gvFIOrderList.DataSource = dtOrder;
-            //    gvFIOrderList.DataBind();
-            //    gvFIOrderList.Visible = true;
-            //    pnlFiOrderList.Visible = true;
-            //    ErrorMessage.InnerText = "No Records Found...!";
-            //    //gvOrderList.Visible = true;
-            //    ErrorMessage.Visible = false;
-            //    tblMessage.Visible = false;
-            //    //pnlOrderList.Visible = true;
-            //    //  btnExportFilteredDupData.Visible = true;
-            //}
-            //else
-            //{
-            //    gvFIOrderList.Visible = false;
-            //    //tblMessage.Visible = true;
-            //    //ErrorMessage.Visible = true;
-            //    //btnExportFilteredDupData.Visible = false;
-            //    //ErrorMessage.InnerText = "No Records Found...!";
-            //    //pnlOrderList.Visible = false;
-            //}
+            dtOrder = fiorderBo.GetOrderList(advisorVo.advisorId, hdnRMId.Value, hdnBranchId.Value, Convert.ToDateTime(hdnTodate.Value), Convert.ToDateTime(hdnFromdate.Value), hdnOrderStatus.Value, hdnCustomerId.Value, hdnOrderType.Value, userType, int.Parse(hdnAgentId.Value), hdnSubBrokerCode.Value, hdnAgentCode.Value);
+            if (dtOrder.Rows.Count > 0)
+            {
+                // trExportFilteredDupData.Visible = true;
+                if (Cache["FIOrderList" + advisorVo.advisorId] == null)
+                {
+                    Cache.Insert("FIOrderList" + advisorVo.advisorId, dtOrder);
+                }
+                else
+                {
+                    Cache.Remove("FIOrderList" + advisorVo.advisorId);
+                    Cache.Insert("FIOrderList" + advisorVo.advisorId, dtOrder);
+                }
+                gvFIOrderList.DataSource = dtOrder;
+                gvFIOrderList.DataBind();
+                gvFIOrderList.Visible = true;
+                pnlFiOrderList.Visible = true;
+                ErrorMessage.InnerText = "No Records Found...!";
+                //gvOrderList.Visible = true;
+                ErrorMessage.Visible = false;
+                tblMessage.Visible = false;
+                //pnlOrderList.Visible = true;
+                //  btnExportFilteredDupData.Visible = true;
+            }
+            else
+            {
+                gvFIOrderList.Visible = false;
+                //tblMessage.Visible = true;
+                //ErrorMessage.Visible = true;
+                //btnExportFilteredDupData.Visible = false;
+                //ErrorMessage.InnerText = "No Records Found...!";
+                //pnlOrderList.Visible = false;
+            }
 
         }
         private void FillHashtable()
         {
-            //mfParameters = new Hashtable();
-            //mfParameters.Add("BranchId", ddlBranch.SelectedIndex);
-            //mfParameters.Add("RMId", ddlRM.SelectedIndex);
-            //mfParameters.Add("Fromdate", txtFromDate.SelectedDate);
-            //mfParameters.Add("Todate", txtToDate.SelectedDate);
-            //mfParameters.Add("OrderStatus", ddlOrderStatus.SelectedIndex);
-            //mfParameters.Add("SubBrokerCode", ddlBrokerCode.SelectedIndex);
+            mfParameters = new Hashtable();
+            mfParameters.Add("BranchId", ddlBranch.SelectedIndex);
+            mfParameters.Add("RMId", ddlRM.SelectedIndex);
+            mfParameters.Add("Fromdate", txtFromDate.SelectedDate);
+            mfParameters.Add("Todate", txtToDate.SelectedDate);
+            mfParameters.Add("OrderStatus", ddlOrderStatus.SelectedIndex);
+            mfParameters.Add("SubBrokerCode", ddlBrokerCode.SelectedIndex);
 
-            //mfParameters.Add("SubBrokerCodeAdv", ddlBrokerCode.SelectedItem.Value);
-            //mfParameters.Add("userType", userType);
+            mfParameters.Add("SubBrokerCodeAdv", ddlBrokerCode.SelectedItem.Value);
+            mfParameters.Add("userType", userType);
 
-            //mfParameters.Add("AgentCode", AgentCode);
-            //mfParameters.Add("Custname", txtIndividualCustomer.Text);
+            mfParameters.Add("AgentCode", AgentCode);
+            mfParameters.Add("Custname", txtIndividualCustomer.Text);
 
-            //mfParameters.Add("CustId", hdnCustomerId.Value);
-            ////mfParameters.Add("AgentId", hdnAgentId.Value);
-            //Session["mfParametersHT"] = mfParameters;
+            mfParameters.Add("CustId", hdnCustomerId.Value);
+            //mfParameters.Add("AgentId", hdnAgentId.Value);
+            Session["mfParametersHT"] = mfParameters;
 
         }
 
@@ -522,35 +560,35 @@ namespace WealthERP.OPS
 
         private void SetParameters()
         {
-            //if (ddlBranch.SelectedIndex != 0)
-            //    hdnBranchId.Value = ddlBranch.SelectedValue;
-            //else
-            //    hdnBranchId.Value = "";
+            if (ddlBranch.SelectedIndex != 0)
+                hdnBranchId.Value = ddlBranch.SelectedValue;
+            else
+                hdnBranchId.Value = "";
 
-            //if (ddlRM.SelectedIndex != 0)
-            //    hdnRMId.Value = ddlRM.SelectedValue;
-            //else
-            //    hdnRMId.Value = "";
+            if (ddlRM.SelectedIndex != 0)
+                hdnRMId.Value = ddlRM.SelectedValue;
+            else
+                hdnRMId.Value = "";
 
-            //if (txtFromDate.SelectedDate.ToString() != "")
-            //    hdnFromdate.Value = DateTime.Parse(txtFromDate.SelectedDate.ToString()).ToString();
-            //else
-            //    hdnFromdate.Value = DateTime.MinValue.ToString();
+            if (txtFromDate.SelectedDate.ToString() != "")
+                hdnFromdate.Value = DateTime.Parse(txtFromDate.SelectedDate.ToString()).ToString();
+            else
+                hdnFromdate.Value = DateTime.MinValue.ToString();
 
-            //if (txtToDate.SelectedDate.ToString() != "")
-            //    hdnTodate.Value = DateTime.Parse(txtToDate.SelectedDate.ToString()).ToString();
-            //else
-            //    hdnTodate.Value = DateTime.MinValue.ToString();
+            if (txtToDate.SelectedDate.ToString() != "")
+                hdnTodate.Value = DateTime.Parse(txtToDate.SelectedDate.ToString()).ToString();
+            else
+                hdnTodate.Value = DateTime.MinValue.ToString();
 
-            //if (ddlOrderStatus.SelectedIndex != 0)
-            //{
-            //    hdnOrderStatus.Value = ddlOrderStatus.SelectedValue.ToString();
-            //}
-            //else
-            //{
-            //    // hdnOrderStatus.Value = "OMIP";
-            //    hdnOrderStatus.Value = string.Empty;
-            //}
+            if (ddlOrderStatus.SelectedIndex != 0)
+            {
+                hdnOrderStatus.Value = ddlOrderStatus.SelectedValue.ToString();
+            }
+            else
+            {
+                // hdnOrderStatus.Value = "OMIP";
+                hdnOrderStatus.Value = string.Empty;
+            }
         }
         private void SetParameterSubbroker()
         {
@@ -666,27 +704,27 @@ namespace WealthERP.OPS
         }
         protected void gvFIOrderList_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            //trExportFilteredDupData.Visible = true;
-            //DataTable dtFIGIDetails = new DataTable();
-            //dtFIGIDetails = (DataTable)Cache["FIOrderList" + advisorVo.advisorId];
-            //gvFIOrderList.Visible = true;
-            //this.gvFIOrderList.DataSource = dtFIGIDetails;
+            trExportFilteredDupData.Visible = true;
+            DataTable dtFIGIDetails = new DataTable();
+            dtFIGIDetails = (DataTable)Cache["FIOrderList" + advisorVo.advisorId];
+            gvFIOrderList.Visible = true;
+            this.gvFIOrderList.DataSource = dtFIGIDetails;
         }
 
         protected void gvFIOrderList_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            //if (userVo.UserType == "Advisor") return;
+            if (userVo.UserType == "Advisor") return;
 
-            //if ((e.Item is GridDataItem) == false) return;
+            if ((e.Item is GridDataItem) == false) return;
 
-            //GridDataItem item = (GridDataItem)e.Item;
-            //DateTime orderDate = DateTime.Parse(gvFIOrderList.MasterTableView.DataKeyValues[item.ItemIndex]["CO_OrderDate"].ToString());
+            GridDataItem item = (GridDataItem)e.Item;
+            DateTime orderDate = DateTime.Parse(gvFIOrderList.MasterTableView.DataKeyValues[item.ItemIndex]["CO_OrderDate"].ToString());
 
-            ////if (userVo.UserType == "Advisor" && orderDate.Date == DateTime.Now.Date) return;
+            //if (userVo.UserType == "Advisor" && orderDate.Date == DateTime.Now.Date) return;
 
-            //RadComboBox actions = (RadComboBox)item.FindControl("ddlMenu");
-            //RadComboBoxItem rbcItem = actions.Items.FindItemByValue("Edit", true);
-            //rbcItem.Visible = false;
+            RadComboBox actions = (RadComboBox)item.FindControl("ddlMenu");
+            RadComboBoxItem rbcItem = actions.Items.FindItemByValue("Edit", true);
+            rbcItem.Visible = false;
         }
 
         protected void gvOrderList_ItemDataBound(object sender, GridItemEventArgs e)
@@ -801,36 +839,36 @@ namespace WealthERP.OPS
         {
             try
             {
-                //RadComboBox ddlAction = (RadComboBox)sender;
-                //GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
-                //int selectedRow = gvr.ItemIndex + 1;
+                RadComboBox ddlAction = (RadComboBox)sender;
+                GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+                int selectedRow = gvr.ItemIndex + 1;
 
-                //string action = "";
-                ////string orderId = gvFIOrderList.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString();
-                ////string customerId = gvFIOrderList.MasterTableView.DataKeyValues[selectedRow - 1]["C_CustomerId"].ToString();
-                ////string assetGroupCode = gvFIOrderList.MasterTableView.DataKeyValues[selectedRow - 1]["PAG_AssetGroupCode"].ToString();
+                string action = "";
+                string orderId = gvFIOrderList.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString();
+                string customerId = gvFIOrderList.MasterTableView.DataKeyValues[selectedRow - 1]["C_CustomerId"].ToString();
+                string assetGroupCode = gvFIOrderList.MasterTableView.DataKeyValues[selectedRow - 1]["PAG_AssetGroupCode"].ToString();
 
-                //if (ddlAction.SelectedItem.Value.ToString() == "Edit")
-                //{
-                //    action = "Edit";
-                //    int fiOrderId = int.Parse(orderId);
-                //    if (assetGroupCode == "FI")
-                //        GetFIOrderDetails(fiOrderId);
-                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ProductOrderMaster", "loadcontrol('ProductOrderMaster','fiaction=Edit');", true);
-                //}
-                //if (ddlAction.SelectedItem.Value.ToString() == "View")
-                //{
-                //    action = "View";
-                //    int fiOrderId = int.Parse(orderId);
-                //    if (assetGroupCode == "FI")
-                //        GetFIOrderDetails(fiOrderId);
-                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ProductOrderMaster", "loadcontrol('ProductOrderMaster','fiaction=View');", true);
+                if (ddlAction.SelectedItem.Value.ToString() == "Edit")
+                {
+                    action = "Edit";
+                    int fiOrderId = int.Parse(orderId);
+                    if (assetGroupCode == "FI")
+                        GetFIOrderDetails(fiOrderId);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ProductOrderMaster", "loadcontrol('ProductOrderMaster','fiaction=Edit');", true);
+                }
+                if (ddlAction.SelectedItem.Value.ToString() == "View")
+                {
+                    action = "View";
+                    int fiOrderId = int.Parse(orderId);
+                    if (assetGroupCode == "FI")
+                        GetFIOrderDetails(fiOrderId);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ProductOrderMaster", "loadcontrol('ProductOrderMaster','fiaction=View');", true);
 
-                //}
-                //if (ddlAction.SelectedItem.Value.ToString() == "Delete")
-                //{
-                //    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
-                //}
+                }
+                if (ddlAction.SelectedItem.Value.ToString() == "Delete")
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
+                }
             }
             catch (BaseApplicationException Ex)
             {

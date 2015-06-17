@@ -69,7 +69,7 @@ namespace WealthERP.OPS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFromDate;
+        protected global::Telerik.Web.UI.RadDatePicker txtFromDate;
         
         /// <summary>
         /// rvFromdate control.
@@ -96,7 +96,7 @@ namespace WealthERP.OPS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtToDate;
+        protected global::Telerik.Web.UI.RadDatePicker txtToDate;
         
         /// <summary>
         /// rvtoDate control.
@@ -447,14 +447,6 @@ namespace WealthERP.OPS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid rdAssociatePayout;
-        protected global::System.Web.UI.WebControls.RadioButton rbAssocicatieAll;
-        protected global::System.Web.UI.WebControls.RadioButton rdAssociateInd;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblAgentCode;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtAgentCode;
-        protected global::System.Web.UI.WebControls.Button btnSubmit;
-
-
-
+        protected global::Telerik.Web.UI.RadGrid gvFIOrderList;
     }
 }
