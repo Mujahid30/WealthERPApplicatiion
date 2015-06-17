@@ -151,7 +151,7 @@
     <tr id="trBtnSubmit" runat="server">
     </tr>
 </table>
-<asp:Panel ID="pnlOrderRecon" runat="server" Width="100%" Visible="false">
+<asp:Panel ID="pnlOrderRecon" runat="server" Width="100%" Visible="false" ScrollBars="Horizontal" >
     <table width="80%">
         <tr>
             <td>
