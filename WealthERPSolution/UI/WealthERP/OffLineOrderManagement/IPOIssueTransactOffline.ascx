@@ -245,7 +245,7 @@
                 </td>
                 <td class="rightField">
                     <asp:DropDownList ID="ddlDepositoryName" runat="server" CssClass="cmbField" AutoPostBack="true"
-                        OnSelectedIndexChanged="ddlDepositoryName_SelectedIndexChanged" TabIndex="7">
+                        OnSelectedIndexChanged="ddlDepositoryName_SelectedIndexChanged" TabIndex="6">
                     </asp:DropDownList>
                     <span id="Span18" class="spnRequiredField">*</span>
                     <br />
@@ -258,7 +258,7 @@
                     &nbsp;<asp:Label ID="Label4" runat="server" Text="Beneficiary Acct. No.:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtDpClientId" runat="server" CssClass="txtField" TabIndex="6"></asp:TextBox>
+                    <asp:TextBox ID="txtDpClientId" runat="server" CssClass="txtField" TabIndex="7"></asp:TextBox>
                     <span id="Span17" class="spnRequiredField">*</span>
                     <asp:RegularExpressionValidator ID="rev" runat="server" ControlToValidate="txtDpClientId"
                         ValidationGroup="btnsubmit" ErrorMessage="Special Character are not allowed!"
@@ -370,7 +370,7 @@
                     <asp:Label ID="lblCategory" runat="server" CssClass="FieldName" Text="Category"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField">
+                    <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" TabIndex="11">
                     </asp:DropDownList>
                 </td>
                 <td class="leftField">
@@ -378,7 +378,7 @@
                 </td>
                 <td class="rightField">
                     <asp:DropDownList ID="ddlBrokerCode" runat="server" Width="280px" CssClass="cmbField"
-                        TabIndex="11">
+                        TabIndex="12">
                     </asp:DropDownList>
                     <span id="Span3" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="ReqddlBrokerCode" runat="server" ControlToValidate="ddlBrokerCode"
@@ -397,7 +397,7 @@
                 <td class="rightField" colspan="3">
                     <asp:TextBox ID="txtApplicationNo" MaxLength="9" onkeydown="return (event.keyCode!=13);"
                         runat="server" AutoPostBack="true" AutoComplete="Off" CssClass="txtField" OnKeypress="javascript:return isNumberKey(event);"
-                        TabIndex="12" OnTextChanged="txtApplicationNo_OnTextChanged"></asp:TextBox>
+                        TabIndex="13" OnTextChanged="txtApplicationNo_OnTextChanged"></asp:TextBox>
                     <span id="Span2" class="spnRequiredField">*</span>
                     <asp:RegularExpressionValidator ID="revPan" runat="server" Display="Dynamic" ValidationGroup="btnConfirmOrder"
                         ErrorMessage="<br/>Please Enter Numeric" ControlToValidate="txtApplicationNo"
@@ -422,7 +422,7 @@
                 </td>
                 <td class="rightField">
                     <asp:DropDownList ID="ddlPaymentMode" runat="server" AutoPostBack="true" CssClass="cmbField"
-                        OnSelectedIndexChanged="ddlPaymentMode_SelectedIndexChanged" Width="185" TabIndex="13">
+                        OnSelectedIndexChanged="ddlPaymentMode_SelectedIndexChanged" Width="185" TabIndex="14">
                         <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
                         <asp:ListItem Text="Cheque/Demand Draft" Value="CQ"></asp:ListItem>
                         <asp:ListItem Text="ASBA" Value="ES"></asp:ListItem>
@@ -437,7 +437,7 @@
                 </td>
                 <td id="Td4" class="rightField">
                     <asp:TextBox ID="txtBankAccount" runat="server" CssClass="txtField" onkeydown="return (event.keyCode!=13);"
-                        OnKeypress="javascript:return isNumberKey(event);" MaxLength="16" TabIndex="14"></asp:TextBox>
+                        OnKeypress="javascript:return isNumberKey(event);" MaxLength="16" TabIndex="15"></asp:TextBox>
                     <asp:RegularExpressionValidator ID="RegtxtBankAccount" runat="server" Display="Dynamic"
                         ValidationGroup="btnConfirmOrder" ErrorMessage="<br/>Please Enter Numeric" ControlToValidate="txtBankAccount"
                         CssClass="rfvPCG" ValidationExpression="^([0-9]*[0-9])\d*$">
@@ -455,7 +455,7 @@
                 </td>
                 <td class="rightField">
                     <asp:TextBox ID="txtPaymentNumber" onkeydown="return (event.keyCode!=13);" OnKeypress="javascript:return isNumberKey(event);"
-                        runat="server" MaxLength="6" CssClass="txtField" TabIndex="15"></asp:TextBox>
+                        runat="server" MaxLength="6" CssClass="txtField" TabIndex="16"></asp:TextBox>
                     <span id="Span12" class="spnRequiredField">*</span>
                     <asp:RegularExpressionValidator ID="revtxtPaymentNumber" runat="server" Display="Dynamic"
                         ValidationGroup="btnConfirmOrder" ErrorMessage="<br/>Please Enter Numeric" ControlToValidate="txtPaymentNumber"
@@ -472,7 +472,7 @@
                     <telerik:RadDatePicker ID="txtPaymentInstDate" onkeydown="return (event.keyCode!=13);"
                         CssClass="txtField" runat="server" Culture="English (United States)" Skin="Telerik"
                         AutoPostBack="true" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
-                        OnSelectedDateChanged="txtPaymentInstDate_OnSelectedDateChanged" TabIndex="16">
+                        OnSelectedDateChanged="txtPaymentInstDate_OnSelectedDateChanged" TabIndex="17">
                         <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                             Skin="Telerik" EnableEmbeddedSkins="false">
                         </Calendar>
@@ -499,7 +499,7 @@
                 </td>
                 <td class="rightField">
                     <asp:TextBox ID="txtASBANO" onkeydown="return (event.keyCode!=13);" runat="server"
-                        MaxLength="16" CssClass="txtField" TabIndex="17"></asp:TextBox>
+                        MaxLength="16" CssClass="txtField" TabIndex="18"></asp:TextBox>
                     <span id="Span5" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="txtASBANO"
                         ErrorMessage="<br />Please Enter Account No." Display="Dynamic" runat="server"
@@ -511,7 +511,7 @@
                 <td class="rightField">
                     <asp:TextBox ID="txtASBALocation" onkeydown="return (event.keyCode!=13);" runat="server"
                         CssClass="txtField" AutoComplete="Off" AutoPostBack="True" OnTextChanged="txtASBALocation_OnTextChanged"
-                        TabIndex="18">
+                        TabIndex="19">
                     </asp:TextBox><span id="Span6" class="spnRequiredField">*</span>
                     <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" TargetControlID="txtASBALocation"
                         WatermarkText="Enter few chars of Location" runat="server" EnableViewState="false">
@@ -537,7 +537,7 @@
                 </td>
                 <td class="rightField">
                     <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="false"
-                        AppendDataBoundItems="true" Width="380px" TabIndex="19">
+                        AppendDataBoundItems="true" Width="380px" TabIndex="20">
                     </asp:DropDownList>
                     <span id="Span4" class="spnRequiredField">*</span>
                     <asp:ImageButton ID="imgAddBank" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
