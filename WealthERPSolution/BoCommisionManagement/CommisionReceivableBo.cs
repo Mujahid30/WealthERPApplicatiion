@@ -147,7 +147,36 @@ namespace BoCommisionManagement
             }
 
         }
+        public DataTable GetAssociateCommissionPayout(int adviserId, string agentCode, DateTime toDate, DateTime fromDate)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            try
+            {
 
+                return commisionReceivableDao.GetAssociateCommissionPayout(adviserId, agentCode, toDate, fromDate);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "GetAssociateCommissionPayout(int adviserId, string agentCode,DateTime toDate,DateTime fromDate)");
+                object[] objects = new object[4];
+                objects[0] = adviserId;
+                objects[1] = agentCode;
+                objects[2] = toDate;
+                objects[3] = fromDate;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            
+        }
         public void CreateAdviserPayableRuleToAgentCategoryMapping(int StructureId, string userType, string Category, DataTable dtRuleMapping, string ruleId, out Int32 mappingId)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();

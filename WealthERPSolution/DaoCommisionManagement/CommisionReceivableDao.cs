@@ -1950,6 +1950,44 @@ namespace DaoCommisionManagement
             }
             return dsGetSeriesCategories;
         }
+        public DataTable GetAssociateCommissionPayout(int adviserId, string agentCode,DateTime toDate,DateTime fromDate)
+        {
+            DataSet dsGetAssociateCommissionPayout;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand dbCommand;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_GetAssociateCommissionPayOuts");
+                db.AddInParameter(dbCommand, "@AdviserId", DbType.String, adviserId);
+                if (!string.IsNullOrEmpty(agentCode))
+                    db.AddInParameter(dbCommand, "@AgentCode", DbType.String, agentCode);                
+                db.AddInParameter(dbCommand, "@ToDate", DbType.Date, toDate);
+                db.AddInParameter(dbCommand, "@FromDate", DbType.Date, fromDate);
+
+                dsGetAssociateCommissionPayout = db.ExecuteDataSet(dbCommand);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "GetAssociateCommissionPayout(int adviserId, string agentCode,DateTime toDate,DateTime fromDate)");
+                object[] objects = new object[4];
+                objects[0] = adviserId;
+                objects[1] = agentCode;
+                objects[2] = toDate;
+                objects[3] = fromDate;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetAssociateCommissionPayout.Tables[0];
+        }
         public bool DeleteMappedIssue(int structureId)
         {
             bool bResult = false;
