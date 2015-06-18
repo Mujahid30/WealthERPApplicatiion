@@ -243,8 +243,9 @@
         </td>
         <td class="rightField" id="td2" runat="server">
             <asp:DropDownList ID="ddlOrderType" runat="server" CssClass="cmbField">
-                <asp:ListItem Text="Yes" Value="true"></asp:ListItem>
-                <asp:ListItem Text="No" Value="false" Selected="True"></asp:ListItem>
+                <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
+                <asp:ListItem Text="No" Value="0" Selected="True"></asp:ListItem>
+                <asp:ListItem Text="All"  Value="2"></asp:ListItem>
             </asp:DropDownList>
         </td>
         <td class="rightField" style="padding-right: 50px">

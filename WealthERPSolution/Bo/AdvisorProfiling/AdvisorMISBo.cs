@@ -1816,7 +1816,7 @@ namespace BoAdvisorProfiling
             return dsGetCommissionReconMis;
         }
 
-        public DataSet GetCommissionReceivableRecon(string product, int typeOfTransaction, int AdviserId, int schemeid, int month, int year, string category, string recontype, string commtype, int issuer, int issueId, int commissionLookUpId, string orderStatus, string agentCode, string productCategory, bool isAuthenticated)
+        public DataSet GetCommissionReceivableRecon(string product, int typeOfTransaction, int AdviserId, int schemeid, int month, int year, string category, string recontype, string commtype, int issuer, int issueId, int commissionLookUpId, string orderStatus, string agentCode, string productCategory, int isAuthenticated)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsGetCommissionReconMis = new DataSet();

@@ -292,5 +292,8 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblSubCategory;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddSubCategory;
         protected global::System.Web.UI.WebControls.HiddenField hdnddlSubCategory;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblSource;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlSource;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow  tblMessagee;
     }
 }

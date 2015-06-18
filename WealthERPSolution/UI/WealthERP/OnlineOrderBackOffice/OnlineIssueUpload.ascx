@@ -5,6 +5,9 @@
 
 <script src="../Scripts/JScript.js" type="text/javascript"></script>
 <script src="../Scripts/jquery.js" type="text/javascript"></script>
+<script src="../Scripts/JScript.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.js" type="text/javascript"></script>
 
 <script src="../Scripts/jquery-1.2.6.js" type="text/javascript"></script>
 
@@ -157,22 +160,22 @@
             </div>
         </td>
     </tr>
+    <tr id="tblMessagee" runat="server" visible="false">
+                <td colspan="6">
+                    <table class="tblMessage">
+                        <tr>
+                            <td align="center">
+                                <div id="divMessage" align="center">
+                                </div>
+                                <div style="clear: both">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
 </table>
-<table id="tblMessage" width="100%" runat="server" visible="false">
-    <tr id="trSumbitSuccess">
-        <td align="center">
-          <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
-            
-            </div>
-            <%--    <asp:LinkButton ID="lnkClick" runat="server" Text="Click here to start new upload"
-                Font-Size="Small" Font-Underline="false" class="textfield" OnClick="lnkClick_Click" Visible="false"></asp:LinkButton>--%>
-                 <%--<div id="divValidationError" runat="server" class="failure-msg" align="center" visible="true">
-                        <asp:ValidationSummary ID="vsSummary" runat="server" Visible="true" ValidationGroup="btnSubmit"
-                            ShowSummary="true" DisplayMode="BulletList" />
-                    </div>--%>
-        </td>
-    </tr>
-</table>
+
 <table width="100%">
     <tr id="trStepOneHeading" runat="server">
         <td class="tdSectionHeading" colspan="6">
@@ -227,10 +230,10 @@
                         <asp:ListItem>All</asp:ListItem>
                     </asp:DropDownList>
                 </td>
-        <td class="leftLabel">
+        <td class="leftLabel" id="tdlblSource" runat="server" >
             <asp:Label ID="lblSource" runat="server" CssClass="FieldName" Text="Source Data:"></asp:Label>
         </td>
-        <td class="rightData">
+        <td class="rightData" id="tdddlSource" runat="server">
             <asp:DropDownList ID="ddlSource" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlSource_SelectedIndexChanged">
                 <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>

@@ -135,7 +135,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
 
                     FileUpload.SaveAs(hdnsavePath.Value);
-                    ShowMessage(fileName + "Uploaded");
+                    ShowMessage(fileName + "Uploaded","S");
                     if (onlineNCDBackOfficeBo == null) onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
                     if (ddlFileType.SelectedValue == "12" || ddlFileType.SelectedValue == "13" || ddlFileType.SelectedValue == "14" || ddlFileType.SelectedValue == "15")
                     {
@@ -149,26 +149,26 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 else
                 {
-                    ShowMessage(fileTypeError);
+                    ShowMessage(fileTypeError,"F");
                     return;
                 }
 
             }
             else
             {
-                ShowMessage("Could not read the file");
+                ShowMessage("Could not read the file","F");
                 return;
             }
 
             if (dtUploadFile == null)
             {
-                ShowMessage("Error in reading file");
+                ShowMessage("Error in reading file","F");
                 return;
             }
 
             if (dtUploadFile.Rows.Count <= 0)
             {
-                ShowMessage("No data in the file");
+                ShowMessage("No data in the file","F");
                 return;
             }
             if (boNcdBackOff == null) boNcdBackOff = new OnlineNCDBackOfficeBo();
@@ -210,14 +210,14 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 if (string.IsNullOrEmpty(row["Remarks"].ToString().Trim())) continue;
                 bUpload = false;
-                ShowMessage("Please check the data in the file & re-upload");
+                ShowMessage("Please check the data in the file & re-upload","F");
                 break;
             }
 
 
             if (columnNameError.ToString().Contains("Actual Name:"))
             {
-                ShowMessage(columnNameError.ToString());
+                ShowMessage(columnNameError.ToString(),"F");
                 bUpload = false;
                 return;
             }
@@ -228,7 +228,7 @@ namespace WealthERP.OnlineOrderBackOffice
             else
             {
                 btnUploadData.Enabled = true;
-                ShowMessage("File data has been uploaded, click Upload Data button to upload");
+                ShowMessage("File data has been uploaded, click Upload Data button to upload","S");
             }
 
         }
@@ -255,15 +255,15 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             if (isIssueAvailable == "NotEligble")
             {
-                ShowMessage("Uploaded file Issue and Selected issue Does not match ");
+                ShowMessage("Uploaded file Issue and Selected issue Does not match","F");
             }
             else if (result != string.Empty && result != "1")
             {
-                ShowMessage(result);
+                ShowMessage(result,"W");
             }
             else
             {
-                ShowMessage("data uploaded");
+                ShowMessage("data uploaded","S");
 
             }
 
@@ -271,16 +271,18 @@ namespace WealthERP.OnlineOrderBackOffice
 
         }
 
-        private void ShowMessage(string msg)
+        private void ShowMessage(string msg,string type)
         {
-            tblMessage.Visible = true;
-            msgRecordStatus.InnerText = msg;
-            //--S(success)
-            //--F(failure)
-            //--W(warning)
-            //--I(information)
-            //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','W');", true);
-            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "mykey", "hide();", true);
+            //tblMessage.Visible = true;
+            //msgRecordStatus.InnerText = msg;
+            ////--S(success)
+            ////--F(failure)
+            ////--W(warning)
+            ////--I(information)
+            ////ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','W');", true);
+            //ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "mykey", "hide();", true);
+            tblMessagee.Visible = true;
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','" + type + "');", true);
         }
         protected void ddSubCategory_OnSelectedIndexChanged(object sender, EventArgs e)
         {
@@ -288,9 +290,23 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 hdnddlSubCategory.Value = ddSubCategory.SelectedValue;
                 BindIssuerIssue(hdnddlSubCategory.Value);
+                if (ddSubCategory.SelectedValue == "FICGCG" || ddSubCategory.SelectedValue == "FICDCD")
+                    HideControls(ddSubCategory.SelectedValue,sender,e);
+                
             }
         }
-
+        private void HideControls(string categoryType, object sender, EventArgs e)
+        {
+            ddlSource.SelectedValue = "BSE";
+            lblSource.Visible = false;
+            ddlSource.Visible = false;
+            tdlblSource.Visible = false;
+            tdddlSource.Visible = false;
+            SetFileType();
+            ddlFileType.SelectedValue = "12";
+            ddlFileType.Enabled = false;
+            OnSelectedIndexChanged_ddlFileType(sender, e);
+        }
 
         protected void ddlProduct_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -332,7 +348,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
             if (!Page.IsValid)
             {
-                ShowMessage("Please check all required fields");
+                ShowMessage("Please check all required fields","W");
                 return;
             }
             SetFileType();
@@ -387,12 +403,12 @@ namespace WealthERP.OnlineOrderBackOffice
 
             if (dtUploadData == null)
             {
-                ShowMessage("No data available");
+                ShowMessage("No data available","F");
                 return;
             }
             if (dtUploadData.Rows.Count <= 0)
             {
-                ShowMessage("No data available");
+                ShowMessage("No data available","F");
                 return;
             }
 
@@ -501,7 +517,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
             if (Cache["UPLOAD" + userVo.UserId] == null)
             {
-                ShowMessage("No data to upload");
+                ShowMessage("No data to upload","W");
 
                 btnUploadData.Enabled = false;
                 return;
