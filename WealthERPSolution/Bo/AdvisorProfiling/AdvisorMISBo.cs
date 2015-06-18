@@ -1903,13 +1903,13 @@ namespace BoAdvisorProfiling
             }
             return dsGetCommissionReconMis;
         }
-        public bool UpdateActualPayAndRec(int id, decimal ActPay, decimal ActRec, bool IsPayLocked, bool IsRecLocked)
+        public bool UpdateActualPayAndRec(int id, decimal ActPay, decimal ActRec, DateTime paybleDate, bool IsPayLocked, bool IsRecLocked, bool IsBulkPayble, bool isBulkReceived)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             bool bResult = false;
             try
             {
-                bResult = MISDao.UpdateActualPayAndRec(id, ActPay, ActRec, IsPayLocked, IsRecLocked);
+                bResult = MISDao.UpdateActualPayAndRec(id, ActPay, ActRec, paybleDate, IsPayLocked, IsRecLocked, IsBulkPayble, isBulkReceived);
             }
             catch (Exception Ex)
             {

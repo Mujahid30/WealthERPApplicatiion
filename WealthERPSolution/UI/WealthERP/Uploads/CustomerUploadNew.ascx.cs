@@ -45,7 +45,7 @@ namespace WealthERP.Uploads
                 BindMonthsAndYear();
 
                 int day = 1;
-               // btnExportFilteredData.Visible = false;
+                // btnExportFilteredData.Visible = false;
                 associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
                 if (associateuserheirarchyVo != null && associateuserheirarchyVo.AgentCode != null)
                 {
@@ -299,7 +299,7 @@ namespace WealthERP.Uploads
                 hdnProductCategory.Value = "0";
 
         }
-     
+
         protected void ddlProduct_SelectedIndexChanged(object source, EventArgs e)
         {
 
@@ -310,7 +310,7 @@ namespace WealthERP.Uploads
                 if (ddlProduct.SelectedValue == "MF")
                 {
 
-                    
+
                     ddlCommType.Items[3].Enabled = false;
                 }
                 else
@@ -366,14 +366,20 @@ namespace WealthERP.Uploads
         {
             DataSet ds = new DataSet();
             //ds.ReadXml(Server.MapPath(@"\Sample.xml"));
-
+            btnExportFilteredDupData.Visible = false;
+            btnSave.Visible = false;
+            chkBulkPayble.Visible = false;
+            chkBulkReceived.Visible = false;
             ds = adviserMFMIS.GetWERPCommissionDetails(ddlProduct.SelectedValue, advisorVo.advisorId, Int32.Parse(ddlMnthQtr.SelectedValue), Int32.Parse(ddlYear.SelectedValue), "", Int32.Parse(ddlIssueName.SelectedValue), ddlProductCategory.SelectedValue);
             if (ds.Tables[0] != null)
             {
 
+                //Page.ClientScript.RegisterStartupScript(this.GetType(), "BrokerageReconvalidation", "validation();", true);
 
-                //btnExportFilteredData.Visible = true;
+                btnExportFilteredDupData.Visible = true;
                 btnSave.Visible = true;
+                chkBulkPayble.Visible = true;
+                chkBulkReceived.Visible = true;
                 gvbrokerageRecon.Visible = true;
                 gvbrokerageRecon.DataSource = ds.Tables[0];
                 DataTable dtGetAMCTransactionDeatails = new DataTable();
@@ -387,7 +393,7 @@ namespace WealthERP.Uploads
 
 
             }
-        
+
         }
 
         protected void GdBind_Click(Object sender, EventArgs e)
@@ -410,38 +416,76 @@ namespace WealthERP.Uploads
         protected void btnSave_Click(object sender, EventArgs e)
         {
             int id = 0;
-            int ActRec = 0;
-            int ActPay = 0;
+            decimal ActRec = 0;
+            decimal ActPay = 0;
             bool blResult = false;
             bool IsPayLocked = false;
             bool IsRecLocked = false;
+            DateTime paybleDate = DateTime.MinValue;
             foreach (GridDataItem dr in gvbrokerageRecon.Items)
             {
+
                 CheckBox checkBox = (CheckBox)dr.FindControl("Ranjan");
                 if (checkBox.Checked == true)
                 {
-                    if (((TextBox)dr.FindControl("txtActRecBrokerage")).Text.Trim() != "")
-                    {
-                        ActRec = Convert.ToInt32(((TextBox)dr.FindControl("txtActRecBrokerage")).Text);
-                    }
-                    if (((TextBox)dr.FindControl("txtActPaybrokerage")).Text.Trim() != "")
-                    {
-                        ActPay = Convert.ToInt32(((TextBox)dr.FindControl("txtActPaybrokerage")).Text);
-                    }
-                    IsPayLocked = ((CheckBox)dr.FindControl("chkIdPay")).Checked;
-                    IsRecLocked = ((CheckBox)dr.FindControl("chkIdRec")).Checked;
+                if (((TextBox)dr.FindControl("txtActRecBrokerage")).Text.Trim() != "")
+                {
+
+                    ActRec = Convert.ToDecimal(((TextBox)dr.FindControl("txtActRecBrokerage")).Text.Trim());
+                }
+                if (((TextBox)dr.FindControl("txtActPaybrokerage")).Text.Trim() != "")
+                {
+
+                    ActPay = Convert.ToDecimal(((TextBox)dr.FindControl("txtActPaybrokerage")).Text.Trim());
+
+                }
+                if (((TextBox)dr.FindControl("txtPaybleDate")).Text.Trim() != "")
+                {
+                    paybleDate = Convert.ToDateTime(((TextBox)dr.FindControl("txtPaybleDate")).Text.Trim());
+                }
+                IsPayLocked = ((CheckBox)dr.FindControl("chkIdPay")).Checked;
+                IsRecLocked = ((CheckBox)dr.FindControl("chkIdRec")).Checked;
+
+              
                     int selectedRow = 0;
                     GridDataItem gdi;
                     gdi = (GridDataItem)checkBox.NamingContainer;
-                    selectedRow = gdi.ItemIndex ;
+                    selectedRow = gdi.ItemIndex;
                     id = int.Parse((gvbrokerageRecon.MasterTableView.DataKeyValues[selectedRow]["WCD_Id"].ToString()));
-                    blResult = adviserMFMIS.UpdateActualPayAndRec(id, ActPay, ActRec, IsPayLocked, IsRecLocked);
+
+                    blResult = adviserMFMIS.UpdateActualPayAndRec(id, ActPay, ActRec, paybleDate, IsPayLocked, IsRecLocked, chkBulkPayble.Checked, chkBulkReceived.Checked);
 
                 }
-                
-            }
-            BindGrid();
 
+            }
+            
+            BindGrid();
+            ShowMessage("Updated Successfully", "S");
+        }
+        protected void btnExportFilteredDupData_OnClick(object sender, ImageClickEventArgs e)
+        {
+
+            gvbrokerageRecon.ExportSettings.OpenInNewWindow = true;
+            gvbrokerageRecon.ExportSettings.IgnorePaging = true;
+            gvbrokerageRecon.ExportSettings.HideStructureColumns = true;
+            gvbrokerageRecon.ExportSettings.ExportOnlyData = true;
+
+            gvbrokerageRecon.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvbrokerageRecon.MasterTableView.ExportToExcel();
+
+        }
+        private void ShowMessage(string msg, string type)
+        {
+            //tblMessage.Visible = true;
+            //msgRecordStatus.InnerText = msg;
+            ////--S(success)
+            ////--F(failure)
+            ////--W(warning)
+            ////--I(information)
+            ////ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','W');", true);
+            //ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "mykey", "hide();", true);
+            tblMessagee.Visible = true;
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "BrokerageRecon", " showMsg('" + msg + "','" + type + "');", true);
         }
     }
 }

@@ -2866,7 +2866,7 @@ namespace DaoAdvisorProfiling
             return dsGetCommissionReconMis;
         }
 
-        public bool UpdateActualPayAndRec(int id, decimal ActPay, decimal ActRec, bool IsPayLocked, bool IsRecLocked)
+        public bool UpdateActualPayAndRec(int id, decimal ActPay, decimal ActRec, DateTime paybleDate, bool IsPayLocked, bool IsRecLocked, bool IsBulkPayble, bool isBulkReceived)
         {
             Database db;
             DataSet ds;
@@ -2881,8 +2881,14 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(cmdUpdateActualPayAndRec, "@Id", DbType.Int32, id);
                 db.AddInParameter(cmdUpdateActualPayAndRec, "@ActPay", DbType.Decimal, ActPay);
                 db.AddInParameter(cmdUpdateActualPayAndRec, "@ActRec", DbType.Decimal, ActRec);
+                if(paybleDate!=DateTime.MinValue)
+                    db.AddInParameter(cmdUpdateActualPayAndRec, "@paybleDate", DbType.DateTime, paybleDate);
+                else
+                    db.AddInParameter(cmdUpdateActualPayAndRec, "@paybleDate", DbType.DateTime, DBNull.Value);
                 db.AddInParameter(cmdUpdateActualPayAndRec, "@IsPayLocked", DbType.Boolean, IsPayLocked);
                 db.AddInParameter(cmdUpdateActualPayAndRec, "@IsRecLocked", DbType.Boolean, IsRecLocked);
+                db.AddInParameter(cmdUpdateActualPayAndRec, "@IsBulkPayble", DbType.Boolean, IsBulkPayble);
+                db.AddInParameter(cmdUpdateActualPayAndRec, "@isBulkReceived", DbType.Boolean, isBulkReceived);
 
 
                 count = db.ExecuteNonQuery(cmdUpdateActualPayAndRec);

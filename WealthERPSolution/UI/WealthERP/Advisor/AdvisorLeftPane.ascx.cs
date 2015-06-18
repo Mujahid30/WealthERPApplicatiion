@@ -1864,6 +1864,15 @@ namespace WealthERP.Advisor
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OfflineCustomerMerge','login');", true);
 
                 }
+                else if (e.Item.Value == "Brokerage_Recon")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerUploadNew','login');", true);
+                }
+
+                else if (e.Item.Value == "View_Associate_Payout_Report")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('BulkRequestStatus','login');", true);
+                }
                 else if (e.Item.Value == "Add_Staff_Offline")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddStaff','login');", true);

@@ -4,6 +4,23 @@
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server" />
+<style type="text/css">
+.RadGrid_Telerik .rgGroupHeader
+{
+    background:0 -6489px repeat-x url('Grid/sprite.gif');
+    
+    line-height:21px;
+	color:#000;	
+ font-weight: BOLD;
+}
+div.RadGrid_Telerik .rgFooter td {
+
+	background-image: url('ImageHandler.ashx?mode=get&suite=aspnet-ajax&control=Grid&skin=Telerik&file=rgCommandRow.gif&t=1437799218');
+	color: #000;
+
+}
+
+</style>
 <table width="100%">
     <tr>
         <td colspan="3">
@@ -126,6 +143,7 @@
                            
                         </GroupByExpressions>
                         <Columns>
+                     
                          <telerik:GridBoundColumn DataField="AgentName" AllowFiltering="true" HeaderText="AgentName"
                                 UniqueName="AgentName" SortExpression="AgentName" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="100px">

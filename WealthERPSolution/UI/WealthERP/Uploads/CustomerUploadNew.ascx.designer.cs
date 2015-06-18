@@ -166,7 +166,7 @@ namespace WealthERP.Uploads
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trSelectProduct;
-
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow tblMessagee;
         /// <summary>
         /// Label2 control.
         /// </summary>
@@ -310,7 +310,11 @@ namespace WealthERP.Uploads
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSelectMutualFund;
-
+        protected global::System.Web.UI.WebControls.CheckBox chkBulkPayble;
+        protected global::System.Web.UI.WebControls.CheckBox chkBulkReceived;
+        protected global::System.Web.UI.WebControls.TextBox txtPaybleDate;
+        protected global::System.Web.UI.WebControls.TextBox txtActRecBrokerage;
+        protected global::System.Web.UI.WebControls.TextBox txtActPaybrokerage;
         /// <summary>
         /// CompareValidator1 control.
         /// </summary>
@@ -607,7 +611,7 @@ namespace WealthERP.Uploads
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnSBbrokercode;
-
+        protected global::System.Web.UI.WebControls.ImageButton btnExportFilteredDupData;
         /// <summary>
         /// hdnIssueId control.
         /// </summary>

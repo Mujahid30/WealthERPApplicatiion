@@ -310,7 +310,7 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="MF SIP MIS" Value="MF systematic MIS">
                                             </telerik:RadPanelItem>
-                                             <telerik:RadPanelItem runat="server" Text="NCD and IPO Order Match" Value="NcdIpoRecon">
+                                            <telerik:RadPanelItem runat="server" Text="NCD and IPO Order Match" Value="NcdIpoRecon">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Queries" Value="Queries">
                                                 <Items>
@@ -375,11 +375,11 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Payable Structure Setup" Value="Payable_Structure_Setup">
                                             </telerik:RadPanelItem>
-                                             <telerik:RadPanelItem runat="server" Text="Commision Recon" Value="Commision_Recon">
+                                            <telerik:RadPanelItem runat="server" Text="Commision Recon" Value="Commision_Recon">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Brokerage Recon" Value="Brokerage_Recon">
                                             </telerik:RadPanelItem>
-                                              <telerik:RadPanelItem runat="server" Text="View Associate Payout Report" Value="View_Associate_Payout_Report">
+                                            <telerik:RadPanelItem runat="server" Text="View Associate Payout Report" Value="View_Associate_Payout_Report">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
@@ -395,7 +395,6 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="SubBroker Code Cleansing" Value="SubBroker_Code_Cleansing">
                                             </telerik:RadPanelItem>
-                                          
                                             <telerik:RadPanelItem runat="server" Text="MF NP & Tranx Compare" Value="MFNP_Tranx_Compare">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Customer Association Recon(Offline)" Value="Customer_Association_Recon">
@@ -883,11 +882,11 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Staff" Value="Staff">
                                                 <Items>
-                                                   <%-- <telerik:RadPanelItem runat="server" Text="Add Staff" Value="Add Staff">
+                                                    <%-- <telerik:RadPanelItem runat="server" Text="Add Staff" Value="Add Staff">
                                                     </telerik:RadPanelItem>--%>
-                                                      <telerik:RadPanelItem runat="server" Text="Add Staff" Value="Add_Staff_Offline">
+                                                    <telerik:RadPanelItem runat="server" Text="Add Staff" Value="Add_Staff_Offline">
                                                     </telerik:RadPanelItem>
-                                                     <telerik:RadPanelItem runat="server" Text="Staff Reassign" Value="Staff_ReAssign">
+                                                    <telerik:RadPanelItem runat="server" Text="Staff Reassign" Value="Staff_ReAssign">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
@@ -1053,7 +1052,6 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="NCD/IPO Allotment" Value="NCD_IPO_Allotments">
                                             </telerik:RadPanelItem>
-                                           
                                             <telerik:RadPanelItem runat="server" Text="MF Folio Accounts" Value="MF Folios">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Transactionss" Value="MFT">
@@ -1123,6 +1121,10 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Payable Structure Setup" Value="Payable_Structure_Setup">
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Brokerage Recon" Value="Brokerage_Recon">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="View Associate Payout Report" Value="View_Associate_Payout_Report">
+                                            </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Reconciliation" Value="Reconciliation">
@@ -1131,7 +1133,6 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Non MF Recon" Value="Non-MF_Recon">
                                             </telerik:RadPanelItem>
-                                            
                                             <telerik:RadPanelItem runat="server" Text="MF NP & Tranx Compare" Value="MFNP_Tranx_Compare">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Customer Association Recon(Offline)" Value="Customer_Association_Recon">
@@ -1780,7 +1781,7 @@
                 </td>
                 <td id="tdtxtAppno" runat="server" visible="false">
                     <asp:TextBox ID="txtAppno" runat="server"></asp:TextBox>
-                      <asp:RegularExpressionValidator ID="RegtxtAppno" runat="server" CssClass="cvPCG"
+                    <asp:RegularExpressionValidator ID="RegtxtAppno" runat="server" CssClass="cvPCG"
                         ControlToValidate="txtAppno" ErrorMessage="<br>Enter only numeric" ValidationExpression="^[0-9+]*$"
                         Display="Dynamic">
                     </asp:RegularExpressionValidator>
