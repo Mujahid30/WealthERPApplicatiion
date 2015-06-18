@@ -23,7 +23,15 @@ namespace WealthERP.OffLineOrderManagement
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdcategory;
         protected global::Telerik.Web.UI.RadGrid gvOrderReconOnlineOffline;
         protected global::Telerik.Web.UI.RadGrid gvOrderRecon;
+        protected global::Telerik.Web.UI.RadGrid rgMatch;
+
+        protected global::System.Web.UI.WebControls.Panel pnlMatch;
         protected global::System.Web.UI.WebControls.Panel pnlOrderRecon;
+        protected global::Telerik.Web.UI.RadWindow RadWindow1;
+
+        
+        protected global::Telerik.Web.UI.RadWindow RadWindowManagerMatch;
+
         protected global::Telerik.Web.UI.RadWindow radOrderDetails;
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divorderQty;
         protected global::System.Web.UI.WebControls.TextBox txtOrderQty;

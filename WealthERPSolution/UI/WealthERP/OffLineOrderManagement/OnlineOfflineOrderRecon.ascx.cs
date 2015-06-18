@@ -28,10 +28,10 @@ namespace WealthERP.OffLineOrderManagement
             userVo = (UserVo)Session[SessionContents.UserVo];
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             radOrderDetails.VisibleOnPageLoad = false;
-          
+
             if (!IsPostBack)
             {
-              //  BindOrderStatus();
+                //  BindOrderStatus();
                 if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 {
 
@@ -142,7 +142,7 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void BindOrderMissMatchDetails()
         {
-            dBindOrderMissMatchDetails = onlineNCDBackOfficeBo.GetOrderMissMatchDetails(int.Parse(ddlIssueName.SelectedValue), "PR", (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "IP",int.Parse(ddlOrderStatus.SelectedValue),Convert.ToDateTime(txtOrderFrom.SelectedDate),Convert.ToDateTime(txtOrderTo.SelectedDate));
+            dBindOrderMissMatchDetails = onlineNCDBackOfficeBo.GetOrderMissMatchDetails(int.Parse(ddlIssueName.SelectedValue), "PR", (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "IP", int.Parse(ddlOrderStatus.SelectedValue), Convert.ToDateTime(txtOrderFrom.SelectedDate), Convert.ToDateTime(txtOrderTo.SelectedDate));
             if (Cache["OrderRecon" + userVo.UserId.ToString()] == null)
             {
                 Cache.Insert("OrderRecon" + userVo.UserId.ToString(), dBindOrderMissMatchDetails);
@@ -157,6 +157,34 @@ namespace WealthERP.OffLineOrderManagement
             pnlOrderRecon.Visible = true;
             ibtExportSummary.Visible = true;
         }
+
+        protected void BindOrderMatchDetails()
+        {
+            //DataTable dtBindOrderMatchDetails=new DataTable();
+            //dtBindOrderMatchDetails = onlineNCDBackOfficeBo.GetMatchDetails(int.Parse(ddlIssueName.SelectedValue));
+            //if (Cache["OrderMatch" + userVo.UserId.ToString()] == null)
+            //{
+            //    Cache.Insert("OrderMatch" + userVo.UserId.ToString(), dtBindOrderMatchDetails);
+            //}
+            //else
+            //{
+            //    Cache.Remove("OrderMatch" + userVo.UserId.ToString());
+            //    Cache.Insert("OrderMatch" + userVo.UserId.ToString(), dtBindOrderMatchDetails);
+            //}
+            //rgMatch.DataSource = dtBindOrderMatchDetails;
+            //rgMatch.DataBind();
+            //rgMatch.Visible = true;
+            //pnlMatch.Visible = true;
+             
+        }
+
+        protected void rgMatch_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtBindOrderMatchDetails = new DataTable();
+            dtBindOrderMatchDetails = (DataTable)Cache["OrderMatch" + userVo.UserId.ToString()];
+           rgMatch.DataSource = dtBindOrderMatchDetails;
+        }
+
         protected void gvOrderRecon_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             string rcbType = string.Empty;
@@ -213,8 +241,8 @@ namespace WealthERP.OffLineOrderManagement
                     header["COAD_Quantity"].Text = "Alloted Amt.";
                     header["CFIOD_Quantity"].Text = "Order AMt.";
                 }
-               
-                  
+
+
             }
 
             if (e.Item is GridFilteringItem && e.Item.ItemIndex == -1)
@@ -267,6 +295,7 @@ namespace WealthERP.OffLineOrderManagement
 
             }
             BindOrderMissMatchDetails();
+          //  BindOrderMatchDetails();
 
         }
         protected void OnClick_lnkOrderEntry(object sender, EventArgs e)
@@ -282,19 +311,28 @@ namespace WealthERP.OffLineOrderManagement
             hdnorderId.Value = gvOrderRecon.MasterTableView.DataKeyValues[grd.ItemIndex]["CO_OrderId"].ToString();
             hdnFIorderId.Value = gvOrderRecon.MasterTableView.DataKeyValues[grd.ItemIndex]["CFIOD_DetailsId"].ToString();
             txtAgentId.Value = gvOrderRecon.MasterTableView.DataKeyValues[grd.ItemIndex]["AAC_AdviserAgentId"].ToString();
-            if (ddlCategory.SelectedValue != "FICDCD")
-                lblOrderQty.Text = "Order Amt.";
+            //if (ddlCategory.SelectedValue != "FICDCD")
+            //    lblOrderQty.Text = "Order Amt.";
             if (ddlProduct.SelectedValue == "IP")
                 txtOrderQty.Enabled = false;
             //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FixedIncome54ECOrderEntry", "loadcontrol( 'FixedIncome54ECOrderEntry','action=" + "Edit" + "&orderId=" + orderId + "&agentcode=" + agentcode + "&customeId=" + customeId + "&product=" + ddlProduct.SelectedValue +
             //    "&category=" + ddlCategory.SelectedValue + "&issueId=" + ddlIssueName.SelectedValue + "&orderstatus=" + ddlOrderStatus.SelectedValue + "&searchtype=" + ddlSearchType.SelectedValue + "');", true);
         }
+        protected void lnkMatch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //RadWindow1.VisibleOnPageLoad = true;
+            //RadWindow1.Visible = true;
+            //BindOrderMatchDetails();
+
+        }
+
+
 
         protected void rcbContinents1_PreRender(object sender, EventArgs e)
         {
             RadComboBox Combo = sender as RadComboBox;
             ////persist the combo selected value  
-          
+
             if (ViewState["MissmatchType"] != null)
             {
 
@@ -370,9 +408,9 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void btnSubmit_Update(object sender, EventArgs e)
         {
-            Button btn=(Button)sender;
+            Button btn = (Button)sender;
             List<int> issuedetails = new List<int>();
-            issuedetails = onlineNCDBackOfficeBo.GetOrderRelatedDetails(int.Parse(hdnissueId.Value),ddlCategory.SelectedValue);
+            issuedetails = onlineNCDBackOfficeBo.GetOrderRelatedDetails(int.Parse(hdnissueId.Value), ddlCategory.SelectedValue);
             if (ddlCategory.SelectedValue == "FICDCD")
             {
                 if (Convert.ToInt32(txtOrderQty.Text) >= issuedetails[0] && Convert.ToInt32(txtOrderQty.Text) <= issuedetails[1])
@@ -385,8 +423,8 @@ namespace WealthERP.OffLineOrderManagement
 
                 }
             }
-           if(ddlCategory.SelectedValue=="FICGCG")
-           {
+            if (ddlCategory.SelectedValue == "FICGCG")
+            {
                 if (Convert.ToInt32(txtOrderQty.Text) >= issuedetails[0] && Convert.ToInt32(txtOrderQty.Text) <= issuedetails[1])
                 {
                     onlineNCDBackOfficeBo.UpdateOrderMissMatchOrder(int.Parse(hdnFIorderId.Value), int.Parse(hdnorderId.Value), int.Parse(txtOrderQty.Text), txtOrderSubbrokerCode.Text, int.Parse(txtAgentId.Value), ddlCategory.SelectedValue);
@@ -395,11 +433,11 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please enter correct information')" + issuedetails[0] + issuedetails[0], true);
                 }
-           }
-           if (ddlProduct.SelectedValue == "IP" || ddlCategory.SelectedValue == "FISDSD")
-           {
-               onlineNCDBackOfficeBo.UpdateOrderMissMatchOrder(int.Parse(hdnFIorderId.Value), int.Parse(hdnorderId.Value), (!string.IsNullOrEmpty(txtOrderQty.Text)) ? int.Parse(txtOrderQty.Text) : 0, txtOrderSubbrokerCode.Text, int.Parse(txtAgentId.Value), (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "IP");
-           }
+            }
+            if (ddlProduct.SelectedValue == "IP" || ddlCategory.SelectedValue == "FISDSD")
+            {
+                onlineNCDBackOfficeBo.UpdateOrderMissMatchOrder(int.Parse(hdnFIorderId.Value), int.Parse(hdnorderId.Value), (!string.IsNullOrEmpty(txtOrderQty.Text)) ? int.Parse(txtOrderQty.Text) : 0, txtOrderSubbrokerCode.Text, int.Parse(txtAgentId.Value), (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "IP");
+            }
             BindOrderMissMatchDetails();
         }
         public void ibtExport_OnClick(object sender, ImageClickEventArgs e)

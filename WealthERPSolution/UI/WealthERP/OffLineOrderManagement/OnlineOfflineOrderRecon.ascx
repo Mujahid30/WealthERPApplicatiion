@@ -151,7 +151,7 @@
     <tr id="trBtnSubmit" runat="server">
     </tr>
 </table>
-<asp:Panel ID="pnlOrderRecon" runat="server" Width="100%" Visible="false" ScrollBars="Horizontal" >
+<asp:Panel ID="pnlOrderRecon" runat="server" Width="100%" Visible="false" ScrollBars="Horizontal">
     <table width="80%">
         <tr>
             <td>
@@ -201,12 +201,15 @@
                                 Visible="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CO_ApplicationNumber" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
-                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Application Number"
-                                UniqueName="CO_ApplicationNumber" SortExpression="CO_ApplicationNumber" AllowFiltering="true"
-                                Visible="true"  >
+                            
+                            <telerik:GridBoundColumn DataField="issueName" HeaderStyle-Width="20px"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                HeaderText="Issue Name" UniqueName="issueName" SortExpression="issueName"
+                                AllowFiltering="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
+                            
+                            
                             <telerik:GridBoundColumn DataField="COAD_SubBrokerCode" HeaderStyle-Width="20px"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                 HeaderText="Alloted SubBrokerCode" UniqueName="COAD_SubBrokerCode" SortExpression="COAD_SubBrokerCode"
@@ -216,6 +219,12 @@
                             <telerik:GridBoundColumn DataField="COAD_PAN" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Alloted PAN" UniqueName="COAD_PAN"
                                 SortExpression="COAD_PAN" AllowFiltering="true">
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn DataField="CO_ApplicationNumberAlloted" HeaderStyle-Width="20px"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                HeaderText="Alloted Application Number" UniqueName="CO_ApplicationNumberAlloted" SortExpression="CO_ApplicationNumberAlloted"
+                                AllowFiltering="true" Visible="true"  >
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CFIOD_Quantity" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
@@ -228,6 +237,12 @@
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Order SubBrokerCode"
                                 UniqueName="AAC_AgentCode" SortExpression="AAC_AgentCode" AllowFiltering="true"
                                 HeaderStyle-ForeColor="Black">
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="CO_ApplicationNumber" HeaderStyle-Width="20px"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                HeaderText="Application Number" UniqueName="CO_ApplicationNumber" SortExpression="CO_ApplicationNumber"
+                                AllowFiltering="true" Visible="true" HeaderStyle-ForeColor="Black">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="C_PANNum" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
@@ -245,6 +260,12 @@
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="Order">
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lnkOrderEntry" runat="server" Text="Order Edit" OnClick="OnClick_lnkOrderEntry"></asp:LinkButton>
+                                </ItemTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridTemplateColumn HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="Order1" Visible="false">
+                                <ItemTemplate>
+                                    <asp:LinkButton ID="lnkMatch" runat="server" Text="Match" OnClick="lnkMatch_SelectedIndexChanged"></asp:LinkButton>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                             <%-- <telerik:GridEditCommandColumn EditText="Allotment Edit" UniqueName="editColumn1" 
@@ -280,6 +301,14 @@
                                     </tr>
                                     <tr>
                                         <td align="right">
+                                            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Application No."></asp:Label>
+                                        </td>
+                                        <td>
+                                            <asp:TextBox ID="txtApplicationNo" runat="server" CssClass="txtField"></asp:TextBox>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right">
                                             <asp:Label ID="lblPan" runat="server" CssClass="FieldName" Text="Alloted PAN"></asp:Label>
                                         </td>
                                         <td>
@@ -311,6 +340,64 @@
         </tr>
     </table>
 </asp:Panel>
+<%--<asp:Panel ID="pnlMatch" runat="server" ScrollBars="Both">
+    <telerik:RadWindowManager runat="server" ID="RadWindowManager2">
+        <Windows>
+            <telerik:RadWindow ID="RadWindow1" Modal="true" Behaviors="Close, Move" Width="450px"
+                Height="200px" runat="server" Title="Match" Left="60%" Top="100" OnClientShow="setCustomPosition"
+                VisibleOnPageLoad="false" Visible="false" >
+                <ContentTemplate>
+                    <div id="div2" runat="server"  >
+                        <table>
+                            <tr>
+                                <td>
+                                    <telerik:RadGrid ID="rgMatch" runat="server" AllowSorting="false" enableloadondemand="True"
+                                        PageSize="10" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
+                                        ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="true" ShowStatusBar="True"
+                                        Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgMatch_OnNeedDataSource"
+                                        Visible="true" >
+                                        <MasterTableView AllowMultiColumnSorting="false" AllowSorting="false" DataKeyNames="COAD_Id"
+                                            EditMode="PopUp" AutoGenerateColumns="false" Width="100%" CommandItemSettings-ShowRefreshButton="false">
+                                            <Columns>
+                                                <telerik:GridBoundColumn DataField="COAD_SubBrokerCode" HeaderStyle-Width="20px"
+                                                    CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                                    HeaderText="Alloted SubBrokerCode" UniqueName="COAD_SubBrokerCode" SortExpression="COAD_SubBrokerCode"
+                                                    AllowFiltering="true">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn DataField="COAD_PAN" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                                    ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Alloted PAN" UniqueName="COAD_PAN"
+                                                    SortExpression="COAD_PAN" AllowFiltering="true">
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn DataField="COAD_Quantity" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                                    ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Order Quantity"
+                                                    UniqueName="COAD_Quantity" SortExpression="COAD_Quantity" AllowFiltering="true"
+                                                    Visible="true"  >
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                 
+                                                
+                                            </Columns>
+                                        </MasterTableView>
+                                        <ClientSettings>
+                                            <Selecting AllowRowSelect="true" />
+                                        </ClientSettings>
+                                    </telerik:RadGrid>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <asp:Button ID="Button1" runat="server" CssClass="PCGButton" Text="Update" OnClick="btnSubmit_Update" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </ContentTemplate>
+            </telerik:RadWindow>
+        </Windows>
+    </telerik:RadWindowManager>
+</asp:Panel>--%>
 <asp:Panel ID="pnlOrderDetails" runat="server">
     <telerik:RadWindowManager runat="server" ID="RadWindowManager1">
         <Windows>
