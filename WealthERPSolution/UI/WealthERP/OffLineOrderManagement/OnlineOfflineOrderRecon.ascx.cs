@@ -160,29 +160,16 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void BindOrderMatchDetails()
         {
-            //DataTable dtBindOrderMatchDetails=new DataTable();
-            //dtBindOrderMatchDetails = onlineNCDBackOfficeBo.GetMatchDetails(int.Parse(ddlIssueName.SelectedValue));
-            //if (Cache["OrderMatch" + userVo.UserId.ToString()] == null)
-            //{
-            //    Cache.Insert("OrderMatch" + userVo.UserId.ToString(), dtBindOrderMatchDetails);
-            //}
-            //else
-            //{
-            //    Cache.Remove("OrderMatch" + userVo.UserId.ToString());
-            //    Cache.Insert("OrderMatch" + userVo.UserId.ToString(), dtBindOrderMatchDetails);
-            //}
-            //rgMatch.DataSource = dtBindOrderMatchDetails;
-            //rgMatch.DataBind();
-            //rgMatch.Visible = true;
-            //pnlMatch.Visible = true;
-             
+            DataTable dtBindOrderMatchDetails = new DataTable();
+            dtBindOrderMatchDetails = onlineNCDBackOfficeBo.GetMatchDetails(int.Parse(ddlIssueName.SelectedValue));
+
         }
 
         protected void rgMatch_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dtBindOrderMatchDetails = new DataTable();
             dtBindOrderMatchDetails = (DataTable)Cache["OrderMatch" + userVo.UserId.ToString()];
-           rgMatch.DataSource = dtBindOrderMatchDetails;
+            rgMatch.DataSource = dtBindOrderMatchDetails;
         }
 
         protected void gvOrderRecon_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
@@ -295,7 +282,7 @@ namespace WealthERP.OffLineOrderManagement
 
             }
             BindOrderMissMatchDetails();
-          //  BindOrderMatchDetails();
+            //  BindOrderMatchDetails();
 
         }
         protected void OnClick_lnkOrderEntry(object sender, EventArgs e)
@@ -320,9 +307,14 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void lnkMatch_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //RadWindow1.VisibleOnPageLoad = true;
-            //RadWindow1.Visible = true;
-            //BindOrderMatchDetails();
+
+            int rowindex1 = ((GridDataItem)((LinkButton)sender).NamingContainer).RowIndex;
+            int rowindex = (rowindex1 / 2) - 1;
+            string PAN = gvOrderRecon.MasterTableView.DataKeyValues[rowindex]["COAD_PAN"].ToString();
+            string SubBrokerCode = gvOrderRecon.MasterTableView.DataKeyValues[rowindex]["COAD_SubBrokerCode"].ToString();
+            string ApplicationNumberAlloted = gvOrderRecon.MasterTableView.DataKeyValues[rowindex]["CO_ApplicationNumberAlloted"].ToString();
+            string Quantity = gvOrderRecon.MasterTableView.DataKeyValues[rowindex]["COAD_Quantity"].ToString();
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderEntry','FormAction=" + "NonMfRecon_OrderAdd" + "&SubBrokerCode=" + SubBrokerCode + "&PAN=" + PAN + "&ApplicationNumberAlloted=" + ApplicationNumberAlloted + "&Quantity=" + Quantity + " ');", true);
 
         }
 

@@ -161,7 +161,7 @@
                     Skin="Telerik" AllowFilteringByColumn="true" OnItemDataBound="gvOrderRecon_ItemDataBound"
                     OnNeedDataSource="gvOrderRecon_OnNeedDataSource" OnItemCommand="gvOrderRecon_OnItemCommand"
                     OnItemCreated="gvOrderRecon_ItemCreated" OnPreRender="gvOrderRecon_PreRender">
-                    <MasterTableView AllowMultiColumnSorting="false" AllowSorting="false" DataKeyNames="COAD_Id,CFIOD_Quantity,AAC_AgentCode,C_PANNum,CO_OrderId,AIM_IssueId,CFIOD_DetailsId,AAC_AdviserAgentId"
+                    <MasterTableView AllowMultiColumnSorting="false" AllowSorting="false" DataKeyNames="COAD_Id,CFIOD_Quantity,AAC_AgentCode,C_PANNum,CO_OrderId,AIM_IssueId,CFIOD_DetailsId,AAC_AdviserAgentId,COAD_Quantity,COAD_SubBrokerCode,COAD_PAN,CO_ApplicationNumberAlloted"
                         EditMode="PopUp" AutoGenerateColumns="false" Width="100%" CommandItemSettings-ShowRefreshButton="false">
                         <Columns>
                             <telerik:GridEditCommandColumn EditText="Allotment Edit" UniqueName="editColumn"
@@ -263,9 +263,9 @@
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridTemplateColumn HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
-                                ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="Order1" Visible="false">
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="Order1"  >
                                 <ItemTemplate>
-                                    <asp:LinkButton ID="lnkMatch" runat="server" Text="Match" OnClick="lnkMatch_SelectedIndexChanged"></asp:LinkButton>
+                                    <asp:LinkButton ID="lnkMatch" runat="server" Text="Add Order" OnClick="lnkMatch_SelectedIndexChanged"></asp:LinkButton>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                             <%-- <telerik:GridEditCommandColumn EditText="Allotment Edit" UniqueName="editColumn1" 
@@ -338,7 +338,14 @@
                 </telerik:RadGrid>
             </td>
         </tr>
+        <tr runat="server" id="trReprocess">
+        <td>
+          <asp:Button ID="btnReprocess" Text="Cancel" runat="server" CausesValidation="False"
+                                                CssClass="PCGButton"  ></asp:Button>
+                                                </td>
+        </tr>
     </table>
+   
 </asp:Panel>
 <%--<asp:Panel ID="pnlMatch" runat="server" ScrollBars="Both">
     <telerik:RadWindowManager runat="server" ID="RadWindowManager2">

@@ -480,6 +480,18 @@ namespace BoOps
             }
             return dsARNNo;
         }
+        public void GetPanDetails(string Pannum, string Subbrokercode, int AdviserId, out int customerId, out string CustomerName, out int AgentId)
+        {
+            try
+            {
+                mfOrderDao.GetPanDetails(Pannum, Subbrokercode, AdviserId, out   customerId, out   CustomerName, out   AgentId);
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+        }
 
     }
 }

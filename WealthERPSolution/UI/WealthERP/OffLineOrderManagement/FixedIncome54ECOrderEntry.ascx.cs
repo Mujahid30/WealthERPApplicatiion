@@ -192,6 +192,35 @@ namespace WealthERP.OffLineOrderManagement
                 //radCustomApp.VisibleOnPageLoad = false;
                 BindSubTypeDropDown(1001);
                 BindBanks(0);
+
+                if (Request.QueryString["FormAction"] != null)
+                {
+                    if (Request.QueryString["FormAction"].Trim() == "NonMfRecon_OrderAdd")
+                    {
+                        int agentId=0;
+                        ddlsearch.SelectedValue = "2";
+                        ddlsearch_Selectedindexchanged(null, new EventArgs());
+                        txtApplicationNumber.Text = Request.QueryString["ApplicationNumberAlloted"].ToString();
+                        txtPansearch.Text = Request.QueryString["PAN"].ToString();
+
+ 
+
+                        txtAssociateSearch.Text = Request.QueryString["SubBrokerCode"].ToString();
+                        txtQty.Text = Request.QueryString["Quantity"].ToString();
+                        int customerId = 0;
+                        string customerName = string.Empty;
+                        int agentIds = 0;
+                       mfOrderBo.GetPanDetails(txtPansearch.Text, txtAssociateSearch.Text, advisorVo.advisorId, out customerId ,out customerName  ,out  agentIds);
+                        txtCustomerId.Value = customerId.ToString();
+                        lblCustomer.Text = customerName;
+                        txtAgentId.Value = agentIds.ToString();
+                        GetAgentName(agentIds);
+
+                    }
+
+                }
+
+
                 if (Request.QueryString["action"] != null)
                 {
                     if (Request.QueryString["action"].Trim() == "Edit")

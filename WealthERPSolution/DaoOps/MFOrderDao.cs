@@ -1035,5 +1035,44 @@ namespace DaoOps
             return dsARNNo;
         }
 
+        public void GetPanDetails(string Pannum, string Subbrokercode, int AdviserId, out int customerId, out string CustomerName, out int AgentId)
+        {
+            Database db;
+            DbCommand MFOrderAutoMatchCmd;
+
+            customerId = 0;
+            AgentId = 0;
+            CustomerName = string.Empty;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                MFOrderAutoMatchCmd = db.GetStoredProcCommand("SP_GetPanDetails");
+                db.AddInParameter(MFOrderAutoMatchCmd, "@Pannum", DbType.String, Pannum);
+                db.AddInParameter(MFOrderAutoMatchCmd, "@Subbrokercode", DbType.String, Subbrokercode);
+                db.AddInParameter(MFOrderAutoMatchCmd, "@AdviserId", DbType.Int32, AdviserId);
+                db.AddOutParameter(MFOrderAutoMatchCmd, "@customerId", DbType.Int32, customerId);
+                db.AddOutParameter(MFOrderAutoMatchCmd, "@CustomerName", DbType.String, 100);
+
+                db.AddOutParameter(MFOrderAutoMatchCmd, "@AgentId", DbType.Int32, 100);
+
+
+
+                if (db.ExecuteNonQuery(MFOrderAutoMatchCmd) != 0)
+                {
+
+                    customerId = int.Parse(db.GetParameterValue(MFOrderAutoMatchCmd, "@customerId").ToString());
+
+                    CustomerName = db.GetParameterValue(MFOrderAutoMatchCmd, "@CustomerName").ToString();
+
+                    AgentId = int.Parse(db.GetParameterValue(MFOrderAutoMatchCmd, "@AgentId").ToString());
+
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
     }
 }
