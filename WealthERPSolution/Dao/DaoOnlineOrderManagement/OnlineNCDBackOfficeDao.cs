@@ -3686,6 +3686,28 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetIssuercategorywise;
         }
+
+        public DataTable GetMatchDetails(int issueId)
+        {
+            DataTable dtGetMatchDetails;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand dbGetMatchDetails;
+            DataSet dsGetMatchDetails;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbGetMatchDetails = db.GetStoredProcCommand("SPROC_54ECANDCDOrderMatchDetails");
+                db.AddInParameter(dbGetMatchDetails, "@issueId", DbType.String, issueId);
+                dsGetMatchDetails = db.ExecuteDataSet(dbGetMatchDetails);
+                dtGetMatchDetails = dsGetMatchDetails.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetMatchDetails;
+        }
+
         public DataTable GetOrderMissMatchDetails(int issueid, string orderstapcode, string category, int isOnline,DateTime from,DateTime to)
         {
             DataTable dtGetOrderMissMatchDetails;
