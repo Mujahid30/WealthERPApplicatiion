@@ -2392,6 +2392,23 @@ namespace BoOnlineOrderManagement
             }
             return dtGetOrderMissMatchDetails;
         }
+
+        public DataTable GetMatchDetails(int issueId)
+        {
+            DataTable dtGetMatchDetails;
+            try
+            {
+                onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+                dtGetMatchDetails = onlineNCDBackOfficeDao.GetMatchDetails(issueId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetMatchDetails;
+        }
+
+
         public DataTable GetIssueNamePRoductWise(string product)
         {
             DataTable dtGetIssueNamePRoductWise; 
