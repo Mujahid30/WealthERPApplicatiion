@@ -590,7 +590,7 @@ namespace WealthERP.Advisor
                     DataSet ds = advisorStaffBo.GetTitleListForUpdatestaff(Convert.ToInt32( Request.QueryString["RmId"]),advisorVo.advisorId);
                     if (ds.Tables.Count>0 && ds.Tables[0].Rows.Count > 0)
                     {
-                        ClearDropList(ddlTitleList);
+                        ddlTitleList.Items.Clear();
                         ddlTitleList.DataSource = ds.Tables[0];
                         ddlTitleList.DataValueField = ds.Tables[0].Columns["AH_Id"].ToString();
                         ddlTitleList.DataTextField = ds.Tables[0].Columns["AH_HierarchyName"].ToString();

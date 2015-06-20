@@ -258,7 +258,7 @@
 <div runat="server" style="overflow: scroll;" id="divBtnActionSection" visible="true">
     <telerik:RadGrid ID="gvbrokerageRecon" Visible="false" runat="server" GridLines="None"
         AutoGenerateColumns="False" PageSize="10" AllowSorting="true" AllowPaging="True"
-        ShowStatusBar="True" ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" EnableViewState="false"
+        ShowStatusBar="True" ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" 
         AllowFilteringByColumn="true" Width="100%" AllowAutomaticInserts="false" OnNeedDataSource="gvbrokerageRecon_OnNeedDataSource">
         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="Brokerage Reconciliation">
         </ExportSettings>
