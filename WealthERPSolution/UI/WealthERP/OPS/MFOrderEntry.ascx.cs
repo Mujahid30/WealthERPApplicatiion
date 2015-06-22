@@ -3286,6 +3286,8 @@ namespace WealthERP.OPS
             {
                 trCust.Visible = false;
                 trpan.Visible = true;
+                txtPansearch.Text = lblgetPan.Text;
+                lblgetcust.Text = customerVo.FirstName + ' ' + customerVo.MiddleName + ' ' + customerVo.LastName;
             }
             else if (ddlsearch.SelectedValue == "1")
             {

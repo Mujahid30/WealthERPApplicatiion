@@ -23,7 +23,6 @@ namespace WealthERP.OffLineOrderManagement
         DataTable dBindOrderMissMatchDetails;
         protected void Page_Load(object sender, EventArgs e)
         {
-       
             SessionBo.CheckSession();
             userBo = new UserBo();
             userVo = (UserVo)Session[SessionContents.UserVo];
@@ -32,6 +31,8 @@ namespace WealthERP.OffLineOrderManagement
 
             if (!IsPostBack)
             {
+                txtOrderFrom.SelectedDate = DateTime.Now;
+                txtOrderTo.SelectedDate = DateTime.Now.AddMonths(-1)  ;
                 //  BindOrderStatus();
                 if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 {
@@ -55,7 +56,6 @@ namespace WealthERP.OffLineOrderManagement
             }
 
         }
-        
         protected void btnGo_Click(object sender, EventArgs e)
         {
             BindOrderMissMatchDetails();
@@ -101,6 +101,13 @@ namespace WealthERP.OffLineOrderManagement
             ddlCategory.Items.Insert(0, new ListItem("Select", "Select"));
         }
 
+        protected void ddlType_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+
+
+
+        }
+
         protected void ddlCategory_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             //if (ddlCategory.SelectedValue == "FICDCD")
@@ -120,31 +127,11 @@ namespace WealthERP.OffLineOrderManagement
         }
         private void BindOrderStatus()
         {
-            //OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();
-            //ddlOrderStatus.Items.Clear();
-            //DataSet dsOrderStatus;
-            //DataTable dtOrderStatus;
-            //dsOrderStatus = OnlineMFOrderBo.GetOrderIssueStatus();
-            //dtOrderStatus = dsOrderStatus.Tables[0];
-            //if (dtOrderStatus.Rows.Count > 0)
-            //{
-
-            //    for (int i = dtOrderStatus.Rows.Count - 1; i >= 0; i--)
-            //    {
-            //        if (dtOrderStatus.Rows[i][1].ToString() == "INPROCESS" || dtOrderStatus.Rows[i][1].ToString() == "EXECUTED" || dtOrderStatus.Rows[i][1].ToString() == "NOT ALLOTED" || dtOrderStatus.Rows[i][1].ToString() == "REJECTED" || dtOrderStatus.Rows[i][1].ToString() == "ORDERED")
-            //            dtOrderStatus.Rows[i].Delete();
-            //    }
-            //    dtOrderStatus.AcceptChanges();
-            //    ddlOrderStatus.DataSource = dtOrderStatus;
-            //    ddlOrderStatus.DataTextField = dtOrderStatus.Columns["WOS_OrderStep"].ToString();
-            //    ddlOrderStatus.DataValueField = dtOrderStatus.Columns["WOS_OrderStepCode"].ToString();
-            //    ddlOrderStatus.DataBind();
-            //}
-            //ddlOrderStatus.Items.Insert(0, new ListItem("All", "0"));
+            
         }
         protected void BindOrderMissMatchDetails()
         {
-            dBindOrderMissMatchDetails = onlineNCDBackOfficeBo.GetOrderMissMatchDetails(int.Parse(ddlIssueName.SelectedValue), "PR", (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "IP", int.Parse(ddlOrderStatus.SelectedValue), Convert.ToDateTime(txtOrderFrom.SelectedDate), Convert.ToDateTime(txtOrderTo.SelectedDate));
+            dBindOrderMissMatchDetails = onlineNCDBackOfficeBo.GetOrderMissMatchDetails(int.Parse(ddlIssueName.SelectedValue), "PR", (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "IP", int.Parse(ddlOrderStatus.SelectedValue), Convert.ToDateTime(txtOrderFrom.SelectedDate), Convert.ToDateTime(txtOrderTo.SelectedDate), int.Parse(ddlType.SelectedValue));
             if (Cache["OrderRecon" + userVo.UserId.ToString()] == null)
             {
                 Cache.Insert("OrderRecon" + userVo.UserId.ToString(), dBindOrderMissMatchDetails);
@@ -202,24 +189,29 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void gvOrderRecon_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            //if (e.Item is GridDataItem)
-            //{
-            //    GridDataItem item = (GridDataItem)e.Item;
-            //    AjaxControlToolkit.AutoCompleteExtender a = (AjaxControlToolkit.AutoCompleteExtender)item.FindControl("AutoCompleteExtender2");
-            //    AutoCompleteExtender AutoCompleteExtender2 = (AutoCompleteExtender)item.FindControl("AutoCompleteExtender2");
-            //    //AutoCompleteExtender2.ContextKey = advisorVo.advisorId.ToString();
-            //    //AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetails";
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem item = e.Item as GridDataItem;
 
-            //}
+                LinkButton lnkMatch = (LinkButton)item.FindControl("lnkMatch");
+                if (ddlType.SelectedValue == "4")
+                {
+                    lnkMatch.Visible = true;
+                }
+                else
+                {
+                    lnkMatch.Visible = false;
+                }
+            }
             if (e.Item is GridEditFormItem && e.Item.IsInEditMode)
             {
                 GridEditFormItem item = e.Item as GridEditFormItem;
-                //TextBox txt_lect_in = item.FindControl("txt_lect_in") as TextBox;
                 AutoCompleteExtender AutoCompleteExtender2 = (AutoCompleteExtender)item.FindControl("AutoCompleteExtender2");
                 AutoCompleteExtender2.ContextKey = advisorVo.advisorId.ToString();
                 AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetails";
 
-                //Access your textbox heer
+               
+                
             }
             if (e.Item is GridHeaderItem)
             {
@@ -287,6 +279,14 @@ namespace WealthERP.OffLineOrderManagement
             //  BindOrderMatchDetails();
 
         }
+
+        protected void btnReprocess_Click(object sender, EventArgs e)
+        {
+            BindOrderMatchDetails();
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Reprocess done')", true);
+            BindOrderMissMatchDetails();
+        }
+        
         protected void OnClick_lnkOrderEntry(object sender, EventArgs e)
         {
             divorderQty.Visible = true;
@@ -316,7 +316,8 @@ namespace WealthERP.OffLineOrderManagement
             string SubBrokerCode = gvOrderRecon.MasterTableView.DataKeyValues[rowindex]["COAD_SubBrokerCode"].ToString();
             string ApplicationNumberAlloted = gvOrderRecon.MasterTableView.DataKeyValues[rowindex]["CO_ApplicationNumberAlloted"].ToString();
             string Quantity = gvOrderRecon.MasterTableView.DataKeyValues[rowindex]["COAD_Quantity"].ToString();
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderEntry','FormAction=" + "NonMfRecon_OrderAdd" + "&SubBrokerCode=" + SubBrokerCode + "&PAN=" + PAN + "&ApplicationNumberAlloted=" + ApplicationNumberAlloted + "&Quantity=" + Quantity + " ');", true);
+            string issueId=ddlIssueName.SelectedValue;
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderEntry','FormAction=" + "NonMfRecon_OrderAdd" + "&SubBrokerCode=" + SubBrokerCode + "&PAN=" + PAN + "&ApplicationNumberAlloted=" + ApplicationNumberAlloted + "&Quantity=" + Quantity + "&issueId=" + issueId + "');", true);
 
         }
 
@@ -446,7 +447,5 @@ namespace WealthERP.OffLineOrderManagement
             gvOrderRecon.MasterTableView.ExportToExcel();
 
         }
-
-        
     }
 }

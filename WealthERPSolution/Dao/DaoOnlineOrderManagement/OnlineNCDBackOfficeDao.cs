@@ -2212,7 +2212,7 @@ namespace DaoOnlineOrderManagement
             }
             return ds;
         }
-         
+
         public DataSet GetAdviserOrders(int IssueId, string Product, int adviserid, int BusinessChannel, string userType, string AgentCode, string category)
         {
             DataSet dsOrders;
@@ -3528,7 +3528,7 @@ namespace DaoOnlineOrderManagement
             }
             return bResult;
         }
-        public DataTable GetIssueList(int adviserId, int type,  string productAssetGroup)
+        public DataTable GetIssueList(int adviserId, int type, string productAssetGroup)
         {
             DataTable dtIssueList;
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -3556,7 +3556,7 @@ namespace DaoOnlineOrderManagement
                 object[] objects = new object[3];
                 objects[0] = adviserId;
                 objects[1] = type;
-                
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -3689,7 +3689,7 @@ namespace DaoOnlineOrderManagement
 
         public DataTable GetMatchDetails(int issueId)
         {
-            DataTable dtGetMatchDetails;
+            DataTable dtGetMatchDetails=new DataTable();
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbGetMatchDetails;
             DataSet dsGetMatchDetails;
@@ -3699,7 +3699,7 @@ namespace DaoOnlineOrderManagement
                 dbGetMatchDetails = db.GetStoredProcCommand("SPROC_54ECANDCDOrderMatchDetails");
                 db.AddInParameter(dbGetMatchDetails, "@issueId", DbType.String, issueId);
                 dsGetMatchDetails = db.ExecuteDataSet(dbGetMatchDetails);
-                dtGetMatchDetails = dsGetMatchDetails.Tables[0];
+                //dtGetMatchDetails = dsGetMatchDetails.Tables[0];
             }
             catch (BaseApplicationException Ex)
             {
@@ -3708,7 +3708,7 @@ namespace DaoOnlineOrderManagement
             return dtGetMatchDetails;
         }
 
-        public DataTable GetOrderMissMatchDetails(int issueid, string orderstapcode, string category, int isOnline,DateTime from,DateTime to)
+        public DataTable GetOrderMissMatchDetails(int issueid, string orderstapcode, string category, int isOnline, DateTime from, DateTime to, int type)
         {
             DataTable dtGetOrderMissMatchDetails;
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -3731,6 +3731,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(dbGetOrderMissMatchDetails, "@category", DbType.String, category);
                 db.AddInParameter(dbGetOrderMissMatchDetails, "@fromDate", DbType.DateTime, from);
                 db.AddInParameter(dbGetOrderMissMatchDetails, "@toDate", DbType.DateTime, to);
+                db.AddInParameter(dbGetOrderMissMatchDetails, "@type", DbType.Int32, type);
+
                 dsGetOrderMissMatchDetails = db.ExecuteDataSet(dbGetOrderMissMatchDetails);
                 dtGetOrderMissMatchDetails = dsGetOrderMissMatchDetails.Tables[0];
             }
@@ -3740,7 +3742,7 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetOrderMissMatchDetails;
         }
-        public DataTable GetIssueNamePRoductWise( string product)
+        public DataTable GetIssueNamePRoductWise(string product)
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand cmdGetIssueName;
@@ -3763,7 +3765,7 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetIssueName;
         }
-        public bool UpdateAllotedMissMatchOrder(int AllotmentId,int qty, string brokerCode,string PAN ,string category)
+        public bool UpdateAllotedMissMatchOrder(int AllotmentId, int qty, string brokerCode, string PAN, string category)
         {
             bool bResult = false;
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -3816,7 +3818,7 @@ namespace DaoOnlineOrderManagement
             }
             return issueIds;
         }
-        public bool UpdateOrderMissMatchOrder(int fixIncomeId,int orderId, int qty, string brokerCode, int subbrokerId,string product)
+        public bool UpdateOrderMissMatchOrder(int fixIncomeId, int orderId, int qty, string brokerCode, int subbrokerId, string product)
         {
             bool bResult = false;
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;

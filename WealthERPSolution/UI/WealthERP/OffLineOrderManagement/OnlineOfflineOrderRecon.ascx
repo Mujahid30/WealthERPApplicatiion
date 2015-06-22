@@ -94,14 +94,15 @@
             <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName" Text="From:"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtOrderFromDate" runat="server" CssClass="txtField">
-                </asp:TextBox>
-        
-            
-                <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtOrderFromDate"
-                Format="dd/MM/yyyy">
-            </cc1:CalendarExtender>
-                
+            <telerik:RadDatePicker ID="txtOrderFrom" CssClass="txtField" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                    ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
             <div id="dvTransactionDate" runat="server" class="dvInLine">
                 <span id="Span3" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="rfvtxtTransactionDate" ControlToValidate="txtOrderFrom"
@@ -142,7 +143,25 @@
                 Display="Dynamic">
             </asp:CompareValidator>
         </td>
+       
+    </tr>
+    <tr id="trSatus" runat="server">
+        <td align="right">
+            <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Type:"></asp:Label>
+        </td>
         <td>
+         <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlType_OnSelectedIndexChanged" Width="230px">
+            <asp:ListItem Text="All" Value="1">
+            </asp:ListItem>
+            <asp:ListItem Text="Orders exist,Allotment exist" Value="2">
+            </asp:ListItem>
+            <asp:ListItem Text="Orders exist,Allotment not exist" Value="3">
+            </asp:ListItem>
+            <asp:ListItem Text="Orders not exist,Allotment exist" Value="4">
+            </asp:ListItem>
+             </asp:DropDownList>
+        </td>
+         <td>
             <asp:Button ID="btnGo" runat="server" Text="Go" CssClass="PCGButton" ValidationGroup="btnGo"
                 OnClick="btnGo_Click" />
         </td>
@@ -200,15 +219,11 @@
                                 Visible="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            
-                            <telerik:GridBoundColumn DataField="issueName" HeaderStyle-Width="20px"
-                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                HeaderText="Issue Name" UniqueName="issueName" SortExpression="issueName"
-                                AllowFiltering="true">
+                            <telerik:GridBoundColumn DataField="issueName" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Issue Name" UniqueName="issueName"
+                                SortExpression="issueName" AllowFiltering="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            
-                            
                             <telerik:GridBoundColumn DataField="COAD_SubBrokerCode" HeaderStyle-Width="20px"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                 HeaderText="Alloted SubBrokerCode" UniqueName="COAD_SubBrokerCode" SortExpression="COAD_SubBrokerCode"
@@ -220,10 +235,10 @@
                                 SortExpression="COAD_PAN" AllowFiltering="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn DataField="CO_ApplicationNumberAlloted" HeaderStyle-Width="20px"
+                            <telerik:GridBoundColumn DataField="CO_ApplicationNumberAlloted" HeaderStyle-Width="20px"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                HeaderText="Alloted Application Number" UniqueName="CO_ApplicationNumberAlloted" SortExpression="CO_ApplicationNumberAlloted"
-                                AllowFiltering="true" Visible="true"  >
+                                HeaderText="Alloted Application Number" UniqueName="CO_ApplicationNumberAlloted"
+                                SortExpression="CO_ApplicationNumberAlloted" AllowFiltering="true" Visible="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CFIOD_Quantity" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
@@ -262,7 +277,7 @@
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridTemplateColumn HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
-                                ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="Order1"  >
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="Order1">
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lnkMatch" runat="server" Text="Add Order" OnClick="lnkMatch_SelectedIndexChanged"></asp:LinkButton>
                                 </ItemTemplate>
@@ -338,13 +353,12 @@
             </td>
         </tr>
         <tr runat="server" id="trReprocess">
-        <td>
-          <asp:Button ID="btnReprocess" Text="Cancel" runat="server" CausesValidation="False"
-                                                CssClass="PCGButton"  ></asp:Button>
-                                                </td>
+            <td>
+                <asp:Button ID="btnReprocess" Text="Reprocess" runat="server" CausesValidation="False"
+                    CssClass="PCGButton" OnClick="btnReprocess_Click"></asp:Button>
+            </td>
         </tr>
     </table>
-   
 </asp:Panel>
 <%--<asp:Panel ID="pnlMatch" runat="server" ScrollBars="Both">
     <telerik:RadWindowManager runat="server" ID="RadWindowManager2">

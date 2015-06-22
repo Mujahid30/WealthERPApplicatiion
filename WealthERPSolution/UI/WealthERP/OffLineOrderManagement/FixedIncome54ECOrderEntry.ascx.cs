@@ -173,7 +173,7 @@ namespace WealthERP.OffLineOrderManagement
                     txtAgentId.Value = associateuserheirarchyVo.AdviserAgentId.ToString();
                     AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode + "/" + advisorVo.advisorId.ToString() + "/" + associateuserheirarchyVo.IsBranchOps;
                     AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetailsForAssociates";
-                   
+
 
                 }
 
@@ -197,25 +197,30 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     if (Request.QueryString["FormAction"].Trim() == "NonMfRecon_OrderAdd")
                     {
-                        int agentId=0;
+                        int agentId = 0;
+                        string issueId="0";
                         ddlsearch.SelectedValue = "2";
                         ddlsearch_Selectedindexchanged(null, new EventArgs());
                         txtApplicationNumber.Text = Request.QueryString["ApplicationNumberAlloted"].ToString();
                         txtPansearch.Text = Request.QueryString["PAN"].ToString();
 
- 
+                        issueId= Request.QueryString["issueId"].ToString();
 
                         txtAssociateSearch.Text = Request.QueryString["SubBrokerCode"].ToString();
                         txtQty.Text = Request.QueryString["Quantity"].ToString();
                         int customerId = 0;
                         string customerName = string.Empty;
                         int agentIds = 0;
-                       mfOrderBo.GetPanDetails(txtPansearch.Text, txtAssociateSearch.Text, advisorVo.advisorId, out customerId ,out customerName  ,out  agentIds);
+                        mfOrderBo.GetPanDetails(txtPansearch.Text, txtAssociateSearch.Text, advisorVo.advisorId, out customerId, out customerName, out  agentIds);
                         txtCustomerId.Value = customerId.ToString();
-                        lblCustomer.Text = customerName;
+                        lblgetcust.Text = customerName;
                         txtAgentId.Value = agentIds.ToString();
                         GetAgentName(agentIds);
-
+                        ddlCategory.SelectedValue = "FICGCG";
+                        OnTaxStatus();
+                        ddlCategory_SelectedIndexChanged(null, new EventArgs());
+                        ddlScheme.SelectedValue = issueId;
+                        ddlScheme_SelectedIndexChanged(null, new EventArgs());
                     }
 
                 }
@@ -464,6 +469,11 @@ namespace WealthERP.OffLineOrderManagement
         private void GetAgentName(int agentId)
         {
             // Admin after selecting agent code and sales login default 
+            if (agentId == 0)
+            {
+                return;
+            }
+
             lblAssociate.Visible = true;
             lblAssociateReport.Visible = true;
             Agentname = customerBo.GetSubBrokerName(agentId);
@@ -530,10 +540,10 @@ namespace WealthERP.OffLineOrderManagement
             tdTxtQty.Visible = true;
             tdlblADRNo.Visible = false;
             tdtxtADRNo.Visible = false;
-            if (ddlCategory.SelectedIndex != 0 && ddlTax.SelectedValue!=string.Empty)
+            if (ddlCategory.SelectedIndex != 0 && ddlTax.SelectedValue != string.Empty)
             {
 
-                FIScheme(advisorVo.advisorId, ddlCategory.SelectedValue, int.Parse(ddlTax.SelectedValue),1);
+                FIScheme(advisorVo.advisorId, ddlCategory.SelectedValue, int.Parse(ddlTax.SelectedValue), 1);
             }
 
             // FIIssuer(advisorVo.advisorId);
@@ -554,7 +564,7 @@ namespace WealthERP.OffLineOrderManagement
             {
                 tdLabel11.Visible = false;
                 tdddlTranstype.Visible = false;
-               
+
             }
             else
             {
@@ -571,7 +581,7 @@ namespace WealthERP.OffLineOrderManagement
                 tdTxtQty.Visible = false;
                 tdlblADRNo.Visible = true;
                 tdtxtADRNo.Visible = true;
-                
+
             }
 
             ddlCategory.Focus();
@@ -800,7 +810,6 @@ namespace WealthERP.OffLineOrderManagement
 
 
         protected void btnSubmit_Click(object sender, EventArgs e)
-        
         {
             btnSubmit.Enabled = false;
             txtQty.Text = (ddlCategory.SelectedValue == "FICDCD") ? TxtPurAmt.Text : txtQty.Text;
@@ -1025,12 +1034,12 @@ namespace WealthERP.OffLineOrderManagement
             orderVo.AssetGroup = "FI";
 
             if (!string.IsNullOrEmpty(txtAgentId.Value))
-            fiorderVo.AgentId = int.Parse(txtAgentId.Value);
+                fiorderVo.AgentId = int.Parse(txtAgentId.Value);
 
             if (!string.IsNullOrEmpty(lblGetOrderNo.Text))
                 orderVo.OrderNumber = Convert.ToInt32(lblGetOrderNo.Text);
             if (ChkSeniorcitizens.Checked == true)
-                       orderVo.OrderDate = Convert.ToDateTime(txtOrderDate.SelectedDate);
+                orderVo.OrderDate = Convert.ToDateTime(txtOrderDate.SelectedDate);
             orderVo.ApplicationReceivedDate = Convert.ToDateTime(txtApplicationDate.SelectedDate);
             orderVo.ApplicationNumber = txtApplicationNumber.Text;
             fiorderVo.AssetInstrumentCategory = ddlCategory.SelectedValue;
@@ -1515,7 +1524,7 @@ namespace WealthERP.OffLineOrderManagement
         protected void ddlIssuer_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlIssuer.SelectedIndex != 0)
-                FIScheme(advisorVo.advisorId, ddlIssuer.SelectedValue,int.Parse(ddlTax.SelectedValue),1);
+                FIScheme(advisorVo.advisorId, ddlIssuer.SelectedValue, int.Parse(ddlTax.SelectedValue), 1);
         }
 
         protected void OnPayAmtTextchanged(object sender, EventArgs e)
@@ -1609,12 +1618,12 @@ namespace WealthERP.OffLineOrderManagement
             }
         }
 
-        private void FIScheme(int AdviserId, string category,int custCategory,int type)
+        private void FIScheme(int AdviserId, string category, int custCategory, int type)
         {
             DataSet dsScheme = new DataSet();
             ddlScheme.DataSource = dsScheme;
             Label12.Text = string.Empty;
-            dsScheme = fiorderBo.GetFIScheme(AdviserId, category, int.Parse(ddlTax.SelectedValue),type);
+            dsScheme = fiorderBo.GetFIScheme(AdviserId, category, int.Parse(ddlTax.SelectedValue), type);
             if (dsScheme.Tables[0].Rows.Count > 0)
             {
                 ddlScheme.DataSource = dsScheme;
@@ -5170,13 +5179,13 @@ namespace WealthERP.OffLineOrderManagement
         protected void btnSubmitAuthenticate_btnSubmit(object sender, EventArgs e)
         {
             bool lbResult = false;
-           
+
             if (rbtnAuthentication.Checked == true || rbtnReject.Checked == true)
             {
                 lbResult = OfflineBondOrderBo.CancelBondsFDBookOrder(int.Parse(hdnOrderNo.Value), txtRejectReseaon.Text, userVo.UserId, (rbtnReject.Checked) ? false : true);
                 btnSubmitAuthenticate.Visible = false;
                 rbtnAuthentication.Enabled = false;
-                rbtnReject.Enabled=false;
+                rbtnReject.Enabled = false;
             }
         }
     }
