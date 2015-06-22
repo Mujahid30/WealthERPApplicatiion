@@ -147,7 +147,8 @@
             <asp:Label ID="lblClientCode" runat="server" CssClass="FieldName" Text="Client Code:"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtClientCode" runat="server" CssClass="txtField" MaxLength="15"></asp:TextBox>
+            <asp:TextBox ID="txtClientCode" runat="server"   CssClass="txtField" MaxLength="15"></asp:TextBox>
+            
             <%-- <span id="Span5" class="spnRequiredField">*</span> &nbsp;
             <br />--%>
             <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtClientCode"

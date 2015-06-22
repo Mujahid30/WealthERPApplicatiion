@@ -23,6 +23,7 @@ namespace WealthERP.OffLineOrderManagement
         DataTable dBindOrderMissMatchDetails;
         protected void Page_Load(object sender, EventArgs e)
         {
+       
             SessionBo.CheckSession();
             userBo = new UserBo();
             userVo = (UserVo)Session[SessionContents.UserVo];
@@ -54,6 +55,7 @@ namespace WealthERP.OffLineOrderManagement
             }
 
         }
+        
         protected void btnGo_Click(object sender, EventArgs e)
         {
             BindOrderMissMatchDetails();
@@ -444,5 +446,7 @@ namespace WealthERP.OffLineOrderManagement
             gvOrderRecon.MasterTableView.ExportToExcel();
 
         }
+
+        
     }
 }

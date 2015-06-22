@@ -1,4 +1,5 @@
 ﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,6 +19,9 @@ using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using BoAdvisorProfiling;
 using WealthERP.Base;
+//using System.Web.Services.WebMethod;
+using System.Data.SqlClient;
+//using System.Web.Script.Services.ScriptMethod;
 
 namespace WealthERP.Customer
 {
@@ -266,6 +270,37 @@ namespace WealthERP.Customer
         //    }
         //    return result;
         //}
+      
+        public static List<string> GetCompletionList(string prefixText, int count)  
+        {  
+            return AutoFillProducts(prefixText);  
+  
+        }
+        private static List<string> AutoFillProducts(string prefixText)  
+        {  
+            using (SqlConnection con = new SqlConnection())  
+            {  
+                con.ConnectionString = ConfigurationManager.ConnectionStrings["Conn"].ConnectionString;
+                 using (SqlCommand com = new SqlCommand())  
+                {  
+                    com.CommandText = "select client code from ???????? where " + "ProductName like @Search + '%'";  
+  
+                    com.Parameters.AddWithValue("@Search", prefixText);  
+                    com.Connection = con;  
+                    con.Open();  
+                    List<string> countryNames = new List<string>();  
+                    using (SqlDataReader sdr = com.ExecuteReader())  
+                    {  
+                        while (sdr.Read())  
+                        {  
+                            countryNames.Add(sdr["Client Code"].ToString());  
+                        }  
+                    }  
+                    con.Close();  
+                    return countryNames;
+                 }
+            }
+        }
 
         protected void rbtnIndividual_CheckedChanged(object sender, EventArgs e)
         {

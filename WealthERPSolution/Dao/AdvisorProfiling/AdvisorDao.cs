@@ -1457,20 +1457,20 @@ namespace DaoAdvisorProfiling
                         advisorVo.Phone1Std = dr["A_Phone1STD"].ToString();
                     if (dr["A_Phone2STD"] != DBNull.Value && dr["A_Phone2STD"].ToString() != string.Empty)
                         advisorVo.Phone2Std = dr["A_Phone2STD"].ToString();
-                    if (dr["A_Phone3STD"] != DBNull.Value && dr["A_Phone3STD"].ToString() != string.Empty)
-                        advisorVo.Phone3Std = dr["A_Phone3STD"].ToString();
+                    //if (dr["A_Phone3STD"] != DBNull.Value && dr["A_Phone3STD"].ToString() != string.Empty)
+                    //    advisorVo.Phone3Std = dr["A_Phone3STD"].ToString();
                     if (dr["A_Phone1ISD"] != DBNull.Value && dr["A_Phone1ISD"].ToString() != string.Empty)
                         advisorVo.Phone1Isd = dr["A_Phone1ISD"].ToString();
                     if (dr["A_Phone2ISD"] != DBNull.Value && dr["A_Phone2ISD"].ToString() != string.Empty)
                         advisorVo.Phone2Isd = dr["A_Phone2ISD"].ToString();
-                    if (dr["A_Phone3ISD"] != DBNull.Value && dr["A_Phone3ISD"].ToString() != string.Empty)
-                        advisorVo.Phone3Isd = dr["A_Phone3ISD"].ToString();
+                    //if (dr["A_Phone3ISD"] != DBNull.Value && dr["A_Phone3ISD"].ToString() != string.Empty)
+                    //    advisorVo.Phone3Isd = dr["A_Phone3ISD"].ToString();
                     if (dr["A_Phone1Number"] != DBNull.Value && dr["A_Phone1Number"].ToString() != string.Empty)
                         advisorVo.Phone1Number = int.Parse(dr["A_Phone1Number"].ToString());
                     if (dr["A_Phone2Number"] != DBNull.Value && dr["A_Phone2Number"].ToString() != string.Empty)
                         advisorVo.Phone2Number = int.Parse(dr["A_Phone2Number"].ToString());
-                    if (dr["A_Phone3Number"] != DBNull.Value && dr["A_Phone3Number"].ToString() != string.Empty)
-                        advisorVo.Phone3Number = int.Parse(dr["A_Phone3Number"].ToString());
+                    //if (dr["A_Phone3Number"] != DBNull.Value && dr["A_Phone3Number"].ToString() != string.Empty)
+                    //    advisorVo.Phone3Number = int.Parse(dr["A_Phone3Number"].ToString());
                     if (dr["A_PinCode"] != DBNull.Value)
                         advisorVo.PinCode = int.Parse(dr["A_PinCode"].ToString());
                     if (dr["A_State"] != DBNull.Value)
