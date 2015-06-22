@@ -43,7 +43,8 @@ namespace WealthERP.Uploads
                 LoadAllSchemeList(0);
                 BindProductDropdown();
                 BindMonthsAndYear();
-
+                Session["fltrIsPayLocked"] = null;
+                Session["fltrIsRecLocked"] = null;
                 int day = 1;
                 // btnExportFilteredData.Visible = false;
                 associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
@@ -370,7 +371,26 @@ namespace WealthERP.Uploads
             btnSave.Visible = false;
             chkBulkPayble.Visible = false;
             chkBulkReceived.Visible = false;
-            ds = adviserMFMIS.GetWERPCommissionDetails(ddlProduct.SelectedValue, advisorVo.advisorId, Int32.Parse(ddlMnthQtr.SelectedValue), Int32.Parse(ddlYear.SelectedValue), "", Int32.Parse(ddlIssueName.SelectedValue), ddlProductCategory.SelectedValue);
+            int IssueId = 0;
+            string productCategory = string.Empty;
+            string category =string.Empty;
+            int amcCode=0;
+            int schemeCode=0;
+            if(ddlProduct.SelectedValue=="MF")
+            {
+                amcCode = Int32.Parse(ddlIssuer.SelectedValue);
+                schemeCode = Int32.Parse(ddlScheme.SelectedValue);
+                category=ddlCategory.SelectedValue;
+            }
+            else if (ddlProduct.SelectedValue == "IP" || ddlProduct.SelectedValue == "FI")
+            {
+                IssueId = Int32.Parse(ddlIssueName.SelectedValue);
+            }
+            if (ddlProduct.SelectedValue == "FI")
+            {
+                productCategory = ddlProductCategory.SelectedValue;
+            }
+            ds = adviserMFMIS.GetWERPCommissionDetails(ddlProduct.SelectedValue, advisorVo.advisorId, Int32.Parse(ddlMnthQtr.SelectedValue), Int32.Parse(ddlYear.SelectedValue), category, IssueId, productCategory, amcCode, schemeCode);
             if (ds.Tables[0] != null)
             {
 
@@ -401,6 +421,8 @@ namespace WealthERP.Uploads
 
 
             BindGrid();
+            Session["fltrIsPayLocked"] = null;
+            Session["fltrIsRecLocked"] = null;
         }
 
         protected void gvbrokerageRecon_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
@@ -411,6 +433,118 @@ namespace WealthERP.Uploads
             {
                 gvbrokerageRecon.DataSource = dt;
                 gvbrokerageRecon.Visible = true;
+            }
+           
+        }
+       
+        protected void gvbrokerageRecon_ItemCreated(object sender, Telerik.Web.UI.GridItemEventArgs e)
+        {
+            if (e.Item is GridFilteringItem)
+            {
+                //Is Receivable Locked Filter
+                GridFilteringItem filteringItemRec = (e.Item as GridFilteringItem);
+                filteringItemRec["IsRecLocked"].Controls.Clear();
+                DropDownList ddlIsRecLocked = new DropDownList();
+                ddlIsRecLocked.AutoPostBack = true;
+                ddlIsRecLocked.CssClass = "cmbField";
+                ddlIsRecLocked.SelectedIndexChanged += new System.EventHandler(ddlIsRecLocked_SelectedIndexChanged);
+                ddlIsRecLocked.Items.Add(new ListItem("Clear filter", "2"));
+                ddlIsRecLocked.Items.Add(new ListItem("Show all checked", "1"));
+                ddlIsRecLocked.Items.Add(new ListItem("Show all unchecked", "0"));
+                if (Session["fltrIsRecLocked"] != null)
+                {
+                    ddlIsRecLocked.Items.FindByValue((string)Session["fltrIsRecLocked"]).Selected = true;
+                }
+                filteringItemRec["IsRecLocked"].Controls.Add(ddlIsRecLocked);
+
+                //Is Pay Locked Filter
+                GridFilteringItem filteringItemPay = (e.Item as GridFilteringItem);
+                filteringItemPay["IsPayLocked"].Controls.Clear();
+                DropDownList ddlIsPayLocked = new DropDownList();
+                ddlIsPayLocked.AutoPostBack = true;
+                ddlIsPayLocked.CssClass = "cmbField";
+                ddlIsPayLocked.SelectedIndexChanged += new System.EventHandler(ddlIsPayLocked_SelectedIndexChanged);
+                ddlIsPayLocked.Items.Add(new ListItem("Clear filter", "2"));
+                ddlIsPayLocked.Items.Add(new ListItem("Show all checked", "1"));
+                ddlIsPayLocked.Items.Add(new ListItem("Show all unchecked", "0"));
+                if (Session["fltrIsPayLocked"] != null)
+                {
+                    ddlIsPayLocked.Items.FindByValue((string)Session["fltrIsPayLocked"]).Selected = true;
+                }
+                filteringItemPay["IsPayLocked"].Controls.Add(ddlIsPayLocked);
+            }
+        }
+        protected void ddlIsPayLocked_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            DropDownList ddList = (DropDownList)sender;
+            Session["fltrIsPayLocked"] = ddList.SelectedValue;
+            gvbrokerageRecon.MasterTableView.FilterExpression = gvbrokerageRecon.MasterTableView.FilterExpression.Contains("IsPayLocked") ? null : gvbrokerageRecon.MasterTableView.FilterExpression;
+            switch (ddList.SelectedValue)
+            {
+                case "1":
+                    gvbrokerageRecon.MasterTableView.FilterExpression += String.IsNullOrEmpty(gvbrokerageRecon.MasterTableView.FilterExpression) ? "(IsPayLocked = 1) " : "AND (IsPayLocked = 1) ";
+                    //foreach (GridColumn column in gvbrokerageRecon.MasterTableView.Columns)
+                    //{
+                    //    column.CurrentFilterFunction = GridKnownFunction.NoFilter;
+                    //    column.CurrentFilterValue = String.Empty;
+                    //}
+                    gvbrokerageRecon.MasterTableView.Rebind();
+                    break;
+                case "0":
+                    gvbrokerageRecon.MasterTableView.FilterExpression += String.IsNullOrEmpty(gvbrokerageRecon.MasterTableView.FilterExpression) ? "(IsPayLocked = 0) " : "AND (IsPayLocked = 0) ";
+                    //foreach (GridColumn column in gvbrokerageRecon.MasterTableView.Columns)
+                    //{
+                    //    column.CurrentFilterFunction = GridKnownFunction.NoFilter;
+                    //    column.CurrentFilterValue = String.Empty;
+                    //}
+                    gvbrokerageRecon.MasterTableView.Rebind();
+                    break;
+                case "2":
+                    gvbrokerageRecon.MasterTableView.FilterExpression = String.Empty;
+                    gvbrokerageRecon.MasterTableView.FilterExpression += String.IsNullOrEmpty(gvbrokerageRecon.MasterTableView.FilterExpression) ? "(IsPayLocked != 2) " : "AND (IsPayLocked != 2) ";
+                    //foreach (GridColumn column in gvbrokerageRecon.MasterTableView.Columns)
+                    //{
+                    //    column.CurrentFilterFunction = GridKnownFunction.NoFilter;
+                    //    column.CurrentFilterValue = String.Empty;
+                    //}
+                    gvbrokerageRecon.MasterTableView.Rebind();
+                    break;
+            }
+        }
+        protected void ddlIsRecLocked_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            DropDownList ddList = (DropDownList)sender;
+            Session["fltrIsRecLocked"] = ddList.SelectedValue;
+            gvbrokerageRecon.MasterTableView.FilterExpression = gvbrokerageRecon.MasterTableView.FilterExpression.Contains("IsRecLocked") ? null : gvbrokerageRecon.MasterTableView.FilterExpression;
+            switch (ddList.SelectedValue)
+            {
+                case "1":
+                    gvbrokerageRecon.MasterTableView.FilterExpression += String.IsNullOrEmpty(gvbrokerageRecon.MasterTableView.FilterExpression) ? "(IsRecLocked = 1) " : "AND (IsRecLocked = 1) ";
+                    //foreach (GridColumn column in gvbrokerageRecon.MasterTableView.Columns)
+                    //{
+                    //    column.CurrentFilterFunction = GridKnownFunction.NoFilter;
+                    //    column.CurrentFilterValue = String.Empty;
+                    //}
+                    gvbrokerageRecon.MasterTableView.Rebind();
+                    break;
+                case "0":
+                    gvbrokerageRecon.MasterTableView.FilterExpression += String.IsNullOrEmpty(gvbrokerageRecon.MasterTableView.FilterExpression) ? "(IsRecLocked = 0) " : "AND (IsRecLocked = 0) ";
+                    //foreach (GridColumn column in gvbrokerageRecon.MasterTableView.Columns)
+                    //{
+                    //    column.CurrentFilterFunction = GridKnownFunction.NoFilter;
+                    //    column.CurrentFilterValue = String.Empty;
+                    //}
+                    gvbrokerageRecon.MasterTableView.Rebind();
+                    break;
+                case "2":
+                    gvbrokerageRecon.MasterTableView.FilterExpression += String.IsNullOrEmpty(gvbrokerageRecon.MasterTableView.FilterExpression) ? "(IsRecLocked != 2) " : "AND (IsRecLocked != 2) ";
+                    //foreach (GridColumn column in gvbrokerageRecon.MasterTableView.Columns)
+                    //{
+                    //    column.CurrentFilterFunction = GridKnownFunction.NoFilter;
+                    //    column.CurrentFilterValue = String.Empty;
+                    //}
+                    gvbrokerageRecon.MasterTableView.Rebind();
+                    break;
             }
         }
         protected void btnSave_Click(object sender, EventArgs e)
@@ -428,25 +562,25 @@ namespace WealthERP.Uploads
                 CheckBox checkBox = (CheckBox)dr.FindControl("Ranjan");
                 if (checkBox.Checked == true)
                 {
-                if (((TextBox)dr.FindControl("txtActRecBrokerage")).Text.Trim() != "")
-                {
+                    if (((TextBox)dr.FindControl("txtActRecBrokerage")).Text.Trim() != "")
+                    {
 
-                    ActRec = Convert.ToDecimal(((TextBox)dr.FindControl("txtActRecBrokerage")).Text.Trim());
-                }
-                if (((TextBox)dr.FindControl("txtActPaybrokerage")).Text.Trim() != "")
-                {
+                        ActRec = Convert.ToDecimal(((TextBox)dr.FindControl("txtActRecBrokerage")).Text.Trim());
+                    }
+                    if (((TextBox)dr.FindControl("txtActPaybrokerage")).Text.Trim() != "")
+                    {
 
-                    ActPay = Convert.ToDecimal(((TextBox)dr.FindControl("txtActPaybrokerage")).Text.Trim());
+                        ActPay = Convert.ToDecimal(((TextBox)dr.FindControl("txtActPaybrokerage")).Text.Trim());
 
-                }
-                if (((TextBox)dr.FindControl("txtPaybleDate")).Text.Trim() != "")
-                {
-                    paybleDate = Convert.ToDateTime(((TextBox)dr.FindControl("txtPaybleDate")).Text.Trim());
-                }
-                IsPayLocked = ((CheckBox)dr.FindControl("chkIdPay")).Checked;
-                IsRecLocked = ((CheckBox)dr.FindControl("chkIdRec")).Checked;
+                    }
+                    if (((TextBox)dr.FindControl("txtPaybleDate")).Text.Trim() != "")
+                    {
+                        paybleDate = Convert.ToDateTime(((TextBox)dr.FindControl("txtPaybleDate")).Text.Trim());
+                    }
+                    IsPayLocked = ((CheckBox)dr.FindControl("chkIdPay")).Checked;
+                    IsRecLocked = ((CheckBox)dr.FindControl("chkIdRec")).Checked;
 
-              
+
                     int selectedRow = 0;
                     GridDataItem gdi;
                     gdi = (GridDataItem)checkBox.NamingContainer;
@@ -458,7 +592,7 @@ namespace WealthERP.Uploads
                 }
 
             }
-            
+
             BindGrid();
             ShowMessage("Updated Successfully", "S");
         }
