@@ -150,7 +150,7 @@
             <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Type:"></asp:Label>
         </td>
         <td>
-         <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlType_OnSelectedIndexChanged" Width="230px">
+         <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlType_OnSelectedIndexChanged" Width="240px">
             <asp:ListItem Text="All" Value="1">
             </asp:ListItem>
             <asp:ListItem Text="Orders exist,Allotment exist" Value="2">

@@ -31,8 +31,8 @@ namespace WealthERP.OffLineOrderManagement
 
             if (!IsPostBack)
             {
-                txtOrderFrom.SelectedDate = DateTime.Now;
-                txtOrderTo.SelectedDate = DateTime.Now.AddMonths(-1)  ;
+                txtOrderTo.SelectedDate = DateTime.Now;
+                txtOrderFrom.SelectedDate = DateTime.Now.AddMonths(-1);
                 //  BindOrderStatus();
                 if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 {
@@ -127,7 +127,7 @@ namespace WealthERP.OffLineOrderManagement
         }
         private void BindOrderStatus()
         {
-            
+
         }
         protected void BindOrderMissMatchDetails()
         {
@@ -210,8 +210,8 @@ namespace WealthERP.OffLineOrderManagement
                 AutoCompleteExtender2.ContextKey = advisorVo.advisorId.ToString();
                 AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetails";
 
-               
-                
+
+
             }
             if (e.Item is GridHeaderItem)
             {
@@ -286,7 +286,7 @@ namespace WealthERP.OffLineOrderManagement
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Reprocess done')", true);
             BindOrderMissMatchDetails();
         }
-        
+
         protected void OnClick_lnkOrderEntry(object sender, EventArgs e)
         {
             divorderQty.Visible = true;
@@ -316,7 +316,7 @@ namespace WealthERP.OffLineOrderManagement
             string SubBrokerCode = gvOrderRecon.MasterTableView.DataKeyValues[rowindex]["COAD_SubBrokerCode"].ToString();
             string ApplicationNumberAlloted = gvOrderRecon.MasterTableView.DataKeyValues[rowindex]["CO_ApplicationNumberAlloted"].ToString();
             string Quantity = gvOrderRecon.MasterTableView.DataKeyValues[rowindex]["COAD_Quantity"].ToString();
-            string issueId=ddlIssueName.SelectedValue;
+            string issueId = ddlIssueName.SelectedValue;
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderEntry','FormAction=" + "NonMfRecon_OrderAdd" + "&SubBrokerCode=" + SubBrokerCode + "&PAN=" + PAN + "&ApplicationNumberAlloted=" + ApplicationNumberAlloted + "&Quantity=" + Quantity + "&issueId=" + issueId + "');", true);
 
         }
