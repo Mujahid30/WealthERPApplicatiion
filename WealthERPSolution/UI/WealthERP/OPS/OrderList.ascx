@@ -5,7 +5,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server" />
 
-
 <script type="text/javascript" language="javascript">
     function GetCustomerId(source, eventArgs) {
         document.getElementById("<%= hdnCustomerId.ClientID %>").value = eventArgs.get_value();
@@ -92,6 +91,8 @@
                 <asp:ListItem Text="SWP" Value="SWP"></asp:ListItem>
                 <asp:ListItem Text="STP" Value="STP"></asp:ListItem>
                 <asp:ListItem Text="Switch" Value="SWB"></asp:ListItem>
+                <asp:ListItem Text="NFO" Value="NFO"></asp:ListItem>
+                
             </asp:DropDownList>
         </td>
     </tr>
@@ -339,7 +340,7 @@
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CMFOD_Amount" AllowFiltering="true" HeaderText="Amount"
-                                DataFormatString="{0:N0}" UniqueName="CMFOD_Amount" SortExpression="CMFOD_Amount"
+                                DataFormatString="{0:N4}" UniqueName="CMFOD_Amount" SortExpression="CMFOD_Amount"
                                 ShowFilterIcon="false" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />

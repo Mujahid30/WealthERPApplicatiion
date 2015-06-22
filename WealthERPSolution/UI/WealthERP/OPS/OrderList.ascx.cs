@@ -193,7 +193,6 @@ namespace WealthERP.OPS
 
                 BindGvOrderList();
                 tblOrder.Visible = false;
-
             }
             if (Request.QueryString["Mfaction"] != null)
             {
