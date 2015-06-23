@@ -434,7 +434,7 @@ namespace WealthERP
                                 defaultProductPageSetting.Add("ProductType", ProductType);
                                 defaultProductPageSetting.Add("ProductMenu", "trMFOrderMenuBooksTab");
                                 defaultProductPageSetting.Add("ProductMenuItem", "RTSMFOrderMenuBooks");
-                                defaultProductPageSetting.Add("ProductMenuItemPage", "OnlineCustomerOrderandTransactionBook");
+                                defaultProductPageSetting.Add("ProductMenuItemPage", "CustomerMFOrderBookList");
                                 break;
                             case "Hodings":
                                 defaultProductPageSetting.Add("ProductType", ProductType);
