@@ -1122,7 +1122,7 @@ namespace WealthERP.Advisor
                     {
                         Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
                         Session["customerPortfolioVo"] = customerPortfolioVo;
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineCustomerOrderandTransactionBook','login');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerMFOrderBookList','login');", true);
                     }
                     else
                     {

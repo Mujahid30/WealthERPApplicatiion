@@ -1518,7 +1518,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "OrderBook")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('OnlineCustomerOrderandTransactionBook','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('CustomerMFOrderBookList','none');", true);
                 }//CustomerMFOrderBookList
                 else if (e.Item.Value == "TransactionBook")
                 {

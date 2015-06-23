@@ -37,26 +37,6 @@ namespace WealthERP.OnlineOrder
             }
 
         }
-        protected void RTSMFOrderMenuHome_TabClick(object sender, RadTabStripEventArgs e)
-        {
-            switch (e.Tab.Value)
-            {
-                case "RTSMFOrderMenuHomeMarket": // add a new root tab
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFSchemeRelateInformation','login');", true);
-                    break;
-
-                case "RTSMFOrderMenuHomeSchemeResearch": // add a new child tab
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFSchemeDetails','login');", true);
-                    break; 
-
-                case "RTSMFOrderMenuHomeSchemeCompare": // add a new child tab
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('OnlineMFSchemeCompare','login');", true);
-                    break;
-
-
-            }
-        }
-
 
         protected void RTSMFOrderMenuTransact_TabClick(object sender, RadTabStripEventArgs e)
         {
@@ -92,7 +72,7 @@ namespace WealthERP.OnlineOrder
         {
             switch (e.Tab.Value)
             {
-                case "RTSMFOrderMenuBooksOrderBook": // add a new root tab--CustomerMFOrderBookList
+                case "RTSMFOrderMenuBooksOrderBook": // add a new root tab
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerMFOrderBookList','login');", true);
                     break;
 
@@ -102,7 +82,7 @@ namespace WealthERP.OnlineOrder
 
                 case "RTSMFOrderMenuBooksSIPBook": // add a new child tab
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('SIPBookSummmaryList','?systematicType=" + "SIP" + "');", true);
-                    // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('SIPBookSummmaryList','login');", true);
+                   // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('SIPBookSummmaryList','login');", true);
                     break;
                 case "RTSMFOrderMenuBooksSWPBook": // add a new child tab
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('SIPBookSummmaryList','?systematicType=" + "SWP" + "');", true);
@@ -221,15 +201,8 @@ namespace WealthERP.OnlineOrder
                 case "MF":
                     {
                         tblMF.Visible = true;
-                        trMFOrderMenuMarketTab.Visible = false;
-                        trMFOrderMenuTransactTab.Visible = false;
-                        trMFOrderMenuBooksTab.Visible = false;
-                        trMFOrderMenuHoldingsTab.Visible = false;
                         switch (productMenu)
                         {
-                            case "trMFOrderMenuMarketTab":
-                                trMFOrderMenuMarketTab.Visible = true;
-                                break;
                             case "trMFOrderMenuTransactTab":
                                 trMFOrderMenuTransactTab.Visible = true;
                                 break;
