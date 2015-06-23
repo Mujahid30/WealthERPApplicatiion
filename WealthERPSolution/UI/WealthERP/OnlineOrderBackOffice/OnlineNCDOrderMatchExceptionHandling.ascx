@@ -35,7 +35,7 @@
                 <table cellspacing="0" width="100%">
                     <tr>
                         <td align="left">
-                            Alloat View
+                            Allotment View
                         </td>
                         <td align="right">
                             <asp:ImageButton ID="btnNcdIpoExport" runat="server" ImageUrl="~/Images/Export_Excel.png"
