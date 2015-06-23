@@ -501,7 +501,7 @@ namespace WealthERP.Uploads
                     break;
                 case "2":
                     gvbrokerageRecon.MasterTableView.FilterExpression = String.Empty;
-                    gvbrokerageRecon.MasterTableView.FilterExpression += String.IsNullOrEmpty(gvbrokerageRecon.MasterTableView.FilterExpression) ? "(IsPayLocked != 2) " : "AND (IsPayLocked != 2) ";
+                    gvbrokerageRecon.MasterTableView.FilterExpression += String.IsNullOrEmpty(gvbrokerageRecon.MasterTableView.FilterExpression) ? "(IsPayLocked <> 2) " : "AND (IsPayLocked <> 2) ";
                     //foreach (GridColumn column in gvbrokerageRecon.MasterTableView.Columns)
                     //{
                     //    column.CurrentFilterFunction = GridKnownFunction.NoFilter;
@@ -537,7 +537,7 @@ namespace WealthERP.Uploads
                     gvbrokerageRecon.MasterTableView.Rebind();
                     break;
                 case "2":
-                    gvbrokerageRecon.MasterTableView.FilterExpression += String.IsNullOrEmpty(gvbrokerageRecon.MasterTableView.FilterExpression) ? "(IsRecLocked != 2) " : "AND (IsRecLocked != 2) ";
+                    gvbrokerageRecon.MasterTableView.FilterExpression += String.IsNullOrEmpty(gvbrokerageRecon.MasterTableView.FilterExpression) ? "(IsRecLocked <> 2) " : "AND (IsRecLocked <> 2) ";
                     //foreach (GridColumn column in gvbrokerageRecon.MasterTableView.Columns)
                     //{
                     //    column.CurrentFilterFunction = GridKnownFunction.NoFilter;
