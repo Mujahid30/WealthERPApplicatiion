@@ -363,7 +363,7 @@ namespace DaoOps
             return orderIds;
         }
 
-        public DataSet GetCustomerMFOrderMIS(int AdviserId, DateTime dtFrom, DateTime dtTo, string branchId, string rmId, string transactionType, string status, string orderType, string amcCode, string customerId, int isOnline)
+        public DataSet GetCustomerMFOrderMIS(int AdviserId, DateTime dtFrom, DateTime dtTo, string branchId, string rmId, string transactionType, string status, string orderType, string amcCode, string customerId, int isOnline,string type)
         {
             DataSet dsGetCustomerMFOrderMIS = null;
             Database db;
@@ -396,6 +396,8 @@ namespace DaoOps
                     db.AddInParameter(GetCustomerMFOrderMIScmd, "@customerId", DbType.String, DBNull.Value);
 
                 db.AddInParameter(GetCustomerMFOrderMIScmd, "@isOnline", DbType.Int64, isOnline);
+                db.AddInParameter(GetCustomerMFOrderMIScmd, "@type", DbType.Int64, type);
+                GetCustomerMFOrderMIScmd.CommandTimeout = 60 * 60;
 
                 dsGetCustomerMFOrderMIS = db.ExecuteDataSet(GetCustomerMFOrderMIScmd);
             }

@@ -442,7 +442,7 @@ namespace WealthERP.OPS
             }
 
             //dsOrderMIS = operationBo.GetOrderMIS(advisorVo.advisorId,hdnBranchId.Value,hdnRMId.Value,hdnTransactionType.Value,hdnOrdStatus.Value,hdnOrderType.Value,hdnamcCode.Value,DateTime.Parse(hdnFromdate.Value),DateTime.Parse(hdnTodate.Value), mypager.CurrentPage, out  count);
-            dsOrderMIS = mforderBo.GetCustomerMFOrderMIS(advisorVo.advisorId, DateTime.Parse(hdnFromdate.Value), DateTime.Parse(hdnTodate.Value), hdnBranchId.Value, hdnRMId.Value, hdnTransactionType.Value, hdnOrdStatus.Value, hdnOrderType.Value, hdnamcCode.Value, hdnCustomerId.Value, OnlineStatus);
+            dsOrderMIS = mforderBo.GetCustomerMFOrderMIS(advisorVo.advisorId, DateTime.Parse(hdnFromdate.Value), DateTime.Parse(hdnTodate.Value), hdnBranchId.Value, hdnRMId.Value, hdnTransactionType.Value, hdnOrdStatus.Value, hdnOrderType.Value, hdnamcCode.Value, hdnCustomerId.Value, OnlineStatus, ddlType.SelectedValue);
             dtOrderMIS = dsOrderMIS.Tables[0];
             if (dtOrderMIS.Rows.Count > 0)
             {
@@ -1655,6 +1655,20 @@ namespace WealthERP.OPS
                 //customerVo = customerBo.GetCustomer(int.Parse(txtIndividualCustomer_autoCompleteExtender.ContextKey));
             }
         }
+        protected void lnkMatch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            int rowindex1 = ((GridDataItem)((LinkButton)sender).NamingContainer).RowIndex;
+            int rowindex = (rowindex1 / 2) - 1;
+            string PAN = gvCustomerOrderMIS.MasterTableView.DataKeyValues[rowindex]["TransactionPAN"].ToString();
+            string SubBrokerCode = gvCustomerOrderMIS.MasterTableView.DataKeyValues[rowindex]["TransactionSubbrokerCode"].ToString();
+            string Tra_TransactionType = gvCustomerOrderMIS.MasterTableView.DataKeyValues[rowindex]["Tra_TransactionType"].ToString();
+            string Tra_AMC = gvCustomerOrderMIS.MasterTableView.DataKeyValues[rowindex]["Tra_AMC"].ToString();
+            string Tra_SchemplanCode = gvCustomerOrderMIS.MasterTableView.DataKeyValues[rowindex]["Tra_SchemplanCode"].ToString();
+
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderEntry','FormAction=" + "MfRecon_OrderAdd" + "&SubBrokerCode=" + SubBrokerCode + "&PAN=" + PAN + "&Tra_TransactionType=" + Tra_TransactionType + "&Tra_AMC=" + Tra_AMC + "&Tra_SchemplanCode=" + Tra_SchemplanCode + " ');", true);
+
+        }
 
 
         protected void gvCustomerOrderMIS_ItemDataBound(object sender, GridItemEventArgs e)
@@ -1670,10 +1684,19 @@ namespace WealthERP.OPS
 
                 Label OrderStep = dataItem.FindControl("lblOrderStep") as Label;
                 Label OrderStepCode = dataItem.FindControl("lblOrderStepCode") as Label;
+               // Label lnkMatch = dataItem.FindControl("lnkMatch") as Label;
 
-
+                
                 int selectedRow = dataItem.ItemIndex + 1;
-
+                //LinkButton lnkMatch = (LinkButton)dataItem.FindControl("lnkMatch");
+                //if (ddlType.SelectedValue == "4")
+                //{
+                //    lnkMatch.Visible = true;
+                //}
+                //else
+                //{
+                //    lnkMatch.Visible = false;
+                //}
                 if (gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_IsOnline"].ToString().Trim() == "1")
                 {
                     if ((OrderStepCode.Text.Trim() == "AL") || (OrderStepCode.Text.Trim() == "IP"))
@@ -1684,10 +1707,12 @@ namespace WealthERP.OPS
                     {
                         lbtnMarkAsReject.Visible = false;
                     }
+                   // lnkMatch.Visible = false;
                 }
                 else
                 {
                     lbtnMarkAsReject.Visible = false;
+                   // lnkMatch.Visible = true;
                 }
 
 
