@@ -194,14 +194,41 @@ namespace WealthERP.OffLineOrderManagement
                 GridDataItem item = e.Item as GridDataItem;
 
                 LinkButton lnkMatch = (LinkButton)item.FindControl("lnkMatch");
+                LinkButton lnkOrderEntry = (LinkButton)item.FindControl("lnkOrderEntry");
+                
+                lnkMatch.Visible = true;
+                lnkOrderEntry.Visible = true;
+              //  item["editColumn"].Enabled = true;
+
                 if (ddlType.SelectedValue == "4")
                 {
                     lnkMatch.Visible = true;
+                    lnkOrderEntry.Visible = false;
+                    item["editColumn"].Visible = true;
+                   
+                }
+                else if (ddlType.SelectedValue == "3")
+                {
+
+                    lnkMatch.Visible = false;
+                    lnkOrderEntry.Visible = true;                 
+                    item["editColumn"].Visible = false;
+                }
+                else if (ddlType.SelectedValue == "2")
+                {
+
+                    lnkMatch.Visible = false;
+                    lnkOrderEntry.Visible = true;
+                    item["editColumn"].Visible = true;
                 }
                 else
                 {
                     lnkMatch.Visible = false;
+                    lnkOrderEntry.Visible = false;
+                    item["editColumn"].Enabled = false;
+
                 }
+
             }
             if (e.Item is GridEditFormItem && e.Item.IsInEditMode)
             {
