@@ -20,6 +20,31 @@
     }
 </script>
 
+<script language="javascript" type="text/javascript">
+    function checkAllBoxes() {
+
+        //get total number of rows in the gridview and do whatever
+        //you want with it..just grabbing it just cause
+        var gvControl = document.getElementById('<%= gvOrderRecon.ClientID %>');
+
+        //this is the checkbox in the item template...this has to be the same name as the ID of it
+        var gvChkBoxControl = "chkId";
+
+        //this is the checkbox in the header template
+        var mainChkBox = document.getElementById("chkIdAll");
+
+        //get an array of input types in the gridview
+        var inputTypes = gvControl.getElementsByTagName("input");
+
+        for (var i = 0; i < inputTypes.length; i++) {
+            //if the input type is a checkbox and the id of it is what we set above
+            //then check or uncheck according to the main checkbox in the header template
+            if (inputTypes[i].type == 'checkbox' && inputTypes[i].id.indexOf(gvChkBoxControl, 0) >= 0)
+                inputTypes[i].checked = mainChkBox.checked;
+        }
+    }
+</script>
+
 <table width="100%">
     <tr>
         <td>
@@ -143,30 +168,38 @@
                 Display="Dynamic">
             </asp:CompareValidator>
         </td>
-       
     </tr>
     <tr id="trSatus" runat="server">
         <td align="right">
             <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Type:"></asp:Label>
         </td>
         <td>
-         <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlType_OnSelectedIndexChanged" Width="240px">
-            <asp:ListItem Text="All" Value="1">
-            </asp:ListItem>
-            <asp:ListItem Text="Orders exist,Allotment exist" Value="2">
-            </asp:ListItem>
-            <asp:ListItem Text="Orders exist,Allotment not exist" Value="3">
-            </asp:ListItem>
-            <asp:ListItem Text="Orders not exist,Allotment exist" Value="4">
-            </asp:ListItem>
-             </asp:DropDownList>
+            <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlType_OnSelectedIndexChanged"
+                Width="240px">
+                <asp:ListItem Text="All" Value="1">
+                </asp:ListItem>
+                <asp:ListItem Text="Orders exist And Allotment exist" Value="2">
+                </asp:ListItem>
+                <asp:ListItem Text="Orders exist And Allotment not exist" Value="3">
+                </asp:ListItem>
+                <asp:ListItem Text="Orders not exist And Allotment exist" Value="4">
+                </asp:ListItem>
+            </asp:DropDownList>
         </td>
-         <td>
+        <td>
             <asp:Button ID="btnGo" runat="server" Text="Go" CssClass="PCGButton" ValidationGroup="btnGo"
                 OnClick="btnGo_Click" />
         </td>
     </tr>
     <tr id="trBtnSubmit" runat="server">
+    </tr>
+</table>
+<table width="100%">
+    <tr id="tblMessagee" runat="server" visible="false">
+        <td align="center">
+            <div id="divMessage" align="center">
+            </div>
+        </td>
     </tr>
 </table>
 <asp:Panel ID="pnlOrderRecon" runat="server" Width="100%" Visible="false" ScrollBars="Horizontal">
@@ -179,12 +212,29 @@
                     Skin="Telerik" AllowFilteringByColumn="true" OnItemDataBound="gvOrderRecon_ItemDataBound"
                     OnNeedDataSource="gvOrderRecon_OnNeedDataSource" OnItemCommand="gvOrderRecon_OnItemCommand"
                     OnItemCreated="gvOrderRecon_ItemCreated" OnPreRender="gvOrderRecon_PreRender">
-                    <MasterTableView AllowMultiColumnSorting="false" AllowSorting="false" DataKeyNames="COAD_Id,CFIOD_Quantity,AAC_AgentCode,C_PANNum,CO_OrderId,AIM_IssueId,CFIOD_DetailsId,AAC_AdviserAgentId,COAD_Quantity,COAD_SubBrokerCode,COAD_PAN,CO_ApplicationNumberAlloted"
+                    <MasterTableView AllowMultiColumnSorting="false" AllowSorting="false" DataKeyNames="COAD_Id,CFIOD_Quantity,AAC_AgentCode,C_PANNum,CO_OrderId,AIM_IssueId,CFIOD_DetailsId,AAC_AdviserAgentId,COAD_Quantity,COAD_SubBrokerCode,COAD_PAN,CO_ApplicationNumberAlloted,AllotmentDate,COAD_Id"
                         EditMode="PopUp" AutoGenerateColumns="false" Width="100%" CommandItemSettings-ShowRefreshButton="false">
                         <Columns>
+                        <telerik:GridBoundColumn DataField="AllotmentDate" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Alloted Date"
+                                UniqueName="AllotmentDate" SortExpression="AllotmentDate" AllowFiltering="true"
+                                Visible="false">
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
                             <telerik:GridEditCommandColumn EditText="Allotment Edit" UniqueName="editColumn"
                                 CancelText="Cancel" UpdateText="Update" HeaderStyle-Width="80px" EditImageUrl="../Images/logo6.jpg">
                             </telerik:GridEditCommandColumn>
+                            <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action"
+                                HeaderStyle-Width="70px">
+                                <HeaderTemplate>
+                                    <input id="chkIdAll" name="chkIdAll" type="checkbox" onclick="checkAllBoxes()" />
+                                </HeaderTemplate>
+                                <ItemTemplate>
+                                    <asp:CheckBox ID="chkId" runat="server" />
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn DataField="MissmatchType" AllowFiltering="true" HeaderText="MissmatchType"
                                 HeaderStyle-Width="270px" UniqueName="MissmatchType" SortExpression="MissmatchType"
                                 AutoPostBackOnFilter="false" ShowFilterIcon="false">
@@ -195,7 +245,6 @@
                                         IsFilteringEnabled="true" AppendDataBoundItems="true" AutoPostBackOnFilter="false"
                                         OnPreRender="rcbContinents1_PreRender" EnableViewState="true" SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("MissmatchType").CurrentFilterValue %>'
                                         runat="server">
-                                        <%--OnPreRender="rcbContinents_PreRender"--%>
                                         <Items>
                                             <telerik:RadComboBoxItem Text="All" Value="" Selected="false"></telerik:RadComboBoxItem>
                                         </Items>
@@ -205,7 +254,6 @@
                                         <script type="text/javascript">
                                             function InvesterNameIndexChanged(sender, args) {
                                                 var tableView = $find("<%#((GridItem)Container).OwnerTableView.ClientID %>");
-                                                //////sender.value = args.get_item().get_value();
                                                 tableView.filter("MissmatchType", args.get_item().get_value(), "EqualTo");
                                             } 
                                         </script>
@@ -271,13 +319,13 @@
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridTemplateColumn HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
-                                ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="Order">
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="OrderEdit">
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lnkOrderEntry" runat="server" Text="Order Edit" OnClick="OnClick_lnkOrderEntry"></asp:LinkButton>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridTemplateColumn HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
-                                ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="Order1">
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="AddOrder">
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lnkMatch" runat="server" Text="Add Order" OnClick="lnkMatch_SelectedIndexChanged"></asp:LinkButton>
                                 </ItemTemplate>
@@ -356,6 +404,11 @@
             <td>
                 <asp:Button ID="btnReprocess" Text="Reprocess" runat="server" CausesValidation="False"
                     CssClass="PCGButton" OnClick="btnReprocess_Click"></asp:Button>
+                    <asp:Button ID="btnBulkOrder" Text="BulkOrderGeneration" runat="server" CausesValidation="False"
+                    CssClass="PCGButton" OnClick="BulkOrderGeneration_Click"></asp:Button>
+            </td>
+            <td>
+                
             </td>
         </tr>
     </table>

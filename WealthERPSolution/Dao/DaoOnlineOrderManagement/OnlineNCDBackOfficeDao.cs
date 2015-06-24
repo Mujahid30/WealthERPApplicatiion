@@ -3689,7 +3689,7 @@ namespace DaoOnlineOrderManagement
 
         public DataTable GetMatchDetails(int issueId)
         {
-            DataTable dtGetMatchDetails=new DataTable();
+            DataTable dtGetMatchDetails = new DataTable();
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand dbGetMatchDetails;
             DataSet dsGetMatchDetails;
@@ -3707,6 +3707,34 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetMatchDetails;
         }
+
+        public void CreateBulkOrderFromAllotment(string allotmentIds, out int count)
+        {
+            count = 0;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand dbGetOrderMissMatchDetails;
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbGetOrderMissMatchDetails = db.GetStoredProcCommand("SPROC_CreateOrderFromAllotment");
+
+                db.AddInParameter(dbGetOrderMissMatchDetails, "@allotmentIds", DbType.String, allotmentIds);
+                db.AddOutParameter(dbGetOrderMissMatchDetails, "@count", DbType.Int32, 0);
+                if (db.ExecuteNonQuery(dbGetOrderMissMatchDetails) != 0)
+                {
+                    count = Convert.ToInt32(db.GetParameterValue(dbGetOrderMissMatchDetails, "count").ToString());
+                }
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+        }
+
 
         public DataTable GetOrderMissMatchDetails(int issueid, string orderstapcode, string category, int isOnline, DateTime from, DateTime to, int type)
         {

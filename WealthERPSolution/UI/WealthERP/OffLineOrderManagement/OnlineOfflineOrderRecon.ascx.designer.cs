@@ -23,6 +23,7 @@ namespace WealthERP.OffLineOrderManagement
         protected global::System.Web.UI.WebControls.DropDownList ddlOrderStatus;
         protected global::System.Web.UI.WebControls.DropDownList ddlSearchType;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdCategorydropdown;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow tblMessagee;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdcategory;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trReprocess;
 

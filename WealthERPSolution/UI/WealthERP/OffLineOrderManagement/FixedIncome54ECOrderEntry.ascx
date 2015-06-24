@@ -305,14 +305,10 @@
                             FD/54EC Order Entry
                         </td>
                         <td align="right">
-                            <%--   <asp:LinkButton ID="LinkButton1" runat="server"  CausesValidation="false"  Text="test"   OnClick ="lnlFIBack_Click"/>
-                        
-                         <asp:Button ID="Button2" runat="server"  CausesValidation="false" CssClass="DOCButton"
-                                Visible="true" OnClick ="lnlFIBack_Click" />--%>
-                            <%--<asp:LinkButton ID="lnkTest" runat="server"    CausesValidation="false"  Text="test"   OnClick ="lnlFIBack_Click"/>--%>
-                            <%--     <asp:Button ID="Button1" runat="server"  CssClass="DOCButton"
-                                Visible="true" OnClick ="lnlFIBack_Click" />--%>
-                            <%--<asp:LinkButton ID="lnkBtnnews" runat="server"    OnClick="lnkBtnEdit_Click"  Text="news" CssClass="LinkButtons" />--%>
+                          
+                            <asp:LinkButton ID="lnkBtnReconBack" runat="server" CssClass="LinkButtons" Text="Back"
+                                CausesValidation="false" Visible="false" OnClick="lnkBtnReconBack_Click"></asp:LinkButton>
+                                
                             <asp:LinkButton ID="lnkBtnFIEdit" runat="server" CssClass="LinkButtons" Text="Edit"
                                 CausesValidation="false" Visible="false" OnClick="lnkBtnFIEdit_Click"></asp:LinkButton>
                             &nbsp; &nbsp;

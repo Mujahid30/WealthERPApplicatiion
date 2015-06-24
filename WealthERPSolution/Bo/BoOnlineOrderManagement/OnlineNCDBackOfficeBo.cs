@@ -2393,6 +2393,18 @@ namespace BoOnlineOrderManagement
             return dtGetOrderMissMatchDetails;
         }
 
+        public void CreateBulkOrderFromAllotment(string allotmentIds, out int count)
+        {
+            try
+            {
+                onlineNCDBackOfficeDao.CreateBulkOrderFromAllotment(allotmentIds, out count);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
         public DataTable GetMatchDetails(int issueId)
         {
             DataTable dtGetMatchDetails;
