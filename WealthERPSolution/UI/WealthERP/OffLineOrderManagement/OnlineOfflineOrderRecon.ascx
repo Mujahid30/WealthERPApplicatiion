@@ -221,6 +221,10 @@
                                 Visible="false">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
+                            
+                            
+                            
+                            
                             <telerik:GridEditCommandColumn EditText="Allotment Edit" UniqueName="editColumn"
                                 CancelText="Cancel" UpdateText="Update" HeaderStyle-Width="80px" EditImageUrl="../Images/logo6.jpg">
                             </telerik:GridEditCommandColumn>
@@ -235,6 +239,14 @@
                                 <FooterTemplate>
                                 </FooterTemplate>
                             </telerik:GridTemplateColumn>
+                            
+                             <telerik:GridBoundColumn DataField="Type" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Type"
+                                UniqueName="Type" SortExpression="Type" AllowFiltering="true"
+                                Visible="true">
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
+                            
                             <telerik:GridBoundColumn DataField="MissmatchType" AllowFiltering="true" HeaderText="MissmatchType"
                                 HeaderStyle-Width="270px" UniqueName="MissmatchType" SortExpression="MissmatchType"
                                 AutoPostBackOnFilter="false" ShowFilterIcon="false">
