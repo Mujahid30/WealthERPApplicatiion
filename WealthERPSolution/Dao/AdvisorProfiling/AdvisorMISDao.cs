@@ -2824,7 +2824,7 @@ namespace DaoAdvisorProfiling
             return bResult;
         }
 
-        public DataSet GetWERPCommissionDetails(string product, int AdviserId, int month, int year, string category, int issueId, string productCategory,int amcCode,int schemeCode)
+        public DataSet GetWERPCommissionDetails(string product, int AdviserId, int month, int year, string category, int issueId, string productCategory, int amcCode, int schemeCode, int dateFilterType)
         {
             Database db;
             DbCommand getCommissionReconMisCmd;
@@ -2850,6 +2850,7 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(getCommissionReconMisCmd, "@Category", DbType.String, DBNull.Value);
 
                 db.AddInParameter(getCommissionReconMisCmd, "@issuer", DbType.Int32, amcCode);
+                db.AddInParameter(getCommissionReconMisCmd, "@DateFilterType", DbType.Int32, dateFilterType);
                 db.AddInParameter(getCommissionReconMisCmd, "@schemeid", DbType.Int32, schemeCode);
                 db.AddInParameter(getCommissionReconMisCmd, "@issueId", DbType.Int32, issueId);
                 //db.AddInParameter(getCommissionReconMisCmd, "@commissionLookUpId", DbType.Int32, commissionLookUpId);
@@ -2867,7 +2868,7 @@ namespace DaoAdvisorProfiling
             return dsGetCommissionReconMis;
         }
 
-        public bool UpdateActualPayAndRec(int id, decimal ActPay, decimal ActRec, DateTime paybleDate, DateTime receivedDate, bool IsPayLocked, bool IsRecLocked, bool IsBulkPayble, bool isBulkReceived,DateTime bulkReceivedDate,DateTime bulkPaybleDate)
+        public bool UpdateActualPayAndRec(int id, decimal ActPay, decimal ActRec, DateTime? paybleDate, DateTime? receivedDate, bool IsPayLocked, bool IsRecLocked, bool IsBulkPayble, bool isBulkReceived,bool bulkReceivedSys,DateTime? bulkReceivedDate,DateTime? bulkPaybleDate)
         {
             Database db;
             DataSet ds;
@@ -2894,6 +2895,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(cmdUpdateActualPayAndRec, "@IsRecLocked", DbType.Boolean, IsRecLocked);
                 db.AddInParameter(cmdUpdateActualPayAndRec, "@IsBulkPayble", DbType.Boolean, IsBulkPayble);
                 db.AddInParameter(cmdUpdateActualPayAndRec, "@isBulkReceived", DbType.Boolean, isBulkReceived);
+                db.AddInParameter(cmdUpdateActualPayAndRec, "@BulkReceivedSys", DbType.Boolean, bulkReceivedSys);
                 if (bulkReceivedDate != DateTime.MinValue)
                     db.AddInParameter(cmdUpdateActualPayAndRec, "@BulkReceivedDate", DbType.DateTime, bulkReceivedDate);
                 else

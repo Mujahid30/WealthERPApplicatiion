@@ -60,17 +60,29 @@
     }
 </script>
 
-<script>
+<style>
+    .calender
+    {
+        visibility: hidden;
+    }
+</style>
 
-    $(document).ready(function() {
-        validation();
-    });
-</script>
 <script>
-    function EnableDatePicker(txtId) {
-        var chk = document.getElementById('<%= gvbrokerageRecon.ClientID %>');
+    function toggle_visibility(id1, id2, id3) {
+        var e1 = document.getElementById("ctrl_CustomerUploadNew_" + id1);
+        var e2 = document.getElementById("ctrl_CustomerUploadNew_" + id2);
+        var e3 = document.getElementById("ctrl_CustomerUploadNew_" + id3);
+        e2.style.visibility = 'hidden';
+        e3.style.visibility = "hidden";
+        e3.enabled = false;
+        if (e1.checked) {
+            e3.style.visibility = "visible";
+            e3.enabled = true;
+            e2.style.visibility = 'visible';
+        }
     }
 </script>
+
 <script type="text/javascript">
     function validation() {
         var grid = document.getElementById('<%= gvbrokerageRecon.ClientID %>');
@@ -79,9 +91,14 @@
 
             var txtAmountReceive = $("input[id*=txtActRecBrokerage]")
             var cbRec = $("input[id*=chkIdRec]")
-
+            var txtReceivedate = $("input[id*=txtPaybleDate]")
             document.getElementById(txtAmountReceive[i].id).readOnly = false;
+            document.getElementById(txtReceivedate[i].id).value = document.getElementById(txtReceivedate[i].id).value.substring(0, 11);
 
+            var txtpaydate = $("input[id*=txtRecDate]")
+
+            document.getElementById(txtpaydate[i].id).value = document.getElementById(txtpaydate[i].id).value.substring(0, 11);
+            
             if (document.getElementById(cbRec[i].id).checked == true) {
                 document.getElementById(txtAmountReceive[i].id).readOnly = true;
 
@@ -127,7 +144,7 @@
             <asp:DropDownList ID="ddlProduct" runat="server" AutoPostBack="true" CssClass="cmbField"
                 OnSelectedIndexChanged="ddlProduct_SelectedIndexChanged">
             </asp:DropDownList>
-            <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlProduct"
+            <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlProduct"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Product type"
                 Operator="NotEqual" ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
@@ -138,7 +155,7 @@
             <asp:DropDownList ID="ddlProductCategory" runat="server" AutoPostBack="true" CssClass="cmbField"
                 OnSelectedIndexChanged="ddlProductCategory_OnSelectedIndexChanged">
             </asp:DropDownList>
-            <asp:CompareValidator ID="CompareValidator7" runat="server" ControlToValidate="ddlProductCategory"
+            <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlProductCategory"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Category type"
                 Operator="NotEqual" ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
@@ -154,7 +171,7 @@
                 <asp:ListItem Text="Trail" Value="TC"></asp:ListItem>
                 <asp:ListItem Text="Incentive" Value="IN"></asp:ListItem>
             </asp:DropDownList>
-            <asp:CompareValidator ID="CompareValidator4" runat="server" ControlToValidate="ddlCommType"
+            <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="ddlCommType"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Commission type"
                 Operator="NotEqual" ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
@@ -185,7 +202,7 @@
     <tr id="trSelectMutualFund" runat="server" visible="false">
         <td align="left" class="leftField">
             <asp:Label ID="lblSelectMutualFund" runat="server" CssClass="FieldName" Text="Issuer:"></asp:Label>
-            <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlProduct"
+            <asp:CompareValidator ID="CompareValidator4" runat="server" ControlToValidate="ddlProduct"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="Please Select AMC Code" Operator="NotEqual"
                 ValidationGroup="vgbtnSubmit" ValueToCompare="Select Product Type"></asp:CompareValidator>
         </td>
@@ -211,12 +228,22 @@
         <td>
             <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField">
             </asp:DropDownList>
-            <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="ddlScheme"
+            <asp:CompareValidator ID="CompareValidator5" runat="server" ControlToValidate="ddlScheme"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="Please Select Scheme" Operator="NotEqual"
                 ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
     </tr>
     <tr>
+        <td class="leftField" id="td3" runat="server" visible="true">
+            <asp:Label ID="lblDateFilterType" runat="server" CssClass="FieldName" Text="Date Filter Type:"></asp:Label>
+        </td>
+        <td class="rightField" id="td4" runat="server" visible="true">
+            <asp:DropDownList ID="ddlDateFilterType" runat="server" CssClass="cmbField">
+                <asp:ListItem Text="Order Date" Selected="True" Value="1"></asp:ListItem>
+                <asp:ListItem Text="Received Date" Value="2"></asp:ListItem>
+                <asp:ListItem Text="Payable Date" Value="3"></asp:ListItem>
+            </asp:DropDownList>
+        </td>
         <td class="leftField" id="tdTolbl" runat="server" visible="true">
             <asp:Label ID="Label11" runat="server" CssClass="FieldName" Text="Year:"></asp:Label>
         </td>
@@ -303,19 +330,19 @@
                     HeaderText="Issue Name" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     UniqueName="AIM_IssueName" SortExpression="AIM_IssueName" FooterStyle-HorizontalAlign="Right"
                     HeaderStyle-Width="190px">
-                    <ItemStyle Wrap="false" Width="190px" HorizontalAlign="Right" />
+                    <ItemStyle Wrap="false" Width="190px" HorizontalAlign="Left" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn AllowFiltering="true" DataField="WCD_CustomerName" AutoPostBackOnFilter="true"
                     HeaderText="Customer Name" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     UniqueName="WCD_CustomerName" SortExpression="WCD_CustomerName" FooterStyle-HorizontalAlign="Right"
                     HeaderStyle-Width="150px">
-                    <ItemStyle Wrap="false" Width="150px" HorizontalAlign="Right" />
+                    <ItemStyle Wrap="false" Width="150px" HorizontalAlign="Left" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn AllowFiltering="true" DataField="AA_ContactPersonName" AutoPostBackOnFilter="true"
                     HeaderText="Associate Name" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     UniqueName="AA_ContactPersonName" SortExpression="AA_ContactPersonName" FooterStyle-HorizontalAlign="Right"
                     HeaderStyle-Width="90px">
-                    <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                    <ItemStyle Wrap="false" Width="" HorizontalAlign="Left" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn AllowFiltering="true" DataField="AAC_AgentCode" AutoPostBackOnFilter="true"
                     HeaderText="Agent Code" ShowFilterIcon="false" CurrentFilterFunction="Contains"
@@ -359,6 +386,10 @@
                     FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
                     <ItemTemplate>
                         <asp:TextBox ID="txtActRecBrokerage" CssClass="txtField" runat="server" Text='<%# Bind("WCD_Act_Rec_Brokerage") %>'></asp:TextBox>
+                        <asp:CompareValidator ID="CompareValidator6" runat="server" CssClass="rfvPCG" ControlToValidate="txtActRecBrokerage"
+                            Display="Dynamic" ErrorMessage="Invalid Amount" ValidationGroup="btnSave" Operator="DataTypeCheck"
+                            Type="Double">
+                        </asp:CompareValidator>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
                 <telerik:GridTemplateColumn AllowFiltering="true" UniqueName="IsRecLocked" DataField="IsRecLocked"
@@ -371,15 +402,17 @@
                     UniqueName="actionRec" DataField="WCD_Act_Rec_BrokerageDate" ItemStyle-Width="290px"
                     HeaderStyle-Width="290px">
                     <ItemTemplate>
-                        <asp:TextBox ID="txtRecDate" Text='<%# Bind("WCD_Act_Rec_BrokerageDate") %>' runat="server"
-                            CssClass="txtField">
-                        </asp:TextBox>
-                        <cc1:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtRecDate"
+                        <asp:TextBox ID="txtRecDate" runat="server" Text='<%# Bind("WCD_Act_Rec_BrokerageDate") %>' CssClass="txtField" ></asp:TextBox>
+                        <cc1:CalendarExtender  ID="CalendarExtender2" runat="server" TargetControlID="txtRecDate"
                             Format="dd/MM/yyyy">
                         </cc1:CalendarExtender>
                         <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtRecDate"
                             WatermarkText="dd/mm/yyyy">
                         </cc1:TextBoxWatermarkExtender>
+                       <asp:CompareValidator ID="CompareValidator7" runat="server" CssClass="rfvPCG" ControlToValidate="txtRecDate"
+                            Display="Dynamic" ErrorMessage="Invalid Date" ValidationGroup="btnSave" Operator="DataTypeCheck"
+                            Type="Date">
+                        </asp:CompareValidator>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
                 <telerik:GridBoundColumn AllowFiltering="true" DataField="WCD_Rate" AutoPostBackOnFilter="true"
@@ -400,6 +433,10 @@
                     UniqueName="WCD_Act_Pay_brokerage" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
                     <ItemTemplate>
                         <asp:TextBox ID="txtActPaybrokerage" CssClass="txtField" runat="server" Text='<%# Bind("WCD_Act_Pay_brokerage") %>'></asp:TextBox>
+                        <asp:CompareValidator ID="CompareValidator8" runat="server" CssClass="rfvPCG" ControlToValidate="txtActPaybrokerage"
+                            Display="Dynamic" ErrorMessage="Invalid Amount" ValidationGroup="btnSave" Operator="DataTypeCheck"
+                            Type="Double">
+                        </asp:CompareValidator>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
                 <telerik:GridTemplateColumn AllowFiltering="false" HeaderText="lock Payout" UniqueName="IsPayLocked"
@@ -413,15 +450,17 @@
                     UniqueName="actionPay" DataField="WCD_Act_Pay_BrokerageDate" ItemStyle-Width="290px"
                     HeaderStyle-Width="290px">
                     <ItemTemplate>
-                        <asp:TextBox ID="txtPaybleDate" Text='<%# Bind("WCD_Act_Pay_BrokerageDate") %>' runat="server"
-                            CssClass="txtField">
-                        </asp:TextBox>
+                        <asp:TextBox ID="txtPaybleDate" MaxLength="10" Text='<%# Bind("WCD_Act_Pay_BrokerageDate") %>' runat="server" CssClass="txtField"></asp:TextBox>
                         <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtPaybleDate"
                             Format="dd/MM/yyyy">
                         </cc1:CalendarExtender>
                         <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtPaybleDate"
                             WatermarkText="dd/mm/yyyy">
                         </cc1:TextBoxWatermarkExtender>
+                        <asp:CompareValidator ID="CompareValidator9" runat="server" CssClass="rfvPCG" ControlToValidate="txtPaybleDate"
+                            Display="Dynamic" ErrorMessage="Invalid Date" ValidationGroup="btnSave" Operator="DataTypeCheck"
+                            Type="Date">
+                        </asp:CompareValidator>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
             </Columns>
@@ -432,7 +471,8 @@
         </ClientSettings>
     </telerik:RadGrid>
 </div>
-<table width="90%" class="TableBackground" cellspacing="0" cellpadding="2" id="tblUpdate" runat="server" visible="false">
+<table width="90%" class="TableBackground" cellspacing="0" cellpadding="2" id="tblUpdate"
+    runat="server" visible="false">
     <tr>
         <td>
             <asp:CheckBox ID="chkBulkPayble" Visible="true" Text="Copy System Calculated payout to Actual"
@@ -440,36 +480,51 @@
             <br />
             <asp:CheckBox ID="chkBulkReceived" Visible="true" Text="Copy RTA rcvd to Actual received"
                 CssClass="cmbFielde" runat="server" />
+            <br />
+            <asp:CheckBox ID="chkBulkReceivedSys" Visible="true" Text="Copy System Calculated rcvd to Actual received"
+                CssClass="cmbFielde" runat="server" />
         </td>
         <td>
-            <asp:CheckBox ID="chkBulkReceivedDate" Visible="true" Text="Copy Received Date" 
+            <asp:CheckBox ID="chkBulkReceivedDate" Visible="true" Text="Copy Received Date" onclick="toggle_visibility('chkBulkReceivedDate','txtBulkReceivedDate','RequiredFieldValidator4');"
                 CssClass="cmbFielde" runat="server" />
             <br />
             <asp:CheckBox ID="chkBulkPayableDate" Visible="true" Text="Copy Payable Date" CssClass="cmbFielde"
+                onclick="toggle_visibility('chkBulkPayableDate','txtBulkPayableDate','RequiredFieldValidator2');"
                 runat="server" />
         </td>
         <td>
-            <asp:TextBox ID="txtBulkReceivedDate" Visible="true" runat="server" CssClass="txtField">
-            </asp:TextBox>
-            <cc1:CalendarExtender ID="CalendarExtender3" runat="server" TargetControlID="txtBulkReceivedDate"
-                Format="dd/MM/yyyy">
-            </cc1:CalendarExtender>
-            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtBulkReceivedDate"
-                WatermarkText="dd/mm/yyyy">
-            </cc1:TextBoxWatermarkExtender>
+            <telerik:RadDatePicker ID="rdpBulkReceivedDate" runat="server">
+            </telerik:RadDatePicker>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="rdpBulkReceivedDate"
+                ErrorMessage="<br />Please Select a Date" Display="Dynamic" runat="server" Enabled="false"
+                CssClass="rfvPCG" ValidationGroup="btnSave"></asp:RequiredFieldValidator>
+            <asp:CompareValidator ID="CompareValidator10" runat="server" CssClass="rfvPCG" ControlToValidate="rdpBulkReceivedDate"
+                Display="Dynamic" ErrorMessage="Invalid Date" ValidationGroup="btnSave" Operator="DataTypeCheck"
+                Type="Date">
+            </asp:CompareValidator>
             <br />
-            <asp:TextBox ID="txtBulkPayableDate" Visible="true" runat="server" CssClass="txtField">
-            </asp:TextBox>
-            <cc1:CalendarExtender ID="CalendarExtender4" runat="server" TargetControlID="txtBulkPayableDate"
-                Format="dd/MM/yyyy">
-            </cc1:CalendarExtender>
-            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtBulkPayableDate"
-                WatermarkText="dd/mm/yyyy">
-            </cc1:TextBoxWatermarkExtender>
+            <telerik:RadDatePicker ID="rdpBulkPayableDate" runat="server">
+            </telerik:RadDatePicker>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="rdpBulkPayableDate"
+                ErrorMessage="<br />Please Select a Date" Display="Dynamic" runat="server" Enabled="false"
+                CssClass="rfvPCG" ValidationGroup="btnSave"></asp:RequiredFieldValidator>
+            <asp:CompareValidator ID="CompareValidator11" runat="server" CssClass="rfvPCG" ControlToValidate="rdpBulkPayableDate"
+                Display="Dynamic" ErrorMessage="Invalid Date" ValidationGroup="btnSave" Operator="DataTypeCheck"
+                Type="Date">
+            </asp:CompareValidator>
         </td>
         <td>
             <asp:Button ID="btnSave" CssClass="PCGButton" runat="server" Text="Update" Visible="true"
-                OnClick="btnSave_Click" />
+                OnClick="btnSave_Click" ValidationGroup="btnSave" />
         </td>
     </tr>
 </table>
+
+<script>
+
+    $(document).ready(function() {
+        validation();
+
+    });
+</script>
+

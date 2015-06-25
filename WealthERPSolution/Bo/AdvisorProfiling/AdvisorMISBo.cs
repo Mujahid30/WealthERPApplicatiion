@@ -1874,7 +1874,7 @@ namespace BoAdvisorProfiling
             return bResult;
         }
 
-        public DataSet GetWERPCommissionDetails(string product,  int AdviserId, int month, int year, string category,  int issueId,  string productCategory,int amcCode,int schemeCode)
+        public DataSet GetWERPCommissionDetails(string product,  int AdviserId, int month, int year, string category,  int issueId,  string productCategory,int amcCode,int schemeCode ,int dateFilterType)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsGetCommissionReconMis = new DataSet();
@@ -1883,7 +1883,7 @@ namespace BoAdvisorProfiling
 
             try
             {
-                dsGetCommissionReconMis = MISDao.GetWERPCommissionDetails(product, AdviserId, month, year, category, issueId, productCategory, amcCode, schemeCode);
+                dsGetCommissionReconMis = MISDao.GetWERPCommissionDetails(product, AdviserId, month, year, category, issueId, productCategory, amcCode, schemeCode, dateFilterType);
 
             }
             catch (Exception Ex)
@@ -1903,13 +1903,13 @@ namespace BoAdvisorProfiling
             }
             return dsGetCommissionReconMis;
         }
-        public bool UpdateActualPayAndRec(int id, decimal ActPay, decimal ActRec, DateTime paybleDate, DateTime receivedDate, bool IsPayLocked, bool IsRecLocked, bool IsBulkPayble, bool isBulkReceived,DateTime bulkReceivedDate,DateTime bulkPaybleDate)
+        public bool UpdateActualPayAndRec(int id, decimal ActPay, decimal ActRec, DateTime? paybleDate, DateTime? receivedDate, bool IsPayLocked, bool IsRecLocked, bool IsBulkPayble, bool isBulkReceived,bool bulkReceivedSys,DateTime? bulkReceivedDate,DateTime? bulkPaybleDate)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             bool bResult = false;
             try
             {
-                bResult = MISDao.UpdateActualPayAndRec(id, ActPay, ActRec, paybleDate,receivedDate, IsPayLocked, IsRecLocked, IsBulkPayble, isBulkReceived, bulkReceivedDate, bulkPaybleDate);
+                bResult = MISDao.UpdateActualPayAndRec(id, ActPay, ActRec, paybleDate,receivedDate, IsPayLocked, IsRecLocked, IsBulkPayble, isBulkReceived, bulkReceivedSys,bulkReceivedDate, bulkPaybleDate);
             }
             catch (Exception Ex)
             {

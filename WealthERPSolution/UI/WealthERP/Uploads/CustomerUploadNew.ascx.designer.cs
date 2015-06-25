@@ -310,7 +310,7 @@ namespace WealthERP.Uploads
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         /// 
-
+        protected global::System.Web.UI.WebControls.CheckBox chkBulkReceivedSys;
         protected global::System.Web.UI.WebControls.CheckBox chkBulkReceivedDate;
         protected global::System.Web.UI.WebControls.CheckBox chkBulkPayableDate;
         protected global::System.Web.UI.WebControls.TextBox txtBulkReceivedDate;
@@ -376,7 +376,7 @@ namespace WealthERP.Uploads
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSelectSchemeNAV;
-
+        protected global::System.Web.UI.WebControls.Label lblDateFilterType;
         /// <summary>
         /// ddlScheme control.
         /// </summary>
@@ -385,7 +385,7 @@ namespace WealthERP.Uploads
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlScheme;
-
+        protected global::System.Web.UI.WebControls.DropDownList ddlDateFilterType;
         /// <summary>
         /// CompareValidator3 control.
         /// </summary>
@@ -421,7 +421,8 @@ namespace WealthERP.Uploads
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdFrom;
-
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell td3;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell td4;
         /// <summary>
         /// ddlMnthQtr control.
         /// </summary>
@@ -439,6 +440,8 @@ namespace WealthERP.Uploads
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4;
 
         /// <summary>
         /// tdTolbl control.
@@ -655,7 +658,10 @@ namespace WealthERP.Uploads
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSave;
-
+        protected global::Telerik.Web.UI.RadDatePicker rdpBulkReceivedDate;
+        protected global::Telerik.Web.UI.RadDatePicker rdpBulkPayableDate;
+        protected global::Telerik.Web.UI.RadDatePicker rdpPaybleDate;
+        protected global::Telerik.Web.UI.RadDatePicker rdpRecDate;
         protected global::Telerik.Web.UI.RadGrid gvbrokerageRecon;
     }
 }

@@ -371,14 +371,14 @@ namespace WealthERP.Uploads
             tblUpdate.Visible = false;
             int IssueId = 0;
             string productCategory = string.Empty;
-            string category =string.Empty;
-            int amcCode=0;
-            int schemeCode=0;
-            if(ddlProduct.SelectedValue=="MF")
+            string category = string.Empty;
+            int amcCode = 0;
+            int schemeCode = 0;
+            if (ddlProduct.SelectedValue == "MF")
             {
                 amcCode = Int32.Parse(ddlIssuer.SelectedValue);
                 schemeCode = Int32.Parse(ddlScheme.SelectedValue);
-                category=ddlCategory.SelectedValue;
+                category = ddlCategory.SelectedValue;
             }
             else if (ddlProduct.SelectedValue == "IP" || ddlProduct.SelectedValue == "FI")
             {
@@ -388,7 +388,7 @@ namespace WealthERP.Uploads
             {
                 productCategory = ddlProductCategory.SelectedValue;
             }
-            ds = adviserMFMIS.GetWERPCommissionDetails(ddlProduct.SelectedValue, advisorVo.advisorId, Int32.Parse(ddlMnthQtr.SelectedValue), Int32.Parse(ddlYear.SelectedValue), category, IssueId, productCategory, amcCode, schemeCode);
+            ds = adviserMFMIS.GetWERPCommissionDetails(ddlProduct.SelectedValue, advisorVo.advisorId, Int32.Parse(ddlMnthQtr.SelectedValue), Int32.Parse(ddlYear.SelectedValue), category, IssueId, productCategory, amcCode, schemeCode, Convert.ToInt32(ddlDateFilterType.SelectedValue));
             if (ds.Tables[0] != null)
             {
 
@@ -430,9 +430,9 @@ namespace WealthERP.Uploads
                 gvbrokerageRecon.DataSource = dt;
                 gvbrokerageRecon.Visible = true;
             }
-           
+
         }
-       
+
         protected void gvbrokerageRecon_ItemCreated(object sender, Telerik.Web.UI.GridItemEventArgs e)
         {
             if (e.Item is GridFilteringItem)
@@ -444,9 +444,9 @@ namespace WealthERP.Uploads
                 ddlIsRecLocked.AutoPostBack = true;
                 ddlIsRecLocked.CssClass = "cmbField";
                 ddlIsRecLocked.SelectedIndexChanged += new System.EventHandler(ddlIsRecLocked_SelectedIndexChanged);
-                ddlIsRecLocked.Items.Add(new ListItem("Clear filter", "2"));
-                ddlIsRecLocked.Items.Add(new ListItem("Show all checked", "1"));
-                ddlIsRecLocked.Items.Add(new ListItem("Show all unchecked", "0"));
+                ddlIsRecLocked.Items.Add(new ListItem("Show all", "2"));
+                ddlIsRecLocked.Items.Add(new ListItem("Checked", "1"));
+                ddlIsRecLocked.Items.Add(new ListItem("Unchecked", "0"));
                 if (Session["fltrIsRecLocked"] != null)
                 {
                     ddlIsRecLocked.Items.FindByValue((string)Session["fltrIsRecLocked"]).Selected = true;
@@ -460,9 +460,9 @@ namespace WealthERP.Uploads
                 ddlIsPayLocked.AutoPostBack = true;
                 ddlIsPayLocked.CssClass = "cmbField";
                 ddlIsPayLocked.SelectedIndexChanged += new System.EventHandler(ddlIsPayLocked_SelectedIndexChanged);
-                ddlIsPayLocked.Items.Add(new ListItem("Clear filter", "2"));
-                ddlIsPayLocked.Items.Add(new ListItem("Show all checked", "1"));
-                ddlIsPayLocked.Items.Add(new ListItem("Show all unchecked", "0"));
+                ddlIsPayLocked.Items.Add(new ListItem("Show all", "2"));
+                ddlIsPayLocked.Items.Add(new ListItem("Checked", "1"));
+                ddlIsPayLocked.Items.Add(new ListItem("Unchecked", "0"));
                 if (Session["fltrIsPayLocked"] != null)
                 {
                     ddlIsPayLocked.Items.FindByValue((string)Session["fltrIsPayLocked"]).Selected = true;
@@ -545,22 +545,23 @@ namespace WealthERP.Uploads
         }
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            int id = 0;
-            decimal ActRec = 0;
-            decimal ActPay = 0;
-            bool blResult = false;
-            bool IsPayLocked = false;
-            bool IsRecLocked = false;
-            DateTime paybleDate = DateTime.MinValue;
-            DateTime receivedDate = DateTime.MinValue;
-            DateTime bulkPaybleDate = DateTime.MinValue;
-            DateTime bulkReceivedDate = DateTime.MinValue;
+            int i = 0;
             foreach (GridDataItem dr in gvbrokerageRecon.Items)
             {
-
+                int id = 0;
+                decimal ActRec = 0;
+                decimal ActPay = 0;
+                bool blResult = false;
+                bool IsPayLocked = false;
+                bool IsRecLocked = false;
+                DateTime? paybleDate = DateTime.MinValue;
+                DateTime? receivedDate = DateTime.MinValue;
+                DateTime? bulkPaybleDate = DateTime.MinValue;
+                DateTime? bulkReceivedDate = DateTime.MinValue;
                 CheckBox checkBox = (CheckBox)dr.FindControl("Ranjan");
                 if (checkBox.Checked == true)
                 {
+                    i = i + 1;
                     if (((TextBox)dr.FindControl("txtActRecBrokerage")).Text.Trim() != "")
                     {
 
@@ -584,11 +585,11 @@ namespace WealthERP.Uploads
                     IsRecLocked = ((CheckBox)dr.FindControl("chkIdRec")).Checked;
                     if (chkBulkReceivedDate.Checked)
                     {
-                        bulkReceivedDate = Convert.ToDateTime(txtBulkReceivedDate.Text.Trim());
+                        bulkReceivedDate = rdpBulkReceivedDate.SelectedDate;
                     }
                     if (chkBulkPayableDate.Checked)
                     {
-                        bulkPaybleDate = Convert.ToDateTime(txtBulkPayableDate.Text.Trim());
+                        bulkPaybleDate = rdpBulkPayableDate.SelectedDate;
                     }
 
                     int selectedRow = 0;
@@ -597,14 +598,22 @@ namespace WealthERP.Uploads
                     selectedRow = gdi.ItemIndex;
                     id = int.Parse((gvbrokerageRecon.MasterTableView.DataKeyValues[selectedRow]["WCD_Id"].ToString()));
 
-                    blResult = adviserMFMIS.UpdateActualPayAndRec(id, ActPay, ActRec, paybleDate, receivedDate, IsPayLocked, IsRecLocked, chkBulkPayble.Checked, chkBulkReceived.Checked, bulkReceivedDate, bulkPaybleDate);
+                    blResult = adviserMFMIS.UpdateActualPayAndRec(id, ActPay, ActRec, paybleDate, receivedDate, IsPayLocked,
+                        IsRecLocked, chkBulkPayble.Checked,
+                        chkBulkReceived.Checked, chkBulkReceivedSys.Checked, bulkReceivedDate, bulkPaybleDate);
 
                 }
 
             }
 
             BindGrid();
-            ShowMessage("Updated Successfully", "S");
+            chkBulkReceivedSys.Checked = false;
+            chkBulkReceived.Checked = false;
+            chkBulkPayble.Checked = false;
+            chkBulkPayableDate.Checked = false;
+            chkBulkReceivedDate.Checked = false;
+            if (i > 0)
+                ShowMessage("Updated Successfully", "S");
         }
         protected void btnExportFilteredDupData_OnClick(object sender, ImageClickEventArgs e)
         {
@@ -631,5 +640,6 @@ namespace WealthERP.Uploads
             tblMessagee.Visible = true;
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "BrokerageRecon", " showMsg('" + msg + "','" + type + "');", true);
         }
+
     }
 }
