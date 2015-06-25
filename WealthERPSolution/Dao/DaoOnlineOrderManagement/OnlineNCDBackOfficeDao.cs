@@ -3720,7 +3720,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbGetOrderMissMatchDetails = db.GetStoredProcCommand("SPROC_CreateOrderFromAllotment");
 
-                db.AddInParameter(dbGetOrderMissMatchDetails, "@allotmentIds", DbType.String, allotmentIds);
+                db.AddInParameter(dbGetOrderMissMatchDetails, "@AllotementIds", DbType.String, allotmentIds);
                 db.AddOutParameter(dbGetOrderMissMatchDetails, "@count", DbType.Int32, 0);
                 if (db.ExecuteNonQuery(dbGetOrderMissMatchDetails) != 0)
                 {
