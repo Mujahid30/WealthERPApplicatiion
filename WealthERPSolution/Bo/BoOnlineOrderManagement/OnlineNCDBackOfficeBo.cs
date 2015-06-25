@@ -2397,6 +2397,7 @@ namespace BoOnlineOrderManagement
         {
             try
             {
+                onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
                 onlineNCDBackOfficeDao.CreateBulkOrderFromAllotment(allotmentIds, out count);
             }
             catch (BaseApplicationException Ex)

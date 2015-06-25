@@ -194,14 +194,17 @@
     <tr id="trBtnSubmit" runat="server">
     </tr>
 </table>
+
+
 <table width="100%">
-    <tr id="tblMessagee" runat="server" visible="false">
+    <tr id="tblMessagee" runat="server" visible="true"  >
         <td align="center">
             <div id="divMessage" align="center">
             </div>
         </td>
     </tr>
 </table>
+
 <asp:Panel ID="pnlOrderRecon" runat="server" Width="100%" Visible="false" ScrollBars="Horizontal">
     <table width="80%">
         <tr>

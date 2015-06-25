@@ -138,27 +138,37 @@ namespace WealthERP.OffLineOrderManagement
             string allotmentIds = string.Empty;
             foreach (GridDataItem gvRow in gvOrderRecon.Items)
             {
-               
+
 
                 CheckBox chk = (CheckBox)gvRow.FindControl("chkId");
                 if (chk.Checked)
                 {
                     i++;
-                    allotmentIds = allotmentIds+gvOrderRecon.MasterTableView.DataKeyValues[gvRow.ItemIndex]["COAD_Id"].ToString();
+                    allotmentIds = allotmentIds + "," + gvOrderRecon.MasterTableView.DataKeyValues[gvRow.ItemIndex]["COAD_Id"].ToString();
 
-                    onlineNCDBackOfficeBo.CreateBulkOrderFromAllotment(allotmentIds, out count);
-
-                    ShowMessage(count+"Orders Created Successfully", "S");
-               
-                    
                 }
 
             }
             if (i == 0)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptOrderRecon", "alert('Please select a record!');", true);
-           
+
                 return;
+            }
+            else
+            {
+                onlineNCDBackOfficeBo.CreateBulkOrderFromAllotment(allotmentIds, out count);
+                if (count >= 1)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Orders Created Successfully')", true);
+
+                }
+                // ShowMessage(count + "Orders Created Successfully", "S");
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Orders not Created Successfully ')", true);
+
+                }
             }
 
         }
@@ -201,7 +211,7 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void BindOrderMissMatchDetails()
         {
-           
+
 
 
             dBindOrderMissMatchDetails = onlineNCDBackOfficeBo.GetOrderMissMatchDetails(int.Parse(ddlIssueName.SelectedValue), "PR", (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "IP", int.Parse(ddlOrderStatus.SelectedValue), Convert.ToDateTime(txtOrderFrom.SelectedDate), Convert.ToDateTime(txtOrderTo.SelectedDate), int.Parse(ddlType.SelectedValue));
@@ -264,24 +274,24 @@ namespace WealthERP.OffLineOrderManagement
         {
             if (e.Item is GridDataItem)
             {
-               // GridDataItem item = e.Item as GridDataItem;
+                // GridDataItem item = e.Item as GridDataItem;
 
-               // LinkButton lnkMatch = (LinkButton)item.FindControl("lnkMatch");
-               // LinkButton lnkOrderEntry = (LinkButton)item.FindControl("lnkOrderEntry");
-                
-               // lnkMatch.Visible = false;
-               // lnkOrderEntry.Visible = false;
-               //// item["editColumn"].Visible = false;
-               // //item["MissmatchType"].Visible = false;
-               // gvOrderRecon.MasterTableView.GetColumn("editColumn").Visible = false;
-               // gvOrderRecon.MasterTableView.GetColumn("MissmatchType").Visible = false;
-               // if (ddlType.SelectedValue == "4")
-               // {
-               //     lnkMatch.Visible = true;
-               //     gvOrderRecon.MasterTableView.GetColumn("editColumn").Visible = true;
-                  
+                // LinkButton lnkMatch = (LinkButton)item.FindControl("lnkMatch");
+                // LinkButton lnkOrderEntry = (LinkButton)item.FindControl("lnkOrderEntry");
 
-               // }
+                // lnkMatch.Visible = false;
+                // lnkOrderEntry.Visible = false;
+                //// item["editColumn"].Visible = false;
+                // //item["MissmatchType"].Visible = false;
+                // gvOrderRecon.MasterTableView.GetColumn("editColumn").Visible = false;
+                // gvOrderRecon.MasterTableView.GetColumn("MissmatchType").Visible = false;
+                // if (ddlType.SelectedValue == "4")
+                // {
+                //     lnkMatch.Visible = true;
+                //     gvOrderRecon.MasterTableView.GetColumn("editColumn").Visible = true;
+
+
+                // }
                 //else if (ddlType.SelectedValue == "3")
                 //{
 
@@ -290,8 +300,8 @@ namespace WealthERP.OffLineOrderManagement
                 //    item["editColumn"].Visible = false;
                 //    item["issueName"].Text = string.Empty;
                 //    //item["MissmatchType"].Visible = false;
-                    
-                    
+
+
                 //}
                 //else if (ddlType.SelectedValue == "2")
                 //{
@@ -393,10 +403,10 @@ namespace WealthERP.OffLineOrderManagement
             BindOrderMissMatchDetails();
 
         }
-        
+
         protected void btnReprocess_Click(object sender, EventArgs e)
         {
-             
+
             BindOrderMatchDetails();
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Reprocess done')", true);
             BindOrderMissMatchDetails();
@@ -432,7 +442,7 @@ namespace WealthERP.OffLineOrderManagement
             string ApplicationNumberAlloted = gvOrderRecon.MasterTableView.DataKeyValues[rowindex]["CO_ApplicationNumberAlloted"].ToString();
             string Quantity = gvOrderRecon.MasterTableView.DataKeyValues[rowindex]["COAD_Quantity"].ToString();
             string issueId = ddlIssueName.SelectedValue;
-           DateTime AllotmentDate = Convert.ToDateTime(gvOrderRecon.MasterTableView.DataKeyValues[rowindex]["AllotmentDate"].ToString());
+            DateTime AllotmentDate = Convert.ToDateTime(gvOrderRecon.MasterTableView.DataKeyValues[rowindex]["AllotmentDate"].ToString());
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderEntry','FormAction=" + "NonMfRecon_OrderAdd" + "&SubBrokerCode=" + SubBrokerCode + "&PAN=" + PAN + "&ApplicationNumberAlloted=" + ApplicationNumberAlloted + "&Quantity=" + Quantity + "&issueId=" + issueId + "&AllotmentDate=" + AllotmentDate + "');", true);
 
         }
@@ -575,7 +585,7 @@ namespace WealthERP.OffLineOrderManagement
             ////ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','W');", true);
             //ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "mykey", "hide();", true);
             tblMessagee.Visible = true;
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "BrokerageRecon", " showMsg('" + msg + "','" + type + "');", true);
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "OnlineOfflineOrderRecon", " showMsg('" + msg + "','" + type + "');", true);
         }
     }
 }
