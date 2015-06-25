@@ -2867,7 +2867,7 @@ namespace DaoAdvisorProfiling
             return dsGetCommissionReconMis;
         }
 
-        public bool UpdateActualPayAndRec(int id, decimal ActPay, decimal ActRec, DateTime paybleDate, bool IsPayLocked, bool IsRecLocked, bool IsBulkPayble, bool isBulkReceived)
+        public bool UpdateActualPayAndRec(int id, decimal ActPay, decimal ActRec, DateTime paybleDate, DateTime receivedDate, bool IsPayLocked, bool IsRecLocked, bool IsBulkPayble, bool isBulkReceived,DateTime bulkReceivedDate,DateTime bulkPaybleDate)
         {
             Database db;
             DataSet ds;
@@ -2886,11 +2886,22 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(cmdUpdateActualPayAndRec, "@paybleDate", DbType.DateTime, paybleDate);
                 else
                     db.AddInParameter(cmdUpdateActualPayAndRec, "@paybleDate", DbType.DateTime, DBNull.Value);
+                if (receivedDate != DateTime.MinValue)
+                    db.AddInParameter(cmdUpdateActualPayAndRec, "@ReceivedDate", DbType.DateTime, receivedDate);
+                else
+                    db.AddInParameter(cmdUpdateActualPayAndRec, "@ReceivedDate", DbType.DateTime, DBNull.Value);
                 db.AddInParameter(cmdUpdateActualPayAndRec, "@IsPayLocked", DbType.Boolean, IsPayLocked);
                 db.AddInParameter(cmdUpdateActualPayAndRec, "@IsRecLocked", DbType.Boolean, IsRecLocked);
                 db.AddInParameter(cmdUpdateActualPayAndRec, "@IsBulkPayble", DbType.Boolean, IsBulkPayble);
                 db.AddInParameter(cmdUpdateActualPayAndRec, "@isBulkReceived", DbType.Boolean, isBulkReceived);
-
+                if (bulkReceivedDate != DateTime.MinValue)
+                    db.AddInParameter(cmdUpdateActualPayAndRec, "@BulkReceivedDate", DbType.DateTime, bulkReceivedDate);
+                else
+                    db.AddInParameter(cmdUpdateActualPayAndRec, "@BulkReceivedDate", DbType.DateTime, DBNull.Value);
+                if (bulkPaybleDate != DateTime.MinValue)
+                    db.AddInParameter(cmdUpdateActualPayAndRec, "@BulkPaybleDate", DbType.DateTime, bulkPaybleDate);
+                else
+                    db.AddInParameter(cmdUpdateActualPayAndRec, "@BulkPaybleDate", DbType.DateTime, DBNull.Value);
 
                 count = db.ExecuteNonQuery(cmdUpdateActualPayAndRec);
 

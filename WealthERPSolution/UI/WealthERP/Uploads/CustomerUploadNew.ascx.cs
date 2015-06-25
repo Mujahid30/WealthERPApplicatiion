@@ -368,9 +368,7 @@ namespace WealthERP.Uploads
             DataSet ds = new DataSet();
             //ds.ReadXml(Server.MapPath(@"\Sample.xml"));
             btnExportFilteredDupData.Visible = false;
-            btnSave.Visible = false;
-            chkBulkPayble.Visible = false;
-            chkBulkReceived.Visible = false;
+            tblUpdate.Visible = false;
             int IssueId = 0;
             string productCategory = string.Empty;
             string category =string.Empty;
@@ -397,9 +395,7 @@ namespace WealthERP.Uploads
                 //Page.ClientScript.RegisterStartupScript(this.GetType(), "BrokerageReconvalidation", "validation();", true);
 
                 btnExportFilteredDupData.Visible = true;
-                btnSave.Visible = true;
-                chkBulkPayble.Visible = true;
-                chkBulkReceived.Visible = true;
+                tblUpdate.Visible = true;
                 gvbrokerageRecon.Visible = true;
                 gvbrokerageRecon.DataSource = ds.Tables[0];
                 DataTable dtGetAMCTransactionDeatails = new DataTable();
@@ -556,6 +552,9 @@ namespace WealthERP.Uploads
             bool IsPayLocked = false;
             bool IsRecLocked = false;
             DateTime paybleDate = DateTime.MinValue;
+            DateTime receivedDate = DateTime.MinValue;
+            DateTime bulkPaybleDate = DateTime.MinValue;
+            DateTime bulkReceivedDate = DateTime.MinValue;
             foreach (GridDataItem dr in gvbrokerageRecon.Items)
             {
 
@@ -577,9 +576,20 @@ namespace WealthERP.Uploads
                     {
                         paybleDate = Convert.ToDateTime(((TextBox)dr.FindControl("txtPaybleDate")).Text.Trim());
                     }
+                    if (((TextBox)dr.FindControl("txtRecDate")).Text.Trim() != "")
+                    {
+                        receivedDate = Convert.ToDateTime(((TextBox)dr.FindControl("txtRecDate")).Text.Trim());
+                    }
                     IsPayLocked = ((CheckBox)dr.FindControl("chkIdPay")).Checked;
                     IsRecLocked = ((CheckBox)dr.FindControl("chkIdRec")).Checked;
-
+                    if (chkBulkReceivedDate.Checked)
+                    {
+                        bulkReceivedDate = Convert.ToDateTime(txtBulkReceivedDate.Text.Trim());
+                    }
+                    if (chkBulkPayableDate.Checked)
+                    {
+                        bulkPaybleDate = Convert.ToDateTime(txtBulkPayableDate.Text.Trim());
+                    }
 
                     int selectedRow = 0;
                     GridDataItem gdi;
@@ -587,7 +597,7 @@ namespace WealthERP.Uploads
                     selectedRow = gdi.ItemIndex;
                     id = int.Parse((gvbrokerageRecon.MasterTableView.DataKeyValues[selectedRow]["WCD_Id"].ToString()));
 
-                    blResult = adviserMFMIS.UpdateActualPayAndRec(id, ActPay, ActRec, paybleDate, IsPayLocked, IsRecLocked, chkBulkPayble.Checked, chkBulkReceived.Checked);
+                    blResult = adviserMFMIS.UpdateActualPayAndRec(id, ActPay, ActRec, paybleDate, receivedDate, IsPayLocked, IsRecLocked, chkBulkPayble.Checked, chkBulkReceived.Checked, bulkReceivedDate, bulkPaybleDate);
 
                 }
 

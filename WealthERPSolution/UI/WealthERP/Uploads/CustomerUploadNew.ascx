@@ -10,17 +10,18 @@
 <script src="../Scripts/JScript.js" type="text/javascript"></script>
 
 <script src="../Scripts/jquery.js" type="text/javascript"></script>
-<style>
 
-                             .ajax__calendar_body 
-                             {
-                                 width:280px;
-                             }
-                             .ajax__calendar_container 
-                             {
-                                 width:280px;
-                             }
+<style>
+    .ajax__calendar_body
+    {
+        width: 280px;
+    }
+    .ajax__calendar_container
+    {
+        width: 280px;
+    }
 </style>
+
 <script type="text/javascript">
     function isNumberKey(evt) { // Numbers only
         var charCode = (evt.which) ? evt.which : event.keyCode;
@@ -58,11 +59,17 @@
         }
     }
 </script>
+
 <script>
 
     $(document).ready(function() {
         validation();
     });
+</script>
+<script>
+    function EnableDatePicker(txtId) {
+        var chk = document.getElementById('<%= gvbrokerageRecon.ClientID %>');
+    }
 </script>
 <script type="text/javascript">
     function validation() {
@@ -248,26 +255,25 @@
             <asp:Label ID="lblIllegal" runat="server" CssClass="Error" Text="" />
         </td>
     </tr>
- 
 </table>
 <table width="100%">
-
-   <tr id="tblMessagee" runat="server" visible="false">
+    <tr id="tblMessagee" runat="server" visible="false">
         <td align="center">
             <div id="divMessage" align="center">
-                </div>
+            </div>
         </td>
     </tr>
 </table>
 <div style="margin-left: auto; margin-right: auto;">
-   <%-- <div id="divMessage" align="center">
+    <%-- <div id="divMessage" align="center">
     </div>--%>
 </div>
 <div runat="server" style="overflow: scroll;" id="divBtnActionSection" visible="true">
     <telerik:RadGrid ID="gvbrokerageRecon" Visible="false" runat="server" GridLines="None"
-        AutoGenerateColumns="False" PageSize="10" AllowSorting="true" AllowPaging="True" OnItemCreated="gvbrokerageRecon_ItemCreated"
-        ShowStatusBar="True" ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false"
-        AllowFilteringByColumn="true" Width="100%" AllowAutomaticInserts="false" OnNeedDataSource="gvbrokerageRecon_OnNeedDataSource">
+        AutoGenerateColumns="False" PageSize="10" AllowSorting="true" AllowPaging="True"
+        OnItemCreated="gvbrokerageRecon_ItemCreated" ShowStatusBar="True" ShowFooter="true"
+        Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" Width="100%"
+        AllowAutomaticInserts="false" OnNeedDataSource="gvbrokerageRecon_OnNeedDataSource">
         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="Brokerage Reconciliation">
         </ExportSettings>
         <MasterTableView Width="102%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
@@ -323,14 +329,26 @@
                     HeaderStyle-Width="90px">
                     <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                 </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn AllowFiltering="true" DataField="WCD_Rec_rate" AutoPostBackOnFilter="true"
+                    HeaderText="Brokerage Rate (Receivable)" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    UniqueName="WCD_Rec_rate" SortExpression="WCD_Rec_rate" FooterStyle-HorizontalAlign="Right"
+                    HeaderStyle-Width="90px">
+                    <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn AllowFiltering="true" DataField="NetRec_brokerage" AutoPostBackOnFilter="true"
-                    HeaderText="System Calculated(Receivable)" ShowFilterIcon="false" Aggregate="Sum"
+                    HeaderText="System Calculated (Receivable)" ShowFilterIcon="false" Aggregate="Sum"
                     CurrentFilterFunction="Contains" UniqueName="NetRec_brokerage" SortExpression="NetRec_brokerage"
-                    FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="150px">
+                    FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="100px">
                     <ItemStyle Wrap="false" Width="150px" HorizontalAlign="Right" />
                 </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn AllowFiltering="true" DataField="RTA_Rate" AutoPostBackOnFilter="true"
+                    HeaderText="RTA Brokerage Rate" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    UniqueName="RTA_Rate" SortExpression="RTA_Rate" FooterStyle-HorizontalAlign="Right"
+                    Aggregate="Sum" HeaderStyle-Width="90px">
+                    <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn AllowFiltering="true" DataField="RTABrokerageAmt" AutoPostBackOnFilter="true"
-                    HeaderText="RTA file" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    HeaderText="RTA Brokerage Amount" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     UniqueName="RTABrokerageAmt" SortExpression="RTABrokerageAmt" FooterStyle-HorizontalAlign="Right"
                     Aggregate="Sum" HeaderStyle-Width="90px">
                     <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
@@ -340,8 +358,7 @@
                     Aggregate="Sum" UniqueName="WCD_Act_Rec_Brokerage" SortExpression="WCD_Act_Rec_Brokerage"
                     FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
                     <ItemTemplate>
-                        <asp:TextBox ID="txtActRecBrokerage" CssClass="txtField" 
-                            runat="server" Text='<%# Bind("WCD_Act_Rec_Brokerage") %>'></asp:TextBox>
+                        <asp:TextBox ID="txtActRecBrokerage" CssClass="txtField" runat="server" Text='<%# Bind("WCD_Act_Rec_Brokerage") %>'></asp:TextBox>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
                 <telerik:GridTemplateColumn AllowFiltering="true" UniqueName="IsRecLocked" DataField="IsRecLocked"
@@ -350,10 +367,31 @@
                         <asp:CheckBox ID="chkIdRec" runat="server" Checked='<%# Bind("IsRecLocked") %>' OnClick="return validation();" />
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
+                <telerik:GridTemplateColumn AllowFiltering="false" HeaderText="Actual Received Date"
+                    UniqueName="actionRec" DataField="WCD_Act_Rec_BrokerageDate" ItemStyle-Width="290px"
+                    HeaderStyle-Width="290px">
+                    <ItemTemplate>
+                        <asp:TextBox ID="txtRecDate" Text='<%# Bind("WCD_Act_Rec_BrokerageDate") %>' runat="server"
+                            CssClass="txtField">
+                        </asp:TextBox>
+                        <cc1:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtRecDate"
+                            Format="dd/MM/yyyy">
+                        </cc1:CalendarExtender>
+                        <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtRecDate"
+                            WatermarkText="dd/mm/yyyy">
+                        </cc1:TextBoxWatermarkExtender>
+                    </ItemTemplate>
+                </telerik:GridTemplateColumn>
+                <telerik:GridBoundColumn AllowFiltering="true" DataField="WCD_Rate" AutoPostBackOnFilter="true"
+                    HeaderText="Brokerage Rate (Payable)" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    UniqueName="WCD_Rate" SortExpression="WCD_Rate" FooterStyle-HorizontalAlign="Right"
+                    HeaderStyle-Width="90px">
+                    <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn AllowFiltering="true" DataField="NetPay_brokerage" AutoPostBackOnFilter="true"
-                    HeaderText="System Calculated(Payable)" ShowFilterIcon="false" Aggregate="Sum"
+                    HeaderText="System Calculated (Payable)" ShowFilterIcon="false" Aggregate="Sum"
                     CurrentFilterFunction="Contains" UniqueName="NetPay_brokerage" SortExpression="NetPay_brokerage"
-                    FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="150px">
+                    FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="100px">
                     <ItemStyle Wrap="false" Width="150px" HorizontalAlign="Right" />
                 </telerik:GridBoundColumn>
                 <telerik:GridTemplateColumn AllowFiltering="true" DataField="WCD_Act_Pay_brokerage"
@@ -361,8 +399,7 @@
                     Aggregate="Sum" CurrentFilterFunction="Contains" SortExpression="WCD_Act_Pay_brokerage"
                     UniqueName="WCD_Act_Pay_brokerage" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
                     <ItemTemplate>
-                        <asp:TextBox ID="txtActPaybrokerage" CssClass="txtField" 
-                            runat="server" Text='<%# Bind("WCD_Act_Pay_brokerage") %>'></asp:TextBox>
+                        <asp:TextBox ID="txtActPaybrokerage" CssClass="txtField" runat="server" Text='<%# Bind("WCD_Act_Pay_brokerage") %>'></asp:TextBox>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
                 <telerik:GridTemplateColumn AllowFiltering="false" HeaderText="lock Payout" UniqueName="IsPayLocked"
@@ -371,18 +408,18 @@
                         <asp:CheckBox ID="chkIdPay" Checked='<%# Bind("IsPayLocked") %>' OnClick="return validation();"
                             runat="server" />
                     </ItemTemplate>
-                    
                 </telerik:GridTemplateColumn>
                 <telerik:GridTemplateColumn AllowFiltering="false" HeaderText="Actual Payout Date"
-                    UniqueName="actionPay" DataField="WCD_Act_Pay_BrokerageDate" ItemStyle-Width="290px" HeaderStyle-Width="290px">
+                    UniqueName="actionPay" DataField="WCD_Act_Pay_BrokerageDate" ItemStyle-Width="290px"
+                    HeaderStyle-Width="290px">
                     <ItemTemplate>
-                        <asp:TextBox ID="txtPaybleDate" Text='<%# Bind("WCD_Act_Pay_BrokerageDate") %>' runat="server" 
+                        <asp:TextBox ID="txtPaybleDate" Text='<%# Bind("WCD_Act_Pay_BrokerageDate") %>' runat="server"
                             CssClass="txtField">
                         </asp:TextBox>
-                        <cc1:CalendarExtender ID="CalendarExtender1"   runat="server" TargetControlID="txtPaybleDate"
+                        <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtPaybleDate"
                             Format="dd/MM/yyyy">
                         </cc1:CalendarExtender>
-                        <cc1:TextBoxWatermarkExtender  ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtPaybleDate"
+                        <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtPaybleDate"
                             WatermarkText="dd/mm/yyyy">
                         </cc1:TextBoxWatermarkExtender>
                     </ItemTemplate>
@@ -395,17 +432,43 @@
         </ClientSettings>
     </telerik:RadGrid>
 </div>
-<table width="90%" class="TableBackground" cellspacing="0" cellpadding="2">
+<table width="90%" class="TableBackground" cellspacing="0" cellpadding="2" id="tblUpdate" runat="server" visible="false">
     <tr>
         <td>
-            <asp:CheckBox ID="chkBulkPayble" Visible="false" Text="Copy System Calculated payout to Actual"
+            <asp:CheckBox ID="chkBulkPayble" Visible="true" Text="Copy System Calculated payout to Actual"
                 CssClass="cmbFielde" runat="server" />
             <br />
-            <asp:CheckBox ID="chkBulkReceived" Visible="false" Text="Copy RTA rcvd to Actual received"
+            <asp:CheckBox ID="chkBulkReceived" Visible="true" Text="Copy RTA rcvd to Actual received"
                 CssClass="cmbFielde" runat="server" />
         </td>
         <td>
-            <asp:Button ID="btnSave" CssClass="PCGButton" runat="server" Text="Update" Visible="false"
+            <asp:CheckBox ID="chkBulkReceivedDate" Visible="true" Text="Copy Received Date" 
+                CssClass="cmbFielde" runat="server" />
+            <br />
+            <asp:CheckBox ID="chkBulkPayableDate" Visible="true" Text="Copy Payable Date" CssClass="cmbFielde"
+                runat="server" />
+        </td>
+        <td>
+            <asp:TextBox ID="txtBulkReceivedDate" Visible="true" runat="server" CssClass="txtField">
+            </asp:TextBox>
+            <cc1:CalendarExtender ID="CalendarExtender3" runat="server" TargetControlID="txtBulkReceivedDate"
+                Format="dd/MM/yyyy">
+            </cc1:CalendarExtender>
+            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtBulkReceivedDate"
+                WatermarkText="dd/mm/yyyy">
+            </cc1:TextBoxWatermarkExtender>
+            <br />
+            <asp:TextBox ID="txtBulkPayableDate" Visible="true" runat="server" CssClass="txtField">
+            </asp:TextBox>
+            <cc1:CalendarExtender ID="CalendarExtender4" runat="server" TargetControlID="txtBulkPayableDate"
+                Format="dd/MM/yyyy">
+            </cc1:CalendarExtender>
+            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtBulkPayableDate"
+                WatermarkText="dd/mm/yyyy">
+            </cc1:TextBoxWatermarkExtender>
+        </td>
+        <td>
+            <asp:Button ID="btnSave" CssClass="PCGButton" runat="server" Text="Update" Visible="true"
                 OnClick="btnSave_Click" />
         </td>
     </tr>

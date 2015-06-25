@@ -309,12 +309,20 @@ namespace WealthERP.Uploads
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+        /// 
+
+        protected global::System.Web.UI.WebControls.CheckBox chkBulkReceivedDate;
+        protected global::System.Web.UI.WebControls.CheckBox chkBulkPayableDate;
+        protected global::System.Web.UI.WebControls.TextBox txtBulkReceivedDate;
+        protected global::System.Web.UI.WebControls.TextBox txtBulkPayableDate;
+
         protected global::System.Web.UI.WebControls.Label lblSelectMutualFund;
         protected global::System.Web.UI.WebControls.CheckBox chkBulkPayble;
         protected global::System.Web.UI.WebControls.CheckBox chkBulkReceived;
         protected global::System.Web.UI.WebControls.TextBox txtPaybleDate;
         protected global::System.Web.UI.WebControls.TextBox txtActRecBrokerage;
         protected global::System.Web.UI.WebControls.TextBox txtActPaybrokerage;
+        protected global::System.Web.UI.WebControls.TextBox txtRecDate;
         /// <summary>
         /// CompareValidator1 control.
         /// </summary>
@@ -395,7 +403,7 @@ namespace WealthERP.Uploads
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdFromDate;
-
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblUpdate;
         /// <summary>
         /// lblPeriod control.
         /// </summary>
