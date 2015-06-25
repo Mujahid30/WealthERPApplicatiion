@@ -147,6 +147,38 @@ namespace BoCommisionManagement
             }
 
         }
+        public DataTable getProductCommissionReceivable(string product, string productCategory, int amcCode, int schemeId, int adviserId, int issueId, int from, int to)
+        {
+             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+             try
+             {
+                 return commisionReceivableDao.getProductCommissionReceivable( product,  productCategory,  amcCode,  schemeId,  adviserId,  issueId,  from,  to);
+             }
+             catch (BaseApplicationException Ex)
+             {
+                 throw Ex;
+             }
+             catch (Exception Ex)
+             {
+                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                 NameValueCollection FunctionInfo = new NameValueCollection();
+                 FunctionInfo.Add("Method", "CommissionReceivable.cs:getProductCommissionReceivable(string product,string productCategory,int amcCode,int schemeId,int adviserId,int issueId,DateTime fromDate,DateTime toDate)");
+                 object[] objects = new object[9];
+                 objects[0] = product;
+                 objects[1] = productCategory;
+                 objects[2] = amcCode;
+                 objects[3] = schemeId;
+                 objects[4] = issueId;
+                 objects[5] = adviserId;
+                 objects[6] = schemeId;
+                 objects[7] = from;
+                 objects[8] = to;
+                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                 exBase.AdditionalInformation = FunctionInfo;
+                 ExceptionManager.Publish(exBase);
+                 throw exBase;
+             }
+        }
         public DataTable GetAgentProductWiseCommissionDetails(string agentCode, string product, string subCategory, int issueId, int adviserId, DateTime fromDate, DateTime toDate)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();

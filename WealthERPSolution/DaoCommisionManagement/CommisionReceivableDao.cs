@@ -2028,6 +2028,51 @@ namespace DaoCommisionManagement
             }
             return dtAgentCommissionDetails;
         }
+        public DataTable getProductCommissionReceivable(string product,string productCategory,int amcCode,int schemeId,int adviserId,int issueId,int from,int to)
+        {
+            Database db;
+            DbCommand cmdGetProductCommissionDetails;
+            DataTable dtProductiontCommissionDetails = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetProductCommissionDetails = db.GetStoredProcCommand("SPROC_GetProductReceivableCommissionDetails");
+                db.AddInParameter(cmdGetProductCommissionDetails, "@product", DbType.String, product);
+                db.AddInParameter(cmdGetProductCommissionDetails, "@productCategory", DbType.String, productCategory);
+                db.AddInParameter(cmdGetProductCommissionDetails, "@amcCode", DbType.Int32, amcCode);
+                db.AddInParameter(cmdGetProductCommissionDetails, "@schemeId", DbType.Int32, schemeId);
+                db.AddInParameter(cmdGetProductCommissionDetails, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdGetProductCommissionDetails, "@Month", DbType.Int32, from);
+                db.AddInParameter(cmdGetProductCommissionDetails, "@Year", DbType.Int32, to);
+                db.AddInParameter(cmdGetProductCommissionDetails, "@issueId", DbType.Int32, issueId);
+                dtProductiontCommissionDetails = db.ExecuteDataSet(cmdGetProductCommissionDetails).Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionReceivable.cs:getProductCommissionReceivable(string product,string productCategory,int amcCode,int schemeId,int adviserId,int issueId,DateTime fromDate,DateTime toDate)");
+                object[] objects = new object[9];
+                objects[0] = product;
+                objects[1] = productCategory;
+                objects[2] = amcCode;
+                objects[3] = schemeId;
+                objects[4] = issueId;
+                objects[5] = adviserId;
+                objects[6] = schemeId;
+                objects[7] = from;
+                objects[8] = to;                
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtProductiontCommissionDetails;
+        }
         public bool DeleteMappedIssue(int structureId)
         {
             bool bResult = false;

@@ -19,6 +19,7 @@
         color: #000;
     }
 </style>
+<div id ="dvAssocicateReport" runat="server" visible="false">
 <table width="100%">
     <tr>
         <td colspan="3">
@@ -330,3 +331,283 @@
         </tr>
     </table>
 </asp:Panel>
+</div>
+
+<div id="dvReceivable" runat="server"  visible="true" style="width:100%">
+<table width="100%">
+    <tr>
+        <td colspan="3">
+            <div class="divPageHeading">
+                <table cellspacing="0" width="100%">
+                    <tr>
+                        <td align="left">
+                            Received Commission Consolidated Report
+                        </td>
+                        <td align="right" style="padding-bottom: 2px;">
+                            <asp:ImageButton ID="IbReceibaleReport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" 
+                                OnClientClick="setFormat('CSV')" Height="25px" Width="25px" Visible="false" OnClick="btnExportReceivableReport_OnClick">
+                            </asp:ImageButton>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+<table width="90%" class="TableBackground" cellspacing="0" cellpadding="2">
+    <tr>
+        <td align="left" class="leftField" width="20%">
+            <asp:Label ID="lblSelectProduct" runat="server" Text=" Product:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlProduct" runat="server" AutoPostBack="true" CssClass="cmbField"
+                OnSelectedIndexChanged="ddlProduct_SelectedIndexChanged">
+            </asp:DropDownList>
+            <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="ddlProduct"
+                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Product type"
+                Operator="NotEqual" ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
+        </td>
+        <td align="left" class="leftField" width="20%" id="tdCategory" runat="server" visible="false">
+            <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td align="left" id="tdDdlCategory" runat="server" visible="false">
+            <asp:DropDownList ID="ddlProductCategory" runat="server" AutoPostBack="true" CssClass="cmbField"
+                OnSelectedIndexChanged="ddlProductCategory_OnSelectedIndexChanged">
+            </asp:DropDownList>
+            <asp:CompareValidator ID="CompareValidator7" runat="server" ControlToValidate="ddlProductCategory"
+                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Category type"
+                Operator="NotEqual" ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
+        </td>
+    </tr>
+    <tr id="trSelectProduct" runat="server">
+        <td id="td1" align="left" runat="server" class="leftField" width="16%" visible="true">
+            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Commission Type:"></asp:Label>
+        </td>
+        <td id="td2" runat="server" visible="true">
+            <asp:DropDownList ID="ddlCommType" runat="server" CssClass="cmbField" AutoPostBack="true">
+                <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
+                <asp:ListItem Text="Upfront" Value="UF" Selected="True"></asp:ListItem>
+                <asp:ListItem Text="Trail" Value="TC"></asp:ListItem>
+                <asp:ListItem Text="Incentive" Value="IN"></asp:ListItem>
+            </asp:DropDownList>
+            <asp:CompareValidator ID="CompareValidator4" runat="server" ControlToValidate="ddlCommType"
+                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Commission type"
+                Operator="NotEqual" ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
+        </td>
+    </tr>
+    <tr id="trNCDIPO" runat="server" visible="false">
+        <td align="left" class="leftField">
+            <asp:Label ID="lblIssueType" runat="server" CssClass="FieldName" Text="Issue Type:"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlIssueType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlIssueType_OnSelectedIndexChanged"
+                AutoPostBack="true">
+                <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
+                <asp:ListItem Text="Closed Issues" Value="2"></asp:ListItem>
+                <asp:ListItem Text="Current Issues" Value="1"></asp:ListItem>
+            </asp:DropDownList>
+            <asp:CompareValidator ID="cvddlIssueType" runat="server" ControlToValidate="ddlIssueType"
+                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please Select Issue Type"
+                Operator="NotEqual" ValidationGroup="vgbtnSubmit" ValueToCompare="Select" Enabled="false"></asp:CompareValidator>
+        </td>
+        <td align="left" class="leftField">
+            <asp:Label ID="lblIssueName" runat="server" CssClass="FieldName" Text="Issue Name"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlIssueName" runat="server" CssClass="cmbField">
+            </asp:DropDownList>
+        </td>
+    </tr>
+    <tr id="trSelectMutualFund" runat="server" visible="false">
+        <td align="left" class="leftField">
+            <asp:Label ID="lblSelectMutualFund" runat="server" CssClass="FieldName" Text="Issuer:"></asp:Label>
+            <asp:CompareValidator ID="CompareValidator41" runat="server" ControlToValidate="ddlProduct"
+                CssClass="cvPCG" Display="Dynamic" ErrorMessage="Please Select AMC Code" Operator="NotEqual"
+                ValidationGroup="vgbtnSubmit" ValueToCompare="Select Product Type"></asp:CompareValidator>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlIssuer" runat="server" AutoPostBack="true" CssClass="cmbField"
+                OnSelectedIndexChanged="ddlIssuer_SelectedIndexChanged">
+            </asp:DropDownList>
+            <asp:CompareValidator ID="cvddlSelectMutualFund" runat="server" ControlToValidate="ddlIssuer"
+                CssClass="cvPCG" Display="Dynamic" ErrorMessage="Please Select AMC Code" Operator="NotEqual"
+                ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
+        </td>
+        <td align="left" class="leftField">
+            <asp:Label ID="lblNAVCategory" runat="server" CssClass="FieldName" Text="Category:"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlCategory" runat="server" AutoPostBack="true" CssClass="cmbField"
+                OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged">
+            </asp:DropDownList>
+        </td>
+        <td align="left" class="leftField">
+            <asp:Label ID="lblSelectSchemeNAV" runat="server" CssClass="FieldName" Text="Scheme:"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField">
+            </asp:DropDownList>
+            <asp:CompareValidator ID="CompareValidator5" runat="server" ControlToValidate="ddlScheme"
+                CssClass="cvPCG" Display="Dynamic" ErrorMessage="Please Select Scheme" Operator="NotEqual"
+                ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField" id="tdTolbl" runat="server" visible="true">
+            <asp:Label ID="Label11" runat="server" CssClass="FieldName" Text="Year:"></asp:Label>
+        </td>
+        <td class="rightField" id="tdToDate" runat="server" visible="true">
+            <asp:DropDownList ID="ddlYear" runat="server" CssClass="cmbField">
+            </asp:DropDownList>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ddlYear"
+                CssClass="rfvPCG" ErrorMessage="<br />Please select a Year" Display="Dynamic"
+                runat="server" InitialValue="0" ValidationGroup="vgbtnSubmit"> </asp:RequiredFieldValidator>
+        </td>
+        <td id="tdFromDate" class="leftField" runat="server" visible="true">
+            <asp:Label ID="lblPeriod" Text="Month/Quarter:" runat="server" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField" id="tdFrom" runat="server" visible="true">
+            <asp:DropDownList ID="ddlMnthQtr" runat="server" CssClass="cmbField">
+            </asp:DropDownList>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="ddlMnthQtr"
+                CssClass="rfvPCG" ErrorMessage="<br />Please Select Month" Display="Dynamic"
+                runat="server" InitialValue="0" ValidationGroup="vgbtnSubmit"> </asp:RequiredFieldValidator>
+        </td>
+        <td class="rightField" style="padding-right: 50px">
+            <asp:Button ID="btnGO" runat="server" CssClass="PCGButton" OnClick="btnGO_OnClick"
+                Text="GO" ValidationGroup="vgbtnSubmit" />
+        </td>
+        <td>
+        </td>
+    </tr>
+    <tr>
+    </tr>
+    <tr>
+        <td colspan="6">
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <asp:Label ID="lblIllegal" runat="server" CssClass="Error" Text="" />
+        </td>
+    </tr>
+ 
+</table>
+<asp:Panel ID="pnlProductDetails" runat="server" class="Landscape" Width="100%" Height="80%"
+    ScrollBars="Horizontal" Visible="false">
+    <table width="100%">
+        <tr id="tr1" runat="server">
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <telerik:RadGrid ID="rgReceivableReport" runat="server" GridLines="None" AutoGenerateColumns="False"
+                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                    Skin="Telerik" EnableEmbeddedSkins="false" AllowAutomaticInserts="false" OnNeedDataSource="rgReceivableReport_OnNeedDataSource"
+                    AllowFilteringByColumn="true" >
+                    <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="ReceivableCommissionReport" >
+                    
+                    </ExportSettings>
+                    <MasterTableView ShowGroupFooter="true" Width="100%">
+                        <GroupByExpressions>
+                            <telerik:GridGroupByExpression>
+                                <SelectFields>
+                                    <telerik:GridGroupByField FieldAlias="AIM_IssueName" FieldName="AIM_IssueName"  HeaderText="Issue Name"/>
+                                </SelectFields>
+                                <GroupByFields>
+                                    <telerik:GridGroupByField FieldName="AIM_IssueName" SortOrder="Ascending" />
+                                </GroupByFields>
+                            </telerik:GridGroupByExpression>
+                            <telerik:GridGroupByExpression>
+                                <SelectFields>
+                                    <telerik:GridGroupByField FieldAlias="WCD_BrokerName" FieldName="WCD_BrokerName"  HeaderText="Broker Name"/>
+                                </SelectFields>
+                                <GroupByFields>
+                                    <telerik:GridGroupByField FieldName="WCD_BrokerName" SortOrder="Ascending" />
+                                </GroupByFields>
+                            </telerik:GridGroupByExpression>
+                        </GroupByExpressions>
+                        <Columns>
+                            <telerik:GridBoundColumn DataField="AIM_IssueName" HeaderText="IssueName" UniqueName="AIM_IssueName"
+                                SortExpression="AIM_IssueName" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="100px" AllowFiltering="true">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="PAG_AssetGroupName" HeaderText="Product" UniqueName="PAG_AssetGroupName"
+                                SortExpression="PAG_AssetGroupName" ShowFilterIcon="false" CurrentFilterFunction="EqualTo"
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="85px" FilterControlWidth="85px"
+                                AllowFiltering="true">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="PAISC_AssetInstrumentSubCategoryName" HeaderText="Category "
+                                UniqueName="PAISC_AssetInstrumentSubCategoryName" SortExpression="PAISC_AssetInstrumentSubCategoryName"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                HeaderStyle-Width="85px" FilterControlWidth="85px" AllowFiltering="true">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            
+                            <telerik:GridBoundColumn DataField="Received" HeaderText="Received Commission" UniqueName="Received"
+                                SortExpression="Received" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="60px"
+                                Aggregate="Sum" FooterText="Total:" AllowFiltering="false">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="TDS" HeaderText="TDS" UniqueName="TDS" SortExpression="TDS"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                HeaderStyle-Width="130px" Aggregate="Sum" FooterText="Total:" DataFormatString="{0:F2}"
+                                FooterAggregateFormatString="{0:F2}" AllowFiltering="false">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="ServiceTax" HeaderText="Service Tax" UniqueName="ServiceTax"
+                                SortExpression="ServiceTax" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="100px" Aggregate="Sum" FooterText="Total:"
+                                DataFormatString="{0:F2}" FooterAggregateFormatString="{0:F2}" AllowFiltering="false">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="NetReceived" HeaderText="Net Received" UniqueName="NetReceived"
+                                SortExpression="NetReceived" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="100px" Aggregate="Sum" FooterText="Total:"
+                                AllowFiltering="false">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="WCD_Act_Rec_BrokerageDate" HeaderText="Pay Out Date"
+                                UniqueName="WCD_Act_Rec_BrokerageDate" SortExpression="WCD_Act_Rec_BrokerageDate"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                HeaderStyle-Width="100px" AllowFiltering="false" DataFormatString="{0:dd/MM/yyyy}">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="WCD_CommissionType" HeaderText="Commission Type"
+                                UniqueName="WCD_CommissionType" SortExpression="WCD_CommissionType" ShowFilterIcon="false"
+                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="100px"
+                                AllowFiltering="false">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn DataField="No_of_orders" HeaderText="No.of Applications"
+                                UniqueName="No_of_orders" SortExpression="No_of_orders" ShowFilterIcon="false"
+                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="100px"
+                                AllowFiltering="false">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                        </Columns>
+                        <FooterStyle ForeColor="Black" />
+                    </MasterTableView>
+                    <ClientSettings>
+                        <Resizing AllowColumnResize="true" />
+                        <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                    </ClientSettings>
+                </telerik:RadGrid>
+            </td>
+        </tr>
+    </table>
+</asp:Panel>
+<asp:HiddenField ID="hdnschemeId" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnCategory" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnFromDate" runat="server" />
+<asp:HiddenField ID="hdnToDate" runat="server" />
+<asp:HiddenField ID="hdnSBbrokercode" runat="server" />
+<asp:HiddenField ID="hdnIssueId" runat="server" />
+<asp:HiddenField ID="hdnProductCategory" runat="server" />
+<asp:HiddenField ID="hdnAgentCode" runat="server" />
+</div>
