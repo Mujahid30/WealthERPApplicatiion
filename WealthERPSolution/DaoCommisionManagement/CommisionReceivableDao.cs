@@ -1988,6 +1988,46 @@ namespace DaoCommisionManagement
             }
             return dsGetAssociateCommissionPayout.Tables[0];
         }
+        public DataTable GetAgentProductWiseCommissionDetails(string agentCode,string product,string subCategory,int issueId,int adviserId,DateTime fromDate,DateTime toDate )
+        {
+            Database db;
+            DbCommand cmdGetAgentProductWiseCommissionDetails;
+            DataTable dtAgentCommissionDetails = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetAgentProductWiseCommissionDetails = db.GetStoredProcCommand("SPROC_GetAgentProductCommissionDetails");
+                db.AddInParameter(cmdGetAgentProductWiseCommissionDetails, "@agentCode",DbType.String, agentCode);
+                db.AddInParameter(cmdGetAgentProductWiseCommissionDetails, "@product", DbType.String, product);
+                db.AddInParameter(cmdGetAgentProductWiseCommissionDetails, "@subCategory", DbType.String, subCategory);
+                db.AddInParameter(cmdGetAgentProductWiseCommissionDetails, "@issueId", DbType.Int32, issueId);
+                db.AddInParameter(cmdGetAgentProductWiseCommissionDetails, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdGetAgentProductWiseCommissionDetails, "@fromDate", DbType.Date, fromDate);
+                db.AddInParameter(cmdGetAgentProductWiseCommissionDetails, "@toDate", DbType.Date, toDate);
+                dtAgentCommissionDetails = db.ExecuteDataSet(cmdGetAgentProductWiseCommissionDetails).Tables[0];
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionReceivable.cs:GetAgentProductWiseCommissionDetails(string agentCode,string product,string subCategory,int issueId,int adviserId)");
+                object[] objects = new object[4];
+                objects[0] = adviserId;
+                objects[1] = agentCode;
+                objects[2] = toDate;
+                objects[3] = fromDate;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtAgentCommissionDetails;
+        }
         public bool DeleteMappedIssue(int structureId)
         {
             bool bResult = false;

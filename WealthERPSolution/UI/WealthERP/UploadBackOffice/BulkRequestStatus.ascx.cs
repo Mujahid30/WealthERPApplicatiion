@@ -27,6 +27,7 @@ namespace WealthERP.UploadBackOffice
         CommisionReceivableBo commisionReceivableBo = new CommisionReceivableBo();
         AssociatesVO associatesVo = new AssociatesVO();
         AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
+        AdvisorMISBo adviserMFMIS = new AdvisorMISBo();
         AdvisorVo advisorVo;
         UserVo userVo;
         string userType;
@@ -42,7 +43,7 @@ namespace WealthERP.UploadBackOffice
         }
         protected void btnSubmit_OnClick(object sender, EventArgs e)
         {
-            BindAssociatePayoutGrid(advisorVo.advisorId, AgentCode, DateTime.Parse(txtFromDate.Text.ToString()), DateTime.Parse(txtToDate.Text.ToString()));
+            BindAssociatePayoutGrid(advisorVo.advisorId, txtAgentCode.Text, DateTime.Parse(txtFromDate.Text.ToString()), DateTime.Parse(txtToDate.Text.ToString()));
         }
         private void BindAssociatePayoutGrid(int adviserId, String agentCode, DateTime fromDate, DateTime toDate)
         {
@@ -111,6 +112,82 @@ namespace WealthERP.UploadBackOffice
             rdAssociatePayout.ExportSettings.Excel.Format = GridExcelExportFormat.Html;
             rdAssociatePayout.MasterTableView.ExportToExcel();
 
+        }
+        protected void btnExpand_Click(object sender, EventArgs e)
+        {
+            LinkButton button1 = (LinkButton)sender;
+            if (button1.Text == "+")
+            {
+                foreach (GridDataItem gvr in this.rdAssociatePayout.Items)
+                {
+
+                    DataTable dtIssueDetail;
+                    int issueId = 0;
+                    string PAG_AssetGroupCode, PAISC_AssetInstrumentSubCategoryCode, AAC_AgentCode;
+                    LinkButton button = (LinkButton)gvr.FindControl("lbDetails");
+                    RadGrid gvChildDetails = (RadGrid)gvr.FindControl("rgNCDIPOMIS");
+                    Panel PnlChild = (Panel)gvr.FindControl("pnlchild");
+                    issueId = int.Parse(rdAssociatePayout.MasterTableView.DataKeyValues[gvr.ItemIndex]["AIM_IssueId"].ToString());
+                    AAC_AgentCode = rdAssociatePayout.MasterTableView.DataKeyValues[gvr.ItemIndex]["AgentCode"].ToString();
+                    PAG_AssetGroupCode =rdAssociatePayout.MasterTableView.DataKeyValues[gvr.ItemIndex]["PAG_AssetGroupCode"].ToString();
+                    PAISC_AssetInstrumentSubCategoryCode =rdAssociatePayout.MasterTableView.DataKeyValues[gvr.ItemIndex]["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                     dtIssueDetail = commisionReceivableBo.GetAgentProductWiseCommissionDetails(AAC_AgentCode, PAG_AssetGroupCode, PAISC_AssetInstrumentSubCategoryCode, issueId, advisorVo.advisorId, DateTime.Parse(txtFromDate.Text.ToString()), DateTime.Parse(txtToDate.Text.ToString()));
+                     gvChildDetails.DataSource = dtIssueDetail;
+                     gvChildDetails.DataBind();
+                    if (PnlChild.Visible == false)
+                    {
+                        PnlChild.Visible = true;
+                        button.Text = "-";
+                    }
+
+                }
+                button1.Text = "-";
+            }
+            else
+            {
+                foreach (GridDataItem gvr in this.rdAssociatePayout.Items)
+                {
+                    LinkButton button = (LinkButton)gvr.FindControl("lbDetails");
+                    Panel PnlChild = (Panel)gvr.FindControl("pnlchild");
+                    if (PnlChild.Visible == true)
+                        PnlChild.Visible = false;
+                    button.Text = "+";
+                }
+                button1.Text = "+";
+            }
+
+        }
+        protected void btnExpandAll_Click(object sender, EventArgs e)
+        {
+
+            int count = rdAssociatePayout.MasterTableView.Items.Count;
+            DataTable dtIssueDetail;
+            int strIssuerId = 0;
+            LinkButton buttonlink = (LinkButton)sender;
+            GridDataItem gdi;
+            gdi = (GridDataItem)buttonlink.NamingContainer;
+            int issueId = 0;
+            string PAG_AssetGroupCode, PAISC_AssetInstrumentSubCategoryCode, AAC_AgentCode;
+            issueId = int.Parse(rdAssociatePayout.MasterTableView.DataKeyValues[gdi.ItemIndex]["AIM_IssueId"].ToString());
+            AAC_AgentCode = rdAssociatePayout.MasterTableView.DataKeyValues[gdi.ItemIndex]["AgentCode"].ToString();
+            PAG_AssetGroupCode = rdAssociatePayout.MasterTableView.DataKeyValues[gdi.ItemIndex]["PAG_AssetGroupCode"].ToString();
+            PAISC_AssetInstrumentSubCategoryCode = rdAssociatePayout.MasterTableView.DataKeyValues[gdi.ItemIndex]["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+            dtIssueDetail = commisionReceivableBo.GetAgentProductWiseCommissionDetails(AAC_AgentCode, PAG_AssetGroupCode, PAISC_AssetInstrumentSubCategoryCode, issueId, advisorVo.advisorId, DateTime.Parse(txtFromDate.Text.ToString()), DateTime.Parse(txtToDate.Text.ToString()));
+            RadGrid gvChildDetails = (RadGrid)gdi.FindControl("rgNCDIPOMIS");
+            Panel PnlChild = (Panel)gdi.FindControl("pnlchild");
+            if (PnlChild.Visible == false)
+            {
+                PnlChild.Visible = true;
+                buttonlink.Text = "-";
+            }
+            else if (PnlChild.Visible == true)
+            {
+                PnlChild.Visible = false;
+                buttonlink.Text = "+";
+            }
+            dtIssueDetail = commisionReceivableBo.GetAgentProductWiseCommissionDetails(AAC_AgentCode, PAG_AssetGroupCode, PAISC_AssetInstrumentSubCategoryCode, issueId, advisorVo.advisorId, DateTime.Parse(txtFromDate.Text.ToString()), DateTime.Parse(txtToDate.Text.ToString()));
+            gvChildDetails.DataSource = dtIssueDetail;
+            gvChildDetails.DataBind();
         }
     }
 }

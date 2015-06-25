@@ -147,6 +147,34 @@ namespace BoCommisionManagement
             }
 
         }
+        public DataTable GetAgentProductWiseCommissionDetails(string agentCode, string product, string subCategory, int issueId, int adviserId, DateTime fromDate, DateTime toDate)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            try
+            {
+
+                return commisionReceivableDao.GetAgentProductWiseCommissionDetails( agentCode,  product,  subCategory,  issueId,  adviserId,  fromDate,  toDate);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "GetAgentProductWiseCommissionDetails(string agentCode, string product, string subCategory, int issueId, int adviserId, DateTime fromDate, DateTime toDate)");
+                object[] objects = new object[4];
+                objects[0] = adviserId;
+                objects[1] = agentCode;
+                objects[2] = toDate;
+                objects[3] = fromDate;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
         public DataTable GetAssociateCommissionPayout(int adviserId, string agentCode, DateTime toDate, DateTime fromDate)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
