@@ -178,11 +178,11 @@
                 Width="240px">
                 <asp:ListItem Text="All" Value="1">
                 </asp:ListItem>
-                <asp:ListItem Text="Orders exist And Allotment exist" Value="2">
+                <asp:ListItem Text="Orders Exist & Allotment Exist" Value="2">
                 </asp:ListItem>
-                <asp:ListItem Text="Orders exist And Allotment not exist" Value="3">
+                <asp:ListItem Text="Orders Exist & Allotment Not Exist" Value="3">
                 </asp:ListItem>
-                <asp:ListItem Text="Orders not exist And Allotment exist" Value="4">
+                <asp:ListItem Text="Orders Not Exist & Allotment Exist" Value="4">
                 </asp:ListItem>
             </asp:DropDownList>
         </td>
@@ -194,17 +194,14 @@
     <tr id="trBtnSubmit" runat="server">
     </tr>
 </table>
-
-
 <table width="100%">
-    <tr id="tblMessagee" runat="server" visible="true"  >
+    <tr id="tblMessagee" runat="server" visible="true">
         <td align="center">
             <div id="divMessage" align="center">
             </div>
         </td>
     </tr>
 </table>
-
 <asp:Panel ID="pnlOrderRecon" runat="server" Width="100%" Visible="false" ScrollBars="Horizontal">
     <table width="80%">
         <tr>
@@ -218,16 +215,6 @@
                     <MasterTableView AllowMultiColumnSorting="false" AllowSorting="false" DataKeyNames="COAD_Id,CFIOD_Quantity,AAC_AgentCode,C_PANNum,CO_OrderId,AIM_IssueId,CFIOD_DetailsId,AAC_AdviserAgentId,COAD_Quantity,COAD_SubBrokerCode,COAD_PAN,CO_ApplicationNumberAlloted,AllotmentDate,COAD_Id"
                         EditMode="PopUp" AutoGenerateColumns="false" Width="100%" CommandItemSettings-ShowRefreshButton="false">
                         <Columns>
-                        <telerik:GridBoundColumn DataField="AllotmentDate" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
-                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Alloted Date"
-                                UniqueName="AllotmentDate" SortExpression="AllotmentDate" AllowFiltering="true"
-                                Visible="false">
-                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                            </telerik:GridBoundColumn>
-                            
-                            
-                            
-                            
                             <telerik:GridEditCommandColumn EditText="Allotment Edit" UniqueName="editColumn"
                                 CancelText="Cancel" UpdateText="Update" HeaderStyle-Width="80px" EditImageUrl="../Images/logo6.jpg">
                             </telerik:GridEditCommandColumn>
@@ -242,14 +229,11 @@
                                 <FooterTemplate>
                                 </FooterTemplate>
                             </telerik:GridTemplateColumn>
-                            
-                             <telerik:GridBoundColumn DataField="Type" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
-                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Type"
-                                UniqueName="Type" SortExpression="Type" AllowFiltering="true"
-                                Visible="true">
+                            <telerik:GridBoundColumn DataField="Type" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Type" UniqueName="Type"
+                                SortExpression="Type" AllowFiltering="true" Visible="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            
                             <telerik:GridBoundColumn DataField="MissmatchType" AllowFiltering="true" HeaderText="MissmatchType"
                                 HeaderStyle-Width="270px" UniqueName="MissmatchType" SortExpression="MissmatchType"
                                 AutoPostBackOnFilter="false" ShowFilterIcon="false">
@@ -280,7 +264,7 @@
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Alloted Quantity"
                                 UniqueName="COAD_Quantity" SortExpression="COAD_Quantity" AllowFiltering="true"
                                 Visible="true">
-                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="issueName" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Issue Name" UniqueName="issueName"
@@ -291,6 +275,18 @@
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                 HeaderText="Alloted SubBrokerCode" UniqueName="COAD_SubBrokerCode" SortExpression="COAD_SubBrokerCode"
                                 AllowFiltering="true">
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="AllotmentDate" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Allotment Date" DataType="System.String"
+                                UniqueName="AllotmentDate" SortExpression="AllotmentDate" AllowFiltering="true"
+                                Visible="true" >
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="AllotmentOrderDate" HeaderStyle-Width="20px"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                HeaderText="Allotment Order Date" UniqueName="AllotmentOrderDate" SortExpression="AllotmentOrderDate"
+                                AllowFiltering="true" Visible="true"  >
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="COAD_PAN" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
@@ -308,7 +304,7 @@
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Order Quantity"
                                 UniqueName="CFIOD_Quantity" SortExpression="CFIOD_Quantity" AllowFiltering="true"
                                 Visible="true" HeaderStyle-ForeColor="Black">
-                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="AAC_AgentCode" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Order SubBrokerCode"
@@ -320,6 +316,11 @@
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                 HeaderText="Application Number" UniqueName="CO_ApplicationNumber" SortExpression="CO_ApplicationNumber"
                                 AllowFiltering="true" Visible="true" HeaderStyle-ForeColor="Black">
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="OrderDate" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Order Date" UniqueName="OrderDate"
+                                SortExpression="OrderDate" AllowFiltering="true" Visible="true" HeaderStyle-ForeColor="Black">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="C_PANNum" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
@@ -419,11 +420,10 @@
             <td>
                 <asp:Button ID="btnReprocess" Text="Reprocess" runat="server" CausesValidation="False"
                     CssClass="PCGButton" OnClick="btnReprocess_Click"></asp:Button>
-                    <asp:Button ID="btnBulkOrder" Text="BulkOrderGeneration" runat="server" CausesValidation="False"
+                <asp:Button ID="btnBulkOrder" Text="BulkOrderGeneration" runat="server" CausesValidation="False"
                     CssClass="PCGButton" OnClick="BulkOrderGeneration_Click"></asp:Button>
             </td>
             <td>
-                
             </td>
         </tr>
     </table>

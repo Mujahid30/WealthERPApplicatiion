@@ -443,7 +443,12 @@ namespace WealthERP.OffLineOrderManagement
             string Quantity = gvOrderRecon.MasterTableView.DataKeyValues[rowindex]["COAD_Quantity"].ToString();
             string issueId = ddlIssueName.SelectedValue;
             DateTime AllotmentDate = Convert.ToDateTime(gvOrderRecon.MasterTableView.DataKeyValues[rowindex]["AllotmentDate"].ToString());
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderEntry','FormAction=" + "NonMfRecon_OrderAdd" + "&SubBrokerCode=" + SubBrokerCode + "&PAN=" + PAN + "&ApplicationNumberAlloted=" + ApplicationNumberAlloted + "&Quantity=" + Quantity + "&issueId=" + issueId + "&AllotmentDate=" + AllotmentDate + "');", true);
+
+            string  fromDt = txtOrderFrom.SelectedDate.ToString();
+            string todt = txtOrderTo.SelectedDate.ToString();
+            string type = ddlType.SelectedValue;
+
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderEntry','FormAction=" + "NonMfRecon_OrderAdd" + "&SubBrokerCode=" + SubBrokerCode + "&PAN=" + PAN + "&ApplicationNumberAlloted=" + ApplicationNumberAlloted + "&Quantity=" + Quantity + "&issueId=" + issueId + "&AllotmentDate=" + AllotmentDate + "&fromDt=" + fromDt + "&todt=" + todt + "');", true);
 
         }
 
