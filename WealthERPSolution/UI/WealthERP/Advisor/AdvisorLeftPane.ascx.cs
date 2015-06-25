@@ -563,6 +563,10 @@ namespace WealthERP.Advisor
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerUploadNew','login');", true);
                 }
 
+                else if (e.Item.Value == "View_Received_Commission_Report")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('BulkRequestStatus','IsRecevableReport="+"1"+"');", true);
+                }
                 else if (e.Item.Value == "View_Associate_Payout_Report")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('BulkRequestStatus','IsRecevableReport="+"0"+"');", true);
@@ -1869,9 +1873,13 @@ namespace WealthERP.Advisor
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerUploadNew','login');", true);
                 }
 
+                else if (e.Item.Value == "View_Received_Commission_Report")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('BulkRequestStatus','IsRecevableReport=" + "1" + "');", true);
+                }
                 else if (e.Item.Value == "View_Associate_Payout_Report")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('BulkRequestStatus','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('BulkRequestStatus','IsRecevableReport=" + "0" + "');", true);
                 }
                 else if (e.Item.Value == "Add_Staff_Offline")
                 {

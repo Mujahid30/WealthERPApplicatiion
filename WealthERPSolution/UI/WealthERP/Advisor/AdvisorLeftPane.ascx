@@ -379,6 +379,8 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Brokerage Recon" Value="Brokerage_Recon">
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="View Received  Commission Report" Value="View_Received_Commission_Report">
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View Associate Payout Report" Value="View_Associate_Payout_Report">
                                             </telerik:RadPanelItem>
                                         </Items>
@@ -1122,6 +1124,8 @@
                                             <telerik:RadPanelItem runat="server" Text="Payable Structure Setup" Value="Payable_Structure_Setup">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Brokerage Recon" Value="Brokerage_Recon">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="View Received  Commission Report" Value="View_Received_Commission_Report">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View Associate Payout Report" Value="View_Associate_Payout_Report">
                                             </telerik:RadPanelItem>
