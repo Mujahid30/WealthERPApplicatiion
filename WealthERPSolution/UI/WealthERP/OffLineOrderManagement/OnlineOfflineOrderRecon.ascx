@@ -39,7 +39,7 @@
         for (var i = 0; i < inputTypes.length; i++) {
             //if the input type is a checkbox and the id of it is what we set above
             //then check or uncheck according to the main checkbox in the header template
-            if (inputTypes[i].type == 'checkbox' && inputTypes[i].id.indexOf(gvChkBoxControl, 0) >= 0)
+            if (inputTypes[i].type == 'checkbox' && inputTypes[i].id.indexOf(gvChkBoxControl, 0) >= 0 && (!inputTypes[i].disabled))
                 inputTypes[i].checked = mainChkBox.checked;
         }
     }
@@ -212,19 +212,19 @@
                     Skin="Telerik" AllowFilteringByColumn="true" OnItemDataBound="gvOrderRecon_ItemDataBound"
                     OnNeedDataSource="gvOrderRecon_OnNeedDataSource" OnItemCommand="gvOrderRecon_OnItemCommand"
                     OnItemCreated="gvOrderRecon_ItemCreated" OnPreRender="gvOrderRecon_PreRender">
-                    <MasterTableView AllowMultiColumnSorting="false" AllowSorting="false" DataKeyNames="COAD_Id,CFIOD_Quantity,AAC_AgentCode,C_PANNum,CO_OrderId,AIM_IssueId,CFIOD_DetailsId,AAC_AdviserAgentId,COAD_Quantity,COAD_SubBrokerCode,COAD_PAN,CO_ApplicationNumberAlloted,AllotmentDate,COAD_Id"
+                    <MasterTableView AllowMultiColumnSorting="false" AllowSorting="false" DataKeyNames="COAD_Id,CFIOD_Quantity,AAC_AgentCode,C_PANNum,CO_OrderId,AIM_IssueId,CFIOD_DetailsId,AAC_AdviserAgentId,COAD_Quantity,COAD_SubBrokerCode,COAD_PAN,CO_ApplicationNumberAlloted,AllotmentDate,COAD_Id,AllotmentOROrderDate"
                         EditMode="PopUp" AutoGenerateColumns="false" Width="100%" CommandItemSettings-ShowRefreshButton="false">
                         <Columns>
                             <telerik:GridEditCommandColumn EditText="Allotment Edit" UniqueName="editColumn"
                                 CancelText="Cancel" UpdateText="Update" HeaderStyle-Width="80px" EditImageUrl="../Images/logo6.jpg">
                             </telerik:GridEditCommandColumn>
-                            <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action"
+                            <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="IsValid"
                                 HeaderStyle-Width="70px">
                                 <HeaderTemplate>
                                     <input id="chkIdAll" name="chkIdAll" type="checkbox" onclick="checkAllBoxes()" />
                                 </HeaderTemplate>
                                 <ItemTemplate>
-                                    <asp:CheckBox ID="chkId" runat="server" />
+                                    <asp:CheckBox ID="chkId" Enabled='<%# Bind("IsValid") %>' runat="server" />
                                 </ItemTemplate>
                                 <FooterTemplate>
                                 </FooterTemplate>
@@ -232,6 +232,12 @@
                             <telerik:GridBoundColumn DataField="Type" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Type" UniqueName="Type"
                                 SortExpression="Type" AllowFiltering="true" Visible="true">
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="IsValidPanSubbrokerCode" HeaderStyle-Width="20px"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                HeaderText="IsValidPanSubbrokerCode" UniqueName="IsValidPanSubbrokerCode" SortExpression="IsValidPanSubbrokerCode"
+                                AllowFiltering="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="MissmatchType" AllowFiltering="true" HeaderText="MissmatchType"
@@ -278,15 +284,15 @@
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="AllotmentDate" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
-                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Allotment Date" DataType="System.String"
-                                UniqueName="AllotmentDate" SortExpression="AllotmentDate" AllowFiltering="true"
-                                Visible="true" >
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Allotment Date"
+                                DataType="System.String" UniqueName="AllotmentDate" SortExpression="AllotmentDate"
+                                AllowFiltering="true" Visible="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="AllotmentOrderDate" HeaderStyle-Width="20px"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                 HeaderText="Allotment Order Date" UniqueName="AllotmentOrderDate" SortExpression="AllotmentOrderDate"
-                                AllowFiltering="true" Visible="true"  >
+                                AllowFiltering="true" Visible="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="COAD_PAN" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
@@ -326,6 +332,12 @@
                             <telerik:GridBoundColumn DataField="C_PANNum" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Order PAN" UniqueName="C_PANNum"
                                 SortExpression="C_PANNum" AllowFiltering="true" HeaderStyle-ForeColor="Black">
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="InvestorName" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="InvestorName"
+                                UniqueName="InvestorName" SortExpression="InvestorName" AllowFiltering="true"
+                                HeaderStyle-ForeColor="Black">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="WOS_OrderStep" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
@@ -379,10 +391,10 @@
                                     </tr>
                                     <tr>
                                         <td align="right">
-                                            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Application No."></asp:Label>
+                                            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Application No.">  </asp:Label>
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="txtApplicationNo" runat="server" CssClass="txtField"></asp:TextBox>
+                                            <asp:TextBox ID="txtApplicationNo" runat="server" CssClass="txtField" Text='<%# Bind("CO_ApplicationNumberAlloted") %>'> </asp:TextBox>
                                         </td>
                                     </tr>
                                     <tr>
@@ -390,7 +402,7 @@
                                             <asp:Label ID="lblPan" runat="server" CssClass="FieldName" Text="Alloted PAN"></asp:Label>
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="txtPAN" runat="server" CssClass="txtField" Text='<%# Bind("COAD_PAN") %>'></asp:TextBox>
+                                            <asp:TextBox ID="txtPAN" runat="server" CssClass="txtField"></asp:TextBox>
                                         </td>
                                     </tr>
                                     <tr>
@@ -523,7 +535,7 @@
                                     <asp:Label ID="lblPAN" runat="server" CssClass="FieldName" Text="Order PAN"></asp:Label>
                                 </td>
                                 <td>
-                                    <asp:TextBox ID="txtPAN" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox>
+                                    <asp:TextBox ID="txtPAN" runat="server" CssClass="txtField" Enabled="true"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>

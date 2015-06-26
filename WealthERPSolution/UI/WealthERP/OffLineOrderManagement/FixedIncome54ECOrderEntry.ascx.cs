@@ -225,7 +225,7 @@ namespace WealthERP.OffLineOrderManagement
                         ddlPaymentMode.SelectedValue = "CQ";
                         PaymentMode(ddlPaymentMode.SelectedValue);
                         txtPaymentNumber.Text = "99999";
-                       // txtPaymentInstDate.SelectedDate = Convert.ToDateTime(Request.QueryString["AllotmentDate"].ToString());
+                        // txtPaymentInstDate.SelectedDate = Convert.ToDateTime(Request.QueryString["AllotmentDate"].ToString());
                         ddlBankName.SelectedValue = "7016";
                         lnkBtnReconBack.Visible = true;
                     }
@@ -648,7 +648,7 @@ namespace WealthERP.OffLineOrderManagement
 
         private void DDLSchemeSelection()
         {
-            if (ddlScheme.SelectedValue != "Select" && ddlScheme.SelectedValue!=string.Empty)
+            if (ddlScheme.SelectedValue != "Select" && ddlScheme.SelectedValue != string.Empty)
                 FISeries(Convert.ToInt32(ddlScheme.SelectedValue));
 
 
@@ -1270,9 +1270,9 @@ namespace WealthERP.OffLineOrderManagement
         {
             if (lblMaxQuentity.Text == string.Empty)
                 return;
-                if (lblMinQuentity.Text == string.Empty)
+            if (lblMinQuentity.Text == string.Empty)
                 return;
-        
+
             if (!string.IsNullOrEmpty(txtQty.Text))
             {
                 if ((Convert.ToInt32(txtQty.Text) <= Convert.ToInt32(lblMaxQuentity.Text)) && (Convert.ToInt32(txtQty.Text) >= Convert.ToInt32(lblMinQuentity.Text)))
@@ -1556,10 +1556,29 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void lnkBtnReconBack_Click(object sender, EventArgs e)
         {
-  
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineOfflineOrderRecon','login');", true);
+            int issueId=0;
+            string fromDt = "";
+            string todt = "";
+            string type = "";
 
+            if (Request.QueryString["FormAction"] != null)
+            {
+                if (Request.QueryString["FormAction"].Trim() == "NonMfRecon_OrderAdd")
+                {
+
+                    issueId = Convert.ToInt32(Request.QueryString["issueId"].ToString());
+                    fromDt = Request.QueryString["fromDt"].ToString();
+                    todt = Request.QueryString["todt"].ToString();
+                    type = Request.QueryString["type"].ToString();
+
+                }
             }
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineOfflineOrderRecon','FormAction=" + "54ECOrder_Back" + "&issueId=" + issueId + "&fromDt=" + fromDt + "&todt=" + todt + "&type=" + type + "');", true);
+
+
+            // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineOfflineOrderRecon','FormAction="+"54ECOrder_Back"+"');", true);
+
+        }
 
         protected void lnkBtnDemat_onClick(object sender, EventArgs e)
         {
@@ -4774,7 +4793,7 @@ namespace WealthERP.OffLineOrderManagement
                     txtPaymentInstDate.SelectedDate = dtMinDate;
                 }
             }
-           
+
         }
         protected void txtPaymentInstDate_SelectedDateChanged(object sender, Telerik.Web.UI.Calendar.SelectedDateChangedEventArgs e)
         {

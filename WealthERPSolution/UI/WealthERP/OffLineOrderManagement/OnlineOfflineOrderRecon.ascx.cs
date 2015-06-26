@@ -41,6 +41,33 @@ namespace WealthERP.OffLineOrderManagement
                     AutoCompleteExtender2_txtOrderSubbrokerCode.ServiceMethod = "GetAgentCodeAssociateDetails";
 
                 }
+
+                if (Request.QueryString["FormAction"] != null)
+                {
+                    if (Request.QueryString["FormAction"].Trim() == "54ECOrder_Back")
+                    {
+                        string issueId;
+                        string fromDt = "";
+                        string todt = "";
+                        string type = "";
+
+                        issueId = Request.QueryString["issueId"].ToString();
+                        fromDt = Request.QueryString["fromDt"].ToString();
+                        todt = Request.QueryString["todt"].ToString();
+                        type = Request.QueryString["type"].ToString();
+
+                        ddlProduct.SelectedValue = "Bonds";
+                        BindNcdCategory();
+                        ddlCategory.SelectedValue = "FICGCG";
+                        BindIssueName(ddlCategory.SelectedValue);
+                        ddlIssueName.SelectedValue = issueId;
+                        txtOrderFrom.SelectedDate = Convert.ToDateTime(fromDt); ;
+                        txtOrderTo.SelectedDate = Convert.ToDateTime(todt);
+
+                        BindOrderMissMatchDetails();
+                    }
+                }
+
                 //if (Request.QueryString["product"] != null)
                 //{
                 //    ddlProduct.SelectedValue = Request.QueryString["product"].ToString();
@@ -272,12 +299,19 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void gvOrderRecon_ItemDataBound(object sender, GridItemEventArgs e)
         {
+
             if (e.Item is GridDataItem)
             {
-                // GridDataItem item = e.Item as GridDataItem;
 
-                // LinkButton lnkMatch = (LinkButton)item.FindControl("lnkMatch");
-                // LinkButton lnkOrderEntry = (LinkButton)item.FindControl("lnkOrderEntry");
+                //GridDataItem item = e.Item as GridDataItem;
+
+                //TextBox txtApplicationNo = (TextBox)item.FindControl("txtApplicationNo");
+                //if (ddlType.SelectedValue == "2")
+                //    txtApplicationNo.ReadOnly = false;
+                //else
+                //    txtApplicationNo.ReadOnly = true;
+
+                //   LinkButton lnkOrderEntry = (LinkButton)item.FindControl("lnkOrderEntry");
 
                 // lnkMatch.Visible = false;
                 // lnkOrderEntry.Visible = false;
@@ -320,6 +354,15 @@ namespace WealthERP.OffLineOrderManagement
 
                 //}
 
+            }
+            if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode) && e.Item.ItemIndex != -1)
+            {
+                GridEditFormItem editform = (GridEditFormItem)e.Item;
+                TextBox txtApplicationNo = (TextBox)editform.FindControl("txtApplicationNo");
+                if (ddlType.SelectedValue == "2")
+                    txtApplicationNo.Enabled = false;
+                else
+                    txtApplicationNo.Enabled = true;
             }
             if (e.Item is GridEditFormItem && e.Item.IsInEditMode)
             {
@@ -393,6 +436,7 @@ namespace WealthERP.OffLineOrderManagement
                 }
 
             }
+
             BindOrderMissMatchDetails();
             //  BindOrderMatchDetails();
 
@@ -442,13 +486,13 @@ namespace WealthERP.OffLineOrderManagement
             string ApplicationNumberAlloted = gvOrderRecon.MasterTableView.DataKeyValues[rowindex]["CO_ApplicationNumberAlloted"].ToString();
             string Quantity = gvOrderRecon.MasterTableView.DataKeyValues[rowindex]["COAD_Quantity"].ToString();
             string issueId = ddlIssueName.SelectedValue;
-            DateTime AllotmentDate = Convert.ToDateTime(gvOrderRecon.MasterTableView.DataKeyValues[rowindex]["AllotmentDate"].ToString());
+            DateTime AllotmentDate = Convert.ToDateTime(gvOrderRecon.MasterTableView.DataKeyValues[rowindex]["AllotmentOROrderDate"].ToString());
 
-            string  fromDt = txtOrderFrom.SelectedDate.ToString();
+            string fromDt = txtOrderFrom.SelectedDate.ToString();
             string todt = txtOrderTo.SelectedDate.ToString();
             string type = ddlType.SelectedValue;
 
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderEntry','FormAction=" + "NonMfRecon_OrderAdd" + "&SubBrokerCode=" + SubBrokerCode + "&PAN=" + PAN + "&ApplicationNumberAlloted=" + ApplicationNumberAlloted + "&Quantity=" + Quantity + "&issueId=" + issueId + "&AllotmentDate=" + AllotmentDate + "&fromDt=" + fromDt + "&todt=" + todt + "');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderEntry','FormAction=" + "NonMfRecon_OrderAdd" + "&SubBrokerCode=" + SubBrokerCode + "&PAN=" + PAN + "&ApplicationNumberAlloted=" + ApplicationNumberAlloted + "&Quantity=" + Quantity + "&issueId=" + issueId + "&AllotmentDate=" + AllotmentDate + "&fromDt=" + fromDt + "&todt=" + todt + "&type=" + type + "');", true);
 
         }
 
