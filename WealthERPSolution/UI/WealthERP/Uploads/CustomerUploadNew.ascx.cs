@@ -559,6 +559,7 @@ namespace WealthERP.Uploads
                 DateTime? bulkPaybleDate = DateTime.MinValue;
                 DateTime? bulkReceivedDate = DateTime.MinValue;
                 CheckBox checkBox = (CheckBox)dr.FindControl("Ranjan");
+                decimal rtaAmount=0; 
                 if (checkBox.Checked == true)
                 {
                     i = i + 1;
@@ -591,16 +592,20 @@ namespace WealthERP.Uploads
                     {
                         bulkPaybleDate = rdpBulkPayableDate.SelectedDate;
                     }
-
+                    
                     int selectedRow = 0;
                     GridDataItem gdi;
                     gdi = (GridDataItem)checkBox.NamingContainer;
                     selectedRow = gdi.ItemIndex;
+                    if(chkBulkReceived.Checked)
+                    {
+                    rtaAmount=decimal.Parse((gvbrokerageRecon.MasterTableView.DataKeyValues[selectedRow]["RTABrokerageAmt"].ToString()));
+                    }
                     id = int.Parse((gvbrokerageRecon.MasterTableView.DataKeyValues[selectedRow]["WCD_Id"].ToString()));
 
                     blResult = adviserMFMIS.UpdateActualPayAndRec(id, ActPay, ActRec, paybleDate, receivedDate, IsPayLocked,
                         IsRecLocked, chkBulkPayble.Checked,
-                        chkBulkReceived.Checked, chkBulkReceivedSys.Checked, bulkReceivedDate, bulkPaybleDate);
+                        rtaAmount, chkBulkReceivedSys.Checked, bulkReceivedDate, bulkPaybleDate);
 
                 }
 

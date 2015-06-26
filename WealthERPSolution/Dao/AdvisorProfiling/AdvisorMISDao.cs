@@ -2868,7 +2868,7 @@ namespace DaoAdvisorProfiling
             return dsGetCommissionReconMis;
         }
 
-        public bool UpdateActualPayAndRec(int id, decimal ActPay, decimal ActRec, DateTime? paybleDate, DateTime? receivedDate, bool IsPayLocked, bool IsRecLocked, bool IsBulkPayble, bool isBulkReceived,bool bulkReceivedSys,DateTime? bulkReceivedDate,DateTime? bulkPaybleDate)
+        public bool UpdateActualPayAndRec(int id, decimal ActPay, decimal ActRec, DateTime? paybleDate, DateTime? receivedDate, bool IsPayLocked, bool IsRecLocked, bool IsBulkPayble, decimal rtaAmount, bool bulkReceivedSys, DateTime? bulkReceivedDate, DateTime? bulkPaybleDate)
         {
             Database db;
             DataSet ds;
@@ -2894,7 +2894,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(cmdUpdateActualPayAndRec, "@IsPayLocked", DbType.Boolean, IsPayLocked);
                 db.AddInParameter(cmdUpdateActualPayAndRec, "@IsRecLocked", DbType.Boolean, IsRecLocked);
                 db.AddInParameter(cmdUpdateActualPayAndRec, "@IsBulkPayble", DbType.Boolean, IsBulkPayble);
-                db.AddInParameter(cmdUpdateActualPayAndRec, "@isBulkReceived", DbType.Boolean, isBulkReceived);
+                db.AddInParameter(cmdUpdateActualPayAndRec, "@RTAAmount", DbType.Decimal, rtaAmount);
                 db.AddInParameter(cmdUpdateActualPayAndRec, "@BulkReceivedSys", DbType.Boolean, bulkReceivedSys);
                 if (bulkReceivedDate != DateTime.MinValue)
                     db.AddInParameter(cmdUpdateActualPayAndRec, "@BulkReceivedDate", DbType.DateTime, bulkReceivedDate);
