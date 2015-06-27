@@ -626,6 +626,7 @@ namespace WealthERP.UploadBackOffice
          protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvReceivable;
          protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvAssocicateReport;
          protected global::System.Web.UI.WebControls.ImageButton IbReceibaleReport;
+         protected global::System.Web.UI.WebControls.CheckBox cbIsDummyAgent;
 
     }
 }

@@ -179,13 +179,13 @@ namespace BoCommisionManagement
                  throw exBase;
              }
         }
-        public DataTable GetAgentProductWiseCommissionDetails(string agentCode, string product, string subCategory, int issueId, int adviserId, DateTime fromDate, DateTime toDate)
+        public DataTable GetAgentProductWiseCommissionDetails(string agentCode, string product, string subCategory, int issueId, int adviserId, DateTime Date, string CommissionType)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
             try
             {
 
-                return commisionReceivableDao.GetAgentProductWiseCommissionDetails( agentCode,  product,  subCategory,  issueId,  adviserId,  fromDate,  toDate);
+                return commisionReceivableDao.GetAgentProductWiseCommissionDetails(agentCode, product, subCategory, issueId, adviserId, Date, CommissionType);
             }
             catch (BaseApplicationException Ex)
             {
@@ -199,21 +199,20 @@ namespace BoCommisionManagement
                 object[] objects = new object[4];
                 objects[0] = adviserId;
                 objects[1] = agentCode;
-                objects[2] = toDate;
-                objects[3] = fromDate;
+               
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
         }
-        public DataTable GetAssociateCommissionPayout(int adviserId, string agentCode, DateTime toDate, DateTime fromDate)
+        public DataTable GetAssociateCommissionPayout(int adviserId, string agentCode, DateTime toDate, DateTime fromDate,Boolean IsDummyAgent)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
             try
             {
 
-                return commisionReceivableDao.GetAssociateCommissionPayout(adviserId, agentCode, toDate, fromDate);
+                return commisionReceivableDao.GetAssociateCommissionPayout(adviserId, agentCode, toDate, fromDate, IsDummyAgent);
             }
             catch (BaseApplicationException Ex)
             {

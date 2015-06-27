@@ -1950,7 +1950,7 @@ namespace DaoCommisionManagement
             }
             return dsGetSeriesCategories;
         }
-        public DataTable GetAssociateCommissionPayout(int adviserId, string agentCode,DateTime toDate,DateTime fromDate)
+        public DataTable GetAssociateCommissionPayout(int adviserId, string agentCode,DateTime toDate,DateTime fromDate,Boolean IsDummyAgent)
         {
             DataSet dsGetAssociateCommissionPayout;
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -1964,7 +1964,7 @@ namespace DaoCommisionManagement
                     db.AddInParameter(dbCommand, "@AgentCode", DbType.String, agentCode);                
                 db.AddInParameter(dbCommand, "@ToDate", DbType.Date, toDate);
                 db.AddInParameter(dbCommand, "@FromDate", DbType.Date, fromDate);
-
+                db.AddInParameter(dbCommand, "@IsDummyAgent", DbType.Boolean, IsDummyAgent);
                 dsGetAssociateCommissionPayout = db.ExecuteDataSet(dbCommand);
             }
             catch (BaseApplicationException Ex)
@@ -1988,7 +1988,7 @@ namespace DaoCommisionManagement
             }
             return dsGetAssociateCommissionPayout.Tables[0];
         }
-        public DataTable GetAgentProductWiseCommissionDetails(string agentCode,string product,string subCategory,int issueId,int adviserId,DateTime fromDate,DateTime toDate )
+        public DataTable GetAgentProductWiseCommissionDetails(string agentCode, string product, string subCategory, int issueId, int adviserId, DateTime Date, string CommissionType)
         {
             Database db;
             DbCommand cmdGetAgentProductWiseCommissionDetails;
@@ -2002,8 +2002,8 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdGetAgentProductWiseCommissionDetails, "@subCategory", DbType.String, subCategory);
                 db.AddInParameter(cmdGetAgentProductWiseCommissionDetails, "@issueId", DbType.Int32, issueId);
                 db.AddInParameter(cmdGetAgentProductWiseCommissionDetails, "@adviserId", DbType.Int32, adviserId);
-                db.AddInParameter(cmdGetAgentProductWiseCommissionDetails, "@fromDate", DbType.Date, fromDate);
-                db.AddInParameter(cmdGetAgentProductWiseCommissionDetails, "@toDate", DbType.Date, toDate);
+                db.AddInParameter(cmdGetAgentProductWiseCommissionDetails, "@Date", DbType.Date, Date);
+                db.AddInParameter(cmdGetAgentProductWiseCommissionDetails, "@CommissionType", DbType.String, CommissionType);
                 dtAgentCommissionDetails = db.ExecuteDataSet(cmdGetAgentProductWiseCommissionDetails).Tables[0];
             }
 
@@ -2019,8 +2019,7 @@ namespace DaoCommisionManagement
                 object[] objects = new object[4];
                 objects[0] = adviserId;
                 objects[1] = agentCode;
-                objects[2] = toDate;
-                objects[3] = fromDate;
+               
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
