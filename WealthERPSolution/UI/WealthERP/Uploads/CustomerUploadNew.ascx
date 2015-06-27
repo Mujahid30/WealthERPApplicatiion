@@ -78,15 +78,15 @@
 <script>
     function toggle_visibility(id1, id2, id3) {
         var e1 = document.getElementById("ctrl_CustomerUploadNew_" + id1);
-        var e2 = document.getElementById("ctrl_CustomerUploadNew_" + id2);
+        var e2 = document.getElementById("ctrl_CustomerUploadNew_" + id2+"_wrapper");
         var e3 = document.getElementById("ctrl_CustomerUploadNew_" + id3);
-        e2.style.visibility = 'hidden';
+        e2.style.visibility = "hidden";
         e3.style.visibility = "hidden";
         e3.enabled = false;
         if (e1.checked) {
             e3.style.visibility = "visible";
             e3.enabled = true;
-            e2.style.visibility = 'visible';
+            e2.style.visibility = "visible";
         }
     }
     function toggle_visibility1(id1, id2) {
@@ -315,7 +315,7 @@
         AllowAutomaticInserts="false" OnNeedDataSource="gvbrokerageRecon_OnNeedDataSource">
         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="Brokerage Reconciliation">
         </ExportSettings>
-        <MasterTableView Width="1000px" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+        <MasterTableView Width="1200px" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
             CommandItemDisplay="None" EditMode="PopUp" DataKeyNames="WCD_Id,IsRecLocked,IsPayLocked,RTABrokerageAmt">
             <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                 ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
@@ -328,9 +328,6 @@
                     <ItemTemplate>
                         <asp:CheckBox ID="Ranjan" runat="server" />
                     </ItemTemplate>
-                    <FooterTemplate>
-                        <%--  --%>
-                    </FooterTemplate>
                 </telerik:GridTemplateColumn>
                 <telerik:GridBoundColumn AllowFiltering="true" DataField="CO_ApplicationNumber" AutoPostBackOnFilter="true"
                     HeaderText="Application Number" ShowFilterIcon="false" CurrentFilterFunction="Contains"
@@ -344,23 +341,30 @@
                     HeaderStyle-Width="290px">
                     <ItemStyle Wrap="false" Width="290px" HorizontalAlign="Left" />
                 </telerik:GridBoundColumn>
+                   <telerik:GridBoundColumn AllowFiltering="true" DataField="WCD_BrokerName" AutoPostBackOnFilter="true"
+                    HeaderText="Broker Name" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    UniqueName="WCD_BrokerName" SortExpression="WCD_BrokerName" FooterStyle-HorizontalAlign="Right"
+                    HeaderStyle-Width="200px">
+                    <ItemStyle Wrap="false" Width="200px" HorizontalAlign="Left" />
+                </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn AllowFiltering="true" DataField="WCD_CustomerName" AutoPostBackOnFilter="true"
                     HeaderText="Customer Name" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     UniqueName="WCD_CustomerName" SortExpression="WCD_CustomerName" FooterStyle-HorizontalAlign="Right"
-                    HeaderStyle-Width="150px">
-                    <ItemStyle Wrap="false" Width="150px" HorizontalAlign="Left" />
+                    HeaderStyle-Width="200px">
+                    <ItemStyle Wrap="false" Width="200px" HorizontalAlign="Left" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn AllowFiltering="true" DataField="AA_ContactPersonName" AutoPostBackOnFilter="true"
                     HeaderText="Associate Name" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     UniqueName="AA_ContactPersonName" SortExpression="AA_ContactPersonName" FooterStyle-HorizontalAlign="Right"
-                    HeaderStyle-Width="90px">
-                    <ItemStyle Wrap="false" Width="" HorizontalAlign="Left" />
+                    HeaderStyle-Width="200px">
+                    <ItemStyle Wrap="false" Width="200px" HorizontalAlign="Left" />
                 </telerik:GridBoundColumn>
+                
                 <telerik:GridBoundColumn AllowFiltering="true" DataField="AAC_AgentCode" AutoPostBackOnFilter="true"
                     HeaderText="Agent Code" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     UniqueName="AAC_AgentCode" SortExpression="AAC_AgentCode" FooterStyle-HorizontalAlign="Right"
                     HeaderStyle-Width="90px">
-                    <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                    <ItemStyle Wrap="false" Width="" HorizontalAlign="Left" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn AllowFiltering="true" DataField="CommissionType" AutoPostBackOnFilter="true"
                     HeaderText="Brokerage Type" ShowFilterIcon="false" CurrentFilterFunction="Contains"
@@ -405,7 +409,7 @@
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
                 <telerik:GridTemplateColumn AllowFiltering="true" UniqueName="IsRecLocked" DataField="IsRecLocked"
-                    HeaderStyle-Width="70px" HeaderText="Lock Received">
+                    HeaderStyle-Width="100px" HeaderText="Lock Received">
                     <ItemTemplate>
                         <asp:CheckBox ID="chkIdRec" runat="server" Checked='<%# Bind("IsRecLocked") %>' OnClick="return validation();" />
                     </ItemTemplate>
@@ -453,7 +457,7 @@
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
                 <telerik:GridTemplateColumn AllowFiltering="false" HeaderText="lock Payout" UniqueName="IsPayLocked"
-                    DataField="IsPayLocked" HeaderStyle-Width="70px">
+                    DataField="IsPayLocked" HeaderStyle-Width="100px">
                     <ItemTemplate>
                         <asp:CheckBox ID="chkIdPay" Checked='<%# Bind("IsPayLocked") %>' OnClick="return validation();"
                             runat="server" />
@@ -507,7 +511,7 @@
                 runat="server" />
         </td>
         <td>
-            <telerik:RadDatePicker ID="rdpBulkReceivedDate" runat="server">
+            <telerik:RadDatePicker ID="rdpBulkReceivedDate" DateInput-EmptyMessage="Please Select a Date" MinDate="01/01/1000" MaxDate="01/01/3000" Label="Received Date" CssClass="calender" runat="server">
             </telerik:RadDatePicker>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="rdpBulkReceivedDate"
                 ErrorMessage="<br />Please Select a Date" Display="Dynamic" runat="server" Enabled="false"
@@ -517,7 +521,7 @@
                 Type="Date">
             </asp:CompareValidator>
             <br />
-            <telerik:RadDatePicker ID="rdpBulkPayableDate" runat="server">
+            <telerik:RadDatePicker ID="rdpBulkPayableDate"  Label="Payable Date" DateInput-EmptyMessage="Please Select a Date" MinDate="01/01/1000" MaxDate="01/01/3000" CssClass="calender" runat="server">
             </telerik:RadDatePicker>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="rdpBulkPayableDate"
                 ErrorMessage="<br />Please Select a Date" Display="Dynamic" runat="server" Enabled="false"

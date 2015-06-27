@@ -407,7 +407,11 @@ namespace WealthERP.Uploads
                 }
                 Cache.Insert("gvbrokerageRecon" + userVo.UserId.ToString(), ds.Tables[0]);
 
-
+                chkBulkReceivedSys.Checked = false;
+                chkBulkReceived.Checked = false;
+                chkBulkPayble.Checked = false;
+                chkBulkPayableDate.Checked = false;
+                chkBulkReceivedDate.Checked = false;
             }
 
         }
@@ -443,6 +447,7 @@ namespace WealthERP.Uploads
                 DropDownList ddlIsRecLocked = new DropDownList();
                 ddlIsRecLocked.AutoPostBack = true;
                 ddlIsRecLocked.CssClass = "cmbField";
+                ddlIsRecLocked.Width = 80;
                 ddlIsRecLocked.SelectedIndexChanged += new System.EventHandler(ddlIsRecLocked_SelectedIndexChanged);
                 ddlIsRecLocked.Items.Add(new ListItem("Show all", "2"));
                 ddlIsRecLocked.Items.Add(new ListItem("Checked", "1"));
@@ -459,6 +464,7 @@ namespace WealthERP.Uploads
                 DropDownList ddlIsPayLocked = new DropDownList();
                 ddlIsPayLocked.AutoPostBack = true;
                 ddlIsPayLocked.CssClass = "cmbField";
+                ddlIsPayLocked.Width = 80;
                 ddlIsPayLocked.SelectedIndexChanged += new System.EventHandler(ddlIsPayLocked_SelectedIndexChanged);
                 ddlIsPayLocked.Items.Add(new ListItem("Show all", "2"));
                 ddlIsPayLocked.Items.Add(new ListItem("Checked", "1"));
@@ -612,13 +618,11 @@ namespace WealthERP.Uploads
             }
 
             BindGrid();
-            chkBulkReceivedSys.Checked = false;
-            chkBulkReceived.Checked = false;
-            chkBulkPayble.Checked = false;
-            chkBulkPayableDate.Checked = false;
-            chkBulkReceivedDate.Checked = false;
+           
             if (i > 0)
                 ShowMessage("Updated Successfully", "S");
+            else
+                ShowMessage("Select a record to update.", "F");
         }
         protected void btnExportFilteredDupData_OnClick(object sender, ImageClickEventArgs e)
         {
