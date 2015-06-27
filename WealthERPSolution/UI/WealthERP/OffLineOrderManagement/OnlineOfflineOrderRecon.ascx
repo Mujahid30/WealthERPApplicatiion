@@ -178,11 +178,13 @@
                 Width="240px">
                 <asp:ListItem Text="All" Value="1">
                 </asp:ListItem>
-                <asp:ListItem Text="Orders Exist & Allotment Exist" Value="2">
+                <asp:ListItem Text="Orders Exist & Allotment Exist(Accepted)" Value="2">
                 </asp:ListItem>
                 <asp:ListItem Text="Orders Exist & Allotment Not Exist" Value="3">
                 </asp:ListItem>
                 <asp:ListItem Text="Orders Not Exist & Allotment Exist" Value="4">
+                </asp:ListItem>                 
+                 <asp:ListItem Text="Orders Exist & Allotment Exist(Partial Match)" Value="5">
                 </asp:ListItem>
             </asp:DropDownList>
         </td>
@@ -237,7 +239,7 @@
                             <telerik:GridBoundColumn DataField="IsValidPanSubbrokerCode" HeaderStyle-Width="20px"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                 HeaderText="IsValidPanSubbrokerCode" UniqueName="IsValidPanSubbrokerCode" SortExpression="IsValidPanSubbrokerCode"
-                                AllowFiltering="true">
+                                AllowFiltering="true" Visible="false">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="MissmatchType" AllowFiltering="true" HeaderText="MissmatchType"
@@ -402,7 +404,7 @@
                                             <asp:Label ID="lblPan" runat="server" CssClass="FieldName" Text="Alloted PAN"></asp:Label>
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="txtPAN" runat="server" CssClass="txtField"></asp:TextBox>
+                                            <asp:TextBox ID="txtPAN" runat="server" CssClass="txtField"  Text='<%# Bind("COAD_PAN") %>'></asp:TextBox>
                                         </td>
                                     </tr>
                                     <tr>

@@ -199,6 +199,7 @@ namespace WealthERP.OffLineOrderManagement
                     {
                         int agentId = 0;
                         string issueId = "0";
+                        btnImgAddCustomer.Visible = true;
                         ddlsearch.SelectedValue = "2";
                         ddlsearch_Selectedindexchanged(null, new EventArgs());
                         txtApplicationNumber.Text = Request.QueryString["ApplicationNumberAlloted"].ToString();
@@ -1556,7 +1557,7 @@ namespace WealthERP.OffLineOrderManagement
 
         protected void lnkBtnReconBack_Click(object sender, EventArgs e)
         {
-            int issueId=0;
+            int issueId = 0;
             string fromDt = "";
             string todt = "";
             string type = "";
@@ -4648,14 +4649,22 @@ namespace WealthERP.OffLineOrderManagement
             Session["customerVo"] = customerVo;
             lblGetBranch.Text = customerVo.BranchName;
             lblgetPan.Text = customerVo.PANNum;
-            ddlsearch.SelectedValue = "1";
-            trCust.Visible = true;
+            if (ddlsearch.SelectedValue == "2")
+            {
+                trCust.Visible = false;
+                trpan.Visible = true;
+                txtPansearch.Text = lblgetPan.Text;
+                lblgetcust.Text = customerVo.FirstName + ' ' + customerVo.MiddleName + ' ' + customerVo.LastName;
+            }
+            else if (ddlsearch.SelectedValue == "1")
+            {
+                trCust.Visible = true;
+                trpan.Visible = false;
+            }
             txtCustomerName.Text = customerVo.FirstName + ' ' + customerVo.MiddleName + ' ' + customerVo.LastName;
             customerId = int.Parse(txtCustomerId.Value);
-            //if (ddlsearch.SelectedItem.Value == "2")
-            //    lblgetcust.Text = customerVo.FirstName + ' ' + customerVo.MiddleName + ' ' + customerVo.LastName;
             OnTaxStatus();
-            //ddlTax.SelectedValue = int.Parse(customerVo.TaxStatusCustomerSubTypeId.ToString());
+
             GetDematAccountDetails(int.Parse(txtCustomerId.Value));
             Panel1.Visible = true;
             hdnPortfolioId.Value = customerPortfolioVo.PortfolioId.ToString();

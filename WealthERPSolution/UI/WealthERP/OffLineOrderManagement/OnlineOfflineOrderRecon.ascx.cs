@@ -214,9 +214,15 @@ namespace WealthERP.OffLineOrderManagement
             {
                 gvOrderRecon.MasterTableView.GetColumn("action").Visible = true;
                 gvOrderRecon.MasterTableView.GetColumn("AddOrder").Visible = true;
+                gvOrderRecon.MasterTableView.GetColumn("editColumn").Visible = false;
+
+
+            }
+            else if (ddlType.SelectedValue == "5")
+            {
+                gvOrderRecon.MasterTableView.GetColumn("OrderEdit").Visible = true;
                 gvOrderRecon.MasterTableView.GetColumn("editColumn").Visible = true;
-
-
+          
             }
             else if (ddlType.SelectedValue == "3")
             {
@@ -414,10 +420,14 @@ namespace WealthERP.OffLineOrderManagement
         protected void gvOrderRecon_OnItemCommand(object source, GridCommandEventArgs e)
         {
             bool result = false;
+            int orderQty = 0;
             if (e.CommandName == RadGrid.UpdateCommandName)
             {
                 int allotedOrderId = Convert.ToInt32(gvOrderRecon.MasterTableView.DataKeyValues[e.Item.ItemIndex]["COAD_Id"].ToString());
-                int orderQty = Convert.ToInt32(gvOrderRecon.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CFIOD_Quantity"].ToString());
+                if (!string.IsNullOrEmpty(gvOrderRecon.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CFIOD_Quantity"].ToString()))
+                    orderQty = Convert.ToInt32(gvOrderRecon.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CFIOD_Quantity"].ToString());
+
+
                 string odrerSubbroker = gvOrderRecon.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AAC_AgentCode"].ToString();
                 string orderPAN = gvOrderRecon.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_PANNum"].ToString();
                 GridEditFormItem editedItem = (GridEditFormItem)e.Item;

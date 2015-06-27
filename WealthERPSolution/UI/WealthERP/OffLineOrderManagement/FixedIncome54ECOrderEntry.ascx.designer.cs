@@ -50,7 +50,8 @@ namespace WealthERP.OffLineOrderManagement {
         protected global::System.Web.UI.WebControls.LinkButton lnlFIBack;
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnReconBack;
 
-        
+
+        protected global::System.Web.UI.WebControls.ImageButton btnImgAddPAN;
         
         /// <summary>
         /// lnkDelete control.

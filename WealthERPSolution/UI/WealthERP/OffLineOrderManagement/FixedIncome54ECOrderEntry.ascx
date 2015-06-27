@@ -305,10 +305,8 @@
                             FD/54EC Order Entry
                         </td>
                         <td align="right">
-                          
                             <asp:LinkButton ID="lnkBtnReconBack" runat="server" CssClass="LinkButtons" Text="Back"
                                 CausesValidation="false" Visible="false" OnClick="lnkBtnReconBack_Click"></asp:LinkButton>
-                                
                             <asp:LinkButton ID="lnkBtnFIEdit" runat="server" CssClass="LinkButtons" Text="Edit"
                                 CausesValidation="false" Visible="false" OnClick="lnkBtnFIEdit_Click"></asp:LinkButton>
                             &nbsp; &nbsp;
@@ -706,7 +704,8 @@
                         <asp:Button runat="server" ID="btnSubmitAuthenticate" CssClass="PCGButton" runat="server"
                             Text="Submit" OnClick="btnSubmitAuthenticate_btnSubmit" ValidationGroup="btnSubmitAuthenticate" />
                     </td>
-                    <td style="width: 5%;"></td>
+                    <td style="width: 5%;">
+                    </td>
                     <td id="tdauthenticationDetails" runat="server" align="right" style="width: 15%;">
                         <asp:Label ID="lblAuthenticated" runat="server" Text="Authenticated/Rejected By:"
                             CssClass="FieldName"></asp:Label>
@@ -764,7 +763,11 @@
                         <asp:TextBox ID="txtPansearch" runat="server" CssClass="txtField" AutoComplete="Off"
                             AutoPostBack="True" onclientClick="ShowIsa()" onblur="return checkItemSelected(this)"
                             TabIndex="3">
+                            
                         </asp:TextBox><span id="Span1" class="spnRequiredField">*</span>
+                        <asp:ImageButton ID="btnImgAddPAN" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
+                            AlternateText="Add" runat="server" ToolTip="Click here to Add Customer" OnClick="openpopupAddCustomer_Click"
+                            Height="15px" Width="15px" CausesValidation="false"></asp:ImageButton>
                         <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" TargetControlID="txtPansearch"
                             WatermarkText="Enter few chars of Pan" runat="server" EnableViewState="false">
                         </cc1:TextBoxWatermarkExtender>
@@ -949,16 +952,17 @@
                         <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField" TabIndex="10">
                         </asp:DropDownList>
                         <span id="Span18" runat="server" class="spnRequiredField">*</span>
-                           <asp:RequiredFieldValidator ID="rcvBrokerCode" ControlToValidate="ddlBrokerCode"
+                        <asp:RequiredFieldValidator ID="rcvBrokerCode" ControlToValidate="ddlBrokerCode"
                             ErrorMessage="<br />Please Select Broker" Display="Dynamic" runat="server" CssClass="rfvPCG"
                             ValidationGroup="MFSubmit" InitialValue="Select"></asp:RequiredFieldValidator>
                     </td>
-                    <td class="leftField" align="right"  style="width:15%"> 
-               <asp:label ID="lblPrivilegeRemark1" runat="server" Text="Remark(Related Privilege):" CssClass="FieldName" Visible="false"></asp:label>
-            </td>
-           <td class="rightField" align="left"  style="width:20%">
-           <asp:Label ID="lblPrivilegeRemark2" runat="server" Text=""  CssClass="FieldName" Visible="false"></asp:Label>
-           </td>
+                    <td class="leftField" align="right" style="width: 15%">
+                        <asp:Label ID="lblPrivilegeRemark1" runat="server" Text="Remark(Related Privilege):"
+                            CssClass="FieldName" Visible="false"></asp:Label>
+                    </td>
+                    <td class="rightField" align="left" style="width: 20%">
+                        <asp:Label ID="lblPrivilegeRemark2" runat="server" Text="" CssClass="FieldName" Visible="false"></asp:Label>
+                    </td>
                 </tr>
                 <tr>
                     <td align="right" style="width: 10%">
@@ -1086,7 +1090,6 @@
                     </td>
                     <td style="width: 5%">
                     </td>
-                   
                     <td style="width: 35%">
                         <asp:CheckBox ID="ChkSeniorcitizens" runat="server" CssClass="txtField" Text="Senior Citizen">
                         </asp:CheckBox>
@@ -1249,7 +1252,7 @@
                     <td style="width: 30%" id="tdtxtADRNo" visible="false">
                         <asp:TextBox ID="txtADRNo" runat="server" CssClass="txtField" AutoComplete="Off"
                             TabIndex="24" MaxLength="45" />
-                       <%-- <span id="Span17" runat="server" class="spnRequiredField">*</span>
+                        <%-- <span id="Span17" runat="server" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator13" ControlToValidate="txtADRNo"
                             CssClass="rfvPCG" ErrorMessage="<br />Please Enter FDR NO." Display="Dynamic"
                             runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>--%>
@@ -1431,7 +1434,7 @@
                     <td class="rightField" style="width: 20%">
                         <telerik:RadDatePicker ID="txtPaymentInstDate" CssClass="txtField" runat="server"
                             Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
-                            ShowAnimation-Type="Fade" MinDate="1900-01-01" TabIndex="33" >
+                            ShowAnimation-Type="Fade" MinDate="1900-01-01" TabIndex="33">
                             <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                 Skin="Telerik" EnableEmbeddedSkins="false">
                             </Calendar>
@@ -1530,6 +1533,7 @@
             <asp:PostBackTrigger ControlID="btnSubmit" />
             <asp:PostBackTrigger ControlID="btnUpdate" />
             <asp:PostBackTrigger ControlID="btnAddMore" />
+            <asp:PostBackTrigger ControlID="btnImgAddPAN" />
         </Triggers>
     </asp:UpdatePanel>
     <table width="68%" id="tbUploadDocument" runat="server" visible="false">
