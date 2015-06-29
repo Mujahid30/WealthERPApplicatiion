@@ -183,8 +183,8 @@
                 <asp:ListItem Text="Orders Exist & Allotment Not Exist" Value="3">
                 </asp:ListItem>
                 <asp:ListItem Text="Orders Not Exist & Allotment Exist" Value="4">
-                </asp:ListItem>                 
-                 <asp:ListItem Text="Orders Exist & Allotment Exist(Partial Match)" Value="5">
+                </asp:ListItem>
+                <asp:ListItem Text="Orders Exist & Allotment Exist(Partial Match)" Value="5">
                 </asp:ListItem>
             </asp:DropDownList>
         </td>
@@ -196,7 +196,6 @@
     <tr id="trBtnSubmit" runat="server">
     </tr>
 </table>
- 
 <table id="tblMessage" width="100%" runat="server" visible="false" style="padding-top: 20px;">
     <tr id="trSumbitSuccess">
         <td align="center">
@@ -303,15 +302,12 @@
                                 SortExpression="COAD_PAN" AllowFiltering="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            
-                            <telerik:GridBoundColumn DataField="AllotedInvestorName" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
-                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Alloted InvestorName"
-                                DataType="System.String" UniqueName="AllotedInvestorName" SortExpression="AllotedInvestorName"
-                                AllowFiltering="true" Visible="true">
+                            <telerik:GridBoundColumn DataField="AllotedInvestorName" HeaderStyle-Width="20px"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                HeaderText="Alloted InvestorName" DataType="System.String" UniqueName="AllotedInvestorName"
+                                SortExpression="AllotedInvestorName" AllowFiltering="true" Visible="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            
-                            
                             <telerik:GridBoundColumn DataField="CO_ApplicationNumberAlloted" HeaderStyle-Width="20px"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                 HeaderText="Alloted Application Number" UniqueName="CO_ApplicationNumberAlloted"
@@ -414,7 +410,7 @@
                                             <asp:Label ID="lblPan" runat="server" CssClass="FieldName" Text="Alloted PAN"></asp:Label>
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="txtPAN" runat="server" CssClass="txtField"  Text='<%# Bind("COAD_PAN") %>'></asp:TextBox>
+                                            <asp:TextBox ID="txtPAN" runat="server" CssClass="txtField" Text='<%# Bind("COAD_PAN") %>'></asp:TextBox>
                                         </td>
                                     </tr>
                                     <tr>
@@ -451,6 +447,10 @@
             </td>
         </tr>
     </table>
+    <div style="float: left">
+        <asp:Label ID="Label13" runat="server" Text="To create bulk order, SubbrokerCode and Pan mandatory."
+            CssClass="FieldName"></asp:Label>
+    </div>
 </asp:Panel>
 <%--<asp:Panel ID="pnlMatch" runat="server" ScrollBars="Both">
     <telerik:RadWindowManager runat="server" ID="RadWindowManager2">

@@ -67,19 +67,7 @@ namespace WealthERP.OffLineOrderManagement
                         BindOrderMissMatchDetails();
                     }
                 }
-
-                //if (Request.QueryString["product"] != null)
-                //{
-                //    ddlProduct.SelectedValue = Request.QueryString["product"].ToString();
-                //    if (ddlProduct.SelectedValue == "Bonds")
-                //        BindNcdCategory();
-                //    ddlCategory.SelectedValue = Request.QueryString["category"].ToString();
-                //    BindIssueName(ddlCategory.SelectedValue);
-                //    ddlIssueName.SelectedValue = Request.QueryString["issueId"].ToString();
-                //    ddlOrderStatus.SelectedValue = Request.QueryString["orderstatus"].ToString();
-                //    ddlSearchType.SelectedValue = Request.QueryString["searchtype"].ToString();
-                //    BindOrderMissMatchDetails();
-                //}
+ 
             }
 
         }
