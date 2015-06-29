@@ -447,7 +447,7 @@ namespace WealthERP.Uploads
                 DropDownList ddlIsRecLocked = new DropDownList();
                 ddlIsRecLocked.AutoPostBack = true;
                 ddlIsRecLocked.CssClass = "cmbField";
-                ddlIsRecLocked.Width = 80;
+                ddlIsRecLocked.Width = 100;
                 ddlIsRecLocked.SelectedIndexChanged += new System.EventHandler(ddlIsRecLocked_SelectedIndexChanged);
                 ddlIsRecLocked.Items.Add(new ListItem("Show all", "2"));
                 ddlIsRecLocked.Items.Add(new ListItem("Checked", "1"));
@@ -464,7 +464,7 @@ namespace WealthERP.Uploads
                 DropDownList ddlIsPayLocked = new DropDownList();
                 ddlIsPayLocked.AutoPostBack = true;
                 ddlIsPayLocked.CssClass = "cmbField";
-                ddlIsPayLocked.Width = 80;
+                ddlIsPayLocked.Width = 100;
                 ddlIsPayLocked.SelectedIndexChanged += new System.EventHandler(ddlIsPayLocked_SelectedIndexChanged);
                 ddlIsPayLocked.Items.Add(new ListItem("Show all", "2"));
                 ddlIsPayLocked.Items.Add(new ListItem("Checked", "1"));
@@ -611,7 +611,7 @@ namespace WealthERP.Uploads
 
                     blResult = adviserMFMIS.UpdateActualPayAndRec(id, ActPay, ActRec, paybleDate, receivedDate, IsPayLocked,
                         IsRecLocked, chkBulkPayble.Checked,
-                        rtaAmount, chkBulkReceivedSys.Checked, bulkReceivedDate, bulkPaybleDate);
+                        rtaAmount, chkBulkReceivedSys.Checked, chkBulkReceived.Checked, bulkReceivedDate, bulkPaybleDate);
 
                 }
 

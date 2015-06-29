@@ -181,10 +181,10 @@
     </tr>
     <tr id="trSelectProduct"  runat="server">
         <td id="td1" align="left" runat="server" class="leftField" width="13%" visible="true">
-            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Commission Type:"></asp:Label>
+            <asp:Label ID="Label1" runat="server" CssClass="FieldName"  Text="Commission Type:"></asp:Label>
         </td>
         <td id="td2" width="20%" runat="server" visible="true">
-            <asp:DropDownList ID="ddlCommType" runat="server" CssClass="cmbField" AutoPostBack="true">
+            <asp:DropDownList ID="ddlCommType"  runat="server" CssClass="cmbField" AutoPostBack="true">
                 <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
                 <asp:ListItem Text="Upfront" Value="UF" Selected="True"></asp:ListItem>
                 <asp:ListItem Text="Trail" Value="TC"></asp:ListItem>
@@ -409,7 +409,7 @@
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
                 <telerik:GridTemplateColumn AllowFiltering="true" UniqueName="IsRecLocked" DataField="IsRecLocked"
-                    HeaderStyle-Width="100px" HeaderText="Lock Received">
+                    HeaderStyle-Width="110px" HeaderText="Lock Received">
                     <ItemTemplate>
                         <asp:CheckBox ID="chkIdRec" runat="server" Checked='<%# Bind("IsRecLocked") %>' OnClick="return validation();" />
                     </ItemTemplate>
@@ -457,7 +457,7 @@
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
                 <telerik:GridTemplateColumn AllowFiltering="false" HeaderText="lock Payout" UniqueName="IsPayLocked"
-                    DataField="IsPayLocked" HeaderStyle-Width="100px">
+                    DataField="IsPayLocked" HeaderStyle-Width="110px">
                     <ItemTemplate>
                         <asp:CheckBox ID="chkIdPay" Checked='<%# Bind("IsPayLocked") %>' OnClick="return validation();"
                             runat="server" />
