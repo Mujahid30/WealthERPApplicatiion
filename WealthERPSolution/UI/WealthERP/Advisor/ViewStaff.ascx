@@ -107,9 +107,14 @@
                                                 HeaderText="Branch" UniqueName="Branch">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="130px" Visible="false" DataField="ReportingManagerName" SortExpression="ReportingManagerName"
+                                            <telerik:GridBoundColumn HeaderStyle-Width="130px" Visible="true" DataField="ReportingManagerName" SortExpression="ReportingManagerName"
                                                 AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                                 AllowFiltering="true" HeaderText="Reporting To" UniqueName="ReportingManagerName">
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn HeaderStyle-Width="130px" Visible="true" DataField="ReportingManagerTitle" SortExpression="ReportingManagerName"
+                                                AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                                AllowFiltering="true" HeaderText="Reporting Title" UniqueName="ReportingManagerTitle">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="130px" DataField="AH_Teamname" SortExpression="AH_Teamname" AutoPostBackOnFilter="true"
