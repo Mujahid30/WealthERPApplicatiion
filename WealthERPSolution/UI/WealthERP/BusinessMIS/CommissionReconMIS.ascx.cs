@@ -325,7 +325,7 @@ namespace WealthERP.BusinessMIS
                 rgNCDIPOMIS.MasterTableView.GetColumn("brokeragevalue").Visible = true;
                 rgNCDIPOMIS.MasterTableView.GetColumn("borkageExpectedvalue").Visible = true;
                 rgNCDIPOMIS.MasterTableView.GetColumn("Retention1").Visible = true;
-
+                rgNCDIPOMIS.MasterTableView.GetColumn("AIIC_InvestorCatgeoryName").Visible = true;
                 if (hdnAgentCode.Value.ToString() != "0")
                 {
                     rgNCDIPOMIS.MasterTableView.GetColumn("Rec_rate").Visible = false;
@@ -334,8 +334,13 @@ namespace WealthERP.BusinessMIS
                     rgNCDIPOMIS.MasterTableView.GetColumn("Rec_borkageExpectedvalue").Visible = false;
                     rgNCDIPOMIS.MasterTableView.GetColumn("Retention1").Visible = false;
                 }
-               
+                if (hdnProductCategory.Value.ToString() == "FICGCG")
+                {
+                    rgNCDIPOMIS.MasterTableView.GetColumn("AIIC_InvestorCatgeoryName").Visible = false;
+                }
 
+          
+                
 
             }
         }
