@@ -302,6 +302,15 @@
                                 SortExpression="COAD_PAN" AllowFiltering="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
+                            
+                            <telerik:GridBoundColumn DataField="AllotedInvestorName" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Alloted InvestorName"
+                                DataType="System.String" UniqueName="AllotedInvestorName" SortExpression="AllotedInvestorName"
+                                AllowFiltering="true" Visible="true">
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
+                            
+                            
                             <telerik:GridBoundColumn DataField="CO_ApplicationNumberAlloted" HeaderStyle-Width="20px"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                 HeaderText="Alloted Application Number" UniqueName="CO_ApplicationNumberAlloted"

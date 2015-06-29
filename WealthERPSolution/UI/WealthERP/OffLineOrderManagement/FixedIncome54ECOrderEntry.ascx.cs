@@ -238,6 +238,7 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     if (Request.QueryString["action"].Trim() == "Edit")
                     {
+                        ddlsearch.SelectedValue = "1";
                         orderId = int.Parse(Request.QueryString["orderId"].ToString());
                         ViewState["orderId"] = orderId;
                         hdnOrderNo.Value = orderId.ToString();
@@ -267,6 +268,7 @@ namespace WealthERP.OffLineOrderManagement
 
                     else
                     {
+                        ddlsearch.SelectedValue = "1";
                         orderId = int.Parse(Request.QueryString["orderId"].ToString());
                         txtCustomerId.Value = Request.QueryString["customeId"].ToString();
                         hdnOrderNo.Value = orderId.ToString();
@@ -4656,7 +4658,7 @@ namespace WealthERP.OffLineOrderManagement
                 txtPansearch.Text = lblgetPan.Text;
                 lblgetcust.Text = customerVo.FirstName + ' ' + customerVo.MiddleName + ' ' + customerVo.LastName;
             }
-            else if (ddlsearch.SelectedValue == "1")
+            else  
             {
                 trCust.Visible = true;
                 trpan.Visible = false;
@@ -5064,6 +5066,48 @@ namespace WealthERP.OffLineOrderManagement
                     }
 
                     Response.Write(@"<script language='javascript'>alert('Customer inserted successfully');</script>");
+                    if (Request.QueryString["FormAction"] != null)
+                    {
+                        if (Request.QueryString["FormAction"].Trim() == "NonMfRecon_OrderAdd")
+                        {
+
+
+
+                            int agentId = 0;
+                            string issueId = "0";
+                            btnImgAddCustomer.Visible = true;
+                            ddlsearch.SelectedValue = "2";
+                            ddlsearch_Selectedindexchanged(null, new EventArgs());
+                            txtApplicationNumber.Text = Request.QueryString["ApplicationNumberAlloted"].ToString();
+                            txtPansearch.Text = Request.QueryString["PAN"].ToString();
+                            txtApplicationDate.SelectedDate = Convert.ToDateTime(Request.QueryString["AllotmentDate"].ToString());
+                            issueId = Request.QueryString["issueId"].ToString();
+
+                            txtAssociateSearch.Text = Request.QueryString["SubBrokerCode"].ToString();
+                            txtQty.Text = Request.QueryString["Quantity"].ToString();
+                            int customerId = 0;
+                            string customerName = string.Empty;
+                            int agentIds = 0;
+                            mfOrderBo.GetPanDetails(txtPansearch.Text, txtAssociateSearch.Text, advisorVo.advisorId, out customerId, out customerName, out  agentIds);
+                            txtCustomerId.Value = customerId.ToString();
+                            lblgetcust.Text = customerName;
+                            txtAgentId.Value = agentIds.ToString();
+                            GetAgentName(agentIds);
+                            ddlCategory.SelectedValue = "FICGCG";
+                            OnTaxStatus();
+                            ddlCategory_SelectedIndexChanged(null, new EventArgs());
+                            ddlScheme.SelectedValue = issueId;
+                            ddlScheme_SelectedIndexChanged(null, new EventArgs());
+                            OnQtychanged(null, new EventArgs());
+                            ddlPaymentMode.SelectedValue = "CQ";
+                            PaymentMode(ddlPaymentMode.SelectedValue);
+                            txtPaymentNumber.Text = "99999";
+                            // txtPaymentInstDate.SelectedDate = Convert.ToDateTime(Request.QueryString["AllotmentDate"].ToString());
+                            ddlBankName.SelectedValue = "7016";
+                            lnkBtnReconBack.Visible = true;
+                        }
+
+                    }
                     //Response.Write("<script>window.close();</" + "script>");
                 }
 
