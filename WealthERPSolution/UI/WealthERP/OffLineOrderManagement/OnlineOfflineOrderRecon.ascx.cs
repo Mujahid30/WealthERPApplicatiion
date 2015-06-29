@@ -187,14 +187,13 @@ namespace WealthERP.OffLineOrderManagement
                 onlineNCDBackOfficeBo.CreateBulkOrderFromAllotment(allotmentIds, out count);
                 if (count >= 1)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Orders Created Successfully')", true);
+                      ShowMessage(count + " Orders Created Successfully", "S");
 
                 }
-                // ShowMessage(count + "Orders Created Successfully", "S");
+                
                 else
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Orders not Created Successfully ')", true);
-
+                    ShowMessage( "Orders not Created.", "F");
                 }
             }
 
@@ -635,6 +634,8 @@ namespace WealthERP.OffLineOrderManagement
 
         private void ShowMessage(string msg, string type)
         {
+            tblMessage.Visible = true;
+            msgRecordStatus.InnerText = msg;
             //tblMessage.Visible = true;
             //msgRecordStatus.InnerText = msg;
             ////--S(success)
@@ -643,8 +644,8 @@ namespace WealthERP.OffLineOrderManagement
             ////--I(information)
             ////ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','W');", true);
             //ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "mykey", "hide();", true);
-            tblMessagee.Visible = true;
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "OnlineOfflineOrderRecon", " showMsg('" + msg + "','" + type + "');", true);
+            //tblMessagee.Visible = true;
+            //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "OnlineOfflineOrderRecon", " showMsg('" + msg + "','" + type + "');", true);
         }
     }
 }

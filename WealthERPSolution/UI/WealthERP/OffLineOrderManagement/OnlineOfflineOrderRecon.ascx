@@ -196,10 +196,11 @@
     <tr id="trBtnSubmit" runat="server">
     </tr>
 </table>
-<table width="100%">
-    <tr id="tblMessagee" runat="server" visible="true">
+ 
+<table id="tblMessage" width="100%" runat="server" visible="false" style="padding-top: 20px;">
+    <tr id="trSumbitSuccess">
         <td align="center">
-            <div id="divMessage" align="center">
+            <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
             </div>
         </td>
     </tr>

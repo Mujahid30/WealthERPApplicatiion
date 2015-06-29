@@ -26,8 +26,18 @@ namespace WealthERP.OffLineOrderManagement
         
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdcategory;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trReprocess;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trSumbitSuccess;
 
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow tblMessagee;
+        /// <summary>
+        /// msgRecordStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgRecordStatus;
+        
+        protected global::System.Web.UI.HtmlControls.HtmlTable  tblMessage;
         protected global::Telerik.Web.UI.RadGrid gvOrderReconOnlineOffline;
         protected global::Telerik.Web.UI.RadGrid gvOrderRecon;
         protected global::Telerik.Web.UI.RadGrid rgMatch;
