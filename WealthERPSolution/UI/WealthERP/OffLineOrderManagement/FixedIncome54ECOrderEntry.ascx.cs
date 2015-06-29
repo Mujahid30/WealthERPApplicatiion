@@ -1128,6 +1128,12 @@ namespace WealthERP.OffLineOrderManagement
             else
                 orderVo.BankBranchName = "";
 
+            if (!string.IsNullOrEmpty(txtRemarks.Text))
+                orderVo.Remarks = txtRemarks.Text;
+            else
+                orderVo.Remarks = "";
+            
+          
 
             int dematAccountId = 0;
             foreach (GridDataItem gvr in gvDematDetailsTeleR.MasterTableView.Items)

@@ -32,7 +32,7 @@ namespace VoOps
         private int m_IsCustomerApprovalApplicable;
         public int AgentId { get; set; }
         public string AgentCode { get; set; }
-
+        public string Remarks { get; set; }
         #endregion
 
         #region Properties
@@ -103,7 +103,13 @@ namespace VoOps
             get { return m_BankBranchName; }
             set { m_BankBranchName = value; }
         }
+    
 
+        //public string m_Remarks
+        //{
+        //    get { return m_Remarks; }
+        //    set { m_Remarks = value; }
+        //}
         public string OrderStepCode
         {
             get { return m_OrderStepCode; }

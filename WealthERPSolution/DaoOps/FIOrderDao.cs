@@ -531,8 +531,8 @@ namespace DaoOps
                 if (orderVo.OrderDate != DateTime.MinValue)
                     db.AddInParameter(createFIOrderTrackingCmd, "@CO_OrderDate", DbType.DateTime, orderVo.OrderDate);
                 else
-                    db.AddInParameter(createFIOrderTrackingCmd, "@CO_OrderDate", DbType.DateTime, DBNull.Value);
-                //db.AddInParameter(createFIOrderTrackingCmd, "@CO_OrderDate", DbType.DateTime, orderVo.OrderDate );
+              db.AddInParameter(createFIOrderTrackingCmd, "@CO_OrderDate", DbType.DateTime, DBNull.Value);
+            // db.AddInParameter(createFIOrderTrackingCmd, "@CO_OrderDate", DbType.DateTime, orderVo.OrderDate );
                 db.AddInParameter(createFIOrderTrackingCmd, "@CustomerId", DbType.Int32, orderVo.CustomerId);
                 db.AddInParameter(createFIOrderTrackingCmd, "@WOSR_SourceCode", DbType.String, "");
                 db.AddInParameter(createFIOrderTrackingCmd, "@ApplicationNumber", DbType.String, orderVo.ApplicationNumber);
@@ -541,7 +541,9 @@ namespace DaoOps
                 else
                     db.AddInParameter(createFIOrderTrackingCmd, "@ApplicationReceivedDate", DbType.DateTime, DBNull.Value);
 
-             
+              
+
+
                 db.AddInParameter(createFIOrderTrackingCmd, "@ChequeNumber", DbType.String, orderVo.ChequeNumber);
                 if (orderVo.PaymentDate != DateTime.MinValue)
                     db.AddInParameter(createFIOrderTrackingCmd, "@PaymentDate", DbType.DateTime, orderVo.PaymentDate);
@@ -589,12 +591,14 @@ namespace DaoOps
                 db.AddInParameter(createFIOrderTrackingCmd, "@DematAcntId", DbType.Int32, FIorderVo.DematAccountId);
                 db.AddInParameter(createFIOrderTrackingCmd, "@Qty", DbType.Double, FIorderVo.Qty);
                 db.AddInParameter(createFIOrderTrackingCmd, "@BranchName", DbType.String, orderVo.BankBranchName);
-
+             
                 db.AddInParameter(createFIOrderTrackingCmd, "@AssetInstrumentCategory", DbType.String, FIorderVo.AssetInstrumentCategory);
                 if (!string.IsNullOrEmpty(FIorderVo.BrokerCode))
                     db.AddInParameter(createFIOrderTrackingCmd, "@BrokerCode", DbType.String, FIorderVo.BrokerCode);
                 if(!string.IsNullOrEmpty(FIorderVo.ADRNo))
                     db.AddInParameter(createFIOrderTrackingCmd, "@ADRNO", DbType.String, FIorderVo.ADRNo);
+                db.AddInParameter(createFIOrderTrackingCmd, "@CO_Remarks", DbType.String, orderVo.Remarks);
+
                 if (db.ExecuteNonQuery(createFIOrderTrackingCmd) != 0)
                 {
                     if (Mode == "Submit")

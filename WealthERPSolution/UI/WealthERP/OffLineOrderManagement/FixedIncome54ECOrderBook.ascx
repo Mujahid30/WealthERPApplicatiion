@@ -333,6 +333,12 @@
                                             AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="Modified On" UniqueName="CO_ModifiedOn">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="CO_Remarks" SortExpression="CO_Remarks"
+                                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                            AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="Remarks" UniqueName="CO_Remarks">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        
                                         <telerik:GridBoundColumn DataField="COS_Reason" SortExpression="COS_Reason"
                                             AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                             AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="Reject Reason" UniqueName="COS_Reason">

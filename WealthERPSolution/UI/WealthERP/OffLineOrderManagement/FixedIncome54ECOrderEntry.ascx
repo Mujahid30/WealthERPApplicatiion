@@ -1481,6 +1481,19 @@
                             TabIndex="35"></asp:TextBox>
                     </td>
                 </tr>
+                  <tr>
+                <td class="Page_Left_Padding">
+                </td>
+                <td class="leftField">
+                    <asp:Label ID="lblRemarks" runat="server" Text="Remarks:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightField" colspan="4">
+                    <asp:TextBox ID="txtRemarks" Width="400px" TextMode="MultiLine" MaxLength="300" Height="40px"
+                        onkeydown="return (event.keyCode!=13);" runat="server" CssClass="txtField" TabIndex="23"></asp:TextBox>
+                </td>
+                <td class="Page_Right_Padding">
+                </td>
+            </tr>
                 <tr id="trDepositedBank" runat="server" visible="false">
                     <td class="leftField" style="width: 15%">
                         <asp:Label ID="Label3" runat="server" Text="Application Submitted at Bank name:"
@@ -1502,6 +1515,8 @@
                         <asp:TextBox ID="txtDepositedBranch" runat="server" CssClass="txtField" TabIndex="37"></asp:TextBox>
                     </td>
                 </tr>
+                
+              
                 <tr id="trBtnSubmit" runat="server">
                     <td align="left" colspan="3">
                         <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmit_Click"
