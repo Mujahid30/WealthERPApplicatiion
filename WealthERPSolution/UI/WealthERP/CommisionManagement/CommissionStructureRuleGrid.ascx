@@ -133,7 +133,7 @@
                     </asp:DropDownList>
                     <br />
                     <asp:RequiredFieldValidator ID="rfvProduct" runat="server" CssClass="rfvPCG" ErrorMessage="Please select a product"
-                        Display="Dynamic" ControlToValidate="ddProduct" InitialValue="Select" ValidationGroup="vgBtnSubmitStage2">
+                        Display="Dynamic" ControlToValidate="ddProduct" InitialValue="Select" ValidationGroup="btnGo">
                     </asp:RequiredFieldValidator>
                 </td>
                 <td class="leftLabel">
@@ -144,7 +144,7 @@
                     </asp:DropDownList>
                     <br />
                     <asp:RequiredFieldValidator ID="rfvIssuer" runat="server" CssClass="rfvPCG" ErrorMessage="Please select an issuer"
-                        Display="Dynamic" ControlToValidate="ddIssuer" InitialValue="Select" ValidationGroup="vgBtnSubmitStage2"></asp:RequiredFieldValidator>
+                        Display="Dynamic" ControlToValidate="ddIssuer" InitialValue="Select" ValidationGroup="btnGo"></asp:RequiredFieldValidator>
                 </td>
                 <td colspan="2">
                 </td>
@@ -154,14 +154,16 @@
                     <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightData" >
-                    <asp:DropDownList ID="ddCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
+                    <asp:DropDownList ID="ddCategory" runat="server" CssClass="cmbField" AutoPostBack="true" 
                         OnSelectedIndexChanged="ddCategory_OnSelectedIndexChanged">
                     </asp:DropDownList>
+                     <span id="Span2" class="spnRequiredField">*</span>
                     <br />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" CssClass="rfvPCG"
-                        ErrorMessage="Please select a category" Display="Dynamic" ControlToValidate="ddProduct"
-                        InitialValue="Select" ValidationGroup="vgBtnSubmitStage2">
-                    </asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="rfvCategory" runat="server" ErrorMessage="Please Select Category"
+                CssClass="rfvPCG" ControlToValidate="ddCategory" ValidationGroup="btnGo" Display="Dynamic" Visible="true"
+                InitialValue="0" SetFocusOnError="true"></asp:RequiredFieldValidator>
+                   
+                    
                 </td>
                 <td class="leftLabel" id="tdlblSubCategory" runat="server" visible="false">
                     <asp:Label ID="lblSubCategory" runat="server" Text="Sub Category" CssClass="FieldName"
@@ -172,6 +174,8 @@
                         Enabled="False" Visible="true">
                         <asp:ListItem>All</asp:ListItem>
                     </asp:DropDownList>
+                    
+                    
                 </td>
                 <td class="leftLabel" id="tdlblStatus" runat="server" visible="false">
                     <asp:Label ID="lblStatus" runat="server" Text="Status" CssClass="FieldName"></asp:Label>
@@ -182,6 +186,7 @@
                         <asp:ListItem Value="Active" Selected="True">Active</asp:ListItem>
                         <asp:ListItem Value="Inactive">Inactive</asp:ListItem>
                     </asp:DropDownList>
+                     
                 </td>
                 <td>
                     &nbsp;
@@ -194,7 +199,7 @@
                 <td>
                 </td>
                 <td colspan="5">
-                    <asp:Button ID="btnGo" runat="server" Text="Go" OnClick="btnGo_Click" CssClass="PCGButton" />
+                    <asp:Button ID="btnGo" runat="server" Text="Go" OnClick="btnGo_Click" CssClass="PCGButton" ValidationGroup="btnGo"/>
                 </td>
             </tr>
         </table>

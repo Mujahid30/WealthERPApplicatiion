@@ -21,19 +21,25 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager scrptMgr;
+        
+        /// <summary>
+        /// RadWDCommissionTypeBrokerage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
         protected global::Telerik.Web.UI.RadWindow RadWDCommissionTypeBrokerage;
-        protected global::Telerik.Web.UI.RadGrid gvPayaMapping;
-        protected global::Telerik.Web.UI.RadGrid rgPayableMapping;
-        protected global::Telerik.Web.UI.RadWindow radAplicationPopUp;
-        protected global::System.Web.UI.WebControls.DropDownList ddlCategorys;
-        protected global::System.Web.UI.WebControls.DropDownList ddlBrokerCode;
-       protected global::System.Web.UI.WebControls.Label lblEligible;
-        protected global::System.Web.UI.WebControls.ImageButton ImageButton3;
-        protected global::System.Web.UI.WebControls.ImageButton ImageButton5;
-        protected global::System.Web.UI.WebControls.ImageButton imgBuy1;
-        protected global::System.Web.UI.WebControls.ImageButton ImageButton4;
-        protected global::System.Web.UI.WebControls.ImageButton ImageButton6;
-       protected global::System.Web.UI.WebControls.HiddenField hdnStructId;
+        
+        /// <summary>
+        /// BtnActivRangeClose control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnActivRangeClose;
+        
         /// <summary>
         /// pnl1 control.
         /// </summary>
@@ -44,25 +50,6 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.WebControls.Panel pnl1;
         
         /// <summary>
-        /// UpdatePanel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblCategory;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlCategorys;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblSerise;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlSeries;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblMode;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlMode;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblBrokerCode;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlBrokerCode;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlCategory;
-
-        
-        /// <summary>
         /// trStepOneHeading control.
         /// </summary>
         /// <remarks>
@@ -70,12 +57,16 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trStepOneHeading;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblApplicationNo;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdApplicationNo;
-        protected global::System.Web.UI.WebControls.Label lblApplicationNo;
-        protected global::System.Web.UI.WebControls.TextBox txtApplicationNo;
-        protected global::System.Web.UI.WebControls.CheckBox chkSpecial;
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trincentive;
+        
+        /// <summary>
+        /// imgStepOneStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgStepOneStatus;
+        
         /// <summary>
         /// Label2 control.
         /// </summary>
@@ -84,8 +75,7 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label2;
-        protected global::System.Web.UI.WebControls.Label Label12;
-        protected global::System.Web.UI.WebControls.Label Label13;
+        
         /// <summary>
         /// lnkAddNewStructure control.
         /// </summary>
@@ -105,32 +95,22 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.WebControls.LinkButton lnkEditStructure;
         
         /// <summary>
-        /// Label3 control.
+        /// ImageButton3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
+        protected global::System.Web.UI.WebControls.ImageButton ImageButton3;
         
         /// <summary>
-        /// ddlCommissionype control.
+        /// tb1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCommissionype;
-        protected global::System.Web.UI.WebControls.DropDownList ddlSeries;
-        
-        /// <summary>
-        /// RequiredFieldValidator6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator6;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tb1;
         
         /// <summary>
         /// lblStatusStage2 control.
@@ -149,7 +129,7 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlProductType;
-        protected global::System.Web.UI.WebControls.DropDownList ddlSubInstrCategory;
+        
         /// <summary>
         /// RequiredFieldValidator1 control.
         /// </summary>
@@ -158,6 +138,69 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        
+        /// <summary>
+        /// tdlblCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblCategory;
+        
+        /// <summary>
+        /// Label16 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label16;
+        
+        /// <summary>
+        /// tdddlCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlCategory;
+        
+        /// <summary>
+        /// ddlSubInstrCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSubInstrCategory;
+        
+        /// <summary>
+        /// lblcategoryerror control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblcategoryerror;
+        
+        /// <summary>
+        /// RequiredFieldValidator10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator10;
+        
+        /// <summary>
+        /// ddlInstrCat control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlInstrCat;
         
         /// <summary>
         /// lblCategory control.
@@ -221,7 +264,6 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trIssuer;
-        protected global::System.Web.UI.HtmlControls.HtmlTable Table5;
         
         /// <summary>
         /// lblIssuer control.
@@ -258,7 +300,7 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadListBox rlbAssetSubCategory;
-          protected global::Telerik.Web.UI.RadGrid rgchecklist;
+        
         /// <summary>
         /// lblValidityFrom control.
         /// </summary>
@@ -276,7 +318,7 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtValidityFrom;
-         protected global::System.Web.UI.WebControls.RadioButtonList rbtnListRate;
+        
         /// <summary>
         /// CalendarExtender2 control.
         /// </summary>
@@ -321,7 +363,7 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblValidityTo;
-       protected global::System.Web.UI.WebControls.Button btnIssueMap;
+        
         /// <summary>
         /// txtValidityTo control.
         /// </summary>
@@ -503,89 +545,6 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.WebControls.Button ButtonAgentCodeMapping;
         
         /// <summary>
-        /// tblCommissionStructureRule control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTable tblCommissionStructureRule;
-        protected global::System.Web.UI.HtmlControls.HtmlTable tbSchemeMapping;
-        protected global::System.Web.UI.HtmlControls.HtmlTable tbSchemeMapped;
-
-
-        
-        
-        /// <summary>
-        /// trStepTwoHeading control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trStepTwoHeading;
-        
-        /// <summary>
-        /// lblStage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblStage;
-        
-        /// <summary>
-        /// imgexportButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton imgexportButton;
-        
-        /// <summary>
-        /// lnkDeleteAllRule control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkDeleteAllRule;
-        
-        /// <summary>
-        /// tblCommissionStructureRule1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTable tblCommissionStructureRule1;
-        
-        /// <summary>
-        /// Panel2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel2;
-        
-        /// <summary>
-        /// RadGridStructureRule control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid RadGridStructureRule;
-        protected global::Telerik.Web.UI.RadGrid rgCommissionTypeCaliculation;
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRuleDetailSection;
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trPayableMapping;
-        protected global::System.Web.UI.HtmlControls.HtmlTable tb1;
-
-        
-        
-        /// <summary>
         /// Table2 control.
         /// </summary>
         /// <remarks>
@@ -622,6 +581,15 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.WebControls.ImageButton ibtExportSummary;
         
         /// <summary>
+        /// ImageButton4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImageButton4;
+        
+        /// <summary>
         /// Table1 control.
         /// </summary>
         /// <remarks>
@@ -638,8 +606,6 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlGrid;
-        protected global::System.Web.UI.WebControls.Panel PanelFirst;
-
         
         /// <summary>
         /// gvMappedSchemes control.
@@ -685,6 +651,15 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlAddSchemes;
+        
+        /// <summary>
+        /// tbSchemeButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tbSchemeButton;
         
         /// <summary>
         /// lblPeriodStart control.
@@ -759,6 +734,15 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.WebControls.Label lblMapError;
         
         /// <summary>
+        /// tbSchemeMapping control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tbSchemeMapping;
+        
+        /// <summary>
         /// lblAvailableSchemes control.
         /// </summary>
         /// <remarks>
@@ -793,6 +777,15 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadListBox rlbMappedSchemes;
+        
+        /// <summary>
+        /// tbSchemeMapped control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tbSchemeMapped;
         
         /// <summary>
         /// lblMappedFrom control.
@@ -894,6 +887,348 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.WebControls.ImageButton ImageButton1;
         
         /// <summary>
+        /// Table4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable Table4;
+        
+        /// <summary>
+        /// tr3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow tr3;
+        
+        /// <summary>
+        /// Label11 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label11;
+        
+        /// <summary>
+        /// ImageButton2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImageButton2;
+        
+        /// <summary>
+        /// ImageButton5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImageButton5;
+        
+        /// <summary>
+        /// tbNcdIssueList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tbNcdIssueList;
+        
+        /// <summary>
+        /// tdlblIssuetype control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblIssuetype;
+        
+        /// <summary>
+        /// Label9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label9;
+        
+        /// <summary>
+        /// tdddlIssuetype control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlIssuetype;
+        
+        /// <summary>
+        /// ddlIssueType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlIssueType;
+        
+        /// <summary>
+        /// RequiredFieldValidator8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator8;
+        
+        /// <summary>
+        /// Label10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label10;
+        
+        /// <summary>
+        /// ddlUnMappedIssues control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlUnMappedIssues;
+        
+        /// <summary>
+        /// RequiredFieldValidator9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator9;
+        
+        /// <summary>
+        /// btnMAP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnMAP;
+        
+        /// <summary>
+        /// pnlIssueList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlIssueList;
+        
+        /// <summary>
+        /// lblNoRecordFound control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNoRecordFound;
+        
+        /// <summary>
+        /// dvIssueList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvIssueList;
+        
+        /// <summary>
+        /// gvMappedIssueList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid gvMappedIssueList;
+        
+        /// <summary>
+        /// tblCommissionStructureRule control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblCommissionStructureRule;
+        
+        /// <summary>
+        /// trStepTwoHeading control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trStepTwoHeading;
+        
+        /// <summary>
+        /// Image1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Image1;
+        
+        /// <summary>
+        /// lblStage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblStage;
+        
+        /// <summary>
+        /// imgexportButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton imgexportButton;
+        
+        /// <summary>
+        /// lnkDeleteAllRule control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkDeleteAllRule;
+        
+        /// <summary>
+        /// imgBuy1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton imgBuy1;
+        
+        /// <summary>
+        /// tblCommissionStructureRule1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblCommissionStructureRule1;
+        
+        /// <summary>
+        /// Panel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel2;
+        
+        /// <summary>
+        /// RadGridStructureRule control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid RadGridStructureRule;
+        
+        /// <summary>
+        /// Table5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable Table5;
+        
+        /// <summary>
+        /// trPayableMapping control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trPayableMapping;
+        
+        /// <summary>
+        /// Label15 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label15;
+        
+        /// <summary>
+        /// ImageButton6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImageButton6;
+        
+        /// <summary>
+        /// ImageButton7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImageButton7;
+        
+        /// <summary>
+        /// gvPayaMapping control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid gvPayaMapping;
+        
+        /// <summary>
+        /// lblEligible control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEligible;
+        
+        /// <summary>
+        /// btnIssueMap control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnIssueMap;
+        
+        /// <summary>
+        /// radAplicationPopUp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadWindow radAplicationPopUp;
+        
+        /// <summary>
         /// tblMapping control.
         /// </summary>
         /// <remarks>
@@ -910,7 +1245,7 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label5;
-
+        
         /// <summary>
         /// ddlMapping control.
         /// </summary>
@@ -964,7 +1299,7 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trListControls;
-        protected global::System.Web.UI.WebControls.ImageButton ImageButton7;
+        
         /// <summary>
         /// PLCustomer control.
         /// </summary>
@@ -1011,158 +1346,22 @@ namespace WealthERP.Receivable {
         protected global::Telerik.Web.UI.RadListBox RadListBoxSelectedAgentCodes;
         
         /// <summary>
-        /// btnPaybleMapping control.
+        /// rgPayableMapping control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPaybleMapping;
+        protected global::Telerik.Web.UI.RadGrid rgPayableMapping;
         
         /// <summary>
-        /// Table4 control.
+        /// btnGo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTable Table4;
-        
-        /// <summary>
-        /// tr3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow tr3;
-        
-        /// <summary>
-        /// Label11 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label11;
-        
-        /// <summary>
-        /// ImageButton2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImageButton2;
-        
-        /// <summary>
-        /// tbNcdIssueList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTable tbNcdIssueList;
-        
-        /// <summary>
-        /// Label9 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label9;
-        
-        /// <summary>
-        /// ddlIssueType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlIssueType;
-        
-        /// <summary>
-        /// RequiredFieldValidator8 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator8;
-        
-        /// <summary>
-        /// Label10 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label10;
-        
-        /// <summary>
-        /// ddlUnMappedIssues control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlUnMappedIssues;
-        
-        /// <summary>
-        /// RequiredFieldValidator9 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator9;
-        
-        /// <summary>
-        /// trBtnSubmit control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trBtnSubmit;
-        
-        /// <summary>
-        /// btnMAP control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnMAP;
-        
-        /// <summary>
-        /// pnlIssueList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlIssueList;
-        
-        /// <summary>
-        /// dvIssueList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvIssueList;
-        
-        /// <summary>
-        /// gvMappedIssueList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid gvMappedIssueList;
-
+        protected global::System.Web.UI.WebControls.Button btnGo;
         
         /// <summary>
         /// hidCommissionStructureName control.
@@ -1172,8 +1371,6 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidCommissionStructureName;
-        protected global::System.Web.UI.WebControls.HiddenField HiddenField1;
- 
         
         /// <summary>
         /// hdnProductId control.
@@ -1183,9 +1380,7 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnProductId;
-        protected global::System.Web.UI.WebControls.HiddenField hdneligible;
-        protected global::System.Web.UI.WebControls.HiddenField hdnRulestart;
-        protected global::System.Web.UI.WebControls.HiddenField hdnRuleEnd;
+        
         /// <summary>
         /// hdnStructValidFrom control.
         /// </summary>
@@ -1230,41 +1425,86 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnSubcategoryIds;
-        protected global::System.Web.UI.WebControls.HiddenField hdnIsSpecialIncentive;
-        protected global::System.Web.UI.WebControls.HiddenField hdnViewMode;
+        
         /// <summary>
-        /// rfvCommissionType control.
+        /// HiddenField1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvCommissionType;
-          /// <summary>
-        /// rfvchkListTtansactionType control.
+        protected global::System.Web.UI.WebControls.HiddenField HiddenField1;
+        
+        /// <summary>
+        /// hdnMappedIssue control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvchkListTtansactionType;
-        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator4;
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trCommissionType;
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRule;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdRule;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdRuleDetails;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblIssuetype;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlIssuetype;
         protected global::System.Web.UI.WebControls.HiddenField hdnMappedIssue;
-        protected global::System.Web.UI.WebControls.CheckBoxList chkListTtansactionType;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdchkListTtansactionType;
+        
+        /// <summary>
+        /// hdnRuleName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnRuleName;
-        protected global::System.Web.UI.WebControls.Label lblNoRecordFound;
-        protected global::System.Web.UI.WebControls.TextBox txtTaxValue;
-        protected global::System.Web.UI.WebControls.TextBox txtTDS;
-        protected global::System.Web.UI.WebControls.CheckBoxList chkListApplyTax;
-        protected global::System.Web.UI.WebControls.DropDownList ddlCommisionCalOn;
-        protected global::System.Web.UI.WebControls.CheckBox chkServiceTax;
-        protected global::System.Web.UI.WebControls.CheckBox chkTDS;
+        
+        /// <summary>
+        /// hdnRuleId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnRuleId;
+        
+        /// <summary>
+        /// hdnIsSpecialIncentive control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnIsSpecialIncentive;
+        
+        /// <summary>
+        /// hdnViewMode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnViewMode;
+        
+        /// <summary>
+        /// hdneligible control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdneligible;
+        
+        /// <summary>
+        /// hdnRulestart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnRulestart;
+        
+        /// <summary>
+        /// hdnRuleEnd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnRuleEnd;
     }
 }

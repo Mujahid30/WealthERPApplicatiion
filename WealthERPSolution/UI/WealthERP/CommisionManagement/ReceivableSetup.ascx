@@ -51,7 +51,7 @@
     function Confirm() {
 
         var minValue = document.getElementById('<%=hdnViewMode.ClientID%>').value;
-        var eligible = document.getElementById('<%=hdneligible.ClientID%>').value;
+        var eligible = document.getElemeFntById('<%=hdneligible.ClientID%>').value;
         if (minValue == "ViewEdit" && eligible == "Eligible") {
             var confirm_value = document.createElement("INPUT");
             confirm_value.type = "hidden";
@@ -1274,15 +1274,24 @@
                                             DataField="ACSR_MinNumberOfApplications">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="CO_ApplicationNo" HeaderText="App. No." DataField="CO_ApplicationNo">
+                                         <telerik:GridBoundColumn UniqueName="ACSR_MaxNumberOfApplications" HeaderText="Max. No. of App."
+                                            DataField="ACSR_MaxNumberOfApplications">
+                                            <HeaderStyle></HeaderStyle>
+                                        </telerik:GridBoundColumn>
+                                       
+                                         <telerik:GridBoundColumn UniqueName="CO_ApplicationNo" HeaderText="App. No." DataField="CO_ApplicationNo">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="ASCR_WCMV_IncentiveType" HeaderText="Incentive Type"
                                             DataField="ASCR_WCMV_IncentiveType" Visible="false">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="ACSR_MaxNumberOfApplications" HeaderText="Max. No. of App."
-                                            DataField="ACSR_MaxNumberOfApplications">
+                                       
+                                        
+                                         <telerik:GridBoundColumn UniqueName="ACSR_ValidilityStart" HeaderText="Validity From" DataField="ACSR_ValidilityStart">
+                                            <HeaderStyle></HeaderStyle>
+                                        </telerik:GridBoundColumn>
+                                         <telerik:GridBoundColumn UniqueName="ACSR_ValidilityEnd" HeaderText="Validity To" DataField="ACSR_ValidilityEnd">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="ACSR_ServiceTaxValue" HeaderText="Service Tax Value"

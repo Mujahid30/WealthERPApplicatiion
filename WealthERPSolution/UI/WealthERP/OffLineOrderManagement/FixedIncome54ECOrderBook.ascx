@@ -231,7 +231,7 @@
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="CFIOD_ADRNO" AllowFiltering="true" HeaderText="FDR No."
+                                        <telerik:GridBoundColumn DataField="CFIOD_ADRNO" AllowFiltering="true" HeaderText="FDR No/CertNo."
                                             HeaderStyle-Width="70px" UniqueName="CFIOD_ADRNO" SortExpression="CFIOD_ADRNO"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -384,7 +384,8 @@
                                                     </td>
                                                     <td align="left">
                                                         <asp:Button ID="Button1" Text="OK" runat="server" CssClass="PCGButton" CommandName="Update"
-                                                            ValidationGroup="btnSubmit">
+                                                            ValidationGroup="
+                                                            ">
                                                             <%-- OnClientClick='<%# (Container is GridEditFormInsertItem) ?  " javascript:return ShowPopup();": "" %>'--%>
                                                         </asp:Button>
                                                         <%--</td>
