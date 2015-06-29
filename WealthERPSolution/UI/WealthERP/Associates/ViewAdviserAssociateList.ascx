@@ -134,6 +134,11 @@
                                                 AllowFiltering="true" HeaderText="Is Active" UniqueName="IsActive">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn HeaderStyle-Width="130px" DataField="IsDummyAssociate" SortExpression="IsDummyAssociate"
+                                                AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                                AllowFiltering="true" HeaderText="Is Dummy" UniqueName="IsDummy">
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
                                                <telerik:GridTemplateColumn UniqueName="Welcome" ItemStyle-Width="100Px" AllowFiltering="false" HeaderText="Welcome Letter">
                                          
                                                 <ItemTemplate>

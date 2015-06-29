@@ -113,6 +113,7 @@ namespace VOAssociates
         public string Roleid { get; set; }
         public int Departmrntid { get; set; }
         public int IsActive { get; set; }
+        public int IsDummy { get; set; }
         private string m_WelcomeNotePath;
         private int m_categoryId { get; set; }
         #endregion

@@ -264,6 +264,7 @@ namespace WealthERP.Associates
                 txtBankBranchName.Enabled = false;
                 txtPan.Enabled = false;
                 chkIsActive.Enabled = false;
+                chkIsDummy.Enabled = false;
             }
             else
             {
@@ -350,6 +351,7 @@ namespace WealthERP.Associates
                 txtBankBranchName.Enabled = true;
                 txtPan.Enabled = true;
                 chkIsActive.Enabled = true;
+                chkIsDummy.Enabled = true;
             }
 
         }
@@ -379,6 +381,12 @@ namespace WealthERP.Associates
                 chkIsActive.Checked = true;
             else
                 chkIsActive.Checked = false;
+
+            if (associatesVo.IsDummy == 1)
+                chkIsDummy.Checked = true;
+            else
+                chkIsDummy.Checked = false;
+
             if (associatesVo.BMName != null)
                 ddlBranch.SelectedValue = associatesVo.BranchId.ToString();
             if (associatesVo.Departmrntid != 0)
@@ -659,6 +667,7 @@ namespace WealthERP.Associates
             //txtRM.Text = associatesVo.RMNAme;
             txtAssociateName.Text = associatesVo.ContactPersonName;
             txtEmail.Text = associatesVo.Email;
+            
         }
 
         private void Updatedepartment()
@@ -844,9 +853,15 @@ namespace WealthERP.Associates
                 associatesVo.IsActive = 0;
             }
 
-            //if (txtAssociateExpDate.SelectedDate == null)
-            //    associatesVo.AssociationExpairyDate = null;
-            //else
+            if (chkIsDummy.Checked)
+            {
+                associatesVo.IsDummy = 1;
+            }
+            else
+            {
+                associatesVo.IsDummy = 0;
+            }
+
             associatesVo.AssociationExpairyDate = Convert.ToDateTime(txtAssociateExpDate.SelectedDate);
             if (txtAMFINo.Text != null)
                 associatesVo.AMFIregistrationNo = txtAMFINo.Text;
@@ -999,6 +1014,15 @@ namespace WealthERP.Associates
                 associatesVo.IsActive = 0;
             }
 
+            if (chkIsDummy.Checked)
+            {
+                associatesVo.IsDummy = 1;
+            }
+            else
+            {
+                associatesVo.IsDummy = 0;
+            }
+
             if (txtAssociateExpDate.SelectedDate == null)
                 associatesVo.AssociationExpairyDate = DateTime.MinValue;
             else
@@ -1029,6 +1053,7 @@ namespace WealthERP.Associates
             associatesBo.UpdateAssociateDetails(associatesVo, userId, associateid, agentcode);
             controlEnable(0);
             btnAssociateUpdate.Visible = false;
+            
         }
         protected void UpdateContact(string value)
         {
@@ -1522,6 +1547,7 @@ namespace WealthERP.Associates
                 ddlRM.Enabled = false;
                 txtPan.Enabled = false;
                 chkIsActive.Enabled = false;
+                chkIsDummy.Enabled = false;
                 txtAssociateExpDate.Enabled = false;
                 txtAMFINo.Enabled = false;
                 txtEUIN.Enabled = false;
@@ -1540,6 +1566,7 @@ namespace WealthERP.Associates
                 txtAssociateName.Enabled = true;
                 txtPan.Enabled = true;
                 chkIsActive.Enabled = true;
+                chkIsDummy.Enabled = true;
                 txtAssociateExpDate.Enabled = true;
                 txtAMFINo.Enabled = true;
                 txtEUIN.Enabled = true;

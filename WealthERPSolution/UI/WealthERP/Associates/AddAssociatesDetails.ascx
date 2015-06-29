@@ -280,6 +280,9 @@
         <td>
             <asp:CheckBox ID="chkIsActive" runat="server" Text="IsActive" CssClass="txtField" />
         </td>
+        <td>
+            <asp:CheckBox ID="chkIsDummy" runat="server" Text="IsDummy" CssClass="txtField" />
+        </td>
         <td colspan="2">
             <asp:Button ID="btnPreviewSend" runat="server" Visible="false" target="_blank" Text="Generate & Mail Welcome letter"
                 CssClass="PCGButton" OnClick="lbtnPreviewSend_Click" />

@@ -85,7 +85,7 @@ namespace DAOAssociates
                 db.AddInParameter(completeAssociatesCmd, "@XCT_CustomerTypeCode", DbType.String, associatesVo.AssociateType);
                 db.AddInParameter(completeAssociatesCmd, "@XCST_CustomerSubTypeCode", DbType.String, associatesVo.AssociateSubType);
                 db.AddInParameter(completeAssociatesCmd, "@AA_IsActive", DbType.Int32, associatesVo.IsActive);
-
+                db.AddInParameter(completeAssociatesCmd, "@AA_IsDummyAssociate", DbType.Int32, associatesVo.IsDummy);
                 if (db.ExecuteNonQuery(completeAssociatesCmd) != 0)
                 {
 
@@ -1311,6 +1311,9 @@ namespace DAOAssociates
                         associatesVo.AssociationExpairyDate = DateTime.Parse(dr["AA_ExpiryDate"].ToString());
                     if (bool.Parse(dr["AA_IsActive"].ToString().ToUpper()) != false)
                         associatesVo.IsActive = 1;
+                    if (bool.Parse(dr["AA_IsDummyAssociate"].ToString().ToUpper()) != false)
+                        associatesVo.IsDummy = 1;
+
                     if (!string.IsNullOrEmpty(dr["AC_CategoryId"].ToString()))
                         associatesVo.AdviserCategory = dr["AC_CategoryId"].ToString();
 
