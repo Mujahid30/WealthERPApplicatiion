@@ -252,7 +252,10 @@ namespace WealthERP.OffLineOrderManagement
                         lblAssociateReport.Visible = true;
                         btnImgAddCustomer.Visible = false;
                         lblAssociatetext.Text = Request.QueryString["associatename"].ToString();
+
+                        
                         txtAssociateSearch.Text = Request.QueryString["agentcode"].ToString();
+                        txtRemarks.Text = Request.QueryString["Remarks"].ToString();
                         GetcustomerDetails();
                         View54ECOrderDetails(orderId, Convert.ToDateTime(Request.QueryString["CloseDate"].ToString()));
                         lnkBtnEdit();
@@ -292,6 +295,7 @@ namespace WealthERP.OffLineOrderManagement
                             lnkBtnFIEdit.Visible = true;
                         lblAssociatetext.Text = Request.QueryString["associatename"].ToString();
                         txtAssociateSearch.Text = Request.QueryString["agentcode"].ToString();
+                        
                         GetcustomerDetails();
                         trOrder.Visible = true;
                         BindDocument(orderId);
@@ -4510,6 +4514,11 @@ namespace WealthERP.OffLineOrderManagement
                 TransactionTypeChanges(ddlTranstype.SelectedValue);
                 ddlBrokerCode.SelectedValue = dr["XB_BrokerIdentifier"].ToString();
                 txtApplicationNumber.Text = dr["CO_ApplicationNo"].ToString();
+                if (!string.IsNullOrEmpty(dr["CO_Remarks"].ToString()))
+                {
+                    txtRemarks.Text = dr["CO_Remarks"].ToString();
+
+                }
                 if (!string.IsNullOrEmpty(dr["CO_ApplicationReceivedDate"].ToString()))
                 {
                     txtApplicationDate.SelectedDate = Convert.ToDateTime(dr["CO_ApplicationReceivedDate"].ToString());
