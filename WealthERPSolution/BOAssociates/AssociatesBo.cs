@@ -114,12 +114,12 @@ namespace BOAssociates
             }
             return bResult;
         }
-        public bool CheckPanNumberDuplicatesForAssociates(string Pan, int AdviserAssociateId)
+        public bool CheckPanNumberDuplicatesForAssociates(string Pan, int AdviserAssociateId , int adviserId)
         {
             bool bResult = false;
             try
             {
-                bResult = associatesDao.CheckPanNumberDuplicatesForAssociates(Pan, AdviserAssociateId);
+                bResult = associatesDao.CheckPanNumberDuplicatesForAssociates(Pan, AdviserAssociateId ,adviserId);
             }
             catch (BaseApplicationException Ex)
             {

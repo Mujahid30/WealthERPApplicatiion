@@ -1694,7 +1694,7 @@ namespace WealthERP.Associates
             bool result = false;
             try
             {
-                if (associatesBo.CheckPanNumberDuplicatesForAssociates(Pan, AdviserAssociateId))
+                if (associatesBo.CheckPanNumberDuplicatesForAssociates(Pan, AdviserAssociateId, advisorVo.advisorId))
                 {
                     result = true;
 

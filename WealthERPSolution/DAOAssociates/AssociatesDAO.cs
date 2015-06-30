@@ -258,7 +258,7 @@ namespace DAOAssociates
             }
             return bResult;
         }
-        public bool CheckPanNumberDuplicatesForAssociates(string Pan, int AdviserAssociateId)
+        public bool CheckPanNumberDuplicatesForAssociates(string Pan, int AdviserAssociateId, int adviserId)
         {
             Database db;
             DbCommand cmdPanDuplicateCheck;
