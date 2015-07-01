@@ -980,6 +980,8 @@ namespace DAOAssociates
                         associatesVo.AAC_UserType = dr["AAC_UserType"].ToString();
                     if (bool.Parse(dr["AA_IsActive"].ToString().ToUpper()) != false)
                         associatesVo.IsActive = 1;
+                    if (bool.Parse(dr["AA_IsDummyAssociate"].ToString().ToUpper()) != false)
+                        associatesVo.IsDummy = 1;
 
                 }
             }
@@ -2280,6 +2282,7 @@ namespace DAOAssociates
                     db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_ExpiryDate", DbType.DateTime, DBNull.Value);
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_IsActive", DbType.Int32, associatesVo.IsActive);
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@AB_BranchId", DbType.Int32, associatesVo.BranchId);
+                db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_IsDummyAssociate", DbType.Int32, associatesVo.IsDummy);
 
                 if (db.ExecuteNonQuery(UpdateAssociateDetailsCmd) != 0)
                     bResult = true;
