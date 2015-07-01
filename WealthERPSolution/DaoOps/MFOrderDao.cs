@@ -119,7 +119,7 @@ namespace DaoOps
                 db.AddInParameter(CreateOnlineMFSwitchOrderDetailsCmd, "@subbrokerCode", DbType.String, subbrokerCode);
                 db.AddInParameter(CreateOnlineMFSwitchOrderDetailsCmd, "@systematicId", DbType.Int32, systematicId);
 
-                
+
                 if (db.ExecuteNonQuery(CreateOnlineMFSwitchOrderDetailsCmd) != 0)
                 {
                     sICO_OrderId = Convert.ToInt32(db.GetParameterValue(CreateOnlineMFSwitchOrderDetailsCmd, "SICO_OrderId").ToString());
@@ -182,7 +182,7 @@ namespace DaoOps
             return dsSipDetails;
         }
 
-        public List<int> CreateOrderMFDetails(OrderVo orderVo, MFOrderVo mforderVo, int userId, SystematicSetupVo systematicSetupVo,out int setupId)
+        public List<int> CreateOrderMFDetails(OrderVo orderVo, MFOrderVo mforderVo, int userId, SystematicSetupVo systematicSetupVo, out int setupId)
         {
             List<int> orderIds = new List<int>();
             int OrderId;
@@ -340,14 +340,14 @@ namespace DaoOps
                     db.AddInParameter(createMFOrderTrackingCmd, "@CO_Remarks", DbType.String, DBNull.Value);
                 db.AddOutParameter(createMFOrderTrackingCmd, "@SetupId", DbType.Int32, 10);
                 db.AddInParameter(createMFOrderTrackingCmd, "@PASP_SchemePlanCodeSwitch", DbType.Int32, mforderVo.SchemePlanSwitch);
-                db.AddInParameter(createMFOrderTrackingCmd, "@CMFA_AccountIdSwitch", DbType.Int32,mforderVo.AccountIdSwitch  );
+                db.AddInParameter(createMFOrderTrackingCmd, "@CMFA_AccountIdSwitch", DbType.Int32, mforderVo.AccountIdSwitch);
 
                 if (db.ExecuteNonQuery(createMFOrderTrackingCmd) != 0)
                 {
                     OrderId = Convert.ToInt32(db.GetParameterValue(createMFOrderTrackingCmd, "CO_OrderId").ToString());
                     setupId = Convert.ToInt32(db.GetParameterValue(createMFOrderTrackingCmd, "SetupId").ToString());
-                  
-                    
+
+
                     orderIds.Add(OrderId);
                 }
                 else
@@ -363,7 +363,7 @@ namespace DaoOps
             return orderIds;
         }
 
-        public DataSet GetCustomerMFOrderMIS(int AdviserId, DateTime dtFrom, DateTime dtTo, string branchId, string rmId, string transactionType, string status, string orderType, string amcCode, string customerId, int isOnline,string type)
+        public DataSet GetCustomerMFOrderMIS(int AdviserId, DateTime dtFrom, DateTime dtTo, string branchId, string rmId, string transactionType, string status, string orderType, string amcCode, string customerId, int isOnline, string type)
         {
             DataSet dsGetCustomerMFOrderMIS = null;
             Database db;
@@ -563,7 +563,7 @@ namespace DaoOps
 
         }
 
-        public DataSet GetSipControlDetails(int Scheme,string frequency )
+        public DataSet GetSipControlDetails(int Scheme, string frequency)
         {
             DataSet dsGetControlDetails;
             Database db;
@@ -575,8 +575,8 @@ namespace DaoOps
                 db.AddInParameter(GetGetControlDetailsCmd, "@PASP_SchemePlanCode", DbType.Int32, Scheme);
 
                 db.AddInParameter(GetGetControlDetailsCmd, "@XF_SystematicFrequencyCode", DbType.String, frequency);
-                
-                
+
+
 
                 dsGetControlDetails = db.ExecuteDataSet(GetGetControlDetailsCmd);
 
@@ -666,10 +666,30 @@ namespace DaoOps
             return dsGetCustomerMFOrderDetails;
         }
 
-        public void GetFolio(int customerId, int schemePlanCode, out string folio, out int accountId)
+        public void GetSchemeNameByCode(int SchemePlanCode, out string SchemePlanName)
         {
 
+            Database db;
+            DbCommand getCustomerMFOrderDetailscmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustomerMFOrderDetailscmd = db.GetStoredProcCommand("SP_GetSchemeNameByCode");
+                db.AddInParameter(getCustomerMFOrderDetailscmd, "@SchemePlanCode", DbType.Int32, SchemePlanCode);
+                db.AddOutParameter(getCustomerMFOrderDetailscmd, "@SchemePlanName", DbType.String, 1000);
 
+                db.ExecuteDataSet(getCustomerMFOrderDetailscmd);
+                SchemePlanName = db.GetParameterValue(getCustomerMFOrderDetailscmd, "@SchemePlanName").ToString();
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+
+        }
+        public void GetFolio(int customerId, int schemePlanCode, out string folio, out int accountId)
+        {
             Database db;
             DbCommand createMFOrderTrackingCmd;
             try
@@ -681,13 +701,7 @@ namespace DaoOps
                 db.AddOutParameter(createMFOrderTrackingCmd, "@FolioNo", DbType.String, schemePlanCode);
                 db.AddOutParameter(createMFOrderTrackingCmd, "@accountId", DbType.Int32, schemePlanCode);
 
-
-
-
-
                 db.ExecuteDataSet(createMFOrderTrackingCmd);
-             
-
                 folio = db.GetParameterValue(createMFOrderTrackingCmd, "@FolioNo").ToString();
                 if (!string.IsNullOrEmpty(db.GetParameterValue(createMFOrderTrackingCmd, "@accountId").ToString()))
                     accountId = int.Parse(db.GetParameterValue(createMFOrderTrackingCmd, "@accountId").ToString());
@@ -701,7 +715,7 @@ namespace DaoOps
                 throw (Ex);
             }
 
-             
+
         }
 
 
@@ -727,7 +741,7 @@ namespace DaoOps
             return IsMarked;
         }
 
-        public string  GetDividendOptions(int schemePlanCode)
+        public string GetDividendOptions(int schemePlanCode)
         {
             string schemeOption = "";
 
@@ -743,7 +757,7 @@ namespace DaoOps
                 {
                     schemeOption = result.ToString();
                 }
-               
+
             }
             catch (BaseApplicationException Ex)
             {

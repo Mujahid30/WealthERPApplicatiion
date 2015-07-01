@@ -206,7 +206,7 @@
         <td>
             <asp:DropDownList ID="ddlOnlineOffline" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlOnlineOffline_SelectedIndexChanged">
-                <asp:ListItem Value="Online" Text="Online" Selected="True"></asp:ListItem>
+                <asp:ListItem Value="Online" Text="Online" Enabled="false"></asp:ListItem>
                 <asp:ListItem Value="Offline" Text="Offline"></asp:ListItem>
             </asp:DropDownList>
             <asp:RequiredFieldValidator ID="rvOnlineOffline" ControlToValidate="ddlOnlineOffline"
@@ -286,16 +286,20 @@
             <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Type:"></asp:Label>
         </td>
         <td>
-         <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField"   Width="240px" >
+         <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField"   Width="320px" >
             <asp:ListItem Text="All" Value="1" Enabled="false">
             </asp:ListItem>
-            <asp:ListItem Text="Orders exist,Transaction exist" Value="2">
+             <asp:ListItem Text="Orders Exist & Transaction Exist(Accepted)" Value="2">
+                </asp:ListItem>              
+            
+            <asp:ListItem Text="Orders Exist & Transaction Not Exist" Value="3">
             </asp:ListItem>
-            <asp:ListItem Text="Orders exist,Transaction not exist" Value="3">
+            <asp:ListItem Text="Orders Not Exist & Transaction Exist" Value="4">
             </asp:ListItem>
-            <asp:ListItem Text="Orders not exist,Transaction exist" Value="4">
-            </asp:ListItem>
+              <asp:ListItem Text="Orders Exist & Transaction Exist(Partial Match)" Value="5">
+                </asp:ListItem>
              </asp:DropDownList>
+             
         </td>
           
     </tr>
@@ -511,7 +515,7 @@
                                     <ItemStyle Width="150px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridEditCommandColumn>
                                 <telerik:GridTemplateColumn HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
-                                ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="Order1" Visible="false">
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="Order1" Visible="true">
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lnkMatch" runat="server" Text="Add Order" OnClick="lnkMatch_SelectedIndexChanged"></asp:LinkButton>
                                 </ItemTemplate>

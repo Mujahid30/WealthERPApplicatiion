@@ -67,7 +67,7 @@ namespace WealthERP.OffLineOrderManagement
                         BindOrderMissMatchDetails();
                     }
                 }
- 
+
             }
 
         }
@@ -175,13 +175,13 @@ namespace WealthERP.OffLineOrderManagement
                 onlineNCDBackOfficeBo.CreateBulkOrderFromAllotment(allotmentIds, out count);
                 if (count >= 1)
                 {
-                      ShowMessage(count + " Orders Created Successfully", "S");
+                    ShowMessage(count + " Orders Created Successfully", "S");
 
                 }
-                
+
                 else
                 {
-                    ShowMessage( "Orders not Created.", "F");
+                    ShowMessage("Orders not Created.", "F");
                 }
             }
 
@@ -209,7 +209,8 @@ namespace WealthERP.OffLineOrderManagement
             {
                 gvOrderRecon.MasterTableView.GetColumn("OrderEdit").Visible = true;
                 gvOrderRecon.MasterTableView.GetColumn("editColumn").Visible = true;
-          
+                gvOrderRecon.MasterTableView.GetColumn("MissmatchType").Visible = true;
+
             }
             else if (ddlType.SelectedValue == "3")
             {

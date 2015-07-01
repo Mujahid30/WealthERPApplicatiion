@@ -283,8 +283,19 @@ namespace BoOps
                 throw (Ex);
             }
         }
- 
 
+        public void GetSchemeNameByCode(int SchemePlanCode, out string SchemePlanName)
+        {
+            try
+            {
+                mfOrderDao.GetSchemeNameByCode(SchemePlanCode, out SchemePlanName);
+            }
+             
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
         public DataSet GetCustomerMFOrderDetails(int orderId)
         {
             DataSet dsGetCustomerMFOrderDetails;

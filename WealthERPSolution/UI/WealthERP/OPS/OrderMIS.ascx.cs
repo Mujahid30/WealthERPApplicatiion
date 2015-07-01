@@ -178,7 +178,7 @@ namespace WealthERP.OPS
             rmVo = (RMVo)Session[SessionContents.RmVo];
             int RMId = rmVo.RMId;
             bmID = rmVo.RMId;
-           
+
 
 
             if (Request.QueryString["result"] != null)
@@ -435,74 +435,55 @@ namespace WealthERP.OPS
             DataSet dsOrderMIS = new DataSet();
             DataTable dtOrderMIS = new DataTable();
             int OnlineStatus = 0;
-           
+
             if (ddlOnlineOffline.SelectedValue == "Online")
             {
                 OnlineStatus = 1;
             }
 
-            //dsOrderMIS = operationBo.GetOrderMIS(advisorVo.advisorId,hdnBranchId.Value,hdnRMId.Value,hdnTransactionType.Value,hdnOrdStatus.Value,hdnOrderType.Value,hdnamcCode.Value,DateTime.Parse(hdnFromdate.Value),DateTime.Parse(hdnTodate.Value), mypager.CurrentPage, out  count);
             dsOrderMIS = mforderBo.GetCustomerMFOrderMIS(advisorVo.advisorId, DateTime.Parse(hdnFromdate.Value), DateTime.Parse(hdnTodate.Value), hdnBranchId.Value, hdnRMId.Value, hdnTransactionType.Value, hdnOrdStatus.Value, hdnOrderType.Value, hdnamcCode.Value, hdnCustomerId.Value, OnlineStatus, ddlType.SelectedValue);
-            dtOrderMIS = dsOrderMIS.Tables[0];
-            if (dtOrderMIS.Rows.Count > 0)
+            if (dsOrderMIS.Tables.Count > 0)
             {
-                //lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
-                gvCustomerOrderMIS.DataSource = null;
-                gvCustomerOrderMIS.DataBind();
-                gvCustomerOrderMIS.DataSource = dtOrderMIS;
-                gvCustomerOrderMIS.DataBind();
-                gvCustomerOrderMIS.Visible = true;
-              
-                //this.GetPageCount();
-                //if (ddlMISOrderStatus.SelectedValue.Trim() == "IP")
-                //{
-                //    btnSync.Visible = false;
-                //    btnMannualMatch.Visible = false;
-                //}
-                //else
-                //{
-                //    btnSync.Visible = false;
-                //    btnMannualMatch.Visible = false;
-                //}
-                //if (ddlOnlineOffline.SelectedValue == "Offline")
-                //{
-                //    btnSync.Visible = true;
-                //    btnMannualMatch.Visible = true;
-                //}
-                //else
-                //{
-                //    btnSync.Visible = false;
-                //    btnMannualMatch.Visible = false;
-                //}
-                if (Cache["OrderMIS" + advisorVo.advisorId] == null)
+                dtOrderMIS = dsOrderMIS.Tables[0];
+                if (dtOrderMIS.Rows.Count > 0)
                 {
-                    Cache.Insert("OrderMIS" + userVo.UserId, dtOrderMIS);
-                }
-                else
-                {
-                    Cache.Remove("OrderMIS" + userVo.UserId);
-                    Cache.Insert("OrderMIS" + userVo.UserId, dtOrderMIS);
-                }
-                //btnSubmit.Visible = true;
-                ErrorMessage.Visible = false;
-                tblMessage.Visible = false;
-                Session["GridView"] = dtOrderMIS;
 
-                btnMForderRecon.Visible = true;
-                //imgBtnExport.Visible = true;
+                    gvCustomerOrderMIS.DataSource = null;
+                    gvCustomerOrderMIS.DataBind();
+                    gvCustomerOrderMIS.DataSource = dtOrderMIS;
+                    gvCustomerOrderMIS.DataBind();
+                    gvCustomerOrderMIS.Visible = true;
+
+
+                    if (Cache["OrderMIS" + advisorVo.advisorId] == null)
+                    {
+                        Cache.Insert("OrderMIS" + userVo.UserId, dtOrderMIS);
+                    }
+                    else
+                    {
+                        Cache.Remove("OrderMIS" + userVo.UserId);
+                        Cache.Insert("OrderMIS" + userVo.UserId, dtOrderMIS);
+                    }
+
+                    ErrorMessage.Visible = false;
+                    tblMessage.Visible = false;
+                    Session["GridView"] = dtOrderMIS;
+
+                    btnMForderRecon.Visible = true;
+
+                }
             }
             else
             {
                 gvCustomerOrderMIS.Visible = false;
                 tblMessage.Visible = true;
-                //btnSubmit.Visible = false;
+
                 ErrorMessage.Visible = true;
                 ErrorMessage.InnerText = "No Records Found...!";
-                //btnSync.Visible = false;
-                //btnMannualMatch.Visible = false;
+
 
                 btnMForderRecon.Visible = false;
-                //imgBtnExport.Visible = false;
+
             }
 
             setMatchButtonsVisblity();
@@ -656,7 +637,7 @@ namespace WealthERP.OPS
                 gvCustomerOrderMIS.Visible = true;
                 gvCustomerFIOrderMIS.Visible = false;
                 hdnOrdStatus.Value = string.Empty;
-                SetParameters();                 
+                SetParameters();
                 BindMISGridView();
             }
             else if (hdnProductType.Value == "FI")
@@ -1684,9 +1665,9 @@ namespace WealthERP.OPS
 
                 Label OrderStep = dataItem.FindControl("lblOrderStep") as Label;
                 Label OrderStepCode = dataItem.FindControl("lblOrderStepCode") as Label;
-               // Label lnkMatch = dataItem.FindControl("lnkMatch") as Label;
+                // Label lnkMatch = dataItem.FindControl("lnkMatch") as Label;
 
-                
+
                 int selectedRow = dataItem.ItemIndex + 1;
                 //LinkButton lnkMatch = (LinkButton)dataItem.FindControl("lnkMatch");
                 //if (ddlType.SelectedValue == "4")
@@ -1707,12 +1688,12 @@ namespace WealthERP.OPS
                     {
                         lbtnMarkAsReject.Visible = false;
                     }
-                   // lnkMatch.Visible = false;
+                    // lnkMatch.Visible = false;
                 }
                 else
                 {
                     lbtnMarkAsReject.Visible = false;
-                   // lnkMatch.Visible = true;
+                    // lnkMatch.Visible = true;
                 }
 
 

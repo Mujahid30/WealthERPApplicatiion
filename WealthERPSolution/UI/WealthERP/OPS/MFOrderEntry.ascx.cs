@@ -146,7 +146,51 @@ namespace WealthERP.OPS
                 txtAssociateSearch.Text = associateuserheirarchyVo.AgentCode;
                 DefaultBindings();
 
-                if (Request.QueryString["action"] != null)
+                if (Request.QueryString["FormAction"] != null)
+                {
+                    if (Request.QueryString["FormAction"].Trim() == "MfRecon_OrderAdd")
+                    {
+                        //int agentId = 0;
+                        string schemePlanName = "";
+                        string transactionType = "0";
+                        string Tra_AMC = "0";
+                        string Tra_SchemplanCode = "0";
+                        int customerId = 0;
+                        string customerName = string.Empty;
+                        int agentIds = 0;
+                        ddlsearch.SelectedValue = "2";
+                        ddlsearch_Selectedindexchanged(null, new EventArgs());
+
+                        txtPansearch.Text = Request.QueryString["PAN"].ToString();
+                        txtAssociateSearch.Text = Request.QueryString["SubBrokerCode"].ToString();
+                        transactionType = Request.QueryString["Tra_TransactionType"].ToString();
+                        Tra_AMC = Request.QueryString["Tra_AMC"].ToString();
+                        Tra_SchemplanCode = Request.QueryString["Tra_SchemplanCode"].ToString();
+
+                      
+                        mfOrderBo.GetPanDetails(txtPansearch.Text, txtAssociateSearch.Text, advisorVo.advisorId, out customerId, out customerName, out  agentIds);
+                        txtCustomerId.Value = customerId.ToString();
+                        lblgetcust.Text = customerName;
+                        txtAgentId.Value = agentIds.ToString();
+                        GetAgentName(agentIds);
+                        ddltransType.SelectedValue = transactionType;
+                        ddltransType_SelectedIndexChanged(null, new EventArgs());
+
+                        ddlAMCList.SelectedValue = Tra_AMC;                      
+                        txtSchemeCode.Value = Tra_SchemplanCode;
+                      mfOrderBo.GetSchemeNameByCode(Convert.ToInt32(txtSchemeCode.Value), out schemePlanName);
+                      txtSearchScheme.Text = schemePlanName;
+                        txtSchemeCode_ValueChanged(null, new EventArgs());
+
+                        ControlsEnblity("New");
+                        //ShowPaymentSectionBasedOnTransactionType(ddltransType.SelectedValue, ViewForm);
+                        ButtonsEnablement("New");
+                     //   FrequencyEnablityForTransactionType(ddltransType.SelectedValue);
+
+                    }
+
+                }
+                else if (Request.QueryString["action"] != null)
                 {
                     ViewForm = Request.QueryString["action"].ToString();
                     int orderId = Convert.ToInt32(Request.QueryString["orderId"].ToString());
@@ -216,7 +260,7 @@ namespace WealthERP.OPS
         protected void BindTotalInstallments()
         {
             ddlTotalInstallments.Items.Clear();
-              string frequency = string.Empty;
+            string frequency = string.Empty;
 
             if (ddltransType.SelectedValue == "SWP")
             {
@@ -286,7 +330,7 @@ namespace WealthERP.OPS
             ddlStartDate.SelectedIndex = 0;
         }
 
-        private string CreateUserMessage(int orderId, int sipId,string mode)
+        private string CreateUserMessage(int orderId, int sipId, string mode)
         {
             string userMessage = string.Empty;
 
@@ -301,7 +345,7 @@ namespace WealthERP.OPS
                     userMessage = ddltransType.SelectedValue + " Requested successfully," + ddltransType.SelectedValue + " reference no. is " + sipId.ToString();
                 }
             }
-            else if(  mode == "UPDATE")
+            else if (mode == "UPDATE")
             {
                 userMessage = "Order modified successfully.";
 
@@ -3218,6 +3262,8 @@ namespace WealthERP.OPS
 
         private void GetAgentName(int agentId)
         {
+            if (agentId == 0)
+                return;
             Agentname = customerBo.GetSubBrokerName(agentId);
             if (Agentname.Rows.Count > 0)
             {
@@ -4580,7 +4626,7 @@ namespace WealthERP.OPS
                 ButtonsEnablement("Submitted");
                 ControlsEnblity("View");
 
-                ShowMessage(CreateUserMessage(Convert.ToInt32(lblGetOrderNo.Text), setupId,"INSERT"), 's');
+                ShowMessage(CreateUserMessage(Convert.ToInt32(lblGetOrderNo.Text), setupId, "INSERT"), 's');
             }
             if (ddltransType.SelectedValue == "SWB" || ddltransType.SelectedValue == "STB")
             {
@@ -4669,8 +4715,8 @@ namespace WealthERP.OPS
             BindOrderStepsGrid(Convert.ToInt32(lblGetOrderNo.Text));
             ButtonsEnablement("Submitted");
             ControlsEnblity("View");
-            ShowMessage(CreateUserMessage(Convert.ToInt32(lblGetOrderNo.Text), 0,"INSERT"), 's');
-            ShowMessage(CreateUserMessage(OrderIds[1], 0,"INSERT"), 's');
+            ShowMessage(CreateUserMessage(Convert.ToInt32(lblGetOrderNo.Text), 0, "INSERT"), 's');
+            ShowMessage(CreateUserMessage(OrderIds[1], 0, "INSERT"), 's');
         }
 
         protected void BindSchemeDividendTypes(int schemeId)
@@ -5027,7 +5073,7 @@ namespace WealthERP.OPS
                 ButtonsEnablement("Submitted");
                 ControlsEnblity("Edit");
 
-                ShowMessage(CreateUserMessage(Convert.ToInt32(lblGetOrderNo.Text), setupId,"INSERT"), 's');
+                ShowMessage(CreateUserMessage(Convert.ToInt32(lblGetOrderNo.Text), setupId, "INSERT"), 's');
             }
             if (ddltransType.SelectedValue == "SWB" || ddltransType.SelectedValue == "STB")
             {
@@ -5321,7 +5367,7 @@ namespace WealthERP.OPS
             mfOrderBo.UpdateCustomerMFOrderDetails(orderVo, mforderVo, userVo.UserId, systematicSetupVo);
             ButtonsEnablement("Updated");
             ControlsEnblity("View");
-            ShowMessage(CreateUserMessage(Convert.ToInt32(lblGetOrderNo.Text), 0,"UPDATE"), 's');
+            ShowMessage(CreateUserMessage(Convert.ToInt32(lblGetOrderNo.Text), 0, "UPDATE"), 's');
 
             //SetEditViewMode(true);
             //imgBtnRefereshBank.Enabled = false;
