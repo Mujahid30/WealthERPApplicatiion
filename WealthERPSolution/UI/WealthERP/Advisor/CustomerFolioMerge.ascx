@@ -398,7 +398,7 @@
         </td>--%>
     <tr>
         <td>
-            <div id="DivCustomerFolio" style="width: 47%;" visible="false" runat="server">
+            <div id="DivCustomerFolio" style="width: 42%;" visible="false" runat="server">
                 <telerik:RadGrid ID="gvCustomerFolioMerge" runat="server" CssClass="RadGrid" GridLines="None"
                     AllowPaging="True" AllowSorting="True" AutoGenerateColumns="false" ShowStatusBar="true"
                     AllowAutomaticDeletes="True" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
@@ -407,7 +407,7 @@
                     <exportsettings hidestructurecolumns="false" exportonlydata="true" filename="ExistMFInvestlist">
                     </exportsettings>
                     <mastertableview datakeynames="CustomerId,AMCCode,Count,portfilionumber,CMFA_AccountId"
-                        commanditemdisplay="None" width="90%">
+                        commanditemdisplay="None" width="100%">
                         <Columns>
                             <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="40px" UniqueName="rdbGVRowId">
                                 <ItemTemplate>
