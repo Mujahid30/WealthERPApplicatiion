@@ -207,6 +207,7 @@ namespace WealthERP.Customer
                     }
                }
             }
+
             if (dsDematDetails.Tables[0].Rows[0]["IsActive"].ToString() == "1")
            {
                 chk_isactive.Checked = true;
@@ -531,15 +532,31 @@ namespace WealthERP.Customer
                 bool test = true;
                 int result = 0;
                 DropDownList ddlAssociate = (DropDownList)e.Item.FindControl("ddlAssociate");
+                RequiredFieldValidator RequiredFieldValidator3 = (RequiredFieldValidator)e.Item.FindControl("RequiredFieldValidator3");
                 string associatetype = string.Empty;
                 associatetype = ddlAssociate.SelectedValue;
                 TextBox ttPan = (TextBox)e.Item.FindControl("txtNewPan");
                 if (associatetype == "JH1" && ttPan.Text.Length <= 0)
                 {
+                    RequiredFieldValidator3.Visible = true;
                     test = false;
                 }
-
-
+                if (associatetype == "JH2" && ttPan.Text.Length <= 0)
+                {
+                    RequiredFieldValidator3.Visible = true;
+                    test = false;
+                }
+                if (associatetype == "N1" && ttPan.Text.Length <= 0)
+                {
+                    RequiredFieldValidator3.Visible = false;
+                    test = true;
+                }
+                if (associatetype == "N2" && ttPan.Text.Length <= 0)
+                {
+                    RequiredFieldValidator3.Visible = false;
+                    test = true;
+                }
+                
                 int iskyc = 0;
                 CheckBox chkycinside1 = (CheckBox)e.Item.FindControl("chkKYC");
                 if (chkycinside1.Checked)

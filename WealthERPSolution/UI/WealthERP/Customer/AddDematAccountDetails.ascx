@@ -233,6 +233,7 @@
                                                 </td>
                                                 <td class="rightField">
                                                     <asp:DropDownList ID="ddlAssociate" runat="server" CssClass="cmbField">
+                                                        <asp:ListItem Value="S">Select</asp:ListItem>
                                                         <asp:ListItem Value="JH1">JointHolder-1</asp:ListItem>
                                                         <asp:ListItem Value="JH2">JointHolder-2</asp:ListItem>
                                                         <asp:ListItem Value="N1">Nominee-1</asp:ListItem>
@@ -262,7 +263,7 @@
                                                 </td>
                                                 <td class="rightField">
                                                     <asp:TextBox ID="txtNewPan" runat="server" Text='<%# Bind("CDAA_PanNum") %>' CssClass="txtField"></asp:TextBox>
-                                                    <span id="Span6" class="spnRequiredField">*</span>
+                                                    <span id="Span6"  class="spnRequiredField">*</span>
                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtNewPan"
                                                         ErrorMessage="<br />Please Enter PAN Number" Visible="false" runat="server" CssClass="rfvPCG"
                                                         ValidationGroup="Submit"></asp:RequiredFieldValidator>
