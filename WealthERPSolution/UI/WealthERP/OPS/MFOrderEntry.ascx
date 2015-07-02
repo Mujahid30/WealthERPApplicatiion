@@ -783,7 +783,7 @@
                             CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
                     </td>
                     <td align="right">
-                        <asp:Label ID="lblAssociate" runat="server" CssClass="FieldName" Text="Associate:"></asp:Label>
+                        <asp:Label ID="lblAssociate" runat="server" CssClass="FieldName" Text="Name:"></asp:Label>
                     </td>
                     <td>
                         <asp:Label ID="lblAssociatetext" runat="server" CssClass="FieldName" Enabled="false"></asp:Label>
