@@ -2440,7 +2440,7 @@ namespace DaoOnlineOrderManagement
             }
             return result;
         }
-        public DataTable UploadAllotmentIssueDataDynamic(DataTable dtData, int issueId, ref string isValidated, string product, string filePath, int userId, int isOnline, string subCategoryCode)
+        public DataTable UploadAllotmentIssueDataDynamic(DataTable dtData, int issueId, ref string isValidated, string product, string filePath, int userId, int isOnline, string subCategoryCode,ref int totalOrders,ref int rejectedOrders,ref int acceptedOrders)
         {
             int result = 0;
             UploadData(dtData);
@@ -2460,8 +2460,19 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmdAllotmentUpload, "@product", DbType.String, product);
                 db.AddInParameter(cmdAllotmentUpload, "@IsOnline", DbType.String, isOnline);
                 db.AddInParameter(cmdAllotmentUpload, "@subCategoryCode", DbType.String, subCategoryCode);
+                db.AddOutParameter(cmdAllotmentUpload, "@TotalOrders", DbType.Int32, 0);
+                db.AddOutParameter(cmdAllotmentUpload, "@RejectedOrders", DbType.Int32, 0);
+                db.AddOutParameter(cmdAllotmentUpload, "@AcceptedOrders", DbType.Int32, 0);
                 cmdAllotmentUpload.CommandTimeout = 60 * 60;
-                dtAllotmentUploadData = db.ExecuteDataSet(cmdAllotmentUpload).Tables[0];
+                if (db.ExecuteNonQuery(cmdAllotmentUpload) != 0)
+                {
+                    dtAllotmentUploadData = db.ExecuteDataSet(cmdAllotmentUpload).Tables[0];
+                    totalOrders = Convert.ToInt32(db.GetParameterValue(cmdAllotmentUpload, "TotalOrders").ToString());
+                    rejectedOrders = Convert.ToInt32(db.GetParameterValue(cmdAllotmentUpload, "RejectedOrders").ToString());
+                    acceptedOrders = Convert.ToInt32(db.GetParameterValue(cmdAllotmentUpload, "AcceptedOrders").ToString());
+
+
+                }
             }
             catch (BaseApplicationException Ex)
             {

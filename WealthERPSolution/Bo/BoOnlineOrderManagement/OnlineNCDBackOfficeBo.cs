@@ -1703,8 +1703,10 @@ namespace BoOnlineOrderManagement
                 {
                     if (row.Table.Columns[j].ToString().Trim().ToLower() == Header.HeaderName.Trim().ToLower())
                     {
+
                         // int colInx = row.Table.Columns[Header.HeaderName].Ordinal;
                         //int colInx = Header.HeaderSequence;
+                       
                         Header.ColumnExists = true;
                         string colRegex = Header.RegularExpression;
                         string colVal = row[j].ToString();
@@ -1778,14 +1780,14 @@ namespace BoOnlineOrderManagement
             dtRawData.AcceptChanges();
 
             ColumnNameErrors.Append("Column Name MisMatch");
-            ColumnNameErrors.AppendLine();
+            ColumnNameErrors.Append("\t");
 
             foreach (OnlineIssueHeader header in Headers)
             {
                 if (header.ColumnExists == false)
                 {
-                    ColumnNameErrors.Append("Actual Name:  " + header.HeaderName);
-                    ColumnNameErrors.Append("\n");
+                    ColumnNameErrors.Append("Actual Name:" + header.HeaderName);
+                    ColumnNameErrors.Append("\t");
                 }
             }
 
@@ -1849,7 +1851,7 @@ namespace BoOnlineOrderManagement
             }
             return result;
         }
-        public DataTable UploadAllotmentFile(DataTable dtCheckOrder, int fileTypeId, int issueId, ref string isEligbleIssue, int adviserid, string source, ref string result, string product, string filePath, int userId, int isOnline, string SubCategoryCode)
+        public DataTable UploadAllotmentFile(DataTable dtCheckOrder, int fileTypeId, int issueId, ref string isEligbleIssue, int adviserid, string source, ref string result, string product, string filePath, int userId, int isOnline, string SubCategoryCode,ref int totalOrders,ref int rejectedOrders,ref int acceptedOrders)
         {
             DataTable dtUploadAllotment = new DataTable();
             try
@@ -1866,7 +1868,7 @@ namespace BoOnlineOrderManagement
                     result = "1"; 
                 }
                 if (result != string.Empty && result != "0")
-                    dtUploadAllotment = daoOnlNcdBackOff.UploadAllotmentIssueDataDynamic(dtCheckOrder, issueId, ref  result, product, filePath, userId, isOnline, SubCategoryCode);
+                    dtUploadAllotment = daoOnlNcdBackOff.UploadAllotmentIssueDataDynamic(dtCheckOrder, issueId, ref  result, product, filePath, userId, isOnline, SubCategoryCode,ref  totalOrders,ref  rejectedOrders,ref  acceptedOrders);
                 else
                 {
                     result = "Pls Fill Allotment Date";

@@ -79,6 +79,9 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::System.Web.UI.WebControls.Label lblProduct;
         protected global::System.Web.UI.WebControls.Label lblmsg;
         protected global::System.Web.UI.WebControls.Label lblType;
+        protected global::System.Web.UI.WebControls.Label lblTotalVale;
+        protected global::System.Web.UI.WebControls.Label lblAccpetedCountVale;
+        protected global::System.Web.UI.WebControls.Label lblRejectCountVale;
         /// <summary>
         /// ddlProduct control.
         /// </summary>
@@ -295,5 +298,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblSource;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlSource;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow  tblMessagee;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMessage;
+        protected global::System.Web.UI.HtmlControls.HtmlTable TblResult;
     }
 }

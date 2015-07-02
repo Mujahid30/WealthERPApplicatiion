@@ -4,7 +4,9 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
 <script src="../Scripts/JScript.js" type="text/javascript"></script>
+
 <script src="../Scripts/jquery.js" type="text/javascript"></script>
+
 <script src="../Scripts/JScript.js" type="text/javascript"></script>
 
 <script src="../Scripts/jquery.js" type="text/javascript"></script>
@@ -22,7 +24,6 @@
 <script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
 
 <script src="../Scripts/JScript.js" type="text/javascript"></script>
-
 
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
@@ -153,7 +154,7 @@
                 <table cellspacing="0" cellpadding="2" width="100%">
                     <tr>
                         <td align="left">
-                             Issue Upload
+                            Issue Upload
                         </td>
                     </tr>
                 </table>
@@ -161,21 +162,42 @@
         </td>
     </tr>
     <tr id="tblMessagee" runat="server" visible="false">
-                <td colspan="6">
-                    <table class="tblMessage">
-                        <tr>
-                            <td align="center">
-                                <div id="divMessage" align="center">
-                                </div>
-                                <div style="clear: both">
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
+        <td colspan="6">
+            <table class="tblMessage">
+                <tr>
+                    <td align="center">
+                        <div id="divMessage" align="center">
+                        </div>
+                        <div style="clear: both">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
 </table>
-
+<table width="100%" id="TblResult" runat="server" visible="false" class="divPageHeading">
+    <tr id="tr2" runat="server">
+         <td class="leftLabel">
+            <asp:Label ID="lblTotal" runat="server" CssClass="FieldName" Text="Total Uploaded orders:"></asp:Label>
+        </td>
+         <td class="rightData">
+            <asp:Label ID="lblTotalVale" runat="server" CssClass="readOnlyField" ></asp:Label>
+        </td>
+         <td class="leftLabel">
+            <asp:Label ID="lblReject" runat="server" CssClass="FieldName" Text="Rejected Orders:"></asp:Label>
+        </td>
+         <td class="rightData">
+            <asp:Label ID="lblRejectCountVale" runat="server" CssClass="readOnlyField" ></asp:Label>
+        </td>
+        <td class="leftLabel">
+            <asp:Label ID="lblAccpetedCount" runat="server" CssClass="FieldName" Text="Accepted Orders:"></asp:Label>
+        </td>
+         <td class="rightData">
+            <asp:Label ID="lblAccpetedCountVale" runat="server" CssClass="readOnlyField" ></asp:Label>
+        </td>
+    </tr>
+</table>
 <table width="100%">
     <tr id="trStepOneHeading" runat="server">
         <td class="tdSectionHeading" colspan="6">
@@ -189,9 +211,11 @@
         </td>
     </tr>
     <tr>
-    <td class="leftLabel"> <asp:Label ID="lblType" runat="server" CssClass="FieldName" Text="Select Type:"></asp:Label></td>
-    <td class="rightData"> 
-    <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField">
+        <td class="leftLabel">
+            <asp:Label ID="lblType" runat="server" CssClass="FieldName" Text="Select Type:"></asp:Label>
+        </td>
+        <td class="rightData">
+            <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField">
                 <asp:ListItem Selected="True" Value="2">--SELECT--</asp:ListItem>
                 <asp:ListItem Text="Offline" Value="0" />
                 <asp:ListItem Text="Online" Value="1" />
@@ -201,8 +225,8 @@
                 CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select a Type" InitialValue="2"
                 ValidationGroup="FileType">
             </asp:RequiredFieldValidator>
-            </td>
-             <td class="leftLabel">
+        </td>
+        <td class="leftLabel">
             <asp:Label ID="lblProduct" runat="server" CssClass="FieldName" Text="Select Product:"></asp:Label>
         </td>
         <td class="rightData">
@@ -220,17 +244,17 @@
         </td>
     </tr>
     <tr>
-        <td class="leftLabel" id="tdlblSubCategory" runat="server"  visible="false" >
-                    <asp:Label ID="lblSubCategory" runat="server" Text="Sub Category:" CssClass="FieldName"
-                        Visible="true"></asp:Label>
-                </td>
-                <td class="rightData" id="tdddSubCategory" runat="server" visible="false" >
-                    <asp:DropDownList ID="ddSubCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
-                         Visible="true" OnSelectedIndexChanged="ddSubCategory_OnSelectedIndexChanged">
-                        <asp:ListItem>All</asp:ListItem>
-                    </asp:DropDownList>
-                </td>
-        <td class="leftLabel" id="tdlblSource" runat="server" >
+        <td class="leftLabel" id="tdlblSubCategory" runat="server" visible="false">
+            <asp:Label ID="lblSubCategory" runat="server" Text="Sub Category:" CssClass="FieldName"
+                Visible="true"></asp:Label>
+        </td>
+        <td class="rightData" id="tdddSubCategory" runat="server" visible="false">
+            <asp:DropDownList ID="ddSubCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
+                Visible="true" OnSelectedIndexChanged="ddSubCategory_OnSelectedIndexChanged">
+                <asp:ListItem>All</asp:ListItem>
+            </asp:DropDownList>
+        </td>
+        <td class="leftLabel" id="tdlblSource" runat="server">
             <asp:Label ID="lblSource" runat="server" CssClass="FieldName" Text="Source Data:"></asp:Label>
         </td>
         <td class="rightData" id="tdddlSource" runat="server">
@@ -250,7 +274,8 @@
             <asp:Label ID="lblFileType" runat="server" CssClass="FieldName" Text="File Type:"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:DropDownList ID="ddlFileType" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="OnSelectedIndexChanged_ddlFileType">
+            <asp:DropDownList ID="ddlFileType" runat="server" CssClass="cmbField" AutoPostBack="true"
+                OnSelectedIndexChanged="OnSelectedIndexChanged_ddlFileType">
                 <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
             </asp:DropDownList>
             <br />
@@ -274,32 +299,36 @@
             </asp:RequiredFieldValidator>
         </td>
         <td class="leftLabel">
-       <asp:Label ID="lblAllotementType" runat="server" Text="Allotment Type :" CssClass="FieldName" Visible="false"></asp:Label>
+            <asp:Label ID="lblAllotementType" runat="server" Text="Allotment Type :" CssClass="FieldName"
+                Visible="false"></asp:Label>
         </td>
         <td class="rightData">
-         <asp:DropDownList ID="ddlAlltmntTyp"  runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlAlltmntTyp_OnSelectedIndexChanged" Visible="false">
-          <asp:ListItem  Selected="True" Value="Select">--SELECT--</asp:ListItem>
-          <asp:ListItem  Value="WSR" Text="Advance" Enabled="false"></asp:ListItem>
-          <asp:ListItem Value="R1" Text="Basic"></asp:ListItem>
-         </asp:DropDownList>
-          <br />
+            <asp:DropDownList ID="ddlAlltmntTyp" runat="server" CssClass="cmbField" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlAlltmntTyp_OnSelectedIndexChanged" Visible="false">
+                <asp:ListItem Selected="True" Value="Select">--SELECT--</asp:ListItem>
+                <asp:ListItem Value="WSR" Text="Advance" Enabled="false"></asp:ListItem>
+                <asp:ListItem Value="R1" Text="Basic"></asp:ListItem>
+            </asp:DropDownList>
+            <br />
             <asp:RequiredFieldValidator ID="RFVddlAlltmnt" runat="server" ControlToValidate="ddlAlltmntTyp"
                 CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select Allotment Type"
                 InitialValue="Select" ValidationGroup="OnlineIssueUpload" Enabled="false">
             </asp:RequiredFieldValidator>
-        </td >
-        <td class="leftLabel">
-        <asp:Label ID="lblRgsttype" runat="server" Text="Register Type:" CssClass="FieldName" Visible="false"></asp:Label>
         </td>
-       <td>
-       <asp:DropDownList ID="ddlRgsttype" runat="server" AutoPostBack="true" CssClass="cmbField" Visible="false">
-       </asp:DropDownList>
-       <br />
+        <td class="leftLabel">
+            <asp:Label ID="lblRgsttype" runat="server" Text="Register Type:" CssClass="FieldName"
+                Visible="false"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlRgsttype" runat="server" AutoPostBack="true" CssClass="cmbField"
+                Visible="false">
+            </asp:DropDownList>
+            <br />
             <asp:RequiredFieldValidator ID="RFVRgsttype" runat="server" ControlToValidate="ddlRgsttype"
                 CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select Type of Register"
                 InitialValue="Select" ValidationGroup="OnlineIssueUpload" Enabled="false">
             </asp:RequiredFieldValidator>
-       </td>
+        </td>
     </tr>
     <tr id="trStep2" runat="server">
         <td class="tdSectionHeading" colspan="6">
@@ -324,9 +353,8 @@
                 OnClick="btnFileUpload_Click" ValidationGroup="OnlineIssueUpload" OnClientClick="if(ValidatefileUpload() == false) return false;ValidatefileUpload();" />
         </td>
         <td colspan="3">
-             <asp:Label ID="lblmsg" runat="server" CssClass="rfvPCG"></asp:Label>
+            <asp:Label ID="lblmsg" runat="server" CssClass="rfvPCG"></asp:Label>
         </td>
-       
     </tr>
 </table>
 <table width="100%">
@@ -342,6 +370,7 @@
         </td>
     </tr>
 </table>
+
 <asp:Panel ID="pnlOnlneIssueUpload" runat="server" Width="100%" ScrollBars="Horizontal"
     Visible="false">
     <telerik:RadGrid ID="gvOnlineIssueUpload" runat="server" AutoGenerateColumns="true"
@@ -368,7 +397,7 @@
         OnNeedDataSource="gvAllotmentUploadData_OnNeedDataSource" OnItemDataBound="gvAllotmentUploadData_ItemDataBound">
         <ExportSettings HideStructureColumns="true">
         </ExportSettings>
-        <MasterTableView Width="90%" AllowMultiColumnSorting="True"  AutoGenerateColumns="true"
+        <MasterTableView Width="90%" AllowMultiColumnSorting="True" AutoGenerateColumns="true"
             HeaderStyle-Width="120px" PageSize="20">
         </MasterTableView>
         <ClientSettings>
@@ -402,9 +431,8 @@
         </td>
     </tr>
 </table>
-<asp:HiddenField ID="hdnsavePath" runat="server"  />
+<asp:HiddenField ID="hdnsavePath" runat="server" />
 <asp:HiddenField ID="hdnddlSubCategory" runat="server" />
-
 <%--    </ContentTemplate>
     <Triggers>
         <asp:PostBackTrigger ControlID="FileUpload" />

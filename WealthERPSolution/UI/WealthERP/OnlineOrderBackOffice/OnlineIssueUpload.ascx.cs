@@ -135,7 +135,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
 
                     FileUpload.SaveAs(hdnsavePath.Value);
-                    ShowMessage(fileName + "Uploaded","S");
+                    
                     if (onlineNCDBackOfficeBo == null) onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
                     if (ddlFileType.SelectedValue == "12" || ddlFileType.SelectedValue == "13" || ddlFileType.SelectedValue == "14" || ddlFileType.SelectedValue == "15")
                     {
@@ -144,6 +144,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     else
                     {
                         dtUploadFile = onlineNCDBackOfficeBo.ReadCsvFile(hdnsavePath.Value, Convert.ToInt32(ddlFileType.SelectedValue));
+                        ShowMessage(fileName + "Uploaded", "S");
                     }
                     if (File.Exists(hdnsavePath.Value)) File.Delete(hdnsavePath.Value);
                 }
@@ -236,6 +237,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             string isIssueAvailable = "";
             string result = "";
+            int acceptedOrders=0, rejectedOrders=0, totalOrder = 0;
             ControlUploadMode(true);
             int nRows = 0;
             if (boNcdBackOff == null) boNcdBackOff = new OnlineNCDBackOfficeBo();
@@ -243,11 +245,9 @@ namespace WealthERP.OnlineOrderBackOffice
             dtUploadData = CheckHeaders(dtUploadData);
             if (IsAllotmentUpload)
             {
-                dtAllotmentUpload = boNcdBackOff.UploadAllotmentFile(dtUploadData, int.Parse(ddlFileType.SelectedValue), int.Parse(ddlIssueName.SelectedValue), ref isIssueAvailable, advisorVo.advisorId, ddlSource.SelectedValue, ref result, ddlProduct.SelectedValue, hdnsavePath.Value, userVo.UserId, Convert.ToInt32(ddlType.SelectedValue),hdnddlSubCategory.Value.ToString());
-                if (dtAllotmentUpload.Rows.Count > 0)
-                {
-                    GetUploadData(dtAllotmentUpload);
-                }
+                dtAllotmentUpload = boNcdBackOff.UploadAllotmentFile(dtUploadData, int.Parse(ddlFileType.SelectedValue), int.Parse(ddlIssueName.SelectedValue), ref isIssueAvailable, advisorVo.advisorId, ddlSource.SelectedValue, ref result, ddlProduct.SelectedValue, hdnsavePath.Value, userVo.UserId, Convert.ToInt32(ddlType.SelectedValue),hdnddlSubCategory.Value.ToString(),ref totalOrder,ref rejectedOrders,ref acceptedOrders);
+                 GetUploadData(dtAllotmentUpload,totalOrder,rejectedOrders,acceptedOrders);
+                
             }
             else
             {
@@ -282,6 +282,7 @@ namespace WealthERP.OnlineOrderBackOffice
             ////ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','W');", true);
             //ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "mykey", "hide();", true);
             tblMessagee.Visible = true;
+            //msg = "Column Name MisMatchActual Name:Certificate No";
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','" + type + "');", true);
         }
         protected void ddSubCategory_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -504,9 +505,6 @@ namespace WealthERP.OnlineOrderBackOffice
                 dtUploadData.Columns.Remove(dtUploadData.Columns["Remarks"]);
 
             }
-
-
-
             dtUploadData.AcceptChanges();
 
             return dtUploadData;
@@ -531,14 +529,22 @@ namespace WealthERP.OnlineOrderBackOffice
 
             }
         }
-        private void GetUploadData(DataTable DtUploadData)
+        private void GetUploadData(DataTable DtUploadData, int totalOrders,int rejectedOrders,int acceptedOrders)
         {
             gvOnlineIssueUpload.Visible = false;
-            gvAllotmentUploadData.Visible = true;
+            
             DtUploadData = boNcdBackOff.GetOnlineAllotment(int.Parse(ddlRgsttype.SelectedValue), ddlAlltmntTyp.SelectedValue, DtUploadData);
-            gvAllotmentUploadData.DataSource = null;
-            gvAllotmentUploadData.DataSource = DtUploadData;
-            gvAllotmentUploadData.DataBind();
+            if (DtUploadData.Rows.Count > 0)
+            {
+                gvAllotmentUploadData.DataSource = null;
+                gvAllotmentUploadData.DataSource = DtUploadData;
+                gvAllotmentUploadData.DataBind();
+                gvAllotmentUploadData.Visible = true;
+            }
+            TblResult.Visible = true;
+            lblTotalVale.Text = totalOrders.ToString();
+            lblAccpetedCountVale.Text = acceptedOrders.ToString();
+            lblRejectCountVale.Text = rejectedOrders.ToString();
             if (Cache["UPLOAD" + userVo.UserId] != null) Cache.Remove("UPLOAD" + userVo.UserId);
 
             if (DtUploadData.Rows.Count > 0) Cache.Insert("UPLOAD" + userVo.UserId, DtUploadData);
