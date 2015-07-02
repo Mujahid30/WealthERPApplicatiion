@@ -120,15 +120,16 @@
                     <td style="width: 30%;" align="center">
                         <div class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'"
                             onmouseout="this.className='divDashBoardMouseInLinks'">
-                            <asp:ImageButton ID="imgOrderentry" ImageUrl="~/Images/Dashboard-MF-Order.png" runat="server"
-                                ToolTip="Navigate to Order Entry" OnClick="imgOrderentry_OnClick" Width="70px" />
+                            <asp:ImageButton ID="Img54ECEntry" ImageUrl="~/Images/Dashboard-MF-Order.png" runat="server"
+                                ToolTip="Navigate to 54EC/FD Entry" OnClick="Img54ECEntry_OnClick" Width="70px" />
                             <br />
-                            <asp:LinkButton ID="lnkbtnOrderEntry" runat="server" Font-Underline="false" CssClass="FieldName"
-                                OnClick="lnkbtnOrderEntry_OnClick" ToolTip="Navigate to Order Entry" Text="MF Order Entry"></asp:LinkButton>
+                            <asp:LinkButton ID="lnk54ECOrder" runat="server" Font-Underline="false" CssClass="FieldName"
+                                OnClick="lnk54ECOrder_OnClick" ToolTip="Navigate to 54EC/FD Entry" Text="54EC/FD Order Entry"></asp:LinkButton>
                         </div>
                     </td>
+                    
                 </tr>
-                <tr>
+             <%--   <tr visible="false">
                     <td style="width: 30%;" align="center">
                         <div class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'"
                             onmouseout="this.className='divDashBoardMouseInLinks'">
@@ -150,18 +151,18 @@
                         </div>
                     </td>
                 </tr>
-                <tr>
-                    <td style="width: 30%;" align="center">
+                <tr >
+                   <td style="width: 30%;" align="center">
                         <div class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'"
                             onmouseout="this.className='divDashBoardMouseInLinks'">
-                            <asp:ImageButton ID="Img54ECEntry" ImageUrl="~/Images/Dashboard-MF-Order.png" runat="server"
-                                ToolTip="Navigate to 54EC/FD Entry" OnClick="Img54ECEntry_OnClick" Width="70px" />
+                            <asp:ImageButton ID="imgOrderentry" ImageUrl="~/Images/Dashboard-MF-Order.png" runat="server"
+                                ToolTip="Navigate to Order Entry" OnClick="imgOrderentry_OnClick" Width="70px" />
                             <br />
-                            <asp:LinkButton ID="lnk54ECOrder" runat="server" Font-Underline="false" CssClass="FieldName"
-                                OnClick="lnk54ECOrder_OnClick" ToolTip="Navigate to 54EC/FD Entry" Text="54EC/FD Order Entry"></asp:LinkButton>
+                            <asp:LinkButton ID="lnkbtnOrderEntry" runat="server" Font-Underline="false" CssClass="FieldName"
+                                OnClick="lnkbtnOrderEntry_OnClick" ToolTip="Navigate to Order Entry" Text="MF Order Entry"></asp:LinkButton>
                         </div>
-                    </td>
-                </tr>
+                    </td> 
+                </tr>--%>
             </table>
         </td>
         <td style="width: 15%;">
