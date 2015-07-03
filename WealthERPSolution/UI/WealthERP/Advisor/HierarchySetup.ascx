@@ -93,17 +93,18 @@
                             AutoPostBackOnFilter="true">
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderStyle-Width="200px" UniqueName="AH_ReportsTo" HeaderText="ReportingTo"
+                       <%-- <telerik:GridBoundColumn HeaderStyle-Width="200px" UniqueName="AH_ReportsTo" HeaderText="ReportingTo"
                             DataField="AH_ReportsTo" SortExpression="AH_ReportsTo" AllowFiltering="true"
                             ShowFilterIcon="false" AutoPostBackOnFilter="true">
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
+                       --%>
                         <telerik:GridBoundColumn UniqueName="AH_ChannelName" HeaderText="Channel" DataField="AH_ChannelName"
                             SortExpression="AH_ChannelName" AllowFiltering="true" ShowFilterIcon="false"
                             AutoPostBackOnFilter="true">
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="AH_Sequence" HeaderText="Seq in Chanel" DataField="AH_Sequence"
+                        <telerik:GridBoundColumn UniqueName="AH_Sequence" HeaderText="Sequence" DataField="AH_Sequence"
                             SortExpression="AH_Sequence" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
