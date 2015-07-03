@@ -270,6 +270,30 @@
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Broker Name" DataField="AIM_BrokerName"
+                    UniqueName="AIM_BrokerName" SortExpression="PaybleUnit" AutoPostBackOnFilter="true" AllowFiltering="true"
+                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                 <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Commission Type" DataField="WCT_CommissionType"
+                    UniqueName="WCT_CommissionType" SortExpression="PaybleUnit" AutoPostBackOnFilter="true" AllowFiltering="true"
+                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+               
+                    <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Broker" DataField="WCMV_Name"
+                    UniqueName="WCMV_Name" SortExpression="PaybleUnit" AutoPostBackOnFilter="true" AllowFiltering="true"
+                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Broker Commission Type" DataField="XB_BrokerShortName"
+                    UniqueName="XB_BrokerShortName" SortExpression="PaybleUnit" AutoPostBackOnFilter="true" AllowFiltering="true"
+                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+               
+               
+                
                  <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Service TaxValue" DataField="ACSR_ServiceTaxValue"
                     UniqueName="ACSR_ServiceTaxValue" SortExpression="ACSR_ServiceTaxValue" AutoPostBackOnFilter="true" AllowFiltering="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
