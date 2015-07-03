@@ -469,7 +469,7 @@
             <asp:Label ID="lblEmail" runat="server" CssClass="FieldName" Text="Email Id :"></asp:Label>
         </td>
         <td class="rightField" colspan="5">
-            <asp:TextBox ID="txtEmail" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtEmail" runat="server" style="width:280px" CssClass="txtField"></asp:TextBox>
             <span id="Span2" class="spnRequiredField">*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
             <asp:CheckBox ID="chkMailSend" Checked="false" runat="server" Text="Send Login info?"
                 CssClass="cmbField" Visible="false" />
