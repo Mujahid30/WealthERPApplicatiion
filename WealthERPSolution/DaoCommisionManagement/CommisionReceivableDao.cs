@@ -412,7 +412,7 @@ namespace DaoCommisionManagement
         }
 
 
-        public DataSet GetAdviserAgentCodes(int adviserId, string mappingType)
+        public DataSet GetAdviserAgentCodes(int adviserId, string mappingType, int ARN, string MappedruleId)
         {
             Database db;
             DbCommand cmdGetCommissionStructureRules;
@@ -424,7 +424,35 @@ namespace DaoCommisionManagement
                 cmdGetCommissionStructureRules = db.GetStoredProcCommand("SP_GetAdviserWiseAgentCodes");
                 db.AddInParameter(cmdGetCommissionStructureRules, "@A_AdviserId", DbType.Int32, adviserId);
                 db.AddInParameter(cmdGetCommissionStructureRules, "@MappingType", DbType.String, mappingType);
+                db.AddInParameter(cmdGetCommissionStructureRules, "@ARN", DbType.Int32, ARN);
+                db.AddInParameter(cmdGetCommissionStructureRules, "@MappedruleId", DbType.String, MappedruleId);
+
                 ds = db.ExecuteDataSet(cmdGetCommissionStructureRules);
+            
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return ds;
+        }
+        public DataSet GetAdviserAgentMappedCodes(int adviserId, string mappingType, int ARN, string MappedruleId)
+        {
+            Database db;
+            DbCommand cmdGetCommissionStructureRules;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetCommissionStructureRules = db.GetStoredProcCommand("SP_GetAdviserWiseAgentMappedCodes");
+                db.AddInParameter(cmdGetCommissionStructureRules, "@A_AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdGetCommissionStructureRules, "@MappingType", DbType.String, mappingType);
+                db.AddInParameter(cmdGetCommissionStructureRules, "@ARN", DbType.Int32, ARN);
+                db.AddInParameter(cmdGetCommissionStructureRules, "@MappedruleId", DbType.String, MappedruleId);
+
+                ds = db.ExecuteDataSet(cmdGetCommissionStructureRules);
+
             }
             catch (BaseApplicationException Ex)
             {

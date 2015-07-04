@@ -294,13 +294,28 @@ namespace BoCommisionManagement
 
         }
 
-        public DataSet GetAdviserAgentCodes(int adviserId, string mappingType)
+        public DataSet GetAdviserAgentCodes(int adviserId, string mappingType, int ARN, string MappedruleId)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
             DataSet dsAgentCodes;
             try
             {
-                dsAgentCodes = commisionReceivableDao.GetAdviserAgentCodes(adviserId, mappingType);
+                dsAgentCodes = commisionReceivableDao.GetAdviserAgentCodes(adviserId, mappingType, ARN, MappedruleId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsAgentCodes;
+        }
+        public DataSet GetAdviserAgentMappedCodes(int adviserId, string mappingType, int ARN, string MappedruleId)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            DataSet dsAgentCodes;
+            try
+            {
+                dsAgentCodes = commisionReceivableDao.GetAdviserAgentMappedCodes(adviserId, mappingType, ARN, MappedruleId);
 
             }
             catch (BaseApplicationException Ex)

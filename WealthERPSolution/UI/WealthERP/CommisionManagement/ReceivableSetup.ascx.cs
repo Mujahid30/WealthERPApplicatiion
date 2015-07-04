@@ -34,6 +34,7 @@ namespace WealthERP.Receivable
         CommissionStructureRuleVo commissionStructureRuleVo = new CommissionStructureRuleVo();
         int issueid = 0;
         int categoryId = 0;
+        string MappedruleId = string.Empty;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -257,7 +258,7 @@ namespace WealthERP.Receivable
                 lblApplyTaxes.Visible = true;
 
             }
-            
+
 
 
         }
@@ -492,8 +493,8 @@ namespace WealthERP.Receivable
                 DropDownList ddlBrokerCode = (DropDownList)e.Item.FindControl("ddlBrokerCode");
                 System.Web.UI.HtmlControls.HtmlTableCell tdlblBrokerCode = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdlblBrokerCode");
                 System.Web.UI.HtmlControls.HtmlTableCell tdddlBrokerCode = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdddlBrokerCode");
-                if(ddlProductType.SelectedValue!="MF")
-                BindBrokerCode(ddlBrokerCode, int.Parse(gvMappedIssueList.MasterTableView.DataKeyValues[0]["AIM_IssueId"].ToString()));
+                if (ddlProductType.SelectedValue != "MF")
+                    BindBrokerCode(ddlBrokerCode, int.Parse(gvMappedIssueList.MasterTableView.DataKeyValues[0]["AIM_IssueId"].ToString()));
                 string brokerCode = e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["XB_BrokerIdentifier"].ToString();
                 ddlBrokerCode.SelectedValue = brokerCode;
                 //Commission Type Bind
@@ -1326,6 +1327,7 @@ namespace WealthERP.Receivable
                 System.Web.UI.HtmlControls.HtmlTableCell tdlblSerise = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdlblSerise");
                 System.Web.UI.HtmlControls.HtmlTableCell tdlblMode = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdlblMode");
                 System.Web.UI.HtmlControls.HtmlTableCell tdddlMode = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdddlMode");
+                System.Web.UI.HtmlControls.HtmlTableRow trCity = (System.Web.UI.HtmlControls.HtmlTableRow)gefi.FindControl("trCity");
                 txtRuleValidityTo.Text = hdnRuleEnd.Value;
                 txtRuleValidityFrom.Text = hdnRulestart.Value;
                 ddlCommisionCalOn.SelectedValue = "INAM";
@@ -1347,7 +1349,10 @@ namespace WealthERP.Receivable
                     tdlblSerise.Visible = false;
                     chkCategory.Visible = true;
                 }
-
+                if (ddlProductType.SelectedValue == "MF")
+                {
+                    trCity.Visible = true;
+                }
             }
             if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode) && e.Item.ItemIndex > 0)
             {
@@ -1585,8 +1590,9 @@ namespace WealthERP.Receivable
                     string strIsTDSReduced = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_IsTDSReduced"].ToString();
                     string strIsOtherTaxReduced = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSM_IsOtherTaxReduced"].ToString();
                     string IncentiveType = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ASCR_WCMV_IncentiveType"].ToString();
+                    string incentiveAge = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_InvestmentAgeUnit"].ToString();
+
                     if (RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AID_IssueDetailId"].ToString() != string.Empty)
-               
                     {
                         seriseid = int.Parse(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AID_IssueDetailId"].ToString());
                     }
@@ -1651,7 +1657,7 @@ namespace WealthERP.Receivable
 
                     ddlInvestorType.SelectedValue = strCustomerCategory;
                     ddlTenureFrequency.SelectedValue = strTenureUnit;
-                    ddlInvestAgeTenure.SelectedValue = "Months";
+                    ddlInvestAgeTenure.SelectedValue = incentiveAge;
                     // ddlBrokerageUnit.SelectedValue = strBrokargeUnit;
                     ddlCommisionCalOn.SelectedValue = strCalculatedOn;
                     if (ddlCommisionCalOn.SelectedValue.ToString().ToUpper() == "APPC")
@@ -1695,7 +1701,7 @@ namespace WealthERP.Receivable
                     //}
                     //ddlAUMFrequency.SelectedValue = strAUMFrequency;
                     TxtRuleName.Text = hdnRuleName.Value;
-                    if ((strCommissionType == "IN" ||strCommissionType =="TC") && (strInvestmentTransactionType.Contains("SIP") || strInvestmentTransactionType.Contains("STB")))
+                    if ((strCommissionType == "IN" || strCommissionType == "TC") && (strInvestmentTransactionType.Contains("SIP") || strInvestmentTransactionType.Contains("STB")))
                     {
                         ddlTransaction.Visible = true;
                         ddlTransaction.SelectedValue = "SIP";
@@ -1703,7 +1709,10 @@ namespace WealthERP.Receivable
                         foreach (ListItem chkItems in chkListTtansactionType.Items)
                         {
                             if (chkItems.Value == "SIP" || chkItems.Value == "STB")
+                            {
                                 chkItems.Enabled = true;
+                                chkItems.Selected = true;
+                            }
                             else
                             {
                                 chkItems.Enabled = false;
@@ -1712,15 +1721,20 @@ namespace WealthERP.Receivable
                         }
 
                     }
-                    else if (strCommissionType == "IN" || strCommissionType =="TC")
+                    else if (strCommissionType == "IN" || strCommissionType == "TC")
                     {
                         foreach (ListItem chkItems in chkListTtansactionType.Items)
                         {
-                            //if (chkItems.Value == "SIP" || chkItems.Value == "STB")
-                            //    chkItems.Enabled = false;
-                            //else
-                            chkItems.Enabled = true;
-                            chkItems.Selected = true;
+                            if (chkItems.Value == "SIP" || chkItems.Value == "STB")
+                            {
+                                chkItems.Enabled = false;
+                                chkItems.Selected = false;
+                            }
+                            else
+                            {
+                                chkItems.Enabled = true;
+                                chkItems.Selected = true;
+                            }
                         }
                         ddlTransaction.Visible = true;
 
@@ -1941,7 +1955,7 @@ namespace WealthERP.Receivable
                 {
                     return;
                 }
-                
+
 
                 /*******************DUPLICATE CHECK********************/
                 //bool isValidRule = true;
@@ -1965,7 +1979,7 @@ namespace WealthERP.Receivable
                     BindRuleDetGrid(rgCommissionTypeCaliculation, ruleId);
                     Table5.Visible = true;
                     //HiddenField1.Value = hidCommissionStructureName.Value;
-                       
+
                     //RadGrid rgCommissionTypeCaliculation = (RadGrid)e.Item.FindControl("rgCommissionTypeCaliculation");
                     //rgCommissionTypeCaliculation.Visible = true;
                     //DataSet dsLookupData;
@@ -3303,10 +3317,10 @@ namespace WealthERP.Receivable
             ddlAppCityGroup.Visible = flag;
             ddlInvestorType.Visible = flag;
             trTransactionTypeSipFreq.Visible = flag;
-           
+
             trMinMaxTenure.Visible = flag;
             trMinMaxAge.Visible = flag;
-            
+
             //trTransaction.Visible = flag;
 
 
@@ -3409,16 +3423,16 @@ namespace WealthERP.Receivable
         //    }
 
         //}
-        private void BindAgentCodes()
-        {
-            DataSet dsAdviserBranchList = new DataSet();
-            dsAdviserBranchList = commisionReceivableBo.GetAdviserAgentCodes(advisorVo.advisorId, ddlMapping.SelectedValue);
-            LBAgentCodes.DataSource = dsAdviserBranchList;
-            LBAgentCodes.DataValueField = "AgentId";
-            LBAgentCodes.DataTextField = "AgentCodeWithName";
-            LBAgentCodes.DataBind();
+        //private void BindAgentCodes()
+        //{
+        //DataSet dsAdviserBranchList = new DataSet();
+        //dsAdviserBranchList = commisionReceivableBo.GetAdviserAgentCodes(advisorVo.advisorId, ddlMapping.SelectedValue, int.Parse(ddlAMFIAvaliable.SelectedValue));
+        //LBAgentCodes.DataSource = dsAdviserBranchList;
+        //LBAgentCodes.DataValueField = "AgentId";
+        //LBAgentCodes.DataTextField = "AgentCodeWithName";
+        //LBAgentCodes.DataBind();
 
-        }
+        //}
         private void SetStructureDetails()
         {
             DataSet dsStructDet;
@@ -3618,6 +3632,7 @@ namespace WealthERP.Receivable
         {
             int associateid = 0;
             DefaultAssignments();
+            RadListBoxSelectedAgentCodes.Items.Clear();
             BindPayableGridMapping(int.Parse(hidCommissionStructureName.Value));
             if (Request.QueryString["StructureId"] != null)
             {
@@ -3625,10 +3640,11 @@ namespace WealthERP.Receivable
                 if (associateid > 0)
                 {
 
-                    string confirmValue = Request.Form["confirm_value"];
+                    string confirmValue = "Yes";
+                    //Request.Form["confirm_value"];
                     if (confirmValue == "Yes")
                     {
-                        commisionReceivableBo.DeleteMappedIssue(int.Parse(hidCommissionStructureName.Value));
+
                         radAplicationPopUp.VisibleOnPageLoad = true;
                         //string myscript = "window.open('PopUp.aspx?ID=" + hidCommissionStructureName.Value + "&pageID=PayableStructureToAgentCategoryMapping&', 'mywindow', 'width=1000,height=600,scrollbars=yes,location=no')";
                         //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), Guid.NewGuid().ToString(), "<script>" + myscript + "</script>", false);
@@ -3646,7 +3662,7 @@ namespace WealthERP.Receivable
                 if (gvPayaMapping.Items.Count > 0)
                 {
 
-                    string confirmValue = Request.Form["confirm_value"];
+                    string confirmValue = "Yes";// Request.Form["confirm_value"];
                     if (confirmValue == "Yes")
                     {
                         radAplicationPopUp.VisibleOnPageLoad = true;
@@ -3677,8 +3693,7 @@ namespace WealthERP.Receivable
             bool result = true;
             DateTime start = Convert.ToDateTime(txtRuleValidityFrom.Text);
             DateTime end = Convert.ToDateTime(txtRuleValidityTo.Text);
-            if (!(start >=Convert.ToDateTime(hdnStructValidFrom.Value) && end <= Convert.ToDateTime(hdnStructValidTill.Value)))
-
+            if (!(start >= Convert.ToDateTime(hdnStructValidFrom.Value) && end <= Convert.ToDateTime(hdnStructValidTill.Value)))
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select rule start and rule end date as on structure date');", true);
                 result = false;
@@ -3759,6 +3774,7 @@ namespace WealthERP.Receivable
             {
                 hdneligible.Value = "Eligible";
                 hdnViewMode.Value = "ViewEdit";
+                btnCancelSelectedRule.Visible = true;
             }
             else
             {
@@ -3776,7 +3792,7 @@ namespace WealthERP.Receivable
         }
         protected void OnClick_imgMapping(object sender, ImageClickEventArgs e)
         {
-        
+
 
         }
         protected void chkCategory_OnCheckedChanged(object sender, EventArgs e)
@@ -3958,7 +3974,6 @@ namespace WealthERP.Receivable
                             ruleId = ruleId + "," + chkListrate.Items[i].Value;
                         }
                     }
-
                 }
                 if (ruleId != "")
                 {
@@ -3993,15 +4008,16 @@ namespace WealthERP.Receivable
                     {
                         categoryId = ddlAdviserCategory.SelectedValue;
                     }
-
+                    //commisionReceivableBo.DeleteMappedIssue(int.Parse(hidCommissionStructureName.Value));
+                   
                     commisionReceivableBo.CreateAdviserPayableRuleToAgentCategoryMapping(Convert.ToInt32(hidCommissionStructureName.Value), ddlMapping.SelectedValue, categoryId, dtRuleMapping, ruleId.TrimEnd(','), out mappingId);
-
+                    radAplicationPopUp.VisibleOnPageLoad = true;
                     return mappingId;
                 }
                 else
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select rate(%)');", true);
-                    radAplicationPopUp.VisibleOnPageLoad = true; ;
+                    radAplicationPopUp.VisibleOnPageLoad = true;
                     return 0;
 
                 }
@@ -4086,7 +4102,13 @@ namespace WealthERP.Receivable
         {
             ddlMapping.SelectedValue = "Associate";
             ddlType.SelectedValue = "Custom";
+            ddlAMFIAvaliable.SelectedValue = "0";
             GetControlsBasedOnType(ddlType.SelectedValue);
+        }
+        protected void ddlAMFIAvaliable_Selectedindexchanged(object sender, EventArgs e)
+        {
+            //BindAgentCodes();
+            radAplicationPopUp.VisibleOnPageLoad = true;
         }
         protected void ddlType_Selectedindexchanged(object sender, EventArgs e)
         {
@@ -4101,14 +4123,13 @@ namespace WealthERP.Receivable
             GetControlsBasedOnType(ddlType.SelectedValue);
         }
 
-
         private void SelectionsBasedOnMappingFor()
         {
             if (ddlMapping.SelectedValue == "Staff")
             {
                 ddlType.SelectedValue = "Custom";
                 ddlType.Enabled = false;
-                lblAssetCategory.Visible=false;
+                lblAssetCategory.Visible = false;
                 ddlAdviserCategory.Visible = false;
                 RadListBoxSelectedAgentCodes.Items.Clear();
             }
@@ -4137,8 +4158,9 @@ namespace WealthERP.Receivable
                 //trAssetCategory.Visible = false;
                 lblAssetCategory.Visible = false;
                 ddlAdviserCategory.Visible = false;
-                BindAgentCodes();
+                //BindAgentCodes();
                 ddlType.SelectedValue = "Custom";
+
             }
             else
             {
@@ -4162,6 +4184,80 @@ namespace WealthERP.Receivable
                 gvPayaMapping.Visible = true;
                 ImageButton7.ImageUrl = "~/Images/toggle-collapse-alt_blue.png";
                 ImageButton7.ToolTip = "Collapse";
+            }
+        }
+
+        protected void chkListrate_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            radAplicationPopUp.VisibleOnPageLoad = true;
+            int count = 0;
+            foreach (GridDataItem gdi in rgPayableMapping.MasterTableView.Items)
+            {
+                CheckBoxList chkListrate = (CheckBoxList)gdi.FindControl("chkListrate");
+                for (int i = 0; i < chkListrate.Items.Count; i++)
+                {
+                    if (chkListrate.Items[i].Selected)
+                    {
+                        //Storing the selected values
+                        
+                        MappedruleId = MappedruleId + "," + chkListrate.Items[i].Value;
+                        count++;
+                    }
+                    if (hdneligible.Value != "")
+                    {
+                        chkListrate.Enabled = false;
+                        //if (chkListrate.Items[i].Selected)
+                        //    chkListrate.Enabled = true;
+                        //if (count > 0 && chkListrate.Items[i].Selected==false)
+                        //    chkListrate.Enabled = false;
+                        //else
+                        //{
+                        //    if (chkListrate.Items[i].Selected)
+                        //        chkListrate.Enabled = true;
+                            //if (count > 0)
+                            //    chkListrate.Enabled = false;
+                            //else
+                            //    chkListrate.Enabled = true;
+                        //}
+                    }
+                }
+            }
+
+            BindMAppedStaffList();
+            BindStaffListAssociate();
+        }
+        protected void BindMAppedStaffList()
+        {
+            RadListBoxSelectedAgentCodes.Items.Clear();
+            DataSet dsAdviserBranchList = new DataSet();
+            dsAdviserBranchList = commisionReceivableBo.GetAdviserAgentMappedCodes(advisorVo.advisorId, ddlMapping.SelectedValue, int.Parse(ddlAMFIAvaliable.SelectedValue), MappedruleId.TrimStart(','));
+            RadListBoxSelectedAgentCodes.DataSource = dsAdviserBranchList;
+            RadListBoxSelectedAgentCodes.DataValueField = "AgentId";
+            RadListBoxSelectedAgentCodes.DataTextField = "AgentCodeWithName";
+            RadListBoxSelectedAgentCodes.DataBind();
+        }
+        protected void BindStaffListAssociate()
+        {
+            DataSet dsAdviserBranchList = new DataSet();
+            dsAdviserBranchList = commisionReceivableBo.GetAdviserAgentCodes(advisorVo.advisorId, ddlMapping.SelectedValue, int.Parse(ddlAMFIAvaliable.SelectedValue), MappedruleId.TrimStart(','));
+            LBAgentCodes.DataSource = dsAdviserBranchList;
+            LBAgentCodes.DataValueField = "AgentId";
+            LBAgentCodes.DataTextField = "AgentCodeWithName";
+            LBAgentCodes.DataBind();
+        }
+
+        protected void btnCancelSelectedRule_OnClick(object sender, EventArgs e)
+        {
+            foreach (GridDataItem gdi in rgPayableMapping.MasterTableView.Items)
+            {
+                CheckBoxList chkListrate = (CheckBoxList)gdi.FindControl("chkListrate");
+                chkListrate.Enabled = true;
+                for (int i = 0; i < chkListrate.Items.Count; i++)
+                {
+                    chkListrate.Items[i].Selected = false;
+                }
+                radAplicationPopUp.VisibleOnPageLoad = true;
+                RadListBoxSelectedAgentCodes.Items.Clear();
             }
         }
     }

@@ -39,7 +39,7 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnActivRangeClose;
-        
+        protected global::System.Web.UI.WebControls.Button btnCancelSelectedRule;
         /// <summary>
         /// pnl1 control.
         /// </summary>
@@ -57,7 +57,7 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trStepOneHeading;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trCity;
         /// <summary>
         /// imgStepOneStatus control.
         /// </summary>
@@ -129,6 +129,7 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlProductType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAMFIAvaliable;
         
         /// <summary>
         /// RequiredFieldValidator1 control.
