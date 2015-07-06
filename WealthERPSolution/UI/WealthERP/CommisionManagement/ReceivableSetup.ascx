@@ -956,14 +956,14 @@
                         <td rowspan="2" class="rightData">
                             <telerik:RadListBox SelectionMode="Multiple" EnableDragAndDrop="true" AllowTransferOnDoubleClick="true"
                                 AllowTransferDuplicates="false" EnableViewState="true" EnableMarkMatches="true"
-                                runat="server" ID="rlbAvailSchemes" Height="200px" Width="250px" AllowTransfer="true"
+                                runat="server" ID="rlbAvailSchemes" Height="200px" Width="350px" AllowTransfer="true"
                                 TransferToID="rlbMappedSchemes" CssClass="cmbFielde">
                                 <ButtonSettings TransferButtons="All" />
                             </telerik:RadListBox>
                         </td>
                         <td rowspan="2" class="leftLabel">
                             <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" SelectionMode="Multiple"
-                                ID="rlbMappedSchemes" Height="200px" Width="220px" CssClass="cmbFielde">
+                                ID="rlbMappedSchemes" Height="200px" Width="350px" CssClass="cmbFielde">
                             </telerik:RadListBox>
                         </td>
                         <td>
@@ -2105,7 +2105,7 @@
             <asp:Button ID="btnIssueMap" runat="server" CssClass="PCGButton" Text="Map Associate"
                 OnClick="Map_btnIssueMap" Visible="false" />
             <telerik:RadWindow ID="radAplicationPopUp" runat="server" VisibleOnPageLoad="false"
-                Height="500px" Width="900px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false"
+                Height="600px" Width="900px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false"
                 Behaviors="Resize, Close, Move" Title="Map Associate" Left="10" Top="20" OnClientShow="setCustomPosition">
                 <ContentTemplate>
                     <table id="tblMapping" runat="server" width="100%">
@@ -2224,12 +2224,12 @@
                                         <br />
                                         <telerik:RadListBox SelectionMode="Multiple" EnableDragAndDrop="true" AccessKey="y"
                                             AllowTransferOnDoubleClick="true" AllowTransferDuplicates="false" EnableViewState="true"
-                                            EnableMarkMatches="true" runat="server" ID="LBAgentCodes" Height="200px" Width="250px"
+                                            EnableMarkMatches="true" runat="server" ID="LBAgentCodes" Height="200px" Width="300px"
                                             AllowTransfer="true" TransferToID="RadListBoxSelectedAgentCodes" CssClass="cmbFielde"
                                             Visible="true">
                                         </telerik:RadListBox>
                                         <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" SelectionMode="Multiple"
-                                            ID="RadListBoxSelectedAgentCodes" Height="200px" Width="220px" CssClass="cmbField">
+                                            ID="RadListBoxSelectedAgentCodes" Height="200px" Width="300px" CssClass="cmbField">
                                         </telerik:RadListBox>
                                     </asp:Panel>
                                 </div>

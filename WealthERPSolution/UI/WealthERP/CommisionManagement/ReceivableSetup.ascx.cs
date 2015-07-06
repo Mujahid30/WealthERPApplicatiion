@@ -19,7 +19,6 @@ using BoAdvisorProfiling;
 using BoOnlineOrderManagement;
 using BoOps;
 
-
 namespace WealthERP.Receivable
 {
     public partial class ReceivableSetup : System.Web.UI.UserControl
