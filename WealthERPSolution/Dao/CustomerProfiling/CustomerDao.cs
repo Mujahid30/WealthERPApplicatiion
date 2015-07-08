@@ -3344,7 +3344,7 @@ namespace DaoCustomerProfiling
             }
             return dtCustomerNames;
         }
-        public DataTable GetAdviserAllCustomerPan(string prefixText, int register, int adviserId)
+        public DataTable GetAdviserAllCustomerPan(string prefixText, int register, int adviserId,string usertype,int agentId)
         {
 
             Database db;
@@ -3360,6 +3360,8 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(cmdGetCustomerNames, "@prefixText", DbType.String, prefixText);
                 db.AddInParameter(cmdGetCustomerNames, "@Registration", DbType.Int32, register);
                 db.AddInParameter(cmdGetCustomerNames, "@A_AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdGetCustomerNames, "@userType", DbType.String, usertype);
+                db.AddInParameter(cmdGetCustomerNames, "@AAC_AdviserAgentId", DbType.Int32, agentId);
                 dsCustomerNames = db.ExecuteDataSet(cmdGetCustomerNames);
                 dtCustomerNames = dsCustomerNames.Tables[0];
 

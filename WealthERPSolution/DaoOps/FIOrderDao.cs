@@ -903,7 +903,7 @@ namespace DaoOps
                 db.AddInParameter(getGetAuthenticate, "@AgentCode", DbType.String, agentCode);
                 else
                     db.AddInParameter(getGetAuthenticate, "@AgentCode", DbType.String, DBNull.Value);
-
+                getGetAuthenticate.CommandTimeout = 60 * 60;
                 dsGetAuthenticate = db.ExecuteDataSet(getGetAuthenticate);
                 dtGetAuthenticate = dsGetAuthenticate.Tables[0];
             }

@@ -1431,14 +1431,14 @@ namespace BoCustomerProfiling
             }
             return dtCustomerNames;
         }
-        public DataTable GetAdviserAllCustomerPan(string prefixText, int register, int adviserId)
+        public DataTable GetAdviserAllCustomerPan(string prefixText, int register, int adviserId,string usertype,int agentId)
         {
             CustomerDao customerDao = new CustomerDao();
 
             DataTable dtCustomerNames = new DataTable();
             try
             {
-                dtCustomerNames = customerDao.GetAdviserAllCustomerPan(prefixText, register, adviserId);
+                dtCustomerNames = customerDao.GetAdviserAllCustomerPan(prefixText, register, adviserId, usertype, agentId);
             }
             catch (BaseApplicationException Ex)
             {
