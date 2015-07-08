@@ -244,6 +244,7 @@ namespace DaoAdvisorProfiling
                 db.AddOutParameter(createRMCmd, "@AAC_AdviserAgentId", DbType.Int32, 1000000);
                 db.AddInParameter(createRMCmd, "@roleIds", DbType.String, roleIds);
                 db.AddInParameter(createRMCmd, "@IsBranchOps", DbType.Int16, rmVo.IsBranchOps);
+                db.AddInParameter(createRMCmd, "@IsOnPayrollOps", DbType.Int16, rmVo.IsOnPayrollOps);
                 if (db.ExecuteNonQuery(createRMCmd) != 0)
                 {
 
@@ -950,6 +951,7 @@ namespace DaoAdvisorProfiling
                     rmVo.UserId = int.Parse((dr["U_UserId"].ToString()));
                     rmVo.RMId = int.Parse(dr["AR_RMId"].ToString());
                     rmVo.IsBranchOps = short.Parse(dr["AR_IsBranchOps"].ToString());
+                    rmVo.IsOnPayrollOps = short.Parse(dr["AR_IsOnPayrollOps"].ToString());
                     rmVo.FirstName = dr["AR_FirstName"].ToString();
                     if (dr["AR_MiddleName"] != DBNull.Value)
                         rmVo.MiddleName = dr["AR_MiddleName"].ToString();
@@ -1274,6 +1276,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(updateAdvisorStaffCmd, "@AAC_AgentCode", DbType.String, rmVo.AAC_AgentCode);
                 db.AddInParameter(updateAdvisorStaffCmd, "@AR_EUIN", DbType.String, rmVo.EUIN);
                 db.AddInParameter(updateAdvisorStaffCmd, "@IsBranchOps", DbType.Int16, rmVo.IsBranchOps);
+                db.AddInParameter(updateAdvisorStaffCmd, "@IsOnPayrollOps", DbType.Int16, rmVo.IsOnPayrollOps);
                 if (rmVo.BranchId != 0)
                     db.AddInParameter(updateAdvisorStaffCmd, "@AB_StaffBranchId", DbType.Int32, rmVo.BranchId);
                 if (rmVo.HierarchyRoleId != 0)

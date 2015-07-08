@@ -269,7 +269,13 @@
         </td>
         <td class="rightData">
         <asp:CheckBox ID="chkIsBranchOps" Text="Branch Ops" Visible="false" runat="server" CssClass="cmbFielde"/>
+ 
         </td>
+        
+        <td>
+        <asp:CheckBox ID="chkIsOnPayrollOps" Text="OnPayroll Ops" Visible="false" runat="server" CssClass="cmbFielde"/>
+         </td>
+         
     </tr>
     <tr>
         <td class="leftLabel">
