@@ -326,7 +326,7 @@
     {
         float: left;
         padding-left: 5px;
-        width: 2%;
+        width: 1000px;
         float: right;
         text-align: right;
         cursor: pointer;
@@ -1204,7 +1204,7 @@
             <table id="tblCommissionStructureRule1" runat="server" width="120%">
                 <tr>
                     <td>
-                        <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="82%" ScrollBars="Horizontal">
+                        <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="1050px" ScrollBars="Horizontal">
                             <telerik:RadGrid ID="RadGridStructureRule" runat="server" CssClass="RadGrid" GridLines="Both"
                                 AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
                                 ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"

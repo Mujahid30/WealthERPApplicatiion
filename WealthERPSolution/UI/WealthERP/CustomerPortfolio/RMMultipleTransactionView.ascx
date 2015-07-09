@@ -122,7 +122,7 @@
         width: 100%;
         height: 100%;
         margin: 0% 0% 0% 0%;
-        filter: progid:DXImageTransform.Microsoft.BasicImage(Rotation=3);
+        
     }
     .pageBreak
     {
@@ -720,8 +720,9 @@
                                                     FooterStyle-HorizontalAlign="Left">
                                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn DataField="TransactionId" HeaderText="TransactionId" AllowFiltering="false"
-                                                    Visible="false" SortExpression="TransactionId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                               
+                                                <telerik:GridBoundColumn DataField="TransactionId" HeaderText="TransactionId" AllowFiltering="true"
+                                                    SortExpression="TransactionId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                     AutoPostBackOnFilter="true" UniqueName="TransactionId" FooterStyle-HorizontalAlign="Left">
                                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
