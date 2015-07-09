@@ -14,6 +14,7 @@ using System.Collections;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using BoCommon;
 using BoUploads;
+using BoOfflineOrderManagement;
 
 namespace WealthERP.OnlineOrderBackOffice
 {
@@ -23,6 +24,7 @@ namespace WealthERP.OnlineOrderBackOffice
         UserVo userVo;
         AdvisorVo advisorVo;
         UploadCommonBo uploadCommonBo = new UploadCommonBo();
+        
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -40,7 +42,10 @@ namespace WealthERP.OnlineOrderBackOffice
             pnlRequest.Visible = true;
             btnexport.Visible = true;
             GetRequests();
+            
         }
+          
+
         private void GetTypes()
         {
             try
@@ -99,6 +104,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     else
                         if (ddlType.SelectedValue == "10")
                         {
+
                             rgRequests.MasterTableView.GetColumn("IsOnl").Visible = false;
                             rgRequests.MasterTableView.GetColumn("RTA").Visible = false;
                             rgRequests.MasterTableView.GetColumn("StagingRejects").Visible = false;
@@ -108,6 +114,55 @@ namespace WealthERP.OnlineOrderBackOffice
                             rgRequests.MasterTableView.GetColumn("FolioCreated").Visible = false;
                             rgRequests.MasterTableView.GetColumn("TransactionCreated").Visible = false;
                         }
+                        else
+                            if (ddlType.SelectedValue == "11")
+                            {
+                                //rgRequests.MasterTableView.GetColumn("Cutomercreated").Visible = true;
+                                //rgRequests.MasterTableView.GetColumn("FolioCreated").Visible = true;
+                                //rgRequests.MasterTableView.GetColumn("TransactionCreated").Visible = true;
+                                //rgRequests.MasterTableView.GetColumn("RejectReseaon").Visible = true;
+                                //rgRequests.MasterTableView.GetColumn("IsOnl").Visible = true;
+                                //rgRequests.MasterTableView.GetColumn("RTA").Visible = true;
+                                //rgRequests.MasterTableView.GetColumn("StagingRejects").Visible = true;
+                                //rgRequests.MasterTableView.GetColumn("Staging").Visible = true;
+                                rgRequests.MasterTableView.GetColumn("AIAUL_ProcessId").Visible = true;
+                                rgRequests.MasterTableView.GetColumn("AIAUL_Status").Visible = true;
+                                rgRequests.MasterTableView.GetColumn("AIM_IssueName").Visible = true;
+                                rgRequests.MasterTableView.GetColumn("AIAUL_ApplicationNumber").Visible = true;
+                                rgRequests.MasterTableView.GetColumn("AIAUL_Shares").Visible = true;
+                                rgRequests.MasterTableView.GetColumn("AIAUL_Certificate_No").Visible = true;
+                                rgRequests.MasterTableView.GetColumn("AIAUL_Pangir").Visible = true;
+                                rgRequests.MasterTableView.GetColumn("AIAUL_InvestorName").Visible = true;
+                                rgRequests.MasterTableView.GetColumn("AIAUL_RfndNo").Visible = true;
+                                rgRequests.MasterTableView.GetColumn("AIAUL_IssueCode").Visible = true;
+                                rgRequests.MasterTableView.GetColumn("AIAUL_BrokerCode").Visible = true;
+                                rgRequests.MasterTableView.GetColumn("AIAUL_Reason").Visible = true;
+                                rgRequests.MasterTableView.GetColumn("AIAUL_Remark_Aot").Visible = true;
+                                rgRequests.MasterTableView.GetColumn("AIAUL_Brk1_Rec").Visible = true;
+                                rgRequests.MasterTableView.GetColumn("AIAUL_Brk1_Rec_Rate").Visible = true;
+                                rgRequests.MasterTableView.GetColumn("AIAUL_Brk2_Rec_Rate").Visible = true;
+                                rgRequests.MasterTableView.GetColumn("AIAUL_Brk2_Rec").Visible = true;
+                                rgRequests.MasterTableView.GetColumn("AIAUL_Brk3_Rec_Rate").Visible = true;
+                                rgRequests.MasterTableView.GetColumn("AIAUL_Total_Brk_rec").Visible = true;
+                                rgRequests.MasterTableView.GetColumn("AIAUL_SvcTaxAM").Visible = true;
+                                rgRequests.MasterTableView.GetColumn("AIAUL_Tds").Visible = true;
+                                rgRequests.MasterTableView.GetColumn("AIAUL_Total_Receivable").Visible = true;
+                                rgRequests.MasterTableView.GetColumn("AIAUL_AllotmentDate").Visible = true;
+                                rgRequests.MasterTableView.GetColumn("ReqId").Visible = false;
+                                rgRequests.MasterTableView.GetColumn("ReqDate").Visible = false;
+                                rgRequests.MasterTableView.GetColumn("filename").Visible = false;
+                                rgRequests.MasterTableView.GetColumn("Status").Visible = false;
+                                rgRequests.MasterTableView.GetColumn("IsOnl").Visible = false;
+                                rgRequests.MasterTableView.GetColumn("RTA").Visible = false;
+                                rgRequests.MasterTableView.GetColumn("TotalNoOfRecords").Visible = false;
+                                rgRequests.MasterTableView.GetColumn("InputRejects").Visible = false;
+                                rgRequests.MasterTableView.GetColumn("StagingRejects").Visible = false;
+                                rgRequests.MasterTableView.GetColumn("Staging").Visible = false;
+                                rgRequests.MasterTableView.GetColumn("Success").Visible = false;
+
+
+                            }
+                
                         else
                             if (ddlType.SelectedValue == "3" || ddlType.SelectedValue == "4")
                             {
