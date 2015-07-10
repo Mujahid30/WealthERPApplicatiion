@@ -616,12 +616,14 @@ namespace WealthERP.CustomerPortfolio
 
             int register = Convert.ToInt32(parts[0]);
             int adviserId = Convert.ToInt32(parts[1]);
+            string usertype = parts[2].ToString();
+            int agentid = Convert.ToInt32(parts[3]);
             CustomerBo customerBo = new CustomerBo();
             DataTable dtCustomerName = new DataTable();
             int i = 0;
             List<string> names = new List<string>();
 
-            dtCustomerName = customerBo.GetAdviserAllCustomerPan(prefixText, register, adviserId);
+            dtCustomerName = customerBo.GetAdviserAllCustomerPan(prefixText, register, adviserId, usertype, agentid);
             //string[] customerNameList = new string[dtCustomerName.Rows.Count];
 
             foreach (DataRow dr in dtCustomerName.Rows)
