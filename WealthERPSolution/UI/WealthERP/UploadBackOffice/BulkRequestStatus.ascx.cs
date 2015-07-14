@@ -82,8 +82,13 @@ namespace WealthERP.UploadBackOffice
 
         }
         protected void btnSubmit_OnClick(object sender, EventArgs e)
-        {
-            BindAssociatePayoutGrid(advisorVo.advisorId, txtAgentCode.Text, DateTime.Parse(txtFromDate.Text.ToString()), DateTime.Parse(txtToDate.Text.ToString()),cbIsDummyAgent.Checked);
+        {// "&strAction=" + ddlAction.SelectedItem.Value.ToString() + "&product=" + ddlProduct.SelectedValue + "&type=" + ddlTosee.SelectedValue + "&status=" + ddlststus.SelectedValue + 
+            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFOnlineOrder", "loadcontrol('MFOnlineOrder.aspx','??ReportCode=" + 100 +"');", true);
+            //Page.ClientScript.RegisterStartupScript(this.GetType(), "OpenWindow", "window.open('~MFOnlineOrder.aspx?ReportCode=100','_newtab');", true);
+            //Server.Transfer("MFOnlineOrder");
+            //Server.Transfer("MFOnlineOrder");
+            Response.Redirect("~/OnlineOrder/MFOnlineOrder.aspx?ReportCode=100&agentCode=" + txtAgentCode.Text + "&fromDate=" + txtFromDate.Text.ToString() + "&toDate=" + txtToDate.Text.ToString() + "&IsDummyAgent="+cbIsDummyAgent.Checked.ToString());
+           // BindAssociatePayoutGrid(advisorVo.advisorId, txtAgentCode.Text, DateTime.Parse(txtFromDate.Text.ToString()), DateTime.Parse(txtToDate.Text.ToString()),cbIsDummyAgent.Checked);
         }
         private void BindAssociatePayoutGrid(int adviserId, String agentCode, DateTime fromDate, DateTime toDate, Boolean IsDummyAgent)
         {
