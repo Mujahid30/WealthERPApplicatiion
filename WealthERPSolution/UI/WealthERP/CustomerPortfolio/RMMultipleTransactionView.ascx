@@ -942,7 +942,7 @@
                     <table width="100%">
                         <tr>
                             <td>
-                                <div id="Div1" runat="server" style="width: 640px; height: 300px">
+                                <div id="Div1" runat="server" style="width: 640px; height: 400px">
                                     <telerik:RadGrid ID="gvMFTransactionWithoutAgentCode" runat="server" AllowAutomaticInserts="false"
                                         allowfiltering="true" AllowFilteringByColumn="true" AllowPaging="True" AllowSorting="true"
                                         AutoGenerateColumns="False" EnableEmbeddedSkins="false" fAllowAutomaticDeletes="false"
