@@ -274,5 +274,75 @@ namespace BoCommon
                 throw (ex);
             }
         }
+        public DataTable GetBrokerageCalculationStatus(int reqId, DateTime FromDate, DateTime ToDate)
+        {
+            WERPTaskRequestManagementDao requestManagementDao = new WERPTaskRequestManagementDao();
+            try
+            {
+                return requestManagementDao.GetBrokerageCalculationStatus(reqId, FromDate, ToDate);
+
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw (ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "WERPTaskRequestManagementBo:GetBrokerageCalculationStatus(int reqId,DateTime FromDate,DateTime ToDate)");
+                object[] objects = new object[12];
+                objects[0] = reqId;
+                objects[1] = FromDate;
+                objects[2] = ToDate;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+
+        }
+        public void CreateTaskRequestForBrokerageCalculation(int taskId, int UserId, out int reqId, string product, int typeOfTransaction, int AdviserId, int schemeid, int month, int year, string category, string recontype, string commtype, int issuer, int issueId, int commissionLookUpId, string orderStatus, string agentCode, string productCategory, int isAuthenticated)
+        {
+            reqId = 0;
+            WERPTaskRequestManagementDao requestManagementDao = new WERPTaskRequestManagementDao();
+            try
+            {
+                requestManagementDao.CreateTaskRequestForBrokerageCalculation(taskId, UserId, out  reqId, product, typeOfTransaction, AdviserId, schemeid, month, year, category, recontype, commtype, issuer, issueId, commissionLookUpId, orderStatus, agentCode, productCategory, isAuthenticated);
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw (ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CreateTaskRequestForBrokerageCalculation(int taskId, int UserId, out int reqId, string product, int typeOfTransaction, int AdviserId, int schemeid, int month, int year, string category, string recontype, string commtype, int issuer, int issueId, int commissionLookUpId, string orderStatus, string agentCode, string productCategory, int isAuthenticated)");
+                object[] objects = new object[12];
+                objects[0] = AdviserId;
+                objects[1] = schemeid;
+                objects[2] = month;
+                objects[3] = year;
+                objects[4] = category;
+                objects[5] = recontype;
+                objects[6] = commtype;
+                objects[7] = issuer;
+                objects[8] = product;
+                objects[9] = typeOfTransaction;
+                objects[10] = issueId;
+                objects[11] = commissionLookUpId;
+                objects[12] = orderStatus;
+                objects[13] = agentCode;
+                objects[14] = productCategory;
+                objects[15] = isAuthenticated;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+           
+        }
     }
 }

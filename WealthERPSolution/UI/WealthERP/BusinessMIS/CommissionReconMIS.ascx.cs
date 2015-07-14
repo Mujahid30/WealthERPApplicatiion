@@ -23,6 +23,7 @@ using Telerik.Web.UI;
 using VOAssociates;
 using VoUser;
 using WealthERP.Base;
+using BoCommon;
 
 
 
@@ -38,6 +39,7 @@ namespace WealthERP.BusinessMIS
         AssociatesBo associatesBo = new AssociatesBo();
         CommisionReceivableBo commisionReceivableBo = new CommisionReceivableBo();
         AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
+        WERPTaskRequestManagementBo werpTaskRequestManagementBo = new WERPTaskRequestManagementBo();
         string categoryCode = string.Empty;
         int amcCode = 0;
         string AgentCode;
@@ -442,49 +444,151 @@ namespace WealthERP.BusinessMIS
             }
 
         }
+        protected void ddlType_OnSelectedIndexChanged(object sender, EventArgs e)
+        
+        {
+            if (ddlType.SelectedValue == "RI")
+            {
+                tdlblRequestId.Visible = true;
+                tdtxtRequestId.Visible = true;
+                tdlbltype.Visible = false;
+                tdddlIssueType.Visible = false;
+                tdlbFromdate.Visible = false;
+                tdtxtReqFromDate.Visible = false;
+                tdlblToDate.Visible = false;
+                tdtxtReqToDate.Visible = false;
+                tdbtnGo2.Visible = true;
+                rfvType2.Visible = false;
+                rfvFromDate.Visible = false;
+                rfvToDate.Visible = false;
+                txtReqFromDate.SelectedDate = null;
+                txtReqToDate.SelectedDate = null;
+                gvBulkOrderStatusList.Visible = false;
+            }
+            else if (ddlType.SelectedValue == "RT")
+            {
+                tdlbltype.Visible = false;
+                tdddlIssueType.Visible = false;
+                tdlblRequestId.Visible = false;
+                tdtxtRequestId.Visible = false;
+                tdlbFromdate.Visible = false;
+                tdtxtReqFromDate.Visible = false;
+                tdlblToDate.Visible = false;
+                tdtxtReqToDate.Visible = false;
+                tdbtnGo2.Visible = true;
+                rfvRequestId.Visible = false;
+                rfvFromDate.Visible = false;
+                rfvToDate.Visible = false;
+                txtRequestId.Text = "";
+                txtReqFromDate.SelectedDate = null;
+                txtReqToDate.SelectedDate = null;
+                gvBulkOrderStatusList.Visible = false;
+            }
+            else if (ddlType.SelectedValue == "RD")
+            {
+                tdlbFromdate.Visible = true;
+                tdtxtReqFromDate.Visible = true;
+                tdlblToDate.Visible = true;
+                tdtxtReqToDate.Visible = true;
+                tdlbltype.Visible = false;
+                tdddlIssueType.Visible = false;
+                tdlblRequestId.Visible = false;
+                tdtxtRequestId.Visible = false;
+                tdbtnGo2.Visible = true;
+                rfvRequestId.Visible = false;
+                rfvType2.Visible = false;
+               
+                txtRequestId.Text = "";
+                gvBulkOrderStatusList.Visible = false;
+            }
+        }
         protected void GdBind_Click(Object sender, EventArgs e)
         {
             SetParameters();
             DataSet ds = new DataSet();
-            //ds.ReadXml(Server.MapPath(@"\Sample.xml"));
-            dvMfMIS.Visible = false;
-            dvNCDIPOMIS.Visible = false;
-            ds = adviserMFMIS.GetCommissionReceivableRecon(ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), advisorVo.advisorId, int.Parse(hdnschemeId.Value), int.Parse(hdnFromDate.Value), int.Parse(hdnToDate.Value), hdnCategory.Value, null, ddlCommType.SelectedValue, int.Parse(hdnSBbrokercode.Value), int.Parse(hdnIssueId.Value), Convert.ToInt32(ddlSearchType.SelectedValue), ddlOrderStatus.SelectedValue, hdnAgentCode.Value.ToString(), hdnProductCategory.Value, int.Parse(ddlOrderType.SelectedValue));
-            if (ds.Tables[0] != null)
+            int reqId = 0;
+            WERPTaskRequestManagementBo werpTaskRequestManagementBo = new WERPTaskRequestManagementBo();
+            werpTaskRequestManagementBo.CreateTaskRequestForBrokerageCalculation(12, userVo.UserId, out reqId, ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), advisorVo.advisorId, int.Parse(hdnschemeId.Value), int.Parse(hdnFromDate.Value), int.Parse(hdnToDate.Value), hdnCategory.Value, null, ddlCommType.SelectedValue, int.Parse(hdnSBbrokercode.Value), int.Parse(hdnIssueId.Value), Convert.ToInt32(ddlSearchType.SelectedValue), ddlOrderStatus.SelectedValue, hdnAgentCode.Value.ToString(), hdnProductCategory.Value, int.Parse(ddlOrderType.SelectedValue));
+            if (reqId > 0)
             {
-                if (ddlProduct.SelectedValue.ToString() == "MF")
-                {
-                   
-                    btnExportFilteredData.Visible = true;
-                    dvMfMIS.Visible = true;
-                    gvCommissionReceiveRecon.DataSource = ds.Tables[0];
-                    DataTable dtGetAMCTransactionDeatails = new DataTable();
-                    gvCommissionReceiveRecon.DataBind();
-                    if (Cache["gvCommissionReconMIs" + userVo.UserId.ToString()] != null)
-                    {
-                        Cache.Remove("gvCommissionReconMIs" + userVo.UserId.ToString());
-                        
-                    }
-                        Cache.Insert("gvCommissionReconMIs" + userVo.UserId.ToString(), ds.Tables[0]);
-                   
-
-                }
-                else
-                {
-
-                    btnExportFilteredData.Visible = true;
-                    dvNCDIPOMIS.Visible = true;
-                    rgNCDIPOMIS.DataSource = ds.Tables[0];
-                    rgNCDIPOMIS.DataBind();
-                    if (Cache["rgNCDIPOMIS" + userVo.UserId.ToString()]!= null)
-                    {
-                        Cache.Remove("rgNCDIPOMIS" + userVo.UserId.ToString());
-                    }
-                        Cache.Insert("rgNCDIPOMIS" + userVo.UserId.ToString(), ds.Tables[0]);
-                       
-                }
+                ShowMessage("Request Id-" + reqId.ToString() + "-Generated SuccessFully","S");
             }
+            else
+            {
+                ShowMessage("Not able to create Request,Try again", "F");
+            }
+            //ds.ReadXml(Server.MapPath(@"\Sample.xml"));
+            //dvMfMIS.Visible = false;
+            //dvNCDIPOMIS.Visible = false;
+            //ds = adviserMFMIS.GetCommissionReceivableRecon(ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), advisorVo.advisorId, int.Parse(hdnschemeId.Value), int.Parse(hdnFromDate.Value), int.Parse(hdnToDate.Value), hdnCategory.Value, null, ddlCommType.SelectedValue, int.Parse(hdnSBbrokercode.Value), int.Parse(hdnIssueId.Value), Convert.ToInt32(ddlSearchType.SelectedValue), ddlOrderStatus.SelectedValue, hdnAgentCode.Value.ToString(), hdnProductCategory.Value, int.Parse(ddlOrderType.SelectedValue));
+            //if (ds.Tables[0] != null)
+            //{
+            //    if (ddlProduct.SelectedValue.ToString() == "MF")
+            //    {
+                   
+            //        btnExportFilteredData.Visible = true;
+            //        dvMfMIS.Visible = true;
+            //        gvCommissionReceiveRecon.DataSource = ds.Tables[0];
+            //        DataTable dtGetAMCTransactionDeatails = new DataTable();
+            //        gvCommissionReceiveRecon.DataBind();
+            //        if (Cache["gvCommissionReconMIs" + userVo.UserId.ToString()] != null)
+            //        {
+            //            Cache.Remove("gvCommissionReconMIs" + userVo.UserId.ToString());
+                        
+            //        }
+            //            Cache.Insert("gvCommissionReconMIs" + userVo.UserId.ToString(), ds.Tables[0]);
+                   
 
+            //    }
+            //    else
+            //    {
+
+            //        btnExportFilteredData.Visible = true;
+            //        dvNCDIPOMIS.Visible = true;
+            //        rgNCDIPOMIS.DataSource = ds.Tables[0];
+            //        rgNCDIPOMIS.DataBind();
+            //        if (Cache["rgNCDIPOMIS" + userVo.UserId.ToString()]!= null)
+            //        {
+            //            Cache.Remove("rgNCDIPOMIS" + userVo.UserId.ToString());
+            //        }
+            //            Cache.Insert("rgNCDIPOMIS" + userVo.UserId.ToString(), ds.Tables[0]);
+                       
+            //    }
+            //}
+
+        }
+        protected void btnGo2_OnClick(object sender, EventArgs e)
+        {
+            DateTime Fromdate = DateTime.MinValue;
+            DateTime Todate = DateTime.MinValue;
+            int reqId = 0;
+            if (txtRequestId.Text != "")
+            {
+                reqId = Convert.ToInt32(txtRequestId.Text);
+            }
+            if (txtReqFromDate.SelectedDate != null)
+            {
+                Fromdate = txtReqFromDate.SelectedDate.Value;
+            }
+            else
+            {
+                Fromdate = DateTime.MinValue;
+            }
+            if (txtReqToDate.SelectedDate != null)
+            {
+                Todate = txtReqToDate.SelectedDate.Value;
+            }
+            else
+            {
+                Todate = DateTime.MinValue;
+            }
+            DataTable DtStatus;
+            DtStatus= werpTaskRequestManagementBo.GetBrokerageCalculationStatus(reqId,Fromdate,Todate);
+            gvBulkOrderStatusList.DataSource = DtStatus;
+            gvBulkOrderStatusList.DataBind();
+            gvBulkOrderStatusList.Visible = true;
+
+             
         }
         protected void ddlProduct_SelectedIndexChanged(object source, EventArgs e)
         {
@@ -532,6 +636,12 @@ namespace WealthERP.BusinessMIS
             dt = (DataTable)Cache["rgNCDIPOMIS" + userVo.UserId];
             rgNCDIPOMIS.DataSource = dt;
             rgNCDIPOMIS.Visible = true;
+        }
+        private void ShowMessage(string msg, string type)
+        {
+            
+            tblMessagee.Visible = true;
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "MessageForRequest", " showMsg('" + msg + "','" + type + "');", true);
         }
         private void BindProductDropdown()
         {

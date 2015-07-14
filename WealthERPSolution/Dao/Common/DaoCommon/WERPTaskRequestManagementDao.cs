@@ -444,6 +444,44 @@ namespace DaoCommon
             }
 
         }
+        public DataTable GetBrokerageCalculationStatus(int reqId,DateTime FromDate,DateTime ToDate)
+        {
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand dbCommand;
+            DataTable dtStatus;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_GetBrokerageStatus");
+                db.AddInParameter(dbCommand, "@ReqId", DbType.Int32, reqId);
+                if (FromDate != DateTime.MinValue)
+                    db.AddInParameter(dbCommand, "@FromDate", DbType.Date, FromDate);
+                if (ToDate != DateTime.MinValue)
+                    db.AddInParameter(dbCommand, "@ToDate", DbType.Date, ToDate);
+                dtStatus = db.ExecuteDataSet(dbCommand).Tables[0];
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw (ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "GetBrokerageCalculationStatus(int reqId,DateTime FromDate,DateTime ToDate)");
+                object[] objects = new object[12];
+                objects[0] = reqId;
+                objects[1] = FromDate;
+                objects[2] = ToDate;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dtStatus;
+
+        }
         public DataSet GetBulkOrderStatus(int reqId, string OrderBookType, DateTime Fromdate, DateTime Todate)
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -467,12 +505,124 @@ namespace DaoCommon
                 else
                     db.AddInParameter(dbCommand, "@ToDate", DbType.Date, null);
                 dsbos = db.ExecuteDataSet(dbCommand);
-            } 
-            catch (Exception ex)
-            {
-                throw ex;
             }
+            catch (BaseApplicationException ex)
+            {
+                throw (ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "GetBulkOrderStatus(int reqId, string OrderBookType, DateTime Fromdate, DateTime Todate)");
+                object[] objects = new object[12];
+                objects[0] = reqId;
+                objects[1] = Fromdate;
+                objects[2] = Todate;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
             return dsbos;
+        }
+
+
+        /// <summary>
+        /// Create Task Request For Calculated Brokerage
+        /// </summary>
+        /// <param name="portfolioIDs"></param>
+        /// <param name="subreportype"></param>
+        /// <param name="fromDate"></param>
+        /// <returns></returns>
+
+        public void CreateTaskRequestForBrokerageCalculation(int taskId, int UserId, out int reqId, string product, int typeOfTransaction, int AdviserId, int schemeid, int month, int year, string category, string recontype, string commtype, int issuer, int issueId, int commissionLookUpId, string orderStatus, string agentCode, string productCategory, int isAuthenticated)
+        {
+            reqId = 0;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand cmdCreateTaskRequest;
+            try
+            {
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdCreateTaskRequest = db.GetStoredProcCommand("SPROC_CreateTaskRequestForBrokerageCalculation");
+                db.AddInParameter(cmdCreateTaskRequest, "@adviserId", DbType.Int32, AdviserId);
+                db.AddInParameter(cmdCreateTaskRequest, "@schemeid", DbType.Int32, schemeid);
+                if (month != 0)
+                    db.AddInParameter(cmdCreateTaskRequest, "@Month", DbType.Int16, month);
+                else
+                    db.AddInParameter(cmdCreateTaskRequest, "@Month", DbType.Int16, DBNull.Value);
+                if (year != 0)
+                    db.AddInParameter(cmdCreateTaskRequest, "@Year", DbType.Int16, year);
+                else
+                    db.AddInParameter(cmdCreateTaskRequest, "@Year", DbType.Int16, DBNull.Value);
+                if (!string.IsNullOrEmpty(category))
+                    db.AddInParameter(cmdCreateTaskRequest, "@Category", DbType.String, category);
+                else
+                    db.AddInParameter(cmdCreateTaskRequest, "@Category", DbType.String, DBNull.Value);
+                if (!string.IsNullOrEmpty(recontype))
+                    db.AddInParameter(cmdCreateTaskRequest, "@recontype", DbType.String, recontype);
+                else
+                    db.AddInParameter(cmdCreateTaskRequest, "@recontype", DbType.Int32, DBNull.Value);
+                if (!string.IsNullOrEmpty(commtype))
+                    db.AddInParameter(cmdCreateTaskRequest, "@commissiontype", DbType.String, commtype);
+                else
+                    db.AddInParameter(cmdCreateTaskRequest, "@commissiontype", DbType.String, DBNull.Value);
+                db.AddInParameter(cmdCreateTaskRequest, "@issuer", DbType.Int32, issuer);
+                db.AddInParameter(cmdCreateTaskRequest, "@productType", DbType.String, product);
+                db.AddInParameter(cmdCreateTaskRequest, "@typeOfTransaction", DbType.Int16, typeOfTransaction);
+                db.AddInParameter(cmdCreateTaskRequest, "@issueId", DbType.Int32, issueId);
+                db.AddInParameter(cmdCreateTaskRequest, "@commissionLookUpId", DbType.Int32, commissionLookUpId);
+                db.AddInParameter(cmdCreateTaskRequest, "@orderStatus", DbType.String, orderStatus);
+                db.AddInParameter(cmdCreateTaskRequest, "@AgentCode", DbType.String, agentCode);
+                db.AddInParameter(cmdCreateTaskRequest, "@ProductCategory", DbType.String, productCategory);
+                db.AddInParameter(cmdCreateTaskRequest, "@IsAuthenticated", DbType.Int16, isAuthenticated);
+                db.AddOutParameter(cmdCreateTaskRequest, "@OutRequestId", DbType.Int32, 1000000);
+                db.AddInParameter(cmdCreateTaskRequest, "@taskId", DbType.Int32, taskId);
+                db.AddInParameter(cmdCreateTaskRequest, "@UserId", DbType.Int32, UserId);
+
+                cmdCreateTaskRequest.CommandTimeout = 60 * 60;
+                db.ExecuteNonQuery(cmdCreateTaskRequest);
+                Object objRequestId = db.GetParameterValue(cmdCreateTaskRequest, "@OutRequestId");
+                if (objRequestId != DBNull.Value)
+                    reqId = int.Parse(db.GetParameterValue(cmdCreateTaskRequest, "@OutRequestId").ToString());
+                else
+                    reqId = 0;
+
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw (ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CreateTaskRequestForBrokerageCalculation(int taskId, int UserId, out int reqId, string product, int typeOfTransaction, int AdviserId, int schemeid, int month, int year, string category, string recontype, string commtype, int issuer, int issueId, int commissionLookUpId, string orderStatus, string agentCode, string productCategory, int isAuthenticated)");
+                object[] objects = new object[12];
+                objects[0] = AdviserId;
+                objects[1] = schemeid;
+                objects[2] = month;
+                objects[3] = year;
+                objects[4] = category;
+                objects[5] = recontype;
+                objects[6] = commtype;
+                objects[7] = issuer;
+                objects[8] = product;
+                objects[9] = typeOfTransaction;
+                objects[10] = issueId;
+                objects[11] = commissionLookUpId;
+                objects[12] = orderStatus;
+                objects[13] = agentCode;
+                objects[14] = productCategory;
+                objects[15] = isAuthenticated;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
         }
 
     }

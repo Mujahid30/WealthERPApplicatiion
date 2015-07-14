@@ -643,5 +643,149 @@ namespace WealthERP.BusinessMIS {
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnUpload;
         protected global::System.Web.UI.WebControls.HiddenField hdnAgentCode;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow tblMessagee;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tbNcdIssueList;
+
+        /// <summary>
+        /// Label2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbtype;
+        protected global::System.Web.UI.WebControls.Label lbdate;
+
+        /// <summary>
+        /// ddlSelectType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSelectType;
+       
+
+        /// <summary>
+        /// RequiredFieldValidator3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvType;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvIssue;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvRequestId;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvType2;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvFromDate;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvToDate;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvType5;
+
+        /// <summary>
+        /// trSelectIssueRow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trSelectIssueRow;
+
+        /// <summary>
+        /// lb1Type control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lb1Type;
+
+        /// <summary>
+        /// ddlSelectIssue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSelectIssue;
+
+        /// <summary>
+        /// RequiredFieldValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvType1;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvDate;
+
+
+        /// <summary>
+        /// trBtnSubmit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trBtnSubmit;
+
+        /// <summary>
+        /// btnGo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGo1;
+        protected global::System.Web.UI.WebControls.Button btnGo2;
+        protected global::System.Web.UI.WebControls.Panel pnlBulkOrderStatusList;
+        /// <summary>
+        /// RadTabStripAssociatesDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadTabStrip RadTabStripBulkOrderRequest;
+        /// <summary>
+        /// AssociatesDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadMultiPage multipageBulkOrderRequest;
+        /// <summary>
+        /// rpvContactDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadPageView rpvRequestBulkOrder;
+        protected global::Telerik.Web.UI.RadPageView rpvBulkOrderStatus;
+        /// <summary>
+        /// pnlContactDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel panelRequestBulkOrder;
+        protected global::System.Web.UI.WebControls.Panel panelBulkOrderStatus;
+        protected global::Telerik.Web.UI.RadDatePicker txtReqFromDate;
+        protected global::Telerik.Web.UI.RadDatePicker txtReqToDate;
+        protected global::System.Web.UI.WebControls.TextBox txtRequestId;
+        protected global::Telerik.Web.UI.RadGrid gvBulkOrderStatusList;
+        protected global::System.Data.DataSet dtBulkOrderStatusList;
+        protected global::System.Web.UI.WebControls.DropDownList ddlType;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblRequestId;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtRequestId;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlbltype;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlIssueType;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlbFromdate;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtReqFromDate;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblToDate;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtReqToDate;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdbtnGo2;
     }
 }
