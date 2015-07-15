@@ -7,6 +7,7 @@ using System.Data.Sql;
 using System.Data.Common;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
+using Microsoft.Practices.EnterpriseLibrary.Data;
 
 namespace DaoCommon
 {
@@ -3186,6 +3187,35 @@ namespace DaoCommon
                 throw Ex;
             }
             return dtGetRoleAssociationTreeNode;
-        }        
+        }
+        public static DataSet GetReportServerConfiguration()
+        {
+            Database db;
+            //DataSet ds;
+            //DataTable dtServerConfig;
+            //DataTable dtReportPath;
+          DataSet dsReportServerConfig = new DataSet();
+            DbCommand cmd;
+            try
+            {
+                //ds = new DataSet();
+                //ds.ReadXml(path);
+                //dtServerConfig = ds.Tables["ServerConfiguration"];
+                //dtReportPath = ds.Tables["ReportServerPath"];
+
+                //dsReportServerConfig.Tables.Add(dtServerConfig.Copy());
+                //dsReportServerConfig.Tables.Add(dtReportPath.Copy());
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_GETReportServerConfiguration");
+                dsReportServerConfig = db.ExecuteDataSet(cmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dsReportServerConfig;
+        }
     }
 }

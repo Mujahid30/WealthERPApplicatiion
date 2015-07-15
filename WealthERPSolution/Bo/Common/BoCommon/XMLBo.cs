@@ -2401,5 +2401,21 @@ namespace BoCommon
             return dtGetRoleAssociationTreeNode;
         }
 
+        public static DataSet GetReportServerConfiguration()
+        {
+
+            DataSet dsReportServerConfig = new DataSet();
+            try
+            {
+                dsReportServerConfig = XMLDao.GetReportServerConfiguration();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dsReportServerConfig;
+        }
+
     }
 }
