@@ -303,7 +303,7 @@ namespace WealthERP.CommisionManagement
                 else
                 {
                     gvCommMgmt.MasterTableView.GetColumn("cmIssuer").Visible = true;
-                    myDD.Items[2].Enabled = true;
+                    //myDD.Items[2].Enabled = true;
                 }
             }
             //if (e.Item is GridDataItem)
