@@ -48,6 +48,20 @@ namespace WealthERP.OnlineOrderManagement
             userVo = (UserVo)Session["userVo"];
             Session["OrderId"] = OrderId;
             RadInformation.VisibleOnPageLoad = false;
+            int TOcpmaretime = int.Parse(DateTime.Now.ToShortTimeString().Split(':')[0]);
+            if (TOcpmaretime >= int.Parse("17:00".Split(':')[0]) && TOcpmaretime <= int.Parse("21:00".Split(':')[0]))
+            {
+                if (Session["PageDefaultSetting"] != null)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOnlineSchemeManager')", true);
+                    return;
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "loadcontrol('MFOnlineSchemeManager')", true);
+                    return;
+                }
+            }
             if (!IsPostBack)
             {
                 clientMFAccessCode = onlineMforderBo.GetClientMFAccessStatus(customerVo.CustomerId);
@@ -62,7 +76,7 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 else
                 {
-                    ShowMessage(onlineMforderBo.GetOnlineOrderUserMessage(clientMFAccessCode),'I');
+                    ShowMessage(onlineMforderBo.GetOnlineOrderUserMessage(clientMFAccessCode), 'I');
                     PurchaseOrderControlsEnable(false);
                     divControlContainer.Visible = false;
                     divClientAccountBalance.Visible = false;
@@ -169,11 +183,11 @@ namespace WealthERP.OnlineOrderManagement
                         lnkFactSheet.PostBackUrl = dr["url"].ToString();
                     }
 
-                    if (!string.IsNullOrEmpty(dr["AVSD_ExpiryDtae"].ToString()) && Convert.ToDateTime(dr["AVSD_ExpiryDtae"].ToString()) > DateTime.Now && Convert.ToInt16(dr["PMFRD_RatingOverall"].ToString())>0)
+                    if (!string.IsNullOrEmpty(dr["AVSD_ExpiryDtae"].ToString()) && Convert.ToDateTime(dr["AVSD_ExpiryDtae"].ToString()) > DateTime.Now && Convert.ToInt16(dr["PMFRD_RatingOverall"].ToString()) > 0)
                     {
                         trSchemeRating.Visible = true;
                         imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + dr["PMFRD_RatingOverall"].ToString() + ".png";
-                        
+
                         //Rating Overall
                         imgRatingDetails.ImageUrl = @"../Images/MorningStarRating/RatingOverall/" + dr["PMFRD_RatingOverall"].ToString() + ".png";
 
@@ -192,8 +206,8 @@ namespace WealthERP.OnlineOrderManagement
 
                         if (!string.IsNullOrEmpty(dr["PMFRD_RatingDate"].ToString()))
                         {
-                            lblSchemeRatingAsOn.Text ="As On " + Convert.ToDateTime(dr["PMFRD_RatingDate"].ToString()).ToShortDateString();
-                            lblRatingAsOnPopUp.Text =lblSchemeRatingAsOn.Text;
+                            lblSchemeRatingAsOn.Text = "As On " + Convert.ToDateTime(dr["PMFRD_RatingDate"].ToString()).ToShortDateString();
+                            lblRatingAsOnPopUp.Text = lblSchemeRatingAsOn.Text;
                             lblSchemeRatingAsOn.Visible = true;
                         }
                     }
@@ -204,7 +218,7 @@ namespace WealthERP.OnlineOrderManagement
                         imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/0.png";
                         lblSchemeRatingAsOn.Visible = false;
                     }
-                
+
                 }
                 DataSet dsNav = commonLookupBo.GetLatestNav(int.Parse(ddlScheme.SelectedValue));
                 if (dsNav.Tables[0].Rows.Count > 0)
@@ -278,7 +292,7 @@ namespace WealthERP.OnlineOrderManagement
                 ddlFolio.Enabled = false;
                 txtAmt.Enabled = false;
                 ddlDivType.Enabled = false;
-                lnkFactSheet.Enabled = false;               
+                lnkFactSheet.Enabled = false;
                 trTermsCondition.Visible = false;
 
                 btnSubmit.Visible = false;
@@ -335,7 +349,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             ddlScheme.Items.Clear();
             DataTable dtScheme = new DataTable();
-            dtScheme = commonLookupBo.GetAmcSchemeList(amccode, category, 0,'P');
+            dtScheme = commonLookupBo.GetAmcSchemeList(amccode, category, 0, 'P');
             if (dtScheme.Rows.Count > 0)
             {
                 ddlScheme.DataSource = dtScheme;
@@ -432,7 +446,7 @@ namespace WealthERP.OnlineOrderManagement
         }
 
 
-        private string CreateUserMessage(int orderId, bool accountDebitStatus, bool isCutOffTimeOver,out char msgType)
+        private string CreateUserMessage(int orderId, bool accountDebitStatus, bool isCutOffTimeOver, out char msgType)
         {
             string userMessage = string.Empty;
             msgType = 'S';
@@ -467,7 +481,7 @@ namespace WealthERP.OnlineOrderManagement
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','" + type.ToString() + "');", true);
         }
 
-        
+
         protected void lnkEdit_Click(object sender, EventArgs e)
         { }
         protected void lnkBack_Click(object sender, EventArgs e)
@@ -533,10 +547,10 @@ namespace WealthERP.OnlineOrderManagement
             }
 
         }
-            protected void imgInformation_OnClick(object sender, EventArgs e)
+        protected void imgInformation_OnClick(object sender, EventArgs e)
         {
             RadInformation.VisibleOnPageLoad = true;
-            
+
         }
     }
 }
