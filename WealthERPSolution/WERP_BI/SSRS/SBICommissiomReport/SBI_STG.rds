@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RptDataSource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="SBI_STG">
+  <ConnectionProperties>
+    <Extension>SQL</Extension>
+    <ConnectString>Data Source=124.153.79.44;Initial Catalog=WealthERP_SBI_APP_COPY</ConnectString>
+  </ConnectionProperties>
+  <DataSourceID>cb26d585-0217-40f8-b81f-b9f1f0fd2243</DataSourceID>
+</RptDataSource>
