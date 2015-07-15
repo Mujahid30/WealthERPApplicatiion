@@ -64,6 +64,36 @@ namespace BoReports
             return category;
         }
 
+        public enum ReportServerType
+        {
+            Invalid = 0,
+            EquityPortfolio = 100,
+            EquitySectorWise = 101,
+            ConsolidationReport = 102,
+            EquityPortfolioPrintFile = 103,
+            EquityRKSPrintFile = 104,
+            EquityKMSPrintFile = 105,
+            MutualFundReport = 106,
+            PMSReport = 107,
+            BondFDReport = 108,
+            TrustCapitalReport = 109,
+            ConsolidatedReportPrint = 110,
+            XIRRReporting = 111
+
+
+
+        }
+
+        public struct ReportServerConfigVo
+        {
+            public string ReportServerURL;
+            public string UserName;
+            public string Password;
+            public string Domain;
+            public string ReportPath;
+
+        }
+
        
     }
 }

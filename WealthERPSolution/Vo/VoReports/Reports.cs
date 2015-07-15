@@ -114,5 +114,22 @@ namespace VoReports
         WelcomeNote=8
     }
 
+    public enum ReportServerType
+    {
+        Invalid = 0,
+       AssociateBrokerageComissionReport = 100,
+        //AssociateBrokrageComissionDetailsReport=101
+    }
+
+    public struct ReportServerConfigVo
+    {
+        public string ReportServerURL;
+        public string UserName;
+        public string Password;
+        public string Domain;
+        public string ReportPath;
+
+    }
+
 
 }
