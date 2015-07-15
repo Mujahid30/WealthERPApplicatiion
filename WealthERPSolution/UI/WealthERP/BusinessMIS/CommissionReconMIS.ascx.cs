@@ -383,29 +383,7 @@ namespace WealthERP.BusinessMIS
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("ClS_NAV").Visible = true;
 
                 }
-
-                if (int.Parse(ddlSearchType.SelectedValue) == 16023 || int.Parse(ddlSearchType.SelectedValue) == 16019)
-                {
-                    gvCommissionReceiveRecon.MasterTableView.GetColumn("ACSR_BrokerageValue").Visible = false;
-                    gvCommissionReceiveRecon.MasterTableView.GetColumn("WCU_UnitCode").Visible = false;
-                    gvCommissionReceiveRecon.MasterTableView.GetColumn("expectedamount").Visible = false;
-                    gvCommissionReceiveRecon.MasterTableView.GetColumn("PayborkageExpectedvalue").Visible = false;
-                
-                }
-                else if (int.Parse(ddlSearchType.SelectedValue) == 16024 || int.Parse(ddlSearchType.SelectedValue) == 16020)
-                {
-                    gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_WCU_UnitCode").Visible = false;
-                    gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_Expectedamount").Visible = false;
-                    gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_ACSR_BrokerageValue").Visible = false;
-                    gvCommissionReceiveRecon.MasterTableView.GetColumn("RecborkageExpectedvalue").Visible = false;
-
-                }
-                else
-                {
-                    gvCommissionReceiveRecon.MasterTableView.GetColumn("Retention1").Visible = true;
-                    
-                   
-                }
+               
                 if (hdnAgentCode.Value.ToString() != "0")
                 {
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_WCU_UnitCode").Visible = false;
@@ -445,20 +423,20 @@ namespace WealthERP.BusinessMIS
 
         }
         protected void ddlType_OnSelectedIndexChanged(object sender, EventArgs e)
-        
+       
         {
             if (ddlType.SelectedValue == "RI")
             {
                 tdlblRequestId.Visible = true;
                 tdtxtRequestId.Visible = true;
-                tdlbltype.Visible = false;
-                tdddlIssueType.Visible = false;
+                
+               
                 tdlbFromdate.Visible = false;
                 tdtxtReqFromDate.Visible = false;
                 tdlblToDate.Visible = false;
                 tdtxtReqToDate.Visible = false;
                 tdbtnGo2.Visible = true;
-                rfvType2.Visible = false;
+                
                 rfvFromDate.Visible = false;
                 rfvToDate.Visible = false;
                 txtReqFromDate.SelectedDate = null;
@@ -467,8 +445,7 @@ namespace WealthERP.BusinessMIS
             }
             else if (ddlType.SelectedValue == "RT")
             {
-                tdlbltype.Visible = false;
-                tdddlIssueType.Visible = false;
+              
                 tdlblRequestId.Visible = false;
                 tdtxtRequestId.Visible = false;
                 tdlbFromdate.Visible = false;
@@ -490,14 +467,10 @@ namespace WealthERP.BusinessMIS
                 tdtxtReqFromDate.Visible = true;
                 tdlblToDate.Visible = true;
                 tdtxtReqToDate.Visible = true;
-                tdlbltype.Visible = false;
-                tdddlIssueType.Visible = false;
                 tdlblRequestId.Visible = false;
                 tdtxtRequestId.Visible = false;
                 tdbtnGo2.Visible = true;
                 rfvRequestId.Visible = false;
-                rfvType2.Visible = false;
-               
                 txtRequestId.Text = "";
                 gvBulkOrderStatusList.Visible = false;
             }
@@ -517,6 +490,7 @@ namespace WealthERP.BusinessMIS
             {
                 ShowMessage("Not able to create Request,Try again", "F");
             }
+            
             //ds.ReadXml(Server.MapPath(@"\Sample.xml"));
             //dvMfMIS.Visible = false;
             //dvNCDIPOMIS.Visible = false;
@@ -557,6 +531,19 @@ namespace WealthERP.BusinessMIS
             //}
 
         }
+        protected void gvBulkOrderStatusList_OnDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataItem = (GridDataItem)e.Item;
+
+                //if (string.IsNullOrEmpty(dataItem["Test"].Text))
+                if (dataItem["StatusMsg"].Text != "Exported_Successfully")
+                {
+                    dataItem["Calculation"].Text = String.Empty;
+                }
+            }
+        }
         protected void btnGo2_OnClick(object sender, EventArgs e)
         {
             DateTime Fromdate = DateTime.MinValue;
@@ -587,8 +574,66 @@ namespace WealthERP.BusinessMIS
             gvBulkOrderStatusList.DataSource = DtStatus;
             gvBulkOrderStatusList.DataBind();
             gvBulkOrderStatusList.Visible = true;
+            if (Cache["gvBulkOrderStatusList" + userVo.UserId.ToString()] != null)
+            {
+                Cache.Remove("gvBulkOrderStatusList" + userVo.UserId.ToString());
+
+            }
+            Cache.Insert("gvBulkOrderStatusList" + userVo.UserId.ToString(), DtStatus);
 
              
+        }
+        protected void gvBulkOrderStatusList_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
+        {
+
+            if (e.CommandName == "Calculation")
+            {
+                GridDataItem ditem = (GridDataItem)e.Item;
+                string RequestId = ditem["RequestId"].Text.ToString().Trim();
+                string RequestDateTime = ditem["RequestDateTime"].Text.ToString().Substring(0, ditem["RequestDateTime"].Text.ToString().IndexOf(' '));
+                bindProductWiseBrokerageGrid(int.Parse(RequestId));
+                gvBulkOrderStatusList.Visible = false;
+            }
+        }
+        private void bindProductWiseBrokerageGrid(int reqId)
+        {
+            string productType, productCategory,  commissionType;
+            DataTable dtBrokerageDetails = new DataTable();
+            dtBrokerageDetails= werpTaskRequestManagementBo.GetBrokerageCalculationDetails(reqId, out productType, out productCategory, out commissionType);
+            if (productType == "MF")
+            {
+                btnExportFilteredData.Visible = true;
+                dvMfMIS.Visible = true;
+                gvCommissionReceiveRecon.DataSource = dtBrokerageDetails;
+                gvCommissionReceiveRecon.DataBind();
+                if (Cache["gvCommissionReconMIs" + userVo.UserId.ToString()] != null)
+                {
+                    Cache.Remove("gvCommissionReconMIs" + userVo.UserId.ToString());
+
+                }
+                Cache.Insert("gvCommissionReconMIs" + userVo.UserId.ToString(), dtBrokerageDetails);
+            }
+            else
+            {
+                btnExportFilteredData.Visible = true;
+                dvNCDIPOMIS.Visible = true;
+                rgNCDIPOMIS.DataSource = dtBrokerageDetails;
+                rgNCDIPOMIS.DataBind();
+                if (Cache["rgNCDIPOMIS" + userVo.UserId.ToString()] != null)
+                {
+                    Cache.Remove("rgNCDIPOMIS" + userVo.UserId.ToString());
+                }
+                Cache.Insert("rgNCDIPOMIS" + userVo.UserId.ToString(), dtBrokerageDetails);
+            }
+
+        }
+        protected void gvBulkOrderStatusList_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt = new DataTable();
+            dt = (DataTable)Cache["gvBulkOrderStatusList" + userVo.UserId];
+            gvBulkOrderStatusList.DataSource = dt;
+            gvBulkOrderStatusList.Visible = true;
+
         }
         protected void ddlProduct_SelectedIndexChanged(object source, EventArgs e)
         {

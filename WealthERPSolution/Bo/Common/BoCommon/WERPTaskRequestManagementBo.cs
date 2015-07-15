@@ -274,6 +274,36 @@ namespace BoCommon
                 throw (ex);
             }
         }
+        public DataTable GetBrokerageCalculationDetails(int reqId, out string productType, out String productCategory, out string commissionType)
+        { 
+         WERPTaskRequestManagementDao requestManagementDao = new WERPTaskRequestManagementDao();
+         productType = string.Empty;
+         productCategory = string.Empty;
+         commissionType = string.Empty;
+         try
+         {
+             
+             return requestManagementDao.GetBrokerageCalculationDetails(reqId, out productType, out productCategory, out commissionType);
+         }
+         catch (BaseApplicationException ex)
+         {
+             throw (ex);
+         }
+         catch (Exception Ex)
+         {
+             BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+             NameValueCollection FunctionInfo = new NameValueCollection();
+             FunctionInfo.Add("Method", "WERPTaskRequestManagementBo:GetBrokerageCalculationDetails(int reqId, out string productType, out String productCategory, out string commissionType)");
+             object[] objects = new object[12];
+             objects[0] = reqId;
+             objects[1] = productType;
+             objects[2] = productCategory;
+             FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+             exBase.AdditionalInformation = FunctionInfo;
+             ExceptionManager.Publish(exBase);
+             throw exBase;
+         }
+        }
         public DataTable GetBrokerageCalculationStatus(int reqId, DateTime FromDate, DateTime ToDate)
         {
             WERPTaskRequestManagementDao requestManagementDao = new WERPTaskRequestManagementDao();

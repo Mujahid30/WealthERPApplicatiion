@@ -417,7 +417,6 @@ namespace DaoCommon
                 db.AddInParameter(cmdCreateTaskRequest, "@OrderBookType", DbType.String, OrderBookType);
                 db.AddInParameter(cmdCreateTaskRequest, "@IssueNO", DbType.String, IssueNO);
                 db.ExecuteNonQuery(cmdCreateTaskRequest);
-
                 Object objRequestId = db.GetParameterValue(cmdCreateTaskRequest, "@OutRequestId");
                 if (objRequestId != DBNull.Value)
                     ReqId = int.Parse(db.GetParameterValue(cmdCreateTaskRequest, "@OutRequestId").ToString());
@@ -444,6 +443,62 @@ namespace DaoCommon
             }
 
         }
+        public DataTable GetBrokerageCalculationDetails(int reqId, out string productType, out String productCategory, out string commissionType)
+        {
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand dbCommand;
+            DataTable dtBrokerageDetails;
+            productType = string.Empty;
+            productCategory = string.Empty;
+            commissionType = string.Empty;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_GetTaskRequestBrokerageDetails");
+                if (reqId != 0)
+                    db.AddInParameter(dbCommand,"@ReqId", DbType.Int32, reqId);
+                db.AddOutParameter(dbCommand, "@productType", DbType.String, 100000);
+                db.AddOutParameter(dbCommand, "@productCategory", DbType.String, 1000000);
+                db.AddOutParameter(dbCommand, "@CommissionType", DbType.String, 1000000);
+                
+
+                dtBrokerageDetails = db.ExecuteDataSet(dbCommand).Tables[0];
+                if (!string.IsNullOrEmpty(db.GetParameterValue(dbCommand, "@productType").ToString()))
+                {
+                    productType = db.GetParameterValue(dbCommand, "@productType").ToString();
+                }
+                if (!string.IsNullOrEmpty(db.GetParameterValue(dbCommand, "@productCategory").ToString()))
+                {
+                    productCategory = db.GetParameterValue(dbCommand, "@productCategory").ToString();
+                }
+                if (!string.IsNullOrEmpty(db.GetParameterValue(dbCommand, "@CommissionType").ToString()))
+                {
+                    commissionType = db.GetParameterValue(dbCommand, "@CommissionType").ToString();
+                }
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw (ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "GetBrokerageCalculationStatus(int reqId,DateTime FromDate,DateTime ToDate)");
+                object[] objects = new object[4];
+                objects[0] = reqId;
+                objects[1] = productType;
+                objects[2] = productCategory;
+                objects[3] = commissionType;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dtBrokerageDetails;
+
+        }
         public DataTable GetBrokerageCalculationStatus(int reqId,DateTime FromDate,DateTime ToDate)
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -453,7 +508,8 @@ namespace DaoCommon
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbCommand = db.GetStoredProcCommand("SPROC_GetBrokerageStatus");
-                db.AddInParameter(dbCommand, "@ReqId", DbType.Int32, reqId);
+                if(reqId!=0)
+                    db.AddInParameter(dbCommand, "@ReqId", DbType.Int32, reqId);
                 if (FromDate != DateTime.MinValue)
                     db.AddInParameter(dbCommand, "@FromDate", DbType.Date, FromDate);
                 if (ToDate != DateTime.MinValue)
