@@ -292,22 +292,30 @@ namespace BoOnlineOrderManagement
         /// <returns></returns>
         public DateTime GetSipEndDate(DateTime StartDate, string SipFrequency, int installments)
         {
-            int multiplier = 0;
+            int multiplier = 0, addition = 0;
 
             switch (SipFrequency)
             {
+                case "DA":
+                    addition = 1;
+                    return StartDate.AddDays(addition + installments);
+
+
                 case "MN":
                     multiplier = 1;
-                    break;
+                    return StartDate.AddMonths(multiplier * installments);
+
                 case "QT":
                     multiplier = 3;
-                    break;
+                    return StartDate.AddMonths(multiplier * installments);
+
                 case "YR":
                     multiplier = 12;
-                    break;
-            }
+                    return StartDate.AddMonths(multiplier * installments);
 
-            return StartDate.AddMonths(multiplier * installments);
+            }
+            return StartDate;
+
         }
         public DataSet GetCustomerHoldingAMCList(int customerId, char type)
         {
