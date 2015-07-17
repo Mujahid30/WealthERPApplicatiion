@@ -1271,7 +1271,7 @@ namespace WealthERP.CustomerPortfolio
                         }
                         else
                         {
-                            gvMFTransactionWithoutAgentCode.Visible = false;
+                            gvMFTransactionWithoutAgentCode.Visible = true;
                             hdnRecordCount.Value = "0";
                             ErrorMessage.Visible = true;
                             Panel2.Visible = false;
@@ -1285,7 +1285,7 @@ namespace WealthERP.CustomerPortfolio
                 {
                     ErrorMessage.Visible = true;
                     gvMFTransactions.Visible = false;
-                    gvMFTransactionWithoutAgentCode.Visible = false;
+                    gvMFTransactionWithoutAgentCode.Visible = true;
                     Panel2.Visible = false;
                     pnlMFTransactionWithoutAgentCode.Visible = false;
 
