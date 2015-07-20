@@ -323,7 +323,7 @@ namespace WealthERP.CommisionManagement
             int structId = int.Parse(hdnStructId.Value);
             foreach (RadListBoxItem item in rlbMappedSchemes.Items) {
                 int schemeId = int.Parse(item.Value);
-                if (commisionReceivableBo.checkSchemeAssociationExists(schemeId, structId, rdpMappedFrom.SelectedDate.Value, rdpMappedTill.SelectedDate.Value)) {
+                if (commisionReceivableBo.checkSchemeAssociationExists(schemeId, structId, rdpMappedFrom.SelectedDate.Value, rdpMappedTill.SelectedDate.Value,"")) {
                     mapOk = false;
                     break;
                 }

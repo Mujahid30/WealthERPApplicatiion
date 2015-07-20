@@ -268,7 +268,7 @@ namespace DaoCommisionManagement
 
         }
 
-        public void CreateAdviserPayableRuleToAgentCategoryMapping(int StructureId, string userType, string Category,DataTable dtRuleMapping,string ruleId, out Int32 mappingId)
+        public void CreateAdviserPayableRuleToAgentCategoryMapping(int StructureId, string userType, string Category,DataTable dtRuleMapping,string ruleId,int arnNo, out Int32 mappingId)
         {
             Database db;
             DbCommand cmdCreateCommissionStructure;
@@ -303,13 +303,13 @@ namespace DaoCommisionManagement
                 //}
                 db.AddOutParameter(cmdCreateCommissionStructure, "@id", DbType.Int64, 1000000);
                 db.AddInParameter(cmdCreateCommissionStructure, "@ruleDetailID", DbType.String, ruleId);
-
+                db.AddInParameter(cmdCreateCommissionStructure, "@arnNo", DbType.Int16, arnNo);
                 db.ExecuteNonQuery(cmdCreateCommissionStructure);
                 Object objCommissionStructureId = db.GetParameterValue(cmdCreateCommissionStructure, "@id");
                 if (objCommissionStructureId != DBNull.Value)
                     mappingId = Convert.ToInt32(objCommissionStructureId);
                 else
-                    mappingId = 0;
+                    mappingId = 1;
             }
             catch (BaseApplicationException Ex)
             {
@@ -1554,7 +1554,7 @@ namespace DaoCommisionManagement
             }
         }
 
-        public int checkSchemeAssociationExists(int schemeId, int structId, DateTime validFrom, DateTime validTo)
+        public int checkSchemeAssociationExists(int schemeId, int structId, DateTime validFrom, DateTime validTo,string category)
         {
             Database db;
             DbCommand cmdUpdateSetup;
@@ -1569,6 +1569,8 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdUpdateSetup, "@ValidFrom", DbType.DateTime, validFrom);
                 db.AddInParameter(cmdUpdateSetup, "@ValidTill", DbType.DateTime, validTo);
                 db.AddOutParameter(cmdUpdateSetup, "@RowUpdate", DbType.Int32, retVal);
+                db.AddInParameter(cmdUpdateSetup, "@category", DbType.String, category);
+                
                 db.ExecuteDataSet(cmdUpdateSetup);
                 retVal = (int)cmdUpdateSetup.Parameters["@RowUpdate"].Value;
             }

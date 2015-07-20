@@ -46,6 +46,20 @@ namespace WealthERP.OnlineOrderManagement
             adviserVo = (AdvisorVo)Session["advisorVo"];
             ShowAvailableLimits();
             BindKYCDetailDDl();
+            int TOcpmaretime = int.Parse(DateTime.Now.ToShortTimeString().Split(':')[0]);
+            if (TOcpmaretime >= int.Parse("17:00".Split(':')[0]) && TOcpmaretime <= int.Parse("21:00".Split(':')[0]))
+            {
+                if (Session["PageDefaultSetting"] != null)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOnlineSchemeManager')", true);
+                    return;
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "loadcontrol('MFOnlineSchemeManager')", true);
+                    return;
+                }
+            }
             if (!IsPostBack)
             {
                 Session["sum"] = null;

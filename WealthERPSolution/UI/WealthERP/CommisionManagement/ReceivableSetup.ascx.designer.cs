@@ -58,6 +58,7 @@ namespace WealthERP.Receivable {
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trStepOneHeading;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trCity;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trDateValidation;
         /// <summary>
         /// imgStepOneStatus control.
         /// </summary>
@@ -130,6 +131,7 @@ namespace WealthERP.Receivable {
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlProductType;
         protected global::System.Web.UI.WebControls.DropDownList ddlAMFIAvaliable;
+        protected global::System.Web.UI.WebControls.DropDownList ddlMFCategory;
         
         /// <summary>
         /// RequiredFieldValidator1 control.

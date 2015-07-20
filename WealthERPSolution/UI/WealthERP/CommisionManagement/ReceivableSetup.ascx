@@ -595,6 +595,11 @@
                             &nbsp;
                         </div>
                         <div class="divSectionHeading" style="vertical-align: text-bottom">
+                            <div style=" float: left;padding-left: 3px" >
+                                <asp:ImageButton ID="ImageButton3" runat="server" ImageUrl="~/Images/toggle-collapse-alt_blue.png"
+                                    alt="Collapse/Expand" OnClick="imgBuy_Click" Height="28px" Width="30px" Style="
+                                    cursor: hand;" ToolTip="Collapse" ImageAlign="Top" />&nbsp;&nbsp;
+                            </div>
                             <div class="divSectionHeadingNumber fltlftStep">
                                 1
                             </div>
@@ -611,11 +616,6 @@
                                 <asp:LinkButton ID="lnkEditStructure" Text="Edit" runat="server" CssClass="LinkButtons"
                                     OnClick="lnkEditStructure_Click">
                                 </asp:LinkButton>
-                            </div>
-                            <div class="divTextCenter">
-                                <asp:ImageButton ID="ImageButton3" runat="server" ImageUrl="~/Images/toggle-collapse-alt_blue.png"
-                                    alt="Collapse/Expand" OnClick="imgBuy_Click" Height="28px" Width="30px" Style="float: right;
-                                    cursor: hand;" ToolTip="Collapse" ImageAlign="Top" />&nbsp;&nbsp;
                             </div>
                     </td>
                 </tr>
@@ -663,8 +663,8 @@
                             Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
                     </td>
                     <td align="left">
-                        <asp:Label ID="lblSubCategory" runat="server" Text="Sub Category:" CssClass="FieldName"></asp:Label>
-                        <span id="SpanSubCategory" class="spnRequiredField" runat="server">*</span>
+                        <asp:Label ID="lblSubCategory" runat="server" Text="Sub Category:" CssClass="FieldName"
+                            Visible="false"></asp:Label>
                     </td>
                 </tr>
                 <tr id="trIssuer" runat="server">
@@ -686,7 +686,7 @@
                     </td>
                     <td rowspan="5" class="rightDataTwoColumn">
                         <telerik:RadListBox ID="rlbAssetSubCategory" runat="server" CheckBoxes="true" CssClass="txtField"
-                            Width="220px" Height="200px">
+                            Width="220px" Height="200px" Visible="false">
                         </telerik:RadListBox>
                     </td>
                 </tr>
@@ -782,6 +782,11 @@
                 <tr id="tr1" runat="server">
                     <td class="tdSectionHeading">
                         <div class="divSectionHeading" style="vertical-align: text-bottom">
+                           <div style=" float: left;padding-left: 3px" >
+                                <asp:ImageButton ID="ImageButton4" runat="server" alt="Collapse/Expand" ImageUrl="~/Images/toggle-collapse-alt_blue.png"
+                                     Height="28px" Width="30px"  style=" cursor: hand;" OnClick="imgBuyMapping_Click"
+                                    ToolTip="Collapse" />
+                            </div>
                             <div class="divSectionHeadingNumber fltlftStep">
                                 2
                             </div>
@@ -795,11 +800,7 @@
                                     OnClick="ibtExportSummary_OnClick" OnClientClick="setFormat('excel')" Height="22px"
                                     Width="25px"></asp:ImageButton>
                             </div>
-                            <div class="divTextCenter">
-                                <asp:ImageButton ID="ImageButton4" runat="server" alt="Collapse/Expand" ImageUrl="~/Images/toggle-collapse-alt_blue.png"
-                                    Height="20px" Width="20px" Style="float: right; cursor: hand;" OnClick="imgBuyMapping_Click"
-                                    ToolTip="Collapse" />
-                            </div>
+                         
                         </div>
                     </td>
                 </tr>
@@ -840,12 +841,12 @@
                                                     <telerik:GridDateTimeColumn DataField="ValidFrom" ReadOnly="true" DataFormatString="{0:dd/MM/yyyy}"
                                                         HeaderStyle-Width="100px" CurrentFilterFunction="EqualTo" ShowFilterIcon="false"
                                                         AutoPostBackOnFilter="true" HeaderText="Valid From" SortExpression="ValidFrom"
-                                                        UniqueName="schemeValidFrom">
+                                                        UniqueName="schemeValidFrom" Visible="false">
                                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100px" Wrap="false" />
                                                     </telerik:GridDateTimeColumn>
                                                     <telerik:GridDateTimeColumn DataField="ValidTill" DataFormatString="{0:dd/MM/yyyy}"
                                                         HeaderStyle-Width="100px" CurrentFilterFunction="EqualTo" ShowFilterIcon="false"
-                                                        AutoPostBackOnFilter="true" HeaderText="Valid Till" UniqueName="schemeValidTill">
+                                                        AutoPostBackOnFilter="true" HeaderText="Valid Till" UniqueName="schemeValidTill" Visible="false">
                                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100px" Wrap="false" />
                                                     </telerik:GridDateTimeColumn>
                                                     <telerik:GridButtonColumn ButtonType="LinkButton" Text="Delete" ConfirmText="Do you want to delete the mapping?"
@@ -871,10 +872,10 @@
                 <table width="33%" style="clear: both">
                     <tr>
                         <td class="leftLabel">
-                            <asp:Label ID="lblAddNewSchemes" runat="server" CssClass="FieldName" Text="Add Schemes"></asp:Label>
+                            <asp:Label ID="lblAddNewSchemes" runat="server" CssClass="FieldName" Text="Add Schemes" Visible="false"></asp:Label>
                         </td>
                         <td class="rightData">
-                            <asp:Button ID="btnAddNewSchemes" runat="server" Text="New Schemes" OnClick="btnAddNewSchemes_Click"
+                            <asp:Button ID="btnAddNewSchemes" runat="server" Text="Add Schemes" OnClick="btnAddNewSchemes_Click"
                                 CssClass="PCGButton wide-button" />
                         </td>
                     </tr>
@@ -884,19 +885,23 @@
                 <table width="100%" style="clear: both" runat="server" id="tbSchemeButton">
                     <tr>
                         <td class="leftLabel">
-                            <asp:Label ID="lblPeriodStart" runat="server" CssClass="FieldName" Text="Available Between: "></asp:Label>
+                            <asp:Label ID="lblPeriodStart" runat="server" CssClass="FieldName" Text="Category:"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:DropDownList ID="ddlMFCategory" runat="server" CssClass="cmbField">
+                            </asp:DropDownList>
+                        </td>
+                        <td >
+                            <asp:Button ID="btn_GetAvailableSchemes" runat="server" Text="Schemes" CssClass="PCGButton"
+                                OnClick="btn_GetAvailableSchemes_Click" />
                         </td>
                         <td class="rightData">
-                            <telerik:RadDatePicker ID="rdpPeriodStart" runat="server">
+                            <telerik:RadDatePicker ID="rdpPeriodStart" runat="server" Visible="false">
                             </telerik:RadDatePicker>
                         </td>
                         <td class="leftLabel">
-                            <telerik:RadDatePicker ID="rdpPeriodEnd" runat="server">
+                            <telerik:RadDatePicker ID="rdpPeriodEnd" runat="server" Visible="false">
                             </telerik:RadDatePicker>
-                        </td>
-                        <td class="rightData">
-                            <asp:Button ID="btn_GetAvailableSchemes" runat="server" Text="Schemes" CssClass="PCGButton"
-                                OnClick="btn_GetAvailableSchemes_Click" />
                         </td>
                         <td colspan="2">
                             <asp:RequiredFieldValidator ID="rfvPeriodStart" runat="server" CssClass="rfvPCG"
@@ -956,14 +961,14 @@
                         <td rowspan="2" class="rightData">
                             <telerik:RadListBox SelectionMode="Multiple" EnableDragAndDrop="true" AllowTransferOnDoubleClick="true"
                                 AllowTransferDuplicates="false" EnableViewState="true" EnableMarkMatches="true"
-                                runat="server" ID="rlbAvailSchemes" Height="200px" Width="350px" AllowTransfer="true"
+                                runat="server" ID="rlbAvailSchemes" Height="200px" Width="450px" AllowTransfer="true"
                                 TransferToID="rlbMappedSchemes" CssClass="cmbFielde">
                                 <ButtonSettings TransferButtons="All" />
                             </telerik:RadListBox>
                         </td>
                         <td rowspan="2" class="leftLabel">
                             <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" SelectionMode="Multiple"
-                                ID="rlbMappedSchemes" Height="200px" Width="350px" CssClass="cmbFielde">
+                                ID="rlbMappedSchemes" Height="200px" Width="450px" CssClass="cmbFielde">
                             </telerik:RadListBox>
                         </td>
                         <td>
@@ -1000,14 +1005,14 @@
                 <table width="100%" runat="server" visible="false" id="tbSchemeMapped">
                     <tr>
                         <td class="leftLabel">
-                            <asp:Label ID="lblMappedFrom" runat="server" CssClass="FieldName" Text="Mapping Period: "></asp:Label>
+                            <asp:Label ID="lblMappedFrom" runat="server" CssClass="FieldName" Text="Mapping Period: " Visible="false"></asp:Label>
                         </td>
                         <td class="rightData">
-                            <telerik:RadDatePicker ID="rdpMappedFrom" runat="server">
+                            <telerik:RadDatePicker ID="rdpMappedFrom" runat="server" Visible="false">
                             </telerik:RadDatePicker>
                         </td>
                         <td class="leftLabel">
-                            <telerik:RadDatePicker ID="rdpMappedTill" runat="server">
+                            <telerik:RadDatePicker ID="rdpMappedTill" runat="server" Visible="false">
                             </telerik:RadDatePicker>
                         </td>
                         <td class="rightData">
@@ -1054,6 +1059,11 @@
                 <tr id="tr3" runat="server">
                     <td class="tdSectionHeading">
                         <div class="divSectionHeading" style="vertical-align: text-bottom">
+                         <div style=" float: left;padding-left: 3px" >
+                                <asp:ImageButton ID="ImageButton5" runat="server" alt="Collapse/Expand" ImageUrl="~/Images/toggle-collapse-alt_blue.png"
+                                    Height="28px" Width="30px" Style="float: right; cursor: hand;" OnClick="imgNcd_Click"
+                                    ToolTip="Collapse" />
+                            </div>
                             <div class="divSectionHeadingNumber fltlftStep">
                                 2
                             </div>
@@ -1067,11 +1077,7 @@
                                     OnClick="ibtExportSummary_OnClick" OnClientClick="setFormat('excel')" Height="22px"
                                     Width="25px"></asp:ImageButton>
                             </div>
-                            <div class="divTextCenter">
-                                <asp:ImageButton ID="ImageButton5" runat="server" alt="Collapse/Expand" ImageUrl="~/Images/toggle-collapse-alt_blue.png"
-                                    Height="28px" Width="30px" Style="float: right; cursor: hand;" OnClick="imgNcd_Click"
-                                    ToolTip="Collapse" />
-                            </div>
+                          
                         </div>
                     </td>
                 </tr>
@@ -1173,8 +1179,14 @@
                             &nbsp;
                         </div>
                         <div class="divSectionHeading" style="vertical-align: text-bottom">
+                         <div style=" float: left;padding-left: 3px" >
+                         <asp:ImageButton ID="imgBuy1" runat="server" alt="Collapse/Expand" ImageUrl="~/Images/toggle-collapse-alt_blue.png"
+                                    Height="28px" Width="30px"  style="cursor: hand;" OnClick="imgBuy1_Click"
+                                    ToolTip="Collapse" /> 
+
+                                              </div>                        
                             <div class="divSectionHeadingNumber">
-                                3
+                                 3
                             </div>
                             <div class="fltlft" style="width: 200px;">
                                 &nbsp;
@@ -1193,9 +1205,7 @@
                                 </asp:LinkButton>
                             </div>
                             <div class="divTextCenter">
-                                <asp:ImageButton ID="imgBuy1" runat="server" alt="Collapse/Expand" ImageUrl="~/Images/toggle-collapse-alt_blue.png"
-                                    Height="28px" Width="30px" Style="float: right; cursor: hand;" OnClick="imgBuy1_Click"
-                                    ToolTip="Collapse" />
+                              
                             </div>
                         </div>
                     </td>
@@ -1354,7 +1364,7 @@
                                                             Checked='<%# Eval("ACSR_IsSpecialIncentive") == DBNull.Value ? false : Convert.ToBoolean(Eval("ACSR_IsSpecialIncentive")) %>' />
                                                     </td>--%>
                                                 </tr>
-                                                <tr>
+                                                <tr id="trDateValidation" runat="server" visible="false">
                                                     <td class="leftLabel">
                                                         <asp:Label ID="lblRuleStart" runat="server" CssClass="FieldName" Text="Validity Start:"></asp:Label>
                                                     </td>
@@ -1662,7 +1672,7 @@
                                                     <td class="rightData" runat="server" id="tdtxtTransactionType">
                                                         <asp:DropDownList Visible="true" ID="ddlTransaction" runat="server" CssClass="cmbField"
                                                             AutoPostBack="true" OnSelectedIndexChanged="ddlTransaction_Selectedindexchanged">
-                                                            <asp:ListItem Text="Select" Value="0">
+                                                            <asp:ListItem Text="All" Value="All">
                                                             </asp:ListItem>
                                                             <asp:ListItem Text="Systematic Transaction" Value="SIP">
                                                             </asp:ListItem>
@@ -1984,8 +1994,12 @@
                 <tr id="trPayableMapping" runat="server" visible="false">
                     <td colspan="5" class="tdSectionHeading">
                         <div class="divSectionHeading" style="vertical-align: text-bottom">
+                            <div style=" float: left;padding-left: 3px">
+                               <asp:ImageButton ID="ImageButton7" runat="server" alt="Collapse/Expand" ImageUrl="~/Images/toggle-collapse-alt_blue.png"
+                                    Height="28px" Width="30px" Style="float: right; cursor: hand;" OnClick="ImageButton7_Click"
+                                    ToolTip="Collapse" /> </div>
                             <div class="divSectionHeadingNumber fltlftStep">
-                                4
+                                     4
                             </div>
                             &nbsp;
                             <div class="divSectionHeadingNumber1 fltlftStep" style="width: 200px;">
@@ -1995,9 +2009,7 @@
                                 <asp:ImageButton ID="ImageButton6" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                     runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="ibtExport_OnClick"
                                     Height="22px" Width="25px" Visible="false"></asp:ImageButton>
-                                <asp:ImageButton ID="ImageButton7" runat="server" alt="Collapse/Expand" ImageUrl="~/Images/toggle-collapse-alt_blue.png"
-                                    Height="28px" Width="30px" Style="float: right; cursor: hand;" OnClick="ImageButton7_Click"
-                                    ToolTip="Collapse" />
+                               
                             </div>
                         </div>
                     </td>
@@ -2206,7 +2218,9 @@
                         <tr style="margin-left: 10%;">
                             <td>
                             </td>
-                               <td style="margin-left: 10%;"> <asp:Button ID="btnCancelSelectedRule" runat="server" CssClass="PCGButton" Text="Uncheck Rule" OnClick="btnCancelSelectedRule_OnClick" Visible="false"/>
+                            <td style="margin-left: 10%;">
+                                <asp:Button ID="btnCancelSelectedRule" runat="server" CssClass="PCGButton" Text="Uncheck Rule"
+                                    OnClick="btnCancelSelectedRule_OnClick" Visible="false" />
                             </td>
                         </tr>
                     </table>

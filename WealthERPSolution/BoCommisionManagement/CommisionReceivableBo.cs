@@ -236,13 +236,13 @@ namespace BoCommisionManagement
 
             
         }
-        public void CreateAdviserPayableRuleToAgentCategoryMapping(int StructureId, string userType, string Category, DataTable dtRuleMapping, string ruleId, out Int32 mappingId)
+        public void CreateAdviserPayableRuleToAgentCategoryMapping(int StructureId, string userType, string Category, DataTable dtRuleMapping, string ruleId,int arnNo, out Int32 mappingId)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
 
             try
             {
-                commisionReceivableDao.CreateAdviserPayableRuleToAgentCategoryMapping(StructureId, userType, Category, dtRuleMapping, ruleId, out   mappingId);
+                commisionReceivableDao.CreateAdviserPayableRuleToAgentCategoryMapping(StructureId, userType, Category, dtRuleMapping, ruleId,arnNo, out   mappingId);
 
             }
             catch (BaseApplicationException Ex)
@@ -1074,12 +1074,12 @@ namespace BoCommisionManagement
             //return dsStructList;
         }
 
-        public bool checkSchemeAssociationExists(int schemeId, int structId, DateTime validFrom, DateTime validTo)
+        public bool checkSchemeAssociationExists(int schemeId, int structId, DateTime validFrom, DateTime validTo, string category)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
             try
             {
-                int nRows = commisionReceivableDao.checkSchemeAssociationExists(schemeId, structId, validFrom, validTo);
+                int nRows = commisionReceivableDao.checkSchemeAssociationExists(schemeId, structId, validFrom, validTo,category);
                 if (nRows > 0) { return true; }
             }
             catch (BaseApplicationException Ex)
