@@ -949,8 +949,9 @@ namespace DaoAdvisorProfiling
                     // table = getAdvisorStaffDs.Tables["AdviserRM"];
                     dr = getAdvisorStaffDs.Tables[0].Rows[0];
                     rmVo.UserId = int.Parse((dr["U_UserId"].ToString()));
-                    rmVo.RMId = int.Parse(dr["AR_RMId"].ToString());
+                    //rmVo.RMId = int.Parse(dr["AR_RMId"].ToString());
                     rmVo.IsBranchOps = short.Parse(dr["AR_IsBranchOps"].ToString());
+                    if(dr["AR_IsOnPayrollOps"].ToString() !="" )
                     rmVo.IsOnPayrollOps = short.Parse(dr["AR_IsOnPayrollOps"].ToString());
                     rmVo.FirstName = dr["AR_FirstName"].ToString();
                     if (dr["AR_MiddleName"] != DBNull.Value)
