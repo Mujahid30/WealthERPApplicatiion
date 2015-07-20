@@ -46,6 +46,11 @@
                         <td align="left">
                             Hierarchy Setup
                         </td>
+                        <td align="right" id="tdExport" runat="server" style="padding-bottom: 2px;">
+                            <asp:ImageButton ID="imgViewAssoList" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" Height="20px"
+                                OnClick="btnExportFilteredData_OnClick" Width="25px" Visible="true"></asp:ImageButton>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -62,8 +67,9 @@
                 OnNeedDataSource="gvHirarchy_NeedDataSource" AllowAutomaticUpdates="false" Skin="Telerik"
                 OnItemDataBound="gvHirarchy_ItemDataBound" EnableEmbeddedSkins="false" OnItemCommand="gvHirarchy_ItemCommand"
                 EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="true">
-                <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
-                </ExportSettings>
+               <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="ViewAssociateList"
+                                        Excel-Format="ExcelML">
+                                    </ExportSettings>
                 <MasterTableView DataKeyNames="AH_Id,AH_HierarchyName,AH_TitleId,AH_Teamname,AH_TeamId,AH_ReportsToId,AH_ReportsTo,AH_ChannelName,AH_ChannelId,AH_Sequence"
                     CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false" CommandItemSettings-AddNewRecordText="Add Hierarchy Setup">
                     <Columns>

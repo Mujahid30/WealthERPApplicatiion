@@ -299,6 +299,18 @@ namespace WealthERP.Advisor
 
             return result;
         }
+        protected void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+
+            gvHirarchy.ExportSettings.OpenInNewWindow = true;
+            gvHirarchy.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvHirarchy.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvHirarchy.MasterTableView.ExportToExcel();
+
+        }
         protected void gvHirarchy_ItemCommand(object source, GridCommandEventArgs e)
         {
             string description = string.Empty;
