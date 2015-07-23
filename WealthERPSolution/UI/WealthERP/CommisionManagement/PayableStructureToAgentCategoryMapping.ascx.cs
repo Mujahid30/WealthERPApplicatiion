@@ -275,7 +275,7 @@ namespace WealthERP.CommisionManagement
                          categoryId = ddlAdviserCategory.SelectedValue;
                      }
 
-                     commisionReceivableBo.CreateAdviserPayableRuleToAgentCategoryMapping(Convert.ToInt32(hdnStructId.Value), ddlMapping.SelectedValue, categoryId, dtRuleMapping, ruleId.TrimEnd(','), out mappingId);
+                     commisionReceivableBo.CreateAdviserPayableRuleToAgentCategoryMapping(Convert.ToInt32(hdnStructId.Value), ddlMapping.SelectedValue, categoryId, dtRuleMapping, ruleId.TrimEnd(','),0, out mappingId);
                      return mappingId;
                  }
                  else

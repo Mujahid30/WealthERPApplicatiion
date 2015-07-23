@@ -133,6 +133,7 @@ namespace WealthERP.Receivable
             {
                 if (pnlAddSchemes.Visible == true)
                 {
+                    pnlAddSchemesButton.Visible = false;
                     pnlAddSchemes.Visible = false;
                     gvMappedSchemes.Visible = false;
                     //Table2.Visible = false;
@@ -142,6 +143,7 @@ namespace WealthERP.Receivable
                 else
                 {
                     pnlAddSchemes.Visible = true;
+                    pnlAddSchemesButton.Visible = true;
                     ImageButton4.ImageUrl = "~/Images/toggle-collapse-alt_blue.png";
                     ImageButton4.ToolTip = "Collapse";
                     if (gvMappedSchemes.Items.Count > 0)
@@ -2399,7 +2401,7 @@ namespace WealthERP.Receivable
                     trMinMaxTenure.Visible = !enablement;
 
                     trMinAndMaxNumberOfApplication.Visible = false;
-                    chkListTtansactionType.Visible = enablement;
+                    chkListTtansactionType.Visible = !enablement;
                     lblTransactionType.Visible = !enablement;
                     ddlTransaction.Visible = !enablement;
                     ddlCommisionCalOn.Items[0].Enabled = false;

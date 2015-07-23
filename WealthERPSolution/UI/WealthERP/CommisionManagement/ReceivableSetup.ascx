@@ -1211,10 +1211,10 @@
                     </td>
                 </tr>
             </table>
-            <table id="tblCommissionStructureRule1" runat="server" width="120%">
+            <table id="tblCommissionStructureRule1" runat="server" width="98%">
                 <tr>
                     <td>
-                        <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="1050px" ScrollBars="Horizontal">
+                        <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="88%" ScrollBars="Horizontal">
                             <telerik:RadGrid ID="RadGridStructureRule" runat="server" CssClass="RadGrid" GridLines="Both"
                                 AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
                                 ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
