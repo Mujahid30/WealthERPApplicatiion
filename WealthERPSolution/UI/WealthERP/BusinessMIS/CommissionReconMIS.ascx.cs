@@ -350,6 +350,7 @@ namespace WealthERP.BusinessMIS
         {
             if (e.Item is GridDataItem)
             {
+                GridDataItem dataItem = (GridDataItem)e.Item;
                 gvCommissionReceiveRecon.MasterTableView.GetColumn("totalNAV").Visible = false;
                 gvCommissionReceiveRecon.MasterTableView.GetColumn("PerDayAssets").Visible = false;
                 gvCommissionReceiveRecon.MasterTableView.GetColumn("perDayTrail").Visible = false;
@@ -370,8 +371,8 @@ namespace WealthERP.BusinessMIS
                 gvCommissionReceiveRecon.MasterTableView.GetColumn("CumNAv").Visible = false;
                 gvCommissionReceiveRecon.MasterTableView.GetColumn("CMFT_NAV").Visible = false;
                 gvCommissionReceiveRecon.MasterTableView.GetColumn("ClS_NAV").Visible = false;
-              
-                if (ddlCommType.SelectedValue == "TC")
+               
+                if (dataItem["commissionType"].Text == "Trail")
                 {
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("totalNAV").Visible = true;
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("PerDayAssets").Visible = true;
