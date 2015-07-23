@@ -259,7 +259,7 @@
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="SubCategory" HeaderStyle-Width="150px" HeaderText="SubCategory"
                                         CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                        UniqueName="cmSubCategory" Visible="true">
+                                        UniqueName="cmSubCategory" Visible="false">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="150px" Wrap="false" />
                                     </telerik:GridBoundColumn>
                                     <telerik:GridDateTimeColumn DataField="ValidFrom" DataFormatString="{0:dd/MM/yyyy}"

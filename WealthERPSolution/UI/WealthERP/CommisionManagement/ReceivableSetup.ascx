@@ -2191,7 +2191,7 @@
                                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                 </telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn DataField="WCMV_Name" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
-                                                    ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Commission Sub Type"
+                                                    ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="App for city group"
                                                     UniqueName="WCMV_Name" SortExpression="WCMV_Name" AllowFiltering="true">
                                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                 </telerik:GridBoundColumn>
