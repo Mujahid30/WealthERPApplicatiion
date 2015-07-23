@@ -122,7 +122,7 @@
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="lbDetails" runat="server" CommandName="ExpandCollapse" Font-Underline="False"
                                                     Font-Bold="true" UniqueName="DetailsCategorieslink" OnClick="btnCategoriesExpandAll_Click"
-                                                    Font-Size="Medium"> View Rejects</asp:LinkButton>
+                                                    Font-Size="Medium" Visible="false"> View Rejects</asp:LinkButton>
                                             </ItemTemplate>
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
                                         </telerik:GridTemplateColumn>
@@ -283,7 +283,7 @@
                                  <telerik:GridBoundColumn DataField="AIAUL_SubBrokerCode" 
                                     HeaderText="SubBrokerCode " SortExpression="AIAUL_SubBrokerCode"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                    UniqueName="AIAUL_SubBrokerCode" FooterStyle-HorizontalAlign="Left">
+                                    UniqueName="AIAUL_SubBrokerCode" FooterStyle-HorizontalAlign="Left" Visible="false">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 
@@ -335,7 +335,7 @@
                                 
                                 <telerik:GridBoundColumn DataField="AIAUL_Brk3_Rec" HeaderText="BrokerageAmt3 " SortExpression="AIAUL_Brk3_Rec"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                    UniqueName="AIAUL_Brk3_Rec" FooterStyle-HorizontalAlign="Left">
+                                    UniqueName="AIAUL_Brk3_Rec" FooterStyle-HorizontalAlign="Left" Visible="false">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 

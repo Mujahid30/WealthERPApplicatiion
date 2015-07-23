@@ -78,6 +78,29 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (Cache[userVo.UserId.ToString() + "Requests"] != null)
                     Cache.Remove(userVo.UserId.ToString() + "Requests");
                 Cache.Insert(userVo.UserId.ToString() + "Requests", dtType);
+                rgRequests.MasterTableView.GetColumn("AIAUL_ProcessId").Visible = false;
+                rgRequests.MasterTableView.GetColumn("AIAUL_Status").Visible = false;
+                rgRequests.MasterTableView.GetColumn("AIM_IssueName").Visible = false;
+                rgRequests.MasterTableView.GetColumn("AIAUL_ApplicationNumber").Visible = false;
+                rgRequests.MasterTableView.GetColumn("AIAUL_Shares").Visible = false;
+                rgRequests.MasterTableView.GetColumn("AIAUL_Certificate_No").Visible = false;
+                rgRequests.MasterTableView.GetColumn("AIAUL_Pangir").Visible = false;
+                rgRequests.MasterTableView.GetColumn("AIAUL_InvestorName").Visible = false;
+                rgRequests.MasterTableView.GetColumn("AIAUL_RfndNo").Visible = false;
+                rgRequests.MasterTableView.GetColumn("AIAUL_IssueCode").Visible = false;
+                rgRequests.MasterTableView.GetColumn("AIAUL_BrokerCode").Visible = false;
+                rgRequests.MasterTableView.GetColumn("AIAUL_Reason").Visible = false;
+                rgRequests.MasterTableView.GetColumn("AIAUL_Remark_Aot").Visible = false;
+                rgRequests.MasterTableView.GetColumn("AIAUL_Brk1_Rec").Visible = false;
+                rgRequests.MasterTableView.GetColumn("AIAUL_Brk1_Rec_Rate").Visible = false;
+                rgRequests.MasterTableView.GetColumn("AIAUL_Brk2_Rec_Rate").Visible = false;
+                rgRequests.MasterTableView.GetColumn("AIAUL_Brk2_Rec").Visible = false;
+                rgRequests.MasterTableView.GetColumn("AIAUL_Brk3_Rec_Rate").Visible = false;
+                rgRequests.MasterTableView.GetColumn("AIAUL_Total_Brk_rec").Visible = false;
+                rgRequests.MasterTableView.GetColumn("AIAUL_SvcTaxAM").Visible = false;
+                rgRequests.MasterTableView.GetColumn("AIAUL_Tds").Visible = false;
+                rgRequests.MasterTableView.GetColumn("AIAUL_Total_Receivable").Visible = false;
+                rgRequests.MasterTableView.GetColumn("AIAUL_AllotmentDate").Visible = false;
                 if (ddlType.SelectedValue == "8")
                 {
                     rgRequests.MasterTableView.GetColumn("Cutomercreated").Visible = true;
@@ -117,14 +140,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         else
                             if (ddlType.SelectedValue == "11")
                             {
-                                //rgRequests.MasterTableView.GetColumn("Cutomercreated").Visible = true;
-                                //rgRequests.MasterTableView.GetColumn("FolioCreated").Visible = true;
-                                //rgRequests.MasterTableView.GetColumn("TransactionCreated").Visible = true;
-                                //rgRequests.MasterTableView.GetColumn("RejectReseaon").Visible = true;
-                                //rgRequests.MasterTableView.GetColumn("IsOnl").Visible = true;
-                                //rgRequests.MasterTableView.GetColumn("RTA").Visible = true;
-                                //rgRequests.MasterTableView.GetColumn("StagingRejects").Visible = true;
-                                //rgRequests.MasterTableView.GetColumn("Staging").Visible = true;
+                               
                                 rgRequests.MasterTableView.GetColumn("AIAUL_ProcessId").Visible = true;
                                 rgRequests.MasterTableView.GetColumn("AIAUL_Status").Visible = true;
                                 rgRequests.MasterTableView.GetColumn("AIM_IssueName").Visible = true;
@@ -196,18 +212,21 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             if (e.Item is GridDataItem && e.Item.ItemIndex != -1)
             {
-                GridDataItem editform = (GridDataItem)e.Item;
-                int inputRejects = Convert.ToInt32(editform["InputRejects"].Text);
-                int stagingRejects = Convert.ToInt32(editform["StagingRejects"].Text);
-                int Staging = Convert.ToInt32(editform["Staging"].Text);
-                LinkButton lbDetails = (LinkButton)editform.FindControl("lbDetails");
-                if (inputRejects + stagingRejects + Staging > 0)
+                if (ddlType.SelectedValue != "11")
                 {
-                    lbDetails.Visible = true;
-                }
-                else
-                {
-                    lbDetails.Visible = false;
+                    GridDataItem editform = (GridDataItem)e.Item;
+                    int inputRejects = Convert.ToInt32(editform["InputRejects"].Text);
+                    int stagingRejects = Convert.ToInt32(editform["StagingRejects"].Text);
+                    int Staging = Convert.ToInt32(editform["Staging"].Text);
+                    LinkButton lbDetails = (LinkButton)editform.FindControl("lbDetails");
+                    if (inputRejects + stagingRejects + Staging > 0)
+                    {
+                        lbDetails.Visible = true;
+                    }
+                    else
+                    {
+                        lbDetails.Visible = false;
+                    }
                 }
             }
         }
