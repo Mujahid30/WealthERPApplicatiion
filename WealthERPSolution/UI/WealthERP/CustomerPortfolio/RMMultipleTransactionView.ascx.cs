@@ -1235,6 +1235,7 @@ namespace WealthERP.CustomerPortfolio
                             gvMFTransactions.Visible = true;
                             btnTrnxExport.Visible = true;
                             pnlMFTransactionWithoutAgentCode.Visible = false;
+                            btnTrnxExportMFOffLineWithoutSubbroker.Visible = false;
 
                         }
                         else
@@ -1245,7 +1246,7 @@ namespace WealthERP.CustomerPortfolio
                             Panel2.Visible = false;
                             btnTrnxExport.Visible = false;
                             pnlMFTransactionWithoutAgentCode.Visible = false;
-
+                            btnTrnxExportMFOffLineWithoutSubbroker.Visible = false;
                         }
                     }
                     else
@@ -1271,6 +1272,7 @@ namespace WealthERP.CustomerPortfolio
                             gvMFTransactionWithoutAgentCode.Visible = true;
                             btnTrnxExportMFOffLineWithoutSubbroker.Visible = true;
                             Panel2.Visible = false;
+                            btnTrnxExport.Visible = false;
                         }
                         else
                         {
@@ -1279,6 +1281,8 @@ namespace WealthERP.CustomerPortfolio
                             ErrorMessage.Visible = true;
                             Panel2.Visible = false;
                             pnlMFTransactionWithoutAgentCode.Visible = false;
+                            btnTrnxExport.Visible = false;
+
                         }
                     }
                 }
