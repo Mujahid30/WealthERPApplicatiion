@@ -596,7 +596,6 @@ namespace WealthERP.BusinessMIS
                 GridDataItem ditem = (GridDataItem)e.Item;
                 string RequestId = ditem["RequestId"].Text.ToString().Trim();
                 string RequestDateTime = ditem["RequestDateTime"].Text.ToString().Substring(0, ditem["RequestDateTime"].Text.ToString().IndexOf(' '));
-                hdnProductCategory.Value = ditem["ProductType"].Text.ToString().Trim();
                 ViewState["ProductType"] = ditem["ProductType"].Text.ToString().Trim();
                 bindProductWiseBrokerageGrid(int.Parse(RequestId));
                 gvBulkOrderStatusList.Visible = false;
