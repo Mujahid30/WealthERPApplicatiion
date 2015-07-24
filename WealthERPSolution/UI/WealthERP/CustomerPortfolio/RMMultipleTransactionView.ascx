@@ -122,7 +122,6 @@
         width: 100%;
         height: 100%;
         margin: 0% 0% 0% 0%;
-        
     }
     .pageBreak
     {
@@ -364,9 +363,10 @@
                                                     Height="23px" Width="25px" OnClick="btnTrnxExport_Click"></asp:ImageButton>
                                             </td>
                                             <td align="right" style="width: 10px">
-                                                <asp:ImageButton ID="btnTrnxExportMFOffLineWithoutSubbroker" ImageUrl="~/Images/Export_Excel.png" Visible="false"
-                                                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
-                                                    Height="23px" Width="25px" OnClick="btnTrnxExportMFOffLineWithoutSubbroker_Click"></asp:ImageButton>
+                                                <asp:ImageButton ID="btnTrnxExportMFOffLineWithoutSubbroker" ImageUrl="~/Images/Export_Excel.png"
+                                                    Visible="false" runat="server" AlternateText="Excel" ToolTip="Export To Excel"
+                                                    OnClientClick="setFormat('excel')" Height="23px" Width="25px" OnClick="btnTrnxExportMFOffLineWithoutSubbroker_Click">
+                                                </asp:ImageButton>
                                             </td>
                                             <%-- <asp:ImageButton ID="imgBtnTrail" ImageUrl="~/Images/Export_Excel.png" Visible="false"
                                                     runat="server" AlternateText="Excel" ToolTip="Export To Excel" Height="23px"
@@ -459,10 +459,9 @@
                             </td>
                             <td>
                                 <asp:DropDownList ID="ddlAgentCode" runat="server" CssClass="cmbField">
-                                 <asp:ListItem Text="All" Value="3" ></asp:ListItem>
+                                    <asp:ListItem Text="All" Value="3"></asp:ListItem>
                                     <asp:ListItem Text="Avaliable" Value="1"></asp:ListItem>
                                     <asp:ListItem Text="Not Avaliable" Value="2"></asp:ListItem>
-                                   
                                 </asp:DropDownList>
                             </td>
                             <td id="tdCustomerGroup" runat="server" colspan="2">
@@ -714,18 +713,18 @@
                                                         </asp:LinkButton>
                                                     </ItemTemplate>
                                                 </telerik:GridTemplateColumn>
+                                                <telerik:GridBoundColumn DataField="TransactionId" HeaderText="Transaction No." AllowFiltering="true"
+                                                    SortExpression="TransactionId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                    AutoPostBackOnFilter="true" UniqueName="TransactionId" FooterStyle-HorizontalAlign="Left">
+                                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                                </telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn DataField="Customer Name" HeaderText="Customer" AllowFiltering="true"
                                                     HeaderStyle-Wrap="false" SortExpression="Customer Name" ShowFilterIcon="false"
                                                     CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="Customer Name"
                                                     FooterStyle-HorizontalAlign="Left">
                                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
-                               
-                                                <telerik:GridBoundColumn DataField="TransactionId" HeaderText="TransactionId" AllowFiltering="true"
-                                                    SortExpression="TransactionId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                    AutoPostBackOnFilter="true" UniqueName="TransactionId" FooterStyle-HorizontalAlign="Left">
-                                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
+                                                
                                                 <telerik:GridBoundColumn DataField="Folio Number" HeaderText="Folio No." AllowFiltering="true"
                                                     SortExpression="Folio Number" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                     AutoPostBackOnFilter="true" UniqueName="Folio Number" FooterStyle-HorizontalAlign="Left">
@@ -817,7 +816,8 @@
                                                 </telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn DataField="CMFT_Area" HeaderText="Area" AllowFiltering="true"
                                                     HeaderStyle-Wrap="false" SortExpression="CMFT_Area" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                    AutoPostBackOnFilter="true" UniqueName="CMFT_Area" FooterStyle-HorizontalAlign="Left" Visible="false">
+                                                    AutoPostBackOnFilter="true" UniqueName="CMFT_Area" FooterStyle-HorizontalAlign="Left"
+                                                    Visible="false">
                                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn DataField="CMFT_EUIN" HeaderText="EUIN" AllowFiltering="true"
@@ -963,17 +963,17 @@
                                                         </asp:LinkButton>
                                                     </ItemTemplate>
                                                 </telerik:GridTemplateColumn>
+                                                <telerik:GridBoundColumn AllowFiltering="false" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                                    DataField="TransactionId" FooterStyle-HorizontalAlign="Left" HeaderText="Transaction No."
+                                                    ShowFilterIcon="false" SortExpression="TransactionId" UniqueName="TransactionId">
+                                                    <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
                                                     DataField="Customer Name" FooterStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false"
                                                     HeaderText="Customer" ShowFilterIcon="false" SortExpression="Customer Name" UniqueName="Customer Name">
                                                     <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
                                                 </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn AllowFiltering="false" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
-                                                    DataField="TransactionId" FooterStyle-HorizontalAlign="Left" HeaderText="TransactionId"
-                                                    ShowFilterIcon="false" SortExpression="TransactionId" UniqueName="TransactionId"
-                                                    Visible="false">
-                                                    <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
-                                                </telerik:GridBoundColumn>
+                                                
                                                 <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
                                                     DataField="Folio Number" FooterStyle-HorizontalAlign="Left" HeaderText="Folio No."
                                                     ShowFilterIcon="false" SortExpression="Folio Number" UniqueName="Folio Number">
@@ -1645,7 +1645,7 @@
     </ContentTemplate>
     <Triggers>
         <asp:PostBackTrigger ControlID="btnTrnxExport" />
-          <asp:PostBackTrigger ControlID="btnTrnxExportMFOffLineWithoutSubbroker" />
+        <asp:PostBackTrigger ControlID="btnTrnxExportMFOffLineWithoutSubbroker" />
         <%-- <asp:PostBackTrigger ControlID="btnbalncExport" />--%>
     </Triggers>
 </asp:UpdatePanel>

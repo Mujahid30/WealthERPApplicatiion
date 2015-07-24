@@ -1071,7 +1071,7 @@ namespace WealthERP.CustomerPortfolio
             IsfolioOnline = 0;
             //}
             try
-            {//pramod if (rbtnGroup.Checked || rbtnIndividual.Checked)
+            {//if (rbtnGroup.Checked || rbtnIndividual.Checked)
                 if (Request.QueryString["reqId"] != null)
                 {
                     int requestId = int.Parse(Request.QueryString["reqId"]);
