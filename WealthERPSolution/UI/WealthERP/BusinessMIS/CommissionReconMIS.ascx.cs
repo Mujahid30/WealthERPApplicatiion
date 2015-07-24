@@ -188,8 +188,8 @@ namespace WealthERP.BusinessMIS
             ddlProductCategory.DataBind();
             td2.Visible = true;
             td1.Visible = true;
-            
-            
+            Label3.Visible = true;
+            ddlOrderType.Visible = true;
             if (asset == "MF")
             {
                 trSelectMutualFund.Visible = true;
@@ -199,8 +199,8 @@ namespace WealthERP.BusinessMIS
                 cvddlIssueType.Enabled = false;
                 Label1.Visible = true;
                 ddlCommType.Visible = true;
-                td2.Visible = false;
-                td1.Visible = false;
+                Label3.Visible = false;
+                ddlOrderType.Visible = false;
                 
                
             }
@@ -398,7 +398,7 @@ namespace WealthERP.BusinessMIS
         }
         protected void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
-            if (ddlProduct.SelectedValue.ToString() == "MF")
+            if (hdnProductCategory.Value.ToString() == "MF")
             {
                 gvCommissionReceiveRecon.ExportSettings.OpenInNewWindow = true;
                 gvCommissionReceiveRecon.ExportSettings.IgnorePaging = true;
@@ -575,6 +575,9 @@ namespace WealthERP.BusinessMIS
             gvBulkOrderStatusList.DataSource = DtStatus;
             gvBulkOrderStatusList.DataBind();
             gvBulkOrderStatusList.Visible = true;
+            btnExportFilteredData.Visible = false;
+            dvMfMIS.Visible = false;
+            dvNCDIPOMIS.Visible = false;
             if (Cache["gvBulkOrderStatusList" + userVo.UserId.ToString()] != null)
             {
                 Cache.Remove("gvBulkOrderStatusList" + userVo.UserId.ToString());
@@ -592,6 +595,7 @@ namespace WealthERP.BusinessMIS
                 GridDataItem ditem = (GridDataItem)e.Item;
                 string RequestId = ditem["RequestId"].Text.ToString().Trim();
                 string RequestDateTime = ditem["RequestDateTime"].Text.ToString().Substring(0, ditem["RequestDateTime"].Text.ToString().IndexOf(' '));
+                hdnProductCategory.Value = ditem["ProductType"].Text.ToString().Trim();
                 bindProductWiseBrokerageGrid(int.Parse(RequestId));
                 gvBulkOrderStatusList.Visible = false;
             }
