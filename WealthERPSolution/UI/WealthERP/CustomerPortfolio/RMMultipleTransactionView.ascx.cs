@@ -1130,6 +1130,8 @@ namespace WealthERP.CustomerPortfolio
                     dtMFTransactions.Columns.Add("UserType");
                     dtMFTransactions.Columns.Add("DeuptyHead");
                     dtMFTransactions.Columns.Add("CMFT_UserTransactionNo");
+                    dtMFTransactions.Columns.Add("CityGroup");
+                    
 
                     DataRow drMFTransaction;
                     for (int i = 0; i < mfTransactionList.Count; i++)
@@ -1182,6 +1184,7 @@ namespace WealthERP.CustomerPortfolio
                         drMFTransaction[18] = decimal.Parse(mfTransactionVo.BrokerageAmount.ToString());
                         drMFTransaction["CMFT_Area"] = mfTransactionVo.Area.ToString();
                         drMFTransaction["CMFT_EUIN"] = mfTransactionVo.EUIN.ToString();
+                        drMFTransaction["CityGroup"] = mfTransactionVo.Citygroup;
                         if (ddlAgentCode.SelectedValue == "1")
                         {
                             drMFTransaction["ZonalManagerName"] = mfTransactionVo.ZMName.ToString();

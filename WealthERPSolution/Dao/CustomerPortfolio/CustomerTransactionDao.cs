@@ -2537,7 +2537,8 @@ namespace DaoCustomerPortfolio
                         mfTransactionVo.Folio = dr["CMFA_FolioNum"].ToString();
                         mfTransactionVo.PortfolioName = dr["CP_PortfolioName"].ToString();
                         mfTransactionVo.CreatedOn = DateTime.Parse(dr["CMFT_CreatedOn"].ToString());
-
+                        //if (dr["CityGroup"].ToString() != "") 
+                        mfTransactionVo.Citygroup =dr["CityGroup"].ToString();
                         //&& dr["CMFT_UserTransactionNo"].ToString() != string.Empty)
                         if (dr["CMFT_UserTransactionNo"].ToString() != string.Empty)
                         {

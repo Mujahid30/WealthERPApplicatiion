@@ -825,6 +825,11 @@
                                                     AutoPostBackOnFilter="true" UniqueName="CMFT_EUIN" FooterStyle-HorizontalAlign="Left">
                                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
+                                                 <telerik:GridBoundColumn DataField="CityGroup" HeaderText="City Group" AllowFiltering="true"
+                                                    HeaderStyle-Wrap="false" SortExpression="CityGroup" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                    AutoPostBackOnFilter="true" UniqueName="CityGroup" FooterStyle-HorizontalAlign="Left">
+                                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                                </telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn DataField="TransactionStatus" HeaderText="Transaction Status"
                                                     AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="TransactionStatus"
                                                     ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="TransactionStatus"
@@ -1070,6 +1075,11 @@
                                                     DataField="CMFT_EUIN" FooterStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false"
                                                     HeaderText="EUIN" ShowFilterIcon="false" SortExpression="CMFT_EUIN" UniqueName="CMFT_EUIN">
                                                     <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                </telerik:GridBoundColumn>
+                                                  <telerik:GridBoundColumn DataField="CityGroup" HeaderText="City Group" AllowFiltering="true"
+                                                    HeaderStyle-Wrap="false" SortExpression="CityGroup" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                    AutoPostBackOnFilter="true" UniqueName="CityGroup" FooterStyle-HorizontalAlign="Left">
+                                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" DataField="TransactionStatus"
                                                     FooterStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" HeaderText="Transaction Status"

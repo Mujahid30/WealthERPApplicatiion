@@ -85,6 +85,7 @@ namespace VoCustomerPortfolio
         public string UserTransactionNo { get; set; }
         public DateTime OrdDate { get; set; }
         public int userTransactionNo { get; set; }
+        public string Citygroup { get; set; }
         public string PortfolioName
         {
             get { return m_PortfolioName; }
