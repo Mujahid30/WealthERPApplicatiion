@@ -245,7 +245,7 @@
                 </td>
                 <td class="rightField">
                     <asp:TextBox ID="txtFirstName" runat="server" MaxLength="75" CssClass="txtField"
-                        TabIndex="1"></asp:TextBox>
+                        TabIndex="1" Style="text-transform: uppercase;"></asp:TextBox>
                     <span id="Span15" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator12" ControlToValidate="txtFirstName"
                         ErrorMessage="<br />Please Enter Name" Display="Dynamic" runat="server" CssClass="rfvPCG"

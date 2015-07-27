@@ -176,7 +176,7 @@
                 </td>
                 <td class="rightField">
                     <asp:TextBox ID="txtFirstName" runat="server" MaxLength="130" CssClass="txtField"
-                        TabIndex="1" Width="60%"></asp:TextBox>
+                        TabIndex="1" Width="60%" Style="text-transform: uppercase;"></asp:TextBox>
                     <span id="Span14" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator12" ControlToValidate="txtFirstName"
                         ErrorMessage="<br />Please enter the First Name" Display="Dynamic" runat="server"

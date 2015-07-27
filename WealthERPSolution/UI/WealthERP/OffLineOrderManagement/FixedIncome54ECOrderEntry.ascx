@@ -795,7 +795,7 @@
                     </td>
                     <td>
                         <asp:TextBox ID="txtCustomerName" Width="200px" runat="server" CssClass="txtField"
-                            AutoComplete="Off" onclientClick="ShowIsa()" AutoPostBack="True" TabIndex="4">
+                            AutoComplete="Off" onclientClick="ShowIsa()" AutoPostBack="True" TabIndex="4" Style="text-transform: uppercase;">
                         </asp:TextBox><span id="spnCustomer" class="spnRequiredField">*</span>
                         <asp:ImageButton ID="btnImgAddCustomer" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                             AlternateText="Add" runat="server" ToolTip="Click here to Add Customer" OnClick="openpopupAddCustomer_Click"

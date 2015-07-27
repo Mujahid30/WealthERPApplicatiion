@@ -715,7 +715,7 @@
                     <td>
                         <%-- OnClientClick="return openpopupAddCustomer()"--%>
                         <asp:TextBox ID="txtCustomerName" runat="server" CssClass="txtField" AutoComplete="Off"
-                            onclientClick="ShowIsa()" AutoPostBack="True" TabIndex="4" Width="200px">
+                            onclientClick="ShowIsa()" AutoPostBack="True" TabIndex="4" Width="200px" Style="text-transform: uppercase;">
                         </asp:TextBox><span id="spnCustomer" class="spnRequiredField">*</span>
                         <asp:ImageButton ID="btnImgAddCustomer" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                             AlternateText="Add" runat="server" ToolTip="Click here to Add Customer" OnClick="openpopupAddCustomer_Click"
