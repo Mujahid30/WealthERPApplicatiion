@@ -257,7 +257,7 @@
                 </td>
                 <td class="rightField">
                     <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField" MaxLength="10"
-                        TabIndex="2"></asp:TextBox>
+                        TabIndex="2" Style="text-transform: uppercase;"></asp:TextBox>
                     <span id="Span14" class="spnRequiredField">*</span> &nbsp;
                     <br />
                     <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPanNumber" ErrorMessage="Please Enter  PAN"

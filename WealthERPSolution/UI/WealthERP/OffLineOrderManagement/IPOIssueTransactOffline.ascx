@@ -188,7 +188,7 @@
                 </td>
                 <td class="rightField">
                     <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField" MaxLength="10"
-                        TabIndex="2"></asp:TextBox>
+                        TabIndex="2" Style="text-transform: uppercase;"></asp:TextBox>
                     <span id="Span13" class="spnRequiredField">*</span> &nbsp;
                     <%--<asp:CheckBox ID="chkdummypan" runat="server" Visible="false" CssClass="txtField"
                             Text="Dummy PAN" AutoPostBack="true" TabIndex="9" />--%>

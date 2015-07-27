@@ -682,7 +682,7 @@
                     <td>
                         <asp:TextBox ID="txtPansearch" runat="server" CssClass="txtField" AutoComplete="Off"
                             AutoPostBack="True" onclientClick="ShowIsa()" OnTextChanged="OnAssociateTextchanged1"
-                            TabIndex="3">
+                            TabIndex="3" Style="text-transform: uppercase;">
                         </asp:TextBox><span id="Span1" class="spnRequiredField">*</span>
                         <asp:ImageButton ID="btnImgAddPAN" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                             AlternateText="Add" runat="server" ToolTip="Click here to Add Customer" OnClick="openpopupAddCustomer_Click"

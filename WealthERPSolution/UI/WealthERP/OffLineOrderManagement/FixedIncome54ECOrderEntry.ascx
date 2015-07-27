@@ -762,7 +762,7 @@
                     <td>
                         <asp:TextBox ID="txtPansearch" runat="server" CssClass="txtField" AutoComplete="Off"
                             AutoPostBack="True" onclientClick="ShowIsa()" onblur="return checkItemSelected(this)"
-                            TabIndex="3">
+                            TabIndex="3" Style="text-transform: uppercase;">
                             
                         </asp:TextBox><span id="Span1" class="spnRequiredField">*</span>
                         <asp:ImageButton ID="btnImgAddPAN" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
@@ -863,8 +863,7 @@
                             CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
                     </td>
                     <td align="right">
-                        <asp:Label ID="lblAssociate" runat="server" CssClass="FieldName" Text="Name:"
-                            Visible="false"></asp:Label>
+                        <asp:Label ID="lblAssociate" runat="server" CssClass="FieldName" Text="Name:" Visible="false"></asp:Label>
                     </td>
                     <td>
                         <asp:Label ID="lblAssociatetext" runat="server" CssClass="FieldName" Enabled="false"></asp:Label>
@@ -1481,19 +1480,19 @@
                             TabIndex="35"></asp:TextBox>
                     </td>
                 </tr>
-                  <tr>
-                <td class="Page_Left_Padding">
-                </td>
-                <td class="leftField">
-                    <asp:Label ID="lblRemarks" runat="server" Text="Remarks:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td class="rightField" colspan="4">
-                    <asp:TextBox ID="txtRemarks" Width="400px" TextMode="MultiLine" MaxLength="300" Height="40px"
-                        onkeydown="return (event.keyCode!=13);" runat="server" CssClass="txtField" TabIndex="23"></asp:TextBox>
-                </td>
-                <td class="Page_Right_Padding">
-                </td>
-            </tr>
+                <tr>
+                    <td class="Page_Left_Padding">
+                    </td>
+                    <td class="leftField">
+                        <asp:Label ID="lblRemarks" runat="server" Text="Remarks:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField" colspan="4">
+                        <asp:TextBox ID="txtRemarks" Width="400px" TextMode="MultiLine" MaxLength="300" Height="40px"
+                            onkeydown="return (event.keyCode!=13);" runat="server" CssClass="txtField" TabIndex="23"></asp:TextBox>
+                    </td>
+                    <td class="Page_Right_Padding">
+                    </td>
+                </tr>
                 <tr id="trDepositedBank" runat="server" visible="false">
                     <td class="leftField" style="width: 15%">
                         <asp:Label ID="Label3" runat="server" Text="Application Submitted at Bank name:"
@@ -1515,8 +1514,6 @@
                         <asp:TextBox ID="txtDepositedBranch" runat="server" CssClass="txtField" TabIndex="37"></asp:TextBox>
                     </td>
                 </tr>
-                
-              
                 <tr id="trBtnSubmit" runat="server">
                     <td align="left" colspan="3">
                         <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmit_Click"
