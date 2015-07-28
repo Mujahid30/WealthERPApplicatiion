@@ -339,7 +339,7 @@
                         <asp:Label ID="lblPanNum" runat="server" CssClass="FieldName" Text="PAN Number:"></asp:Label>
                     </td>
                     <td class="rightField" width="75%">
-                        <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
+                        <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField" MaxLength="10" Style="text-transform: uppercase;"></asp:TextBox>
                         <span id="Span31" class="spnRequiredField">*</span> &nbsp;
                         <asp:CheckBox ID="chkdummypan" runat="server" Visible="false" CssClass="txtField"
                             Text="Dummy PAN" AutoPostBack="true" />
@@ -373,7 +373,7 @@
                         <asp:Label ID="lblName" runat="server" CssClass="FieldName" Text="Name:"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtFirstName" runat="server" MaxLength="75" Style="width: 30%" CssClass="txtField"></asp:TextBox>
+                        <asp:TextBox ID="txtFirstName" runat="server" MaxLength="75" Style="width: 30%" CssClass="txtField" Style="text-transform: uppercase;"></asp:TextBox>
                         <cc1:TextBoxWatermarkExtender ID="txtFirstName_TextBoxWatermarkExtender" runat="server"
                             Enabled="True" TargetControlID="txtFirstName" WatermarkText="FirstName">
                         </cc1:TextBoxWatermarkExtender>
@@ -386,7 +386,7 @@
                 </tr>
                 <tr id="trNonIndividualName" runat="server">
                     <td class="leftField">
-                        <asp:Label ID="lblCompanyName" runat="server" CssClass="FieldName" Text="Company Name:"></asp:Label>
+                        <asp:Label ID="lblCompanyName" runat="server" CssClass="FieldName" Text="Company Name:" Style="text-transform: uppercase;"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtCompanyName" CssClass="txtField" Style="width: 30%" runat="server"></asp:TextBox>

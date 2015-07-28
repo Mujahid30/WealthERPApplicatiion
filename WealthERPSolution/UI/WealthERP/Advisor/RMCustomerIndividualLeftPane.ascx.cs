@@ -1495,7 +1495,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "AdditionalPurchase")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('MFOrderAdditionalPurchase','none');", true);
-                }
+                } 
                 else if (e.Item.Value == "Redeem")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('MFOrderRdemptionTransType','none');", true);
@@ -1518,7 +1518,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "OrderBook")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('CustomerMFOrderBookList','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('OnlineCustomerOrderandTransactionBook','none');", true);
                 }//CustomerMFOrderBookList
                 else if (e.Item.Value == "TransactionBook")
                 {

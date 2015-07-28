@@ -512,7 +512,7 @@
                             <asp:Label ID="lblPanNum" runat="server" CssClass="FieldName" Text="PAN Number:"></asp:Label>
                         </td>
                         <td class="rightField" width="75%">
-                            <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
+                            <asp:TextBox ID="txtPanNumber" runat="server" CssClass="txtField" MaxLength="10" Style="text-transform: uppercase;"></asp:TextBox>
                             <span id="Span12" class="spnRequiredField">*</span> &nbsp;
                             <asp:CheckBox ID="chkdummypan" runat="server" Visible="false" CssClass="txtField"
                                 Text="Dummy PAN" AutoPostBack="true" />
@@ -546,7 +546,7 @@
                             <asp:Label ID="lblName" runat="server" CssClass="FieldName" Text="Name:"></asp:Label>
                         </td>
                         <td class="rightField">
-                            <asp:TextBox ID="txtFirstName" runat="server" MaxLength="75" Style="width: 30%" CssClass="txtField"></asp:TextBox>
+                            <asp:TextBox ID="txtFirstName" runat="server" MaxLength="75" Style="width: 30%" CssClass="txtField" Style="text-transform: uppercase;"></asp:TextBox>
                             <cc1:TextBoxWatermarkExtender ID="txtFirstName_TextBoxWatermarkExtender" runat="server"
                                 Enabled="True" TargetControlID="txtFirstName" WatermarkText="FirstName">
                             </cc1:TextBoxWatermarkExtender>
@@ -571,7 +571,7 @@
                             <asp:Label ID="lblCompanyName" runat="server" CssClass="FieldName" Text="Company Name:"></asp:Label>
                         </td>
                         <td>
-                            <asp:TextBox ID="txtCompanyName" CssClass="txtField" Style="width: 30%" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtCompanyName" CssClass="txtField" Style="width: 30%" runat="server" Style="text-transform: uppercase;"></asp:TextBox>
                             <span id="Span15" class="spnRequiredField">*</span>
                             <br />
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtCompanyName"
