@@ -1118,7 +1118,9 @@ namespace WealthERP.OnlineOrderBackOffice
 
             txtInitalPamount.Text = mfProductAMCSchemePlanDetailsVo.InitialPurchaseAmount.ToString();
             txtIMultipleamount.Text = mfProductAMCSchemePlanDetailsVo.InitialMultipleAmount.ToString();
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.AdditionalPruchaseAmount.ToString()))
             txtAdditional.Text = mfProductAMCSchemePlanDetailsVo.AdditionalPruchaseAmount.ToString();
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.AdditionalMultipleAmount.ToString()))
             txtAddMultipleamount.Text = mfProductAMCSchemePlanDetailsVo.AdditionalMultipleAmount.ToString();
             txtMinRedemption.Text = mfProductAMCSchemePlanDetailsVo.MinRedemptionAmount.ToString();
             txtMinRedemptioUnits.Text = mfProductAMCSchemePlanDetailsVo.MinRedemptionUnits.ToString();
@@ -1450,8 +1452,12 @@ namespace WealthERP.OnlineOrderBackOffice
             txtSwitchMultipleUnits.Text = mfProductAMCSchemePlanDetailsVo.SwitchMultiplesUnits.ToString();
             txtInitalPamount.Text = mfProductAMCSchemePlanDetailsVo.InitialPurchaseAmount.ToString();
             txtIMultipleamount.Text = mfProductAMCSchemePlanDetailsVo.InitialMultipleAmount.ToString();
-            txtAdditional.Text = mfProductAMCSchemePlanDetailsVo.AdditionalPruchaseAmount.ToString();
-            txtAddMultipleamount.Text = mfProductAMCSchemePlanDetailsVo.AdditionalMultipleAmount.ToString();
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.AdditionalPruchaseAmount.ToString()))
+                txtAdditional.Text = mfProductAMCSchemePlanDetailsVo.AdditionalPruchaseAmount.ToString();
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.AdditionalMultipleAmount.ToString()))
+                txtAddMultipleamount.Text = mfProductAMCSchemePlanDetailsVo.AdditionalMultipleAmount.ToString();
+            //txtAdditional.Text = mfProductAMCSchemePlanDetailsVo.AdditionalPruchaseAmount.ToString();
+            //txtAddMultipleamount.Text = mfProductAMCSchemePlanDetailsVo.AdditionalMultipleAmount.ToString();
             txtMinRedemption.Text = mfProductAMCSchemePlanDetailsVo.MinRedemptionAmount.ToString();
             txtMinRedemptioUnits.Text = mfProductAMCSchemePlanDetailsVo.MinRedemptionUnits.ToString();
             txtMinSwitchAmount.Text = mfProductAMCSchemePlanDetailsVo.MinSwitchAmount.ToString();

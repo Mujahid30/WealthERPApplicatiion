@@ -373,7 +373,7 @@
                         <asp:Label ID="lblName" runat="server" CssClass="FieldName" Text="Name:"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtFirstName" runat="server" MaxLength="75" Style="width: 30%" CssClass="txtField" Style="text-transform: uppercase;"></asp:TextBox>
+                        <asp:TextBox ID="txtFirstName" runat="server" MaxLength="75"  CssClass="txtField" Style="text-transform: uppercase;width: 30%" ></asp:TextBox>
                         <cc1:TextBoxWatermarkExtender ID="txtFirstName_TextBoxWatermarkExtender" runat="server"
                             Enabled="True" TargetControlID="txtFirstName" WatermarkText="FirstName">
                         </cc1:TextBoxWatermarkExtender>
