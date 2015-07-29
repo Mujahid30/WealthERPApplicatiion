@@ -51,7 +51,7 @@ namespace WealthERP.Receivable
                     //hdnViewMode.Value = "ViewEdit";
                     //hdneligible.Value = "Eligible";
                     ddlProductType.SelectedValue = "MF";
-                    btnIssueMap.Visible = true;
+                    //btnIssueMap.Visible = true;
                     hidCommissionStructureName.Value = structureId.ToString();
                     BindPayableGrid();
                     Table5.Visible = true;
@@ -62,6 +62,7 @@ namespace WealthERP.Receivable
 
                 if (structureId != 0)
                 {
+                    TogglePanel();
                     ddlProductType.SelectedValue = Request.QueryString["ProductType"].ToString();
                     BindAllDropdown();
                     LoadStructureDetails(structureId);
@@ -137,6 +138,7 @@ namespace WealthERP.Receivable
                     pnlAddSchemes.Visible = false;
                     gvMappedSchemes.Visible = false;
                     //Table2.Visible = false;
+                    pnlGrid.Visible = false;
                     ImageButton4.ToolTip = "Expend";
                     ImageButton4.ImageUrl = "~/Images/toggle-expand-alt_blue.png";
                 }
@@ -146,7 +148,8 @@ namespace WealthERP.Receivable
                     pnlAddSchemesButton.Visible = true;
                     ImageButton4.ImageUrl = "~/Images/toggle-collapse-alt_blue.png";
                     ImageButton4.ToolTip = "Collapse";
-                    if (gvMappedSchemes.Items.Count > 0)
+                    pnlGrid.Visible = true;
+                    //if (gvMappedSchemes.Items.Count > 0)
                         gvMappedSchemes.Visible = true;
                     //Table2.Visible = true;
 
@@ -4241,12 +4244,14 @@ namespace WealthERP.Receivable
                 gvPayaMapping.Visible = false;
                 ImageButton7.ImageUrl = "~/Images/toggle-expand-alt_blue.png";
                 ImageButton7.ToolTip = "Expend";
+                btnIssueMap.Visible = false;
             }
             else
             {
                 gvPayaMapping.Visible = true;
                 ImageButton7.ImageUrl = "~/Images/toggle-collapse-alt_blue.png";
                 ImageButton7.ToolTip = "Collapse";
+                btnIssueMap.Visible = true;
             }
         }
 
@@ -4322,6 +4327,29 @@ namespace WealthERP.Receivable
                 radAplicationPopUp.VisibleOnPageLoad = true;
                 RadListBoxSelectedAgentCodes.Items.Clear();
             }
+        }
+        protected void TogglePanel()
+        {
+            gvPayaMapping.Visible = false;
+            ImageButton7.ImageUrl = "~/Images/toggle-expand-alt_blue.png";
+            ImageButton7.ToolTip = "Expend";
+            btnIssueMap.Visible = false;
+            tb1.Visible = false;
+            ImageButton3.ImageUrl = "~/Images/toggle-expand-alt_blue.png";
+            ImageButton3.ToolTip = "Expend";
+            pnlAddSchemesButton.Visible = false;
+            pnlAddSchemes.Visible = false;
+            gvMappedSchemes.Visible = false;
+            //Table2.Visible = false;
+            ImageButton4.ToolTip = "Expend";
+            ImageButton4.ImageUrl = "~/Images/toggle-expand-alt_blue.png";
+            tbNcdIssueList.Visible = false;
+            pnlIssueList.Visible = false;
+            ImageButton5.ToolTip = "Expend";
+            ImageButton5.ImageUrl = "~/Images/toggle-expand-alt_blue.png";
+            tblCommissionStructureRule1.Visible = false;
+            imgBuy1.ImageUrl = "~/Images/toggle-expand-alt_blue.png";
+            imgBuy1.ToolTip = "Expend";
         }
     }
 }

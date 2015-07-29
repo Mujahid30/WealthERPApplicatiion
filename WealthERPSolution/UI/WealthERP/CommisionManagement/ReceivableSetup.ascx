@@ -592,18 +592,18 @@
                     <td class="tdSectionHeading" colspan="5">
                         <div class="divStepStatus">
                             <asp:Image ID="imgStepOneStatus" ImageUrl="" alt="" runat="server" />
-                            &nbsp;
+                            
                         </div>
                         <div class="divSectionHeading" style="vertical-align: text-bottom">
-                            <div style=" float: left;padding-left: 3px" >
+                            <div style="float: left; padding-left: 3px">
                                 <asp:ImageButton ID="ImageButton3" runat="server" ImageUrl="~/Images/toggle-collapse-alt_blue.png"
-                                    alt="Collapse/Expand" OnClick="imgBuy_Click" Height="28px" Width="30px" Style="
-                                    cursor: hand;" ToolTip="Collapse" ImageAlign="Top" />&nbsp;&nbsp;
+                                    alt="Collapse/Expand" OnClick="imgBuy_Click" Height="28px" Width="30px" Style="cursor: hand;"
+                                    ToolTip="Collapse" ImageAlign="Top" />&nbsp;
                             </div>
                             <div class="divSectionHeadingNumber fltlftStep">
                                 1
                             </div>
-                            <div class="fltlft1">
+                            <div class="fltlft">
                                 &nbsp;
                                 <asp:Label ID="Label2" runat="server" Text="Basic Detail"></asp:Label>
                             </div>
@@ -782,9 +782,9 @@
                 <tr id="tr1" runat="server">
                     <td class="tdSectionHeading">
                         <div class="divSectionHeading" style="vertical-align: text-bottom">
-                           <div style=" float: left;padding-left: 3px" >
+                            <div style="float: left; padding-left: 3px">
                                 <asp:ImageButton ID="ImageButton4" runat="server" alt="Collapse/Expand" ImageUrl="~/Images/toggle-collapse-alt_blue.png"
-                                     Height="28px" Width="30px"  style=" cursor: hand;" OnClick="imgBuyMapping_Click"
+                                    Height="28px" Width="30px" Style="cursor: hand;" OnClick="imgBuyMapping_Click"
                                     ToolTip="Collapse" />
                             </div>
                             <div class="divSectionHeadingNumber fltlftStep">
@@ -800,7 +800,6 @@
                                     OnClick="ibtExportSummary_OnClick" OnClientClick="setFormat('excel')" Height="22px"
                                     Width="25px"></asp:ImageButton>
                             </div>
-                         
                         </div>
                     </td>
                 </tr>
@@ -846,7 +845,8 @@
                                                     </telerik:GridDateTimeColumn>
                                                     <telerik:GridDateTimeColumn DataField="ValidTill" DataFormatString="{0:dd/MM/yyyy}"
                                                         HeaderStyle-Width="100px" CurrentFilterFunction="EqualTo" ShowFilterIcon="false"
-                                                        AutoPostBackOnFilter="true" HeaderText="Valid Till" UniqueName="schemeValidTill" Visible="false">
+                                                        AutoPostBackOnFilter="true" HeaderText="Valid Till" UniqueName="schemeValidTill"
+                                                        Visible="false">
                                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100px" Wrap="false" />
                                                     </telerik:GridDateTimeColumn>
                                                     <telerik:GridButtonColumn ButtonType="LinkButton" Text="Delete" ConfirmText="Do you want to delete the mapping?"
@@ -872,11 +872,12 @@
                 <table width="33%" style="clear: both">
                     <tr>
                         <td class="leftLabel">
-                            <asp:Label ID="lblAddNewSchemes" runat="server" CssClass="FieldName" Text="Add Schemes" Visible="false"></asp:Label>
+                            <asp:Label ID="lblAddNewSchemes" runat="server" CssClass="FieldName" Text="Add Schemes"
+                                Visible="false"></asp:Label>
                         </td>
                         <td class="rightData">
                             <asp:Button ID="btnAddNewSchemes" runat="server" Text="Add Schemes" OnClick="btnAddNewSchemes_Click"
-                                CssClass="PCGButton wide-button" />
+                                CssClass="PCGButton wide-button" Visible="false" />
                         </td>
                     </tr>
                 </table>
@@ -891,7 +892,7 @@
                             <asp:DropDownList ID="ddlMFCategory" runat="server" CssClass="cmbField">
                             </asp:DropDownList>
                         </td>
-                        <td >
+                        <td>
                             <asp:Button ID="btn_GetAvailableSchemes" runat="server" Text="Schemes" CssClass="PCGButton"
                                 OnClick="btn_GetAvailableSchemes_Click" />
                         </td>
@@ -1005,7 +1006,8 @@
                 <table width="100%" runat="server" visible="false" id="tbSchemeMapped">
                     <tr>
                         <td class="leftLabel">
-                            <asp:Label ID="lblMappedFrom" runat="server" CssClass="FieldName" Text="Mapping Period: " Visible="false"></asp:Label>
+                            <asp:Label ID="lblMappedFrom" runat="server" CssClass="FieldName" Text="Mapping Period: "
+                                Visible="false"></asp:Label>
                         </td>
                         <td class="rightData">
                             <telerik:RadDatePicker ID="rdpMappedFrom" runat="server" Visible="false">
@@ -1059,7 +1061,7 @@
                 <tr id="tr3" runat="server">
                     <td class="tdSectionHeading">
                         <div class="divSectionHeading" style="vertical-align: text-bottom">
-                         <div style=" float: left;padding-left: 3px" >
+                            <div style="float: left; padding-left: 3px">
                                 <asp:ImageButton ID="ImageButton5" runat="server" alt="Collapse/Expand" ImageUrl="~/Images/toggle-collapse-alt_blue.png"
                                     Height="28px" Width="30px" Style="float: right; cursor: hand;" OnClick="imgNcd_Click"
                                     ToolTip="Collapse" />
@@ -1077,7 +1079,6 @@
                                     OnClick="ibtExportSummary_OnClick" OnClientClick="setFormat('excel')" Height="22px"
                                     Width="25px"></asp:ImageButton>
                             </div>
-                          
                         </div>
                     </td>
                 </tr>
@@ -1179,14 +1180,12 @@
                             &nbsp;
                         </div>
                         <div class="divSectionHeading" style="vertical-align: text-bottom">
-                         <div style=" float: left;padding-left: 3px" >
-                         <asp:ImageButton ID="imgBuy1" runat="server" alt="Collapse/Expand" ImageUrl="~/Images/toggle-collapse-alt_blue.png"
-                                    Height="28px" Width="30px"  style="cursor: hand;" OnClick="imgBuy1_Click"
-                                    ToolTip="Collapse" /> 
-
-                                              </div>                        
+                            <div style="float: left; padding-left: 3px">
+                                <asp:ImageButton ID="imgBuy1" runat="server" alt="Collapse/Expand" ImageUrl="~/Images/toggle-collapse-alt_blue.png"
+                                    Height="28px" Width="30px" Style="cursor: hand;" OnClick="imgBuy1_Click" ToolTip="Collapse" />
+                            </div>
                             <div class="divSectionHeadingNumber">
-                                 3
+                                3
                             </div>
                             <div class="fltlft" style="width: 200px;">
                                 &nbsp;
@@ -1205,7 +1204,6 @@
                                 </asp:LinkButton>
                             </div>
                             <div class="divTextCenter">
-                              
                             </div>
                         </div>
                     </td>
@@ -1994,22 +1992,23 @@
                 <tr id="trPayableMapping" runat="server" visible="false">
                     <td colspan="5" class="tdSectionHeading">
                         <div class="divSectionHeading" style="vertical-align: text-bottom">
-                            <div style=" float: left;padding-left: 3px">
-                               <asp:ImageButton ID="ImageButton7" runat="server" alt="Collapse/Expand" ImageUrl="~/Images/toggle-collapse-alt_blue.png"
+                            <div style="float: left; padding-left: 3px">
+                                <asp:ImageButton ID="ImageButton7" runat="server" alt="Collapse/Expand" ImageUrl="~/Images/toggle-collapse-alt_blue.png"
                                     Height="28px" Width="30px" Style="float: right; cursor: hand;" OnClick="ImageButton7_Click"
-                                    ToolTip="Collapse" /> </div>
+                                    ToolTip="Collapse" />
+                            </div>
                             <div class="divSectionHeadingNumber fltlftStep">
-                                     4
+                                4
                             </div>
                             &nbsp;
-                            <div class="divSectionHeadingNumber1 fltlftStep" style="width: 200px;">
+                            <div class="fltlftStep" style="width: 300px;">
+                            &nbsp;
                                 <asp:Label ID="Label15" runat="server" Text="Associate Payable Mapped"></asp:Label>
                             </div>
                             <div class="divViewEdit" style="padding-right: 10px; width: 90px;">
                                 <asp:ImageButton ID="ImageButton6" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                     runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="ibtExport_OnClick"
                                     Height="22px" Width="25px" Visible="false"></asp:ImageButton>
-                               
                             </div>
                         </div>
                     </td>
@@ -2100,6 +2099,12 @@
                         </telerik:RadGrid>
                     </td>
                 </tr>
+                 <tr>
+                <td>
+                    <asp:Button ID="btnIssueMap" runat="server" CssClass="PCGButton" Text="Map Associate"
+                        OnClick="Map_btnIssueMap" Visible="false" />
+                </td>
+            </tr>
             </table>
             <%--   <script type="text/javascript">
                                 function RadGrid1_OnRowClick(sender, args) {
@@ -2112,10 +2117,10 @@
                                     MasterTable.fireCommand("MyClick2", ID);
                                 }  OnClientClick="Confirm();"
                             </script>  OnClientClick="Confirm()"--%>
-            </td> </tr> </table>
+            </td> </tr>
+           
+            </table>
             <asp:Label ID="lblEligible" runat="server"></asp:Label>
-            <asp:Button ID="btnIssueMap" runat="server" CssClass="PCGButton" Text="Map Associate"
-                OnClick="Map_btnIssueMap" Visible="false" />
             <telerik:RadWindow ID="radAplicationPopUp" runat="server" VisibleOnPageLoad="false"
                 Height="600px" Width="900px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false"
                 Behaviors="Resize, Close, Move" Title="Map Associate" Left="10" Top="20" OnClientShow="setCustomPosition">
@@ -2191,8 +2196,8 @@
                                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                 </telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn DataField="WCMV_Name" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
-                                                    ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="City group"
-                                                    UniqueName="WCMV_Name" SortExpression="WCMV_Name" AllowFiltering="true">
+                                                    ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="City group" UniqueName="WCMV_Name"
+                                                    SortExpression="WCMV_Name" AllowFiltering="true">
                                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                 </telerik:GridBoundColumn>
                                                 <telerik:GridTemplateColumn HeaderText="Broker/Rate(%)" AllowFiltering="true" DataField="CSRD_StructureRuleDetailsId">
