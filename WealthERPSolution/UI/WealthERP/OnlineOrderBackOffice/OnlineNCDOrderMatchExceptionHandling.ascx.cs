@@ -531,6 +531,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 tdSubCategory.Visible = false;
                 tdlblSubCategory.Visible = false;
+                BindIssue();
             }
 
 
