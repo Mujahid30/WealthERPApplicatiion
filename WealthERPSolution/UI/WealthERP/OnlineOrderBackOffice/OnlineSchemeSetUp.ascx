@@ -13,7 +13,7 @@
 
 <script type="text/javascript">
     function openpopupSchemeSetUp() {
-
+ 
         var hdnSchemePlan = document.getElementById("<%=hdnSchemePlanCode.ClientID %>").value;
         //        alert(hdnSchemePlan);
         window.open('PopUp.aspx?PageId=AddSchemeMapping&OnlineSchemeSetupSchemecode=' + hdnSchemePlan, 'mywindow', 'width=750,height=500,scrollbars=yes,location=no');
@@ -787,14 +787,14 @@
                         </td>
                         <td style="width: 15%;">
                             <asp:TextBox ID="txtAdditional" runat="server" CssClass="cmbFielde"></asp:TextBox>
-                           <%-- <span id="Span7" class="spnRequiredField">*</span>
+                            <span id="Span7" class="spnRequiredField">*</span>
                             <br />
-                           <%-- <asp:RequiredFieldValidator ID="rfvtxtAdditional" runat="server" ErrorMessage="Please Enter Min. Additional Purchase Amount"
+                            <asp:RequiredFieldValidator ID="rfvtxtAdditional" runat="server" ErrorMessage="Please Enter Min. Additional Purchase Amount"
                                 CssClass="rfvPCG" ControlToValidate="txtAdditional" ValidationGroup="btnsubmit"
-                                Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>--%>
+                                Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="regfvtxtAdditional" ControlToValidate="txtAdditional"
                                 ErrorMessage="Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
-                                ValidationExpression="[0-9]\d*$" ValidationGroup="btnsubmit" />
+                                ValidationExpression="[1-9]\d*$" ValidationGroup="btnsubmit" />
                             <%-- <asp:CompareValidator ID="cmptxtAdditional" ControlToValidate="txtAdditional" runat="server"
                 ControlToCompare="txtIMultipleamount" Display="Dynamic" ErrorMessage="<br/>To Range Greater Than From Range"
                 Type="Integer" Operator="GreaterThan" CssClass="cvPCG" ValidationGroup="btnsubmit"></asp:CompareValidator>--%>
@@ -805,14 +805,14 @@
                         </td>
                         <td>
                             <asp:TextBox ID="txtAddMultipleamount" runat="server" CssClass="cmbFielde"></asp:TextBox>
-                             <%--    <span id="Span5" class="spnRequiredField">*</span>
+                            <span id="Span5" class="spnRequiredField">*</span>
                             <br />
-                       <asp:RequiredFieldValidator ID="rfvtxtAddMultipleamount" runat="server" ErrorMessage="Please Enter Additional Purchase Multiple Amount"
+                            <asp:RequiredFieldValidator ID="rfvtxtAddMultipleamount" runat="server" ErrorMessage="Please Enter Additional Purchase Multiple Amount"
                                 CssClass="rfvPCG" ControlToValidate="txtAddMultipleamount" ValidationGroup="btnsubmit"
-                                Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>--%>
+                                Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="regetxtAddMultipleamount" ControlToValidate="txtAddMultipleamount"
                                 ErrorMessage="Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
-                                ValidationExpression="[0-9]\d*$" ValidationGroup="btnsubmit" />
+                                ValidationExpression="[1-9]\d*$" ValidationGroup="btnsubmit" />
                             <%-- <asp:CompareValidator ID="CmptxtAddMultipleamount" ControlToValidate="txtAddMultipleamount" runat="server"
                 ControlToCompare="txtIMultipleamount" Display="Dynamic" ErrorMessage="<br/>To Range Greater Than From Range"
                 Type="Integer" Operator="GreaterThan" CssClass="cvPCG" ValidationGroup="btnsubmit"></asp:CompareValidator>--%>
