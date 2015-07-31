@@ -52,7 +52,7 @@ namespace WealthERP.OnlineOrderManagement
             userVo = (UserVo)Session["userVo"];
             RadInformation.VisibleOnPageLoad = false;
             int TOcpmaretime = int.Parse(DateTime.Now.ToShortTimeString().Split(':')[0]);
-            if (TOcpmaretime >= int.Parse("17:00".Split(':')[0]) && TOcpmaretime <= int.Parse("21:00".Split(':')[0]))
+            if (TOcpmaretime >= int.Parse(ConfigurationSettings.AppSettings["START_TIME"]) && TOcpmaretime <= int.Parse(ConfigurationSettings.AppSettings["END_TIME"]))
             {
                 if (Session["PageDefaultSetting"] != null)
                 {
@@ -349,7 +349,7 @@ namespace WealthERP.OnlineOrderManagement
                 string date = Convert.ToDateTime(dsNav.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
                 lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + date;
             }
-            CalculateCurrentholding(ds, out finalunits, out finalamt, dsNav.Tables[0].Rows.Count > 0 ?Convert.ToString(dsNav.Tables[0].Rows[0][1]):"0");
+            CalculateCurrentholding(ds, out finalunits, out finalamt, dsNav.Tables[0].Rows.Count > 0 ? Convert.ToString(dsNav.Tables[0].Rows[0][1]) : "0");
             lblUnitsheldDisplay.Text = Math.Round(finalunits, 2).ToString();
             lblCurrentValueDisplay.Text = Math.Round(finalamt, 2).ToString();
 

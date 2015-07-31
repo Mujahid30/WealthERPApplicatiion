@@ -60,13 +60,13 @@ namespace WealthERP.CommisionManagement
             tdddStatus.Visible = false;
             if (asset == "MF")
             {
-                trCategory.Visible = true;
+                trCategory.Visible = false;
                 ddIssuer.Visible = true;
                 lblIssuer.Visible = true;
-                tdlblSubCategory.Visible = true;
-                tdddSubCategory.Visible = true;
-                tdlblStatus.Visible = true;
-                tdddStatus.Visible = true;
+                tdlblSubCategory.Visible = false;
+                tdddSubCategory.Visible = false;
+                tdlblStatus.Visible = false;
+                tdddStatus.Visible = false;
             }
             else if (asset == "FI")
             {
@@ -194,14 +194,7 @@ namespace WealthERP.CommisionManagement
 
             gvCommMgmt.DataSource = dsStructureRules.Tables[0];
             gvCommMgmt.DataBind();
-            if (ddProduct.SelectedValue == "FI")
-            {
-                gvCommMgmt.MasterTableView.GetColumn("cmCategory").Display = false;
-            }
-            else
-            {
-                gvCommMgmt.MasterTableView.GetColumn("cmCategory").Display = true;
-            }
+            
             Cache.Insert(userVo.UserId.ToString() + "CommissionStructureRule", dsStructureRules.Tables[0]);
         }
 
@@ -299,10 +292,15 @@ namespace WealthERP.CommisionManagement
                 if (ddProduct.SelectedValue != "MF")
                 {
                     gvCommMgmt.MasterTableView.GetColumn("cmIssuer").Visible = false;
+                    gvCommMgmt.MasterTableView.GetColumn("cmSubCategory").Visible = true;
                 }
                 else
                 {
                     gvCommMgmt.MasterTableView.GetColumn("cmIssuer").Visible = true;
+                    gvCommMgmt.MasterTableView.GetColumn("cmSubCategory").Visible = false;
+                    gvCommMgmt.MasterTableView.GetColumn("cmCategory").Visible = false;
+                    //
+
                     //myDD.Items[2].Enabled = true;
                 }
             }

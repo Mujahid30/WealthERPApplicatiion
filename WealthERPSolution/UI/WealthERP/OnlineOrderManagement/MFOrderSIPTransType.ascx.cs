@@ -54,11 +54,11 @@ namespace WealthERP.OnlineOrderManagement
         int customerIdforEdit;
         List<OnlineMFOrderVo> SipDataForOrderEditList = new List<OnlineMFOrderVo>();
         DataTable dtFrequency;
-        string clientMFAccessCode = string.Empty;       
+        string clientMFAccessCode = string.Empty;
 
         protected void Page_Init(object sender, EventArgs e)
         {
-            
+
 
         }
 
@@ -73,7 +73,7 @@ namespace WealthERP.OnlineOrderManagement
             custPortVo = (CustomerPortfolioVo)Session["CustomerPortfolioVo"];
             RadInformation.VisibleOnPageLoad = false;
             int TOcpmaretime = int.Parse(DateTime.Now.ToShortTimeString().Split(':')[0]);
-            if (TOcpmaretime >= int.Parse("17:00".Split(':')[0]) && TOcpmaretime <= int.Parse("21:00".Split(':')[0]))
+            if (TOcpmaretime >= int.Parse(ConfigurationSettings.AppSettings["START_TIME"]) && TOcpmaretime <= int.Parse(ConfigurationSettings.AppSettings["END_TIME"]))
             {
                 if (Session["PageDefaultSetting"] != null)
                 {
@@ -128,11 +128,11 @@ namespace WealthERP.OnlineOrderManagement
                             //amcCode = int.Parse(Request.QueryString["Amc"].ToString());
                             //ddlAmc.SelectedValue = amcCode.ToString();
                             //ddlCategory.SelectedValue = Request.QueryString["category"].ToString();
-                             //BindFolioNumber(Convert.ToInt32(ddlAmc.SelectedValue));
+                            //BindFolioNumber(Convert.ToInt32(ddlAmc.SelectedValue));
                             commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category);
                             OnDrillDownBindControlValue(amcCode, category, 0, int.Parse(Session["MFSchemePlan"].ToString()));
                             BindSipUiOnSchemeSelection(int.Parse(Session["MFSchemePlan"].ToString()));
-                             //BindSchemes(Convert.ToInt32(ddlAmc.SelectedValue), ddlCategory.SelectedValue);
+                            //BindSchemes(Convert.ToInt32(ddlAmc.SelectedValue), ddlCategory.SelectedValue);
 
                             //SchemeBind(int.Parse(ddlAmc.SelectedValue), null, customerVo.CustomerId);
                             //ddlScheme.SelectedValue = schemeCode.ToString();
@@ -157,7 +157,7 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 else
                 {
-                    ShowMessage(boOnlineOrder.GetOnlineOrderUserMessage(clientMFAccessCode),'I');
+                    ShowMessage(boOnlineOrder.GetOnlineOrderUserMessage(clientMFAccessCode), 'I');
                     FreezeControls();
                     divControlContainer.Visible = false;
                     divClientAccountBalance.Visible = false;
@@ -657,7 +657,7 @@ namespace WealthERP.OnlineOrderManagement
             lblMutiplesThereAfterDisplay.Text = Math.Round(Convert.ToDecimal(dtSipDet["PASPSD_MultipleAmount"].ToString()), 2).ToString();
             lblCutOffTimeDisplay.Text = dtSipDet["PASPD_CutOffTime"].ToString();
             lblUnitHeldDisplay.Text = "0.00";
-          
+
         }
         protected void hidFolioNumber_ValueChanged(object sender, EventArgs e)
         {
@@ -710,7 +710,7 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void BindSipUiOnSchemeSelection(int schemeCode)
         {
-            dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(schemeCode,ddlFrequency.SelectedValue.ToString(),"SIP");
+            dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(schemeCode, ddlFrequency.SelectedValue.ToString(), "SIP");
 
             SetLatestNav();
             BindFrequency();
@@ -753,7 +753,7 @@ namespace WealthERP.OnlineOrderManagement
                     trSchemeRating.Visible = true;
                     imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + dtGetAllSIPDataForOrder.Rows[0]["PMFRD_RatingOverall"].ToString() + ".png";
                     //imgSchemeRating.ImageUrl = @"../Images/msgUnRead.png";
-                    
+
                     //Rating Overall
                     imgRatingDetails.ImageUrl = @"../Images/MorningStarRating/RatingOverall/" + dtGetAllSIPDataForOrder.Rows[0]["PMFRD_RatingOverall"].ToString() + ".png";
 
@@ -896,7 +896,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             ddlTotalInstallments.Items.Clear();
 
-            if (dtGetAllSIPDataForOrder == null) dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(ddlScheme.SelectedValue),ddlFrequency.SelectedValue.ToString(),"SIP");
+            if (dtGetAllSIPDataForOrder == null) dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(ddlScheme.SelectedValue), ddlFrequency.SelectedValue.ToString(), "SIP");
             if (dtGetAllSIPDataForOrder == null) return;
 
             int minDues;
@@ -978,7 +978,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             lblExitLoad.Text = "";
 
-            if (dtGetAllSIPDataForOrder == null) dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(ddlScheme.SelectedValue),ddlFrequency.SelectedValue.ToString(),"SIP");
+            if (dtGetAllSIPDataForOrder == null) dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(ddlScheme.SelectedValue), ddlFrequency.SelectedValue.ToString(), "SIP");
             if (dtGetAllSIPDataForOrder == null) return;
 
             if (dtGetAllSIPDataForOrder.Rows.Count <= 0) return;

@@ -1128,10 +1128,7 @@
                 Height="50%" ScrollBars="None">
                 <table width="100%">
                     <tr>
-                        <td>
-                            <asp:Label ID="lblNoRecordFound" runat="server" ForeColor="Black" CssClass="Error"
-                                Text="" Visible="false"></asp:Label>
-                        </td>
+                        
                         <td>
                             <div id="dvIssueList" runat="server" style="width: auto;">
                                 <telerik:RadGrid ID="gvMappedIssueList" runat="server" GridLines="None" AutoGenerateColumns="False"

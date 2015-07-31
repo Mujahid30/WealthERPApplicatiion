@@ -16,6 +16,7 @@ using System.Collections.Specialized;
 using Telerik.Web.UI;
 using System.Text;
 using System.Data;
+using System.Configuration;
 
 namespace WealthERP.OnlineOrderManagement
 {
@@ -38,7 +39,7 @@ namespace WealthERP.OnlineOrderManagement
             //msgRecordStatus.InnerText = "Order placed successfully, Order reference no is " + 1234.ToString() + ", Order will process next business day";
             //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjuklocvvvvvdddretyu", " showMsg('Order placed successfully, Order reference no is 1234 Order will process next business day','S');", true);
             int TOcpmaretime = int.Parse(DateTime.Now.ToShortTimeString().Split(':')[0]);
-            if (TOcpmaretime >= int.Parse("17:00".Split(':')[0]) && TOcpmaretime <= int.Parse("21:00".Split(':')[0]))
+            if (TOcpmaretime >= int.Parse(ConfigurationSettings.AppSettings["START_TIME"]) && TOcpmaretime <= int.Parse(ConfigurationSettings.AppSettings["END_TIME"]))
             {
                 if (Session["PageDefaultSetting"] != null)
                 {

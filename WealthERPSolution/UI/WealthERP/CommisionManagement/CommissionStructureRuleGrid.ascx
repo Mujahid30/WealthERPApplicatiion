@@ -140,7 +140,7 @@
                     <asp:Label ID="lblIssuer" runat="server" Text="Issuer :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightData">
-                    <asp:DropDownList ID="ddIssuer" runat="server" CssClass="cmbField" AutoPostBack="false">
+                    <asp:DropDownList ID="ddIssuer" runat="server" CssClass="cmbField" AutoPostBack="false" Width="300px">
                     </asp:DropDownList>
                     <br />
                     <asp:RequiredFieldValidator ID="rfvIssuer" runat="server" CssClass="rfvPCG" ErrorMessage="Please select an issuer"
@@ -254,12 +254,12 @@
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="Category" HeaderStyle-Width="100px" CurrentFilterFunction="Contains"
                                         ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Category" UniqueName="cmCategory"
-                                        SortExpression="Category">
+                                        SortExpression="Category" Visible ="false" >
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100px" Wrap="false" />
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="SubCategory" HeaderStyle-Width="150px" HeaderText="SubCategory"
                                         CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                        UniqueName="cmSubCategory" Visible="false">
+                                        UniqueName="cmSubCategory" >
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="150px" Wrap="false" />
                                     </telerik:GridBoundColumn>
                                     <telerik:GridDateTimeColumn DataField="ValidFrom" DataFormatString="{0:dd/MM/yyyy}"

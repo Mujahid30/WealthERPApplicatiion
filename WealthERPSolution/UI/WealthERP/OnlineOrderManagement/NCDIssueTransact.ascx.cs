@@ -17,6 +17,7 @@ using System.Text;
 using System.Data;
 using System.Text.RegularExpressions;
 using System.Drawing;
+using System.Configuration;
 
 namespace WealthERP.OnlineOrderManagement
 {
@@ -47,7 +48,7 @@ namespace WealthERP.OnlineOrderManagement
             ShowAvailableLimits();
             BindKYCDetailDDl();
             int TOcpmaretime = int.Parse(DateTime.Now.ToShortTimeString().Split(':')[0]);
-            if (TOcpmaretime >= int.Parse("17:00".Split(':')[0]) && TOcpmaretime <= int.Parse("21:00".Split(':')[0]))
+            if (TOcpmaretime >= int.Parse(ConfigurationSettings.AppSettings["START_TIME"]) && TOcpmaretime <= int.Parse(ConfigurationSettings.AppSettings["END_TIME"]))
             {
                 if (Session["PageDefaultSetting"] != null)
                 {
@@ -446,7 +447,7 @@ namespace WealthERP.OnlineOrderManagement
             string confirmValue = Request.Form["confirm_value"];
             if (confirmValue == "Yes")
             {
-               // this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('You clicked YES!')", true);
+                // this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('You clicked YES!')", true);
                 //}
                 //else
                 //{
