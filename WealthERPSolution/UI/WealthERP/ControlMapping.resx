@@ -2069,4 +2069,8 @@
     <value>OnlineOrderManagement//OnlineCustomerOrderandTransactionBook.ascx</value>
     <comment>OnlineOrderManagement//OnlineCustomerOrderandTransactionBook.ascx</comment>
   </data>
+  <data name="OnlineAdviserCustomerRMSLog" xml:space="preserve">
+    <value>OnlineOrderBackOffice//OnlineAdviserCustomerRMSLog.ascx</value>
+    <comment>OnlineOrderBackOffice//OnlineAdviserCustomerRMSLog.ascx</comment>
+  </data>
 </root>

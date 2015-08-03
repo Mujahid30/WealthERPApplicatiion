@@ -71,6 +71,7 @@
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.ObjectBuilder2, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.SQLServer.ManagedDTS, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.SqlServer.Management.Sdk.Sfc, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
@@ -2910,6 +2911,13 @@
     </Compile>
     <Compile Include="OnlineOrderBackOffice\OnlineAdviserCustomerOrderBook.ascx.designer.cs">
       <DependentUpon>OnlineAdviserCustomerOrderBook.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineAdviserCustomerRMSLog.ascx.cs">
+      <DependentUpon>OnlineAdviserCustomerRMSLog.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineAdviserCustomerRMSLog.ascx.designer.cs">
+      <DependentUpon>OnlineAdviserCustomerRMSLog.ascx</DependentUpon>
     </Compile>
     <Compile Include="OnlineOrderBackOffice\OnlineAdviserCustomerSIPOrderBook.ascx.cs">
       <DependentUpon>OnlineAdviserCustomerSIPOrderBook.ascx</DependentUpon>
@@ -8203,6 +8211,7 @@
     <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerIPOOrderBook.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerNCDHoldings.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerOrderBook.ascx" />
+    <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerRMSLog.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerSIPOrderBook.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerTransctionBook.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserNCDOrderBook.ascx" />
