@@ -3121,5 +3121,28 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetSchemeDetails;
         }
+        public DataTable CustomerGetRMSLog(DateTime fromDate,DateTime toDate,int adviserId)
+        {
+            DataSet dsCustomerGetRMSLog;
+            DataTable dtCustomerGetRMSLog;
+            Database db;
+            DbCommand cmdCustomerGetRMSLog;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdCustomerGetRMSLog = db.GetStoredProcCommand("SPROC_GetOnlineCustomerRMSLog");
+                db.AddInParameter(cmdCustomerGetRMSLog, "@fromDate", DbType.DateTime, fromDate);
+                db.AddInParameter(cmdCustomerGetRMSLog, "@toDate", DbType.DateTime, toDate);
+                db.AddInParameter(cmdCustomerGetRMSLog, "@adviserId", DbType.Int32, adviserId);
+                dsCustomerGetRMSLog = db.ExecuteDataSet(cmdCustomerGetRMSLog);
+                dtCustomerGetRMSLog = dsCustomerGetRMSLog.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtCustomerGetRMSLog;
+        }
+        
     }
 }

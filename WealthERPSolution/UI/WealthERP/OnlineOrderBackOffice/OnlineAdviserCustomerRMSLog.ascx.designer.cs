@@ -14,5 +14,10 @@ namespace WealthERP.OnlineOrderBackOffice
 
     public partial class OnlineAdviserCustomerRMSLog
     {
+        protected global::System.Web.UI.WebControls.ImageButton imgexportButton;
+        protected global::Telerik.Web.UI.RadDatePicker txtRMSLogFrom;
+        protected global::Telerik.Web.UI.RadDatePicker txtRMSLogTo;
+        protected global::System.Web.UI.WebControls.Panel pnlRMSLog;
+        protected global::Telerik.Web.UI.RadGrid gvRMSLog;
     }
 }

@@ -42,6 +42,7 @@ namespace WealthERP.OnlineOrderManagement
                     commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category);
                     int schemecode = int.Parse(Session["MFSchemePlan"].ToString());
                     ddlScheme.SelectedValue = schemecode.ToString();
+                    hidCurrentScheme.Value = ddlScheme.SelectedValue;
                     ddlAMC.SelectedValue = amcCode.ToString();
                     ddlCategory.SelectedValue = category;
                     GetAmcSchemeDetails();
@@ -74,14 +75,14 @@ namespace WealthERP.OnlineOrderManagement
         {
             DataTable dt;
             ProductMFBo productMFBo = new ProductMFBo();
-            if (ddlAMC.SelectedValue != "0")
-            {
+            //if (ddlAMC.SelectedValue != "0")
+            //{
                 dt = productMFBo.GetSchemePlanName(int.Parse(ddlAMC.SelectedValue));
                 ddlScheme.DataSource = dt;
                 ddlScheme.DataValueField = "PASP_SchemePlanCode";
                 ddlScheme.DataTextField = "PASP_SchemePlanName";
                 ddlScheme.DataBind();
-            }
+            //}
         }
         private void BindCategory()
         {
@@ -139,7 +140,7 @@ namespace WealthERP.OnlineOrderManagement
                 if (Session["PageDefaultSetting"] != null)
                 {
                     Session["MFSchemePlan"] = ddlScheme.SelectedValue;
-                    LoadMFTransactionPage("MFOrderAdditionalPurchase");
+                    LoadMFTransactionPage("MFOrderAdditionalPurchase",2);
 
                 }
                 else
@@ -156,7 +157,7 @@ namespace WealthERP.OnlineOrderManagement
                 if (Session["PageDefaultSetting"] != null)
                 {
                     Session["MFSchemePlan"] = ddlScheme.SelectedValue;
-                    LoadMFTransactionPage("MFOrderAdditionalPurchase");
+                    LoadMFTransactionPage("MFOrderAdditionalPurchase",2);
 
                 }
                 else
@@ -173,7 +174,7 @@ namespace WealthERP.OnlineOrderManagement
                 if (Session["PageDefaultSetting"] != null)
                 {
                     Session["MFSchemePlan"] = ddlScheme.SelectedValue;
-                    LoadMFTransactionPage("MFOrderSIPTransType");
+                    LoadMFTransactionPage("MFOrderSIPTransType",2);
 
                 }
                 else
@@ -190,7 +191,7 @@ namespace WealthERP.OnlineOrderManagement
                 if (Session["PageDefaultSetting"] != null)
                 {
                     Session["MFSchemePlan"] = ddlScheme.SelectedValue;
-                    LoadMFTransactionPage("MFOrderRdemptionTransType");
+                    LoadMFTransactionPage("MFOrderRdemptionTransType",2);
 
                 }
                 else
@@ -246,7 +247,7 @@ namespace WealthERP.OnlineOrderManagement
                         if (schemeCompareList.Count > 1)
                         {
                             //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('OnlineMFSchemeCompare');", true);
-                            LoadMFTransactionPage("OnlineMFSchemeCompare");
+                            LoadMFTransactionPage("OnlineMFSchemeCompare",1);
 
                         }
                     }
@@ -272,20 +273,28 @@ namespace WealthERP.OnlineOrderManagement
             trMessage.Visible = true;
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','" + type.ToString() + "');", true);
         }
-        protected void LoadMFTransactionPage(string pageId)
+        protected void LoadMFTransactionPage(string pageId, int investerpage)
         {
             Dictionary<string, string> defaultProductPageSetting = new Dictionary<string, string>();
 
             defaultProductPageSetting.Clear();
-            defaultProductPageSetting.Add("ProductType", "MF");
-            defaultProductPageSetting.Add("ProductMenu", "trMFOrderMenuTransactTab");
-            defaultProductPageSetting.Add("ProductMenuItem", "RTSMFOrderMenuTransact");
-            defaultProductPageSetting.Add("ProductMenuItemPage", pageId);
-
+            if (investerpage == 1)
+            {
+                defaultProductPageSetting.Add("ProductType", "MF");
+                defaultProductPageSetting.Add("ProductMenu", "trMFOrderMenuMarketTab");
+                defaultProductPageSetting.Add("ProductMenuItem", "RTSMFOrderMenuHomeMarket");
+                defaultProductPageSetting.Add("ProductMenuItemPage", pageId);
+            }
+            else
+            {
+                defaultProductPageSetting.Add("ProductType", "MF");
+                defaultProductPageSetting.Add("ProductMenu", "trMFOrderMenuTransactTab");
+                defaultProductPageSetting.Add("ProductMenuItem", "RTSMFOrderMenuTransact");
+                defaultProductPageSetting.Add("ProductMenuItemPage", pageId);
+            }
             Session["PageDefaultSetting"] = defaultProductPageSetting;
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadTopPanelControl('OnlineOrderTopMenu','login');", true);
             //Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcd", "LoadTopPanelDefault('OnlineOrderTopMenu');", true);
-
 
         }
     }

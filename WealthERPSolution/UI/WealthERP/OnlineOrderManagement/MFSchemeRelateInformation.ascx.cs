@@ -27,6 +27,7 @@ namespace WealthERP.OnlineOrderManagement
         UserVo userVo;
         CustomerVo customerVo = new CustomerVo();
         string path;
+        int investerpage = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -134,7 +135,7 @@ namespace WealthERP.OnlineOrderManagement
                         if (Session["PageDefaultSetting"] != null)
                         {
                             Session["MFSchemePlan"] = PASP_SchemePlanCode;
-                            LoadMFTransactionPage("MFOrderAdditionalPurchase");
+                            LoadMFTransactionPage("MFOrderAdditionalPurchase",2);
                            
                         }
                         else
@@ -146,7 +147,7 @@ namespace WealthERP.OnlineOrderManagement
                         if (Session["PageDefaultSetting"] != null)
                         {
                             Session["MFSchemePlan"] = PASP_SchemePlanCode;
-                            LoadMFTransactionPage("MFOrderAdditionalPurchase");
+                            LoadMFTransactionPage("MFOrderAdditionalPurchase",2);
                         }
                         else
                         {
@@ -157,7 +158,7 @@ namespace WealthERP.OnlineOrderManagement
                         if (Session["PageDefaultSetting"] != null)
                         {
                             Session["MFSchemePlan"] = PASP_SchemePlanCode;
-                            LoadMFTransactionPage("MFOrderSIPTransType");
+                            LoadMFTransactionPage("MFOrderSIPTransType",2);
                         }
                         else
                         {
@@ -168,7 +169,7 @@ namespace WealthERP.OnlineOrderManagement
                         if (Session["PageDefaultSetting"] != null)
                         {
                             Session["MFSchemePlan"] = PASP_SchemePlanCode;
-                            LoadMFTransactionPage("MFOrderRdemptionTransType");
+                            LoadMFTransactionPage("MFOrderRdemptionTransType",2);
                         }
                         else
                         {
@@ -180,7 +181,7 @@ namespace WealthERP.OnlineOrderManagement
                         if (Session["PageDefaultSetting"] != null)
                         {
                             Session["MFSchemePlan"] = PASP_SchemePlanCode;
-                            LoadMFTransactionPage("MFSchemeDetails");
+                            LoadMFTransactionPage("MFSchemeDetails",1);
                         }
                         else
                         {
@@ -234,24 +235,29 @@ namespace WealthERP.OnlineOrderManagement
 
         }
 
-        protected void LoadMFTransactionPage(string pageId)
+        protected void LoadMFTransactionPage(string pageId,int investerpage)
         {
             Dictionary<string, string> defaultProductPageSetting = new Dictionary<string, string>();
 
             defaultProductPageSetting.Clear();
-            defaultProductPageSetting.Add("ProductType", "MF");
-            defaultProductPageSetting.Add("ProductMenu", "trMFOrderMenuTransactTab");
-            defaultProductPageSetting.Add("ProductMenuItem", "RTSMFOrderMenuTransact");
-            defaultProductPageSetting.Add("ProductMenuItemPage", pageId);
-
+            if (investerpage == 1)
+            {
+                defaultProductPageSetting.Add("ProductType", "MF");
+                defaultProductPageSetting.Add("ProductMenu", "trMFOrderMenuMarketTab");
+                defaultProductPageSetting.Add("ProductMenuItem", "RTSMFOrderMenuHomeMarket");
+                defaultProductPageSetting.Add("ProductMenuItemPage", pageId);
+            }
+            else
+            {
+                defaultProductPageSetting.Add("ProductType", "MF");
+                defaultProductPageSetting.Add("ProductMenu", "trMFOrderMenuTransactTab");
+                defaultProductPageSetting.Add("ProductMenuItem", "RTSMFOrderMenuTransact");
+                defaultProductPageSetting.Add("ProductMenuItemPage", pageId);
+            }
             Session["PageDefaultSetting"] = defaultProductPageSetting;
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadTopPanelControl('OnlineOrderTopMenu','login');", true);
             //Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcd", "LoadTopPanelDefault('OnlineOrderTopMenu');", true);
          
-            
         }
-       
-        
-        
     }
 }

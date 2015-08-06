@@ -2507,5 +2507,21 @@ namespace BoOnlineOrderManagement
             }
             return dtGetSchemeDetails;
         }
+        public DataTable CustomerGetRMSLog(DateTime fromDate,DateTime toDate,int adviserId)
+        {
+
+            DataTable dtCustomerGetRMSLog = new DataTable();
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            try
+            {
+                dtCustomerGetRMSLog = daoOnlineOrderBackOffice.CustomerGetRMSLog(fromDate, toDate,adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtCustomerGetRMSLog;
+        }
+        
     }
 }

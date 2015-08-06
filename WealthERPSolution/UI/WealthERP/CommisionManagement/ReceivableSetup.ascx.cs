@@ -3203,7 +3203,7 @@ namespace WealthERP.Receivable
             rlbMappedSchemes.Items.Clear();
             BindAvailSchemesToList();
             BindMappedSchemesToList();
-            SetMappedSchemesDatePicker();
+           // SetMappedSchemesDatePicker();
         }
 
         protected void rlbAvailSchemes_Transferred(object sender, RadListBoxTransferredEventArgs e)

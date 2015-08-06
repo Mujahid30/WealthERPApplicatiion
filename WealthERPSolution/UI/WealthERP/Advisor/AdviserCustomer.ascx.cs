@@ -145,7 +145,7 @@ namespace WealthERP.Advisor
                 // assocUsrHeirVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
                 AgentCode = assocUsrHeirVo.AgentCode;
                 ddlCOption.Items[3].Enabled = false;
-                ddlCOption.Items[0].Enabled = false;
+                ddlCOption.Items[0].Enabled = true;
                 //ddlCOption.Items[1].Enabled = false;
                 //ddlCOption.Items[2].Enabled = false;
                 ddlCOption.Items[4].Enabled = false;

@@ -546,7 +546,7 @@
                             <asp:Label ID="lblName" runat="server" CssClass="FieldName" Text="Name:"></asp:Label>
                         </td>
                         <td class="rightField">
-                            <asp:TextBox ID="txtFirstName" runat="server" MaxLength="75" Style="width: 30%" CssClass="txtField" Style="text-transform: uppercase;"></asp:TextBox>
+                            <asp:TextBox ID="txtFirstName" runat="server" MaxLength="75"  CssClass="txtField" Style="text-transform: uppercase;width:30%"></asp:TextBox>
                             <cc1:TextBoxWatermarkExtender ID="txtFirstName_TextBoxWatermarkExtender" runat="server"
                                 Enabled="True" TargetControlID="txtFirstName" WatermarkText="FirstName">
                             </cc1:TextBoxWatermarkExtender>
@@ -571,7 +571,7 @@
                             <asp:Label ID="lblCompanyName" runat="server" CssClass="FieldName" Text="Company Name:"></asp:Label>
                         </td>
                         <td>
-                            <asp:TextBox ID="txtCompanyName" CssClass="txtField" Style="width: 30%" runat="server" Style="text-transform: uppercase;"></asp:TextBox>
+                            <asp:TextBox ID="txtCompanyName" CssClass="txtField"  runat="server" Style="text-transform: uppercase;width: 30%"></asp:TextBox>
                             <span id="Span15" class="spnRequiredField">*</span>
                             <br />
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtCompanyName"
@@ -1556,7 +1556,7 @@
                     ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="true" ShowStatusBar="True"
                     Skin="Telerik" AllowFilteringByColumn="true" OnItemCommand="gvUploadDocument_OnItemCommand"
                     OnNeedDataSource="gvUploadDocument_OnNeedDataSource" OnItemDataBound="gvUploadDocument_OnItemDataBound">
-                    <MasterTableView DataKeyNames="COD_DocumentId,COD_image,XPRT_ProofTypeCode,XPRT_ProofType"
+                    <MasterTableView DataKeyNames="COD_DocumentId,COD_image,XPRT_ProofTypeCode,XPRT_ProofType,COD_image1"
                         AllowFilteringByColumn="true" Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
                         CommandItemDisplay="Top" EditMode="PopUp">
                         <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
@@ -1578,12 +1578,12 @@
                                 SortExpression="XPRT_ProofType" AllowFiltering="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridTemplateColumn DataField="COD_image" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
-                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="File" UniqueName="COD_image"
-                                SortExpression="COD_image" AllowFiltering="true">
+                            <telerik:GridTemplateColumn DataField="COD_image1" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="File" UniqueName="COD_image1"
+                                SortExpression="COD_image1" AllowFiltering="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                 <ItemTemplate>
-                                    <asp:LinkButton ID="lnkDownload" runat="server" CommandName="download_file" Text='<%#Eval("COD_image") %>'></asp:LinkButton>
+                                    <asp:LinkButton ID="lnkDownload" runat="server" CommandName="download_file" Text='<%#Eval("COD_image1") %>'></asp:LinkButton>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
