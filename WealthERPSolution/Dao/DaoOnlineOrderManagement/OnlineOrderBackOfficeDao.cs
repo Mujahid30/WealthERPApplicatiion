@@ -3121,7 +3121,7 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetSchemeDetails;
         }
-        public DataTable CustomerGetRMSLog(DateTime fromDate,DateTime toDate,int adviserId)
+        public DataTable CustomerGetRMSLog(DateTime fromDate, DateTime toDate, int adviserId, string productType, string orderType)
         {
             DataSet dsCustomerGetRMSLog;
             DataTable dtCustomerGetRMSLog;
@@ -3134,6 +3134,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmdCustomerGetRMSLog, "@fromDate", DbType.DateTime, fromDate);
                 db.AddInParameter(cmdCustomerGetRMSLog, "@toDate", DbType.DateTime, toDate);
                 db.AddInParameter(cmdCustomerGetRMSLog, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdCustomerGetRMSLog, "@orderType", DbType.String, orderType);
+                db.AddInParameter(cmdCustomerGetRMSLog, "@productType", DbType.String,productType );
                 dsCustomerGetRMSLog = db.ExecuteDataSet(cmdCustomerGetRMSLog);
                 dtCustomerGetRMSLog = dsCustomerGetRMSLog.Tables[0];
             }

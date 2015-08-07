@@ -2507,14 +2507,14 @@ namespace BoOnlineOrderManagement
             }
             return dtGetSchemeDetails;
         }
-        public DataTable CustomerGetRMSLog(DateTime fromDate,DateTime toDate,int adviserId)
+        public DataTable CustomerGetRMSLog(DateTime fromDate,DateTime toDate,int adviserId,string productType,string orderType)
         {
 
             DataTable dtCustomerGetRMSLog = new DataTable();
             OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
             try
             {
-                dtCustomerGetRMSLog = daoOnlineOrderBackOffice.CustomerGetRMSLog(fromDate, toDate,adviserId);
+                dtCustomerGetRMSLog = daoOnlineOrderBackOffice.CustomerGetRMSLog(fromDate, toDate, adviserId, productType, orderType);
             }
             catch (BaseApplicationException Ex)
             {

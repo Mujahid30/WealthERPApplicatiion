@@ -270,6 +270,7 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="FD/54EC Order Book" Value="54EC_ORDER_bOOK">
                                                     </telerik:RadPanelItem>
+                                                    
                                                 </Items>
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Online" Value="Online">
@@ -294,6 +295,9 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="UTI AMC" Value="View_UTIAMC">
                                                     </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Online RMS_Log" Value="Online_RMS_Log">
+                                                    </telerik:RadPanelItem>
+                                                    
                                                 </Items>
                                             </telerik:RadPanelItem>
                                         </Items>
@@ -1043,6 +1047,8 @@
                                                     <telerik:RadPanelItem runat="server" Text="Client Initial Order" Value="Client_Initial_Order">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="UTI AMC" Value="View_UTIAMC">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Online RMS_Log" Value="Online_RMS_Log">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>

@@ -19,5 +19,10 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::Telerik.Web.UI.RadDatePicker txtRMSLogTo;
         protected global::System.Web.UI.WebControls.Panel pnlRMSLog;
         protected global::Telerik.Web.UI.RadGrid gvRMSLog;
+        protected global::System.Web.UI.WebControls.DropDownList ddlProduct;
+        protected global::System.Web.UI.WebControls.DropDownList ddlOrderType;
+        protected global::System.Web.UI.WebControls.Label lblProductType;
+        protected global::System.Web.UI.WebControls.Label lblOrderType;
+
     }
 }

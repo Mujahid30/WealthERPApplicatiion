@@ -9,7 +9,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                           RMS Log
+                            RMS Log
                         </td>
                         <td align="right" style="width: 10px">
                             <asp:ImageButton ID="imgexportButton" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
@@ -25,6 +25,31 @@
 </table>
 <table>
     <tr>
+        <td>
+            <asp:Label ID="lblProductType" runat="server" CssClass="FieldName" Text="Product:"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlProduct_Selectedindexchanged">
+                <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
+                <asp:ListItem Text="Mutual Fund" Value="MF"></asp:ListItem>
+                <asp:ListItem Text="IPO" Value="IP"></asp:ListItem>
+                <asp:ListItem Text="NCD" Value="FI"></asp:ListItem>
+            </asp:DropDownList>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="ddlProduct"
+                ErrorMessage="<br />Please select product" CssClass="cvPCG" Display="Dynamic"
+                runat="server" InitialValue="Select" ValidationGroup="ViewRMSLog">
+            </asp:RequiredFieldValidator>
+        </td>
+        <td>
+            <asp:Label ID="lblOrderType" runat="server" CssClass="FieldName" Text="Order Type:"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList runat="server" CssClass="cmbField" ID="ddlOrderType">
+                <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
+                <asp:ListItem Text="Normal" Value="NML"></asp:ListItem>
+            </asp:DropDownList>
+        </td>
         <td id="tdlblFromDate" runat="server" align="right">
             <asp:Label class="FieldName" ID="lblFromTran" Text="From :" runat="server" />
         </td>
@@ -92,7 +117,8 @@
                 <telerik:RadGrid ID="gvRMSLog" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" ClientSettings-AllowColumnsReorder="true"
-                    AllowAutomaticInserts="false" OnNeedDataSource="gvCommMgmt_OnNeedDataSource" AllowFilteringByColumn="true">
+                    AllowAutomaticInserts="false" OnNeedDataSource="gvCommMgmt_OnNeedDataSource"
+                    AllowFilteringByColumn="true">
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true">
                     </ExportSettings>
                     <MasterTableView DataKeyNames="" Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
@@ -100,6 +126,11 @@
                         <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                             ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
                         <Columns>
+                            <telerik:GridBoundColumn DataField="Product" AllowFiltering="false" HeaderText="Product"
+                                UniqueName="Product" SortExpression="Product" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="120px" FilterControlWidth="60px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CO_RMSDebitRequestTime" DataFormatString="{0:dd/MM/yyyy HH:mm:ss}"
                                 AllowFiltering="false" HeaderText="Request Date/Time" UniqueName="CO_RMSDebitRequestTime"
                                 SortExpression="CO_RMSDebitRequestTime" ShowFilterIcon="false" CurrentFilterFunction="Contains"
@@ -112,14 +143,16 @@
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="120px" FilterControlWidth="60px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CO_RMSResponseMessage" AllowFiltering="true" HeaderText="Message"
-                                UniqueName="CO_RMSResponseMessage" SortExpression="CO_RMSResponseMessage" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="60px">
+                            <telerik:GridBoundColumn DataField="CO_RMSResponseMessage" AllowFiltering="false"
+                                HeaderText="Message" HeaderStyle-Width="65px" UniqueName="CO_RMSResponseMessage"
+                                SortExpression="CO_RMSResponseMessage" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CO_RMSReferenceNumber" AllowFiltering="false" HeaderText="Reference Number"
-                                HeaderStyle-Width="65px" UniqueName="CO_RMSReferenceNumber" SortExpression="CO_RMSReferenceNumber" ShowFilterIcon="false"
-                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                            <telerik:GridBoundColumn DataField="CO_RMSReferenceNumber" AllowFiltering="false"
+                                HeaderText="Reference Number" HeaderStyle-Width="65px" UniqueName="CO_RMSReferenceNumber"
+                                SortExpression="CO_RMSReferenceNumber" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                         </Columns>

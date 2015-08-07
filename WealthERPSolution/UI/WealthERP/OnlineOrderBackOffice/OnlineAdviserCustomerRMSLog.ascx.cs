@@ -29,13 +29,26 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtRMSLogTo.SelectedDate = DateTime.Now;
             }
         }
+        protected void ddlProduct_Selectedindexchanged(object sender, EventArgs e)
+        {
+            if (ddlProduct.SelectedValue == "MF")
+            {
+                lblOrderType.Visible = true;
+                ddlOrderType.Visible = true;
+            }
+            else
+            {
+                lblOrderType.Visible = false;
+                ddlOrderType.Visible = false;
+            }
+        }
         protected void btnViewRMSLog_click(object sender, EventArgs e)
         {
             BindRMSLog();
         }
         protected void BindRMSLog()
         {
-            DataTable dtBindRMSLog = OnlineOrderBackOfficeBo.CustomerGetRMSLog(Convert.ToDateTime(txtRMSLogFrom.SelectedDate), Convert.ToDateTime(txtRMSLogTo.SelectedDate), advisorVo.advisorId);
+            DataTable dtBindRMSLog = OnlineOrderBackOfficeBo.CustomerGetRMSLog(Convert.ToDateTime(txtRMSLogFrom.SelectedDate), Convert.ToDateTime(txtRMSLogTo.SelectedDate), advisorVo.advisorId,ddlProduct.SelectedValue,(ddlOrderType.SelectedValue=="MF")?ddlOrderType.SelectedValue:null);
             if (Cache["RMSLog" + userVo.UserId.ToString()] != null)
             {
                 Cache.Remove("RMSLog" + userVo.UserId.ToString());
