@@ -9,7 +9,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                            RMS Log
+                           Online RMS Log
                         </td>
                         <td align="right" style="width: 10px">
                             <asp:ImageButton ID="imgexportButton" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
@@ -109,7 +109,7 @@
         </td>
     </tr>
 </table>
-<asp:Panel ID="pnlRMSLog" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal"
+<asp:Panel ID="pnlRMSLog" runat="server" class="Landscape" Width="80%" ScrollBars="Horizontal"
     Visible="false">
     <table width="100%">
         <tr>
@@ -128,23 +128,23 @@
                         <Columns>
                             <telerik:GridBoundColumn DataField="Product" AllowFiltering="false" HeaderText="Product"
                                 UniqueName="Product" SortExpression="Product" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                AutoPostBackOnFilter="true" HeaderStyle-Width="120px" FilterControlWidth="60px">
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="40px" FilterControlWidth="60px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CO_RMSDebitRequestTime" DataFormatString="{0:dd/MM/yyyy HH:mm:ss}"
                                 AllowFiltering="false" HeaderText="Request Date/Time" UniqueName="CO_RMSDebitRequestTime"
                                 SortExpression="CO_RMSDebitRequestTime" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                AutoPostBackOnFilter="true" HeaderStyle-Width="120px" FilterControlWidth="60px">
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="60px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CO_RMSDebitResponseTime" DataFormatString="{0:dd/MM/yyyy HH:mm:ss}"
                                 AllowFiltering="false" HeaderText="Response Date/Time" UniqueName="CO_RMSDebitResponseTime"
                                 SortExpression="CO_RMSDebitResponseTime" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                AutoPostBackOnFilter="true" HeaderStyle-Width="120px" FilterControlWidth="60px">
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="60px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CO_RMSResponseMessage" AllowFiltering="false"
-                                HeaderText="Message" HeaderStyle-Width="65px" UniqueName="CO_RMSResponseMessage"
+                                HeaderText="Message" HeaderStyle-Width="120px" UniqueName="CO_RMSResponseMessage"
                                 SortExpression="CO_RMSResponseMessage" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
