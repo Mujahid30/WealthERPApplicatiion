@@ -878,7 +878,7 @@ namespace WealthERP.Customer
                     if (txtOfcFax.Text == "")
                         customerVo.OfcFax = 0;
                     else
-                        customerVo.OfcFax = int.Parse(txtOfcFax.Text.ToString());
+                        customerVo.OfcFax = long.Parse(txtOfcFax.Text.ToString());
 
                     if (txtMobile1.Text == "")
                         customerVo.Mobile1 = 0;
