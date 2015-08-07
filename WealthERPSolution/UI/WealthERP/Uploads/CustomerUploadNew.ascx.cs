@@ -184,8 +184,8 @@ namespace WealthERP.Uploads
                 cvddlIssueType.Enabled = false;
                 Label1.Visible = true;
                 ddlCommType.Visible = true;
-                td2.Visible = false;
-                td1.Visible = false;
+                td2.Visible = true;
+                td1.Visible = true;
 
 
             }
@@ -374,11 +374,24 @@ namespace WealthERP.Uploads
             string category = string.Empty;
             int amcCode = 0;
             int schemeCode = 0;
+            gvbrokerageRecon.MasterTableView.GetColumn("PerDayAsset").Visible = false;
+            gvbrokerageRecon.MasterTableView.GetColumn("CumulativeNAV").Visible = false;
+            gvbrokerageRecon.MasterTableView.GetColumn("ClosingNAV").Visible = false;
+            gvbrokerageRecon.MasterTableView.GetColumn("TotalNAV").Visible = false;
             if (ddlProduct.SelectedValue == "MF")
             {
                 amcCode = Int32.Parse(ddlIssuer.SelectedValue);
                 schemeCode = Int32.Parse(ddlScheme.SelectedValue);
                 category = ddlCategory.SelectedValue;
+                gvbrokerageRecon.MasterTableView.GetColumn("AIM_IssueName").HeaderText = "Scheme Plan Name";
+                gvbrokerageRecon.MasterTableView.GetColumn("CO_ApplicationNumber").HeaderText = "Transaction No.";
+                if (ddlCommType.SelectedValue == "TC")
+                {
+                    gvbrokerageRecon.MasterTableView.GetColumn("PerDayAsset").Visible = true;
+                    gvbrokerageRecon.MasterTableView.GetColumn("CumulativeNAV").Visible = true;
+                    gvbrokerageRecon.MasterTableView.GetColumn("ClosingNAV").Visible = true;
+                    gvbrokerageRecon.MasterTableView.GetColumn("TotalNAV").Visible = true;
+                }
             }
             else if (ddlProduct.SelectedValue == "IP" || ddlProduct.SelectedValue == "FI")
             {
@@ -387,6 +400,10 @@ namespace WealthERP.Uploads
             if (ddlProduct.SelectedValue == "FI")
             {
                 productCategory = ddlProductCategory.SelectedValue;
+            }
+            if (ddlProduct.SelectedValue == "MF")
+            {
+                productCategory = ddlCommType.SelectedValue;
             }
             ds = adviserMFMIS.GetWERPCommissionDetails(ddlProduct.SelectedValue, advisorVo.advisorId, Int32.Parse(ddlMnthQtr.SelectedValue), Int32.Parse(ddlYear.SelectedValue), category, IssueId, productCategory, amcCode, schemeCode, Convert.ToInt32(ddlDateFilterType.SelectedValue));
             if (ds.Tables[0] != null)
@@ -565,7 +582,7 @@ namespace WealthERP.Uploads
                 DateTime? bulkPaybleDate = DateTime.MinValue;
                 DateTime? bulkReceivedDate = DateTime.MinValue;
                 CheckBox checkBox = (CheckBox)dr.FindControl("Ranjan");
-                decimal rtaAmount=0; 
+                decimal rtaAmount = 0;
                 if (checkBox.Checked == true)
                 {
                     i = i + 1;
@@ -598,14 +615,14 @@ namespace WealthERP.Uploads
                     {
                         bulkPaybleDate = rdpBulkPayableDate.SelectedDate;
                     }
-                    
+
                     int selectedRow = 0;
                     GridDataItem gdi;
                     gdi = (GridDataItem)checkBox.NamingContainer;
                     selectedRow = gdi.ItemIndex;
-                    if(chkBulkReceived.Checked)
+                    if (chkBulkReceived.Checked)
                     {
-                    rtaAmount=decimal.Parse((gvbrokerageRecon.MasterTableView.DataKeyValues[selectedRow]["RTABrokerageAmt"].ToString()));
+                        rtaAmount = decimal.Parse((gvbrokerageRecon.MasterTableView.DataKeyValues[selectedRow]["RTABrokerageAmt"].ToString()));
                     }
                     id = int.Parse((gvbrokerageRecon.MasterTableView.DataKeyValues[selectedRow]["WCD_Id"].ToString()));
 
@@ -618,7 +635,7 @@ namespace WealthERP.Uploads
             }
 
             BindGrid();
-           
+
             if (i > 0)
                 ShowMessage("Updated Successfully", "S");
             else

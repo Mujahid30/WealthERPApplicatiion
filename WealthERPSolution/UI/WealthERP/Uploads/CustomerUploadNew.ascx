@@ -184,7 +184,7 @@
             <asp:Label ID="Label1" runat="server" CssClass="FieldName"  Text="Commission Type:"></asp:Label>
         </td>
         <td id="td2" width="20%" runat="server" visible="true">
-            <asp:DropDownList ID="ddlCommType"  runat="server" CssClass="cmbField" AutoPostBack="true">
+            <asp:DropDownList ID="ddlCommType"  runat="server" CssClass="cmbField" >
                 <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
                 <asp:ListItem Text="Upfront" Value="UF" Selected="True"></asp:ListItem>
                 <asp:ListItem Text="Trail" Value="TC"></asp:ListItem>
@@ -481,6 +481,31 @@
                         </asp:CompareValidator>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
+                
+                  <telerik:GridBoundColumn AllowFiltering="true" DataField="PerDayAsset" AutoPostBackOnFilter="true"
+                    HeaderText="Per Day Asset" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    UniqueName="PerDayAsset" SortExpression="PerDayAsset" FooterStyle-HorizontalAlign="Right"
+                    HeaderStyle-Width="90px">
+                    <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                </telerik:GridBoundColumn>
+                  <telerik:GridBoundColumn AllowFiltering="true" DataField="CumulativeNAV" AutoPostBackOnFilter="true"
+                    HeaderText="Cumulative NAV" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    UniqueName="CumulativeNAV" SortExpression="CumulativeNAV" FooterStyle-HorizontalAlign="Right"
+                    HeaderStyle-Width="90px">
+                    <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                </telerik:GridBoundColumn>
+                  <telerik:GridBoundColumn AllowFiltering="true" DataField="ClosingNAV" AutoPostBackOnFilter="true"
+                    HeaderText="Closing NAV" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    UniqueName="ClosingNAV" SortExpression="ClosingNAV" FooterStyle-HorizontalAlign="Right"
+                    HeaderStyle-Width="90px">
+                    <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                </telerik:GridBoundColumn>
+                  <telerik:GridBoundColumn AllowFiltering="true" DataField="TotalNAV" AutoPostBackOnFilter="true"
+                    HeaderText="Total NAV" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    UniqueName="TotalNAV" SortExpression="TotalNAV" FooterStyle-HorizontalAlign="Right"
+                    HeaderStyle-Width="90px">
+                    <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                </telerik:GridBoundColumn>
             </Columns>
         </MasterTableView>
         <ClientSettings>
