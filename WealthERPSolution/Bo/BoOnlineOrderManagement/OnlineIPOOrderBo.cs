@@ -14,7 +14,7 @@ namespace BoOnlineOrderManagement
 {
     public class OnlineIPOOrderBo : OnlineOrderBo
     {
-        public DataTable GetIPOIssueList(int adviserId, int issueId, int type,int customerId)
+        public DataTable GetIPOIssueList(int adviserId, int issueId, int type, int customerId)
         {
             DataTable dtIPOIssueList;
             OnlineIPOOrderDao onlineIPOOrderDao = new OnlineIPOOrderDao();
@@ -49,7 +49,7 @@ namespace BoOnlineOrderManagement
             OnlineIPOOrderDao onlineIPOOrderDao = new OnlineIPOOrderDao();
             try
             {
-                orderId = onlineIPOOrderDao.CreateIPOBidOrderDetails(adviserId, userId, dtIPOBidList, onlineIPOOrderVo,   ref applicationNo, ref apllicationNoStatus);
+                orderId = onlineIPOOrderDao.CreateIPOBidOrderDetails(adviserId, userId, dtIPOBidList, onlineIPOOrderVo, ref applicationNo, ref apllicationNoStatus);
 
             }
             catch (BaseApplicationException Ex)
@@ -72,7 +72,7 @@ namespace BoOnlineOrderManagement
             return orderId;
         }
 
-        public DataTable GetCustomerIPOIssueBook(int customerId,int issueId,string status,DateTime fromdate,DateTime todate,int orderId)
+        public DataTable GetCustomerIPOIssueBook(int customerId, int issueId, string status, DateTime fromdate, DateTime todate, int orderId)
         {
 
             DataTable dtCustomerIPOIssueBook;
@@ -157,6 +157,60 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
             return dtCustomerIPOIssueChildBook;
+        }
+        public DataTable GetIPOIOrderList(int orderId, out bool isRMSDebited)
+        {
+            DataTable dtGetIPOIOrderList;
+            OnlineIPOOrderDao onlineIPOOrderDao = new OnlineIPOOrderDao();
+
+            try
+            {
+                dtGetIPOIOrderList = onlineIPOOrderDao.GetIPOIOrderList(orderId,out isRMSDebited);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "BoOnlineOrderManagement.cs:GetIPOIOrderList(int orderId)");
+                object[] objects = new object[1];
+                objects[0] = orderId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtGetIPOIOrderList;
+        }
+        public int UpdateIPOBidOrderDetails(int userId, DataTable dtIPOBidList, int orderId, double differentialAmt)
+        {
+            int result = 0;
+            OnlineIPOOrderDao onlineIPOOrderDao = new OnlineIPOOrderDao();
+            try
+            {
+                result = onlineIPOOrderDao.UpdateIPOBidOrderDetails(userId, dtIPOBidList, orderId, differentialAmt);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "BoOnlineOrderManagement.cs:GetIPOIOrderList(int orderId)");
+                object[] objects = new object[1];
+                objects[0] = orderId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return result;
         }
     }
 }

@@ -214,5 +214,84 @@ namespace DaoOnlineOrderManagement
             }
             return dtCustomerIPOIssueSubdBook;
         }
+        public DataTable GetIPOIOrderList(int orderId, out bool isRMSDebited)
+        {
+            DataTable dtGetIPOIOrderList;
+            Database db;
+            DbCommand GetGetIPOIOrderList;
+
+             isRMSDebited = false;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetGetIPOIOrderList = db.GetStoredProcCommand("SPROC_ONL_ViewIPOOrder");
+                db.AddInParameter(GetGetIPOIOrderList, "@orderId", DbType.Int32, orderId);
+                db.AddOutParameter(GetGetIPOIOrderList, "@iseligibleRMSDebit", DbType.Boolean, 10000);
+                dtGetIPOIOrderList = db.ExecuteDataSet(GetGetIPOIOrderList).Tables[0];
+                    isRMSDebited =Convert.ToBoolean(db.GetParameterValue(GetGetIPOIOrderList, "@iseligibleRMSDebit").ToString());
+              
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "DaoOnlineOrderManagement.cs:GetIPOIOrderList(int orderId)");
+                object[] objects = new object[1];
+                objects[0] = orderId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtGetIPOIOrderList;
+        }
+        public int UpdateIPOBidOrderDetails(int userId, DataTable dtIPOBidList, int orderId, double differentialAmt)
+        {
+            Database db;
+            DbCommand CreateIPOBidOrderCmd;
+            DataSet dsIssueBidList = new DataSet();
+            int result = 0;
+            try
+            {
+                dsIssueBidList.Tables.Add(dtIPOBidList.Copy());
+                dsIssueBidList.DataSetName = "IssueBidsDS";
+                dsIssueBidList.Tables[0].TableName = "IssueBidsDT";
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CreateIPOBidOrderCmd = db.GetStoredProcCommand("SPROC_ONL_UpdateIPOBidOrder");
+                db.AddInParameter(CreateIPOBidOrderCmd, "@UserId", DbType.Int32, userId);
+                db.AddInParameter(CreateIPOBidOrderCmd, "@XMLIPOBids", DbType.Xml, dsIssueBidList.GetXml().ToString());
+                db.AddInParameter(CreateIPOBidOrderCmd, "@OrderId", DbType.Int32, orderId);
+                db.AddInParameter(CreateIPOBidOrderCmd, "@diffrentcetAmout", DbType.Double, differentialAmt);
+                if (db.ExecuteNonQuery(CreateIPOBidOrderCmd) != 0)
+                    result = 1;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "DaoOnlineOrderManagement.cs:UpdateIPOBidOrderDetails( int userId, DataTable dtIPOBidList,int orderId)");
+                object[] objects = new object[2];
+                objects[0] = userId;
+                objects[1] = dtIPOBidList;
+                objects[2] = orderId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return result;
+
+        }
+
     }
+
 }

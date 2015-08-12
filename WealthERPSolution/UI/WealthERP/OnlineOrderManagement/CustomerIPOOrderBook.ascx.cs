@@ -33,7 +33,7 @@ namespace WealthERP.OnlineOrderManagement
         int AIMissueId = 0;
         int orderId = 0;
         protected void Page_Load(object sender, EventArgs e)
-       {
+        {
 
             SessionBo.CheckSession();
             userVo = (UserVo)Session[SessionContents.UserVo];
@@ -48,27 +48,27 @@ namespace WealthERP.OnlineOrderManagement
             {
                 //if (Request.QueryString["strAction"] != "" && Request.QueryString["strAction"] != null)
                 //{
-                    if (Request.QueryString["AIMissueId"] != null && Request.QueryString["orderId"] != null && Request.QueryString["fromDate"] != null && Request.QueryString["toDate"] != null)
-                    {
-                        AIMissueId = int.Parse(Request.QueryString["AIMissueId"].ToString());
-                        orderId = int.Parse(Request.QueryString["orderId"].ToString());
-                        fromDate = Convert.ToDateTime(Request.QueryString["fromDate"].ToString());
-                        toDate = Convert.ToDateTime(Request.QueryString["toDate"].ToString());
-                        trIPOorderbook.Visible = false;
-                        //txtOrderFrom.SelectedDate = fromDate;
-                        //txtOrderTo.SelectedDate = toDate;
-                        //ddlOrderStatus.SelectedValue ="PR";
-                        //ddlIssueName.SelectedValue=AIMissueId.ToString();
-                        //hdnOrderStatus.Value = "PR";
-                        BindCustomerIssueIPOBook();
-                        //ddlOrderStatus.Enabled = false;
-                        //ddlIssueName.Enabled = false;
-                        //txtOrderFrom.Enabled = false;
-                        //txtOrderTo.Enabled = false;
-                        //btnViewOrder.Enabled = false;
+                if (Request.QueryString["AIMissueId"] != null && Request.QueryString["orderId"] != null && Request.QueryString["fromDate"] != null && Request.QueryString["toDate"] != null)
+                {
+                    AIMissueId = int.Parse(Request.QueryString["AIMissueId"].ToString());
+                    orderId = int.Parse(Request.QueryString["orderId"].ToString());
+                    fromDate = Convert.ToDateTime(Request.QueryString["fromDate"].ToString());
+                    toDate = Convert.ToDateTime(Request.QueryString["toDate"].ToString());
+                    trIPOorderbook.Visible = false;
+                    //txtOrderFrom.SelectedDate = fromDate;
+                    //txtOrderTo.SelectedDate = toDate;
+                    //ddlOrderStatus.SelectedValue ="PR";
+                    //ddlIssueName.SelectedValue=AIMissueId.ToString();
+                    //hdnOrderStatus.Value = "PR";
+                    BindCustomerIssueIPOBook();
+                    //ddlOrderStatus.Enabled = false;
+                    //ddlIssueName.Enabled = false;
+                    //txtOrderFrom.Enabled = false;
+                    //txtOrderTo.Enabled = false;
+                    //btnViewOrder.Enabled = false;
 
-                    }
-              //  }
+                }
+                //  }
             }
         }
         private void SetParameter()
@@ -125,7 +125,7 @@ namespace WealthERP.OnlineOrderManagement
         private void BindCustomerIssueIPOBook()
         {
             DataTable dtCustomerIssueIPOBook;
-           
+
             if (txtOrderFrom.SelectedDate != null)
                 fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
             if (txtOrderTo.SelectedDate != null)
@@ -176,10 +176,15 @@ namespace WealthERP.OnlineOrderManagement
                 GridDataItem dataItem = (GridDataItem)e.Item;
                 string Iscancel = Convert.ToString(RadGridIssueIPOBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WOS_OrderStep"]);
                 //LinkButton MarkAsReject = (LinkButton)dataItem.FindControl("MarkAsReject");
+                DropDownList ddlAction = (DropDownList)dataItem.FindControl("ddlAction");
                 LinkButton buttonEdit = dataItem["MarkAsReject"].Controls[0] as LinkButton;
                 if (Iscancel == "CANCELLED" || Iscancel == "EXECUTED" || Iscancel == "ORDERED" || Iscancel == "ACCEPTED")
                 {
                     buttonEdit.Enabled = false;
+                }
+                if (Iscancel == "CANCELLED")
+                {
+                    ddlAction.Items[2].Enabled = false;
                 }
             }
         }
@@ -272,6 +277,19 @@ namespace WealthERP.OnlineOrderManagement
             RadGridIssueIPOBook.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             RadGridIssueIPOBook.MasterTableView.ExportToExcel();
 
+        }
+
+        protected void ddlAction_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddlAction = (DropDownList)sender;
+            GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+            orderId = int.Parse(RadGridIssueIPOBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["CO_OrderId"].ToString());
+          string  OrderStepCode = Convert.ToString(RadGridIssueIPOBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["WOS_OrderStepCode"]).Trim();
+          string CloseDate = Convert.ToString(RadGridIssueIPOBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["IssueEndDateANDTime"]);
+          int issueId = int.Parse(RadGridIssueIPOBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AIM_IssueId"].ToString());
+
+
+          ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "IPOIssueTransact", "loadcontrol( 'IPOIssueTransact','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&OrderStepCode=" + OrderStepCode + "&CloseDate=" + CloseDate + "&issueIds=" + issueId + "');", true);
         }
     }
 }

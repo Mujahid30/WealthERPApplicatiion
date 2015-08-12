@@ -20,7 +20,7 @@
 
 <script src="../Scripts/JScript.js" type="text/javascript"></script>
 
-<script type = "text/javascript">
+<script type="text/javascript">
     function Confirm() {
         var confirm_value = document.createElement("INPUT");
         confirm_value.type = "hidden";
@@ -32,8 +32,8 @@
         }
         document.forms[0].appendChild(confirm_value);
     }
-    </script>
-    
+</script>
+
 <script type="text/javascript">
     function ValidateTermsConditions(sender, args) {
 
@@ -231,7 +231,7 @@
                                 GridLines="None" ShowFooter="true" PagerStyle-AlwaysVisible="false" ShowStatusBar="True"
                                 Skin="Telerik" AllowFilteringByColumn="false" OnItemDataBound="RadGridIPOBid_ItemDataBound">
                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
-                                    DataKeyNames="IssueBidNo" Width="100%" PagerStyle-AlwaysVisible="false">
+                                    DataKeyNames="IssueBidNo,COID_TransactionType,COID_DetailsId" Width="100%" PagerStyle-AlwaysVisible="false">
                                     <Columns>
                                         <telerik:GridBoundColumn DataField="BidOptions" HeaderStyle-Width="120px" CurrentFilterFunction="Contains"
                                             ShowFilterIcon="true" AutoPostBackOnFilter="true" HeaderText="Bidding Options"
@@ -257,8 +257,10 @@
                                             UniqueName="BidQuantity" HeaderText="Quantity" FooterAggregateFormatString="{0:N2}"
                                             ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center">
                                             <ItemTemplate>
-                                                <asp:TextBox ID="txtBidQuantity" runat="server" Text='<%# Bind("BidQty")%>' CssClass="txtField"
-                                                    OnTextChanged="BidQuantity_TextChanged" AutoPostBack="true" onkeypress="return isNumberKey(event)"> </asp:TextBox>
+                                                <asp:TextBox ID="txtBidQuantity" runat="server" Text='<%# Bind("BidQty")%>' CssClass='<% #(Convert.ToString(Eval("COID_TransactionType"))=="D" || Convert.ToString(Eval("COID_TransactionType"))=="ND") ? "txtDisableField" : "txtField" %>'
+                                                    OnTextChanged="BidQuantity_TextChanged" AutoPostBack="true" onkeypress="return isNumberKey(event)"
+                                                    ReadOnly='<% #(Convert.ToString(Eval("COID_TransactionType"))=="D" || Convert.ToString(Eval("COID_TransactionType"))=="ND") ? true : false %>'
+                                                    ToolTip='<% #(Convert.ToString(Eval("COID_TransactionType"))=="D" || Convert.ToString(Eval("COID_TransactionType"))=="ND") ? "The bid Cannot be edited because it was Cancelled previously" : "" %>'> </asp:TextBox>
                                                 <a href="#" class="popper" data-popbox="divBidQuantity" style="display: none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                                                 <div id="divBidQuantity" class="popbox">
                                                     <h2>
@@ -272,8 +274,8 @@
                                                 <asp:RegularExpressionValidator ID="revtxtBidQuantity" ControlToValidate="txtBidQuantity"
                                                     runat="server" ErrorMessage="Please enter a valid bid quantity" Text="*" Display="Dynamic"
                                                     ValidationExpression="[0-9]*" CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RegularExpressionValidator>
-                                                <asp:CustomValidator ID="CVBidQtyMultiple" runat="server" 
-                                                    OnServerValidate="CVBidQtyMultiple_ServerValidate" Text="*" ErrorMessage="Please enter Quantity in multiples permissibile for this issue"
+                                                <asp:CustomValidator ID="CVBidQtyMultiple" runat="server" OnServerValidate="CVBidQtyMultiple_ServerValidate"
+                                                    Text="*" ErrorMessage="Please enter Quantity in multiples permissibile for this issue"
                                                     ControlToValidate="txtBidQuantity" Display="Dynamic" ValidationGroup="btnConfirmOrder"
                                                     CssClass="rfvPCG">                                                
                                                 </asp:CustomValidator>
@@ -283,8 +285,10 @@
                                             FooterText="" UniqueName="BidPrice" HeaderText="Price" FooterAggregateFormatString="{0:N2}"
                                             ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center" FooterStyle-HorizontalAlign="Center">
                                             <ItemTemplate>
-                                                <asp:TextBox ID="txtBidPrice" runat="server" CssClass="txtField" Text='<%# Bind("BidPrice")%>'
-                                                    AutoPostBack="true" OnTextChanged="BidPrice_TextChanged" onkeypress="return isNumberKey(event)"> </asp:TextBox>
+                                                <asp:TextBox ID="txtBidPrice" runat="server" Text='<%# Bind("BidPrice")%>' AutoPostBack="true"
+                                                    OnTextChanged="BidPrice_TextChanged" onkeypress="return isNumberKey(event)" ReadOnly='<% #(Convert.ToString(Eval("COID_TransactionType"))=="D" || Convert.ToString(Eval("COID_TransactionType"))=="ND") ? true : false %>'
+                                                    ToolTip='<% #(Convert.ToString(Eval("COID_TransactionType"))=="D" || Convert.ToString(Eval("COID_TransactionType"))=="ND") ? "The bid Cannot be edited because it was Cancelled previously" : "" %>'
+                                                    CssClass='<% #(Convert.ToString(Eval("COID_TransactionType"))=="D" || Convert.ToString(Eval("COID_TransactionType"))=="ND") ? "txtDisableField" : "txtField" %>'> </asp:TextBox>
                                                 <a href="#" class="popper" data-popbox="divBidPrice" style="display: none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                                                 <div id="divBidPrice" class="popbox">
                                                     <h2>
@@ -326,6 +330,24 @@
                                                     Text='<%# Bind("BidAmount")%>'></asp:TextBox>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
+                                        <telerik:GridBoundColumn DataField="COID_ExchangeRefrenceNo" HeaderStyle-Width="100px"
+                                            HeaderText="Exchange Ref. No" ShowFilterIcon="false" UniqueName="COID_ExchangeRefrenceNo"
+                                            Visible="false">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="TransactionType" HeaderStyle-Width="100px"
+                                            HeaderText="Status" ShowFilterIcon="false" UniqueName="TransactionType"
+                                           Visible="false" >
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridTemplateColumn HeaderStyle-Width="50px" UniqueName="DeleteBid" Visible="false" HeaderText="Action">
+                                            <ItemTemplate>
+                                                <asp:ImageButton ID="btnOrderEdit" runat="server" ImageUrl="../Images/Telerik/Edit.gif"
+                                                    ToolTip="Edit" OnClick="btnOrderEdit_OnClick" Visible="false" />
+                                                <asp:ImageButton ID="btnOrderCancel" runat="server" ImageUrl="../Images/Telerik/Delete.gif"
+                                                    ToolTip="Cancel" OnClick="btnOrderCancel_OnClick" Visible="false" />
+                                            </ItemTemplate>
+                                        </telerik:GridTemplateColumn>
                                     </Columns>
                                 </MasterTableView>
                             </telerik:RadGrid>
@@ -350,12 +372,17 @@
                     <tr>
                         <td align="left" style="width: 10%">
                             <asp:Button ID="btnConfirmOrder" runat="server" Text="Confirm Order" OnClick="btnConfirmOrder_Click"
-                               OnClientClick = "Confirm();return PreventClicks(); Validate();"   CssClass="PCGMediumButton" ValidationGroup="btnConfirmOrder, btnTC" 
-                                />
+                                OnClientClick="return PreventClicks(); Validate();" CssClass="PCGMediumButton"
+                                ValidationGroup="btnConfirmOrder, btnTC" />
                         </td>
                         <td>
                             <asp:LinkButton runat="server" ID="lnlBack" CssClass="LinkButtons" Text="Click here to view the issue list"
                                 Visible="false" OnClick="lnlktoviewIPOissue_Click"></asp:LinkButton>
+                        </td>
+                        <td>
+                            <asp:Button ID="btnUpdateIPOdrder" runat="server" CssClass="PCGButton" Text="Update"
+                                OnClick="btnUpdateIPOdrder_OnClick" Visible="false" OnClientClick="Confirm();return PreventClicks(); Validate();"
+                                ValidationGroup="btnConfirmOrder, btnTC" />
                         </td>
                         <%--<td colspan="2" style="width: 90%">
                         </td>--%>
