@@ -537,7 +537,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@ToRange", DbType.Decimal, onlineNCDBackOfficeVo.ToRange);
                 db.AddInParameter(createCmd, "@IsActive", DbType.Int32, onlineNCDBackOfficeVo.IsActive);
                 db.AddInParameter(createCmd, "@IsNominationRequired", DbType.Int32, onlineNCDBackOfficeVo.IsNominationRequired);
-
+                db.AddInParameter(createCmd, "@IsModificationAllowed", DbType.Int32, onlineNCDBackOfficeVo.IsModificationAllowed);
                 db.AddInParameter(createCmd, "@IsListedinBSE", DbType.Int32, onlineNCDBackOfficeVo.IsListedinBSE);
                 db.AddInParameter(createCmd, "@IsListedinNSE", DbType.Int32, onlineNCDBackOfficeVo.IsListedinNSE);
                 db.AddInParameter(createCmd, "@BSECode", DbType.String, onlineNCDBackOfficeVo.BSECode);
@@ -927,7 +927,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@ToRange", DbType.Decimal, onlineNCDBackOfficeVo.ToRange);
                 db.AddInParameter(createCmd, "@IsActive", DbType.Int32, onlineNCDBackOfficeVo.IsActive);
                 db.AddInParameter(createCmd, "@IsNominationRequired", DbType.Int32, onlineNCDBackOfficeVo.IsNominationRequired);
-
+                db.AddInParameter(createCmd, "@IsModificationAllowed", DbType.Int32, onlineNCDBackOfficeVo.IsModificationAllowed);
                 db.AddInParameter(createCmd, "@IsListedinBSE", DbType.Int32, onlineNCDBackOfficeVo.IsListedinBSE);
                 db.AddInParameter(createCmd, "@IsListedinNSE", DbType.Int32, onlineNCDBackOfficeVo.IsListedinNSE);
                 db.AddInParameter(createCmd, "@BSECode", DbType.String, onlineNCDBackOfficeVo.BSECode);

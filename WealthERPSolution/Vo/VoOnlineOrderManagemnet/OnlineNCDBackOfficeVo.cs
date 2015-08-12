@@ -75,6 +75,7 @@ namespace VoOnlineOrderManagemnet
         public decimal ToRange { get; set; }
 
         public int IsActive { get; set; }
+        public int IsModificationAllowed { get; set; }
         public int IsNominationRequired { get; set; }
 
 

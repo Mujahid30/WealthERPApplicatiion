@@ -423,6 +423,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     {
                         chkIsActive.Checked = false;
                     }
+                    chkIsModificationAllowed.Checked =Convert.ToInt16( dr["AIM_IsModificationAllowed"]) == 1;
+
                     if (!string.IsNullOrEmpty(dr["AIM_TradeableAtExchange"].ToString()))
                     {
                         chkTradebleExchange.Checked = true;
@@ -915,7 +917,7 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlCloseTimeSeconds.Enabled = value;
             txtRevisionDates.Enabled = value;
             txtAllotmentDate.Enabled = value;
-
+            chkIsModificationAllowed.Enabled = value;
 
             ddlCutOffTimeHours.Enabled = value;
             ddlCutOffTimeMinutes.Enabled = value;
@@ -1190,6 +1192,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.MultipleApplicationAllowed = 0;
                 }
+                onlineNCDBackOfficeVo.IsModificationAllowed = Convert.ToInt16(chkIsModificationAllowed.Checked);
                 if (chkIScancelAllowed.Checked == true)
                 {
                     onlineNCDBackOfficeVo.IsCancelAllowed = 1;
@@ -3533,6 +3536,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.IsActive = 0;
                 }
+                onlineNCDBackOfficeVo.IsModificationAllowed = Convert.ToInt32(chkIsModificationAllowed.Checked);
                 if (chkPutCallOption.Checked == true)
                 {
                     onlineNCDBackOfficeVo.PutCallOption = "y";
