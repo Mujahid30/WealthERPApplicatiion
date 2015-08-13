@@ -231,7 +231,7 @@
                                 GridLines="None" ShowFooter="true" PagerStyle-AlwaysVisible="false" ShowStatusBar="True"
                                 Skin="Telerik" AllowFilteringByColumn="false" OnItemDataBound="RadGridIPOBid_ItemDataBound">
                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
-                                    DataKeyNames="IssueBidNo,COID_TransactionType,COID_DetailsId" Width="100%" PagerStyle-AlwaysVisible="false">
+                                    DataKeyNames="IssueBidNo,COID_TransactionType,COID_DetailsId,COID_IsCutOffApplicable" Width="100%" PagerStyle-AlwaysVisible="false">
                                     <Columns>
                                         <telerik:GridBoundColumn DataField="BidOptions" HeaderStyle-Width="120px" CurrentFilterFunction="Contains"
                                             ShowFilterIcon="true" AutoPostBackOnFilter="true" HeaderText="Bidding Options"
@@ -243,7 +243,7 @@
                                             HeaderStyle-HorizontalAlign="Center">
                                             <ItemTemplate>
                                                 <asp:CheckBox ID="cbCutOffCheck" runat="server" Visible='<%# (Convert.ToInt32(Eval("IssueBidNo")) == 1)? true: false %>'
-                                                    AutoPostBack="true" OnCheckedChanged="CutOffCheckBox_Changed" />
+                                                    AutoPostBack="true" OnCheckedChanged="CutOffCheckBox_Changed" Checked='<%# (Convert.ToInt32(Eval("COID_IsCutOffApplicable")) == 1)? true: false %>'/>
                                                 <%-- <a href="#" class="popper" data-popbox="divCutOffCheck">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                                                 <div id="divCutOffCheck" class="popbox">
                                                     <h2>
@@ -381,7 +381,7 @@
                         </td>
                         <td>
                             <asp:Button ID="btnUpdateIPOdrder" runat="server" CssClass="PCGButton" Text="Update"
-                                OnClick="btnUpdateIPOdrder_OnClick" Visible="false" OnClientClick="Confirm();return PreventClicks(); Validate();"
+                                OnClick="btnUpdateIPOdrder_OnClick" Visible="false" OnClientClick="return PreventClicks(); Validate();"
                                 ValidationGroup="btnConfirmOrder, btnTC" />
                         </td>
                         <%--<td colspan="2" style="width: 90%">

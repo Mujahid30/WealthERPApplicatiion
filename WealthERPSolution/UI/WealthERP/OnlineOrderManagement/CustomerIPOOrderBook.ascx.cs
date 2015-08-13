@@ -287,9 +287,15 @@ namespace WealthERP.OnlineOrderManagement
           string  OrderStepCode = Convert.ToString(RadGridIssueIPOBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["WOS_OrderStepCode"]).Trim();
           string CloseDate = Convert.ToString(RadGridIssueIPOBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["IssueEndDateANDTime"]);
           int issueId = int.Parse(RadGridIssueIPOBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AIM_IssueId"].ToString());
+          if (Session["PageDefaultSetting"] != null)
+          {
+              ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl( 'IPOIssueTransact','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&OrderStepCode=" + OrderStepCode + "&CloseDate=" + CloseDate + "&issueIds=" + issueId + "');", true);
+          }
+          else
+          {
+              ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "IPOIssueTransact", "loadcontrol( 'IPOIssueTransact','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&OrderStepCode=" + OrderStepCode + "&CloseDate=" + CloseDate + "&issueIds=" + issueId + "');", true);
+          }
 
-
-          ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "IPOIssueTransact", "loadcontrol( 'IPOIssueTransact','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&OrderStepCode=" + OrderStepCode + "&CloseDate=" + CloseDate + "&issueIds=" + issueId + "');", true);
         }
     }
 }
