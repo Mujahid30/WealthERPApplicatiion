@@ -3,6 +3,26 @@
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <asp:ScriptManager ID="scriptmanager" runat="server">
 </asp:ScriptManager>
+
+<script type="text/javascript">
+    function Confirm() {
+        var minValue = document.getElementById('<%=hdneligible.ClientID%>').value;
+        if (minValue == "Edit") {
+            var amount = document.getElementById('<%=hdnAmount.ClientID%>').value;
+            var confirm_value = document.createElement("INPUT");
+            confirm_value.type = "hidden";
+            confirm_value.name = "confirm_value";
+            if (confirm("Differential amt. RS. " + amount + "  will be credited from registrar \n Do you want to cancel?")) {
+                confirm_value.value = "Yes";
+            } else {
+                confirm_value.value = "No";
+            }
+            document.forms[0].appendChild(confirm_value);
+        }
+       
+    }
+</script>
+
 <table width="100%">
     <tr>
         <td>
@@ -122,13 +142,14 @@
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridTemplateColumn AllowFiltering="false">
-                                        <ItemTemplate>
-                                        <asp:DropDownList ID="ddlAction" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChanged">
-                                        <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
-                                        <asp:ListItem Text="View" Value="View" Enabled="false"></asp:ListItem>
-                                        <asp:ListItem Text="Edit" Value="Edit"></asp:ListItem>
-                                        </asp:DropDownList>
-                                        </ItemTemplate>
+                                            <ItemTemplate>
+                                                <asp:DropDownList ID="ddlAction" runat="server" CssClass="cmbField" AutoPostBack="true"
+                                                    OnSelectedIndexChanged="ddlAction_OnSelectedIndexChanged">
+                                                    <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
+                                                    <asp:ListItem Text="View" Value="View" Enabled="false"></asp:ListItem>
+                                                    <asp:ListItem Text="Modify" Value="Edit"></asp:ListItem>
+                                                </asp:DropDownList>
+                                            </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridBoundColumn DataField="AIM_IssueName" SortExpression="AIM_IssueName"
                                             AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
@@ -185,9 +206,6 @@
                                             CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" Visible="false">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridEditCommandColumn Visible="false" HeaderStyle-Width="60px" UniqueName="MarkAsReject"
-                                            EditText="Cancel" CancelText="Cancel" UpdateText="OK" HeaderText="Cancel">
-                                        </telerik:GridEditCommandColumn>
                                         <telerik:GridBoundColumn DataField="Bidding_Exchange" AllowFiltering="true" HeaderText="Bidding Exchange"
                                             UniqueName="Bidding_Exchange" SortExpression="Bidding_Exchange" ShowFilterIcon="false"
                                             CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="80px"
@@ -199,6 +217,9 @@
                                             AutoPostBackOnFilter="true" HeaderStyle-Width="75px" FilterControlWidth="50px">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
+                                        <telerik:GridEditCommandColumn HeaderStyle-Width="60px" UniqueName="MarkAsReject"
+                                            EditText="Cancel" CancelText="Cancel" UpdateText="OK" HeaderText="Cancel">
+                                        </telerik:GridEditCommandColumn>
                                         <%-- <telerik:GridBoundColumn DataField="CO_ApplicationNumber" HeaderText="Application No"
                                 AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="CO_ApplicationNumber"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
@@ -310,7 +331,7 @@
                                                     </td>
                                                     <td align="left">
                                                         <asp:Button ID="Button1" Text="OK" runat="server" CssClass="PCGButton" CommandName="Update"
-                                                            ValidationGroup="btnSubmit">
+                                                            ValidationGroup="btnSubmit" >
                                                             <%-- OnClientClick='<%# (Container is GridEditFormInsertItem) ?  " javascript:return ShowPopup();": "" %>'--%>
                                                         </asp:Button>
                                                         <%--</td>
@@ -332,3 +353,5 @@
     </table>
 </asp:Panel>
 <asp:HiddenField ID="hdnOrderStatus" runat="server" />
+<asp:HiddenField ID="hdneligible" runat="server" />
+<asp:HiddenField ID="hdnAmount" runat="server" />
