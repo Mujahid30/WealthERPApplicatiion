@@ -392,7 +392,7 @@ namespace WealthERP.OnlineOrderManagement
             Page.Validate();
             if (Page.IsValid)
             {
-                isBidsVallid = ValidateIPOBids(out errorMsg);
+                isBidsVallid = ValidateIPOBids(out errorMsg,0);
                 if (!isBidsVallid)
                 {
 
@@ -614,7 +614,7 @@ namespace WealthERP.OnlineOrderManagement
             lnlBack.Visible = true;
         }
 
-        private bool ValidateIPOBids(out string msg)
+        private bool ValidateIPOBids(out string msg, int typeOfvalidation)
         {
             bool isBidValid = true;
             msg = string.Empty;
@@ -628,18 +628,20 @@ namespace WealthERP.OnlineOrderManagement
             decimal minBidAmount = Convert.ToDecimal(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIIC_MInBidAmount"].ToString());
             decimal maxBidAmount = Convert.ToDecimal(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIIC_MaxBidAmount"].ToString());
             GridFooterItem footerItem = (GridFooterItem)RadGridIPOBid.MasterTableView.GetItems(GridItemType.Footer)[0];
+            Label lblFinalBidAmountPayable = (Label)footerItem["BidAmountPayable"].FindControl("lblFinalBidAmountPayable");
+            decimal maxPaybleAmount1 = Convert.ToDecimal(lblFinalBidAmountPayable.Text);
             decimal maxPaybleAmount = Convert.ToDecimal(((TextBox)footerItem.FindControl("txtFinalBidValue")).Text);//accessing Button inside 
             Boolean isMultipleApplicationAllowed = Convert.ToBoolean(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_IsMultipleApplicationsallowed"].ToString());
             int issueId = int.Parse(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_IssueId"].ToString());
             if (isMultipleApplicationAllowed == false)
             {
                 int issueApplicationSubmitCount = onlineNCDBackOfficeBo.CustomerMultipleOrder(customerVo.CustomerId, issueId);
-                //if (issueApplicationSubmitCount > 0)
-                //{
-                //    msg = "You have already invested in selected issue, Please check the order book for the status.Multiple Investment is not allowed in same issue";
-                //    isBidValid = false;
-                //    return isBidValid;
-                //}
+                if (issueApplicationSubmitCount > 0)
+                {
+                    msg = "You have already invested in selected issue, Please check the order book for the status.Multiple Investment is not allowed in same issue";
+                    isBidValid = false;
+                    return isBidValid;
+                }
             }
             if (dtCloseDate < DateTime.Now)
             {
@@ -647,11 +649,24 @@ namespace WealthERP.OnlineOrderManagement
                 isBidValid = false;
                 return isBidValid;
             }
-            if (minBidAmount > maxPaybleAmount || maxBidAmount < maxPaybleAmount)
+
+            if (maxPaybleAmount > 0)
             {
-                msg = "Bid Value (Amount Payable) should be greater than the Min bid amount and less than the Max bid amount";
-                isBidValid = false;
-                return isBidValid;
+                if (minBidAmount > maxPaybleAmount || maxBidAmount < maxPaybleAmount)
+                {
+                    msg = "Bid Value (Amount Payable) should be greater than the Min bid amount and less than the Max bid amount";
+                    isBidValid = false;
+                    return isBidValid;
+                }
+            }
+            else if (typeOfvalidation != 1 && maxPaybleAmount < 0)
+            {
+                if (minBidAmount > maxPaybleAmount1 || maxBidAmount < maxPaybleAmount1)
+                {
+                    msg = "Bid Value (Amount Payable) should be greater than the Min bid amount and less than the Max bid amount";
+                    isBidValid = false;
+                    return isBidValid;
+                }
             }
             if (!string.IsNullOrEmpty(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_TradingInMultipleOf"].ToString()))
                 issueQtyMultiple = Convert.ToInt16(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_TradingInMultipleOf"].ToString());
@@ -684,7 +699,7 @@ namespace WealthERP.OnlineOrderManagement
                 if (bidAmountPayble > 0)
                     validBidSum += int.Parse(item.GetDataKeyValue("IssueBidNo").ToString());
 
-                if (bidAmountPayble <= 0 && int.Parse(item.GetDataKeyValue("IssueBidNo").ToString()) == 1)
+                if (typeOfvalidation != 1 && bidAmountPayble <= 0 && int.Parse(item.GetDataKeyValue("IssueBidNo").ToString()) == 1)
                 {
                     msg = "Bid found missing.Please enter the bids in sequence starting from the top!";
                     isBidValid = false;
@@ -945,7 +960,7 @@ namespace WealthERP.OnlineOrderManagement
             Page.Validate();
             if (Page.IsValid)
             {
-                isBidsVallid = ValidateIPOBids(out errorMsg);
+                isBidsVallid = ValidateIPOBids(out errorMsg,1);
                 if (!isBidsVallid)
                 {
 
@@ -1047,8 +1062,8 @@ namespace WealthERP.OnlineOrderManagement
 
                     if (Convert.ToBoolean(ViewState["isRMSDebit"].ToString()))
                     {
-                        if (availableBalance >= maxPaybleBidAmount)
-                        {
+                        //if (availableBalance >= maxPaybleBidAmount)
+                        //{
                             result = onlineIPOOrderBo.UpdateIPOBidOrderDetails(userVo.UserId, dtIPOBidTransactionDettails, int.Parse(Request.QueryString["orderId"]), double.Parse(ViewState["maxPaybleAmount"].ToString()) - maxPaybleBidAmount);
                             if (maxPaybleBidAmount != double.Parse(ViewState["maxPaybleAmount"].ToString()))
                             {
@@ -1069,7 +1084,7 @@ namespace WealthERP.OnlineOrderManagement
                             btnUpdateIPOdrder.Visible = false;
                             //btnOrderEdit.Enabled = false;
                             //btnOrderCancel.Enabled = false;
-                        }
+                        //}
                     }
                     else
                     {

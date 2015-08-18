@@ -186,14 +186,16 @@ namespace WealthERP.OnlineOrderManagement
                 if (extractionStepCode== string.Empty)
                     hdneligible.Value = "Edit";
                 hdnAmount.Value = AmountPayable.ToString() + orderId.ToString();
-                if ((Iscancel == "CANCELLED" || Iscancel == "EXECUTED" || Iscancel == "ACCEPTED") && DateTime.Now <= Convert.ToDateTime(CloseDate))
+
+                if (Iscancel == "CANCELLED" || Iscancel == "EXECUTED" || Iscancel == "ACCEPTED" || Iscancel=="REJECTED" )
                 {
                     buttonEdit.Enabled = false;
                     ddlAction.Items[2].Enabled = false;
                 }
-                if (Iscancel == "CANCELLED")
+                if (Convert.ToDateTime(CloseDate)<= DateTime.Now )
                 {
                     ddlAction.Items[2].Enabled = false;
+                    buttonEdit.Enabled = false;
                 }
             }
         }
