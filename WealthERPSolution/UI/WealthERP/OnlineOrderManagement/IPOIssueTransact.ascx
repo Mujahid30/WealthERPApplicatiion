@@ -25,15 +25,15 @@
         var minValue = document.getElementById('<%=hdneligible.ClientID%>').value;
         if (minValue == "Edit")
             alert('hi');
-//        var confirm_value = document.createElement("INPUT");
-//        confirm_value.type = "hidden";
-//        confirm_value.name = "confirm_value";
-//        if (confirm("Please note Order cannot be modified once submitted. Would you like to continue ?")) {
-//            confirm_value.value = "Yes";
-//        } else {
-//            confirm_value.value = "No";
-//        }
-//        document.forms[0].appendChild(confirm_value);
+        //        var confirm_value = document.createElement("INPUT");
+        //        confirm_value.type = "hidden";
+        //        confirm_value.name = "confirm_value";
+        //        if (confirm("Please note Order cannot be modified once submitted. Would you like to continue ?")) {
+        //            confirm_value.value = "Yes";
+        //        } else {
+        //            confirm_value.value = "No";
+        //        }
+        //        document.forms[0].appendChild(confirm_value);
     }
 </script>
 
@@ -234,7 +234,8 @@
                                 GridLines="None" ShowFooter="true" PagerStyle-AlwaysVisible="false" ShowStatusBar="True"
                                 Skin="Telerik" AllowFilteringByColumn="false" OnItemDataBound="RadGridIPOBid_ItemDataBound">
                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
-                                    DataKeyNames="IssueBidNo,COID_TransactionType,COID_DetailsId,COID_IsCutOffApplicable" Width="100%" PagerStyle-AlwaysVisible="false">
+                                    DataKeyNames="IssueBidNo,COID_TransactionType,COID_DetailsId,COID_IsCutOffApplicable"
+                                    Width="100%" PagerStyle-AlwaysVisible="false">
                                     <Columns>
                                         <telerik:GridBoundColumn DataField="BidOptions" HeaderStyle-Width="120px" CurrentFilterFunction="Contains"
                                             ShowFilterIcon="true" AutoPostBackOnFilter="true" HeaderText="Bidding Options"
@@ -246,7 +247,7 @@
                                             HeaderStyle-HorizontalAlign="Center">
                                             <ItemTemplate>
                                                 <asp:CheckBox ID="cbCutOffCheck" runat="server" Visible='<%# (Convert.ToInt32(Eval("IssueBidNo")) == 1)? true: false %>'
-                                                    AutoPostBack="true" OnCheckedChanged="CutOffCheckBox_Changed" Checked='<%# (Convert.ToInt32(Eval("COID_IsCutOffApplicable")) == 1)? true: false %>'/>
+                                                    AutoPostBack="true" OnCheckedChanged="CutOffCheckBox_Changed" Checked='<%# (Convert.ToInt32(Eval("COID_IsCutOffApplicable")) == 1)? true: false %>' />
                                                 <%-- <a href="#" class="popper" data-popbox="divCutOffCheck">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                                                 <div id="divCutOffCheck" class="popbox">
                                                     <h2>
@@ -338,17 +339,15 @@
                                             Visible="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="TransactionType" HeaderStyle-Width="100px"
-                                            HeaderText="Status" ShowFilterIcon="false" UniqueName="TransactionType"
-                                           Visible="false" >
+                                        <telerik:GridBoundColumn DataField="TransactionType" HeaderStyle-Width="100px" HeaderText="Status"
+                                            ShowFilterIcon="false" UniqueName="TransactionType" Visible="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridTemplateColumn HeaderStyle-Width="50px" UniqueName="DeleteBid" Visible="false" HeaderText="Action">
+                                        <telerik:GridTemplateColumn HeaderStyle-Width="50px" UniqueName="DeleteBid" Visible="false"
+                                            HeaderText="Action">
                                             <ItemTemplate>
                                                 <asp:ImageButton ID="btnOrderEdit" runat="server" ImageUrl="../Images/Telerik/Edit.gif"
                                                     ToolTip="Edit" OnClick="btnOrderEdit_OnClick" Visible="false" />
-                                                <asp:ImageButton ID="btnOrderCancel" runat="server" ImageUrl="../Images/Telerik/Delete.gif"
-                                                    ToolTip="Cancel" OnClick="btnOrderCancel_OnClick" Visible="false" />
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                     </Columns>
@@ -382,10 +381,14 @@
                             <asp:LinkButton runat="server" ID="lnlBack" CssClass="LinkButtons" Text="Click here to view the issue list"
                                 Visible="false" OnClick="lnlktoviewIPOissue_Click"></asp:LinkButton>
                         </td>
-                        <td>
+                        <td align="left" style="width: 10%">
                             <asp:Button ID="btnUpdateIPOdrder" runat="server" CssClass="PCGButton" Text="Update"
                                 OnClick="btnUpdateIPOdrder_OnClick" Visible="false" OnClientClick="Confirm();return PreventClicks(); Validate();"
                                 ValidationGroup="btnConfirmOrder, btnTC" />
+                        </td>
+                        <td>
+                            <asp:Button ID="btnOrderCancel" runat="server"  Text="Cancel Order" CssClass="PCGButton"
+                                ToolTip="Cancel" OnClick="btnOrderCancel_OnClick"  Visible="false"/>
                         </td>
                         <%--<td colspan="2" style="width: 90%">
                         </td>--%>
@@ -436,7 +439,7 @@
                 </telerik:RadWindow>
             </Windows>
         </telerik:RadWindowManager>
-         <asp:HiddenField ID="hdneligible" runat="server" />
+        <asp:HiddenField ID="hdneligible" runat="server" />
     </ContentTemplate>
     <Triggers>
     </Triggers>

@@ -129,7 +129,7 @@
                                 Skin="Telerik" EnableEmbeddedSkins="false" ClientSettings-AllowColumnsReorder="true"
                                 AllowAutomaticInserts="false" OnNeedDataSource="RadGridIssueIPOBook_OnNeedDataSource"
                                 OnItemDataBound="RadGridIssueIPOBook_OnItemDataBound" OnItemCommand="RadGridIssueIPOBook_OnItemCommand">
-                                <MasterTableView DataKeyNames="CO_OrderId,C_CustomerId,PAG_AssetGroupCode,CO_OrderDate,WOS_OrderStep,WES_Code,C_CustCode,Amounttoinvest,AIM_IssueId,IssueEndDateANDTime"
+                                <MasterTableView DataKeyNames="CO_OrderId,C_CustomerId,PAG_AssetGroupCode,CO_OrderDate,WOS_OrderStep,C_CustCode,Amounttoinvest,AIM_IssueId,IssueEndDateANDTime"
                                     AllowFilteringByColumn="true" Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
                                     CommandItemDisplay="None">
                                     <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
@@ -218,7 +218,7 @@
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridEditCommandColumn HeaderStyle-Width="60px" UniqueName="MarkAsReject"
-                                            EditText="Cancel" CancelText="Cancel" UpdateText="OK" HeaderText="Cancel">
+                                            EditText="Cancel" CancelText="Cancel" UpdateText="OK" HeaderText="Cancel" Visible="false">
                                         </telerik:GridEditCommandColumn>
                                         <%-- <telerik:GridBoundColumn DataField="CO_ApplicationNumber" HeaderText="Application No"
                                 AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="CO_ApplicationNumber"

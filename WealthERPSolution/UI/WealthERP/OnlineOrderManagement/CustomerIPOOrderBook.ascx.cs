@@ -32,6 +32,7 @@ namespace WealthERP.OnlineOrderManagement
         DateTime toDate;
         int AIMissueId = 0;
         int orderId = 0;
+        string orderStep = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -119,9 +120,6 @@ namespace WealthERP.OnlineOrderManagement
             SetParameter();
             BindCustomerIssueIPOBook();
         }
-
-
-
         private void BindCustomerIssueIPOBook()
         {
             DataTable dtCustomerIssueIPOBook;
@@ -130,8 +128,8 @@ namespace WealthERP.OnlineOrderManagement
                 fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
             if (txtOrderTo.SelectedDate != null)
                 toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
-            dtCustomerIssueIPOBook = onlineIPOOrderBo.GetCustomerIPOIssueBook(customerVo.CustomerId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), ddlOrderStatus.SelectedValue, fromDate, toDate, orderId);
-
+            dtCustomerIssueIPOBook = onlineIPOOrderBo.GetCustomerIPOIssueBook(customerVo.CustomerId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), ddlOrderStatus.SelectedValue, fromDate, toDate, orderId, out  orderStep);
+            
             if (dtCustomerIssueIPOBook.Rows.Count > 0)
             {
                 if (Cache["CustomerIPOIssueBook" + userVo.UserId.ToString()] == null)
@@ -157,7 +155,6 @@ namespace WealthERP.OnlineOrderManagement
                 pnlIPOBook.Visible = true;
 
             }
-
         }
         protected void RadGridIssueIPOBook_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
@@ -167,7 +164,6 @@ namespace WealthERP.OnlineOrderManagement
             {
                 RadGridIssueIPOBook.DataSource = dtCustomerIssueIPOBook;
             }
-
         }
         public void RadGridIssueIPOBook_OnItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
         {
@@ -178,20 +174,23 @@ namespace WealthERP.OnlineOrderManagement
                 //LinkButton MarkAsReject = (LinkButton)dataItem.FindControl("MarkAsReject");
                 DropDownList ddlAction = (DropDownList)dataItem.FindControl("ddlAction");
                 LinkButton buttonEdit = dataItem["MarkAsReject"].Controls[0] as LinkButton;
-                string extractionStepCode = RadGridIssueIPOBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WES_Code"].ToString();
-                double AmountPayable = Convert.ToDouble(RadGridIssueIPOBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["Amounttoinvest"].ToString());
+                string extractionStepCode = orderStep; 
+                    //RadGridIssueIPOBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WES_Code"].ToString();
+                //double AmountPayable = Convert.ToDouble(RadGridIssueIPOBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["Amounttoinvest"].ToString());
                 string CloseDate = Convert.ToString(RadGridIssueIPOBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["IssueEndDateANDTime"]);
-                Int32 orderId = Convert.ToInt32(RadGridIssueIPOBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
+                //Int32 orderId = Convert.ToInt32(RadGridIssueIPOBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
 
-                if (extractionStepCode== string.Empty)
-                    hdneligible.Value = "Edit";
-                hdnAmount.Value = AmountPayable.ToString() + orderId.ToString();
+                //if (extractionStepCode== string.Empty)
+                //    hdneligible.Value = "Edit";
+                //hdnAmount.Value = AmountPayable.ToString() + orderId.ToString();
 
-                if (Iscancel == "CANCELLED" || Iscancel == "EXECUTED" || Iscancel == "ACCEPTED" || Iscancel=="REJECTED" )
+                if (Iscancel == "CANCELLED" || Iscancel == "EXECUTED" || Iscancel == "ACCEPTED" || Iscancel == "REJECTED" || Iscancel == "ORDERED")
                 {
                     buttonEdit.Enabled = false;
                     ddlAction.Items[2].Enabled = false;
                 }
+                if (Iscancel == "ORDERED")
+                    ddlAction.Items[2].Enabled = true;
                 if (Convert.ToDateTime(CloseDate)<= DateTime.Now )
                 {
                     ddlAction.Items[2].Enabled = false;
