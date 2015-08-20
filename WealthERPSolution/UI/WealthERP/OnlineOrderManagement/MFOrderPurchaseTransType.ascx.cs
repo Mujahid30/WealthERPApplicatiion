@@ -64,15 +64,29 @@ namespace WealthERP.OnlineOrderManagement
             }
             if (!IsPostBack)
             {
+                int amcCode = 0;
+                string category = string.Empty;
                 clientMFAccessCode = onlineMforderBo.GetClientMFAccessStatus(customerVo.CustomerId);
                 if (clientMFAccessCode == "FA")
                 {
                     ShowAvailableLimits();
                     AmcBind();
+                    CategoryBind();
                     trJointHolder.Visible = false;
                     trNominee.Visible = false;
                     lblOption.Visible = false;
                     lblDividendType.Visible = false;
+                    if (Session["MFSchemePlan"] != null)
+                    {
+                        commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category);
+                        BindFolioNumber(amcCode);
+                        SchemeBind(amcCode, category);
+                        ddlAmc.SelectedValue = amcCode.ToString();
+                        ddlScheme.SelectedValue = Session["MFSchemePlan"].ToString();
+                        ddlCategory.SelectedValue = category;
+                        GetControlDetails(int.Parse(Session["MFSchemePlan"].ToString()), null);
+                       // SetSelectedDisplay(0, int.Parse(Session["MFSchemePlan"].ToString()), amcCode, category);
+                    }
                 }
                 else
                 {
@@ -81,6 +95,7 @@ namespace WealthERP.OnlineOrderManagement
                     divControlContainer.Visible = false;
                     divClientAccountBalance.Visible = false;
                 }
+
             }
 
 

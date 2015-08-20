@@ -1712,12 +1712,12 @@ namespace DaoCustomerProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 editProductAMCSchemeMappingCmd = db.GetStoredProcCommand("SP_EditProductAMCSchemeMapping");
-                db.AddInParameter(editProductAMCSchemeMappingCmd, "@schemePlanCode", DbType.Int32, schemePlanCode);
+                db.AddInParameter(editProductAMCSchemeMappingCmd, "@schemePlanCode", DbType.Int16, schemePlanCode);
                 db.AddInParameter(editProductAMCSchemeMappingCmd, "@externalCode", DbType.String, strExtCode);
                 db.AddInParameter(editProductAMCSchemeMappingCmd, "@externalCodeToBeEdited", DbType.String, strExternalCodeToBeEdited);
                 db.AddInParameter(editProductAMCSchemeMappingCmd, "@externalType", DbType.String, strExtName);
                 // db.AddInParameter(editProductAMCSchemeMappingCmd, "@count", DbType.Int32, 0);
-                db.AddInParameter(editProductAMCSchemeMappingCmd, "@Isonline", DbType.Int32, Isonline);
+                db.AddInParameter(editProductAMCSchemeMappingCmd, "@Isonline", DbType.Int16, Isonline);
                 if (createdDate != DateTime.MinValue)
                     db.AddInParameter(editProductAMCSchemeMappingCmd, "@createdDate", DbType.DateTime, createdDate);
                 else
@@ -1732,8 +1732,8 @@ namespace DaoCustomerProfiling
                     db.AddInParameter(editProductAMCSchemeMappingCmd, "@deletedDate", DbType.DateTime, deletedDate);
                 else
                     db.AddInParameter(editProductAMCSchemeMappingCmd, "@deletedDate", DbType.DateTime, DBNull.Value);
-                db.AddInParameter(editProductAMCSchemeMappingCmd, "@ModifiedBy", DbType.Int16, userid);
-                db.AddInParameter(editProductAMCSchemeMappingCmd, "@CreatedBy", DbType.Int16, userid);
+                db.AddInParameter(editProductAMCSchemeMappingCmd, "@ModifiedBy", DbType.Int32, userid);
+                db.AddInParameter(editProductAMCSchemeMappingCmd, "@CreatedBy", DbType.Int32, userid);
                 if (db.ExecuteNonQuery(editProductAMCSchemeMappingCmd) != 0)
                     bResult = true;
             }

@@ -135,12 +135,12 @@ namespace WealthERP.OnlineOrderManagement
                         if (Session["PageDefaultSetting"] != null)
                         {
                             Session["MFSchemePlan"] = PASP_SchemePlanCode;
-                            LoadMFTransactionPage("MFOrderAdditionalPurchase",2);
+                            LoadMFTransactionPage("MFOrderPurchaseTransType", 2);
                            
                         }
                         else
                         {
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('MFOrderAdditionalPurchase','SchemeCode=" + PASP_SchemePlanCode + "&AMCode=" + ddlAMC.SelectedValue + "&Category=" + ddlCategory.SelectedValue + "');", true);
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('MFOrderPurchaseTransType','SchemeCode=" + PASP_SchemePlanCode + "&AMCode=" + ddlAMC.SelectedValue + "&Category=" + ddlCategory.SelectedValue + "');", true);
                         }
                         break;
                     case "ABY":
