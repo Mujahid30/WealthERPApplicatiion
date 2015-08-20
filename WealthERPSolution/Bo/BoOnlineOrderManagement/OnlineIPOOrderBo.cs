@@ -158,14 +158,14 @@ namespace BoOnlineOrderManagement
             }
             return dtCustomerIPOIssueChildBook;
         }
-        public DataTable GetIPOIOrderList(int orderId, out bool isRMSDebited)
+        public DataTable GetIPOIOrderList(int orderId, out bool isRMSDebited, out bool orderIscanclled)
         {
             DataTable dtGetIPOIOrderList;
             OnlineIPOOrderDao onlineIPOOrderDao = new OnlineIPOOrderDao();
 
             try
             {
-                dtGetIPOIOrderList = onlineIPOOrderDao.GetIPOIOrderList(orderId,out isRMSDebited);
+                dtGetIPOIOrderList = onlineIPOOrderDao.GetIPOIOrderList(orderId, out isRMSDebited, out orderIscanclled);
 
             }
             catch (BaseApplicationException Ex)

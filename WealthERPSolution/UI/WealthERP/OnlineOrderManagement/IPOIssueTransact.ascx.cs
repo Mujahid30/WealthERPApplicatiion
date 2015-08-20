@@ -39,19 +39,19 @@ namespace WealthERP.OnlineOrderManagement
             //msgRecordStatus.InnerText = "Order placed successfully, Order reference no is " + 1234.ToString() + ", Order will process next business day";
             //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjuklocvvvvvdddretyu", " showMsg('Order placed successfully, Order reference no is 1234 Order will process next business day','S');", true);
             int TOcpmaretime = int.Parse(DateTime.Now.ToShortTimeString().Split(':')[0]);
-            if (TOcpmaretime >= int.Parse(ConfigurationSettings.AppSettings["START_TIME"]) && TOcpmaretime <= int.Parse(ConfigurationSettings.AppSettings["END_TIME"]))
-            {
-                if (Session["PageDefaultSetting"] != null)
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOnlineSchemeManager')", true);
-                    return;
-                }
-                else
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "loadcontrol('MFOnlineSchemeManager')", true);
-                    return;
-                }
-            }
+            //if (TOcpmaretime >= int.Parse(ConfigurationSettings.AppSettings["START_TIME"]) && TOcpmaretime <= int.Parse(ConfigurationSettings.AppSettings["END_TIME"]))
+            //{
+            //    if (Session["PageDefaultSetting"] != null)
+            //    {
+            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOnlineSchemeManager')", true);
+            //        return;
+            //    }
+            //    else
+            //    {
+            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "loadcontrol('MFOnlineSchemeManager')", true);
+            //        return;
+            //    }
+            //}
             var issueId = string.Empty;
             if (!Page.IsPostBack)
             {
@@ -65,11 +65,20 @@ namespace WealthERP.OnlineOrderManagement
                 if (Request.QueryString["orderId"] != null)
                 {
                     BindIPOIssueList(Request.QueryString["issueIds"]);
+                   
                     ViewIPOOrder(int.Parse(Request.QueryString["orderId"]));
+                    if (Convert.ToBoolean(ViewState["orderIscanclled"].ToString()))
+                    {
+                        btnOrderCancel.Visible = false;
+                        btnUpdateIPOdrder.Visible = false;
+                    }
+                    else
+                    {
+                        btnOrderCancel.Visible = true;
+                        btnUpdateIPOdrder.Visible = true;
+                    }
                     ShowAvailableLimits();
-                    btnUpdateIPOdrder.Visible = true;
                     btnConfirmOrder.Visible = false;
-                    btnOrderCancel.Visible = true;
                 }
             }
 
@@ -743,7 +752,7 @@ namespace WealthERP.OnlineOrderManagement
                 double.TryParse(dtOnlineIPOIssueList.Rows[0]["AIM_FloorPrice"].ToString(), out minBidPrice);
                 double.TryParse(dtOnlineIPOIssueList.Rows[0]["AIM_CapPrice"].ToString(), out maxBidPrice);
                 ImageButton btnOrderEdit = (ImageButton)dataform.FindControl("btnOrderEdit");
-                ImageButton btnOrderCancel = (ImageButton)dataform.FindControl("btnOrderCancel");
+                //ImageButton btnOrderCancel = (ImageButton)dataform.FindControl("btnOrderCancel");
                 string transactionType = Convert.ToString(RadGridIPOBid.MasterTableView.DataKeyValues[e.Item.ItemIndex]["COID_TransactionType"]);
                 int chk = 0;
                 if (e.Item.RowIndex != -1)
@@ -768,7 +777,6 @@ namespace WealthERP.OnlineOrderManagement
                 {
                     TextBox txtBidQuantity = (TextBox)dataform.FindControl("txtBidQuantity");
                     TextBox txtBidPrice = (TextBox)dataform.FindControl("txtBidPrice");
-
                     RadGridIPOBid.MasterTableView.GetColumn("COID_ExchangeRefrenceNo").Visible = true;
                     RadGridIPOBid.MasterTableView.GetColumn("DeleteBid").Visible = true;
                     RadGridIPOBid.MasterTableView.GetColumn("TransactionType").Visible = true;
@@ -776,33 +784,33 @@ namespace WealthERP.OnlineOrderManagement
                     txtBidPrice.Enabled = false;
                     //btnOrderCancel.Visible = true;
                     //btnOrderEdit.Visible = true;
-                    int currentRowindex = (dataform.RowIndex / 4) - 1;
                     CheckBox chkCutOff = (CheckBox)dataform.FindControl("cbCutOffCheck");
                     chkCutOff.Enabled = false;
-                    if (chkCutOff.Checked == true)
-                        chk = 1;
+                    int count = 0;
+                    
                     if (transactionType == "D" || transactionType == "ND")
                     {
-                        //btnOrderCancel.Visible = false;
                         btnOrderEdit.Visible = false;
+                        
                     }
+                    if (chkCutOff.Checked && (transactionType != "D" || transactionType != "ND"))
+                    {
+                        ViewState["cout"] = count++;
+                        btnOrderEdit.Visible = true;
+                    }
+                    else
+                    {
+                        if (ViewState["cout"] == null && transactionType != "D" && transactionType != "ND")
+                        {
+                            btnOrderEdit.Visible = true;
+                            //btnOrderCancel.Visible = true;
+                            //btnUpdateIPOdrder.Visible = true;
 
-                    if (chkCutOff.Checked == true)
-                    {
-                        //btnOrderCancel.Visible = true;
-                        btnOrderEdit.Visible = true;
+                        }
                     }
-                    //else
-                    //{
-                    //        btnOrderCancel.Visible = false;
-                    //        btnOrderEdit.Visible = false;
-                    //}
-                    if (chkCutOff.Checked != true && !string.IsNullOrEmpty(txtBidQuantity.Text) && (transactionType != "D" && transactionType != "ND"))
-                    {
-                        //btnOrderCancel.Visible = true;
-                        btnOrderEdit.Visible = true;
-                    }
+                   
                 }
+
             }
             //else if (e.Item is GridFooterItem)
             //{
@@ -825,8 +833,9 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void ViewIPOOrder(int orderId)
         {
-            bool isRMSDebit;
-            DataTable dtIPOORder = onlineIPOOrderBo.GetIPOIOrderList(orderId, out isRMSDebit);
+            bool isRMSDebit; bool orderIscanclled;
+            DataTable dtIPOORder = onlineIPOOrderBo.GetIPOIOrderList(orderId, out isRMSDebit, out orderIscanclled);
+            ViewState["orderIscanclled"] = orderIscanclled;
             BindIPOBidGrid(3);
             ViewState["isRMSDebit"] = isRMSDebit;
             if (dtIPOORder.Rows.Count > 0)
@@ -887,7 +896,7 @@ namespace WealthERP.OnlineOrderManagement
 
             }
         }
-        
+
 
         protected void btnUpdateIPOdrder_OnClick(object sender, EventArgs e)
         {
@@ -1030,8 +1039,16 @@ namespace WealthERP.OnlineOrderManagement
                             availableBalance = (double)onlineIPOOrderBo.GetUserRMSAccountBalance(customerVo.AccountId);
                             lblAvailableLimits.Text = Convert.ToInt64(availableBalance).ToString();
                         }
-                        ShowMessage("IPO Order Updated Successfully,Order reference no. is " + Request.QueryString["orderId"]);
                         btnUpdateIPOdrder.Visible = false;
+                        if (ViewState["Update"] == null)
+                            ShowMessage("IPO Order Updated Successfully,Order reference no. is " + Request.QueryString["orderId"]);
+                        else
+                        {
+                            ShowMessage("IPO Order is cancelled,reference no. is " + Request.QueryString["orderId"]);
+                            btnOrderCancel.Visible = false;
+
+                        }
+
                         //btnOrderEdit.Enabled = false;
                         //btnOrderCancel.Enabled = false;
                         //}
@@ -1058,8 +1075,16 @@ namespace WealthERP.OnlineOrderManagement
                                 //if (confirmValue == "Yes")
                                 //{
                                 result = onlineIPOOrderBo.UpdateIPOBidOrderDetails(userVo.UserId, dtIPOBidTransactionDettails, int.Parse(Request.QueryString["orderId"]), double.Parse(ViewState["maxPaybleAmount"].ToString()) - maxPaybleBidAmount);
-                                ShowMessage("Note that amount of RS" + returnbalance.TrimStart('-') + "  will credited from Registrar.");
                                 btnUpdateIPOdrder.Visible = false;
+                                if (ViewState["Update"] == null)
+                                    ShowMessage("Note that amount of RS  " + returnbalance.TrimStart('-') + "  will credited from Registrar.");
+                                else
+                                {
+
+                                    ShowMessage("IPO Order is cancelled amount of RS  " + returnbalance.TrimStart('-') + "  will credited from Registrar.");
+                                    btnOrderCancel.Visible = false;
+
+                                }
                                 //}
                                 //btnOrderEdit.Enabled = false;
                                 //btnOrderCancel.Enabled = false;
@@ -1114,6 +1139,7 @@ namespace WealthERP.OnlineOrderManagement
                     Label lblFinalBidAmountPayable = (Label)ftItemAmount["BidAmountPayable"].FindControl("lblFinalBidAmountPayable");
                     lblFinalBidAmountPayable.Text = finalBidPayableAmount.ToString();
                 }
+                ViewState["Update"] = 1;
                 UpdateIPOOrder();
             }
             catch (BaseApplicationException Ex)

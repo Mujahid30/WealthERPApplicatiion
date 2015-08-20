@@ -216,21 +216,26 @@ namespace DaoOnlineOrderManagement
             }
             return dtCustomerIPOIssueSubdBook;
         }
-        public DataTable GetIPOIOrderList(int orderId, out bool isRMSDebited)
+        public DataTable GetIPOIOrderList(int orderId, out bool isRMSDebited,out bool orderIscanclled)
         {
             DataTable dtGetIPOIOrderList;
             Database db;
             DbCommand GetGetIPOIOrderList;
 
              isRMSDebited = false;
+             orderIscanclled = false;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetGetIPOIOrderList = db.GetStoredProcCommand("SPROC_ONL_ViewIPOOrder");
                 db.AddInParameter(GetGetIPOIOrderList, "@orderId", DbType.Int32, orderId);
                 db.AddOutParameter(GetGetIPOIOrderList, "@iseligibleRMSDebit", DbType.Boolean, 10000);
+                db.AddOutParameter(GetGetIPOIOrderList, "@orderStatusIscanceld", DbType.Boolean, 10000);
+
                 dtGetIPOIOrderList = db.ExecuteDataSet(GetGetIPOIOrderList).Tables[0];
                     isRMSDebited =Convert.ToBoolean(db.GetParameterValue(GetGetIPOIOrderList, "@iseligibleRMSDebit").ToString());
+                    orderIscanclled = Convert.ToBoolean(db.GetParameterValue(GetGetIPOIOrderList, "@orderStatusIscanceld").ToString());
+
               
 
             }
