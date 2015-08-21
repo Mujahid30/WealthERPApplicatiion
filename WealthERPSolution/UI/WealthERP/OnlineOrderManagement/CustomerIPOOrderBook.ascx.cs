@@ -175,16 +175,9 @@ namespace WealthERP.OnlineOrderManagement
                 DropDownList ddlAction = (DropDownList)dataItem.FindControl("ddlAction");
                 LinkButton buttonEdit = dataItem["MarkAsReject"].Controls[0] as LinkButton;
                 string extractionStepCode = orderStep; 
-                    //RadGridIssueIPOBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WES_Code"].ToString();
-                //double AmountPayable = Convert.ToDouble(RadGridIssueIPOBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["Amounttoinvest"].ToString());
+               bool isModification=   Convert.ToBoolean(RadGridIssueIPOBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IsModificationAllowed"]);
                 string CloseDate = Convert.ToString(RadGridIssueIPOBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["IssueEndDateANDTime"]);
-                //Int32 orderId = Convert.ToInt32(RadGridIssueIPOBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
-
-                //if (extractionStepCode== string.Empty)
-                //    hdneligible.Value = "Edit";
-                //hdnAmount.Value = AmountPayable.ToString() + orderId.ToString();
-
-                if (Iscancel == "CANCELLED" || Iscancel == "EXECUTED" || Iscancel == "ACCEPTED" || Iscancel == "REJECTED" || Iscancel == "ORDERED")
+                if (Iscancel == "CANCELLED" || Iscancel == "EXECUTED" || Iscancel == "ACCEPTED" || Iscancel == "REJECTED" )
                 {
                     buttonEdit.Enabled = false;
                     ddlAction.Items[2].Enabled = false;
@@ -195,6 +188,10 @@ namespace WealthERP.OnlineOrderManagement
                 {
                     ddlAction.Items[2].Enabled = false;
                     buttonEdit.Enabled = false;
+                }
+                if (isModification != false)
+                {
+                    ddlAction.Items[2].Enabled = true;
                 }
             }
         }

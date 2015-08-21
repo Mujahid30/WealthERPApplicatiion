@@ -387,11 +387,16 @@
                                 ValidationGroup="btnConfirmOrder, btnTC" />
                         </td>
                         <td>
-                            <asp:Button ID="btnOrderCancel" runat="server"  Text="Cancel Order" CssClass="PCGButton"
-                                ToolTip="Cancel" OnClick="btnOrderCancel_OnClick"  Visible="false"/>
+                            <asp:Button ID="btnOrderCancel" runat="server" Text="Cancel Order" CssClass="PCGButton"
+                                ToolTip="Cancel" OnClick="btnOrderCancel_OnClick" Visible="false" />
                         </td>
-                        <%--<td colspan="2" style="width: 90%">
-                        </td>--%>
+                    </tr>
+                    <tr>
+                        <td>
+                            <td>
+                                <asp:Label ID="lblMessage" runat="server"></asp:Label>
+                            </td>
+                        </td>
                     </tr>
                 </table>
             </div>
