@@ -129,7 +129,8 @@ namespace WealthERP.OnlineOrderManagement
                     if (isMultipleApplicationAllowed == false)
                     {
                         int issueApplicationSubmitCount = onlineNCDBackOfficeBo.CustomerMultipleOrder(customerVo.CustomerId, issueId);
-                        if (issueApplicationSubmitCount > 0)
+                        bool results = onlineIPOOrderBo.CustomerCancelledOrder(customerVo.CustomerId, issueId);
+                        if (issueApplicationSubmitCount > 0 && results==false)
                         {
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('You have already invested in selected issue, Please check the order book for the status.Multiple Investment is not allowed in same issue!!');", true);
                             return;

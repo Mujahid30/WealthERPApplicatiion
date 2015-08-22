@@ -212,5 +212,32 @@ namespace BoOnlineOrderManagement
             }
             return result;
         }
+        public bool CustomerCancelledOrder(int CustomerId, int AIMissueId)
+        {
+            bool result = false;
+            OnlineIPOOrderDao onlineIPOOrderDao = new OnlineIPOOrderDao();
+            try
+            {
+                result = onlineIPOOrderDao.CustomerCancelledOrder(CustomerId, AIMissueId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "BoOnlineOrderManagement.cs:CustomerMultipleOrder(int CustomerId, int AIMissueId)");
+                object[] objects = new object[1];
+                objects[0] = CustomerId;
+                objects[1] = AIMissueId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return result;
+        }
     }
 }

@@ -177,22 +177,25 @@ namespace WealthERP.OnlineOrderManagement
                 string extractionStepCode = orderStep; 
                bool isModification=   Convert.ToBoolean(RadGridIssueIPOBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IsModificationAllowed"]);
                 string CloseDate = Convert.ToString(RadGridIssueIPOBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["IssueEndDateANDTime"]);
-                if (Iscancel == "CANCELLED" || Iscancel == "EXECUTED" || Iscancel == "ACCEPTED" || Iscancel == "REJECTED" )
+                if(isModification == false)
+                      ddlAction.Items[2].Enabled = false;
+                if (Iscancel == "CANCELLED" || Iscancel == "EXECUTED" || Iscancel == "ACCEPTED" || Iscancel == "REJECTED")
                 {
                     buttonEdit.Enabled = false;
                     ddlAction.Items[2].Enabled = false;
                 }
-                if (Iscancel == "ORDERED")
-                    ddlAction.Items[2].Enabled = true;
+               
                 if (Convert.ToDateTime(CloseDate)<= DateTime.Now )
                 {
                     ddlAction.Items[2].Enabled = false;
                     buttonEdit.Enabled = false;
                 }
-                if (isModification != false)
+                if (isModification != false && Iscancel != "CANCELLED" && Iscancel != "EXECUTED" && Iscancel != "ACCEPTED" && Iscancel != "REJECTED")
                 {
                     ddlAction.Items[2].Enabled = true;
                 }
+                if (Iscancel == "ORDERED" && isModification != false)
+                    ddlAction.Items[2].Enabled = true;
             }
         }
         protected void btnExpandAll_Click(object sender, EventArgs e)

@@ -234,6 +234,7 @@ namespace DaoOnlineOrderManagement
 
                 dtGetIPOIOrderList = db.ExecuteDataSet(GetGetIPOIOrderList).Tables[0];
                     isRMSDebited =Convert.ToBoolean(db.GetParameterValue(GetGetIPOIOrderList, "@iseligibleRMSDebit").ToString());
+
                     orderIscanclled = Convert.ToBoolean(db.GetParameterValue(GetGetIPOIOrderList, "@orderStatusIscanceld").ToString());
 
               
@@ -298,7 +299,47 @@ namespace DaoOnlineOrderManagement
             return result;
 
         }
+        public bool CustomerCancelledOrder(int CustomerId, int AIMissueId)
+        {
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DataSet ds;
+            DbCommand cmdCheckBankisActive;
+            bool result = false;
+            try
+            {
 
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdCheckBankisActive = db.GetStoredProcCommand("SPROC_ONL_OrderIsCancelled");
+                db.AddInParameter(cmdCheckBankisActive, "@customerId", DbType.Int32, CustomerId);
+                db.AddInParameter(cmdCheckBankisActive, "@AIMissueId", DbType.Int32, AIMissueId);
+
+                db.AddOutParameter(cmdCheckBankisActive, "@IsCancelledState", DbType.Boolean, 0);
+
+                ds = db.ExecuteDataSet(cmdCheckBankisActive);
+                if (db.ExecuteNonQuery(cmdCheckBankisActive) != 0)
+                {
+                    if(db.GetParameterValue(cmdCheckBankisActive, "@IsCancelledState").ToString()!="")
+                    result = Convert.ToBoolean(db.GetParameterValue(cmdCheckBankisActive, "@IsCancelledState").ToString());
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:ExternalcodeCheck()");
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return result;
+        }
     }
 
 }
