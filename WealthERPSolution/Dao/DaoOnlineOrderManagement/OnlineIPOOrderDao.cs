@@ -216,12 +216,12 @@ namespace DaoOnlineOrderManagement
             }
             return dtCustomerIPOIssueSubdBook;
         }
-        public DataTable GetIPOIOrderList(int orderId, out bool isRMSDebited,out bool orderIscanclled)
+        public DataTable GetIPOIOrderList(int orderId, out bool isRMSDebited,out bool orderIscanclled,out string OderExtractStep)
         {
             DataTable dtGetIPOIOrderList;
             Database db;
             DbCommand GetGetIPOIOrderList;
-
+            OderExtractStep = string.Empty;
              isRMSDebited = false;
              orderIscanclled = false;
             try
@@ -231,12 +231,13 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(GetGetIPOIOrderList, "@orderId", DbType.Int32, orderId);
                 db.AddOutParameter(GetGetIPOIOrderList, "@iseligibleRMSDebit", DbType.Boolean, 10000);
                 db.AddOutParameter(GetGetIPOIOrderList, "@orderStatusIscanceld", DbType.Boolean, 10000);
+                db.AddOutParameter(GetGetIPOIOrderList, "@OderExtractStep", DbType.String, 10000);
 
                 dtGetIPOIOrderList = db.ExecuteDataSet(GetGetIPOIOrderList).Tables[0];
                     isRMSDebited =Convert.ToBoolean(db.GetParameterValue(GetGetIPOIOrderList, "@iseligibleRMSDebit").ToString());
 
                     orderIscanclled = Convert.ToBoolean(db.GetParameterValue(GetGetIPOIOrderList, "@orderStatusIscanceld").ToString());
-
+                    OderExtractStep = db.GetParameterValue(GetGetIPOIOrderList, "@OderExtractStep").ToString();
               
 
             }

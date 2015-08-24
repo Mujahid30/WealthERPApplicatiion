@@ -65,17 +65,21 @@ namespace WealthERP.OnlineOrderManagement
                 if (Request.QueryString["orderId"] != null)
                 {
                     BindIPOIssueList(Request.QueryString["issueIds"]);
-
+                    if (Request.QueryString["Iscancel"] == "ORDERED")
+                        hdneligible.Value = "Edit";
                     ViewIPOOrder(int.Parse(Request.QueryString["orderId"]));
-                    if (Convert.ToBoolean(ViewState["orderIscanclled"].ToString()))
+                    if (Convert.ToBoolean(ViewState["orderIscanclled"].ToString()) )
                     {
                         btnOrderCancel.Visible = false;
                         btnUpdateIPOdrder.Visible = false;
                     }
                     else
                     {
-                        btnOrderCancel.Visible = true;
-                        btnUpdateIPOdrder.Visible = true;
+                        if (ViewState["OderExtractStep"].ToString() == "" || ViewState["OderExtractStep"].ToString() == "UB")
+                        {
+                            btnOrderCancel.Visible = true;
+                            btnUpdateIPOdrder.Visible = true;
+                        }
                     }
                     ShowAvailableLimits();
                     btnConfirmOrder.Visible = false;
@@ -790,7 +794,11 @@ namespace WealthERP.OnlineOrderManagement
                     CheckBox chkCutOff = (CheckBox)dataform.FindControl("cbCutOffCheck");
                     chkCutOff.Enabled = false;
                     int count = 0;
-
+                    if (ViewState["OderExtractStep"].ToString() != "" && ViewState["OderExtractStep"].ToString() != "UB")
+                    {
+                        btnOrderEdit.Visible = false;
+                        lnkTermsCondition.Enabled = false;
+                    }
                     if (transactionType == "D" || transactionType == "ND")
                     {
                         btnOrderEdit.Visible = false;
@@ -803,9 +811,13 @@ namespace WealthERP.OnlineOrderManagement
                     }
                     else
                     {
-                        if (ViewState["cout"] == null && transactionType != "D" && transactionType != "ND")
+                        if (ViewState["cout"] == null && transactionType != "D" && transactionType != "ND" )
                         {
                             btnOrderEdit.Visible = true;
+                            if (ViewState["OderExtractStep"].ToString() != "" && ViewState["OderExtractStep"].ToString() != "UB")
+                            {
+                                btnOrderEdit.Visible = false;
+                            }
                             //btnOrderCancel.Visible = true;
                             //btnUpdateIPOdrder.Visible = true;
 
@@ -836,10 +848,11 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void ViewIPOOrder(int orderId)
         {
-            bool isRMSDebit; bool orderIscanclled;
-            DataTable dtIPOORder = onlineIPOOrderBo.GetIPOIOrderList(orderId, out isRMSDebit, out orderIscanclled);
+            bool isRMSDebit; bool orderIscanclled; string OderExtractStep = string.Empty;
+            DataTable dtIPOORder = onlineIPOOrderBo.GetIPOIOrderList(orderId, out isRMSDebit, out orderIscanclled, out OderExtractStep);
             ViewState["DtIPOViewOrder"] = dtIPOORder;
             ViewState["orderIscanclled"] = orderIscanclled;
+            ViewState["OderExtractStep"] = OderExtractStep;
             BindIPOBidGrid(3);
             ViewState["isRMSDebit"] = isRMSDebit;
             if (dtIPOORder.Rows.Count > 0)
@@ -1020,7 +1033,7 @@ namespace WealthERP.OnlineOrderManagement
 
                     if (DateTime.Now.TimeOfDay > cutOff.TimeOfDay && cutOff.TimeOfDay < System.TimeSpan.Parse("23:59:59"))
                         isCutOffTimeOver = true;
-                   
+
                     if (ViewState["Update"] == null)
                         if (!ValidateIPOOrderUpdate(dtIPOBidTransactionDettails, out message))
                         {
@@ -1029,7 +1042,7 @@ namespace WealthERP.OnlineOrderManagement
                         }
                     if (Convert.ToBoolean(ViewState["isRMSDebit"].ToString()))
                     {
-                        result = onlineIPOOrderBo.UpdateIPOBidOrderDetails(userVo.UserId, dtIPOBidTransactionDettails, int.Parse(Request.QueryString["orderId"]), double.Parse(ViewState["maxPaybleAmount"].ToString()) - maxPaybleBidAmount);
+                        result = onlineIPOOrderBo.UpdateIPOBidOrderDetails(userVo.UserId, dtIPOBidTransactionDettails, int.Parse(Request.QueryString["orderId"]), maxPaybleBidAmount- double.Parse(ViewState["maxPaybleAmount"].ToString()) );
                         if (maxPaybleBidAmount != double.Parse(ViewState["maxPaybleAmount"].ToString()))
                         {
                             if (maxPaybleBidAmount > double.Parse(ViewState["maxPaybleAmount"].ToString()))
@@ -1061,7 +1074,7 @@ namespace WealthERP.OnlineOrderManagement
                             double balance = maxPaybleBidAmount - double.Parse(ViewState["maxPaybleAmount"].ToString());
                             if (maxPaybleBidAmount > double.Parse(ViewState["maxPaybleAmount"].ToString()))
                             {
-                                result = onlineIPOOrderBo.UpdateIPOBidOrderDetails(userVo.UserId, dtIPOBidTransactionDettails, int.Parse(Request.QueryString["orderId"]), double.Parse(ViewState["maxPaybleAmount"].ToString()) - maxPaybleBidAmount);
+                                result = onlineIPOOrderBo.UpdateIPOBidOrderDetails(userVo.UserId, dtIPOBidTransactionDettails, int.Parse(Request.QueryString["orderId"]), maxPaybleBidAmount-double.Parse(ViewState["maxPaybleAmount"].ToString()));
                                 accountDebitStatus = onlineIPOOrderBo.DebitRMSUserAccountBalance(customerVo.AccountId, -balance, int.Parse(Request.QueryString["orderId"]));
                                 ShowMessage("IPO Order Updated Successfully,Order reference no. is " + Request.QueryString["orderId"]);
                                 btnUpdateIPOdrder.Visible = false;
@@ -1069,15 +1082,17 @@ namespace WealthERP.OnlineOrderManagement
                             else
                             {
                                 string returnbalance = balance.ToString();
-                                hdneligible.Value = "Edit";
-                                result = onlineIPOOrderBo.UpdateIPOBidOrderDetails(userVo.UserId, dtIPOBidTransactionDettails, int.Parse(Request.QueryString["orderId"]), double.Parse(ViewState["maxPaybleAmount"].ToString()) - maxPaybleBidAmount);
-                                btnUpdateIPOdrder.Visible = false;
-                                if (ViewState["Update"] == null)
-                                    ShowMessage("Note that amount of RS  " + returnbalance.TrimStart('-') + "  will credited from Registrar.");
-                                else
+                                string confirmValue = Request.Form["confirm_value"];
+                                if (confirmValue == "Yes")
                                 {
-
-                                    ShowMessage("IPO Order is cancelled amount of RS  " + returnbalance.TrimStart('-') + "  will credited from Registrar.");
+                                    result = onlineIPOOrderBo.UpdateIPOBidOrderDetails(userVo.UserId, dtIPOBidTransactionDettails, int.Parse(Request.QueryString["orderId"]), maxPaybleBidAmount - double.Parse(ViewState["maxPaybleAmount"].ToString()));
+                                    btnUpdateIPOdrder.Visible = false;
+                                    if (ViewState["Update"] == null)
+                                        ShowMessage("Note that amount of RS  " + returnbalance.TrimStart('-') + "  will credited from Registrar.");
+                                    else
+                                    {
+                                        ShowMessage("IPO Order is cancelled amount of RS  " + returnbalance.TrimStart('-') + "  will credited from Registrar.");
+                                    }
                                 }
                             }
                             //userMessage = CreateUserMessage(orderId, accountDebitStatus, isCutOffTimeOver, applicationNo, apllicationNoStatus);
@@ -1165,9 +1180,9 @@ namespace WealthERP.OnlineOrderManagement
             {
                 foreach (DataRow dtDestination in dtorder.Rows)
                 {
-                    if (dtsourceorder["BidPrice"].ToString() != null && dtDestination["IPOIssueBidPrice"].ToString() == "" && dtsourceorder["IssueBidNo"].ToString() == dtDestination["IssueBidNo"].ToString())
+                    if (dtsourceorder["BidPrice"].ToString() != "" && dtDestination["IPOIssueBidPrice"].ToString() == "" && dtsourceorder["IssueBidNo"].ToString() == dtDestination["IssueBidNo"].ToString())
                     {
-                        message = "You cannot make BidOption " + dtsourceorder["IssueBidNo"].ToString()+ " blank";
+                        message = "You cannot make BidOption " + dtsourceorder["IssueBidNo"].ToString() + " blank";
                         isvalidateUpdate = false;
                         break;
                     }

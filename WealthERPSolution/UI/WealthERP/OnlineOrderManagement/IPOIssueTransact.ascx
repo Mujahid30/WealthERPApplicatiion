@@ -24,16 +24,15 @@
     function Confirm() {
         var minValue = document.getElementById('<%=hdneligible.ClientID%>').value;
         if (minValue == "Edit")
-            alert('hi');
-        //        var confirm_value = document.createElement("INPUT");
-        //        confirm_value.type = "hidden";
-        //        confirm_value.name = "confirm_value";
-        //        if (confirm("Please note Order cannot be modified once submitted. Would you like to continue ?")) {
-        //            confirm_value.value = "Yes";
-        //        } else {
-        //            confirm_value.value = "No";
-        //        }
-        //        document.forms[0].appendChild(confirm_value);
+            var confirm_value = document.createElement("INPUT");
+        confirm_value.type = "hidden";
+        confirm_value.name = "confirm_value";
+        if (confirm("Order will be cancelled and the amount will be credited by the Registrar. Would you like to continue ?")) {
+            confirm_value.value = "Yes";
+        } else {
+            confirm_value.value = "No";
+        }
+        document.forms[0].appendChild(confirm_value);
     }
 </script>
 
@@ -383,12 +382,12 @@
                         </td>
                         <td align="left" style="width: 10%">
                             <asp:Button ID="btnUpdateIPOdrder" runat="server" CssClass="PCGButton" Text="Update"
-                                OnClick="btnUpdateIPOdrder_OnClick" Visible="false" OnClientClick="Confirm();return PreventClicks(); Validate();"
+                                OnClick="btnUpdateIPOdrder_OnClick" Visible="false" OnClientClick="return PreventClicks(); Validate();"
                                 ValidationGroup="btnConfirmOrder, btnTC" />
                         </td>
                         <td>
                             <asp:Button ID="btnOrderCancel" runat="server" Text="Cancel Order" CssClass="PCGButton"
-                                ToolTip="Cancel" OnClick="btnOrderCancel_OnClick" Visible="false" />
+                                ToolTip="Cancel" OnClick="btnOrderCancel_OnClick" Visible="false" OnClientClick="Confirm();return PreventClicks();" />
                         </td>
                     </tr>
                     <tr>
