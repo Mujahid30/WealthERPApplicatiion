@@ -113,6 +113,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkTermsCondition;
         protected global::System.Web.UI.WebControls.HiddenField hdneligible;
+        protected global::System.Web.UI.WebControls.HiddenField hdnOrderCancel;
         /// <summary>
         /// lnkTermsCondition control.
         /// </summary>

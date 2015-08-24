@@ -27,12 +27,14 @@
             var confirm_value = document.createElement("INPUT");
         confirm_value.type = "hidden";
         confirm_value.name = "confirm_value";
-        if (confirm("Order will be cancelled and the amount will be credited by the Registrar. Would you like to continue ?")) {
-            confirm_value.value = "Yes";
+        if (confirm("Are you sure you want to cancel the order?")) {
+            document.getElementById("<%= hdnOrderCancel.ClientID %>").value = "Yes";
         } else {
-            confirm_value.value = "No";
+            document.getElementById("<%= hdnOrderCancel.ClientID %>").value = "No";
         }
-        document.forms[0].appendChild(confirm_value);
+        //        document.forms[0].appendChild(confirm_value);
+
+
     }
 </script>
 
@@ -125,7 +127,7 @@
                             <telerik:RadGrid ID="RadGridIPOIssueList" runat="server" AllowSorting="True" enableloadondemand="True"
                                 PageSize="10" AllowPaging="false" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="false" PagerStyle-AlwaysVisible="false" ShowStatusBar="True"
-                                Skin="Telerik" AllowFilteringByColumn="false">
+                                Skin="Telerik" AllowFilteringByColumn="false" OnNeedDataSource="RadGridIPOIssueList_OnNeedDataSource">
                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIIC_PriceDiscountType,AIM_IsMultipleApplicationsallowed,AIIC_PriceDiscountValue,AIM_CutOffTime,AIM_TradingInMultipleOf,AIM_MInQty,AIM_MaxQty,AIIC_MInBidAmount,AIIC_MaxBidAmount,AIM_CloseDate"
                                     AutoGenerateColumns="false" Width="100%" PagerStyle-AlwaysVisible="false">
                                     <Columns>
@@ -383,11 +385,11 @@
                         <td align="left" style="width: 10%">
                             <asp:Button ID="btnUpdateIPOdrder" runat="server" CssClass="PCGButton" Text="Update"
                                 OnClick="btnUpdateIPOdrder_OnClick" Visible="false" OnClientClick="return PreventClicks(); Validate();"
-                                ValidationGroup="btnConfirmOrder, btnTC" />
+                                ValidationGroup="btnConfirmOrder" />
                         </td>
                         <td>
                             <asp:Button ID="btnOrderCancel" runat="server" Text="Cancel Order" CssClass="PCGButton"
-                                ToolTip="Cancel" OnClick="btnOrderCancel_OnClick" Visible="false" OnClientClick="Confirm();return PreventClicks();" />
+                                ToolTip="Cancel" OnClick="btnOrderCancel_OnClick" Visible="false" OnClientClick="Confirm();" />
                         </td>
                     </tr>
                     <tr>
@@ -444,6 +446,7 @@
             </Windows>
         </telerik:RadWindowManager>
         <asp:HiddenField ID="hdneligible" runat="server" />
+        <asp:HiddenField ID="hdnOrderCancel" runat="server" />
     </ContentTemplate>
     <Triggers>
     </Triggers>
