@@ -77,7 +77,7 @@ namespace WealthERP.OnlineOrderManagement
                     {
                         if (ViewState["OderExtractStep"].ToString() == "" || ViewState["OderExtractStep"].ToString() == "UB")
                         {
-                            btnOrderCancel.Visible = true;
+                            btnOrderCancel.Visible = false;
                             btnUpdateIPOdrder.Visible = true;
                         }
                     }
@@ -384,7 +384,7 @@ namespace WealthERP.OnlineOrderManagement
                     txtBidPrice.CssClass = "txtField";
                     if (Request.QueryString["orderId"] != null)
                     {
-                        btnOrderEdit.Visible = true;
+                        btnOrderEdit.Visible = false;
                         //btnOrderCancel.Visible = true;
                     }
 
@@ -801,18 +801,22 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 if (Request.QueryString["orderId"] != null && (e.Item.ItemIndex != -1))
                 {
+                    RadGridIPOBid.MasterTableView.GetColumn("COID_ExchangeRefrenceNo").Visible = true;
+                    RadGridIPOBid.MasterTableView.GetColumn("TransactionType").Visible = true;
+                    CheckBox chkCutOff = (CheckBox)dataform.FindControl("cbCutOffCheck");
                     TextBox txtBidQuantity = (TextBox)dataform.FindControl("txtBidQuantity");
                     TextBox txtBidPrice = (TextBox)dataform.FindControl("txtBidPrice");
-                    RadGridIPOBid.MasterTableView.GetColumn("COID_ExchangeRefrenceNo").Visible = true;
-                    RadGridIPOBid.MasterTableView.GetColumn("DeleteBid").Visible = true;
-                    RadGridIPOBid.MasterTableView.GetColumn("TransactionType").Visible = true;
-                    txtBidQuantity.Enabled = false;
-                    txtBidPrice.Enabled = false;
-                    //btnOrderCancel.Visible = true;
-                    //btnOrderEdit.Visible = true;
-                    CheckBox chkCutOff = (CheckBox)dataform.FindControl("cbCutOffCheck");
-                    chkCutOff.Enabled = false;
                     int count = 0;
+                    if (ViewState["Checked"] == null)
+                    {
+                        if (chkCutOff.Checked)
+                            ViewState["Checked"] = 1;
+                    }
+                    if (ViewState["Checked"] != null)
+                    {
+                        txtBidQuantity.Enabled = false;
+                        txtBidPrice.Enabled = false;
+                    }
                     if (ViewState["OderExtractStep"].ToString() != "" && ViewState["OderExtractStep"].ToString() != "UB")
                     {
                         btnOrderEdit.Visible = false;
@@ -826,19 +830,17 @@ namespace WealthERP.OnlineOrderManagement
                     if (chkCutOff.Checked && (transactionType != "D" || transactionType != "ND"))
                     {
                         ViewState["cout"] = count++;
-                        btnOrderEdit.Visible = true;
+                        btnOrderEdit.Visible = false;
                     }
                     else
                     {
                         if (ViewState["cout"] == null && transactionType != "D" && transactionType != "ND")
                         {
-                            btnOrderEdit.Visible = true;
+                            btnOrderEdit.Visible = false;
                             if (ViewState["OderExtractStep"].ToString() != "" && ViewState["OderExtractStep"].ToString() != "UB")
                             {
                                 btnOrderEdit.Visible = false;
                             }
-                            //btnOrderCancel.Visible = true;
-                            //btnUpdateIPOdrder.Visible = true;
 
                         }
                     }
@@ -1103,7 +1105,6 @@ namespace WealthERP.OnlineOrderManagement
                             else
                             {
                                 string returnbalance = balance.ToString();
-
                                 result = onlineIPOOrderBo.UpdateIPOBidOrderDetails(userVo.UserId, dtIPOBidTransactionDettails, int.Parse(Request.QueryString["orderId"]), maxPaybleBidAmount - double.Parse(ViewState["maxPaybleAmount"].ToString()));
                                 btnUpdateIPOdrder.Visible = false;
                                 btnOrderCancel.Visible = false;

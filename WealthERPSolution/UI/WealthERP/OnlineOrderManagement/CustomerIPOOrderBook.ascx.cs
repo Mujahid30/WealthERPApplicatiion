@@ -174,28 +174,52 @@ namespace WealthERP.OnlineOrderManagement
                 //LinkButton MarkAsReject = (LinkButton)dataItem.FindControl("MarkAsReject");
                 DropDownList ddlAction = (DropDownList)dataItem.FindControl("ddlAction");
                 LinkButton buttonEdit = dataItem["MarkAsReject"].Controls[0] as LinkButton;
-                string extractionStepCode = orderStep; 
+                string extractionStepCode = orderStep;
+                bool IsCancelAllowed = Convert.ToBoolean(RadGridIssueIPOBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IsCancelAllowed"]);
                bool isModification=   Convert.ToBoolean(RadGridIssueIPOBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IsModificationAllowed"]);
                 string CloseDate = Convert.ToString(RadGridIssueIPOBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["IssueEndDateANDTime"]);
-                if(isModification == false)
-                      ddlAction.Items[2].Enabled = false;
+                orderId = int.Parse(RadGridIssueIPOBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
+                string orderstep = onlineIPOOrderBo.IPOOrderExtractStep(orderId);
+                if(orderstep!="" && orderstep !="UB")
+                    ddlAction.Items[1].Enabled = false;
+                if(IsCancelAllowed==false)
+                    ddlAction.Items[2].Enabled = false;
+                if (isModification == false)
+                {
+                    ddlAction.Items[1].Enabled = false;
+                }
                 if (Iscancel == "CANCELLED" || Iscancel == "EXECUTED" || Iscancel == "ACCEPTED" || Iscancel == "REJECTED")
                 {
                     buttonEdit.Enabled = false;
+                    ddlAction.Items[1].Enabled = false;
                     ddlAction.Items[2].Enabled = false;
                 }
                
                 if (Convert.ToDateTime(CloseDate)<= DateTime.Now )
                 {
+                    ddlAction.Items[1].Enabled = false;
                     ddlAction.Items[2].Enabled = false;
                     buttonEdit.Enabled = false;
                 }
-                if (isModification != false && Iscancel != "CANCELLED" && Iscancel != "EXECUTED" && Iscancel != "ACCEPTED" && Iscancel != "REJECTED")
+                if (isModification != false && Iscancel != "CANCELLED" && Iscancel != "EXECUTED" && Iscancel != "ACCEPTED" && Iscancel != "REJECTED" &&(orderstep =="" || orderstep =="UB"))
+                {
+                    ddlAction.Items[1].Enabled = true;
+                }
+                if (IsCancelAllowed != false && Iscancel != "CANCELLED" && Iscancel != "EXECUTED" && Iscancel != "ACCEPTED" && Iscancel != "REJECTED" && (orderstep == "" || orderstep == "UB"))
                 {
                     ddlAction.Items[2].Enabled = true;
                 }
+
                 if (Iscancel == "ORDERED" && isModification != false)
+                {
+                    ddlAction.Items[1].Enabled = true;
+                }
+                if (Iscancel == "ORDERED" && IsCancelAllowed != false)
+                {
                     ddlAction.Items[2].Enabled = true;
+
+                }
+
             }
         }
         protected void btnExpandAll_Click(object sender, EventArgs e)
@@ -312,16 +336,51 @@ namespace WealthERP.OnlineOrderManagement
             string CloseDate = Convert.ToString(RadGridIssueIPOBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["IssueEndDateANDTime"]);
             int issueId = int.Parse(RadGridIssueIPOBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AIM_IssueId"].ToString());
             string Iscancel = Convert.ToString(RadGridIssueIPOBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["WOS_OrderStep"]);
-          
-            if (Session["PageDefaultSetting"] != null)
+            double maxamount = Convert.ToDouble(RadGridIssueIPOBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["COID_MaxBidAmt"]);
+            string orderstep = onlineIPOOrderBo.IPOOrderExtractStep(orderId);
+           bool result = false;
+           bool accountDebitStatus = false;
+            if (ddlAction.SelectedValue == "Edit")
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl( 'IPOIssueTransact','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&OrderStepCode=" + OrderStepCode + "&CloseDate=" + CloseDate + "&issueIds=" + issueId + "&Iscancel=" + Iscancel + "');", true);
+                if (orderstep == "" || orderstep == "UB")
+                {
+                    if (Session["PageDefaultSetting"] != null)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl( 'IPOIssueTransact','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&OrderStepCode=" + OrderStepCode + "&CloseDate=" + CloseDate + "&issueIds=" + issueId + "&Iscancel=" + Iscancel + "');", true);
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "IPOIssueTransact", "loadcontrol( 'IPOIssueTransact','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&OrderStepCode=" + OrderStepCode + "&CloseDate=" + CloseDate + "&issueIds=" + issueId + "&Iscancel=" + Iscancel + "');", true);
+                    }
+                }
+                else
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Your Order is in process so you can not modify');", true);
             }
             else
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "IPOIssueTransact", "loadcontrol( 'IPOIssueTransact','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&OrderStepCode=" + OrderStepCode + "&CloseDate=" + CloseDate + "&issueIds=" + issueId + "&Iscancel=" + Iscancel + "');", true);
+                hdneligible.Value = "Yes";
+                string confirmValue = hdnAmount.Value;
+                if (confirmValue == "Yes")
+                {
+                    if (OrderStepCode != "ORDERED")
+                    {
+                        result = onlineIPOOrderBo.CustomerIPOOrderCancelle(orderId, "ORDERED");
+                        if (result == true)
+                        {
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('IPO Order is cancelled amount of RS  " + maxamount + "  will credited from Registrar.');", true);
+                        }
+                    }
+                    else
+                    {
+                        result = onlineIPOOrderBo.CustomerIPOOrderCancelle(orderId, "INPROCESS");
+                        if (result == true)
+                        {
+                            accountDebitStatus = onlineIPOOrderBo.DebitRMSUserAccountBalance(customerVo.AccountId, +maxamount, int.Parse(Request.QueryString["orderId"]));
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('IPO Order is cancelled" + orderId + "');", true);
+                        }
+                    }
+                }
             }
-
         }
     }
 }

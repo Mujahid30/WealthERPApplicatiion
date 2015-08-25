@@ -158,7 +158,7 @@ namespace BoOnlineOrderManagement
             }
             return dtCustomerIPOIssueChildBook;
         }
-        public DataTable GetIPOIOrderList(int orderId, out bool isRMSDebited, out bool orderIscanclled,out string OderExtractStep)
+        public DataTable GetIPOIOrderList(int orderId, out bool isRMSDebited, out bool orderIscanclled, out string OderExtractStep)
         {
             DataTable dtGetIPOIOrderList;
             OnlineIPOOrderDao onlineIPOOrderDao = new OnlineIPOOrderDao();
@@ -232,6 +232,60 @@ namespace BoOnlineOrderManagement
                 object[] objects = new object[1];
                 objects[0] = CustomerId;
                 objects[1] = AIMissueId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return result;
+        }
+
+        public string IPOOrderExtractStep(int orderId)
+        {
+            string orderStep = string.Empty;
+            OnlineIPOOrderDao onlineIPOOrderDao = new OnlineIPOOrderDao();
+            try
+            {
+                orderStep = onlineIPOOrderDao.IPOOrderExtractStep(orderId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "BoOnlineOrderManagement.cs:IPOOrderExtractStep(int orderId)");
+                object[] objects = new object[1];
+                objects[0] = orderId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return orderStep;
+        }
+        public bool CustomerIPOOrderCancelle(int orderId, string orderstatus)
+        {
+            bool result = false;
+            OnlineIPOOrderDao onlineIPOOrderDao = new OnlineIPOOrderDao();
+            try
+            {
+                result = onlineIPOOrderDao.CustomerIPOOrderCancelle(orderId, orderstatus);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "BoOnlineOrderManagement.cs:CustomerMultipleOrder(int CustomerId, int AIMissueId)");
+                object[] objects = new object[1];
+                objects[0] = orderId;
+                objects[1] = orderstatus;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);

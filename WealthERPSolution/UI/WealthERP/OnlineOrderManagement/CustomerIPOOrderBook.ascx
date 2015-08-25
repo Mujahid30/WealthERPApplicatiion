@@ -5,21 +5,17 @@
 </asp:ScriptManager>
 
 <script type="text/javascript">
-    function Confirm() {
-        var minValue = document.getElementById('<%=hdneligible.ClientID%>').value;
-        if (minValue == "Edit") {
-            var amount = document.getElementById('<%=hdnAmount.ClientID%>').value;
-            var confirm_value = document.createElement("INPUT");
-            confirm_value.type = "hidden";
-            confirm_value.name = "confirm_value";
-            if (confirm("Differential amt. RS. " + amount + "  will be credited from registrar \n Do you want to cancel?")) {
-                confirm_value.value = "Yes";
-            } else {
-                confirm_value.value = "No";
+    function GetBalanceQty(value) {
+
+        if (value == "Cancel") 
+        {
+            if (confirm('Are you sure you want to cancel the order?')) {
+                document.getElementById("<%= hdnAmount.ClientID %>").value = "Yes";
             }
-            document.forms[0].appendChild(confirm_value);
+            else
+                document.getElementById("<%= hdnAmount.ClientID %>").value = "No";
         }
-       
+
     }
 </script>
 
@@ -129,7 +125,7 @@
                                 Skin="Telerik" EnableEmbeddedSkins="false" ClientSettings-AllowColumnsReorder="true"
                                 AllowAutomaticInserts="false" OnNeedDataSource="RadGridIssueIPOBook_OnNeedDataSource"
                                 OnItemDataBound="RadGridIssueIPOBook_OnItemDataBound" OnItemCommand="RadGridIssueIPOBook_OnItemCommand">
-                                <MasterTableView DataKeyNames="CO_OrderId,C_CustomerId,PAG_AssetGroupCode,CO_OrderDate,WOS_OrderStep,C_CustCode,Amounttoinvest,AIM_IssueId,IssueEndDateANDTime,AIM_IsModificationAllowed"
+                                <MasterTableView DataKeyNames="CO_OrderId,C_CustomerId,PAG_AssetGroupCode,CO_OrderDate,WOS_OrderStep,C_CustCode,Amounttoinvest,AIM_IssueId,IssueEndDateANDTime,AIM_IsModificationAllowed,AIM_IsCancelAllowed,COID_MaxBidAmt"
                                     AllowFilteringByColumn="true" Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
                                     CommandItemDisplay="None">
                                     <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
@@ -144,10 +140,10 @@
                                         <telerik:GridTemplateColumn AllowFiltering="false">
                                             <ItemTemplate>
                                                 <asp:DropDownList ID="ddlAction" runat="server" CssClass="cmbField" AutoPostBack="true"
-                                                    OnSelectedIndexChanged="ddlAction_OnSelectedIndexChanged">
+                                                    OnSelectedIndexChanged="ddlAction_OnSelectedIndexChanged" onchange="GetBalanceQty(this.options[this.selectedIndex].value);">
                                                     <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
-                                                    <asp:ListItem Text="View" Value="View" Enabled="false"></asp:ListItem>
                                                     <asp:ListItem Text="Modify" Value="Edit"></asp:ListItem>
+                                                    <asp:ListItem Text="Order Cancel" Value="Cancel" ></asp:ListItem>
                                                 </asp:DropDownList>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>

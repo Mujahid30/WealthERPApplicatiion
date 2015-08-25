@@ -341,6 +341,74 @@ namespace DaoOnlineOrderManagement
             }
             return result;
         }
+        public string IPOOrderExtractStep(int orderId)
+        {
+            Database db;
+            DbCommand cmdIPOOrderExtractStep;
+            string orderStep = string.Empty;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdIPOOrderExtractStep = db.GetStoredProcCommand("SPROC_ONL_IPOOrderStep");
+                db.AddInParameter(cmdIPOOrderExtractStep, "@orderId", DbType.Int32, orderId);
+                db.AddOutParameter(cmdIPOOrderExtractStep, "@orderStep", DbType.String, 20);
+                if (db.ExecuteNonQuery(cmdIPOOrderExtractStep) != 0)
+                {
+                    orderStep = db.GetParameterValue(cmdIPOOrderExtractStep, "orderStep").ToString();
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:IPOOrderExtractStep()");
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return orderStep;
+        }
+        public bool CustomerIPOOrderCancelle(int orderId, string orderstatus)
+        {
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand cmdCheckBankisActive;
+            bool result = false;
+            try
+            {
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdCheckBankisActive = db.GetStoredProcCommand("SPROC_ONL_CancelIPOApplicationOrder");
+                db.AddInParameter(cmdCheckBankisActive, "@orderId", DbType.Int32, orderId);
+                db.AddInParameter(cmdCheckBankisActive, "@Orderstep", DbType.String, orderstatus);
+                if (db.ExecuteNonQuery(cmdCheckBankisActive) != 0)
+                    result = true;
+               
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:CustomerIPOOrderCancelle(int orderId, string orderstatus)");
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return result;
+        }
     }
 
 }

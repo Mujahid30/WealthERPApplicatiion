@@ -378,15 +378,16 @@
                                 OnClientClick="return PreventClicks(); Validate();" CssClass="PCGMediumButton"
                                 ValidationGroup="btnConfirmOrder, btnTC" />
                         </td>
-                        <td>
-                            <asp:LinkButton runat="server" ID="lnlBack" CssClass="LinkButtons" Text="Click here to view the issue list"
-                                Visible="false" OnClick="lnlktoviewIPOissue_Click"></asp:LinkButton>
-                        </td>
-                        <td align="left" style="width: 10%">
+                          <td align="left" style="width: 10%">
                             <asp:Button ID="btnUpdateIPOdrder" runat="server" CssClass="PCGButton" Text="Update"
                                 OnClick="btnUpdateIPOdrder_OnClick" Visible="false" OnClientClick="return PreventClicks(); Validate();"
                                 ValidationGroup="btnConfirmOrder" />
                         </td>
+                        <td>
+                            <asp:LinkButton runat="server" ID="lnlBack" CssClass="LinkButtons" Text="Click here to view the issue list"
+                                Visible="false" OnClick="lnlktoviewIPOissue_Click"></asp:LinkButton>
+                        </td>
+                      
                         <td>
                             <asp:Button ID="btnOrderCancel" runat="server" Text="Cancel Order" CssClass="PCGButton"
                                 ToolTip="Cancel" OnClick="btnOrderCancel_OnClick" Visible="false" OnClientClick="Confirm();" />
