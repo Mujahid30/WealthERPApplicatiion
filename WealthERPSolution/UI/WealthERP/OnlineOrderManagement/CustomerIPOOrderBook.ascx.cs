@@ -180,8 +180,12 @@ namespace WealthERP.OnlineOrderManagement
                 string CloseDate = Convert.ToString(RadGridIssueIPOBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["IssueEndDateANDTime"]);
                 orderId = int.Parse(RadGridIssueIPOBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
                 string orderstep = onlineIPOOrderBo.IPOOrderExtractStep(orderId);
-                if(orderstep!="" && orderstep !="UB")
+                if (orderstep != "" && orderstep != "UB")
+                {
                     ddlAction.Items[1].Enabled = false;
+                    ddlAction.Items[2].Enabled = false;
+
+                }
                 if(IsCancelAllowed==false)
                     ddlAction.Items[2].Enabled = false;
                 if (isModification == false)
@@ -353,8 +357,8 @@ namespace WealthERP.OnlineOrderManagement
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "IPOIssueTransact", "loadcontrol( 'IPOIssueTransact','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&OrderStepCode=" + OrderStepCode + "&CloseDate=" + CloseDate + "&issueIds=" + issueId + "&Iscancel=" + Iscancel + "');", true);
                     }
                 }
-                else
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Your Order is in process so you can not modify');", true);
+                //else
+                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Your Order is in process so you can not modify');", true);
             }
             else
             {
@@ -376,7 +380,7 @@ namespace WealthERP.OnlineOrderManagement
                         if (result == true)
                         {
                             accountDebitStatus = onlineIPOOrderBo.DebitRMSUserAccountBalance(customerVo.AccountId, +maxamount, orderId);
-                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('IPO Order is cancelled" + orderId + "');", true);
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('IPO Order is cancelled Order reference no. is  " + orderId + "');", true);
                         }
                     }
                 }
