@@ -362,7 +362,7 @@ namespace WealthERP.OnlineOrderManagement
                 string confirmValue = hdnAmount.Value;
                 if (confirmValue == "Yes")
                 {
-                    if (OrderStepCode != "ORDERED")
+                    if (OrderStepCode == "ORDERED")
                     {
                         result = onlineIPOOrderBo.CustomerIPOOrderCancelle(orderId, "ORDERED");
                         if (result == true)
@@ -375,7 +375,7 @@ namespace WealthERP.OnlineOrderManagement
                         result = onlineIPOOrderBo.CustomerIPOOrderCancelle(orderId, "INPROCESS");
                         if (result == true)
                         {
-                            accountDebitStatus = onlineIPOOrderBo.DebitRMSUserAccountBalance(customerVo.AccountId, +maxamount, int.Parse(Request.QueryString["orderId"]));
+                            accountDebitStatus = onlineIPOOrderBo.DebitRMSUserAccountBalance(customerVo.AccountId, +maxamount, orderId);
                             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('IPO Order is cancelled" + orderId + "');", true);
                         }
                     }
