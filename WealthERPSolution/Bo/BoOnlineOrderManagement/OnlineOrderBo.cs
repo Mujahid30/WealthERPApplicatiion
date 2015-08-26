@@ -21,11 +21,11 @@ namespace BoOnlineOrderManagement
     {
         public bool DebitRMSUserAccountBalance(string userAccountId, double amount, int orderId)
         {
-            bool result = false; 
+            bool result = false;
             string Response = string.Empty;
             OnlineOrderDao onlineOrderDao = new OnlineOrderDao();
             string rmsAPI = ConfigurationSettings.AppSettings["RMS_USER_ACCOUNT_BALANCE_API"];
-            DataTable dt= new DataTable();
+            DataTable dt = new DataTable();
             try
             {
                 rmsAPI = rmsAPI.Replace("#UserAccountId#", userAccountId);
@@ -38,25 +38,25 @@ namespace BoOnlineOrderManagement
                 //dt = theDataSet.Tables[0];
                 if (Response.Contains("TRUE"))
                 {
-                    onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 1, string.Empty, "RMSREsponse:-" + Response,null );
+                    onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 1, string.Empty, "RMSREsponse:-" + Response);
                     result = true;
 
-                }               
+                }
                 else if (Response.Contains("FALSE"))
                 {
-                    onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 0, string.Empty, "RMSREsponse:-" + Response,null);
+                    onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 0, string.Empty, "RMSREsponse:-" + Response);
 
                 }
                 else if (!Response.Contains("TRUE") || !Response.Contains("FALSE"))
                 {
-                    onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 2, string.Empty, "RMSREsponse:-" + Response, null);
+                    onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 2, string.Empty, "RMSREsponse:-" + Response);
 
                 }
 
             }
             catch (Exception Ex)
             {
-                onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 0, string.Empty, ("RMSREsponse:-" + Response + "ERROR:-" + Ex.Message),null);
+                onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 0, string.Empty, ("RMSREsponse:-" + Response + "ERROR:-" + Ex.Message));
 
             }
             return result;
@@ -181,6 +181,40 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
             return dt;
+        }
+        public bool DebitRMSUserAccountBalanceOrderUpdate(string userAccountId, double amount, int orderId)
+        {
+            bool result = false;
+            string Response = string.Empty;
+            OnlineOrderDao onlineOrderDao = new OnlineOrderDao();
+            string rmsAPI = ConfigurationSettings.AppSettings["RMS_USER_ACCOUNT_BALANCE_API"];
+            DataTable dt = new DataTable();
+            try
+            {
+                rmsAPI = rmsAPI.Replace("#UserAccountId#", userAccountId);
+                rmsAPI = rmsAPI.Replace("#Amount#", amount.ToString());
+                onlineOrderDao.UpdateOrderRMSAccountDebitRequestTime(orderId, Convert.ToDecimal(amount));
+                Response = TrigerAPI(rmsAPI);
+                if (Response.Contains("TRUE"))
+                {
+                    onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 1, string.Empty, "RMSREsponse:-" + Response);
+                    result = true;
+
+                }
+                else if (Response.Contains("FALSE"))
+                {
+                    result = false;
+
+                }
+
+            }
+            catch (Exception Ex)
+            {
+                result = false;
+
+            }
+            return result;
+
         }
     }
 }

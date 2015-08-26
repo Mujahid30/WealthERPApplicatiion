@@ -75,11 +75,11 @@ namespace WealthERP.OnlineOrderManagement
                     }
                     else
                     {
-                        //if (ViewState["OderExtractStep"].ToString() == "" || ViewState["OderExtractStep"].ToString() == "UB")
-                        //{
+                        if (ViewState["OderExtractStep"].ToString() == "" || ViewState["OderExtractStep"].ToString() == "UB")
+                        {
                             btnOrderCancel.Visible = false;
                             btnUpdateIPOdrder.Visible = true;
-                        //}
+                        }
                     }
                     ShowAvailableLimits();
                     btnConfirmOrder.Visible = false;
@@ -830,8 +830,8 @@ namespace WealthERP.OnlineOrderManagement
                         btnOrderEdit.Visible = false;
                         lnkTermsCondition.Enabled = false;
                     }
-                    
-                   
+
+
                 }
 
             }
@@ -1042,6 +1042,11 @@ namespace WealthERP.OnlineOrderManagement
 
                     if (DateTime.Now.TimeOfDay > cutOff.TimeOfDay && cutOff.TimeOfDay < System.TimeSpan.Parse("23:59:59"))
                         isCutOffTimeOver = true;
+                    if (!CheckIPOBidOrderChange(dtIPOBidTransactionDettails, out message))
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You have not change any bid');", true);
+                        return;
+                    }
 
                     if (ViewState["Update"] == null)
                         if (!ValidateIPOOrderUpdate(dtIPOBidTransactionDettails, out message))
@@ -1051,30 +1056,37 @@ namespace WealthERP.OnlineOrderManagement
                         }
                     if (Convert.ToBoolean(ViewState["isRMSDebit"].ToString()))
                     {
-                        result = onlineIPOOrderBo.UpdateIPOBidOrderDetails(userVo.UserId, dtIPOBidTransactionDettails, int.Parse(Request.QueryString["orderId"]), maxPaybleBidAmount - double.Parse(ViewState["maxPaybleAmount"].ToString()));
                         if (maxPaybleBidAmount != double.Parse(ViewState["maxPaybleAmount"].ToString()))
                         {
                             if (maxPaybleBidAmount > double.Parse(ViewState["maxPaybleAmount"].ToString()))
                             {
                                 double balance = maxPaybleBidAmount - double.Parse(ViewState["maxPaybleAmount"].ToString());
-                                accountDebitStatus = onlineIPOOrderBo.DebitRMSUserAccountBalance(customerVo.AccountId, -balance, int.Parse(Request.QueryString["orderId"]));
+                                accountDebitStatus = onlineIPOOrderBo.DebitRMSUserAccountBalanceOrderUpdate(customerVo.AccountId, -balance, int.Parse(Request.QueryString["orderId"]));
+                                if (accountDebitStatus == true)
+                                    result = onlineIPOOrderBo.UpdateIPOBidOrderDetails(userVo.UserId, dtIPOBidTransactionDettails, int.Parse(Request.QueryString["orderId"]), maxPaybleBidAmount - double.Parse(ViewState["maxPaybleAmount"].ToString()));
+                                else
+                                {
+                                    ShowMessage("Please allocate the adequate amount to update the order successfully.");
+                                    return;
+                                }
                             }
                             else
                             {
+                                result = onlineIPOOrderBo.UpdateIPOBidOrderDetails(userVo.UserId, dtIPOBidTransactionDettails, int.Parse(Request.QueryString["orderId"]), maxPaybleBidAmount - double.Parse(ViewState["maxPaybleAmount"].ToString()));
                                 double balance = double.Parse(ViewState["maxPaybleAmount"].ToString()) - maxPaybleBidAmount;
                                 accountDebitStatus = onlineIPOOrderBo.DebitRMSUserAccountBalance(customerVo.AccountId, +balance, int.Parse(Request.QueryString["orderId"]));
                             }
+
                             availableBalance = (double)onlineIPOOrderBo.GetUserRMSAccountBalance(customerVo.AccountId);
                             lblAvailableLimits.Text = Convert.ToInt64(availableBalance).ToString();
                         }
-                        btnUpdateIPOdrder.Visible = false;
-                        btnOrderCancel.Visible = false;
-                        if (ViewState["Update"] == null)
-                            ShowMessage("IPO Order Updated Successfully,Order reference no. is " + Request.QueryString["orderId"]);
                         else
                         {
-                            ShowMessage("IPO Order is cancelled,reference no. is " + Request.QueryString["orderId"]);
+                            result = onlineIPOOrderBo.UpdateIPOBidOrderDetails(userVo.UserId, dtIPOBidTransactionDettails, int.Parse(Request.QueryString["orderId"]), maxPaybleBidAmount - double.Parse(ViewState["maxPaybleAmount"].ToString()));
                         }
+                        btnUpdateIPOdrder.Visible = false;
+                        btnOrderCancel.Visible = false;
+                        ShowMessage("IPO Order Updated Successfully,Order reference no. is " + Request.QueryString["orderId"]);
                     }
                     else
                     {
@@ -1083,11 +1095,19 @@ namespace WealthERP.OnlineOrderManagement
                             double balance = maxPaybleBidAmount - double.Parse(ViewState["maxPaybleAmount"].ToString());
                             if (maxPaybleBidAmount > double.Parse(ViewState["maxPaybleAmount"].ToString()))
                             {
-                                result = onlineIPOOrderBo.UpdateIPOBidOrderDetails(userVo.UserId, dtIPOBidTransactionDettails, int.Parse(Request.QueryString["orderId"]), maxPaybleBidAmount - double.Parse(ViewState["maxPaybleAmount"].ToString()));
-                                accountDebitStatus = onlineIPOOrderBo.DebitRMSUserAccountBalance(customerVo.AccountId, -balance, int.Parse(Request.QueryString["orderId"]));
+                                accountDebitStatus = onlineIPOOrderBo.DebitRMSUserAccountBalanceOrderUpdate(customerVo.AccountId, -balance, int.Parse(Request.QueryString["orderId"]));
+                                if (accountDebitStatus == true)
+                                {
+                                    result = onlineIPOOrderBo.UpdateIPOBidOrderDetails(userVo.UserId, dtIPOBidTransactionDettails, int.Parse(Request.QueryString["orderId"]), maxPaybleBidAmount - double.Parse(ViewState["maxPaybleAmount"].ToString()));
+                                    ShowMessage("IPO Order Updated Successfully,Order reference no. is " + Request.QueryString["orderId"]);
+                                }
+                                else
+                                {
+                                    ShowMessage("Please allocate the adequate amount to update the order successfully.");
+                                    return;
+                                }
                                 availableBalance = (double)onlineIPOOrderBo.GetUserRMSAccountBalance(customerVo.AccountId);
                                 lblAvailableLimits.Text = Convert.ToInt64(availableBalance).ToString();
-                                ShowMessage("IPO Order Updated Successfully,Order reference no. is " + Request.QueryString["orderId"]);
                                 btnUpdateIPOdrder.Visible = false;
                                 btnOrderCancel.Visible = false;
                             }
@@ -1097,31 +1117,14 @@ namespace WealthERP.OnlineOrderManagement
                                 result = onlineIPOOrderBo.UpdateIPOBidOrderDetails(userVo.UserId, dtIPOBidTransactionDettails, int.Parse(Request.QueryString["orderId"]), maxPaybleBidAmount - double.Parse(ViewState["maxPaybleAmount"].ToString()));
                                 btnUpdateIPOdrder.Visible = false;
                                 btnOrderCancel.Visible = false;
-                                if (ViewState["Update"] == null)
-                                    ShowMessage("Note that amount of RS  " + returnbalance.TrimStart('-') + "  will credited from Registrar.");
-                                else
-                                {
-                                    ShowMessage("IPO Order is cancelled amount of RS  " + returnbalance.TrimStart('-') + "  will credited from Registrar.");
-                                }
-
+                                ShowMessage("Note that amount of RS  " + returnbalance.TrimStart('-') + "  will credited from Registrar.");
                             }
                         }
                         else
                         {
                             result = onlineIPOOrderBo.UpdateIPOBidOrderDetails(userVo.UserId, dtIPOBidTransactionDettails, int.Parse(Request.QueryString["orderId"]), maxPaybleBidAmount - double.Parse(ViewState["maxPaybleAmount"].ToString()));
                             ShowMessage("IPO Order Updated Successfully,Order reference no. is " + Request.QueryString["orderId"]);
-
-                            //userMessage = CreateUserMessage(orderId, accountDebitStatus, isCutOffTimeOver, applicationNo, apllicationNoStatus);
-                            //}
-                            //else
-                            //{
-                            //    userMessage = CreateUserMessage(orderId, false, isCutOffTimeOver, applicationNo, apllicationNoStatus);
-                            //}
                         }
-                        //else
-                        //{
-                        //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('" + message + "');", true);
-                        //    return;
                     }
                 }
             }
@@ -1213,6 +1216,38 @@ namespace WealthERP.OnlineOrderManagement
 
                 }
             }
+            return isvalidateUpdate;
+        }
+        protected bool CheckIPOBidOrderChange(DataTable dtorder, out string message)
+        {
+            message = string.Empty;
+            bool isvalidateUpdate = true;
+            DataTable dtIPOORder = (DataTable)ViewState["DtIPOViewOrder"];
+            {
+                DataTable dtMerged = (from a in dtorder.AsEnumerable()
+                                      join b in dtIPOORder.AsEnumerable()
+                                      on new { X = a["IPOIssueBidPrice"].ToString(), Y = a["IPOIssueBidQuantity"].ToString() } equals new { X = b["BidPrice"].ToString(), Y = b["BidQty"].ToString() }
+                                      into g
+                                      where g.Count() > 0
+                                      select a).CopyToDataTable();
+
+                int count = dtMerged.Rows.Count;
+                if (count == 3)
+                    isvalidateUpdate = false;
+            }
+            //foreach (DataRow dtsourceorder in dtIPOORder.Rows)
+            //{
+            //    foreach (DataRow dtDestination in dtorder.Rows)
+            //    {
+            //        if ((dtsourceorder["BidPrice"].ToString() == dtDestination["IPOIssueBidPrice"].ToString() || dtsourceorder["BidQty"].ToString() == dtDestination["IPOIssueBidQuantity"].ToString()) && dtsourceorder["IssueBidNo"].ToString() == dtDestination["IssueBidNo"].ToString())
+            //        {
+            //            message = "You have not made any change to bid";
+            //            isvalidateUpdate = false;
+            //            break;
+            //        }
+
+            //    }
+            //}
             return isvalidateUpdate;
         }
     }

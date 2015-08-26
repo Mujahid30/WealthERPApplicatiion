@@ -125,7 +125,7 @@
                                 Skin="Telerik" EnableEmbeddedSkins="false" ClientSettings-AllowColumnsReorder="true"
                                 AllowAutomaticInserts="false" OnNeedDataSource="RadGridIssueIPOBook_OnNeedDataSource"
                                 OnItemDataBound="RadGridIssueIPOBook_OnItemDataBound" OnItemCommand="RadGridIssueIPOBook_OnItemCommand">
-                                <MasterTableView DataKeyNames="CO_OrderId,C_CustomerId,PAG_AssetGroupCode,CO_OrderDate,WOS_OrderStep,C_CustCode,Amounttoinvest,AIM_IssueId,IssueEndDateANDTime,AIM_IsModificationAllowed,AIM_IsCancelAllowed,COID_MaxBidAmt"
+                                <MasterTableView DataKeyNames="CO_OrderId,C_CustomerId,PAG_AssetGroupCode,CO_OrderDate,WOS_OrderStep,C_CustCode,Amounttoinvest,AIM_IssueId,IssueEndDateANDTime,AIM_IsModificationAllowed,AIM_IsCancelAllowed,COID_MaxBidAmt,CO_IsCancelled"
                                     AllowFilteringByColumn="true" Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
                                     CommandItemDisplay="None">
                                     <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
