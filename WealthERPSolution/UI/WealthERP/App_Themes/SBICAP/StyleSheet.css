@@ -790,7 +790,7 @@ ul.tabbernav li.tabberactive a:hover
     {
         border: solid #C49292 1px;
         color: Black;
-        background: #2573C8 url('/../Images/warning.png') no-repeat;
+        background: #2573C8 url('/../Images/failure.png') no-repeat;
     }
     .warning-msg
     {

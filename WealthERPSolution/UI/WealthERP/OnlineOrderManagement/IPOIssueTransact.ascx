@@ -230,17 +230,17 @@
                     </tr>
                     <tr>
                         <td colspan="4">
-                            <telerik:RadGrid ID="RadGridIPOBid" runat="server" AllowSorting="True" enableloadondemand="True"
+                            <telerik:RadGrid ID="RadGridIPOBid" runat="server" AllowSorting="false" enableloadondemand="True"
                                 PageSize="10" AllowPaging="false" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="true" PagerStyle-AlwaysVisible="false" ShowStatusBar="True"
                                 Skin="Telerik" AllowFilteringByColumn="false" OnItemDataBound="RadGridIPOBid_ItemDataBound">
-                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
+                                <MasterTableView AllowMultiColumnSorting="True"  AutoGenerateColumns="false"
                                     DataKeyNames="IssueBidNo,COID_TransactionType,COID_DetailsId,COID_IsCutOffApplicable"
                                     Width="100%" PagerStyle-AlwaysVisible="false">
                                     <Columns>
                                         <telerik:GridBoundColumn DataField="BidOptions" HeaderStyle-Width="120px" CurrentFilterFunction="Contains"
                                             ShowFilterIcon="true" AutoPostBackOnFilter="true" HeaderText="Bidding Options"
-                                            UniqueName="BidOptions" SortExpression="BidOptions">
+                                            UniqueName="BidOptions" SortExpression="BidOptions" >
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="80px"

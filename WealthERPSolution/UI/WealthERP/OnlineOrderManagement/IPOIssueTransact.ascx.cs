@@ -105,28 +105,7 @@ namespace WealthERP.OnlineOrderManagement
                 RadGridIPOIssueList.DataBind();
             }
 
-            //if (dtOnlineIPOIssueList.Rows.Count > 0)
-            //{
-            //    if (Cache["IPOIssueList" + userVo.UserId.ToString()] == null)
-            //    {
-            //        Cache.Insert("IPOIssueList" + userVo.UserId.ToString(), dtOnlineIPOIssueList);
-            //    }
-            //    else
-            //    {
-            //        Cache.Remove("IPOIssueList" + userVo.UserId.ToString());
-            //        Cache.Insert("IPOIssueList" + userVo.UserId.ToString(), dtOnlineIPOIssueList);
-            //    }
-            //    //ibtExportSummary.Visible = false;
-            //    RadGridIPOIssueList.DataSource = dtOnlineIPOIssueList;
-            //    RadGridIPOIssueList.DataBind();
-            //}
-            //else
-            //{
-            //    //ibtExportSummary.Visible = false;
-            //    RadGridIPOIssueList.DataSource = dtOnlineIPOIssueList;
-            //    RadGridIPOIssueList.DataBind();
-
-            //}
+            
         }
 
         protected void RadGridIPOIssueList_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
@@ -561,15 +540,18 @@ namespace WealthERP.OnlineOrderManagement
             {
                 userMessage = CreateUserMessage(orderId, false, isCutOffTimeOver, applicationNo, apllicationNoStatus);
             }
+            if(accountDebitStatus==true)
+            ShowMessage(userMessage,"S");
+            else
+                ShowMessage(userMessage, "F");
 
-            ShowMessage(userMessage);
 
         }
 
-        private void ShowMessage(string msg)
+        private void ShowMessage(string msg, string type)//" + type + "
         {
 
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnn", " showMsg('" + msg + "','S');", true);
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnn", " showMsg('" + msg + "','" + type + "');", true);
 
         }
 
@@ -595,11 +577,11 @@ namespace WealthERP.OnlineOrderManagement
             }
             else if (orderId != 0 && accountDebitStatus == false)
             {
-                userMessage = "Please allocate the adequate amount to place the order successfully.";
+                userMessage = "Please allocate the adequate amount to place the order.";
             }
             else if (orderId == 0)
             {
-                userMessage = "Please allocate the adequate amount to place the order successfully.";
+                userMessage = "Please allocate the adequate amount to place the order.";
             }
             return userMessage;
 
@@ -1044,7 +1026,7 @@ namespace WealthERP.OnlineOrderManagement
                         isCutOffTimeOver = true;
                     if (!CheckIPOBidOrderChange(dtIPOBidTransactionDettails, out message))
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You have not change any bid');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Can not update. No changes have been made to any of the bid');", true);
                         return;
                     }
 
@@ -1066,7 +1048,7 @@ namespace WealthERP.OnlineOrderManagement
                                     result = onlineIPOOrderBo.UpdateIPOBidOrderDetails(userVo.UserId, dtIPOBidTransactionDettails, int.Parse(Request.QueryString["orderId"]), maxPaybleBidAmount - double.Parse(ViewState["maxPaybleAmount"].ToString()));
                                 else
                                 {
-                                    ShowMessage("Please allocate the adequate amount to update the order successfully.");
+                                    ShowMessage("Please allocate the adequate amount to update the order.","F");
                                     return;
                                 }
                             }
@@ -1086,7 +1068,7 @@ namespace WealthERP.OnlineOrderManagement
                         }
                         btnUpdateIPOdrder.Visible = false;
                         btnOrderCancel.Visible = false;
-                        ShowMessage("IPO Order Updated Successfully,Order reference no. is " + Request.QueryString["orderId"]);
+                        ShowMessage("IPO Order Updated Successfully,Order reference no. is " + Request.QueryString["orderId"],"S");
                     }
                     else
                     {
@@ -1099,11 +1081,11 @@ namespace WealthERP.OnlineOrderManagement
                                 if (accountDebitStatus == true)
                                 {
                                     result = onlineIPOOrderBo.UpdateIPOBidOrderDetails(userVo.UserId, dtIPOBidTransactionDettails, int.Parse(Request.QueryString["orderId"]), maxPaybleBidAmount - double.Parse(ViewState["maxPaybleAmount"].ToString()));
-                                    ShowMessage("IPO Order Updated Successfully,Order reference no. is " + Request.QueryString["orderId"]);
+                                    ShowMessage("IPO Order Updated Successfully,Order reference no. is " + Request.QueryString["orderId"],"S");
                                 }
                                 else
                                 {
-                                    ShowMessage("Please allocate the adequate amount to update the order successfully.");
+                                    ShowMessage("Please allocate the adequate amount to update the order.","F");
                                     return;
                                 }
                                 availableBalance = (double)onlineIPOOrderBo.GetUserRMSAccountBalance(customerVo.AccountId);
@@ -1117,13 +1099,13 @@ namespace WealthERP.OnlineOrderManagement
                                 result = onlineIPOOrderBo.UpdateIPOBidOrderDetails(userVo.UserId, dtIPOBidTransactionDettails, int.Parse(Request.QueryString["orderId"]), maxPaybleBidAmount - double.Parse(ViewState["maxPaybleAmount"].ToString()));
                                 btnUpdateIPOdrder.Visible = false;
                                 btnOrderCancel.Visible = false;
-                                ShowMessage("Note that amount of RS  " + returnbalance.TrimStart('-') + "  will credited from Registrar.");
+                                ShowMessage("Note that amount of RS  " + returnbalance.TrimStart('-') + "  will credited from Registrar.","S");
                             }
                         }
                         else
                         {
                             result = onlineIPOOrderBo.UpdateIPOBidOrderDetails(userVo.UserId, dtIPOBidTransactionDettails, int.Parse(Request.QueryString["orderId"]), maxPaybleBidAmount - double.Parse(ViewState["maxPaybleAmount"].ToString()));
-                            ShowMessage("IPO Order Updated Successfully,Order reference no. is " + Request.QueryString["orderId"]);
+                            ShowMessage("IPO Order Updated Successfully,Order reference no. is " + Request.QueryString["orderId"],"S");
                         }
                     }
                 }

@@ -132,15 +132,22 @@ namespace WealthERP.OnlineOrderManagement
             
             if (dtCustomerIssueIPOBook.Rows.Count > 0)
             {
-                if (Cache["CustomerIPOIssueBook" + userVo.UserId.ToString()] == null)
-                {
-                    Cache.Insert("CustomerIPOIssueBook" + userVo.UserId.ToString(), dtCustomerIssueIPOBook);
-                }
-                else
+
+                if (Cache["CustomerIPOIssueBook" + userVo.UserId.ToString()] != null)
                 {
                     Cache.Remove("CustomerIPOIssueBook" + userVo.UserId.ToString());
-                    Cache.Insert("CustomerIPOIssueBook" + userVo.UserId.ToString(), dtCustomerIssueIPOBook);
                 }
+                Cache.Insert("CustomerIPOIssueBook" + userVo.UserId.ToString(), dtCustomerIssueIPOBook);
+              
+                //if (Cache["CustomerIPOIssueBook" + userVo.UserId.ToString()] == null)
+                //{
+                //    Cache.Insert("CustomerIPOIssueBook" + userVo.UserId.ToString(), dtCustomerIssueIPOBook);
+                //}
+                //else
+                //{
+                //    Cache.Remove("CustomerIPOIssueBook" + userVo.UserId.ToString());
+                //    Cache.Insert("CustomerIPOIssueBook" + userVo.UserId.ToString(), dtCustomerIssueIPOBook);
+                //}
                 //ibtExportSummary.Visible = false;
                 RadGridIssueIPOBook.DataSource = dtCustomerIssueIPOBook;
                 RadGridIssueIPOBook.DataBind();
@@ -341,7 +348,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             DropDownList ddlAction = (DropDownList)sender;
             GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
-            orderId = int.Parse(RadGridIssueIPOBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["CO_OrderId"].ToString());
+           int orderId = int.Parse(RadGridIssueIPOBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["CO_OrderId"].ToString());
             string OrderStepCode = Convert.ToString(RadGridIssueIPOBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["WOS_OrderStepCode"]).Trim();
             string CloseDate = Convert.ToString(RadGridIssueIPOBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["IssueEndDateANDTime"]);
             int issueId = int.Parse(RadGridIssueIPOBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AIM_IssueId"].ToString());
@@ -377,7 +384,7 @@ namespace WealthERP.OnlineOrderManagement
                         result = onlineIPOOrderBo.CustomerIPOOrderCancelle(orderId, "ORDERED");
                         if (result == true)
                         {
-                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('IPO Order is cancelled amount of RS  " + maxamount + "  will credited from Registrar.');", true);
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('IPO Order is cancelled, amount of RS  " + maxamount + "  will credited from Registrar.');", true);
                         }
                     }
                     else
@@ -386,7 +393,7 @@ namespace WealthERP.OnlineOrderManagement
                         if (result == true)
                         {
                             accountDebitStatus = onlineIPOOrderBo.DebitRMSUserAccountBalance(customerVo.AccountId, +maxamount, orderId);
-                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('IPO Order is cancelled Order reference no. is  " + orderId + "');", true);
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('IPO Order is cancelled, Order reference no. is  " + orderId + ".');", true);
                         }
                     }
                     BindCustomerIssueIPOBook();
