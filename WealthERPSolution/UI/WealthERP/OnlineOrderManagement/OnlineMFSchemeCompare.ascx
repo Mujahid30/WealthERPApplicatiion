@@ -73,28 +73,28 @@
                             </td>
                             <td id="tdddlAMC1" runat="server">
                                 <asp:DropDownList ID="ddlAMC1" runat="server" OnSelectedIndexChanged="ddlAMC1_SelectedIndexChanged"
-                                    CssClass="form-control input-sm" AutoPostBack="true">
+                                    CssClass="form-control input-sm" AutoPostBack="false">
                                 </asp:DropDownList>
                                 <asp:LinkButton ID="lnkDelete1" runat="server" OnClick="lnkDelete1_OnClick" Visible="false">  <span class="glyphicon glyphicon-remove">
                             </span></asp:LinkButton>
                             </td>
                             <td id="tdddlAMC2" runat="server">
                                 <asp:DropDownList ID="ddlAMC2" runat="server" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlAMC2_SelectedIndexChanged"
-                                    AutoPostBack="true">
+                                    AutoPostBack="false">
                                 </asp:DropDownList>
                                 <asp:LinkButton ID="lnkDelete2" runat="server" OnClick="lnkDelete2_OnClick" Visible="false">  <span class="glyphicon glyphicon-remove">
                             </span></asp:LinkButton>
                             </td>
                             <td id="tdddlAMC3" runat="server">
                                 <asp:DropDownList ID="ddlAMC3" runat="server" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlAMC3_SelectedIndexChanged"
-                                    AutoPostBack="true">
+                                    AutoPostBack="false">
                                 </asp:DropDownList>
                                 <asp:LinkButton ID="lnkDelete3" runat="server" OnClick="lnkDelete31_OnClick" Visible="false">  <span class="glyphicon glyphicon-remove">
                             </span></asp:LinkButton>
                             </td>
                             <td id="tdddlAMC4" runat="server">
                                 <asp:DropDownList ID="ddlAMC4" runat="server" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlAMC4_SelectedIndexChanged"
-                                    AutoPostBack="true">
+                                    AutoPostBack="false">
                                 </asp:DropDownList>
                                 <asp:LinkButton ID="lnkDelete4" runat="server" OnClick="lnkDelete4_OnClick" Visible="false">  <span class="glyphicon glyphicon-remove">
                             </span></asp:LinkButton>
@@ -104,19 +104,23 @@
                             <td style="width: auto;">
                             </td>
                             <td id="tdddlCategory1" runat="server">
-                                <asp:DropDownList ID="ddlCategory1" runat="server" CssClass="form-control input-sm">
+                                <asp:DropDownList ID="ddlCategory1" runat="server" CssClass="form-control input-sm"
+                                  AutoPostBack="true" OnSelectedIndexChanged="ddlCategory1_OnSelectedIndexChanged">
                                 </asp:DropDownList>
                             </td>
                             <td id="tdddlCategory2" runat="server">
-                                <asp:DropDownList ID="ddlCategory2" runat="server" CssClass="form-control input-sm">
+                                <asp:DropDownList ID="ddlCategory2" runat="server" CssClass="form-control input-sm"
+                                  AutoPostBack="true" OnSelectedIndexChanged="ddlCategory2_OnSelectedIndexChanged">
                                 </asp:DropDownList>
                             </td>
                             <td id="tdddlCategory3" runat="server">
-                                <asp:DropDownList ID="ddlCategory3" runat="server" CssClass="form-control input-sm">
+                                <asp:DropDownList ID="ddlCategory3" runat="server" CssClass="form-control input-sm"
+                                  AutoPostBack="true" OnSelectedIndexChanged="ddlCategory3_OnSelectedIndexChanged">
                                 </asp:DropDownList>
                             </td>
                             <td id="tdddlCategory4" runat="server">
-                                <asp:DropDownList ID="ddlCategory4" runat="server" CssClass="form-control input-sm">
+                                <asp:DropDownList ID="ddlCategory4" runat="server" CssClass="form-control input-sm"
+                                  AutoPostBack="true" OnSelectedIndexChanged="ddlCategory4_OnSelectedIndexChanged">
                                 </asp:DropDownList>
                             </td>
                         </tr>

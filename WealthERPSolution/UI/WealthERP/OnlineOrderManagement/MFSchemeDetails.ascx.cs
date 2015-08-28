@@ -38,14 +38,14 @@ namespace WealthERP.OnlineOrderManagement
                     int amcCode = 0;
                     string category = string.Empty;
                     BindCategory();
-                    BindScheme();
                     commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category);
                     int schemecode = int.Parse(Session["MFSchemePlan"].ToString());
-                    ddlScheme.SelectedValue = schemecode.ToString();
-                    hidCurrentScheme.Value = ddlScheme.SelectedValue;
                     ddlAMC.SelectedValue = amcCode.ToString();
                     ddlCategory.SelectedValue = category;
+                    BindScheme();
+                    ddlScheme.SelectedValue = schemecode.ToString();
                     GetAmcSchemeDetails();
+                    hidCurrentScheme.Value = ddlScheme.SelectedValue;
                     BindfundManagerDetails();
                 }
             }
@@ -54,10 +54,13 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (ddlAMC.SelectedIndex != 0)
             {
-                BindScheme();
                 BindCategory();
                 BindfundManagerDetails();
             }
+        }
+        protected void ddlCategory_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindScheme();
         }
         private void BindAMC()
         {
@@ -74,15 +77,16 @@ namespace WealthERP.OnlineOrderManagement
         protected void BindScheme()
         {
             DataTable dt;
-            ProductMFBo productMFBo = new ProductMFBo();
-            //if (ddlAMC.SelectedValue != "0")
-            //{
-                dt = productMFBo.GetSchemePlanName(int.Parse(ddlAMC.SelectedValue));
+            OnlineMFSchemeDetailsBo OnlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
+            dt = OnlineMFSchemeDetailsBo.GetAMCandCategoryWiseScheme(int.Parse(ddlAMC.SelectedValue), ddlCategory.SelectedValue);
+            if (dt.Rows.Count > 0)
+            {
                 ddlScheme.DataSource = dt;
                 ddlScheme.DataValueField = "PASP_SchemePlanCode";
                 ddlScheme.DataTextField = "PASP_SchemePlanName";
                 ddlScheme.DataBind();
-            //}
+                ddlScheme.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+            }
         }
         private void BindCategory()
         {
@@ -98,12 +102,12 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void Go_OnClick(object sender, EventArgs e)
         {
-            hidCurrentScheme.Value = ddlScheme.SelectedValue;
             GetAmcSchemeDetails();
+            hidCurrentScheme.Value = ddlScheme.SelectedValue;
         }
         public void GetAmcSchemeDetails()
         {
-           onlineMFSchemeDetailsVo= onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC.SelectedValue), (!string.IsNullOrEmpty(Session["MFSchemePlan"].ToString())) ? int.Parse(Session["MFSchemePlan"].ToString()) : int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue);
+           onlineMFSchemeDetailsVo= onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue);
             lblSchemeName.Text = onlineMFSchemeDetailsVo.schemeName;
             lblAMC.Text = onlineMFSchemeDetailsVo.amcName;
             lblNAV.Text = onlineMFSchemeDetailsVo.NAV.ToString();
@@ -207,30 +211,30 @@ namespace WealthERP.OnlineOrderManagement
         //{
         protected void BindfundManagerDetails()
         {
-            string cmotcode = onlineMFSchemeDetailsBo.GetCmotCode((!string.IsNullOrEmpty(Session["MFSchemePlan"].ToString())) ? int.Parse(Session["MFSchemePlan"].ToString()) : int.Parse(ddlScheme.SelectedValue));
-            string result;
-            if (cmotcode != "")
-            {
-                string FundManagerDetais = ConfigurationSettings.AppSettings["FUND_MANAGER_DETAILS"] + cmotcode + "/Pre";
-                WebResponse response;
-                WebRequest request = HttpWebRequest.Create(FundManagerDetais);
-                response = request.GetResponse();
-                using (StreamReader reader = new StreamReader(response.GetResponseStream()))
-                {
-                    result = reader.ReadToEnd();
-                    reader.Close();
-                }
-                StringReader theReader = new StringReader(result);
-                DataSet theDataSet = new DataSet();
-                theDataSet.ReadXml(theReader);
-                foreach (DataRow dr in theDataSet.Tables[1].Rows)
-                {
-                    lblFundMAnagername.Text = dr["FundManager"].ToString();
-                    lblQualification.Text = dr["Qualification"].ToString();
-                    lblDesignation.Text = dr["Designation"].ToString();
-                    lblExperience.Text = dr["experience"].ToString();
-                }
-            }
+            //string cmotcode = onlineMFSchemeDetailsBo.GetCmotCode((!string.IsNullOrEmpty(Session["MFSchemePlan"].ToString())) ? int.Parse(Session["MFSchemePlan"].ToString()) : int.Parse(ddlScheme.SelectedValue));
+            //string result;
+            //if (cmotcode != "")
+            //{
+            //    string FundManagerDetais = ConfigurationSettings.AppSettings["FUND_MANAGER_DETAILS"] + cmotcode + "/Pre";
+            //    WebResponse response;
+            //    WebRequest request = HttpWebRequest.Create(FundManagerDetais);
+            //    response = request.GetResponse();
+            //    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+            //    {
+            //        result = reader.ReadToEnd();
+            //        reader.Close();
+            //    }
+            //    StringReader theReader = new StringReader(result);
+            //    DataSet theDataSet = new DataSet();
+            //    theDataSet.ReadXml(theReader);
+            //    foreach (DataRow dr in theDataSet.Tables[1].Rows)
+            //    {
+            //        lblFundMAnagername.Text = dr["FundManager"].ToString();
+            //        lblQualification.Text = dr["Qualification"].ToString();
+            //        lblDesignation.Text = dr["Designation"].ToString();
+            //        lblExperience.Text = dr["experience"].ToString();
+            //    }
+            //}
         }
         protected void lnkAddToCompare_OnClick(object sender, EventArgs e)
         {

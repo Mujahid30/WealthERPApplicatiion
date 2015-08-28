@@ -68,14 +68,21 @@
                     <asp:DropDownList ID="ddlAMC" runat="server" CssClass="form-control input-sm" Width="100%"
                         OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged" AutoPostBack="true">
                     </asp:DropDownList>
-                    <asp:RequiredFieldValidator ID="reqAMC" runat="server" CssClass="rfvPCG" Display="Dynamic"
+                    <span id="Span1">*</span>
+                    <asp:RequiredFieldValidator ID="reqAMC" runat="server" Style="color: White;" Display="Dynamic"
                         ValidationGroup="btnGo" ErrorMessage="Select AMC" ControlToValidate="ddlAMC"
                         InitialValue="0"></asp:RequiredFieldValidator>
                 </div>
                 <div class="col-md-5">
                     <font color="#fff"><b>Category: </b></font>
-                    <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control input-sm">
+                    <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control input-sm"
+                    AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged">
                     </asp:DropDownList>
+                    <span id="Span2">*</span>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="ddlCategory"
+                        ErrorMessage="<br />Please select category" Style="color: White;" Display="Dynamic"
+                        runat="server" InitialValue="0" ValidationGroup="btnViewscheme">
+                    </asp:RequiredFieldValidator>
                 </div>
             </div>
             <div class="col-md-12">
@@ -87,7 +94,7 @@
                 </div>
                 <div class="col-md-4" style="margin-top: 1.7%">
                     <asp:Button ID="Button1" runat="server" class="btn btn-sm btn btn-default" Text="Scheme Details"
-                        OnClick="Go_OnClick" ValidationGroup="btnGo" ></asp:Button>
+                        OnClick="Go_OnClick" ValidationGroup="btnGo"></asp:Button>
                 </div>
             </div>
         </div>
@@ -310,7 +317,8 @@
                     OnClick="lbAddPurchase_OnClick" Visible="false"> Additional Purchase <span class="glyphicon glyphicon-plus-sign">
                             </span></asp:LinkButton>
                 &nbsp &nbsp
-                <asp:LinkButton ID="lbSIP" runat="server" CssClass="btn btn-primary btn-info" OnClick="lbSIP_OnClick" ValidationGroup="btnGo"> SIP <span class="glyphicon glyphicon-th-list">
+                <asp:LinkButton ID="lbSIP" runat="server" CssClass="btn btn-primary btn-info" OnClick="lbSIP_OnClick"
+                    ValidationGroup="btnGo"> SIP <span class="glyphicon glyphicon-th-list">
                             </span></asp:LinkButton>
                 &nbsp &nbsp
                 <asp:LinkButton ID="lbRedem" runat="server" CssClass="btn btn-primary btn-danger"

@@ -92,23 +92,39 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void ddlAMC1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlAMC1.SelectedIndex != 0)
-            {
-                BindScheme();
-            }
+            //if (ddlAMC1.SelectedIndex != 0)
+            //{
+            //    BindScheme();
+            //}
+        }
+        protected void ddlCategory1_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindScheme();
+        }
+        protected void ddlCategory2_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindScheme2();
+        }
+        protected void ddlCategory3_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindScheme3();
+        }
+        protected void ddlCategory4_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindScheme4();
         }
         protected void BindScheme()
         {
             DataTable dt;
-            ProductMFBo productMFBo = new ProductMFBo();
-            if (ddlAMC1.SelectedValue != "0")
+            OnlineMFSchemeDetailsBo OnlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
+            dt = OnlineMFSchemeDetailsBo.GetAMCandCategoryWiseScheme(int.Parse(ddlAMC1.SelectedValue), ddlCategory1.SelectedValue);
+            if (dt.Rows.Count > 0)
             {
-                dt = productMFBo.GetSchemePlanName(int.Parse(ddlAMC1.SelectedValue));
                 ddlSchemeList1.DataSource = dt;
                 ddlSchemeList1.DataValueField = "PASP_SchemePlanCode";
                 ddlSchemeList1.DataTextField = "PASP_SchemePlanName";
                 ddlSchemeList1.DataBind();
-                ddlSchemeList1.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Scheme", "0"));
+                ddlSchemeList1.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
             }
         }
         private void BindCategory()
@@ -121,84 +137,84 @@ namespace WealthERP.OnlineOrderManagement
             ddlCategory1.DataValueField = dtCategory.Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
             ddlCategory1.DataTextField = dtCategory.Columns["PAIC_AssetInstrumentCategoryName"].ToString();
             ddlCategory1.DataBind();
-            ddlCategory1.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+            ddlCategory1.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
             ddlCategory2.DataSource = dtCategory;
             ddlCategory2.DataValueField = dtCategory.Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
             ddlCategory2.DataTextField = dtCategory.Columns["PAIC_AssetInstrumentCategoryName"].ToString();
             ddlCategory2.DataBind();
-            ddlCategory2.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+            ddlCategory2.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
             ddlCategory3.DataSource = dtCategory;
             ddlCategory3.DataValueField = dtCategory.Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
             ddlCategory3.DataTextField = dtCategory.Columns["PAIC_AssetInstrumentCategoryName"].ToString();
             ddlCategory3.DataBind();
-            ddlCategory3.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+            ddlCategory3.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
             ddlCategory4.DataSource = dtCategory;
             ddlCategory4.DataValueField = dtCategory.Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
             ddlCategory4.DataTextField = dtCategory.Columns["PAIC_AssetInstrumentCategoryName"].ToString();
             ddlCategory4.DataBind();
-            ddlCategory4.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+            ddlCategory4.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
         }
         protected void ddlAMC2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlAMC2.SelectedIndex != 0)
-            {
-                BindScheme2();
-            }
+            //if (ddlAMC2.SelectedIndex != 0)
+            //{
+            //    BindScheme2();
+            //}
         }
         protected void ddlAMC3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlAMC3.SelectedIndex != 0)
-            {
-                BindScheme3();
-            }
+            //if (ddlAMC3.SelectedIndex != 0)
+            //{
+            //    BindScheme3();
+            //}
         }
         protected void ddlAMC4_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlAMC4.SelectedIndex != 0)
-            {
-                BindScheme4();
-            }
+            ////if (ddlAMC4.SelectedIndex != 0)
+            ////{
+            ////    BindScheme4();
+            ////}
         }
         protected void BindScheme2()
         {
             DataTable dt;
-            ProductMFBo productMFBo = new ProductMFBo();
-            if (ddlAMC2.SelectedValue != "0")
+            OnlineMFSchemeDetailsBo OnlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
+            dt = OnlineMFSchemeDetailsBo.GetAMCandCategoryWiseScheme(int.Parse(ddlAMC2.SelectedValue), ddlCategory2.SelectedValue);
+            if (dt.Rows.Count > 0)
             {
-                dt = productMFBo.GetSchemePlanName(int.Parse(ddlAMC2.SelectedValue));
                 ddlSchemeList2.DataSource = dt;
                 ddlSchemeList2.DataValueField = "PASP_SchemePlanCode";
                 ddlSchemeList2.DataTextField = "PASP_SchemePlanName";
                 ddlSchemeList2.DataBind();
-                ddlSchemeList2.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Scheme", "0"));
+                ddlSchemeList2.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
             }
         }
         protected void BindScheme3()
         {
             DataTable dt;
-            ProductMFBo productMFBo = new ProductMFBo();
-            if (ddlAMC3.SelectedValue != "0")
+            OnlineMFSchemeDetailsBo OnlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
+            dt = OnlineMFSchemeDetailsBo.GetAMCandCategoryWiseScheme(int.Parse(ddlAMC3.SelectedValue), ddlCategory3.SelectedValue);
+            if (dt.Rows.Count > 0)
             {
-                dt = productMFBo.GetSchemePlanName(int.Parse(ddlAMC3.SelectedValue));
                 ddlSchemeList3.DataSource = dt;
                 ddlSchemeList3.DataValueField = "PASP_SchemePlanCode";
                 ddlSchemeList3.DataTextField = "PASP_SchemePlanName";
                 ddlSchemeList3.DataBind();
-                ddlSchemeList3.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Scheme", "0"));
+                ddlSchemeList3.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
             }
         }
         protected void BindScheme4()
         {
             DataTable dt;
-            ProductMFBo productMFBo = new ProductMFBo();
-            if (ddlAMC4.SelectedValue != "0")
+            OnlineMFSchemeDetailsBo OnlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
+            dt = OnlineMFSchemeDetailsBo.GetAMCandCategoryWiseScheme(int.Parse(ddlAMC4.SelectedValue), ddlCategory4.SelectedValue);
+            if (dt.Rows.Count > 0)
             {
-                dt = productMFBo.GetSchemePlanName(int.Parse(ddlAMC4.SelectedValue));
                 ddlSchemeList4.DataSource = dt;
                 ddlSchemeList4.DataValueField = "PASP_SchemePlanCode";
                 ddlSchemeList4.DataTextField = "PASP_SchemePlanName";
                 ddlSchemeList4.DataBind();
-                ddlSchemeList4.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Scheme", "0"));
+                ddlSchemeList4.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
             }
         }
         protected void ddlSchemeList1_OnSelectedIndexChanged(object sender, EventArgs e)

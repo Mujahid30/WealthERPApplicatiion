@@ -41,15 +41,19 @@ namespace WealthERP.OnlineOrderManagement
                 BindAMC();
                 BindCategory();
                 BindScheme();
-                
+
             }
         }
         protected void ddlAMC_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlAMC.SelectedIndex != 0)
             {
-                BindScheme();
+                //BindScheme();
             }
+        }
+        protected void ddlCategory_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindScheme();
         }
         private void BindAMC()
         {
@@ -73,30 +77,20 @@ namespace WealthERP.OnlineOrderManagement
             ddlCategory.DataValueField = dtCategory.Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
             ddlCategory.DataTextField = dtCategory.Columns["PAIC_AssetInstrumentCategoryName"].ToString();
             ddlCategory.DataBind();
-            ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+            ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
         }
         protected void BindScheme()
         {
             DataTable dt;
-            ProductMFBo productMFBo = new ProductMFBo();
-            if (ddlAMC.SelectedValue != "0")
+            OnlineMFSchemeDetailsBo OnlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
+            dt = OnlineMFSchemeDetailsBo.GetAMCandCategoryWiseScheme(int.Parse(ddlAMC.SelectedValue), ddlCategory.SelectedValue);
+            if (dt.Rows.Count > 0)
             {
-                dt = productMFBo.GetSchemePlanName(int.Parse(ddlAMC.SelectedValue));
                 ddlScheme.DataSource = dt;
                 ddlScheme.DataValueField = "PASP_SchemePlanCode";
                 ddlScheme.DataTextField = "PASP_SchemePlanName";
                 ddlScheme.DataBind();
                 ddlScheme.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
-            }
-            else
-            {
-                //dt = productMFBo.GetSchemePlanName(int.Parse(ddlAMC.SelectedValue));
-                //ddlScheme.DataSource = dt;
-                //ddlScheme.DataValueField = "PASP_SchemePlanCode";
-                //ddlScheme.DataTextField = "PASP_SchemePlanName";
-                //ddlScheme.DataBind();
-                //ddlScheme.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
-
             }
         }
         protected void Go_OnClick(object sender, EventArgs e)
@@ -104,7 +98,7 @@ namespace WealthERP.OnlineOrderManagement
 
             BindSchemeRelatedDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue, customerVo.CustomerId, true);
         }
-        protected void BindSchemeRelatedDetails(int amcCode,int SchemeCode,string category,int customerId,bool isSchemeDetails)
+        protected void BindSchemeRelatedDetails(int amcCode, int SchemeCode, string category, int customerId, bool isSchemeDetails)
         {
             OnlineOrderBackOfficeBo bo = new OnlineOrderBackOfficeBo();
             dvSchemeDetailsl.Visible = true;
@@ -117,13 +111,13 @@ namespace WealthERP.OnlineOrderManagement
             rpSchemeDetails.DataSource = dtBindSchemeRelatedDetails;
             rpSchemeDetails.DataBind();
             rpSchemeDetails.Visible = true;
-            
+
         }
         protected void lbViewWatchList_OnClick(object sender, EventArgs e)
         {
-            BindSchemeRelatedDetails(0,0,"0", customerVo.CustomerId, false);
+            BindSchemeRelatedDetails(0, 0, "0", customerVo.CustomerId, false);
         }
-        
+
         protected void rpSchemeDetails_OnItemCommand(object sender, RepeaterCommandEventArgs e)
         {
             if (!string.IsNullOrEmpty(e.CommandName))
@@ -136,7 +130,7 @@ namespace WealthERP.OnlineOrderManagement
                         {
                             Session["MFSchemePlan"] = PASP_SchemePlanCode;
                             LoadMFTransactionPage("MFOrderPurchaseTransType", 2);
-                           
+
                         }
                         else
                         {
@@ -147,7 +141,7 @@ namespace WealthERP.OnlineOrderManagement
                         if (Session["PageDefaultSetting"] != null)
                         {
                             Session["MFSchemePlan"] = PASP_SchemePlanCode;
-                            LoadMFTransactionPage("MFOrderAdditionalPurchase",2);
+                            LoadMFTransactionPage("MFOrderAdditionalPurchase", 2);
                         }
                         else
                         {
@@ -158,7 +152,7 @@ namespace WealthERP.OnlineOrderManagement
                         if (Session["PageDefaultSetting"] != null)
                         {
                             Session["MFSchemePlan"] = PASP_SchemePlanCode;
-                            LoadMFTransactionPage("MFOrderSIPTransType",2);
+                            LoadMFTransactionPage("MFOrderSIPTransType", 2);
                         }
                         else
                         {
@@ -169,7 +163,7 @@ namespace WealthERP.OnlineOrderManagement
                         if (Session["PageDefaultSetting"] != null)
                         {
                             Session["MFSchemePlan"] = PASP_SchemePlanCode;
-                            LoadMFTransactionPage("MFOrderRdemptionTransType",2);
+                            LoadMFTransactionPage("MFOrderRdemptionTransType", 2);
                         }
                         else
                         {
@@ -181,7 +175,7 @@ namespace WealthERP.OnlineOrderManagement
                         if (Session["PageDefaultSetting"] != null)
                         {
                             Session["MFSchemePlan"] = PASP_SchemePlanCode;
-                            LoadMFTransactionPage("MFSchemeDetails",1);
+                            LoadMFTransactionPage("MFSchemeDetails", 1);
                         }
                         else
                         {
@@ -191,18 +185,18 @@ namespace WealthERP.OnlineOrderManagement
                     case "addToWatch":
                         CustomerAddMFSchemeToWatch(int.Parse(e.CommandArgument.ToString()), e);
                         break;
-                       
+
 
                 }
             }
         }
-        private void CustomerAddMFSchemeToWatch(int SchemeCode,RepeaterCommandEventArgs e)
+        private void CustomerAddMFSchemeToWatch(int SchemeCode, RepeaterCommandEventArgs e)
         {
             bool rResult = false;
             OnlineMFSchemeDetailsBo OnlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
             try
             {
-                rResult=OnlineMFSchemeDetailsBo.CustomerAddMFSchemeToWatch(customerVo.CustomerId, SchemeCode, "MF",userVo.UserId);
+                rResult = OnlineMFSchemeDetailsBo.CustomerAddMFSchemeToWatch(customerVo.CustomerId, SchemeCode, "MF", userVo.UserId);
                 if (rResult == true)
                 {
                     LinkButton lbViewWatch = (LinkButton)e.Item.FindControl("lbViewWatch");
@@ -235,7 +229,7 @@ namespace WealthERP.OnlineOrderManagement
 
         }
 
-        protected void LoadMFTransactionPage(string pageId,int investerpage)
+        protected void LoadMFTransactionPage(string pageId, int investerpage)
         {
             Dictionary<string, string> defaultProductPageSetting = new Dictionary<string, string>();
 
@@ -257,7 +251,7 @@ namespace WealthERP.OnlineOrderManagement
             Session["PageDefaultSetting"] = defaultProductPageSetting;
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadTopPanelControl('OnlineOrderTopMenu','login');", true);
             //Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcd", "LoadTopPanelDefault('OnlineOrderTopMenu');", true);
-         
+
         }
     }
 }

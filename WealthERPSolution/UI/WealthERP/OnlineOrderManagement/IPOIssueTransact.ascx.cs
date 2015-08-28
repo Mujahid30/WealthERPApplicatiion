@@ -592,11 +592,11 @@ namespace WealthERP.OnlineOrderManagement
             }
             else if (orderId != 0 && accountDebitStatus == false)
             {
-                userMessage = "Please allocate the adequate amount.";
+                userMessage = "Order Cannot be Placed, due to Insufficient Balance.";
             }
             else if (orderId == 0)
             {
-                userMessage = "Please allocate the adequate amount.";
+                userMessage = "Order Cannot be Placed, due to Insufficient Balance.";
             }
             return userMessage;
 
@@ -1063,7 +1063,7 @@ namespace WealthERP.OnlineOrderManagement
                                     result = onlineIPOOrderBo.UpdateIPOBidOrderDetails(userVo.UserId, dtIPOBidTransactionDettails, int.Parse(Request.QueryString["orderId"]), maxPaybleBidAmount - double.Parse(ViewState["maxPaybleAmount"].ToString()));
                                 else
                                 {
-                                    ShowMessage("Please allocate the adequate amount.","F");
+                                    ShowMessage("Order Cannot be Modified, due to Insufficient Balance.", "F");
                                     return;
                                 }
                             }
@@ -1100,7 +1100,7 @@ namespace WealthERP.OnlineOrderManagement
                                 }
                                 else
                                 {
-                                    ShowMessage("Please allocate the adequate amount.","F");
+                                    ShowMessage("Order Cannot be Modified, due to Insufficient Balance.", "F");
                                     return;
                                 }
                                 availableBalance = (double)onlineIPOOrderBo.GetUserRMSAccountBalance(customerVo.AccountId);

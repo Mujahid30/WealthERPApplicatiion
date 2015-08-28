@@ -10,8 +10,6 @@
 
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
 
-
-
 <script src="Scripts/jquery-1.4.1.js" type="text/javascript"></script>
 
 <asp:ScriptManager ID="scriptmanager" runat="server">
@@ -26,7 +24,10 @@
     }
     .dvRow
     {
-        font-family:Segoe UI; font-size:14px; color:#565656; padding-bottom:1%
+        font-family: Segoe UI;
+        font-size: 14px;
+        color: #565656;
+        padding-bottom: 1%;
     }
     .style1
     {
@@ -74,24 +75,17 @@
 
 <script src="../Scripts/bootstrap.js" type="text/javascript"></script>
 
-
 <script src="../Scripts/jquery.js" type="text/javascript"></script>
 
 <script src="../Scripts/JScript.js" type="text/javascript"></script>
 
-
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
 
-
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
-
-
 
 <link href="../Base/CSS/bootstrap-theme.css" rel="stylesheet" type="text/css" />
 <link href="../Base/CSS/bootstrap.css" rel="stylesheet" type="text/css" />
 <link href="../Base/CSS/bootstrap.min.css" rel="stylesheet" type="text/css" />
-
-
 <%--<script type="text/javascript">
     $(document).ready(function() {
         GetDropDownData();
@@ -174,19 +168,18 @@
        
 </script>
 
- <table class="tblMessage" cellpadding="0" cellspacing="0">
-            <tr>
-                <td>
-                    <div class="divOnlinePageHeading" style="height:25px;">
-                        <div class="divClientAccountBalance" id="divClientAccountBalance" runat="server">
-                            <asp:Label ID="Label1" runat="server" Text="Available Limits:" CssClass="BalanceLabel"> </asp:Label>
-                            <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="BalanceAmount"></asp:Label>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-  </table>
-  
+<table class="tblMessage" cellpadding="0" cellspacing="0">
+    <tr>
+        <td>
+            <div class="divOnlinePageHeading" style="height: 25px;">
+                <div class="divClientAccountBalance" id="divClientAccountBalance" runat="server">
+                    <asp:Label ID="Label1" runat="server" Text="Available Limits:" CssClass="BalanceLabel"> </asp:Label>
+                    <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="BalanceAmount"></asp:Label>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
 <div class="row " style="margin-left: 10%; margin-top: 1%; margin-bottom: 2%; padding-top: 1%;">
     <div class="col-md-3">
         <button type="button" class="btn btn-primary btn-primary">
@@ -198,8 +191,8 @@
         </span></a>
     </div>
     <div class="col-md-3">
-        
-        <asp:LinkButton ID="lbViewWatchList" runat="server" OnClick="lbViewWatchList_OnClick" class="btn btn-primary btn-primary" >My Watch list <span class="glyphicon glyphicon-list-alt">
+        <asp:LinkButton ID="lbViewWatchList" runat="server" OnClick="lbViewWatchList_OnClick"
+            class="btn btn-primary btn-primary">My Watch list <span class="glyphicon glyphicon-list-alt">
         </span></asp:LinkButton>
     </div>
     <div class="col-md-3">
@@ -209,42 +202,53 @@
 </div>
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
-<div id="demo" class="row " style="margin-left: 11%; margin-top: 1%; margin-bottom: 2%;
-    margin-right: 5%;  padding-top: 1%; padding-bottom: 1%;background-color:#2480C7;">
-    <div class="col-md-12 col-xs-12 col-sm-12">
-        <div class="col-md-7">
-            <font color="#fff"> <b>AMC:</b></font>
-            <asp:DropDownList ID="ddlAMC" runat="server" CssClass="form-control input-sm" Width="100%"
-                OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged" AutoPostBack="true">
-            </asp:DropDownList>
-            <%--<asp:RequiredFieldValidator ID="rfvAMC" runat="server" ControlToValidate="ddlAMC" InitialValue="0" ErrorMessage="Please Select AMC" Display="Dynamic"></asp:RequiredFieldValidator>--%>
+        <div id="demo" class="row " style="margin-left: 11%; margin-top: 1%; margin-bottom: 2%;
+            margin-right: 5%; padding-top: 1%; padding-bottom: 1%; background-color: #2480C7;">
+            <div class="col-md-12 col-xs-12 col-sm-12">
+                <div class="col-md-7">
+                    <font color="#fff"><b>AMC:</b></font>
+                    <asp:DropDownList ID="ddlAMC" runat="server" CssClass="form-control input-sm" Width="100%"
+                        OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged" AutoPostBack="false">
+                    </asp:DropDownList>
+                    <span id="Span1" >*</span>
+                    <asp:RequiredFieldValidator ID="rfvtxtTransactionDate" ControlToValidate="ddlAMC"
+                        ErrorMessage="<br />Please select AMC"  style="color:White;" Display="Dynamic"
+                        runat="server" InitialValue="0" ValidationGroup="btnViewscheme">
+                    </asp:RequiredFieldValidator>
+                    <%--<asp:RequiredFieldValidator ID="rfvAMC" runat="server" ControlToValidate="ddlAMC" InitialValue="0" ErrorMessage="Please Select AMC" Display="Dynamic"></asp:RequiredFieldValidator>--%>
+                </div>
+                <div class="col-md-5">
+                    <font color="#fff"><b>Category: </b></font>
+                    <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control input-sm"
+                        AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged">
+                    </asp:DropDownList>
+                    <span id="Span2" >*</span>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="ddlCategory"
+                        ErrorMessage="<br />Please select category" style="color:White;" Display="Dynamic"
+                        runat="server" InitialValue="0" ValidationGroup="btnViewscheme">
+                    </asp:RequiredFieldValidator>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-8">
+                    <font color="#fff"><b>Scheme:</b></font>
+                    <asp:DropDownList ID="ddlScheme" runat="server" CssClass="form-control input-sm"
+                        class="form-control">
+                    </asp:DropDownList>
+                </div>
+                <div class="col-md-4" style="margin-top: 1.6%">
+                    <asp:Button ID="Button1" runat="server" class="btn btn-sm btn-default" Text="Search Scheme"
+                        OnClick="Go_OnClick" ValidationGroup="btnViewscheme"></asp:Button>
+                </div>
+            </div>
         </div>
-        <div class="col-md-5">
-            <font color="#fff"> <b>Category: </b></font>
-            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control input-sm">
-            </asp:DropDownList>
-        </div>
-    </div>
-    <div class="col-md-12">
-        <div class="col-md-8">
-            <font color="#fff"> <b>Scheme:</b></font>
-            <asp:DropDownList ID="ddlScheme" runat="server" CssClass="form-control input-sm"
-                class="form-control">
-            </asp:DropDownList>
-        </div>
-        <div class="col-md-4" style="margin-top: 1.6%">
-            <asp:Button ID="Button1" runat="server" class="btn btn-sm btn-default" Text="Search Scheme"
-                OnClick="Go_OnClick"></asp:Button>
-        </div>
-    </div>
-</div>
-<%--<div class="row container">
+        <%--<div class="row container">
   <h2>Basic Modal Example</h2>
   <!-- Trigger the modal with a button -->
   <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
 </div>--%>
-<!-- Modal -->
-<%--<div class="modal fade" id="myModal" role="dialog">
+        <!-- Modal -->
+        <%--<div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
@@ -263,110 +267,114 @@
       
     </div>
   </div>--%>
-<div id="dvSchemeDetailsl" runat="server" class="container-fluid" style="margin-left: 11%;
-    margin-bottom: 2%; margin-right: 5%; border: 2px solid #a1a1a1;" visible="false">
-    <h4 style="padding-left: 40%; font-weight: bolder;">
-        Scheme Details</h4>
-    <asp:Repeater ID="rpSchemeDetails" runat="server" OnItemCommand="rpSchemeDetails_OnItemCommand">
-        <ItemTemplate>
-            <div class="row " style="margin-left: 2%; margin-right: 2%; margin-bottom: 2%; margin-top: 2%;
-                border: 2px solid #a1a1a1;">
-                <div class="col-sm-12">
-                    <div class="row " style="background-color: #286090; margin-bottom: 2%; color: Black">
-                        <div class="col-sm-10">
-                            <h4>
-                                <asp:LinkButton ID="lbSchemeName" runat="server" ToolTip="Click To view Details Information"
-                                    CssClass="btn-primary"  CommandName="schemeDetails" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'> <%# Eval("PASP_SchemePlanName")%>
-                                </asp:LinkButton>
-                                
-                            </h4>
-                        </div>
-                        <div class="col-sm-2 " style="margin-top: 1%">
-                            <asp:LinkButton ID="lbAddToWatch" runat="server" CssClass="btn-primary" CommandName="addToWatch" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>' Visible='<% #(Convert.ToBoolean(Eval("IsInWatch"))==true) ? false :true %>'> Add To Watch <span class="glyphicon glyphicon-dashboard">
+        <div id="dvSchemeDetailsl" runat="server" class="container-fluid" style="margin-left: 11%;
+            margin-bottom: 2%; margin-right: 5%; border: 2px solid #a1a1a1;" visible="false">
+            <h4 style="padding-left: 40%; font-weight: bolder;">
+                Scheme Details</h4>
+            <asp:Repeater ID="rpSchemeDetails" runat="server" OnItemCommand="rpSchemeDetails_OnItemCommand">
+                <ItemTemplate>
+                    <div class="row " style="margin-left: 2%; margin-right: 2%; margin-bottom: 2%; margin-top: 2%;
+                        border: 2px solid #a1a1a1;">
+                        <div class="col-sm-12">
+                            <div class="row " style="background-color: #286090; margin-bottom: 2%; color: Black">
+                                <div class="col-sm-10">
+                                    <h4>
+                                        <asp:LinkButton ID="lbSchemeName" runat="server" ToolTip="Click To view Details Information"
+                                            CssClass="btn-primary" CommandName="schemeDetails" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'> <%# Eval("PASP_SchemePlanName")%>
+                                        </asp:LinkButton>
+                                    </h4>
+                                </div>
+                                <div class="col-sm-2 " style="margin-top: 1%">
+                                    <asp:LinkButton ID="lbAddToWatch" runat="server" CssClass="btn-primary" CommandName="addToWatch"
+                                        CommandArgument='<%# Eval("PASP_SchemePlanCode")%>' Visible='<% #(Convert.ToBoolean(Eval("IsInWatch"))==true) ? false :true %>'> Add To Watch <span class="glyphicon glyphicon-dashboard">
                             </span>
-                            </asp:LinkButton>
-                            <asp:LinkButton ID="lbViewWatch" runat="server" CssClass="btn-primary"  CommandName="viewWatchList"  Visible='<% #(Convert.ToBoolean(Eval("IsInWatch"))==true) ? true : false %>'>In WatchList <span class="glyphicon glyphicon-dashboard">
+                                    </asp:LinkButton>
+                                    <asp:LinkButton ID="lbViewWatch" runat="server" CssClass="btn-primary" CommandName="viewWatchList"
+                                        Visible='<% #(Convert.ToBoolean(Eval("IsInWatch"))==true) ? true : false %>'>In WatchList <span class="glyphicon glyphicon-dashboard">
                             </span></asp:LinkButton>
-                        </div>
-                        
-                    </div>
-                    <div class="row" style="border-bottom:dotted 2px #a1a1a1; padding-bottom:2%">
-                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2" id="dvRating">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <asp:Image runat="server" ID="imgRatingOvelAll" ImageUrl='<%# string.Format("../Images/MorningStarRating/RatingOverall/{0}.{1}", Eval("SchemeRatingOverall"),"png")%>' />
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-sm-12 col-sm-12 col-md-6 col-lg-6" style="border-right:dotted 2px #a1a1a1">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 fk-font-12">
-                                <strong>AMC:
-                                    <%# Eval("PA_AMCName")%>
-                                </strong>
+                            <div class="row" style="border-bottom: dotted 2px #a1a1a1; padding-bottom: 2%">
+                                <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2" id="dvRating">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <asp:Image runat="server" ID="imgRatingOvelAll" ImageUrl='<%# string.Format("../Images/MorningStarRating/RatingOverall/{0}.{1}", Eval("SchemeRatingOverall"),"png")%>' />
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-sm-12 col-md-6 col-lg-6" style="border-right: dotted 2px #a1a1a1">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 fk-font-12">
+                                        <strong>AMC:
+                                            <%# Eval("PA_AMCName")%>
+                                        </strong>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dvRow">
+                                        Fund Manager Rating: <a href="#">Rating</a>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dvRow">
+                                        Last NAV Date:
+                                        <%# Eval("CMFNP_NAVDate")%>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dvRow">
+                                        Initial Amount( Regular / SIP):
+                                        <%# Eval("[InitialPrice SIP]")%>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dvRow">
+                                        Additional Purchase ( Regular / SIP):
+                                        <%# Eval("[AdditionalPrice SIP]")%>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dvRow">
+                                        Scheme And Benchmark Peformance( Over 1/3/5 years):
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-sm-12 col-md-4 col-lg-4">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <b>Category:
+                                            <%# Eval("PAIC_AssetInstrumentCategoryName")%></b>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dvRow">
+                                        Exit Load:
+                                        <%# Eval("PASPD_ExitLoadPercentage")%>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dvRow">
+                                        FMC Charge:
+                                        <%# Eval("PASPD_ExitLoadPercentage")%>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dvRow">
+                                        Cut-Off Time:
+                                        <%# Eval("PASPD_CutOffTime")%>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dvRow">
+                                        Recommendation: Buy
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dvRow">
+                                        Third Column, sixth Cell
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dvRow" >
-                                Fund Manager Rating: <a href="#">Rating</a>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dvRow">
-                                Last NAV Date:
-                                <%# Eval("CMFNP_NAVDate")%>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dvRow">
-                                Initial Amount( Regular / SIP):
-                                <%# Eval("[InitialPrice SIP]")%>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dvRow" >
-                                Additional Purchase ( Regular / SIP):
-                                <%# Eval("[AdditionalPrice SIP]")%>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dvRow">
-                                Scheme And Benchmark Peformance( Over 1/3/5 years): 
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-sm-12 col-md-4 col-lg-4">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <b>Category:
-                                    <%# Eval("PAIC_AssetInstrumentCategoryName")%></b>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dvRow">
-                                Exit Load:
-                                <%# Eval("PASPD_ExitLoadPercentage")%>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dvRow">
-                                FMC Charge:
-                                <%# Eval("PASPD_ExitLoadPercentage")%>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dvRow">
-                                Cut-Off Time:
-                                <%# Eval("PASPD_CutOffTime")%>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dvRow">
-                                Recommendation: Buy
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 dvRow">
-                                Third Column, sixth Cell
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-left: 30%; margin-right: 2%; margin-bottom: 2%; margin-top: 2%">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <asp:LinkButton ID="lbBuy" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>' CommandName="Buy" CssClass="btn btn-primary btn-primary" Visible='<%# Eval("IsSchemePurchege")%>'> Buy <span class="glyphicon glyphicon-shopping-cart">
+                            <div class="row" style="margin-left: 30%; margin-right: 2%; margin-bottom: 2%; margin-top: 2%">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <asp:LinkButton ID="lbBuy" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
+                                        CommandName="Buy" CssClass="btn btn-primary btn-primary" Visible='<%# Eval("IsSchemePurchege")%>'> Buy <span class="glyphicon glyphicon-shopping-cart">
                             </span></asp:LinkButton>
-                            &nbsp &nbsp
-                            <asp:LinkButton ID="lbAddPurchase" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>' CommandName="ABY" CssClass="btn btn-primary btn-success"> Additional Purchase <span class="glyphicon glyphicon-plus-sign">
+                                    &nbsp &nbsp
+                                    <asp:LinkButton ID="lbAddPurchase" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
+                                        CommandName="ABY" CssClass="btn btn-primary btn-success"> Additional Purchase <span class="glyphicon glyphicon-plus-sign">
                             </span></asp:LinkButton>
-                            &nbsp &nbsp <asp:LinkButton ID="lbSIP" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>' CommandName="SIP" CssClass="btn btn-primary btn-info" Visible='<%# Eval("IsSchemeSIPType")%>'> SIP <span class="glyphicon glyphicon-th-list">
-                            </span></asp:LinkButton> &nbsp &nbsp
-                            <asp:LinkButton ID="lbRedem" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>' CommandName="Sell" CssClass="btn btn-primary btn-danger" Visible="false"> Redemption <span class="glyphicon glyphicon-minus-sign">
-                            </span></asp:LinkButton> 
-                            
+                                    &nbsp &nbsp
+                                    <asp:LinkButton ID="lbSIP" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
+                                        CommandName="SIP" CssClass="btn btn-primary btn-info" Visible='<%# Eval("IsSchemeSIPType")%>'> SIP <span class="glyphicon glyphicon-th-list">
+                            </span></asp:LinkButton>
+                                    &nbsp &nbsp
+                                    <asp:LinkButton ID="lbRedem" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
+                                        CommandName="Sell" CssClass="btn btn-primary btn-danger" Visible="false"> Redemption <span class="glyphicon glyphicon-minus-sign">
+                            </span></asp:LinkButton>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </ItemTemplate>
-    </asp:Repeater>
-</div>
-</ContentTemplate>
+                </ItemTemplate>
+            </asp:Repeater>
+        </div>
+    </ContentTemplate>
     <Triggers>
     </Triggers>
 </asp:UpdatePanel>
-

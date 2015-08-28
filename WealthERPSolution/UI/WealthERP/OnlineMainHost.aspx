@@ -259,19 +259,19 @@
             <ul class="blue">
                 <li>
                     <asp:LinkButton ID="lnkMFOrderMenuHome" runat="server" Text="MARKET" CssClass="LinkButtons"
-                        Style="text-decoration: none" OnClick="lnkMFOrderMenuHome_Click" Width="120px"></asp:LinkButton>
+                        Style="text-decoration: none;text-align:center;" OnClick="lnkMFOrderMenuHome_Click" Width="120px"></asp:LinkButton>
                 </li>
                 <li>
                     <asp:LinkButton ID="lnkMFOrderMenuTransact" runat="server" Text="TRANSACT" CssClass="LinkButtons"
-                        Style="text-decoration: none" OnClick="lnkMFOrderMenuTransact_Click" Width="120px"></asp:LinkButton>
+                        Style="text-decoration: none;text-align:center;" OnClick="lnkMFOrderMenuTransact_Click" Width="120px"></asp:LinkButton>
                 </li>
                 <li>
                     <asp:LinkButton ID="lnkMFOrderMenuBooks" runat="server" Text="BOOKS" CssClass="LinkButtons"
-                        Style="text-decoration: none" OnClick="lnkMFOrderMenuBooks_Click" Width="120px"></asp:LinkButton>
+                        Style="text-decoration: none;text-align:center;" OnClick="lnkMFOrderMenuBooks_Click" Width="120px"></asp:LinkButton>
                 </li>
                 <li>
                     <asp:LinkButton ID="lnkMFOrderMenuHoldings" runat="server" Text="HOLDINGS" CssClass="LinkButtons"
-                        Style="text-decoration: none" OnClick="lnkMFOrderMenuHoldings_Click" Width="120px"></asp:LinkButton>
+                        Style="text-decoration: none;text-align:center;" OnClick="lnkMFOrderMenuHoldings_Click" Width="120px"></asp:LinkButton>
                 </li>
             </ul>
         </div>
@@ -279,15 +279,15 @@
             <ul class="blue">
                 <li>
                     <asp:LinkButton ID="lnkNCDOrderMenuTransact" runat="server" Text="TRANSACT" CssClass="LinkButtons"
-                        Style="text-decoration: none" OnClick="lnkNCDOrderMenuTransact_Click" Width="120px"></asp:LinkButton>
+                        Style="text-decoration: none;text-align:center;" OnClick="lnkNCDOrderMenuTransact_Click" Width="120px"></asp:LinkButton>
                 </li>
                 <li>
                     <asp:LinkButton ID="lnkNCDOrderMenuBooks" runat="server" Text="BOOKS" CssClass="LinkButtons"
-                        Style="text-decoration: none" OnClick="lnkNCDOrderMenuBooks_Click" Width="120px"></asp:LinkButton>
+                        Style="text-decoration: none;text-align:center;" OnClick="lnkNCDOrderMenuBooks_Click" Width="120px"></asp:LinkButton>
                 </li>
                 <li>
                     <asp:LinkButton ID="lnkNCDOrderMenuHoldings" runat="server" Text="HOLDINGS" CssClass="LinkButtons"
-                        Style="text-decoration: none" OnClick="lnkNCDOrderMenuHoldings_Click" Width="120px"></asp:LinkButton>
+                        Style="text-decoration: none;text-align:center;" OnClick="lnkNCDOrderMenuHoldings_Click" Width="120px"></asp:LinkButton>
                 </li>
             </ul>
         </div>
@@ -295,15 +295,15 @@
             <ul class="blue">
                 <li>
                     <asp:LinkButton ID="lnkIPOOrderMenuTransact" runat="server" Text="TRANSACT" CssClass="LinkButtons"
-                        Style="text-decoration: none" OnClick="lnkIPOOrderMenuTransact_Click" Width="120px"></asp:LinkButton>
+                        Style="text-decoration: none;text-align:center;" OnClick="lnkIPOOrderMenuTransact_Click" Width="120px"></asp:LinkButton>
                 </li>
                 <li>
                     <asp:LinkButton ID="lnkIPOOrderMenuBooks" runat="server" Text="BOOKS" CssClass="LinkButtons"
-                        Style="text-decoration: none" OnClick="lnkIPOOrderMenuBooks_Click" Width="120px"></asp:LinkButton>
+                        Style="text-decoration: none;text-align:center;" OnClick="lnkIPOOrderMenuBooks_Click" Width="120px"></asp:LinkButton>
                 </li>
                 <li>
                     <asp:LinkButton ID="lnkIPOOrderMenuHoldings" runat="server" Text="HOLDINGS" CssClass="LinkButtons"
-                        Style="text-decoration: none" OnClick="lnkIPOOrderMenuHoldings_Click" Width="120px"></asp:LinkButton>
+                        Style="text-decoration: none;text-align:center;" OnClick="lnkIPOOrderMenuHoldings_Click" Width="120px"></asp:LinkButton>
                 </li>
             </ul>
         </div>

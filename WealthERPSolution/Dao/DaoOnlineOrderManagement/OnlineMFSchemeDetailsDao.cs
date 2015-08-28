@@ -218,5 +218,40 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetSIPCustomeSchemePlan;
         }
+        public DataTable GetAMCandCategoryWiseScheme(int AMCCode,string category)
+        {
+            Database db;
+            DbCommand GetdtGetAMCandCategoryWiseScheme;
+            DataTable dtGetAMCandCategoryWiseScheme;
+            DataSet dsGetAMCandCategoryWiseScheme;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetdtGetAMCandCategoryWiseScheme = db.GetStoredProcCommand("SPROC_ONL_GetAMCandCategoryWiseScheme");
+                db.AddInParameter(GetdtGetAMCandCategoryWiseScheme, "@amcCode", DbType.Int32, AMCCode);
+                db.AddInParameter(GetdtGetAMCandCategoryWiseScheme, "@category", DbType.String, category);
+                dsGetAMCandCategoryWiseScheme = db.ExecuteDataSet(GetdtGetAMCandCategoryWiseScheme);
+                dtGetAMCandCategoryWiseScheme = dsGetAMCandCategoryWiseScheme.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineMFSchemeDetailsDao.cs:GetAMCandCategoryWiseScheme(int AMCCode,string category)");
+                object[] objects = new object[2];
+                objects[0] = AMCCode;
+                objects[1] = category;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtGetAMCandCategoryWiseScheme;
+        }
     }
 }

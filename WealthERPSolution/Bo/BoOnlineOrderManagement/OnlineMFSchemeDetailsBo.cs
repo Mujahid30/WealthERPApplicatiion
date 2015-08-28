@@ -77,5 +77,18 @@ namespace BoOnlineOrderManagement
             }
             return ds;
         }
+        public DataTable GetAMCandCategoryWiseScheme(int AMCCode, string category)
+        {
+            DataTable dt;
+            try
+            {
+                dt = OnlineMFSchemeDetailsDao.GetAMCandCategoryWiseScheme(AMCCode, category);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dt;
+        }
     }
 }
