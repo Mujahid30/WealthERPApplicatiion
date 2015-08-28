@@ -387,20 +387,22 @@ namespace WealthERP.OnlineOrderManagement
 
             foreach (GridFooterItem footeritem in RadGridIPOBid.MasterTableView.GetItems(GridItemType.Footer))
             {
-                if ((minBidAmount > finalBidPayableAmount || maxBidAmount < finalBidPayableAmount) && finalBidPayableAmount!=0)
+                Label lblBidHighestValue = (Label)footeritem["BidAmountPayable"].FindControl("lblFinalBidAmountPayable");
+                TextBox txtFinalBidAmount = (TextBox)footeritem["BidAmountPayable"].FindControl("txtFinalBidValue");
+                if ((minBidAmount > finalBidPayableAmount || maxBidAmount < finalBidPayableAmount) && finalBidPayableAmount != 0)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Bid Value (Amount Payable) should be greater than the Min bid amount and less than the Max bid amount');", true); 
+                    lblBidHighestValue.Text = string.Format("{0:0.00}", finalBidPayableAmount);// finalBidPayableAmount.ToString();
+                    txtFinalBidAmount.Text = string.Format("{0:0.00}", lblBidHighestValue.Text.Trim());// lblBidHighestValue.Text.Trim();
+                    //Session["finalprice"] = lblBidHighestValue.Text;
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Bid Value (Amount Payable) should be greater than the Min bid amount and less than the Max bid amount');", true);
                     return;
                 }
                 else
                 {
-                    Label lblBidHighestValue = (Label)footeritem["BidAmountPayable"].FindControl("lblFinalBidAmountPayable");
-                    TextBox txtFinalBidAmount = (TextBox)footeritem["BidAmountPayable"].FindControl("txtFinalBidValue");
-
                     lblBidHighestValue.Text = string.Format("{0:0.00}", finalBidPayableAmount);// finalBidPayableAmount.ToString();
                     txtFinalBidAmount.Text = string.Format("{0:0.00}", lblBidHighestValue.Text.Trim());// lblBidHighestValue.Text.Trim();
-                    //Session["finalprice"] = lblBidHighestValue.Text;
                 }
+               
             }
 
 
