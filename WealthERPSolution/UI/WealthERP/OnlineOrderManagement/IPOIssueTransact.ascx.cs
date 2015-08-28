@@ -235,11 +235,10 @@ namespace WealthERP.OnlineOrderManagement
 
             if (!string.IsNullOrEmpty(txtBidQuantity.Text.Trim()) && !string.IsNullOrEmpty(txtBidPrice.Text.Trim()))
             {
-                txtBidAmount.Text = (Convert.ToInt32(txtBidQuantity.Text.Trim()) * Convert.ToDecimal(txtBidPrice.Text.Trim())).ToString();
-
-                bidAmount = double.Parse(txtBidAmount.Text);
+                
+                bidAmount=Convert.ToInt32(txtBidQuantity.Text.Trim()) * Convert.ToDouble(txtBidPrice.Text.Trim());
+                txtBidAmount.Text = string.Format("{0:0.00}", Math.Round(bidAmount, 2));
                 bidAmountPayable = bidAmount;
-
                 if (!string.IsNullOrEmpty(ipoPriceDiscountType.Trim()))
                 {
                     switch (ipoPriceDiscountType)
@@ -256,8 +255,9 @@ namespace WealthERP.OnlineOrderManagement
                             }
                     }
                 }
-
-                txtBidAmountPayable.Text = Math.Round(bidAmountPayable, 2).ToString();
+               
+                txtBidAmountPayable.Text=string.Format("{0:0.00}", Math.Round(bidAmountPayable, 2)) ;
+               
 
             }
             else
@@ -276,12 +276,19 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void EnableDisableBids(bool isChecked, int noOfBid, int rowNum, bool isBidPriceChange)
         {
-            double[] bidMaxPayableAmount = new double[noOfBid];
+            decimal[] bidMaxPayableAmount = new decimal[noOfBid];
             int count = 0;
-            double finalBidPayableAmount = 0;
+            decimal finalBidPayableAmount = 0;
             List<string> iPOBids = new List<string>();
             string bidDuplicateChk = string.Empty;
-
+             decimal minBidAmount=0;
+             decimal maxBidAmount =0;
+             bool isBidValid = true;
+            foreach (GridDataItem item in RadGridIPOIssueList.MasterTableView.Items)
+            {
+               minBidAmount = Convert.ToDecimal(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIIC_MInBidAmount"].ToString());
+               maxBidAmount = Convert.ToDecimal(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIIC_MaxBidAmount"].ToString());
+            }
             foreach (GridDataItem item in RadGridIPOBid.MasterTableView.Items)
             {
                 CheckBox chkCutOff = (CheckBox)item.FindControl("cbCutOffCheck");
@@ -292,7 +299,7 @@ namespace WealthERP.OnlineOrderManagement
                 TextBox txtBidAmountPayable = (TextBox)item.FindControl("txtBidAmountPayable");
                 ImageButton btnOrderEdit = (ImageButton)item.FindControl("btnOrderEdit");
                 ImageButton btnOrderCancel = (ImageButton)item.FindControl("btnOrderCancel");
-
+             
                 if (!string.IsNullOrEmpty(txtBidQuantity.Text.Trim()) && !string.IsNullOrEmpty(txtBidPrice.Text.Trim()))
                 {
                     bidDuplicateChk = txtBidQuantity.Text.Trim() + "-" + txtBidPrice.Text.Trim();
@@ -370,7 +377,7 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 if (!string.IsNullOrEmpty(txtBidAmountPayable.Text.Trim()))
                 {
-                    bidMaxPayableAmount[count] = Convert.ToDouble(txtBidAmountPayable.Text);
+                    bidMaxPayableAmount[count] = Convert.ToDecimal(txtBidAmountPayable.Text);
                     count = count + 1;
                 }
 
@@ -380,12 +387,20 @@ namespace WealthERP.OnlineOrderManagement
 
             foreach (GridFooterItem footeritem in RadGridIPOBid.MasterTableView.GetItems(GridItemType.Footer))
             {
-                Label lblBidHighestValue = (Label)footeritem["BidAmountPayable"].FindControl("lblFinalBidAmountPayable");
-                TextBox txtFinalBidAmount = (TextBox)footeritem["BidAmountPayable"].FindControl("txtFinalBidValue");
+                if ((minBidAmount > finalBidPayableAmount || maxBidAmount < finalBidPayableAmount) && finalBidPayableAmount!=0)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Bid Value (Amount Payable) should be greater than the Min bid amount and less than the Max bid amount');", true); 
+                    return;
+                }
+                else
+                {
+                    Label lblBidHighestValue = (Label)footeritem["BidAmountPayable"].FindControl("lblFinalBidAmountPayable");
+                    TextBox txtFinalBidAmount = (TextBox)footeritem["BidAmountPayable"].FindControl("txtFinalBidValue");
 
-                lblBidHighestValue.Text = finalBidPayableAmount.ToString();
-                txtFinalBidAmount.Text = lblBidHighestValue.Text.Trim();
-                //Session["finalprice"] = lblBidHighestValue.Text;
+                    lblBidHighestValue.Text = string.Format("{0:0.00}", finalBidPayableAmount);// finalBidPayableAmount.ToString();
+                    txtFinalBidAmount.Text = string.Format("{0:0.00}", lblBidHighestValue.Text.Trim());// lblBidHighestValue.Text.Trim();
+                    //Session["finalprice"] = lblBidHighestValue.Text;
+                }
             }
 
 
@@ -577,11 +592,11 @@ namespace WealthERP.OnlineOrderManagement
             }
             else if (orderId != 0 && accountDebitStatus == false)
             {
-                userMessage = "Please allocate the adequate amount to place the order.";
+                userMessage = "Please allocate the adequate amount.";
             }
             else if (orderId == 0)
             {
-                userMessage = "Please allocate the adequate amount to place the order.";
+                userMessage = "Please allocate the adequate amount.";
             }
             return userMessage;
 
@@ -1048,7 +1063,7 @@ namespace WealthERP.OnlineOrderManagement
                                     result = onlineIPOOrderBo.UpdateIPOBidOrderDetails(userVo.UserId, dtIPOBidTransactionDettails, int.Parse(Request.QueryString["orderId"]), maxPaybleBidAmount - double.Parse(ViewState["maxPaybleAmount"].ToString()));
                                 else
                                 {
-                                    ShowMessage("Please allocate the adequate amount to update the order.","F");
+                                    ShowMessage("Please allocate the adequate amount.","F");
                                     return;
                                 }
                             }
@@ -1085,7 +1100,7 @@ namespace WealthERP.OnlineOrderManagement
                                 }
                                 else
                                 {
-                                    ShowMessage("Please allocate the adequate amount to update the order.","F");
+                                    ShowMessage("Please allocate the adequate amount.","F");
                                     return;
                                 }
                                 availableBalance = (double)onlineIPOOrderBo.GetUserRMSAccountBalance(customerVo.AccountId);
