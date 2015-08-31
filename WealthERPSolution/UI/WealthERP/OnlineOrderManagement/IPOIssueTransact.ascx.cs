@@ -1077,7 +1077,7 @@ namespace WealthERP.OnlineOrderManagement
                             }
 
                             availableBalance = (double)onlineIPOOrderBo.GetUserRMSAccountBalance(customerVo.AccountId);
-                            lblAvailableLimits.Text = Convert.ToInt64(availableBalance).ToString();
+                            lblAvailableLimits.Text = availableBalance.ToString();
                         }
                         else
                         {
@@ -1106,7 +1106,7 @@ namespace WealthERP.OnlineOrderManagement
                                     return;
                                 }
                                 availableBalance = (double)onlineIPOOrderBo.GetUserRMSAccountBalance(customerVo.AccountId);
-                                lblAvailableLimits.Text = Convert.ToInt64(availableBalance).ToString();
+                                lblAvailableLimits.Text = availableBalance.ToString();
                                 btnUpdateIPOdrder.Visible = false;
                                 btnOrderCancel.Visible = false;
                             }
