@@ -42,6 +42,16 @@
                 <asp:DropDownList CssClass="cmbField" ID="ddlIssueName" runat="server">
                 </asp:DropDownList>
             </td>
+            <td>
+                <asp:Label runat="server" class="FieldName" Text="Bid Order Status:" ID="Label3"></asp:Label>
+            </td>
+            <td>
+                <asp:DropDownList CssClass="cmbField" ID="ddlBidType" runat="server" AutoPostBack="false">
+                    <asp:ListItem Text="All" Value="0"></asp:ListItem>
+                    <asp:ListItem Text="New" Value="N"></asp:ListItem>
+                    <asp:ListItem Text="Modified" Value="M"></asp:ListItem>
+                </asp:DropDownList>
+            </td>
             <td id="tdlblFromDate" runat="server" align="right">
                 <asp:Label class="FieldName" ID="lblFromTran" Text="From :" runat="server" />
             </td>
@@ -161,7 +171,6 @@
                                             AutoPostBackOnFilter="true" HeaderStyle-Width="120px" FilterControlWidth="60px">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                               
                                         <telerik:GridBoundColumn DataField="CO_OrderId" HeaderText="Transaction No." SortExpression="CO_OrderId"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                             UniqueName="CO_OrderId" FooterStyle-HorizontalAlign="Left" DataType="System.Double">
@@ -211,7 +220,7 @@
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                         <telerik:GridBoundColumn DataField="CO_CreatedBy" SortExpression="CO_CreatedBy" AutoPostBackOnFilter="true"
+                                        <telerik:GridBoundColumn DataField="CO_CreatedBy" SortExpression="CO_CreatedBy" AutoPostBackOnFilter="true"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
                                             HeaderStyle-Width="160px" HeaderText="Created By" UniqueName="CO_CreatedBy">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -248,7 +257,7 @@
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="60px" UniqueName="MarkAsReject"
-                                            EditText="Cancel" CancelText="Cancel" UpdateText="OK" HeaderText="Cancel" >
+                                            EditText="Cancel" CancelText="Cancel" UpdateText="OK" HeaderText="Cancel">
                                         </telerik:GridEditCommandColumn>
                                         <%-- <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="100px" UniqueName="Action"
                                             HeaderText="Action">
@@ -292,6 +301,10 @@
                                                                         <telerik:GridBoundColumn DataField="BidAmount" AllowFiltering="true" HeaderText="Bid Amount"
                                                                             UniqueName="BidAmount" CurrentFilterFunction="Contains" HeaderStyle-Width="77px"
                                                                             SortExpression="BidAmount" ShowFilterIcon="false">
+                                                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                                        </telerik:GridBoundColumn>
+                                                                          <telerik:GridBoundColumn DataField="TransactionType" AllowFiltering="false" SortExpression="TransactionType"
+                                                                            HeaderText="Modification Type" UniqueName="TransactionType" HeaderStyle-Width="65px">
                                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="PriceDiscountType" AllowFiltering="false" SortExpression="PriceDiscountType"

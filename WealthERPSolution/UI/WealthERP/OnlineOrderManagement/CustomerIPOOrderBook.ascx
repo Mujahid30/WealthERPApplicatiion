@@ -272,6 +272,10 @@
                                                                             HeaderStyle-Width="80px" FilterControlWidth="60px">
                                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
+                                                                        <telerik:GridBoundColumn DataField="TransactionType" AllowFiltering="false" SortExpression="TransactionType"
+                                                                            HeaderText="Modification Type" UniqueName="TransactionType" HeaderStyle-Width="65px">
+                                                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                                        </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="PriceDiscountType" AllowFiltering="false" SortExpression="PriceDiscountType"
                                                                             HeaderText="Discount Type" UniqueName="PriceDiscountType" HeaderStyle-Width="65px">
                                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />

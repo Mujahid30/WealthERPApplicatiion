@@ -115,7 +115,7 @@ namespace WealthERP.OnlineOrderBackOffice
             if (Request.QueryString["orderId"] != null)
             {
                             
-                dtIPOOrder = OnlineIPOBackOfficeBo.GetAdviserIPOOrderBook(advisorVo.advisorId,0, "0", fromDate, toDate, int.Parse(  ViewState["OrderId"].ToString()));
+                dtIPOOrder = OnlineIPOBackOfficeBo.GetAdviserIPOOrderBook(advisorVo.advisorId,0, "0", fromDate, toDate, int.Parse(  ViewState["OrderId"].ToString()),ddlBidType.SelectedValue);
 
             }
             else
@@ -124,8 +124,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
                 if (txtOrderTo.SelectedDate != null)
                     toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
-                
-                dtIPOOrder = OnlineIPOBackOfficeBo.GetAdviserIPOOrderBook(advisorVo.advisorId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), ddlOrderStatus.SelectedValue, fromDate, toDate, orderId);
+
+                dtIPOOrder = OnlineIPOBackOfficeBo.GetAdviserIPOOrderBook(advisorVo.advisorId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), ddlOrderStatus.SelectedValue, fromDate, toDate, orderId, ddlBidType.SelectedValue);
             }
                 if (dtIPOOrder.Rows.Count >= 0)
             {

@@ -13,7 +13,7 @@ namespace DaoOnlineOrderManagement
 {
     public class OnlineIPOBackOfficeDao
     {
-        public DataTable GetAdviserIPOOrderBook(int adviserId,int issueId, string status, DateTime dtFrom, DateTime dtTo,int orderId)
+        public DataTable GetAdviserIPOOrderBook(int adviserId, int issueId, string status, DateTime dtFrom, DateTime dtTo, int orderId, string bidStatus)
         {
             Database db;
             DataSet dsIPOOrder;
@@ -39,6 +39,8 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(cmd, "@ToDate", DbType.DateTime, DBNull.Value);
                 if(orderId !=0)
                     db.AddInParameter(cmd, "@OrderId", DbType.Int32, orderId);
+                db.AddInParameter(cmd, "@ModificationType", DbType.String, bidStatus);
+
                 dsIPOOrder = db.ExecuteDataSet(cmd);
                 dtIPOOrder = dsIPOOrder.Tables[0];
             }

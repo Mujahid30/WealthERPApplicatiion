@@ -12,13 +12,13 @@ namespace BoOnlineOrderManagement
 {
     public class OnlineIPOBackOfficeBo
     {
-        public DataTable GetAdviserIPOOrderBook(int adviserId,int issueNo, string status, DateTime dtFrom, DateTime dtTo,int orderId)
+        public DataTable GetAdviserIPOOrderBook(int adviserId,int issueNo, string status, DateTime dtFrom, DateTime dtTo,int orderId,string bidStatus)
         {
             DataTable dtIPOOrder;
             OnlineIPOBackOfficeDao OnlineIPOBackOfficeDao = new OnlineIPOBackOfficeDao();
             try
             {
-                dtIPOOrder = OnlineIPOBackOfficeDao.GetAdviserIPOOrderBook(adviserId, issueNo, status, dtFrom, dtTo, orderId);
+                dtIPOOrder = OnlineIPOBackOfficeDao.GetAdviserIPOOrderBook(adviserId, issueNo, status, dtFrom, dtTo, orderId, bidStatus);
             }
             catch (BaseApplicationException Ex)
             {

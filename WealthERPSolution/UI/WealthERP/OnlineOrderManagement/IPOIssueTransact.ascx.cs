@@ -548,7 +548,7 @@ namespace WealthERP.OnlineOrderManagement
                 {
                     accountDebitStatus = onlineIPOOrderBo.DebitRMSUserAccountBalance(customerVo.AccountId, -maxPaybleBidAmount, orderId);
                     availableBalance = (double)onlineIPOOrderBo.GetUserRMSAccountBalance(customerVo.AccountId);
-                    lblAvailableLimits.Text = Convert.ToInt64(availableBalance).ToString();
+                    lblAvailableLimits.Text = availableBalance.ToString();
                 }
 
                 userMessage = CreateUserMessage(orderId, accountDebitStatus, isCutOffTimeOver, applicationNo, apllicationNoStatus);
