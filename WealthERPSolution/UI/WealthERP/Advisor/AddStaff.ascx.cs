@@ -744,10 +744,12 @@ namespace WealthERP.Advisor
 
         public void SetDepartmentRoleIds(string roleIds)
         {
-
-            string[] roleIs = roleIds.Split(',');
-            if (roleIds == string.Empty)
+            string[] roleIs;
+            if (string.IsNullOrEmpty(roleIds))
                 return;
+            else
+                 roleIs = roleIds.Split(',');
+           
             for (int i = 0; i < roleIs.Length; i++)
             {
                 foreach (RadListBoxItem li in chkbldepart.Items)
