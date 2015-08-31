@@ -34,11 +34,15 @@
         <tr>
             <td id="td1" runat="server">
                 <asp:Label runat="server" class="FieldName" Text="Order Status:" ID="Label1"></asp:Label>
+            </td>
+            <td>
                 <asp:DropDownList CssClass="cmbField" ID="ddlOrderStatus" runat="server" AutoPostBack="false">
                 </asp:DropDownList>
             </td>
             <td>
                 <asp:Label ID="lblIssueName" runat="server" class="FieldName" Text="Issue Name:"></asp:Label>
+            </td>
+            <td>
                 <asp:DropDownList CssClass="cmbField" ID="ddlIssueName" runat="server">
                 </asp:DropDownList>
             </td>
@@ -52,6 +56,8 @@
                     <asp:ListItem Text="Modified" Value="M"></asp:ListItem>
                 </asp:DropDownList>
             </td>
+        </tr>
+        <tr>
             <td id="tdlblFromDate" runat="server" align="right">
                 <asp:Label class="FieldName" ID="lblFromTran" Text="From :" runat="server" />
             </td>
@@ -76,7 +82,7 @@
                         Display="Dynamic"></asp:CompareValidator>
                 </div>
             </td>
-            <td id="tdlblToDate" runat="server">
+            <td id="tdlblToDate" runat="server" align="right">
                 <asp:Label ID="lblToTran" Text="To :" CssClass="FieldName" runat="server" />
             </td>
             <td id="tdTxtToDate" runat="server">
@@ -303,7 +309,7 @@
                                                                             SortExpression="BidAmount" ShowFilterIcon="false">
                                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
-                                                                          <telerik:GridBoundColumn DataField="TransactionType" AllowFiltering="false" SortExpression="TransactionType"
+                                                                        <telerik:GridBoundColumn DataField="TransactionType" AllowFiltering="false" SortExpression="TransactionType"
                                                                             HeaderText="Modification Type" UniqueName="TransactionType" HeaderStyle-Width="65px">
                                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
