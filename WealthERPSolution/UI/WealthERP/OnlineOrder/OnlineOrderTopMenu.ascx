@@ -19,7 +19,7 @@
                                 TabIndex="1" PageViewID="RPVSchemeResearch" Selected="True">
                             </telerik:RadTab>
                             <telerik:RadTab runat="server" Text="SCHEME COMPARE" Value="RTSMFOrderMenuHomeSchemeCompare"
-                                TabIndex="1" PageViewID="RPVSchemeCompare" Selected="True">
+                                TabIndex="2" PageViewID="RPVSchemeCompare" Selected="True">
                             </telerik:RadTab>
                         </Tabs>
                     </telerik:RadTabStrip>
@@ -40,7 +40,7 @@
                         SelectedIndex="7" AutoPostBack="true" OnTabClick="RTSMFOrderMenuTransact_TabClick">
                         <Tabs>                           
                             <telerik:RadTab runat="server" Text="NEW PURCHASE" Value="RTSMFOrderMenuTransactNewPurchase"
-                                TabIndex="0" PageViewID="RPVNewPurchase">
+                                TabIndex="0" PageViewID="RPVNewPurchase" Selected="true">
                             </telerik:RadTab>
                             <telerik:RadTab runat="server" Text="ADDITIONAL PURCHASE" Value="RTSMFOrderMenuTransactAdditionalPurchase"
                                 TabIndex="1" PageViewID="RPVAdditionalPurchase">

@@ -58,9 +58,9 @@ namespace WealthERP.OnlineOrderManagement
         private void BindAMC()
         {
 
-            PriceBo priceBo = new PriceBo();
             DataTable dtGetAMCList = new DataTable();
-            dtGetAMCList = priceBo.GetMutualFundList();
+            CommonLookupBo commonLookupBo = new CommonLookupBo();
+            dtGetAMCList = commonLookupBo.GetProdAmc(0, true);
             ddlAMC.DataSource = dtGetAMCList;
             ddlAMC.DataTextField = dtGetAMCList.Columns["PA_AMCName"].ToString();
             ddlAMC.DataValueField = dtGetAMCList.Columns["PA_AMCCode"].ToString();

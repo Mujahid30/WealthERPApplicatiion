@@ -65,6 +65,7 @@ namespace DaoOnlineOrderManagement
                         OnlineMFSchemeDetailsVo.multipleOf = int.Parse(dr["PASPD_InitialMultipleAmount"].ToString());
                         OnlineMFSchemeDetailsVo.minSIPInvestment = int.Parse(dr["PASPSD_MinAmount"].ToString());
                         OnlineMFSchemeDetailsVo.SIPmultipleOf = int.Parse(dr["PASPSD_MultipleAmount"].ToString());
+                        OnlineMFSchemeDetailsVo.mornigStar = int.Parse(dr["SchemeRatingOverall"].ToString());
                     }
                 }
             }
@@ -188,6 +189,7 @@ namespace DaoOnlineOrderManagement
                         OnlineMFSchemeDetailsVo.multipleOf = int.Parse(dr["PASPD_InitialMultipleAmount"].ToString());
                         OnlineMFSchemeDetailsVo.minSIPInvestment = int.Parse(dr["PASPSD_MinAmount"].ToString());
                         OnlineMFSchemeDetailsVo.SIPmultipleOf = int.Parse(dr["PASPSD_MultipleAmount"].ToString());
+                        OnlineMFSchemeDetailsVo.mornigStar = int.Parse(dr["SchemeRatingOverall"].ToString());
                         onlineMFSchemeDetailsList.Add(OnlineMFSchemeDetailsVo);
 
                     }

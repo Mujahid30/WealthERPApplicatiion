@@ -65,9 +65,9 @@ namespace WealthERP.OnlineOrderManagement
         private void BindAMC()
         {
 
-            PriceBo priceBo = new PriceBo();
             DataTable dtGetAMCList = new DataTable();
-            dtGetAMCList = priceBo.GetMutualFundList();
+            CommonLookupBo commonLookupBo = new CommonLookupBo();
+            dtGetAMCList = commonLookupBo.GetProdAmc(0, true);
             ddlAMC.DataSource = dtGetAMCList;
             ddlAMC.DataTextField = dtGetAMCList.Columns["PA_AMCName"].ToString();
             ddlAMC.DataValueField = dtGetAMCList.Columns["PA_AMCCode"].ToString();
@@ -85,7 +85,7 @@ namespace WealthERP.OnlineOrderManagement
                 ddlScheme.DataValueField = "PASP_SchemePlanCode";
                 ddlScheme.DataTextField = "PASP_SchemePlanName";
                 ddlScheme.DataBind();
-                ddlScheme.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+                ddlScheme.Items.Insert(0, new System.Web.UI.WebControls.ListItem("select", "0"));
             }
         }
         private void BindCategory()
@@ -144,12 +144,12 @@ namespace WealthERP.OnlineOrderManagement
                 if (Session["PageDefaultSetting"] != null)
                 {
                     Session["MFSchemePlan"] = ddlScheme.SelectedValue;
-                    LoadMFTransactionPage("MFOrderAdditionalPurchase",2);
+                    LoadMFTransactionPage("MFOrderPurchaseTransType", 2);
 
                 }
                 else
                 {
-                    Response.Redirect("ControlHost.aspx?pageid=MFOrderAdditionalPurchase&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "", false);
+                    Response.Redirect("ControlHost.aspx?pageid=MFOrderPurchaseTransType&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "", false);
 
                 }
             }
