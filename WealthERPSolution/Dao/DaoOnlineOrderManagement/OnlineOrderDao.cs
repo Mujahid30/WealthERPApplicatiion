@@ -48,7 +48,7 @@ namespace DaoOnlineOrderManagement
 
         }
 
-        public void UpdateOrderRMSAccountDebitDetails(int orderId, int isDebited, string rmsTransactionId, string rmsResponseMessage)
+        public void UpdateOrderRMSAccountDebitDetails(int orderId, int isDebited, string rmsTransactionId, string rmsResponseMessage, string rmsReferenceNumber)
         {
 
             Database db;
@@ -63,6 +63,7 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(updateRMSAccountDebitedCmd, "@RMSTransactionId", DbType.String, rmsTransactionId);
                 if (!string.IsNullOrEmpty(rmsResponseMessage))
                     db.AddInParameter(updateRMSAccountDebitedCmd, "@RMSResponseMessage", DbType.String, rmsResponseMessage);
+                db.AddInParameter(updateRMSAccountDebitedCmd, "@ReferenceNumber", DbType.String, rmsReferenceNumber);
                 db.ExecuteDataSet(updateRMSAccountDebitedCmd);
 
             }

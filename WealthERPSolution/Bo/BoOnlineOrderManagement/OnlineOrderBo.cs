@@ -32,31 +32,32 @@ namespace BoOnlineOrderManagement
                 rmsAPI = rmsAPI.Replace("#Amount#", amount.ToString());
                 onlineOrderDao.UpdateOrderRMSAccountDebitRequestTime(orderId, Convert.ToDecimal(amount));
                 Response = TrigerAPI(rmsAPI);
-                //StringReader theReader = new StringReader(Response);
-                //DataSet theDataSet = new DataSet();dt.Rows[0]["ReferenceNumber"].ToString()
-                //theDataSet.ReadXml(theReader);
-                //dt = theDataSet.Tables[0];
+                StringReader theReader = new StringReader(Response);
+                DataSet theDataSet = new DataSet();
+                theDataSet.ReadXml(theReader);
+                dt = theDataSet.Tables[0];
+                dt.Rows[0]["ReferenceNumber"].ToString();
                 if (Response.Contains("TRUE"))
                 {
-                    onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 1, string.Empty, "RMSREsponse:-" + Response);
+                    onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 1, string.Empty, "RMSREsponse:-" + Response, dt.Rows[0]["ReferenceNumber"].ToString());
                     result = true;
 
                 }
                 else if (Response.Contains("FALSE"))
                 {
-                    onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 0, string.Empty, "RMSREsponse:-" + Response);
+                    onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 0, string.Empty, "RMSREsponse:-" + Response, dt.Rows[0]["ReferenceNumber"].ToString());
 
                 }
                 else if (!Response.Contains("TRUE") || !Response.Contains("FALSE"))
                 {
-                    onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 2, string.Empty, "RMSREsponse:-" + Response);
+                    onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 2, string.Empty, "RMSREsponse:-" + Response, dt.Rows[0]["ReferenceNumber"].ToString());
 
                 }
 
             }
             catch (Exception Ex)
             {
-                onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 0, string.Empty, ("RMSREsponse:-" + Response + "ERROR:-" + Ex.Message));
+                onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 0, string.Empty, ("RMSREsponse:-" + Response + "ERROR:-" + Ex.Message), dt.Rows[0]["ReferenceNumber"].ToString());
 
             }
             return result;
@@ -195,9 +196,13 @@ namespace BoOnlineOrderManagement
                 rmsAPI = rmsAPI.Replace("#Amount#", amount.ToString());
                 onlineOrderDao.UpdateOrderRMSAccountDebitRequestTime(orderId, Convert.ToDecimal(amount));
                 Response = TrigerAPI(rmsAPI);
+                StringReader theReader = new StringReader(Response);
+                DataSet theDataSet = new DataSet(); dt.Rows[0]["ReferenceNumber"].ToString();
+                theDataSet.ReadXml(theReader);
+                dt = theDataSet.Tables[0];
                 if (Response.Contains("TRUE"))
                 {
-                    onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 1, string.Empty, "RMSREsponse:-" + Response);
+                    onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 1, string.Empty, "RMSREsponse:-" + Response, dt.Rows[0]["ReferenceNumber"].ToString());
                     result = true;
 
                 }

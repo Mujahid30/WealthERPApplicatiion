@@ -80,29 +80,7 @@ namespace WealthERP
                 }
                 if (Request.QueryString["WERP"] != null)
                     isWerp = Request.QueryString["WERP"];
-                //Testing User
-
-                //if (string.IsNullOrEmpty(userAccountId))
-                //    userAccountId = "A800003";
-                //if (productType != "MF")
-                //    productType = "MF";
-
-                //if (!Page.IsPostBack)
-                //{
-                //    if (Session["Loaded"] != null && Convert.ToBoolean(Session["Loaded"]) == true)
-                //    {
-                //        Session["Loaded"] = false;
-                //    }
-                //    else
-                //    {
-                //        Session["Loaded"] = true;
-                //        //Register a javascript to set the parent
-
-                //        Page.ClientScript.RegisterStartupScript(this.GetType(),
-                //            "pageloadscript", "window.parent.location.href = 'OnlineMainHost.aspx'", true);
-                //    }
-                //}
-
+                
 
                 if (!string.IsNullOrEmpty(userAccountId))
                 {
@@ -273,6 +251,7 @@ namespace WealthERP
                     Session[SessionContents.LogoPath] = sourcePath;
                     Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
                     Session["CustomerVo"] = customerVo;
+                    UserBo.AddLoginTrack(userVo.LoginId, string.Empty, true, HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"], HttpContext.Current.Request.UserAgent, userVo.UserId);
                 }
 
                 Session["UserVo"] = userVo;
