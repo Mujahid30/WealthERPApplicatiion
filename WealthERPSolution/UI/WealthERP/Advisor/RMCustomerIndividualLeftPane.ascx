@@ -372,7 +372,7 @@
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="Order Book" Value="OrderBook">
                                     </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" Text="Transaction Book" Value="TransactionBook">
+                                    <telerik:RadPanelItem runat="server" Text="Transaction Book" Value="TransactionBook"  Visible="false">
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="SIP Book" Value="SIPBook">
                                     </telerik:RadPanelItem>

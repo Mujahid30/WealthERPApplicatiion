@@ -111,6 +111,7 @@ namespace WealthERP.OnlineOrder
         /// </remarks>
 
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trIPOOrderMenuBooksTab;
+        protected global::System.Web.UI.WebControls.HiddenField hdnPageID;
 
         /// <summary>
         /// tblMF control.
