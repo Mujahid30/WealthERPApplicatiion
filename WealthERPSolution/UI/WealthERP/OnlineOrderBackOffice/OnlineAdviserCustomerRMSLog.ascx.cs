@@ -48,7 +48,7 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void BindRMSLog()
         {
-            DataTable dtBindRMSLog = OnlineOrderBackOfficeBo.CustomerGetRMSLog(Convert.ToDateTime(txtRMSLogFrom.SelectedDate), Convert.ToDateTime(txtRMSLogTo.SelectedDate), advisorVo.advisorId,ddlProduct.SelectedValue,(ddlOrderType.SelectedValue=="MF")?ddlOrderType.SelectedValue:null);
+            DataTable dtBindRMSLog = OnlineOrderBackOfficeBo.CustomerGetRMSLog(Convert.ToDateTime(txtRMSLogFrom.SelectedDate), Convert.ToDateTime(txtRMSLogTo.SelectedDate), advisorVo.advisorId,ddlProduct.SelectedValue,(ddlProduct.SelectedValue=="MF")?ddlOrderType.SelectedValue:null);
             if (Cache["RMSLog" + userVo.UserId.ToString()] != null)
             {
                 Cache.Remove("RMSLog" + userVo.UserId.ToString());
