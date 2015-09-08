@@ -971,7 +971,7 @@ namespace WealthERP.General
             if (userBo.ValidateUser(txtLoginId.Text, txtPassword.Text))
             {
                 userVo = userBo.GetUser(txtLoginId.Text);
-                AddLoginTrack(txtLoginId.Text, txtPassword.Text, true, userVo.UserId);
+               
                 Session[SessionContents.LogoPath] = "";
                 Session[SessionContents.BranchLogoPath] = "";
                 Session["UserId"] = userVo.UserId;
@@ -979,6 +979,7 @@ namespace WealthERP.General
 
                 if (userVo != null && userVo.UserType == "SuperAdmin")
                 {
+                    AddLoginTrack(txtLoginId.Text, txtPassword.Text, true, userVo.UserId);
                     advisorVo = advisorBo.GetAdvisorUser(userVo.UserId);
                     Session["advisorVo"] = advisorVo;
                     Session["UserId"] = userVo.UserId;

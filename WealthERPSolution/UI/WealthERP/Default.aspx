@@ -62,7 +62,7 @@
                         document.getElementById(iframe_id).height = 1045;
                     if (iframe_id == 'mainframe') {
                         if (document.getElementById('splitter_bar_left').style.height != 600)
-                            document.getElementById('splitter_bar_left').style.height = 600 + 'px';
+                            document.getElementById('splitter_bar_left').style.height = 1045 + 'px';
                     }
                 }
 

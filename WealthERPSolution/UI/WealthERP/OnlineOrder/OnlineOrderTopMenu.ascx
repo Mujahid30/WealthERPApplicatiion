@@ -54,7 +54,16 @@
                             <telerik:RadTab runat="server" Text="NFO" Value="RTSMFOrderMenuTransactNFO" TabIndex="4"
                                 PageViewID="RPVNFO">
                             </telerik:RadTab>
-                            <telerik:RadTab runat="server" Text="FMP" Value="RTSMFOrderMenuTransactFMP" TabIndex="5"
+                            <telerik:RadTab runat="server" Text="Switch" Value="RTSMFOrderMenuTransactSwitch" TabIndex="5"
+                                PageViewID="RPVNFO">
+                            </telerik:RadTab>
+                            <telerik:RadTab runat="server" Text="SWP" Value="RTSMFOrderMenuTransactSWP" TabIndex="6"
+                                PageViewID="RPVNFO">
+                            </telerik:RadTab>
+                            <telerik:RadTab runat="server" Text="STP" Value="RTSMFOrderMenuTransactSTP" TabIndex="7"
+                                PageViewID="RPVNFO">
+                            </telerik:RadTab>
+                            <telerik:RadTab runat="server" Text="FMP" Value="RTSMFOrderMenuTransactFMP" TabIndex="8"
                                 PageViewID="RPVFMP" Visible="false">
                             </telerik:RadTab>
                         </Tabs>

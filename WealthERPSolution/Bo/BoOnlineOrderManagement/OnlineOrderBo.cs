@@ -197,9 +197,10 @@ namespace BoOnlineOrderManagement
                 onlineOrderDao.UpdateOrderRMSAccountDebitRequestTime(orderId, Convert.ToDecimal(amount));
                 Response = TrigerAPI(rmsAPI);
                 StringReader theReader = new StringReader(Response);
-                DataSet theDataSet = new DataSet(); dt.Rows[0]["ReferenceNumber"].ToString();
+                DataSet theDataSet = new DataSet();
                 theDataSet.ReadXml(theReader);
                 dt = theDataSet.Tables[0];
+                dt.Rows[0]["ReferenceNumber"].ToString();
                 if (Response.Contains("TRUE"))
                 {
                     onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 1, string.Empty, "RMSREsponse:-" + Response, dt.Rows[0]["ReferenceNumber"].ToString());
