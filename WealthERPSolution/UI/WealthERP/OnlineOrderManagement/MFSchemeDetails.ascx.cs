@@ -211,30 +211,30 @@ namespace WealthERP.OnlineOrderManagement
         //{
         protected void BindfundManagerDetails()
         {
-            //string cmotcode = onlineMFSchemeDetailsBo.GetCmotCode((!string.IsNullOrEmpty(Session["MFSchemePlan"].ToString())) ? int.Parse(Session["MFSchemePlan"].ToString()) : int.Parse(ddlScheme.SelectedValue));
-            //string result;
-            //if (cmotcode != "")
-            //{
-            //    string FundManagerDetais = ConfigurationSettings.AppSettings["FUND_MANAGER_DETAILS"] + cmotcode + "/Pre";
-            //    WebResponse response;
-            //    WebRequest request = HttpWebRequest.Create(FundManagerDetais);
-            //    response = request.GetResponse();
-            //    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
-            //    {
-            //        result = reader.ReadToEnd();
-            //        reader.Close();
-            //    }
-            //    StringReader theReader = new StringReader(result);
-            //    DataSet theDataSet = new DataSet();
-            //    theDataSet.ReadXml(theReader);
-            //    foreach (DataRow dr in theDataSet.Tables[1].Rows)
-            //    {
-            //        lblFundMAnagername.Text = dr["FundManager"].ToString();
-            //        lblQualification.Text = dr["Qualification"].ToString();
-            //        lblDesignation.Text = dr["Designation"].ToString();
-            //        lblExperience.Text = dr["experience"].ToString();
-            //    }
-            //}
+            string cmotcode = onlineMFSchemeDetailsBo.GetCmotCode((!string.IsNullOrEmpty(Session["MFSchemePlan"].ToString())) ? int.Parse(Session["MFSchemePlan"].ToString()) : int.Parse(ddlScheme.SelectedValue));
+            string result;
+            if (cmotcode != "")
+            {
+                string FundManagerDetais = ConfigurationSettings.AppSettings["FUND_MANAGER_DETAILS"] + cmotcode + "/Pre";
+                WebResponse response;
+                WebRequest request = HttpWebRequest.Create(FundManagerDetais);
+                response = request.GetResponse();
+                using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                {
+                    result = reader.ReadToEnd();
+                    reader.Close();
+                }
+                StringReader theReader = new StringReader(result);
+                DataSet theDataSet = new DataSet();
+                theDataSet.ReadXml(theReader);
+                foreach (DataRow dr in theDataSet.Tables[1].Rows)
+                {
+                    lblFundMAnagername.Text = dr["FundManager"].ToString();
+                    lblQualification.Text = dr["Qualification"].ToString();
+                    lblDesignation.Text = dr["Designation"].ToString();
+                    lblExperience.Text = dr["experience"].ToString();
+                }
+            }
         }
         protected void lnkAddToCompare_OnClick(object sender, EventArgs e)
         {

@@ -214,7 +214,7 @@ namespace WealthERP.OnlineOrderManagement
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OnlineMFSchemeDetailsDao.cs:CustomerAddMFSchemeToWatch()");
-                object[] objects = new object[3];
+                object[] objects = new object[4];
                 objects[0] = customerVo.CustomerId;
                 objects[1] = SchemeCode;
                 objects[2] = "MF";
