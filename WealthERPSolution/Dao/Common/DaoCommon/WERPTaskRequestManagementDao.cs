@@ -499,6 +499,54 @@ namespace DaoCommon
             return dtBrokerageDetails;
 
         }
+        public DataTable GetBrokerageCalculationStatus(string product, string productCategory, int amc, int issueId, string commissionType, int month, int year)
+        {
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand dbCommand;
+            DataTable dtStatus;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_GetBrokerageStatus_Test");
+                if ( !string.IsNullOrEmpty(product))
+                    db.AddInParameter(dbCommand, "@Product", DbType.String, product);
+                if (!string.IsNullOrEmpty(productCategory))
+                    db.AddInParameter(dbCommand, "@ProductCategory", DbType.String, productCategory);
+                db.AddInParameter(dbCommand, "@ProductAmc", DbType.Int32, amc);
+                db.AddInParameter(dbCommand, "@IssueId", DbType.Int32, issueId);
+                if (!string.IsNullOrEmpty(commissionType))
+                    db.AddInParameter(dbCommand, "@CommissionType", DbType.String, commissionType);
+                if(month!=0)
+                    db.AddInParameter(dbCommand, "@month", DbType.Int32, month);
+                if(year!=0)
+                    db.AddInParameter(dbCommand, "@year", DbType.Int32, year);
+                dtStatus = db.ExecuteDataSet(dbCommand).Tables[0];
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw (ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "GetBrokerageCalculationStatus(int reqId,DateTime FromDate,DateTime ToDate)");
+                object[] objects = new object[7];
+                objects[0] = product;
+                objects[1] = productCategory;
+                objects[2] = amc;
+                objects[3] = issueId;
+                objects[4] = commissionType;
+                objects[5] = month;
+                objects[6] = year;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtStatus;
+                
+        }
         public DataTable GetBrokerageCalculationStatus(int reqId,DateTime FromDate,DateTime ToDate)
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -592,8 +640,89 @@ namespace DaoCommon
         /// <param name="subreportype"></param>
         /// <param name="fromDate"></param>
         /// <returns></returns>
+        public bool CheckCalculationRequestExists(string RequestHash, int adviserId)
+        {
+            bool isDuplicate = false;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand dbCommand;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_CheckDuplicateCalculationRequest");
+                if (!string.IsNullOrEmpty(RequestHash))
+                    db.AddInParameter(dbCommand, "@RequestParameterHash", DbType.String, RequestHash);
+                db.AddInParameter(dbCommand, "@A_AdviserId", DbType.Int32, adviserId);
+                db.AddOutParameter(dbCommand, "@Count", DbType.Int32, 1000000);
+                object count = db.ExecuteScalar(dbCommand);
+                if (count != null && int.Parse(count.ToString()) > 0)
+                {
+                    isDuplicate = true;
+                }
 
-        public void CreateTaskRequestForBrokerageCalculation(int taskId, int UserId, out int reqId, string product, int typeOfTransaction, int AdviserId, int schemeid, int month, int year, string category, string recontype, string commtype, int issuer, int issueId, int commissionLookUpId, string orderStatus, string agentCode, string productCategory, int isAuthenticated)
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw (ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", " UpdateBrokereageCalculationRequest(string sRequestIds,int userId)");
+                object[] objects = new object[3];
+                objects[0] = RequestHash;
+                objects[1] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return isDuplicate;
+        }
+
+
+        public bool UpdateBrokereageCalculationRequest(string sRequestIds, int userId, char CommandType)
+        {
+            bool isUpdated = false;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand dbCommand;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_ReprocessBrokerageRequest");
+                if (!string.IsNullOrEmpty(sRequestIds))
+                    db.AddInParameter(dbCommand, "@RequestIds", DbType.String, sRequestIds);
+                if (userId != 0)
+                    db.AddInParameter(dbCommand, "@userId", DbType.Date, userId);
+                db.AddInParameter(dbCommand, "@CommandType", DbType.String, CommandType);
+
+                if (db.ExecuteNonQuery(dbCommand) != 0)
+                    isUpdated = true;
+
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw (ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", " UpdateBrokereageCalculationRequest(string sRequestIds,int userId)");
+                object[] objects = new object[3];
+                objects[0] = sRequestIds;
+                objects[1] = userId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return isUpdated;
+
+        }
+    
+        public void CreateTaskRequestForBrokerageCalculation(int taskId, int UserId, out int reqId, string product, int typeOfTransaction, int AdviserId, int schemeid, int month, int year, string category, string recontype, string commtype, int issuer, int issueId, int commissionLookUpId, string orderStatus, string agentCode, string productCategory, int isAuthenticated, string requestParameterHash)
         {
             reqId = 0;
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -637,7 +766,7 @@ namespace DaoCommon
                 db.AddOutParameter(cmdCreateTaskRequest, "@OutRequestId", DbType.Int32, 1000000);
                 db.AddInParameter(cmdCreateTaskRequest, "@taskId", DbType.Int32, taskId);
                 db.AddInParameter(cmdCreateTaskRequest, "@UserId", DbType.Int32, UserId);
-
+                db.AddInParameter(cmdCreateTaskRequest, "@RequestParameterHash", DbType.String, requestParameterHash);
                 cmdCreateTaskRequest.CommandTimeout = 60 * 60;
                 db.ExecuteNonQuery(cmdCreateTaskRequest);
                 Object objRequestId = db.GetParameterValue(cmdCreateTaskRequest, "@OutRequestId");

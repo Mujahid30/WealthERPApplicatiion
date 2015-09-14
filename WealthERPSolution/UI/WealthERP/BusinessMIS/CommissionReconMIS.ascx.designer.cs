@@ -707,6 +707,11 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSelectIssue;
+        protected global::System.Web.UI.WebControls.DropDownList ddlRequestProduct;
+        protected global::System.Web.UI.WebControls.DropDownList ddlRequestAmc;
+        protected global::System.Web.UI.WebControls.DropDownList ddlRequestCommissionType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlRequestYear;
+        protected global::System.Web.UI.WebControls.DropDownList ddlRequesttMnthQtr;
 
         /// <summary>
         /// RequiredFieldValidator1 control.
@@ -775,7 +780,7 @@ namespace WealthERP.BusinessMIS {
         protected global::Telerik.Web.UI.RadDatePicker txtReqFromDate;
         protected global::Telerik.Web.UI.RadDatePicker txtReqToDate;
         protected global::System.Web.UI.WebControls.TextBox txtRequestId;
-        protected global::Telerik.Web.UI.RadGrid gvBulkOrderStatusList;
+        protected global::Telerik.Web.UI.RadGrid gvBrokerageRequestStatus;
         protected global::System.Data.DataSet dtBulkOrderStatusList;
         protected global::System.Web.UI.WebControls.DropDownList ddlType;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblRequestId;
@@ -787,5 +792,8 @@ namespace WealthERP.BusinessMIS {
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblToDate;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtReqToDate;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdbtnGo2;
+        protected global::System.Web.UI.WebControls.Button btnReprocess;
+        protected global::System.Web.UI.WebControls.Button btnDelete;
+
     }
 }

@@ -304,42 +304,13 @@ namespace BoCommon
              throw exBase;
          }
         }
-        public DataTable GetBrokerageCalculationStatus(int reqId, DateTime FromDate, DateTime ToDate)
-        {
-            WERPTaskRequestManagementDao requestManagementDao = new WERPTaskRequestManagementDao();
-            try
-            {
-                return requestManagementDao.GetBrokerageCalculationStatus(reqId, FromDate, ToDate);
-
-            }
-            catch (BaseApplicationException ex)
-            {
-                throw (ex);
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "WERPTaskRequestManagementBo:GetBrokerageCalculationStatus(int reqId,DateTime FromDate,DateTime ToDate)");
-                object[] objects = new object[12];
-                objects[0] = reqId;
-                objects[1] = FromDate;
-                objects[2] = ToDate;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-
-
-        }
-        public void CreateTaskRequestForBrokerageCalculation(int taskId, int UserId, out int reqId, string product, int typeOfTransaction, int AdviserId, int schemeid, int month, int year, string category, string recontype, string commtype, int issuer, int issueId, int commissionLookUpId, string orderStatus, string agentCode, string productCategory, int isAuthenticated)
+        public void CreateTaskRequestForBrokerageCalculation(int taskId, int UserId, out int reqId, string product, int typeOfTransaction, int AdviserId, int schemeid, int month, int year, string category, string recontype, string commtype, int issuer, int issueId, int commissionLookUpId, string orderStatus, string agentCode, string productCategory, int isAuthenticated, string requestParameterHash)
         {
             reqId = 0;
             WERPTaskRequestManagementDao requestManagementDao = new WERPTaskRequestManagementDao();
             try
             {
-                requestManagementDao.CreateTaskRequestForBrokerageCalculation(taskId, UserId, out  reqId, product, typeOfTransaction, AdviserId, schemeid, month, year, category, recontype, commtype, issuer, issueId, commissionLookUpId, orderStatus, agentCode, productCategory, isAuthenticated);
+                requestManagementDao.CreateTaskRequestForBrokerageCalculation(taskId, UserId, out  reqId, product, typeOfTransaction, AdviserId, schemeid, month, year, category, recontype, commtype, issuer, issueId, commissionLookUpId, orderStatus, agentCode, productCategory, isAuthenticated, requestParameterHash);
             }
             catch (BaseApplicationException ex)
             {
@@ -372,7 +343,135 @@ namespace BoCommon
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-           
+
+        }
+        public DataTable GetBrokerageCalculationStatus( string product,string productCategory,int amc,int issueId,string commissionType,int month,int year)
+        {
+            WERPTaskRequestManagementDao requestManagementDao = new WERPTaskRequestManagementDao();
+          return  requestManagementDao.GetBrokerageCalculationStatus(product, productCategory, amc, issueId, commissionType, month, year);
+
+        }
+        public DataTable GetBrokerageCalculationStatus(int reqId, DateTime FromDate, DateTime ToDate)
+        {
+            WERPTaskRequestManagementDao requestManagementDao = new WERPTaskRequestManagementDao();
+            try
+            {
+                return requestManagementDao.GetBrokerageCalculationStatus(reqId, FromDate, ToDate);
+
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw (ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "WERPTaskRequestManagementBo:GetBrokerageCalculationStatus(int reqId,DateTime FromDate,DateTime ToDate)");
+                object[] objects = new object[12];
+                objects[0] = reqId;
+                objects[1] = FromDate;
+                objects[2] = ToDate;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+
+        }
+        public bool UpdateBrokereageCalculationRequest(string sRequestIds, int userId, char CommandType)
+        {
+            try
+            {
+                WERPTaskRequestManagementDao requestManagementDao = new WERPTaskRequestManagementDao();
+                return requestManagementDao.UpdateBrokereageCalculationRequest(sRequestIds, userId, CommandType);
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw (ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                object[] objects = new object[3];
+                objects[0] = sRequestIds;
+                objects[1] = userId;
+                objects[2] = CommandType;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        
+        }
+        public bool CheckCalculationRequestExists(string RequestHash, int adviserId)
+        {
+            try
+            {
+                WERPTaskRequestManagementDao requestManagementDao = new WERPTaskRequestManagementDao();
+                return requestManagementDao.CheckCalculationRequestExists(RequestHash, adviserId);
+
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw (ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", " CheckCalculationRequestExists(string RequestHash, int adviserId)");
+                object[] objects = new object[3];
+                objects[0] = RequestHash;
+                objects[1] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+        public string RequestCalculationHash(int taskId, string product, int typeOfTransaction, int AdviserId, int schemeid, int month, int year, string category,string commtype, int issuer, int issueId, int commissionLookUpId, string orderStatus, string agentCode, string productCategory, int isAuthenticated)
+        {
+            StringBuilder sbRequestParameter = new StringBuilder();
+            Encryption er = new Encryption();
+            if(taskId!=null)
+                sbRequestParameter.Append(taskId);
+            if(product!=null)
+                sbRequestParameter.Append(product);
+            if (typeOfTransaction != null)
+                sbRequestParameter.Append(typeOfTransaction);
+            if (AdviserId != null)
+                sbRequestParameter.Append(AdviserId);
+            if (schemeid != null)
+                sbRequestParameter.Append(schemeid);
+            if (month != null)
+                sbRequestParameter.Append(month);
+            if (year != null)
+                sbRequestParameter.Append(year);
+            if (category != null)
+                sbRequestParameter.Append(category);
+            if (commtype != null)
+                sbRequestParameter.Append(commtype);
+            if (issuer != null)
+                sbRequestParameter.Append(issuer);
+            if (issueId != null)
+                sbRequestParameter.Append(issueId);
+            if (commissionLookUpId != null)
+                sbRequestParameter.Append(commissionLookUpId);
+            if (orderStatus != null)
+                sbRequestParameter.Append(orderStatus);
+            if (agentCode != null)
+                sbRequestParameter.Append(agentCode);
+            if (productCategory != null)
+                sbRequestParameter.Append(productCategory);
+            if (isAuthenticated != null)
+                sbRequestParameter.Append(isAuthenticated);
+            char[] chData = sbRequestParameter.ToString().ToCharArray();
+            byte[] byData = new byte[chData.Length];
+            return er.HashString(chData, byData);
         }
     }
 }

@@ -2464,15 +2464,16 @@ namespace DaoOnlineOrderManagement
                 db.AddOutParameter(cmdAllotmentUpload, "@RejectedOrders", DbType.Int32, 0);
                 db.AddOutParameter(cmdAllotmentUpload, "@AcceptedOrders", DbType.Int32, 0);
                 cmdAllotmentUpload.CommandTimeout = 60 * 60;
-                if (db.ExecuteNonQuery(cmdAllotmentUpload) != 0)
-                {
-                    dtAllotmentUploadData = db.ExecuteDataSet(cmdAllotmentUpload).Tables[0];
+                dtAllotmentUploadData = db.ExecuteDataSet(cmdAllotmentUpload).Tables[0];
+                if (!string.IsNullOrEmpty( db.GetParameterValue(cmdAllotmentUpload, "TotalOrders").ToString()))
                     totalOrders = Convert.ToInt32(db.GetParameterValue(cmdAllotmentUpload, "TotalOrders").ToString());
+                if (!string.IsNullOrEmpty(db.GetParameterValue(cmdAllotmentUpload, "RejectedOrders").ToString()))
                     rejectedOrders = Convert.ToInt32(db.GetParameterValue(cmdAllotmentUpload, "RejectedOrders").ToString());
+                if (!string.IsNullOrEmpty(db.GetParameterValue(cmdAllotmentUpload, "AcceptedOrders").ToString()))
                     acceptedOrders = Convert.ToInt32(db.GetParameterValue(cmdAllotmentUpload, "AcceptedOrders").ToString());
 
 
-                }
+                
             }
             catch (BaseApplicationException Ex)
             {

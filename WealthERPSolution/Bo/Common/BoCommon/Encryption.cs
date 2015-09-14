@@ -303,6 +303,25 @@ public class Encryption
                         initVector,
                         keySize);
     }
+    public string HashString(char[] chData, byte[] byData)
+    {
+        for (int i = 0; i < chData.Length; i++) byData[i] = (byte)chData[i];
+
+        System.Security.Cryptography.SHA1 sha1 = new System.Security.Cryptography.SHA1CryptoServiceProvider();
+        return HexStringFromBytes(sha1.ComputeHash(byData));
+    }
+
+    private string HexStringFromBytes(byte[] bytes)
+    {
+        var sb = new StringBuilder();
+        foreach (byte b in bytes)
+        {
+            var hex = b.ToString("x2");
+            sb.Append(hex);
+        }
+        return sb.ToString();
+    }
+
 
    
 
