@@ -174,6 +174,8 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblIsHeldJointly;
+        protected global::System.Web.UI.WebControls.Label lblRelationshipvalidation;
+        protected global::System.Web.UI.WebControls.Label lbltxtpanValidation;
         
         /// <summary>
         /// rbtnYes control.

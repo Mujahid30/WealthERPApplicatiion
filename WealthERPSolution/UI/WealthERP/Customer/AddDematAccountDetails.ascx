@@ -49,23 +49,23 @@
         <td class="rightField">
             <asp:TextBox ID="txtDpName" runat="server" CssClass="txtField" Width="250px"></asp:TextBox>
             <span id="Span1" class="spnRequiredField">*</span>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtDpName"
-                CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please enter DP Name"
-                InitialValue="" ValidationGroup="btnsubmit">
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtDpName"
+                CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please enter DP Name" InitialValue=""
+                ValidationGroup="btnsubmit">
             </asp:RequiredFieldValidator>
         </td>
         <td class="leftField" style="width: 150px;">
             &nbsp;<asp:Label ID="lblDepositoryName" runat="server" Text="Depository Name:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:DropDownList ID="ddlDepositoryName" runat="server" CssClass="cmbField"  AutoPostBack="true"
+            <asp:DropDownList ID="ddlDepositoryName" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlDepositoryName_SelectedIndexChanged">
             </asp:DropDownList>
             <span id="Span4" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="ddlDepositoryName"
                 CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select Depository Name"
-                InitialValue="Select" ValidationGroup="btnsubmit" >
+                InitialValue="Select" ValidationGroup="btnsubmit">
             </asp:RequiredFieldValidator>
         </td>
     </tr>
@@ -77,15 +77,16 @@
             <asp:TextBox ID="txtDPId" runat="server" CssClass="txtField" MaxLength="8"></asp:TextBox>
         </td>
         <td class="leftField">
-            <asp:Label ID="lblDpClientId" runat="server" Text="Beneficiary Acct No:" CssClass="FieldName" EnableViewState="true"></asp:Label>
+            <asp:Label ID="lblDpClientId" runat="server" Text="Beneficiary Acct No:" CssClass="FieldName"
+                EnableViewState="true"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtDpClientId" runat="server" CssClass="txtField" MaxLength="16" ></asp:TextBox>
+            <asp:TextBox ID="txtDpClientId" runat="server" CssClass="txtField" MaxLength="16"></asp:TextBox>
             <span id="Span2" class="spnRequiredField">*</span>
-          <asp:RegularExpressionValidator ID="rev" runat="server" ControlToValidate="txtDpClientId"
+            <asp:RegularExpressionValidator ID="rev" runat="server" ControlToValidate="txtDpClientId"
                 ValidationGroup="btnsubmit" ErrorMessage="Special Character are not allowed!"
-                CssClass="cvPCG" Display="Dynamic" ValidationExpression="^[a-zA-Z0-9]+(?:--?[a-zA-Z0-9]+)*$"/>
-           <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtDpClientId"
+                CssClass="cvPCG" Display="Dynamic" ValidationExpression="^[a-zA-Z0-9]+(?:--?[a-zA-Z0-9]+)*$" />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtDpClientId"
                 ErrorMessage="Beneficiary Acct No:" CssClass="cvPCG" ValidationGroup="btnsubmit"
                 InitialValue="" Display="Dynamic"></asp:RequiredFieldValidator>
         </td>
@@ -117,7 +118,6 @@
                 <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
-            
         </td>
     </tr>
     <tr>
@@ -147,8 +147,7 @@
         </td>
         <td class="rightField">
             <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click"
-                CssClass="PCGButton"  ValidationGroup="btnsubmit"
-               />
+                CssClass="PCGButton" ValidationGroup="btnsubmit" />
         </td>
     </tr>
 </table>
@@ -232,7 +231,8 @@
                                                     <asp:Label ID="lblAssociate" runat="server" CssClass="FieldName" Text="Associate Type :"></asp:Label>
                                                 </td>
                                                 <td class="rightField">
-                                                    <asp:DropDownList ID="ddlAssociate" runat="server" CssClass="cmbField">
+                                                    <asp:DropDownList ID="ddlAssociate" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlAssociate_OnSelectedIndexChanged"
+                                                        AutoPostBack="true">
                                                         <asp:ListItem Value="S">Select</asp:ListItem>
                                                         <asp:ListItem Value="JH1">JointHolder-1</asp:ListItem>
                                                         <asp:ListItem Value="JH2">JointHolder-2</asp:ListItem>
@@ -263,7 +263,7 @@
                                                 </td>
                                                 <td class="rightField">
                                                     <asp:TextBox ID="txtNewPan" runat="server" Text='<%# Bind("CDAA_PanNum") %>' CssClass="txtField"></asp:TextBox>
-                                                    <span id="Span6"  class="spnRequiredField">*</span>
+                                                    <asp:Label ID="lbltxtpanValidation" runat="server" Text="*" CssClass="spnRequiredField"></asp:Label>
                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtNewPan"
                                                         ErrorMessage="<br />Please Enter PAN Number" Visible="false" runat="server" CssClass="rfvPCG"
                                                         ValidationGroup="Submit"></asp:RequiredFieldValidator>
@@ -310,9 +310,9 @@
                                                 <td class="rightField">
                                                     <asp:DropDownList ID="ddlNewRelationship" runat="server" CssClass="cmbField">
                                                     </asp:DropDownList>
-                                                    <span id="Span5" class="spnRequiredField">*</span>
+                                                    <asp:Label ID="lblRelationshipvalidation" runat="server" Text="*" CssClass="spnRequiredField"></asp:Label>
                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ddlNewRelationship"
-                                                        ErrorMessage="<br />Please a relationship" Display="Dynamic" runat="server" InitialValue="Select"
+                                                        ErrorMessage="<br />Please a relationship" Display="Dynamic" runat="server" InitialValue="Sl"
                                                         CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
                                                 </td>
                                             </tr>

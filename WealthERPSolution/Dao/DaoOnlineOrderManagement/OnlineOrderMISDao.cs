@@ -437,5 +437,25 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetMFHoldingRecon;
         }
+        public bool UpdateOrderReverse(int orderid, int userID)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand UpdateOrderReverseCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                UpdateOrderReverseCmd = db.GetStoredProcCommand("SPROC_CreateOrderReverse");
+                db.AddInParameter(UpdateOrderReverseCmd, "@orderId", DbType.Int32, orderid);
+                db.AddInParameter(UpdateOrderReverseCmd, "@userid", DbType.Int32, userID);
+                db.ExecuteNonQuery(UpdateOrderReverseCmd);
+                bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
     }
 }

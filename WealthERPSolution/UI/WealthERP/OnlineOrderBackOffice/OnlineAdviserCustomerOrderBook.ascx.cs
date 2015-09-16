@@ -43,8 +43,8 @@ namespace WealthERP.OnlineOrderBackOffice
             advisorVo = (AdvisorVo)Session["advisorVo"];
             customerVO = (CustomerVo)Session["customerVo"];
             userVo = (UserVo)Session[SessionContents.UserVo];
-            userType = Session[SessionContents.CurrentUserRole].ToString();          
-           // customerId = customerVO.CustomerId;                              
+            userType = Session[SessionContents.CurrentUserRole].ToString();
+            // customerId = customerVO.CustomerId;                              
             if (!Page.IsPostBack)
             {
                 BindAmc();
@@ -65,17 +65,17 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
                 }
                 if (Request.QueryString["orderId"] != null || Request.QueryString["txtFolioNo"] != null)
-                    {
-                        ViewState["OrderId"] = int.Parse(Request.QueryString["orderId"].ToString());
-                        ViewState["FolioNo"] = Request.QueryString["txtFolioNo"];
-                        BindOrderBook();
-                        tblField.Visible = false;
-                        tblOrder.Visible = false;
-                        divConditional.Visible = false;
-                    }
-                
+                {
+                    ViewState["OrderId"] = int.Parse(Request.QueryString["orderId"].ToString());
+                    ViewState["FolioNo"] = Request.QueryString["txtFolioNo"];
+                    BindOrderBook();
+                    tblField.Visible = false;
+                    tblOrder.Visible = false;
+                    divConditional.Visible = false;
+                }
+
             }
-           
+
         }
         protected void ddlType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
@@ -147,12 +147,12 @@ namespace WealthERP.OnlineOrderBackOffice
             //    ddlAmc.DataValueField = dtAmc.Columns["PA_AMCCode"].ToString();
             //    ddlAmc.DataTextField = dtAmc.Columns["PA_AMCName"].ToString();
             //    ddlAmc.DataBind();
-                
+
             //    //BindFolioNumber(int.Parse(ddlAmc.SelectedValue));
 
             //}
             ddlAmc.Items.Insert(0, new ListItem("All", "0"));
-           
+
         }
 
         /// <summary>
@@ -179,24 +179,24 @@ namespace WealthERP.OnlineOrderBackOffice
         /// </summary>
         protected void BindOrderBook()
         {
-             DataSet dsOrderBookMIS = new DataSet();
-             DataTable dtOrderBookMIS = new DataTable();
-             
-             if (Request.QueryString["orderId"] != null  || Request.QueryString["txtFolioNo"] !=null)
-             {
-                 dsOrderBookMIS = OnlineOrderMISBo.GetOrderBookMIS(advisorVo.advisorId, 0, "0", fromDate, toDate, (!string.IsNullOrEmpty(ViewState["OrderId"].ToString())) ? int.Parse(ViewState["OrderId"].ToString()) : 0, (!string.IsNullOrEmpty(ViewState["FolioNo"].ToString())) ? ViewState["FolioNo"].ToString() : null);
-             }
-             else
-             {
-                 if (ddlType.SelectedValue != "ON")
-                 {
-                     if (txtOrderFrom.SelectedDate != null)
-                         fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
-                     if (txtOrderTo.SelectedDate != null)
-                         toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
-                 }
-                 dsOrderBookMIS = OnlineOrderMISBo.GetOrderBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), hdnOrderStatus.Value, fromDate, toDate, (!string.IsNullOrEmpty(txtOrderNo.Text)) ? int.Parse(txtOrderNo.Text) : 0,null);
-             }
+            DataSet dsOrderBookMIS = new DataSet();
+            DataTable dtOrderBookMIS = new DataTable();
+
+            if (Request.QueryString["orderId"] != null || Request.QueryString["txtFolioNo"] != null)
+            {
+                dsOrderBookMIS = OnlineOrderMISBo.GetOrderBookMIS(advisorVo.advisorId, 0, "0", fromDate, toDate, (!string.IsNullOrEmpty(ViewState["OrderId"].ToString())) ? int.Parse(ViewState["OrderId"].ToString()) : 0, (!string.IsNullOrEmpty(ViewState["FolioNo"].ToString())) ? ViewState["FolioNo"].ToString() : null);
+            }
+            else
+            {
+                if (ddlType.SelectedValue != "ON")
+                {
+                    if (txtOrderFrom.SelectedDate != null)
+                        fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
+                    if (txtOrderTo.SelectedDate != null)
+                        toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
+                }
+                dsOrderBookMIS = OnlineOrderMISBo.GetOrderBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), hdnOrderStatus.Value, fromDate, toDate, (!string.IsNullOrEmpty(txtOrderNo.Text)) ? int.Parse(txtOrderNo.Text) : 0, null);
+            }
             dtOrderBookMIS = dsOrderBookMIS.Tables[0];
             if (dtOrderBookMIS.Rows.Count > 0)
             {
@@ -206,7 +206,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 pnlOrderBook.Visible = true;
                 imgexportButton.Visible = true;
                 trNoRecords.Visible = false;
-                if (Cache["OrderList" + userVo.UserId ] == null)
+                if (Cache["OrderList" + userVo.UserId] == null)
                 {
                     Cache.Insert("OrderList" + userVo.UserId, dtOrderBookMIS);
                 }
@@ -215,12 +215,12 @@ namespace WealthERP.OnlineOrderBackOffice
                     Cache.Remove("OrderList" + userVo.UserId);
                     Cache.Insert("OrderList" + userVo.UserId, dtOrderBookMIS);
                 }
-               
-                }
+
+            }
             else
             {
                 gvOrderBookMIS.DataSource = dtOrderBookMIS;
-                gvOrderBookMIS.DataBind();               
+                gvOrderBookMIS.DataBind();
                 pnlOrderBook.Visible = true;
                 trNoRecords.Visible = true;
                 imgexportButton.Visible = false;
@@ -254,9 +254,8 @@ namespace WealthERP.OnlineOrderBackOffice
             DataTable dtOrderBookMIS = new DataTable();
             dtOrderBookMIS = (DataTable)Cache["OrderList" + userVo.UserId.ToString()];
             if (dtOrderBookMIS != null)
-
             {
-                gvOrderBookMIS.DataSource = dtOrderBookMIS;                
+                gvOrderBookMIS.DataSource = dtOrderBookMIS;
                 gvOrderBookMIS.Visible = true;
             }
 
@@ -278,21 +277,31 @@ namespace WealthERP.OnlineOrderBackOffice
 
             }
         }
-     protected void gvOrderBookMIS_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
-      {
-          string strRemark = string.Empty;
-          int IsMarked = 0;
-          if (e.CommandName == RadGrid.UpdateCommandName)
-          {
-              GridEditableItem editItem = e.Item as GridEditableItem;
-              TextBox txtRemark = (TextBox)e.Item.FindControl("txtRemark");
-              strRemark = txtRemark.Text;
-              LinkButton buttonEdit = editItem["MarkAsReject"].Controls[0] as LinkButton;
-              Int32 orderId = Convert.ToInt32(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
-              IsMarked = mforderBo.MarkAsReject(orderId, txtRemark.Text);
-              BindOrderBook();
+        protected void gvOrderBookMIS_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
+        {
+            string strRemark = string.Empty;
+            int IsMarked = 0;
+            if (e.CommandName == RadGrid.UpdateCommandName)
+            {
+                GridEditableItem editItem = e.Item as GridEditableItem;
+                TextBox txtRemark = (TextBox)e.Item.FindControl("txtRemark");
+                strRemark = txtRemark.Text;
+                LinkButton buttonEdit = editItem["MarkAsReject"].Controls[0] as LinkButton;
+                Int32 orderId = Convert.ToInt32(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
+                IsMarked = mforderBo.MarkAsReject(orderId, txtRemark.Text);
+                BindOrderBook();
 
-          }
+            }
+            if (e.CommandName == "Select")
+            {
+                GridEditableItem editItem = e.Item as GridEditableItem;
+                LinkButton lnkprAmcB = (LinkButton)editItem.FindControl("lnkprAmcB");
+                Int32 orderId = Convert.ToInt32(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
+                OnlineOrderMISBo.UpdateOrderReverse(orderId, userVo.UserId);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Order updated !!');", true);
+                BindOrderBook();
+
+            }
             //if (e.CommandName == "Edit")
             //{
             //string orderId = gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString();
@@ -317,30 +326,41 @@ namespace WealthERP.OnlineOrderBackOffice
             //}
 
         }
-     protected void gvOrderBookMIS_ItemDataBound(object sender, GridItemEventArgs e)
-     {
+        protected void gvOrderBookMIS_ItemDataBound(object sender, GridItemEventArgs e)
+        {
 
-         if (e.Item is GridDataItem)
-         {
-             GridDataItem dataItem = e.Item as GridDataItem;
-             LinkButton lbtnMarkAsReject = dataItem["MarkAsReject"].Controls[0] as LinkButton;
-             string OrderStepCode = Convert.ToString(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["XS_Status"]);
-             if (OrderStepCode == "INPROCESS" || OrderStepCode == "EXECUTED")
-             {
-                 lbtnMarkAsReject.Visible = true;
-             }
-             else
-             {
-                 lbtnMarkAsReject.Visible = false;
-             }
-         }
-     }
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataItem = e.Item as GridDataItem;
+                LinkButton lbtnMarkAsReject = dataItem["MarkAsReject"].Controls[0] as LinkButton;
+                LinkButton lnkprAmcB = (LinkButton)dataItem.FindControl("lnkprAmcB");
+                string OrderStepCode = Convert.ToString(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["XS_Status"]);
+                if (OrderStepCode == "INPROCESS" || OrderStepCode == "EXECUTED")
+                {
+                    lbtnMarkAsReject.Visible = true;
+                }
+                else
+                {
+                    lbtnMarkAsReject.Visible = false;
+                }
+                if (OrderStepCode == "ACCEPTED")
+                {
+                    lnkprAmcB.Enabled = true;
+                }
+                else
+                {
+                    lnkprAmcB.ForeColor = System.Drawing.Color.Black;
+                    lnkprAmcB.Enabled = false;
+                }
+
+            }
+        }
         protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
-         
-          
+
+
         }
-           
+
         //protected void btnExportFilteredData_OnClick(object sender, EventArgs e)
         //{
         //    gvOrderBookMIS.ExportSettings.OpenInNewWindow = true;
@@ -362,6 +382,6 @@ namespace WealthERP.OnlineOrderBackOffice
             gvOrderBookMIS.ExportSettings.FileName = "OrderBook Details";
             gvOrderBookMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvOrderBookMIS.MasterTableView.ExportToExcel();
-            }  
         }
     }
+}

@@ -727,7 +727,7 @@ namespace DaoCustomerPortfolio
                 dbDematAccountAssociates = db.GetStoredProcCommand("SP_InsertCustomerDematAccountAssociates");
 
                 //db.AddInParameter(dbDematAccountAssociates, "@CDAA_Id", DbType.Int32, associationId);
-                db.AddInParameter(dbDematAccountAssociates, "@CEDA_DematAccountId", DbType.String, dematAccountId);
+                db.AddInParameter(dbDematAccountAssociates, "@CEDA_DematAccountId", DbType.Int32, dematAccountId);
                 db.AddInParameter(dbDematAccountAssociates, "@CDAA_AssociateType", DbType.String, associateType);
                 db.AddInParameter(dbDematAccountAssociates, "@CDAA_Name", DbType.String, name);
                 db.AddInParameter(dbDematAccountAssociates, "@CDAA_PanNum", DbType.String, panNum);
@@ -742,7 +742,7 @@ namespace DaoCustomerPortfolio
                 }
                 db.AddInParameter(dbDematAccountAssociates, "@CDAA_IsKYC", DbType.Int32, isKYC);
                 db.AddInParameter(dbDematAccountAssociates, "@XR_RelationshipCode", DbType.String, relationshipCode);
-                db.AddInParameter(dbDematAccountAssociates, "@CDAA_CreatedBy", DbType.String, createdBy);
+                db.AddInParameter(dbDematAccountAssociates, "@CDAA_CreatedBy", DbType.Int32, createdBy);
                 db.AddOutParameter(dbDematAccountAssociates, "@return", DbType.Int32, 1000);
                 //dbDematAccountAssociates.Parameters["@return"].Direction = ParameterDirection.ReturnValue;
                 db.ExecuteNonQuery(dbDematAccountAssociates);
