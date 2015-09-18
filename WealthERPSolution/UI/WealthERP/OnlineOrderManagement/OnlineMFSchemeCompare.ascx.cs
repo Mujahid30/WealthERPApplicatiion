@@ -256,6 +256,7 @@ namespace WealthERP.OnlineOrderManagement
                     ddlCategory1.Visible = false;
                     ddlSchemeList1.Visible = false;
                     lnkDelete1.Visible = true;
+                    ImgStyle1.Visible = true;
                     //if(Session["Schemedetails"] ==null)
                     //Session["Schemedetails"] = onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC1.SelectedValue), int.Parse(ddlSchemeList1.SelectedValue), ddlCategory1.SelectedValue);
                     //OnlineMFSchemeDetailsVo onlineMFSchemeDetailsVo = (OnlineMFSchemeDetailsVo)Session["Schemedetails"];
@@ -280,6 +281,7 @@ namespace WealthERP.OnlineOrderManagement
                     if (onlineMFSchemeDetailsVo.mornigStar > 0)
                     {
                         imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
+                        ImgStyle1.ImageUrl = @"../Images/MorningStarRating/PMFRD_RatingOverall/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
                     }
                     else
                     {
@@ -292,6 +294,8 @@ namespace WealthERP.OnlineOrderManagement
                     ddlCategory2.Visible = false;
                     ddlSchemeList2.Visible = false;
                     lnkDelete2.Visible = true;
+                    ImgStyle2.Visible = true;
+
                     //Session["Schemedetails1"] = onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC2.SelectedValue), int.Parse(ddlSchemeList2.SelectedValue), ddlCategory2.SelectedValue);
                     //OnlineMFSchemeDetailsVo onlineMFSchemeDetailsVo = (OnlineMFSchemeDetailsVo)Session["Schemedetails1"];
                     lblSchemeName1.Text = onlineMFSchemeDetailsVo.schemeName;
@@ -315,6 +319,8 @@ namespace WealthERP.OnlineOrderManagement
                     if (onlineMFSchemeDetailsVo.mornigStar > 0)
                     {
                         imgSchemeRating1.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
+                        ImgStyle2.ImageUrl = @"../Images/MorningStarRating/PMFRD_RatingOverall/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
+
                     }
                     else
                     {
@@ -327,6 +333,8 @@ namespace WealthERP.OnlineOrderManagement
                     ddlCategory3.Visible = false;
                     ddlSchemeList3.Visible = false;
                     lnkDelete3.Visible = true;
+                    ImgStyle3.Visible = true;
+
                     //Session["Schemedetails2"] = onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC3.SelectedValue), int.Parse(ddlSchemeList3.SelectedValue), ddlCategory3.SelectedValue);
                     //OnlineMFSchemeDetailsVo onlineMFSchemeDetailsVo = (OnlineMFSchemeDetailsVo)Session["Schemedetails2"];
                     lblSchemeName2.Text = onlineMFSchemeDetailsVo.schemeName;
@@ -350,6 +358,8 @@ namespace WealthERP.OnlineOrderManagement
                     if (onlineMFSchemeDetailsVo.mornigStar > 0)
                     {
                         imgSchemeRating2.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
+                        ImgStyle3.ImageUrl = @"../Images/MorningStarRating/PMFRD_RatingOverall/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
+
                     }
                     else
                     {
@@ -362,6 +372,8 @@ namespace WealthERP.OnlineOrderManagement
                     ddlCategory4.Visible = false;
                     ddlSchemeList4.Visible = false;
                     lnkDelete4.Visible = true;
+                    ImgStyle4.Visible = true;
+
                     //Session["Schemedetails3"] = onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC4.SelectedValue), int.Parse(ddlSchemeList4.SelectedValue), ddlCategory4.SelectedValue);
                     //OnlineMFSchemeDetailsVo onlineMFSchemeDetailsVo = (OnlineMFSchemeDetailsVo)Session["Schemedetails3"];
                     lblSchemeName3.Text = onlineMFSchemeDetailsVo.schemeName;
@@ -385,6 +397,8 @@ namespace WealthERP.OnlineOrderManagement
                     if (onlineMFSchemeDetailsVo.mornigStar > 0)
                     {
                         imgSchemeRating3.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
+                        ImgStyle4.ImageUrl = @"../Images/MorningStarRating/PMFRD_RatingOverall/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
+
                     }
                     else
                     {
@@ -404,6 +418,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlCategory1.Visible = true;
             ddlSchemeList1.Visible = true;
             lnkDelete1.Visible = false;
+            ImgStyle1.Visible = false;
             ClearAllField(1);
         }
         protected void lnkDelete2_OnClick(object sender, EventArgs e)
@@ -412,6 +427,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlCategory2.Visible = true;
             ddlSchemeList2.Visible = true;
             lnkDelete2.Visible = false;
+            ImgStyle2.Visible = false;
             ClearAllField(2);
         }
         protected void lnkDelete31_OnClick(object sender, EventArgs e)
@@ -420,6 +436,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlCategory3.Visible = true;
             ddlSchemeList3.Visible = true;
             lnkDelete3.Visible = false;
+            ImgStyle3.Visible = false;
             ClearAllField(3);
         }
         protected void lnkDelete4_OnClick(object sender, EventArgs e)
@@ -428,6 +445,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlCategory4.Visible = true;
             ddlSchemeList4.Visible = true;
             lnkDelete4.Visible = false;
+            ImgStyle4.Visible = false;
             ClearAllField(4);
         }
         protected void ClearAllField(int columnNo)

@@ -73,7 +73,7 @@ namespace WealthERP.OnlineOrderManagement
             custPortVo = (CustomerPortfolioVo)Session["CustomerPortfolioVo"];
             RadInformation.VisibleOnPageLoad = false;
             int TOcpmaretime = int.Parse(DateTime.Now.ToShortTimeString().Split(':')[0]);
-            if (TOcpmaretime >= int.Parse(ConfigurationSettings.AppSettings["START_TIME"]) && TOcpmaretime <= int.Parse(ConfigurationSettings.AppSettings["END_TIME"]))
+            if (TOcpmaretime >= int.Parse(ConfigurationSettings.AppSettings["START_TIME"]) && TOcpmaretime < int.Parse(ConfigurationSettings.AppSettings["END_TIME"]))
             {
                 if (Session["PageDefaultSetting"] != null)
                 {

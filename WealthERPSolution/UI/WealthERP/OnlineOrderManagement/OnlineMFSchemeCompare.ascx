@@ -72,81 +72,101 @@
                             <td style="width: auto;">
                             </td>
                             <td id="tdddlAMC1" runat="server">
+                                <asp:LinkButton ID="lnkDelete1" runat="server" OnClick="lnkDelete1_OnClick" Visible="false" ToolTip="Remove" style="float:right">  <span class="glyphicon glyphicon-remove">
+                            </span></asp:LinkButton><br />
+                                <asp:Image runat="server" ID="ImgStyle1" Visible="false" />
                                 <asp:DropDownList ID="ddlAMC1" runat="server" OnSelectedIndexChanged="ddlAMC1_SelectedIndexChanged"
                                     CssClass="form-control input-sm" AutoPostBack="false">
                                 </asp:DropDownList>
-                                <asp:LinkButton ID="lnkDelete1" runat="server" OnClick="lnkDelete1_OnClick" Visible="false">  <span class="glyphicon glyphicon-remove">
-                            </span></asp:LinkButton>
-                            </td>
-                            <td id="tdddlAMC2" runat="server">
-                                <asp:DropDownList ID="ddlAMC2" runat="server" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlAMC2_SelectedIndexChanged"
-                                    AutoPostBack="false">
-                                </asp:DropDownList>
-                                <asp:LinkButton ID="lnkDelete2" runat="server" OnClick="lnkDelete2_OnClick" Visible="false">  <span class="glyphicon glyphicon-remove">
-                            </span></asp:LinkButton>
-                            </td>
-                            <td id="tdddlAMC3" runat="server">
-                                <asp:DropDownList ID="ddlAMC3" runat="server" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlAMC3_SelectedIndexChanged"
-                                    AutoPostBack="false">
-                                </asp:DropDownList>
-                                <asp:LinkButton ID="lnkDelete3" runat="server" OnClick="lnkDelete31_OnClick" Visible="false">  <span class="glyphicon glyphicon-remove">
-                            </span></asp:LinkButton>
-                            </td>
-                            <td id="tdddlAMC4" runat="server">
-                                <asp:DropDownList ID="ddlAMC4" runat="server" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlAMC4_SelectedIndexChanged"
-                                    AutoPostBack="false">
-                                </asp:DropDownList>
-                                <asp:LinkButton ID="lnkDelete4" runat="server" OnClick="lnkDelete4_OnClick" Visible="false">  <span class="glyphicon glyphicon-remove">
-                            </span></asp:LinkButton>
-                            </td>
-                        </tr>
-                        <tr class="searchable-spec cell top sub-name small bordered">
-                            <td style="width: auto;">
-                            </td>
-                            <td id="tdddlCategory1" runat="server">
+                                <br />
                                 <asp:DropDownList ID="ddlCategory1" runat="server" CssClass="form-control input-sm"
-                                  AutoPostBack="true" OnSelectedIndexChanged="ddlCategory1_OnSelectedIndexChanged">
+                                    AutoPostBack="true" OnSelectedIndexChanged="ddlCategory1_OnSelectedIndexChanged">
                                 </asp:DropDownList>
-                            </td>
-                            <td id="tdddlCategory2" runat="server">
-                                <asp:DropDownList ID="ddlCategory2" runat="server" CssClass="form-control input-sm"
-                                  AutoPostBack="true" OnSelectedIndexChanged="ddlCategory2_OnSelectedIndexChanged">
-                                </asp:DropDownList>
-                            </td>
-                            <td id="tdddlCategory3" runat="server">
-                                <asp:DropDownList ID="ddlCategory3" runat="server" CssClass="form-control input-sm"
-                                  AutoPostBack="true" OnSelectedIndexChanged="ddlCategory3_OnSelectedIndexChanged">
-                                </asp:DropDownList>
-                            </td>
-                            <td id="tdddlCategory4" runat="server">
-                                <asp:DropDownList ID="ddlCategory4" runat="server" CssClass="form-control input-sm"
-                                  AutoPostBack="true" OnSelectedIndexChanged="ddlCategory4_OnSelectedIndexChanged">
-                                </asp:DropDownList>
-                            </td>
-                        </tr>
-                        <tr class="searchable-spec cell top sub-name small bordered">
-                            <td style="width: auto;">
-                            </td>
-                            <td id="tdddlSchemeList1" runat="server">
+                                <br />
                                 <asp:DropDownList ID="ddlSchemeList1" runat="server" OnSelectedIndexChanged="ddlSchemeList1_OnSelectedIndexChanged"
                                     AutoPostBack="true" CssClass="form-control input-sm">
                                 </asp:DropDownList>
                             </td>
-                            <td id="tdddlSchemeList2" runat="server">
+                            <td id="tdddlAMC2" runat="server">
+                                <asp:LinkButton ID="lnkDelete2" runat="server" OnClick="lnkDelete2_OnClick" Visible="false" ToolTip="Remove" style="float:right">  <span class="glyphicon glyphicon-remove">
+                            </span></asp:LinkButton><br />
+                                <asp:Image runat="server" ID="ImgStyle2" Visible="false" />
+                                <asp:DropDownList ID="ddlAMC2" runat="server" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlAMC2_SelectedIndexChanged"
+                                    AutoPostBack="false">
+                                </asp:DropDownList>
+                                <br />
+                                <asp:DropDownList ID="ddlCategory2" runat="server" CssClass="form-control input-sm"
+                                    AutoPostBack="true" OnSelectedIndexChanged="ddlCategory2_OnSelectedIndexChanged">
+                                </asp:DropDownList>
+                                <br />
                                 <asp:DropDownList ID="ddlSchemeList2" runat="server" CssClass="form-control input-sm"
                                     OnSelectedIndexChanged="ddlSchemeList2_OnSelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </td>
-                            <td id="tdddlSchemeList3" runat="server">
+                            <td id="tdddlAMC3" runat="server">
+                                <asp:LinkButton ID="lnkDelete3" runat="server" OnClick="lnkDelete31_OnClick" Visible="false" ToolTip="Remove" style="float:right">  <span class="glyphicon glyphicon-remove">
+                            </span></asp:LinkButton><br />
+                                <asp:Image runat="server" ID="ImgStyle3" Visible="false" />
+                                <asp:DropDownList ID="ddlAMC3" runat="server" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlAMC3_SelectedIndexChanged"
+                                    AutoPostBack="false">
+                                </asp:DropDownList>
+                                <br />
+                                <asp:DropDownList ID="ddlCategory3" runat="server" CssClass="form-control input-sm"
+                                    AutoPostBack="true" OnSelectedIndexChanged="ddlCategory3_OnSelectedIndexChanged">
+                                </asp:DropDownList>
+                                <br />
                                 <asp:DropDownList ID="ddlSchemeList3" runat="server" CssClass="form-control input-sm"
                                     OnSelectedIndexChanged="ddlSchemeList3_OnSelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </td>
-                            <td id="tdddlSchemeList4" runat="server">
+                            <td id="tdddlAMC4" runat="server">
+                                <asp:LinkButton ID="lnkDelete4" runat="server" OnClick="lnkDelete4_OnClick" Visible="false" ToolTip="Remove" style="float:right">  <span class="glyphicon glyphicon-remove">
+                            </span></asp:LinkButton><br />
+                                <asp:Image runat="server" ID="ImgStyle4" Visible="false" />
+                                <asp:DropDownList ID="ddlAMC4" runat="server" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlAMC4_SelectedIndexChanged"
+                                    AutoPostBack="false">
+                                </asp:DropDownList>
+                                <br />
+                                <asp:DropDownList ID="ddlCategory4" runat="server" CssClass="form-control input-sm"
+                                    AutoPostBack="true" OnSelectedIndexChanged="ddlCategory4_OnSelectedIndexChanged">
+                                </asp:DropDownList>
+                                <br />
                                 <asp:DropDownList ID="ddlSchemeList4" runat="server" CssClass="form-control input-sm"
                                     OnSelectedIndexChanged="ddlSchemeList4_OnSelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </td>
+                        </tr>
+                        <%--<tr class="searchable-spec cell top sub-name small bordered">
+                            <td style="width: auto;">
+                            </td>--%>
+                        <%-- <td id="tdddlCategory1" runat="server">
+                               
+                            </td>
+                            <td id="tdddlCategory2" runat="server">
+                               
+                            </td>
+                            <td id="tdddlCategory3" runat="server">
+                              
+                            </td>
+                            <td id="tdddlCategory4" runat="server">
+                              
+                            </td>--%>
+                        <%-- </tr>
+                        <tr class="searchable-spec cell top sub-name small bordered">
+                            <td style="width: auto;">
+                            </td>--%>
+                        <%-- <td id="tdddlSchemeList1" runat="server">
+                              
+                            </td>
+                            <td id="tdddlSchemeList2" runat="server">
+                              
+                            </td>
+                            <td id="tdddlSchemeList3" runat="server">
+                               
+                            </td>
+                            <td id="tdddlSchemeList4" runat="server">
+                               
+                            </td>--%>
                         </tr>
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td style="width: auto;">

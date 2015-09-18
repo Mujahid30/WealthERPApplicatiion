@@ -68,15 +68,6 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlAMC1;
         
         /// <summary>
-        /// ddlAMC1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlAMC1;
-        
-        /// <summary>
         /// lnkDelete1 control.
         /// </summary>
         /// <remarks>
@@ -86,94 +77,22 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.LinkButton lnkDelete1;
         
         /// <summary>
-        /// tdddlAMC2 control.
+        /// ImgStyle1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlAMC2;
+        protected global::System.Web.UI.WebControls.Image ImgStyle1;
         
         /// <summary>
-        /// ddlAMC2 control.
+        /// ddlAMC1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlAMC2;
-        
-        /// <summary>
-        /// lnkDelete2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkDelete2;
-        
-        /// <summary>
-        /// tdddlAMC3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlAMC3;
-        
-        /// <summary>
-        /// ddlAMC3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlAMC3;
-        
-        /// <summary>
-        /// lnkDelete3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkDelete3;
-        
-        /// <summary>
-        /// tdddlAMC4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlAMC4;
-        
-        /// <summary>
-        /// ddlAMC4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlAMC4;
-        
-        /// <summary>
-        /// lnkDelete4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkDelete4;
-        
-        /// <summary>
-        /// tdddlCategory1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlCategory1;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAMC1;
         
         /// <summary>
         /// ddlCategory1 control.
@@ -185,13 +104,49 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.DropDownList ddlCategory1;
         
         /// <summary>
-        /// tdddlCategory2 control.
+        /// ddlSchemeList1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlCategory2;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSchemeList1;
+        
+        /// <summary>
+        /// tdddlAMC2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlAMC2;
+        
+        /// <summary>
+        /// lnkDelete2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkDelete2;
+        
+        /// <summary>
+        /// ImgStyle2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image ImgStyle2;
+        
+        /// <summary>
+        /// ddlAMC2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlAMC2;
         
         /// <summary>
         /// ddlCategory2 control.
@@ -203,13 +158,49 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.DropDownList ddlCategory2;
         
         /// <summary>
-        /// tdddlCategory3 control.
+        /// ddlSchemeList2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlCategory3;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSchemeList2;
+        
+        /// <summary>
+        /// tdddlAMC3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlAMC3;
+        
+        /// <summary>
+        /// lnkDelete3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkDelete3;
+        
+        /// <summary>
+        /// ImgStyle3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image ImgStyle3;
+        
+        /// <summary>
+        /// ddlAMC3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlAMC3;
         
         /// <summary>
         /// ddlCategory3 control.
@@ -221,69 +212,6 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.DropDownList ddlCategory3;
         
         /// <summary>
-        /// tdddlCategory4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlCategory4;
-        
-        /// <summary>
-        /// ddlCategory4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCategory4;
-        
-        /// <summary>
-        /// tdddlSchemeList1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlSchemeList1;
-        
-        /// <summary>
-        /// ddlSchemeList1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSchemeList1;
-        
-        /// <summary>
-        /// tdddlSchemeList2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlSchemeList2;
-        
-        /// <summary>
-        /// ddlSchemeList2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSchemeList2;
-        
-        /// <summary>
-        /// tdddlSchemeList3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlSchemeList3;
-        
-        /// <summary>
         /// ddlSchemeList3 control.
         /// </summary>
         /// <remarks>
@@ -293,13 +221,49 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.DropDownList ddlSchemeList3;
         
         /// <summary>
-        /// tdddlSchemeList4 control.
+        /// tdddlAMC4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlSchemeList4;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlAMC4;
+        
+        /// <summary>
+        /// lnkDelete4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkDelete4;
+        
+        /// <summary>
+        /// ImgStyle4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image ImgStyle4;
+        
+        /// <summary>
+        /// ddlAMC4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlAMC4;
+        
+        /// <summary>
+        /// ddlCategory4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCategory4;
         
         /// <summary>
         /// ddlSchemeList4 control.
