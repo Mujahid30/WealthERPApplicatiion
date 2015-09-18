@@ -51,15 +51,13 @@ namespace WealthERP.BusinessMIS
                 LoadAllSchemeList(0);
                 BindProductDropdown();
                 BindMonthsAndYear();
-                GetCommisionTypes();
+                //GetCommisionTypes();
                 int day = 1;
                 btnExportFilteredData.Visible = false;
                 associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
                 if (associateuserheirarchyVo != null && associateuserheirarchyVo.AgentCode != null)
                 {
                     AgentCode = associateuserheirarchyVo.AgentCode.ToString();
-                    ddlSearchType.Items.FindByText("Receivables").Enabled = false;
-                    ddlSearchType.Items.FindByText("Brokerage").Enabled = false;
                     ddlSelectMode.Items.FindByText("Both").Enabled = false;
                     ddlSelectMode.Items.FindByText("Online-Only").Enabled = false;
                 }
@@ -79,11 +77,11 @@ namespace WealthERP.BusinessMIS
             ddlMnthQtr.Items.Add(new ListItem("Quarter October-December", "15"));
             ddlMnthQtr.Items.Add(new ListItem("Quarter January-March", "16"));
             ddlMnthQtr.Items.Insert(0, new ListItem("Select", "0"));
-            for (int i = 2008; i <= DateTime.Now.Year; i++)
+            for (int i = DateTime.Now.Year; i >= 2008; i--)
             {
                 ddlYear.Items.Add(new ListItem(i.ToString(), i.ToString()));
             }
-            ddlYear.Items.Insert(0, new ListItem("Select", "0"));
+            
         }
 
         protected void ddlIssuer_SelectedIndexChanged(object sender, EventArgs e)
@@ -185,8 +183,6 @@ namespace WealthERP.BusinessMIS
             ddlProductCategory.DataBind();
             td2.Visible = true;
             td1.Visible = true;
-            ddlSearchType.Items[1].Enabled = true;
-
             if (asset == "MF")
             {
                 trSelectMutualFund.Visible = true;
@@ -196,10 +192,10 @@ namespace WealthERP.BusinessMIS
                 cvddlIssueType.Enabled = false;
                 Label1.Visible = true;
                 ddlCommType.Visible = true;
-                td2.Visible = false;
-                td1.Visible = false;
+                Label3.Visible = false;
+                ddlOrderType.Visible = false;
 
-
+               
             }
             else if (asset == "FI" || asset == "IP")
             {
@@ -211,7 +207,6 @@ namespace WealthERP.BusinessMIS
                 cvddlIssueType.Enabled = true;
                 Label1.Visible = false;
                 ddlCommType.Visible = false;
-                ddlSearchType.Items[1].Enabled = false;
                 td2.Visible = false;
                 td1.Visible = false;
 
@@ -326,12 +321,15 @@ namespace WealthERP.BusinessMIS
 
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("ToDt").Visible = false;
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("Age").Visible = false;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("AvgAsset").Visible = false;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("CumNAV").Visible = false; 
 
                 }
                 else if (ddlCommType.SelectedValue == "TC")
                 {
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("fromDt").Visible = true;
-
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("AvgAsset").Visible = true;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("CumNAV").Visible = true;
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("ToDt").Visible = true;
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("Age").Visible = true;
 
@@ -414,23 +412,15 @@ namespace WealthERP.BusinessMIS
         protected void ddlProduct_SelectedIndexChanged(object source, EventArgs e)
         {
 
-            ddlCommType.Items[3].Enabled = false;
-
             if (ddlProduct.SelectedValue != "Select")
             {
                 if (ddlProduct.SelectedValue == "MF")
                 {
 
-                    ddlOrderStatus.Items[2].Enabled = false;
                     ddlOrderStatus.Items[1].Enabled = true;
-                    ddlCommType.Items[3].Enabled = false;
+                  
                 }
-                else
-                {
-                    ddlOrderStatus.Items[1].Enabled = false;
-                    ddlOrderStatus.Items[2].Enabled = true;
-
-                }
+                
                 if (ddlProduct.SelectedValue == "FI")
                 {
                     ddlCommType.Items[2].Enabled = false;
