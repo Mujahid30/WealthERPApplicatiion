@@ -472,7 +472,7 @@ namespace WealthERP.OnlineOrderManagement
                     lblExitLoad.Text = "";
                     lblMinInvestment.Text = "";
                     lblMinMultipleOf.Text = "";
-
+                    imgSchemeRating.ImageUrl = "";
                     break;
                 case 2:
                     imgSchemeRating1.ImageUrl = "";
@@ -494,6 +494,7 @@ namespace WealthERP.OnlineOrderManagement
                     lblExitLoad1.Text = "";
                     lblMinInvestment1.Text = "";
                     lblMinMultipleOf1.Text = "";
+                    imgSchemeRating1.ImageUrl = "";
 
                     break;
                 case 3:
@@ -516,6 +517,7 @@ namespace WealthERP.OnlineOrderManagement
                     lblExitLoad2.Text = "";
                     lblMinInvestment2.Text = "";
                     lblMinMultipleOf2.Text = "";
+                    imgSchemeRating2.ImageUrl = "";
 
                     break;
                 case 4:
@@ -538,6 +540,8 @@ namespace WealthERP.OnlineOrderManagement
                     lblExitLoad3.Text = "";
                     lblMinInvestment3.Text = "";
                     lblMinMultipleOf3.Text = "";
+                    imgSchemeRating3.ImageUrl = "";
+
                     break;
             }
         }

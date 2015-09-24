@@ -17,6 +17,8 @@ using System.Web.Script.Services;
 using System.Net;
 using System.IO;
 using System.Configuration;
+using System.Text;
+using InfoSoftGlobal;
 namespace WealthERP.OnlineOrderManagement
 {
     public partial class MFSchemeDetails : System.Web.UI.UserControl
@@ -33,8 +35,10 @@ namespace WealthERP.OnlineOrderManagement
             if (!IsPostBack)
             {
                 BindAMC();
-                if (Session["MFSchemePlan"] != null)
+                if (Session["MFSchemePlan"] != null || Request.QueryString["schemeCode"]!=null)
                 {
+                    if(Request.QueryString["schemeCode"]!=null)
+                    Session["MFSchemePlan"] = Request.QueryString["schemeCode"];
                     int amcCode = 0;
                     string category = string.Empty;
                     BindCategory();
@@ -98,7 +102,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlCategory.DataValueField = dtCategory.Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
             ddlCategory.DataTextField = dtCategory.Columns["PAIC_AssetInstrumentCategoryName"].ToString();
             ddlCategory.DataBind();
-            ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+            ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("select", "0"));
         }
         protected void Go_OnClick(object sender, EventArgs e)
         {
@@ -107,7 +111,28 @@ namespace WealthERP.OnlineOrderManagement
         }
         public void GetAmcSchemeDetails()
         {
-           onlineMFSchemeDetailsVo= onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue);
+            DataTable dtNavDetails;
+           onlineMFSchemeDetailsVo= onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue,out  dtNavDetails);
+
+           StringBuilder strXML = new StringBuilder();
+           strXML.Append(@"<chart caption='Scheme performance' xAxisName='Date'  yAxisName='NAV' anchorBgColor='FF3300' bgColor='FFFFFF' showBorder='0'  canvasBgColor='FFFFFF' lineColor='2480C7' >");
+           strXML.Append(@" <categories>");
+           foreach (DataRow dr in dtNavDetails.Rows)
+           {
+               strXML.AppendFormat("<category label ='{0}' />", dr["PSP_Date"]);
+           }
+           strXML.AppendFormat(@" </categories> <dataset seriesName='{0}'>", onlineMFSchemeDetailsVo.schemeName);
+           foreach (DataRow dr in dtNavDetails.Rows)
+           {
+               strXML.AppendFormat("<set value ='{0}' />", dr["PSP_NetAssetValue"].ToString());
+           }
+           strXML.Append("</dataset>");
+
+           strXML.Append(@"<vTrendlines>  <line startValue='895' color='FF0000' toolText='NAV' displayValue='Average' showOnTop='1' /></vTrendlines> </chart>");
+           
+           Literal1.Text = FusionCharts.RenderChartHTML("../FusionCharts/ZoomLine.swf", "", strXML.ToString(), "FactorySum", "100%", "400", false, true, false);
+
+
             lblSchemeName.Text = onlineMFSchemeDetailsVo.schemeName;
             lblAMC.Text = onlineMFSchemeDetailsVo.amcName;
             lblNAV.Text = onlineMFSchemeDetailsVo.NAV.ToString();
@@ -134,6 +159,7 @@ namespace WealthERP.OnlineOrderManagement
             else
             {
                 imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/0.png";
+                imgStyleBox.ImageUrl = @"../Images/MorningStarRating/StarStyleBox/0.png";
 
             }
         }
@@ -211,31 +237,32 @@ namespace WealthERP.OnlineOrderManagement
         //{
         protected void BindfundManagerDetails()
         {
-            string cmotcode = onlineMFSchemeDetailsBo.GetCmotCode((!string.IsNullOrEmpty(Session["MFSchemePlan"].ToString())) ? int.Parse(Session["MFSchemePlan"].ToString()) : int.Parse(ddlScheme.SelectedValue));
-            string result;
-            if (cmotcode != "")
-            {
-                string FundManagerDetais = ConfigurationSettings.AppSettings["FUND_MANAGER_DETAILS"] + cmotcode + "/Pre";
-                WebResponse response;
-                WebRequest request = HttpWebRequest.Create(FundManagerDetais);
-                response = request.GetResponse();
-                using (StreamReader reader = new StreamReader(response.GetResponseStream()))
-                {
-                    result = reader.ReadToEnd();
-                    reader.Close();
-                }
-                StringReader theReader = new StringReader(result);
-                DataSet theDataSet = new DataSet();
-                theDataSet.ReadXml(theReader);
-                foreach (DataRow dr in theDataSet.Tables[1].Rows)
-                {
-                    lblFundMAnagername.Text = dr["FundManager"].ToString();
-                    lblQualification.Text = dr["Qualification"].ToString();
-                    lblDesignation.Text = dr["Designation"].ToString();
-                    lblExperience.Text = dr["experience"].ToString();
-                }
-            }
+            //string cmotcode = onlineMFSchemeDetailsBo.GetCmotCode((!string.IsNullOrEmpty(Session["MFSchemePlan"].ToString())) ? int.Parse(Session["MFSchemePlan"].ToString()) : int.Parse(ddlScheme.SelectedValue));
+            //string result;
+            //if (cmotcode != "")
+            //{
+            //    string FundManagerDetais = ConfigurationSettings.AppSettings["FUND_MANAGER_DETAILS"] + cmotcode + "/Pre";
+            //    WebResponse response;
+            //    WebRequest request = HttpWebRequest.Create(FundManagerDetais);
+            //    response = request.GetResponse();
+            //    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+            //    {
+            //        result = reader.ReadToEnd();
+            //        reader.Close();
+            //    }
+            //    StringReader theReader = new StringReader(result);
+            //    DataSet theDataSet = new DataSet();
+            //    theDataSet.ReadXml(theReader);
+            //    foreach (DataRow dr in theDataSet.Tables[1].Rows)
+            //    {
+            //        lblFundMAnagername.Text = dr["FundManager"].ToString();
+            //        lblQualification.Text = dr["Qualification"].ToString();
+            //        lblDesignation.Text = dr["Designation"].ToString();
+            //        lblExperience.Text = dr["experience"].ToString();
+            //    }
+            //}
         }
+        
         protected void lnkAddToCompare_OnClick(object sender, EventArgs e)
         {
             if (ddlScheme.SelectedValue != "")

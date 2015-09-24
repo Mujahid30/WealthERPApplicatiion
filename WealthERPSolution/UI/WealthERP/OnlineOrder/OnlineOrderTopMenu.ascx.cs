@@ -23,12 +23,10 @@ namespace WealthERP.OnlineOrder
         }
 
         protected void Page_Load(object sender, EventArgs e)
-        {
-            OnlineUserSessionBo.CheckSession();
-
+        {   OnlineUserSessionBo.CheckSession();
+            //txtSchemeName_AutoCompleteExtender.ServiceMethod = "GetSchemeList";
             if (Session["PageDefaultSetting"] != null)
                 defaultProductPageSetting = (Dictionary<string, string>)Session["PageDefaultSetting"];
-
             if (!Page.IsPostBack)
             {
                 //Session["PageRefresh"] = "true";
@@ -47,12 +45,12 @@ namespace WealthERP.OnlineOrder
 
                 case "RTSMFOrderMenuHomeSchemeResearch": // add a new child tab
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFSchemeDetails','login');", true);
-                    break; 
+                    break;
 
                 case "RTSMFOrderMenuHomeSchemeCompare": // add a new child tab
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('OnlineMFSchemeCompare','login');", true);
                     break;
-                      
+
 
             }
         }
@@ -290,6 +288,10 @@ namespace WealthERP.OnlineOrder
 
             }
 
+        }
+        protected void SchemeSearch_OnTextChanged(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFSchemeDetails','&schemeCode=" + schemeCode.Value + "')", true);
         }
     }
 }

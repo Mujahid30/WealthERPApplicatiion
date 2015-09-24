@@ -73,6 +73,7 @@
     {
         width: 100%;
         border: none;
+       
     }
     #bottomframe
     {
@@ -306,12 +307,12 @@
                         Style="text-decoration: none;text-align:center;" OnClick="lnkIPOOrderMenuHoldings_Click" Width="120px"></asp:LinkButton>
                 </li>
             </ul>
-        </div>
-        <div class="top-menu-frame">
+        </div> 
+        <div class="top-menu-frame" style=" Position:Relative">
             <iframe name="topframe" id="topframe" onload="javascript:calcIFrameHeight('topframe');"
-                src="OnlineTopHost.aspx" height="35px" width="100%" scrolling="no"></iframe>
+                src="OnlineTopHost.aspx" height="100px" width="100%" scrolling="no"></iframe>
         </div>
-        <div class="bottom-content-frame">
+        <div class="bottom-content-frame" style="margin-top:10px;z-index:3" >
             <iframe name="bottomframe" class="bottomframe" id="bottomframe" onload="javascript:calcIFrameHeight('bottomframe');"
                 src="OnlineBottomHost.aspx" scrolling="no" height="1500px"></iframe>
         </div>

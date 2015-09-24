@@ -53,6 +53,9 @@ namespace WealthERP.OnlineOrder
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trMFOrderMenuBooksTab;
+        protected global::System.Web.UI.WebControls.TextBox SchemeSearch;
+        protected global::System.Web.UI.WebControls.HiddenField schemeCode;
+        protected global::AjaxControlToolkit.AutoCompleteExtender txtSchemeName_AutoCompleteExtender;
 
         /// <summary>
         /// trMFOrderMenuTransactTab control.

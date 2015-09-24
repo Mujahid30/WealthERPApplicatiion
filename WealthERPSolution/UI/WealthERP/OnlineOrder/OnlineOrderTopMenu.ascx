@@ -1,19 +1,45 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="OnlineOrderTopMenu.ascx.cs"
     Inherits="WealthERP.OnlineOrder.OnlineOrderTopPanel" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
-<asp:ScriptManager ID="ScriptManager" runat="server" EnablePageMethods="true" />
+<asp:ScriptManager ID="ScriptManager" runat="server" EnablePageMethods="true">
+    <Services>
+        <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
+    </Services>
+</asp:ScriptManager>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+
+<script src="../Scripts/jquery.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.2.6.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
+
+<script src="../Scripts/JScript.js" type="text/javascript"></script>
+
+<style type="text/css">
+   
+</style>
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
         <table cellpadding="0" cellspacing="0" style="top: auto; vertical-align: top; padding-left: 13px;"
             id="tblMF" visible="false" runat="server">
             <tr id="trMFOrderMenuMarketTab" runat="server" visible="false">
                 <td>
-                    <telerik:RadTabStrip ID="RTSMFOrderMenuHome" runat="server" EnableTheming="True" Skin="Telerik"
-                        EnableEmbeddedSkins="False" MultiPageID="RMPMFOrderMenuTransact" SelectedIndex="7"
-                        AutoPostBack="true" OnTabClick="RTSMFOrderMenuHome_TabClick">
+                    <telerik:RadTabStrip ID="RTSMFOrderMenuHome" runat="server" EnableTheming="True"
+                        Skin="Telerik" EnableEmbeddedSkins="False" MultiPageID="RMPMFOrderMenuTransact"
+                        SelectedIndex="7" AutoPostBack="true" OnTabClick="RTSMFOrderMenuHome_TabClick">
                         <Tabs>
-                            <telerik:RadTab runat="server" Text="MARKET" Value="RTSMFOrderMenuHomeMarket"
-                                TabIndex="0" PageViewID="RPVMarket" Selected="True">
+                            <telerik:RadTab runat="server" Text="MARKET" Value="RTSMFOrderMenuHomeMarket" TabIndex="0"
+                                PageViewID="RPVMarket" Selected="True">
                             </telerik:RadTab>
                             <telerik:RadTab runat="server" Text="SCHEME RESEARCH" Value="RTSMFOrderMenuHomeSchemeResearch"
                                 TabIndex="1" PageViewID="RPVSchemeResearch" Selected="True">
@@ -23,14 +49,33 @@
                             </telerik:RadTab>
                         </Tabs>
                     </telerik:RadTabStrip>
-                    <telerik:RadMultiPage ID="RMPMFOrderMenuMarketHome" EnableViewState="false" runat="server" SelectedIndex="0" Width="100%">
+                    <telerik:RadMultiPage ID="RMPMFOrderMenuMarketHome" EnableViewState="false" runat="server"
+                        SelectedIndex="0" Width="100%">
                         <telerik:RadPageView ID="RPVMarket" runat="server" Style="margin-top: 20px">
                         </telerik:RadPageView>
-                         <telerik:RadPageView ID="RPVSchemeResearch" runat="server" Style="margin-top: 20px">
+                        <telerik:RadPageView ID="RPVSchemeResearch" runat="server" Style="margin-top: 20px">
                         </telerik:RadPageView>
-                         <telerik:RadPageView ID="RPVSchemeCompare" runat="server" Style="margin-top: 20px">
+                        <telerik:RadPageView ID="RPVSchemeCompare" runat="server" Style="margin-top: 20px">
                         </telerik:RadPageView>
                     </telerik:RadMultiPage>
+                </td>
+                <td style="width: 200px;">
+                </td>
+                <td align="right">
+                    <asp:TextBox runat="server" ID="SchemeSearch" AutoPostBack="true" Style="margin-top: 0px;
+                        float: right;" Width="300px" OnTextChanged="SchemeSearch_OnTextChanged"></asp:TextBox>
+                    <cc1:TextBoxWatermarkExtender ID="txtSchemeName_water" TargetControlID="SchemeSearch"
+                        WatermarkText="Search Scheme" runat="server" EnableViewState="false">
+                    </cc1:TextBoxWatermarkExtender>
+                    <div id="listPlacement" style="height: 150px; overflow-y: scroll;">
+                    </div>
+                    <ajaxToolkit:AutoCompleteExtender ID="txtSchemeName_AutoCompleteExtender" runat="server"
+                        TargetControlID="SchemeSearch" ServiceMethod="GetSchemeGuess" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                        MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
+                        CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                        CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                        UseContextKey="True" OnClientItemSelected="GetSchemePlanCode" DelimiterCharacters=""
+                        CompletionListElementID="listPlacement" Enabled="True" />
                 </td>
             </tr>
             <tr id="trMFOrderMenuTransactTab" runat="server" visible="false">
@@ -38,7 +83,7 @@
                     <telerik:RadTabStrip ID="RTSMFOrderMenuTransact" runat="server" EnableTheming="True"
                         Skin="Telerik" EnableEmbeddedSkins="False" MultiPageID="RMPMFOrderMenuTransact"
                         SelectedIndex="7" AutoPostBack="true" OnTabClick="RTSMFOrderMenuTransact_TabClick">
-                        <Tabs>                           
+                        <Tabs>
                             <telerik:RadTab runat="server" Text="NEW PURCHASE" Value="RTSMFOrderMenuTransactNewPurchase"
                                 TabIndex="0" PageViewID="RPVNewPurchase" Selected="true">
                             </telerik:RadTab>
@@ -54,8 +99,8 @@
                             <telerik:RadTab runat="server" Text="NFO" Value="RTSMFOrderMenuTransactNFO" TabIndex="4"
                                 PageViewID="RPVNFO">
                             </telerik:RadTab>
-                            <telerik:RadTab runat="server" Text="Switch" Value="RTSMFOrderMenuTransactSwitch" TabIndex="5"
-                                PageViewID="RPVNFO">
+                            <telerik:RadTab runat="server" Text="Switch" Value="RTSMFOrderMenuTransactSwitch"
+                                TabIndex="5" PageViewID="RPVNFO">
                             </telerik:RadTab>
                             <telerik:RadTab runat="server" Text="SWP" Value="RTSMFOrderMenuTransactSWP" TabIndex="6"
                                 PageViewID="RPVNFO">
@@ -142,8 +187,8 @@
                 </td>
             </tr>
         </table>
-        <table cellpadding="0" cellspacing="0" style="top: auto; vertical-align: top; padding-left: 13px;"
-            id="tblNCD" visible="false" runat="server">
+        <table cellpadding="0" cellspacing="0" style="top: auto; vertical-align: top; padding-left: 13px;
+            z-index: 2" id="tblNCD" visible="false" runat="server">
             <tr id="trNCDOrderMenuTransactTab" runat="server" visible="false">
                 <td>
                     <telerik:RadTabStrip ID="RTSNCDOrderMenuTransact" runat="server" EnableTheming="True"
@@ -264,6 +309,17 @@
     </ContentTemplate>
     <Triggers>
         <%-- <asp:PostBackTrigger ControlID="imgexportButton" />--%>
+        <asp:PostBackTrigger ControlID="SchemeSearch" />
     </Triggers>
 </asp:UpdatePanel>
+<asp:HiddenField ID="schemeCode" runat="server" />
+
+<script type="text/javascript" language="javascript">
+    function GetSchemePlanCode(source, eventArgs) {
+        isItemSelected = true;
+        document.getElementById("<%= schemeCode.ClientID %>").value = eventArgs.get_value();
+
+        return false;
+    }
+</script>
 

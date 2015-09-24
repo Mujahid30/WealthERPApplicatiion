@@ -16,7 +16,7 @@ namespace DaoOnlineOrderManagement
     public class OnlineMFSchemeDetailsDao
     {
             OnlineMFSchemeDetailsVo OnlineMFSchemeDetailsVo = new OnlineMFSchemeDetailsVo();
-        public OnlineMFSchemeDetailsVo GetSchemeDetails(int amcCode, int schemeCode, string category)
+            public OnlineMFSchemeDetailsVo GetSchemeDetails(int amcCode, int schemeCode, string category, out DataTable dtNavDetails)
         {
             Database db;
             DataSet GetSchemeDetailsDs;
@@ -31,6 +31,7 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(GetSchemeDetailsCmd, "@category", DbType.String, category);
 
                 GetSchemeDetailsDs = db.ExecuteDataSet(GetSchemeDetailsCmd);
+                dtNavDetails = GetSchemeDetailsDs.Tables[1];
                 if (GetSchemeDetailsDs.Tables[0].Rows.Count > 0)
                 {
                     foreach (DataRow dr in GetSchemeDetailsDs.Tables[0].Rows)

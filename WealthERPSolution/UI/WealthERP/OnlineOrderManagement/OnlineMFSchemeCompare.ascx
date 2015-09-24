@@ -59,7 +59,7 @@
     <ContentTemplate>
         <div class="table-responsive" style="margin-left: 5%; margin-top: 2%;">
             <div class="col-md-3" style="width: 70%;">
-                <table class="table table-bordered">
+                <table class="col-md-12 table-bordered table-striped table-condensed cf">
                     <thead>
                         <tr>
                             <th colspan="5" class="header">
@@ -168,7 +168,7 @@
                                
                             </td>--%>
                         </tr>
-                        <tr class="searchable-spec cell top sub-name small bordered">
+                        <tr class="searchable-spec cell top sub-name small bordered" visible="false" id="trschemerating" runat="server">
                             <td style="width: auto;">
                                 <b>Scheme Rating</b>
                             </td>

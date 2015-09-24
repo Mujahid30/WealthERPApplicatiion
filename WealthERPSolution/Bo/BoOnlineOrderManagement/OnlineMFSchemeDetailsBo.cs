@@ -22,12 +22,13 @@ namespace BoOnlineOrderManagement
 
 
 
-        public OnlineMFSchemeDetailsVo GetSchemeDetails(int amcCode, int schemeCode, string category)
+        public OnlineMFSchemeDetailsVo GetSchemeDetails(int amcCode, int schemeCode, string category,out DataTable dtNavDetails)
         {
             OnlineMFSchemeDetailsVo OnlineMFSchemeDetailsVo = new OnlineMFSchemeDetailsVo();
+           
             try
             {
-                OnlineMFSchemeDetailsVo = OnlineMFSchemeDetailsDao.GetSchemeDetails(amcCode, schemeCode, category);
+                OnlineMFSchemeDetailsVo = OnlineMFSchemeDetailsDao.GetSchemeDetails(amcCode, schemeCode, category, out dtNavDetails);
             }
             catch (BaseApplicationException Ex)
             {
