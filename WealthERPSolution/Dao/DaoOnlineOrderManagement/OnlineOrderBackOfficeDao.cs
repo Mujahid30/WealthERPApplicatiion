@@ -3077,7 +3077,7 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetProductSearchType;
         }
-        public DataTable GetSchemeDetails(int AMCCode, int Schemeplanecode, string category, int customerId, bool SchemeDetails)
+        public DataTable GetSchemeDetails(int AMCCode, int Schemeplanecode, string category, int customerId, Int16 SchemeDetails)
         {
             DataTable dtGetSchemeDetails;
             Database db;
@@ -3093,7 +3093,7 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(cmdGetSchemeDetails, "@category", DbType.String, category);
                 if (customerId!=0)
                     db.AddInParameter(cmdGetSchemeDetails, "@customerId", DbType.Int64, customerId);
-                db.AddInParameter(cmdGetSchemeDetails, "@SchemeDetails", DbType.Boolean, SchemeDetails);
+                db.AddInParameter(cmdGetSchemeDetails, "@SchemeDetails", DbType.Int16, SchemeDetails);
                 dsGetSchemeDetails = db.ExecuteDataSet(cmdGetSchemeDetails);
                 dtGetSchemeDetails = dsGetSchemeDetails.Tables[0];
             }

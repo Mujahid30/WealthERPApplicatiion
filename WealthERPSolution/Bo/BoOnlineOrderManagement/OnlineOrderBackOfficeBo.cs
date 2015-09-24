@@ -2492,7 +2492,7 @@ namespace BoOnlineOrderManagement
             }
             return dt;
         }
-        public DataTable GetSchemeDetails(int AMCCode,int Schemeplanecode,string category, int customerId, bool SchemeDetails)
+        public DataTable GetSchemeDetails(int AMCCode,int Schemeplanecode,string category, int customerId, Int16 SchemeDetails)
         {
 
             DataTable dtGetSchemeDetails = new DataTable();

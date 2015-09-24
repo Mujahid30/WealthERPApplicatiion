@@ -96,12 +96,12 @@ namespace WealthERP.OnlineOrderManagement
         protected void Go_OnClick(object sender, EventArgs e)
         {
 
-            BindSchemeRelatedDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue, customerVo.CustomerId, true);
+            BindSchemeRelatedDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue, customerVo.CustomerId, 1);
         }
-        protected void BindSchemeRelatedDetails(int amcCode, int SchemeCode, string category, int customerId, bool isSchemeDetails)
+        protected void BindSchemeRelatedDetails(int amcCode, int SchemeCode, string category, int customerId, Int16 isSchemeDetails)
         {
             OnlineOrderBackOfficeBo bo = new OnlineOrderBackOfficeBo();
-            dvSchemeDetailsl.Visible = true;
+            dvSchemeDetails.Visible = true;
             DataTable dtBindSchemeRelatedDetails = bo.GetSchemeDetails(amcCode, SchemeCode, category, customerId, isSchemeDetails);
             if (Cache["BindSchemeRelatedDetails" + userVo.UserId] != null)
             {
@@ -115,9 +115,23 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void lbViewWatchList_OnClick(object sender, EventArgs e)
         {
-            BindSchemeRelatedDetails(0, 0, "0", customerVo.CustomerId, false);
+            BindSchemeRelatedDetails(0, 0, "0", customerVo.CustomerId, 0);
+            //dvDemo.Visible = false;
+            lblHeading.Text = "My Watch List";
         }
 
+        protected void lbNFOList_OnClick_OnClick(object sender, EventArgs e)
+        {
+            BindSchemeRelatedDetails(0, 0, "0", 0, 3);
+            //dvDemo.Visible = false;
+            lblHeading.Text = "NFO List";
+        }
+        protected void lbTopSchemes_OnClick(object sender, EventArgs e)
+        {
+            BindSchemeRelatedDetails(0, 0, "0", 0, 2);
+            //dvDemo.Visible = false;
+            lblHeading.Text = "Top 10 Schemes";
+        }
         protected void rpSchemeDetails_OnItemCommand(object sender, RepeaterCommandEventArgs e)
         {
             if (!string.IsNullOrEmpty(e.CommandName))

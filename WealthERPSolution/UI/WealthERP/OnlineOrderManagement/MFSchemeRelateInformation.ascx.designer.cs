@@ -50,6 +50,15 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.Label lblAvailableLimits;
         
         /// <summary>
+        /// lbNFOList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbNFOList;
+        
+        /// <summary>
         /// lbViewWatchList control.
         /// </summary>
         /// <remarks>
@@ -57,6 +66,15 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lbViewWatchList;
+        
+        /// <summary>
+        /// lbTopSchemes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbTopSchemes;
         
         /// <summary>
         /// UpdatePanel1 control.
@@ -122,13 +140,32 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
-        /// dvSchemeDetailsl control.
+        /// dvHeading control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvSchemeDetailsl;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvHeading;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvDemo;
+        
+        /// <summary>
+        /// lblHeading control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblHeading;
+        
+        /// <summary>
+        /// dvSchemeDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvSchemeDetails;
         
         /// <summary>
         /// rpSchemeDetails control.
