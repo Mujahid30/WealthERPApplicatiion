@@ -50,6 +50,24 @@ namespace WealthERP {
         protected global::System.Web.UI.ScriptManager ScriptManager;
         
         /// <summary>
+        /// lnkFAQ control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkFAQ;
+        
+        /// <summary>
+        /// lnkDemo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkDemo;
+        
+        /// <summary>
         /// lnkLogOut control.
         /// </summary>
         /// <remarks>

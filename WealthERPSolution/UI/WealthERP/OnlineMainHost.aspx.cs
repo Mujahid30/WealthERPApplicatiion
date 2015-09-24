@@ -509,7 +509,15 @@ namespace WealthERP
             {
             }
         }
-
+        protected void lnkDemo_Click(object sender, EventArgs e)
+        {
+            //Response.Redirect("~/ReferenceFiles/HelpVideo.htm");
+        }
+        protected void lnkFAQ_Click(object sender, EventArgs e)
+        {
+            string path = ConfigurationManager.AppSettings["BANNER_IMAGE_PATH"].ToString();
+            Response.Redirect(path + "FAQ.pdf");
+        } 
 
     }
 }
