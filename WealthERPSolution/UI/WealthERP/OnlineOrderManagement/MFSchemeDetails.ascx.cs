@@ -42,15 +42,18 @@ namespace WealthERP.OnlineOrderManagement
                     int amcCode = 0;
                     string category = string.Empty;
                     BindCategory();
-                    commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category);
-                    int schemecode = int.Parse(Session["MFSchemePlan"].ToString());
-                    ddlAMC.SelectedValue = amcCode.ToString();
-                    ddlCategory.SelectedValue = category;
-                    BindScheme();
-                    ddlScheme.SelectedValue = schemecode.ToString();
-                    GetAmcSchemeDetails();
-                    hidCurrentScheme.Value = ddlScheme.SelectedValue;
-                    BindfundManagerDetails();
+                    if (Session["MFSchemePlan"] != null)
+                    {
+                        commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category);
+                        int schemecode = int.Parse(Session["MFSchemePlan"].ToString());
+                        ddlAMC.SelectedValue = amcCode.ToString();
+                        ddlCategory.SelectedValue = category;
+                        BindScheme();
+                        ddlScheme.SelectedValue = schemecode.ToString();
+                        GetAmcSchemeDetails();
+                        hidCurrentScheme.Value = ddlScheme.SelectedValue;
+                        BindfundManagerDetails();
+                    }
                 }
             }
         }
