@@ -19,6 +19,7 @@ using Telerik.Web.UI;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using System.Configuration;
+using System.Web.UI.HtmlControls;
 namespace WealthERP.OnlineOrderManagement
 {
     public partial class MFSchemeRelateInformation : System.Web.UI.UserControl
@@ -41,6 +42,8 @@ namespace WealthERP.OnlineOrderManagement
                 BindAMC();
                 BindCategory();
                 BindScheme();
+                rw_FundManager.VisibleOnPageLoad = false;
+
 
             }
         }
@@ -65,7 +68,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlAMC.DataTextField = dtGetAMCList.Columns["PA_AMCName"].ToString();
             ddlAMC.DataValueField = dtGetAMCList.Columns["PA_AMCCode"].ToString();
             ddlAMC.DataBind();
-            ddlAMC.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
+            ddlAMC.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select AMC", "0"));
         }
         private void BindCategory()
         {
@@ -77,7 +80,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlCategory.DataValueField = dtCategory.Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
             ddlCategory.DataTextField = dtCategory.Columns["PAIC_AssetInstrumentCategoryName"].ToString();
             ddlCategory.DataBind();
-            ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
+            ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Category", "0"));
         }
         protected void BindScheme()
         {
@@ -90,13 +93,16 @@ namespace WealthERP.OnlineOrderManagement
                 ddlScheme.DataValueField = "PASP_SchemePlanCode";
                 ddlScheme.DataTextField = "PASP_SchemePlanName";
                 ddlScheme.DataBind();
-                ddlScheme.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+                ddlScheme.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All Schemes", "0"));
             }
         }
         protected void Go_OnClick(object sender, EventArgs e)
         {
 
             BindSchemeRelatedDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue, customerVo.CustomerId, 1);
+            dvHeading.Visible = true;
+            lblHeading.Text = "Schemes Details";
+            ViewState["FilterType"] = "Schemes Details";
         }
         protected void BindSchemeRelatedDetails(int amcCode, int SchemeCode, string category, int customerId, Int16 isSchemeDetails)
         {
@@ -113,25 +119,39 @@ namespace WealthERP.OnlineOrderManagement
             rpSchemeDetails.Visible = true;
 
         }
-        protected void lbViewWatchList_OnClick(object sender, EventArgs e)
+
+        protected void GetSchemeDetails(object sender, EventArgs e)
         {
-            BindSchemeRelatedDetails(0, 0, "0", customerVo.CustomerId, 0);
-            //dvDemo.Visible = false;
-            lblHeading.Text = "My Watch List";
+            LinkButton lk = (LinkButton)sender;
+            ViewState["FilterType"] = lk.ID.ToString();
+            ddlNFOType.Visible = false;
+            switch (lk.ID.ToString())
+            {
+                case "lbViewWatchList": BindSchemeRelatedDetails(0, 0, "0", customerVo.CustomerId, 0);
+                    dvHeading.Visible = true;
+                    lblHeading.Text = "My Watch List";
+                    
+                    break;
+                case "lbNFOList": BindSchemeRelatedDetails(0, 0, "0", 0, 3);
+                    dvHeading.Visible = true;
+                    lblHeading.Text = "NFO List";
+                    ddlNFOType.Visible = true;
+                    break;
+                case "lbTopSchemes": BindSchemeRelatedDetails(0, 0, "0", 0, 2);
+                    dvHeading.Visible = true;
+                    lblHeading.Text = "Top Ten Schemes";
+                    
+                    break;
+                case "lbSchemeDetails": dvDemo.Visible = true;
+                    dvHeading.Visible = true;
+                    lblHeading.Text = "Schemes Details";
+                   
+                    break;
+
+            }
         }
 
-        protected void lbNFOList_OnClick_OnClick(object sender, EventArgs e)
-        {
-            BindSchemeRelatedDetails(0, 0, "0", 0, 3);
-            //dvDemo.Visible = false;
-            lblHeading.Text = "NFO List";
-        }
-        protected void lbTopSchemes_OnClick(object sender, EventArgs e)
-        {
-            BindSchemeRelatedDetails(0, 0, "0", 0, 2);
-            //dvDemo.Visible = false;
-            lblHeading.Text = "Top 10 Schemes";
-        }
+
         protected void rpSchemeDetails_OnItemCommand(object sender, RepeaterCommandEventArgs e)
         {
             if (!string.IsNullOrEmpty(e.CommandName))
@@ -201,6 +221,7 @@ namespace WealthERP.OnlineOrderManagement
                         break;
 
 
+
                 }
             }
         }
@@ -266,6 +287,67 @@ namespace WealthERP.OnlineOrderManagement
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadTopPanelControl('OnlineOrderTopMenu','login');", true);
             //Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcd", "LoadTopPanelDefault('OnlineOrderTopMenu');", true);
 
+        }
+
+        protected void ddlNFOType_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        protected void rpSchemeDetails_OnItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem )
+            {
+
+                HtmlTableCell tdNFOStrtDate = (HtmlTableCell)e.Item.FindControl("tdNFOStrtDate");
+                HtmlTableCell tdNFOEndDate = (HtmlTableCell)e.Item.FindControl("tdNFOEndDate");
+                HtmlTableCell tdNFOAmt = (HtmlTableCell)e.Item.FindControl("tdNFOAmt");
+                HtmlTableCell tdNFOcategory = (HtmlTableCell)e.Item.FindControl("tdNFOcategory");
+                HtmlTableCell tdNAV = (HtmlTableCell)e.Item.FindControl("tdNAV");
+                HtmlTableCell tdReturn = (HtmlTableCell)e.Item.FindControl("tdReturn");
+                HtmlTableCell tdSchemeRank = (HtmlTableCell)e.Item.FindControl("tdSchemeRank");
+                tdNFOStrtDate.Visible = false;
+                tdNFOEndDate.Visible = false;
+                tdNFOAmt.Visible = false;
+                tdNFOcategory.Visible = false;
+                thNFOStrtDate.Visible = false;
+                thNFOEndDate.Visible = false;
+                thNFOAmt.Visible = false;
+                thNFOcategory.Visible = false;
+                thReturn.Visible = true;
+                thNAV.Visible = true;
+                tdNAV.Visible = true;
+                tdReturn.Visible = true;
+                tdSchemeRank.Visible = false;
+                thSchemeRank.Visible = false;
+
+                if (ViewState["FilterType"].ToString() == "lbNFOList")
+                {
+                    tdNFOStrtDate.Visible = true;
+                    tdNFOEndDate.Visible = true;
+                    tdNFOAmt.Visible = true;
+                    tdNFOcategory.Visible = true;
+                    thNFOStrtDate.Visible = true;
+                    thNFOEndDate.Visible = true;
+                    thNFOAmt.Visible = true;
+                    thNFOcategory.Visible = true;
+                    thReturn.Visible = false;
+                    thNAV.Visible = false;
+                    tdNAV.Visible = false;
+                    tdReturn.Visible = false;
+                    tdSchemeRank.Visible = false;
+                    thSchemeRank.Visible = false;
+                   
+
+
+                }
+                else if (ViewState["FilterType"].ToString() == "lbTopSchemes")
+                {
+                   
+                    tdSchemeRank.Visible = true;
+                    thSchemeRank.Visible = true;
+
+                }
+            }
         }
     }
 }
