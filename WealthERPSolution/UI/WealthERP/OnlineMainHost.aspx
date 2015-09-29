@@ -27,7 +27,77 @@
     function myFunction() {
         window.open('ReferenceFiles/HelpVideo.htm', 'newwindow', 'width=655, height=520'); return false;
     }
+    (function($) {
+        $.fn.textWidth = function() {
+            var calc = '<span style="display:none">' + $(this).text() + '</span>';
+            $('body').append(calc);
+            var width = $('body').find('span:last').width();
+            $('body').find('span:last').remove();
+            return width;
+        };
+
+        $.fn.marquee = function(args) {
+            var that = $(this);
+            var textWidth = that.textWidth(),
+                offset = that.width(),
+                width = offset,
+                css = {
+                    'text-indent': that.css('text-indent'),
+                    'overflow': that.css('overflow'),
+                    'white-space': that.css('white-space')
+                },
+                marqueeCss = {
+                    'text-indent': width,
+                    'overflow': 'hidden',
+                    'white-space': 'nowrap'
+                },
+                args = $.extend(true, { count: -1, speed: 1e1, leftToRight: false }, args),
+                i = 0,
+                stop = textWidth * -1,
+                dfd = $.Deferred();
+
+            function go() {
+                if (!that.length) return dfd.reject();
+                if (width == stop) {
+                    i++;
+                    if (i == args.count) {
+                        that.css(css);
+                        return dfd.resolve();
+                    }
+                    if (args.leftToRight) {
+                        width = textWidth * -1;
+                    } else {
+                        width = offset;
+                    }
+                }
+                that.css('text-indent', width + 'px');
+                if (args.leftToRight) {
+                    width++;
+                } else {
+                    width--;
+                }
+                setTimeout(go, args.speed);
+            };
+            if (args.leftToRight) {
+                width = textWidth * -1;
+                width++;
+                stop = offset;
+            } else {
+                width--;
+            }
+            that.css(marqueeCss);
+            go();
+            return dfd.promise();
+        };
+    })(jQuery);
+
+    $('.scroller').marquee();
 </script>
+
+
+
+
+
 
 <script language="javascript" type="text/javascript">
     function calcIFrameHeight(ifrm_id) {
@@ -69,7 +139,10 @@
         }
         catch (e) { }
     }
+
+   
 </script>
+
 
 <%--<link href="../App_Themes/Blue/StyleSheet.css" rel="stylesheet" type="text/css" />--%>
 <style type="text/css">
@@ -266,6 +339,11 @@
         </div>
         <div class="product-header" style="float: left">
             <asp:Label ID="lblOnlieProductType" runat="server" Text="" CssClass="product-header-text"></asp:Label>
+        </div>
+        <div id="mycrawler" style="margin-left:20px;margin-right:20px;float: left;" class="scroller" >
+      
+        <asp:Label ID="Label1" runat="server" Style="width:100%" ></asp:Label>
+      
         </div>
         <div class="prduct-main-menu" id="divMFMenu" runat="server" visible="false">
             <ul class="blue">

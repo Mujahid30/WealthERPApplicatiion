@@ -115,6 +115,20 @@ namespace WealthERP
 
                 if (isValidUser)
                 {
+                    //ClientScriptManager script = Page.ClientScript;
+                    string innerHtml;
+                    innerHtml = @"<marquee style=""font-family: Arial;font-size: 14px;"">Dr Reddy's Labs up 6%, launches gastric ulcer drug in US SPARC, Sun plunge; USFDA revokes approval for seizure drug
+Residential biz environment remains tough:Godrej Properties
+Renewable energy sector has potential to grow: PTC India
+See setback for BHEL's near-term revenues: BofA Merrill</marquee>";
+                    //innerHtml = "asdsadas";
+                    Label1.Text = innerHtml;
+                    //if (!script.IsClientScriptBlockRegistered(this.GetType(), "Alert"))
+                    //{
+
+                    //    //script.RegisterClientScriptBlock(this.GetType(), "Alert", @"SetScroller('" + innerHtml + "');", true);
+
+                    //}
 
                     SetProductTypeMenu(productType.ToUpper());
                     SetDefaultPageSetting(productType.ToUpper());
@@ -122,6 +136,8 @@ namespace WealthERP
                 }
                 else
                 {
+                    
+
                     SetDefaultPageSetting("NA");
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcdnnn", "LoadTopPanelDefault('OnlineOrderDummyTopMenu');", true);
                 }
@@ -152,6 +168,7 @@ namespace WealthERP
 
         protected void SetDefaultPageSetting(string ProductType)
         {
+            string innerHtml = String.Empty;
             defaultProductPageSetting.Clear();
             switch (ProductType.ToUpper())
             {
@@ -390,6 +407,7 @@ namespace WealthERP
 
         protected void ProductMenuItemChange(string ProductType, string menuType)
         {
+           
             switch (ProductType)
             {
                 case "MF":
@@ -422,6 +440,7 @@ namespace WealthERP
                                 defaultProductPageSetting.Add("ProductMenuItemPage", "CustomerMFUnitHoldingList");
                                 break;
                         }
+                         
                     }
                     break;
                 case "NCD":
