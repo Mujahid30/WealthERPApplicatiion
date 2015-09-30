@@ -76,6 +76,43 @@ namespace DaoOnlineOrderManagement
             }
             return OnlineMFSchemeDetailsVo;
         }
+            public bool DeleteSchemeFromCustomerWatch(int schemeCode, int customerId,string productType)
+            {
+                bool bResult = false;
+                Database db;
+                DbCommand createCmd;
+                try
+                {
+                    db = DatabaseFactory.CreateDatabase("wealtherp");
+                    createCmd = db.GetStoredProcCommand("SPROC_ONL_DeleteProductFromWatchList");
+                    db.AddInParameter(createCmd, "@customerId", DbType.Int32, customerId);
+                    db.AddInParameter(createCmd, "@productId", DbType.Int32, schemeCode);
+                    db.AddInParameter(createCmd, "@productType", DbType.String, productType);
+                   if (db.ExecuteNonQuery(createCmd) != 0)
+                        bResult = true;
+                    else
+                        bResult = false;
+                }
+                catch (BaseApplicationException Ex)
+                {
+                    throw Ex;
+                }
+                catch (Exception Ex)
+                {
+                    BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                    NameValueCollection FunctionInfo = new NameValueCollection();
+                    FunctionInfo.Add("Method", "DeleteSchemeFromCustomerWatch(int schemeCode, int customerId,string productType)");
+                    object[] objects = new object[3];
+                    objects[0] = customerId;
+                    objects[1] = schemeCode;
+                    FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                    exBase.AdditionalInformation = FunctionInfo;
+                    ExceptionManager.Publish(exBase);
+                    throw exBase;
+
+                }
+                return bResult;
+            }
         public bool CustomerAddMFSchemeToWatch(int customerId, int schemeCode, string assetGroup, int userId)
         {
             bool bResult = false;
