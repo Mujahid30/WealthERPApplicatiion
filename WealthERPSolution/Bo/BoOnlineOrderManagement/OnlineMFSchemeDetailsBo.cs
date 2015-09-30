@@ -19,7 +19,32 @@ namespace BoOnlineOrderManagement
             bResult = OnlineMFSchemeDetailsDao.CustomerAddMFSchemeToWatch(customerId, schemeCode, assetGroup, userId);
             return bResult;
         }
+        public bool DeleteSchemeFromCustomerWatch(int schemeCode, int customerId, string productType)
+        {
+            try
+            {
+                return OnlineMFSchemeDetailsDao.DeleteSchemeFromCustomerWatch(schemeCode, customerId, productType);
 
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "DeleteSchemeFromCustomerWatch(int schemeCode, int customerId,string productType)");
+                object[] objects = new object[3];
+                objects[0] = customerId;
+                objects[1] = schemeCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+        }
 
 
         public OnlineMFSchemeDetailsVo GetSchemeDetails(int amcCode, int schemeCode, string category,out DataTable dtNavDetails)
