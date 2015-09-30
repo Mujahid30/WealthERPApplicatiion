@@ -30,10 +30,26 @@
 <script src="../Scripts/JScript.js" type="text/javascript"></script>
 
 <script src="../Scripts/jquery.js" type="text/javascript"></script>
- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<script src="../Scripts/bootstrap.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.js" type="text/javascript"></script>
+
+<script src="../Scripts/JScript.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<link href="../Base/CSS/bootstrap-theme.css" rel="stylesheet" type="text/css" />
+<link href="../Base/CSS/bootstrap.css" rel="stylesheet" type="text/css" />
+<link href="../Base/CSS/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
     .header
     {
@@ -60,20 +76,93 @@
         background: linear-gradient(to bottom,  #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* W3C */
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
     }
-            .alignment tr th
-            {
-                text-align: justify;
-                width: 40%;
-            }
-            .alignment tr td
-            {
-                text-align: justify;
-                width: 60%;
-            }
+    .alignment tr th
+    {
+        text-align: justify;
+        width: 40%;
+    }
+    .alignment tr td
+    {
+        text-align: justify;
+        width: 60%;
+    }
+    @media only screen and (max-width: 800px)
+    {
+        /* Force table to not be like tables anymore */    #no-more-tables table, #no-more-tables thead, #no-more-tables tbody, #no-more-tables th, #no-more-tables td, #no-more-tables tr
+        {
+            display: block;
+        }
+        /* Hide table headers (but not display: none;, for accessibility) */    #no-more-tables thead tr
+        {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+        #no-more-tables tr
+        {
+            border: 1px solid #ccc;
+        }
+        #no-more-tables td
+        {
+            /* Behave  like a "row" */
+            border: none;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 60%;
+            white-space: normal;
+            text-align: left;
+        }
+        #no-more-tables td:before
+        {
+            /* Now like a table header */
+            position: absolute; /* Top/left values mimic padding */
+            top: 6px;
+            left: 6px;
+            width: 80%;
+            padding-right: 10px;
+            white-space: nowrap;
+            text-align: left;
+            font-weight: bold;
+            z-index: auto;
+        }
+        /*
+	Label the data
+	*/    #no-more-tables td:before
+        {
+            content: attr(data-title);
+        }
+    }
+    .alignCenter
+    {
+        text-align: center;
+    }
+    
+    table, th
+    {
+        border: 1px solid black;
+    }
+    .dottedBottom
+    {
+        border-bottom-style: dotted;
+        border-bottom-width: thin;
+        margin-bottom: 1%;
+        border-collapse: collapse;
+        border-spacing: 10px;
+    }
 </style>
 <asp:UpdatePanel ID="updSchemDetails" runat="server" UpdateMode="Always">
     <ContentTemplate>
-        <div id="demo" class="row " style="margin-top: 1%; margin-bottom: 2%; width: 80%;
+        <table class="tblMessage" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                    <div class="divOnlinePageHeading" style="height: 25px;">
+                        <div class="divClientAccountBalance" id="divClientAccountBalance" runat="server">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <%--  <div id="demo" class="row " style="margin-top: 1%; margin-bottom: 2%; width: 80%;
             padding-top: 1%; padding-bottom: 1%; background-color: #2480C7; margin-left: auto;
             margin-right: auto;">
             <div class="col-md-12 col-xs-12 col-sm-12">
@@ -111,13 +200,76 @@
                         OnClick="Go_OnClick" ValidationGroup="btnGo"></asp:Button>
                 </div>
             </div>
+        </div>--%>
+        <div id="dvDemo" class="row " style="margin-left: 11%; margin-top: 1%; margin-bottom: 0.5%;
+            margin-right: 5%; padding-top: 0.5%; padding-bottom: 0.5%;" visible="true" runat="server">
+            <div class="col-md-12  col-xs-12 col-sm-12">
+                <div class="col-md-6 dottedBottom">
+                    <b>Fund Filter </b>
+                </div>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-4 dottedBottom">
+                    <b>Additional Information</b>
+                </div>
+            </div>
+            <div class="col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 1%">
+                <div class="col-md-3">
+                    <asp:DropDownList ID="ddlAMC" runat="server" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged"
+                        AutoPostBack="true">
+                    </asp:DropDownList>
+                    <asp:RequiredFieldValidator ID="rfvtxtTransactionDate" ControlToValidate="ddlAMC"
+                        ErrorMessage="<br />Please select AMC" Style="color: Red;" Display="Dynamic"
+                        runat="server" InitialValue="0" ValidationGroup="btnViewscheme">
+                    </asp:RequiredFieldValidator>
+                    <%--<asp:RequiredFieldValidator ID="rfvAMC" runat="server" ControlToValidate="ddlAMC" InitialValue="0" ErrorMessage="Please Select AMC" Display="Dynamic"></asp:RequiredFieldValidator>--%>
+                </div>
+                <div class="col-md-3">
+                    <fieldset>
+                        <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control input-sm"
+                            AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged">
+                        </asp:DropDownList>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="ddlCategory"
+                            ErrorMessage="<br />Please select category" Style="color: Red;" Display="Dynamic"
+                            runat="server" InitialValue="0" ValidationGroup="btnViewscheme">
+                        </asp:RequiredFieldValidator>
+                    </fieldset>
+                </div>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-3">
+                    <asp:LinkButton ID="lnkSID" runat="server" Text="SID"></asp:LinkButton>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <asp:DropDownList ID="ddlScheme" runat="server" CssClass="form-control input-sm"
+                        class="form-control">
+                    </asp:DropDownList>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="ddlScheme"
+                        ErrorMessage="<br />Please select Scheme" Style="color: Red;" Display="Dynamic"
+                        runat="server" InitialValue="0" ValidationGroup="btnViewscheme">
+                    </asp:RequiredFieldValidator>
+                </div>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-3">
+                    <asp:LinkButton ID="lnkSAI" runat="server" Text="SAI"></asp:LinkButton>
+                </div>
+            </div>
+            <div class="col-md-12" style="margin-top: 1%">
+                <div class="col-md-6">
+                    <asp:Button ID="Button1" runat="server" class="btn btn-sm btn-primary" Text=" Scheme"
+                        OnClick="Go_OnClick" ValidationGroup="btnViewscheme"></asp:Button>
+                </div>
+                <div class="col-md-1">
+                </div>
+            </div>
         </div>
-        <div  style="margin-top: 1%; margin-bottom: 2%; width: 80%;
-            padding-top: 1%; padding-bottom: 1%;  margin-left: auto;
-            margin-right: auto;">
-        <asp:Literal ID="Literal1" runat="server"></asp:Literal>
+        <div style="margin-top: 1%; margin-bottom: 2%; width: 80%; padding-top: 1%; padding-bottom: 1%;
+            margin-left: auto; margin-right: auto;">
+            <asp:Literal ID="Literal1" runat="server"></asp:Literal>
         </div>
-      
         <div style="margin-top: 1%; margin-bottom: 2%; width: 80%; padding-top: 1%; padding-bottom: 1%;
             margin-left: auto; margin-right: auto;">
             <div style="width: 70%; float: left; min-width: 320px;">
@@ -300,7 +452,7 @@
                     </div>
                 </div>
             </div>
-            <div style="width: 30%; float: left; min-width: 320px;">
+            <div style="width: 20%; float: left; min-width: 320px; margin-left: 10px;">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -314,27 +466,6 @@
                             <td>
                                 <div>
                                     <asp:Image ID="imgStyleBox" runat="server" /></div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th colspan="2" class="header">
-                                <font color="#fff">Additional Information</font>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="searchable-spec cell top sub-name small bordered">
-                            <td>
-                                <asp:LinkButton ID="lnkSID" runat="server" Text="SID" CssClass="LinkButtons"></asp:LinkButton>
-                            </td>
-                        </tr>
-                        <tr class="searchable-spec cell top sub-name small bordered">
-                            <td>
-                                <asp:LinkButton ID="lnkSAI" runat="server" Text="SAI" CssClass="LinkButtons"></asp:LinkButton>
                             </td>
                         </tr>
                     </tbody>
@@ -357,8 +488,8 @@
                 </td>
             </tr>
         </table>
-        <div class="row" style="margin-left: 20%; margin-right: 2%; margin-bottom: 2%;">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="row" style="margin-left: 20%; margin-right: 2%; margin-bottom: 2%; margin-top: 2%;">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 2%;">
                 <asp:LinkButton ID="lnkAddToCompare" runat="server" CssClass="btn btn-primary btn-primary"
                     OnClick="lnkAddToCompare_OnClick" ValidationGroup="btnGo"> Add To Compare <span class="glyphicon glyphicon-shopping-list">
                             </span></asp:LinkButton>
@@ -380,23 +511,22 @@
                             </span></asp:LinkButton>
             </div>
         </div>
-        <div style="margin-top: 1%; margin-bottom: 2%; width: 80%; padding-top: 1%; padding-bottom: 1%;
+        <div style="margin-top: 1%; margin-bottom: 0%; width: 80%; padding-top: 1%; padding-bottom: 0%;
             margin-left: auto; margin-right: auto;">
-            <div style="width: 40%;min-width:320px;" id="jay">
+            <div style="width: 60%; min-width: 320px;">
                 <table class="table table-bordered" style="margin-bottom: 0px">
                     <thead>
                         <tr>
                             <th class="header">
-                                <div data-toggle="collapse" data-target="#Divfunddetails" style="color: White;" id="togglefund"
+                                <div data-toggle="collapse" data-target="#Divfunddetails" style="color: White;float:left;cursor:pointer;" id="togglefund"
                                     onclick="togglediv('togglefund')">+</div>
-                            </th>
-                            <th class="header">
-                                <font color="#fff">Fund Manager Profile </font>
+                               <%--   Dont put any space before + sign--%>
+                              <div style="color: White;float:left;text-align:center;"> <font color="#fff" >&nbsp;&nbsp;Fund Manager Profile</font></div>
                             </th>
                         </tr>
                     </thead>
                 </table>
-                <div id="Divfunddetails" style="margin-top: 0px;" class="collapse">
+                <div id="Divfunddetails" style="margin-top: 0px;margin-bottom: 0px;" class="collapse">
                     <table class="table table-bordered">
                         <tbody>
                             <tr class="searchable-spec cell top sub-name small bordered">
@@ -436,7 +566,70 @@
                 </div>
             </div>
         </div>
-        <asp:HiddenField ID="hidCurrentScheme" runat="server" />
+        <div style="margin-top: 0%; margin-bottom: 2%; width: 80%; padding-top: 0%; padding-bottom: 1%;
+            margin-left: auto; margin-right: auto;">
+            <div style="width: 60%; min-width: 320px;">
+                <table class="table table-bordered" style="margin-bottom: 0px">
+                    <thead>
+                        <tr>
+                             <th class="header">
+                                <div data-toggle="collapse" data-target="#no-more-tables" style="color: White;float:left;cursor:pointer;" id="Div1"
+                                    onclick="togglediv('Div1')">+</div>
+                                    <div style="color: White;float:left;text-align:center;"> <font color="#fff" >&nbsp;&nbsp;Sector Details </font></div>
+                                
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+                    <div id="no-more-tables" class="collapse" style="width:60%;min-width:300px;">
+                        <table class="col-md-12 table-bordered table-striped table-condensed cf" style="width:100%;">
+                            <thead class="cf">
+                                <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
+                                    text-align: center">
+                                    <th data-title="Scheme Code" class="alignCenter">
+                                        Scheme Code
+                                    </th>
+                                    <th data-title="NAV" class="alignCenter">
+                                        NAV ( Date )
+                                    </th>
+                                    <th data-title="Code" class="alignCenter">
+                                        Code
+                                    </th>
+                                    <th data-title="Fund Name" class="alignCenter">
+                                        Fund Name
+                                    </th>
+                                    <th data-title="Holding(%)" class="alignCenter">
+                                        Holding(%)
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <asp:Repeater ID="rpSchemeDetails" runat="server">
+                                    <ItemTemplate>
+                                        <tr>
+                                            <td data-title="Scheme Code">
+                                                <asp:Label ID="SchemeCode" runat="server" Text='<%# Eval("mf_schcode")%>'></asp:Label>
+                                            </td>
+                                            <td data-title="NAV">
+                                                <asp:Label ID="lblNavVale" runat="server" Text='<%# Eval("invdate")%>'></asp:Label>
+                                            </td>
+                                            <td data-title="Fund Code">
+                                                <asp:Label ID="lblFundCode" runat="server" Text='<%# Eval("co_code")%>'></asp:Label>
+                                            </td>
+                                            <td data-title="Fund Name">
+                                                <asp:Label ID="lblFundName" runat="server" Text='<%# Eval("co_name")%>'></asp:Label>
+                                            </td>
+                                            <td data-title="Holding(%)">
+                                                <asp:Label ID="lblHolding" runat="server" Text='<%# Eval("perc_hold")%>'></asp:Label>
+                                            </td>
+                                        </tr>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </tbody>
+                        </table>
+            </div>
+            <asp:HiddenField ID="hidCurrentScheme" runat="server" />
     </ContentTemplate>
 </asp:UpdatePanel>
 

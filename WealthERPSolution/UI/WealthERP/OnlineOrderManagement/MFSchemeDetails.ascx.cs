@@ -42,7 +42,7 @@ namespace WealthERP.OnlineOrderManagement
                     int amcCode = 0;
                     string category = string.Empty;
                     BindCategory();
-                    if (Session["MFSchemePlan"] != null)
+                    if (Session["MFSchemePlan"] != null && Session["MFSchemePlan"] !="")
                     {
                         commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category);
                         int schemecode = int.Parse(Session["MFSchemePlan"].ToString());
@@ -52,7 +52,6 @@ namespace WealthERP.OnlineOrderManagement
                         ddlScheme.SelectedValue = schemecode.ToString();
                         GetAmcSchemeDetails();
                         hidCurrentScheme.Value = ddlScheme.SelectedValue;
-                        BindfundManagerDetails();
                     }
                 }
             }
@@ -62,7 +61,6 @@ namespace WealthERP.OnlineOrderManagement
             if (ddlAMC.SelectedIndex != 0)
             {
                 BindCategory();
-                BindfundManagerDetails();
             }
         }
         protected void ddlCategory_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -79,7 +77,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlAMC.DataTextField = dtGetAMCList.Columns["PA_AMCName"].ToString();
             ddlAMC.DataValueField = dtGetAMCList.Columns["PA_AMCCode"].ToString();
             ddlAMC.DataBind();
-            ddlAMC.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
+            ddlAMC.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select AMC", "0"));
         }
         protected void BindScheme()
         {
@@ -92,7 +90,7 @@ namespace WealthERP.OnlineOrderManagement
                 ddlScheme.DataValueField = "PASP_SchemePlanCode";
                 ddlScheme.DataTextField = "PASP_SchemePlanName";
                 ddlScheme.DataBind();
-                ddlScheme.Items.Insert(0, new System.Web.UI.WebControls.ListItem("select", "0"));
+                ddlScheme.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Scheme", "0"));
             }
         }
         private void BindCategory()
@@ -105,7 +103,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlCategory.DataValueField = dtCategory.Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
             ddlCategory.DataTextField = dtCategory.Columns["PAIC_AssetInstrumentCategoryName"].ToString();
             ddlCategory.DataBind();
-            ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("select", "0"));
+            ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Category", "0"));
         }
         protected void Go_OnClick(object sender, EventArgs e)
         {
@@ -115,10 +113,12 @@ namespace WealthERP.OnlineOrderManagement
         public void GetAmcSchemeDetails()
         {
             DataTable dtNavDetails;
+            BindfundManagerDetails();
+            BindSectoreDetails();
            onlineMFSchemeDetailsVo= onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue,out  dtNavDetails);
 
            StringBuilder strXML = new StringBuilder();
-           strXML.Append(@"<chart caption='Scheme performance' xAxisName='Date'  yAxisName='NAV' anchorBgColor='FF3300' bgColor='FFFFFF' showBorder='0'  canvasBgColor='FFFFFF' lineColor='2480C7' >");
+           strXML.Append(@"<chart caption='NAV History' xAxisName='Date'  yAxisName='NAV' anchorBgColor='FF3300' bgColor='FFFFFF' showBorder='0'  canvasBgColor='FFFFFF' lineColor='2480C7' >");
            strXML.Append(@" <categories>");
            foreach (DataRow dr in dtNavDetails.Rows)
            {
@@ -240,32 +240,55 @@ namespace WealthERP.OnlineOrderManagement
         //{
         protected void BindfundManagerDetails()
         {
-            //string cmotcode = onlineMFSchemeDetailsBo.GetCmotCode((!string.IsNullOrEmpty(Session["MFSchemePlan"].ToString())) ? int.Parse(Session["MFSchemePlan"].ToString()) : int.Parse(ddlScheme.SelectedValue));
-            //string result;
-            //if (cmotcode != "")
-            //{
-            //    string FundManagerDetais = ConfigurationSettings.AppSettings["FUND_MANAGER_DETAILS"] + cmotcode + "/Pre";
-            //    WebResponse response;
-            //    WebRequest request = HttpWebRequest.Create(FundManagerDetais);
-            //    response = request.GetResponse();
-            //    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
-            //    {
-            //        result = reader.ReadToEnd();
-            //        reader.Close();
-            //    }
-            //    StringReader theReader = new StringReader(result);
-            //    DataSet theDataSet = new DataSet();
-            //    theDataSet.ReadXml(theReader);
-            //    foreach (DataRow dr in theDataSet.Tables[1].Rows)
-            //    {
-            //        lblFundMAnagername.Text = dr["FundManager"].ToString();
-            //        lblQualification.Text = dr["Qualification"].ToString();
-            //        lblDesignation.Text = dr["Designation"].ToString();
-            //        lblExperience.Text = dr["experience"].ToString();
-            //    }
-            //}
+            string cmotcode = onlineMFSchemeDetailsBo.GetCmotCode(int.Parse(ddlScheme.SelectedValue));
+            string result;
+            ViewState["cmotcode"] = cmotcode;
+            if (cmotcode != "")
+            {
+                string FundManagerDetais = ConfigurationSettings.AppSettings["FUND_MANAGER_DETAILS"] + cmotcode + "/Pre";
+                string SectoreDetais = ConfigurationSettings.AppSettings["SECTORE_DETAILS"];
+                WebResponse response;
+                WebRequest request = HttpWebRequest.Create(FundManagerDetais);
+                response = request.GetResponse();
+                using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                {
+                    result = reader.ReadToEnd();
+                    reader.Close();
+                }
+                StringReader theReader = new StringReader(result);
+                DataSet theDataSet = new DataSet();
+                theDataSet.ReadXml(theReader);
+                foreach (DataRow dr in theDataSet.Tables[1].Rows)
+                {
+                    lblFundMAnagername.Text = dr["FundManager"].ToString();
+                    lblQualification.Text = dr["Qualification"].ToString();
+                    lblDesignation.Text = dr["Designation"].ToString();
+                    lblExperience.Text = dr["experience"].ToString();
+                }
+            }
         }
-        
+        protected void BindSectoreDetails()
+        {
+            if (ViewState["cmotcode"] != null)
+            {
+                string SectoreDetais = ConfigurationSettings.AppSettings["SECTORE_DETAILS"] + ViewState["cmotcode"] + "/" + ConfigurationSettings.AppSettings["TOP_Scheme"];
+                WebResponse response;
+                string result;
+                WebRequest request = HttpWebRequest.Create(SectoreDetais);
+                response = request.GetResponse();
+                using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                {
+                    result = reader.ReadToEnd();
+                    reader.Close();
+                }
+                StringReader theReader = new StringReader(result);
+                DataSet theDataSet = new DataSet();
+                theDataSet.ReadXml(theReader);
+                rpSchemeDetails.DataSource = theDataSet.Tables[1];
+                rpSchemeDetails.DataBind();
+            }
+
+        }
         protected void lnkAddToCompare_OnClick(object sender, EventArgs e)
         {
             if (ddlScheme.SelectedValue != "")
