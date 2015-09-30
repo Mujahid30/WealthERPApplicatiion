@@ -74,6 +74,7 @@
     .alignCenter
     {
         text-align: center;
+        font-size:small;
     }
     table, th
     {
@@ -81,11 +82,23 @@
     }
     .dottedBottom
     {
-        border-bottom-style: dotted;
+        border-bottom-style:inset;
         border-bottom-width: thin;
         margin-bottom: 1%;
         border-collapse: collapse;
         border-spacing: 10px;
+    }
+    .linkButton
+    {
+        Font-Size:small;
+        font-weight:bold;
+       
+       
+    }
+    .linkButton:active 
+    {
+    font-size:larger;
+       
     }
 </style>
 
@@ -114,9 +127,9 @@
     <tr>
         <td>
             <div class="divOnlinePageHeading" style="height: 25px;">
-                <div class="divClientAccountBalance" id="divClientAccountBalance" runat="server">
+               <%-- <div class="divClientAccountBalance" id="divClientAccountBalance" runat="server">
                     <asp:Label ID="Label1" runat="server" Text="Available Limits:" CssClass="BalanceLabel"> </asp:Label>
-                    <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="BalanceAmount"></asp:Label>
+                    <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="BalanceAmount"></asp:Label>--%>
                 </div>
             </div>
         </td>
@@ -160,8 +173,8 @@
                 </div>
                 <div class="col-md-2">
                 </div>
-                <div class="col-md-3">
-                    <asp:LinkButton ID="lbNFOList" runat="server" OnClick="GetSchemeDetails">NFO List </asp:LinkButton>
+                <div class="col-md-3 dottedBottom">
+                    <asp:LinkButton ID="lbNFOList" runat="server" OnClick="GetSchemeDetails" CssClass="linkButton">NFO List </asp:LinkButton>
                 </div>
             </div>
             <div class="col-md-12">
@@ -172,8 +185,8 @@
                 </div>
                 <div class="col-md-2">
                 </div>
-                <div class="col-md-3">
-                    <asp:LinkButton ID="lbTopSchemes" runat="server" OnClick="GetSchemeDetails">Top Ten Schemes </asp:LinkButton>
+                <div class="col-md-3 dottedBottom">
+                    <asp:LinkButton ID="lbTopSchemes" runat="server" OnClick="GetSchemeDetails" CssClass="linkButton">Top Ten Schemes </asp:LinkButton>
                 </div>
             </div>
             <div class="col-md-12" style="margin-top: 1%">
@@ -183,8 +196,8 @@
                 </div>
                 <div class="col-md-2">
                 </div>
-                <div class="col-md-3">
-                    <asp:LinkButton ID="lbViewWatchList" runat="server" OnClick="GetSchemeDetails">My Watch list  </asp:LinkButton>
+                <div class="col-md-3  dottedBottom">
+                    <asp:LinkButton ID="lbViewWatchList" runat="server" OnClick="GetSchemeDetails"   CssClass="linkButton">My Watch list  </asp:LinkButton>
                 </div>
             </div>
         </div>
@@ -200,8 +213,8 @@
                 <div class="col-md-4">
                     <asp:DropDownList ID="ddlNFOType" runat="server" CssClass="form-control input-sm"
                         AutoPostBack="true" Width="40%" Visible="false" OnSelectedIndexChanged="ddlNFOType_OnSelectedIndexChanged">
-                        <asp:ListItem Text="Active" Value="1"></asp:ListItem>
-                        <asp:ListItem Text="Closed" Value="0"></asp:ListItem>
+                        <asp:ListItem Text="Active" Value="true"></asp:ListItem>
+                        <asp:ListItem Text="Closed" Value="false"></asp:ListItem>
                     </asp:DropDownList>
                 </div>
             </div>
@@ -209,7 +222,7 @@
         <div class="container" id="dvSchemeDetails" runat="server" visible="false" style="margin-bottom: 2%">
             <div class="row">
                 <div id="no-more-tables">
-                    <table class="col-md-12 table-bordered table-striped table-condensed cf" style="margin-left: 5%">
+                    <table class="col-md-12 table-bordered table-striped table-condensed cf" style="margin-left: 5%; width:90%;">
                         <thead class="cf">
                             <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
                                 text-align: center">
@@ -218,13 +231,16 @@
                                 </th>
                                  
                                 <th data-title="Scheme Name" class="alignCenter">
-                                    Scheme Name
+                                    Scheme
+                                </th>
+                                 <th data-title="category" class="alignCenter" runat="server" visible="false" id="thNFOcategory">
+                                    category
                                 </th>
                                 <th data-title="Rating" class="alignCenter">
                                     Rating
                                 </th>
                                 <th data-title="FundManager" class="alignCenter">
-                                    FundManager
+                                    Fund Manager
                                 </th>
                                 <th data-title="startDate" class="alignCenter" runat="server" visible="false" id="thNFOStrtDate">
                                     Start Date
@@ -235,11 +251,9 @@
                                 <th data-title="MiniAmt" class="alignCenter" runat="server" visible="false" id="thNFOAmt">
                                     Minimum initial
                                 </th>
-                                <th data-title="category" class="alignCenter" runat="server" visible="false" id="thNFOcategory">
-                                    category
-                                </th>
+                           
                                 <th data-title="NAV" class="alignCenter" runat="server" visible="false" id="thNAV">
-                                    NAV ( Date )
+                                    NAV (Date)
                                 </th>
                                 <th data-title="Return" class="alignCenter" runat="server" visible="false" id="thReturn">
                                     Returns (1-yr / 3-yrs/5-yrs)
@@ -261,39 +275,40 @@
                                     OnItemDataBound="rpSchemeDetails_OnItemDataBound">
                                     <ItemTemplate>
                                     <td data-title="SchemeRank" class="alignCenter" runat="server" visible="false" id="tdSchemeRank">
-                                   <asp:Label ID="lblSchemeRank" runat="server" Text='<%# Eval("PMFSR_SchemeRank")%>'></asp:Label>
+                                   <asp:Label ID="lblSchemeRank" runat="server" Text='<%# Eval("PMFSR_SchemeRank")%>' ></asp:Label>
                                      </td>
                                         <td data-title="Scheme Name">
                                             <asp:LinkButton ID="lbSchemeName" runat="server" ToolTip="Click To view Details Information"
-                                                CommandName="schemeDetails" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'> <%# Eval("PASP_SchemePlanName")%>
+                                                CommandName="schemeDetails" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>' Font-Size="Small"> <%# Eval("PASP_SchemePlanName")%>
                                             </asp:LinkButton>
+                                        </td>
+                                         <td data-title="category" runat="server" visible="false" id="tdNFOcategory">
+                                            <asp:Label ID="lblNFOCategory" runat="server" Text='<%# Eval("PAIC_AssetInstrumentCategoryName")%>' Font-Size="Small"></asp:Label>
                                         </td>
                                         <td data-title="Rating">
                                             <asp:Image runat="server" ID="imgRatingOvelAll" ImageUrl='<%# string.Format("../Images/MorningStarRating/RatingSmallIcon/{0}.{1}", Eval("SchemeRatingOverall"),"png")%>' />
                                         </td>
                                         <td data-title="FundManager">
                                             <asp:LinkButton ID="LinkButton1" runat="server" ToolTip="Click To view Details Information"
-                                                CommandName="FundManager" CommandArgument='<%# Eval("PMFRD_FundManagerName")%>'>
-                                                 <%# Eval("PMFRD_FundManagerName")%>
+                                                CommandName="FundManager" CommandArgument='<%# Eval("PMFRD_FundManagerName")%>' Font-Size="Small" Text='<%# Eval("PMFRD_FundManagerName")%>'>
+                                               
                                             </asp:LinkButton>
                                         </td>
                                         <td data-title="startDate" runat="server" visible="false" id="tdNFOStrtDate">
-                                            <asp:Label ID="lblNFOStart" runat="server" Text='<%# Eval("PASPD_NFOStartDate")%>'></asp:Label>
+                                            <asp:Label ID="lblNFOStart" runat="server" Text='<%# Eval("PASPD_NFOStartDate")%>' Font-Size="Small"></asp:Label>
                                         </td>
                                         <td data-title="endDate" runat="server" visible="false" id="tdNFOEndDate">
-                                            <asp:Label ID="lblEndDate" runat="server" Text='<%# Eval("PASPD_NFOStartDate")%>'></asp:Label>
+                                            <asp:Label ID="lblEndDate" runat="server" Text='<%# Eval("PASPD_NFOEndDate")%>' Font-Size="Small"></asp:Label>
                                         </td>
                                         <td data-title="MiniAmt " runat="server" visible="false" id="tdNFOAmt">
-                                            <asp:Label ID="lblMiniAmt" runat="server" Text='<%# Eval("MiniAmt")%>'></asp:Label>
+                                            <asp:Label ID="lblMiniAmt" runat="server" Text='<%# Eval("MiniAmt")%>' Font-Size="Small"></asp:Label>
                                         </td>
-                                        <td data-title="category" runat="server" visible="false" id="tdNFOcategory">
-                                            <asp:Label ID="lblNFOCategory" runat="server" Text='<%# Eval("PAIC_AssetInstrumentCategoryName")%>'></asp:Label>
-                                        </td>
+                                       
                                         <td data-title="NAV" runat="server" visible="false" id="tdNAV">
-                                            <asp:Label ID="lblNavVale" runat="server" Text='<%# Eval("CMFNP_NAVDate")%>'></asp:Label>
+                                            <asp:Label ID="lblNavVale" runat="server" Text='<%# Eval("CMFNP_NAVDate")%> ' Font-Size="Small"></asp:Label>
                                         </td>
                                         <td data-title="Return" runat="server" visible="false" id="tdReturn">
-                                            <asp:Label ID="lblReturn" runat="server" Text='<%# Eval("schemeReturns")%>'></asp:Label>
+                                            <asp:Label ID="lblReturn" runat="server" Text='<%# Eval("schemeReturns")%>' Font-Size="Small"></asp:Label>
                                         </td>
                                         <td data-title="Buy">
                                             <asp:LinkButton ID="lbBuy" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
@@ -303,16 +318,17 @@
                                         </td>
                                         <td data-title="SIP">
                                             <asp:LinkButton ID="lbSIP" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
-                                                CommandName="SIP" CssClass="btn btn-primary btn-info" Visible='<%# Eval("IsSchemeSIPType")%>'>  <span class="glyphicon glyphicon-shopping-cart">
+                                                CommandName="SIP" CssClass="btn btn-primary btn-info" Visible='<%# Eval("IsSchemeSIPType")%>' >  <span class="glyphicon glyphicon-shopping-cart">
                             </span></asp:LinkButton>
                                         </td>
                                         <td data-title="Watch">
-                                            <asp:LinkButton ID="lbViewWatch" runat="server" CommandName="viewWatchList" Visible='<% #(Convert.ToBoolean(Eval("IsInWatch"))==true) ? true : false %>'>In  <span class="glyphicon glyphicon-dashboard">
+                                            <asp:LinkButton ID="lbRemoveWatch" runat="server" CommandName="RemoveFrmWatch" Visible='<% #(Convert.ToBoolean(Eval("IsInWatch"))==true) ? true : false %>' Font-Size="Small" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'>Remove <span class="glyphicon glyphicon-dashboard">
                             </span></asp:LinkButton>
                                             <asp:LinkButton ID="lbAddToWatch" runat="server" CommandName="addToWatch" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
-                                                Visible='<% #(Convert.ToBoolean(Eval("IsInWatch"))==true) ? false :true %>'> Add To <span class="glyphicon glyphicon-dashboard">
+                                                Visible='<% #(Convert.ToBoolean(Eval("IsInWatch"))==true) ? false :true %>' Font-Size="Small"> Add To <span class="glyphicon glyphicon-dashboard">
                             </span>
                                             </asp:LinkButton>
+                                          
                                         </td>
                                         </tr>
                                     </ItemTemplate>

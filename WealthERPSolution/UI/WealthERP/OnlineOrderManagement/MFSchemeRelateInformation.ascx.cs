@@ -42,10 +42,7 @@ namespace WealthERP.OnlineOrderManagement
                 BindAMC();
                 BindCategory();
                 BindScheme();
-                rw_FundManager.VisibleOnPageLoad = false;
-
-
-            }
+             }
         }
         protected void ddlAMC_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -98,17 +95,17 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void Go_OnClick(object sender, EventArgs e)
         {
-
-            BindSchemeRelatedDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue, customerVo.CustomerId, 1);
+            ViewState["FilterType"] = "Schemes Details";
+            BindSchemeRelatedDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue, customerVo.CustomerId, 1,false);
             dvHeading.Visible = true;
             lblHeading.Text = "Schemes Details";
-            ViewState["FilterType"] = "Schemes Details";
+           
         }
-        protected void BindSchemeRelatedDetails(int amcCode, int SchemeCode, string category, int customerId, Int16 isSchemeDetails)
+        protected void BindSchemeRelatedDetails(int amcCode, int SchemeCode, string category, int customerId, Int16 isSchemeDetails, Boolean NFOType)
         {
             OnlineOrderBackOfficeBo bo = new OnlineOrderBackOfficeBo();
             dvSchemeDetails.Visible = true;
-            DataTable dtBindSchemeRelatedDetails = bo.GetSchemeDetails(amcCode, SchemeCode, category, customerId, isSchemeDetails);
+            DataTable dtBindSchemeRelatedDetails = bo.GetSchemeDetails(amcCode, SchemeCode, category, customerId, isSchemeDetails, NFOType);
             if (Cache["BindSchemeRelatedDetails" + userVo.UserId] != null)
             {
                 Cache.Remove("BindSchemeRelatedDetails" + userVo.UserId);
@@ -127,17 +124,17 @@ namespace WealthERP.OnlineOrderManagement
             ddlNFOType.Visible = false;
             switch (lk.ID.ToString())
             {
-                case "lbViewWatchList": BindSchemeRelatedDetails(0, 0, "0", customerVo.CustomerId, 0);
+                case "lbViewWatchList": BindSchemeRelatedDetails(0, 0, "0", customerVo.CustomerId, 0,false);
                     dvHeading.Visible = true;
                     lblHeading.Text = "My Watch List";
                     
                     break;
-                case "lbNFOList": BindSchemeRelatedDetails(0, 0, "0", 0, 3);
+                case "lbNFOList": BindSchemeRelatedDetails(0, 0, "0", 0, 3,true);
                     dvHeading.Visible = true;
                     lblHeading.Text = "NFO List";
                     ddlNFOType.Visible = true;
                     break;
-                case "lbTopSchemes": BindSchemeRelatedDetails(0, 0, "0", 0, 2);
+                case "lbTopSchemes": BindSchemeRelatedDetails(0, 0, "0", 0, 2,false);
                     dvHeading.Visible = true;
                     lblHeading.Text = "Top Ten Schemes";
                     
@@ -220,10 +217,50 @@ namespace WealthERP.OnlineOrderManagement
                         CustomerAddMFSchemeToWatch(int.Parse(e.CommandArgument.ToString()), e);
                         break;
 
+                    case "RemoveFrmWatch": DeleteSchemeFromCustomerWatch(int.Parse(e.CommandArgument.ToString()), e, customerVo.CustomerId);
+                        break;
+
 
 
                 }
             }
+        }
+        private void DeleteSchemeFromCustomerWatch(int SchemeCode, RepeaterCommandEventArgs e, int customerId)
+        {
+            bool rResult = false;
+            OnlineMFSchemeDetailsBo OnlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
+            try
+            {
+                rResult = OnlineMFSchemeDetailsBo.DeleteSchemeFromCustomerWatch(SchemeCode, customerId, "MF");
+                if (rResult == true)
+                {
+                    LinkButton lbViewWatch = (LinkButton)e.Item.FindControl("lbRemoveWatch");
+                    LinkButton lbAddToWatch = (LinkButton)e.Item.FindControl("lbAddToWatch");
+                    lbViewWatch.Visible = false;
+                    lbAddToWatch.Visible = true;
+                }
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", " DeleteSchemeFromCustomerWatch(int SchemeCode, RepeaterCommandEventArgs e, int customerId)");
+                object[] objects = new object[4];
+                objects[0] = customerVo.CustomerId;
+                objects[1] = SchemeCode;
+                objects[2] = "MF";
+                objects[3] = userVo.UserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            
         }
         private void CustomerAddMFSchemeToWatch(int SchemeCode, RepeaterCommandEventArgs e)
         {
@@ -234,7 +271,7 @@ namespace WealthERP.OnlineOrderManagement
                 rResult = OnlineMFSchemeDetailsBo.CustomerAddMFSchemeToWatch(customerVo.CustomerId, SchemeCode, "MF", userVo.UserId);
                 if (rResult == true)
                 {
-                    LinkButton lbViewWatch = (LinkButton)e.Item.FindControl("lbViewWatch");
+                    LinkButton lbViewWatch = (LinkButton)e.Item.FindControl("lbRemoveWatch");
                     LinkButton lbAddToWatch = (LinkButton)e.Item.FindControl("lbAddToWatch");
                     lbViewWatch.Visible = true;
                     lbAddToWatch.Visible = false;
@@ -291,7 +328,7 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void ddlNFOType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-
+            BindSchemeRelatedDetails(0, 0, "0", 0, 3, Boolean.Parse(ddlNFOType.SelectedValue));
         }
         protected void rpSchemeDetails_OnItemDataBound(object sender, RepeaterItemEventArgs e)
         {
