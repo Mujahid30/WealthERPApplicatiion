@@ -110,32 +110,69 @@ namespace WealthERP.OnlineOrderManagement
             GetAmcSchemeDetails();
             hidCurrentScheme.Value = ddlScheme.SelectedValue;
         }
+        protected void btnHistory_OnClick(object sender, EventArgs e)
+        {
+            Button btn=(Button) sender as Button;
+            switch (btn.ID)
+            {
+                case "btn1m":
+                    GetSchemeNAVHistory(DateTime.Now.AddMonths(-1), DateTime.Now);
+                    break;
+                case "btn3m":
+                    GetSchemeNAVHistory(DateTime.Now.AddMonths(-3), DateTime.Now);
+                    break;
+                case "btn6m":
+                    GetSchemeNAVHistory(DateTime.Now.AddMonths(-6), DateTime.Now);
+                    break;
+                case "btn1y":
+                    GetSchemeNAVHistory(DateTime.Now.AddYears(-1), DateTime.Now);
+                    break;
+                case "btn2y":
+                    GetSchemeNAVHistory(DateTime.Now.AddYears(-2), DateTime.Now);
+                    break;
+            }
+        }
+        protected void btnHistoryChat_OnClick(object sender, EventArgs e)
+        {
+            GetSchemeNAVHistory(rdpFromDate.SelectedDate, rdpToDate.SelectedDate);
+        }
+        public void GetSchemeNAVHistory(DateTime? fromDate ,DateTime? toDate)
+        {
+            int schemePlanCode = int.Parse(hidCurrentScheme.Value);
+            DataTable dt = onlineMFSchemeDetailsBo.GetSchemeNavHistory(schemePlanCode, fromDate, toDate);
+            LoadNAVHistoryChat(dt);
+        }
+        public void LoadNAVHistoryChat(DataTable dtNavDetails)
+        {
+
+            StringBuilder strXML = new StringBuilder();
+            strXML.Append(@"<chart caption='NAV History' xAxisName='Date' toolText='NAV' flatscrollbars='1' scrollshowbuttons='0' scrollshowbuttons='0' useCrossLine='1' yAxisName='NAV' anchorBgColor='FFFFFF' bgColor='FFFFFF' showBorder='0'  canvasBgColor='FFFFFF' lineColor='2480C7'  >");
+            strXML.Append(@" <categories>");
+            foreach (DataRow dr in dtNavDetails.Rows)
+            {
+                strXML.AppendFormat("<category label ='{0}'/>", dr["PSP_Date"]);
+            }
+            strXML.AppendFormat(@" </categories> <dataset seriesName='{0}'>", ViewState["schemeName"]);
+            foreach (DataRow dr in dtNavDetails.Rows)
+            {
+                strXML.AppendFormat("<set value ='{0}'  />", dr["PSP_NetAssetValue"].ToString());
+            }
+            strXML.Append("</dataset>");
+
+            strXML.Append(@"<vTrendlines>  <line startValue='895' color='FF0000' toolText='NAV' displayValue='Average' showOnTop='1' /></vTrendlines> </chart>");
+
+            Literal1.Text = FusionCharts.RenderChartHTML("../FusionCharts/ZoomLine.swf", "", strXML.ToString(), "FactorySum", "100%", "400", false, true, false);
+
+        }
         public void GetAmcSchemeDetails()
         {
-            DataTable dtNavDetails;
+            DataTable dtNavDetails=null;
             BindfundManagerDetails();
             BindSectoreDetails();
            onlineMFSchemeDetailsVo= onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue,out  dtNavDetails);
-
-           StringBuilder strXML = new StringBuilder();
-           strXML.Append(@"<chart caption='NAV History' xAxisName='Date'  yAxisName='NAV' anchorBgColor='FF3300' bgColor='FFFFFF' showBorder='0'  canvasBgColor='FFFFFF' lineColor='2480C7' >");
-           strXML.Append(@" <categories>");
-           foreach (DataRow dr in dtNavDetails.Rows)
-           {
-               strXML.AppendFormat("<category label ='{0}' />", dr["PSP_Date"]);
-           }
-           strXML.AppendFormat(@" </categories> <dataset seriesName='{0}'>", onlineMFSchemeDetailsVo.schemeName);
-           foreach (DataRow dr in dtNavDetails.Rows)
-           {
-               strXML.AppendFormat("<set value ='{0}' />", dr["PSP_NetAssetValue"].ToString());
-           }
-           strXML.Append("</dataset>");
-
-           strXML.Append(@"<vTrendlines>  <line startValue='895' color='FF0000' toolText='NAV' displayValue='Average' showOnTop='1' /></vTrendlines> </chart>");
-           
-           Literal1.Text = FusionCharts.RenderChartHTML("../FusionCharts/ZoomLine.swf", "", strXML.ToString(), "FactorySum", "100%", "400", false, true, false);
-
-
+           ViewState["schemeName"] = onlineMFSchemeDetailsVo.schemeName;
+            LoadNAVHistoryChat(dtNavDetails);
+          
             lblSchemeName.Text = onlineMFSchemeDetailsVo.schemeName;
             lblAMC.Text = onlineMFSchemeDetailsVo.amcName;
             lblNAV.Text = onlineMFSchemeDetailsVo.NAV.ToString();

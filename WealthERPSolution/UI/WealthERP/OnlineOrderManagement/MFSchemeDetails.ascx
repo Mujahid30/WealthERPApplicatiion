@@ -2,54 +2,21 @@
     Inherits="WealthERP.OnlineOrderManagement.MFSchemeDetails" %>
 <asp:ScriptManager ID="scrptMgr" runat="server" EnablePageMethods="true">
 </asp:ScriptManager>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
 <!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
 <!-- Latest compiled and minified JavaScript -->
-
-<script src="../Scripts/jquery.js" type="text/javascript"></script>
-
-<script src="../Scripts/JScript.js" type="text/javascript"></script>
-
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
-
 <script src="../Scripts/jquery.bxslider.js" type="text/javascript"></script>
-
 <script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
-
 <script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
-
 <script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
 <script src="../Scripts/JScript.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery.js" type="text/javascript"></script>
-
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
 <script src="../Scripts/bootstrap.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery.js" type="text/javascript"></script>
-
-<script src="../Scripts/JScript.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
-
 <link href="../Base/CSS/bootstrap-theme.css" rel="stylesheet" type="text/css" />
 <link href="../Base/CSS/bootstrap.css" rel="stylesheet" type="text/css" />
 <link href="../Base/CSS/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
 <style type="text/css">
     .header
     {
@@ -162,45 +129,6 @@
                 </td>
             </tr>
         </table>
-        <%--  <div id="demo" class="row " style="margin-top: 1%; margin-bottom: 2%; width: 80%;
-            padding-top: 1%; padding-bottom: 1%; background-color: #2480C7; margin-left: auto;
-            margin-right: auto;">
-            <div class="col-md-12 col-xs-12 col-sm-12">
-                <div class="col-md-7">
-                    <font color="#fff"><b>AMC:</b></font>
-                    <asp:DropDownList ID="ddlAMC" runat="server" CssClass="form-control input-sm" Width="100%"
-                        OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged" AutoPostBack="true">
-                    </asp:DropDownList>
-                    <span id="Span1">*</span>
-                    <asp:RequiredFieldValidator ID="reqAMC" runat="server" Style="color: White;" Display="Dynamic"
-                        ValidationGroup="btnGo" ErrorMessage="Select AMC" ControlToValidate="ddlAMC"
-                        InitialValue="0"></asp:RequiredFieldValidator>
-                </div>
-                <div class="col-md-5">
-                    <font color="#fff"><b>Category: </b></font>
-                    <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control input-sm"
-                        AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged">
-                    </asp:DropDownList>
-                    <span id="Span2">*</span>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="ddlCategory"
-                        ErrorMessage="<br />Please select category" Style="color: White;" Display="Dynamic"
-                        runat="server" InitialValue="0" ValidationGroup="btnViewscheme">
-                    </asp:RequiredFieldValidator>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="col-md-8">
-                    <font color="#fff"><b>Scheme:</b></font>
-                    <asp:DropDownList ID="ddlScheme" runat="server" CssClass="form-control input-sm"
-                        class="form-control">
-                    </asp:DropDownList>
-                </div>
-                <div class="col-md-4" style="margin-top: 1.7%">
-                    <asp:Button ID="Button1" runat="server" class="btn btn-sm btn btn-default" Text="Scheme Details"
-                        OnClick="Go_OnClick" ValidationGroup="btnGo"></asp:Button>
-                </div>
-            </div>
-        </div>--%>
         <div id="dvDemo" class="row " style="margin-left: 11%; margin-top: 1%; margin-bottom: 0.5%;
             margin-right: 5%; padding-top: 0.5%; padding-bottom: 0.5%;" visible="true" runat="server">
             <div class="col-md-12  col-xs-12 col-sm-12">
@@ -222,7 +150,6 @@
                         ErrorMessage="<br />Please select AMC" Style="color: Red;" Display="Dynamic"
                         runat="server" InitialValue="0" ValidationGroup="btnViewscheme">
                     </asp:RequiredFieldValidator>
-                    <%--<asp:RequiredFieldValidator ID="rfvAMC" runat="server" ControlToValidate="ddlAMC" InitialValue="0" ErrorMessage="Please Select AMC" Display="Dynamic"></asp:RequiredFieldValidator>--%>
                 </div>
                 <div class="col-md-3">
                     <fieldset>
@@ -268,7 +195,33 @@
         </div>
         <div style="margin-top: 1%; margin-bottom: 2%; width: 80%; padding-top: 1%; padding-bottom: 1%;
             margin-left: auto; margin-right: auto;">
-            <asp:Literal ID="Literal1" runat="server"></asp:Literal>
+            <div>
+        <asp:Button ID="btn1m" runat="server" class="btn btn-sm btn-primary" Text="1m"
+        OnClick="btnHistory_OnClick" ></asp:Button>
+        <asp:Button ID="btn3m" runat="server" class="btn btn-sm btn-primary" Text="3m"
+        OnClick="btnHistory_OnClick" ></asp:Button>
+        <asp:Button ID="btn6m" runat="server" class="btn btn-sm btn-primary" Text="6m"
+        OnClick="btnHistory_OnClick" ></asp:Button>
+        <asp:Button ID="btn1y" runat="server" class="btn btn-sm btn-primary" Text="1y"
+        OnClick="btnHistory_OnClick" ></asp:Button>
+        <asp:Button ID="btn2y" runat="server" class="btn btn-sm btn-primary" Text="2y"
+        OnClick="btnHistory_OnClick" ></asp:Button>
+            </div>
+            <div><asp:Literal ID="Literal1" runat="server"></asp:Literal></div>
+            <div style="float:right;">
+            <span style="font-weight:bold;">From</span>
+            <telerik:RadDatePicker ID="rdpFromDate"  Label="From" DateInput-EmptyMessage="Please Select a Date" MinDate="01/01/1000" MaxDate="01/01/3000" CssClass="calender" runat="server">
+            </telerik:RadDatePicker>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="rdpFromDate"
+                Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnHistoryChat"></asp:RequiredFieldValidator>
+                <span style="font-weight:bold;">To</span>
+            <telerik:RadDatePicker ID="rdpToDate"  Label="To" DateInput-EmptyMessage="Please Select a Date" MinDate="01/01/1000" MaxDate="01/01/3000" CssClass="calender" runat="server">
+            </telerik:RadDatePicker>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="rdpFromDate"
+                 Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnHistoryChat"></asp:RequiredFieldValidator>
+             <asp:Button ID="btnHistoryChat" runat="server" class="btn btn-sm btn-primary" Text="Go" ValidationGroup="btnHistoryChat"
+            OnClick="btnHistoryChat_OnClick" ></asp:Button>
+            </div>
         </div>
         <div style="margin-top: 1%; margin-bottom: 2%; width: 80%; padding-top: 1%; padding-bottom: 1%;
             margin-left: auto; margin-right: auto;">
@@ -632,7 +585,7 @@
             <asp:HiddenField ID="hidCurrentScheme" runat="server" />
     </ContentTemplate>
 </asp:UpdatePanel>
-
+<Banner:footer ID="MyHeader" assetCategory="MF" runat="server" />
 <script type="text/javascript">
     function togglediv(x) {
         myDivObj = document.getElementById(x);

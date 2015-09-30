@@ -256,5 +256,44 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetAMCandCategoryWiseScheme;
         }
+
+
+
+        public static DataTable GetSchemeNavHistory(int schemePlanCode, DateTime? fromDate, DateTime? toDate)
+        {
+            Database db;
+            DbCommand GetSchemeNavHistorycmd;
+            DataSet dsdtGetSchemeNavHistory;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetSchemeNavHistorycmd = db.GetStoredProcCommand("SPROC_ONL_GetSchemeNavHistory");
+                db.AddInParameter(GetSchemeNavHistorycmd, "@SchemePlanCode", DbType.Int32, schemePlanCode);
+                db.AddInParameter(GetSchemeNavHistorycmd, "@FromDate", DbType.Date, fromDate);
+                db.AddInParameter(GetSchemeNavHistorycmd, "@ToDate", DbType.Date, toDate);
+                dsdtGetSchemeNavHistory = db.ExecuteDataSet(GetSchemeNavHistorycmd);
+                
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineMFSchemeDetailsDao.cs:GetSchemeNavHistory(int schemePlanCode, DateTime? fromDate, DateTime? toDate)");
+                object[] objects = new object[3];
+                objects[0] = schemePlanCode;
+                objects[1] = fromDate;
+                objects[2] = toDate;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsdtGetSchemeNavHistory.Tables[0];
+        }
     }
 }
