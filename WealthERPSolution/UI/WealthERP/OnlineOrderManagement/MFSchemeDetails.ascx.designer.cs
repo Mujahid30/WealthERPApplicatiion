@@ -23,7 +23,7 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.ScriptManager scrptMgr;
         protected global::Telerik.Web.UI.RadDatePicker rdpFromDate;
         protected global::Telerik.Web.UI.RadDatePicker rdpToDate;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divChart;
         /// <summary>
         /// updSchemDetails control.
         /// </summary>

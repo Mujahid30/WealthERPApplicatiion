@@ -193,8 +193,8 @@
                 </div>
             </div>
         </div>
-        <div style="margin-top: 1%; margin-bottom: 2%; width: 80%; padding-top: 1%; padding-bottom: 1%;
-            margin-left: auto; margin-right: auto;">
+        <div id="divChart" style="margin-top: 1%; margin-bottom: 2%; width: 80%; padding-top: 1%; padding-bottom: 1%;
+            margin-left: auto; margin-right: auto;" runat="server" visible="false">
             <div>
         <asp:Button ID="btn1m" runat="server" class="btn btn-sm btn-primary" Text="1m"
         OnClick="btnHistory_OnClick" ></asp:Button>

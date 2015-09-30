@@ -144,7 +144,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         public void LoadNAVHistoryChat(DataTable dtNavDetails)
         {
-
+            divChart.Visible = true;
             StringBuilder strXML = new StringBuilder();
             strXML.Append(@"<chart caption='NAV History' xAxisName='Date' toolText='NAV' flatscrollbars='1' scrollshowbuttons='0' scrollshowbuttons='0' useCrossLine='1' yAxisName='NAV' anchorBgColor='FFFFFF' bgColor='FFFFFF' showBorder='0'  canvasBgColor='FFFFFF' lineColor='2480C7'  >");
             strXML.Append(@" <categories>");
@@ -167,8 +167,8 @@ namespace WealthERP.OnlineOrderManagement
         public void GetAmcSchemeDetails()
         {
             DataTable dtNavDetails=null;
-            BindfundManagerDetails();
-            BindSectoreDetails();
+            //BindfundManagerDetails();
+            //BindSectoreDetails();
            onlineMFSchemeDetailsVo= onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue,out  dtNavDetails);
            ViewState["schemeName"] = onlineMFSchemeDetailsVo.schemeName;
             LoadNAVHistoryChat(dtNavDetails);
