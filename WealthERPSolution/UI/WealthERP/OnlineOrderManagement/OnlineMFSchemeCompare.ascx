@@ -57,7 +57,7 @@
 </table>
 <asp:UpdatePanel ID="updSchemDetails" runat="server" UpdateMode="Always">
     <ContentTemplate>
-        <div class="table-responsive" style="margin-left: 5%; margin-top: 2%;">
+        <div class="table-responsive" style="margin-left: 5%; margin-top: 2%;margin-bottom:2%;">
             <div class="col-md-3" style="width: 70%;">
                 <table class="col-md-12 table-bordered table-striped table-condensed cf">
                     <thead>
@@ -72,11 +72,12 @@
                             <td style="width: auto;">
                             </td>
                             <td id="tdddlAMC1" runat="server">
-                                <asp:LinkButton ID="lnkDelete1" runat="server" OnClick="lnkDelete1_OnClick" Visible="false" ToolTip="Remove" style="float:right">  <span class="glyphicon glyphicon-remove">
+                                <asp:LinkButton ID="lnkDelete1" runat="server" OnClick="lnkDelete1_OnClick" Visible="false"
+                                    ToolTip="Remove" Style="float: right">  <span class="glyphicon glyphicon-remove">
                             </span></asp:LinkButton><br />
                                 <asp:Image runat="server" ID="ImgStyle1" Visible="false" />
                                 <asp:DropDownList ID="ddlAMC1" runat="server" OnSelectedIndexChanged="ddlAMC1_SelectedIndexChanged"
-                                    CssClass="form-control input-sm" AutoPostBack="false">
+                                    CssClass="form-control input-sm" AutoPostBack="true">
                                 </asp:DropDownList>
                                 <br />
                                 <asp:DropDownList ID="ddlCategory1" runat="server" CssClass="form-control input-sm"
@@ -88,11 +89,12 @@
                                 </asp:DropDownList>
                             </td>
                             <td id="tdddlAMC2" runat="server">
-                                <asp:LinkButton ID="lnkDelete2" runat="server" OnClick="lnkDelete2_OnClick" Visible="false" ToolTip="Remove" style="float:right">  <span class="glyphicon glyphicon-remove">
+                                <asp:LinkButton ID="lnkDelete2" runat="server" OnClick="lnkDelete2_OnClick" Visible="false"
+                                    ToolTip="Remove" Style="float: right">  <span class="glyphicon glyphicon-remove">
                             </span></asp:LinkButton><br />
                                 <asp:Image runat="server" ID="ImgStyle2" Visible="false" />
                                 <asp:DropDownList ID="ddlAMC2" runat="server" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlAMC2_SelectedIndexChanged"
-                                    AutoPostBack="false">
+                                    AutoPostBack="true">
                                 </asp:DropDownList>
                                 <br />
                                 <asp:DropDownList ID="ddlCategory2" runat="server" CssClass="form-control input-sm"
@@ -104,11 +106,12 @@
                                 </asp:DropDownList>
                             </td>
                             <td id="tdddlAMC3" runat="server">
-                                <asp:LinkButton ID="lnkDelete3" runat="server" OnClick="lnkDelete31_OnClick" Visible="false" ToolTip="Remove" style="float:right">  <span class="glyphicon glyphicon-remove">
+                                <asp:LinkButton ID="lnkDelete3" runat="server" OnClick="lnkDelete31_OnClick" Visible="false"
+                                    ToolTip="Remove" Style="float: right">  <span class="glyphicon glyphicon-remove">
                             </span></asp:LinkButton><br />
                                 <asp:Image runat="server" ID="ImgStyle3" Visible="false" />
                                 <asp:DropDownList ID="ddlAMC3" runat="server" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlAMC3_SelectedIndexChanged"
-                                    AutoPostBack="false">
+                                    AutoPostBack="true">
                                 </asp:DropDownList>
                                 <br />
                                 <asp:DropDownList ID="ddlCategory3" runat="server" CssClass="form-control input-sm"
@@ -120,11 +123,12 @@
                                 </asp:DropDownList>
                             </td>
                             <td id="tdddlAMC4" runat="server">
-                                <asp:LinkButton ID="lnkDelete4" runat="server" OnClick="lnkDelete4_OnClick" Visible="false" ToolTip="Remove" style="float:right">  <span class="glyphicon glyphicon-remove">
+                                <asp:LinkButton ID="lnkDelete4" runat="server" OnClick="lnkDelete4_OnClick" Visible="false"
+                                    ToolTip="Remove" Style="float: right">  <span class="glyphicon glyphicon-remove">
                             </span></asp:LinkButton><br />
                                 <asp:Image runat="server" ID="ImgStyle4" Visible="false" />
                                 <asp:DropDownList ID="ddlAMC4" runat="server" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlAMC4_SelectedIndexChanged"
-                                    AutoPostBack="false">
+                                    AutoPostBack="true">
                                 </asp:DropDownList>
                                 <br />
                                 <asp:DropDownList ID="ddlCategory4" runat="server" CssClass="form-control input-sm"
@@ -168,7 +172,8 @@
                                
                             </td>--%>
                         </tr>
-                        <tr class="searchable-spec cell top sub-name small bordered" visible="false" id="trschemerating" runat="server">
+                        <tr class="searchable-spec cell top sub-name small bordered" visible="false" id="trschemerating"
+                            runat="server">
                             <td style="width: auto;">
                                 <b>Scheme Rating</b>
                             </td>
@@ -187,7 +192,7 @@
                         </tr>
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>Scheme Name</b>
+                                <b>Scheme</b>
                             </td>
                             <td>
                                 <asp:Label ID="lblSchemeName" runat="server"></asp:Label>
@@ -204,7 +209,7 @@
                         </tr>
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>AMC Name</b>
+                                <b>AMC</b>
                             </td>
                             <td>
                                 <asp:Label ID="lblAMC" runat="server"></asp:Label>
@@ -255,7 +260,7 @@
                         </tr>
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>Scheme Benchmark</b>
+                                <b>Benchmark</b>
                             </td>
                             <td>
                                 <asp:Label ID="lblBanchMark" runat="server"></asp:Label>
@@ -272,7 +277,7 @@
                         </tr>
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>Funds Returns 1st Year</b>
+                                <b>Returns 1st Yr</b>
                             </td>
                             <td>
                                 <asp:Label ID="lblFundReturn1styear" runat="server"></asp:Label>
@@ -289,7 +294,7 @@
                         </tr>
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>Funds Returns 3rd Year</b>
+                                <b>Returns 3rd Yr</b>
                             </td>
                             <td>
                                 <asp:Label ID="lblFundReturn3rdyear" runat="server"></asp:Label>
@@ -306,7 +311,7 @@
                         </tr>
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>Fund Return 5th Year</b>
+                                <b>Return 5th Yr</b>
                             </td>
                             <td>
                                 <asp:Label ID="lblFundReturn5thyear" runat="server"></asp:Label>
@@ -323,7 +328,7 @@
                         </tr>
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>Benchmark Return 1st year</b>
+                                <b>Benchmark Return 1st yr</b>
                             </td>
                             <td>
                                 <asp:Label ID="lblBenchmarkReturn" runat="server"></asp:Label>
@@ -340,7 +345,7 @@
                         </tr>
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>Benchmark Return 3rd year</b>
+                                <b>Benchmark Return 3rd yr</b>
                             </td>
                             <td>
                                 <asp:Label ID="lblBenchMarkReturn3rd" runat="server"></asp:Label>
@@ -357,7 +362,7 @@
                         </tr>
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>Benchmark Return 5th year</b>
+                                <b>Benchmark Return 5th yr</b>
                             </td>
                             <td>
                                 <asp:Label ID="lblBenchMarkReturn5th" runat="server"></asp:Label>
@@ -408,7 +413,7 @@
                         </tr>
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>Min Investment Amount</b>
+                                <b>Min Investment Amt.</b>
                             </td>
                             <td>
                                 <asp:Label ID="lblMinInvestment" runat="server"></asp:Label>
@@ -442,7 +447,7 @@
                         </tr>
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>Min SIP Amount</b>
+                                <b>Min SIP Amt.</b>
                             </td>
                             <td>
                                 <asp:Label ID="lblMinSIP" runat="server"></asp:Label>
@@ -491,8 +496,39 @@
                                 <asp:Label ID="lblExitLoad3" runat="server"></asp:Label>
                             </td>
                         </tr>
+                        <tr class="searchable-spec cell top sub-name small bordered">
+                            <td>
+                                <b>Action</b>
+                            </td>
+                            <td align="center">
+                                &nbsp;&nbsp;<asp:ImageButton ID="btnbuy1" runat="server" ImageUrl="~/Images/Buy-Button.png" 
+                                    onclick="btnbuy1_Click" Visible="false" ToolTip="BUY"/>
+                                &nbsp;&nbsp;<asp:ImageButton ID="btnSIP1" runat="server" ImageUrl="~/Images/SIP-Button.png" 
+                                    onclick="btnSIP1_Click" Visible="false" ToolTip="SIP"/>
+                            </td>
+                            <td align="center">
+                                &nbsp;&nbsp;<asp:ImageButton ID="btnbuy2" runat="server" ImageUrl="~/Images/Buy-Button.png" 
+                                    onclick="btnbuy2_Click" Visible="false" ToolTip="BUY"/>
+                                &nbsp;&nbsp;<asp:ImageButton ID="btnSIP2" runat="server" onclick="btnSIP2_Click" 
+                                    style="height: 16px" ImageUrl="~/Images/SIP-Button.png" Visible="false" ToolTip="SIP"/>
+                            </td>
+                            <td align="center">
+                                &nbsp;&nbsp;<asp:ImageButton ID="btnbuy3" runat="server" ImageUrl="~/Images/Buy-Button.png" 
+                                    onclick="btnbuy3_Click" style="height: 15px" Visible="false" ToolTip="BUY"/>
+                                &nbsp;&nbsp;<asp:ImageButton ID="btnSIP3" runat="server" onclick="btnSIP3_Click" Visible="false" ImageUrl="~/Images/SIP-Button.png" ToolTip="SIP" />
+                            </td>
+                            <td align="center">
+                                &nbsp;&nbsp;<asp:ImageButton ID="btnbuy4" runat="server" ImageUrl="~/Images/Buy-Button.png" 
+                                    onclick="btnbuy4_Click" Visible="false" ToolTip="BUY"/> 
+                                &nbsp;&nbsp;<asp:ImageButton ID="btnSIP4" runat="server" ImageUrl="~/Images/SIP-Button.png" 
+                                    onclick="btnSIP4_Click" Visible="false" ToolTip="SIP"/>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
     </ContentTemplate>
 </asp:UpdatePanel>
+<Banner:footer ID="MyHeader" assetCategory="MF" runat="server" />
+
+

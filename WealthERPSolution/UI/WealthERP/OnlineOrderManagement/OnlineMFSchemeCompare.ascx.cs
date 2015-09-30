@@ -93,10 +93,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void ddlAMC1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //if (ddlAMC1.SelectedIndex != 0)
-            //{
-            //    BindScheme();
-            //}
+            BindCategory();
         }
         protected void ddlCategory1_OnSelectedIndexChanged(object sender, EventArgs e)
         {
@@ -157,23 +154,17 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void ddlAMC2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //if (ddlAMC2.SelectedIndex != 0)
-            //{
-            //    BindScheme2();
+            BindCategory();
             //}
         }
         protected void ddlAMC3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //if (ddlAMC3.SelectedIndex != 0)
-            //{
-            //    BindScheme3();
+            BindCategory();
             //}
         }
         protected void ddlAMC4_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ////if (ddlAMC4.SelectedIndex != 0)
-            ////{
-            ////    BindScheme4();
+            BindCategory();
             ////}
         }
         protected void BindScheme2()
@@ -257,9 +248,7 @@ namespace WealthERP.OnlineOrderManagement
                     ddlSchemeList1.Visible = false;
                     lnkDelete1.Visible = true;
                     ImgStyle1.Visible = true;
-                    //if(Session["Schemedetails"] ==null)
-                    //Session["Schemedetails"] = onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC1.SelectedValue), int.Parse(ddlSchemeList1.SelectedValue), ddlCategory1.SelectedValue);
-                    //OnlineMFSchemeDetailsVo onlineMFSchemeDetailsVo = (OnlineMFSchemeDetailsVo)Session["Schemedetails"];
+                   
                     lblSchemeName.Text = onlineMFSchemeDetailsVo.schemeName;
                     lblAMC.Text = onlineMFSchemeDetailsVo.amcName;
                     lblNAV.Text = onlineMFSchemeDetailsVo.NAV.ToString();
@@ -278,6 +267,10 @@ namespace WealthERP.OnlineOrderManagement
                     lblExitLoad.Text = onlineMFSchemeDetailsVo.exitLoad.ToString();
                     lblMinInvestment.Text = onlineMFSchemeDetailsVo.minmumInvestmentAmount.ToString();
                     lblMinMultipleOf.Text = onlineMFSchemeDetailsVo.multipleOf.ToString();
+                    if(onlineMFSchemeDetailsVo.isPurchaseAvaliable !=0)
+                    btnbuy1.Visible = true;
+                    if (onlineMFSchemeDetailsVo.isSIPAvaliable != 0)
+                    btnSIP1.Visible = true;
                     if (onlineMFSchemeDetailsVo.mornigStar > 0)
                     {
                         imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
@@ -286,6 +279,7 @@ namespace WealthERP.OnlineOrderManagement
                     else
                     {
                         imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/0.png";
+                        ImgStyle4.ImageUrl = @"../Images/MorningStarRating/PMFRD_RatingOverall/0.png";
 
                     }
                     break;
@@ -295,9 +289,6 @@ namespace WealthERP.OnlineOrderManagement
                     ddlSchemeList2.Visible = false;
                     lnkDelete2.Visible = true;
                     ImgStyle2.Visible = true;
-
-                    //Session["Schemedetails1"] = onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC2.SelectedValue), int.Parse(ddlSchemeList2.SelectedValue), ddlCategory2.SelectedValue);
-                    //OnlineMFSchemeDetailsVo onlineMFSchemeDetailsVo = (OnlineMFSchemeDetailsVo)Session["Schemedetails1"];
                     lblSchemeName1.Text = onlineMFSchemeDetailsVo.schemeName;
                     lblAMC1.Text = onlineMFSchemeDetailsVo.amcName;
                     lblNAV1.Text = onlineMFSchemeDetailsVo.NAV.ToString();
@@ -316,6 +307,10 @@ namespace WealthERP.OnlineOrderManagement
                     lblExitLoad1.Text = onlineMFSchemeDetailsVo.exitLoad.ToString();
                     lblMinInvestment1.Text = onlineMFSchemeDetailsVo.minmumInvestmentAmount.ToString();
                     lblMinMultipleOf1.Text = onlineMFSchemeDetailsVo.multipleOf.ToString();
+                    if (onlineMFSchemeDetailsVo.isPurchaseAvaliable != 0)
+                        btnbuy2.Visible = true;
+                    if (onlineMFSchemeDetailsVo.isSIPAvaliable != 0)
+                        btnSIP2.Visible = true;
                     if (onlineMFSchemeDetailsVo.mornigStar > 0)
                     {
                         imgSchemeRating1.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
@@ -325,6 +320,7 @@ namespace WealthERP.OnlineOrderManagement
                     else
                     {
                         imgSchemeRating1.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/0.png";
+                        ImgStyle4.ImageUrl = @"../Images/MorningStarRating/PMFRD_RatingOverall/0.png";
 
                     }
                     break;
@@ -334,9 +330,6 @@ namespace WealthERP.OnlineOrderManagement
                     ddlSchemeList3.Visible = false;
                     lnkDelete3.Visible = true;
                     ImgStyle3.Visible = true;
-
-                    //Session["Schemedetails2"] = onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC3.SelectedValue), int.Parse(ddlSchemeList3.SelectedValue), ddlCategory3.SelectedValue);
-                    //OnlineMFSchemeDetailsVo onlineMFSchemeDetailsVo = (OnlineMFSchemeDetailsVo)Session["Schemedetails2"];
                     lblSchemeName2.Text = onlineMFSchemeDetailsVo.schemeName;
                     lblAMC2.Text = onlineMFSchemeDetailsVo.amcName;
                     lblNAV2.Text = onlineMFSchemeDetailsVo.NAV.ToString();
@@ -355,6 +348,10 @@ namespace WealthERP.OnlineOrderManagement
                     lblExitLoad2.Text = onlineMFSchemeDetailsVo.exitLoad.ToString();
                     lblMinInvestment2.Text = onlineMFSchemeDetailsVo.minmumInvestmentAmount.ToString();
                     lblMinMultipleOf2.Text = onlineMFSchemeDetailsVo.multipleOf.ToString();
+                    if (onlineMFSchemeDetailsVo.isPurchaseAvaliable != 0)
+                        btnbuy3.Visible = true;
+                    if (onlineMFSchemeDetailsVo.isSIPAvaliable != 0)
+                        btnSIP3.Visible = true;
                     if (onlineMFSchemeDetailsVo.mornigStar > 0)
                     {
                         imgSchemeRating2.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
@@ -364,6 +361,7 @@ namespace WealthERP.OnlineOrderManagement
                     else
                     {
                         imgSchemeRating2.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/0.png";
+                        ImgStyle4.ImageUrl = @"../Images/MorningStarRating/PMFRD_RatingOverall/0.png";
 
                     }
                     break;
@@ -373,9 +371,6 @@ namespace WealthERP.OnlineOrderManagement
                     ddlSchemeList4.Visible = false;
                     lnkDelete4.Visible = true;
                     ImgStyle4.Visible = true;
-
-                    //Session["Schemedetails3"] = onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC4.SelectedValue), int.Parse(ddlSchemeList4.SelectedValue), ddlCategory4.SelectedValue);
-                    //OnlineMFSchemeDetailsVo onlineMFSchemeDetailsVo = (OnlineMFSchemeDetailsVo)Session["Schemedetails3"];
                     lblSchemeName3.Text = onlineMFSchemeDetailsVo.schemeName;
                     lblAMC3.Text = onlineMFSchemeDetailsVo.amcName;
                     lblNAV3.Text = onlineMFSchemeDetailsVo.NAV.ToString();
@@ -394,6 +389,10 @@ namespace WealthERP.OnlineOrderManagement
                     lblExitLoad3.Text = onlineMFSchemeDetailsVo.exitLoad.ToString();
                     lblMinInvestment3.Text = onlineMFSchemeDetailsVo.minmumInvestmentAmount.ToString();
                     lblMinMultipleOf3.Text = onlineMFSchemeDetailsVo.multipleOf.ToString();
+                    if (onlineMFSchemeDetailsVo.isPurchaseAvaliable != 0)
+                        btnbuy4.Visible = true;
+                    if (onlineMFSchemeDetailsVo.isSIPAvaliable != 0)
+                        btnSIP4.Visible = true;
                     if (onlineMFSchemeDetailsVo.mornigStar > 0)
                     {
                         imgSchemeRating3.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
@@ -403,7 +402,7 @@ namespace WealthERP.OnlineOrderManagement
                     else
                     {
                         imgSchemeRating3.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/0.png";
-
+                        ImgStyle4.ImageUrl = @"../Images/MorningStarRating/PMFRD_RatingOverall/0.png";
                     }
                     break;
 
@@ -419,6 +418,9 @@ namespace WealthERP.OnlineOrderManagement
             ddlSchemeList1.Visible = true;
             lnkDelete1.Visible = false;
             ImgStyle1.Visible = false;
+            btnbuy1.Visible = false;
+            btnSIP1.Visible = false;
+            BindAMC1();
             ClearAllField(1);
         }
         protected void lnkDelete2_OnClick(object sender, EventArgs e)
@@ -428,6 +430,9 @@ namespace WealthERP.OnlineOrderManagement
             ddlSchemeList2.Visible = true;
             lnkDelete2.Visible = false;
             ImgStyle2.Visible = false;
+            btnbuy2.Visible = false;
+            btnSIP2.Visible = false;
+            BindAMC1();
             ClearAllField(2);
         }
         protected void lnkDelete31_OnClick(object sender, EventArgs e)
@@ -437,6 +442,9 @@ namespace WealthERP.OnlineOrderManagement
             ddlSchemeList3.Visible = true;
             lnkDelete3.Visible = false;
             ImgStyle3.Visible = false;
+            btnbuy3.Visible = false;
+            btnSIP3.Visible = false;
+            BindAMC1();
             ClearAllField(3);
         }
         protected void lnkDelete4_OnClick(object sender, EventArgs e)
@@ -446,6 +454,9 @@ namespace WealthERP.OnlineOrderManagement
             ddlSchemeList4.Visible = true;
             lnkDelete4.Visible = false;
             ImgStyle4.Visible = false;
+            btnbuy4.Visible = false;
+            btnSIP4.Visible = false;
+            BindAMC1();
             ClearAllField(4);
         }
         protected void ClearAllField(int columnNo)
@@ -473,6 +484,8 @@ namespace WealthERP.OnlineOrderManagement
                     lblMinInvestment.Text = "";
                     lblMinMultipleOf.Text = "";
                     imgSchemeRating.ImageUrl = "";
+                    ddlCategory1.SelectedValue = "0";
+                    ddlSchemeList1.SelectedValue = "0";
                     break;
                 case 2:
                     imgSchemeRating1.ImageUrl = "";
@@ -495,7 +508,8 @@ namespace WealthERP.OnlineOrderManagement
                     lblMinInvestment1.Text = "";
                     lblMinMultipleOf1.Text = "";
                     imgSchemeRating1.ImageUrl = "";
-
+                    ddlCategory2.SelectedValue = "0";
+                    ddlSchemeList2.SelectedValue = "0";
                     break;
                 case 3:
                     imgSchemeRating2.ImageUrl = "";
@@ -518,7 +532,8 @@ namespace WealthERP.OnlineOrderManagement
                     lblMinInvestment2.Text = "";
                     lblMinMultipleOf2.Text = "";
                     imgSchemeRating2.ImageUrl = "";
-
+                    ddlCategory3.SelectedValue = "0";
+                    ddlSchemeList3.SelectedValue = "0";
                     break;
                 case 4:
                     imgSchemeRating3.ImageUrl = "";
@@ -541,9 +556,71 @@ namespace WealthERP.OnlineOrderManagement
                     lblMinInvestment3.Text = "";
                     lblMinMultipleOf3.Text = "";
                     imgSchemeRating3.ImageUrl = "";
-
+                    ddlCategory4.SelectedValue = "0";
+                    ddlSchemeList4.SelectedValue = "0";
                     break;
             }
+        }
+
+        protected void btnbuy1_Click(object sender, ImageClickEventArgs e)
+        {
+            Session["MFSchemePlan"] = ddlSchemeList1.SelectedValue;
+            LoadMFTransactionPage("MFOrderPurchaseTransType");
+        }
+
+        protected void btnSIP1_Click(object sender, ImageClickEventArgs e)
+        {
+            Session["MFSchemePlan"] = ddlSchemeList1.SelectedValue;
+            LoadMFTransactionPage("MFOrderSIPTransType");
+        }
+
+        protected void btnbuy2_Click(object sender, ImageClickEventArgs e)
+        {
+            Session["MFSchemePlan"] = ddlSchemeList1.SelectedValue;
+            LoadMFTransactionPage("MFOrderPurchaseTransType");
+        }
+
+        protected void btnSIP2_Click(object sender, ImageClickEventArgs e)
+        {
+            Session["MFSchemePlan"] = ddlSchemeList2.SelectedValue;
+            LoadMFTransactionPage("MFOrderSIPTransType");
+        }
+
+        protected void btnbuy3_Click(object sender, ImageClickEventArgs e)
+        {
+            Session["MFSchemePlan"] = ddlSchemeList1.SelectedValue;
+            LoadMFTransactionPage("MFOrderPurchaseTransType");
+        }
+
+        protected void btnSIP3_Click(object sender, ImageClickEventArgs e)
+        {
+            Session["MFSchemePlan"] = ddlSchemeList3.SelectedValue;
+            LoadMFTransactionPage("MFOrderSIPTransType");
+        }
+
+        protected void btnbuy4_Click(object sender, ImageClickEventArgs e)
+        {
+            Session["MFSchemePlan"] = ddlSchemeList1.SelectedValue;
+            LoadMFTransactionPage("MFOrderPurchaseTransType");
+        }
+
+        protected void btnSIP4_Click(object sender, ImageClickEventArgs e)
+        {
+            Session["MFSchemePlan"] = ddlSchemeList4.SelectedValue;
+            LoadMFTransactionPage("MFOrderSIPTransType");
+
+        }
+        protected void LoadMFTransactionPage(string pageId)
+        {
+            Dictionary<string, string> defaultProductPageSetting = new Dictionary<string, string>();
+
+            defaultProductPageSetting.Clear();
+            defaultProductPageSetting.Add("ProductType", "MF");
+            defaultProductPageSetting.Add("ProductMenu", "trMFOrderMenuTransactTab");
+            defaultProductPageSetting.Add("ProductMenuItem", "RTSMFOrderMenuTransact");
+            defaultProductPageSetting.Add("ProductMenuItemPage", pageId);
+            Session["PageDefaultSetting"] = defaultProductPageSetting;
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadTopPanelControl('OnlineOrderTopMenu','login');", true);
         }
     }
 }

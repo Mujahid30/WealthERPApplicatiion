@@ -176,6 +176,7 @@ namespace WealthERP.OnlineOrderManagement
             lblSchemeName.Text = onlineMFSchemeDetailsVo.schemeName;
             lblAMC.Text = onlineMFSchemeDetailsVo.amcName;
             lblNAV.Text = onlineMFSchemeDetailsVo.NAV.ToString();
+            if(!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.navDate))
             lblNAVDate.Text = onlineMFSchemeDetailsVo.navDate.ToString();
             lblCategory.Text = onlineMFSchemeDetailsVo.category;
             lblBanchMark.Text = onlineMFSchemeDetailsVo.schemeBanchMark;

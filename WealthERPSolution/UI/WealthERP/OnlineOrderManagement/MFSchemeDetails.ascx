@@ -193,8 +193,8 @@
                 </div>
             </div>
         </div>
-        <div id="divChart" style="margin-top: 1%; margin-bottom: 2%; width: 80%; padding-top: 1%; padding-bottom: 1%;
-            margin-left: auto; margin-right: auto;" runat="server" visible="false">
+        <div id="divChart" runat="server" visible="false" style="margin-top: 1%; margin-bottom: 2%; width: 80%; padding-top: 1%; padding-bottom: 1%;
+            margin-left: auto; margin-right: auto;">
             <div>
         <asp:Button ID="btn1m" runat="server" class="btn btn-sm btn-primary" Text="1m"
         OnClick="btnHistory_OnClick" ></asp:Button>
@@ -223,6 +223,7 @@
             OnClick="btnHistoryChat_OnClick" ></asp:Button>
             </div>
         </div>
+        
         <div style="margin-top: 1%; margin-bottom: 2%; width: 80%; padding-top: 1%; padding-bottom: 1%;
             margin-left: auto; margin-right: auto;">
             <div style="width: 70%; float: left; min-width: 320px;">
@@ -238,6 +239,7 @@
                         </thead>
                     </table>
                 </div>
+                
                 <div>
                     <div style="float: left; width: 50%; min-width: 320px">
                         <table class="col-md-12 table-bordered table-striped table-condensed cf">
@@ -250,17 +252,18 @@
                                         <asp:Image runat="server" ID="imgSchemeRating" />
                                     </td>
                                 </tr>
-                                <tr class="searchable-spec cell top sub-name small bordered">
+                                  <tr class="searchable-spec cell top sub-name small bordered">
                                     <th>
-                                        <b>Scheme Name</b>
+                                        <b>Scheme </b>
                                     </th>
                                     <td>
-                                        <asp:Label ID="lblSchemeName" runat="server" Style="text-align: justify;"></asp:Label>
+                                    
+                                      <asp:Label ID="lblSchemeName" runat="server"></asp:Label>
                                     </td>
                                 </tr>
                                 <tr class="searchable-spec cell top sub-name small bordered">
                                     <th>
-                                        <b>AMC Name</b>
+                                        <b>AMC </b>
                                     </th>
                                     <td>
                                         <asp:Label ID="lblAMC" runat="server"></asp:Label>
@@ -352,9 +355,9 @@
                                         <asp:Label ID="lblNAVDate" runat="server"></asp:Label>
                                     </td>
                                 </tr>
-                                <tr class="searchable-spec cell top sub-name small bordered">
+                               <tr class="searchable-spec cell top sub-name small bordered">
                                     <th>
-                                        <b>NAV</b>
+                                        <b>NAV </b>
                                     </th>
                                     <td>
                                         <asp:Label ID="lblNAV" runat="server"></asp:Label>
@@ -528,7 +531,7 @@
                              <th class="header">
                                 <div data-toggle="collapse" data-target="#no-more-tables" style="color: White;float:left;cursor:pointer;" id="Div1"
                                     onclick="togglediv('Div1')">+</div>
-                                    <div style="color: White;float:left;text-align:center;"> <font color="#fff" >&nbsp;&nbsp;Sector Details </font></div>
+                                    <div style="color: White;float:left;text-align:center;"> <font color="#fff" >&nbsp;&nbsp;Holding Details </font></div>
                                 
                             </th>
                         </tr>
@@ -581,6 +584,7 @@
                                 </asp:Repeater>
                             </tbody>
                         </table>
+            </div>
             </div>
             <asp:HiddenField ID="hidCurrentScheme" runat="server" />
     </ContentTemplate>
