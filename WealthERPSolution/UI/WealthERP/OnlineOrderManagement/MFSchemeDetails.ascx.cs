@@ -167,8 +167,8 @@ namespace WealthERP.OnlineOrderManagement
         public void GetAmcSchemeDetails()
         {
             DataTable dtNavDetails=null;
-            //BindfundManagerDetails();
-            //BindSectoreDetails();
+            BindfundManagerDetails();
+            BindSectoreDetails();
            onlineMFSchemeDetailsVo= onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue,out  dtNavDetails);
            ViewState["schemeName"] = onlineMFSchemeDetailsVo.schemeName;
             LoadNAVHistoryChat(dtNavDetails);
