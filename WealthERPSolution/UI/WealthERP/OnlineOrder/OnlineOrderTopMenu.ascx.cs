@@ -291,7 +291,10 @@ namespace WealthERP.OnlineOrder
         }
         protected void SchemeSearch_OnTextChanged(object sender, EventArgs e)
         {
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFSchemeDetails','&schemeCode=" + schemeCode.Value + "')", true);
+            if (schemeCode.Value != "")
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFSchemeDetails','&schemeCode=" + schemeCode.Value + "')", true);
+            }
         }
     }
 }
