@@ -20,7 +20,7 @@ namespace VoOnlineOrderManagemnet
             public string benchmarkReturn1stYear { get; set; }
             public string benchmark3rhYear { get; set; }
             public string benchmark5thdYear { get; set; }
-            public DateTime navDate { get; set; }
+            public string navDate { get; set; }
             public decimal NAV { get; set; }
             public int minmumInvestmentAmount { get; set; }
             public int multipleOf { get; set; }
