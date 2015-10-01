@@ -2492,14 +2492,14 @@ namespace BoOnlineOrderManagement
             }
             return dt;
         }
-        public DataTable GetSchemeDetails(int AMCCode,int Schemeplanecode,string category, int customerId, Int16 SchemeDetails)
+        public DataTable GetSchemeDetails(int AMCCode, int Schemeplanecode, string category, int customerId, Int16 SchemeDetails, Boolean NFOType)
         {
 
             DataTable dtGetSchemeDetails = new DataTable();
             OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
             try
             {
-                dtGetSchemeDetails = daoOnlineOrderBackOffice.GetSchemeDetails(AMCCode, Schemeplanecode, category, customerId, SchemeDetails);
+                dtGetSchemeDetails = daoOnlineOrderBackOffice.GetSchemeDetails(AMCCode, Schemeplanecode, category, customerId, SchemeDetails, NFOType);
             }
             catch (BaseApplicationException Ex)
             {
