@@ -238,6 +238,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell thReturn;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell thSchemeRank;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell thSIP;
         
         /// <summary>
         /// rpSchemeDetails control.

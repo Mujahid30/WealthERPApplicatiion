@@ -342,6 +342,7 @@ namespace WealthERP.OnlineOrderManagement
                 HtmlTableCell tdNAV = (HtmlTableCell)e.Item.FindControl("tdNAV");
                 HtmlTableCell tdReturn = (HtmlTableCell)e.Item.FindControl("tdReturn");
                 HtmlTableCell tdSchemeRank = (HtmlTableCell)e.Item.FindControl("tdSchemeRank");
+                HtmlTableCell tdSIP = (HtmlTableCell)e.Item.FindControl("tdSIP");
                 tdNFOStrtDate.Visible = false;
                 tdNFOEndDate.Visible = false;
                 tdNFOAmt.Visible = false;
@@ -356,7 +357,8 @@ namespace WealthERP.OnlineOrderManagement
                 tdReturn.Visible = true;
                 tdSchemeRank.Visible = false;
                 thSchemeRank.Visible = false;
-
+                thSIP.Visible = true;
+                tdSIP.Visible = true;
                 if (ViewState["FilterType"].ToString() == "lbNFOList")
                 {
                     tdNFOStrtDate.Visible = true;
@@ -373,6 +375,8 @@ namespace WealthERP.OnlineOrderManagement
                     tdReturn.Visible = false;
                     tdSchemeRank.Visible = false;
                     thSchemeRank.Visible = false;
+                    thSIP.Visible = false;
+                    tdSIP.Visible = false;
                    
 
 

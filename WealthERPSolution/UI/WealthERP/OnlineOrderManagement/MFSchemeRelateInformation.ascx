@@ -261,7 +261,7 @@
                                 <th data-title="Buy" class="alignCenter">
                                     Buy
                                 </th>
-                                <th data-title="SIP" class="alignCenter">
+                                <th data-title="SIP" class="alignCenter" runat="server" visible="false" id="thSIP">
                                     SIP
                                 </th>
                                 <th data-title="Watch" class="alignCenter">
@@ -316,7 +316,7 @@
                                     </span>
                                             </asp:LinkButton>
                                         </td>
-                                        <td data-title="SIP">
+                                        <td data-title="SIP" runat="server" visible="false" id="tdSIP">
                                             <asp:LinkButton ID="lbSIP" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
                                                 CommandName="SIP" CssClass="btn btn-primary btn-info" Visible='<%# Eval("IsSchemeSIPType")%>' >  <span class="glyphicon glyphicon-shopping-cart">
                             </span></asp:LinkButton>
