@@ -130,5 +130,19 @@ namespace BoOnlineOrderManagement
             }
             return dt;
         }
+
+        public DataTable GetschemedetailsNAV(int schemePlanCode)
+        {
+            DataTable dt;
+            try
+            {
+                dt = OnlineMFSchemeDetailsDao.GetschemedetailsNAV(schemePlanCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dt;
+        }
     }
 }

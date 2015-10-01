@@ -68,6 +68,7 @@ namespace DaoOnlineOrderManagement
                         OnlineMFSchemeDetailsVo.SIPmultipleOf = int.Parse(dr["PASPSD_MultipleAmount"].ToString());
                         OnlineMFSchemeDetailsVo.mornigStar = int.Parse(dr["SchemeRatingOverall"].ToString());
                         OnlineMFSchemeDetailsVo.navDate = dr["PASPSP_Date"].ToString();
+                        if(dr["CMFNP_CurrentValue"].ToString() !="")
                         OnlineMFSchemeDetailsVo.NAV = Convert.ToDecimal(dr["CMFNP_CurrentValue"]);
                     }
                 }
@@ -336,5 +337,39 @@ namespace DaoOnlineOrderManagement
             }
             return dsdtGetSchemeNavHistory.Tables[0];
         }
+        public DataTable GetschemedetailsNAV(int schemeplanCode)
+        {
+            Database db;
+            DbCommand cmdGetschemedetailsNAV;
+            DataTable dtGetschemedetailsNAV;
+            DataSet dsGetschemedetailsNAV;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetschemedetailsNAV = db.GetStoredProcCommand("SPROC_OnlGetNAVDiffrence");
+                db.AddInParameter(cmdGetschemedetailsNAV, "@schemePlanCode", DbType.Int32, schemeplanCode);
+                dsGetschemedetailsNAV = db.ExecuteDataSet(cmdGetschemedetailsNAV);
+                dtGetschemedetailsNAV = dsGetschemedetailsNAV.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineMFSchemeDetailsDao.cs: GetschemedetailsNAV(int schemeplanCode);");
+                object[] objects = new object[2];
+                objects[0] = schemeplanCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtGetschemedetailsNAV;
+        }
+
     }
 }

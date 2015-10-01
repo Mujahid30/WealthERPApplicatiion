@@ -19,13 +19,14 @@ using System.IO;
 using System.Configuration;
 using System.Text;
 using InfoSoftGlobal;
+using System.Drawing;
 namespace WealthERP.OnlineOrderManagement
 {
     public partial class MFSchemeDetails : System.Web.UI.UserControl
     {
         OnlineMFSchemeDetailsBo onlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
         CustomerVo customerVo = new CustomerVo();
-        List<int> schemeCompareList=new List<int>();
+        List<int> schemeCompareList = new List<int>();
         OnlineMFSchemeDetailsVo onlineMFSchemeDetailsVo;
         CommonLookupBo commonLookupBo = new CommonLookupBo();
         protected void Page_Load(object sender, EventArgs e)
@@ -35,14 +36,14 @@ namespace WealthERP.OnlineOrderManagement
             if (!IsPostBack)
             {
                 BindAMC();
-                if (Session["MFSchemePlan"] != null || Request.QueryString["schemeCode"]!=null)
+                if (Session["MFSchemePlan"] != null || Request.QueryString["schemeCode"] != null)
                 {
-                    if(Request.QueryString["schemeCode"]!=null)
-                    Session["MFSchemePlan"] = Request.QueryString["schemeCode"];
+                    if (Request.QueryString["schemeCode"] != null)
+                        Session["MFSchemePlan"] = Request.QueryString["schemeCode"];
                     int amcCode = 0;
                     string category = string.Empty;
                     BindCategory();
-                    if (Session["MFSchemePlan"] != null && Session["MFSchemePlan"] !="")
+                    if (Session["MFSchemePlan"] != null && Session["MFSchemePlan"] != "")
                     {
                         commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category);
                         int schemecode = int.Parse(Session["MFSchemePlan"].ToString());
@@ -108,11 +109,49 @@ namespace WealthERP.OnlineOrderManagement
         protected void Go_OnClick(object sender, EventArgs e)
         {
             GetAmcSchemeDetails();
+            BindschemedetailsNAV();
             hidCurrentScheme.Value = ddlScheme.SelectedValue;
+        }
+
+        protected void BindschemedetailsNAV()
+        {
+            DataTable dtBindschemedetailsNAV = new DataTable();
+            dtBindschemedetailsNAV = onlineMFSchemeDetailsBo.GetschemedetailsNAV(int.Parse(ddlScheme.SelectedValue));
+            Div2.Visible = true;
+            if (dtBindschemedetailsNAV.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dtBindschemedetailsNAV.Rows)
+                {
+                    if (Convert.ToDecimal(dr["Diff"].ToString()) < 0)
+                    {
+                        lblNAV.Text = dr["PSP_NetAssetValue"].ToString();
+                        lblNAVDiff.Text = " " + dr["Diff"].ToString();
+                        lblNAV.Style["font-size"] = "large";
+                         lblNAV.Style["font-weight"]="bold";
+                        lblNAVDiff.Style["font-size"] = "large";
+                        lblAsonDate.Text = "(As on Date:" + dr["PSP_PostDate"].ToString() + ")";
+                        lblAsonDate.Style["font-size"] = "xx-small";
+                        ImagNAV.ImageUrl=@"../Images/arrow.png";
+                        lblNAVDiff.ForeColor = Color.Red;
+                    }
+                    else
+                    {
+                        lblNAV.Text = dr["PSP_NetAssetValue"].ToString();
+                        lblNAVDiff.Text =" " +dr["Diff"].ToString();
+                        lblNAV.Style["font-size"] = "large";
+                        lblNAVDiff.Style["font-size"] = "large";
+                        lblNAV.Style["font-weight"] = "bold";
+                        lblAsonDate.Text = "(As on Date:" + dr["PSP_PostDate"].ToString()+")";
+                        lblAsonDate.Style["font-size"] = "xx-small";
+                        ImagNAV.ImageUrl = @"../Images/down_NAVarrow.png";
+                        lblNAVDiff.ForeColor = Color.Green;
+                    }
+                }
+            }
         }
         protected void btnHistory_OnClick(object sender, EventArgs e)
         {
-            Button btn=(Button) sender as Button;
+            Button btn = (Button)sender as Button;
             switch (btn.ID)
             {
                 case "btn1m":
@@ -136,7 +175,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             GetSchemeNAVHistory(rdpFromDate.SelectedDate, rdpToDate.SelectedDate);
         }
-        public void GetSchemeNAVHistory(DateTime? fromDate ,DateTime? toDate)
+        public void GetSchemeNAVHistory(DateTime? fromDate, DateTime? toDate)
         {
             int schemePlanCode = int.Parse(hidCurrentScheme.Value);
             DataTable dt = onlineMFSchemeDetailsBo.GetSchemeNavHistory(schemePlanCode, fromDate, toDate);
@@ -146,7 +185,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             divChart.Visible = true;
             StringBuilder strXML = new StringBuilder();
-            strXML.Append(@"<chart caption='NAV History' xAxisName='Date' toolText='NAV' flatscrollbars='1' scrollshowbuttons='0' scrollshowbuttons='0' useCrossLine='1' yAxisName='NAV' anchorBgColor='FFFFFF' bgColor='FFFFFF' showBorder='0'  canvasBgColor='FFFFFF' lineColor='2480C7'  >");
+            strXML.Append(@"<chart caption='NAV History' chartTopMargin='0' xAxisName='Date' toolText='NAV' flatscrollbars='1' scrollshowbuttons='0' scrollshowbuttons='0' useCrossLine='1' yAxisName='NAV' anchorBgColor='FFFFFF' bgColor='FFFFFF' showBorder='0'  canvasBgColor='FFFFFF' lineColor='2480C7'  >");
             strXML.Append(@" <categories>");
             foreach (DataRow dr in dtNavDetails.Rows)
             {
@@ -166,18 +205,18 @@ namespace WealthERP.OnlineOrderManagement
         }
         public void GetAmcSchemeDetails()
         {
-            DataTable dtNavDetails=null;
+            DataTable dtNavDetails = null;
             BindfundManagerDetails();
             BindSectoreDetails();
-           onlineMFSchemeDetailsVo= onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue,out  dtNavDetails);
-           ViewState["schemeName"] = onlineMFSchemeDetailsVo.schemeName;
+            onlineMFSchemeDetailsVo = onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue, out  dtNavDetails);
+            ViewState["schemeName"] = onlineMFSchemeDetailsVo.schemeName;
             LoadNAVHistoryChat(dtNavDetails);
-          
+
             lblSchemeName.Text = onlineMFSchemeDetailsVo.schemeName;
             lblAMC.Text = onlineMFSchemeDetailsVo.amcName;
-            lblNAV.Text = onlineMFSchemeDetailsVo.NAV.ToString();
-            if(!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.navDate))
-            lblNAVDate.Text = onlineMFSchemeDetailsVo.navDate.ToString();
+            //lblNAV.Text = onlineMFSchemeDetailsVo.NAV.ToString();
+            if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.navDate))
+                lblNAVDate.Text = onlineMFSchemeDetailsVo.navDate.ToString();
             lblCategory.Text = onlineMFSchemeDetailsVo.category;
             lblBanchMark.Text = onlineMFSchemeDetailsVo.schemeBanchMark;
             lblFundManager.Text = onlineMFSchemeDetailsVo.fundManager;
@@ -228,7 +267,7 @@ namespace WealthERP.OnlineOrderManagement
                 if (Session["PageDefaultSetting"] != null)
                 {
                     Session["MFSchemePlan"] = ddlScheme.SelectedValue;
-                    LoadMFTransactionPage("MFOrderAdditionalPurchase",2);
+                    LoadMFTransactionPage("MFOrderAdditionalPurchase", 2);
 
                 }
                 else
@@ -245,7 +284,7 @@ namespace WealthERP.OnlineOrderManagement
                 if (Session["PageDefaultSetting"] != null)
                 {
                     Session["MFSchemePlan"] = ddlScheme.SelectedValue;
-                    LoadMFTransactionPage("MFOrderSIPTransType",2);
+                    LoadMFTransactionPage("MFOrderSIPTransType", 2);
 
                 }
                 else
@@ -262,7 +301,7 @@ namespace WealthERP.OnlineOrderManagement
                 if (Session["PageDefaultSetting"] != null)
                 {
                     Session["MFSchemePlan"] = ddlScheme.SelectedValue;
-                    LoadMFTransactionPage("MFOrderRdemptionTransType",2);
+                    LoadMFTransactionPage("MFOrderRdemptionTransType", 2);
 
                 }
                 else
@@ -342,7 +381,7 @@ namespace WealthERP.OnlineOrderManagement
                         if (schemeCompareList.Count > 1)
                         {
                             //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('OnlineMFSchemeCompare');", true);
-                            LoadMFTransactionPage("OnlineMFSchemeCompare",1);
+                            LoadMFTransactionPage("OnlineMFSchemeCompare", 1);
 
                         }
                     }
@@ -390,6 +429,15 @@ namespace WealthERP.OnlineOrderManagement
             Session["PageDefaultSetting"] = defaultProductPageSetting;
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadTopPanelControl('OnlineOrderTopMenu','login');", true);
             //Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcd", "LoadTopPanelDefault('OnlineOrderTopMenu');", true);
+
+        }
+        protected void lnkSID_onclick(object sender, EventArgs e)
+        {
+            Response.Redirect("http://www.amfiindia.com/intermediary/other-data/scheme-details");
+        }
+        protected void lnkSAI_onclick(object sender, EventArgs e)
+        {
+            Response.Redirect("http://www.amfiindia.com/research-information/other-data/sai");
 
         }
     }
