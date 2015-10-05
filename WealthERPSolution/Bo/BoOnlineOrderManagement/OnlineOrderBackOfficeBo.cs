@@ -2422,6 +2422,34 @@ namespace BoOnlineOrderManagement
             }
             return dt;
         }
+        public bool InsertUpdateDeleteOnAdvertisementDetails(int id, string assetGroupCode, int userId, string details, DateTime expiryDate, int isDelete, int isActive, string type)
+        {
+            bool bResult = false;
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                bResult = OnlineOrderBackOfficeDao.InsertUpdateDeleteOnAdvertisementDetails(id, assetGroupCode, userId, details, expiryDate, isDelete,isActive,type);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+        public DataTable GetAdvertisementDetailsWithAssetGroup(string type)
+        {
+            OnlineOrderBackOfficeDao onlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            DataTable dt;
+            try
+            {
+                dt = onlineOrderBackOfficeDao.GetAdvertisementDetailsWithAssetGroup(type);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dt;
+        }
         public int SchemeCodeonline(string externalcode, int AMCCode)
         {
             int result = 0;

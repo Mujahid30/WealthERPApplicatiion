@@ -88,5 +88,15 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::System.Web.UI.WebControls.HiddenField hdnButtonText;
         protected global::Telerik.Web.UI.RadAjaxManager RadAjaxManager1;
         protected global::Telerik.Web.UI.RadGrid RadGrid1;
+        protected global::Telerik.Web.UI.RadGrid RadGrid2;
+        protected global::Telerik.Web.UI.RadGrid RadGrid3;
+        protected global::Telerik.Web.UI.RadGrid RadGrid4;
+        protected global::Telerik.Web.UI.RadTabStrip RadTabStripAdsUpload;
+        protected global::Telerik.Web.UI.RadMultiPage multipageAdsUpload;
+        protected global::Telerik.Web.UI.RadPageView rpvBanner;
+        protected global::Telerik.Web.UI.RadPageView rpvDemo;
+        protected global::Telerik.Web.UI.RadPageView rpvFAQ;
+        protected global::Telerik.Web.UI.RadPageView rpvScroller;
+
     }
 }

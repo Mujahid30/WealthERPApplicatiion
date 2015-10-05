@@ -2955,6 +2955,58 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetBannerDetailsWithAssetGroup;
         }
+        public bool InsertUpdateDeleteOnAdvertisementDetails(int id, string assetGroupCode, int userId, string details, DateTime expiryDate, int isDelete,int isActive,string type)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand cmd;
+            try
+            {
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_InsertUpdateDeleteOnAdvertisementDetails");
+                db.AddInParameter(cmd, "@AssetGroupCode", DbType.String, assetGroupCode);
+                db.AddInParameter(cmd, "@UserId", DbType.Int32, userId);
+                db.AddInParameter(cmd, "@Details", DbType.String, details);
+                if (expiryDate==DateTime.MinValue)
+                    db.AddInParameter(cmd, "@ExpiryDate", DbType.DateTime, DBNull.Value);
+                else
+
+                    db.AddInParameter(cmd, "@ExpiryDate", DbType.DateTime, expiryDate);
+                db.AddInParameter(cmd, "@ID", DbType.Int32, id);
+                db.AddInParameter(cmd, "@IsDelete", DbType.Int32, isDelete);
+                db.AddInParameter(cmd, "@IsActive", DbType.Boolean, isActive);
+                db.AddInParameter(cmd, "@Type", DbType.String, type);
+                if (db.ExecuteNonQuery(cmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+
+        public DataTable GetAdvertisementDetailsWithAssetGroup(string type)
+        {
+            DataSet dsGetBannerDetailsWithAssetGroup;
+            Database db;
+            DbCommand cmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_GetAdvertisementDetailsWithAssetGroup");
+                db.AddInParameter(cmd, "@Type", DbType.String, type);
+
+                dsGetBannerDetailsWithAssetGroup = db.ExecuteDataSet(cmd);
+               
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetBannerDetailsWithAssetGroup.Tables[0];
+        }
         public int SchemeCodeonline(string externalcode, int AMCCode)
         {
             Database db;
