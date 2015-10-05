@@ -28,7 +28,7 @@ namespace WealthERP.OnlineOrderManagement
         UserVo userVo;
         CustomerVo customerVo = new CustomerVo();
         string path;
-        int investerpage = 0;
+        int PageSize = 10;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -42,7 +42,7 @@ namespace WealthERP.OnlineOrderManagement
                 BindAMC();
                 BindCategory();
                 BindScheme();
-             }
+            }
         }
         protected void ddlAMC_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -96,16 +96,24 @@ namespace WealthERP.OnlineOrderManagement
         protected void Go_OnClick(object sender, EventArgs e)
         {
             ViewState["FilterType"] = "Schemes Details";
-            BindSchemeRelatedDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue, customerVo.CustomerId, 1,false);
+            hfAMCCode.Value = ddlAMC.SelectedValue;
+            hfSchemeCode.Value = ddlScheme.SelectedValue;
+            hfCategory.Value = ddlCategory.SelectedValue;
+            hfCustomerId.Value = customerVo.CustomerId.ToString();
+            hfIsSchemeDetails.Value = "1";
+            hfNFOType.Value = "false";
+            ddlNFOType.Visible = false;
+            BindSchemeRelatedDetails(int.Parse(hfAMCCode.Value), int.Parse(hfSchemeCode.Value), hfCategory.Value, int.Parse(hfCustomerId.Value), Int16.Parse(hfIsSchemeDetails.Value), Boolean.Parse(hfNFOType.Value), 1);
             dvHeading.Visible = true;
             lblHeading.Text = "Schemes Details";
-           
+
         }
-        protected void BindSchemeRelatedDetails(int amcCode, int SchemeCode, string category, int customerId, Int16 isSchemeDetails, Boolean NFOType)
+        protected void BindSchemeRelatedDetails(int amcCode, int SchemeCode, string category, int customerId, Int16 isSchemeDetails, Boolean NFOType, int pageIndex)
         {
             OnlineOrderBackOfficeBo bo = new OnlineOrderBackOfficeBo();
             dvSchemeDetails.Visible = true;
-            DataTable dtBindSchemeRelatedDetails = bo.GetSchemeDetails(amcCode, SchemeCode, category, customerId, isSchemeDetails, NFOType);
+            int recordCount = 0;
+            DataTable dtBindSchemeRelatedDetails = bo.GetSchemeDetails(amcCode, SchemeCode, category, customerId, isSchemeDetails, NFOType, out recordCount, pageIndex, PageSize);
             if (Cache["BindSchemeRelatedDetails" + userVo.UserId] != null)
             {
                 Cache.Remove("BindSchemeRelatedDetails" + userVo.UserId);
@@ -114,6 +122,29 @@ namespace WealthERP.OnlineOrderManagement
             rpSchemeDetails.DataSource = dtBindSchemeRelatedDetails;
             rpSchemeDetails.DataBind();
             rpSchemeDetails.Visible = true;
+            this.PopulatePager(recordCount, 1);
+
+
+        }
+        private void PopulatePager(int recordCount, int currentPage)
+        {
+            double dblPageCount = (double)((decimal)recordCount / Convert.ToDecimal(PageSize));
+            int pageCount = (int)Math.Ceiling(dblPageCount);
+            List<ListItem> pages = new List<ListItem>();
+            if (pageCount > 0)
+            {
+                for (int i = 1; i <= pageCount; i++)
+                {
+                    pages.Add(new ListItem(i.ToString(), i.ToString(), i != currentPage));
+                }
+            }
+            rptPager.DataSource = pages;
+            rptPager.DataBind();
+        }
+        protected void Page_Changed(object sender, EventArgs e)
+        {
+            int pageIndex = int.Parse((sender as LinkButton).CommandArgument);
+            BindSchemeRelatedDetails(int.Parse(hfAMCCode.Value), int.Parse(hfSchemeCode.Value), hfCategory.Value, int.Parse(hfCustomerId.Value), Int16.Parse(hfIsSchemeDetails.Value), Boolean.Parse(hfNFOType.Value),pageIndex);
 
         }
 
@@ -122,30 +153,53 @@ namespace WealthERP.OnlineOrderManagement
             LinkButton lk = (LinkButton)sender;
             ViewState["FilterType"] = lk.ID.ToString();
             ddlNFOType.Visible = false;
+            lbViewWatchList.ForeColor = System.Drawing.Color.Blue;
+            lbNFOList.ForeColor = System.Drawing.Color.Blue;
+            lbTopSchemes.ForeColor = System.Drawing.Color.Blue;
             switch (lk.ID.ToString())
             {
-                case "lbViewWatchList": BindSchemeRelatedDetails(0, 0, "0", customerVo.CustomerId, 0,false);
+                case "lbViewWatchList": hfAMCCode.Value = "0";
+                    hfSchemeCode.Value = "0";
+                    hfCategory.Value = "0";
+                    hfCustomerId.Value = customerVo.CustomerId.ToString();
+                    hfIsSchemeDetails.Value = "0";
+                    hfNFOType.Value = ddlNFOType.SelectedValue;
                     dvHeading.Visible = true;
                     lblHeading.Text = "My Watch List";
-                    
+                    lbViewWatchList.ForeColor = System.Drawing.Color.Black;
                     break;
-                case "lbNFOList": BindSchemeRelatedDetails(0, 0, "0", 0, 3,true);
+                case "lbNFOList":
+                    hfAMCCode.Value = "0";
+                    hfSchemeCode.Value = "0";
+                    hfCategory.Value = "0";
+                    hfCustomerId.Value = "0";
+                    hfIsSchemeDetails.Value = "3";
+                    hfNFOType.Value = ddlNFOType.SelectedValue;
                     dvHeading.Visible = true;
-                    lblHeading.Text = "NFO List";
+                    lblHeading.Text = "NFO Scheme";
                     ddlNFOType.Visible = true;
+                    lbNFOList.ForeColor = System.Drawing.Color.Black;
                     break;
-                case "lbTopSchemes": BindSchemeRelatedDetails(0, 0, "0", 0, 2,false);
+                case "lbTopSchemes":
+                    hfAMCCode.Value = "0";
+                    hfSchemeCode.Value = "0";
+                    hfCategory.Value = "0";
+                    hfCustomerId.Value = "0";
+                    hfIsSchemeDetails.Value = "2";
+                    hfNFOType.Value = "false";
                     dvHeading.Visible = true;
                     lblHeading.Text = "Top Ten Schemes";
-                    
+                    lbTopSchemes.ForeColor = System.Drawing.Color.Black;
+
                     break;
                 case "lbSchemeDetails": dvDemo.Visible = true;
                     dvHeading.Visible = true;
                     lblHeading.Text = "Schemes Details";
-                   
+
                     break;
 
             }
+            BindSchemeRelatedDetails(int.Parse(hfAMCCode.Value), int.Parse(hfSchemeCode.Value), hfCategory.Value, int.Parse(hfCustomerId.Value), Int16.Parse(hfIsSchemeDetails.Value), Boolean.Parse(hfNFOType.Value),1);
         }
 
 
@@ -260,7 +314,7 @@ namespace WealthERP.OnlineOrderManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            
+
         }
         private void CustomerAddMFSchemeToWatch(int SchemeCode, RepeaterCommandEventArgs e)
         {
@@ -328,11 +382,12 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void ddlNFOType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            BindSchemeRelatedDetails(0, 0, "0", 0, 3, Boolean.Parse(ddlNFOType.SelectedValue));
+            BindSchemeRelatedDetails(0, 0, "0", 0, 3, Boolean.Parse(ddlNFOType.SelectedValue),1);
+            hfNFOType.Value = ddlNFOType.SelectedValue.ToString(); 
         }
         protected void rpSchemeDetails_OnItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem )
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
 
                 HtmlTableCell tdNFOStrtDate = (HtmlTableCell)e.Item.FindControl("tdNFOStrtDate");
@@ -377,13 +432,13 @@ namespace WealthERP.OnlineOrderManagement
                     thSchemeRank.Visible = false;
                     thSIP.Visible = false;
                     tdSIP.Visible = false;
-                   
+
 
 
                 }
                 else if (ViewState["FilterType"].ToString() == "lbTopSchemes")
                 {
-                   
+
                     tdSchemeRank.Visible = true;
                     thSchemeRank.Visible = true;
 

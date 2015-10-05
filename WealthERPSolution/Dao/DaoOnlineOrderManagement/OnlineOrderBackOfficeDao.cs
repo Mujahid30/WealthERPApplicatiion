@@ -3077,7 +3077,7 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetProductSearchType;
         }
-        public DataTable GetSchemeDetails(int AMCCode, int Schemeplanecode, string category, int customerId, Int16 SchemeDetails, Boolean NFOType)
+        public DataTable GetSchemeDetails(int AMCCode, int Schemeplanecode, string category, int customerId, Int16 SchemeDetails, Boolean NFOType, out int recordCount, int PageIndex, int PageSize)
         {
             DataTable dtGetSchemeDetails;
             Database db;
@@ -3095,8 +3095,11 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(cmdGetSchemeDetails, "@customerId", DbType.Int64, customerId);
                 db.AddInParameter(cmdGetSchemeDetails, "@SchemeDetails", DbType.Int16, SchemeDetails);
                 db.AddInParameter(cmdGetSchemeDetails, "@NFOType", DbType.Boolean, NFOType);
+                db.AddInParameter(cmdGetSchemeDetails, "@PageIndex", DbType.Int16, PageIndex);
+                db.AddInParameter(cmdGetSchemeDetails, "@PageSize ", DbType.Int16, PageSize);
+                db.AddOutParameter(cmdGetSchemeDetails, "@RecordCount", DbType.Int64, 1000);
                 dsGetSchemeDetails = db.ExecuteDataSet(cmdGetSchemeDetails);
-                dtGetSchemeDetails = dsGetSchemeDetails.Tables[0];
+                recordCount = int.Parse(db.GetParameterValue(cmdGetSchemeDetails, "RecordCount").ToString());
             }
             catch (BaseApplicationException Ex)
             {
@@ -3120,7 +3123,7 @@ namespace DaoOnlineOrderManagement
                 throw exBase;
 
             }
-            return dtGetSchemeDetails;
+            return dsGetSchemeDetails.Tables[0];
         }
         public DataTable CustomerGetRMSLog(DateTime fromDate, DateTime toDate, int adviserId, string productType, string orderType)
         {
