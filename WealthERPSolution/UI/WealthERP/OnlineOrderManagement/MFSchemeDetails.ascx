@@ -189,7 +189,7 @@
                <asp:Label ID="lblSchemeName" runat="server" style="font-size:x-large;font-family:Times New Roman;font-weight:bold;"></asp:Label>
                 </div>
                   <div class="col-md-3">
-                    <b style="font-family:Times New Roman;">NAV:-</b><asp:Label ID="lblNAV" runat="server" >
+                    <b style="font-family:Times New Roman;">NAV:</b> &nbsp;<asp:Label ID="lblNAV" runat="server" >
                     </asp:Label>&nbsp;<asp:Image runat="server" ID="ImagNAV" /><asp:Label ID="lblNAVDiff" runat="server"></asp:Label>
                     <br /><asp:Label ID="lblAsonDate" runat="server"></asp:Label>
                 </div>
@@ -225,8 +225,29 @@
             OnClick="btnHistoryChat_OnClick" ></asp:Button>
             </div>
         </div>
+        <div class="row" style="margin-left: 20%; margin-right: 2%; margin-bottom: 0%; margin-top: 2px;" id="divAction" runat="server" visible="false">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
+                <asp:LinkButton ID="lnkAddToCompare" runat="server" CssClass="btn btn-primary btn-primary"
+                    OnClick="lnkAddToCompare_OnClick" ValidationGroup="btnGo"> Add To Compare <span class="glyphicon glyphicon-shopping-list">
+                            </span></asp:LinkButton>
+                &nbsp &nbsp
+                <asp:LinkButton ID="lbBuy" runat="server" 
+                    OnClick="lbBuy_OnClick" ValidationGroup="btnGo"> <img src="../Images/Buy-Button.png"/></asp:LinkButton>
+                &nbsp &nbsp
+                <asp:LinkButton ID="lbAddPurchase" runat="server" CssClass="btn btn-primary btn-success"
+                    OnClick="lbAddPurchase_OnClick" Visible="false"> Additional Purchase <span class="glyphicon glyphicon-plus-sign">
+                            </span></asp:LinkButton>
+                &nbsp &nbsp
+                <asp:LinkButton ID="lbSIP" runat="server"  OnClick="lbSIP_OnClick"
+                    ValidationGroup="btnGo"><img src="../Images/SIP-Button.png"/></asp:LinkButton>
+                &nbsp &nbsp
+                <asp:LinkButton ID="lbRedem" runat="server" CssClass="btn btn-primary btn-danger"
+                    OnClick="lbRedem_OnClick" Visible="false" ValidationGroup="btnGo"> Redemption <span class="glyphicon glyphicon-minus">
+                            </span></asp:LinkButton>
+            </div>
+        </div>
         
-        <div style="margin-top: 1%; margin-bottom: 2%; width: 80%; padding-top: 1%; padding-bottom: 1%;
+        <div style="margin-top: 1%; margin-bottom: 0%; width: 80%; padding-top: 1%; padding-bottom: 1%;
             margin-left: auto; margin-right: auto;">
             <div style="width: 80%; float: left; min-width: 320px;">
                 <div style="width: 100%;">
@@ -414,32 +435,8 @@
                 </td>
             </tr>
         </table>
-        <div class="row" style="margin-left: 20%; margin-right: 2%; margin-bottom: 0%; margin-top: 2px;">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
-                <asp:LinkButton ID="lnkAddToCompare" runat="server" CssClass="btn btn-primary btn-primary"
-                    OnClick="lnkAddToCompare_OnClick" ValidationGroup="btnGo"> Add To Compare <span class="glyphicon glyphicon-shopping-list">
-                            </span></asp:LinkButton>
-                &nbsp &nbsp
-                <asp:LinkButton ID="lbBuy" runat="server" CssClass="btn btn-primary btn-primary"
-                    OnClick="lbBuy_OnClick" ValidationGroup="btnGo"> Buy <span class="glyphicon glyphicon-shopping-cart">
-                            </span></asp:LinkButton>
-                &nbsp &nbsp
-                <asp:LinkButton ID="lbAddPurchase" runat="server" CssClass="btn btn-primary btn-success"
-                    OnClick="lbAddPurchase_OnClick" Visible="false"> Additional Purchase <span class="glyphicon glyphicon-plus-sign">
-                            </span></asp:LinkButton>
-                &nbsp &nbsp
-                <asp:LinkButton ID="lbSIP" runat="server" CssClass="btn btn-primary btn-info" OnClick="lbSIP_OnClick"
-                    ValidationGroup="btnGo"> SIP <span class="glyphicon glyphicon-th-list">
-                            </span></asp:LinkButton>
-                &nbsp &nbsp
-                <asp:LinkButton ID="lbRedem" runat="server" CssClass="btn btn-primary btn-danger"
-                    OnClick="lbRedem_OnClick" Visible="false" ValidationGroup="btnGo"> Redemption <span class="glyphicon glyphicon-minus">
-                            </span></asp:LinkButton>
-            </div>
-        </div>
-        <div style="margin-top: 2px; margin-bottom: 0%; width: 80%; padding-top: 1%; padding-bottom: 0%;
-            margin-left: auto; margin-right: auto;">
-            <div style="width: 80%; min-width: 320px;">
+        <div style="margin-top: 2px; margin-bottom: 0%; width: 80%; padding-top: 1%; padding-bottom: 0%; margin-left: auto; margin-right: auto;" >
+            <div style="width: 80%; min-width: 320px;float:left;">
                 <table class="table table-bordered" style="margin-bottom: 0px">
                     <thead>
                         <tr>
@@ -492,9 +489,8 @@
                 </div>
             </div>
         </div>
-        <div style="margin-top: 0%; margin-bottom: 2%; width: 80%; padding-top: 0%; padding-bottom: 1%;
-            margin-left: auto; margin-right: auto;">
-            <div style="width: 80%; min-width: 320px;">
+        <div style="margin-top: 0%; margin-bottom: 2%; width: 80%; padding-top: 0%; padding-bottom: 1%; margin-left: auto; margin-right: auto;">
+            <div style="width: 80%; min-width: 320px;"><br />
                 <table class="table table-bordered" style="margin-bottom: 0px">
                     <thead>
                         <tr>
@@ -568,15 +564,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="searchable-spec cell top sub-name small bordered">
+                       
+                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                    <asp:LinkButton ID="lnkSID" runat="server" Text="SID" OnClick="lnkSID_onclick"></asp:LinkButton>
+                    <asp:HyperLink ID="HyperLink1" runat="server" 
+            NavigateUrl="http://www.amfiindia.com/intermediary/other-data/scheme-details" 
+            Target="_blank">SID</asp:HyperLink>
                             </td>
                         </tr>
-                        <tr class="searchable-spec cell top sub-name small bordered">
+                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                    <asp:LinkButton ID="lnkSAI" runat="server" Text="SAI" OnClick="lnkSAI_onclick"></asp:LinkButton>
-                                
+                    <asp:HyperLink ID="HyperLink2" runat="server" 
+            NavigateUrl="http://www.amfiindia.com/research-information/other-data/sai" 
+            Target="_blank">SAI</asp:HyperLink>
                             </td>
                         </tr>
                     </tbody>

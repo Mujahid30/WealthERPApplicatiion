@@ -39,6 +39,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divClientAccountBalance;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAction;
         
         /// <summary>
         /// dvDemo control.
@@ -377,7 +378,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// lblNAVDate control.
         /// </summary>
         /// <remarks>
-        /// Auto-generated field.
+        /// Auto-generated field.di
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblNAVDate;

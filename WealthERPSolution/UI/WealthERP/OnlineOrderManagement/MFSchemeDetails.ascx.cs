@@ -52,6 +52,7 @@ namespace WealthERP.OnlineOrderManagement
                         BindScheme();
                         ddlScheme.SelectedValue = schemecode.ToString();
                         GetAmcSchemeDetails();
+                        BindschemedetailsNAV();
                         hidCurrentScheme.Value = ddlScheme.SelectedValue;
                     }
                 }
@@ -122,10 +123,10 @@ namespace WealthERP.OnlineOrderManagement
             {
                 foreach (DataRow dr in dtBindschemedetailsNAV.Rows)
                 {
-                    if (Convert.ToDecimal(dr["Diff"].ToString()) < 0)
+                    if (Convert.ToDouble(dr["Diff"].ToString()) < 0.000)
                     {
                         lblNAV.Text = dr["PSP_NetAssetValue"].ToString();
-                        lblNAVDiff.Text = " " + dr["Diff"].ToString();
+                        lblNAVDiff.Text = " " + dr["Diff"].ToString().TrimStart('-');
                         lblNAV.Style["font-size"] = "large";
                          lblNAV.Style["font-weight"]="bold";
                         lblNAVDiff.Style["font-size"] = "large";
@@ -208,6 +209,7 @@ namespace WealthERP.OnlineOrderManagement
             DataTable dtNavDetails = null;
             BindfundManagerDetails();
             BindSectoreDetails();
+            divAction.Visible = true;
             onlineMFSchemeDetailsVo = onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue, out  dtNavDetails);
             ViewState["schemeName"] = onlineMFSchemeDetailsVo.schemeName;
             LoadNAVHistoryChat(dtNavDetails);
@@ -429,15 +431,6 @@ namespace WealthERP.OnlineOrderManagement
             Session["PageDefaultSetting"] = defaultProductPageSetting;
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadTopPanelControl('OnlineOrderTopMenu','login');", true);
             //Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcd", "LoadTopPanelDefault('OnlineOrderTopMenu');", true);
-
-        }
-        protected void lnkSID_onclick(object sender, EventArgs e)
-        {
-            Response.Redirect("http://www.amfiindia.com/intermediary/other-data/scheme-details");
-        }
-        protected void lnkSAI_onclick(object sender, EventArgs e)
-        {
-            Response.Redirect("http://www.amfiindia.com/research-information/other-data/sai");
 
         }
     }

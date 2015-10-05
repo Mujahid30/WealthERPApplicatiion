@@ -603,5 +603,12 @@ namespace BoProductMaster
             dtGetSchemePlanOnline = productMFDao.GetSchemePlanOnline(AMCCode);
             return dtGetSchemePlanOnline;
         }
+        public DataTable GetSchemeGuess(string prefix)
+        {
+            DataTable dtGetSchemePlanName;
+            ProductMFDao productMFDao = new ProductMFDao();
+            dtGetSchemePlanName = productMFDao.GetSchemeGuess(prefix);
+            return dtGetSchemePlanName;
+        }
     }
 }

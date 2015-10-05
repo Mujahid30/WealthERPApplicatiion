@@ -527,6 +527,7 @@
                     </tbody>
                 </table>
             </div>
+            </div>
     </ContentTemplate>
 </asp:UpdatePanel>
 <Banner:footer ID="MyHeader" assetCategory="MF" runat="server" />

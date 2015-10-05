@@ -892,5 +892,30 @@ namespace DaoProductMaster
             }
             return dtGetSchemePlanOnline;
         }
+        public DataTable GetSchemeGuess(string prefix)
+        {
+
+            Database db;
+            DbCommand GetGetSchemeGuess;
+            DataSet dsGetSchemeGuess;
+            DataTable dtGetSchemeGuess;
+
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetGetSchemeGuess = db.GetStoredProcCommand("SPROC_GetSchemeGuessOnline");
+                db.AddInParameter(GetGetSchemeGuess, "@prefix", DbType.String, prefix);
+                dsGetSchemeGuess = db.ExecuteDataSet(GetGetSchemeGuess);
+                dtGetSchemeGuess = dsGetSchemeGuess.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetSchemeGuess;
+        }
+        
     }
 }
