@@ -59,18 +59,18 @@
                         </telerik:RadPageView>
                     </telerik:RadMultiPage>
                 </td>
-                <td style="width: 200px;">
+                <td style="width: 600px;">
                 </td>
                 <td align="right">
                     <asp:TextBox runat="server" ID="SchemeSearch" AutoPostBack="true" Style="margin-top: 0px;
-                        float: right;" Width="300px" OnTextChanged="SchemeSearch_OnTextChanged"></asp:TextBox>
+                        float: right;background-color:#D7E9F5" Width="300px" OnTextChanged="SchemeSearch_OnTextChanged"></asp:TextBox>
                     <cc1:TextBoxWatermarkExtender ID="txtSchemeName_water" TargetControlID="SchemeSearch"
                         WatermarkText="Search Scheme" runat="server" EnableViewState="false">
                     </cc1:TextBoxWatermarkExtender>
-                    <div id="listPlacement" style="height: 150px; overflow-y: scroll;">
+                    <div id="listPlacement" style="height: 150px; overflow-y: scroll;text-align:left">
                     </div>
                     <ajaxToolkit:AutoCompleteExtender ID="txtSchemeName_AutoCompleteExtender" runat="server"
-                        TargetControlID="SchemeSearch" ServiceMethod="GetSchemeGuess" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                        TargetControlID="SchemeSearch" ServiceMethod="GetInvestorScheme" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
                         MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
                         CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
                         CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
