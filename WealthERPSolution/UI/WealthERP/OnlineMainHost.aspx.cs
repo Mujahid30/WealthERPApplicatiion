@@ -25,6 +25,7 @@ using BoCommon;
 using BoCustomerProfiling;
 using BoCustomerPortfolio;
 using VoCustomerPortfolio;
+using BoOnlineOrderManagement;
 
 
 
@@ -106,7 +107,7 @@ namespace WealthERP
             bool isValidUser = false;
             if (!IsPostBack)
             {
-                //userAccountId = "ESMW0009999";
+               
 
                 if (!string.IsNullOrEmpty(userAccountId))
                 {
@@ -115,21 +116,9 @@ namespace WealthERP
 
                 if (isValidUser)
                 {
-                    //ClientScriptManager script = Page.ClientScript;
-                    string innerHtml;
-                    innerHtml = @"<marquee style=""font-family: Arial;font-size: 14px;"">Dr Reddy's Labs up 6%, launches gastric ulcer drug in US SPARC, Sun plunge; USFDA revokes approval for seizure drug
-Residential biz environment remains tough:Godrej Properties
-Renewable energy sector has potential to grow: PTC India
-See setback for BHEL's near-term revenues: BofA Merrill</marquee>";
-                    //innerHtml = "asdsadas";
-                    Label1.Text = innerHtml;
-                    //if (!script.IsClientScriptBlockRegistered(this.GetType(), "Alert"))
-                    //{
-
-                    //    //script.RegisterClientScriptBlock(this.GetType(), "Alert", @"SetScroller('" + innerHtml + "');", true);
-
-                    //}
-
+                    SetScroller(productType.ToUpper());
+                    SetDemoLink(productType.ToUpper());
+                    SetFAQLink(productType.ToUpper());
                     SetProductTypeMenu(productType.ToUpper());
                     SetDefaultPageSetting(productType.ToUpper());
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcd", "LoadTopPanelDefault('OnlineOrderTopMenu');", true);
@@ -528,14 +517,91 @@ See setback for BHEL's near-term revenues: BofA Merrill</marquee>";
             {
             }
         }
-        protected void lnkDemo_Click(object sender, EventArgs e)
+        protected void SetScroller(string productType)
         {
-            //Response.Redirect("~/ReferenceFiles/HelpVideo.htm");
+            OnlineOrderBo onlineOrderBo = new OnlineOrderBo();
+            string assetCategory = String.Empty;
+            
+            switch (productType)
+            {
+                case "MF":
+                    assetCategory = "MF";
+                    break;
+                case "NCD":
+                    assetCategory = "FI";
+                    break;
+                case "IPO":
+                    assetCategory = "IP";
+                    break;
+            }
+           
+            string innerHtml = String.Empty;
+            DataTable dt = new DataTable();
+
+            dt = onlineOrderBo.GetAdvertisementData(assetCategory, "Scroll");
+            innerHtml = @"<marquee style=""font-family: Arial;font-size: 14px;"">";
+            foreach (DataRow dr in dt.Rows)
+            {
+                innerHtml += string.Format(@"{0} &nbsp; <b>|</b> &nbsp; ", dr["PUHD_HelpDetails"].ToString());
+            }
+            innerHtml += "</marquee>";
+            Label1.Text = innerHtml;
+        
         }
-        protected void lnkFAQ_Click(object sender, EventArgs e)
+        protected void SetDemoLink(string productType)
         {
+            OnlineOrderBo onlineOrderBo = new OnlineOrderBo();
+            string assetCategory = String.Empty;
+            string innerHtml = String.Empty;
+            DataTable dt = new DataTable();
+            switch (productType)
+            {
+                case "MF":
+                    assetCategory="MF";
+                    break;
+                case "NCD":
+                    assetCategory = "FI";
+                    break;
+                case "IPO":
+                    assetCategory = "IP";
+                    break;
+            }
+            dt = onlineOrderBo.GetAdvertisementData(assetCategory, "Demo");
+            //Page.ClientScript.RegisterStartupScript(this.GetType(), "SetDemo", @"window.open('ReferenceFiles/HelpVideo.htm?Link=" + dt.Rows[0][0].ToString() + "', 'newwindow', 'width=655, height=520'); ", true);
+            lnkDemo.OnClientClick = @"window.open('ReferenceFiles/HelpVideo.htm?Link=" + dt.Rows[0][0].ToString() + "', 'newwindow', 'width=655, height=520'); ";
+            
+        }
+        protected void SetFAQLink(string productType)
+        {
+           // if (Page.Request.Headers["x-SBI-PType"] != null && Page.Request.Headers["x-SBI-PType"] != "")
+           // {
+           //     productType = Page.Request.Headers["x-SBI-PType"];
+           // }
+           //else if (Request.QueryString["x-SBI-PType"] != null && Request.QueryString["x-SBI-PType"] != "")
+           // {
+           //     productType = Request.QueryString["x-SBI-PType"];
+           // }
+
+            OnlineOrderBo onlineOrderBo = new OnlineOrderBo();
+            string assetCategory = String.Empty;
+          
+            DataTable dt = new DataTable();
+            switch (productType)
+            {
+                case "MF":
+                    assetCategory = "MF";
+                    break;
+                case "NCD":
+                    assetCategory = "FI";
+                    break;
+                case "IPO":
+                    assetCategory = "IP";
+                    break;
+            }
+            dt = onlineOrderBo.GetAdvertisementData(assetCategory, "FAQ");
             string path = ConfigurationManager.AppSettings["BANNER_IMAGE_PATH"].ToString();
-            Response.Redirect(path + "FAQ.pdf");
+            //Response.Redirect(path + dt.Rows[0][0].ToString());
+            lnkFAQ.OnClientClick = @"window.open('" + path.Replace("~", "..") + dt.Rows[0][0].ToString() + "','_blank'); ";
         } 
 
     }

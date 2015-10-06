@@ -140,6 +140,29 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetImageListForBanner;
         }
-       
+
+
+        public DataTable GetAdvertisementData(string assetGroupCode, string type)
+        {
+            DataSet ds;
+            DataTable dt;
+            Database db;
+            DbCommand cmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_GetAdvertisementData");
+                db.AddInParameter(cmd, "@AssetGroupCode", DbType.String, assetGroupCode);
+                db.AddInParameter(cmd, "@Type", DbType.String, type);
+
+                ds = db.ExecuteDataSet(cmd);
+                dt = ds.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dt;
+        }
     }
 }

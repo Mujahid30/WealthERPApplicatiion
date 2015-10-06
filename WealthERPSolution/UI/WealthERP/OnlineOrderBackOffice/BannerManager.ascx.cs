@@ -193,7 +193,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 string scrolltext = (RadGrid3.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PUHD_HelpDetails"]).ToString();
                 string assetGroupCode = RadGrid3.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PAG_AssetGroupCode"].ToString();
-                int isActive = Convert.ToInt16(RadGrid1.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PUHD_IsActive"]);
+                int isActive = Convert.ToInt16(RadGrid3.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PUHD_IsActive"]);
                 GridEditFormItem editedItem = (GridEditFormItem)e.Item;
                 DropDownList dropDownList = (DropDownList)editedItem.FindControl("ddlAssetGroupName1");
                 dropDownList.SelectedValue = assetGroupCode;
@@ -261,7 +261,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 string scrolltext = (RadGrid2.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PUHD_HelpDetails"]).ToString();
                 string assetGroupCode = RadGrid2.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PAG_AssetGroupCode"].ToString();
-                int isActive =Convert.ToInt16( RadGrid1.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PUHD_IsActive"]);
+                int isActive =Convert.ToInt16( RadGrid2.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PUHD_IsActive"]);
                 GridEditFormItem editedItem = (GridEditFormItem)e.Item;
                 DropDownList dropDownList = (DropDownList)editedItem.FindControl("ddlAssetGroupName1");
                 dropDownList.SelectedValue = assetGroupCode;

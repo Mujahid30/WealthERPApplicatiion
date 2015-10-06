@@ -321,12 +321,12 @@
         <asp:ScriptManager ID="ScriptManager" runat="server" EnablePageMethods="true" />
         <div class="div-with-header">
             <div style="float: right; width: 5%; padding-top: 23px; padding-right: 2%;">
-                <asp:LinkButton ID="lnkFAQ" Style="text-decoration: none" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);"
-                    runat="server" Text="FAQs" OnClick="lnkFAQ_Click" CssClass="LinkButtons"></asp:LinkButton>
+                <asp:LinkButton ID="lnkFAQ" Style="text-decoration: none"   
+                    runat="server" Text="FAQs"  CssClass="LinkButtons"></asp:LinkButton>
             </div>
             <div style="float: right; width: 5%; padding-top: 23px; padding-right: 1%;">
                 <asp:LinkButton ID="lnkDemo" CssClass="LinkButtons" Style="text-decoration: none"
-                    runat="server" Text="Demos" OnClientClick="myFunction();"></asp:LinkButton>
+                    runat="server" Text="Demos" ></asp:LinkButton>
             </div>
             <div style="float: right; width: 10%; padding-top: 8px; padding-right: 28%;">
                 <asp:LinkButton ID="lnkLogOut" runat="server" Text="" CssClass="div-log-out" Style="text-decoration: none"
@@ -342,13 +342,13 @@
         </div>
         <div id="mycrawler" style="margin-left:20px;margin-right:20px;float: left;" class="scroller" >
       
-        <asp:Label ID="Label1" runat="server" Style="width:100%" ></asp:Label>
+        <asp:Label ID="Label1" runat="server" Style="width:70%" ></asp:Label>
       
         </div>
         <div class="prduct-main-menu" id="divMFMenu" runat="server" visible="false">
             <ul class="blue">
                 <li>
-                    <asp:LinkButton ID="lnkMFOrderMenuHome" runat="server" Text="MARKET" CssClass="LinkButtons"
+                    <asp:LinkButton  ID="lnkMFOrderMenuHome" runat="server" Text="MARKET" CssClass="LinkButtons"
                         Style="text-decoration: none; text-align: center;" OnClick="lnkMFOrderMenuHome_Click"
                         Width="120px"></asp:LinkButton>
                 </li>

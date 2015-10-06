@@ -183,6 +183,22 @@ namespace BoOnlineOrderManagement
             }
             return dt;
         }
+        public DataTable GetAdvertisementData(string assetGroupCode,string type)
+        {
+
+
+            OnlineOrderDao onlineOrderDao = new OnlineOrderDao();
+            DataTable dt;
+            try
+            {
+                dt = onlineOrderDao.GetAdvertisementData(assetGroupCode, type);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dt;
+        }
         public bool DebitRMSUserAccountBalanceOrderUpdate(string userAccountId, double amount, int orderId)
         {
             bool result = false;
