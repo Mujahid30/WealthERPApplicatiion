@@ -175,7 +175,7 @@
                         runat="server" InitialValue="0" ValidationGroup="btnViewscheme">
                     </asp:RequiredFieldValidator>
                 </div>
-                 <div class="col-md-1">
+                 <div class="col-md-1" style="margin-left:3%;">
                     <asp:Button ID="Button2" runat="server" class="btn btn-sm btn-primary" Text="Go"
                         OnClick="Go_OnClick" ValidationGroup="btnViewscheme"></asp:Button>
                 </div>
@@ -327,7 +327,14 @@
                                         <asp:Label ID="lblFundReturn5thyear" runat="server"></asp:Label>
                                     </td>
                                 </tr>
-                                
+                                 <tr class="searchable-spec cell top sub-name small bordered">
+                                    <th>
+                                        <b>Exit Load</b>
+                                    </th>
+                                    <td>
+                                        <asp:Label ID="lblExitLoad" runat="server"></asp:Label>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -391,14 +398,7 @@
                                         <asp:Label ID="lblSIPMultipleOf" runat="server"></asp:Label>
                                     </td>
                                 </tr>
-                                <tr class="searchable-spec cell top sub-name small bordered">
-                                    <th>
-                                        <b>Exit Load</b>
-                                    </th>
-                                    <td>
-                                        <asp:Label ID="lblExitLoad" runat="server"></asp:Label>
-                                    </td>
-                                </tr>
+                               
                             </tbody>
                         </table>
                     </div>
@@ -555,14 +555,14 @@
                             <td>
                     <asp:HyperLink ID="HyperLink1" runat="server" 
             NavigateUrl="http://www.amfiindia.com/intermediary/other-data/scheme-details" 
-            Target="_blank">SID</asp:HyperLink>
+            Target="_blank">Scheme Information Document </asp:HyperLink>
                             </td>
                         </tr>
                          <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
                     <asp:HyperLink ID="HyperLink2" runat="server" 
             NavigateUrl="http://www.amfiindia.com/research-information/other-data/sai" 
-            Target="_blank">SAI</asp:HyperLink>
+            Target="_blank">Statement of Additional Information</asp:HyperLink>
                             </td>
                         </tr>
                     </tbody>

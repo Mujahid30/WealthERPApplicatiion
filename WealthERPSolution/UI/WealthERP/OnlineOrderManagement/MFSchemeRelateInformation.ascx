@@ -192,19 +192,20 @@
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <div class="col-md-8">
+                    <div class="col-md-7">
                         <asp:DropDownList ID="ddlScheme" runat="server" CssClass="form-control input-sm"
                             class="form-control">
                         </asp:DropDownList>
                     </div>
+                    <div class="col-md-1"><asp:Button ID="Button1" runat="server" class="btn btn-sm btn-primary" Text="GO"
+                            OnClick="Go_OnClick" ValidationGroup="btnViewscheme"></asp:Button></div>
                     <div class="col-md-3 ">
                         <asp:LinkButton ID="lbTopSchemes" runat="server" OnClick="GetSchemeDetails" CssClass="linkButton">Top Ten Schemes </asp:LinkButton>
                     </div>
                 </div>
                 <div class="col-md-12" style="margin-top: 1%">
                     <div class="col-md-8">
-                        <asp:Button ID="Button1" runat="server" class="btn btn-sm btn-primary" Text="GO"
-                            OnClick="Go_OnClick" ValidationGroup="btnViewscheme"></asp:Button>
+                        
                     </div>
                     <div class="col-md-3">
                         <asp:LinkButton ID="lbViewWatchList" runat="server" OnClick="GetSchemeDetails" CssClass="linkButton">My Watch list  </asp:LinkButton>
