@@ -50,7 +50,9 @@ namespace WealthERP.OnlineOrder
                 case "RTSMFOrderMenuHomeSchemeCompare": // add a new child tab
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('OnlineMFSchemeCompare','login');", true);
                     break;
-
+                case "RTSMFOrderMenuHomeNews": // add a new child tab
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('ProductOnlineFundNews','login');", true);
+                    break;
 
             }
         }

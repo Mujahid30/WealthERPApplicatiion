@@ -47,6 +47,9 @@
                             <telerik:RadTab runat="server" Text="SCHEME COMPARE" Value="RTSMFOrderMenuHomeSchemeCompare"
                                 TabIndex="2" PageViewID="RPVSchemeCompare" Selected="True">
                             </telerik:RadTab>
+                            <telerik:RadTab runat="server" Text="NEWS" Value="RTSMFOrderMenuHomeNews"
+                                TabIndex="3" PageViewID="RPVNews" Selected="True">
+                            </telerik:RadTab>
                         </Tabs>
                     </telerik:RadTabStrip>
                     <telerik:RadMultiPage ID="RMPMFOrderMenuMarketHome" EnableViewState="false" runat="server"
@@ -56,6 +59,8 @@
                         <telerik:RadPageView ID="RPVSchemeResearch" runat="server" Style="margin-top: 20px">
                         </telerik:RadPageView>
                         <telerik:RadPageView ID="RPVSchemeCompare" runat="server" Style="margin-top: 20px">
+                        </telerik:RadPageView>
+                        <telerik:RadPageView ID="RPVNews" runat="server" Style="margin-top: 20px">
                         </telerik:RadPageView>
                     </telerik:RadMultiPage>
                 </td>

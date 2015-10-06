@@ -20,6 +20,8 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Web.UI.HtmlControls;
+using System.Net;
+using System.IO;
 namespace WealthERP.OnlineOrderManagement
 {
     public partial class MFSchemeRelateInformation : System.Web.UI.UserControl
@@ -42,6 +44,7 @@ namespace WealthERP.OnlineOrderManagement
                 BindAMC();
                 BindCategory();
                 BindScheme();
+                BindNewsHeading();
             }
         }
         protected void ddlAMC_SelectedIndexChanged(object sender, EventArgs e)
@@ -144,7 +147,7 @@ namespace WealthERP.OnlineOrderManagement
         protected void Page_Changed(object sender, EventArgs e)
         {
             int pageIndex = int.Parse((sender as LinkButton).CommandArgument);
-            BindSchemeRelatedDetails(int.Parse(hfAMCCode.Value), int.Parse(hfSchemeCode.Value), hfCategory.Value, int.Parse(hfCustomerId.Value), Int16.Parse(hfIsSchemeDetails.Value), Boolean.Parse(hfNFOType.Value),pageIndex);
+            BindSchemeRelatedDetails(int.Parse(hfAMCCode.Value), int.Parse(hfSchemeCode.Value), hfCategory.Value, int.Parse(hfCustomerId.Value), Int16.Parse(hfIsSchemeDetails.Value), Boolean.Parse(hfNFOType.Value), pageIndex);
 
         }
 
@@ -197,7 +200,7 @@ namespace WealthERP.OnlineOrderManagement
                     break;
 
             }
-            BindSchemeRelatedDetails(int.Parse(hfAMCCode.Value), int.Parse(hfSchemeCode.Value), hfCategory.Value, int.Parse(hfCustomerId.Value), Int16.Parse(hfIsSchemeDetails.Value), Boolean.Parse(hfNFOType.Value),1);
+            BindSchemeRelatedDetails(int.Parse(hfAMCCode.Value), int.Parse(hfSchemeCode.Value), hfCategory.Value, int.Parse(hfCustomerId.Value), Int16.Parse(hfIsSchemeDetails.Value), Boolean.Parse(hfNFOType.Value), 1);
         }
 
 
@@ -380,8 +383,8 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void ddlNFOType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            BindSchemeRelatedDetails(0, 0, "0", 0, 3, Boolean.Parse(ddlNFOType.SelectedValue),1);
-            hfNFOType.Value = ddlNFOType.SelectedValue.ToString(); 
+            BindSchemeRelatedDetails(0, 0, "0", 0, 3, Boolean.Parse(ddlNFOType.SelectedValue), 1);
+            hfNFOType.Value = ddlNFOType.SelectedValue.ToString();
         }
         protected void rpSchemeDetails_OnItemDataBound(object sender, RepeaterItemEventArgs e)
         {
@@ -442,6 +445,29 @@ namespace WealthERP.OnlineOrderManagement
 
                 }
             }
+        }
+        protected void BindNewsHeading()
+        {
+            string SectoreDetais = ConfigurationSettings.AppSettings["NEWS_HEADING"] + ConfigurationSettings.AppSettings["NEWS_COUNT"];
+            WebResponse response;
+            string result;
+            WebRequest request = HttpWebRequest.Create(SectoreDetais);
+            response = request.GetResponse();
+            using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+            {
+                result = reader.ReadToEnd();
+                reader.Close();
+            }
+            StringReader theReader = new StringReader(result);
+            DataSet theDataSet = new DataSet();
+            theDataSet.ReadXml(theReader);
+            RepNews.DataSource = theDataSet.Tables[1];
+            RepNews.DataBind();
+        }
+
+        protected void lnkMoreNews_lnkMoreNews(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('ProductOnlineFundNews')", true);
         }
     }
 }

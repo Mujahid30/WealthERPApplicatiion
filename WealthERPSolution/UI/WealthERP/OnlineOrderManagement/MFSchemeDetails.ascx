@@ -270,14 +270,6 @@
                     <div style="float: left; width: 50%; min-width: 320px">
                         <table class="col-md-12 table-bordered table-striped table-condensed cf">
                             <tbody class="alignment">
-                                <tr class="searchable-spec cell top sub-name small bordered">
-                                    <th>
-                                        <b>Scheme Rating</b>
-                                    </th>
-                                    <td>
-                                       
-                                    </td>
-                                </tr>
                                 
                                 <tr class="searchable-spec cell top sub-name small bordered">
                                     <th>
@@ -335,7 +327,14 @@
                                         <asp:Label ID="lblFundReturn5thyear" runat="server"></asp:Label>
                                     </td>
                                 </tr>
-                                <tr class="searchable-spec cell top sub-name small bordered">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="float: left; width: 50%; min-width: 320px">
+                        <table class="col-md-12 table-bordered table-striped table-condensed cf">
+                            <tbody class="alignment">
+                            <tr class="searchable-spec cell top sub-name small bordered">
                                     <th>
                                         <b>Benchmark Return 1st year</b>
                                     </th>
@@ -343,12 +342,6 @@
                                         <asp:Label ID="lblBenchmarkReturn" runat="server"></asp:Label>
                                     </td>
                                 </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div style="float: left; width: 50%; min-width: 320px">
-                        <table class="col-md-12 table-bordered table-striped table-condensed cf">
-                            <tbody class="alignment">
                                 <tr class="searchable-spec cell top sub-name small bordered">
                                     <th>
                                         <b>Benchmark Return 3rd year</b>
@@ -365,14 +358,7 @@
                                         <asp:Label ID="lblBenchMarkReturn5th" runat="server"></asp:Label>
                                     </td>
                                 </tr>
-                                <tr class="searchable-spec cell top sub-name small bordered">
-                                    <th>
-                                        <b>NAV Date</b>
-                                    </th>
-                                    <td>
-                                        <asp:Label ID="lblNAVDate" runat="server"></asp:Label>
-                                    </td>
-                                </tr>
+                              
                                 <tr class="searchable-spec cell top sub-name small bordered">
                                     <th>
                                         <b>Min Investment Amount</b>

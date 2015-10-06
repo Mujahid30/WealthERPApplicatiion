@@ -54,6 +54,7 @@ namespace WealthERP.OnlineOrderManagement
                         GetAmcSchemeDetails();
                         BindschemedetailsNAV();
                         hidCurrentScheme.Value = ddlScheme.SelectedValue;
+                        
                     }
                 }
             }
@@ -217,8 +218,8 @@ namespace WealthERP.OnlineOrderManagement
             lblSchemeName.Text = onlineMFSchemeDetailsVo.schemeName;
             lblAMC.Text = onlineMFSchemeDetailsVo.amcName;
             //lblNAV.Text = onlineMFSchemeDetailsVo.NAV.ToString();
-            if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.navDate))
-                lblNAVDate.Text = onlineMFSchemeDetailsVo.navDate.ToString();
+            //if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.navDate))
+            //    lblNAVDate.Text = onlineMFSchemeDetailsVo.navDate.ToString();
             lblCategory.Text = onlineMFSchemeDetailsVo.category;
             lblBanchMark.Text = onlineMFSchemeDetailsVo.schemeBanchMark;
             lblFundManager.Text = onlineMFSchemeDetailsVo.fundManager;

@@ -154,67 +154,84 @@
 </table>
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
-        <div id="dvDemo" class="row " style="margin-left: 11%; margin-top: 1%; margin-bottom: 0.5%;
-            margin-right: 5%; padding-top: 0.5%; padding-bottom: 0.5%;" visible="true" runat="server">
-            <div class="col-md-12  col-xs-12 col-sm-12">
-                <div class="col-md-6 dottedBottom">
-                    <b>Fund Filter </b>
+        <div id="dvDemo" style="margin-left: 11%; margin-top: 1%; margin-bottom: 0.5%; margin-right: 5%;
+            padding-top: 0.5%; padding-bottom: 0.5%; width: 80%" visible="true" runat="server">
+            <div class="col-md-9  col-xs-9 col-sm-9">
+                <div class="col-md-12  col-xs-12 col-sm-12">
+                    <div class="col-md-8 dottedBottom">
+                        <b>Fund Filter </b>
+                    </div>
+                    <div class="col-md-3 dottedBottom">
+                        <b>Predefined Search </b>
+                    </div>
                 </div>
-                <div class="col-md-2">
-                </div>
-                <div class="col-md-4 dottedBottom">
-                    <b>Predefined Search </b>
-                </div>
-            </div>
-            <div class="col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 1%">
-                <div class="col-md-3">
-                    <asp:DropDownList ID="ddlAMC" runat="server" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged"
-                        AutoPostBack="false">
-                    </asp:DropDownList>
-                    <asp:RequiredFieldValidator ID="rfvtxtTransactionDate" ControlToValidate="ddlAMC"
-                        ErrorMessage="<br />Please select AMC" Style="color: Red;" Display="Dynamic"
-                        runat="server" InitialValue="0" ValidationGroup="btnViewscheme">
-                    </asp:RequiredFieldValidator>
-                    <%--<asp:RequiredFieldValidator ID="rfvAMC" runat="server" ControlToValidate="ddlAMC" InitialValue="0" ErrorMessage="Please Select AMC" Display="Dynamic"></asp:RequiredFieldValidator>--%>
-                </div>
-                <div class="col-md-3">
-                    <fieldset>
-                        <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control input-sm"
-                            AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged">
+                <div class="col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 1%">
+                    <div class="col-md-5">
+                        <asp:DropDownList ID="ddlAMC" runat="server" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged"
+                            AutoPostBack="false">
                         </asp:DropDownList>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="ddlCategory"
-                            ErrorMessage="<br />Please select category" Style="color: Red;" Display="Dynamic"
+                        <asp:RequiredFieldValidator ID="rfvtxtTransactionDate" ControlToValidate="ddlAMC"
+                            ErrorMessage="<br />Please select AMC" Style="color: Red;" Display="Dynamic"
                             runat="server" InitialValue="0" ValidationGroup="btnViewscheme">
                         </asp:RequiredFieldValidator>
-                    </fieldset>
+                        <%--<asp:RequiredFieldValidator ID="rfvAMC" runat="server" ControlToValidate="ddlAMC" InitialValue="0" ErrorMessage="Please Select AMC" Display="Dynamic"></asp:RequiredFieldValidator>--%>
+                    </div>
+                    <div class="col-md-3">
+                        <fieldset>
+                            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control input-sm"
+                                AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged">
+                            </asp:DropDownList>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="ddlCategory"
+                                ErrorMessage="<br />Please select category" Style="color: Red;" Display="Dynamic"
+                                runat="server" InitialValue="0" ValidationGroup="btnViewscheme">
+                            </asp:RequiredFieldValidator>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-2">
+                        <asp:LinkButton ID="lbNFOList" runat="server" OnClick="GetSchemeDetails" CssClass="linkButton">NFO Scheme </asp:LinkButton>
+                    </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-12">
+                    <div class="col-md-8">
+                        <asp:DropDownList ID="ddlScheme" runat="server" CssClass="form-control input-sm"
+                            class="form-control">
+                        </asp:DropDownList>
+                    </div>
+                    <div class="col-md-3 ">
+                        <asp:LinkButton ID="lbTopSchemes" runat="server" OnClick="GetSchemeDetails" CssClass="linkButton">Top Ten Schemes </asp:LinkButton>
+                    </div>
                 </div>
-                <div class="col-md-3 dottedBottom">
-                    <asp:LinkButton ID="lbNFOList" runat="server" OnClick="GetSchemeDetails" CssClass="linkButton">NFO Scheme </asp:LinkButton>
+                <div class="col-md-12" style="margin-top: 1%">
+                    <div class="col-md-8">
+                        <asp:Button ID="Button1" runat="server" class="btn btn-sm btn-primary" Text="GO"
+                            OnClick="Go_OnClick" ValidationGroup="btnViewscheme"></asp:Button>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:LinkButton ID="lbViewWatchList" runat="server" OnClick="GetSchemeDetails" CssClass="linkButton">My Watch list  </asp:LinkButton>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-12">
-                <div class="col-md-6">
-                    <asp:DropDownList ID="ddlScheme" runat="server" CssClass="form-control input-sm"
-                        class="form-control">
-                    </asp:DropDownList>
+            <div class="col-md-3 col-xs-3 col-sm-3" style="margin-top: 0px; ">
+                <div class="col-md-12 dottedBottom">
+                    <b>Fund News</b>
                 </div>
-                <div class="col-md-2">
-                </div>
-                <div class="col-md-3 dottedBottom">
-                    <asp:LinkButton ID="lbTopSchemes" runat="server" OnClick="GetSchemeDetails" CssClass="linkButton">Top Ten Schemes </asp:LinkButton>
-                </div>
-            </div>
-            <div class="col-md-12" style="margin-top: 1%">
-                <div class="col-md-6">
-                    <asp:Button ID="Button1" runat="server" class="btn btn-sm btn-primary" Text="GO"
-                        OnClick="Go_OnClick" ValidationGroup="btnViewscheme"></asp:Button>
-                </div>
-                <div class="col-md-2">
-                </div>
-                <div class="col-md-3  dottedBottom">
-                    <asp:LinkButton ID="lbViewWatchList" runat="server" OnClick="GetSchemeDetails" CssClass="linkButton">My Watch list  </asp:LinkButton>
+                <div>
+                    <asp:Repeater ID="RepNews" runat="server">
+                        <ItemTemplate>
+                            <div class="dottedBottom">
+                                <div>
+                                    <asp:Label ID="lblHeading" runat="server" Text='<%# Eval("heading")%>'></asp:Label>
+                                </div>
+                                <div>
+                                    <asp:Label ID="lblDate" Style="font-size: x-small; color: Gray;" runat="server" Text='<%# Eval("date")%>'></asp:Label>
+                                </div>
+                            </div>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                    <div>
+                        <asp:LinkButton ID="lnkMoreNews" Style="font-size:large; color: #4582DF; font-weight: bold;"
+                            runat="server" Text=">>>" ToolTip="Detail" OnClick="lnkMoreNews_lnkMoreNews"></asp:LinkButton>
+                    </div>
                 </div>
             </div>
         </div>
