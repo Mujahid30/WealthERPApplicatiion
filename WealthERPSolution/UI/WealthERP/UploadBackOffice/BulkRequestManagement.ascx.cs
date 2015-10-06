@@ -33,19 +33,7 @@ namespace WealthERP.UploadBackOffice
 
             if (!IsPostBack)
             {
-                //string type = "";
-                //string product = "";
-                //DateTime date = DateTime.MinValue;
-                //if (Request.QueryString["action"] != null)
-                //{
-
-                //    type = Request.QueryString["type"].ToString();
-                //    product = Request.QueryString["product"].ToString();
-                //    date = Convert.ToDateTime(Request.QueryString["date"].ToString());
-                //    ddlSelectType.SelectedValue = product;
-                //    BindViewListGrid(date, product);
-
-                //}
+              
                 multipageBulkOrderRequest.SelectedIndex = 0;
                 ddlSelectIssue.Visible = false;
                 trSelectIssueRow.Visible = false;
