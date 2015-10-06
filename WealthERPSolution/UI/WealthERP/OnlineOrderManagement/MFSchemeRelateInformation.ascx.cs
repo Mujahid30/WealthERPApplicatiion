@@ -156,12 +156,12 @@ namespace WealthERP.OnlineOrderManagement
             lbViewWatchList.ForeColor = System.Drawing.Color.Blue;
             lbNFOList.ForeColor = System.Drawing.Color.Blue;
             lbTopSchemes.ForeColor = System.Drawing.Color.Blue;
+            hfCustomerId.Value = customerVo.CustomerId.ToString();
             switch (lk.ID.ToString())
             {
                 case "lbViewWatchList": hfAMCCode.Value = "0";
                     hfSchemeCode.Value = "0";
                     hfCategory.Value = "0";
-                    hfCustomerId.Value = customerVo.CustomerId.ToString();
                     hfIsSchemeDetails.Value = "0";
                     hfNFOType.Value = ddlNFOType.SelectedValue;
                     dvHeading.Visible = true;
@@ -172,7 +172,6 @@ namespace WealthERP.OnlineOrderManagement
                     hfAMCCode.Value = "0";
                     hfSchemeCode.Value = "0";
                     hfCategory.Value = "0";
-                    hfCustomerId.Value = "0";
                     hfIsSchemeDetails.Value = "3";
                     hfNFOType.Value = ddlNFOType.SelectedValue;
                     dvHeading.Visible = true;
@@ -184,7 +183,6 @@ namespace WealthERP.OnlineOrderManagement
                     hfAMCCode.Value = "0";
                     hfSchemeCode.Value = "0";
                     hfCategory.Value = "0";
-                    hfCustomerId.Value = "0";
                     hfIsSchemeDetails.Value = "2";
                     hfNFOType.Value = "false";
                     dvHeading.Visible = true;
