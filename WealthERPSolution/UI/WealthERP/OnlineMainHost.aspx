@@ -322,11 +322,11 @@
         <div class="div-with-header">
             <div style="float: right; width: 5%; padding-top: 23px; padding-right: 2%;">
                 <asp:LinkButton ID="lnkFAQ" Style="text-decoration: none"   
-                    runat="server" Text="FAQs"  CssClass="LinkButtons"></asp:LinkButton>
+                    runat="server" Text="FAQ"  CssClass="LinkButtons"></asp:LinkButton>
             </div>
             <div style="float: right; width: 5%; padding-top: 23px; padding-right: 1%;">
                 <asp:LinkButton ID="lnkDemo" CssClass="LinkButtons" Style="text-decoration: none"
-                    runat="server" Text="Demos" ></asp:LinkButton>
+                    runat="server" Text="Demo" ></asp:LinkButton>
             </div>
             <div style="float: right; width: 10%; padding-top: 8px; padding-right: 28%;">
                 <asp:LinkButton ID="lnkLogOut" runat="server" Text="" CssClass="div-log-out" Style="text-decoration: none"

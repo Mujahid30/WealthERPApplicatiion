@@ -103,9 +103,9 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Category" Value="Category">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Advertisement" Value="Advertisement">
+                                            <telerik:RadPanelItem runat="server" Text="Content Management" Value="Advertisement">
                                                 <Items>
-                                                    <telerik:RadPanelItem runat="server" Text="Advertisement Manage" Value="Advertisement_Manage">
+                                                    <telerik:RadPanelItem runat="server" Text="Content Manager" Value="Advertisement_Manage">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
@@ -856,9 +856,9 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Alert Configuration" Value="Alert Configuration">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Advertisement" Value="Advertisement">
+                                            <telerik:RadPanelItem runat="server" Text="Content Management" Value="Advertisement">
                                                 <Items>
-                                                    <telerik:RadPanelItem runat="server" Text="Advertisement Manage" Value="Advertisement_Manage">
+                                                    <telerik:RadPanelItem runat="server" Text="Content Manager" Value="Advertisement_Manage">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
