@@ -3283,6 +3283,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderManagement//ProductOnlineFundNews.ascx.
+        /// </summary>
+        internal static string ProductOnlineFundNews {
+            get {
+                return ResourceManager.GetString("ProductOnlineFundNews", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OPS//ProductOrderDetailsMF.ascx.
         /// </summary>
         internal static string ProductOrderDetailsMF {

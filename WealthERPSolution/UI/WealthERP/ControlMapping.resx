@@ -2073,4 +2073,8 @@
     <value>OnlineOrderBackOffice//OnlineAdviserCustomerRMSLog.ascx</value>
     <comment>OnlineOrderBackOffice//OnlineAdviserCustomerRMSLog.ascx</comment>
   </data>
+  <data name="ProductOnlineFundNews" xml:space="preserve">
+    <value>OnlineOrderManagement//ProductOnlineFundNews.ascx</value>
+    <comment>OnlineOrderManagement//ProductOnlineFundNews.ascx</comment>
+  </data>
 </root>

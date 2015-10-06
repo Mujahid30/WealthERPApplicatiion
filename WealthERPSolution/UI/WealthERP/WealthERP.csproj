@@ -3269,6 +3269,13 @@
     <Compile Include="OnlineOrderManagement\OnlineOrderUnauthorizedUser.ascx.designer.cs">
       <DependentUpon>OnlineOrderUnauthorizedUser.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderManagement\ProductOnlineFundNews.ascx.cs">
+      <DependentUpon>ProductOnlineFundNews.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\ProductOnlineFundNews.ascx.designer.cs">
+      <DependentUpon>ProductOnlineFundNews.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderManagement\SIPBookSummmaryList.ascx.cs">
       <DependentUpon>SIPBookSummmaryList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -8262,6 +8269,7 @@
     <Content Include="OnlineOrderManagement\OnlineCustomerOrderandTransactionBook.ascx" />
     <Content Include="OnlineOrderManagement\OnlineMFSchemeCompare.ascx" />
     <Content Include="OnlineOrderManagement\OnlineOrderUnauthorizedUser.ascx" />
+    <Content Include="OnlineOrderManagement\ProductOnlineFundNews.ascx" />
     <Content Include="OnlineOrderManagement\SIPBookSummmaryList.ascx" />
     <Content Include="OnlineOrder\Banner.ascx" />
     <Content Include="OnlineOrder\MFOnlineOrder.aspx" />
