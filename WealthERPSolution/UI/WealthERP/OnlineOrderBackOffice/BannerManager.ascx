@@ -24,7 +24,7 @@
                 <table cellspacing="0" width="100%">
                     <tr>
                         <td align="left">
-                            Advertisement Manager
+                            Content Manager
                         </td>
                         <td align="right" id="td4" runat="server" style="padding-bottom: 2px;">
                         </td>
@@ -199,7 +199,7 @@
                 OnUpdateCommand="RadGrid2_UpdateCommand" OnItemCommand="RadGrid2_ItemCommand"
                 OnItemDataBound="RadGrid2_ItemDataBound" AllowAutomaticUpdates="false" HorizontalAlign="NotSet"
                 DataKeyNames="PUHD_Id,PUHD_IsActive,PAG_AssetGroupCode,PUHD_HelpDetails">
-                <MasterTableView CommandItemDisplay="Top" EditMode="PopUp" DataKeyNames="PUHD_Id,PUHD_IsActive,PAG_AssetGroupCode,PUHD_HelpDetails">
+                <MasterTableView CommandItemDisplay="Top" EditMode="PopUp" DataKeyNames="PUHD_Id,PUHD_CreatedOn,PUHD_IsActive,PAG_AssetGroupCode,PUHD_HelpDetails">
                     <Columns>
                         <telerik:GridEditCommandColumn EditText="Update" UniqueName="editColumn" CancelText="Cancel"
                             UpdateText="Update">
@@ -209,6 +209,8 @@
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="PUHD_HelpDetails" HeaderText="Scroller Text"
                             DataField="PUHD_HelpDetails">
+                        </telerik:GridBoundColumn>
+                          <telerik:GridBoundColumn UniqueName="PUHD_CreatedOn" HeaderText="Created On" DataField="PUHD_CreatedOn">
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="PUHD_IsActive" HeaderText="Is Active" DataField="PUHD_IsActive">
                         </telerik:GridBoundColumn>
@@ -296,7 +298,7 @@
                 OnUpdateCommand="RadGrid3_UpdateCommand" OnItemCommand="RadGrid3_ItemCommand"
                 OnItemDataBound="RadGrid3_ItemDataBound" AllowAutomaticUpdates="false" HorizontalAlign="NotSet"
                 DataKeyNames="PUHD_Id,PUHD_IsActive,PAG_AssetGroupCode,PUHD_HelpDetails">
-                <MasterTableView CommandItemDisplay="Top" EditMode="PopUp" DataKeyNames="PUHD_Id,PUHD_IsActive,PAG_AssetGroupCode,PUHD_HelpDetails">
+                <MasterTableView CommandItemDisplay="Top" EditMode="PopUp" DataKeyNames="PUHD_Id,PUHD_IsActive,PUHD_CreatedOn,PAG_AssetGroupCode,PUHD_HelpDetails">
                     <Columns>
                         <telerik:GridEditCommandColumn EditText="Update" UniqueName="editColumn" CancelText="Cancel"
                             UpdateText="Update">
@@ -305,6 +307,8 @@
                             DataField="PAG_AssetGroupName">
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="PUHD_HelpDetails" HeaderText="Video Link" DataField="PUHD_HelpDetails">
+                        </telerik:GridBoundColumn>
+                                                  <telerik:GridBoundColumn UniqueName="PUHD_CreatedOn" HeaderText="Created On" DataField="PUHD_CreatedOn">
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="PUHD_IsActive" HeaderText="Is Active" DataField="PUHD_IsActive">
                         </telerik:GridBoundColumn>
@@ -391,7 +395,7 @@
             
              AllowAutomaticUpdates="false" HorizontalAlign="NotSet"
             DataKeyNames="PUHD_Id,PUHD_IsActive,PAG_AssetGroupCode,PUHD_HelpDetails">
-            <MasterTableView CommandItemDisplay="Top" EditMode="PopUp" DataKeyNames="PUHD_Id,PUHD_IsActive,PAG_AssetGroupCode,PUHD_HelpDetails">
+            <MasterTableView CommandItemDisplay="Top" EditMode="PopUp" DataKeyNames="PUHD_Id,PUHD_IsActive,PUHD_CreatedOn,PAG_AssetGroupCode,PUHD_HelpDetails">
                 <Columns>
                    
                     <telerik:GridBoundColumn UniqueName="PAG_AssetGroupName" HeaderText="Asset Group"
@@ -400,6 +404,8 @@
                     <telerik:GridBoundColumn UniqueName="PUHD_HelpDetails" HeaderText="FAQ Pdf Name"
                         DataField="PUHD_HelpDetails">
                     </telerik:GridBoundColumn>
+                     <telerik:GridBoundColumn UniqueName="PUHD_CreatedOn" HeaderText="Created On" DataField="PUHD_CreatedOn">
+                        </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn UniqueName="PUHD_IsActive" HeaderText="Is Active" DataField="PUHD_IsActive">
                     </telerik:GridBoundColumn>
                     <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete this ?"
