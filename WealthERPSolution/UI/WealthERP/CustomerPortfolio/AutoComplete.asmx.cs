@@ -1077,6 +1077,7 @@ namespace WealthERP.CustomerPortfolio
             ProductMFBo productMFBo = new ProductMFBo();
             DataTable dtGetSchemeList = new DataTable();
             dtGetSchemeList = productMFBo.GetSchemePlanOnline(0);
+
             //dtGetASBALocation = customerBo.GetASBABankLocation(prefixText);
             foreach (DataRow dr in dtGetSchemeList.Rows)
             {
@@ -1089,7 +1090,7 @@ namespace WealthERP.CustomerPortfolio
             //foreach (DataRow dr in dtGetSchemeList.Rows)
             //{
             //    string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["PASP_SchemePlanName"].ToString(), dr["PASP_SchemePlanCode"].ToString());
-            //    names.Add(item);
+            //    names.Add(item);z
 
             //}
             //return names.ToArray();
@@ -1097,34 +1098,7 @@ namespace WealthERP.CustomerPortfolio
             return schemelist;
         }
         [WebMethod]
-        public string[] GetSchemeGuess()
-        {
-
-
-            ArrayList schemelist = new ArrayList();
-            PriceBo priceBo = new PriceBo();
-            ProductMFBo productMFBo = new ProductMFBo();
-            DataTable dtGetSchemeList = new DataTable();
-            dtGetSchemeList = productMFBo.GetSchemePlanOnline(0);
-            //dtGetASBALocation = customerBo.GetASBABankLocation(prefixText);
-            //foreach (DataRow dr in dtGetSchemeList.Rows)
-            //{
-            //    schemelist.Add(new System.Web.UI.WebControls.ListItem(
-            //   dr["PASP_SchemePlanName"].ToString(),
-            //   dr["PASP_SchemePlanCode"].ToString()
-            //    ));
-            //}
-            List<string> names = new List<string>();
-            foreach (DataRow dr in dtGetSchemeList.Rows)
-            {
-                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["PASP_SchemePlanName"].ToString(), dr["PASP_SchemePlanCode"].ToString());
-                names.Add(item);
-
-            }
-            return names.ToArray();
-
-          
-        }
+      
         public ArrayList GetAMCWiseSchemeList(int AmcCodes)
         {
 
@@ -1144,7 +1118,20 @@ namespace WealthERP.CustomerPortfolio
             }
             return AMCWiseSchemeList;
         }
-        
+        [WebMethod]
+        public string[] GetInvestorScheme(string prefixText)
+        {
+            ProductMFBo productMFBo = new ProductMFBo();
+            DataTable dtGetSchemeList = new DataTable();
+            List<string> schemelist = new List<string>();
+            dtGetSchemeList = productMFBo.GetSchemeGuess(prefixText);
+            foreach (DataRow dr in dtGetSchemeList.Rows)
+            {
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["PASP_SchemePlanName"].ToString(), dr["PASP_SchemePlanCode"].ToString());
+                schemelist.Add(item);
+            }
+            return schemelist.ToArray();
+        }
     }
 
 }
