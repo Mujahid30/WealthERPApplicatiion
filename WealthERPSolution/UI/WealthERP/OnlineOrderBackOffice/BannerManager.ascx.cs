@@ -11,16 +11,21 @@ using Telerik.Web.UI;
 using BoOnlineOrderManagement;
 using System.Configuration;
 using System.IO;
+using BoCommon;
+using BoProductMaster;
 
 namespace WealthERP.OnlineOrderBackOffice
 {
     public partial class BannerManager : System.Web.UI.UserControl
     {
         UserVo userVo = new UserVo();
+        AdvisorVo adviserVo = new AdvisorVo();
         OnlineOrderBackOfficeBo onlineOrderBackOfficeBo = new OnlineOrderBackOfficeBo();
+        OnlineCommonBackOfficeBo OnlineCommonBackOfficeBo = new OnlineCommonBackOfficeBo();
         protected void Page_Load(object sender, EventArgs e)
         {
             userVo = (UserVo)Session[SessionContents.UserVo];
+            adviserVo = (AdvisorVo)Session["advisorVo"];
             if (!IsPostBack)
             {
                 multipageAdsUpload.SelectedIndex = 0;
@@ -28,6 +33,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 BindScrollerDetails();
                 BindDemoVideoDetails();
                 BindFAQDetails();
+                BindSchemeRankDetails(adviserVo.advisorId);
                 //hdnButtonText.Value = ConfigurationManager.AppSettings["ADVISOR_UPLOAD_PATH"].ToString() + "\\";
             }
         }
@@ -385,6 +391,210 @@ namespace WealthERP.OnlineOrderBackOffice
                 radDateTimePicker.SelectedDate = expirydate;
             }
         }
+      
+        protected void rgSchemeRanking_ItemDataBound(object sender, GridItemEventArgs e)
+        {
 
+
+            if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode) && e.Item.ItemIndex != -1)
+            {
+                GridEditFormItem editform = (GridEditFormItem)e.Item;
+                DropDownList ddlAMC = (DropDownList)editform.FindControl("ddlAMC");
+                DropDownList ddlCategory = (DropDownList)editform.FindControl("ddlCategory");
+                DropDownList ddlSchemeRank = (DropDownList)editform.FindControl("ddlSchemeRank");
+                DropDownList ddlScheme = (DropDownList)editform.FindControl("ddlScheme");
+                BindAMC(ddlAMC);
+                BindCategory(ddlCategory);
+                int schemePlanCode = Convert.ToInt32(rgSchemeRanking.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PASP_SchemePlanCode"].ToString());
+                string Category = rgSchemeRanking.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PAIC_AssetInstrumentCategoryCode"].ToString();
+                int AmcCode = Convert.ToInt32(rgSchemeRanking.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PA_AMCCode"].ToString());
+                int schemeRank = Convert.ToInt32(rgSchemeRanking.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AMFSR_SchemeRank"].ToString());
+                BindScheme(AmcCode, Category, ddlScheme, true);
+                ddlScheme.SelectedValue = schemePlanCode.ToString();
+                ddlAMC.SelectedValue = AmcCode.ToString();
+                ddlCategory.SelectedValue = Category.ToString();
+                BindSchemeRank(ddlSchemeRank, Category, false);
+                ddlSchemeRank.SelectedValue = schemeRank.ToString();
+                ddlScheme.SelectedValue = schemePlanCode.ToString();
+
+
+            }
+            if ((e.Item is GridEditFormInsertItem) && (e.Item.OwnerTableView.IsItemInserted))
+            {
+                GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
+                GridEditFormItem gefi = (GridEditFormItem)e.Item;
+                DropDownList ddlAMC = (DropDownList)gefi.FindControl("ddlAMC");
+                DropDownList ddlCategory = (DropDownList)gefi.FindControl("ddlCategory");
+                DropDownList ddlSchemeRank = (DropDownList)gefi.FindControl("ddlSchemeRank");
+                DropDownList ddlScheme = (DropDownList)gefi.FindControl("ddlScheme");
+                BindAMC(ddlAMC);
+                BindCategory(ddlCategory);
+
+            }
+
+
+
+        }
+        protected void BindSchemeRankDetails(int adviserId)
+        {
+            OnlineCommonBackOfficeBo OnlineCommonBackOfficeBo = new OnlineCommonBackOfficeBo();
+            DataTable dtBindSchemeRelatedDetails = OnlineCommonBackOfficeBo.GetMFSchemeRanking(adviserId);
+            if (Cache["BindSchemeRankDetails" + userVo.UserId] != null)
+            {
+                Cache.Remove("BindSchemeRankDetails" + userVo.UserId);
+            }
+            Cache.Insert("BindSchemeRankDetails" + userVo.UserId, dtBindSchemeRelatedDetails);
+            rgSchemeRanking.DataSource = dtBindSchemeRelatedDetails;
+            rgSchemeRanking.DataBind();
+            rgSchemeRanking.Visible = true;
+
+        }
+       
+
+        private void BindScheme(int amcCode, string category, DropDownList ddlScheme, Boolean IsEdit)
+        {
+            DataTable dt;
+            OnlineCommonBackOfficeBo OnlineCommonBackOfficeBo = new OnlineCommonBackOfficeBo();
+            dt = OnlineCommonBackOfficeBo.GetSchemeForRank(adviserVo.advisorId, amcCode, category, IsEdit);
+            if (dt.Rows.Count > 0)
+            {
+                ddlScheme.DataSource = dt;
+                ddlScheme.DataValueField = "PASP_SchemePlanCode";
+                ddlScheme.DataTextField = "PASP_SchemePlanName";
+                ddlScheme.DataBind();
+
+            }
+            ddlScheme.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
+        }
+        private void BindCategory(DropDownList ddlCategory)
+        {
+            DataSet dsProductAssetCategory;
+            ProductMFBo productMFBo = new ProductMFBo();
+            dsProductAssetCategory = productMFBo.GetProductAssetCategory();
+            DataTable dtCategory = dsProductAssetCategory.Tables[0];
+            ddlCategory.DataSource = dtCategory;
+            ddlCategory.DataValueField = dtCategory.Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
+            ddlCategory.DataTextField = dtCategory.Columns["PAIC_AssetInstrumentCategoryName"].ToString();
+            ddlCategory.DataBind();
+            ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Category", "0"));
+        }
+
+        private void BindAMC(DropDownList ddlAMC)
+        {
+
+            DataTable dtGetAMCList = new DataTable();
+            CommonLookupBo commonLookupBo = new CommonLookupBo();
+            dtGetAMCList = commonLookupBo.GetProdAmc(0, true);
+            ddlAMC.DataSource = dtGetAMCList;
+            ddlAMC.DataTextField = dtGetAMCList.Columns["PA_AMCName"].ToString();
+            ddlAMC.DataValueField = dtGetAMCList.Columns["PA_AMCCode"].ToString();
+            ddlAMC.DataBind();
+            ddlAMC.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select AMC", "0"));
+        }
+        protected void rgSchemeRanking_NeedDataSource(object source, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+
+            DataTable dtMap = new DataTable();
+            if (Cache["BindSchemeRankDetails" + userVo.UserId.ToString()] != null)
+            {
+                dtMap = (DataTable)Cache["BindSchemeRankDetails" + userVo.UserId.ToString()];
+                rgSchemeRanking.DataSource = dtMap;
+            }
+
+
+
+
+        }
+
+        protected void ddlCategory_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddlCategory = (DropDownList)sender;
+            DropDownList ddlAmcCode = new DropDownList();
+            DropDownList ddlScheme = new DropDownList();
+            DropDownList ddlSchemeRank = new DropDownList();
+            if (ddlCategory.NamingContainer is Telerik.Web.UI.GridEditFormItem)
+            {
+                GridEditFormItem gdi;
+                gdi = (GridEditFormItem)ddlCategory.NamingContainer;
+                ddlAmcCode = (DropDownList)gdi.FindControl("ddlAMC");
+                ddlScheme = (DropDownList)gdi.FindControl("ddlScheme");
+                ddlSchemeRank = (DropDownList)gdi.FindControl("ddlSchemeRank");
+                ddlCategory = (DropDownList)gdi.FindControl("ddlCategory");
+
+                if (gdi.IsInEditMode == true)
+                {
+                    BindSchemeRank(ddlSchemeRank, ddlCategory.SelectedValue, true);
+                    BindScheme(int.Parse(ddlAmcCode.SelectedValue), ddlCategory.SelectedValue, ddlScheme, true);
+                }
+                else
+                {
+                    BindSchemeRank(ddlSchemeRank, ddlCategory.SelectedValue, false);
+                    BindScheme(int.Parse(ddlAmcCode.SelectedValue), ddlCategory.SelectedValue, ddlScheme, false);
+                }
+                //(e.Item is GridEditFormItem) && (e.Item.IsInEditMode)
+
+            }
+
+        }
+        private void BindSchemeRank(DropDownList ddlSchemeRank, string ddlCategory, Boolean IsInsert)
+        {
+            DataTable dtRank = new DataTable();
+            if (IsInsert)
+            {
+                dtRank = OnlineCommonBackOfficeBo.GetCategorySchemeRank(ddlCategory, adviserVo.advisorId);
+                ddlSchemeRank.DataSource = dtRank;
+                ddlSchemeRank.DataTextField = dtRank.Columns["RowNumber"].ToString();
+                ddlSchemeRank.DataValueField = dtRank.Columns["RowNumber"].ToString();
+                ddlSchemeRank.DataBind();
+                ddlSchemeRank.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Rank", "0"));
+            }
+            else
+            {
+                dtRank.Columns.Add("RowNumber");
+
+                for (int i = 1; i <= 10; i++)
+                {
+                    DataRow dr = dtRank.NewRow();
+                    dr["RowNumber"] = i.ToString();
+                    dtRank.Rows.Add(dr);
+                }
+                ddlSchemeRank.DataSource = dtRank;
+                ddlSchemeRank.DataTextField = dtRank.Columns["RowNumber"].ToString();
+                ddlSchemeRank.DataValueField = dtRank.Columns["RowNumber"].ToString();
+                ddlSchemeRank.DataBind();
+                ddlSchemeRank.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Rank", "0"));
+
+
+            }
+
+
+        }
+        protected void rgSchemeRanking_OnDeleteCommand(object source, GridCommandEventArgs e)
+        {
+            int AMFSR_Id = Convert.ToInt32(rgSchemeRanking.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AMFSR_Id"].ToString());
+            OnlineCommonBackOfficeBo.CUDSchemeRanking(adviserVo.advisorId, 0, 0, null, 0, 3, AMFSR_Id);
+            BindSchemeRankDetails(adviserVo.advisorId);
+        }
+        protected void rgSchemeRanking_OnUpdateCommand(object source, GridCommandEventArgs e)
+        {
+            DropDownList ddlAMC = (DropDownList)e.Item.FindControl("ddlAMC");
+            DropDownList ddlCategory = (DropDownList)e.Item.FindControl("ddlCategory");
+            DropDownList ddlScheme = (DropDownList)e.Item.FindControl("ddlScheme");
+            DropDownList ddlSchemeRank = (DropDownList)e.Item.FindControl("ddlSchemeRank");
+            int AMFSR_Id = Convert.ToInt32(rgSchemeRanking.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AMFSR_Id"].ToString());
+            OnlineCommonBackOfficeBo.CUDSchemeRanking(adviserVo.advisorId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue, int.Parse(ddlSchemeRank.SelectedValue), 2, AMFSR_Id);
+            BindSchemeRankDetails(adviserVo.advisorId);
+
+        }
+        protected void rgSchemeRanking_OnInsertCommand(object source, GridCommandEventArgs e)
+        {
+            DropDownList ddlAMC = (DropDownList)e.Item.FindControl("ddlAMC");
+            DropDownList ddlCategory = (DropDownList)e.Item.FindControl("ddlCategory");
+            DropDownList ddlScheme = (DropDownList)e.Item.FindControl("ddlScheme");
+            DropDownList ddlSchemeRank = (DropDownList)e.Item.FindControl("ddlSchemeRank");
+         
+            OnlineCommonBackOfficeBo.CUDSchemeRanking(adviserVo.advisorId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue, int.Parse(ddlSchemeRank.SelectedValue), 1, 0);
+            BindSchemeRankDetails(adviserVo.advisorId);
+        }
     }
 }

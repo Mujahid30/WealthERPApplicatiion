@@ -45,6 +45,8 @@
         </telerik:RadTab>
         <telerik:RadTab runat="server" Text="FAQ Management" Value="FAQ">
         </telerik:RadTab>
+          <telerik:RadTab runat="server" Text="MF Scheme Rank" Value="MFRank">
+        </telerik:RadTab>
     </Tabs>
 </telerik:RadTabStrip>
 <telerik:RadMultiPage ID="multipageAdsUpload" EnableViewState="true" runat="server">
@@ -486,5 +488,132 @@
                 <ClientEvents />
             </ClientSettings>
         </telerik:RadGrid>
+    </telerik:RadPageView>
+    <telerik:RadPageView ID="rpvSchemeRank" runat="server">
+    <table id="tblwerpGrd" runat="server" width="99%">
+                <tr>
+                    <td class="leftLabel">
+                    </td>
+                    <td>
+                        <asp:Panel ID="Panel2" runat="server" Width="70%">
+                            <telerik:RadGrid ID="rgSchemeRanking" runat="server" GridLines="Both" AllowPaging="True" 
+                                ShowFooter="true" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
+                                ShowStatusBar="true" AllowFilteringByColumn="true" AllowAutomaticDeletes="True"
+                                AllowAutomaticInserts="false" AllowAutomaticUpdates="false" Skin="Telerik" EnableEmbeddedSkins="false"
+                                Width="100%" OnItemDataBound="rgSchemeRanking_ItemDataBound" OnNeedDataSource="rgSchemeRanking_NeedDataSource"
+                                OnDeleteCommand="rgSchemeRanking_OnDeleteCommand" OnUpdateCommand="rgSchemeRanking_OnUpdateCommand"
+                                OnInsertCommand="rgSchemeRanking_OnInsertCommand">
+                                <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="Scheme rank">
+                                </ExportSettings>
+                                <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
+                                    EditMode="PopUp" CommandItemSettings-AddNewRecordText="Add New Rank to Scheme"
+                                    DataKeyNames="AMFSR_Id,AMFSR_SchemeRank,PASP_SchemePlanCode,PAIC_AssetInstrumentCategoryCode,PA_AMCCode">
+                                    <Columns>
+                                        <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
+                                            UpdateText="Update">
+                                        </telerik:GridEditCommandColumn>
+                                        <telerik:GridBoundColumn UniqueName="AMFSR_SchemeRank" HeaderText="Rank" DataField="AMFSR_SchemeRank"
+                                            SortExpression="AMFSR_SchemeRank" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                            AutoPostBackOnFilter="true" ItemStyle-Wrap="false">
+                                            <HeaderStyle></HeaderStyle>
+                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn UniqueName="PASP_SchemePlanName" HeaderText="Scheme Name"
+                                            AllowFiltering="true" DataField="PASP_SchemePlanName" SortExpression="PASP_SchemePlanName"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn UniqueName="PAIC_AssetInstrumentCategoryName" HeaderText="Category"
+                                            AllowFiltering="true" DataField="PAIC_AssetInstrumentCategoryName" SortExpression="PAIC_AssetInstrumentCategoryName"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
+                                            ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                                            Text="Delete">
+                                            <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                                        </telerik:GridButtonColumn>
+                                    </Columns>
+                                    <EditFormSettings EditFormType="Template" FormTableStyle-HorizontalAlign="Center"
+                                        FormCaptionStyle-CssClass="TableBackground" PopUpSettings-Modal="true"
+                                        PopUpSettings-ZIndex="20" FormCaptionStyle-Width="100%" PopUpSettings-Height="200px"
+                                        PopUpSettings-Width="800px">
+                                        <FormTemplate>
+                                            <table cellspacing="2" cellpadding="2">
+                                                <tr>
+                                                    <td>
+                                                        <asp:Label ID="lblAMC" runat="server" Text="AMC:" CssClass="FieldName"></asp:Label>
+                                                    </td>
+                                                    <td>
+                                                        <asp:DropDownList ID="ddlAMC" runat="server" CssClass="form-control input-sm" AutoPostBack="false">
+                                                        </asp:DropDownList>
+                                                        <asp:RequiredFieldValidator ID="rfvtxtTransactionDate" ControlToValidate="ddlAMC"
+                                                            ErrorMessage="<br />Please select AMC" Style="color: Red;" Display="Dynamic"
+                                                            runat="server" InitialValue="0" ValidationGroup="btnOK">
+                                                        </asp:RequiredFieldValidator>
+                                                    </td>
+                                                    <td>
+                                                        <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
+                                                    </td>
+                                                    <td>
+                                                        <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control input-sm"
+                                                            AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged">
+                                                        </asp:DropDownList>
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="ddlCategory"
+                                                            ErrorMessage="<br />Please select category" Style="color: Red;" Display="Dynamic"
+                                                            runat="server" InitialValue="0" ValidationGroup="btnOK">
+                                                        </asp:RequiredFieldValidator>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <asp:Label ID="lblScheme" runat="server" Text="Scheme:" CssClass="FieldName"></asp:Label>
+                                                    </td>
+                                                    <td>
+                                                        <asp:DropDownList ID="ddlScheme" runat="server" CssClass="form-control input-sm"
+                                                            class="form-control">
+                                                        </asp:DropDownList>
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="ddlScheme"
+                                                            ErrorMessage="<br />Please select Scheme" Style="color: Red;" Display="Dynamic"
+                                                            runat="server" InitialValue="0" ValidationGroup="btnOK">
+                                                        </asp:RequiredFieldValidator>
+                                                    </td>
+                                                    <td>
+                                                        <asp:Label ID="lblRank" runat="server" Text="Rank:" CssClass="FieldName"></asp:Label>
+                                                    </td>
+                                                    <td>
+                                                        <asp:DropDownList ID="ddlSchemeRank" runat="server" CssClass="form-control input-sm"
+                                                            class="form-control">
+                                                        </asp:DropDownList>
+                                                           <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="ddlSchemeRank"
+                                                            ErrorMessage="<br />Please select Rank" Style="color: Red;" Display="Dynamic"
+                                                            runat="server" InitialValue="0" ValidationGroup="btnOK">
+                                                        </asp:RequiredFieldValidator>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <asp:Button ValidationGroup="btnOK" ID="btnOK" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                                            runat="server" CssClass="PCGButton" CausesValidation="True" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                                                        </asp:Button>
+                                                    </td>
+                                                    <td>
+                                                        <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
+                                                            CssClass="PCGButton" CommandName="Cancel"></asp:Button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                </tr>
+                                            </table>
+                                        </FormTemplate>
+                                    </EditFormSettings>
+                                </MasterTableView>
+                                <ClientSettings>
+                                </ClientSettings>
+                            </telerik:RadGrid>
+                        </asp:Panel>
+                    </td>
+                </tr>
+            </table>
     </telerik:RadPageView>
 </telerik:RadMultiPage>

@@ -91,6 +91,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::Telerik.Web.UI.RadGrid RadGrid2;
         protected global::Telerik.Web.UI.RadGrid RadGrid3;
         protected global::Telerik.Web.UI.RadGrid RadGrid4;
+        protected global::Telerik.Web.UI.RadGrid rgSchemeRanking;
         protected global::Telerik.Web.UI.RadTabStrip RadTabStripAdsUpload;
         protected global::Telerik.Web.UI.RadMultiPage multipageAdsUpload;
         protected global::Telerik.Web.UI.RadPageView rpvBanner;
