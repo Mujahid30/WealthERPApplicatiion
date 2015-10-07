@@ -566,9 +566,11 @@ namespace WealthERP
                     assetCategory = "IP";
                     break;
             }
+           
             dt = onlineOrderBo.GetAdvertisementData(assetCategory, "Demo");
             //Page.ClientScript.RegisterStartupScript(this.GetType(), "SetDemo", @"window.open('ReferenceFiles/HelpVideo.htm?Link=" + dt.Rows[0][0].ToString() + "', 'newwindow', 'width=655, height=520'); ", true);
-            lnkDemo.OnClientClick = @"window.open('ReferenceFiles/HelpVideo.htm?Link=" + dt.Rows[0][0].ToString() + "', 'newwindow', 'width=655, height=520'); ";
+            if (dt.Rows.Count > 0)
+                lnkDemo.OnClientClick = @"window.open('ReferenceFiles/HelpVideo.htm?Link=" + dt.Rows[0][0].ToString() + "', 'newwindow', 'width=655, height=520'); ";
             
         }
         protected void SetFAQLink(string productType)
@@ -601,7 +603,8 @@ namespace WealthERP
             dt = onlineOrderBo.GetAdvertisementData(assetCategory, "FAQ");
             string path = ConfigurationManager.AppSettings["BANNER_IMAGE_PATH"].ToString();
             //Response.Redirect(path + dt.Rows[0][0].ToString());
-            lnkFAQ.OnClientClick = @"window.open('" + path.Replace("~", "..") + dt.Rows[0][0].ToString() + "','_blank'); ";
+            if(dt.Rows.Count>0)
+                lnkFAQ.OnClientClick = @"window.open('" + path.Replace("~", "..") + dt.Rows[0][0].ToString() + "','_blank'); ";
         } 
 
     }

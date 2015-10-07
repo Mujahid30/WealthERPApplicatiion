@@ -342,7 +342,7 @@
         </div>
         <div id="mycrawler" style="margin-left:20px;margin-right:20px;float: left;" class="scroller" >
       
-        <asp:Label ID="Label1" runat="server" Style="width:70%" ></asp:Label>
+        <asp:Label ID="Label1" runat="server" ></asp:Label>
       
         </div>
         <div class="prduct-main-menu" id="divMFMenu" runat="server" visible="false">
@@ -413,7 +413,7 @@
         </div>
         <div class="bottom-content-frame" style="margin-top:10px;z-index:3" >
             <iframe name="bottomframe" class="bottomframe" id="bottomframe" onload="javascript:calcIFrameHeight('bottomframe');"
-                src="OnlineBottomHost.aspx" scrolling="no" height="1500px"></iframe>
+                src="OnlineBottomHost.aspx" scrolling="no" height="2000px"></iframe>
         </div>
     </div>
     </div>
