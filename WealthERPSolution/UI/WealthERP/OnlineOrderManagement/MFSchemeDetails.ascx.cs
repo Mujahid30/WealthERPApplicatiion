@@ -127,7 +127,7 @@ namespace WealthERP.OnlineOrderManagement
                     if (Convert.ToDouble(dr["Diff"].ToString()) < 0.000)
                     {
                         lblNAV.Text = dr["PSP_NetAssetValue"].ToString();
-                        lblNAVDiff.Text = " " + dr["Diff"].ToString().TrimStart('-');
+                        lblNAVDiff.Text = " " + dr["Diff"].ToString().TrimStart('-') +"("+ dr["Percentage"].ToString()+" %)";
                         lblNAV.Style["font-size"] = "large";
                          lblNAV.Style["font-weight"]="bold";
                         lblNAVDiff.Style["font-size"] = "large";
@@ -139,7 +139,7 @@ namespace WealthERP.OnlineOrderManagement
                     else
                     {
                         lblNAV.Text = dr["PSP_NetAssetValue"].ToString();
-                        lblNAVDiff.Text =" " +dr["Diff"].ToString();
+                        lblNAVDiff.Text = " " + dr["Diff"].ToString().TrimStart('-') + "(" + dr["Percentage"].ToString() + " %)";
                         lblNAV.Style["font-size"] = "large";
                         lblNAVDiff.Style["font-size"] = "large";
                         lblNAV.Style["font-weight"] = "bold";
@@ -223,9 +223,9 @@ namespace WealthERP.OnlineOrderManagement
             lblCategory.Text = onlineMFSchemeDetailsVo.category;
             lblBanchMark.Text = onlineMFSchemeDetailsVo.schemeBanchMark;
             lblFundManager.Text = onlineMFSchemeDetailsVo.fundManager;
-            lblFundReturn1styear.Text = onlineMFSchemeDetailsVo.fundReturn3rdYear.ToString();
-            lblFundReturn3rdyear.Text = onlineMFSchemeDetailsVo.fundReturn5thtYear.ToString();
-            lblFundReturn5thyear.Text = onlineMFSchemeDetailsVo.fundReturn10thYear.ToString();
+            lblFundReturn1styear.Text = onlineMFSchemeDetailsVo.SchemeReturn3Year.ToString();
+            lblFundReturn3rdyear.Text = onlineMFSchemeDetailsVo.SchemeReturn5Year.ToString();
+            lblFundReturn5thyear.Text = onlineMFSchemeDetailsVo.SchemeReturn10Year.ToString();
             lblBenchmarkReturn.Text = onlineMFSchemeDetailsVo.benchmarkReturn1stYear;
             lblBenchMarkReturn3rd.Text = onlineMFSchemeDetailsVo.benchmark3rhYear;
             lblBenchMarkReturn5th.Text = onlineMFSchemeDetailsVo.benchmark5thdYear;
@@ -234,6 +234,16 @@ namespace WealthERP.OnlineOrderManagement
             lblExitLoad.Text = onlineMFSchemeDetailsVo.exitLoad.ToString();
             lblMinInvestment.Text = onlineMFSchemeDetailsVo.minmumInvestmentAmount.ToString();
             lblMinMultipleOf.Text = onlineMFSchemeDetailsVo.multipleOf.ToString();
+            imgRating3yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.SchemeRating3Year + ".png";
+            imgRating5yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.SchemeRating5Year + ".png";
+            imgRating10yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.SchemeRating10Year + ".png";
+            imgRatingOvelAll.ImageUrl = @"../Images/MorningStarRating/RatingOverall/" + onlineMFSchemeDetailsVo.overAllRating + ".png";
+            lblSchemeRetrun3yr.Text=onlineMFSchemeDetailsVo.SchemeReturn3Year.ToString();
+            lblSchemeRisk3yr.Text = onlineMFSchemeDetailsVo.SchemeReturn5Year.ToString();
+            lblSchemeRetrun5yr.Text = onlineMFSchemeDetailsVo.SchemeReturn10Year.ToString();
+            lblSchemeRisk5yr.Text=onlineMFSchemeDetailsVo.SchemeRisk3Year;
+            lblSchemeRetrun10yr.Text=onlineMFSchemeDetailsVo.SchemeRisk5Year;
+            lblSchemeRisk10yr.Text = onlineMFSchemeDetailsVo.SchemeRisk10Year;
             if (onlineMFSchemeDetailsVo.mornigStar > 0)
             {
                 imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.mornigStar + ".png";

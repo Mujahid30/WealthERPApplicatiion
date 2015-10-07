@@ -6,6 +6,17 @@
 <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
+<table class="tblMessage" cellpadding="0" cellspacing="0">
+    <tr>
+        <td>
+            <div class="divOnlinePageHeading" style="height: 25px;">
+                <div class="divClientAccountBalance" id="divClientAccountBalance" runat="server">
+                   
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
 <table width="100%">
     <tr>
         <td>

@@ -22,7 +22,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void BindNewsHeading()
         {
-            string SectoreDetais = ConfigurationSettings.AppSettings["NEWS_HEADING"] + 30;
+            string SectoreDetais = ConfigurationSettings.AppSettings["NEWS_HEADING"] + ConfigurationSettings.AppSettings["NEWS_DETAICOUNTS"];
             WebResponse response;
             string result;
             WebRequest request = HttpWebRequest.Create(SectoreDetais);

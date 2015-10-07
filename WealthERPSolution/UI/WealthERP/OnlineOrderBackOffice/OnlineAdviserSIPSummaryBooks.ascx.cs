@@ -223,27 +223,37 @@ namespace WealthERP.OnlineOrderBackOffice
             DataTable dtOrderDetails = dsSIPOrderDetails.Tables[1];
             DataView dvSIPOrderDetails;
             DataRow drSIPOrderBook;
-
+            DataTable dtAAAcceptedCount = dsSIPOrderDetails.Tables[2];
+            DataView dvAAAcceptedCount;
             foreach (DataRow drSIP in dtSIPDetails.Rows)
             {
+
                 drSIPOrderBook = dtFinalSIPOrderBook.NewRow();
 
-                int sipDueCount = 0, inProcessCount = 0, executedcount = 0, acceptCount = 0, systemRejectCount = 0, rejectedCount = 0;
+                int sipDueCount = 0, inProcessCount = 0, acceptCount = 0, systemRejectCount = 0, rejectedCount = 0, executedCount = 0, otherCount = 0;
+                //if (drSIP["CMFSS_SystematicSetupId"].ToString() == "8593")
+                //{
+
+                //}
 
                 dvSIPOrderDetails = new DataView(dtOrderDetails, "CMFSS_SystematicSetupId=" + drSIP["CMFSS_SystematicSetupId"].ToString(), "CMFSS_SystematicSetupId", DataViewRowState.CurrentRows);
-
-                if (int.Parse(drSIP["CMFSS_IsSourceAA"].ToString()) == 1)
+                if (drSIP["CMFSS_IsCanceled"].ToString() != "Cancelled" && Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString()) >= Convert.ToInt16(drSIP["CMFSS_CurrentInstallmentNumber"].ToString())
+                    && Convert.ToDateTime(drSIP["CMFSS_EndDate"].ToString()) >= DateTime.Now)
                 {
                     sipDueCount = (Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString())
-                          - ((Convert.ToInt16(drSIP["CMFSS_CurrentInstallmentNumber"].ToString())) - 1)) - dvSIPOrderDetails.ToTable().Rows.Count;
-
+                          - ((Convert.ToInt16(drSIP["CMFSS_CurrentInstallmentNumber"].ToString())) - 1));
+                    //- dvSIPOrderDetails.ToTable().Rows.Count
                 }
                 else
                 {
-                    sipDueCount = (Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString()) - dvSIPOrderDetails.ToTable().Rows.Count);
+                    sipDueCount = 0;
                 }
-
-
+                //else
+                //{
+                //    sipDueCount = (Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString()) - dvSIPOrderDetails.ToTable().Rows.Count);
+                //}
+                //int.Parse(drSIP["CMFSS_InstallmentAccepted"].ToString())
+                dvAAAcceptedCount = new DataView(dtAAAcceptedCount, "CMFSS_SystematicSetupId=" + drSIP["CMFSS_SystematicSetupId"].ToString(), "CMFSS_SystematicSetupId", DataViewRowState.CurrentRows);
                 foreach (DataRow drOrder in dvSIPOrderDetails.ToTable().Rows)
                 {
                     switch (drOrder["WOS_OrderStepCode"].ToString().TrimEnd())
@@ -252,7 +262,7 @@ namespace WealthERP.OnlineOrderBackOffice
                             inProcessCount = inProcessCount + 1;
                             break;
                         case "IP":
-                            executedcount = executedcount + 1;
+                            executedCount = executedCount + 1;
                             break;
                         case "RJ":
                             rejectedCount = rejectedCount + 1;
@@ -267,8 +277,6 @@ namespace WealthERP.OnlineOrderBackOffice
                             break;
                     }
                 }
-
-
                 drSIPOrderBook["CMFSS_CreatedOn"] = DateTime.Parse(drSIP["CMFSS_CreatedOn"].ToString());
                 drSIPOrderBook["CMFSS_ModifiedOn"] = DateTime.Parse(drSIP["CMFSS_ModifiedOn"].ToString());
                 drSIPOrderBook["CMFSS_CreatedBy"] = drSIP["CMFSS_CreatedBy"];
@@ -326,7 +334,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 drSIPOrderBook["CMFA_AccountId"] = drSIP["CMFA_AccountId"];
                 drSIPOrderBook["SystemRejectCount"] = systemRejectCount;
                 drSIPOrderBook["RejectedCount"] = rejectedCount;
-                drSIPOrderBook["ExecutedCount"] = executedcount;
+                drSIPOrderBook["ExecutedCount"] = executedCount;
                 drSIPOrderBook["CMFSS_IsSourceAA"] = drSIP["CMFSS_IsSourceAA"];
                 drSIPOrderBook["C_CustomerId"] = drSIP["C_CustomerId"];
                 drSIPOrderBook["U_UMId"] = drSIP["U_UMId"];

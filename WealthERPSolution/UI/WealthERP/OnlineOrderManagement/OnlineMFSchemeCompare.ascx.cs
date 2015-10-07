@@ -248,17 +248,16 @@ namespace WealthERP.OnlineOrderManagement
                     ddlSchemeList1.Visible = false;
                     lnkDelete1.Visible = true;
                     ImgStyle1.Visible = true;
-                   
+                    lblRating1.Visible = true;
                     lblSchemeName.Text = onlineMFSchemeDetailsVo.schemeName;
-                    lblAMC.Text = onlineMFSchemeDetailsVo.amcName;
                     lblNAV.Text = onlineMFSchemeDetailsVo.NAV.ToString();
                     lblNAVDate.Text = onlineMFSchemeDetailsVo.navDate.ToString();
                     lblCategory.Text = onlineMFSchemeDetailsVo.category;
                     lblBanchMark.Text = onlineMFSchemeDetailsVo.schemeBanchMark;
                     lblFundManager.Text = onlineMFSchemeDetailsVo.fundManager;
-                    lblFundReturn1styear.Text = onlineMFSchemeDetailsVo.fundReturn3rdYear.ToString();
-                    lblFundReturn3rdyear.Text = onlineMFSchemeDetailsVo.fundReturn5thtYear.ToString();
-                    lblFundReturn5thyear.Text = onlineMFSchemeDetailsVo.fundReturn10thYear.ToString();
+                    lblFundReturn1styear.Text = onlineMFSchemeDetailsVo.SchemeReturn3Year.ToString();
+                    lblFundReturn3rdyear.Text = onlineMFSchemeDetailsVo.SchemeReturn5Year.ToString();
+                    lblFundReturn5thyear.Text = onlineMFSchemeDetailsVo.SchemeReturn10Year.ToString();
                     lblBenchmarkReturn.Text = onlineMFSchemeDetailsVo.benchmarkReturn1stYear;
                     lblBenchMarkReturn3rd.Text = onlineMFSchemeDetailsVo.benchmark3rhYear;
                     lblBenchMarkReturn5th.Text = onlineMFSchemeDetailsVo.benchmark5thdYear;
@@ -289,16 +288,17 @@ namespace WealthERP.OnlineOrderManagement
                     ddlSchemeList2.Visible = false;
                     lnkDelete2.Visible = true;
                     ImgStyle2.Visible = true;
+                    lblRating1.Visible = true;
+
                     lblSchemeName1.Text = onlineMFSchemeDetailsVo.schemeName;
-                    lblAMC1.Text = onlineMFSchemeDetailsVo.amcName;
                     lblNAV1.Text = onlineMFSchemeDetailsVo.NAV.ToString();
                     lblNAVDate1.Text = onlineMFSchemeDetailsVo.navDate.ToString();
                     lblCategory1.Text = onlineMFSchemeDetailsVo.category;
                     lblBanchMark1.Text = onlineMFSchemeDetailsVo.schemeBanchMark;
                     lblFundManager1.Text = onlineMFSchemeDetailsVo.fundManager;
-                    lblFundReturn1styear1.Text = onlineMFSchemeDetailsVo.fundReturn3rdYear.ToString();
-                    lblFundReturn3rdyear1.Text = onlineMFSchemeDetailsVo.fundReturn5thtYear.ToString();
-                    lblFundReturn5thyear1.Text = onlineMFSchemeDetailsVo.fundReturn10thYear.ToString();
+                    lblFundReturn1styear1.Text = onlineMFSchemeDetailsVo.SchemeReturn3Year.ToString();
+                    lblFundReturn3rdyear1.Text = onlineMFSchemeDetailsVo.SchemeReturn5Year.ToString();
+                    lblFundReturn5thyear1.Text = onlineMFSchemeDetailsVo.SchemeReturn10Year.ToString();
                     lblBenchmarkReturn1.Text = onlineMFSchemeDetailsVo.benchmarkReturn1stYear;
                     lblBenchMarkReturn3rd1.Text = onlineMFSchemeDetailsVo.benchmark3rhYear;
                     lblBenchMarkReturn5th1.Text = onlineMFSchemeDetailsVo.benchmark5thdYear;
@@ -330,16 +330,17 @@ namespace WealthERP.OnlineOrderManagement
                     ddlSchemeList3.Visible = false;
                     lnkDelete3.Visible = true;
                     ImgStyle3.Visible = true;
+                    lblRating1.Visible = true;
+
                     lblSchemeName2.Text = onlineMFSchemeDetailsVo.schemeName;
-                    lblAMC2.Text = onlineMFSchemeDetailsVo.amcName;
                     lblNAV2.Text = onlineMFSchemeDetailsVo.NAV.ToString();
                     lblNAVDate2.Text = onlineMFSchemeDetailsVo.navDate.ToString();
                     lblCategory2.Text = onlineMFSchemeDetailsVo.category;
                     lblBanchMark2.Text = onlineMFSchemeDetailsVo.schemeBanchMark;
                     lblFundManager2.Text = onlineMFSchemeDetailsVo.fundManager;
-                    lblFundReturn1styear2.Text = onlineMFSchemeDetailsVo.fundReturn3rdYear.ToString();
-                    lblFundReturn3rdyear2.Text = onlineMFSchemeDetailsVo.fundReturn5thtYear.ToString();
-                    lblFundReturn5thyear2.Text = onlineMFSchemeDetailsVo.fundReturn10thYear.ToString();
+                    lblFundReturn1styear2.Text = onlineMFSchemeDetailsVo.SchemeReturn3Year.ToString();
+                    lblFundReturn3rdyear2.Text = onlineMFSchemeDetailsVo.SchemeReturn5Year.ToString();
+                    lblFundReturn5thyear2.Text = onlineMFSchemeDetailsVo.SchemeReturn10Year.ToString();
                     lblBenchmarkReturn2.Text = onlineMFSchemeDetailsVo.benchmarkReturn1stYear;
                     lblBenchMarkReturn3rd2.Text = onlineMFSchemeDetailsVo.benchmark3rhYear;
                     lblBenchMarkReturn5th2.Text = onlineMFSchemeDetailsVo.benchmark5thdYear;
@@ -371,16 +372,17 @@ namespace WealthERP.OnlineOrderManagement
                     ddlSchemeList4.Visible = false;
                     lnkDelete4.Visible = true;
                     ImgStyle4.Visible = true;
+                    lblRating1.Visible = true;
+
                     lblSchemeName3.Text = onlineMFSchemeDetailsVo.schemeName;
-                    lblAMC3.Text = onlineMFSchemeDetailsVo.amcName;
                     lblNAV3.Text = onlineMFSchemeDetailsVo.NAV.ToString();
                     lblNAVDate3.Text = onlineMFSchemeDetailsVo.navDate.ToString();
                     lblCategory3.Text = onlineMFSchemeDetailsVo.category;
                     lblBanchMark3.Text = onlineMFSchemeDetailsVo.schemeBanchMark;
                     lblFundManager3.Text = onlineMFSchemeDetailsVo.fundManager;
-                    lblFundReturn1styear3.Text = onlineMFSchemeDetailsVo.fundReturn3rdYear.ToString();
-                    lblFundReturn3rdyear3.Text = onlineMFSchemeDetailsVo.fundReturn5thtYear.ToString();
-                    lblFundReturn5thyear3.Text = onlineMFSchemeDetailsVo.fundReturn10thYear.ToString();
+                    lblFundReturn1styear3.Text = onlineMFSchemeDetailsVo.SchemeReturn3Year.ToString();
+                    lblFundReturn3rdyear3.Text = onlineMFSchemeDetailsVo.SchemeReturn5Year.ToString();
+                    lblFundReturn5thyear3.Text = onlineMFSchemeDetailsVo.SchemeReturn10Year.ToString();
                     lblBenchmarkReturn3.Text = onlineMFSchemeDetailsVo.benchmarkReturn1stYear;
                     lblBenchMarkReturn3rd3.Text = onlineMFSchemeDetailsVo.benchmark3rhYear;
                     lblBenchMarkReturn5th3.Text = onlineMFSchemeDetailsVo.benchmark5thdYear;
@@ -466,7 +468,6 @@ namespace WealthERP.OnlineOrderManagement
                 case 1:
                     imgSchemeRating.ImageUrl = "";
                     lblSchemeName.Text = "";
-                    lblAMC.Text = "";
                     lblNAV.Text = "";
                     lblNAVDate.Text = "";
                     lblCategory.Text = "";
@@ -486,11 +487,12 @@ namespace WealthERP.OnlineOrderManagement
                     imgSchemeRating.ImageUrl = "";
                     ddlCategory1.SelectedValue = "0";
                     ddlSchemeList1.SelectedValue = "0";
+                    lblRating1.Visible = false;
+
                     break;
                 case 2:
                     imgSchemeRating1.ImageUrl = "";
                     lblSchemeName1.Text = "";
-                    lblAMC1.Text = "";
                     lblNAV1.Text = "";
                     lblNAVDate1.Text = "";
                     lblCategory1.Text = "";
@@ -510,11 +512,11 @@ namespace WealthERP.OnlineOrderManagement
                     imgSchemeRating1.ImageUrl = "";
                     ddlCategory2.SelectedValue = "0";
                     ddlSchemeList2.SelectedValue = "0";
+
                     break;
                 case 3:
                     imgSchemeRating2.ImageUrl = "";
                     lblSchemeName2.Text = "";
-                    lblAMC2.Text = "";
                     lblNAV2.Text = "";
                     lblNAVDate2.Text = "";
                     lblCategory2.Text = "";
@@ -534,11 +536,11 @@ namespace WealthERP.OnlineOrderManagement
                     imgSchemeRating2.ImageUrl = "";
                     ddlCategory3.SelectedValue = "0";
                     ddlSchemeList3.SelectedValue = "0";
+
                     break;
                 case 4:
                     imgSchemeRating3.ImageUrl = "";
                     lblSchemeName3.Text = "";
-                    lblAMC3.Text = "";
                     lblNAV3.Text = "";
                     lblNAVDate3.Text = "";
                     lblCategory3.Text = "";

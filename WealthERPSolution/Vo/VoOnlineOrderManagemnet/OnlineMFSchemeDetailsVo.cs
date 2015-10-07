@@ -41,7 +41,7 @@ namespace VoOnlineOrderManagemnet
             public int isSIPAvaliable { get; set; }
             public int isRedeemAvaliable { get; set; }
             public int isPurchaseAvaliable { get; set; }
-
+            public int overAllRating { get; set; }
        
     }
 }

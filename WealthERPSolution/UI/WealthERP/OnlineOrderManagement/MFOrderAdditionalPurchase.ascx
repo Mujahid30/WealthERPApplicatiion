@@ -4,13 +4,11 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 
-
 <script src="../Scripts/jquery.js" type="text/javascript"></script>
 
 <script src="../Scripts/JScript.js" type="text/javascript"></script>
 
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
-
 
 <asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
@@ -54,7 +52,7 @@
 </script>
 
 <script type="text/jscript">
-  
+
 
     Sys.WebForms.PageRequestManager.getInstance().add_endRequest(PopupEndRequestHandler);
     
@@ -82,6 +80,21 @@
                             <asp:Label ID="Label1" runat="server" Text="Available Limits:" CssClass="BalanceLabel"> </asp:Label>
                             <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="BalanceAmount"></asp:Label>
                         </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table width="100%">
+            <tr>
+                <td>
+                    <div class="divPageHeading">
+                        <table width="100%">
+                            <tr>
+                                <td align="left">
+                                    Additional Purchase
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </td>
             </tr>
@@ -116,7 +129,7 @@
                         </asp:RequiredFieldValidator>
                     </td>
                     <td colspan="2">
-                    <asp:ImageButton ID="imgInformation" runat="server" ImageUrl="../Images/help.png"
+                        <asp:ImageButton ID="imgInformation" runat="server" ImageUrl="../Images/help.png"
                             OnClick="imgInformation_OnClick" ToolTip="Help" Style="cursor: hand;" />
                     </td>
                 </tr>
@@ -487,27 +500,26 @@
         </telerik:RadWindow>
         </telerik:RadWindowManager>
         <telerik:RadWindow ID="RadInformation" Modal="true" Behaviors="Close, Move" VisibleStatusbar="false"
-            Width="760px" Height="580px" runat="server" Left="300" Top="50" OnClientShow="setCustomPosition" >
+            Width="760px" Height="580px" runat="server" Left="300" Top="50" OnClientShow="setCustomPosition">
             <ContentTemplate>
-                <div style="padding: 0px; width: 100%; height:100%;">
+                <div style="padding: 0px; width: 100%; height: 100%;">
                     <%--<table width="100%" cellpadding="0" cellpadding="0" Height="100%">
                         <tr>
                             <td align="left">--%>
-                                <%--  <a href="../ReferenceFiles/MF-Terms-Condition.html">../ReferenceFiles/MF-Terms-Condition.html</a>--%>
-                                <iframe src="../ReferenceFiles/HelpAdditional Purchase.htm" name="iframeTermsCondition"
-                                style="width: 100%; height:100%"></iframe>
-                                            
-                           <%-- </td>
+                    <%--  <a href="../ReferenceFiles/MF-Terms-Condition.html">../ReferenceFiles/MF-Terms-Condition.html</a>--%>
+                    <iframe src="../ReferenceFiles/HelpAdditional Purchase.htm" name="iframeTermsCondition"
+                        style="width: 100%; height: 100%"></iframe>
+                    <%-- </td>
                         </tr>
                     </table>--%>
                 </div>
             </ContentTemplate>
         </telerik:RadWindow>
-        
         <telerik:RadWindowManager runat="server" ID="RadWindowManager1">
             <Windows>
                 <telerik:RadWindow ID="rw_customConfirm" Modal="true" Behaviors="Close, Move" VisibleStatusbar="false"
-                    Width="700px" Height="160px" runat="server" Title="EUIN Confirm" Left="15%" Top="100" OnClientShow="setCustomPosition">
+                    Width="700px" Height="160px" runat="server" Title="EUIN Confirm" Left="15%" Top="100"
+                    OnClientShow="setCustomPosition">
                     <ContentTemplate>
                         <div class="rwDialogPopup radconfirm">
                             <div class="rwDialogText">
@@ -528,10 +540,11 @@
     <Triggers>
     </Triggers>
 </asp:UpdatePanel>
- <Banner:footer ID="MyHeader" assetCategory="MF" runat="server" />
- 
- <script type="text/javascript">
+<Banner:footer ID="MyHeader" assetCategory="MF" runat="server" />
+
+<script type="text/javascript">
     function setCustomPosition(sender, args) {
         sender.moveTo(sender.get_left(), sender.get_top());
     }
 </script>
+

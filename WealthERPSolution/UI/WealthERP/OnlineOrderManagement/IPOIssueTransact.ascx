@@ -109,6 +109,22 @@
                 </td>
             </tr>
         </table>
+        <table width="100%">
+    <tr>
+        <td>
+            <div class="divPageHeading">
+                <table width="100%">
+                    <tr>
+                        <td align="left">
+                            IPO/FPO Issue Transact
+                        </td>
+                        
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
         <table class="tblMessage" cellpadding="0" cellspacing="0">
             <tr>
                 <td align="center">

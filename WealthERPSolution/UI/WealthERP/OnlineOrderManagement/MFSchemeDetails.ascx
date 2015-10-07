@@ -188,10 +188,19 @@
                 <div class="col-md-5">
                <asp:Label ID="lblSchemeName" runat="server" style="font-size:x-large;font-family:Times New Roman;font-weight:bold;"></asp:Label>
                 </div>
-                  <div class="col-md-3">
-                    <b style="font-family:Times New Roman;">NAV:</b> &nbsp;<asp:Label ID="lblNAV" runat="server" >
-                    </asp:Label>&nbsp;<asp:Image runat="server" ID="ImagNAV" /><asp:Label ID="lblNAVDiff" runat="server"></asp:Label>
+                  <div class="col-md-2" style="width:11%;">
+                  <div>
+                    <b style="font-family:Times New Roman;text-align:center;">NAV</b> 
+                    </div>
+                    <div><asp:Label ID="lblNAV" runat="server" ></asp:Label>
                     <br /><asp:Label ID="lblAsonDate" runat="server"></asp:Label>
+                    </div>
+                    </div>
+                    <div class="col-md-2" style="margin-left:0%;">
+                    <div><b style="font-family:Times New Roman;text-align:center;">NAV Day Change</b> </div>
+                    <div>
+                    <asp:Image runat="server" ID="ImagNAV" /><asp:Label ID="lblNAVDiff" runat="server"></asp:Label>
+                     </div>
                 </div>
                 <div class="col-md-2">
                     <b style="font-family:Times New Roman;"> Rating </b> <asp:Image runat="server" ID="imgSchemeRating" />
@@ -279,14 +288,7 @@
                                         <asp:Label ID="lblAMC" runat="server"></asp:Label>
                                     </td>
                                 </tr>
-                                <tr class="searchable-spec cell top sub-name small bordered">
-                                    <th>
-                                        <b>Category</b>
-                                    </th>
-                                    <td>
-                                        <asp:Label ID="lblCategory" runat="server"></asp:Label>
-                                    </td>
-                                </tr>
+                                
                                 <tr class="searchable-spec cell top sub-name small bordered">
                                     <th>
                                         <b>Fund Manager</b>
@@ -295,17 +297,10 @@
                                         <asp:Label ID="lblFundManager" runat="server"></asp:Label>
                                     </td>
                                 </tr>
+                               
                                 <tr class="searchable-spec cell top sub-name small bordered">
                                     <th>
-                                        <b>Scheme Benchmark</b>
-                                    </th>
-                                    <td>
-                                        <asp:Label ID="lblBanchMark" runat="server"></asp:Label>
-                                    </td>
-                                </tr>
-                                <tr class="searchable-spec cell top sub-name small bordered">
-                                    <th>
-                                        <b>Funds Returns 1st Year</b>
+                                        <b>Return 1st yr (%)</b>
                                     </th>
                                     <td>
                                         <asp:Label ID="lblFundReturn1styear" runat="server"></asp:Label>
@@ -313,7 +308,7 @@
                                 </tr>
                                 <tr class="searchable-spec cell top sub-name small bordered">
                                     <th>
-                                        <b>Funds Returns 3rd Year</b>
+                                        <b>Return 3rd yr (%)</b>
                                     </th>
                                     <td>
                                         <asp:Label ID="lblFundReturn3rdyear" runat="server"></asp:Label>
@@ -321,10 +316,26 @@
                                 </tr>
                                 <tr class="searchable-spec cell top sub-name small bordered">
                                     <th>
-                                        <b>Fund Return 5th Year</b>
+                                        <b>Return 5th yr (%)</b>
                                     </th>
                                     <td>
                                         <asp:Label ID="lblFundReturn5thyear" runat="server"></asp:Label>
+                                    </td>
+                                </tr>
+                                 <tr class="searchable-spec cell top sub-name small bordered">
+                                    <th>
+                                        <b>Min Investment Amount</b>
+                                    </th>
+                                    <td>
+                                        <asp:Label ID="lblMinInvestment" runat="server"></asp:Label>
+                                    </td>
+                                </tr>
+                                  <tr class="searchable-spec cell top sub-name small bordered">
+                                    <th>
+                                        <b>Multiple of</b>
+                                    </th>
+                                    <td>
+                                        <asp:Label ID="lblMinMultipleOf" runat="server"></asp:Label>
                                     </td>
                                 </tr>
                                  <tr class="searchable-spec cell top sub-name small bordered">
@@ -343,7 +354,23 @@
                             <tbody class="alignment">
                             <tr class="searchable-spec cell top sub-name small bordered">
                                     <th>
-                                        <b>Benchmark Return 1st year</b>
+                                        <b>Category</b>
+                                    </th>
+                                    <td>
+                                        <asp:Label ID="lblCategory" runat="server"></asp:Label>
+                                    </td>
+                                </tr>
+                                 <tr class="searchable-spec cell top sub-name small bordered">
+                                    <th>
+                                        <b>Scheme Benchmark</b>
+                                    </th>
+                                    <td>
+                                        <asp:Label ID="lblBanchMark" runat="server"></asp:Label>
+                                    </td>
+                                </tr>
+                            <tr class="searchable-spec cell top sub-name small bordered">
+                                    <th>
+                                        <b>Benchmark Return 1st yr (%)</b>
                                     </th>
                                     <td>
                                         <asp:Label ID="lblBenchmarkReturn" runat="server"></asp:Label>
@@ -351,7 +378,7 @@
                                 </tr>
                                 <tr class="searchable-spec cell top sub-name small bordered">
                                     <th>
-                                        <b>Benchmark Return 3rd year</b>
+                                        <b>Benchmark Return 3rd yr (%)</b>
                                     </th>
                                     <td>
                                         <asp:Label ID="lblBenchMarkReturn3rd" runat="server"></asp:Label>
@@ -359,30 +386,14 @@
                                 </tr>
                                 <tr class="searchable-spec cell top sub-name small bordered">
                                     <th>
-                                        <b>Benchmark Return 5th year</b>
+                                        <b>Benchmark Return 5th yr (%)</b>
                                     </th>
                                     <td>
                                         <asp:Label ID="lblBenchMarkReturn5th" runat="server"></asp:Label>
                                     </td>
                                 </tr>
                               
-                                <tr class="searchable-spec cell top sub-name small bordered">
-                                    <th>
-                                        <b>Min Investment Amount</b>
-                                    </th>
-                                    <td>
-                                        <asp:Label ID="lblMinInvestment" runat="server"></asp:Label>
-                                    </td>
-                                </tr>
-                                <tr class="searchable-spec cell top sub-name small bordered">
-                                    <th>
-                                        <b>Multiple of</b>
-                                    </th>
-                                    <td>
-                                        <asp:Label ID="lblMinMultipleOf" runat="server"></asp:Label>
-                                    </td>
-                                </tr>
-                                <tr class="searchable-spec cell top sub-name small bordered">
+                                 <tr class="searchable-spec cell top sub-name small bordered">
                                     <th>
                                         <b>Min SIP Amount</b>
                                     </th>
@@ -398,6 +409,9 @@
                                         <asp:Label ID="lblSIPMultipleOf" runat="server"></asp:Label>
                                     </td>
                                 </tr>
+                               
+                              
+                               
                                
                             </tbody>
                         </table>
@@ -421,6 +435,92 @@
                 </td>
             </tr>
         </table>
+         <div style="margin-top: 2px; margin-bottom: 0%; width: 80%; padding-top: 1%; padding-bottom: 0%; margin-left: auto; margin-right: auto;" >
+            <div style="width: 80%; min-width: 320px;float:left;">
+                <table class="table table-bordered" style="margin-bottom: 0px">
+                    <thead>
+                        <tr>
+                            <th class="header">
+                                <div data-toggle="collapse" data-target="#divSchemeRatingDetails" style="color: White;float:left;cursor:pointer;" id="Div4"
+                                    onclick="togglediv('Div4')">+</div>
+                               <%--   Dont put any space before + sign--%>
+                                            
+                              <div style="color: White;float:left;text-align:center;"> <font color="#fff" >&nbsp;&nbsp;Scheme Rating Details</font></div>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+        <div id="divSchemeRatingDetails" class="collapse" >
+                                        
+                                        <table class="table table-bordered">
+                                          <tbody>
+                                            <tr>
+                                                <td>
+                                                     <asp:Label ID="lblRatingAsOnPopUp" runat="server" CssClass="readOnlyField" ></asp:Label>
+                                                </td>
+                                                <td>
+                                                    <span class="readOnlyField">RATING</span>
+                                                </td>
+                                                <td>
+                                                    <span class="readOnlyField">RETURN</span>
+                                                </td>
+                                                <td>
+                                                    <span class="readOnlyField">RISK</span>
+                                                </td>
+                                                <td>
+                                                    <span class="readOnlyField">RATING OVERALL</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="readOnlyField">3 YEAR</span>
+                                                </td>
+                                                <td>
+                                                    <asp:Image runat="server" ID="imgRating3yr" />
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblSchemeRetrun3yr" runat="server" CssClass="readOnlyField" > </asp:Label>
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblSchemeRisk3yr" runat="server" CssClass="readOnlyField" > </asp:Label>
+                                                </td>
+                                                <td rowspan="3">
+                                                    <asp:Image runat="server" ID="imgRatingOvelAll" ImageAlign="Middle" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="readOnlyField">5 YEAR</span>
+                                                </td>
+                                                <td>
+                                                    <asp:Image runat="server" ID="imgRating5yr" />
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblSchemeRetrun5yr" runat="server" CssClass="readOnlyField" ></asp:Label>
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblSchemeRisk5yr" runat="server" CssClass="readOnlyField" ></asp:Label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="readOnlyField">10 YEAR</span>
+                                                </td>
+                                                <td>
+                                                    <asp:Image runat="server" ID="imgRating10yr" />
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblSchemeRetrun10yr" runat="server" CssClass="readOnlyField" ></asp:Label>
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblSchemeRisk10yr" runat="server" CssClass="readOnlyField" ></asp:Label>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    </div>
+                                    </div>
         <div style="margin-top: 2px; margin-bottom: 0%; width: 80%; padding-top: 1%; padding-bottom: 0%; margin-left: auto; margin-right: auto;" >
             <div style="width: 80%; min-width: 320px;float:left;">
                 <table class="table table-bordered" style="margin-bottom: 0px">
@@ -498,10 +598,10 @@
                                     text-align: center">
                                     
                                     <th data-title="Fund Name" class="alignCenter">
-                                        Fund Name
+                                       Holding
                                     </th>
                                     <th data-title="Holding(%)" class="alignCenter">
-                                        Holding(%)
+                                        Weight (%)
                                     </th>
                                 </tr>
                             </thead>
@@ -555,14 +655,14 @@
                             <td>
                     <asp:HyperLink ID="HyperLink1" runat="server" 
             NavigateUrl="http://www.amfiindia.com/intermediary/other-data/scheme-details" 
-            Target="_blank">Scheme Information Document </asp:HyperLink>
+            Target="_blank">Scheme Information Document-SID </asp:HyperLink>
                             </td>
                         </tr>
                          <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
                     <asp:HyperLink ID="HyperLink2" runat="server" 
             NavigateUrl="http://www.amfiindia.com/research-information/other-data/sai" 
-            Target="_blank">Statement of Additional Information</asp:HyperLink>
+            Target="_blank">Statement of Additional Information-SAI</asp:HyperLink>
                             </td>
                         </tr>
                     </tbody>

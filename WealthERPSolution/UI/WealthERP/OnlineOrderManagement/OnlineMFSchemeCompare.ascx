@@ -69,6 +69,7 @@
                     <tbody>
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td style="width: auto;">
+                           <b> <asp:Label ID="lblRating1" runat="server" Text="Rating" Visible="false"></asp:Label></b> 
                             </td>
                             <td id="tdddlAMC1" runat="server">
                                 <asp:LinkButton ID="lnkDelete1" runat="server" OnClick="lnkDelete1_OnClick" Visible="false"
@@ -206,23 +207,7 @@
                                 <asp:Label ID="lblSchemeName3" runat="server"></asp:Label>
                             </td>
                         </tr>
-                        <tr class="searchable-spec cell top sub-name small bordered">
-                            <td>
-                                <b>AMC</b>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblAMC" runat="server"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblAMC1" runat="server"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblAMC2" runat="server"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblAMC3" runat="server"></asp:Label>
-                            </td>
-                        </tr>
+                       
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
                                 <b>Category</b>
@@ -240,140 +225,21 @@
                                 <asp:Label ID="lblCategory3" runat="server"></asp:Label>
                             </td>
                         </tr>
-                        <tr class="searchable-spec cell top sub-name small bordered">
+                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>Fund Manager</b>
+                                <b>NAV</b>
                             </td>
                             <td>
-                                <asp:Label ID="lblFundManager" runat="server"></asp:Label>
+                                <asp:Label ID="lblNAV" runat="server"></asp:Label>
                             </td>
                             <td>
-                                <asp:Label ID="lblFundManager1" runat="server"></asp:Label>
+                                <asp:Label ID="lblNAV1" runat="server"></asp:Label>
                             </td>
                             <td>
-                                <asp:Label ID="lblFundManager2" runat="server"></asp:Label>
+                                <asp:Label ID="lblNAV2" runat="server"></asp:Label>
                             </td>
                             <td>
-                                <asp:Label ID="lblFundManager3" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr class="searchable-spec cell top sub-name small bordered">
-                            <td>
-                                <b>Benchmark</b>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblBanchMark" runat="server"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblBanchMark1" runat="server"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblBanchMark2" runat="server"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblBanchMark3" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr class="searchable-spec cell top sub-name small bordered">
-                            <td>
-                                <b>Returns 1st Yr</b>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblFundReturn1styear" runat="server"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblFundReturn1styear1" runat="server"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblFundReturn1styear2" runat="server"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblFundReturn1styear3" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr class="searchable-spec cell top sub-name small bordered">
-                            <td>
-                                <b>Returns 3rd Yr</b>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblFundReturn3rdyear" runat="server"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblFundReturn3rdyear1" runat="server"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblFundReturn3rdyear2" runat="server"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblFundReturn3rdyear3" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr class="searchable-spec cell top sub-name small bordered">
-                            <td>
-                                <b>Return 5th Yr</b>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblFundReturn5thyear" runat="server"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblFundReturn5thyear1" runat="server"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblFundReturn5thyear2" runat="server"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblFundReturn5thyear3" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr class="searchable-spec cell top sub-name small bordered">
-                            <td>
-                                <b>Benchmark Return 1st yr</b>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblBenchmarkReturn" runat="server"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblBenchmarkReturn1" runat="server"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblBenchmarkReturn2" runat="server"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblBenchmarkReturn3" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr class="searchable-spec cell top sub-name small bordered">
-                            <td>
-                                <b>Benchmark Return 3rd yr</b>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblBenchMarkReturn3rd" runat="server"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblBenchMarkReturn3rd1" runat="server"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblBenchMarkReturn3rd2" runat="server"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblBenchMarkReturn3rd3" runat="server"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr class="searchable-spec cell top sub-name small bordered">
-                            <td>
-                                <b>Benchmark Return 5th yr</b>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblBenchMarkReturn5th" runat="server"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblBenchMarkReturn5th1" runat="server"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblBenchMarkReturn5th2" runat="server"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblBenchMarkReturn5th3" runat="server"></asp:Label>
+                                <asp:Label ID="lblNAV3" runat="server"></asp:Label>
                             </td>
                         </tr>
                         <tr class="searchable-spec cell top sub-name small bordered">
@@ -393,23 +259,145 @@
                                 <asp:Label ID="lblNAVDate3" runat="server"></asp:Label>
                             </td>
                         </tr>
+                       
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>NAV</b>
+                                <b>Fund Manager</b>
                             </td>
                             <td>
-                                <asp:Label ID="lblNAV" runat="server"></asp:Label>
+                                <asp:Label ID="lblFundManager" runat="server"></asp:Label>
                             </td>
                             <td>
-                                <asp:Label ID="lblNAV1" runat="server"></asp:Label>
+                                <asp:Label ID="lblFundManager1" runat="server"></asp:Label>
                             </td>
                             <td>
-                                <asp:Label ID="lblNAV2" runat="server"></asp:Label>
+                                <asp:Label ID="lblFundManager2" runat="server"></asp:Label>
                             </td>
                             <td>
-                                <asp:Label ID="lblNAV3" runat="server"></asp:Label>
+                                <asp:Label ID="lblFundManager3" runat="server"></asp:Label>
                             </td>
                         </tr>
+                       
+                        <tr class="searchable-spec cell top sub-name small bordered">
+                            <td>
+                                <b>Return 1st yr (%)</b>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblFundReturn1styear" runat="server"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblFundReturn1styear1" runat="server"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblFundReturn1styear2" runat="server"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblFundReturn1styear3" runat="server"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr class="searchable-spec cell top sub-name small bordered">
+                            <td>
+                                <b>Return 3rd yr (%)</b>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblFundReturn3rdyear" runat="server"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblFundReturn3rdyear1" runat="server"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblFundReturn3rdyear2" runat="server"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblFundReturn3rdyear3" runat="server"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr class="searchable-spec cell top sub-name small bordered">
+                            <td>
+                                <b>Return 5th yr (%)</b>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblFundReturn5thyear" runat="server"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblFundReturn5thyear1" runat="server"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblFundReturn5thyear2" runat="server"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblFundReturn5thyear3" runat="server"></asp:Label>
+                            </td>
+                        </tr>
+                         <tr class="searchable-spec cell top sub-name small bordered">
+                            <td>
+                                <b>Benchmark</b>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblBanchMark" runat="server"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblBanchMark1" runat="server"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblBanchMark2" runat="server"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblBanchMark3" runat="server"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr class="searchable-spec cell top sub-name small bordered">
+                            <td>
+                                <b>Benchmark Return 1st yr (%)</b>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblBenchmarkReturn" runat="server"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblBenchmarkReturn1" runat="server"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblBenchmarkReturn2" runat="server"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblBenchmarkReturn3" runat="server"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr class="searchable-spec cell top sub-name small bordered">
+                            <td>
+                                <b>Benchmark Return 3rd yr (%)</b>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblBenchMarkReturn3rd" runat="server"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblBenchMarkReturn3rd1" runat="server"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblBenchMarkReturn3rd2" runat="server"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblBenchMarkReturn3rd3" runat="server"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr class="searchable-spec cell top sub-name small bordered">
+                            <td>
+                                <b>Benchmark Return 5th yr (%)</b>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblBenchMarkReturn5th" runat="server"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblBenchMarkReturn5th1" runat="server"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblBenchMarkReturn5th2" runat="server"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblBenchMarkReturn5th3" runat="server"></asp:Label>
+                            </td>
+                        </tr>
+                        
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
                                 <b>Min Investment Amt.</b>

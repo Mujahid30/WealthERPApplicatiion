@@ -62,11 +62,15 @@ namespace DaoOnlineOrderManagement
                             OnlineMFSchemeDetailsVo.isRedeemAvaliable = 1;
                         if (dr["PASPD_IsSIPAvailable"].ToString() == "True")
                             OnlineMFSchemeDetailsVo.isSIPAvaliable = 1;
+                        OnlineMFSchemeDetailsVo.SchemeRating3Year = int.Parse(dr["SchemeRating3Year"].ToString());
+                        OnlineMFSchemeDetailsVo.SchemeRating5Year = int.Parse(dr["SchemeRating5Year"].ToString());
+                        OnlineMFSchemeDetailsVo.SchemeRating10Year = int.Parse(dr["SchemeRating10Year"].ToString());
                         OnlineMFSchemeDetailsVo.minmumInvestmentAmount = int.Parse(dr["PASPD_InitialPurchaseAmount"].ToString());
                         OnlineMFSchemeDetailsVo.multipleOf = int.Parse(dr["PASPD_InitialMultipleAmount"].ToString());
                         OnlineMFSchemeDetailsVo.minSIPInvestment = int.Parse(dr["PASPSD_MinAmount"].ToString());
                         OnlineMFSchemeDetailsVo.SIPmultipleOf = int.Parse(dr["PASPSD_MultipleAmount"].ToString());
                         OnlineMFSchemeDetailsVo.mornigStar = int.Parse(dr["SchemeRatingOverall"].ToString());
+                        OnlineMFSchemeDetailsVo.overAllRating = int.Parse(dr["SchemeRatingOverall"].ToString());
                         OnlineMFSchemeDetailsVo.navDate = dr["PASPSP_Date"].ToString();
                         if(dr["CMFNP_CurrentValue"].ToString() !="")
                         OnlineMFSchemeDetailsVo.NAV = Convert.ToDecimal(dr["CMFNP_CurrentValue"]);
@@ -232,6 +236,7 @@ namespace DaoOnlineOrderManagement
                         OnlineMFSchemeDetailsVo.SIPmultipleOf = int.Parse(dr["PASPSD_MultipleAmount"].ToString());
                         OnlineMFSchemeDetailsVo.mornigStar = int.Parse(dr["SchemeRatingOverall"].ToString());
                         OnlineMFSchemeDetailsVo.navDate=dr["PASPSP_Date"].ToString();
+                        if(dr["CMFNP_CurrentValue"].ToString()!="")
                         OnlineMFSchemeDetailsVo.NAV =Convert.ToDecimal(dr["CMFNP_CurrentValue"]);
                         onlineMFSchemeDetailsList.Add(OnlineMFSchemeDetailsVo);
 

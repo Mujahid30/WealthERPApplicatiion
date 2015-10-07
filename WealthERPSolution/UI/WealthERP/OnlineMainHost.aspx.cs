@@ -142,7 +142,7 @@ namespace WealthERP
             {
                 case "MF":
                     divMFMenu.Visible = true;
-                    lblOnlieProductType.Text = "Mutual Fund Order";
+                    lblOnlieProductType.Text = "Mutual Fund";
                     break;
                 case "NCD":
                     divNCDMenu.Visible = true;
@@ -420,7 +420,7 @@ namespace WealthERP
                                 defaultProductPageSetting.Add("ProductType", ProductType);
                                 defaultProductPageSetting.Add("ProductMenu", "trMFOrderMenuBooksTab");
                                 defaultProductPageSetting.Add("ProductMenuItem", "RTSMFOrderMenuBooks");
-                                defaultProductPageSetting.Add("ProductMenuItemPage", "CustomerMFOrderBookList");
+                                defaultProductPageSetting.Add("ProductMenuItemPage", "OnlineCustomerOrderandTransactionBook");
                                 break;
                             case "Hodings":
                                 defaultProductPageSetting.Add("ProductType", ProductType);

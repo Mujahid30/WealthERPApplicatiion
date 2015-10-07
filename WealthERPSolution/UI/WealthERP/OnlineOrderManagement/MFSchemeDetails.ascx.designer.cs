@@ -139,6 +139,12 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblNAV;
+        protected global::System.Web.UI.WebControls.Label lblSchemeRetrun3yr;
+        protected global::System.Web.UI.WebControls.Label lblSchemeRisk3yr;
+        protected global::System.Web.UI.WebControls.Label lblSchemeRetrun5yr;
+        protected global::System.Web.UI.WebControls.Label lblSchemeRisk5yr;
+        protected global::System.Web.UI.WebControls.Label lblSchemeRetrun10yr;
+        protected global::System.Web.UI.WebControls.Label lblSchemeRisk10yr;
         
         /// <summary>
         /// ImagNAV control.
@@ -148,7 +154,10 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image ImagNAV;
-        
+        protected global::System.Web.UI.WebControls.Image imgRating3yr;
+        protected global::System.Web.UI.WebControls.Image imgRating5yr;
+        protected global::System.Web.UI.WebControls.Image imgRating10yr;
+        protected global::System.Web.UI.WebControls.Image imgRatingOvelAll;
         /// <summary>
         /// lblNAVDiff control.
         /// </summary>

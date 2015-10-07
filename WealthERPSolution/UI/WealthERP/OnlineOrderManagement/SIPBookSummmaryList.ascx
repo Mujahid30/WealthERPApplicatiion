@@ -61,6 +61,8 @@
         </td>
     </tr>
 </table>--%>
+
+
 <table width="100%">
     <table class="tblMessage" cellpadding="0" cellspacing="0">
         <tr>
@@ -75,6 +77,22 @@
             </td>
         </tr>
     </table>
+    <table width="100%">
+    <tr>
+        <td>
+            <div class="divPageHeading">
+                <table width="100%">
+                    <tr>
+                        <td align="left">
+                            SIP Book
+                        </td>
+                        
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
     <%--<tr>
         <td>
             <div class="divOnlinePageHeading">

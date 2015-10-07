@@ -33,6 +33,17 @@
         </td>
     </tr>
 </table>--%>
+<table class="tblMessage" cellpadding="0" cellspacing="0">
+    <tr>
+        <td>
+            <div class="divOnlinePageHeading" style="height: 25px;">
+                <div class="divClientAccountBalance" id="divClientAccountBalance" runat="server">
+                   
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
 <div class="divOnlinePageHeading" style="float: right; width: 100%">
     <div style="float: right; padding-right: 100px;">
         <table cellspacing="0" cellpadding="3" width="100%">
