@@ -526,6 +526,9 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblExperience;
+        protected global::System.Web.UI.WebControls.Label lblSector;
+        protected global::System.Web.UI.WebControls.Label lblsecWeight;
+
         
         /// <summary>
         /// rpSchemeDetails control.
@@ -535,7 +538,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rpSchemeDetails;
-        
+        protected global::System.Web.UI.WebControls.Repeater RepSector;
         /// <summary>
         /// imgStyleBox control.
         /// </summary>

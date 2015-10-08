@@ -20,6 +20,8 @@ using System.Configuration;
 using System.Text;
 using InfoSoftGlobal;
 using System.Drawing;
+using Microsoft.ApplicationBlocks.ExceptionManagement;
+using System.Collections.Specialized;
 namespace WealthERP.OnlineOrderManagement
 {
     public partial class MFSchemeDetails : System.Web.UI.UserControl
@@ -54,7 +56,7 @@ namespace WealthERP.OnlineOrderManagement
                         GetAmcSchemeDetails();
                         BindschemedetailsNAV();
                         hidCurrentScheme.Value = ddlScheme.SelectedValue;
-                        
+
                     }
                 }
             }
@@ -127,13 +129,13 @@ namespace WealthERP.OnlineOrderManagement
                     if (Convert.ToDouble(dr["Diff"].ToString()) < 0.000)
                     {
                         lblNAV.Text = dr["PSP_NetAssetValue"].ToString();
-                        lblNAVDiff.Text = " " + dr["Diff"].ToString().TrimStart('-') +"("+ dr["Percentage"].ToString()+" %)";
+                        lblNAVDiff.Text = " " + dr["Diff"].ToString().TrimStart('-') + "(" + dr["Percentage"].ToString() + " %)";
                         lblNAV.Style["font-size"] = "large";
-                         lblNAV.Style["font-weight"]="bold";
+                        lblNAV.Style["font-weight"] = "bold";
                         lblNAVDiff.Style["font-size"] = "large";
                         lblAsonDate.Text = "(As on Date:" + dr["PSP_PostDate"].ToString() + ")";
                         lblAsonDate.Style["font-size"] = "xx-small";
-                        ImagNAV.ImageUrl=@"../Images/arrow.png";
+                        ImagNAV.ImageUrl = @"../Images/arrow.png";
                         lblNAVDiff.ForeColor = Color.Red;
                     }
                     else
@@ -143,7 +145,7 @@ namespace WealthERP.OnlineOrderManagement
                         lblNAV.Style["font-size"] = "large";
                         lblNAVDiff.Style["font-size"] = "large";
                         lblNAV.Style["font-weight"] = "bold";
-                        lblAsonDate.Text = "(As on Date:" + dr["PSP_PostDate"].ToString()+")";
+                        lblAsonDate.Text = "(As on Date:" + dr["PSP_PostDate"].ToString() + ")";
                         lblAsonDate.Style["font-size"] = "xx-small";
                         ImagNAV.ImageUrl = @"../Images/down_NAVarrow.png";
                         lblNAVDiff.ForeColor = Color.Green;
@@ -208,52 +210,71 @@ namespace WealthERP.OnlineOrderManagement
         public void GetAmcSchemeDetails()
         {
             DataTable dtNavDetails = null;
-            BindfundManagerDetails();
-            BindSectoreDetails();
-            divAction.Visible = true;
-            onlineMFSchemeDetailsVo = onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue, out  dtNavDetails);
-            ViewState["schemeName"] = onlineMFSchemeDetailsVo.schemeName;
-            LoadNAVHistoryChat(dtNavDetails);
-
-            lblSchemeName.Text = onlineMFSchemeDetailsVo.schemeName;
-            lblAMC.Text = onlineMFSchemeDetailsVo.amcName;
-            //lblNAV.Text = onlineMFSchemeDetailsVo.NAV.ToString();
-            //if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.navDate))
-            //    lblNAVDate.Text = onlineMFSchemeDetailsVo.navDate.ToString();
-            lblCategory.Text = onlineMFSchemeDetailsVo.category;
-            lblBanchMark.Text = onlineMFSchemeDetailsVo.schemeBanchMark;
-            lblFundManager.Text = onlineMFSchemeDetailsVo.fundManager;
-            lblFundReturn1styear.Text = onlineMFSchemeDetailsVo.SchemeReturn3Year.ToString();
-            lblFundReturn3rdyear.Text = onlineMFSchemeDetailsVo.SchemeReturn5Year.ToString();
-            lblFundReturn5thyear.Text = onlineMFSchemeDetailsVo.SchemeReturn10Year.ToString();
-            lblBenchmarkReturn.Text = onlineMFSchemeDetailsVo.benchmarkReturn1stYear;
-            lblBenchMarkReturn3rd.Text = onlineMFSchemeDetailsVo.benchmark3rhYear;
-            lblBenchMarkReturn5th.Text = onlineMFSchemeDetailsVo.benchmark5thdYear;
-            lblMinSIP.Text = onlineMFSchemeDetailsVo.minSIPInvestment.ToString();
-            lblSIPMultipleOf.Text = onlineMFSchemeDetailsVo.SIPmultipleOf.ToString();
-            lblExitLoad.Text = onlineMFSchemeDetailsVo.exitLoad.ToString();
-            lblMinInvestment.Text = onlineMFSchemeDetailsVo.minmumInvestmentAmount.ToString();
-            lblMinMultipleOf.Text = onlineMFSchemeDetailsVo.multipleOf.ToString();
-            imgRating3yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.SchemeRating3Year + ".png";
-            imgRating5yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.SchemeRating5Year + ".png";
-            imgRating10yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.SchemeRating10Year + ".png";
-            imgRatingOvelAll.ImageUrl = @"../Images/MorningStarRating/RatingOverall/" + onlineMFSchemeDetailsVo.overAllRating + ".png";
-            lblSchemeRetrun3yr.Text=onlineMFSchemeDetailsVo.SchemeReturn3Year.ToString();
-            lblSchemeRisk3yr.Text = onlineMFSchemeDetailsVo.SchemeReturn5Year.ToString();
-            lblSchemeRetrun5yr.Text = onlineMFSchemeDetailsVo.SchemeReturn10Year.ToString();
-            lblSchemeRisk5yr.Text=onlineMFSchemeDetailsVo.SchemeRisk3Year;
-            lblSchemeRetrun10yr.Text=onlineMFSchemeDetailsVo.SchemeRisk5Year;
-            lblSchemeRisk10yr.Text = onlineMFSchemeDetailsVo.SchemeRisk10Year;
-            if (onlineMFSchemeDetailsVo.mornigStar > 0)
+            try
             {
-                imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
-                imgStyleBox.ImageUrl = @"../Images/MorningStarRating/StarStyleBox/" + onlineMFSchemeDetailsVo.schemeBox + ".png";
+                BindfundManagerDetails();
+                BindSectoreDetails();
+                BindHoldingDetails();
+                divAction.Visible = true;
+                onlineMFSchemeDetailsVo = onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue, out  dtNavDetails);
+                ViewState["schemeName"] = onlineMFSchemeDetailsVo.schemeName;
+                LoadNAVHistoryChat(dtNavDetails);
+
+                lblSchemeName.Text = onlineMFSchemeDetailsVo.schemeName;
+                lblAMC.Text = onlineMFSchemeDetailsVo.amcName;
+                //lblNAV.Text = onlineMFSchemeDetailsVo.NAV.ToString();
+                //if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.navDate))
+                //    lblNAVDate.Text = onlineMFSchemeDetailsVo.navDate.ToString();
+                lblCategory.Text = onlineMFSchemeDetailsVo.category;
+                lblBanchMark.Text = onlineMFSchemeDetailsVo.schemeBanchMark;
+                lblFundManager.Text = onlineMFSchemeDetailsVo.fundManager;
+                lblFundReturn1styear.Text = onlineMFSchemeDetailsVo.SchemeReturn3Year.ToString();
+                lblFundReturn3rdyear.Text = onlineMFSchemeDetailsVo.SchemeReturn5Year.ToString();
+                lblFundReturn5thyear.Text = onlineMFSchemeDetailsVo.SchemeReturn10Year.ToString();
+                lblBenchmarkReturn.Text = onlineMFSchemeDetailsVo.benchmarkReturn1stYear;
+                lblBenchMarkReturn3rd.Text = onlineMFSchemeDetailsVo.benchmark3rhYear;
+                lblBenchMarkReturn5th.Text = onlineMFSchemeDetailsVo.benchmark5thdYear;
+                lblMinSIP.Text = onlineMFSchemeDetailsVo.minSIPInvestment.ToString();
+                lblSIPMultipleOf.Text = onlineMFSchemeDetailsVo.SIPmultipleOf.ToString();
+                lblExitLoad.Text = onlineMFSchemeDetailsVo.exitLoad.ToString();
+                lblMinInvestment.Text = onlineMFSchemeDetailsVo.minmumInvestmentAmount.ToString();
+                lblMinMultipleOf.Text = onlineMFSchemeDetailsVo.multipleOf.ToString();
+                imgRating3yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.SchemeRating3Year + ".png";
+                imgRating5yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.SchemeRating5Year + ".png";
+                imgRating10yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.SchemeRating10Year + ".png";
+                imgRatingOvelAll.ImageUrl = @"../Images/MorningStarRating/RatingOverall/" + onlineMFSchemeDetailsVo.overAllRating + ".png";
+                lblSchemeRetrun3yr.Text = onlineMFSchemeDetailsVo.SchemeReturn3Year.ToString();
+                lblSchemeRisk3yr.Text = onlineMFSchemeDetailsVo.SchemeReturn5Year.ToString();
+                lblSchemeRetrun5yr.Text = onlineMFSchemeDetailsVo.SchemeReturn10Year.ToString();
+                lblSchemeRisk5yr.Text = onlineMFSchemeDetailsVo.SchemeRisk3Year;
+                lblSchemeRetrun10yr.Text = onlineMFSchemeDetailsVo.SchemeRisk5Year;
+                lblSchemeRisk10yr.Text = onlineMFSchemeDetailsVo.SchemeRisk10Year;
+                if (onlineMFSchemeDetailsVo.mornigStar > 0)
+                {
+                    imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
+                    imgStyleBox.ImageUrl = @"../Images/MorningStarRating/StarStyleBox/" + onlineMFSchemeDetailsVo.schemeBox + ".png";
+                }
+                else
+                {
+                    imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/0.png";
+                    imgStyleBox.ImageUrl = @"../Images/MorningStarRating/StarStyleBox/0.png";
+
+                }
             }
-            else
+            catch (BaseApplicationException Ex)
             {
-                imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/0.png";
-                imgStyleBox.ImageUrl = @"../Images/MorningStarRating/StarStyleBox/0.png";
-
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "MFSchemeDetails.ascx.cs:BindfundManagerDetails()");
+                object[] objParams = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
         }
         protected void lbBuy_OnClick(object sender, EventArgs e)
@@ -330,54 +351,128 @@ namespace WealthERP.OnlineOrderManagement
         //{
         protected void BindfundManagerDetails()
         {
-            string cmotcode = onlineMFSchemeDetailsBo.GetCmotCode(int.Parse(ddlScheme.SelectedValue));
-            string result;
-            ViewState["cmotcode"] = cmotcode;
-            if (cmotcode != "")
+            try
             {
-                string FundManagerDetais = ConfigurationSettings.AppSettings["FUND_MANAGER_DETAILS"] + cmotcode + "/Pre";
-                string SectoreDetais = ConfigurationSettings.AppSettings["SECTORE_DETAILS"];
-                WebResponse response;
-                WebRequest request = HttpWebRequest.Create(FundManagerDetais);
-                response = request.GetResponse();
-                using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                string cmotcode = onlineMFSchemeDetailsBo.GetCmotCode(int.Parse(ddlScheme.SelectedValue));
+                string result;
+                ViewState["cmotcode"] = cmotcode;
+                if (cmotcode != "")
                 {
-                    result = reader.ReadToEnd();
-                    reader.Close();
+                    string FundManagerDetais = ConfigurationSettings.AppSettings["FUND_MANAGER_DETAILS"] + cmotcode + "/Pre";
+                    string SectoreDetais = ConfigurationSettings.AppSettings["SECTORE_DETAILS"];
+                    WebResponse response;
+                    WebRequest request = HttpWebRequest.Create(FundManagerDetais);
+                    response = request.GetResponse();
+                    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                    {
+                        result = reader.ReadToEnd();
+                        reader.Close();
+                    }
+                    StringReader theReader = new StringReader(result);
+                    DataSet theDataSet = new DataSet();
+                    theDataSet.ReadXml(theReader);
+                    foreach (DataRow dr in theDataSet.Tables[1].Rows)
+                    {
+                        lblFundMAnagername.Text = dr["FundManager"].ToString();
+                        lblQualification.Text = dr["Qualification"].ToString();
+                        lblDesignation.Text = dr["Designation"].ToString();
+                        lblExperience.Text = dr["experience"].ToString();
+                    }
                 }
-                StringReader theReader = new StringReader(result);
-                DataSet theDataSet = new DataSet();
-                theDataSet.ReadXml(theReader);
-                foreach (DataRow dr in theDataSet.Tables[1].Rows)
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "MFSchemeDetails.ascx.cs:BindfundManagerDetails()");
+                object[] objParams = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+        protected void BindHoldingDetails()
+        {
+            try
+            {
+                if (ViewState["cmotcode"] != null)
                 {
-                    lblFundMAnagername.Text = dr["FundManager"].ToString();
-                    lblQualification.Text = dr["Qualification"].ToString();
-                    lblDesignation.Text = dr["Designation"].ToString();
-                    lblExperience.Text = dr["experience"].ToString();
+                    string SectoreDetais = ConfigurationSettings.AppSettings["HOLDING_DETAILS"] + ViewState["cmotcode"] + "/" + ConfigurationSettings.AppSettings["TOP_Scheme"];
+                    WebResponse response;
+                    string result;
+                    WebRequest request = HttpWebRequest.Create(SectoreDetais);
+                    response = request.GetResponse();
+                    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                    {
+                        result = reader.ReadToEnd();
+                        reader.Close();
+                    }
+                    StringReader theReader = new StringReader(result);
+                    DataSet theDataSet = new DataSet();
+                    theDataSet.ReadXml(theReader);
+                    rpSchemeDetails.DataSource = theDataSet.Tables[1];
+                    rpSchemeDetails.DataBind();
                 }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "MFSchemeDetails.ascx.cs:BindfundManagerDetails()");
+                object[] objParams = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
         }
         protected void BindSectoreDetails()
         {
-            if (ViewState["cmotcode"] != null)
+            try
             {
-                string SectoreDetais = ConfigurationSettings.AppSettings["SECTORE_DETAILS"] + ViewState["cmotcode"] + "/" + ConfigurationSettings.AppSettings["TOP_Scheme"];
-                WebResponse response;
-                string result;
-                WebRequest request = HttpWebRequest.Create(SectoreDetais);
-                response = request.GetResponse();
-                using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                if (ViewState["cmotcode"] != null)
                 {
-                    result = reader.ReadToEnd();
-                    reader.Close();
+                    string SectoreDetais = ConfigurationSettings.AppSettings["SECTOR_DETAILS"] + ViewState["cmotcode"] + "/" + ConfigurationSettings.AppSettings["SECTOR_DETAILS_COUNT"] + "?responsetype=xml";
+                    WebResponse response;
+                    string result;
+                    WebRequest request = HttpWebRequest.Create(SectoreDetais);
+                    response = request.GetResponse();
+                    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                    {
+                        result = reader.ReadToEnd();
+                        reader.Close();
+                    }
+                    StringReader theReader = new StringReader(result);
+                    DataSet theDataSet = new DataSet();
+                    theDataSet.ReadXml(theReader);
+                    RepSector.DataSource = theDataSet.Tables[3];
+                    RepSector.DataBind();
                 }
-                StringReader theReader = new StringReader(result);
-                DataSet theDataSet = new DataSet();
-                theDataSet.ReadXml(theReader);
-                rpSchemeDetails.DataSource = theDataSet.Tables[1];
-                rpSchemeDetails.DataBind();
             }
-
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "MFSchemeDetails.ascx.cs:BindfundManagerDetails()");
+                object[] objParams = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
         protected void lnkAddToCompare_OnClick(object sender, EventArgs e)
         {

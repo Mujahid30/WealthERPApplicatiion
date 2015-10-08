@@ -104,13 +104,13 @@
                                 PageViewID="RPVNFO">
                             </telerik:RadTab>
                             <telerik:RadTab runat="server" Text="Switch" Value="RTSMFOrderMenuTransactSwitch"
-                                TabIndex="5" PageViewID="RPVNFO">
+                                TabIndex="5" PageViewID="RPVNFO" Visible="false">
                             </telerik:RadTab>
                             <telerik:RadTab runat="server" Text="SWP" Value="RTSMFOrderMenuTransactSWP" TabIndex="6"
-                                PageViewID="RPVNFO">
+                                PageViewID="RPVNFO" Visible="false">
                             </telerik:RadTab>
                             <telerik:RadTab runat="server" Text="STP" Value="RTSMFOrderMenuTransactSTP" TabIndex="7"
-                                PageViewID="RPVNFO">
+                                PageViewID="RPVNFO" Visible="false">
                             </telerik:RadTab>
                             <telerik:RadTab runat="server" Text="FMP" Value="RTSMFOrderMenuTransactFMP" TabIndex="8"
                                 PageViewID="RPVFMP" Visible="false">

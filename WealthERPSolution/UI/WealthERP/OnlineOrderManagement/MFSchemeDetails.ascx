@@ -255,7 +255,22 @@
                             </span></asp:LinkButton>
             </div>
         </div>
-        
+        <table style="margin-left: 15%;">
+            <tr id="trMessage" runat="server" visible="false">
+                <td colspan="6">
+                    <table class="tblMessage" cellspacing="0">
+                        <tr>
+                            <td align="center">
+                                <div id="divMessage" align="center">
+                                </div>
+                                <div style="clear: both">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
         <div style="margin-top: 1%; margin-bottom: 0%; width: 80%; padding-top: 1%; padding-bottom: 1%;
             margin-left: auto; margin-right: auto;">
             <div style="width: 80%; float: left; min-width: 320px;">
@@ -419,22 +434,7 @@
                 </div>
             </div>
         </div>
-        <table style="margin-left: 15%;">
-            <tr id="trMessage" runat="server" visible="false">
-                <td colspan="6">
-                    <table class="tblMessage" cellspacing="0">
-                        <tr>
-                            <td align="center">
-                                <div id="divMessage" align="center">
-                                </div>
-                                <div style="clear: both">
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
+        
          <div style="margin-top: 2px; margin-bottom: 0%; width: 80%; padding-top: 1%; padding-bottom: 0%; margin-left: auto; margin-right: auto;" >
             <div style="width: 80%; min-width: 320px;float:left;">
                 <table class="table table-bordered" style="margin-bottom: 0px">
@@ -590,8 +590,8 @@
                     </thead>
                 </table>
             </div>
-                    <div id="no-more-tables" class="collapse" >
-                    <div style="width:39.2%;min-width:300px;">
+                    <div id="no-more-tables" class="collapse" style="width:100%" >
+                    <div style="width:20%;">
                         <table class="col-md-12 table-bordered table-striped table-condensed cf" width="100%">
                             <thead class="cf">
                                 <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
@@ -621,7 +621,37 @@
                             </tbody>
                         </table>
                         </div>
-                        <div style="width: 15%; float: left; min-width: 250px; margin-left: 10px;">
+                         <div style="width:20%; float: left;">
+                        <table class="col-md-12 table-bordered table-striped table-condensed cf" width="100%">
+                            <thead class="cf">
+                                <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
+                                    text-align: center">
+                                    
+                                    <th data-title="Sector" class="alignCenter">
+                                       Sector
+                                    </th>
+                                    <th data-title="Holding(%)" class="alignCenter">
+                                        Weight (%)
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <asp:Repeater ID="RepSector" runat="server">
+                                    <ItemTemplate>
+                                        <tr>
+                                            <td data-title="Sector">
+                                                <asp:Label ID="lblSector" runat="server" Text='<%# Eval("sector")%>'></asp:Label>
+                                            </td>
+                                            <td data-title="Holding(%)">
+                                                <asp:Label ID="lblsecWeight" runat="server" Text='<%# Eval("holdingpercentage")%>'></asp:Label>
+                                            </td>
+                                        </tr>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </tbody>
+                        </table>
+                        </div>
+                        <div style="width: 18%; float: left; min-width: 18%; margin-left: 10px;">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -640,7 +670,7 @@
                     </tbody>
                 </table>
             </div>
-            <div style="width: 19%; float: left; min-width: 250px; margin-left: 10px;">
+            <div style="width: 20%; float: left; min-width: 20%; margin-left: 10px;">
              <table class="table table-bordered">
                     <thead>
                         <tr>
