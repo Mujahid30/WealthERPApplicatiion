@@ -185,9 +185,10 @@
                                 ErrorMessage="<br />Please select category" Style="color: Red;" Display="Dynamic"
                                 runat="server" InitialValue="0" ValidationGroup="btnViewscheme">
                             </asp:RequiredFieldValidator>
+                            
                         </fieldset>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         <asp:LinkButton ID="lbNFOList" runat="server" OnClick="GetSchemeDetails" CssClass="linkButton">NFO Scheme </asp:LinkButton>
                     </div>
                 </div>
@@ -382,19 +383,7 @@
                 </ItemTemplate>
             </asp:Repeater>
         </div>
-        <telerik:RadWindow ID="rw_FundManager" Modal="true" Behaviors="Close, Move" VisibleStatusbar="false"
-            Width="700px" Height="160px" runat="server" Title="Fund Manager Details" Left="450"
-            Top="50" OnClientShow="setCustomPosition">
-            <ContentTemplate>
-                <div class="rwDialogPopup radconfirm">
-                    <div class="rwDialogText">
-                        <asp:Label ID="confirmMessage" Text="" runat="server" />
-                    </div>
-                    <div>
-                    </div>
-                </div>
-            </ContentTemplate>
-        </telerik:RadWindow>
+       
         <asp:HiddenField ID="hfAMCCode" runat="server" />
         <asp:HiddenField ID="hfSchemeCode" runat="server" />
         <asp:HiddenField ID="hfCategory" runat="server" />
