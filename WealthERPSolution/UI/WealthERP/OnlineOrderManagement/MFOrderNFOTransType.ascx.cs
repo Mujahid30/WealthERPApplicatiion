@@ -75,6 +75,12 @@ namespace WealthERP.OnlineOrderManagement
                     trNominee.Visible = false;
                     lblOption.Visible = false;
                     lblDividendType.Visible = false;
+                    if(Session["MFSchemePlan"] != null)
+                    {
+                        ddlScheme.SelectedValue = Session["MFSchemePlan"].ToString();
+                        GetControlDetails(Convert.ToInt32(Session["MFSchemePlan"].ToString()), null);
+                    }
+
                 }
                 else
                 {
