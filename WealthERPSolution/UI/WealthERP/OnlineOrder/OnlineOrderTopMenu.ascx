@@ -64,11 +64,10 @@
                         </telerik:RadPageView>
                     </telerik:RadMultiPage>
                 </td>
-                <td style="width: 600px;">
+                <td style="width:300px;">
                 </td>
                 <td align="right">
-                    <asp:TextBox runat="server" ID="SchemeSearch" AutoPostBack="true" Style="margin-top: 0px;
-                        float: right;background-color:#D7E9F5" Width="300px" OnTextChanged="SchemeSearch_OnTextChanged"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="SchemeSearch" AutoPostBack="true" Style="margin-top: 0px;float: right;background-color:#D7E9F5" Width="300px" OnTextChanged="SchemeSearch_OnTextChanged"></asp:TextBox>
                     <cc1:TextBoxWatermarkExtender ID="txtSchemeName_water" TargetControlID="SchemeSearch"
                         WatermarkText="Search Scheme" runat="server" EnableViewState="false">
                     </cc1:TextBoxWatermarkExtender>
