@@ -183,7 +183,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlScheme.SelectedValue = schemeCode.ToString();
 
             BindSipUiOnSchemeSelection(schemeCode);
-            ddlFolio.SelectedValue = accountId.ToString();
+            //ddlFolio.SelectedValue = accountId.ToString();
 
         }
 
