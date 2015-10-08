@@ -154,9 +154,10 @@
 </table>
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
-        <div id="dvDemo" style="margin-left: 11%; margin-top: 1%; margin-bottom: 0.5%; margin-right: 5%;
-            padding-top: 0.5%; padding-bottom: 0.5%; width: 80%" visible="true" runat="server">
-            <div class="col-md-9  col-xs-9 col-sm-9">
+    <div style="margin-left: 11%; margin-top: 1%; margin-bottom: 0.5%; margin-right: 5%;
+            padding-top: 0.5%; padding-bottom: 0.5%; width: 80%">
+        <div id="dvDemo"  visible="true" runat="server">
+            <div class="col-md-9  col-xs-9 col-sm-9" >
                 <div class="col-md-12  col-xs-12 col-sm-12">
                     <div class="col-md-8 dottedBottom">
                         <b>Fund Filter </b>
@@ -217,7 +218,7 @@
                 <div class="col-md-12 dottedBottom">
                     <b>Fund News</b>
                 </div>
-                <div>
+                <div  >
                     <asp:Repeater ID="RepNews" runat="server">
                         <ItemTemplate>
                             <div class="dottedBottom">
@@ -234,32 +235,35 @@
                         <asp:LinkButton ID="lnkMoreNews" Style="font-size:large; color: #4582DF; font-weight: bold;"
                             runat="server" Text=">>>" ToolTip="Detail" OnClick="lnkMoreNews_lnkMoreNews"></asp:LinkButton>
                     </div>
+                  
                 </div>
             </div>
         </div>
-        <div class="row " style="margin-left: 9%; margin-top: 0.5%; margin-bottom: 0.5%;
-            padding-top: 1%; margin-right: 5%;" runat="server" visible="false" id="dvHeading">
+        <div class="row "  runat="server" visible="false" id="dvHeading">
             <div class="col-md-12">
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <asp:Label ID="lblHeading" runat="server" Text="Scheme Details" Font-Bold="true"
                         Font-Size="Larger" ForeColor="#2475C7"></asp:Label>
+                         
                 </div>
+               
                 <div class="col-md-4">
+                  <asp:RadioButtonList ID="rblNFOType" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" 
+                    OnSelectedIndexChanged="rblNFOType_OnSelectedIndexChanged" 
+                    BorderStyle="None" CellSpacing="2"  CellPadding="2" >
+                    <asp:ListItem Text="Active" Value="true" Selected="True" style="margin-right:10px; font-size:small;color:#2475C7"></asp:ListItem>
+                        <asp:ListItem Text="Closed" Value="false" style=" font-size:small;color:#2475C7"></asp:ListItem>
+                    </asp:RadioButtonList>
+                   
                 </div>
-                <div class="col-md-4">
-                    <asp:DropDownList ID="ddlNFOType" runat="server" CssClass="form-control input-sm"
-                        AutoPostBack="true" Width="40%" Visible="false" OnSelectedIndexChanged="ddlNFOType_OnSelectedIndexChanged">
-                        <asp:ListItem Text="Active" Value="true"></asp:ListItem>
-                        <asp:ListItem Text="Closed" Value="false"></asp:ListItem>
-                    </asp:DropDownList>
+                 <div class="col-md-4">
                 </div>
             </div>
         </div>
-        <div class="container" id="dvSchemeDetails" runat="server" visible="false" style="margin-bottom: 2%">
+        <div class="container" id="dvSchemeDetails" runat="server" visible="false" >
             <div class="row">
                 <div id="no-more-tables">
-                    <table class="col-md-12 table-bordered table-striped table-condensed cf" style="margin-left: 5%;
-                        width: 90%;">
+                    <table class="col-md-12 table-bordered table-striped table-condensed cf" style="width: 90%; margin-left:1%">
                         <thead class="cf">
                             <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
                                 text-align: center">
@@ -291,9 +295,9 @@
                                     NAV (Date)
                                 </th>
                                 <th data-title="Return" class="alignCenter" runat="server" visible="false" id="thReturn">
-                                    Returns (1-yr / 3-yrs/5-yrs)
+                                    Returns (1yr / 3Yr / 5yr)
                                 </th>
-                                <th data-title="Buy" class="alignCenter">
+                                <th data-title="Buy" class="alignCenter" runat="server" visible="true" id="thBuy">
                                     Buy
                                 </th>
                                 <th data-title="SIP" class="alignCenter" runat="server" visible="false" id="thSIP">
@@ -345,7 +349,7 @@
                                         <td data-title="Return" runat="server" visible="false" id="tdReturn">
                                             <asp:Label ID="lblReturn" runat="server" Text='<%# Eval("schemeReturns")%>' Font-Size="Small"></asp:Label>
                                         </td>
-                                        <td data-title="Buy">
+                                        <td data-title="Buy" runat="server" visible="false" id="tdBuy">
                                             <asp:LinkButton ID="lbBuy" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
                                                 CommandName="Buy" CssClass="btn btn-primary btn-info" Visible='<%# Eval("IsSchemePurchege")%>'>  <span class="glyphicon glyphicon-shopping-cart">
                                     </span>
@@ -373,8 +377,7 @@
                 </div>
             </div>
         </div>
-        <div class="row" style="margin-left: 11%; margin-top: 0.5%; margin-bottom: 0.5%;
-            padding-top: 1%; margin-right: 5%;">
+        <div class="row" style=" margin-left:1%; margin-top:2%">
             <asp:Repeater ID="rptPager" runat="server">
                 <ItemTemplate>
                     <asp:LinkButton ID="lnkPage" runat="server" Text='<%#Eval("Text") %>' CommandArgument='<%# Eval("Value") %>'
@@ -383,7 +386,7 @@
                 </ItemTemplate>
             </asp:Repeater>
         </div>
-       
+       </div>
         <asp:HiddenField ID="hfAMCCode" runat="server" />
         <asp:HiddenField ID="hfSchemeCode" runat="server" />
         <asp:HiddenField ID="hfCategory" runat="server" />

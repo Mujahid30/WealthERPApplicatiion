@@ -105,7 +105,7 @@ namespace WealthERP.OnlineOrderManagement
             hfCustomerId.Value = customerVo.CustomerId.ToString();
             hfIsSchemeDetails.Value = "1";
             hfNFOType.Value = "false";
-            ddlNFOType.Visible = false;
+            rblNFOType.Visible = false;
             BindSchemeRelatedDetails(int.Parse(hfAMCCode.Value), int.Parse(hfSchemeCode.Value), hfCategory.Value, int.Parse(hfCustomerId.Value), Int16.Parse(hfIsSchemeDetails.Value), Boolean.Parse(hfNFOType.Value), 1);
             dvHeading.Visible = true;
             lblHeading.Text = "Schemes Details";
@@ -155,10 +155,10 @@ namespace WealthERP.OnlineOrderManagement
         {
             LinkButton lk = (LinkButton)sender;
             ViewState["FilterType"] = lk.ID.ToString();
-            ddlNFOType.Visible = false;
-            lbViewWatchList.ForeColor = System.Drawing.Color.Blue;
-            lbNFOList.ForeColor = System.Drawing.Color.Blue;
-            lbTopSchemes.ForeColor = System.Drawing.Color.Blue;
+            rblNFOType.Visible = false;
+            lbViewWatchList.ForeColor = System.Drawing.ColorTranslator.FromHtml("#0396CC");
+            lbNFOList.ForeColor = System.Drawing.ColorTranslator.FromHtml("#0396CC");
+            lbTopSchemes.ForeColor = System.Drawing.ColorTranslator.FromHtml("#0396CC");
             hfCustomerId.Value = customerVo.CustomerId.ToString();
             switch (lk.ID.ToString())
             {
@@ -166,21 +166,21 @@ namespace WealthERP.OnlineOrderManagement
                     hfSchemeCode.Value = "0";
                     hfCategory.Value = "0";
                     hfIsSchemeDetails.Value = "0";
-                    hfNFOType.Value = ddlNFOType.SelectedValue;
+                    hfNFOType.Value = rblNFOType.SelectedValue;
                     dvHeading.Visible = true;
                     lblHeading.Text = "My Watch List";
-                    lbViewWatchList.ForeColor = System.Drawing.Color.Black;
+                    lbViewWatchList.ForeColor = System.Drawing.ColorTranslator.FromHtml("#07090A");
                     break;
                 case "lbNFOList":
                     hfAMCCode.Value = "0";
                     hfSchemeCode.Value = "0";
                     hfCategory.Value = "0";
                     hfIsSchemeDetails.Value = "3";
-                    hfNFOType.Value = ddlNFOType.SelectedValue;
+                    hfNFOType.Value = rblNFOType.SelectedValue;
                     dvHeading.Visible = true;
                     lblHeading.Text = "NFO Scheme";
-                    ddlNFOType.Visible = true;
-                    lbNFOList.ForeColor = System.Drawing.Color.Black;
+                    rblNFOType.Visible = true;
+                    lbNFOList.ForeColor = System.Drawing.ColorTranslator.FromHtml("#07090A");
                     break;
                 case "lbTopSchemes":
                     hfAMCCode.Value = "0";
@@ -190,7 +190,7 @@ namespace WealthERP.OnlineOrderManagement
                     hfNFOType.Value = "false";
                     dvHeading.Visible = true;
                     lblHeading.Text = "Top Ten Schemes";
-                    lbTopSchemes.ForeColor = System.Drawing.Color.Black;
+                    lbTopSchemes.ForeColor = System.Drawing.ColorTranslator.FromHtml("#07090A");
 
                     break;
                 case "lbSchemeDetails": dvDemo.Visible = true;
@@ -215,12 +215,27 @@ namespace WealthERP.OnlineOrderManagement
                         if (Session["PageDefaultSetting"] != null)
                         {
                             Session["MFSchemePlan"] = PASP_SchemePlanCode;
-                            LoadMFTransactionPage("MFOrderPurchaseTransType", 2);
+                            if (ViewState["FilterType"].ToString() != "lbNFOList")
+                            {
+                                LoadMFTransactionPage("MFOrderPurchaseTransType", 2);
+                            }
+                            else
+                            {
+                                LoadMFTransactionPage("MFOrderNFOTransType", 2);
+                            }
 
                         }
                         else
                         {
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('MFOrderPurchaseTransType','SchemeCode=" + PASP_SchemePlanCode + "&AMCode=" + ddlAMC.SelectedValue + "&Category=" + ddlCategory.SelectedValue + "');", true);
+                            if (ViewState["FilterType"].ToString() != "lbNFOList")
+                            {
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('MFOrderPurchaseTransType','SchemeCode=" + PASP_SchemePlanCode + "&AMCode=" + ddlAMC.SelectedValue + "&Category=" + ddlCategory.SelectedValue + "');", true);
+                            }
+                            else
+                            {
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('MFOrderNFOTransType','SchemeCode=" + PASP_SchemePlanCode + "&AMCode=" + ddlAMC.SelectedValue + "&Category=" + ddlCategory.SelectedValue + "');", true);
+
+                            }
                         }
                         break;
                     case "ABY":
@@ -273,6 +288,7 @@ namespace WealthERP.OnlineOrderManagement
                         break;
 
                     case "RemoveFrmWatch": DeleteSchemeFromCustomerWatch(int.Parse(e.CommandArgument.ToString()), e, customerVo.CustomerId);
+                        BindSchemeRelatedDetails(int.Parse(hfAMCCode.Value), int.Parse(hfSchemeCode.Value), hfCategory.Value, int.Parse(hfCustomerId.Value), Int16.Parse(hfIsSchemeDetails.Value), Boolean.Parse(hfNFOType.Value), 1);
                         break;
 
 
@@ -381,10 +397,10 @@ namespace WealthERP.OnlineOrderManagement
 
         }
 
-        protected void ddlNFOType_OnSelectedIndexChanged(object sender, EventArgs e)
+        protected void rblNFOType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            BindSchemeRelatedDetails(0, 0, "0", 0, 3, Boolean.Parse(ddlNFOType.SelectedValue), 1);
-            hfNFOType.Value = ddlNFOType.SelectedValue.ToString();
+            BindSchemeRelatedDetails(0, 0, "0", 0, 3, Boolean.Parse(rblNFOType.SelectedValue), 1);
+            hfNFOType.Value = rblNFOType.SelectedValue.ToString();
         }
         protected void rpSchemeDetails_OnItemDataBound(object sender, RepeaterItemEventArgs e)
         {
@@ -399,6 +415,7 @@ namespace WealthERP.OnlineOrderManagement
                 HtmlTableCell tdReturn = (HtmlTableCell)e.Item.FindControl("tdReturn");
                 HtmlTableCell tdSchemeRank = (HtmlTableCell)e.Item.FindControl("tdSchemeRank");
                 HtmlTableCell tdSIP = (HtmlTableCell)e.Item.FindControl("tdSIP");
+                HtmlTableCell tdBuy = (HtmlTableCell)e.Item.FindControl("tdBuy");
                 tdNFOStrtDate.Visible = false;
                 tdNFOEndDate.Visible = false;
                 tdNFOAmt.Visible = false;
@@ -415,6 +432,8 @@ namespace WealthERP.OnlineOrderManagement
                 thSchemeRank.Visible = false;
                 thSIP.Visible = true;
                 tdSIP.Visible = true;
+                thBuy.Visible = true;
+                tdBuy.Visible = true;
                 if (ViewState["FilterType"].ToString() == "lbNFOList")
                 {
                     tdNFOStrtDate.Visible = true;
@@ -433,6 +452,11 @@ namespace WealthERP.OnlineOrderManagement
                     thSchemeRank.Visible = false;
                     thSIP.Visible = false;
                     tdSIP.Visible = false;
+                    if (!Convert.ToBoolean(rblNFOType.SelectedValue)){
+
+                        thBuy.Visible = false;
+                        tdBuy.Visible = false;
+                    }
 
 
 
@@ -448,7 +472,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void BindNewsHeading()
         {
-            string SectoreDetais = ConfigurationSettings.AppSettings["NEWS_HEADING"] + ConfigurationSettings.AppSettings["NEWS_COUNT"];
+            string SectoreDetais = ConfigurationSettings.AppSettings["NEWS_HEADING"] + 2;
             WebResponse response;
             string result;
             WebRequest request = HttpWebRequest.Create(SectoreDetais);

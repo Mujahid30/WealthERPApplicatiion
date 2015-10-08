@@ -95,15 +95,6 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.DropDownList ddlScheme;
         
         /// <summary>
-        /// lbTopSchemes control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbTopSchemes;
-        
-        /// <summary>
         /// Button1 control.
         /// </summary>
         /// <remarks>
@@ -113,6 +104,15 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
+        /// lbTopSchemes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbTopSchemes;
+        
+        /// <summary>
         /// lbViewWatchList control.
         /// </summary>
         /// <remarks>
@@ -120,6 +120,24 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lbViewWatchList;
+        
+        /// <summary>
+        /// RepNews control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater RepNews;
+        
+        /// <summary>
+        /// lnkMoreNews control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkMoreNews;
         
         /// <summary>
         /// dvHeading control.
@@ -140,13 +158,13 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.Label lblHeading;
         
         /// <summary>
-        /// ddlNFOType control.
+        /// rblNFOType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlNFOType;
+        protected global::System.Web.UI.WebControls.RadioButtonList rblNFOType;
         
         /// <summary>
         /// dvSchemeDetails control.
@@ -221,6 +239,15 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.HtmlControls.HtmlTableCell thReturn;
         
         /// <summary>
+        /// thBuy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell thBuy;
+        
+        /// <summary>
         /// thSIP control.
         /// </summary>
         /// <remarks>
@@ -237,7 +264,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rpSchemeDetails;
-        protected global::System.Web.UI.WebControls.Repeater RepNews;
+        
         /// <summary>
         /// rptPager control.
         /// </summary>
@@ -246,24 +273,6 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rptPager;
-        
-        /// <summary>
-        /// rw_FundManager control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadWindow rw_FundManager;
-        
-        /// <summary>
-        /// confirmMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label confirmMessage;
         
         /// <summary>
         /// hfAMCCode control.
