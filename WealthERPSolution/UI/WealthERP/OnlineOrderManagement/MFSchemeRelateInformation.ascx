@@ -265,7 +265,7 @@
                 <div id="no-more-tables">
                     <table class="col-md-12 table-bordered table-striped table-condensed cf" style="width: 90%; margin-left:1%">
                         <thead class="cf">
-                            <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
+                            <tr style=" background-color: #2480c7; font-size: small; color: White;
                                 text-align: center">
                                 <th data-title="SchemeRank" class="alignCenter" runat="server" visible="false" id="thSchemeRank">
                                     Rank
@@ -351,14 +351,16 @@
                                         </td>
                                         <td data-title="Buy" runat="server" visible="false" id="tdBuy">
                                             <asp:LinkButton ID="lbBuy" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
-                                                CommandName="Buy" CssClass="btn btn-primary btn-info" Visible='<%# Eval("IsSchemePurchege")%>'>  <span class="glyphicon glyphicon-shopping-cart">
+                                                CommandName="Buy"  Visible='<%# Eval("IsSchemePurchege")%>' >   
+                                                <img src="../Images/Buy_BIG_Buttons.png" height="30px" width="50px"/>
+                                              
                                     </span>
                                             </asp:LinkButton>
                                         </td>
                                         <td data-title="SIP" runat="server" visible="false" id="tdSIP">
+                                         
                                             <asp:LinkButton ID="lbSIP" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
-                                                CommandName="SIP" CssClass="btn btn-primary btn-info" Visible='<%# Eval("IsSchemeSIPType")%>'>  <span class="glyphicon glyphicon-shopping-cart">
-                            </span></asp:LinkButton>
+                                                CommandName="SIP" Visible='<%# Eval("IsSchemeSIPType")%>' > <img src="../Images/SIP_BIG_Buttons.png" height="30px" width="50px"/>  </asp:LinkButton>
                                         </td>
                                         <td data-title="Watch">
                                             <asp:LinkButton ID="lbRemoveWatch" runat="server" CommandName="RemoveFrmWatch" Visible='<% #(Convert.ToBoolean(Eval("IsInWatch"))==true) ? true : false %>'
