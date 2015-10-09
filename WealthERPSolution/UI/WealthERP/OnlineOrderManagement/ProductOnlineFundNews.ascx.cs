@@ -8,56 +8,79 @@ using System.Configuration;
 using System.Net;
 using System.IO;
 using System.Data;
+using Microsoft.ApplicationBlocks.ExceptionManagement;
+using System.Collections.Specialized;
+using BoOnlineOrderManagement;
 
 namespace WealthERP.OnlineOrderManagement
 {
     public partial class ProductOnlineFundNews : System.Web.UI.UserControl
     {
+        OnlineMFSchemeDetailsBo OnlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 BindNewsHeading();
+                if (Request.QueryString["NewsDetsiisId"] != null)
+                    BindNewsDetails(int.Parse(Request.QueryString["NewsDetsiisId"]));
+
             }
         }
         protected void BindNewsHeading()
         {
-            string SectoreDetais = ConfigurationSettings.AppSettings["NEWS_HEADING"] + ConfigurationSettings.AppSettings["NEWS_DETAICOUNTS"];
-            WebResponse response;
-            string result;
-            WebRequest request = HttpWebRequest.Create(SectoreDetais);
-            response = request.GetResponse();
-            using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+            try
             {
-                result = reader.ReadToEnd();
-                reader.Close();
+                DataSet theDataSet = OnlineMFSchemeDetailsBo.GetAPIData(ConfigurationSettings.AppSettings["NEWS_HEADING"] + ConfigurationSettings.AppSettings["NEWS_DETAICOUNTS"]);
+                RepNews.DataSource = theDataSet.Tables[1];
+                RepNews.DataBind();
+
             }
-            StringReader theReader = new StringReader(result);
-            DataSet theDataSet = new DataSet();
-            theDataSet.ReadXml(theReader);
-            RepNews.DataSource = theDataSet.Tables[1];
-            RepNews.DataBind();
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineMFSchemeDetailsDao.cs:BindNewsHeading()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
         }
         protected void BindNewsDetails(int NewsId)
         {
-            string SectoreDetais = ConfigurationSettings.AppSettings["NEWS_DETAILS"] +NewsId;
-            WebResponse response;
-            string result;
-            WebRequest request = HttpWebRequest.Create(SectoreDetais);
-            response = request.GetResponse();
-            using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+             try
             {
-                result = reader.ReadToEnd();
-                reader.Close();
-            }
-            StringReader theReader = new StringReader(result);
-            DataSet theDataSet = new DataSet();
-            theDataSet.ReadXml(theReader);
+            string SectoreDetais = ConfigurationSettings.AppSettings["NEWS_DETAILS"] + NewsId;
+            DataSet theDataSet = OnlineMFSchemeDetailsBo.GetAPIData(SectoreDetais);
             repFundDetails.DataSource = theDataSet.Tables[1];
             repFundDetails.DataBind();
             divNewsDetails.Visible = true;
             FundNews.Visible = false;
             lblBack.Visible = true;
+            }
+             catch (BaseApplicationException Ex)
+             {
+                 throw Ex;
+             }
+             catch (Exception Ex)
+             {
+                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                 NameValueCollection FunctionInfo = new NameValueCollection();
+                 FunctionInfo.Add("Method", "BindNewsDetails(int NewsId)");
+                 object[] objects = new object[0];
+                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                 exBase.AdditionalInformation = FunctionInfo;
+                 ExceptionManager.Publish(exBase);
+                 throw exBase;
+
+             }
         }
         protected void repFundDetails_OnItemCommand(object sender, RepeaterCommandEventArgs e)
         {

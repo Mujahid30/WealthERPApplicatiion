@@ -129,7 +129,7 @@ namespace WealthERP.OnlineOrderManagement
                     if (Convert.ToDouble(dr["Diff"].ToString()) < 0.000)
                     {
                         lblNAV.Text = dr["PSP_NetAssetValue"].ToString();
-                        lblNAVDiff.Text = " " + dr["Diff"].ToString().TrimStart('-') + "(" + dr["Percentage"].ToString() + " %)";
+                        lblNAVDiff.Text = " " + dr["Diff"].ToString().TrimStart('-') + " (" + dr["Percentage"].ToString() + " %)";
                         lblNAV.Style["font-size"] = "large";
                         lblNAV.Style["font-weight"] = "bold";
                         lblNAVDiff.Style["font-size"] = "large";
@@ -141,7 +141,7 @@ namespace WealthERP.OnlineOrderManagement
                     else
                     {
                         lblNAV.Text = dr["PSP_NetAssetValue"].ToString();
-                        lblNAVDiff.Text = " " + dr["Diff"].ToString().TrimStart('-') + "(" + dr["Percentage"].ToString() + " %)";
+                        lblNAVDiff.Text = " " + dr["Diff"].ToString().TrimStart('-') + " (" + dr["Percentage"].ToString() + " %)";
                         lblNAV.Style["font-size"] = "large";
                         lblNAVDiff.Style["font-size"] = "large";
                         lblNAV.Style["font-weight"] = "bold";
@@ -354,23 +354,10 @@ namespace WealthERP.OnlineOrderManagement
             try
             {
                 string cmotcode = onlineMFSchemeDetailsBo.GetCmotCode(int.Parse(ddlScheme.SelectedValue));
-                string result;
                 ViewState["cmotcode"] = cmotcode;
                 if (cmotcode != "")
                 {
-                    string FundManagerDetais = ConfigurationSettings.AppSettings["FUND_MANAGER_DETAILS"] + cmotcode + "/Pre";
-                    string SectoreDetais = ConfigurationSettings.AppSettings["SECTORE_DETAILS"];
-                    WebResponse response;
-                    WebRequest request = HttpWebRequest.Create(FundManagerDetais);
-                    response = request.GetResponse();
-                    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
-                    {
-                        result = reader.ReadToEnd();
-                        reader.Close();
-                    }
-                    StringReader theReader = new StringReader(result);
-                    DataSet theDataSet = new DataSet();
-                    theDataSet.ReadXml(theReader);
+                    DataSet theDataSet = onlineMFSchemeDetailsBo.GetAPIData(ConfigurationSettings.AppSettings["FUND_MANAGER_DETAILS"] + cmotcode + "/Pre");
                     foreach (DataRow dr in theDataSet.Tables[1].Rows)
                     {
                         lblFundMAnagername.Text = dr["FundManager"].ToString();
@@ -402,19 +389,7 @@ namespace WealthERP.OnlineOrderManagement
             {
                 if (ViewState["cmotcode"] != null)
                 {
-                    string SectoreDetais = ConfigurationSettings.AppSettings["HOLDING_DETAILS"] + ViewState["cmotcode"] + "/" + ConfigurationSettings.AppSettings["TOP_Scheme"];
-                    WebResponse response;
-                    string result;
-                    WebRequest request = HttpWebRequest.Create(SectoreDetais);
-                    response = request.GetResponse();
-                    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
-                    {
-                        result = reader.ReadToEnd();
-                        reader.Close();
-                    }
-                    StringReader theReader = new StringReader(result);
-                    DataSet theDataSet = new DataSet();
-                    theDataSet.ReadXml(theReader);
+                    DataSet theDataSet = onlineMFSchemeDetailsBo.GetAPIData(ConfigurationSettings.AppSettings["HOLDING_DETAILS"] + ViewState["cmotcode"] + "/" + ConfigurationSettings.AppSettings["TOP_Scheme"]);
                     rpSchemeDetails.DataSource = theDataSet.Tables[1];
                     rpSchemeDetails.DataBind();
                 }
@@ -441,19 +416,7 @@ namespace WealthERP.OnlineOrderManagement
             {
                 if (ViewState["cmotcode"] != null)
                 {
-                    string SectoreDetais = ConfigurationSettings.AppSettings["SECTOR_DETAILS"] + ViewState["cmotcode"] + "/" + ConfigurationSettings.AppSettings["SECTOR_DETAILS_COUNT"] + "?responsetype=xml";
-                    WebResponse response;
-                    string result;
-                    WebRequest request = HttpWebRequest.Create(SectoreDetais);
-                    response = request.GetResponse();
-                    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
-                    {
-                        result = reader.ReadToEnd();
-                        reader.Close();
-                    }
-                    StringReader theReader = new StringReader(result);
-                    DataSet theDataSet = new DataSet();
-                    theDataSet.ReadXml(theReader);
+                    DataSet theDataSet = onlineMFSchemeDetailsBo.GetAPIData( ConfigurationSettings.AppSettings["SECTOR_DETAILS"] + ViewState["cmotcode"] + "/" + ConfigurationSettings.AppSettings["SECTOR_DETAILS_COUNT"] + "?responsetype=xml");
                     RepSector.DataSource = theDataSet.Tables[3];
                     RepSector.DataBind();
                 }

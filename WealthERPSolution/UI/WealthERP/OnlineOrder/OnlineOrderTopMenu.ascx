@@ -38,7 +38,7 @@
                         Skin="Telerik" EnableEmbeddedSkins="False" MultiPageID="RMPMFOrderMenuTransact"
                         SelectedIndex="7" AutoPostBack="true" OnTabClick="RTSMFOrderMenuHome_TabClick">
                         <Tabs>
-                            <telerik:RadTab runat="server" Text="MARKET" Value="RTSMFOrderMenuHomeMarket" TabIndex="0"
+                            <telerik:RadTab runat="server" Text="HOME" Value="RTSMFOrderMenuHomeMarket" TabIndex="0"
                                 PageViewID="RPVMarket" Selected="True">
                             </telerik:RadTab>
                             <telerik:RadTab runat="server" Text="SCHEME RESEARCH" Value="RTSMFOrderMenuHomeSchemeResearch"

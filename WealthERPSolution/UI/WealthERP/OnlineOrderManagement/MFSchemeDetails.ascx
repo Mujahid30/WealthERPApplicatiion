@@ -121,6 +121,13 @@
         border-collapse: collapse;
         border-spacing: 10px;
     }
+    .readOnlyFieldsss
+    {
+         font-family: Verdana,Tahoma;
+    font-weight: normal;
+    font-size: small;
+    color: Black;
+    }
 </style>
 <asp:UpdatePanel ID="updSchemDetails" runat="server" UpdateMode="Always">
     <ContentTemplate>
@@ -241,14 +248,14 @@
                             </span></asp:LinkButton>
                 &nbsp &nbsp
                 <asp:LinkButton ID="lbBuy" runat="server" 
-                    OnClick="lbBuy_OnClick" ValidationGroup="btnGo"> <img src="../Images/Buy-Button.png"/></asp:LinkButton>
+                    OnClick="lbBuy_OnClick" ValidationGroup="btnGo"> <img src="../Images/Buy_BIG_Buttons.png" height="40px" width="70px"/></asp:LinkButton>
                 &nbsp &nbsp
                 <asp:LinkButton ID="lbAddPurchase" runat="server" CssClass="btn btn-primary btn-success"
                     OnClick="lbAddPurchase_OnClick" Visible="false"> Additional Purchase <span class="glyphicon glyphicon-plus-sign">
                             </span></asp:LinkButton>
                 &nbsp &nbsp
                 <asp:LinkButton ID="lbSIP" runat="server"  OnClick="lbSIP_OnClick"
-                    ValidationGroup="btnGo"><img src="../Images/SIP-Button.png"/></asp:LinkButton>
+                    ValidationGroup="btnGo"><img src="../Images/SIP_BIG_Buttons.png" height="40px" width="70px"/></asp:LinkButton>
                 &nbsp &nbsp
                 <asp:LinkButton ID="lbRedem" runat="server" CssClass="btn btn-primary btn-danger"
                     OnClick="lbRedem_OnClick" Visible="false" ValidationGroup="btnGo"> Redemption <span class="glyphicon glyphicon-minus">
@@ -456,33 +463,33 @@
                                           <tbody>
                                             <tr>
                                                 <td>
-                                                     <asp:Label ID="lblRatingAsOnPopUp" runat="server" CssClass="readOnlyField" ></asp:Label>
+                                                     <asp:Label ID="lblRatingAsOnPopUp" runat="server" CssClass="readOnlyFields" ></asp:Label>
                                                 </td>
                                                 <td>
-                                                    <span class="readOnlyField">RATING</span>
+                                                    <span class="readOnlyFields">RATING</span>
                                                 </td>
                                                 <td>
-                                                    <span class="readOnlyField">RETURN</span>
+                                                    <span class="readOnlyFields">RETURN</span>
                                                 </td>
                                                 <td>
-                                                    <span class="readOnlyField">RISK</span>
+                                                    <span class="readOnlyFields">RISK</span>
                                                 </td>
                                                 <td>
-                                                    <span class="readOnlyField">RATING OVERALL</span>
+                                                    <span class="readOnlyFields">RATING OVERALL</span>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <span class="readOnlyField">3 YEAR</span>
+                                                    <span class="readOnlyFields">3 YEAR</span>
                                                 </td>
                                                 <td>
                                                     <asp:Image runat="server" ID="imgRating3yr" />
                                                 </td>
                                                 <td>
-                                                    <asp:Label ID="lblSchemeRetrun3yr" runat="server" CssClass="readOnlyField" > </asp:Label>
+                                                    <asp:Label ID="lblSchemeRetrun3yr" runat="server" CssClass="readOnlyFields" > </asp:Label>
                                                 </td>
                                                 <td>
-                                                    <asp:Label ID="lblSchemeRisk3yr" runat="server" CssClass="readOnlyField" > </asp:Label>
+                                                    <asp:Label ID="lblSchemeRisk3yr" runat="server" CssClass="readOnlyFields" > </asp:Label>
                                                 </td>
                                                 <td rowspan="3">
                                                     <asp:Image runat="server" ID="imgRatingOvelAll" ImageAlign="Middle" />
@@ -490,30 +497,30 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <span class="readOnlyField">5 YEAR</span>
+                                                    <span class="readOnlyFields">5 YEAR</span>
                                                 </td>
                                                 <td>
                                                     <asp:Image runat="server" ID="imgRating5yr" />
                                                 </td>
                                                 <td>
-                                                    <asp:Label ID="lblSchemeRetrun5yr" runat="server" CssClass="readOnlyField" ></asp:Label>
+                                                    <asp:Label ID="lblSchemeRetrun5yr" runat="server" CssClass="readOnlyFields" ></asp:Label>
                                                 </td>
                                                 <td>
-                                                    <asp:Label ID="lblSchemeRisk5yr" runat="server" CssClass="readOnlyField" ></asp:Label>
+                                                    <asp:Label ID="lblSchemeRisk5yr" runat="server" CssClass="readOnlyFields" ></asp:Label>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <span class="readOnlyField">10 YEAR</span>
+                                                    <span class="readOnlyFields">10 YEAR</span>
                                                 </td>
                                                 <td>
                                                     <asp:Image runat="server" ID="imgRating10yr" />
                                                 </td>
                                                 <td>
-                                                    <asp:Label ID="lblSchemeRetrun10yr" runat="server" CssClass="readOnlyField" ></asp:Label>
+                                                    <asp:Label ID="lblSchemeRetrun10yr" runat="server" CssClass="readOnlyFields" ></asp:Label>
                                                 </td>
                                                 <td>
-                                                    <asp:Label ID="lblSchemeRisk10yr" runat="server" CssClass="readOnlyField" ></asp:Label>
+                                                    <asp:Label ID="lblSchemeRisk10yr" runat="server" CssClass="readOnlyFieldss" ></asp:Label>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -598,7 +605,7 @@
                                     text-align: center">
                                     
                                     <th data-title="Fund Name" class="alignCenter">
-                                       Holding
+                                      Top Holding
                                     </th>
                                     <th data-title="Holding(%)" class="alignCenter">
                                         Weight (%)
@@ -621,14 +628,14 @@
                             </tbody>
                         </table>
                         </div>
-                         <div style="width:20%; float: left;">
+                         <div style="width:21%; float: left;">
                         <table class="col-md-12 table-bordered table-striped table-condensed cf" width="100%">
                             <thead class="cf">
                                 <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
                                     text-align: center">
                                     
                                     <th data-title="Sector" class="alignCenter">
-                                       Sector
+                                      Top Sector
                                     </th>
                                     <th data-title="Holding(%)" class="alignCenter">
                                         Weight (%)
@@ -651,7 +658,7 @@
                             </tbody>
                         </table>
                         </div>
-                        <div style="width: 18%; float: left; min-width: 18%; margin-left: 10px;">
+                        <div style="width: 13%; float: left; min-width: 13%; margin-left: 10px;">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -670,8 +677,8 @@
                     </tbody>
                 </table>
             </div>
-            <div style="width: 20%; float: left; min-width: 20%; margin-left: 10px;">
-             <table class="table table-bordered">
+            <div style="width: 18%; float: left; min-width: 18%; margin-left: 10px;">
+             <table class="table table-bordered" style="margin-left:60px;">
                     <thead>
                         <tr>
                             <th colspan="2" class="header">

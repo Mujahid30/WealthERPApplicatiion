@@ -133,12 +133,13 @@
                         <ItemTemplate>
                             <div class="dottedBottom">
                                 <div>
-                                    <asp:Label ID="lblHeading" runat="server" Text='<%# Eval("heading")%>'></asp:Label>
+                                    <asp:Label ID="lblHeading" runat="server" ></asp:Label>
+                                    <asp:LinkButton ID="lnkMoreNews" Style=" color: Black;"
+                                        runat="server" Text='<%# Eval("heading")%>' ToolTip="Detail"  CommandName="NewsDetailsLnk" CommandArgument='<%# Eval("sno")%>'></asp:LinkButton>
                                 </div>
                                 <div>
                                     <asp:Label ID="lblDate" Style="font-size: x-small; color:Gray;" runat="server" Text='<%# Eval("date")%>'></asp:Label>
-                                    <asp:LinkButton ID="lnkMoreNews" Style="font-size: x-small; color: #4582DF; font-weight: bold;"
-                                        runat="server" Text=">>>" ToolTip="Detail"  CommandName="NewsDetailsLnk" CommandArgument='<%# Eval("sno")%>'></asp:LinkButton>
+                                    
                                         <asp:Label ID="lblSchemeID" runat="server" Text='<%# Eval("sno")%>' Visible="false"></asp:Label>
                                 </div>
                             </div>

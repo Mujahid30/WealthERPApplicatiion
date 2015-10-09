@@ -7,6 +7,8 @@ using DaoOnlineOrderManagement;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using System.Data;
+using System.Net;
+using System.IO;
 namespace BoOnlineOrderManagement
 {
     public class OnlineMFSchemeDetailsBo
@@ -143,6 +145,42 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
             return dt;
+        }
+        public DataSet GetAPIData(string APIFormate)
+        {
+            DataSet theDataSet = new DataSet();
+            try
+            {
+                WebResponse response;
+                string result;
+                WebRequest request = HttpWebRequest.Create(APIFormate);
+                response = request.GetResponse();
+                using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                {
+                    result = reader.ReadToEnd();
+                    reader.Close();
+                }
+                StringReader theReader = new StringReader(result);
+                theDataSet.ReadXml(theReader);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "GetAPIData(string APIFormate)");
+                object[] objects = new object[1];
+                objects[0] = APIFormate;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return theDataSet;
         }
     }
 }

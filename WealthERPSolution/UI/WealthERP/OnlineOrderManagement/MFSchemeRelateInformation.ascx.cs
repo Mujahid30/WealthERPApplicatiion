@@ -472,26 +472,45 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void BindNewsHeading()
         {
-            string SectoreDetais = ConfigurationSettings.AppSettings["NEWS_HEADING"] + 2;
-            WebResponse response;
-            string result;
-            WebRequest request = HttpWebRequest.Create(SectoreDetais);
-            response = request.GetResponse();
-            using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                OnlineMFSchemeDetailsBo OnlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
+            try
             {
-                result = reader.ReadToEnd();
-                reader.Close();
+               DataSet theDataSet=OnlineMFSchemeDetailsBo.GetAPIData(ConfigurationSettings.AppSettings["NEWS_HEADING"] + ConfigurationSettings.AppSettings["NEWS_COUNT"]);
+                RepNews.DataSource = theDataSet.Tables[1];
+                RepNews.DataBind();
             }
-            StringReader theReader = new StringReader(result);
-            DataSet theDataSet = new DataSet();
-            theDataSet.ReadXml(theReader);
-            RepNews.DataSource = theDataSet.Tables[1];
-            RepNews.DataBind();
-        }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineMFSchemeDetailsDao.cs:BindNewsHeading()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
 
+            }
+
+        }
         protected void lnkMoreNews_lnkMoreNews(object sender, EventArgs e)
         {
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('ProductOnlineFundNews')", true);
+        }
+        protected void repFundDetails_OnItemCommand(object sender, RepeaterCommandEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(e.CommandName))
+            {
+                int NewsDetsiisId = int.Parse(e.CommandArgument.ToString());
+                if (e.CommandName == "NewsDetailsLnk")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('ProductOnlineFundNews','&NewsDetsiisId=" + NewsDetsiisId + "');", true);
+                }
+            }
         }
     }
 }
