@@ -154,66 +154,67 @@
 </table>
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
-        <div style="margin-left: 11%; margin-top: 1%; margin-bottom: 0.5%; margin-right: 5%;
+    <div style="margin-left: 11%; margin-top: 1%; margin-bottom: 0.5%; margin-right: 5%;
             padding-top: 0.5%; padding-bottom: 0.5%; width: 80%">
-            <div id="dvDemo" visible="true" runat="server">
-                <div class="col-md-9  col-xs-9 col-sm-9">
-                    <div class="col-md-12  col-xs-12 col-sm-12">
-                        <div class="col-md-8 dottedBottom">
-                            <b>Fund Filter </b>
-                        </div>
-                        <div class="col-md-3 dottedBottom">
-                            <b>Predefined Search </b>
-                        </div>
+        <div id="dvDemo"  visible="true" runat="server">
+            <div class="col-md-9  col-xs-9 col-sm-9" >
+                <div class="col-md-12  col-xs-12 col-sm-12">
+                    <div class="col-md-8 dottedBottom">
+                        <b>Fund Filter </b>
                     </div>
-                    <div class="col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 1%">
-                        <div class="col-md-5">
-                            <asp:DropDownList ID="ddlAMC" runat="server" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged"
-                                AutoPostBack="false">
-                            </asp:DropDownList>
-                            <asp:RequiredFieldValidator ID="rfvtxtTransactionDate" ControlToValidate="ddlAMC"
-                                ErrorMessage="<br />Please select AMC" Style="color: Red;" Display="Dynamic"
-                                runat="server" InitialValue="0" ValidationGroup="btnViewscheme">
-                            </asp:RequiredFieldValidator>
-                            <%--<asp:RequiredFieldValidator ID="rfvAMC" runat="server" ControlToValidate="ddlAMC" InitialValue="0" ErrorMessage="Please Select AMC" Display="Dynamic"></asp:RequiredFieldValidator>--%>
-                        </div>
-                        <div class="col-md-3">
-                            <fieldset>
-                                <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control input-sm"
-                                    AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged">
-                                </asp:DropDownList>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="ddlCategory"
-                                    ErrorMessage="<br />Please select category" Style="color: Red;" Display="Dynamic"
-                                    runat="server" InitialValue="0" ValidationGroup="btnViewscheme">
-                                </asp:RequiredFieldValidator>
-                            </fieldset>
-                        </div>
-                        <div class="col-md-4">
-                            <asp:LinkButton ID="lbNFOList" runat="server" OnClick="GetSchemeDetails" CssClass="linkButton">NFO Scheme </asp:LinkButton>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="col-md-7">
-                            <asp:DropDownList ID="ddlScheme" runat="server" CssClass="form-control input-sm"
-                                class="form-control">
-                            </asp:DropDownList>
-                        </div>
-                        <div class="col-md-1">
-                            <asp:Button ID="Button1" runat="server" class="btn btn-sm btn-primary" Text="GO"
-                                OnClick="Go_OnClick" ValidationGroup="btnViewscheme"></asp:Button></div>
-                        <div class="col-md-3 ">
-                            <asp:LinkButton ID="lbTopSchemes" runat="server" OnClick="GetSchemeDetails" CssClass="linkButton">Top Ten Schemes </asp:LinkButton>
-                        </div>
-                    </div>
-                    <div class="col-md-12" style="margin-top: 1%">
-                        <div class="col-md-8">
-                        </div>
-                        <div class="col-md-3">
-                            <asp:LinkButton ID="lbViewWatchList" runat="server" OnClick="GetSchemeDetails" CssClass="linkButton">My Watch list  </asp:LinkButton>
-                        </div>
+                    <div class="col-md-3 dottedBottom">
+                        <b>Predefined Search </b>
                     </div>
                 </div>
-                <div class="col-md-3 col-xs-3 col-sm-3" style="margin-top: 0px;">
+                <div class="col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 1%">
+                    <div class="col-md-5">
+                        <asp:DropDownList ID="ddlAMC" runat="server" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged"
+                            AutoPostBack="false">
+                        </asp:DropDownList>
+                        <asp:RequiredFieldValidator ID="rfvtxtTransactionDate" ControlToValidate="ddlAMC"
+                            ErrorMessage="<br />Please select AMC" Style="color: Red;" Display="Dynamic"
+                            runat="server" InitialValue="0" ValidationGroup="btnViewscheme">
+                        </asp:RequiredFieldValidator>
+                        <%--<asp:RequiredFieldValidator ID="rfvAMC" runat="server" ControlToValidate="ddlAMC" InitialValue="0" ErrorMessage="Please Select AMC" Display="Dynamic"></asp:RequiredFieldValidator>--%>
+                    </div>
+                    <div class="col-md-3">
+                        <fieldset>
+                            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control input-sm"
+                                AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged">
+                            </asp:DropDownList>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="ddlCategory"
+                                ErrorMessage="<br />Please select category" Style="color: Red;" Display="Dynamic"
+                                runat="server" InitialValue="0" ValidationGroup="btnViewscheme">
+                            </asp:RequiredFieldValidator>
+                            
+                        </fieldset>
+                    </div>
+                    <div class="col-md-4">
+                        <asp:LinkButton ID="lbNFOList" runat="server" OnClick="GetSchemeDetails" CssClass="linkButton">NFO Scheme </asp:LinkButton>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-7">
+                        <asp:DropDownList ID="ddlScheme" runat="server" CssClass="form-control input-sm"
+                            class="form-control">
+                        </asp:DropDownList>
+                    </div>
+                    <div class="col-md-1"><asp:Button ID="Button1" runat="server" class="btn btn-sm btn-primary" Text="GO"
+                            OnClick="Go_OnClick" ValidationGroup="btnViewscheme"></asp:Button></div>
+                    <div class="col-md-3 ">
+                        <asp:LinkButton ID="lbTopSchemes" runat="server" OnClick="GetSchemeDetails" CssClass="linkButton">Top Ten Schemes </asp:LinkButton>
+                    </div>
+                </div>
+                <div class="col-md-12" style="margin-top: 1%">
+                    <div class="col-md-8">
+                        
+                    </div>
+                    <div class="col-md-3">
+                        <asp:LinkButton ID="lbViewWatchList" runat="server" OnClick="GetSchemeDetails" CssClass="linkButton">My Watch list  </asp:LinkButton>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-xs-3 col-sm-3" style="margin-top: 0px;">
                     <div class="col-md-12 dottedBottom">
                         <b>Fund News</b>
                     </div>
@@ -224,7 +225,7 @@
                             <div class="dottedBottom">
                                 <div>
                                 <asp:LinkButton ID="lnknews" runat="server" style="color:Black" Text='<%# Eval("heading")%>' CommandName="NewsDetailsLnk" CommandArgument='<%# Eval("sno")%>'></asp:LinkButton>
-                                    <asp:Label ID="lblHeading" runat="server" Text='<%# Eval("sno")%>' Visible="false"></asp:Label>
+                                    <asp:Label ID="Label2" runat="server" Text='<%# Eval("sno")%>' Visible="false"></asp:Label>
                                 </div>
                                 <div>
                                     <asp:Label ID="lblDate" Style="font-size: x-small; color: Gray;" runat="server" Text='<%# Eval("date")%>'></asp:Label>
@@ -239,24 +240,25 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row " runat="server" visible="false" id="dvHeading">
-                <div class="col-md-12">
-                    <div class="col-md-2">
-                        <asp:Label ID="lblHeading" runat="server" Text="Scheme Details" Font-Bold="true"
-                            Font-Size="Larger" ForeColor="#2475C7"></asp:Label>
-                    </div>
-                    <div class="col-md-4">
-                        <asp:RadioButtonList ID="rblNFOType" runat="server" AutoPostBack="true" RepeatDirection="Horizontal"
-                            OnSelectedIndexChanged="rblNFOType_OnSelectedIndexChanged" BorderStyle="None"
-                            CellSpacing="2" CellPadding="2">
-                            <asp:ListItem Text="Active" Value="true" Selected="True" style="margin-right: 10px;
-                                font-size: small; color: #2475C7"></asp:ListItem>
-                            <asp:ListItem Text="Closed" Value="false" style="font-size: small; color: #2475C7"></asp:ListItem>
-                        </asp:RadioButtonList>
-                    </div>
-                    <div class="col-md-4">
-                    </div>
+        </div>
+        <div class="row "  runat="server" visible="false" id="dvHeading">
+            <div class="col-md-12">
+                <div class="col-md-2">
+                    <asp:Label ID="lblHeading" runat="server" Text="Scheme Details" Font-Bold="true"
+                        Font-Size="Larger" ForeColor="#2475C7"></asp:Label>
+                         
+                </div>
+               
+                <div class="col-md-4">
+                  <asp:RadioButtonList ID="rblNFOType" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" 
+                    OnSelectedIndexChanged="rblNFOType_OnSelectedIndexChanged" 
+                    BorderStyle="None" CellSpacing="2"  CellPadding="2" >
+                    <asp:ListItem Text="Active" Value="true" Selected="True" style="margin-right:10px; font-size:small;color:#2475C7"></asp:ListItem>
+                        <asp:ListItem Text="Closed" Value="false" style=" font-size:small;color:#2475C7"></asp:ListItem>
+                    </asp:RadioButtonList>
+                   
+                </div>
+                 <div class="col-md-4">
                 </div>
             </div>
         </div>
@@ -265,7 +267,7 @@
                 <div id="no-more-tables">
                     <table class="col-md-12 table-bordered table-striped table-condensed cf" style="width: 90%; margin-left:1%">
                         <thead class="cf">
-                            <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
+                            <tr style=" background-color: #2480c7; font-size: small; color: White;
                                 text-align: center">
                                 <th data-title="SchemeRank" class="alignCenter" runat="server" visible="false" id="thSchemeRank">
                                     Rank
@@ -351,42 +353,44 @@
                                         </td>
                                         <td data-title="Buy" runat="server" visible="false" id="tdBuy">
                                             <asp:LinkButton ID="lbBuy" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
-                                                CommandName="Buy" CssClass="btn btn-primary btn-info" Visible='<%# Eval("IsSchemePurchege")%>'>  <span class="glyphicon glyphicon-shopping-cart">
+                                                CommandName="Buy"  Visible='<%# Eval("IsSchemePurchege")%>' >   
+                                                <img src="../Images/Buy_BIG_Buttons.png" height="30px" width="50px"/>
+                                              
                                     </span>
                                             </asp:LinkButton>
                                         </td>
                                         <td data-title="SIP" runat="server" visible="false" id="tdSIP">
+                                         
                                             <asp:LinkButton ID="lbSIP" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
-                                                CommandName="SIP" CssClass="btn btn-primary btn-info" Visible='<%# Eval("IsSchemeSIPType")%>'>  <span class="glyphicon glyphicon-shopping-cart">
-                            </span></asp:LinkButton>
+                                                CommandName="SIP" Visible='<%# Eval("IsSchemeSIPType")%>' > <img src="../Images/SIP_BIG_Buttons.png" height="30px" width="50px"/>  </asp:LinkButton>
                                         </td>
                                         <td data-title="Watch">
                                             <asp:LinkButton ID="lbRemoveWatch" runat="server" CommandName="RemoveFrmWatch" Visible='<% #(Convert.ToBoolean(Eval("IsInWatch"))==true) ? true : false %>'
                                                 Font-Size="Small" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'>Remove <span class="glyphicon glyphicon-dashboard">
                             </span></asp:LinkButton>
-                                                <asp:LinkButton ID="lbAddToWatch" runat="server" CommandName="addToWatch" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
-                                                    Visible='<% #(Convert.ToBoolean(Eval("IsInWatch"))==true) ? false :true %>' Font-Size="Small"> Add To <span class="glyphicon glyphicon-dashboard">
+                                            <asp:LinkButton ID="lbAddToWatch" runat="server" CommandName="addToWatch" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
+                                                Visible='<% #(Convert.ToBoolean(Eval("IsInWatch"))==true) ? false :true %>' Font-Size="Small"> Add To <span class="glyphicon glyphicon-dashboard">
                             </span>
-                                                </asp:LinkButton>
-                                            </td>
-                                            </tr>
-                                        </ItemTemplate>
-                                    </asp:Repeater>
-                            </tbody>
-                        </table>
-                    </div>
+                                            </asp:LinkButton>
+                                        </td>
+                                        </tr>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="row" style="margin-left: 1%; margin-top: 2%">
-                <asp:Repeater ID="rptPager" runat="server">
-                    <ItemTemplate>
-                        <asp:LinkButton ID="lnkPage" runat="server" Text='<%#Eval("Text") %>' CommandArgument='<%# Eval("Value") %>'
-                            CssClass='<%# Convert.ToBoolean(Eval("Enabled")) ? "page_enabled" : "page_disabled" %>'
-                            OnClick="Page_Changed"></asp:LinkButton>
-                    </ItemTemplate>
-                </asp:Repeater>
-            </div>
         </div>
+        <div class="row" style=" margin-left:1%; margin-top:2%">
+            <asp:Repeater ID="rptPager" runat="server">
+                <ItemTemplate>
+                    <asp:LinkButton ID="lnkPage" runat="server" Text='<%#Eval("Text") %>' CommandArgument='<%# Eval("Value") %>'
+                        CssClass='<%# Convert.ToBoolean(Eval("Enabled")) ? "page_enabled" : "page_disabled" %>'
+                        OnClick="Page_Changed"></asp:LinkButton>
+                </ItemTemplate>
+            </asp:Repeater>
+        </div>
+       </div>
         <asp:HiddenField ID="hfAMCCode" runat="server" />
         <asp:HiddenField ID="hfSchemeCode" runat="server" />
         <asp:HiddenField ID="hfCategory" runat="server" />
