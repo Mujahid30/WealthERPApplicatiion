@@ -275,7 +275,8 @@ namespace WealthERP.OnlineOrderManagement
 
                         if (Session["PageDefaultSetting"] != null)
                         {
-                            Session["MFSchemePlan"] = PASP_SchemePlanCode;
+                            //Session["MFSchemePlan"] = PASP_SchemePlanCode;
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFSchemeDetails','&schemeCode=" + PASP_SchemePlanCode + "');", true);
                             LoadMFTransactionPage("MFSchemeDetails", 1);
                         }
                         else

@@ -598,7 +598,7 @@
                 </table>
             </div>
                     <div id="no-more-tables" class="collapse" style="width:100%" >
-                    <div style="width:20%;">
+                    <div style="width:20%;margin-right:5px;">
                         <table class="col-md-12 table-bordered table-striped table-condensed cf" width="100%">
                             <thead class="cf">
                                 <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
@@ -628,7 +628,7 @@
                             </tbody>
                         </table>
                         </div>
-                         <div style="width:21%; float: left;">
+                         <div style="width:21%;float: left;margin-left:8px;">
                         <table class="col-md-12 table-bordered table-striped table-condensed cf" width="100%">
                             <thead class="cf">
                                 <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
@@ -677,7 +677,7 @@
                     </tbody>
                 </table>
             </div>
-            <div style="width: 18%; float: left; min-width: 18%; margin-left: 10px;">
+            <div style="width: 19%; float: left; min-width: 19%; margin-left: 10px;">
              <table class="table table-bordered" style="margin-left:60px;">
                     <thead>
                         <tr>

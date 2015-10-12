@@ -38,17 +38,17 @@ namespace WealthERP.OnlineOrderManagement
             if (!IsPostBack)
             {
                 BindAMC();
-                if (Session["MFSchemePlan"] != null || Request.QueryString["schemeCode"] != null)
+                if (Request.QueryString["schemeCode"] != null)
                 {
-                    if (Request.QueryString["schemeCode"] != null)
-                        Session["MFSchemePlan"] = Request.QueryString["schemeCode"];
+                    //if (Request.QueryString["schemeCode"] != null)//Session["MFSchemePlan"] != null || 
+                    //    Session["MFSchemePlan"] = Request.QueryString["schemeCode"];
                     int amcCode = 0;
                     string category = string.Empty;
                     BindCategory();
-                    if (Session["MFSchemePlan"] != null && Session["MFSchemePlan"] != "")
-                    {
-                        commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category);
-                        int schemecode = int.Parse(Session["MFSchemePlan"].ToString());
+                    //if (Session["MFSchemePlan"] != null && Session["MFSchemePlan"] != "")
+                    //{
+                    commonLookupBo.GetSchemeAMCCategory(int.Parse(Request.QueryString["schemeCode"].ToString()), out amcCode, out category);
+                    int schemecode = int.Parse(Request.QueryString["schemeCode"].ToString());
                         ddlAMC.SelectedValue = amcCode.ToString();
                         ddlCategory.SelectedValue = category;
                         BindScheme();
@@ -57,7 +57,7 @@ namespace WealthERP.OnlineOrderManagement
                         BindschemedetailsNAV();
                         hidCurrentScheme.Value = ddlScheme.SelectedValue;
 
-                    }
+                    //}
                 }
             }
         }
@@ -115,6 +115,7 @@ namespace WealthERP.OnlineOrderManagement
             GetAmcSchemeDetails();
             BindschemedetailsNAV();
             hidCurrentScheme.Value = ddlScheme.SelectedValue;
+            Session["MFSchemePlan"] = ddlScheme.SelectedValue;
         }
 
         protected void BindschemedetailsNAV()
@@ -367,20 +368,8 @@ namespace WealthERP.OnlineOrderManagement
                     }
                 }
             }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
             catch (Exception Ex)
             {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "MFSchemeDetails.ascx.cs:BindfundManagerDetails()");
-                object[] objParams = new object[0];
-                FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
             }
         }
         protected void BindHoldingDetails()
@@ -394,20 +383,10 @@ namespace WealthERP.OnlineOrderManagement
                     rpSchemeDetails.DataBind();
                 }
             }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
+           
             catch (Exception Ex)
             {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "MFSchemeDetails.ascx.cs:BindfundManagerDetails()");
-                object[] objParams = new object[0];
-                FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
+            
             }
         }
         protected void BindSectoreDetails()
@@ -421,52 +400,42 @@ namespace WealthERP.OnlineOrderManagement
                     RepSector.DataBind();
                 }
             }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
+            
             catch (Exception Ex)
             {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "MFSchemeDetails.ascx.cs:BindfundManagerDetails()");
-                object[] objParams = new object[0];
-                FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
+               
             }
         }
         protected void lnkAddToCompare_OnClick(object sender, EventArgs e)
         {
             if (ddlScheme.SelectedValue != "")
             {
-                if (Session["SchemeCompareList"] != null)
-                {
-                    schemeCompareList = (List<int>)Session["SchemeCompareList"];
-                    if (schemeCompareList[0] != Convert.ToInt32(hidCurrentScheme.Value))
-                    {
+                //if (Session["SchemeCompareList"] != null)
+                //{
+                    //schemeCompareList = (List<int>)Session["SchemeCompareList"];
+                    //if (schemeCompareList[0] != Convert.ToInt32(hidCurrentScheme.Value))
+                    //{
                         schemeCompareList.Add(Convert.ToInt32(hidCurrentScheme.Value));
                         Session["SchemeCompareList"] = schemeCompareList;
 
-                        if (schemeCompareList.Count > 1)
-                        {
-                            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('OnlineMFSchemeCompare');", true);
+                        //if (schemeCompareList.Count > 0)
+                        //{
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('OnlineMFSchemeCompare','&schemeCompareList=" + schemeCompareList +"');", true);
                             LoadMFTransactionPage("OnlineMFSchemeCompare", 1);
 
-                        }
-                    }
-                    else
-                    {
-                        ShowMessage("Scheme already added for compare!!", 'I');
-                    }
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    ShowMessage("Scheme already added for compare!!", 'I');
+                    //}
 
-                }
-                else
-                {
-                    schemeCompareList.Add(Convert.ToInt32(hidCurrentScheme.Value));
-                    Session["SchemeCompareList"] = schemeCompareList;
-                }
+                //}
+                //else
+                //{
+                //    schemeCompareList.Add(Convert.ToInt32(hidCurrentScheme.Value));
+                //    Session["SchemeCompareList"] = schemeCompareList;
+                //}
             }
         }
         private void ShowMessage(string msg, char type)

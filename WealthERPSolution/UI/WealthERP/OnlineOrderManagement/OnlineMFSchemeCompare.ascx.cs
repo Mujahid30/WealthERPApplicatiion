@@ -25,10 +25,10 @@ namespace WealthERP.OnlineOrderManagement
             {
                 BindAMC1();
                 BindCategory();
-                if (Session["SchemeCompareList"] != null)
+                if (Request.QueryString["schemeCompareList"] != null)
                 {
-                    schemeCompareList = (List<int>)Session["SchemeCompareList"];
-                    GetSchemeCompareList(Getschemecode(schemeCompareList), 0);
+                    //schemeCompareList = (List<int>)Session["SchemeCompareList"];
+                    GetSchemeCompareList(Getschemecode((List<int>)Session["SchemeCompareList"]), 0);
                 }
             }
         }
@@ -278,7 +278,7 @@ namespace WealthERP.OnlineOrderManagement
                     else
                     {
                         imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/0.png";
-                        ImgStyle4.ImageUrl = @"../Images/MorningStarRating/PMFRD_RatingOverall/0.png";
+                        ImgStyle1.ImageUrl = @"../Images/MorningStarRating/PMFRD_RatingOverall/0.png";
 
                     }
                     break;
@@ -320,7 +320,7 @@ namespace WealthERP.OnlineOrderManagement
                     else
                     {
                         imgSchemeRating1.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/0.png";
-                        ImgStyle4.ImageUrl = @"../Images/MorningStarRating/PMFRD_RatingOverall/0.png";
+                        ImgStyle2.ImageUrl = @"../Images/MorningStarRating/PMFRD_RatingOverall/0.png";
 
                     }
                     break;
@@ -362,7 +362,7 @@ namespace WealthERP.OnlineOrderManagement
                     else
                     {
                         imgSchemeRating2.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/0.png";
-                        ImgStyle4.ImageUrl = @"../Images/MorningStarRating/PMFRD_RatingOverall/0.png";
+                        ImgStyle3.ImageUrl = @"../Images/MorningStarRating/PMFRD_RatingOverall/0.png";
 
                     }
                     break;
@@ -566,48 +566,56 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void btnbuy1_Click(object sender, ImageClickEventArgs e)
         {
+            if(Session["MFSchemePlan"]==null)
             Session["MFSchemePlan"] = ddlSchemeList1.SelectedValue;
             LoadMFTransactionPage("MFOrderPurchaseTransType");
         }
 
         protected void btnSIP1_Click(object sender, ImageClickEventArgs e)
         {
+            if (Session["MFSchemePlan"] == null)
             Session["MFSchemePlan"] = ddlSchemeList1.SelectedValue;
             LoadMFTransactionPage("MFOrderSIPTransType");
         }
 
         protected void btnbuy2_Click(object sender, ImageClickEventArgs e)
         {
+            if (Session["MFSchemePlan"] == null)
             Session["MFSchemePlan"] = ddlSchemeList1.SelectedValue;
             LoadMFTransactionPage("MFOrderPurchaseTransType");
         }
 
         protected void btnSIP2_Click(object sender, ImageClickEventArgs e)
         {
+            if (Session["MFSchemePlan"] == null)
             Session["MFSchemePlan"] = ddlSchemeList2.SelectedValue;
             LoadMFTransactionPage("MFOrderSIPTransType");
         }
 
         protected void btnbuy3_Click(object sender, ImageClickEventArgs e)
         {
+            if (Session["MFSchemePlan"] == null)
             Session["MFSchemePlan"] = ddlSchemeList1.SelectedValue;
             LoadMFTransactionPage("MFOrderPurchaseTransType");
         }
 
         protected void btnSIP3_Click(object sender, ImageClickEventArgs e)
         {
+            if (Session["MFSchemePlan"] == null)
             Session["MFSchemePlan"] = ddlSchemeList3.SelectedValue;
             LoadMFTransactionPage("MFOrderSIPTransType");
         }
 
         protected void btnbuy4_Click(object sender, ImageClickEventArgs e)
         {
+            if (Session["MFSchemePlan"] == null)
             Session["MFSchemePlan"] = ddlSchemeList1.SelectedValue;
             LoadMFTransactionPage("MFOrderPurchaseTransType");
         }
 
         protected void btnSIP4_Click(object sender, ImageClickEventArgs e)
         {
+            if (Session["MFSchemePlan"] == null)
             Session["MFSchemePlan"] = ddlSchemeList4.SelectedValue;
             LoadMFTransactionPage("MFOrderSIPTransType");
 
