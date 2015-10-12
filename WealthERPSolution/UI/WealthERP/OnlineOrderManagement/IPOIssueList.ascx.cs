@@ -174,15 +174,8 @@ namespace WealthERP.OnlineOrderManagement
                         return;
                     }
                     string path = MapPath("~/Repository") + "\\advisor_" + advisorVo.advisorId + "\\" + filename;
-                    byte[] bts = System.IO.File.ReadAllBytes(path);
-                    Response.Clear();
-                    Response.ClearHeaders();
-                    Response.AddHeader("Content-Type", "Application/octet-stream");
-                    Response.AddHeader("Content-Length", bts.Length.ToString());
-                    Response.AddHeader("Content-Disposition", "attachment; filename=" + filename);
-                    Response.BinaryWrite(bts);
-                    Response.Flush();
-                    Response.End();
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "window.open('" + path+ "','_blank');", true);
+                    
                 }
             }
         }
