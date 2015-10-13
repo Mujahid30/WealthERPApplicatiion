@@ -15,6 +15,7 @@ using System.Collections.Specialized;
 using Telerik.Web.UI;
 using System.Text;
 using System.Data;
+using System.Net;
 
 namespace WealthERP.OnlineOrderManagement
 {
@@ -173,9 +174,8 @@ namespace WealthERP.OnlineOrderManagement
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Prospectus is not available for this issue!!');", true);
                         return;
                     }
-                    string path = MapPath("~/Repository") + "\\advisor_" + advisorVo.advisorId + "\\" + filename;
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "window.open('" + path+ "','_blank');", true);
-                    
+                    string path = "~/Repository"+ "\\advisor_" + advisorVo.advisorId + "\\" + filename;
+                    Response.Redirect(path); 
                 }
             }
         }
@@ -188,7 +188,10 @@ namespace WealthERP.OnlineOrderManagement
             {
 
                 ImageButton imgBuy = (ImageButton)e.Item.FindControl("imgBuy");
-
+                LinkButton lbPreview = (LinkButton)e.Item.FindControl("lbPreview");
+                string filename = RadGridIPOIssueList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AR_Filename"].ToString();
+                if(filename!=string.Empty)
+                    lbPreview.OnClientClick = "window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);";
                 if (ddlType.SelectedValue == "Curent")
                 {
                     imgBuy.Visible = true;

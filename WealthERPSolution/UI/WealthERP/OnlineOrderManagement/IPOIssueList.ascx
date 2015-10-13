@@ -158,9 +158,14 @@
                                                     ToolTip="BUY IPO" />
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
-                                        <telerik:GridButtonColumn CommandName="download_file" Text="View Prospectus" UniqueName="Download"
-                                            HeaderText="Download">
-                                        </telerik:GridButtonColumn>
+                                  <telerik:GridTemplateColumn ItemStyle-Width="140px" AllowFiltering="false" HeaderText="Download"
+                                            ItemStyle-Wrap="false" UniqueName="Download">
+                                            <ItemTemplate>
+                                              <asp:LinkButton ID="lbPreview" CommandName="download_file" Text="View Prospectus"  runat="server">
+                                             </asp:LinkButton>
+                                            </ItemTemplate>
+                                        </telerik:GridTemplateColumn>
+                            
                                     </Columns>
                                 </MasterTableView>
                             </telerik:RadGrid>
