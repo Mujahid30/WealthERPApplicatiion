@@ -2077,4 +2077,8 @@
     <value>OnlineOrderManagement//ProductOnlineFundNews.ascx</value>
     <comment>OnlineOrderManagement//ProductOnlineFundNews.ascx</comment>
   </data>
+  <data name="FAQandDemo" xml:space="preserve">
+    <value>OnlineOrderManagement//FAQandDemo.ascx</value>
+    <comment>OnlineOrderManagement//FAQandDemo.ascx</comment>
+  </data>
 </root>

@@ -1834,6 +1834,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderManagement//FAQandDemo.ascx.
+        /// </summary>
+        internal static string FAQandDemo {
+            get {
+                return ResourceManager.GetString("FAQandDemo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Advisor//FinancialPlanning.ascx.
         /// </summary>
         internal static string FinancialPlanning {

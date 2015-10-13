@@ -3108,6 +3108,13 @@
     <Compile Include="OnlineOrderManagement\CustomerTransactionBookList.ascx.designer.cs">
       <DependentUpon>CustomerTransactionBookList.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderManagement\FAQandDemo.ascx.cs">
+      <DependentUpon>FAQandDemo.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\FAQandDemo.ascx.designer.cs">
+      <DependentUpon>FAQandDemo.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderManagement\IPOIssueList.ascx.cs">
       <DependentUpon>IPOIssueList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -8246,6 +8253,7 @@
     <Content Include="OnlineOrderManagement\CustomerMFUnitHoldingList.ascx" />
     <Content Include="OnlineOrderManagement\CustomerSIPBookList.ascx" />
     <Content Include="OnlineOrderManagement\CustomerTransactionBookList.ascx" />
+    <Content Include="OnlineOrderManagement\FAQandDemo.ascx" />
     <Content Include="OnlineOrderManagement\IPOIssueList.ascx" />
     <Content Include="OnlineOrderManagement\IPOIssueTransact.ascx" />
     <Content Include="OnlineOrderManagement\MFOnlineUserLandingPage.ascx" />
