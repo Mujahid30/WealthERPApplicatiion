@@ -283,63 +283,63 @@ namespace WealthERP.Reports
             {
                 orderTransaction.portfolioId = Request.QueryString["Portfolio"];
             }
-            if (!string.IsNullOrEmpty(Request.QueryString["BankName"].ToString().Trim()))
+            if (!string.IsNullOrEmpty(Request.QueryString["BankName"].ToString()  ))
             {
                 orderTransaction.BankName = Request.QueryString["BankName"];
             }
-            if (!string.IsNullOrEmpty(Request.QueryString["BranchName"].ToString().Trim()))
+            if (!string.IsNullOrEmpty(Request.QueryString["BranchName"].ToString()  ))
             {
                 orderTransaction.BranchName = Request.QueryString["BranchName"];
             }
-            if (!string.IsNullOrEmpty(Request.QueryString["Amount"].ToString().Trim()))
+            if (!string.IsNullOrEmpty(Request.QueryString["Amount"].ToString()  ))
             {
                 orderTransaction.Amount = Request.QueryString["Amount"];
             }
-            if (!string.IsNullOrEmpty(Request.QueryString["StartDateSIP"].ToString().Trim()))
+            if (!string.IsNullOrEmpty(Request.QueryString["StartDateSIP"].ToString()  ))
             {
                 orderTransaction.StartDateSIP = Request.QueryString["StartDateSIP"];
             }
-            if (!string.IsNullOrEmpty(Request.QueryString["StartDateSTP"].ToString().Trim()))
+            if (!string.IsNullOrEmpty(Request.QueryString["StartDateSTP"].ToString()  ))
             {
                 orderTransaction.StartDateSTP = Request.QueryString["StartDateSTP"];
             }
-            if (!string.IsNullOrEmpty(Request.QueryString["NewAmount"].ToString().Trim()))
+            if (!string.IsNullOrEmpty(Request.QueryString["NewAmount"].ToString()  ))
             {
                 orderTransaction.NewAmount = Request.QueryString["NewAmount"];
             }
-            if (!string.IsNullOrEmpty(Request.QueryString["EndDateSIP"].ToString().Trim()))
+            if (!string.IsNullOrEmpty(Request.QueryString["EndDateSIP"].ToString()  ))
             {
                 orderTransaction.EndDateSIP = Request.QueryString["EndDateSIP"];
             }
-            if (!string.IsNullOrEmpty(Request.QueryString["EndDateSTP"].ToString().Trim()))
+            if (!string.IsNullOrEmpty(Request.QueryString["EndDateSTP"].ToString()  ))
             {
                 orderTransaction.EndDateSIP = Request.QueryString["EndDateSTP"];
             }
-            if (!string.IsNullOrEmpty(Request.QueryString["RbtnUnits"].ToString().Trim()))
+            if (!string.IsNullOrEmpty(Request.QueryString["RbtnUnits"].ToString()  ))
             {
                 orderTransaction.UnitsChk = bool.Parse(Request.QueryString["RbtnUnits"]);
             }
-            if (!string.IsNullOrEmpty(Request.QueryString["RbtnAmounts"].ToString().Trim()))
+            if (!string.IsNullOrEmpty(Request.QueryString["RbtnAmounts"].ToString()  ))
             {
                 orderTransaction.AmountsChk = bool.Parse(Request.QueryString["RbtnAmounts"]);
             }
-            if (!string.IsNullOrEmpty(Request.QueryString["ChequeDate"].ToString().Trim()))
+            if (!string.IsNullOrEmpty(Request.QueryString["ChequeDate"].ToString()  ))
             {
                 orderTransaction.ChequeDate = Request.QueryString["ChequeDate"];
             }
-            //if (!string.IsNullOrEmpty(Request.QueryString["ChequeDate"].ToString().Trim()))
+            //if (!string.IsNullOrEmpty(Request.QueryString["ChequeDate"].ToString()  ))
             //{
             //    orderTransaction.ChequeDate=DateTime.Parse(Request.QueryString["ChequeDate"]);
             //}
-            if (!string.IsNullOrEmpty(Request.QueryString["ChequeNo"].ToString().Trim()))
+            if (!string.IsNullOrEmpty(Request.QueryString["ChequeNo"].ToString()  ))
             {
                 orderTransaction.ChequeNo = Request.QueryString["ChequeNo"];
             }
-            if (!string.IsNullOrEmpty(Request.QueryString["SchemeSwitch"].ToString().Trim()))
+            if (!string.IsNullOrEmpty(Request.QueryString["SchemeSwitch"].ToString()  ))
             {
                 orderTransaction.SchemeSwitch = Request.QueryString["SchemeSwitch"];
             }
-            if (!string.IsNullOrEmpty(Request.QueryString["ArnNo"].ToString().Trim()))
+            if (!string.IsNullOrEmpty(Request.QueryString["ArnNo"].ToString()  ))
             {
                 orderTransaction.ArnNo = Request.QueryString["ArnNo"];
             }
@@ -5181,71 +5181,71 @@ namespace WealthERP.Reports
         public string CustomerDataFormatFormat(CustomerVo customerVo)
         {
             string strFullCustomerName;
-            if (!string.IsNullOrEmpty(customerVo.Salutation.Trim()) && !string.IsNullOrEmpty(customerVo.FirstName.Trim()) && !string.IsNullOrEmpty(customerVo.MiddleName.Trim()) && !string.IsNullOrEmpty(customerVo.LastName.Trim()))
+            if (!string.IsNullOrEmpty(customerVo.Salutation) && !string.IsNullOrEmpty(customerVo.FirstName) && !string.IsNullOrEmpty(customerVo.MiddleName) && !string.IsNullOrEmpty(customerVo.LastName))
             {
-                strFullCustomerName = customerVo.Salutation.Trim() + " " + customerVo.FirstName.Trim() + " " + customerVo.MiddleName.Trim() + " " + customerVo.LastName.Trim();
+                strFullCustomerName = customerVo.Salutation   + " " + customerVo.FirstName   + " " + customerVo.MiddleName   + " " + customerVo.LastName  ;
 
             }
-            else if (string.IsNullOrEmpty(customerVo.Salutation.Trim()) && !string.IsNullOrEmpty(customerVo.FirstName.Trim()) && !string.IsNullOrEmpty(customerVo.MiddleName.Trim()) && !string.IsNullOrEmpty(customerVo.LastName.Trim()))
+            else if (string.IsNullOrEmpty(customerVo.Salutation) && !string.IsNullOrEmpty(customerVo.FirstName) && !string.IsNullOrEmpty(customerVo.MiddleName  ) && !string.IsNullOrEmpty(customerVo.LastName  ))
             {
-                strFullCustomerName = customerVo.FirstName.Trim() + " " + customerVo.MiddleName.Trim() + " " + customerVo.LastName.Trim();
+                strFullCustomerName = customerVo.FirstName   + " " + customerVo.MiddleName   + " " + customerVo.LastName  ;
 
             }
-            else if (!string.IsNullOrEmpty(customerVo.Salutation.Trim()) && !string.IsNullOrEmpty(customerVo.FirstName.Trim()) && !string.IsNullOrEmpty(customerVo.MiddleName.Trim()) && string.IsNullOrEmpty(customerVo.LastName.Trim()))
+            else if (!string.IsNullOrEmpty(customerVo.Salutation  ) && !string.IsNullOrEmpty(customerVo.FirstName  ) && !string.IsNullOrEmpty(customerVo.MiddleName  ) && string.IsNullOrEmpty(customerVo.LastName  ))
             {
-                strFullCustomerName = customerVo.Salutation.Trim() + " " + customerVo.FirstName.Trim() + " " + customerVo.MiddleName.Trim();
+                strFullCustomerName = customerVo.Salutation   + " " + customerVo.FirstName   + " " + customerVo.MiddleName  ;
             }
-            else if (string.IsNullOrEmpty(customerVo.Salutation.Trim()) && !string.IsNullOrEmpty(customerVo.FirstName.Trim()) && !string.IsNullOrEmpty(customerVo.MiddleName.Trim()) && string.IsNullOrEmpty(customerVo.LastName.Trim()))
+            else if (string.IsNullOrEmpty(customerVo.Salutation  ) && !string.IsNullOrEmpty(customerVo.FirstName  ) && !string.IsNullOrEmpty(customerVo.MiddleName  ) && string.IsNullOrEmpty(customerVo.LastName  ))
             {
-                strFullCustomerName = customerVo.FirstName.Trim() + " " + customerVo.MiddleName.Trim();
+                strFullCustomerName = customerVo.FirstName   + " " + customerVo.MiddleName  ;
             }
-            else if (!string.IsNullOrEmpty(customerVo.Salutation.Trim()) && !string.IsNullOrEmpty(customerVo.FirstName.Trim()) && !string.IsNullOrEmpty(customerVo.MiddleName.Trim()) && string.IsNullOrEmpty(customerVo.LastName.Trim()))
+            else if (!string.IsNullOrEmpty(customerVo.Salutation  ) && !string.IsNullOrEmpty(customerVo.FirstName  ) && !string.IsNullOrEmpty(customerVo.MiddleName  ) && string.IsNullOrEmpty(customerVo.LastName  ))
             {
-                strFullCustomerName = customerVo.Salutation.Trim() + " " + customerVo.FirstName.Trim() + " " + customerVo.MiddleName.Trim();
+                strFullCustomerName = customerVo.Salutation   + " " + customerVo.FirstName   + " " + customerVo.MiddleName  ;
             }
-            else if (string.IsNullOrEmpty(customerVo.Salutation.Trim()) && !string.IsNullOrEmpty(customerVo.FirstName.Trim()) && !string.IsNullOrEmpty(customerVo.MiddleName.Trim()) && string.IsNullOrEmpty(customerVo.LastName.Trim()))
+            else if (string.IsNullOrEmpty(customerVo.Salutation  ) && !string.IsNullOrEmpty(customerVo.FirstName  ) && !string.IsNullOrEmpty(customerVo.MiddleName  ) && string.IsNullOrEmpty(customerVo.LastName  ))
             {
-                strFullCustomerName = customerVo.FirstName.Trim() + " " + customerVo.MiddleName.Trim();
+                strFullCustomerName = customerVo.FirstName   + " " + customerVo.MiddleName  ;
             }
-            else if (!string.IsNullOrEmpty(customerVo.Salutation.Trim()) && !string.IsNullOrEmpty(customerVo.FirstName.Trim()) && string.IsNullOrEmpty(customerVo.MiddleName.Trim()) && !string.IsNullOrEmpty(customerVo.LastName.Trim()))
+            else if (!string.IsNullOrEmpty(customerVo.Salutation  ) && !string.IsNullOrEmpty(customerVo.FirstName  ) && string.IsNullOrEmpty(customerVo.MiddleName  ) && !string.IsNullOrEmpty(customerVo.LastName  ))
             {
-                strFullCustomerName = customerVo.Salutation.Trim() + " " + customerVo.FirstName.Trim() + " " + customerVo.LastName.Trim();
+                strFullCustomerName = customerVo.Salutation   + " " + customerVo.FirstName   + " " + customerVo.LastName  ;
             }
-            else if (string.IsNullOrEmpty(customerVo.Salutation.Trim()) && !string.IsNullOrEmpty(customerVo.FirstName.Trim()) && string.IsNullOrEmpty(customerVo.MiddleName.Trim()) && !string.IsNullOrEmpty(customerVo.LastName.Trim()))
+            else if (string.IsNullOrEmpty(customerVo.Salutation  ) && !string.IsNullOrEmpty(customerVo.FirstName  ) && string.IsNullOrEmpty(customerVo.MiddleName  ) && !string.IsNullOrEmpty(customerVo.LastName  ))
             {
-                strFullCustomerName = customerVo.FirstName.Trim() + " " + customerVo.LastName.Trim();
+                strFullCustomerName = customerVo.FirstName   + " " + customerVo.LastName  ;
             }
-            else if (!string.IsNullOrEmpty(customerVo.Salutation.Trim()) && string.IsNullOrEmpty(customerVo.FirstName.Trim()) && !string.IsNullOrEmpty(customerVo.MiddleName.Trim()) && !string.IsNullOrEmpty(customerVo.LastName.Trim()))
+            else if (!string.IsNullOrEmpty(customerVo.Salutation  ) && string.IsNullOrEmpty(customerVo.FirstName  ) && !string.IsNullOrEmpty(customerVo.MiddleName  ) && !string.IsNullOrEmpty(customerVo.LastName  ))
             {
-                strFullCustomerName = customerVo.Salutation.Trim() + " " + customerVo.MiddleName.Trim() + " " + customerVo.LastName.Trim();
+                strFullCustomerName = customerVo.Salutation   + " " + customerVo.MiddleName   + " " + customerVo.LastName  ;
             }
-            else if (string.IsNullOrEmpty(customerVo.Salutation.Trim()) && string.IsNullOrEmpty(customerVo.FirstName.Trim()) && !string.IsNullOrEmpty(customerVo.MiddleName.Trim()) && !string.IsNullOrEmpty(customerVo.LastName.Trim()))
+            else if (string.IsNullOrEmpty(customerVo.Salutation  ) && string.IsNullOrEmpty(customerVo.FirstName  ) && !string.IsNullOrEmpty(customerVo.MiddleName  ) && !string.IsNullOrEmpty(customerVo.LastName  ))
             {
-                strFullCustomerName = customerVo.MiddleName.Trim() + " " + customerVo.LastName.Trim();
+                strFullCustomerName = customerVo.MiddleName   + " " + customerVo.LastName  ;
             }
-            else if (!string.IsNullOrEmpty(customerVo.Salutation.Trim()) && !string.IsNullOrEmpty(customerVo.FirstName.Trim()) && string.IsNullOrEmpty(customerVo.MiddleName.Trim()) && string.IsNullOrEmpty(customerVo.LastName.Trim()))
+            else if (!string.IsNullOrEmpty(customerVo.Salutation  ) && !string.IsNullOrEmpty(customerVo.FirstName  ) && string.IsNullOrEmpty(customerVo.MiddleName  ) && string.IsNullOrEmpty(customerVo.LastName  ))
             {
-                strFullCustomerName = customerVo.Salutation.Trim() + " " + customerVo.FirstName.Trim();
+                strFullCustomerName = customerVo.Salutation   + " " + customerVo.FirstName  ;
             }
-            else if (string.IsNullOrEmpty(customerVo.Salutation.Trim()) && !string.IsNullOrEmpty(customerVo.FirstName.Trim()) && string.IsNullOrEmpty(customerVo.MiddleName.Trim()) && string.IsNullOrEmpty(customerVo.LastName.Trim()))
+            else if (string.IsNullOrEmpty(customerVo.Salutation  ) && !string.IsNullOrEmpty(customerVo.FirstName  ) && string.IsNullOrEmpty(customerVo.MiddleName  ) && string.IsNullOrEmpty(customerVo.LastName  ))
             {
-                strFullCustomerName = customerVo.FirstName.Trim();
+                strFullCustomerName = customerVo.FirstName  ;
             }
-            else if (!string.IsNullOrEmpty(customerVo.Salutation.Trim()) && string.IsNullOrEmpty(customerVo.FirstName.Trim()) && !string.IsNullOrEmpty(customerVo.MiddleName.Trim()) && string.IsNullOrEmpty(customerVo.LastName.Trim()))
+            else if (!string.IsNullOrEmpty(customerVo.Salutation  ) && string.IsNullOrEmpty(customerVo.FirstName  ) && !string.IsNullOrEmpty(customerVo.MiddleName  ) && string.IsNullOrEmpty(customerVo.LastName  ))
             {
-                strFullCustomerName = customerVo.Salutation.Trim() + " " + customerVo.MiddleName.Trim();
+                strFullCustomerName = customerVo.Salutation   + " " + customerVo.MiddleName  ;
             }
-            else if (string.IsNullOrEmpty(customerVo.Salutation.Trim()) && string.IsNullOrEmpty(customerVo.FirstName.Trim()) && !string.IsNullOrEmpty(customerVo.MiddleName.Trim()) && string.IsNullOrEmpty(customerVo.LastName.Trim()))
+            else if (string.IsNullOrEmpty(customerVo.Salutation  ) && string.IsNullOrEmpty(customerVo.FirstName  ) && !string.IsNullOrEmpty(customerVo.MiddleName  ) && string.IsNullOrEmpty(customerVo.LastName  ))
             {
-                strFullCustomerName = customerVo.MiddleName.Trim();
+                strFullCustomerName = customerVo.MiddleName  ;
             }
-            else if (!string.IsNullOrEmpty(customerVo.Salutation.Trim()) && string.IsNullOrEmpty(customerVo.FirstName.Trim()) && string.IsNullOrEmpty(customerVo.MiddleName.Trim()) && !string.IsNullOrEmpty(customerVo.LastName.Trim()))
+            else if (!string.IsNullOrEmpty(customerVo.Salutation  ) && string.IsNullOrEmpty(customerVo.FirstName  ) && string.IsNullOrEmpty(customerVo.MiddleName  ) && !string.IsNullOrEmpty(customerVo.LastName  ))
             {
-                strFullCustomerName = customerVo.Salutation.Trim() + " " + customerVo.LastName.Trim();
+                strFullCustomerName = customerVo.Salutation   + " " + customerVo.LastName  ;
             }
-            else if (string.IsNullOrEmpty(customerVo.Salutation.Trim()) && string.IsNullOrEmpty(customerVo.FirstName.Trim()) && string.IsNullOrEmpty(customerVo.MiddleName.Trim()) && !string.IsNullOrEmpty(customerVo.LastName.Trim()))
+            else if (string.IsNullOrEmpty(customerVo.Salutation  ) && string.IsNullOrEmpty(customerVo.FirstName  ) && string.IsNullOrEmpty(customerVo.MiddleName  ) && !string.IsNullOrEmpty(customerVo.LastName  ))
             {
-                strFullCustomerName = customerVo.LastName.Trim();
+                strFullCustomerName = customerVo.LastName  ;
             }
             else
                 strFullCustomerName = string.Empty;
@@ -5256,71 +5256,71 @@ namespace WealthERP.Reports
         public string RMDataFormatFormat(RMVo rmVo)
         {
             string strFullCustomerName;
-            if (!string.IsNullOrEmpty(rmVo.FirstName.Trim()) && !string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && !string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            if (!string.IsNullOrEmpty(rmVo.FirstName  ) && !string.IsNullOrEmpty(rmVo.MiddleName  ) && !string.IsNullOrEmpty(rmVo.LastName  ))
             {
-                strFullCustomerName = rmVo.FirstName.Trim() + " " + rmVo.MiddleName.Trim() + " " + rmVo.LastName.Trim();
+                strFullCustomerName = rmVo.FirstName   + " " + rmVo.MiddleName   + " " + rmVo.LastName  ;
 
             }
-            else if (!string.IsNullOrEmpty(rmVo.FirstName.Trim()) && !string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && !string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            else if (!string.IsNullOrEmpty(rmVo.FirstName  ) && !string.IsNullOrEmpty(rmVo.MiddleName  ) && !string.IsNullOrEmpty(rmVo.LastName  ))
             {
-                strFullCustomerName = rmVo.FirstName.Trim() + " " + rmVo.MiddleName.Trim() + " " + rmVo.LastName.Trim();
+                strFullCustomerName = rmVo.FirstName   + " " + rmVo.MiddleName   + " " + rmVo.LastName  ;
 
             }
-            else if (!string.IsNullOrEmpty(rmVo.FirstName.Trim()) && !string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            else if (!string.IsNullOrEmpty(rmVo.FirstName  ) && !string.IsNullOrEmpty(rmVo.MiddleName  ) && string.IsNullOrEmpty(rmVo.LastName  ))
             {
-                strFullCustomerName = rmVo.FirstName.Trim() + " " + rmVo.MiddleName.Trim();
+                strFullCustomerName = rmVo.FirstName   + " " + rmVo.MiddleName  ;
             }
-            else if (!string.IsNullOrEmpty(rmVo.FirstName.Trim()) && !string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            else if (!string.IsNullOrEmpty(rmVo.FirstName  ) && !string.IsNullOrEmpty(rmVo.MiddleName  ) && string.IsNullOrEmpty(rmVo.LastName  ))
             {
-                strFullCustomerName = rmVo.FirstName.Trim() + " " + rmVo.MiddleName.Trim();
+                strFullCustomerName = rmVo.FirstName   + " " + rmVo.MiddleName  ;
             }
-            else if (!string.IsNullOrEmpty(rmVo.FirstName.Trim()) && !string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            else if (!string.IsNullOrEmpty(rmVo.FirstName  ) && !string.IsNullOrEmpty(rmVo.MiddleName  ) && string.IsNullOrEmpty(rmVo.LastName  ))
             {
-                strFullCustomerName = rmVo.FirstName.Trim() + " " + rmVo.MiddleName.Trim();
+                strFullCustomerName = rmVo.FirstName   + " " + rmVo.MiddleName  ;
             }
-            else if (!string.IsNullOrEmpty(rmVo.FirstName.Trim()) && !string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            else if (!string.IsNullOrEmpty(rmVo.FirstName  ) && !string.IsNullOrEmpty(rmVo.MiddleName  ) && string.IsNullOrEmpty(rmVo.LastName  ))
             {
-                strFullCustomerName = rmVo.FirstName.Trim() + " " + rmVo.MiddleName.Trim();
+                strFullCustomerName = rmVo.FirstName   + " " + rmVo.MiddleName  ;
             }
-            else if (!string.IsNullOrEmpty(rmVo.FirstName.Trim()) && string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && !string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            else if (!string.IsNullOrEmpty(rmVo.FirstName  ) && string.IsNullOrEmpty(rmVo.MiddleName  ) && !string.IsNullOrEmpty(rmVo.LastName  ))
             {
-                strFullCustomerName = rmVo.FirstName.Trim() + " " + rmVo.LastName.Trim();
+                strFullCustomerName = rmVo.FirstName   + " " + rmVo.LastName  ;
             }
-            else if (!string.IsNullOrEmpty(rmVo.FirstName.Trim()) && string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && !string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            else if (!string.IsNullOrEmpty(rmVo.FirstName  ) && string.IsNullOrEmpty(rmVo.MiddleName  ) && !string.IsNullOrEmpty(rmVo.LastName  ))
             {
-                strFullCustomerName = rmVo.FirstName.Trim() + " " + rmVo.LastName.Trim();
+                strFullCustomerName = rmVo.FirstName   + " " + rmVo.LastName  ;
             }
-            else if (string.IsNullOrEmpty(rmVo.FirstName.Trim()) && !string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && !string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            else if (string.IsNullOrEmpty(rmVo.FirstName  ) && !string.IsNullOrEmpty(rmVo.MiddleName  ) && !string.IsNullOrEmpty(rmVo.LastName  ))
             {
-                strFullCustomerName = rmVo.MiddleName.Trim() + " " + rmVo.LastName.Trim();
+                strFullCustomerName = rmVo.MiddleName   + " " + rmVo.LastName  ;
             }
-            else if (string.IsNullOrEmpty(rmVo.FirstName.Trim()) && !string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && !string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            else if (string.IsNullOrEmpty(rmVo.FirstName  ) && !string.IsNullOrEmpty(rmVo.MiddleName  ) && !string.IsNullOrEmpty(rmVo.LastName  ))
             {
-                strFullCustomerName = rmVo.MiddleName.Trim() + " " + rmVo.LastName.Trim();
+                strFullCustomerName = rmVo.MiddleName   + " " + rmVo.LastName  ;
             }
-            else if (!string.IsNullOrEmpty(rmVo.FirstName.Trim()) && string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            else if (!string.IsNullOrEmpty(rmVo.FirstName  ) && string.IsNullOrEmpty(rmVo.MiddleName  ) && string.IsNullOrEmpty(rmVo.LastName  ))
             {
-                strFullCustomerName = rmVo.FirstName.Trim();
+                strFullCustomerName = rmVo.FirstName  ;
             }
-            else if (!string.IsNullOrEmpty(rmVo.FirstName.Trim()) && string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            else if (!string.IsNullOrEmpty(rmVo.FirstName  ) && string.IsNullOrEmpty(rmVo.MiddleName  ) && string.IsNullOrEmpty(rmVo.LastName  ))
             {
-                strFullCustomerName = rmVo.FirstName.Trim();
+                strFullCustomerName = rmVo.FirstName  ;
             }
-            else if (string.IsNullOrEmpty(rmVo.FirstName.Trim()) && !string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            else if (string.IsNullOrEmpty(rmVo.FirstName  ) && !string.IsNullOrEmpty(rmVo.MiddleName  ) && string.IsNullOrEmpty(rmVo.LastName  ))
             {
-                strFullCustomerName = rmVo.MiddleName.Trim();
+                strFullCustomerName = rmVo.MiddleName  ;
             }
-            else if (string.IsNullOrEmpty(rmVo.FirstName.Trim()) && !string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            else if (string.IsNullOrEmpty(rmVo.FirstName  ) && !string.IsNullOrEmpty(rmVo.MiddleName  ) && string.IsNullOrEmpty(rmVo.LastName  ))
             {
-                strFullCustomerName = rmVo.MiddleName.Trim();
+                strFullCustomerName = rmVo.MiddleName  ;
             }
-            else if (string.IsNullOrEmpty(rmVo.FirstName.Trim()) && string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && !string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            else if (string.IsNullOrEmpty(rmVo.FirstName  ) && string.IsNullOrEmpty(rmVo.MiddleName  ) && !string.IsNullOrEmpty(rmVo.LastName  ))
             {
-                strFullCustomerName = rmVo.LastName.Trim();
+                strFullCustomerName = rmVo.LastName  ;
             }
-            else if (string.IsNullOrEmpty(rmVo.FirstName.Trim()) && string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && !string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            else if (string.IsNullOrEmpty(rmVo.FirstName) && string.IsNullOrEmpty(rmVo.MiddleName  ) && !string.IsNullOrEmpty(rmVo.LastName  ))
             {
-                strFullCustomerName = rmVo.LastName.Trim();
+                strFullCustomerName = rmVo.LastName  ;
             }
             else
                 strFullCustomerName = string.Empty;
