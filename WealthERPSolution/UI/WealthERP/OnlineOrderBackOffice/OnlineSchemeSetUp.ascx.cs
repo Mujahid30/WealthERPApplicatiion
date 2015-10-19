@@ -212,13 +212,13 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 PriceBo priceBo = new PriceBo();
                 DataTable dtGetAMCList = new DataTable();
-                {
+               
                     dtGetAMCList = priceBo.GetMutualFundList();
                     ddlAmc.DataSource = dtGetAMCList;
                     ddlAmc.DataTextField = dtGetAMCList.Columns["PA_AMCName"].ToString();
                     ddlAmc.DataValueField = dtGetAMCList.Columns["PA_AMCCode"].ToString();
                     ddlAmc.DataBind();
-                }
+              
                 ddlAmc.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
             }
             catch (BaseApplicationException Ex)
@@ -1732,6 +1732,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
             //else
             //{
+            mfProductAMCSchemePlanDetailsVo.ExternalType=ddlRT.SelectedItem.Text;
             if (txtNFOStartDate.SelectedDate != null)
             {
                 int countNFOstart = OnlineOrderBackOfficeBo.BussinessDateCheck(Convert.ToDateTime(txtNFOStartDate.SelectedDate));
@@ -1937,6 +1938,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ddlSScategory.SelectedValue = "Select";
             }
+            mfProductAMCSchemePlanDetailsVo.ExternalType = ddlRT.SelectedItem.Text;
             //if (!string.IsNullOrEmpty(ddlRT.SelectedValue))
             //{
             //    mfProductAMCSchemePlanDetailsVo.ExternalType = ddlRT.SelectedValue;
@@ -2027,6 +2029,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 mfProductAMCSchemePlanDetailsVo.MaturityDate = DateTime.Parse(txtMaturityDate.SelectedDate.ToString());
             }
+          
             if (txtSchemeStartDate.SelectedDate != null)
             {
                 int countSchemeOpen = OnlineOrderBackOfficeBo.BussinessDateCheck(Convert.ToDateTime(txtSchemeStartDate.SelectedDate));

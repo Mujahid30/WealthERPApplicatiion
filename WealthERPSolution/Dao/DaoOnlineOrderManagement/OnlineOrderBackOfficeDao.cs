@@ -1850,7 +1850,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(UpdateproductamcschemeCmd, "@Status", DbType.String, mfProductAMCSchemePlanDetailsVo.Status);
                 db.AddInParameter(UpdateproductamcschemeCmd, "@Isonline", DbType.String, mfProductAMCSchemePlanDetailsVo.IsOnline);
                 db.AddInParameter(UpdateproductamcschemeCmd, "@ExternalCode", DbType.String, mfProductAMCSchemePlanDetailsVo.AMFIcode);
-                //db.AddInParameter(UpdateproductamcschemeCmd, "@ExternalType", DbType.String, mfProductAMCSchemePlanDetailsVo.ExternalType);@
+                db.AddInParameter(UpdateproductamcschemeCmd, "@ExternalType", DbType.String, mfProductAMCSchemePlanDetailsVo.ExternalType);
                 if (mfProductAMCSchemePlanDetailsVo.NFOStartDate != DateTime.MinValue)
                 {
                     db.AddInParameter(UpdateproductamcschemeCmd, "@PASP_NFOStartDate", DbType.DateTime, mfProductAMCSchemePlanDetailsVo.NFOStartDate);
@@ -1937,7 +1937,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PASP_ModifiedBy", DbType.Int32, userId);
                 db.AddOutParameter(CreateOnlineSchemeSetupPlanCmd, "@SchemePlanCode", DbType.Int32, 0);
                 db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@ExternalCode", DbType.String, mfProductAMCSchemePlanDetailsVo.AMFIcode);
-                //db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@ExternalType", DbType.String, mfProductAMCSchemePlanDetailsVo.ExternalType);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@ExternalType", DbType.String, mfProductAMCSchemePlanDetailsVo.ExternalType);
                 if (mfProductAMCSchemePlanDetailsVo.NFOStartDate != DateTime.MinValue) //10
                 {
                     db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PASP_NFOStartDate", DbType.DateTime, mfProductAMCSchemePlanDetailsVo.NFOStartDate);
