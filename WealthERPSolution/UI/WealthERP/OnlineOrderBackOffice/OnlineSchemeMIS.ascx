@@ -146,6 +146,11 @@
                                     SortExpression="PA_AMCName" FilterControlWidth="200px" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="200px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                 </telerik:GridBoundColumn>
+                                  <telerik:GridBoundColumn DataField="PMFRD_FundManagerName" UniqueName="PMFRD_FundManagerName" HeaderText="Fund Manager Name"
+                                    ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="80px"
+                                    SortExpression="PMFRD_FundManagerName" FilterControlWidth="200px" CurrentFilterFunction="Contains">
+                                    <ItemStyle Width="80px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                                </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn Visible="false" DataField="PA_AMCCode" UniqueName="PA_AMCCode"
                                     HeaderText="PA_AMCCode" ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true"
                                     HeaderStyle-Width="200px" SortExpression="PA_AMCCode" FilterControlWidth="200px"
