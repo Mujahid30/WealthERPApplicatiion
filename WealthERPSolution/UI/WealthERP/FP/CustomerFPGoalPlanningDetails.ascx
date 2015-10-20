@@ -479,12 +479,12 @@
 <table>
     <tr id="trNote1" runat="server">
         <td>
-            <asp:Label ID="lblNoteHeading" runat="server"  Text="Note :"></asp:Label>
+            <asp:Label ID="lblNoteHeading" runat="server" CssClass="cmbFielde"  Text="Note :"></asp:Label>
         </td>
     </tr>
     <tr id="trNote2" runat="server">
         <td>
-            <asp:Label ID="trRequiedNote"  runat="server" Text="1)For retirement 'Cost At Start' is the required annual cost at today value."></asp:Label>
+            <asp:Label ID="trRequiedNote" CssClass="cmbFielde" runat="server" Text="1)For retirement 'Cost At Start' is the required annual cost at today value."></asp:Label>
         </td>
     </tr>
 </table>
