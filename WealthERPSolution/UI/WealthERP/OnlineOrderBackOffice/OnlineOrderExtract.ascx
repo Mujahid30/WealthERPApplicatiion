@@ -127,11 +127,12 @@
         </td>
     </tr>
 </table>
-<table width="100%>
+<table width="100%">
     <tr id="trStepOneHeading" runat="server">
         <td class="tdSectionHeading" colspan="6">
             <div class="divSectionHeading" style="vertical-align: text-bottom">
-                <div class="divSectionHeadingNumber fltlftStep">1</div>
+                <div class="divSectionHeadingNumber fltlftStep">
+                    1</div>
                 <div class="fltlft">
                     <asp:Label ID="lblStep1" runat="server" Text="Extract"></asp:Label>
                 </div>
@@ -139,23 +140,43 @@
         </td>
     </tr>
     <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td colspan="2"> 
+        <td>
+            &nbsp;
+        </td>
+        <td>
+            &nbsp;
+        </td>
+        <td colspan="2">
             <asp:Button ID="btnAutoOrder" runat="server" CssClass="PCGLongButton" Text="Auto SIP Order"
                 OnClick="btnAutoOrder_Click" />
-                &nbsp;&nbsp;&nbsp;
-            <asp:Button ID="btnExtractData" runat="server" CssClass="PCGLongButton" Text="Extract Data"
-                OnClick="btnExtract_Click" CausesValidation="false" /></td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
+            &nbsp;&nbsp;&nbsp;
+            <tr>
+                <td class="leftLabel">
+                    <asp:Label runat="server" class="FieldName" Text="Extract Type:" ID="Label1"></asp:Label>
+                </td>
+                <td class="rightData">
+                    <asp:DropDownList CssClass="cmbField" ID="DropDownList1" runat="server" AutoPostBack="false">
+                        <asp:ListItem Value="0">--SELECT--</asp:ListItem>
+                        <asp:ListItem Value="OTH">Normal Orders</asp:ListItem>
+                        <asp:ListItem Value="SIP">SIP Orders</asp:ListItem>
+                    </asp:DropDownList>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="rfvPCG"
+                        Display="Dynamic" ErrorMessage="Please select an Extract Type" ValidationGroup="ExtractData1"
+                        ControlToValidate="DropDownList1" InitialValue="0">Please select an Extract Type</asp:RequiredFieldValidator>
+                </td>
+                <td>
+                    <asp:Button ID="btnExtractData" runat="server" CssClass="PCGLongButton" Text="Extract Data"
+                        OnClick="btnExtract_Click" ValidationGroup="ExtractData1" />
+                </td>
+        </td>
     </tr>
 </table>
-<table width="100%>
+<table width="100%">
     <tr id="trStepTwoHeading" runat="server">
         <td class="tdSectionHeading" colspan="6">
             <div class="divSectionHeading" style="vertical-align: text-bottom">
-                <div class="divSectionHeadingNumber fltlftStep">2</div>
+                <div class="divSectionHeadingNumber fltlftStep">
+                    2</div>
                 <div class="fltlft">
                     <asp:Label ID="lblBulkDownload" runat="server" Text="Bulk File Download"></asp:Label>
                 </div>
@@ -163,40 +184,80 @@
         </td>
     </tr>
     <tr>
-        <td>&nbsp;</td>
+        <td>
+            &nbsp;
+        </td>
+       
+       
         <td class="leftLabel">
-            <asp:Label ID="lblOverwrite" class="FieldName" runat="server" Text="Over Write: "></asp:Label></td>
-        <td>
-            <asp:CheckBox ID="chkOverwrite" runat="server" />
-            <asp:Label ID="lblYes" class="FieldName" runat="server" Text="Yes"></asp:Label></td>
-        <td>
-            <asp:Button ID="btnCreateFiles" runat="server" CssClass="PCGLongButton" Text="Create Files"
-                OnClick="btnCreateFiles_Click" />
-            <asp:Label ID="lblCurrentDate" class="FieldName" runat="server" Text="(For current date only)"></asp:Label></td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
+            <asp:Label runat="server" class="FieldName" Text="Extract Type:" ID="Label2"></asp:Label>
+        </td>
+        <td class="rightData">
+            <asp:DropDownList CssClass="cmbField" ID="DropDownList2" runat="server" AutoPostBack="false">
+                <asp:ListItem Value="0">--SELECT--</asp:ListItem>
+                <asp:ListItem Value="OTH">Normal Orders</asp:ListItem>
+                <asp:ListItem Value="SIP">SIP Orders</asp:ListItem>
+            </asp:DropDownList>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" CssClass="rfvPCG"
+                Display="Dynamic" ErrorMessage="Please select an Extract Type" ValidationGroup="CreateFiles,BulkDownload"
+                ControlToValidate="DropDownList2" InitialValue="0">Please select an Extract Type</asp:RequiredFieldValidator>
+        </td>
     </tr>
     <tr>
-        <td>&nbsp;</td>
+        <td>
+            &nbsp;
+        </td>
         <td class="leftLabel">
-            <asp:Label class="FieldName" ID="lblBulkDownloadDate" Text="Download Date: " runat="server" /></td>
+            <asp:Label ID="lblOverwrite" class="FieldName" runat="server" Text="Over Write: "></asp:Label>
+        </td>
+        <td>
+            <asp:CheckBox ID="chkOverwrite" runat="server" />
+            <asp:Label ID="lblYes" class="FieldName" runat="server" Text="Yes"></asp:Label>
+        </td>
+        <td>
+            <asp:Button ID="btnCreateFiles" runat="server" CssClass="PCGLongButton" Text="Create Files" ValidationGroup="CreateFiles"
+                OnClick="btnCreateFiles_Click" />
+            <asp:Label ID="lblCurrentDate" class="FieldName" runat="server" Text="(For current date only)"></asp:Label>
+        </td>
+        <td>
+            &nbsp;
+        </td>
+        <td>
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td>
+            &nbsp;
+        </td>
+        <td class="leftLabel">
+            <asp:Label class="FieldName" ID="lblBulkDownloadDate" Text="Download Date: " runat="server" />
+        </td>
         <td class="rightData">
             <telerik:RadDatePicker ID="rdpBulkDownloadDate" runat="server">
             </telerik:RadDatePicker>
-            <asp:RequiredFieldValidator ID="rfvBulkDownDate" runat="server" CssClass="rfvPCG" ControlToValidate="rdpBulkDownloadDate"
-                Display="Dynamic" ErrorMessage="Please select a download date" ValidationGroup="BulkDownload">Please select a download date</asp:RequiredFieldValidator></td>
+            <asp:RequiredFieldValidator ID="rfvBulkDownDate" runat="server" CssClass="rfvPCG"
+                ControlToValidate="rdpBulkDownloadDate" Display="Dynamic" ErrorMessage="Please select a download date"
+                ValidationGroup="BulkDownload">Please select a download date</asp:RequiredFieldValidator>
+        </td>
         <td>
             <asp:Button ID="btnBulkDownload" runat="server" CssClass="PCGLongButton" Text="Download"
-                OnClick="btnBulkDownload_Click" ValidationGroup="BulkDownload" /></td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
+                OnClick="btnBulkDownload_Click" ValidationGroup="BulkDownload" />
+        </td>
+        <td>
+            &nbsp;
+        </td>
+        <td>
+            &nbsp;
+        </td>
     </tr>
 </table>
 <table width="100%">
     <tr id="tr1" runat="server">
         <td class="tdSectionHeading" colspan="6">
             <div class="divSectionHeading" style="vertical-align: text-bottom">
-                <div class="divSectionHeadingNumber fltlftStep">3</div>
+                <div class="divSectionHeadingNumber fltlftStep">
+                    3</div>
                 <div class="fltlft">
                     <asp:Label ID="lblStep2" runat="server" Text="Individual Download"></asp:Label>
                 </div>
@@ -277,7 +338,6 @@
                 Display="Dynamic" ErrorMessage="Please select an extract date" ValidationGroup="PreviewData"
                 ControlToValidate="rdpExtractDate">Please select an extract date</asp:RequiredFieldValidator>
         </td>
-        
         <td class="leftLabel">
             <asp:Label runat="server" class="FieldName" Text="File Format:" ID="lblFileFormat"></asp:Label>
         </td>
@@ -294,11 +354,10 @@
         <td>
             <asp:Button ID="btnPreview" runat="server" CssClass="PCGLongButton" Text="1-Preview Data"
                 OnClick="btnPreview_Click" ValidationGroup="PreviewData" />
-                  <asp:Button ID="btnGenerate" runat="server" CssClass="PCGLongButton" Text="2-Download File"
+            <asp:Button ID="btnGenerate" runat="server" CssClass="PCGLongButton" Text="2-Download File"
                 OnClick="btnGenerateFile_Click" ValidationGroup="PreviewData" />
         </td>
         <td>
-          
         </td>
     </tr>
 </table>

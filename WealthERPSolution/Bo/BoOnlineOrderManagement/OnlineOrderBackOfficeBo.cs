@@ -1502,18 +1502,36 @@ namespace BoOnlineOrderManagement
             #endregion
         }
 
-        public void GenerateDailyOrderExtractFiles(string refFilePath, bool bOverwrite, int adviserId)
+        public void GenerateDailyOrderExtractFiles(string refFilePath,string extractType, bool bOverwrite, int adviserId)
         {
             string extractPath = ConfigurationSettings.AppSettings["RTA_EXTRACT_PATH"];
-            string dailyDirName = DateTime.Now.ToString("ddMMMyyyy");
+            string dailyDirName=string.Empty;
 
+            
+            KeyValuePair<string, string>[] RtaList = GetRTAList();
+            KeyValuePair<string, string>[] OrderTypeList = GetOrderTypeList();
+            if (extractType == "SIP")
+            {
+                 dailyDirName = DateTime.Now.ToString("ddMMMyyyy")+"_SIP";
+                 List<KeyValuePair<string, string>> tmp = new List<KeyValuePair<string, string>>(OrderTypeList);
+                 tmp.RemoveAt(0);
+                 tmp.RemoveAt(2);
+                 tmp.RemoveAt(1);
+                 OrderTypeList = tmp.ToArray();
 
+            }
+            else if (extractType == "OTH")
+            {
+                dailyDirName = DateTime.Now.ToString("ddMMMyyyy");
+                List<KeyValuePair<string, string>> tmp = new List<KeyValuePair<string, string>>(OrderTypeList);
+                tmp.RemoveAt(1);
+                tmp.RemoveAt(3);
+                
+                OrderTypeList = tmp.ToArray();
+            }
             if (Directory.Exists(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName) && bOverwrite == false) return;
 
             if (Directory.Exists(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName) && bOverwrite == true) Directory.Delete(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName, true);
-
-            KeyValuePair<string, string>[] RtaList = GetRTAList();
-            KeyValuePair<string, string>[] OrderTypeList = GetOrderTypeList();
 
             foreach (KeyValuePair<string, string> rta in RtaList)
             {

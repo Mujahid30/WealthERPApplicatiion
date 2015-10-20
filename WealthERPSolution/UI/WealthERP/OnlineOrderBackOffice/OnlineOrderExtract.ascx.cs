@@ -114,7 +114,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             DateTime execDate = rdpExtractDate.SelectedDate.Value;
 
-            bool extractStatus = boOnlineOrderBackOffice.ExtractDailyRTAOrderList(advisorVo.advisorId, ddlExtractType.SelectedValue, ddlRnT.SelectedValue, int.Parse(ddlProductAmc.SelectedValue), userVo.UserId);
+            bool extractStatus = boOnlineOrderBackOffice.ExtractDailyRTAOrderList(advisorVo.advisorId, DropDownList1.SelectedValue, ddlRnT.SelectedValue, int.Parse(ddlProductAmc.SelectedValue), userVo.UserId);
 
             if (extractStatus)
                 ShowMessage("Extraction Successfully");
@@ -335,7 +335,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         public void AutoOrderExtract()
         {
-            boOnlineOrderBackOffice.GenerateDailyOrderExtractFiles(Server.MapPath("~/ReferenceFiles/RTAExtractSampleFiles/"), chkOverwrite.Checked, advisorVo.advisorId);
+            boOnlineOrderBackOffice.GenerateDailyOrderExtractFiles(Server.MapPath("~/ReferenceFiles/RTAExtractSampleFiles/"),DropDownList2.SelectedValue, chkOverwrite.Checked, advisorVo.advisorId);
         }
 
         protected void btnCreateFiles_Click(object sender, EventArgs e)
@@ -355,7 +355,10 @@ namespace WealthERP.OnlineOrderBackOffice
             }
 
             string extractPath = ConfigurationSettings.AppSettings["RTA_EXTRACT_PATH"];
+            
             string dailyDirName = rdpBulkDownloadDate.SelectedDate.Value.ToString("ddMMMyyyy");
+            if (DropDownList2.SelectedValue == "SIP")
+                dailyDirName = dailyDirName + "_SIP";
             int adviserId = advisorVo.advisorId;
 
             if (Directory.Exists(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName) == false)
