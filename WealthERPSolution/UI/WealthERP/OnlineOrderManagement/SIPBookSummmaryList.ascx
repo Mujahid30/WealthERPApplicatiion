@@ -1,20 +1,59 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SIPBookSummmaryList.ascx.cs"
     Inherits="WealthERP.OnlineOrderManagement.SIPBookSummmaryList" %>
-<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+<%--<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>--%>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 
-<script src="../Scripts/jquery.js" type="text/javascript"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
-<script src="../Scripts/JScript.js" type="text/javascript"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
-<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
-<script src="../Scripts/jquery.bxslider.js" type="text/javascript"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
 <asp:ScriptManager ID="scriptmanager" runat="server">
 </asp:ScriptManager>
+<style>
+    .ft_sort
+    {
+        background: #999999 none repeat scroll 0 0;
+        border: 0 none;
+        border-radius: 12px;
+        box-shadow: 0 1.5px 2px #bfbfbf inset;
+        color: #ffffff;
+        cursor: pointer;
+        display: block;
+        font-size: 11.5px;
+        font-style: normal;
+        padding: 3px 12px;
+        width: 60px;
+    }
+    .ft_sort:hover
+    {
+        background: #565656;
+        color: #ffffff;
+    }
+    .divs
+    {
+        background-color: #EEEEEE;
+        margin-bottom: .5%;
+        margin-top: .5%;
+        margin-left: .2%;
+        margin-right: .1%;
+        border: solid 1.5px #EEEEEE;
+    }
+    .divs:hover
+    {
+        border: solid 1.5px #00CEFF;
+        cursor: auto;
+    }
+</style>
 <style type="text/css">
     .style1
     {
@@ -23,14 +62,14 @@
 </style>
 
 <script type="text/jscript">
-    jQuery(document).ready(function($) {
-        $('.bxslider').bxSlider(
-    {
-        auto: true,
-        autoControls: true
-    }
-    );
-    });
+    //    jQuery(document).ready(function($) {
+    //        $('.bxslider').bxSlider(
+    //    {
+    //        auto: true,
+    //        autoControls: true
+    //    }
+    //    );
+    //    });
 
         
 </script>
@@ -61,8 +100,6 @@
         </td>
     </tr>
 </table>--%>
-
-
 <table width="100%">
     <table class="tblMessage" cellpadding="0" cellspacing="0">
         <tr>
@@ -78,21 +115,20 @@
         </tr>
     </table>
     <table width="100%">
-    <tr>
-        <td>
-            <div class="divPageHeading">
-                <table width="100%">
-                    <tr>
-                        <td align="left">
-                            SIP Book
-                        </td>
-                        
-                    </tr>
-                </table>
-            </div>
-        </td>
-    </tr>
-</table>
+        <tr>
+            <td>
+                <div class="divPageHeading">
+                    <table width="100%">
+                        <tr>
+                            <td align="left">
+                                SIP Book
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
     <%--<tr>
         <td>
             <div class="divOnlinePageHeading">
@@ -111,7 +147,7 @@
 </table>
 </div> </td> </tr>--%>
 </table>
-<div id="divConditional" runat="server" style="padding-top: 4px">
+<div id="divConditional" runat="server" style="padding-top: 2%">
     <table class="TableBackground" cellpadding="2">
         <tr>
             <td id="tdlblRejectReason" runat="server">
@@ -139,7 +175,7 @@
         </td>
     </tr>
 </table>
-<asp:Panel ID="pnlSIPSumBook" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal"
+<%--<asp:Panel ID="pnlSIPSumBook" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal"
     Visible="false">
     <table width="100%">
         <tr id="trExportFilteredDupData" runat="server">
@@ -184,7 +220,7 @@
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 HeaderStyle-Width="75px" FilterControlWidth="50px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>--%>
+                            </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="PA_AMCName" HeaderText="Fund Name" AllowFiltering="true"
                                 HeaderStyle-Wrap="false" SortExpression="PA_AMCName" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="100px" UniqueName="PA_AMCName"
@@ -359,7 +395,7 @@
                                 ShowFilterIcon="false" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>--%>
+                            </telerik:GridBoundColumn>22
                             <telerik:GridBoundColumn Visible="false" DataField="CMFT_Price" AllowFiltering="false"
                                 HeaderText="Actioned NAV" DataFormatString="{0:N0}" UniqueName="CMFT_Price" SortExpression="CMFT_Price"
                                 ShowFilterIcon="false" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
@@ -447,7 +483,7 @@
                                 UniqueName="AcceptCount" SortExpression="AcceptCount" ShowFilterIcon="false"
                                 HeaderStyle-Width="80px" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>--%>
+                            </telerik:GridBoundColumn>44
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="AcceptCount" AutoPostBackOnFilter="true"
                                 HeaderText="Accepted" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="AcceptCount" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="80px">
@@ -466,7 +502,7 @@
                                 UniqueName="InProcessCount" SortExpression="InProcessCount" ShowFilterIcon="false"
                                 HeaderStyle-Width="80px" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>--%>
+                            </telerik:GridBoundColumn>33
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="InProcessCount" AutoPostBackOnFilter="true"
                                 HeaderText="In Process" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="InProcessCount" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="80px">
@@ -480,7 +516,7 @@
                                 UniqueName="RejectedCount" SortExpression="RejectedCount" ShowFilterIcon="false"
                                 HeaderStyle-Width="80px" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>--%>
+                            </telerik:GridBoundColumn>44
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="RejectedCount" AutoPostBackOnFilter="true"
                                 HeaderText="Rejected" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 SortExpression="RejectedCount" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="80px">
@@ -532,7 +568,7 @@
                             </telerik:GridBoundColumn>
                             <%-- <telerik:GridButtonColumn HeaderText="Action" CommandName="Update" Text="Cancel"
                                 ConfirmText="Do you want to Cancel this SIP? Click OK to proceed" UniqueName="column">
-                            </telerik:GridButtonColumn>--%>
+                            </telerik:GridButtonColumn>444
                             <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="60px" UniqueName="editColumn"
                                 EditText="Cancel" CancelText="Cancel" UpdateText="OK">
                             </telerik:GridEditCommandColumn>
@@ -542,8 +578,8 @@
                                     <asp:LinkButton ID="lnkAction" runat="server" CommandName="Update" Text="Cancel" ConfirmText="Do you want to Cancel this SIP? Click OK to proceed"
                                         UniqueName="Action" >
                                         </asp:LinkButton>
-                                  <%--  </telerik:GridButtonColumn>--%>
-                            <%-- <asp:ImageButton ID="ImageButton1" runat="server" CommandName="Edit" ImageUrl="~/Images/Buy-Button.png" />--%>
+                                  <%--  </telerik:GridButtonColumn>444
+                            <%-- <asp:ImageButton ID="ImageButton1" runat="server" CommandName="Edit" ImageUrl="~/Images/Buy-Button.png" />444
                         </Columns>
                         <EditFormSettings FormTableStyle-Height="60%" EditFormType="Template" FormMainTableStyle-Width="300px">
                             <FormTemplate>
@@ -588,7 +624,7 @@
                                         <td align="left">
                                             <asp:Button ID="Button1" Text="OK" runat="server" CssClass="PCGButton" CommandName="Update"
                                                 ValidationGroup="btnSubmit">
-                                                <%-- OnClientClick='<%# (Container is GridEditFormInsertItem) ?  " javascript:return ShowPopup();": "" %>'--%>
+                                                <%-- OnClientClick='<%# (Container is GridEditFormInsertItem) ?  " javascript:return ShowPopup();": "" %>'4444
                                             </asp:Button>
                                         </td>
                                         <td align="left">
@@ -612,7 +648,349 @@
             </td>
         </tr>
     </table>
-</asp:Panel>
+</asp:Panel>--%>
+<div id="Div1" class="row" style="margin-left: 5%; margin-right: 5%; background-color: #2480C7;"
+    visible="true" runat="server">
+    <telerik:RadGrid ID="gvSIPSummaryBookMIS" runat="server" GridLines="None" AllowPaging="True"
+        PageSize="5" AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true"
+        AllowAutomaticDeletes="false" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
+        HorizontalAlign="NotSet" CellPadding="15" OnNeedDataSource="gvSIPSummaryBookMIS_OnNeedDataSource"
+        OnItemDataBound="gvSIPSummaryBookMIS_OnItemDataBound" OnItemCommand="gvSIPSummaryBookMIS_OnItemCommand"
+        OnUpdateCommand="gvSIPSummaryBookMIS_UpdateCommand">
+        <MasterTableView CommandItemDisplay="None" DataKeyNames="CMFSS_SystematicSetupId,CMFSS_IsCanceled,AcceptCount,InProcessCount,RejectedCount,ExecutedCount,CMFA_AccountId,PASP_SchemePlanCode,CMFSS_IsSourceAA,CMFSS_TotalInstallment,CMFSS_CurrentInstallmentNumber,CMFSS_EndDate,CMFSS_Amount,CMFSS_StartDate"
+            AllowCustomSorting="true">
+            <Columns>
+                <telerik:GridTemplateColumn>
+                    <HeaderTemplate>
+                        <%--  <div class="col-md-2">
+                            <asp:Button ID="btnAMC" runat="server" CssClass="ft_sort" Text="AMC" /></div>
+                        <div class="col-md-2">
+                            <asp:Button ID="Button1" runat="server" CssClass="ft_sort" Text="Scheme" /></div>--%>
+                        <%--<div class="col-md-4">
+                            <asp:Button ID="Button2" runat="server" CssClass="ft_sort" Text="Order Status" Width="100px" /></div>--%>
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                        <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 divs">
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                <font color="#565656"><b>Fund Name:</b></font>
+                                <%# Eval("PA_AMCName")%>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 fk-font-6" style="margin-bottom: 1.5px;">
+                                <font color="#565656"><b>Scheme Name:</b> </font>
+                                <%# Eval("PASP_SchemePlanName")%>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                <font color="#565656"><b>Sub Category:</b></font>
+                                <%# Eval("PAISC_AssetInstrumentSubCategoryName")%>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                <font color="#565656"><b>Scheme Rating:</b></font>
+
+                                <script type="text/jscript">
+
+                                    jQuery(document).ready(function($) {
+                                        var moveLeft = 0;
+                                        var moveDown = 0;
+                                        $('a.popper').hover(function(e) {
+
+                                            //var target = '#' + ($(this).attr('data-popbox'));
+                                            var target = '#' + ($(this).find('img').attr('id')).replace('imgSchemeRating', 'divSchemeRatingDetails');
+
+                                            $(target).show();
+                                            moveLeft = $(this).outerWidth();
+                                            moveDown = ($(target).outerHeight() / 0);
+                                        }, function() {
+                                            //var target = '#' + ($(this).attr('data-popbox'));
+                                            var target = '#' + ($(this).find('img').attr('id')).replace('imgSchemeRating', 'divSchemeRatingDetails');
+                                            $(target).hide();
+                                        });
+
+                                        $('a.popper').mousemove(function(e) {
+                                            //var target = '#' + ($(this).attr('data-popbox'));
+                                            var target = '#' + ($(this).find('img').attr('id')).replace('imgSchemeRating', 'divSchemeRatingDetails');
+
+                                            leftD = e.pageX + parseInt(moveLeft);
+                                            maxRight = leftD + $(target).outerWidth();
+                                            windowLeft = $(window).width();
+                                            windowRight = 0;
+                                            maxLeft = e.pageX - (parseInt(moveLeft) + $(target).outerWidth());
+
+                                            if (maxRight > windowLeft && maxLeft > windowRight) {
+                                                leftD = maxLeft;
+                                            }
+
+                                            topD = e.pageY - parseInt(moveDown);
+                                            maxBottom = parseInt(e.pageY + parseInt(moveDown));
+                                            windowBottom = parseInt(parseInt($(document).scrollTop()) + parseInt($(window).height()));
+                                            maxTop = topD;
+                                            windowTop = parseInt($(document).scrollTop());
+                                            //                                            if (maxBottom > windowBottom) {
+                                            //                                                topD = windowBottom - $(target).outerHeight() - 20;
+                                            //                                            } else if (maxTop < windowTop) {
+                                            //                                                topD = windowTop ;
+                                            //                                            }
+
+                                            $(target).css('top', topD).css('centre', leftD);
+                                        });
+                                    });
+    
+                                </script>
+
+                                <a href="#" class="popper" data-popbox="divSchemeRatingDetails"><span class="FieldName">
+                                </span>
+                                    <asp:Image runat="server" ID="imgSchemeRating" />
+                                </a>
+                                <asp:Label ID="lblSchemeRating" runat="server" CssClass="cmbField" Text='<%# Eval("SchemeRatingOverall") %>'
+                                    Visible="false">
+                                </asp:Label>
+                                <asp:Label ID="lblRating3Year" runat="server" CssClass="cmbField" Text='<%# Eval("SchemeRating3Year") %>'
+                                    Visible="false">
+                                </asp:Label>
+                                <asp:Label ID="lblRating5Year" runat="server" CssClass="cmbField" Text='<%# Eval("SchemeRating5Year") %>'
+                                    Visible="false">
+                                </asp:Label>
+                                <asp:Label ID="lblRating10Year" runat="server" CssClass="cmbField" Text='<%# Eval("SchemeRating10Year") %>'
+                                    Visible="false">
+                                </asp:Label>
+                                <div id="divSchemeRatingDetails" class="popbox" runat="server">
+                                    <h2 class="popup-title">
+                                        SCHEME RATING DETAILS
+                                    </h2>
+                                    <table border="1" cellpadding="1" cellspacing="2" style="border-collapse: collapse;"
+                                        width="10% !important;">
+                                        <tr>
+                                            <td>
+                                                <asp:Label ID="lblRatingAsOnPopUp" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeRatingDate") %>'></asp:Label>
+                                            </td>
+                                            <td>
+                                                <span class="readOnlyField">RATING</span>
+                                            </td>
+                                            <td>
+                                                <span class="readOnlyField">RETURN</span>
+                                            </td>
+                                            <td>
+                                                <span class="readOnlyField">RISK</span>
+                                            </td>
+                                            <td>
+                                                <span class="readOnlyField">RATING OVERALL</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="readOnlyField">3 YEAR</span>
+                                            </td>
+                                            <td>
+                                                <asp:Image runat="server" ID="imgRating3yr" />
+                                            </td>
+                                            <td>
+                                                <asp:Label ID="lblSchemeRetrun3yr" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeReturn3Year") %>'> </asp:Label>
+                                            </td>
+                                            <td>
+                                                <asp:Label ID="lblSchemeRisk3yr" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeRisk3Year")%>'> </asp:Label>
+                                            </td>
+                                            <td rowspan="3">
+                                                <asp:Image runat="server" ID="imgRatingOvelAll" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="readOnlyField">5 YEAR</span>
+                                            </td>
+                                            <td>
+                                                <asp:Image runat="server" ID="imgRating5yr" />
+                                            </td>
+                                            <td>
+                                                <asp:Label ID="lblSchemeRetrun5yr" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeReturn5Year") %>'></asp:Label>
+                                            </td>
+                                            <td>
+                                                <asp:Label ID="lblSchemeRisk5yr" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeRisk5Year")%>'></asp:Label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="readOnlyField">10 YEAR</span>
+                                            </td>
+                                            <td>
+                                                <asp:Image runat="server" ID="imgRating10yr" />
+                                            </td>
+                                            <td>
+                                                <asp:Label ID="lblSchemeRetrun10yr" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeReturn10Year") %>'></asp:Label>
+                                            </td>
+                                            <td>
+                                                <asp:Label ID="lblSchemeRisk10yr" runat="server" CssClass="readOnlyField" Text='<%# Eval("SchemeRisk10Year")%>'></asp:Label>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                <font color="#565656"><b>Request Date/Time:</b></font>
+                                <%# Eval("CMFSS_CreatedOn")%>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                <font color="#565656"><b>Request No.:</b></font>
+                                 <asp:Button ID="btnDetails" runat="server"  Text='<%# Eval("CMFSS_SystematicSetupId").ToString() %>'
+                                    OnClick="btnDetails_OnClick" style="border-style:hidden;text-decoration:underline;color:#0396CC;" ></asp:Button>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                <font color="#565656"><b>Folio No.:</b></font>
+                                <%# Eval("CMFA_FolioNum")%>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                <font color="#565656"><b>Dividend Type:</b></font>
+                                <%# Eval("CMFSS_DividendOption")%>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                <font color="#565656"><b>Amount:</b></font>
+                                <%# Eval("CMFSS_Amount")%>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                <font color="#565656"><b>Units:</b></font>
+                                <%# Eval("Unit")%>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                <font color="#565656"><b>SIP Frequency:</b></font>
+                                <%# Eval("XF_Frequency")%>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                <font color="#565656"><b>Start date:</b></font>
+                                <%# Eval("CMFSS_StartDate")%>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                <font color="#565656"><b>End date:</b></font>
+                                <%# Eval("CMFSS_EndDate")%>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                <font color="#565656"><b>Next SIP Date:</b></font>
+                                <%# Eval("CMFSS_NextSIPDueDate")%>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                <font color="#565656"><b>Total Installment:</b></font>
+                                <%# Eval("CMFSS_TotalInstallment")%>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                <font color="#565656"><b>Accepted:</b></font>
+                                <asp:LinkButton ID="lnkpraccpt" runat="server" CssClass="LinkButtons" Style="text-decoration:underline;color:#0396CC;"
+                                    CommandName="Accepted" Text='<%# Eval("AcceptCount").ToString() %>'>
+                                </asp:LinkButton>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                <font color="#565656"><b>Pending:</b></font>
+                                <%# Eval("SIPDueCount")%>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                <font color="#565656"><b>In Process:</b></font>
+                                <asp:LinkButton ID="lnkprprcess" runat="server" CssClass="LinkButtons" Style="text-decoration:underline;color:#0396CC;"
+                                    CommandName="InProcess" Text='<%# Eval("InProcessCount").ToString() %>'>
+                                </asp:LinkButton>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                <font color="#565656"><b>Rajected:</b></font>
+                                <asp:LinkButton ID="lnkprreject" runat="server" CssClass="LinkButtons" Style="text-decoration:underline;color:#0396CC;"
+                                    CommandName="Rejected" Text='<%# Eval("RejectedCount").ToString() %>'>
+                                </asp:LinkButton>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                <font color="#565656"><b>Executed:</b></font>
+                                <asp:LinkButton ID="lnkprexecuted" runat="server" CssClass="LinkButtons" Style="text-decoration:underline;color:#0396CC;"
+                                    CommandName="Executed" Text='<%# Eval("ExecutedCount").ToString() %>'>
+                                </asp:LinkButton>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                <font color="#565656"><b>System Rejected:</b></font>
+                                <%# Eval("SystemRejectCount")%>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                <font color="#565656"><b>Other:</b></font>
+                                <%# Eval("CMFSS_InstallmentOther")%>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                <font color="#565656"><b>Channel:</b></font>
+                                <%# Eval("Channel")%>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                <font color="#565656"><b>Status:</b></font>
+                                <%# Eval("CMFSS_IsCanceled")%>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                <font color="#565656"><b>InProcessCount:</b></font>
+                                <%# Eval("InProcessCount")%>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;
+                                visibility: hidden;">
+                                <font color="#565656"><b>InProcessCount:</b></font>
+                                <%# Eval("InProcessCount")%>
+                            </div>
+                        </div>
+                    </ItemTemplate>
+                </telerik:GridTemplateColumn>
+                <telerik:GridTemplateColumn>
+                    <ItemTemplate>
+                        <tr>
+                            <td colspan="100%">
+                                <telerik:RadGrid ID="gvChildOrderBookDetails" runat="server" AllowPaging="false"
+                                    AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" AllowAutomaticDeletes="false"
+                                    AllowAutomaticInserts="false" AllowAutomaticUpdates="false" HorizontalAlign="NotSet"
+                                    CellPadding="15" Visible="false">
+                                    <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
+                                        Width="100%" ShowHeader="false">
+                                        <Columns>
+                                            <telerik:GridTemplateColumn>
+                                                <ItemTemplate>
+                                                    <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12">
+                                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                                            <font color="#565656"><b>Order Date/Time:</b></font>
+                                                            <%# Eval("CO_OrderDate")%>
+                                                        </div>
+                                                        <div class="col-xs-3 col-sm-3 col-md-3col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                                            <font color="#565656"><b>Request No.:</b> </font>
+                                                            <%# Eval("CMFSS_SystematicSetupId")%>
+                                                        </div>
+                                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                                            <font color="#565656"><b>Transaction No./Order No.:</b></font>
+                                                            <%# Eval("CO_OrderId")%>
+                                                        </div>
+                                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                                            <font color="#565656"><b>Order Type:</b></font>
+                                                            <%# Eval("XSTT_SystematicTypeCode")%>
+                                                        </div>
+                                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                                            <font color="#565656"><b>Actioned NAV:</b></font>
+                                                            <%# Eval("CMFT_Price")%>
+                                                        </div>
+                                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                                            <font color="#565656"><b>Transaction Date:</b></font>
+                                                            <%# Eval("CMFT_TransactionDate")%>
+                                                        </div>
+                                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                                            <font color="#565656"><b>Intallment No:</b></font>
+                                                            <%# Eval("IntallmentNo")%>
+                                                        </div>
+                                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                                            <font color="#565656"><b>Order Units:</b></font>
+                                                            <%# Eval("CMFOD_Units")%>
+                                                        </div>
+                                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                                            <font color="#565656"><b>Reject Remark:</b></font>
+                                                            <%# Eval("COS_Reason")%>
+                                                        </div>
+                                                    </div>
+                                                </ItemTemplate>
+                                            </telerik:GridTemplateColumn>
+                                        </Columns>
+                                    </MasterTableView>
+                                </telerik:RadGrid>
+                            </td>
+                        </tr>
+                    </ItemTemplate>
+                </telerik:GridTemplateColumn>
+            </Columns>
+        </MasterTableView>
+        <ClientSettings EnableAlternatingItems="false">
+        </ClientSettings>
+        <PagerStyle Mode="NextPrevAndNumeric" />
+    </telerik:RadGrid>
+</div>
 <asp:HiddenField ID="hdnAmc" runat="server" />
 <asp:HiddenField ID="hdnOrderStatus" runat="server" />
 <asp:HiddenField ID="hdnsystamaticType" runat="server" Value="" />
@@ -620,7 +998,7 @@
     <telerik:RadWindowManager runat="server" ID="RadWindowManager1">
         <Windows>
             <telerik:RadWindow ID="RadInformation1" Modal="true" Behaviors="Close, Move" VisibleOnPageLoad="false"
-                Width="760px" Height="580px" runat="server" Left="300px" Top="50px" OnClientShow="setCustomPosition" >
+                Width="760px" Height="580px" runat="server" Left="300px" Top="50px" OnClientShow="setCustomPosition">
                 <ContentTemplate>
                     <div style="padding: 0px; width: 100%; height: 100%;">
                         <iframe src="../ReferenceFiles/MFOrderbook.htm" name="iframeTermsCondition" style="width: 100%;
@@ -631,8 +1009,10 @@
         </Windows>
     </telerik:RadWindowManager>
 </asp:Panel>
+
 <script type="text/javascript">
     function setCustomPosition(sender, args) {
         sender.moveTo(sender.get_left(), sender.get_top());
     }
 </script>
+

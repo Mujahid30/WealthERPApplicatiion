@@ -156,7 +156,7 @@ namespace WealthERP.OnlineOrderManagement
                 gvSIPSummaryBookMIS.DataSource = dtSIPBookMIS;
                 gvSIPSummaryBookMIS.DataBind();
                 gvSIPSummaryBookMIS.Visible = true;
-                pnlSIPSumBook.Visible = true;
+                //pnlSIPSumBook.Visible = true;
                 btnExport.Visible = true;
                 trNoRecords.Visible = false;
                 divNoRecords.Visible = false;
@@ -440,6 +440,7 @@ namespace WealthERP.OnlineOrderManagement
             if (e.Item is GridDataItem)
             {
                 GridDataItem gvr = (GridDataItem)e.Item;
+                RadGrid gvChildOrderBookDetails = (RadGrid)gvr.FindControl("gvChildOrderBookDetails");
                 if (e.CommandName.ToString() != "Filter")
                 {
                     if (e.CommandName.ToString() != "Sort")
@@ -462,14 +463,15 @@ namespace WealthERP.OnlineOrderManagement
 
                                 if (e.CommandName == "Accepted")
                                 {
-                                    if (Session["PageDefaultSetting"] != null)
-                                    {
-                                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerTransactionBookList','?systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA + "&Amount=" + Amount + "&SIPStartDate=" + SIPStartDate + "');", true);
-                                    }
-                                    else
-                                    {
-                                        Response.Redirect("ControlHost.aspx?pageid=CustomerTransactionBookList&systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA + "&Amount=" + Amount + "&SIPStartDate=" + SIPStartDate + "", false);
-                                    }
+                                    BindChildCridDetails(int.Parse(ddlAMCCode.SelectedValue), null, systematicId, gvChildOrderBookDetails);
+                                    //if (Session["PageDefaultSetting"] != null)
+                                    //{
+                                    //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerTransactionBookList','?systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA + "&Amount=" + Amount + "&SIPStartDate=" + SIPStartDate + "');", true);
+                                    //}
+                                    //else
+                                    //{
+                                    //    Response.Redirect("ControlHost.aspx?pageid=CustomerTransactionBookList&systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA + "&Amount=" + Amount + "&SIPStartDate=" + SIPStartDate + "", false);
+                                    //}
 
                                 }
                                 if (e.CommandName == "InProcess" | e.CommandName == "Rejected" | e.CommandName == "Executed")
@@ -486,16 +488,18 @@ namespace WealthERP.OnlineOrderManagement
                                     {
                                         orderStatus = "IP";
                                     }
-                                    if (Session["PageDefaultSetting"] != null)
-                                    {
-                                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerSIPBookList','?systematicId=" + systematicId + "&AmcCode=" + ddlAMCCode.SelectedValue + "&systematicType=" + systematictype + "&OrderStatus=" + orderStatus + "');", true);
-                                    }
-                                    else
-                                    {
-                                        Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "&AmcCode=" + ddlAMCCode.SelectedValue + "&systematicType=" + systematictype + "&OrderStatus=" + orderStatus + "", false);
-                                        //Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA + "&Amount=" + Amount + "&SIPStartDate=" + SIPStartDate + "", false);
-                                        //Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "&OrderStatus=" + orderStatus + "", false);
-                                    }
+                                    BindChildCridDetails(int.Parse(ddlAMCCode.SelectedValue), orderStatus, systematicId, gvChildOrderBookDetails);
+
+                                    //if (Session["PageDefaultSetting"] != null)
+                                    //{
+                                    //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerSIPBookList','?systematicId=" + systematicId + "&AmcCode=" + ddlAMCCode.SelectedValue + "&systematicType=" + systematictype + "&OrderStatus=" + orderStatus + "');", true);
+                                    //}
+                                    //else
+                                    //{
+                                    //    Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "&AmcCode=" + ddlAMCCode.SelectedValue + "&systematicType=" + systematictype + "&OrderStatus=" + orderStatus + "", false);
+                                    //    //Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA + "&Amount=" + Amount + "&SIPStartDate=" + SIPStartDate + "", false);
+                                    //    //Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "&OrderStatus=" + orderStatus + "", false);
+                                    //}
 
                                 }
                             }
@@ -504,22 +508,49 @@ namespace WealthERP.OnlineOrderManagement
                 }
             }
         }
-        protected void lnkprAmcB_Click(object sender, EventArgs e)
+        protected void btnDetails_OnClick(object sender, EventArgs e)
+
         {
-            LinkButton lnkOrderNo = (LinkButton)sender;
+           Button lnkOrderNo = (Button)sender;
             GridDataItem gdi;
+            DataTable filldt = new DataTable();
             gdi = (GridDataItem)lnkOrderNo.NamingContainer;
             int selectedRow = gdi.ItemIndex + 1;
+            RadGrid gvChildOrderBookDetails = (RadGrid)gdi.FindControl("gvChildOrderBookDetails");
             int systematicId = int.Parse((gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFSS_SystematicSetupId"].ToString()));
             string systematictype = Request.QueryString["systematicType"].ToString();
-            if (Session["PageDefaultSetting"] != null)
+            BindChildCridDetails(int.Parse(ddlAMCCode.SelectedValue),null,systematicId,gvChildOrderBookDetails);
+        }
+        protected void BindChildCridDetails(int amcCode, string orderstatus, int systematicId, RadGrid gvChildOrderBookDetails)
+        {
+            DataSet dsSIPBookMIS = OnlineMFOrderBo.GetSIPBookMIS(customerId, amcCode, orderstatus, systematicId);
+            if (gvChildOrderBookDetails.Visible == false)
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerSIPBookList','?systematicId=" + systematicId + "&AmcCode=" + ddlAMCCode.SelectedValue + "&systematicType=" + systematictype + "&IsPageDefaultSetting=1" + "');", true);
+                gvChildOrderBookDetails.Visible = true;
+                //btnDetails.Text = "-";
             }
-            else
+            else if (gvChildOrderBookDetails.Visible == true)
             {
-                Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "&AmcCode=" + ddlAMCCode.SelectedValue + "&systematicType=" + systematictype + "", false);
+                gvChildOrderBookDetails.Visible = false;
+                //buttonlink.Text = "+";
             }
+            DataTable dtNCDOrderBook = (DataTable)Cache["SIPSumList" + userVo.UserId.ToString()];
+            //DataRow[] rows = dtNCDOrderBook.Select("CMFSS_SystematicSetupId = " + systematicId + " ");
+            //if (rows.Length > 0)
+            //{
+            //    filldt = rows.CopyToDataTable();
+            //}
+            gvChildOrderBookDetails.DataSource = dsSIPBookMIS;
+            gvChildOrderBookDetails.DataBind();
+            //gvChildOrderBookDetails.Visible = true;
+            //if (Session["PageDefaultSetting"] != null)
+            //{
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerSIPBookList','?systematicId=" + systematicId + "&AmcCode=" + ddlAMCCode.SelectedValue + "&systematicType=" + systematictype + "&IsPageDefaultSetting=1" + "');", true);
+            //}
+            //else
+            //{
+            //    Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "&AmcCode=" + ddlAMCCode.SelectedValue + "&systematicType=" + systematictype + "", false);
+            //}
             //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerSIPBookList", "loadcontrol('CustomerSIPBookList');", true);
             // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerSIPBookList", "loadcontrol('CustomerSIPBookList','action=viewIsssueList&issueNo=" + issueNo + "&type=" + ddlType.SelectedValue + "&date=" + DateTime.Now + "&product=" + ddlProduct.SelectedValue + "');", true);
 
@@ -549,20 +580,20 @@ namespace WealthERP.OnlineOrderManagement
                 int totalInstallment = Convert.ToInt32(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFSS_TotalInstallment"].ToString());
                 int currentInstallmentNumber = Convert.ToInt32(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFSS_CurrentInstallmentNumber"].ToString());
                 DateTime endDate = Convert.ToDateTime(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFSS_EndDate"].ToString());
-                LinkButton buttonCancel = dataItem["editColumn"].Controls[0] as LinkButton;
+                //LinkButton buttonCancel = dataItem["editColumn"].Controls[0] as LinkButton;
                 DateTime currentTime = DateTime.Now;
                 DateTime fixedTime = Convert.ToDateTime("08:35:00 AM");
                 int compare = DateTime.Compare(currentTime, fixedTime);
                 if (isCancel == "Cancelled" || totalInstallment == currentInstallmentNumber - 1 || endDate < DateTime.Now)
                 {
 
-                    buttonCancel.Enabled = false;
+                    //buttonCancel.Enabled = false;
                 }
                 if (endDate == DateTime.Now)
                 {
                     if (compare >= 0)
                     {
-                        buttonCancel.Enabled = false;
+                        //buttonCancel.Enabled = false;
                     }
                 }
             }
@@ -573,8 +604,8 @@ namespace WealthERP.OnlineOrderManagement
             }
             else
             {
-                gvSIPSummaryBookMIS.MasterTableView.GetColumn("CMFSS_Amount").Visible = true;
-                gvSIPSummaryBookMIS.MasterTableView.GetColumn("Unit").Visible = false;
+                //gvSIPSummaryBookMIS.MasterTableView.GetColumn("CMFSS_Amount").Visible = true;
+                //gvSIPSummaryBookMIS.MasterTableView.GetColumn("Unit").Visible = false;
 
             }
             if (e.Item is GridDataItem)
