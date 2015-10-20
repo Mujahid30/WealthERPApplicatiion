@@ -479,7 +479,7 @@
 <table>
     <tr id="trNote1" runat="server">
         <td>
-            <asp:Label ID="lblNoteHeading" runat="server" CssClass="cmbFielde"  Text="Note :"></asp:Label>
+            <asp:Label ID="lblNoteHeading" runat="server" CssClass="cmbFielde"   Text="Note :"></asp:Label>
         </td>
     </tr>
     <tr id="trNote2" runat="server">
