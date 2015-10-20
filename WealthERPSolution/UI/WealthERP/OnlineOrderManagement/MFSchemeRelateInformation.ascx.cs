@@ -453,7 +453,8 @@ namespace WealthERP.OnlineOrderManagement
                     thSchemeRank.Visible = false;
                     thSIP.Visible = false;
                     tdSIP.Visible = false;
-                    if (!Convert.ToBoolean(rblNFOType.SelectedValue)){
+                    if (!Convert.ToBoolean(rblNFOType.SelectedValue))
+                    {
 
                         thBuy.Visible = false;
                         tdBuy.Visible = false;
@@ -473,21 +474,18 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void BindNewsHeading()
         {
-            string SectoreDetais = ConfigurationSettings.AppSettings["NEWS_HEADING"] + 2;
-            WebResponse response;
-            string result;
-            WebRequest request = HttpWebRequest.Create(SectoreDetais);
-            response = request.GetResponse();
-            using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+            OnlineMFSchemeDetailsBo OnlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
+            try
             {
-                result = reader.ReadToEnd();
-                reader.Close();
+
+                DataSet theDataSet = OnlineMFSchemeDetailsBo.GetAPIData(ConfigurationSettings.AppSettings["NEWS_HEADING"] + ConfigurationSettings.AppSettings["NEWS_COUNT"]);
+                RepNews.DataSource = theDataSet.Tables[1];
+                RepNews.DataBind();
             }
-            StringReader theReader = new StringReader(result);
-            DataSet theDataSet = new DataSet();
-            theDataSet.ReadXml(theReader);
-            RepNews.DataSource = theDataSet.Tables[1];
-            RepNews.DataBind();
+            catch (Exception Ex)
+            {
+
+            }
         }
 
         protected void lnkMoreNews_lnkMoreNews(object sender, EventArgs e)
