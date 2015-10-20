@@ -621,13 +621,13 @@ namespace WealthERP.OnlineOrderManagement
         protected void BindStartDates()
         {
             ddlStartDate.Items.Clear();
-
             DateTime[] dtStartdates;
-
             if (strAction != "Edit") dtStartdates = boOnlineOrder.GetSipStartDates(Convert.ToInt32(ddlScheme.SelectedValue), ddlFrequency.SelectedValue);
             else dtStartdates = boOnlineOrder.GetSipStartDates(Convert.ToInt32(onlineMFOrderVo.SchemePlanCode), onlineMFOrderVo.FrequencyCode);
-
-            foreach (DateTime d in dtStartdates) ddlStartDate.Items.Add(new ListItem(d.ToString("dd-MMM-yyyy")));
+            DateTime currentDate = DateTime.Now;
+            foreach (DateTime d in dtStartdates)
+                if (d != currentDate)
+                ddlStartDate.Items.Add(new ListItem(d.ToString("dd-MMM-yyyy")));
             ddlStartDate.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
             //ddlStartDate.Items.Insert(0, new ListItem("--SELECT--"));
             ddlStartDate.SelectedIndex = 0;
