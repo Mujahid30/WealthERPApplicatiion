@@ -279,6 +279,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetdtGetAMCandCategoryWiseScheme = db.GetStoredProcCommand("SPROC_ONL_GetAMCandCategoryWiseScheme");
                 db.AddInParameter(GetdtGetAMCandCategoryWiseScheme, "@amcCode", DbType.Int32, AMCCode);
+                if(category!="0")
                 db.AddInParameter(GetdtGetAMCandCategoryWiseScheme, "@category", DbType.String, category);
                 dsGetAMCandCategoryWiseScheme = db.ExecuteDataSet(GetdtGetAMCandCategoryWiseScheme);
                 dtGetAMCandCategoryWiseScheme = dsGetAMCandCategoryWiseScheme.Tables[0];
