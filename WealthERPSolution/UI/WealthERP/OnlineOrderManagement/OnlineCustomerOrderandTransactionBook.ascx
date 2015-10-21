@@ -48,6 +48,14 @@
         border: solid 1.5px #00CEFF;
         cursor: pointer;
     }
+     .dottedBottom
+    {
+        border-bottom-style: inset;
+        border-bottom-width: thin;
+        margin-bottom: 1%;
+        border-collapse: collapse;
+        border-spacing: 10px;
+    }
 </style>
 <table width="100%">
     <tr>
@@ -82,22 +90,19 @@
         </td>
     </tr>
 </table>
-<div id="demo" class="row" style="margin-left: 5%; margin-top: 1%; margin-bottom: 2%;
-    margin-right: 5%; padding-top: 1%; padding-bottom: 1%; background-color: #2480C7;
+<div id="demo" class="row" style="margin-left: 5%; margin-bottom: 2%;
+    margin-right: 5%; padding-top: 1%; padding-bottom: 1%; 
     height: 20%">
-    <div style="margin-left: 5%; font-size: 20px;" class="col-md-12 col-xs-12 col-sm-12">
-        <font color="#fff"><b>Order Book</b></font>
-    </div>
     <div class="col-md-12 col-xs-12 col-sm-12">
-        <div class="col-md-5">
-            <font color="#fff"><b>AMC:</b></font>
+        <div class="col-md-3">
+            AMC:
             <asp:DropDownList ID="ddlAMC" runat="server" CssClass="form-control input-sm" Width="100%"
                 AutoPostBack="true" OnSelectedIndexChanged="ddlAMC_OnSelectedIndexChanged">
             </asp:DropDownList>
             <%--<asp:RequiredFieldValidator ID="rfvAMC" runat="server" ControlToValidate="ddlAMC" InitialValue="0" ErrorMessage="Please Select AMC" Display="Dynamic"></asp:RequiredFieldValidator>--%>
         </div>
-        <div class="col-md-7">
-            <font color="#fff"><b>Scheme:</b></font>
+        <div class="col-md-5">
+            Scheme:
             <asp:DropDownList ID="ddlScheme" runat="server" CssClass="form-control input-sm"
                 class="form-control">
             </asp:DropDownList>
@@ -105,20 +110,20 @@
     </div>
     <div class="col-md-12">
         <div class="col-md-2" style="margin-top: 1.6%;">
-            <asp:Button ID="btnSIP" runat="server" class="btn btn-sm btn-default" Text="SIP"
+            <asp:Button ID="btnSIP" runat="server" CssClass="btn btn-primary btn-primary" Text="SIP"
                 OnClick="btnSIP_OnClick" Width="120px"></asp:Button>
         </div>
         <div class="col-md-2" style="margin-top: 1.6%">
-            <asp:Button ID="btnNewPurchase" runat="server" class="btn btn-sm btn-default" Text="New Purchase"
+            <asp:Button ID="btnNewPurchase" runat="server" CssClass="btn btn-primary btn-primary" Text="New Purchase"
                 OnClick="btnNewPurchase_OnClick" Width="120px"></asp:Button>
         </div>
-        <div class="col-md-2" style="margin-top: 1.6%">
-            <asp:Button ID="btnAdditionalPurchase" runat="server" class="btn btn-sm btn-default"
-                Text="Additional Purchase" OnClick="btnAdditionalPurchase_OnClick" Width="130px">
+        <div class="col-md-2" style="margin-top: 1.9%">
+            <asp:Button ID="btnAdditionalPurchase" runat="server" CssClass="btn btn-primary btn-primary"
+                Text="Additional Purchase" OnClick="btnAdditionalPurchase_OnClick" Width="145px">
             </asp:Button>
         </div>
         <div class="col-md-2" style="margin-top: 1.6%">
-            <asp:Button ID="btnRedeem" runat="server" class="btn btn-sm btn-default" Text="Redeem"
+            <asp:Button ID="btnRedeem" runat="server" CssClass="btn btn-primary btn-primary" Text="Redeem"
                 OnClick="btnRedeem_OnClick" Width="120px"></asp:Button>
         </div>
     </div>
@@ -204,8 +209,8 @@
                     <ItemTemplate>
                         <tr>
                             <td colspan="100%">
-                                <telerik:RadGrid ID="gvChildDetails" runat="server"  AllowPaging="True"
-                                    PageSize="5" AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true"
+                                <telerik:RadGrid ID="gvChildDetails" runat="server"  AllowPaging="false"
+                                    AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true"
                                     AllowAutomaticDeletes="false" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
                                     HorizontalAlign="NotSet" CellPadding="15" Visible="false" >
                                     <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"

@@ -160,6 +160,7 @@ namespace WealthERP.OnlineOrderManagement
                 btnExport.Visible = true;
                 trNoRecords.Visible = false;
                 divNoRecords.Visible = false;
+                Div1.Visible = true;
 
             }
             else

@@ -147,24 +147,26 @@
 </table>
 </div> </td> </tr>--%>
 </table>
-<div id="divConditional" runat="server" style="padding-top: 2%">
-    <table class="TableBackground" cellpadding="2">
-        <tr>
-            <td id="tdlblRejectReason" runat="server">
-                <asp:Label runat="server" class="FieldName" Text="AMC:" ID="lblAccount"></asp:Label>
-                <asp:DropDownList CssClass="cmbField" ID="ddlAMCCode" runat="server" AutoPostBack="false">
+<div id="divConditional" runat="server" class="row " style="margin-left: 5%;  margin-bottom: 0.5%;
+            margin-right: 5%; padding-top: 2%; padding-bottom: 0.5%;">
+     <div class="col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 1%">
+                <div class="col-md-4">
+                AMC:
+                <asp:DropDownList CssClass="form-control input-sm" ID="ddlAMCCode" runat="server" AutoPostBack="false">
                     <%--<asp:ListItem Text="All" Value="0"></asp:ListItem>--%>
                 </asp:DropDownList>
-            </td>
-            <td id="tdBtnOrder" runat="server">
-                <asp:Button ID="btnViewSIP" runat="server" CssClass="PCGButton" Text="Go" ValidationGroup="btnViewSIP"
+                </div>
+                <div class="col-md-3">
+                <br />
+                <asp:Button ID="btnViewSIP" runat="server" CssClass="btn btn-primary btn-primary" Text="Go" ValidationGroup="btnViewSIP"
                     OnClick="btnViewOrder_Click" />
-            </td>
-            <td align="right" style="float: right; width: 850px;">
+            </div>
+            <div style="float:right">
                 <asp:ImageButton ID="imgInformation" runat="server" ImageUrl="../Images/help.png"
                     OnClick="imgInformation_OnClick" ToolTip="Help" Style="cursor: hand;" />
-            </td>
-    </table>
+                    </div>
+           
+   </div>
 </div>
 <table style="width: 100%" class="TableBackground">
     <tr id="trNoRecords" runat="server" visible="false">
@@ -649,8 +651,8 @@
         </tr>
     </table>
 </asp:Panel>--%>
-<div id="Div1" class="row" style="margin-left: 5%; margin-right: 5%; background-color: #2480C7;"
-    visible="true" runat="server">
+<div id="Div1" class="row" style="margin-left: 5%; margin-right: 3%; background-color: #2480C7;"
+    visible="false" runat="server">
     <telerik:RadGrid ID="gvSIPSummaryBookMIS" runat="server" GridLines="None" AllowPaging="True"
         PageSize="5" AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true"
         AllowAutomaticDeletes="false" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
