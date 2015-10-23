@@ -1437,8 +1437,8 @@ namespace BoOnlineOrderManagement
             OrderTypeList.Add(new KeyValuePair<string, string>("NFO", "NFO"));
             OrderTypeList.Add(new KeyValuePair<string, string>("AMCBANK", "AMCBANK"));
             OrderTypeList.Add(new KeyValuePair<string, string>("SIPBOOK", "SIPBOOK"));
-            //OrderTypeList.Add(new KeyValuePair<string, string>("FATCA_OTH", "FATCA_NORMAL"));
-            //OrderTypeList.Add(new KeyValuePair<string, string>("FATCA_SIP", "FATCA_SIP"));
+            OrderTypeList.Add(new KeyValuePair<string, string>("FATCA_OTH", "FATCA_NORMAL"));
+            OrderTypeList.Add(new KeyValuePair<string, string>("FATCA_SIP", "FATCA_SIP"));
             return OrderTypeList.ToArray();
 
         }
@@ -1517,6 +1517,7 @@ namespace BoOnlineOrderManagement
                  tmp.RemoveAt(0);
                  tmp.RemoveAt(2);
                  tmp.RemoveAt(1);
+                 tmp.RemoveAt(2);
                  OrderTypeList = tmp.ToArray();
 
             }
@@ -1526,7 +1527,7 @@ namespace BoOnlineOrderManagement
                 List<KeyValuePair<string, string>> tmp = new List<KeyValuePair<string, string>>(OrderTypeList);
                 tmp.RemoveAt(1);
                 tmp.RemoveAt(3);
-                
+                tmp.RemoveAt(4);
                 OrderTypeList = tmp.ToArray();
             }
             if (Directory.Exists(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName) && bOverwrite == false) return;
