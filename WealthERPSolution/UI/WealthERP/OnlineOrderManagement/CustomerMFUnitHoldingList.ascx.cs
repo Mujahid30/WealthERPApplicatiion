@@ -27,6 +27,8 @@ namespace WealthERP.OnlineOrderManagement
         PortfolioBo portfolioBo = new PortfolioBo();
         MFPortfolioVo mfPortfolioVo = new MFPortfolioVo();
         List<MFPortfolioNetPositionVo> OnlineMFHoldingList = null;
+        List<MFTransactionVo> mfTransactionList = null;
+        MFTransactionVo mfTransactionVo = new MFTransactionVo();
         CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
         AdvisorVo advisorVo;
         CustomerVo customerVO = new CustomerVo();
@@ -289,7 +291,7 @@ namespace WealthERP.OnlineOrderManagement
                     drMFUnitHoplding["SchemeRatingOverall"] = mfPortfolioVo.SchemeRatingOverall;
                     drMFUnitHoplding["SchemeRatingSubscriptionExpiryDtae"] = mfPortfolioVo.SchemeRatingSubscriptionExpiryDtae;
                     if (DateTime.Parse(mfPortfolioVo.SchemeRatingDate.ToString()) != DateTime.Parse("01/01/1900 00:00:00"))
-                    drMFUnitHoplding["SchemeRatingDate"] = DateTime.Parse(mfPortfolioVo.SchemeRatingDate.ToString()).ToString("dd/MM/yyyy");
+                        drMFUnitHoplding["SchemeRatingDate"] = DateTime.Parse(mfPortfolioVo.SchemeRatingDate.ToString()).ToString("dd/MM/yyyy");
 
                     dtMFUnitHoplding.Rows.Add(drMFUnitHoplding);
                 }
@@ -307,7 +309,7 @@ namespace WealthERP.OnlineOrderManagement
                     rgUnitHolding.DataSource = dtMFUnitHoplding;
                     rgUnitHolding.DataBind();
                     rgUnitHolding.Visible = true;
-                    pnlMFUnitHolding.Visible = true;
+                    Div1.Visible = true;
                     btnExport.Visible = true;
                     trNoRecords.Visible = false;
                 }
@@ -316,7 +318,7 @@ namespace WealthERP.OnlineOrderManagement
                     rgUnitHolding.DataSource = dtMFUnitHoplding;
                     rgUnitHolding.DataBind();
                     //rgUnitHolding.Visible = false;
-                    pnlMFUnitHolding.Visible = true;
+                    Div1.Visible = true;
                     btnExport.Visible = false;
                     trNoRecords.Visible = false;
 
@@ -329,7 +331,7 @@ namespace WealthERP.OnlineOrderManagement
                 rgUnitHolding.DataSource = dtUnitNoRecord;
                 rgUnitHolding.DataBind();
                 //rgUnitHolding.Visible = false;
-                pnlMFUnitHolding.Visible = true;
+                Div1.Visible = true;
                 btnExport.Visible = false;
                 trNoRecords.Visible = false;
                 //lblNoRecords.Text = "No Records Found";
@@ -383,6 +385,7 @@ namespace WealthERP.OnlineOrderManagement
                         if (e.CommandName.ToString() != "ChangePageSize")
                         {
                             GridDataItem gvr = (GridDataItem)e.Item;
+                            RadGrid gvChildDetails=(RadGrid)gvr.FindControl("gvChildDetails");
                             int selectedRow = gvr.ItemIndex + 1;
                             int folio = int.Parse(gvr.GetDataKeyValue("AccountId").ToString());
                             int SchemePlanCode = int.Parse(gvr.GetDataKeyValue("SchemeCode").ToString());
@@ -390,14 +393,15 @@ namespace WealthERP.OnlineOrderManagement
                             int amcCode = int.Parse(gvr.GetDataKeyValue("AMCCode").ToString());
                             if (e.CommandName == "SelectTransaction")
                             {
-                                if (Session["PageDefaultSetting"] != null)
-                                {
-                                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerTransactionBookList','?folionum=" + folio + "&SchemePlanCode=" + SchemePlanCode + "&accountddl=" + accountddl + "&AMCCode=" + amcCode + "');", true);
-                                }
-                                else
-                                {
-                                    Response.Redirect("ControlHost.aspx?pageid=CustomerTransactionBookList&folionum=" + folio + "&SchemePlanCode=" + SchemePlanCode + "&accountddl=" + accountddl + "&AMCCode=" + amcCode + "", false);
-                                }
+                                BindTransactionDetails(accountddl, SchemePlanCode, gvChildDetails);
+                                //if (Session["PageDefaultSetting"] != null)
+                                //{
+                                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerTransactionBookList','?folionum=" + folio + "&SchemePlanCode=" + SchemePlanCode + "&accountddl=" + accountddl + "&AMCCode=" + amcCode + "');", true);
+                                //}
+                                //else
+                                //{
+                                //    Response.Redirect("ControlHost.aspx?pageid=CustomerTransactionBookList&folionum=" + folio + "&SchemePlanCode=" + SchemePlanCode + "&accountddl=" + accountddl + "&AMCCode=" + amcCode + "", false);
+                                //}
                             }
 
                         }
@@ -460,7 +464,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (e.Item is GridDataItem)
             {
-                 MFPortfolioNetPositionVo mfPortfolioVo=new MFPortfolioNetPositionVo();
+                MFPortfolioNetPositionVo mfPortfolioVo = new MFPortfolioNetPositionVo();
                 Label lblISRedeemFlag = (Label)e.Item.FindControl("lblISRedeemFlag");
 
                 Label lblSIPSchemeFlag = (Label)e.Item.FindControl("lblSIPSchemeFlag");
@@ -482,26 +486,26 @@ namespace WealthERP.OnlineOrderManagement
                 if (lblSIPSchemeFlag.Text.Trim().ToLower() == "false")
                 {
                     ImageButton imgSIP = (ImageButton)e.Item.FindControl("imgSip");
-                    imgSIP.Visible=false;
-                   
+                    imgSIP.Visible = false;
+
                 }
                 if (lblIsPurcheseFlag.Text.Trim().ToLower() == "false")
                 {
                     ImageButton imgBuy = (ImageButton)e.Item.FindControl("imgBuy");
                     imgBuy.Visible = false;
-                   
+
                 }
                 if (lblISRedeemFlag.Text.Trim().ToLower() == "false")
                 {
                     ImageButton imgSell = (ImageButton)e.Item.FindControl("imgSell");
                     imgSell.Visible = false;
-                  
+
                 }
                 lblISRedeemFlag.Visible = false;
                 lblIsPurcheseFlag.Visible = false;
                 lblSIPSchemeFlag.Visible = false;
 
-                
+
                 imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + lblSchemeRating.Text.Trim() + ".png";
 
                 imgRating3Year.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + lblRating3Year.Text.Trim() + ".png";
@@ -509,15 +513,135 @@ namespace WealthERP.OnlineOrderManagement
                 imgRating10Year.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + lblRating10Year.Text.Trim() + ".png";
 
                 imgRatingOvelAll.ImageUrl = @"../Images/MorningStarRating/RatingOverall/" + lblSchemeRating.Text.Trim() + ".png";
-                    //if (!string.IsNullOrEmpty(mfPortfolioVo.SchemeRatingDate))
-                    //    {
-                    //        lblRatingAsOnPopUp.Text =  "As On " + mfPortfolioVo.SchemeRatingDate;
-                    //    }
-                
-                 //imgSchemeRating.ImageUrl = @"../Images/msgUnRead.png";
-                ////imgRatingDetails.ImageUrl = @"../Images/MorningStarRating/RatingOverall/" + lblSchemeRating.Text.Trim() + ".png";
-             
+                //if (!string.IsNullOrEmpty(mfPortfolioVo.SchemeRatingDate))
+                //    {
+                //        lblRatingAsOnPopUp.Text =  "As On " + mfPortfolioVo.SchemeRatingDate;
+                //    }
 
+                //imgSchemeRating.ImageUrl = @"../Images/msgUnRead.png";
+                ////imgRatingDetails.ImageUrl = @"../Images/MorningStarRating/RatingOverall/" + lblSchemeRating.Text.Trim() + ".png";
+
+
+            }
+        }
+        protected void BindTransactionDetails(int AccountId, int schemePlanCode, RadGrid gvChildDetails)
+        {
+            CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
+            mfTransactionList = customerTransactionBo.GetCustomerTransactionsBook(advisorVo.advisorId, customerId, Convert.ToDateTime("01-01-1990"), DateTime.Now, 1, 0, AccountId, schemePlanCode);
+            if (mfTransactionList.Count != 0)
+            {
+
+
+                DataTable dtMFTransactions = new DataTable();
+                dtMFTransactions.Columns.Add("TransactionId");
+                dtMFTransactions.Columns.Add("Customer Name");
+                dtMFTransactions.Columns.Add("Folio Number");
+                dtMFTransactions.Columns.Add("Scheme Name");
+                dtMFTransactions.Columns.Add("Transaction Type");
+                dtMFTransactions.Columns.Add("Transaction Date", typeof(DateTime));
+                dtMFTransactions.Columns.Add("Price", typeof(double));
+                dtMFTransactions.Columns.Add("Units", typeof(double));
+                dtMFTransactions.Columns.Add("Amount", typeof(double));
+                dtMFTransactions.Columns.Add("STT", typeof(double));
+                dtMFTransactions.Columns.Add("Portfolio Name");
+                dtMFTransactions.Columns.Add("TransactionStatus");
+                dtMFTransactions.Columns.Add("Category");
+                dtMFTransactions.Columns.Add("AMC");
+                dtMFTransactions.Columns.Add("ADUL_ProcessId");
+                dtMFTransactions.Columns.Add("CMFT_SubBrokerCode");
+                dtMFTransactions.Columns.Add("PAISC_AssetInstrumentSubCategoryName");
+                dtMFTransactions.Columns.Add("CreatedOn");
+                dtMFTransactions.Columns.Add("CMFT_ExternalBrokerageAmount", typeof(double));
+                dtMFTransactions.Columns.Add("CMFT_Area");
+                dtMFTransactions.Columns.Add("CMFT_EUIN");
+                dtMFTransactions.Columns.Add("CurrentNAV");
+                dtMFTransactions.Columns.Add("DivReinvestment");
+                dtMFTransactions.Columns.Add("DivFrequency");
+                dtMFTransactions.Columns.Add("Channel");
+                dtMFTransactions.Columns.Add("OrderNo");
+                //dtMFTransactions.Columns.Add("TransactionNumber");
+                dtMFTransactions.Columns.Add("CO_OrderDate");
+                dtMFTransactions.Columns.Add("ELSSMaturityDate", typeof(DateTime));
+                DataRow drMFTransaction;
+                for (int i = 0; i < mfTransactionList.Count; i++)
+                {
+                    drMFTransaction = dtMFTransactions.NewRow();
+                    mfTransactionVo = new MFTransactionVo();
+                    mfTransactionVo = mfTransactionList[i];
+                    drMFTransaction[0] = mfTransactionVo.TransactionId.ToString();
+                    drMFTransaction[1] = mfTransactionVo.CustomerName.ToString();
+                    drMFTransaction[2] = mfTransactionVo.Folio.ToString();
+                    drMFTransaction[3] = mfTransactionVo.SchemePlan.ToString();
+                    drMFTransaction[4] = mfTransactionVo.TransactionType.ToString();
+                    drMFTransaction[5] = mfTransactionVo.TransactionDate.ToShortDateString().ToString();
+                    drMFTransaction[6] = decimal.Parse(mfTransactionVo.Price.ToString()).ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                    drMFTransaction[7] = mfTransactionVo.Units.ToString("f4");
+                    //totalUnits = totalUnits + mfTransactionVo.Units;
+                    drMFTransaction[8] = decimal.Parse(mfTransactionVo.Amount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                    //totalAmount = totalAmount + mfTransactionVo.Amount;
+                    drMFTransaction[9] = decimal.Parse(mfTransactionVo.STT.ToString()).ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                    drMFTransaction[10] = mfTransactionVo.PortfolioName.ToString();
+                    drMFTransaction[11] = mfTransactionVo.TransactionStatus.ToString();
+                    drMFTransaction[12] = mfTransactionVo.Category;
+                    drMFTransaction[13] = mfTransactionVo.AMCName;
+                    if (mfTransactionVo.ProcessId == 0)
+                        drMFTransaction[14] = "N/A";
+                    else
+                        drMFTransaction[14] = int.Parse(mfTransactionVo.ProcessId.ToString());
+                    drMFTransaction[15] = mfTransactionVo.SubBrokerCode;
+                    drMFTransaction[16] = mfTransactionVo.SubCategoryName;
+                    drMFTransaction[17] = mfTransactionVo.CreatedOn;
+                    drMFTransaction[18] = decimal.Parse(mfTransactionVo.BrokerageAmount.ToString());
+                    drMFTransaction["CMFT_Area"] = mfTransactionVo.Area.ToString();
+                    drMFTransaction["CMFT_EUIN"] = mfTransactionVo.EUIN.ToString();
+                    drMFTransaction["DivReinvestment"] = mfTransactionVo.DivReinvestmen.ToString(); ;
+                    drMFTransaction["DivFrequency"] = mfTransactionVo.Divfrequency.ToString(); ;
+                    drMFTransaction["Channel"] = mfTransactionVo.channel.ToString();
+                    drMFTransaction["OrderNo"] = mfTransactionVo.orderNo;
+                    drMFTransaction["CurrentNav"] = mfTransactionVo.latestNav;
+                    //drMFTransaction["TransactionNumber"] = mfTransactionVo.TrxnNo.ToString();
+                    if (!string.IsNullOrEmpty(mfTransactionVo.OrdDate.ToString()) && (mfTransactionVo.OrdDate) != DateTime.MinValue)
+                    {
+                        drMFTransaction["CO_OrderDate"] = mfTransactionVo.OrdDate;
+                    }
+                    else
+                    {
+                        drMFTransaction["CO_OrderDate"] = "";
+                    }
+                    if (!string.IsNullOrEmpty(mfTransactionVo.ELSSMaturityDate.ToString()) && (mfTransactionVo.ELSSMaturityDate) != DateTime.MinValue)
+                    {
+                        drMFTransaction["ELSSMaturityDate"] = mfTransactionVo.ELSSMaturityDate;
+                    }
+                    //else
+                    //{
+                    //    drMFTransaction["ELSSMaturityDate"] = DateTime.MinValue;
+                    //}
+
+                    dtMFTransactions.Rows.Add(drMFTransaction);
+                }
+                if (gvChildDetails.Visible == false)
+                {
+                    gvChildDetails.Visible = true;
+                    //btnDetails.Text = "-";
+                }
+                else if (gvChildDetails.Visible == true)
+                {
+                    gvChildDetails.Visible = false;
+                    //buttonlink.Text = "+";
+                }
+                if (Cache["ViewTransaction" + userVo.UserId] == null)
+                {
+                    Cache.Insert("ViewTransaction" + userVo.UserId, dtMFTransactions);
+                }
+                else
+                {
+                    Cache.Remove("ViewTransaction" + userVo.UserId);
+                    Cache.Insert("ViewTransaction" + userVo.UserId, dtMFTransactions);
+                }
+                gvChildDetails.CurrentPageIndex = 0;
+                gvChildDetails.DataSource = dtMFTransactions;
+                //Session["gvMFTransactions"] = dtMFTransactions;
+                gvChildDetails.DataBind();
             }
 
         }

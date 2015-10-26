@@ -22,6 +22,7 @@ using InfoSoftGlobal;
 using System.Drawing;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
+using System.Web.UI.DataVisualization.Charting;
 namespace WealthERP.OnlineOrderManagement
 {
     public partial class MFSchemeDetails : System.Web.UI.UserControl
@@ -49,13 +50,13 @@ namespace WealthERP.OnlineOrderManagement
                     //{
                     commonLookupBo.GetSchemeAMCCategory(int.Parse(Request.QueryString["schemeCode"].ToString()), out amcCode, out category);
                     int schemecode = int.Parse(Request.QueryString["schemeCode"].ToString());
-                        ddlAMC.SelectedValue = amcCode.ToString();
-                        ddlCategory.SelectedValue = category;
-                        BindScheme();
-                        ddlScheme.SelectedValue = schemecode.ToString();
-                        GetAmcSchemeDetails();
-                        BindschemedetailsNAV();
-                        hidCurrentScheme.Value = ddlScheme.SelectedValue;
+                    ddlAMC.SelectedValue = amcCode.ToString();
+                    ddlCategory.SelectedValue = category;
+                    BindScheme();
+                    ddlScheme.SelectedValue = schemecode.ToString();
+                    GetAmcSchemeDetails();
+                    BindschemedetailsNAV();
+                    hidCurrentScheme.Value = ddlScheme.SelectedValue;
 
                     //}
                 }
@@ -66,6 +67,7 @@ namespace WealthERP.OnlineOrderManagement
             if (ddlAMC.SelectedIndex != 0)
             {
                 BindCategory();
+                BindScheme();
             }
         }
         protected void ddlCategory_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -108,7 +110,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlCategory.DataValueField = dtCategory.Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
             ddlCategory.DataTextField = dtCategory.Columns["PAIC_AssetInstrumentCategoryName"].ToString();
             ddlCategory.DataBind();
-            ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Category", "0"));
+            ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
         }
         protected void Go_OnClick(object sender, EventArgs e)
         {
@@ -133,7 +135,7 @@ namespace WealthERP.OnlineOrderManagement
                         lblNAVDiff.Text = " " + dr["Diff"].ToString().TrimStart('-') + " (" + dr["Percentage"].ToString() + " %)";
                         lblNAV.Style["font-size"] = "large";
                         lblNAV.Style["font-weight"] = "bold";
-                        lblNAVDiff.Style["font-size"] = "large";
+                        lblNAVDiff.Style["font-size"] = "small";
                         lblAsonDate.Text = "(As on Date:" + dr["PSP_PostDate"].ToString() + ")";
                         lblAsonDate.Style["font-size"] = "xx-small";
                         ImagNAV.ImageUrl = @"../Images/arrow.png";
@@ -144,7 +146,7 @@ namespace WealthERP.OnlineOrderManagement
                         lblNAV.Text = dr["PSP_NetAssetValue"].ToString();
                         lblNAVDiff.Text = " " + dr["Diff"].ToString().TrimStart('-') + " (" + dr["Percentage"].ToString() + " %)";
                         lblNAV.Style["font-size"] = "large";
-                        lblNAVDiff.Style["font-size"] = "large";
+                        lblNAVDiff.Style["font-size"] = "small";
                         lblNAV.Style["font-weight"] = "bold";
                         lblAsonDate.Text = "(As on Date:" + dr["PSP_PostDate"].ToString() + ")";
                         lblAsonDate.Style["font-size"] = "xx-small";
@@ -216,6 +218,7 @@ namespace WealthERP.OnlineOrderManagement
                 BindfundManagerDetails();
                 BindSectoreDetails();
                 BindHoldingDetails();
+                BindAssetsAllocation();
                 divAction.Visible = true;
                 onlineMFSchemeDetailsVo = onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue, out  dtNavDetails);
                 ViewState["schemeName"] = onlineMFSchemeDetailsVo.schemeName;
@@ -245,10 +248,10 @@ namespace WealthERP.OnlineOrderManagement
                 imgRating10yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.SchemeRating10Year + ".png";
                 imgRatingOvelAll.ImageUrl = @"../Images/MorningStarRating/RatingOverall/" + onlineMFSchemeDetailsVo.overAllRating + ".png";
                 lblSchemeRetrun3yr.Text = onlineMFSchemeDetailsVo.SchemeReturn3Year.ToString();
-                lblSchemeRisk3yr.Text = onlineMFSchemeDetailsVo.SchemeReturn5Year.ToString();
-                lblSchemeRetrun5yr.Text = onlineMFSchemeDetailsVo.SchemeReturn10Year.ToString();
-                lblSchemeRisk5yr.Text = onlineMFSchemeDetailsVo.SchemeRisk3Year;
-                lblSchemeRetrun10yr.Text = onlineMFSchemeDetailsVo.SchemeRisk5Year;
+                lblSchemeRetrun5yr.Text = onlineMFSchemeDetailsVo.SchemeReturn5Year.ToString();
+                lblSchemeRetrun10yr.Text = onlineMFSchemeDetailsVo.SchemeReturn10Year.ToString();
+                lblSchemeRisk3yr.Text = onlineMFSchemeDetailsVo.SchemeRisk3Year;
+                lblSchemeRisk5yr.Text = onlineMFSchemeDetailsVo.SchemeRisk5Year;
                 lblSchemeRisk10yr.Text = onlineMFSchemeDetailsVo.SchemeRisk10Year;
                 if (onlineMFSchemeDetailsVo.mornigStar > 0)
                 {
@@ -381,12 +384,15 @@ namespace WealthERP.OnlineOrderManagement
                     DataSet theDataSet = onlineMFSchemeDetailsBo.GetAPIData(ConfigurationSettings.AppSettings["HOLDING_DETAILS"] + ViewState["cmotcode"] + "/" + ConfigurationSettings.AppSettings["TOP_Scheme"]);
                     rpSchemeDetails.DataSource = theDataSet.Tables[1];
                     rpSchemeDetails.DataBind();
+                    ViewState["HoldingDetails"] = theDataSet.Tables[1];
+                    if (theDataSet.Tables[1].Rows.Count > 0)
+                        BindHoldingPiaChart(theDataSet.Tables[1]);
                 }
             }
-           
+
             catch (Exception Ex)
             {
-            
+
             }
         }
         protected void BindSectoreDetails()
@@ -395,15 +401,35 @@ namespace WealthERP.OnlineOrderManagement
             {
                 if (ViewState["cmotcode"] != null)
                 {
-                    DataSet theDataSet = onlineMFSchemeDetailsBo.GetAPIData( ConfigurationSettings.AppSettings["SECTOR_DETAILS"] + ViewState["cmotcode"] + "/" + ConfigurationSettings.AppSettings["SECTOR_DETAILS_COUNT"] + "?responsetype=xml");
+                    DataSet theDataSet = onlineMFSchemeDetailsBo.GetAPIData(ConfigurationSettings.AppSettings["SECTOR_DETAILS"] + ViewState["cmotcode"] + "/" + ConfigurationSettings.AppSettings["SECTOR_DETAILS_COUNT"] + "?responsetype=xml");
                     RepSector.DataSource = theDataSet.Tables[3];
                     RepSector.DataBind();
+                    if (theDataSet.Tables[3].Rows.Count > 0)
+                        BindSectorPiaChart(theDataSet.Tables[3]);
+
                 }
             }
-            
+
             catch (Exception Ex)
             {
-               
+
+            }
+        }
+        protected void BindAssetsAllocation()
+        {
+
+            try
+            {
+                DataSet theDataSet = onlineMFSchemeDetailsBo.GetAPIData(ConfigurationSettings.AppSettings["ASSET_ALLOCATION"] + ViewState["cmotcode"] + "?responsetype=xml");
+                RepAsset.DataSource = theDataSet.Tables[3];
+                RepAsset.DataBind();
+                if (theDataSet.Tables[3].Rows.Count > 0)
+                    BindAssetsPiaChart(theDataSet.Tables[3]);
+            }
+
+            catch (Exception Ex)
+            {
+
             }
         }
         protected void lnkAddToCompare_OnClick(object sender, EventArgs e)
@@ -412,23 +438,23 @@ namespace WealthERP.OnlineOrderManagement
             {
                 //if (Session["SchemeCompareList"] != null)
                 //{
-                    //schemeCompareList = (List<int>)Session["SchemeCompareList"];
-                    //if (schemeCompareList[0] != Convert.ToInt32(hidCurrentScheme.Value))
-                    //{
-                        schemeCompareList.Add(Convert.ToInt32(hidCurrentScheme.Value));
-                        Session["SchemeCompareList"] = schemeCompareList;
+                //schemeCompareList = (List<int>)Session["SchemeCompareList"];
+                //if (schemeCompareList[0] != Convert.ToInt32(hidCurrentScheme.Value))
+                //{
+                schemeCompareList.Add(Convert.ToInt32(hidCurrentScheme.Value));
+                Session["SchemeCompareList"] = schemeCompareList;
 
-                        //if (schemeCompareList.Count > 0)
-                        //{
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('OnlineMFSchemeCompare','&schemeCompareList=" + schemeCompareList +"');", true);
-                            LoadMFTransactionPage("OnlineMFSchemeCompare", 1);
+                //if (schemeCompareList.Count > 0)
+                //{
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('OnlineMFSchemeCompare','&schemeCompareList=" + schemeCompareList + "');", true);
+                LoadMFTransactionPage("OnlineMFSchemeCompare", 1);
 
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    ShowMessage("Scheme already added for compare!!", 'I');
-                    //}
+                //    }
+                //}
+                //else
+                //{
+                //    ShowMessage("Scheme already added for compare!!", 'I');
+                //}
 
                 //}
                 //else
@@ -471,5 +497,47 @@ namespace WealthERP.OnlineOrderManagement
             //Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcd", "LoadTopPanelDefault('OnlineOrderTopMenu');", true);
 
         }
+        protected void BindHoldingPiaChart(DataTable dtHoldingPiaChart)
+        {
+            StringBuilder strXML1 = new StringBuilder();
+            strXML1.Append(@"<chart caption='Fund Holding' chartTopMargin='0'> ");
+
+            foreach (DataRow dr in dtHoldingPiaChart.Rows)
+            {
+                strXML1.AppendFormat(@"<set label='{0}' value='{1}'/>", dr["co_name"], dr["perc_hold"]);
+            }
+            strXML1.Append(@"</chart>");
+                ltrHolding.Text = FusionCharts.RenderChartHTML("../FusionCharts/Pie3D.swf", "", strXML1.ToString(), "FactorySum1", "100%", "150", false, true, false);
+
+
+        }
+        protected void BindSectorPiaChart(DataTable dtSectorPiaChart)
+        {
+            StringBuilder strXML2 = new StringBuilder();
+            strXML2.Append(@"<chart caption='Fund Sector' chartTopMargin='0'> ");
+
+            foreach (DataRow dr in dtSectorPiaChart.Rows)
+            {
+                strXML2.AppendFormat(@"<set label='{0}' value='{1}'/>", dr["sector"], dr["holdingpercentage"]);
+            }
+            strXML2.Append(@"</chart>");
+            ltrSector.Text = FusionCharts.RenderChartHTML("../FusionCharts/Pie3D.swf", "", strXML2.ToString(), "FactorySum2", "100%", "150", false, true, false);
+        }
+        protected void BindAssetsPiaChart(DataTable dtAssetsPiaChart)
+        {
+            StringBuilder strXML3 = new StringBuilder();
+            strXML3.Append(@"<chart caption='Assets Allocation' chartTopMargin='0'> ");
+
+            foreach (DataRow dr in dtAssetsPiaChart.Rows)
+            {
+                strXML3.AppendFormat(@"<set label='{0}' value='{1}'/>", dr["assetcode"], dr["asset"]);
+            }
+            strXML3.Append(@"</chart>");
+            raj.Text = FusionCharts.RenderChartHTML("../FusionCharts/Pie3D.swf", "", strXML3.ToString(), "FactorySum3", "100%", "150", false, true, false);
+
+            //ltrAssets.Text = FusionCharts.RenderChartHTML("../FusionCharts/Pie3D.swf", "", strXML3.ToString(), "FactorySum3", "100%", "150", false, true, false);
+
+        }
+        
     }
 }

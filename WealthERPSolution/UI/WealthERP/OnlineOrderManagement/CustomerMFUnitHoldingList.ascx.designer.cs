@@ -23,13 +23,13 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.ScriptManager scriptmanager;
         
         /// <summary>
-        /// lblPortfolio control.
+        /// divConditional control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPortfolio;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divConditional;
         
         /// <summary>
         /// ddlPortfolio control.
@@ -86,22 +86,13 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.Label lblNoRecords;
         
         /// <summary>
-        /// pnlMFUnitHolding control.
+        /// MyHeader control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlMFUnitHolding;
-        
-        /// <summary>
-        /// rgUnitHolding control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid rgUnitHolding;
+        protected global::WealthERP.OnlineOrder.Banner MyHeader;
         
         /// <summary>
         /// hdnAccount control.
@@ -110,6 +101,10 @@ namespace WealthERP.OnlineOrderManagement {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+        /// 
         protected global::System.Web.UI.WebControls.HiddenField hdnAccount;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div1;
+        protected global::Telerik.Web.UI.RadGrid rgUnitHolding;
+        protected global::Telerik.Web.UI.RadGrid gvChildDetails;
     }
 }

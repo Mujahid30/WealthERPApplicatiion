@@ -21,7 +21,6 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager scrptMgr;
-        
         /// <summary>
         /// updSchemDetails control.
         /// </summary>
@@ -30,7 +29,10 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel updSchemDetails;
-        
+        protected global::System.Web.UI.WebControls.Literal ltrSector;
+        protected global::System.Web.UI.WebControls.Literal ltrHolding;
+        protected global::System.Web.UI.WebControls.Literal ltrAssets;
+        protected global::System.Web.UI.WebControls.Literal raj;
         /// <summary>
         /// divClientAccountBalance control.
         /// </summary>
@@ -94,7 +96,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlScheme;
-        
+        protected global::System.Web.UI.DataVisualization.Charting.Chart ChartHolding;
         /// <summary>
         /// RequiredFieldValidator2 control.
         /// </summary>
@@ -539,6 +541,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rpSchemeDetails;
         protected global::System.Web.UI.WebControls.Repeater RepSector;
+        protected global::System.Web.UI.WebControls.Repeater RepAsset;
         /// <summary>
         /// imgStyleBox control.
         /// </summary>

@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="MFSchemeDetails.ascx.cs"
     Inherits="WealthERP.OnlineOrderManagement.MFSchemeDetails" %>
+   
 <asp:ScriptManager ID="scrptMgr" runat="server" EnablePageMethods="true">
 </asp:ScriptManager>
 
@@ -164,10 +165,10 @@
                         <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control input-sm"
                             AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged">
                         </asp:DropDownList>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="ddlCategory"
+                       <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="ddlCategory"
                             ErrorMessage="<br />Please select category" Style="color: Red;" Display="Dynamic"
                             runat="server" InitialValue="0" ValidationGroup="btnViewscheme">
-                        </asp:RequiredFieldValidator>
+                        </asp:RequiredFieldValidator>--%>
                     </fieldset>
                 </div>
                 
@@ -192,10 +193,10 @@
          <div id="Div2"  style="margin-top: 1%; margin-bottom: 2%; width: 80%; padding-top: 1%; padding-bottom: 1%; margin-left: auto; margin-right: auto;" 
               visible="false" runat="server">
             <div >
-                <div class="col-md-5">
+                <div class="col-md-6" style="margin-bottom:10px;">
                <asp:Label ID="lblSchemeName" runat="server" style="font-size:x-large;font-family:Times New Roman;font-weight:bold;"></asp:Label>
                 </div>
-                  <div class="col-md-2" style="width:11%;">
+                  <div class="col-md-3" style="width:16%;">
                   <div>
                     <b style="font-family:Times New Roman;text-align:center;">NAV</b> 
                     </div>
@@ -214,7 +215,7 @@
                 </div>
                 </div>
             </div>
-        <div id="divChart" runat="server" visible="false" style="margin-top:3%; margin-bottom: 2%; width: 80%; padding-top: 1%; padding-bottom: 1%;
+        <div id="divChart" runat="server" visible="false" style="margin-top:3.5%; margin-bottom: 2%; width: 80%; padding-top: 1%; padding-bottom: 1%;
             margin-left: auto; margin-right: auto; border-top-style:inset;border-bottom-style:inset;border-left-style:inset;border-right-style:inset; border-width:thin;">
             
             <div><asp:Literal ID="Literal1" runat="server"></asp:Literal></div>
@@ -431,10 +432,7 @@
                                         <asp:Label ID="lblSIPMultipleOf" runat="server"></asp:Label>
                                     </td>
                                 </tr>
-                               
                               
-                               
-                               
                             </tbody>
                         </table>
                     </div>
@@ -629,6 +627,10 @@
                         </table>
                         </div>
                          <div style="width:21%;float: left;margin-left:8px;">
+                          <asp:Literal ID="ltrHolding" runat="server"></asp:Literal> 
+                          </div>
+                          <div style="width:21%;float: left;margin-left:8px;">
+                          
                         <table class="col-md-12 table-bordered table-striped table-condensed cf" width="100%">
                             <thead class="cf">
                                 <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
@@ -658,6 +660,44 @@
                             </tbody>
                         </table>
                         </div>
+                        <div style="width:21%;float: left;margin-left:8px;">
+                        <asp:Literal runat="server" id="ltrSector"></asp:Literal>
+                        </div>
+                        <div style="width:20%;margin-right:5px;">
+                        <table class="col-md-12 table-bordered table-striped table-condensed cf" width="100%">
+                            <thead class="cf">
+                                <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
+                                    text-align: center">
+                                    
+                                    <th data-title="Fund Name" class="alignCenter">
+                                      Asset allocation
+                                    </th>
+                                    <th data-title="Holding(%)" class="alignCenter">
+                                        Weight (%)
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <asp:Repeater ID="RepAsset" runat="server">
+                                    <ItemTemplate>
+                                        <tr>
+                                            <td data-title="Fund Name">
+                                                <asp:Label ID="lblasset" runat="server" Text='<%# Eval("asset")%>'></asp:Label>
+                                            </td>
+                                            <td data-title="Holding(%)">
+                                                <asp:Label ID="lblassetvalue" runat="server" Text='<%# Eval("assetvalue")%>'></asp:Label>
+                                            </td>
+                                        </tr>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </tbody>
+                        </table>
+                        </div>
+                         <div style="width:21%;float: left;margin-left:8px;">
+                          <asp:Literal ID="ltrAssets" runat="server"></asp:Literal> 
+                          <asp:Literal ID="raj" runat="server"></asp:Literal>
+                          </div>
+                        <br />
                         <div style="width: 13%; float: left; min-width: 13%; margin-left: 10px;">
                 <table class="table table-bordered">
                     <thead>
@@ -707,6 +747,7 @@
             </div>
             </div>
             </div>
+                
             <asp:HiddenField ID="hidCurrentScheme" runat="server" />
     </ContentTemplate>
 </asp:UpdatePanel>
