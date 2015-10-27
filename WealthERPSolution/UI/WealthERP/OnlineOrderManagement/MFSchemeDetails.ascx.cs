@@ -214,11 +214,13 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (divChart.Visible == true)
             {
+                btnReturn.Text = "Scheme Return";
                 divChart.Visible = false;
                 DivReturnChat.Visible = true;
             }
             else
             {
+                btnReturn.Text = "NAV History";
                 divChart.Visible =true ;
                 DivReturnChat.Visible = false;
             }
