@@ -33,6 +33,8 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.Literal ltrHolding;
         protected global::System.Web.UI.WebControls.Literal ltrAssets;
         protected global::System.Web.UI.WebControls.Literal raj;
+        protected global::System.Web.UI.WebControls.Literal ltrReturn;
+
         /// <summary>
         /// divClientAccountBalance control.
         /// </summary>
@@ -42,7 +44,8 @@ namespace WealthERP.OnlineOrderManagement {
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divClientAccountBalance;
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAction;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl SchemeChartinformation;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivReturnChat;
         /// <summary>
         /// dvDemo control.
         /// </summary>

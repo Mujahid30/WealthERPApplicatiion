@@ -206,10 +206,49 @@ namespace WealthERP.OnlineOrderManagement
             strXML.Append("</dataset>");
 
             strXML.Append(@"<vTrendlines>  <line startValue='895' color='FF0000' toolText='NAV' displayValue='Average' showOnTop='1' /></vTrendlines> </chart>");
-
             Literal1.Text = FusionCharts.RenderChartHTML("../FusionCharts/ZoomLine.swf", "", strXML.ToString(), "FactorySum", "100%", "400", false, true, false);
 
+
         }
+        protected void btnReturn_OnClick(object sender, EventArgs e)
+        {
+            if (divChart.Visible == true)
+            {
+                divChart.Visible = false;
+                DivReturnChat.Visible = true;
+            }
+            else
+            {
+                divChart.Visible =true ;
+                DivReturnChat.Visible = false;
+            }
+        }
+        protected void BindndReturn()
+        {
+            StringBuilder strXML = new StringBuilder();
+            strXML.Append(@"<chart caption='Scheme Return' >
+              <categories>
+              <category label='Return yr1'/>
+              <category label='Return yr2' />
+              <category label='Return yr3' />
+              </categories>"
+                );
+            strXML.Append(@"<dataset seriesname='BenchMark'>");
+            strXML.AppendFormat(@"<set value ='{0}'  />", onlineMFSchemeDetailsVo.benchmarkReturn1stYear);
+            strXML.AppendFormat(@"<set value ='{0}'  />", onlineMFSchemeDetailsVo.benchmark3rhYear);
+            strXML.AppendFormat(@"<set value ='{0}'  />", onlineMFSchemeDetailsVo.benchmark5thdYear);
+            strXML.Append(@"</dataset>");
+            strXML.Append(@"<dataset seriesname='Return'>");
+            strXML.AppendFormat(@"<set value ='{0}'  />", onlineMFSchemeDetailsVo.SchemeReturn3Year.ToString());
+            strXML.AppendFormat(@"<set value ='{0}'  />", onlineMFSchemeDetailsVo.SchemeReturn5Year.ToString());
+            strXML.AppendFormat(@"<set value ='{0}'  />", onlineMFSchemeDetailsVo.SchemeReturn10Year.ToString());
+            strXML.Append(@"</dataset>");
+            strXML.Append(@"</chart>");
+            
+                ltrReturn.Text = FusionCharts.RenderChartHTML("../FusionCharts/MSColumn3D.swf", "", strXML.ToString(), "FactorySum", "100%", "400", false, true, false);
+        }
+
+
         public void GetAmcSchemeDetails()
         {
             DataTable dtNavDetails = null;
@@ -223,7 +262,8 @@ namespace WealthERP.OnlineOrderManagement
                 onlineMFSchemeDetailsVo = onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue, out  dtNavDetails);
                 ViewState["schemeName"] = onlineMFSchemeDetailsVo.schemeName;
                 LoadNAVHistoryChat(dtNavDetails);
-
+                BindndReturn();
+                DivReturnChat.Visible = false;
                 lblSchemeName.Text = onlineMFSchemeDetailsVo.schemeName;
                 lblAMC.Text = onlineMFSchemeDetailsVo.amcName;
                 //lblNAV.Text = onlineMFSchemeDetailsVo.NAV.ToString();

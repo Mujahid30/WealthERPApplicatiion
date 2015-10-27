@@ -213,13 +213,18 @@
                 <div class="col-md-2">
                     <b style="font-family:Times New Roman;"> Rating </b> <asp:Image runat="server" ID="imgSchemeRating" />
                 </div>
+                <div class="col-md-2"><asp:Button ID="btnReturn" runat="server" class="btn btn-sm btn-primary" Text="Scheme Return" OnClick="btnReturn_OnClick"/></div>
                 </div>
+            </div>
+            <div id="DivReturnChat" runat="server" visible="false" style="margin-top:3.5%; margin-bottom: 2%; width: 80%; padding-top: 1%; padding-bottom: 1%;
+            margin-left: auto; margin-right: auto; border-top-style:inset;border-bottom-style:inset;border-left-style:inset;border-right-style:inset; border-width:thin;">
+            <asp:Literal ID="ltrReturn" runat="server"></asp:Literal>
             </div>
         <div id="divChart" runat="server" visible="false" style="margin-top:3.5%; margin-bottom: 2%; width: 80%; padding-top: 1%; padding-bottom: 1%;
             margin-left: auto; margin-right: auto; border-top-style:inset;border-bottom-style:inset;border-left-style:inset;border-right-style:inset; border-width:thin;">
             
             <div><asp:Literal ID="Literal1" runat="server"></asp:Literal></div>
-            <div>
+            <div id="SchemeChartinformation" runat="server">
           &nbsp;&nbsp;<asp:Button ID="btn1m" runat="server" class="btn btn-sm btn-primary" Text="1m"
         OnClick="btnHistory_OnClick" ></asp:Button>
         <asp:Button ID="btn3m" runat="server" class="btn btn-sm btn-primary" Text="3m"
