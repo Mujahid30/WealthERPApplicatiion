@@ -450,7 +450,7 @@
                                     onclick="togglediv('Div4')">+</div>
                                <%--   Dont put any space before + sign--%>
                                             
-                              <div style="color: White;float:left;text-align:center;"> <font color="#fff" >&nbsp;&nbsp;Scheme Rating Details</font></div>
+                              <div style="color: White;float:left;text-align:center;"> <font color="#fff" >&nbsp;&nbsp;Risk And Rating</font></div>
                             </th>
                         </tr>
                     </thead>
@@ -698,7 +698,7 @@
                           <asp:Literal ID="raj" runat="server"></asp:Literal>
                           </div>
                         <br />
-                        <div style="width: 13%; float: left; min-width: 13%; margin-left: 10px;">
+                        <div  style="width:21%;float: left;margin-left:8px;">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -718,7 +718,7 @@
                 </table>
             </div>
             <div style="width: 19%; float: left; min-width: 19%; margin-left: 10px;">
-             <table class="table table-bordered" style="margin-left:60px;">
+             <table class="table table-bordered" style="margin-left:2px;">
                     <thead>
                         <tr>
                             <th colspan="2" class="header">

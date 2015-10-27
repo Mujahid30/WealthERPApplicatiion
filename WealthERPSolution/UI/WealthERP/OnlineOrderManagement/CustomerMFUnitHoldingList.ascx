@@ -764,9 +764,9 @@
                 </telerik:GridTemplateColumn>
             </Columns>
         </MasterTableView>
-        <ClientSettings EnableAlternatingItems="false">
+       <%-- <ClientSettings EnableAlternatingItems="false" AllowGroupExpandCollapse="true">
         </ClientSettings>
-        <PagerStyle Mode="NextPrevAndNumeric" />
+        <PagerStyle Mode="NextPrevAndNumeric" />--%>
     </telerik:RadGrid>
 </div>
 <Banner:footer ID="MyHeader" assetCategory="MF" runat="server" />

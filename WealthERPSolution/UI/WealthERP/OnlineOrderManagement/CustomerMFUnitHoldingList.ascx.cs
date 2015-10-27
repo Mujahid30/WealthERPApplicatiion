@@ -368,6 +368,7 @@ namespace WealthERP.OnlineOrderManagement
             {
                 rgUnitHolding.DataSource = dtUnitHolding;
                 rgUnitHolding.Visible = true;
+                Div1.Visible = true;
             }
         }
         protected void rgUnitHolding_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)

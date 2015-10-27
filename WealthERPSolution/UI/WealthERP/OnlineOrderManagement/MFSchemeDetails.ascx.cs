@@ -500,44 +500,47 @@ namespace WealthERP.OnlineOrderManagement
         protected void BindHoldingPiaChart(DataTable dtHoldingPiaChart)
         {
             StringBuilder strXML1 = new StringBuilder();
-            strXML1.Append(@"<chart caption='Fund Holding' chartTopMargin='0'> ");
+            strXML1.Append(@"<chart caption='Fund Holding' chartTopMargin='0' bgcolor='#ffffff' showHoverEffect='1' exportenabled='1' captionPadding='0' chartLeftMargin='0'
+                        chartRightMargin='0' chartBottomMargin='0' showborder='0' use3dlighting='0' showshadow='0'> ");
 
             foreach (DataRow dr in dtHoldingPiaChart.Rows)
             {
-                strXML1.AppendFormat(@"<set label='{0}' value='{1}'/>", dr["co_name"], dr["perc_hold"]);
+                strXML1.AppendFormat(@"<set label='{0}' value='{1}' />", dr["co_name"], dr["perc_hold"]);
             }
             strXML1.Append(@"</chart>");
-                ltrHolding.Text = FusionCharts.RenderChartHTML("../FusionCharts/Pie3D.swf", "", strXML1.ToString(), "FactorySum1", "100%", "150", false, true, false);
+            ltrHolding.Text = FusionCharts.RenderChartHTML("../FusionCharts/Pie2D.swf", "", strXML1.ToString(), "FactorySum1", "100%", "150", false, true, false);
 
 
         }
         protected void BindSectorPiaChart(DataTable dtSectorPiaChart)
         {
             StringBuilder strXML2 = new StringBuilder();
-            strXML2.Append(@"<chart caption='Fund Sector' chartTopMargin='0'> ");
+            strXML2.Append(@"<chart caption='Fund Sector' chartTopMargin='0' bgcolor='#ffffff' showHoverEffect='1' exportenabled='1' captionPadding='0' chartLeftMargin='0'
+                        chartRightMargin='0' chartBottomMargin='0' showborder='0' use3dlighting='0' showshadow='0'> ");
 
             foreach (DataRow dr in dtSectorPiaChart.Rows)
             {
-                strXML2.AppendFormat(@"<set label='{0}' value='{1}'/>", dr["sector"], dr["holdingpercentage"]);
+                strXML2.AppendFormat(@"<set label='{0}' value='{1}' />", dr["sector"], dr["holdingpercentage"]);
             }
             strXML2.Append(@"</chart>");
-            ltrSector.Text = FusionCharts.RenderChartHTML("../FusionCharts/Pie3D.swf", "", strXML2.ToString(), "FactorySum2", "100%", "150", false, true, false);
+            ltrSector.Text = FusionCharts.RenderChartHTML("../FusionCharts/Pie2D.swf", "", strXML2.ToString(), "FactorySum2", "100%", "150", false, true, false);
         }
         protected void BindAssetsPiaChart(DataTable dtAssetsPiaChart)
         {
             StringBuilder strXML3 = new StringBuilder();
-            strXML3.Append(@"<chart caption='Assets Allocation' chartTopMargin='0'> ");
+            strXML3.Append(@"<chart caption='Assets Allocation' chartTopMargin='0' bgcolor='#ffffff' showHoverEffect='1' exportenabled='1' captionPadding='0' chartLeftMargin='0'
+                        chartRightMargin='0' chartBottomMargin='0' showborder='0' use3dlighting='0' showshadow='0'> ");
 
             foreach (DataRow dr in dtAssetsPiaChart.Rows)
             {
-                strXML3.AppendFormat(@"<set label='{0}' value='{1}'/>", dr["assetcode"], dr["asset"]);
+                strXML3.AppendFormat(@"<set label='{0}' value='{1}' />", dr["asset"].ToString().Replace("&", "and"), dr["assetvalue"]);
             }
             strXML3.Append(@"</chart>");
-            raj.Text = FusionCharts.RenderChartHTML("../FusionCharts/Pie3D.swf", "", strXML3.ToString(), "FactorySum3", "100%", "150", false, true, false);
+            raj.Text = FusionCharts.RenderChartHTML("../FusionCharts/Pie2D.swf", "", strXML3.ToString(), "FactorySum3", "100%", "150", false, true, false);
 
             //ltrAssets.Text = FusionCharts.RenderChartHTML("../FusionCharts/Pie3D.swf", "", strXML3.ToString(), "FactorySum3", "100%", "150", false, true, false);
 
         }
-        
+
     }
 }
