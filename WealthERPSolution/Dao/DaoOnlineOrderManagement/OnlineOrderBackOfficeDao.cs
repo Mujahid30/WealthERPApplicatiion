@@ -2955,7 +2955,7 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetBannerDetailsWithAssetGroup;
         }
-        public bool InsertUpdateDeleteOnAdvertisementDetails(int id, string assetGroupCode, int userId, string details, DateTime expiryDate, int isDelete,int isActive,string type)
+        public bool InsertUpdateDeleteOnAdvertisementDetails(int id, string assetGroupCode, int userId, string details, DateTime expiryDate, int isDelete, int isActive, string type, string headingText)
         {
             bool bResult = false;
             Database db;
@@ -2967,6 +2967,7 @@ namespace DaoOnlineOrderManagement
                 cmd = db.GetStoredProcCommand("SPROC_InsertUpdateDeleteOnAdvertisementDetails");
                 db.AddInParameter(cmd, "@AssetGroupCode", DbType.String, assetGroupCode);
                 db.AddInParameter(cmd, "@UserId", DbType.Int32, userId);
+                db.AddInParameter(cmd, "@Heading", DbType.String, headingText);
                 db.AddInParameter(cmd, "@Details", DbType.String, details);
                 if (expiryDate==DateTime.MinValue)
                     db.AddInParameter(cmd, "@ExpiryDate", DbType.DateTime, DBNull.Value);
