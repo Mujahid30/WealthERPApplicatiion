@@ -26,8 +26,7 @@
 <script src="../Scripts/JScript.js" type="text/javascript"></script>
 
 <style type="text/css">
-   
-</style>
+    </style>
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
         <table cellpadding="0" cellspacing="0" style="top: auto; vertical-align: top; padding-left: 13px;"
@@ -47,8 +46,8 @@
                             <telerik:RadTab runat="server" Text="SCHEME COMPARE" Value="RTSMFOrderMenuHomeSchemeCompare"
                                 TabIndex="2" PageViewID="RPVSchemeCompare" Selected="True">
                             </telerik:RadTab>
-                            <telerik:RadTab runat="server" Text="NEWS" Value="RTSMFOrderMenuHomeNews"
-                                TabIndex="3" PageViewID="RPVNews" Selected="True">
+                            <telerik:RadTab runat="server" Text="NEWS" Value="RTSMFOrderMenuHomeNews" TabIndex="3"
+                                PageViewID="RPVNews" Selected="True">
                             </telerik:RadTab>
                         </Tabs>
                     </telerik:RadTabStrip>
@@ -64,14 +63,15 @@
                         </telerik:RadPageView>
                     </telerik:RadMultiPage>
                 </td>
-                <td style="width:300px;">
+                <td style="width: 300px;">
                 </td>
                 <td align="right">
-                    <asp:TextBox runat="server" ID="SchemeSearch" AutoPostBack="true" Style="margin-top: 0px;float: right;background-color:#D7E9F5" Width="300px" OnTextChanged="SchemeSearch_OnTextChanged"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="SchemeSearch" AutoPostBack="true" Style="margin-top: 0px;
+                        float: right; background-color: #D7E9F5" Width="300px" OnTextChanged="SchemeSearch_OnTextChanged"></asp:TextBox>
                     <cc1:TextBoxWatermarkExtender ID="txtSchemeName_water" TargetControlID="SchemeSearch"
                         WatermarkText="Search Scheme" runat="server" EnableViewState="false">
                     </cc1:TextBoxWatermarkExtender>
-                    <div id="listPlacement" style="height: 150px; overflow-y: scroll;text-align:left">
+                    <div id="listPlacement" style="height: 150px; overflow-y: scroll; text-align: left">
                     </div>
                     <ajaxToolkit:AutoCompleteExtender ID="txtSchemeName_AutoCompleteExtender" runat="server"
                         TargetControlID="SchemeSearch" ServiceMethod="GetInvestorScheme" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
@@ -80,6 +80,18 @@
                         CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                         UseContextKey="True" OnClientItemSelected="GetSchemePlanCode" DelimiterCharacters=""
                         CompletionListElementID="listPlacement" Enabled="True" />
+                </td>
+                <td>
+                    <div style="float: right; width: 5%; padding-right: 2%;">
+                        <asp:LinkButton ID="lnkFAQ" Style="text-decoration: none" runat="server" Text="FAQ"
+                            OnClick="SetFAQLink" CssClass="LinkButtons"></asp:LinkButton>
+                    </div>
+                     </td>
+                      <td>
+                    <div style="float: right; width: 5%;  padding-right: 1%;">
+                        <asp:LinkButton ID="lnkDemo" CssClass="LinkButtons" Style="text-decoration: none"
+                            runat="server" Text="Demo" OnClick="SetDemoLink"></asp:LinkButton>
+                    </div>
                 </td>
             </tr>
             <tr id="trMFOrderMenuTransactTab" runat="server" visible="false">

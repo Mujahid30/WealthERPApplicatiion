@@ -321,11 +321,11 @@
         <asp:ScriptManager ID="ScriptManager" runat="server" EnablePageMethods="true" />
         <div class="div-with-header">
             <div style="float: right; width: 5%; padding-top: 23px; padding-right: 2%;">
-                <asp:LinkButton ID="lnkFAQ" Style="text-decoration: none"   
+                <asp:LinkButton ID="lnkFAQ" Style="text-decoration: none"    Visible="false"
                     runat="server" Text="FAQ"  CssClass="LinkButtons"></asp:LinkButton>
             </div>
             <div style="float: right; width: 5%; padding-top: 23px; padding-right: 1%;">
-                <asp:LinkButton ID="lnkDemo" CssClass="LinkButtons" Style="text-decoration: none"
+                <asp:LinkButton ID="lnkDemo" CssClass="LinkButtons" Style="text-decoration: none" Visible="false"
                     runat="server" Text="Demo" ></asp:LinkButton>
             </div>
             <div style="float: right; width: 10%; padding-top: 8px; padding-right: 28%;">

@@ -299,14 +299,16 @@
                 OnNeedDataSource="RadGrid3_NeedDataSource" OnDeleteCommand="RadGrid3_DeleteCommand"
                 OnUpdateCommand="RadGrid3_UpdateCommand" OnItemCommand="RadGrid3_ItemCommand"
                 OnItemDataBound="RadGrid3_ItemDataBound" AllowAutomaticUpdates="false" HorizontalAlign="NotSet"
-                DataKeyNames="PUHD_Id,PUHD_IsActive,PAG_AssetGroupCode,PUHD_HelpDetails">
-                <MasterTableView CommandItemDisplay="Top" EditMode="PopUp" DataKeyNames="PUHD_Id,PUHD_IsActive,PUHD_CreatedOn,PAG_AssetGroupCode,PUHD_HelpDetails">
+                DataKeyNames="PUHD_Id,PUHD_IsActive,PAG_AssetGroupCode,PUHD_HelpDetails,PUHD_Heading">
+                <MasterTableView CommandItemDisplay="Top" EditMode="PopUp" DataKeyNames="PUHD_Id,PUHD_IsActive,PUHD_CreatedOn,PAG_AssetGroupCode,PUHD_HelpDetails,PUHD_Heading">
                     <Columns>
                         <telerik:GridEditCommandColumn EditText="Update" UniqueName="editColumn" CancelText="Cancel"
                             UpdateText="Update">
                         </telerik:GridEditCommandColumn>
                         <telerik:GridBoundColumn UniqueName="PAG_AssetGroupName" HeaderText="Asset Group"
                             DataField="PAG_AssetGroupName">
+                        </telerik:GridBoundColumn>
+                          <telerik:GridBoundColumn UniqueName="PUHD_Heading" HeaderText="Video Heading" DataField="PUHD_Heading">
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="PUHD_HelpDetails" HeaderText="Video Link" DataField="PUHD_HelpDetails">
                         </telerik:GridBoundColumn>
@@ -345,6 +347,20 @@
                                             SetFocusOnError="true"></asp:RequiredFieldValidator>
                                     </td>
                                 </tr>
+                                <tr id="tr4">
+                                    <td class="leftField">
+                                        <asp:Label ID="Label3" runat="server" Text="Video Heading:" CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td class="rightField">
+                                        <asp:TextBox ID="txtDemoHeading" runat="server" TextMode="MultiLine" CssClass="txtField"
+                                            Text='<%# Eval("PUHD_Heading") %>'></asp:TextBox>
+                                        <span id="Span4" class="spnRequiredField">*</span>
+                                        <br />
+                                        <asp:RequiredFieldValidator ID="Requiredfieldvalidator5" runat="server" ControlToValidate="txtDemoHeading"
+                                            ErrorMessage="Video Heading can't be blank." ValidationGroup='<%# (Container is GridEditFormInsertItem) ? "btnInsertGroup1" : "btnUpdateGroup1" %>'
+                                            SetFocusOnError="true"></asp:RequiredFieldValidator>
+                                    </td>
+                                </tr>
                                 <tr id="tr2">
                                     <td class="leftField">
                                         <asp:Label ID="Label1" runat="server" Text="Video Link:" CssClass="FieldName"></asp:Label>
@@ -355,7 +371,7 @@
                                         <span id="Span3" class="spnRequiredField">*</span>
                                         <br />
                                         <asp:RequiredFieldValidator ID="Requiredfieldvalidator4" runat="server" ControlToValidate="TextBox1"
-                                            ErrorMessage="Scroller Text can't be blank." ValidationGroup='<%# (Container is GridEditFormInsertItem) ? "btnInsertGroup1" : "btnUpdateGroup1" %>'
+                                            ErrorMessage="Video Link can't be blank." ValidationGroup='<%# (Container is GridEditFormInsertItem) ? "btnInsertGroup1" : "btnUpdateGroup1" %>'
                                             SetFocusOnError="true"></asp:RequiredFieldValidator>
                                     </td>
                                 </tr>
@@ -396,14 +412,17 @@
             OnNeedDataSource="RadGrid4_NeedDataSource" OnDeleteCommand="RadGrid4_DeleteCommand"
             
              AllowAutomaticUpdates="false" HorizontalAlign="NotSet"
-            DataKeyNames="PUHD_Id,PUHD_IsActive,PAG_AssetGroupCode,PUHD_HelpDetails">
-            <MasterTableView CommandItemDisplay="Top" EditMode="PopUp" DataKeyNames="PUHD_Id,PUHD_IsActive,PUHD_CreatedOn,PAG_AssetGroupCode,PUHD_HelpDetails">
+            DataKeyNames="PUHD_Id,PUHD_IsActive,PAG_AssetGroupCode,PUHD_HelpDetails,PUHD_Heading">
+            <MasterTableView CommandItemDisplay="Top" EditMode="PopUp" DataKeyNames="PUHD_Id,PUHD_IsActive,PUHD_CreatedOn,PAG_AssetGroupCode,PUHD_HelpDetails,PUHD_Heading">
                 <Columns>
                    
                     <telerik:GridBoundColumn UniqueName="PAG_AssetGroupName" HeaderText="Asset Group"
                         DataField="PAG_AssetGroupName">
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn UniqueName="PUHD_HelpDetails" HeaderText="FAQ Pdf Name"
+                       <telerik:GridBoundColumn UniqueName="PUHD_Heading" HeaderText="FAQ Heading"
+                        DataField="PUHD_Heading">
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn UniqueName="PUHD_HelpDetails" HeaderText="FAQ(Pdf) Name"
                         DataField="PUHD_HelpDetails">
                     </telerik:GridBoundColumn>
                      <telerik:GridBoundColumn UniqueName="PUHD_CreatedOn" HeaderText="Created On" DataField="PUHD_CreatedOn">
@@ -441,6 +460,20 @@
                                         SetFocusOnError="true"></asp:RequiredFieldValidator>
                                 </td>
                             </tr>
+                            <tr id="tr4">
+                                    <td class="leftField">
+                                        <asp:Label ID="Label3" runat="server" Text="FAQ Heading:" CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td class="rightField">
+                                        <asp:TextBox ID="txtFAQHeading" runat="server" TextMode="MultiLine" CssClass="txtField"
+                                            Text='<%# Eval("PUHD_Heading") %>'></asp:TextBox>
+                                        <span id="Span4" class="spnRequiredField">*</span>
+                                        <br />
+                                        <asp:RequiredFieldValidator ID="Requiredfieldvalidator5" runat="server" ControlToValidate="txtFAQHeading"
+                                            ErrorMessage="FAQ Heading can't be blank." ValidationGroup='<%# (Container is GridEditFormInsertItem) ? "btnInsertGroup" : "btnUpdateGroup1" %>'
+                                            SetFocusOnError="true"></asp:RequiredFieldValidator>
+                                    </td>
+                                </tr>
                             <tr id="tr2">
                                 <td class="leftField">
                                 </td>

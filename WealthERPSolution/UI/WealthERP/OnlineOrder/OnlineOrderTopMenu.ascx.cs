@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 using Telerik.Web;
 using BoCommon;
+using BoOnlineOrderManagement;
+using System.Data;
 
 namespace WealthERP.OnlineOrder
 {
@@ -23,7 +25,8 @@ namespace WealthERP.OnlineOrder
         }
 
         protected void Page_Load(object sender, EventArgs e)
-        {   OnlineUserSessionBo.CheckSession();
+        {
+            OnlineUserSessionBo.CheckSession();
             //txtSchemeName_AutoCompleteExtender.ServiceMethod = "GetSchemeList";
             if (Session["PageDefaultSetting"] != null)
                 defaultProductPageSetting = (Dictionary<string, string>)Session["PageDefaultSetting"];
@@ -297,6 +300,74 @@ namespace WealthERP.OnlineOrder
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFSchemeDetails','&schemeCode=" + schemeCode.Value + "')", true);
             }
+        }
+        protected void SetDemoLink(object sender, EventArgs e)
+        {
+            string productType = string.Empty;
+            if (defaultProductPageSetting.ContainsKey("ProductType") && defaultProductPageSetting.ContainsKey("ProductMenu"))
+                productType = defaultProductPageSetting["ProductType"].ToString();
+
+            OnlineOrderBo onlineOrderBo = new OnlineOrderBo();
+            string assetCategory = String.Empty;
+            string innerHtml = String.Empty;
+            DataTable dt = new DataTable();
+            switch (productType)
+            {
+                case "MF":
+                    assetCategory = "MF";
+                    break;
+                case "NCD":
+                    assetCategory = "FI";
+                    break;
+                case "IPO":
+                    assetCategory = "IP";
+                    break;
+            }
+            Session["BannerType"] = "Demo";
+            Session["BannerProductType"] = assetCategory;
+            //lnkDemo.OnClientClick = "LoadBottomPanelControl('Banner','?Type=Demo&ProductType=" + assetCategory + "');";
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('FAQandDemo','login');", true);
+            //Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscript2", "LoadBottomPanelControl('FAQandDemo','login');", true);
+            //dt = onlineOrderBo.GetAdvertisementData(assetCategory, "Demo");
+            ////Page.ClientScript.RegisterStartupScript(this.GetType(), "SetDemo", @"window.open('ReferenceFiles/HelpVideo.htm?Link=" + dt.Rows[0][0].ToString() + "', 'newwindow', 'width=655, height=520'); ", true);
+            //if (dt.Rows.Count > 0)
+            //    lnkDemo.OnClientClick = @"window.open('ReferenceFiles/HelpVideo.htm?Link=" + dt.Rows[0][0].ToString() + "', 'newwindow', 'width=655, height=520'); ";
+
+        }
+        protected void SetFAQLink(object sender, EventArgs e)
+        {
+
+            string productType = string.Empty;
+            if (defaultProductPageSetting.ContainsKey("ProductType") && defaultProductPageSetting.ContainsKey("ProductMenu"))
+                productType = defaultProductPageSetting["ProductType"].ToString();
+            OnlineOrderBo onlineOrderBo = new OnlineOrderBo();
+            string assetCategory = String.Empty;
+
+            DataTable dt = new DataTable();
+            switch (productType)
+            {
+                case "MF":
+                    assetCategory = "MF";
+                    break;
+                case "NCD":
+                    assetCategory = "FI";
+                    break;
+                case "IPO":
+                    assetCategory = "IP";
+                    break;
+            }
+            //lnkFAQ.OnClientClick = "LoadBottomPanelControl('Banner?Type=FAQ&ProductType='" + assetCategory + ",'login');";
+            Session["BannerType"] = "FAQ";
+            Session["BannerProductType"] = assetCategory;
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('FAQandDemo','login');", true);
+            
+
+            //Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscript1", "LoadBottomPanelControl('FAQandDemo','login');", true);
+            //dt = onlineOrderBo.GetAdvertisementData(assetCategory, "FAQ");
+            //string path = ConfigurationManager.AppSettings["BANNER_IMAGE_PATH"].ToString();
+            ////Response.Redirect(path + dt.Rows[0][0].ToString());
+            //if(dt.Rows.Count>0)
+            //    lnkFAQ.OnClientClick = @"window.open('" + path.Replace("~", "..") + dt.Rows[0][0].ToString() + "','_blank'); ";
         }
     }
 }
