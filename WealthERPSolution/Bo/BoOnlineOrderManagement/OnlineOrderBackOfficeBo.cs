@@ -2411,13 +2411,13 @@ namespace BoOnlineOrderManagement
             }
             return bResult;
         }
-        public bool InsertUpdateDeleteOnBannerDetails(int id, string assetGroupCode, int userId, string imageName, DateTime expiryDate, int isDelete)
+        public bool InsertUpdateDeleteOnBannerDetails(int id, string assetGroupCode, int userId, string imageName, DateTime expiryDate, int isDelete, string headingText)
         {
             bool bResult = false;
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                bResult = OnlineOrderBackOfficeDao.InsertUpdateDeleteOnBannerDetails(id, assetGroupCode, userId, imageName, expiryDate, isDelete);
+                bResult = OnlineOrderBackOfficeDao.InsertUpdateDeleteOnBannerDetails(id, assetGroupCode, userId, imageName, expiryDate, isDelete, headingText);
             }
             catch (BaseApplicationException Ex)
             {
