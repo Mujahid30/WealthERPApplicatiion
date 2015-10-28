@@ -2411,13 +2411,13 @@ namespace BoOnlineOrderManagement
             }
             return bResult;
         }
-        public bool InsertUpdateDeleteOnBannerDetails(int id, string assetGroupCode, int userId, string imageName, DateTime expiryDate, int isDelete, string headingText)
+        public bool InsertUpdateDeleteOnBannerDetails(int id, string assetGroupCode, int userId, string imageName, DateTime expiryDate, int isDelete)
         {
             bool bResult = false;
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                bResult = OnlineOrderBackOfficeDao.InsertUpdateDeleteOnBannerDetails(id, assetGroupCode, userId, imageName, expiryDate, isDelete, headingText);
+                bResult = OnlineOrderBackOfficeDao.InsertUpdateDeleteOnBannerDetails(id, assetGroupCode, userId, imageName, expiryDate, isDelete);
             }
             catch (BaseApplicationException Ex)
             {
@@ -2441,13 +2441,13 @@ namespace BoOnlineOrderManagement
             }
             return dt;
         }
-        public bool InsertUpdateDeleteOnAdvertisementDetails(int id, string assetGroupCode, int userId, string details, DateTime expiryDate, int isDelete, int isActive, string type)
+        public bool InsertUpdateDeleteOnAdvertisementDetails(int id, string assetGroupCode, int userId, string details, DateTime expiryDate, int isDelete, int isActive, string type, string headingText)
         {
             bool bResult = false;
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                bResult = OnlineOrderBackOfficeDao.InsertUpdateDeleteOnAdvertisementDetails(id, assetGroupCode, userId, details, expiryDate, isDelete,isActive,type);
+                bResult = OnlineOrderBackOfficeDao.InsertUpdateDeleteOnAdvertisementDetails(id, assetGroupCode, userId, details, expiryDate, isDelete,isActive,type,headingText);
             }
             catch (BaseApplicationException Ex)
             {
