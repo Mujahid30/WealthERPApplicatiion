@@ -214,13 +214,13 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (divChart.Visible == true)
             {
-                btnReturn.Text = "Scheme Return";
+                btnReturn.Text = "NAV History";
                 divChart.Visible = false;
                 DivReturnChat.Visible = true;
             }
             else
             {
-                btnReturn.Text = "NAV History";
+                btnReturn.Text = "Scheme Return";
                 divChart.Visible =true ;
                 DivReturnChat.Visible = false;
             }
@@ -542,12 +542,12 @@ namespace WealthERP.OnlineOrderManagement
         protected void BindHoldingPiaChart(DataTable dtHoldingPiaChart)
         {
             StringBuilder strXML1 = new StringBuilder();
-            strXML1.Append(@"<chart caption='Fund Holding' chartTopMargin='0' bgcolor='#ffffff' showHoverEffect='1' exportenabled='1' captionPadding='0' chartLeftMargin='0'
-                        chartRightMargin='0' chartBottomMargin='0' showborder='0' use3dlighting='0' showshadow='0'> ");
+            strXML1.Append(@"<chart caption='Fund Holding' chartTopMargin='0' bgcolor='#ffffff' showHoverEffect='1' captionPadding='0' chartLeftMargin='0'
+                        chartRightMargin='0' chartBottomMargin='0' showborder='0' use3dlighting='0' showshadow='0'  showLabels='0'  showlegend='1' legendbgcolor='#ffffff' legendborderalpha='0' legendshadow='0' legenditemfontsize='10' legenditemfontcolor='#666666' legendPosition='RIGHT'> ");
 
             foreach (DataRow dr in dtHoldingPiaChart.Rows)
             {
-                strXML1.AppendFormat(@"<set label='{0}' value='{1}' />", dr["co_name"], dr["perc_hold"]);
+                strXML1.AppendFormat(@"<set label='{0}' value='{1}' seriesname='{2}' />", dr["co_name"], dr["perc_hold"], dr["co_name"]);
             }
             strXML1.Append(@"</chart>");
             ltrHolding.Text = FusionCharts.RenderChartHTML("../FusionCharts/Pie2D.swf", "", strXML1.ToString(), "FactorySum1", "100%", "150", false, true, false);
@@ -557,8 +557,8 @@ namespace WealthERP.OnlineOrderManagement
         protected void BindSectorPiaChart(DataTable dtSectorPiaChart)
         {
             StringBuilder strXML2 = new StringBuilder();
-            strXML2.Append(@"<chart caption='Fund Sector' chartTopMargin='0' bgcolor='#ffffff' showHoverEffect='1' exportenabled='1' captionPadding='0' chartLeftMargin='0'
-                        chartRightMargin='0' chartBottomMargin='0' showborder='0' use3dlighting='0' showshadow='0'> ");
+            strXML2.Append(@"<chart caption='Fund Sector' chartTopMargin='0' bgcolor='#ffffff' showHoverEffect='1' showLegend='0' exportenabled='1' captionPadding='0' chartLeftMargin='0'
+                        chartRightMargin='0' chartBottomMargin='0' showborder='0' use3dlighting='0' showshadow='0'  showLabels='0'> ");
 
             foreach (DataRow dr in dtSectorPiaChart.Rows)
             {
@@ -570,8 +570,8 @@ namespace WealthERP.OnlineOrderManagement
         protected void BindAssetsPiaChart(DataTable dtAssetsPiaChart)
         {
             StringBuilder strXML3 = new StringBuilder();
-            strXML3.Append(@"<chart caption='Assets Allocation' chartTopMargin='0' bgcolor='#ffffff' showHoverEffect='1' exportenabled='1' captionPadding='0' chartLeftMargin='0'
-                        chartRightMargin='0' chartBottomMargin='0' showborder='0' use3dlighting='0' showshadow='0'> ");
+            strXML3.Append(@"<chart caption='Assets Allocation' chartTopMargin='0' bgcolor='#ffffff' showLegend='1' showHoverEffect='1' captionPadding='0' chartLeftMargin='0'
+                        chartRightMargin='0' chartBottomMargin='0' showborder='0' use3dlighting='0' showshadow='0' showLabels='0' > ");
 
             foreach (DataRow dr in dtAssetsPiaChart.Rows)
             {
