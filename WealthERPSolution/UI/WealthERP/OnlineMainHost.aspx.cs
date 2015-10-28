@@ -146,7 +146,7 @@ namespace WealthERP
                     break;
                 case "NCD":
                     divNCDMenu.Visible = true;
-                    lblOnlieProductType.Text = "NCD Order";
+                    lblOnlieProductType.Text = "NCD/SGB Order";
                     break;
                 case "IPO":
                     divIPOMenu.Visible = true;

@@ -22,6 +22,7 @@ namespace WealthERP.OnlineOrderManagement
         int customerId;
         DateTime fromDate;
         DateTime toDate;
+        string productsubtype = string.Empty;
         //string CustId = "7709";
         BoOnlineOrderManagement.OnlineBondOrderBo BoOnlineBondOrder = new BoOnlineOrderManagement.OnlineBondOrderBo();
         protected void Page_Load(object sender, EventArgs e)
@@ -30,7 +31,6 @@ namespace WealthERP.OnlineOrderManagement
             userVo = (UserVo)Session[SessionContents.UserVo];
             customerVo = (CustomerVo)Session["customerVo"];
             advisorVo = (AdvisorVo)Session["advisorVo"];
-
             if (!IsPostBack)
             {
                 fromDate = DateTime.Now.AddMonths(-1);
@@ -38,27 +38,32 @@ namespace WealthERP.OnlineOrderManagement
 
                 txtOrderTo.SelectedDate = DateTime.Now;
                 BindOrderStatus();
-                BindIssueName();
+                if (Request.QueryString["BondType"] != null)
+                {
+                    ViewState["productsubtype"] = Request.QueryString["BondType"];
+                    BindIssueName(Request.QueryString["BondType"]);
+                }
                 if (Request.QueryString["customerId"] != null)
                 {
                     customerId = int.Parse(Request.QueryString["customerId"].ToString());
                     hdnOrderStatus.Value = "0";
-                    BindBBGV(customerId);
+                    BindBBGV(customerId, productsubtype);
                 }
                 DateTime todate;
                 DateTime fromdate;
-                if (Request.QueryString["strAction"] != "" && Request.QueryString["strAction"] != null)
+                if (Request.QueryString["strAction"] != "" && Request.QueryString["strAction"] != null && Request.QueryString["BondType"]!=null)
                 {
                     string action = Request.QueryString["strAction"].ToString();
                     todate = DateTime.Parse(Request.QueryString["todate"].ToString());
                     fromdate = DateTime.Parse(Request.QueryString["fromdate"].ToString());
                     string status = Request.QueryString["status"].ToString();
+                    productsubtype=Request.QueryString["BondType"];
                     hdnOrderStatus.Value = status;
                     // ddlOrderStatus.SelectedValue = status;
                     txtOrderFrom.SelectedDate = fromdate;
                     txtOrderTo.SelectedDate = todate;
                     // SetParameter();
-                    BindBBGV(customerVo.CustomerId);
+                    BindBBGV(customerVo.CustomerId, ViewState["productsubtype"].ToString());
                 }
                 //else
                 //{
@@ -67,10 +72,10 @@ namespace WealthERP.OnlineOrderManagement
                 //}
             }
         }
-        protected void BindIssueName()
+        protected void BindIssueName(string productSubType)
         {
             DataTable dt;
-            dt = BoOnlineBondOrder.GetCustomerIssueName(customerVo.CustomerId, "FI");
+            dt = BoOnlineBondOrder.GetCustomerIssueName(customerVo.CustomerId, productSubType);
             ddlIssueName.DataSource=dt;
             ddlIssueName.DataValueField=dt.Columns["AIM_IssueId"].ToString();
             ddlIssueName.DataTextField=dt.Columns["AIM_IssueName"].ToString();
@@ -93,7 +98,7 @@ namespace WealthERP.OnlineOrderManagement
         protected void btnViewOrder_Click(object sender, EventArgs e)
         {
             SetParameter();
-            BindBBGV(customerVo.CustomerId);
+            BindBBGV(customerVo.CustomerId, ViewState["productsubtype"].ToString());
         }
         /// <summary>
         /// Get Bind Orderstatus
@@ -114,13 +119,13 @@ namespace WealthERP.OnlineOrderManagement
             }
             ddlOrderStatus.Items.Insert(0, new ListItem("All", "0"));
         }
-        protected void BindBBGV(int customerId)
+        protected void BindBBGV(int customerId,string subtype)
         {
             if (txtOrderFrom.SelectedDate != null)
                 fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
             if (txtOrderTo.SelectedDate != null)
                 toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
-            DataSet dsbondsBook = BoOnlineBondOrder.GetOrderBondBook(customerId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), hdnOrderStatus.Value, fromDate, toDate, advisorVo.advisorId);
+            DataSet dsbondsBook = BoOnlineBondOrder.GetOrderBondBook(customerId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), hdnOrderStatus.Value, fromDate, toDate, advisorVo.advisorId, subtype);
             DataTable dtbondsBook = dsbondsBook.Tables[0];
             if (dtbondsBook.Rows.Count > 0)
             {
@@ -341,7 +346,7 @@ namespace WealthERP.OnlineOrderManagement
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Cancelled Successfully');", true);
                     }
-                    BindBBGV(customerVo.CustomerId);
+                    BindBBGV(customerVo.CustomerId, productsubtype);
                 }
                 else
                 {

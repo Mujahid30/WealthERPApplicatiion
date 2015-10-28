@@ -164,7 +164,7 @@
                 <table width="100%">
                     <tr>
                         <td align="left">
-                            NCD Issue Transact
+                            Issue Transact
                         </td>
                         <td align="right">
                             <asp:LinkButton ID="lnkback" runat="server" Text="Back" CssClass="LinkButtons" OnClick="lblBack_click"

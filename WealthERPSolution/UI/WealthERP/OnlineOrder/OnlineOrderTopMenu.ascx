@@ -214,14 +214,19 @@
                             <telerik:RadTab runat="server" Text="NCD ISSUE LIST" Value="RTSNCDOrderMenuTransactNCDIssueList"
                                 TabIndex="0" PageViewID="RPVNCDIssueList" Selected="True">
                             </telerik:RadTab>
+                             <telerik:RadTab runat="server" Text="SGB ISSUE LIST" Value="RTSSGBOrderMenuTransactSGBIssueList"
+                                TabIndex="1" PageViewID="RPVSGBIssueList" >
+                            </telerik:RadTab>
                             <telerik:RadTab runat="server" Text="NCD ISSUE TRANSACT" Value="RTSNCDOrderMenuTransactIssueTransact"
-                                TabIndex="1" PageViewID="RPVNCDIssueTransact" Visible="false">
+                                TabIndex="2" PageViewID="RPVNCDIssueTransact" Visible="false">
                             </telerik:RadTab>
                         </Tabs>
                     </telerik:RadTabStrip>
                     <telerik:RadMultiPage ID="RMPNCDOrderMenuTransact" EnableViewState="false" runat="server"
                         SelectedIndex="0" Width="100%">
                         <telerik:RadPageView ID="RPVNCDIssueList" runat="server" Style="margin-top: 20px">
+                        </telerik:RadPageView>
+                        <telerik:RadPageView ID="RPVSGBIssueList" runat="server" Style="margin-top: 20px">
                         </telerik:RadPageView>
                         <telerik:RadPageView ID="RPVNCDIssueTransact" runat="server" Style="margin-top: 20px">
                         </telerik:RadPageView>
@@ -237,11 +242,16 @@
                             <telerik:RadTab runat="server" Text="NCD BOOK" Value="RTSNCDOrderMenuBooksNCDBook"
                                 TabIndex="0" PageViewID="RPVNCDBook" Selected="True">
                             </telerik:RadTab>
+                             <telerik:RadTab runat="server" Text="SGB BOOK" Value="RTSSGBOrderMenuBooksSGBBook"
+                                TabIndex="1" PageViewID="RPVSGBBook" >
+                            </telerik:RadTab>
                         </Tabs>
                     </telerik:RadTabStrip>
                     <telerik:RadMultiPage ID="RMPNCDOrderMenuBooks" EnableViewState="false" runat="server"
                         SelectedIndex="0" Width="100%">
                         <telerik:RadPageView ID="RPVNCDBook" runat="server" Style="margin-top: 20px">
+                        </telerik:RadPageView>
+                         <telerik:RadPageView ID="RPVSGBBook" runat="server" Style="margin-top: 20px">
                         </telerik:RadPageView>
                     </telerik:RadMultiPage>
                 </td>
@@ -255,11 +265,16 @@
                             <telerik:RadTab runat="server" Text="NCD HOLDING" Value="RTSNCDOrderMenuHoldingsNCDHolding"
                                 TabIndex="0" PageViewID="RPVNCDHolding" Selected="True">
                             </telerik:RadTab>
+                            <telerik:RadTab runat="server" Text="SGB HOLDING" Value="RTSSGBOrderMenuHoldingsSGBHolding"
+                                PageViewID="RPVSGBHolding" Selected="True">
+                            </telerik:RadTab>
                         </Tabs>
                     </telerik:RadTabStrip>
                     <telerik:RadMultiPage ID="RMPNCDOrderMenuHoldings" EnableViewState="false" runat="server"
                         SelectedIndex="0" Width="100%">
                         <telerik:RadPageView ID="RPVNCDHolding" runat="server" Style="margin-top: 20px">
+                        </telerik:RadPageView>
+                        <telerik:RadPageView ID="RPVSGBHolding" runat="server" Style="margin-top: 20px">
                         </telerik:RadPageView>
                     </telerik:RadMultiPage>
                 </td>

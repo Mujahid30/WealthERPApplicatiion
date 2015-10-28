@@ -136,9 +136,11 @@ namespace WealthERP.OnlineOrder
             switch (e.Tab.Value)
             {
                 case "RTSNCDOrderMenuTransactNCDIssueList": // add a new root tab
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('NCDIssueList','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('NCDIssueList','?BondType=" + "FISDSD" + "');", true);
                     break;
-
+                case "RTSSGBOrderMenuTransactSGBIssueList": // add a new root tab
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('NCDIssueList','?BondType=" + "FISSGB" + "');", true);
+                    break;
                 case "RTSNCDOrderMenuTransactIssueTransact": // add a new child tab
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('NCDIssueTransact','login');", true);
                     break;
@@ -151,7 +153,10 @@ namespace WealthERP.OnlineOrder
             switch (e.Tab.Value)
             {
                 case "RTSNCDOrderMenuBooksNCDBook": // add a new root tab
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('NCDIssueBooks','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('NCDIssueBooks','?BondType=" + "FISDSD" + "');", true);
+                    break;
+                case "RTSSGBOrderMenuBooksSGBBook": // add a new root tab
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('NCDIssueBooks','?BondType=" + "FISSGB" + "');", true);
                     break;
             }
 
@@ -163,7 +168,10 @@ namespace WealthERP.OnlineOrder
             switch (e.Tab.Value)
             {
                 case "RTSNCDOrderMenuHoldingsNCDHolding": // add a new root tab
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('NCDIssueHoldings','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('NCDIssueHoldings','?BondType=" + "FISDSD" + "');", true);
+                    break;
+                case "RTSSGBOrderMenuHoldingsSGBHolding": // add a new root tab
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('NCDIssueHoldings','?BondType=" + "FISSGB" + "');", true);
                     break;
             }
 
@@ -219,6 +227,9 @@ namespace WealthERP.OnlineOrder
 
             if (defaultProductPageSetting.ContainsKey("ProductMenuItemPage"))
             {
+                if (defaultProductPageSetting.ContainsValue("NCD"))
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('" + defaultProductPageSetting["ProductMenuItemPage"].ToString() + "','?BondType=" + "FISDSD" + "');", true);
+                else
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('" + defaultProductPageSetting["ProductMenuItemPage"].ToString() + "','login');", true);
             }
 

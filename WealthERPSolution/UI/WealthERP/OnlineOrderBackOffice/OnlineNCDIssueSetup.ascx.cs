@@ -233,7 +233,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     //BindSyndicate();
 
 
-                    if (product == "FICGCG" || product == "FISDSD" || product == "FINPNP" || product == "FICDCD")
+                    if (product == "FICGCG" || product == "FISDSD" || product == "FINPNP" || product == "FICDCD" || product == "FISSGB")
                     {
                         ddlSubInstrCategory.SelectedValue = dr["PAISC_AssetInstrumentSubCategoryCode"].ToString();
                         BindInstCate(ddlSubInstrCategory.SelectedValue);
@@ -243,7 +243,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
                         // ddlInstrCat.SelectedValue=
                     }
-                    else if (product == "FIFIIP")
+                    else if (product == "FIFIIP" )
                     {
                         BindIssuer(product);
                         ddlProduct.SelectedValue = "IP";
@@ -767,9 +767,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "NCDIssuesetup.ascx.cs:BindSeriesCategoryGrid()");
-                object[] objects = new object[2];
+                object[] objects = new object[3];
                 objects[1] = issueNo;
                 objects[2] = adviserId;
+                objects[3] = product;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -1765,7 +1766,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         count++;
                     }
                 }
-                if (count == 0 && ddlSubInstrCategory.SelectedValue == "FISDSD")
+                if (count == 0 && (ddlSubInstrCategory.SelectedValue == "FISDSD" || ddlSubInstrCategory.SelectedValue == "FISSGB"))
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Select One Category.');", true);
                     e.Canceled = true;
@@ -2961,7 +2962,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     GridEditFormItem editform = (GridEditFormItem)e.Item;
                     RadGrid rgSeriesCat = (RadGrid)editform.FindControl("rgSeriesCat");
                     LinkButton Detailslink = (LinkButton)editform.FindControl("Detailslink");
-                    if (ddlSubInstrCategory.SelectedValue == "FISDSD" || ddlSubInstrCategory.SelectedValue == "FICDCD")
+                    if (ddlSubInstrCategory.SelectedValue == "FISDSD" || ddlSubInstrCategory.SelectedValue == "FICDCD" || ddlSubInstrCategory.SelectedValue == "FISSGB")
                         BindCategory(rgSeriesCat, Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
                     else
                     {
@@ -3032,7 +3033,7 @@ namespace WealthERP.OnlineOrderBackOffice
                             column.Visible = true;
                         }
                     }
-                    if (ddlSubInstrCategory.SelectedValue == "FISDSD" || ddlSubInstrCategory.SelectedValue == "FICDCD")
+                    if (ddlSubInstrCategory.SelectedValue == "FISDSD" || ddlSubInstrCategory.SelectedValue == "FICDCD" || ddlSubInstrCategory.SelectedValue == "FISSGB")
                     {
 
                         BindCategory(rgSeriesCat, Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
@@ -5780,7 +5781,7 @@ namespace WealthERP.OnlineOrderBackOffice
             categoryGridcount = rgEligibleInvestorCategories.Items.Count;
             serisecount = rgSeries.Items.Count;
 
-            if ((categoryGridcount == 0 || serisecount == 0) && (ddlSubInstrCategory.SelectedValue == "FISDSD" || ddlSubInstrCategory.SelectedValue == "FICDCD" ))
+            if ((categoryGridcount == 0 || serisecount == 0) && (ddlSubInstrCategory.SelectedValue == "FISDSD" || ddlSubInstrCategory.SelectedValue == "FICDCD" || ddlSubInstrCategory.SelectedValue == "FISSGB"))
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please Fill All The series.');", true);
                 chkIsActive.Checked = false;

@@ -41,10 +41,12 @@ namespace WealthERP.OnlineOrderManagement
             if (!IsPostBack)
             {
                 //Session["CustId"] = "123456";
-                ddlType.SelectedValue = "Curent";
-                BindStructureRuleGrid(GetType(ddlType.SelectedValue));
-                BindDropDownListIssuer();
-                ShowAvailableLimits();
+                if (Request.QueryString["BondType"] != null)
+                {
+                    ddlType.SelectedValue = "Curent";
+                    BindStructureRuleGrid(GetType(ddlType.SelectedValue), Request.QueryString["BondType"]);
+                    ShowAvailableLimits();
+                }
             }
         }
         private void ShowAvailableLimits()
@@ -58,7 +60,7 @@ namespace WealthERP.OnlineOrderManagement
         protected void btnGo_Click(object sender, EventArgs e)
         {
             int type = GetType(ddlType.SelectedValue);
-            BindStructureRuleGrid(type);
+                    BindStructureRuleGrid(type, Request.QueryString["BondType"]);
 
         }
         private int GetType(string ddlSelection)
@@ -89,9 +91,9 @@ namespace WealthERP.OnlineOrderManagement
             gvCommMgmt.MasterTableView.ExportToExcel();
 
         }
-        protected void BindStructureRuleGrid(int type)
+        protected void BindStructureRuleGrid(int type, string subCategory)
         {
-            DataSet dsStructureRules = OnlineBondBo.GetAdviserIssuerList(adviserId, 0, type, customerVo.CustomerId, Session["PageDefaultSetting"] == null ? 1 : 0, customerVo.TaxStatusCustomerSubTypeId);
+            DataSet dsStructureRules = OnlineBondBo.GetAdviserIssuerList(adviserId, 0, type, customerVo.CustomerId, Session["PageDefaultSetting"] == null ? 1 : 0, customerVo.TaxStatusCustomerSubTypeId, subCategory);
             DataTable dtIssue = dsStructureRules.Tables[0];
             if (dtIssue.Rows.Count > 0)
             {
@@ -150,11 +152,11 @@ namespace WealthERP.OnlineOrderManagement
             string Issuename = gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_IssueName"].ToString();
             if (Session["PageDefaultSetting"] != null)
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('NCDIssueTransact','&IssuerId=" + IssuerId + "&Issuename=" + Issuename + "&minQty=" + minQty + "&maxQty=" + maxQty + "');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('NCDIssueTransact','&IssuerId=" + IssuerId + "&Issuename=" + Issuename + "&minQty=" + minQty + "&maxQty=" + maxQty + "&BondType=" + Request.QueryString["BondType"] + "');", true);
             }
             else
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','&IssuerId=" + IssuerId + "&Issuename=" + Issuename + "&minQty=" + minQty + "&maxQty=" + maxQty + "');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','&IssuerId=" + IssuerId + "&Issuename=" + Issuename + "&minQty=" + minQty + "&maxQty=" + maxQty + "&BondType=" + Request.QueryString["BondType"] + "');", true);
             }
                 }
                 else

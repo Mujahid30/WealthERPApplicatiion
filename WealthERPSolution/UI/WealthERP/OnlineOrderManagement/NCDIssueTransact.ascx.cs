@@ -38,7 +38,7 @@ namespace WealthERP.OnlineOrderManagement
         int maxQty = 0;
         int EligblecatId = 0;
         //int selectedRowIndex;
-
+        string subCategory = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -159,7 +159,7 @@ namespace WealthERP.OnlineOrderManagement
                 dtIssue = dtIssueList.DefaultView.ToTable();
             }
             else
-                dtIssue = OnlineBondBo.GetAdviserIssuerList(adviserVo.advisorId, IssuerId, 1, customerVo.CustomerId, Session["PageDefaultSetting"] == null ? 1 : 0, customerVo.TaxStatusCustomerSubTypeId).Tables[0];
+                dtIssue = OnlineBondBo.GetAdviserIssuerList(adviserVo.advisorId, IssuerId, 1, customerVo.CustomerId, Session["PageDefaultSetting"] == null ? 1 : 0, customerVo.TaxStatusCustomerSubTypeId, subCategory).Tables[0];
 
             if (dtIssue.Rows.Count > 0)
             {

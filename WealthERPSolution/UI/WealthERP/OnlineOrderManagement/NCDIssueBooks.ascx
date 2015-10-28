@@ -120,6 +120,7 @@
         </td>
     </tr>
 </table>--%>
+
 <div class="divOnlinePageHeading" style="float: right; width: 100%">
     <div style="float: right; padding-right: 100px;">
         <table cellspacing="0" cellpadding="3" width="100%">
@@ -133,7 +134,22 @@
         </table>
     </div>
 </div>
-<div id="divConditional" runat="server" style="padding-top: 4px">
+<table width="100%" style="margin-top:10px;">
+    <tr>
+        <td>
+            <div class="divPageHeading">
+                <table width="100%">
+                    <tr>
+                        <td align="left">
+                           Order Book
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+<div id="divConditional" runat="server" style="padding-top: 10px">
     <table class="TableBackground" cellpadding="2">
         <tr>
             <td id="td1" runat="server">

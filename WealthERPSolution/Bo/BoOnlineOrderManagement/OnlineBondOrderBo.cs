@@ -45,12 +45,12 @@ namespace BoOnlineOrderManagement
             return dsLookupData;
         }
 
-        public DataSet GetAdviserIssuerList(int adviserId, int issueId, int type, int custmerId, int isAdminRequest,int customerSubtype)
+        public DataSet GetAdviserIssuerList(int adviserId, int issueId, int type, int custmerId, int isAdminRequest, int customerSubtype, string subCategory)
         {
 
             try
             {
-                dsCommissionStructureRules = onlineBondDao.GetAdviserIssuerList(adviserId, issueId, type, custmerId, isAdminRequest, customerSubtype);
+                dsCommissionStructureRules = onlineBondDao.GetAdviserIssuerList(adviserId, issueId, type, custmerId, isAdminRequest, customerSubtype, subCategory);
 
             }
             catch (BaseApplicationException Ex)
@@ -337,13 +337,13 @@ namespace BoOnlineOrderManagement
             }
             return dsLookupData;
         }
-        public DataSet GetOrderBondBook(int customerId,int issueId, string status, DateTime dtFrom, DateTime dtTo,int adviserId)
+        public DataSet GetOrderBondBook(int customerId, int issueId, string status, DateTime dtFrom, DateTime dtTo, int adviserId, string productSubCategory)
         {
             OnlineBondOrderDao OnlineBondDao = new OnlineBondOrderDao();
             DataSet dsLookupData;
             try
             {
-                dsLookupData = OnlineBondDao.GetOrderBondBook(customerId,issueId, status, dtFrom, dtTo, adviserId);
+                dsLookupData = OnlineBondDao.GetOrderBondBook(customerId, issueId, status, dtFrom, dtTo, adviserId, productSubCategory);
 
             }
             catch (BaseApplicationException Ex)
@@ -553,14 +553,14 @@ namespace BoOnlineOrderManagement
             }
             return dsNCD;
         }
-        public DataTable GetNCDHoldingOrder(int customerId, int AdviserId)
+        public DataTable GetNCDHoldingOrder(int customerId, int AdviserId, string productSubType)
         {
             DataTable dtNCDHoldingOrder;
 
             OnlineBondOrderDao OnlineBondOrderDao = new OnlineBondOrderDao();
             try
             {
-                dtNCDHoldingOrder = OnlineBondOrderDao.GetNCDHoldingOrder(customerId, AdviserId);
+                dtNCDHoldingOrder = OnlineBondOrderDao.GetNCDHoldingOrder(customerId, AdviserId, productSubType);
             }
             catch (BaseApplicationException Ex)
             {

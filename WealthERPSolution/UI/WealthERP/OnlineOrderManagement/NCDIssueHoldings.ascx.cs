@@ -32,7 +32,8 @@ namespace WealthERP.OnlineOrderManagement
                 fromDate = DateTime.Now.AddMonths(-1);
                 txtOrderFrom.SelectedDate = fromDate.Date;
                 txtOrderTo.SelectedDate = DateTime.Now;
-                BindHolding();
+                if(Request.QueryString["BondType"]!=null)
+                    BindHolding(Request.QueryString["BondType"]);
             }
         }
         protected void lbBuySell_Click(object sender, EventArgs e)
@@ -47,7 +48,7 @@ namespace WealthERP.OnlineOrderManagement
         protected void btnViewOrder_Click(object sender, EventArgs e)
         {
             SetParameter();
-            BindHolding();
+            BindHolding(Request.QueryString["BondType"]);
         }
         private void SetParameter()
         {
@@ -61,7 +62,7 @@ namespace WealthERP.OnlineOrderManagement
                 hdnAccount.Value = "0";
             }
         }
-        protected void BindHolding()
+        protected void BindHolding(string productsubtype)
         {
             if (txtOrderFrom.SelectedDate != null)
                 fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
@@ -69,7 +70,7 @@ namespace WealthERP.OnlineOrderManagement
                 toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
             DataTable dtNCDHoldingOrder;
             //dtNCDHoldingOrder = BoOnlineBondOrder.GetNCDHoldingOrder(customerVo.CustomerId, 0, fromDate, toDate);
-            dtNCDHoldingOrder = BoOnlineBondOrder.GetNCDHoldingOrder(customerVo.CustomerId, adviserVo.advisorId);
+            dtNCDHoldingOrder = BoOnlineBondOrder.GetNCDHoldingOrder(customerVo.CustomerId, adviserVo.advisorId, productsubtype);
 
             if (dtNCDHoldingOrder.Rows.Count >= 0)
             {

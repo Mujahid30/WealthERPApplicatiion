@@ -127,7 +127,7 @@ namespace DaoOnlineOrderManagement
             // return stepCode;
         }
 
-        public DataSet GetAdviserIssuerList(int adviserId, int issueId, int type, int customerId, int isAdminRequest, int CustomerSubType)
+        public DataSet GetAdviserIssuerList(int adviserId, int issueId, int type, int customerId, int isAdminRequest, int CustomerSubType, string subCategory)
         {
             Database db;
             DbCommand cmdGetCommissionStructureRules;
@@ -154,7 +154,7 @@ namespace DaoOnlineOrderManagement
               db.AddInParameter(cmdGetCommissionStructureRules, "@IsAdminRequest", DbType.Int16, isAdminRequest);
 
 
-                //db.AddInParameter(cmdGetCommissionStructureRules, "@IssuerId", DbType.String, IssuerId);
+              db.AddInParameter(cmdGetCommissionStructureRules, "@subCategory", DbType.String, subCategory);
                 //db.AddInParameter(cmdGetCommissionStructureRules, "@SeriesId", DbType.String, structureId);
                 ds = db.ExecuteDataSet(cmdGetCommissionStructureRules);
             }
@@ -562,7 +562,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsOrderBondsBook;
         }
-        public DataSet GetOrderBondBook(int customerId,int issueId, string status, DateTime dtFrom, DateTime dtTo, int adviserId)
+        public DataSet GetOrderBondBook(int customerId, int issueId, string status, DateTime dtFrom, DateTime dtTo, int adviserId, string productSubCategory)
         {
             DataSet dsOrderBondsBook;
             Database db;
@@ -580,6 +580,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(GetOrderBondsBookcmd, "@Fromdate", DbType.DateTime, dtFrom);
                 db.AddInParameter(GetOrderBondsBookcmd, "@ToDate", DbType.DateTime, dtTo);
                 db.AddInParameter(GetOrderBondsBookcmd, "@AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(GetOrderBondsBookcmd, "@productSubCategory", DbType.String, productSubCategory);
+                
 
                 dsOrderBondsBook = db.ExecuteDataSet(GetOrderBondsBookcmd);
 
@@ -849,7 +851,7 @@ namespace DaoOnlineOrderManagement
             return GetNCDTransactOrderDs;
 
         }
-        public DataTable GetNCDHoldingOrder(int customerId, int AdviserId)
+        public DataTable GetNCDHoldingOrder(int customerId, int AdviserId, string productSubType)
         {
             DataSet dsNCDHoldingOrder;
             DataTable dtNCDHoldingOrder;
@@ -862,7 +864,7 @@ namespace DaoOnlineOrderManagement
                 GetNCDHoldingOrdercmd = db.GetStoredProcCommand("SPROC_Onl_GetIssueWiseHolding");
                 db.AddInParameter(GetNCDHoldingOrdercmd, "@customerId", DbType.Int32, customerId);
                 db.AddInParameter(GetNCDHoldingOrdercmd, "@adviserId", DbType.Int32, AdviserId);
-                //db.AddInParameter(GetNCDHoldingOrdercmd, "@fromdate", DbType.DateTime, dtFrom);
+                db.AddInParameter(GetNCDHoldingOrdercmd, "@productSubType", DbType.String, productSubType);
                 //db.AddInParameter(GetNCDHoldingOrdercmd, "@todate", DbType.DateTime, dtTo);
                 dsNCDHoldingOrder = db.ExecuteDataSet(GetNCDHoldingOrdercmd);
                 dtNCDHoldingOrder = dsNCDHoldingOrder.Tables[0];
@@ -929,9 +931,9 @@ namespace DaoOnlineOrderManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                cmdGetCustomerIssueName = db.GetStoredProcCommand("SPROC_GetCustomerNCDIPOIssueName");
+                cmdGetCustomerIssueName = db.GetStoredProcCommand("SPROC_GetCustomerNCDSGBIssueName");
                 db.AddInParameter(cmdGetCustomerIssueName, "@CustomerId", DbType.Int32, CustomerId);
-                db.AddInParameter(cmdGetCustomerIssueName, "@Product", DbType.String, Product);
+                db.AddInParameter(cmdGetCustomerIssueName, "@Productsubtype", DbType.String, Product);
                 dsGetCustomerIssueName = db.ExecuteDataSet(cmdGetCustomerIssueName);
                 dtGetCustomerIssueName = dsGetCustomerIssueName.Tables[0];
 
