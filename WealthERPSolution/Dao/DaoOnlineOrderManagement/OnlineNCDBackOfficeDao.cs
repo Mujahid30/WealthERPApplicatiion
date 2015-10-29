@@ -1895,7 +1895,7 @@ namespace DaoOnlineOrderManagement
 
 
 
-        public DataTable GetAdviserNCDOrderBook(int adviserId, int issueNo, string status, DateTime dtFrom, DateTime dtTo, int orderNo)
+        public DataTable GetAdviserNCDOrderBook(int adviserId, int issueNo, string status, DateTime dtFrom, DateTime dtTo, int orderNo, string productsubcategory)
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DataSet dsNCDOrder;
@@ -1923,6 +1923,7 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(cmd, "@orderNo", DbType.Int32, orderNo);
                 else
                     db.AddInParameter(cmd, "@orderNo", DbType.Int32, 0);
+                db.AddInParameter(cmd, "@productsubcategory", DbType.String, productsubcategory);
                 dsNCDOrder = db.ExecuteDataSet(cmd);
                 dtNCDOrder = dsNCDOrder.Tables[0];
             }
@@ -3240,6 +3241,30 @@ namespace DaoOnlineOrderManagement
                 throw Ex;
             }
             return dtGetIssueName;
+        }
+        public DataTable GetNCDSGBIssueName(int Adviserid, string product)
+        {
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand cmdGetNCDSGBIssueName;
+            DataTable dtGetNCDSGBIssueName;
+            DataSet dsGetNCDSGBIssueName = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+
+                //To retreive data from the table 
+                cmdGetNCDSGBIssueName = db.GetStoredProcCommand("SPROC_GetADviserNCDSGBIssueName");
+                db.AddInParameter(cmdGetNCDSGBIssueName, "@AdviserId", DbType.Int32, Adviserid);
+                db.AddInParameter(cmdGetNCDSGBIssueName, "@PAISC_AssetInstrumentSubCategoryCode", DbType.String, product);
+                dsGetNCDSGBIssueName = db.ExecuteDataSet(cmdGetNCDSGBIssueName);
+                dtGetNCDSGBIssueName = dsGetNCDSGBIssueName.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetNCDSGBIssueName;
         }
         public DataTable GetNCDHoldings(int AdviserId, int AIMIssueId, int PageSize, int CurrentPage, string CustomerNamefilter, out int RowCount)
         {

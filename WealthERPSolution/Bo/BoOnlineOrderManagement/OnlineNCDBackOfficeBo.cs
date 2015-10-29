@@ -982,13 +982,13 @@ namespace BoOnlineOrderManagement
             onlineNCDBackOfficeDao.GenereateNcdExtract(AdviserId, UserId, ExternalSource, ProductAsset, issueId, ref isExtracted, isOnline);
         }
 
-        public DataTable GetAdviserNCDOrderBook(int adviserId, int issueNo, string status, DateTime dtFrom, DateTime dtTo, int orderNo)
+        public DataTable GetAdviserNCDOrderBook(int adviserId, int issueNo, string status, DateTime dtFrom, DateTime dtTo, int orderNo,string productsubcategory)
         {
             DataTable dtNCDOrder;
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
             {
-                dtNCDOrder = onlineNCDBackOfficeDao.GetAdviserNCDOrderBook(adviserId, issueNo, status, dtFrom, dtTo, orderNo);
+                dtNCDOrder = onlineNCDBackOfficeDao.GetAdviserNCDOrderBook(adviserId, issueNo, status, dtFrom, dtTo, orderNo, productsubcategory);
             }
             catch (BaseApplicationException Ex)
             {
@@ -2235,6 +2235,20 @@ namespace BoOnlineOrderManagement
             try
             {
                 dtGetIssueNamee = onlineNCDBackOfficeDao.GetIssueName(Adviserid, product);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetIssueNamee;
+        }
+        public DataTable GetNCDSGBIssueName(int Adviserid, string product)
+        {
+            DataTable dtGetIssueNamee = new DataTable();
+            OnlineNCDBackOfficeDao onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            try
+            {
+                dtGetIssueNamee = onlineNCDBackOfficeDao.GetNCDSGBIssueName(Adviserid, product);
             }
             catch (BaseApplicationException Ex)
             {

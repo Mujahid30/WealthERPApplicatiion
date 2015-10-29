@@ -32,6 +32,13 @@
 <div id="divConditional" runat="server" style="padding-top: 4px">
     <table class="TableBackground" cellpadding="2">
         <tr>
+        <td><asp:Label ID="lblPRoductcategory" runat="server" CssClass="FieldName" Text="Product"></asp:Label>
+        <asp:DropDownList ID="ddlSubInstrCategory" runat="server" Width="180px" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlSubInstrCategory_OnSelectedIndexChanged"></asp:DropDownList>
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="ddlSubInstrCategory"
+                        ErrorMessage="<br />Please select Product" CssClass="cvPCG" Display="Dynamic"
+                        runat="server" InitialValue="Select" ValidationGroup="btnViewOrder">
+                    </asp:RequiredFieldValidator>
+        </td>
             <td id="td1" runat="server">
                 <asp:Label runat="server" class="FieldName" Text="Order Status:" ID="Label1"></asp:Label>
                 <asp:DropDownList CssClass="cmbField" ID="ddlOrderStatus" runat="server" AutoPostBack="false">

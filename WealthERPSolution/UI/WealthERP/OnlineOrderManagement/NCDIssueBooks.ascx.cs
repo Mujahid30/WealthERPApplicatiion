@@ -133,7 +133,7 @@ namespace WealthERP.OnlineOrderManagement
                 gvBBList.DataSource = dtbondsBook;
                 gvBBList.DataBind();
                 ibtExportSummary.Visible = true;
-                pnlGrid.Visible = true;
+                Div2.Visible = true;
                 // pnlGrid.Visible = true;
             }
             else
@@ -141,7 +141,7 @@ namespace WealthERP.OnlineOrderManagement
                 ibtExportSummary.Visible = false;
                 gvBBList.DataSource = dtbondsBook;
                 gvBBList.DataBind();
-                pnlGrid.Visible = true;
+                Div2.Visible = true;
             }
             if (Cache[userVo.UserId.ToString() + "NCDBookList"] != null)
                 Cache.Remove(userVo.UserId.ToString() + "NCDBookList");
@@ -241,12 +241,12 @@ namespace WealthERP.OnlineOrderManagement
             if (PnlChild.Visible == false)
             {
                 PnlChild.Visible = true;
-                buttonlink.Text = "-";
+                buttonlink.Text = "Bid Details";
             }
             else if (PnlChild.Visible == true)
             {
                 PnlChild.Visible = false;
-                buttonlink.Text = "+";
+                buttonlink.Text = "Bid Details";
             }
             DataSet ds = BoOnlineBondOrder.GetOrderBondSubBook(customerVo.CustomerId, strIssuerId, orderId);
             dtIssueDetail = ds.Tables[0];
@@ -332,7 +332,7 @@ namespace WealthERP.OnlineOrderManagement
                 GridEditableItem editItem = e.Item as GridEditableItem;
                 TextBox txtRemark = (TextBox)e.Item.FindControl("txtRemark");
                 strRemark = txtRemark.Text;
-                LinkButton buttonEdit = editItem["MarkAsReject"].Controls[0] as LinkButton;
+                //LinkButton buttonEdit = editItem["MarkAsReject"].Controls[0] as LinkButton;
                 Int32 orderId = Convert.ToInt32(gvBBList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
                 //string extractionStepCode = gvBBList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WES_COde"].ToString();
                 string extractionStepCode = gvBBList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WES_Code"].ToString();
@@ -341,7 +341,7 @@ namespace WealthERP.OnlineOrderManagement
                     double AmountPayable = Convert.ToDouble(gvBBList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["BBAmounttoinvest"].ToString());
 
                     lbResult = BoOnlineBondOrder.cancelBondsBookOrder(orderId, 2, txtRemark.Text);
-                    BoOnlineBondOrder.DebitRMSUserAccountBalance(customerVo.AccountId, AmountPayable, 0);
+                    //BoOnlineBondOrder.DebitRMSUserAccountBalance(customerVo.AccountId, AmountPayable, 0);
                     if (lbResult == true)
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Cancelled Successfully');", true);
@@ -407,7 +407,8 @@ namespace WealthERP.OnlineOrderManagement
             if (e.Item is GridDataItem)
             {
                 GridDataItem dataItem = e.Item as GridDataItem;
-                LinkButton lbtnMarkAsReject = dataItem["MarkAsReject"].Controls[0] as LinkButton;
+                LinkButton lbtnMarkAsReject = (LinkButton)dataItem.FindControl("lbtnMarkAsReject");
+                //dataItem["MarkAsReject"].Controls[0] as LinkButton;
                 string OrderStepCode = gvBBList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WOS_OrderStepCode"].ToString();
                 if (OrderStepCode.Trim() == "AL")
                 {

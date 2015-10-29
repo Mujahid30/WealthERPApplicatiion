@@ -34,7 +34,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     txtOrderTo.SelectedDate = DateTime.Now;
                 }
                 BindOrderStatus();
-                BindIssueName();
+                BindNcdCategory();
                 if (Request.QueryString["orderId"] != null)
                 {
                     ViewState["OrderId"] = int.Parse(Request.QueryString["orderId"].ToString());
@@ -43,11 +43,30 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
             }
         }
+        private void BindNcdCategory()
+        {
+            DataTable dtCategory = new DataTable();
+            dtCategory = onlineNCDBackOfficeBo.BindNcdCategory("SubInstrumentCat", "").Tables[0];
+            if (dtCategory.Rows.Count > 0)
+            {
+                ddlSubInstrCategory.DataSource = dtCategory;
+                ddlSubInstrCategory.DataValueField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                ddlSubInstrCategory.DataTextField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                ddlSubInstrCategory.DataBind();
+            }
+            ddlSubInstrCategory.Items.Insert(0, new ListItem("Select", "Select"));
+
+        }
+        protected void ddlSubInstrCategory_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlSubInstrCategory.SelectedValue != "Select")
+                BindIssueName();
+        }
         protected void BindIssueName()
         {
             DataTable dtGetIssueName = new DataTable();
 
-            dtGetIssueName = onlineNCDBackOfficeBo.GetIssueName(advisorVo.advisorId, "FI");
+            dtGetIssueName = onlineNCDBackOfficeBo.GetNCDSGBIssueName(advisorVo.advisorId,ddlSubInstrCategory.SelectedValue);
             ddlIssueName.DataSource = dtGetIssueName;
             ddlIssueName.DataValueField = dtGetIssueName.Columns["AIM_IssueId"].ToString();
             ddlIssueName.DataTextField = dtGetIssueName.Columns["AIM_IssueName"].ToString();
@@ -96,7 +115,7 @@ namespace WealthERP.OnlineOrderBackOffice
             if (Request.QueryString["orderId"] != null)
             {
 
-                dtNCDOrder = onlineNCDBackOfficeBo.GetAdviserNCDOrderBook(advisorVo.advisorId, 0, "0", fromDate, toDate, int.Parse(ViewState["OrderId"].ToString()));
+                dtNCDOrder = onlineNCDBackOfficeBo.GetAdviserNCDOrderBook(advisorVo.advisorId, 0, "0", fromDate, toDate, int.Parse(ViewState["OrderId"].ToString()), "FISDSD");
 
             }
             else
@@ -105,7 +124,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
                 if (txtOrderTo.SelectedDate != null)
                     toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
-                dtNCDOrder = onlineNCDBackOfficeBo.GetAdviserNCDOrderBook(advisorVo.advisorId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), hdnOrderStatus.Value, fromDate, toDate,0);
+                dtNCDOrder = onlineNCDBackOfficeBo.GetAdviserNCDOrderBook(advisorVo.advisorId, Convert.ToInt32(ddlIssueName.SelectedValue.ToString()), hdnOrderStatus.Value, fromDate, toDate,0,ddlSubInstrCategory.SelectedValue);
             }
             if (dtNCDOrder.Rows.Count >= 0)
             {
