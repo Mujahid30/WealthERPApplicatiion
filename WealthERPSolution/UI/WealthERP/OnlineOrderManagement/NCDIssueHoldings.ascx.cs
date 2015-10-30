@@ -85,15 +85,15 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 gvBHList.DataSource = dtNCDHoldingOrder;
                 gvBHList.DataBind();
-                ibtExportSummary.Visible = true;
-                pnlGrid.Visible = true;
+                ibtExportSummary.Visible = false;
+                Div2.Visible = true;
             }
             else
             {
                 ibtExportSummary.Visible = false;
                 gvBHList.DataSource = dtNCDHoldingOrder;
                 gvBHList.DataBind();
-                pnlGrid.Visible = true;
+                Div2.Visible = true;
             }
         }
         protected void gvBHList_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)

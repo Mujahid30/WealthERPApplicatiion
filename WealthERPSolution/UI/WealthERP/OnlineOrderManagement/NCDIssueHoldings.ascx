@@ -4,100 +4,64 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
 <asp:ScriptManager ID="scrptMgr" runat="server">
     <Services>
         <asp:ServiceReference Path="AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
 <style type="text/css">
-    .table
+    .ft_sort
     {
-        border: 1px solid orange;
-    }
-    .leftLabel
-    {
-        width: 15%;
-        text-align: right;
-    }
-    .rightData
-    {
-        width: 18%;
-        text-align: left;
-    }
-    .rightDataTwoColumn
-    {
-        width: 25%;
-        text-align: left;
-    }
-    .rightDataFourColumn
-    {
-        width: 50%;
-        text-align: left;
-    }
-    .rightDataThreeColumn
-    {
-        width: 41%;
-        text-align: left;
-    }
-    .tdSectionHeading
-    {
-        padding-bottom: 6px;
-        padding-top: 6px;
-        width: 100%;
-    }
-    .divSectionHeading table td span
-    {
-        padding-bottom: 5px !important;
-    }
-    .fltlft
-    {
-        float: left;
-        padding-left: 3px;
-        width: 20%;
-    }
-    .divCollapseImage
-    {
-        float: left;
-        padding-left: 5px;
-        width: 2%;
-        float: right;
-        text-align: right;
+        background: #999999 none repeat scroll 0 0;
+        border: 0 none;
+        border-radius: 12px;
+        box-shadow: 0 1.5px 2px #bfbfbf inset;
+        color: #ffffff;
         cursor: pointer;
-        cursor: hand;
+        display: block;
+        font-size: 11.5px;
+        font-style: normal;
+        padding: 3px 12px;
+        width: 60px;
     }
-    .imgCollapse
+    .ft_sort:hover
     {
-        background: Url(../Images/Section-Expand.png);
-        cursor: pointer;
-        cursor: hand;
+        background: #565656;
+        color: #ffffff;
     }
-    .imgExpand
+    .divs
     {
-        background: Url(../Images/Section-Collapse.png) no-repeat left top;
-        cursor: pointer;
-        cursor: hand;
+        background-color: #EEEEEE;
+        margin-bottom: .5%;
+        margin-top: .5%;
+        margin-left: .2%;
+        margin-right: .1%;
+        border: solid 1.5px #EEEEEE;
     }
-    .fltlftStep
+    .divs:hover
     {
-        float: left;
+        border: solid 1.5px #00CEFF;
     }
-    .StepOneContentTable, .StepTwoContentTable, .StageRequestTable, .StepThreeContentTable, .StepFourContentTable
+    .dottedBottom
     {
-        width: 100%;
-    }
-    .SectionBody
-    {
-        width: 100%;
-    }
-    .collapse
-    {
-        text-align: right;
-    }
-    .divStepStatus
-    {
-        float: left;
-        padding-left: 2px;
-        padding-right: 5px;
+        border-bottom-style: inset;
+        border-bottom-width: thin;
+        margin-bottom: 1%;
+        border-collapse: collapse;
+        border-spacing: 10px;
     }
 </style>
 <asp:UpdatePanel ID="upBHGrid" runat="server">
@@ -190,79 +154,58 @@
                 </tr>
             </table>
         </div>
-        <table id="tblCommissionStructureRule" runat="server" width="100%">
-            <tr>
-                <td>
-                    <asp:Panel ID="pnlGrid" runat="server" CssClass="Landscape" Width="100%" ScrollBars="Horizontal">
+<div id="Div2" class="row" style="margin-left: 5%; margin-right: 5%; background-color: #2480C7;"
+    visible="false" runat="server">
                         <table width="100%">
                             <tr>
                                 <td>
-                                    <telerik:RadGrid ID="gvBHList" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                        PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                                        Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AllowAutomaticInserts="false"
-                                        OnNeedDataSource="gvBHList_OnNeedDataSource" OnItemCommand="gvBHList_OnItemCommand"
-                                        OnItemDataBound="gvBHList_OnItemDataBound">
+                                    <telerik:RadGrid ID="gvBHList" runat="server" GridLines="None" AllowPaging="True"
+                                        PageSize="5" AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true"
+                                        AllowAutomaticDeletes="false" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
+                                        HorizontalAlign="NotSet" CellPadding="15" OnNeedDataSource="gvBHList_OnNeedDataSource"
+                                        OnItemCommand="gvBHList_OnItemCommand" OnItemDataBound="gvBHList_OnItemDataBound">
                                         <ExportSettings FileName="Details" HideStructureColumns="true" ExportOnlyData="true">
                                         </ExportSettings>
                                         <MasterTableView DataKeyNames="AIM_IssueId,CO_OrderId" Width="100%" AllowMultiColumnSorting="True"
                                             AutoGenerateColumns="false" CommandItemDisplay="None">
                                             <Columns>
-                                                <telerik:GridTemplateColumn ItemStyle-Width="80Px" AllowFiltering="false" Visible="false"
-                                                    HeaderText="Action">
+                                                <telerik:GridTemplateColumn>
                                                     <ItemTemplate>
-                                                        <telerik:RadComboBox ID="ddlMenu" CssClass="cmbField" runat="server" EnableEmbeddedSkins="false"
-                                                            Skin="Telerik" AllowCustomText="true" Width="120px" AutoPostBack="true">
-                                                            <Items>
-                                                                <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="0" Selected="true">
-                                                                </telerik:RadComboBoxItem>
-                                                                <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Edit" Value="Edit"
-                                                                    runat="server"></telerik:RadComboBoxItem>
-                                                            </Items>
-                                                        </telerik:RadComboBox>
+                                                        <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 divs">
+                                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                                                <font color="#565656"><b>Issue Name:</b></font>
+                                                                <%# Eval("AIM_IssueName")%>
+                                                            </div>
+                                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                                                <font color="#565656"><b>Allotment Date:</b> </font>
+                                                                <%# Eval("AIM_AllotmentDate")%>
+                                                            </div>
+                                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                                                <font color="#565656"><b>Alloted Qty.:</b></font>
+                                                                <%# Eval("AllotedQty")%>
+                                                            </div>
+                                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                                                <font color="#565656"><b>Ordered Qty.:</b></font>
+                                                                <%# Eval("OrderedQty")%>
+                                                            </div>
+                                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                                                <font color="#565656"><b>Alloted Amount:</b></font>
+                                                                <%# Eval("HoldingAmount")%>
+                                                            </div>
+                                                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 fk-font-1" style="margin-bottom: 1.5px;
+                                                                visibility: hidden;">
+                                                                <%# Eval("AIM_IssueId")%>
+                                                            </div>
+                                                        </div>
                                                     </ItemTemplate>
                                                 </telerik:GridTemplateColumn>
-                                                <telerik:GridBoundColumn Visible="false" DataField="AIM_IssueId" SortExpression="AIM_IssueId"
-                                                    AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false">
-                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                               
-                                                <telerik:GridBoundColumn DataField="AIM_IssueName" SortExpression="AIM_IssueName"
-                                                    AutoPostBackOnFilter="true" HeaderStyle-Width="200px" CurrentFilterFunction="Contains"
-                                                    ShowFilterIcon="false" AllowFiltering="false" HeaderText="Issue Name" UniqueName="AIM_IssueName">
-                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn DataField="AIM_AllotmentDate" SortExpression="AIM_AllotmentDate"
-                                                    AutoPostBackOnFilter="true" HeaderStyle-Width="40px" CurrentFilterFunction="Contains"
-                                                    ShowFilterIcon="false" AllowFiltering="false" HeaderText="Allotment Date" UniqueName="AIM_AllotmentDate">
-                                                    <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn DataField="AllotedQty" SortExpression="AllotedQty" AutoPostBackOnFilter="true"
-                                                    HeaderStyle-Width="50px" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                                    AllowFiltering="false" HeaderText="Alloted Quantity" UniqueName="AllotedQty">
-                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn DataField="OrderedQty" SortExpression="OrderedQty" AutoPostBackOnFilter="true"
-                                                    HeaderStyle-Width="50px" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                                    AllowFiltering="false" HeaderText="Order Quantity" UniqueName="OrderedQty">
-                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="true" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                               
-                                                <telerik:GridBoundColumn DataField="HoldingAmount" AllowFiltering="false" HeaderText="Alloted Amount"
-                                                    HeaderStyle-Width="100px" UniqueName="HoldingAmount">
-                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                
-                                           
                                             </Columns>
                                         </MasterTableView>
                                     </telerik:RadGrid>
                                 </td>
                             </tr>
                         </table>
-                    </asp:Panel>
-                </td>
-            </tr>
-        </table>
+                  </div>
     </ContentTemplate>
     <Triggers>
         <asp:PostBackTrigger ControlID="ibtExportSummary" />
