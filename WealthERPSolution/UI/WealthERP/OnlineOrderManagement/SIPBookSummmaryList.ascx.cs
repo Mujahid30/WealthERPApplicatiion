@@ -464,7 +464,7 @@ namespace WealthERP.OnlineOrderManagement
 
                                 if (e.CommandName == "Accepted")
                                 {
-                                    BindChildCridDetails(int.Parse(ddlAMCCode.SelectedValue), null, systematicId, gvChildOrderBookDetails);
+                                    BindChildCridDetails(int.Parse(ddlAMCCode.SelectedValue), "PR", systematicId, gvChildOrderBookDetails);
                                     //if (Session["PageDefaultSetting"] != null)
                                     //{
                                     //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerTransactionBookList','?systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA + "&Amount=" + Amount + "&SIPStartDate=" + SIPStartDate + "');", true);
@@ -583,25 +583,26 @@ namespace WealthERP.OnlineOrderManagement
                 DateTime endDate = Convert.ToDateTime(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFSS_EndDate"].ToString());
                 //LinkButton buttonCancel = dataItem["editColumn"].Controls[0] as LinkButton;
                 DateTime currentTime = DateTime.Now;
+                LinkButton buttonCancel = (LinkButton)dataItem.FindControl("lbtnMarkAsReject");
                 DateTime fixedTime = Convert.ToDateTime("08:35:00 AM");
                 int compare = DateTime.Compare(currentTime, fixedTime);
                 if (isCancel == "Cancelled" || totalInstallment == currentInstallmentNumber - 1 || endDate < DateTime.Now)
                 {
 
-                    //buttonCancel.Enabled = false;
+                    buttonCancel.Enabled = false;
                 }
                 if (endDate == DateTime.Now)
                 {
                     if (compare >= 0)
                     {
-                        //buttonCancel.Enabled = false;
+                        buttonCancel.Enabled = false;
                     }
                 }
             }
             if (hdnsystamaticType.Value == "SWP")
             {
-                gvSIPSummaryBookMIS.MasterTableView.GetColumn("CMFSS_Amount").Visible = false;
-                gvSIPSummaryBookMIS.MasterTableView.GetColumn("Unit").Visible = true;
+                //gvSIPSummaryBookMIS.MasterTableView.GetColumn("CMFSS_Amount").Visible = false;
+                //gvSIPSummaryBookMIS.MasterTableView.GetColumn("Unit").Visible = true;
             }
             else
             {

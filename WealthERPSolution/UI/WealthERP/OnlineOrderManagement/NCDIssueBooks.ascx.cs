@@ -346,7 +346,7 @@ namespace WealthERP.OnlineOrderManagement
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Cancelled Successfully');", true);
                     }
-                    BindBBGV(customerVo.CustomerId, productsubtype);
+                    BindBBGV(customerVo.CustomerId, ViewState["productsubtype"].ToString());
                 }
                 else
                 {

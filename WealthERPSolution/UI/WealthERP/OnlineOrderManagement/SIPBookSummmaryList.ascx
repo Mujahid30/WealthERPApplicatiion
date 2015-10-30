@@ -147,26 +147,26 @@
 </table>
 </div> </td> </tr>--%>
 </table>
-<div id="divConditional" runat="server" class="row " style="margin-left: 5%;  margin-bottom: 0.5%;
-            margin-right: 5%; padding-top: 2%; padding-bottom: 0.5%;">
-     <div class="col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 1%">
-                <div class="col-md-4">
-                AMC:
-                <asp:DropDownList CssClass="form-control input-sm" ID="ddlAMCCode" runat="server" AutoPostBack="false">
-                    <%--<asp:ListItem Text="All" Value="0"></asp:ListItem>--%>
-                </asp:DropDownList>
-                </div>
-                <div class="col-md-3">
-                <br />
-                <asp:Button ID="btnViewSIP" runat="server" CssClass="btn btn-primary btn-primary" Text="Go" ValidationGroup="btnViewSIP"
-                    OnClick="btnViewOrder_Click" />
-            </div>
-            <div style="float:right">
-                <asp:ImageButton ID="imgInformation" runat="server" ImageUrl="../Images/help.png"
-                    OnClick="imgInformation_OnClick" ToolTip="Help" Style="cursor: hand;" />
-                    </div>
-           
-   </div>
+<div id="divConditional" runat="server" class="row " style="margin-left: 5%; margin-bottom: 0.5%;
+    margin-right: 5%; padding-top: 2%; padding-bottom: 0.5%;">
+    <div class="col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 1%">
+        <div class="col-md-4">
+            AMC:
+            <asp:DropDownList CssClass="form-control input-sm" ID="ddlAMCCode" runat="server"
+                AutoPostBack="false">
+                <%--<asp:ListItem Text="All" Value="0"></asp:ListItem>--%>
+            </asp:DropDownList>
+        </div>
+        <div class="col-md-3">
+            <br />
+            <asp:Button ID="btnViewSIP" runat="server" CssClass="btn btn-primary btn-primary"
+                Text="Go" ValidationGroup="btnViewSIP" OnClick="btnViewOrder_Click" />
+        </div>
+        <div style="float: right">
+            <asp:ImageButton ID="imgInformation" runat="server" ImageUrl="../Images/help.png"
+                OnClick="imgInformation_OnClick" ToolTip="Help" Style="cursor: hand;" />
+        </div>
+    </div>
 </div>
 <table style="width: 100%" class="TableBackground">
     <tr id="trNoRecords" runat="server" visible="false">
@@ -583,60 +583,7 @@
                                   <%--  </telerik:GridButtonColumn>444
                             <%-- <asp:ImageButton ID="ImageButton1" runat="server" CommandName="Edit" ImageUrl="~/Images/Buy-Button.png" />444
                         </Columns>
-                        <EditFormSettings FormTableStyle-Height="60%" EditFormType="Template" FormMainTableStyle-Width="300px">
-                            <FormTemplate>
-                                <table style="background-color: White;" border="0">
-                                    <tr>
-                                        <td colspan="4">
-                                            <div class="divSectionHeading" style="vertical-align: text-bottom">
-                                                SIP Cancel Request
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="leftField">
-                                            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Request No.:"></asp:Label>
-                                        </td>
-                                        <td class="rightField">
-                                            <asp:TextBox ID="txtSystematicSetupId" runat="server" CssClass="txtField" Style="width: 250px;"
-                                                Text='<%# Bind("CMFSS_SystematicSetupId") %>'></asp:TextBox>
-                                        </td>
-                                        <td colspan="2">
-                                            &nbsp;
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="leftField">
-                                            <asp:Label ID="Label20" runat="server" Text="Remark:" CssClass="FieldName"></asp:Label>
-                                        </td>
-                                        <td class="rightField">
-                                            <asp:TextBox ID="txtRemark" runat="server" CssClass="txtField" Style="width: 250px;"></asp:TextBox>
-                                        </td>
-                                        <td colspan="2">
-                                            &nbsp;
-                                        </td>
-                                    </tr>
-                                    <td colspan="2">
-                                        &nbsp;
-                                    </td>
-                                    <tr>
-                                        <td>
-                                            &nbsp;
-                                        </td>
-                                        <td align="left">
-                                            <asp:Button ID="Button1" Text="OK" runat="server" CssClass="PCGButton" CommandName="Update"
-                                                ValidationGroup="btnSubmit">
-                                                <%-- OnClientClick='<%# (Container is GridEditFormInsertItem) ?  " javascript:return ShowPopup();": "" %>'4444
-                                            </asp:Button>
-                                        </td>
-                                        <td align="left">
-                                            <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
-                                                CommandName="Cancel"></asp:Button>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </FormTemplate>
-                        </EditFormSettings>
+                    
                     </MasterTableView>
                     <ClientSettings>
                         <Resizing AllowColumnResize="true" />
@@ -660,7 +607,7 @@
         OnItemDataBound="gvSIPSummaryBookMIS_OnItemDataBound" OnItemCommand="gvSIPSummaryBookMIS_OnItemCommand"
         OnUpdateCommand="gvSIPSummaryBookMIS_UpdateCommand">
         <MasterTableView CommandItemDisplay="None" DataKeyNames="CMFSS_SystematicSetupId,CMFSS_IsCanceled,AcceptCount,InProcessCount,RejectedCount,ExecutedCount,CMFA_AccountId,PASP_SchemePlanCode,CMFSS_IsSourceAA,CMFSS_TotalInstallment,CMFSS_CurrentInstallmentNumber,CMFSS_EndDate,CMFSS_Amount,CMFSS_StartDate"
-            AllowCustomSorting="true">
+            AllowCustomSorting="true" EditMode="PopUp">
             <Columns>
                 <telerik:GridTemplateColumn>
                     <HeaderTemplate>
@@ -831,8 +778,9 @@
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                 <font color="#565656"><b>Request No.:</b></font>
-                                 <asp:Button ID="btnDetails" runat="server"  Text='<%# Eval("CMFSS_SystematicSetupId").ToString() %>'
-                                    OnClick="btnDetails_OnClick" style="border-style:hidden;text-decoration:underline;color:#0396CC;" ></asp:Button>
+                                <asp:Button ID="btnDetails" runat="server" Text='<%# Eval("CMFSS_SystematicSetupId").ToString() %>'
+                                    OnClick="btnDetails_OnClick" Style="border-style: hidden; text-decoration: underline;
+                                    color: #0396CC;"></asp:Button>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                 <font color="#565656"><b>Folio No.:</b></font>
@@ -872,8 +820,8 @@
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                 <font color="#565656"><b>Accepted:</b></font>
-                                <asp:LinkButton ID="lnkpraccpt" runat="server" CssClass="LinkButtons" Style="text-decoration:underline;color:#0396CC;"
-                                    CommandName="Accepted" Text='<%# Eval("AcceptCount").ToString() %>'>
+                                <asp:LinkButton ID="lnkpraccpt" runat="server" CssClass="LinkButtons" Style="text-decoration: underline;
+                                    color: #0396CC;" CommandName="Accepted" Text='<%# Eval("AcceptCount").ToString() %>'>
                                 </asp:LinkButton>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
@@ -882,20 +830,20 @@
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                 <font color="#565656"><b>In Process:</b></font>
-                                <asp:LinkButton ID="lnkprprcess" runat="server" CssClass="LinkButtons" Style="text-decoration:underline;color:#0396CC;"
-                                    CommandName="InProcess" Text='<%# Eval("InProcessCount").ToString() %>'>
+                                <asp:LinkButton ID="lnkprprcess" runat="server" CssClass="LinkButtons" Style="text-decoration: underline;
+                                    color: #0396CC;" CommandName="InProcess" Text='<%# Eval("InProcessCount").ToString() %>'>
                                 </asp:LinkButton>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                 <font color="#565656"><b>Rajected:</b></font>
-                                <asp:LinkButton ID="lnkprreject" runat="server" CssClass="LinkButtons" Style="text-decoration:underline;color:#0396CC;"
-                                    CommandName="Rejected" Text='<%# Eval("RejectedCount").ToString() %>'>
+                                <asp:LinkButton ID="lnkprreject" runat="server" CssClass="LinkButtons" Style="text-decoration: underline;
+                                    color: #0396CC;" CommandName="Rejected" Text='<%# Eval("RejectedCount").ToString() %>'>
                                 </asp:LinkButton>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                 <font color="#565656"><b>Executed:</b></font>
-                                <asp:LinkButton ID="lnkprexecuted" runat="server" CssClass="LinkButtons" Style="text-decoration:underline;color:#0396CC;"
-                                    CommandName="Executed" Text='<%# Eval("ExecutedCount").ToString() %>'>
+                                <asp:LinkButton ID="lnkprexecuted" runat="server" CssClass="LinkButtons" Style="text-decoration: underline;
+                                    color: #0396CC;" CommandName="Executed" Text='<%# Eval("ExecutedCount").ToString() %>'>
                                 </asp:LinkButton>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
@@ -917,6 +865,10 @@
                             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                 <font color="#565656"><b>InProcessCount:</b></font>
                                 <%# Eval("InProcessCount")%>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                <asp:LinkButton ID="lbtnMarkAsReject" UniqueName="editColumn" runat="server" CommandName="Edit"
+                                    class="ft_sort btn-sm btn-info" Text="Cancel"></asp:LinkButton>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;
                                 visibility: hidden;">
@@ -987,6 +939,40 @@
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
             </Columns>
+            <EditFormSettings FormTableStyle-Height="60%" EditFormType="Template" FormMainTableStyle-Width="300px"
+                CaptionFormatString=" SIP Cancel Request">
+                <FormTemplate>
+                    <table style="background-color: White;" border="0">
+                        <tr>
+                            <td>
+                                <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Request No.:"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:TextBox ID="txtSystematicSetupId" runat="server" CssClass="txtField" Style="width: 250px;"
+                                    Text='<%# Bind("CMFSS_SystematicSetupId") %>'></asp:TextBox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td c>
+                                <asp:Label ID="Label20" runat="server" Text="Remark:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:TextBox ID="txtRemark" runat="server" CssClass="txtField" Style="width: 250px;"></asp:TextBox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:Button ID="Button1" Text="OK" runat="server" class="ft_sort btn-sm btn-info" CommandName="Update"
+                                    ValidationGroup="btnSubmit"></asp:Button>
+                            </td>
+                            <td>
+                                <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" class="ft_sort btn-sm btn-info"
+                                    CommandName="Cancel"></asp:Button>
+                            </td>
+                        </tr>
+                    </table>
+                </FormTemplate>
+            </EditFormSettings>
         </MasterTableView>
         <ClientSettings EnableAlternatingItems="false">
         </ClientSettings>

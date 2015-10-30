@@ -238,7 +238,6 @@
                                                         <font color="#565656"><b>Status:</b></font>
                                                         <%# Eval("WOS_OrderStep")%>
                                                     </div>
-                                                   
                                                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                                         <asp:LinkButton ID="lbDetails" runat="server" CommandName="ExpandCollapse" class="ft_sort btn-sm btn-info"
                                                             UniqueName="Detailslink" OnClick="btnExpandAll_Click" Text="Bid Details" Width="80px"></asp:LinkButton>
@@ -264,7 +263,8 @@
                                                         visibility: hidden;">
                                                         <%# Eval("PI_IssuerCode")%>
                                                     </div>
-                                                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;visibility: hidden;">
+                                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;
+                                                        visibility: hidden;">
                                                         <%# Eval("WES_Code")%>
                                                     </div>
                                                 </div>
@@ -367,37 +367,32 @@
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                     </Columns>
-                                    <EditFormSettings FormTableStyle-Height="40%" EditFormType="Template" FormMainTableStyle-Width="300px" CaptionFormatString="Order Cancel" >
+                                    <EditFormSettings FormTableStyle-Height="40%" EditFormType="Template" FormMainTableStyle-Width="450px"
+                                        CaptionFormatString="Order Cancel">
                                         <FormTemplate>
                                             <table style="background-color: White;" border="0">
-                                                
                                                 <tr>
-                                                    <td class="leftField">
+                                                    <td>
                                                         <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Request No.:"></asp:Label>
                                                     </td>
-                                                    <td class="rightField">
+                                                    <td>
                                                         <asp:TextBox ID="txtRejOrderId" runat="server" CssClass="txtField" Style="width: 250px;"
                                                             Text='<%# Bind("CO_OrderId") %>' ReadOnly="true"></asp:TextBox>
                                                     </td>
-                                                    <td colspan="2">
-                                                        &nbsp;
-                                                    </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="leftField">
+                                                    <td>
                                                         <asp:Label ID="Label20" runat="server" Text="Remark:" CssClass="FieldName"></asp:Label>
                                                     </td>
-                                                    <td class="rightField">
+                                                    <td>
                                                         <asp:TextBox ID="txtRemark" runat="server" CssClass="txtField" Style="width: 250px;"></asp:TextBox>
-                                                    </td>
-                                                    <td colspan="2">
-                                                        &nbsp;
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td align="left">
-                                                        <asp:Button ID="Button1" Text="OK" runat="server" class="ft_sort btn-sm btn-info" CommandName="Update"
-                                                            ValidationGroup="btnSubmit"></asp:Button>
+                                                    <td >
+                                                        <asp:Button ID="Button1" Text="OK" runat="server" class="ft_sort btn-sm btn-info"
+                                                            CommandName="Update" ValidationGroup="btnSubmit"></asp:Button>
+                                                            </td><td>
                                                         <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" class="ft_sort btn-sm btn-info"
                                                             CommandName="Cancel"></asp:Button>
                                                     </td>
