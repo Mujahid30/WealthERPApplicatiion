@@ -245,15 +245,15 @@ namespace BoOnlineOrderManagement
             {
 
                 List<RTAExtractHeadeInfoVo> headerMap = GetRtaColumnDetails((OrderType == "AMCBANK" || OrderType == "SIPBOOK") ? OrderType : RtaIdentifier, (OrderType == "FATCA_OTH" || OrderType == "FATCA_SIP") ? true : false);
-                switch (OrderType)
-                {
-                    case "FATCA_OTH":
-                        OrderType = "OTH";
-                        break;
-                    case "FATCA_SIP":
-                        OrderType = "SIP";
-                        break;
-                }
+                //switch (OrderType)
+                //{
+                //    case "FATCA_OTH":
+                //        OrderType = "OTH";
+                //        break;
+                //    case "FATCA_SIP":
+                //        OrderType = "SIP";
+                //        break;
+                //}
                 DataSet dsOrderExtract = GetMfOrderExtract(ExecutionDate, AdviserId, OrderType, RtaIdentifier, AmcCode);
                 dtOrderExtract = new DataTable("OrderExtract");
                 foreach (RTAExtractHeadeInfoVo header in headerMap)
@@ -347,9 +347,9 @@ namespace BoOnlineOrderManagement
 
         public string CreatDbfFile(DataTable OrderExtract, string RnTType, string workDir, string type, bool isFatca)
         {
-            string seedFileName = (isFatca == true) ? RnTType + "_FATCA" : RnTType;
-
-
+            string seedFileName = (isFatca == true) ? "FATCA" : RnTType;
+           
+           
             switch (type)
             {
                 case "AMCBANK":
@@ -1547,7 +1547,7 @@ namespace BoOnlineOrderManagement
 
                         }
                         DataTable orderExtractForRta = GetOrderExtractForRta(DateTime.Now.Date, adviserId, OrderType.Key, rta.Key, int.Parse(amc.Key));
-
+                      
 
                         if (orderExtractForRta.Rows.Count <= 0) continue;
 
