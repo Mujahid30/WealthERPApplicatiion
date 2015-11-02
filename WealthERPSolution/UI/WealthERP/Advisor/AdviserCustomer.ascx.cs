@@ -1092,7 +1092,7 @@ namespace WealthERP.Advisor
                         Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
                         Session["customerPortfolioVo"] = customerPortfolioVo;
                         // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SIPBookSummmaryList','login');", true);
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "SIPBookSummmaryList", "loadcontrol('OnlineCustomerOrderandTransactionBook','?systematicType=" + "SIP" + "');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "SIPBookSummmaryList", "loadcontrol('SIPBookSummmaryList','?systematicType=" + "SIP" + "');", true);
 
                     }
                     else
@@ -1110,7 +1110,7 @@ namespace WealthERP.Advisor
                         Session[SessionContents.FPS_AddProspectListActionStatus] = "View";
                         //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SIPBookSummmaryList','login');", true);
                         //Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "SIPBookSummmaryList", "loadcontrol('OnlineCustomerOrderandTransactionBook','?systematicType=" + "SIP" + "');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "SIPBookSummmaryList", "loadcontrol('SIPBookSummmaryList','?systematicType=" + "SIP" + "');", true);
 
                     }
                 }
@@ -1122,7 +1122,7 @@ namespace WealthERP.Advisor
                     {
                         Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
                         Session["customerPortfolioVo"] = customerPortfolioVo;
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerMFOrderBookList','login');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineCustomerOrderandTransactionBook','login');", true);
                     }
                     else
                     {

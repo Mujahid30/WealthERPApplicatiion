@@ -382,7 +382,7 @@
                                                     <asp:ListItem Text="Dashboard" Value="Dashboard" Enabled="false" />
                                                     <asp:ListItem Text="Profile" Value="Profile" />
                                                     <asp:ListItem Text="Unit Holdings" Value="UnitHoldings" />
-                                                    <asp:ListItem Text="Transaction Book" Value="TransactionBook" />
+                                                    <asp:ListItem Text="Transaction Book" Value="TransactionBook" Enabled="false"/>
                                                     <asp:ListItem Text="SIP Book" Value="SIPBook" />
                                                     <asp:ListItem Text="Order Book" Value="OrderBook" />
                                                     <asp:ListItem Text="NCD Issue List" Value="NCDIssueList" />

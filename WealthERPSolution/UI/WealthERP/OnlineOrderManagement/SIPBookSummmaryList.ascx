@@ -948,7 +948,7 @@
                                 <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Request No.:"></asp:Label>
                             </td>
                             <td>
-                                <asp:TextBox ID="txtSystematicSetupId" runat="server" CssClass="txtField" Style="width: 250px;"
+                                <asp:TextBox ID="txtSystematicSetupId" runat="server" CssClass="txtField" 
                                     Text='<%# Bind("CMFSS_SystematicSetupId") %>'></asp:TextBox>
                             </td>
                         </tr>
@@ -957,7 +957,7 @@
                                 <asp:Label ID="Label20" runat="server" Text="Remark:" CssClass="FieldName"></asp:Label>
                             </td>
                             <td>
-                                <asp:TextBox ID="txtRemark" runat="server" CssClass="txtField" Style="width: 250px;"></asp:TextBox>
+                                <asp:TextBox ID="txtRemark" runat="server" CssClass="txtField" ></asp:TextBox>
                             </td>
                         </tr>
                         <tr>
