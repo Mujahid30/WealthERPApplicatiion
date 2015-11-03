@@ -48,15 +48,13 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 gvIPOHolding.DataSource = dtIPOHolding;
                 gvIPOHolding.DataBind();
-                ibtExportSummary.Visible = true;
-                pnlGrid.Visible = true;
+                ibtExportSummary.Visible = false;
             }
             else
             {
                 ibtExportSummary.Visible = false;
                 gvIPOHolding.DataSource = dtIPOHolding;
                 gvIPOHolding.DataBind();
-                pnlGrid.Visible = true;
             }
         }
         protected void gvIPOHolding_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)

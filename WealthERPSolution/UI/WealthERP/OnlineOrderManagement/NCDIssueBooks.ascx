@@ -200,7 +200,7 @@
                                 OnUpdateCommand="gvBBList_UpdateCommand" OnItemDataBound="gvBBList_OnItemDataCommand"
                                 OnItemCommand="gvBBList_OnItemCommand">
                                 <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,Scrip,WTS_TransactionStatusCode,WOS_OrderStepCode,BBAmounttoinvest,WES_Code"
-                                    Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" EditMode="PopUp"
+                                     EditMode="PopUp"
                                     CommandItemDisplay="None">
                                     <Columns>
                                         <telerik:GridTemplateColumn>
