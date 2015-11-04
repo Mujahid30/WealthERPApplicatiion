@@ -398,7 +398,7 @@
                                             </telerik:RadPanelItem>
                                              <telerik:RadPanelItem runat="server" Text="NCD Issue List" Value="NCDIssueList">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="SGB Issue Transact" Value="SGBIssueTransact"
+                                            <telerik:RadPanelItem runat="server" Text="SGB Issue List" Value="SGBIssueList"
                                                 Visible="false">
                                             </telerik:RadPanelItem>
                                         </Items>

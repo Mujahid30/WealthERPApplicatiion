@@ -231,6 +231,9 @@
                 </tr>
             </table>
         </td>
+        <td>
+        <asp:LinkButton ID="lnlFAQ"  OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);" runat="server" OnClick="lnlFAQ_OnClick" Text="FAQ" CssClass="LinkButtons"  ></asp:LinkButton>
+        </td>
     </tr>
     <tr align="center">
         <td>
@@ -252,7 +255,7 @@
                             <telerik:RadGrid ID="gvIssueList" runat="server" AllowSorting="True" enableloadondemand="True"
                                 PageSize="10" AllowPaging="false" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="false" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
-                                Skin="Telerik" AllowFilteringByColumn="false">
+                                Skin="Telerik" AllowFilteringByColumn="false" OnItemDataBound="gvIssueList_ItemDataBound">
                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIM_IssueName,IssueTimeType"
                                     AutoGenerateColumns="false" Width="100%">
                                     <Columns>
@@ -300,12 +303,22 @@
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="CatCollection" HeaderStyle-Width="140px" HeaderText="Min-Max Qty(Category Wise)"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                            UniqueName="CatCollection">
+                                            UniqueName="CatCollection" Visible="false">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                        </telerik:GridBoundColumn>
+                                         <telerik:GridBoundColumn DataField="SGBMINQty" HeaderStyle-Width="140px" HeaderText="Min-Max Grm"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            UniqueName="SGBMINQty" Visible="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="MinMaxCatCollection" HeaderStyle-Width="140px"
                                             HeaderText="Min-Max Qty(Across All Series)" CurrentFilterFunction="Contains"
-                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="MinMaxCatCollection">
+                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="MinMaxCatCollection" Visible="false">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="SGBMAXQty" HeaderStyle-Width="140px"
+                                            HeaderText="Min-Max Grm(Across All Series)" CurrentFilterFunction="Contains"
+                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="SGBMAXQty" Visible="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIM_MInQty" HeaderStyle-Width="120px" HeaderText="Min. Qty (accross all series)"
@@ -414,7 +427,12 @@
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CouponRateCollection" HeaderStyle-Width="160px"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                HeaderText="Coupon Rate (%)" UniqueName="CouponRateCollection" SortExpression="CouponRateCollection">
+                                HeaderText="Coupon Rate (%)" UniqueName="CouponRateCollection" SortExpression="CouponRateCollection" Visible="false">
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="Interest" HeaderStyle-Width="160px"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                HeaderText="Interest" UniqueName="Interest" SortExpression="Interest" Visible="false">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="YieldatMatCollection" HeaderStyle-Width="160px"
@@ -535,7 +553,12 @@
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="AID_SeriesFaceValue " HeaderStyle-Width="120px"
                                 HeaderText="Face Value" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                AutoPostBackOnFilter="true" UniqueName="AID_SeriesFaceValue ">
+                                AutoPostBackOnFilter="true" UniqueName="AID_SeriesFaceValue " Visible="false">
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="SGBFaceValue " HeaderStyle-Width="120px"
+                                HeaderText="Gold Rate" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                AutoPostBackOnFilter="true" UniqueName="SGBFaceValue " Visible="false">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="AIM_MInQty" HeaderStyle-Width="140px"
@@ -581,9 +604,9 @@
                                 </FooterTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
-                                UniqueName="NomineeQuantity" HeaderText="Nominee Qty">
+                                UniqueName="NomineeQuantity" HeaderText="Nominee Qty" >
                                 <ItemTemplate>
-                                    <asp:TextBox ID="txtNomineeQuantity" runat="server" ForeColor="White" MaxLength="5"
+                                    <asp:TextBox ID="txtNomineeQuantity" runat="server" ForeColor="White" MaxLength="5" ReadOnly="true"
                                         Text='<%# Bind("NomineeQty")%>' Width="50px" BackColor="Gray" OnKeypress="javascript:return isNumberKey(event);" OnTextChanged="txtQuantity_TextChanged" AutoPostBack="true"></asp:TextBox>
                                 </ItemTemplate>
                                 <FooterTemplate>

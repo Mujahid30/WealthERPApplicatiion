@@ -377,12 +377,12 @@ namespace WealthERP.OnlineOrderManagement
                 if (Session["PageDefaultSetting"] != null)
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('NCDIssueTransact','&OrderId=" + OrderId + "&IssuerId=" + IssuerId + "&Issuername=" + Issuername + "&strAction=" + action +
-                        "&status=" + ddlOrderStatus.SelectedValue.ToString() + "&fromdate=" + txtOrderFrom.SelectedDate + "&todate=" + txtOrderTo.SelectedDate + " ');", true);
+                        "&status=" + ddlOrderStatus.SelectedValue.ToString() + "&fromdate=" + txtOrderFrom.SelectedDate + "&todate=" + txtOrderTo.SelectedDate + "&BondType=" + ViewState["productsubtype"].ToString() + "');", true);
                 }
                 else
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','&OrderId=" + OrderId + "&IssuerId=" + IssuerId + "&Issuername=" + Issuername + "&strAction=" + action +
-                        "&status=" + ddlOrderStatus.SelectedValue.ToString() + "&fromdate=" + txtOrderFrom.SelectedDate + "&todate=" + txtOrderTo.SelectedDate + " ');", true);
+                        "&status=" + ddlOrderStatus.SelectedValue.ToString() + "&fromdate=" + txtOrderFrom.SelectedDate + "&todate=" + txtOrderTo.SelectedDate + "&BondType=" + ViewState["productsubtype"].ToString() + " ');", true);
                 }
             }
             if (e.CommandName == "Edit")

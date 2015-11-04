@@ -65,8 +65,8 @@ namespace WealthERP.OnlineOrderManagement
             {
                 Session["sum"] = null;
                 Session["Qty"] = null;
-                BindKYCDetailDDl();
-                if (Request.QueryString["OrderId"] != null && Request.QueryString["IssuerId"] != null && Request.QueryString["Issuername"] != null)
+                //BindKYCDetailDDl();
+                if (Request.QueryString["OrderId"] != null && Request.QueryString["IssuerId"] != null && Request.QueryString["Issuername"] != null && Request.QueryString["BondType"] != null)
                 {
                     orderId = int.Parse(Request.QueryString["OrderId"].ToString());
                     IssuerId = int.Parse(Request.QueryString["IssuerId"].ToString());
@@ -241,7 +241,7 @@ namespace WealthERP.OnlineOrderManagement
             }
             lblNomineeTwo.Text = strbNominee.ToString().TrimEnd(',');
             lblHolderTwo.Text = customerVo.FirstName + ' ' + customerVo.LastName;
-            
+
         }
         protected void lnkTermsCondition_Click(object sender, EventArgs e)
         {
@@ -329,7 +329,8 @@ namespace WealthERP.OnlineOrderManagement
                                 lblQty.Text = Quantity.ToString();
                                 lblSum.Text = sum.ToString();
                                 nomineeqty = nomineeqty + Convert.ToInt32(txtsumNomineeQuantity.Text);
-                                lblNomineeQty.Text = nomineeqty.ToString();
+                                txtsumNomineeQuantity.Text = txtsumQuantity.Text;
+                                //lblNomineeQty.Text = nomineeqty.ToString();
                                 ViewState["nomineeQty"] = nomineeqty;
                                 //  lb1AvailbleCat.Visible = true;
                                 OnlineBondBo.GetCustomerCat(issueId, customerVo.CustomerId, adviserVo.advisorId, Convert.ToDouble(lblSum.Text), ref catName, ref issuedetId, ref catId, ref Description);
@@ -337,8 +338,11 @@ namespace WealthERP.OnlineOrderManagement
                                 //OnlineBondBo.GetCustomerCat(issueId, customerVo.CustomerId, adviserVo.advisorId, Convert.ToDouble(lblSum.Text), ref catName, ref issuedetId, ref catId, ref Description);
                                 ViewState["CustCat"] = catName;
                                 //ViewState["Description"] = Description;
-                                lb1AvailbleCat.Text = " You have applied this issue under category : " + catName + "-" + Description;
-                                ShowMessage(lb1AvailbleCat.Text);
+                                if (Request.QueryString["BondType"] != "FISSGB")
+                                {
+                                    lb1AvailbleCat.Text = " You have applied this issue under category : " + catName + "-" + Description;
+                                    ShowMessage(lb1AvailbleCat.Text);
+                                }
 
                                 //if (catName == string.Empty)
                                 //    ShowMessage("Bid category Not Available");
@@ -588,10 +592,7 @@ namespace WealthERP.OnlineOrderManagement
                         // lnlBack.Visible = true;
 
                     }
-                    else if (int.Parse(ViewState["nomineeQty"].ToString()) > Quantity &&  Request.QueryString["BondType"] == "FISSGB")
-                    {
-                        ShowMessage("Nominee Qty. can not be greater than order qty.");
-                    }
+                   
                     else if (Quantity < minQty)
                     {
                         foreach (GridDataItem CBOrder in gvCommMgmt.MasterTableView.Items)
@@ -682,9 +683,44 @@ namespace WealthERP.OnlineOrderManagement
             {
                 GridDataItem dataItem = e.Item as GridDataItem;
                 if (lblNomineeTwo.Text != "" && Request.QueryString["BondType"] == "FISSGB")
-                    gvCommMgmt.MasterTableView.GetColumn("NomineeQuantity").Visible = true;
+                    gvCommMgmt.MasterTableView.GetColumn("NomineeQuantity").Visible = false;
                 else
                     gvCommMgmt.MasterTableView.GetColumn("NomineeQuantity").Visible = false;
+                if (Request.QueryString["BondType"] == "FISSGB")
+                {
+
+                    gvCommMgmt.MasterTableView.GetColumn("Interest").Visible = true;
+                    gvCommMgmt.MasterTableView.GetColumn("SGBFaceValue").Visible = true;
+                    gvCommMgmt.MasterTableView.GetColumn("YieldatMatCollection").Visible = false; 
+                    
+
+                }
+                else
+                {
+                    gvCommMgmt.MasterTableView.GetColumn("CouponRateCollection").Visible = true;
+                    gvCommMgmt.MasterTableView.GetColumn("AID_SeriesFaceValue").Visible = true;
+                }
+
+            }
+        }
+        protected void gvIssueList_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataItem = e.Item as GridDataItem;
+                if (Request.QueryString["BondType"] == "FISSGB")
+                {
+
+                    gvIssueList.MasterTableView.GetColumn("SGBMINQty").Visible = true;
+                    gvIssueList.MasterTableView.GetColumn("SGBMAXQty").Visible = true;
+
+
+                }
+                else
+                {
+                    gvIssueList.MasterTableView.GetColumn("CatCollection").Visible = true;
+                    gvIssueList.MasterTableView.GetColumn("MinMaxCatCollection").Visible = true;
+                }
 
             }
         }
@@ -755,6 +791,7 @@ namespace WealthERP.OnlineOrderManagement
                 gvCommMgmt.DataSource = dtIssueDetail;
             }
         }
+
         protected void btnUpdateOrder_Click(object sender, EventArgs e)
         {
             //orderId=int.Parse(ViewState["orderId"].ToString());
@@ -878,6 +915,11 @@ namespace WealthERP.OnlineOrderManagement
                 string status = Request.QueryString["status"].ToString();
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueBooks", "loadcontrol('NCDIssueBooks','&strAction=" + action + "&status=" + status + "&fromdate=" + fromdate + "&todate=" + todate + " ');", true);
             }
+        }
+        protected void lnlFAQ_OnClick(object sender, EventArgs e)
+        {
+            string path = ConfigurationSettings.AppSettings["SGBFAQ"];
+            Response.Redirect(path); 
         }
     }
 
