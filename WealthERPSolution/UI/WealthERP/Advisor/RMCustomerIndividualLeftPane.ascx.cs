@@ -1536,7 +1536,11 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "NCDIssueList")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueList", "loadcontrol('NCDIssueList','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueList", "loadcontrol('NCDIssueList','?BondType=" + "FISDSD" + "');", true);
+                }
+                else if (e.Item.Value == "SGBIssueList")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueList", "loadcontrol('NCDIssueList','?BondType=" + "FISSGB" + "');", true);
                 }
                 else if (e.Item.Value == "NCDIssueTransact")
                 {
@@ -1544,11 +1548,19 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "NCDOrderBook")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueBooks", "loadcontrol('NCDIssueBooks','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueBooks", "loadcontrol('NCDIssueBooks','?BondType=" + "FISDSD" + "');", true);
+                }
+                else if (e.Item.Value == "SGBOrderBook")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueBooks", "loadcontrol('NCDIssueBooks','?BondType=" + "FISSGB" + "');", true);
                 }
                 else if (e.Item.Value == "NCDHolding")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueHoldings", "loadcontrol('NCDIssueHoldings','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueHoldings", "loadcontrol('NCDIssueHoldings','?BondType=" + "FISDSD" + "');", true);
+                }
+                else if (e.Item.Value == "SGBHolding")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueHoldings", "loadcontrol('NCDIssueHoldings','?BondType=" + "FISSGB" + "');", true);
                 }
                 else if (e.Item.Value == "SIPSumBook")
                 {

@@ -396,7 +396,9 @@
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="NCD Issue List" Value="NCDIssueList">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="NCD Issue Transact" Value="NCDIssueTransact"
+                                             <telerik:RadPanelItem runat="server" Text="NCD Issue List" Value="NCDIssueList">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="SGB Issue Transact" Value="SGBIssueTransact"
                                                 Visible="false">
                                             </telerik:RadPanelItem>
                                         </Items>
@@ -405,11 +407,15 @@
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="NCD Order Book" Value="NCDOrderBook">
                                             </telerik:RadPanelItem>
+                                             <telerik:RadPanelItem runat="server" Text="SGB Order Book" Value="SGBOrderBook">
+                                            </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="NCD Issue Holdings" Value="NCDHoldings">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="NCDHolding" Value="NCDHolding">
+                                            </telerik:RadPanelItem>
+                                             <telerik:RadPanelItem runat="server" Text="SGBHolding" Value="SGBHolding">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>

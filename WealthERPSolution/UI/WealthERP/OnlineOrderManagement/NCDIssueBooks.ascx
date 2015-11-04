@@ -100,7 +100,7 @@
 
 <div id="divConditional" runat="server" class="row" style="margin-left: 5%; margin-bottom: 2%;
     margin-right: 5%; padding-top: 1%; padding-bottom: 1%; height: 20%">
-    <div class="col-md-12 col-xs-12 col-sm-12">
+    <div class="col-md-12 col-xs-12 col-sm-12" style="margin-top:2%;">
         <div class="col-md-2">
             Order Status
             <asp:DropDownList CssClass="form-control input-sm" ID="ddlOrderStatus" runat="server"
@@ -173,9 +173,7 @@
 </div>
 <div id="Div2" class="row" style="margin-left: 5%; margin-right: 5%; background-color: #2480C7;"
     visible="false" runat="server">
-    <table id="tblCommissionStructureRule" runat="server">
-        <tr>
-            <td>
+    
                 <table width="100%">
                     <tr>
                         <td>
@@ -193,7 +191,7 @@
                                             <ItemTemplate>
                                                 <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 divs">
                                                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
-                                                        <font color="#565656"><b>Scrip Name:</b></font>
+                                                        <font color="#565656"><b>Issue Name:</b></font>
                                                         <%# Eval("Scrip")%>
                                                     </div>
                                                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
@@ -265,7 +263,7 @@
                                                             <telerik:RadGrid ID="gvChildDetails" runat="server" AllowPaging="false" AllowSorting="True"
                                                                 AutoGenerateColumns="False" ShowStatusBar="true" AllowAutomaticDeletes="false"
                                                                 AllowAutomaticInserts="false" AllowAutomaticUpdates="false" HorizontalAlign="NotSet"
-                                                                CellPadding="15" OnNeedDataSource="gvChildDetails_OnNeedDataSource">
+                                                                CellPadding="15" OnNeedDataSource="gvChildDetails_OnNeedDataSource" OnItemDataBound="gvChildDetails_OnItemDataBound">
                                                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,CO_OrderId,AID_IssueDetailId"
                                                                     AutoGenerateColumns="false" Width="100%">
                                                                     <Columns>
@@ -329,6 +327,10 @@
                                                                                         <font color="#565656"><b>Amount to invest:</b></font>
                                                                                         <%# Eval("BBAmounttoinvest")%>
                                                                                     </div>
+                                                                                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;" id="nomineedetails" runat="server">
+                                                                                        <font color="#565656"><b>Nominee Qty.:</b></font>
+                                                                                        <%# Eval("COID_NomineeQuantity")%>
+                                                                                    </div>
                                                                                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                                                                         <font color="#565656"><b>Channel:</b></font>
                                                                                         <%# Eval("Channel")%>
@@ -391,8 +393,6 @@
                         </td>
                     </tr>
                 </table>
-            </td>
-        </tr>
-    </table>
+           
 </div>
 <asp:HiddenField ID="hdnOrderStatus" runat="server" />

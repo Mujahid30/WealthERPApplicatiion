@@ -433,5 +433,19 @@ namespace WealthERP.OnlineOrderManagement
             gvBBList.MasterTableView.ExportToExcel();
 
         }
+        public void gvChildDetails_OnItemDataBound(object sender, GridItemEventArgs e)
+        {
+
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataItem = e.Item as GridDataItem;
+                        System.Web.UI.HtmlControls.HtmlGenericControl nomineedetails=(System.Web.UI.HtmlControls.HtmlGenericControl)dataItem.FindControl("nomineedetails");
+                    if (Request.QueryString["BondType"] == "FISSGB")
+                        nomineedetails.Visible=true;
+                    else
+                         nomineedetails.Visible=false;
+                }
+            }
+
+        }
     }
-}

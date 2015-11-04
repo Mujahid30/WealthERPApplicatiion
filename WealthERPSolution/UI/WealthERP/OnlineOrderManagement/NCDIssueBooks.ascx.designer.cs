@@ -40,6 +40,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divConditional;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl nomineedetails;
         
         /// <summary>
         /// td1 control.
@@ -247,7 +248,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvBBList;
-        
+        protected global::Telerik.Web.UI.RadGrid gvChildDetails;
         /// <summary>
         /// hdnOrderStatus control.
         /// </summary>
