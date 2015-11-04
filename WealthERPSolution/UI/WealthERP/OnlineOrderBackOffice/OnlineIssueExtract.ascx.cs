@@ -42,6 +42,7 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void OnSelectedIndexChanged_ddlFileType(object sender, EventArgs e)
         {
+            btnPreview.Visible = true;
             if (ddlFileType.SelectedValue == "1")
             {
                 lblMsg.Text = " .txt format, pipe delimited, headers not required";
@@ -53,6 +54,10 @@ namespace WealthERP.OnlineOrderBackOffice
             if (ddlFileType.SelectedValue == "11" || ddlFileType.SelectedValue == "5")
             {
                 lblMsg.Text = ".xls format, headers required";
+            }
+            if (ddlFileType.SelectedValue == "55")
+            {
+                btnPreview.Visible = false;
             }
             pnlOnlneIssueExtract.Visible = false;
 
@@ -96,7 +101,7 @@ namespace WealthERP.OnlineOrderBackOffice
             boNcdBackOff = new OnlineNCDBackOfficeBo();
 
 
-            dsIssuer = boNcdBackOff.GetExtSource(product, issueId);
+            dsIssuer = boNcdBackOff.GetExtSource(product, issueId,ddSubCategory.SelectedValue);
             if (dsIssuer.Tables[0].Rows.Count > 0)
             {
                 ddlExternalSource.DataSource = dsIssuer;
@@ -119,7 +124,7 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlExternalSource.SelectedValue = "IOPS";
             SetFileType(ddlExternalSource.SelectedValue);
 
-            boNcdBackOff.GenerateOnlineNcdExtract(adviserVo.advisorId, userVo.UserId, ddlExternalSource.SelectedValue, ddlProduct.SelectedValue, Convert.ToInt32(ddlIssueName.SelectedValue), ref isextracted, Convert.ToInt32(ddlType.SelectedValue));
+            boNcdBackOff.GenerateOnlineNcdExtract(adviserVo.advisorId, userVo.UserId, ddlExternalSource.SelectedValue, ddlProduct.SelectedValue, Convert.ToInt32(ddlIssueName.SelectedValue), ref isextracted, Convert.ToInt32(ddlType.SelectedValue),ddSubCategory.SelectedValue);
             if (isextracted == 0)
                 ShowMessage("Extraction Done Only On Business Days");
             else
@@ -175,24 +180,49 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void btnDownload_Click(object sender, EventArgs e)
         {
-            string filename = "";
-            string delimit = "";
-            string format = "";
-            
-
-            DataTable dtExtractData = (DataTable)Cache["IssueExtract" + userVo.UserId];
-            string extractStepCode = boNcdBackOff.GetExtractStepCode(Convert.ToInt32(ddlFileType.SelectedValue));
-            
-            boNcdBackOff.GetFileName(ddlExternalSource.SelectedValue, Convert.ToInt32(ddlFileType.SelectedValue), ref filename, ref delimit, ref format,ddlIssueName.SelectedItem.Text);
-
-            if (format == ".xls")
+            if (ddlFileType.SelectedValue != "57")
             {
-                ExportInExcel(filename);
+                string filename = "";
+                string delimit = "";
+                string format = "";
+
+
+                DataTable dtExtractData = (DataTable)Cache["IssueExtract" + userVo.UserId];
+                string extractStepCode = boNcdBackOff.GetExtractStepCode(Convert.ToInt32(ddlFileType.SelectedValue));
+
+                boNcdBackOff.GetFileName(ddlExternalSource.SelectedValue, Convert.ToInt32(ddlFileType.SelectedValue), ref filename, ref delimit, ref format, ddlIssueName.SelectedItem.Text);
+
+                if (format == ".xls")
+                {
+                    ExportInExcel(filename);
+                }
+                else
+                {
+                    filename = filename + format;
+                    DownloadBidFile(dtExtractData, filename, delimit, extractStepCode);
+                }
             }
-            else
+            else if (ddlFileType.SelectedValue == "57")
             {
-                filename = filename + format;
-                DownloadBidFile(dtExtractData, filename, delimit, extractStepCode);
+                string XMLText = boNcdBackOff.GetOnlineSGBExtractXMLText(rdpDownloadDate.SelectedDate.Value, adviserVo.advisorId, int.Parse(ddlFileType.SelectedValue), ddlExternalSource.SelectedValue, int.Parse(ddlIssueName.SelectedValue));
+                string strIssue;
+                if (ddlIssueName.SelectedItem.ToString().Length > 15)
+                    strIssue = ddlIssueName.SelectedItem.ToString().Substring(0, 4);
+                else
+                    strIssue = ddlIssueName.SelectedItem.ToString();
+                string filename = ddlExternalSource.SelectedValue + "BidExtr_" + strIssue + DateTime.Now.ToString("ddMMyy")+".xml";
+                StreamWriter str = new StreamWriter(Server.MapPath(@"~/UploadFiles/" + filename), false, System.Text.Encoding.UTF8);
+                str.WriteLine(XMLText);
+                str.Flush();
+                str.Close();
+                #region download notepad or text file.
+                Response.ContentType = "Text/Plain";
+                Response.AppendHeader("Content-Disposition", "attachment;filename=" + filename);
+                string aaa = Server.MapPath("~/UploadFiles/" + filename);
+                Response.TransmitFile(Server.MapPath("~/UploadFiles/" + filename));
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                Response.End();
+                #endregion
             }
 
          }
@@ -200,7 +230,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         private void SetFileType(string externalSource)
         {
-            DataTable dtFileType = boNcdBackOff.GetFileTypeList(0, externalSource, 'E', ddlProduct.SelectedValue);
+            DataTable dtFileType = boNcdBackOff.GetFileTypeList(0, externalSource, 'E', ddlProduct.SelectedValue,ddSubCategory.SelectedValue);
 
             DataRow drFileType = dtFileType.NewRow();
             drFileType["WEFT_Id"] = 0;
@@ -211,7 +241,7 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlFileType.DataValueField = dtFileType.Columns["WEFT_Id"].ToString();
             ddlFileType.DataTextField = dtFileType.Columns["WEFT_FileType"].ToString();
             ddlFileType.DataBind();
-            if (ddlType.SelectedValue == "1" && externalSource!="IOPS")
+            if (ddlType.SelectedValue == "1" && externalSource != "IOPS" && ddSubCategory.SelectedValue != "FISSGB")
             {
                 ddlFileType.Items.FindByText("Bid Order File-ASBA").Enabled = false;
                 ddlFileType.Items.FindByText("Bid Order File-NASBA").Enabled = false;

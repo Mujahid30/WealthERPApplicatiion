@@ -72,7 +72,30 @@ namespace BoOnlineOrderManagement
             }
 
         }
+        public DataSet GetExtSource(string product, int issueId, string productSubType)
+        {
+            onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            try
+            {
+                return onlineNCDBackOfficeDao.GetExtSource(product, issueId,productSubType);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:GetIssueDetails()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
 
+        }
         public DataSet GetAdviserIssueList(DateTime date, int type, string product, int adviserId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
@@ -976,10 +999,10 @@ namespace BoOnlineOrderManagement
 
 
 
-        public void GenerateOnlineNcdExtract(int AdviserId, int UserId, string ExternalSource, string ProductAsset, int issueId, ref int isExtracted, int isOnline)
+        public void GenerateOnlineNcdExtract(int AdviserId, int UserId, string ExternalSource, string ProductAsset, int issueId, ref int isExtracted, int isOnline,string productSubType)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
-            onlineNCDBackOfficeDao.GenereateNcdExtract(AdviserId, UserId, ExternalSource, ProductAsset, issueId, ref isExtracted, isOnline);
+            onlineNCDBackOfficeDao.GenereateNcdExtract(AdviserId, UserId, ExternalSource, ProductAsset, issueId, ref isExtracted, isOnline, productSubType);
         }
 
         public DataTable GetAdviserNCDOrderBook(int adviserId, int issueNo, string status, DateTime dtFrom, DateTime dtTo, int orderNo,string productsubcategory)
@@ -1038,6 +1061,12 @@ namespace BoOnlineOrderManagement
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
 
             return onlineNCDBackOfficeDao.GetFileTypeList(FileTypeId, ExternalSource, FileSubType, ProductCode);
+        }
+        public DataTable GetFileTypeList(int FileTypeId, string ExternalSource, char FileSubType, string ProductCode, string productSubType)
+        {
+            onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+
+            return onlineNCDBackOfficeDao.GetFileTypeList(FileTypeId, ExternalSource, FileSubType, ProductCode, productSubType);
         }
 
 
@@ -1113,7 +1142,7 @@ namespace BoOnlineOrderManagement
 
             DataTable dtExtract = onlineNCDBackOfficeDao.GetOnlineNcdExtractPreview(extractDate, adviserId, fileTypeId, issueId, extSource, modificationType, isonline, out AID_SeriesCount).Tables[0];
 
-            if (fileTypeId == 5)
+            if (fileTypeId == 5 || fileTypeId == 49)
             {
 
                 int desiredSize = (AID_SeriesCount * 2) + 15;
@@ -1124,7 +1153,7 @@ namespace BoOnlineOrderManagement
                 }
                 dtExtract.AcceptChanges();
             }
-            if (fileTypeId == 11)
+            if (fileTypeId == 11 || fileTypeId == 50)
             {
 
                 int seriesDelete = AID_SeriesCount + 1;
@@ -2521,6 +2550,28 @@ namespace BoOnlineOrderManagement
             }
 
         }
-
+        public string GetOnlineSGBExtractXMLText(DateTime extractDate, int adviserId, int fileTypeId, string extSource, int issueId)
+        {
+            onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            try
+            {
+                return onlineNCDBackOfficeDao. GetOnlineSGBExtractXMLText(extractDate, adviserId, fileTypeId, extSource, issueId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:GetIssuerIssue()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
     }
 }

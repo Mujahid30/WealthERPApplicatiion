@@ -35,6 +35,41 @@ namespace DaoOnlineOrderManagement
                 dbCommand = db.GetStoredProcCommand("SPROC_BindExtSource");
                 db.AddInParameter(dbCommand, "@product", DbType.String, product);
                 db.AddInParameter(dbCommand, "@issueId", DbType.Int32, issueId);
+                db.AddInParameter(dbCommand, "@ProductSubType", DbType.String, DBNull.Value);
+
+                dsExtSource = db.ExecuteDataSet(dbCommand);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:GetExtSource()");
+                object[] objects = new object[2];
+                objects[1] = product;
+                objects[2] = issueId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsExtSource;
+        }
+        public DataSet GetExtSource(string product, int issueId,string productSubType)
+        {
+            DataSet dsExtSource;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand dbCommand;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_BindExtSource");
+                db.AddInParameter(dbCommand, "@product", DbType.String, product);
+                db.AddInParameter(dbCommand, "@issueId", DbType.Int32, issueId);
+                db.AddInParameter(dbCommand, "@ProductSubType", DbType.String, productSubType);
                 dsExtSource = db.ExecuteDataSet(dbCommand);
             }
             catch (BaseApplicationException Ex)
@@ -1767,7 +1802,7 @@ namespace DaoOnlineOrderManagement
             return dsGetSubCategory;
         }
 
-        public void GenereateNcdExtract(int AdviserId, int UserId, string SourceCode, string ProductAsset, int issueId, ref int isExtracted, int isOnline)
+        public void GenereateNcdExtract(int AdviserId, int UserId, string SourceCode, string ProductAsset, int issueId, ref int isExtracted, int isOnline ,string productSubType)
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand cmd;
@@ -1781,6 +1816,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmd, "@U_UserId", DbType.Int32, UserId);
                 db.AddInParameter(cmd, "@XES_SourceCode", DbType.String, SourceCode);
                 db.AddInParameter(cmd, "@PAG_AssetGroupCode", DbType.String, ProductAsset);
+                db.AddInParameter(cmd, "@productSubType", DbType.String, productSubType);
                 db.AddInParameter(cmd, "@AIM_IssueId", DbType.Int32, issueId);
                 db.AddInParameter(cmd, "@isExtracted", DbType.Int32, issueId);
                 db.AddInParameter(cmd, "@IsOnline", DbType.Int32, isOnline);
@@ -1994,6 +2030,7 @@ namespace DaoOnlineOrderManagement
                 if (FileTypeId > 0) db.AddInParameter(cmd, "@WEFT_Id", DbType.Int32, FileTypeId);
                 if (!string.IsNullOrEmpty(ExternalSource)) db.AddInParameter(cmd, "@XES_SourceCode", DbType.String, ExternalSource);
                 db.AddInParameter(cmd, "@WEFT_FileSubType", DbType.String, FileSubType);
+                db.AddInParameter(cmd, "@productSubType", DbType.String, DBNull.Value);
                 if (!string.IsNullOrEmpty(ProductCode)) db.AddInParameter(cmd, "@PAG_AssetGroupCode", DbType.String, ProductCode);
                 DataSet ds = db.ExecuteDataSet(cmd);
                 dtFileType = ds.Tables[0];
@@ -2018,7 +2055,43 @@ namespace DaoOnlineOrderManagement
             }
             return dtFileType;
         }
-
+        public DataTable GetFileTypeList(int FileTypeId, string ExternalSource, char FileSubType, string ProductCode,string productSubType)
+        {
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand cmd;
+            DataTable dtFileType;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_ONL_GetFileType");
+                if (FileTypeId > 0) db.AddInParameter(cmd, "@WEFT_Id", DbType.Int32, FileTypeId);
+                if (!string.IsNullOrEmpty(ExternalSource)) db.AddInParameter(cmd, "@XES_SourceCode", DbType.String, ExternalSource);
+                db.AddInParameter(cmd, "@WEFT_FileSubType", DbType.String, FileSubType);
+                db.AddInParameter(cmd, "@productSubType", DbType.String, productSubType);
+                if (!string.IsNullOrEmpty(ProductCode)) db.AddInParameter(cmd, "@PAG_AssetGroupCode", DbType.String, ProductCode);
+                DataSet ds = db.ExecuteDataSet(cmd);
+                dtFileType = ds.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:GenereateNcdExtract(int adviserId, int userId)");
+                object[] objects = new object[3];
+                objects[0] = FileTypeId;
+                objects[1] = ExternalSource;
+                objects[2] = FileSubType;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtFileType;
+        }
         public DataTable GetHeaderMapping(int fileTypeId, string ExternalSource)
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -3941,6 +4014,54 @@ namespace DaoOnlineOrderManagement
                 throw exBase;
             }
             return dsGetIssuerIssue;
+        }
+
+        public string GetOnlineSGBExtractXMLText(DateTime extractDate, int adviserId, int fileTypeId, string extSource, int issueId)
+        {
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand GetOnlineNCDExtractPreviewcmd;
+            string xmlText=string.Empty;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetOnlineNCDExtractPreviewcmd = db.GetStoredProcCommand("SPROC_ONL_SGB_IssueBidOrderFile");
+                db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@Today", DbType.DateTime, extractDate);
+                db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@A_AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@WIFT_Id", DbType.Int32, fileTypeId);
+                db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@IssueId", DbType.Int32, issueId);
+                db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@ExtSource", DbType.String, extSource);
+               
+                db.AddOutParameter(GetOnlineNCDExtractPreviewcmd, "@XMLText", DbType.String, 1000);
+                GetOnlineNCDExtractPreviewcmd.CommandTimeout = 60 * 60;
+                if (db.ExecuteNonQuery(GetOnlineNCDExtractPreviewcmd) != 0)
+                {
+                    if (db.GetParameterValue(GetOnlineNCDExtractPreviewcmd, "XMLText").ToString() != string.Empty)
+                    {
+                        xmlText = db.GetParameterValue(GetOnlineNCDExtractPreviewcmd, "XMLText").ToString();
+
+                    }
+
+                }
+              
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetOnlineNcdExtractPreview(DateTime Today, int AdviserId, int FileType)");
+                object[] objects = new object[3];
+               
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return xmlText;
         }
     }
 }
