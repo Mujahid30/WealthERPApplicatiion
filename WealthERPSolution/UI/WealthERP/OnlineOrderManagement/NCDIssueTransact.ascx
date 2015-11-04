@@ -4,7 +4,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 
-<script type = "text/javascript">
+<script type="text/javascript">
     function Confirm() {
         var confirm_value = document.createElement("INPUT");
         confirm_value.type = "hidden";
@@ -16,7 +16,8 @@
         }
         document.forms[0].appendChild(confirm_value);
     }
-    </script>
+</script>
+
 <script type="text/javascript">
     function isNumberKey(evt) { // Numbers only
         var charCode = (evt.which) ? evt.which : event.keyCode;
@@ -319,7 +320,7 @@
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIM_FaceValue" HeaderStyle-Width="80px" HeaderText="Face Value"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                            UniqueName="FaceValue" Visible="true" DataFormatString="{0:N0}" >
+                                            UniqueName="FaceValue" Visible="true" DataFormatString="{0:N0}">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AID_MinApplication" HeaderStyle-Width="110px"
@@ -457,8 +458,8 @@
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="AID_Tenure" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
-                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Tenure"
-                                UniqueName="AID_Tenure" SortExpression="AID_Tenure">
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Tenure" UniqueName="AID_Tenure"
+                                SortExpression="AID_Tenure">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="true" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="AID_CouponFreq" HeaderStyle-Width="85px" CurrentFilterFunction="Contains"
@@ -532,7 +533,7 @@
                                 AutoPostBackOnFilter="true" UniqueName="AID_BuyBackFacility">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn  DataField="AID_SeriesFaceValue " HeaderStyle-Width="120px"
+                            <telerik:GridBoundColumn DataField="AID_SeriesFaceValue " HeaderStyle-Width="120px"
                                 HeaderText="Face Value" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                 AutoPostBackOnFilter="true" UniqueName="AID_SeriesFaceValue ">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
@@ -577,6 +578,16 @@
                                 </ItemTemplate>
                                 <FooterTemplate>
                                     <asp:Label runat="server" ID="lblAmount" OnTextChanged="lblAmount_TextChanged" AutoPostBack="true"></asp:Label>
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
+                                UniqueName="NomineeQuantity" HeaderText="Nominee Qty">
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtNomineeQuantity" runat="server" ForeColor="White" MaxLength="5"
+                                        Text='<%# Bind("NomineeQty")%>' Width="50px" BackColor="Gray" OnKeypress="javascript:return isNumberKey(event);" OnTextChanged="txtQuantity_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Label runat="server" ID="lblNomineeQty" ></asp:Label>
                                 </FooterTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
@@ -625,7 +636,7 @@
             <asp:CheckBox ID="chkTermsCondition" runat="server" Font-Bold="True" Font-Names="Shruti"
                 Enabled="false" Checked="false" ForeColor="#145765" Text="" ToolTip="Click 'Terms & Conditions' to proceed further"
                 CausesValidation="true" />
-            <asp:LinkButton ID="lnkTermsCondition" CausesValidation="false" Text="Terms & Conditions" 
+            <asp:LinkButton ID="lnkTermsCondition" CausesValidation="false" Text="Terms & Conditions"
                 runat="server" CssClass="txtField" OnClick="lnkTermsCondition_Click" ToolTip="Click here to accept terms & conditions"></asp:LinkButton>
             <span id="Span9" class="spnRequiredField">*</span>
         </td>
@@ -645,7 +656,7 @@
         <td id="tdsubmit" runat="server" align="left" style="width: 60%">
             <asp:Label ID="Label3" runat="server" Text="Confirm Your Order :" CssClass="FieldName"></asp:Label>
             <asp:Button ID="btnConfirmOrder" runat="server" Text="Submit" OnClick="btnConfirmOrder_Click"
-               OnClientClick = "Confirm()"   CssClass="PCGButton" ValidationGroup="btnConfirmOrder" />
+                OnClientClick="Confirm()" CssClass="PCGButton" ValidationGroup="btnConfirmOrder" />
         </td>
         <td>
             <asp:LinkButton runat="server" ID="lnlBack" CssClass="LinkButtons" Text="Click here to view the issue list"
@@ -654,7 +665,7 @@
     </tr>
 </table>
 <table>
-    <tr id="trSubmit" runat="server" visible="false" >
+    <tr id="trSubmit" runat="server" visible="false">
         <%--<td id="tdsubmit" runat="server">
         <asp:Label ID="Label1" runat="server" Text="Confirm Your Order :" CssClass="FieldName"></asp:Label>
         <asp:Button ID="btnConfirmOrder" runat="server" Text="Submit" OnClick="btnConfirmOrder_Click"

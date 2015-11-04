@@ -241,6 +241,7 @@ namespace WealthERP.OnlineOrderManagement
             }
             lblNomineeTwo.Text = strbNominee.ToString().TrimEnd(',');
             lblHolderTwo.Text = customerVo.FirstName + ' ' + customerVo.LastName;
+            
         }
         protected void lnkTermsCondition_Click(object sender, EventArgs e)
         {
@@ -282,6 +283,7 @@ namespace WealthERP.OnlineOrderManagement
             int catId = 0;
             int issuedetId = 0;
             double AIM_FaceValue = 0.0;
+            int nomineeqty = 0;
             TextBox txtQuantity = (TextBox)gvCommMgmt.MasterTableView.Items[rowindex]["Quantity"].FindControl("txtQuantity");
             if (!string.IsNullOrEmpty(txtQuantity.Text))
             {
@@ -309,10 +311,13 @@ namespace WealthERP.OnlineOrderManagement
                     {
                         TextBox txtsumQuantity = (TextBox)gvCommMgmt.MasterTableView.Items[rowno]["Quantity"].FindControl("txtQuantity");
                         TextBox txtsumAmount = (TextBox)gvCommMgmt.MasterTableView.Items[rowno]["Amount"].FindControl("txtAmount");
+                        TextBox txtsumNomineeQuantity = (TextBox)gvCommMgmt.MasterTableView.Items[rowno]["NomineeQuantity"].FindControl("txtNomineeQuantity");
                         GridFooterItem footerItem = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
                         Label lblQty = (Label)footerItem.FindControl("lblQuantity");
                         GridFooterItem footerItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
                         Label lblSum = (Label)footerItemAmount.FindControl("lblAmount");
+                        Label lblNomineeQty = (Label)footerItemAmount.FindControl("lblNomineeQty");
+
                         if (cbSelectOrder.Checked == true)
                             if (!string.IsNullOrEmpty(txtsumQuantity.Text) && !string.IsNullOrEmpty(txtsumAmount.Text))
                             {
@@ -323,7 +328,9 @@ namespace WealthERP.OnlineOrderManagement
                                 ViewState["Sum"] = sum;
                                 lblQty.Text = Quantity.ToString();
                                 lblSum.Text = sum.ToString();
-
+                                nomineeqty = nomineeqty + Convert.ToInt32(txtsumNomineeQuantity.Text);
+                                lblNomineeQty.Text = nomineeqty.ToString();
+                                ViewState["nomineeQty"] = nomineeqty;
                                 //  lb1AvailbleCat.Visible = true;
                                 OnlineBondBo.GetCustomerCat(issueId, customerVo.CustomerId, adviserVo.advisorId, Convert.ToDouble(lblSum.Text), ref catName, ref issuedetId, ref catId, ref Description);
 
@@ -469,12 +476,14 @@ namespace WealthERP.OnlineOrderManagement
                 dt.Columns.Add("CatId");
                 dt.Columns.Add("AcceptableCatId");
                 dt.Columns.Add("userId");
+                dt.Columns.Add("NomineeQuantity");
                 int rowNo = 0;
                 int tableRow = 0;
                 foreach (GridDataItem CBOrder in gvCommMgmt.MasterTableView.Items)
                 {
 
                     TextBox txtQuantity = (TextBox)gvCommMgmt.MasterTableView.Items[rowNo]["Quantity"].FindControl("txtQuantity");
+                    TextBox NomineeQuantity = (TextBox)gvCommMgmt.MasterTableView.Items[rowNo]["NomineeQuantity"].FindControl("txtNomineeQuantity");
                     if (txtQuantity.Text == "0" || txtQuantity.Text == string.Empty)
                     {
                         if (rowNo < gvCommMgmt.MasterTableView.Items.Count)
@@ -508,6 +517,7 @@ namespace WealthERP.OnlineOrderManagement
                             dt.Rows[tableRow]["Qty"] = OnlineBondVo.Qty;
                             dt.Rows[tableRow]["Amount"] = OnlineBondVo.Amount;
                             dt.Rows[tableRow]["userid"] = userVo.UserId;
+                            dt.Rows[tableRow]["NomineeQuantity"] = NomineeQuantity.Text;
                             GridFooterItem footerItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
                             Label lblSum = (Label)footerItemAmount.FindControl("lblAmount");
 
@@ -577,6 +587,10 @@ namespace WealthERP.OnlineOrderManagement
                         //  tdsubmit.Visible = false;
                         // lnlBack.Visible = true;
 
+                    }
+                    else if (int.Parse(ViewState["nomineeQty"].ToString()) > Quantity &&  Request.QueryString["BondType"] == "FISSGB")
+                    {
+                        ShowMessage("Nominee Qty. can not be greater than order qty.");
                     }
                     else if (Quantity < minQty)
                     {
@@ -664,7 +678,15 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void gvCommMgmt_ItemDataBound(object sender, GridItemEventArgs e)
         {
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataItem = e.Item as GridDataItem;
+                if (lblNomineeTwo.Text != "" && Request.QueryString["BondType"] == "FISSGB")
+                    gvCommMgmt.MasterTableView.GetColumn("NomineeQuantity").Visible = true;
+                else
+                    gvCommMgmt.MasterTableView.GetColumn("NomineeQuantity").Visible = false;
 
+            }
         }
         protected void Viewdetails(int IssuerId)
         {

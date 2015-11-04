@@ -97,21 +97,7 @@
         </table>
     </div>
 </div>
-<table width="100%" style="margin-top: 10px;">
-    <tr>
-        <td>
-            <div class="divPageHeading">
-                <table width="100%">
-                    <tr>
-                        <td align="left">
-                            Order Book
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </td>
-    </tr>
-</table>
+
 <div id="divConditional" runat="server" class="row" style="margin-left: 5%; margin-bottom: 2%;
     margin-right: 5%; padding-top: 1%; padding-bottom: 1%; height: 20%">
     <div class="col-md-12 col-xs-12 col-sm-12">
