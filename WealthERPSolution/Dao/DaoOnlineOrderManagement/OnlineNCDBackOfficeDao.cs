@@ -4031,8 +4031,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@WIFT_Id", DbType.Int32, fileTypeId);
                 db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@IssueId", DbType.Int32, issueId);
                 db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@ExtSource", DbType.String, extSource);
-               
-                db.AddOutParameter(GetOnlineNCDExtractPreviewcmd, "@XMLText", DbType.String, 1000);
+
+                db.AddOutParameter(GetOnlineNCDExtractPreviewcmd, "@XMLText", DbType.String, 2147483647);
                 GetOnlineNCDExtractPreviewcmd.CommandTimeout = 60 * 60;
                 if (db.ExecuteNonQuery(GetOnlineNCDExtractPreviewcmd) != 0)
                 {

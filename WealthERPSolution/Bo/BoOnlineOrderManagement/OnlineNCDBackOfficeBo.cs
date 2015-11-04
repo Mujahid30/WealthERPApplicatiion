@@ -1345,15 +1345,15 @@ namespace BoOnlineOrderManagement
 
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
 
-            if (fileTypeId == 32)
+            if (fileTypeId == 32 || fileTypeId == 52)
             {
-                filename = "NCD PAYFILE FOR" + ' ' + strIssue + ' ' + "BOND" + "_" + DD + '.' + MM;
+                filename = fileTypeId == 32 ? "NCD PAYFILE FOR" : "SGB PAYFILE FOR" + ' ' + strIssue + ' ' + "BOND" + "_" + DD + '.' + MM;
                 delimeter = "\t";
                 format = ".txt";
             }
-            else if (fileTypeId == 33)
+            else if (fileTypeId == 33 || fileTypeId == 53)
             {
-                filename = "eNCD" + DD + MM + YYYY + '-' + strIssue;
+                filename = fileTypeId == 33 ? "eNCD" : "eSGB" + DD + MM + YYYY + '-' + strIssue;
                 delimeter = "|";
                 format = ".txt";
             }
@@ -1369,9 +1369,9 @@ namespace BoOnlineOrderManagement
                 delimeter = "|";
                 format = ".txt";
             }
-            else if (fileTypeId == 36)
+            else if (fileTypeId == 36 || fileTypeId == 54)
             {
-                filename = "eNCD" + DD + MM + YYYY + '-' + strIssue + '-' + "EOD";
+                filename = fileTypeId == 36 ? "eNCD" : "eSGB" + DD + MM + YYYY + '-' + strIssue + '-' + "EOD";
                 delimeter = "|";
                 format = ".txt";
             }
