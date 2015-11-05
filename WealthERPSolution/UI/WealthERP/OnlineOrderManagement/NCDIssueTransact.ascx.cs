@@ -284,6 +284,12 @@ namespace WealthERP.OnlineOrderManagement
             int issuedetId = 0;
             double AIM_FaceValue = 0.0;
             int nomineeqty = 0;
+            TextBox txtQuantitys = (TextBox)sender;
+            //GridDataItem dr=(GridDataItem)txtQuantitys.NamingContainer;
+            //RadGrid gvIssueList = (RadGrid)dr.FindControl("gvIssueList");
+            int minQty = int.Parse(gvIssueList.MasterTableView.DataKeyValues[0]["AIM_MInQty"].ToString());
+            int maxQty = int.Parse(gvIssueList.MasterTableView.DataKeyValues[0]["AIM_MaxQty"].ToString());
+
             TextBox txtQuantity = (TextBox)gvCommMgmt.MasterTableView.Items[rowindex]["Quantity"].FindControl("txtQuantity");
             if (!string.IsNullOrEmpty(txtQuantity.Text))
             {
@@ -343,7 +349,7 @@ namespace WealthERP.OnlineOrderManagement
                                     lb1AvailbleCat.Text = " You have applied this issue under category : " + catName + "-" + Description;
                                     ShowMessage(lb1AvailbleCat.Text);
                                 }
-
+                              
                                 //if (catName == string.Empty)
                                 //    ShowMessage("Bid category Not Available");
                                 //txtTotAmt_ValueChanged(null, new EventArgs());
@@ -355,6 +361,13 @@ namespace WealthERP.OnlineOrderManagement
                         else
                         {
                             break;
+                        }
+                    }
+                    if (Request.QueryString["BondType"] == "FISSGB")
+                    {
+                        if (int.Parse(ViewState["Qty"].ToString()) < minQty || int.Parse(ViewState["Qty"].ToString()) > maxQty)
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Order cannot be processed.Please enter quantity greater than or equal to min quantity required')", true);
                         }
                     }
                 }
@@ -521,7 +534,10 @@ namespace WealthERP.OnlineOrderManagement
                             dt.Rows[tableRow]["Qty"] = OnlineBondVo.Qty;
                             dt.Rows[tableRow]["Amount"] = OnlineBondVo.Amount;
                             dt.Rows[tableRow]["userid"] = userVo.UserId;
+                            if (lblNomineeTwo.Text != "" && Request.QueryString["BondType"] == "FISSGB")
                             dt.Rows[tableRow]["NomineeQuantity"] = NomineeQuantity.Text;
+                            else
+                                dt.Rows[tableRow]["NomineeQuantity"] =0;
                             GridFooterItem footerItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
                             Label lblSum = (Label)footerItemAmount.FindControl("lblAmount");
 

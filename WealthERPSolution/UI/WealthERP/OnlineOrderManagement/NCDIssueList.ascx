@@ -327,6 +327,7 @@
                                             AllowFiltering="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
+                                        
                                         <telerik:GridDateTimeColumn DataField="Timing" DataFormatString="{0:hh:mm tt}" HeaderStyle-Width="110px"
                                             CurrentFilterFunction="EqualTo" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                             HeaderText="Timing" UniqueName="Timing" SortExpression="Timing" AllowFiltering="false">
@@ -340,12 +341,22 @@
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="CatCollection" HeaderStyle-Width="140px" HeaderText="Min-Max Qty(Category Wise)"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                            UniqueName="CatCollection">
+                                            UniqueName="CatCollection" Visible="false">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                        </telerik:GridBoundColumn>
+                                          <telerik:GridBoundColumn DataField="SGBMINQty" HeaderStyle-Width="140px" HeaderText="Min-Max gm"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            UniqueName="SGBMINQty" Visible="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="MinMaxCatCollection" HeaderStyle-Width="140px"
                                             HeaderText="Min-Max Qty(Across All Series)" CurrentFilterFunction="Contains"
-                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="MinMaxCatCollection">
+                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="MinMaxCatCollection" Visible="false">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                        </telerik:GridBoundColumn>
+                                         <telerik:GridBoundColumn DataField="SGBMAXQty" HeaderStyle-Width="140px"
+                                            HeaderText="Min-Max gm(Across All Series)" CurrentFilterFunction="Contains"
+                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="SGBMAXQty" Visible="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <%--   <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="110px"
@@ -375,7 +386,7 @@
                                                             <telerik:RadGrid ID="gvChildDetails" runat="server" AutoGenerateColumns="False" enableloadondemand="True"
                                                                 PageSize="10" AllowPaging="false" EnableEmbeddedSkins="False" GridLines="None"
                                                                 ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" Skin="Telerik"
-                                                                AllowFilteringByColumn="false" OnNeedDataSource="gvChildDetails_OnNeedDataSource">
+                                                                AllowFilteringByColumn="false" OnNeedDataSource="gvChildDetails_OnNeedDataSource" OnItemDataBound="gvChildDetails_ItemDataBound">
                                                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId"
                                                                     AutoGenerateColumns="false" Width="100%">
                                                                     <Columns>
@@ -418,9 +429,14 @@
                                                                             HeaderText="Series" UniqueName="AID_IssueDetailId" SortExpression="AID_IssueDetailId">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
-                                                                        <telerik:GridBoundColumn DataField="AID_SeriesFaceValue" HeaderStyle-Width="80px"
+                                                                        <telerik:GridBoundColumn DataField="SGBFaceValue" HeaderStyle-Width="80px"
+                                                                            HeaderText="Gold Rate" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                                                            AutoPostBackOnFilter="true" UniqueName="SGBFaceValue"  DataFormatString="{0:N0}" Visible="false">
+                                                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                                        </telerik:GridBoundColumn>
+                                                                         <telerik:GridBoundColumn DataField="AID_SeriesFaceValue" HeaderStyle-Width="80px"
                                                                             HeaderText="Face Value" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                                                            AutoPostBackOnFilter="true" UniqueName="AID_SeriesFaceValue" Visible="true" DataFormatString="{0:N0}">
+                                                                            AutoPostBackOnFilter="true" UniqueName="AID_SeriesFaceValue"  DataFormatString="{0:N0}" Visible="false">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="AID_Tenure" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
@@ -460,7 +476,12 @@
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="CouponRateCollection" HeaderStyle-Width="90px" CurrentFilterFunction="Contains"
                                                                             ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Coupon Rate(%)"
-                                                                            UniqueName="CouponRateCollection" SortExpression="CouponRateCollection">
+                                                                            UniqueName="CouponRateCollection" SortExpression="CouponRateCollection" Visible="false">
+                                                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                                        </telerik:GridBoundColumn>
+                                                                         <telerik:GridBoundColumn DataField="Interest" HeaderStyle-Width="90px" CurrentFilterFunction="Contains"
+                                                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Interest"
+                                                                            UniqueName="Interest" SortExpression="Interest" Visible="false">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
                                                                         <%--  <telerik:GridBoundColumn  Visible ="false" DataField="AID_RenewCouponRate" HeaderStyle-Width="100px"

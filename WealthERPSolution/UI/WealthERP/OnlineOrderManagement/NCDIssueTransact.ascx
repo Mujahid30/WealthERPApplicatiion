@@ -256,7 +256,7 @@
                                 PageSize="10" AllowPaging="false" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="false" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
                                 Skin="Telerik" AllowFilteringByColumn="false" OnItemDataBound="gvIssueList_ItemDataBound">
-                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIM_IssueName,IssueTimeType"
+                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIM_IssueName,IssueTimeType,AIM_MInQty,AIM_MaxQty"
                                     AutoGenerateColumns="false" Width="100%">
                                     <Columns>
                                         <%--  <telerik:GridTemplateColumn>
@@ -306,7 +306,7 @@
                                             UniqueName="CatCollection" Visible="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
-                                         <telerik:GridBoundColumn DataField="SGBMINQty" HeaderStyle-Width="140px" HeaderText="Min-Max Grm"
+                                         <telerik:GridBoundColumn DataField="SGBMINQty" HeaderStyle-Width="140px" HeaderText="Min-Max gm"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                             UniqueName="SGBMINQty" Visible="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
@@ -317,7 +317,7 @@
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="SGBMAXQty" HeaderStyle-Width="140px"
-                                            HeaderText="Min-Max Grm(Across All Series)" CurrentFilterFunction="Contains"
+                                            HeaderText="Min-Max gm(Across All Series)" CurrentFilterFunction="Contains"
                                             ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="SGBMAXQty" Visible="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>

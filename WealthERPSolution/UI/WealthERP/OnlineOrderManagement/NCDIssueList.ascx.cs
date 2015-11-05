@@ -201,6 +201,19 @@ namespace WealthERP.OnlineOrderManagement
 
                 ImageButton editButton = (ImageButton)e.Item.FindControl("imgBuy");
                 LinkButton llPurchase = (LinkButton)e.Item.FindControl("llPurchase");
+                if (Request.QueryString["BondType"] == "FISSGB")
+                {
+
+                    gvCommMgmt.MasterTableView.GetColumn("SGBMINQty").Visible = true;
+                    gvCommMgmt.MasterTableView.GetColumn("SGBMAXQty").Visible = true;
+
+
+                }
+                else
+                {
+                    gvCommMgmt.MasterTableView.GetColumn("CatCollection").Visible = true;
+                    gvCommMgmt.MasterTableView.GetColumn("MinMaxCatCollection").Visible = true;
+                }
 
                 //llPurchase
                 if (ddlType.SelectedValue == "Curent")
@@ -238,7 +251,29 @@ namespace WealthERP.OnlineOrderManagement
 
 
         }
+        protected void gvChildDetails_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataItem = e.Item as GridDataItem;
+                RadGrid gvChildDetails = (RadGrid)dataItem.FindControl("gvChildDetails");
+                //if (Request.QueryString["BondType"] == "FISSGB")
+                //{
 
+                //    gvChildDetails.MasterTableView.GetColumn("Interest").Visible = true;
+                //    gvChildDetails.MasterTableView.GetColumn("SGBFaceValue").Visible = true;
+                //    gvChildDetails.MasterTableView.GetColumn("YieldatMatCollection").Visible = false;
+
+
+                //}
+                //else
+                //{
+                //    gvChildDetails.MasterTableView.GetColumn("CouponRateCollection").Visible = true;
+                //    gvChildDetails.MasterTableView.GetColumn("AID_SeriesFaceValue").Visible = true;
+                //}
+
+            }
+        }
         protected void btnExpandAll_Click(object sender, EventArgs e)
         {
             DataTable dtIssueDetail;
@@ -265,13 +300,23 @@ namespace WealthERP.OnlineOrderManagement
             dtIssueDetail = ds.Tables[0];
             gvchildIssue.DataSource = dtIssueDetail;
             gvchildIssue.DataBind();
+            if (Request.QueryString["BondType"] == "FISSGB")
+            {
+
+                gvchildIssue.MasterTableView.GetColumn("Interest").Visible = true;
+                gvchildIssue.MasterTableView.GetColumn("SGBFaceValue").Visible = true;
+                gvchildIssue.MasterTableView.GetColumn("YieldatMatCollection").Visible = false;
+
+
+            }
+            else
+            {
+                gvchildIssue.MasterTableView.GetColumn("CouponRateCollection").Visible = true;
+                gvchildIssue.MasterTableView.GetColumn("AID_SeriesFaceValue").Visible = true;
+            }
+
         }
-        protected void gvChildDetails_ItemDataBound(object sender, GridItemEventArgs e)
-        {
-
-
-
-        }
+      
         protected void gvCommMgmt_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dtUpload = (DataTable)Cache["NCDIssueList" + userVo.UserId.ToString()];
