@@ -2153,13 +2153,13 @@ namespace BoOnlineOrderManagement
             dtGetSchemeLookupType = daoOnlineOrderBackOffice.GetSchemeLookupType(dividentType);
             return dtGetSchemeLookupType;
         }
-        public DataTable GetRTAInitialReport(string type, DateTime fromDate, DateTime toDate)
+        public DataTable GetRTAInitialReport(string type, DateTime fromDate, DateTime toDate, Boolean ReportType, int amcCode)
         {
             DataTable dt;
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                dt = OnlineOrderBackOfficeDao.GetRTAInitialReport(type, fromDate, toDate);
+                dt = OnlineOrderBackOfficeDao.GetRTAInitialReport(type, fromDate, toDate, ReportType,amcCode);
             }
             catch (BaseApplicationException Ex)
             {

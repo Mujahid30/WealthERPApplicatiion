@@ -28,9 +28,34 @@
 <table>
     <tr>
         <td align="right">
-            <asp:Label ID="lblType" CssClass="FieldName" runat="server" Text="Type:"></asp:Label>
+            <asp:Label ID="Label1" CssClass="FieldName" runat="server" Text="Order Type:"></asp:Label>
         </td>
         <td>
+            <asp:DropDownList ID="ddlOrderType" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlOrderType_OnSelectedIndexChanged">
+                <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
+                <asp:ListItem Text="Client Intial Orders" Value="False" />
+                <asp:ListItem Text="FATCA" Value="True" />
+            </asp:DropDownList>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="rfvPCG"
+                ErrorMessage="Please select a Type" ControlToValidate="ddlOrderType" Display="Dynamic"
+                InitialValue="0" ValidationGroup="Issueallotment">
+            </asp:RequiredFieldValidator>
+        </td>
+         <td align="right" id="tdlblAMC" runat="server"  visible="false">
+            <asp:Label ID="lblAMC" CssClass="FieldName" runat="server" Text="AMC:"></asp:Label>
+        </td>
+        <td runat="server" visible="false" id="tdddlAMC">
+            <asp:DropDownList ID="ddlAMC" runat="server" CssClass="cmbField">
+            </asp:DropDownList>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" CssClass="rfvPCG"
+                ErrorMessage="Please select a Type" ControlToValidate="ddlAMC" Display="Dynamic"
+                InitialValue="0" ValidationGroup="Issueallotment">
+            </asp:RequiredFieldValidator>
+        </td>
+        <td align="right" id="tdlblType" runat="server" visible="false">
+            <asp:Label ID="lblType" CssClass="FieldName" runat="server" Text="Type:"></asp:Label>
+        </td>
+        <td id="tdddlType" runat="server" visible="false"> 
             <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField">
                 <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                 <asp:ListItem Text="AMC Wise" Value="AMC" />
@@ -54,7 +79,7 @@
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
-           <%-- <span id="Span7" class="spnRequiredField">*</span>
+            <%-- <span id="Span7" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="appRecidRequiredFieldValidator" ControlToValidate="txtNFOStartDate"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select NFO Date" Display="Dynamic"
                 runat="server" InitialValue="" ValidationGroup="btnsubmit"></asp:RequiredFieldValidator>--%>
@@ -236,6 +261,61 @@
                                 SortExpression="C_CustomerId" FilterControlWidth="80px" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>--%>
+                        </Columns>
+                    </MasterTableView>
+                    <ClientSettings>
+                        <Resizing AllowColumnResize="true" />
+                        <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                    </ClientSettings>
+                </telerik:RadGrid>
+            </td>
+        </tr>
+    </table>
+</asp:Panel>
+<asp:Panel ID="pnlFATCA" runat="server" ScrollBars="Horizontal" Width="100%"
+    Visible="false">
+    <table width="100%" cellspacing="0" cellpadding="1">
+        <tr>
+            <td>
+                <telerik:RadGrid ID="rgFATCA" runat="server" fAllowAutomaticDeletes="false"
+                    EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
+                    ShowStatusBar="false" ShowFooter="false" AllowPaging="true" AllowSorting="true"
+                    GridLines="none" AllowAutomaticInserts="false" Skin="Telerik" EnableHeaderContextMenu="true"
+                    OnNeedDataSource="rgFATCA_OnNeedDataSource">
+                    <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
+                        FileName="FATCA" Excel-Format="ExcelML">
+                    </ExportSettings>
+                    <MasterTableView DataKeyNames="" Width="99%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+                        PageSize="20">
+                        <Columns>
+                            <telerik:GridBoundColumn DataField="PA_AMCName" UniqueName="PA_AMCName"
+                                HeaderText="AMC" ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                HeaderStyle-Width="90px" SortExpression="PA_AMCName" FilterControlWidth="70px"
+                                CurrentFilterFunction="Contains">
+                                <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="AMFE_InvestorFirstName" UniqueName="AMFE_InvestorFirstName" HeaderText="Customer Name"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="90px"
+                                SortExpression="AMFE_InvestorFirstName" FilterControlWidth="70px" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="AMFE_PanNo" UniqueName="AMFE_PanNo"
+                                HeaderText="PAN" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                AllowFiltering="true" HeaderStyle-Width="90px" SortExpression="AMFE_PanNo"
+                                FilterControlWidth="70px" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="LOG_NAME" UniqueName="LOG_NAME" HeaderText="LOG_NAME"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="90px"
+                                SortExpression="LOG_NAME" FilterControlWidth="70px" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="CO_OrderId" UniqueName="CO_OrderId" HeaderText="Order No"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="100px"
+                                SortExpression="CO_OrderId" FilterControlWidth="80px" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                            </telerik:GridBoundColumn>
+                            
                         </Columns>
                     </MasterTableView>
                     <ClientSettings>

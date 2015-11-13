@@ -2539,7 +2539,7 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetSchemeLookupType;
         }
-        public DataTable GetRTAInitialReport(string type, DateTime fromDate, DateTime toDate)
+        public DataTable GetRTAInitialReport(string type, DateTime fromDate, DateTime toDate, Boolean ReportType,int amcCode)
         {
             Database db;
             DbCommand cmdGetRTAInitialReport;
@@ -2548,10 +2548,12 @@ namespace DaoOnlineOrderManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                cmdGetRTAInitialReport = db.GetStoredProcCommand("SPROC_GetInitialRTAReport");
+                cmdGetRTAInitialReport = db.GetStoredProcCommand("SPROC_ONL_GetIntialOrdersReport");
                 db.AddInParameter(cmdGetRTAInitialReport, "@AMCWise", DbType.String, type);
                 db.AddInParameter(cmdGetRTAInitialReport, "@Fromdate", DbType.DateTime, fromDate);
                 db.AddInParameter(cmdGetRTAInitialReport, "@Todate", DbType.DateTime, toDate);
+                db.AddInParameter(cmdGetRTAInitialReport, "@IsFatca", DbType.Boolean, ReportType);
+                db.AddInParameter(cmdGetRTAInitialReport, "@AMCCode", DbType.Int32, amcCode);
                 cmdGetRTAInitialReport.CommandTimeout = 60 * 60;
                 dsGetRTAInitialReport = db.ExecuteDataSet(cmdGetRTAInitialReport);
                 dtGetRTAInitialReport = dsGetRTAInitialReport.Tables[0];
