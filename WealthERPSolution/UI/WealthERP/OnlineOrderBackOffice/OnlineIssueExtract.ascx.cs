@@ -210,8 +210,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     strIssue = ddlIssueName.SelectedItem.ToString().Substring(0, 4);
                 else
                     strIssue = ddlIssueName.SelectedItem.ToString();
-                string filename = ddlExternalSource.SelectedValue + "BidExtr_" + strIssue + DateTime.Now.ToString("ddMMyy")+".xml";
-                StreamWriter str = new StreamWriter(Server.MapPath(@"~/UploadFiles/" + filename), false, System.Text.Encoding.UTF8);
+                string filename = ddlExternalSource.SelectedValue + "_BidExtr_" + strIssue+"_" + rdpDownloadDate.SelectedDate.Value.ToString("ddMMyy") + ".xml";
+                StreamWriter str = new StreamWriter(Server.MapPath(@"~/UploadFiles/" + filename), false, System.Text.Encoding.ASCII);
                 str.WriteLine(XMLText);
                 str.Flush();
                 str.Close();
@@ -366,6 +366,11 @@ namespace WealthERP.OnlineOrderBackOffice
             //    ShowMessage("Please check all required fields");
             //    return;
             //}
+            btnPreview.Visible = true;
+            if (ddlExternalSource.SelectedValue=="RBI")
+            {
+                btnPreview.Visible = false;
+            }
             SetFileType(ddlExternalSource.SelectedValue);
         }
 
