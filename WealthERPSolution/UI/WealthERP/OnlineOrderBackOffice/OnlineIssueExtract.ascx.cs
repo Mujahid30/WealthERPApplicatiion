@@ -55,7 +55,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 lblMsg.Text = ".xls format, headers required";
             }
-            if (ddlFileType.SelectedValue == "55")
+            if (ddlFileType.SelectedValue == "55" || ddlFileType.SelectedValue == "57")
             {
                 btnPreview.Visible = false;
             }
@@ -366,11 +366,7 @@ namespace WealthERP.OnlineOrderBackOffice
             //    ShowMessage("Please check all required fields");
             //    return;
             //}
-            btnPreview.Visible = true;
-            if (ddlExternalSource.SelectedValue=="RBI")
-            {
-                btnPreview.Visible = false;
-            }
+           
             SetFileType(ddlExternalSource.SelectedValue);
         }
 
