@@ -45,13 +45,16 @@ namespace WealthERP.OnlineOrderManagement
                 BindCategory();
                 BindScheme();
                 BindNewsHeading();
+                SetParametersForAdminGrid("lbTopSchemes");
             }
         }
         protected void ddlAMC_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlAMC.SelectedIndex != 0)
             {
-                //BindScheme();
+                BindScheme();
+                BindCategory();
+
             }
         }
         protected void ddlCategory_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -80,13 +83,14 @@ namespace WealthERP.OnlineOrderManagement
             ddlCategory.DataValueField = dtCategory.Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
             ddlCategory.DataTextField = dtCategory.Columns["PAIC_AssetInstrumentCategoryName"].ToString();
             ddlCategory.DataBind();
-            ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Category", "0"));
+            ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All Catories", "0"));
         }
         protected void BindScheme()
         {
             DataTable dt;
             OnlineMFSchemeDetailsBo OnlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
             dt = OnlineMFSchemeDetailsBo.GetAMCandCategoryWiseScheme(int.Parse(ddlAMC.SelectedValue), ddlCategory.SelectedValue);
+            ddlScheme.Items.Clear();
             if (dt.Rows.Count > 0)
             {
                 ddlScheme.DataSource = dt;
@@ -159,8 +163,17 @@ namespace WealthERP.OnlineOrderManagement
             lbViewWatchList.ForeColor = System.Drawing.ColorTranslator.FromHtml("#0396CC");
             lbNFOList.ForeColor = System.Drawing.ColorTranslator.FromHtml("#0396CC");
             lbTopSchemes.ForeColor = System.Drawing.ColorTranslator.FromHtml("#0396CC");
+          
+            SetParametersForAdminGrid(lk.ID.ToString());
+           
+        }
+
+        private void SetParametersForAdminGrid(string Action)
+        {
+            ViewState["FilterType"] = Action;
+            rblNFOType.Visible = false;
             hfCustomerId.Value = customerVo.CustomerId.ToString();
-            switch (lk.ID.ToString())
+            switch (Action)
             {
                 case "lbViewWatchList": hfAMCCode.Value = "0";
                     hfSchemeCode.Value = "0";
@@ -202,8 +215,6 @@ namespace WealthERP.OnlineOrderManagement
             }
             BindSchemeRelatedDetails(int.Parse(hfAMCCode.Value), int.Parse(hfSchemeCode.Value), hfCategory.Value, int.Parse(hfCustomerId.Value), Int16.Parse(hfIsSchemeDetails.Value), Boolean.Parse(hfNFOType.Value), 1);
         }
-
-
         protected void rpSchemeDetails_OnItemCommand(object sender, RepeaterCommandEventArgs e)
         {
             if (!string.IsNullOrEmpty(e.CommandName))
@@ -417,6 +428,7 @@ namespace WealthERP.OnlineOrderManagement
                 HtmlTableCell tdSchemeRank = (HtmlTableCell)e.Item.FindControl("tdSchemeRank");
                 HtmlTableCell tdSIP = (HtmlTableCell)e.Item.FindControl("tdSIP");
                 HtmlTableCell tdBuy = (HtmlTableCell)e.Item.FindControl("tdBuy");
+              LinkButton  lbSchemeName=(LinkButton)e.Item.FindControl("lbSchemeName");
                 tdNFOStrtDate.Visible = false;
                 tdNFOEndDate.Visible = false;
                 tdNFOAmt.Visible = false;
@@ -453,8 +465,7 @@ namespace WealthERP.OnlineOrderManagement
                     thSchemeRank.Visible = false;
                     thSIP.Visible = false;
                     tdSIP.Visible = false;
-                    if (!Convert.ToBoolean(rblNFOType.SelectedValue))
-                    {
+                    if (!Convert.ToBoolean(rblNFOType.SelectedValue)){
 
                         thBuy.Visible = false;
                         tdBuy.Visible = false;

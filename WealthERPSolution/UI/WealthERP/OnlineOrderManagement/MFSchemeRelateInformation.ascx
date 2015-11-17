@@ -169,7 +169,7 @@
                 <div class="col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 1%">
                     <div class="col-md-5">
                         <asp:DropDownList ID="ddlAMC" runat="server" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged"
-                            AutoPostBack="false">
+                            AutoPostBack="true" >
                         </asp:DropDownList>
                         <asp:RequiredFieldValidator ID="rfvtxtTransactionDate" ControlToValidate="ddlAMC"
                             ErrorMessage="<br />Please select AMC" Style="color: Red;" Display="Dynamic"
@@ -182,10 +182,11 @@
                             <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control input-sm"
                                 AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged">
                             </asp:DropDownList>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="ddlCategory"
+                            
+                         <%--   <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="ddlCategory"
                                 ErrorMessage="<br />Please select category" Style="color: Red;" Display="Dynamic"
                                 runat="server" InitialValue="0" ValidationGroup="btnViewscheme">
-                            </asp:RequiredFieldValidator>
+                            </asp:RequiredFieldValidator>--%>
                             
                         </fieldset>
                     </div>
