@@ -610,7 +610,7 @@ namespace WealthERP.BusinessMIS
         protected void btnGo2_OnClick(object sender, EventArgs e)
         {
 
-            DataTable DtStatus = werpTaskRequestManagementBo.GetBrokerageCalculationStatus(ddlRequestProduct.SelectedValue, ddlRSProductCategory.SelectedValue, int.Parse(ddlRequestAmc.SelectedValue), int.Parse(ddlRSIssueName.SelectedValue), ddlRequestCommissionType.SelectedValue, int.Parse(ddlRequesttMnthQtr.SelectedValue), int.Parse(ddlRequestYear.SelectedValue));
+            DataTable DtStatus = werpTaskRequestManagementBo.GetBrokerageCalculationStatus(ddlRequestProduct.SelectedValue, (ddlRSProductCategory.SelectedValue == "" ? null : ddlRSProductCategory.SelectedValue), int.Parse(ddlRequestAmc.SelectedValue), (ddlRSIssueName.SelectedValue =="" ?0:int.Parse(ddlRSIssueName.SelectedValue)), ddlRequestCommissionType.SelectedValue, int.Parse(ddlRequesttMnthQtr.SelectedValue), int.Parse(ddlRequestYear.SelectedValue));
             gvBrokerageRequestStatus.DataSource = DtStatus;
             gvBrokerageRequestStatus.DataBind();
             gvBrokerageRequestStatus.Visible = true;
