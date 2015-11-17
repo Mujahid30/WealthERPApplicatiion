@@ -115,7 +115,7 @@ namespace WealthERP.BusinessMIS
             {
                 ddlIssueName.Items.Clear();
                 ddlIssueName.DataBind();
-                BindMappedIssues(ddlIssueType.SelectedValue, ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), (ddlProductCategory.SelectedValue == "") ? "FIFIIP" : ddlProductCategory.SelectedValue);
+                BindMappedIssues(ddlIssueType.SelectedValue, ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), (ddlProductCategory.SelectedValue == "") ? "FIFIIP" : ddlProductCategory.SelectedValue, ddlIssueName);
 
             }
         }
@@ -135,21 +135,22 @@ namespace WealthERP.BusinessMIS
             {
                 ddlIssueName.Items.Clear();
                 ddlIssueName.DataBind();
-                BindMappedIssues(ddlIssueType.SelectedValue, ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), (ddlProductCategory.SelectedValue == "") ? "FIFIIP" : ddlProductCategory.SelectedValue);
+                BindMappedIssues(ddlIssueType.SelectedValue, ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), (ddlProductCategory.SelectedValue == "") ? "FIFIIP" : ddlProductCategory.SelectedValue, ddlIssueName);
 
             }
         }
-        private void BindMappedIssues(string ModeOfIssue, string productType, int isOnlineIssue, string SubCategoryCode)
+        private void BindMappedIssues(string ModeOfIssue, string productType, int isOnlineIssue, string SubCategoryCode,DropDownList ddlBindIssue)
         {
             DataSet dsCommissionReceivable = commisionReceivableBo.GetIssuesStructureMapings(advisorVo.advisorId, "MappedIssue", ModeOfIssue, productType, isOnlineIssue, 0, SubCategoryCode);
             if (dsCommissionReceivable.Tables[0].Rows.Count > 0)
             {
-                ddlIssueName.DataSource = dsCommissionReceivable.Tables[0];
-                ddlIssueName.DataTextField = dsCommissionReceivable.Tables[0].Columns["AIM_IssueName"].ToString();
-                ddlIssueName.DataValueField = dsCommissionReceivable.Tables[0].Columns["AIM_IssueId"].ToString();
-                ddlIssueName.DataBind();
-                ddlIssueName.Items.Insert(0, new ListItem("All", "0"));
+                ddlBindIssue.DataSource = dsCommissionReceivable.Tables[0];
+                ddlBindIssue.DataTextField = dsCommissionReceivable.Tables[0].Columns["AIM_IssueName"].ToString();
+                ddlBindIssue.DataValueField = dsCommissionReceivable.Tables[0].Columns["AIM_IssueId"].ToString();
+                ddlBindIssue.DataBind();
+               
             }
+            ddlBindIssue.Items.Insert(0, new ListItem("Select", "0"));
 
         }
 
@@ -227,7 +228,7 @@ namespace WealthERP.BusinessMIS
             }
             if (asset == "FI")
             {
-                BindBondCategories();
+                BindBondCategories(ddlProductCategory);
                 tdCategory.Visible = true;
                 tdDdlCategory.Visible = true;
             }
@@ -250,6 +251,10 @@ namespace WealthERP.BusinessMIS
 
             }
         }
+        protected void ddlRSProductCategory_OnSelectedIndexChanged(object Sender, EventArgs e)
+        {
+           
+        }
         protected void ddlProductCategory_OnSelectedIndexChanged(object Sender, EventArgs e)
         {
             if (ddlProductCategory.SelectedValue != "Select")
@@ -263,7 +268,7 @@ namespace WealthERP.BusinessMIS
                     td1.Visible = true;
                     td2.Visible = true;
                 }
-                BindMappedIssues(ddlIssueType.SelectedValue, ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), (ddlProductCategory.SelectedValue == "") ? "FIFIIP" : ddlProductCategory.SelectedValue);
+                BindMappedIssues(ddlIssueType.SelectedValue, ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), (ddlProductCategory.SelectedValue == "") ? "FIFIIP" : ddlProductCategory.SelectedValue,ddlIssueName);
             }
         }
         private void LoadAllSchemeList(int amcCode)
@@ -432,55 +437,55 @@ namespace WealthERP.BusinessMIS
         }
         protected void ddlType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlType.SelectedValue == "RI")
-            {
-                tdlblRequestId.Visible = true;
-                tdtxtRequestId.Visible = true;
+            //if (ddlType.SelectedValue == "RI")
+            //{
+            //    tdlblRequestId.Visible = true;
+            //    tdtxtRequestId.Visible = true;
 
 
-                tdlbFromdate.Visible = false;
-                tdtxtReqFromDate.Visible = false;
-                tdlblToDate.Visible = false;
-                tdtxtReqToDate.Visible = false;
-                tdbtnGo2.Visible = true;
+            //    tdlbFromdate.Visible = false;
+            //    tdtxtReqFromDate.Visible = false;
+            //    tdlblToDate.Visible = false;
+            //    tdtxtReqToDate.Visible = false;
+            //    tdbtnGo2.Visible = true;
 
-                rfvFromDate.Visible = false;
-                rfvToDate.Visible = false;
-                txtReqFromDate.SelectedDate = null;
-                txtReqToDate.SelectedDate = null;
-                gvBrokerageRequestStatus.Visible = false;
-            }
-            else if (ddlType.SelectedValue == "RT")
-            {
+            //    rfvFromDate.Visible = false;
+            //    rfvToDate.Visible = false;
+            //    txtReqFromDate.SelectedDate = null;
+            //    txtReqToDate.SelectedDate = null;
+            //    gvBrokerageRequestStatus.Visible = false;
+            //}
+            //else if (ddlType.SelectedValue == "RT")
+            //{
 
-                tdlblRequestId.Visible = false;
-                tdtxtRequestId.Visible = false;
-                tdlbFromdate.Visible = false;
-                tdtxtReqFromDate.Visible = false;
-                tdlblToDate.Visible = false;
-                tdtxtReqToDate.Visible = false;
-                tdbtnGo2.Visible = true;
-                rfvRequestId.Visible = false;
-                rfvFromDate.Visible = false;
-                rfvToDate.Visible = false;
-                txtRequestId.Text = "";
-                txtReqFromDate.SelectedDate = null;
-                txtReqToDate.SelectedDate = null;
-                gvBrokerageRequestStatus.Visible = false;
-            }
-            else if (ddlType.SelectedValue == "RD")
-            {
-                tdlbFromdate.Visible = true;
-                tdtxtReqFromDate.Visible = true;
-                tdlblToDate.Visible = true;
-                tdtxtReqToDate.Visible = true;
-                tdlblRequestId.Visible = false;
-                tdtxtRequestId.Visible = false;
-                tdbtnGo2.Visible = true;
-                rfvRequestId.Visible = false;
-                txtRequestId.Text = "";
-                gvBrokerageRequestStatus.Visible = false;
-            }
+            //    tdlblRequestId.Visible = false;
+            //    tdtxtRequestId.Visible = false;
+            //    tdlbFromdate.Visible = false;
+            //    tdtxtReqFromDate.Visible = false;
+            //    tdlblToDate.Visible = false;
+            //    tdtxtReqToDate.Visible = false;
+            //    tdbtnGo2.Visible = true;
+            //    rfvRequestId.Visible = false;
+            //    rfvFromDate.Visible = false;
+            //    rfvToDate.Visible = false;
+            //    txtRequestId.Text = "";
+            //    txtReqFromDate.SelectedDate = null;
+            //    txtReqToDate.SelectedDate = null;
+            //    gvBrokerageRequestStatus.Visible = false;
+            //}
+            //else if (ddlType.SelectedValue == "RD")
+            //{
+            //    tdlbFromdate.Visible = true;
+            //    tdtxtReqFromDate.Visible = true;
+            //    tdlblToDate.Visible = true;
+            //    tdtxtReqToDate.Visible = true;
+            //    tdlblRequestId.Visible = false;
+            //    tdtxtRequestId.Visible = false;
+            //    tdbtnGo2.Visible = true;
+            //    rfvRequestId.Visible = false;
+            //    txtRequestId.Text = "";
+            //    gvBrokerageRequestStatus.Visible = false;
+            //}
         }
         protected void GdBind_Click(Object sender, EventArgs e)
         {
@@ -588,18 +593,24 @@ namespace WealthERP.BusinessMIS
                 if (btnSender.CommandName == "Reprocess")
                 {
 
-                    werpTaskRequestManagementBo.UpdateBrokereageCalculationRequest(sRequestIds, userVo.UserId, 'U');
+                    if (werpTaskRequestManagementBo.UpdateBrokereageCalculationRequest(sRequestIds, userVo.UserId, 'U'))
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('ReProcess Sucessfully Done!');", true);
+                    }
                 }
                 else if (btnSender.CommandName == "Delete")
                 {
-                    werpTaskRequestManagementBo.UpdateBrokereageCalculationRequest(sRequestIds, userVo.UserId, 'D');
+                    if (werpTaskRequestManagementBo.UpdateBrokereageCalculationRequest(sRequestIds, userVo.UserId, 'D'))
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Delete Sucessfully Done!');", true);
+                    }
                 }
             }
         }
         protected void btnGo2_OnClick(object sender, EventArgs e)
         {
 
-            DataTable DtStatus = werpTaskRequestManagementBo.GetBrokerageCalculationStatus(ddlRequestProduct.SelectedValue, null, int.Parse(ddlRequestAmc.SelectedValue), 0, ddlRequestCommissionType.SelectedValue, int.Parse(ddlRequesttMnthQtr.SelectedValue), int.Parse(ddlRequestYear.SelectedValue));
+            DataTable DtStatus = werpTaskRequestManagementBo.GetBrokerageCalculationStatus(ddlRequestProduct.SelectedValue, ddlRSProductCategory.SelectedValue, int.Parse(ddlRequestAmc.SelectedValue), int.Parse(ddlRSIssueName.SelectedValue), ddlRequestCommissionType.SelectedValue, int.Parse(ddlRequesttMnthQtr.SelectedValue), int.Parse(ddlRequestYear.SelectedValue));
             gvBrokerageRequestStatus.DataSource = DtStatus;
             gvBrokerageRequestStatus.DataBind();
             gvBrokerageRequestStatus.Visible = true;
@@ -678,6 +689,30 @@ namespace WealthERP.BusinessMIS
             gvBrokerageRequestStatus.DataSource = dt;
             gvBrokerageRequestStatus.Visible = true;
 
+        }
+        protected void ddlRequestProduct_SelectedIndexChanged(object source, EventArgs e)
+        {
+            tdNonMF.Visible = false;
+            tdddlRequestAmc.Visible = false;
+            tdlblRequestAmc.Visible = false;
+            tdddlRSCategory.Visible = false;
+            tdRSCategory.Visible = false;
+            if (ddlRequestProduct.SelectedValue == "FI")
+            {
+                tdNonMF.Visible = true;
+                tdddlRSCategory.Visible = true;
+                tdRSCategory.Visible = true;
+                BindBondCategories(ddlRSProductCategory);
+            }
+            else if (ddlRequestProduct.SelectedValue =="IP")
+            {
+                tdNonMF.Visible = true;
+            }
+            else
+            {
+                tdddlRequestAmc.Visible = true;
+                tdlblRequestAmc.Visible = true;
+            }
         }
         protected void ddlProduct_SelectedIndexChanged(object source, EventArgs e)
         {
@@ -787,17 +822,17 @@ namespace WealthERP.BusinessMIS
             ddlSearchType.Items.Insert(0, new ListItem("Select", "Select"));
             ddlSearchType.Items.Insert(1, new ListItem("Brokerage", "0"));
         }
-        private void BindBondCategories()
+        private void BindBondCategories(DropDownList ddlProdCat)
         {
             OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
             DataTable dtCategory = new DataTable();
             dtCategory = onlineNCDBackOfficeBo.BindNcdCategory("SubInstrumentCat", "").Tables[0];
             if (dtCategory.Rows.Count > 0)
             {
-                ddlProductCategory.DataSource = dtCategory;
-                ddlProductCategory.DataValueField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
-                ddlProductCategory.DataTextField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
-                ddlProductCategory.DataBind();
+                ddlProdCat.DataSource = dtCategory;
+                ddlProdCat.DataValueField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                ddlProdCat.DataTextField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                ddlProdCat.DataBind();
             }
             ddlProductCategory.Items.Insert(0, new ListItem("Select", "Select"));
 
@@ -852,7 +887,15 @@ namespace WealthERP.BusinessMIS
             }
 
         }
-
+        protected void ddRSlIssueType_OnSelectedIndexChanged(object Sender, EventArgs e)
+        {
+            if (ddRSlIssueType.SelectedIndex != 0)
+            {
+                ddlRSIssueName.Items.Clear();
+                ddlRSIssueName.DataBind();
+                BindMappedIssues(ddRSlIssueType.SelectedValue, ddlRequestProduct.SelectedValue, 2, (ddlRSProductCategory.SelectedValue == "") ? "FIFIIP" : ddlRSProductCategory.SelectedValue, ddlRSIssueName);
+            }
+        }
         protected void btnUpload_OnClick(object Sender, EventArgs e)
         {
 

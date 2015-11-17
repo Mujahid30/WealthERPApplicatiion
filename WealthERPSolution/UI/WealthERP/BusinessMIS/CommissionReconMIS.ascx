@@ -259,6 +259,7 @@
                                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="Please Select AMC Code" Operator="NotEqual"
                                 ValidationGroup="vgbtnSubmit" ValueToCompare="Select Product Type"></asp:CompareValidator>
                         </td>
+                        
                         <td>
                             <asp:DropDownList ID="ddlIssuer" runat="server" AutoPostBack="true" CssClass="cmbField"
                                 OnSelectedIndexChanged="ddlIssuer_SelectedIndexChanged">
@@ -396,16 +397,16 @@
                         </td>
                         <td>
                             <asp:DropDownList ID="ddlRequestProduct" runat="server" AutoPostBack="true" CssClass="cmbField"
-                                OnSelectedIndexChanged="ddlProduct_SelectedIndexChanged">
+                                OnSelectedIndexChanged="ddlRequestProduct_SelectedIndexChanged">
                             </asp:DropDownList>
                             <asp:CompareValidator ID="CompareValidator8" runat="server" ControlToValidate="ddlRequestProduct"
                                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Product type"
-                                Operator="NotEqual" ValidationGroup="btnGo2   " ValueToCompare="Select"></asp:CompareValidator>
+                                Operator="NotEqual" ValidationGroup="btnGo2" ValueToCompare="Select"></asp:CompareValidator>
                         </td>
-                        <td align="left" class="leftField">
+                        <td align="left" class="leftField" id="tdlblRequestAmc" runat="server" visible="false">
                             <asp:Label ID="lblRequestAmc" runat="server" CssClass="FieldName" Text="Issuer"></asp:Label>
                         </td>
-                        <td>
+                        <td id="tdddlRequestAmc" visible="false" runat="server">
                             <asp:DropDownList ID="ddlRequestAmc" runat="server" AutoPostBack="true" CssClass="cmbField"
                                 OnSelectedIndexChanged="ddlIssuer_SelectedIndexChanged">
                             </asp:DropDownList>
@@ -427,6 +428,43 @@
                             <asp:CompareValidator ID="CompareValidator9" runat="server" ControlToValidate="ddlRequestCommissionType"
                                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Commission type"
                                 Operator="NotEqual" ValidationGroup="btnGo2" ValueToCompare="Select"></asp:CompareValidator>
+                        </td>
+                         <td align="left" class="leftField" width="20%" id="tdRSCategory" runat="server" visible="false">
+                            <asp:Label ID="lblRSCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td align="right" id="tdddlRSCategory" runat="server" visible="false">
+                            <asp:DropDownList ID="ddlRSProductCategory" runat="server" AutoPostBack="true" CssClass="cmbField"
+                                OnSelectedIndexChanged="ddlRSProductCategory_OnSelectedIndexChanged">
+                            </asp:DropDownList>
+                            <asp:CompareValidator ID="CompareValidator11" runat="server" ControlToValidate="ddlRSProductCategory"
+                                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Category type"
+                                Operator="NotEqual" ValidationGroup="btnGo2" ValueToCompare="Select"></asp:CompareValidator>
+                        </td>
+                    </tr>
+                    <tr id="tdNonMF" runat="server" visible="false">
+                        <td align="left" class="leftField">
+                            <asp:Label ID="lblRSIssueType" runat="server" CssClass="FieldName" Text="Issue Type:"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:DropDownList ID="ddRSlIssueType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddRSlIssueType_OnSelectedIndexChanged"
+                                AutoPostBack="true">
+                                <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
+                                <asp:ListItem Text="Closed Issues" Value="2"></asp:ListItem>
+                                <asp:ListItem Text="Current Issues" Value="1"></asp:ListItem>
+                            </asp:DropDownList>
+                            <asp:CompareValidator ID="CompareValidator12" runat="server" ControlToValidate="ddRSlIssueType"
+                                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please Select Issue Type"
+                                Operator="NotEqual" ValidationGroup="btnGo2" ValueToCompare="Select" ></asp:CompareValidator>
+                        </td>
+                        <td align="left" class="leftField">
+                            <asp:Label ID="lblRSIssueName" runat="server" CssClass="FieldName" Text="Issue Name"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:DropDownList ID="ddlRSIssueName" runat="server" CssClass="cmbField">
+                            </asp:DropDownList>
+                             <asp:CompareValidator ID="CompareValidator13" runat="server" ControlToValidate="ddlRSIssueName"
+                                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please Select Issue "
+                                Operator="NotEqual" ValidationGroup="btnGo2" ValueToCompare="0" ></asp:CompareValidator>
                         </td>
                     </tr>
                     <tr>
@@ -450,12 +488,14 @@
                                 CssClass="rfvPCG" ErrorMessage="<br />Please Select Month" Display="Dynamic"
                                 runat="server" InitialValue="0" ValidationGroup="btnGo2"> </asp:RequiredFieldValidator>
                         </td>
+                        
                         <td class="rightField" align="right" style="width: 50px;" id="tdbtnGo2" runat="server"
                             visible="true">
                             <asp:Button ID="btnGo2" runat="server" Text="Go" CssClass="PCGButton" ValidationGroup="btnGo2"
                                 OnClick="btnGo2_OnClick" />
                         </td>
                     </tr>
+                     
                     <%--<tr>
                         <td align="right">
                             <asp:Label ID="Label4" runat="server" Text="Select Type:" CssClass="FieldName"></asp:Label>

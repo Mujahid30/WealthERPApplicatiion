@@ -512,8 +512,10 @@ namespace DaoCommon
                     db.AddInParameter(dbCommand, "@Product", DbType.String, product);
                 if (!string.IsNullOrEmpty(productCategory))
                     db.AddInParameter(dbCommand, "@ProductCategory", DbType.String, productCategory);
-                db.AddInParameter(dbCommand, "@ProductAmc", DbType.Int32, amc);
-                db.AddInParameter(dbCommand, "@IssueId", DbType.Int32, issueId);
+                if(amc!=0)
+                  db.AddInParameter(dbCommand, "@ProductAmc", DbType.Int32, amc);
+                if(issueId!=0)
+                    db.AddInParameter(dbCommand, "@IssueId", DbType.Int32, issueId);
                 if (!string.IsNullOrEmpty(commissionType))
                     db.AddInParameter(dbCommand, "@CommissionType", DbType.String, commissionType);
                 if(month!=0)
