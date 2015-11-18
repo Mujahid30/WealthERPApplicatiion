@@ -313,9 +313,13 @@
                             <telerik:GridBoundColumn DataField="CO_OrderId" UniqueName="CO_OrderId" HeaderText="Order No"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="100px"
                                 SortExpression="CO_OrderId" FilterControlWidth="80px" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="120px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                            </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="CO_OrderDate" UniqueName="CO_OrderDate" HeaderText="Order Date"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="100px"
+                                SortExpression="CO_OrderDate" FilterControlWidth="80px" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
-                            
                         </Columns>
                     </MasterTableView>
                     <ClientSettings>
