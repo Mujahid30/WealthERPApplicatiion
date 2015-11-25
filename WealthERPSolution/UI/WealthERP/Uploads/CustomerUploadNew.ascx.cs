@@ -405,7 +405,7 @@ namespace WealthERP.Uploads
             {
                 productCategory = ddlCommType.SelectedValue;
             }
-            ds = adviserMFMIS.GetWERPCommissionDetails(ddlProduct.SelectedValue, advisorVo.advisorId, Int32.Parse(ddlMnthQtr.SelectedValue), Int32.Parse(ddlYear.SelectedValue), category, IssueId, productCategory, amcCode, schemeCode, Convert.ToInt32(ddlDateFilterType.SelectedValue),Convert.ToInt32(ddlSelectMode.SelectedValue);
+            ds = adviserMFMIS.GetWERPCommissionDetails(ddlProduct.SelectedValue, advisorVo.advisorId, Int32.Parse(ddlMnthQtr.SelectedValue), Int32.Parse(ddlYear.SelectedValue), category, IssueId, productCategory, amcCode, schemeCode, Convert.ToInt32(ddlDateFilterType.SelectedValue),Convert.ToInt32(ddlSelectMode.SelectedValue));
             if (ds.Tables[0] != null)
             {
 
