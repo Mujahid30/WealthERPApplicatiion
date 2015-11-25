@@ -444,7 +444,7 @@ namespace WealthERP.OnlineOrderManagement
                 if (ViewState["cmotcode"] != null)
                 {
                     DataSet theDataSet = onlineMFSchemeDetailsBo.GetAPIData(ConfigurationSettings.AppSettings["SECTOR_DETAILS"] + ViewState["cmotcode"] + "/" + ConfigurationSettings.AppSettings["SECTOR_DETAILS_COUNT"] + "?responsetype=xml");
-                    RepSector.DataSource = theDataSet.Tables[3];
+                     RepSector.DataSource = theDataSet.Tables[3]; 
                     RepSector.DataBind();
                     if (theDataSet.Tables[3].Rows.Count > 0)
                         BindSectorPiaChart(theDataSet.Tables[3]);
