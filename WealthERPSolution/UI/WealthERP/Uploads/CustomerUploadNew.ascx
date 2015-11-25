@@ -22,7 +22,7 @@
     {
         width: 280px;
         background-color: White;
-         z-index: 10;
+        z-index: 10;
     }
     #ctrl_CustomerUploadNew_gvbrokerageRecon_ctl00_ctl22_CalendarExtender2_daysTable
     {
@@ -78,7 +78,7 @@
 <script>
     function toggle_visibility(id1, id2, id3) {
         var e1 = document.getElementById("ctrl_CustomerUploadNew_" + id1);
-        var e2 = document.getElementById("ctrl_CustomerUploadNew_" + id2+"_wrapper");
+        var e2 = document.getElementById("ctrl_CustomerUploadNew_" + id2 + "_wrapper");
         var e3 = document.getElementById("ctrl_CustomerUploadNew_" + id3);
         e2.style.visibility = "hidden";
         e3.style.visibility = "hidden";
@@ -151,9 +151,9 @@
         </td>
     </tr>
 </table>
-<table width="100%" class="TableBackground"  cellspacing="0" cellpadding="2">
+<table width="100%" class="TableBackground" cellspacing="0" cellpadding="2">
     <tr>
-        <td align="left" width="13%" class="leftField" >
+        <td align="left" width="13%" class="leftField">
             <asp:Label ID="lblSelectProduct" runat="server" Text=" Product:" CssClass="FieldName"></asp:Label>
         </td>
         <td width="20%">
@@ -164,7 +164,7 @@
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Product type"
                 Operator="NotEqual" ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
-        <td align="left" class="leftField" width="13%"  id="tdCategory" runat="server" visible="false">
+        <td align="left" class="leftField" width="13%" id="tdCategory" runat="server" visible="false">
             <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
         </td>
         <td align="left" id="tdDdlCategory" width="20%" runat="server" visible="false">
@@ -175,16 +175,17 @@
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Category type"
                 Operator="NotEqual" ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
-          <td align="left" width="13%" class="leftField" >
-           </td>
-           <td width="20%" ></td>
+        <td align="left" width="13%" class="leftField">
+        </td>
+        <td width="20%">
+        </td>
     </tr>
-    <tr id="trSelectProduct"  runat="server">
+    <tr id="trSelectProduct" runat="server">
         <td id="td1" align="left" runat="server" class="leftField" width="13%" visible="true">
-            <asp:Label ID="Label1" runat="server" CssClass="FieldName"  Text="Commission Type:"></asp:Label>
+            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Commission Type:"></asp:Label>
         </td>
         <td id="td2" width="20%" runat="server" visible="true">
-            <asp:DropDownList ID="ddlCommType"  runat="server" CssClass="cmbField" >
+            <asp:DropDownList ID="ddlCommType" runat="server" CssClass="cmbField">
                 <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
                 <asp:ListItem Text="Upfront" Value="UF" Selected="True"></asp:ListItem>
                 <asp:ListItem Text="Trail" Value="TC"></asp:ListItem>
@@ -196,7 +197,7 @@
         </td>
     </tr>
 </table>
-<table width="100%" class="TableBackground"   cellspacing="0" cellpadding="2">
+<table width="100%" class="TableBackground" cellspacing="0" cellpadding="2">
     <tr id="trNCDIPO" runat="server" visible="false">
         <td align="left" width="13%" class="leftField">
             <asp:Label ID="lblIssueType" runat="server" CssClass="FieldName" Text="Issue Type:"></asp:Label>
@@ -221,7 +222,7 @@
         </td>
     </tr>
 </table>
-<table width="100%" class="TableBackground"  cellspacing="0" cellpadding="2">
+<table width="100%" class="TableBackground" cellspacing="0" cellpadding="2">
     <tr id="trSelectMutualFund" runat="server" visible="false">
         <td align="left" width="13%" class="leftField">
             <asp:Label ID="lblSelectMutualFund" runat="server" CssClass="FieldName" Text="Issuer:"></asp:Label>
@@ -287,13 +288,24 @@
                 CssClass="rfvPCG" ErrorMessage="<br />Please Select Month" Display="Dynamic"
                 runat="server" InitialValue="0" ValidationGroup="vgbtnSubmit"> </asp:RequiredFieldValidator>
         </td>
-        <td class="rightField" width="5%" >
+    </tr>
+    <tr>
+        <td class="leftField" width="16%">
+            <asp:Label ID="lblOffline" runat="server" Text="Channel:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlSelectMode" runat="server" CssClass="cmbField">
+                <asp:ListItem Text="Both" Value="2">
+                </asp:ListItem>
+                <asp:ListItem Text="Online-Only" Value="1"></asp:ListItem>
+                <asp:ListItem Text="Offline-Only" Value="0"></asp:ListItem>
+            </asp:DropDownList>
+        </td>
+        <td class="rightField" width="5%">
             <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" OnClick="GdBind_Click"
                 Text="GO" ValidationGroup="vgbtnSubmit" />
         </td>
-      
     </tr>
-   
 </table>
 <table width="100%">
     <tr id="tblMessagee" runat="server" visible="false">
@@ -311,8 +323,8 @@
     <telerik:RadGrid ID="gvbrokerageRecon" Visible="false" runat="server" GridLines="None"
         AutoGenerateColumns="False" PageSize="10" AllowSorting="true" AllowPaging="True"
         OnItemCreated="gvbrokerageRecon_ItemCreated" ShowStatusBar="True" ShowFooter="true"
-        Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" 
-        AllowAutomaticInserts="false" OnNeedDataSource="gvbrokerageRecon_OnNeedDataSource">
+        Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AllowAutomaticInserts="false"
+        OnNeedDataSource="gvbrokerageRecon_OnNeedDataSource">
         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="Brokerage Reconciliation">
         </ExportSettings>
         <MasterTableView Width="1200px" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
@@ -341,7 +353,7 @@
                     HeaderStyle-Width="290px">
                     <ItemStyle Wrap="false" Width="290px" HorizontalAlign="Left" />
                 </telerik:GridBoundColumn>
-                   <telerik:GridBoundColumn AllowFiltering="true" DataField="WCD_BrokerName" AutoPostBackOnFilter="true"
+                <telerik:GridBoundColumn AllowFiltering="true" DataField="WCD_BrokerName" AutoPostBackOnFilter="true"
                     HeaderText="Broker Name" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     UniqueName="WCD_BrokerName" SortExpression="WCD_BrokerName" FooterStyle-HorizontalAlign="Right"
                     HeaderStyle-Width="200px">
@@ -359,7 +371,6 @@
                     HeaderStyle-Width="200px">
                     <ItemStyle Wrap="false" Width="200px" HorizontalAlign="Left" />
                 </telerik:GridBoundColumn>
-                
                 <telerik:GridBoundColumn AllowFiltering="true" DataField="AAC_AgentCode" AutoPostBackOnFilter="true"
                     HeaderText="Agent Code" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     UniqueName="AAC_AgentCode" SortExpression="AAC_AgentCode" FooterStyle-HorizontalAlign="Right"
@@ -481,26 +492,25 @@
                         </asp:CompareValidator>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
-                
-                  <telerik:GridBoundColumn AllowFiltering="true" DataField="PerDayAsset" AutoPostBackOnFilter="true"
+                <telerik:GridBoundColumn AllowFiltering="true" DataField="PerDayAsset" AutoPostBackOnFilter="true"
                     HeaderText="Per Day Asset" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     UniqueName="PerDayAsset" SortExpression="PerDayAsset" FooterStyle-HorizontalAlign="Right"
                     HeaderStyle-Width="90px">
                     <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                 </telerik:GridBoundColumn>
-                  <telerik:GridBoundColumn AllowFiltering="true" DataField="CumulativeNAV" AutoPostBackOnFilter="true"
+                <telerik:GridBoundColumn AllowFiltering="true" DataField="CumulativeNAV" AutoPostBackOnFilter="true"
                     HeaderText="Cumulative NAV" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     UniqueName="CumulativeNAV" SortExpression="CumulativeNAV" FooterStyle-HorizontalAlign="Right"
                     HeaderStyle-Width="90px">
                     <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                 </telerik:GridBoundColumn>
-                  <telerik:GridBoundColumn AllowFiltering="true" DataField="ClosingNAV" AutoPostBackOnFilter="true"
+                <telerik:GridBoundColumn AllowFiltering="true" DataField="ClosingNAV" AutoPostBackOnFilter="true"
                     HeaderText="Closing NAV" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     UniqueName="ClosingNAV" SortExpression="ClosingNAV" FooterStyle-HorizontalAlign="Right"
                     HeaderStyle-Width="90px">
                     <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                 </telerik:GridBoundColumn>
-                  <telerik:GridBoundColumn AllowFiltering="true" DataField="TotalNAV" AutoPostBackOnFilter="true"
+                <telerik:GridBoundColumn AllowFiltering="true" DataField="TotalNAV" AutoPostBackOnFilter="true"
                     HeaderText="Total NAV" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     UniqueName="TotalNAV" SortExpression="TotalNAV" FooterStyle-HorizontalAlign="Right"
                     HeaderStyle-Width="90px">
@@ -522,7 +532,7 @@
                 CssClass="cmbFielde" runat="server" />
             <br />
             <asp:CheckBox ID="chkBulkReceived" Visible="true" Text="Copy RTA rcvd to Actual received"
-                CssClass="cmbFielde" runat="server"  onclick="toggle_visibility1('chkBulkReceived','chkBulkReceivedSys');" />
+                CssClass="cmbFielde" runat="server" onclick="toggle_visibility1('chkBulkReceived','chkBulkReceivedSys');" />
             <br />
             <asp:CheckBox ID="chkBulkReceivedSys" Visible="true" Text="Copy System Calculated rcvd to Actual received"
                 CssClass="cmbFielde" runat="server" onclick="toggle_visibility1('chkBulkReceivedSys','chkBulkReceived');" />
@@ -536,7 +546,9 @@
                 runat="server" />
         </td>
         <td>
-            <telerik:RadDatePicker ID="rdpBulkReceivedDate" DateInput-EmptyMessage="Please Select a Date" MinDate="01/01/1000" MaxDate="01/01/3000" Label="Received Date" CssClass="calender" runat="server">
+            <telerik:RadDatePicker ID="rdpBulkReceivedDate" DateInput-EmptyMessage="Please Select a Date"
+                MinDate="01/01/1000" MaxDate="01/01/3000" Label="Received Date" CssClass="calender"
+                runat="server">
             </telerik:RadDatePicker>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="rdpBulkReceivedDate"
                 ErrorMessage="<br />Please Select a Date" Display="Dynamic" runat="server" Enabled="false"
@@ -546,7 +558,8 @@
                 Type="Date">
             </asp:CompareValidator>
             <br />
-            <telerik:RadDatePicker ID="rdpBulkPayableDate"  Label="Payable Date" DateInput-EmptyMessage="Please Select a Date" MinDate="01/01/1000" MaxDate="01/01/3000" CssClass="calender" runat="server">
+            <telerik:RadDatePicker ID="rdpBulkPayableDate" Label="Payable Date" DateInput-EmptyMessage="Please Select a Date"
+                MinDate="01/01/1000" MaxDate="01/01/3000" CssClass="calender" runat="server">
             </telerik:RadDatePicker>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="rdpBulkPayableDate"
                 ErrorMessage="<br />Please Select a Date" Display="Dynamic" runat="server" Enabled="false"

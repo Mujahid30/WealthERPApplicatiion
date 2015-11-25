@@ -2824,7 +2824,7 @@ namespace DaoAdvisorProfiling
             return bResult;
         }
 
-        public DataSet GetWERPCommissionDetails(string product, int AdviserId, int month, int year, string category, int issueId, string productCategory, int amcCode, int schemeCode, int dateFilterType)
+        public DataSet GetWERPCommissionDetails(string product, int AdviserId, int month, int year, string category, int issueId, string productCategory, int amcCode, int schemeCode, int dateFilterType, int isOnline)
         {
             Database db;
             DbCommand getCommissionReconMisCmd;
@@ -2850,6 +2850,7 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(getCommissionReconMisCmd, "@Category", DbType.String, DBNull.Value);
 
                 db.AddInParameter(getCommissionReconMisCmd, "@issuer", DbType.Int32, amcCode);
+                db.AddInParameter(getCommissionReconMisCmd, "@IsOnline", DbType.Int32, isOnline);
                 db.AddInParameter(getCommissionReconMisCmd, "@DateFilterType", DbType.Int32, dateFilterType);
                 db.AddInParameter(getCommissionReconMisCmd, "@schemeid", DbType.Int32, schemeCode);
                 db.AddInParameter(getCommissionReconMisCmd, "@issueId", DbType.Int32, issueId);

@@ -1874,7 +1874,7 @@ namespace BoAdvisorProfiling
             return bResult;
         }
 
-        public DataSet GetWERPCommissionDetails(string product,  int AdviserId, int month, int year, string category,  int issueId,  string productCategory,int amcCode,int schemeCode ,int dateFilterType)
+        public DataSet GetWERPCommissionDetails(string product,  int AdviserId, int month, int year, string category,  int issueId,  string productCategory,int amcCode,int schemeCode ,int dateFilterType,int isOnline)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsGetCommissionReconMis = new DataSet();
@@ -1883,7 +1883,7 @@ namespace BoAdvisorProfiling
 
             try
             {
-                dsGetCommissionReconMis = MISDao.GetWERPCommissionDetails(product, AdviserId, month, year, category, issueId, productCategory, amcCode, schemeCode, dateFilterType);
+                dsGetCommissionReconMis = MISDao.GetWERPCommissionDetails(product, AdviserId, month, year, category, issueId, productCategory, amcCode, schemeCode, dateFilterType, isOnline);
 
             }
             catch (Exception Ex)
