@@ -19,6 +19,10 @@
 <script type="text/jscript">
     function SetBannerImageDetails(id) {
         $('.bxslider').html(id);
+        if (id == "") {
+
+            $('#tblSlider').css("display", "none");
+        }
        
     }
     jQuery(document).ready(function($) {
@@ -33,7 +37,7 @@
         
 </script>
 
-<table width="100%" style="padding: 25px;">
+<table  id="tblSlider" width="100%" style="padding: 25px;">
     <tr>
         <td align="center">
             <div style="float: left; width: 98%">
