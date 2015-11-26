@@ -41,7 +41,10 @@ namespace WealthERP
             }
 
             loadcontrol();
-
+            if (!this.ClientScript.IsClientScriptBlockRegistered(this.GetType(), "SetBottomFrameHeight"))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "SetBottomFrameHeight", "calcIFrameHeight('bottomframe');", true);
+            }
         }
 
         protected void loadcontrol()

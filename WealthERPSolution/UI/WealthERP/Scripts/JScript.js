@@ -26,6 +26,25 @@ function RandomGenerator() {
     return randomstring;
 
 }
+function loadcontrolInvestorMainPage(controlid, logintrue) {
+    if (controlid != null)
+        parent.PageMethods.AjaxSetSession("Current_PageID", controlid);
+
+    if (logintrue != "none" && logintrue != "login" && logintrue != "list" && logintrue != null) {
+        if (logintrue.indexOf("?") > -1)
+            logintrue = logintrue.substring(1);
+        var c_src = "OnlineBottomHost.aspx?" + logintrue + "&pageid=";
+    }
+    else {
+        var c_src = "OnlineBottomHost.aspx?pageid=";
+    }
+    var randomnumbers = RandomGenerator();
+    var url = c_src + controlid + "&rnd=" + randomnumbers;
+
+    alert(url);
+
+    parent.document.getElementById("bottomframe").src = url;
+}
 function loadcontrol(controlid, logintrue) {
     if (controlid != null)
         parent.PageMethods.AjaxSetSession("Current_PageID", controlid);
@@ -1005,7 +1024,22 @@ function LoadTopPanelControl(controlid) {
     }
 
 }
+function calc(iframe_id) {
+    try {
+        var leftframe_height = document.getElementById(iframe_id).contentWindow.document.body.scrollHeight;
+        var the_height = leftframe_height;
 
+        if (the_height < 150)
+        {the_height = 150; }
+            var newHeight = the_height;
+            if (document.getElementById(iframe_id).height != newHeight)
+                document.getElementById(iframe_id).height = newHeight;
+
+       
+        
+    }
+    catch (e) { }
+}
 function LoadBottomPanelControl(controlid, logintrue) {
     if (controlid != null)
         parent.PageMethods.AjaxSetBottomPanelSession("Bottom_Panel_PageID", controlid);
@@ -1020,32 +1054,25 @@ function LoadBottomPanelControl(controlid, logintrue) {
     }
     var randomnumbers = RandomGenerator();
     var url = c_src + controlid + "&rnd=" + randomnumbers;
-
-
-
     setTimeout('parent.document.getElementById("bottomframe").src="' + url + '"', 10);
-    parent.document.getElementById("bottomframe").src = url;
+   
 }
+
 
 /* !!!!!!!!!!!!!!!!!!!!!!!!~~~~FIRST PAGE LOAD CONTROLS(INITIAL REQUESTS)~~~~!!!!!!!!!!!!!!!!!!!!!!!!*/
 
 
-function LoadTopPanelDefault(controlid) {
+function LoadTransactPanel(controlid) {
 
-    //    alert(controlid);
+   
     if (controlid != null)
         PageMethods.AjaxSetTopPanelSession("Top_Panel_PageID", controlid);
 
-    //    alert(controlid);
     var c_src = "OnlineTopHost.aspx?pageid=";
     var randomnumbers = RandomGenerator();
     var url = c_src + controlid + "&rnd=" + randomnumbers;
-
-    setTimeout('document.getElementById("topframe").src="' + url + '"', 25);
-    document.getElementById("topframe").src = url;
-
-    //    if (controlid = 'OnlineOrderTopMenu')
-    //        LoadBottomPanelDefault('NCDIssueTransact');
+    setTimeout('parent.document.getElementById("topframe").src="' + url + '"', 25);
+   
 }
 
 function LoadBottomPanelDefault(controlid) {

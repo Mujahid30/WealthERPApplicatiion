@@ -116,17 +116,50 @@ namespace WealthERP
 
                 if (isValidUser)
                 {
-                    SetScroller(productType.ToUpper());
+                    if(productType.ToUpper()=="MF")
+                    {
+                        mainmenuMF.Visible = true;
+                        mainmenuNCD.Visible = false;
+                        mainmenuIPO.Visible = false;
+                        scroller.Visible = true;
+                        SetScroller(productType.ToUpper());
+                    }
+                    else if (productType.ToUpper() == "NCD")
+                    {
+                        mainmenuMF.Visible = false;
+                        mainmenuNCD.Visible = true;
+                        mainmenuIPO.Visible = false;
+                        scroller.Visible = false;
+
+                    }
+                    else if (productType.ToUpper() == "IPO")
+                    {
+                        mainmenuMF.Visible = false;
+                        mainmenuNCD.Visible = false;
+                        mainmenuIPO.Visible = true;
+                        scroller.Visible = false;
+                    }
                     SetDemoLink(productType.ToUpper());
                     SetFAQLink(productType.ToUpper());
                     SetProductTypeMenu(productType.ToUpper());
                     SetDefaultPageSetting(productType.ToUpper());
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcd", "LoadTopPanelDefault('OnlineOrderTopMenu');", true);
+                    Session["PageDefaultSetting"] = defaultProductPageSetting;
+                    if (defaultProductPageSetting.ContainsKey("ProductMenuItemPage"))
+                    {
+
+                        if (defaultProductPageSetting.ContainsValue("NCD"))
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcd", @"LoadBottomPanelControl('" + defaultProductPageSetting["ProductMenuItemPage"].ToString() + "','?BondType=" + "FISDSD" + "');", true);
+                        else
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcd", @"LoadBottomPanelControl('" + defaultProductPageSetting["ProductMenuItemPage"].ToString() + "','login');", true);
+                    }
                 }
                 else
                 {
-                    
 
+                    mainmenuMF.Visible = false;
+                    mainmenuNCD.Visible = false;
+                    mainmenuIPO.Visible = false;
+                    scroller.Visible = false;
                     SetDefaultPageSetting("NA");
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcdnnn", "LoadTopPanelDefault('OnlineOrderDummyTopMenu');", true);
                 }
@@ -141,15 +174,15 @@ namespace WealthERP
             switch (productType)
             {
                 case "MF":
-                    divMFMenu.Visible = true;
+                    //divMFMenu.Visible = true;
                     lblOnlieProductType.Text = "Mutual Fund";
                     break;
                 case "NCD":
-                    divNCDMenu.Visible = true;
-                    lblOnlieProductType.Text = "NCD/SGB Order";
+                    //divNCDMenu.Visible = true;
+                    lblOnlieProductType.Text = "NCD Order";
                     break;
                 case "IPO":
-                    divIPOMenu.Visible = true;
+                    //divIPOMenu.Visible = true;
                     lblOnlieProductType.Text = "IPO/FPO Order";
                     break;
             }
@@ -188,7 +221,18 @@ namespace WealthERP
                     break;
 
             }
-            Session["PageDefaultSetting"] = defaultProductPageSetting;
+            //Session["PageDefaultSetting"] = defaultProductPageSetting;
+            //if (defaultProductPageSetting.ContainsKey("ProductMenuItemPage"))
+            //{
+               
+            //    if (defaultProductPageSetting.ContainsValue("NCD"))
+            //        //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "loadcontrolInvestorMainPage('" + defaultProductPageSetting["ProductMenuItemPage"].ToString() + "','?BondType=" + "FISDSD" + "');", true);
+            //        Page.ClientScript.RegisterStartupScript(this.GetType(), "SetDemo", @"loadcontrolInvestorMainPage('" + defaultProductPageSetting["ProductMenuItemPage"].ToString() + "','?BondType=" + "FISDSD" + "');", true);
+            //    else
+            //        ClientScript.RegisterStartupScript(this.GetType(), "hiya1", "alert('hi!')", true);
+            //        //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "loadcontrolInvestorMainPage('" + defaultProductPageSetting["ProductMenuItemPage"].ToString() + "','login');", true);
+            //        //Page.ClientScript.RegisterStartupScript(this.GetType(), "SetDemo", @"loadcontrolInvestorMainPage('" + defaultProductPageSetting["ProductMenuItemPage"].ToString() + "','login');", true);
+            //}
         }
 
         private bool ValidateUserLogin(string userAccountId, string isWerp)
@@ -487,9 +531,7 @@ namespace WealthERP
                     }
 
             }
-            Session["PageDefaultSetting"] = defaultProductPageSetting;
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcd", "LoadTopPanelDefault('OnlineOrderTopMenu');", true);
-
+            
         }
 
         [System.Web.Services.WebMethod(EnableSession = true)]

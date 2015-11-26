@@ -10,12 +10,28 @@
 
 <head runat="server">
     <title></title>
+   
 </head>
-<body>
-    <form id="form1" runat="server">
+ <script>
+     function calcIFrameHeight(ifrm_id) {
+         try {
+             var leftframe_height = parent.document.getElementById('bottomframe').contentWindow.document.body.scrollHeight;
+             var the_height = leftframe_height;
+             if (the_height < 150)
+             { the_height = 150; }
+                 var newHeight = the_height;
+                 if (parent.document.getElementById('bottomframe').height != newHeight)
+                     parent.document.getElementById('bottomframe').height = newHeight;
+
+         }
+         catch (e) { }
+     }
+    </script>
+<body >
+    <form id="form1" runat="server" >
     <div>
-    <asp:Panel ID="bottompanel" runat="server" >
-            <asp:PlaceHolder ID="phBottom" EnableViewState="true" runat="server"></asp:PlaceHolder>
+    <asp:Panel ID="bottompanel" runat="server"  >
+            <asp:PlaceHolder ID="phBottom" EnableViewState="true" runat="server" ></asp:PlaceHolder>
         </asp:Panel>
     </div>
     </form>

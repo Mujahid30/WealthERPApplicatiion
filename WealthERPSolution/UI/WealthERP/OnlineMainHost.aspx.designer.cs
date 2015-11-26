@@ -104,6 +104,15 @@ namespace WealthERP {
         protected global::System.Web.UI.WebControls.Label lblOnlieProductType;
         
         /// <summary>
+        /// scroller control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl scroller;
+        
+        /// <summary>
         /// Label1 control.
         /// </summary>
         /// <remarks>
@@ -113,120 +122,30 @@ namespace WealthERP {
         protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// divMFMenu control.
+        /// mainmenuMF control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMFMenu;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mainmenuMF;
         
         /// <summary>
-        /// lnkMFOrderMenuHome control.
+        /// mainmenuNCD control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkMFOrderMenuHome;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mainmenuNCD;
         
         /// <summary>
-        /// lnkMFOrderMenuTransact control.
+        /// mainmenuIPO control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkMFOrderMenuTransact;
-        
-        /// <summary>
-        /// lnkMFOrderMenuBooks control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkMFOrderMenuBooks;
-        
-        /// <summary>
-        /// lnkMFOrderMenuHoldings control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkMFOrderMenuHoldings;
-        
-        /// <summary>
-        /// divNCDMenu control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divNCDMenu;
-        
-        /// <summary>
-        /// lnkNCDOrderMenuTransact control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkNCDOrderMenuTransact;
-        
-        /// <summary>
-        /// lnkNCDOrderMenuBooks control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkNCDOrderMenuBooks;
-        
-        /// <summary>
-        /// lnkNCDOrderMenuHoldings control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkNCDOrderMenuHoldings;
-        
-        /// <summary>
-        /// divIPOMenu control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divIPOMenu;
-        
-        /// <summary>
-        /// lnkIPOOrderMenuTransact control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkIPOOrderMenuTransact;
-        
-        /// <summary>
-        /// lnkIPOOrderMenuBooks control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkIPOOrderMenuBooks;
-        
-        /// <summary>
-        /// lnkIPOOrderMenuHoldings control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkIPOOrderMenuHoldings;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mainmenuIPO;
     }
 }
