@@ -64,6 +64,7 @@ namespace WealthERP.OnlineOrderManagement
             }
             if (!IsPostBack)
             {
+                BindKYCDetailDDl();
                 int amcCode = 0;
                 string category = string.Empty;
                 clientMFAccessCode = onlineMforderBo.GetClientMFAccessStatus(customerVo.CustomerId);
@@ -72,8 +73,8 @@ namespace WealthERP.OnlineOrderManagement
                     ShowAvailableLimits();
                     AmcBind();
                     CategoryBind();
-                    trJointHolder.Visible = false;
-                    trNominee.Visible = false;
+                    //trJointHolder.Visible = false;
+                    //trNominee.Visible = false;
                     lblOption.Visible = false;
                     lblDividendType.Visible = false;
                     if (Session["MFSchemePlan"] != null)
@@ -93,7 +94,6 @@ namespace WealthERP.OnlineOrderManagement
                     ShowMessage(onlineMforderBo.GetOnlineOrderUserMessage(clientMFAccessCode), 'I');
                     PurchaseOrderControlsEnable(false);
                     divControlContainer.Visible = false;
-                    divClientAccountBalance.Visible = false;
                 }
 
             }
@@ -200,35 +200,34 @@ namespace WealthERP.OnlineOrderManagement
 
                     if (!string.IsNullOrEmpty(dr["AVSD_ExpiryDtae"].ToString()) && Convert.ToDateTime(dr["AVSD_ExpiryDtae"].ToString()) > DateTime.Now && Convert.ToInt16(dr["PMFRD_RatingOverall"].ToString()) > 0)
                     {
-                        trSchemeRating.Visible = true;
                         imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + dr["PMFRD_RatingOverall"].ToString() + ".png";
 
                         //Rating Overall
-                        imgRatingDetails.ImageUrl = @"../Images/MorningStarRating/RatingOverall/" + dr["PMFRD_RatingOverall"].ToString() + ".png";
+                        //imgRatingDetails.ImageUrl = @"../Images/MorningStarRating/RatingOverall/" + dr["PMFRD_RatingOverall"].ToString() + ".png";
 
-                        //Rating yearwise
-                        imgRating3yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + dr["PMFRD_Rating3Year"].ToString() + ".png";
-                        imgRating5yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + dr["PMFRD_Rating5Year"].ToString() + ".png";
-                        imgRating10yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + dr["PMFRD_Rating10Year"].ToString() + ".png";
+                        ////Rating yearwise
+                        //imgRating3yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + dr["PMFRD_Rating3Year"].ToString() + ".png";
+                        //imgRating5yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + dr["PMFRD_Rating5Year"].ToString() + ".png";
+                        //imgRating10yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + dr["PMFRD_Rating10Year"].ToString() + ".png";
 
-                        lblSchemeRetrun3yr.Text = dr["PMFRD_Return3Year"].ToString();
-                        lblSchemeRetrun5yr.Text = dr["PMFRD_Return5Year"].ToString();
-                        lblSchemeRetrun10yr.Text = dr["PMFRD_Return10Year"].ToString();
+                        //lblSchemeRetrun3yr.Text = dr["PMFRD_Return3Year"].ToString();
+                        //lblSchemeRetrun5yr.Text = dr["PMFRD_Return5Year"].ToString();
+                        //lblSchemeRetrun10yr.Text = dr["PMFRD_Return10Year"].ToString();
 
-                        lblSchemeRisk3yr.Text = dr["PMFRD_Risk3Year"].ToString();
-                        lblSchemeRisk5yr.Text = dr["PMFRD_Risk5Year"].ToString();
-                        lblSchemeRisk10yr.Text = dr["PMFRD_Risk10Year"].ToString();
+                        //lblSchemeRisk3yr.Text = dr["PMFRD_Risk3Year"].ToString();
+                        //lblSchemeRisk5yr.Text = dr["PMFRD_Risk5Year"].ToString();
+                        //lblSchemeRisk10yr.Text = dr["PMFRD_Risk10Year"].ToString();
 
                         if (!string.IsNullOrEmpty(dr["PMFRD_RatingDate"].ToString()))
                         {
                             lblSchemeRatingAsOn.Text = "As On " + Convert.ToDateTime(dr["PMFRD_RatingDate"].ToString()).ToShortDateString();
-                            lblRatingAsOnPopUp.Text = lblSchemeRatingAsOn.Text;
+                            //lblRatingAsOnPopUp.Text = lblSchemeRatingAsOn.Text;
                             lblSchemeRatingAsOn.Visible = true;
                         }
                     }
                     else
                     {
-                        trSchemeRating.Visible = false;
+                        //trSchemeRating.Visible = false;
                         lblSchemeRatingAsOn.Visible = false;
                         imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/0.png";
                         lblSchemeRatingAsOn.Visible = false;
@@ -279,7 +278,7 @@ namespace WealthERP.OnlineOrderManagement
                 //lblDivType.Visible = false;
                 //ddlDivType.Visible = false;
                 RequiredFieldValidator4.Enabled = false;
-                trDivtype.Visible = false;
+                divDVR.Visible = false;
 
             }
             else
@@ -290,7 +289,7 @@ namespace WealthERP.OnlineOrderManagement
                 //ddlDivType.Visible = true;  
                 if (ddlScheme.SelectedIndex == 0) return;
                 BindSchemeDividendTypes(Convert.ToInt32(ddlScheme.SelectedValue.ToString()));
-                trDivtype.Visible = true;
+                divDVR.Visible = true;
                 RequiredFieldValidator4.Enabled = true;
 
             }
@@ -308,10 +307,10 @@ namespace WealthERP.OnlineOrderManagement
                 txtAmt.Enabled = false;
                 ddlDivType.Enabled = false;
                 lnkFactSheet.Enabled = false;
-                trTermsCondition.Visible = false;
+                //trTermsCondition.Visible = false;
 
                 btnSubmit.Visible = false;
-                trNewOrder.Visible = true;
+                //trNewOrder.Visible = true;
 
             }
             else
@@ -327,7 +326,7 @@ namespace WealthERP.OnlineOrderManagement
                 btnSubmit.Enabled = true;
 
                 btnSubmit.Visible = true;
-                trNewOrder.Visible = false;
+                //trNewOrder.Visible = false;
             }
 
         }
@@ -529,7 +528,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (!string.IsNullOrEmpty(customerVo.AccountId))
             {
-                lblAvailableLimits.Text = onlineMforderBo.GetUserRMSAccountBalance(customerVo.AccountId).ToString();
+                //lblAvailableLimits.Text = onlineMforderBo.GetUserRMSAccountBalance(customerVo.AccountId).ToString();
             }
 
         }
@@ -565,6 +564,28 @@ namespace WealthERP.OnlineOrderManagement
         protected void imgInformation_OnClick(object sender, EventArgs e)
         {
             RadInformation.VisibleOnPageLoad = true;
+
+        }
+        protected void BindKYCDetailDDl()
+        {
+            OnlineBondOrderBo OnlineBondBo = new OnlineBondOrderBo();
+            DataSet dsNomineeAndJointHolders = OnlineBondBo.GetNomineeJointHolder(customerVo.CustomerId);
+            StringBuilder strbNominee = new StringBuilder();
+            StringBuilder strbJointHolder = new StringBuilder();
+
+            foreach (DataRow dr in dsNomineeAndJointHolders.Tables[0].Rows)
+            {
+                //strbJointHolder.Append(dr["CustomerName"].ToString() + ",");
+                string r = dr["CEDAA_AssociationType"].ToString();
+                if (r != "Joint Holder")
+                strbNominee.Append(dr["AMFE_JointNomineeName"].ToString() + ",");
+                else
+                    strbJointHolder.Append(dr["AMFE_JointNomineeName"].ToString() + ",");
+                //strbJointHolder.Append(dr["AMFE_JointNomineeName"].ToString() + ",");
+                //strbNominee.Append(dr["AMFE_JointNomineeName"].ToString() + ",");
+            }
+            lblNomineeDisplay.Text = strbNominee.ToString().TrimEnd(',');
+            lblHolderDisplay.Text = strbJointHolder.ToString().TrimEnd(',');
 
         }
     }
