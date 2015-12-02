@@ -131,6 +131,33 @@ namespace WealthERP {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl mainmenuMF;
         
         /// <summary>
+        /// SchemeSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox SchemeSearch;
+        
+        /// <summary>
+        /// txtSchemeName_water control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender txtSchemeName_water;
+        
+        /// <summary>
+        /// txtSchemeName_AutoCompleteExtender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.AutoCompleteExtender txtSchemeName_AutoCompleteExtender;
+        
+        /// <summary>
         /// mainmenuNCD control.
         /// </summary>
         /// <remarks>
@@ -147,5 +174,14 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl mainmenuIPO;
+        
+        /// <summary>
+        /// schemeCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField schemeCode;
     }
 }

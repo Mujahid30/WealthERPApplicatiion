@@ -151,6 +151,8 @@ namespace WealthERP
                             Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcd", @"LoadBottomPanelControl('" + defaultProductPageSetting["ProductMenuItemPage"].ToString() + "','?BondType=" + "FISDSD" + "');", true);
                         else
                             Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcd", @"LoadBottomPanelControl('" + defaultProductPageSetting["ProductMenuItemPage"].ToString() + "','login');", true);
+                        if (productType.ToUpper() == "MF")
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "PageLoadTransactTab", @"LoadTransactPanel('MFOrderPurchaseTransType','login');", true);
                     }
                 }
                 else
@@ -168,7 +170,13 @@ namespace WealthERP
             }
 
         }
-
+        protected void SchemeSearch_OnTextChanged(object sender, EventArgs e)
+        {
+            if (schemeCode.Value != "")
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscripRajiv", @"LoadBottomPanelControl('MFSchemeDetails','&schemeCode=" + schemeCode.Value + "');", true);
+            }
+        }
         private void SetProductTypeMenu(string productType)
         {
             switch (productType)

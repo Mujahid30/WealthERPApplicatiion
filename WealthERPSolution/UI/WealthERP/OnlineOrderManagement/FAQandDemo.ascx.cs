@@ -14,20 +14,19 @@ namespace WealthERP.OnlineOrderManagement
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["BannerType"] != null && Session["BannerProductType"] != null)
-            {
-                string assetCategory = Session["BannerProductType"].ToString();
-                if (Session["BannerType"].ToString() == "Demo")
+
+            string assetCategory = Request.QueryString["Cat"];
+            if (Request.QueryString["TYP"] == "Demo")
                 {
                     SetDemoLink(assetCategory);
 
                 }
-                else if (Session["BannerType"].ToString() == "FAQ")
+            else if (Request.QueryString["TYP"] == "FAQ")
                 {
                     SetFAQLink(assetCategory);
 
                 }
-            }
+            
         }
         protected void Repeater1_OnItemCommand(object sender, RepeaterCommandEventArgs e)
         {

@@ -103,6 +103,14 @@
    
 </script>
 
+<script type="text/javascript" language="javascript">
+    function GetSchemePlanCode(source, eventArgs) {
+        isItemSelected = true;
+        LoadBottomPanelControl('MFSchemeDetails', '&schemeCode=' + eventArgs.get_value());
+        return false;
+    }
+</script>
+
 <%--<link href="../App_Themes/Blue/StyleSheet.css" rel="stylesheet" type="text/css" />--%>
 <style type="text/css">
     #topframe
@@ -280,6 +288,7 @@
         -webkit-border-radius: 5px 5px 0px 0px;
         border-radius: 5px 5px 0px 0px;
     }
+   
     #menuMF li a, #menuNCD li a, #menuIPO li a
     {
         font-family: Arial, Helvetica, sans-serif;
@@ -303,7 +312,7 @@
     }
     #menuMF li:hover .drop, #menuNCD li:hover .drop, #menuIPO li:hover .drop
     {
-        background: url('Images/drop.png') no-repeat right 7px;
+        background: url('Images/Up.png') no-repeat right 7px;
     }
     .dropdown_1column, .dropdown_2columns, .dropdown_3columns, .dropdown_4columns, .dropdown_5columns
     {
@@ -514,6 +523,122 @@
         padding: 4px 6px 4px 6px;
         margin: 0px 0px 4px 0px;
     }
+    
+    #lisearchscheme
+    {
+        margin-top: 1px;
+        }
+     #lisearchscheme input
+    {
+        height: 28px;
+        width: 100%;
+        margin-top: 2px;
+        padding: 0 12px 0 25px;
+        background: white url("http://cssdeck.com/uploads/media/items/5/5JuDgOa.png") 8px 6px no-repeat;
+        border-width: 1px;
+        border-style: solid;
+        border-color: #a8acbc #babdcc #c0c3d2;
+        border-radius: 13px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        -o-box-sizing: border-box;
+        box-sizing: border-box;
+       
+    }
+    #lisearchscheme input:focus
+    {
+        outline: none;
+        border-color: #66b1ee;
+        -webkit-box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
+        -moz-box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
+        -ms-box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
+        -o-box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
+        box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
+    }
+   
+     .results
+    {
+        
+        position: relative;
+        top: 35px;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        padding: 0;
+        margin: 0;
+        border-width: 1px;
+        border-style: solid;
+        border-color: #cbcfe2 #c8cee7 #c4c7d7;
+        border-radius: 3px;
+        background-color: #fdfdfd;
+        background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fdfdfd), color-stop(100%, #eceef4));
+        background-image: -webkit-linear-gradient(top, #fdfdfd, #eceef4);
+        background-image: -moz-linear-gradient(top, #fdfdfd, #eceef4);
+        background-image: -ms-linear-gradient(top, #fdfdfd, #eceef4);
+        background-image: -o-linear-gradient(top, #fdfdfd, #eceef4);
+        background-image: linear-gradient(top, #fdfdfd, #eceef4);
+        -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        -ms-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        -o-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    .resultschild
+    {
+        display: block;
+    }
+  
+ 
+     .results div
+    {
+        display: block;
+        position: relative;
+        margin: 0 -1px;
+        padding: 6px 40px 6px 10px;
+        color: #808394;
+        font-weight: 500;
+        text-shadow: 0 1px #fff;
+        border: 1px solid transparent;
+        border-radius: 3px;
+    }
+     .results div
+    {
+        font-weight: 100;
+    }
+   
+     .results div:hover
+    {
+        text-decoration: none;
+         color:White;
+        
+        cursor:pointer;
+        text-shadow: 0 -1px rgba(0, 0, 0, 0.3);
+        border-color: #2380dd #2179d5 #1a60aa;
+        background-color: #338cdf;
+        background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #59aaf4), color-stop(100%, #338cdf));
+        background-image: -webkit-linear-gradient(top, #59aaf4, #338cdf);
+        background-image: -moz-linear-gradient(top, #59aaf4, #338cdf);
+        background-image: -ms-linear-gradient(top, #59aaf4, #338cdf);
+        background-image: -o-linear-gradient(top, #59aaf4, #338cdf);
+        background-image: linear-gradient(top, #59aaf4, #338cdf);
+        -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);
+        -moz-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);
+        -ms-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);
+        -o-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);
+        box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);
+        
+    }
+    :-moz-placeholder
+    {
+        color:White;
+        font-weight: 100;
+    }
+    ::-webkit-input-placeholder
+    {
+        color:White;
+        font-weight: 100;
+    }
 </style>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -555,11 +680,12 @@
         </div>
         <div id="mainmenuMF" runat="server" style="width: 100%; clear: both;">
             <ul id="menuMF">
+            <li><a onclick="LoadBottomPanelControl('MFSchemeRelateInformation','login');">HOME</a></li>
                 <li><a onclick="" class="drop">MARKET</a>
                     <div class="dropdown_1column">
                         <div class="col_1">
                             <ul class="greybox">
-                                <li><a onclick="LoadBottomPanelControl('MFSchemeRelateInformation','login');">HOME</a></li>
+                                
                                 <li><a onclick="LoadBottomPanelControl('MFSchemeDetails','login');">SCHEME RESEARCH</a></li>
                                 <li><a onclick="LoadBottomPanelControl('OnlineMFSchemeCompare','login');">SCHEME COMPARE</a></li>
                                 <li><a onclick="LoadBottomPanelControl('ProductOnlineFundNews','login');">NEWS</a></li>
@@ -581,7 +707,7 @@
                         </div>
                     </div>
                 </li>
-                <li><a>HOLDINGS</a>
+                <li><a class="drop">HOLDINGS</a>
                     <div class="dropdown_1column">
                         <div class="col_1">
                             <ul class="greybox">
@@ -590,10 +716,25 @@
                         </div>
                     </div>
                 </li>
-                <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','login');">FAQ</a>
+                <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=MF&TYP=FAQ');">FAQ</a>
                 </li>
-                <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','login');">Demo</a>
+                <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=MF&TYP=Demo');">Demo</a>
                 </li>
+                <div id="lisearchscheme" class="menu_right">
+                    <asp:TextBox runat="server" ID="SchemeSearch" AutoPostBack="false" Style="margin-top: 0px;
+                        float: right; background-color: #D7E9F5" Width="300px" ></asp:TextBox>
+                    <cc1:TextBoxWatermarkExtender ID="txtSchemeName_water" TargetControlID="SchemeSearch"
+                        WatermarkText="Search Scheme" runat="server" EnableViewState="false">
+                    </cc1:TextBoxWatermarkExtender>
+                    <div id="listPlacement" class="results" style="height: 150px; overflow-y: scroll;overflow-x:hidden; text-align: left" >
+                    </div>
+                    <ajaxToolkit:AutoCompleteExtender ID="txtSchemeName_AutoCompleteExtender" runat="server"
+                        TargetControlID="SchemeSearch" ServiceMethod="GetInvestorScheme" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                        MinimumPrefixLength="1" EnableCaching="true" CompletionSetCount="5" CompletionInterval="100"
+                        CompletionListCssClass="results"                         
+                        UseContextKey="True" OnClientItemSelected="GetSchemePlanCode" DelimiterCharacters=""
+                        CompletionListElementID="listPlacement" Enabled="True" />
+                </div>
             </ul>
         </div>
         <div id="mainmenuNCD" runat="server" style="width: 100%; clear: both;">
@@ -634,9 +775,9 @@
                         </div>
                     </div>
                 </li>
-                <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','login');">FAQ</a>
+                <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=NCD&TYP=FAQ');">FAQ</a>
                 </li>
-                <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','login');">Demo</a>
+                <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=NCD&TYP=Demo');">Demo</a>
                 </li>
             </ul>
         </div>
@@ -670,9 +811,9 @@
                         </div>
                     </div>
                 </li>
-                <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','login');">FAQ</a>
+                <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=IPO&TYP=FAQ');">FAQ</a>
                 </li>
-                <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','login');">Demo</a>
+                <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=IPO&TYP=Demo');">Demo</a>
                 </li>
             </ul>
         </div>
@@ -680,68 +821,67 @@
             <iframe name="bottomframe" class="bottomframe" width="100%" id="bottomframe" onload="javascript:calcIFrameHeight('bottomframe');"
                 src="OnlineBottomHost.aspx" scrolling="no"></iframe>
         </div>
-        <div style="clear:both;">
+        <div style="clear: both;">
             <style>
                 .tabs
                 {
-                     /* This part sucks */
+                    /* This part sucks */
                     clear: both;
-                   list-style: none;
-        
-        width:auto;
-        height: 30px;
-        padding: 0px 2px 0px 2px; /* Rounded Corners */
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        border-radius: 3px; /* Background color and gradients 5DB2FF    #0295CD */
-        background: #d9d9d9;
-        background: -moz-linear-gradient(top, #d9d9d9, #d9d9d9);
-        background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#d9d9d9), to(#d9d9d9)); /* Borders */
-        -moz-box-shadow: inset 0px 0px 1px #edf9ff;
-        -webkit-box-shadow: inset 0px 0px 1px #edf9ff;
-        box-shadow: inset 0px 0px 1px #edf9ff;
+                    list-style: none;
+                    width: auto;
+                    height: 30px;
+                    padding: 0px 2px 0px 2px; /* Rounded Corners */
+                    -moz-border-radius: 3px;
+                    -webkit-border-radius: 3px;
+                    border-radius: 3px; /* Background color and gradients 5DB2FF    #0295CD */
+                    background: #d9d9d9;
+                    background: -moz-linear-gradient(top, #d9d9d9, #d9d9d9);
+                    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#d9d9d9), to(#d9d9d9)); /* Borders */
+                    -moz-box-shadow: inset 0px 0px 1px #edf9ff;
+                    -webkit-box-shadow: inset 0px 0px 1px #edf9ff;
+                    box-shadow: inset 0px 0px 1px #edf9ff;
                 }
                 .tab
                 {
-                     float: left;
-                      padding: 4px 4px 4px 4px;
-        margin-right: 5px;
-        margin-top: 1px;
-        border: none;
-                   
-                    }
+                    float: left;
+                    padding: 4px 4px 4px 4px;
+                    margin-right: 5px;
+                    margin-top: 1px;
+                    border: none;
+                }
                 .tab label
                 {
-                   
                     float: left;
                     display: block;
                     text-align: center;
                     position: relative;
-                   color:White;
-                     padding: 4px 9px 4px 9px; /* Background color and gradients */
+                    color: White;
+                    padding: 4px 9px 4px 9px; /* Background color and gradients */
                 }
                 .tab label:hover
                 {
-                      color:Black;
+                    color: Black;
                     border: 1px solid #777777;
-        padding: 4px 9px 4px 9px; /* Background color and gradients */
-        background: #F4F4F4;
-        background: -moz-linear-gradient(top, #F4F4F4, #EEEEEE);
-        background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F4F4F4), to(#EEEEEE)); /* Rounded corners */
-        -moz-border-radius: 5px 5px 0px 0px;
-        -webkit-border-radius: 5px 5px 0px 0px;
-        border-radius: 5px 5px 0px 0px;
-                    cursor:pointer;
+                    padding: 4px 9px 4px 9px; /* Background color and gradients */
+                    background: #F4F4F4;
+                    background: -moz-linear-gradient(top, #F4F4F4, #EEEEEE);
+                    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F4F4F4), to(#EEEEEE)); /* Rounded corners */
+                    -moz-border-radius: 5px 5px 0px 0px;
+                    -webkit-border-radius: 5px 5px 0px 0px;
+                    border-radius: 5px 5px 0px 0px;
+                    cursor: pointer;
                 }
-                .tab [type=radio]
+                .tab [
+                type=radio]
                 {
                     display: none;
                 }
-               
-                 [type=radio]:checked ~label
+                 [
+                type=radio]:checked ~
+                label
                 {
-                    color:Black;
-                    background-color:#fff;
+                    color: Black;
+                    background-color: #fff;
                     border-bottom: 1px solid white;
                     z-index: 2;
                 }
@@ -772,12 +912,13 @@
                         NFO</label>
                 </div>
             </div>
-        </div>
-        <div class="top-menu-frame" style=" Position:Relative">
-            <iframe name="topframe" id="topframe" onload="javascript:calcIFrameHeight('topframe');"
-                src="OnlineTopHost.aspx"  width="100%" scrolling="no"></iframe>
+            <div class="top-menu-frame" style="position: Relative">
+                <iframe name="topframe" id="topframe" onload="javascript:calcIFrameHeight('topframe');"
+                    src="OnlineTopHost.aspx" width="100%" scrolling="no"></iframe>
+            </div>
         </div>
     </div>
+    <asp:HiddenField ID="schemeCode" runat="server" />
     </form>
 </body>
 </html>
