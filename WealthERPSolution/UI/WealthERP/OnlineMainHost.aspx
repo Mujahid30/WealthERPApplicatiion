@@ -109,6 +109,10 @@
         LoadBottomPanelControl('MFSchemeDetails', '&schemeCode=' + eventArgs.get_value());
         return false;
     }
+    function ddlchange(ddl) {
+        var value = ddl.value;
+        LoadTransactPanel(value, 'login');
+    }
 </script>
 
 <%--<link href="../App_Themes/Blue/StyleSheet.css" rel="stylesheet" type="text/css" />--%>
@@ -288,7 +292,6 @@
         -webkit-border-radius: 5px 5px 0px 0px;
         border-radius: 5px 5px 0px 0px;
     }
-   
     #menuMF li a, #menuNCD li a, #menuIPO li a
     {
         font-family: Arial, Helvetica, sans-serif;
@@ -523,12 +526,11 @@
         padding: 4px 6px 4px 6px;
         margin: 0px 0px 4px 0px;
     }
-    
     #lisearchscheme
     {
         margin-top: 1px;
-        }
-     #lisearchscheme input
+    }
+    #lisearchscheme input
     {
         height: 28px;
         width: 100%;
@@ -544,7 +546,6 @@
         -ms-box-sizing: border-box;
         -o-box-sizing: border-box;
         box-sizing: border-box;
-       
     }
     #lisearchscheme input:focus
     {
@@ -556,10 +557,8 @@
         -o-box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
         box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
     }
-   
-     .results
+    .results
     {
-        
         position: relative;
         top: 35px;
         left: 0;
@@ -588,9 +587,7 @@
     {
         display: block;
     }
-  
- 
-     .results div
+    .results div
     {
         display: block;
         position: relative;
@@ -602,17 +599,15 @@
         border: 1px solid transparent;
         border-radius: 3px;
     }
-     .results div
+    .results div
     {
         font-weight: 100;
     }
-   
-     .results div:hover
+    .results div:hover
     {
         text-decoration: none;
-         color:White;
-        
-        cursor:pointer;
+        color: White;
+        cursor: pointer;
         text-shadow: 0 -1px rgba(0, 0, 0, 0.3);
         border-color: #2380dd #2179d5 #1a60aa;
         background-color: #338cdf;
@@ -627,16 +622,15 @@
         -ms-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);
         -o-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);
         box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);
-        
     }
     :-moz-placeholder
     {
-        color:White;
+        color: White;
         font-weight: 100;
     }
     ::-webkit-input-placeholder
     {
-        color:White;
+        color: White;
         font-weight: 100;
     }
 </style>
@@ -680,12 +674,11 @@
         </div>
         <div id="mainmenuMF" runat="server" style="width: 100%; clear: both;">
             <ul id="menuMF">
-            <li><a onclick="LoadBottomPanelControl('MFSchemeRelateInformation','login');">HOME</a></li>
+                <li><a onclick="LoadBottomPanelControl('MFSchemeRelateInformation','login');">HOME</a></li>
                 <li><a onclick="" class="drop">MARKET</a>
                     <div class="dropdown_1column">
                         <div class="col_1">
                             <ul class="greybox">
-                                
                                 <li><a onclick="LoadBottomPanelControl('MFSchemeDetails','login');">SCHEME RESEARCH</a></li>
                                 <li><a onclick="LoadBottomPanelControl('OnlineMFSchemeCompare','login');">SCHEME COMPARE</a></li>
                                 <li><a onclick="LoadBottomPanelControl('ProductOnlineFundNews','login');">NEWS</a></li>
@@ -716,24 +709,24 @@
                         </div>
                     </div>
                 </li>
-                <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=MF&TYP=FAQ');">FAQ</a>
-                </li>
-                <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=MF&TYP=Demo');">Demo</a>
-                </li>
+                <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=MF&TYP=FAQ');">
+                    FAQ</a> </li>
+                <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=MF&TYP=Demo');">
+                    Demo</a> </li>
                 <div id="lisearchscheme" class="menu_right">
                     <asp:TextBox runat="server" ID="SchemeSearch" AutoPostBack="false" Style="margin-top: 0px;
-                        float: right; background-color: #D7E9F5" Width="300px" ></asp:TextBox>
+                        float: right; background-color: #D7E9F5" Width="300px"></asp:TextBox>
                     <cc1:TextBoxWatermarkExtender ID="txtSchemeName_water" TargetControlID="SchemeSearch"
                         WatermarkText="Search Scheme" runat="server" EnableViewState="false">
                     </cc1:TextBoxWatermarkExtender>
-                    <div id="listPlacement" class="results" style="height: 150px; overflow-y: scroll;overflow-x:hidden; text-align: left" >
+                    <div id="listPlacement" class="results" style="height: 150px; overflow-y: scroll;
+                        overflow-x: hidden; text-align: left">
                     </div>
                     <ajaxToolkit:AutoCompleteExtender ID="txtSchemeName_AutoCompleteExtender" runat="server"
                         TargetControlID="SchemeSearch" ServiceMethod="GetInvestorScheme" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
                         MinimumPrefixLength="1" EnableCaching="true" CompletionSetCount="5" CompletionInterval="100"
-                        CompletionListCssClass="results"                         
-                        UseContextKey="True" OnClientItemSelected="GetSchemePlanCode" DelimiterCharacters=""
-                        CompletionListElementID="listPlacement" Enabled="True" />
+                        CompletionListCssClass="results" UseContextKey="True" OnClientItemSelected="GetSchemePlanCode"
+                        DelimiterCharacters="" CompletionListElementID="listPlacement" Enabled="True" />
                 </div>
             </ul>
         </div>
@@ -775,10 +768,10 @@
                         </div>
                     </div>
                 </li>
-                <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=NCD&TYP=FAQ');">FAQ</a>
-                </li>
-                <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=NCD&TYP=Demo');">Demo</a>
-                </li>
+                <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=NCD&TYP=FAQ');">
+                    FAQ</a> </li>
+                <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=NCD&TYP=Demo');">
+                    Demo</a> </li>
             </ul>
         </div>
         <div id="mainmenuIPO" runat="server" style="width: 100%; clear: both;">
@@ -811,10 +804,10 @@
                         </div>
                     </div>
                 </li>
-                <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=IPO&TYP=FAQ');">FAQ</a>
-                </li>
-                <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=IPO&TYP=Demo');">Demo</a>
-                </li>
+                <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=IPO&TYP=FAQ');">
+                    FAQ</a> </li>
+                <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=IPO&TYP=Demo');">
+                    Demo</a> </li>
             </ul>
         </div>
         <div style="margin-top: 10px; z-index: 3;">
@@ -822,95 +815,41 @@
                 src="OnlineBottomHost.aspx" scrolling="no"></iframe>
         </div>
         <div style="clear: both;">
-            <style>
-                .tabs
-                {
-                    /* This part sucks */
-                    clear: both;
-                    list-style: none;
-                    width: auto;
-                    height: 30px;
-                    padding: 0px 2px 0px 2px; /* Rounded Corners */
-                    -moz-border-radius: 3px;
-                    -webkit-border-radius: 3px;
-                    border-radius: 3px; /* Background color and gradients 5DB2FF    #0295CD */
-                    background: #d9d9d9;
-                    background: -moz-linear-gradient(top, #d9d9d9, #d9d9d9);
-                    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#d9d9d9), to(#d9d9d9)); /* Borders */
-                    -moz-box-shadow: inset 0px 0px 1px #edf9ff;
-                    -webkit-box-shadow: inset 0px 0px 1px #edf9ff;
-                    box-shadow: inset 0px 0px 1px #edf9ff;
-                }
-                .tab
-                {
-                    float: left;
-                    padding: 4px 4px 4px 4px;
-                    margin-right: 5px;
-                    margin-top: 1px;
-                    border: none;
-                }
-                .tab label
-                {
-                    float: left;
-                    display: block;
-                    text-align: center;
-                    position: relative;
-                    color: White;
-                    padding: 4px 9px 4px 9px; /* Background color and gradients */
-                }
-                .tab label:hover
-                {
-                    color: Black;
-                    border: 1px solid #777777;
-                    padding: 4px 9px 4px 9px; /* Background color and gradients */
-                    background: #F4F4F4;
-                    background: -moz-linear-gradient(top, #F4F4F4, #EEEEEE);
-                    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F4F4F4), to(#EEEEEE)); /* Rounded corners */
-                    -moz-border-radius: 5px 5px 0px 0px;
-                    -webkit-border-radius: 5px 5px 0px 0px;
-                    border-radius: 5px 5px 0px 0px;
-                    cursor: pointer;
-                }
-                .tab [
-                type=radio]
-                {
-                    display: none;
-                }
-                 [
-                type=radio]:checked ~
-                label
-                {
-                    color: Black;
-                    background-color: #fff;
-                    border-bottom: 1px solid white;
-                    z-index: 2;
-                }
-            </style>
-            <div id="TransactTab" class="tabs">
-                <div class="tab">
-                    <input type="radio" id="tab-1" name="tab-group-1" onclick="LoadTransactPanel('MFOrderPurchaseTransType','login');"
-                        checked>
-                    <label for="tab-1">
-                        New Purchase</label>
-                </div>
-                <div class="tab">
-                    <input type="radio" id="tab-2" onclick="LoadTransactPanel('MFOrderAdditionalPurchase','login');"
-                        name="tab-group-1">
-                    <label for="tab-2">
-                        Additional Purchase</label>
-                </div>
-                <div class="tab">
-                    <input type="radio" id="tab-3" onclick="LoadTransactPanel('MFOrderSIPTransType','login');"
-                        name="tab-group-1">
-                    <label for="tab-3">
-                        SIP</label>
-                </div>
-                <div class="tab">
-                    <input type="radio" id="tab-4" onclick="LoadTransactPanel('MFOrderNFOTransType','login');"
-                        name="tab-group-1">
-                    <label for="tab-4">
-                        NFO</label>
-                </div>
+            <div>
+                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                    <ContentTemplate>
+                        <div style="background-color: #81CCE9; width: 100%">
+                        <div style="padding-left:20px;color:White;">
+                            Transact</div>
+                        </div>
+                        <table>
+                            <tr>
+                                <td>
+                                </td>
+                                <td align="right" style="vertical-align: top;">
+                                    <asp:Label ID="lblchannel" runat="server" Text="Exchange:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:DropDownList ID="ddlchannel" runat="server" CssClass="cmbField" AutoPostBack="true"
+                                        OnSelectedIndexChanged="ddlchannel_onSelectedChanged">
+                                        <asp:ListItem Text="Online" Selected="True" Value="Online"></asp:ListItem>
+                                        <asp:ListItem Text="Demat" Value="Demat"></asp:ListItem>
+                                    </asp:DropDownList>
+                                </td>
+                                <td align="right" style="vertical-align: top;">
+                                    <asp:Label ID="Label2" runat="server" Text="Transaction Type:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:DropDownList ID="DropDownList1" runat="server" CssClass="cmbField" onchange="ddlchange(this);"
+                                        AutoPostBack="false">
+                                    </asp:DropDownList>
+                                </td>
+                            </tr>
+                        </table>
+                    </ContentTemplate>
+                    <Triggers>
+                    </Triggers>
+                </asp:UpdatePanel>
             </div>
             <div class="top-menu-frame" style="position: Relative">
                 <iframe name="topframe" id="topframe" onload="javascript:calcIFrameHeight('topframe');"

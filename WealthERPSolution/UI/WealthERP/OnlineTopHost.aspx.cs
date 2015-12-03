@@ -67,15 +67,18 @@ namespace WealthERP
             {
                 return;
             }
+             // Control Loading Script
+            if (!string.IsNullOrEmpty(pageID) && pageID != "Top_Panel_PageID")
+            {
+                string path = Getpagepath(pageID);
+                UserControl uc1 = new UserControl();
 
-            string path = Getpagepath(pageID);
-            UserControl uc1 = new UserControl();
+                uc1 = (UserControl)this.Page.LoadControl(path);
+                uc1.ID = "ctrl_" + pageID;
 
-            uc1 = (UserControl)this.Page.LoadControl(path);
-            uc1.ID = "ctrl_" + pageID;
-
-            phTop.Controls.Clear();
-            phTop.Controls.Add(uc1);
+                phTop.Controls.Clear();
+                phTop.Controls.Add(uc1);
+            }
         }
 
         // Put your logic here to get the Product list    8: }

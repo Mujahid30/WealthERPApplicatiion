@@ -63,7 +63,25 @@ namespace BoOnlineOrderManagement
             return result;
 
         }
+        public  Dictionary<string, string> GetTransactionTypeForExchange(string exchange)
+        {
+            Dictionary<string, string> TransactionTypes = new Dictionary<string, string>();
+            if (exchange == "Online")
+            {
+                TransactionTypes.Add("MFOrderPurchaseTransType", "Purchase");
+                TransactionTypes.Add("MFOrderSIPTransType", "SIP");
+                TransactionTypes.Add("MFOrderNFOTransType", "NFO");
+                //TransactionTypes.Add("Demat", "SWP");
+                //TransactionTypes.Add("Demat", "STP");
+            }
+            else if (exchange == "Demat")
+            {
+                TransactionTypes.Add("MFOrderPurchaseTransType", "Purchase");
+                TransactionTypes.Add("MFOrderRdemptionTransType", "Redeem");
+            }
+            return TransactionTypes;
 
+        }
         public static string TrigerAPI(string URL)
         {
             string Response = "";

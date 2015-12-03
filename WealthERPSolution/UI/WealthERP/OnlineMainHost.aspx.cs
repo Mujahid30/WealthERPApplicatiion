@@ -123,6 +123,7 @@ namespace WealthERP
                         mainmenuIPO.Visible = false;
                         scroller.Visible = true;
                         SetScroller(productType.ToUpper());
+                        BindTransactionType("Online");
                     }
                     else if (productType.ToUpper() == "NCD")
                     {
@@ -169,6 +170,20 @@ namespace WealthERP
 
             }
 
+        }
+        private void BindTransactionType(string exchangeType)
+        {
+            OnlineOrderBo onlineOrderBo = new OnlineOrderBo();
+            Dictionary<string, string> TransactionTypes = onlineOrderBo.GetTransactionTypeForExchange(exchangeType);
+
+            DropDownList1.DataSource = TransactionTypes;
+            DropDownList1.DataValueField = "Key";
+            DropDownList1.DataTextField = "Value";
+            DropDownList1.DataBind();
+        }
+        protected void ddlchannel_onSelectedChanged(object sender, EventArgs e)
+        {
+            BindTransactionType(ddlchannel.SelectedValue);
         }
         protected void SchemeSearch_OnTextChanged(object sender, EventArgs e)
         {
