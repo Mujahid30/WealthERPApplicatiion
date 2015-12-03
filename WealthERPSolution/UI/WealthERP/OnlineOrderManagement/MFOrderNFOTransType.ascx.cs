@@ -52,18 +52,11 @@ namespace WealthERP.OnlineOrderManagement
             int TOcpmaretime = int.Parse(DateTime.Now.ToShortTimeString().Split(':')[0]);
             if (TOcpmaretime >= int.Parse(ConfigurationSettings.AppSettings["START_TIME"]) && TOcpmaretime < int.Parse(ConfigurationSettings.AppSettings["END_TIME"]))
             {
-                if (Session["PageDefaultSetting"] != null)
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOnlineSchemeManager')", true);
-                    return;
-                }
-                else
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "loadcontrol('MFOnlineSchemeManager')", true);
-                    return;
-                }
+
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadTransactPanel('MFOnlineSchemeManager')", true);
+                return;
             }
-          
+
             if (!IsPostBack)
             {
                 clientMFAccessCode = onlineMforderBo.GetClientMFAccessStatus(customerVo.CustomerId);
@@ -128,13 +121,13 @@ namespace WealthERP.OnlineOrderManagement
             lbltime.Text = "";
             lbldftext.Text = "";
             txtAmt.Text = "";
-           //lblNavDisplay.Text = "";
+            //lblNavDisplay.Text = "";
             ddlScheme.SelectedIndex = 0;
             ddlFolio.SelectedIndex = 0;
 
             ddlDivType.SelectedIndex = 0;
 
-            
+
         }
         protected void GetControlDetails(int scheme, string folio)
         {
@@ -185,7 +178,7 @@ namespace WealthERP.OnlineOrderManagement
                     }
 
                 }
-               
+
             }
             if (dtSchemeAmcCategory.Rows.Count > 0)
             {
@@ -475,7 +468,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (!string.IsNullOrEmpty(customerVo.AccountId))
             {
-               // lblAvailableLimits.Text = onlineMforderBo.GetUserRMSAccountBalance(customerVo.AccountId).ToString();
+                // lblAvailableLimits.Text = onlineMforderBo.GetUserRMSAccountBalance(customerVo.AccountId).ToString();
             }
 
         }
@@ -513,7 +506,7 @@ namespace WealthERP.OnlineOrderManagement
             RadInformation.VisibleOnPageLoad = true;
 
         }
-      
+
 
     }
 }

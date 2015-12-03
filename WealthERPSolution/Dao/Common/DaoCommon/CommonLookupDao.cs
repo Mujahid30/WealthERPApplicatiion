@@ -983,5 +983,59 @@ namespace DaoCommon
             }
             return dtSchemeDividentType;
         }
+        public void GetSchemeAMCSchemeCategory(int schemePlanCode, out int amcCode, out string category, out string categoryName, out string amcname, out string SchemeplanName)
+        {
+            Database db;
+            DbCommand cmd;
+            amcCode = 0;
+            category = string.Empty;
+            categoryName = string.Empty;
+            amcname = string.Empty;
+            SchemeplanName = string.Empty;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_ONL_GetProductWiseCtegoryAMC");
+                db.AddInParameter(cmd, "@SchemePlanCode", DbType.Int32, schemePlanCode);
+                db.AddOutParameter(cmd, "@AMCCode", DbType.Int64, 1000000);
+                db.AddOutParameter(cmd, "@CategoryCode", DbType.String, 100000);
+                  db.AddOutParameter(cmd, "@categoryName", DbType.String, 1000000);
+                db.AddOutParameter(cmd, "@AMCName", DbType.String, 100000);
+                  db.AddOutParameter(cmd, "@SchemeName", DbType.String, 1000000);
+                db.ExecuteNonQuery(cmd);
+                Object objAMCCode = db.GetParameterValue(cmd, "@AMCCode");
+                if (objAMCCode != DBNull.Value)
+                    amcCode = Convert.ToInt32(objAMCCode);
+                Object objCategory = db.GetParameterValue(cmd, "@CategoryCode");
+                if (objCategory != DBNull.Value)
+                    category = Convert.ToString(objCategory);
+                Object objcategoryName = db.GetParameterValue(cmd, "@categoryName");
+                if (objcategoryName != DBNull.Value)
+                    categoryName = Convert.ToString(objcategoryName);
+                Object objamcname = db.GetParameterValue(cmd, "@AMCName");
+                if (objamcname != DBNull.Value)
+                    amcname = Convert.ToString(objamcname);
+                Object objSchemeplanName = db.GetParameterValue(cmd, "@SchemeName");
+                if (objSchemeplanName != DBNull.Value)
+                    SchemeplanName = Convert.ToString(objSchemeplanName);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupDao.cs:GetSchemeAMCCategory(int schemePlanCode, out int amcCode, out string category)");
+                object[] objects = new object[1];
+                objects[0] = schemePlanCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        }
     }
 }

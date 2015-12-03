@@ -42,7 +42,7 @@ namespace WealthERP.OnlineOrderManagement
                 if (Request.QueryString["schemeCode"] != null)
                 {
                     //if (Request.QueryString["schemeCode"] != null)//Session["MFSchemePlan"] != null || 
-                    //    Session["MFSchemePlan"] = Request.QueryString["schemeCode"];
+                    Session["MFSchemePlan"] = Request.QueryString["schemeCode"];
                     int amcCode = 0;
                     string category = string.Empty;
                     BindCategory();
