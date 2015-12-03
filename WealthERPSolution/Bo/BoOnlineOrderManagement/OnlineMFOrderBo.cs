@@ -575,5 +575,20 @@ namespace BoOnlineOrderManagement
             }
             return dsGetCustomerOrderBookTransaction;
         }
+        public DataTable GetCustomerFolioSchemeWise(int customerId, int schemeCode)
+        {
+            DataTable dt;
+            OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
+
+            try
+            {
+                dt = OnlineMFOrderDao.GetCustomerFolioSchemeWise(customerId, schemeCode);
+            }
+                  catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dt;
+        }
     }
 }

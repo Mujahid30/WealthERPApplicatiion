@@ -612,7 +612,30 @@ namespace BoCommon
                 throw exBase;
             }
         }
+        public void GetSchemeAMCSchemeCategory(int schemePlanCode, out int amcCode, out string category, out string categoryName, out string amcname, out string SchemeplanName)
+        {
+            try
+            {
+                daoCommonLookup.GetSchemeAMCSchemeCategory(schemePlanCode, out amcCode, out category,out categoryName,out amcname,out SchemeplanName);
+            }
 
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupDao.cs:GetSchemeAMCCategory(int schemePlanCode, out int amcCode, out string category)");
+                object[] objects = new object[1];
+                objects[0] = schemePlanCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
         /// <summary>
         /// 
         /// </summary>

@@ -39,7 +39,13 @@ namespace WealthERP.OnlineOrderManagement
         int accountId;
         int OrderId;
         string clientMFAccessCode = string.Empty;
-
+        int amcCode = 0;
+        string category = string.Empty;
+        string categoryname = string.Empty;
+        string schemeName = string.Empty;
+        string amcName = string.Empty;
+        int scheme;
+        string schemeDividendOption;
         protected void Page_Load(object sender, EventArgs e)
         {
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
@@ -65,28 +71,24 @@ namespace WealthERP.OnlineOrderManagement
             if (!IsPostBack)
             {
                 BindKYCDetailDDl();
-                int amcCode = 0;
-                string category = string.Empty;
+               
                 clientMFAccessCode = onlineMforderBo.GetClientMFAccessStatus(customerVo.CustomerId);
                 if (clientMFAccessCode == "FA")
                 {
                     ShowAvailableLimits();
-                    AmcBind();
-                    CategoryBind();
-                    //trJointHolder.Visible = false;
-                    //trNominee.Visible = false;
+                  
                     lblOption.Visible = false;
                     lblDividendType.Visible = false;
                     if (Session["MFSchemePlan"] != null)
                     {
-                        commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category);
-                        BindFolioNumber(amcCode);
-                        SchemeBind(amcCode, category);
-                        ddlAmc.SelectedValue = amcCode.ToString();
-                        ddlScheme.SelectedValue = Session["MFSchemePlan"].ToString();
-                        ddlCategory.SelectedValue = category;
-                        GetControlDetails(int.Parse(Session["MFSchemePlan"].ToString()), null);
-                       // SetSelectedDisplay(0, int.Parse(Session["MFSchemePlan"].ToString()), amcCode, category);
+                        scheme = int.Parse(Session["MFSchemePlan"].ToString());
+                        //commonLookupBo.GetSchemeAMCCategory(38122, out amcCode, out category);
+                        commonLookupBo.GetSchemeAMCSchemeCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out categoryname, out amcName, out schemeName);
+                        BindFolioNumber(int.Parse(Session["MFSchemePlan"].ToString()));
+                        lblAmc.Text = amcName;
+                        lblScheme.Text = schemeName;
+                        lblCategory.Text = categoryname;
+                        SetControlDetails();
                     }
                 }
                 else
@@ -138,7 +140,7 @@ namespace WealthERP.OnlineOrderManagement
             if (ddlScheme.SelectedIndex != -1)
             {
 
-                GetControlDetails(int.Parse(ddlScheme.SelectedValue), null);
+                //GetControlDetails(int.Parse(ddlScheme.SelectedValue), null);
                 SetControlDetails();
             }
         }
@@ -161,11 +163,26 @@ namespace WealthERP.OnlineOrderManagement
 
 
         }
-        protected void GetControlDetails(int scheme, string folio)
+        protected void ddlFolio_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             DataSet ds = new DataSet();
-
-            ds = onlineMforderBo.GetControlDetails(scheme, folio);
+            if (ddlFolio.SelectedValue != "New" && ddlFolio.SelectedValue != "0")
+            {
+                ds = onlineMforderBo.GetCustomerSchemeFolioHoldings(customerVo.CustomerId, int.Parse(Session["MFSchemePlan"].ToString()), out schemeDividendOption);
+               
+                GetControlDetails(ds);
+            }
+            else
+            {
+                ds = onlineMforderBo.GetControlDetails(int.Parse(Session["MFSchemePlan"].ToString()), null);
+                lblUnitsheldDisplay.Visible = false;
+                GetControlDetails(ds);
+            }
+        }
+        
+        protected void GetControlDetails(DataSet ds)
+        {
+            
             DataTable dt = ds.Tables[0];
             if (dt.Rows.Count > -1)
             {
@@ -176,13 +193,38 @@ namespace WealthERP.OnlineOrderManagement
                     {
                         lblDividendType.Text = dr["PSLV_LookupValue"].ToString();
                     }
-                    if (!string.IsNullOrEmpty(dr["MinAmt"].ToString()))
+                    if (ddlFolio.SelectedValue != "New" && ddlFolio.SelectedValue != "0")
                     {
-                        lblMintxt.Text = dr["MinAmt"].ToString();
+                        if (!string.IsNullOrEmpty(dr["AdditionalMinAmt"].ToString()))
+                        {
+                            lblMintxt.Text = dr["AdditionalMinAmt"].ToString();
+                        }
+                        if (!string.IsNullOrEmpty(dr["AdditionalMultiAmt"].ToString()))
+                        {
+                            lblMulti.Text = dr["AdditionalMultiAmt"].ToString();
+                        }
+                       
+                        if (lblDividendType.Text == "Growth" & !string.IsNullOrEmpty(schemeDividendOption))
+                        {
+                            ddlDivType.SelectedValue = schemeDividendOption;
+                        }
                     }
-                    if (!string.IsNullOrEmpty(dr["MultiAmt"].ToString()))
+                    else
                     {
-                        lblMulti.Text = dr["MultiAmt"].ToString();
+                        if (!string.IsNullOrEmpty(dr["MinAmt"].ToString()))
+                        {
+                            lblMintxt.Text = dr["MinAmt"].ToString();
+                        }
+                        if (!string.IsNullOrEmpty(dr["MultiAmt"].ToString()))
+                        {
+                            lblMulti.Text = dr["MultiAmt"].ToString();
+                        }
+                        DataSet dsNav = commonLookupBo.GetLatestNav(int.Parse(Session["MFSchemePlan"].ToString()));
+                        if (dsNav.Tables[0].Rows.Count > 0)
+                        {
+                            string date = Convert.ToDateTime(dsNav.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
+                            lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + date;
+                        }
                     }
                     if (!string.IsNullOrEmpty(dr["CutOffTime"].ToString()))
                     {
@@ -234,28 +276,47 @@ namespace WealthERP.OnlineOrderManagement
                     }
 
                 }
-                DataSet dsNav = commonLookupBo.GetLatestNav(int.Parse(ddlScheme.SelectedValue));
-                if (dsNav.Tables[0].Rows.Count > 0)
+               
+            }
+            if (ddlFolio.SelectedValue != "New" && ddlFolio.SelectedValue != "0")
+            {
+                if (ds.Tables[1].Rows.Count > 0)
                 {
-                    string date = Convert.ToDateTime(dsNav.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
-                    lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + date;
+                    DataTable dtUnit = ds.Tables[1];
+                    foreach (DataRow drunits in dtUnit.Rows)
+                    {
+                        if (!string.IsNullOrEmpty(drunits["CMFNP_NetHoldings"].ToString()))
+                        {
+                            lblUnitsheldDisplay.Text = drunits["CMFNP_NetHoldings"].ToString();
+                            lblUnitsheldDisplay.Visible = true;
+                        }
+                    }
+                }
+
+                //NAV SET----3
+
+                if (ds.Tables[2].Rows.Count > 0)
+                {
+                    string date = Convert.ToDateTime(ds.Tables[2].Rows[0][0]).ToString("dd-MMM-yyyy");
+                    lblNavDisplay.Text = ds.Tables[2].Rows[0][1] + " " + "As On " + " " + date;
                 }
             }
-
         }
-        private void BindFolioNumber(int amcCode)
+        private void BindFolioNumber(int schemecode)
         {
-
+            DataTable dt;
             try
             {
-
-
-
-                ddlFolio.SelectedValue = "New";
-                ddlFolio.SelectedItem.Text = "New";
-
-
-
+                dt = onlineMforderBo.GetCustomerFolioSchemeWise(customerVo.CustomerId, schemecode);
+                if (dt.Rows.Count > 0)
+                {
+                    ddlFolio.DataSource = dt;
+                    ddlFolio.DataValueField = dt.Columns["CMFA_AccountId"].ToString();
+                    ddlFolio.DataTextField = dt.Columns["CMFA_FolioNum"].ToString();
+                    ddlFolio.DataBind();
+                }
+                ddlFolio.Items.Insert(0, new ListItem("Select", "0"));
+                ddlFolio.Items.Insert(1, new ListItem("New", "New"));
             }
             catch (BaseApplicationException Ex)
             {
@@ -265,30 +326,20 @@ namespace WealthERP.OnlineOrderManagement
         protected void SetControlDetails()
         {
             lbltime.Visible = true;
-            //lblDividendType.Visible = true;
             lblMulti.Visible = true;
             lblMintxt.Visible = true;
-            //lblDivType.Visible = true;
 
             if (lblDividendType.Text == "Growth")
             {
                 lblDividendFrequency.Visible = false;
                 lbldftext.Visible = false;
-
-                //lblDivType.Visible = false;
-                //ddlDivType.Visible = false;
                 RequiredFieldValidator4.Enabled = false;
                 divDVR.Visible = false;
-
             }
             else
             {
-                // lblDividendFrequency.Visible = true;
-                //lbldftext.Visible = true;
-                //lblDivType.Visible = true;
-                //ddlDivType.Visible = true;  
-                if (ddlScheme.SelectedIndex == 0) return;
-                BindSchemeDividendTypes(Convert.ToInt32(ddlScheme.SelectedValue.ToString()));
+                //if (ddlScheme.SelectedIndex == 0) return;
+                BindSchemeDividendTypes(int.Parse(Session["MFSchemePlan"].ToString()));
                 divDVR.Visible = true;
                 RequiredFieldValidator4.Enabled = true;
 
@@ -390,7 +441,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             List<int> OrderIds = new List<int>();
             bool accountDebitStatus = false;
-            onlinemforderVo.SchemePlanCode = Int32.Parse(ddlScheme.SelectedValue.ToString());
+            onlinemforderVo.SchemePlanCode = int.Parse(Session["MFSchemePlan"].ToString());
             if (!string.IsNullOrEmpty(txtAmt.Text.ToString()))
             {
                 onlinemforderVo.Amount = double.Parse(txtAmt.Text.ToString());
@@ -398,7 +449,14 @@ namespace WealthERP.OnlineOrderManagement
             else
                 onlinemforderVo.Amount = 0.0;
             onlinemforderVo.DividendType = ddlDivType.SelectedValue;
-            onlinemforderVo.TransactionType = "BUY";
+            if (ddlFolio.SelectedValue != "New" && ddlFolio.SelectedValue != "0")
+            {
+                onlinemforderVo.TransactionType = "ABY";
+            }
+            else
+            {
+                onlinemforderVo.TransactionType = "BUY";
+            }
             float amt;
             float minAmt;
             float multiAmt;

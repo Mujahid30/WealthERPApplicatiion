@@ -71,14 +71,13 @@ namespace WealthERP.OnlineOrderManagement
                 {
                     ShowAvailableLimits();
                     BindNFOSchemeList();
-                    trJointHolder.Visible = false;
-                    trNominee.Visible = false;
                     lblOption.Visible = false;
                     lblDividendType.Visible = false;
-                    if(Session["MFSchemePlan"] != null)
+                    if (Session["MFSchemePlan"] != null)
                     {
                         ddlScheme.SelectedValue = Session["MFSchemePlan"].ToString();
-                        GetControlDetails(Convert.ToInt32(Session["MFSchemePlan"].ToString()), null);
+                        lblScheme.Text = ddlScheme.SelectedItem.Text;
+                        GetControlDetails(int.Parse(Session["MFSchemePlan"].ToString()), null);
                     }
 
                 }
@@ -237,7 +236,7 @@ namespace WealthERP.OnlineOrderManagement
                 //lblDivType.Visible = false;
                 //ddlDivType.Visible = false;
                 RequiredFieldValidator4.Enabled = false;
-                trDivtype.Visible = false;
+                divDividentType.Visible = false;
 
 
             }
@@ -247,7 +246,7 @@ namespace WealthERP.OnlineOrderManagement
                 //lbldftext.Visible = true;
                 //lblDivType.Visible = true;
                 //ddlDivType.Visible = true;                
-                trDivtype.Visible = true;
+                divDividentType.Visible = true;
                 BindSchemeDividendTypes(Convert.ToInt32(ddlScheme.SelectedValue.ToString()));
                 RequiredFieldValidator4.Enabled = true;
 
@@ -476,7 +475,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (!string.IsNullOrEmpty(customerVo.AccountId))
             {
-                lblAvailableLimits.Text = onlineMforderBo.GetUserRMSAccountBalance(customerVo.AccountId).ToString();
+               // lblAvailableLimits.Text = onlineMforderBo.GetUserRMSAccountBalance(customerVo.AccountId).ToString();
             }
 
         }

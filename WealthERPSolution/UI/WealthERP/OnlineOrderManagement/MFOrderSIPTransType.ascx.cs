@@ -103,27 +103,26 @@ namespace WealthERP.OnlineOrderManagement
                     //lnkOfferDoc.Visible = false;
                     //lnkFactSheet.Visible = false;
                     //lnkExitLoad.Visible = false;
-                    if (Request.QueryString["strAction"] != null && Request.QueryString["orderId"] != null && Request.QueryString["customerId"] != null)
-                    {
-                        strAction = Request.QueryString["strAction"].ToString();
-                        orderIdForEdit = Convert.ToInt32(Request.QueryString["orderId"].ToString());
-                        customerIdforEdit = Convert.ToInt32(Request.QueryString["customerId"].ToString());
-                    }
-                    else if ((Request.QueryString["accountId"] != null && Request.QueryString["SchemeCode"] != null) || Session["MFSchemePlan"] != null)
-                    {
-                        int accountId = 0;
-                        int schemeCode = 0;
-                        int amcCode = 0;
-                        string category = string.Empty;
-                        if (Request.QueryString["accountId"] != null)
-                        {
-                            schemeCode = int.Parse(Request.QueryString["SchemeCode"].ToString());
-                            accountId = int.Parse(Request.QueryString["accountId"].ToString());
-                            commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category);
-                            OnDrillDownBindControlValue(amcCode, category, accountId, schemeCode);
-                            DataViewOnEdit();
-                        }
-                        else
+                    //if (Request.QueryString["strAction"] != null && Request.QueryString["orderId"] != null && Request.QueryString["customerId"] != null)
+                    //{
+                    //    strAction = Request.QueryString["strAction"].ToString();
+                    //    orderIdForEdit = Convert.ToInt32(Request.QueryString["orderId"].ToString());
+                    //    customerIdforEdit = Convert.ToInt32(Request.QueryString["customerId"].ToString());
+                    //}
+                    //else if ((Request.QueryString["accountId"] != null && Request.QueryString["SchemeCode"] != null) || Session["MFSchemePlan"] != null)
+                    //{
+                    int amcCode = 0;
+                    string category = string.Empty;
+                    //    if (Request.QueryString["accountId"] != null)
+                    //    {
+                    //        schemeCode = int.Parse(Request.QueryString["SchemeCode"].ToString());
+                    //        accountId = int.Parse(Request.QueryString["accountId"].ToString());
+                    //        commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category);
+                    //        OnDrillDownBindControlValue(amcCode, category, accountId, schemeCode);
+                    //        DataViewOnEdit();
+                    //    }
+                    //    else
+                    if (Session["MFSchemePlan"] != null)
                         {
                             //amcCode = int.Parse(Request.QueryString["Amc"].ToString());
                             //ddlAmc.SelectedValue = amcCode.ToString();
@@ -131,7 +130,7 @@ namespace WealthERP.OnlineOrderManagement
                             //BindFolioNumber(Convert.ToInt32(ddlAmc.SelectedValue));
                             commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category);
                             OnDrillDownBindControlValue(amcCode, category, 0, int.Parse(Session["MFSchemePlan"].ToString()));
-                            BindSipUiOnSchemeSelection(int.Parse(Session["MFSchemePlan"].ToString()));
+                            BindSchemeDividendTypes(int.Parse(Session["MFSchemePlan"].ToString()));
                             //BindSchemes(Convert.ToInt32(ddlAmc.SelectedValue), ddlCategory.SelectedValue);
 
                             //SchemeBind(int.Parse(ddlAmc.SelectedValue), null, customerVo.CustomerId);
@@ -143,7 +142,6 @@ namespace WealthERP.OnlineOrderManagement
                             //SetSelectedDisplay(int.Parse(ddlFolio.SelectedValue), schemeCode, amcCode, category);
                             //BindNomineeAndJointHolders();
                         }
-                    }
 
                     btnSubmit.Text = "Submit";
 
@@ -170,7 +168,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (!string.IsNullOrEmpty(customerVo.AccountId))
             {
-                lblAvailableLimits.Text = boOnlineOrder.GetUserRMSAccountBalance(customerVo.AccountId).ToString();
+                //lblAvailableLimits.Text = boOnlineOrder.GetUserRMSAccountBalance(customerVo.AccountId).ToString();
             }
 
         }
@@ -178,10 +176,12 @@ namespace WealthERP.OnlineOrderManagement
         protected void OnDrillDownBindControlValue(int amcCode, string category, int accountId, int schemeCode)
         {
             ddlAmc.SelectedValue = amcCode.ToString();
+            lblAmc.Text = ddlAmc.SelectedItem.Text;
             ddlCategory.SelectedValue = category;
+            lblCategory.Text = ddlCategory.SelectedItem.Text;
             BindAMCSchemes(amcCode, category);
             ddlScheme.SelectedValue = schemeCode.ToString();
-
+            lblScheme.Text = ddlScheme.SelectedItem.Text;
             BindSipUiOnSchemeSelection(schemeCode);
             //ddlFolio.SelectedValue = accountId.ToString();
 
@@ -564,8 +564,6 @@ namespace WealthERP.OnlineOrderManagement
             dtGetAllSIPDataForOrder = dvFilterDivNGrowth.ToTable();
             if (dtGetAllSIPDataForOrder.Rows[0]["PSLV_LookupValueCodeForSchemeOption"].ToString() == "DV")
             {
-                trDividendType.Visible = true;
-                trDividendFrequency.Visible = true;
                 //trDividendOption.Visible = true;
                 if (ddlScheme.SelectedIndex == 0) return;
                 BindSchemeDividendTypes(Convert.ToInt32(ddlScheme.SelectedValue.ToString()));
@@ -643,7 +641,7 @@ namespace WealthERP.OnlineOrderManagement
 
             BindStartDates();
             BindTotalInstallments();
-            ShowHideControlsForDivAndGrowth();
+            //ShowHideControlsForDivAndGrowth();
             BindSipDetOnFreqSel(ddlScheme.SelectedValue, ddlFrequency.SelectedValue);
         }
         protected void BindSipDetOnFreqSel(string schemeId, string freq)
@@ -778,9 +776,8 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 else
                 {
-                    trSchemeRating.Visible = false;
                     lblSchemeRatingAsOn.Visible = false;
-                    imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/0.png";
+                    imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/5.png";
                 }
 
             }
@@ -949,10 +946,9 @@ namespace WealthERP.OnlineOrderManagement
             ddlTotalInstallments.Enabled = false;
             ddlDividendFreq.Enabled = false;
             ddlDividendOption.Enabled = false;
-            trTermsCondition.Visible = false;
 
             btnSubmit.Visible = false;
-            trNewOrder.Visible = true;
+            //trNewOrder.Visible = true;
         }
 
         protected void ddlFolio_SelectedIndexChanged(object sender, EventArgs e)
@@ -963,14 +959,14 @@ namespace WealthERP.OnlineOrderManagement
             {
                 BindNomineeAndJointHolders();
                 GetControlDetails(Convert.ToInt32(ddlScheme.SelectedValue), ddlFolio.SelectedValue);
-                trNominee.Visible = true;
-                trJointHolder.Visible = true;
+                //trNominee.Visible = true;
+                //trJointHolder.Visible = true;
                 ddlFrequency.SelectedIndex = 0;
             }
             else
             {
-                trNominee.Visible = false;
-                trJointHolder.Visible = false;
+                //trNominee.Visible = false;
+                //trJointHolder.Visible = false;
             }
         }
 

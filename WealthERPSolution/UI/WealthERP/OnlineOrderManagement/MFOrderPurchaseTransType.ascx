@@ -21,10 +21,10 @@
 <script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
 
 <script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
+
 <link href="../Base/CSS/bootstrap-theme.css" rel="stylesheet" type="text/css" />
 <link href="../Base/CSS/bootstrap.css" rel="stylesheet" type="text/css" />
 <link href="../Base/CSS/bootstrap.min.css" rel="stylesheet" type="text/css" />
-
 <asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
 
@@ -79,110 +79,92 @@
         padding-bottom: .5em;
     }
 </style>
-<asp:UpdatePanel ID="UpdatePanel1" runat="server" >
+<asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
-      <div style="height:200px">
-        <table class="tblMessage" cellpadding="0" cellspacing="0">
-            <tr>
-                <td align="center">
-                    <div id="divMessage" align="center">
-                    </div>
-                    <div style="clear: both">
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <div style="float: left; width: 100%;" id="divControlContainer" runat="server">
-         <div class="col-md-12  col-xs-12 col-sm-12">
-         <div style="float:right"> <asp:ImageButton ID="imgInformation" runat="server" ImageUrl="../Images/help.png"
-                            OnClick="imgInformation_OnClick" ToolTip="Help" Style="cursor: hand;" /></div>
-             <div class="col-md-3">
-             AMC:
-                        <asp:DropDownList ID="ddlAmc" runat="server" CssClass="form-control input-sm" AutoPostBack="true"
-                            OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged">
-                        </asp:DropDownList>
-                       <%-- <span id="Span1" class="spnRequiredField">*</span>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="rfvPCG"
-                            ErrorMessage="Please Select an AMC" Display="Dynamic" ControlToValidate="ddlAmc"
-                            InitialValue="0" ValidationGroup="btnSubmit">
-                        </asp:RequiredFieldValidator>--%>
+        <div style="height: 200px">
+            <table class="tblMessage" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td align="center">
+                        <div id="divMessage" align="center">
                         </div>
-                <div class="col-md-2">
-                   Category:
-                        <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control input-sm" AutoPostBack="true"
-                            OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged">
-                        </asp:DropDownList>
-                       <%-- <span id="Span7" class="spnRequiredField">*</span>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Please Select Category"
-                            CssClass="rfvPCG" ControlToValidate="ddlCategory" ValidationGroup="btnSubmit"
-                            Display="Dynamic" InitialValue="-1"></asp:RequiredFieldValidator>--%>
-                   </div>
-                    <div class="col-md-4">
-                   Scheme:
-                        <asp:DropDownList ID="ddlScheme" runat="server" CssClass="form-control input-sm" AutoPostBack="true"
-                            OnSelectedIndexChanged="ddlScheme_onSelectedChanged">
-                        </asp:DropDownList>
-                     <%--   <span id="Span2" class="spnRequiredField">*</span>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please Select a scheme"
-                            InitialValue="0" CssClass="rfvPCG" ControlToValidate="ddlScheme" ValidationGroup="btnSubmit"
-                            Display="Dynamic"></asp:RequiredFieldValidator>--%>
+                        <div style="clear: both">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div style="float: left; width: 100%;" id="divControlContainer" runat="server">
+                <div class="col-md-12  col-xs-12 col-sm-12">
+                    <div style="float: right">
+                        <asp:ImageButton ID="imgInformation" runat="server" ImageUrl="../Images/help.png"
+                            OnClick="imgInformation_OnClick" ToolTip="Help" Style="cursor: hand;" /></div>
+                    <div class="col-md-3">
+                        AMC:<asp:Label ID="lblAmc" runat="server" CssClass="readOnlyField"></asp:Label>
                     </div>
-                       <div class="col-md-2" id="divDVR" runat="server" visible="false">
-                    Dividend Type:
-                        <asp:DropDownList ID="ddlDivType" runat="server" CssClass="form-control input-sm" Style="width: 250px;">
-                        </asp:DropDownList>
-                      <%--  <span id="Span4" class="spnRequiredField">*</span>--%>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" CssClass="rfvPCG"
-                            ErrorMessage="Please Select an Dividend Type" Display="Dynamic" ControlToValidate="ddlDivType"
-                            InitialValue="0" ValidationGroup="btnSubmit">
-                        </asp:RequiredFieldValidator>
-                   </div>
+                    <div class="col-md-2">
+                        Category:
+                        <asp:Label ID="lblCategory" runat="server" CssClass="readOnlyField"></asp:Label>
+                    </div>
+                    <div class="col-md-3">
+                        Scheme:
+                        <asp:Label ID="lblScheme" runat="server" CssClass="readOnlyField"></asp:Label>
+                    </div>
+                    <div id="divDVR" runat="server" visible="false">
+                        <div class="col-md-1">
+                            Dividend Type:</div>
+                        <div class="col-md-2">
+                            <asp:DropDownList ID="ddlDivType" runat="server" CssClass="form-control input-sm"
+                                Style="width: 250px;">
+                            </asp:DropDownList>
+                            <%--  <span id="Span4" class="spnRequiredField">*</span>--%>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" CssClass="rfvPCG"
+                                ErrorMessage="Please Select an Dividend Type" Display="Dynamic" ControlToValidate="ddlDivType"
+                                InitialValue="0" ValidationGroup="btnSubmit">
+                            </asp:RequiredFieldValidator>
+                        </div>
+                    </div>
                 </div>
-                    
-                 <div class="col-md-12  col-xs-12 col-sm-12" style="margin-top:.5%">
-                        <div class="col-md-3">
-                                Last Recorded NAV (Rs):
-                                    <asp:Label ID="lblNavDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
-                              </div>
-                                               <div class="col-md-2">
-                                    Minimum Initial Amount:
-                                    <asp:Label ID="lblMintxt" runat="server" CssClass="readOnlyField"></asp:Label>
-                             </div>
-                                 <div class="col-md-2">
-                                        Scheme Rating:
-                                        <asp:Image runat="server" ID="imgSchemeRating" /><br />
-                                        <asp:Label ID="lblSchemeRatingAsOn" runat="server" CssClass="FieldName"></asp:Label>
-                                        
-                               </div>
-                        
-                           <div class="col-md-2">Cut-Off time:
-                                    <asp:Label ID="lbltime" runat="server" Text="" CssClass="readOnlyField"></asp:Label>
-                                </div>
-                                <div class="col-md-3">Subsequent Amount(In Multiples Of):
-                                    <asp:Label ID="lblMulti" runat="server" CssClass="readOnlyField"></asp:Label>
-                                </div>
-                               
-                   </div>
-                    <div class="col-md-12  col-xs-12 col-sm-12" >
-                      <div class="col-md-2">
-              Joint Holder:
+                <div class="col-md-12  col-xs-12 col-sm-12" style="margin-top: .5%">
+                    <div class="col-md-3">
+                        Last Recorded NAV (Rs):
+                        <asp:Label ID="lblNavDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
+                    </div>
+                    <div class="col-md-2">
+                        Minimum Initial Amount:
+                        <asp:Label ID="lblMintxt" runat="server" CssClass="readOnlyField"></asp:Label>
+                    </div>
+                    <div class="col-md-2">
+                        Scheme Rating:
+                        <asp:Image runat="server" ID="imgSchemeRating" /><br />
+                        <asp:Label ID="lblSchemeRatingAsOn" runat="server" CssClass="FieldName"></asp:Label>
+                    </div>
+                    <div class="col-md-2">
+                        Cut-Off time:
+                        <asp:Label ID="lbltime" runat="server" Text="" CssClass="readOnlyField"></asp:Label>
+                    </div>
+                    <div class="col-md-3">
+                        Subsequent Amount(In Multiples Of):
+                        <asp:Label ID="lblMulti" runat="server" CssClass="readOnlyField"></asp:Label>
+                    </div>
+                </div>
+                <div class="col-md-12  col-xs-12 col-sm-12">
+                    <div class="col-md-2">
+                        Joint Holder:
                         <asp:Label ID="lblHolderDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
-                   </div>
-                <div class="col-md-2">
-               Nominee:
+                    </div>
+                    <div class="col-md-2">
+                        Nominee:
                         <asp:Label ID="lblNomineeDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
                     </div>
-                    </div>
-                     <div class="col-md-12  col-xs-12 col-sm-12">
+                </div>
+                <div class="col-md-12  col-xs-12 col-sm-12">
                     <div class="col-md-3">
-                       Folio Number:
-                        <asp:DropDownList ID="ddlFolio" CssClass="form-control input-sm  dropdown-toggle" runat="server" AutoPostBack="True">
-                            <asp:ListItem Value="New" Text="New"></asp:ListItem>
+                        Folio Number:
+                        <asp:DropDownList ID="ddlFolio" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlFolio_OnSelectedIndexChanged"
+                            runat="server" AutoPostBack="True">
                         </asp:DropDownList>
                     </div>
-                    
-               <div class="col-md-1">
-               Amount:
+                    <div class="col-md-1">
+                        Amount:
                         <asp:TextBox ID="txtAmt" runat="server" CssClass="txtField" MaxLength="11"></asp:TextBox>
                         <span id="Span3" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please Select a Amount"
@@ -192,10 +174,12 @@
                             ErrorMessage="Please Enter Only Numbers and 2 digits after decimal " CssClass="rfvPCG"
                             ValidationExpression="^[0-9]+(\.[0-9]{1,2})?$" ValidationGroup="btnSubmit" Display="Dynamic"></asp:RegularExpressionValidator>
                     </div>
-                   
-                  
-             <div class="col-md-3" style="padding-left:10px">
-             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="col-md-2">
+                        Units Held:
+                        <asp:Label ID="lblUnitsheldDisplay" runat="server"></asp:Label>
+                    </div>
+                    <div class="col-md-3" style="padding-left: 10px">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <asp:CheckBox ID="chkTermsCondition" runat="server" Font-Bold="True" Font-Names="Shruti"
                             Enabled="false" Checked="false" ForeColor="#145765" Text="" ToolTip="Click 'Terms & Conditions' to proceed further"
                             CausesValidation="true" />
@@ -203,119 +187,115 @@
                             runat="server" CssClass="txtField" OnClick="lnkTermsCondition_Click" ToolTip="Click here to accept terms & conditions"></asp:LinkButton>
                         <span id="Span9" class="spnRequiredField">*</span>
                         <br />
-                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="Please read terms & conditions"
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="Please read terms & conditions"
                             ClientValidationFunction="ValidateTermsConditions" EnableClientScript="true"
                             OnServerValidate="TermsConditionCheckBox" Display="Dynamic" ValidationGroup="btnSubmit"
                             CssClass="rfvPCG">
                     Please read terms & conditions
                         </asp:CustomValidator>
                     </div>
-               <div class="col-md-3">
+                    <div class="col-md-3">
                         <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="OnClick_Submit"
-                           class="btn btn-sm btn-primary" ValidationGroup="btnSubmit"></asp:Button>
+                            class="btn btn-sm btn-primary" ValidationGroup="btnSubmit"></asp:Button>
                     </div>
                 </div>
-               
-                    <%-- <td >
+                <%-- <td >
              <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="ResetControlDetails"
                     CssClass="FieldName"></asp:Button>
             </td>--%>
-                 
-                
-          
-        </div>
-        <div style="float: left; padding-top: 5px; display: none;">
-            <table style="border-style: solid; border-width: 2px; border-color: Blue">
-                <tr class="spaceUnder">
-                    <td>
-                        <asp:Label ID="lblUsefulLinks" CausesValidation="false" runat="server" Text="Quick Links:"
-                            CssClass="FieldName"></asp:Label>
-                    </td>
-                </tr>
-                <tr class="spaceUnder">
-                    <td>
-                        <asp:LinkButton ID="lnkOfferDoc" CausesValidation="false" Text="Offer Doc" runat="server"
-                            CssClass="txtField"></asp:LinkButton>
-                    </td>
-                </tr>
-                <tr class="spaceUnder">
-                    <td>
-                        <asp:LinkButton ID="lnkFactSheet" CausesValidation="false" Text="Fact Sheet" runat="server"
-                            CssClass="txtField"></asp:LinkButton>
-                    </td>
-                </tr>
-                <tr class="spaceUnder">
-                    <td>
-                        <asp:LinkButton ID="lnkExitLoad" CausesValidation="false" runat="server" Text="Exit Load"
-                            CssClass="txtField"></asp:LinkButton>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <telerik:RadWindow ID="rwTermsCondition" runat="server" VisibleOnPageLoad="false"
-            Width="1000px" Height="200px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Move, Resize,Close"
-            Title="Terms & Conditions" EnableShadow="true" Left="300" Top="1"  OnClientShow="setCustomPosition">
-            <ContentTemplate>
-                <div style="padding: 0px; width: 100%;height:150px">
-                    <table width="100%" cellpadding="0" cellpadding="0" height="148px">
-                        <tr>
-                            <td align="left">
-                                <%--  <a href="../ReferenceFiles/MF-Terms-Condition.html">../ReferenceFiles/MF-Terms-Condition.html</a>--%>
-                                <iframe src="../ReferenceFiles/MF-Terms-Condition.html" name="iframeTermsCondition"
-                                    style="width: 100%;height:125px;"></iframe>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="center">
-                                <asp:Button ID="btnAccept" runat="server" Text="Accept" class="btn btn-sm btn-primary" OnClick="btnAccept_Click"
-                                    CausesValidation="false" />
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </ContentTemplate>
-        </telerik:RadWindow>
-        <telerik:RadWindowManager runat="server" ID="RadWindowManager1">
-            <Windows>
-                <telerik:RadWindow ID="rw_customConfirm" Modal="true" Behaviors="Close, Move" VisibleStatusbar="false"
-                    Width="700px" Height="160px" runat="server" Title="EUIN Confirm" Left="300" Top="5"
-                    OnClientShow="setCustomPosition">
-                    <ContentTemplate>
-                        <div class="rwDialogPopup radconfirm">
-                            <div class="rwDialogText">
-                                <asp:Label ID="confirmMessage" Text="" runat="server" />
+            </div>
+            <div style="float: left; padding-top: 5px; display: none;">
+                <table style="border-style: solid; border-width: 2px; border-color: Blue">
+                    <tr class="spaceUnder">
+                        <td>
+                            <asp:Label ID="lblUsefulLinks" CausesValidation="false" runat="server" Text="Quick Links:"
+                                CssClass="FieldName"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr class="spaceUnder">
+                        <td>
+                            <asp:LinkButton ID="lnkOfferDoc" CausesValidation="false" Text="Offer Doc" runat="server"
+                                CssClass="txtField"></asp:LinkButton>
+                        </td>
+                    </tr>
+                    <tr class="spaceUnder">
+                        <td>
+                            <asp:LinkButton ID="lnkFactSheet" CausesValidation="false" Text="Fact Sheet" runat="server"
+                                CssClass="txtField"></asp:LinkButton>
+                        </td>
+                    </tr>
+                    <tr class="spaceUnder">
+                        <td>
+                            <asp:LinkButton ID="lnkExitLoad" CausesValidation="false" runat="server" Text="Exit Load"
+                                CssClass="txtField"></asp:LinkButton>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <telerik:RadWindow ID="rwTermsCondition" runat="server" VisibleOnPageLoad="false"
+                Width="1000px" Height="200px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false"
+                Behaviors="Move, Resize,Close" Title="Terms & Conditions" EnableShadow="true"
+                Left="300" Top="1" OnClientShow="setCustomPosition">
+                <ContentTemplate>
+                    <div style="padding: 0px; width: 100%; height: 150px">
+                        <table width="100%" cellpadding="0" cellpadding="0" height="148px">
+                            <tr>
+                                <td align="left">
+                                    <%--  <a href="../ReferenceFiles/MF-Terms-Condition.html">../ReferenceFiles/MF-Terms-Condition.html</a>--%>
+                                    <iframe src="../ReferenceFiles/MF-Terms-Condition.html" name="iframeTermsCondition"
+                                        style="width: 100%; height: 125px;"></iframe>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    <asp:Button ID="btnAccept" runat="server" Text="Accept" class="btn btn-sm btn-primary"
+                                        OnClick="btnAccept_Click" CausesValidation="false" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </ContentTemplate>
+            </telerik:RadWindow>
+            <telerik:RadWindowManager runat="server" ID="RadWindowManager1">
+                <Windows>
+                    <telerik:RadWindow ID="rw_customConfirm" Modal="true" Behaviors="Close, Move" VisibleStatusbar="false"
+                        Width="700px" Height="160px" runat="server" Title="EUIN Confirm" Left="300" Top="5"
+                        OnClientShow="setCustomPosition">
+                        <ContentTemplate>
+                            <div class="rwDialogPopup radconfirm">
+                                <div class="rwDialogText">
+                                    <asp:Label ID="confirmMessage" Text="" runat="server" />
+                                </div>
+                                <div>
+                                    <asp:Button runat="server" ID="rbConfirm_OK" Text="OK" OnClick="rbConfirm_OK_Click"
+                                        OnClientClick="return PreventClicks();" ValidationGroup="btnSubmit"></asp:Button>
+                                    <asp:Button runat="server" ID="rbConfirm_Cancel" Text="Cancel" OnClientClicked="closeCustomConfirm">
+                                    </asp:Button>
+                                </div>
                             </div>
-                            <div>
-                                <asp:Button runat="server" ID="rbConfirm_OK" Text="OK" OnClick="rbConfirm_OK_Click"
-                                    OnClientClick="return PreventClicks();" ValidationGroup="btnSubmit"></asp:Button>
-                                <asp:Button runat="server" ID="rbConfirm_Cancel" Text="Cancel" OnClientClicked="closeCustomConfirm">
-                                </asp:Button>
-                            </div>
-                        </div>
-                    </ContentTemplate>
-                </telerik:RadWindow>
-            </Windows>
-        </telerik:RadWindowManager>
-        <telerik:RadWindow ID="RadInformation" Modal="true" Behaviors="Close, Move" VisibleStatusbar="false"
-            Width="760px" Height="180px" runat="server" Left="300" Top="5" OnClientShow="setCustomPosition" >
-            <ContentTemplate>
-                <div style="padding: 0px; width: 100%; height:100%;">
-                    <%--<table width="100%" cellpadding="0" cellpadding="0" Height="100%">
+                        </ContentTemplate>
+                    </telerik:RadWindow>
+                </Windows>
+            </telerik:RadWindowManager>
+            <telerik:RadWindow ID="RadInformation" Modal="true" Behaviors="Close, Move" VisibleStatusbar="false"
+                Width="760px" Height="180px" runat="server" Left="300" Top="5" OnClientShow="setCustomPosition">
+                <ContentTemplate>
+                    <div style="padding: 0px; width: 100%; height: 100%;">
+                        <%--<table width="100%" cellpadding="0" cellpadding="0" Height="100%">
                         <tr>
                             <td align="left">--%>
-                                <%--  <a href="../ReferenceFiles/MF-Terms-Condition.html">../ReferenceFiles/MF-Terms-Condition.html</a>--%>
-                                
-                                <iframe src="../ReferenceFiles/HelpNewPurchaseInformation.htm" name="iframeTermsCondition"
-                                    style="width: 100%; height:100%"></iframe>
-                           <%-- </td>
+                        <%--  <a href="../ReferenceFiles/MF-Terms-Condition.html">../ReferenceFiles/MF-Terms-Condition.html</a>--%>
+                        <iframe src="../ReferenceFiles/HelpNewPurchaseInformation.htm" name="iframeTermsCondition"
+                            style="width: 100%; height: 100%"></iframe>
+                        <%-- </td>
                         </tr>
                     </table>--%>
-                </div>
-            </ContentTemplate>
-        </telerik:RadWindow>
+                    </div>
+                </ContentTemplate>
+            </telerik:RadWindow>
         </div>
     </ContentTemplate>
-    
     <Triggers>
     </Triggers>
 </asp:UpdatePanel>
@@ -327,35 +307,45 @@
     }
 </script>
 
- <table>
-                <tr class="spaceUnder" id="trDivFre" visible="false" runat="server">
-                    <td>
-                    </td>
-                    <td align="right" style="vertical-align: top;">
-                        <asp:Label ID="lblDividendFrequency" runat="server" Text="Dividend Frequency:" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:Label ID="lbldftext" runat="server" CssClass="txtField"></asp:Label>
-                    </td>
-                    <td colspan="2">
-                    </td>
-                </tr>
-             <tr id="trNewOrder" runat="server" visible="false">
-                    <td align="center" colspan="4">
-                        <asp:LinkButton ID="lnkNewOrder" CausesValidation="false" Text="Make another NewPurchase"
-                            runat="server" OnClick="lnkNewOrder_Click" CssClass="LinkButtons"></asp:LinkButton>
-                    </td>
-                </tr>
-                <tr id="Tr1" class="spaceUnder" runat="server" visible="false">
-                    <td>
-                    </td>
-                    <td align="right" style="vertical-align: top;">
-                        <asp:Label ID="lblOption" runat="server" Text="Option:" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:Label ID="lblDividendType" runat="server" CssClass="txtField"></asp:Label>
-                    </td>
-                    <td colspan="2">
-                    </td>
-                </tr>
-                   </table>
+<table>
+    <tr class="spaceUnder" id="trDivFre" visible="false" runat="server">
+        <td>
+        </td>
+        <td align="right" style="vertical-align: top;">
+            <asp:Label ID="lblDividendFrequency" runat="server" Text="Dividend Frequency:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+            <asp:Label ID="lbldftext" runat="server" CssClass="txtField"></asp:Label>
+        </td>
+        <td colspan="2">
+        </td>
+    </tr>
+    <tr id="trNewOrder" runat="server" visible="false">
+        <td align="center" colspan="4">
+            <asp:LinkButton ID="lnkNewOrder" CausesValidation="false" Text="Make another NewPurchase"
+                runat="server" OnClick="lnkNewOrder_Click" CssClass="LinkButtons"></asp:LinkButton>
+        </td>
+    </tr>
+    <tr id="Tr1" class="spaceUnder" runat="server" visible="false">
+        <td>
+        </td>
+        <td align="right" style="vertical-align: top;">
+            <asp:Label ID="lblOption" runat="server" Text="Option:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+            <asp:Label ID="lblDividendType" runat="server" CssClass="txtField"></asp:Label>
+        </td>
+        <td colspan="2">
+            <asp:DropDownList ID="ddlAmc" runat="server" CssClass="form-control input-sm" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged" Visible="false">
+            </asp:DropDownList>
+            <asp:DropDownList ID="ddlScheme" runat="server" CssClass="form-control input-sm"
+                AutoPostBack="true" OnSelectedIndexChanged="ddlScheme_onSelectedChanged" Visible="false">
+            </asp:DropDownList>
+            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control input-sm"
+                AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged"
+                Visible="false">
+            </asp:DropDownList>
+        </td>
+    </tr>
+</table>

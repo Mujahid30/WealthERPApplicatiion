@@ -39,6 +39,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divClientAccountBalance;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDividentType;
         
         /// <summary>
         /// Label1 control.
