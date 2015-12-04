@@ -3132,9 +3132,44 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetProductSearchType;
         }
+        public DataTable GetTopMarketSchemes(string category, Boolean isSIP, int returns, int customerId)
+    {
+         Database db;
+            DataSet dsGetSchemeDetails;
+            DbCommand cmdGetSchemeDetails;
+            try
+            {
+                 db = DatabaseFactory.CreateDatabase("wealtherp");
+                 cmdGetSchemeDetails = db.GetStoredProcCommand("SPROC_ONL_GetTopMarketSchemes");
+                 db.AddInParameter(cmdGetSchemeDetails, "@category", DbType.String, category);
+                 db.AddInParameter(cmdGetSchemeDetails, "@ISSIP", DbType.Boolean, isSIP);
+                 db.AddInParameter(cmdGetSchemeDetails, "@Returns", DbType.String, returns);
+                 db.AddInParameter(cmdGetSchemeDetails, "@customerId", DbType.String, customerId);
+                 dsGetSchemeDetails = db.ExecuteDataSet(cmdGetSchemeDetails);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineMFSchemeDetailsDao.cs:CustomerAddMFSchemeToWatch()");
+                object[] objects = new object[4];
+                objects[0] = category;
+                objects[1] = isSIP;
+                objects[2] = returns;
+                objects[3] = customerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetSchemeDetails.Tables[0];
+    }
         public DataTable GetSchemeDetails(int AMCCode, int Schemeplanecode, string category, int customerId, Int16 SchemeDetails, Boolean NFOType, out int recordCount, int PageIndex, int PageSize)
         {
-            DataTable dtGetSchemeDetails;
             Database db;
             DataSet dsGetSchemeDetails;
             DbCommand cmdGetSchemeDetails;
@@ -3164,14 +3199,14 @@ namespace DaoOnlineOrderManagement
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "OnlineMFSchemeDetailsDao.cs:CustomerAddMFSchemeToWatch()");
-                object[] objects = new object[3];
+                FunctionInfo.Add("Method", "OnlineMFSchemeDetailsDao.cs:GetSchemeDetails()");
+                object[] objects = new object[10];
                 objects[0] = customerId;
                 objects[1] = Schemeplanecode;
                 objects[2] = SchemeDetails;
-                objects[3] = AMCCode;
-                objects[2] = SchemeDetails;
-                objects[3] = AMCCode;
+                objects[4] = AMCCode;
+                objects[5] = SchemeDetails;
+                objects[6] = AMCCode;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);

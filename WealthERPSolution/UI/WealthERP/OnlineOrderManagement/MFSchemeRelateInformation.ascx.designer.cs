@@ -131,15 +131,6 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.LinkButton lnkMoreNews;
         
         /// <summary>
-        /// dvHeading control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvHeading;
-        
-        /// <summary>
         /// lblHeading control.
         /// </summary>
         /// <remarks>
@@ -158,13 +149,22 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.RadioButtonList rblNFOType;
         
         /// <summary>
-        /// dvSchemeDetails control.
+        /// ddlTopCategory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvSchemeDetails;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTopCategory;
+        
+        /// <summary>
+        /// DropDownList1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
         
         /// <summary>
         /// thSchemeRank control.
@@ -266,6 +266,87 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.Repeater rptPager;
         
         /// <summary>
+        /// ddlMarketCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlMarketCategory;
+        
+        /// <summary>
+        /// ddlSIP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSIP;
+        
+        /// <summary>
+        /// ddlReturns control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlReturns;
+        
+        /// <summary>
+        /// th2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell th2;
+        
+        /// <summary>
+        /// th6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell th6;
+        
+        /// <summary>
+        /// th7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell th7;
+        
+        /// <summary>
+        /// th8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell th8;
+        
+        /// <summary>
+        /// th9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell th9;
+        
+        /// <summary>
+        /// rptTopMarketSchemes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptTopMarketSchemes;
+        
+        /// <summary>
         /// hfAMCCode control.
         /// </summary>
         /// <remarks>
@@ -318,14 +399,8 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfNFOType;
-        
-        /// <summary>
-        /// MyHeader control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::WealthERP.OnlineOrder.Banner MyHeader;
+
+        protected global::System.Web.UI.WebControls.DataList dlNews;
+
     }
 }

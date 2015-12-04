@@ -119,6 +119,58 @@
         color: #fff !important;
     }
 </style>
+<style type="text/css">
+    ul.tabs
+    {
+        margin: 0;
+        padding: 0;
+        float: left;
+        list-style: none;
+        height: 32px;
+        border-bottom: 1px solid #999999;
+        border-left: 1px solid #999999;
+        width: 100%;
+    }
+    ul.tabs li
+    {
+        float: left;
+        margin: 0;
+        cursor: pointer;
+        padding: 0px 21px;
+        height: 31px;
+        line-height: 31px;
+        border: 1px solid #999999;
+        border-left: none;
+        font-weight: bold;
+        background: #EEEEEE;
+        overflow: hidden;
+        position: relative;
+    }
+    ul.tabs li:hover
+    {
+        background: #CCCCCC;
+    }
+    ul.tabs li.active
+    {
+        background: #FFFFFF;
+        border-bottom: 1px solid #FFFFFF;
+    }
+    .tab_container
+    {
+        border: 1px solid #999999;
+        border-top: none;
+        clear: both;
+        float: left;
+        width: 100%;
+        background: #FFFFFF;
+    }
+    .tab_content
+    {
+        padding: 20px;
+        font-size: 1.2em;
+        display: none;
+    }
+</style>
 
 <script src="../Scripts/bootstrap.js" type="text/javascript"></script>
 
@@ -130,268 +182,374 @@
 
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
 
+<script type="text/javascript" src="../Scripts/jquery-1.5.2.min.js"></script>
+
 <link href="../Base/CSS/bootstrap-theme.css" rel="stylesheet" type="text/css" />
 <link href="../Base/CSS/bootstrap.css" rel="stylesheet" type="text/css" />
 <link href="../Base/CSS/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
-<script type="text/javascript">
-    //        $(document).ready(function() {
-    //        GetSchemeLists();
-    //        });
-       
-</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 
-<table class="tblMessage" cellpadding="0" cellspacing="0">
-    <tr>
-        <td>
-            <div class="divOnlinePageHeading" style="height: 25px;">
-                <%-- <div class="divClientAccountBalance" id="divClientAccountBalance" runat="server">
-                    <asp:Label ID="Label1" runat="server" Text="Available Limits:" CssClass="BalanceLabel"> </asp:Label>
-                    <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="BalanceAmount"></asp:Label>--%>
-            </div>
-        </td>
-    </tr>
-</table>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
+
+<link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/start/jquery-ui.css"
+    rel="stylesheet" type="text/css" />
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
-    <div style="margin-left: 11%; margin-top: 1%; margin-bottom: 0.5%; margin-right: 5%;
-            padding-top: 0.5%; padding-bottom: 0.5%; width: 80%">
-        <div id="dvDemo"  visible="true" runat="server">
-            <div class="col-md-9  col-xs-9 col-sm-9" >
-                <div class="col-md-12  col-xs-12 col-sm-12">
-                    <div class="col-md-8 dottedBottom">
-                        <b>Fund Filter </b>
+       <div  class="col-md-12" style="margin: 5px 20px 3px 12%; padding-top:0.5%; padding-bottom: 0.5%; width: 75%;">
+      <div class="col-md-12" >
+      <div class="col-md-1" style="padding-right:0px;padding-top:0.5%;">
+       <b style="float:Right;">NEWS:</b>
+       </div>
+       <div class="col-md-11" style="padding-left:0px;" >
+        <marquee style="margin: 5px auto 3px auto; padding: 0px 20px 0px 10px;
+            border-radius: 2px; clear: both; height: 20px; color: #fff; background: #000;" direction="left"  scrolldelay="150"
+                onmouseover="this.setAttribute('scrollamount', 0, 0);" onmouseout="this.setAttribute('scrollamount', 6, 0);">
+        <asp:datalist ItemStyle-HorizontalAlign="Center" ItemStyle-CssClass="heading" ItemStyle-Width="33%" ItemStyle-Wrap="False" id="dlNews" CellPadding="2" RepeatColumns="10" RepeatDirection="Horizontal" CellSpacing="2" Runat="server">
+     <ItemTemplate>
+          <asp:Label ID="lblCountry" Text='<%# DataBinder.Eval(Container.DataItem,"heading")%>' Runat="server">
+          </asp:Label><br>
+     </ItemTemplate>
+     <SeparatorTemplate>
+          <span>|||</span>
+     </SeparatorTemplate>
+</asp:datalist>
+</marquee>
+        </div>
+     </div>
+            <div id="dvDemo" visible="true" runat="server">
+                <div class="col-md-12  col-xs-12 col-sm-12 ">
+                    <div class="col-md-12  col-xs-12 col-sm-12 dottedBottom">
+                            <b>Fund Filter </b>
                     </div>
-                    <div class="col-md-3 dottedBottom">
-                        <b>Predefined Search </b>
-                    </div>
-                </div>
-                <div class="col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 1%">
-                    <div class="col-md-5">
-                        <asp:DropDownList ID="ddlAMC" runat="server" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged"
-                            AutoPostBack="true" >
-                        </asp:DropDownList>
-                        <asp:RequiredFieldValidator ID="rfvtxtTransactionDate" ControlToValidate="ddlAMC"
-                            ErrorMessage="<br />Please select AMC" Style="color: Red;" Display="Dynamic"
-                            runat="server" InitialValue="0" ValidationGroup="btnViewscheme">
-                        </asp:RequiredFieldValidator>
-                        <%--<asp:RequiredFieldValidator ID="rfvAMC" runat="server" ControlToValidate="ddlAMC" InitialValue="0" ErrorMessage="Please Select AMC" Display="Dynamic"></asp:RequiredFieldValidator>--%>
-                    </div>
-                    <div class="col-md-3">
-                        <fieldset>
-                            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control input-sm"
-                                AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged">
+                    <div class="col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 1%">
+                        <div class="col-md-4">
+                            <asp:DropDownList ID="ddlAMC" runat="server" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged"
+                                AutoPostBack="true">
                             </asp:DropDownList>
-                            
-                         <%--   <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="ddlCategory"
+                            <asp:RequiredFieldValidator ID="rfvtxtTransactionDate" ControlToValidate="ddlAMC"
+                                ErrorMessage="<br />Please select AMC" Style="color: Red;" Display="Dynamic"
+                                runat="server" InitialValue="0" ValidationGroup="btnViewscheme">
+                            </asp:RequiredFieldValidator>
+                        </div>
+                        <div class="col-md-3">
+                            <fieldset>
+                                <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control input-sm"
+                                    AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged">
+                                </asp:DropDownList>
+                                <%--   <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="ddlCategory"
                                 ErrorMessage="<br />Please select category" Style="color: Red;" Display="Dynamic"
                                 runat="server" InitialValue="0" ValidationGroup="btnViewscheme">
                             </asp:RequiredFieldValidator>--%>
-                            
-                        </fieldset>
+                            </fieldset>
+                        </div>
+                        <div class="col-md-4">
+                         
+                              <asp:DropDownList ID="ddlScheme" runat="server" CssClass="form-control input-sm"
+                                class="form-control">
+                            </asp:DropDownList>
+                        </div>
+                        <div class="col-md-1">
+                            <asp:Button ID="Button1" runat="server" class="btn btn-sm btn-primary" Text="GO"
+                                OnClick="Go_OnClick" ValidationGroup="btnViewscheme"></asp:Button></div>
                     </div>
-                    <div class="col-md-4">
-                        <asp:LinkButton ID="lbNFOList" runat="server" OnClick="GetSchemeDetails" CssClass="linkButton">NFO Scheme </asp:LinkButton>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="col-md-7">
-                        <asp:DropDownList ID="ddlScheme" runat="server" CssClass="form-control input-sm"
-                            class="form-control">
-                        </asp:DropDownList>
-                    </div>
-                    <div class="col-md-1"><asp:Button ID="Button1" runat="server" class="btn btn-sm btn-primary" Text="GO"
-                            OnClick="Go_OnClick" ValidationGroup="btnViewscheme"></asp:Button></div>
-                    <div class="col-md-3 ">
-                        <asp:LinkButton ID="lbTopSchemes" runat="server" OnClick="GetSchemeDetails" CssClass="linkButton">Top Ten Schemes </asp:LinkButton>
-                    </div>
-                </div>
-                <div class="col-md-12" style="margin-top: 1%">
-                    <div class="col-md-8">
-                        
-                    </div>
-                    <div class="col-md-3">
-                        <asp:LinkButton ID="lbViewWatchList" runat="server" OnClick="GetSchemeDetails" CssClass="linkButton">My Watch list  </asp:LinkButton>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-xs-3 col-sm-3" style="margin-top: 0px;">
-                    <div class="col-md-12 dottedBottom">
-                        <b>Fund News</b>
-                    </div>
-                    <div>
-                        <marquee style="margin-bottom: 0px; height: 100px" direction="up" scrolldelay="150" onmouseover="this.setAttribute('scrollamount', 0, 0);" onmouseout="this.setAttribute('scrollamount', 6, 0);">
-                    <asp:Repeater ID="RepNews" runat="server" OnItemCommand="repFundDetails_OnItemCommand">
-                        <ItemTemplate>
-                            <div class="dottedBottom">
-                                <div>
-                                <asp:LinkButton ID="lnknews" runat="server" style="color:Black" Text='<%# Eval("heading")%>' CommandName="NewsDetailsLnk" CommandArgument='<%# Eval("sno")%>'></asp:LinkButton>
-                                    <asp:Label ID="Label2" runat="server" Text='<%# Eval("sno")%>' Visible="false"></asp:Label>
-                                </div>
-                                <div>
-                                    <asp:Label ID="lblDate" Style="font-size: x-small; color: Gray;" runat="server" Text='<%# Eval("date")%>'></asp:Label>
-                                </div>
-                            </div>
-                        </ItemTemplate>
-                    </asp:Repeater>
-                       </marquee>
-                        <div>
-                            <asp:LinkButton ID="lnkMoreNews" Style="font-size: large; color: #4582DF; font-weight: bold;
-                                margin-top: 0px" runat="server" Text=">>>" ToolTip="Detail" OnClick="lnkMoreNews_lnkMoreNews"></asp:LinkButton>
+                    <div class="col-md-12" runat="server" visible="false">
+                        <div class="col-md-3">
+                             <asp:LinkButton ID="lbNFOList" runat="server" OnClick="GetSchemeDetails" CssClass="linkButton">NFO Scheme </asp:LinkButton>
+                        </div>
+                        <div class="col-md-3 ">
+                            <asp:LinkButton ID="lbTopSchemes" runat="server" OnClick="GetSchemeDetails" CssClass="linkButton">Top Ten Schemes </asp:LinkButton>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:LinkButton ID="lbViewWatchList" runat="server" OnClick="GetSchemeDetails" CssClass="linkButton">My Watch list  </asp:LinkButton>
                         </div>
                     </div>
+                    
                 </div>
-        </div>
-        <div class="row "  runat="server" visible="false" id="dvHeading">
-            <div class="col-md-12">
-                <div class="col-md-2">
-                    <asp:Label ID="lblHeading" runat="server" Text="Scheme Details" Font-Bold="true"
-                        Font-Size="Larger" ForeColor="#2475C7"></asp:Label>
-                         
-                </div>
-               
-                <div class="col-md-4">
-                  <asp:RadioButtonList ID="rblNFOType" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" 
-                    OnSelectedIndexChanged="rblNFOType_OnSelectedIndexChanged" 
-                    BorderStyle="None" CellSpacing="2"  CellPadding="2" >
-                    <asp:ListItem Text="Active" Value="true" Selected="True" style="margin-right:10px; font-size:small;color:#2475C7"></asp:ListItem>
-                        <asp:ListItem Text="Closed" Value="false" style=" font-size:small;color:#2475C7"></asp:ListItem>
-                    </asp:RadioButtonList>
-                   
-                </div>
-                 <div class="col-md-4">
-                </div>
+                
             </div>
-        </div>
-        <div class="container" id="dvSchemeDetails" runat="server" visible="false" >
-            <div class="row">
-                <div id="no-more-tables">
-                    <table class="col-md-12 table-bordered table-striped table-condensed cf" style="width: 90%; margin-left:1%">
-                        <thead class="cf">
-                            <tr style=" background-color: #2480c7; font-size: small; color: White;
-                                text-align: center">
-                                <th data-title="SchemeRank" class="alignCenter" runat="server" visible="false" id="thSchemeRank">
-                                    Rank
-                                </th>
-                                <th data-title="Scheme Name" class="alignCenter">
-                                    Scheme
-                                </th>
-                                <th data-title="category" class="alignCenter" runat="server" visible="false" id="thNFOcategory">
-                                    Category
-                                </th>
-                                <th data-title="Rating" class="alignCenter">
-                                    Rating
-                                </th>
-                                <th data-title="FundManager" class="alignCenter">
-                                    Fund Manager
-                                </th>
-                                <th data-title="startDate" class="alignCenter" runat="server" visible="false" id="thNFOStrtDate">
-                                    Start Date
-                                </th>
-                                <th data-title="endDate" class="alignCenter" runat="server" visible="false" id="thNFOEndDate">
-                                    End Date
-                                </th>
-                                <th data-title="MiniAmt" class="alignCenter" runat="server" visible="false" id="thNFOAmt">
-                                    Min Initial Amt
-                                </th>
-                                <th data-title="NAV" class="alignCenter" runat="server" visible="false" id="thNAV">
-                                    NAV (Date)
-                                </th>
-                                <th data-title="Return" class="alignCenter" runat="server" visible="false" id="thReturn">
-                                    Returns (1yr / 3Yr / 5yr)
-                                </th>
-                                <th data-title="Buy" class="alignCenter" runat="server" visible="true" id="thBuy">
-                                    Buy
-                                </th>
-                                <th data-title="SIP" class="alignCenter" runat="server" visible="false" id="thSIP">
-                                    SIP
-                                </th>
-                                <th data-title="Watch" class="alignCenter">
-                                    Watch
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <asp:Repeater ID="rpSchemeDetails" runat="server" OnItemCommand="rpSchemeDetails_OnItemCommand"
-                                    OnItemDataBound="rpSchemeDetails_OnItemDataBound">
-                                    <ItemTemplate>
-                                        <td data-title="SchemeRank" class="alignCenter" runat="server" visible="false" id="tdSchemeRank">
-                                            <asp:Label ID="lblSchemeRank" runat="server" Text='<%# Eval("PMFSR_SchemeRank")%>'></asp:Label>
-                                        </td>
-                                        <td data-title="Scheme Name">
-                                            <asp:LinkButton ID="lbSchemeName" runat="server" ToolTip="Click To view Details Information"
-                                                CommandName="schemeDetails" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
-                                                Font-Size="Small"> <%# Eval("PASP_SchemePlanName")%>
-                                            </asp:LinkButton>
-                                        </td>
-                                        <td data-title="category" runat="server" visible="false" id="tdNFOcategory">
-                                            <asp:Label ID="lblNFOCategory" runat="server" Text='<%# Eval("PAIC_AssetInstrumentCategoryName")%>'
-                                                Font-Size="Small"></asp:Label>
-                                        </td>
-                                        <td data-title="Rating">
-                                            <asp:Image runat="server" ID="imgRatingOvelAll" ImageUrl='<%# string.Format("../Images/MorningStarRating/RatingSmallIcon/{0}.{1}", Eval("SchemeRatingOverall"),"png")%>' />
-                                        </td>
-                                        <td data-title="FundManager">
-                                            <asp:Label ID="Label1" runat="server" Text='<%# Eval("PMFRD_FundManagerName")%>'
-                                                Font-Size="Small"></asp:Label>
-                                        </td>
-                                        <td data-title="startDate" runat="server" visible="false" id="tdNFOStrtDate">
-                                            <asp:Label ID="lblNFOStart" runat="server" Text='<%# Eval("PASPD_NFOStartDate")%>'
-                                                Font-Size="Small"></asp:Label>
-                                        </td>
-                                        <td data-title="endDate" runat="server" visible="false" id="tdNFOEndDate">
-                                            <asp:Label ID="lblEndDate" runat="server" Text='<%# Eval("PASPD_NFOEndDate")%>' Font-Size="Small"></asp:Label>
-                                        </td>
-                                        <td data-title="MiniAmt " runat="server" visible="false" id="tdNFOAmt">
-                                            <asp:Label ID="lblMiniAmt" runat="server" Text='<%# Eval("MiniAmt")%>' Font-Size="Small"></asp:Label>
-                                        </td>
-                                        <td data-title="NAV" runat="server" visible="false" id="tdNAV">
-                                            <asp:Label ID="lblNavVale" runat="server" Text='<%# Eval("CMFNP_NAVDate")%> ' Font-Size="Small"></asp:Label>
-                                        </td>
-                                        <td data-title="Return" runat="server" visible="false" id="tdReturn">
-                                            <asp:Label ID="lblReturn" runat="server" Text='<%# Eval("schemeReturns")%>' Font-Size="Small"></asp:Label>
-                                        </td>
-                                        <td data-title="Buy" runat="server" visible="false" id="tdBuy">
-                                            <asp:LinkButton ID="lbBuy" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
-                                                CommandName="Buy"  Visible='<%# Eval("IsSchemePurchege")%>' >   
+            <div class="container">
+                <telerik:RadTabStrip ID="RadTabStripAdsUpload" runat="server" EnableTheming="True"
+                    EnableEmbeddedSkins="true" MultiPageID="multipageAdsUpload" SelectedIndex="0">
+                    <Tabs>
+                        <telerik:RadTab runat="server" Text="Top Rated" Value="TRated">
+                        </telerik:RadTab>
+                        <telerik:RadTab runat="server" Text="Top Performers" Value="Tperformer" TabIndex="0">
+                        </telerik:RadTab>
+                    </Tabs>
+                </telerik:RadTabStrip>
+                <telerik:RadMultiPage ID="multipageAdsUpload" EnableViewState="true" runat="server">
+                    <telerik:RadPageView ID="RadPageView1" runat="server" Selected="true">
+                        <div id="dvMarketData">
+                            <div class="row" style="margin-bottom: 1%">
+                                <div class="col-md-2">
+                                    Category:
+                                    <asp:DropDownList ID="ddlMarketCategory" runat="server" CssClass="form-control input-sm"
+                                        AutoPostBack="true" OnSelectedIndexChanged="ddlMarketCategory_OnSelectedIndexChanged">
+                                    </asp:DropDownList>
+                                </div>
+                                <div class="col-md-2">
+                                    Type:
+                                    <asp:DropDownList ID="ddlSIP" runat="server" AutoPostBack="true" CssClass="form-control input-sm"
+                                        OnSelectedIndexChanged="ddlSIP_OnSelectedIndexChanged">
+                                        <asp:ListItem Text="SIP" Value="true"></asp:ListItem>
+                                        <asp:ListItem Text="Non-SIP" Value="false"></asp:ListItem>
+                                    </asp:DropDownList>
+                                </div>
+                                <div class="col-md-2">
+                                    Returns:
+                                    <asp:DropDownList ID="ddlReturns" runat="server" AutoPostBack="true" CssClass="form-control input-sm"
+                                        OnSelectedIndexChanged="ddlReturns_OnSelectedIndexChanged">
+                                        <asp:ListItem Text="1st Year" Value="1"></asp:ListItem>
+                                        <asp:ListItem Text="2nd Year" Value="2"></asp:ListItem>
+                                        <asp:ListItem Text="3rd Year" Value="3"></asp:ListItem>
+                                    </asp:DropDownList>
+                                </div>
+                            </div>
+                            <div class="no-more-tables">
+                                <table class="col-md-12 table-bordered table-striped table-condensed cf" style="width: 85%;">
+                                    <thead class="cf">
+                                        <tr style="background-color: #2480c7; font-size: small; color: White; text-align: center">
+                                            <th data-title="Scheme Name" class="alignCenter">
+                                                Scheme
+                                            </th>
+                                            <th data-title="category" class="alignCenter" runat="server" visible="true" id="th2">
+                                                Category
+                                            </th>
+                                            <th data-title="Rating" class="alignCenter">
+                                                Rating
+                                            </th>
+                                            <th data-title="NAV" class="alignCenter" runat="server" visible="true" id="th6">
+                                                NAV (Date)
+                                            </th>
+                                            <th data-title="Return" class="alignCenter" runat="server" visible="true" id="th7">
+                                                Returns (1yr / 3Yr / 5yr)
+                                            </th>
+                                            <th data-title="Buy" class="alignCenter" runat="server" visible="true" id="th8">
+                                                Buy
+                                            </th>
+                                            <th data-title="SIP" class="alignCenter" runat="server" visible="true" id="th9">
+                                                SIP
+                                            </th>
+                                            <th data-title="Watch" class="alignCenter">
+                                                Watch
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <asp:Repeater ID="rptTopMarketSchemes" runat="server" OnItemCommand="rptTopMarketSchemes_OnItemCommand"
+                                                OnItemDataBound="rptTopMarketSchemes_OnItemDataBound" >
+                                                <ItemTemplate>
+                                                    <td data-title="Scheme Name">
+                                                        <asp:LinkButton ID="lbSchemeName" runat="server" ToolTip="Click To view Details Information"
+                                                            CommandName="schemeDetails" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
+                                                            Font-Size="Small"> <%# Eval("PASP_SchemePlanName")%>
+                                                        </asp:LinkButton>
+                                                    </td>
+                                                    <td data-title="category" runat="server" visible="true" id="tdNFOcategory">
+                                                        <asp:Label ID="lblNFOCategory" runat="server" Text='<%# Eval("PAIC_AssetInstrumentCategoryName")%>'
+                                                            Font-Size="Small"></asp:Label>
+                                                    </td>
+                                                    <td data-title="Rating">
+                                                        <asp:Image runat="server" ID="imgRatingOvelAll" ImageUrl='<%# string.Format("../Images/MorningStarRating/RatingSmallIcon/{0}.{1}", Eval("SchemeRatingOverall"),"png")%>' />
+                                                    </td>
+                                                    <td data-title="NAV" runat="server" visible="true" id="tdNAV">
+                                                        <asp:Label ID="lblNavVale" runat="server" Text='<%# Eval("CMFNP_NAVDate")%> ' Font-Size="Small"></asp:Label>
+                                                    </td>
+                                                    <td data-title="Return" runat="server" visible="true" id="tdReturn">
+                                                        <asp:Label ID="lblReturn" runat="server" Text='<%# Eval("schemeReturns")%>' Font-Size="Small"></asp:Label>
+                                                    </td>
+                                                    <td data-title="Buy" runat="server" visible="true" id="tdBuy">
+                                                        <asp:LinkButton ID="lbBuy" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
+                                                            CommandName="Buy" Visible='<%# Eval("IsSchemePurchege")%>'>   
                                                 <img src="../Images/Buy_BIG_Buttons.png" height="30px" width="50px"/>
                                               
                                     </span>
-                                            </asp:LinkButton>
-                                        </td>
-                                        <td data-title="SIP" runat="server" visible="false" id="tdSIP">
-                                         
-                                            <asp:LinkButton ID="lbSIP" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
-                                                CommandName="SIP" Visible='<%# Eval("IsSchemeSIPType")%>' > <img src="../Images/SIP_BIG_Buttons.png" height="30px" width="50px"/>  </asp:LinkButton>
-                                        </td>
-                                        <td data-title="Watch">
-                                            <asp:LinkButton ID="lbRemoveWatch" runat="server" CommandName="RemoveFrmWatch" Visible='<% #(Convert.ToBoolean(Eval("IsInWatch"))==true) ? true : false %>'
-                                                Font-Size="Small" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'>Remove <span class="glyphicon glyphicon-dashboard">
+                                                        </asp:LinkButton>
+                                                    </td>
+                                                    <td data-title="SIP" runat="server" visible="true" id="tdSIP">
+                                                        <asp:LinkButton ID="lbSIP" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
+                                                            CommandName="SIP" Visible='<%# Eval("IsSchemeSIPType")%>'> <img src="../Images/SIP_BIG_Buttons.png" height="30px" width="50px"/>  </asp:LinkButton>
+                                                    </td>
+                                                    <td data-title="Watch">
+                                                        <asp:LinkButton ID="lbRemoveWatch" runat="server" CommandName="RemoveFrmWatch" Visible='<% #(Convert.ToBoolean(Eval("IsInWatch"))==true) ? true : false %>'
+                                                            Font-Size="Small" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'>Remove <span class="glyphicon glyphicon-dashboard">
                             </span></asp:LinkButton>
-                                            <asp:LinkButton ID="lbAddToWatch" runat="server" CommandName="addToWatch" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
-                                                Visible='<% #(Convert.ToBoolean(Eval("IsInWatch"))==true) ? false :true %>' Font-Size="Small"> Add To <span class="glyphicon glyphicon-dashboard">
+                                                        <asp:LinkButton ID="lbAddToWatch" runat="server" CommandName="addToWatch" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
+                                                            Visible='<% #(Convert.ToBoolean(Eval("IsInWatch"))==true) ? false :true %>' Font-Size="Small"> Add To <span class="glyphicon glyphicon-dashboard">
                             </span>
-                                            </asp:LinkButton>
-                                        </td>
+                                                        </asp:LinkButton>
+                                                    </td>
+                                                    </tr>
+                                                </ItemTemplate>
+                                            </asp:Repeater>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </telerik:RadPageView>
+                    <telerik:RadPageView ID="rpvBanner" runat="server">
+                        <div id="dvSchemeDetails">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <asp:Label ID="lblHeading" runat="server" Text="Scheme Details" Font-Bold="true"
+                                        Font-Size="Larger" ForeColor="#2475C7"></asp:Label>
+                                </div>
+                                <div class="col-md-4">
+                                    <asp:RadioButtonList ID="rblNFOType" runat="server" AutoPostBack="true" RepeatDirection="Horizontal"
+                                        OnSelectedIndexChanged="rblNFOType_OnSelectedIndexChanged" BorderStyle="None"
+                                        CellSpacing="2" CellPadding="2">
+                                        <asp:ListItem Text="Active" Value="true" Selected="True" style="margin-right: 10px;
+                                            font-size: small; color: #2475C7"></asp:ListItem>
+                                        <asp:ListItem Text="Closed" Value="false" style="font-size: small; color: #2475C7"></asp:ListItem>
+                                    </asp:RadioButtonList>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-bottom: 1%">
+                                <div class="col-md-2">
+                                    Category:
+                                    <asp:DropDownList ID="ddlTopCategory" runat="server" CssClass="form-control input-sm"
+                                        AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged">
+                                    </asp:DropDownList>
+                                </div>
+                                <div class="col-md-2">
+                                    Type:
+                                    <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="true" CssClass="form-control input-sm">
+                                        <asp:ListItem Text="SIP" Value="true"></asp:ListItem>
+                                        <asp:ListItem Text="Non-SIP" Value="false"></asp:ListItem>
+                                    </asp:DropDownList>
+                                </div>
+                            </div>
+                            <div id="no-more-tables">
+                                <table class="col-md-12 table-bordered table-striped table-condensed cf" style="width: 90%">
+                                    <thead class="cf">
+                                        <tr style="background-color: #2480c7; font-size: small; color: White; text-align: center">
+                                            <th data-title="SchemeRank" class="alignCenter" runat="server" visible="false" id="thSchemeRank">
+                                                Rank
+                                            </th>
+                                            <th data-title="Scheme Name" class="alignCenter">
+                                                Scheme
+                                            </th>
+                                            <th data-title="category" class="alignCenter" runat="server" visible="false" id="thNFOcategory">
+                                                Category
+                                            </th>
+                                            <th data-title="Rating" class="alignCenter">
+                                                Rating
+                                            </th>
+                                            <th data-title="FundManager" class="alignCenter">
+                                                Fund Manager
+                                            </th>
+                                            <th data-title="startDate" class="alignCenter" runat="server" visible="false" id="thNFOStrtDate">
+                                                Start Date
+                                            </th>
+                                            <th data-title="endDate" class="alignCenter" runat="server" visible="false" id="thNFOEndDate">
+                                                End Date
+                                            </th>
+                                            <th data-title="MiniAmt" class="alignCenter" runat="server" visible="false" id="thNFOAmt">
+                                                Min Initial Amt
+                                            </th>
+                                            <th data-title="NAV" class="alignCenter" runat="server" visible="false" id="thNAV">
+                                                NAV (Date)
+                                            </th>
+                                            <th data-title="Return" class="alignCenter" runat="server" visible="false" id="thReturn">
+                                                Returns (1yr / 3Yr / 5yr)
+                                            </th>
+                                            <th data-title="Buy" class="alignCenter" runat="server" visible="true" id="thBuy">
+                                                Buy
+                                            </th>
+                                            <th data-title="SIP" class="alignCenter" runat="server" visible="false" id="thSIP">
+                                                SIP
+                                            </th>
+                                            <th data-title="Watch" class="alignCenter">
+                                                Watch
+                                            </th>
                                         </tr>
-                                    </ItemTemplate>
-                                </asp:Repeater>
-                        </tbody>
-                    </table>
-                </div>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <asp:Repeater ID="rpSchemeDetails" runat="server" OnItemCommand="rpSchemeDetails_OnItemCommand"
+                                                OnItemDataBound="rpSchemeDetails_OnItemDataBound">
+                                                <ItemTemplate>
+                                                    <td data-title="SchemeRank" class="alignCenter" runat="server" visible="false" id="tdSchemeRank">
+                                                        <asp:Label ID="lblSchemeRank" runat="server" Text='<%# Eval("PMFSR_SchemeRank")%>'></asp:Label>
+                                                    </td>
+                                                    <td data-title="Scheme Name">
+                                                        <asp:LinkButton ID="lbSchemeName" runat="server" ToolTip="Click To view Details Information"
+                                                            CommandName="schemeDetails" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
+                                                            Font-Size="Small"> <%# Eval("PASP_SchemePlanName")%>
+                                                        </asp:LinkButton>
+                                                    </td>
+                                                    <td data-title="category" runat="server" visible="false" id="tdNFOcategory">
+                                                        <asp:Label ID="lblNFOCategory" runat="server" Text='<%# Eval("PAIC_AssetInstrumentCategoryName")%>'
+                                                            Font-Size="Small"></asp:Label>
+                                                    </td>
+                                                    <td data-title="Rating">
+                                                        <asp:Image runat="server" ID="imgRatingOvelAll" ImageUrl='<%# string.Format("../Images/MorningStarRating/RatingSmallIcon/{0}.{1}", Eval("SchemeRatingOverall"),"png")%>' />
+                                                    </td>
+                                                    <td data-title="FundManager">
+                                                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("PMFRD_FundManagerName")%>'
+                                                            Font-Size="Small"></asp:Label>
+                                                    </td>
+                                                    <td data-title="startDate" runat="server" visible="false" id="tdNFOStrtDate">
+                                                        <asp:Label ID="lblNFOStart" runat="server" Text='<%# Eval("PASPD_NFOStartDate")%>'
+                                                            Font-Size="Small"></asp:Label>
+                                                    </td>
+                                                    <td data-title="endDate" runat="server" visible="false" id="tdNFOEndDate">
+                                                        <asp:Label ID="lblEndDate" runat="server" Text='<%# Eval("PASPD_NFOEndDate")%>' Font-Size="Small"></asp:Label>
+                                                    </td>
+                                                    <td data-title="MiniAmt " runat="server" visible="false" id="tdNFOAmt">
+                                                        <asp:Label ID="lblMiniAmt" runat="server" Text='<%# Eval("MiniAmt")%>' Font-Size="Small"></asp:Label>
+                                                    </td>
+                                                    <td data-title="NAV" runat="server" visible="false" id="tdNAV">
+                                                        <asp:Label ID="lblNavVale" runat="server" Text='<%# Eval("CMFNP_NAVDate")%> ' Font-Size="Small"></asp:Label>
+                                                    </td>
+                                                    <td data-title="Return" runat="server" visible="false" id="tdReturn">
+                                                        <asp:Label ID="lblReturn" runat="server" Text='<%# Eval("schemeReturns")%>' Font-Size="Small"></asp:Label>
+                                                    </td>
+                                                    <td data-title="Buy" runat="server" visible="false" id="tdBuy">
+                                                        <asp:LinkButton ID="lbBuy" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
+                                                            CommandName="Buy" Visible='<%# Eval("IsSchemePurchege")%>'>   
+                                                <img src="../Images/Buy_BIG_Buttons.png" height="30px" width="50px"/>
+                                              
+                                    </span>
+                                                        </asp:LinkButton>
+                                                    </td>
+                                                    <td data-title="SIP" runat="server" visible="false" id="tdSIP">
+                                                        <asp:LinkButton ID="lbSIP" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
+                                                            CommandName="SIP" Visible='<%# Eval("IsSchemeSIPType")%>'> <img src="../Images/SIP_BIG_Buttons.png" height="30px" width="50px"/>  </asp:LinkButton>
+                                                    </td>
+                                                    <td data-title="Watch">
+                                                        <asp:LinkButton ID="lbRemoveWatch" runat="server" CommandName="RemoveFrmWatch" Visible='<% #(Convert.ToBoolean(Eval("IsInWatch"))==true) ? true : false %>'
+                                                            Font-Size="Small" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'>Remove <span class="glyphicon glyphicon-dashboard">
+                            </span></asp:LinkButton>
+                                                        <asp:LinkButton ID="lbAddToWatch" runat="server" CommandName="addToWatch" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
+                                                            Visible='<% #(Convert.ToBoolean(Eval("IsInWatch"))==true) ? false :true %>' Font-Size="Small"> Add To <span class="glyphicon glyphicon-dashboard">
+                            </span>
+                                                        </asp:LinkButton>
+                                                    </td>
+                                                    </tr>
+                                                </ItemTemplate>
+                                            </asp:Repeater>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12" style="margin-top: 1%">
+                                    <asp:Repeater ID="rptPager" runat="server">
+                                        <ItemTemplate>
+                                            <asp:LinkButton ID="lnkPage" runat="server" Text='<%#Eval("Text") %>' CommandArgument='<%# Eval("Value") %>'
+                                                CssClass='<%# Convert.ToBoolean(Eval("Enabled")) ? "page_enabled" : "page_disabled" %>'
+                                                OnClick="Page_Changed"></asp:LinkButton>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                </div>
+                            </div>
+                        </div>
+                    </telerik:RadPageView>
+                </telerik:RadMultiPage>
             </div>
         </div>
-        <div class="row" style=" margin-left:1%; margin-top:2%">
-            <asp:Repeater ID="rptPager" runat="server">
-                <ItemTemplate>
-                    <asp:LinkButton ID="lnkPage" runat="server" Text='<%#Eval("Text") %>' CommandArgument='<%# Eval("Value") %>'
-                        CssClass='<%# Convert.ToBoolean(Eval("Enabled")) ? "page_enabled" : "page_disabled" %>'
-                        OnClick="Page_Changed"></asp:LinkButton>
-                </ItemTemplate>
-            </asp:Repeater>
-        </div>
-       </div>
         <asp:HiddenField ID="hfAMCCode" runat="server" />
         <asp:HiddenField ID="hfSchemeCode" runat="server" />
         <asp:HiddenField ID="hfCategory" runat="server" />
@@ -402,4 +560,3 @@
     <Triggers>
     </Triggers>
 </asp:UpdatePanel>
-<Banner:footer ID="MyHeader" assetCategory="MF" runat="server" />

@@ -2554,6 +2554,19 @@ namespace BoOnlineOrderManagement
             }
             return dtGetSchemeDetails;
         }
+        public DataTable GetTopMarketSchemes(string category, Boolean isSIP, int returns, int customerId)
+        {
+            try
+            {
+                OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+                return daoOnlineOrderBackOffice.GetTopMarketSchemes(category, isSIP, returns, customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+
+            }
+        }
         public DataTable CustomerGetRMSLog(DateTime fromDate,DateTime toDate,int adviserId,string productType,string orderType)
         {
 

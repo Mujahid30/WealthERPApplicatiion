@@ -42,10 +42,13 @@ namespace WealthERP.OnlineOrderManagement
             if (!IsPostBack)
             {
                 BindAMC();
-                BindCategory();
+                BindCategory(ddlCategory);
+                BindCategory(ddlTopCategory);
+                BindCategory(ddlMarketCategory);
                 BindScheme();
                 BindNewsHeading();
                 SetParametersForAdminGrid("lbTopSchemes");
+                BindTopMarketSchemes(ddlMarketCategory.SelectedValue,  Boolean.Parse(ddlSIP.SelectedValue), int.Parse(ddlReturns.SelectedValue),customerVo.CustomerId);
             }
         }
         protected void ddlAMC_SelectedIndexChanged(object sender, EventArgs e)
@@ -53,7 +56,7 @@ namespace WealthERP.OnlineOrderManagement
             if (ddlAMC.SelectedIndex != 0)
             {
                 BindScheme();
-                BindCategory();
+                BindCategory(ddlCategory);
 
             }
         }
@@ -73,7 +76,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlAMC.DataBind();
             ddlAMC.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select AMC", "0"));
         }
-        private void BindCategory()
+        private void BindCategory(DropDownList ddlCategory)
         {
             DataSet dsProductAssetCategory;
             ProductMFBo productMFBo = new ProductMFBo();
@@ -83,7 +86,12 @@ namespace WealthERP.OnlineOrderManagement
             ddlCategory.DataValueField = dtCategory.Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
             ddlCategory.DataTextField = dtCategory.Columns["PAIC_AssetInstrumentCategoryName"].ToString();
             ddlCategory.DataBind();
-            ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All Catories", "0"));
+            if (ddlCategory.ID.ToString() == "ddlCategory")
+            {
+                ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All Catories", "0"));
+            }
+            
+
         }
         protected void BindScheme()
         {
@@ -111,14 +119,13 @@ namespace WealthERP.OnlineOrderManagement
             hfNFOType.Value = "false";
             rblNFOType.Visible = false;
             BindSchemeRelatedDetails(int.Parse(hfAMCCode.Value), int.Parse(hfSchemeCode.Value), hfCategory.Value, int.Parse(hfCustomerId.Value), Int16.Parse(hfIsSchemeDetails.Value), Boolean.Parse(hfNFOType.Value), 1);
-            dvHeading.Visible = true;
+          
             lblHeading.Text = "Schemes Details";
 
         }
         protected void BindSchemeRelatedDetails(int amcCode, int SchemeCode, string category, int customerId, Int16 isSchemeDetails, Boolean NFOType, int pageIndex)
         {
             OnlineOrderBackOfficeBo bo = new OnlineOrderBackOfficeBo();
-            dvSchemeDetails.Visible = true;
             int recordCount = 0;
             DataTable dtBindSchemeRelatedDetails = bo.GetSchemeDetails(amcCode, SchemeCode, category, customerId, isSchemeDetails, NFOType, out recordCount, pageIndex, PageSize);
             if (Cache["BindSchemeRelatedDetails" + userVo.UserId] != null)
@@ -180,7 +187,7 @@ namespace WealthERP.OnlineOrderManagement
                     hfCategory.Value = "0";
                     hfIsSchemeDetails.Value = "0";
                     hfNFOType.Value = rblNFOType.SelectedValue;
-                    dvHeading.Visible = true;
+                  
                     lblHeading.Text = "My Watch List";
                     lbViewWatchList.ForeColor = System.Drawing.ColorTranslator.FromHtml("#07090A");
                     break;
@@ -190,7 +197,7 @@ namespace WealthERP.OnlineOrderManagement
                     hfCategory.Value = "0";
                     hfIsSchemeDetails.Value = "3";
                     hfNFOType.Value = rblNFOType.SelectedValue;
-                    dvHeading.Visible = true;
+                  
                     lblHeading.Text = "NFO Scheme";
                     rblNFOType.Visible = true;
                     lbNFOList.ForeColor = System.Drawing.ColorTranslator.FromHtml("#07090A");
@@ -198,16 +205,16 @@ namespace WealthERP.OnlineOrderManagement
                 case "lbTopSchemes":
                     hfAMCCode.Value = "0";
                     hfSchemeCode.Value = "0";
-                    hfCategory.Value = "0";
+                    hfCategory.Value = ddlTopCategory.SelectedValue;
                     hfIsSchemeDetails.Value = "2";
                     hfNFOType.Value = "false";
-                    dvHeading.Visible = true;
+                  
                     lblHeading.Text = "Top Ten Schemes";
                     lbTopSchemes.ForeColor = System.Drawing.ColorTranslator.FromHtml("#07090A");
 
                     break;
                 case "lbSchemeDetails": dvDemo.Visible = true;
-                    dvHeading.Visible = true;
+                   
                     lblHeading.Text = "Schemes Details";
 
                     break;
@@ -490,15 +497,28 @@ namespace WealthERP.OnlineOrderManagement
             {
 
                 DataSet theDataSet = OnlineMFSchemeDetailsBo.GetAPIData(ConfigurationSettings.AppSettings["NEWS_HEADING"] + ConfigurationSettings.AppSettings["NEWS_COUNT"]);
-                RepNews.DataSource = theDataSet.Tables[1];
-                RepNews.DataBind();
+                dlNews.DataSource = theDataSet.Tables[1];
+                dlNews.DataBind();
             }
             catch (Exception Ex)
             {
 
             }
         }
+        protected void BindTopMarketSchemes(string category, Boolean IsSIP, int Returns,int customerId)
+        {
+            OnlineOrderBackOfficeBo boOnlineOrderBackOffice = new OnlineOrderBackOfficeBo();
+           DataTable dtTopMarketSchemes= boOnlineOrderBackOffice.GetTopMarketSchemes(category, IsSIP, Returns,customerId);
+           if (Cache["TopMarketSchemes" + userVo.UserId] != null)
+           {
+               Cache.Remove("TopMarketSchemes" + userVo.UserId);
+           }
+           Cache.Insert("TopMarketSchemes" + userVo.UserId, dtTopMarketSchemes);
+           rptTopMarketSchemes.DataSource = dtTopMarketSchemes;
+           rptTopMarketSchemes.DataBind();
+           rptTopMarketSchemes.Visible = true;
 
+        }
         protected void lnkMoreNews_lnkMoreNews(object sender, EventArgs e)
         {
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('ProductOnlineFundNews')", true);
@@ -514,5 +534,28 @@ namespace WealthERP.OnlineOrderManagement
                 }
             }
         }
+
+
+        protected void ddlMarketCategory_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindTopMarketSchemes(ddlMarketCategory.SelectedValue, Boolean.Parse(ddlSIP.SelectedValue), int.Parse(ddlReturns.SelectedValue), customerVo.CustomerId);
+        }
+        protected void ddlSIP_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindTopMarketSchemes(ddlMarketCategory.SelectedValue, Boolean.Parse(ddlSIP.SelectedValue), int.Parse(ddlReturns.SelectedValue), customerVo.CustomerId);
+        }
+        protected void ddlReturns_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindTopMarketSchemes(ddlMarketCategory.SelectedValue, Boolean.Parse(ddlSIP.SelectedValue), int.Parse(ddlReturns.SelectedValue), customerVo.CustomerId);
+        }
+        protected void rptTopMarketSchemes_OnItemCommand(object sender, RepeaterCommandEventArgs e)
+        {
+
+        }
+       
+        protected void rptTopMarketSchemes_OnItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+
+       }
     }
 }
