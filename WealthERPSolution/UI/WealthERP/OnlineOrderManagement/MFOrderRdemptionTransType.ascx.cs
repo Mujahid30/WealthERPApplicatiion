@@ -367,8 +367,6 @@ namespace WealthERP.OnlineOrderManagement
 
             }
 
-
-
         }
         public void SetControlsState(bool isEnable)
         {
@@ -434,7 +432,6 @@ namespace WealthERP.OnlineOrderManagement
             //lblDividendType.Visible = true;
 
 
-            lblDivType.Visible = true;
             lblCurrentValueDisplay.Visible = true;
             lblUnitsheldDisplay.Visible = true;
             if (lblDividendType.Text == "Growth")
@@ -581,10 +578,8 @@ namespace WealthERP.OnlineOrderManagement
                 lnkFactSheet.Enabled = false;
                 ddlRedeem.Enabled = false;
                 txtRedeemTypeValue.Enabled = false;
-                trTermsCondition.Visible = false;
 
                 btnSubmit.Visible = false;
-                trNewOrder.Visible = true;
 
             }
             else
@@ -599,7 +594,6 @@ namespace WealthERP.OnlineOrderManagement
                 ddlRedeem.Enabled = true;
 
                 btnSubmit.Visible = true;
-                trNewOrder.Visible = false;
 
 
             }

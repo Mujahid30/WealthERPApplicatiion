@@ -75,9 +75,9 @@ namespace WealthERP.OnlineOrderManagement
             int TOcpmaretime = int.Parse(DateTime.Now.ToShortTimeString().Split(':')[0]);
             if (TOcpmaretime >= int.Parse(ConfigurationSettings.AppSettings["START_TIME"]) && TOcpmaretime < int.Parse(ConfigurationSettings.AppSettings["END_TIME"]))
             {
-               
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadTransactPanel('MFOnlineSchemeManager')", true);
-                    return;
+
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadTransactPanel('MFOnlineSchemeManager')", true);
+                return;
             }
             if (custPortVo == null)
             {
@@ -96,26 +96,28 @@ namespace WealthERP.OnlineOrderManagement
                     //lnkOfferDoc.Visible = false;
                     //lnkFactSheet.Visible = false;
                     //lnkExitLoad.Visible = false;
-                    //if (Request.QueryString["strAction"] != null && Request.QueryString["orderId"] != null && Request.QueryString["customerId"] != null)
-                    //{
-                    //    strAction = Request.QueryString["strAction"].ToString();
-                    //    orderIdForEdit = Convert.ToInt32(Request.QueryString["orderId"].ToString());
-                    //    customerIdforEdit = Convert.ToInt32(Request.QueryString["customerId"].ToString());
-                    //}
-                    //else if ((Request.QueryString["accountId"] != null && Request.QueryString["SchemeCode"] != null) || Session["MFSchemePlan"] != null)
-                    //{
-                    int amcCode = 0;
-                    string category = string.Empty;
-                    //    if (Request.QueryString["accountId"] != null)
-                    //    {
-                    //        schemeCode = int.Parse(Request.QueryString["SchemeCode"].ToString());
-                    //        accountId = int.Parse(Request.QueryString["accountId"].ToString());
-                    //        commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category);
-                    //        OnDrillDownBindControlValue(amcCode, category, accountId, schemeCode);
-                    //        DataViewOnEdit();
-                    //    }
-                    //    else
-                    if (Session["MFSchemePlan"] != null)
+                    if (Request.QueryString["strAction"] != null && Request.QueryString["orderId"] != null && Request.QueryString["customerId"] != null)
+                    {
+                        strAction = Request.QueryString["strAction"].ToString();
+                        orderIdForEdit = Convert.ToInt32(Request.QueryString["orderId"].ToString());
+                        customerIdforEdit = Convert.ToInt32(Request.QueryString["customerId"].ToString());
+                    }
+                    else if ((Request.QueryString["accountId"] != null && Request.QueryString["SchemeCode"] != null) || Session["MFSchemePlan"] != null)
+                    {
+                        int accountId = 0;
+                        int schemeCode = 0;
+                        int amcCode = 0;
+                        string category = string.Empty;
+                        if (Request.QueryString["accountId"] != null)
+                        {
+                            schemeCode = int.Parse(Request.QueryString["SchemeCode"].ToString());
+                            accountId = int.Parse(Request.QueryString["accountId"].ToString());
+                            commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category);
+                            OnDrillDownBindControlValue(amcCode, category, accountId, schemeCode);
+                            ddlFolio.SelectedValue = accountId.ToString();
+                            DataViewOnEdit();
+                        }
+                        else
                         {
                             //amcCode = int.Parse(Request.QueryString["Amc"].ToString());
                             //ddlAmc.SelectedValue = amcCode.ToString();
@@ -136,26 +138,25 @@ namespace WealthERP.OnlineOrderManagement
                             //BindNomineeAndJointHolders();
                         }
 
-                    btnSubmit.Text = "Submit";
+                        btnSubmit.Text = "Submit";
 
-                    if (strAction == "Edit")
-                    {
-                        BindSipDetailsForEdit();
-                        DataViewOnEdit();
-                        btnSubmit.Text = "Modify";
-                        onlineMFOrderVo.Action = "Edit";
+                        if (strAction == "Edit")
+                        {
+                            BindSipDetailsForEdit();
+                            DataViewOnEdit();
+                            btnSubmit.Text = "Modify";
+                            onlineMFOrderVo.Action = "Edit";
+                        }
                     }
-                }
-                else
-                {
-                    ShowMessage(boOnlineOrder.GetOnlineOrderUserMessage(clientMFAccessCode), 'I');
-                    FreezeControls();
-                    divControlContainer.Visible = false;
-                    divClientAccountBalance.Visible = false;
+                    else
+                    {
+                        ShowMessage(boOnlineOrder.GetOnlineOrderUserMessage(clientMFAccessCode), 'I');
+                        FreezeControls();
+                        divControlContainer.Visible = false;
+                    }
                 }
             }
         }
-
 
         private void ShowAvailableLimits()
         {

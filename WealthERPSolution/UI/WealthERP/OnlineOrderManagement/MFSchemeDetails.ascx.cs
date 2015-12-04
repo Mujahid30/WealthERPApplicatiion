@@ -43,6 +43,7 @@ namespace WealthERP.OnlineOrderManagement
                 {
                     //if (Request.QueryString["schemeCode"] != null)//Session["MFSchemePlan"] != null || 
                     Session["MFSchemePlan"] = Request.QueryString["schemeCode"];
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadTransactPanel('MFOrderPurchaseTransactionType')", true);
                     int amcCode = 0;
                     string category = string.Empty;
                     BindCategory();
@@ -273,27 +274,45 @@ namespace WealthERP.OnlineOrderManagement
                 //    lblNAVDate.Text = onlineMFSchemeDetailsVo.navDate.ToString();
                 lblCategory.Text = onlineMFSchemeDetailsVo.category;
                 lblBanchMark.Text = onlineMFSchemeDetailsVo.schemeBanchMark;
+                if(!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.fundManager))
                 lblFundManager.Text = onlineMFSchemeDetailsVo.fundManager;
+                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeReturn3Year))
                 lblFundReturn1styear.Text = onlineMFSchemeDetailsVo.SchemeReturn3Year.ToString();
+                if(!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeReturn5Year))
                 lblFundReturn3rdyear.Text = onlineMFSchemeDetailsVo.SchemeReturn5Year.ToString();
+                if(!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeReturn10Year))
                 lblFundReturn5thyear.Text = onlineMFSchemeDetailsVo.SchemeReturn10Year.ToString();
+                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.benchmarkReturn1stYear))
                 lblBenchmarkReturn.Text = onlineMFSchemeDetailsVo.benchmarkReturn1stYear;
+                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.benchmark3rhYear))
                 lblBenchMarkReturn3rd.Text = onlineMFSchemeDetailsVo.benchmark3rhYear;
+                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.benchmark5thdYear))
                 lblBenchMarkReturn5th.Text = onlineMFSchemeDetailsVo.benchmark5thdYear;
+                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.minSIPInvestment.ToString()))
                 lblMinSIP.Text = onlineMFSchemeDetailsVo.minSIPInvestment.ToString();
+                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SIPmultipleOf.ToString()))
                 lblSIPMultipleOf.Text = onlineMFSchemeDetailsVo.SIPmultipleOf.ToString();
+                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.exitLoad.ToString()))
                 lblExitLoad.Text = onlineMFSchemeDetailsVo.exitLoad.ToString();
+                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.minmumInvestmentAmount.ToString()))
                 lblMinInvestment.Text = onlineMFSchemeDetailsVo.minmumInvestmentAmount.ToString();
+                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.multipleOf.ToString()))
                 lblMinMultipleOf.Text = onlineMFSchemeDetailsVo.multipleOf.ToString();
                 imgRating3yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.SchemeRating3Year + ".png";
                 imgRating5yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.SchemeRating5Year + ".png";
                 imgRating10yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.SchemeRating10Year + ".png";
                 imgRatingOvelAll.ImageUrl = @"../Images/MorningStarRating/RatingOverall/" + onlineMFSchemeDetailsVo.overAllRating + ".png";
+                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeReturn3Year.ToString()))
                 lblSchemeRetrun3yr.Text = onlineMFSchemeDetailsVo.SchemeReturn3Year.ToString();
+                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeReturn5Year.ToString()))
                 lblSchemeRetrun5yr.Text = onlineMFSchemeDetailsVo.SchemeReturn5Year.ToString();
+                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeReturn10Year.ToString()))
                 lblSchemeRetrun10yr.Text = onlineMFSchemeDetailsVo.SchemeReturn10Year.ToString();
+                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeRisk3Year.ToString()))
                 lblSchemeRisk3yr.Text = onlineMFSchemeDetailsVo.SchemeRisk3Year;
+                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeRisk5Year.ToString()))
                 lblSchemeRisk5yr.Text = onlineMFSchemeDetailsVo.SchemeRisk5Year;
+                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeRisk10Year))
                 lblSchemeRisk10yr.Text = onlineMFSchemeDetailsVo.SchemeRisk10Year;
                 if (onlineMFSchemeDetailsVo.mornigStar > 0)
                 {
