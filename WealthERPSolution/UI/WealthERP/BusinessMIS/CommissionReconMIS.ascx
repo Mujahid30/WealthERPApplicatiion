@@ -727,16 +727,22 @@
                                     AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="113px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn HeaderStyle-Width="2%" HeaderText="Start Date" DataField="transactiondate"
+                                <telerik:GridBoundColumn HeaderStyle-Width="2%" HeaderText="Transaction Date" DataField="transactiondate"
                                     UniqueName="transactiondate" SortExpression="transactiondate" AutoPostBackOnFilter="true"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:d}"
                                     HeaderStyle-HorizontalAlign="Center">
                                     <ItemStyle Width="140px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn HeaderStyle-Width="2%" HeaderText="End Date" DataField="TransactionAsOnDate"
-                                    UniqueName="TransactionAsOnDate" SortExpression="TransactionAsOnDate" AutoPostBackOnFilter="true"
+                                    <telerik:GridBoundColumn HeaderStyle-Width="2%" HeaderText="Fee Start Date" DataField="WCD_Tr_EndDate"
+                                    UniqueName="WCD_Tr_EndDate" SortExpression="WCD_Tr_EndDate" AutoPostBackOnFilter="true"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:d}"
                                     HeaderStyle-HorizontalAlign="Center" Visible="false">
+                                    <ItemStyle Width="140px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderStyle-Width="2%" HeaderText="Fee End Date" DataField="WCD_Tr_startDate"
+                                    UniqueName="WCD_Tr_startDate" SortExpression="WCD_Tr_startDate" AutoPostBackOnFilter="true"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:d}"
+                                    HeaderStyle-HorizontalAlign="Center" Visible="true">
                                     <ItemStyle Width="140px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn HeaderStyle-Width="2%" HeaderText="Status" DataField="WOS_OrderStep"
@@ -872,7 +878,7 @@
                                     FooterStyle-HorizontalAlign="Right" DataType="System.Decimal">
                                     <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn HeaderStyle-Width="2%" HeaderText="PerDayTrail" DataField="perDayTrail"
+                                <telerik:GridBoundColumn HeaderStyle-Width="2%" HeaderText="Per Day Trail Rate" DataField="perDayTrail"
                                     HeaderStyle-HorizontalAlign="Center" UniqueName="perDayTrail" SortExpression="perDayTrail"
                                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     FooterStyle-HorizontalAlign="Right" DataType="System.Decimal">

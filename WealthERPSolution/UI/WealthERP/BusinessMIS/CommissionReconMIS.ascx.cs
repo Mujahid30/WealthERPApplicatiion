@@ -378,7 +378,7 @@ namespace WealthERP.BusinessMIS
                 gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_WCU_UnitCode").Visible = true;
                 gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_Expectedamount").Visible = true;
                 gvCommissionReceiveRecon.MasterTableView.GetColumn("Rec_ACSR_BrokerageValue").Visible = true;
-                gvCommissionReceiveRecon.MasterTableView.GetColumn("TransactionAsOnDate").Visible = false;
+                gvCommissionReceiveRecon.MasterTableView.GetColumn("WCD_Tr_startDate").Visible = false;
                 gvCommissionReceiveRecon.MasterTableView.GetColumn("CumNAv").Visible = false;
                 gvCommissionReceiveRecon.MasterTableView.GetColumn("CMFT_NAV").Visible = false;
                 gvCommissionReceiveRecon.MasterTableView.GetColumn("ClS_NAV").Visible = false;
@@ -389,7 +389,7 @@ namespace WealthERP.BusinessMIS
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("PerDayAssets").Visible = true;
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("perDayTrail").Visible = true;
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("Age").Visible = true;
-                    gvCommissionReceiveRecon.MasterTableView.GetColumn("TransactionAsOnDate").Visible = true;
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("WCD_Tr_startDate").Visible = true;
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("CumNAv").Visible = true;
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("CMFT_NAV").Visible = true;
                     gvCommissionReceiveRecon.MasterTableView.GetColumn("ClS_NAV").Visible = true;
@@ -410,11 +410,11 @@ namespace WealthERP.BusinessMIS
         protected void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
 
-            if (ViewState["ProductType"].ToString() == "MF")
+            if (ddlRequestProduct.SelectedValue == "MF")
             {
                 gvCommissionReceiveRecon.ExportSettings.OpenInNewWindow = true;
                 gvCommissionReceiveRecon.ExportSettings.IgnorePaging = true;
-                gvCommissionReceiveRecon.ExportSettings.FileName = "CommissionExceptedMIS";
+                gvCommissionReceiveRecon.ExportSettings.FileName = "CommissionExceptedMIS For " + ddlRequestAmc.SelectedItem.Text + "  " + ddlRequesttMnthQtr.SelectedItem.Text;
 
                 foreach (GridFilteringItem filter in gvCommissionReceiveRecon.MasterTableView.GetItems(GridItemType.FilteringItem))
                 {
@@ -642,6 +642,8 @@ namespace WealthERP.BusinessMIS
                 //ViewState["ProductType"] = ditem["ProductType"].Text.ToString().Trim();
                 bindProductWiseBrokerageGrid(int.Parse(RequestId));
                 gvBrokerageRequestStatus.Visible = false;
+                btnReprocess.Visible = false;
+                btnDelete.Visible = false;
             }
         }
         private void bindProductWiseBrokerageGrid(int reqId)
