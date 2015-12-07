@@ -132,7 +132,7 @@
                         CssClass="rfvPCG" ControlToValidate="ddlCategory" ValidationGroup="btnSubmit"
                         Display="Dynamic" InitialValue="-1"></asp:RequiredFieldValidator>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-5">
                     Scheme:
                     <asp:DropDownList ID="ddlScheme" runat="server" CssClass="form-control input-sm"
                         AutoPostBack="true" OnSelectedIndexChanged="ddlScheme_onSelectedChanged">

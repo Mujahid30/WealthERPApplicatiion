@@ -77,7 +77,7 @@ namespace BoOnlineOrderManagement
             else if (exchange == "Demat")
             {
                 TransactionTypes.Add("MFOrderPurchaseTransType", "Purchase");
-                TransactionTypes.Add("MFOrderRdemptionTransType", "Redeem");
+                //TransactionTypes.Add("MFOrderRdemptionTransType", "Redeem");
             }
             return TransactionTypes;
 

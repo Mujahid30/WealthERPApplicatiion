@@ -156,12 +156,12 @@
         <div id="dvDemo" class="row " style="margin-left: 11%; margin-top: 1%; margin-bottom: 0.5%;
             margin-right: 5%; padding-top: 0.5%; padding-bottom: 0.5%;" visible="true" runat="server">
             <div class="col-md-12  col-xs-12 col-sm-12">
-                <div class="col-md-6 dottedBottom">
+                <div class="col-md-12 dottedBottom">
                     <b>Fund Filter </b>
                 </div>
             </div>
             <div class="col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 1%">
-                <div class="col-md-3">
+                        <div class="col-md-4">
                     <asp:DropDownList ID="ddlAMC" runat="server" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged"
                         AutoPostBack="true">
                     </asp:DropDownList>
@@ -181,9 +181,7 @@
                         </asp:RequiredFieldValidator>--%>
                     </fieldset>
                 </div>
-            </div>
-            <div class="col-md-12">
-                <div class="col-md-5">
+            <div class="col-md-4">
                     <asp:DropDownList ID="ddlScheme" runat="server" CssClass="form-control input-sm"
                         class="form-control">
                     </asp:DropDownList>
@@ -192,7 +190,7 @@
                         runat="server" InitialValue="0" ValidationGroup="btnViewscheme">
                     </asp:RequiredFieldValidator>
                 </div>
-                <div class="col-md-1" style="margin-left: 3%;">
+                <div class="col-md-1" style="margin-left: 2%;">
                     <asp:Button ID="Button2" runat="server" class="btn btn-sm btn-primary" Text="Go"
                         OnClick="Go_OnClick" ValidationGroup="btnViewscheme"></asp:Button>
                 </div>
@@ -782,7 +780,6 @@
         <asp:HiddenField ID="hidCurrentScheme" runat="server" />
     </ContentTemplate>
 </asp:UpdatePanel>
-<Banner:footer ID="MyHeader" assetCategory="MF" runat="server" />
 
 <script type="text/javascript">
     function togglediv(x) {

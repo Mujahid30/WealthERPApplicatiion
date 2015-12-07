@@ -518,7 +518,7 @@
             </div>
     </ContentTemplate>
 </asp:UpdatePanel>
-<Banner:footer ID="MyHeader" assetCategory="MF" runat="server" />
+
 <asp:Chart ID="cg" runat="server"></asp:Chart>
 
 

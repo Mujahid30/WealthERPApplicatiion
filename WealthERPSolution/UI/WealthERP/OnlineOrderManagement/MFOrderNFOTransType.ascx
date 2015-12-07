@@ -71,7 +71,19 @@
     {
         padding-bottom: .5em;
     }
+     .fontsize
+    {
+        font-size:smaller;
+        color:Black;font-weight:bold;
+    }
+    .fieldFontSize
+    {
+        
+        color:#FFFFFF;font-weight:bold;
+        
+    }
 </style>
+<body style="background-color:rgb(123,201,91)">
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
         <table class="tblMessage" cellpadding="0" cellspacing="0">
@@ -91,54 +103,56 @@
                         OnClick="imgInformation_OnClick" ToolTip="Help" Style="cursor: hand;" />
                 </div>
                 <div class="col-md-3">
-                    NFO Scheme:
-                    <asp:Label ID="lblScheme" runat="server" CssClass="readOnlyField"></asp:Label>
+                     <b class="fontsize">NFO Scheme:</b>
+                    <asp:Label ID="lblScheme" runat="server" CssClass="fieldFontSize"></asp:Label>
                 </div>
                 <div class="col-md-3">
-                    AMC:
-                    <asp:Label ID="lblNFOSchemeAMC" runat="server"  CssClass="readOnlyField"></asp:Label>
+                     <b class="fontsize">AMC:</b>
+                    <asp:Label ID="lblNFOSchemeAMC" runat="server"  CssClass="fieldFontSize"></asp:Label>
                 </div>
                 <div class="col-md-3">
-                    Category:
-                    <asp:Label ID="lblSchemeCategory" runat="server" CssClass="readOnlyField"></asp:Label>
+                     <b class="fontsize">Category:</b>
+                    <asp:Label ID="lblSchemeCategory" runat="server" CssClass="fieldFontSize"></asp:Label>
+                </div>
+            </div>
+            <div class="col-md-12  col-xs-12 col-sm-12" style="border-width:thin;border-style:inset;">
+                <div class="col-md-3">
+                     <b class="fontsize">NFO Start Date:</b>
+                    <asp:Label ID="NFOStartDate" runat="server" CssClass="fieldFontSize"></asp:Label>
+                </div>
+                <div class="col-md-3">
+                     <b class="fontsize">NFO End Date:</b>
+                    <asp:Label ID="NFOEndDate" runat="server" CssClass="fieldFontSize"></asp:Label>
+                </div>
+                <div class="col-md-3">
+                     <b class="fontsize">Minimum Initial Amount</b>
+                    <asp:Label ID="lblMintxt" runat="server" CssClass="fieldFontSize"></asp:Label>
+                </div>
+                <div class="col-md-3">
+                    <b class="fontsize">Subsequent Amount(In Multiples Of)</b>
+                    <asp:Label ID="lblMulti" runat="server" CssClass="fieldFontSize"></asp:Label>
+                </div>
+                <div class="col-md-3">
+                     <b class="fontsize">Cut-Off time:</b>
+                    <asp:Label ID="lbltime" runat="server" Text="" CssClass="fieldFontSize"></asp:Label>
+                </div>
+            </div>
+            <div class="col-md-12  col-xs-12 col-sm-12" style="border-width:thin;border-style:inset;">
+                <div class="col-md-3">
+                     <b class="fontsize">Joint Holder:</b>
+                    <asp:Label ID="lblHolderDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>
+                </div>
+                <div class="col-md-3">
+                     <b class="fontsize">Nominee:</b>
+                    <asp:Label ID="lblNomineeDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>
                 </div>
             </div>
             <div class="col-md-12  col-xs-12 col-sm-12">
-                <div class="col-md-3">
-                    NFO Start Date:
-                    <asp:Label ID="NFOStartDate" runat="server" CssClass="readOnlyField"></asp:Label>
-                </div>
-                <div class="col-md-3">
-                    NFO End Date:
-                    <asp:Label ID="NFOEndDate" runat="server" CssClass="readOnlyField"></asp:Label>
-                </div>
-                <div class="col-md-3">
-                    Minimum Initial Amount
-                    <asp:Label ID="lblMintxt" runat="server" CssClass="readOnlyField"></asp:Label>
-                </div>
-                <div class="col-md-3">
-                    Subsequent Amount(In Multiples Of)
-                    <asp:Label ID="lblMulti" runat="server" CssClass="readOnlyField"></asp:Label>
-                </div>
-                <div class="col-md-3">
-                    Cut-Off time:
-                    <asp:Label ID="lbltime" runat="server" Text="" CssClass="readOnlyField"></asp:Label>
-                </div>
-            </div>
-            <div class="col-md-12  col-xs-12 col-sm-12">
-                <div class="col-md-3">
-                    Joint Holder:
-                    <asp:Label ID="lblHolderDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
-                </div>
-                <div class="col-md-3">
-                    Nominee:
-                    <asp:Label ID="lblNomineeDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
-                </div>
-            </div>
-            <div class="col-md-12  col-xs-12 col-sm-12">
-                <div class="col-md-3">
-                    Folio Number:
-                    <asp:DropDownList ID="ddlFolio" CssClass="form-control input-sm" runat="server" AutoPostBack="false">
+                <div class="col-md-1">
+                     <b class="fontsize">Folio Number:</b>
+                     </div>
+                     <div class="col-md-2">
+                    <asp:DropDownList ID="ddlFolio" CssClass="cmbField" runat="server" AutoPostBack="false">
                     </asp:DropDownList>
                     <span id="Span1" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please Select a Folio"
@@ -146,7 +160,7 @@
                         Display="Dynamic"></asp:RequiredFieldValidator>
                 </div>
                 <div class="col-md-3">
-                    Amount:
+                     <b class="fontsize">Amount:</b>
                     <asp:TextBox ID="txtAmt" runat="server" CssClass="txtField" MaxLength="11"></asp:TextBox>
                     <span id="Span3" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please Select a Amount"
@@ -157,8 +171,8 @@
                         ValidationExpression="^[0-9]+(\.[0-9]{1,2})?$" ValidationGroup="btnSubmit" Display="Dynamic"></asp:RegularExpressionValidator>
                 </div>
                 <div class="col-md-3" id="divDividentType" runat="server" visible="false">
-                    Dividend Type
-                    <asp:DropDownList ID="ddlDivType" runat="server" CssClass="form-control input-sm"
+                     <b class="fontsize">Dividend Type</b>
+                    <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField"
                         Style="width: 250px;">
                     </asp:DropDownList>
                     <span id="Span4" class="spnRequiredField">*</span>
@@ -172,7 +186,7 @@
                         Enabled="false" Checked="false" ForeColor="#145765" Text="" ToolTip="Click 'Terms & Conditions' to proceed further"
                         CausesValidation="true" />
                     <asp:LinkButton ID="lnkTermsCondition" CausesValidation="false" Text="Terms & Conditions"
-                        runat="server" CssClass="txtField" OnClick="lnkTermsCondition_Click" ToolTip="Click here to accept terms & conditions"></asp:LinkButton>
+                        runat="server" CssClass="fontsize" OnClick="lnkTermsCondition_Click" ToolTip="Click here to accept terms & conditions"></asp:LinkButton>
                     <span id="Span9" class="spnRequiredField">*</span>
                     <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="Please read terms & conditions"
                         ClientValidationFunction="ValidateTermsConditions" EnableClientScript="true"
@@ -276,6 +290,7 @@
     <Triggers>
     </Triggers>
 </asp:UpdatePanel>
+</body>
 <Banner:footer ID="MyHeader" assetCategory="MF" runat="server" />
 
 <script type="text/javascript">

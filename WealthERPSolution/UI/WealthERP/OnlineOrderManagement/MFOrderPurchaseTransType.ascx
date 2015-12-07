@@ -78,7 +78,19 @@
     {
         padding-bottom: .5em;
     }
+    .fontsize
+    {
+        font-size:smaller;
+        color:Black;font-weight:bold;
+    }
+    .fieldFontSize
+    {
+        
+        color:#FFFFFF;font-weight:bold;
+        
+    }
 </style>
+<body style="background-color:rgb(123,201,91)">
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
         <div style="height: 200px">
@@ -98,22 +110,61 @@
                         <asp:ImageButton ID="imgInformation" runat="server" ImageUrl="../Images/help.png"
                             OnClick="imgInformation_OnClick" ToolTip="Help" Style="cursor: hand;" /></div>
                     <div class="col-md-3">
-                        AMC:<asp:Label ID="lblAmc" runat="server" CssClass="readOnlyField"></asp:Label>
+                        <b class="fontsize">AMC:</b><asp:Label ID="lblAmc" runat="server" CssClass="fieldFontSize"></asp:Label>
                     </div>
                     <div class="col-md-2">
-                        Category:
-                        <asp:Label ID="lblCategory" runat="server" CssClass="readOnlyField"></asp:Label>
+                         <b class="fontsize">Category:</b>
+                        <asp:Label ID="lblCategory" runat="server" CssClass="fieldFontSize"></asp:Label>
                     </div>
                     <div class="col-md-3">
-                        Scheme:
-                        <asp:Label ID="lblScheme" runat="server" CssClass="readOnlyField"></asp:Label>
+                         <b class="fontsize">Scheme:</b>
+                        <asp:Label ID="lblScheme" runat="server" CssClass="fieldFontSize"></asp:Label>
                     </div>
-                    <div id="divDVR" runat="server" visible="false">
-                        <div class="col-md-1">
-                            Dividend Type:</div>
-                        <div class="col-md-2">
-                            <asp:DropDownList ID="ddlDivType" runat="server" CssClass="form-control input-sm"
-                                Style="width: 250px;">
+                    
+                </div>
+                <div class="col-md-12  col-xs-12 col-sm-12" style="margin-top: .5%;border-width:thin;border-style:inset;">
+                    <div class="col-md-3">
+                         <b class="fontsize">Last Recorded NAV (Rs):</b>
+                        <asp:Label ID="lblNavDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>
+                    </div>
+                    <div class="col-md-2">
+                         <b class="fontsize">Minimum Initial Amount:</b>
+                        <asp:Label ID="lblMintxt" runat="server" CssClass="fieldFontSize"></asp:Label>
+                    </div>
+                    <div class="col-md-2">
+                         <b class="fontsize">Scheme Rating:</b>
+                        <asp:Image runat="server" ID="imgSchemeRating" /><br />
+                        <asp:Label ID="lblSchemeRatingAsOn" runat="server" CssClass="FieldName"></asp:Label>
+                    </div>
+                    <div class="col-md-2">
+                         <b class="fontsize">Cut-Off time:</b>
+                        <asp:Label ID="lbltime" runat="server" Text="" CssClass="fieldFontSize"></asp:Label>
+                    </div>
+                    <div class="col-md-3">
+                         <b class="fontsize">Subsequent Amount(In Multiples Of):</b>
+                        <asp:Label ID="lblMulti" runat="server" CssClass="fieldFontSize"></asp:Label>
+                    </div>
+                </div>
+                <div class="col-md-12  col-xs-12 col-sm-12" style="border-width:thin;border-style:inset;">
+                    <div class="col-md-2">
+                         <b class="fontsize">Joint Holder:</b>
+                        <asp:Label ID="lblHolderDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>
+                    </div>
+                    <div class="col-md-2">
+                         <b class="fontsize">Nominee:</b>
+                        <asp:Label ID="lblNomineeDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>
+                    </div>
+                     <div class="col-md-2">
+                        <b class="fontsize"> Units Held:</b>
+                        <asp:Label ID="lblUnitsheldDisplay" runat="server"></asp:Label>
+                    </div>
+                </div>
+                <div class="col-md-12  col-xs-12 col-sm-12">
+                <div id="divDVR" runat="server" visible="false">
+                        <div class="col-md-3">
+                             <b class="fontsize">Dividend Type:</b>
+                            <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField"
+                                Style="width: 200px;">
                             </asp:DropDownList>
                             <%--  <span id="Span4" class="spnRequiredField">*</span>--%>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" CssClass="rfvPCG"
@@ -122,49 +173,14 @@
                             </asp:RequiredFieldValidator>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-12  col-xs-12 col-sm-12" style="margin-top: .5%">
                     <div class="col-md-3">
-                        Last Recorded NAV (Rs):
-                        <asp:Label ID="lblNavDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
-                    </div>
-                    <div class="col-md-2">
-                        Minimum Initial Amount:
-                        <asp:Label ID="lblMintxt" runat="server" CssClass="readOnlyField"></asp:Label>
-                    </div>
-                    <div class="col-md-2">
-                        Scheme Rating:
-                        <asp:Image runat="server" ID="imgSchemeRating" /><br />
-                        <asp:Label ID="lblSchemeRatingAsOn" runat="server" CssClass="FieldName"></asp:Label>
-                    </div>
-                    <div class="col-md-2">
-                        Cut-Off time:
-                        <asp:Label ID="lbltime" runat="server" Text="" CssClass="readOnlyField"></asp:Label>
-                    </div>
-                    <div class="col-md-3">
-                        Subsequent Amount(In Multiples Of):
-                        <asp:Label ID="lblMulti" runat="server" CssClass="readOnlyField"></asp:Label>
-                    </div>
-                </div>
-                <div class="col-md-12  col-xs-12 col-sm-12">
-                    <div class="col-md-2">
-                        Joint Holder:
-                        <asp:Label ID="lblHolderDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
-                    </div>
-                    <div class="col-md-2">
-                        Nominee:
-                        <asp:Label ID="lblNomineeDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
-                    </div>
-                </div>
-                <div class="col-md-12  col-xs-12 col-sm-12">
-                    <div class="col-md-3">
-                        Folio Number:
-                        <asp:DropDownList ID="ddlFolio" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlFolio_OnSelectedIndexChanged"
+                         <b class="fontsize">Folio Number:</b>
+                        <asp:DropDownList ID="ddlFolio" CssClass="cmbField" OnSelectedIndexChanged="ddlFolio_OnSelectedIndexChanged"
                             runat="server" AutoPostBack="True">
                         </asp:DropDownList>
                     </div>
-                    <div class="col-md-1">
-                        Amount:
+                    <div class="col-md-2">
+                         <b class="fontsize">Amount:</b>
                         <asp:TextBox ID="txtAmt" runat="server" CssClass="txtField" MaxLength="11"></asp:TextBox>
                         <span id="Span3" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please Select a Amount"
@@ -174,17 +190,14 @@
                             ErrorMessage="Please Enter Only Numbers and 2 digits after decimal " CssClass="rfvPCG"
                             ValidationExpression="^[0-9]+(\.[0-9]{1,2})?$" ValidationGroup="btnSubmit" Display="Dynamic"></asp:RegularExpressionValidator>
                     </div>
-                    <div class="col-md-2">
-                        Units Held:
-                        <asp:Label ID="lblUnitsheldDisplay" runat="server"></asp:Label>
-                    </div>
+                   
                     <div class="col-md-3" style="padding-left: 10px">
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <asp:CheckBox ID="chkTermsCondition" runat="server" Font-Bold="True" Font-Names="Shruti"
                             Enabled="false" Checked="false" ForeColor="#145765" Text="" ToolTip="Click 'Terms & Conditions' to proceed further"
                             CausesValidation="true" />
                         <asp:LinkButton ID="lnkTermsCondition" CausesValidation="false" Text="Terms & Conditions"
-                            runat="server" CssClass="txtField" OnClick="lnkTermsCondition_Click" ToolTip="Click here to accept terms & conditions"></asp:LinkButton>
+                            runat="server" CssClass="fontsize" OnClick="lnkTermsCondition_Click" ToolTip="Click here to accept terms & conditions"></asp:LinkButton>
                         <span id="Span9" class="spnRequiredField">*</span>
                         <br />
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -192,10 +205,10 @@
                             ClientValidationFunction="ValidateTermsConditions" EnableClientScript="true"
                             OnServerValidate="TermsConditionCheckBox" Display="Dynamic" ValidationGroup="btnSubmit"
                             CssClass="rfvPCG">
-                    Please read terms & conditions
+                     Please read terms & conditions
                         </asp:CustomValidator>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-1">
                         <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="OnClick_Submit"
                             class="btn btn-sm btn-primary" ValidationGroup="btnSubmit"></asp:Button>
                     </div>
@@ -299,6 +312,7 @@
     <Triggers>
     </Triggers>
 </asp:UpdatePanel>
+</body>
 <Banner:footer ID="MyHeader" assetCategory="MF" runat="server" />
 
 <script type="text/javascript">
@@ -336,13 +350,13 @@
             <asp:Label ID="lblDividendType" runat="server" CssClass="txtField"></asp:Label>
         </td>
         <td colspan="2">
-            <asp:DropDownList ID="ddlAmc" runat="server" CssClass="form-control input-sm" AutoPostBack="true"
+            <asp:DropDownList ID="ddlAmc" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged" Visible="false">
             </asp:DropDownList>
-            <asp:DropDownList ID="ddlScheme" runat="server" CssClass="form-control input-sm"
+            <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField"
                 AutoPostBack="true" OnSelectedIndexChanged="ddlScheme_onSelectedChanged" Visible="false">
             </asp:DropDownList>
-            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control input-sm"
+            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField"
                 AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged"
                 Visible="false">
             </asp:DropDownList>

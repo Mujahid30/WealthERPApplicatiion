@@ -43,7 +43,9 @@ namespace WealthERP.OnlineOrderManagement
                 {
                     //if (Request.QueryString["schemeCode"] != null)//Session["MFSchemePlan"] != null || 
                     Session["MFSchemePlan"] = Request.QueryString["schemeCode"];
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadTransactPanel('MFOrderPurchaseTransactionType')", true);
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadTransactPanel('MFOrderPurchaseTransactionType')", true);
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "PageLoadTransactTab", @"LoadTransactPanel('MFOrderPurchaseTransType','login');", true);
+
                     int amcCode = 0;
                     string category = string.Empty;
                     BindCategory();
@@ -346,51 +348,54 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (ddlScheme.SelectedValue != "")
             {
-                if (Session["PageDefaultSetting"] != null)
-                {
+                //if (Session["PageDefaultSetting"] != null)
+                //{
                     Session["MFSchemePlan"] = ddlScheme.SelectedValue;
-                    LoadMFTransactionPage("MFOrderPurchaseTransType", 2);
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "PageLoadTransactTab", @"LoadTransactPanel('MFOrderPurchaseTransType','login');", true);
+                   
 
-                }
-                else
-                {
-                    Response.Redirect("ControlHost.aspx?pageid=MFOrderPurchaseTransType&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "", false);
+                //}
+                //else
+                //{
+                //    Response.Redirect("ControlHost.aspx?pageid=MFOrderPurchaseTransType&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "", false);
 
-                }
+                //}
             }
         }
         protected void lbAddPurchase_OnClick(object sender, EventArgs e)
         {
             if (ddlScheme.SelectedValue != "")
             {
-                if (Session["PageDefaultSetting"] != null)
-                {
+                //if (Session["PageDefaultSetting"] != null)
+                //{
                     Session["MFSchemePlan"] = ddlScheme.SelectedValue;
-                    LoadMFTransactionPage("MFOrderAdditionalPurchase", 2);
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "PageLoadTransactTab", @"LoadTransactPanel('MFOrderPurchaseTransType','login');", true);
+                   
 
-                }
-                else
-                {
-                    Response.Redirect("ControlHost.aspx?pageid=MFOrderAdditionalPurchase&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "", false);
+                //}
+                //else
+                //{
+                //    Response.Redirect("ControlHost.aspx?pageid=MFOrderAdditionalPurchase&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "", false);
 
-                }
+                //}
             }
         }
         protected void lbSIP_OnClick(object sender, EventArgs e)
         {
             if (ddlScheme.SelectedValue != "")
             {
-                if (Session["PageDefaultSetting"] != null)
-                {
+                //if (Session["PageDefaultSetting"] != null)
+                //{
                     Session["MFSchemePlan"] = ddlScheme.SelectedValue;
-                    LoadMFTransactionPage("MFOrderSIPTransType", 2);
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "PageLoadTransactTab", @"LoadTransactPanel('MFOrderPurchaseTransType','login');", true);
+                   
 
-                }
-                else
-                {
-                    Response.Redirect("ControlHost.aspx?pageid=MFOrderSIPTransType&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "", false);
+                //}
+                //else
+                //{
+                //    Response.Redirect("ControlHost.aspx?pageid=MFOrderSIPTransType&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "", false);
 
-                }
+                //}
             }
         }
         protected void lbRedem_OnClick(object sender, EventArgs e)
@@ -508,7 +513,7 @@ namespace WealthERP.OnlineOrderManagement
                 //if (schemeCompareList.Count > 0)
                 //{
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('OnlineMFSchemeCompare','&schemeCompareList=" + schemeCompareList + "');", true);
-                LoadMFTransactionPage("OnlineMFSchemeCompare", 1);
+                //LoadMFTransactionPage("OnlineMFSchemeCompare", 1);
 
                 //    }
                 //}

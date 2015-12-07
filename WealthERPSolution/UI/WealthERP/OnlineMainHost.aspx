@@ -814,11 +814,11 @@
             <iframe name="bottomframe" class="bottomframe" width="100%" id="bottomframe" onload="javascript:calcIFrameHeight('bottomframe');"
                 src="OnlineBottomHost.aspx" scrolling="no"></iframe>
         </div>
-        <div style="clear: both;">
+        <div style="clear: both;background-color:rgb(123,201,91);font-weight:bold;font-size:smaller">
             <div>
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
-                        <div style="background-color: #81CCE9; width: 100%">
+                        <div style="background-color: #0396CC; width: 100%">
                         <div style="padding-left:20px;color:White;">
                             Transact</div>
                         </div>
@@ -827,7 +827,7 @@
                                 <td>
                                 </td>
                                 <td align="right" style="vertical-align: top;">
-                                    <asp:Label ID="lblchannel" runat="server" Text="Exchange:" CssClass="FieldName"></asp:Label>
+                                    <asp:Label ID="lblchannel" runat="server" Text="Exchange:" style="color:Black;font-weight:bold;font-size:smaller"></asp:Label>
                                 </td>
                                 <td>
                                     <asp:DropDownList ID="ddlchannel" runat="server" CssClass="cmbField" AutoPostBack="true"
@@ -837,7 +837,7 @@
                                     </asp:DropDownList>
                                 </td>
                                 <td align="right" style="vertical-align: top;">
-                                    <asp:Label ID="Label2" runat="server" Text="Transaction Type:" CssClass="FieldName"></asp:Label>
+                                    <asp:Label ID="Label2" runat="server" Text="Transaction Type:" style="color:Black;font-weight:bold;font-size:smaller"></asp:Label>
                                 </td>
                                 <td>
                                     <asp:DropDownList ID="DropDownList1" runat="server" CssClass="cmbField" onchange="ddlchange(this);"
