@@ -159,9 +159,9 @@
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                   <telerik:GridTemplateColumn ItemStyle-Width="140px" AllowFiltering="false" HeaderText="Download"
-                                            ItemStyle-Wrap="false" UniqueName="Download">
+                                            ItemStyle-Wrap="false" UniqueName="Download" Visible="false" Display="false">
                                             <ItemTemplate>
-                                              <asp:LinkButton ID="lbPreview" CommandName="download_file" Text="View Prospectus"  runat="server">
+                                              <asp:LinkButton ID="lbPreview" CommandName="download_file" Text="View Prospectus"  runat="server" Visible="false">
                                              </asp:LinkButton>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
