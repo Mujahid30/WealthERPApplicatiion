@@ -44,7 +44,9 @@ namespace WealthERP.OnlineOrderManagement
                     //if (Request.QueryString["schemeCode"] != null)//Session["MFSchemePlan"] != null || 
                     Session["MFSchemePlan"] = Request.QueryString["schemeCode"];
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadTransactPanel('MFOrderPurchaseTransactionType')", true);
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "PageLoadTransactTab", @"LoadTransactPanel('MFOrderPurchaseTransType','login');", true);
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvevv", "LoadTransactPanel('MFOnlineSchemeManager');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscriptvevv", "LoadTransactPanel('MFOrderPurchaseTransType');", true);
+                    
 
                     int amcCode = 0;
                     string category = string.Empty;
@@ -351,7 +353,9 @@ namespace WealthERP.OnlineOrderManagement
                 //if (Session["PageDefaultSetting"] != null)
                 //{
                     Session["MFSchemePlan"] = ddlScheme.SelectedValue;
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "PageLoadTransactTab", @"LoadTransactPanel('MFOrderPurchaseTransType','login');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadTransactPanelMFOrderPurchase", "LoadTransactPanel('MFOrderPurchaseTransType');", true);
+
+                    //Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptvevvg", "LoadTransactPanel('MFOrderPurchaseTransType');", true);
                    
 
                 //}
@@ -369,7 +373,8 @@ namespace WealthERP.OnlineOrderManagement
                 //if (Session["PageDefaultSetting"] != null)
                 //{
                     Session["MFSchemePlan"] = ddlScheme.SelectedValue;
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "PageLoadTransactTab", @"LoadTransactPanel('MFOrderPurchaseTransType','login');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscriptvevv", "LoadTransactPanel('MFOrderPurchaseTransType');", true);
+
                    
 
                 //}
@@ -387,7 +392,8 @@ namespace WealthERP.OnlineOrderManagement
                 //if (Session["PageDefaultSetting"] != null)
                 //{
                     Session["MFSchemePlan"] = ddlScheme.SelectedValue;
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "PageLoadTransactTab", @"LoadTransactPanel('MFOrderPurchaseTransType','login');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscripiitivevv", "LoadTransactPanel('MFOrderSIPTransType');", true);
+
                    
 
                 //}

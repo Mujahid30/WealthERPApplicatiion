@@ -161,7 +161,7 @@
                 </div>
             </div>
             <div class="col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 1%">
-                        <div class="col-md-4">
+                <div class="col-md-3">
                     <asp:DropDownList ID="ddlAMC" runat="server" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged"
                         AutoPostBack="true">
                     </asp:DropDownList>
@@ -181,7 +181,7 @@
                         </asp:RequiredFieldValidator>--%>
                     </fieldset>
                 </div>
-            <div class="col-md-4">
+                <div class="col-md-4">
                     <asp:DropDownList ID="ddlScheme" runat="server" CssClass="form-control input-sm"
                         class="form-control">
                     </asp:DropDownList>
@@ -190,7 +190,7 @@
                         runat="server" InitialValue="0" ValidationGroup="btnViewscheme">
                     </asp:RequiredFieldValidator>
                 </div>
-                <div class="col-md-1" style="margin-left: 2%;">
+                <div class="col-md-1" >
                     <asp:Button ID="Button2" runat="server" class="btn btn-sm btn-primary" Text="Go"
                         OnClick="Go_OnClick" ValidationGroup="btnViewscheme"></asp:Button>
                 </div>
@@ -230,63 +230,6 @@
                         OnClick="btnReturn_OnClick" /></div>
             </div>
         </div>
-        <div id="DivReturnChat" runat="server" visible="false" style="margin-top: 3.5%; margin-bottom: 2%;
-            width: 80%; padding-top: 1%; padding-bottom: 1%; margin-left: auto; margin-right: auto;
-            border-top-style: inset; border-bottom-style: inset; border-left-style: inset;
-            border-right-style: inset; border-width: thin;">
-            <asp:Literal ID="ltrReturn" runat="server"></asp:Literal>
-        </div>
-        <div id="divChart" runat="server" visible="false" style="margin-top: 3.5%; margin-bottom: 2%;
-            width: 80%; padding-top: 1%; padding-bottom: 1%; margin-left: auto; margin-right: auto;
-            border-top-style: inset; border-bottom-style: inset; border-left-style: inset;
-            border-right-style: inset; border-width: thin;">
-            <div>
-                <asp:Literal ID="Literal1" runat="server"></asp:Literal></div>
-            <div id="SchemeChartinformation" runat="server">
-                &nbsp;&nbsp;<asp:Button ID="btn1m" runat="server" class="btn btn-sm btn-primary"
-                    Text="1m" OnClick="btnHistory_OnClick"></asp:Button>
-                <asp:Button ID="btn3m" runat="server" class="btn btn-sm btn-primary" Text="3m" OnClick="btnHistory_OnClick">
-                </asp:Button>
-                <asp:Button ID="btn6m" runat="server" class="btn btn-sm btn-primary" Text="6m" OnClick="btnHistory_OnClick">
-                </asp:Button>
-                <asp:Button ID="btn1y" runat="server" class="btn btn-sm btn-primary" Text="1y" OnClick="btnHistory_OnClick">
-                </asp:Button>
-                <asp:Button ID="btn2y" runat="server" class="btn btn-sm btn-primary" Text="2y" OnClick="btnHistory_OnClick">
-                </asp:Button>
-                &nbsp;&nbsp;<telerik:RadDatePicker ID="rdpFromDate" Label="From" DateInput-EmptyMessage="From Date"
-                    MinDate="01/01/1000" MaxDate="01/01/3000" CssClass="calender" runat="server">
-                </telerik:RadDatePicker>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="rdpFromDate"
-                    Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnHistoryChat"></asp:RequiredFieldValidator>
-                <telerik:RadDatePicker ID="rdpToDate" Label="To" DateInput-EmptyMessage="To Date"
-                    MinDate="01/01/1000" MaxDate="01/01/3000" CssClass="calender" runat="server">
-                </telerik:RadDatePicker>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="rdpFromDate"
-                    Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnHistoryChat"></asp:RequiredFieldValidator>
-                <asp:Button ID="btnHistoryChat" runat="server" class="btn btn-sm btn-primary" Text="Go"
-                    ValidationGroup="btnHistoryChat" OnClick="btnHistoryChat_OnClick"></asp:Button>
-            </div>
-        </div>
-        <div class="row" style="margin-left: 20%; margin-right: 2%; margin-bottom: 0%; margin-top: 2px;"
-            id="divAction" runat="server" visible="false">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <asp:LinkButton ID="lnkAddToCompare" runat="server" CssClass="btn btn-primary btn-primary"
-                    OnClick="lnkAddToCompare_OnClick" ValidationGroup="btnGo"> Add To Compare <span class="glyphicon glyphicon-shopping-list">
-                            </span></asp:LinkButton>
-                &nbsp &nbsp
-                <asp:LinkButton ID="lbBuy" runat="server" OnClick="lbBuy_OnClick" ValidationGroup="btnGo"> <img src="../Images/Buy_BIG_Buttons.png" height="40px" width="70px"/></asp:LinkButton>
-                &nbsp &nbsp
-                <asp:LinkButton ID="lbAddPurchase" runat="server" CssClass="btn btn-primary btn-success"
-                    OnClick="lbAddPurchase_OnClick" Visible="false"> Additional Purchase <span class="glyphicon glyphicon-plus-sign">
-                            </span></asp:LinkButton>
-                &nbsp &nbsp
-                <asp:LinkButton ID="lbSIP" runat="server" OnClick="lbSIP_OnClick" ValidationGroup="btnGo"><img src="../Images/SIP_BIG_Buttons.png" height="40px" width="70px"/></asp:LinkButton>
-                &nbsp &nbsp
-                <asp:LinkButton ID="lbRedem" runat="server" CssClass="btn btn-primary btn-danger"
-                    OnClick="lbRedem_OnClick" Visible="false" ValidationGroup="btnGo"> Redemption <span class="glyphicon glyphicon-minus">
-                            </span></asp:LinkButton>
-            </div>
-        </div>
         <table style="margin-left: 15%;">
             <tr id="trMessage" runat="server" visible="false">
                 <td colspan="6">
@@ -305,17 +248,76 @@
         </table>
         <div class="container" style="margin-top: 1%; margin-bottom: 2%; width: 80%; padding-top: 1%;
             padding-bottom: 1%; margin-left: auto; margin-right: auto;">
-        <ul class="nav nav-tabs" >
-            <li class="active" ><a data-toggle="tab"  href="#DivSchemeInformation"> <b>Scheme Details</b></a></li>
-            <li ><a data-toggle="tab" href="#divSchemeRatingDetails"> <b>Risk And Rating</b></a></li> 
-            <li ><a data-toggle="tab" href="#Divfunddetails"> <b>Fund Manager Profile</b></a></li> 
-            <li ><a data-toggle="tab" href="#no-more-tables"> <b>Portfolio</b></a></li> 
-            
-        </ul>
-    <%--    <div style="margin-top: 1%; margin-bottom: 0%; width: 80%; padding-top: 1%; padding-bottom: 1%;
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#DivCharTab"><b>Chat</b></a></li>
+                <li><a data-toggle="tab" href="#DivSchemeInformation"><b>Scheme Details</b></a></li>
+                <li><a data-toggle="tab" href="#divSchemeRatingDetails"><b>Risk And Rating</b></a></li>
+                <li><a data-toggle="tab" href="#Divfunddetails"><b>Fund Manager Profile</b></a></li>
+                <li><a data-toggle="tab" href="#no-more-tables"><b>Portfolio</b></a></li>
+            </ul>
+            <%--    <div style="margin-top: 1%; margin-bottom: 0%; width: 80%; padding-top: 1%; padding-bottom: 1%;
             margin-left: auto; margin-right: auto;">--%>
             <div class="tab-content">
-           <%-- <div id="divscheme12" class="tab-pane fade in active" style="width: 80%; float: left; min-width: 320px;">
+                <div id="DivCharTab" class="tab-pane fade in active">
+                    <div id="DivReturnChat" runat="server" visible="false" style="margin-top: 3.5%; margin-bottom: 2%;
+                        width: 100%; padding-top: 1%; padding-bottom: 1%; margin-left: auto; margin-right: auto;
+                        border-top-style: inset; border-bottom-style: inset; border-left-style: inset;
+                        border-right-style: inset; border-width: thin;">
+                        <asp:Literal ID="ltrReturn" runat="server"></asp:Literal>
+                    </div>
+                    <div id="divChart" runat="server" visible="false" style="margin-top: 3.5%; margin-bottom: 2%;
+                        width: 100%; padding-top: 1%; padding-bottom: 1%; margin-left: auto; margin-right: auto;
+                        border-top-style: inset; border-bottom-style: inset; border-left-style: inset;
+                        border-right-style: inset; border-width: thin;">
+                        <div>
+                            <asp:Literal ID="Literal1" runat="server"></asp:Literal></div>
+                        <div id="SchemeChartinformation" runat="server">
+                            &nbsp;&nbsp;<asp:Button ID="btn1m" runat="server" class="btn btn-sm btn-primary"
+                                Text="1m" OnClick="btnHistory_OnClick"></asp:Button>
+                            <asp:Button ID="btn3m" runat="server" class="btn btn-sm btn-primary" Text="3m" OnClick="btnHistory_OnClick">
+                            </asp:Button>
+                            <asp:Button ID="btn6m" runat="server" class="btn btn-sm btn-primary" Text="6m" OnClick="btnHistory_OnClick">
+                            </asp:Button>
+                            <asp:Button ID="btn1y" runat="server" class="btn btn-sm btn-primary" Text="1y" OnClick="btnHistory_OnClick">
+                            </asp:Button>
+                            <asp:Button ID="btn2y" runat="server" class="btn btn-sm btn-primary" Text="2y" OnClick="btnHistory_OnClick">
+                            </asp:Button>
+                            &nbsp;&nbsp;<telerik:RadDatePicker ID="rdpFromDate" Label="From" DateInput-EmptyMessage="From Date"
+                                MinDate="01/01/1000" MaxDate="01/01/3000" CssClass="calender" runat="server">
+                            </telerik:RadDatePicker>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="rdpFromDate"
+                                Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnHistoryChat"></asp:RequiredFieldValidator>
+                            <telerik:RadDatePicker ID="rdpToDate" Label="To" DateInput-EmptyMessage="To Date"
+                                MinDate="01/01/1000" MaxDate="01/01/3000" CssClass="calender" runat="server">
+                            </telerik:RadDatePicker>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="rdpFromDate"
+                                Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnHistoryChat"></asp:RequiredFieldValidator>
+                            <asp:Button ID="btnHistoryChat" runat="server" class="btn btn-sm btn-primary" Text="Go"
+                                ValidationGroup="btnHistoryChat" OnClick="btnHistoryChat_OnClick"></asp:Button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-left: 20%; margin-right: 2%; margin-bottom: 0%; margin-top: 2px;"
+                        id="divAction" runat="server" visible="false">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <asp:LinkButton ID="lnkAddToCompare" runat="server" CssClass="btn btn-primary btn-primary"
+                                OnClick="lnkAddToCompare_OnClick" ValidationGroup="btnGo"> Add To Compare <span class="glyphicon glyphicon-shopping-list">
+                            </span></asp:LinkButton>
+                            &nbsp &nbsp
+                            <asp:LinkButton ID="lbBuy" runat="server" OnClick="lbBuy_OnClick" ValidationGroup="btnGo"> <img src="../Images/Buy_BIG_Buttons.png" height="40px" width="70px"/></asp:LinkButton>
+                            &nbsp &nbsp
+                            <asp:LinkButton ID="lbAddPurchase" runat="server" CssClass="btn btn-primary btn-success"
+                                OnClick="lbAddPurchase_OnClick" Visible="false"> Additional Purchase <span class="glyphicon glyphicon-plus-sign">
+                            </span></asp:LinkButton>
+                            &nbsp &nbsp
+                            <asp:LinkButton ID="lbSIP" runat="server" OnClick="lbSIP_OnClick" ValidationGroup="btnGo"><img src="../Images/SIP_BIG_Buttons.png" height="40px" width="70px"/></asp:LinkButton>
+                            &nbsp &nbsp
+                            <asp:LinkButton ID="lbRedem" runat="server" CssClass="btn btn-primary btn-danger"
+                                OnClick="lbRedem_OnClick" Visible="false" ValidationGroup="btnGo"> Redemption <span class="glyphicon glyphicon-minus">
+                            </span></asp:LinkButton>
+                        </div>
+                    </div>
+                </div>
+                <%-- <div id="divscheme12" class="tab-pane fade in active" style="width: 80%; float: left; min-width: 320px;">
                 <div style="width: 100%;">
                     <table class="col-md-12 table-bordered table-striped table-condensed cf" style="margin-bottom: 0px;
                         min-width: 320px;">
@@ -333,7 +335,7 @@
                                 </tr>
                     </table>
                 </div>--%>
-                <div id="DivSchemeInformation" class="tab-pane fade in active">
+                <div id="DivSchemeInformation" class="tab-pane fade in">
                     <div style="float: left; width: 50%; min-width: 320px">
                         <table class="col-md-12 table-bordered table-striped table-condensed cf">
                             <tbody class="alignment">
@@ -467,7 +469,7 @@
                         </table>
                     </div>
                 </div>
-           <%-- </div>
+                <%-- </div>
         </div>
         <div style="margin-top: 2px; margin-bottom: 0%; width: 80%; padding-top: 1%; padding-bottom: 0%;
             margin-left: auto; margin-right: auto;">
@@ -554,9 +556,8 @@
                         </tbody>
                     </table>
                 </div>
-            
-        <%--</div>--%>
-        <%--<div style="margin-top: 2px; margin-bottom: 0%; width: 80%; padding-top: 1%; padding-bottom: 0%;
+                <%--</div>--%>
+                <%--<div style="margin-top: 2px; margin-bottom: 0%; width: 80%; padding-top: 1%; padding-bottom: 0%;
             margin-left: auto; margin-right: auto;">
             <div style="width: 80%; min-width: 320px; float: left;">
                 <table class="table table-bordered" style="margin-bottom: 0px">
@@ -573,7 +574,7 @@
                         </tr>
                     </thead>
                 </table>--%>
-                <div id="Divfunddetails"  class="tab-pane fade">
+                <div id="Divfunddetails" class="tab-pane fade">
                     <table class="table table-bordered">
                         <tbody>
                             <tr class="searchable-spec cell top sub-name small bordered">
@@ -611,8 +612,7 @@
                         </tbody>
                     </table>
                 </div>
-          
-        <%--<div style="margin-top: 0%; margin-bottom: 2%; width: 80%; padding-top: 0%; padding-bottom: 1%;
+                <%--<div style="margin-top: 0%; margin-bottom: 2%; width: 80%; padding-top: 0%; padding-bottom: 1%;
             margin-left: auto; margin-right: auto;">
             <div style="width: 80%; min-width: 320px;">
                 <br />
@@ -630,153 +630,152 @@
                     </thead>
                 </table>
             </div>--%>
-            <div id="no-more-tables" class="tab-pane fade " style="width: 100%">
-                <div style="width: 20%; margin-right: 5px;">
-                    <table class="col-md-12 table-bordered table-striped table-condensed cf" width="100%">
-                        <thead class="cf">
-                            <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
-                                text-align: center">
-                                <th data-title="Fund Name" class="alignCenter">
-                                    Top Holding
-                                </th>
-                                <th data-title="Holding(%)" class="alignCenter">
-                                    Weight (%)
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <asp:Repeater ID="rpSchemeDetails" runat="server">
-                                <ItemTemplate>
-                                    <tr>
-                                        <td data-title="Fund Name">
-                                            <asp:Label ID="lblFundName" runat="server" Text='<%# Eval("co_name")%>'></asp:Label>
-                                        </td>
-                                        <td data-title="Holding(%)">
-                                            <asp:Label ID="lblHolding" runat="server" Text='<%# Eval("perc_hold")%>'></asp:Label>
-                                        </td>
-                                    </tr>
-                                </ItemTemplate>
-                            </asp:Repeater>
-                        </tbody>
-                    </table>
+                <div id="no-more-tables" class="tab-pane fade " style="width: 100%">
+                    <div style="width: 20%; margin-right: 5px;">
+                        <table class="col-md-12 table-bordered table-striped table-condensed cf" width="100%">
+                            <thead class="cf">
+                                <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
+                                    text-align: center">
+                                    <th data-title="Fund Name" class="alignCenter">
+                                        Top Holding
+                                    </th>
+                                    <th data-title="Holding(%)" class="alignCenter">
+                                        Weight (%)
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <asp:Repeater ID="rpSchemeDetails" runat="server">
+                                    <ItemTemplate>
+                                        <tr>
+                                            <td data-title="Fund Name">
+                                                <asp:Label ID="lblFundName" runat="server" Text='<%# Eval("co_name")%>'></asp:Label>
+                                            </td>
+                                            <td data-title="Holding(%)">
+                                                <asp:Label ID="lblHolding" runat="server" Text='<%# Eval("perc_hold")%>'></asp:Label>
+                                            </td>
+                                        </tr>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="width: 21%; float: left; margin-left: 8px;">
+                        <asp:Literal ID="ltrHolding" runat="server"></asp:Literal>
+                    </div>
+                    <div style="width: 21%; float: left; margin-left: 8px;">
+                        <table class="col-md-12 table-bordered table-striped table-condensed cf" width="100%">
+                            <thead class="cf">
+                                <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
+                                    text-align: center">
+                                    <th data-title="Sector" class="alignCenter">
+                                        Top Sector
+                                    </th>
+                                    <th data-title="Holding(%)" class="alignCenter">
+                                        Weight (%)
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <asp:Repeater ID="RepSector" runat="server">
+                                    <ItemTemplate>
+                                        <tr>
+                                            <td data-title="Sector">
+                                                <asp:Label ID="lblSector" runat="server" Text='<%# Eval("sector")%>'></asp:Label>
+                                            </td>
+                                            <td data-title="Holding(%)">
+                                                <asp:Label ID="lblsecWeight" runat="server" Text='<%# Eval("holdingpercentage")%>'></asp:Label>
+                                            </td>
+                                        </tr>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="width: 21%; float: left; margin-left: 8px;">
+                        <asp:Literal runat="server" ID="ltrSector"></asp:Literal>
+                    </div>
+                    <div style="width: 20%; margin-right: 5px;">
+                        <table class="col-md-12 table-bordered table-striped table-condensed cf" width="100%">
+                            <thead class="cf">
+                                <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
+                                    text-align: center">
+                                    <th data-title="Fund Name" class="alignCenter">
+                                        Asset allocation
+                                    </th>
+                                    <th data-title="Holding(%)" class="alignCenter">
+                                        Weight (%)
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <asp:Repeater ID="RepAsset" runat="server">
+                                    <ItemTemplate>
+                                        <tr>
+                                            <td data-title="Fund Name">
+                                                <asp:Label ID="lblasset" runat="server" Text='<%# Eval("asset")%>'></asp:Label>
+                                            </td>
+                                            <td data-title="Holding(%)">
+                                                <asp:Label ID="lblassetvalue" runat="server" Text='<%# Eval("assetvalue")%>'></asp:Label>
+                                            </td>
+                                        </tr>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="width: 21%; float: left; margin-left: 8px;">
+                        <asp:Literal ID="ltrAssets" runat="server"></asp:Literal>
+                        <asp:Literal ID="raj" runat="server"></asp:Literal>
+                    </div>
+                    <br />
+                    <div style="width: 21%; float: left; margin-left: 8px;">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="header">
+                                        <font color="#fff">Morning Star </font>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <asp:Image ID="imgStyleBox" runat="server" /></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="width: 19%; float: left; min-width: 19%; margin-left: 10px;">
+                        <table class="table table-bordered" style="margin-left: 2px;">
+                            <thead>
+                                <tr>
+                                    <th colspan="2" class="header">
+                                        <font color="#fff">Additional Information</font>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="searchable-spec cell top sub-name small bordered">
+                                    <td>
+                                        <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="http://www.amfiindia.com/intermediary/other-data/scheme-details"
+                                            Target="_blank">Scheme Information Document-SID </asp:HyperLink>
+                                    </td>
+                                </tr>
+                                <tr class="searchable-spec cell top sub-name small bordered">
+                                    <td>
+                                        <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="http://www.amfiindia.com/research-information/other-data/sai"
+                                            Target="_blank">Statement of Additional Information-SAI</asp:HyperLink>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div style="width: 21%; float: left; margin-left: 8px;">
-                    <asp:Literal ID="ltrHolding" runat="server"></asp:Literal>
-                </div>
-                <div style="width: 21%; float: left; margin-left: 8px;">
-                    <table class="col-md-12 table-bordered table-striped table-condensed cf" width="100%">
-                        <thead class="cf">
-                            <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
-                                text-align: center">
-                                <th data-title="Sector" class="alignCenter">
-                                    Top Sector
-                                </th>
-                                <th data-title="Holding(%)" class="alignCenter">
-                                    Weight (%)
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <asp:Repeater ID="RepSector" runat="server">
-                                <ItemTemplate>
-                                    <tr>
-                                        <td data-title="Sector">
-                                            <asp:Label ID="lblSector" runat="server" Text='<%# Eval("sector")%>'></asp:Label>
-                                        </td>
-                                        <td data-title="Holding(%)">
-                                            <asp:Label ID="lblsecWeight" runat="server" Text='<%# Eval("holdingpercentage")%>'></asp:Label>
-                                        </td>
-                                    </tr>
-                                </ItemTemplate>
-                            </asp:Repeater>
-                        </tbody>
-                    </table>
-                </div>
-                <div style="width: 21%; float: left; margin-left: 8px;">
-                    <asp:Literal runat="server" ID="ltrSector"></asp:Literal>
-                </div>
-                <div style="width: 20%; margin-right: 5px;">
-                    <table class="col-md-12 table-bordered table-striped table-condensed cf" width="100%">
-                        <thead class="cf">
-                            <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
-                                text-align: center">
-                                <th data-title="Fund Name" class="alignCenter">
-                                    Asset allocation
-                                </th>
-                                <th data-title="Holding(%)" class="alignCenter">
-                                    Weight (%)
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <asp:Repeater ID="RepAsset" runat="server">
-                                <ItemTemplate>
-                                    <tr>
-                                        <td data-title="Fund Name">
-                                            <asp:Label ID="lblasset" runat="server" Text='<%# Eval("asset")%>'></asp:Label>
-                                        </td>
-                                        <td data-title="Holding(%)">
-                                            <asp:Label ID="lblassetvalue" runat="server" Text='<%# Eval("assetvalue")%>'></asp:Label>
-                                        </td>
-                                    </tr>
-                                </ItemTemplate>
-                            </asp:Repeater>
-                        </tbody>
-                    </table>
-                </div>
-                <div style="width: 21%; float: left; margin-left: 8px;">
-                    <asp:Literal ID="ltrAssets" runat="server"></asp:Literal>
-                    <asp:Literal ID="raj" runat="server"></asp:Literal>
-                </div>
-                <br />
-                <div style="width: 21%; float: left; margin-left: 8px;">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th class="header">
-                                    <font color="#fff">Morning Star </font>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div>
-                                        <asp:Image ID="imgStyleBox" runat="server" /></div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div style="width: 19%; float: left; min-width: 19%; margin-left: 10px;">
-                    <table class="table table-bordered" style="margin-left: 2px;">
-                        <thead>
-                            <tr>
-                                <th colspan="2" class="header">
-                                    <font color="#fff">Additional Information</font>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="searchable-spec cell top sub-name small bordered">
-                                <td>
-                                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="http://www.amfiindia.com/intermediary/other-data/scheme-details"
-                                        Target="_blank">Scheme Information Document-SID </asp:HyperLink>
-                                </td>
-                            </tr>
-                            <tr class="searchable-spec cell top sub-name small bordered">
-                                <td>
-                                    <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="http://www.amfiindia.com/research-information/other-data/sai"
-                                        Target="_blank">Statement of Additional Information-SAI</asp:HyperLink>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                </div>
-              </div>
+            </div>
         </div>
-         
         <asp:HiddenField ID="hidCurrentScheme" runat="server" />
     </ContentTemplate>
 </asp:UpdatePanel>
@@ -796,28 +795,27 @@
 
 </script>
 
-  
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 
-
-<script>
-    $(document).ready(function() {
-        $(".nav-tabs a").click(function() {
-            $(this).tab('show');
+    <script>
+        $(document).ready(function() {
+            $(".nav-tabs a").click(function() {
+                $(this).tab('show');
+            });
         });
-    });
-</script>
+    </script>
 
 </body>
 </html>
