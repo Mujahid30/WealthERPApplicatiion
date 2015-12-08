@@ -161,14 +161,17 @@ namespace WealthERP.OnlineOrderManagement
             if (ddlFolio.SelectedValue != "New" && ddlFolio.SelectedValue != "0")
             {
                 ds = onlineMforderBo.GetCustomerSchemeFolioHoldings(customerVo.CustomerId, int.Parse(Session["MFSchemePlan"].ToString()), out schemeDividendOption);
-               
+             
                 GetControlDetails(ds);
+                SetControlDetails();
             }
             else
             {
                 ds = onlineMforderBo.GetControlDetails(int.Parse(Session["MFSchemePlan"].ToString()), null);
                 lblUnitsheldDisplay.Visible = false;
                 GetControlDetails(ds);
+             
+                SetControlDetails();
             }
         }
         

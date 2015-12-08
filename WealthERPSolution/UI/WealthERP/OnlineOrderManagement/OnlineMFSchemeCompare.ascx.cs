@@ -568,69 +568,50 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (Session["MFSchemePlan"] == null || Session["MFSchemePlan"] != ddlSchemeList1.SelectedValue)
             Session["MFSchemePlan"] = ddlSchemeList1.SelectedValue;
-            LoadMFTransactionPage("MFOrderPurchaseTransType");
         }
 
         protected void btnSIP1_Click(object sender, ImageClickEventArgs e)
         {
             if (Session["MFSchemePlan"] == null || Session["MFSchemePlan"] != ddlSchemeList1.SelectedValue)
             Session["MFSchemePlan"] = ddlSchemeList1.SelectedValue;
-            LoadMFTransactionPage("MFOrderSIPTransType");
         }
 
         protected void btnbuy2_Click(object sender, ImageClickEventArgs e)
         {
             if (Session["MFSchemePlan"] == null || Session["MFSchemePlan"] != ddlSchemeList2.SelectedValue)
                 Session["MFSchemePlan"] = ddlSchemeList2.SelectedValue;
-            LoadMFTransactionPage("MFOrderPurchaseTransType");
         }
 
         protected void btnSIP2_Click(object sender, ImageClickEventArgs e)
         {
             if (Session["MFSchemePlan"] == null || Session["MFSchemePlan"] != ddlSchemeList2.SelectedValue)
             Session["MFSchemePlan"] = ddlSchemeList2.SelectedValue;
-            LoadMFTransactionPage("MFOrderSIPTransType");
         }
 
         protected void btnbuy3_Click(object sender, ImageClickEventArgs e)
         {
             if (Session["MFSchemePlan"] == null || Session["MFSchemePlan"] != ddlSchemeList3.SelectedValue)
                 Session["MFSchemePlan"] = ddlSchemeList3.SelectedValue;
-            LoadMFTransactionPage("MFOrderPurchaseTransType");
         }
 
         protected void btnSIP3_Click(object sender, ImageClickEventArgs e)
         {
             if (Session["MFSchemePlan"] == null || Session["MFSchemePlan"]!=ddlSchemeList3.SelectedValue)
             Session["MFSchemePlan"] = ddlSchemeList3.SelectedValue;
-            LoadMFTransactionPage("MFOrderSIPTransType");
         }
 
         protected void btnbuy4_Click(object sender, ImageClickEventArgs e)
         {
             if (Session["MFSchemePlan"] == null || Session["MFSchemePlan"] != ddlSchemeList4.SelectedValue)
                 Session["MFSchemePlan"] = ddlSchemeList4.SelectedValue;
-            LoadMFTransactionPage("MFOrderPurchaseTransType");
         }
 
         protected void btnSIP4_Click(object sender, ImageClickEventArgs e)
         {
             if (Session["MFSchemePlan"] == null || Session["MFSchemePlan"] != ddlSchemeList4.SelectedValue)
             Session["MFSchemePlan"] = ddlSchemeList4.SelectedValue;
-            LoadMFTransactionPage("MFOrderSIPTransType");
 
         }
-        protected void LoadMFTransactionPage(string pageId)
-        {
-            Dictionary<string, string> defaultProductPageSetting = new Dictionary<string, string>();
-
-            defaultProductPageSetting.Clear();
-            defaultProductPageSetting.Add("ProductType", "MF");
-            defaultProductPageSetting.Add("ProductMenu", "trMFOrderMenuTransactTab");
-            defaultProductPageSetting.Add("ProductMenuItem", "RTSMFOrderMenuTransact");
-            defaultProductPageSetting.Add("ProductMenuItemPage", pageId);
-            Session["PageDefaultSetting"] = defaultProductPageSetting;
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadTopPanelControl('OnlineOrderTopMenu','login');", true);
-        }
+       
     }
 }

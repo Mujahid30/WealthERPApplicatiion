@@ -141,6 +141,7 @@
         color: Black;
     }
 </style>
+
 <asp:UpdatePanel ID="updSchemDetails" runat="server" UpdateMode="Always">
     <ContentTemplate>
         <table class="tblMessage" cellpadding="0" cellspacing="0">
@@ -248,8 +249,10 @@
         </table>
         <div class="container" style="margin-top: 1%; margin-bottom: 2%; width: 80%; padding-top: 1%;
             padding-bottom: 1%; margin-left: auto; margin-right: auto;">
+        <asp:Panel ID="pnlDetails" runat="server" Height="630px" ScrollBars="Both" style="margin-left:0px">
+            
             <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#DivCharTab"><b>Chat</b></a></li>
+                <li class="active"><a data-toggle="tab" href="#DivCharTab"><b>Performance</b></a></li>
                 <li><a data-toggle="tab" href="#DivSchemeInformation"><b>Scheme Details</b></a></li>
                 <li><a data-toggle="tab" href="#divSchemeRatingDetails"><b>Risk And Rating</b></a></li>
                 <li><a data-toggle="tab" href="#Divfunddetails"><b>Fund Manager Profile</b></a></li>
@@ -303,13 +306,13 @@
                                 OnClick="lnkAddToCompare_OnClick" ValidationGroup="btnGo"> Add To Compare <span class="glyphicon glyphicon-shopping-list">
                             </span></asp:LinkButton>
                             &nbsp &nbsp
-                            <asp:LinkButton ID="lbBuy" runat="server" OnClick="lbBuy_OnClick" ValidationGroup="btnGo"> <img src="../Images/Buy_BIG_Buttons.png" height="40px" width="70px"/></asp:LinkButton>
+                            <asp:LinkButton ID="lbBuy" runat="server" OnClientClick="LoadTransactPanel('MFOrderPurchaseTransType');" OnClick="lbBuy_OnClick" ValidationGroup="btnGo"> <img src="../Images/Buy_BIG_Buttons.png" height="40px" width="70px"/></asp:LinkButton>
                             &nbsp &nbsp
                             <asp:LinkButton ID="lbAddPurchase" runat="server" CssClass="btn btn-primary btn-success"
                                 OnClick="lbAddPurchase_OnClick" Visible="false"> Additional Purchase <span class="glyphicon glyphicon-plus-sign">
                             </span></asp:LinkButton>
                             &nbsp &nbsp
-                            <asp:LinkButton ID="lbSIP" runat="server" OnClick="lbSIP_OnClick" ValidationGroup="btnGo"><img src="../Images/SIP_BIG_Buttons.png" height="40px" width="70px"/></asp:LinkButton>
+                            <asp:LinkButton ID="lbSIP" runat="server" OnClick="lbSIP_OnClick" OnClientClick="LoadTransactPanel('MFOrderSIPTransType')" ValidationGroup="btnGo"><img src="../Images/SIP_BIG_Buttons.png" height="40px" width="70px"/></asp:LinkButton>
                             &nbsp &nbsp
                             <asp:LinkButton ID="lbRedem" runat="server" CssClass="btn btn-primary btn-danger"
                                 OnClick="lbRedem_OnClick" Visible="false" ValidationGroup="btnGo"> Redemption <span class="glyphicon glyphicon-minus">
@@ -775,6 +778,8 @@
                     </div>
                 </div>
             </div>
+        </asp:Panel>
+            
         </div>
         <asp:HiddenField ID="hidCurrentScheme" runat="server" />
     </ContentTemplate>

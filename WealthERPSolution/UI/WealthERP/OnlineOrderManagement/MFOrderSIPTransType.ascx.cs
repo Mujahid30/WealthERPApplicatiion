@@ -558,15 +558,15 @@ namespace WealthERP.OnlineOrderManagement
             dtGetAllSIPDataForOrder = dvFilterDivNGrowth.ToTable();
             if (dtGetAllSIPDataForOrder.Rows[0]["PSLV_LookupValueCodeForSchemeOption"].ToString() == "DV")
             {
-                //trDividendOption.Visible = true;
+                DivDropdown.Visible = true;
+                DivText.Visible = true;
                 if (ddlScheme.SelectedIndex == 0) return;
                 BindSchemeDividendTypes(Convert.ToInt32(ddlScheme.SelectedValue.ToString()));
             }
             else
             {
-                trDividendType.Visible = false;
-                trDividendFrequency.Visible = false;
-                //trDividendOption.Visible = false;
+                DivText.Visible = false;
+                DivDropdown.Visible = false;
             }
         }
 
@@ -635,7 +635,7 @@ namespace WealthERP.OnlineOrderManagement
 
             BindStartDates();
             BindTotalInstallments();
-            //ShowHideControlsForDivAndGrowth();
+            ShowHideControlsForDivAndGrowth();
             BindSipDetOnFreqSel(ddlScheme.SelectedValue, ddlFrequency.SelectedValue);
         }
         protected void BindSipDetOnFreqSel(string schemeId, string freq)

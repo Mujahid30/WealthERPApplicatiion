@@ -162,18 +162,7 @@
                      <b class="fontsize">Scheme:</b>
                     <asp:Label ID="lblScheme" runat="server" CssClass="fieldFontSize"></asp:Label>
                 </div>
-                <div class="col-md-1" >
-                     <b class="fontsize">Dividend Option:</b>
-                </div>
-                <div class="col-md-2">
-                    <asp:DropDownList ID="ddlDividendFreq" CssClass="cmbField" 
-                        runat="server">
-                    </asp:DropDownList>
-                    <%-- <span id="Span10" class="spnRequiredField">*</span>--%>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please select Dividend Option"
-                        ControlToValidate="ddlDividendFreq" InitialValue="0" ValidationGroup="btnSubmit"
-                        CssClass="rfvPCG" Display="Dynamic"></asp:RequiredFieldValidator>
-                </div>
+                
             </div>
             <div class="col-md-12  col-xs-12 col-sm-12" style="border-width:thin;border-style:inset;">
                 <div class="col-md-3">
@@ -259,6 +248,18 @@
                 </div>
                 </div>
                  <div class="col-md-12  col-xs-12 col-sm-12" style="margin-top: .5%">
+                 <div class="col-md-1" runat="server" id="DivText" visible="false" >
+                     <b class="fontsize">Dividend Option:</b>
+                </div>
+                <div class="col-md-2" runat="server" id="DivDropdown" visible="false">
+                    <asp:DropDownList ID="ddlDividendFreq" CssClass="cmbField" 
+                        runat="server">
+                    </asp:DropDownList>
+                    <%-- <span id="Span10" class="spnRequiredField">*</span>--%>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please select Dividend Option"
+                        ControlToValidate="ddlDividendFreq" InitialValue="0" ValidationGroup="btnSubmit"
+                        CssClass="rfvPCG" Display="Dynamic"></asp:RequiredFieldValidator>
+                </div>
                 <div class="col-md-2">
                      <b class="fontsize">End Date:</b>
                     <asp:Label ID="lblEndDateDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>

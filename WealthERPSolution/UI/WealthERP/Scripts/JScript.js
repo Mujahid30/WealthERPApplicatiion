@@ -1064,7 +1064,7 @@ function LoadBottomPanelControl(controlid, logintrue) {
 
 function LoadTransactPanel(controlid) {
 
-   
+    parent.document.getElementById("DropDownList1").value = controlid;
     if (controlid != null)
         parent.PageMethods.AjaxSetTopPanelSession("Top_Panel_PageID", controlid);
 

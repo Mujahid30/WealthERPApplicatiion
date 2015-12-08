@@ -178,26 +178,26 @@
                             </td>
                             <td align="center">
                                 &nbsp;&nbsp;<asp:ImageButton ID="btnbuy1" runat="server" ImageUrl="../Images/Buy_BIG_Buttons.png" height="40px" width="70px"
-                                    onclick="btnbuy1_Click" Visible="false" ToolTip="BUY"/>
+                                    onclick="btnbuy1_Click" Visible="false" ToolTip="BUY" OnClientClick="LoadTransactPanel('MFOrderPurchaseTransType')"/>
                                 &nbsp;&nbsp;<asp:ImageButton ID="btnSIP1" runat="server" ImageUrl="../Images/SIP_BIG_Buttons.png"  height="40px" width="70px"
-                                    onclick="btnSIP1_Click" Visible="false" ToolTip="SIP"/>
+                                    onclick="btnSIP1_Click" Visible="false" ToolTip="SIP" OnClientClick="LoadTransactPanel('MFOrderSIPTransType');"/>
                             </td>
                             <td align="center">
                                 &nbsp;&nbsp;<asp:ImageButton ID="btnbuy2" runat="server" ImageUrl="../Images/Buy_BIG_Buttons.png" height="40px" width="70px" 
-                                    onclick="btnbuy2_Click" Visible="false" ToolTip="BUY"/>
+                                    onclick="btnbuy2_Click" Visible="false" ToolTip="BUY" OnClientClick="LoadTransactPanel('MFOrderPurchaseTransType')"/>
                                 &nbsp;&nbsp;<asp:ImageButton ID="btnSIP2" runat="server" onclick="btnSIP2_Click" 
-                                     ImageUrl="../Images/SIP_BIG_Buttons.png" Visible="false" ToolTip="SIP" height="40px" width="70px"/>
+                                     ImageUrl="../Images/SIP_BIG_Buttons.png" Visible="false" ToolTip="SIP" height="40px" width="70px" OnClientClick="LoadTransactPanel('MFOrderSIPTransType')"/>
                             </td>
                             <td align="center">
                                 &nbsp;&nbsp;<asp:ImageButton ID="btnbuy3" runat="server" ImageUrl="../Images/Buy_BIG_Buttons.png" height="40px" width="70px"
-                                    onclick="btnbuy3_Click"  Visible="false" ToolTip="BUY"/>
-                                &nbsp;&nbsp;<asp:ImageButton ID="btnSIP3" runat="server" onclick="btnSIP3_Click" Visible="false" height="40px" width="70px" ImageUrl="../Images/SIP_BIG_Buttons.png" ToolTip="SIP" />
+                                    onclick="btnbuy3_Click"  Visible="false" ToolTip="BUY" OnClientClick="LoadTransactPanel('MFOrderPurchaseTransType')"/>
+                                &nbsp;&nbsp;<asp:ImageButton ID="btnSIP3" runat="server" onclick="btnSIP3_Click" Visible="false" height="40px" width="70px" ImageUrl="../Images/SIP_BIG_Buttons.png" ToolTip="SIP" OnClientClick="LoadTransactPanel('MFOrderSIPTransType')"/>
                             </td>
                             <td align="center">
                                 &nbsp;&nbsp;<asp:ImageButton ID="btnbuy4" runat="server" ImageUrl="../Images/Buy_BIG_Buttons.png" 
-                                    onclick="btnbuy4_Click" Visible="false" ToolTip="BUY" height="40px" width="70px"/> 
+                                    onclick="btnbuy4_Click" Visible="false" ToolTip="BUY" height="40px" width="70px" OnClientClick="LoadTransactPanel('MFOrderPurchaseTransType')"/> 
                                 &nbsp;&nbsp;<asp:ImageButton ID="btnSIP4" runat="server" ImageUrl="../Images/SIP_BIG_Buttons.png" height="40px" width="70px"
-                                    onclick="btnSIP4_Click" Visible="false" ToolTip="SIP"/>
+                                    onclick="btnSIP4_Click" Visible="false" ToolTip="SIP" OnClientClick="LoadTransactPanel('MFOrderSIPTransType')"/>
                             </td>
                         </tr>
                         <tr class="searchable-spec cell top sub-name small bordered" visible="false" id="trschemerating"
@@ -519,6 +519,5 @@
     </ContentTemplate>
 </asp:UpdatePanel>
 
-<asp:Chart ID="cg" runat="server"></asp:Chart>
 
 

@@ -58,7 +58,7 @@ namespace WealthERP.OnlineOrderManagement
                     ddlAMC.SelectedValue = amcCode.ToString();
                     ddlCategory.SelectedValue = category;
                     BindScheme();
-                    ddlScheme.SelectedValue = schemecode.ToString();
+                    ddlScheme.SelectedValue = Request.QueryString["schemeCode"];
                     GetAmcSchemeDetails();
                     BindschemedetailsNAV();
                     hidCurrentScheme.Value = ddlScheme.SelectedValue;
@@ -241,13 +241,19 @@ namespace WealthERP.OnlineOrderManagement
               </categories>"
                 );
             strXML.Append(@"<dataset seriesname='BenchMark'>");
+            if(!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.benchmarkReturn1stYear))
             strXML.AppendFormat(@"<set value ='{0}'  />", onlineMFSchemeDetailsVo.benchmarkReturn1stYear);
+            if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.benchmark3rhYear))
             strXML.AppendFormat(@"<set value ='{0}'  />", onlineMFSchemeDetailsVo.benchmark3rhYear);
+            if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.benchmark5thdYear))
             strXML.AppendFormat(@"<set value ='{0}'  />", onlineMFSchemeDetailsVo.benchmark5thdYear);
             strXML.Append(@"</dataset>");
             strXML.Append(@"<dataset seriesname='Return'>");
+            if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeReturn3Year))
             strXML.AppendFormat(@"<set value ='{0}'  />", onlineMFSchemeDetailsVo.SchemeReturn3Year.ToString());
+            if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeReturn5Year))
             strXML.AppendFormat(@"<set value ='{0}'  />", onlineMFSchemeDetailsVo.SchemeReturn5Year.ToString());
+            if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeReturn10Year))
             strXML.AppendFormat(@"<set value ='{0}'  />", onlineMFSchemeDetailsVo.SchemeReturn10Year.ToString());
             strXML.Append(@"</dataset>");
             strXML.Append(@"</chart>");
@@ -350,58 +356,30 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (ddlScheme.SelectedValue != "")
             {
-                //if (Session["PageDefaultSetting"] != null)
-                //{
+               
                     Session["MFSchemePlan"] = ddlScheme.SelectedValue;
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadTransactPanelMFOrderPurchase", "LoadTransactPanel('MFOrderPurchaseTransType');", true);
-
-                    //Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptvevvg", "LoadTransactPanel('MFOrderPurchaseTransType');", true);
                    
-
-                //}
-                //else
-                //{
-                //    Response.Redirect("ControlHost.aspx?pageid=MFOrderPurchaseTransType&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "", false);
-
-                //}
             }
         }
         protected void lbAddPurchase_OnClick(object sender, EventArgs e)
         {
             if (ddlScheme.SelectedValue != "")
             {
-                //if (Session["PageDefaultSetting"] != null)
-                //{
+              
                     Session["MFSchemePlan"] = ddlScheme.SelectedValue;
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscriptvevv", "LoadTransactPanel('MFOrderPurchaseTransType');", true);
 
                    
 
-                //}
-                //else
-                //{
-                //    Response.Redirect("ControlHost.aspx?pageid=MFOrderAdditionalPurchase&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "", false);
-
-                //}
             }
         }
         protected void lbSIP_OnClick(object sender, EventArgs e)
         {
             if (ddlScheme.SelectedValue != "")
             {
-                //if (Session["PageDefaultSetting"] != null)
-                //{
+              
                     Session["MFSchemePlan"] = ddlScheme.SelectedValue;
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscripiitivevv", "LoadTransactPanel('MFOrderSIPTransType');", true);
-
                    
-
-                //}
-                //else
-                //{
-                //    Response.Redirect("ControlHost.aspx?pageid=MFOrderSIPTransType&Amc=" + ddlAMC.SelectedValue + "&SchemeCode=" + ddlScheme.SelectedValue + "&category=" + ddlCategory.SelectedValue + "", false);
-
-                //}
             }
         }
         protected void lbRedem_OnClick(object sender, EventArgs e)
