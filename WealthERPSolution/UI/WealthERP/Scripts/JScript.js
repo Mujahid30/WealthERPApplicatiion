@@ -1066,7 +1066,7 @@ function LoadTransactPanel(controlid) {
 
    
     if (controlid != null)
-        PageMethods.AjaxSetTopPanelSession("Top_Panel_PageID", controlid);
+        parent.PageMethods.AjaxSetTopPanelSession("Top_Panel_PageID", controlid);
 
     var c_src = "OnlineTopHost.aspx?pageid=";
     var randomnumbers = RandomGenerator();
