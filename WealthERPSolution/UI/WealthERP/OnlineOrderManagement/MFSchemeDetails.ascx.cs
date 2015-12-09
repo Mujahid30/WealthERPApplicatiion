@@ -312,15 +312,15 @@ namespace WealthERP.OnlineOrderManagement
                 imgRating5yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.SchemeRating5Year + ".png";
                 imgRating10yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.SchemeRating10Year + ".png";
                 imgRatingOvelAll.ImageUrl = @"../Images/MorningStarRating/RatingOverall/" + onlineMFSchemeDetailsVo.overAllRating + ".png";
-                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeReturn3Year.ToString()))
+                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeReturn3Year))
                 lblSchemeRetrun3yr.Text = onlineMFSchemeDetailsVo.SchemeReturn3Year.ToString();
-                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeReturn5Year.ToString()))
+                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeReturn5Year))
                 lblSchemeRetrun5yr.Text = onlineMFSchemeDetailsVo.SchemeReturn5Year.ToString();
-                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeReturn10Year.ToString()))
+                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeReturn10Year))
                 lblSchemeRetrun10yr.Text = onlineMFSchemeDetailsVo.SchemeReturn10Year.ToString();
-                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeRisk3Year.ToString()))
+                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeRisk3Year))
                 lblSchemeRisk3yr.Text = onlineMFSchemeDetailsVo.SchemeRisk3Year;
-                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeRisk5Year.ToString()))
+                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeRisk5Year))
                 lblSchemeRisk5yr.Text = onlineMFSchemeDetailsVo.SchemeRisk5Year;
                 if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeRisk10Year))
                 lblSchemeRisk10yr.Text = onlineMFSchemeDetailsVo.SchemeRisk10Year;

@@ -572,20 +572,38 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void BindNomineeAndJointHolders()
         {
-            MFReportsDao MFReportsDao = new MFReportsDao();
-            DataSet dsNomineeAndJointHolders;
-            dsNomineeAndJointHolders = MFReportsDao.GetARNNoAndJointHoldings(customerVo.CustomerId, 0, ddlFolio.SelectedItem.ToString());
+            OnlineBondOrderBo OnlineBondBo = new OnlineBondOrderBo();
+            DataSet dsNomineeAndJointHolders = OnlineBondBo.GetNomineeJointHolder(customerVo.CustomerId);
             StringBuilder strbNominee = new StringBuilder();
             StringBuilder strbJointHolder = new StringBuilder();
 
-            foreach (DataRow dr in dsNomineeAndJointHolders.Tables[1].Rows)
+            foreach (DataRow dr in dsNomineeAndJointHolders.Tables[0].Rows)
             {
-                strbJointHolder.Append(dr["JointHolderName"].ToString());
-                strbNominee.Append(dr["JointHolderName"].ToString());
+                //strbJointHolder.Append(dr["CustomerName"].ToString() + ",");
+                string r = dr["CEDAA_AssociationType"].ToString();
+                if (r != "Joint Holder")
+                    strbNominee.Append(dr["AMFE_JointNomineeName"].ToString() + ",");
+                else
+                    strbJointHolder.Append(dr["AMFE_JointNomineeName"].ToString() + ",");
+                //strbJointHolder.Append(dr["AMFE_JointNomineeName"].ToString() + ",");
+                //strbNominee.Append(dr["AMFE_JointNomineeName"].ToString() + ",");
             }
+            lblNomineeDisplay.Text = strbNominee.ToString().TrimEnd(',');
+            lblHolderDisplay.Text = strbJointHolder.ToString().TrimEnd(',');
+            //MFReportsDao MFReportsDao = new MFReportsDao();
+            //DataSet dsNomineeAndJointHolders;
+            //dsNomineeAndJointHolders = MFReportsDao.GetARNNoAndJointHoldings(customerVo.CustomerId, 0, ddlFolio.SelectedItem.ToString());
+            //StringBuilder strbNominee = new StringBuilder();
+            //StringBuilder strbJointHolder = new StringBuilder();
 
-            lblNomineeDisplay.Text = strbNominee.ToString();
-            lblHolderDisplay.Text = strbJointHolder.ToString();
+            //foreach (DataRow dr in dsNomineeAndJointHolders.Tables[1].Rows)
+            //{
+            //    strbJointHolder.Append(dr["JointHolderName"].ToString());
+            //    strbNominee.Append(dr["JointHolderName"].ToString());
+            //}
+
+            //lblNomineeDisplay.Text = strbNominee.ToString();
+            //lblHolderDisplay.Text = strbJointHolder.ToString();
         }
         protected void GetControlDetails(int scheme, string folio)
         {

@@ -43,7 +43,13 @@ namespace WealthERP.OnlineOrderManagement
         int retVal;
         string clientMFAccessCode = string.Empty;
         string subcategory = string.Empty;
-
+        int amcCode = 0;
+        string category = string.Empty;
+        string categoryname = string.Empty;
+        string schemeName = string.Empty;
+        string amcName = string.Empty;
+        int scheme;
+        string schemeDividendOption;
         protected void Page_Load(object sender, EventArgs e)
         {
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
@@ -70,8 +76,8 @@ namespace WealthERP.OnlineOrderManagement
                 clientMFAccessCode = onlineMforderBo.GetClientMFAccessStatus(customerVo.CustomerId);
                 if (clientMFAccessCode == "FA" || clientMFAccessCode == "PA")
                 {
-                    AmcBind();
-                    CategoryBind();
+                    //AmcBind();
+                    //CategoryBind();
                     dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(0, customerVo.CustomerId);
                     lnkOfferDoc.Visible = false;
                     lnkFactSheet.Visible = false;
@@ -96,14 +102,13 @@ namespace WealthERP.OnlineOrderManagement
                         }
                         else
                         {
-                            commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category);
+                            //commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category);
+                            commonLookupBo.GetSchemeAMCSchemeCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out categoryname, out amcName, out schemeName);
+                            lblAmc.Text = amcName;
+                            lblCategory.Text = categoryname;
+                            lblScheme.Text = schemeName;
                             SetSelectedDisplay(0, int.Parse(Session["MFSchemePlan"].ToString()), amcCode, category);
-                            //ddlAmc.SelectedValue = Request.QueryString["Amc"].ToString();
-                            //ddlScheme.SelectedValue = schemeCode.ToString();
-                            //ddlCategory.SelectedValue = Request.QueryString["category"].ToString();
-                            //BindFolioNumber(int.Parse(ddlAmc.SelectedValue));
-                            //SetSelectedDisplay(int.Parse(ddlFolio.SelectedValue), schemeCode, int.Parse(ddlAmc.SelectedValue), category);
-                            //BindNomineeAndJointHolders();
+
 
                         }
                     }
@@ -550,20 +555,25 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void BindNomineeAndJointHolders()
         {
-            MFReportsDao MFReportsDao = new MFReportsDao();
-            DataSet dsNomineeAndJointHolders;
-            dsNomineeAndJointHolders = MFReportsDao.GetARNNoAndJointHoldings(customerVo.CustomerId, 0, ddlFolio.SelectedItem.ToString());
+            OnlineBondOrderBo OnlineBondBo = new OnlineBondOrderBo();
+            DataSet dsNomineeAndJointHolders = OnlineBondBo.GetNomineeJointHolder(customerVo.CustomerId);
             StringBuilder strbNominee = new StringBuilder();
             StringBuilder strbJointHolder = new StringBuilder();
 
-            foreach (DataRow dr in dsNomineeAndJointHolders.Tables[1].Rows)
+            foreach (DataRow dr in dsNomineeAndJointHolders.Tables[0].Rows)
             {
-                strbJointHolder.Append(dr["JointHolderName"].ToString() + ",");
-                strbNominee.Append(dr["JointHolderName"].ToString() + ",");
+                //strbJointHolder.Append(dr["CustomerName"].ToString() + ",");
+                string r = dr["CEDAA_AssociationType"].ToString();
+                if (r != "Joint Holder")
+                    strbNominee.Append(dr["AMFE_JointNomineeName"].ToString() + ",");
+                else
+                    strbJointHolder.Append(dr["AMFE_JointNomineeName"].ToString() + ",");
+                //strbJointHolder.Append(dr["AMFE_JointNomineeName"].ToString() + ",");
+                //strbNominee.Append(dr["AMFE_JointNomineeName"].ToString() + ",");
             }
+            lblNomineeDisplay.Text = strbNominee.ToString().TrimEnd(',');
+            lblHolderDisplay.Text = strbJointHolder.ToString().TrimEnd(',');
 
-            lblNomineeDisplay.Text = strbNominee.ToString();
-            lblHolderDisplay.Text = strbJointHolder.ToString();
         }
         protected void PurchaseOrderControlsEnable(bool enable)
         {

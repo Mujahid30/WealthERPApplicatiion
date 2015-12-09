@@ -71,13 +71,14 @@ namespace BoOnlineOrderManagement
                 TransactionTypes.Add("MFOrderPurchaseTransType", "Purchase");
                 TransactionTypes.Add("MFOrderSIPTransType", "SIP");
                 TransactionTypes.Add("MFOrderNFOTransType", "NFO");
+                TransactionTypes.Add("MFOrderRdemptionTransType", "Redeem");
                 //TransactionTypes.Add("Demat", "SWP");
                 //TransactionTypes.Add("Demat", "STP");
             }
             else if (exchange == "Demat")
             {
                 TransactionTypes.Add("MFOrderPurchaseTransType", "Purchase");
-                //TransactionTypes.Add("MFOrderRdemptionTransType", "Redeem");
+                TransactionTypes.Add("MFOrderRdemptionTransType", "Redeem");
             }
             return TransactionTypes;
 
