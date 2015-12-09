@@ -968,7 +968,7 @@ namespace WealthERP.OnlineOrderManagement
                     dtIPOBidTransactionDettails.Columns.Add("IPOIssueBidAmount", typeof(decimal), null);
                     dtIPOBidTransactionDettails.Columns.Add("IPOIssueBidAmountPayable", typeof(decimal), null);
                     dtIPOBidTransactionDettails.Columns.Add("TransactionStatusCode", typeof(Int16));
-                    dtIPOBidTransactionDettails.Columns.Add("COID_DetailsId", typeof(Int16));
+                    dtIPOBidTransactionDettails.Columns.Add("COID_DetailsId", typeof(Int64));
                     dtIPOBidTransactionDettails.Columns.Add("MaxBidAmount", typeof(decimal), null);
                     DataRow drIPOBid;
 
