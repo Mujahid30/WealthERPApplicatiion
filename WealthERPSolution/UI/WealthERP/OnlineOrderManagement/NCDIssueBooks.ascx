@@ -183,7 +183,7 @@
                                 HorizontalAlign="NotSet" CellPadding="15" OnNeedDataSource="gvBBList_OnNeedDataSource"
                                 OnUpdateCommand="gvBBList_UpdateCommand" OnItemDataBound="gvBBList_OnItemDataCommand"
                                 OnItemCommand="gvBBList_OnItemCommand">
-                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,Scrip,WTS_TransactionStatusCode,WOS_OrderStepCode,BBAmounttoinvest,WES_Code"
+                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,Scrip,WTS_TransactionStatusCode,WOS_OrderStepCode,BBAmounttoinvest,WES_Code,AIM_IsCancelAllowed"
                                      EditMode="PopUp"
                                     CommandItemDisplay="None">
                                     <Columns>
@@ -250,6 +250,10 @@
                                                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;
                                                         visibility: hidden;">
                                                         <%# Eval("WES_Code")%>
+                                                    </div>
+                                                      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;
+                                                        visibility: hidden;">
+                                                        <%# Eval("AIM_IsCancelAllowed")%>
                                                     </div>
                                                 </div>
                                             </ItemTemplate>

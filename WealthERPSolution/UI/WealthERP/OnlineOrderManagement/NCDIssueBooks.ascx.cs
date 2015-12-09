@@ -410,7 +410,8 @@ namespace WealthERP.OnlineOrderManagement
                 LinkButton lbtnMarkAsReject = (LinkButton)dataItem.FindControl("lbtnMarkAsReject");
                 //dataItem["MarkAsReject"].Controls[0] as LinkButton;
                 string OrderStepCode = gvBBList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WOS_OrderStepCode"].ToString();
-                if (OrderStepCode.Trim() == "AL")
+                string iscancil = gvBBList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IsCancelAllowed"].ToString();
+                if (OrderStepCode.Trim() == "AL" && iscancil!="False")
                 {
                     lbtnMarkAsReject.Visible = true;
                 }
