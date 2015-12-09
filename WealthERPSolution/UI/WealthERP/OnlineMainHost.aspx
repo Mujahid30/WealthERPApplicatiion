@@ -111,7 +111,8 @@
     }
     function ddlchange(ddl) {
         var value = ddl.value;
-        LoadTransactPanel(value, 'login');
+       
+        LoadTransactPanel(value);
     }
 </script>
 
@@ -831,7 +832,7 @@
                                 </td>
                                 <td>
                                     <asp:DropDownList ID="ddlchannel" runat="server" CssClass="cmbField" AutoPostBack="true"
-                                        OnSelectedIndexChanged="ddlchannel_onSelectedChanged">
+                                        OnSelectedIndexChanged="ddlchannel_onSelectedChanged" onchange="LoadTransactPanel('MFOrderPurchaseTransType')">
                                         <asp:ListItem Text="Online" Selected="True" Value="Online"></asp:ListItem>
                                         <asp:ListItem Text="Demat" Value="Demat"></asp:ListItem>
                                     </asp:DropDownList>
