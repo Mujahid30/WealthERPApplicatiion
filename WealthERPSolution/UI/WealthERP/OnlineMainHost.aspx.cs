@@ -124,6 +124,7 @@ namespace WealthERP
                         scroller.Visible = true;
                         SetScroller(productType.ToUpper());
                         BindTransactionType("Online");
+                        BindNewsHeading();
                     }
                     else if (productType.ToUpper() == "NCD")
                     {
@@ -582,6 +583,21 @@ namespace WealthERP
             {
             }
         }
+        protected void BindNewsHeading()
+        {
+            OnlineMFSchemeDetailsBo OnlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
+            try
+            {
+
+                DataSet theDataSet = OnlineMFSchemeDetailsBo.GetAPIData(ConfigurationSettings.AppSettings["NEWS_HEADING"] + ConfigurationSettings.AppSettings["NEWS_COUNT"]);
+                dlNews.DataSource = theDataSet.Tables[1];
+                dlNews.DataBind();
+            }
+            catch (Exception Ex)
+            {
+
+            }
+        }
         protected void SetScroller(string productType)
         {
             OnlineOrderBo onlineOrderBo = new OnlineOrderBo();
@@ -604,13 +620,15 @@ namespace WealthERP
             DataTable dt = new DataTable();
 
             dt = onlineOrderBo.GetAdvertisementData(assetCategory, "Scroll");
-            innerHtml = @"<marquee style=""font-family: Arial;font-size: 14px;"">";
-            foreach (DataRow dr in dt.Rows)
-            {
-                innerHtml += string.Format(@"{0} &nbsp; <b>|</b> &nbsp; ", dr["PUHD_HelpDetails"].ToString());
-            }
-            innerHtml += "</marquee>";
-            Label1.Text = innerHtml;
+            dlScroller.DataSource = dt;
+            dlScroller.DataBind();
+            //innerHtml = @"<marquee style=""font-family: Arial;font-size: 14px;"">";
+            //foreach (DataRow dr in dt.Rows)
+            //{
+            //    innerHtml += string.Format(@"{0} &nbsp; <b>|</b> &nbsp; ", dr["PUHD_HelpDetails"].ToString());
+            //}
+            //innerHtml += "</marquee>";
+            //Label1.Text = innerHtml;
         
         }
         protected void SetDemoLink(string productType)

@@ -196,31 +196,13 @@
     rel="stylesheet" type="text/css" />
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
-       <div  class="col-md-12" style="margin: 5px 20px 3px 12%; padding-top:0.5%; padding-bottom: 0.5%; width: 75%;">
-      <div class="col-md-12" >
-      <div class="col-md-1" style="padding-right:0px;padding-top:0.5%;">
-       <b style="float:Right;">NEWS:</b>
-       </div>
-       <div class="col-md-11" style="padding-left:0px;" >
-        <marquee style="margin: 5px auto 3px auto; padding: 0px 20px 0px 10px;
-            border-radius: 2px; clear: both; height: 20px; color: #fff; background: #000;" direction="left"  scrolldelay="150"
-                onmouseover="this.setAttribute('scrollamount', 0, 0);" onmouseout="this.setAttribute('scrollamount', 6, 0);">
-        <asp:datalist ItemStyle-HorizontalAlign="Center" ItemStyle-CssClass="heading" ItemStyle-Width="33%" ItemStyle-Wrap="False" id="dlNews" CellPadding="2" RepeatColumns="10" RepeatDirection="Horizontal" CellSpacing="2" Runat="server">
-     <ItemTemplate>
-          <asp:Label ID="lblCountry" Text='<%# DataBinder.Eval(Container.DataItem,"heading")%>' Runat="server">
-          </asp:Label><br>
-     </ItemTemplate>
-     <SeparatorTemplate>
-          <span>|||</span>
-     </SeparatorTemplate>
-</asp:datalist>
-</marquee>
-        </div>
-     </div>
+        <div class="col-md-12" style="margin: 0px 20px 3px 12%; padding-top: 0.5%; padding-bottom: 0.5%;
+            width: 75%;">
+            
             <div id="dvDemo" visible="true" runat="server">
                 <div class="col-md-12  col-xs-12 col-sm-12 ">
                     <div class="col-md-12  col-xs-12 col-sm-12 dottedBottom">
-                            <b>Fund Filter </b>
+                        <b>Fund Filter </b>
                     </div>
                     <div class="col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 1%">
                         <div class="col-md-4">
@@ -244,8 +226,7 @@
                             </fieldset>
                         </div>
                         <div class="col-md-4">
-                         
-                              <asp:DropDownList ID="ddlScheme" runat="server" CssClass="form-control input-sm"
+                            <asp:DropDownList ID="ddlScheme" runat="server" CssClass="form-control input-sm"
                                 class="form-control">
                             </asp:DropDownList>
                         </div>
@@ -255,7 +236,7 @@
                     </div>
                     <div class="col-md-12" runat="server" visible="false">
                         <div class="col-md-3">
-                             <asp:LinkButton ID="lbNFOList" runat="server" OnClick="GetSchemeDetails" CssClass="linkButton">NFO Scheme </asp:LinkButton>
+                            <asp:LinkButton ID="lbNFOList" runat="server" OnClick="GetSchemeDetails" CssClass="linkButton">NFO Scheme </asp:LinkButton>
                         </div>
                         <div class="col-md-3 ">
                             <asp:LinkButton ID="lbTopSchemes" runat="server" OnClick="GetSchemeDetails" CssClass="linkButton">Top Ten Schemes </asp:LinkButton>
@@ -264,9 +245,7 @@
                             <asp:LinkButton ID="lbViewWatchList" runat="server" OnClick="GetSchemeDetails" CssClass="linkButton">My Watch list  </asp:LinkButton>
                         </div>
                     </div>
-                    
                 </div>
-                
             </div>
             <div class="container">
                 <telerik:RadTabStrip ID="RadTabStripAdsUpload" runat="server" EnableTheming="True"
@@ -339,7 +318,7 @@
                                     <tbody>
                                         <tr>
                                             <asp:Repeater ID="rptTopMarketSchemes" runat="server" OnItemCommand="rptTopMarketSchemes_OnItemCommand"
-                                                OnItemDataBound="rptTopMarketSchemes_OnItemDataBound" >
+                                                OnItemDataBound="rptTopMarketSchemes_OnItemDataBound">
                                                 <ItemTemplate>
                                                     <td data-title="Scheme Name">
                                                         <asp:LinkButton ID="lbSchemeName" runat="server" ToolTip="Click To view Details Information"

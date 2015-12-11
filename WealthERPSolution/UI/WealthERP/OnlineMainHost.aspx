@@ -257,8 +257,9 @@
     #menuMF, #menuNCD, #menuIPO
     {
         list-style: none;
-        width: 940px;
-        margin: 0px auto 5px auto;
+        max-width: 1285px;
+        min-width: 940px;
+        margin: 0px 15px 1px 17px;
         height: 30px;
         padding: 0px 10px 0px 10px; /* Rounded Corners */
         -moz-border-radius: 10px;
@@ -666,12 +667,21 @@
         <div class="product-header" style="float: left; clear: both;">
             <asp:Label ID="lblOnlieProductType" runat="server" Text="" CssClass="product-header-text"></asp:Label>
         </div>
-        <div id="scroller" runat="server" style="margin: 5px auto 3px auto; padding: 0px 20px 0px 10px;
-            border-radius: 2px; clear: both; height: 20px; color: #fff; background: #000;
-            width: 940px;">
-            <div id="mycrawler" class="scroller">
-                <asp:Label ID="Label1" runat="server"></asp:Label>
-            </div>
+        <div id="scroller" runat="server" style="margin: 2px 15px 5px 15px; padding: 0px 20px 0px 10px;
+            max-width: 1285px; min-width: 940px; clear: both; height: 20px; color: #fff;
+            background: #000;">
+            <marquee style="border-radius: 2px;" direction="left" scrolldelay="150" onmouseover="this.setAttribute('scrollamount', 0, 0);"
+                onmouseout="this.setAttribute('scrollamount', 6, 0);">
+        <asp:datalist ItemStyle-HorizontalAlign="Center" ItemStyle-CssClass="heading" ItemStyle-Width="33%" ItemStyle-Wrap="False" id="dlScroller" CellPadding="2" RepeatColumns="10" RepeatDirection="Horizontal" CellSpacing="2" Runat="server">
+     <ItemTemplate>
+          <asp:Label ID="lblCountry" Text='<%# DataBinder.Eval(Container.DataItem,"PUHD_HelpDetails")%>' Runat="server">
+          </asp:Label><br>
+     </ItemTemplate>
+     <SeparatorTemplate>
+          <span>|||</span>
+     </SeparatorTemplate>
+</asp:datalist>
+</marquee>
         </div>
         <div id="mainmenuMF" runat="server" style="width: 100%; clear: both;">
             <ul id="menuMF">
@@ -811,24 +821,46 @@
                     Demo</a> </li>
             </ul>
         </div>
+        
+        <div runat="server" style="margin: 2px 15px 5px 15px; padding: 0px 20px 0px 10px;
+            max-width: 1285px; min-width: 940px; clear: both; height: 20px; color: #fff;
+            background: #000;" id="dvNews">
+            <div style="padding-left: 0px;">
+                <marquee direction="left" scrolldelay="150" onmouseover="this.setAttribute('scrollamount', 0, 0);"
+                    onmouseout="this.setAttribute('scrollamount', 6, 0);">
+        <asp:datalist ItemStyle-HorizontalAlign="Center" ItemStyle-CssClass="heading" ItemStyle-Width="33%" ItemStyle-Wrap="False" id="dlNews" CellPadding="2" RepeatColumns="10" RepeatDirection="Horizontal" CellSpacing="2" Runat="server">
+    
+     <ItemTemplate>
+          <asp:Label ID="lblCountry" Text='<%# DataBinder.Eval(Container.DataItem,"heading")%>' Runat="server">
+          </asp:Label><br>
+     </ItemTemplate>
+     <SeparatorTemplate>
+          <span>|||</span>
+     </SeparatorTemplate>
+</asp:datalist>
+</marquee>
+            </div>
+        </div>
+       
         <div style="margin-top: 10px; z-index: 3;">
             <iframe name="bottomframe" class="bottomframe" width="100%" id="bottomframe" onload="javascript:calcIFrameHeight('bottomframe');"
                 src="OnlineBottomHost.aspx" scrolling="no"></iframe>
         </div>
-        <div style="clear: both;background-color:rgb(123,201,91);font-weight:bold;font-size:smaller">
+        <div style="clear: both; background-color: rgb(123,201,91); font-weight: bold; font-size: smaller">
             <div>
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
                         <div style="background-color: #0396CC; width: 100%">
-                        <div style="padding-left:20px;color:White;">
-                            Transact</div>
+                            <div style="padding-left: 20px; color: White;">
+                                Transact</div>
                         </div>
                         <table>
                             <tr>
                                 <td>
                                 </td>
                                 <td align="right" style="vertical-align: top;">
-                                    <asp:Label ID="lblchannel" runat="server" Text="Exchange:" style="color:Black;font-weight:bold;font-size:smaller"></asp:Label>
+                                    <asp:Label ID="lblchannel" runat="server" Text="Exchange:" Style="color: Black; font-weight: bold;
+                                        font-size: smaller"></asp:Label>
                                 </td>
                                 <td>
                                     <asp:DropDownList ID="ddlchannel" runat="server" CssClass="cmbField" AutoPostBack="true"
@@ -838,7 +870,8 @@
                                     </asp:DropDownList>
                                 </td>
                                 <td align="right" style="vertical-align: top;">
-                                    <asp:Label ID="Label2" runat="server" Text="Transaction Type:" style="color:Black;font-weight:bold;font-size:smaller"></asp:Label>
+                                    <asp:Label ID="Label2" runat="server" Text="Transaction Type:" Style="color: Black;
+                                        font-weight: bold; font-size: smaller"></asp:Label>
                                 </td>
                                 <td>
                                     <asp:DropDownList ID="DropDownList1" runat="server" CssClass="cmbField" onchange="ddlchange(this);"

@@ -46,7 +46,6 @@ namespace WealthERP.OnlineOrderManagement
                 BindCategory(ddlTopCategory);
                 BindCategory(ddlMarketCategory);
                 BindScheme();
-                BindNewsHeading();
                 SetParametersForAdminGrid("lbTopSchemes");
                 BindTopMarketSchemes(ddlMarketCategory.SelectedValue,  Boolean.Parse(ddlSIP.SelectedValue), int.Parse(ddlReturns.SelectedValue),customerVo.CustomerId);
             }
@@ -490,21 +489,7 @@ namespace WealthERP.OnlineOrderManagement
                 }
             }
         }
-        protected void BindNewsHeading()
-        {
-            OnlineMFSchemeDetailsBo OnlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
-            try
-            {
-
-                DataSet theDataSet = OnlineMFSchemeDetailsBo.GetAPIData(ConfigurationSettings.AppSettings["NEWS_HEADING"] + ConfigurationSettings.AppSettings["NEWS_COUNT"]);
-                dlNews.DataSource = theDataSet.Tables[1];
-                dlNews.DataBind();
-            }
-            catch (Exception Ex)
-            {
-
-            }
-        }
+      
         protected void BindTopMarketSchemes(string category, Boolean IsSIP, int Returns,int customerId)
         {
             OnlineOrderBackOfficeBo boOnlineOrderBackOffice = new OnlineOrderBackOfficeBo();
