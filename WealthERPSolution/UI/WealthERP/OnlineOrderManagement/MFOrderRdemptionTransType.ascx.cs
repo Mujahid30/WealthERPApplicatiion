@@ -78,6 +78,7 @@ namespace WealthERP.OnlineOrderManagement
                 {
                     //AmcBind();
                     //CategoryBind();
+                    BindNomineeAndJointHolders();
                     dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(0, customerVo.CustomerId);
                     lnkOfferDoc.Visible = false;
                     lnkFactSheet.Visible = false;
@@ -768,7 +769,7 @@ namespace WealthERP.OnlineOrderManagement
             RadInformation.VisibleOnPageLoad = true;
 
         }
-
+       
     }
 }
 

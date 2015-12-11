@@ -64,11 +64,13 @@ namespace WealthERP.OnlineOrderManagement
                 {
                     ShowAvailableLimits();
                     BindNFOSchemeList();
+                    BindNomineeAndJointHolders();
                     lblOption.Visible = false;
                     lblDividendType.Visible = false;
                     if (Session["MFSchemePlan"] != null)
                     {
                         ddlScheme.SelectedValue = Session["MFSchemePlan"].ToString();
+                        if( ddlScheme.SelectedValue !="")
                         lblScheme.Text = ddlScheme.SelectedItem.Text;
                         GetControlDetails(int.Parse(Session["MFSchemePlan"].ToString()), null);
                     }
@@ -507,6 +509,26 @@ namespace WealthERP.OnlineOrderManagement
 
         }
 
+        protected void BindNomineeAndJointHolders()
+        {
+            OnlineBondOrderBo OnlineBondBo = new OnlineBondOrderBo();
+            DataSet dsNomineeAndJointHolders = OnlineBondBo.GetNomineeJointHolder(customerVo.CustomerId);
+            StringBuilder strbNominee = new StringBuilder();
+            StringBuilder strbJointHolder = new StringBuilder();
 
+            foreach (DataRow dr in dsNomineeAndJointHolders.Tables[0].Rows)
+            {
+                //strbJointHolder.Append(dr["CustomerName"].ToString() + ",");
+                string r = dr["CEDAA_AssociationType"].ToString();
+                if (r != "Joint Holder")
+                    strbNominee.Append(dr["AMFE_JointNomineeName"].ToString() + ",");
+                else
+                    strbJointHolder.Append(dr["AMFE_JointNomineeName"].ToString() + ",");
+                //strbJointHolder.Append(dr["AMFE_JointNomineeName"].ToString() + ",");
+                //strbNominee.Append(dr["AMFE_JointNomineeName"].ToString() + ",");
+            }
+            lblNomineeDisplay.Text = strbNominee.ToString().TrimEnd(',');
+            lblHolderDisplay.Text = strbJointHolder.ToString().TrimEnd(',');
+        }
     }
 }

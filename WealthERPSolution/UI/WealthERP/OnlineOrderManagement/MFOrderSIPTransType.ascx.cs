@@ -96,6 +96,7 @@ namespace WealthERP.OnlineOrderManagement
                     //lnkOfferDoc.Visible = false;
                     //lnkFactSheet.Visible = false;
                     //lnkExitLoad.Visible = false;
+                    BindNomineeAndJointHolders();
                     if (Request.QueryString["strAction"] != null && Request.QueryString["orderId"] != null && Request.QueryString["customerId"] != null)
                     {
                         strAction = Request.QueryString["strAction"].ToString();
@@ -355,7 +356,7 @@ namespace WealthERP.OnlineOrderManagement
                 ddlScheme.DataTextField = dtScheme.Columns["PASP_SchemePlanName"].ToString();
                 ddlScheme.DataBind();
             }
-            ddlScheme.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
+            ddlScheme.Items.Insert(0, new System.Web.UI.WebControls.ListItem(" ", "0"));
             //ddlScheme.Items.Insert(0, new ListItem("--SELECT--"));
             ddlScheme.SelectedIndex = 0;
 

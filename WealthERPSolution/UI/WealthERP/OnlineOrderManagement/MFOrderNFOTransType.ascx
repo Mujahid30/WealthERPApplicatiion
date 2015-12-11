@@ -28,6 +28,7 @@
 <asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
 
+
 <script type="text/javascript">
     function ValidateTermsConditions(sender, args) {
 
@@ -148,10 +149,9 @@
                 </div>
             </div>
             <div class="col-md-12  col-xs-12 col-sm-12">
-                <div class="col-md-1">
+                <div class="col-md-3">
                      <b class="fontsize">Folio Number:</b>
-                     </div>
-                     <div class="col-md-2">
+                     
                     <asp:DropDownList ID="ddlFolio" CssClass="cmbField" runat="server" AutoPostBack="false">
                     </asp:DropDownList>
                     <span id="Span1" class="spnRequiredField">*</span>
