@@ -351,6 +351,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     lnkprAmcB.ForeColor = System.Drawing.Color.Black;
                     lnkprAmcB.Enabled = false;
+                    lnkprAmcB.OnClientClick = "";
                 }
 
             }
