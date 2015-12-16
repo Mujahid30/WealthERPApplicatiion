@@ -287,9 +287,15 @@ namespace WealthERP.OnlineOrderManagement
             TextBox txtQuantitys = (TextBox)sender;
             //GridDataItem dr=(GridDataItem)txtQuantitys.NamingContainer;
             //RadGrid gvIssueList = (RadGrid)dr.FindControl("gvIssueList");
+          
             int minQty = int.Parse(gvIssueList.MasterTableView.DataKeyValues[0]["AIM_MInQty"].ToString());
             int maxQty = int.Parse(gvIssueList.MasterTableView.DataKeyValues[0]["AIM_MaxQty"].ToString());
-
+            DateTime t1 = Convert.ToDateTime(DateTime.Now);
+            DateTime cuffOff = DateTime.Parse(gvIssueList.MasterTableView.DataKeyValues[0]["AIM_CutOffTime"].ToString());
+            if (cuffOff.TimeOfDay.Ticks > t1.TimeOfDay.Ticks)
+            {
+                hdIscuttOff.Value = "true";
+            }
             TextBox txtQuantity = (TextBox)gvCommMgmt.MasterTableView.Items[rowindex]["Quantity"].FindControl("txtQuantity");
             if (!string.IsNullOrEmpty(txtQuantity.Text))
             {

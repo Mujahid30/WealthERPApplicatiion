@@ -9,10 +9,20 @@
         var confirm_value = document.createElement("INPUT");
         confirm_value.type = "hidden";
         confirm_value.name = "confirm_value";
-        if (confirm("Please note Order cannot be modified once submitted. Would you like to continue ?")) {
-            confirm_value.value = "Yes";
-        } else {
-            confirm_value.value = "No";
+        var isCutOff = document.getElementById('<%=hdIscuttOff.ClientID%>').value;
+        if (!isCutOff) {
+            if (confirm("Please note Order cannot be modified once submitted. Would you like to continue ?")) {
+                confirm_value.value = "Yes";
+            } else {
+                confirm_value.value = "No";
+            }
+        }
+        else {
+            if (confirm("Please note Order cannot be modified once submitted. Would you like to continue ?")) {
+                confirm_value.value = "Yes";
+            } else {
+                confirm_value.value = "No";
+            }
         }
         document.forms[0].appendChild(confirm_value);
     }
@@ -256,7 +266,7 @@
                                 PageSize="10" AllowPaging="false" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="false" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
                                 Skin="Telerik" AllowFilteringByColumn="false" OnItemDataBound="gvIssueList_ItemDataBound">
-                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIM_IssueName,IssueTimeType,AIM_MInQty,AIM_MaxQty"
+                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIM_IssueName,IssueTimeType,AIM_MInQty,AIM_MaxQty,AIM_CutOffTime"
                                     AutoGenerateColumns="false" Width="100%">
                                     <Columns>
                                         <%--  <telerik:GridTemplateColumn>
@@ -725,6 +735,7 @@
     </ContentTemplate>
 </telerik:RadWindow>
 <asp:HiddenField ID="txtTotAmt" runat="server" OnValueChanged="txtTotAmt_ValueChanged" />
+  <asp:HiddenField ID="hdIscuttOff" runat="server" />
 <%--<telerik:RadWindowManager runat="server" ID="RadWindowManager1">
     <Windows>
         <telerik:RadWindow ID="rw_customConfirm" Modal="true" Behaviors="Close, Move" VisibleStatusbar="false"
