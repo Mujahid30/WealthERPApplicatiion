@@ -1942,7 +1942,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     return;
                 }
                 onlineNCDBackOfficeBo.IsSameSubTypeCatAttchedtoSeries(attachedCatId, Convert.ToInt32(txtIssueId.Text), ref attachedCatId);
-                if (attachedCatId != String.Empty && ddlSubInstrCategory.SelectedValue != "FICGCG" && ddlSubInstrCategory.SelectedValue != "FICDCD" && ddlSubInstrCategory.SelectedValue != "FINPNP")
+                if (attachedCatId != String.Empty && ddlSubInstrCategory.SelectedValue != "FICGCG" && ddlSubInstrCategory.SelectedValue != "FICDCD" && ddlSubInstrCategory.SelectedValue != "FINPNP" && ddlSubInstrCategory.SelectedValue != "FITFTF")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert( '" + attachedCatId + "');", true);
                     e.Canceled = true;
@@ -2035,7 +2035,9 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
                 }
                 BindSeriesGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
-                onlineNCDBackOfficeBo.AttchingSameSubtypeCattoSeries(Convert.ToInt32(txtIssueId.Text));
+                if (ddlSubInstrCategory.SelectedValue != "FITFTF")
+                    onlineNCDBackOfficeBo.AttchingSameSubtypeCattoSeries(Convert.ToInt32(txtIssueId.Text));
+
 
             }
             else if (e.CommandName == RadGrid.DeleteCommandName)
