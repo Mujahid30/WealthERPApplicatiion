@@ -40,7 +40,7 @@ namespace WealthERP.OnlineOrderManagement
         int OrderId;
 
         string clientMFAccessCode = string.Empty;
-
+        string exchangeType = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
@@ -499,7 +499,7 @@ namespace WealthERP.OnlineOrderManagement
             decimal availableBalance = onlineMforderBo.GetUserRMSAccountBalance(customerVo.AccountId);
             if (availableBalance >= Convert.ToDecimal(onlinemforderVo.Amount))
             {
-                OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
+                OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId, exchangeType);
                 OrderId = int.Parse(OrderIds[0].ToString());
 
                 if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
