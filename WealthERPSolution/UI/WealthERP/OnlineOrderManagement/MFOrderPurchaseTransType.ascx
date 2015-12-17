@@ -80,20 +80,25 @@
     }
     .fontsize
     {
-        font-size: smaller;
-        color: Black;
+        font-family: Verdana,Tahoma;
         font-weight: bold;
+        font-size: x-small;
+        color: #0396cc;
+        vertical-align: middle;
+        text-align: right;
     }
     .fieldFontSize
     {
-        color: #FFFFFF;
-        font-weight: bold;
+        font-family: Verdana,Tahoma;
+        font-weight: normal;
+        font-size: small;
+        color: #104259;
     }
 </style>
-<body style="background-color: rgb(123,201,91); width: 100%">
+<body style="background-color: #E5F6FF; width: 100%">
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
-            <div style="height: 200px">
+            <div >
                 <table class="tblMessage" cellpadding="0" cellspacing="0">
                     <tr>
                         <td align="center">
@@ -104,115 +109,119 @@
                         </td>
                     </tr>
                 </table>
-                <div id="divControlContainer" runat="server">
-                    <div class="col-md-12  col-xs-12 col-sm-12">
-                        <div style="float: right">
-                            <asp:ImageButton ID="imgInformation" runat="server" ImageUrl="../Images/help.png"
-                                OnClick="imgInformation_OnClick" ToolTip="Help" Style="cursor: hand;" /></div>
-                    </div>
-                    <div class="col-md-12  col-xs-12 col-sm-12">
-                        <div class="col-md-3">
-                            <b class="fontsize">AMC:</b><asp:Label ID="lblAmc" runat="server" CssClass="fieldFontSize"></asp:Label>
-                        </div>
-                        <div class="col-md-2">
-                            <b class="fontsize">Category:</b>
-                            <asp:Label ID="lblCategory" runat="server" CssClass="fieldFontSize"></asp:Label>
-                        </div>
-                        <div class="col-md-3">
-                            <b class="fontsize">Scheme:</b>
-                            <asp:Label ID="lblScheme" runat="server" CssClass="fieldFontSize"></asp:Label>
-                        </div>
-                    </div>
-                    <div class="col-md-12  col-xs-12 col-sm-12" style="margin-top: .5%; border-width: thin;
-                        border-style: inset;">
-                        <div class="col-md-3">
-                            <b class="fontsize">Last Recorded NAV (Rs):</b>
-                            <asp:Label ID="lblNavDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>
-                        </div>
-                        <div class="col-md-2">
-                            <b class="fontsize">Minimum Initial Amount:</b>
-                            <asp:Label ID="lblMintxt" runat="server" CssClass="fieldFontSize"></asp:Label>
-                        </div>
-                        <div class="col-md-2">
-                            <b class="fontsize">Scheme Rating:</b>
-                            <asp:Image runat="server" ID="imgSchemeRating" /><br />
-                            <asp:Label ID="lblSchemeRatingAsOn" runat="server" CssClass="FieldName"></asp:Label>
-                        </div>
-                        <div class="col-md-2">
-                            <b class="fontsize">Cut-Off time:</b>
-                            <asp:Label ID="lbltime" runat="server" Text="" CssClass="fieldFontSize"></asp:Label>
-                        </div>
-                        <div class="col-md-3">
-                            <b class="fontsize">Subsequent Amount(In Multiples Of):</b>
-                            <asp:Label ID="lblMulti" runat="server" CssClass="fieldFontSize"></asp:Label>
-                        </div>
-                    </div>
-                    <div class="col-md-12  col-xs-12 col-sm-12" style="border-width: thin; border-style: inset;">
-                        <div class="col-md-2">
-                            <b class="fontsize">Joint Holder:</b>
-                            <asp:Label ID="lblHolderDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>
-                        </div>
-                        <div class="col-md-2">
-                            <b class="fontsize">Nominee:</b>
-                            <asp:Label ID="lblNomineeDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>
-                        </div>
-                        <div class="col-md-2">
-                            <b class="fontsize">Units Held:</b>
-                            <asp:Label ID="lblUnitsheldDisplay" runat="server"></asp:Label>
-                        </div>
-                    </div>
-                    <div class="col-md-12  col-xs-12 col-sm-12">
-                        <div id="divDVR" runat="server" visible="false">
-                            <div class="col-md-3">
-                                <b class="fontsize">Dividend Type:</b>
-                                <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField" Style="width: 200px;">
+                <div id="divControlContainer" runat="server" style="margin-left: 50px; width:100%">
+                    <table>
+                        <tr>
+                            <td>
+                                <b class="fontsize">AMC:</b><asp:Label ID="lblAmc" runat="server" CssClass="fieldFontSize"></asp:Label>
+                            </td>
+                            <td style="margin-left:1px">
+                                <b class="fontsize">Category:</b>
+                                <asp:Label ID="lblCategory" runat="server" CssClass="fieldFontSize"></asp:Label>
+                            </td>
+                            <td style="margin-left:1px">
+                                <b class="fontsize">Scheme:</b>
+                                <asp:Label ID="lblScheme" runat="server" CssClass="fieldFontSize"></asp:Label>
+                            </td>
+                             <td style="margin-left:5px">
+                                <b class="fontsize">Folio Number:</b>
+                                <asp:DropDownList ID="ddlFolio" CssClass="cmbField" OnSelectedIndexChanged="ddlFolio_OnSelectedIndexChanged"
+                                    runat="server" AutoPostBack="True">
                                 </asp:DropDownList>
-                                <%--  <span id="Span4" class="spnRequiredField">*</span>--%>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" CssClass="rfvPCG"
-                                    ErrorMessage="Please Select an Dividend Type" Display="Dynamic" ControlToValidate="ddlDivType"
-                                    InitialValue="0" ValidationGroup="btnSubmit">
-                                </asp:RequiredFieldValidator>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <b class="fontsize">Folio Number:</b>
-                            <asp:DropDownList ID="ddlFolio" CssClass="cmbField" OnSelectedIndexChanged="ddlFolio_OnSelectedIndexChanged"
-                                runat="server" AutoPostBack="True">
-                            </asp:DropDownList>
-                        </div>
-                        <div class="col-md-2">
-                            <b class="fontsize">Amount:</b>
-                            <asp:TextBox ID="txtAmt" runat="server" CssClass="txtField" MaxLength="11"></asp:TextBox>
-                            <span id="Span3" class="spnRequiredField">*</span>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please Select a Amount"
-                                CssClass="rfvPCG" ControlToValidate="txtAmt" ValidationGroup="btnSubmit" Display="Dynamic"></asp:RequiredFieldValidator>
-                            <br />
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtAmt"
-                                ErrorMessage="Please Enter Only Numbers and 2 digits after decimal " CssClass="rfvPCG"
-                                ValidationExpression="^[0-9]+(\.[0-9]{1,2})?$" ValidationGroup="btnSubmit" Display="Dynamic"></asp:RegularExpressionValidator>
-                        </div>
-                        <div class="col-md-3" style="padding-left: 10px">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <asp:CheckBox ID="chkTermsCondition" runat="server" Font-Bold="True" Font-Names="Shruti"
-                                Enabled="false" Checked="false" ForeColor="#145765" Text="" ToolTip="Click 'Terms & Conditions' to proceed further"
-                                CausesValidation="true" />
-                            <asp:LinkButton ID="lnkTermsCondition" CausesValidation="false" Text="Terms & Conditions"
-                                runat="server" CssClass="fontsize" OnClick="lnkTermsCondition_Click" ToolTip="Click here to accept terms & conditions"></asp:LinkButton>
-                            <span id="Span9" class="spnRequiredField">*</span>
-                            <br />
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="Please read terms & conditions"
-                                ClientValidationFunction="ValidateTermsConditions" EnableClientScript="true"
-                                OnServerValidate="TermsConditionCheckBox" Display="Dynamic" ValidationGroup="btnSubmit"
-                                CssClass="rfvPCG">
+                            </td>
+                            <td>
+                                <asp:ImageButton ID="imgInformation" runat="server" ImageUrl="../Images/help.png"
+                                    OnClick="imgInformation_OnClick" ToolTip="Help" Style="cursor: hand;float:right" />
+                            </td>
+                        </tr>
+                        <tr style="border-width:thin;border-style:inset">
+                            <td>
+                                <b class="fontsize">Last Recorded NAV (Rs):</b>
+                                <asp:Label ID="lblNavDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>
+                            </td>
+                            <td style="margin-left:5px">
+                                <b class="fontsize">Minimum Initial Amount:</b>
+                                <asp:Label ID="lblMintxt" runat="server" CssClass="fieldFontSize"></asp:Label>
+                            </td>
+                            <td style="margin-left:5px">
+                                <b class="fontsize">Scheme Rating:</b>
+                                <asp:Image runat="server" ID="imgSchemeRating" />
+                                <asp:Label ID="lblSchemeRatingAsOn" runat="server" CssClass="fieldFontSize"></asp:Label>
+                            </td>
+                            <td>
+                                <b class="fontsize">Cut-Off time:</b>
+                                <asp:Label ID="lbltime" runat="server" Text="" CssClass="fieldFontSize"></asp:Label>
+                            </td>
+                            <td style="margin-left:5px">
+                                <b class="fontsize">Subsequent Amount(In Multiples Of):</b>
+                                <asp:Label ID="lblMulti" runat="server" CssClass="fieldFontSize"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr style="border-width:thin;border-style:inset">
+                            <td>
+                                <b class="fontsize">Joint Holder:</b>
+                                <asp:Label ID="lblHolderDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>
+                            </td>
+                            <td style="margin-left:1px">
+                                <b class="fontsize">Nominee:</b>
+                                <asp:Label ID="lblNomineeDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>
+                            </td>
+                            <td style="margin-left:5px">
+                                <b class="fontsize">Units Held:</b>
+                                <asp:Label ID="lblUnitsheldDisplay" runat="server"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                           
+                           
+                            <td>
+                                <b class="fontsize">Amount:</b>
+                                <asp:TextBox ID="txtAmt" runat="server" CssClass="txtField" MaxLength="11"></asp:TextBox>
+                                <span id="Span3" class="spnRequiredField">*</span>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please Select a Amount"
+                                    CssClass="rfvPCG" ControlToValidate="txtAmt" ValidationGroup="btnSubmit" Display="Dynamic"></asp:RequiredFieldValidator>
+                                <br />
+                                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtAmt"
+                                    ErrorMessage="Please Enter Only Numbers and 2 digits after decimal " CssClass="rfvPCG"
+                                    ValidationExpression="^[0-9]+(\.[0-9]{1,2})?$" ValidationGroup="btnSubmit" Display="Dynamic"></asp:RegularExpressionValidator>
+                            </td>
+                             <td>
+                                <div id="divDVR" runat="server" visible="false">
+                                    
+                                        <b class="fontsize">Dividend Type:</b>
+                                        <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField" Style="width: 200px;">
+                                        </asp:DropDownList>
+                                        <%--  <span id="Span4" class="spnRequiredField">*</span>--%>
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" CssClass="rfvPCG"
+                                            ErrorMessage="Please Select an Dividend Type" Display="Dynamic" ControlToValidate="ddlDivType"
+                                            InitialValue="0" ValidationGroup="btnSubmit">
+                                        </asp:RequiredFieldValidator>
+                                   
+                                </div>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <asp:CheckBox ID="chkTermsCondition" runat="server" Font-Bold="True" Font-Names="Shruti"
+                                    Enabled="false" Checked="false" ForeColor="#145765" Text="" ToolTip="Click 'Terms & Conditions' to proceed further"
+                                    CausesValidation="true" />
+                                <asp:LinkButton ID="lnkTermsCondition" CausesValidation="false" Text="Terms & Conditions"
+                                    runat="server" CssClass="fontsize" OnClick="lnkTermsCondition_Click" ToolTip="Click here to accept terms & conditions"></asp:LinkButton>
+                                <span id="Span9" class="spnRequiredField">*</span>
+                                <br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="Please read terms & conditions"
+                                    ClientValidationFunction="ValidateTermsConditions" EnableClientScript="true"
+                                    OnServerValidate="TermsConditionCheckBox" Display="Dynamic" ValidationGroup="btnSubmit"
+                                    CssClass="rfvPCG">
                      Please read terms & conditions
-                            </asp:CustomValidator>
-                        </div>
-                        <div class="col-md-1">
-                            <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="OnClick_Submit"
-                                class="btn btn-sm btn-primary" ValidationGroup="btnSubmit"></asp:Button>
-                        </div>
-                    </div>
+                                </asp:CustomValidator>
+                            </td>
+                            <td>
+                                <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="OnClick_Submit"
+                                    class="btn btn-sm btn-primary"  ValidationGroup="btnSubmit"></asp:Button>
+                            </td>
+                        </tr>
+                    </table>
                     <%-- <td >
              <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="ResetControlDetails"
                     CssClass="FieldName"></asp:Button>

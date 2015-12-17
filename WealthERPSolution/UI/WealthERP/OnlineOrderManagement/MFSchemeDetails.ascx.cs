@@ -33,6 +33,7 @@ namespace WealthERP.OnlineOrderManagement
         OnlineMFSchemeDetailsVo onlineMFSchemeDetailsVo;
         CommonLookupBo commonLookupBo = new CommonLookupBo();
         protected void Page_Load(object sender, EventArgs e)
+        
         {
             OnlineUserSessionBo.CheckSession();
             customerVo = (CustomerVo)Session["CustomerVo"];
@@ -41,18 +42,10 @@ namespace WealthERP.OnlineOrderManagement
                 BindAMC();
                 if (Request.QueryString["schemeCode"] != null)
                 {
-                    //if (Request.QueryString["schemeCode"] != null)//Session["MFSchemePlan"] != null || 
                     Session["MFSchemePlan"] = Request.QueryString["schemeCode"];
-                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadTransactPanel('MFOrderPurchaseTransactionType')", true);
-                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvevv", "LoadTransactPanel('MFOnlineSchemeManager');", true);
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscriptvevv", "LoadTransactPanel('MFOrderPurchaseTransType');", true);
-                    
-
                     int amcCode = 0;
                     string category = string.Empty;
                     BindCategory();
-                    //if (Session["MFSchemePlan"] != null && Session["MFSchemePlan"] != "")
-                    //{
                     commonLookupBo.GetSchemeAMCCategory(int.Parse(Request.QueryString["schemeCode"].ToString()), out amcCode, out category);
                     int schemecode = int.Parse(Request.QueryString["schemeCode"].ToString());
                     ddlAMC.SelectedValue = amcCode.ToString();
@@ -62,8 +55,6 @@ namespace WealthERP.OnlineOrderManagement
                     GetAmcSchemeDetails();
                     BindschemedetailsNAV();
                     hidCurrentScheme.Value = ddlScheme.SelectedValue;
-
-                    //}
                 }
             }
         }
@@ -217,6 +208,8 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void btnReturn_OnClick(object sender, EventArgs e)
         {
+
+            TabName.Value = Request.Form[TabName.UniqueID];
             if (divChart.Visible == true)
             {
                 btnReturn.Text = "NAV History";

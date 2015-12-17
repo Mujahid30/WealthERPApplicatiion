@@ -44,13 +44,20 @@
     }
      .fontsize
     {
-        font-size:smaller;
-        color:Black;font-weight:bold;
+       font-family: Verdana,Tahoma;
+        font-weight: bold;
+        font-size: x-small;
+        color: #0396cc;
+        vertical-align: middle;
+        text-align: right;
     }
     .fieldFontSize
     {
         
-        color:#FFFFFF;font-weight:bold;
+        font-family: Verdana,Tahoma;
+        font-weight: normal;
+        font-size: small;
+        color: #104259;
         
     }
 </style>
@@ -107,7 +114,7 @@
     Sys.WebForms.PageRequestManager.getInstance().add_endRequest(PopupEndRequestHandler);
     
 </script>
-<body style="background-color:rgb(123,201,91)">
+<body style="background-color:#E5F6FF">
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
         <%--<table class="tblMessage" cellpadding="0" cellspacing="0">

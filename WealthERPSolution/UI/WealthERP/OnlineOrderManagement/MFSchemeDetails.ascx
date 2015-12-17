@@ -4,6 +4,11 @@
 </asp:ScriptManager>
 <!-- Optional theme -->
 <!-- Latest compiled and minified JavaScript -->
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
 
@@ -140,8 +145,8 @@
         font-size: small;
         color: Black;
     }
+   
 </style>
-
 <asp:UpdatePanel ID="updSchemDetails" runat="server" UpdateMode="Always">
     <ContentTemplate>
         <table class="tblMessage" cellpadding="0" cellspacing="0">
@@ -191,7 +196,7 @@
                         runat="server" InitialValue="0" ValidationGroup="btnViewscheme">
                     </asp:RequiredFieldValidator>
                 </div>
-                <div class="col-md-1" >
+                <div class="col-md-1">
                     <asp:Button ID="Button2" runat="server" class="btn btn-sm btn-primary" Text="Go"
                         OnClick="Go_OnClick" ValidationGroup="btnViewscheme"></asp:Button>
                 </div>
@@ -226,101 +231,269 @@
                     <b style="font-family: Times New Roman;">Rating </b>
                     <asp:Image runat="server" ID="imgSchemeRating" />
                 </div>
-                <div class="col-md-2">
-                    <asp:Button ID="btnReturn" runat="server" class="btn btn-sm btn-primary" Text="Scheme Return"
-                        OnClick="btnReturn_OnClick" /></div>
+            </div>
+            <table style="margin-left: 15%;">
+                <tr id="trMessage" runat="server" visible="false">
+                    <td colspan="6">
+                        <table class="tblMessage" cellspacing="0">
+                            <tr>
+                                <td align="center">
+                                    <div id="divMessage" align="center">
+                                    </div>
+                                    <div style="clear: both">
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="row" style="margin-left: 20%; margin-right: 2%; margin-bottom: 0%; margin-top: 2px;"
+            id="divAction" runat="server" visible="false">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <asp:LinkButton ID="lnkAddToCompare" runat="server" CssClass="btn btn-primary btn-primary"
+                    OnClick="lnkAddToCompare_OnClick" ValidationGroup="btnGo"> Add To Compare <span class="glyphicon glyphicon-shopping-list">
+                            </span></asp:LinkButton>
+                &nbsp &nbsp
+                <asp:LinkButton ID="lbBuy" runat="server" OnClientClick="LoadTransactPanel('MFOrderPurchaseTransType');"
+                    OnClick="lbBuy_OnClick" ValidationGroup="btnGo"> <img src="../Images/Buy_BIG_Buttons.png" height="40px" width="70px"/></asp:LinkButton>
+                &nbsp &nbsp
+                <asp:LinkButton ID="lbAddPurchase" runat="server" CssClass="btn btn-primary btn-success"
+                    OnClick="lbAddPurchase_OnClick" Visible="false"> Additional Purchase <span class="glyphicon glyphicon-plus-sign">
+                            </span></asp:LinkButton>
+                &nbsp &nbsp
+                <asp:LinkButton ID="lbSIP" runat="server" OnClick="lbSIP_OnClick" OnClientClick="LoadTransactPanel('MFOrderSIPTransType')"
+                    ValidationGroup="btnGo"><img src="../Images/SIP_BIG_Buttons.png" height="40px" width="70px"/></asp:LinkButton>
+                &nbsp &nbsp
+                <asp:LinkButton ID="lbRedem" runat="server" CssClass="btn btn-primary btn-danger"
+                    OnClick="lbRedem_OnClick" Visible="false" ValidationGroup="btnGo"> Redemption <span class="glyphicon glyphicon-minus">
+                            </span></asp:LinkButton>
             </div>
         </div>
-        <table style="margin-left: 15%;">
-            <tr id="trMessage" runat="server" visible="false">
-                <td colspan="6">
-                    <table class="tblMessage" cellspacing="0">
-                        <tr>
-                            <td align="center">
-                                <div id="divMessage" align="center">
-                                </div>
-                                <div style="clear: both">
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
         <div class="container" style="margin-top: 1%; margin-bottom: 2%; width: 80%; padding-top: 1%;
             padding-bottom: 1%; margin-left: auto; margin-right: auto;">
-        <asp:Panel ID="pnlDetails" runat="server" Height="630px" ScrollBars="Both" style="margin-left:0px">
-            
-            <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#DivCharTab"><b>Performance</b></a></li>
-                <li><a data-toggle="tab" href="#DivSchemeInformation"><b>Scheme Details</b></a></li>
-                <li><a data-toggle="tab" href="#divSchemeRatingDetails"><b>Risk And Rating</b></a></li>
-                <li><a data-toggle="tab" href="#Divfunddetails"><b>Fund Manager Profile</b></a></li>
-                <li><a data-toggle="tab" href="#no-more-tables"><b>Portfolio</b></a></li>
-            </ul>
-            <%--    <div style="margin-top: 1%; margin-bottom: 0%; width: 80%; padding-top: 1%; padding-bottom: 1%;
-            margin-left: auto; margin-right: auto;">--%>
-            <div class="tab-content">
-                <div id="DivCharTab" class="tab-pane fade in active">
-                    <div id="DivReturnChat" runat="server" visible="false" style="margin-top: 3.5%; margin-bottom: 2%;
-                        width: 100%; padding-top: 1%; padding-bottom: 1%; margin-left: auto; margin-right: auto;
-                        border-top-style: inset; border-bottom-style: inset; border-left-style: inset;
-                        border-right-style: inset; border-width: thin;">
-                        <asp:Literal ID="ltrReturn" runat="server"></asp:Literal>
-                    </div>
-                    <div id="divChart" runat="server" visible="false" style="margin-top: 3.5%; margin-bottom: 2%;
-                        width: 100%; padding-top: 1%; padding-bottom: 1%; margin-left: auto; margin-right: auto;
-                        border-top-style: inset; border-bottom-style: inset; border-left-style: inset;
-                        border-right-style: inset; border-width: thin;">
+            <asp:Panel ID="pnlDetails" runat="server" Height="600px" ScrollBars="Both" Style="margin-left: 0px">
+                <%--<ul id="profileTabs" class="nav nav-tabs">
+                        <li class="active><a data-toggle="tab" role="tab" href="#DivSchemeInformation"><b>Snapshot</b></a></li>
+                        <li><a data-toggle="tab" role="tab" href="#DivCharTab"><b>NAV Performance</b></a></li>
+                        <li><a data-toggle="tab"  role="tab" href="#divSchemeRatingDetails"><b>Risk And Rating</b></a></li>
+                        <li><a data-toggle="tab" role="tab" href="#Divfunddetails"><b>Fund Manager Profile</b></a></li>
+                        <li><a data-toggle="tab" role="tab" href="#no-more-tables"><b>Portfolio</b></a></li>
+                    </ul>
+                    <%--    <div style="margin-top: 1%; margin-bottom: 0%; width: 80%; padding-top: 1%; padding-bottom: 1%;
+            margin-left: auto; margin-right: auto;">
+                    <div class="tab-content">--%>
+
+                <script type="text/javascript">
+                    function markTab(sender, args) {
+                        var attributes = args.get_tab().get_attributes();
+                        attributes.setAttribute("visited", "true");
+                    }
+                    function showTab(sender, args) {
+                        var label = document.getElementById("Label1");
+                        label.innerText = args.get_tab().get_text();
+                    }
+                </script>
+
+                <telerik:RadTabStrip ID="RadTabStripAdsUpload" runat="server" EnableTheming="True"
+                    EnableEmbeddedSkins="true" MultiPageID="multipageAdsUpload" SelectedIndex="0"
+                    skin="Outlook" CssClass="NoBg" OnClientMouseOver="showTab" OnClientMouseOut="markTab">
+                    <tabs>
+                        <telerik:RadTab runat="server" Text="Snapshot" Value="Snapshot" TabIndex="0" Selected="true">
+                        </telerik:RadTab>
+                        <telerik:RadTab runat="server" Text="NAV Performance" Value="NAVPerformance" TabIndex="1">
+                        </telerik:RadTab>
+                        <telerik:RadTab runat="server" Text="Risk And Rating" Value="RiskAndRating" TabIndex="2">
+                        </telerik:RadTab>
+                        <telerik:RadTab runat="server" Text="Fund Manager Profile" Value="FundManagerProfile"
+                            TabIndex="3">
+                        </telerik:RadTab>
+                        <telerik:RadTab runat="server" Text="Portfolio" Value="Portfolio" TabIndex="4">
+                        </telerik:RadTab>
+                    </tabs>
+                </telerik:RadTabStrip>
+                <telerik:RadMultiPage ID="multipageAdsUpload" EnableViewState="true" runat="server">
+                    <telerik:RadPageView ID="RadPageView1" runat="server" Selected="true">
                         <div>
-                            <asp:Literal ID="Literal1" runat="server"></asp:Literal></div>
-                        <div id="SchemeChartinformation" runat="server">
-                            &nbsp;&nbsp;<asp:Button ID="btn1m" runat="server" class="btn btn-sm btn-primary"
-                                Text="1m" OnClick="btnHistory_OnClick"></asp:Button>
-                            <asp:Button ID="btn3m" runat="server" class="btn btn-sm btn-primary" Text="3m" OnClick="btnHistory_OnClick">
-                            </asp:Button>
-                            <asp:Button ID="btn6m" runat="server" class="btn btn-sm btn-primary" Text="6m" OnClick="btnHistory_OnClick">
-                            </asp:Button>
-                            <asp:Button ID="btn1y" runat="server" class="btn btn-sm btn-primary" Text="1y" OnClick="btnHistory_OnClick">
-                            </asp:Button>
-                            <asp:Button ID="btn2y" runat="server" class="btn btn-sm btn-primary" Text="2y" OnClick="btnHistory_OnClick">
-                            </asp:Button>
-                            &nbsp;&nbsp;<telerik:RadDatePicker ID="rdpFromDate" Label="From" DateInput-EmptyMessage="From Date"
-                                MinDate="01/01/1000" MaxDate="01/01/3000" CssClass="calender" runat="server">
-                            </telerik:RadDatePicker>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="rdpFromDate"
-                                Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnHistoryChat"></asp:RequiredFieldValidator>
-                            <telerik:RadDatePicker ID="rdpToDate" Label="To" DateInput-EmptyMessage="To Date"
-                                MinDate="01/01/1000" MaxDate="01/01/3000" CssClass="calender" runat="server">
-                            </telerik:RadDatePicker>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="rdpFromDate"
-                                Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnHistoryChat"></asp:RequiredFieldValidator>
-                            <asp:Button ID="btnHistoryChat" runat="server" class="btn btn-sm btn-primary" Text="Go"
-                                ValidationGroup="btnHistoryChat" OnClick="btnHistoryChat_OnClick"></asp:Button>
+                            <div style="float: left; width: 50%; min-width: 320px">
+                                <table class="col-md-12 table-bordered table-striped table-condensed cf">
+                                    <tbody class="alignment">
+                                        <tr class="searchable-spec cell top sub-name small bordered">
+                                            <th>
+                                                <b>AMC </b>
+                                            </th>
+                                            <td>
+                                                <asp:Label ID="lblAMC" runat="server"></asp:Label>
+                                            </td>
+                                        </tr>
+                                        <tr class="searchable-spec cell top sub-name small bordered">
+                                            <th>
+                                                <b>Fund Manager</b>
+                                            </th>
+                                            <td>
+                                                <asp:Label ID="lblFundManager" runat="server"></asp:Label>
+                                            </td>
+                                        </tr>
+                                        <tr class="searchable-spec cell top sub-name small bordered">
+                                            <th>
+                                                <b>Return 1st yr (%)</b>
+                                            </th>
+                                            <td>
+                                                <asp:Label ID="lblFundReturn1styear" runat="server"></asp:Label>
+                                            </td>
+                                        </tr>
+                                        <tr class="searchable-spec cell top sub-name small bordered">
+                                            <th>
+                                                <b>Return 3rd yr (%)</b>
+                                            </th>
+                                            <td>
+                                                <asp:Label ID="lblFundReturn3rdyear" runat="server"></asp:Label>
+                                            </td>
+                                        </tr>
+                                        <tr class="searchable-spec cell top sub-name small bordered">
+                                            <th>
+                                                <b>Return 5th yr (%)</b>
+                                            </th>
+                                            <td>
+                                                <asp:Label ID="lblFundReturn5thyear" runat="server"></asp:Label>
+                                            </td>
+                                        </tr>
+                                        <tr class="searchable-spec cell top sub-name small bordered">
+                                            <th>
+                                                <b>Min Investment Amount</b>
+                                            </th>
+                                            <td>
+                                                <asp:Label ID="lblMinInvestment" runat="server"></asp:Label>
+                                            </td>
+                                        </tr>
+                                        <tr class="searchable-spec cell top sub-name small bordered">
+                                            <th>
+                                                <b>Multiple of</b>
+                                            </th>
+                                            <td>
+                                                <asp:Label ID="lblMinMultipleOf" runat="server"></asp:Label>
+                                            </td>
+                                        </tr>
+                                        <tr class="searchable-spec cell top sub-name small bordered">
+                                            <th>
+                                                <b>Exit Load</b>
+                                            </th>
+                                            <td>
+                                                <asp:Label ID="lblExitLoad" runat="server"></asp:Label>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div style="float: left; width: 50%; min-width: 320px">
+                                <table class="col-md-12 table-bordered table-striped table-condensed cf">
+                                    <tbody class="alignment">
+                                        <tr class="searchable-spec cell top sub-name small bordered">
+                                            <th>
+                                                <b>Category</b>
+                                            </th>
+                                            <td>
+                                                <asp:Label ID="lblCategory" runat="server"></asp:Label>
+                                            </td>
+                                        </tr>
+                                        <tr class="searchable-spec cell top sub-name small bordered">
+                                            <th>
+                                                <b>Scheme Benchmark</b>
+                                            </th>
+                                            <td>
+                                                <asp:Label ID="lblBanchMark" runat="server"></asp:Label>
+                                            </td>
+                                        </tr>
+                                        <tr class="searchable-spec cell top sub-name small bordered">
+                                            <th>
+                                                <b>Benchmark Return 1st yr (%)</b>
+                                            </th>
+                                            <td>
+                                                <asp:Label ID="lblBenchmarkReturn" runat="server"></asp:Label>
+                                            </td>
+                                        </tr>
+                                        <tr class="searchable-spec cell top sub-name small bordered">
+                                            <th>
+                                                <b>Benchmark Return 3rd yr (%)</b>
+                                            </th>
+                                            <td>
+                                                <asp:Label ID="lblBenchMarkReturn3rd" runat="server"></asp:Label>
+                                            </td>
+                                        </tr>
+                                        <tr class="searchable-spec cell top sub-name small bordered">
+                                            <th>
+                                                <b>Benchmark Return 5th yr (%)</b>
+                                            </th>
+                                            <td>
+                                                <asp:Label ID="lblBenchMarkReturn5th" runat="server"></asp:Label>
+                                            </td>
+                                        </tr>
+                                        <tr class="searchable-spec cell top sub-name small bordered">
+                                            <th>
+                                                <b>Min SIP Amount</b>
+                                            </th>
+                                            <td>
+                                                <asp:Label ID="lblMinSIP" runat="server"></asp:Label>
+                                            </td>
+                                        </tr>
+                                        <tr class="searchable-spec cell top sub-name small bordered">
+                                            <th>
+                                                <b>Multiple of</b>
+                                            </th>
+                                            <td>
+                                                <asp:Label ID="lblSIPMultipleOf" runat="server"></asp:Label>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row" style="margin-left: 20%; margin-right: 2%; margin-bottom: 0%; margin-top: 2px;"
-                        id="divAction" runat="server" visible="false">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <asp:LinkButton ID="lnkAddToCompare" runat="server" CssClass="btn btn-primary btn-primary"
-                                OnClick="lnkAddToCompare_OnClick" ValidationGroup="btnGo"> Add To Compare <span class="glyphicon glyphicon-shopping-list">
-                            </span></asp:LinkButton>
-                            &nbsp &nbsp
-                            <asp:LinkButton ID="lbBuy" runat="server" OnClientClick="LoadTransactPanel('MFOrderPurchaseTransType');" OnClick="lbBuy_OnClick" ValidationGroup="btnGo"> <img src="../Images/Buy_BIG_Buttons.png" height="40px" width="70px"/></asp:LinkButton>
-                            &nbsp &nbsp
-                            <asp:LinkButton ID="lbAddPurchase" runat="server" CssClass="btn btn-primary btn-success"
-                                OnClick="lbAddPurchase_OnClick" Visible="false"> Additional Purchase <span class="glyphicon glyphicon-plus-sign">
-                            </span></asp:LinkButton>
-                            &nbsp &nbsp
-                            <asp:LinkButton ID="lbSIP" runat="server" OnClick="lbSIP_OnClick" OnClientClick="LoadTransactPanel('MFOrderSIPTransType')" ValidationGroup="btnGo"><img src="../Images/SIP_BIG_Buttons.png" height="40px" width="70px"/></asp:LinkButton>
-                            &nbsp &nbsp
-                            <asp:LinkButton ID="lbRedem" runat="server" CssClass="btn btn-primary btn-danger"
-                                OnClick="lbRedem_OnClick" Visible="false" ValidationGroup="btnGo"> Redemption <span class="glyphicon glyphicon-minus">
-                            </span></asp:LinkButton>
+                    </telerik:RadPageView>
+                    <telerik:RadPageView ID="RadPageView2" runat="server">
+                        <div>
+                            <div>
+                                <asp:Button ID="btnReturn" runat="server" class="btn btn-sm btn-primary" Text="Scheme Return"
+                                    OnClick="btnReturn_OnClick" /></div>
+                            <div id="DivReturnChat" runat="server" visible="false" style="width: 100%; margin-left: auto;
+                                margin-right: auto; border-top-style: inset; border-bottom-style: inset; border-left-style: inset;
+                                border-right-style: inset; border-width: thin;">
+                                <asp:Literal ID="ltrReturn" runat="server"></asp:Literal>
+                            </div>
+                            <div id="divChart" runat="server" visible="false" style="margin-top: 3.5%; margin-bottom: 2%;
+                                width: 100%; padding-top: 1%; padding-bottom: 1%; margin-left: auto; margin-right: auto;
+                                border-top-style: inset; border-bottom-style: inset; border-left-style: inset;
+                                border-right-style: inset; border-width: thin;">
+                                <div>
+                                    <asp:Literal ID="Literal1" runat="server"></asp:Literal></div>
+                                <div id="SchemeChartinformation" runat="server">
+                                    &nbsp;&nbsp;<asp:Button ID="btn1m" runat="server" class="btn btn-sm btn-primary"
+                                        Text="1m" OnClick="btnHistory_OnClick"></asp:Button>
+                                    <asp:Button ID="btn3m" runat="server" class="btn btn-sm btn-primary" Text="3m" OnClick="btnHistory_OnClick">
+                                    </asp:Button>
+                                    <asp:Button ID="btn6m" runat="server" class="btn btn-sm btn-primary" Text="6m" OnClick="btnHistory_OnClick">
+                                    </asp:Button>
+                                    <asp:Button ID="btn1y" runat="server" class="btn btn-sm btn-primary" Text="1y" OnClick="btnHistory_OnClick">
+                                    </asp:Button>
+                                    <asp:Button ID="btn2y" runat="server" class="btn btn-sm btn-primary" Text="2y" OnClick="btnHistory_OnClick">
+                                    </asp:Button>
+                                    &nbsp;&nbsp;<telerik:RadDatePicker ID="rdpFromDate" Label="From" DateInput-EmptyMessage="From Date"
+                                        MinDate="01/01/1000" MaxDate="01/01/3000" CssClass="calender" runat="server">
+                                    </telerik:RadDatePicker>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="rdpFromDate"
+                                        Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnHistoryChat"></asp:RequiredFieldValidator>
+                                    <telerik:RadDatePicker ID="rdpToDate" Label="To" DateInput-EmptyMessage="To Date"
+                                        MinDate="01/01/1000" MaxDate="01/01/3000" CssClass="calender" runat="server">
+                                    </telerik:RadDatePicker>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="rdpFromDate"
+                                        Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnHistoryChat"></asp:RequiredFieldValidator>
+                                    <asp:Button ID="btnHistoryChat" runat="server" class="btn btn-sm btn-primary" Text="Go"
+                                        ValidationGroup="btnHistoryChat" OnClick="btnHistoryChat_OnClick"></asp:Button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <%-- <div id="divscheme12" class="tab-pane fade in active" style="width: 80%; float: left; min-width: 320px;">
+                    </telerik:RadPageView>
+                    <%-- <div id="divscheme12" class="tab-pane fade in active" style="width: 80%; float: left; min-width: 320px;">
                 <div style="width: 100%;">
                     <table class="col-md-12 table-bordered table-striped table-condensed cf" style="margin-bottom: 0px;
                         min-width: 320px;">
@@ -338,141 +511,7 @@
                                 </tr>
                     </table>
                 </div>--%>
-                <div id="DivSchemeInformation" class="tab-pane fade in">
-                    <div style="float: left; width: 50%; min-width: 320px">
-                        <table class="col-md-12 table-bordered table-striped table-condensed cf">
-                            <tbody class="alignment">
-                                <tr class="searchable-spec cell top sub-name small bordered">
-                                    <th>
-                                        <b>AMC </b>
-                                    </th>
-                                    <td>
-                                        <asp:Label ID="lblAMC" runat="server"></asp:Label>
-                                    </td>
-                                </tr>
-                                <tr class="searchable-spec cell top sub-name small bordered">
-                                    <th>
-                                        <b>Fund Manager</b>
-                                    </th>
-                                    <td>
-                                        <asp:Label ID="lblFundManager" runat="server"></asp:Label>
-                                    </td>
-                                </tr>
-                                <tr class="searchable-spec cell top sub-name small bordered">
-                                    <th>
-                                        <b>Return 1st yr (%)</b>
-                                    </th>
-                                    <td>
-                                        <asp:Label ID="lblFundReturn1styear" runat="server"></asp:Label>
-                                    </td>
-                                </tr>
-                                <tr class="searchable-spec cell top sub-name small bordered">
-                                    <th>
-                                        <b>Return 3rd yr (%)</b>
-                                    </th>
-                                    <td>
-                                        <asp:Label ID="lblFundReturn3rdyear" runat="server"></asp:Label>
-                                    </td>
-                                </tr>
-                                <tr class="searchable-spec cell top sub-name small bordered">
-                                    <th>
-                                        <b>Return 5th yr (%)</b>
-                                    </th>
-                                    <td>
-                                        <asp:Label ID="lblFundReturn5thyear" runat="server"></asp:Label>
-                                    </td>
-                                </tr>
-                                <tr class="searchable-spec cell top sub-name small bordered">
-                                    <th>
-                                        <b>Min Investment Amount</b>
-                                    </th>
-                                    <td>
-                                        <asp:Label ID="lblMinInvestment" runat="server"></asp:Label>
-                                    </td>
-                                </tr>
-                                <tr class="searchable-spec cell top sub-name small bordered">
-                                    <th>
-                                        <b>Multiple of</b>
-                                    </th>
-                                    <td>
-                                        <asp:Label ID="lblMinMultipleOf" runat="server"></asp:Label>
-                                    </td>
-                                </tr>
-                                <tr class="searchable-spec cell top sub-name small bordered">
-                                    <th>
-                                        <b>Exit Load</b>
-                                    </th>
-                                    <td>
-                                        <asp:Label ID="lblExitLoad" runat="server"></asp:Label>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div style="float: left; width: 50%; min-width: 320px">
-                        <table class="col-md-12 table-bordered table-striped table-condensed cf">
-                            <tbody class="alignment">
-                                <tr class="searchable-spec cell top sub-name small bordered">
-                                    <th>
-                                        <b>Category</b>
-                                    </th>
-                                    <td>
-                                        <asp:Label ID="lblCategory" runat="server"></asp:Label>
-                                    </td>
-                                </tr>
-                                <tr class="searchable-spec cell top sub-name small bordered">
-                                    <th>
-                                        <b>Scheme Benchmark</b>
-                                    </th>
-                                    <td>
-                                        <asp:Label ID="lblBanchMark" runat="server"></asp:Label>
-                                    </td>
-                                </tr>
-                                <tr class="searchable-spec cell top sub-name small bordered">
-                                    <th>
-                                        <b>Benchmark Return 1st yr (%)</b>
-                                    </th>
-                                    <td>
-                                        <asp:Label ID="lblBenchmarkReturn" runat="server"></asp:Label>
-                                    </td>
-                                </tr>
-                                <tr class="searchable-spec cell top sub-name small bordered">
-                                    <th>
-                                        <b>Benchmark Return 3rd yr (%)</b>
-                                    </th>
-                                    <td>
-                                        <asp:Label ID="lblBenchMarkReturn3rd" runat="server"></asp:Label>
-                                    </td>
-                                </tr>
-                                <tr class="searchable-spec cell top sub-name small bordered">
-                                    <th>
-                                        <b>Benchmark Return 5th yr (%)</b>
-                                    </th>
-                                    <td>
-                                        <asp:Label ID="lblBenchMarkReturn5th" runat="server"></asp:Label>
-                                    </td>
-                                </tr>
-                                <tr class="searchable-spec cell top sub-name small bordered">
-                                    <th>
-                                        <b>Min SIP Amount</b>
-                                    </th>
-                                    <td>
-                                        <asp:Label ID="lblMinSIP" runat="server"></asp:Label>
-                                    </td>
-                                </tr>
-                                <tr class="searchable-spec cell top sub-name small bordered">
-                                    <th>
-                                        <b>Multiple of</b>
-                                    </th>
-                                    <td>
-                                        <asp:Label ID="lblSIPMultipleOf" runat="server"></asp:Label>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <%-- </div>
+                    <%-- </div>
         </div>
         <div style="margin-top: 2px; margin-bottom: 0%; width: 80%; padding-top: 1%; padding-bottom: 0%;
             margin-left: auto; margin-right: auto;">
@@ -491,76 +530,78 @@
                         </tr>
                     </thead>
                 </table>--%>
-                <div id="divSchemeRatingDetails" class="tab-pane fade">
-                    <table class="table table-bordered">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <asp:Label ID="lblRatingAsOnPopUp" runat="server" CssClass="readOnlyFields"></asp:Label>
-                                </td>
-                                <td>
-                                    <span class="readOnlyFields">RATING</span>
-                                </td>
-                                <td>
-                                    <span class="readOnlyFields">RETURN</span>
-                                </td>
-                                <td>
-                                    <span class="readOnlyFields">RISK</span>
-                                </td>
-                                <td>
-                                    <span class="readOnlyFields">RATING OVERALL</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="readOnlyFields">3 YEAR</span>
-                                </td>
-                                <td>
-                                    <asp:Image runat="server" ID="imgRating3yr" />
-                                </td>
-                                <td>
-                                    <asp:Label ID="lblSchemeRetrun3yr" runat="server" CssClass="readOnlyFields"> </asp:Label>
-                                </td>
-                                <td>
-                                    <asp:Label ID="lblSchemeRisk3yr" runat="server" CssClass="readOnlyFields"> </asp:Label>
-                                </td>
-                                <td rowspan="3">
-                                    <asp:Image runat="server" ID="imgRatingOvelAll" ImageAlign="Middle" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="readOnlyFields">5 YEAR</span>
-                                </td>
-                                <td>
-                                    <asp:Image runat="server" ID="imgRating5yr" />
-                                </td>
-                                <td>
-                                    <asp:Label ID="lblSchemeRetrun5yr" runat="server" CssClass="readOnlyFields"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:Label ID="lblSchemeRisk5yr" runat="server" CssClass="readOnlyFields"></asp:Label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="readOnlyFields">10 YEAR</span>
-                                </td>
-                                <td>
-                                    <asp:Image runat="server" ID="imgRating10yr" />
-                                </td>
-                                <td>
-                                    <asp:Label ID="lblSchemeRetrun10yr" runat="server" CssClass="readOnlyFields"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:Label ID="lblSchemeRisk10yr" runat="server" CssClass="readOnlyFieldss"></asp:Label>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <%--</div>--%>
-                <%--<div style="margin-top: 2px; margin-bottom: 0%; width: 80%; padding-top: 1%; padding-bottom: 0%;
+                    <telerik:RadPageView ID="RadPageView3" runat="server">
+                        <div>
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <asp:Label ID="lblRatingAsOnPopUp" runat="server" CssClass="readOnlyFields"></asp:Label>
+                                        </td>
+                                        <td>
+                                            <span class="readOnlyFields">RATING</span>
+                                        </td>
+                                        <td>
+                                            <span class="readOnlyFields">RETURN</span>
+                                        </td>
+                                        <td>
+                                            <span class="readOnlyFields">RISK</span>
+                                        </td>
+                                        <td>
+                                            <span class="readOnlyFields">RATING OVERALL</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="readOnlyFields">3 YEAR</span>
+                                        </td>
+                                        <td>
+                                            <asp:Image runat="server" ID="imgRating3yr" />
+                                        </td>
+                                        <td>
+                                            <asp:Label ID="lblSchemeRetrun3yr" runat="server" CssClass="readOnlyFields"> </asp:Label>
+                                        </td>
+                                        <td>
+                                            <asp:Label ID="lblSchemeRisk3yr" runat="server" CssClass="readOnlyFields"> </asp:Label>
+                                        </td>
+                                        <td rowspan="3">
+                                            <asp:Image runat="server" ID="imgRatingOvelAll" ImageAlign="Middle" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="readOnlyFields">5 YEAR</span>
+                                        </td>
+                                        <td>
+                                            <asp:Image runat="server" ID="imgRating5yr" />
+                                        </td>
+                                        <td>
+                                            <asp:Label ID="lblSchemeRetrun5yr" runat="server" CssClass="readOnlyFields"></asp:Label>
+                                        </td>
+                                        <td>
+                                            <asp:Label ID="lblSchemeRisk5yr" runat="server" CssClass="readOnlyFields"></asp:Label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="readOnlyFields">10 YEAR</span>
+                                        </td>
+                                        <td>
+                                            <asp:Image runat="server" ID="imgRating10yr" />
+                                        </td>
+                                        <td>
+                                            <asp:Label ID="lblSchemeRetrun10yr" runat="server" CssClass="readOnlyFields"></asp:Label>
+                                        </td>
+                                        <td>
+                                            <asp:Label ID="lblSchemeRisk10yr" runat="server" CssClass="readOnlyFieldss"></asp:Label>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </telerik:RadPageView>
+                    <%--</div>--%>
+                    <%--<div style="margin-top: 2px; margin-bottom: 0%; width: 80%; padding-top: 1%; padding-bottom: 0%;
             margin-left: auto; margin-right: auto;">
             <div style="width: 80%; min-width: 320px; float: left;">
                 <table class="table table-bordered" style="margin-bottom: 0px">
@@ -577,45 +618,47 @@
                         </tr>
                     </thead>
                 </table>--%>
-                <div id="Divfunddetails" class="tab-pane fade">
-                    <table class="table table-bordered">
-                        <tbody>
-                            <tr class="searchable-spec cell top sub-name small bordered">
-                                <td>
-                                    FundManager
-                                </td>
-                                <td>
-                                    <asp:Label ID="lblFundMAnagername" runat="server"></asp:Label>
-                                </td>
-                            </tr>
-                            <tr class="searchable-spec cell top sub-name small bordered">
-                                <td>
-                                    Qualification
-                                </td>
-                                <td>
-                                    <asp:Label ID="lblQualification" runat="server"></asp:Label>
-                                </td>
-                            </tr>
-                            <tr class="searchable-spec cell top sub-name small bordered">
-                                <td>
-                                    Designation
-                                </td>
-                                <td>
-                                    <asp:Label ID="lblDesignation" runat="server"></asp:Label>
-                                </td>
-                            </tr>
-                            <tr class="searchable-spec cell top sub-name small bordered">
-                                <td>
-                                    Experience
-                                </td>
-                                <td>
-                                    <asp:Label ID="lblExperience" runat="server"></asp:Label>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <%--<div style="margin-top: 0%; margin-bottom: 2%; width: 80%; padding-top: 0%; padding-bottom: 1%;
+                    <telerik:RadPageView ID="RadPageView4" runat="server">
+                        <div>
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr class="searchable-spec cell top sub-name small bordered">
+                                        <td>
+                                            FundManager
+                                        </td>
+                                        <td>
+                                            <asp:Label ID="lblFundMAnagername" runat="server"></asp:Label>
+                                        </td>
+                                    </tr>
+                                    <tr class="searchable-spec cell top sub-name small bordered">
+                                        <td>
+                                            Qualification
+                                        </td>
+                                        <td>
+                                            <asp:Label ID="lblQualification" runat="server"></asp:Label>
+                                        </td>
+                                    </tr>
+                                    <tr class="searchable-spec cell top sub-name small bordered">
+                                        <td>
+                                            Designation
+                                        </td>
+                                        <td>
+                                            <asp:Label ID="lblDesignation" runat="server"></asp:Label>
+                                        </td>
+                                    </tr>
+                                    <tr class="searchable-spec cell top sub-name small bordered">
+                                        <td>
+                                            Experience
+                                        </td>
+                                        <td>
+                                            <asp:Label ID="lblExperience" runat="server"></asp:Label>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </telerik:RadPageView>
+                    <%--<div style="margin-top: 0%; margin-bottom: 2%; width: 80%; padding-top: 0%; padding-bottom: 1%;
             margin-left: auto; margin-right: auto;">
             <div style="width: 80%; min-width: 320px;">
                 <br />
@@ -633,155 +676,157 @@
                     </thead>
                 </table>
             </div>--%>
-                <div id="no-more-tables" class="tab-pane fade " style="width: 100%">
-                    <div style="width: 20%; margin-right: 5px;">
-                        <table class="col-md-12 table-bordered table-striped table-condensed cf" width="100%">
-                            <thead class="cf">
-                                <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
-                                    text-align: center">
-                                    <th data-title="Fund Name" class="alignCenter">
-                                        Top Holding
-                                    </th>
-                                    <th data-title="Holding(%)" class="alignCenter">
-                                        Weight (%)
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <asp:Repeater ID="rpSchemeDetails" runat="server">
-                                    <ItemTemplate>
+                    <telerik:RadPageView ID="RadPageView5" runat="server">
+                        <div id="no-more-tables" style="width: 100%">
+                            <div style="width: 20%; margin-right: 5px;">
+                                <table class="col-md-12 table-bordered table-striped table-condensed cf" width="100%">
+                                    <thead class="cf">
+                                        <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
+                                            text-align: center">
+                                            <th data-title="Fund Name" class="alignCenter">
+                                                Top Holding
+                                            </th>
+                                            <th data-title="Holding(%)" class="alignCenter">
+                                                Weight (%)
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <asp:Repeater ID="rpSchemeDetails" runat="server">
+                                            <ItemTemplate>
+                                                <tr>
+                                                    <td data-title="Fund Name">
+                                                        <asp:Label ID="lblFundName" runat="server" Text='<%# Eval("co_name")%>'></asp:Label>
+                                                    </td>
+                                                    <td data-title="Holding(%)">
+                                                        <asp:Label ID="lblHolding" runat="server" Text='<%# Eval("perc_hold")%>'></asp:Label>
+                                                    </td>
+                                                </tr>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div style="width: 21%; float: left; margin-left: 8px;">
+                                <asp:Literal ID="ltrHolding" runat="server"></asp:Literal>
+                            </div>
+                            <div style="width: 21%; float: left; margin-left: 8px;">
+                                <table class="col-md-12 table-bordered table-striped table-condensed cf" width="100%">
+                                    <thead class="cf">
+                                        <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
+                                            text-align: center">
+                                            <th data-title="Sector" class="alignCenter">
+                                                Top Sector
+                                            </th>
+                                            <th data-title="Holding(%)" class="alignCenter">
+                                                Weight (%)
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <asp:Repeater ID="RepSector" runat="server">
+                                            <ItemTemplate>
+                                                <tr>
+                                                    <td data-title="Sector">
+                                                        <asp:Label ID="lblSector" runat="server" Text='<%# Eval("sector")%>'></asp:Label>
+                                                    </td>
+                                                    <td data-title="Holding(%)">
+                                                        <asp:Label ID="lblsecWeight" runat="server" Text='<%# Eval("holdingpercentage")%>'></asp:Label>
+                                                    </td>
+                                                </tr>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div style="width: 21%; float: left; margin-left: 8px;">
+                                <asp:Literal runat="server" ID="ltrSector"></asp:Literal>
+                            </div>
+                            <div style="width: 20%; margin-right: 5px;">
+                                <table class="col-md-12 table-bordered table-striped table-condensed cf" width="100%">
+                                    <thead class="cf">
+                                        <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
+                                            text-align: center">
+                                            <th data-title="Fund Name" class="alignCenter">
+                                                Asset allocation
+                                            </th>
+                                            <th data-title="Holding(%)" class="alignCenter">
+                                                Weight (%)
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <asp:Repeater ID="RepAsset" runat="server">
+                                            <ItemTemplate>
+                                                <tr>
+                                                    <td data-title="Fund Name">
+                                                        <asp:Label ID="lblasset" runat="server" Text='<%# Eval("asset")%>'></asp:Label>
+                                                    </td>
+                                                    <td data-title="Holding(%)">
+                                                        <asp:Label ID="lblassetvalue" runat="server" Text='<%# Eval("assetvalue")%>'></asp:Label>
+                                                    </td>
+                                                </tr>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div style="width: 21%; float: left; margin-left: 8px;">
+                                <asp:Literal ID="ltrAssets" runat="server"></asp:Literal>
+                                <asp:Literal ID="raj" runat="server"></asp:Literal>
+                            </div>
+                            <br />
+                            <div style="width: 21%; float: left; margin-left: 8px;">
+                                <table class="table table-bordered">
+                                    <thead>
                                         <tr>
-                                            <td data-title="Fund Name">
-                                                <asp:Label ID="lblFundName" runat="server" Text='<%# Eval("co_name")%>'></asp:Label>
-                                            </td>
-                                            <td data-title="Holding(%)">
-                                                <asp:Label ID="lblHolding" runat="server" Text='<%# Eval("perc_hold")%>'></asp:Label>
+                                            <th class="header">
+                                                <font color="#fff">Morning Star </font>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div>
+                                                    <asp:Image ID="imgStyleBox" runat="server" /></div>
                                             </td>
                                         </tr>
-                                    </ItemTemplate>
-                                </asp:Repeater>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div style="width: 21%; float: left; margin-left: 8px;">
-                        <asp:Literal ID="ltrHolding" runat="server"></asp:Literal>
-                    </div>
-                    <div style="width: 21%; float: left; margin-left: 8px;">
-                        <table class="col-md-12 table-bordered table-striped table-condensed cf" width="100%">
-                            <thead class="cf">
-                                <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
-                                    text-align: center">
-                                    <th data-title="Sector" class="alignCenter">
-                                        Top Sector
-                                    </th>
-                                    <th data-title="Holding(%)" class="alignCenter">
-                                        Weight (%)
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <asp:Repeater ID="RepSector" runat="server">
-                                    <ItemTemplate>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div style="width: 19%; float: left; min-width: 19%; margin-left: 10px;">
+                                <table class="table table-bordered" style="margin-left: 2px;">
+                                    <thead>
                                         <tr>
-                                            <td data-title="Sector">
-                                                <asp:Label ID="lblSector" runat="server" Text='<%# Eval("sector")%>'></asp:Label>
-                                            </td>
-                                            <td data-title="Holding(%)">
-                                                <asp:Label ID="lblsecWeight" runat="server" Text='<%# Eval("holdingpercentage")%>'></asp:Label>
+                                            <th colspan="2" class="header">
+                                                <font color="#fff">Additional Information</font>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="searchable-spec cell top sub-name small bordered">
+                                            <td>
+                                                <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="http://www.amfiindia.com/intermediary/other-data/scheme-details"
+                                                    Target="_blank">Scheme Information Document-SID </asp:HyperLink>
                                             </td>
                                         </tr>
-                                    </ItemTemplate>
-                                </asp:Repeater>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div style="width: 21%; float: left; margin-left: 8px;">
-                        <asp:Literal runat="server" ID="ltrSector"></asp:Literal>
-                    </div>
-                    <div style="width: 20%; margin-right: 5px;">
-                        <table class="col-md-12 table-bordered table-striped table-condensed cf" width="100%">
-                            <thead class="cf">
-                                <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
-                                    text-align: center">
-                                    <th data-title="Fund Name" class="alignCenter">
-                                        Asset allocation
-                                    </th>
-                                    <th data-title="Holding(%)" class="alignCenter">
-                                        Weight (%)
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <asp:Repeater ID="RepAsset" runat="server">
-                                    <ItemTemplate>
-                                        <tr>
-                                            <td data-title="Fund Name">
-                                                <asp:Label ID="lblasset" runat="server" Text='<%# Eval("asset")%>'></asp:Label>
-                                            </td>
-                                            <td data-title="Holding(%)">
-                                                <asp:Label ID="lblassetvalue" runat="server" Text='<%# Eval("assetvalue")%>'></asp:Label>
+                                        <tr class="searchable-spec cell top sub-name small bordered">
+                                            <td>
+                                                <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="http://www.amfiindia.com/research-information/other-data/sai"
+                                                    Target="_blank">Statement of Additional Information-SAI</asp:HyperLink>
                                             </td>
                                         </tr>
-                                    </ItemTemplate>
-                                </asp:Repeater>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div style="width: 21%; float: left; margin-left: 8px;">
-                        <asp:Literal ID="ltrAssets" runat="server"></asp:Literal>
-                        <asp:Literal ID="raj" runat="server"></asp:Literal>
-                    </div>
-                    <br />
-                    <div style="width: 21%; float: left; margin-left: 8px;">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th class="header">
-                                        <font color="#fff">Morning Star </font>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <div>
-                                            <asp:Image ID="imgStyleBox" runat="server" /></div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div style="width: 19%; float: left; min-width: 19%; margin-left: 10px;">
-                        <table class="table table-bordered" style="margin-left: 2px;">
-                            <thead>
-                                <tr>
-                                    <th colspan="2" class="header">
-                                        <font color="#fff">Additional Information</font>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="searchable-spec cell top sub-name small bordered">
-                                    <td>
-                                        <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="http://www.amfiindia.com/intermediary/other-data/scheme-details"
-                                            Target="_blank">Scheme Information Document-SID </asp:HyperLink>
-                                    </td>
-                                </tr>
-                                <tr class="searchable-spec cell top sub-name small bordered">
-                                    <td>
-                                        <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="http://www.amfiindia.com/research-information/other-data/sai"
-                                            Target="_blank">Statement of Additional Information-SAI</asp:HyperLink>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </asp:Panel>
-            
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </telerik:RadPageView>
+                </telerik:RadMultiPage>
+            </asp:Panel>
         </div>
         <asp:HiddenField ID="hidCurrentScheme" runat="server" />
+        <asp:HiddenField ID="TabName" runat="server" />
     </ContentTemplate>
 </asp:UpdatePanel>
 
@@ -800,27 +845,3 @@
 
 </script>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
-</head>
-<body>
-
-    <script>
-        $(document).ready(function() {
-            $(".nav-tabs a").click(function() {
-                $(this).tab('show');
-            });
-        });
-    </script>
-
-</body>
-</html>

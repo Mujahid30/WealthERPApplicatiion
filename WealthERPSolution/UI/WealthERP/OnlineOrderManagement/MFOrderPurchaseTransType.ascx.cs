@@ -46,6 +46,7 @@ namespace WealthERP.OnlineOrderManagement
         string amcName = string.Empty;
         int scheme;
         string schemeDividendOption;
+        string exchangeType = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
@@ -73,6 +74,10 @@ namespace WealthERP.OnlineOrderManagement
                     lblDividendType.Visible = false;
                     if (Session["MFSchemePlan"] != null)
                     {
+                        if (Request.QueryString["exchangeType"] == null)
+                            exchangeType = "online";
+                        else
+                            exchangeType = Request.QueryString["exchangeType"].ToString();
                         scheme = int.Parse(Session["MFSchemePlan"].ToString());
                         //commonLookupBo.GetSchemeAMCCategory(38122, out amcCode, out category);
                         commonLookupBo.GetSchemeAMCSchemeCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out categoryname, out amcName, out schemeName);
@@ -161,7 +166,7 @@ namespace WealthERP.OnlineOrderManagement
             if (ddlFolio.SelectedValue != "New" && ddlFolio.SelectedValue != "0")
             {
                 ds = onlineMforderBo.GetCustomerSchemeFolioHoldings(customerVo.CustomerId, int.Parse(Session["MFSchemePlan"].ToString()), out schemeDividendOption);
-             
+
                 GetControlDetails(ds);
                 SetControlDetails();
             }
@@ -170,14 +175,14 @@ namespace WealthERP.OnlineOrderManagement
                 ds = onlineMforderBo.GetControlDetails(int.Parse(Session["MFSchemePlan"].ToString()), null);
                 lblUnitsheldDisplay.Visible = false;
                 GetControlDetails(ds);
-             
+
                 SetControlDetails();
             }
         }
-        
+
         protected void GetControlDetails(DataSet ds)
         {
-            
+
             DataTable dt = ds.Tables[0];
             if (dt.Rows.Count > -1)
             {
@@ -198,7 +203,7 @@ namespace WealthERP.OnlineOrderManagement
                         {
                             lblMulti.Text = dr["AdditionalMultiAmt"].ToString();
                         }
-                       
+
                         if (lblDividendType.Text == "Growth" & !string.IsNullOrEmpty(schemeDividendOption))
                         {
                             ddlDivType.SelectedValue = schemeDividendOption;
@@ -271,7 +276,7 @@ namespace WealthERP.OnlineOrderManagement
                     }
 
                 }
-               
+
             }
             if (ddlFolio.SelectedValue != "New" && ddlFolio.SelectedValue != "0")
             {
@@ -495,7 +500,7 @@ namespace WealthERP.OnlineOrderManagement
 
             if (availableBalance >= Convert.ToDecimal(onlinemforderVo.Amount))
             {
-                OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
+                OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId, exchangeType);
                 OrderId = int.Parse(OrderIds[0].ToString());
 
                 if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
@@ -631,7 +636,7 @@ namespace WealthERP.OnlineOrderManagement
                 //strbJointHolder.Append(dr["CustomerName"].ToString() + ",");
                 string r = dr["CEDAA_AssociationType"].ToString();
                 if (r != "Joint Holder")
-                strbNominee.Append(dr["AMFE_JointNomineeName"].ToString() + ",");
+                    strbNominee.Append(dr["AMFE_JointNomineeName"].ToString() + ",");
                 else
                     strbJointHolder.Append(dr["AMFE_JointNomineeName"].ToString() + ",");
                 //strbJointHolder.Append(dr["AMFE_JointNomineeName"].ToString() + ",");

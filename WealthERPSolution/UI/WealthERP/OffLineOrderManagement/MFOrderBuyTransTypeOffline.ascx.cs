@@ -374,7 +374,7 @@ namespace WealthERP.OffLineOrderManagement
 
             if (availableBalance >= Convert.ToDecimal(onlinemforderVo.Amount))
             {
-                OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
+                OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId,"Online");
                 OrderId = int.Parse(OrderIds[0].ToString());
 
                 if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))

@@ -39,7 +39,7 @@ namespace WealthERP.OnlineOrderManagement
         int accountId;
         int OrderId;
         string clientMFAccessCode = string.Empty;
-
+        string exchangeType = string.Empty;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -69,6 +69,10 @@ namespace WealthERP.OnlineOrderManagement
                     lblDividendType.Visible = false;
                     if (Session["MFSchemePlan"] != null)
                     {
+                        if (Request.QueryString["exchangeType"] == null)
+                            exchangeType = "online";
+                        else
+                            exchangeType = Request.QueryString["exchangeType"].ToString();
                         ddlScheme.SelectedValue = Session["MFSchemePlan"].ToString();
                         if( ddlScheme.SelectedValue !="")
                         lblScheme.Text = ddlScheme.SelectedItem.Text;
@@ -385,7 +389,7 @@ namespace WealthERP.OnlineOrderManagement
 
             if (availableBalance >= Convert.ToDecimal(onlinemforderVo.Amount))
             {
-                OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
+                OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId, exchangeType);
                 OrderId = int.Parse(OrderIds[0].ToString());
 
                 if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))

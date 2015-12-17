@@ -50,6 +50,7 @@ namespace WealthERP.OnlineOrderManagement
         string amcName = string.Empty;
         int scheme;
         string schemeDividendOption;
+        string exchangeType = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
@@ -103,7 +104,12 @@ namespace WealthERP.OnlineOrderManagement
                         }
                         else
                         {
+                            if (Request.QueryString["exchangeType"] == null)
+                                exchangeType = "online";
+                            else
+                                exchangeType = Request.QueryString["exchangeType"].ToString();
                             //commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category);
+                            AmcBind();
                             commonLookupBo.GetSchemeAMCSchemeCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out categoryname, out amcName, out schemeName);
                             lblAmc.Text = amcName;
                             lblCategory.Text = categoryname;
@@ -695,7 +701,7 @@ namespace WealthERP.OnlineOrderManagement
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please enter a valid Units');", true); return;
                 }
             }
-            OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
+            OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId,exchangeType);
             OrderId = int.Parse(OrderIds[0].ToString());
 
 

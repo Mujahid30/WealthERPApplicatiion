@@ -32,14 +32,19 @@
     }
     .fontsize
     {
-        font-size: smaller;
-        color: Black;
+        font-family: Verdana,Tahoma;
         font-weight: bold;
+        font-size: x-small;
+        color: #0396cc;
+        vertical-align: middle;
+        text-align: right;
     }
     .fieldFontSize
     {
-        color: #FFFFFF;
-        font-weight: bold;
+         font-family: Verdana,Tahoma;
+        font-weight: normal;
+        font-size: small;
+        color: #104259;
     }
 </style>
 
@@ -103,7 +108,7 @@
     
 </script>
 
-<body style="background-color: rgb(123,201,91); width: 100%;height:250px">
+<body style="background-color:#E5F6FF; width: 100%;height:250px">
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
             <div style="height: 200px">
