@@ -123,7 +123,7 @@ namespace WealthERP
                         mainmenuIPO.Visible = false;
                         scroller.Visible = true;
                         SetScroller(productType.ToUpper());
-                        BindTransactionType("Online");
+                        //BindTransactionType("Online");
                         BindNewsHeading();
                     }
                     else if (productType.ToUpper() == "NCD")
@@ -172,25 +172,114 @@ namespace WealthERP
             }
 
         }
+
+        private void BindExchangeDropDown(string exchange)
+        {
+
+            string[] exchangeTypes = exchange.Split(',');
+            int i = 0;
+            ddlchannel.Items.Clear();
+            foreach (string s in exchangeTypes)
+            {
+
+                if (!String.IsNullOrEmpty(s))
+                {
+                    ddlchannel.Items.Insert(i,new ListItem(s, s));
+                    i++;
+                }
+            }
+            if (exchange.Contains("Online"))
+            {
+                BindTransactionType("Online");
+               
+            }
+            else
+            {
+                BindTransactionType("Demat");
+              
+
+            }
+
+        }
+
         private void BindTransactionType(string exchangeType)
         {
             OnlineOrderBo onlineOrderBo = new OnlineOrderBo();
-            Dictionary<string, string> TransactionTypes = onlineOrderBo.GetTransactionTypeForExchange(exchangeType);
+            Dictionary<string, string> SchemetransactType;
+            SchemetransactType = (Dictionary<string, string>)Session["SchemeExchangeee"];
 
+            Dictionary<string, string> TransactionTypes = onlineOrderBo.GetTransactionTypeForExchange(exchangeType, SchemetransactType[exchangeType].ToString());
+            DropDownList1.Items.Clear();
             DropDownList1.DataSource = TransactionTypes;
             DropDownList1.DataValueField = "Key";
             DropDownList1.DataTextField = "Value";
             DropDownList1.DataBind();
         }
+        protected void CreateExchangeDetailsSession(int schemeCode)
+        {
+            OnlineOrderBo OnlineOrderBo = new OnlineOrderBo();
+            Dictionary<string, string> SchemetransactType;
+            Session["MFSchemePlan"] = schemeCode;
+            SchemetransactType = OnlineOrderBo.GetschemedetailonlineorDemate(schemeCode);
+            Session["SchemeExchangeee"] = SchemetransactType;
+            BindExchangeDropDown(SchemetransactType["exchange"].ToString());
+        }
         protected void ddlchannel_onSelectedChanged(object sender, EventArgs e)
         {
             BindTransactionType(ddlchannel.SelectedValue);
+            //Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscripRajiv", @"LoadTransactPanel('MFOrderPurchaseTransType" + ddlchannel.SelectedValue + "');", true);
+        }
+        protected void TextBox1_OnTextChanged(object sender, EventArgs e)
+        {
+            if (schemeCode.Value != "")
+            {
+
+
+                string exchangeType = string.Empty;
+                CreateExchangeDetailsSession(Int32.Parse(schemeCode.Value));
+                Dictionary<string, string> SchemetransactType;
+                SchemetransactType = (Dictionary<string, string>)Session["SchemeExchangeee"];
+                if (SchemetransactType["exchange"].ToString().Contains("Online"))
+                {
+                    exchangeType = "&exchangeType=Online";
+
+                }
+                else
+                {
+                    exchangeType = "&exchangeType=Demat";
+
+                }
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromSchemeSearch", "LoadTransactPanel('MFOrderPurchaseTransType" + exchangeType + "');", true);
+                //if (!this.ClientScript.IsClientScriptBlockRegistered(this.GetType(), "LoadTransactPanelFromSchemeSearch"))
+                //{
+                //    Page.ClientScript.RegisterStartupScript(this.GetType(), "LoadTransactPanelFromSchemeSearch", @"LoadTransactPanel('MFOrderPurchaseTransType" + exchangeType + "');", true);
+                //}
+            }
         }
         protected void SchemeSearch_OnTextChanged(object sender, EventArgs e)
         {
             if (schemeCode.Value != "")
             {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscripRajiv", @"LoadBottomPanelControl('MFSchemeDetails','&schemeCode=" + schemeCode.Value + "');", true);
+
+
+                string exchangeType = string.Empty;
+                CreateExchangeDetailsSession(Int32.Parse(schemeCode.Value));
+                Dictionary<string, string> SchemetransactType;
+                SchemetransactType = (Dictionary<string, string>)Session["SchemeExchangeee"];
+                if (SchemetransactType["exchange"].ToString().Contains("Online"))
+                {
+                    exchangeType = "&exchangeType=Online";
+
+                }
+                else
+                {
+                    exchangeType = "&exchangeType=Demat";
+
+                }
+                if (!this.ClientScript.IsClientScriptBlockRegistered(this.GetType(), "pageloadscripRajiv"))
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscripRajiv", @"LoadTransactPanel('MFOrderPurchaseTransType" + exchangeType + "');", true);
+                }
             }
         }
         private void SetProductTypeMenu(string productType)

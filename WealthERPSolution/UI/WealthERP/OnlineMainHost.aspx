@@ -104,14 +104,19 @@
 </script>
 
 <script type="text/javascript" language="javascript">
+    function GetTransactPanelSchemePlanCode(source, eventArgs) {
+        isItemSelected = true;
+        document.getElementById("<%= schemeCode.ClientID %>").value = eventArgs.get_value();
+        return false;
+    }
     function GetSchemePlanCode(source, eventArgs) {
         isItemSelected = true;
+        document.getElementById("<%= schemeCode.ClientID %>").value = eventArgs.get_value();
         LoadBottomPanelControl('MFSchemeDetails', '&schemeCode=' + eventArgs.get_value());
         return false;
     }
     function ddlchange(ddl) {
-        var value = ddl.value;
-       
+        var value = ddl.value + '&exchangeType=' + ddlchannel.value;
         LoadTransactPanel(value);
     }
 </script>
@@ -528,11 +533,11 @@
         padding: 4px 6px 4px 6px;
         margin: 0px 0px 4px 0px;
     }
-    #lisearchscheme
+    #lisearchscheme ,#Div1
     {
         margin-top: 1px;
     }
-    #lisearchscheme input
+    #lisearchscheme input,#Div1 input
     {
         height: 28px;
         width: 100%;
@@ -549,7 +554,7 @@
         -o-box-sizing: border-box;
         box-sizing: border-box;
     }
-    #lisearchscheme input:focus
+    #lisearchscheme input:focus,#Div1 input:focus
     {
         outline: none;
         border-color: #66b1ee;
@@ -725,8 +730,8 @@
                 <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=MF&TYP=Demo');">
                     Demo</a> </li>
                 <div id="lisearchscheme" class="menu_right">
-                    <asp:TextBox runat="server" ID="SchemeSearch" AutoPostBack="false" Style="margin-top: 0px;
-                        float: right; background-color: #D7E9F5" Width="300px"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="SchemeSearch" AutoPostBack="true" OnTextChanged="SchemeSearch_OnTextChanged"
+                        Style="margin-top: 0px; float: right; background-color: #D7E9F5" Width="300px"></asp:TextBox>
                     <cc1:TextBoxWatermarkExtender ID="txtSchemeName_water" TargetControlID="SchemeSearch"
                         WatermarkText="Search Scheme" runat="server" EnableViewState="false">
                     </cc1:TextBoxWatermarkExtender>
@@ -821,7 +826,6 @@
                     Demo</a> </li>
             </ul>
         </div>
-        
         <div runat="server" style="margin: 2px 15px 5px 15px; padding: 0px 20px 0px 10px;
             max-width: 1285px; min-width: 940px; clear: both; height: 20px; color: #fff;
             background: #000;" id="dvNews">
@@ -841,12 +845,11 @@
 </marquee>
             </div>
         </div>
-       
         <div style="margin-top: 10px; z-index: 3;">
             <iframe name="bottomframe" class="bottomframe" width="100%" id="bottomframe" onload="javascript:calcIFrameHeight('bottomframe');"
                 src="OnlineBottomHost.aspx" scrolling="no"></iframe>
         </div>
-        <div style="clear: both; background-color: rgb(123,201,91); font-weight: bold; font-size: smaller">
+        <div style="clear: both; background-color:#E5F6FF; font-weight: bold; font-size: smaller">
             <div>
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
@@ -857,6 +860,21 @@
                         <table>
                             <tr>
                                 <td>
+                                    <div id="Div1">
+                                        <asp:TextBox runat="server" ID="TextBox1" AutoPostBack="true" OnTextChanged="TextBox1_OnTextChanged"
+                                            Style="margin-top: 0px; float: right; background-color: #D7E9F5" Width="300px"></asp:TextBox>
+                                        <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" TargetControlID="TextBox1"
+                                            WatermarkText="Search Scheme" runat="server" EnableViewState="false">
+                                        </cc1:TextBoxWatermarkExtender>
+                                        <div id="Div2" class="results" style="height: 150px; overflow-y: scroll; overflow-x: hidden;
+                                            text-align: left">
+                                        </div>
+                                        <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server" TargetControlID="TextBox1"
+                                            ServiceMethod="GetInvestorScheme" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                                            MinimumPrefixLength="1" EnableCaching="true" CompletionSetCount="5" CompletionInterval="100"
+                                            CompletionListCssClass="results" UseContextKey="True" OnClientItemSelected="GetTransactPanelSchemePlanCode"
+                                            DelimiterCharacters="" CompletionListElementID="Div2" Enabled="True" />
+                                    </div>
                                 </td>
                                 <td align="right" style="vertical-align: top;">
                                     <asp:Label ID="lblchannel" runat="server" Text="Exchange:" Style="color: Black; font-weight: bold;
@@ -864,9 +882,7 @@
                                 </td>
                                 <td>
                                     <asp:DropDownList ID="ddlchannel" runat="server" CssClass="cmbField" AutoPostBack="true"
-                                        OnSelectedIndexChanged="ddlchannel_onSelectedChanged" onchange="LoadTransactPanel('MFOrderPurchaseTransType')">
-                                        <asp:ListItem Text="Online" Selected="True" Value="Online"></asp:ListItem>
-                                        <asp:ListItem Text="Demat" Value="Demat"></asp:ListItem>
+                                        OnSelectedIndexChanged="ddlchannel_onSelectedChanged" onchange="LoadTransactPanel('MFOrderPurchaseTransType&exchangeType='+this.value)">
                                     </asp:DropDownList>
                                 </td>
                                 <td align="right" style="vertical-align: top;">

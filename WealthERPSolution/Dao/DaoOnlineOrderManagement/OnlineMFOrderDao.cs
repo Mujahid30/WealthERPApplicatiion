@@ -734,7 +734,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsOGetCustomerOrderBookTransaction;
         }
-        public DataTable GetCustomerFolioSchemeWise(int customerId,int schemeCode)
+        public DataTable GetCustomerFolioSchemeWise(int customerId, int schemeCode)
         {
             DataSet dsGetCustomerFolioSchemeWise;
             Database db;
@@ -755,6 +755,74 @@ namespace DaoOnlineOrderManagement
                 throw Ex;
             }
             return dtGetCustomerFolioSchemeWise;
+        }
+        public int BSEorderEntryParam(string TransCode,  int UserID, string ClientCode, string SchemeCd, string BuySell, string BuySellType,
+string DPTxn, string OrderVal, string Qty, string AllRedeem,  string Remarks, string KYCStatus, string RefNo, string SubBrCode, string EUIN,
+string EUINVal, string MinRedeem, string DPC, string IPAdd,int rmsId)
+        {
+            Database db;
+            DbCommand GetGetCustomerFolioSchemeWiseCmd;
+           
+            int result=0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetGetCustomerFolioSchemeWiseCmd = db.GetStoredProcCommand("SPROC_ONL_CreateBSEMFOrderEntryRequestDetails");
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@Transactioncode", DbType.String, TransCode);
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@UserID", DbType.String, UserID);
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@ClientCode", DbType.String, ClientCode);
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@SchemeCd", DbType.String, SchemeCd);
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@BuySell", DbType.String, BuySell);
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@BuySellType", DbType.String, BuySellType);
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@DPTxn", DbType.String, DPTxn);
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@Amount", DbType.String, OrderVal);
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@Qty", DbType.String, Qty);
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@AllRedeem", DbType.String, AllRedeem);
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@KYCStatus", DbType.String, KYCStatus);
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@RefNo", DbType.String, RefNo);
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@SubBrCode", DbType.String, SubBrCode);
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@EUIN", DbType.String, EUIN);
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@EUINVal", DbType.String, EUINVal);
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@MinRedeem", DbType.String, MinRedeem);
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@DPC", DbType.String, DPC);
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@IPAdd", DbType.String, IPAdd);
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@rmsId", DbType.Int32, rmsId);
+                db.AddOutParameter(GetGetCustomerFolioSchemeWiseCmd, "@OutOrderId", DbType.Int32, 10);
+                if (db.ExecuteNonQuery(GetGetCustomerFolioSchemeWiseCmd) != 0)
+                {
+                    result = Convert.ToInt32(db.GetParameterValue(GetGetCustomerFolioSchemeWiseCmd, "OutOrderId").ToString());
+                    
+                }
+               
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
+        
+        }
+        public void BSEorderResponseParam(int RequestId,int userId, double BSEOrderId, string ClientCode, string BSERemarks, int Successflag,int rmsId)
+        {
+            Database db;
+            DbCommand GetGetCustomerFolioSchemeWiseCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetGetCustomerFolioSchemeWiseCmd = db.GetStoredProcCommand("SPROC_ONL_CreateBSEMFOrderEntryResponseDetails");
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@UserID", DbType.String, userId);
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@ClientCode", DbType.String, ClientCode);
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@OrderId", DbType.Int64, BSEOrderId);
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@Remarks", DbType.String, BSERemarks);
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@Successflag", DbType.Int32, Successflag);
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@ReqId", DbType.String, RequestId.ToString());
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@rmsId", DbType.Int32, rmsId);
+               db.ExecuteNonQuery(GetGetCustomerFolioSchemeWiseCmd);
+            }  
+            catch(Exception ex)
+            {
+            }
         }
     }
 }

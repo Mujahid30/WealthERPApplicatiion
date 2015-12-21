@@ -63,26 +63,7 @@ namespace BoOnlineOrderManagement
             return result;
 
         }
-        public  Dictionary<string, string> GetTransactionTypeForExchange(string exchange)
-        {
-            Dictionary<string, string> TransactionTypes = new Dictionary<string, string>();
-            if (exchange == "Online")
-            {
-                TransactionTypes.Add("MFOrderPurchaseTransType", "Purchase");
-                TransactionTypes.Add("MFOrderSIPTransType", "SIP");
-                TransactionTypes.Add("MFOrderNFOTransType", "NFO");
-                TransactionTypes.Add("MFOrderRdemptionTransType", "Redeem");
-                //TransactionTypes.Add("Demat", "SWP");
-                //TransactionTypes.Add("Demat", "STP");
-            }
-            else if (exchange == "Demat")
-            {
-                TransactionTypes.Add("MFOrderPurchaseTransType", "Purchase");
-                TransactionTypes.Add("MFOrderRdemptionTransType", "Redeem");
-            }
-            return TransactionTypes;
-
-        }
+        
         public static string TrigerAPI(string URL)
         {
             string Response = "";
@@ -202,7 +183,7 @@ namespace BoOnlineOrderManagement
             }
             return dt;
         }
-        public DataTable GetAdvertisementData(string assetGroupCode,string type)
+        public DataTable GetAdvertisementData(string assetGroupCode, string type)
         {
 
 
@@ -255,6 +236,39 @@ namespace BoOnlineOrderManagement
 
             }
             return result;
+
+        }
+        public Dictionary<string, string> GetschemedetailonlineorDemate(int schemecode)
+        {
+            Dictionary<string, string> SchemetransactType = new Dictionary<string, string>();
+
+            SchemetransactType.Add("exchange", "Online,Demat");
+            SchemetransactType.Add("Online", "SIP,NFO");
+            SchemetransactType.Add("Demat", "");
+
+            return SchemetransactType;
+
+        }
+        public Dictionary<string, string> GetTransactionTypeForExchange(string exchange, string availableTransType)
+        {
+            Dictionary<string, string> TransactionTypes = new Dictionary<string, string>();
+            if (exchange == "Online")
+            {
+                TransactionTypes.Add("MFOrderPurchaseTransType", "Purchase");
+                if (availableTransType.Contains("SIP"))
+                    TransactionTypes.Add("MFOrderSIPTransType", "SIP");
+                if (availableTransType.Contains("NFO"))
+                    TransactionTypes.Add("MFOrderNFOTransType", "NFO");
+                TransactionTypes.Add("MFOrderRdemptionTransType", "Redeem");
+                //TransactionTypes.Add("Demat", "SWP");
+                //TransactionTypes.Add("Demat", "STP");
+            }
+            else if (exchange == "Demat")
+            {
+                TransactionTypes.Add("MFOrderPurchaseTransType", "Purchase");
+                TransactionTypes.Add("MFOrderRdemptionTransType", "Redeem");
+            }
+            return TransactionTypes;
 
         }
     }

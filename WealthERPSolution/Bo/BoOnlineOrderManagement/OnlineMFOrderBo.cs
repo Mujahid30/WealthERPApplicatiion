@@ -12,7 +12,9 @@ using System.Data.Common;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using DaoOnlineOrderManagement;
-
+using BoOnlineOrderManagement.DemoBSEMFOrderEntry;
+using System.Configuration;
+using System.IO;
 namespace BoOnlineOrderManagement
 {
     public class OnlineMFOrderBo : OnlineOrderBo
@@ -584,11 +586,99 @@ namespace BoOnlineOrderManagement
             {
                 dt = OnlineMFOrderDao.GetCustomerFolioSchemeWise(customerId, schemeCode);
             }
-                  catch (BaseApplicationException Ex)
+            catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
             return dt;
+        }
+        public bool DebitOrCreditRMSUserAccountBalance(int userId, string userAccountId, double amount, int rmsID, out int resultRmsId)
+        {
+            bool result = false;
+            string Response = string.Empty;
+            resultRmsId = 0;
+            string rmsType = amount < 0 ? "Debit" : "Credit";
+            DateTime requestTime = DateTime.Now;
+            DateTime responseTime = DateTime.Now;
+            OnlineOrderDao onlineOrderDao = new OnlineOrderDao();
+            string rmsAPI = ConfigurationSettings.AppSettings["RMS_USER_ACCOUNT_BALANCE_API"];
+            DataTable dt = new DataTable();
+
+            try
+            {
+                rmsAPI = rmsAPI.Replace("#UserAccountId#", userAccountId);
+                rmsAPI = rmsAPI.Replace("#Amount#", amount.ToString());
+                requestTime = DateTime.Now;
+                Response = TrigerAPI(rmsAPI);
+                responseTime = DateTime.Now;
+                StringReader theReader = new StringReader(Response);
+                DataSet theDataSet = new DataSet();
+                theDataSet.ReadXml(theReader);
+                dt = theDataSet.Tables[0];
+                if (Response.Contains("TRUE"))
+                {
+                    resultRmsId = onlineOrderDao.CreateOrUpdateRMSLog(userId, rmsID, 1, rmsType, amount, requestTime, responseTime, string.Empty, "RMSREsponse:-" + Response, dt.Rows[0]["ReferenceNumber"].ToString());
+                    result = true;
+
+                }
+                if (Response.Contains("FALSE"))
+                {
+                    resultRmsId = onlineOrderDao.CreateOrUpdateRMSLog(userId, rmsID, 0, rmsType, amount, requestTime, responseTime, string.Empty, "RMSREsponse:-" + Response, dt.Rows[0]["ReferenceNumber"].ToString());
+                    result = true;
+
+                }
+            }
+            catch (Exception Ex)
+            {
+                resultRmsId = onlineOrderDao.CreateOrUpdateRMSLog(userId, rmsID, 0, rmsType, amount, requestTime, responseTime, string.Empty, ("RMSREsponse:-" + Response + "ERROR:-" + Ex.Message), dt.Rows[0]["ReferenceNumber"].ToString());
+                result = false;
+            }
+            return result;
+
+        }
+        public string BSEorderEntryParam(int UserID, string ClientCode, OnlineMFOrderVo onlinemforderVo, int CustomerId)
+        {
+            DemoBSEMFOrderEntry.MFOrderEntryClient webOrderEntryClient = new DemoBSEMFOrderEntry.MFOrderEntryClient();
+            List<int> orderIds = new List<int>();
+            try
+            {
+                int rmsId;
+               OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
+                string passkey = "E234586789D";
+                string password = webOrderEntryClient.getPassword("9501", "12345", passkey);
+                string[] bsePassArray = password.Split('|');
+                bool isRMSDebited = DebitOrCreditRMSUserAccountBalance(UserID, ClientCode, -onlinemforderVo.Amount, 0, out  rmsId);
+                if (isRMSDebited)
+                {
+                    int transCode = OnlineMFOrderDao.BSEorderEntryParam("NEW", UserID, ClientCode, "035G", "P", "FRESH", "C", onlinemforderVo.Amount.ToString(), "", "N", "", "Y", "", "", "E101765", "Y", "N", "N", "", rmsId);
+                    string orderEntryresponse = webOrderEntryClient.orderEntryParam("NEW", transCode.ToString(), "", "9501", "95", "24214260", "035G", "P", "FRESH", "C", onlinemforderVo.Amount.ToString(), "", "N", "", "", "Y", "", "", "E101765", "Y", "N", "N", "", bsePassArray[1], passkey, "", "", "");
+                    string[] bseorderEntryresponseArray = password.Split('|');
+                    OnlineMFOrderDao.BSEorderResponseParam(transCode, UserID, Convert.ToInt64(bseorderEntryresponseArray[2]), ClientCode, bseorderEntryresponseArray[6], Convert.ToInt32(bseorderEntryresponseArray[7]), rmsId);
+                    if (Convert.ToInt32(bseorderEntryresponseArray[7]) == 101)
+                    {
+                        DebitOrCreditRMSUserAccountBalance(UserID, ClientCode, onlinemforderVo.Amount, rmsId, out  rmsId);
+                    }
+                    else
+                    {
+                        orderIds = CreateCustomerOnlineMFOrderDetails(onlinemforderVo, UserID, CustomerId);
+                    }
+                }
+                else
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                webOrderEntryClient.Close();
+               
+            }
+            //obj.AuthenticationRequest();
+            return "";
         }
     }
 }

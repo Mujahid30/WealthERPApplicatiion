@@ -47,7 +47,63 @@ namespace DaoOnlineOrderManagement
             }
 
         }
+        public int CreateOrUpdateRMSLog(int userId, int rmsId, int isSuccess, string RMSType, double RequestAmount, DateTime RequestTime, DateTime ResponseTime, string rmsTransactionId, string rmsResponseMessage, string rmsReferenceNumber)
+        {
+            Database db;
+            DbCommand createOrUpdateRMSLog;
+            int result = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createOrUpdateRMSLog = db.GetStoredProcCommand("SPROC_ONL_CreateOrUpdateRMSLog");
+                if (rmsId != 0)
+                    db.AddInParameter(createOrUpdateRMSLog, "@RMSId", DbType.Int32, rmsId);
+                db.AddInParameter(createOrUpdateRMSLog, "@ResponseTime", DbType.DateTime, ResponseTime);
+                db.AddInParameter(createOrUpdateRMSLog, "@RequestTime", DbType.DateTime, RequestTime);
+                db.AddInParameter(createOrUpdateRMSLog, "@RequestAmount", DbType.Decimal, RequestAmount);
+                db.AddInParameter(createOrUpdateRMSLog, "@RMSType", DbType.String, RMSType);
+                db.AddOutParameter(createOrUpdateRMSLog, "@OutRMSId", DbType.Int32, 10);
+                db.AddInParameter(createOrUpdateRMSLog, "@UserId", DbType.Int32, userId);
+                db.AddInParameter(createOrUpdateRMSLog, "@IsSuccess", DbType.Int16, isSuccess);
+                if (!string.IsNullOrEmpty(rmsTransactionId))
+                    db.AddInParameter(createOrUpdateRMSLog, "@RMSTransactionId", DbType.String, rmsTransactionId);
+                if (!string.IsNullOrEmpty(rmsResponseMessage))
+                    db.AddInParameter(createOrUpdateRMSLog, "@RMSResponseMessage", DbType.String, rmsResponseMessage);
+                db.AddInParameter(createOrUpdateRMSLog, "@ReferenceNumber", DbType.String, rmsReferenceNumber);
+                if (db.ExecuteNonQuery(createOrUpdateRMSLog) != 0)
+                {
+                    result = Convert.ToInt32(db.GetParameterValue(createOrUpdateRMSLog, "OutRMSId").ToString());
+                    
+                }
+                return result;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderDao.cs:CreateOrUpdateRMSLog(int userId, int rmsId, int isSuccess, string RMSType, decimal RequestAmount, DateTime RequestTime, DateTime ResponseTime, string rmsTransactionId, string rmsResponseMessage, string rmsReferenceNumber)");
+                object[] objects = new object[9];
+                objects[0] = userId;
+                objects[1] = rmsId;
+                objects[2] = isSuccess;
+                objects[3] = RMSType;
+                objects[4] = RequestAmount;
+                objects[5] = RequestTime;
+                objects[6] = rmsTransactionId;
+                objects[7] = rmsResponseMessage;
+                objects[8] = rmsReferenceNumber;
 
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        }
         public void UpdateOrderRMSAccountDebitDetails(int orderId, int isDebited, string rmsTransactionId, string rmsResponseMessage, string rmsReferenceNumber)
         {
 
