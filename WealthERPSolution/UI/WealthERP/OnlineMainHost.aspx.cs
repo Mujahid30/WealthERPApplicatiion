@@ -194,12 +194,13 @@ namespace WealthERP
                     i++;
                 }
             }
+            DropDownList1.Items.Clear();
             if (exchange.Contains("Online"))
             {
                 BindTransactionType("Online");
                
             }
-            else
+            else if (exchange.Contains("Demat"))
             {
                 BindTransactionType("Demat");
               

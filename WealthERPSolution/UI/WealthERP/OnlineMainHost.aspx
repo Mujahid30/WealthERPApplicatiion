@@ -879,8 +879,7 @@
                                     </div>
                                 </td>
                                 <td align="right" style="vertical-align: top;">
-                                    <asp:Label ID="lblchannel" runat="server" Text="Exchange:" Style="color: Black; font-weight: bold;
-                                        font-size: smaller"></asp:Label>
+                                    <asp:Label ID="lblchannel" runat="server" Text="Exchange:" CssClass="FieldName" ></asp:Label>
                                 </td>
                                 <td>
                                     <asp:DropDownList ID="ddlchannel" runat="server" CssClass="cmbField" AutoPostBack="true"
@@ -888,8 +887,7 @@
                                     </asp:DropDownList>
                                 </td>
                                 <td align="right" style="vertical-align: top;">
-                                    <asp:Label ID="Label2" runat="server" Text="Transaction Type:" Style="color: Black;
-                                        font-weight: bold; font-size: smaller"></asp:Label>
+                                    <asp:Label ID="Label2" runat="server" Text="Transaction Type:" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td>
                                     <asp:DropDownList ID="DropDownList1" runat="server" CssClass="cmbField" onchange="ddlchange(this);"

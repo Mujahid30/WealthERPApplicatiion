@@ -220,5 +220,28 @@ namespace DaoOnlineOrderManagement
             }
             return dt;
         }
+
+        public DataTable GetschemedetailonlineorDemate(int schemecode)
+        {
+            DataSet ds;
+            DataTable dt;
+            Database db;
+            DbCommand cmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_GetschemeExchangedetail");
+                db.AddInParameter(cmd, "@Schemecode", DbType.Int32, schemecode);
+               
+
+                ds = db.ExecuteDataSet(cmd);
+                dt = ds.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dt;
+        }
     }
 }

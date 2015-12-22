@@ -63,7 +63,7 @@ namespace BoOnlineOrderManagement
             return result;
 
         }
-        
+
         public static string TrigerAPI(string URL)
         {
             string Response = "";
@@ -241,10 +241,15 @@ namespace BoOnlineOrderManagement
         public Dictionary<string, string> GetschemedetailonlineorDemate(int schemecode)
         {
             Dictionary<string, string> SchemetransactType = new Dictionary<string, string>();
-
-            SchemetransactType.Add("exchange", "Online,Demat");
-            SchemetransactType.Add("Online", "SIP,NFO");
-            SchemetransactType.Add("Demat", "");
+            OnlineOrderDao onlineOrderDao = new OnlineOrderDao();
+            DataTable dt = onlineOrderDao.GetschemedetailonlineorDemate(schemecode);
+            foreach (DataRow dr in dt.Rows)
+            {
+                SchemetransactType.Add(dr["ExchangeType"].ToString(), dr["TransType"].ToString());
+            }
+            //SchemetransactType.Add("exchange", "Online,Demat");
+            //SchemetransactType.Add("Online", "SIP,NFO");
+            //SchemetransactType.Add("Demat", "");
 
             return SchemetransactType;
 
@@ -260,12 +265,20 @@ namespace BoOnlineOrderManagement
                 if (availableTransType.Contains("NFO"))
                     TransactionTypes.Add("MFOrderNFOTransType", "NFO");
                 TransactionTypes.Add("MFOrderRdemptionTransType", "Redeem");
-                //TransactionTypes.Add("Demat", "SWP");
-                //TransactionTypes.Add("Demat", "STP");
+                //if (availableTransType.Contains("SWP"))
+                //    TransactionTypes.Add("Demat", "SWP");
+                //if (availableTransType.Contains("STP"))
+                //    TransactionTypes.Add("Demat", "STP");
+                //if (availableTransType.Contains("Switch"))
+                //    TransactionTypes.Add("Demat", "Switch");
             }
             else if (exchange == "Demat")
             {
                 TransactionTypes.Add("MFOrderPurchaseTransType", "Purchase");
+                if (availableTransType.Contains("SIP"))
+                    TransactionTypes.Add("MFOrderSIPTransType", "SIP");
+                if (availableTransType.Contains("NFO"))
+                    TransactionTypes.Add("MFOrderNFOTransType", "NFO");
                 TransactionTypes.Add("MFOrderRdemptionTransType", "Redeem");
             }
             return TransactionTypes;
