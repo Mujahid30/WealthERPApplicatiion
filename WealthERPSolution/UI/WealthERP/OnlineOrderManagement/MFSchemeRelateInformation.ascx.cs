@@ -87,7 +87,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlCategory.DataBind();
             if (ddlCategory.ID.ToString() == "ddlCategory")
             {
-                ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All Catories", "0"));
+                ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All Categories", "0"));
             }
             
 
@@ -118,7 +118,6 @@ namespace WealthERP.OnlineOrderManagement
             hfNFOType.Value = "false";
             rblNFOType.Visible = false;
             BindSchemeRelatedDetails(int.Parse(hfAMCCode.Value), int.Parse(hfSchemeCode.Value), hfCategory.Value, int.Parse(hfCustomerId.Value), Int16.Parse(hfIsSchemeDetails.Value), Boolean.Parse(hfNFOType.Value), 1);
-          
             lblHeading.Text = "Schemes Details";
 
         }
@@ -159,6 +158,15 @@ namespace WealthERP.OnlineOrderManagement
             int pageIndex = int.Parse((sender as LinkButton).CommandArgument);
             BindSchemeRelatedDetails(int.Parse(hfAMCCode.Value), int.Parse(hfSchemeCode.Value), hfCategory.Value, int.Parse(hfCustomerId.Value), Int16.Parse(hfIsSchemeDetails.Value), Boolean.Parse(hfNFOType.Value), pageIndex);
 
+        }
+        protected void btnTopPeformers_OnClick(object sender, EventArgs e)
+        {
+            SetParametersForAdminGrid("lbTopSchemes");
+
+        }
+        protected void btnTopRated_OnClick(object sender, EventArgs e)
+        {
+            BindTopMarketSchemes(ddlMarketCategory.SelectedValue, Boolean.Parse(ddlSIP.SelectedValue), int.Parse(ddlReturns.SelectedValue), customerVo.CustomerId);
         }
 
         protected void GetSchemeDetails(object sender, EventArgs e)
@@ -449,10 +457,10 @@ namespace WealthERP.OnlineOrderManagement
                 tdReturn.Visible = true;
                 tdSchemeRank.Visible = false;
                 thSchemeRank.Visible = false;
-                thSIP.Visible = true;
-                tdSIP.Visible = true;
-                thBuy.Visible = true;
-                tdBuy.Visible = true;
+                thSIP.Visible = false;
+                tdSIP.Visible = false;
+                thBuy.Visible = false;
+                tdBuy.Visible = false;
                 if (ViewState["FilterType"].ToString() == "lbNFOList")
                 {
                     tdNFOStrtDate.Visible = true;

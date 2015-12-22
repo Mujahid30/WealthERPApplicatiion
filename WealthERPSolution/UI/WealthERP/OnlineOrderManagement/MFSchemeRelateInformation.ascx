@@ -26,6 +26,18 @@
     
 </script>
 
+<script type="text/javascript">
+    function markTab(sender, args) {
+        var attributes = args.get_tab().get_attributes();
+        attributes.setAttribute("visited", "true");
+        attributes
+    }
+    function showTab(sender, args) {
+        var label = document.getElementById("Label1");
+        label.innerText = args.get_tab().get_text();
+    }
+</script>
+
 <style type="text/css">
     @media only screen and (max-width: 800px)
     {
@@ -76,7 +88,7 @@
     .alignCenter
     {
         text-align: center;
-        font-size: small;
+        font-size: 90%;
     }
     table, th
     {
@@ -198,7 +210,6 @@
     <ContentTemplate>
         <div class="col-md-12" style="margin: 0px 20px 3px 12%; padding-top: 0.5%; padding-bottom: 0.5%;
             width: 75%;">
-            
             <div id="dvDemo" visible="true" runat="server">
                 <div class="col-md-12  col-xs-12 col-sm-12 ">
                     <div class="col-md-12  col-xs-12 col-sm-12 dottedBottom">
@@ -249,7 +260,8 @@
             </div>
             <div class="container">
                 <telerik:RadTabStrip ID="RadTabStripAdsUpload" runat="server" EnableTheming="True"
-                    EnableEmbeddedSkins="true" MultiPageID="multipageAdsUpload" SelectedIndex="0">
+                    EnableEmbeddedSkins="true" MultiPageID="multipageAdsUpload" SelectedIndex="0"
+                    Skin="Outlook">
                     <Tabs>
                         <telerik:RadTab runat="server" Text="Top Rated" Value="TRated">
                         </telerik:RadTab>
@@ -258,35 +270,47 @@
                     </Tabs>
                 </telerik:RadTabStrip>
                 <telerik:RadMultiPage ID="multipageAdsUpload" EnableViewState="true" runat="server">
-                    <telerik:RadPageView ID="RadPageView1" runat="server" Selected="true">
+                    <telerik:RadPageView ID="rpvTopRated" runat="server" Selected="true">
                         <div id="dvMarketData">
-                            <div class="row" style="margin-bottom: 1%">
-                                <div class="col-md-2">
-                                    Category:
-                                    <asp:DropDownList ID="ddlMarketCategory" runat="server" CssClass="form-control input-sm"
-                                        AutoPostBack="true" OnSelectedIndexChanged="ddlMarketCategory_OnSelectedIndexChanged">
-                                    </asp:DropDownList>
+                            <div class="row" style="margin-bottom: 1%; margin-top: 1%">
+                                <div class="col-md-1" style="width: 65px; padding-top: 5px">
+                                    Category
                                 </div>
                                 <div class="col-md-2">
-                                    Type:
-                                    <asp:DropDownList ID="ddlSIP" runat="server" AutoPostBack="true" CssClass="form-control input-sm"
-                                        OnSelectedIndexChanged="ddlSIP_OnSelectedIndexChanged">
+                                    <asp:DropDownList ID="ddlMarketCategory" runat="server" CssClass="form-control input-sm"
+                                        AutoPostBack="false" >
+                                    </asp:DropDownList>
+                                </div>
+                                <div class="col-md-1" style="width: 40px; padding-top: 5px">
+                                    Type
+                                </div>
+                                <div class="col-md-2">
+                                
+                                    <asp:DropDownList ID="ddlSIP" runat="server" AutoPostBack="false" CssClass="form-control input-sm"
+                                       >
                                         <asp:ListItem Text="SIP" Value="true"></asp:ListItem>
                                         <asp:ListItem Text="Non-SIP" Value="false"></asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
+                                <div class="col-md-1" style="width: 60px; padding-top: 5px">
+                                    Returns
+                                </div>
                                 <div class="col-md-2">
-                                    Returns:
-                                    <asp:DropDownList ID="ddlReturns" runat="server" AutoPostBack="true" CssClass="form-control input-sm"
-                                        OnSelectedIndexChanged="ddlReturns_OnSelectedIndexChanged">
+                                    <asp:DropDownList ID="ddlReturns" runat="server" AutoPostBack="false"
+                                     CssClass="form-control input-sm"
+                                        >
                                         <asp:ListItem Text="1st Year" Value="1"></asp:ListItem>
-                                        <asp:ListItem Text="2nd Year" Value="2"></asp:ListItem>
-                                        <asp:ListItem Text="3rd Year" Value="3"></asp:ListItem>
+                                        <asp:ListItem Text="3rd Year" Value="2"></asp:ListItem>
+                                        <asp:ListItem Text="5th Year" Value="3"></asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
+                                 <div class="col-md-1">
+                            <asp:Button ID="btnTopRated" runat="server" class="btn btn-sm btn-primary" Text="GO"
+                                OnClick="btnTopRated_OnClick" ></asp:Button></div>
+                    </div>
                             </div>
                             <div class="no-more-tables">
-                                <table class="col-md-12 table-bordered table-striped table-condensed cf" style="width: 85%;">
+                                <table class="col-md-12 table-bordered table-striped table-condensed cf" style="width: 80%;">
                                     <thead class="cf">
                                         <tr style="background-color: #2480c7; font-size: small; color: White; text-align: center">
                                             <th data-title="Scheme Name" class="alignCenter">
@@ -304,11 +328,14 @@
                                             <th data-title="Return" class="alignCenter" runat="server" visible="true" id="th7">
                                                 Returns (1yr / 3Yr / 5yr)
                                             </th>
-                                            <th data-title="Buy" class="alignCenter" runat="server" visible="true" id="th8">
+                                            <th data-title="Buy" class="alignCenter" runat="server" visible="false" id="th8">
                                                 Buy
                                             </th>
-                                            <th data-title="SIP" class="alignCenter" runat="server" visible="true" id="th9">
+                                            <th data-title="SIP" class="alignCenter" runat="server" visible="false" id="th9">
                                                 SIP
+                                            </th>
+                                            <th data-title="Action" class="alignCenter" runat="server" visible="true" id="th10">
+                                                Action
                                             </th>
                                             <th data-title="Watch" class="alignCenter">
                                                 Watch
@@ -339,7 +366,7 @@
                                                     <td data-title="Return" runat="server" visible="true" id="tdReturn">
                                                         <asp:Label ID="lblReturn" runat="server" Text='<%# Eval("schemeReturns")%>' Font-Size="Small"></asp:Label>
                                                     </td>
-                                                    <td data-title="Buy" runat="server" visible="true" id="tdBuy">
+                                                    <td data-title="Buy" runat="server" visible="false" id="tdBuy">
                                                         <asp:LinkButton ID="lbBuy" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
                                                             CommandName="Buy" Visible='<%# Eval("IsSchemePurchege")%>'>   
                                                 <img src="../Images/Buy_BIG_Buttons.png" height="30px" width="50px"/>
@@ -347,9 +374,16 @@
                                     </span>
                                                         </asp:LinkButton>
                                                     </td>
-                                                    <td data-title="SIP" runat="server" visible="true" id="tdSIP">
+                                                    <td data-title="SIP" runat="server" visible="false" id="tdSIP">
                                                         <asp:LinkButton ID="lbSIP" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
                                                             CommandName="SIP" Visible='<%# Eval("IsSchemeSIPType")%>'> <img src="../Images/SIP_BIG_Buttons.png" height="30px" width="50px"/>  </asp:LinkButton>
+                                                    </td>
+                                                    <td data-title="Action" runat="server" id="tdAction">
+                                                        <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" CssClass="form-control input-sm">
+                                                            <asp:ListItem Text="select" Value="0"></asp:ListItem>
+                                                            <asp:ListItem Text="Buy" Value="Buy"></asp:ListItem>
+                                                            <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
+                                                        </asp:DropDownList>
                                                     </td>
                                                     <td data-title="Watch">
                                                         <asp:LinkButton ID="lbRemoveWatch" runat="server" CommandName="RemoveFrmWatch" Visible='<% #(Convert.ToBoolean(Eval("IsInWatch"))==true) ? true : false %>'
@@ -368,12 +402,12 @@
                             </div>
                         </div>
                     </telerik:RadPageView>
-                    <telerik:RadPageView ID="rpvBanner" runat="server">
+                    <telerik:RadPageView ID="rpvTopPerformer" runat="server">
                         <div id="dvSchemeDetails">
                             <div class="row">
                                 <div class="col-md-4">
                                     <asp:Label ID="lblHeading" runat="server" Text="Scheme Details" Font-Bold="true"
-                                        Font-Size="Larger" ForeColor="#2475C7"></asp:Label>
+                                        Font-Size="Larger" ForeColor="#2475C7" Visible="false"></asp:Label>
                                 </div>
                                 <div class="col-md-4">
                                     <asp:RadioButtonList ID="rblNFOType" runat="server" AutoPostBack="true" RepeatDirection="Horizontal"
@@ -385,23 +419,28 @@
                                     </asp:RadioButtonList>
                                 </div>
                             </div>
-                            <div class="row" style="margin-bottom: 1%">
+                            <div class="row" style="margin-bottom: 1%; margin-top: 1%">
+                                <div class="col-md-1" style="width: 65px; padding-top: 5px">
+                                    Category</div>
                                 <div class="col-md-2">
-                                    Category:
                                     <asp:DropDownList ID="ddlTopCategory" runat="server" CssClass="form-control input-sm"
-                                        AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged">
+                                        AutoPostBack="true" >
                                     </asp:DropDownList>
                                 </div>
+                                <div class="col-md-1" style="width: 40px; padding-top: 5px">
+                                    Type
+                                </div>
                                 <div class="col-md-2">
-                                    Type:
                                     <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="true" CssClass="form-control input-sm">
                                         <asp:ListItem Text="SIP" Value="true"></asp:ListItem>
                                         <asp:ListItem Text="Non-SIP" Value="false"></asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
+                                <asp:Button ID="btnTopPeformers" runat="server" class="btn btn-sm btn-primary" Text="GO"
+                                OnClick="btnTopPeformers_OnClick" ></asp:Button></div>
                             </div>
                             <div id="no-more-tables">
-                                <table class="col-md-12 table-bordered table-striped table-condensed cf" style="width: 90%">
+                                <table class="col-md-12 table-bordered table-striped table-condensed cf" style="width: 80%">
                                     <thead class="cf">
                                         <tr style="background-color: #2480c7; font-size: small; color: White; text-align: center">
                                             <th data-title="SchemeRank" class="alignCenter" runat="server" visible="false" id="thSchemeRank">
@@ -434,11 +473,14 @@
                                             <th data-title="Return" class="alignCenter" runat="server" visible="false" id="thReturn">
                                                 Returns (1yr / 3Yr / 5yr)
                                             </th>
-                                            <th data-title="Buy" class="alignCenter" runat="server" visible="true" id="thBuy">
+                                            <th data-title="Buy" class="alignCenter" runat="server" visible="false" id="thBuy">
                                                 Buy
                                             </th>
                                             <th data-title="SIP" class="alignCenter" runat="server" visible="false" id="thSIP">
                                                 SIP
+                                            </th>
+                                            <th data-title="Action" class="alignCenter" runat="server" visible="true" id="th1">
+                                                Action
                                             </th>
                                             <th data-title="Watch" class="alignCenter">
                                                 Watch
@@ -451,7 +493,8 @@
                                                 OnItemDataBound="rpSchemeDetails_OnItemDataBound">
                                                 <ItemTemplate>
                                                     <td data-title="SchemeRank" class="alignCenter" runat="server" visible="false" id="tdSchemeRank">
-                                                        <asp:Label ID="lblSchemeRank" runat="server" Text='<%# Eval("PMFSR_SchemeRank")%>'></asp:Label>
+                                                        <asp:Label ID="lblSchemeRank" runat="server" Text='<%# Eval("PMFSR_SchemeRank")%>'
+                                                            Font-Size="90%"></asp:Label>
                                                     </td>
                                                     <td data-title="Scheme Name">
                                                         <asp:LinkButton ID="lbSchemeName" runat="server" ToolTip="Click To view Details Information"
@@ -497,6 +540,13 @@
                                                     <td data-title="SIP" runat="server" visible="false" id="tdSIP">
                                                         <asp:LinkButton ID="lbSIP" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
                                                             CommandName="SIP" Visible='<%# Eval("IsSchemeSIPType")%>'> <img src="../Images/SIP_BIG_Buttons.png" height="30px" width="50px"/>  </asp:LinkButton>
+                                                    </td>
+                                                    <td data-title="Action" runat="server" id="tdAction">
+                                                        <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" CssClass="form-control input-sm">
+                                                            <asp:ListItem Text="select" Value="0"></asp:ListItem>
+                                                            <asp:ListItem Text="Buy" Value="Buy"></asp:ListItem>
+                                                            <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
+                                                        </asp:DropDownList>
                                                     </td>
                                                     <td data-title="Watch">
                                                         <asp:LinkButton ID="lbRemoveWatch" runat="server" CommandName="RemoveFrmWatch" Visible='<% #(Convert.ToBoolean(Eval("IsInWatch"))==true) ? true : false %>'
