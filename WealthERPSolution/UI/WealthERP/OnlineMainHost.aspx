@@ -673,14 +673,12 @@
         <div class="product-header" style="float: left; clear: both;">
             <asp:Label ID="lblOnlieProductType" runat="server" Text="" CssClass="product-header-text"></asp:Label>
         </div>
-        <div id="scroller" runat="server" style="margin: 2px 15px 5px 15px; padding: 0px 20px 0px 10px;
-            max-width: 1285px; min-width: 940px; clear: both; height: 20px; color: #fff;
-            background: #000;">
-            <marquee style="border-radius: 2px;" direction="left" scrolldelay="150" onmouseover="this.setAttribute('scrollamount', 0, 0);"
+        <div id="scroller" runat="server" style="margin: 2px 15px 5px 15px; padding: 0px 20px 0px 10px;max-width: 1285px; min-width: 940px; clear: both; height:20px; color: #fff;background: #000;">
+            <marquee style="border-radius: 2px; font-size:small" direction="left" scrolldelay="150" onmouseover="this.setAttribute('scrollamount', 0, 0);"
                 onmouseout="this.setAttribute('scrollamount', 6, 0);">
         <asp:datalist ItemStyle-HorizontalAlign="Center" ItemStyle-CssClass="heading" ItemStyle-Width="33%" ItemStyle-Wrap="False" id="dlScroller" CellPadding="2" RepeatColumns="10" RepeatDirection="Horizontal" CellSpacing="2" Runat="server">
      <ItemTemplate>
-          <asp:Label ID="lblCountry" Text='<%# DataBinder.Eval(Container.DataItem,"PUHD_HelpDetails")%>' Runat="server">
+          <asp:Label ID="lblScroller" Text='<%# DataBinder.Eval(Container.DataItem,"PUHD_HelpDetails")%>' Runat="server">
           </asp:Label><br>
      </ItemTemplate>
      <SeparatorTemplate>
@@ -832,11 +830,11 @@
             background: #000;" id="dvNews">
             <div style="padding-left: 0px;">
                 <marquee direction="left" scrolldelay="150" onmouseover="this.setAttribute('scrollamount', 0, 0);"
-                    onmouseout="this.setAttribute('scrollamount', 6, 0);">
+                    onmouseout="this.setAttribute('scrollamount', 6, 0);" style="border-radius: 2px; font-size:small">
         <asp:datalist ItemStyle-HorizontalAlign="Center" ItemStyle-CssClass="heading" ItemStyle-Width="33%" ItemStyle-Wrap="False" id="dlNews" CellPadding="2" RepeatColumns="10" RepeatDirection="Horizontal" CellSpacing="2" Runat="server">
     
      <ItemTemplate>
-          <asp:Label ID="lblCountry" Text='<%# DataBinder.Eval(Container.DataItem,"heading")%>' Runat="server">
+          <asp:Label ID="lblNews" Text='<%# DataBinder.Eval(Container.DataItem,"heading")%>' Runat="server">
           </asp:Label><br>
      </ItemTemplate>
      <SeparatorTemplate>
