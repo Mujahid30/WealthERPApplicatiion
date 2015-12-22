@@ -155,7 +155,7 @@ namespace DaoOnlineOrderManagement
 
             return dsOrderStatus;
         }
-        public DataSet GetControlDetails(int Scheme, string folio)
+        public DataSet GetControlDetails(int Scheme, string folio,int demat)
         {
             DataSet dsGetControlDetails;
             Database db;
@@ -169,7 +169,7 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(GetGetControlDetailsCmd, "@accountid", DbType.Int32, int.Parse(folio));
                 else
                     db.AddInParameter(GetGetControlDetailsCmd, "@accountid", DbType.Int32, 0);
-
+                db.AddInParameter(GetGetControlDetailsCmd, "@demate", DbType.Int32, demat);
                 dsGetControlDetails = db.ExecuteDataSet(GetGetControlDetailsCmd);
 
             }
@@ -671,7 +671,7 @@ namespace DaoOnlineOrderManagement
             return dtGetMFSchemeDetailsForLanding;
         }
 
-        public DataSet GetCustomerSchemeFolioHoldings(int customerId, int schemeId, out string schemeDividendOption)
+        public DataSet GetCustomerSchemeFolioHoldings(int customerId, int schemeId, out string schemeDividendOption, int Demate)
         {
             DataSet dsCustomerSchemeFolioHoldings;
             Database db;
@@ -683,6 +683,8 @@ namespace DaoOnlineOrderManagement
                 GetCustomerSchemeFolioHoldingsCmd = db.GetStoredProcCommand("SPROC_ONL_GetCustomerSchemeFolioHoldings");
                 db.AddInParameter(GetCustomerSchemeFolioHoldingsCmd, "@CustomerId", DbType.Int32, customerId);
                 db.AddInParameter(GetCustomerSchemeFolioHoldingsCmd, "@SchemeId", DbType.Int32, schemeId);
+                db.AddInParameter(GetCustomerSchemeFolioHoldingsCmd, "@Demate", DbType.Int32, Demate);
+                
                 db.AddOutParameter(GetCustomerSchemeFolioHoldingsCmd, "@DividendType", DbType.String, 1000);
                 dsCustomerSchemeFolioHoldings = db.ExecuteDataSet(GetCustomerSchemeFolioHoldingsCmd);
 
@@ -712,7 +714,7 @@ namespace DaoOnlineOrderManagement
             return dsCustomerSchemeFolioHoldings;
         }
 
-        public DataSet GetCustomerOrderBookTransaction(int customerId, int amcCode, int schemeCode, string orderType)
+        public DataSet GetCustomerOrderBookTransaction(int customerId, int amcCode, int schemeCode, string orderType,int exchangeType)
         {
             DataSet dsOGetCustomerOrderBookTransaction;
             Database db;
@@ -725,6 +727,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(GetCustomerOrderBookTransactionCmd, "@amcCode", DbType.Int32, amcCode);
                 db.AddInParameter(GetCustomerOrderBookTransactionCmd, "@schemeCode", DbType.Int32, schemeCode);
                 db.AddInParameter(GetCustomerOrderBookTransactionCmd, "@transactionType", DbType.String, orderType);
+                db.AddInParameter(GetCustomerOrderBookTransactionCmd, "@exchangeType", DbType.Int32, exchangeType);
                 dsOGetCustomerOrderBookTransaction = db.ExecuteDataSet(GetCustomerOrderBookTransactionCmd);
 
             }

@@ -22,6 +22,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// </remarks>
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         protected global::System.Web.UI.WebControls.Label lblUnitsheldDisplay;
+        protected global::System.Web.UI.WebControls.Label lblDemate;
         /// <summary>
         /// UpdatePanel1 control.
         /// </summary>
@@ -174,7 +175,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trJointHolder;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdFolio;
         /// <summary>
         /// lblHolder control.
         /// </summary>

@@ -220,7 +220,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             DataSet ds = new DataSet();
             string schemeDividendOption;
-            ds = onlineMforderBo.GetCustomerSchemeFolioHoldings(customerVo.CustomerId, schemeId, out schemeDividendOption);
+            ds = onlineMforderBo.GetCustomerSchemeFolioHoldings(customerVo.CustomerId, schemeId, out schemeDividendOption,1);
             DataTable dt = ds.Tables[0];
             //SCHEME DETAILS SET--1
             if (dt.Rows.Count > -1)
@@ -499,9 +499,10 @@ namespace WealthERP.OnlineOrderManagement
             decimal availableBalance = onlineMforderBo.GetUserRMSAccountBalance(customerVo.AccountId);
             if (availableBalance >= Convert.ToDecimal(onlinemforderVo.Amount))
             {
-                OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId, exchangeType);
-                OrderId = int.Parse(OrderIds[0].ToString());
-
+                //onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
+                //OrderIds = 
+                //OrderId = int.Parse(OrderIds[0].ToString());
+                OrderId = 0;
                 if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
                 {
                     accountDebitStatus = onlineMforderBo.DebitRMSUserAccountBalance(customerVo.AccountId, -onlinemforderVo.Amount, OrderId);

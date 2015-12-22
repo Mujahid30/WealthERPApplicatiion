@@ -107,6 +107,15 @@
                 class="form-control">
             </asp:DropDownList>
         </div>
+         <div class="col-md-2">
+            Exchange:
+            <asp:DropDownList ID="ddlExchange" runat="server" CssClass="form-control input-sm"
+                class="form-control">
+                <asp:ListItem Text="Online" Value="1"></asp:ListItem>
+                <asp:ListItem Text="Demat" Value="0"></asp:ListItem>
+                
+            </asp:DropDownList>
+        </div>
     </div>
     <div class="col-md-12">
         <div class="col-md-2" style="margin-top: 1.6%;">

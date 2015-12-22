@@ -105,9 +105,15 @@ namespace WealthERP.OnlineOrderManagement
                         else
                         {
                             if (Request.QueryString["exchangeType"] == null)
+                            {
                                 exchangeType = "online";
+                                ViewState["exchangeType1"] = 1;
+                            }
                             else
+                            {
                                 exchangeType = Request.QueryString["exchangeType"].ToString();
+                                ViewState["exchangeType1"] = 0;
+                            }
                             //commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category);
                             AmcBind();
                             commonLookupBo.GetSchemeAMCSchemeCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out categoryname, out amcName, out schemeName);
@@ -272,7 +278,7 @@ namespace WealthERP.OnlineOrderManagement
             DataSet ds = new DataSet();
             double finalamt;
             double finalunits;
-            ds = onlineMforderBo.GetControlDetails(scheme, folio);
+            ds = onlineMforderBo.GetControlDetails(scheme, folio, int.Parse(ViewState["exchangeType1"].ToString()));
             DataTable dt = ds.Tables[0];
             if (dt.Rows.Count > -1)
             {
@@ -701,7 +707,7 @@ namespace WealthERP.OnlineOrderManagement
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please enter a valid Units');", true); return;
                 }
             }
-            OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId,exchangeType);
+            OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
             OrderId = int.Parse(OrderIds[0].ToString());
 
 

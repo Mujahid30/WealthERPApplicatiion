@@ -289,6 +289,7 @@
                     function markTab(sender, args) {
                         var attributes = args.get_tab().get_attributes();
                         attributes.setAttribute("visited", "true");
+                        attributes
                     }
                     function showTab(sender, args) {
                         var label = document.getElementById("Label1");
@@ -298,7 +299,7 @@
 
                 <telerik:RadTabStrip ID="RadTabStripAdsUpload" runat="server" EnableTheming="True"
                     EnableEmbeddedSkins="true" MultiPageID="multipageAdsUpload" SelectedIndex="0"
-                    skin="Outlook" CssClass="NoBg" OnClientMouseOver="showTab" OnClientMouseOut="markTab">
+                    skin="Outlook" >
                     <tabs>
                         <telerik:RadTab runat="server" Text="Snapshot" Value="Snapshot" TabIndex="0" Selected="true">
                         </telerik:RadTab>

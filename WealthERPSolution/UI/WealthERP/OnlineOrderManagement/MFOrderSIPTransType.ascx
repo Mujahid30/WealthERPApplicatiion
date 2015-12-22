@@ -157,11 +157,11 @@
                     OnClick="imgInformation_OnClick" ToolTip="Help" Style="cursor: hand;" />
             </div>
             <div class="col-md-12  col-xs-12 col-sm-12">
-                <div class="col-md-2">
+                <div class="col-md-3">
                      <b class="fontsize">AMC:</b>
                     <asp:Label ID="lblAmc" runat="server" CssClass="fieldFontSize"></asp:Label>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                      <b class="fontsize">Category:</b>
                     <asp:Label ID="lblCategory" runat="server" CssClass="fieldFontSize"></asp:Label>
                 </div>
@@ -176,7 +176,7 @@
                      <b class="fontsize">Last Recorded NAV(Rs):</b>
                     <asp:Label ID="lblNavDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                      <b class="fontsize">Minimum Initial Amount:</b>
                     <asp:Label ID="lblMinAmountrequiredDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>
                 </div>
@@ -190,7 +190,7 @@
                      <b class="fontsize">Cut-Off time:</b>
                     <asp:Label ID="lblCutOffTimeDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                      <b class="fontsize">Subsequent Amount(In Multiples Of):</b>
                     <asp:Label ID="lblMutiplesThereAfterDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>
                 </div>
@@ -230,7 +230,7 @@
                         CssClass="rfvPCG" ControlToValidate="ddlFrequency" Display="Dynamic" InitialValue="0"
                         ValidationGroup="btnSubmit">Please select frequency</asp:RequiredFieldValidator>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                      <b class="fontsize">Start Date:</b>
                     <asp:DropDownList ID="ddlStartDate" CssClass="cmbField" runat="server"
                         AutoPostBack="True" OnSelectedIndexChanged="ddlStartDate_SelectedIndexChanged"
@@ -288,7 +288,7 @@
                     <asp:TextBox Style="display: none;" ID="txtMinAmtDisplay" CssClass="txtField" Enabled="false"
                         runat="server"></asp:TextBox>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <asp:CheckBox ID="chkTermsCondition" runat="server" Font-Bold="True" Font-Names="Shruti"
                         Enabled="false" Checked="false" ForeColor="#145765" Text="" ToolTip="Click 'Terms & Conditions' to proceed further"
                         CausesValidation="true" />
@@ -302,7 +302,7 @@
                     Please read terms & conditions
                     </asp:CustomValidator>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <asp:Button ValidationGroup="btnSubmit" ID="btnSubmit" runat="server" CssClass="btn btn-sm btn-primary"
                         OnClick="btnSubmit_Click"></asp:Button>
                 </div>

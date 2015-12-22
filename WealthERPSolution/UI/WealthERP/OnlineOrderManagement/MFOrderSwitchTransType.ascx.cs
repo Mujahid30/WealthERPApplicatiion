@@ -142,7 +142,7 @@ namespace WealthERP.OnlineOrderManagement
             DataSet ds = new DataSet();
             double finalamt;
             double finalunits;
-            ds = onlineMforderBo.GetControlDetails(scheme, folio);
+            ds = onlineMforderBo.GetControlDetails(scheme, folio,1);
             DataTable dt = ds.Tables[0];
             if (SchemeType == "SO")
             {

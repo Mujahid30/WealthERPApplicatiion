@@ -95,10 +95,10 @@
         color: #104259;
     }
 </style>
-<body style="background-color: #E5F6FF; width: 100%">
+<body style="background-color: #E5F6FF;">
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
-            <div >
+            <div>
                 <table class="tblMessage" cellpadding="0" cellspacing="0">
                     <tr>
                         <td align="center">
@@ -109,41 +109,46 @@
                         </td>
                     </tr>
                 </table>
-                <div id="divControlContainer" runat="server" style="margin-left: 50px; width:100%">
-                    <table>
+                <div id="divControlContainer" runat="server" style="margin-left: 50px; margin-right: 50px;
+                    width: 100%">
+                    <table width="90%" style="margin-right: 50px;">
                         <tr>
                             <td>
                                 <b class="fontsize">AMC:</b><asp:Label ID="lblAmc" runat="server" CssClass="fieldFontSize"></asp:Label>
                             </td>
-                            <td style="margin-left:1px">
+                            <td style="margin-left: 1px">
                                 <b class="fontsize">Category:</b>
                                 <asp:Label ID="lblCategory" runat="server" CssClass="fieldFontSize"></asp:Label>
                             </td>
-                            <td style="margin-left:1px">
+                            <td style="margin-left: 1px">
                                 <b class="fontsize">Scheme:</b>
                                 <asp:Label ID="lblScheme" runat="server" CssClass="fieldFontSize"></asp:Label>
                             </td>
-                             <td style="margin-left:5px">
+                            <td style="margin-left: 5px" id="tdFolio" runat="server" visible="false">
                                 <b class="fontsize">Folio Number:</b>
                                 <asp:DropDownList ID="ddlFolio" CssClass="cmbField" OnSelectedIndexChanged="ddlFolio_OnSelectedIndexChanged"
                                     runat="server" AutoPostBack="True">
                                 </asp:DropDownList>
                             </td>
                             <td>
+                               
+                                <asp:Label ID="lblDemate" runat="server" CssClass="fieldFontSize" Visible="false"></asp:Label>
+                            </td>
+                            <td>
                                 <asp:ImageButton ID="imgInformation" runat="server" ImageUrl="../Images/help.png"
-                                    OnClick="imgInformation_OnClick" ToolTip="Help" Style="cursor: hand;float:right" />
+                                    OnClick="imgInformation_OnClick" ToolTip="Help" Style="cursor: hand; float: right" />
                             </td>
                         </tr>
-                        <tr style="border-width:thin;border-style:inset">
+                        <tr style="border-width: thin; border-style: inset">
                             <td>
                                 <b class="fontsize">Last Recorded NAV (Rs):</b>
                                 <asp:Label ID="lblNavDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>
                             </td>
-                            <td style="margin-left:5px">
+                            <td style="margin-left: 5px">
                                 <b class="fontsize">Minimum Initial Amount:</b>
                                 <asp:Label ID="lblMintxt" runat="server" CssClass="fieldFontSize"></asp:Label>
                             </td>
-                            <td style="margin-left:5px">
+                            <td style="margin-left: 5px">
                                 <b class="fontsize">Scheme Rating:</b>
                                 <asp:Image runat="server" ID="imgSchemeRating" />
                                 <asp:Label ID="lblSchemeRatingAsOn" runat="server" CssClass="fieldFontSize"></asp:Label>
@@ -152,28 +157,26 @@
                                 <b class="fontsize">Cut-Off time:</b>
                                 <asp:Label ID="lbltime" runat="server" Text="" CssClass="fieldFontSize"></asp:Label>
                             </td>
-                            <td style="margin-left:5px">
+                            <td style="margin-left: 5px">
                                 <b class="fontsize">Subsequent Amount(In Multiples Of):</b>
                                 <asp:Label ID="lblMulti" runat="server" CssClass="fieldFontSize"></asp:Label>
                             </td>
                         </tr>
-                        <tr style="border-width:thin;border-style:inset">
+                        <tr style="border-width: thin; border-style: inset">
                             <td>
                                 <b class="fontsize">Joint Holder:</b>
                                 <asp:Label ID="lblHolderDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>
                             </td>
-                            <td style="margin-left:1px">
+                            <td style="margin-left: 1px">
                                 <b class="fontsize">Nominee:</b>
                                 <asp:Label ID="lblNomineeDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>
                             </td>
-                            <td style="margin-left:5px">
+                            <td style="margin-left: 5px">
                                 <b class="fontsize">Units Held:</b>
                                 <asp:Label ID="lblUnitsheldDisplay" runat="server"></asp:Label>
                             </td>
                         </tr>
                         <tr>
-                           
-                           
                             <td>
                                 <b class="fontsize">Amount:</b>
                                 <asp:TextBox ID="txtAmt" runat="server" CssClass="txtField" MaxLength="11"></asp:TextBox>
@@ -185,18 +188,16 @@
                                     ErrorMessage="Please Enter Only Numbers and 2 digits after decimal " CssClass="rfvPCG"
                                     ValidationExpression="^[0-9]+(\.[0-9]{1,2})?$" ValidationGroup="btnSubmit" Display="Dynamic"></asp:RegularExpressionValidator>
                             </td>
-                             <td>
+                            <td>
                                 <div id="divDVR" runat="server" visible="false">
-                                    
-                                        <b class="fontsize">Dividend Type:</b>
-                                        <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField" Style="width: 200px;">
-                                        </asp:DropDownList>
-                                        <%--  <span id="Span4" class="spnRequiredField">*</span>--%>
-                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" CssClass="rfvPCG"
-                                            ErrorMessage="Please Select an Dividend Type" Display="Dynamic" ControlToValidate="ddlDivType"
-                                            InitialValue="0" ValidationGroup="btnSubmit">
-                                        </asp:RequiredFieldValidator>
-                                   
+                                    <b class="fontsize">Dividend Type:</b>
+                                    <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField" Style="width: 200px;">
+                                    </asp:DropDownList>
+                                    <%--  <span id="Span4" class="spnRequiredField">*</span>--%>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" CssClass="rfvPCG"
+                                        ErrorMessage="Please Select an Dividend Type" Display="Dynamic" ControlToValidate="ddlDivType"
+                                        InitialValue="0" ValidationGroup="btnSubmit">
+                                    </asp:RequiredFieldValidator>
                                 </div>
                             </td>
                             <td>
@@ -218,7 +219,7 @@
                             </td>
                             <td>
                                 <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="OnClick_Submit"
-                                    class="btn btn-sm btn-primary"  ValidationGroup="btnSubmit"></asp:Button>
+                                    class="btn btn-sm btn-primary" ValidationGroup="btnSubmit"></asp:Button>
                             </td>
                         </tr>
                     </table>
@@ -357,17 +358,6 @@
         </td>
         <td>
             <asp:Label ID="lblDividendType" runat="server" CssClass="txtField"></asp:Label>
-        </td>
-        <td colspan="2">
-            <asp:DropDownList ID="ddlAmc" runat="server" CssClass="cmbField" AutoPostBack="true"
-                OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged" Visible="false">
-            </asp:DropDownList>
-            <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField" AutoPostBack="true"
-                OnSelectedIndexChanged="ddlScheme_onSelectedChanged" Visible="false">
-            </asp:DropDownList>
-            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
-                OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged" Visible="false">
-            </asp:DropDownList>
         </td>
     </tr>
 </table>

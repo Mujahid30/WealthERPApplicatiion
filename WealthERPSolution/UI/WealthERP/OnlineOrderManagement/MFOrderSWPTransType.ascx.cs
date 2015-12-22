@@ -595,7 +595,7 @@ namespace WealthERP.OnlineOrderManagement
             DataSet ds = new DataSet();
             double finalamt;
             double finalunits;
-            ds = boOnlineOrder.GetControlDetails(scheme, folio);
+            ds = boOnlineOrder.GetControlDetails(scheme, folio,1);
             DataTable dt = ds.Tables[0];
             if (dt.Rows.Count > -1)
             {

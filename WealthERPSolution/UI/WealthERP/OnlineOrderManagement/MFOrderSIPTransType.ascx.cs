@@ -610,7 +610,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             DataSet ds = new DataSet();
 
-            ds = boOnlineOrder.GetControlDetails(scheme, ddlFolio.SelectedValue);
+            ds = boOnlineOrder.GetControlDetails(scheme, ddlFolio.SelectedValue,1);
             DataTable dt = ds.Tables[0];
             if (dt.Rows.Count > -1)
             {

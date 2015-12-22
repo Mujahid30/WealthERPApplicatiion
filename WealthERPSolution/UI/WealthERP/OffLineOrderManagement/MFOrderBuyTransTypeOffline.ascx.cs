@@ -119,7 +119,7 @@ namespace WealthERP.OffLineOrderManagement
         {
             DataSet ds = new DataSet();
             DataTable dtSchemeAmcCategory;
-            ds = onlineMforderBo.GetControlDetails(scheme, folio);
+            ds = onlineMforderBo.GetControlDetails(scheme, folio,1);
             dtSchemeAmcCategory = commonLookupBo.GetMFSchemeAMCCategory(scheme);
 
             DataTable dt = ds.Tables[0];
@@ -374,7 +374,7 @@ namespace WealthERP.OffLineOrderManagement
 
             if (availableBalance >= Convert.ToDecimal(onlinemforderVo.Amount))
             {
-                OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId,"Online");
+                OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
                 OrderId = int.Parse(OrderIds[0].ToString());
 
                 if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))

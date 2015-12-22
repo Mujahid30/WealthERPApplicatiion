@@ -562,6 +562,11 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CommissionReceivableRecon','login');", true);
                 }
+                else if (e.Item.Value == "Facta_MIS")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('HoldingIssueAllotment','login');", true);
+                }
+                    
                 else if (e.Item.Value == "Brokerage_Recon")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerUploadNew','login');", true);
@@ -1870,6 +1875,10 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Online_RMS_Log")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineAdviserCustomerRMSLog','login');", true);
+                }
+                else if (e.Item.Value == "Facta_MIS")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('HoldingIssueAllotment','login');", true);
                 }
                 else if (e.Item.Value == "OfflineCustomerMerge")
                 {

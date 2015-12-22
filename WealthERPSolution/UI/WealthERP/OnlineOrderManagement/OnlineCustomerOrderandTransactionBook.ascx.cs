@@ -74,23 +74,23 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void btnSIP_OnClick(object sender, EventArgs e)
         {
-            BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "SIP");
+            BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "SIP", int.Parse(ddlExchange.SelectedValue));
         }
         protected void btnNewPurchase_OnClick(object sender, EventArgs e)
         {
-            BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "BUY");
+            BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "BUY", int.Parse(ddlExchange.SelectedValue));
         }
         protected void btnAdditionalPurchase_OnClick(object sender, EventArgs e)
         {
-            BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "ABY");
+            BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "ABY", int.Parse(ddlExchange.SelectedValue));
         }
         protected void btnRedeem_OnClick(object sender, EventArgs e)
         {
-            BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "SEL");
+            BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "SEL", int.Parse(ddlExchange.SelectedValue));
         }
-        protected void BindOrderTransactionBook(int customerId, int amcCode, int schemeCode, string OrderType)
+        protected void BindOrderTransactionBook(int customerId, int amcCode, int schemeCode, string OrderType,int exchangeType)
         {
-            DataSet ds = OnlineMFOrderBo.GetCustomerOrderBookTransaction(customerId, amcCode, schemeCode, OrderType);
+            DataSet ds = OnlineMFOrderBo.GetCustomerOrderBookTransaction(customerId, amcCode, schemeCode, OrderType, exchangeType);
             DataTable dtOrderTransactionBook = ds.Tables[0];
             if (dtOrderTransactionBook.Rows.Count >= 0)
             {
