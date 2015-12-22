@@ -112,10 +112,11 @@
     function GetSchemePlanCode(source, eventArgs) {
         isItemSelected = true;
         document.getElementById("<%= schemeCode.ClientID %>").value = eventArgs.get_value();
-        LoadBottomPanelControl('MFSchemeDetails', '&schemeCode=' + eventArgs.get_value());
+//        LoadBottomPanelControl('MFSchemeDetails', '&schemeCode=' + eventArgs.get_value());
         return false;
     }
     function ddlchange(ddl) {
+     
         var value = ddl.value + '&exchangeType=' + ddlchannel.value;
         LoadTransactPanel(value);
     }
@@ -533,11 +534,11 @@
         padding: 4px 6px 4px 6px;
         margin: 0px 0px 4px 0px;
     }
-    #lisearchscheme ,#Div1
+    #lisearchscheme, #Div1
     {
         margin-top: 1px;
     }
-    #lisearchscheme input,#Div1 input
+    #lisearchscheme input, #Div1 input
     {
         height: 28px;
         width: 100%;
@@ -554,7 +555,7 @@
         -o-box-sizing: border-box;
         box-sizing: border-box;
     }
-    #lisearchscheme input:focus,#Div1 input:focus
+    #lisearchscheme input:focus, #Div1 input:focus
     {
         outline: none;
         border-color: #66b1ee;
@@ -849,7 +850,8 @@
             <iframe name="bottomframe" class="bottomframe" width="100%" id="bottomframe" onload="javascript:calcIFrameHeight('bottomframe');"
                 src="OnlineBottomHost.aspx" scrolling="no"></iframe>
         </div>
-        <div style="clear: both; background-color:#E5F6FF; font-weight: bold; font-size: smaller">
+        <div id="dvTransact" runat="server" style="clear: both; background-color: #E5F6FF;
+            font-weight: bold; font-size: smaller">
             <div>
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>

@@ -122,12 +122,16 @@ namespace WealthERP
                         mainmenuNCD.Visible = false;
                         mainmenuIPO.Visible = false;
                         scroller.Visible = true;
+                        dvNews.Visible = true;
+                        dvTransact.Visible = true;
                         SetScroller(productType.ToUpper());
                         //BindTransactionType("Online");
                         BindNewsHeading();
                     }
                     else if (productType.ToUpper() == "NCD")
                     {
+                        dvNews.Visible = false;
+                        dvTransact.Visible = false;
                         mainmenuMF.Visible = false;
                         mainmenuNCD.Visible = true;
                         mainmenuIPO.Visible = false;
@@ -140,6 +144,8 @@ namespace WealthERP
                         mainmenuNCD.Visible = false;
                         mainmenuIPO.Visible = true;
                         scroller.Visible = false;
+                        dvNews.Visible = false;
+                        dvTransact.Visible = false;
                     }
                     SetDemoLink(productType.ToUpper());
                     SetFAQLink(productType.ToUpper());
@@ -275,6 +281,10 @@ namespace WealthERP
                 {
                     exchangeType = "&exchangeType=Demat";
 
+                }
+                if (!this.ClientScript.IsClientScriptBlockRegistered(this.GetType(), "pageloadscripMFSchemeDetails"))
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscripMFSchemeDetails", @"LoadBottomPanelControl('MFSchemeDetails', '&schemeCode=" + schemeCode.Value + "');", true);
                 }
                 if (!this.ClientScript.IsClientScriptBlockRegistered(this.GetType(), "pageloadscripRajiv"))
                 {
