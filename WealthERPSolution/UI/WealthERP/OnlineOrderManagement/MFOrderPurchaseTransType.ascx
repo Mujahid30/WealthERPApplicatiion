@@ -80,20 +80,21 @@
     }
     .fontsize
     {
-        font-family: Verdana,Tahoma;
+        font-family: Times New Roman;
         font-weight: bold;
-        font-size: x-small;
+        font-size: smaller;
         color: #0396cc;
         vertical-align: middle;
         text-align: right;
     }
     .fieldFontSize
     {
-        font-family: Verdana,Tahoma;
-        font-weight: normal;
-        font-size: small;
+        font-family: Times New Roman;
+        font-weight: bold;
+        font-size: smaller;
         color: #104259;
     }
+    
 </style>
 <body style="background-color: #E5F6FF;">
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -131,7 +132,6 @@
                                 </asp:DropDownList>
                             </td>
                             <td>
-                               
                                 <asp:Label ID="lblDemate" runat="server" CssClass="fieldFontSize" Visible="false"></asp:Label>
                             </td>
                             <td>
@@ -139,9 +139,9 @@
                                     OnClick="imgInformation_OnClick" ToolTip="Help" Style="cursor: hand; float: right" />
                             </td>
                         </tr>
-                        <tr style="border-width: thin; border-style: inset">
+                        <tr style="border:1px solid #ccc;">
                             <td>
-                                <b class="fontsize">Last Recorded NAV (Rs):</b>
+                                <b class="fontsize">NAV (Rs):</b>
                                 <asp:Label ID="lblNavDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>
                             </td>
                             <td style="margin-left: 5px">
@@ -149,20 +149,15 @@
                                 <asp:Label ID="lblMintxt" runat="server" CssClass="fieldFontSize"></asp:Label>
                             </td>
                             <td style="margin-left: 5px">
-                                <b class="fontsize">Scheme Rating:</b>
-                                <asp:Image runat="server" ID="imgSchemeRating" />
-                                <asp:Label ID="lblSchemeRatingAsOn" runat="server" CssClass="fieldFontSize"></asp:Label>
+                                <b class="fontsize">Subsequent Amount(In Multiples Of):</b>
+                                <asp:Label ID="lblMulti" runat="server" CssClass="fieldFontSize"></asp:Label>
                             </td>
                             <td>
                                 <b class="fontsize">Cut-Off time:</b>
                                 <asp:Label ID="lbltime" runat="server" Text="" CssClass="fieldFontSize"></asp:Label>
                             </td>
-                            <td style="margin-left: 5px">
-                                <b class="fontsize">Subsequent Amount(In Multiples Of):</b>
-                                <asp:Label ID="lblMulti" runat="server" CssClass="fieldFontSize"></asp:Label>
-                            </td>
                         </tr>
-                        <tr style="border-width: thin; border-style: inset">
+                        <tr style="border:1px solid #ccc;">
                             <td>
                                 <b class="fontsize">Joint Holder:</b>
                                 <asp:Label ID="lblHolderDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>
@@ -174,6 +169,11 @@
                             <td style="margin-left: 5px">
                                 <b class="fontsize">Units Held:</b>
                                 <asp:Label ID="lblUnitsheldDisplay" runat="server"></asp:Label>
+                            </td>
+                            <td style="margin-left: 5px">
+                                <b class="fontsize">Scheme Rating:</b>
+                                <asp:Image runat="server" ID="imgSchemeRating" />
+                                <asp:Label ID="lblSchemeRatingAsOn" runat="server" CssClass="fieldFontSize"></asp:Label>
                             </td>
                         </tr>
                         <tr>

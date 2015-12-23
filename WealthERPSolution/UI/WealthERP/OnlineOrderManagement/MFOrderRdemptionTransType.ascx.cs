@@ -61,16 +61,20 @@ namespace WealthERP.OnlineOrderManagement
             int TOcpmaretime = int.Parse(DateTime.Now.ToShortTimeString().Split(':')[0]);
             if (TOcpmaretime >= int.Parse(ConfigurationSettings.AppSettings["START_TIME"]) && TOcpmaretime < int.Parse(ConfigurationSettings.AppSettings["END_TIME"]))
             {
-                if (Session["PageDefaultSetting"] != null)
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOnlineSchemeManager')", true);
-                    return;
-                }
-                else
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "loadcontrol('MFOnlineSchemeManager')", true);
-                    return;
-                }
+
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOnlineSchemeManager')", true);
+                return;
+                
+            }
+            if (Request.QueryString["exchangeType"] == null)
+            {
+                exchangeType = "Online";
+
+            }
+            else
+            {
+                exchangeType = Request.QueryString["exchangeType"].ToString();
+
             }
             if (!IsPostBack)
             {
@@ -104,16 +108,7 @@ namespace WealthERP.OnlineOrderManagement
                         }
                         else
                         {
-                            if (Request.QueryString["exchangeType"] == null)
-                            {
-                                exchangeType = "online";
-                                ViewState["exchangeType1"] = 1;
-                            }
-                            else
-                            {
-                                exchangeType = Request.QueryString["exchangeType"].ToString();
-                                ViewState["exchangeType1"] = 0;
-                            }
+                           
                             //commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category);
                             AmcBind();
                             commonLookupBo.GetSchemeAMCSchemeCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out categoryname, out amcName, out schemeName);
@@ -278,7 +273,7 @@ namespace WealthERP.OnlineOrderManagement
             DataSet ds = new DataSet();
             double finalamt;
             double finalunits;
-            ds = onlineMforderBo.GetControlDetails(scheme, folio, int.Parse(ViewState["exchangeType1"].ToString()));
+            ds = onlineMforderBo.GetControlDetails(scheme, folio, exchangeType == "Online" ? 1 : 0);
             DataTable dt = ds.Tables[0];
             if (dt.Rows.Count > -1)
             {

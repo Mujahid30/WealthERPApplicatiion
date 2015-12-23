@@ -52,8 +52,7 @@ namespace WealthERP.OnlineOrderManagement
             int TOcpmaretime = int.Parse(DateTime.Now.ToShortTimeString().Split(':')[0]);
             if (TOcpmaretime >= int.Parse(ConfigurationSettings.AppSettings["START_TIME"]) && TOcpmaretime < int.Parse(ConfigurationSettings.AppSettings["END_TIME"]))
             {
-
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadTransactPanel('MFOnlineSchemeManager')", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOnlineSchemeManager')", true);
                 return;
             }
 
@@ -265,7 +264,7 @@ namespace WealthERP.OnlineOrderManagement
                 txtAmt.Enabled = false;
                 ddlDivType.Enabled = false;
                 lnkFactSheet.Enabled = false;
-                trTermsCondition.Visible = false;
+                //trTermsCondition.Visible = false;
 
                 btnSubmit.Visible = false;
                 trNewOrder.Visible = true;

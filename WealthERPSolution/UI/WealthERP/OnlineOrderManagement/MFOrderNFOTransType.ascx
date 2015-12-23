@@ -73,22 +73,22 @@
     }
     .fontsize
     {
-        font-family: Verdana,Tahoma;
+        font-family: Times New Roman;
         font-weight: bold;
-        font-size: x-small;
+        font-size: smaller;
         color: #0396cc;
         vertical-align: middle;
         text-align: right;
     }
     .fieldFontSize
     {
-        font-family: Verdana,Tahoma;
-        font-weight: normal;
-        font-size: small;
+        font-family: Times New Roman;
+        font-weight: bold;
+        font-size: smaller;
         color: #104259;
     }
 </style>
-<body style="background-color: #E5F6FF">
+<body style="background-color: #E5F6FF; margin-left: 50px; margin-right: 50px;">
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
             <table class="tblMessage" cellpadding="0" cellspacing="0">
@@ -101,49 +101,49 @@
                     </td>
                 </tr>
             </table>
-            <div style="float: left; width: 100%" id="divControlContainer" runat="server">
+            <div style="margin-right: 50px; width: 100%" id="divControlContainer" runat="server">
                 <div class="col-md-12  col-xs-12 col-sm-12">
-                    <div style="float: right">
-                        <asp:ImageButton ID="imgInformation" runat="server" ImageUrl="../Images/help.png"
-                            OnClick="imgInformation_OnClick" ToolTip="Help" Style="cursor: hand;" />
-                    </div>
-                    <div class="col-md-3">
-                        <b class="fontsize">NFO Scheme:</b>
-                        <asp:Label ID="lblScheme" runat="server" CssClass="fieldFontSize"></asp:Label>
-                    </div>
                     <div class="col-md-3">
                         <b class="fontsize">AMC:</b>
                         <asp:Label ID="lblNFOSchemeAMC" runat="server" CssClass="fieldFontSize"></asp:Label>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <b class="fontsize">Category:</b>
                         <asp:Label ID="lblSchemeCategory" runat="server" CssClass="fieldFontSize"></asp:Label>
                     </div>
-                </div>
-                <div class="col-md-12  col-xs-12 col-sm-12" style="border-width: thin; border-style: inset;">
-                    <div class="col-md-3">
-                        <b class="fontsize">NFO Start Date:</b>
-                        <asp:Label ID="NFOStartDate" runat="server" CssClass="fieldFontSize"></asp:Label>
+                    <div class="col-md-4">
+                        <b class="fontsize">NFO Scheme:</b>
+                        <asp:Label ID="lblScheme" runat="server" CssClass="fieldFontSize"></asp:Label>
                     </div>
                     <div class="col-md-3">
-                        <b class="fontsize">NFO End Date:</b>
+                        <asp:ImageButton ID="imgInformation" runat="server" ImageUrl="../Images/help.png"
+                            OnClick="imgInformation_OnClick" ToolTip="Help" Style="cursor: hand;float:right" />
+                    </div>
+                </div>
+                <div class="col-md-12  col-xs-12 col-sm-12" style="border: 1px solid #ccc;">
+                    <div class="col-md-2">
+                        <b class="fontsize">Start Date:</b>
+                        <asp:Label ID="NFOStartDate" runat="server" CssClass="fieldFontSize"></asp:Label>
+                    </div>
+                    <div class="col-md-2">
+                        <b class="fontsize">End Date:</b>
                         <asp:Label ID="NFOEndDate" runat="server" CssClass="fieldFontSize"></asp:Label>
                     </div>
                     <div class="col-md-3">
-                        <b class="fontsize">Minimum Initial Amount</b>
+                        <b class="fontsize">Minimum Initial Amount:</b>
                         <asp:Label ID="lblMintxt" runat="server" CssClass="fieldFontSize"></asp:Label>
                     </div>
                     <div class="col-md-3">
                         <b class="fontsize">Subsequent Amount(In Multiples Of)</b>
                         <asp:Label ID="lblMulti" runat="server" CssClass="fieldFontSize"></asp:Label>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <b class="fontsize">Cut-Off time:</b>
                         <asp:Label ID="lbltime" runat="server" Text="" CssClass="fieldFontSize"></asp:Label>
                     </div>
                 </div>
-                <div class="col-md-12  col-xs-12 col-sm-12" style="border-width: thin; border-style: inset;">
-                    <div class="col-md-3">
+                <div class="col-md-12  col-xs-12 col-sm-12" style="border: 1px solid #ccc;">
+                    <div class="col-md-4">
                         <b class="fontsize">Joint Holder:</b>
                         <asp:Label ID="lblHolderDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>
                     </div>
@@ -153,7 +153,7 @@
                     </div>
                 </div>
                 <div class="col-md-12  col-xs-12 col-sm-12">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <b class="fontsize">Folio Number:</b>
                         <asp:DropDownList ID="ddlFolio" CssClass="cmbField" runat="server" AutoPostBack="false">
                         </asp:DropDownList>
@@ -197,7 +197,7 @@
                     Please read terms & conditions
                         </asp:CustomValidator>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-1">
                         <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="OnClick_Submit"
                             CssClass="btn btn-sm btn-primary" ValidationGroup="btnSubmit"></asp:Button>
                     </div>
@@ -237,8 +237,7 @@
             </div>
             <telerik:RadWindow ID="rwTermsCondition" runat="server" VisibleOnPageLoad="false"
                 Width="1000px" Height="140px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false"
-                Behaviors="Move,
-        Resize,Close" Title="Terms & Conditions" EnableShadow="true" Left="15%" Top="5" OnClientShow="setCustomPosition">
+                Behaviors="Move,Resize,Close" Title="Terms & Conditions" EnableShadow="true" Left="15%" Top="5" OnClientShow="setCustomPosition">
                 <ContentTemplate>
                     <div style="padding: 0px; width: 100%">
                         <table width="100%" cellpadding="0" cellpadding="0">

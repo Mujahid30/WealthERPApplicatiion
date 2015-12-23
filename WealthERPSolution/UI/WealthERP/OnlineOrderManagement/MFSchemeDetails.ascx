@@ -145,27 +145,19 @@
         font-size: small;
         color: Black;
     }
-   
+    .DetailfieldFontSize
+    {
+        font-family: Times New Roman;
+        font-weight: bold;
+        font-size: small;
+        color: #000;
+    }
 </style>
 <asp:UpdatePanel ID="updSchemDetails" runat="server" UpdateMode="Always">
     <ContentTemplate>
-        <table class="tblMessage" cellpadding="0" cellspacing="0">
-            <tr>
-                <td>
-                    <div class="divOnlinePageHeading" style="height: 25px;">
-                        <div class="divClientAccountBalance" id="divClientAccountBalance" runat="server">
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <div id="dvDemo" class="row " style="margin-left: 11%; margin-top: 1%; margin-bottom: 0.5%;
+              <div id="dvDemo" class="row " style="margin-left: 11%;  margin-bottom: 0.5%;
             margin-right: 5%; padding-top: 0.5%; padding-bottom: 0.5%;" visible="true" runat="server">
-            <div class="col-md-12  col-xs-12 col-sm-12">
-                <div class="col-md-12 dottedBottom">
-                    <b>Fund Filter </b>
-                </div>
-            </div>
+            
             <div class="col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 1%">
                 <div class="col-md-3">
                     <asp:DropDownList ID="ddlAMC" runat="server" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged"
@@ -202,7 +194,7 @@
                 </div>
             </div>
         </div>
-        <div id="Div2" style="margin-top: 1%; margin-bottom: 2%; width: 80%; padding-top: 1%;
+        <div id="Div2" style=" margin-bottom: 2%; width: 80%; 
             padding-bottom: 1%; margin-left: auto; margin-right: auto;" visible="false" runat="server">
             <div>
                 <div class="col-md-6" style="margin-bottom: 10px;">
@@ -271,9 +263,9 @@
                             </span></asp:LinkButton>
             </div>
         </div>
-        <div class="container" style="margin-top: 1%; margin-bottom: 2%; width: 80%; padding-top: 1%;
+        <div class="container" style=" margin-bottom: 2%; width: 80%;
             padding-bottom: 1%; margin-left: auto; margin-right: auto;">
-            <asp:Panel ID="pnlDetails" runat="server" Height="600px" ScrollBars="Both" Style="margin-left: 0px">
+            <asp:Panel ID="pnlDetails" runat="server"  ScrollBars="Both" Style="margin-left: 0px;" Height="600px">
                 <%--<ul id="profileTabs" class="nav nav-tabs">
                         <li class="active><a data-toggle="tab" role="tab" href="#DivSchemeInformation"><b>Snapshot</b></a></li>
                         <li><a data-toggle="tab" role="tab" href="#DivCharTab"><b>NAV Performance</b></a></li>
@@ -299,7 +291,7 @@
 
                 <telerik:RadTabStrip ID="RadTabStripAdsUpload" runat="server" EnableTheming="True"
                     EnableEmbeddedSkins="true" MultiPageID="multipageAdsUpload" SelectedIndex="0"
-                    skin="Outlook" >
+                    skin="Outlook"  onclientclick="calc('bottomframe')">
                     <tabs>
                         <telerik:RadTab runat="server" Text="Snapshot" Value="Snapshot" TabIndex="0" Selected="true">
                         </telerik:RadTab>
@@ -322,7 +314,7 @@
                                     <tbody class="alignment">
                                         <tr class="searchable-spec cell top sub-name small bordered">
                                             <th>
-                                                <b>AMC </b>
+                                                <b class="DetailfieldFontSize">AMC </b>
                                             </th>
                                             <td>
                                                 <asp:Label ID="lblAMC" runat="server"></asp:Label>
@@ -330,7 +322,7 @@
                                         </tr>
                                         <tr class="searchable-spec cell top sub-name small bordered">
                                             <th>
-                                                <b>Fund Manager</b>
+                                                <b class="DetailfieldFontSize">Fund Manager</b>
                                             </th>
                                             <td>
                                                 <asp:Label ID="lblFundManager" runat="server"></asp:Label>
@@ -338,7 +330,7 @@
                                         </tr>
                                         <tr class="searchable-spec cell top sub-name small bordered">
                                             <th>
-                                                <b>Return 1st yr (%)</b>
+                                                <b class="DetailfieldFontSize">Return 1st yr (%)</b>
                                             </th>
                                             <td>
                                                 <asp:Label ID="lblFundReturn1styear" runat="server"></asp:Label>
@@ -346,7 +338,7 @@
                                         </tr>
                                         <tr class="searchable-spec cell top sub-name small bordered">
                                             <th>
-                                                <b>Return 3rd yr (%)</b>
+                                                <b class="DetailfieldFontSize">Return 3rd yr (%)</b>
                                             </th>
                                             <td>
                                                 <asp:Label ID="lblFundReturn3rdyear" runat="server"></asp:Label>
@@ -354,7 +346,7 @@
                                         </tr>
                                         <tr class="searchable-spec cell top sub-name small bordered">
                                             <th>
-                                                <b>Return 5th yr (%)</b>
+                                                <b class="DetailfieldFontSize">Return 5th yr (%)</b>
                                             </th>
                                             <td>
                                                 <asp:Label ID="lblFundReturn5thyear" runat="server"></asp:Label>
@@ -362,7 +354,7 @@
                                         </tr>
                                         <tr class="searchable-spec cell top sub-name small bordered">
                                             <th>
-                                                <b>Min Investment Amount</b>
+                                                <b class="DetailfieldFontSize">Min Investment Amount</b>
                                             </th>
                                             <td>
                                                 <asp:Label ID="lblMinInvestment" runat="server"></asp:Label>
@@ -370,7 +362,7 @@
                                         </tr>
                                         <tr class="searchable-spec cell top sub-name small bordered">
                                             <th>
-                                                <b>Multiple of</b>
+                                                <b class="DetailfieldFontSize">Multiple of</b>
                                             </th>
                                             <td>
                                                 <asp:Label ID="lblMinMultipleOf" runat="server"></asp:Label>
@@ -378,7 +370,7 @@
                                         </tr>
                                         <tr class="searchable-spec cell top sub-name small bordered">
                                             <th>
-                                                <b>Exit Load</b>
+                                                <b class="DetailfieldFontSize">Exit Load</b>
                                             </th>
                                             <td>
                                                 <asp:Label ID="lblExitLoad" runat="server"></asp:Label>
@@ -392,7 +384,7 @@
                                     <tbody class="alignment">
                                         <tr class="searchable-spec cell top sub-name small bordered">
                                             <th>
-                                                <b>Category</b>
+                                                <b class="DetailfieldFontSize">Category</b>
                                             </th>
                                             <td>
                                                 <asp:Label ID="lblCategory" runat="server"></asp:Label>
@@ -400,7 +392,7 @@
                                         </tr>
                                         <tr class="searchable-spec cell top sub-name small bordered">
                                             <th>
-                                                <b>Scheme Benchmark</b>
+                                                <b class="DetailfieldFontSize">Scheme Benchmark</b>
                                             </th>
                                             <td>
                                                 <asp:Label ID="lblBanchMark" runat="server"></asp:Label>
@@ -408,7 +400,7 @@
                                         </tr>
                                         <tr class="searchable-spec cell top sub-name small bordered">
                                             <th>
-                                                <b>Benchmark Return 1st yr (%)</b>
+                                                <b class="DetailfieldFontSize">Benchmark Return 1st yr (%)</b>
                                             </th>
                                             <td>
                                                 <asp:Label ID="lblBenchmarkReturn" runat="server"></asp:Label>
@@ -416,7 +408,7 @@
                                         </tr>
                                         <tr class="searchable-spec cell top sub-name small bordered">
                                             <th>
-                                                <b>Benchmark Return 3rd yr (%)</b>
+                                                <b class="DetailfieldFontSize">Benchmark Return 3rd yr (%)</b>
                                             </th>
                                             <td>
                                                 <asp:Label ID="lblBenchMarkReturn3rd" runat="server"></asp:Label>
@@ -424,7 +416,7 @@
                                         </tr>
                                         <tr class="searchable-spec cell top sub-name small bordered">
                                             <th>
-                                                <b>Benchmark Return 5th yr (%)</b>
+                                                <b class="DetailfieldFontSize">Benchmark Return 5th yr (%)</b>
                                             </th>
                                             <td>
                                                 <asp:Label ID="lblBenchMarkReturn5th" runat="server"></asp:Label>
@@ -432,7 +424,7 @@
                                         </tr>
                                         <tr class="searchable-spec cell top sub-name small bordered">
                                             <th>
-                                                <b>Min SIP Amount</b>
+                                                <b class="DetailfieldFontSize">Min SIP Amount</b>
                                             </th>
                                             <td>
                                                 <asp:Label ID="lblMinSIP" runat="server"></asp:Label>
@@ -440,7 +432,7 @@
                                         </tr>
                                         <tr class="searchable-spec cell top sub-name small bordered">
                                             <th>
-                                                <b>Multiple of</b>
+                                                <b class="DetailfieldFontSize">Multiple of</b>
                                             </th>
                                             <td>
                                                 <asp:Label ID="lblSIPMultipleOf" runat="server"></asp:Label>
@@ -540,30 +532,30 @@
                                             <asp:Label ID="lblRatingAsOnPopUp" runat="server" CssClass="readOnlyFields"></asp:Label>
                                         </td>
                                         <td>
-                                            <span class="readOnlyFields">RATING</span>
+                                            <span class="DetailfieldFontSize">RATING</span>
                                         </td>
                                         <td>
-                                            <span class="readOnlyFields">RETURN</span>
+                                            <span class="DetailfieldFontSize">RETURN</span>
                                         </td>
                                         <td>
-                                            <span class="readOnlyFields">RISK</span>
+                                            <span class="DetailfieldFontSize">RISK</span>
                                         </td>
                                         <td>
-                                            <span class="readOnlyFields">RATING OVERALL</span>
+                                            <span class="DetailfieldFontSize">RATING OVERALL</span>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <span class="readOnlyFields">3 YEAR</span>
+                                            <span class="DetailfieldFontSize">3 YEAR</span>
                                         </td>
                                         <td>
                                             <asp:Image runat="server" ID="imgRating3yr" />
                                         </td>
                                         <td>
-                                            <asp:Label ID="lblSchemeRetrun3yr" runat="server" CssClass="readOnlyFields"> </asp:Label>
+                                            <asp:Label ID="lblSchemeRetrun3yr" runat="server" CssClass="DetailfieldFontSize"> </asp:Label>
                                         </td>
                                         <td>
-                                            <asp:Label ID="lblSchemeRisk3yr" runat="server" CssClass="readOnlyFields"> </asp:Label>
+                                            <asp:Label ID="lblSchemeRisk3yr" runat="server" CssClass="DetailfieldFontSize"> </asp:Label>
                                         </td>
                                         <td rowspan="3">
                                             <asp:Image runat="server" ID="imgRatingOvelAll" ImageAlign="Middle" />
@@ -571,30 +563,30 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <span class="readOnlyFields">5 YEAR</span>
+                                            <span class="DetailfieldFontSize">5 YEAR</span>
                                         </td>
                                         <td>
                                             <asp:Image runat="server" ID="imgRating5yr" />
                                         </td>
                                         <td>
-                                            <asp:Label ID="lblSchemeRetrun5yr" runat="server" CssClass="readOnlyFields"></asp:Label>
+                                            <asp:Label ID="lblSchemeRetrun5yr" runat="server" CssClass="DetailfieldFontSize"></asp:Label>
                                         </td>
                                         <td>
-                                            <asp:Label ID="lblSchemeRisk5yr" runat="server" CssClass="readOnlyFields"></asp:Label>
+                                            <asp:Label ID="lblSchemeRisk5yr" runat="server" CssClass="DetailfieldFontSize"></asp:Label>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <span class="readOnlyFields">10 YEAR</span>
+                                            <span class="DetailfieldFontSize">10 YEAR</span>
                                         </td>
                                         <td>
                                             <asp:Image runat="server" ID="imgRating10yr" />
                                         </td>
                                         <td>
-                                            <asp:Label ID="lblSchemeRetrun10yr" runat="server" CssClass="readOnlyFields"></asp:Label>
+                                            <asp:Label ID="lblSchemeRetrun10yr" runat="server" CssClass="DetailfieldFontSize"></asp:Label>
                                         </td>
                                         <td>
-                                            <asp:Label ID="lblSchemeRisk10yr" runat="server" CssClass="readOnlyFieldss"></asp:Label>
+                                            <asp:Label ID="lblSchemeRisk10yr" runat="server" CssClass="DetailfieldFontSize"></asp:Label>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -625,7 +617,7 @@
                                 <tbody>
                                     <tr class="searchable-spec cell top sub-name small bordered">
                                         <td>
-                                            FundManager
+                                           <b class="DetailfieldFontSize"> FundManager</b>
                                         </td>
                                         <td>
                                             <asp:Label ID="lblFundMAnagername" runat="server"></asp:Label>
@@ -633,7 +625,7 @@
                                     </tr>
                                     <tr class="searchable-spec cell top sub-name small bordered">
                                         <td>
-                                            Qualification
+                                           <b class="DetailfieldFontSize">  Qualification</b>
                                         </td>
                                         <td>
                                             <asp:Label ID="lblQualification" runat="server"></asp:Label>
@@ -641,7 +633,7 @@
                                     </tr>
                                     <tr class="searchable-spec cell top sub-name small bordered">
                                         <td>
-                                            Designation
+                                            <b class="DetailfieldFontSize"> Designation</b>
                                         </td>
                                         <td>
                                             <asp:Label ID="lblDesignation" runat="server"></asp:Label>
@@ -649,7 +641,7 @@
                                     </tr>
                                     <tr class="searchable-spec cell top sub-name small bordered">
                                         <td>
-                                            Experience
+                                            <b class="DetailfieldFontSize"> Experience</b>
                                         </td>
                                         <td>
                                             <asp:Label ID="lblExperience" runat="server"></asp:Label>
@@ -685,10 +677,10 @@
                                         <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
                                             text-align: center">
                                             <th data-title="Fund Name" class="alignCenter">
-                                                Top Holding
+                                                <b class="DetailfieldFontSize"> Top Holding</b>
                                             </th>
                                             <th data-title="Holding(%)" class="alignCenter">
-                                                Weight (%)
+                                              <b class="DetailfieldFontSize">   Weight (%)</b>
                                             </th>
                                         </tr>
                                     </thead>
@@ -717,10 +709,10 @@
                                         <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
                                             text-align: center">
                                             <th data-title="Sector" class="alignCenter">
-                                                Top Sector
+                                               <<b class="DetailfieldFontSize">  Top Sector</b>
                                             </th>
                                             <th data-title="Holding(%)" class="alignCenter">
-                                                Weight (%)
+                                               <b class="DetailfieldFontSize">  Weight (%)</b>
                                             </th>
                                         </tr>
                                     </thead>
@@ -749,10 +741,10 @@
                                         <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
                                             text-align: center">
                                             <th data-title="Fund Name" class="alignCenter">
-                                                Asset allocation
+                                              <b class="DetailfieldFontSize">   Asset allocation</b>
                                             </th>
                                             <th data-title="Holding(%)" class="alignCenter">
-                                                Weight (%)
+                                              <b class="DetailfieldFontSize">   Weight (%)</b>
                                             </th>
                                         </tr>
                                     </thead>
@@ -829,6 +821,7 @@
         <asp:HiddenField ID="hidCurrentScheme" runat="server" />
         <asp:HiddenField ID="TabName" runat="server" />
     </ContentTemplate>
+    
 </asp:UpdatePanel>
 
 <script type="text/javascript">

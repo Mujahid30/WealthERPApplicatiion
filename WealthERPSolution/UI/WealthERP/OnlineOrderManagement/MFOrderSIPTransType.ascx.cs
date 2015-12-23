@@ -559,7 +559,7 @@ namespace WealthERP.OnlineOrderManagement
             dtGetAllSIPDataForOrder = dvFilterDivNGrowth.ToTable();
             if (dtGetAllSIPDataForOrder.Rows[0]["PSLV_LookupValueCodeForSchemeOption"].ToString() == "DV")
             {
-                DivDropdown.Visible = true;
+                //DivDropdown.Visible = true;
                 DivText.Visible = true;
                 if (ddlScheme.SelectedIndex == 0) return;
                 BindSchemeDividendTypes(Convert.ToInt32(ddlScheme.SelectedValue.ToString()));
@@ -567,7 +567,7 @@ namespace WealthERP.OnlineOrderManagement
             else
             {
                 DivText.Visible = false;
-                DivDropdown.Visible = false;
+                //DivDropdown.Visible = false;
             }
         }
 

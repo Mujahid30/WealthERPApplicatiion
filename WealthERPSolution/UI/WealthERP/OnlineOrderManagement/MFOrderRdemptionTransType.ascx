@@ -32,18 +32,18 @@
     }
     .fontsize
     {
-        font-family: Verdana,Tahoma;
+        font-family: Times New Roman;
         font-weight: bold;
-        font-size: x-small;
+        font-size: smaller;
         color: #0396cc;
         vertical-align: middle;
         text-align: right;
     }
     .fieldFontSize
     {
-         font-family: Verdana,Tahoma;
-        font-weight: normal;
-        font-size: small;
+        font-family: Times New Roman;
+        font-weight: bold;
+        font-size: smaller;
         color: #104259;
     }
 </style>
@@ -108,7 +108,7 @@
     
 </script>
 
-<body style="background-color:#E5F6FF; width: 100%;height:250px">
+<body style="background-color: #E5F6FF; margin-left: 50px; margin-right: 50px;">
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
             <div style="height: 200px">
@@ -122,45 +122,42 @@
                         </td>
                     </tr>
                 </table>
-                <div id="divControlContainer" runat="server">
-                    <div class="col-md-12  col-xs-12 col-sm-12">
-                        <div style="float: right">
-                            <asp:ImageButton ID="imgInformation" runat="server" ImageUrl="../Images/help.png"
-                                OnClick="imgInformation_OnClick" ToolTip="Help" Style="cursor: hand;" /></div>
-                    </div>
+                <div style="margin-right: 50px; width: 100%" id="divControlContainer" runat="server">
                     <div class="col-md-12  col-xs-12 col-sm-12">
                         <div class="col-md-3">
                             <b class="fontsize">AMC:</b><asp:Label ID="lblAmc" runat="server" CssClass="fieldFontSize"></asp:Label>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <b class="fontsize">Category:</b>
                             <asp:Label ID="lblCategory" runat="server" CssClass="fieldFontSize"></asp:Label>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-4">
                             <b class="fontsize">Scheme:</b>
                             <asp:Label ID="lblScheme" runat="server" CssClass="fieldFontSize"></asp:Label>
                         </div>
-                    </div>
-                    <div class="col-md-12  col-xs-12 col-sm-12" style="margin-top: .5%; border-width: thin;
-                        border-style: inset;">
                         <div class="col-md-3">
-                            <b class="fontsize">Last Recorded NAV (Rs):</b>
+                            <asp:ImageButton ID="imgInformation" runat="server" ImageUrl="../Images/help.png"
+                                OnClick="imgInformation_OnClick" ToolTip="Help" Style="cursor: hand; float: right;" /></div>
+                    </div>
+                    <div class="col-md-12  col-xs-12 col-sm-12" style="border: 1px solid #ccc;">
+                        <div class="col-md-3">
+                            <b class="fontsize">NAV (Rs):</b>
                             <asp:Label ID="lblNavDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <b class="fontsize">Minimum Amount(Rs):</b>
                             <asp:Label ID="lblMinAmountValue" runat="server" Text="" CssClass="fieldFontSize"></asp:Label>
+                        </div>
+                        <div class="col-md-2">
+                            <b class="fontsize">Minimum Units:</b>
+                            <asp:Label ID="lblMinUnitValue" runat="server" Text="" CssClass="fieldFontSize"></asp:Label>
                         </div>
                         <div class="col-md-3">
                             <b class="fontsize">Cut-Off time:</b>
                             <asp:Label ID="lbltime" runat="server" Text="" CssClass="fieldFontSize"></asp:Label>
                         </div>
-                        <div class="col-md-3">
-                            <b class="fontsize">Minimum Units:</b>
-                            <asp:Label ID="lblMinUnitValue" runat="server" Text="" CssClass="fieldFontSize"></asp:Label>
-                        </div>
                     </div>
-                    <div class="col-md-12  col-xs-12 col-sm-12">
+                    <div class="col-md-12  col-xs-12 col-sm-12" style="border: 1px solid #ccc;">
                         <div class="col-md-12">
                             <table>
                                 <tr>
@@ -168,7 +165,6 @@
                                         <a href="#" class="popper" data-popbox="divSchemeRatingDetails"><span class="fontsize">
                                             Scheme Rating</span>
                                             <asp:Label ID="lblSchemeRatingAsOn" runat="server" CssClass="FieldName"></asp:Label>
-                                            <br />
                                             <asp:Image runat="server" ID="imgSchemeRating" />
                                         </a>
                                     </td>
@@ -251,17 +247,16 @@
                             </table>
                         </div>
                     </div>
-                    <div class="col-md-12  col-xs-12 col-sm-12" style="margin-top: .5%; border-width: thin;
-                        border-style: inset;">
+                    <div class="col-md-12  col-xs-12 col-sm-12" style="border: 1px solid #ccc;">
                         <div class="col-md-3">
                             <b class="fontsize">Joint Holder:</b>
                             <asp:Label ID="lblHolderDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <b class="fontsize">Nominee:</b>
                             <asp:Label ID="lblNomineeDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <b class="fontsize">Units Held:</b>
                             <asp:Label ID="lblUnitsheldDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>
                             <%--<labe id="lblblink" runat="server" visible="false" CssClass="FieldName">Text to blink here</blink>--%>
@@ -297,7 +292,7 @@
                                 InitialValue="0" ValidationGroup="btnSubmit">
                             </asp:RequiredFieldValidator>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <table>
                                 <tr class="spaceUnder" id="trRedeemType" runat="server">
                                     <td align="right" style="vertical-align: top;">
@@ -322,7 +317,6 @@
                                     </td>
                                 </tr>
                                 <tr class="spaceUnder" id="trDividendOption" runat="server">
-                                   
                                     <td align="right" style="vertical-align: top;">
                                         <asp:Label ID="lblOption" runat="server" Text="Option:" CssClass="FieldName"></asp:Label>
                                     </td>
@@ -332,30 +326,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="col-md-2" style="visibility: hidden">
-                            <b class="fontsize">Dividend Type:</b>
-                            <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField" Width="200px">
-                                <asp:ListItem Text="Select" Value="0"></asp:ListItem>
-                                <asp:ListItem Text="Dividend Reinvestment" Value="DVR"></asp:ListItem>
-                                <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>
-                            </asp:DropDownList>
-                            <span id="Span5" class="spnRequiredField">*</span>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" CssClass="rfvPCG"
-                                ErrorMessage="Please Select an Dividend Type" Display="Dynamic" ControlToValidate="ddlDivType"
-                                InitialValue="0" ValidationGroup="btnSubmit">
-                            </asp:RequiredFieldValidator>
-                        </div>
-                    </div>
-                    <div class="col-md-12  col-xs-12 col-sm-12">
-                       
                         <div class="col-md-3">
-                            <asp:Label ID="lblDividendFrequency" runat="server" Visible="false" Text="Dividend Frequency:"
-                                CssClass="FieldName"></asp:Label>
-                        </div>
-                        <div class="col-md-5">
-                            <asp:Label ID="lbldftext" runat="server" Visible="false" CssClass="FieldName"></asp:Label>
-                        </div>
-                         <div class="col-md-3">
                             <asp:CheckBox ID="chkTermsCondition" runat="server" Font-Bold="True" Font-Names="Shruti"
                                 Enabled="false" Checked="false" ForeColor="#145765" Text="" ToolTip="Click 'Terms & Conditions' to proceed further"
                                 CausesValidation="true" />
@@ -372,6 +343,28 @@
                                 CssClass="btn btn-sm btn-primary" ValidationGroup="btnSubmit"></asp:Button>
                         </div>
                     </div>
+                    <div class="col-md-12  col-xs-12 col-sm-12" style="visibility: hidden">
+                        <div class="col-md-2" style="visibility: hidden">
+                            <b class="fontsize">Dividend Type:</b>
+                            <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField" Width="200px">
+                                <asp:ListItem Text="Select" Value="0"></asp:ListItem>
+                                <asp:ListItem Text="Dividend Reinvestment" Value="DVR"></asp:ListItem>
+                                <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>
+                            </asp:DropDownList>
+                            <span id="Span5" class="spnRequiredField">*</span>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" CssClass="rfvPCG"
+                                ErrorMessage="Please Select an Dividend Type" Display="Dynamic" ControlToValidate="ddlDivType"
+                                InitialValue="0" ValidationGroup="btnSubmit">
+                            </asp:RequiredFieldValidator>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:Label ID="lblDividendFrequency" runat="server" Visible="false" Text="Dividend Frequency:"
+                                CssClass="FieldName"></asp:Label>
+                        </div>
+                        <div class="col-md-5">
+                            <asp:Label ID="lbldftext" runat="server" Visible="false" CssClass="FieldName"></asp:Label>
+                        </div>
+                    </div>
                 </div>
                 <telerik:RadWindow ID="rwTermsCondition" runat="server" VisibleOnPageLoad="false"
                     Width="1000px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Move, Resize,Close"
@@ -383,7 +376,7 @@
                                     <td align="left">
                                         <%--  <a href="../ReferenceFiles/MF-Terms-Condition.html">../ReferenceFiles/MF-Terms-Condition.html</a>--%>
                                         <iframe src="../ReferenceFiles/MF-Terms-Condition.html" name="iframeTermsCondition"
-                                            style="width: 100%"></iframe>
+                                            style="width: 100%;height:50%" ></iframe>
                                     </td>
                                 </tr>
                                 <tr>
