@@ -12,7 +12,7 @@ using System.Data.Common;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using DaoOnlineOrderManagement;
-using BoOnlineOrderManagement.DemoBSEMFOrderEntry;
+//using BoOnlineOrderManagement.DemoBSEMFOrderEntry;
 using System.Configuration;
 using System.IO;
 namespace BoOnlineOrderManagement
@@ -85,13 +85,13 @@ namespace BoOnlineOrderManagement
 
             return dsOrderStatus;
         }
-        public DataSet GetControlDetails(int scheme, string folio)
+        public DataSet GetControlDetails(int scheme, string folio,int demat)
         {
             DataSet ds = null;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             try
             {
-                ds = OnlineMFOrderDao.GetControlDetails(scheme, folio);
+                ds = OnlineMFOrderDao.GetControlDetails(scheme, folio,demat);
             }
             catch (BaseApplicationException Ex)
             {
@@ -134,7 +134,9 @@ namespace BoOnlineOrderManagement
 
             try
             {
-                orderIds = onlineOrderdao.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, UserId, CustomerId);
+             
+                    orderIds = onlineOrderdao.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, UserId, CustomerId);
+               
             }
             catch (BaseApplicationException Ex)
             {
@@ -463,13 +465,13 @@ namespace BoOnlineOrderManagement
             return dtGetMFSchemeDetailsForLanding;
         }
 
-        public DataSet GetCustomerSchemeFolioHoldings(int customerId, int schemeId, out string schemeDividendOption)
+        public DataSet GetCustomerSchemeFolioHoldings(int customerId, int schemeId, out string schemeDividendOption, int Demate)
         {
             DataSet ds = null;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             try
             {
-                ds = OnlineMFOrderDao.GetCustomerSchemeFolioHoldings(customerId, schemeId, out schemeDividendOption);
+                ds = OnlineMFOrderDao.GetCustomerSchemeFolioHoldings(customerId, schemeId, out schemeDividendOption, Demate);
             }
             catch (BaseApplicationException Ex)
             {
@@ -563,13 +565,13 @@ namespace BoOnlineOrderManagement
 
             return dsOrderStatus;
         }
-        public DataSet GetCustomerOrderBookTransaction(int customerId, int amcCode, int schemeCode, string orderType)
+        public DataSet GetCustomerOrderBookTransaction(int customerId, int amcCode, int schemeCode, string orderType,int exchangeType)
         {
             DataSet dsGetCustomerOrderBookTransaction;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             try
             {
-                dsGetCustomerOrderBookTransaction = OnlineMFOrderDao.GetCustomerOrderBookTransaction(customerId, amcCode, schemeCode, orderType);
+                dsGetCustomerOrderBookTransaction = OnlineMFOrderDao.GetCustomerOrderBookTransaction(customerId, amcCode, schemeCode, orderType, exchangeType);
             }
             catch (BaseApplicationException Ex)
             {
@@ -638,45 +640,45 @@ namespace BoOnlineOrderManagement
         }
         public string BSEorderEntryParam(int UserID, string ClientCode, OnlineMFOrderVo onlinemforderVo, int CustomerId)
         {
-            DemoBSEMFOrderEntry.MFOrderEntryClient webOrderEntryClient = new DemoBSEMFOrderEntry.MFOrderEntryClient();
+            //DemoBSEMFOrderEntry.MFOrderEntryClient webOrderEntryClient = new DemoBSEMFOrderEntry.MFOrderEntryClient();
             List<int> orderIds = new List<int>();
-            try
-            {
-                int rmsId;
-               OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
-                string passkey = "E234586789D";
-                string password = webOrderEntryClient.getPassword("9501", "12345", passkey);
-                string[] bsePassArray = password.Split('|');
-                bool isRMSDebited = DebitOrCreditRMSUserAccountBalance(UserID, ClientCode, -onlinemforderVo.Amount, 0, out  rmsId);
-                if (isRMSDebited)
-                {
-                    int transCode = OnlineMFOrderDao.BSEorderEntryParam("NEW", UserID, ClientCode, "035G", "P", "FRESH", "C", onlinemforderVo.Amount.ToString(), "", "N", "", "Y", "", "", "E101765", "Y", "N", "N", "", rmsId);
-                    string orderEntryresponse = webOrderEntryClient.orderEntryParam("NEW", transCode.ToString(), "", "9501", "95", "24214260", "035G", "P", "FRESH", "C", onlinemforderVo.Amount.ToString(), "", "N", "", "", "Y", "", "", "E101765", "Y", "N", "N", "", bsePassArray[1], passkey, "", "", "");
-                    string[] bseorderEntryresponseArray = password.Split('|');
-                    OnlineMFOrderDao.BSEorderResponseParam(transCode, UserID, Convert.ToInt64(bseorderEntryresponseArray[2]), ClientCode, bseorderEntryresponseArray[6], Convert.ToInt32(bseorderEntryresponseArray[7]), rmsId);
-                    if (Convert.ToInt32(bseorderEntryresponseArray[7]) == 101)
-                    {
-                        DebitOrCreditRMSUserAccountBalance(UserID, ClientCode, onlinemforderVo.Amount, rmsId, out  rmsId);
-                    }
-                    else
-                    {
-                        orderIds = CreateCustomerOnlineMFOrderDetails(onlinemforderVo, UserID, CustomerId);
-                    }
-                }
-                else
-                {
+            //try
+            //{
+               // int rmsId;
+               //OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
+               // string passkey = "E234586789D";
+               // string password = webOrderEntryClient.getPassword("9501", "12345", passkey);
+               // string[] bsePassArray = password.Split('|');
+               // bool isRMSDebited = DebitOrCreditRMSUserAccountBalance(UserID, ClientCode, -onlinemforderVo.Amount, 0, out  rmsId);
+               // if (isRMSDebited)
+               // {
+               //     int transCode = OnlineMFOrderDao.BSEorderEntryParam("NEW", UserID, ClientCode, "035G", "P", "FRESH", "C", onlinemforderVo.Amount.ToString(), "", "N", "", "Y", "", "", "E101765", "Y", "N", "N", "", rmsId);
+               //     string orderEntryresponse = webOrderEntryClient.orderEntryParam("NEW", transCode.ToString(), "", "9501", "95", "24214260", "035G", "P", "FRESH", "C", onlinemforderVo.Amount.ToString(), "", "N", "", "", "Y", "", "", "E101765", "Y", "N", "N", "", bsePassArray[1], passkey, "", "", "");
+               //     string[] bseorderEntryresponseArray = password.Split('|');
+               //     OnlineMFOrderDao.BSEorderResponseParam(transCode, UserID, Convert.ToInt64(bseorderEntryresponseArray[2]), ClientCode, bseorderEntryresponseArray[6], Convert.ToInt32(bseorderEntryresponseArray[7]), rmsId);
+               //     if (Convert.ToInt32(bseorderEntryresponseArray[7]) == 101)
+               //     {
+               //         DebitOrCreditRMSUserAccountBalance(UserID, ClientCode, onlinemforderVo.Amount, rmsId, out  rmsId);
+               //     }
+               //     else
+               //     {
+               //         orderIds = CreateCustomerOnlineMFOrderDetails(onlinemforderVo, UserID, CustomerId);
+               //     }
+               // }
+               // else
+               // {
 
-                }
-            }
-            catch (Exception ex)
-            {
+               // }
+            //}
+            //catch (Exception ex)
+            //{
 
-            }
-            finally
-            {
-                webOrderEntryClient.Close();
+            //}
+            //finally
+            //{
+            //    webOrderEntryClient.Close();
                
-            }
+            //}
             //obj.AuthenticationRequest();
             return "";
         }
