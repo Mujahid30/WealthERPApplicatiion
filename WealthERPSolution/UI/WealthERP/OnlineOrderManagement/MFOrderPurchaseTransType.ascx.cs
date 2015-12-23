@@ -260,6 +260,7 @@ namespace WealthERP.OnlineOrderManagement
             if (ds.Tables[4].Rows.Count > 0)
             {
                 lblDemate.Text=ds.Tables[4].Rows[0][0].ToString();
+                onlinemforderVo.BSESchemeCode = ds.Tables[4].Rows[0][0].ToString();
             }
             if (ddlFolio.SelectedValue != "New" && ddlFolio.SelectedValue != "0" && ddlFolio.SelectedValue != "")
             {
@@ -486,12 +487,13 @@ namespace WealthERP.OnlineOrderManagement
                 if (availableBalance >= Convert.ToDecimal(onlinemforderVo.Amount))
                 {
                     OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();
-                    message = OnlineMFOrderBo.BSEorderEntryParam(userVo.UserId, customerVo.CustCode, onlinemforderVo, customerVo.CustomerId);
+                    message = OnlineMFOrderBo.BSEorderEntryParam(userVo.UserId, customerVo.CustCode, onlinemforderVo, customerVo.CustomerId, out msgType);
+                }
+                else
+                {
+                    message = "Order cannot be processed. Insufficient balance";
                 }
             }
-            PurchaseOrderControlsEnable(false);
-            ShowMessage(message, msgType);
-            message = CreateUserMessage(OrderId, accountDebitStatus, retVal == 1 ? true : false, out msgType);
             PurchaseOrderControlsEnable(false);
             ShowMessage(message, msgType);
 

@@ -772,9 +772,9 @@ string EUINVal, string MinRedeem, string DPC, string IPAdd,int rmsId)
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetGetCustomerFolioSchemeWiseCmd = db.GetStoredProcCommand("SPROC_ONL_CreateBSEMFOrderEntryRequestDetails");
                 db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@Transactioncode", DbType.String, TransCode);
-                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@UserID", DbType.String, UserID);
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@UserID", DbType.Int32, UserID);
                 db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@ClientCode", DbType.String, ClientCode);
-                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@SchemeCd", DbType.String, SchemeCd);
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@SchemeCode", DbType.String, SchemeCd);
                 db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@BuySell", DbType.String, BuySell);
                 db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@BuySellType", DbType.String, BuySellType);
                 db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@DPTxn", DbType.String, DPTxn);
@@ -806,7 +806,7 @@ string EUINVal, string MinRedeem, string DPC, string IPAdd,int rmsId)
             return result;
         
         }
-        public void BSEorderResponseParam(int RequestId,int userId, double BSEOrderId, string ClientCode, string BSERemarks, int Successflag,int rmsId)
+        public void BSEorderResponseParam(int RequestId,int userId, double BSEOrderId, string ClientCode, string BSERemarks, string Successflag,int rmsId)
         {
             Database db;
             DbCommand GetGetCustomerFolioSchemeWiseCmd;
@@ -814,9 +814,9 @@ string EUINVal, string MinRedeem, string DPC, string IPAdd,int rmsId)
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetGetCustomerFolioSchemeWiseCmd = db.GetStoredProcCommand("SPROC_ONL_CreateBSEMFOrderEntryResponseDetails");
-                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@UserID", DbType.String, userId);
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@UserID", DbType.Int32, userId);
                 db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@ClientCode", DbType.String, ClientCode);
-                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@OrderId", DbType.Int64, BSEOrderId);
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@BSEOrderId", DbType.Int64, BSEOrderId);
                 db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@Remarks", DbType.String, BSERemarks);
                 db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@Successflag", DbType.Int32, Successflag);
                 db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@ReqId", DbType.String, RequestId.ToString());

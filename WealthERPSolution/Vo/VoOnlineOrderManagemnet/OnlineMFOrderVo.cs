@@ -33,6 +33,7 @@ namespace VoOnlineOrderManagemnet
         public int MaxDues { set; get; }
         public bool IsAllUnits { set; get; }
         public string SWPRedeemValueType { set; get; }
+        public string BSESchemeCode { set; get; }
         
     }
 }
