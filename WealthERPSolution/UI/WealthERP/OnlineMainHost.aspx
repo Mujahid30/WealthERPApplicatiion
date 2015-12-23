@@ -112,11 +112,11 @@
     function GetSchemePlanCode(source, eventArgs) {
         isItemSelected = true;
         document.getElementById("<%= schemeCode.ClientID %>").value = eventArgs.get_value();
-//        LoadBottomPanelControl('MFSchemeDetails', '&schemeCode=' + eventArgs.get_value());
+        //        LoadBottomPanelControl('MFSchemeDetails', '&schemeCode=' + eventArgs.get_value());
         return false;
     }
     function ddlchange(ddl) {
-     
+
         var value = ddl.value + '&exchangeType=' + ddlchannel.value;
         LoadTransactPanel(value);
     }
@@ -271,9 +271,9 @@
         -moz-border-radius: 10px;
         -webkit-border-radius: 10px;
         border-radius: 10px; /* Background color and gradients */
-        background: #81CCE9;
-        background: -moz-linear-gradient(top, #81CCE9, #81CCE9);
-        background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#81CCE9), to(#81CCE9)); /* Borders */
+        background: #01aaeb;
+        background: -moz-linear-gradient(top, #01aaeb, #01aaeb);
+        background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#01aaeb), to(#01aaeb)); /* Borders */
         -moz-box-shadow: inset 0px 0px 1px #edf9ff;
         -webkit-box-shadow: inset 0px 0px 1px #edf9ff;
         box-shadow: inset 0px 0px 1px #edf9ff;
@@ -293,58 +293,51 @@
     {
         border: 1px solid #777777;
         padding: 4px 9px 4px 9px; /* Background color and gradients */
-        background: #F4F4F4;
-        background: -moz-linear-gradient(top, #F4F4F4, #EEEEEE);
-        background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F4F4F4), to(#EEEEEE)); /* Rounded corners */
+        background: #014360;
+        background: -moz-linear-gradient(top, #014360, #014360);
+        background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#014360), to(#014360)); /* Rounded corners */
         -moz-border-radius: 5px 5px 0px 0px;
         -webkit-border-radius: 5px 5px 0px 0px;
         border-radius: 5px 5px 0px 0px;
     }
     #menuMF li a, #menuNCD li a, #menuIPO li a
     {
-        font-family: Arial, Helvetica, sans-serif;
+        font-family: Times New Roman;
         font-size: 14px;
         color: #EEEEEE;
         display: block;
         outline: 0;
         text-decoration: none;
-        text-shadow: 1px 1px 1px #000;
     }
     #menuMF li:hover a, #menuNCD li:hover a, #menuIPO li:hover a
     {
-        color: #161616;
-        text-shadow: 1px 1px 1px #ffffff;
+        color: #fff;
         cursor: pointer;
     }
     #menuMF li .drop, #menuNCD li .drop, #menuIPO li .drop
     {
         padding-right: 21px;
-        background: url('Images/drop.png') no-repeat right 8px;
+        background: url('Images/drop-arrow.png') no-repeat right 8px;
     }
     #menuMF li:hover .drop, #menuNCD li:hover .drop, #menuIPO li:hover .drop
     {
-        background: url('Images/Up.png') no-repeat right 7px;
+        background: url('Images/drop-arrow-mo.png') no-repeat right 7px;
     }
     .dropdown_1column, .dropdown_2columns, .dropdown_3columns, .dropdown_4columns, .dropdown_5columns
     {
-        margin: 1px auto;
         float: left;
         position: absolute;
         left: -999em; /* Hides the drop down */
         text-align: left;
-        padding: 2px 2px 2px 2px;
-        border: 1px solid #777777;
+        z-index: 100;
         border-top: none; /* Gradient background */
         background: #F4F4F4;
         background: -moz-linear-gradient(top, #EEEEEE, #BBBBBB);
         background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#EEEEEE), to(#BBBBBB)); /* Rounded Corners */
-        -moz-border-radius: 0px 2px 2px 2px;
-        -webkit-border-radius: 0px 2px 2px 2px;
-        border-radius: 0px 2px 2px 2px;
     }
     .dropdown_1column
     {
-        width: 180px;
+        width: 160px;
     }
     .dropdown_2columns
     {
@@ -372,12 +365,10 @@
         display: inline;
         float: left;
         position: relative;
-        margin-left: 5px;
-        margin-right: 5px;
     }
     .col_1
     {
-        width: 170px;
+        width: 160px;
     }
     .col_2
     {
@@ -419,7 +410,6 @@
         line-height: 21px;
         font-size: 12px;
         text-align: left;
-        text-shadow: 1px 1px 1px #FFFFFF;
     }
     #menuMF h2, #menuNCD h2, #menuIPO h2
     {
@@ -445,11 +435,11 @@
     #menuMF li:hover div a, #menuNCD li:hover div a, #menuIPO li:hover div a
     {
         font-size: 12px;
-        color: #015b86;
+        color: #fff;
     }
     #menuMF li:hover div a:hover, #menuNCD li:hover div a:hover, #menuIPO li:hover div a:hover
     {
-        color: #029feb;
+        color: #fff;
     }
     .strong
     {
@@ -494,19 +484,17 @@
     {
         list-style: none;
         padding: 0;
-        margin: 2px 0px 2px 7px;
     }
     #menuMF li ul li, #menuNCD li ul li, #menuIPO li ul li
     {
         font-size: 12px;
         line-height: 24px;
         position: relative;
-        text-shadow: 1px 1px 1px #ffffff;
         padding: 0;
         margin: 0;
         float: none;
         text-align: left;
-        width: 130px;
+        width: 160px;
     }
     #menuMF li ul li:hover, #menuNCD li ul li:hover, #menuIPO li ul li:hover
     {
@@ -517,22 +505,18 @@
     }
     #menuMF li .greybox li, #menuNCD li .greybox li, #menuIPO li .greybox li
     {
-        background: #F4F4F4;
+        background: #014360;
         border: 1px solid #bbbbbb;
-        margin: 0px 0px 4px 0px;
         padding: 4px 6px 4px 6px;
-        width: 150px; /* Rounded Corners */
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-        -khtml-border-radius: 5px;
-        border-radius: 5px;
+        width: 160px; /* Rounded Corners */
     }
     #menuMF li .greybox li:hover, #menuNCD li .greybox li:hover, #menuIPO li .greybox li:hover
     {
-        background: #ffffff;
-        border: 1px solid #aaaaaa;
+        color: #ffffff;
+        border: 1px solid #bbbbbb;
+        background: #01aaeb;
         padding: 4px 6px 4px 6px;
-        margin: 0px 0px 4px 0px;
+        width: 160px; /* Rounded Corners */
     }
     #lisearchscheme, #Div1
     {
@@ -673,9 +657,11 @@
         <div class="product-header" style="float: left; clear: both;">
             <asp:Label ID="lblOnlieProductType" runat="server" Text="" CssClass="product-header-text"></asp:Label>
         </div>
-        <div id="scroller" runat="server" style="margin: 2px 15px 5px 15px; padding: 0px 20px 0px 10px;max-width: 1285px; min-width: 940px; clear: both; height:20px; color: #fff;background: #000;">
-            <marquee style="border-radius: 2px; font-size:small" direction="left" scrolldelay="150" onmouseover="this.setAttribute('scrollamount', 0, 0);"
-                onmouseout="this.setAttribute('scrollamount', 6, 0);">
+        <div id="scroller" runat="server" style="margin: 2px 15px 5px 15px; padding: 0px 20px 0px 10px;
+            font-family: Times New Roman; max-width: 1285px; min-width: 940px; clear: both;
+            height: 20px; color: #fff; background: #000;">
+            <marquee style="border-radius: 2px; font-size: small" direction="left" scrolldelay="150"
+                onmouseover="this.stop();" onmouseout="this.start();">
         <asp:datalist ItemStyle-HorizontalAlign="Center" ItemStyle-CssClass="heading" ItemStyle-Width="33%" ItemStyle-Wrap="False" id="dlScroller" CellPadding="2" RepeatColumns="10" RepeatDirection="Horizontal" CellSpacing="2" Runat="server">
      <ItemTemplate>
           <asp:Label ID="lblScroller" Text='<%# DataBinder.Eval(Container.DataItem,"PUHD_HelpDetails")%>' Runat="server">
@@ -827,10 +813,10 @@
         </div>
         <div runat="server" style="margin: 2px 15px 5px 15px; padding: 0px 20px 0px 10px;
             max-width: 1285px; min-width: 940px; clear: both; height: 20px; color: #fff;
-            background: #000;" id="dvNews">
+            z-index: -6; background: #000;" id="dvNews">
             <div style="padding-left: 0px;">
-                <marquee direction="left" scrolldelay="150" onmouseover="this.setAttribute('scrollamount', 0, 0);"
-                    onmouseout="this.setAttribute('scrollamount', 6, 0);" style="border-radius: 2px; font-size:small">
+                <marquee direction="left" scrolldelay="150" onmouseover="this.stop();" onmouseout="this.start();"
+                    style="border-radius: 2px; font-family: Times New Roman; font-size: small">
         <asp:datalist ItemStyle-HorizontalAlign="Center" ItemStyle-CssClass="heading" ItemStyle-Width="33%" ItemStyle-Wrap="False" id="dlNews" CellPadding="2" RepeatColumns="10" RepeatDirection="Horizontal" CellSpacing="2" Runat="server">
     
      <ItemTemplate>
@@ -857,7 +843,7 @@
                             <div style="padding-left: 20px; color: White;">
                                 Transact</div>
                         </div>
-                        <table>
+                        <table style="margin:0 0 0 50px;">
                             <tr>
                                 <td>
                                     <div id="Div1">
@@ -876,15 +862,15 @@
                                             DelimiterCharacters="" CompletionListElementID="Div2" Enabled="True" />
                                     </div>
                                 </td>
-                                <td align="right" style="vertical-align: top;">
-                                    <asp:Label ID="lblchannel" runat="server" Text="Exchange:" CssClass="FieldName" ></asp:Label>
+                                <td align="right" style="vertical-align: middle;">
+                                    <asp:Label ID="lblchannel" runat="server" Text="Exchange:" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td>
                                     <asp:DropDownList ID="ddlchannel" runat="server" CssClass="cmbField" AutoPostBack="true"
                                         OnSelectedIndexChanged="ddlchannel_onSelectedChanged" onchange="LoadTransactPanel('MFOrderPurchaseTransType&exchangeType='+this.value)">
                                     </asp:DropDownList>
                                 </td>
-                                <td align="right" style="vertical-align: top;">
+                                <td align="right" style="vertical-align: middle;">
                                     <asp:Label ID="Label2" runat="server" Text="Transaction Type:" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td>
