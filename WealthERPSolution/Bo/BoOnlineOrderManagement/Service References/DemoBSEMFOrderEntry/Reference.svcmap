@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="c60d2773-b02d-4cb0-a6cd-ec5e83910869" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://demo.bseindia.com/MFOrderEntry/MFOrder.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="MFOrder.xsd" MetadataType="Schema" ID="7d780919-0199-4e36-a987-75f247c1f1ee" SourceId="1" SourceUrl="http://demo.bseindia.com/MFOrderEntry/MFOrder.svc?xsd=xsd0" />
+    <MetadataFile FileName="MFOrder.disco" MetadataType="Disco" ID="de44a47b-9627-466c-9efb-d055d0c31adb" SourceId="1" SourceUrl="http://demo.bseindia.com/MFOrderEntry/MFOrder.svc?disco" />
+    <MetadataFile FileName="MFOrder1.xsd" MetadataType="Schema" ID="dffa3d1d-3a14-43a3-81a3-beaaadd59b5f" SourceId="1" SourceUrl="http://demo.bseindia.com/MFOrderEntry/MFOrder.svc?xsd=xsd1" />
+    <MetadataFile FileName="MFOrder.wsdl" MetadataType="Wsdl" ID="6153ead1-7461-4859-acee-128286ad0782" SourceId="1" SourceUrl="http://demo.bseindia.com/MFOrderEntry/MFOrder.svc?wsdl" />
+    <MetadataFile FileName="MFOrder1.wsdl" MetadataType="Wsdl" ID="d99b6116-0202-4df6-abbd-e8836c3e654e" SourceId="1" SourceUrl="http://demo.bseindia.com/MFOrderEntry/MFOrder.svc?wsdl=wsdl0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

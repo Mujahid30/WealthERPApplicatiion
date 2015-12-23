@@ -62,6 +62,12 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -83,6 +89,11 @@
     <Compile Include="OnlineOrderBo.cs" />
     <Compile Include="OnlineOrderMISBo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\DemoBSEMFOrderEntry\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Dao\DaoOnlineOrderManagement\DaoOnlineOrderManagement.csproj">
@@ -97,6 +108,34 @@
       <Project>{134BE137-EEE8-4C91-9893-F39E11E0C73C}</Project>
       <Name>VoOnlineOrderManagemnet</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Service References\DemoBSEMFOrderEntry\MFOrder.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\DemoBSEMFOrderEntry\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\DemoBSEMFOrderEntry\MFOrder.disco" />
+    <None Include="Service References\DemoBSEMFOrderEntry\MFOrder.wsdl" />
+    <None Include="Service References\DemoBSEMFOrderEntry\MFOrder1.wsdl" />
+    <None Include="Service References\DemoBSEMFOrderEntry\MFOrder1.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\DemoBSEMFOrderEntry\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\DemoBSEMFOrderEntry\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\DemoBSEMFOrderEntry\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
