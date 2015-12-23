@@ -89,12 +89,11 @@
     {
         text-align: center;
         font-size: 90%;
-        
     }
     tr
     {
-        font-family:Times New Roman;font-size:smaller;
-    
+        font-family: Times New Roman;
+        font-size: smaller;
     }
     table, th
     {
@@ -219,10 +218,10 @@
             <div id="dvDemo" visible="true" runat="server">
                 <div class="col-md-12  col-xs-12 col-sm-12 ">
                     <div class="col-md-12  col-xs-12 col-sm-12 dottedBottom">
-                        <b>Fund Filter </b>
+                        <b style="font-family: Times New Roman">Fund Filter </b>
                     </div>
-                    <div class="col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 1%">
-                        <div class="col-md-4">
+                    <div class="col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 1%;margin-left:0%;padding-left:0px">
+                        <div class="col-md-3" style="margin-bottom: 1%;margin-left:0%;padding-left:0px">
                             <asp:DropDownList ID="ddlAMC" runat="server" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged"
                                 AutoPostBack="true">
                             </asp:DropDownList>
@@ -269,9 +268,11 @@
                     EnableEmbeddedSkins="true" MultiPageID="multipageAdsUpload" SelectedIndex="0"
                     Skin="Outlook">
                     <Tabs>
-                        <telerik:RadTab runat="server" Text="Top Rated" Value="TRated" Width="450px"  font-family="Times New Roman" font-size="Large" Font-Bold=true>
+                        <telerik:RadTab runat="server" Text="Top Rated" Value="TRated" Width="455px" font-family="Times New Roman"
+                            Font-Bold="true">
                         </telerik:RadTab>
-                        <telerik:RadTab runat="server" Text="Top Performers" Value="Tperformer" TabIndex="0" Width="450px">
+                        <telerik:RadTab runat="server" Text="Top Performers" Value="Tperformer" TabIndex="0"
+                            Width="455px" font-family="Times New Roman" Font-Bold="true">
                         </telerik:RadTab>
                     </Tabs>
                 </telerik:RadTabStrip>
@@ -279,7 +280,7 @@
                     <telerik:RadPageView ID="rpvTopRated" runat="server" Selected="true">
                         <div id="dvMarketData">
                             <div class="row" style="margin-bottom: 1%; margin-top: 1%">
-                                <div class="col-md-1" style="width: 65px; padding-top: 5px">
+                                <div class="col-md-1" style="width: 65px; padding-top: 5px; font-family: Times New Roman">
                                     Category
                                 </div>
                                 <div class="col-md-2">
@@ -287,16 +288,16 @@
                                         AutoPostBack="false">
                                     </asp:DropDownList>
                                 </div>
-                                <div class="col-md-1" style="width: 40px; padding-top: 5px">
+                                <div class="col-md-1" style="width: 40px; padding-top: 5px; font-family: Times New Roman">
                                     Type
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     <asp:DropDownList ID="ddlSIP" runat="server" AutoPostBack="false" CssClass="form-control input-sm">
                                         <asp:ListItem Text="SIP" Value="true"></asp:ListItem>
                                         <asp:ListItem Text="Non-SIP" Value="false"></asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
-                                <div class="col-md-1" style="width: 60px; padding-top: 5px">
+                                <div class="col-md-1" style="width: 60px; padding-top: 5px; font-family: Times New Roman">
                                     Returns
                                 </div>
                                 <div class="col-md-2">
@@ -305,6 +306,16 @@
                                         <asp:ListItem Text="3rd Year" Value="2"></asp:ListItem>
                                         <asp:ListItem Text="5th Year" Value="3"></asp:ListItem>
                                     </asp:DropDownList>
+                                </div>
+                                <div class="col-md-1">
+                                    <asp:DropDownList ID="ddlCompare" runat="server" AutoPostBack="false" CssClass="form-control input-sm">
+                                        <asp:ListItem Text="<" Value="1" Selected="True"></asp:ListItem>
+                                        <asp:ListItem Text=">" Value="2"></asp:ListItem>
+                                        <asp:ListItem Text="=" Value="3"></asp:ListItem>
+                                    </asp:DropDownList>
+                                </div>
+                                <div class="col-md-1">
+                                    <asp:TextBox ID="txtcmpvalue" runat="server" Width="60px" Text="10"></asp:TextBox>
                                 </div>
                                 <div class="col-md-1">
                                     <asp:Button ID="btnTopRated" runat="server" class="btn btn-sm btn-primary" Text="GO"
@@ -339,16 +350,19 @@
                                         <th data-title="Action" class="alignCenter" runat="server" visible="true" id="th10">
                                             Action
                                         </th>
+                                         <th data-title="Mode" class="alignCenter" runat="server" visible="true" id="th3">
+                                            Mode
+                                        </th>
                                         <th data-title="Watch" class="alignCenter">
                                             Watch
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr style="font-family:Times New Roman;font-size:smaller">
+                                    <tr style="font-family: Times New Roman; font-size: smaller">
                                         <asp:Repeater ID="rptTopMarketSchemes" runat="server" OnItemCommand="rptTopMarketSchemes_OnItemCommand"
                                             OnItemDataBound="rptTopMarketSchemes_OnItemDataBound">
-                                            <ItemTemplate   >
+                                            <ItemTemplate>
                                                 <td data-title="Scheme Name">
                                                     <asp:LinkButton ID="lbSchemeName" runat="server" ToolTip="Click To view Details Information"
                                                         CommandName="schemeDetails" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
@@ -388,6 +402,9 @@
                                                         <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
                                                     </asp:DropDownList>
                                                 </td>
+                                                 <td data-title="Mode" runat="server" visible="true" id="td1">
+                                                    <asp:Label ID="Label2" runat="server" Text='<%# Eval("Mode")%> ' Font-Size="Small"></asp:Label>
+                                                </td>
                                                 <td data-title="Watch">
                                                     <asp:LinkButton ID="lbRemoveWatch" runat="server" CommandName="RemoveFrmWatch" Visible='<% #(Convert.ToBoolean(Eval("IsInWatch"))==true) ? true : false %>'
                                                         Font-Size="Small" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'>Remove <span class="glyphicon glyphicon-dashboard">
@@ -405,7 +422,7 @@
                         </div>
             </div>
             </telerik:RadPageView>
-            <telerik:RadPageView ID="rpvTopPerformer" runat="server" >
+            <telerik:RadPageView ID="rpvTopPerformer" runat="server">
                 <div id="dvSchemeDetails">
                     <div class="row">
                         <div class="col-md-4">
