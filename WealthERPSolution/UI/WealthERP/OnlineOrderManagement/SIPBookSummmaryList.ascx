@@ -104,13 +104,9 @@
     <table class="tblMessage" cellpadding="0" cellspacing="0">
         <tr>
             <td>
-                <div class="divOnlinePageHeading">
-                    <div class="divClientAccountBalance" id="divClientAccountBalance" runat="server">
-                        <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                            runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                            OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
-                    </div>
-                </div>
+                <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                    OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
             </td>
         </tr>
     </table>
@@ -148,7 +144,7 @@
 </div> </td> </tr>--%>
 </table>
 <div id="divConditional" runat="server" class="row " style="margin-left: 5%; margin-bottom: 0.5%;
-    margin-right: 5%; padding-top: 2%; padding-bottom: 0.5%;">
+    margin-right: 5%; padding-bottom: 0.5%;">
     <div class="col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 1%">
         <div class="col-md-4">
             AMC:
@@ -948,8 +944,7 @@
                                 <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Request No.:"></asp:Label>
                             </td>
                             <td>
-                                <asp:TextBox ID="txtSystematicSetupId" runat="server" CssClass="txtField" 
-                                    Text='<%# Bind("CMFSS_SystematicSetupId") %>'></asp:TextBox>
+                                <asp:TextBox ID="txtSystematicSetupId" runat="server" CssClass="txtField" Text='<%# Bind("CMFSS_SystematicSetupId") %>'></asp:TextBox>
                             </td>
                         </tr>
                         <tr>
@@ -957,13 +952,13 @@
                                 <asp:Label ID="Label20" runat="server" Text="Remark:" CssClass="FieldName"></asp:Label>
                             </td>
                             <td>
-                                <asp:TextBox ID="txtRemark" runat="server" CssClass="txtField" ></asp:TextBox>
+                                <asp:TextBox ID="txtRemark" runat="server" CssClass="txtField"></asp:TextBox>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <asp:Button ID="Button1" Text="OK" runat="server" class="ft_sort btn-sm btn-info" CommandName="Update"
-                                    ValidationGroup="btnSubmit"></asp:Button>
+                                <asp:Button ID="Button1" Text="OK" runat="server" class="ft_sort btn-sm btn-info"
+                                    CommandName="Update" ValidationGroup="btnSubmit"></asp:Button>
                             </td>
                             <td>
                                 <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" class="ft_sort btn-sm btn-info"

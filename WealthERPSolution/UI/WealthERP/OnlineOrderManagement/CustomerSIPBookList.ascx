@@ -40,22 +40,7 @@
         </table>
     </div>
 </div>
-<table width="100%" style="margin-top:0px;">
-    <tr>
-        <td>
-            <div class="divPageHeading">
-                <table width="100%">
-                    <tr>
-                        <td align="left">
-                            SIP Book
-                        </td>
-                        
-                    </tr>
-                </table>
-            </div>
-        </td>
-    </tr>
-</table>
+
 <div id="divConditional" runat="server" style="padding-top: 4px">
     <table class="TableBackground" cellpadding="2">
         <tr>
