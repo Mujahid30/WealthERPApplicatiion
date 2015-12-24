@@ -463,6 +463,7 @@ namespace WealthERP.OnlineOrderManagement
             //    }
 
             //}
+            onlinemforderVo.BSESchemeCode = lblDemate.Text;
             string message = string.Empty;
             char msgType = 'F';
             if (exchangeType == "Online")
