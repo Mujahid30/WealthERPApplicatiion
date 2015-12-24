@@ -603,6 +603,98 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void rptTopMarketSchemes_OnItemCommand(object sender, RepeaterCommandEventArgs e)
         {
+            if (!string.IsNullOrEmpty(e.CommandName))
+            {
+                string PASP_SchemePlanCode = e.CommandArgument.ToString();
+                DropDownList dropDownList = (DropDownList)e.Item.FindControl("ddlAction");
+
+                switch (e.CommandName)
+                {
+                    case "Buy":
+                        if (Session["PageDefaultSetting"] != null)
+                        {
+                            Session["MFSchemePlan"] = PASP_SchemePlanCode;
+                            if (ViewState["FilterType"].ToString() != "lbNFOList")
+                            {
+                                LoadMFTransactionPage("MFOrderPurchaseTransType", 2);
+                            }
+                            else
+                            {
+                                LoadMFTransactionPage("MFOrderNFOTransType", 2);
+                            }
+
+                        }
+                        else
+                        {
+                            if (ViewState["FilterType"].ToString() != "lbNFOList")
+                            {
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('MFOrderPurchaseTransType','SchemeCode=" + PASP_SchemePlanCode + "&AMCode=" + ddlAMC.SelectedValue + "&Category=" + ddlCategory.SelectedValue + "');", true);
+                            }
+                            else
+                            {
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('MFOrderNFOTransType','SchemeCode=" + PASP_SchemePlanCode + "&AMCode=" + ddlAMC.SelectedValue + "&Category=" + ddlCategory.SelectedValue + "');", true);
+
+                            }
+                        }
+                        break;
+                    case "ABY":
+                        if (Session["PageDefaultSetting"] != null)
+                        {
+                            Session["MFSchemePlan"] = PASP_SchemePlanCode;
+                            LoadMFTransactionPage("MFOrderAdditionalPurchase", 2);
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('MFOrderAdditionalPurchase','SchemeCode=" + PASP_SchemePlanCode + "&AMCode=" + ddlAMC.SelectedValue + "&Category=" + ddlCategory.SelectedValue + "');", true);
+                        }
+                        break;
+                    case "SIP":
+                        if (Session["PageDefaultSetting"] != null)
+                        {
+                            Session["MFSchemePlan"] = PASP_SchemePlanCode;
+                            LoadMFTransactionPage("MFOrderSIPTransType", 2);
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('MFOrderSIPTransType','SchemeCode=" + PASP_SchemePlanCode + "&AMCode=" + ddlAMC.SelectedValue + "&Category=" + ddlCategory.SelectedValue + "');", true);
+                        }
+                        break;
+                    case "Sell":
+                        if (Session["PageDefaultSetting"] != null)
+                        {
+                            Session["MFSchemePlan"] = PASP_SchemePlanCode;
+                            LoadMFTransactionPage("MFOrderRdemptionTransType", 2);
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('MFOrderRdemptionTransType','SchemeCode=" + PASP_SchemePlanCode + "&AMCode=" + ddlAMC.SelectedValue + "&Category=" + ddlCategory.SelectedValue + "');", true);
+                        }
+                        break;
+                    case "schemeDetails":
+
+                        if (Session["PageDefaultSetting"] != null)
+                        {
+                            //Session["MFSchemePlan"] = PASP_SchemePlanCode;
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFSchemeDetails','&schemeCode=" + PASP_SchemePlanCode + "');", true);
+                            LoadMFTransactionPage("MFSchemeDetails", 1);
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('MFSchemeDetails','SchemeCode=" + PASP_SchemePlanCode + "&AMCode=" + ddlAMC.SelectedValue + "&Category=" + ddlCategory.SelectedValue + "');", true);
+                        }
+                        break;
+                    case "addToWatch":
+                        CustomerAddMFSchemeToWatch(int.Parse(e.CommandArgument.ToString()), e);
+                        break;
+
+                    case "RemoveFrmWatch": DeleteSchemeFromCustomerWatch(int.Parse(e.CommandArgument.ToString()), e, customerVo.CustomerId);
+                        BindSchemeRelatedDetails(int.Parse(hfAMCCode.Value), int.Parse(hfSchemeCode.Value), hfCategory.Value, int.Parse(hfCustomerId.Value), Int16.Parse(hfIsSchemeDetails.Value), Boolean.Parse(hfNFOType.Value), 1, Boolean.Parse(hfIsSIP.Value));
+                        break;
+
+
+
+                }
+            }
 
         }
        
