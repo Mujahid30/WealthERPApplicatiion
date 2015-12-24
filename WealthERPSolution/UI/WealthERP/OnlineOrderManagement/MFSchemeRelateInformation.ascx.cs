@@ -50,6 +50,16 @@ namespace WealthERP.OnlineOrderManagement
                 BindTopMarketSchemes(ddlMarketCategory.SelectedValue,  Boolean.Parse(ddlSIP.SelectedValue), int.Parse(ddlReturns.SelectedValue),customerVo.CustomerId);
             }
         }
+        protected void clearAllControls()
+        {
+            hfAMCCode.Value = null;
+            hfSchemeCode.Value = null;
+            hfCategory.Value = null;
+            hfCustomerId.Value = null;
+            hfIsSchemeDetails.Value = null;
+            hfNFOType.Value = null;
+            hfIsSIP.Value = null;
+        }
         protected void ddlAMC_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlAMC.SelectedIndex != 0)
@@ -109,14 +119,16 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void Go_OnClick(object sender, EventArgs e)
         {
+            clearAllControls();
             ViewState["FilterType"] = "Schemes Details";
             hfAMCCode.Value = ddlAMC.SelectedValue;
-            hfSchemeCode.Value = ddlScheme.SelectedValue;
+            hfSchemeCode.Value = ddlScheme.SelectedValue==""?"0":ddlScheme.SelectedValue;
             hfCategory.Value = ddlCategory.SelectedValue;
             hfCustomerId.Value = customerVo.CustomerId.ToString();
             hfIsSchemeDetails.Value = "1";
             hfNFOType.Value = "false";
             rblNFOType.Visible = false;
+            hfIsSIP.Value =" true";
             BindSchemeRelatedDetails(int.Parse(hfAMCCode.Value), int.Parse(hfSchemeCode.Value), hfCategory.Value, int.Parse(hfCustomerId.Value), Int16.Parse(hfIsSchemeDetails.Value), Boolean.Parse(hfNFOType.Value), 1, Boolean.Parse(hfIsSIP.Value));
             lblHeading.Text = "Schemes Details";
 
@@ -161,6 +173,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void btnTopPeformers_OnClick(object sender, EventArgs e)
         {
+            clearAllControls();
             SetParametersForAdminGrid("lbTopSchemes");
 
         }
@@ -171,6 +184,7 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void GetSchemeDetails(object sender, EventArgs e)
         {
+            clearAllControls();
             LinkButton lk = (LinkButton)sender;
             ViewState["FilterType"] = lk.ID.ToString();
             rblNFOType.Visible = false;
@@ -229,11 +243,57 @@ namespace WealthERP.OnlineOrderManagement
             }
             BindSchemeRelatedDetails(int.Parse(hfAMCCode.Value), int.Parse(hfSchemeCode.Value), hfCategory.Value, int.Parse(hfCustomerId.Value), Int16.Parse(hfIsSchemeDetails.Value), Boolean.Parse(hfNFOType.Value), 1,Boolean.Parse(hfIsSIP.Value));
         }
+        protected void ddlAction_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddl = (DropDownList)sender;
+            string selectedValue = ddl.SelectedValue;
+            RepeaterItem itm = (RepeaterItem)ddl.NamingContainer;
+            if (itm != null)
+            {
+                Label lblscheme = (Label)itm.FindControl("lblSchemeCode");
+                if (lblscheme != null)
+                {
+                    Session["MFSchemePlan"] = lblscheme.Text;
+                }
+                if (ddl.SelectedValue =="Buy")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOrderPurchaseTransType')", true);
+                }
+                else if (ddl.SelectedValue == "SIP")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOrderSIPTransType')", true);
+                }
+            }
+        }
+        protected void ddlMarketlAction_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddl = (DropDownList)sender;
+            string selectedValue = ddl.SelectedValue;
+            RepeaterItem itm = (RepeaterItem)ddl.NamingContainer;
+            if (itm != null)
+            {
+                Label lblscheme = (Label)itm.FindControl("lblschemeCode");
+                if (lblscheme != null)
+                {
+                    Session["MFSchemePlan"] = lblscheme.Text;
+                }
+                if (ddl.SelectedValue == "Buy")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOrderPurchaseTransType')", true);
+                }
+                else if (ddl.SelectedValue == "SIP")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOrderSIPTransType')", true);
+                }
+            }
+        }
         protected void rpSchemeDetails_OnItemCommand(object sender, RepeaterCommandEventArgs e)
         {
             if (!string.IsNullOrEmpty(e.CommandName))
             {
                 string PASP_SchemePlanCode = e.CommandArgument.ToString();
+                DropDownList dropDownList = (DropDownList)e.Item.FindControl("ddlAction");
+
                 switch (e.CommandName)
                 {
                     case "Buy":
