@@ -503,6 +503,9 @@
                                         <th data-title="Action" class="alignCenter" runat="server" visible="true" id="th1">
                                             Action
                                         </th>
+                                              <th data-title="Mode" class="alignCenter" runat="server" visible="true" id="th4">
+                                            Mode
+                                        </th>
                                         <th data-title="Watch" class="alignCenter">
                                             Watch
                                         </th>
@@ -571,6 +574,9 @@
                                                         <asp:ListItem Text="Buy" Value="Buy"></asp:ListItem>
                                                         <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
                                                     </asp:DropDownList>
+                                                </td>
+                                                <td data-title="Mode" runat="server" visible="true" id="td1">
+                                                    <asp:Label ID="Label2" runat="server" Text='<%# Eval("Mode")%> ' Font-Size="Small"></asp:Label>
                                                 </td>
                                                 <td data-title="Watch">
                                                     <asp:LinkButton ID="lbRemoveWatch" runat="server" CommandName="RemoveFrmWatch" Visible='<% #(Convert.ToBoolean(Eval("IsInWatch"))==true) ? true : false %>'
