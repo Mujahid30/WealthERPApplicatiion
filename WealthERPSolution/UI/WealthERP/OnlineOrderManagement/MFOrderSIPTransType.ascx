@@ -161,11 +161,11 @@
                         <b class="fontsize">Category:</b>
                         <asp:Label ID="lblCategory" runat="server" CssClass="fieldFontSize"></asp:Label>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <b class="fontsize">Scheme:</b>
                         <asp:Label ID="lblScheme" runat="server" CssClass="fieldFontSize"></asp:Label>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <asp:ImageButton ID="imgInformation" runat="server" ImageUrl="../Images/help.png"
                             OnClick="imgInformation_OnClick" ToolTip="Help" Style="cursor: hand;" />
                     </div>
@@ -201,7 +201,7 @@
                         <b class="fontsize">Unit Held:</b>
                         <asp:Label ID="lblUnitHeldDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <b class="fontsize">Scheme Rating</b>
                         <asp:Image runat="server" ID="imgSchemeRating" />
                         <br />
