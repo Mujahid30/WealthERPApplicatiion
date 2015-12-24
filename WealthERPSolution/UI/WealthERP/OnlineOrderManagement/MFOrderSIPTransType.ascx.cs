@@ -933,7 +933,7 @@ namespace WealthERP.OnlineOrderManagement
                 if (string.IsNullOrEmpty(s.Trim())) continue;
                 ddlTotalInstallments.Items.Add(new ListItem(s.ToString()));
             }
-            ddlTotalInstallments.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
+            ddlTotalInstallments.Items.Insert(0, new System.Web.UI.WebControls.ListItem("SELECT", "0"));
             //ddlTotalInstallments.Items.Insert(0, new ListItem("--SELECT--"));
             ddlTotalInstallments.SelectedIndex = 0;
         }

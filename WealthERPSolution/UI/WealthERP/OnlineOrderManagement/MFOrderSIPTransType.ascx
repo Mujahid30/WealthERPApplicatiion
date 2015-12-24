@@ -204,7 +204,7 @@
                     <div class="col-md-3">
                         <b class="fontsize">Scheme Rating</b>
                         <asp:Image runat="server" ID="imgSchemeRating" />
-                        <br />
+                    
                         <asp:Label ID="lblSchemeRatingAsOn" runat="server" CssClass="fieldFontSize"></asp:Label>
                     </div>
                 </div>
@@ -246,8 +246,8 @@
                     <div class="col-md-3">
                         <b class="fontsize">Total Installments:</b>
                         <asp:DropDownList ID="ddlTotalInstallments" CssClass="cmbField" runat="server" AutoPostBack="True"
-                            OnSelectedIndexChanged="ddlTotalInstallments_SelectedIndexChanged">
-                            <asp:ListItem Value="0">--SELECT--</asp:ListItem>
+                            OnSelectedIndexChanged="ddlTotalInstallments_SelectedIndexChanged" Width="90px">
+                            <asp:ListItem Value="0">SELECT</asp:ListItem>
                         </asp:DropDownList>
                         <span id="Span5" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="rfvInstallments" runat="server" ErrorMessage="Please select a value"

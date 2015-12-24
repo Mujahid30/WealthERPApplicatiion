@@ -769,5 +769,4 @@
         <PagerStyle Mode="NextPrevAndNumeric" />--%>
     </telerik:RadGrid>
 </div>
-<Banner:footer ID="MyHeader" assetCategory="MF" runat="server" />
 <asp:HiddenField ID="hdnAccount" runat="server" Value="0" />
