@@ -155,9 +155,8 @@
 </style>
 <asp:UpdatePanel ID="updSchemDetails" runat="server" UpdateMode="Always">
     <ContentTemplate>
-              <div id="dvDemo" class="row " style="margin-left: 11%;  margin-bottom: 0.5%;
-            margin-right: 5%; padding-top: 0.5%; padding-bottom: 0.5%;" visible="true" runat="server">
-            
+        <div id="dvDemo" class="row " style="margin-left: 11%; margin-bottom: 0.5%; margin-right: 5%;
+            padding-top: 0.5%; padding-bottom: 0.5%;" visible="true" runat="server">
             <div class="col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 1%">
                 <div class="col-md-3">
                     <asp:DropDownList ID="ddlAMC" runat="server" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged"
@@ -194,8 +193,8 @@
                 </div>
             </div>
         </div>
-        <div id="Div2" style=" margin-bottom: 2%; width: 80%; 
-            padding-bottom: 1%; margin-left: auto; margin-right: auto;" visible="false" runat="server">
+        <div id="Div2" style="margin-bottom: 2%; width: 80%; padding-bottom: 1%; margin-left: auto;
+            margin-right: auto;" visible="false" runat="server">
             <div>
                 <div class="col-md-6" style="margin-bottom: 10px;">
                     <asp:Label ID="lblSchemeName" runat="server" Style="font-size: x-large; font-family: Times New Roman;
@@ -263,9 +262,10 @@
                             </span></asp:LinkButton>
             </div>
         </div>
-        <div class="container" style=" margin-bottom: 2%; width: 80%;
-            padding-bottom: 1%; margin-left: auto; margin-right: auto;">
-            <asp:Panel ID="pnlDetails" runat="server"  ScrollBars="Both" Style="margin-left: 0px;" Height="600px">
+        <div class="container" style="margin-bottom: 2%; width: 80%; padding-bottom: 1%;
+            margin-left: auto; margin-right: auto;">
+            <asp:Panel ID="pnlDetails" runat="server" ScrollBars="Both" Style="margin-left: 0px;"
+                Height="600px">
                 <%--<ul id="profileTabs" class="nav nav-tabs">
                         <li class="active><a data-toggle="tab" role="tab" href="#DivSchemeInformation"><b>Snapshot</b></a></li>
                         <li><a data-toggle="tab" role="tab" href="#DivCharTab"><b>NAV Performance</b></a></li>
@@ -291,8 +291,8 @@
 
                 <telerik:RadTabStrip ID="RadTabStripAdsUpload" runat="server" EnableTheming="True"
                     EnableEmbeddedSkins="true" MultiPageID="multipageAdsUpload" SelectedIndex="0"
-                    skin="Outlook"  onclientclick="calc('bottomframe')">
-                    <tabs>
+                    Skin="Outlook" onclientclick="calc('bottomframe')">
+                    <Tabs>
                         <telerik:RadTab runat="server" Text="Snapshot" Value="Snapshot" TabIndex="0" Selected="true">
                         </telerik:RadTab>
                         <telerik:RadTab runat="server" Text="NAV Performance" Value="NAVPerformance" TabIndex="1">
@@ -304,7 +304,7 @@
                         </telerik:RadTab>
                         <telerik:RadTab runat="server" Text="Portfolio" Value="Portfolio" TabIndex="4">
                         </telerik:RadTab>
-                    </tabs>
+                    </Tabs>
                 </telerik:RadTabStrip>
                 <telerik:RadMultiPage ID="multipageAdsUpload" EnableViewState="true" runat="server">
                     <telerik:RadPageView ID="RadPageView1" runat="server" Selected="true">
@@ -617,7 +617,7 @@
                                 <tbody>
                                     <tr class="searchable-spec cell top sub-name small bordered">
                                         <td>
-                                           <b class="DetailfieldFontSize"> FundManager</b>
+                                            <b class="DetailfieldFontSize">FundManager</b>
                                         </td>
                                         <td>
                                             <asp:Label ID="lblFundMAnagername" runat="server"></asp:Label>
@@ -625,7 +625,7 @@
                                     </tr>
                                     <tr class="searchable-spec cell top sub-name small bordered">
                                         <td>
-                                           <b class="DetailfieldFontSize">  Qualification</b>
+                                            <b class="DetailfieldFontSize">Qualification</b>
                                         </td>
                                         <td>
                                             <asp:Label ID="lblQualification" runat="server"></asp:Label>
@@ -633,7 +633,7 @@
                                     </tr>
                                     <tr class="searchable-spec cell top sub-name small bordered">
                                         <td>
-                                            <b class="DetailfieldFontSize"> Designation</b>
+                                            <b class="DetailfieldFontSize">Designation</b>
                                         </td>
                                         <td>
                                             <asp:Label ID="lblDesignation" runat="server"></asp:Label>
@@ -641,7 +641,7 @@
                                     </tr>
                                     <tr class="searchable-spec cell top sub-name small bordered">
                                         <td>
-                                            <b class="DetailfieldFontSize"> Experience</b>
+                                            <b class="DetailfieldFontSize">Experience</b>
                                         </td>
                                         <td>
                                             <asp:Label ID="lblExperience" runat="server"></asp:Label>
@@ -677,10 +677,10 @@
                                         <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
                                             text-align: center">
                                             <th data-title="Fund Name" class="alignCenter">
-                                                <b class="DetailfieldFontSize"> Top Holding</b>
+                                                <b>Top Holding</b>
                                             </th>
                                             <th data-title="Holding(%)" class="alignCenter">
-                                              <b class="DetailfieldFontSize">   Weight (%)</b>
+                                                <b>Weight (%)</b>
                                             </th>
                                         </tr>
                                     </thead>
@@ -709,10 +709,10 @@
                                         <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
                                             text-align: center">
                                             <th data-title="Sector" class="alignCenter">
-                                               <<b class="DetailfieldFontSize">  Top Sector</b>
+                                                <b>Top Sector</b>
                                             </th>
                                             <th data-title="Holding(%)" class="alignCenter">
-                                               <b class="DetailfieldFontSize">  Weight (%)</b>
+                                                <b>Weight (%)</b>
                                             </th>
                                         </tr>
                                     </thead>
@@ -741,10 +741,10 @@
                                         <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
                                             text-align: center">
                                             <th data-title="Fund Name" class="alignCenter">
-                                              <b class="DetailfieldFontSize">   Asset allocation</b>
+                                                <b>Asset allocation</b>
                                             </th>
                                             <th data-title="Holding(%)" class="alignCenter">
-                                              <b class="DetailfieldFontSize">   Weight (%)</b>
+                                                <b>Weight (%)</b>
                                             </th>
                                         </tr>
                                     </thead>
@@ -821,7 +821,6 @@
         <asp:HiddenField ID="hidCurrentScheme" runat="server" />
         <asp:HiddenField ID="TabName" runat="server" />
     </ContentTemplate>
-    
 </asp:UpdatePanel>
 
 <script type="text/javascript">
