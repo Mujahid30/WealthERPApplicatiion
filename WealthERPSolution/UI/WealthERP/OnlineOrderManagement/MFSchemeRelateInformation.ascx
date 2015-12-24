@@ -311,7 +311,6 @@
                                     <asp:DropDownList ID="ddlCompare" runat="server" AutoPostBack="false" CssClass="form-control input-sm">
                                         <asp:ListItem Text="<" Value="1" Selected="True"></asp:ListItem>
                                         <asp:ListItem Text=">" Value="2"></asp:ListItem>
-                                        <asp:ListItem Text="=" Value="3"></asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
                                 <div class="col-md-1">
@@ -451,7 +450,7 @@
                             Type
                         </div>
                         <div class="col-md-2">
-                            <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="true" CssClass="form-control input-sm">
+                            <asp:DropDownList ID="ddlTopRatedType" runat="server" AutoPostBack="false" CssClass="form-control input-sm">
                                 <asp:ListItem Text="SIP" Value="true"></asp:ListItem>
                                 <asp:ListItem Text="Non-SIP" Value="false"></asp:ListItem>
                             </asp:DropDownList>
@@ -603,6 +602,7 @@
         <asp:HiddenField ID="hfCustomerId" runat="server" />
         <asp:HiddenField ID="hfIsSchemeDetails" runat="server" />
         <asp:HiddenField ID="hfNFOType" runat="server" />
+         <asp:HiddenField ID="hfIsSIP" runat="server" />
     </ContentTemplate>
     <Triggers>
     </Triggers>

@@ -3132,7 +3132,7 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetProductSearchType;
         }
-        public DataTable GetTopMarketSchemes(string category, Boolean isSIP, int returns, int customerId)
+        public DataTable GetTopMarketSchemes(string category, Boolean isSIP, int returns, int customerId, int returnsOperator,int returnsValue)
     {
          Database db;
             DataSet dsGetSchemeDetails;
@@ -3145,6 +3145,8 @@ namespace DaoOnlineOrderManagement
                  db.AddInParameter(cmdGetSchemeDetails, "@ISSIP", DbType.Boolean, isSIP);
                  db.AddInParameter(cmdGetSchemeDetails, "@Returns", DbType.String, returns);
                  db.AddInParameter(cmdGetSchemeDetails, "@customerId", DbType.String, customerId);
+                 db.AddInParameter(cmdGetSchemeDetails, "@ReturnsOperator", DbType.Int32, returnsOperator);
+                 db.AddInParameter(cmdGetSchemeDetails, "@ReturnsValue", DbType.Int64, returnsValue);
                  dsGetSchemeDetails = db.ExecuteDataSet(cmdGetSchemeDetails);
             }
             catch (BaseApplicationException Ex)
@@ -3168,7 +3170,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetSchemeDetails.Tables[0];
     }
-        public DataTable GetSchemeDetails(int AMCCode, int Schemeplanecode, string category, int customerId, Int16 SchemeDetails, Boolean NFOType, out int recordCount, int PageIndex, int PageSize)
+        public DataTable GetSchemeDetails(int AMCCode, int Schemeplanecode, string category, int customerId, Int16 SchemeDetails, Boolean NFOType, out int recordCount, int PageIndex, int PageSize, Boolean isSIP)
         {
             Database db;
             DataSet dsGetSchemeDetails;
@@ -3187,6 +3189,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmdGetSchemeDetails, "@NFOType", DbType.Boolean, NFOType);
                 db.AddInParameter(cmdGetSchemeDetails, "@PageIndex", DbType.Int16, PageIndex);
                 db.AddInParameter(cmdGetSchemeDetails, "@PageSize ", DbType.Int16, PageSize);
+                db.AddInParameter(cmdGetSchemeDetails, "@IsSIP ", DbType.Boolean, isSIP);
                 db.AddOutParameter(cmdGetSchemeDetails, "@RecordCount", DbType.Int64, 1000);
                 dsGetSchemeDetails = db.ExecuteDataSet(cmdGetSchemeDetails);
                 recordCount = int.Parse(db.GetParameterValue(cmdGetSchemeDetails, "RecordCount").ToString());
