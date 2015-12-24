@@ -243,23 +243,19 @@
         <div class="row" style="margin-left: 20%; margin-right: 2%; margin-bottom: 0%; margin-top: 2px;"
             id="divAction" runat="server" visible="false">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <asp:LinkButton ID="lnkAddToCompare" runat="server" CssClass="btn btn-primary btn-primary"
-                    OnClick="lnkAddToCompare_OnClick" ValidationGroup="btnGo"> Add To Compare <span class="glyphicon glyphicon-shopping-list">
-                            </span></asp:LinkButton>
-                &nbsp &nbsp
-                <asp:LinkButton ID="lbBuy" runat="server" OnClientClick="LoadTransactPanel('MFOrderPurchaseTransType');"
-                    OnClick="lbBuy_OnClick" ValidationGroup="btnGo"> <img src="../Images/Buy_BIG_Buttons.png" height="40px" width="70px"/></asp:LinkButton>
-                &nbsp &nbsp
-                <asp:LinkButton ID="lbAddPurchase" runat="server" CssClass="btn btn-primary btn-success"
-                    OnClick="lbAddPurchase_OnClick" Visible="false"> Additional Purchase <span class="glyphicon glyphicon-plus-sign">
-                            </span></asp:LinkButton>
-                &nbsp &nbsp
-                <asp:LinkButton ID="lbSIP" runat="server" OnClick="lbSIP_OnClick" OnClientClick="LoadTransactPanel('MFOrderSIPTransType')"
-                    ValidationGroup="btnGo"><img src="../Images/SIP_BIG_Buttons.png" height="40px" width="70px"/></asp:LinkButton>
-                &nbsp &nbsp
-                <asp:LinkButton ID="lbRedem" runat="server" CssClass="btn btn-primary btn-danger"
-                    OnClick="lbRedem_OnClick" Visible="false" ValidationGroup="btnGo"> Redemption <span class="glyphicon glyphicon-minus">
-                            </span></asp:LinkButton>
+                <div class="col-md-3">
+                    <asp:LinkButton ID="lnkAddToCompare" runat="server" CssClass="btn btn-primary btn-primary"
+                        OnClick="lnkAddToCompare_OnClick" ValidationGroup="btnGo"> Add To Compare <span class="glyphicon glyphicon-shopping-list">
+                            </span></asp:LinkButton></div>
+                <div class="col-md-3">
+                    <b class="DetailfieldFontSize" style="float:left;margin-top:.1%">Action:</b>
+                    <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" CssClass="form-control input-sm"
+                        OnSelectedIndexChanged="ddlAction_OnSelectedIndexChanged" Width="100px">
+                        <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
+                        <asp:ListItem Text="Buy" Value="Buy"></asp:ListItem>
+                        <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
+                    </asp:DropDownList>
+                </div>
             </div>
         </div>
         <div class="container" style="margin-bottom: 2%; width: 80%; padding-bottom: 1%;
