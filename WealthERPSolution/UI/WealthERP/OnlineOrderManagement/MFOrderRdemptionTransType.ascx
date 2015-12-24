@@ -164,8 +164,9 @@
                                     <td rowspan="4">
                                         <a href="#" class="popper" data-popbox="divSchemeRatingDetails"><span class="fontsize">
                                             Scheme Rating</span>
-                                            <asp:Label ID="lblSchemeRatingAsOn" runat="server" CssClass="FieldName"></asp:Label>
+                                          
                                             <asp:Image runat="server" ID="imgSchemeRating" />
+                                              <asp:Label ID="lblSchemeRatingAsOn" runat="server" CssClass="fieldFontSize"></asp:Label>
                                         </a>
                                     </td>
                                 </tr>
