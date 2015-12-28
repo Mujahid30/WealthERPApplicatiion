@@ -544,12 +544,10 @@ namespace WealthERP.OnlineOrderManagement
             switch (ddlAction.SelectedValue)
             {
                 case "Buy":
-                    if (onlineMFSchemeDetailsVo.isSIPAvaliable == 1)
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOrderPurchaseTransType')", true);
                     break;
                 case "SIP":
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOrderSIPTransType')", true);
-
                     break;
             }
         }

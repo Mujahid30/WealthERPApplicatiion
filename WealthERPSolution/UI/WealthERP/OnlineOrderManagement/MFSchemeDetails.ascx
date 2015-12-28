@@ -248,7 +248,7 @@
                         OnClick="lnkAddToCompare_OnClick" ValidationGroup="btnGo"> Add To Compare <span class="glyphicon glyphicon-shopping-list">
                             </span></asp:LinkButton></div>
                 <div class="col-md-3">
-                    <b class="DetailfieldFontSize" style="float:left;margin-top:.1%">Action:</b>
+                    <b class="DetailfieldFontSize" style="float: left; margin-top: 0.1%; padding-top: 5px;">Action:</b>
                     <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" CssClass="form-control input-sm"
                         OnSelectedIndexChanged="ddlAction_OnSelectedIndexChanged" Width="100px">
                         <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
