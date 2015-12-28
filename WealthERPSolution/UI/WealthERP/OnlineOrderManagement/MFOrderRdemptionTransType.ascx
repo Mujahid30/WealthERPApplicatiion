@@ -164,9 +164,8 @@
                                     <td rowspan="4">
                                         <a href="#" class="popper" data-popbox="divSchemeRatingDetails"><span class="fontsize">
                                             Scheme Rating</span>
-                                          
                                             <asp:Image runat="server" ID="imgSchemeRating" />
-                                              <asp:Label ID="lblSchemeRatingAsOn" runat="server" CssClass="fieldFontSize"></asp:Label>
+                                            <asp:Label ID="lblSchemeRatingAsOn" runat="server" CssClass="fieldFontSize"></asp:Label>
                                         </a>
                                     </td>
                                 </tr>
@@ -355,7 +354,7 @@
                             <span id="Span5" class="spnRequiredField">*</span>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" CssClass="rfvPCG"
                                 ErrorMessage="Please Select an Dividend Type" Display="Dynamic" ControlToValidate="ddlDivType"
-                                InitialValue="0" ValidationGroup="btnSubmit">
+                                InitialValue="0" >
                             </asp:RequiredFieldValidator>
                         </div>
                         <div class="col-md-3">
@@ -369,26 +368,27 @@
                 </div>
                 <telerik:RadWindow ID="rwTermsCondition" runat="server" VisibleOnPageLoad="false"
                     Width="1000px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Move, Resize,Close"
-                    Title="Terms & Conditions" EnableShadow="true" Left="15%" Top="5" OnClientShow="setCustomPosition">
-                    <ContentTemplate>
+                    Title="Terms & Conditions" Height="180px" EnableShadow="true" Left="15%" Top="5"
+                    OnClientShow="setCustomPosition">
+                    <contenttemplate>
                         <div style="padding: 0px; width: 100%">
                             <table width="100%" cellpadding="0" cellpadding="0">
                                 <tr>
                                     <td align="left">
                                         <%--  <a href="../ReferenceFiles/MF-Terms-Condition.html">../ReferenceFiles/MF-Terms-Condition.html</a>--%>
                                         <iframe src="../ReferenceFiles/MF-Terms-Condition.html" name="iframeTermsCondition"
-                                            style="width: 100%;height:50%" ></iframe>
+                                            style="width: 100%;height:130px" ></iframe>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td align="center">
                                         <asp:Button ID="btnAccept" runat="server" Text="Accept" CssClass="PCGButton" OnClick="btnAccept_Click"
-                                            CausesValidation="false" />
+                                          />
                                     </td>
                                 </tr>
                             </table>
                         </div>
-                    </ContentTemplate>
+                    </contenttemplate>
                 </telerik:RadWindow>
                 <div style="padding-top: 5px; display: none;">
                     <table style="border-style: solid; border-width: 2px; border-color: Blue; visibility: hidden">
@@ -418,7 +418,7 @@
                     </table>
                 </div>
                 <telerik:RadWindowManager runat="server" ID="RadWindowManager1">
-                    <Windows>
+                    <windows>
                         <telerik:RadWindow ID="rw_customConfirm" Modal="true" Behaviors="Close, Move" VisibleStatusbar="false"
                             Width="700px" Height="160px" runat="server" Title="EUIN Confirm" Left="15%" Top="5"
                             OnClientShow="setCustomPosition">
@@ -429,18 +429,18 @@
                                     </div>
                                     <div>
                                         <asp:Button runat="server" ID="rbConfirm_OK" Text="OK" OnClick="rbConfirm_OK_Click"
-                                            ValidationGroup="btnSubmit" OnClientClick="return PreventClicks();"></asp:Button>
+                                            ValidationGroup="btnSubmit" OnClientClick="return PreventClicks();" ></asp:Button>
                                         <asp:Button runat="server" ID="rbConfirm_Cancel" Text="Cancel" OnClientClicked="closeCustomConfirm">
                                         </asp:Button>
                                     </div>
                                 </div>
                             </ContentTemplate>
                         </telerik:RadWindow>
-                    </Windows>
+                    </windows>
                 </telerik:RadWindowManager>
                 <telerik:RadWindow ID="RadInformation" Modal="true" Behaviors="Close, Move" VisibleStatusbar="false"
                     Width="760px" Height="580px" runat="server" Left="15%" Top="5" OnClientShow="setCustomPosition">
-                    <ContentTemplate>
+                    <contenttemplate>
                         <div style="padding: 0px; width: 100%; height: 100%;">
                             <%--<table width="100%" cellpadding="0" cellpadding="0" Height="100%">
                         <tr>
@@ -452,11 +452,12 @@
                         </tr>
                     </table>--%>
                         </div>
-                    </ContentTemplate>
+                    </contenttemplate>
                 </telerik:RadWindow>
             </div>
         </ContentTemplate>
         <Triggers>
+            <asp:PostBackTrigger ControlID="btnSubmit" />
         </Triggers>
     </asp:UpdatePanel>
 </body>
@@ -477,22 +478,20 @@
             <span id="Span1" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Select an AMC" Display="Dynamic" ControlToValidate="ddlAmc"
-                InitialValue="0" ValidationGroup="btnSubmit">
+                InitialValue="0">
             </asp:RequiredFieldValidator>
             <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged">
             </asp:DropDownList>
             <span id="Span7" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Please Select Category"
-                CssClass="rfvPCG" ControlToValidate="ddlCategory" ValidationGroup="btnSubmit"
-                Display="Dynamic" InitialValue="-1"></asp:RequiredFieldValidator>
+                CssClass="rfvPCG" ControlToValidate="ddlCategory" Display="Dynamic" InitialValue="-1"></asp:RequiredFieldValidator>
             <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlScheme_onSelectedChanged">
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please Select a scheme"
-                InitialValue="0" CssClass="rfvPCG" ControlToValidate="ddlScheme" ValidationGroup="btnSubmit"
-                Display="Dynamic"></asp:RequiredFieldValidator>
+                InitialValue="0" CssClass="rfvPCG" ControlToValidate="ddlScheme" Display="Dynamic"></asp:RequiredFieldValidator>
         </td>
     </tr>
 </table>

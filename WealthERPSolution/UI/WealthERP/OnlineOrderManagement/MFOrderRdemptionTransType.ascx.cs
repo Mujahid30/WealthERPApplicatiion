@@ -81,7 +81,7 @@ namespace WealthERP.OnlineOrderManagement
                 clientMFAccessCode = onlineMforderBo.GetClientMFAccessStatus(customerVo.CustomerId);
                 if (clientMFAccessCode == "FA" || clientMFAccessCode == "PA")
                 {
-                    //AmcBind();
+                    AmcBind();
                     //CategoryBind();
                     BindNomineeAndJointHolders();
                     dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(0, customerVo.CustomerId);
@@ -103,14 +103,17 @@ namespace WealthERP.OnlineOrderManagement
                         {
                             schemeCode = int.Parse(Request.QueryString["SchemeCode"].ToString());
                             accountId = int.Parse(Request.QueryString["accountId"].ToString());
-                            commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category);
-                            SetSelectedDisplay(accountId, schemeCode, amcCode, category);
+                            //commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category);
+                            commonLookupBo.GetSchemeAMCSchemeCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out categoryname, out amcName, out schemeName);
+                            lblAmc.Text = amcName;
+                            lblCategory.Text = categoryname;
+                            lblScheme.Text = schemeName;
+                            SetSelectedDisplay(accountId, int.Parse(Session["MFSchemePlan"].ToString()), amcCode, category);
                         }
                         else
                         {
                            
                             //commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category);
-                            AmcBind();
                             commonLookupBo.GetSchemeAMCSchemeCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out categoryname, out amcName, out schemeName);
                             lblAmc.Text = amcName;
                             lblCategory.Text = categoryname;

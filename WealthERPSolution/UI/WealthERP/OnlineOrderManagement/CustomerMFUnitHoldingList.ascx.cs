@@ -403,14 +403,7 @@ namespace WealthERP.OnlineOrderManagement
                             if (e.CommandName == "SelectTransaction")
                             {
                                 BindTransactionDetails(accountddl, SchemePlanCode, gvChildDetails);
-                                //if (Session["PageDefaultSetting"] != null)
-                                //{
-                                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerTransactionBookList','?folionum=" + folio + "&SchemePlanCode=" + SchemePlanCode + "&accountddl=" + accountddl + "&AMCCode=" + amcCode + "');", true);
-                                //}
-                                //else
-                                //{
-                                //    Response.Redirect("ControlHost.aspx?pageid=CustomerTransactionBookList&folionum=" + folio + "&SchemePlanCode=" + SchemePlanCode + "&accountddl=" + accountddl + "&AMCCode=" + amcCode + "", false);
-                                //}
+                                
                             }
 
                         }
@@ -426,48 +419,18 @@ namespace WealthERP.OnlineOrderManagement
             {
                 Session["MFSchemePlan"] = schemePlanCode;
                 accountId = "&accountId=" + accountId;
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOrderPurchaseTransType','&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
-
-                //if (Session["PageDefaultSetting"] != null)
-                //{
-
-                //    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderAdditionalPurchase','&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
-                //}
-                //else
-                //{
-                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderAdditionalPurchase','&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
-                //}
-
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOrderPurchaseTransType&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
             }
             if (e.CommandName == "SIP")
             {
                 Session["MFSchemePlan"] = schemePlanCode;
                 accountId = "&accountId=" + accountId;
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOrderSIPTransType','&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
-
-                //if (Session["PageDefaultSetting"] != null)
-                //{
-                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderSIPTransType','&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
-                //}
-                //else
-                //{
-                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderSIPTransType','&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
-                //}
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOrderSIPTransType&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
             }
             if (e.CommandName == "Sell")
             {
                 Session["MFSchemePlan"] = schemePlanCode;
-                accountId = "&accountId=" + accountId;
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOrderRdemptionTransType','&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
-
-                //if (Session["PageDefaultSetting"] != null)
-                //{
-                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderRdemptionTransType','&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
-                //}
-                //else
-                //{
-                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderRdemptionTransType','&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
-                //}
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOrderRdemptionTransType&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
             }
         }
 
