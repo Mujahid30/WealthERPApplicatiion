@@ -682,6 +682,8 @@
                             <ul class="greybox">
                                 <li><a onclick="LoadBottomPanelControl('MFSchemeDetails','login');">SCHEME RESEARCH</a></li>
                                 <li><a onclick="LoadBottomPanelControl('OnlineMFSchemeCompare','login');">SCHEME COMPARE</a></li>
+                                <li><a onclick="LoadBottomPanelControl('MFSchemeRelateInformation','?FilterType=NFO');">NFO</a></li>
+                                <li><a onclick="LoadBottomPanelControl('MFSchemeRelateInformation','?FilterType=watchList');">My WatchList</a></li>
                                 <li><a onclick="LoadBottomPanelControl('ProductOnlineFundNews','login');">NEWS</a></li>
                             </ul>
                         </div>
@@ -843,7 +845,7 @@
                             <div style="padding-left: 20px; color: White;">
                                 Transact</div>
                         </div>
-                        <table style="margin:0 0 0 50px;">
+                        <table style="margin: 0 0 0 50px;">
                             <tr>
                                 <td>
                                     <div id="Div1">

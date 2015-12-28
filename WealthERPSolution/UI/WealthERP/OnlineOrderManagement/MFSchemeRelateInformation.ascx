@@ -427,10 +427,6 @@
                         <div id="dvSchemeDetails">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <asp:Label ID="lblHeading" runat="server" Text="Scheme Details" Font-Bold="true"
-                                        Font-Size="Larger" ForeColor="#2475C7" Visible="false"></asp:Label>
-                                </div>
-                                <div class="col-md-4">
                                     <asp:RadioButtonList ID="rblNFOType" runat="server" AutoPostBack="true" RepeatDirection="Horizontal"
                                         OnSelectedIndexChanged="rblNFOType_OnSelectedIndexChanged" BorderStyle="None"
                                         CellSpacing="2" CellPadding="2">
@@ -439,8 +435,12 @@
                                         <asp:ListItem Text="Closed" Value="false" style="font-size: small; color: #2475C7"></asp:ListItem>
                                     </asp:RadioButtonList>
                                 </div>
+                                <div class="col-md-4">
+                                    <asp:Label ID="lblHeading" runat="server" Text="Scheme Details" Font-Bold="true"
+                                        Font-Size="Larger" ForeColor="#2475C7" Visible="false"></asp:Label>
+                                </div>
                             </div>
-                            <div class="row" style="margin-bottom: 1%; margin-top: 1%">
+                            <div class="row" style="margin-bottom: 1%; margin-top: 1%" runat="server" id="dvfilterTopRated">
                                 <div class="col-md-1" style="width: 65px; padding-top: 5px">
                                     Category</div>
                                 <div class="col-md-2">

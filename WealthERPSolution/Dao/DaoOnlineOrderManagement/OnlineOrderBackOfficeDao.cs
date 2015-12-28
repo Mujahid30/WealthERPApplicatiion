@@ -3132,7 +3132,7 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetProductSearchType;
         }
-        public DataTable GetTopMarketSchemes(string category, Boolean isSIP, int returns, int customerId, int returnsOperator,int returnsValue)
+        public DataTable GetTopMarketSchemes(string category, Boolean isSIP, int returns, int customerId, int returnsOperator,double returnsValue)
     {
          Database db;
             DataSet dsGetSchemeDetails;
@@ -3146,7 +3146,7 @@ namespace DaoOnlineOrderManagement
                  db.AddInParameter(cmdGetSchemeDetails, "@Returns", DbType.String, returns);
                  db.AddInParameter(cmdGetSchemeDetails, "@customerId", DbType.String, customerId);
                  db.AddInParameter(cmdGetSchemeDetails, "@ReturnsOperator", DbType.Int32, returnsOperator);
-                 db.AddInParameter(cmdGetSchemeDetails, "@ReturnsValue", DbType.Int64, returnsValue);
+                 db.AddInParameter(cmdGetSchemeDetails, "@ReturnsValue", DbType.Double, returnsValue);
                  dsGetSchemeDetails = db.ExecuteDataSet(cmdGetSchemeDetails);
             }
             catch (BaseApplicationException Ex)

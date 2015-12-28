@@ -2554,7 +2554,7 @@ namespace BoOnlineOrderManagement
             }
             return dtGetSchemeDetails;
         }
-        public DataTable GetTopMarketSchemes(string category, Boolean isSIP, int returns, int customerId, int returnsOperator, int returnsValue)
+        public DataTable GetTopMarketSchemes(string category, Boolean isSIP, int returns, int customerId, int returnsOperator, double returnsValue)
         {
             try
             {

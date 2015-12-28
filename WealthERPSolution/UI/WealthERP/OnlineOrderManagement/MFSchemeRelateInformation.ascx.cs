@@ -39,6 +39,7 @@ namespace WealthERP.OnlineOrderManagement
             OnlineUserSessionBo.CheckSession();
             customerVo = (CustomerVo)Session["customerVo"];
             userVo = (UserVo)Session["userVo"];
+            dvfilterTopRated.Visible = true;
             if (!IsPostBack)
             {
                 BindAMC();
@@ -46,8 +47,19 @@ namespace WealthERP.OnlineOrderManagement
                 BindCategory(ddlTopCategory);
                 BindCategory(ddlMarketCategory);
                 BindScheme();
-                SetParametersForAdminGrid("lbTopSchemes");
-                BindTopMarketSchemes(ddlMarketCategory.SelectedValue,  Boolean.Parse(ddlSIP.SelectedValue), int.Parse(ddlReturns.SelectedValue),customerVo.CustomerId);
+                if (Request.QueryString["FilterType"] == "NFO")
+                {
+                    SetParametersForAdminGrid("lbNFOList");
+                }
+                else if (Request.QueryString["FilterType"] == "watchList")
+                {
+                    SetParametersForAdminGrid("lbViewWatchList");
+                }
+                else
+                {
+                    SetParametersForAdminGrid("lbTopSchemes");
+                    BindTopMarketSchemes(ddlMarketCategory.SelectedValue, Boolean.Parse(ddlSIP.SelectedValue), int.Parse(ddlReturns.SelectedValue), customerVo.CustomerId);
+                }
             }
         }
         protected void clearAllControls()
@@ -59,6 +71,7 @@ namespace WealthERP.OnlineOrderManagement
             hfIsSchemeDetails.Value = null;
             hfNFOType.Value = null;
             hfIsSIP.Value = null;
+            RadTabStripAdsUpload.Tabs[0].Visible = true;
         }
         protected void ddlAMC_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -131,6 +144,11 @@ namespace WealthERP.OnlineOrderManagement
             hfIsSIP.Value =" true";
             BindSchemeRelatedDetails(int.Parse(hfAMCCode.Value), int.Parse(hfSchemeCode.Value), hfCategory.Value, int.Parse(hfCustomerId.Value), Int16.Parse(hfIsSchemeDetails.Value), Boolean.Parse(hfNFOType.Value), 1, Boolean.Parse(hfIsSIP.Value));
             lblHeading.Text = "Schemes Details";
+            RadTabStripAdsUpload.Tabs[0].Visible = false;
+            RadTabStripAdsUpload.Tabs[1].Text = "Scheme Details";
+            RadTabStripAdsUpload.Tabs[1].Selected = true;
+            multipageAdsUpload.SelectedIndex = 1;
+
 
         }
         protected void BindSchemeRelatedDetails(int amcCode, int SchemeCode, string category, int customerId, Int16 isSchemeDetails, Boolean NFOType, int pageIndex,Boolean isSIP)
@@ -201,6 +219,8 @@ namespace WealthERP.OnlineOrderManagement
             ViewState["FilterType"] = Action;
             rblNFOType.Visible = false;
             hfCustomerId.Value = customerVo.CustomerId.ToString();
+            RadTabStripAdsUpload.Tabs[0].Visible = true;
+            dvfilterTopRated.Visible = false;
             switch (Action)
             {
                 case "lbViewWatchList": hfAMCCode.Value = "0";
@@ -208,8 +228,12 @@ namespace WealthERP.OnlineOrderManagement
                     hfCategory.Value = "0";
                     hfIsSchemeDetails.Value = "0";
                     hfNFOType.Value = rblNFOType.SelectedValue;
-                  
+                    hfIsSIP.Value = "false";
                     lblHeading.Text = "My Watch List";
+                    RadTabStripAdsUpload.Tabs[0].Visible = false;
+                    RadTabStripAdsUpload.Tabs[1].Text = "My Watch List";
+                    RadTabStripAdsUpload.Tabs[1].Selected = true;
+                    multipageAdsUpload.SelectedIndex = 1;
                     lbViewWatchList.ForeColor = System.Drawing.ColorTranslator.FromHtml("#07090A");
                     break;
                 case "lbNFOList":
@@ -218,9 +242,13 @@ namespace WealthERP.OnlineOrderManagement
                     hfCategory.Value = "0";
                     hfIsSchemeDetails.Value = "3";
                     hfNFOType.Value = rblNFOType.SelectedValue;
-                  
+                    hfIsSIP.Value = "false";
                     lblHeading.Text = "NFO Scheme";
                     rblNFOType.Visible = true;
+                    RadTabStripAdsUpload.Tabs[0].Visible = false;
+                    RadTabStripAdsUpload.Tabs[1].Text = "NFO Scheme";
+                    RadTabStripAdsUpload.Tabs[1].Selected = true;
+                    multipageAdsUpload.SelectedIndex = 1;
                     lbNFOList.ForeColor = System.Drawing.ColorTranslator.FromHtml("#07090A");
                     break;
                 case "lbTopSchemes":
@@ -235,9 +263,10 @@ namespace WealthERP.OnlineOrderManagement
 
                     break;
                 case "lbSchemeDetails": dvDemo.Visible = true;
-                   
                     lblHeading.Text = "Schemes Details";
-
+                    hfIsSIP.Value = "false";
+                    RadTabStripAdsUpload.Tabs[0].Visible = false;
+                    RadTabStripAdsUpload.Tabs[1].Text = "Schemes Details";
                     break;
 
             }
@@ -561,7 +590,7 @@ namespace WealthERP.OnlineOrderManagement
         protected void BindTopMarketSchemes(string category, Boolean IsSIP, int Returns,int customerId)
         {
             OnlineOrderBackOfficeBo boOnlineOrderBackOffice = new OnlineOrderBackOfficeBo();
-            DataTable dtTopMarketSchemes = boOnlineOrderBackOffice.GetTopMarketSchemes(category, IsSIP, Returns, customerId, int.Parse(ddlCompare.SelectedValue), int.Parse(txtcmpvalue.Text));
+            DataTable dtTopMarketSchemes = boOnlineOrderBackOffice.GetTopMarketSchemes(category, IsSIP, Returns, customerId, int.Parse(ddlCompare.SelectedValue), double.Parse(txtcmpvalue.Text));
            if (Cache["TopMarketSchemes" + userVo.UserId] != null)
            {
                Cache.Remove("TopMarketSchemes" + userVo.UserId);
