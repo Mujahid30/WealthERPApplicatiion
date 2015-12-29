@@ -58,6 +58,7 @@ namespace WealthERP.OnlineOrderManagement
             customerVo = (CustomerVo)Session["customerVo"];
             userVo = (UserVo)Session["userVo"];
             RadInformation.VisibleOnPageLoad = false;
+            rwTermsCondition.VisibleOnPageLoad = false;
             int TOcpmaretime = int.Parse(DateTime.Now.ToShortTimeString().Split(':')[0]);
             if (TOcpmaretime >= int.Parse(ConfigurationSettings.AppSettings["START_TIME"]) && TOcpmaretime < int.Parse(ConfigurationSettings.AppSettings["END_TIME"]))
             {
@@ -101,7 +102,7 @@ namespace WealthERP.OnlineOrderManagement
                         string category = string.Empty;
                         if (Request.QueryString["accountId"] != null)
                         {
-                            schemeCode = int.Parse(Request.QueryString["SchemeCode"].ToString());
+                            schemeCode = int.Parse(Session["MFSchemePlan"].ToString());
                             accountId = int.Parse(Request.QueryString["accountId"].ToString());
                             //commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category);
                             commonLookupBo.GetSchemeAMCSchemeCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out categoryname, out amcName, out schemeName);

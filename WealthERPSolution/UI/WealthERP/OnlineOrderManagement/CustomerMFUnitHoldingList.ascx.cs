@@ -417,20 +417,15 @@ namespace WealthERP.OnlineOrderManagement
             }
             if (e.CommandName == "Buy")
             {
-                Session["MFSchemePlan"] = schemePlanCode;
-                accountId = "&accountId=" + accountId;
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOrderPurchaseTransType&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanelFromMainPage('MFOrderPurchaseTransType&accountId="+accountId+"','" + schemePlanCode + "')", true);
             }
             if (e.CommandName == "SIP")
             {
-                Session["MFSchemePlan"] = schemePlanCode;
-                accountId = "&accountId=" + accountId;
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOrderSIPTransType&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanelFromMainPage('MFOrderSIPTransType&accountId=" + accountId + "','" + schemePlanCode + "')", true);
             }
             if (e.CommandName == "Sell")
             {
-                Session["MFSchemePlan"] = schemePlanCode;
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOrderRdemptionTransType&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanelFromMainPage('MFOrderRdemptionTransType&accountId=" + accountId + "','" + schemePlanCode + "')", true);
             }
         }
 

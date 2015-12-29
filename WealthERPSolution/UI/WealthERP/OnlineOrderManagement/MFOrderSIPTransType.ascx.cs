@@ -93,9 +93,6 @@ namespace WealthERP.OnlineOrderManagement
                     AmcBind();
                     BindCategory();
                     ShowAvailableLimits();
-                    //lnkOfferDoc.Visible = false;
-                    //lnkFactSheet.Visible = false;
-                    //lnkExitLoad.Visible = false;
                     BindNomineeAndJointHolders();
                     if (Request.QueryString["strAction"] != null && Request.QueryString["orderId"] != null && Request.QueryString["customerId"] != null)
                     {
@@ -111,7 +108,7 @@ namespace WealthERP.OnlineOrderManagement
                         string category = string.Empty;
                         if (Request.QueryString["accountId"] != null)
                         {
-                            schemeCode = int.Parse(Request.QueryString["SchemeCode"].ToString());
+                            schemeCode = int.Parse(Session["MFSchemePlan"].ToString());
                             accountId = int.Parse(Request.QueryString["accountId"].ToString());
                             commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category);
                             OnDrillDownBindControlValue(amcCode, category, accountId, schemeCode);
@@ -120,27 +117,11 @@ namespace WealthERP.OnlineOrderManagement
                         }
                         else
                         {
-                            //amcCode = int.Parse(Request.QueryString["Amc"].ToString());
-                            //ddlAmc.SelectedValue = amcCode.ToString();
-                            //ddlCategory.SelectedValue = Request.QueryString["category"].ToString();
-                            //BindFolioNumber(Convert.ToInt32(ddlAmc.SelectedValue));
                             commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category);
                             OnDrillDownBindControlValue(amcCode, category, 0, int.Parse(Session["MFSchemePlan"].ToString()));
                             BindSchemeDividendTypes(int.Parse(Session["MFSchemePlan"].ToString()));
-                            //BindSchemes(Convert.ToInt32(ddlAmc.SelectedValue), ddlCategory.SelectedValue);
-
-                            //SchemeBind(int.Parse(ddlAmc.SelectedValue), null, customerVo.CustomerId);
-                            //ddlScheme.SelectedValue = schemeCode.ToString();
-                            //BindFrequency();
-                            //BindAllControlsWithSIPData();
-                            //BindFolioNumber(int.Parse(ddlAmc.SelectedValue)); 
-                            //SetControlDetails(schemeCode);
-                            //SetSelectedDisplay(int.Parse(ddlFolio.SelectedValue), schemeCode, amcCode, category);
-                            //BindNomineeAndJointHolders();
                         }
-
                         btnSubmit.Text = "Submit";
-
                         if (strAction == "Edit")
                         {
                             BindSipDetailsForEdit();

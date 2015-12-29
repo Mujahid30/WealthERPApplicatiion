@@ -540,14 +540,13 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void ddlAction_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            Session["MFSchemePlan"] = ddlScheme.SelectedValue;
             switch (ddlAction.SelectedValue)
             {
                 case "Buy":
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOrderPurchaseTransType')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanelFromMainPage('MFOrderPurchaseTransType','" + ddlScheme.SelectedValue + "')", true);
                     break;
                 case "SIP":
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOrderSIPTransType')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanelFromMainPage('MFOrderSIPTransType','" + ddlScheme.SelectedValue + "')", true);
                     break;
             }
         }

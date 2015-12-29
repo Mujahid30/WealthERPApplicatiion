@@ -42,21 +42,25 @@
         text-align: center;
         font-color: white;
     }
+    .readOnlyFieldsss
+    {
+        font-family: Verdana,Tahoma;
+        font-weight: normal;
+        font-size: small;
+        color: Black;
+    }
+    .DetailfieldFontSize
+    {
+        font-family: Times New Roman;
+        font-weight: bold;
+        font-size: small;
+        color: #000;
+    }
 </style>
-<table class="tblMessage" cellpadding="0" cellspacing="0">
-    <tr>
-        <td>
-            <div class="divOnlinePageHeading" style="height: 25px;">
-                <div class="divClientAccountBalance" id="divClientAccountBalance" runat="server">
-                   
-                </div>
-            </div>
-        </td>
-    </tr>
-</table>
+
 <asp:UpdatePanel ID="updSchemDetails" runat="server" UpdateMode="Always">
     <ContentTemplate>
-        <div class="table-responsive" style="margin-left: 5%; margin-top: 2%;margin-bottom:2%;">
+        <div class="table-responsive" style="margin-left: 5%; margin-top: 2%; margin-bottom: 2%;">
             <div class="col-md-3" style="width: 70%;">
                 <table class="col-md-12 table-bordered table-striped table-condensed cf">
                     <thead>
@@ -69,7 +73,8 @@
                     <tbody>
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td style="width: auto;">
-                           <b> <asp:Label ID="lblRating1" runat="server" Text="Rating" Visible="false"></asp:Label></b> 
+                                <b>
+                                    <asp:Label ID="lblRating1" runat="server" Text="Rating" CssClass="DetailfieldFontSize" Visible="false"></asp:Label></b>
                             </td>
                             <td id="tdddlAMC1" runat="server">
                                 <asp:LinkButton ID="lnkDelete1" runat="server" OnClick="lnkDelete1_OnClick" Visible="false"
@@ -174,36 +179,45 @@
                         </tr>
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>Action</b>
+                                <b class="DetailfieldFontSize">Action</b>
                             </td>
                             <td align="center">
-                                &nbsp;&nbsp;<asp:ImageButton ID="btnbuy1" runat="server" ImageUrl="../Images/Buy_BIG_Buttons.png" height="40px" width="70px"
-                                    onclick="btnbuy1_Click" Visible="false" ToolTip="BUY" OnClientClick="LoadTransactPanel('MFOrderPurchaseTransType')"/>
-                                &nbsp;&nbsp;<asp:ImageButton ID="btnSIP1" runat="server" ImageUrl="../Images/SIP_BIG_Buttons.png"  height="40px" width="70px"
-                                    onclick="btnSIP1_Click" Visible="false" ToolTip="SIP" OnClientClick="LoadTransactPanel('MFOrderSIPTransType');"/>
+                                <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" CssClass="form-control input-sm"
+                                    OnSelectedIndexChanged="ddlAction_OnSelectedIndexChanged" Width="100px">
+                                    <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
+                                    <asp:ListItem Text="Buy" Value="Buy"></asp:ListItem>
+                                    <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
+                                </asp:DropDownList>
                             </td>
                             <td align="center">
-                                &nbsp;&nbsp;<asp:ImageButton ID="btnbuy2" runat="server" ImageUrl="../Images/Buy_BIG_Buttons.png" height="40px" width="70px" 
-                                    onclick="btnbuy2_Click" Visible="false" ToolTip="BUY" OnClientClick="LoadTransactPanel('MFOrderPurchaseTransType')"/>
-                                &nbsp;&nbsp;<asp:ImageButton ID="btnSIP2" runat="server" onclick="btnSIP2_Click" 
-                                     ImageUrl="../Images/SIP_BIG_Buttons.png" Visible="false" ToolTip="SIP" height="40px" width="70px" OnClientClick="LoadTransactPanel('MFOrderSIPTransType')"/>
+                                <asp:DropDownList ID="ddlAction1" runat="server" AutoPostBack="true" CssClass="form-control input-sm"
+                                    OnSelectedIndexChanged="ddlAction1_OnSelectedIndexChanged" Width="100px">
+                                    <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
+                                    <asp:ListItem Text="Buy" Value="Buy"></asp:ListItem>
+                                    <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
+                                </asp:DropDownList>
                             </td>
                             <td align="center">
-                                &nbsp;&nbsp;<asp:ImageButton ID="btnbuy3" runat="server" ImageUrl="../Images/Buy_BIG_Buttons.png" height="40px" width="70px"
-                                    onclick="btnbuy3_Click"  Visible="false" ToolTip="BUY" OnClientClick="LoadTransactPanel('MFOrderPurchaseTransType')"/>
-                                &nbsp;&nbsp;<asp:ImageButton ID="btnSIP3" runat="server" onclick="btnSIP3_Click" Visible="false" height="40px" width="70px" ImageUrl="../Images/SIP_BIG_Buttons.png" ToolTip="SIP" OnClientClick="LoadTransactPanel('MFOrderSIPTransType')"/>
+                                <asp:DropDownList ID="ddlAction2" runat="server" AutoPostBack="true" CssClass="form-control input-sm"
+                                    OnSelectedIndexChanged="ddlAction2_OnSelectedIndexChanged" Width="100px">
+                                    <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
+                                    <asp:ListItem Text="Buy" Value="Buy"></asp:ListItem>
+                                    <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
+                                </asp:DropDownList>
                             </td>
                             <td align="center">
-                                &nbsp;&nbsp;<asp:ImageButton ID="btnbuy4" runat="server" ImageUrl="../Images/Buy_BIG_Buttons.png" 
-                                    onclick="btnbuy4_Click" Visible="false" ToolTip="BUY" height="40px" width="70px" OnClientClick="LoadTransactPanel('MFOrderPurchaseTransType')"/> 
-                                &nbsp;&nbsp;<asp:ImageButton ID="btnSIP4" runat="server" ImageUrl="../Images/SIP_BIG_Buttons.png" height="40px" width="70px"
-                                    onclick="btnSIP4_Click" Visible="false" ToolTip="SIP" OnClientClick="LoadTransactPanel('MFOrderSIPTransType')"/>
+                                <asp:DropDownList ID="ddlAction3" runat="server" AutoPostBack="true" CssClass="form-control input-sm"
+                                    OnSelectedIndexChanged="ddlAction3_OnSelectedIndexChanged" Width="100px">
+                                    <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
+                                    <asp:ListItem Text="Buy" Value="Buy"></asp:ListItem>
+                                    <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
+                                </asp:DropDownList>
                             </td>
                         </tr>
                         <tr class="searchable-spec cell top sub-name small bordered" visible="false" id="trschemerating"
                             runat="server">
                             <td style="width: auto;">
-                                <b>Scheme Rating</b>
+                                <b class="DetailfieldFontSize">Scheme Rating</b>
                             </td>
                             <td>
                                 <asp:Image runat="server" ID="imgSchemeRating" />
@@ -220,7 +234,7 @@
                         </tr>
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>Scheme</b>
+                               <b class="DetailfieldFontSize">Scheme</b>
                             </td>
                             <td>
                                 <asp:Label ID="lblSchemeName" runat="server"></asp:Label>
@@ -235,10 +249,9 @@
                                 <asp:Label ID="lblSchemeName3" runat="server"></asp:Label>
                             </td>
                         </tr>
-                       
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>Category</b>
+                               <b class="DetailfieldFontSize">Category</b>
                             </td>
                             <td>
                                 <asp:Label ID="lblCategory" runat="server"></asp:Label>
@@ -253,9 +266,9 @@
                                 <asp:Label ID="lblCategory3" runat="server"></asp:Label>
                             </td>
                         </tr>
-                         <tr class="searchable-spec cell top sub-name small bordered">
+                        <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>NAV</b>
+                               <b class="DetailfieldFontSize">NAV</b>
                             </td>
                             <td>
                                 <asp:Label ID="lblNAV" runat="server"></asp:Label>
@@ -272,7 +285,7 @@
                         </tr>
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>NAV Date</b>
+                                <b class="DetailfieldFontSize">NAV Date</b>
                             </td>
                             <td>
                                 <asp:Label ID="lblNAVDate" runat="server"></asp:Label>
@@ -287,10 +300,9 @@
                                 <asp:Label ID="lblNAVDate3" runat="server"></asp:Label>
                             </td>
                         </tr>
-                       
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>Fund Manager</b>
+                               <b class="DetailfieldFontSize">Fund Manager</b>
                             </td>
                             <td>
                                 <asp:Label ID="lblFundManager" runat="server"></asp:Label>
@@ -305,10 +317,9 @@
                                 <asp:Label ID="lblFundManager3" runat="server"></asp:Label>
                             </td>
                         </tr>
-                       
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>Return 1st yr (%)</b>
+                               <b class="DetailfieldFontSize">Return 1st yr (%)</b>
                             </td>
                             <td>
                                 <asp:Label ID="lblFundReturn1styear" runat="server"></asp:Label>
@@ -325,7 +336,7 @@
                         </tr>
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>Return 3rd yr (%)</b>
+                                <b class="DetailfieldFontSize">Return 3rd yr (%)</b>
                             </td>
                             <td>
                                 <asp:Label ID="lblFundReturn3rdyear" runat="server"></asp:Label>
@@ -342,7 +353,7 @@
                         </tr>
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>Return 5th yr (%)</b>
+                                <b class="DetailfieldFontSize">Return 5th yr (%)</b>
                             </td>
                             <td>
                                 <asp:Label ID="lblFundReturn5thyear" runat="server"></asp:Label>
@@ -357,9 +368,9 @@
                                 <asp:Label ID="lblFundReturn5thyear3" runat="server"></asp:Label>
                             </td>
                         </tr>
-                         <tr class="searchable-spec cell top sub-name small bordered">
+                        <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>Benchmark</b>
+                                <b class="DetailfieldFontSize">Benchmark</b>
                             </td>
                             <td>
                                 <asp:Label ID="lblBanchMark" runat="server"></asp:Label>
@@ -376,7 +387,7 @@
                         </tr>
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>Benchmark Return 1st yr (%)</b>
+                                <b class="DetailfieldFontSize">Benchmark Return 1st yr (%)</b>
                             </td>
                             <td>
                                 <asp:Label ID="lblBenchmarkReturn" runat="server"></asp:Label>
@@ -393,7 +404,7 @@
                         </tr>
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>Benchmark Return 3rd yr (%)</b>
+                               <b class="DetailfieldFontSize">Benchmark Return 3rd yr (%)</b>
                             </td>
                             <td>
                                 <asp:Label ID="lblBenchMarkReturn3rd" runat="server"></asp:Label>
@@ -410,7 +421,7 @@
                         </tr>
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>Benchmark Return 5th yr (%)</b>
+                               <b class="DetailfieldFontSize">Benchmark Return 5th yr (%)</b>
                             </td>
                             <td>
                                 <asp:Label ID="lblBenchMarkReturn5th" runat="server"></asp:Label>
@@ -425,10 +436,9 @@
                                 <asp:Label ID="lblBenchMarkReturn5th3" runat="server"></asp:Label>
                             </td>
                         </tr>
-                        
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>Min Investment Amt.</b>
+                               <b class="DetailfieldFontSize">Min Investment Amt.</b>
                             </td>
                             <td>
                                 <asp:Label ID="lblMinInvestment" runat="server"></asp:Label>
@@ -445,7 +455,7 @@
                         </tr>
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>Multiple of</b>
+                              <b class="DetailfieldFontSize">Multiple of</b>
                             </td>
                             <td>
                                 <asp:Label ID="lblMinMultipleOf" runat="server"></asp:Label>
@@ -462,7 +472,7 @@
                         </tr>
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>Min SIP Amt.</b>
+                               <b class="DetailfieldFontSize">Min SIP Amt.</b>
                             </td>
                             <td>
                                 <asp:Label ID="lblMinSIP" runat="server"></asp:Label>
@@ -479,7 +489,7 @@
                         </tr>
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>Multiple of</b>
+                               <b class="DetailfieldFontSize">Multiple of</b>
                             </td>
                             <td>
                                 <asp:Label ID="lblSIPMultipleOf" runat="server"></asp:Label>
@@ -496,7 +506,7 @@
                         </tr>
                         <tr class="searchable-spec cell top sub-name small bordered">
                             <td>
-                                <b>Exit Load</b>
+                                <b class="DetailfieldFontSize">Exit Load</b>
                             </td>
                             <td>
                                 <asp:Label ID="lblExitLoad" runat="server"></asp:Label>
@@ -511,13 +521,9 @@
                                 <asp:Label ID="lblExitLoad3" runat="server"></asp:Label>
                             </td>
                         </tr>
-                        
                     </tbody>
                 </table>
             </div>
-            </div>
+        </div>
     </ContentTemplate>
 </asp:UpdatePanel>
-
-
-

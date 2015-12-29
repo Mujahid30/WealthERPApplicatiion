@@ -23,15 +23,6 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.ScriptManager scrptMgr;
         
         /// <summary>
-        /// divClientAccountBalance control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divClientAccountBalance;
-        
-        /// <summary>
         /// updSchemDetails control.
         /// </summary>
         /// <remarks>
@@ -266,76 +257,40 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.DropDownList ddlSchemeList4;
         
         /// <summary>
-        /// btnbuy1 control.
+        /// ddlAction control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnbuy1;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAction;
         
         /// <summary>
-        /// btnSIP1 control.
+        /// ddlAction1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnSIP1;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAction1;
         
         /// <summary>
-        /// btnbuy2 control.
+        /// ddlAction2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnbuy2;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAction2;
         
         /// <summary>
-        /// btnSIP2 control.
+        /// ddlAction3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnSIP2;
-        
-        /// <summary>
-        /// btnbuy3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnbuy3;
-        
-        /// <summary>
-        /// btnSIP3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnSIP3;
-        
-        /// <summary>
-        /// btnbuy4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnbuy4;
-        
-        /// <summary>
-        /// btnSIP4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnSIP4;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAction3;
         
         /// <summary>
         /// trschemerating control.

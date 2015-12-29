@@ -354,7 +354,7 @@
                             <span id="Span5" class="spnRequiredField">*</span>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" CssClass="rfvPCG"
                                 ErrorMessage="Please Select an Dividend Type" Display="Dynamic" ControlToValidate="ddlDivType"
-                                InitialValue="0" >
+                                InitialValue="0">
                             </asp:RequiredFieldValidator>
                         </div>
                         <div class="col-md-3">
@@ -382,7 +382,7 @@
                                 </tr>
                                 <tr>
                                     <td align="center">
-                                        <asp:Button ID="btnAccept" runat="server" Text="Accept" CssClass="PCGButton" OnClick="btnAccept_Click"
+                                        <asp:Button ID="btnAccept" runat="server" Text="Accept" CssClass="PCGButton" OnClick="btnAccept_Click" CausesValidation="false"
                                           />
                                     </td>
                                 </tr>

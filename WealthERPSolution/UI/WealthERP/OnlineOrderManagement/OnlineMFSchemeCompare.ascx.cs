@@ -267,9 +267,8 @@ namespace WealthERP.OnlineOrderManagement
                     lblMinInvestment.Text = onlineMFSchemeDetailsVo.minmumInvestmentAmount.ToString();
                     lblMinMultipleOf.Text = onlineMFSchemeDetailsVo.multipleOf.ToString();
                     if(onlineMFSchemeDetailsVo.isPurchaseAvaliable !=0)
-                    btnbuy1.Visible = true;
-                    if (onlineMFSchemeDetailsVo.isSIPAvaliable != 0)
-                    btnSIP1.Visible = true;
+                                       if (onlineMFSchemeDetailsVo.isSIPAvaliable != 0)
+                  
                     if (onlineMFSchemeDetailsVo.mornigStar > 0)
                     {
                         imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
@@ -308,9 +307,9 @@ namespace WealthERP.OnlineOrderManagement
                     lblMinInvestment1.Text = onlineMFSchemeDetailsVo.minmumInvestmentAmount.ToString();
                     lblMinMultipleOf1.Text = onlineMFSchemeDetailsVo.multipleOf.ToString();
                     if (onlineMFSchemeDetailsVo.isPurchaseAvaliable != 0)
-                        btnbuy2.Visible = true;
+                       
                     if (onlineMFSchemeDetailsVo.isSIPAvaliable != 0)
-                        btnSIP2.Visible = true;
+                     
                     if (onlineMFSchemeDetailsVo.mornigStar > 0)
                     {
                         imgSchemeRating1.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
@@ -350,9 +349,9 @@ namespace WealthERP.OnlineOrderManagement
                     lblMinInvestment2.Text = onlineMFSchemeDetailsVo.minmumInvestmentAmount.ToString();
                     lblMinMultipleOf2.Text = onlineMFSchemeDetailsVo.multipleOf.ToString();
                     if (onlineMFSchemeDetailsVo.isPurchaseAvaliable != 0)
-                        btnbuy3.Visible = true;
+                    
                     if (onlineMFSchemeDetailsVo.isSIPAvaliable != 0)
-                        btnSIP3.Visible = true;
+                   
                     if (onlineMFSchemeDetailsVo.mornigStar > 0)
                     {
                         imgSchemeRating2.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
@@ -392,9 +391,9 @@ namespace WealthERP.OnlineOrderManagement
                     lblMinInvestment3.Text = onlineMFSchemeDetailsVo.minmumInvestmentAmount.ToString();
                     lblMinMultipleOf3.Text = onlineMFSchemeDetailsVo.multipleOf.ToString();
                     if (onlineMFSchemeDetailsVo.isPurchaseAvaliable != 0)
-                        btnbuy4.Visible = true;
+                      
                     if (onlineMFSchemeDetailsVo.isSIPAvaliable != 0)
-                        btnSIP4.Visible = true;
+                        
                     if (onlineMFSchemeDetailsVo.mornigStar > 0)
                     {
                         imgSchemeRating3.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
@@ -420,8 +419,6 @@ namespace WealthERP.OnlineOrderManagement
             ddlSchemeList1.Visible = true;
             lnkDelete1.Visible = false;
             ImgStyle1.Visible = false;
-            btnbuy1.Visible = false;
-            btnSIP1.Visible = false;
             BindAMC1();
             ClearAllField(1);
         }
@@ -432,8 +429,6 @@ namespace WealthERP.OnlineOrderManagement
             ddlSchemeList2.Visible = true;
             lnkDelete2.Visible = false;
             ImgStyle2.Visible = false;
-            btnbuy2.Visible = false;
-            btnSIP2.Visible = false;
             BindAMC1();
             ClearAllField(2);
         }
@@ -444,8 +439,6 @@ namespace WealthERP.OnlineOrderManagement
             ddlSchemeList3.Visible = true;
             lnkDelete3.Visible = false;
             ImgStyle3.Visible = false;
-            btnbuy3.Visible = false;
-            btnSIP3.Visible = false;
             BindAMC1();
             ClearAllField(3);
         }
@@ -456,8 +449,6 @@ namespace WealthERP.OnlineOrderManagement
             ddlSchemeList4.Visible = true;
             lnkDelete4.Visible = false;
             ImgStyle4.Visible = false;
-            btnbuy4.Visible = false;
-            btnSIP4.Visible = false;
             BindAMC1();
             ClearAllField(4);
         }
@@ -564,54 +555,53 @@ namespace WealthERP.OnlineOrderManagement
             }
         }
 
-        protected void btnbuy1_Click(object sender, ImageClickEventArgs e)
+        protected void ddlAction_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Session["MFSchemePlan"] == null || Session["MFSchemePlan"] != ddlSchemeList1.SelectedValue)
-            Session["MFSchemePlan"] = ddlSchemeList1.SelectedValue;
+            switch (ddlAction.SelectedValue)
+            {
+                case "Buy":
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanelFromMainPage('MFOrderPurchaseTransType','" + ddlSchemeList1.SelectedValue + "')", true);
+                    break;
+                case "SIP":
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanelFromMainPage('MFOrderSIPTransType','" + ddlSchemeList1.SelectedValue + "')", true);
+                    break;
+            }
         }
-
-        protected void btnSIP1_Click(object sender, ImageClickEventArgs e)
+        protected void ddlAction1_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Session["MFSchemePlan"] == null || Session["MFSchemePlan"] != ddlSchemeList1.SelectedValue)
-            Session["MFSchemePlan"] = ddlSchemeList1.SelectedValue;
+            switch (ddlAction1.SelectedValue)
+            {
+                case "Buy":
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanelFromMainPage('MFOrderPurchaseTransType','" + ddlSchemeList2.SelectedValue + "')", true);
+                    break;
+                case "SIP":
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanelFromMainPage('MFOrderSIPTransType','" + ddlSchemeList2.SelectedValue + "')", true);
+                    break;
+            }
         }
-
-        protected void btnbuy2_Click(object sender, ImageClickEventArgs e)
+        protected void ddlAction2_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Session["MFSchemePlan"] == null || Session["MFSchemePlan"] != ddlSchemeList2.SelectedValue)
-                Session["MFSchemePlan"] = ddlSchemeList2.SelectedValue;
+            switch (ddlAction2.SelectedValue)
+            {
+                case "Buy":
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanelFromMainPage('MFOrderPurchaseTransType','" + ddlSchemeList3.SelectedValue + "')", true);
+                    break;
+                case "SIP":
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanelFromMainPage('MFOrderSIPTransType','" + ddlSchemeList3.SelectedValue + "')", true);
+                    break;
+            }
         }
-
-        protected void btnSIP2_Click(object sender, ImageClickEventArgs e)
+        protected void ddlAction3_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Session["MFSchemePlan"] == null || Session["MFSchemePlan"] != ddlSchemeList2.SelectedValue)
-            Session["MFSchemePlan"] = ddlSchemeList2.SelectedValue;
+            switch (ddlAction3.SelectedValue)
+            {
+                case "Buy":
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanelFromMainPage('MFOrderPurchaseTransType','" + ddlSchemeList4.SelectedValue + "')", true);
+                    break;
+                case "SIP":
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanelFromMainPage('MFOrderSIPTransType','" + ddlSchemeList4.SelectedValue + "')", true);
+                    break;
+            }
         }
-
-        protected void btnbuy3_Click(object sender, ImageClickEventArgs e)
-        {
-            if (Session["MFSchemePlan"] == null || Session["MFSchemePlan"] != ddlSchemeList3.SelectedValue)
-                Session["MFSchemePlan"] = ddlSchemeList3.SelectedValue;
-        }
-
-        protected void btnSIP3_Click(object sender, ImageClickEventArgs e)
-        {
-            if (Session["MFSchemePlan"] == null || Session["MFSchemePlan"]!=ddlSchemeList3.SelectedValue)
-            Session["MFSchemePlan"] = ddlSchemeList3.SelectedValue;
-        }
-
-        protected void btnbuy4_Click(object sender, ImageClickEventArgs e)
-        {
-            if (Session["MFSchemePlan"] == null || Session["MFSchemePlan"] != ddlSchemeList4.SelectedValue)
-                Session["MFSchemePlan"] = ddlSchemeList4.SelectedValue;
-        }
-
-        protected void btnSIP4_Click(object sender, ImageClickEventArgs e)
-        {
-            if (Session["MFSchemePlan"] == null || Session["MFSchemePlan"] != ddlSchemeList4.SelectedValue)
-            Session["MFSchemePlan"] = ddlSchemeList4.SelectedValue;
-
-        }
-       
     }
 }

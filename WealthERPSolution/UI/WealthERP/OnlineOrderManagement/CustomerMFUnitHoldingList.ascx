@@ -670,11 +670,11 @@
                         <asp:Label ID="lblISRedeemFlag" runat="server" CssClass="cmbField" Text='<%# Eval("IsSchemeRedeem") %>'>
                         </asp:Label>
                         <asp:ImageButton ID="imgBuy" runat="server" CommandName="Buy" ImageUrl="~/Images/Buy-Button.png"
-                            ToolTip="BUY" OnClientClick="LoadTransactPanel('MFOrderPurchaseTransType');"/>&nbsp;
+                            ToolTip="BUY" />&nbsp;
                         <asp:ImageButton ID="imgSell" runat="server" CommandName="Sell" ImageUrl="~/Images/Sell-Button.png"
-                            ToolTip="SELL" OnClientClick="LoadTransactPanel('MFOrderPurchaseTransType');"/>&nbsp;
+                            ToolTip="SELL" />&nbsp;
                         <asp:ImageButton ID="imgSip" runat="server" CommandName="SIP" ImageUrl="~/Images/SIP-Button.png"
-                            ToolTip="SIP" OnClientClick="LoadTransactPanel('MFOrderPurchaseTransType');"/>
+                            ToolTip="SIP"/>
                     </div>
                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;
                         visibility: hidden;">
