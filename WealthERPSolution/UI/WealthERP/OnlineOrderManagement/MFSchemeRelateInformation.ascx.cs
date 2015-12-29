@@ -282,17 +282,14 @@ namespace WealthERP.OnlineOrderManagement
             if (itm != null)
             {
                 Label lblscheme = (Label)itm.FindControl("lblSchemeCode");
-                if (lblscheme != null)
-                {
-                    Session["MFSchemePlan"] = lblscheme.Text;
-                }
+               
                 if (ddl.SelectedValue =="Buy")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOrderPurchaseTransType')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanelFromMainPage('MFOrderPurchaseTransType','" + lblscheme.Text + "')", true);
                 }
                 else if (ddl.SelectedValue == "SIP")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOrderSIPTransType')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanelFromMainPage('MFOrderSIPTransType','" + lblscheme.Text + "')", true);
                 }
             }
         }
@@ -304,17 +301,14 @@ namespace WealthERP.OnlineOrderManagement
             if (itm != null)
             {
                 Label lblscheme = (Label)itm.FindControl("lblschemeCode");
-                if (lblscheme != null)
-                {
-                    Session["MFSchemePlan"] = lblscheme.Text;
-                }
+               
                 if (ddl.SelectedValue == "Buy")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOrderPurchaseTransType')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanelFromMainPage('MFOrderPurchaseTransType','" + lblscheme.Text + "')", true);
                 }
                 else if (ddl.SelectedValue == "SIP")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOrderSIPTransType')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanelFromMainPage('MFOrderSIPTransType,'" + lblscheme.Text + "')", true);
                 }
             }
         }
