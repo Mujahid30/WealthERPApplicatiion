@@ -38,8 +38,7 @@ namespace WealthERP.OnlineOrderManagement
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             OnlineUserSessionBo.CheckSession();
             customerVo = (CustomerVo)Session["customerVo"];
-            userVo = (UserVo)Session["userVo"];
-            dvfilterTopRated.Visible = true;
+            userVo = (UserVo)Session["userVo"];           
             if (!IsPostBack)
             {
                 BindAMC();
