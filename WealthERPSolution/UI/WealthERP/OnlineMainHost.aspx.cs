@@ -307,7 +307,7 @@ namespace WealthERP
                     exchangeType = "&exchangeType=Demat";
 
                 }
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromSchemeSearch", "LoadTransactPanel('MFOrderPurchaseTransType" + exchangeType + "');", true);
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromSchemeSearch", "LoadTransactPanel('"+hdnTransactType.Value + exchangeType + "');", true);
              
 
                 
