@@ -1060,7 +1060,13 @@ function LoadBottomPanelControl(controlid, logintrue) {
 
 
 /* !!!!!!!!!!!!!!!!!!!!!!!!~~~~FIRST PAGE LOAD CONTROLS(INITIAL REQUESTS)~~~~!!!!!!!!!!!!!!!!!!!!!!!!*/
-
+function LoadTransactPanelFromMainPage(controlid, schemecode) {
+   
+     parent.document.getElementById("schemeCode").value = schemecode;
+     parent.document.getElementById("hdnTransactType").value = controlid;
+     parent.document.getElementById("btnBindTransactDdl").click();
+     
+}
 
 function LoadTransactPanel(controlid) {
 

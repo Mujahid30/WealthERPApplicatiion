@@ -283,14 +283,34 @@ namespace WealthERP
                     exchangeType = "&exchangeType=Demat";
 
                 }
-                if (!this.ClientScript.IsClientScriptBlockRegistered(this.GetType(), "pageloadscripMFSchemeDetails"))
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromMainPage", "LoadTransactPanel('" +hdnTransactType.Value+ exchangeType + "');", true);
+             
+            }
+        }
+        protected void BindTransactDdl(object sender, EventArgs e)
+        {
+            if (schemeCode.Value != "")
+            {
+
+
+                string exchangeType = string.Empty;
+                CreateExchangeDetailsSession(Int32.Parse(schemeCode.Value));
+                Dictionary<string, string> SchemetransactType;
+                SchemetransactType = (Dictionary<string, string>)Session["SchemeExchangeee"];
+                if (SchemetransactType["exchange"].ToString().Contains("Online"))
                 {
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscripMFSchemeDetails", @"LoadBottomPanelControl('MFSchemeDetails', '&schemeCode=" + schemeCode.Value + "');", true);
+                    exchangeType = "&exchangeType=Online";
+
                 }
-                if (!this.ClientScript.IsClientScriptBlockRegistered(this.GetType(), "pageloadscripRajiv"))
+                else
                 {
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscripRajiv", @"LoadTransactPanel('MFOrderPurchaseTransType" + exchangeType + "');", true);
+                    exchangeType = "&exchangeType=Demat";
+
                 }
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromSchemeSearch", "LoadTransactPanel('MFOrderPurchaseTransType" + exchangeType + "');", true);
+             
+
+                
             }
         }
         private void SetProductTypeMenu(string productType)

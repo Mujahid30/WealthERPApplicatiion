@@ -838,9 +838,13 @@
         </div>
         <div id="dvTransact" runat="server" style="clear: both; background-color: #E5F6FF;
             font-weight: bold; font-size: smaller">
+            
             <div>
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
+                     <div style="clear:both;">
+        <asp:Button ID="btnBindTransactDdl"  runat="server"  Style="display: none"  OnClick="BindTransactDdl" />
+    </div>
                         <div style="background-color: #0396CC; width: 100%">
                             <div style="padding-left: 20px; color: White;">
                                 Transact</div>
@@ -894,6 +898,8 @@
         </div>
     </div>
     <asp:HiddenField ID="schemeCode" runat="server" />
+     <asp:HiddenField ID="hdnTransactType" runat="server" />
+   
     </form>
 </body>
 </html>
