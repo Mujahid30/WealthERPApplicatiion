@@ -683,7 +683,7 @@
                                 <li><a onclick="LoadBottomPanelControl('MFSchemeDetails','login');">SCHEME RESEARCH</a></li>
                                 <li><a onclick="LoadBottomPanelControl('OnlineMFSchemeCompare','login');">SCHEME COMPARE</a></li>
                                 <li><a onclick="LoadBottomPanelControl('MFSchemeRelateInformation','?FilterType=NFO');">NFO</a></li>
-                                <li><a onclick="LoadBottomPanelControl('MFSchemeRelateInformation','?FilterType=watchList');">My WatchList</a></li>
+                                <li><a onclick="LoadBottomPanelControl('MFSchemeRelateInformation','?FilterType=watchList');">MY WATCHLIST</a></li>
                                 <li><a onclick="LoadBottomPanelControl('ProductOnlineFundNews','login');">NEWS</a></li>
                             </ul>
                         </div>

@@ -148,6 +148,7 @@ namespace WealthERP.OnlineOrderManagement
             RadTabStripAdsUpload.Tabs[1].Text = "Scheme Details";
             RadTabStripAdsUpload.Tabs[1].Selected = true;
             multipageAdsUpload.SelectedIndex = 1;
+            dvfilterTopRated.Visible = false;
 
 
         }
@@ -260,6 +261,7 @@ namespace WealthERP.OnlineOrderManagement
                     hfIsSIP.Value = ddlTopRatedType.SelectedValue;
                     lblHeading.Text = "Top Ten Schemes";
                     lbTopSchemes.ForeColor = System.Drawing.ColorTranslator.FromHtml("#07090A");
+                    dvfilterTopRated.Visible = true;
 
                     break;
                 case "lbSchemeDetails": dvDemo.Visible = true;
