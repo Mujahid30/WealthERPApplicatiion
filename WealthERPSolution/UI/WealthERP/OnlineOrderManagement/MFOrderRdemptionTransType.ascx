@@ -125,17 +125,28 @@
                 <div style="margin-right: 50px; width: 100%" id="divControlContainer" runat="server">
                     <div class="col-md-12  col-xs-12 col-sm-12">
                         <div class="col-md-3">
-                            <b class="fontsize">AMC:</b><asp:Label ID="lblAmc" runat="server" CssClass="fieldFontSize"></asp:Label>
+                            <b class="fontsize">Scheme:</b>
+                            <asp:Label ID="lblScheme" runat="server" CssClass="fieldFontSize"></asp:Label>
                         </div>
                         <div class="col-md-2">
                             <b class="fontsize">Category:</b>
                             <asp:Label ID="lblCategory" runat="server" CssClass="fieldFontSize"></asp:Label>
                         </div>
-                        <div class="col-md-4">
-                            <b class="fontsize">Scheme:</b>
-                            <asp:Label ID="lblScheme" runat="server" CssClass="fieldFontSize"></asp:Label>
-                        </div>
                         <div class="col-md-3">
+                        <b class="fontsize">Scheme Rating</b>
+                            <asp:Image runat="server" ID="imgSchemeRating" />
+                            <asp:Label ID="lblSchemeRatingAsOn" runat="server" CssClass="fieldFontSize"></asp:Label>
+                        </div>
+                         <div class="col-md-3">
+                            <b class="fontsize">Folio Number:</b>
+                            <asp:DropDownList ID="ddlFolio" CssClass="cmbField" runat="server" AutoPostBack="True"
+                                OnSelectedIndexChanged="ddlFolio_onSelectedChanged">
+                            </asp:DropDownList>
+                            <span id="Span3" class="spnRequiredField">*</span>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Please Select a Folio"
+                                CssClass="rfvPCG" ControlToValidate="ddlFolio" ValidationGroup="btnSubmit" Display="Dynamic"></asp:RequiredFieldValidator>
+                        </div>
+                        <div class="col-md-1">
                             <asp:ImageButton ID="imgInformation" runat="server" ImageUrl="../Images/help.png"
                                 OnClick="imgInformation_OnClick" ToolTip="Help" Style="cursor: hand; float: right;" /></div>
                     </div>
@@ -157,16 +168,13 @@
                             <asp:Label ID="lbltime" runat="server" Text="" CssClass="fieldFontSize"></asp:Label>
                         </div>
                     </div>
-                    <div class="col-md-12  col-xs-12 col-sm-12" style="border: 1px solid #ccc;">
+                    <div class="col-md-12  col-xs-12 col-sm-12" style="border: 1px solid #ccc; visibility:hidden;">
                         <div class="col-md-12">
                             <table>
                                 <tr>
                                     <td rowspan="4">
                                         <a href="#" class="popper" data-popbox="divSchemeRatingDetails"><span class="fontsize">
-                                            Scheme Rating</span>
-                                            <asp:Image runat="server" ID="imgSchemeRating" />
-                                            <asp:Label ID="lblSchemeRatingAsOn" runat="server" CssClass="fieldFontSize"></asp:Label>
-                                        </a>
+                                            </span> </a>
                                     </td>
                                 </tr>
                                 <tr runat="server" id="trSchemeRating">
@@ -269,15 +277,7 @@
                         </div>
                     </div>
                     <div class="col-md-12  col-xs-12 col-sm-12">
-                        <div class="col-md-3">
-                            <b class="fontsize">Folio Number:</b>
-                            <asp:DropDownList ID="ddlFolio" CssClass="cmbField" runat="server" AutoPostBack="True"
-                                OnSelectedIndexChanged="ddlFolio_onSelectedChanged">
-                            </asp:DropDownList>
-                            <span id="Span3" class="spnRequiredField">*</span>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Please Select a Folio"
-                                CssClass="rfvPCG" ControlToValidate="ddlFolio" ValidationGroup="btnSubmit" Display="Dynamic"></asp:RequiredFieldValidator>
-                        </div>
+                       
                         <div class="col-md-3">
                             <b class="fontsize">Redeem:</b>
                             <asp:DropDownList ID="ddlRedeem" runat="server" AutoPostBack="true" CssClass="cmbField"
@@ -472,6 +472,7 @@
 <table id="tblSIP" runat="server" visible="false">
     <tr>
         <td>
+            <asp:Label ID="lblAmc" runat="server" CssClass="fieldFontSize" Visible="false"></asp:Label>
             <asp:DropDownList ID="ddlAmc" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged">
             </asp:DropDownList>

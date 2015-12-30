@@ -32,6 +32,15 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.UpdatePanel updSchemDetails;
         
         /// <summary>
+        /// schemeinformation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel schemeinformation;
+        
+        /// <summary>
         /// lblRating1 control.
         /// </summary>
         /// <remarks>

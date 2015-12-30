@@ -150,22 +150,33 @@
                     </td>
                 </tr>
             </table>
-            <div style=" margin-right: 50px; width: 100%" id="divControlContainer"
-                runat="server">
+            <div style="margin-right: 50px; width: 100%" id="divControlContainer" runat="server">
                 <div class="col-md-12  col-xs-12 col-sm-12">
                     <div class="col-md-3">
-                        <b class="fontsize">AMC:</b>
-                        <asp:Label ID="lblAmc" runat="server" CssClass="fieldFontSize"></asp:Label>
-                    </div>
-                    <div class="col-md-3">
-                        <b class="fontsize">Category:</b>
-                        <asp:Label ID="lblCategory" runat="server" CssClass="fieldFontSize"></asp:Label>
-                    </div>
-                    <div class="col-md-4">
                         <b class="fontsize">Scheme:</b>
                         <asp:Label ID="lblScheme" runat="server" CssClass="fieldFontSize"></asp:Label>
                     </div>
                     <div class="col-md-2">
+                        <b class="fontsize">Category:</b>
+                        <asp:Label ID="lblCategory" runat="server" CssClass="fieldFontSize"></asp:Label>
+                    </div>
+                    <div class="col-md-3">
+                        <b class="fontsize">Scheme Rating</b>
+                        <asp:Image runat="server" ID="imgSchemeRating" />
+                        <asp:Label ID="lblSchemeRatingAsOn" runat="server" CssClass="fieldFontSize"></asp:Label>
+                    </div>
+                    <div class="col-md-3">
+                        <b class="fontsize">Folio Number:</b>
+                        <asp:DropDownList OnSelectedIndexChanged="ddlFolio_SelectedIndexChanged" ID="ddlFolio"
+                            CssClass="cmbField" runat="server" AutoPostBack="True">
+                            <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
+                        </asp:DropDownList>
+                        <span id="Span2" class="spnRequiredField">*</span>
+                        <asp:RequiredFieldValidator ID="rfvFolio" runat="server" ErrorMessage="Please select folio number"
+                            CssClass="rfvPCG" ControlToValidate="ddlFolio" Display="Dynamic" InitialValue="0"
+                            ValidationGroup="btnSubmit">Please select folio number</asp:RequiredFieldValidator>
+                    </div>
+                    <div class="col-md-1">
                         <asp:ImageButton ID="imgInformation" runat="server" ImageUrl="../Images/help.png"
                             OnClick="imgInformation_OnClick" ToolTip="Help" Style="cursor: hand;" />
                     </div>
@@ -201,25 +212,8 @@
                         <b class="fontsize">Unit Held:</b>
                         <asp:Label ID="lblUnitHeldDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>
                     </div>
-                    <div class="col-md-3">
-                        <b class="fontsize">Scheme Rating</b>
-                        <asp:Image runat="server" ID="imgSchemeRating" />
-                    
-                        <asp:Label ID="lblSchemeRatingAsOn" runat="server" CssClass="fieldFontSize"></asp:Label>
-                    </div>
                 </div>
                 <div class="col-md-12  col-xs-12 col-sm-12">
-                    <div class="col-md-3">
-                        <b class="fontsize">Folio Number:</b>
-                        <asp:DropDownList OnSelectedIndexChanged="ddlFolio_SelectedIndexChanged" ID="ddlFolio"
-                            CssClass="cmbField" runat="server" AutoPostBack="True">
-                            <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
-                        </asp:DropDownList>
-                        <span id="Span2" class="spnRequiredField">*</span>
-                        <asp:RequiredFieldValidator ID="rfvFolio" runat="server" ErrorMessage="Please select folio number"
-                            CssClass="rfvPCG" ControlToValidate="ddlFolio" Display="Dynamic" InitialValue="0"
-                            ValidationGroup="btnSubmit">Please select folio number</asp:RequiredFieldValidator>
-                    </div>
                     <div class="col-md-3">
                         <b class="fontsize">SIP Frequency:</b>
                         <asp:DropDownList ID="ddlFrequency" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlFrequency_OnSelectedIndexChanged"
@@ -258,7 +252,7 @@
                 <div class="col-md-12  col-xs-12 col-sm-12" style="margin-top: .5%">
                     <div class="col-md-3" runat="server" id="DivText" visible="false">
                         <b class="fontsize">Dividend Option:</b>
-                    <%--</div>
+                        <%--</div>
                     <div class="col-md-2" runat="server" id="DivDropdown" visible="false">--%>
                         <asp:DropDownList ID="ddlDividendFreq" CssClass="cmbField" runat="server">
                         </asp:DropDownList>
@@ -271,7 +265,6 @@
                         <b class="fontsize">End Date:</b>
                         <asp:Label ID="lblEndDateDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>
                     </div>
-                    
                     <div class="col-md-3">
                         <b class="fontsize">Amount:</b>
                         <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField"></asp:TextBox>
@@ -281,7 +274,6 @@
                         <asp:RangeValidator ID="rgvAmount" runat="server" ControlToValidate="txtAmount" ErrorMessage="You have entered the amount less than the Minimum Initial Amount"
                             Type="Double" ValidationGroup="btnSubmit" CssClass="rfvPCG" Display="Dynamic"> You should enter the amount in multiple of subsequent amount</asp:RangeValidator>
                     </div>
-                   
                     <div class="col-md-3">
                         <asp:CheckBox ID="chkTermsCondition" runat="server" Font-Bold="True" Font-Names="Shruti"
                             Enabled="false" Checked="false" ForeColor="#145765" Text="" ToolTip="Click 'Terms & Conditions' to proceed further"
@@ -295,24 +287,23 @@
                             CssClass="rfvPCG">
                     Please read terms & conditions
                         </asp:CustomValidator>
-                   
                         <asp:Button ValidationGroup="btnSubmit" ID="btnSubmit" runat="server" CssClass="btn btn-sm btn-primary"
                             OnClick="btnSubmit_Click"></asp:Button>
                     </div>
                 </div>
             </div>
             <div style="float: left; padding-top: 5px; display: none;">
-             <div class="col-md-1">
-                        <asp:TextBox Style="display: none;" ID="txtMinAmtDisplay" CssClass="txtField" Enabled="false"
-                            runat="server"></asp:TextBox>
-                    </div>
+                <div class="col-md-1">
+                    <asp:TextBox Style="display: none;" ID="txtMinAmtDisplay" CssClass="txtField" Enabled="false"
+                        runat="server"></asp:TextBox>
+                </div>
                 <table style="border-style: solid; border-width: 2px; border-color: Blue">
                     <tr class="spaceUnder">
                         <td>
                             <asp:Label ID="lblUsefulLinks" runat="server" Text="Quick Links:" CssClass="FieldName"></asp:Label>
                         </td>
                         <td>
-                        <asp:Label ID="lblDividendType" runat="server"></asp:Label>
+                            <asp:Label ID="lblDividendType" runat="server"></asp:Label>
                         </td>
                     </tr>
                     <tr class="spaceUnder">
@@ -354,7 +345,7 @@
                 Width="1000px" Height="150px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false"
                 Behaviors="Move, Resize,Close" Title="Terms & Conditions" EnableShadow="true"
                 Left="15%" Top="1" OnClientShow="setCustomPosition">
-                <ContentTemplate>
+                <contenttemplate>
                     <div style="padding: 0px; width: 100%">
                         <table width="100%" cellpadding="0" cellpadding="0">
                             <tr>
@@ -372,10 +363,10 @@
                             </tr>
                         </table>
                     </div>
-                </ContentTemplate>
+                </contenttemplate>
             </telerik:RadWindow>
             <telerik:RadWindowManager runat="server" ID="RadWindowManager1">
-                <Windows>
+                <windows>
                     <telerik:RadWindow ID="rw_customConfirm" Modal="true" Behaviors="Close, Move" VisibleStatusbar="false"
                         Width="700px" Height="160px" runat="server" Title="EUIN Confirm" Left="15%" Top="5"
                         OnClientShow="setCustomPosition">
@@ -393,7 +384,7 @@
                             </div>
                         </ContentTemplate>
                     </telerik:RadWindow>
-                </Windows>
+                </windows>
             </telerik:RadWindowManager>
             <telrik:radwindowmanager>
        
@@ -486,6 +477,7 @@
             <asp:RequiredFieldValidator ID="rfvScheme" runat="server" ErrorMessage="Please select a scheme"
                 CssClass="rfvPCG" ControlToValidate="ddlScheme" Display="Dynamic" InitialValue="0"
                 ValidationGroup="btnSubmit">Please select a scheme</asp:RequiredFieldValidator>
+            <asp:Label ID="lblAmc" runat="server" CssClass="fieldFontSize" Visible="false"></asp:Label>
         </td>
     </tr>
 </table>

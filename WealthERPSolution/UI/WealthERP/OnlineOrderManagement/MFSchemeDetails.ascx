@@ -172,10 +172,6 @@
                         <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control input-sm"
                             AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged">
                         </asp:DropDownList>
-                        <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="ddlCategory"
-                            ErrorMessage="<br />Please select category" Style="color: Red;" Display="Dynamic"
-                            runat="server" InitialValue="0" ValidationGroup="btnViewscheme">
-                        </asp:RequiredFieldValidator>--%>
                     </fieldset>
                 </div>
                 <div class="col-md-4">
@@ -196,11 +192,11 @@
         <div id="Div2" style="margin-bottom: 2%; width: 80%; padding-bottom: 1%; margin-left: auto;
             margin-right: auto;" visible="false" runat="server">
             <div>
-                <div class="col-md-6" style="margin-bottom: 10px;">
-                    <asp:Label ID="lblSchemeName" runat="server" Style="font-size: x-large; font-family: Times New Roman;
+                <div class="col-md-5" style="margin-bottom: 10px;">
+                    <asp:Label ID="lblSchemeName" runat="server" Style="font-size: large; font-family: Times New Roman;
                         font-weight: bold;"></asp:Label>
                 </div>
-                <div class="col-md-3" style="width: 16%;">
+                <div class="col-md-2" style="width: 16%;">
                     <div>
                         <b style="font-family: Times New Roman; text-align: center;">NAV</b>
                     </div>
@@ -218,60 +214,28 @@
                         <asp:Image runat="server" ID="ImagNAV" /><asp:Label ID="lblNAVDiff" runat="server"></asp:Label>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <b style="font-family: Times New Roman;">Rating </b>
+                    <br />
                     <asp:Image runat="server" ID="imgSchemeRating" />
                 </div>
-            </div>
-            <table style="margin-left: 15%;">
-                <tr id="trMessage" runat="server" visible="false">
-                    <td colspan="6">
-                        <table class="tblMessage" cellspacing="0">
-                            <tr>
-                                <td align="center">
-                                    <div id="divMessage" align="center">
-                                    </div>
-                                    <div style="clear: both">
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div class="row" style="margin-left: 20%; margin-right: 2%; margin-bottom: 0%; margin-top: 2px;"
-            id="divAction" runat="server" visible="false">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <asp:LinkButton ID="lnkAddToCompare" runat="server" CssClass="btn btn-primary btn-primary"
                         OnClick="lnkAddToCompare_OnClick" ValidationGroup="btnGo"> Add To Compare <span class="glyphicon glyphicon-shopping-list">
-                            </span></asp:LinkButton></div>
-                <div class="col-md-3">
-                    <b class="DetailfieldFontSize" style="float: left; margin-top: 0.1%; padding-top: 5px;">Action:</b>
+                            </span></asp:LinkButton>
                     <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" CssClass="form-control input-sm"
                         OnSelectedIndexChanged="ddlAction_OnSelectedIndexChanged" Width="100px">
-                        <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
+                        <asp:ListItem Text="Action" Value="Select Action"></asp:ListItem>
                         <asp:ListItem Text="Buy" Value="Buy"></asp:ListItem>
                         <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
                     </asp:DropDownList>
                 </div>
             </div>
-        </div>
+           </div>
         <div class="container" style="margin-bottom: 2%; width: 80%; padding-bottom: 1%;
             margin-left: auto; margin-right: auto;">
-            <asp:Panel ID="pnlDetails" runat="server" ScrollBars="Both" Style="margin-left: 0px;"
-                Height="600px">
-                <%--<ul id="profileTabs" class="nav nav-tabs">
-                        <li class="active><a data-toggle="tab" role="tab" href="#DivSchemeInformation"><b>Snapshot</b></a></li>
-                        <li><a data-toggle="tab" role="tab" href="#DivCharTab"><b>NAV Performance</b></a></li>
-                        <li><a data-toggle="tab"  role="tab" href="#divSchemeRatingDetails"><b>Risk And Rating</b></a></li>
-                        <li><a data-toggle="tab" role="tab" href="#Divfunddetails"><b>Fund Manager Profile</b></a></li>
-                        <li><a data-toggle="tab" role="tab" href="#no-more-tables"><b>Portfolio</b></a></li>
-                    </ul>
-                    <%--    <div style="margin-top: 1%; margin-bottom: 0%; width: 80%; padding-top: 1%; padding-bottom: 1%;
-            margin-left: auto; margin-right: auto;">
-                    <div class="tab-content">--%>
+            <asp:Panel ID="pnlDetails" runat="server" ScrollBars="Vertical" Style="margin-left: 0px;"
+                Height="480px">
 
                 <script type="text/javascript">
                     function markTab(sender, args) {
@@ -288,19 +252,21 @@
                 <telerik:RadTabStrip ID="RadTabStripAdsUpload" runat="server" EnableTheming="True"
                     EnableEmbeddedSkins="true" MultiPageID="multipageAdsUpload" SelectedIndex="0"
                     Skin="Outlook" onclientclick="calc('bottomframe')">
-                    <Tabs>
+                    <tabs>
                         <telerik:RadTab runat="server" Text="Snapshot" Value="Snapshot" TabIndex="0" Selected="true">
                         </telerik:RadTab>
-                        <telerik:RadTab runat="server" Text="NAV Performance" Value="NAVPerformance" TabIndex="1">
+                        <telerik:RadTab runat="server" Text="NAV History" Value="NAVPerformance" TabIndex="1">
                         </telerik:RadTab>
-                        <telerik:RadTab runat="server" Text="Risk And Rating" Value="RiskAndRating" TabIndex="2">
+                         <telerik:RadTab runat="server" Text="Scheme Return" Value="SchemeReturn" TabIndex="2">
+                        </telerik:RadTab>
+                        <telerik:RadTab runat="server" Text="Risk And Rating" Value="RiskAndRating" TabIndex="3">
                         </telerik:RadTab>
                         <telerik:RadTab runat="server" Text="Fund Manager Profile" Value="FundManagerProfile"
-                            TabIndex="3">
+                            TabIndex="4">
                         </telerik:RadTab>
-                        <telerik:RadTab runat="server" Text="Portfolio" Value="Portfolio" TabIndex="4">
+                        <telerik:RadTab runat="server" Text="Portfolio" Value="Portfolio" TabIndex="5">
                         </telerik:RadTab>
-                    </Tabs>
+                    </tabs>
                 </telerik:RadTabStrip>
                 <telerik:RadMultiPage ID="multipageAdsUpload" EnableViewState="true" runat="server">
                     <telerik:RadPageView ID="RadPageView1" runat="server" Selected="true">
@@ -440,85 +406,42 @@
                         </div>
                     </telerik:RadPageView>
                     <telerik:RadPageView ID="RadPageView2" runat="server">
-                        <div>
+                        <div id="divChart" runat="server" visible="false" style="margin-bottom: 2%; width: 100%;
+                            margin-left: auto; margin-right: auto; border-top-style: inset; border-bottom-style: inset;
+                            border-left-style: inset; border-right-style: inset; border-width: thin;">
                             <div>
-                                <asp:Button ID="btnReturn" runat="server" class="btn btn-sm btn-primary" Text="Scheme Return"
-                                    OnClick="btnReturn_OnClick" /></div>
-                            <div id="DivReturnChat" runat="server" visible="false" style="width: 100%; margin-left: auto;
-                                margin-right: auto; border-top-style: inset; border-bottom-style: inset; border-left-style: inset;
-                                border-right-style: inset; border-width: thin;">
-                                <asp:Literal ID="ltrReturn" runat="server"></asp:Literal>
-                            </div>
-                            <div id="divChart" runat="server" visible="false" style="margin-top: 3.5%; margin-bottom: 2%;
-                                width: 100%; padding-top: 1%; padding-bottom: 1%; margin-left: auto; margin-right: auto;
-                                border-top-style: inset; border-bottom-style: inset; border-left-style: inset;
-                                border-right-style: inset; border-width: thin;">
-                                <div>
-                                    <asp:Literal ID="Literal1" runat="server"></asp:Literal></div>
-                                <div id="SchemeChartinformation" runat="server">
-                                    &nbsp;&nbsp;<asp:Button ID="btn1m" runat="server" class="btn btn-sm btn-primary"
-                                        Text="1m" OnClick="btnHistory_OnClick"></asp:Button>
-                                    <asp:Button ID="btn3m" runat="server" class="btn btn-sm btn-primary" Text="3m" OnClick="btnHistory_OnClick">
-                                    </asp:Button>
-                                    <asp:Button ID="btn6m" runat="server" class="btn btn-sm btn-primary" Text="6m" OnClick="btnHistory_OnClick">
-                                    </asp:Button>
-                                    <asp:Button ID="btn1y" runat="server" class="btn btn-sm btn-primary" Text="1y" OnClick="btnHistory_OnClick">
-                                    </asp:Button>
-                                    <asp:Button ID="btn2y" runat="server" class="btn btn-sm btn-primary" Text="2y" OnClick="btnHistory_OnClick">
-                                    </asp:Button>
-                                    &nbsp;&nbsp;<telerik:RadDatePicker ID="rdpFromDate" Label="From" DateInput-EmptyMessage="From Date"
-                                        MinDate="01/01/1000" MaxDate="01/01/3000" CssClass="calender" runat="server">
-                                    </telerik:RadDatePicker>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="rdpFromDate"
-                                        Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnHistoryChat"></asp:RequiredFieldValidator>
-                                    <telerik:RadDatePicker ID="rdpToDate" Label="To" DateInput-EmptyMessage="To Date"
-                                        MinDate="01/01/1000" MaxDate="01/01/3000" CssClass="calender" runat="server">
-                                    </telerik:RadDatePicker>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="rdpFromDate"
-                                        Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnHistoryChat"></asp:RequiredFieldValidator>
-                                    <asp:Button ID="btnHistoryChat" runat="server" class="btn btn-sm btn-primary" Text="Go"
-                                        ValidationGroup="btnHistoryChat" OnClick="btnHistoryChat_OnClick"></asp:Button>
-                                </div>
+                                <asp:Literal ID="Literal1" runat="server"></asp:Literal></div>
+                            <div id="SchemeChartinformation" runat="server">
+                                &nbsp;&nbsp;<asp:Button ID="btn1m" runat="server" class="btn btn-sm btn-primary"
+                                    Text="1m" OnClick="btnHistory_OnClick"></asp:Button>
+                                <asp:Button ID="btn3m" runat="server" class="btn btn-sm btn-primary" Text="3m" OnClick="btnHistory_OnClick">
+                                </asp:Button>
+                                <asp:Button ID="btn6m" runat="server" class="btn btn-sm btn-primary" Text="6m" OnClick="btnHistory_OnClick">
+                                </asp:Button>
+                                <asp:Button ID="btn1y" runat="server" class="btn btn-sm btn-primary" Text="1y" OnClick="btnHistory_OnClick">
+                                </asp:Button>
+                                <asp:Button ID="btn2y" runat="server" class="btn btn-sm btn-primary" Text="2y" OnClick="btnHistory_OnClick">
+                                </asp:Button>
+                                &nbsp;&nbsp;<telerik:RadDatePicker ID="rdpFromDate" Label="From" DateInput-EmptyMessage="From Date"
+                                    MinDate="01/01/1000" MaxDate="01/01/3000" CssClass="calender" runat="server">
+                                </telerik:RadDatePicker>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="rdpFromDate"
+                                    Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnHistoryChat"></asp:RequiredFieldValidator>
+                                <telerik:RadDatePicker ID="rdpToDate" Label="To" DateInput-EmptyMessage="To Date"
+                                    MinDate="01/01/1000" MaxDate="01/01/3000" CssClass="calender" runat="server">
+                                </telerik:RadDatePicker>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="rdpFromDate"
+                                    Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnHistoryChat"></asp:RequiredFieldValidator>
+                                <asp:Button ID="btnHistoryChat" runat="server" class="btn btn-sm btn-primary" Text="Go"
+                                    ValidationGroup="btnHistoryChat" OnClick="btnHistoryChat_OnClick"></asp:Button>
                             </div>
                         </div>
                     </telerik:RadPageView>
-                    <%-- <div id="divscheme12" class="tab-pane fade in active" style="width: 80%; float: left; min-width: 320px;">
-                <div style="width: 100%;">
-                    <table class="col-md-12 table-bordered table-striped table-condensed cf" style="margin-bottom: 0px;
-                        min-width: 320px;">
-                        <thead>
-                            <thead>
-                                <tr>
-                                    <th class="header">
-                                        <div data-toggle="collapse" data-target="#DivSchemeInformation" style="color: White;
-                                            float: left; cursor: pointer;" id="Div3" onclick="togglediv('Div3')">
-                                            +</div>
-                                        <%--   Dont put any space before + sign
-                                        <div style="color: White; float: left; text-align: center;">
-                                            <font color="#fff">&nbsp;&nbsp;Scheme Details</font></div>
-                                    </th>
-                                </tr>
-                    </table>
-                </div>--%>
-                    <%-- </div>
-        </div>
-        <div style="margin-top: 2px; margin-bottom: 0%; width: 80%; padding-top: 1%; padding-bottom: 0%;
-            margin-left: auto; margin-right: auto;">
-            <div id="divRisk12" style="width: 80%; min-width: 320px; float: left;">
-                <table class="table table-bordered" style="margin-bottom: 0px">
-                    <thead>
-                        <tr>
-                            <th class="header">
-                                <div data-toggle="collapse" data-target="#divSchemeRatingDetails" style="color: White;
-                                    float: left; cursor: pointer;" id="Div4" onclick="togglediv('Div4')">
-                                    +</div>
-                                <%--   Dont put any space before + sign
-                                <div style="color: White; float: left; text-align: center;">
-                                    <font color="#fff">&nbsp;&nbsp;Risk And Rating</font></div>
-                            </th>
-                        </tr>
-                    </thead>
-                </table>--%>
+                    <telerik:RadPageView ID="RadPageView7" runat="server">
+                        <div>
+                            <asp:Literal ID="ltrReturn" runat="server"></asp:Literal>
+                        </div>
+                    </telerik:RadPageView>
                     <telerik:RadPageView ID="RadPageView3" runat="server">
                         <div>
                             <table class="table table-bordered">
@@ -589,24 +512,6 @@
                             </table>
                         </div>
                     </telerik:RadPageView>
-                    <%--</div>--%>
-                    <%--<div style="margin-top: 2px; margin-bottom: 0%; width: 80%; padding-top: 1%; padding-bottom: 0%;
-            margin-left: auto; margin-right: auto;">
-            <div style="width: 80%; min-width: 320px; float: left;">
-                <table class="table table-bordered" style="margin-bottom: 0px">
-                    <thead>
-                        <tr>
-                            <th class="header">
-                                <div data-toggle="collapse" data-target="#Divfunddetails" style="color: White; float: left;
-                                    cursor: pointer;" id="togglefund" onclick="togglediv('togglefund')">
-                                    +</div>
-                                <%--   Dont put any space before + sign
-                                <div style="color: White; float: left; text-align: center;">
-                                    <font color="#fff">&nbsp;&nbsp;Fund Manager Profile</font></div>
-                            </th>
-                        </tr>
-                    </thead>
-                </table>--%>
                     <telerik:RadPageView ID="RadPageView4" runat="server">
                         <div>
                             <table class="table table-bordered">
@@ -647,24 +552,6 @@
                             </table>
                         </div>
                     </telerik:RadPageView>
-                    <%--<div style="margin-top: 0%; margin-bottom: 2%; width: 80%; padding-top: 0%; padding-bottom: 1%;
-            margin-left: auto; margin-right: auto;">
-            <div style="width: 80%; min-width: 320px;">
-                <br />
-                <table class="table table-bordered" style="margin-bottom: 0px">
-                    <thead>
-                        <tr>
-                            <th class="header">
-                                <div data-toggle="collapse" data-target="#no-more-tables" style="color: White; float: left;
-                                    cursor: pointer;" id="Div1" onclick="togglediv('Div1')">
-                                    +</div>
-                                <div style="color: White; float: left; text-align: center;">
-                                    <font color="#fff">&nbsp;&nbsp;Portfolio</font></div>
-                            </th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>--%>
                     <telerik:RadPageView ID="RadPageView5" runat="server">
                         <div id="no-more-tables" style="width: 100%">
                             <div style="width: 20%; margin-right: 5px;">
@@ -685,10 +572,10 @@
                                             <ItemTemplate>
                                                 <tr>
                                                     <td data-title="Fund Name">
-                                                        <asp:Label ID="lblFundName" runat="server" Text='<%# Eval("co_name")%>'></asp:Label>
+                                                        <asp:Label ID="lblFundName" CssClass="DetailfieldFontSize" runat="server" Text='<%# Eval("co_name")%>'></asp:Label>
                                                     </td>
                                                     <td data-title="Holding(%)">
-                                                        <asp:Label ID="lblHolding" runat="server" Text='<%# Eval("perc_hold")%>'></asp:Label>
+                                                        <asp:Label ID="lblHolding" CssClass="DetailfieldFontSize" runat="server" Text='<%# Eval("perc_hold")%>'></asp:Label>
                                                     </td>
                                                 </tr>
                                             </ItemTemplate>
@@ -696,10 +583,10 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div style="width: 21%; float: left; margin-left: 8px;">
+                            <div style="width: 21%; float: left; margin-left: 78px;">
                                 <asp:Literal ID="ltrHolding" runat="server"></asp:Literal>
                             </div>
-                            <div style="width: 21%; float: left; margin-left: 8px;">
+                            <div style="width: 25%; float: left; margin-left: 8px;">
                                 <table class="col-md-12 table-bordered table-striped table-condensed cf" width="100%">
                                     <thead class="cf">
                                         <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
@@ -717,10 +604,10 @@
                                             <ItemTemplate>
                                                 <tr>
                                                     <td data-title="Sector">
-                                                        <asp:Label ID="lblSector" runat="server" Text='<%# Eval("sector")%>'></asp:Label>
+                                                        <asp:Label ID="lblSector" CssClass="DetailfieldFontSize" runat="server" Text='<%# Eval("sector")%>'></asp:Label>
                                                     </td>
                                                     <td data-title="Holding(%)">
-                                                        <asp:Label ID="lblsecWeight" runat="server" Text='<%# Eval("holdingpercentage")%>'></asp:Label>
+                                                        <asp:Label ID="lblsecWeight" CssClass="DetailfieldFontSize" runat="server" Text='<%# Eval("holdingpercentage")%>'></asp:Label>
                                                     </td>
                                                 </tr>
                                             </ItemTemplate>
@@ -731,7 +618,7 @@
                             <div style="width: 21%; float: left; margin-left: 8px;">
                                 <asp:Literal runat="server" ID="ltrSector"></asp:Literal>
                             </div>
-                            <div style="width: 20%; margin-right: 5px;">
+                            <div style="width: 28%; margin-right: 5px;">
                                 <table class="col-md-12 table-bordered table-striped table-condensed cf" width="100%">
                                     <thead class="cf">
                                         <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
@@ -749,10 +636,10 @@
                                             <ItemTemplate>
                                                 <tr>
                                                     <td data-title="Fund Name">
-                                                        <asp:Label ID="lblasset" runat="server" Text='<%# Eval("asset")%>'></asp:Label>
+                                                        <asp:Label ID="lblasset" runat="server" CssClass="DetailfieldFontSize" Text='<%# Eval("asset")%>'></asp:Label>
                                                     </td>
                                                     <td data-title="Holding(%)">
-                                                        <asp:Label ID="lblassetvalue" runat="server" Text='<%# Eval("assetvalue")%>'></asp:Label>
+                                                        <asp:Label ID="lblassetvalue" CssClass="DetailfieldFontSize" runat="server" Text='<%# Eval("assetvalue")%>'></asp:Label>
                                                     </td>
                                                 </tr>
                                             </ItemTemplate>
@@ -765,7 +652,7 @@
                                 <asp:Literal ID="raj" runat="server"></asp:Literal>
                             </div>
                             <br />
-                            <div style="width: 21%; float: left; margin-left: 8px;">
+                            <div style="width: 22%; float: left; margin-left: 8px;">
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>

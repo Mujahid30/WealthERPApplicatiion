@@ -187,7 +187,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             divChart.Visible = true;
             StringBuilder strXML = new StringBuilder();
-            strXML.Append(@"<chart caption='NAV History' chartTopMargin='0' xAxisName='Date' toolText='NAV' flatscrollbars='1' scrollshowbuttons='0' scrollshowbuttons='0' useCrossLine='1' yAxisName='NAV' anchorBgColor='FFFFFF' bgColor='FFFFFF' showBorder='0'  canvasBgColor='FFFFFF' lineColor='2480C7'  >");
+            strXML.Append(@"<chart  chartTopMargin='0' xAxisName='Date' toolText='NAV' flatscrollbars='1' scrollshowbuttons='0' scrollshowbuttons='0' useCrossLine='1' yAxisName='NAV' anchorBgColor='FFFFFF' bgColor='FFFFFF' showBorder='0'  canvasBgColor='FFFFFF' lineColor='2480C7'  >");
             strXML.Append(@" <categories>");
             foreach (DataRow dr in dtNavDetails.Rows)
             {
@@ -205,23 +205,7 @@ namespace WealthERP.OnlineOrderManagement
 
 
         }
-        protected void btnReturn_OnClick(object sender, EventArgs e)
-        {
-
-            TabName.Value = Request.Form[TabName.UniqueID];
-            if (divChart.Visible == true)
-            {
-                btnReturn.Text = "NAV History";
-                divChart.Visible = false;
-                DivReturnChat.Visible = true;
-            }
-            else
-            {
-                btnReturn.Text = "Scheme Return";
-                divChart.Visible = true;
-                DivReturnChat.Visible = false;
-            }
-        }
+     
         protected void BindndReturn()
         {
             StringBuilder strXML = new StringBuilder();
@@ -263,12 +247,10 @@ namespace WealthERP.OnlineOrderManagement
                 BindSectoreDetails();
                 BindHoldingDetails();
                 BindAssetsAllocation();
-                divAction.Visible = true;
                 onlineMFSchemeDetailsVo = onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue, out  dtNavDetails);
                 ViewState["schemeName"] = onlineMFSchemeDetailsVo.schemeName;
                 LoadNAVHistoryChat(dtNavDetails);
                 BindndReturn();
-                DivReturnChat.Visible = false;
                 lblSchemeName.Text = onlineMFSchemeDetailsVo.schemeName;
                 lblAMC.Text = onlineMFSchemeDetailsVo.amcName;
                 //lblNAV.Text = onlineMFSchemeDetailsVo.NAV.ToString();
