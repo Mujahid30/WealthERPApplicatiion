@@ -112,7 +112,7 @@
     function GetSchemePlanCode(source, eventArgs) {
         isItemSelected = true;
         document.getElementById("<%= schemeCode.ClientID %>").value = eventArgs.get_value();
-        //        LoadBottomPanelControl('MFSchemeDetails', '&schemeCode=' + eventArgs.get_value());
+//        LoadBottomPanelControl('MFSchemeDetails', '&schemeCode=' + eventArgs.get_value());
         return false;
     }
     function ddlchange(ddl) {

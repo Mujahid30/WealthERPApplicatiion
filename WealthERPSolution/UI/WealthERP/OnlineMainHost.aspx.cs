@@ -283,8 +283,8 @@ namespace WealthERP
                     exchangeType = "&exchangeType=Demat";
 
                 }
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromMainPage", "LoadTransactPanel('" +hdnTransactType.Value+ exchangeType + "');", true);
-             
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromSchemeSearch", "LoadTransactPanel('MFOrderPurchaseTransType" + exchangeType + "');", true);
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadBottomPanelFromSchemeSearch", "LoadBottomPanelControl('MFSchemeDetails&schemeCode=" + schemeCode.Value + "');", true);
             }
         }
         protected void BindTransactDdl(object sender, EventArgs e)
@@ -307,7 +307,8 @@ namespace WealthERP
                     exchangeType = "&exchangeType=Demat";
 
                 }
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromSchemeSearch", "LoadTransactPanel('"+hdnTransactType.Value + exchangeType + "');", true);
+                
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromMainPage", "LoadTransactPanel('" + hdnTransactType.Value + exchangeType + "');", true);
              
 
                 
