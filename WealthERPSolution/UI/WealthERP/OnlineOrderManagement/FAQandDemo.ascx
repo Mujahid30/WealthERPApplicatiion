@@ -149,7 +149,7 @@
                     <div class="dottedBottom">
                         <div>
                             <asp:LinkButton ID="lnkFaq" runat="server" Text='<%# Eval("PUHD_Heading")%>'
-                                ToolTip="Click To View" Style="target: _blank;" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);"
+                                ToolTip="Click To View"
                                 CommandName="OpenFaq" CommandArgument='<%# Eval("PUHD_HelpDetails")%>'></asp:LinkButton>
                         </div>
                     </div>

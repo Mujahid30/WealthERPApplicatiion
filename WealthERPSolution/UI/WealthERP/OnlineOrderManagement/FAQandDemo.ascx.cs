@@ -47,7 +47,8 @@ namespace WealthERP.OnlineOrderManagement
                 if (e.CommandName == "OpenFaq")
                 {
                     string path = ConfigurationManager.AppSettings["BANNER_IMAGE_PATH"].ToString();
-                    Response.Redirect(path + pdfName);
+                    //Response.Redirect(path + pdfName);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "SetFAQ", @"window.open('" + path.Replace("~/", "") + pdfName + "', 'newwindow', 'width=655, height=520'); ", true);
                     //System.Web.UI.HtmlControls.HtmlAnchor delete = (System.Web.UI.HtmlControls.HtmlAnchor)Repeater2.Items[0].FindControl("aFAQ");
                     //delete.HRef = path + pdfName;
                     //string urlPath = "<script type='text/javascript'>window.parent.location.href = '" + path + pdfName + "'; </script>";
