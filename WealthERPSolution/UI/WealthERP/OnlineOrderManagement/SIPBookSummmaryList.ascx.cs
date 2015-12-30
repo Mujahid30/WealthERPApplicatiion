@@ -157,7 +157,7 @@ namespace WealthERP.OnlineOrderManagement
                 gvSIPSummaryBookMIS.DataBind();
                 gvSIPSummaryBookMIS.Visible = true;
                 //pnlSIPSumBook.Visible = true;
-                btnExport.Visible = true;
+                btnExport.Visible = false;
                 trNoRecords.Visible = false;
                 divNoRecords.Visible = false;
                 Div1.Visible = true;
