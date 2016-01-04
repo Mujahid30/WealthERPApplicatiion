@@ -1030,13 +1030,13 @@ function calc(iframe_id) {
         var the_height = leftframe_height;
 
         if (the_height < 150)
-        {the_height = 150; }
-            var newHeight = the_height;
-            if (document.getElementById(iframe_id).height != newHeight)
-                document.getElementById(iframe_id).height = newHeight;
+        { the_height = 150; }
+        var newHeight = the_height;
+        if (document.getElementById(iframe_id).height != newHeight)
+            document.getElementById(iframe_id).height = newHeight;
 
-       
-        
+
+
     }
     catch (e) { }
 }
@@ -1055,17 +1055,17 @@ function LoadBottomPanelControl(controlid, logintrue) {
     var randomnumbers = RandomGenerator();
     var url = c_src + controlid + "&rnd=" + randomnumbers;
     setTimeout('parent.document.getElementById("bottomframe").src="' + url + '"', 10);
-   
+
 }
 
 
 /* !!!!!!!!!!!!!!!!!!!!!!!!~~~~FIRST PAGE LOAD CONTROLS(INITIAL REQUESTS)~~~~!!!!!!!!!!!!!!!!!!!!!!!!*/
 function LoadTransactPanelFromMainPage(controlid, schemecode) {
-   
-     parent.document.getElementById("schemeCode").value = schemecode;
-     parent.document.getElementById("hdnTransactType").value = controlid;
-     parent.document.getElementById("btnBindTransactDdl").click();
-     
+
+    parent.document.getElementById("schemeCode").value = schemecode;
+    parent.document.getElementById("hdnTransactType").value = controlid;
+    parent.document.getElementById("btnBindTransactDdl").click();
+
 }
 
 function LoadTransactPanel(controlid) {
@@ -1081,7 +1081,7 @@ function LoadTransactPanel(controlid) {
     var randomnumbers = RandomGenerator();
     var url = c_src + controlid + "&rnd=" + randomnumbers;
     setTimeout('parent.document.getElementById("topframe").src="' + url + '"', 25);
-   
+
 }
 
 function LoadBottomPanelDefault(controlid) {
@@ -1188,7 +1188,7 @@ function PopupEndRequestHandler(sender, args) {
 
 
 
- jQuery(document).ready(function($) {
+    jQuery(document).ready(function($) {
         var moveLeft = 0;
         var moveDown = 0;
         $('a.popper').hover(function(e) {
@@ -1233,5 +1233,23 @@ function PopupEndRequestHandler(sender, args) {
         });
 
     });
+
 }
-    
+
+function GetRMSAvailableBalance( ClientCode) {
+    // Get the DropDownList.
+
+
+    $.ajax({
+        type: "POST",
+        url: "../CustomerPortfolio/AutoComplete.asmx/GetCustomerBalance",
+        data: JSON.stringify({
+            accountid: ClientCode
+        }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(response) {
+            parent.document.getElementById("lblBalance").innerHTML = response.d;
+        }
+    });
+}    

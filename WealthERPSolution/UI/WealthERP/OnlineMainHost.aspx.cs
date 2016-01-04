@@ -5,16 +5,11 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Configuration;
-
 using System.Data;
 using System.Collections;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
-
-
 using WealthERP.Base;
-
-
 using VoUser;
 using BoUser;
 using VoAdvisorProfiling;
@@ -176,6 +171,8 @@ namespace WealthERP
 
 
             }
+            if (!string.IsNullOrEmpty(customerVo.AccountId))
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "GetRMSAvailableBalance", "GetRMSAvailableBalance('" + customerVo.AccountId + "');", true);
 
         }
 

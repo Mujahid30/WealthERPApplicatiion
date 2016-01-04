@@ -17,6 +17,7 @@ using BoProductMaster;
 using BoWerpAdmin;
 using System.Collections;
 using BoCommon;
+using BoOnlineOrderManagement;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -1131,6 +1132,14 @@ namespace WealthERP.CustomerPortfolio
                 schemelist.Add(item);
             }
             return schemelist.ToArray();
+        }
+        [WebMethod]
+        public string GetCustomerBalance(string accountid)
+        {
+            decimal balance ;
+            OnlineIPOOrderBo onlineIPOOrderBo = new OnlineIPOOrderBo();
+            balance = onlineIPOOrderBo.GetUserRMSAccountBalance(accountid);
+            return balance.ToString();
         }
     }
 

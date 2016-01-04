@@ -563,7 +563,7 @@ namespace WealthERP.OnlineOrderManagement
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanelFromMainPage('MFOrderPurchaseTransType','" + ddlSchemeList1.SelectedValue + "')", true);
                     break;
                 case "SIP":
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanelFromMainPage('MFOrderSIPTransType','" + ddlSchemeList1.SelectedValue + "')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewkv", "LoadTransactPanelFromMainPage('MFOrderSIPTransType','" + ddlSchemeList1.SelectedValue + "')", true);
                     break;
             }
         }

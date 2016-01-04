@@ -112,7 +112,7 @@
     function GetSchemePlanCode(source, eventArgs) {
         isItemSelected = true;
         document.getElementById("<%= schemeCode.ClientID %>").value = eventArgs.get_value();
-//        LoadBottomPanelControl('MFSchemeDetails', '&schemeCode=' + eventArgs.get_value());
+        //        LoadBottomPanelControl('MFSchemeDetails', '&schemeCode=' + eventArgs.get_value());
         return false;
     }
     function ddlchange(ddl) {
@@ -682,8 +682,10 @@
                             <ul class="greybox">
                                 <li><a onclick="LoadBottomPanelControl('MFSchemeDetails','login');">SCHEME RESEARCH</a></li>
                                 <li><a onclick="LoadBottomPanelControl('OnlineMFSchemeCompare','login');">SCHEME COMPARE</a></li>
-                                <li><a onclick="LoadBottomPanelControl('MFSchemeRelateInformation','?FilterType=NFO');">NFO</a></li>
-                                <li><a onclick="LoadBottomPanelControl('MFSchemeRelateInformation','?FilterType=watchList');">MY WATCHLIST</a></li>
+                                <li><a onclick="LoadBottomPanelControl('MFSchemeRelateInformation','?FilterType=NFO');">
+                                    NFO</a></li>
+                                <li><a onclick="LoadBottomPanelControl('MFSchemeRelateInformation','?FilterType=watchList');">
+                                    MY WATCHLIST</a></li>
                                 <li><a onclick="LoadBottomPanelControl('ProductOnlineFundNews','login');">NEWS</a></li>
                             </ul>
                         </div>
@@ -838,16 +840,20 @@
         </div>
         <div id="dvTransact" runat="server" style="clear: both; background-color: #E5F6FF;
             font-weight: bold; font-size: smaller">
-            
             <div>
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
-                     <div style="clear:both;">
-        <asp:Button ID="btnBindTransactDdl"  runat="server"  Style="display: none"  OnClick="BindTransactDdl" />
-    </div>
+                        <div style="clear: both;">
+                            <asp:Button ID="btnBindTransactDdl" runat="server" Style="display: none" OnClick="BindTransactDdl" />
+                        </div>
                         <div style="background-color: #0396CC; width: 100%">
                             <div style="padding-left: 20px; color: White;">
-                                Transact</div>
+                                Transact
+                               
+                                    <asp:Label ID="lblBalance" runat="server" Style="color: White; float: right; padding-right:20px; margin-left: 10px;"></asp:Label>
+                                    <b style="color: White; float: right; ">Available Balance:</b>
+                               
+                            </div>
                         </div>
                         <table style="margin: 0 0 0 50px;">
                             <tr>
@@ -898,8 +904,7 @@
         </div>
     </div>
     <asp:HiddenField ID="schemeCode" runat="server" />
-     <asp:HiddenField ID="hdnTransactType" runat="server" />
-   
+    <asp:HiddenField ID="hdnTransactType" runat="server" />
     </form>
 </body>
 </html>

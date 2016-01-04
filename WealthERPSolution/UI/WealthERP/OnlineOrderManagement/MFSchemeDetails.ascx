@@ -221,7 +221,7 @@
                 </div>
                 <div class="col-md-2">
                     <asp:LinkButton ID="lnkAddToCompare" runat="server" CssClass="btn btn-primary btn-primary"
-                        OnClick="lnkAddToCompare_OnClick" ValidationGroup="btnGo"> Add To Compare <span class="glyphicon glyphicon-shopping-list">
+                        OnClick="lnkAddToCompare_OnClick" ValidationGroup="btnGo" style="margin-bottom:5px"> Add To Compare <span class="glyphicon glyphicon-shopping-list">
                             </span></asp:LinkButton>
                     <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" CssClass="form-control input-sm"
                         OnSelectedIndexChanged="ddlAction_OnSelectedIndexChanged" Width="100px">
@@ -232,10 +232,10 @@
                 </div>
             </div>
            </div>
-        <div class="container" style="margin-bottom: 2%; width: 80%; padding-bottom: 1%;
+        <div  style="margin-bottom: 2%; width: 80%; padding-bottom: 1%;
             margin-left: auto; margin-right: auto;">
-            <asp:Panel ID="pnlDetails" runat="server" ScrollBars="Vertical" Style="margin-left: 0px;"
-                Height="480px">
+            <asp:Panel ID="pnlDetails" runat="server" 
+                Height="490px">
 
                 <script type="text/javascript">
                     function markTab(sender, args) {

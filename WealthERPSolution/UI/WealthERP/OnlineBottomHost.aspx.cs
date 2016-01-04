@@ -5,11 +5,12 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Resources;
-
+using VoUser;
 namespace WealthERP
 {
     public partial class OnlineBottomHost : System.Web.UI.Page
     {
+        CustomerVo customerVo = new CustomerVo();
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (Session["Theme"] != null)
@@ -41,10 +42,14 @@ namespace WealthERP
             }
 
             loadcontrol();
+            customerVo =(CustomerVo) Session["CustomerVo"];
             if (!this.ClientScript.IsClientScriptBlockRegistered(this.GetType(), "SetBottomFrameHeight"))
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "SetBottomFrameHeight", "calcIFrameHeight('bottomframe');", true);
             }
+            if (!string.IsNullOrEmpty(customerVo.AccountId))
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "GetRMSAvailableBalanceOnBottomHost", "GetRMSAvailableBalance('" + customerVo.AccountId + "');", true);
+
         }
 
         protected void loadcontrol()
