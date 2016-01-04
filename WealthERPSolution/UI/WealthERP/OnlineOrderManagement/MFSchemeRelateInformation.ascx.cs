@@ -111,6 +111,10 @@ namespace WealthERP.OnlineOrderManagement
             {
                 ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All Categories", "0"));
             }
+            else
+            {
+                ddlCategory.SelectedValue = "MFEQ";
+            }
             
 
         }

@@ -99,11 +99,14 @@
     {
         border: 1px solid black;
     }
-    .dottedBottom
+    .topBottomBorder
     {
-        border-bottom-style: inset;
+       border-bottom-style: inset;
         border-bottom-width: thin;
+         border-top-style: inset;
+         border-top-width: thin;
         margin-bottom: 1%;
+        padding-top: 1%;
         border-collapse: collapse;
         border-spacing: 10px;
     }
@@ -216,12 +219,12 @@
         <div class="col-md-12" style="margin: 0px 20px 3px 12%; padding-top: 0.5%; padding-bottom: 0.5%;
             width: 75%;">
             <div id="dvDemo" visible="true" runat="server">
-                <div class="col-md-12  col-xs-12 col-sm-12 ">
-                    <div class="col-md-12  col-xs-12 col-sm-12 dottedBottom">
-                        <b style="font-family: Times New Roman">Fund Filter </b>
-                    </div>
-                    <div class="col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 1%; margin-left: 0%;
+                <div class="col-md-12  col-xs-12 col-sm-12  topBottomBorder">
+                    <div class="col-md-12 col-xs-12 col-sm-12 " style="margin-bottom: 0%; margin-left: 0%;
                         padding-left: 0px">
+                        <div  class="col-md-2" style="padding-left: 0px;width:9%;padding-top:4px;">
+                         <b style="font-family: Times New Roman">Fund Filter </b>
+                        </div>
                         <div class="col-md-3" style="margin-bottom: 1%; margin-left: 0%; padding-left: 0px">
                             <asp:DropDownList ID="ddlAMC" runat="server" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged"
                                 AutoPostBack="true">
@@ -280,7 +283,7 @@
                 <telerik:RadMultiPage ID="multipageAdsUpload" EnableViewState="true" runat="server">
                     <telerik:RadPageView ID="rpvTopRated" runat="server" Selected="true">
                         <div id="dvMarketData">
-                            <div class="row" style="margin-bottom: 1%; margin-top: 1%">
+                            <div class="row" style="margin-bottom: 1%; padding-top: 3px">
                                 <div class="col-md-1" style="width: 65px; padding-top: 5px; font-family: Times New Roman">
                                     Category
                                 </div>
@@ -440,7 +443,7 @@
                                         Font-Size="Larger" ForeColor="#2475C7" Visible="false"></asp:Label>
                                 </div>
                             </div>
-                            <div class="row" style="margin-bottom: 1%; margin-top: 1%" runat="server" id="dvfilterTopRated">
+                            <div class="row" style="margin-bottom: 1%; padding-top: 3px" runat="server" id="dvfilterTopRated">
                                 <div class="col-md-1" style="width: 65px; padding-top: 5px">
                                     Category</div>
                                 <div class="col-md-2">
