@@ -1069,8 +1069,11 @@ function LoadTransactPanelFromMainPage(controlid, schemecode) {
 }
 
 function LoadTransactPanel(controlid) {
-
-    parent.document.getElementById("DropDownList1").value = controlid;
+    var finalvale = controlid
+    if (controlid.indexOf("&") > 0) {
+        finalvale = controlid.substring(0, controlid.indexOf("&"));
+    }
+    parent.document.getElementById("DropDownList1").value = finalvale;
     if (controlid != null)
         parent.PageMethods.AjaxSetTopPanelSession("Top_Panel_PageID", controlid);
 
