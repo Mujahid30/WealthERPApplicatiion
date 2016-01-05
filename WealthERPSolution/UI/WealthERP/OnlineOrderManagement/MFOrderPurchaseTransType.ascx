@@ -94,7 +94,6 @@
         font-size: smaller;
         color: #104259;
     }
-    
 </style>
 <body style="background-color: #E5F6FF;">
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -114,16 +113,18 @@
                     width: 100%">
                     <table width="90%" style="margin-right: 50px;">
                         <tr>
-                            <td>
-                                <b class="fontsize">AMC:</b><asp:Label ID="lblAmc" runat="server" CssClass="fieldFontSize"></asp:Label>
+                          <td style="margin-left: 1px" colspan="2">
+                                <b class="fontsize">Scheme:</b>
+                                <asp:Label ID="lblScheme" runat="server" CssClass="fieldFontSize"></asp:Label>
                             </td>
                             <td style="margin-left: 1px">
                                 <b class="fontsize">Category:</b>
                                 <asp:Label ID="lblCategory" runat="server" CssClass="fieldFontSize"></asp:Label>
                             </td>
-                            <td style="margin-left: 1px">
-                                <b class="fontsize">Scheme:</b>
-                                <asp:Label ID="lblScheme" runat="server" CssClass="fieldFontSize"></asp:Label>
+                             <td style="margin-left: 5px">
+                                <b class="fontsize">Scheme Rating:</b>
+                                <asp:Image runat="server" ID="imgSchemeRating" />
+                                <asp:Label ID="lblSchemeRatingAsOn" runat="server" CssClass="fieldFontSize"></asp:Label>
                             </td>
                             <td style="margin-left: 5px" id="tdFolio" runat="server" visible="false">
                                 <b class="fontsize">Folio Number:</b>
@@ -139,7 +140,7 @@
                                     OnClick="imgInformation_OnClick" ToolTip="Help" Style="cursor: hand; float: right" />
                             </td>
                         </tr>
-                        <tr style="border:1px solid #ccc;">
+                        <tr style="border: 1px solid #ccc;">
                             <td>
                                 <b class="fontsize">NAV (Rs):</b>
                                 <asp:Label ID="lblNavDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>
@@ -157,7 +158,7 @@
                                 <asp:Label ID="lbltime" runat="server" Text="" CssClass="fieldFontSize"></asp:Label>
                             </td>
                         </tr>
-                        <tr style="border:1px solid #ccc;">
+                        <tr style="border: 1px solid #ccc;">
                             <td>
                                 <b class="fontsize">Joint Holder:</b>
                                 <asp:Label ID="lblHolderDisplay" runat="server" CssClass="fieldFontSize"></asp:Label>
@@ -170,11 +171,7 @@
                                 <b class="fontsize">Units Held:</b>
                                 <asp:Label ID="lblUnitsheldDisplay" runat="server"></asp:Label>
                             </td>
-                            <td style="margin-left: 5px">
-                                <b class="fontsize">Scheme Rating:</b>
-                                <asp:Image runat="server" ID="imgSchemeRating" />
-                                <asp:Label ID="lblSchemeRatingAsOn" runat="server" CssClass="fieldFontSize"></asp:Label>
-                            </td>
+                           
                         </tr>
                         <tr>
                             <td>
@@ -260,7 +257,7 @@
                     Width="1000px" Height="200px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false"
                     Behaviors="Move, Resize,Close" Title="Terms & Conditions" EnableShadow="true"
                     Left="300" Top="1" OnClientShow="setCustomPosition">
-                    <ContentTemplate>
+                    <contenttemplate>
                         <div style="padding: 0px; width: 100%; height: 150px">
                             <table width="100%" cellpadding="0" cellpadding="0" height="148px">
                                 <tr>
@@ -278,10 +275,10 @@
                                 </tr>
                             </table>
                         </div>
-                    </ContentTemplate>
+                    </contenttemplate>
                 </telerik:RadWindow>
                 <telerik:RadWindowManager runat="server" ID="RadWindowManager1">
-                    <Windows>
+                    <windows>
                         <telerik:RadWindow ID="rw_customConfirm" Modal="true" Behaviors="Close, Move" VisibleStatusbar="false"
                             Width="700px" Height="160px" runat="server" Title="EUIN Confirm" Left="300" Top="5"
                             OnClientShow="setCustomPosition">
@@ -299,11 +296,11 @@
                                 </div>
                             </ContentTemplate>
                         </telerik:RadWindow>
-                    </Windows>
+                    </windows>
                 </telerik:RadWindowManager>
                 <telerik:RadWindow ID="RadInformation" Modal="true" Behaviors="Close, Move" VisibleStatusbar="false"
                     Width="760px" Height="180px" runat="server" Left="300" Top="5" OnClientShow="setCustomPosition">
-                    <ContentTemplate>
+                    <contenttemplate>
                         <div style="padding: 0px; width: 100%; height: 100%;">
                             <%--<table width="100%" cellpadding="0" cellpadding="0" Height="100%">
                         <tr>
@@ -315,7 +312,7 @@
                         </tr>
                     </table>--%>
                         </div>
-                    </ContentTemplate>
+                    </contenttemplate>
                 </telerik:RadWindow>
             </div>
         </ContentTemplate>
@@ -358,6 +355,9 @@
         </td>
         <td>
             <asp:Label ID="lblDividendType" runat="server" CssClass="txtField"></asp:Label>
+        </td>
+        <td>
+            <b class="fontsize">AMC:</b><asp:Label ID="lblAmc" runat="server" CssClass="fieldFontSize"></asp:Label>
         </td>
     </tr>
 </table>
