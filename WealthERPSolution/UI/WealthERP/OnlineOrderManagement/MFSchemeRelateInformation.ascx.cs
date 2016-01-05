@@ -30,7 +30,7 @@ namespace WealthERP.OnlineOrderManagement
         UserVo userVo;
         CustomerVo customerVo = new CustomerVo();
         string path;
-        int PageSize = 10;
+        int PageSize = 5;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -57,7 +57,7 @@ namespace WealthERP.OnlineOrderManagement
                 else
                 {
                     SetParametersForAdminGrid("lbTopSchemes");
-                    BindTopMarketSchemes(ddlMarketCategory.SelectedValue, Boolean.Parse(ddlSIP.SelectedValue), int.Parse(ddlReturns.SelectedValue), customerVo.CustomerId);
+                    BindTopMarketSchemes(ddlMarketCategory.SelectedValue, Boolean.Parse(ddlSIP.SelectedValue), int.Parse(ddlReturns.SelectedValue), customerVo.CustomerId,1);
                 }
             }
         }
@@ -168,11 +168,11 @@ namespace WealthERP.OnlineOrderManagement
             rpSchemeDetails.DataSource = dtBindSchemeRelatedDetails;
             rpSchemeDetails.DataBind();
             rpSchemeDetails.Visible = true;
-            this.PopulatePager(recordCount, 1);
+            this.PopulatePager(recordCount, 1,rptPager);
 
 
         }
-        private void PopulatePager(int recordCount, int currentPage)
+        private void PopulatePager(int recordCount, int currentPage, Repeater rptPaging)
         {
             double dblPageCount = (double)((decimal)recordCount / Convert.ToDecimal(PageSize));
             int pageCount = (int)Math.Ceiling(dblPageCount);
@@ -184,8 +184,15 @@ namespace WealthERP.OnlineOrderManagement
                     pages.Add(new ListItem(i.ToString(), i.ToString(), i != currentPage));
                 }
             }
-            rptPager.DataSource = pages;
-            rptPager.DataBind();
+            rptPaging.DataSource = pages;
+            rptPaging.DataBind();
+        }
+        protected void rpTopPager_Changed(object sender, EventArgs e)
+        {
+            int pageIndex = int.Parse((sender as LinkButton).CommandArgument);
+            BindTopMarketSchemes(ddlMarketCategory.SelectedValue, Boolean.Parse(ddlSIP.SelectedValue), int.Parse(ddlReturns.SelectedValue), customerVo.CustomerId, pageIndex);
+
+
         }
         protected void Page_Changed(object sender, EventArgs e)
         {
@@ -201,7 +208,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void btnTopRated_OnClick(object sender, EventArgs e)
         {
-            BindTopMarketSchemes(ddlMarketCategory.SelectedValue, Boolean.Parse(ddlSIP.SelectedValue), int.Parse(ddlReturns.SelectedValue), customerVo.CustomerId);
+            BindTopMarketSchemes(ddlMarketCategory.SelectedValue, Boolean.Parse(ddlSIP.SelectedValue), int.Parse(ddlReturns.SelectedValue), customerVo.CustomerId,1);
         }
 
         protected void GetSchemeDetails(object sender, EventArgs e)
@@ -585,11 +592,12 @@ namespace WealthERP.OnlineOrderManagement
                 }
             }
         }
-      
-        protected void BindTopMarketSchemes(string category, Boolean IsSIP, int Returns,int customerId)
+
+        protected void BindTopMarketSchemes(string category, Boolean IsSIP, int Returns, int customerId, int PageIndex)
         {
             OnlineOrderBackOfficeBo boOnlineOrderBackOffice = new OnlineOrderBackOfficeBo();
-            DataTable dtTopMarketSchemes = boOnlineOrderBackOffice.GetTopMarketSchemes(category, IsSIP, Returns, customerId, int.Parse(ddlCompare.SelectedValue), double.Parse(txtcmpvalue.Text));
+            int recordCount = 0;
+            DataTable dtTopMarketSchemes = boOnlineOrderBackOffice.GetTopMarketSchemes(category, IsSIP, Returns, customerId, int.Parse(ddlCompare.SelectedValue), double.Parse(txtcmpvalue.Text), out  recordCount, PageIndex, PageSize);
            if (Cache["TopMarketSchemes" + userVo.UserId] != null)
            {
                Cache.Remove("TopMarketSchemes" + userVo.UserId);
@@ -598,6 +606,8 @@ namespace WealthERP.OnlineOrderManagement
            rptTopMarketSchemes.DataSource = dtTopMarketSchemes;
            rptTopMarketSchemes.DataBind();
            rptTopMarketSchemes.Visible = true;
+           this.PopulatePager(recordCount, 1, rpTopPager);
+
 
         }
         protected void lnkMoreNews_lnkMoreNews(object sender, EventArgs e)
@@ -619,15 +629,15 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void ddlMarketCategory_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            BindTopMarketSchemes(ddlMarketCategory.SelectedValue, Boolean.Parse(ddlSIP.SelectedValue), int.Parse(ddlReturns.SelectedValue), customerVo.CustomerId);
+            BindTopMarketSchemes(ddlMarketCategory.SelectedValue, Boolean.Parse(ddlSIP.SelectedValue), int.Parse(ddlReturns.SelectedValue), customerVo.CustomerId,1);
         }
         protected void ddlSIP_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            BindTopMarketSchemes(ddlMarketCategory.SelectedValue, Boolean.Parse(ddlSIP.SelectedValue), int.Parse(ddlReturns.SelectedValue), customerVo.CustomerId);
+            BindTopMarketSchemes(ddlMarketCategory.SelectedValue, Boolean.Parse(ddlSIP.SelectedValue), int.Parse(ddlReturns.SelectedValue), customerVo.CustomerId,1);
         }
         protected void ddlReturns_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            BindTopMarketSchemes(ddlMarketCategory.SelectedValue, Boolean.Parse(ddlSIP.SelectedValue), int.Parse(ddlReturns.SelectedValue), customerVo.CustomerId);
+            BindTopMarketSchemes(ddlMarketCategory.SelectedValue, Boolean.Parse(ddlSIP.SelectedValue), int.Parse(ddlReturns.SelectedValue), customerVo.CustomerId,1);
         }
         protected void rptTopMarketSchemes_OnItemCommand(object sender, RepeaterCommandEventArgs e)
         {

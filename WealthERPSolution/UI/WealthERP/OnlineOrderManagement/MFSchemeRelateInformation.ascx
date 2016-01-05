@@ -39,7 +39,7 @@
 </script>
 
 <style type="text/css">
-    @media only screen and (max-width: 800px)
+    @media only screen and (max-width: 850px)
     {
         /* Force table to not be like tables anymore */    #no-more-tables table, #no-more-tables thead, #no-more-tables tbody, #no-more-tables th, #no-more-tables td, #no-more-tables tr
         {
@@ -283,7 +283,7 @@
                 <telerik:RadMultiPage ID="multipageAdsUpload" EnableViewState="true" runat="server">
                     <telerik:RadPageView ID="rpvTopRated" runat="server" Selected="true">
                         <div id="dvMarketData">
-                            <div class="row" style="margin-bottom: 1%; padding-top: 3px">
+                            <div class="row" style="margin-bottom: 0%; padding-top: 3px">
                                 <div class="col-md-1" style="width: 65px; padding-top: 5px; font-family: Times New Roman">
                                     Category
                                 </div>
@@ -292,10 +292,10 @@
                                         AutoPostBack="false">
                                     </asp:DropDownList>
                                 </div>
-                                <div class="col-md-1" style="width: 40px; padding-top: 5px; font-family: Times New Roman">
+                                <div class="col-md-1" style="width: 40px; padding-top: 5px; font-family: Times New Roman;display:none"  >
                                     Type
                                 </div>
-                                <div class="col-md-1">
+                                <div class="col-md-1" style="display:none">
                                     <asp:DropDownList ID="ddlSIP" runat="server" AutoPostBack="false" CssClass="form-control input-sm">
                                         <asp:ListItem Text="SIP" Value="true"></asp:ListItem>
                                         <asp:ListItem Text="Non-SIP" Value="false"></asp:ListItem>
@@ -318,7 +318,7 @@
                                     </asp:DropDownList>
                                 </div>
                                 <div class="col-md-1">
-                                    <asp:TextBox ID="txtcmpvalue" runat="server" Width="60px" Text="10"></asp:TextBox>
+                                    <asp:TextBox ID="txtcmpvalue" runat="server" Width="60px" height="25px" Text="10"></asp:TextBox>
                                 </div>
                                 <div class="col-md-1">
                                     <asp:Button ID="btnTopRated" runat="server" class="btn btn-sm btn-primary" Text="GO"
@@ -424,6 +424,17 @@
                                         </asp:Repeater>
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" style="margin-top: 1%">
+                                <asp:Repeater ID="rpTopPager" runat="server">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="lnkPage" runat="server" Text='<%#Eval("Text") %>' CommandArgument='<%# Eval("Value") %>'
+                                            CssClass='<%# Convert.ToBoolean(Eval("Enabled")) ? "page_enabled" : "page_disabled" %>'
+                                            OnClick="rpTopPager_Changed"></asp:LinkButton>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </div>
                         </div>
                     </telerik:RadPageView>
                     <telerik:RadPageView ID="rpvTopPerformer" runat="server">

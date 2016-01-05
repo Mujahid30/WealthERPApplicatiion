@@ -2554,12 +2554,12 @@ namespace BoOnlineOrderManagement
             }
             return dtGetSchemeDetails;
         }
-        public DataTable GetTopMarketSchemes(string category, Boolean isSIP, int returns, int customerId, int returnsOperator, double returnsValue)
+        public DataTable GetTopMarketSchemes(string category, Boolean isSIP, int returns, int customerId, int returnsOperator, double returnsValue,out int recordCount, int PageIndex, int PageSize)
         {
             try
             {
                 OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
-                return daoOnlineOrderBackOffice.GetTopMarketSchemes(category, isSIP, returns, customerId, returnsOperator, returnsValue);
+                return daoOnlineOrderBackOffice.GetTopMarketSchemes(category, isSIP, returns, customerId, returnsOperator, returnsValue,out recordCount, PageIndex, PageSize);
             }
             catch (BaseApplicationException Ex)
             {
