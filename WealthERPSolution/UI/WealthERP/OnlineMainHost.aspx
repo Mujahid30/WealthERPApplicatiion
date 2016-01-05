@@ -697,8 +697,7 @@
                             <ul class="greybox">
                                 <li><a onclick="LoadBottomPanelControl('OnlineCustomerOrderandTransactionBook','login');">
                                     ORDER BOOK</a> </li>
-                                <li><a onclick="LoadBottomPanelControl('CustomerTransactionBookList','login');">TRANSACTION
-                                    BOOK</a></li>
+                               
                                 <li><a onclick="LoadBottomPanelControl('SIPBookSummmaryList','?systematicType=SIP');">
                                     SIP BOOK</a></li>
                             </ul>
@@ -741,10 +740,12 @@
                     <div class="dropdown_1column">
                         <div class="col_1">
                             <ul class="greybox">
-                                <li><a onclick="LoadBottomPanelControl('NCDIssueList','?BondType=" + "FISDSD" + "');">
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueList','?BondType=FISDSD');">
                                     NCD ISSUE LIST</a></li>
-                                <li><a onclick="LoadBottomPanelControl('NCDIssueList','?BondType=" + "FISSGB" + "');">
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueList','?BondType=FISSGB');">
                                     SGB ISSUE LIST</a></li>
+                                    <li><a onclick="LoadBottomPanelControl('NCDIssueList','?BondType=FITFTF');">
+                                    NCD TEX FREE LIST</a></li>
                             </ul>
                         </div>
                     </div>
@@ -753,10 +754,12 @@
                     <div class="dropdown_1column">
                         <div class="col_1">
                             <ul class="greybox">
-                                <li><a onclick="LoadBottomPanelControl('NCDIssueBooks','?BondType=" + "FISDSD" + "');">
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueBooks','?BondType=FISDSD');">
                                     NCD BOOK</a> </li>
-                                <li><a onclick="LoadBottomPanelControl('NCDIssueBooks','?BondType=" + "FISSGB" + "');">
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueBooks','?BondType=FISSGB');">
                                     SGB BOOK</a></li>
+                                     <li><a onclick="LoadBottomPanelControl('NCDIssueBooks','?BondType=FITFTF');">
+                                    NCD TEX FREE BOOK</a></li>
                             </ul>
                         </div>
                     </div>
@@ -765,10 +768,12 @@
                     <div class="dropdown_1column">
                         <div class="col_1">
                             <ul class="greybox">
-                                <li><a onclick="LoadBottomPanelControl('NCDIssueHoldings','?BondType=" + "FISDSD" + "');">
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueHoldings','?BondType=FISDSD');">
                                     NCD HOLDINGS</a></li>
-                                <li><a onclick="LoadBottomPanelControl('NCDIssueHoldings','?BondType=" + "FISSGB" + "');">
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueHoldings','?BondType=FISSGB');">
                                     SGB HOLDINGS</a></li>
+                                     <li><a onclick="LoadBottomPanelControl('NCDIssueHoldings','?BondType=FITFTF');">
+                                    NCD TEX FREE HOLDINGS</a></li>
                             </ul>
                         </div>
                     </div>

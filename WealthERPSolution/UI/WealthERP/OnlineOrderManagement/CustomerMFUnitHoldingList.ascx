@@ -68,7 +68,6 @@
                         <td align="left">
                             MF Holdings
                         </td>
-                        
                     </tr>
                 </table>
             </div>
@@ -78,13 +77,14 @@
 <div id="divConditional" runat="server" class="row " style="margin-left: 5%; margin-bottom: 0.5%;
     margin-right: 5%; padding-bottom: 0.5%;">
     <div class="col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 1%">
-        <div class="col-md-4">
+        <div class="col-md-1" style="text-align: right; padding-top: 3px">
             Account
+        </div>
+        <div class="col-md-3">
             <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="form-control input-sm">
             </asp:DropDownList>
         </div>
         <div class="col-md-3">
-            <br />
             <asp:Button ID="btnUnitHolding" runat="server" Text="GO" CssClass="btn btn-primary btn-primary"
                 OnClick="btnUnitHolding_Click" />
             <asp:Label ID="lblPickDate" Text="" runat="server" CssClass="FieldName" Visible="false"> </asp:Label>
@@ -105,7 +105,6 @@
         </td>
     </tr>
 </table>
-
 <div id="Div1" class="row" style="margin-left: 5%; margin-right: 3%; background-color: #2480C7;"
     visible="false" runat="server">
     <telerik:RadGrid ID="rgUnitHolding" runat="server" GridLines="None" AllowPaging="True"
@@ -113,8 +112,8 @@
         AllowAutomaticDeletes="false" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
         HorizontalAlign="NotSet" CellPadding="15" OnNeedDataSource="rgUnitHolding_OnNeedDataSource"
         OnItemCommand="rgUnitHolding_OnItemCommand" OnItemDataBound="rgUnitHolding_ItemDataBound">
-        <MasterTableView CommandItemDisplay="None" DataKeyNames="MFNPId,AccountId,AMCCode,SchemeCode"
-            AllowCustomSorting="true">
+        <mastertableview commanditemdisplay="None" datakeynames="MFNPId,AccountId,AMCCode,SchemeCode"
+            allowcustomsorting="true">
              <Columns>
                 <telerik:GridTemplateColumn>
             <ItemTemplate>
@@ -396,8 +395,8 @@
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
             </Columns>
-        </MasterTableView>
-       <%-- <ClientSettings EnableAlternatingItems="false" AllowGroupExpandCollapse="true">
+        </mastertableview>
+        <%-- <ClientSettings EnableAlternatingItems="false" AllowGroupExpandCollapse="true">
         </ClientSettings>
         <PagerStyle Mode="NextPrevAndNumeric" />--%>
     </telerik:RadGrid>

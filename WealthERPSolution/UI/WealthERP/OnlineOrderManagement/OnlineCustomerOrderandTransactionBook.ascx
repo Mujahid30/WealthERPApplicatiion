@@ -1,4 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="OnlineCustomerOrderandTransactionBook.ascx.cs" Inherits="WealthERP.OnlineOrderManagement.OnlineCustomerOrderandTransactionBook" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="OnlineCustomerOrderandTransactionBook.ascx.cs"
+    Inherits="WealthERP.OnlineOrderManagement.OnlineCustomerOrderandTransactionBook" %>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
@@ -39,8 +40,8 @@
         background-color: #EEEEEE;
         margin-bottom: .5%;
         margin-top: .5%;
-         margin-left:.2%;
-          margin-right:.1%;
+        margin-left: .2%;
+        margin-right: .1%;
         border: solid 1.5px #EEEEEE;
     }
     .divs:hover
@@ -48,7 +49,7 @@
         border: solid 1.5px #00CEFF;
         cursor: pointer;
     }
-     .dottedBottom
+    .dottedBottom
     {
         border-bottom-style: inset;
         border-bottom-width: thin;
@@ -57,7 +58,6 @@
         border-spacing: 10px;
     }
 </style>
-
 <table width="100%">
     <tr>
         <td>
@@ -67,16 +67,14 @@
                         <td align="left">
                             Order Book
                         </td>
-                        
                     </tr>
                 </table>
             </div>
         </td>
     </tr>
 </table>
-<div id="demo" class="row" style="margin-left: 5%; margin-bottom: 2%;
-    margin-right: 5%; padding-top: 1%; padding-bottom: 1%; 
-    height: 20%">
+<div id="demo" class="row" style="margin-left: 5%; margin-bottom: 2%; margin-right: 5%;
+    padding-top: 1%; padding-bottom: 1%; height: 20%">
     <div class="col-md-12 col-xs-12 col-sm-12">
         <div class="col-md-3">
             AMC:
@@ -91,13 +89,12 @@
                 class="form-control">
             </asp:DropDownList>
         </div>
-         <div class="col-md-2">
+        <div class="col-md-2">
             Exchange:
             <asp:DropDownList ID="ddlExchange" runat="server" CssClass="form-control input-sm"
                 class="form-control">
                 <asp:ListItem Text="Online" Value="1"></asp:ListItem>
                 <asp:ListItem Text="Demat" Value="0"></asp:ListItem>
-                
             </asp:DropDownList>
         </div>
     </div>
@@ -107,8 +104,8 @@
                 OnClick="btnSIP_OnClick" Width="120px"></asp:Button>
         </div>
         <div class="col-md-2" style="margin-top: 1.6%">
-            <asp:Button ID="btnNewPurchase" runat="server" CssClass="btn btn-primary btn-primary" Text="New Purchase"
-                OnClick="btnNewPurchase_OnClick" Width="120px"></asp:Button>
+            <asp:Button ID="btnNewPurchase" runat="server" CssClass="btn btn-primary btn-primary"
+                Text="New Purchase" OnClick="btnNewPurchase_OnClick" Width="120px"></asp:Button>
         </div>
         <div class="col-md-2" style="margin-top: 1.9%">
             <asp:Button ID="btnAdditionalPurchase" runat="server" CssClass="btn btn-primary btn-primary"
@@ -116,12 +113,13 @@
             </asp:Button>
         </div>
         <div class="col-md-2" style="margin-top: 1.6%">
-            <asp:Button ID="btnRedeem" runat="server" CssClass="btn btn-primary btn-primary" Text="Redeem"
-                OnClick="btnRedeem_OnClick" Width="120px"></asp:Button>
+            <asp:Button ID="btnRedeem" runat="server" CssClass="btn btn-primary btn-primary"
+                Text="Redeem" OnClick="btnRedeem_OnClick" Width="120px"></asp:Button>
         </div>
     </div>
 </div>
-<div id="Div1" class="row" style="margin-left: 5%; margin-right: 5%; background-color: #2480C7;" visible="false" runat="server">
+<div id="Div1" class="row" style="margin-left: 5%; margin-right: 5%; background-color: #2480C7;"
+    visible="false" runat="server">
     <telerik:RadGrid ID="gvOrderBook" runat="server" GridLines="None" AllowPaging="True"
         PageSize="5" AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true"
         AllowAutomaticDeletes="false" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
@@ -139,11 +137,7 @@
                     </HeaderTemplate>
                     <ItemTemplate>
                         <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 divs">
-                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
-                                <font color="#565656"><b>Fund Name:</b></font>
-                                <%# Eval("PA_AMCName")%>
-                            </div>
-                            <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 fk-font-7" style="margin-bottom: 1.5px;">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 fk-font-7" style="margin-bottom: 1.5px;">
                                 <font color="#565656"><b>Scheme Name:</b> </font>
                                 <%# Eval("PASP_SchemePlanName")%>
                             </div>
@@ -187,13 +181,13 @@
                                 <font color="#565656"><b>Online:</b></font>
                                 <%# Eval("Channel")%>
                             </div>
-                            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 fk-font-9 style="margin-bottom: 1.5px;">
+                            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 fk-font-9" style="margin-bottom: 1.5px;">
                                 <font color="#565656"><b>Reject Remark:</b></font>
                                 <%# Eval("COS_Reason")%>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 fk-font-2" style="margin-bottom: 1.5px;">
                                 <asp:Button ID="btnDetails" runat="server" class="ft_sort btn-sm btn-info" Text="Transaction Details"
-                                    OnClick="btnDetails_OnClick" Width="120px" ></asp:Button>
+                                    OnClick="btnDetails_OnClick" Width="120px"></asp:Button>
                             </div>
                         </div>
                     </ItemTemplate>
@@ -202,17 +196,17 @@
                     <ItemTemplate>
                         <tr>
                             <td colspan="100%">
-                                <telerik:RadGrid ID="gvChildDetails" runat="server"  AllowPaging="false"
-                                    AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true"
-                                    AllowAutomaticDeletes="false" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
-                                    HorizontalAlign="NotSet" CellPadding="15" Visible="false" >
+                                <telerik:RadGrid ID="gvChildDetails" runat="server" AllowPaging="false" AllowSorting="True"
+                                    AutoGenerateColumns="False" ShowStatusBar="true" AllowAutomaticDeletes="false"
+                                    AllowAutomaticInserts="false" AllowAutomaticUpdates="false" HorizontalAlign="NotSet"
+                                    CellPadding="15" Visible="false">
                                     <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
-                                        Width="100%" ShowHeader="false" >
+                                        Width="100%" ShowHeader="false">
                                         <Columns>
                                             <telerik:GridTemplateColumn>
-                                            <HeaderStyle />
+                                                <HeaderStyle />
                                                 <ItemTemplate>
-                                                   <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12">
+                                                    <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12">
                                                         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                                             <font color="#565656"><b>Customer Name:</b></font>
                                                             <%# Eval("Name")%>
@@ -245,12 +239,15 @@
                                                             <font color="#565656"><b>Amount:</b></font>
                                                             <%# Eval("CMFOD_Amount")%>
                                                         </div>
-                                                        
                                                         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                                             <font color="#565656"><b>Maturity Date:</b></font>
                                                             <%# Eval("CMFT_ELSSMaturityDate")%>
                                                         </div>
-                                                   </div>
+                                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;visibility:hidden">
+                                                            <font color="#565656"><b>Fund Name:</b></font>
+                                                            <%# Eval("PA_AMCName")%>
+                                                        </div>
+                                                    </div>
                                                 </ItemTemplate>
                                             </telerik:GridTemplateColumn>
                                         </Columns>
@@ -276,3 +273,4 @@
 
     });
 </script>
+
