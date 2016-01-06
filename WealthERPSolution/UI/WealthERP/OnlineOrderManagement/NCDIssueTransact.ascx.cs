@@ -761,7 +761,9 @@ namespace WealthERP.OnlineOrderManagement
                     if (ronum < gvCommMgmt.MasterTableView.Items.Count)
                     {
                         TextBox txt = gvCommMgmt.Items[ronum].Cells[17].FindControl("txtQuantity") as TextBox;
-                        //txt.Enabled = true;
+                        TextBox txtq = gvCommMgmt.Items[ronum].Cells[18].FindControl("txtAmount") as TextBox;
+                        txt.Enabled = false;
+                        txtq.Enabled = false;
                         ronum++;
                     }
                 }
@@ -935,7 +937,7 @@ namespace WealthERP.OnlineOrderManagement
                 DateTime todate = DateTime.Parse(Request.QueryString["todate"].ToString());
                 DateTime fromdate = DateTime.Parse(Request.QueryString["fromdate"].ToString());
                 string status = Request.QueryString["status"].ToString();
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueBooks", "loadcontrol('NCDIssueBooks','&strAction=" + action + "&status=" + status + "&fromdate=" + fromdate + "&todate=" + todate + " ');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueBooks", "LoadBottomPanelControl('NCDIssueBooks','&strAction=" + action + "&status=" + status + "&fromdate=" + fromdate + "&todate=" + todate + "&BondType="+Request.QueryString["BondType"]+" ');", true);
             }
         }
         protected void lnlFAQ_OnClick(object sender, EventArgs e)
