@@ -132,7 +132,7 @@ namespace WealthERP.OnlineOrderManagement
 
                 gvBBList.DataSource = dtbondsBook;
                 gvBBList.DataBind();
-                ibtExportSummary.Visible = true;
+                ibtExportSummary.Visible = false;
                 Div2.Visible = true;
                 // pnlGrid.Visible = true;
             }

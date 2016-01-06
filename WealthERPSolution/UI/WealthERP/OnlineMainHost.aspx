@@ -748,12 +748,12 @@
                     <div class="dropdown_1column">
                         <div class="col_1">
                             <ul class="greybox">
-                                <li><a onclick="LoadBottomPanelControl('NCDIssueList','?BondType=FISDSD');">NCD ISSUE
-                                    LIST</a></li>
-                                <li><a onclick="LoadBottomPanelControl('NCDIssueList','?BondType=FISSGB');">SGB ISSUE
-                                    LIST</a></li>
-                                <li><a onclick="LoadBottomPanelControl('NCDIssueList','?BondType=FITFTF');">NCD TEX
-                                    FREE LIST</a></li>
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueList','?BondType=FISDSD');">
+                                    NCD ISSUE LIST</a></li>
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueList','?BondType=FISSGB');">
+                                    SGB ISSUE LIST</a></li>
+                                    <li><a onclick="LoadBottomPanelControl('NCDIssueList','?BondType=FITFTF');">
+                                    NCD TEX FREE LIST</a></li>
                             </ul>
                         </div>
                     </div>
@@ -762,11 +762,12 @@
                     <div class="dropdown_1column">
                         <div class="col_1">
                             <ul class="greybox">
-                                <li><a onclick="LoadBottomPanelControl('NCDIssueBooks','?BondType=FISDSD');">NCD BOOK</a>
-                                </li>
-                                <li><a onclick="LoadBottomPanelControl('NCDIssueBooks','?BondType=FISSGB');">SGB BOOK</a></li>
-                                <li><a onclick="LoadBottomPanelControl('NCDIssueBooks','?BondType=FITFTF');">NCD TEX
-                                    FREE BOOK</a></li>
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueBooks','?BondType=FISDSD');">
+                                    NCD BOOK</a> </li>
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueBooks','?BondType=FISSGB');">
+                                    SGB BOOK</a></li>
+                                     <li><a onclick="LoadBottomPanelControl('NCDIssueBooks','?BondType=FITFTF');">
+                                    NCD TEX FREE BOOK</a></li>
                             </ul>
                         </div>
                     </div>
@@ -775,12 +776,12 @@
                     <div class="dropdown_1column">
                         <div class="col_1">
                             <ul class="greybox">
-                                <li><a onclick="LoadBottomPanelControl('NCDIssueHoldings','?BondType=FISDSD');">NCD
-                                    HOLDINGS</a></li>
-                                <li><a onclick="LoadBottomPanelControl('NCDIssueHoldings','?BondType=FISSGB');">SGB
-                                    HOLDINGS</a></li>
-                                <li><a onclick="LoadBottomPanelControl('NCDIssueHoldings','?BondType=FITFTF');">NCD
-                                    TEX FREE HOLDINGS</a></li>
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueHoldings','?BondType=FISDSD');">
+                                    NCD HOLDINGS</a></li>
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueHoldings','?BondType=FISSGB');">
+                                    SGB HOLDINGS</a></li>
+                                     <li><a onclick="LoadBottomPanelControl('NCDIssueHoldings','?BondType=FITFTF');">
+                                    NCD TEX FREE HOLDINGS</a></li>
                             </ul>
                         </div>
                     </div>
@@ -827,15 +828,12 @@
                     Demo</a> </li>
             </ul>
         </div>
-        <div runat="server" style="margin: 2px 15px 5px 15px; padding: 0px 0px 0px 0px;
+        <div runat="server" style="margin: 2px 15px 5px 15px; padding: 0px 20px 0px 10px;
             max-width: 1285px; min-width: 940px; clear: both; height: 20px; color: #fff;
-            z-index: -6; background: #000; font-family: Times New Roman; font-size: small" id="dvNews" class="col-md-12">
-            <div  class="col-md-1" style="font-size:small; margin-right: 0px; width: 7.33333333%; color: #000 ; background:#fff ;padding:0px 0px 1px 1px">
-            <b> Top Fund NEWS </b>
-            </div>
-            <div style="padding-left: 0px;" class="col-md-11">
+            z-index: -6; background: #000;" id="dvNews">
+            <div style="padding-left: 0px;">
                 <marquee direction="left" scrolldelay="150" onmouseover="this.stop();" onmouseout="this.start();"
-                    style="border-radius: 2px;" >
+                    style="border-radius: 2px; font-family: Times New Roman; font-size: small">
         <asp:datalist ItemStyle-HorizontalAlign="Center" ItemStyle-CssClass="heading" ItemStyle-Width="33%" ItemStyle-Wrap="False" id="dlNews" CellPadding="2" RepeatColumns="10" RepeatDirection="Horizontal" CellSpacing="2" Runat="server">
     
      <ItemTemplate>
@@ -847,6 +845,7 @@
      </SeparatorTemplate>
 </asp:datalist>
 </marquee>
+                </div>
             </div>
         </div>
         <div style="margin-top: 10px; z-index: 3;">
