@@ -1779,12 +1779,12 @@ namespace WealthERP.OnlineOrderBackOffice
                     e.Canceled = true;
                     return;
                 }
-                else if (count > 1 && ddlSubInstrCategory.SelectedValue == "FITFTF")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Select One Category.');", true);
-                    e.Canceled = true;
-                    return;
-                }
+                //else if (count > 1 && ddlSubInstrCategory.SelectedValue == "FITFTF")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Select One Category.');", true);
+                //    e.Canceled = true;
+                //    return;
+                //}
                 onlineNCDBackOfficeBo.IsSameSubTypeCatAttchedtoSeries(attachedCatId, Convert.ToInt32(txtIssueId.Text), ref attachedCatId);
                 if (attachedCatId != String.Empty && ddlSubInstrCategory.SelectedValue != "FICGCG" && ddlSubInstrCategory.SelectedValue != "FINPNP" && ddlSubInstrCategory.SelectedValue != "FITFTF")
                 {
@@ -1892,7 +1892,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
                 }
                 BindSeriesGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
-                if (ddlSubInstrCategory.SelectedValue != "FITFTF")
+                //if (ddlSubInstrCategory.SelectedValue != "FITFTF")
                 onlineNCDBackOfficeBo.AttchingSameSubtypeCattoSeries(Convert.ToInt32(txtIssueId.Text));
 
             }
@@ -1935,12 +1935,12 @@ namespace WealthERP.OnlineOrderBackOffice
                     e.Canceled = true;
                     return;
                 }
-                else if (count > 1 && ddlSubInstrCategory.SelectedValue == "FITFTF")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Select One Category.');", true);
-                    e.Canceled = true;
-                    return;
-                }
+                //else if (count > 1 && ddlSubInstrCategory.SelectedValue == "FITFTF")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Select One Category.');", true);
+                //    e.Canceled = true;
+                //    return;
+                //}
                 onlineNCDBackOfficeBo.IsSameSubTypeCatAttchedtoSeries(attachedCatId, Convert.ToInt32(txtIssueId.Text), ref attachedCatId);
                 if (attachedCatId != String.Empty && ddlSubInstrCategory.SelectedValue != "FICGCG" && ddlSubInstrCategory.SelectedValue != "FICDCD" && ddlSubInstrCategory.SelectedValue != "FINPNP" && ddlSubInstrCategory.SelectedValue != "FITFTF")
                 {
@@ -2035,7 +2035,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
                 }
                 BindSeriesGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
-                if (ddlSubInstrCategory.SelectedValue != "FITFTF")
+                //if (ddlSubInstrCategory.SelectedValue != "FITFTF")
                     onlineNCDBackOfficeBo.AttchingSameSubtypeCattoSeries(Convert.ToInt32(txtIssueId.Text));
 
 
@@ -3158,12 +3158,12 @@ namespace WealthERP.OnlineOrderBackOffice
                                 TextBox txtRedemptionDate = (TextBox)gdi.FindControl("txtRedemptionDate");
                                 TextBox txtRedemptionAmount = (TextBox)gdi.FindControl("txtRedemptionAmount");
                                 TextBox txtLockInPeriod = (TextBox)gdi.FindControl("txtLockInPeriod");
-                                if (dr["AIDCSR_DefaultInterestRate"].ToString() != "" && ddlSubInstrCategory.SelectedValue == "FITFTF")
-                                {
-                                    cbSeriesCat.Checked = true;
-                                    cbSeriesCat.Enabled = false;
-                                }
-                                else
+                                //if (dr["AIDCSR_DefaultInterestRate"].ToString() != "" && ddlSubInstrCategory.SelectedValue == "FITFTF")
+                                //{
+                                //    cbSeriesCat.Checked = true;
+                                //    cbSeriesCat.Enabled = false;
+                                //}
+                                //else
                                     cbSeriesCat.Checked = true;
                                 txtInterestRate.Text = dr["AIDCSR_DefaultInterestRate"].ToString();
                                 txtAnnualizedYield.Text = dr["AIDCSR_AnnualizedYieldUpto"].ToString();
