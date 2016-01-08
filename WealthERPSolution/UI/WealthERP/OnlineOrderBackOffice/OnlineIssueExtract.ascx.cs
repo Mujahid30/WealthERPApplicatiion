@@ -60,7 +60,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 btnPreview.Visible = false;
             }
             pnlOnlneIssueExtract.Visible = false;
-
+            btnDownload.Visible = false;
         }
         protected void BindIssueExtract()
         {
@@ -110,7 +110,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlExternalSource.DataBind();
             }
             if (ddlType.SelectedValue=="0") ddlExternalSource.Items.FindByText("IOPS").Enabled = false;
-            ddlExternalSource.Items.Insert(0, new ListItem("Select", "Select"));
+            ddlExternalSource.Items.Insert(0, new ListItem("Select", "0"));
         }
 
         protected void btnIssueExtract_Click(object sender, EventArgs e)
@@ -141,6 +141,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 return;
             }
             BindIssueExtract();
+            btnDownload.Visible=true;
         }
 
         private void SetDownloadDate()

@@ -363,7 +363,7 @@
                 </td>
                 <td width="10%">
                     <asp:Button ID="btnDownload" runat="server" Text="Download File" ValidationGroup="IssueExtract"
-                        CssClass="PCGLongButton" OnClick="btnDownload_Click" />
+                        CssClass="PCGLongButton" OnClick="btnDownload_Click"  Visible="false"/>
                 </td>
                 <td align="left">
                     <asp:Label ID="lblMsg" runat="server" CssClass="rfvPCG"></asp:Label>
