@@ -2388,9 +2388,149 @@
                         </table>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        
+                    </td>
+                </tr>
             </table>
         </asp:Panel>
         <asp:HiddenField ID="hdnBrokerIds" runat="server" />
+        <table>
+        <tr>
+        <td class="leftLabel" style="margin-left:15%; width:80%">
+        <asp:Panel ID="pnlSeriesCategorySwitch" runat="server" Width="70%" Visible="false">
+                            <telerik:RadGrid ID="rgSeriesCategorySwitch" runat="server" GridLines="Both" AllowPaging="True"
+                                ShowFooter="true" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
+                                ShowStatusBar="true" AllowFilteringByColumn="true" AllowAutomaticDeletes="True"
+                                AllowAutomaticInserts="false" AllowAutomaticUpdates="false" Skin="Telerik" EnableEmbeddedSkins="false"
+                                Width="100%" OnItemDataBound="rgSeriesCategorySwitch_ItemDataBound" OnNeedDataSource="rgSeriesCategorySwitch_NeedDataSource"
+                                OnDeleteCommand="rgSeriesCategorySwitch_OnDeleteCommand" OnUpdateCommand="rgSeriesCategorySwitch_OnUpdateCommand"
+                                OnInsertCommand="rgSeriesCategorySwitch_OnInsertCommand" Visible="false">
+                                <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="Scheme rank">
+                                </ExportSettings>
+                                <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
+                                    EditMode="PopUp" CommandItemSettings-AddNewRecordText="Add New Rank to Scheme"
+                                    DataKeyNames="AIDCE_Id,AIM_IssueId,AID_Sequence,AIICST_InvestorSubTypeCode,AIDCE_Sequence,AIIC_InvestorCatgeoryId">
+                                    <Columns>
+                                        <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
+                                            UpdateText="Update">
+                                        </telerik:GridEditCommandColumn>
+                                        
+                                          <telerik:GridBoundColumn UniqueName="AIIC_InvestorCatgeoryId" HeaderText="Series Name"
+                                            DataField="AIIC_InvestorCatgeoryId" SortExpression="AIIC_InvestorCatgeoryId" ShowFilterIcon="false"
+                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" ItemStyle-Wrap="false" Display="false">
+                                            <HeaderStyle></HeaderStyle>
+                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn UniqueName="AID_IssueDetailName" HeaderText="Series Name"
+                                            DataField="AID_IssueDetailName" SortExpression="AID_IssueDetailName" ShowFilterIcon="false"
+                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" ItemStyle-Wrap="false">
+                                            <HeaderStyle></HeaderStyle>
+                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn UniqueName="AIIC_InvestorCatgeory" HeaderText="category Name"
+                                            AllowFiltering="true" DataField="AIIC_InvestorCatgeory" SortExpression="AIIC_InvestorCatgeory"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn UniqueName="AIICST_InvestorSubTypeCode" HeaderText="Sub Category Name"
+                                            AllowFiltering="true" DataField="AIICST_InvestorSubTypeCode" SortExpression="AIICST_InvestorSubTypeCode"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn UniqueName="AIDCE_Sequence" HeaderText="Switch Sequence"
+                                            AllowFiltering="true" DataField="AIDCE_Sequence" SortExpression="AIDCE_Sequence"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
+                                            ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                                            Text="Delete">
+                                            <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                                        </telerik:GridButtonColumn>
+                                    </Columns>
+                                    <EditFormSettings EditFormType="Template" FormTableStyle-HorizontalAlign="Center"
+                                        FormCaptionStyle-CssClass="TableBackground" PopUpSettings-Modal="true" PopUpSettings-ZIndex="20"
+                                        FormCaptionStyle-Width="100%" PopUpSettings-Height="200px" PopUpSettings-Width="800px">
+                                        <FormTemplate>
+                                            <table cellspacing="2" cellpadding="2">
+                                                <tr>
+                                                    <td>
+                                                        <asp:Label ID="lblCategoryName" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
+                                                    </td>
+                                                    <td>
+                                                        <asp:DropDownList ID="ddlCategoryName" runat="server" CssClass="form-control input-sm"
+                                                            AutoPostBack="true" OnSelectedIndexChanged="ddlCategoryName_OnSelectedIndexChanged">
+                                                        </asp:DropDownList>
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator51" ControlToValidate="ddlCategoryName"
+                                                            ErrorMessage="<br />Please select category" Style="color: Red;" Display="Dynamic"
+                                                            runat="server" InitialValue="0" ValidationGroup="btnOK">
+                                                        </asp:RequiredFieldValidator>
+                                                    </td>
+                                                    <td>
+                                                        <asp:Label ID="lblInvestorSubCategory" runat="server" Text="Sub Category" CssClass="FieldName"></asp:Label>
+                                                    </td>
+                                                    <td>
+                                                        <asp:DropDownList ID="ddlInvestorSubCategory" runat="server" CssClass="form-control input-sm"
+                                                            class="form-control"  OnSelectedIndexChanged="ddlInvestorSubCategory_OnSelectedIndexChanged" AutoPostBack="true">
+                                                        </asp:DropDownList>
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator53" ControlToValidate="ddlInvestorSubCategory"
+                                                            ErrorMessage="<br />Sub Category" Style="color: Red;" Display="Dynamic" runat="server"
+                                                            InitialValue="0" ValidationGroup="btnOK">
+                                                        </asp:RequiredFieldValidator>
+                                                    </td>
+                                                    <td>
+                                                        <asp:Label ID="lblSeriesName" runat="server" Text="Series Name:" CssClass="FieldName"></asp:Label>
+                                                    </td>
+                                                    <td>
+                                                        <asp:DropDownList ID="ddlSeriesName" runat="server" CssClass="form-control input-sm"
+                                                            AutoPostBack="false">
+                                                        </asp:DropDownList>
+                                                        <asp:RequiredFieldValidator ID="rfvddlSeriesName" ControlToValidate="ddlSeriesName"
+                                                            ErrorMessage="<br />Please Series Name" Style="color: Red;" Display="Dynamic"
+                                                            runat="server" InitialValue="0" ValidationGroup="btnOK">
+                                                        </asp:RequiredFieldValidator>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <asp:Label ID="lblSwitchSequence" runat="server" Text="Switch Sequence:" CssClass="FieldName"></asp:Label>
+                                                    </td>
+                                                    <td>
+                                                        <asp:DropDownList ID="ddlSwitchSequence" runat="server" CssClass="form-control input-sm"
+                                                            class="form-control">
+                                                        </asp:DropDownList>
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator52" ControlToValidate="ddlSwitchSequence"
+                                                            ErrorMessage="<br />Please select Series" Style="color: Red;" Display="Dynamic"
+                                                            runat="server" InitialValue="0" ValidationGroup="btnOK">
+                                                        </asp:RequiredFieldValidator>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <asp:Button ValidationGroup="btnOK" ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                                            runat="server" CssClass="PCGButton" CausesValidation="True" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                                                        </asp:Button>
+                                                    </td>
+                                                    <td>
+                                                        <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
+                                                            CommandName="Cancel"></asp:Button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                </tr>
+                                            </table>
+                                        </FormTemplate>
+                                    </EditFormSettings>
+                                </MasterTableView>
+                                <ClientSettings>
+                                </ClientSettings>
+                            </telerik:RadGrid>
+                        </asp:Panel>
+        </td>
+        </tr>
+        </table>
         <telerik:RadWindow ID="RadRegister" runat="server" VisibleOnPageLoad="false" Height="30%"
             Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Resize, Close, Move"
             Title="Add New Register" RestrictionZoneID="radWindowZone" Top="100px" Left="200">

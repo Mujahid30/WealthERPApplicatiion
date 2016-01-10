@@ -2568,8 +2568,188 @@ namespace DaoOnlineOrderManagement
             return dtAllotmentUploadData;
 
         }
+        public bool UpdateDeleteIssueInvestorCategorySeriesException(int AIDCE_Id, int sequenceId, string categoryCode, int SwitchSequence, int userId, Boolean IsUpdate)
+        {
+            bool result = false;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand UpdateCmd;
 
-        public int UploadBidSuccessData(DataTable dtData, int issueId)
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                UpdateCmd = db.GetStoredProcCommand("SPROC_UpdateDeleteIssueInvestorCategorySeriesException");
+                db.AddInParameter(UpdateCmd, "@AIDCE_Id", DbType.Int32, AIDCE_Id);
+                db.AddInParameter(UpdateCmd, "@AID_Sequence", DbType.Int32, sequenceId);
+                db.AddInParameter(UpdateCmd, "@AIICST_InvestorSubTypeCode", DbType.String, categoryCode);
+                db.AddInParameter(UpdateCmd, "@AIDCE_Sequence", DbType.Int32, SwitchSequence);
+                db.AddInParameter(UpdateCmd, "@UserId", DbType.Int32, userId);
+                db.AddInParameter(UpdateCmd, "@IsUpdate", DbType.Boolean, IsUpdate);
+                db.ExecuteNonQuery(UpdateCmd);
+                result = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                result = false;
+                throw Ex;
+            }
+            return result;
+        }
+        public Boolean CreateIssueInvestorCategorySeriesException(int issueId, int sequenceId, string categoryCode, int SwitchSequence, int userId)
+        {
+            Boolean result=false;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand cmdCategorySeriesException;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdCategorySeriesException = db.GetStoredProcCommand("SPROC_CreateIssueInvestorCategorySeriesException");
+                db.AddInParameter(cmdCategorySeriesException, "@AIM_IssueId", DbType.Int32, issueId);
+                db.AddInParameter(cmdCategorySeriesException, "@AID_Sequence", DbType.Int32, sequenceId);
+                db.AddInParameter(cmdCategorySeriesException, "@AIICST_InvestorSubTypeCode", DbType.String, categoryCode);
+                db.AddInParameter(cmdCategorySeriesException, "@AIDCE_Sequence", DbType.Int32, SwitchSequence);
+                db.AddInParameter(cmdCategorySeriesException, "@UserId", DbType.Int32, userId);
+                if (db.ExecuteNonQuery(cmdCategorySeriesException) != 0)
+                    result = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.csCreateIssueInvestorCategorySeriesException(int issueId, int sequenceId, string categoryCode, int SwitchSequence, int userId)");
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return result;
+        }
+        public DataTable GetIssueInvestorCategorySeriesException(int issueId)
+        {
+            DataSet dsGetIssueSeries;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand dbCommandGetSeries;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommandGetSeries = db.GetStoredProcCommand("SPROC_GetIssueInvestorCategorySeriesException");
+                db.AddInParameter(dbCommandGetSeries, "@AIM_IssueId", DbType.Int32, issueId);
+                dsGetIssueSeries = db.ExecuteDataSet(dbCommandGetSeries);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetIssueInvestorCategorySub()");
+                object[] objects = new object[1];
+                objects[0] = issueId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetIssueSeries.Tables[0];
+        }
+        public DataTable GetIssueInvestorCategorySubTypeRule(int categoryId)
+        {
+            DataSet dsGetIssueSeries;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand dbCommandGetSeries;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommandGetSeries = db.GetStoredProcCommand("SPROC_ONL_GetIssueSeriesDetails");
+                db.AddInParameter(dbCommandGetSeries, "@AIIC_InvestorCatgeoryId", DbType.Int32, categoryId);
+                dsGetIssueSeries = db.ExecuteDataSet(dbCommandGetSeries);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetIssueInvestorCategorySub()");
+                object[] objects = new object[1];
+                objects[0] = categoryId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetIssueSeries.Tables[0];
+        }
+        public DataSet GetIssueInvestorCategorySubType(int categoryId)
+        {
+            DataSet dsGetIssueSeries;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand dbCommandGetSeries;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommandGetSeries = db.GetStoredProcCommand("SPROC_ONL_GetIssueInvestorCategorySubType");
+                db.AddInParameter(dbCommandGetSeries, "@AIIC_InvestorCatgeoryId", DbType.Int32, categoryId);
+                dsGetIssueSeries = db.ExecuteDataSet(dbCommandGetSeries);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetIssueInvestorCategorySub()");
+                object[] objects = new object[1];
+                objects[0] = categoryId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetIssueSeries;
+        }
+        public DataTable GetIssueInvsetorCategory(int issueId)
+        {
+            DataSet dsGetIssueSeries;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand dbCommandGetSeries;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommandGetSeries = db.GetStoredProcCommand("SPROC_ONL_GetIssueInvsetoryCategory");
+                db.AddInParameter(dbCommandGetSeries, "@AIM_IssueId", DbType.Int32, issueId);
+                dsGetIssueSeries = db.ExecuteDataSet(dbCommandGetSeries);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:getIssueSeries()");
+                object[] objects = new object[1];
+                objects[0] = issueId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetIssueSeries.Tables[0]; 
+        }
+         public int UploadBidSuccessData(DataTable dtData, int issueId)
         {
             int result;
             try

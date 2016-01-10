@@ -77,7 +77,7 @@ namespace BoOnlineOrderManagement
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
             {
-                return onlineNCDBackOfficeDao.GetExtSource(product, issueId,productSubType);
+                return onlineNCDBackOfficeDao.GetExtSource(product, issueId, productSubType);
             }
             catch (BaseApplicationException Ex)
             {
@@ -999,13 +999,13 @@ namespace BoOnlineOrderManagement
 
 
 
-        public void GenerateOnlineNcdExtract(int AdviserId, int UserId, string ExternalSource, string ProductAsset, int issueId, ref int isExtracted, int isOnline,string productSubType)
+        public void GenerateOnlineNcdExtract(int AdviserId, int UserId, string ExternalSource, string ProductAsset, int issueId, ref int isExtracted, int isOnline, string productSubType)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             onlineNCDBackOfficeDao.GenereateNcdExtract(AdviserId, UserId, ExternalSource, ProductAsset, issueId, ref isExtracted, isOnline, productSubType);
         }
 
-        public DataTable GetAdviserNCDOrderBook(int adviserId, int issueNo, string status, DateTime dtFrom, DateTime dtTo, int orderNo,string productsubcategory)
+        public DataTable GetAdviserNCDOrderBook(int adviserId, int issueNo, string status, DateTime dtFrom, DateTime dtTo, int orderNo, string productsubcategory)
         {
             DataTable dtNCDOrder;
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
@@ -1735,7 +1735,7 @@ namespace BoOnlineOrderManagement
 
                         // int colInx = row.Table.Columns[Header.HeaderName].Ordinal;
                         //int colInx = Header.HeaderSequence;
-                       
+
                         Header.ColumnExists = true;
                         string colRegex = Header.RegularExpression;
                         string colVal = row[j].ToString();
@@ -1880,7 +1880,7 @@ namespace BoOnlineOrderManagement
             }
             return result;
         }
-        public DataTable UploadAllotmentFile(DataTable dtCheckOrder, int fileTypeId, int issueId, ref string isEligbleIssue, int adviserid, string source, ref string result, string product, string filePath, int userId, int isOnline, string SubCategoryCode,ref int totalOrders,ref int rejectedOrders,ref int acceptedOrders)
+        public DataTable UploadAllotmentFile(DataTable dtCheckOrder, int fileTypeId, int issueId, ref string isEligbleIssue, int adviserid, string source, ref string result, string product, string filePath, int userId, int isOnline, string SubCategoryCode, ref int totalOrders, ref int rejectedOrders, ref int acceptedOrders)
         {
             DataTable dtUploadAllotment = new DataTable();
             try
@@ -1894,10 +1894,10 @@ namespace BoOnlineOrderManagement
                 }
                 else
                 {
-                    result = "1"; 
+                    result = "1";
                 }
                 if (result != string.Empty && result != "0")
-                    dtUploadAllotment = daoOnlNcdBackOff.UploadAllotmentIssueDataDynamic(dtCheckOrder, issueId, ref  result, product, filePath, userId, isOnline, SubCategoryCode,ref  totalOrders,ref  rejectedOrders,ref  acceptedOrders);
+                    dtUploadAllotment = daoOnlNcdBackOff.UploadAllotmentIssueDataDynamic(dtCheckOrder, issueId, ref  result, product, filePath, userId, isOnline, SubCategoryCode, ref  totalOrders, ref  rejectedOrders, ref  acceptedOrders);
                 else
                 {
                     result = "Pls Fill Allotment Date";
@@ -2008,7 +2008,69 @@ namespace BoOnlineOrderManagement
             }
             return nRows;
         }
+        public DataTable GetIssueInvestorCategorySubTypeRule(int categoryId)
+        {
 
+            try
+            {
+                OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
+                return daoOnlNcdBackOff.GetIssueInvestorCategorySubTypeRule(categoryId);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeBo.cs:GetIssueInvestorCategorySubTypeRule(int categoryId)");
+                object[] objects = new object[1];
+                objects[0] = categoryId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        }
+        public DataSet GetIssueInvestorCategorySubType(int categoryId)
+        {
+            try
+            {
+                OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
+                return daoOnlNcdBackOff.GetIssueInvestorCategorySubType(categoryId);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeBo.cs:GetIssueInvestorCategorySubType(int categoryId)");
+                object[] objects = new object[1];
+                objects[0] = categoryId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        }
+        public DataTable GetIssueInvsetorCategory(int issueId)
+        {
+            try
+            {
+                OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
+                return daoOnlNcdBackOff.GetIssueInvsetorCategory(issueId);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeBo.cs:GetIssueInvsetorCategory(int issueId)");
+                object[] objects = new object[1];
+                objects[0] = issueId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
         private DataTable BSEExchangeDataChange(DataTable dt, string source)
         {
             DataTable dtCopy = new DataTable();
@@ -2109,13 +2171,13 @@ namespace BoOnlineOrderManagement
             }
             return blResult;
         }
-        public DataTable GetIssueList(int adviserId, int type,  string productAssetGroup)
+        public DataTable GetIssueList(int adviserId, int type, string productAssetGroup)
         {
 
             OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
             try
             {
-                return daoOnlNcdBackOff.GetIssueList(adviserId, type,  productAssetGroup);
+                return daoOnlNcdBackOff.GetIssueList(adviserId, type, productAssetGroup);
 
             }
             catch (BaseApplicationException Ex)
@@ -2408,7 +2470,7 @@ namespace BoOnlineOrderManagement
             }
             return dtBindBroker;
         }
-        public bool CreateBroker(string BrokerName, int userid,string brokerCode)
+        public bool CreateBroker(string BrokerName, int userid, string brokerCode)
         {
             OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
             bool bResult = false;
@@ -2423,9 +2485,9 @@ namespace BoOnlineOrderManagement
             }
             return bResult;
         }
-        public DataTable GetOrderMissMatchDetails( int issueid, string orderstapcode, string category,int isOnline,DateTime from ,DateTime to,int type)
+        public DataTable GetOrderMissMatchDetails(int issueid, string orderstapcode, string category, int isOnline, DateTime from, DateTime to, int type)
         {
-            DataTable dtGetOrderMissMatchDetails; 
+            DataTable dtGetOrderMissMatchDetails;
             try
             {
                 onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
@@ -2469,7 +2531,7 @@ namespace BoOnlineOrderManagement
 
         public DataTable GetIssueNamePRoductWise(string product)
         {
-            DataTable dtGetIssueNamePRoductWise; 
+            DataTable dtGetIssueNamePRoductWise;
             try
             {
                 onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
@@ -2480,6 +2542,20 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
             return dtGetIssueNamePRoductWise;
+        }
+        public DataTable GetIssueInvestorCategorySeriesException(int issueId)
+        {
+            try
+            {
+                OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
+                return daoOnlNcdBackOff.GetIssueInvestorCategorySeriesException(issueId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+
         }
         public bool UpdateAllotedMissMatchOrder(int AllotmentId, int qty, string brokerCode, string PAN, string category)
         {
@@ -2510,7 +2586,35 @@ namespace BoOnlineOrderManagement
             }
             return issueIds;
         }
-        public bool UpdateOrderMissMatchOrder(int fixIncomeId, int orderId, int qty, string brokerCode, int subbrokerId,  string product)
+        public bool UpdateDeleteIssueInvestorCategorySeriesException(int AIDCE_Id, int sequenceId, string categoryCode, int SwitchSequence, int userId, Boolean IsUpdate)
+        {
+            try
+            {
+                OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
+                return daoOnlNcdBackOff.UpdateDeleteIssueInvestorCategorySeriesException(AIDCE_Id, sequenceId, categoryCode, SwitchSequence, userId, IsUpdate);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
+        public Boolean CreateIssueInvestorCategorySeriesException(int issueId, int sequenceId, string categoryCode, int SwitchSequence, int userId)
+        {
+           
+            
+            try
+            {
+                OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
+                return daoOnlNcdBackOff.CreateIssueInvestorCategorySeriesException(issueId, sequenceId, categoryCode, SwitchSequence, userId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            
+        }
+        public bool UpdateOrderMissMatchOrder(int fixIncomeId, int orderId, int qty, string brokerCode, int subbrokerId, string product)
         {
             bool bResult = false;
             OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
@@ -2555,7 +2659,7 @@ namespace BoOnlineOrderManagement
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
             {
-                return onlineNCDBackOfficeDao. GetOnlineSGBExtractXMLText(extractDate, adviserId, fileTypeId, extSource, issueId);
+                return onlineNCDBackOfficeDao.GetOnlineSGBExtractXMLText(extractDate, adviserId, fileTypeId, extSource, issueId);
             }
             catch (BaseApplicationException Ex)
             {

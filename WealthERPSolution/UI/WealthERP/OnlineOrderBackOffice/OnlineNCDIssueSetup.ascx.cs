@@ -218,21 +218,169 @@ namespace WealthERP.OnlineOrderBackOffice
             //if (selectedItems != null && selectedItems.Count > 0)
             //    ViewState["Selected"] = selectedItems;
         }
+        protected void rgSeriesCategorySwitch_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode) && e.Item.ItemIndex != -1)
+            {
+             
+                GridEditFormItem editform = (GridEditFormItem)e.Item;
+                DropDownList ddlSeriesName = (DropDownList)editform.FindControl("ddlSeriesName");
+                DropDownList ddlCategoryName = (DropDownList)editform.FindControl("ddlCategoryName");
+                DropDownList ddlInvestorSubCategory = (DropDownList)editform.FindControl("ddlInvestorSubCategory");
+                DropDownList ddlSwitchSequence = (DropDownList)editform.FindControl("ddlSwitchSequence");
+                bindInvestorCategory(int.Parse(txtIssueId.Text), ddlCategoryName);
+                int AIDCE_Id = Convert.ToInt32(rgSeriesCategorySwitch.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIDCE_Id"].ToString());
+                string AIICST_InvestorSubTypeCode = rgSeriesCategorySwitch.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIICST_InvestorSubTypeCode"].ToString();
+                int AID_Sequence = Convert.ToInt32(rgSeriesCategorySwitch.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AID_Sequence"].ToString());
+                int AIDCE_Sequence = Convert.ToInt32(rgSeriesCategorySwitch.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIDCE_Sequence"].ToString());
+                int AIIC_InvestorCatgeoryId = Convert.ToInt32(rgSeriesCategorySwitch.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIIC_InvestorCatgeoryId"].ToString());
+                ddlCategoryName.SelectedValue = AIIC_InvestorCatgeoryId.ToString();
+                bindIssueSeries(AIIC_InvestorCatgeoryId, ddlSeriesName);
+                bindInvestorSubcategory(AIIC_InvestorCatgeoryId, ddlInvestorSubCategory,ddlSwitchSequence);
+                ddlInvestorSubCategory.SelectedValue = AIICST_InvestorSubTypeCode;
+                ddlSeriesName.SelectedValue = AID_Sequence.ToString();
+                ddlSwitchSequence.SelectedValue = AIDCE_Sequence.ToString();
 
+            }
+            if ((e.Item is GridEditFormInsertItem) && (e.Item.OwnerTableView.IsItemInserted))
+            {
+                GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
+                GridEditFormItem gefi = (GridEditFormItem)e.Item;
+                DropDownList ddlSeriesName = (DropDownList)gefi.FindControl("ddlSeriesName");
+                DropDownList ddlCategoryName = (DropDownList)gefi.FindControl("ddlCategoryName");
+                DropDownList ddlSwitchSequence = (DropDownList)gefi.FindControl("ddlSwitchSequence");
+                bindInvestorCategory(int.Parse(txtIssueId.Text), ddlCategoryName);
+
+            }
+
+
+        }
+        protected void bindIssueSeriesSwitch(DropDownList ddl, DataTable dt)
+        {
+            ddl.DataSource = dt;
+            ddl.DataValueField = dt.Columns["seriesId"].ToString();
+            ddl.DataTextField = dt.Columns["seriesId"].ToString();
+            ddl.DataBind();
+            ddl.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Series", "0"));
+        }
+        protected void bindIssueSeries(int category, DropDownList ddl)
+        {
+
+            DataTable dtSeries = new DataTable();
+            dtSeries = onlineNCDBackOfficeBo.GetIssueInvestorCategorySubTypeRule(category);
+            ddl.DataSource = dtSeries;
+            ddl.DataValueField = dtSeries.Columns["AID_Sequence"].ToString();
+            ddl.DataTextField = dtSeries.Columns["AID_IssueDetailName"].ToString();
+            ddl.DataBind();
+            ddl.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Series", "0"));
+
+        }
+
+        protected void bindInvestorCategory(int IssueId, DropDownList ddl)
+        {
+            DataTable dtInvestorCategory = new DataTable();
+            dtInvestorCategory = onlineNCDBackOfficeBo.GetIssueInvsetorCategory(IssueId);
+            ddl.DataSource = dtInvestorCategory;
+            ddl.DataValueField = dtInvestorCategory.Columns["AIIC_InvestorCatgeoryId"].ToString();
+            ddl.DataTextField = dtInvestorCategory.Columns["AIIC_InvestorCatgeoryName"].ToString();
+            ddl.DataBind();
+            ddl.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select category", "0"));
+        }
+        protected void bindInvestorSubcategory(int category, DropDownList ddl, DropDownList ddl2)
+        {
+            DataTable dtInvestorSubcategory = new DataTable();
+            DataSet dsDetails = new DataSet();
+            dsDetails = onlineNCDBackOfficeBo.GetIssueInvestorCategorySubType(category);
+            dtInvestorSubcategory = dsDetails.Tables[0];
+            ddl.DataSource = dtInvestorSubcategory;
+            ddl.DataValueField = dtInvestorSubcategory.Columns["AIICST_InvestorSubTypeCode"].ToString();
+            ddl.DataTextField = dtInvestorSubcategory.Columns["WCMV_Name"].ToString();
+            ddl.DataBind();
+            ddl.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Sub category", "0"));
+            bindIssueSeriesSwitch(ddl2, dsDetails.Tables[1]);
+        }
+        protected void rgSeriesCategorySwitch_NeedDataSource(object source, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtAplication = new DataTable();
+            dtAplication = (DataTable)Cache[userVo.UserId.ToString() + "CategoriesDetailsException" + txtIssueId.Text];
+            if (dtAplication != null)
+            {
+                rgSeriesCategorySwitch.DataSource = dtAplication;
+            }
+        }
+        protected void ddlCategoryName_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddlCategoryName = (DropDownList)sender;
+            DropDownList ddlInvestorSubCategory = new DropDownList();
+            DropDownList ddlSwitchSequence = new DropDownList();
+
+            if (ddlCategoryName.NamingContainer is Telerik.Web.UI.GridEditFormItem)
+            {
+                GridEditFormItem gdi;
+                gdi = (GridEditFormItem)ddlCategoryName.NamingContainer;
+                ddlInvestorSubCategory = (DropDownList)gdi.FindControl("ddlInvestorSubCategory");
+                ddlSwitchSequence = (DropDownList)gdi.FindControl("ddlSwitchSequence");
+                bindInvestorSubcategory(int.Parse(ddlCategoryName.SelectedValue), ddlInvestorSubCategory, ddlSwitchSequence);
+
+            }
+
+        }
+        protected void ddlInvestorSubCategory_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddlInvestorSubCategory = (DropDownList)sender;
+            DropDownList ddlSeriesName = new DropDownList();
+            DropDownList ddlCategoryName = new DropDownList();
+            DropDownList ddlSwitchSequence = new DropDownList();
+            if (ddlInvestorSubCategory.NamingContainer is Telerik.Web.UI.GridEditFormItem)
+            {
+                GridEditFormItem gdi;
+                gdi = (GridEditFormItem)ddlInvestorSubCategory.NamingContainer;
+                ddlInvestorSubCategory = (DropDownList)gdi.FindControl("ddlInvestorSubCategory");
+                ddlCategoryName = (DropDownList)gdi.FindControl("ddlCategoryName");
+                ddlSeriesName = (DropDownList)gdi.FindControl("ddlSeriesName");
+                ddlSwitchSequence = (DropDownList)gdi.FindControl("ddlSwitchSequence");
+                if (gdi.IsInEditMode == true)
+                {
+                    bindIssueSeries(int.Parse(ddlCategoryName.SelectedValue), ddlSeriesName);
+
+                }
+            }
+        }
+        protected void rgSeriesCategorySwitch_OnDeleteCommand(object source, GridCommandEventArgs e)
+        {
+            int AIDCE_Id = Convert.ToInt32(rgSeriesCategorySwitch.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIDCE_Id"].ToString());
+            onlineNCDBackOfficeBo.UpdateDeleteIssueInvestorCategorySeriesException(AIDCE_Id, 0 ,null, 0, userVo.UserId, false);
+            BindSeriesExceptionGrid(int.Parse(txtIssueId.Text));
+        }
+        protected void rgSeriesCategorySwitch_OnUpdateCommand(object source, GridCommandEventArgs e)
+        {
+            int AIDCE_Id = Convert.ToInt32(rgSeriesCategorySwitch.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIDCE_Id"].ToString());
+            DropDownList ddlInvestorSubCategory = (DropDownList)e.Item.FindControl("ddlInvestorSubCategory");
+            DropDownList ddlCategoryName = (DropDownList)e.Item.FindControl("ddlCategoryName");
+            DropDownList ddlSeriesName = (DropDownList)e.Item.FindControl("ddlSeriesName");
+            DropDownList ddlSwitchSequence = (DropDownList)e.Item.FindControl("ddlSwitchSequence");
+            onlineNCDBackOfficeBo.UpdateDeleteIssueInvestorCategorySeriesException(AIDCE_Id, int.Parse(ddlSeriesName.SelectedValue), ddlInvestorSubCategory.SelectedValue, int.Parse(ddlSwitchSequence.SelectedValue), userVo.UserId,true);
+            BindSeriesExceptionGrid(int.Parse(txtIssueId.Text));
+        }
+        protected void rgSeriesCategorySwitch_OnInsertCommand(object source, GridCommandEventArgs e)
+        {
+            DropDownList ddlInvestorSubCategory = (DropDownList)e.Item.FindControl("ddlInvestorSubCategory");
+            DropDownList ddlCategoryName = (DropDownList)e.Item.FindControl("ddlCategoryName");
+            DropDownList ddlSeriesName = (DropDownList)e.Item.FindControl("ddlSeriesName");
+            DropDownList ddlSwitchSequence = (DropDownList)e.Item.FindControl("ddlSwitchSequence");
+            onlineNCDBackOfficeBo.CreateIssueInvestorCategorySeriesException(int.Parse(txtIssueId.Text), int.Parse(ddlSeriesName.SelectedValue), ddlInvestorSubCategory.SelectedValue, int.Parse(ddlSwitchSequence.SelectedValue), userVo.UserId);
+            BindSeriesExceptionGrid(int.Parse(txtIssueId.Text));
+        }
         private void ViewIssueList(int issueNo, int adviserId, string product)
         {
             try
             {
                 DataTable dtSeries = new DataTable();
                 dtSeries = onlineNCDBackOfficeBo.GetIssueDetails(issueNo, adviserId).Tables[0];
-
-
                 foreach (DataRow dr in dtSeries.Rows)
                 {
                     txtIssueId.Text = issueNo.ToString();
                     //BindSyndicate();
-
-
                     if (product == "FICGCG" || product == "FISDSD" || product == "FINPNP" || product == "FICDCD" || product == "FISSGB" || product == "FITFTF")
                     {
                         ddlSubInstrCategory.SelectedValue = dr["PAISC_AssetInstrumentSubCategoryCode"].ToString();
@@ -240,10 +388,11 @@ namespace WealthERP.OnlineOrderBackOffice
                         ddlInstrCat.SelectedValue = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
                         ddlProduct.SelectedValue = "NCD";
                         BindIssuer(product);
-
+                        if (product == "FITFTF")
+                        { BindSeriesExceptionGrid(issueNo); }
                         // ddlInstrCat.SelectedValue=
                     }
-                    else if (product == "FIFIIP" )
+                    else if (product == "FIFIIP")
                     {
                         BindIssuer(product);
                         ddlProduct.SelectedValue = "IP";
@@ -385,13 +534,13 @@ namespace WealthERP.OnlineOrderBackOffice
 
                         //txtOpenTimes.Text = dr["AIM_OpenTime"].ToString(); ; //SelectedDate.Value.ToShortTimeString().ToString();
                     }
-                    string openDateTime = String.Format("{0:dd/MM/yyyy}", dr["AIM_OpenDate"])+' '+dr["AIM_OpenTime"].ToString();
+                    string openDateTime = String.Format("{0:dd/MM/yyyy}", dr["AIM_OpenDate"]) + ' ' + dr["AIM_OpenTime"].ToString();
                     ViewState["openDateTime"] = openDateTime;
                     if (!string.IsNullOrEmpty(dr["AIM_IssueRevisionDate"].ToString()))
                     {
                         txtRevisionDates.SelectedDate = Convert.ToDateTime(dr["AIM_IssueRevisionDate"].ToString());
                     }
-                   
+
 
                     if (!string.IsNullOrEmpty(dr["AIM_TradingLot"].ToString()))
                     {
@@ -423,7 +572,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     {
                         chkIsActive.Checked = false;
                     }
-                    chkIsModificationAllowed.Checked =Convert.ToInt16( dr["AIM_IsModificationAllowed"]) == 1;
+                    chkIsModificationAllowed.Checked = Convert.ToInt16(dr["AIM_IsModificationAllowed"]) == 1;
 
                     if (!string.IsNullOrEmpty(dr["AIM_TradeableAtExchange"].ToString()))
                     {
@@ -753,7 +902,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     {
                         ddlBssChnl.SelectedValue = "";
                     }
-                    if (ddlIssuer.SelectedValue == "Select" )
+                    if (ddlIssuer.SelectedValue == "Select")
                         return;
                     SeriesAndCategoriesGridsVisiblity(Convert.ToInt32(ddlIssuer.SelectedValue), issueNo);
                 }
@@ -979,8 +1128,8 @@ namespace WealthERP.OnlineOrderBackOffice
             txtInvestorGrievenceEmail.Enabled = value;
             txtContactPerson.Enabled = value;
             txtISINNo.Enabled = value;
-           
-            
+
+
 
             if (ddlProduct.SelectedValue == "IP")
             {
@@ -1772,7 +1921,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     e.Canceled = true;
                     return;
                 }
-               
+
                 else if (count == 0)
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Select One Series.');", true);
@@ -1892,7 +2041,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
                 }
                 BindSeriesGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
-                //if (ddlSubInstrCategory.SelectedValue != "FITFTF")
+                if (ddlSubInstrCategory.SelectedValue != "FITFTF")
                 onlineNCDBackOfficeBo.AttchingSameSubtypeCattoSeries(Convert.ToInt32(txtIssueId.Text));
 
             }
@@ -2031,7 +2180,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         {
                             txtLockInPeriod.Text = 0.ToString();
                         }
-                        CreateUpdateDeleteSeriesCategories(seriesId, categoryId, Convert.ToDouble(txtInterestRate.Text), Convert.ToDouble(txtAnnualizedYield.Text), Convert.ToDouble(txtRenCpnRate.Text), Convert.ToDouble(txtYieldAtCall.Text), Convert.ToDouble(txtYieldAtBuyBack.Text), txtRedemptionDate.Text, Convert.ToDouble(txtRedemptionAmount.Text),txtLockInPeriod.Text, "Update");
+                        CreateUpdateDeleteSeriesCategories(seriesId, categoryId, Convert.ToDouble(txtInterestRate.Text), Convert.ToDouble(txtAnnualizedYield.Text), Convert.ToDouble(txtRenCpnRate.Text), Convert.ToDouble(txtYieldAtCall.Text), Convert.ToDouble(txtYieldAtBuyBack.Text), txtRedemptionDate.Text, Convert.ToDouble(txtRedemptionAmount.Text), txtLockInPeriod.Text, "Update");
                     }
                 }
                 BindSeriesGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
@@ -3302,7 +3451,7 @@ namespace WealthERP.OnlineOrderBackOffice
             CompareValidator2.Visible = false;
             CompareValidator3.Visible = false;
             SeriesAndCategoriesGridsVisiblity(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
-           
+
         }
 
         protected void lnkBtnEdit_Click(object sender, EventArgs e)
@@ -3868,12 +4017,12 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.IsCancelAllowed = 0;
                 }
-                 if(!string.IsNullOrEmpty(txtPrivilegeRemark.Text))
+                if (!string.IsNullOrEmpty(txtPrivilegeRemark.Text))
 
-                     onlineNCDBackOfficeVo.PrivilegeRemark = txtPrivilegeRemark.Text;
-               
+                    onlineNCDBackOfficeVo.PrivilegeRemark = txtPrivilegeRemark.Text;
+
                 if (!string.IsNullOrEmpty(txtBankName.Text))
-                    onlineNCDBackOfficeVo.applicationBank= txtBankName.Text;
+                    onlineNCDBackOfficeVo.applicationBank = txtBankName.Text;
 
                 if (ddlSubInstrCategory.SelectedValue != "FICGCG" && ddlSubInstrCategory.SelectedValue != "FINPNP" && ddlSubInstrCategory.SelectedValue != "FICDCD")
                 {
@@ -4217,7 +4366,37 @@ namespace WealthERP.OnlineOrderBackOffice
                 throw exBase;
             }
         }
-
+        private void BindSeriesExceptionGrid(int issueId)
+        {
+            try
+            {
+                DataTable dtSeriesCategoriesException = new DataTable();
+                dtSeriesCategoriesException = onlineNCDBackOfficeBo.GetIssueInvestorCategorySeriesException(issueId);
+                rgSeriesCategorySwitch.DataSource = dtSeriesCategoriesException;
+                rgSeriesCategorySwitch.DataBind();
+                if (Cache[userVo.UserId.ToString() + "CategoriesDetailsException" + txtIssueId.Text] != null)
+                    Cache.Remove(userVo.UserId.ToString() + "CategoriesDetailsException" + txtIssueId.Text);
+                Cache.Insert(userVo.UserId.ToString() + "CategoriesDetailsException" + txtIssueId.Text, dtSeriesCategoriesException);
+                pnlSeriesCategorySwitch.Visible = true;
+                rgSeriesCategorySwitch.Visible = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "NCDIssuesetup.ascx.cs:BindSeriesExceptionGrid(int issueId)");
+                object[] objects = new object[2];
+                objects[1] = issueId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
         private void BindSeriesGrid(int issuerId, int issueId)
         {
             try
