@@ -560,16 +560,7 @@ namespace WealthERP.Associates
 
 
             }
-            if (advisorVo.advisorId == Convert.ToInt32(ConfigurationSettings.AppSettings["ONLINE_ADVISER"]))
-            {
-                btnPreviewSend.Visible=true;
-                lbtnPreviewSend.Visible = true;
-            }
-            else
-            {
-                btnPreviewSend.Visible = false;
-                lbtnPreviewSend.Visible = false;
-            }
+           
 
 
         }
