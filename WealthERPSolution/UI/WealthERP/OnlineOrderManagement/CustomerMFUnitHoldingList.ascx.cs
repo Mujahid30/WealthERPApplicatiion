@@ -346,25 +346,17 @@ namespace WealthERP.OnlineOrderManagement
             string accountId = rgUnitHolding.MasterTableView.DataKeyValues[selectedRow - 1]["AccountId"].ToString();
             string schemePlanCode = rgUnitHolding.MasterTableView.DataKeyValues[selectedRow - 1]["SchemeCode"].ToString();
             //string exchangeType = "&exchangeType=Demat";
-            if (ddlAction.SelectedItem.Value.ToString() == "ABY")
+            switch (ddlAction.SelectedValue)
             {
-                Session["MFSchemePlan"] = schemePlanCode;
-                accountId = "&accountId="+accountId;
-                //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderAdditionalPurchase','&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
-            }
-            else if (ddlAction.SelectedItem.Value.ToString() == "SIP")
-            {
-                accountId = "&accountId=" + accountId;
-                Session["MFSchemePlan"] = schemePlanCode;
-
-                //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderSIPTransType','&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
-            }
-            else
-            {
-                accountId = "&accountId=" + accountId;
-                Session["MFSchemePlan"] = schemePlanCode;
-
-                //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderRdemptionTransType','&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
+                case "SIP":
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanelFromMainPage('MFOrderSIPTransType&accountId=" + accountId + "','" + schemePlanCode + "')", true);
+                    break;
+                case "BUY":
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanelFromMainPage('MFOrderPurchaseTransType&accountId=" + accountId + "','" + schemePlanCode + "')", true);
+                    break;
+                case "SEL":
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanelFromMainPage('MFOrderRdemptionTransType&accountId=" + accountId + "','" + schemePlanCode + "')", true);
+                    break;
             }
 
         }
@@ -394,7 +386,7 @@ namespace WealthERP.OnlineOrderManagement
                         if (e.CommandName.ToString() != "ChangePageSize")
                         {
                             GridDataItem gvr = (GridDataItem)e.Item;
-                            RadGrid gvChildDetails=(RadGrid)gvr.FindControl("gvChildDetails");
+                            RadGrid gvChildDetails = (RadGrid)gvr.FindControl("gvChildDetails");
                             int selectedRow = gvr.ItemIndex + 1;
                             int folio = int.Parse(gvr.GetDataKeyValue("AccountId").ToString());
                             int SchemePlanCode = int.Parse(gvr.GetDataKeyValue("SchemeCode").ToString());
@@ -403,7 +395,7 @@ namespace WealthERP.OnlineOrderManagement
                             if (e.CommandName == "SelectTransaction")
                             {
                                 BindTransactionDetails(accountddl, SchemePlanCode, gvChildDetails);
-                                
+
                             }
 
                         }
@@ -417,7 +409,7 @@ namespace WealthERP.OnlineOrderManagement
             }
             if (e.CommandName == "Buy")
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanelFromMainPage('MFOrderPurchaseTransType&accountId="+accountId+"','" + schemePlanCode + "')", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanelFromMainPage('MFOrderPurchaseTransType&accountId=" + accountId + "','" + schemePlanCode + "')", true);
             }
             if (e.CommandName == "SIP")
             {
@@ -446,7 +438,7 @@ namespace WealthERP.OnlineOrderManagement
             {
                 MFPortfolioNetPositionVo mfPortfolioVo = new MFPortfolioNetPositionVo();
                 Label lblISRedeemFlag = (Label)e.Item.FindControl("lblISRedeemFlag");
-
+                DropDownList ddlAction = (DropDownList)e.Item.FindControl("ddlMenu_SelectedIndexChanged");
                 Label lblSIPSchemeFlag = (Label)e.Item.FindControl("lblSIPSchemeFlag");
                 Label lblIsPurcheseFlag = (Label)e.Item.FindControl("lblIsPurcheseFlag");
                 Label lblSchemeRating = (Label)e.Item.FindControl("lblSchemeRating");
@@ -465,20 +457,19 @@ namespace WealthERP.OnlineOrderManagement
 
                 if (lblSIPSchemeFlag.Text.Trim().ToLower() == "false")
                 {
-                    ImageButton imgSIP = (ImageButton)e.Item.FindControl("imgSip");
-                    imgSIP.Visible = false;
+                    ddlAction.Items[1].Enabled = false;
 
                 }
                 if (lblIsPurcheseFlag.Text.Trim().ToLower() == "false")
                 {
-                    ImageButton imgBuy = (ImageButton)e.Item.FindControl("imgBuy");
-                    imgBuy.Visible = false;
+                    ddlAction.Items[2].Enabled = false;
+
 
                 }
                 if (lblISRedeemFlag.Text.Trim().ToLower() == "false")
                 {
-                    ImageButton imgSell = (ImageButton)e.Item.FindControl("imgSell");
-                    imgSell.Visible = false;
+                    ddlAction.Items[3].Enabled = false;
+
 
                 }
                 lblISRedeemFlag.Visible = false;

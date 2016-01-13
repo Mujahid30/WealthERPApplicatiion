@@ -154,7 +154,6 @@ namespace WealthERP.OnlineOrderManagement
                 ds = onlineMforderBo.GetControlDetails(int.Parse(Session["MFSchemePlan"].ToString()), null, exchangeType == "Online" ? 1 : 0);
                 lblUnitsheldDisplay.Visible = false;
                 GetControlDetails(ds);
-
                 SetControlDetails();
             }
         }
@@ -508,18 +507,18 @@ namespace WealthERP.OnlineOrderManagement
             if (orderId != 0 && accountDebitStatus == true)
             {
                 if (isCutOffTimeOver)
-                    userMessage = "Order placed successfully, Order reference no is " + orderId.ToString() + ", Order will process next business day";
+                    userMessage = "    Order placed successfully, Order reference no is " + orderId.ToString() + ", Order will process next business day";
                 else
-                    userMessage = "Order placed successfully, Order reference no is " + orderId.ToString();
+                    userMessage = "    Order placed successfully, Order reference no is " + orderId.ToString();
             }
             else if (orderId != 0 && accountDebitStatus == false)
             {
-                userMessage = "Order placed successfully,Order will not process due to insufficient balance, Order reference no is " + orderId.ToString();
+                userMessage = "   Order placed successfully,Order will not process due to insufficient balance, Order reference no is " + orderId.ToString();
                 msgType = 'F';
             }
             else if (orderId == 0)
             {
-                userMessage = "Order cannot be processed. Insufficient balance";
+                userMessage = "  Order cannot be processed. Insufficient balance";
                 msgType = 'F';
             }
 

@@ -72,23 +72,28 @@ namespace WealthERP.OnlineOrderManagement
                 ddlScheme.Items.Insert(0, new ListItem("All", "0"));
             }
         }
-        protected void btnSIP_OnClick(object sender, EventArgs e)
+        protected void OnSelectedIndexChanged_ddlAction(object sender, EventArgs e)
         {
-            BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "SIP", int.Parse(ddlExchange.SelectedValue));
+            switch (ddlAction.SelectedValue)
+            {
+                case "SIP":
+                    BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "SIP", int.Parse(ddlExchange.SelectedValue));
+                    break;
+                case "BUY":
+                    BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "BUY", int.Parse(ddlExchange.SelectedValue));
+                    break;
+                case "ABY":
+                    BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "ABY", int.Parse(ddlExchange.SelectedValue));
+
+                    break;
+                case "SEL":
+                    BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "SEL", int.Parse(ddlExchange.SelectedValue));
+                    break;
+            }
         }
-        protected void btnNewPurchase_OnClick(object sender, EventArgs e)
-        {
-            BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "BUY", int.Parse(ddlExchange.SelectedValue));
-        }
-        protected void btnAdditionalPurchase_OnClick(object sender, EventArgs e)
-        {
-            BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "ABY", int.Parse(ddlExchange.SelectedValue));
-        }
-        protected void btnRedeem_OnClick(object sender, EventArgs e)
-        {
-            BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "SEL", int.Parse(ddlExchange.SelectedValue));
-        }
-        protected void BindOrderTransactionBook(int customerId, int amcCode, int schemeCode, string OrderType,int exchangeType)
+
+
+        protected void BindOrderTransactionBook(int customerId, int amcCode, int schemeCode, string OrderType, int exchangeType)
         {
             DataSet ds = OnlineMFOrderBo.GetCustomerOrderBookTransaction(customerId, amcCode, schemeCode, OrderType, exchangeType);
             DataTable dtOrderTransactionBook = ds.Tables[0];
@@ -103,11 +108,6 @@ namespace WealthERP.OnlineOrderManagement
                     Cache.Remove("OrderTransactionBook" + userVo.UserId.ToString());
                     Cache.Insert("OrderTransactionBook" + userVo.UserId.ToString(), dtOrderTransactionBook);
                 }
-                //DataRow[] rows = dt.Select("CO_OrderId = " + 200108 + " ");
-                //if (rows.Length > 0)
-                //{
-                //    var filldt = rows.CopyToDataTable();
-                //}
 
                 gvOrderBook.DataSource = ds.Tables[0];
                 gvOrderBook.Rebind();

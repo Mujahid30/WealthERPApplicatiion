@@ -97,26 +97,19 @@
                 <asp:ListItem Text="Demat" Value="0"></asp:ListItem>
             </asp:DropDownList>
         </div>
-    </div>
-    <div class="col-md-12">
-        <div class="col-md-2" style="margin-top: 1.6%;">
-            <asp:Button ID="btnSIP" runat="server" CssClass="btn btn-primary btn-primary" Text="SIP"
-                OnClick="btnSIP_OnClick" Width="120px"></asp:Button>
-        </div>
-        <div class="col-md-2" style="margin-top: 1.6%">
-            <asp:Button ID="btnNewPurchase" runat="server" CssClass="btn btn-primary btn-primary"
-                Text="New Purchase" OnClick="btnNewPurchase_OnClick" Width="120px"></asp:Button>
-        </div>
-        <div class="col-md-2" style="margin-top: 1.9%">
-            <asp:Button ID="btnAdditionalPurchase" runat="server" CssClass="btn btn-primary btn-primary"
-                Text="Additional Purchase" OnClick="btnAdditionalPurchase_OnClick" Width="145px">
-            </asp:Button>
-        </div>
-        <div class="col-md-2" style="margin-top: 1.6%">
-            <asp:Button ID="btnRedeem" runat="server" CssClass="btn btn-primary btn-primary"
-                Text="Redeem" OnClick="btnRedeem_OnClick" Width="120px"></asp:Button>
+        <div class="col-md-2">
+            Action:
+            <asp:DropDownList ID="ddlAction" runat="server" CssClass="form-control input-sm"
+                class="form-control" AutoPostBack="true" OnSelectedIndexChanged="OnSelectedIndexChanged_ddlAction">
+                <asp:ListItem Text="Select" Value="0"></asp:ListItem>
+                <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
+                <asp:ListItem Text="New Purchase" Value="BUY"></asp:ListItem>
+                <asp:ListItem Text="Additional Purchase" Value="ABY"></asp:ListItem>
+                <asp:ListItem Text="Redeem" Value="SEL"></asp:ListItem>
+            </asp:DropDownList>
         </div>
     </div>
+    
 </div>
 <div id="Div1" class="row" style="margin-left: 5%; margin-right: 5%; background-color: #2480C7;"
     visible="false" runat="server">
@@ -170,7 +163,7 @@
                                 <%# Eval("CMFOD_Units")%>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
-                                <font color="#565656"><b>Redeme All:</b></font>
+                                <font color="#565656"><b>Redeem All:</b></font>
                                 <%# Eval("CMFOD_IsAllUnits")%>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
@@ -235,15 +228,13 @@
                                                             <font color="#565656"><b>Dividend Type:</b></font>
                                                             <%# Eval("CMFOD_DividendOption")%>
                                                         </div>
-                                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
-                                                            <font color="#565656"><b>Amount:</b></font>
-                                                            <%# Eval("CMFOD_Amount")%>
-                                                        </div>
+                                                        
                                                         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                                             <font color="#565656"><b>Maturity Date:</b></font>
                                                             <%# Eval("CMFT_ELSSMaturityDate")%>
                                                         </div>
-                                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;visibility:hidden">
+                                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;
+                                                            visibility: hidden">
                                                             <font color="#565656"><b>Fund Name:</b></font>
                                                             <%# Eval("PA_AMCName")%>
                                                         </div>
