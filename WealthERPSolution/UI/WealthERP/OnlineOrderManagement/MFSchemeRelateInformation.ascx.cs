@@ -31,6 +31,7 @@ namespace WealthERP.OnlineOrderManagement
         CustomerVo customerVo = new CustomerVo();
         string path;
         int PageSize = 5;
+        OnlineMFSchemeDetailsBo OnlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -46,6 +47,7 @@ namespace WealthERP.OnlineOrderManagement
                 BindCategory(ddlTopCategory);
                 BindCategory(ddlMarketCategory);
                 BindScheme();
+                BindSortList();
                 if (Request.QueryString["FilterType"] == "NFO")
                 {
                     SetParametersForAdminGrid("lbNFOList");
@@ -80,6 +82,15 @@ namespace WealthERP.OnlineOrderManagement
                 BindCategory(ddlCategory);
 
             }
+        }
+        private void BindSortList()
+        {
+            Dictionary<string, int> dcSortList = new Dictionary<string, int>();
+            dcSortList=OnlineMFSchemeDetailsBo.GetSortList();
+            ddlTopRatedSort.DataSource = dcSortList;
+            ddlTopRatedSort.DataTextField =   "Key";
+            ddlTopRatedSort.DataValueField = "Value";
+            ddlTopRatedSort.DataBind();
         }
         protected void ddlCategory_OnSelectedIndexChanged(object sender, EventArgs e)
         {
@@ -145,7 +156,7 @@ namespace WealthERP.OnlineOrderManagement
             hfNFOType.Value = "false";
             rblNFOType.Visible = false;
             hfIsSIP.Value =" true";
-            BindSchemeRelatedDetails(int.Parse(hfAMCCode.Value), int.Parse(hfSchemeCode.Value), hfCategory.Value, int.Parse(hfCustomerId.Value), Int16.Parse(hfIsSchemeDetails.Value), Boolean.Parse(hfNFOType.Value), 1, Boolean.Parse(hfIsSIP.Value));
+            BindSchemeRelatedDetails(int.Parse(hfAMCCode.Value), int.Parse(hfSchemeCode.Value), hfCategory.Value, int.Parse(hfCustomerId.Value), Int16.Parse(hfIsSchemeDetails.Value), Boolean.Parse(hfNFOType.Value), 1, Boolean.Parse(hfIsSIP.Value),int.Parse(hfSortOn.Value));
             lblHeading.Text = "Schemes Details";
             RadTabStripAdsUpload.Tabs[0].Visible = false;
             RadTabStripAdsUpload.Tabs[1].Text = "Scheme Details";
@@ -155,11 +166,11 @@ namespace WealthERP.OnlineOrderManagement
 
 
         }
-        protected void BindSchemeRelatedDetails(int amcCode, int SchemeCode, string category, int customerId, Int16 isSchemeDetails, Boolean NFOType, int pageIndex,Boolean isSIP)
+        protected void BindSchemeRelatedDetails(int amcCode, int SchemeCode, string category, int customerId, Int16 isSchemeDetails, Boolean NFOType, int pageIndex, Boolean isSIP, int SortOn)
         {
             OnlineOrderBackOfficeBo bo = new OnlineOrderBackOfficeBo();
             int recordCount = 0;
-            DataTable dtBindSchemeRelatedDetails = bo.GetSchemeDetails(amcCode, SchemeCode, category, customerId, isSchemeDetails, NFOType, out recordCount, pageIndex, PageSize, isSIP);
+            DataTable dtBindSchemeRelatedDetails = bo.GetSchemeDetails(amcCode, SchemeCode, category, customerId, isSchemeDetails, NFOType, out recordCount, pageIndex, PageSize, isSIP, SortOn);
             if (Cache["BindSchemeRelatedDetails" + userVo.UserId] != null)
             {
                 Cache.Remove("BindSchemeRelatedDetails" + userVo.UserId);
@@ -197,7 +208,7 @@ namespace WealthERP.OnlineOrderManagement
         protected void Page_Changed(object sender, EventArgs e)
         {
             int pageIndex = int.Parse((sender as LinkButton).CommandArgument);
-            BindSchemeRelatedDetails(int.Parse(hfAMCCode.Value), int.Parse(hfSchemeCode.Value), hfCategory.Value, int.Parse(hfCustomerId.Value), Int16.Parse(hfIsSchemeDetails.Value), Boolean.Parse(hfNFOType.Value), pageIndex,Boolean.Parse(hfIsSIP.Value));
+            BindSchemeRelatedDetails(int.Parse(hfAMCCode.Value), int.Parse(hfSchemeCode.Value), hfCategory.Value, int.Parse(hfCustomerId.Value), Int16.Parse(hfIsSchemeDetails.Value), Boolean.Parse(hfNFOType.Value), pageIndex, Boolean.Parse(hfIsSIP.Value), int.Parse(hfSortOn.Value));
 
         }
         protected void btnTopPeformers_OnClick(object sender, EventArgs e)
@@ -246,6 +257,7 @@ namespace WealthERP.OnlineOrderManagement
                     RadTabStripAdsUpload.Tabs[1].Selected = true;
                     multipageAdsUpload.SelectedIndex = 1;
                     lbViewWatchList.ForeColor = System.Drawing.ColorTranslator.FromHtml("#07090A");
+                    hfSortOn.Value = ddlTopRatedSort.SelectedValue;
                     break;
                 case "lbNFOList":
                     hfAMCCode.Value = "0";
@@ -261,6 +273,7 @@ namespace WealthERP.OnlineOrderManagement
                     RadTabStripAdsUpload.Tabs[1].Selected = true;
                     multipageAdsUpload.SelectedIndex = 1;
                     lbNFOList.ForeColor = System.Drawing.ColorTranslator.FromHtml("#07090A");
+                    hfSortOn.Value = ddlTopRatedSort.SelectedValue;
                     break;
                 case "lbTopSchemes":
                     hfAMCCode.Value = "0";
@@ -272,17 +285,18 @@ namespace WealthERP.OnlineOrderManagement
                     lblHeading.Text = "Top Ten Schemes";
                     lbTopSchemes.ForeColor = System.Drawing.ColorTranslator.FromHtml("#07090A");
                     dvfilterTopRated.Visible = true;
-
+                    hfSortOn.Value = ddlTopRatedSort.SelectedValue;
                     break;
                 case "lbSchemeDetails": dvDemo.Visible = true;
                     lblHeading.Text = "Schemes Details";
                     hfIsSIP.Value = "false";
                     RadTabStripAdsUpload.Tabs[0].Visible = false;
                     RadTabStripAdsUpload.Tabs[1].Text = "Schemes Details";
+                    hfSortOn.Value = ddlTopRatedSort.SelectedValue;
                     break;
 
             }
-            BindSchemeRelatedDetails(int.Parse(hfAMCCode.Value), int.Parse(hfSchemeCode.Value), hfCategory.Value, int.Parse(hfCustomerId.Value), Int16.Parse(hfIsSchemeDetails.Value), Boolean.Parse(hfNFOType.Value), 1,Boolean.Parse(hfIsSIP.Value));
+            BindSchemeRelatedDetails(int.Parse(hfAMCCode.Value), int.Parse(hfSchemeCode.Value), hfCategory.Value, int.Parse(hfCustomerId.Value), Int16.Parse(hfIsSchemeDetails.Value), Boolean.Parse(hfNFOType.Value), 1,Boolean.Parse(hfIsSIP.Value), int.Parse(hfSortOn.Value));
         }
         protected void ddlAction_OnSelectedIndexChanged(object sender, EventArgs e)
         {
@@ -409,7 +423,7 @@ namespace WealthERP.OnlineOrderManagement
                         break;
 
                     case "RemoveFrmWatch": DeleteSchemeFromCustomerWatch(int.Parse(e.CommandArgument.ToString()), e, customerVo.CustomerId);
-                        BindSchemeRelatedDetails(int.Parse(hfAMCCode.Value), int.Parse(hfSchemeCode.Value), hfCategory.Value, int.Parse(hfCustomerId.Value), Int16.Parse(hfIsSchemeDetails.Value), Boolean.Parse(hfNFOType.Value), 1, Boolean.Parse(hfIsSIP.Value));
+                        BindSchemeRelatedDetails(int.Parse(hfAMCCode.Value), int.Parse(hfSchemeCode.Value), hfCategory.Value, int.Parse(hfCustomerId.Value), Int16.Parse(hfIsSchemeDetails.Value), Boolean.Parse(hfNFOType.Value), 1, Boolean.Parse(hfIsSIP.Value), int.Parse(hfSortOn.Value));
                         break;
 
 
@@ -520,7 +534,7 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void rblNFOType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            BindSchemeRelatedDetails(0, 0, "0", 0, 3, Boolean.Parse(rblNFOType.SelectedValue), 1,false);
+            BindSchemeRelatedDetails(0, 0, "0", 0, 3, Boolean.Parse(rblNFOType.SelectedValue), 1, false, int.Parse(hfSortOn.Value));
             hfNFOType.Value = rblNFOType.SelectedValue.ToString();
         }
         protected void rpSchemeDetails_OnItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -726,7 +740,7 @@ namespace WealthERP.OnlineOrderManagement
                         break;
 
                     case "RemoveFrmWatch": DeleteSchemeFromCustomerWatch(int.Parse(e.CommandArgument.ToString()), e, customerVo.CustomerId);
-                        BindSchemeRelatedDetails(int.Parse(hfAMCCode.Value), int.Parse(hfSchemeCode.Value), hfCategory.Value, int.Parse(hfCustomerId.Value), Int16.Parse(hfIsSchemeDetails.Value), Boolean.Parse(hfNFOType.Value), 1, Boolean.Parse(hfIsSIP.Value));
+                        BindSchemeRelatedDetails(int.Parse(hfAMCCode.Value), int.Parse(hfSchemeCode.Value), hfCategory.Value, int.Parse(hfCustomerId.Value), Int16.Parse(hfIsSchemeDetails.Value), Boolean.Parse(hfNFOType.Value), 1, Boolean.Parse(hfIsSIP.Value), int.Parse(hfSortOn.Value));
                         break;
 
 
@@ -735,7 +749,15 @@ namespace WealthERP.OnlineOrderManagement
             }
 
         }
-       
+        protected void ddlTopRatedSort_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindSchemeRelatedDetails(int.Parse(hfAMCCode.Value), int.Parse(hfSchemeCode.Value), hfCategory.Value, int.Parse(hfCustomerId.Value), Int16.Parse(hfIsSchemeDetails.Value), Boolean.Parse(hfNFOType.Value), 1, Boolean.Parse(hfIsSIP.Value), int.Parse(ddlTopRatedSort.SelectedValue));
+            hfSortOn.Value = ddlTopRatedSort.SelectedValue;
+        }
+        protected void ddlTopPerformerSort_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
         protected void rptTopMarketSchemes_OnItemDataBound(object sender, RepeaterItemEventArgs e)
         {
 

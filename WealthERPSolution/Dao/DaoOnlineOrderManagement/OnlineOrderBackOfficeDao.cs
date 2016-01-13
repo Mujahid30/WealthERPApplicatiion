@@ -3174,7 +3174,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetSchemeDetails.Tables[0];
     }
-        public DataTable GetSchemeDetails(int AMCCode, int Schemeplanecode, string category, int customerId, Int16 SchemeDetails, Boolean NFOType, out int recordCount, int PageIndex, int PageSize, Boolean isSIP)
+        public DataTable GetSchemeDetails(int AMCCode, int Schemeplanecode, string category, int customerId, Int16 SchemeDetails, Boolean NFOType, out int recordCount, int PageIndex, int PageSize, Boolean isSIP, int SortOn)
         {
             Database db;
             DataSet dsGetSchemeDetails;
@@ -3194,6 +3194,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmdGetSchemeDetails, "@PageIndex", DbType.Int16, PageIndex);
                 db.AddInParameter(cmdGetSchemeDetails, "@PageSize ", DbType.Int16, PageSize);
                 db.AddInParameter(cmdGetSchemeDetails, "@IsSIP ", DbType.Boolean, isSIP);
+                db.AddInParameter(cmdGetSchemeDetails, "@SortOn ", DbType.Int16, SortOn);
                 db.AddOutParameter(cmdGetSchemeDetails, "@RecordCount", DbType.Int64, 1000);
                 dsGetSchemeDetails = db.ExecuteDataSet(cmdGetSchemeDetails);
                 recordCount = int.Parse(db.GetParameterValue(cmdGetSchemeDetails, "RecordCount").ToString());

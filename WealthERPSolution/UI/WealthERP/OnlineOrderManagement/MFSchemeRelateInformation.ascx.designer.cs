@@ -166,6 +166,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlReturns;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTopRatedSort;
         
         /// <summary>
         /// th2 control.
@@ -391,6 +392,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfSchemeCode;
+        protected global::System.Web.UI.WebControls.HiddenField hfSortOn;
         
         /// <summary>
         /// hfCategory control.
