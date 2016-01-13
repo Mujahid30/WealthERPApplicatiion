@@ -377,7 +377,7 @@
                                     <td align="left">
                                         <%--  <a href="../ReferenceFiles/MF-Terms-Condition.html">../ReferenceFiles/MF-Terms-Condition.html</a>--%>
                                         <iframe src="../ReferenceFiles/MF-Terms-Condition.html" name="iframeTermsCondition"
-                                            style="width: 100%;height:130px" ></iframe>
+                                            style="width: 100%;height:110px" ></iframe>
                                     </td>
                                 </tr>
                                 <tr>

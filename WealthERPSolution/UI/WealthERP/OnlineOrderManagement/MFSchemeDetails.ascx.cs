@@ -83,6 +83,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void BindScheme()
         {
+            ddlScheme.Items.Clear();
             DataTable dt;
             OnlineMFSchemeDetailsBo OnlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
             dt = OnlineMFSchemeDetailsBo.GetAMCandCategoryWiseScheme(int.Parse(ddlAMC.SelectedValue), ddlCategory.SelectedValue);
