@@ -192,7 +192,7 @@
         float: right;
         padding-right: 10px;
         background: url('Images/sign-out.png') no-repeat left top;
-        padding-top: 50px;
+        padding-top: 30px;
         padding-right: 30px;
     }
     .user-name
@@ -664,10 +664,11 @@
         <div id="dvScrollerCnt" class="col-md-12" style="margin: 2px 15px 5px 15px; padding: 0px 0px 0px 0px;
             font-family: Times New Roman; clear: both; height: 20px; color: #fff; background: #000;
             max-width: 1285px; min-width: 940px;">
-            <div class="col-md-1" style="width: 6%; padding-right: 0px; margin-right: 0px;
-                padding-left: 1px; color: #000 ; background:#fff ">
-               <b> What's New </b></div>
-            <div id="scroller" runat="server" class="col-md-11" style=" padding:0px 0px 0px 1px">
+            <div class="col-md-1" style="width: 6%; padding-right: 0px; margin-right: 0px; padding-left: 1px;
+                color: #000; background: #fff">
+                <b>What's New </b>
+            </div>
+            <div id="scroller" runat="server" class="col-md-11" style="padding: 0px 0px 0px 1px">
                 <marquee style="border-radius: 2px; font-size: small" direction="left" scrolldelay="150"
                     onmouseover="this.stop();" onmouseout="this.start();">
         <asp:datalist ItemStyle-HorizontalAlign="Center" ItemStyle-CssClass="heading" ItemStyle-Width="33%" ItemStyle-Wrap="False" id="dlScroller" CellPadding="2" RepeatColumns="10" RepeatDirection="Horizontal" CellSpacing="2" Runat="server">
@@ -748,12 +749,12 @@
                     <div class="dropdown_1column">
                         <div class="col_1">
                             <ul class="greybox">
-                                <li><a onclick="LoadBottomPanelControl('NCDIssueList','?BondType=FISDSD');">
-                                    NCD ISSUE LIST</a></li>
-                                <li><a onclick="LoadBottomPanelControl('NCDIssueList','?BondType=FISSGB');">
-                                    SGB ISSUE LIST</a></li>
-                                    <li><a onclick="LoadBottomPanelControl('NCDIssueList','?BondType=FITFTF');">
-                                    NCD TEX FREE LIST</a></li>
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueList','?BondType=FISDSD');">NCD ISSUE
+                                    LIST</a></li>
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueList','?BondType=FISSGB');">SGB ISSUE
+                                    LIST</a></li>
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueList','?BondType=FITFTF');">NCD TEX
+                                    FREE LIST</a></li>
                             </ul>
                         </div>
                     </div>
@@ -762,12 +763,11 @@
                     <div class="dropdown_1column">
                         <div class="col_1">
                             <ul class="greybox">
-                                <li><a onclick="LoadBottomPanelControl('NCDIssueBooks','?BondType=FISDSD');">
-                                    NCD BOOK</a> </li>
-                                <li><a onclick="LoadBottomPanelControl('NCDIssueBooks','?BondType=FISSGB');">
-                                    SGB BOOK</a></li>
-                                     <li><a onclick="LoadBottomPanelControl('NCDIssueBooks','?BondType=FITFTF');">
-                                    NCD TEX FREE BOOK</a></li>
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueBooks','?BondType=FISDSD');">NCD BOOK</a>
+                                </li>
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueBooks','?BondType=FISSGB');">SGB BOOK</a></li>
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueBooks','?BondType=FITFTF');">NCD TEX
+                                    FREE BOOK</a></li>
                             </ul>
                         </div>
                     </div>
@@ -776,12 +776,12 @@
                     <div class="dropdown_1column">
                         <div class="col_1">
                             <ul class="greybox">
-                                <li><a onclick="LoadBottomPanelControl('NCDIssueHoldings','?BondType=FISDSD');">
-                                    NCD HOLDINGS</a></li>
-                                <li><a onclick="LoadBottomPanelControl('NCDIssueHoldings','?BondType=FISSGB');">
-                                    SGB HOLDINGS</a></li>
-                                     <li><a onclick="LoadBottomPanelControl('NCDIssueHoldings','?BondType=FITFTF');">
-                                    NCD TEX FREE HOLDINGS</a></li>
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueHoldings','?BondType=FISDSD');">NCD
+                                    HOLDINGS</a></li>
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueHoldings','?BondType=FISSGB');">SGB
+                                    HOLDINGS</a></li>
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueHoldings','?BondType=FITFTF');">NCD
+                                    TEX FREE HOLDINGS</a></li>
                             </ul>
                         </div>
                     </div>
@@ -845,76 +845,76 @@
      </SeparatorTemplate>
 </asp:datalist>
 </marquee>
-                </div>
             </div>
         </div>
-        <div style="margin-top: 10px; z-index: 3;">
-            <iframe name="bottomframe" class="bottomframe" width="100%" id="bottomframe" onload="javascript:calcIFrameHeight('bottomframe');"
-                src="OnlineBottomHost.aspx" scrolling="no"></iframe>
-        </div>
-        <div id="dvTransact" runat="server" style="clear: both; background-color: #E5F6FF;
-            font-weight: bold; font-size: smaller">
-            <div>
-                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                    <ContentTemplate>
-                        <div style="clear: both;">
-                            <asp:Button ID="btnBindTransactDdl" runat="server" Style="display: none" OnClick="BindTransactDdl" />
+    </div>
+    <div style="margin-top: 10px; z-index: 3;">
+        <iframe name="bottomframe" class="bottomframe" width="100%" id="bottomframe" onload="javascript:calcIFrameHeight('bottomframe');"
+            src="OnlineBottomHost.aspx" scrolling="no"></iframe>
+    </div>
+    <div id="dvTransact" runat="server" style="clear: both; background-color: #E5F6FF;
+        font-weight: bold; font-size: smaller">
+        <div>
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                <ContentTemplate>
+                    <div style="clear: both;">
+                        <asp:Button ID="btnBindTransactDdl" runat="server" Style="display: none" OnClick="BindTransactDdl" />
+                    </div>
+                    <div style="background-color: #0396CC; width: 100%">
+                        <div style="padding-left: 20px; color: White;">
+                            Transact
+                            <asp:Label ID="lblBalance" runat="server" Style="color: White; float: right; padding-right: 20px;
+                                margin-left: 10px;"></asp:Label>
+                            <b style="color: White; float: right;">Available Balance:</b>
                         </div>
-                        <div style="background-color: #0396CC; width: 100%">
-                            <div style="padding-left: 20px; color: White;">
-                                Transact
-                                <asp:Label ID="lblBalance" runat="server" Style="color: White; float: right; padding-right: 20px;
-                                    margin-left: 10px;"></asp:Label>
-                                <b style="color: White; float: right;">Available Balance:</b>
-                            </div>
-                        </div>
-                        <table style="margin: 0 0 0 50px;">
-                            <tr>
-                                <td>
-                                    <div id="Div1">
-                                        <asp:TextBox runat="server" ID="TextBox1" AutoPostBack="true" OnTextChanged="TextBox1_OnTextChanged"
-                                            Style="margin-top: 0px; float: right; background-color: #D7E9F5" Width="300px"></asp:TextBox>
-                                        <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" TargetControlID="TextBox1"
-                                            WatermarkText="Search Scheme" runat="server" EnableViewState="false">
-                                        </cc1:TextBoxWatermarkExtender>
-                                        <div id="Div2" class="results" style="height: 150px; overflow-y: scroll; overflow-x: hidden;
-                                            text-align: left">
-                                        </div>
-                                        <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server" TargetControlID="TextBox1"
-                                            ServiceMethod="GetInvestorScheme" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
-                                            MinimumPrefixLength="1" EnableCaching="true" CompletionSetCount="5" CompletionInterval="100"
-                                            CompletionListCssClass="results" UseContextKey="True" OnClientItemSelected="GetTransactPanelSchemePlanCode"
-                                            DelimiterCharacters="" CompletionListElementID="Div2" Enabled="True" />
+                    </div>
+                    <table style="margin: 0 0 0 50px;">
+                        <tr>
+                            <td>
+                                <div id="Div1">
+                                    <asp:TextBox runat="server" ID="TextBox1" AutoPostBack="true" OnTextChanged="TextBox1_OnTextChanged"
+                                        Style="margin-top: 0px; float: right; background-color: #D7E9F5" Width="300px"></asp:TextBox>
+                                    <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" TargetControlID="TextBox1"
+                                        WatermarkText="Search Scheme" runat="server" EnableViewState="false">
+                                    </cc1:TextBoxWatermarkExtender>
+                                    <div id="Div2" class="results" style="height: 150px; overflow-y: scroll; overflow-x: hidden;
+                                        text-align: left">
                                     </div>
-                                </td>
-                                <td align="right" style="vertical-align: middle;">
-                                    <asp:Label ID="lblchannel" runat="server" Text="Exchange:" CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:DropDownList ID="ddlchannel" runat="server" CssClass="cmbField" AutoPostBack="true"
-                                        OnSelectedIndexChanged="ddlchannel_onSelectedChanged" onchange="LoadTransactPanel('MFOrderPurchaseTransType&exchangeType='+this.value)">
-                                    </asp:DropDownList>
-                                </td>
-                                <td align="right" style="vertical-align: middle;">
-                                    <asp:Label ID="Label2" runat="server" Text="Transaction Type:" CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:DropDownList ID="DropDownList1" runat="server" CssClass="cmbField" onchange="ddlchange(this);"
-                                        AutoPostBack="false">
-                                    </asp:DropDownList>
-                                </td>
-                            </tr>
-                        </table>
-                    </ContentTemplate>
-                    <Triggers>
-                    </Triggers>
-                </asp:UpdatePanel>
-            </div>
-            <div class="top-menu-frame" style="position: Relative">
-                <iframe name="topframe" id="topframe" onload="javascript:calcIFrameHeight('topframe');"
-                    src="OnlineTopHost.aspx" width="100%" scrolling="no"></iframe>
-            </div>
+                                    <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server" TargetControlID="TextBox1"
+                                        ServiceMethod="GetInvestorScheme" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                                        MinimumPrefixLength="1" EnableCaching="true" CompletionSetCount="5" CompletionInterval="100"
+                                        CompletionListCssClass="results" UseContextKey="True" OnClientItemSelected="GetTransactPanelSchemePlanCode"
+                                        DelimiterCharacters="" CompletionListElementID="Div2" Enabled="True" />
+                                </div>
+                            </td>
+                            <td align="right" style="vertical-align: middle;">
+                                <asp:Label ID="lblchannel" runat="server" Text="Exchange:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:DropDownList ID="ddlchannel" runat="server" CssClass="cmbField" AutoPostBack="true"
+                                    OnSelectedIndexChanged="ddlchannel_onSelectedChanged" onchange="LoadTransactPanel('MFOrderPurchaseTransType&exchangeType='+this.value)">
+                                </asp:DropDownList>
+                            </td>
+                            <td align="right" style="vertical-align: middle;">
+                                <asp:Label ID="Label2" runat="server" Text="Transaction Type:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:DropDownList ID="DropDownList1" runat="server" CssClass="cmbField" onchange="ddlchange(this);"
+                                    AutoPostBack="false">
+                                </asp:DropDownList>
+                            </td>
+                        </tr>
+                    </table>
+                </ContentTemplate>
+                <Triggers>
+                </Triggers>
+            </asp:UpdatePanel>
         </div>
+        <div class="top-menu-frame" style="position: Relative">
+            <iframe name="topframe" id="topframe" onload="javascript:calcIFrameHeight('topframe');"
+                src="OnlineTopHost.aspx" width="100%" scrolling="no"></iframe>
+        </div>
+    </div>
     </div>
     <asp:HiddenField ID="schemeCode" runat="server" />
     <asp:HiddenField ID="hdnTransactType" runat="server" />

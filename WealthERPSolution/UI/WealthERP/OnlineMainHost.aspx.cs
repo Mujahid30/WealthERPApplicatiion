@@ -165,8 +165,10 @@ namespace WealthERP
                     mainmenuNCD.Visible = false;
                     mainmenuIPO.Visible = false;
                     scroller.Visible = false;
+                    dvNews.Visible = false;
+                    dvTransact.Visible = false;
                     SetDefaultPageSetting("NA");
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcdnnn", "LoadTopPanelDefault('OnlineOrderDummyTopMenu');", true);
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcdnnn", "LoadTransactPanel('OnlineOrderDummyTopMenu');", true);
                 }
 
 
