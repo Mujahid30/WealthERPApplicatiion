@@ -206,7 +206,7 @@ namespace WealthERP.OnlineOrderManagement
 
 
         }
-     
+
         protected void BindndReturn()
         {
             StringBuilder strXML = new StringBuilder();
@@ -479,44 +479,67 @@ namespace WealthERP.OnlineOrderManagement
         protected void BindHoldingPiaChart(DataTable dtHoldingPiaChart)
         {
             StringBuilder strXML1 = new StringBuilder();
+            int count = 0;
             strXML1.Append(@"<chart caption='Fund Holding' chartTopMargin='0' bgcolor='#ffffff' showHoverEffect='1' captionPadding='0' chartLeftMargin='0'
                         chartRightMargin='0' chartBottomMargin='0' showborder='0' use3dlighting='0' showshadow='0'  showLabels='0'  showlegend='1' legendbgcolor='#ffffff' legendborderalpha='0' legendshadow='0' legenditemfontsize='10' legenditemfontcolor='#666666' legendPosition='RIGHT'> ");
-
-            foreach (DataRow dr in dtHoldingPiaChart.Rows)
+            if (dtHoldingPiaChart.Rows.Count > 0)
             {
-                strXML1.AppendFormat(@"<set label='{0}' value='{1}' seriesname='{2}' />", dr["co_name"], dr["perc_hold"], dr["co_name"]);
+                foreach (DataRow dr in dtHoldingPiaChart.Rows)
+                {
+                    strXML1.AppendFormat(@"<set label='{0}' value='{1}'  />",  dr["co_name"].ToString().Replace("&", "and"),dr["perc_hold"]);
+                    count++;
+                    if (count > 5)
+                        break;
+                }
+                strXML1.Append(@"</chart>");
+                ltrHolding.Text = FusionCharts.RenderChartHTML("../FusionCharts/Pie2D.swf", "", strXML1.ToString(), "FactorySum1", "100%", "150", false, true, false);
+
             }
-            strXML1.Append(@"</chart>");
-            ltrHolding.Text = FusionCharts.RenderChartHTML("../FusionCharts/Pie2D.swf", "", strXML1.ToString(), "FactorySum1", "100%", "150", false, true, false);
-
-
+            else
+                ltrHolding.Text = "No record found";
         }
         protected void BindSectorPiaChart(DataTable dtSectorPiaChart)
         {
+            int count = 0;
             StringBuilder strXML2 = new StringBuilder();
             strXML2.Append(@"<chart caption='Fund Sector' chartTopMargin='0' bgcolor='#ffffff' showHoverEffect='1' showLegend='0' exportenabled='1' captionPadding='0' chartLeftMargin='0'
                         chartRightMargin='0' chartBottomMargin='0' showborder='0' use3dlighting='0' showshadow='0'  showLabels='0'> ");
-
-            foreach (DataRow dr in dtSectorPiaChart.Rows)
+            if (dtSectorPiaChart.Rows.Count > 0)
             {
-                strXML2.AppendFormat(@"<set label='{0}' value='{1}' />", dr["sector"], dr["holdingpercentage"]);
+                foreach (DataRow dr in dtSectorPiaChart.Rows)
+                {
+                    strXML2.AppendFormat(@"<set label='{0}' value='{1}' />", dr["sector"].ToString().Replace("&", "and"), dr["holdingpercentage"]);
+                    count++;
+                    if (count > 5)
+                        break;
+                }
+                strXML2.Append(@"</chart>");
+                ltrSector.Text = FusionCharts.RenderChartHTML("../FusionCharts/Pie2D.swf", "", strXML2.ToString(), "FactorySum2", "100%", "150", false, true, false);
             }
-            strXML2.Append(@"</chart>");
-            ltrSector.Text = FusionCharts.RenderChartHTML("../FusionCharts/Pie2D.swf", "", strXML2.ToString(), "FactorySum2", "100%", "150", false, true, false);
+            else
+                ltrSector.Text = "No record found";
         }
         protected void BindAssetsPiaChart(DataTable dtAssetsPiaChart)
         {
+            int count = 0;
+
             StringBuilder strXML3 = new StringBuilder();
             strXML3.Append(@"<chart caption='Assets Allocation' chartTopMargin='0' bgcolor='#ffffff' showLegend='1' showHoverEffect='1' captionPadding='0' chartLeftMargin='0'
                         chartRightMargin='0' chartBottomMargin='0' showborder='0' use3dlighting='0' showshadow='0' showLabels='0' > ");
-
-            foreach (DataRow dr in dtAssetsPiaChart.Rows)
+            if (dtAssetsPiaChart.Rows.Count > 0)
             {
-                strXML3.AppendFormat(@"<set label='{0}' value='{1}' />", dr["asset"].ToString().Replace("&", "and"), dr["assetvalue"]);
+                foreach (DataRow dr in dtAssetsPiaChart.Rows)
+                {
+                    strXML3.AppendFormat(@"<set label='{0}' value='{1}' />", dr["asset"].ToString().Replace("&", "and"), dr["assetvalue"]);
+                    count++;
+                    if (count > 5)
+                        break;
+                }
+                strXML3.Append(@"</chart>");
+                raj.Text = FusionCharts.RenderChartHTML("../FusionCharts/Pie2D.swf", "", strXML3.ToString(), "FactorySum3", "100%", "150", false, true, false);
             }
-            strXML3.Append(@"</chart>");
-            raj.Text = FusionCharts.RenderChartHTML("../FusionCharts/Pie2D.swf", "", strXML3.ToString(), "FactorySum3", "100%", "150", false, true, false);
-
+            else
+                raj.Text = "No record found";
             //ltrAssets.Text = FusionCharts.RenderChartHTML("../FusionCharts/Pie3D.swf", "", strXML3.ToString(), "FactorySum3", "100%", "150", false, true, false);
 
         }
