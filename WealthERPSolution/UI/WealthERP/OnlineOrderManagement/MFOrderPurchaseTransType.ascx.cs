@@ -102,6 +102,9 @@ namespace WealthERP.OnlineOrderManagement
                         lblAmc.Text = amcName;
                         lblScheme.Text = schemeName;
                         lblCategory.Text = categoryname;
+                       DataSet dst = onlineMforderBo.GetControlDetails(int.Parse(Session["MFSchemePlan"].ToString()), null, exchangeType == "Online" ? 1 : 0);
+                        lblUnitsheldDisplay.Visible = false;
+                        GetControlDetails(dst);
                         SetControlDetails();
                     }
                 }
@@ -298,8 +301,8 @@ namespace WealthERP.OnlineOrderManagement
                     ddlFolio.DataTextField = dt.Columns["CMFA_FolioNum"].ToString();
                     ddlFolio.DataBind();
                 }
-                ddlFolio.Items.Insert(0, new ListItem("Select", "0"));
-                ddlFolio.Items.Insert(1, new ListItem("New", "New"));
+                //ddlFolio.Items.Insert(0, new ListItem("Select", "0"));
+                ddlFolio.Items.Insert(0, new ListItem("New", "New"));
             }
             catch (BaseApplicationException Ex)
             {

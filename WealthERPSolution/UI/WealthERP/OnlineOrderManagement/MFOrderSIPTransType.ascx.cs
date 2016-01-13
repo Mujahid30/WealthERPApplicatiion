@@ -960,6 +960,7 @@ namespace WealthERP.OnlineOrderManagement
             {
                 //trNominee.Visible = false;
                 //trJointHolder.Visible = false;
+                GetControlDetails(Convert.ToInt32(ddlScheme.SelectedValue), ddlFolio.SelectedValue);
             }
         }
 
