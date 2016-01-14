@@ -1026,20 +1026,39 @@ function LoadTopPanelControl(controlid) {
 }
 function calc(iframe_id) {
     try {
-        var leftframe_height = document.getElementById(iframe_id).contentWindow.document.body.scrollHeight;
-        var the_height = leftframe_height;
-
-        if (the_height < 150)
-        { the_height = 150; }
-        var newHeight = the_height;
-        if (document.getElementById(iframe_id).height != newHeight)
-            document.getElementById(iframe_id).height = newHeight;
-
+        //        var leftframe_height = document.getElementById(iframe_id).contentWindow.document.body.offsetHeight;
+        //        var the_height = leftframe_height;
+        //        alert(the_height);
+        //        //        setTimeout('alert(' + document.getElementById(iframe_id).contentWindow.document.body.scrollHeight + ');', 30);
+        //        //        setTimeout('alert(' + document.getElementById(iframe_id).contentWindow.document.body.offsetHeight + ');', 30);
+        //        if (the_height < 150)
+        //        { the_height = 150; }
+        //        var newHeight = the_height;
+        //        if (document.getElementById(iframe_id).height != newHeight)
+        //            document.getElementById(iframe_id).height = newHeight;
+        var F = document.getElementById(iframe_id);
+        if (F.contentDocument) {
+            if (F.contentDocument.documentElement.scrollHeight > 150) {
+                F.height = F.contentDocument.documentElement.scrollHeight + 30; //FF 3.0.11, Opera 9.63, and Chrome
+            }
+            else {
+                F.height = 150;
+            }
+        }
+        else {
+            if (F.contentWindow.document.body.scrollHeight > 150) {
+                F.height = F.contentWindow.document.body.scrollHeight + 30; //IE6, IE7 and Chrome
+            }
+            else {
+                F.height = 150;
+            }
+        }
 
 
     }
     catch (e) { }
 }
+
 function LoadBottomPanelControl(controlid, logintrue) {
     if (controlid != null)
         parent.PageMethods.AjaxSetBottomPanelSession("Bottom_Panel_PageID", controlid);
@@ -1236,7 +1255,7 @@ function PopupEndRequestHandler(sender, args) {
 
 }
 
-function GetRMSAvailableBalance( ClientCode) {
+function GetRMSAvailableBalance(ClientCode) {
     // Get the DropDownList.
 
 
