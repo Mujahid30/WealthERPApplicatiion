@@ -589,13 +589,14 @@ namespace WealthERP.OnlineOrderManagement
                 if (isCancel == "Cancelled" || totalInstallment == currentInstallmentNumber - 1 || endDate < DateTime.Now)
                 {
 
-                    buttonCancel.Enabled = false;
+                    buttonCancel.Visible = false;
+
                 }
                 if (endDate == DateTime.Now)
                 {
                     if (compare >= 0)
                     {
-                        buttonCancel.Enabled = false;
+                        buttonCancel.Visible = false;
                     }
                 }
             }

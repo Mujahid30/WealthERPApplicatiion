@@ -854,9 +854,10 @@ ul.tabbernav li.tabberactive a:hover
     padding: 8px 8px;
     position: relative;
     font-size: small;
-    width: 600px;
+    width: 700px;
     border-radius: 10px;
     border: solid 1px;
+    margin-left:100px;
 }
 .success-msg
 {

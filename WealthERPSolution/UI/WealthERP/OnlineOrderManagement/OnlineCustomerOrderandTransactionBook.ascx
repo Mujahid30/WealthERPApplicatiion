@@ -89,16 +89,9 @@
                 class="form-control">
             </asp:DropDownList>
         </div>
+       
         <div class="col-md-2">
-            Exchange:
-            <asp:DropDownList ID="ddlExchange" runat="server" CssClass="form-control input-sm"
-                class="form-control">
-                <asp:ListItem Text="Online" Value="1"></asp:ListItem>
-                <asp:ListItem Text="Demat" Value="0"></asp:ListItem>
-            </asp:DropDownList>
-        </div>
-        <div class="col-md-2">
-            Action:
+           Transaction Type:
             <asp:DropDownList ID="ddlAction" runat="server" CssClass="form-control input-sm"
                 class="form-control" AutoPostBack="true" OnSelectedIndexChanged="OnSelectedIndexChanged_ddlAction">
                 <asp:ListItem Text="Select" Value="0"></asp:ListItem>
@@ -106,6 +99,14 @@
                 <asp:ListItem Text="New Purchase" Value="BUY"></asp:ListItem>
                 <asp:ListItem Text="Additional Purchase" Value="ABY"></asp:ListItem>
                 <asp:ListItem Text="Redeem" Value="SEL"></asp:ListItem>
+            </asp:DropDownList>
+        </div>
+         <div class="col-md-2" style="visibility:hidden">
+            Exchange:
+            <asp:DropDownList ID="ddlExchange" runat="server" CssClass="form-control input-sm"
+                class="form-control">
+                <asp:ListItem Text="Online" Value="1"></asp:ListItem>
+                <asp:ListItem Text="Demat" Value="0"></asp:ListItem>
             </asp:DropDownList>
         </div>
     </div>
