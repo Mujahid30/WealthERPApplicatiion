@@ -2396,9 +2396,9 @@
             </table>
         </asp:Panel>
         <asp:HiddenField ID="hdnBrokerIds" runat="server" />
-        <table>
+        <table style="margin-left:15%; width:80%">
         <tr>
-        <td class="leftLabel" style="margin-left:15%; width:80%">
+        <td class="leftLabel" >
         <asp:Panel ID="pnlSeriesCategorySwitch" runat="server" Width="70%" Visible="false">
                             <telerik:RadGrid ID="rgSeriesCategorySwitch" runat="server" GridLines="Both" AllowPaging="True"
                                 ShowFooter="true" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
@@ -2410,7 +2410,7 @@
                                 <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="Scheme rank">
                                 </ExportSettings>
                                 <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
-                                    EditMode="PopUp" CommandItemSettings-AddNewRecordText="Add New Rank to Scheme"
+                                    EditMode="PopUp" CommandItemSettings-AddNewRecordText="Add"
                                     DataKeyNames="AIDCE_Id,AIM_IssueId,AID_Sequence,AIICST_InvestorSubTypeCode,AIDCE_Sequence,AIIC_InvestorCatgeoryId">
                                     <Columns>
                                         <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
