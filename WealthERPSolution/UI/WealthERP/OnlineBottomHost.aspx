@@ -17,6 +17,7 @@
          try {
              var leftframe_height = parent.document.getElementById('bottomframe').contentWindow.document.body.scrollHeight;
              var the_height = leftframe_height;
+            
              if (the_height < 150)
              { the_height = 150; }
                  var newHeight = the_height;

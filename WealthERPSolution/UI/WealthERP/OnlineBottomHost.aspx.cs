@@ -45,9 +45,9 @@ namespace WealthERP
             customerVo =(CustomerVo) Session["CustomerVo"];
             if (!this.ClientScript.IsClientScriptBlockRegistered(this.GetType(), "SetBottomFrameHeight"))
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "SetBottomFrameHeight", "calcIFrameHeight('bottomframe');", true);
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "SetBottomFrameHeight", "calc('bottomframe');", true);
             }
-            if (!string.IsNullOrEmpty(customerVo.AccountId))
+            if (customerVo !=null&& !string.IsNullOrEmpty(customerVo.AccountId))
                 ScriptManager.RegisterStartupScript(this, typeof(Page), "GetRMSAvailableBalanceOnBottomHost", "GetRMSAvailableBalance('" + customerVo.AccountId + "');", true);
 
         }

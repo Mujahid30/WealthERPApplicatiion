@@ -41,7 +41,7 @@ namespace WealthERP
 
             loadcontrol();
             customerVo = (CustomerVo)Session["CustomerVo"];
-            if (!string.IsNullOrEmpty(customerVo.AccountId))
+            if (customerVo != null && !string.IsNullOrEmpty(customerVo.AccountId))
                 ScriptManager.RegisterStartupScript(this, typeof(Page), "GetRMSAvailableBalanceOnTopHost", "GetRMSAvailableBalance('" + customerVo.AccountId + "');", true);
 
         }
