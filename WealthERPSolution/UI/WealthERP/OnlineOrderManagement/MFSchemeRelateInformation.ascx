@@ -18,7 +18,7 @@
     </Services>--%>
 </asp:ScriptManager>
 
-<script type="text/javascript">Fund Filter
+<script type="text/javascript">
     function setCustomPosition(sender, args) {
         sender.moveTo(sender.get_left(), sender.get_top());
     }
@@ -35,6 +35,10 @@
     function showTab(sender, args) {
         var label = document.getElementById("Label1");
         label.innerText = args.get_tab().get_text();
+    }
+    function pager(text) {
+        alert("text");
+        alert(text);
     }
 </script>
 
@@ -393,6 +397,7 @@
                                                     <asp:LinkButton ID="lbBuy" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
                                                         CommandName="Buy" Visible='<%# Eval("IsSchemePurchege")%>'>   
                                                 <img src="../Images/Buy_BIG_Buttons.png" height="30px" width="50px"/>
+                                               
                                               
                                     </span>
                                                     </asp:LinkButton>
@@ -400,6 +405,7 @@
                                                 <td data-title="SIP" runat="server" visible="false" id="tdSIP">
                                                     <asp:LinkButton ID="lbSIP" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
                                                         CommandName="SIP" Visible='<%# Eval("IsSchemeSIPType")%>'> <img src="../Images/SIP_BIG_Buttons.png" height="30px" width="50px"/>  </asp:LinkButton>
+                                                        
                                                 </td>
                                                 <td data-title="Action" runat="server" id="tdAction">
                                                     <asp:DropDownList ID="ddlMarketlAction" runat="server" AutoPostBack="true" CssClass="cmbField"
@@ -408,6 +414,8 @@
                                                         <asp:ListItem Text="Buy" Value="Buy"></asp:ListItem>
                                                         <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
                                                     </asp:DropDownList>
+                                                     <asp:Label ID="lblIsPurchase" runat="server" Text='<%# Eval("IsSchemePurchege")%>' Font-Size="Small" Visible="false"></asp:Label>
+                                                      <asp:Label ID="lblIsSIP" runat="server" Text='<%# Eval("IsSchemeSIPType")%>' Font-Size="Small" Visible="false"></asp:Label>
                                                 </td>
                                                 <td data-title="Mode" runat="server" visible="true" id="td1">
                                                     <asp:Label ID="Label2" runat="server" Text='<%# Eval("Mode")%> ' Font-Size="Small"></asp:Label>
@@ -602,6 +610,8 @@
                                                             <asp:ListItem Text="Buy" Value="Buy"></asp:ListItem>
                                                             <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
                                                         </asp:DropDownList>
+                                                          <asp:Label ID="lblIsPurchase" runat="server" Text='<%# Eval("IsSchemePurchege")%>' Font-Size="Small" Visible="false"></asp:Label>
+                                                      <asp:Label ID="lblIsSIP" runat="server" Text='<%# Eval("IsSchemeSIPType")%>' Font-Size="Small" Visible="false"></asp:Label>
                                                     </td>
                                                     <td data-title="Mode" runat="server" visible="true" id="td1">
                                                         <asp:Label ID="Label2" runat="server" Text='<%# Eval("Mode")%> ' Font-Size="Small"></asp:Label>

@@ -306,14 +306,29 @@ namespace WealthERP.OnlineOrderManagement
             if (itm != null)
             {
                 Label lblscheme = (Label)itm.FindControl("lblSchemeCode");
-               
-                if (ddl.SelectedValue =="Buy")
+                for (int i = 0; i < rpSchemeDetails.Items.Count; i++)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanelFromMainPage('MFOrderPurchaseTransType','" + lblscheme.Text + "')", true);
+                    Label dkSchemeCode = rpSchemeDetails.Items[i].FindControl("lblSchemeCode") as Label;
+                    DropDownList DDLValue = rpSchemeDetails.Items[i].FindControl("ddlAction") as DropDownList;
+                    if (lblscheme.Text.Trim() != dkSchemeCode.Text.Trim())
+                    {
+                        DDLValue.SelectedValue = "0";
+                    }
                 }
-                else if (ddl.SelectedValue == "SIP")
+                if (ViewState["FilterType"].ToString() == "lbNFOList")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanelFromMainPage('MFOrderSIPTransType','" + lblscheme.Text + "')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwe1v", "LoadTransactPanelFromMainPage('MFOrderNFOTransType','" + lblscheme.Text + "')", true);
+                }
+                else
+                {
+                    if (ddl.SelectedValue == "Buy")
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptv2ewv", "LoadTransactPanelFromMainPage('MFOrderPurchaseTransType','" + lblscheme.Text + "')", true);
+                    }
+                    else if (ddl.SelectedValue == "SIP")
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvw4v", "LoadTransactPanelFromMainPage('MFOrderSIPTransType','" + lblscheme.Text + "')", true);
+                    }
                 }
             }
         }
@@ -322,18 +337,27 @@ namespace WealthERP.OnlineOrderManagement
             DropDownList ddl = (DropDownList)sender;
             string selectedValue = ddl.SelectedValue;
             RepeaterItem itm = (RepeaterItem)ddl.NamingContainer;
+            string id = ddl.ID;
             if (itm != null)
             {
                 Label lblscheme = (Label)itm.FindControl("lblschemeCode");
-               
-                if (ddl.SelectedValue == "Buy")
+                for (int i = 0; i < rptTopMarketSchemes.Items.Count; i++)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanelFromMainPage('MFOrderPurchaseTransType','" + lblscheme.Text + "')", true);
+                    Label dkSchemeCode = rptTopMarketSchemes.Items[i].FindControl("lblschemeCode") as Label;
+                    DropDownList DDLValue = rptTopMarketSchemes.Items[i].FindControl("ddlMarketlAction") as DropDownList;
+                    if (lblscheme.Text.Trim() != dkSchemeCode.Text.Trim())
+                    {
+                        DDLValue.SelectedValue = "0";
+                    }
                 }
-                else if (ddl.SelectedValue == "SIP")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanelFromMainPage('MFOrderSIPTransType,'" + lblscheme.Text + "')", true);
-                }
+                    if (ddl.SelectedValue == "Buy")
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanelFromMainPage('MFOrderPurchaseTransType','" + lblscheme.Text + "')", true);
+                    }
+                    else if (ddl.SelectedValue == "SIP")
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanelFromMainPage('MFOrderSIPTransType,'" + lblscheme.Text + "')", true);
+                    }
             }
         }
         protected void rpSchemeDetails_OnItemCommand(object sender, RepeaterCommandEventArgs e)
@@ -551,7 +575,11 @@ namespace WealthERP.OnlineOrderManagement
                 HtmlTableCell tdSchemeRank = (HtmlTableCell)e.Item.FindControl("tdSchemeRank");
                 HtmlTableCell tdSIP = (HtmlTableCell)e.Item.FindControl("tdSIP");
                 HtmlTableCell tdBuy = (HtmlTableCell)e.Item.FindControl("tdBuy");
-              LinkButton  lbSchemeName=(LinkButton)e.Item.FindControl("lbSchemeName");
+                HtmlTableCell tdAction = (HtmlTableCell)e.Item.FindControl("tdAction");
+                LinkButton  lbSchemeName=(LinkButton)e.Item.FindControl("lbSchemeName");
+                Label IsSchemePurchege = (Label)e.Item.FindControl("lblIsPurchase");
+                Label IsSchemeSIPType = (Label)e.Item.FindControl("lblIsSIP");
+                DropDownList ddlAction = (DropDownList)e.Item.FindControl("ddlAction");
                 tdNFOStrtDate.Visible = false;
                 tdNFOEndDate.Visible = false;
                 tdNFOAmt.Visible = false;
@@ -570,6 +598,14 @@ namespace WealthERP.OnlineOrderManagement
                 tdSIP.Visible = false;
                 thBuy.Visible = false;
                 tdBuy.Visible = false;
+                if (!Boolean.Parse(IsSchemePurchege.Text))
+                {
+                    ddlAction.Items[1].Enabled = false;
+                }
+                if (!Boolean.Parse(IsSchemeSIPType.Text))
+                {
+                    ddlAction.Items[2].Enabled = false;
+                }
                 if (ViewState["FilterType"].ToString() == "lbNFOList")
                 {
                     tdNFOStrtDate.Visible = true;
@@ -588,10 +624,14 @@ namespace WealthERP.OnlineOrderManagement
                     thSchemeRank.Visible = false;
                     thSIP.Visible = false;
                     tdSIP.Visible = false;
+                    tdAction.Visible = true;
+                    th1.Visible = true;
                     if (!Convert.ToBoolean(rblNFOType.SelectedValue)){
 
                         thBuy.Visible = false;
                         tdBuy.Visible = false;
+                        tdAction.Visible = false;
+                        th1.Visible = false;
                     }
 
 
@@ -760,7 +800,21 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void rptTopMarketSchemes_OnItemDataBound(object sender, RepeaterItemEventArgs e)
         {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                Label IsSchemePurchege = (Label)e.Item.FindControl("lblIsPurchase");
+                Label IsSchemeSIPType = (Label)e.Item.FindControl("lblIsSIP");
+                DropDownList ddlMarketlAction = (DropDownList)e.Item.FindControl("ddlMarketlAction");
+                if (!Boolean.Parse(IsSchemePurchege.Text))
+                {
+                    ddlMarketlAction.Items[1].Enabled = false;
+                }
+                if (!Boolean.Parse(IsSchemeSIPType.Text))
+                {
+                    ddlMarketlAction.Items[2].Enabled = false;
+                }
 
+            }
        }
     }
 }

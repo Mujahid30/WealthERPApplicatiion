@@ -435,6 +435,7 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.DropDownList ddlCompare;
         protected global::System.Web.UI.WebControls.DropDownList ddlTopRatedType;
         protected global::System.Web.UI.WebControls.TextBox txtcmpvalue;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell th1;
 
     }
 }
