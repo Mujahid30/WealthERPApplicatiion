@@ -260,6 +260,7 @@ namespace WealthERP
                 //{
                 //    Page.ClientScript.RegisterStartupScript(this.GetType(), "LoadTransactPanelFromSchemeSearch", @"LoadTransactPanel('MFOrderPurchaseTransType" + exchangeType + "');", true);
                 //}
+                TextBox1.Text = "";
             }
         }
         protected void SchemeSearch_OnTextChanged(object sender, EventArgs e)

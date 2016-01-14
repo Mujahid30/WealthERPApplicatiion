@@ -650,8 +650,9 @@
                     Visible="false" runat="server" Text="Demo"></asp:LinkButton>
             </div>
             <div style="float: right; width: 10%; padding-top: 8px; padding-right: 28%;">
-                <asp:LinkButton ID="lnkLogOut" runat="server" Text="" CssClass="div-log-out" Style="text-decoration: none"
+                <asp:LinkButton ID="lnkLogOut" runat="server" Text="" CssClass="div-log-out"  Visible="false" Style="text-decoration: none"
                     OnClick="lnkLogOut_Click"></asp:LinkButton>
+                    <asp:ImageButton ID="imgbtn" runat="server" ImageUrl="../Images/sign-out.png"  OnClick="lnkLogOut_Click"></asp:ImageButton>
             </div>
             <div style="float: right; width: 15%; padding-top: 10px; padding-right: 3%;">
                 <asp:Label ID="lblWelcomeUser" runat="server" Text="" CssClass="user-name"></asp:Label>
