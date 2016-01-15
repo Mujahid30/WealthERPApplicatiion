@@ -650,9 +650,10 @@
                     Visible="false" runat="server" Text="Demo"></asp:LinkButton>
             </div>
             <div style="float: right; width: 10%; padding-top: 8px; padding-right: 28%;">
-                <asp:LinkButton ID="lnkLogOut" runat="server" Text="" CssClass="div-log-out"  Visible="false" Style="text-decoration: none"
-                    OnClick="lnkLogOut_Click"></asp:LinkButton>
-                    <asp:ImageButton ID="imgbtn" runat="server" ImageUrl="../Images/sign-out.png"  OnClick="lnkLogOut_Click"></asp:ImageButton>
+                <asp:LinkButton ID="lnkLogOut" runat="server" Text="" CssClass="div-log-out" Visible="false"
+                    Style="text-decoration: none" OnClick="lnkLogOut_Click"></asp:LinkButton>
+                <asp:ImageButton ID="imgbtn" runat="server" ImageUrl="../Images/sign-out.png" OnClick="lnkLogOut_Click">
+                </asp:ImageButton>
             </div>
             <div style="float: right; width: 15%; padding-top: 10px; padding-right: 3%;">
                 <asp:Label ID="lblWelcomeUser" runat="server" Text="" CssClass="user-name"></asp:Label>
@@ -829,12 +830,16 @@
                     Demo</a> </li>
             </ul>
         </div>
-        <div runat="server" style="margin: 2px 15px 5px 15px; padding: 0px 20px 0px 10px;
-            max-width: 1285px; min-width: 940px; clear: both; height: 20px; color: #fff;
-            z-index: -6; background: #000;" id="dvNews">
-            <div style="padding-left: 0px;">
+        <div runat="server" style="margin: 2px 15px 5px 15px; padding: 0px 0px 0px 0px; max-width: 1285px;
+            min-width: 940px; clear: both; height: 20px; color: #fff; z-index: -6; background: #000;
+            font-family: Times New Roman; font-size: small" id="dvNews" class="col-md-12">
+            <div class="col-md-1" style="font-size: small; margin-right: 0px; width: 7.33333333%;
+                color: #000; background: #fff; padding: 0px 0px 1px 1px">
+                <b>Top Fund NEWS </b>
+            </div>
+            <div style="padding-left: 0px;" class="col-md-11">
                 <marquee direction="left" scrolldelay="150" onmouseover="this.stop();" onmouseout="this.start();"
-                    style="border-radius: 2px; font-family: Times New Roman; font-size: small">
+                    style="border-radius: 2px;">
         <asp:datalist ItemStyle-HorizontalAlign="Center" ItemStyle-CssClass="heading" ItemStyle-Width="33%" ItemStyle-Wrap="False" id="dlNews" CellPadding="2" RepeatColumns="10" RepeatDirection="Horizontal" CellSpacing="2" Runat="server">
     
      <ItemTemplate>
