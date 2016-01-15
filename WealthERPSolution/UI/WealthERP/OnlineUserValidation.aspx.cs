@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Configuration;
 
 namespace WealthERP
 {
@@ -15,7 +16,7 @@ namespace WealthERP
             if (Session["Loaded"] != null && Convert.ToBoolean(Session["Loaded"]) == true)
             {
                 Session["Loaded"] = false;
-                Response.Redirect("OnlineMainHost.aspx");
+                
             }
             else
             {
@@ -23,7 +24,12 @@ namespace WealthERP
                 //Register a javascript to set the parent
 
                 Page.ClientScript.RegisterStartupScript(this.GetType(),
-                    "pageloadscript", "window.parent.location.href = 'OnlineUserValidation.aspx'", true);
+                    "asdads", "window.parent.location.href = 'OnlineUserValidation.aspx';", true);
+            }
+            if (Session["Loaded"] != null && Convert.ToBoolean(Session["Loaded"]) == false)
+            {
+                string loginurl = ConfigurationSettings.AppSettings["SSO_USER_LOGIN_URL"];
+                System.Web.HttpContext.Current.Response.Redirect(loginurl);
             }
         }
     }
