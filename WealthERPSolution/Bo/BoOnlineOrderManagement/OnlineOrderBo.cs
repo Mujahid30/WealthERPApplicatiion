@@ -19,7 +19,7 @@ namespace BoOnlineOrderManagement
 {
     public class OnlineOrderBo
     {
-        public bool DebitRMSUserAccountBalance(string userAccountId, double amount, int orderId, out int debitStatus)
+        public bool DebitRMSUserAccountBalance(string userAccountId, double amount, int orderId)
         {
             bool result = false;
             string Response = string.Empty;
