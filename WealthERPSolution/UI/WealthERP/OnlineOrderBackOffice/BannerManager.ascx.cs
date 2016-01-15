@@ -463,6 +463,7 @@ namespace WealthERP.OnlineOrderBackOffice
             DataTable dt;
             OnlineCommonBackOfficeBo OnlineCommonBackOfficeBo = new OnlineCommonBackOfficeBo();
             dt = OnlineCommonBackOfficeBo.GetSchemeForRank(adviserVo.advisorId, amcCode, category, IsEdit);
+            ddlScheme.Items.Clear();
             if (dt.Rows.Count > 0)
             {
                 ddlScheme.DataSource = dt;
