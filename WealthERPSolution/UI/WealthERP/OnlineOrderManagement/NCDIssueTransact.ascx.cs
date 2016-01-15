@@ -30,7 +30,7 @@ namespace WealthERP.OnlineOrderManagement
         UserVo userVo;
         int customerId;
         double sum = 0;
-        int Quantity = 0;
+        long Quantity = 0;
         int orderId = 0;
         int IssuerId = 0;
         int seriesId = 0;
@@ -39,9 +39,11 @@ namespace WealthERP.OnlineOrderManagement
         int EligblecatId = 0;
         //int selectedRowIndex;
         string subCategory = string.Empty;
+        int debitStatus = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
+            hdIscuttOff.Value = "false";
             userVo = (UserVo)Session[SessionContents.UserVo];
             customerVo = (CustomerVo)Session["customerVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
@@ -292,7 +294,7 @@ namespace WealthERP.OnlineOrderManagement
             int maxQty = int.Parse(gvIssueList.MasterTableView.DataKeyValues[0]["AIM_MaxQty"].ToString());
             DateTime t1 = Convert.ToDateTime(DateTime.Now);
             DateTime cuffOff = DateTime.Parse(gvIssueList.MasterTableView.DataKeyValues[0]["AIM_CutOffTime"].ToString());
-            if (cuffOff.TimeOfDay.Ticks > t1.TimeOfDay.Ticks)
+            if (cuffOff.TimeOfDay.Ticks < t1.TimeOfDay.Ticks)
             {
                 hdIscuttOff.Value = "true";
             }
@@ -334,9 +336,9 @@ namespace WealthERP.OnlineOrderManagement
                             if (!string.IsNullOrEmpty(txtsumQuantity.Text) && !string.IsNullOrEmpty(txtsumAmount.Text))
                             {
 
-                                Quantity = Quantity + Convert.ToInt32(txtsumQuantity.Text);
+                                Quantity = Quantity + Convert.ToInt64(txtsumQuantity.Text);
                                 ViewState["Qty"] = Quantity;
-                                sum = sum + Convert.ToInt32(txtsumAmount.Text);
+                                sum = sum + Convert.ToInt64(txtsumAmount.Text);
                                 ViewState["Sum"] = sum;
                                 lblQty.Text = Quantity.ToString();
                                 lblSum.Text = sum.ToString();
@@ -411,7 +413,7 @@ namespace WealthERP.OnlineOrderManagement
             //lb1AvailbleCat.Visible = true;
             //lb1AvailbleCat.Text = "Available are:";
         }
-        private string CreateUserMessage(int orderId, int Applicationno, bool accountDebitStatus, string aplicationNoStatus)
+        private string CreateUserMessage(int orderId, int Applicationno, bool accountDebitStatus, string aplicationNoStatus,int debitstatus)
         {
             string userMessage = string.Empty;
             string cutOffTimeType = string.Empty;
@@ -429,7 +431,18 @@ namespace WealthERP.OnlineOrderManagement
                 ShowAvailableLimits();
             }
 
-
+            else if (accountDebitStatus == false && debitStatus == 1)
+            {
+                 userMessage ="No RMS Response.";
+            }
+            else if (accountDebitStatus == false && debitStatus == 2)
+            {
+                userMessage = "No RMS Response.";
+            }
+            else if (accountDebitStatus == false && debitStatus == 3)
+            {
+                userMessage = "No RMS Response.";
+            }
             else if (orderId == 0 & lblAvailableLimits.Text == "0")
             {
                 userMessage = "Order cannot be processed. Insufficient balance";
@@ -444,7 +457,7 @@ namespace WealthERP.OnlineOrderManagement
             }
             else if (accountDebitStatus == false)
             {
-                userMessage = "NO Rms Response";
+                userMessage = "Order cannot be processed. Insufficient balance";
 
             }
             else if (orderId == 0)
@@ -573,8 +586,8 @@ namespace WealthERP.OnlineOrderManagement
 
                 if (isValid)
                 {
-                    Quantity = int.Parse(ViewState["Qty"].ToString());
-                    sum = int.Parse(ViewState["Sum"].ToString());
+                    Quantity = Convert.ToInt64(ViewState["Qty"].ToString());
+                    sum = Convert.ToInt64(ViewState["Sum"].ToString());
 
 
 
@@ -658,7 +671,7 @@ namespace WealthERP.OnlineOrderManagement
                         IDictionary<string, string> orderIds = new Dictionary<string, string>();
                         IssuerId = int.Parse(ViewState["IssueId"].ToString());
                         double availableBalance = Convert.ToDouble(OnlineBondBo.GetUserRMSAccountBalance(customerVo.AccountId));
-                        int totalOrderAmt = int.Parse(ViewState["Sum"].ToString());
+                        long totalOrderAmt = Convert.ToInt64(ViewState["Sum"].ToString());
                         //availableBalance = 40000;
                         string message;
                         string aplicationNoStatus = string.Empty;
@@ -672,7 +685,10 @@ namespace WealthERP.OnlineOrderManagement
                             orderId = int.Parse(orderIds["Order_Id"].ToString());
                             if (orderId != 0)
                             {
-                                accountDebitStatus = OnlineBondBo.DebitRMSUserAccountBalance(customerVo.AccountId, -totalOrderAmt, orderId);
+                                
+                               
+                                accountDebitStatus = OnlineBondBo.DebitRMSUserAccountBalance(customerVo.AccountId, -totalOrderAmt, orderId,out debitStatus);
+                              
                                 ShowAvailableLimits();
                             }
                             Applicationno = int.Parse(orderIds["application"].ToString());
@@ -688,7 +704,7 @@ namespace WealthERP.OnlineOrderManagement
                         }
 
                         tdsubmit.Visible = false;
-                        message = CreateUserMessage(orderId, Applicationno, accountDebitStatus, aplicationNoStatus);
+                        message = CreateUserMessage(orderId, Applicationno, accountDebitStatus, aplicationNoStatus,debitStatus);
                         ShowMessage(message);
                         lnlBack.Visible = true;
                     }
@@ -921,7 +937,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (Session["PageDefaultSetting"] != null)
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('NCDIssueList');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "loadcontrol('NCDIssueList');", true);
             }
             else
             {
@@ -937,7 +953,7 @@ namespace WealthERP.OnlineOrderManagement
                 DateTime todate = DateTime.Parse(Request.QueryString["todate"].ToString());
                 DateTime fromdate = DateTime.Parse(Request.QueryString["fromdate"].ToString());
                 string status = Request.QueryString["status"].ToString();
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueBooks", "LoadBottomPanelControl('NCDIssueBooks','&strAction=" + action + "&status=" + status + "&fromdate=" + fromdate + "&todate=" + todate + "&BondType="+Request.QueryString["BondType"]+" ');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueBooks", "LoadBottomPanelControl('NCDIssueBooks','&strAction=" + action + "&status=" + status + "&fromdate=" + fromdate + "&todate=" + todate + "&BondType=" + Request.QueryString["BondType"] + " ');", true);
             }
         }
         protected void lnlFAQ_OnClick(object sender, EventArgs e)

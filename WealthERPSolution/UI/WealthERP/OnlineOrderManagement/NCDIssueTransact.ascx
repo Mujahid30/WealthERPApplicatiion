@@ -10,7 +10,7 @@
         confirm_value.type = "hidden";
         confirm_value.name = "confirm_value";
         var isCutOff = document.getElementById('<%=hdIscuttOff.ClientID%>').value;
-        if (!isCutOff) {
+        if (isCutOff == "false") {
             if (confirm("Please note Order cannot be modified once submitted. Would you like to continue ?")) {
                 confirm_value.value = "Yes";
             } else {
@@ -18,7 +18,19 @@
             }
         }
         else {
-            if (confirm("Please note Order cannot be modified once submitted. Would you like to continue ?")) {
+            var newLine = "\r\n";
+            var Message = "Please note, Order cannot be modified, once submitted.";
+            Message += newLine;
+            Message += newLine;
+            Message += "Your application will be processed on next working day.";
+            Message += newLine;
+            Message += "The issue is on 'First come First Served' Basis.";
+            Message += newLine;
+            Message += "In case of oversubscription, your application may not be considered for allotment.";
+            Message += newLine;
+            Message += newLine;
+            Message += "Would you like to continue?"
+            if (confirm(Message)) {
                 confirm_value.value = "Yes";
             } else {
                 confirm_value.value = "No";
@@ -242,7 +254,8 @@
             </table>
         </td>
         <td>
-        <asp:LinkButton ID="lnlFAQ"  OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);" runat="server" OnClick="lnlFAQ_OnClick" Text="FAQ" CssClass="LinkButtons"  ></asp:LinkButton>
+            <asp:LinkButton ID="lnlFAQ" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);"
+                runat="server" OnClick="lnlFAQ_OnClick" Text="FAQ" CssClass="LinkButtons"></asp:LinkButton>
         </td>
     </tr>
     <tr align="center">
@@ -316,19 +329,20 @@
                                             UniqueName="CatCollection" Visible="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
-                                         <telerik:GridBoundColumn DataField="SGBMINQty" HeaderStyle-Width="140px" HeaderText="Min-Max gm"
+                                        <telerik:GridBoundColumn DataField="SGBMINQty" HeaderStyle-Width="140px" HeaderText="Min-Max gm"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                             UniqueName="SGBMINQty" Visible="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="MinMaxCatCollection" HeaderStyle-Width="140px"
                                             HeaderText="Min-Max Qty(Across All Series)" CurrentFilterFunction="Contains"
-                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="MinMaxCatCollection" Visible="false">
+                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="MinMaxCatCollection"
+                                            Visible="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="SGBMAXQty" HeaderStyle-Width="140px"
-                                            HeaderText="Min-Max gm(Across All Series)" CurrentFilterFunction="Contains"
-                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="SGBMAXQty" Visible="false">
+                                        <telerik:GridBoundColumn DataField="SGBMAXQty" HeaderStyle-Width="140px" HeaderText="Min-Max gm(Across All Series)"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            UniqueName="SGBMAXQty" Visible="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIM_MInQty" HeaderStyle-Width="120px" HeaderText="Min. Qty (accross all series)"
@@ -437,12 +451,13 @@
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CouponRateCollection" HeaderStyle-Width="160px"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                HeaderText="Coupon Rate (%)" UniqueName="CouponRateCollection" SortExpression="CouponRateCollection" Visible="false">
+                                HeaderText="Coupon Rate (%)" UniqueName="CouponRateCollection" SortExpression="CouponRateCollection"
+                                Visible="false">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="Interest" HeaderStyle-Width="160px"
-                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                HeaderText="Interest" UniqueName="Interest" SortExpression="Interest" Visible="false">
+                            <telerik:GridBoundColumn DataField="Interest" HeaderStyle-Width="160px" CurrentFilterFunction="Contains"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Interest" UniqueName="Interest"
+                                SortExpression="Interest" Visible="false">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="YieldatMatCollection" HeaderStyle-Width="160px"
@@ -566,9 +581,9 @@
                                 AutoPostBackOnFilter="true" UniqueName="AID_SeriesFaceValue " Visible="false">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="SGBFaceValue " HeaderStyle-Width="120px"
-                                HeaderText="Gold Rate" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                AutoPostBackOnFilter="true" UniqueName="SGBFaceValue " Visible="false">
+                            <telerik:GridBoundColumn DataField="SGBFaceValue " HeaderStyle-Width="120px" HeaderText="Gold Rate"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                UniqueName="SGBFaceValue " Visible="false">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="AIM_MInQty" HeaderStyle-Width="140px"
@@ -590,7 +605,7 @@
                                 UniqueName="Quantity" HeaderText="Enter Purchase Qty">
                                 <ItemTemplate>
                                     <asp:TextBox ID="txtQuantity" runat="server" OnTextChanged="txtQuantity_TextChanged"
-                                        ForeColor="White" MaxLength="5" Text='<%# Bind("COID_Quantity")%>' Width="50px"
+                                        ForeColor="White" MaxLength="9" Text='<%# Bind("COID_Quantity")%>' Width="70px"
                                         AutoPostBack="true" BackColor="Gray" OnKeypress="javascript:return isNumberKey(event);"></asp:TextBox>
                                     <%--  <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="*Required"
                                         ClientValidationFunction="ValidateTextValue(this)"></asp:CustomValidator>--%>
@@ -614,13 +629,15 @@
                                 </FooterTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
-                                UniqueName="NomineeQuantity" HeaderText="Nominee Qty" >
+                                UniqueName="NomineeQuantity" HeaderText="Nominee Qty">
                                 <ItemTemplate>
-                                    <asp:TextBox ID="txtNomineeQuantity" runat="server" ForeColor="White" MaxLength="5" ReadOnly="true"
-                                        Text='<%# Bind("NomineeQty")%>' Width="50px" BackColor="Gray" OnKeypress="javascript:return isNumberKey(event);" OnTextChanged="txtQuantity_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                    <asp:TextBox ID="txtNomineeQuantity" runat="server" ForeColor="White" MaxLength="5"
+                                        ReadOnly="true" Text='<%# Bind("NomineeQty")%>' Width="50px" BackColor="Gray"
+                                        OnKeypress="javascript:return isNumberKey(event);" OnTextChanged="txtQuantity_TextChanged"
+                                        AutoPostBack="true"></asp:TextBox>
                                 </ItemTemplate>
                                 <FooterTemplate>
-                                    <asp:Label runat="server" ID="lblNomineeQty" ></asp:Label>
+                                    <asp:Label runat="server" ID="lblNomineeQty"></asp:Label>
                                 </FooterTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
@@ -735,7 +752,7 @@
     </ContentTemplate>
 </telerik:RadWindow>
 <asp:HiddenField ID="txtTotAmt" runat="server" OnValueChanged="txtTotAmt_ValueChanged" />
-  <asp:HiddenField ID="hdIscuttOff" runat="server" />
+<asp:HiddenField ID="hdIscuttOff" runat="server" />
 <%--<telerik:RadWindowManager runat="server" ID="RadWindowManager1">
     <Windows>
         <telerik:RadWindow ID="rw_customConfirm" Modal="true" Behaviors="Close, Move" VisibleStatusbar="false"
