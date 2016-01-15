@@ -19,13 +19,14 @@ namespace BoOnlineOrderManagement
 {
     public class OnlineOrderBo
     {
-        public bool DebitRMSUserAccountBalance(string userAccountId, double amount, int orderId)
+        public bool DebitRMSUserAccountBalance(string userAccountId, double amount, int orderId, out int debitStatus)
         {
             bool result = false;
             string Response = string.Empty;
             OnlineOrderDao onlineOrderDao = new OnlineOrderDao();
             string rmsAPI = ConfigurationSettings.AppSettings["RMS_USER_ACCOUNT_BALANCE_API"];
             DataTable dt = new DataTable();
+            debitStatus =0;
             try
             {
                 rmsAPI = rmsAPI.Replace("#UserAccountId#", userAccountId);
@@ -41,23 +42,23 @@ namespace BoOnlineOrderManagement
                 {
                     onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 1, string.Empty, "RMSREsponse:-" + Response, dt.Rows[0]["ReferenceNumber"].ToString());
                     result = true;
-
+                    debitStatus = 0;
                 }
                 else if (Response.Contains("FALSE"))
                 {
-                    onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 0, string.Empty, "RMSREsponse:-" + Response, dt.Rows[0]["ReferenceNumber"].ToString());
+                    onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 0, string.Empty, "RMSREsponse:-" + Response);
 
                 }
                 else if (!Response.Contains("TRUE") || !Response.Contains("FALSE"))
                 {
-                    onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 2, string.Empty, "RMSREsponse:-" + Response, dt.Rows[0]["ReferenceNumber"].ToString());
+                    onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 2, string.Empty, "RMSREsponse:-" + Response);
 
                 }
 
             }
             catch (Exception Ex)
             {
-                onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 0, string.Empty, ("RMSREsponse:-" + Response + "ERROR:-" + Ex.Message), dt.Rows[0]["ReferenceNumber"].ToString());
+                onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 0, string.Empty, ("RMSREsponse:-" + Response + "ERROR:-" + Ex.Message));
 
             }
             return result;
