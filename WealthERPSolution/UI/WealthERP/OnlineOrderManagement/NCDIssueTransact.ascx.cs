@@ -249,9 +249,7 @@ namespace WealthERP.OnlineOrderManagement
         protected void lnkTermsCondition_Click(object sender, EventArgs e)
         {
             rwTermsCondition.VisibleOnPageLoad = true;
-            LinkButton lnk = (LinkButton)sender;
-            RadWindow rd = (RadWindow)lnk.FindControl("raj");
-            rd.VisibleOnPageLoad = true;
+           
         }
 
         protected void btnAccept_Click(object sender, EventArgs e)
@@ -316,7 +314,8 @@ namespace WealthERP.OnlineOrderManagement
                     int Mod = Qty % PFISD_InMultiplesOf;
                     if (Mod != 0)
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please enter quantity greater than or equal to min quantity required and in multiples of 1')", true);
+                        string messageMultiples = "Please enter quantity greater than or equal to min quantity required and in multiples of   " + PFISD_InMultiplesOf.ToString();
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('" + messageMultiples + "')", true);
                         txtQuantity.Text = "";
                         return;
                     }
@@ -601,6 +600,8 @@ namespace WealthERP.OnlineOrderManagement
                         //lblinsufficent.Text = "Order cannot be processed due to insufficient balance";
                         //lblinsufficent.ForeColor = Color.Red;
                         //Color co = new Color();
+                        tblMessage.Visible = true;
+                        
                         msgRecordStatus.Visible = false;
                         //ShowMessage(lblinsufficent.Text);
                         ////  tdsubmit.Visible = false;

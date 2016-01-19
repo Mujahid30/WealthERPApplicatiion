@@ -65,8 +65,8 @@
                 </td>
             </tr>
         </table>
-        <asp:Panel ID="pnlSchemeMIS" runat="server" ScrollBars="Both" Width="100%" Height="80%" Visible="false">
-            <div class="divControlContiner" id="divControlContainer" runat="server">
+        <asp:Panel ID="pnlSchemeMIS" runat="server" ScrollBars="Both" Width="100%" Height="350px" Visible="false">
+            <div class="divControlContiner" id="divControlContainer" runat="server" style="height:100%">
                 <table width="100%">
                     <tr>
                         <td>

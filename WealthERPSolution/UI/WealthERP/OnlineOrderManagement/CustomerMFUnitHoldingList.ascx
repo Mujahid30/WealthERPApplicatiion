@@ -127,7 +127,7 @@
                         <%# Eval("AmcName")%>
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 fk-font-6" style="margin-bottom: 1.5px;">
-                        <font color="#565656"><b>Scheme Name:</b> </font>
+                        <font color="#565656"><b>Name:</b> </font>
                         <%# Eval("Scheme")%>
                     </div>
                     

@@ -438,7 +438,7 @@ namespace WealthERP.OnlineOrderManagement
             {
                 MFPortfolioNetPositionVo mfPortfolioVo = new MFPortfolioNetPositionVo();
                 Label lblISRedeemFlag = (Label)e.Item.FindControl("lblISRedeemFlag");
-                DropDownList ddlAction = (DropDownList)e.Item.FindControl("ddlMenu_SelectedIndexChanged");
+                DropDownList ddlAction = (DropDownList)e.Item.FindControl("ddlAction");
                 Label lblSIPSchemeFlag = (Label)e.Item.FindControl("lblSIPSchemeFlag");
                 Label lblIsPurcheseFlag = (Label)e.Item.FindControl("lblIsPurcheseFlag");
                 Label lblSchemeRating = (Label)e.Item.FindControl("lblSchemeRating");

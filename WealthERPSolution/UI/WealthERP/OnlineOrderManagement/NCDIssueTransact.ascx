@@ -4,6 +4,24 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 
+<script src="../Scripts/jquery.js" type="text/javascript"></script>
+
+<script src="../Scripts/JScript.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.bxslider.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
+
+<asp:ScriptManager ID="ScriptManager1" runat="server">
+</asp:ScriptManager>
 <script type="text/javascript">
     function Confirm() {
         var confirm_value = document.createElement("INPUT");
@@ -81,12 +99,6 @@
     }
 </script>
 
-<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
-<asp:ScriptManager ID="scrptMgr" runat="server">
-    <Services>
-        <asp:ServiceReference Path="AutoComplete.asmx" />
-    </Services>
-</asp:ScriptManager>
 <style type="text/css">
     .table
     {
@@ -217,7 +229,7 @@
                     </div>
                 </td>
             </tr>
-            <tr id="trinsufficentmessage" runat="server" visible="false">
+            <tr id="trinsufficentmessage" runat="server" visible="false" >
                 <td align="center">
                     <asp:Label ID="lblinsufficent" runat="server" ForeColor="Red" Text="Order cannot be processed due to insufficient balance"></asp:Label>
                 </td>
@@ -253,7 +265,6 @@
                 </tr>
             </table>
         </td>
-      
     </tr>
     <tr align="center">
         <td>
@@ -725,16 +736,12 @@
         </td>
     </tr>
 </table>
-<telerik:RadWindow ID="raj" runat="server">
-<ContentTemplate>
-<label>RAHul</label></ContentTemplate>
-</telerik:RadWindow>
 <telerik:RadWindow ID="rwTermsCondition" runat="server" VisibleOnPageLoad="false"
     Width="1000px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Move, Resize,Close"
     Title="Terms & Conditions" EnableShadow="true" Left="15" Top="5">
     <ContentTemplate>
         <div style="padding: 0px; width: 100%">
-            <table width="100%" >
+            <table width="100%">
                 <tr>
                     <td align="left">
                         <%--  <a href="../ReferenceFiles/MF-Terms-Condition.html">../ReferenceFiles/MF-Terms-Condition.html</a>--%>
