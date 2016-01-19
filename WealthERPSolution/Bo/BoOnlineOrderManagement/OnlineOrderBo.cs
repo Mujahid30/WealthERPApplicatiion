@@ -19,7 +19,7 @@ namespace BoOnlineOrderManagement
 {
     public class OnlineOrderBo
     {
-        public bool DebitRMSUserAccountBalance(string userAccountId, double amount, int orderId)
+        public bool DebitRMSUserAccountBalance(string userAccountId, double amount, int orderId, out int debitStatus)
         {
             bool result = false;
             string Response = string.Empty;
@@ -46,19 +46,19 @@ namespace BoOnlineOrderManagement
                 }
                 else if (Response.Contains("FALSE"))
                 {
-                    onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 0, string.Empty, "RMSREsponse:-" + Response);
+                    onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 0, string.Empty, "RMSREsponse:-" + Response, dt.Rows[0]["ReferenceNumber"].ToString());
 
                 }
                 else if (!Response.Contains("TRUE") || !Response.Contains("FALSE"))
                 {
-                    onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 2, string.Empty, "RMSREsponse:-" + Response);
+                    onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 2, string.Empty, "RMSREsponse:-" + Response, dt.Rows[0]["ReferenceNumber"].ToString());
 
                 }
 
             }
             catch (Exception Ex)
             {
-                onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 0, string.Empty, ("RMSREsponse:-" + Response + "ERROR:-" + Ex.Message));
+                onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 0, string.Empty, ("RMSREsponse:-" + Response + "ERROR:-" + Ex.Message), dt.Rows[0]["ReferenceNumber"].ToString());
 
             }
             return result;

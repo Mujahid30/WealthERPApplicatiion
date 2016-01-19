@@ -33,6 +33,7 @@ namespace WealthERP.OnlineOrderManagement
         int AIMissueId = 0;
         int orderId = 0;
         string orderStep = string.Empty;
+        int debitstatus = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -302,7 +303,7 @@ namespace WealthERP.OnlineOrderManagement
                     {
                         string AcntId = RadGridIssueIPOBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_CustCode"].ToString();
                         lbResult = BoOnlineBondOrder.cancelBondsBookOrder(orderId, 2, txtRemark.Text);
-                        onlineIPOOrderBo.DebitRMSUserAccountBalance(customerVo.AccountId, +AmountPayable, orderId);
+                        onlineIPOOrderBo.DebitRMSUserAccountBalance(customerVo.AccountId, +AmountPayable, orderId, out debitstatus);
                         //BoOnlineBondOrder.DebitRMSUserAccountBalance(AcntId, AmountPayable, 0);
                         if (lbResult == true)
                         {
@@ -389,7 +390,7 @@ namespace WealthERP.OnlineOrderManagement
                             result = onlineIPOOrderBo.CustomerIPOOrderCancelle(orderId, "INPROCESS");
                             if (result == true)
                             {
-                                accountDebitStatus = onlineIPOOrderBo.DebitRMSUserAccountBalance(customerVo.AccountId, +maxamount, orderId);
+                                accountDebitStatus = onlineIPOOrderBo.DebitRMSUserAccountBalance(customerVo.AccountId, +maxamount, orderId, out debitstatus);
                                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('IPO Order is cancelled, Order reference no. is  " + orderId + ".');", true);
                             }
                         }

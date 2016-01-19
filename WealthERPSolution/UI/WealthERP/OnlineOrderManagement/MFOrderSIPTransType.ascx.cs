@@ -55,7 +55,7 @@ namespace WealthERP.OnlineOrderManagement
         List<OnlineMFOrderVo> SipDataForOrderEditList = new List<OnlineMFOrderVo>();
         DataTable dtFrequency;
         string clientMFAccessCode = string.Empty;
-
+        int debitstatus = 0;
         protected void Page_Init(object sender, EventArgs e)
         {
 
@@ -451,7 +451,7 @@ namespace WealthERP.OnlineOrderManagement
 
                     if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
                     {
-                        accountDebitStatus = boOnlineOrder.DebitRMSUserAccountBalance(customerVo.AccountId, -onlineMFOrderVo.Amount, OrderId);
+                        accountDebitStatus = boOnlineOrder.DebitRMSUserAccountBalance(customerVo.AccountId, -onlineMFOrderVo.Amount, OrderId, out debitstatus);
                         ShowAvailableLimits();
                     }
                 }

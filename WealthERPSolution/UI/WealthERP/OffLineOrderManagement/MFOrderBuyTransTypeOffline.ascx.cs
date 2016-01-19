@@ -40,7 +40,7 @@ namespace WealthERP.OffLineOrderManagement
         int accountId;
         int OrderId;
         string clientMFAccessCode = string.Empty;
-
+        int debitstatus = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
@@ -379,7 +379,7 @@ namespace WealthERP.OffLineOrderManagement
 
                 if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
                 {
-                    accountDebitStatus = onlineMforderBo.DebitRMSUserAccountBalance(customerVo.AccountId, -onlinemforderVo.Amount, OrderId);
+                    accountDebitStatus = onlineMforderBo.DebitRMSUserAccountBalance(customerVo.AccountId, -onlinemforderVo.Amount, OrderId, out debitstatus);
                     ShowAvailableLimits();
                 }
 

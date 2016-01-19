@@ -38,7 +38,7 @@ namespace WealthERP.OnlineOrderManagement
         DataTable dtCustomerAssociatesRaw = new DataTable();
         DataTable dtCustomerAssociates = new DataTable();
         int OrderId;
-
+        int debitstatus = 0;
         string clientMFAccessCode = string.Empty;
         string exchangeType = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
@@ -505,7 +505,7 @@ namespace WealthERP.OnlineOrderManagement
                 OrderId = 0;
                 if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
                 {
-                    accountDebitStatus = onlineMforderBo.DebitRMSUserAccountBalance(customerVo.AccountId, -onlinemforderVo.Amount, OrderId);
+                    accountDebitStatus = onlineMforderBo.DebitRMSUserAccountBalance(customerVo.AccountId, -onlinemforderVo.Amount, OrderId, out debitstatus);
                     ShowAvailableLimits();
                 }
 

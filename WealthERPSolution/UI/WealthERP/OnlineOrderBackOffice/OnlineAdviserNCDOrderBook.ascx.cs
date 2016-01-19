@@ -21,6 +21,7 @@ namespace WealthERP.OnlineOrderBackOffice
         DateTime toDate;
         BoOnlineOrderManagement.OnlineBondOrderBo BoOnlineBondOrder = new BoOnlineOrderManagement.OnlineBondOrderBo();
         OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
+        int debitstatus = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             userVo = (UserVo)Session[SessionContents.UserVo];           
@@ -172,7 +173,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
                     lbResult = BoOnlineBondOrder.cancelBondsBookOrder(orderId, 2, txtRemark.Text);
-                    BoOnlineBondOrder.DebitRMSUserAccountBalance(AcntId, AmountPayable, 0);
+                    BoOnlineBondOrder.DebitRMSUserAccountBalance(AcntId, AmountPayable, 0,out  debitstatus);
                     if (lbResult == true)
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Cancelled Successfully');", true);
