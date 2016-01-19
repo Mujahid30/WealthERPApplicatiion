@@ -57,7 +57,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAvailableLimits;
-        
+        protected global::System.Web.UI.WebControls.Label lblProductType;
         /// <summary>
         /// tblMessage control.
         /// </summary>

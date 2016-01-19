@@ -67,7 +67,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
         protected global::System.Web.UI.WebControls.Label lblAvailableLimits;
-        
+        protected global::System.Web.UI.WebControls.Label lblProductType;
         /// <summary>
         /// btnGo control.
         /// </summary>

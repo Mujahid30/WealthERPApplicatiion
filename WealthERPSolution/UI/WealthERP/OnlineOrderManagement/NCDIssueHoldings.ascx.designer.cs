@@ -21,7 +21,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager scrptMgr;
-        
+        protected global::System.Web.UI.WebControls.Label lblProductType;
         /// <summary>
         /// upBHGrid control.
         /// </summary>

@@ -253,10 +253,7 @@
                 </tr>
             </table>
         </td>
-        <td>
-            <asp:LinkButton ID="lnlFAQ" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);"
-                runat="server" OnClick="lnlFAQ_OnClick" Text="FAQ" CssClass="LinkButtons"></asp:LinkButton>
-        </td>
+      
     </tr>
     <tr align="center">
         <td>
@@ -728,12 +725,16 @@
         </td>
     </tr>
 </table>
+<telerik:RadWindow ID="raj" runat="server">
+<ContentTemplate>
+<label>RAHul</label></ContentTemplate>
+</telerik:RadWindow>
 <telerik:RadWindow ID="rwTermsCondition" runat="server" VisibleOnPageLoad="false"
     Width="1000px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Move, Resize,Close"
-    Title="Terms & Conditions" EnableShadow="true" Left="580" Top="-8">
+    Title="Terms & Conditions" EnableShadow="true" Left="15" Top="5">
     <ContentTemplate>
         <div style="padding: 0px; width: 100%">
-            <table width="100%" cellpadding="0" cellpadding="0">
+            <table width="100%" >
                 <tr>
                     <td align="left">
                         <%--  <a href="../ReferenceFiles/MF-Terms-Condition.html">../ReferenceFiles/MF-Terms-Condition.html</a>--%>

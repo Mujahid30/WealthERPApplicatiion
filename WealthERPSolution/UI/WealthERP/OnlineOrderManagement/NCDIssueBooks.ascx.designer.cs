@@ -32,6 +32,7 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.ImageButton ibtExportSummary;
         protected global::System.Web.UI.WebControls.DropDownList ddlIssueName;
         protected global::System.Web.UI.WebControls.Label lblIssueName;
+        protected global::System.Web.UI.WebControls.Label lblProductType;
         /// <summary>
         /// divConditional control.
         /// </summary>

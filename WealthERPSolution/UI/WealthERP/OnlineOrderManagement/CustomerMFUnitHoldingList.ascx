@@ -272,10 +272,7 @@
                         </div>
                     </div>
                  
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
-                        <font color="#565656"><b>PurchasedUnits:</b></font>
-                        <%# Eval("PurchasedUnits")%>
-                    </div>
+                   
                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                         <font color="#565656"><b>Units:</b></font>
                         <asp:LinkButton ID="lnkprAmcB" runat="server" style="color:#0396CC" CommandName="SelectTransaction" Text='<%# String.Format("{0:N3}", DataBinder.Eval(Container.DataItem, "PurchasedUnits")) %>'>
@@ -335,6 +332,10 @@
                         visibility: hidden;">
                         <font color="#565656"><b>InProcessCount:</b></font>
                         <%# Eval("MFNPId")%>
+                    </div>
+                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;visibility: hidden;">
+                        <font color="#565656"><b>PurchasedUnits:</b></font>
+                        <%# Eval("PurchasedUnits")%>
                     </div>
                 </div>
             </ItemTemplate>

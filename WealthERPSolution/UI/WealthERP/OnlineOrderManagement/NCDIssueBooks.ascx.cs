@@ -108,6 +108,13 @@ namespace WealthERP.OnlineOrderManagement
             ddlOrderStatus.Items.Clear();
             DataSet dsOrderStatus;
             DataTable dtOrderStatus;
+            if(Request.QueryString["BondType"]=="FISDSD")
+               lblProductType.Text="NCD Book";
+            else  if (Request.QueryString["BondType"] == "FITFTF")
+               lblProductType.Text="TAX Free Book";
+            else if(Request.QueryString["BondType"] == "FISSGB")
+               lblProductType.Text="SGB Book";
+
             dsOrderStatus = OnlineMFOrderBo.GetOrderStatus();
             dtOrderStatus = dsOrderStatus.Tables[0];
             if (dtOrderStatus.Rows.Count > 0)

@@ -64,27 +64,21 @@
         border-spacing: 10px;
     }
 </style>
-<%--<table width="100%">
+<table width="100%">
     <tr>
         <td>
             <div class="divPageHeading">
                 <table width="100%">
                     <tr>
                         <td align="left">
-                            NCD Order Book
-                        </td>
-                        <td align="right">
-                            <asp:ImageButton ID="ibtExportSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="ibtExport_OnClick"
-                                Height="25px" Width="25px"></asp:ImageButton>
+                        <asp:Label ID="lblProductType" runat="server" CssClass="FieldName"></asp:Label>
                         </td>
                     </tr>
                 </table>
             </div>
         </td>
     </tr>
-</table>--%>
-<div class="divOnlinePageHeading" style="float: right; width: 100%">
+</table>
     <div style="float: right; padding-right: 100px;">
         <table cellspacing="0" cellpadding="3" width="100%">
             <tr>
@@ -96,7 +90,6 @@
             </tr>
         </table>
     </div>
-</div>
 
 <div id="divConditional" runat="server" class="row" style="margin-left: 5%; margin-bottom: 2%;
     margin-right: 5%; padding-top: 1%; padding-bottom: 1%; height: 20%">
@@ -339,6 +332,11 @@
                                                                                         <font color="#565656"><b>Channel:</b></font>
                                                                                         <%# Eval("Channel")%>
                                                                                     </div>
+                                                                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                                                                        <font color="#565656"><b>Remark:</b></font>
+                                                                                        <%# Eval("COS_Reason")%>
+                                                                                    </div>
+                                                                                    
                                                                                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;
                                                                                         visibility: hidden;">
                                                                                         <%# Eval("AID_Sequence")%>

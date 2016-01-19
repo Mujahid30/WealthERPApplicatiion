@@ -93,6 +93,12 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void BindStructureRuleGrid(int type, string subCategory)
         {
+            if (Request.QueryString["BondType"] == "FISDSD")
+                lblProductType.Text = "NCD Issue List";
+            else if (Request.QueryString["BondType"] == "FITFTF")
+                lblProductType.Text = "TAX Free Issue List";
+            else if (Request.QueryString["BondType"] == "FISSGB")
+                lblProductType.Text = "SGB Issue List";
             DataSet dsStructureRules = OnlineBondBo.GetAdviserIssuerList(adviserId, 0, type, customerVo.CustomerId, Session["PageDefaultSetting"] == null ? 1 : 0, customerVo.TaxStatusCustomerSubTypeId, subCategory);
             DataTable dtIssue = dsStructureRules.Tables[0];
             if (dtIssue.Rows.Count > 0)

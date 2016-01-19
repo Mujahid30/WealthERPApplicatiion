@@ -64,6 +64,12 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void BindHolding(string productsubtype)
         {
+            if (Request.QueryString["BondType"] == "FISDSD")
+                lblProductType.Text = "NCD Issue List";
+            else if (Request.QueryString["BondType"] == "FITFTF")
+                lblProductType.Text = "TAX Free Issue List";
+            else if (Request.QueryString["BondType"] == "FISSGB")
+                lblProductType.Text = "SGB Issue List";
             if (txtOrderFrom.SelectedDate != null)
                 fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
             if (txtOrderTo.SelectedDate != null)

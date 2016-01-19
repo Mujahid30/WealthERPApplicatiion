@@ -755,7 +755,7 @@
                                     LIST</a></li>
                                 <li><a onclick="LoadBottomPanelControl('NCDIssueList','?BondType=FISSGB');">SGB ISSUE
                                     LIST</a></li>
-                                <li><a onclick="LoadBottomPanelControl('NCDIssueList','?BondType=FITFTF');">NCD TEX
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueList','?BondType=FITFTF');">NCD TAX
                                     FREE LIST</a></li>
                             </ul>
                         </div>
@@ -768,7 +768,7 @@
                                 <li><a onclick="LoadBottomPanelControl('NCDIssueBooks','?BondType=FISDSD');">NCD BOOK</a>
                                 </li>
                                 <li><a onclick="LoadBottomPanelControl('NCDIssueBooks','?BondType=FISSGB');">SGB BOOK</a></li>
-                                <li><a onclick="LoadBottomPanelControl('NCDIssueBooks','?BondType=FITFTF');">NCD TEX
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueBooks','?BondType=FITFTF');">NCD TAX
                                     FREE BOOK</a></li>
                             </ul>
                         </div>
@@ -783,7 +783,7 @@
                                 <li><a onclick="LoadBottomPanelControl('NCDIssueHoldings','?BondType=FISSGB');">SGB
                                     HOLDINGS</a></li>
                                 <li><a onclick="LoadBottomPanelControl('NCDIssueHoldings','?BondType=FITFTF');">NCD
-                                    TEX FREE HOLDINGS</a></li>
+                                    TAX FREE HOLDINGS</a></li>
                             </ul>
                         </div>
                     </div>

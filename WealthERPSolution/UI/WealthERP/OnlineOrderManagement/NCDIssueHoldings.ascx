@@ -73,7 +73,7 @@
                         <table width="100%">
                             <tr>
                                 <td align="left">
-                                    Holding
+                                    <asp:Label ID="lblProductType" runat="server" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="right">
                                     <asp:ImageButton ID="ibtExportSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"

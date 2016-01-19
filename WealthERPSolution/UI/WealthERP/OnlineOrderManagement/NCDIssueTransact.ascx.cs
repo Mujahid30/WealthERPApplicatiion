@@ -229,6 +229,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void BindKYCDetailDDl()
         {
+
             DataSet dsNomineeAndJointHolders = OnlineBondBo.GetNomineeJointHolder(customerVo.CustomerId);
             StringBuilder strbNominee = new StringBuilder();
             StringBuilder strbJointHolder = new StringBuilder();
@@ -248,6 +249,9 @@ namespace WealthERP.OnlineOrderManagement
         protected void lnkTermsCondition_Click(object sender, EventArgs e)
         {
             rwTermsCondition.VisibleOnPageLoad = true;
+            LinkButton lnk = (LinkButton)sender;
+            RadWindow rd = (RadWindow)lnk.FindControl("raj");
+            rd.VisibleOnPageLoad = true;
         }
 
         protected void btnAccept_Click(object sender, EventArgs e)
@@ -937,7 +941,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (Session["PageDefaultSetting"] != null)
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "loadcontrol('NCDIssueList');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('NCDIssueList','&BondType=" + Request.QueryString["BondType"] + "');", true);
             }
             else
             {
@@ -956,11 +960,7 @@ namespace WealthERP.OnlineOrderManagement
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueBooks", "LoadBottomPanelControl('NCDIssueBooks','&strAction=" + action + "&status=" + status + "&fromdate=" + fromdate + "&todate=" + todate + "&BondType=" + Request.QueryString["BondType"] + " ');", true);
             }
         }
-        protected void lnlFAQ_OnClick(object sender, EventArgs e)
-        {
-            string path = ConfigurationSettings.AppSettings["SGBFAQ"];
-            Response.Redirect(path); 
-        }
+      
     }
 
 }

@@ -147,7 +147,8 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                            Issue List
+              <asp:Label ID="lblProductType" runat="server" CssClass="FieldName"></asp:Label>
+                           
                         </td>
                         <td align="right">
                             <asp:ImageButton ID="btnNcdIssueList" runat="server" ImageUrl="~/Images/Export_Excel.png"
@@ -374,7 +375,7 @@
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridButtonColumn CommandName="download_file" Text="View Prospectus" UniqueName="Download"
-                                            HeaderText="Download">
+                                            HeaderText="Download" Visible="false">
                                         </telerik:GridButtonColumn>
                                         <telerik:GridTemplateColumn ShowFilterIcon="false" AllowFiltering="false">
                                             <ItemTemplate>
