@@ -194,7 +194,7 @@ namespace WealthERP.OnlineOrderManagement
 
                 }
                 if (IsCancelAllowed == false)
-                    lnkModify.Enabled = false;
+                    lnkCancel.Visible = false;
                 if (isModification == false)
                 {
                     lnkModify.Enabled = false;

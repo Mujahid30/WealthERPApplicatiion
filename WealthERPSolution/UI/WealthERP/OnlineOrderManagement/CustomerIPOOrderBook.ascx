@@ -238,7 +238,7 @@
                                             <font color="#565656"><b>Action:</b></font>
                                             <asp:LinkButton ID="lnkModify" runat="server" OnClick="btnEditModiY_Click" class="glyphicon glyphicon-edit"
                                                 ToolTip="Modify" />
-                                                 <asp:LinkButton ID="lnkCancel" runat="server" style="font-style:underline" OnClick="btnEditModiY_Click" class="glyphicon glyphicon-remove-circle"
+                                                 <asp:LinkButton ID="lnkCancel" runat="server" Enabled="false" style="font-style:underline" OnClick="btnEditModiY_Click" class="glyphicon glyphicon-remove-circle"
                                                 ToolTip="Cancel" OnClientClick="GetBalanceQty('Cancel');" />
                                         </div>
                                         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
