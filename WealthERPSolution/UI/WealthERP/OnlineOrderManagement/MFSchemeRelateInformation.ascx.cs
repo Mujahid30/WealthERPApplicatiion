@@ -166,6 +166,7 @@ namespace WealthERP.OnlineOrderManagement
 
 
         }
+
         protected void BindSchemeRelatedDetails(int amcCode, int SchemeCode, string category, int customerId, Int16 isSchemeDetails, Boolean NFOType, int pageIndex, Boolean isSIP, int SortOn)
         {
             OnlineOrderBackOfficeBo bo = new OnlineOrderBackOfficeBo();
@@ -179,7 +180,7 @@ namespace WealthERP.OnlineOrderManagement
             rpSchemeDetails.DataSource = dtBindSchemeRelatedDetails;
             rpSchemeDetails.DataBind();
             rpSchemeDetails.Visible = true;
-            this.PopulatePager(recordCount, 1,rptPager);
+            this.PopulatePager(recordCount, pageIndex, rptPager);
 
 
         }
@@ -193,8 +194,10 @@ namespace WealthERP.OnlineOrderManagement
                 for (int i = 1; i <= pageCount; i++)
                 {
                     pages.Add(new ListItem(i.ToString(), i.ToString(), i != currentPage));
+                    
                 }
             }
+          
             rptPaging.DataSource = pages;
             rptPaging.DataBind();
         }
@@ -202,7 +205,6 @@ namespace WealthERP.OnlineOrderManagement
         {
             int pageIndex = int.Parse((sender as LinkButton).CommandArgument);
             BindTopMarketSchemes(ddlMarketCategory.SelectedValue, Boolean.Parse(ddlSIP.SelectedValue), int.Parse(ddlReturns.SelectedValue), customerVo.CustomerId, pageIndex);
-
 
         }
         protected void Page_Changed(object sender, EventArgs e)
@@ -576,6 +578,7 @@ namespace WealthERP.OnlineOrderManagement
                 HtmlTableCell tdSIP = (HtmlTableCell)e.Item.FindControl("tdSIP");
                 HtmlTableCell tdBuy = (HtmlTableCell)e.Item.FindControl("tdBuy");
                 HtmlTableCell tdAction = (HtmlTableCell)e.Item.FindControl("tdAction");
+                HtmlTableCell tdWatch = (HtmlTableCell)e.Item.FindControl("tdWatch");
                 LinkButton  lbSchemeName=(LinkButton)e.Item.FindControl("lbSchemeName");
                 Label IsSchemePurchege = (Label)e.Item.FindControl("lblIsPurchase");
                 Label IsSchemeSIPType = (Label)e.Item.FindControl("lblIsSIP");
@@ -589,6 +592,8 @@ namespace WealthERP.OnlineOrderManagement
                 thNFOAmt.Visible = false;
                 thNFOcategory.Visible = false;
                 thReturn.Visible = true;
+                thWatch.Visible = true;
+                tdWatch.Visible = true;
                 thNAV.Visible = true;
                 tdNAV.Visible = true;
                 tdReturn.Visible = true;
@@ -598,6 +603,7 @@ namespace WealthERP.OnlineOrderManagement
                 tdSIP.Visible = false;
                 thBuy.Visible = false;
                 tdBuy.Visible = false;
+                th1.Visible = true;
                 if (!Boolean.Parse(IsSchemePurchege.Text))
                 {
                     ddlAction.Items[1].Enabled = false;
@@ -626,6 +632,8 @@ namespace WealthERP.OnlineOrderManagement
                     tdSIP.Visible = false;
                     tdAction.Visible = true;
                     th1.Visible = true;
+                    thWatch.Visible = false;
+                    tdWatch.Visible = false;
                     if (!Convert.ToBoolean(rblNFOType.SelectedValue)){
 
                         thBuy.Visible = false;
@@ -660,7 +668,7 @@ namespace WealthERP.OnlineOrderManagement
            rptTopMarketSchemes.DataSource = dtTopMarketSchemes;
            rptTopMarketSchemes.DataBind();
            rptTopMarketSchemes.Visible = true;
-           this.PopulatePager(recordCount, 1, rpTopPager);
+           this.PopulatePager(recordCount, PageIndex, rpTopPager);
 
 
         }

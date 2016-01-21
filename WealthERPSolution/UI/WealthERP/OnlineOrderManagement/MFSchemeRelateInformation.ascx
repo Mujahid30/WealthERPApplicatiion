@@ -43,7 +43,7 @@
 </script>
 
 <style type="text/css">
-    @media only screen and (max-width: 850px)
+    @media only screen and (max-width: 900px)
     {
         /* Force table to not be like tables anymore */    #no-more-tables table, #no-more-tables thead, #no-more-tables tbody, #no-more-tables th, #no-more-tables td, #no-more-tables tr
         {
@@ -195,6 +195,54 @@
         display: none;
     }
 </style>
+<style type="text/css">
+    body
+    {
+        font-family: Arial;
+        font-size: 10pt;
+    }
+    .Repeater, .Repeater td, .Repeater td
+    {
+        border: 1px solid #ccc;
+    }
+    .Repeater td
+    {
+        background-color: #eee !important;
+    }
+    .Repeater th
+    {
+        background-color: #6C6C6C !important;
+        color: White;
+        font-size: 10pt;
+        line-height: 200%;
+    }
+    .Repeater span
+    {
+        color: black;
+        font-size: 10pt;
+        line-height: 200%;
+    }
+    .page_enabled, .page_disabled
+    {
+        display: inline-block;
+        height: 20px;
+        min-width: 20px;
+        line-height: 20px;
+        text-align: center;
+        text-decoration: none;
+        border: 1px solid #ccc;
+    }
+    .page_enabled
+    {
+        background-color: #eee;
+        color: #000;
+    }
+    .page_disabled
+    {
+        background-color: #6C6C6C;
+        color: #fff !important;
+    }
+</style>
 
 <script src="../Scripts/bootstrap.js" type="text/javascript"></script>
 
@@ -328,7 +376,6 @@
                                 <div class="col-md-1">
                                     <asp:Button ID="btnTopRated" runat="server" class="btn btn-sm btn-primary" Text="GO"
                                         OnClick="btnTopRated_OnClick"></asp:Button></div>
-                               
                             </div>
                         </div>
                         <div class="no-more-tables">
@@ -405,7 +452,6 @@
                                                 <td data-title="SIP" runat="server" visible="false" id="tdSIP">
                                                     <asp:LinkButton ID="lbSIP" runat="server" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'
                                                         CommandName="SIP" Visible='<%# Eval("IsSchemeSIPType")%>'> <img src="../Images/SIP_BIG_Buttons.png" height="30px" width="50px"/>  </asp:LinkButton>
-                                                        
                                                 </td>
                                                 <td data-title="Action" runat="server" id="tdAction">
                                                     <asp:DropDownList ID="ddlMarketlAction" runat="server" AutoPostBack="true" CssClass="cmbField"
@@ -414,8 +460,10 @@
                                                         <asp:ListItem Text="Buy" Value="Buy"></asp:ListItem>
                                                         <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
                                                     </asp:DropDownList>
-                                                     <asp:Label ID="lblIsPurchase" runat="server" Text='<%# Eval("IsSchemePurchege")%>' Font-Size="Small" Visible="false"></asp:Label>
-                                                      <asp:Label ID="lblIsSIP" runat="server" Text='<%# Eval("IsSchemeSIPType")%>' Font-Size="Small" Visible="false"></asp:Label>
+                                                    <asp:Label ID="lblIsPurchase" runat="server" Text='<%# Eval("IsSchemePurchege")%>'
+                                                        Font-Size="Small" Visible="false"></asp:Label>
+                                                    <asp:Label ID="lblIsSIP" runat="server" Text='<%# Eval("IsSchemeSIPType")%>' Font-Size="Small"
+                                                        Visible="false"></asp:Label>
                                                 </td>
                                                 <td data-title="Mode" runat="server" visible="true" id="td1">
                                                     <asp:Label ID="Label2" runat="server" Text='<%# Eval("Mode")%> ' Font-Size="Small"></asp:Label>
@@ -441,7 +489,7 @@
                                     <ItemTemplate>
                                         <asp:LinkButton ID="lnkPage" runat="server" Text='<%#Eval("Text") %>' CommandArgument='<%# Eval("Value") %>'
                                             CssClass='<%# Convert.ToBoolean(Eval("Enabled")) ? "page_enabled" : "page_disabled" %>'
-                                            OnClick="rpTopPager_Changed"></asp:LinkButton>
+                                            OnClick="rpTopPager_Changed" OnClientClick='<%# !Convert.ToBoolean(Eval("Enabled")) ? "return false;" : "" %>'></asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:Repeater>
                             </div>
@@ -486,8 +534,10 @@
                                     <asp:Button ID="btnTopPeformers" runat="server" class="btn btn-sm btn-primary" Text="GO"
                                         OnClick="btnTopPeformers_OnClick"></asp:Button>
                                 </div>
-                                <div class="col-md-1"></div>
-                                <div class="col-md-1" style="padding:5px 0px 0px 0px;  font-family: Times New Roman; width:4.2%">
+                                <div class="col-md-1">
+                                </div>
+                                <div class="col-md-1" style="padding: 5px 0px 0px 0px; font-family: Times New Roman;
+                                    width: 4.2%">
                                     Sort On:
                                 </div>
                                 <div class="col-md-2" style="padding: 1px !important;">
@@ -542,7 +592,7 @@
                                             <th data-title="Mode" class="alignCenter" runat="server" visible="true" id="th4">
                                                 Mode
                                             </th>
-                                            <th data-title="Watch" class="alignCenter">
+                                            <th data-title="Watch" class="alignCenter" runat="server" visible="true" id="thWatch">
                                                 Watch
                                             </th>
                                         </tr>
@@ -610,13 +660,15 @@
                                                             <asp:ListItem Text="Buy" Value="Buy"></asp:ListItem>
                                                             <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
                                                         </asp:DropDownList>
-                                                          <asp:Label ID="lblIsPurchase" runat="server" Text='<%# Eval("IsSchemePurchege")%>' Font-Size="Small" Visible="false"></asp:Label>
-                                                      <asp:Label ID="lblIsSIP" runat="server" Text='<%# Eval("IsSchemeSIPType")%>' Font-Size="Small" Visible="false"></asp:Label>
+                                                        <asp:Label ID="lblIsPurchase" runat="server" Text='<%# Eval("IsSchemePurchege")%>'
+                                                            Font-Size="Small" Visible="false"></asp:Label>
+                                                        <asp:Label ID="lblIsSIP" runat="server" Text='<%# Eval("IsSchemeSIPType")%>' Font-Size="Small"
+                                                            Visible="false"></asp:Label>
                                                     </td>
                                                     <td data-title="Mode" runat="server" visible="true" id="td1">
                                                         <asp:Label ID="Label2" runat="server" Text='<%# Eval("Mode")%> ' Font-Size="Small"></asp:Label>
                                                     </td>
-                                                    <td data-title="Watch">
+                                                    <td data-title="Watch" runat="server" visible="true" id="tdWatch">
                                                         <asp:LinkButton ID="lbRemoveWatch" runat="server" CommandName="RemoveFrmWatch" Visible='<% #(Convert.ToBoolean(Eval("IsInWatch"))==true) ? true : false %>'
                                                             Font-Size="Small" CommandArgument='<%# Eval("PASP_SchemePlanCode")%>'>Remove <span class="glyphicon glyphicon-dashboard">
                             </span></asp:LinkButton>
@@ -653,7 +705,7 @@
         <asp:HiddenField ID="hfIsSchemeDetails" runat="server" />
         <asp:HiddenField ID="hfNFOType" runat="server" />
         <asp:HiddenField ID="hfIsSIP" runat="server" />
-         <asp:HiddenField ID="hfSortOn" runat="server" />
+        <asp:HiddenField ID="hfSortOn" runat="server" />
     </ContentTemplate>
     <Triggers>
     </Triggers>
