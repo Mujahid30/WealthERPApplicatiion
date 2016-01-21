@@ -204,7 +204,7 @@
                 </div>
                 <div class="col-md-2" style="margin-left: 0%;">
                     <div>
-                        <b style="font-family: Times New Roman; text-align: center;">NAV Day Change</b>
+                        <b style="font-family: Times New Roman; text-align: center;">NAV Change</b>
                     </div>
                     <div>
                         <asp:Image runat="server" ID="ImagNAV" /><asp:Label ID="lblNAVDiff" runat="server"></asp:Label>
