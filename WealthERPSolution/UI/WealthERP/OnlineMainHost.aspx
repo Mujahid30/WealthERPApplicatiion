@@ -830,12 +830,12 @@
                     Demo</a> </li>
             </ul>
         </div>
-        <div runat="server" style=" padding: 0px 0px 0px 0px; max-width: 1285px;
+       <div runat="server" style="margin: 2px 15px 15px 15px; padding: 0px 0px 0px 0px; max-width: 1285px;
             min-width: 940px; clear: both; height: 20px; color: #fff;  background: #000;
             font-family: Times New Roman; font-size: small" id="dvNews" class="col-md-12">
-            <div class="col-md-1" style="margin: 0px 0px 0px 0px;width: 5%; padding-right: 2px; margin-right: 2px; padding-left: 2px;
+            <div class="col-md-1" style="margin: 0px 0px 0px 0px;width:5%; padding-right: 0px; margin-right: 0px; padding-left: 4px;
                 color: #000; background: #fff">
-            <%--<div class="col-md-1" style="font-size: small; width: 7.33333333%;
+            <%--<div class="col-md-1" style="margin:2px 15px 15px 15px;font-size: small; width: 6%;
                 color: #000; background: #fff; padding: 0px 0px 1px 1px">--%>
                 <b>Fund NEWS </b>
             </div>
