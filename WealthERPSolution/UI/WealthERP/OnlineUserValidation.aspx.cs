@@ -16,7 +16,9 @@ namespace WealthERP
             if (Session["Loaded"] != null && Convert.ToBoolean(Session["Loaded"]) == true)
             {
                 Session["Loaded"] = false;
-                Response.Redirect("OnlineMainHost.aspx");
+                //Response.Redirect("OnlineMainHost.aspx");
+                Page.ClientScript.RegisterStartupScript(this.GetType(),
+                                   "pageloadscript33", "SessionOut()", true);
             }
             else
             {
