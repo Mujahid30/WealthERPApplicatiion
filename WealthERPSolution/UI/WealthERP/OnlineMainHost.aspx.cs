@@ -142,8 +142,8 @@ namespace WealthERP
                         dvNews.Visible = false;
                         dvTransact.Visible = false;
                     }
-                    SetDemoLink(productType.ToUpper());
-                    SetFAQLink(productType.ToUpper());
+                    //SetDemoLink(productType.ToUpper());
+                    //SetFAQLink(productType.ToUpper());
                     SetProductTypeMenu(productType.ToUpper());
                     SetDefaultPageSetting(productType.ToUpper());
                     Session["PageDefaultSetting"] = defaultProductPageSetting;
@@ -752,64 +752,64 @@ namespace WealthERP
             //Label1.Text = innerHtml;
         
         }
-        protected void SetDemoLink(string productType)
-        {
-            OnlineOrderBo onlineOrderBo = new OnlineOrderBo();
-            string assetCategory = String.Empty;
-            string innerHtml = String.Empty;
-            DataTable dt = new DataTable();
-            switch (productType)
-            {
-                case "MF":
-                    assetCategory="MF";
-                    break;
-                case "NCD":
-                    assetCategory = "FI";
-                    break;
-                case "IPO":
-                    assetCategory = "IP";
-                    break;
-            }
+        //protected void SetDemoLink(string productType)
+        //{
+        //    OnlineOrderBo onlineOrderBo = new OnlineOrderBo();
+        //    string assetCategory = String.Empty;
+        //    string innerHtml = String.Empty;
+        //    DataTable dt = new DataTable();
+        //    switch (productType)
+        //    {
+        //        case "MF":
+        //            assetCategory="MF";
+        //            break;
+        //        case "NCD":
+        //            assetCategory = "FI";
+        //            break;
+        //        case "IPO":
+        //            assetCategory = "IP";
+        //            break;
+        //    }
            
-            dt = onlineOrderBo.GetAdvertisementData(assetCategory, "Demo");
-            //Page.ClientScript.RegisterStartupScript(this.GetType(), "SetDemo", @"window.open('ReferenceFiles/HelpVideo.htm?Link=" + dt.Rows[0][0].ToString() + "', 'newwindow', 'width=655, height=520'); ", true);
-            if (dt.Rows.Count > 0)
-                lnkDemo.OnClientClick = @"window.open('ReferenceFiles/HelpVideo.htm?Link=" + dt.Rows[0][0].ToString() + "', 'newwindow', 'width=655, height=520'); ";
+        //    dt = onlineOrderBo.GetAdvertisementData(assetCategory, "Demo");
+        //    //Page.ClientScript.RegisterStartupScript(this.GetType(), "SetDemo", @"window.open('ReferenceFiles/HelpVideo.htm?Link=" + dt.Rows[0][0].ToString() + "', 'newwindow', 'width=655, height=520'); ", true);
+        //    if (dt.Rows.Count > 0)
+        //        lnkDemo.OnClientClick = @"window.open('ReferenceFiles/HelpVideo.htm?Link=" + dt.Rows[0][0].ToString() + "', 'newwindow', 'width=655, height=520'); ";
             
-        }
-        protected void SetFAQLink(string productType)
-        {
-           // if (Page.Request.Headers["x-SBI-PType"] != null && Page.Request.Headers["x-SBI-PType"] != "")
-           // {
-           //     productType = Page.Request.Headers["x-SBI-PType"];
-           // }
-           //else if (Request.QueryString["x-SBI-PType"] != null && Request.QueryString["x-SBI-PType"] != "")
-           // {
-           //     productType = Request.QueryString["x-SBI-PType"];
-           // }
+        //}
+        //protected void SetFAQLink(string productType)
+        //{
+        //   // if (Page.Request.Headers["x-SBI-PType"] != null && Page.Request.Headers["x-SBI-PType"] != "")
+        //   // {
+        //   //     productType = Page.Request.Headers["x-SBI-PType"];
+        //   // }
+        //   //else if (Request.QueryString["x-SBI-PType"] != null && Request.QueryString["x-SBI-PType"] != "")
+        //   // {
+        //   //     productType = Request.QueryString["x-SBI-PType"];
+        //   // }
 
-            OnlineOrderBo onlineOrderBo = new OnlineOrderBo();
-            string assetCategory = String.Empty;
+        //    OnlineOrderBo onlineOrderBo = new OnlineOrderBo();
+        //    string assetCategory = String.Empty;
           
-            DataTable dt = new DataTable();
-            switch (productType)
-            {
-                case "MF":
-                    assetCategory = "MF";
-                    break;
-                case "NCD":
-                    assetCategory = "FI";
-                    break;
-                case "IPO":
-                    assetCategory = "IP";
-                    break;
-            }
-            dt = onlineOrderBo.GetAdvertisementData(assetCategory, "FAQ");
-            string path = ConfigurationManager.AppSettings["BANNER_IMAGE_PATH"].ToString();
-            //Response.Redirect(path + dt.Rows[0][0].ToString());
-            if(dt.Rows.Count>0)
-                lnkFAQ.OnClientClick = @"window.open('" + path.Replace("~", "..") + dt.Rows[0][0].ToString() + "','_blank'); ";
-        } 
+        //    DataTable dt = new DataTable();
+        //    switch (productType)
+        //    {
+        //        case "MF":
+        //            assetCategory = "MF";
+        //            break;
+        //        case "NCD":
+        //            assetCategory = "FI";
+        //            break;
+        //        case "IPO":
+        //            assetCategory = "IP";
+        //            break;
+        //    }
+        //    dt = onlineOrderBo.GetAdvertisementData(assetCategory, "FAQ");
+        //    string path = ConfigurationManager.AppSettings["BANNER_IMAGE_PATH"].ToString();
+        //    //Response.Redirect(path + dt.Rows[0][0].ToString());
+        //    if(dt.Rows.Count>0)
+        //        lnkFAQ.OnClientClick = @"window.open('" + path.Replace("~", "..") + dt.Rows[0][0].ToString() + "','_blank'); ";
+        //} 
 
     }
 }
