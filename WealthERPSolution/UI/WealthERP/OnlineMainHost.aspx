@@ -116,7 +116,7 @@
     function GetSchemePlanCode(source, eventArgs) {
         isItemSelected = true;
         document.getElementById("<%= schemeCode.ClientID %>").value = eventArgs.get_value();
-        //        LoadBottomPanelFromMainMenu('MFSchemeDetails', '&schemeCode=' + eventArgs.get_value());
+        //        LoadBottomPanelControl('MFSchemeDetails', '&schemeCode=' + eventArgs.get_value());
         return false;
     }
     function ddlchange(ddl) {
@@ -687,18 +687,18 @@
         </div>
         <div id="mainmenuMF" runat="server" style="width: 100%; clear: both;">
             <ul id="menuMF">
-                <li><a onclick="LoadBottomPanelFromMainMenu('MFSchemeRelateInformation','login');">HOME</a></li>
+                <li><a onclick="LoadBottomPanelControl('MFSchemeRelateInformation','login');">HOME</a></li>
                 <li><a onclick="" class="drop">MARKET</a>
                     <div class="dropdown_1column">
                         <div class="col_1">
                             <ul class="greybox">
-                                <li><a onclick="LoadBottomPanelFromMainMenu('MFSchemeDetails','login');">SCHEME RESEARCH</a></li>
-                                <li><a onclick="LoadBottomPanelFromMainMenu('OnlineMFSchemeCompare','login');">SCHEME COMPARE</a></li>
-                                <li><a onclick="LoadBottomPanelFromMainMenu('MFSchemeRelateInformation','?FilterType=NFO');">
+                                <li><a onclick="LoadBottomPanelControl('MFSchemeDetails','login');">SCHEME RESEARCH</a></li>
+                                <li><a onclick="LoadBottomPanelControl('OnlineMFSchemeCompare','login');">SCHEME COMPARE</a></li>
+                                <li><a onclick="LoadBottomPanelControl('MFSchemeRelateInformation','?FilterType=NFO');">
                                     NFO</a></li>
-                                <li><a onclick="LoadBottomPanelFromMainMenu('MFSchemeRelateInformation','?FilterType=watchList');">
+                                <li><a onclick="LoadBottomPanelControl('MFSchemeRelateInformation','?FilterType=watchList');">
                                     MY WATCHLIST</a></li>
-                                <li><a onclick="LoadBottomPanelFromMainMenu('ProductOnlineFundNews','login');">NEWS</a></li>
+                                <li><a onclick="LoadBottomPanelControl('ProductOnlineFundNews','login');">NEWS</a></li>
                             </ul>
                         </div>
                     </div>
@@ -707,9 +707,9 @@
                     <div class="dropdown_1column">
                         <div class="col_1">
                             <ul class="greybox">
-                                <li><a onclick="LoadBottomPanelFromMainMenu('OnlineCustomerOrderandTransactionBook','login');">
+                                <li><a onclick="LoadBottomPanelControl('OnlineCustomerOrderandTransactionBook','login');">
                                     ORDER BOOK</a> </li>
-                                <li><a onclick="LoadBottomPanelFromMainMenu('SIPBookSummmaryList','?systematicType=SIP');">
+                                <li><a onclick="LoadBottomPanelControl('SIPBookSummmaryList','?systematicType=SIP');">
                                     SIP BOOK</a></li>
                             </ul>
                         </div>
@@ -719,14 +719,14 @@
                     <div class="dropdown_1column">
                         <div class="col_1">
                             <ul class="greybox">
-                                <li><a onclick="LoadBottomPanelFromMainMenu('CustomerMFUnitHoldingList','login');">MF HOLDINGS</a></li>
+                                <li><a onclick="LoadBottomPanelControl('CustomerMFUnitHoldingList','login');">MF HOLDINGS</a></li>
                             </ul>
                         </div>
                     </div>
                 </li>
-                <li class="menu_right"><a onclick="LoadBottomPanelFromMainMenu('FAQandDemo','?Cat=MF&TYP=FAQ');">
+                <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=MF&TYP=FAQ');">
                     FAQ</a> </li>
-                <li class="menu_right"><a onclick="LoadBottomPanelFromMainMenu('FAQandDemo','?Cat=MF&TYP=Demo');">
+                <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=MF&TYP=Demo');">
                     Demo</a> </li>
                 <div id="lisearchscheme" class="menu_right">
                     <asp:TextBox runat="server" ID="SchemeSearch" AutoPostBack="true" OnTextChanged="SchemeSearch_OnTextChanged"
@@ -751,11 +751,11 @@
                     <div class="dropdown_1column">
                         <div class="col_1">
                             <ul class="greybox">
-                                <li><a onclick="LoadBottomPanelFromMainMenu('NCDIssueList','?BondType=FISDSD');">NCD ISSUE
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueList','?BondType=FISDSD');">NCD ISSUE
                                     LIST</a></li>
-                                <li><a onclick="LoadBottomPanelFromMainMenu('NCDIssueList','?BondType=FISSGB');">SGB ISSUE
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueList','?BondType=FISSGB');">SGB ISSUE
                                     LIST</a></li>
-                                <li><a onclick="LoadBottomPanelFromMainMenu('NCDIssueList','?BondType=FITFTF');">NCD TAX
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueList','?BondType=FITFTF');">NCD TAX
                                     FREE LIST</a></li>
                             </ul>
                         </div>
@@ -765,10 +765,10 @@
                     <div class="dropdown_1column">
                         <div class="col_1">
                             <ul class="greybox">
-                                <li><a onclick="LoadBottomPanelFromMainMenu('NCDIssueBooks','?BondType=FISDSD');">NCD BOOK</a>
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueBooks','?BondType=FISDSD');">NCD BOOK</a>
                                 </li>
-                                <li><a onclick="LoadBottomPanelFromMainMenu('NCDIssueBooks','?BondType=FISSGB');">SGB BOOK</a></li>
-                                <li><a onclick="LoadBottomPanelFromMainMenu('NCDIssueBooks','?BondType=FITFTF');">NCD TAX
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueBooks','?BondType=FISSGB');">SGB BOOK</a></li>
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueBooks','?BondType=FITFTF');">NCD TAX
                                     FREE BOOK</a></li>
                             </ul>
                         </div>
@@ -778,19 +778,19 @@
                     <div class="dropdown_1column">
                         <div class="col_1">
                             <ul class="greybox">
-                                <li><a onclick="LoadBottomPanelFromMainMenu('NCDIssueHoldings','?BondType=FISDSD');">NCD
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueHoldings','?BondType=FISDSD');">NCD
                                     HOLDINGS</a></li>
-                                <li><a onclick="LoadBottomPanelFromMainMenu('NCDIssueHoldings','?BondType=FISSGB');">SGB
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueHoldings','?BondType=FISSGB');">SGB
                                     HOLDINGS</a></li>
-                                <li><a onclick="LoadBottomPanelFromMainMenu('NCDIssueHoldings','?BondType=FITFTF');">NCD
+                                <li><a onclick="LoadBottomPanelControl('NCDIssueHoldings','?BondType=FITFTF');">NCD
                                     TAX FREE HOLDINGS</a></li>
                             </ul>
                         </div>
                     </div>
                 </li>
-                <li class="menu_right"><a onclick="LoadBottomPanelFromMainMenu('FAQandDemo','?Cat=NCD&TYP=FAQ');">
+                <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=NCD&TYP=FAQ');">
                     FAQ</a> </li>
-                <li class="menu_right"><a onclick="LoadBottomPanelFromMainMenu('FAQandDemo','?Cat=NCD&TYP=Demo');">
+                <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=NCD&TYP=Demo');">
                     Demo</a> </li>
             </ul>
         </div>
@@ -800,7 +800,7 @@
                     <div class="dropdown_1column">
                         <div class="col_1">
                             <ul class="greybox">
-                                <li><a onclick="LoadBottomPanelFromMainMenu('IPOIssueList','login');">IPO/FPO ISSUE LIST</a></li>
+                                <li><a onclick="LoadBottomPanelControl('IPOIssueList','login');">IPO/FPO ISSUE LIST</a></li>
                             </ul>
                         </div>
                     </div>
@@ -809,7 +809,7 @@
                     <div class="dropdown_1column">
                         <div class="col_1">
                             <ul class="greybox">
-                                <li><a onclick="LoadBottomPanelFromMainMenu('CustomerIPOOrderBook','login');">IPO/FPO BOOK</a>
+                                <li><a onclick="LoadBottomPanelControl('CustomerIPOOrderBook','login');">IPO/FPO BOOK</a>
                                 </li>
                             </ul>
                         </div>
@@ -819,14 +819,14 @@
                     <div class="dropdown_1column">
                         <div class="col_1">
                             <ul class="greybox">
-                                <li><a onclick="LoadBottomPanelFromMainMenu('CustomerIPOHolding','login');">IPO/FPO HOLDINGS</a></li>
+                                <li><a onclick="LoadBottomPanelControl('CustomerIPOHolding','login');">IPO/FPO HOLDINGS</a></li>
                             </ul>
                         </div>
                     </div>
                 </li>
-                <li class="menu_right"><a onclick="LoadBottomPanelFromMainMenu('FAQandDemo','?Cat=IPO&TYP=FAQ');">
+                <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=IPO&TYP=FAQ');">
                     FAQ</a> </li>
-                <li class="menu_right"><a onclick="LoadBottomPanelFromMainMenu('FAQandDemo','?Cat=IPO&TYP=Demo');">
+                <li class="menu_right"><a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=IPO&TYP=Demo');">
                     Demo</a> </li>
             </ul>
         </div>
@@ -923,8 +923,7 @@
                 src="OnlineTopHost.aspx" width="100%" scrolling="no"></iframe>
         </div>
     </div>
-   
-    <asp:Button ID="btnPostBackforSession" runat="server" Style="display: none" />
+    </div>
     <asp:HiddenField ID="schemeCode" runat="server" />
     <asp:HiddenField ID="hdnTransactType" runat="server" />
     </form>
