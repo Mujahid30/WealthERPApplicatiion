@@ -1604,11 +1604,11 @@
                                                 </telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn DataField="AIIC_MInBidAmount" HeaderStyle-Width="200px"
                                                     CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                                    HeaderText="Min Bid Amount" UniqueName="AIIC_MInBidAmount" SortExpression="AIIC_MInBidAmount">
+                                                    HeaderText="Min Bid Gram" UniqueName="AIIC_MInBidAmount" SortExpression="AIIC_MInBidAmount">
                                                 </telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn DataField="AIIC_MaxBidAmount" HeaderStyle-Width="200px"
                                                     CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                                    HeaderText="Max Bid Amount" UniqueName="AIIC_MaxBidAmount" SortExpression="AIIC_MaxBidAmount">
+                                                    HeaderText="Max Bid Gram" UniqueName="AIIC_MaxBidAmount" SortExpression="AIIC_MaxBidAmount">
                                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                 </telerik:GridBoundColumn>
                                                 <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
@@ -1856,10 +1856,10 @@
                                                                                 SortExpression="WCMV_LookupId" Visible="false">
                                                                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                             </telerik:GridBoundColumn>
-                                                                            <telerik:GridTemplateColumn HeaderText="Min Investment Amount" ShowFilterIcon="false"
+                                                                            <telerik:GridTemplateColumn HeaderText="Min Investment Gram" ShowFilterIcon="false"
                                                                                 AllowFiltering="false" UniqueName="MinInvestmentAmt">
                                                                                 <HeaderTemplate>
-                                                                                    <asp:Label ID="lblMinInvestmentAmount" runat="server" Text="Min Investment Amount"></asp:Label>
+                                                                                    <asp:Label ID="lblMinInvestmentAmount" runat="server" Text="Min Investment Gram"></asp:Label>
                                                                                 </HeaderTemplate>
                                                                                 <ItemTemplate>
                                                                                     <asp:TextBox ID="txtMinInvestmentAmount" runat="server" CssClass="txtField"></asp:TextBox>
@@ -1879,10 +1879,10 @@
                                                                               "[0-9]\d*(\.\d?[0-9])?$"  "[0-9]\d*(\.\d?[0-9])?$"--%>
                                                                                 </ItemTemplate>
                                                                             </telerik:GridTemplateColumn>
-                                                                            <telerik:GridTemplateColumn HeaderText="Max Investment Amount" ShowFilterIcon="false"
+                                                                            <telerik:GridTemplateColumn HeaderText="Max Investment Gram" ShowFilterIcon="false"
                                                                                 UniqueName="MaxInvestmentAmt" AllowFiltering="false">
                                                                                 <HeaderTemplate>
-                                                                                    <asp:Label ID="lblMaxInvestmentAmount" runat="server" Text="Max Investment Amount"></asp:Label>
+                                                                                    <asp:Label ID="lblMaxInvestmentAmount" runat="server" Text="Max Investment Gram"></asp:Label>
                                                                                 </HeaderTemplate>
                                                                                 <ItemTemplate>
                                                                                     <asp:TextBox ID="txtMaxInvestmentAmount" runat="server" CssClass="txtField"></asp:TextBox>
@@ -2220,9 +2220,9 @@
                                                                                 SortExpression="AIIC_InvestorCatgeoryName" AllowFiltering="true" ShowFilterIcon="false">
                                                                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                             </telerik:GridBoundColumn>
-                                                                            <telerik:GridTemplateColumn HeaderText="Coupon Rate (%)" AllowFiltering="false" HeaderStyle-Width="30px">
+                                                                            <telerik:GridTemplateColumn HeaderText="Interest rate(%)" AllowFiltering="false" HeaderStyle-Width="30px">
                                                                                 <HeaderTemplate>
-                                                                                    <asp:Label ID="lblInterest" runat="server" Text="Coupon Rate (%)"></asp:Label>
+                                                                                    <asp:Label ID="lblInterest" runat="server" Text="Interest Rate (%)"></asp:Label>
                                                                                 </HeaderTemplate>
                                                                                 <ItemTemplate>
                                                                                     <asp:TextBox ID="txtInterestRate" runat="server" CssClass="txtField" Width="40px"></asp:TextBox>
