@@ -123,11 +123,11 @@
                         <%# Eval("FolioNum")%>
                     </div>
                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
-                        <font color="#565656"><b>Fund Name:</b></font>
+                        <font color="#565656"><b>Remove:</b></font>
                         <%# Eval("AmcName")%>
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 fk-font-6" style="margin-bottom: 1.5px;">
-                        <font color="#565656"><b>Name:</b> </font>
+                        <font color="#565656"><b>Scheme:</b> </font>
                         <%# Eval("Scheme")%>
                     </div>
                     
