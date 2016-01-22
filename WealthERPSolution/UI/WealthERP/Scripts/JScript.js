@@ -15,6 +15,12 @@
     }
     return xmlHttp;
 }
+function SessionOut() {
+   
+        window.parent.location.href = '../OnlineMainHost.aspx'
+ 
+ 
+}
 function RandomGenerator() {
     var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
     var string_length = 8;
@@ -1058,7 +1064,10 @@ function calc(iframe_id) {
     }
     catch (e) { }
 }
-
+function LoadBottomPanelFromMainMenu(controlid, logintrue) {
+    parent.document.getElementById("btnPostBackforSession").click();
+    LoadBottomPanelControl(controlid, logintrue);
+}
 function LoadBottomPanelControl(controlid, logintrue) {
     if (controlid != null)
         parent.PageMethods.AjaxSetBottomPanelSession("Bottom_Panel_PageID", controlid);
