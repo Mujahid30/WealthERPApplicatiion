@@ -217,21 +217,21 @@ namespace WealthERP.OnlineOrderManagement
               <category label='Return yr3' />
               </categories>"
                 );
-            strXML.Append(@"<dataset seriesname='BenchMark-" + onlineMFSchemeDetailsVo.schemeBanchMark + "'>");
+            strXML.Append(@"<dataset seriesname='BenchMark-" + onlineMFSchemeDetailsVo.schemeBanchMark.Replace("&","and") + "'>");
             if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.benchmarkReturn1stYear))
-                strXML.AppendFormat(@"<set value ='{0}',value ='{1}'  />", onlineMFSchemeDetailsVo.benchmarkReturn1stYear, onlineMFSchemeDetailsVo.schemeBanchMark);
+                strXML.AppendFormat(@"<set value ='{0}' />", onlineMFSchemeDetailsVo.benchmarkReturn1stYear);
             if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.benchmark3rhYear))
-                strXML.AppendFormat(@"<set value ='{0}',value ='{1}'  />", onlineMFSchemeDetailsVo.benchmark3rhYear, onlineMFSchemeDetailsVo.schemeBanchMark);
+                strXML.AppendFormat(@"<set value ='{0}'  />", onlineMFSchemeDetailsVo.benchmark3rhYear);
             if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.benchmark5thdYear))
-                strXML.AppendFormat(@"<set value ='{0}',value ='{1}'  />", onlineMFSchemeDetailsVo.benchmark5thdYear, onlineMFSchemeDetailsVo.schemeBanchMark);
+                strXML.AppendFormat(@"<set value ='{0}'  />", onlineMFSchemeDetailsVo.benchmark5thdYear);
             strXML.Append(@"</dataset>");
             strXML.Append(@"<dataset seriesname='Return'>");
             if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeReturn3Year))
-                strXML.AppendFormat(@"<set value ='{0}',value ='{1}'  />", onlineMFSchemeDetailsVo.SchemeReturn3Year.ToString(), onlineMFSchemeDetailsVo.schemeBanchMark);
+                strXML.AppendFormat(@"<set value ='{0}' />", onlineMFSchemeDetailsVo.SchemeReturn3Year.ToString());
             if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeReturn5Year))
-                strXML.AppendFormat(@"<set value ='{0}',value ='{1}'  />", onlineMFSchemeDetailsVo.SchemeReturn5Year.ToString(), onlineMFSchemeDetailsVo.schemeBanchMark);
+                strXML.AppendFormat(@"<set value ='{0}'  />", onlineMFSchemeDetailsVo.SchemeReturn5Year.ToString());
             if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeReturn10Year))
-                strXML.AppendFormat(@"<set value ='{0}',value ='{1}'  />", onlineMFSchemeDetailsVo.SchemeReturn10Year.ToString(), onlineMFSchemeDetailsVo.schemeBanchMark);
+                strXML.AppendFormat(@"<set value ='{0}' />", onlineMFSchemeDetailsVo.SchemeReturn10Year.ToString());
             strXML.Append(@"</dataset>");
            
             strXML.Append(@"</chart>");
