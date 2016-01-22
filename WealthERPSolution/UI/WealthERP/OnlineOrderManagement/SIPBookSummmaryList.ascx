@@ -341,7 +341,7 @@ col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                 <font color="#565656"><b>Request Date/Time:</b></font>
-                                <%# Eval("CMFSS_CreatedOn")%>
+                                <%# Eval("CMFSS_CreatedOn","{0:dd/MM/yyyy}")%>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                 <font color="#565656"><b>Request No.:</b></font>
@@ -367,15 +367,15 @@ col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                 <font color="#565656"><b>Start date:</b></font>
-                                <%# Eval("CMFSS_StartDate")%>
+                                <%# Eval("CMFSS_StartDate","{0:dd/MM/yyyy}")%>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                 <font color="#565656"><b>End date:</b></font>
-                                <%# Eval("CMFSS_EndDate")%>
+                                <%# Eval("CMFSS_EndDate","{0:dd/MM/yyyy}")%>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                 <font color="#565656"><b>Next SIP Date:</b></font>
-                                <%# Eval("CMFSS_NextSIPDueDate")%>
+                                <%# Eval("CMFSS_NextSIPDueDate","{0:dd/MM/yyyy}")%>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                 <font color="#565656"><b>Total Installment:</b></font>
