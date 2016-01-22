@@ -450,7 +450,7 @@ namespace WealthERP.OnlineOrderManagement
             //--F(failure)
             //--W(warning)
             //--I(information)
-            trMessage.Visible = true;
+            //trMessage.Visible = true;
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','" + type.ToString() + "');", true);
         }
         protected void LoadMFTransactionPage(string pageId, int investerpage)
