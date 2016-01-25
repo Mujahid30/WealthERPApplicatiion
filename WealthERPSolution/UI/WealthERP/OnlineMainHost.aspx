@@ -680,7 +680,7 @@
             <ul id="menuMF">
                 <li>
                 <%--<a onclick="LoadBottomPanelControl('MFSchemeRelateInformation','login');">HOME</a>--%>
-                <asp:LinkButton ID="MFSchemeRelateInformation" runat="server" OnClientClick="LoadBottomPanelControl('MFSchemeRelateInformation','login');" >HOME</asp:LinkButton>
+                <asp:LinkButton ID="MFSchemeRelateInformation" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('MFSchemeRelateInformation','login');" >HOME</asp:LinkButton>
                 </li>
                 <li><a onclick="" class="drop">MARKET</a>
                     <div class="dropdown_1column">
@@ -688,24 +688,24 @@
                             <ul class="greybox">
                                 <li>
                                 <%--<a onclick="LoadBottomPanelControl('MFSchemeDetails','login');" >SCHEME RESEARCH</a>--%>
-                                <asp:LinkButton ID="LinkButton1" runat="server" OnClientClick="LoadBottomPanelControl('MFSchemeDetails','login');" >SCHEME RESEARCH</asp:LinkButton>
+                                <asp:LinkButton ID="LinkButton1" runat="server"  OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('MFSchemeDetails','login');" >SCHEME RESEARCH</asp:LinkButton>
                                 </li>
                                 <li>
                                 <%--<a onclick="LoadBottomPanelControl('OnlineMFSchemeCompare','login');">SCHEME COMPARE</a>--%>
-                                <asp:LinkButton ID="LinkButton2" runat="server" OnClientClick="LoadBottomPanelControl('OnlineMFSchemeCompare','login');" >SCHEME COMPARE</asp:LinkButton>
+                                <asp:LinkButton ID="LinkButton2" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('OnlineMFSchemeCompare','login');" >SCHEME COMPARE</asp:LinkButton>
                                 </li>
                                 <li>
                                 <%--<a onclick="LoadBottomPanelControl('MFSchemeRelateInformation','?FilterType=NFO');">NFO</a>--%>
-                                <asp:LinkButton ID="LinkButton3" runat="server" OnClientClick="LoadBottomPanelControl('MFSchemeRelateInformation','?FilterType=NFO');" >NFO</asp:LinkButton>
+                                <asp:LinkButton ID="LinkButton3" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('MFSchemeRelateInformation','?FilterType=NFO');" >NFO</asp:LinkButton>
                                 </li>
                                 <li>
-                                <asp:LinkButton ID="LinkButton6" runat="server" OnClientClick="LoadBottomPanelControl('MFSchemeRelateInformation','?FilterType=watchList');" >MY WATCHLIST</asp:LinkButton>
+                                <asp:LinkButton ID="LinkButton6" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('MFSchemeRelateInformation','?FilterType=watchList');" >MY WATCHLIST</asp:LinkButton>
                                 <%--<a onclick="LoadBottomPanelControl('MFSchemeRelateInformation','?FilterType=watchList');">
                                     MY WATCHLIST</a>--%>
                                     </li>
                                 <li>
                                 <%--<a onclick="LoadBottomPanelControl('ProductOnlineFundNews','login');">NEWS</a>--%>
-                                <asp:LinkButton ID="LinkButton7" runat="server" OnClientClick="LoadBottomPanelControl('ProductOnlineFundNews','login');" >NEWS</asp:LinkButton>
+                                <asp:LinkButton ID="LinkButton7" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('ProductOnlineFundNews','login');" >NEWS</asp:LinkButton>
                                 </li>
                             </ul>
                         </div>
@@ -716,13 +716,13 @@
                         <div class="col_1">
                             <ul class="greybox">
                                 <li>
-                                 <asp:LinkButton ID="LinkButton8" runat="server" OnClientClick="LoadBottomPanelControl('OnlineCustomerOrderandTransactionBook','login');" >ORDER BOOK</asp:LinkButton>
+                                 <asp:LinkButton ID="LinkButton8" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('OnlineCustomerOrderandTransactionBook','login');" >ORDER BOOK</asp:LinkButton>
                                <%-- <a onclick="LoadBottomPanelControl('OnlineCustomerOrderandTransactionBook','login');">
                                     ORDER BOOK</a> --%>
                                     </li>
                                 <li>
                                 
-                                <asp:LinkButton ID="LinkButton4" runat="server" OnClientClick="LoadBottomPanelControl('SIPBookSummmaryList','?systematicType=SIP');" >SIP BOOK</asp:LinkButton>
+                                <asp:LinkButton ID="LinkButton4" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('SIPBookSummmaryList','?systematicType=SIP');" >SIP BOOK</asp:LinkButton>
                                 <%--<a onclick="LoadBottomPanelControl('SIPBookSummmaryList','?systematicType=SIP');">
                                     SIP BOOK</a>--%>
                                     </li>
@@ -736,7 +736,7 @@
                             <ul class="greybox">
                                 <li>
                                <%-- <a onclick="LoadBottomPanelControl('CustomerMFUnitHoldingList','login');">MF HOLDINGS</a>--%>
-                                 <asp:LinkButton ID="LinkButton9" runat="server" OnClientClick="LoadBottomPanelControl('CustomerMFUnitHoldingList','login');" >MF HOLDINGS</asp:LinkButton>
+                                 <asp:LinkButton ID="LinkButton9" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('CustomerMFUnitHoldingList','login');" >MF HOLDINGS</asp:LinkButton>
                                 </li>
                             </ul>
                         </div>
@@ -745,12 +745,12 @@
                 <li class="menu_right">
                 <%--<a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=MF&TYP=FAQ');">
                     FAQ</a>--%>
-                    <asp:LinkButton ID="LinkButton10" runat="server" OnClientClick="LoadBottomPanelControl('FAQandDemo','?Cat=MF&TYP=FAQ');" >FAQ</asp:LinkButton>
+                    <asp:LinkButton ID="LinkButton10" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('FAQandDemo','?Cat=MF&TYP=FAQ');" >FAQ</asp:LinkButton>
                      </li>
                 <li class="menu_right">
                <%-- <a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=MF&TYP=Demo');">
                     Demo</a> --%>
-                     <asp:LinkButton ID="LinkButton5" runat="server" OnClientClick="LoadBottomPanelControl('FAQandDemo','?Cat=MF&TYP=Demo');" >Demo</asp:LinkButton>
+                     <asp:LinkButton ID="LinkButton5" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('FAQandDemo','?Cat=MF&TYP=Demo');" >Demo</asp:LinkButton>
                     </li>
                 <div id="lisearchscheme" class="menu_right">
                     <asp:TextBox runat="server" ID="SchemeSearch" AutoPostBack="true" OnTextChanged="SchemeSearch_OnTextChanged"
@@ -778,17 +778,17 @@
                                 <li>
                                 <%--<a onclick="LoadBottomPanelControl('NCDIssueList','?BondType=FISDSD');">NCD ISSUE
                                     LIST</a>--%>
-                                    <asp:LinkButton ID="LinkButton11" runat="server" OnClientClick="LoadBottomPanelControl('NCDIssueList','?BondType=FISDSD');" >NCD ISSUE LIST</asp:LinkButton>
+                                    <asp:LinkButton ID="LinkButton11" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('NCDIssueList','?BondType=FISDSD');" >NCD ISSUE LIST</asp:LinkButton>
                                     </li>
                                 <li>
                               <%--  <a onclick="LoadBottomPanelControl('NCDIssueList','?BondType=FISSGB');">SGB ISSUE
                                     LIST</a>--%>
-                                    <asp:LinkButton ID="LinkButton12" runat="server" OnClientClick="LoadBottomPanelControl('NCDIssueList','?BondType=FISSGB');" >SGB ISSUE LIST</asp:LinkButton>
+                                    <asp:LinkButton ID="LinkButton12" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('NCDIssueList','?BondType=FISSGB');" >SGB ISSUE LIST</asp:LinkButton>
                                     </li>
                                 <li>
                                 <%--<a onclick="LoadBottomPanelControl('NCDIssueList','?BondType=FITFTF');">NCD TAX
                                     FREE LIST</a>--%>
-                                    <asp:LinkButton ID="LinkButton13" runat="server" OnClientClick="LoadBottomPanelControl('NCDIssueList','?BondType=FISSGB');" >NCD TAX FREE LIST</asp:LinkButton>
+                                    <asp:LinkButton ID="LinkButton13" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('NCDIssueList','?BondType=FISSGB');" >NCD TAX FREE LIST</asp:LinkButton>
                                     </li>
                             </ul>
                         </div>
@@ -800,15 +800,15 @@
                             <ul class="greybox">
                                 <li>
                                 <%--<a onclick="LoadBottomPanelControl('NCDIssueBooks','?BondType=FISDSD');">NCD BOOK</a>--%>
-                                 <asp:LinkButton ID="LinkButton14" runat="server" OnClientClick="LoadBottomPanelControl('NCDIssueBooks','?BondType=FISDSD');" >NCD BOOK</asp:LinkButton>
+                                 <asp:LinkButton ID="LinkButton14" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('NCDIssueBooks','?BondType=FISDSD');" >NCD BOOK</asp:LinkButton>
                                 </li>
                                 <li>
                                <%-- <a onclick="LoadBottomPanelControl('NCDIssueBooks','?BondType=FISSGB');">SGB BOOK</a>--%>
-                                <asp:LinkButton ID="LinkButton15" runat="server" OnClientClick="LoadBottomPanelControl('NCDIssueBooks','?BondType=FISSGB');" >SGB BOOK</asp:LinkButton>
+                                <asp:LinkButton ID="LinkButton15" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('NCDIssueBooks','?BondType=FISSGB');" >SGB BOOK</asp:LinkButton>
                                 </li>
                                 <li>
                                 <%--<a onclick="LoadBottomPanelControl('NCDIssueBooks','?BondType=FITFTF');">NCD TAX FREE BOOK</a>--%>
-                                <asp:LinkButton ID="LinkButton16" runat="server" OnClientClick="LoadBottomPanelControl('NCDIssueBooks','?BondType=FITFTF');" >SGB BOOK</asp:LinkButton>
+                                <asp:LinkButton ID="LinkButton16" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('NCDIssueBooks','?BondType=FITFTF');" >SGB BOOK</asp:LinkButton>
                                 
                                     </li>
                             </ul>
@@ -822,16 +822,16 @@
                                 <li>
                                <%-- <a onclick="LoadBottomPanelControl('NCDIssueHoldings','?BondType=FISDSD');">NCD
                                     HOLDINGS</a>--%>
-                                 <asp:LinkButton ID="LinkButton17" runat="server" OnClientClick="LoadBottomPanelControl('NCDIssueHoldings','?BondType=FISDSD');" >NCD HOLDINGS</asp:LinkButton>   
+                                 <asp:LinkButton ID="LinkButton17" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('NCDIssueHoldings','?BondType=FISDSD');" >NCD HOLDINGS</asp:LinkButton>   
                                     </li>
                                 <li>
                                <%-- <a onclick="LoadBottomPanelControl('NCDIssueHoldings','?BondType=FISSGB');">SGB
                                     HOLDINGS</a>--%>
-                                    <asp:LinkButton ID="LinkButton18" runat="server" OnClientClick="LoadBottomPanelControl('NCDIssueHoldings','?BondType=FISSGB');" >SGB HOLDINGS</asp:LinkButton>   
+                                    <asp:LinkButton ID="LinkButton18" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('NCDIssueHoldings','?BondType=FISSGB');" >SGB HOLDINGS</asp:LinkButton>   
                                     </li>
                                 <li>
                                 <%--<a onclick="LoadBottomPanelControl('NCDIssueHoldings','?BondType=FITFTF');">NCD TAX FREE HOLDINGS</a>--%>
-                                     <asp:LinkButton ID="LinkButton19" runat="server" OnClientClick="LoadBottomPanelControl('NCDIssueHoldings','?BondType=FITFTF');" >NCD TAX FREE HOLDINGS</asp:LinkButton>   
+                                     <asp:LinkButton ID="LinkButton19" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('NCDIssueHoldings','?BondType=FITFTF');" >NCD TAX FREE HOLDINGS</asp:LinkButton>   
                                     </li>
                             </ul>
                         </div>
@@ -840,12 +840,12 @@
                 <li class="menu_right">
                <%-- <a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=NCD&TYP=FAQ');">
                     FAQ</a>--%>
-                    <asp:LinkButton ID="LinkButton20" runat="server" OnClientClick="LoadBottomPanelControl('FAQandDemo','?Cat=NCD&TYP=Demo');" >FAQ</asp:LinkButton>   
+                    <asp:LinkButton ID="LinkButton20" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('FAQandDemo','?Cat=NCD&TYP=Demo');" >FAQ</asp:LinkButton>   
                      </li>
                 <li class="menu_right">
                 <%--<a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=NCD&TYP=Demo');">
                     Demo</a> --%>
-                    <asp:LinkButton ID="LinkButton21" runat="server" OnClientClick="LoadBottomPanelControl('FAQandDemo','?Cat=NCD&TYP=Demo" >Demo</asp:LinkButton>   
+                    <asp:LinkButton ID="LinkButton21" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('FAQandDemo','?Cat=NCD&TYP=Demo" >Demo</asp:LinkButton>   
                     </li>
             </ul>
         </div>
@@ -857,7 +857,7 @@
                             <ul class="greybox">
                                 <li>
                                <%-- <a onclick="LoadBottomPanelControl('IPOIssueList','login');">IPO/FPO ISSUE LIST</a>--%>
-                                <asp:LinkButton ID="LinkButton22" runat="server" OnClientClick="LoadBottomPanelControl('IPOIssueList','login" >IPO/FPO ISSUE LIST</asp:LinkButton>   
+                                <asp:LinkButton ID="LinkButton22" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('IPOIssueList','login" >IPO/FPO ISSUE LIST</asp:LinkButton>   
                                 </li>
                             </ul>
                         </div>
@@ -867,7 +867,7 @@
                     <div class="dropdown_1column">
                         <div class="col_1">
                             <ul class="greybox"><li>
-                            <asp:LinkButton ID="LinkButton23" runat="server" OnClientClick="LoadBottomPanelControl('CustomerIPOOrderBook','login" >IPO/FPO BOOK</asp:LinkButton>   
+                            <asp:LinkButton ID="LinkButton23" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('CustomerIPOOrderBook','login" >IPO/FPO BOOK</asp:LinkButton>   
                                <%-- <a onclick="LoadBottomPanelControl('CustomerIPOOrderBook','login');">IPO/FPO BOOK</a>--%>
                                 </li>
                             </ul>
@@ -880,7 +880,7 @@
                             <ul class="greybox">
                                 <li>
                                 <%--<a onclick="LoadBottomPanelControl('CustomerIPOHolding','login');">IPO/FPO HOLDINGS</a>--%>
-                                <asp:LinkButton ID="LinkButton24" runat="server" OnClientClick="LoadBottomPanelControl('CustomerIPOHolding','login" >IPO/FPO HOLDINGS</asp:LinkButton>   
+                                <asp:LinkButton ID="LinkButton24" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('CustomerIPOHolding','login" >IPO/FPO HOLDINGS</asp:LinkButton>   
                                 </li>
                             </ul>
                         </div>
@@ -889,12 +889,12 @@
                 <li class="menu_right">
                 <%--<a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=IPO&TYP=FAQ');">
                     FAQ</a>--%>
-                    <asp:LinkButton ID="LinkButton25" runat="server" OnClientClick="LoadBottomPanelControl('FAQandDemo','?Cat=IPO&TYP=FAQ" >FAQ</asp:LinkButton>   
+                    <asp:LinkButton ID="LinkButton25" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('FAQandDemo','?Cat=IPO&TYP=FAQ" >FAQ</asp:LinkButton>   
                      </li>
                 <li class="menu_right">
                <%-- <a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=IPO&TYP=Demo');">
                     Demo</a>--%>
-                     <asp:LinkButton ID="LinkButton26" runat="server" OnClientClick="LoadBottomPanelControl('FAQandDemo','?Cat=IPO&TYP=Demo" >Demo</asp:LinkButton> 
+                     <asp:LinkButton ID="LinkButton26" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('FAQandDemo','?Cat=IPO&TYP=Demo" >Demo</asp:LinkButton> 
                     
                      </li>
             </ul>
