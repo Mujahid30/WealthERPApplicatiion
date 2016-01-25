@@ -19,6 +19,9 @@ using VoOnlineOrderManagemnet;
 using System.Globalization;
 using VoCustomerPortfolio;
 using System.Drawing;
+using System.Diagnostics;
+using Excel = Microsoft.Office.Interop.Excel;
+
 namespace WealthERP.OnlineOrderManagement
 {
     public partial class CustomerMFUnitHoldingList : System.Web.UI.UserControl
@@ -423,13 +426,65 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void btnExportFilteredData_OnClick(object sender, EventArgs e)
         {
-            rgUnitHolding.ExportSettings.OpenInNewWindow = true;
-            rgUnitHolding.ExportSettings.IgnorePaging = true;
-            rgUnitHolding.ExportSettings.HideStructureColumns = true;
-            rgUnitHolding.ExportSettings.ExportOnlyData = true;
-            rgUnitHolding.ExportSettings.FileName = "Unit Holding Details";
-            rgUnitHolding.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            rgUnitHolding.MasterTableView.ExportToExcel();
+
+            DataTable dtUnitHolding = new DataTable();
+            dtUnitHolding = (DataTable)Cache["UnitHolding" + userVo.UserId.ToString()];
+            if (dtUnitHolding.Rows.Count > 0)
+            {
+                Response.ClearContent();
+                Response.Buffer = true;
+                Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", "CustomerHoldings.xls"));
+                Response.ContentType = "application/ms-excel";
+
+                string str = string.Empty;
+                foreach (DataColumn dtcol in dtUnitHolding.Columns)
+                {
+                    Response.Write(str + dtcol.ColumnName);
+                    str = "\t";
+                }
+                Response.Write("\n");
+                foreach (DataRow dr in dtUnitHolding.Rows)
+                {
+                    str = "";
+                    for (int j = 0; j < dtUnitHolding.Columns.Count; j++)
+                    {
+                        Response.Write(str + Convert.ToString(dr[j]));
+                        str = "\t";
+                    }
+                    Response.Write("\n");
+                }
+                Response.End();
+            }
+            //string data = null;
+            //int i = 0;
+            //int j = 0;
+            //Excel.Workbook xlWorkBook;
+            //Excel.Worksheet xlWorkSheet;
+            //object misValue = System.Reflection.Missing.Value;
+
+            //Excel.Application xlApp = new Excel.Application();
+            //xlWorkBook = xlApp.Workbooks.Add(misValue);
+            //xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+
+            //for (i = 1; i <= dtUnitHolding.Rows.Count - 1; i++)
+            //{
+            //    for (j = 0; j <= dtUnitHolding.Columns.Count - 1; j++)
+            //    {
+            //        data = dtUnitHolding.Rows[i].ItemArray[j].ToString();
+            //        xlWorkSheet.Cells[i + 1, j + 1] = data;
+            //    }
+            //}
+            //Response.ContentType = "application/ms-excel";
+            //Response.AppendHeader("Content-Disposition", "attachment;filename=" + Excel.XlFileFormat.xlWorkbookNormal);
+            //string aaa = Excel.XlFileFormat.xlWorkbookNormal.ToString();
+            //Response.TransmitFile(aaa);
+            //HttpContext.Current.ApplicationInstance.CompleteRequest();
+            //Response.End();
+
+            //xlWorkBook.SaveAs("D:\\Employees.xls", Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+            //xlWorkBook.Close(true, misValue, misValue);
+            //xlApp.Quit();
+
         }
 
         public void rgUnitHolding_ItemDataBound(object sender, GridItemEventArgs e)

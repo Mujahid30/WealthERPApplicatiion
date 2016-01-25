@@ -188,7 +188,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             divChart.Visible = true;
             StringBuilder strXML = new StringBuilder();
-            strXML.Append(@"<chart  chartTopMargin='0' xAxisName='Date' toolText='NAV' flatscrollbars='1' scrollshowbuttons='0' scrollshowbuttons='0' useCrossLine='1' yAxisName='NAV' anchorBgColor='FFFFFF' bgColor='FFFFFF' showBorder='0'  canvasBgColor='FFFFFF' lineColor='2480C7'  >");
+            strXML.Append(@"<chart  chartTopMargin='0' xAxisName='Date' toolText='NAV' flatscrollbars='1' scrollshowbuttons='0' scrollshowbuttons='0' useCrossLine='1' yAxisName='NAV' anchorBgColor='FFFFFF' bgColor='FFFFFF' showBorder='0'  canvasBgColor='FFFFFF' lineColor='2480C7' decimals='7' forceDecimals='4' >");
             strXML.Append(@" <categories>");
             foreach (DataRow dr in dtNavDetails.Rows)
             {
@@ -300,6 +300,11 @@ namespace WealthERP.OnlineOrderManagement
                     lblSchemeRisk5yr.Text = onlineMFSchemeDetailsVo.SchemeRisk5Year;
                 if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeRisk10Year))
                     lblSchemeRisk10yr.Text = onlineMFSchemeDetailsVo.SchemeRisk10Year;
+                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.isPurchaseAvaliable.ToString()))
+                  ddlAction.Items[1].Enabled=false;
+                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.isSIPAvaliable.ToString()))
+                  ddlAction.Items[2].Enabled=false;
+                  
                 if (onlineMFSchemeDetailsVo.mornigStar > 0)
                 {
                     imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.mornigStar + ".png";

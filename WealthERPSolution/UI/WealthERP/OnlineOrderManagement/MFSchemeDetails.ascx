@@ -449,9 +449,7 @@
                                         <td>
                                             <span class="DetailfieldFontSize">RATING</span>
                                         </td>
-                                        <td>
-                                            <span class="DetailfieldFontSize">RETURN</span>
-                                        </td>
+                                       
                                         <td>
                                             <span class="DetailfieldFontSize">RISK</span>
                                         </td>
@@ -466,9 +464,7 @@
                                         <td>
                                             <asp:Image runat="server" ID="imgRating3yr" />
                                         </td>
-                                        <td>
-                                            <asp:Label ID="lblSchemeRetrun3yr" runat="server" CssClass="DetailfieldFontSize"> </asp:Label>
-                                        </td>
+                                       
                                         <td>
                                             <asp:Label ID="lblSchemeRisk3yr" runat="server" CssClass="DetailfieldFontSize"> </asp:Label>
                                         </td>
@@ -483,9 +479,7 @@
                                         <td>
                                             <asp:Image runat="server" ID="imgRating5yr" />
                                         </td>
-                                        <td>
-                                            <asp:Label ID="lblSchemeRetrun5yr" runat="server" CssClass="DetailfieldFontSize"></asp:Label>
-                                        </td>
+                                       
                                         <td>
                                             <asp:Label ID="lblSchemeRisk5yr" runat="server" CssClass="DetailfieldFontSize"></asp:Label>
                                         </td>
@@ -497,9 +491,7 @@
                                         <td>
                                             <asp:Image runat="server" ID="imgRating10yr" />
                                         </td>
-                                        <td>
-                                            <asp:Label ID="lblSchemeRetrun10yr" runat="server" CssClass="DetailfieldFontSize"></asp:Label>
-                                        </td>
+                                       
                                         <td>
                                             <asp:Label ID="lblSchemeRisk10yr" runat="server" CssClass="DetailfieldFontSize"></asp:Label>
                                         </td>
