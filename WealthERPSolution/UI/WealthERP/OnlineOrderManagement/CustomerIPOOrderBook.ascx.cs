@@ -328,7 +328,7 @@ namespace WealthERP.OnlineOrderManagement
                 }
             }
         }
-        public void ibtExport_OnClick(object sender, ImageClickEventArgs e)
+        public void ibtExport1_OnClick(object sender, ImageClickEventArgs e)
         {
           
             DataTable dtd = CreateIPOBookDataTable();

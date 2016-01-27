@@ -16,9 +16,7 @@
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
 <asp:ScriptManager ID="scrptMgr" runat="server">
-    <Services>
-        <asp:ServiceReference Path="AutoComplete.asmx" />
-    </Services>
+  
 </asp:ScriptManager>
 <style type="text/css">
     .ft_sort
@@ -64,6 +62,7 @@
 </style>
 
 <script type="text/javascript">
+  
     function GetBalanceQty(value) {
       
         if (value == "Cancel") {
@@ -88,8 +87,8 @@
                         </td>
                         <td align="right">
                             <asp:ImageButton ID="ibtExportSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="ibtExport_OnClick"
-                                Height="25px" Width="25px" Visible="false"></asp:ImageButton>
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="ibtExport1_OnClick"
+                               TabIndex="9"   Height="25px" Width="25px" Visible="false" CausesValidation="false"></asp:ImageButton>
                         </td>
                     </tr>
                 </table>
@@ -97,6 +96,7 @@
         </td>
     </tr>
 </table>
+<asp:Panel ID="pnlid" runat="server" DefaultButton="btnViewOrder">
 <div id="divConditional" runat="server" class="row" style="margin-left: 5%; margin-bottom: 2%;
     margin-right: 5%; padding-top: 1%; padding-bottom: 1%; height: 20%">
     <div class="col-md-12 col-xs-12 col-sm-12">
@@ -165,11 +165,13 @@
         </div>
         <div class="col-md-2">
             <br />
-            <asp:Button ID="btnViewOrder" runat="server" CssClass="btn btn-primary btn-primary"
-                Text="Go" ValidationGroup="btnViewOrder" OnClick="btnViewOrder_Click" />
+            <asp:Button ID="btnViewOrder" runat="server" UseSubmitBehavior="true" CssClass="btn btn-primary btn-primary"
+                Text="Go" ValidationGroup="btnViewOrder" OnClick="btnViewOrder_Click" CausesValidation="false"  />
         </div>
     </div>
 </div>
+</asp:Panel>
+
 <div id="Div2" class="row"  style="margin-left: 5%; margin-right: 5%; background-color: #2480C7;"
     visible="false" runat="server">
     <table width="100%">
