@@ -916,8 +916,7 @@
                 color: #000; background: #fff; padding: 0px 0px 1px 1px">--%>
                 <b>Fund News </b>
                 </div>
-            </div>
-            <div style="padding-left: 0px;" class="col-md-11">
+                 <div style="padding-left: 0px;" class="col-md-11">
                 <marquee direction="left" scrolldelay="150" onmouseover="this.stop();" onmouseout="this.start();"
                     style="border-radius: 2px;">
         <asp:datalist ItemStyle-HorizontalAlign="Center" ItemStyle-CssClass="heading" ItemStyle-Width="33%" ItemStyle-Wrap="False" id="dlNews" CellPadding="2" RepeatColumns="10" RepeatDirection="Horizontal" CellSpacing="2" Runat="server">
@@ -932,8 +931,10 @@
 </asp:datalist>
 </marquee>
             </div>
+            </div>
+           
         </div>
-    </div>
+  
     <div style="margin-top: 10px; z-index: 3;">
         <iframe name="bottomframe" class="bottomframe" width="100%" id="bottomframe" onload="javascript:calcIFrameHeight('bottomframe');"
             src="OnlineBottomHost.aspx" scrolling="no"></iframe>
