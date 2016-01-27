@@ -192,7 +192,7 @@ col-md-12 col-lg-12 divs">
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3
 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
-                                <font color="#565656"><b>Sub Category:</b></font>
+                                <font color="#565656"><b>Category:</b></font>
                                 <%# Eval("PAISC_AssetInstrumentSubCategoryName")%>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">

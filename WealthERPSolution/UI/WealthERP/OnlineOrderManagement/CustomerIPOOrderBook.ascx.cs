@@ -140,7 +140,7 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 Cache.Insert("CustomerIPOIssueBook" + userVo.UserId.ToString(), dtCustomerIssueIPOBook);
 
-            
+
                 RadGridIssueIPOBook.DataSource = dtCustomerIssueIPOBook;
                 RadGridIssueIPOBook.DataBind();
                 ibtExportSummary.Visible = true;
@@ -168,7 +168,7 @@ namespace WealthERP.OnlineOrderManagement
             {
                 GridDataItem dataItem = (GridDataItem)e.Item;
                 string Iscancel = Convert.ToString(RadGridIssueIPOBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WOS_OrderStep"]);
-               
+
                 LinkButton lnkModify = (LinkButton)dataItem.FindControl("lnkModify");
                 LinkButton lnkCancel = (LinkButton)dataItem.FindControl("lnkCancel");
                 LinkButton lbtnMarkAsReject = (LinkButton)dataItem.FindControl("lbtnMarkAsReject");
@@ -188,9 +188,9 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 if (orderstep != "" && orderstep != "UB")
                 {
-                   lnkModify.Enabled = false;
-                   lnkCancel.Enabled = false;
-                   lnkCancel.OnClientClick = "";
+                    lnkModify.Enabled = false;
+                    lnkCancel.Enabled = false;
+                    lnkCancel.OnClientClick = "";
 
                 }
                 if (IsCancelAllowed == false)
@@ -202,14 +202,14 @@ namespace WealthERP.OnlineOrderManagement
                 if (Iscancel == "CANCELLED" || Iscancel == "EXECUTED" || Iscancel == "ACCEPTED" || Iscancel == "REJECTED")
                 {
                     lbtnMarkAsReject.Enabled = false;
-                    lnkModify.Enabled  = false;
-                    lnkCancel.Enabled  = false;
+                    lnkModify.Enabled = false;
+                    lnkCancel.Enabled = false;
                     lnkCancel.OnClientClick = "";
                 }
 
                 if (isModification != false && Iscancel != "CANCELLED" && Iscancel != "EXECUTED" && Iscancel != "ACCEPTED" && Iscancel != "REJECTED" && (orderstep == "" || orderstep == "UB"))
                 {
-                   lnkModify.Enabled = true;
+                    lnkModify.Enabled = true;
                 }
                 if (IsCancelAllowed != false && IsCancelled != true && Iscancel != "CANCELLED" && Iscancel != "EXECUTED" && Iscancel != "ACCEPTED" && Iscancel != "REJECTED" && (orderstep == "" || orderstep == "UB"))
                 {
@@ -223,13 +223,13 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 if (Iscancel == "ORDERED" && IsCancelAllowed != false)
                 {
-                   lnkCancel.Enabled = true;
+                    lnkCancel.Enabled = true;
 
                 }
                 if (Convert.ToDateTime(CloseDate) <= DateTime.Now)
                 {
-                    lnkModify.Enabled  = false;
-                    lnkCancel.Enabled  = false;
+                    lnkModify.Enabled = false;
+                    lnkCancel.Enabled = false;
                     lbtnMarkAsReject.Enabled = false;
                     lnkCancel.OnClientClick = "";
 
@@ -249,12 +249,12 @@ namespace WealthERP.OnlineOrderManagement
             if (PnlChild.Visible == false)
             {
                 PnlChild.Visible = true;
-               
+
             }
             else if (PnlChild.Visible == true)
             {
                 PnlChild.Visible = false;
-              
+
             }
             DataTable dtIPOOrderBook = onlineIPOOrderBo.GetCustomerIPOIssueSubBook(customerVo.CustomerId, strIssuerId, orderId);
             gvIPODetails.DataSource = dtIPOOrderBook;
@@ -330,16 +330,73 @@ namespace WealthERP.OnlineOrderManagement
         }
         public void ibtExport_OnClick(object sender, ImageClickEventArgs e)
         {
-            RadGridIssueIPOBook.MasterTableView.HierarchyLoadMode = GridChildLoadMode.ServerBind;
-            RadGridIssueIPOBook.ExportSettings.OpenInNewWindow = true;
-            RadGridIssueIPOBook.ExportSettings.IgnorePaging = true;
-            RadGridIssueIPOBook.ExportSettings.HideStructureColumns = true;
-            RadGridIssueIPOBook.ExportSettings.ExportOnlyData = true;
-            RadGridIssueIPOBook.ExportSettings.FileName = "IPO Order Book";
-            RadGridIssueIPOBook.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            RadGridIssueIPOBook.MasterTableView.ExportToExcel();
+          
+            DataTable dtd = CreateIPOBookDataTable();
+            DataTable dts = (DataTable)Cache["CustomerIPOIssueBook" + userVo.UserId.ToString()];
+            System.Data.DataView view = new System.Data.DataView(dts);
+            System.Data.DataTable selected =
+                    view.ToTable("Selected", false, "AIM_IssueName", "CO_OrderDate", "CO_OrderId", "IssueStartDateANDTime", "IssueEndDateANDTime", "Amounttoinvest", "AmountBid", "WOS_OrderStep", "Bidding_Exchange", "COS_Reason");
+           
+            foreach (DataRow sourcerow in dts.Rows)
+            {
+                DataRow destRow = dtd.NewRow();
+                destRow["Scrip Name"] = sourcerow["AIM_IssueName"];
+                destRow["Transaction Date"] = sourcerow["CO_OrderDate"];
+                destRow["Transaction No"] = sourcerow["CO_OrderId"];
+                destRow["Start Date"] = sourcerow["IssueStartDateANDTime"];
+                destRow["End Date"] = sourcerow["IssueEndDateANDTime"];
+                destRow["Amount Invested"] = sourcerow["Amounttoinvest"];
+                destRow["Bid Amount"] = sourcerow["AmountBid"];
+                destRow["Status"] = sourcerow["WOS_OrderStep"];
+                destRow["Bidding Exchange"] = sourcerow["Bidding_Exchange"];
+                destRow["Reject Reason"] = sourcerow["COS_Reason"];
+                dtd.Rows.Add(destRow);
+            }
+            if (dtd.Rows.Count > 0)
+            {
+                Response.ClearContent();
+                Response.Buffer = true;
+                Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", "CustomerIPOOrderBook.xls"));
+                Response.ContentType = "application/ms-excel";
+
+                string str = string.Empty;
+                foreach (DataColumn dtcol in dtd.Columns)
+                {
+                    Response.Write(str + dtcol.ColumnName);
+                    str = "\t";
+                }
+                Response.Write("\n");
+                foreach (DataRow dr in dtd.Rows)
+                {
+                    str = "";
+                    for (int j = 0; j < dtd.Columns.Count; j++)
+                    {
+                        Response.Write(str + Convert.ToString(dr[j]));
+                        str = "\t";
+                    }
+                    Response.Write("\n");
+                }
+                Response.End();
+            }
+        }
+        protected DataTable CreateIPOBookDataTable()
+        {
+            DataTable dtIPOOrderBook = new DataTable();
+            dtIPOOrderBook.Columns.Add("Transaction Date", typeof(DateTime));
+            dtIPOOrderBook.Columns.Add("Transaction No");
+            dtIPOOrderBook.Columns.Add("Scrip Name");
+            dtIPOOrderBook.Columns.Add("Start Date", typeof(DateTime));
+            dtIPOOrderBook.Columns.Add("End Date", typeof(DateTime));
+            dtIPOOrderBook.Columns.Add("Amount Invested", typeof(double));
+            dtIPOOrderBook.Columns.Add("Bid Amount", typeof(double));
+            dtIPOOrderBook.Columns.Add("Status");
+            dtIPOOrderBook.Columns.Add("Bidding Exchange");
+            dtIPOOrderBook.Columns.Add("Reject Reason");
+            return dtIPOOrderBook;
 
         }
+
+
 
         //protected void ddlAction_OnSelectedIndexChanged(object sender, EventArgs e)
         //{

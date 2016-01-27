@@ -265,22 +265,23 @@ namespace WealthERP.OnlineOrderManagement
                 drSIPOrderBook["CMFSS_Remark"] = drSIP["CMFSS_Remark"];
                 drSIPOrderBook["SIPDueCount"] = sipDueCount;
                 drSIPOrderBook["InProcessCount"] = inProcessCount;
-
-                if (int.Parse(drSIP["CMFSS_IsSourceAA"].ToString()) == 1)
+                if (drSIP["CMFSS_SystematicSetupId"].ToString() == "5311")
                 {
-                    //foreach (DataRow drAAAcceptedCount in dvAAAcceptedCount.ToTable().Rows)
-                    //{
+                    if (int.Parse(drSIP["CMFSS_IsSourceAA"].ToString()) == 1)
+                    {
+                        //foreach (DataRow drAAAcceptedCount in dvAAAcceptedCount.ToTable().Rows)
+                        //{
 
-                    //if (int.Parse(drSIP["CMFSS_SystematicSetupId"].ToString()) == int.Parse(drAAAcceptedCount["CMFSS_SystematicSetupId"].ToString()))
-                    if (dvAAAcceptedCount.ToTable().Rows.Count > 0)
-                        acceptCount = Convert.ToInt16(dvAAAcceptedCount.ToTable().Rows[0]["Occurence"].ToString());
-                    else
-                        acceptCount = 0;
-                    //int.Parse(drSIP["CMFSS_InstallmentAccepted"].ToString()) +
-                    //}
+                        //if (int.Parse(drSIP["CMFSS_SystematicSetupId"].ToString()) == int.Parse(drAAAcceptedCount["CMFSS_SystematicSetupId"].ToString()))
+                        if (dvAAAcceptedCount.ToTable().Rows.Count > 0)
+                            acceptCount = Convert.ToInt16(dvAAAcceptedCount.ToTable().Rows[0]["Occurence"].ToString());
+                        else
+                            acceptCount = 0;
+                        //int.Parse(drSIP["CMFSS_InstallmentAccepted"].ToString()) +
+                        //}
+                    }
+
                 }
-
-
                 if (drSIP["CMFSS_IsCanceled"].ToString() == "Cancelled" || Convert.ToDateTime(drSIP["CMFSS_EndDate"].ToString()) < DateTime.Now)
                 {
                     otherCount = (Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString()) - (acceptCount + inProcessCount + executedCount + rejectedCount + sipDueCount));
