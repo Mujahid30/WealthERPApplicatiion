@@ -108,7 +108,7 @@
 <div id="Div1" class="row" style="margin-left: 5%; margin-right: 3%; background-color: #2480C7;"
     visible="false" runat="server">
     <telerik:RadGrid ID="rgUnitHolding" runat="server" GridLines="None" AllowPaging="True"
-        PageSize="5" AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true"
+        PageSize="3" AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true"
         AllowAutomaticDeletes="false" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
         HorizontalAlign="NotSet" CellPadding="15" OnNeedDataSource="rgUnitHolding_OnNeedDataSource"
         OnItemCommand="rgUnitHolding_OnItemCommand" OnItemDataBound="rgUnitHolding_ItemDataBound">
@@ -122,11 +122,8 @@
                         <font color="#565656"><b>Folio:</b></font>
                         <%# Eval("FolioNum")%>
                     </div>
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
-                        <font color="#565656"><b>Remove:</b></font>
-                        <%# Eval("AmcName")%>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 fk-font-6" style="margin-bottom: 1.5px;">
+                   
+                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 fk-font-9" style="margin-bottom: 1.5px;">
                         <font color="#565656"><b>Scheme:</b> </font>
                         <%# Eval("Scheme")%>
                     </div>
@@ -288,7 +285,7 @@
                     </div>
                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                         <font color="#565656"><b>Unrealised Gain/Loss:</b></font>
-                        <%# Eval("TotalPL")%>
+                        <%# Eval("Unrealised Gain/Loss")%>
                     </div>
                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                         <font color="#565656"><b>Current Value:</b></font>
@@ -300,11 +297,11 @@
                     </div>
                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                         <font color="#565656"><b>Sold Value:</b></font>
-                        <%# Eval("RedeemedAmount")%>
+                        <%# Eval("Sold Value")%>
                     </div>
                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                         <font color="#565656"><b>Realised Gain/Loss:</b></font>
-                        <%# Eval("RealizesdGain")%>
+                        <%# Eval("Realised Gain/Loss")%>
                     </div>
                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                         <font color="#565656"><b>Action:</b></font>

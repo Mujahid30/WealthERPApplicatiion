@@ -252,6 +252,7 @@ namespace WealthERP.OnlineOrderManagement
                 onlineMFSchemeDetailsVo = onlineMFSchemeDetailsBo.GetSchemeDetails(int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue, out  dtNavDetails);
                 ViewState["schemeName"] = onlineMFSchemeDetailsVo.schemeName;
                 LoadNAVHistoryChat(dtNavDetails);
+                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.benchmarkReturn1stYear))
                 BindndReturn();
                 lblSchemeName.Text = onlineMFSchemeDetailsVo.schemeName;
                 lblAMC.Text = onlineMFSchemeDetailsVo.amcName;
@@ -288,12 +289,12 @@ namespace WealthERP.OnlineOrderManagement
                 imgRating5yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.SchemeRating5Year + ".png";
                 imgRating10yr.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.SchemeRating10Year + ".png";
                 imgRatingOvelAll.ImageUrl = @"../Images/MorningStarRating/RatingOverall/" + onlineMFSchemeDetailsVo.overAllRating + ".png";
-                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeReturn3Year))
-                    lblSchemeRetrun3yr.Text = onlineMFSchemeDetailsVo.SchemeReturn3Year.ToString();
-                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeReturn5Year))
-                    lblSchemeRetrun5yr.Text = onlineMFSchemeDetailsVo.SchemeReturn5Year.ToString();
-                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeReturn10Year))
-                    lblSchemeRetrun10yr.Text = onlineMFSchemeDetailsVo.SchemeReturn10Year.ToString();
+                //if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeReturn3Year))
+                //    lblSchemeRetrun3yr.Text = onlineMFSchemeDetailsVo.SchemeReturn3Year.ToString();
+                //if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeReturn5Year))
+                //    lblSchemeRetrun5yr.Text = onlineMFSchemeDetailsVo.SchemeReturn5Year.ToString();
+                //if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeReturn10Year))
+                //    lblSchemeRetrun10yr.Text = onlineMFSchemeDetailsVo.SchemeReturn10Year.ToString();
                 if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeRisk3Year))
                     lblSchemeRisk3yr.Text = onlineMFSchemeDetailsVo.SchemeRisk3Year;
                 if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeRisk5Year))
@@ -304,16 +305,25 @@ namespace WealthERP.OnlineOrderManagement
                   ddlAction.Items[1].Enabled=false;
                 if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.isSIPAvaliable.ToString()))
                   ddlAction.Items[2].Enabled=false;
-                  
-                if (onlineMFSchemeDetailsVo.mornigStar > 0)
+
+                if (onlineMFSchemeDetailsVo.schemeBox > 0)
                 {
                     imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
                     imgStyleBox.ImageUrl = @"../Images/MorningStarRating/StarStyleBox/" + onlineMFSchemeDetailsVo.schemeBox + ".png";
                 }
                 else
                 {
-                    imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/0.png";
-                    imgStyleBox.ImageUrl = @"../Images/MorningStarRating/StarStyleBox/0.png";
+                    if (onlineMFSchemeDetailsVo.schemeBoxFixed > 0)
+                    {
+                        imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
+                        imgStyleBox.ImageUrl = @"../Images/MorningStarRating/StarStyleBoxFixed/" + onlineMFSchemeDetailsVo.schemeBoxFixed + ".png";
+
+                    }
+                    else
+                    {
+                        imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/0.png";
+                        imgStyleBox.ImageUrl = @"../Images/MorningStarRating/StarStyleBox/0.png";
+                    }
 
                 }
             }

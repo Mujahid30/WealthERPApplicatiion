@@ -38,6 +38,7 @@ namespace VoOnlineOrderManagemnet
             public string SchemeReturn5Year { get; set; }
             public string SchemeReturn10Year { get; set; }
             public int schemeBox { get; set; }
+            public int schemeBoxFixed { get; set; }
             public int isSIPAvaliable { get; set; }
             public int isRedeemAvaliable { get; set; }
             public int isPurchaseAvaliable { get; set; }

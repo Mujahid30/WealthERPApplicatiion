@@ -42,8 +42,10 @@ namespace DaoOnlineOrderManagement
                         OnlineMFSchemeDetailsVo.schemeBanchMark = dr["PMFRD_BenchmarksIndexName"].ToString();
                         OnlineMFSchemeDetailsVo.category = dr["PAIC_AssetInstrumentCategoryName"].ToString();
                         OnlineMFSchemeDetailsVo.exitLoad = int.Parse(dr["PASPD_ExitLoadPercentage"].ToString());
+                        if (dr["PMFRD_EquityStyleBoxLong"].ToString() != "")
+                            OnlineMFSchemeDetailsVo.schemeBox = int.Parse(dr["PMFRD_EquityStyleBoxLong"].ToString());
                         if (dr["PMFRD_FixedIncStyleBoxLong"].ToString() != "")
-                            OnlineMFSchemeDetailsVo.schemeBox = int.Parse(dr["PMFRD_FixedIncStyleBoxLong"].ToString());
+                            OnlineMFSchemeDetailsVo.schemeBoxFixed = int.Parse(dr["PMFRD_FixedIncStyleBoxLong"].ToString());
                         OnlineMFSchemeDetailsVo.SchemeReturn3Year = dr["SchemeReturn3Year"].ToString();
                         OnlineMFSchemeDetailsVo.SchemeReturn5Year = dr["SchemeReturn5Year"].ToString();
                         OnlineMFSchemeDetailsVo.SchemeReturn10Year = dr["SchemeReturn10Year"].ToString();

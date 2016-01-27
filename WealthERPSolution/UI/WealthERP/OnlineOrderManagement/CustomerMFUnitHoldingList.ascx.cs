@@ -132,9 +132,9 @@ namespace WealthERP.OnlineOrderManagement
             dtMFUnitHolding.Columns.Add("NAV", typeof(double));
             dtMFUnitHolding.Columns.Add("CurrentValue", typeof(double));
             dtMFUnitHolding.Columns.Add("UnitsSold", typeof(double));
-            dtMFUnitHolding.Columns.Add("RedeemedAmount", typeof(double));
+            dtMFUnitHolding.Columns.Add("Sold Value", typeof(double));
             dtMFUnitHolding.Columns.Add("DVP", typeof(double));
-            dtMFUnitHolding.Columns.Add("TotalPL", typeof(double));
+            dtMFUnitHolding.Columns.Add("Unrealised Gain/Loss", typeof(double));
             dtMFUnitHolding.Columns.Add("AbsoluteReturn", typeof(double));
             dtMFUnitHolding.Columns.Add("DVR", typeof(double));
             dtMFUnitHolding.Columns.Add("XIRR", typeof(double));
@@ -147,7 +147,7 @@ namespace WealthERP.OnlineOrderManagement
             dtMFUnitHolding.Columns.Add("InvestmentStartDate");
             dtMFUnitHolding.Columns.Add("CMFNP_NAVDate");
             dtMFUnitHolding.Columns.Add("CMFNP_ValuationDate");
-            dtMFUnitHolding.Columns.Add("RealizesdGain");
+            dtMFUnitHolding.Columns.Add("Realised Gain/Loss");
             dtMFUnitHolding.Columns.Add("IsSchemeSIPType");
             dtMFUnitHolding.Columns.Add("IsSchemePurchege");
             dtMFUnitHolding.Columns.Add("IsSchemeRedeem");
@@ -226,17 +226,17 @@ namespace WealthERP.OnlineOrderManagement
                     else
                         drMFUnitHoplding["UnitsSold"] = "0.00";
                     if (mfPortfolioVo.RedeemedAmount != 0)
-                        drMFUnitHoplding["RedeemedAmount"] = mfPortfolioVo.RedeemedAmount.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
+                        drMFUnitHoplding["Sold Value"] = mfPortfolioVo.RedeemedAmount.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
                     else
-                        drMFUnitHoplding["RedeemedAmount"] = "0.00";
+                        drMFUnitHoplding["Sold Value"] = "0.00";
                     if (mfPortfolioVo.ReturnsAllDVPAmt != 0)
                         drMFUnitHoplding["DVP"] = mfPortfolioVo.ReturnsAllDVPAmt.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
                     else
                         drMFUnitHoplding["DVP"] = "0.00";
                     if (mfPortfolioVo.ReturnsHoldTotalPL != 0)
-                        drMFUnitHoplding["TotalPL"] = mfPortfolioVo.ReturnsHoldTotalPL.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
+                        drMFUnitHoplding["Unrealised Gain/Loss"] = mfPortfolioVo.ReturnsHoldTotalPL.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
                     else
-                        drMFUnitHoplding["TotalPL"] = "0.00";
+                        drMFUnitHoplding["Unrealised Gain/Loss"] = "0.00";
                     if (mfPortfolioVo.ReturnsHoldAbsReturn != 0)
                         drMFUnitHoplding["AbsoluteReturn"] = mfPortfolioVo.ReturnsHoldAbsReturn.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
                     else
@@ -271,9 +271,9 @@ namespace WealthERP.OnlineOrderManagement
                         drMFUnitHoplding["CMFNP_NAVDate"] = mfPortfolioVo.NavDate.ToShortDateString();
                     drMFUnitHoplding["CMFNP_ValuationDate"] = mfPortfolioVo.ValuationDate.ToShortDateString();
                     if (mfPortfolioVo.ReturnsRealizedTotalPL != 0)
-                        drMFUnitHoplding["RealizesdGain"] = mfPortfolioVo.ReturnsRealizedTotalPL.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
+                        drMFUnitHoplding["Realised Gain/Loss"] = mfPortfolioVo.ReturnsRealizedTotalPL.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
                     else
-                        drMFUnitHoplding["RealizesdGain"] = "0";
+                        drMFUnitHoplding["Realised Gain/Loss"] = "0";
 
                     drMFUnitHoplding["IsSchemeSIPType"] = mfPortfolioVo.IsSchemeSIPType;
                     drMFUnitHoplding["IsSchemePurchege"] = mfPortfolioVo.IsSchemePurchege;
@@ -429,7 +429,10 @@ namespace WealthERP.OnlineOrderManagement
 
             DataTable dtUnitHolding = new DataTable();
             dtUnitHolding = (DataTable)Cache["UnitHolding" + userVo.UserId.ToString()];
-            if (dtUnitHolding.Rows.Count > 0)
+            System.Data.DataView view = new System.Data.DataView(dtUnitHolding);
+            System.Data.DataTable selected =
+                    view.ToTable("Selected", false, "Scheme", "FolioNum", "PurchasedUnits", "InvestedCost", "NAV", "Unrealised Gain/Loss", "CurrentValue", "UnitsSold", "Sold Value", "Realised Gain/Loss");
+            if (selected.Rows.Count > 0)
             {
                 Response.ClearContent();
                 Response.Buffer = true;
@@ -437,16 +440,16 @@ namespace WealthERP.OnlineOrderManagement
                 Response.ContentType = "application/ms-excel";
 
                 string str = string.Empty;
-                foreach (DataColumn dtcol in dtUnitHolding.Columns)
+                foreach (DataColumn dtcol in selected.Columns)
                 {
                     Response.Write(str + dtcol.ColumnName);
                     str = "\t";
                 }
                 Response.Write("\n");
-                foreach (DataRow dr in dtUnitHolding.Rows)
+                foreach (DataRow dr in selected.Rows)
                 {
                     str = "";
-                    for (int j = 0; j < dtUnitHolding.Columns.Count; j++)
+                    for (int j = 0; j < selected.Columns.Count; j++)
                     {
                         Response.Write(str + Convert.ToString(dr[j]));
                         str = "\t";
