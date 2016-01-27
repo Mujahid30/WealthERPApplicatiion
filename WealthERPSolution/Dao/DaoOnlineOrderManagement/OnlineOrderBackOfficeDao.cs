@@ -3132,7 +3132,7 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetProductSearchType;
         }
-        public DataTable GetTopMarketSchemes(string category, Boolean isSIP, int returns, int customerId, int returnsOperator,double returnsValue,out int recordCount, int PageIndex, int PageSize)
+        public DataTable GetTopMarketSchemes(string category, Boolean isSIP, int returns, int customerId, int returnsOperator, double returnsValue, out int recordCount, int PageIndex, int PageSize, int sortOn)
     {
          Database db;
             DataSet dsGetSchemeDetails;
@@ -3149,6 +3149,7 @@ namespace DaoOnlineOrderManagement
                  db.AddInParameter(cmdGetSchemeDetails, "@ReturnsValue", DbType.Double, returnsValue);
                  db.AddInParameter(cmdGetSchemeDetails, "@PageIndex", DbType.Int16, PageIndex);
                  db.AddInParameter(cmdGetSchemeDetails, "@PageSize ", DbType.Int16, PageSize);
+                 db.AddInParameter(cmdGetSchemeDetails, "@SortOn ", DbType.Int16, sortOn);
                  db.AddOutParameter(cmdGetSchemeDetails, "@RecordCount", DbType.Int64, 1000);
                  dsGetSchemeDetails = db.ExecuteDataSet(cmdGetSchemeDetails);
                  recordCount = int.Parse(db.GetParameterValue(cmdGetSchemeDetails, "RecordCount").ToString());

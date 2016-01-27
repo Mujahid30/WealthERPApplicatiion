@@ -146,18 +146,22 @@ namespace BoOnlineOrderManagement
             }
             return dt;
         }
-        public Dictionary<string, int> GetSortList()
+        public Dictionary<string, int> GetSortList(String ddlName)
         {
             Dictionary<string, int> sortlist = new Dictionary<string, int>();
             try
             {
                 sortlist.Add("Rating- Low to high", 1);
                 sortlist.Add("Rating - High to Low", 2);
-                sortlist.Add("Ranking- Low to High", 3);
-                sortlist.Add("Ranking- High to Low", 4);
-                sortlist.Add("Returns-1yr", 5);
+                 sortlist.Add("Returns-1yr", 5);
                 sortlist.Add("Returns-3yr", 6);
                 sortlist.Add("Returns-5yr", 7);
+                if (ddlName != "ddlMarketDataSort")
+                {
+
+                    sortlist.Add("Ranking- Low to High", 3);
+                    sortlist.Add("Ranking- High to Low", 4);
+                }
             }
             catch (BaseApplicationException Ex)
             {

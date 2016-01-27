@@ -40,6 +40,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvDemo;
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvfilterTopRated;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvFundFilter;
         
         /// <summary>
         /// ddlAMC control.
@@ -430,13 +431,14 @@ namespace WealthERP.OnlineOrderManagement {
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfNFOType;
         protected global::System.Web.UI.WebControls.HiddenField hfIsSIP;
-
+        protected global::System.Web.UI.WebControls.HiddenField hfMarketSortOn;
 
         protected global::System.Web.UI.WebControls.DropDownList ddlCompare;
         protected global::System.Web.UI.WebControls.DropDownList ddlTopRatedType;
         protected global::System.Web.UI.WebControls.TextBox txtcmpvalue;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell th1;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell thWatch;
+        protected global::System.Web.UI.WebControls.DropDownList ddlMarketDataSort;
 
     }
 }
