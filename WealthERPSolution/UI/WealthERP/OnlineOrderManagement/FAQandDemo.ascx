@@ -121,7 +121,7 @@
             padding-top: 0.5%; padding-bottom: 0.5%; width: 80%" visible="false" runat="server">
             <div class="col-md-12 col-xs-12col-sm-12" style="margin-top: 0px;">
                 <div class="col-md-12 dottedBottom">
-                    <b>Demos</b>
+                    <b>Demo's</b>
                 </div>
                 <div id="Div2" runat="server">
                     <asp:Repeater ID="Repeater1" runat="server" OnItemCommand="Repeater1_OnItemCommand">
@@ -141,7 +141,7 @@
     padding-top: 0.5%; padding-bottom: 0.5%; width: 80%" visible="false" runat="server">
     <div class="col-md-12 col-xs-12 col-sm-12" style="margin-top: 0px;">
         <div class="col-md-12 dottedBottom">
-            <b>FAQs</b>
+            <b>FAQ's</b>
         </div>
         <div id="Div4" runat="server">
             <asp:Repeater ID="Repeater2" runat="server" OnItemCommand="Repeater2_OnItemCommand">

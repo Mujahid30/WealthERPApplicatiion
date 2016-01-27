@@ -840,12 +840,12 @@
                 <li class="menu_right">
                <%-- <a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=NCD&TYP=FAQ');">
                     FAQ</a>--%>
-                    <asp:LinkButton ID="LinkButton20" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('FAQandDemo','?Cat=NCD&TYP=Demo');" >FAQ</asp:LinkButton>   
+                    <asp:LinkButton ID="LinkButton20" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('FAQandDemo','?Cat=NCD&TYP=FAQ');" >FAQ</asp:LinkButton>   
                      </li>
                 <li class="menu_right">
                 <%--<a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=NCD&TYP=Demo');">
                     Demo</a> --%>
-                    <asp:LinkButton ID="LinkButton21" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('FAQandDemo','?Cat=NCD&TYP=Demo" >Demo</asp:LinkButton>   
+                    <asp:LinkButton ID="LinkButton21" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('FAQandDemo','?Cat=NCD&TYP=Demo');" >Demo</asp:LinkButton>   
                     </li>
             </ul>
         </div>
@@ -857,7 +857,7 @@
                             <ul class="greybox">
                                 <li>
                                <%-- <a onclick="LoadBottomPanelControl('IPOIssueList','login');">IPO/FPO ISSUE LIST</a>--%>
-                                <asp:LinkButton ID="LinkButton22" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('IPOIssueList','login" >IPO/FPO ISSUE LIST</asp:LinkButton>   
+                                <asp:LinkButton ID="LinkButton22" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('IPOIssueList','login');" >IPO/FPO ISSUE LIST</asp:LinkButton>   
                                 </li>
                             </ul>
                         </div>
@@ -867,7 +867,7 @@
                     <div class="dropdown_1column">
                         <div class="col_1">
                             <ul class="greybox"><li>
-                            <asp:LinkButton ID="LinkButton23" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('CustomerIPOOrderBook','login" >IPO/FPO BOOK</asp:LinkButton>   
+                            <asp:LinkButton ID="LinkButton23" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('CustomerIPOOrderBook','login');" >IPO/FPO BOOK</asp:LinkButton>   
                                <%-- <a onclick="LoadBottomPanelControl('CustomerIPOOrderBook','login');">IPO/FPO BOOK</a>--%>
                                 </li>
                             </ul>
@@ -880,7 +880,7 @@
                             <ul class="greybox">
                                 <li>
                                 <%--<a onclick="LoadBottomPanelControl('CustomerIPOHolding','login');">IPO/FPO HOLDINGS</a>--%>
-                                <asp:LinkButton ID="LinkButton24" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('CustomerIPOHolding','login" >IPO/FPO HOLDINGS</asp:LinkButton>   
+                                <asp:LinkButton ID="LinkButton24" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('CustomerIPOHolding','login');" >IPO/FPO HOLDINGS</asp:LinkButton>   
                                 </li>
                             </ul>
                         </div>
@@ -889,12 +889,12 @@
                 <li class="menu_right">
                 <%--<a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=IPO&TYP=FAQ');">
                     FAQ</a>--%>
-                    <asp:LinkButton ID="LinkButton25" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('FAQandDemo','?Cat=IPO&TYP=FAQ" >FAQ</asp:LinkButton>   
+                    <asp:LinkButton ID="LinkButton25" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('FAQandDemo','?Cat=IPO&TYP=FAQ');" >FAQ</asp:LinkButton>   
                      </li>
                 <li class="menu_right">
                <%-- <a onclick="LoadBottomPanelControl('FAQandDemo','?Cat=IPO&TYP=Demo');">
                     Demo</a>--%>
-                     <asp:LinkButton ID="LinkButton26" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('FAQandDemo','?Cat=IPO&TYP=Demo" >Demo</asp:LinkButton> 
+                     <asp:LinkButton ID="LinkButton26" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('FAQandDemo','?Cat=IPO&TYP=Demo');" >Demo</asp:LinkButton> 
                     
                      </li>
             </ul>
