@@ -147,7 +147,7 @@ namespace WealthERP.OnlineOrderManagement
             dtMFUnitHolding.Columns.Add("InvestmentStartDate");
             dtMFUnitHolding.Columns.Add("CMFNP_NAVDate");
             dtMFUnitHolding.Columns.Add("CMFNP_ValuationDate");
-            dtMFUnitHolding.Columns.Add("Realised Gain/Loss");
+            dtMFUnitHolding.Columns.Add("Realised Gain/Loss",typeof(double));
             dtMFUnitHolding.Columns.Add("IsSchemeSIPType");
             dtMFUnitHolding.Columns.Add("IsSchemePurchege");
             dtMFUnitHolding.Columns.Add("IsSchemeRedeem");
@@ -226,7 +226,7 @@ namespace WealthERP.OnlineOrderManagement
                     else
                         drMFUnitHoplding["UnitsSold"] = "0.00";
                     if (mfPortfolioVo.RedeemedAmount != 0)
-                        drMFUnitHoplding["Sold Value"] = mfPortfolioVo.RedeemedAmount.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
+                        drMFUnitHoplding["Sold Value"] = mfPortfolioVo.RedeemedAmount.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
                     else
                         drMFUnitHoplding["Sold Value"] = "0.00";
                     if (mfPortfolioVo.ReturnsAllDVPAmt != 0)
@@ -271,9 +271,9 @@ namespace WealthERP.OnlineOrderManagement
                         drMFUnitHoplding["CMFNP_NAVDate"] = mfPortfolioVo.NavDate.ToShortDateString();
                     drMFUnitHoplding["CMFNP_ValuationDate"] = mfPortfolioVo.ValuationDate.ToShortDateString();
                     if (mfPortfolioVo.ReturnsRealizedTotalPL != 0)
-                        drMFUnitHoplding["Realised Gain/Loss"] = mfPortfolioVo.ReturnsRealizedTotalPL.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
+                        drMFUnitHoplding["Realised Gain/Loss"] = mfPortfolioVo.ReturnsRealizedTotalPL.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
                     else
-                        drMFUnitHoplding["Realised Gain/Loss"] = "0";
+                        drMFUnitHoplding["Realised Gain/Loss"] = "0.00";
 
                     drMFUnitHoplding["IsSchemeSIPType"] = mfPortfolioVo.IsSchemeSIPType;
                     drMFUnitHoplding["IsSchemePurchege"] = mfPortfolioVo.IsSchemePurchege;

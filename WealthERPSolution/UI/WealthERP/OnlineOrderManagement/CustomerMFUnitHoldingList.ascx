@@ -123,11 +123,33 @@
                         <%# Eval("FolioNum")%>
                     </div>
                    
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 fk-font-9" style="margin-bottom: 1.5px;">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 fk-font-6" style="margin-bottom: 1.5px;">
                         <font color="#565656"><b>Scheme:</b> </font>
                         <%# Eval("Scheme")%>
                     </div>
                     
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                        <font color="#565656"><b>Action:</b></font>
+                        <asp:Label ID="lblSIPSchemeFlag" runat="server" CssClass="cmbField" Text='<%# Eval("IsSchemeSIPType") %>'>
+                        </asp:Label>
+                        <asp:Label ID="lblIsPurcheseFlag" runat="server" CssClass="cmbField" Text='<%# Eval("IsSchemePurchege")%>'>
+                        </asp:Label>
+                        <asp:Label ID="lblISRedeemFlag" runat="server" CssClass="cmbField" Text='<%# Eval("IsSchemeRedeem") %>'>
+                        </asp:Label>
+                         <asp:DropDownList ID="ddlAction" runat="server" CssClass="cmbField"
+                class="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged">
+                <asp:ListItem Text="Select" Value="0"></asp:ListItem>
+                <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
+                <asp:ListItem Text="Buy" Value="BUY"></asp:ListItem>
+                <asp:ListItem Text="Redeem" Value="SEL"></asp:ListItem>
+            </asp:DropDownList>
+                      <%--  <asp:ImageButton ID="imgBuy" runat="server" CommandName="Buy" ImageUrl="~/Images/Buy-Button.png"
+                            ToolTip="BUY" />&nbsp;
+                        <asp:ImageButton ID="imgSell" runat="server" CommandName="Sell" ImageUrl="~/Images/Sell-Button.png"
+                            ToolTip="SELL" />&nbsp;
+                        <asp:ImageButton ID="imgSip" runat="server" CommandName="SIP" ImageUrl="~/Images/SIP-Button.png"
+                            ToolTip="SIP"/>--%>
+                    </div>
                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                         <font color="#565656"><b>Scheme Rating:</b></font>
 
@@ -303,28 +325,7 @@
                         <font color="#565656"><b>Realised Gain/Loss:</b></font>
                         <%# Eval("Realised Gain/Loss")%>
                     </div>
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
-                        <font color="#565656"><b>Action:</b></font>
-                        <asp:Label ID="lblSIPSchemeFlag" runat="server" CssClass="cmbField" Text='<%# Eval("IsSchemeSIPType") %>'>
-                        </asp:Label>
-                        <asp:Label ID="lblIsPurcheseFlag" runat="server" CssClass="cmbField" Text='<%# Eval("IsSchemePurchege")%>'>
-                        </asp:Label>
-                        <asp:Label ID="lblISRedeemFlag" runat="server" CssClass="cmbField" Text='<%# Eval("IsSchemeRedeem") %>'>
-                        </asp:Label>
-                         <asp:DropDownList ID="ddlAction" runat="server" CssClass="cmbField"
-                class="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged">
-                <asp:ListItem Text="Select" Value="0"></asp:ListItem>
-                <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
-                <asp:ListItem Text="Buy" Value="BUY"></asp:ListItem>
-                <asp:ListItem Text="Redeem" Value="SEL"></asp:ListItem>
-            </asp:DropDownList>
-                      <%--  <asp:ImageButton ID="imgBuy" runat="server" CommandName="Buy" ImageUrl="~/Images/Buy-Button.png"
-                            ToolTip="BUY" />&nbsp;
-                        <asp:ImageButton ID="imgSell" runat="server" CommandName="Sell" ImageUrl="~/Images/Sell-Button.png"
-                            ToolTip="SELL" />&nbsp;
-                        <asp:ImageButton ID="imgSip" runat="server" CommandName="SIP" ImageUrl="~/Images/SIP-Button.png"
-                            ToolTip="SIP"/>--%>
-                    </div>
+                    
                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;
                         visibility: hidden;">
                         <font color="#565656"><b>InProcessCount:</b></font>
