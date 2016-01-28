@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 using System.Configuration;
 using BoOnlineOrderManagement;
 using System.Data;
+using BoCommon;
+
 
 namespace WealthERP.OnlineOrderManagement
 {
@@ -14,6 +16,7 @@ namespace WealthERP.OnlineOrderManagement
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            OnlineUserSessionBo.CheckSession();
 
             string assetCategory = Request.QueryString["Cat"];
             if (Request.QueryString["TYP"] == "Demo")
@@ -33,10 +36,18 @@ namespace WealthERP.OnlineOrderManagement
             if (!string.IsNullOrEmpty(e.CommandName))
             {
                 string DemoLink = e.CommandArgument.ToString();
-                if (e.CommandName == "OpenDemo")
+                if (e.CommandName == "YTL")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "SetDemo", @"window.open('ReferenceFiles/HelpVideo.htm?Link=" + DemoLink + "', 'newwindow', 'width=655, height=520'); ", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "SetDemoYTL", @"window.open('ReferenceFiles/HelpVideo.htm?Link=" + DemoLink + "', 'newwindow','PopUp', 'width=655, height=520'); ", true);
                 }
+                else if (e.CommandName == "PDF")
+                {
+                    string path = ConfigurationManager.AppSettings["BANNER_IMAGE_PATH"].ToString();
+
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "SetDemoPDF", @"window.open('" + path.Replace("~/", "") + DemoLink + "', 'newwindow','PopUp','width=655, height=520'); ", true);
+                   
+                }
+
             }
         }
         protected void Repeater2_OnItemCommand(object sender, RepeaterCommandEventArgs e)
@@ -48,7 +59,7 @@ namespace WealthERP.OnlineOrderManagement
                 {
                     string path = ConfigurationManager.AppSettings["BANNER_IMAGE_PATH"].ToString();
                     //Response.Redirect(path + pdfName);
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "SetFAQ", @"window.open('" + path.Replace("~/", "") + pdfName + "', 'newwindow', 'width=655, height=520'); ", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "SetFAQ", @"window.open('" + path.Replace("~/", "") + pdfName + "', 'newwindow','PopUp', 'width=655, height=520'); ", true);
                     //System.Web.UI.HtmlControls.HtmlAnchor delete = (System.Web.UI.HtmlControls.HtmlAnchor)Repeater2.Items[0].FindControl("aFAQ");
                     //delete.HRef = path + pdfName;
                     //string urlPath = "<script type='text/javascript'>window.parent.location.href = '" + path + pdfName + "'; </script>";

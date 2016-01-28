@@ -13,6 +13,7 @@ using System.Configuration;
 using System.IO;
 using BoCommon;
 using BoProductMaster;
+using System.Web.UI.HtmlControls;
 
 namespace WealthERP.OnlineOrderBackOffice
 {
@@ -24,6 +25,7 @@ namespace WealthERP.OnlineOrderBackOffice
         OnlineCommonBackOfficeBo OnlineCommonBackOfficeBo = new OnlineCommonBackOfficeBo();
         protected void Page_Load(object sender, EventArgs e)
         {
+            SessionBo.CheckSession();
             userVo = (UserVo)Session[SessionContents.UserVo];
             adviserVo = (AdvisorVo)Session["advisorVo"];
             if (!IsPostBack)
@@ -149,14 +151,14 @@ namespace WealthERP.OnlineOrderBackOffice
                 fileUpload.SaveAs(uploadFilePath + fileName);
 
             }
-            onlineOrderBackOfficeBo.InsertUpdateDeleteOnAdvertisementDetails(0, assetGroupCode, userVo.UserId, fileName, DateTime.MinValue, 0, isActive, "FAQ", headingText);
+            onlineOrderBackOfficeBo.InsertUpdateDeleteOnAdvertisementDetails(0, assetGroupCode, userVo.UserId, fileName, DateTime.MinValue, 0, isActive, "FAQ", headingText, "FAQ");
             BindFAQDetails();
         }
         protected void RadGrid4_DeleteCommand(object source, GridCommandEventArgs e)
         {
             GridDataItem item = e.Item as GridDataItem;
             int id = Convert.ToInt32(item.OwnerTableView.DataKeyValues[item.ItemIndex]["PUHD_Id"].ToString());
-            onlineOrderBackOfficeBo.InsertUpdateDeleteOnAdvertisementDetails(id, "", 0, "", DateTime.Now, 1, 0, "FAQ",string.Empty);
+            onlineOrderBackOfficeBo.InsertUpdateDeleteOnAdvertisementDetails(id, "", 0, "", DateTime.Now, 1, 0, "FAQ", string.Empty, string.Empty);
             BindFAQDetails();
         }
 
@@ -175,17 +177,37 @@ namespace WealthERP.OnlineOrderBackOffice
             string scrollerText = string.Empty;
             string headingText = string.Empty;
             string assetGroupCode = ((DropDownList)insertItem.FindControl("ddlAssetGroupName1")).SelectedValue;
+            string formatType = ((DropDownList)insertItem.FindControl("ddlFormatType")).SelectedValue;
             int isActive = Convert.ToInt16(((CheckBox)insertItem.FindControl("CheckBox")).Checked);
-            scrollerText = ((TextBox)insertItem.FindControl("TextBox1")).Text;
+            if (formatType == "PDF")
+            {
+                FileUpload fileUpload = (FileUpload)insertItem.FindControl("VideoFileUpload");
+                string uploadFilePath = ConfigurationManager.AppSettings["BANNER_IMAGE_PATH"].ToString();
+                uploadFilePath = Server.MapPath(uploadFilePath);
+                if (fileUpload.HasFile)
+                {
+                    if (!Directory.Exists(uploadFilePath))
+                    {
+                        Directory.CreateDirectory(uploadFilePath);
+                    }
+                    scrollerText = fileUpload.FileName.ToString();
+                    fileUpload.SaveAs(uploadFilePath + scrollerText);
+
+                }
+            }
+            else if (formatType == "YTL")
+            {
+                scrollerText = ((TextBox)insertItem.FindControl("TextBox1")).Text;
+            }
             headingText = ((TextBox)insertItem.FindControl("txtDemoHeading")).Text;
-            onlineOrderBackOfficeBo.InsertUpdateDeleteOnAdvertisementDetails(0, assetGroupCode, userVo.UserId, scrollerText, DateTime.MinValue, 0, isActive, "Demo", headingText);
+            onlineOrderBackOfficeBo.InsertUpdateDeleteOnAdvertisementDetails(0, assetGroupCode, userVo.UserId, scrollerText, DateTime.MinValue, 0, isActive, "Demo", headingText, formatType);
             BindDemoVideoDetails();
         }
         protected void RadGrid3_DeleteCommand(object source, GridCommandEventArgs e)
         {
             GridDataItem item = e.Item as GridDataItem;
             int id = Convert.ToInt32(item.OwnerTableView.DataKeyValues[item.ItemIndex]["PUHD_Id"].ToString());
-            onlineOrderBackOfficeBo.InsertUpdateDeleteOnAdvertisementDetails(id, "", 0, "", DateTime.Now, 1, 0, "Demo",string.Empty);
+            onlineOrderBackOfficeBo.InsertUpdateDeleteOnAdvertisementDetails(id, "", 0, "", DateTime.Now, 1, 0, "Demo", string.Empty, "");
             BindDemoVideoDetails();
         }
         protected void RadGrid3_ItemCommand(object source, GridCommandEventArgs e)
@@ -204,14 +226,30 @@ namespace WealthERP.OnlineOrderBackOffice
                 string scrolltext = (RadGrid3.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PUHD_HelpDetails"]).ToString();
                 string headingText = (RadGrid3.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PUHD_Heading"]).ToString();
                 string assetGroupCode = RadGrid3.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PAG_AssetGroupCode"].ToString();
+                string formatType = RadGrid3.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PUHD_HelpFormatType"].ToString();
                 int isActive = Convert.ToInt16(RadGrid3.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PUHD_IsActive"]);
                 GridEditFormItem editedItem = (GridEditFormItem)e.Item;
                 DropDownList dropDownList = (DropDownList)editedItem.FindControl("ddlAssetGroupName1");
+                DropDownList ddlFormatType = (DropDownList)editedItem.FindControl("ddlFormatType");
                 dropDownList.SelectedValue = assetGroupCode;
+                ddlFormatType.SelectedValue = formatType;
                 ((TextBox)editedItem.FindControl("TextBox1")).Text = scrolltext;
                 ((TextBox)editedItem.FindControl("txtDemoHeading")).Text = headingText;
                 ((CheckBox)editedItem.FindControl("CheckBox")).Checked = isActive == 1;
-
+                HtmlTableRow tr6;
+                HtmlTableRow tr2;
+                tr6 = (HtmlTableRow)editedItem.FindControl("tr6");
+                tr2 = (HtmlTableRow)editedItem.FindControl("tr2");
+                if (formatType == "YTL")
+                {
+                    tr2.Visible = true;
+                    
+                }
+                else if (formatType == "PDF")
+                {
+                    tr6.Visible = true;
+                   
+                }
             }
         }
         protected void RadGrid3_UpdateCommand(object source, GridCommandEventArgs e)
@@ -219,20 +257,89 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
             GridEditableItem editedItem = e.Item as GridEditableItem;
-            string scrollerText = ((TextBox)e.Item.FindControl("TextBox1")).Text;
+            string scrollerText=string.Empty;
             string headingText = ((TextBox)e.Item.FindControl("txtDemoHeading")).Text;
             int id = Convert.ToInt32(editedItem.OwnerTableView.DataKeyValues[editedItem.ItemIndex]["PUHD_Id"].ToString());
             string assetGroupCode = ((DropDownList)e.Item.FindControl("ddlAssetGroupName1")).SelectedValue;
             int isActive = Convert.ToInt16(((CheckBox)e.Item.FindControl("CheckBox")).Checked);
-            onlineOrderBackOfficeBo.InsertUpdateDeleteOnAdvertisementDetails(id, assetGroupCode, userVo.UserId, scrollerText, DateTime.MinValue, 0, isActive, "Demo", headingText);
+            string formatType = ((DropDownList)e.Item.FindControl("ddlFormatType")).SelectedValue;
+            if (formatType == "PDF")
+            {
+                FileUpload fileUpload = (FileUpload)e.Item.FindControl("VideoFileUpload");
+                string uploadFilePath = ConfigurationManager.AppSettings["BANNER_IMAGE_PATH"].ToString();
+                uploadFilePath = Server.MapPath(uploadFilePath);
+                if (fileUpload.HasFile)
+                {
+                    if (!Directory.Exists(uploadFilePath))
+                    {
+                        Directory.CreateDirectory(uploadFilePath);
+                    }
+                    scrollerText = fileUpload.FileName.ToString();
+                    fileUpload.SaveAs(uploadFilePath + scrollerText);
+
+                }
+            }
+            else if (formatType == "YTL")
+            {
+                 scrollerText = ((TextBox)e.Item.FindControl("TextBox1")).Text;
+            }
+            onlineOrderBackOfficeBo.InsertUpdateDeleteOnAdvertisementDetails(id, assetGroupCode, userVo.UserId, scrollerText, DateTime.MinValue, 0, isActive, "Demo", headingText,formatType);
 
             BindDemoVideoDetails();
 
         }
+        protected void ddlFormatType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddlFormatType = (DropDownList)sender;
+            HtmlTableRow tr6;
+            HtmlTableRow tr2;
+            if (ddlFormatType.NamingContainer is Telerik.Web.UI.GridEditFormItem)
+            {
+                GridEditFormItem gdi;
 
+                gdi = (GridEditFormItem)ddlFormatType.NamingContainer;
+                tr6 = (HtmlTableRow)gdi.FindControl("tr6");
+                tr2 = (HtmlTableRow)gdi.FindControl("tr2");
+                if (ddlFormatType.SelectedValue == "YTL")
+                {
+                    tr2.Visible = true;
+                    tr6.Visible = false;
+                }
+                else if (ddlFormatType.SelectedValue == "PDF")
+                {
+                    tr6.Visible = true;
+                    tr2.Visible = false;
+                }
+                else
+                {
+                    tr6.Visible = false;
+                    tr2.Visible = false;
+                }
+            }
+            else if (ddlFormatType.NamingContainer is Telerik.Web.UI.GridEditFormInsertItem)
+            {
+                GridEditFormInsertItem gdi;
+                gdi = (GridEditFormInsertItem)ddlFormatType.NamingContainer;
+                tr6 = (HtmlTableRow)gdi.FindControl("tr6");
+                tr2 = (HtmlTableRow)gdi.FindControl("tr2");
+                if (ddlFormatType.SelectedValue == "YTL")
+                {
+                    tr2.Visible = true;
+                    tr6.Visible = false;
+                }
+                else if (ddlFormatType.SelectedValue == "PDF")
+                {
+                    tr6.Visible = true;
+                    tr2.Visible = false;
+                }
+                else
+                {
+                    tr6.Visible = false;
+                    tr2.Visible = false;
+                }
+            }
 
-
-
+        }
         protected void RadGrid2_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataTable dt;
@@ -249,14 +356,14 @@ namespace WealthERP.OnlineOrderBackOffice
             string assetGroupCode = ((DropDownList)insertItem.FindControl("ddlAssetGroupName1")).SelectedValue;
             int isActive = Convert.ToInt16(((CheckBox)insertItem.FindControl("CheckBox")).Checked);
             scrollerText = ((TextBox)insertItem.FindControl("TextBox1")).Text;
-            onlineOrderBackOfficeBo.InsertUpdateDeleteOnAdvertisementDetails(0, assetGroupCode, userVo.UserId, scrollerText, DateTime.MinValue, 0, isActive, "Scroll",string.Empty);
+            onlineOrderBackOfficeBo.InsertUpdateDeleteOnAdvertisementDetails(0, assetGroupCode, userVo.UserId, scrollerText, DateTime.MinValue, 0, isActive, "Scroll", string.Empty,"TEXT");
             BindScrollerDetails();
         }
         protected void RadGrid2_DeleteCommand(object source, GridCommandEventArgs e)
         {
             GridDataItem item = e.Item as GridDataItem;
             int id = Convert.ToInt32(item.OwnerTableView.DataKeyValues[item.ItemIndex]["PUHD_Id"].ToString());
-            onlineOrderBackOfficeBo.InsertUpdateDeleteOnAdvertisementDetails(id, "", 0, "", DateTime.Now, 1, 0, "Scroll",string.Empty);
+            onlineOrderBackOfficeBo.InsertUpdateDeleteOnAdvertisementDetails(id, "", 0, "", DateTime.Now, 1, 0, "Scroll", string.Empty, string.Empty);
             BindScrollerDetails();
         }
         protected void RadGrid2_ItemCommand(object source, GridCommandEventArgs e)
@@ -274,13 +381,13 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 string scrolltext = (RadGrid2.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PUHD_HelpDetails"]).ToString();
                 string assetGroupCode = RadGrid2.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PAG_AssetGroupCode"].ToString();
-                int isActive =Convert.ToInt16( RadGrid2.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PUHD_IsActive"]);
+                int isActive = Convert.ToInt16(RadGrid2.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PUHD_IsActive"]);
                 GridEditFormItem editedItem = (GridEditFormItem)e.Item;
                 DropDownList dropDownList = (DropDownList)editedItem.FindControl("ddlAssetGroupName1");
                 dropDownList.SelectedValue = assetGroupCode;
                 ((TextBox)editedItem.FindControl("TextBox1")).Text = scrolltext;
-                ((CheckBox)editedItem.FindControl("CheckBox")).Checked = isActive==1;
-               
+                ((CheckBox)editedItem.FindControl("CheckBox")).Checked = isActive == 1;
+
             }
         }
         protected void RadGrid2_UpdateCommand(object source, GridCommandEventArgs e)
@@ -291,13 +398,12 @@ namespace WealthERP.OnlineOrderBackOffice
             string scrollerText = ((TextBox)e.Item.FindControl("TextBox1")).Text;
             int id = Convert.ToInt32(editedItem.OwnerTableView.DataKeyValues[editedItem.ItemIndex]["PUHD_Id"].ToString());
             string assetGroupCode = ((DropDownList)e.Item.FindControl("ddlAssetGroupName1")).SelectedValue;
-           int isActive=Convert.ToInt16(((CheckBox)e.Item.FindControl("CheckBox")).Checked);
-           onlineOrderBackOfficeBo.InsertUpdateDeleteOnAdvertisementDetails(id, assetGroupCode, userVo.UserId, scrollerText, DateTime.MinValue, 0, isActive,"scroll",string.Empty);
+            int isActive = Convert.ToInt16(((CheckBox)e.Item.FindControl("CheckBox")).Checked);
+            onlineOrderBackOfficeBo.InsertUpdateDeleteOnAdvertisementDetails(id, assetGroupCode, userVo.UserId, scrollerText, DateTime.MinValue, 0, isActive, "scroll", string.Empty,"TEXT");
 
             BindScrollerDetails();
 
         }
-
         protected void RadGrid1_ItemCreated(object sender, GridItemEventArgs e)
         {
             if (e.Item is GridEditableItem && e.Item.IsInEditMode)
@@ -398,7 +504,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 radDateTimePicker.SelectedDate = expirydate;
             }
         }
-      
+
         protected void rgSchemeRanking_ItemDataBound(object sender, GridItemEventArgs e)
         {
 
@@ -456,7 +562,7 @@ namespace WealthERP.OnlineOrderBackOffice
             rgSchemeRanking.Visible = true;
 
         }
-       
+
 
         private void BindScheme(int amcCode, string category, DropDownList ddlScheme, Boolean IsEdit)
         {
@@ -600,7 +706,7 @@ namespace WealthERP.OnlineOrderBackOffice
             DropDownList ddlCategory = (DropDownList)e.Item.FindControl("ddlCategory");
             DropDownList ddlScheme = (DropDownList)e.Item.FindControl("ddlScheme");
             DropDownList ddlSchemeRank = (DropDownList)e.Item.FindControl("ddlSchemeRank");
-         
+
             OnlineCommonBackOfficeBo.CUDSchemeRanking(adviserVo.advisorId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue, int.Parse(ddlSchemeRank.SelectedValue), 1, 0);
             BindSchemeRankDetails(adviserVo.advisorId);
         }

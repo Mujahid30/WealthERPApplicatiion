@@ -129,7 +129,7 @@
                             <div class="dottedBottom">
                                 <div>
                                     <asp:LinkButton ID="lnkDemo"  runat="server" Text='<%# Eval("PUHD_Heading")%>'
-                                        ToolTip="Click To View" CommandName="OpenDemo" CommandArgument='<%# Eval("PUHD_HelpDetails")%>'></asp:LinkButton>
+                                        ToolTip="Click To View" CommandName='<%# Eval("PUHD_HelpFormatType")%>' CommandArgument='<%# Eval("PUHD_HelpDetails")%>'></asp:LinkButton>
                                 </div>
                             </div>
                         </ItemTemplate>
