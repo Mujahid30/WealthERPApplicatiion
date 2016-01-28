@@ -374,9 +374,10 @@ namespace WealthERP.OnlineOrderManagement
         {
             try
             {
-                if (ViewState["cmotcode"] != null)
+                string cmotcode = ViewState["cmotcode"].ToString();
+                if (cmotcode != "")
                 {
-                    DataSet theDataSet = onlineMFSchemeDetailsBo.GetAPIData(ConfigurationSettings.AppSettings["HOLDING_DETAILS"] + ViewState["cmotcode"] + "/" + ConfigurationSettings.AppSettings["TOP_Scheme"]);
+                    DataSet theDataSet = onlineMFSchemeDetailsBo.GetAPIData(ConfigurationSettings.AppSettings["HOLDING_DETAILS"] + cmotcode + "/" + ConfigurationSettings.AppSettings["TOP_Scheme"]);
                     rpSchemeDetails.DataSource = theDataSet.Tables[1];
                     rpSchemeDetails.DataBind();
                     ViewState["HoldingDetails"] = theDataSet.Tables[1];
@@ -394,9 +395,10 @@ namespace WealthERP.OnlineOrderManagement
         {
             try
             {
-                if (ViewState["cmotcode"] != null)
+                string cmotcode = ViewState["cmotcode"].ToString();
+                if (cmotcode != "")
                 {
-                    DataSet theDataSet = onlineMFSchemeDetailsBo.GetAPIData(ConfigurationSettings.AppSettings["SECTOR_DETAILS"] + ViewState["cmotcode"] + "/" + ConfigurationSettings.AppSettings["SECTOR_DETAILS_COUNT"] + "?responsetype=xml");
+                    DataSet theDataSet = onlineMFSchemeDetailsBo.GetAPIData(ConfigurationSettings.AppSettings["SECTOR_DETAILS"] + cmotcode + "/" + ConfigurationSettings.AppSettings["SECTOR_DETAILS_COUNT"] + "?responsetype=xml");
                     RepSector.DataSource = theDataSet.Tables[3];
                     RepSector.DataBind();
                     if (theDataSet.Tables[3].Rows.Count > 0)
@@ -415,11 +417,17 @@ namespace WealthERP.OnlineOrderManagement
 
             try
             {
-                DataSet theDataSet = onlineMFSchemeDetailsBo.GetAPIData(ConfigurationSettings.AppSettings["ASSET_ALLOCATION"] + ViewState["cmotcode"] + "?responsetype=xml");
-                RepAsset.DataSource = theDataSet.Tables[3];
-                RepAsset.DataBind();
-                if (theDataSet.Tables[3].Rows.Count > 0)
-                    BindAssetsPiaChart(theDataSet.Tables[3]);
+                string cmotcode = ViewState["cmotcode"].ToString();
+                if (cmotcode != "")
+                {
+                    DataSet theDataSet = onlineMFSchemeDetailsBo.GetAPIData(ConfigurationSettings.AppSettings["ASSET_ALLOCATION"] + cmotcode + "?responsetype=xml");
+                    DataRow[] drRow = theDataSet.Tables[3].AsEnumerable().Take(6).ToArray();
+                    DataTable dt1 = drRow.CopyToDataTable();
+                    RepAsset.DataSource = dt1;
+                    RepAsset.DataBind();
+                    if (theDataSet.Tables[3].Rows.Count > 0)
+                        BindAssetsPiaChart(theDataSet.Tables[3]);
+                }
             }
 
             catch (Exception Ex)
