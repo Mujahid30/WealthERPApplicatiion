@@ -335,7 +335,7 @@ namespace WealthERP.OnlineOrderManagement
             DataTable dts = (DataTable)Cache["CustomerIPOIssueBook" + userVo.UserId.ToString()];
             System.Data.DataView view = new System.Data.DataView(dts);
             System.Data.DataTable selected =
-                    view.ToTable("Selected", false, "AIM_IssueName", "CO_OrderDate", "CO_OrderId", "IssueStartDateANDTime", "IssueEndDateANDTime", "Amounttoinvest", "AmountBid", "WOS_OrderStep", "Bidding_Exchange", "COS_Reason");
+                    view.ToTable("Selected", false, "AIM_IssueName", "CO_OrderDate", "CO_OrderId", "CO_ApplicationNo", "IssueStartDateANDTime", "IssueEndDateANDTime", "Amounttoinvest", "AmountBid", "WOS_OrderStep", "Bidding_Exchange", "COS_Reason");
            
             foreach (DataRow sourcerow in dts.Rows)
             {
@@ -343,6 +343,7 @@ namespace WealthERP.OnlineOrderManagement
                 destRow["Scrip Name"] = sourcerow["AIM_IssueName"];
                 destRow["Transaction Date"] = sourcerow["CO_OrderDate"];
                 destRow["Transaction No"] = sourcerow["CO_OrderId"];
+                destRow["Application No"] = sourcerow["CO_ApplicationNo"];
                 destRow["Start Date"] = sourcerow["IssueStartDateANDTime"];
                 destRow["End Date"] = sourcerow["IssueEndDateANDTime"];
                 destRow["Amount Invested"] = sourcerow["Amounttoinvest"];
@@ -385,6 +386,7 @@ namespace WealthERP.OnlineOrderManagement
             dtIPOOrderBook.Columns.Add("Transaction Date", typeof(DateTime));
             dtIPOOrderBook.Columns.Add("Transaction No");
             dtIPOOrderBook.Columns.Add("Scrip Name");
+            dtIPOOrderBook.Columns.Add("Application No");
             dtIPOOrderBook.Columns.Add("Start Date", typeof(DateTime));
             dtIPOOrderBook.Columns.Add("End Date", typeof(DateTime));
             dtIPOOrderBook.Columns.Add("Amount Invested", typeof(double));

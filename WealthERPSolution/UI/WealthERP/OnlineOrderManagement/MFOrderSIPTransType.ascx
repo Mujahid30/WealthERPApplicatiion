@@ -389,16 +389,16 @@
             <telrik:radwindowmanager>
        
         <telerik:RadWindow ID="RadInformation" Modal="true" Behaviors="Close, Move"  VisibleOnPageLoad="false"
-            Width="760px" Height="1600px" runat="server" Left="300px" Top="50px" OnClientShow="setCustomPosition" >
+            Width="760px" Height="200px" runat="server" Left="300px" Top="50px" OnClientShow="setCustomPosition" >
             <ContentTemplate>
-                <div style="padding: 0px; width: 130%; height:100%;">
+                <div style="padding: 0px; width: 750px; height:100%;">
                     <%--<table width="100%" cellpadding="0" cellpadding="0" Height="100%">
                         <tr>
                             <td align="left">--%>
                                 <%--  <a href="../ReferenceFiles/MF-Terms-Condition.html">../ReferenceFiles/MF-Terms-Condition.html</a>--%>
                                 
                                 <iframe src="../ReferenceFiles/HelpSIP.htm" name="iframeTermsCondition"
-                                    style="width: 100%; height:100%">
+                                    style="width: 750px; height:180px">
                                     </iframe>
                            <%-- </td>
                         </tr>
@@ -419,6 +419,9 @@
             <asp:PostBackTrigger ControlID="ddlStartDate" />
             <asp:PostBackTrigger ControlID="lnkTermsCondition" />
             <asp:PostBackTrigger ControlID="btnSubmit" />
+            <asp:PostBackTrigger ControlID="imgInformation" />
+            
+            
         </Triggers>
     </asp:UpdatePanel>
 </body>
