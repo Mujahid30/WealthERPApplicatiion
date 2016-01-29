@@ -123,9 +123,13 @@
                         <%# Eval("FolioNum")%>
                     </div>
                    
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 fk-font-6" style="margin-bottom: 1.5px;">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                         <font color="#565656"><b>Scheme:</b> </font>
                         <%# Eval("Scheme")%>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                        <font color="#565656"><b>Sold Value:</b></font>
+                        <%# Eval("Sold Value")%>
                     </div>
                     
                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
@@ -149,6 +153,37 @@
                             ToolTip="SELL" />&nbsp;
                         <asp:ImageButton ID="imgSip" runat="server" CommandName="SIP" ImageUrl="~/Images/SIP-Button.png"
                             ToolTip="SIP"/>--%>
+                    </div>
+                                     
+                   
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                        <font color="#565656"><b>Units:</b></font>
+                        <asp:LinkButton ID="lnkprAmcB" runat="server" style="color:#0396CC" CommandName="SelectTransaction" Text='<%# String.Format("{0:N3}", DataBinder.Eval(Container.DataItem, "PurchasedUnits")) %>'>
+                        </asp:LinkButton>
+                    </div>
+                    
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                        <font color="#565656"><b>Invested Cost:</b></font>
+                        <%# Eval("InvestedCost")%>
+                    </div>
+                    
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                        <font color="#565656"><b>NAV:</b></font>
+                        <%# Eval("NAV")%>
+                    </div>
+                    
+
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                        <font color="#565656"><b>Unrealised Gain/Loss:</b></font>
+                        <%# Eval("Unrealised Gain/Loss")%>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                        <font color="#565656"><b>Current Value:</b></font>
+                        <%# Eval("CurrentValue")%>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                        <font color="#565656"><b>Units Sold:</b></font>
+                        <%# Eval("UnitsSold")%>
                     </div>
                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                         <font color="#565656"><b>Scheme Rating:</b></font>
@@ -289,37 +324,6 @@
                                 </tr>
                             </table>
                         </div>
-                    </div>
-                 
-                   
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
-                        <font color="#565656"><b>Units:</b></font>
-                        <asp:LinkButton ID="lnkprAmcB" runat="server" style="color:#0396CC" CommandName="SelectTransaction" Text='<%# String.Format("{0:N3}", DataBinder.Eval(Container.DataItem, "PurchasedUnits")) %>'>
-                        </asp:LinkButton>
-                    </div>
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
-                        <font color="#565656"><b>Invested Cost:</b></font>
-                        <%# Eval("InvestedCost")%>
-                    </div>
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
-                        <font color="#565656"><b>NAV:</b></font>
-                        <%# Eval("NAV")%>
-                    </div>
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
-                        <font color="#565656"><b>Unrealised Gain/Loss:</b></font>
-                        <%# Eval("Unrealised Gain/Loss")%>
-                    </div>
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
-                        <font color="#565656"><b>Current Value:</b></font>
-                        <%# Eval("CurrentValue")%>
-                    </div>
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
-                        <font color="#565656"><b>Units Sold:</b></font>
-                        <%# Eval("UnitsSold")%>
-                    </div>
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
-                        <font color="#565656"><b>Sold Value:</b></font>
-                        <%# Eval("Sold Value")%>
                     </div>
                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                         <font color="#565656"><b>Realised Gain/Loss:</b></font>
