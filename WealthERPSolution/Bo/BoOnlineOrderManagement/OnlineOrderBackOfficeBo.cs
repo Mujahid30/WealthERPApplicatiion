@@ -2441,13 +2441,13 @@ namespace BoOnlineOrderManagement
             }
             return dt;
         }
-        public bool InsertUpdateDeleteOnAdvertisementDetails(int id, string assetGroupCode, int userId, string details, DateTime expiryDate, int isDelete, int isActive, string type, string headingText)
+        public bool InsertUpdateDeleteOnAdvertisementDetails(int id, string assetGroupCode, int userId, string details, DateTime expiryDate, int isDelete, int isActive, string type, string headingText, string formatType)
         {
             bool bResult = false;
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                bResult = OnlineOrderBackOfficeDao.InsertUpdateDeleteOnAdvertisementDetails(id, assetGroupCode, userId, details, expiryDate, isDelete,isActive,type,headingText);
+                bResult = OnlineOrderBackOfficeDao.InsertUpdateDeleteOnAdvertisementDetails(id, assetGroupCode, userId, details, expiryDate, isDelete, isActive, type, headingText, formatType);
             }
             catch (BaseApplicationException Ex)
             {
