@@ -57,6 +57,21 @@
         color: #000;
     }
 </style>
+<table width="100%">
+    <tr>
+        <td>
+            <div class="divPageHeading">
+                <table width="100%">
+                    <tr>
+                        <td align="left">
+                           Scheme Compare
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
 <asp:UpdatePanel ID="updSchemDetails" runat="server" UpdateMode="Always">
     <ContentTemplate>
         <div class="table-responsive" style="margin-left: 5%; margin-bottom: 2%;">

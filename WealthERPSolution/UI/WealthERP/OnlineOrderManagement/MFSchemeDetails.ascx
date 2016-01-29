@@ -34,8 +34,6 @@
 
 <script src="../Scripts/jquery.js" type="text/javascript"></script>
 
-
-
 <style type="text/css">
     .header
     {
@@ -149,6 +147,15 @@
         color: #000;
     }
 </style>
+
+    <table width="100%" style="border-color:#0396cc">
+        <tr>
+            <td align="left">
+               <b style="font-family: Times New Roman;color:#0396cc"> Scheme Research</b>
+            </td>
+        </tr>
+    </table>
+
 <asp:UpdatePanel ID="updSchemDetails" runat="server" UpdateMode="Always">
     <ContentTemplate>
         <div id="dvDemo" class="row " style="margin-left: 11%; margin-bottom: 0.5%; margin-right: 5%;
@@ -217,7 +224,7 @@
                 </div>
                 <div class="col-md-2">
                     <asp:LinkButton ID="lnkAddToCompare" runat="server" CssClass="btn btn-primary btn-primary"
-                        OnClick="lnkAddToCompare_OnClick" ValidationGroup="btnGo" style="margin-bottom:5px"> Add To Compare <span class="glyphicon glyphicon-shopping-list">
+                        OnClick="lnkAddToCompare_OnClick" ValidationGroup="btnGo" Style="margin-bottom: 5px"> Add To Compare <span class="glyphicon glyphicon-shopping-list">
                             </span></asp:LinkButton>
                     <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" CssClass="form-control input-sm"
                         OnSelectedIndexChanged="ddlAction_OnSelectedIndexChanged" Width="100px">
@@ -227,11 +234,10 @@
                     </asp:DropDownList>
                 </div>
             </div>
-           </div>
-        <div  style="margin-bottom: 2%; width: 80%; padding-bottom: 1%;
-            margin-left: auto; margin-right: auto;">
-            <asp:Panel ID="pnlDetails" runat="server" 
-                Height="490px">
+        </div>
+        <div style="margin-bottom: 2%; width: 80%; padding-bottom: 1%; margin-left: auto;
+            margin-right: auto;">
+            <asp:Panel ID="pnlDetails" runat="server" Height="490px">
 
                 <script type="text/javascript">
                     function markTab(sender, args) {
@@ -248,12 +254,12 @@
                 <telerik:RadTabStrip ID="RadTabStripAdsUpload" runat="server" EnableTheming="True"
                     EnableEmbeddedSkins="true" MultiPageID="multipageAdsUpload" SelectedIndex="0"
                     Skin="Outlook" onclientclick="calc('bottomframe')">
-                    <tabs>
+                    <Tabs>
                         <telerik:RadTab runat="server" Text="Snapshot" Value="Snapshot" TabIndex="0" Selected="true">
                         </telerik:RadTab>
                         <telerik:RadTab runat="server" Text="NAV History" Value="NAVPerformance" TabIndex="1">
                         </telerik:RadTab>
-                         <telerik:RadTab runat="server" Text="Scheme Return" Value="SchemeReturn" TabIndex="2">
+                        <telerik:RadTab runat="server" Text="Scheme Return" Value="SchemeReturn" TabIndex="2">
                         </telerik:RadTab>
                         <telerik:RadTab runat="server" Text="Risk And Rating" Value="RiskAndRating" TabIndex="3">
                         </telerik:RadTab>
@@ -262,7 +268,7 @@
                         </telerik:RadTab>
                         <telerik:RadTab runat="server" Text="Portfolio" Value="Portfolio" TabIndex="5">
                         </telerik:RadTab>
-                    </tabs>
+                    </Tabs>
                 </telerik:RadTabStrip>
                 <telerik:RadMultiPage ID="multipageAdsUpload" EnableViewState="true" runat="server">
                     <telerik:RadPageView ID="RadPageView1" runat="server" Selected="true">
@@ -449,7 +455,6 @@
                                         <td>
                                             <span class="DetailfieldFontSize">RATING</span>
                                         </td>
-                                       
                                         <td>
                                             <span class="DetailfieldFontSize">RISK</span>
                                         </td>
@@ -464,7 +469,6 @@
                                         <td>
                                             <asp:Image runat="server" ID="imgRating3yr" />
                                         </td>
-                                       
                                         <td>
                                             <asp:Label ID="lblSchemeRisk3yr" runat="server" CssClass="DetailfieldFontSize"> </asp:Label>
                                         </td>
@@ -479,7 +483,6 @@
                                         <td>
                                             <asp:Image runat="server" ID="imgRating5yr" />
                                         </td>
-                                       
                                         <td>
                                             <asp:Label ID="lblSchemeRisk5yr" runat="server" CssClass="DetailfieldFontSize"></asp:Label>
                                         </td>
@@ -491,7 +494,6 @@
                                         <td>
                                             <asp:Image runat="server" ID="imgRating10yr" />
                                         </td>
-                                       
                                         <td>
                                             <asp:Label ID="lblSchemeRisk10yr" runat="server" CssClass="DetailfieldFontSize"></asp:Label>
                                         </td>

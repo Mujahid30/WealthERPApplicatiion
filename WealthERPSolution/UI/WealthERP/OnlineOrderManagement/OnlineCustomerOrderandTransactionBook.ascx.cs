@@ -72,8 +72,9 @@ namespace WealthERP.OnlineOrderManagement
                 ddlScheme.Items.Insert(0, new ListItem("All", "0"));
             }
         }
-        protected void OnSelectedIndexChanged_ddlAction(object sender, EventArgs e)
+        protected void btnViewOrder_Click(object sender, EventArgs e)
         {
+
             switch (ddlAction.SelectedValue)
             {
                 case "SIP":

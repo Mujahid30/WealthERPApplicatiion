@@ -181,15 +181,15 @@ namespace WealthERP.OnlineOrderManagement
                 string orderstep = onlineIPOOrderBo.IPOOrderExtractStep(orderId);
                 if (IsCancelled == true)
                 {
-                    lnkModify.Enabled = false;
-                    lnkCancel.Enabled = false;
+                    lnkModify.Visible = false;
+                    lnkCancel.Visible = false;
                     lnkCancel.OnClientClick = "";
 
                 }
                 if (orderstep != "" && orderstep != "UB")
                 {
-                    lnkModify.Enabled = false;
-                    lnkCancel.Enabled = false;
+                    lnkModify.Visible = false;
+                    lnkCancel.Visible = false;
                     lnkCancel.OnClientClick = "";
 
                 }
@@ -197,40 +197,40 @@ namespace WealthERP.OnlineOrderManagement
                     lnkCancel.Visible = false;
                 if (isModification == false)
                 {
-                    lnkModify.Enabled = false;
+                    lnkModify.Visible = false;
                 }
                 if (Iscancel == "CANCELLED" || Iscancel == "EXECUTED" || Iscancel == "ACCEPTED" || Iscancel == "REJECTED")
                 {
-                    lbtnMarkAsReject.Enabled = false;
-                    lnkModify.Enabled = false;
-                    lnkCancel.Enabled = false;
+                    lbtnMarkAsReject.Visible = false;
+                    lnkModify.Visible = false;
+                    lnkCancel.Visible = false;
                     lnkCancel.OnClientClick = "";
                 }
 
                 if (isModification != false && Iscancel != "CANCELLED" && Iscancel != "EXECUTED" && Iscancel != "ACCEPTED" && Iscancel != "REJECTED" && (orderstep == "" || orderstep == "UB"))
                 {
-                    lnkModify.Enabled = true;
+                    lnkModify.Visible = true;
                 }
                 if (IsCancelAllowed != false && IsCancelled != true && Iscancel != "CANCELLED" && Iscancel != "EXECUTED" && Iscancel != "ACCEPTED" && Iscancel != "REJECTED" && (orderstep == "" || orderstep == "UB"))
                 {
-                    lnkCancel.Enabled = true;
+                    lnkCancel.Visible = true;
 
                 }
 
                 if (Iscancel == "ORDERED" && isModification != false)
                 {
-                    lnkModify.Enabled = true;
+                    lnkModify.Visible = true;
                 }
                 if (Iscancel == "ORDERED" && IsCancelAllowed != false)
                 {
-                    lnkCancel.Enabled = true;
+                    lnkCancel.Visible = true;
 
                 }
                 if (Convert.ToDateTime(CloseDate) <= DateTime.Now)
                 {
-                    lnkModify.Enabled = false;
-                    lnkCancel.Enabled = false;
-                    lbtnMarkAsReject.Enabled = false;
+                    lnkModify.Visible = false;
+                    lnkCancel.Visible = false;
+                    lbtnMarkAsReject.Visible = false;
                     lnkCancel.OnClientClick = "";
 
                 }

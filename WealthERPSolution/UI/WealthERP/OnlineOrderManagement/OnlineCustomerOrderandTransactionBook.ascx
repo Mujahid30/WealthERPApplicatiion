@@ -73,8 +73,8 @@
         </td>
     </tr>
 </table>
-<div id="demo" class="row" style="margin-left: 5%; margin-bottom: 2%; margin-right: 5%;
-    padding-top: 1%; padding-bottom: 1%; height: 20%">
+<div id="demo" class="row" style="margin-left: 5%;  margin-right: 5%;
+    padding-top: 1%;  height: 20%">
     <div class="col-md-12 col-xs-12 col-sm-12">
         <div class="col-md-3">
             AMC:
@@ -89,28 +89,26 @@
                 class="form-control">
             </asp:DropDownList>
         </div>
-       
         <div class="col-md-2">
-           Transaction Type:
+            Transaction Type:
             <asp:DropDownList ID="ddlAction" runat="server" CssClass="form-control input-sm"
-                class="form-control" AutoPostBack="true" OnSelectedIndexChanged="OnSelectedIndexChanged_ddlAction">
+                class="form-control">
                 <asp:ListItem Text="Select" Value="0"></asp:ListItem>
                 <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
                 <asp:ListItem Text="New Purchase" Value="BUY"></asp:ListItem>
                 <asp:ListItem Text="Additional Purchase" Value="ABY"></asp:ListItem>
                 <asp:ListItem Text="Redeem" Value="SEL"></asp:ListItem>
             </asp:DropDownList>
+            <span id="Span7" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="rfvAmc" runat="server" CssClass="rfvPCG" ErrorMessage="Please Select an AMC"
+                Display="Dynamic" ControlToValidate="ddlAction" InitialValue="0" ValidationGroup="btnViewSIP">Select Transaction Type</asp:RequiredFieldValidator>
         </div>
-         <div class="col-md-2" style="visibility:hidden">
-            Exchange:
-            <asp:DropDownList ID="ddlExchange" runat="server" CssClass="form-control input-sm"
-                class="form-control">
-                <asp:ListItem Text="Online" Value="1"></asp:ListItem>
-                <asp:ListItem Text="Demat" Value="0"></asp:ListItem>
-            </asp:DropDownList>
+        <div class="col-md-1" style="margin-top:1.8%">
+            <asp:Button ID="btnViewSIP" runat="server" CssClass="btn btn-primary btn-primary"
+                Text="Go" ValidationGroup="btnViewSIP" OnClick="btnViewOrder_Click" />
         </div>
+       
     </div>
-    
 </div>
 <div id="Div1" class="row" style="margin-left: 5%; margin-right: 5%; background-color: #2480C7;"
     visible="false" runat="server">
@@ -229,7 +227,6 @@
                                                             <font color="#565656"><b>Dividend Type:</b></font>
                                                             <%# Eval("CMFOD_DividendOption")%>
                                                         </div>
-                                                        
                                                         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                                             <font color="#565656"><b>Maturity Date:</b></font>
                                                             <%# Eval("CMFT_ELSSMaturityDate")%>
@@ -266,3 +263,11 @@
     });
 </script>
 
+ <div class="col-md-2" style="visibility: hidden">
+            Exchange:
+            <asp:DropDownList ID="ddlExchange" runat="server" CssClass="form-control input-sm"
+                class="form-control">
+                <asp:ListItem Text="Online" Value="1"></asp:ListItem>
+                <asp:ListItem Text="Demat" Value="0"></asp:ListItem>
+            </asp:DropDownList>
+        </div>
