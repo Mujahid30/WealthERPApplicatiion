@@ -219,11 +219,7 @@
                                                         <asp:LinkButton ID="lbDetails" runat="server" CommandName="ExpandCollapse" class="ft_sort btn-sm btn-info"
                                                             UniqueName="Detailslink" OnClick="btnExpandAll_Click" style="color:White;" Text="Bid Details" Width="80px"></asp:LinkButton>
                                                     </div>
-                                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
-                                                        <font color="#565656"><b>Order View:</b></font>
-                                                        <asp:LinkButton ID="imgView" runat="server" CommandName="View" class="glyphicon glyphicon-eye-open"
-                                                            ToolTip="View" />
-                                                    </div>
+                                                   
                                                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                                         <asp:LinkButton ID="lbtnMarkAsReject" UniqueName="Edit" runat="server" CommandName="Edit"
                                                             class="ft_sort btn-sm btn-info" style="color:White;" Text="Cancel"></asp:LinkButton>
@@ -247,6 +243,11 @@
                                                       <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;
                                                         visibility: hidden;">
                                                         <%# Eval("AIM_IsCancelAllowed")%>
+                                                    </div>
+                                                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;visibility: hidden;">
+                                                        <font color="#565656"><b>Order View:</b></font>
+                                                        <asp:LinkButton ID="imgView" runat="server" CommandName="View" class="glyphicon glyphicon-eye-open"
+                                                            ToolTip="View" />
                                                     </div>
                                                 </div>
                                             </ItemTemplate>

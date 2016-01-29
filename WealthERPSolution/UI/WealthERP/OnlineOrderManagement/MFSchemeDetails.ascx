@@ -229,8 +229,8 @@
                     <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" CssClass="form-control input-sm"
                         OnSelectedIndexChanged="ddlAction_OnSelectedIndexChanged" Width="100px">
                         <asp:ListItem Text="Action" Value="Select Action"></asp:ListItem>
-                        <asp:ListItem Text="Buy" Value="Buy"></asp:ListItem>
-                        <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
+                        <asp:ListItem Text="Buy" Value="Buy" Enabled="false"></asp:ListItem>
+                        <asp:ListItem Text="SIP" Value="SIP" Enabled="false"></asp:ListItem>
                     </asp:DropDownList>
                 </div>
             </div>

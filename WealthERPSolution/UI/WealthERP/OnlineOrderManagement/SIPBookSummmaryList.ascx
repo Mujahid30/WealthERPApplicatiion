@@ -358,10 +358,6 @@ col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                 <%# Eval("CMFSS_Amount")%>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
-                                <font color="#565656"><b>Units:</b></font>
-                                <%# Eval("Unit")%>
-                            </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                 <font color="#565656"><b>SIP Frequency:</b></font>
                                 <%# Eval("XF_Frequency")%>
                             </div>
