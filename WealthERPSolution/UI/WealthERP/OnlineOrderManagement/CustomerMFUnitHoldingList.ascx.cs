@@ -210,7 +210,7 @@ namespace WealthERP.OnlineOrderManagement
                     else
                         drMFUnitHoplding["Price"] = "N/A";
                     if (mfPortfolioVo.InvestedCost != 0)
-                        drMFUnitHoplding["InvestedCost"] = mfPortfolioVo.InvestedCost.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
+                        drMFUnitHoplding["InvestedCost"] = mfPortfolioVo.InvestedCost.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
                     else
                         drMFUnitHoplding["InvestedCost"] = "0.00";
                     if (mfPortfolioVo.MarketPrice != 0)
@@ -218,7 +218,7 @@ namespace WealthERP.OnlineOrderManagement
                     else
                         drMFUnitHoplding["NAV"] = "0.00";
                     if (mfPortfolioVo.CurrentValue != 0)
-                        drMFUnitHoplding["CurrentValue"] = mfPortfolioVo.CurrentValue.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
+                        drMFUnitHoplding["CurrentValue"] = mfPortfolioVo.CurrentValue.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
                     else
                         drMFUnitHoplding["CurrentValue"] = "0.00";
                     if (mfPortfolioVo.SalesQuantity != 0)
@@ -234,7 +234,7 @@ namespace WealthERP.OnlineOrderManagement
                     else
                         drMFUnitHoplding["DVP"] = "0.00";
                     if (mfPortfolioVo.ReturnsHoldTotalPL != 0)
-                        drMFUnitHoplding["Unrealised Gain/Loss"] = mfPortfolioVo.ReturnsHoldTotalPL.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
+                        drMFUnitHoplding["Unrealised Gain/Loss"] = mfPortfolioVo.ReturnsHoldTotalPL.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
                     else
                         drMFUnitHoplding["Unrealised Gain/Loss"] = "0.00";
                     if (mfPortfolioVo.ReturnsHoldAbsReturn != 0)
