@@ -95,6 +95,7 @@ namespace WealthERP.OnlineOrderManagement
             ddl.DataTextField = "Key";
             ddl.DataValueField = "Value";
             ddl.DataBind();
+            ddl.SelectedValue = "2";
         }
         protected void ddlCategory_OnSelectedIndexChanged(object sender, EventArgs e)
         {

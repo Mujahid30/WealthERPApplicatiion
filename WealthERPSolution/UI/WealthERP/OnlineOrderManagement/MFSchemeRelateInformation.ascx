@@ -271,7 +271,8 @@
         <div class="col-md-12" style="margin: 0px 20px 3px 12%; padding-top: 0.5%; padding-bottom: 0.5%;
             width: 75%;">
             <div id="dvDemo" visible="true" runat="server">
-                <div class="col-md-12  col-xs-12 col-sm-12  topBottomBorder"  runat="server" id="dvFundFilter" visible="false">
+                <div class="col-md-12  col-xs-12 col-sm-12  topBottomBorder" runat="server" id="dvFundFilter"
+                    visible="false">
                     <div class="col-md-12 col-xs-12 col-sm-12 " style="margin-bottom: 0%; margin-left: 0%;
                         padding-left: 0px">
                         <div class="col-md-2" style="padding-left: 0px; width: 9%; padding-top: 4px;">
@@ -376,7 +377,7 @@
                                 <div class="col-md-1">
                                     <asp:Button ID="btnTopRated" runat="server" class="btn btn-sm btn-primary" Text="GO"
                                         OnClick="btnTopRated_OnClick"></asp:Button></div>
-                                         <div class="col-md-1" style="padding: 5px 0px 0px 0px; font-family: Times New Roman;
+                                <div class="col-md-1" style="padding: 5px 0px 0px 0px; font-family: Times New Roman;
                                     width: 4.2%">
                                     Sort On:
                                 </div>
@@ -386,7 +387,6 @@
                                     </asp:DropDownList>
                                 </div>
                             </div>
-                             
                         </div>
                         <div class="no-more-tables">
                             <table class="col-md-12 table-bordered table-striped table-condensed cf" style="width: 90%;">
@@ -716,9 +716,9 @@
         <asp:HiddenField ID="hfNFOType" runat="server" />
         <asp:HiddenField ID="hfIsSIP" runat="server" />
         <asp:HiddenField ID="hfMarketSortOn" runat="server" />
-         <asp:HiddenField ID="hfSortOn" runat="server" />
-   
+        <asp:HiddenField ID="hfSortOn" runat="server" />
     </ContentTemplate>
     <Triggers>
+        <asp:PostBackTrigger ControlID="rblNFOType" />
     </Triggers>
 </asp:UpdatePanel>
