@@ -349,6 +349,7 @@ namespace WealthERP.OnlineOrderManagement
             string accountId = rgUnitHolding.MasterTableView.DataKeyValues[selectedRow - 1]["AccountId"].ToString();
             string schemePlanCode = rgUnitHolding.MasterTableView.DataKeyValues[selectedRow - 1]["SchemeCode"].ToString();
             //string exchangeType = "&exchangeType=Demat";
+
             switch (ddlAction.SelectedValue)
             {
                 case "SIP":
@@ -513,22 +514,30 @@ namespace WealthERP.OnlineOrderManagement
                 System.Web.UI.WebControls.Image imgRating10Year = (System.Web.UI.WebControls.Image)e.Item.FindControl("imgRating10yr");
                 System.Web.UI.WebControls.Image imgRatingOvelAll = (System.Web.UI.WebControls.Image)e.Item.FindControl("imgRatingOvelAll");
 
+               
                 if (lblSIPSchemeFlag.Text.Trim().ToLower() == "false")
                 {
                     ddlAction.Items[1].Enabled = false;
-
+                }
+                else
+                {
+                    ddlAction.Items[1].Enabled = true;
                 }
                 if (lblIsPurcheseFlag.Text.Trim().ToLower() == "false")
                 {
                     ddlAction.Items[2].Enabled = false;
-
-
+                }
+                else
+                {
+                    ddlAction.Items[2].Enabled = true;
                 }
                 if (lblISRedeemFlag.Text.Trim().ToLower() == "false")
                 {
                     ddlAction.Items[3].Enabled = false;
-
-
+                }
+                else
+                {
+                    ddlAction.Items[3].Enabled = true;
                 }
                 lblISRedeemFlag.Visible = false;
                 lblIsPurcheseFlag.Visible = false;

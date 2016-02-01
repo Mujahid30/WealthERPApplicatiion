@@ -301,9 +301,12 @@ namespace WealthERP.OnlineOrderManagement
                     lblSchemeRisk5yr.Text = onlineMFSchemeDetailsVo.SchemeRisk5Year;
                 if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.SchemeRisk10Year))
                     lblSchemeRisk10yr.Text = onlineMFSchemeDetailsVo.SchemeRisk10Year;
-                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.isPurchaseAvaliable.ToString()))
+                ddlAction.Items[1].Enabled = false;
+                ddlAction.Items[2].Enabled = false;
+
+                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.isPurchaseAvaliable.ToString()) && onlineMFSchemeDetailsVo.isPurchaseAvaliable!=0)
                   ddlAction.Items[1].Enabled=true;
-                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.isSIPAvaliable.ToString()))
+                if (!string.IsNullOrEmpty(onlineMFSchemeDetailsVo.isSIPAvaliable.ToString()) && onlineMFSchemeDetailsVo.isSIPAvaliable!=0)
                   ddlAction.Items[2].Enabled=true;
 
                 if (onlineMFSchemeDetailsVo.schemeBox > 0)

@@ -236,15 +236,15 @@
                 </table>
             </div>
             <telerik:RadWindow ID="rwTermsCondition" runat="server" VisibleOnPageLoad="false"
-                Width="1000px" Height="140px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false"
-                Behaviors="Move,Resize,Close" Title="Terms & Conditions" EnableShadow="true" Left="15%" Top="5" OnClientShow="setCustomPosition">
+                Width="1000px" Height="180px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false"
+                Behaviors="Move,Resize,Close" Title="Terms & Conditions" EnableShadow="true" Left="15%" Top="1" OnClientShow="setCustomPosition">
                 <ContentTemplate>
                     <div style="padding: 0px; width: 100%">
                         <table width="100%" cellpadding="0" cellpadding="0">
                             <tr>
                                 <td align="left">
                                     <iframe src="../ReferenceFiles/MF-Terms-Condition.html" name="iframeTermsCondition"
-                                        style="width: 100%; height: 130px"></iframe>
+                                        style="width: 100%; height: 90px"></iframe>
                                 </td>
                             </tr>
                             <tr>
