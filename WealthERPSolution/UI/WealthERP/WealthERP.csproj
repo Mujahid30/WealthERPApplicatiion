@@ -8322,6 +8322,7 @@
     <Content Include="ReferenceFiles\HelpRedeem.htm" />
     <Content Include="ReferenceFiles\HelpSIP.htm" />
     <Content Include="ReferenceFiles\IPO-Terms-Condition.htm" />
+    <Content Include="ReferenceFiles\IPOASBAInformation.htm" />
     <Content Include="ReferenceFiles\MF-Terms-Condition.html" />
     <Content Include="ReferenceFiles\MFOrderbook.htm" />
     <Content Include="ReferenceFiles\NCD-Terms-Condition.html" />
