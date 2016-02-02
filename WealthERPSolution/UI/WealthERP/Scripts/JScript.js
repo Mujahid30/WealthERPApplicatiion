@@ -1044,21 +1044,23 @@ function calc(iframe_id) {
         //            document.getElementById(iframe_id).height = newHeight;
         var F = document.getElementById(iframe_id);
         if (F.contentDocument) {
+         
             if (F.contentDocument.documentElement.scrollHeight > 150) {
-                F.height = F.contentDocument.documentElement.scrollHeight + 30; //FF 3.0.11, Opera 9.63, and Chrome
+                F.height = F.contentDocument.documentElement.scrollHeight + 10; //FF 3.0.11, Opera 9.63, and Chrome
             }
             else {
                 F.height = 150;
             }
         }
-        else {
+//        else if (F.contentWindow) {
+      
             if (F.contentWindow.document.body.scrollHeight > 150) {
-                F.height = F.contentWindow.document.body.scrollHeight + 30; //IE6, IE7 and Chrome
+                F.height = F.contentWindow.document.body.scrollHeight + 10; //IE6, IE7 and Chrome
             }
             else {
                 F.height = 150;
             }
-        }
+//        }
 
 
     }
