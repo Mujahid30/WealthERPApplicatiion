@@ -34,12 +34,14 @@ namespace WealthERP.OnlineOrderManagement
             userVo = (UserVo)Session[SessionContents.UserVo];
             advisorVo = (AdvisorVo)Session["advisorVo"];
             customerVo = (CustomerVo)Session["customerVo"];
+            RadIPOASBA.VisibleOnPageLoad = false;
             if (!Page.IsPostBack)
             {
                 pnlSchemeMIS.Visible = true;
                 ddlType.SelectedValue = "Curent";
                 BindIPOIssueList(GetType(ddlType.SelectedValue));
                 ShowAvailableLimits();
+                RadIPOASBA.VisibleOnPageLoad = true;
             }
            
 

@@ -5,6 +5,31 @@
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
+
+<script src="../Scripts/jquery.js" type="text/javascript"></script>
+
+<script src="../Scripts/JScript.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.bxslider.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    function setCustomPosition(sender, args) {
+        sender.moveTo(sender.get_left(), sender.get_top());
+    }
+</script>
+
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
         <table class="tblMessage" cellpadding="0" cellspacing="0">
@@ -43,11 +68,26 @@
         </table>
         <table width="60%" runat="server" id="tbNcdIssueList">
             <tr>
+                <td>
+                    <telerik:RadWindow ID="RadIPOASBA" Modal="true" Behaviors="Close, Move" VisibleStatusbar="false"
+                        VisibleOnPageLoad="true" Width="890px" Height="650px" runat="server" Left="300"
+                        Top="10" OnClientShow="setCustomPosition">
+                        <ContentTemplate >
+                            <div style="padding-left: 0px;padding-right:0px; width: 100%; height: 100%;">
+                                <iframe src="../ReferenceFiles/IPOASBAInformation.htm" name="iframeTermsCondition"
+                                    style="width: 100%;padding-left: 0px;padding-right:0px; height: 100%"></iframe>
+                            </div>
+                        </ContentTemplate>
+                    </telerik:RadWindow>
+                </td>
+            </tr>
+            <tr>
                 <td align="right">
                     <asp:Label ID="lb1Type" runat="server" Text="Type:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td style="width: 25%;">
-                    <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlType_OnSelectedIndexChanged">
+                    <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" AutoPostBack="true"
+                        OnSelectedIndexChanged="ddlType_OnSelectedIndexChanged">
                         <asp:ListItem Value="Select">Select</asp:ListItem>
                         <asp:ListItem Value="Curent">Current Issues</asp:ListItem>
                         <asp:ListItem Value="Closed">Closed Issues</asp:ListItem>
@@ -65,16 +105,18 @@
                 </td>
             </tr>
         </table>
-        <asp:Panel ID="pnlSchemeMIS" runat="server" ScrollBars="Both" Width="100%" Height="350px" Visible="false">
-            <div class="divControlContiner" id="divControlContainer" runat="server" style="height:100%">
+        <asp:Panel ID="pnlSchemeMIS" runat="server" ScrollBars="Both" Width="100%" Height="350px"
+            Visible="false">
+            <div class="divControlContiner" id="divControlContainer" runat="server" style="height: 100%">
                 <table width="100%">
                     <tr>
                         <td>
                             <telerik:RadGrid ID="RadGridIPOIssueList" runat="server" AllowSorting="True" enableloadondemand="True"
                                 PageSize="10" AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
-                                Skin="Telerik" AllowFilteringByColumn="false" OnNeedDataSource="RadGridIPOIssueList_OnNeedDataSource" OnItemCommand="RadGridIPOIssueList_OnItemCommand"
-                                OnItemDataBound="RadGridIPOIssueList_ItemDataBound" OnPreRender="RadGridIPOIssueList_PreRender" >
+                                Skin="Telerik" AllowFilteringByColumn="false" OnNeedDataSource="RadGridIPOIssueList_OnNeedDataSource"
+                                OnItemCommand="RadGridIPOIssueList_OnItemCommand" OnItemDataBound="RadGridIPOIssueList_ItemDataBound"
+                                OnPreRender="RadGridIPOIssueList_PreRender">
                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AR_Filename,AIM_IsMultipleApplicationsallowed"
                                     AutoGenerateColumns="false" Width="100%">
                                     <Columns>
@@ -125,7 +167,6 @@
                                             ShowFilterIcon="false" UniqueName="AIM_CapPrice" Visible="true">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
-                                       
                                         <telerik:GridBoundColumn DataField="AIIC_MInBidAmount" HeaderStyle-Width="200px"
                                             HeaderText="Min Bid Amount" ShowFilterIcon="false" UniqueName="AIIC_MInBidAmount"
                                             Visible="true" DataType="System.Decimal" DataFormatString="{0:0.00}">
@@ -158,14 +199,14 @@
                                                     ToolTip="BUY IPO" />
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
-                                  <telerik:GridTemplateColumn ItemStyle-Width="140px" AllowFiltering="false" HeaderText="Download"
+                                        <telerik:GridTemplateColumn ItemStyle-Width="140px" AllowFiltering="false" HeaderText="Download"
                                             ItemStyle-Wrap="false" UniqueName="Download" Visible="false" Display="false">
                                             <ItemTemplate>
-                                              <asp:LinkButton ID="lbPreview" CommandName="download_file" Text="View Prospectus"  runat="server" Visible="false">
-                                             </asp:LinkButton>
+                                                <asp:LinkButton ID="lbPreview" CommandName="download_file" Text="View Prospectus"
+                                                    runat="server" Visible="false">
+                                                </asp:LinkButton>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
-                            
                                     </Columns>
                                 </MasterTableView>
                             </telerik:RadGrid>
@@ -176,6 +217,7 @@
         </asp:Panel>
     </ContentTemplate>
     <Triggers>
-    <asp:PostBackTrigger ControlID="RadGridIPOIssueList" />
+        <asp:PostBackTrigger ControlID="RadGridIPOIssueList" />
+        <asp:PostBackTrigger ControlID="RadIPOASBA" />
     </Triggers>
 </asp:UpdatePanel>
