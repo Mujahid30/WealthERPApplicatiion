@@ -147,7 +147,7 @@ namespace WealthERP.OnlineOrderManagement
             dtMFUnitHolding.Columns.Add("InvestmentStartDate");
             dtMFUnitHolding.Columns.Add("CMFNP_NAVDate");
             dtMFUnitHolding.Columns.Add("CMFNP_ValuationDate");
-            dtMFUnitHolding.Columns.Add("Realised Gain/Loss",typeof(double));
+            dtMFUnitHolding.Columns.Add("Realised Gain/Loss", typeof(double));
             dtMFUnitHolding.Columns.Add("IsSchemeSIPType");
             dtMFUnitHolding.Columns.Add("IsSchemePurchege");
             dtMFUnitHolding.Columns.Add("IsSchemeRedeem");
@@ -344,12 +344,20 @@ namespace WealthERP.OnlineOrderManagement
         protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
             DropDownList ddlAction = (DropDownList)sender;
+            //RadGrid itm = (RadGrid)ddlAction.NamingContainer;
             GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
             int selectedRow = gvr.ItemIndex + 1;
             string accountId = rgUnitHolding.MasterTableView.DataKeyValues[selectedRow - 1]["AccountId"].ToString();
             string schemePlanCode = rgUnitHolding.MasterTableView.DataKeyValues[selectedRow - 1]["SchemeCode"].ToString();
-            //string exchangeType = "&exchangeType=Demat";
-
+            for (int i = 0; i < rgUnitHolding.Items.Count; i++)
+            {
+                DropDownList DDLValue = rgUnitHolding.Items[i].FindControl("ddlAction") as DropDownList;
+                string schemePlanCode1 = rgUnitHolding.MasterTableView.DataKeyValues[i]["SchemeCode"].ToString();
+                if (schemePlanCode.Trim() != schemePlanCode1.Trim())
+                {
+                    DDLValue.SelectedValue = "0";
+                }
+            }
             switch (ddlAction.SelectedValue)
             {
                 case "SIP":
@@ -514,7 +522,7 @@ namespace WealthERP.OnlineOrderManagement
                 System.Web.UI.WebControls.Image imgRating10Year = (System.Web.UI.WebControls.Image)e.Item.FindControl("imgRating10yr");
                 System.Web.UI.WebControls.Image imgRatingOvelAll = (System.Web.UI.WebControls.Image)e.Item.FindControl("imgRatingOvelAll");
 
-               
+
                 if (lblSIPSchemeFlag.Text.Trim().ToLower() == "false")
                 {
                     ddlAction.Items[1].Enabled = false;
