@@ -9,8 +9,14 @@
 <script src="../Scripts/JScript.js" type="text/javascript"></script>
 
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
-
-<script src="Scripts/jquery-1.4.1.js" type="text/javascript"></script>
+<script src="../Scripts/bootstrap.js" type="text/javascript"></script>
+<script src="../Scripts/jquery.js" type="text/javascript"></script>
+<script src="../Scripts/JScript.js" type="text/javascript"></script>
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+<link href="../Base/CSS/bootstrap-theme.css" rel="stylesheet" type="text/css" />
+<link href="../Base/CSS/bootstrap.css" rel="stylesheet" type="text/css" />
+<link href="../Base/CSS/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
 <asp:ScriptManager ID="scriptmanager" runat="server">
     <%--<Services>
@@ -24,22 +30,6 @@
     }
    
     
-</script>
-
-<script type="text/javascript">
-    function markTab(sender, args) {
-        var attributes = args.get_tab().get_attributes();
-        attributes.setAttribute("visited", "true");
-        attributes
-    }
-    function showTab(sender, args) {
-        var label = document.getElementById("Label1");
-        label.innerText = args.get_tab().get_text();
-    }
-    function pager(text) {
-        alert("text");
-        alert(text);
-    }
 </script>
 
 <style type="text/css">
@@ -244,28 +234,7 @@
     }
 </style>
 
-<script src="../Scripts/bootstrap.js" type="text/javascript"></script>
 
-<script src="../Scripts/jquery.js" type="text/javascript"></script>
-
-<script src="../Scripts/JScript.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
-
-<script type="text/javascript" src="../Scripts/jquery-1.5.2.min.js"></script>
-
-<link href="../Base/CSS/bootstrap-theme.css" rel="stylesheet" type="text/css" />
-<link href="../Base/CSS/bootstrap.css" rel="stylesheet" type="text/css" />
-<link href="../Base/CSS/bootstrap.min.css" rel="stylesheet" type="text/css" />
-
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
-
-<link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/start/jquery-ui.css"
-    rel="stylesheet" type="text/css" />
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
         <div class="col-md-12" style="margin: 0px 20px 3px 12%; padding-top: 0.5%; padding-bottom: 0.5%;
@@ -367,8 +336,8 @@
                                 </div>
                                 <div class="col-md-1">
                                     <asp:DropDownList ID="ddlCompare" runat="server" AutoPostBack="false" CssClass="form-control input-sm">
-                                        <asp:ListItem Text="<" Value="1" Selected="True"></asp:ListItem>
-                                        <asp:ListItem Text=">" Value="2"></asp:ListItem>
+                                        <asp:ListItem Text="<" Value="1" ></asp:ListItem>
+                                        <asp:ListItem Text=">" Value="2" Selected="True"></asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
                                 <div class="col-md-1">
@@ -719,6 +688,6 @@
         <asp:HiddenField ID="hfSortOn" runat="server" />
     </ContentTemplate>
     <Triggers>
-        <asp:PostBackTrigger ControlID="rblNFOType" />
+       
     </Triggers>
 </asp:UpdatePanel>
