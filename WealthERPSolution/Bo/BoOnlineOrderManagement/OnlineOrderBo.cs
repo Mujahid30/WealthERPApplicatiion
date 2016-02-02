@@ -260,12 +260,14 @@ namespace BoOnlineOrderManagement
             Dictionary<string, string> TransactionTypes = new Dictionary<string, string>();
             if (exchange == "Online")
             {
-                TransactionTypes.Add("MFOrderPurchaseTransType", "Purchase");
+                if (availableTransType.Contains("Purchase"))
+                    TransactionTypes.Add("MFOrderPurchaseTransType", "Purchase");
                 if (availableTransType.Contains("SIP"))
                     TransactionTypes.Add("MFOrderSIPTransType", "SIP");
                 if (availableTransType.Contains("NFO"))
-                    TransactionTypes.Add("MFOrderNFOTransType", "NFO");
-                TransactionTypes.Add("MFOrderRdemptionTransType", "Redeem");
+                    TransactionTypes.Add("MFOrderNFOTransType", "Purchase");
+                if (availableTransType.Contains("Redeem"))
+                    TransactionTypes.Add("MFOrderRdemptionTransType", "Redeem");
                 //if (availableTransType.Contains("SWP"))
                 //    TransactionTypes.Add("Demat", "SWP");
                 //if (availableTransType.Contains("STP"))
@@ -279,7 +281,7 @@ namespace BoOnlineOrderManagement
                 if (availableTransType.Contains("SIP"))
                     TransactionTypes.Add("MFOrderSIPTransType", "SIP");
                 if (availableTransType.Contains("NFO"))
-                    TransactionTypes.Add("MFOrderNFOTransType", "NFO");
+                    TransactionTypes.Add("MFOrderNFOTransType", "Purchase");
                 TransactionTypes.Add("MFOrderRdemptionTransType", "Redeem");
             }
             return TransactionTypes;
