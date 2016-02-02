@@ -808,7 +808,7 @@
                                 </li>
                                 <li>
                                 <%--<a onclick="LoadBottomPanelControl('NCDIssueBooks','?BondType=FITFTF');">NCD TAX FREE BOOK</a>--%>
-                                <asp:LinkButton ID="LinkButton16" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('NCDIssueBooks','?BondType=FITFTF');" >SGB BOOK</asp:LinkButton>
+                                <asp:LinkButton ID="LinkButton16" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('NCDIssueBooks','?BondType=FITFTF');" >NCD TAX FREE BOOK</asp:LinkButton>
                                 
                                     </li>
                             </ul>
