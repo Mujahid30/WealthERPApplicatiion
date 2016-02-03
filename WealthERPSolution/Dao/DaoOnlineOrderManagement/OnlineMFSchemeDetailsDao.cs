@@ -236,7 +236,7 @@ namespace DaoOnlineOrderManagement
                         OnlineMFSchemeDetailsVo.multipleOf = int.Parse(dr["PASPD_InitialMultipleAmount"].ToString());
                         OnlineMFSchemeDetailsVo.minSIPInvestment = int.Parse(dr["PASPSD_MinAmount"].ToString());
                         OnlineMFSchemeDetailsVo.SIPmultipleOf = int.Parse(dr["PASPSD_MultipleAmount"].ToString());
-                        OnlineMFSchemeDetailsVo.mornigStar = int.Parse(dr["SchemeRatingOverall"].ToString());
+                        OnlineMFSchemeDetailsVo.overAllRating = int.Parse(dr["SchemeRatingOverall"].ToString());
                         OnlineMFSchemeDetailsVo.navDate=dr["PASPSP_Date"].ToString();
                         if(dr["CMFNP_CurrentValue"].ToString()!="")
                         OnlineMFSchemeDetailsVo.NAV =Convert.ToDecimal(dr["CMFNP_CurrentValue"]);

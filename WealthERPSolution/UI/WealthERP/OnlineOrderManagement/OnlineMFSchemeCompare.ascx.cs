@@ -243,6 +243,8 @@ namespace WealthERP.OnlineOrderManagement
             switch (schmeCompareNum)
             {
                 case 1:
+                    ddlAction.Items[1].Enabled = false;
+                    ddlAction.Items[2].Enabled = false;
                     ddlAMC1.Visible = false;
                     ddlCategory1.Visible = false;
                     ddlSchemeList1.Visible = false;
@@ -267,12 +269,14 @@ namespace WealthERP.OnlineOrderManagement
                     lblMinInvestment.Text = onlineMFSchemeDetailsVo.minmumInvestmentAmount.ToString();
                     lblMinMultipleOf.Text = onlineMFSchemeDetailsVo.multipleOf.ToString();
                     if(onlineMFSchemeDetailsVo.isPurchaseAvaliable !=0)
+                        ddlAction.Items[1].Enabled = true;
                                        if (onlineMFSchemeDetailsVo.isSIPAvaliable != 0)
-                  
-                    if (onlineMFSchemeDetailsVo.mornigStar > 0)
+                                           ddlAction.Items[2].Enabled = true;
+
+                                       if (onlineMFSchemeDetailsVo.overAllRating > 0)
                     {
                         imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
-                        ImgStyle1.ImageUrl = @"../Images/MorningStarRating/PMFRD_RatingOverall/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
+                        ImgStyle1.ImageUrl = @"../Images/MorningStarRating/PMFRD_RatingOverall/" + onlineMFSchemeDetailsVo.overAllRating + ".png";
                     }
                     else
                     {
@@ -282,6 +286,8 @@ namespace WealthERP.OnlineOrderManagement
                     }
                     break;
                 case 2:
+                    ddlAction1.Items[1].Enabled = false;
+                    ddlAction1.Items[2].Enabled = false;
                     ddlAMC2.Visible = false;
                     ddlCategory2.Visible = false;
                     ddlSchemeList2.Visible = false;
@@ -307,13 +313,13 @@ namespace WealthERP.OnlineOrderManagement
                     lblMinInvestment1.Text = onlineMFSchemeDetailsVo.minmumInvestmentAmount.ToString();
                     lblMinMultipleOf1.Text = onlineMFSchemeDetailsVo.multipleOf.ToString();
                     if (onlineMFSchemeDetailsVo.isPurchaseAvaliable != 0)
-                       
+                        ddlAction1.Items[1].Enabled = true;
                     if (onlineMFSchemeDetailsVo.isSIPAvaliable != 0)
-                     
-                    if (onlineMFSchemeDetailsVo.mornigStar > 0)
+                        ddlAction1.Items[2].Enabled = true;
+                    if (onlineMFSchemeDetailsVo.overAllRating > 0)
                     {
                         imgSchemeRating1.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
-                        ImgStyle2.ImageUrl = @"../Images/MorningStarRating/PMFRD_RatingOverall/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
+                        ImgStyle2.ImageUrl = @"../Images/MorningStarRating/PMFRD_RatingOverall/" + onlineMFSchemeDetailsVo.overAllRating + ".png";
 
                     }
                     else
@@ -324,6 +330,8 @@ namespace WealthERP.OnlineOrderManagement
                     }
                     break;
                 case 3:
+                    ddlAction2.Items[1].Enabled = false;
+                    ddlAction2.Items[2].Enabled = false;
                     ddlAMC3.Visible = false;
                     ddlCategory3.Visible = false;
                     ddlSchemeList3.Visible = false;
@@ -349,13 +357,13 @@ namespace WealthERP.OnlineOrderManagement
                     lblMinInvestment2.Text = onlineMFSchemeDetailsVo.minmumInvestmentAmount.ToString();
                     lblMinMultipleOf2.Text = onlineMFSchemeDetailsVo.multipleOf.ToString();
                     if (onlineMFSchemeDetailsVo.isPurchaseAvaliable != 0)
-                    
+                        ddlAction2.Items[1].Enabled = true;
                     if (onlineMFSchemeDetailsVo.isSIPAvaliable != 0)
-                   
-                    if (onlineMFSchemeDetailsVo.mornigStar > 0)
+                        ddlAction2.Items[2].Enabled = true;
+                    if (onlineMFSchemeDetailsVo.overAllRating > 0)
                     {
                         imgSchemeRating2.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
-                        ImgStyle3.ImageUrl = @"../Images/MorningStarRating/PMFRD_RatingOverall/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
+                        ImgStyle3.ImageUrl = @"../Images/MorningStarRating/PMFRD_RatingOverall/" + onlineMFSchemeDetailsVo.overAllRating + ".png";
 
                     }
                     else
@@ -366,6 +374,8 @@ namespace WealthERP.OnlineOrderManagement
                     }
                     break;
                 case 4:
+                    ddlAction3.Items[1].Enabled = false;
+                    ddlAction3.Items[2].Enabled = false;
                     ddlAMC4.Visible = false;
                     ddlCategory4.Visible = false;
                     ddlSchemeList4.Visible = false;
@@ -391,13 +401,13 @@ namespace WealthERP.OnlineOrderManagement
                     lblMinInvestment3.Text = onlineMFSchemeDetailsVo.minmumInvestmentAmount.ToString();
                     lblMinMultipleOf3.Text = onlineMFSchemeDetailsVo.multipleOf.ToString();
                     if (onlineMFSchemeDetailsVo.isPurchaseAvaliable != 0)
-                      
+                        ddlAction3.Items[1].Enabled = true;
                     if (onlineMFSchemeDetailsVo.isSIPAvaliable != 0)
-                        
-                    if (onlineMFSchemeDetailsVo.mornigStar > 0)
+                        ddlAction3.Items[1].Enabled = true;
+                    if (onlineMFSchemeDetailsVo.overAllRating > 0)
                     {
                         imgSchemeRating3.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
-                        ImgStyle4.ImageUrl = @"../Images/MorningStarRating/PMFRD_RatingOverall/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
+                        ImgStyle4.ImageUrl = @"../Images/MorningStarRating/PMFRD_RatingOverall/" + onlineMFSchemeDetailsVo.overAllRating + ".png";
 
                     }
                     else

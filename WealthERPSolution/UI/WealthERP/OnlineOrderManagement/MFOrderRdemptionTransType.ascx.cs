@@ -437,7 +437,6 @@ namespace WealthERP.OnlineOrderManagement
 
             ddlAmc.Enabled = false;
             ddlCategory.Enabled = false;
-            ddlFolio.Enabled = false;
             ddlScheme.Enabled = false;
             GetControlDetails(SchemeCode, Accountid.ToString());
 

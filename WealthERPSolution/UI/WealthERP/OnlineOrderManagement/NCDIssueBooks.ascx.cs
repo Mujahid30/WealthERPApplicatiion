@@ -51,13 +51,13 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 DateTime todate;
                 DateTime fromdate;
-                if (Request.QueryString["strAction"] != "" && Request.QueryString["strAction"] != null && Request.QueryString["BondType"]!=null)
+                if (Request.QueryString["strAction"] != "" && Request.QueryString["strAction"] != null && Request.QueryString["BondType"] != null)
                 {
                     string action = Request.QueryString["strAction"].ToString();
                     todate = DateTime.Parse(Request.QueryString["todate"].ToString());
                     fromdate = DateTime.Parse(Request.QueryString["fromdate"].ToString());
                     string status = Request.QueryString["status"].ToString();
-                    productsubtype=Request.QueryString["BondType"];
+                    productsubtype = Request.QueryString["BondType"];
                     hdnOrderStatus.Value = status;
                     // ddlOrderStatus.SelectedValue = status;
                     txtOrderFrom.SelectedDate = fromdate;
@@ -76,9 +76,9 @@ namespace WealthERP.OnlineOrderManagement
         {
             DataTable dt;
             dt = BoOnlineBondOrder.GetCustomerIssueName(customerVo.CustomerId, productSubType);
-            ddlIssueName.DataSource=dt;
-            ddlIssueName.DataValueField=dt.Columns["AIM_IssueId"].ToString();
-            ddlIssueName.DataTextField=dt.Columns["AIM_IssueName"].ToString();
+            ddlIssueName.DataSource = dt;
+            ddlIssueName.DataValueField = dt.Columns["AIM_IssueId"].ToString();
+            ddlIssueName.DataTextField = dt.Columns["AIM_IssueName"].ToString();
             ddlIssueName.DataBind();
             ddlIssueName.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
         }
@@ -108,12 +108,12 @@ namespace WealthERP.OnlineOrderManagement
             ddlOrderStatus.Items.Clear();
             DataSet dsOrderStatus;
             DataTable dtOrderStatus;
-            if(Request.QueryString["BondType"]=="FISDSD")
-               lblProductType.Text="NCD Book";
-            else  if (Request.QueryString["BondType"] == "FITFTF")
-               lblProductType.Text="TAX Free Book";
-            else if(Request.QueryString["BondType"] == "FISSGB")
-               lblProductType.Text="SGB Book";
+            if (Request.QueryString["BondType"] == "FISDSD")
+                lblProductType.Text = "NCD Book";
+            else if (Request.QueryString["BondType"] == "FITFTF")
+                lblProductType.Text = "TAX Free Book";
+            else if (Request.QueryString["BondType"] == "FISSGB")
+                lblProductType.Text = "SGB Book";
 
             dsOrderStatus = OnlineMFOrderBo.GetOrderStatus();
             dtOrderStatus = dsOrderStatus.Tables[0];
@@ -126,7 +126,7 @@ namespace WealthERP.OnlineOrderManagement
             }
             ddlOrderStatus.Items.Insert(0, new ListItem("All", "0"));
         }
-        protected void BindBBGV(int customerId,string subtype)
+        protected void BindBBGV(int customerId, string subtype)
         {
             if (txtOrderFrom.SelectedDate != null)
                 fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
@@ -141,7 +141,7 @@ namespace WealthERP.OnlineOrderManagement
                 gvBBList.CurrentPageIndex = page;
                 gvBBList.DataSource = dtbondsBook;
                 gvBBList.DataBind();
-                ibtExportSummary.Visible = false;
+                ibtExportSummary.Visible = true;
                 Div2.Visible = true;
                 // pnlGrid.Visible = true;
             }
@@ -420,7 +420,7 @@ namespace WealthERP.OnlineOrderManagement
                 //dataItem["MarkAsReject"].Controls[0] as LinkButton;
                 string OrderStepCode = gvBBList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WOS_OrderStepCode"].ToString();
                 string iscancil = gvBBList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IsCancelAllowed"].ToString();
-                if (OrderStepCode.Trim() == "AL" && iscancil!="False")
+                if (OrderStepCode.Trim() == "AL" && iscancil != "False")
                 {
                     lbtnMarkAsReject.Visible = true;
                 }
@@ -433,14 +433,66 @@ namespace WealthERP.OnlineOrderManagement
         }
         public void ibtExport_OnClick(object sender, ImageClickEventArgs e)
         {
-            gvBBList.MasterTableView.HierarchyLoadMode = GridChildLoadMode.ServerBind;
-            gvBBList.ExportSettings.OpenInNewWindow = true;
-            gvBBList.ExportSettings.IgnorePaging = true;
-            gvBBList.ExportSettings.HideStructureColumns = true;
-            gvBBList.ExportSettings.ExportOnlyData = true;
-            gvBBList.ExportSettings.FileName = "NCD Order Book";
-            gvBBList.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvBBList.MasterTableView.ExportToExcel();
+
+            DataTable dtd = CreateIPOBookDataTable();
+            DataTable dts = (DataTable)Cache[userVo.UserId.ToString() + "NCDBookList"];
+
+            System.Data.DataView view = new System.Data.DataView(dts);
+            System.Data.DataTable selected =
+                    view.ToTable("Selected", false, "Scrip", "CO_OrderDate", "CO_OrderId", "AIM_MaxApplNo", "BBStartDate", "BBEndDate", "BBAmounttoinvest", "WOS_OrderStep");
+
+            foreach (DataRow sourcerow in dts.Rows)
+            {
+                DataRow destRow = dtd.NewRow();
+                destRow["Issue Name"] = sourcerow["Scrip"];
+                destRow["Transaction Date"] = sourcerow["CO_OrderDate"];
+                destRow["Transaction No"] = sourcerow["CO_OrderId"];
+                destRow["Application No"] = sourcerow["AIM_MaxApplNo"];
+                destRow["Start Date"] = sourcerow["BBStartDate"];
+                destRow["End Date"] = sourcerow["BBEndDate"];
+                destRow["Amount Invested"] = sourcerow["BBAmounttoinvest"];
+                destRow["Status"] = sourcerow["WOS_OrderStep"];
+                dtd.Rows.Add(destRow);
+            }
+            if (dtd.Rows.Count > 0)
+            {
+                Response.ClearContent();
+                Response.Buffer = true;
+                Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", "CustomerNCD/SGBOrderBook.xls"));
+                Response.ContentType = "application/ms-excel";
+
+                string str = string.Empty;
+                foreach (DataColumn dtcol in dtd.Columns)
+                {
+                    Response.Write(str + dtcol.ColumnName);
+                    str = "\t";
+                }
+                Response.Write("\n");
+                foreach (DataRow dr in dtd.Rows)
+                {
+                    str = "";
+                    for (int j = 0; j < dtd.Columns.Count; j++)
+                    {
+                        Response.Write(str + Convert.ToString(dr[j]));
+                        str = "\t";
+                    }
+                    Response.Write("\n");
+                }
+                Response.End();
+            }
+        }
+        protected DataTable CreateIPOBookDataTable()
+        {
+            DataTable dtIPOOrderBook = new DataTable();
+            dtIPOOrderBook.Columns.Add("Transaction Date", typeof(DateTime));
+            dtIPOOrderBook.Columns.Add("Transaction No");
+            dtIPOOrderBook.Columns.Add("Issue Name");
+            dtIPOOrderBook.Columns.Add("Application No");
+            dtIPOOrderBook.Columns.Add("Start Date", typeof(DateTime));
+            dtIPOOrderBook.Columns.Add("End Date", typeof(DateTime));
+            dtIPOOrderBook.Columns.Add("Amount Invested", typeof(double));
+            dtIPOOrderBook.Columns.Add("Status");
+            return dtIPOOrderBook;
 
         }
         public void gvChildDetails_OnItemDataBound(object sender, GridItemEventArgs e)
@@ -449,13 +501,13 @@ namespace WealthERP.OnlineOrderManagement
             if (e.Item is GridDataItem)
             {
                 GridDataItem dataItem = e.Item as GridDataItem;
-                        System.Web.UI.HtmlControls.HtmlGenericControl nomineedetails=(System.Web.UI.HtmlControls.HtmlGenericControl)dataItem.FindControl("nomineedetails");
-                    if (Request.QueryString["BondType"] == "FISSGB")
-                        nomineedetails.Visible=true;
-                    else
-                         nomineedetails.Visible=false;
-                }
+                System.Web.UI.HtmlControls.HtmlGenericControl nomineedetails = (System.Web.UI.HtmlControls.HtmlGenericControl)dataItem.FindControl("nomineedetails");
+                if (Request.QueryString["BondType"] == "FISSGB")
+                    nomineedetails.Visible = true;
+                else
+                    nomineedetails.Visible = false;
             }
-
         }
+
     }
+}
