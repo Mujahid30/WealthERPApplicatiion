@@ -4,12 +4,11 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
 
-<script language="javascript" type="text/javascript" src="Scripts/JScript.js"></script>
-
-<%--<link href="../App_Themes/Blue/StyleSheet.css" rel="stylesheet" type="text/css" />--%>
-
 <head runat="server">
     <title></title>
+    
+<script language="javascript" type="text/javascript" src="Scripts/JScript.js"></script>
+
 </head>
 <body>
     <form id="form1" runat="server">
