@@ -1042,7 +1042,7 @@ function calc(iframe_id) {
         //        var newHeight = the_height;
         //        if (document.getElementById(iframe_id).height != newHeight)
         //            document.getElementById(iframe_id).height = newHeight;
-        var F = document.getElementById(iframe_id);
+        var F = parent.document.getElementById(iframe_id);
         if (F.contentDocument) {
          
             if (F.contentDocument.documentElement.scrollHeight > 150) {
