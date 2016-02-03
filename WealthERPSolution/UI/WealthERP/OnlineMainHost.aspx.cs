@@ -709,7 +709,7 @@ namespace WealthERP
             OnlineMFSchemeDetailsBo OnlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
             try
             {
-
+                dlNews.RepeatColumns = Convert.ToInt32(ConfigurationSettings.AppSettings["NEWS_COUNT"]);
                 DataSet theDataSet = OnlineMFSchemeDetailsBo.GetAPIData(ConfigurationSettings.AppSettings["NEWS_HEADING"] + ConfigurationSettings.AppSettings["NEWS_COUNT"]);
                 dlNews.DataSource = theDataSet.Tables[1];
                 dlNews.DataBind();
@@ -741,6 +741,7 @@ namespace WealthERP
             DataTable dt = new DataTable();
 
             dt = onlineOrderBo.GetAdvertisementData(assetCategory, "Scroll");
+            dlScroller.RepeatColumns = dt.Rows.Count;
             dlScroller.DataSource = dt;
             dlScroller.DataBind();
             //innerHtml = @"<marquee style=""font-family: Arial;font-size: 14px;"">";

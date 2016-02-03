@@ -664,7 +664,7 @@
             <div id="scroller" runat="server" class="col-md-11" style="padding: 0px 0px 0px 1px">
                 <marquee style="border-radius: 2px; font-size: small" direction="left" scrolldelay="150"
                     onmouseover="this.stop();" onmouseout="this.start();">
-        <asp:datalist ItemStyle-HorizontalAlign="Center" ItemStyle-CssClass="heading" ItemStyle-Width="33%" ItemStyle-Wrap="False" id="dlScroller" CellPadding="2" RepeatColumns="10" RepeatDirection="Horizontal" CellSpacing="2" Runat="server">
+        <asp:datalist ItemStyle-HorizontalAlign="Center" ItemStyle-CssClass="heading" ItemStyle-Wrap="False" id="dlScroller" CellPadding="2"  RepeatDirection="Horizontal" CellSpacing="2" Runat="server">
      <ItemTemplate>
           <asp:Label ID="lblScroller" Text='<%# DataBinder.Eval(Container.DataItem,"PUHD_HelpDetails")%>' Runat="server">
           </asp:Label><br>
@@ -919,7 +919,7 @@
                  <div style="padding-left: 0px;" class="col-md-11">
                 <marquee direction="left" scrolldelay="150" onmouseover="this.stop();" onmouseout="this.start();"
                     style="border-radius: 2px;">
-        <asp:datalist ItemStyle-HorizontalAlign="Center" ItemStyle-CssClass="heading" ItemStyle-Width="33%" ItemStyle-Wrap="False" id="dlNews" CellPadding="2" RepeatColumns="10" RepeatDirection="Horizontal" CellSpacing="2" Runat="server">
+        <asp:datalist ItemStyle-HorizontalAlign="Center" ItemStyle-CssClass="heading" ItemStyle-Wrap="False" id="dlNews" CellPadding="2"  RepeatDirection="Horizontal" CellSpacing="2" Runat="server">
     
      <ItemTemplate>
           <asp:Label ID="lblNews" Text='<%# DataBinder.Eval(Container.DataItem,"heading")%>' Runat="server">
