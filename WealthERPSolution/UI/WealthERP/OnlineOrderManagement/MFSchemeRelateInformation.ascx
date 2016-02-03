@@ -321,7 +321,7 @@
                                 <div class="col-md-1" style="display: none">
                                     <asp:DropDownList ID="ddlSIP" runat="server" AutoPostBack="false" CssClass="form-control input-sm">
                                         <asp:ListItem Text="SIP" Value="true"></asp:ListItem>
-                                        <asp:ListItem Text="Non-SIP" Value="false"></asp:ListItem>
+                                        <asp:ListItem Text="Normal" Value="false" Selected="True"></asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
                                 <div class="col-md-1" style="width: 60px; padding-top: 5px; font-family: Times New Roman">
@@ -436,7 +436,7 @@
                                                     <asp:DropDownList ID="ddlMarketlAction" runat="server" AutoPostBack="true" CssClass="cmbField"
                                                         Width="70px" OnSelectedIndexChanged="ddlMarketlAction_OnSelectedIndexChanged">
                                                         <asp:ListItem Text="select" Value="0"></asp:ListItem>
-                                                        <asp:ListItem Text="Buy" Value="Buy"></asp:ListItem>
+                                                        <asp:ListItem Text="Purchase" Value="Buy"></asp:ListItem>
                                                         <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
                                                     </asp:DropDownList>
                                                     <asp:Label ID="lblIsPurchase" runat="server" Text='<%# Eval("IsSchemePurchege")%>'
@@ -506,7 +506,7 @@
                                 <div class="col-md-2">
                                     <asp:DropDownList ID="ddlTopRatedType" runat="server" AutoPostBack="false" CssClass="form-control input-sm">
                                         <asp:ListItem Text="SIP" Value="true"></asp:ListItem>
-                                        <asp:ListItem Text="Non-SIP" Value="false"></asp:ListItem>
+                                        <asp:ListItem Text="Normal" Value="false" Selected="True"></asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
                                 <div class="col-md-1">
@@ -636,7 +636,7 @@
                                                         <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" CssClass="cmbField"
                                                             Width="70px" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChanged">
                                                             <asp:ListItem Text="select" Value="0"></asp:ListItem>
-                                                            <asp:ListItem Text="Buy" Value="Buy"></asp:ListItem>
+                                                            <asp:ListItem Text="Purchase" Value="Buy"></asp:ListItem>
                                                             <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
                                                         </asp:DropDownList>
                                                         <asp:Label ID="lblIsPurchase" runat="server" Text='<%# Eval("IsSchemePurchege")%>'
