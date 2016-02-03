@@ -140,7 +140,8 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 Cache.Insert("CustomerIPOIssueBook" + userVo.UserId.ToString(), dtCustomerIssueIPOBook);
 
-
+                var page = 0;
+                RadGridIssueIPOBook.CurrentPageIndex = page;
                 RadGridIssueIPOBook.DataSource = dtCustomerIssueIPOBook;
                 RadGridIssueIPOBook.DataBind();
                 ibtExportSummary.Visible = true;

@@ -137,6 +137,8 @@ namespace WealthERP.OnlineOrderManagement
             if (dtbondsBook.Rows.Count > 0)
             {
 
+                var page = 0;
+                gvBBList.CurrentPageIndex = page;
                 gvBBList.DataSource = dtbondsBook;
                 gvBBList.DataBind();
                 ibtExportSummary.Visible = false;

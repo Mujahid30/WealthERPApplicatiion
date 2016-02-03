@@ -309,6 +309,8 @@ namespace WealthERP.OnlineOrderManagement
                         Cache.Remove("UnitHolding" + userVo.UserId);
                         Cache.Insert("UnitHolding" + userVo.UserId, dtMFUnitHoplding);
                     }
+                    var page = 0;
+                    rgUnitHolding.CurrentPageIndex = page;
                     rgUnitHolding.DataSource = dtMFUnitHoplding;
                     rgUnitHolding.DataBind();
                     rgUnitHolding.Visible = true;

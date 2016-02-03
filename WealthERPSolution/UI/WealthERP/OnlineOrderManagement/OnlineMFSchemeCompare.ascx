@@ -201,7 +201,7 @@
                                     <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" CssClass="form-control input-sm"
                                         OnSelectedIndexChanged="ddlAction_OnSelectedIndexChanged" Width="100px">
                                         <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
-                                        <asp:ListItem Text="Buy" Value="Buy"></asp:ListItem>
+                                        <asp:ListItem Text="Purchase" Value="Buy"></asp:ListItem>
                                         <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
                                     </asp:DropDownList>
                                 </td>
@@ -209,7 +209,7 @@
                                     <asp:DropDownList ID="ddlAction1" runat="server" AutoPostBack="true" CssClass="form-control input-sm"
                                         OnSelectedIndexChanged="ddlAction1_OnSelectedIndexChanged" Width="100px">
                                         <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
-                                        <asp:ListItem Text="Buy" Value="Buy"></asp:ListItem>
+                                        <asp:ListItem Text="Purchase" Value="Buy"></asp:ListItem>
                                         <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
                                     </asp:DropDownList>
                                 </td>
@@ -217,7 +217,7 @@
                                     <asp:DropDownList ID="ddlAction2" runat="server" AutoPostBack="true" CssClass="form-control input-sm"
                                         OnSelectedIndexChanged="ddlAction2_OnSelectedIndexChanged" Width="100px">
                                         <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
-                                        <asp:ListItem Text="Buy" Value="Buy"></asp:ListItem>
+                                        <asp:ListItem Text="Purchase" Value="Buy"></asp:ListItem>
                                         <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
                                     </asp:DropDownList>
                                 </td>
@@ -225,7 +225,7 @@
                                     <asp:DropDownList ID="ddlAction3" runat="server" AutoPostBack="true" CssClass="form-control input-sm"
                                         OnSelectedIndexChanged="ddlAction3_OnSelectedIndexChanged" Width="100px">
                                         <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
-                                        <asp:ListItem Text="Buy" Value="Buy"></asp:ListItem>
+                                        <asp:ListItem Text="Purchase" Value="Buy"></asp:ListItem>
                                         <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
                                     </asp:DropDownList>
                                 </td>

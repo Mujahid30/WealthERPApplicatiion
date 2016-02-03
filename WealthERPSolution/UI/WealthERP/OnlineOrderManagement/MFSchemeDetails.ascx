@@ -147,15 +147,13 @@
         color: #000;
     }
 </style>
-
-    <table width="100%" style="border-color:#0396cc">
-        <tr>
-            <td align="left">
-               <b style="font-family: Times New Roman;color:#0396cc"> Scheme Research</b>
-            </td>
-        </tr>
-    </table>
-
+<table width="100%" style="border-color: #0396cc">
+    <tr>
+        <td align="left">
+            <b style="font-family: Times New Roman; color: #0396cc">Scheme Research</b>
+        </td>
+    </tr>
+</table>
 <asp:UpdatePanel ID="updSchemDetails" runat="server" UpdateMode="Always">
     <ContentTemplate>
         <div id="dvDemo" class="row " style="margin-left: 11%; margin-bottom: 0.5%; margin-right: 5%;
@@ -229,8 +227,9 @@
                     <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" CssClass="form-control input-sm"
                         OnSelectedIndexChanged="ddlAction_OnSelectedIndexChanged" Width="100px">
                         <asp:ListItem Text="Action" Value="Select Action"></asp:ListItem>
-                        <asp:ListItem Text="Buy" Value="Buy" Enabled="false"></asp:ListItem>
+                        <asp:ListItem Text="Purchase" Value="Buy" Enabled="false"></asp:ListItem>
                         <asp:ListItem Text="SIP" Value="SIP" Enabled="false"></asp:ListItem>
+                        <asp:ListItem Text="Redeem" Value="Redeem" Enabled="false"></asp:ListItem>
                     </asp:DropDownList>
                 </div>
             </div>

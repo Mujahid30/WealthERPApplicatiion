@@ -115,7 +115,7 @@
     <telerik:RadGrid ID="gvOrderBook" runat="server" GridLines="None" AllowPaging="True"
         PageSize="5" AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true"
         AllowAutomaticDeletes="false" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
-        HorizontalAlign="NotSet" CellPadding="15" OnNeedDataSource="gvOrderBook_OnNeedDataSource">
+        HorizontalAlign="NotSet" CellPadding="15" OnNeedDataSource="gvOrderBook_OnNeedDataSource" OnItemDataBound="gvOrderBook_ItemDataBound">
         <MasterTableView CommandItemDisplay="None" DataKeyNames="CO_OrderId" AllowCustomSorting="true">
             <Columns>
                 <telerik:GridTemplateColumn>

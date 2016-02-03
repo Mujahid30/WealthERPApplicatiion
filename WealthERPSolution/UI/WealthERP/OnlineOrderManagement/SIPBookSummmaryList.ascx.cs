@@ -153,9 +153,12 @@ namespace WealthERP.OnlineOrderManagement
                     Cache.Remove("SIPSumList" + userVo.UserId);
                     Cache.Insert("SIPSumList" + userVo.UserId, dtSIPBookMIS);
                 }
+                var page = 0;
+                gvSIPSummaryBookMIS.CurrentPageIndex = page;
                 gvSIPSummaryBookMIS.DataSource = dtSIPBookMIS;
                 gvSIPSummaryBookMIS.DataBind();
                 gvSIPSummaryBookMIS.Visible = true;
+
                 //pnlSIPSumBook.Visible = true;
                 btnExport.Visible = false;
                 trNoRecords.Visible = false;

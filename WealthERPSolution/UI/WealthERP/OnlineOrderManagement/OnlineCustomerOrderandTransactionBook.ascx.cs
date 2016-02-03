@@ -100,18 +100,14 @@ namespace WealthERP.OnlineOrderManagement
             DataTable dtOrderTransactionBook = ds.Tables[0];
             if (dtOrderTransactionBook.Rows.Count >= 0)
             {
-                if (Cache["OrderTransactionBook" + userVo.UserId.ToString()] == null)
-                {
-                    Cache.Insert("OrderTransactionBook" + userVo.UserId.ToString(), dtOrderTransactionBook);
-                }
-                else
-                {
-                    Cache.Remove("OrderTransactionBook" + userVo.UserId.ToString());
-                    Cache.Insert("OrderTransactionBook" + userVo.UserId.ToString(), dtOrderTransactionBook);
-                }
+                if (Cache[userVo.UserId.ToString() + "OrderTransactionBook"] != null)
 
+                    Cache.Remove("OrderTransactionBook" + userVo.UserId.ToString());
+                Cache.Insert("OrderTransactionBook" + userVo.UserId.ToString(), dtOrderTransactionBook);
+                var page = 0;
+                gvOrderBook.CurrentPageIndex = page;
                 gvOrderBook.DataSource = ds.Tables[0];
-                gvOrderBook.Rebind();
+                gvOrderBook.DataBind();
                 Div1.Visible = true;
             }
         }
@@ -122,6 +118,9 @@ namespace WealthERP.OnlineOrderManagement
             {
                 gvOrderBook.DataSource = dtOrderTransactionBook;
             }
+        }
+        protected void gvOrderBook_ItemDataBound(object sender, GridItemEventArgs e)
+        {
         }
         protected void ddlAMC_OnSelectedIndexChanged(object sender, EventArgs e)
         {
