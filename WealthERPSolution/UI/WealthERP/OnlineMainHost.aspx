@@ -722,7 +722,7 @@
                                 <li>
                                 <%--<a onclick="LoadBottomPanelControl('NCDIssueList','?BondType=FITFTF');">NCD TAX
                                     FREE LIST</a>--%>
-                                    <asp:LinkButton ID="LinkButton13" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('NCDIssueList','?BondType=FISSGB');" >NCD TAX FREE LIST</asp:LinkButton>
+                                    <asp:LinkButton ID="LinkButton13" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('NCDIssueList','?BondType=FITFTF');" >NCD TAX FREE LIST</asp:LinkButton>
                                     </li>
                             </ul>
                         </div>
