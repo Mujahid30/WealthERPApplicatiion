@@ -37,10 +37,10 @@ namespace WealthERP.OnlineOrderManagement
             RadIPOASBA.VisibleOnPageLoad = false;
             if (!Page.IsPostBack)
             {
-                pnlSchemeMIS.Visible = true;
-                ddlType.SelectedValue = "Curent";
-                BindIPOIssueList(GetType(ddlType.SelectedValue));
-                ShowAvailableLimits();
+                //pnlSchemeMIS.Visible = true;
+                //ddlType.SelectedValue = "Curent";
+                //BindIPOIssueList(GetType(ddlType.SelectedValue));
+                //ShowAvailableLimits();
                 RadIPOASBA.VisibleOnPageLoad = true;
             }
            

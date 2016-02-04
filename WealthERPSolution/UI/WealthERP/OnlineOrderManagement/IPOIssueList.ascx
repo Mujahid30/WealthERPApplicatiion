@@ -83,25 +83,25 @@
             </tr>
             <tr>
                 <td align="right">
-                    <asp:Label ID="lb1Type" runat="server" Text="Type:" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="lb1Type" runat="server" Text="Type:" CssClass="FieldName" Visible="false"></asp:Label>
                 </td>
                 <td style="width: 25%;">
                     <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" AutoPostBack="true"
-                        OnSelectedIndexChanged="ddlType_OnSelectedIndexChanged">
+                        OnSelectedIndexChanged="ddlType_OnSelectedIndexChanged" Visible="false">
                         <asp:ListItem Value="Select">Select</asp:ListItem>
                         <asp:ListItem Value="Curent">Current Issues</asp:ListItem>
                         <asp:ListItem Value="Closed">Closed Issues</asp:ListItem>
                         <asp:ListItem Value="Future">Future Issues</asp:ListItem>
                     </asp:DropDownList>
-                    <span id="Span4" class="spnRequiredField">*</span>
+                 
                     <br />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please Select Type"
                         CssClass="rfvPCG" ControlToValidate="ddlType" ValidationGroup="btnGo" Display="Dynamic"
-                        InitialValue="Select"></asp:RequiredFieldValidator>
+                        InitialValue="Select" Visible="false"></asp:RequiredFieldValidator>
                 </td>
                 <td>
                     <asp:Button ID="btnGo" runat="server" Text="Go" CssClass="PCGButton" ValidationGroup="btnGo"
-                        OnClick="btnGo_Click" />
+                        OnClick="btnGo_Click" Visible="false"/>
                 </td>
             </tr>
         </table>
