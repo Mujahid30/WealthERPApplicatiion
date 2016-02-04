@@ -368,16 +368,16 @@
                 </div>
                 <telerik:RadWindow ID="rwTermsCondition" runat="server" VisibleOnPageLoad="false"
                     Width="1000px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Move, Resize,Close"
-                    Title="Terms & Conditions" Height="180px" EnableShadow="true" Left="15%" Top="5"
+                    Title="Terms & Conditions" Height="200px" EnableShadow="true" Left="15%" Top="5"
                     OnClientShow="setCustomPosition">
                     <contenttemplate>
-                        <div style="padding: 0px; width: 100%">
+                        <div style="padding: 0px; width: 100%;height:150px">
                             <table width="100%" cellpadding="0" cellpadding="0">
                                 <tr>
                                     <td align="left">
                                         <%--  <a href="../ReferenceFiles/MF-Terms-Condition.html">../ReferenceFiles/MF-Terms-Condition.html</a>--%>
                                         <iframe src="../ReferenceFiles/MF-Terms-Condition.html" name="iframeTermsCondition"
-                                            style="width: 100%;height:110px" ></iframe>
+                                            style="width: 100%;height:100px" ></iframe>
                                     </td>
                                 </tr>
                                 <tr>
@@ -458,6 +458,9 @@
         </ContentTemplate>
         <Triggers>
             <asp:PostBackTrigger ControlID="btnSubmit" />
+            <asp:PostBackTrigger ControlID="ddlFolio" />
+            
+            
         </Triggers>
     </asp:UpdatePanel>
 </body>

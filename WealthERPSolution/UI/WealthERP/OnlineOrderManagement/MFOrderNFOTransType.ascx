@@ -334,7 +334,7 @@
     <tr id="trNewOrder" runat="server" visible="false">
         <td align="center" colspan="4">
             <asp:LinkButton ID="lnkNewOrder" CausesValidation="false" Text="Make another NFO Purchase"
-                runat="server" OnClick="lnkNewOrder_Click" CssClass="LinkButtons"></asp:LinkButton>
+                runat="server" OnClick="lnkNewOrder_Click" CssClass="LinkButtons" visible="false"></asp:LinkButton>
         </td>
     </tr>
 </table>

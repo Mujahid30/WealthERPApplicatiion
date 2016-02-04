@@ -78,7 +78,8 @@ namespace WealthERP.OnlineOrderManagement
 
             }
             if (!IsPostBack)
-            {
+            
+{
                 clientMFAccessCode = onlineMforderBo.GetClientMFAccessStatus(customerVo.CustomerId);
                 if (clientMFAccessCode == "FA" || clientMFAccessCode == "PA")
                 {
@@ -372,7 +373,7 @@ namespace WealthERP.OnlineOrderManagement
 
             if (subcategory == "MFEQTP")
             {
-                ddlRedeem.Items.RemoveAt(3);
+                ddlRedeem.Items[3].Enabled=false;
             }
             if ((double.Parse(lblUnitsheldDisplay.Text) <= 0) && (subcategory == "MFEQTP"))
             {
@@ -391,7 +392,7 @@ namespace WealthERP.OnlineOrderManagement
             {
                 ddlRedeem.Enabled = true;
                 txtRedeemTypeValue.Enabled = true;
-                chkTermsCondition.Enabled = true;
+                chkTermsCondition.Enabled = false;
                 lnkTermsCondition.Enabled = true;
                 btnSubmit.Enabled = true;
                 lblMsg.Visible = false;
@@ -438,7 +439,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlAmc.Enabled = false;
             ddlCategory.Enabled = false;
             ddlScheme.Enabled = false;
-            GetControlDetails(SchemeCode, Accountid.ToString());
+            GetControlDetails(SchemeCode, ddlFolio.SelectedValue);
 
 
         }
