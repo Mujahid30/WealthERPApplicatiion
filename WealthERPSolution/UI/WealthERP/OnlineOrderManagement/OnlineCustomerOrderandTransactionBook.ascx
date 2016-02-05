@@ -209,7 +209,7 @@
                                                         </div>
                                                         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                                             <font color="#565656"><b>Actioned NAV:</b></font>
-                                                            <%# Eval("CMFOD_DividendOption")%>
+                                                            <%# Eval("CMFT_Price")%>
                                                         </div>
                                                         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                                             <font color="#565656"><b>Transaction Date:</b></font>
