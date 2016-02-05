@@ -188,7 +188,7 @@ namespace WealthERP.OnlineOrderManagement
             BindFrequency();
             SetLatestNav();
 
-            BindFolioNumber(Convert.ToInt32(onlineMFOrderVo.AssetGroup));
+            //BindFolioNumber(Convert.ToInt32(onlineMFOrderVo.AssetGroup));
 
             BindSchemes(Convert.ToInt32(onlineMFOrderVo.AssetGroup), "ALL");
             ddlAmc.SelectedValue = onlineMFOrderVo.AssetGroup;
@@ -242,7 +242,7 @@ namespace WealthERP.OnlineOrderManagement
 
             if (ddlAmc.SelectedIndex == 0) return;
 
-            BindFolioNumber(Convert.ToInt32(ddlAmc.SelectedValue));
+            //BindFolioNumber(Convert.ToInt32(ddlAmc.SelectedValue));
             BindSchemes(Convert.ToInt32(ddlAmc.SelectedValue), ddlCategory.SelectedValue);
             DataTable dtAmc = commonLookupBo.GetProdAmc(int.Parse(ddlAmc.SelectedValue), true);
             lnkFactSheet.PostBackUrl = dtAmc.Rows[0]["PA_Url"].ToString();
@@ -707,7 +707,7 @@ namespace WealthERP.OnlineOrderManagement
             SetLatestNav();
             BindFrequency();
             BindAllControlsWithSIPData();
-            BindFolioNumber(int.Parse(ddlAmc.SelectedValue));
+            BindFolioNumber(schemeCode);
         }
 
         protected void BindFrequency()
@@ -802,7 +802,8 @@ namespace WealthERP.OnlineOrderManagement
             try
             {
                 if (strAction != "Edit")
-                    dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(ddlAmc.SelectedValue), customerVo.CustomerId);
+                    dtgetfolioNo = boOnlineOrder.GetCustomerFolioSchemeWise(customerVo.CustomerId, amcCode);
+                        //commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(ddlAmc.SelectedValue), customerVo.CustomerId);
                 else
                     dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(onlineMFOrderVo.AssetGroup), customerVo.CustomerId);
 

@@ -831,7 +831,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button rbConfirm_OK;
-        
+        protected global::System.Web.UI.WebControls.Button rbConfirm_Cancel12;
         /// <summary>
         /// rbConfirm_Cancel control.
         /// </summary>
@@ -839,7 +839,6 @@ namespace WealthERP.OnlineOrderManagement {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button rbConfirm_Cancel;
         
         /// <summary>
         /// RadInformation control.

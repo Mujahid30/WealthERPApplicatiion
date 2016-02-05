@@ -10,6 +10,8 @@
 
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
 
+<script src="../Scripts/jquery.bxslider.js" type="text/javascript"></script>
+
 <script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
 
 <script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
@@ -430,7 +432,7 @@
                                     <div>
                                         <asp:Button runat="server" ID="rbConfirm_OK" Text="OK" OnClick="rbConfirm_OK_Click"
                                             ValidationGroup="btnSubmit" OnClientClick="return PreventClicks();" ></asp:Button>
-                                        <asp:Button runat="server" ID="rbConfirm_Cancel" Text="Cancel" OnClientClicked="closeCustomConfirm">
+                                        <asp:Button runat="server" ID="rbConfirm_Cancel12" Text="Cancel"   OnClientClick="closeCustomConfirm()">
                                         </asp:Button>
                                     </div>
                                 </div>
@@ -459,8 +461,6 @@
         <Triggers>
             <asp:PostBackTrigger ControlID="btnSubmit" />
             <asp:PostBackTrigger ControlID="ddlFolio" />
-            
-            
         </Triggers>
     </asp:UpdatePanel>
 </body>

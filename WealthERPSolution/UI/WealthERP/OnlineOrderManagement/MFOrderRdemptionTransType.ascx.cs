@@ -120,6 +120,7 @@ namespace WealthERP.OnlineOrderManagement
                             lblAmc.Text = amcName;
                             lblCategory.Text = categoryname;
                             lblScheme.Text = schemeName;
+                           
                             SetSelectedDisplay(0, int.Parse(Session["MFSchemePlan"].ToString()), amcCode, category);
 
 
@@ -432,7 +433,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlAmc.SelectedValue = Amccode.ToString();
             ddlCategory.SelectedValue = Category;
             SchemeBind(Amccode, Category, 0);
-            BindFolioNumber(Amccode);
+            BindFolioNumber(SchemeCode);
             ddlFolio.SelectedValue = Accountid.ToString();
             ddlScheme.SelectedValue = SchemeCode.ToString();
 
@@ -520,13 +521,14 @@ namespace WealthERP.OnlineOrderManagement
             DataTable dtScheme = new DataTable();
             try
             {
-                dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(ddlAmc.SelectedValue), customerVo.CustomerId);
+                dtScheme = onlineMforderBo.GetCustomerFolioSchemeWise(customerVo.CustomerId, amcCode);
+                    //commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(ddlAmc.SelectedValue), customerVo.CustomerId);
 
-                if (dtgetfolioNo.Rows.Count > 0)
+                if (dtScheme.Rows.Count > 0)
                 {
-                    ddlFolio.DataSource = dtgetfolioNo;
-                    ddlFolio.DataTextField = dtgetfolioNo.Columns["CMFA_FolioNum"].ToString();
-                    ddlFolio.DataValueField = dtgetfolioNo.Columns["CMFA_AccountId"].ToString();
+                    ddlFolio.DataSource = dtScheme;
+                    ddlFolio.DataTextField = dtScheme.Columns["CMFA_FolioNum"].ToString();
+                    ddlFolio.DataValueField = dtScheme.Columns["CMFA_AccountId"].ToString();
                     ddlFolio.DataBind();
                 }
 
