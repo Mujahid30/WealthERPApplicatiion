@@ -143,8 +143,8 @@
                          <asp:DropDownList ID="ddlAction" runat="server" CssClass="cmbField"
                 class="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged">
                 <asp:ListItem Text="Select" Value="0"></asp:ListItem>
-                <asp:ListItem Text="Purchase" Value="SIP"></asp:ListItem>
-                <asp:ListItem Text="SIP" Value="BUY"></asp:ListItem>
+                <asp:ListItem Text="Purchase" Value="BUY"></asp:ListItem>
+                <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
                 <asp:ListItem Text="Redeem" Value="SEL"></asp:ListItem>
             </asp:DropDownList>
                       <%--  <asp:ImageButton ID="imgBuy" runat="server" CommandName="Buy" ImageUrl="~/Images/Buy-Button.png"
