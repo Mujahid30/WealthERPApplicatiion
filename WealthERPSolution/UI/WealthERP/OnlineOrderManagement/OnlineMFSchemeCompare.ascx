@@ -145,7 +145,7 @@
                                 </td>
                                 <td id="tdddlAMC4" runat="server">
                                     <asp:LinkButton ID="lnkDelete4" runat="server" OnClick="lnkDelete4_OnClick" Visible="false"
-                                        ToolTip="Remove" Style="float: right">  <span class="lyphicon glyphicon-remove">
+                                        ToolTip="Remove" Style="float: right">  <span class="glyphicon glyphicon-remove">
                             </span></asp:LinkButton><br />
                                     <asp:Image runat="server" ID="ImgStyle4" Visible="false" />
                                     <asp:DropDownList ID="ddlAMC4" runat="server" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlAMC4_SelectedIndexChanged"
