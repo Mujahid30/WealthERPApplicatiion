@@ -1227,7 +1227,7 @@ namespace WealthERP.OffLineOrderManagement
             if (!string.IsNullOrEmpty(ddlScheme.SelectedValue))
             {
 
-                isUniqueApplicationNo = fiorderBo.CheckApplicationNo(Convert.ToInt32(ddlScheme.SelectedValue), txtApplicationNumber.Text, ddlCategory.SelectedValue,DateTime.Parse(txtApplicationDate.SelectedDate.ToString()));
+                isUniqueApplicationNo = fiorderBo.CheckApplicationNo(Convert.ToInt32(ddlScheme.SelectedValue), txtApplicationNumber.Text, ddlCategory.SelectedValue,DateTime.Parse(txtApplicationDate.SelectedDate.ToString()),int.Parse(txtQty.Text.Trim()),txtPaymentNumber.Text.Trim().ToString()==""?0:Convert.ToInt32(txtPaymentNumber.Text.Trim().ToString()),lblgetPan.Text.ToString());
             }
             return isUniqueApplicationNo;
         }

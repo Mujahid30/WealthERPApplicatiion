@@ -105,7 +105,7 @@ namespace DaoOps
             return Facevalue;
         }
 
-        public int CheckApplicationNo(int issueId, string applicationNo, string category,DateTime applicationDate)
+        public int CheckApplicationNo(int issueId, string applicationNo, string category,DateTime applicationDate,int qty,int chequeNo,string pan)
         {
             
             Database db;
@@ -120,6 +120,9 @@ namespace DaoOps
                 db.AddInParameter(getApplicationNocmd, "@applicationNo", DbType.String, applicationNo);
                 db.AddInParameter(getApplicationNocmd, "@category", DbType.String, category);
                 db.AddInParameter(getApplicationNocmd, "@applicationDate", DbType.Date, applicationDate);
+                db.AddInParameter(getApplicationNocmd, "@qty", DbType.Int32, qty);
+                db.AddInParameter(getApplicationNocmd, "@chequeNo", DbType.Int32, chequeNo);
+                db.AddInParameter(getApplicationNocmd, "@pan", DbType.String, pan);
                 Isunique = Convert.ToInt32(db.ExecuteScalar(getApplicationNocmd));
 
                  
