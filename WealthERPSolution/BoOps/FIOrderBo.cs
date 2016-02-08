@@ -340,12 +340,12 @@ namespace BoOps
             return Facevalue;
         }
 
-        public int CheckApplicationNo(int issueId, string applicationNo, string category)
+        public int CheckApplicationNo(int issueId, string applicationNo, string category,DateTime applicationDate)
         {
 
             try
             {
-                return fiOrderDao.CheckApplicationNo(issueId, applicationNo, category);
+                return fiOrderDao.CheckApplicationNo(issueId, applicationNo, category, applicationDate);
             }
             catch (BaseApplicationException Ex)
             {
