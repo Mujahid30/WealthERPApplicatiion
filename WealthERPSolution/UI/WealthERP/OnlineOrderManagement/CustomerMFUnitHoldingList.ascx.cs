@@ -48,6 +48,7 @@ namespace WealthERP.OnlineOrderManagement
             userType = Session[SessionContents.CurrentUserRole].ToString();
             userVo = (UserVo)Session["userVo"];
             customerId = customerVO.CustomerId;
+
             if (!IsPostBack)
             {
                 Cache.Remove("UnitHolding" + userVo.UserId);
