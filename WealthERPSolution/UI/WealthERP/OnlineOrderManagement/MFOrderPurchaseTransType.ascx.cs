@@ -101,7 +101,7 @@ namespace WealthERP.OnlineOrderManagement
                             BindFolioNumber(int.Parse(Session["MFSchemePlan"].ToString()));
                             ddlFolio.SelectedValue = accountId.ToString();
                             tdFolio.Visible = true;
-                            DataSet ds = onlineMforderBo.GetCustomerSchemeFolioHoldings(customerVo.CustomerId, int.Parse(Session["MFSchemePlan"].ToString()), out schemeDividendOption, exchangeType == "online" ? 1 : 0);
+                            DataSet ds = onlineMforderBo.GetCustomerSchemeFolioHoldings(customerVo.CustomerId, int.Parse(Session["MFSchemePlan"].ToString()), out schemeDividendOption, exchangeType == "online" ? 1 : 0, accountId);
                             GetControlDetails(ds);
                             SetControlDetails();
                         }
@@ -170,7 +170,7 @@ namespace WealthERP.OnlineOrderManagement
             DataSet ds = new DataSet();
             if (ddlFolio.SelectedValue != "New" && ddlFolio.SelectedValue != "0")
             {
-                ds = onlineMforderBo.GetCustomerSchemeFolioHoldings(customerVo.CustomerId, int.Parse(Session["MFSchemePlan"].ToString()), out schemeDividendOption, exchangeType == "online" ? 1 : 0);
+                ds = onlineMforderBo.GetCustomerSchemeFolioHoldings(customerVo.CustomerId, int.Parse(Session["MFSchemePlan"].ToString()), out schemeDividendOption, exchangeType == "online" ? 1 : 0, int.Parse(ddlFolio.SelectedValue));
 
                 GetControlDetails(ds);
                 SetControlDetails();

@@ -671,7 +671,7 @@ namespace DaoOnlineOrderManagement
             return dtGetMFSchemeDetailsForLanding;
         }
 
-        public DataSet GetCustomerSchemeFolioHoldings(int customerId, int schemeId, out string schemeDividendOption, int Demate)
+        public DataSet GetCustomerSchemeFolioHoldings(int customerId, int schemeId, out string schemeDividendOption, int Demate, int accountId)
         {
             DataSet dsCustomerSchemeFolioHoldings;
             Database db;
@@ -684,7 +684,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(GetCustomerSchemeFolioHoldingsCmd, "@CustomerId", DbType.Int32, customerId);
                 db.AddInParameter(GetCustomerSchemeFolioHoldingsCmd, "@SchemeId", DbType.Int32, schemeId);
                 db.AddInParameter(GetCustomerSchemeFolioHoldingsCmd, "@Demate", DbType.Int32, Demate);
-                
+                db.AddInParameter(GetCustomerSchemeFolioHoldingsCmd, "@accountid", DbType.Int32, accountId);
                 db.AddOutParameter(GetCustomerSchemeFolioHoldingsCmd, "@DividendType", DbType.String, 1000);
                 dsCustomerSchemeFolioHoldings = db.ExecuteDataSet(GetCustomerSchemeFolioHoldingsCmd);
 

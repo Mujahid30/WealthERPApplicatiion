@@ -465,13 +465,13 @@ namespace BoOnlineOrderManagement
             return dtGetMFSchemeDetailsForLanding;
         }
 
-        public DataSet GetCustomerSchemeFolioHoldings(int customerId, int schemeId, out string schemeDividendOption, int Demate)
+        public DataSet GetCustomerSchemeFolioHoldings(int customerId, int schemeId, out string schemeDividendOption, int Demate,int accountId)
         {
             DataSet ds = null;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             try
             {
-                ds = OnlineMFOrderDao.GetCustomerSchemeFolioHoldings(customerId, schemeId, out schemeDividendOption, Demate);
+                ds = OnlineMFOrderDao.GetCustomerSchemeFolioHoldings(customerId, schemeId, out schemeDividendOption, Demate, accountId);
             }
             catch (BaseApplicationException Ex)
             {
