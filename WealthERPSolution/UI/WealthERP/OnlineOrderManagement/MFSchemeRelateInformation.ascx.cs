@@ -639,6 +639,7 @@ namespace WealthERP.OnlineOrderManagement
                     th1.Visible = true;
                     thWatch.Visible = false;
                     tdWatch.Visible = false;
+                    lbSchemeName.Enabled = false;
                     if (!Convert.ToBoolean(rblNFOType.SelectedValue)){
 
                         thBuy.Visible = false;
