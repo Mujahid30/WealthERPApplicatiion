@@ -1,8 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="True" CodeBehind="MFSchemeRelateInformation.ascx.cs"
     Inherits="WealthERP.OnlineOrderManagement.MFSchemeRelateInformation" %>
-<%--<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
-<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>--%>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 
 <script src="../Scripts/jquery.js" type="text/javascript"></script>
 
@@ -18,11 +18,12 @@
 <link href="../Base/CSS/bootstrap.css" rel="stylesheet" type="text/css" />
 <link href="../Base/CSS/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
-<asp:ScriptManager ID="scriptmanager" runat="server">
+<asp:ScriptManager ID="scriptmanager" runat="server" EnablePageMethods="true">
     <%--<Services>
         <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
     </Services>--%>
 </asp:ScriptManager>
+
 
 <script type="text/javascript">
     function setCustomPosition(sender, args) {
