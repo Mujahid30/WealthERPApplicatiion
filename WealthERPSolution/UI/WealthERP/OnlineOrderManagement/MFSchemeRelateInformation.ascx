@@ -4,16 +4,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 
-<script src="../Scripts/jquery.js" type="text/javascript"></script>
 
-<script src="../Scripts/JScript.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
-<script src="../Scripts/bootstrap.js" type="text/javascript"></script>
-<script src="../Scripts/jquery.js" type="text/javascript"></script>
-<script src="../Scripts/JScript.js" type="text/javascript"></script>
-<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
-<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
 <link href="../Base/CSS/bootstrap-theme.css" rel="stylesheet" type="text/css" />
 <link href="../Base/CSS/bootstrap.css" rel="stylesheet" type="text/css" />
 <link href="../Base/CSS/bootstrap.min.css" rel="stylesheet" type="text/css" />
