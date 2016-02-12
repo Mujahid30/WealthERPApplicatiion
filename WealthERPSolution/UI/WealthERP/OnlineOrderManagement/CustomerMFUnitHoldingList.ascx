@@ -51,7 +51,7 @@
         cursor: auto;
     }
 </style>
-<asp:ScriptManager ID="scriptmanager" runat="server">
+<asp:ScriptManager ID="scriptmanager" runat="server" EnablePageMethods="true" >
 </asp:ScriptManager>
 <style type="text/css">
     .style1
@@ -74,6 +74,8 @@
         </td>
     </tr>
 </table>
+<asp:UpdatePanel ID="upMFHoldings" runat="server" >
+<ContentTemplate>
 <div id="divConditional" runat="server" class="row " style="margin-left: 5%; margin-bottom: 0.5%;
     margin-right: 5%; padding-bottom: 0.5%;">
     <div class="col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 1%">
@@ -411,3 +413,5 @@
     </telerik:RadGrid>
 </div>
 <asp:HiddenField ID="hdnAccount" runat="server" Value="0" />
+</ContentTemplate>
+</asp:UpdatePanel>
