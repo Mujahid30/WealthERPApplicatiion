@@ -414,4 +414,7 @@
 </div>
 <asp:HiddenField ID="hdnAccount" runat="server" Value="0" />
 </ContentTemplate>
+<Triggers>
+<asp:PostBackTrigger ControlID="btnExport" />
+</Triggers>
 </asp:UpdatePanel>
