@@ -4,10 +4,8 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
-<asp:ScriptManager ID="scrptMgr" runat="server">
-    <Services>
-        <asp:ServiceReference Path="AutoComplete.asmx" />
-    </Services>
+<asp:ScriptManager ID="scrptMgr" runat="server" EnablePageMethods="true">
+   
 </asp:ScriptManager>
 
 <script type="text/javascript" language="javascript">
