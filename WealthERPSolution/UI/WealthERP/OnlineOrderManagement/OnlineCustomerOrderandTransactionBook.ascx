@@ -13,7 +13,7 @@
 
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
-<asp:ScriptManager ID="scriptmanager" runat="server">
+<asp:ScriptManager ID="scriptmanager" runat="server" EnablePageMethods="true">
 </asp:ScriptManager>
 <style>
     .ft_sort
@@ -73,6 +73,8 @@
         </td>
     </tr>
 </table>
+<asp:UpdatePanel ID="upMFOrderBook"  runat="server" RenderMode="Inline">
+<ContentTemplate>
 <div id="demo" class="row" style="margin-left: 5%;  margin-right: 5%;
     padding-top: 1%;  height: 20%">
     <div class="col-md-12 col-xs-12 col-sm-12">
@@ -271,3 +273,5 @@
                 <asp:ListItem Text="Demat" Value="0"></asp:ListItem>
             </asp:DropDownList>
         </div>
+  </ContentTemplate>
+  </asp:UpdatePanel>
