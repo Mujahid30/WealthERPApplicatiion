@@ -220,7 +220,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             DataSet ds = new DataSet();
             string schemeDividendOption;
-            ds = onlineMforderBo.GetCustomerSchemeFolioHoldings(customerVo.CustomerId, schemeId, out schemeDividendOption,1);
+            //ds = onlineMforderBo.GetCustomerSchemeFolioHoldings(customerVo.CustomerId, schemeId, out schemeDividendOption,1);
             DataTable dt = ds.Tables[0];
             //SCHEME DETAILS SET--1
             if (dt.Rows.Count > -1)
@@ -287,10 +287,10 @@ namespace WealthERP.OnlineOrderManagement
                     }
                 }
             }
-            if (lblDividendType.Text == "Dividend" & !string.IsNullOrEmpty(schemeDividendOption))
-            {
-                ddlDivType.SelectedValue = schemeDividendOption;
-            }
+            //if (lblDividendType.Text == "Dividend" & !string.IsNullOrEmpty(schemeDividendOption))
+            //{
+            //    ddlDivType.SelectedValue = schemeDividendOption;
+            //}
             //HOLDINGS SET ---2
             if (ds.Tables[1].Rows.Count > 0)
             {

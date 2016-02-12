@@ -528,29 +528,34 @@ namespace WealthERP.OnlineOrderManagement
                 System.Web.UI.WebControls.Image imgRatingOvelAll = (System.Web.UI.WebControls.Image)e.Item.FindControl("imgRatingOvelAll");
 
 
-                if (lblSIPSchemeFlag.Text.Trim().ToLower() == "false")
+                if (lblSIPSchemeFlag.Text.Trim().ToLower() == "true")
                 {
-                    ddlAction.Items[1].Enabled = false;
+                //    ddlAction.Items[1].Enabled = false;
+                //}
+                //else
+                //{
+                    ddlAction.Items.FindByText("SIP").Enabled = true;
+
+                    //ddlAction.Items[1].Enabled = true;
                 }
-                else
+                if (lblIsPurcheseFlag.Text.Trim().ToLower() == "true")
                 {
-                    ddlAction.Items[1].Enabled = true;
+                //    ddlAction.Items[2].Enabled = false;
+                //}
+                //else
+                //{
+                    ddlAction.Items.FindByText("Purchase").Enabled = true;
+                    //ddlAction.Items[2].Enabled = true;
                 }
-                if (lblIsPurcheseFlag.Text.Trim().ToLower() == "false")
+                if (lblISRedeemFlag.Text.Trim().ToLower() == "true")
                 {
-                    ddlAction.Items[2].Enabled = false;
-                }
-                else
-                {
-                    ddlAction.Items[2].Enabled = true;
-                }
-                if (lblISRedeemFlag.Text.Trim().ToLower() == "false")
-                {
-                    ddlAction.Items[3].Enabled = false;
-                }
-                else
-                {
-                    ddlAction.Items[3].Enabled = true;
+                //    ddlAction.Items[3].Enabled = false;
+                //}
+                //else
+                //{
+                    ddlAction.Items.FindByText("Redeem").Enabled = true;
+
+                    //ddlAction.Items[3].Enabled = true;
                 }
                 lblISRedeemFlag.Visible = false;
                 lblIsPurcheseFlag.Visible = false;

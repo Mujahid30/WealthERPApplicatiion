@@ -97,6 +97,8 @@ namespace WealthERP.OnlineOrderManagement
         protected void BindOrderTransactionBook(int customerId, int amcCode, int schemeCode, string OrderType, int exchangeType)
         {
             DataSet ds = OnlineMFOrderBo.GetCustomerOrderBookTransaction(customerId, amcCode, schemeCode, OrderType, exchangeType);
+
+            string df = ds.GetXml();
             DataTable dtOrderTransactionBook = ds.Tables[0];
             if (dtOrderTransactionBook.Rows.Count >= 0)
             {

@@ -178,7 +178,7 @@ namespace WealthERP.OnlineOrderManagement
                 ddlSchemeList2.DataValueField = "PASP_SchemePlanCode";
                 ddlSchemeList2.DataTextField = "PASP_SchemePlanName";
                 ddlSchemeList2.DataBind();
-                ddlSchemeList2.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+                ddlSchemeList2.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
             }
         }
         protected void BindScheme3()
@@ -192,7 +192,7 @@ namespace WealthERP.OnlineOrderManagement
                 ddlSchemeList3.DataValueField = "PASP_SchemePlanCode";
                 ddlSchemeList3.DataTextField = "PASP_SchemePlanName";
                 ddlSchemeList3.DataBind();
-                ddlSchemeList3.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+                ddlSchemeList3.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
             }
         }
         protected void BindScheme4()
@@ -206,7 +206,7 @@ namespace WealthERP.OnlineOrderManagement
                 ddlSchemeList4.DataValueField = "PASP_SchemePlanCode";
                 ddlSchemeList4.DataTextField = "PASP_SchemePlanName";
                 ddlSchemeList4.DataBind();
-                ddlSchemeList4.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+                ddlSchemeList4.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
             }
         }
         protected void ddlSchemeList1_OnSelectedIndexChanged(object sender, EventArgs e)

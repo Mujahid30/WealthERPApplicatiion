@@ -591,7 +591,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             DataSet ds = new DataSet();
 
-            ds = boOnlineOrder.GetControlDetails(scheme, ddlFolio.SelectedValue,1);
+            ds = boOnlineOrder.GetControlDetails(scheme, folio, 1);
             DataTable dt = ds.Tables[0];
             if (dt.Rows.Count > -1)
             {
@@ -952,19 +952,23 @@ namespace WealthERP.OnlineOrderManagement
             if (ddlFolio.SelectedItem.ToString() != "New")
             {
                 BindNomineeAndJointHolders();
+                BindSipUiOnSchemeSelectionNew(Convert.ToInt32(ddlScheme.SelectedValue));
                 GetControlDetails(Convert.ToInt32(ddlScheme.SelectedValue), ddlFolio.SelectedValue);
-                //trNominee.Visible = true;
-                //trJointHolder.Visible = true;
-                ddlFrequency.SelectedIndex = 0;
+               
+                //ddlFrequency.SelectedIndex = 0;
             }
             else
             {
-                //trNominee.Visible = false;
-                //trJointHolder.Visible = false;
-                GetControlDetails(Convert.ToInt32(ddlScheme.SelectedValue), ddlFolio.SelectedValue);
+                BindSipUiOnSchemeSelectionNew(Convert.ToInt32(ddlScheme.SelectedValue));
+
+                GetControlDetails(Convert.ToInt32(ddlScheme.SelectedValue), null);
             }
         }
-
+        protected void BindSipUiOnSchemeSelectionNew(int schemeCode)
+        {
+            dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(schemeCode, ddlFrequency.SelectedValue.ToString(), "SIP");
+            BindFrequency();
+        }
         protected void lnkExitLoad_Click(object sender, EventArgs e)
         {
             lblExitLoad.Text = "";

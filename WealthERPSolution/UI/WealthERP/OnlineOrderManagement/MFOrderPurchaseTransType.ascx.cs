@@ -431,6 +431,8 @@ namespace WealthERP.OnlineOrderManagement
             if (ddlFolio.SelectedValue != "New" && ddlFolio.SelectedValue != "0")
             {
                 onlinemforderVo.TransactionType = "ABY";
+                onlinemforderVo.FolioNumber = ddlFolio.SelectedValue;
+
             }
             else
             {
