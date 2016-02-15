@@ -876,7 +876,8 @@
     <div id="dvTransact" runat="server" style="clear: both; background-color: #E5F6FF;
         font-weight: bold; font-size: smaller">
         <div>
-           
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                <ContentTemplate>
                     <div style="clear: both;">
                         <asp:Button ID="btnBindTransactDdl" runat="server" Style="display: none" OnClick="BindTransactDdl" />
                     </div>
@@ -925,7 +926,10 @@
                             </td>
                         </tr>
                     </table>
-                
+                </ContentTemplate>
+                <Triggers>
+                </Triggers>
+            </asp:UpdatePanel>
         </div>
         <div class="top-menu-frame" style="position: Relative">
             <iframe name="topframe" id="topframe" onload="javascript:calcIFrameHeight('topframe');"
