@@ -160,7 +160,7 @@
                    
                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                         <font color="#565656"><b>Units:</b></font>
-                        <asp:LinkButton ID="lnkprAmcB" runat="server" style="color:#0396CC" CommandName="SelectTransaction" Text='<%# String.Format("{0:N3}", DataBinder.Eval(Container.DataItem, "PurchasedUnits")) %>'>
+                        <asp:LinkButton ID="lnkprAmcB" runat="server" style="color:#0396CC" CommandName="SelectTransaction" Text='<%# String.Format("{0:N4}", DataBinder.Eval(Container.DataItem, "PurchasedUnits")) %>'>
                         </asp:LinkButton>
                     </div>
                     

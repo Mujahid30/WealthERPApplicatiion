@@ -430,6 +430,7 @@ namespace WealthERP.OnlineOrderManagement
             lnkDelete1.Visible = false;
             ImgStyle1.Visible = false;
             BindAMC1();
+            ddlSchemeList1.Items.Clear();
             ClearAllField(1);
         }
         protected void lnkDelete2_OnClick(object sender, EventArgs e)
@@ -440,6 +441,7 @@ namespace WealthERP.OnlineOrderManagement
             lnkDelete2.Visible = false;
             ImgStyle2.Visible = false;
             BindAMC1();
+            ddlSchemeList2.Items.Clear();
             ClearAllField(2);
         }
         protected void lnkDelete31_OnClick(object sender, EventArgs e)
@@ -450,6 +452,7 @@ namespace WealthERP.OnlineOrderManagement
             lnkDelete3.Visible = false;
             ImgStyle3.Visible = false;
             BindAMC1();
+            ddlSchemeList3.Items.Clear();
             ClearAllField(3);
         }
         protected void lnkDelete4_OnClick(object sender, EventArgs e)
@@ -460,6 +463,7 @@ namespace WealthERP.OnlineOrderManagement
             lnkDelete4.Visible = false;
             ImgStyle4.Visible = false;
             BindAMC1();
+            ddlSchemeList4.Items.Clear();
             ClearAllField(4);
         }
         protected void ClearAllField(int columnNo)
