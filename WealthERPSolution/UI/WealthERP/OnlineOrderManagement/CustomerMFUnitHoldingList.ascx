@@ -170,8 +170,7 @@
                     </div>
                     
                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
-                        <font color="#565656"><b>NAV:</b></font>
-                        <%# Eval("NAV")%>
+                        <font color="#565656"><b>NAV:</b></font><%# String.Format("{0:N4}", DataBinder.Eval(Container.DataItem, "NAV"))%>
                     </div>
                     
                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">

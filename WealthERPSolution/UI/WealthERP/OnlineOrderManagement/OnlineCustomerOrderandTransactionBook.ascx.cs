@@ -130,6 +130,10 @@ namespace WealthERP.OnlineOrderManagement
             {
                 BindScheme();
             }
+            else
+            {
+                BindScheme();
+            }
         }
         protected void btnDetails_OnClick(object sender, EventArgs e)
         {
