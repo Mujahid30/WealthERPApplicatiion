@@ -37,6 +37,14 @@ namespace WealthERP.OnlineOrderManagement
             string CompareSchemeList = string.Empty;
             foreach (var item in schemeList)
                 CompareSchemeList = CompareSchemeList + item + ",";
+            string DataValueField = CompareSchemeList.TrimEnd(',');
+            CustomerVo  customerVO = (CustomerVo)Session["customerVo"];
+            DataSet ds = onlineMFSchemeDetailsBo.GetSIPCustomeSchemePlan(0, 0);
+            ddlSchemeList1.DataSource = ds.Tables[0];
+            ddlSchemeList1.DataValueField = ds.Tables[0].Columns["PASP_SchemePlanCode"].ToString();
+            ddlSchemeList1.DataTextField = ds.Tables[0].Columns["PASP_SchemePlanName"].ToString();
+            ddlSchemeList1.DataBind();
+            ddlSchemeList1.SelectedValue = DataValueField;
             return CompareSchemeList.TrimEnd(',');
         }
         protected void GetSchemeCompareList(string CompareScheme, int schemeColNo)
@@ -268,12 +276,12 @@ namespace WealthERP.OnlineOrderManagement
                     lblExitLoad.Text = onlineMFSchemeDetailsVo.exitLoad.ToString();
                     lblMinInvestment.Text = onlineMFSchemeDetailsVo.minmumInvestmentAmount.ToString();
                     lblMinMultipleOf.Text = onlineMFSchemeDetailsVo.multipleOf.ToString();
-                    if(onlineMFSchemeDetailsVo.isPurchaseAvaliable !=0)
+                    if (onlineMFSchemeDetailsVo.isPurchaseAvaliable != 0)
                         ddlAction.Items[1].Enabled = true;
-                                       if (onlineMFSchemeDetailsVo.isSIPAvaliable != 0)
-                                           ddlAction.Items[2].Enabled = true;
+                    if (onlineMFSchemeDetailsVo.isSIPAvaliable != 0)
+                        ddlAction.Items[2].Enabled = true;
 
-                                       if (onlineMFSchemeDetailsVo.overAllRating > 0)
+                    if (onlineMFSchemeDetailsVo.overAllRating > 0)
                     {
                         imgSchemeRating.ImageUrl = @"../Images/MorningStarRating/RatingSmallIcon/" + onlineMFSchemeDetailsVo.mornigStar + ".png";
                         ImgStyle1.ImageUrl = @"../Images/MorningStarRating/PMFRD_RatingOverall/" + onlineMFSchemeDetailsVo.overAllRating + ".png";
@@ -493,7 +501,7 @@ namespace WealthERP.OnlineOrderManagement
                     ddlCategory1.SelectedValue = "0";
                     ddlSchemeList1.SelectedValue = "0";
                     lblRating1.Visible = false;
-
+                    ddlAction.SelectedValue = "Select";
                     break;
                 case 2:
                     imgSchemeRating1.ImageUrl = "";
@@ -517,6 +525,7 @@ namespace WealthERP.OnlineOrderManagement
                     imgSchemeRating1.ImageUrl = "";
                     ddlCategory2.SelectedValue = "0";
                     ddlSchemeList2.SelectedValue = "0";
+                    ddlAction1.SelectedValue = "Select";
 
                     break;
                 case 3:
@@ -541,6 +550,7 @@ namespace WealthERP.OnlineOrderManagement
                     imgSchemeRating2.ImageUrl = "";
                     ddlCategory3.SelectedValue = "0";
                     ddlSchemeList3.SelectedValue = "0";
+                    ddlAction3.SelectedValue = "Select";
 
                     break;
                 case 4:
@@ -565,6 +575,8 @@ namespace WealthERP.OnlineOrderManagement
                     imgSchemeRating3.ImageUrl = "";
                     ddlCategory4.SelectedValue = "0";
                     ddlSchemeList4.SelectedValue = "0";
+                    ddlAction3.SelectedValue = "Select";
+
                     break;
             }
         }
