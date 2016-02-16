@@ -583,6 +583,10 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void ddlAction_OnSelectedIndexChanged(object sender, EventArgs e)
         {
+            ddlAction1.SelectedValue = "Select";
+            ddlAction2.SelectedValue = "Select";
+            ddlAction3.SelectedValue = "Select";
+
             switch (ddlAction.SelectedValue)
             {
                 case "Buy":
@@ -595,6 +599,9 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void ddlAction1_OnSelectedIndexChanged(object sender, EventArgs e)
         {
+            ddlAction.SelectedValue = "Select";
+            ddlAction2.SelectedValue = "Select";
+            ddlAction3.SelectedValue = "Select";
             switch (ddlAction1.SelectedValue)
             {
                 case "Buy":
@@ -607,6 +614,9 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void ddlAction2_OnSelectedIndexChanged(object sender, EventArgs e)
         {
+            ddlAction1.SelectedValue = "Select";
+            ddlAction.SelectedValue = "Select";
+            ddlAction3.SelectedValue = "Select";
             switch (ddlAction2.SelectedValue)
             {
                 case "Buy":
@@ -619,6 +629,9 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void ddlAction3_OnSelectedIndexChanged(object sender, EventArgs e)
         {
+            ddlAction.SelectedValue = "Select";
+            ddlAction2.SelectedValue = "Select";
+            ddlAction1.SelectedValue = "Select";
             switch (ddlAction3.SelectedValue)
             {
                 case "Buy":
