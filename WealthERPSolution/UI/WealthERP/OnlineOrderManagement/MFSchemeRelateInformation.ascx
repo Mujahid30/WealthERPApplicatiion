@@ -322,9 +322,9 @@
                                 </div>
                                 <div class="col-md-2">
                                     <asp:DropDownList ID="ddlReturns" runat="server" AutoPostBack="false" CssClass="form-control input-sm">
-                                        <asp:ListItem Text="1st Year" Value="1"></asp:ListItem>
-                                        <asp:ListItem Text="3rd Year" Value="2"></asp:ListItem>
-                                        <asp:ListItem Text="5th Year" Value="3"></asp:ListItem>
+                                        <asp:ListItem Text="1 Year" Value="1"></asp:ListItem>
+                                        <asp:ListItem Text="3 Year" Value="2" Selected="True"></asp:ListItem>
+                                        <asp:ListItem Text="5 Year" Value="3" ></asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
                                 <div class="col-md-1">
