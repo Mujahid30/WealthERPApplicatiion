@@ -170,7 +170,6 @@ namespace WealthERP.OnlineOrderManagement
             {
                 gvSIPSummaryBookMIS.DataSource = dtSIPBookMIS;
                 gvSIPSummaryBookMIS.DataBind();
-                pnlSIPSumBook.Visible = true;
                 trNoRecords.Visible = true;
                 divNoRecords.Visible = true;
                 btnExport.Visible = false;
