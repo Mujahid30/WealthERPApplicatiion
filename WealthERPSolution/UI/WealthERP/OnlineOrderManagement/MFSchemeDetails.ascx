@@ -133,7 +133,7 @@
         </td>
     </tr>
 </table>
-<asp:UpdatePanel ID="updSchemDetails" runat="server" RenderMode="Inline" UpdateMode="Always">
+<asp:UpdatePanel ID="UPnlSchmResrch" runat="server" RenderMode="Inline">
     <ContentTemplate>
         <div id="dvDemo" class="row " style="margin-left: 11%; margin-bottom: 0.5%; margin-right: 5%;
             padding-top: 0.5%; padding-bottom: 0.5%;" visible="true" runat="server">
@@ -216,22 +216,9 @@
         <div style="margin-bottom: 2%; width: 80%; padding-bottom: 1%; margin-left: auto;
             margin-right: auto;">
             <asp:Panel ID="pnlDetails" runat="server" Height="490px">
-
-                <script type="text/javascript">
-                    function markTab(sender, args) {
-                        var attributes = args.get_tab().get_attributes();
-                        attributes.setAttribute("visited", "true");
-                        attributes
-                    }
-                    function showTab(sender, args) {
-                        var label = document.getElementById("Label1");
-                        label.innerText = args.get_tab().get_text();
-                    }
-                </script>
-
                 <telerik:RadTabStrip ID="RadTabStripAdsUpload" runat="server" EnableTheming="True"
                     EnableEmbeddedSkins="true" MultiPageID="multipageAdsUpload" SelectedIndex="0"
-                    Skin="Outlook" onclientclick="calc('bottomframe')">
+                    Skin="Outlook">
                     <Tabs>
                         <telerik:RadTab runat="server" Text="Snapshot" Value="Snapshot" TabIndex="0" Selected="true">
                         </telerik:RadTab>
@@ -251,7 +238,7 @@
                 <telerik:RadMultiPage ID="multipageAdsUpload" EnableViewState="true" runat="server">
                     <telerik:RadPageView ID="RadPageView1" runat="server" Selected="true">
                         <div>
-                            <div style="float: left; width: 50%; min-width: 320px">
+                            <div style="float: left; width: 50%; min-width: 320px;">
                                 <table class="col-md-12 table-bordered table-striped table-condensed cf">
                                     <tbody class="alignment">
                                         <tr class="searchable-spec cell top sub-name small bordered">
@@ -321,7 +308,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div style="float: left; width: 50%; min-width: 320px">
+                            <div style="float: left; width: 50%; min-width: 320px;">
                                 <table class="col-md-12 table-bordered table-striped table-condensed cf">
                                     <tbody class="alignment">
                                         <tr class="searchable-spec cell top sub-name small bordered">
@@ -527,7 +514,7 @@
                                 <table class="col-md-12 table-bordered table-striped table-condensed cf" width="100%">
                                     <thead class="cf">
                                         <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
-                                            text-align: center">
+                                            text-align: center;">
                                             <th data-title="Fund Name" class="alignCenter">
                                                 <b>Top Holding</b>
                                             </th>
@@ -559,7 +546,7 @@
                                 <table class="col-md-12 table-bordered table-striped table-condensed cf" width="100%">
                                     <thead class="cf">
                                         <tr style="border-style: inset; background-color: #2480c7; font-size: small; color: White;
-                                            text-align: center">
+                                            text-align: center;">
                                             <th data-title="Sector" class="alignCenter">
                                                 <b>Top Sector</b>
                                             </th>
@@ -671,7 +658,6 @@
             </asp:Panel>
         </div>
         <asp:HiddenField ID="hidCurrentScheme" runat="server" />
-        <asp:HiddenField ID="TabName" runat="server" />
     </ContentTemplate>
     <Triggers>
     </Triggers>
