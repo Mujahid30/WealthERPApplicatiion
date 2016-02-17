@@ -125,7 +125,7 @@ namespace WealthERP.Associates
                         lnkBtnEdit.Visible = false;
                         lnlBack.Visible = true;
                         //btnSubmit.Visible = true;
-                        //btnPreviewSend.Visible = true;
+                        btnPreviewSend.Visible = true;
                         radTABChildCodes.Visible = true;
                         lbkbtnAddChildCodes.Enabled = true;
                         if (!string.IsNullOrEmpty(associatesVo.WelcomeNotePath) && advisorVo.advisorId == Convert.ToInt32(ConfigurationSettings.AppSettings["ONLINE_ADVISER"]))
@@ -938,7 +938,7 @@ namespace WealthERP.Associates
             {
                 btnPreviewSend.Visible = true;
             }
-            btnPreviewSend.Visible = false;
+            //btnPreviewSend.Visible = false;
             //btnPreviewSend.PostBackUrl = "~/Reports/Display.aspx?&welcomeNote=1&associateId=" + associateId.ToString();
             //btnPreviewSend.OnClientClick = "window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);";
             Session["associatesVo"] = null;
