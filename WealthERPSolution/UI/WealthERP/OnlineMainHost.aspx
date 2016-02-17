@@ -820,10 +820,7 @@
                     <div style="clear: both;">
                         <asp:Button ID="btnBindTransactDdl" runat="server" Style="display: none" OnClick="BindTransactDdl" />
                     </div>
-                    </ContentTemplate>
-                <Triggers>
-                </Triggers>
-            </asp:UpdatePanel>
+                   
                     <div style="background-color: #0396CC; width: 100%">
                         <div style="padding-left: 20px; color: White;">
                             Transact
@@ -863,13 +860,16 @@
                                 <asp:Label ID="Label2" runat="server" Text="Transaction Type:" CssClass="FieldName"></asp:Label>
                             </td>
                             <td>
-                                <asp:DropDownList ID="DropDownList1" runat="server" CssClass="cmbField" onchange="ddlchange(this);"
-                                    AutoPostBack="true">
+                                <asp:DropDownList ID="DropDownList1" runat="server" CssClass="cmbField" 
+                                    AutoPostBack="true" OnSelectedIndexChanged="DropDownList1_OnSelectedIndexChanged">
                                 </asp:DropDownList>
                             </td>
                         </tr>
                     </table>
-                
+                 </ContentTemplate>
+                <Triggers>
+                </Triggers>
+            </asp:UpdatePanel>
         </div>
         <div class="top-menu-frame" style="position: Relative">
             <iframe name="topframe" id="topframe" onload="javascript:calcIFrameHeight('topframe');"

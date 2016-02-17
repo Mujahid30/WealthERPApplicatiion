@@ -76,7 +76,7 @@ namespace WealthERP
                 }
                 if (Request.QueryString["WERP"] != null)
                     isWerp = Request.QueryString["WERP"];
-                
+
 
                 if (!string.IsNullOrEmpty(userAccountId))
                 {
@@ -96,13 +96,18 @@ namespace WealthERP
         }
 
 
+        protected void DropDownList1_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            string value = DropDownList1.SelectedValue + "&exchangeType=" + ddlchannel.SelectedValue;
+            ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadBottomPanelFromtRANSACT", "LoadTransactPanel('"+value+"');", true);
 
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             bool isValidUser = false;
             if (!IsPostBack)
             {
-               
+
 
                 if (!string.IsNullOrEmpty(userAccountId))
                 {
@@ -111,7 +116,7 @@ namespace WealthERP
 
                 if (isValidUser)
                 {
-                    if(productType.ToUpper()=="MF")
+                    if (productType.ToUpper() == "MF")
                     {
                         mainmenuMF.Visible = true;
                         mainmenuNCD.Visible = false;
@@ -189,7 +194,7 @@ namespace WealthERP
 
                 if (!String.IsNullOrEmpty(s))
                 {
-                    ddlchannel.Items.Insert(i,new ListItem(s, s));
+                    ddlchannel.Items.Insert(i, new ListItem(s, s));
                     i++;
                 }
             }
@@ -197,12 +202,12 @@ namespace WealthERP
             if (exchange.Contains("Online"))
             {
                 BindTransactionType("Online");
-               
+
             }
             else if (exchange.Contains("Demat"))
             {
                 BindTransactionType("Demat");
-              
+
 
             }
 
@@ -307,11 +312,11 @@ namespace WealthERP
                     exchangeType = "&exchangeType=Demat";
 
                 }
-                
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromMainPage", "LoadTransactPanel('" + hdnTransactType.Value + exchangeType + "');", true);
-             
 
-                
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromMainPage", "LoadTransactPanel('" + hdnTransactType.Value + exchangeType + "');", true);
+
+
+
             }
         }
         private void SetProductTypeMenu(string productType)
@@ -369,7 +374,7 @@ namespace WealthERP
             //Session["PageDefaultSetting"] = defaultProductPageSetting;
             //if (defaultProductPageSetting.ContainsKey("ProductMenuItemPage"))
             //{
-               
+
             //    if (defaultProductPageSetting.ContainsValue("NCD"))
             //        //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "loadcontrolInvestorMainPage('" + defaultProductPageSetting["ProductMenuItemPage"].ToString() + "','?BondType=" + "FISDSD" + "');", true);
             //        Page.ClientScript.RegisterStartupScript(this.GetType(), "SetDemo", @"loadcontrolInvestorMainPage('" + defaultProductPageSetting["ProductMenuItemPage"].ToString() + "','?BondType=" + "FISDSD" + "');", true);
@@ -538,7 +543,7 @@ namespace WealthERP
         protected void lnkMFOrderMenuHome_Click(object sender, EventArgs e)
         {
             ProductMenuItemChange("MF", "Market");
-        } 
+        }
 
         protected void lnkMFOrderMenuTransact_Click(object sender, EventArgs e)
         {
@@ -585,7 +590,7 @@ namespace WealthERP
 
         protected void ProductMenuItemChange(string ProductType, string menuType)
         {
-           
+
             switch (ProductType)
             {
                 case "MF":
@@ -618,7 +623,7 @@ namespace WealthERP
                                 defaultProductPageSetting.Add("ProductMenuItemPage", "CustomerMFUnitHoldingList");
                                 break;
                         }
-                         
+
                     }
                     break;
                 case "NCD":
@@ -676,7 +681,7 @@ namespace WealthERP
                     }
 
             }
-            
+
         }
 
         [System.Web.Services.WebMethod(EnableSession = true)]
@@ -723,7 +728,7 @@ namespace WealthERP
         {
             OnlineOrderBo onlineOrderBo = new OnlineOrderBo();
             string assetCategory = String.Empty;
-            
+
             switch (productType)
             {
                 case "MF":
@@ -736,7 +741,7 @@ namespace WealthERP
                     assetCategory = "IP";
                     break;
             }
-           
+
             string innerHtml = String.Empty;
             DataTable dt = new DataTable();
 
@@ -751,11 +756,11 @@ namespace WealthERP
             //}
             //innerHtml += "</marquee>";
             //Label1.Text = innerHtml;
-        
+
         }
         protected void MenuLink_Click(object sender, EventArgs e)
         {
-            LinkButton lb=(LinkButton) sender  ;
+            LinkButton lb = (LinkButton)sender;
             string pageName = lb.CommandName;
             ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadBottomPanelFromMainMenu", pageName, true);
         }
