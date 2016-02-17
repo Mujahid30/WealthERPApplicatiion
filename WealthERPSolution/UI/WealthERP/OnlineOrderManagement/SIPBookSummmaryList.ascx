@@ -1,18 +1,13 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SIPBookSummmaryList.ascx.cs"
     Inherits="WealthERP.OnlineOrderManagement.SIPBookSummmaryList" %>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<script src="../Scripts/bootstrap.js" type="text/javascript"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
+<link href="../Base/CSS/bootstrap-theme.css" rel="stylesheet" type="text/css" />
+<link href="../Base/CSS/bootstrap.css" rel="stylesheet" type="text/css" />
+<link href="../Base/CSS/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <asp:ScriptManager ID="scriptmanager" runat="server" EnablePageMethods="true">
 </asp:ScriptManager>
 <style>
@@ -49,25 +44,74 @@
         border: solid 1.5px #00CEFF;
         cursor: auto;
     }
-</style>
-<style type="text/css">
-    .style1
+     .style1
     {
         width: 37%;
     }
 </style>
 
 <script type="text/jscript">
-    //    jQuery(document).ready(function($) {
-    //        $('.bxslider').bxSlider(
-    //    {
-    //        auto: true,
-    //        autoControls: true
-    //    }
-    //    );
-    //    });
+    var prm = Sys.WebForms.PageRequestManager.getInstance();
+    if (prm != null) {
+        prm.add_endRequest(function(sender, e) {
+            if (sender._postBackSettings.panelsToUpdate != null) {
+                BeginHandler();
+            }
+        });
+    };
+    function BeginHandler() {
+        jQuery(document).ready(function($) {
+            var moveLeft = 0;
+            var moveDown = 0;
+            $('a.popper').hover(function(e) {
 
-        
+                //var target = '#' + ($(this).attr('data-popbox'));
+                var target = '#' + ($(this).find('img').attr('id')).replace('imgSchemeRating', 'divSchemeRatingDetails');
+
+                $(target).show();
+                moveLeft = $(this).outerWidth();
+                moveDown = ($(target).outerHeight() / 2);
+
+            }, function() {
+                //var target = '#' + ($(this).attr('data-popbox'));
+                var target = '#' + ($(this).find('img').attr('id')).replace('imgSchemeRating', 'divSchemeRatingDetails');
+                $(target).hide();
+            });
+
+            $('a.popper').mousemove(function(e) {
+                //var target = '#' + ($(this).attr('data-popbox'));
+                var target = '#' + ($(this).find('img').attr('id')).replace('imgSchemeRating', 'divSchemeRatingDetails');
+
+                leftD = e.pageX + parseInt(moveLeft);
+                maxRight = leftD + $(target).outerWidth();
+                windowLeft = $(window).width();
+                windowRight = 0;
+                maxLeft = e.pageX - (parseInt(moveLeft) + $(target).outerWidth());
+
+                if (maxRight > windowLeft && maxLeft > windowRight) {
+                    leftD = maxLeft;
+                }
+
+                topD = e.pageY - parseInt(moveDown);
+                maxBottom = parseInt(e.pageY + parseInt(moveDown));
+                windowBottom = parseInt(parseInt($(document).scrollTop()) + parseInt($(window).height()));
+                maxTop = topD;
+                windowTop = parseInt($(document).scrollTop());
+                //                alert(maxBottom + 'a' + windowBottom + 'b' + maxTop + 's' + windowTop);
+
+                if (maxBottom > windowBottom) {
+                    topD = windowBottom - $(target).outerHeight();
+
+
+                } else if (maxTop < windowTop) {
+                    topD = windowTop;
+
+                }
+
+                //                $(target).css('top', ).css('centre', leftD);
+            });
+        });
+    }
 </script>
 
 <script type="text/javascript">
@@ -76,26 +120,6 @@
     }
 </script>
 
-<%--<table width="100%">
-    <tr>
-        <td>
-            <div class="divPageHeading">
-                <table cellspacing="0" cellpadding="3" width="100%">
-                    <tr>
-                        <td align="left">
-                            SIP Book
-                        </td>
-                        <td align="right" style="width: 10px">
-                            <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                                OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </td>
-    </tr>
-</table>--%>
 <table width="100%">
     <table class="tblMessage" cellpadding="0" cellspacing="0">
         <tr>
@@ -121,23 +145,7 @@
             </td>
         </tr>
     </table>
-    <%--<tr>
-        <td>
-            <div class="divOnlinePageHeading">
-                <table cellspacing="0" cellpadding="3" width="100%">
-                    <tr>
-                        <%-- <td align="left">
-                            Systematic Book
-                        </td>--%>
-    <%--<td align="right">
-                    <asp:LinkButton runat="server" ID="lbBack" CssClass="LinkButtons" Text="Back" Visible="false"
-                        OnClick="lbBack_Click"></asp:LinkButton>
-                </td
-    <td>
-    </td>
-    </tr>
-</table>
-</div> </td> </tr>--%>
+    
 </table>
 <asp:UpdatePanel ID="upSIPBook" runat="server" RenderMode="Block">
     <ContentTemplate>
@@ -149,7 +157,7 @@
                 <div class="col-md-3">
                     <asp:DropDownList CssClass="form-control input-sm" ID="ddlAMCCode" runat="server"
                         AutoPostBack="false">
-                        <%--<asp:ListItem Text="All" Value="0"></asp:ListItem>--%>
+                       
                     </asp:DropDownList>
                 </div>
                 <div class="col-md-3">
@@ -204,59 +212,10 @@ col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                         <font color="#565656"><b>Scheme Rating:</b></font>
 
-                                        <script type="text/jscript">
-
-                                            jQuery(document).ready(function($) {
-                                                var moveLeft = 0;
-                                                var moveDown = 0;
-                                                $('a.popper').hover(function(e) {
-
-                                                    //var target = '#' + ($(this).attr('data-popbox'));
-                                                    var target = '#' + ($(this).find('img').attr('id')).replace('imgSchemeRating', 'divSchemeRatingDetails');
-
-                                                    $(target).show();
-                                                    moveLeft = $(this).outerWidth();
-                                                    moveDown = ($(target).outerHeight() / 0);
-                                                }, function() {
-                                                    //var target = '#' + ($(this).attr('data-popbox'));
-                                                    var target = '#' + ($(this).find('img').attr('id')).replace('imgSchemeRating', 'divSchemeRatingDetails');
-                                                    $(target).hide();
-                                                });
-
-                                                $('a.popper').mousemove(function(e) {
-                                                    //var target = '#' + ($(this).attr('data-popbox'));
-                                                    var target = '#' + ($(this).find('img').attr('id')).replace('imgSchemeRating', 'divSchemeRatingDetails');
-
-                                                    leftD = e.pageX + parseInt(moveLeft);
-                                                    maxRight = leftD + $(target).outerWidth();
-                                                    windowLeft = $(window).width();
-                                                    windowRight = 0;
-                                                    maxLeft = e.pageX - (parseInt(moveLeft) + $(target).outerWidth());
-
-                                                    if (maxRight > windowLeft && maxLeft > windowRight) {
-                                                        leftD = maxLeft;
-                                                    }
-
-                                                    topD = e.pageY - parseInt(moveDown);
-                                                    maxBottom = parseInt(e.pageY + parseInt(moveDown));
-                                                    windowBottom = parseInt(parseInt($(document).scrollTop()) + parseInt($(window).height()));
-                                                    maxTop = topD;
-                                                    windowTop = parseInt($(document).scrollTop());
-                                                    //                                            if (maxBottom > windowBottom) {
-                                                    //                                                topD = windowBottom - $(target).outerHeight() - 20;
-                                                    //                                            } else if (maxTop < windowTop) {
-                                                    //                                                topD = windowTop ;
-                                                    //                                            }
-
-                                                    $(target).css('top', topD).css('centre', leftD);
-                                                });
-                                            });
-    
-                                        </script>
 
                                         <a href="#" class="popper" data-popbox="divSchemeRatingDetails"><span class="FieldName">
                                         </span>
-                                            <asp:Image runat="server" ID="imgSchemeRating" />
+                                            <asp:Image runat="server" ID="imgSchemeRating" onmouseover="BeginHandler()" />
                                         </a>
                                         <asp:Label ID="lblSchemeRating" runat="server" CssClass="cmbField" Text='<%# Eval("SchemeRatingOverall") %>'
                                             Visible="false">

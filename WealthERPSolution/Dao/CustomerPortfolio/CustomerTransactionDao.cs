@@ -4726,25 +4726,31 @@ namespace DaoCustomerPortfolio
                         mfTransactionVo.Category = dr["PAIC_AssetInstrumentCategoryName"].ToString();
                         mfTransactionVo.CategoryCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
                         mfTransactionVo.BuySell = dr["CMFT_BuySell"].ToString();
-                        mfTransactionVo.DividendRate = float.Parse(dr["CMFT_DividendRate"].ToString());
+                        if(!string.IsNullOrEmpty (dr["CMFT_DividendRate"].ToString()))
+                            mfTransactionVo.DividendRate = float.Parse(dr["CMFT_DividendRate"].ToString());
                         mfTransactionVo.TransactionDate = DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
-                        mfTransactionVo.NAV = float.Parse(dr["CMFT_NAV"].ToString());
-                        mfTransactionVo.Price = float.Parse(dr["CMFT_Price"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CMFT_NAV"].ToString()))
+                            mfTransactionVo.NAV = float.Parse(dr["CMFT_NAV"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CMFT_Price"].ToString()))
+                            mfTransactionVo.Price = float.Parse(dr["CMFT_Price"].ToString());
                         if (dr["CMFT_Amount"].ToString() != null && dr["CMFT_Amount"].ToString() != string.Empty)
                         {
                             mfTransactionVo.Amount = float.Parse(dr["CMFT_Amount"].ToString());
                         }
-                        mfTransactionVo.Units = float.Parse(dr["CMFT_Units"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CMFT_Units"].ToString()))
+                            mfTransactionVo.Units = float.Parse(dr["CMFT_Units"].ToString());
                         if (dr["CMFT_STT"].ToString() != null && dr["CMFT_STT"].ToString() != string.Empty)
                         {
                             mfTransactionVo.STT = float.Parse(dr["CMFT_STT"].ToString());
                         }
                         mfTransactionVo.Source = dr["XES_SourceCode"].ToString();
-                        mfTransactionVo.SwitchSourceTrxId = int.Parse(dr["CMFT_SwitchSourceTrxId"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CMFT_SwitchSourceTrxId"].ToString()))
+                            mfTransactionVo.SwitchSourceTrxId = int.Parse(dr["CMFT_SwitchSourceTrxId"].ToString());
                         mfTransactionVo.TransactionClassificationCode = dr["WMTT_TransactionClassificationCode"].ToString();
                         mfTransactionVo.TransactionType = dr["WMTT_TransactionClassificationName"].ToString();
                         mfTransactionVo.TransactionTrigger = dr["WMTT_Trigger"].ToString();
-                        mfTransactionVo.FinancialFlag = int.Parse(dr["WMTT_FinancialFlag"].ToString());
+                        if (!string.IsNullOrEmpty(dr["WMTT_FinancialFlag"].ToString()))
+                            mfTransactionVo.FinancialFlag = int.Parse(dr["WMTT_FinancialFlag"].ToString());
                         mfTransactionVo.Folio = dr["CMFA_FolioNum"].ToString();
                         mfTransactionVo.PortfolioName = dr["CP_PortfolioName"].ToString();
                         mfTransactionVo.DivReinvestmen = dr["CMFOD_DividendOption"].ToString();
@@ -4759,7 +4765,8 @@ namespace DaoCustomerPortfolio
                         }
                         
                         mfTransactionVo.channel = dr["Channel"].ToString();
-                        mfTransactionVo.latestNav = float.Parse(dr["NAV"].ToString());
+                        if (!string.IsNullOrEmpty(dr["NAV"].ToString()))
+                            mfTransactionVo.latestNav = float.Parse(dr["NAV"].ToString());
                        // mfTransactionVo.TrxnNo = (dr["CMFT_TransactionNumber"].ToString());
                        // if (mfTransactionVo.OrdDate != DateTime.MinValue) 
                        if (dr["CO_OrderDate"].ToString() != null && dr["CO_OrderDate"].ToString() != string.Empty)

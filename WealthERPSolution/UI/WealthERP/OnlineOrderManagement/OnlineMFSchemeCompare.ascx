@@ -2,30 +2,11 @@
     Inherits="WealthERP.OnlineOrderManagement.OnlineMFSchemeCompare" %>
 <asp:ScriptManager ID="scrptMgr" runat="server" EnablePageMethods="true">
 </asp:ScriptManager>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-<!-- Latest compiled and minified JavaScript -->
-
-<script src="../Scripts/jquery.js" type="text/javascript"></script>
-
-<script src="../Scripts/JScript.js" type="text/javascript"></script>
-
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery.bxslider.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="../Scripts/bootstrap.js" type="text/javascript"></script>
+<link href="../Base/CSS/bootstrap-theme.css" rel="stylesheet" type="text/css" />
+<link href="../Base/CSS/bootstrap.css" rel="stylesheet" type="text/css" />
+<link href="../Base/CSS/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
 <style>
     .header

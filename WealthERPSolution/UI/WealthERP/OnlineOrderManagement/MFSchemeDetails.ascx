@@ -5,38 +5,14 @@
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <asp:ScriptManager ID="scrptMgr" runat="server" EnablePageMethods="true">
 </asp:ScriptManager>
-<!-- Optional theme -->
-<!-- Latest compiled and minified JavaScript -->
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
-
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
-<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery.bxslider.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
-
-<script src="../Scripts/JScript.js" type="text/javascript"></script>
 
 <script src="../Scripts/bootstrap.js" type="text/javascript"></script>
 
 <link href="../Base/CSS/bootstrap-theme.css" rel="stylesheet" type="text/css" />
 <link href="../Base/CSS/bootstrap.css" rel="stylesheet" type="text/css" />
 <link href="../Base/CSS/bootstrap.min.css" rel="stylesheet" type="text/css" />
-
-<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery.js" type="text/javascript"></script>
-
 <style type="text/css">
     .header
     {
@@ -157,7 +133,7 @@
         </td>
     </tr>
 </table>
-<asp:UpdatePanel ID="updSchemDetails" runat="server" UpdateMode="Always">
+<asp:UpdatePanel ID="updSchemDetails" runat="server" RenderMode="Inline" UpdateMode="Always">
     <ContentTemplate>
         <div id="dvDemo" class="row " style="margin-left: 11%; margin-bottom: 0.5%; margin-right: 5%;
             padding-top: 0.5%; padding-bottom: 0.5%;" visible="true" runat="server">
@@ -414,7 +390,8 @@
                             margin-left: auto; margin-right: auto; border-top-style: inset; border-bottom-style: inset;
                             border-left-style: inset; border-right-style: inset; border-width: thin;">
                             <div>
-                                <asp:Literal ID="Literal1" runat="server"></asp:Literal></div>
+                                <asp:Literal ID="Literal1" runat="server"></asp:Literal>
+                            </div>
                             <div id="SchemeChartinformation" runat="server">
                                 &nbsp;&nbsp;<asp:Button ID="btn1m" runat="server" class="btn btn-sm btn-primary"
                                     Text="1m" OnClick="btnHistory_OnClick"></asp:Button>
@@ -696,20 +673,6 @@
         <asp:HiddenField ID="hidCurrentScheme" runat="server" />
         <asp:HiddenField ID="TabName" runat="server" />
     </ContentTemplate>
+    <Triggers>
+    </Triggers>
 </asp:UpdatePanel>
-
-<script type="text/javascript">
-    function togglediv(x) {
-        myDivObj = document.getElementById(x);
-        if (myDivObj.innerHTML == "+") {
-            document.getElementById(x).innerHTML = "-";
-        }
-        else if (myDivObj.innerHTML == "-") {
-            document.getElementById(x).innerHTML = "+";
-
-        }
-    }
-   
-
-</script>
-

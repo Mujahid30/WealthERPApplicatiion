@@ -1,17 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="OnlineCustomerOrderandTransactionBook.ascx.cs"
     Inherits="WealthERP.OnlineOrderManagement.OnlineCustomerOrderandTransactionBook" %>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+<script src="../Scripts/bootstrap.js" type="text/javascript"></script>
+<link href="../Base/CSS/bootstrap-theme.css" rel="stylesheet" type="text/css" />
+<link href="../Base/CSS/bootstrap.css" rel="stylesheet" type="text/css" />
+<link href="../Base/CSS/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
 <asp:ScriptManager ID="scriptmanager" runat="server" EnablePageMethods="true">
 </asp:ScriptManager>
