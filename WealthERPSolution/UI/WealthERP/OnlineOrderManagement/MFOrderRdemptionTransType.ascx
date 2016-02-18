@@ -459,8 +459,8 @@
             </div>
         </ContentTemplate>
         <Triggers>
-            <asp:PostBackTrigger ControlID="btnSubmit" />
-            <asp:PostBackTrigger ControlID="ddlFolio" />
+      <%--      <asp:PostBackTrigger ControlID="btnSubmit" />
+            <asp:PostBackTrigger ControlID="ddlFolio" />--%>
         </Triggers>
     </asp:UpdatePanel>
 </body>

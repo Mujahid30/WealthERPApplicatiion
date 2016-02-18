@@ -106,30 +106,9 @@
     }
 </script>
 
-<script type="text/jscript">
-
-
-    Sys.WebForms.PageRequestManager.getInstance().add_endRequest(PopupEndRequestHandler);
-    
-</script>
-
 <body style="background-color: #E5F6FF; margin-left: 50px; margin-right: 50px;">
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
-            <%--<table class="tblMessage" cellpadding="0" cellspacing="0">
-            <tr>
-                <td>
-                    <div class="divOnlinePageHeading">
-                        <div class="divClientAccountBalance" id="divClientAccountBalance" runat="server">
-                            <asp:Label ID="lblUserAccount" runat="server" Text="" CssClass="BalanceAmount"></asp:Label>
-                            <asp:Label ID="lblTest" runat="server" Text="" CssClass="BalanceAmount"></asp:Label>
-                            <asp:Label ID="Label1" runat="server" Text="Available Limits:" CssClass="BalanceLabel"> </asp:Label>
-                            <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="BalanceAmount"></asp:Label>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        </table>--%>
             <table class="tblMessage" cellpadding="0" cellspacing="0">
                 <tr>
                     <td align="center">
@@ -216,10 +195,8 @@
                 <div class="col-md-12  col-xs-12 col-sm-12">
                     <div class="col-md-3">
                         <b class="fontsize">SIP Frequency:</b>
-                        <asp:DropDownList ID="ddlFrequency" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlFrequency_OnSelectedIndexChanged"
-                            AutoPostBack="True">
-                            <asp:ListItem Text="--SELECT--" Value="0" Selected="True"></asp:ListItem>
-                            <%--  <asp:ListItem Text="Quarterly" Value="QT"></asp:ListItem>--%>
+                        <asp:DropDownList ID="ddlFrequency" CssClass="cmbField" OnSelectedIndexChanged="ddlFrequency_OnSelectedIndexChanged"
+                            runat="server" AutoPostBack="True">
                         </asp:DropDownList>
                         <span id="Span3" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="rfvFrequency" runat="server" ErrorMessage="Please select frequency"
@@ -340,12 +317,11 @@
                     </tr>
                 </table>
             </div>
-            </div>
             <telerik:RadWindow ID="rwTermsCondition" runat="server" VisibleOnPageLoad="false"
                 Width="1000px" Height="150px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false"
                 Behaviors="Move, Resize,Close" Title="Terms & Conditions" EnableShadow="true"
                 Left="10" Top="1" OnClientShow="setCustomPosition">
-                <contenttemplate>
+                <ContentTemplate>
                     <div style="padding: 0px; width: 100%">
                         <table width="100%" cellpadding="0" cellpadding="0">
                             <tr>
@@ -363,10 +339,10 @@
                             </tr>
                         </table>
                     </div>
-                </contenttemplate>
+                </ContentTemplate>
             </telerik:RadWindow>
             <telerik:RadWindowManager runat="server" ID="RadWindowManager1">
-                <windows>
+                <Windows>
                     <telerik:RadWindow ID="rw_customConfirm" Modal="true" Behaviors="Close, Move" VisibleStatusbar="false"
                         Width="700px" Height="160px" runat="server" Title="EUIN Confirm" Left="15%" Top="5"
                         OnClientShow="setCustomPosition">
@@ -384,44 +360,22 @@
                             </div>
                         </ContentTemplate>
                     </telerik:RadWindow>
-                </windows>
+                    <telerik:RadWindow ID="RadInformation" Modal="true" Behaviors="Close, Move" VisibleOnPageLoad="false"
+                        Width="760px" Height="200px" runat="server" Left="300px" Top="50px" OnClientShow="setCustomPosition">
+                        <ContentTemplate>
+                            <div style="padding: 0px; width: 750px; height: 100%;">
+                                <iframe src="../ReferenceFiles/HelpSIP.htm" name="iframeTermsCondition" style="width: 750px;
+                                    height: 180px"></iframe>
+                            </div>
+                        </ContentTemplate>
+                    </telerik:RadWindow>
+                </Windows>
             </telerik:RadWindowManager>
-            <telrik:radwindowmanager>
-       
-        <telerik:RadWindow ID="RadInformation" Modal="true" Behaviors="Close, Move"  VisibleOnPageLoad="false"
-            Width="760px" Height="200px" runat="server" Left="300px" Top="50px" OnClientShow="setCustomPosition" >
-            <ContentTemplate>
-                <div style="padding: 0px; width: 750px; height:100%;">
-                    <%--<table width="100%" cellpadding="0" cellpadding="0" Height="100%">
-                        <tr>
-                            <td align="left">--%>
-                                <%--  <a href="../ReferenceFiles/MF-Terms-Condition.html">../ReferenceFiles/MF-Terms-Condition.html</a>--%>
-                                
-                                <iframe src="../ReferenceFiles/HelpSIP.htm" name="iframeTermsCondition"
-                                    style="width: 750px; height:180px">
-                                    </iframe>
-                           <%-- </td>
-                        </tr>
-                    </table>--%>
-                </div>
-            </ContentTemplate>
-        </telerik:RadWindow>
-        </Windows>
-        </telrik:radwindowmanager>
             <div style="float: inherit;">
                 <asp:HiddenField ID="hdnAccountId" runat="server" />
             </div>
         </ContentTemplate>
         <Triggers>
-            <asp:PostBackTrigger ControlID="ddlFrequency" />
-            <asp:PostBackTrigger ControlID="ddlFolio" />
-            <asp:PostBackTrigger ControlID="ddlTotalInstallments" />
-            <asp:PostBackTrigger ControlID="ddlStartDate" />
-            <asp:PostBackTrigger ControlID="lnkTermsCondition" />
-            <asp:PostBackTrigger ControlID="btnSubmit" />
-            <asp:PostBackTrigger ControlID="imgInformation" />
-            
-            
         </Triggers>
     </asp:UpdatePanel>
 </body>
@@ -456,7 +410,7 @@
         <td align="center" colspan="4">
             <asp:LinkButton ID="lnkNewOrder" CausesValidation="false" Text="Make another SIP"
                 runat="server" OnClick="lnkNewOrder_Click" CssClass="LinkButtons"></asp:LinkButton>
-            <asp:DropDownList ID="ddlAmc" runat="server" CssClass="cmbExtraLongField" AutoPostBack="true"
+            <asp:DropDownList ID="ddlAmc" runat="server" CssClass="cmbExtraLongField" AutoPostBack="false"
                 OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged" Visible="false">
                 <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
             </asp:DropDownList>
