@@ -613,9 +613,7 @@
                     <div class="dropdown_1column">
                         <div class="col_1">
                             <ul class="greybox">
-                                <li>
-                                    <asp:LinkButton ID="LinkButton1" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('MFSchemeDetails','login');">SCHEME RESEARCH</asp:LinkButton>
-                                </li>
+                               
                                 <li>
                                     <asp:LinkButton ID="LinkButton2" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('OnlineMFSchemeCompare','login');">SCHEME COMPARE</asp:LinkButton>
                                 </li>

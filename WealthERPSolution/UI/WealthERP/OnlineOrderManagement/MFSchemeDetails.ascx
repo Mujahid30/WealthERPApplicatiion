@@ -136,7 +136,7 @@
 <asp:UpdatePanel ID="UPnlSchmResrch" runat="server" RenderMode="Inline">
     <ContentTemplate>
         <div id="dvDemo" class="row " style="margin-left: 11%; margin-bottom: 0.5%; margin-right: 5%;
-            padding-top: 0.5%; padding-bottom: 0.5%;" visible="true" runat="server">
+            padding-top: 0.5%; padding-bottom: 0.5%;" visible="false" runat="server">
             <div class="col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 1%">
                 <div class="col-md-3">
                     <asp:DropDownList ID="ddlAMC" runat="server" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlAMC_SelectedIndexChanged"
@@ -199,7 +199,7 @@
                     <br />
                     <asp:Image runat="server" ID="imgSchemeRating" />
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2" style="visibility:hidden;">
                     <asp:LinkButton ID="lnkAddToCompare" runat="server" CssClass="btn btn-primary btn-primary"
                         OnClick="lnkAddToCompare_OnClick" ValidationGroup="btnGo" Style="margin-bottom: 5px"> Add To Compare <span class="glyphicon glyphicon-shopping-list">
                             </span></asp:LinkButton>
@@ -379,7 +379,7 @@
                             <div>
                                 <asp:Literal ID="Literal1" runat="server"></asp:Literal>
                             </div>
-                            <div id="SchemeChartinformation" runat="server">
+                            <div id="SchemeChartinformation" runat="server" visible="false">
                                 &nbsp;&nbsp;<asp:Button ID="btn1m" runat="server" class="btn btn-sm btn-primary"
                                     Text="1m" OnClick="btnHistory_OnClick"></asp:Button>
                                 <asp:Button ID="btn3m" runat="server" class="btn btn-sm btn-primary" Text="3m" OnClick="btnHistory_OnClick">
@@ -660,5 +660,6 @@
         <asp:HiddenField ID="hidCurrentScheme" runat="server" />
     </ContentTemplate>
     <Triggers>
+    
     </Triggers>
 </asp:UpdatePanel>

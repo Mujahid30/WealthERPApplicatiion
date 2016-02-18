@@ -54,6 +54,7 @@ namespace WealthERP.OnlineOrderManagement
                     GetAmcSchemeDetails();
                     BindschemedetailsNAV();
                     hidCurrentScheme.Value = ddlScheme.SelectedValue;
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptv2ewv", "LoadTransactPanelFromMainPage('MFOrderPurchaseTransType','" + Request.QueryString["schemeCode"].ToString() + "')", true);
                 }
             }
         }
