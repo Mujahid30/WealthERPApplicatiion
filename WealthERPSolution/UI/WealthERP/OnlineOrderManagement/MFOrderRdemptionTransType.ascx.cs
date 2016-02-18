@@ -533,7 +533,6 @@ namespace WealthERP.OnlineOrderManagement
                     ddlFolio.DataValueField = dtScheme.Columns["CMFA_AccountId"].ToString();
                     ddlFolio.DataBind();
                 }
-                ddlFolio.Items.Insert(0, new ListItem("--SELECT--", "0"));
             }
             catch (BaseApplicationException Ex)
             {
