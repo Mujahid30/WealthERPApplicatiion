@@ -3,12 +3,14 @@
 <%--<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>--%>
+
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
 <script src="../Scripts/bootstrap.js" type="text/javascript"></script>
+
 <link href="../Base/CSS/bootstrap-theme.css" rel="stylesheet" type="text/css" />
 <link href="../Base/CSS/bootstrap.css" rel="stylesheet" type="text/css" />
 <link href="../Base/CSS/bootstrap.min.css" rel="stylesheet" type="text/css" />
-
 <style>
     .ft_sort
     {
@@ -100,18 +102,18 @@
                 windowBottom = parseInt(parseInt($(document).scrollTop()) + parseInt($(window).height()));
                 maxTop = topD;
                 windowTop = parseInt($(document).scrollTop());
-//                alert(maxBottom + 'a' + windowBottom + 'b' + maxTop + 's' + windowTop);
-                
+                //                alert(maxBottom + 'a' + windowBottom + 'b' + maxTop + 's' + windowTop);
+
                 if (maxBottom > windowBottom) {
                     topD = windowBottom - $(target).outerHeight();
-                   
+
 
                 } else if (maxTop < windowTop) {
                     topD = windowTop;
-                  
+
                 }
 
-//                $(target).css('top', ).css('centre', leftD);
+                //                $(target).css('top', ).css('centre', leftD);
             });
         });
     }
@@ -136,6 +138,11 @@
     <ContentTemplate>
         <div id="divConditional" runat="server" class="row " style="margin-left: 5%; margin-bottom: 0.5%;
             margin-right: 5%; padding-bottom: 0.5%;">
+
+          <%--  <script>
+              
+            </script>--%>
+
             <div class="col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 1%">
                 <div class="col-md-1" style="text-align: right; padding-top: 3px">
                     Account
@@ -152,7 +159,7 @@
                 <div style="float: right">
                     <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                         runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                        OnClientClick="setFormat('excel')" Height="25px" Width="29px"></asp:ImageButton>
+                       Height="25px" Width="29px"></asp:ImageButton>
                 </div>
             </div>
         </div>
@@ -369,8 +376,8 @@
                                                                     <font color="#565656"><b>Transaction Date:</b></font>
                                                                     <%# Eval("CO_OrderDate")%>
                                                                 </div>
-                                                                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
-                                                                    <font color="#565656"><b>Transaction No.:</b></font>
+                                                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                                                    <font color="#565656"><b>Order No.:</b></font>
                                                                     <%# Eval("OrderNo")%>
                                                                 </div>
                                                                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
@@ -417,6 +424,6 @@
         <asp:HiddenField ID="hdnAccount" runat="server" Value="0" />
     </ContentTemplate>
     <Triggers>
-        <asp:PostBackTrigger ControlID="btnExport" />
+       
     </Triggers>
 </asp:UpdatePanel>

@@ -456,29 +456,43 @@ namespace WealthERP.OnlineOrderManagement
             }
             if (dtd.Rows.Count > 0)
             {
-                Response.ClearContent();
-                Response.Buffer = true;
-                Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", "CustomerNCD/SGBOrderBook.xls"));
-                Response.ContentType = "application/ms-excel";
+               
 
-                string str = string.Empty;
-                foreach (DataColumn dtcol in dtd.Columns)
-                {
-                    Response.Write(str + dtcol.ColumnName);
-                    str = "\t";
-                }
-                Response.Write("\n");
-                foreach (DataRow dr in dtd.Rows)
-                {
-                    str = "";
-                    for (int j = 0; j < dtd.Columns.Count; j++)
+                    string data = null;
+                    int i = 0;
+                    int j = 0;
+
+                    Microsoft.Office.Interop.Excel.Workbook xlWorkBook;
+                    Microsoft.Office.Interop.Excel.Worksheet xlWorkSheet;
+                    object misValue = System.Reflection.Missing.Value;
+
+                    Microsoft.Office.Interop.Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
+                    xlWorkBook = xlApp.Workbooks.Add(misValue);
+                    xlWorkSheet = (Microsoft.Office.Interop.Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+                    int z = 0;
+                    foreach (DataColumn dtcol in dtd.Columns)
                     {
-                        Response.Write(str + Convert.ToString(dr[j]));
-                        str = "\t";
+
+                        data = dtcol.ColumnName;
+                        xlWorkSheet.Cells[1, z + 1] = data; z++;
                     }
-                    Response.Write("\n");
-                }
-                Response.End();
+
+                    for (i = 1; i <= dtd.Rows.Count ; i++)
+                    {
+                        for (j = 0; j <= dtd.Columns.Count - 1; j++)
+                        {
+                            data = dtd.Rows[i-1].ItemArray[j].ToString();
+                            xlWorkSheet.Cells[i + 1, j + 1] = data;
+                        }
+                    }
+                    Random asa = new Random();
+                    string filename = "CustomerOrderBook" + asa.Next() + ".xls";
+                    xlWorkBook.SaveAs(Server.MapPath("~/UploadFiles/" + filename), Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+                    xlWorkBook.Close(true, misValue, misValue);
+                    xlApp.Quit();
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "setFormat('" + filename + "');", true);
+                
+           
             }
         }
         protected DataTable CreateIPOBookDataTable()

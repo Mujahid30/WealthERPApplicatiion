@@ -208,7 +208,7 @@
                   </div>
     </ContentTemplate>
     <Triggers>
-        <asp:PostBackTrigger ControlID="ibtExportSummary" />
+      
     </Triggers>
 </asp:UpdatePanel>
 <asp:HiddenField ID="hdnAccount" runat="server" />

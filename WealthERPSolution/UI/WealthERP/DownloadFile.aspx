@@ -9,7 +9,11 @@
 <body>
     <form id="form1" runat="server">
     <div>
-    
+     <script type="text/javascript" language="javascript">
+        function closeWin() {
+            window.close();
+        }
+      </script>
     </div>
     </form>
 </body>

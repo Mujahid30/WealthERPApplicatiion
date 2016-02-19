@@ -18,9 +18,13 @@
 function SessionOut() {
    
         window.parent.location.href = '../OnlineMainHost.aspx'
- 
- 
-}
+
+
+    }
+    function setFormat(id) {
+        window.open('../DownloadFile.aspx?fileName=' + id, 'mywindow', 'width=1,height=1,scrollbars=yes,location=no');
+        return false;
+    }
 function RandomGenerator() {
     var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
     var string_length = 8;
