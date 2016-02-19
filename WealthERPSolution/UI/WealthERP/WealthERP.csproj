@@ -2426,6 +2426,13 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="DownloadFile.aspx.cs">
+      <DependentUpon>DownloadFile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DownloadFile.aspx.designer.cs">
+      <DependentUpon>DownloadFile.aspx</DependentUpon>
+    </Compile>
     <Compile Include="FP\AddProspectList.ascx.cs">
       <DependentUpon>AddProspectList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7888,6 +7895,7 @@
     <Content Include="Customer\CustomerProofView.ascx" />
     <Content Include="Customer\DematAccountDetails.ascx" />
     <Content Include="Customer\GroupAccountSetup.ascx" />
+    <Content Include="DownloadFile.aspx" />
     <Content Include="Emails\SentFolder\sujisays%40gmail.com634110045873983697.html" />
     <Content Include="Emails\SentFolder\sujisays%40gmail.com634110048222118003.html" />
     <Content Include="Emails\SentFolder\sujisays%40gmail.com634110048898006662.html" />
