@@ -618,7 +618,7 @@ namespace WealthERP.OnlineOrderManagement
             else dtStartdates = boOnlineOrder.GetSipStartDates(Convert.ToInt32(onlineMFOrderVo.SchemePlanCode), onlineMFOrderVo.FrequencyCode);
             DateTime currentDate = DateTime.Now;
             foreach (DateTime d in dtStartdates)
-                if (d != currentDate)
+                if (d.Date != currentDate.Date)
                 ddlStartDate.Items.Add(new ListItem(d.ToString("dd-MMM-yyyy")));
             ddlStartDate.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
             //ddlStartDate.Items.Insert(0, new ListItem("--SELECT--"));
