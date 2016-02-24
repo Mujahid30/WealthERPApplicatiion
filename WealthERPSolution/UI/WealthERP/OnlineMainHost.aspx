@@ -512,6 +512,7 @@
             -ms-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
             -o-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            visiblity: hidden;
         }
         .resultschild
         {
@@ -528,6 +529,7 @@
             text-shadow: 0 1px #fff;
             border: 1px solid transparent;
             border-radius: 3px;
+            visiblity: hidden;
         }
         .results div
         {
@@ -613,7 +615,6 @@
                     <div class="dropdown_1column">
                         <div class="col_1">
                             <ul class="greybox">
-                               
                                 <li>
                                     <asp:LinkButton ID="LinkButton2" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('OnlineMFSchemeCompare','login');">SCHEME COMPARE</asp:LinkButton>
                                 </li>
@@ -667,13 +668,12 @@
                     <cc1:TextBoxWatermarkExtender ID="txtSchemeName_water" TargetControlID="SchemeSearch"
                         WatermarkText="Search Scheme" runat="server" EnableViewState="false">
                     </cc1:TextBoxWatermarkExtender>
-                    <div id="listPlacement" class="results" style="height: 150px; overflow-y: scroll;
-                        overflow-x: hidden; text-align: left">
+                    <div id="listPlacement"  style="text-align: left;z-index:300;cursor: pointer;">
                     </div>
-                    <ajaxToolkit:AutoCompleteExtender ID="txtSchemeName_AutoCompleteExtender" runat="server"
+                    <ajaxToolkit:AutoCompleteExtender ID="txtSchemeName_AutoCompleteExtender" runat="server" 
                         TargetControlID="SchemeSearch" ServiceMethod="GetInvestorScheme" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
-                        MinimumPrefixLength="1" EnableCaching="true" CompletionSetCount="5" CompletionInterval="100"
-                        CompletionListCssClass="results" UseContextKey="True" OnClientItemSelected="GetSchemePlanCode"
+                        MinimumPrefixLength="1" EnableCaching="true" CompletionSetCount="5" CompletionInterval="100" 
+                         UseContextKey="True" OnClientItemSelected="GetSchemePlanCode" 
                         DelimiterCharacters="" CompletionListElementID="listPlacement" Enabled="True" />
                 </div>
             </ul>
@@ -818,7 +818,6 @@
                     <div style="clear: both;">
                         <asp:Button ID="btnBindTransactDdl" runat="server" Style="display: none" OnClick="BindTransactDdl" />
                     </div>
-                   
                     <div style="background-color: #0396CC; width: 100%">
                         <div style="padding-left: 20px; color: White;">
                             Transact
@@ -836,13 +835,12 @@
                                     <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" TargetControlID="TextBox1"
                                         WatermarkText="Search Scheme" runat="server" EnableViewState="false">
                                     </cc1:TextBoxWatermarkExtender>
-                                    <div id="Div2" class="results" style="height: 150px; overflow-y: scroll; overflow-x: hidden;
-                                        text-align: left">
+                                    <div id="Div2"  style="text-align: left;z-index:300;font-style:normal; cursor: pointer; font-weight: normal;font-size:small">
                                     </div>
                                     <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server" TargetControlID="TextBox1"
                                         ServiceMethod="GetInvestorScheme" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
                                         MinimumPrefixLength="1" EnableCaching="true" CompletionSetCount="5" CompletionInterval="100"
-                                        CompletionListCssClass="results" UseContextKey="True" OnClientItemSelected="GetTransactPanelSchemePlanCode"
+                                         UseContextKey="True" OnClientItemSelected="GetTransactPanelSchemePlanCode"
                                         DelimiterCharacters="" CompletionListElementID="Div2" Enabled="True" />
                                 </div>
                             </td>
@@ -858,13 +856,13 @@
                                 <asp:Label ID="Label2" runat="server" Text="Transaction Type:" CssClass="FieldName"></asp:Label>
                             </td>
                             <td>
-                                <asp:DropDownList ID="DropDownList1" runat="server" CssClass="cmbField" 
-                                    AutoPostBack="true" OnSelectedIndexChanged="DropDownList1_OnSelectedIndexChanged">
+                                <asp:DropDownList ID="DropDownList1" runat="server" CssClass="cmbField" AutoPostBack="true"
+                                    OnSelectedIndexChanged="DropDownList1_OnSelectedIndexChanged">
                                 </asp:DropDownList>
                             </td>
                         </tr>
                     </table>
-                 </ContentTemplate>
+                </ContentTemplate>
                 <Triggers>
                 </Triggers>
             </asp:UpdatePanel>
