@@ -248,7 +248,7 @@ namespace WealthERP.OffLineOrderManagement
             gvOrderRecon.DataSource = dBindOrderMissMatchDetails;
             gvOrderRecon.DataBind();
             pnlOrderRecon.Visible = true;
-            ibtExportSummary.Visible = true;
+            ibtExportSummary.Visible = false;
         }
 
         protected void BindOrderMatchDetails()
