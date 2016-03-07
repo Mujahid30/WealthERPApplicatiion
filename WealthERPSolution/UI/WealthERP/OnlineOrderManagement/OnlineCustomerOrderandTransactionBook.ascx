@@ -88,15 +88,15 @@
             Transaction Type:
             <asp:DropDownList ID="ddlAction" runat="server" CssClass="form-control input-sm"
                 class="form-control">
-                <asp:ListItem Text="Select" Value="0"></asp:ListItem>
+                <asp:ListItem Text="All" Value="All"></asp:ListItem>
                 <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
                 <asp:ListItem Text="New Purchase" Value="BUY"></asp:ListItem>
                 <asp:ListItem Text="Additional Purchase" Value="ABY"></asp:ListItem>
                 <asp:ListItem Text="Redeem" Value="SEL"></asp:ListItem>
             </asp:DropDownList>
-            <span id="Span7" class="spnRequiredField">*</span>
+          <%--  <span id="Span7" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvAmc" runat="server" CssClass="rfvPCG" ErrorMessage="Please Select an AMC"
-                Display="Dynamic" ControlToValidate="ddlAction" InitialValue="0" ValidationGroup="btnViewSIP">Select Transaction Type</asp:RequiredFieldValidator>
+                Display="Dynamic" ControlToValidate="ddlAction" InitialValue="0" ValidationGroup="btnViewSIP">Select Transaction Type</asp:RequiredFieldValidator>--%>
         </div>
         <div class="col-md-1" style="margin-top:1.8%">
             <asp:Button ID="btnViewSIP" runat="server" CssClass="btn btn-primary btn-primary"

@@ -34,13 +34,12 @@ namespace WealthERP.OffLineOrderManagement
                 txtOrderTo.SelectedDate = DateTime.Now;
                 txtOrderFrom.SelectedDate = DateTime.Now.AddMonths(-1);
                 //  BindOrderStatus();
-                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
-                {
+                //if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                //{
+                //    AutoCompleteExtender2_txtOrderSubbrokerCode.ContextKey = advisorVo.advisorId.ToString();
+                //    AutoCompleteExtender2_txtOrderSubbrokerCode.ServiceMethod = "GetAgentCodeAssociateDetails";
 
-                    AutoCompleteExtender2_txtOrderSubbrokerCode.ContextKey = advisorVo.advisorId.ToString();
-                    AutoCompleteExtender2_txtOrderSubbrokerCode.ServiceMethod = "GetAgentCodeAssociateDetails";
-
-                }
+                //}
 
                 if (Request.QueryString["FormAction"] != null)
                 {
@@ -207,9 +206,10 @@ namespace WealthERP.OffLineOrderManagement
             }
             else if (ddlType.SelectedValue == "5")
             {
-                gvOrderRecon.MasterTableView.GetColumn("OrderEdit").Visible = true;
-                gvOrderRecon.MasterTableView.GetColumn("editColumn").Visible = true;
+                gvOrderRecon.MasterTableView.GetColumn("OrderEdit").Visible = false;
+                gvOrderRecon.MasterTableView.GetColumn("editColumn").Visible = false;
                 gvOrderRecon.MasterTableView.GetColumn("MissmatchType").Visible = true;
+                gvOrderRecon.MasterTableView.GetColumn("action").Visible = true;
 
             }
             else if (ddlType.SelectedValue == "3")
@@ -293,7 +293,17 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void gvOrderRecon_ItemDataBound(object sender, GridItemEventArgs e)
         {
+            if (e.Item is GridFooterItem)
+            {
+                GridFooterItem FooterItem = (GridFooterItem)e.Item;
 
+                AutoCompleteExtender AutoCompleteExtender2 = (AutoCompleteExtender)e.Item.FindControl("AutoCompleteExtender2");
+                AutoCompleteExtender2.ContextKey = advisorVo.advisorId.ToString();
+                AutoCompleteExtender AutoCompleteExtender2_txtOrderSubbrokerCode = (AutoCompleteExtender)e.Item.FindControl("AutoCompleteExtender2_txtOrderSubbrokerCode");
+                AutoCompleteExtender2_txtOrderSubbrokerCode.ContextKey = advisorVo.advisorId.ToString();
+
+
+            }
             if (e.Item is GridDataItem)
             {
 
@@ -414,8 +424,6 @@ namespace WealthERP.OffLineOrderManagement
                 int allotedOrderId = Convert.ToInt32(gvOrderRecon.MasterTableView.DataKeyValues[e.Item.ItemIndex]["COAD_Id"].ToString());
                 if (!string.IsNullOrEmpty(gvOrderRecon.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CFIOD_Quantity"].ToString()))
                     orderQty = Convert.ToInt32(gvOrderRecon.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CFIOD_Quantity"].ToString());
-
-
                 string odrerSubbroker = gvOrderRecon.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AAC_AgentCode"].ToString();
                 string orderPAN = gvOrderRecon.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_PANNum"].ToString();
                 GridEditFormItem editedItem = (GridEditFormItem)e.Item;
@@ -430,12 +438,10 @@ namespace WealthERP.OffLineOrderManagement
                 else
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please fill all the information same as ordered ')", true);
-
                 }
-
             }
 
-            BindOrderMissMatchDetails();
+            //BindOrderMissMatchDetails();
             //  BindOrderMatchDetails();
 
         }
@@ -445,7 +451,66 @@ namespace WealthERP.OffLineOrderManagement
             BindOrderMissMatchDetails();
 
         }
+        protected void btnApply_OnClick(object sender, EventArgs e)
+        {
+            int i = 0;
+            Button btn = (Button)sender;
 
+            GridFooterItem footerItem = (GridFooterItem)gvOrderRecon.MasterTableView.GetItems(GridItemType.Footer)[0];
+            TextBox newSubBrokerCode = (TextBox)footerItem.FindControl("txtAllotedSubBrokerCode");
+            TextBox newOrderSubBrokerCode = (TextBox)footerItem.FindControl("txtOrderSubbrokerCode");
+            foreach (GridDataItem dataItem in gvOrderRecon.MasterTableView.Items)
+            {
+                if ((dataItem.FindControl("chkId") as CheckBox).Checked)
+                {
+                    i = i + 1;
+                }
+            }
+            switch (btn.ID)
+            {
+                case "btnApply":
+
+                    if (i == 0)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select Item To Apply SubBrokerCode !');", true);
+                        return;
+                    }
+                    else
+                    {
+                        foreach (GridDataItem dataItem in gvOrderRecon.MasterTableView.Items)
+                        {
+                            if ((dataItem.FindControl("chkId") as CheckBox).Checked)
+                            {
+                                TextBox txtSubBrokerCode = dataItem.FindControl("txtAllotedSubBrokerCodetoAllotment") as TextBox;
+                                txtSubBrokerCode.Text = newSubBrokerCode.Text;
+                            }
+                        }
+
+                    }
+                    break;
+                case "btnOrderApply":
+
+                    if (i == 0)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select Item To Apply Order SubBrokerCode !');", true);
+                        return;
+                    }
+                    else
+                    {
+                        foreach (GridDataItem dataItem in gvOrderRecon.MasterTableView.Items)
+                        {
+                            if ((dataItem.FindControl("chkId") as CheckBox).Checked)
+                            {
+                                TextBox txtOrderSubBrokerCode = dataItem.FindControl("txtOrderAgentCode") as TextBox;
+                                txtOrderSubBrokerCode.Text = newOrderSubBrokerCode.Text;
+                            }
+                        }
+
+                    }
+                    break;
+            }
+
+        }
         protected void btnReprocess_Click(object sender, EventArgs e)
         {
 
@@ -625,16 +690,85 @@ namespace WealthERP.OffLineOrderManagement
         {
             tblMessage.Visible = true;
             msgRecordStatus.InnerText = msg;
-            //tblMessage.Visible = true;
-            //msgRecordStatus.InnerText = msg;
-            ////--S(success)
-            ////--F(failure)
-            ////--W(warning)
-            ////--I(information)
-            ////ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','W');", true);
-            //ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "mykey", "hide();", true);
-            //tblMessagee.Visible = true;
-            //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "OnlineOfflineOrderRecon", " showMsg('" + msg + "','" + type + "');", true);
+        }
+        protected void btnUpdateAllDetails_Update(object sender, EventArgs e)
+        {
+            int i = 0;
+            List<int> issuedetails;
+            Button btn = (Button)sender;
+            hdnissueId.Value = gvOrderRecon.MasterTableView.DataKeyValues[0]["AIM_IssueId"].ToString();
+            issuedetails = onlineNCDBackOfficeBo.GetOrderRelatedDetails(int.Parse(hdnissueId.Value), ddlCategory.SelectedValue);
+            foreach (GridDataItem dataItem in gvOrderRecon.MasterTableView.Items)
+            {
+                if ((dataItem.FindControl("chkId") as CheckBox).Checked)
+                {
+                    i = i + 1;
+                }
+            }
+            if (i == 0)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select to Update SubBrokerCode/order quentity/PAN !');", true);
+                return;
+            }
+            else
+            {
+                DataTable dtSubBrokerCode = new DataTable();
+                dtSubBrokerCode.Columns.Add("allotmentorderId", typeof(Int32));
+                dtSubBrokerCode.Columns.Add("allotmentsubBrokerCode", typeof(String));
+                dtSubBrokerCode.Columns.Add("allotmentorderQty", typeof(Int32));
+                dtSubBrokerCode.Columns.Add("allotmentPAN", typeof(String));
+                dtSubBrokerCode.Columns.Add("orderId", typeof(Int32));
+                dtSubBrokerCode.Columns.Add("OrdersubBrokerCode", typeof(String));
+                dtSubBrokerCode.Columns.Add("orderQty", typeof(Int32));
+                dtSubBrokerCode.Columns.Add("CFIOD_DetailsId", typeof(String));
+                DataRow drSubBrokerCode;
+                foreach (GridDataItem radItem in gvOrderRecon.MasterTableView.Items)
+                {
+                    if ((radItem.FindControl("chkId") as CheckBox).Checked)
+                    {
+                        hdnFIorderId.Value = gvOrderRecon.MasterTableView.DataKeyValues[radItem.ItemIndex]["CFIOD_DetailsId"].ToString();
+                        txtAgentId.Value = gvOrderRecon.MasterTableView.DataKeyValues[radItem.ItemIndex]["AAC_AdviserAgentId"].ToString();
+                        string OrderPAN = gvOrderRecon.MasterTableView.DataKeyValues[radItem.ItemIndex]["C_PANNum"].ToString();
+                        drSubBrokerCode = dtSubBrokerCode.NewRow();
+                        int j = radItem.ItemIndex + 1;
+                        drSubBrokerCode["allotmentorderId"] = int.Parse(gvOrderRecon.MasterTableView.DataKeyValues[radItem.ItemIndex]["COAD_Id"].ToString());
+                        drSubBrokerCode["orderId"] = int.Parse(gvOrderRecon.MasterTableView.DataKeyValues[radItem.ItemIndex]["CO_OrderId"].ToString());
+                        TextBox allotmentorderQty = radItem.FindControl("COAD_Quantity") as TextBox;
+                        TextBox allotmentsubBrokerCode = radItem.FindControl("txtAllotedSubBrokerCodetoAllotment") as TextBox;
+                        TextBox allotmentPAN = radItem.FindControl("txtAllotmentPAN") as TextBox;
+                        TextBox orderQty = radItem.FindControl("txtOrderQuantity") as TextBox;
+                        TextBox OrdersubBrokerCode = radItem.FindControl("txtOrderAgentCode") as TextBox;
+                        string trimPAN = allotmentPAN.Text.Trim(' ');
+                        drSubBrokerCode["CFIOD_DetailsId"] = hdnFIorderId.Value;
+                        if (Convert.ToInt32(orderQty.Text) >= issuedetails[0] && Convert.ToInt32(orderQty.Text) <= issuedetails[1])
+                        {
+                            drSubBrokerCode["orderQty"] = orderQty.Text;
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Order Quentity should be between min and max.row no " + j + " data is not match  !!');", true);
+                            return;
+                        }
+                        if ((allotmentorderQty.Text == orderQty.Text) && (allotmentsubBrokerCode.Text == OrdersubBrokerCode.Text) && (trimPAN.ToUpper() == OrderPAN.ToUpper()))
+                        {
+                            drSubBrokerCode["allotmentsubBrokerCode"] = allotmentsubBrokerCode.Text;
+                            drSubBrokerCode["allotmentorderQty"] = allotmentorderQty.Text;
+                            drSubBrokerCode["allotmentPAN"] = allotmentPAN.Text;
+                            drSubBrokerCode["OrdersubBrokerCode"] = OrdersubBrokerCode.Text;
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Provide same as order details and allotment details.row no " + j + " data is not match');", true);
+                            return;
+                        }
+                        dtSubBrokerCode.Rows.Add(drSubBrokerCode);
+
+                    }
+                   
+                }
+                bool result = onlineNCDBackOfficeBo.UpdateNewOrderAllotmentSubBrokerCodeDetails(dtSubBrokerCode, (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "IP", userVo.UserId);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Update Successfully !!');", true);
+            }
         }
     }
 }

@@ -170,6 +170,7 @@ namespace WealthERP.OnlineOrderManagement
             dtMFUnitHolding.Columns.Add("SchemeRatingOverall");
             dtMFUnitHolding.Columns.Add("SchemeRatingSubscriptionExpiryDtae");
             dtMFUnitHolding.Columns.Add("SchemeRatingDate");
+            dtMFUnitHolding.Columns.Add("Status");
             return dtMFUnitHolding;
         }
 
@@ -298,7 +299,7 @@ namespace WealthERP.OnlineOrderManagement
                     drMFUnitHoplding["SchemeRatingSubscriptionExpiryDtae"] = mfPortfolioVo.SchemeRatingSubscriptionExpiryDtae;
                     if (DateTime.Parse(mfPortfolioVo.SchemeRatingDate.ToString()) != DateTime.Parse("01/01/1900 00:00:00"))
                         drMFUnitHoplding["SchemeRatingDate"] = DateTime.Parse(mfPortfolioVo.SchemeRatingDate.ToString()).ToString("dd/MM/yyyy");
-
+                    drMFUnitHoplding["Status"] = mfPortfolioVo.status;
                     dtMFUnitHoplding.Rows.Add(drMFUnitHoplding);
                 }
                 if (dtMFUnitHoplding.Rows.Count > 0)
@@ -510,8 +511,8 @@ namespace WealthERP.OnlineOrderManagement
                 System.Web.UI.WebControls.Image imgRating10Year = (System.Web.UI.WebControls.Image)e.Item.FindControl("imgRating10yr");
                 System.Web.UI.WebControls.Image imgRatingOvelAll = (System.Web.UI.WebControls.Image)e.Item.FindControl("imgRatingOvelAll");
 
-
-                if (lblSIPSchemeFlag.Text.Trim().ToLower() == "true")
+                string status = rgUnitHolding.MasterTableView.DataKeyValues[e.Item.ItemIndex]["Status"].ToString();
+                if (lblSIPSchemeFlag.Text.Trim().ToLower() == "true" && status=="Active")
                 {
                 //    ddlAction.Items[1].Enabled = false;
                 //}
@@ -521,7 +522,7 @@ namespace WealthERP.OnlineOrderManagement
 
                     //ddlAction.Items[1].Enabled = true;
                 }
-                if (lblIsPurcheseFlag.Text.Trim().ToLower() == "true")
+                if (lblIsPurcheseFlag.Text.Trim().ToLower() == "true" && status == "Active")
                 {
                 //    ddlAction.Items[2].Enabled = false;
                 //}
@@ -530,7 +531,7 @@ namespace WealthERP.OnlineOrderManagement
                     ddlAction.Items.FindByText("Purchase").Enabled = true;
                     //ddlAction.Items[2].Enabled = true;
                 }
-                if (lblISRedeemFlag.Text.Trim().ToLower() == "true")
+                if (lblISRedeemFlag.Text.Trim().ToLower() == "true" )
                 {
                 //    ddlAction.Items[3].Enabled = false;
                 //}

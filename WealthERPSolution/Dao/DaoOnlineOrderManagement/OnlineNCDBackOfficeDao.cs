@@ -4041,15 +4041,16 @@ namespace DaoOnlineOrderManagement
                     //db.AddInParameter(dbGetOrderMissMatchDetails, "@isOnline", DbType.Int32, isOnline);
                 }
                 else
+                {
                     dbGetOrderMissMatchDetails = db.GetStoredProcCommand("SPROC_54ECANDCDOrderMissMatchDetails");
-
+                    db.AddInParameter(dbGetOrderMissMatchDetails, "@type", DbType.Int32, type);
+                }
                 db.AddInParameter(dbGetOrderMissMatchDetails, "@Searchtype", DbType.Int32, 1);
                 db.AddInParameter(dbGetOrderMissMatchDetails, "@issueid", DbType.Int32, issueid);
                 db.AddInParameter(dbGetOrderMissMatchDetails, "@orderstapcode", DbType.String, orderstapcode);
                 db.AddInParameter(dbGetOrderMissMatchDetails, "@category", DbType.String, category);
                 db.AddInParameter(dbGetOrderMissMatchDetails, "@fromDate", DbType.DateTime, from);
                 db.AddInParameter(dbGetOrderMissMatchDetails, "@toDate", DbType.DateTime, to);
-                db.AddInParameter(dbGetOrderMissMatchDetails, "@type", DbType.Int32, type);
 
                 dsGetOrderMissMatchDetails = db.ExecuteDataSet(dbGetOrderMissMatchDetails);
                 dtGetOrderMissMatchDetails = dsGetOrderMissMatchDetails.Tables[0];
@@ -4060,6 +4061,7 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetOrderMissMatchDetails;
         }
+
         public DataTable GetIssueNamePRoductWise(string product)
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -4242,6 +4244,33 @@ namespace DaoOnlineOrderManagement
                 throw exBase;
             }
             return xmlText;
+        }
+        public bool UpdateNewOrderAllotmentSubBrokerCodeDetails(DataTable dtSubBrokerCode,string category,int userId)
+        {
+            bool bResult = false;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand UpdateNewSubBrokerCode;
+            DataSet dsUpdateNewSubBrokerCode = new DataSet();
+
+            try
+            {
+                dsUpdateNewSubBrokerCode.Tables.Add(dtSubBrokerCode.Copy());
+                dsUpdateNewSubBrokerCode.DataSetName = "SubBrokerCodeDS";
+                dsUpdateNewSubBrokerCode.Tables[0].TableName = "SubBrokerCodeDT";
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                UpdateNewSubBrokerCode = db.GetStoredProcCommand("SPROC_UpdateOrderAndAlotment");
+                db.AddInParameter(UpdateNewSubBrokerCode, "@XMLSubBrokerCode", DbType.Xml, dsUpdateNewSubBrokerCode.GetXml().ToString());
+                db.AddInParameter(UpdateNewSubBrokerCode, "@productType", DbType.String, category);
+                db.AddInParameter(UpdateNewSubBrokerCode, "@userId", DbType.Int32, userId);
+
+                if (db.ExecuteNonQuery(UpdateNewSubBrokerCode) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
         }
     }
 }

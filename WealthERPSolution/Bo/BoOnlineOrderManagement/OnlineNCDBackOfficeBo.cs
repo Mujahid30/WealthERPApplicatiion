@@ -2601,8 +2601,8 @@ namespace BoOnlineOrderManagement
 
         public Boolean CreateIssueInvestorCategorySeriesException(int issueId, int sequenceId, string categoryCode, int SwitchSequence, int userId)
         {
-           
-            
+
+
             try
             {
                 OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
@@ -2612,7 +2612,7 @@ namespace BoOnlineOrderManagement
             {
                 throw Ex;
             }
-            
+
         }
         public bool UpdateOrderMissMatchOrder(int fixIncomeId, int orderId, int qty, string brokerCode, int subbrokerId, string product)
         {
@@ -2676,6 +2676,13 @@ namespace BoOnlineOrderManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+        }
+        public bool UpdateNewOrderAllotmentSubBrokerCodeDetails(DataTable dtSubBrokerCode, string category, int userId)
+        {
+            bool bResult = false;
+            OnlineNCDBackOfficeDao onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            bResult = onlineNCDBackOfficeDao.UpdateNewOrderAllotmentSubBrokerCodeDetails(dtSubBrokerCode, category, userId);
+            return bResult;
         }
     }
 }

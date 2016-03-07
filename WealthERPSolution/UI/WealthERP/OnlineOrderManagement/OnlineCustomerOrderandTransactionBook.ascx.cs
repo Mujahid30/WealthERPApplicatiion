@@ -77,6 +77,9 @@ namespace WealthERP.OnlineOrderManagement
 
             switch (ddlAction.SelectedValue)
             {
+                case "All":
+                    BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "0", int.Parse(ddlExchange.SelectedValue));
+                    break;
                 case "SIP":
                     BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "SIP", int.Parse(ddlExchange.SelectedValue));
                     break;

@@ -179,7 +179,7 @@
                 AllowAutomaticDeletes="false" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
                 HorizontalAlign="NotSet" CellPadding="15" OnNeedDataSource="rgUnitHolding_OnNeedDataSource"
                 OnItemCommand="rgUnitHolding_OnItemCommand" OnItemDataBound="rgUnitHolding_ItemDataBound">
-                <MasterTableView CommandItemDisplay="None" DataKeyNames="MFNPId,AccountId,AMCCode,SchemeCode"
+                <MasterTableView CommandItemDisplay="None" DataKeyNames="MFNPId,AccountId,AMCCode,SchemeCode,Status"
                     AllowCustomSorting="true">
                     <Columns>
                         <telerik:GridTemplateColumn>
@@ -345,6 +345,11 @@
                                         visibility: hidden;">
                                         <font color="#565656"><b>PurchasedUnits:</b></font>
                                         <%# Eval("PurchasedUnits")%>
+                                    </div>
+                                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;
+                                        visibility: hidden;">
+                                        <font color="#565656"><b>Status:</b></font>
+                                        <%# Eval("Status")%>
                                     </div>
                                 </div>
                             </ItemTemplate>

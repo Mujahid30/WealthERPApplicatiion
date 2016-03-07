@@ -65,6 +65,8 @@ namespace WealthERP.OffLineOrderManagement
        protected global::System.Web.UI.WebControls.ImageButton ibtExportSummary;
        protected global::Telerik.Web.UI.RadDatePicker txtOrderFrom;
        protected global::Telerik.Web.UI.RadDatePicker txtOrderTo;
+        protected global::System.Web.UI.WebControls.Button btnApply;
+        protected global::System.Web.UI.WebControls.Button btnOrderApply;
 
 
     }

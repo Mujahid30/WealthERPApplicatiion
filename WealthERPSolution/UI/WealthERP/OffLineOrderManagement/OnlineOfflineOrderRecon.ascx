@@ -15,7 +15,6 @@
     function GeAgentId(source, eventArgs) {
         isItemSelected = true;
         document.getElementById("<%= txtAgentId.ClientID %>").value = eventArgs.get_value();
-        txtOrderSubbrokerCode
         return false;
     }
 </script>
@@ -100,7 +99,7 @@
             <asp:Label ID="lblIssue" runat="server" Text="Issue:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlIssueName" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlIssueName" runat="server" CssClass="cmbField" Width="400px">
             </asp:DropDownList>
         </td>
         <td>
@@ -215,7 +214,7 @@
                     OnNeedDataSource="gvOrderRecon_OnNeedDataSource" OnItemCommand="gvOrderRecon_OnItemCommand"
                     OnItemCreated="gvOrderRecon_ItemCreated" OnPreRender="gvOrderRecon_PreRender">
                     <MasterTableView AllowMultiColumnSorting="false" AllowSorting="false" DataKeyNames="COAD_Id,CFIOD_Quantity,AAC_AgentCode,C_PANNum,CO_OrderId,AIM_IssueId,CFIOD_DetailsId,AAC_AdviserAgentId,COAD_Quantity,COAD_SubBrokerCode,COAD_PAN,CO_ApplicationNumberAlloted,AllotmentDate,COAD_Id,AllotmentOROrderDate"
-                        EditMode="PopUp" AutoGenerateColumns="false" Width="100%" CommandItemSettings-ShowRefreshButton="false">
+                        EditMode="InPlace" AutoGenerateColumns="false" Width="100%" CommandItemSettings-ShowRefreshButton="false">
                         <Columns>
                             <telerik:GridEditCommandColumn EditText="Allotment Edit" UniqueName="editColumn"
                                 CancelText="Cancel" UpdateText="Update" HeaderStyle-Width="80px" EditImageUrl="../Images/logo6.jpg">
@@ -268,23 +267,37 @@
                                     </telerik:RadScriptBlock>
                                 </FilterTemplate>
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="COAD_Quantity" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
-                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Alloted Quantity"
-                                UniqueName="COAD_Quantity" SortExpression="COAD_Quantity" AllowFiltering="true"
-                                Visible="true">
-                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="" Wrap="false" />
-                            </telerik:GridBoundColumn>
+                            <telerik:GridTemplateColumn HeaderText="Alloted Quantity" DataField="COAD_Quantity"
+                                HeaderStyle-Width="20px" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                                <ItemTemplate>
+                                    <asp:TextBox ID="COAD_Quantity" runat="server" Text='<%# Bind("COAD_Quantity") %>'></asp:TextBox>
+                                </ItemTemplate>
+                            </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn DataField="issueName" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Issue Name" UniqueName="issueName"
                                 SortExpression="issueName" AllowFiltering="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="COAD_SubBrokerCode" HeaderStyle-Width="20px"
+                            <telerik:GridTemplateColumn DataField="COAD_SubBrokerCode" HeaderStyle-Width="20px"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                 HeaderText="Alloted SubBrokerCode" UniqueName="COAD_SubBrokerCode" SortExpression="COAD_SubBrokerCode"
                                 AllowFiltering="true">
-                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                            </telerik:GridBoundColumn>
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtAllotedSubBrokerCodetoAllotment" runat="server" CssClass="txtField"
+                                        Text='<%# Bind("COAD_SubBrokerCode") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtAllotedSubBrokerCode" runat="server" CssClass="txtField" Text='<%# Bind("COAD_SubBrokerCode") %>'></asp:TextBox>
+                                    <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender2" runat="server" TargetControlID="txtAllotedSubBrokerCode"
+                                        ServiceMethod="GetAgentCodeAssociateDetails" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                                        MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
+                                        CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                                        CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                                        UseContextKey="True" DelimiterCharacters="" Enabled="True">
+                                    </ajaxToolkit:AutoCompleteExtender>
+                                    <asp:Button ID="btnApply" runat="server" OnClick="btnApply_OnClick" Text="Apply" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn DataField="AllotmentDate" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Allotment Date"
                                 DataType="System.String" UniqueName="AllotmentDate" SortExpression="AllotmentDate"
@@ -297,11 +310,13 @@
                                 AllowFiltering="true" Visible="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="COAD_PAN" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                            <telerik:GridTemplateColumn DataField="COAD_PAN" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Alloted PAN" UniqueName="COAD_PAN"
                                 SortExpression="COAD_PAN" AllowFiltering="true">
-                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                            </telerik:GridBoundColumn>
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtAllotmentPAN" runat="server" Text='<%# Bind("COAD_PAN") %>'></asp:TextBox>
+                                </ItemTemplate>
+                            </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn DataField="AllotedInvestorName" HeaderStyle-Width="20px"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                 HeaderText="Alloted InvestorName" DataType="System.String" UniqueName="AllotedInvestorName"
@@ -314,18 +329,33 @@
                                 SortExpression="CO_ApplicationNumberAlloted" AllowFiltering="true" Visible="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CFIOD_Quantity" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                            <telerik:GridTemplateColumn DataField="CFIOD_Quantity" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Order Quantity"
                                 UniqueName="CFIOD_Quantity" SortExpression="CFIOD_Quantity" AllowFiltering="true"
                                 Visible="true" HeaderStyle-ForeColor="Black">
-                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="" Wrap="false" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="AAC_AgentCode" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtOrderQuantity" runat="server" Text='<%# Bind("CFIOD_Quantity") %>'></asp:TextBox>
+                                </ItemTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridTemplateColumn DataField="AAC_AgentCode" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Order SubBrokerCode"
                                 UniqueName="AAC_AgentCode" SortExpression="AAC_AgentCode" AllowFiltering="true"
                                 HeaderStyle-ForeColor="Black">
-                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                            </telerik:GridBoundColumn>
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtOrderAgentCode" runat="server" Text='<%# Bind("AAC_AgentCode") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtOrderSubbrokerCode" runat="server" CssClass="txtField"></asp:TextBox>
+                                    <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender2_txtOrderSubbrokerCode"
+                                        runat="server" TargetControlID="txtOrderSubbrokerCode" ServiceMethod="GetAgentCodeAssociateDetails"
+                                        ServicePath="~/CustomerPortfolio/AutoComplete.asmx" MinimumPrefixLength="1" EnableCaching="False"
+                                        CompletionSetCount="5" CompletionInterval="100" CompletionListCssClass="AutoCompleteExtender_CompletionList"
+                                        CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem" CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                                        UseContextKey="True" DelimiterCharacters="" Enabled="True">
+                                    </ajaxToolkit:AutoCompleteExtender>
+                                    <asp:Button ID="btnOrderApply" runat="server" Text="Apply" OnClick="btnApply_OnClick" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn DataField="CO_ApplicationNumber" HeaderStyle-Width="20px"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                 HeaderText="Application Number" UniqueName="CO_ApplicationNumber" SortExpression="CO_ApplicationNumber"
@@ -340,7 +370,6 @@
                             <telerik:GridBoundColumn DataField="C_PANNum" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Order PAN" UniqueName="C_PANNum"
                                 SortExpression="C_PANNum" AllowFiltering="true" HeaderStyle-ForeColor="Black">
-                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="InvestorName" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="InvestorName"
@@ -387,14 +416,6 @@
                                             <asp:Label ID="lblAllotedSubBrokerCode" runat="server" CssClass="FieldName" Text="Alloted SubBrokerCode."></asp:Label>
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="txtAllotedSubBrokerCode" runat="server" CssClass="txtField" Text='<%# Bind("COAD_SubBrokerCode") %>'></asp:TextBox>
-                                            <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender2" runat="server" TargetControlID="txtAllotedSubBrokerCode"
-                                                ServiceMethod="GetAgentCodeAssociateDetails" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
-                                                MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
-                                                CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
-                                                CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
-                                                UseContextKey="True" DelimiterCharacters="" Enabled="True">
-                                            </ajaxToolkit:AutoCompleteExtender>
                                         </td>
                                     </tr>
                                     <tr>
@@ -442,6 +463,7 @@
                     CssClass="PCGButton" OnClick="btnReprocess_Click"></asp:Button>
                 <asp:Button ID="btnBulkOrder" Text="BulkOrderGeneration" runat="server" CausesValidation="False"
                     CssClass="PCGButton" OnClick="BulkOrderGeneration_Click"></asp:Button>
+                <asp:Button ID="btnUpdate" runat="server"  CssClass="PCGButton" Text="Update" OnClick="btnUpdateAllDetails_Update" />
             </td>
             <td>
             </td>
@@ -532,14 +554,6 @@
                                     <asp:Label ID="lblOrderSubbrokerCode" runat="server" CssClass="FieldName" Text="Order SubbrokerCode"></asp:Label>
                                 </td>
                                 <td>
-                                    <asp:TextBox ID="txtOrderSubbrokerCode" runat="server" CssClass="txtField"></asp:TextBox>
-                                    <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender2_txtOrderSubbrokerCode"
-                                        runat="server" TargetControlID="txtOrderSubbrokerCode" ServiceMethod="GetAgentCodeAssociateDetails"
-                                        ServicePath="~/CustomerPortfolio/AutoComplete.asmx" MinimumPrefixLength="1" EnableCaching="False"
-                                        CompletionSetCount="5" CompletionInterval="100" CompletionListCssClass="AutoCompleteExtender_CompletionList"
-                                        CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem" CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
-                                        UseContextKey="True" DelimiterCharacters="" Enabled="True" OnClientItemSelected="GeAgentId">
-                                    </ajaxToolkit:AutoCompleteExtender>
                                 </td>
                             </tr>
                             <tr>
