@@ -2539,7 +2539,7 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetSchemeLookupType;
         }
-        public DataTable GetRTAInitialReport(string type, DateTime fromDate, DateTime toDate, Boolean ReportType,int amcCode)
+        public DataTable GetRTAInitialReport(string type, DateTime fromDate, DateTime toDate, Boolean ReportType, int amcCode)
         {
             Database db;
             DbCommand cmdGetRTAInitialReport;
@@ -2584,7 +2584,7 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetAMCListRNTWise;
         }
-        public DataTable GetSubBrokerCodeCleansing( int AMCCode, int schemePlanCode, int adviserId, int subBrokerCode)
+        public DataTable GetSubBrokerCodeCleansing(int AMCCode, int schemePlanCode, int adviserId, int subBrokerCode)
         {
             DataSet dsGetSubBrokerCodeCleansing;
             DataTable dtGetSubBrokerCodeCleansing;
@@ -2972,7 +2972,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmd, "@Heading", DbType.String, headingText);
                 db.AddInParameter(cmd, "@Details", DbType.String, details);
                 db.AddInParameter(cmd, "@FormatType", DbType.String, formatType);
-                if (expiryDate==DateTime.MinValue)
+                if (expiryDate == DateTime.MinValue)
                     db.AddInParameter(cmd, "@ExpiryDate", DbType.DateTime, DBNull.Value);
                 else
 
@@ -3003,7 +3003,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmd, "@Type", DbType.String, type);
 
                 dsGetBannerDetailsWithAssetGroup = db.ExecuteDataSet(cmd);
-               
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -3134,26 +3134,26 @@ namespace DaoOnlineOrderManagement
             return dtGetProductSearchType;
         }
         public DataTable GetTopMarketSchemes(string category, Boolean isSIP, int returns, int customerId, int returnsOperator, double returnsValue, out int recordCount, int PageIndex, int PageSize, int sortOn)
-    {
-         Database db;
+        {
+            Database db;
             DataSet dsGetSchemeDetails;
             DbCommand cmdGetSchemeDetails;
             try
             {
-                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                 cmdGetSchemeDetails = db.GetStoredProcCommand("SPROC_ONL_GetTopMarketSchemes");
-                 db.AddInParameter(cmdGetSchemeDetails, "@category", DbType.String, category);
-                 db.AddInParameter(cmdGetSchemeDetails, "@ISSIP", DbType.Boolean, isSIP);
-                 db.AddInParameter(cmdGetSchemeDetails, "@Returns", DbType.String, returns);
-                 db.AddInParameter(cmdGetSchemeDetails, "@customerId", DbType.String, customerId);
-                 db.AddInParameter(cmdGetSchemeDetails, "@ReturnsOperator", DbType.Int32, returnsOperator);
-                 db.AddInParameter(cmdGetSchemeDetails, "@ReturnsValue", DbType.Double, returnsValue);
-                 db.AddInParameter(cmdGetSchemeDetails, "@PageIndex", DbType.Int16, PageIndex);
-                 db.AddInParameter(cmdGetSchemeDetails, "@PageSize ", DbType.Int16, PageSize);
-                 db.AddInParameter(cmdGetSchemeDetails, "@SortOn ", DbType.Int16, sortOn);
-                 db.AddOutParameter(cmdGetSchemeDetails, "@RecordCount", DbType.Int64, 1000);
-                 dsGetSchemeDetails = db.ExecuteDataSet(cmdGetSchemeDetails);
-                 recordCount = int.Parse(db.GetParameterValue(cmdGetSchemeDetails, "RecordCount").ToString());
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetSchemeDetails = db.GetStoredProcCommand("SPROC_ONL_GetTopMarketSchemes");
+                db.AddInParameter(cmdGetSchemeDetails, "@category", DbType.String, category);
+                db.AddInParameter(cmdGetSchemeDetails, "@ISSIP", DbType.Boolean, isSIP);
+                db.AddInParameter(cmdGetSchemeDetails, "@Returns", DbType.String, returns);
+                db.AddInParameter(cmdGetSchemeDetails, "@customerId", DbType.String, customerId);
+                db.AddInParameter(cmdGetSchemeDetails, "@ReturnsOperator", DbType.Int32, returnsOperator);
+                db.AddInParameter(cmdGetSchemeDetails, "@ReturnsValue", DbType.Double, returnsValue);
+                db.AddInParameter(cmdGetSchemeDetails, "@PageIndex", DbType.Int16, PageIndex);
+                db.AddInParameter(cmdGetSchemeDetails, "@PageSize ", DbType.Int16, PageSize);
+                db.AddInParameter(cmdGetSchemeDetails, "@SortOn ", DbType.Int16, sortOn);
+                db.AddOutParameter(cmdGetSchemeDetails, "@RecordCount", DbType.Int64, 1000);
+                dsGetSchemeDetails = db.ExecuteDataSet(cmdGetSchemeDetails);
+                recordCount = int.Parse(db.GetParameterValue(cmdGetSchemeDetails, "RecordCount").ToString());
             }
             catch (BaseApplicationException Ex)
             {
@@ -3175,7 +3175,7 @@ namespace DaoOnlineOrderManagement
                 throw exBase;
             }
             return dsGetSchemeDetails.Tables[0];
-    }
+        }
         public DataTable GetSchemeDetails(int AMCCode, int Schemeplanecode, string category, int customerId, Int16 SchemeDetails, Boolean NFOType, out int recordCount, int PageIndex, int PageSize, Boolean isSIP, int SortOn)
         {
             Database db;
@@ -3189,7 +3189,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmdGetSchemeDetails, "@schemePlanCode", DbType.Int32, Schemeplanecode);
                 if (category != "0")
                     db.AddInParameter(cmdGetSchemeDetails, "@category", DbType.String, category);
-                if (customerId!=0)
+                if (customerId != 0)
                     db.AddInParameter(cmdGetSchemeDetails, "@customerId", DbType.Int64, customerId);
                 db.AddInParameter(cmdGetSchemeDetails, "@SchemeDetails", DbType.Int16, SchemeDetails);
                 db.AddInParameter(cmdGetSchemeDetails, "@NFOType", DbType.Boolean, NFOType);
@@ -3239,7 +3239,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmdCustomerGetRMSLog, "@toDate", DbType.DateTime, toDate);
                 db.AddInParameter(cmdCustomerGetRMSLog, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(cmdCustomerGetRMSLog, "@orderType", DbType.String, orderType);
-                db.AddInParameter(cmdCustomerGetRMSLog, "@productType", DbType.String,productType );
+                db.AddInParameter(cmdCustomerGetRMSLog, "@productType", DbType.String, productType);
                 dsCustomerGetRMSLog = db.ExecuteDataSet(cmdCustomerGetRMSLog);
                 dtCustomerGetRMSLog = dsCustomerGetRMSLog.Tables[0];
             }
@@ -3249,6 +3249,98 @@ namespace DaoOnlineOrderManagement
             }
             return dtCustomerGetRMSLog;
         }
-        
+        public DataSet BindNotificationSetup(int adviserId)
+        {
+            DataSet dsNotificationSetup;
+            Database db;
+            DbCommand cmdNotificationSetup;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdNotificationSetup = db.GetStoredProcCommand("SP_GETCustomerTransactionNotification");
+                db.AddInParameter(cmdNotificationSetup, "@AdviserID", DbType.Int32, adviserId);
+                dsNotificationSetup = db.ExecuteDataSet(cmdNotificationSetup);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsNotificationSetup;
+        }
+        public bool InsertUpdateDeleteNotificationSetupDetails(int id, int userId, int adviserId, string assetGroupCode,int notificationTypeID, string transactionTypes, string notificationHeader, int priorDays, bool IsSMSEnabled, bool IsEmailEnabled,bool IstoUpdate)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand cmd;
+            try
+            {
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SP_InsertUpdateDeleteNotificationSetup");
+                db.AddInParameter(cmd, "@AssetGroupCode", DbType.String, assetGroupCode);
+                db.AddInParameter(cmd, "@UserID", DbType.Int32, userId);
+                db.AddInParameter(cmd, "@Id", DbType.Int32, id);
+                db.AddInParameter(cmd, "@NotificationTypeID", DbType.Int32, notificationTypeID);
+                db.AddInParameter(cmd, "@AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmd, "@TransactionTypes", DbType.String, transactionTypes);
+                db.AddInParameter(cmd, "@NotificationHeader", DbType.String, notificationHeader);
+                db.AddInParameter(cmd, "@PriorDays", DbType.Int32, priorDays);
+                db.AddInParameter(cmd, "@IsSMSEnabled", DbType.Boolean, IsSMSEnabled);
+                db.AddInParameter(cmd, "@IsEmailEnabled", DbType.Boolean, IsEmailEnabled);
+                db.AddInParameter(cmd, "@IstoUpdate", DbType.Boolean, IstoUpdate);
+                if (db.ExecuteNonQuery(cmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+        public DataSet GetNotificationParameterwithEmailSMSDetails(int notificationId)
+        {
+            DataSet ds;
+            Database db;
+            DbCommand cmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SP_GetNotificationParameterwithEmailSMSDetails");
+                db.AddInParameter(cmd, "@NotificationId", DbType.Int32, notificationId);
+                ds = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return ds;
+        }
+
+        public bool InsertUpdateNotificationFormat(int userId,int notificationId, string formatType, string parameterCodes, string Formattext, int formatId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand cmd;
+            try
+            {
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SP_InsertUpdateNotificationFormat");
+                db.AddInParameter(cmd, "@UserID", DbType.Int32, userId);
+                db.AddInParameter(cmd, "@NotificationId", DbType.Int32, notificationId);
+                db.AddInParameter(cmd, "@Formattext", DbType.String, Formattext);
+                db.AddInParameter(cmd, "@ParameterCodes", DbType.String, parameterCodes);
+                db.AddInParameter(cmd, "@FormatType", DbType.String, formatType);
+                db.AddInParameter(cmd, "@FormatId", DbType.Int32, formatId);
+      
+                if (db.ExecuteNonQuery(cmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
     }
 }

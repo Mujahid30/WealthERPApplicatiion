@@ -45,6 +45,8 @@
         </telerik:RadTab>
         <telerik:RadTab runat="server" Text="FAQ Management" Value="FAQ">
         </telerik:RadTab>
+        <telerik:RadTab runat="server" Text="Customer Notification" Value="Notification">
+        </telerik:RadTab>
         <telerik:RadTab runat="server" Text="MF Scheme Rank" Value="MFRank">
         </telerik:RadTab>
     </Tabs>
@@ -201,7 +203,7 @@
                 OnUpdateCommand="RadGrid2_UpdateCommand" OnItemCommand="RadGrid2_ItemCommand"
                 OnItemDataBound="RadGrid2_ItemDataBound" AllowAutomaticUpdates="false" HorizontalAlign="NotSet"
                 DataKeyNames="PUHD_Id,PUHD_IsActive,PAG_AssetGroupCode,PUHD_HelpDetails">
-                <MasterTableView CommandItemDisplay="Top" EditMode="PopUp" DataKeyNames="PUHD_Id,PUHD_CreatedOn,PUHD_IsActive,PAG_AssetGroupCode,PUHD_HelpDetails">
+                <MasterTableView CommandItemDisplay="Top" EditMode="EditForms" DataKeyNames="PUHD_Id,PUHD_CreatedOn,PUHD_IsActive,PAG_AssetGroupCode,PUHD_HelpDetails">
                     <Columns>
                         <telerik:GridEditCommandColumn EditText="Update" UniqueName="editColumn" CancelText="Cancel"
                             UpdateText="Update">
@@ -303,7 +305,7 @@
                 <MasterTableView CommandItemDisplay="Top" EditMode="PopUp" DataKeyNames="PUHD_Id,PUHD_IsActive,PUHD_CreatedOn,PAG_AssetGroupCode,PUHD_HelpDetails,PUHD_Heading,PUHD_HelpFormatType">
                     <Columns>
                         <telerik:GridEditCommandColumn EditText="Update" UniqueName="editColumn" CancelText="Cancel"
-                            UpdateText="Update" >
+                            UpdateText="Update">
                         </telerik:GridEditCommandColumn>
                         <telerik:GridBoundColumn UniqueName="PAG_AssetGroupName" HeaderText="Asset Group"
                             DataField="PAG_AssetGroupName">
@@ -366,7 +368,8 @@
                                         <asp:Label ID="Label4" runat="server" Text="Content Format:" CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td class="rightField">
-                                        <asp:DropDownList ID="ddlFormatType"  AutoPostBack="true" runat="server" CssClass="cmbLongField" OnSelectedIndexChanged="ddlFormatType_SelectedIndexChanged" DataValueField='<%# Eval("PUHD_HelpFormatType") %>'>
+                                        <asp:DropDownList ID="ddlFormatType" AutoPostBack="true" runat="server" CssClass="cmbLongField"
+                                            OnSelectedIndexChanged="ddlFormatType_SelectedIndexChanged" DataValueField='<%# Eval("PUHD_HelpFormatType") %>'>
                                             <asp:ListItem Selected="True" Value="0">SELECT</asp:ListItem>
                                             <asp:ListItem Selected="False" Value="YTL">YouTube Link</asp:ListItem>
                                             <asp:ListItem Selected="False" Value="PDF">PDF</asp:ListItem>
@@ -392,7 +395,7 @@
                                             SetFocusOnError="true"></asp:RequiredFieldValidator>
                                     </td>
                                 </tr>
-                                <tr id="tr6" runat="server"  visible="false">
+                                <tr id="tr6" runat="server" visible="false">
                                     <td class="leftField">
                                     </td>
                                     <td class="rightField">
@@ -400,15 +403,16 @@
                                         <span id="Span1" class="spnRequiredField">*</span>
                                         <br />
                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="VideoFileUpload"
-                                            runat="Server" ValidationGroup='<%# (Container is GridEditFormInsertItem) ? "btnInsertGroup1" : "btnUpdateGroup1" %>' ErrorMessage="Only .pdf File allowed"
-                                            Display="Dynamic" ValidationExpression="^.*\.((p|P)(d|D)(f|F))$" CssClass="rfvPCG" />
+                                            runat="Server" ValidationGroup='<%# (Container is GridEditFormInsertItem) ? "btnInsertGroup1" : "btnUpdateGroup1" %>'
+                                            ErrorMessage="Only .pdf File allowed" Display="Dynamic" ValidationExpression="^.*\.((p|P)(d|D)(f|F))$"
+                                            CssClass="rfvPCG" />
                                         <br />
                                         <asp:RequiredFieldValidator ID="FileUpload_RequiredFieldValidator" ControlToValidate="VideoFileUpload"
-                                            ValidationGroup='<%# (Container is GridEditFormInsertItem) ? "btnInsertGroup1" : "btnUpdateGroup1" %>' ErrorMessage="Please select an pdf for upload."
-                                            Display="Dynamic" runat="server" CssClass="rfvPCG">
+                                            ValidationGroup='<%# (Container is GridEditFormInsertItem) ? "btnInsertGroup1" : "btnUpdateGroup1" %>'
+                                            ErrorMessage="Please select an pdf for upload." Display="Dynamic" runat="server"
+                                            CssClass="rfvPCG">
                                         </asp:RequiredFieldValidator>
                                     </td>
-                                  
                                 </tr>
                                 <tr id="tr3">
                                     <td class="leftField">
@@ -551,6 +555,242 @@
                 <ClientEvents />
             </ClientSettings>
         </telerik:RadGrid>
+    </telerik:RadPageView>
+    <telerik:RadPageView ID="rpvNotification" runat="server">
+        <asp:Panel ID="Notification" runat="server">
+            <telerik:RadCodeBlock ID="RadCodeBlock2" runat="server">
+
+                <script type="text/javascript">
+                    function ShowEditForm(id, rowIndex) {
+                        var grid = $find("<%= rgNotification.ClientID %>");
+                        var rowControl = grid.get_masterTableView().get_dataItems()[rowIndex].get_element();
+                        grid.get_masterTableView().selectItem(rowControl, true);
+                     
+                        window.radopen("../InvestorOnline.aspx" + id, "UserListDialog1");
+
+                        return false;
+                    }
+                    //                    function ShowInsertForm() {
+                    //                        window.radopen("EditForm_csharp.aspx", "UserListDialog");
+                    //                        return false;
+                    //                    }
+                    function refreshGrid(arg) {
+                        if (!arg) {
+                            $find("<%= RadAjaxManager1.ClientID %>").ajaxRequest("Rebind");
+                        }
+                        else {
+                            $find("<%= RadAjaxManager1.ClientID %>").ajaxRequest("RebindAndNavigate");
+                        }
+                    }
+                    function RowDblClick(sender, eventArgs) {
+                        window.radopen("../InvestorOnline.aspx?EmployeeID=" + eventArgs.getDataKeyValue("CTNS_Id"), "UserListDialog");
+                    }
+                </script>
+
+            </telerik:RadCodeBlock>
+            <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server" OnAjaxRequest="RadAjaxManager1_AjaxRequest">
+                <AjaxSettings>
+                    <telerik:AjaxSetting AjaxControlID="RadAjaxManager1">
+                        <UpdatedControls>
+                            <telerik:AjaxUpdatedControl ControlID="rgNotification" LoadingPanelID="gridLoadingPanel">
+                            </telerik:AjaxUpdatedControl>
+                        </UpdatedControls>
+                    </telerik:AjaxSetting>
+                    <telerik:AjaxSetting AjaxControlID="rgNotification">
+                        <UpdatedControls>
+                            <telerik:AjaxUpdatedControl ControlID="rgNotification" LoadingPanelID="gridLoadingPanel">
+                            </telerik:AjaxUpdatedControl>
+                        </UpdatedControls>
+                    </telerik:AjaxSetting>
+                </AjaxSettings>
+            </telerik:RadAjaxManager>
+            <telerik:RadAjaxLoadingPanel runat="server" ID="gridLoadingPanel">
+            </telerik:RadAjaxLoadingPanel>
+            <telerik:RadGrid ID="rgNotification" runat="server" Skin="Telerik" CssClass="RadGrid"
+                GridLines="None" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False"
+                ShowStatusBar="true" AllowAutomaticDeletes="false" AllowAutomaticInserts="false"
+                PageSize="3" OnInsertCommand="rgNotification_InsertCommand" OnNeedDataSource="rgNotification_NeedDataSource"
+                OnDeleteCommand="rgNotification_DeleteCommand" OnUpdateCommand="rgNotification_UpdateCommand"
+                OnItemCreated="rgNotification_ItemCreated" OnItemCommand="rgNotification_ItemCommand"
+                OnItemDataBound="rgNotification_ItemDataBound" AllowAutomaticUpdates="false"
+                HorizontalAlign="NotSet">
+                <MasterTableView CommandItemDisplay="Top" EditMode="EditForms" DataKeyNames="CTNS_Id,PAG_AssetGroupCode ,PAG_AssetGroupName,CTNS_TransactionTypes ,
+                CTNS_NotificationHeader ,
+                CNT_ID ,CNT_NotificationType,
+                CTNS_PriorDays ,
+                CTNS_IsSMSEnabled ,
+                CTNS_ISEmailEnabled ">
+                    <Columns>
+                        <telerik:GridEditCommandColumn EditText="Update" UniqueName="editColumn" CancelText="Cancel"
+                            UpdateText="Update" >
+                        </telerik:GridEditCommandColumn>
+                        <telerik:GridBoundColumn UniqueName="CTNS_NotificationHeader" HeaderText="Notification Heading"
+                            DataField="CTNS_NotificationHeader">
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn UniqueName="CNT_NotificationType" HeaderText="Notification Type"
+                            DataField="CNT_NotificationType">
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn UniqueName="PAG_AssetGroupName" HeaderText="Asset Group"
+                            DataField="PAG_AssetGroupName">
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn UniqueName="TransType" HeaderText="Transaction Types" DataField="TransType">
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn UniqueName="CTNS_PriorDays" HeaderText="Prior Days" DataField="CTNS_PriorDays">
+                        </telerik:GridBoundColumn>
+                        <telerik:GridTemplateColumn UniqueName="TemplateEditColumnSMS" HeaderText="Edit/View SMS">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="EditLinkSMS" Visible='<%# Eval("CTNS_IsSMSEnabled") %>' runat="server"
+                                    Text="Edit/View"></asp:LinkButton>
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>
+                        <telerik:GridTemplateColumn UniqueName="TemplateEditColumnEmail" HeaderText="Edit/View Email">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="EditLinkEmail" Visible='<%# Eval("CTNS_ISEmailEnabled") %>' runat="server"
+                                    Text="Edit/View"></asp:LinkButton>
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>
+                        <telerik:GridBoundColumn UniqueName="CTNS_CreatedOn" HeaderText="Created On" DataField="CTNS_CreatedOn">
+                        </telerik:GridBoundColumn>
+                        <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete this ?"
+                            ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                            Text="Delete" >
+                            <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                        </telerik:GridButtonColumn>
+                    </Columns>
+                    <EditFormSettings InsertCaption="Add" FormTableStyle-HorizontalAlign="Center" CaptionFormatString="Edit"
+                        FormCaptionStyle-CssClass="TableBackground" PopUpSettings-Modal="true" PopUpSettings-ZIndex="20"
+                        EditFormType="Template" FormCaptionStyle-Width="100%" PopUpSettings-Height="300px"
+                        PopUpSettings-Width="500px">
+                        <FormTemplate>
+                            <table>
+                                <tr id="tr4" >
+                                    <td class="leftField">
+                                        <asp:Label ID="Label3" runat="server" Text="Notification Heading:" CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td class="rightField">
+                                        <asp:TextBox ID="txtNotificationHeading" runat="server" TextMode="MultiLine" CssClass="txtField"
+                                            Text='<%# Eval("CTNS_NotificationHeader") %>'></asp:TextBox>
+                                        <span id="Span4" class="spnRequiredField">*</span>
+                                        <br />
+                                        <asp:RequiredFieldValidator ID="Requiredfieldvalidator5" runat="server" ControlToValidate="txtNotificationHeading"
+                                            ErrorMessage="Notification Heading can't be blank." ValidationGroup='<%# (Container is GridEditFormInsertItem) ? "btnInsertGroup" : "btnUpdateGroup1" %>'
+                                            SetFocusOnError="true" Enabled="false"></asp:RequiredFieldValidator>
+                                    </td>
+                                </tr>
+                                <tr id="trAddCategory" >
+                                    <td class="leftField">
+                                        <asp:Label ID="lblAssetGroup1" runat="server" Text="AssetGroup:" CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td class="rightField">
+                                        <asp:DropDownList ID="ddlAssetGroupName1" runat="server" CssClass="cmbLongField"
+                                            DataValueField='<%# Eval("PAG_AssetGroupCode") %>'>
+                                            <asp:ListItem Selected="True" Value="0">SELECT</asp:ListItem>
+                                            <asp:ListItem Selected="False" Value="IP">IPO</asp:ListItem>
+                                            <asp:ListItem Selected="False" Value="FI">BOND</asp:ListItem>
+                                            <asp:ListItem Selected="False" Value="MF">Mutual Fund</asp:ListItem>
+                                        </asp:DropDownList>
+                                        <span id="Span2" class="spnRequiredField">*</span>
+                                        <br />
+                                        <asp:RequiredFieldValidator ID="Requiredfieldvalidator3" runat="server" ControlToValidate="ddlAssetGroupName1"
+                                            ErrorMessage="Please,Select an AssetGroup." InitialValue="0" ValidationGroup='<%# (Container is GridEditFormInsertItem) ? "btnInsertGroup1" : "btnUpdateGroup1" %>'
+                                            SetFocusOnError="true" Enabled="false"></asp:RequiredFieldValidator>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="leftField">
+                                        <asp:Label ID="Label6" runat="server" Text="Notification Type:" CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td class="rightField">
+                                        <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="true" OnSelectedIndexChanged="NotificationType_OnSelectedIndexChanged"
+                                            CssClass="cmbLongField">
+                                        </asp:DropDownList>
+                                        <span id="Span8" class="spnRequiredField">*</span>
+                                        <br />
+                                        <asp:RequiredFieldValidator ID="Requiredfieldvalidator8" runat="server" ControlToValidate="DropDownList1"
+                                            ErrorMessage="Please,Select an Notification Type." InitialValue="0" ValidationGroup='<%# (Container is GridEditFormInsertItem) ? "btnInsertGroup1" : "btnUpdateGroup1" %>'
+                                            SetFocusOnError="true" Enabled="false"></asp:RequiredFieldValidator>
+                                    </td>
+                                    <td class="leftField">
+                                        <asp:Label ID="Label7" runat="server" Text="Prior Days:" CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td class="rightField">
+                                        <asp:TextBox ID="txtPriorDays" runat="server" MaxLength="2" Text='<%# Eval("CTNS_PriorDays") %>'></asp:TextBox>
+                                        <span id="Span9" class="spnRequiredField">*</span>
+                                        <br />
+                                        <asp:RequiredFieldValidator ID="Requiredfieldvalidator9" runat="server" ControlToValidate="txtPriorDays"
+                                            ErrorMessage="This field Can't be Blank." ValidationGroup='<%# (Container is GridEditFormInsertItem) ? "btnInsertGroup1" : "btnUpdateGroup1" %>'
+                                            SetFocusOnError="true" Enabled="false"></asp:RequiredFieldValidator>
+                                        <asp:CompareValidator ID="txtPriorDays_CompareValidator" ControlToValidate="txtPriorDays"
+                                            runat="server" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value ."
+                                            Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG" Enabled="false"></asp:CompareValidator>
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <td class="leftField">
+                                        <asp:Label ID="Label1" runat="server" Text="Transaction Types:" CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td class="rightField">
+                                        <telerik:RadListBox ID="chkbltranstype" runat="server" CheckBoxes="true" AutoPostBack="true">
+                                        </telerik:RadListBox>
+                                    </td>
+                                </tr>
+                                <tr id="tr7" >
+                                    <td class="leftField">
+                                        <asp:Label ID="Label8" runat="server" Text="IS SMS Enabled:" CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td class="rightField">
+                                        <asp:CheckBox ID="chkSMS" runat="server" Checked='<%# Convert.IsDBNull(Eval("CTNS_IsSMSEnabled")) ? false :Convert.ToInt16( Eval("CTNS_IsSMSEnabled"))==1 ? true : false %>' />
+                                    </td>
+                                    <td class="leftField">
+                                        <asp:Label ID="Label9" runat="server" Text="IS  Email Enabled:" CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td class="rightField">
+                                        <asp:CheckBox ID="chkEmail" runat="server" Checked='<%# Convert.IsDBNull(Eval("CTNS_ISEmailEnabled")) ? false :Convert.ToInt16( Eval("CTNS_ISEmailEnabled"))==1 ? true : false %>' />
+                                    </td>
+                                </tr>
+                                <%-- <tr id="tr3">
+                                    <td class="leftField">
+                                        <asp:Label ID="Label2" runat="server" Text="IS Active:" CssClass="FieldName"></asp:Label>
+                                    </td>
+                                    <td class="rightField">
+                                        <asp:CheckBox ID="CheckBox" runat="server" Checked='<%# Convert.IsDBNull(Eval("PUHD_IsActive")) ? false :Convert.ToInt16( Eval("PUHD_IsActive"))==1 ? true : false %>' />
+                                    </td>
+                                </tr>--%>
+                                <tr>
+                                    <td align="right" colspan="2">
+                                        <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                            ValidationGroup='<%# (Container is GridEditFormInsertItem) ? "btnInsertGroup1" : "btnUpdateGroup1" %>' CausesValidation="false"
+                                            CssClass="PCGButton" runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                                        </asp:Button>&nbsp;
+                                        <asp:Button ID="Button2" CssClass="PCGButton" Text="Cancel" runat="server" CausesValidation="false"
+                                            CommandName="Cancel"></asp:Button>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                            </table>
+                        </FormTemplate>
+                    </EditFormSettings>
+                </MasterTableView>
+           
+            </telerik:RadGrid>
+            <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager1" runat="server"
+                EnableShadow="true">
+                <Windows>
+                    <telerik:RadWindow RenderMode="Lightweight" ID="UserListDialog1" runat="server" Title="Editing record"
+                        Height="600px" Width="950px" OnClientShow="setCustomPosition" Left="30" Top="25"
+                        ReloadOnShow="true" ShowContentDuringLoad="false" Modal="true">
+                    </telerik:RadWindow>
+                </Windows>
+            </telerik:RadWindowManager>
+
+            <script type="text/javascript">
+                function setCustomPosition(sender, args) {
+                    sender.moveTo(sender.get_left(), sender.get_top());
+                }
+            </script>
+
+        </asp:Panel>
     </telerik:RadPageView>
     <telerik:RadPageView ID="rpvSchemeRank" runat="server">
         <table id="tblwerpGrd" runat="server" width="99%">

@@ -35,6 +35,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 BindScrollerDetails();
                 BindDemoVideoDetails();
                 BindFAQDetails();
+                BindNotificationSetup();
                 BindSchemeRankDetails(adviserVo.advisorId);
                 //hdnButtonText.Value = ConfigurationManager.AppSettings["ADVISOR_UPLOAD_PATH"].ToString() + "\\";
             }
@@ -119,6 +120,49 @@ namespace WealthERP.OnlineOrderBackOffice
                 RadGrid4.DataSource = dt;
                 RadGrid4.DataBind();
 
+            }
+        }
+        private void BindNotificationSetup()
+        {
+            DataSet ds = onlineOrderBackOfficeBo.BindNotificationSetup(adviserVo.advisorId);
+            if (ds.Tables[0].Rows.Count >= 0)
+            {
+                if (Cache["NotificationSetup" + userVo.UserId.ToString()] == null)
+                {
+                    Cache.Insert("NotificationSetup" + userVo.UserId.ToString(), ds.Tables[0]);
+                }
+                else
+                {
+                    Cache.Remove("NotificationSetup" + userVo.UserId.ToString());
+                    Cache.Insert("NotificationSetup" + userVo.UserId.ToString(), ds.Tables[0]);
+                }
+                rgNotification.DataSource = ds.Tables[0];
+                rgNotification.DataBind();
+
+            }
+            if (ds.Tables[1].Rows.Count >= 0)
+            {
+                if (Cache["NotificationType" + userVo.UserId.ToString()] == null)
+                {
+                    Cache.Insert("NotificationType" + userVo.UserId.ToString(), ds.Tables[1]);
+                }
+                else
+                {
+                    Cache.Remove("NotificationType" + userVo.UserId.ToString());
+                    Cache.Insert("NotificationType" + userVo.UserId.ToString(), ds.Tables[1]);
+                }
+            }
+            if (ds.Tables[2].Rows.Count >= 0)
+            {
+                if (Cache["transTypes" + userVo.UserId.ToString()] == null)
+                {
+                    Cache.Insert("transTypes" + userVo.UserId.ToString(), ds.Tables[2]);
+                }
+                else
+                {
+                    Cache.Remove("transTypes" + userVo.UserId.ToString());
+                    Cache.Insert("transTypes" + userVo.UserId.ToString(), ds.Tables[2]);
+                }
             }
         }
         protected void RadGrid4_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
@@ -243,12 +287,12 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (formatType == "YTL")
                 {
                     tr2.Visible = true;
-                    
+
                 }
                 else if (formatType == "PDF")
                 {
                     tr6.Visible = true;
-                   
+
                 }
             }
         }
@@ -257,7 +301,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
             GridEditableItem editedItem = e.Item as GridEditableItem;
-            string scrollerText=string.Empty;
+            string scrollerText = string.Empty;
             string headingText = ((TextBox)e.Item.FindControl("txtDemoHeading")).Text;
             int id = Convert.ToInt32(editedItem.OwnerTableView.DataKeyValues[editedItem.ItemIndex]["PUHD_Id"].ToString());
             string assetGroupCode = ((DropDownList)e.Item.FindControl("ddlAssetGroupName1")).SelectedValue;
@@ -281,13 +325,14 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else if (formatType == "YTL")
             {
-                 scrollerText = ((TextBox)e.Item.FindControl("TextBox1")).Text;
+                scrollerText = ((TextBox)e.Item.FindControl("TextBox1")).Text;
             }
-            onlineOrderBackOfficeBo.InsertUpdateDeleteOnAdvertisementDetails(id, assetGroupCode, userVo.UserId, scrollerText, DateTime.MinValue, 0, isActive, "Demo", headingText,formatType);
+            onlineOrderBackOfficeBo.InsertUpdateDeleteOnAdvertisementDetails(id, assetGroupCode, userVo.UserId, scrollerText, DateTime.MinValue, 0, isActive, "Demo", headingText, formatType);
 
             BindDemoVideoDetails();
 
         }
+
         protected void ddlFormatType_SelectedIndexChanged(object sender, EventArgs e)
         {
             DropDownList ddlFormatType = (DropDownList)sender;
@@ -356,7 +401,7 @@ namespace WealthERP.OnlineOrderBackOffice
             string assetGroupCode = ((DropDownList)insertItem.FindControl("ddlAssetGroupName1")).SelectedValue;
             int isActive = Convert.ToInt16(((CheckBox)insertItem.FindControl("CheckBox")).Checked);
             scrollerText = ((TextBox)insertItem.FindControl("TextBox1")).Text;
-            onlineOrderBackOfficeBo.InsertUpdateDeleteOnAdvertisementDetails(0, assetGroupCode, userVo.UserId, scrollerText, DateTime.MinValue, 0, isActive, "Scroll", string.Empty,"TEXT");
+            onlineOrderBackOfficeBo.InsertUpdateDeleteOnAdvertisementDetails(0, assetGroupCode, userVo.UserId, scrollerText, DateTime.MinValue, 0, isActive, "Scroll", string.Empty, "TEXT");
             BindScrollerDetails();
         }
         protected void RadGrid2_DeleteCommand(object source, GridCommandEventArgs e)
@@ -399,7 +444,7 @@ namespace WealthERP.OnlineOrderBackOffice
             int id = Convert.ToInt32(editedItem.OwnerTableView.DataKeyValues[editedItem.ItemIndex]["PUHD_Id"].ToString());
             string assetGroupCode = ((DropDownList)e.Item.FindControl("ddlAssetGroupName1")).SelectedValue;
             int isActive = Convert.ToInt16(((CheckBox)e.Item.FindControl("CheckBox")).Checked);
-            onlineOrderBackOfficeBo.InsertUpdateDeleteOnAdvertisementDetails(id, assetGroupCode, userVo.UserId, scrollerText, DateTime.MinValue, 0, isActive, "scroll", string.Empty,"TEXT");
+            onlineOrderBackOfficeBo.InsertUpdateDeleteOnAdvertisementDetails(id, assetGroupCode, userVo.UserId, scrollerText, DateTime.MinValue, 0, isActive, "scroll", string.Empty, "TEXT");
 
             BindScrollerDetails();
 
@@ -504,6 +549,211 @@ namespace WealthERP.OnlineOrderBackOffice
                 radDateTimePicker.SelectedDate = expirydate;
             }
         }
+        private void BindNotificationType(DropDownList dl)
+        {
+            DataTable dt = new DataTable();
+            dt = (DataTable)Cache["NotificationType" + userVo.UserId.ToString()];
+            if (dt != null)
+            {
+                dl.DataSource = dt;
+                dl.DataValueField = dt.Columns["CNT_ID"].ToString();
+                dl.DataTextField = dt.Columns["CNT_NotificationType"].ToString();
+                dl.DataBind();
+                dl.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
+            }
+        }
+        private void BindtransactionTypes(RadListBox rlb, string NotificationType)
+        {
+            DataRow[]  dt;
+            DataTable dttransTypes = new DataTable();
+            dttransTypes = (DataTable)Cache["transTypes" + userVo.UserId.ToString()];
+            dt = dttransTypes.Select("CNT_ID=" + NotificationType);
+            DataTable dt_Temp = dttransTypes.Clone();
+            foreach (DataRow dr in dt) { dt_Temp.ImportRow(dr); }
+            rlb.Items.Clear();
+            rlb.DataSource = dt_Temp;
+            rlb.DataTextField = "TransTypeName";
+            rlb.DataValueField = "TransTypeCode";
+            rlb.DataBind();
+        }
+        protected void NotificationType_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList NotificationType = (DropDownList)sender;
+            RadListBox rlb = new RadListBox();
+            if (NotificationType.NamingContainer is Telerik.Web.UI.GridEditFormItem)
+            {
+                GridEditFormItem gdi;
+                gdi = (GridEditFormItem)NotificationType.NamingContainer;
+                rlb = (RadListBox)gdi.FindControl("chkbltranstype");
+                NotificationType = (DropDownList)gdi.FindControl("DropDownList1");
+                DropDownList assetgroup = new DropDownList();
+                assetgroup = (DropDownList)gdi.FindControl("ddlAssetGroupName1");
+                if (assetgroup.SelectedValue == "MF")
+                {
+                    if (gdi.IsInEditMode == true)
+                    {
+                        BindtransactionTypes(rlb, NotificationType.SelectedValue);
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
+
+        }
+        protected void rgNotification_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt;
+            dt = (DataTable)Cache["NotificationSetup" + userVo.UserId.ToString()];
+            if (dt != null)
+            {
+                rgNotification.DataSource = dt;
+            }
+        }
+        protected void rgNotification_InsertCommand(object source, GridCommandEventArgs e)
+        {
+            GridEditFormInsertItem insertItem = e.Item as GridEditFormInsertItem;
+
+            string headingText = string.Empty;
+            int notificationType;
+            int PriorDays = 0;
+            bool isSMSEnabled = false;
+            bool isEMailEnabled = false;
+            headingText = ((TextBox)insertItem.FindControl("txtNotificationHeading")).Text;
+            string assetGroupCode = ((DropDownList)insertItem.FindControl("ddlAssetGroupName1")).SelectedValue;
+            notificationType = Convert.ToInt32(((DropDownList)insertItem.FindControl("DropDownList1")).SelectedValue);
+            PriorDays = Convert.ToInt32(((TextBox)insertItem.FindControl("txtPriorDays")).Text);
+
+            string transtypes = string.Empty;
+            foreach (RadListBoxItem li in ((RadListBox)insertItem.FindControl("chkbltranstype")).Items)
+            {
+                if (li.Checked == true)
+                    transtypes += li.Value + ",";
+            }
+            isSMSEnabled = ((CheckBox)insertItem.FindControl("chkSMS")).Checked;
+            isEMailEnabled = ((CheckBox)insertItem.FindControl("chkEmail")).Checked;
+
+
+            onlineOrderBackOfficeBo.InsertUpdateDeleteNotificationSetupDetails(0, userVo.UserId, adviserVo.advisorId, assetGroupCode, notificationType, transtypes, headingText, PriorDays, isSMSEnabled, isEMailEnabled, false);
+            BindNotificationSetup();
+        }
+        protected void rgNotification_DeleteCommand(object source, GridCommandEventArgs e)
+        {
+            GridDataItem item = e.Item as GridDataItem;
+            int id = Convert.ToInt32(item.OwnerTableView.DataKeyValues[item.ItemIndex]["CTNS_Id"].ToString());
+            //onlineOrderBackOfficeBo.InsertUpdateDeleteNotificationSetupDetails(id, userVo.UserId, adviserVo.advisorId, string.Empty, 0, string.Empty, string.Empty, 0, false, false, false);
+            //retrive entity form the Db
+            BindNotificationSetup();
+        }
+        protected void rgNotification_ItemCommand(object source, GridCommandEventArgs e)
+        {
+            if (e.CommandName == RadGrid.EditCommandName)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "SetEditMode", "isEditMode = true;", true);
+                this.rgNotification.MasterTableView.Items[0].Edit = true;
+            }
+        }
+        protected void rgNotification_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)
+            {
+
+                string assetGroupCode = rgNotification.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PAG_AssetGroupCode"].ToString();
+                string NotificationHeading = rgNotification.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_NotificationHeader"].ToString();
+                GridEditFormItem editedItem = (GridEditFormItem)e.Item;
+                DropDownList dropDownList1 = (DropDownList)editedItem.FindControl("DropDownList1");
+                DropDownList ddlAssetGroupName1 = (DropDownList)editedItem.FindControl("ddlAssetGroupName1");
+                TextBox txtNotificationHeading = (TextBox)editedItem.FindControl("txtNotificationHeading");
+                RadListBox chkbltranstype = (RadListBox)editedItem.FindControl("chkbltranstype");
+                CheckBox chkSMS = (CheckBox)editedItem.FindControl("chkSMS");
+                CheckBox chkEmail = (CheckBox)editedItem.FindControl("chkEmail");
+                chkSMS.Checked =rgNotification.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_IsSMSEnabled"].ToString() == "True";
+                chkEmail.Checked = rgNotification.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_ISEmailEnabled"].ToString() == "True";
+                ddlAssetGroupName1.SelectedValue = assetGroupCode;
+                txtNotificationHeading.Text = NotificationHeading;
+                BindNotificationType(dropDownList1);
+                dropDownList1.SelectedValue = rgNotification.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CNT_ID"].ToString();
+                BindtransactionTypes(chkbltranstype, dropDownList1.SelectedValue);
+                string transtypes = rgNotification.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_TransactionTypes"].ToString();
+                string[] transtype;
+                if (string.IsNullOrEmpty(transtypes))
+                    return;
+                else
+                    transtype = transtypes.Split(',');
+
+                for (int i = 0; i < transtype.Length; i++)
+                {
+                    foreach (RadListBoxItem li in chkbltranstype.Items)
+                    {
+                        if (li.Value == transtype[i])
+                        {
+                            li.Checked = true;
+                        }
+
+
+                    }
+                }
+            }
+            if ((e.Item is GridEditFormInsertItem) && (e.Item.OwnerTableView.IsItemInserted))
+            {
+                GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
+                GridEditFormItem gefi = (GridEditFormItem)e.Item;
+                DropDownList DropDownList1 = (DropDownList)gefi.FindControl("DropDownList1");
+
+                BindNotificationType(DropDownList1);
+              
+
+            }
+        }
+        protected void rgNotification_UpdateCommand(object source, GridCommandEventArgs e)
+        {
+            GridEditableItem editedItem = e.Item as GridEditableItem;
+            string scrollerText = string.Empty;
+            string headingText = ((TextBox)e.Item.FindControl("txtNotificationHeading")).Text;
+            int id = Convert.ToInt32(editedItem.OwnerTableView.DataKeyValues[editedItem.ItemIndex]["CTNS_Id"].ToString());
+            string assetGroupCode = ((DropDownList)e.Item.FindControl("ddlAssetGroupName1")).SelectedValue;
+            
+            int notificationType = Convert.ToInt32(((DropDownList)e.Item.FindControl("DropDownList1")).SelectedValue);
+            int priorDays = Convert.ToInt32(((TextBox)e.Item.FindControl("txtPriorDays")).Text);
+            string transtypes = string.Empty;
+            foreach (RadListBoxItem li in ((RadListBox)e.Item.FindControl("chkbltranstype")).Items)
+            {
+                if (li.Checked == true)
+                    transtypes += li.Value + ",";
+            }
+            bool isSMSEnabled = ((CheckBox)e.Item.FindControl("chkSMS")).Checked;
+            bool isEmailEnabled = ((CheckBox)e.Item.FindControl("chkEmail")).Checked;
+            onlineOrderBackOfficeBo.InsertUpdateDeleteNotificationSetupDetails(id, userVo.UserId, adviserVo.advisorId, assetGroupCode, notificationType, transtypes, headingText, priorDays, isSMSEnabled, isEmailEnabled, true);
+            BindNotificationSetup();
+        }
+        protected void rgNotification_ItemCreated(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                LinkButton EditLinkEmail = (LinkButton)e.Item.FindControl("EditLinkEmail");
+                EditLinkEmail.OnClientClick = String.Format("return ShowEditForm('{0}','{1}');", "?setupId=" + e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_Id"] + "&FormatType=Email", e.Item.ItemIndex);
+                LinkButton EditLinkSMS = (LinkButton)e.Item.FindControl("EditLinkSMS");
+                EditLinkSMS.OnClientClick = String.Format("return ShowEditForm('{0}','{1}');", "?setupId="+e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_Id"]+"&FormatType=SMS", e.Item.ItemIndex);
+            }
+        }
+        protected void RadAjaxManager1_AjaxRequest(object sender, AjaxRequestEventArgs e)
+        {
+            if (e.Argument == "Rebind")
+            {
+                RadGrid1.MasterTableView.SortExpressions.Clear();
+                RadGrid1.MasterTableView.GroupByExpressions.Clear();
+                RadGrid1.Rebind();
+            }
+            else if (e.Argument == "RebindAndNavigate")
+            {
+                RadGrid1.MasterTableView.SortExpressions.Clear();
+                RadGrid1.MasterTableView.GroupByExpressions.Clear();
+                RadGrid1.MasterTableView.CurrentPageIndex = RadGrid1.MasterTableView.PageCount - 1;
+                RadGrid1.Rebind();
+            }
+        }
+
 
         protected void rgSchemeRanking_ItemDataBound(object sender, GridItemEventArgs e)
         {
@@ -710,5 +960,7 @@ namespace WealthERP.OnlineOrderBackOffice
             OnlineCommonBackOfficeBo.CUDSchemeRanking(adviserVo.advisorId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), ddlCategory.SelectedValue, int.Parse(ddlSchemeRank.SelectedValue), 1, 0);
             BindSchemeRankDetails(adviserVo.advisorId);
         }
+
+
     }
 }

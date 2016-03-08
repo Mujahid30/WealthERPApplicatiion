@@ -348,8 +348,8 @@ namespace BoOnlineOrderManagement
         public string CreatDbfFile(DataTable OrderExtract, string RnTType, string workDir, string type, bool isFatca)
         {
             string seedFileName = (isFatca == true) ? "FATCA" : RnTType;
-           
-           
+
+
             switch (type)
             {
                 case "AMCBANK":
@@ -1502,23 +1502,23 @@ namespace BoOnlineOrderManagement
             #endregion
         }
 
-        public void GenerateDailyOrderExtractFiles(string refFilePath,string extractType, bool bOverwrite, int adviserId)
+        public void GenerateDailyOrderExtractFiles(string refFilePath, string extractType, bool bOverwrite, int adviserId)
         {
             string extractPath = ConfigurationSettings.AppSettings["RTA_EXTRACT_PATH"];
-            string dailyDirName=string.Empty;
+            string dailyDirName = string.Empty;
 
-            
+
             KeyValuePair<string, string>[] RtaList = GetRTAList();
             KeyValuePair<string, string>[] OrderTypeList = GetOrderTypeList();
             if (extractType == "SIP")
             {
-                 dailyDirName = DateTime.Now.ToString("ddMMMyyyy")+"_SIP";
-                 List<KeyValuePair<string, string>> tmp = new List<KeyValuePair<string, string>>(OrderTypeList);
-                 tmp.RemoveAt(0);
-                 tmp.RemoveAt(2);
-                 tmp.RemoveAt(1);
-                 tmp.RemoveAt(2);
-                 OrderTypeList = tmp.ToArray();
+                dailyDirName = DateTime.Now.ToString("ddMMMyyyy") + "_SIP";
+                List<KeyValuePair<string, string>> tmp = new List<KeyValuePair<string, string>>(OrderTypeList);
+                tmp.RemoveAt(0);
+                tmp.RemoveAt(2);
+                tmp.RemoveAt(1);
+                tmp.RemoveAt(2);
+                OrderTypeList = tmp.ToArray();
 
             }
             else if (extractType == "OTH")
@@ -1547,7 +1547,7 @@ namespace BoOnlineOrderManagement
 
                         }
                         DataTable orderExtractForRta = GetOrderExtractForRta(DateTime.Now.Date, adviserId, OrderType.Key, rta.Key, int.Parse(amc.Key));
-                      
+
 
                         if (orderExtractForRta.Rows.Count <= 0) continue;
 
@@ -2159,7 +2159,7 @@ namespace BoOnlineOrderManagement
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                dt = OnlineOrderBackOfficeDao.GetRTAInitialReport(type, fromDate, toDate, ReportType,amcCode);
+                dt = OnlineOrderBackOfficeDao.GetRTAInitialReport(type, fromDate, toDate, ReportType, amcCode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -2181,13 +2181,13 @@ namespace BoOnlineOrderManagement
             }
             return dtGetAMCListRNTWise;
         }
-        public DataTable GetSubBrokerCodeCleansing( int AMCCode, int schemePlanCode, int adviserId, int subBrokerCode)
+        public DataTable GetSubBrokerCodeCleansing(int AMCCode, int schemePlanCode, int adviserId, int subBrokerCode)
         {
             DataTable dtGetSubBrokerCodeCleansing;
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                dtGetSubBrokerCodeCleansing = OnlineOrderBackOfficeDao.GetSubBrokerCodeCleansing( AMCCode, schemePlanCode, adviserId, subBrokerCode);
+                dtGetSubBrokerCodeCleansing = OnlineOrderBackOfficeDao.GetSubBrokerCodeCleansing(AMCCode, schemePlanCode, adviserId, subBrokerCode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -2531,7 +2531,7 @@ namespace BoOnlineOrderManagement
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-               dt= OnlineOrderBackOfficeDao.GetProductSearchType(folioNo);
+                dt = OnlineOrderBackOfficeDao.GetProductSearchType(folioNo);
             }
             catch (BaseApplicationException Ex)
             {
@@ -2554,7 +2554,7 @@ namespace BoOnlineOrderManagement
             }
             return dtGetSchemeDetails;
         }
-        public DataTable GetTopMarketSchemes(string category, Boolean isSIP, int returns, int customerId, int returnsOperator, double returnsValue,out int recordCount, int PageIndex, int PageSize,int sortOn)
+        public DataTable GetTopMarketSchemes(string category, Boolean isSIP, int returns, int customerId, int returnsOperator, double returnsValue, out int recordCount, int PageIndex, int PageSize, int sortOn)
         {
             try
             {
@@ -2567,7 +2567,7 @@ namespace BoOnlineOrderManagement
 
             }
         }
-        public DataTable CustomerGetRMSLog(DateTime fromDate,DateTime toDate,int adviserId,string productType,string orderType)
+        public DataTable CustomerGetRMSLog(DateTime fromDate, DateTime toDate, int adviserId, string productType, string orderType)
         {
 
             DataTable dtCustomerGetRMSLog = new DataTable();
@@ -2582,6 +2582,62 @@ namespace BoOnlineOrderManagement
             }
             return dtCustomerGetRMSLog;
         }
-        
+        public DataSet BindNotificationSetup(int adviserId)
+        {
+            DataSet dsNotificationSetup = new DataSet();
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            try
+            {
+                dsNotificationSetup = daoOnlineOrderBackOffice.BindNotificationSetup(adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsNotificationSetup;
+        }
+        public bool InsertUpdateDeleteNotificationSetupDetails(int id, int userId, int adviserId, string assetGroupCode, int notificationTypeID, string transactionTypes, string notificationHeader, int priorDays, bool IsSMSEnabled, bool IsEmailEnabled, bool IstoUpdate)
+        {
+            bool result = false;
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            try
+            {
+                result = daoOnlineOrderBackOffice.InsertUpdateDeleteNotificationSetupDetails(id, userId, adviserId, assetGroupCode, notificationTypeID, transactionTypes, notificationHeader, priorDays, IsSMSEnabled, IsEmailEnabled, IstoUpdate);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
+        }
+        public DataSet GetNotificationParameterwithEmailSMSDetails(int notificationId)
+        {
+            DataSet ds;
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            try
+            {
+                ds = daoOnlineOrderBackOffice.GetNotificationParameterwithEmailSMSDetails(notificationId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return ds;
+        }
+        public bool InsertUpdateNotificationFormat(int userId, int notificationId, string formatType, string parameterCodes, string Formattext, int formatId)
+        {
+            bool result = false;
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            try
+            {
+                result = daoOnlineOrderBackOffice.InsertUpdateNotificationFormat(userId, notificationId,  formatType,  parameterCodes,  Formattext,  formatId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
+        }
+
     }
 }
