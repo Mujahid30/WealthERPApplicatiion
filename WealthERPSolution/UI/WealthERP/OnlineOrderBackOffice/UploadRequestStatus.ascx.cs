@@ -15,6 +15,9 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using BoCommon;
 using BoUploads;
 using BoOfflineOrderManagement;
+using BoOnlineOrderManagement;
+using System.Text;
+using VoOnlineOrderManagemnet;
 
 namespace WealthERP.OnlineOrderBackOffice
 {
@@ -24,7 +27,8 @@ namespace WealthERP.OnlineOrderBackOffice
         UserVo userVo;
         AdvisorVo advisorVo;
         UploadCommonBo uploadCommonBo = new UploadCommonBo();
-        
+        OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
+        StringBuilder columnNameError = new StringBuilder();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -41,10 +45,32 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             pnlRequest.Visible = true;
             btnexport.Visible = true;
-            GetRequests();
-            
+            if (ddlType.SelectedValue != "11")
+                GetRequests();
+            else
+                BindOrderReprocessDetails();
+
         }
-          
+        protected void BindOrderReprocessDetails()
+        {
+            try
+            {
+                DataTable dtOrderReject = uploadCommonBo.GetOrderRejectedData(Convert.ToDateTime(txtReqDate.SelectedDate));
+                if (Cache[userVo.UserId.ToString() + "OrderReject"] != null)
+                    Cache.Remove(userVo.UserId.ToString() + "OrderReject");
+                Cache.Insert(userVo.UserId.ToString() + "OrderReject", dtOrderReject);
+                rgBondsGrid.Visible = false;
+                rgRequests.Visible = false;
+                radGridOrderDetails.Visible = true;
+                radGridOrderDetails.DataSource = dtOrderReject;
+                radGridOrderDetails.DataBind();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
         private void GetTypes()
         {
@@ -68,39 +94,22 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 DataTable dtType = new DataTable();
                 DataSet dsType = new DataSet();
-                dsType = uploadCommonBo.GetCMLData(Convert.ToInt32(ddlType.SelectedValue), Convert.ToDateTime(txtReqDate.SelectedDate), advisorVo.advisorId);
+                dsType = uploadCommonBo.GetCMLData(Convert.ToInt32(ddlType.SelectedValue), Convert.ToDateTime(txtReqDate.SelectedDate), advisorVo.advisorId, (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "IP");
                 if (dsType.Tables.Count == 0)
                     return;
                 if (dsType != null)
                     dtType = dsType.Tables[0];
-                rgRequests.DataSource = dtType;
-                rgRequests.DataBind();
+                if (ddlType.SelectedValue != "11")
+                {
+                    rgRequests.Visible = true;
+                    rgBondsGrid.Visible = false;
+                    rgRequests.DataSource = dtType;
+                    rgRequests.DataBind();
+                }
+
                 if (Cache[userVo.UserId.ToString() + "Requests"] != null)
                     Cache.Remove(userVo.UserId.ToString() + "Requests");
                 Cache.Insert(userVo.UserId.ToString() + "Requests", dtType);
-                rgRequests.MasterTableView.GetColumn("AIAUL_ProcessId").Visible = false;
-                rgRequests.MasterTableView.GetColumn("AIAUL_Status").Visible = false;
-                rgRequests.MasterTableView.GetColumn("AIM_IssueName").Visible = false;
-                rgRequests.MasterTableView.GetColumn("AIAUL_ApplicationNumber").Visible = false;
-                rgRequests.MasterTableView.GetColumn("AIAUL_Shares").Visible = false;
-                rgRequests.MasterTableView.GetColumn("AIAUL_Certificate_No").Visible = false;
-                rgRequests.MasterTableView.GetColumn("AIAUL_Pangir").Visible = false;
-                rgRequests.MasterTableView.GetColumn("AIAUL_InvestorName").Visible = false;
-                rgRequests.MasterTableView.GetColumn("AIAUL_RfndNo").Visible = false;
-                rgRequests.MasterTableView.GetColumn("AIAUL_IssueCode").Visible = false;
-                rgRequests.MasterTableView.GetColumn("AIAUL_BrokerCode").Visible = false;
-                rgRequests.MasterTableView.GetColumn("AIAUL_Reason").Visible = false;
-                rgRequests.MasterTableView.GetColumn("AIAUL_Remark_Aot").Visible = false;
-                rgRequests.MasterTableView.GetColumn("AIAUL_Brk1_Rec").Visible = false;
-                rgRequests.MasterTableView.GetColumn("AIAUL_Brk1_Rec_Rate").Visible = false;
-                rgRequests.MasterTableView.GetColumn("AIAUL_Brk2_Rec_Rate").Visible = false;
-                rgRequests.MasterTableView.GetColumn("AIAUL_Brk2_Rec").Visible = false;
-                rgRequests.MasterTableView.GetColumn("AIAUL_Brk3_Rec_Rate").Visible = false;
-                rgRequests.MasterTableView.GetColumn("AIAUL_Total_Brk_rec").Visible = false;
-                rgRequests.MasterTableView.GetColumn("AIAUL_SvcTaxAM").Visible = false;
-                rgRequests.MasterTableView.GetColumn("AIAUL_Tds").Visible = false;
-                rgRequests.MasterTableView.GetColumn("AIAUL_Total_Receivable").Visible = false;
-                rgRequests.MasterTableView.GetColumn("AIAUL_AllotmentDate").Visible = false;
                 if (ddlType.SelectedValue == "8")
                 {
                     rgRequests.MasterTableView.GetColumn("Cutomercreated").Visible = true;
@@ -138,48 +147,6 @@ namespace WealthERP.OnlineOrderBackOffice
                             rgRequests.MasterTableView.GetColumn("TransactionCreated").Visible = false;
                         }
                         else
-                            if (ddlType.SelectedValue == "11")
-                            {
-                               
-                                rgRequests.MasterTableView.GetColumn("AIAUL_ProcessId").Visible = true;
-                                rgRequests.MasterTableView.GetColumn("AIAUL_Status").Visible = true;
-                                rgRequests.MasterTableView.GetColumn("AIM_IssueName").Visible = true;
-                                rgRequests.MasterTableView.GetColumn("AIAUL_ApplicationNumber").Visible = true;
-                                rgRequests.MasterTableView.GetColumn("AIAUL_Shares").Visible = true;
-                                rgRequests.MasterTableView.GetColumn("AIAUL_Certificate_No").Visible = true;
-                                rgRequests.MasterTableView.GetColumn("AIAUL_Pangir").Visible = true;
-                                rgRequests.MasterTableView.GetColumn("AIAUL_InvestorName").Visible = true;
-                                rgRequests.MasterTableView.GetColumn("AIAUL_RfndNo").Visible = true;
-                                rgRequests.MasterTableView.GetColumn("AIAUL_IssueCode").Visible = true;
-                                rgRequests.MasterTableView.GetColumn("AIAUL_BrokerCode").Visible = true;
-                                rgRequests.MasterTableView.GetColumn("AIAUL_Reason").Visible = true;
-                                rgRequests.MasterTableView.GetColumn("AIAUL_Remark_Aot").Visible = true;
-                                rgRequests.MasterTableView.GetColumn("AIAUL_Brk1_Rec").Visible = true;
-                                rgRequests.MasterTableView.GetColumn("AIAUL_Brk1_Rec_Rate").Visible = true;
-                                rgRequests.MasterTableView.GetColumn("AIAUL_Brk2_Rec_Rate").Visible = true;
-                                rgRequests.MasterTableView.GetColumn("AIAUL_Brk2_Rec").Visible = true;
-                                rgRequests.MasterTableView.GetColumn("AIAUL_Brk3_Rec_Rate").Visible = true;
-                                rgRequests.MasterTableView.GetColumn("AIAUL_Total_Brk_rec").Visible = true;
-                                rgRequests.MasterTableView.GetColumn("AIAUL_SvcTaxAM").Visible = true;
-                                rgRequests.MasterTableView.GetColumn("AIAUL_Tds").Visible = true;
-                                rgRequests.MasterTableView.GetColumn("AIAUL_Total_Receivable").Visible = true;
-                                rgRequests.MasterTableView.GetColumn("AIAUL_AllotmentDate").Visible = true;
-                                rgRequests.MasterTableView.GetColumn("ReqId").Visible = false;
-                                rgRequests.MasterTableView.GetColumn("ReqDate").Visible = false;
-                                rgRequests.MasterTableView.GetColumn("filename").Visible = false;
-                                rgRequests.MasterTableView.GetColumn("Status").Visible = false;
-                                rgRequests.MasterTableView.GetColumn("IsOnl").Visible = false;
-                                rgRequests.MasterTableView.GetColumn("RTA").Visible = false;
-                                rgRequests.MasterTableView.GetColumn("TotalNoOfRecords").Visible = false;
-                                rgRequests.MasterTableView.GetColumn("InputRejects").Visible = false;
-                                rgRequests.MasterTableView.GetColumn("StagingRejects").Visible = false;
-                                rgRequests.MasterTableView.GetColumn("Staging").Visible = false;
-                                rgRequests.MasterTableView.GetColumn("Success").Visible = false;
-
-
-                            }
-                
-                        else
                             if (ddlType.SelectedValue == "3" || ddlType.SelectedValue == "4")
                             {
                                 rgRequests.MasterTableView.GetColumn("IsOnl").Visible = false;
@@ -191,7 +158,7 @@ namespace WealthERP.OnlineOrderBackOffice
                                 rgRequests.MasterTableView.GetColumn("FolioCreated").Visible = false;
                                 rgRequests.MasterTableView.GetColumn("TransactionCreated").Visible = false;
                             }
-                           
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -200,7 +167,7 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
-            rgRequests.ExportSettings.OpenInNewWindow = true;       
+            rgRequests.ExportSettings.OpenInNewWindow = true;
             rgRequests.ExportSettings.IgnorePaging = true;
             rgRequests.ExportSettings.HideStructureColumns = true;
             rgRequests.ExportSettings.ExportOnlyData = true;
@@ -234,7 +201,7 @@ namespace WealthERP.OnlineOrderBackOffice
         //{
         //    DataTable dt = (DataTable)Cache[userVo.UserId.ToString() + "Requests"];
         //    string ecommand = null;
-            
+
         //    if (e.CommandName == RadGrid.UpdateCommandName)
         //    {
         //        ecommand = "UP";
@@ -244,11 +211,21 @@ namespace WealthERP.OnlineOrderBackOffice
 
         //        //uploadCommonBo.CreateUpdateExternalHeader();
         //            Response.Write(@"<script language='javascript'>alert('External Header " + txtExHeader.Text + "Updated successfully');</script>");
-                
+
 
         //    }
-      
+
         //}
+
+        protected void radGridOrderDetails_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtRequests = new DataTable();
+            dtRequests = (DataTable)Cache[userVo.UserId.ToString() + "OrderReject"];
+            if (dtRequests != null)
+            {
+                radGridOrderDetails.DataSource = dtRequests;
+            }
+        }
         protected void rgRequests_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dtRequests = new DataTable();
@@ -258,6 +235,17 @@ namespace WealthERP.OnlineOrderBackOffice
                 rgRequests.DataSource = dtRequests;
             }
         }
+
+        protected void rgBondsGrid_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtRequests = new DataTable();
+            dtRequests = (DataTable)Cache[userVo.UserId.ToString() + "OrderRejectdtType"];
+            if (dtRequests != null)
+            {
+                rgBondsGrid.DataSource = dtRequests;
+            }
+        }
+
         protected void rgRequestRejects_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             RadGrid rgRequestRejects = (RadGrid)sender;
@@ -276,10 +264,10 @@ namespace WealthERP.OnlineOrderBackOffice
             int selectedRow = gdi.ItemIndex + 1;
             int reqId = int.Parse((rgRequests.MasterTableView.DataKeyValues[selectedRow - 1]["ReqId"].ToString()));
             string IsOnl = rgRequests.MasterTableView.DataKeyValues[selectedRow - 1]["IsOnl"].ToString();
-            if (reqId!=0)
+            if (reqId != 0)
             {
                 Response.Redirect("ControlHost.aspx?pageid=AdviserCustomer&reqId=" + reqId + "&IsOnl=" + IsOnl + "", false);
-            }           
+            }
         }
         protected void lnkFolioCreated_Click(object sender, EventArgs e)
         {
@@ -292,7 +280,7 @@ namespace WealthERP.OnlineOrderBackOffice
             if (reqId != 0)
             {
                 Response.Redirect("ControlHost.aspx?pageid=AdvisorCustomerAccounts&reqId=" + reqId + "", false);
-            }          
+            }
         }
         protected void lnkTransactionCreated_Click(object sender, EventArgs e)
         {
@@ -312,7 +300,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerTransctionBook&reqId=" + reqId + "", false);
                 }
-            }           
+            }
         }
         protected void btnCategoriesExpandAll_Click(object sender, EventArgs e)
         {
@@ -326,6 +314,300 @@ namespace WealthERP.OnlineOrderBackOffice
                 transactionId = Convert.ToInt32(ddlType.SelectedValue);
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageProfileReject", "loadcontrol('ManageProfileReject','?ReqId=" + reqId + "&transactionId=" + transactionId + "');", true);
             }
+        }
+
+        protected void ddlProduct_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlProduct.SelectedValue == "FI")
+            {
+                tdCategory.Visible = true;
+                BindNcdCategory();
+            }
+            else
+            {
+                tdCategory.Visible = false;
+            }
+        }
+        protected void ddlType_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            tdProduct.Visible = false;
+            tdCategory.Visible = false;
+            if (ddlType.SelectedValue == "11")
+            {
+                tdProduct.Visible = true;
+                tdCategory.Visible = true;
+            }
+
+
+        }
+
+        private void BindNcdCategory()
+        {
+            DataTable dtCategory = new DataTable();
+            OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
+            dtCategory = onlineNCDBackOfficeBo.BindNcdCategory("SubInstrumentCat", "").Tables[0];
+            if (dtCategory.Rows.Count > 0)
+            {
+                ddlCategory.DataSource = dtCategory;
+                ddlCategory.DataValueField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                ddlCategory.DataTextField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                ddlCategory.DataBind();
+            }
+            ddlCategory.Items.Insert(0, new ListItem("Select", "Select"));
+        }
+
+        protected void btnReprocess_OnClick(object sender, EventArgs e)
+        {
+            int i = 0,issueId=0;
+
+            foreach (GridDataItem dataItem in rgBondsGrid.MasterTableView.Items)
+            {
+                issueId = int.Parse(rgBondsGrid.MasterTableView.DataKeyValues[dataItem.ItemIndex]["AIAPL_IssueId"].ToString());
+                if ((dataItem.FindControl("chkId") as CheckBox).Checked)
+                {
+                    i = i + 1;
+                }
+            }
+            if (i == 0)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select to Update SubBrokerCode/order quentity/PAN !');", true);
+                return;
+            }
+            else
+            {
+                DataTable dtSubBrokerCode = new DataTable();
+                dtSubBrokerCode.Columns.Add("AppNbr");
+                dtSubBrokerCode.Columns.Add("IssueName1");
+                dtSubBrokerCode.Columns.Add("AlltAmount");
+                dtSubBrokerCode.Columns.Add("L/Folio");
+                dtSubBrokerCode.Columns.Add("PAN");
+                dtSubBrokerCode.Columns.Add("InvestorName");
+                dtSubBrokerCode.Columns.Add("ChequeNO");
+                dtSubBrokerCode.Columns.Add("IssueName");
+                dtSubBrokerCode.Columns.Add("BrokerCode");
+                dtSubBrokerCode.Columns.Add("SubBrokerCode");
+                dtSubBrokerCode.Columns.Add("RTARejectRemark");
+                dtSubBrokerCode.Columns.Add("RTAOtherRemarks");
+                dtSubBrokerCode.Columns.Add("ReceivableAmt");
+                dtSubBrokerCode.Columns.Add("ReceivableRate");
+                dtSubBrokerCode.Columns.Add("PayableRate");
+                dtSubBrokerCode.Columns.Add("PayableAmt");
+                dtSubBrokerCode.Columns.Add("SpecialRate");
+                dtSubBrokerCode.Columns.Add("SpecialAmt");
+                dtSubBrokerCode.Columns.Add("NetBrokerage");
+                dtSubBrokerCode.Columns.Add("SvcTaxAMT");
+                dtSubBrokerCode.Columns.Add("TDSAMT");
+                dtSubBrokerCode.Columns.Add("GrossBrokerge");
+                dtSubBrokerCode.Columns.Add("PaymentDate");
+                dtSubBrokerCode.Columns.Add("AIM_IssueName");
+                dtSubBrokerCode.Columns.Add("AIAPL_IssueId");
+
+                
+                
+                DataRow drSubBrokerCode;
+                foreach (GridDataItem radItem in rgBondsGrid.MasterTableView.Items)
+                {
+                    TextBox txtApplicationNo = (TextBox)radItem.FindControl("txtApplicationNo");
+                    TextBox txtAlltQty = (TextBox)radItem.FindControl("txtAlltQty");
+                    TextBox txtCertificate_No = (TextBox)radItem.FindControl("txtCertificate_No");
+                    TextBox txtPangir = (TextBox)radItem.FindControl("txtPangir");
+
+                    if ((radItem.FindControl("chkId") as CheckBox).Checked)
+                    {
+                        drSubBrokerCode = dtSubBrokerCode.NewRow();
+
+                        drSubBrokerCode["AppNbr"] = txtApplicationNo.Text;
+                        drSubBrokerCode["IssueName1"] = rgBondsGrid.MasterTableView.DataKeyValues[radItem.ItemIndex]["AIM_IssueName"];
+                        drSubBrokerCode["AIAPL_IssueId"] = rgBondsGrid.MasterTableView.DataKeyValues[radItem.ItemIndex]["AIAPL_IssueId"];
+                        drSubBrokerCode["AlltAmount"] = txtAlltQty.Text;
+                        drSubBrokerCode["L/Folio"] = txtCertificate_No.Text;
+                        drSubBrokerCode["PAN"] = txtPangir.Text.ToString().TrimEnd(' ');
+                        drSubBrokerCode["InvestorName"] = rgBondsGrid.MasterTableView.DataKeyValues[radItem.ItemIndex]["AIAUL_InvestorName"].ToString().TrimEnd(' ');
+                        drSubBrokerCode["ChequeNO"] = rgBondsGrid.MasterTableView.DataKeyValues[radItem.ItemIndex]["AIAUL_RfndNo"];
+                        drSubBrokerCode["IssueName"] = rgBondsGrid.MasterTableView.DataKeyValues[radItem.ItemIndex]["AIAUL_IssueCode"];
+                        drSubBrokerCode["BrokerCode"] = rgBondsGrid.MasterTableView.DataKeyValues[radItem.ItemIndex]["AIAUL_BrokerCode"].ToString().TrimEnd(' ');
+                        drSubBrokerCode["SubBrokerCode"] = rgBondsGrid.MasterTableView.DataKeyValues[radItem.ItemIndex]["AIAUL_SubBrokerCode"].ToString().TrimEnd(' ');
+                        drSubBrokerCode["RTARejectRemark"] = rgBondsGrid.MasterTableView.DataKeyValues[radItem.ItemIndex]["AIAUL_Reason"];
+                        drSubBrokerCode["RTAOtherRemarks"] = rgBondsGrid.MasterTableView.DataKeyValues[radItem.ItemIndex]["AIAUL_Remark_Aot"];
+                        drSubBrokerCode["ReceivableAmt"] = rgBondsGrid.MasterTableView.DataKeyValues[radItem.ItemIndex]["AIAUL_Brk1_Rec"];
+                        drSubBrokerCode["ReceivableRate"] = rgBondsGrid.MasterTableView.DataKeyValues[radItem.ItemIndex]["AIAUL_Brk1_Rec_Rate"];
+                        drSubBrokerCode["PayableRate"] = rgBondsGrid.MasterTableView.DataKeyValues[radItem.ItemIndex]["AIAUL_Brk2_Rec_Rate"];
+                        drSubBrokerCode["PayableAmt"] = rgBondsGrid.MasterTableView.DataKeyValues[radItem.ItemIndex]["AIAUL_Brk2_Rec"];
+                        drSubBrokerCode["SpecialRate"] = rgBondsGrid.MasterTableView.DataKeyValues[radItem.ItemIndex]["AIAUL_Brk3_Rec_Rate"];
+                        drSubBrokerCode["SpecialAmt"] = rgBondsGrid.MasterTableView.DataKeyValues[radItem.ItemIndex]["AIAUL_Brk3_Rec"];
+                        drSubBrokerCode["NetBrokerage"] = rgBondsGrid.MasterTableView.DataKeyValues[radItem.ItemIndex]["AIAUL_Total_Brk_rec"];
+                        drSubBrokerCode["SvcTaxAMT"] = rgBondsGrid.MasterTableView.DataKeyValues[radItem.ItemIndex]["AIAUL_SvcTaxAM"];
+                        drSubBrokerCode["TDSAMT"] = rgBondsGrid.MasterTableView.DataKeyValues[radItem.ItemIndex]["AIAUL_Tds"];
+                        drSubBrokerCode["GrossBrokerge"] = rgBondsGrid.MasterTableView.DataKeyValues[radItem.ItemIndex]["AIAUL_Total_Receivable"];
+                        drSubBrokerCode["PaymentDate"] = rgBondsGrid.MasterTableView.DataKeyValues[radItem.ItemIndex]["AIAUL_AllotmentDate"];
+                        drSubBrokerCode["AIM_IssueName"] = rgBondsGrid.MasterTableView.DataKeyValues[radItem.ItemIndex]["AIM_IssueName"];
+                        dtSubBrokerCode.Rows.Add(drSubBrokerCode);
+                    }
+                }
+
+                DataTable dtValidatedData = onlineNCDBackOfficeBo.ValidateUploadData(dtSubBrokerCode,46, "R1", ref columnNameError);
+                ToggleUpload(dtValidatedData, issueId);
+                DataTable dtUploadData = CheckHeadersGrid(dtValidatedData);
+
+                rgBondsGrid.DataSource = dtUploadData;
+                rgBondsGrid.Rebind();
+                
+            }
+        }
+        private void ToggleUpload(DataTable dtUpload,int  issueId)
+        {
+            bool bUpload = true;
+            int r = 46;
+            foreach (DataRow row in dtUpload.Rows)
+            {
+                if (string.IsNullOrEmpty(row["Remarks"].ToString().Trim())) continue;
+                bUpload = false;
+                ShowMessage("Please check the data in the file & re-upload", "F");
+                break;
+            }
+
+            if (r == 46 && bUpload==true)
+            {
+                UploadIssueAllotmentData(dtUpload, true, issueId);
+            }
+            else
+            {
+                ShowMessage("File data has been uploaded, click Upload Data button to upload", "S");
+            }
+
+        }
+        public void UploadIssueAllotmentData(DataTable dtUploadData, bool IsAllotmentUpload,int issueId)
+        {
+            string isIssueAvailable = "";
+            string result = "";
+            int acceptedOrders = 0, rejectedOrders = 0, totalOrder = 0;
+            OnlineNCDBackOfficeBo boNcdBackOff = new OnlineNCDBackOfficeBo();
+            DataTable dtAllotmentUpload = new DataTable();
+            dtUploadData = CheckHeaders(dtUploadData);
+            if (IsAllotmentUpload)
+            {
+                dtAllotmentUpload = boNcdBackOff.UploadAllotmentFile(dtUploadData, 46, issueId, ref isIssueAvailable, advisorVo.advisorId, null, ref result, ddlProduct.SelectedValue, null, userVo.UserId, Convert.ToInt32(ddlType.SelectedValue), "FICGCG", ref totalOrder, ref rejectedOrders, ref acceptedOrders);
+            }
+
+            if (isIssueAvailable == "NotEligble")
+            {
+                ShowMessage("Uploaded file Issue and Selected issue Does not match", "F");
+            }
+            else if (result != string.Empty && result != "1")
+            {
+                ShowMessage(result, "W");
+            }
+            else
+            {
+                ShowMessage("data uploaded", "S");
+
+            }
+
+
+        }
+
+
+        private void ShowMessage(string msg, string type)
+        {
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','" + type + "');", true);
+        }
+        private DataTable CheckHeadersGrid(DataTable dtUploadData)
+        {
+            OnlineNCDBackOfficeBo boNcdBackOff = new OnlineNCDBackOfficeBo();
+            List<OnlineIssueHeader> updHeaders;
+            updHeaders = boNcdBackOff.GetHeaderDetails(46, "R1");
+
+            foreach (OnlineIssueHeader header in updHeaders)
+            {
+                if (header.IsUploadRelated == true)
+                {
+                    if (dtUploadData.Columns.Contains(header.HeaderName))
+                    {
+                        dtUploadData.Columns[header.HeaderName].ColumnName = header.ColumnName;
+                    }
+                }
+
+            }
+
+            if (dtUploadData.Columns.Contains("SN"))
+            {
+                dtUploadData.Columns.Remove(dtUploadData.Columns["SN"]);
+
+            }
+            return dtUploadData;
+        }
+        private DataTable CheckHeaders(DataTable dtUploadData)
+        {
+            OnlineNCDBackOfficeBo boNcdBackOff = new OnlineNCDBackOfficeBo();
+            List<OnlineIssueHeader> updHeaders;
+            updHeaders = boNcdBackOff.GetHeaderDetails(46, "R1");
+            
+            foreach (OnlineIssueHeader header in updHeaders)
+            {
+                if (header.IsUploadRelated == true)
+                {
+                    if (dtUploadData.Columns.Contains(header.HeaderName))
+                    {
+                        dtUploadData.Columns[header.HeaderName].ColumnName = header.ColumnName;
+                    }
+                }
+               
+            }
+
+            if (dtUploadData.Columns.Contains("SN"))
+            {
+                dtUploadData.Columns.Remove(dtUploadData.Columns["SN"]);
+
+            }
+            if (dtUploadData.Columns.Contains("IssueName1"))
+            {
+                dtUploadData.Columns.Remove(dtUploadData.Columns["IssueName1"]);
+
+            }
+            if (dtUploadData.Columns.Contains("Remarks"))
+            {
+                dtUploadData.Columns.Remove(dtUploadData.Columns["Remarks"]);
+
+            }
+            if (dtUploadData.Columns.Contains("AIM_IssueName"))
+            {
+                dtUploadData.Columns.Remove(dtUploadData.Columns["AIM_IssueName"]);
+
+            }
+
+            if (dtUploadData.Columns.Contains("AIAPL_IssueId"))
+            {
+                dtUploadData.Columns.Remove(dtUploadData.Columns["AIAPL_IssueId"]);
+
+            }
+            
+            
+            dtUploadData.AcceptChanges();
+
+            return dtUploadData;
+
+        }
+        protected void txtPangir_OnClick(object sender, EventArgs e)
+        {
+            LinkButton lnk = (LinkButton)sender;
+            GridDataItem grd = (GridDataItem)lnk.NamingContainer;
+
+            int processid = int.Parse(radGridOrderDetails.MasterTableView.DataKeyValues[grd.ItemIndex]["processid"].ToString());
+            BindBondIPOProductrejectedData(processid);
+        }
+        protected void BindBondIPOProductrejectedData(int processId)
+        {
+            DataTable dtType = uploadCommonBo.GetCMLBONCDData(processId, Convert.ToDateTime(txtReqDate.SelectedDate), advisorVo.advisorId, (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "IP");
+            if (Cache[userVo.UserId.ToString() + "OrderRejectdtType"] != null)
+                Cache.Remove(userVo.UserId.ToString() + "OrderRejectdtType");
+            Cache.Insert(userVo.UserId.ToString() + "OrderRejectdtType", dtType);
+            rgRequests.Visible = false;
+            radGridOrderDetails.Visible = false;
+            rgBondsGrid.Visible = true;
+            btnReprocess.Visible = true;
+            rgBondsGrid.DataSource = dtType;
+            rgBondsGrid.DataBind();
+
         }
     }
 }

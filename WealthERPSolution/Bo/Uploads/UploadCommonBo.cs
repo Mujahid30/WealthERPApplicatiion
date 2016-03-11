@@ -4938,14 +4938,14 @@ namespace BoUploads
             }
             return dsType;
         }
-        public DataSet GetCMLData(int taskId, DateTime dtReqDate,int adviserId)
+        public DataSet GetCMLData(int taskId, DateTime dtReqDate,int adviserId,string category)
         {
             DataSet dsType = new DataSet();
             UploadsCommonDao uploadDAO = new UploadsCommonDao();
 
             try
             {
-                dsType = uploadDAO.GetCMLData(taskId, dtReqDate, adviserId);
+                dsType = uploadDAO.GetCMLData(taskId, dtReqDate, adviserId, category);
             }
             catch (BaseApplicationException Ex)
             {
@@ -4954,6 +4954,23 @@ namespace BoUploads
 
 
             return dsType;
+        }
+        public DataTable GetCMLBONCDData(int taskId, DateTime dtReqDate, int adviserId, string category)
+        {
+            DataTable dtType = new DataTable();
+            UploadsCommonDao uploadDAO = new UploadsCommonDao();
+
+            try
+            {
+                dtType = uploadDAO.GetCMLBONCDData(taskId, dtReqDate, adviserId, category);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+
+            return dtType;
         }
 
         public DataSet RequestWiseRejects(int reqId)
@@ -5050,6 +5067,13 @@ namespace BoUploads
                 throw exBase;
             }
             return existsCount;
+        }
+
+        public DataTable GetOrderRejectedData(DateTime request )
+        {
+             UploadsCommonDao uploadDAO = new UploadsCommonDao();
+             DataTable dt = uploadDAO.GetOrderRejectedData(request);
+             return dt;
         }
     }
 }

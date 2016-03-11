@@ -24,6 +24,7 @@ namespace WealthERP.OnlineOrderBackOffice
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1Product;
+        protected global::System.Web.UI.WebControls.Button btnReprocess;
 
         /// <summary>
         /// ddlProduct control.
@@ -34,9 +35,15 @@ namespace WealthERP.OnlineOrderBackOffice
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlType;
         protected global::Telerik.Web.UI.RadDatePicker txtReqDate;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
+        protected global::System.Web.UI.WebControls.DropDownList ddlProduct;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdCategory;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdProduct;
+
 
         protected global::Telerik.Web.UI.RadGrid rgRequests;
-        protected global::Telerik.Web.UI.RadGrid rgRequestRejects;
+        protected global::Telerik.Web.UI.RadGrid rgBondsGrid;
+        protected global::Telerik.Web.UI.RadGrid radGridOrderDetails;
         protected global::System.Web.UI.WebControls.Button btnGo;
 
 

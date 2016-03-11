@@ -629,9 +629,9 @@ namespace DaoUploads
             return count;
         }
 
-        public void  GetRMBranch(int adviserId, out int branchId, int processId,out  int count )
+        public void GetRMBranch(int adviserId, out int branchId, int processId, out  int count)
         {
-           
+
 
             Database db;
             DbCommand getCount;
@@ -643,7 +643,7 @@ namespace DaoUploads
                 getCount = db.GetStoredProcCommand("SPROC_GetRMBranch");
                 db.AddInParameter(getCount, "@AdviserId", DbType.Int32, adviserId);
                 db.AddInParameter(getCount, "@ProcessId", DbType.Int32, processId);
-              
+
 
 
                 //db.AddOutParameter(getCount, "@TotalRejectedRecords", DbType.Int32, 5000);
@@ -4473,7 +4473,7 @@ namespace DaoUploads
             return dsType;
         }
 
-        public DataSet GetCMLData(int taskId, DateTime dtReqDate, int adviserId)
+        public DataSet GetCMLData(int taskId, DateTime dtReqDate, int adviserId, string category)
         {
             DataSet dsData;
             Database db;
@@ -4485,7 +4485,7 @@ namespace DaoUploads
                 db.AddInParameter(dbCommand, "@taskId", DbType.Int32, taskId);
                 db.AddInParameter(dbCommand, "@date", DbType.DateTime, dtReqDate);
                 db.AddInParameter(dbCommand, "@adviserId", DbType.Int32, adviserId);
-
+                db.AddInParameter(dbCommand, "@category", DbType.String, category);
                 dsData = db.ExecuteDataSet(dbCommand);
             }
             catch (BaseApplicationException Ex)
@@ -4494,7 +4494,27 @@ namespace DaoUploads
             }
             return dsData;
         }
-
+        public DataTable GetCMLBONCDData(int taskId, DateTime dtReqDate, int adviserId, string category)
+        {
+            DataSet dsData;
+            Database db;
+            DbCommand dbCommand;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_GetAllotmentLogDetails");
+                db.AddInParameter(dbCommand, "@processId", DbType.Int32, taskId);
+                db.AddInParameter(dbCommand, "@date", DbType.DateTime, dtReqDate);
+                db.AddInParameter(dbCommand, "@category", DbType.String, category);
+                dsData = db.ExecuteDataSet(dbCommand);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsData.Tables[0];
+        }
+        
         public DataSet RequestWiseRejects(int reqId)
         {
             DataSet dsReqRej;
@@ -4515,7 +4535,7 @@ namespace DaoUploads
 
             return dsReqRej;
         }
-        public bool UpdateRequestRejects(string clientCode, int Id, int tableNo, string city, string state, string pincode, string mobileno, string occupation, string accounttype, string bankname, string personalstatus, string address1, string address2, string address3, string country, string officePhoneNo, string officeExtensionNo, string officeFaxNo, string homePhoneNo, string homeFaxNo, string annualIncome, string pan1, string pan2, string pan3, string emailId, string transactionType, string transactionNature, string transactionHead, string transactionDescription, string productCode,string accountNo)
+        public bool UpdateRequestRejects(string clientCode, int Id, int tableNo, string city, string state, string pincode, string mobileno, string occupation, string accounttype, string bankname, string personalstatus, string address1, string address2, string address3, string country, string officePhoneNo, string officeExtensionNo, string officeFaxNo, string homePhoneNo, string homeFaxNo, string annualIncome, string pan1, string pan2, string pan3, string emailId, string transactionType, string transactionNature, string transactionHead, string transactionDescription, string productCode, string accountNo)
         {
             bool result = false;
             Database db;
@@ -4736,6 +4756,25 @@ namespace DaoUploads
                 throw exBase;
             }
             return existsCount;
+        }
+        public DataTable GetOrderRejectedData(DateTime request)
+        {
+            DataSet dsGetOrderRejectedData;
+            Database db;
+            DbCommand dbCommand;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_OFF_BondsAndIPORecon");
+                db.AddInParameter(dbCommand, "@Processcreateddate", DbType.DateTime, request);
+                dsGetOrderRejectedData = db.ExecuteDataSet(dbCommand);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dsGetOrderRejectedData.Tables[0];
         }
     }
 }
