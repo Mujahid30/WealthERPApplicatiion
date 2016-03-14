@@ -128,6 +128,20 @@
                 OnClick="btnGo_Click" />
         </td>
     </tr>
+    <tr id="tblMessagee" runat="server" visible="false">
+        <td colspan="6">
+            <table class="tblMessage">
+                <tr>
+                    <td align="center">
+                        <div id="divMessage" align="center">
+                        </div>
+                        <div style="clear: both">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
 </table>
 <table id="btnexport" runat="server" visible="false" style="width: 100%" cellpadding="2"
     cellspacing="5">

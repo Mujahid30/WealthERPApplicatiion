@@ -509,6 +509,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         private void ShowMessage(string msg, string type)
         {
+            tblMessagee.Visible = true;
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','" + type + "');", true);
         }
         private DataTable CheckHeadersGrid(DataTable dtUploadData)
@@ -534,6 +535,17 @@ namespace WealthERP.OnlineOrderBackOffice
                 dtUploadData.Columns.Remove(dtUploadData.Columns["SN"]);
 
             }
+            if (!dtUploadData.Columns.Contains("AIM_IssueName"))
+            {
+                dtUploadData.Columns.Add("AIM_IssueName");
+
+            }
+            if (!dtUploadData.Columns.Contains("AIAPL_IssueId"))
+            {
+                dtUploadData.Columns.Add("AIAPL_IssueId");
+
+            }
+            dtUploadData.AcceptChanges();
             return dtUploadData;
         }
         private DataTable CheckHeaders(DataTable dtUploadData)

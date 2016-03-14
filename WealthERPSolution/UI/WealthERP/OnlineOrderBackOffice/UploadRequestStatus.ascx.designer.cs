@@ -39,6 +39,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::System.Web.UI.WebControls.DropDownList ddlProduct;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdCategory;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdProduct;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow tblMessagee;
 
 
         protected global::Telerik.Web.UI.RadGrid rgRequests;
