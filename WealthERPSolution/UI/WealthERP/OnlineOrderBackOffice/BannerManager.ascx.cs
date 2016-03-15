@@ -642,7 +642,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             GridDataItem item = e.Item as GridDataItem;
             int id = Convert.ToInt32(item.OwnerTableView.DataKeyValues[item.ItemIndex]["CTNS_Id"].ToString());
-            //onlineOrderBackOfficeBo.InsertUpdateDeleteNotificationSetupDetails(id, userVo.UserId, adviserVo.advisorId, string.Empty, 0, string.Empty, string.Empty, 0, false, false, false);
+            onlineOrderBackOfficeBo.InsertUpdateDeleteNotificationSetupDetails(id, userVo.UserId, adviserVo.advisorId, string.Empty, 0, string.Empty, string.Empty, 0, false, false, false);
             //retrive entity form the Db
             BindNotificationSetup();
         }

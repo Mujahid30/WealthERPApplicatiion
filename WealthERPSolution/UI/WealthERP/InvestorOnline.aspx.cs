@@ -94,27 +94,30 @@ namespace WealthERP
 
                 }
             }
-            DataTable dt=new DataTable();
-            BindLiteral(dt);
+           
+            BindLiteral();
         }
-        protected void BindLiteral(DataTable parameter)
+        protected void BindLiteral()
         {
             PlaceHolder1.Controls.Clear();
-            parameter = (DataTable)Cache["NotificationParameter" + userVo.UserId.ToString()];
+            DataTable parameter = (DataTable)Cache["NotificationParameter" + userVo.UserId.ToString()];
             PlaceHolder1.Controls.Add(new LiteralControl(@"<table ID=divparameter width=100" + "%"));
-            foreach (DataRow dr in parameter.Rows)
+            if (parameter.Rows.Count > 0)
             {
-                PlaceHolder1.Controls.Add(new LiteralControl(@"<tr class=" + "trparameter>"));
-                PlaceHolder1.Controls.Add(new LiteralControl("<td colspan=\"15\">"));
-                LinkButton lbl = new LinkButton();
-                lbl.ID = dr["NP_ParameterCode"].ToString();
-                lbl.Text = dr["NP_Parameter"].ToString();
-                lbl.CssClass = "lblparameter";
-                lbl.OnClientClick= "SetParameter('" + dr["NP_ParameterCode"].ToString()+"')";
-                
-                PlaceHolder1.Controls.Add(lbl);
-                PlaceHolder1.Controls.Add(new LiteralControl("</td></tr>"));
+                foreach (DataRow dr in parameter.Rows)
+                {
+                    PlaceHolder1.Controls.Add(new LiteralControl(@"<tr class=" + "trparameter>"));
+                    PlaceHolder1.Controls.Add(new LiteralControl("<td colspan=\"15\">"));
+                    LinkButton lbl = new LinkButton();
+                    lbl.ID = dr["NP_ParameterCode"].ToString();
+                    lbl.Text = dr["NP_Parameter"].ToString();
+                    lbl.CssClass = "lblparameter";
+                    lbl.OnClientClick = "SetParameter('" + dr["NP_ParameterCode"].ToString() + "')";
 
+                    PlaceHolder1.Controls.Add(lbl);
+                    PlaceHolder1.Controls.Add(new LiteralControl("</td></tr>"));
+
+                }
             }
             PlaceHolder1.Controls.Add(new LiteralControl("</table>"));
         }
@@ -184,7 +187,7 @@ namespace WealthERP
             if (dtSms!=null && dtSms.Rows.Count > 0)
             {
 
-                emailId = Convert.ToInt32(dtSms.Rows[0]["CTNSF_Id"].ToString());
+                smsId = Convert.ToInt32(dtSms.Rows[0]["CTNSF_Id"].ToString());
             }
             if (btn.ID == "btnEmailSubjectSave")
             {
