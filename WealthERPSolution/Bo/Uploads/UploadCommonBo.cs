@@ -4955,14 +4955,14 @@ namespace BoUploads
 
             return dsType;
         }
-        public DataTable GetCMLBONCDData(int taskId, DateTime dtReqDate, int adviserId, string category)
+        public DataTable GetCMLBONCDData(int taskId, DateTime dtReqDate, int adviserId, string category,int Isonline)
         {
             DataTable dtType = new DataTable();
             UploadsCommonDao uploadDAO = new UploadsCommonDao();
 
             try
             {
-                dtType = uploadDAO.GetCMLBONCDData(taskId, dtReqDate, adviserId, category);
+                dtType = uploadDAO.GetCMLBONCDData(taskId, dtReqDate, adviserId, category, Isonline);
             }
             catch (BaseApplicationException Ex)
             {
@@ -5069,10 +5069,10 @@ namespace BoUploads
             return existsCount;
         }
 
-        public DataTable GetOrderRejectedData(DateTime request )
+        public DataTable GetOrderRejectedData(DateTime request, string category,int isOnline)
         {
              UploadsCommonDao uploadDAO = new UploadsCommonDao();
-             DataTable dt = uploadDAO.GetOrderRejectedData(request);
+             DataTable dt = uploadDAO.GetOrderRejectedData(request, category, isOnline);
              return dt;
         }
     }

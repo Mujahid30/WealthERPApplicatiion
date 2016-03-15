@@ -55,7 +55,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             try
             {
-                DataTable dtOrderReject = uploadCommonBo.GetOrderRejectedData(Convert.ToDateTime(txtReqDate.SelectedDate));
+                DataTable dtOrderReject = uploadCommonBo.GetOrderRejectedData(Convert.ToDateTime(txtReqDate.SelectedDate), (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "FIFIIP", int.Parse(ddlIsonline.SelectedValue));
                 if (Cache[userVo.UserId.ToString() + "OrderReject"] != null)
                     Cache.Remove(userVo.UserId.ToString() + "OrderReject");
                 Cache.Insert(userVo.UserId.ToString() + "OrderReject", dtOrderReject);
@@ -101,6 +101,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     dtType = dsType.Tables[0];
                 if (ddlType.SelectedValue != "11")
                 {
+                    radGridOrderDetails.Visible = false;
                     rgRequests.Visible = true;
                     rgBondsGrid.Visible = false;
                     rgRequests.DataSource = dtType;
@@ -321,11 +322,13 @@ namespace WealthERP.OnlineOrderBackOffice
             if (ddlProduct.SelectedValue == "FI")
             {
                 tdCategory.Visible = true;
+                tdProductType.Visible = true;
                 BindNcdCategory();
             }
             else
             {
                 tdCategory.Visible = false;
+                tdProductType.Visible = true;
             }
         }
         protected void ddlType_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -450,7 +453,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 DataTable dtUploadData = CheckHeadersGrid(dtValidatedData);
 
                 rgBondsGrid.DataSource = dtUploadData;
-                rgBondsGrid.Rebind();
+                rgBondsGrid.Rebind(); btnReprocess.Visible = false;
                 
             }
         }
@@ -462,7 +465,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 if (string.IsNullOrEmpty(row["Remarks"].ToString().Trim())) continue;
                 bUpload = false;
-                ShowMessage("Please check the data in the file & re-upload", "F");
+                ShowMessage("Please check the data in the file & re-process", "F");
                 break;
             }
 
@@ -472,7 +475,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else
             {
-                ShowMessage("File data has been uploaded, click Upload Data button to upload", "S");
+                ShowMessage("File data has been re-process", "S");
             }
 
         }
@@ -609,7 +612,7 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void BindBondIPOProductrejectedData(int processId)
         {
-            DataTable dtType = uploadCommonBo.GetCMLBONCDData(processId, Convert.ToDateTime(txtReqDate.SelectedDate), advisorVo.advisorId, (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "IP");
+            DataTable dtType = uploadCommonBo.GetCMLBONCDData(processId, Convert.ToDateTime(txtReqDate.SelectedDate), advisorVo.advisorId, (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "IP",int.Parse(ddlIsonline.SelectedValue));
             if (Cache[userVo.UserId.ToString() + "OrderRejectdtType"] != null)
                 Cache.Remove(userVo.UserId.ToString() + "OrderRejectdtType");
             Cache.Insert(userVo.UserId.ToString() + "OrderRejectdtType", dtType);

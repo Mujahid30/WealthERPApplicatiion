@@ -1,5 +1,30 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="UploadRequestStatus.ascx.cs"
     Inherits="WealthERP.OnlineOrderBackOffice.UploadRequestStatus" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+
+<script src="../Scripts/JScript.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.js" type="text/javascript"></script>
+
+<script src="../Scripts/JScript.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.2.6.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
+
+<script src="../Scripts/JScript.js" type="text/javascript"></script>
+
 <style type="text/css">
     .table
     {
@@ -70,8 +95,6 @@
             <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" AutoPostBack="true"
                 Width="240px" OnSelectedIndexChanged="ddlType_OnSelectedIndexChanged">
             </asp:DropDownList>
-        </td>
-        <td style="width: 2px">
             <span id="Span7" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Please Select Type"
@@ -102,6 +125,21 @@
                 CssClass="rfvPCG" ControlToValidate="ddlCategory" ValidationGroup="btnGo" Display="Dynamic"
                 InitialValue="0"></asp:RequiredFieldValidator>
         </td>
+        <td  id="tdProductType" runat="server" visible="false">
+            <span class="FieldName">Product Type:</span>
+            <asp:DropDownList ID="ddlIsonline" runat="server" CssClass="cmbField">
+                <asp:ListItem Text="Select" Value="2"></asp:ListItem>
+                <asp:ListItem Text="Online" Value="1"></asp:ListItem>
+                <asp:ListItem Text="Offline" Value="0"></asp:ListItem>
+            </asp:DropDownList>
+            <span id="Span3" class="spnRequiredField">*</span>
+            <br />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please Select Product Type"
+                CssClass="rfvPCG" ControlToValidate="ddlIsonline" ValidationGroup="btnGo" Display="Dynamic"
+                InitialValue="2"></asp:RequiredFieldValidator>
+        </td>
+    </tr>
+    <tr>
         <td class="leftField">
             <asp:Label ID="lb1date" runat="server" Text="Requested Date:" CssClass="FieldName"></asp:Label>
         </td>
@@ -123,11 +161,13 @@
                 InitialValue="" ValidationGroup="btnGo">
             </asp:RequiredFieldValidator>
         </td>
-        <td class="leftField">
+        <td >
             <asp:Button ID="btnGo" runat="server" Text="Go" CssClass="PCGButton" ValidationGroup="btnGo"
                 OnClick="btnGo_Click" />
         </td>
     </tr>
+</table>
+<table>
     <tr id="tblMessagee" runat="server" visible="false">
         <td colspan="6">
             <table class="tblMessage">
@@ -153,7 +193,8 @@
                         <td align="right">
                             <asp:ImageButton ID="ImageButton1" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                                OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
+                                OnClientClick="setFormat('excel')" Height="20px" Width="25px" Visible="false">
+                            </asp:ImageButton>
                         </td>
                     </tr>
                 </table>
@@ -181,7 +222,6 @@
                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
                                     Width="100%" DataKeyNames="ReqId,XMLStatus,IsOnl">
                                     <Columns>
-                                      
                                         <telerik:GridTemplateColumn AllowFiltering="false">
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="lbDetails" runat="server" CommandName="ExpandCollapse" Font-Underline="False"
@@ -308,7 +348,7 @@ AIAUL_Brk3_Rec_Rate,AIAUL_Brk3_Rec,AIAUL_Total_Brk_rec,AIAUL_SvcTaxAM,AIAUL_Tds,
                                             UniqueName="AIAUL_ProcessId" FooterStyle-HorizontalAlign="Left">
                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                         <telerik:GridBoundColumn DataField="Remarks" HeaderText="Remarks" SortExpression="Remarks"
+                                        <telerik:GridBoundColumn DataField="Remarks" HeaderText="Remarks" SortExpression="Remarks"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                             UniqueName="Remarks" FooterStyle-HorizontalAlign="Left">
                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
@@ -441,35 +481,40 @@ AIAUL_Brk3_Rec_Rate,AIAUL_Brk3_Rec,AIAUL_Total_Brk_rec,AIAUL_SvcTaxAM,AIAUL_Tds,
                                     </Columns>
                                 </MasterTableView>
                             </telerik:RadGrid>
-                            <telerik:RadGrid Visible="false" ID="radGridOrderDetails" Width="1500px" runat="server" AllowSorting="True"
-                                enableloadondemand="True" PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
-                                GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="true"
-                                ShowStatusBar="True" Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="radGridOrderDetails_OnNeedDataSource">
+                            <telerik:RadGrid Visible="false" ID="radGridOrderDetails" Width="1200px" runat="server"
+                                AllowSorting="True" enableloadondemand="True" PageSize="5" AutoGenerateColumns="False"
+                                EnableEmbeddedSkins="False" GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true"
+                                AllowPaging="true" ShowStatusBar="True" Skin="Telerik" AllowFilteringByColumn="true"
+                                OnNeedDataSource="radGridOrderDetails_OnNeedDataSource">
                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
-                                    Width="100%" DataKeyNames="processid">
+                                    DataKeyNames="processid">
                                     <Columns>
-                                        
                                         <telerik:GridTemplateColumn DataField="processid" HeaderText="Processid" SortExpression="processid"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                             UniqueName="processid" FooterStyle-HorizontalAlign="Left">
+                                            <ItemStyle Width="30px" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="txtPangir" runat="server" Text='<%# Eval("processid") %>' OnClick="txtPangir_OnClick"></asp:LinkButton></ItemTemplate>
                                         </telerik:GridTemplateColumn>
-                                      
                                         <telerik:GridBoundColumn DataField="accepted" HeaderText="Accepted " SortExpression="accepted"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                             UniqueName="accepted" FooterStyle-HorizontalAlign="Left">
-                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                            <ItemStyle Width="30px" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="rejected" HeaderText="Rejected "
-                                            SortExpression="rejected" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                            AutoPostBackOnFilter="true" UniqueName="rejected" FooterStyle-HorizontalAlign="Left">
-                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                        <telerik:GridBoundColumn DataField="rejected" HeaderText="Rejected " SortExpression="rejected"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                            UniqueName="rejected" FooterStyle-HorizontalAlign="Left">
+                                            <ItemStyle Width="30px" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="issueId" HeaderText="IssueId "
+                                        <telerik:GridBoundColumn DataField="issueId" HeaderText="IssueId " Visible="false"
                                             SortExpression="issueId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                             AutoPostBackOnFilter="true" UniqueName="issueId" FooterStyle-HorizontalAlign="Left">
-                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                            <ItemStyle Width="30px" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="total" HeaderText="Total " SortExpression="total"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                            UniqueName="total" FooterStyle-HorizontalAlign="Left">
+                                            <ItemStyle Width="30px" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                     </Columns>
                                 </MasterTableView>
@@ -484,8 +529,8 @@ AIAUL_Brk3_Rec_Rate,AIAUL_Brk3_Rec,AIAUL_Total_Brk_rec,AIAUL_SvcTaxAM,AIAUL_Tds,
 <table>
     <tr>
         <td>
-            <asp:Button ID="btnReprocess" runat="server" CssClass="PCGButton" Visible="false" Text="Reprocess"
-                OnClick="btnReprocess_OnClick" />
+            <asp:Button ID="btnReprocess" runat="server" CssClass="PCGButton" Visible="false"
+                Text="Reprocess" OnClick="btnReprocess_OnClick" />
         </td>
     </tr>
 </table>
