@@ -361,7 +361,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void btnReprocess_OnClick(object sender, EventArgs e)
         {
-            int i = 0,issueId=0;
+            int i = 0,issueId=0,ProcessIds=0;
 
             foreach (GridDataItem dataItem in rgBondsGrid.MasterTableView.Items)
             {
@@ -404,9 +404,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 dtSubBrokerCode.Columns.Add("PaymentDate");
                 dtSubBrokerCode.Columns.Add("AIM_IssueName");
                 dtSubBrokerCode.Columns.Add("AIAPL_IssueId");
-
-                
-                
+                dtSubBrokerCode.Columns.Add("AIAUL_Id");
                 DataRow drSubBrokerCode;
                 foreach (GridDataItem radItem in rgBondsGrid.MasterTableView.Items)
                 {
@@ -444,7 +442,8 @@ namespace WealthERP.OnlineOrderBackOffice
                         drSubBrokerCode["GrossBrokerge"] = rgBondsGrid.MasterTableView.DataKeyValues[radItem.ItemIndex]["AIAUL_Total_Receivable"];
                         drSubBrokerCode["PaymentDate"] = rgBondsGrid.MasterTableView.DataKeyValues[radItem.ItemIndex]["AIAUL_AllotmentDate"];
                         drSubBrokerCode["AIM_IssueName"] = rgBondsGrid.MasterTableView.DataKeyValues[radItem.ItemIndex]["AIM_IssueName"];
-                        dtSubBrokerCode.Rows.Add(drSubBrokerCode);
+                        drSubBrokerCode["AIAUL_Id"] = rgBondsGrid.MasterTableView.DataKeyValues[radItem.ItemIndex]["AIAUL_Id"];
+                         dtSubBrokerCode.Rows.Add(drSubBrokerCode);
                     }
                 }
 
@@ -489,20 +488,17 @@ namespace WealthERP.OnlineOrderBackOffice
             dtUploadData = CheckHeaders(dtUploadData);
             if (IsAllotmentUpload)
             {
-                dtAllotmentUpload = boNcdBackOff.UploadAllotmentFile(dtUploadData, 46, issueId, ref isIssueAvailable, advisorVo.advisorId, null, ref result, ddlProduct.SelectedValue, null, userVo.UserId, Convert.ToInt32(ddlType.SelectedValue), "FICGCG", ref totalOrder, ref rejectedOrders, ref acceptedOrders);
+                dtAllotmentUpload = boNcdBackOff.UploadAllotmentFile(dtUploadData, 46, issueId, ref isIssueAvailable, advisorVo.advisorId, null, ref result, ddlProduct.SelectedValue, null, userVo.UserId, Convert.ToInt32(ddlType.SelectedValue), "FICGCG", ref totalOrder, ref rejectedOrders, ref acceptedOrders,int.Parse(hdnProcessId.Value));
             }
 
-            if (isIssueAvailable == "NotEligble")
-            {
-                ShowMessage("Uploaded file Issue and Selected issue Does not match", "F");
-            }
+           
             else if (result != string.Empty && result != "1")
             {
                 ShowMessage(result, "W");
             }
             else
             {
-                ShowMessage("data uploaded", "S");
+                ShowMessage("Reprocess done", "S");
 
             }
 
@@ -546,6 +542,11 @@ namespace WealthERP.OnlineOrderBackOffice
             if (!dtUploadData.Columns.Contains("AIAPL_IssueId"))
             {
                 dtUploadData.Columns.Add("AIAPL_IssueId");
+
+            }
+            if (!dtUploadData.Columns.Contains("AIAUL_Id"))
+            {
+                dtUploadData.Columns.Add("AIAUL_Id");
 
             }
             dtUploadData.AcceptChanges();
@@ -607,8 +608,8 @@ namespace WealthERP.OnlineOrderBackOffice
             LinkButton lnk = (LinkButton)sender;
             GridDataItem grd = (GridDataItem)lnk.NamingContainer;
 
-            int processid = int.Parse(radGridOrderDetails.MasterTableView.DataKeyValues[grd.ItemIndex]["processid"].ToString());
-            BindBondIPOProductrejectedData(processid);
+            hdnProcessId.Value = radGridOrderDetails.MasterTableView.DataKeyValues[grd.ItemIndex]["processid"].ToString();
+            BindBondIPOProductrejectedData(int.Parse(hdnProcessId.Value));
         }
         protected void BindBondIPOProductrejectedData(int processId)
         {

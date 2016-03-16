@@ -25,6 +25,7 @@ namespace WealthERP.OnlineOrderBackOffice
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1Product;
         protected global::System.Web.UI.WebControls.Button btnReprocess;
+       protected global::System.Web.UI.WebControls.HiddenField hdnProcessId;
 
         /// <summary>
         /// ddlProduct control.

@@ -333,7 +333,7 @@
                                 ShowStatusBar="True" Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgBondsGrid_OnNeedDataSource">
                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
                                     Width="100%" DataKeyNames="AIM_IssueName,AIAUL_ApplicationNumber,AIM_IssueName,AIAUL_ApplicationNumber,AIAUL_Shares,AIAUL_ProcessId,AIAUL_Certificate_No,AIAUL_Pangir,AIAUL_InvestorName,AIAUL_IssueCode,AIAUL_BrokerCode,AIAUL_SubBrokerCode,AIAUL_Reason,AIAUL_Remark_Aot,AIAUL_Brk1_Rec,AIAUL_Brk1_Rec_Rate,AIAUL_Brk2_Rec_Rate,AIAUL_Brk2_Rec,
-AIAUL_Brk3_Rec_Rate,AIAUL_Brk3_Rec,AIAUL_Total_Brk_rec,AIAUL_SvcTaxAM,AIAUL_Tds,AIAUL_Total_Receivable,AIAUL_AllotmentDate,AIAUL_RfndNo,AIAPL_IssueId">
+AIAUL_Brk3_Rec_Rate,AIAUL_Brk3_Rec,AIAUL_Total_Brk_rec,AIAUL_SvcTaxAM,AIAUL_Tds,AIAUL_Total_Receivable,AIAUL_AllotmentDate,AIAUL_RfndNo,AIAPL_IssueId,AIAUL_Id">
                                     <Columns>
                                         <telerik:GridTemplateColumn AllowFiltering="false">
                                             <HeaderTemplate>
@@ -526,6 +526,7 @@ AIAUL_Brk3_Rec_Rate,AIAUL_Brk3_Rec,AIAUL_Total_Brk_rec,AIAUL_SvcTaxAM,AIAUL_Tds,
         </tr>
     </table>
 </asp:Panel>
+<asp:HiddenField ID="hdnProcessId" runat="server" />
 <table>
     <tr>
         <td>
