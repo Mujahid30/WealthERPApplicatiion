@@ -245,7 +245,7 @@ namespace WealthERP.OnlineOrderBackOffice
             dtUploadData = CheckHeaders(dtUploadData);
             if (IsAllotmentUpload)
             {
-                dtAllotmentUpload = boNcdBackOff.UploadAllotmentFile(dtUploadData, int.Parse(ddlFileType.SelectedValue), int.Parse(ddlIssueName.SelectedValue), ref isIssueAvailable, advisorVo.advisorId, ddlSource.SelectedValue, ref result, ddlProduct.SelectedValue, hdnsavePath.Value, userVo.UserId, Convert.ToInt32(ddlType.SelectedValue),hdnddlSubCategory.Value.ToString(),ref totalOrder,ref rejectedOrders,ref acceptedOrders);
+                dtAllotmentUpload = boNcdBackOff.UploadAllotmentFile(dtUploadData, int.Parse(ddlFileType.SelectedValue), int.Parse(ddlIssueName.SelectedValue), ref isIssueAvailable, advisorVo.advisorId, ddlSource.SelectedValue, ref result, ddlProduct.SelectedValue, hdnsavePath.Value, userVo.UserId, Convert.ToInt32(ddlType.SelectedValue),hdnddlSubCategory.Value.ToString(),ref totalOrder,ref rejectedOrders,ref acceptedOrders,0);
                  GetUploadData(dtAllotmentUpload,totalOrder,rejectedOrders,acceptedOrders);
                 
             }
