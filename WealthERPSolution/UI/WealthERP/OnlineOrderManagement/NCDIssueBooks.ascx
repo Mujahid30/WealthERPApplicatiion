@@ -318,8 +318,8 @@
                                                                                     <font color="#565656"><b>Amount to invest:</b></font>
                                                                                     <%# Eval("BBAmounttoinvest")%>
                                                                                 </div>
-                                                                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;"
-                                                                                    id="nomineedetails" runat="server">
+                                                                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px; visibility: hidden;"
+                                                                                    id="nomineedetails" runat="server" visible="false">
                                                                                     <font color="#565656"><b>Nominee Qty.:</b></font>
                                                                                     <%# Eval("COID_NomineeQuantity")%>
                                                                                 </div>
