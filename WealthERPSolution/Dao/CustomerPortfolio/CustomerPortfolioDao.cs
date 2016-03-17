@@ -2387,8 +2387,8 @@ namespace DaoCustomerPortfolio
                             mfPortfNetPositionVo.SchemeRisk10Year = dr["PMFRD_Risk10Year"].ToString();
                         if (dr["PMFRD_RatingDate"].ToString().Trim() != String.Empty)
                             mfPortfNetPositionVo.SchemeRatingDate = dr["PMFRD_RatingDate"].ToString();
-
-                          mfPortfolioNetPositionList.Add(mfPortfNetPositionVo);
+                        mfPortfNetPositionVo.status = dr["PASP_Status"].ToString();
+                        mfPortfolioNetPositionList.Add(mfPortfNetPositionVo);
                     }
                 }
             }

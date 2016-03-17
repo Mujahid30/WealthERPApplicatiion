@@ -449,41 +449,70 @@ namespace WealthERP.OnlineOrderManagement
                     view.ToTable("Selected", false, "Scheme", "FolioNum", "PurchasedUnits", "InvestedCost", "NAV", "Unrealised Gain/Loss", "CurrentValue", "UnitsSold", "Sold Value", "Realised Gain/Loss");
             if (selected.Rows.Count > 0)
             {
+                Response.ClearContent();
+                Response.Buffer = true;
+                Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", "CustomerHoldings.xls"));
+                Response.ContentType = "application/ms-excel";
 
-                string data = null;
-                int i = 0;
-                int j = 0;
+                string str = string.Empty;
 
-                Excel.Workbook xlWorkBook;
-                Excel.Worksheet xlWorkSheet;
-                object misValue = System.Reflection.Missing.Value;
-
-                Excel.Application xlApp = new Excel.Application();
-                xlWorkBook = xlApp.Workbooks.Add(misValue);
-                xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
-                int z = 0;
                 foreach (DataColumn dtcol in selected.Columns)
                 {
-                    
-                    data = dtcol.ColumnName;
-                    xlWorkSheet.Cells[1, z + 1] = data; z++;
-                }
+                    Response.Write(str + dtcol.ColumnName);
+                    str = "\t";
 
-                for (i = 1; i <= selected.Rows.Count; i++)
-                {
-                    for (j = 0; j <= selected.Columns.Count - 1; j++)
-                    {
-                        data = selected.Rows[i - 1].ItemArray[j].ToString();
-                        xlWorkSheet.Cells[i + 1, j + 1] = data;
-                    }
                 }
-                Random asa = new Random();
-                string filename = "CustomerHolding" + asa.Next() + ".xls";
-                xlWorkBook.SaveAs(Server.MapPath("~/UploadFiles/"+ filename), Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
-                xlWorkBook.Close(true, misValue, misValue);
-                xlApp.Quit();
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "setFormat('" + filename + "');", true);
+                Response.Write("\n");
+                foreach (DataRow dr in selected.Rows)
+                {
+                    str = "";
+                    for (int j = 0; j < selected.Columns.Count; j++)
+                    {
+                        Response.Write(str + Convert.ToString(dr[j]));
+                        str = "\t";
+                    }
+                    Response.Write("\n");
+                }
+                Response.End();
+
             }
+            //if (selected.Rows.Count > 0)
+            //{
+
+            //    string data = null;
+            //    int i = 0;
+            //    int j = 0;
+
+            //    Excel.Workbook xlWorkBook;
+            //    Excel.Worksheet xlWorkSheet;
+            //    object misValue = System.Reflection.Missing.Value;
+
+            //    Excel.Application xlApp = new Excel.Application();
+            //    xlWorkBook = xlApp.Workbooks.Add(misValue);
+            //    xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+            //    int z = 0;
+            //    foreach (DataColumn dtcol in selected.Columns)
+            //    {
+                    
+            //        data = dtcol.ColumnName;
+            //        xlWorkSheet.Cells[1, z + 1] = data; z++;
+            //    }
+
+            //    for (i = 1; i <= selected.Rows.Count; i++)
+            //    {
+            //        for (j = 0; j <= selected.Columns.Count - 1; j++)
+            //        {
+            //            data = selected.Rows[i - 1].ItemArray[j].ToString();
+            //            xlWorkSheet.Cells[i + 1, j + 1] = data;
+            //        }
+            //    }
+            //    Random asa = new Random();
+            //    string filename = "CustomerHolding" + asa.Next() + ".xls";
+            //    xlWorkBook.SaveAs(Server.MapPath("~/UploadFiles/"+ filename), Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+            //    xlWorkBook.Close(true, misValue, misValue);
+            //    xlApp.Quit();
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "setFormat('" + filename + "');", true);
+            //}
            
 
         }
