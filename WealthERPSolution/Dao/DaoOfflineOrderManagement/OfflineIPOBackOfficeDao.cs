@@ -49,7 +49,7 @@ namespace DaoOfflineOrderManagement
                     db.AddInParameter(cmd, "@AgentCode", DbType.String, DBNull.Value);
                 db.AddInParameter(cmd, "@ModificationType", DbType.String, ModificationType);
                 db.AddInParameter(cmd, "@userId", DbType.Int32, userId);
-
+                cmd.CommandTimeout = 60 * 60;
                 dsIPOOrder = db.ExecuteDataSet(cmd);
                 dtIPOOrder = dsIPOOrder.Tables[0];
 
