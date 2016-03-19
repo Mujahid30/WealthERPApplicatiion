@@ -119,7 +119,7 @@ namespace WealthERP.Uploads
             {
                 ddlIssueName.Items.Clear();
                 ddlIssueName.DataBind();
-                BindMappedIssues(ddlIssueType.SelectedValue, ddlProduct.SelectedValue, 0, (ddlProductCategory.SelectedValue == "") ? "FIFIIP" : ddlProductCategory.SelectedValue);
+                BindMappedIssues(ddlIssueType.SelectedValue, ddlProduct.SelectedValue, 2, (ddlProductCategory.SelectedValue == "") ? "FIFIIP" : ddlProductCategory.SelectedValue);
 
             }
         }
