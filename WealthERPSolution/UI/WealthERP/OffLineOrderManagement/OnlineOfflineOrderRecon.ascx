@@ -22,8 +22,7 @@
 <script language="javascript" type="text/javascript">
     function checkAllBoxes() {
 
-        //get total number of rows in the gridview and do whatever
-        //you want with it..just grabbing it just cause
+     
         var gvControl = document.getElementById('<%= gvOrderRecon.ClientID %>');
 
         //this is the checkbox in the item template...this has to be the same name as the ID of it

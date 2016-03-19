@@ -201,8 +201,8 @@ namespace WealthERP.OffLineOrderManagement
                 gvOrderRecon.MasterTableView.GetColumn("action").Visible = true;
                 gvOrderRecon.MasterTableView.GetColumn("AddOrder").Visible = true;
                 gvOrderRecon.MasterTableView.GetColumn("editColumn").Visible = false;
-
-
+                gvOrderRecon.MasterTableView.GetColumn("MissmatchType").Visible = false;
+                gvOrderRecon.MasterTableView.GetColumn("AddOrder").Visible = false;
             }
             else if (ddlType.SelectedValue == "5")
             {
@@ -210,6 +210,7 @@ namespace WealthERP.OffLineOrderManagement
                 gvOrderRecon.MasterTableView.GetColumn("editColumn").Visible = false;
                 gvOrderRecon.MasterTableView.GetColumn("MissmatchType").Visible = true;
                 gvOrderRecon.MasterTableView.GetColumn("action").Visible = true;
+                gvOrderRecon.MasterTableView.GetColumn("AddOrder").Visible = true;
 
             }
             else if (ddlType.SelectedValue == "3")
@@ -217,6 +218,8 @@ namespace WealthERP.OffLineOrderManagement
 
                 gvOrderRecon.MasterTableView.GetColumn("issueName").Visible = false;
                 gvOrderRecon.MasterTableView.GetColumn("OrderEdit").Visible = true;
+                gvOrderRecon.MasterTableView.GetColumn("editColumn").Visible = true;
+                gvOrderRecon.MasterTableView.GetColumn("AddOrder").Visible = true;
 
             }
             else if (ddlType.SelectedValue == "2")
@@ -225,6 +228,7 @@ namespace WealthERP.OffLineOrderManagement
                 gvOrderRecon.MasterTableView.GetColumn("OrderEdit").Visible = true;
                 gvOrderRecon.MasterTableView.GetColumn("MissmatchType").Visible = true;
                 gvOrderRecon.MasterTableView.GetColumn("editColumn").Visible = true;
+                gvOrderRecon.MasterTableView.GetColumn("AddOrder").Visible = true;
 
             }
 
