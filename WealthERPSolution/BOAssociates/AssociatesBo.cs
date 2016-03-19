@@ -114,12 +114,12 @@ namespace BOAssociates
             }
             return bResult;
         }
-        public bool CheckPanNumberDuplicatesForAssociates(string Pan, int AdviserAssociateId , int adviserId)
+        public bool CheckPanNumberDuplicatesForAssociates(string Pan, int AdviserAssociateId, int adviserId)
         {
             bool bResult = false;
             try
             {
-                bResult = associatesDao.CheckPanNumberDuplicatesForAssociates(Pan, AdviserAssociateId ,adviserId);
+                bResult = associatesDao.CheckPanNumberDuplicatesForAssociates(Pan, AdviserAssociateId, adviserId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -451,7 +451,7 @@ namespace BOAssociates
             }
             return dtChildCodeList;
         }
-        public bool EditAddChildAgentCodeList(AssociatesVO associatesVo, string ChildCode, int PagentId, char flag,string childName,string childEmailId,int userId,string roleIds)
+        public bool EditAddChildAgentCodeList(AssociatesVO associatesVo, string ChildCode, int PagentId, char flag, string childName, string childEmailId, int userId, string roleIds)
         {
             bool result = false; ;
             result = associatesDao.EditAddChildAgentCodeList(associatesVo, ChildCode, PagentId, flag, childName, childEmailId, userId, roleIds);
@@ -907,12 +907,12 @@ namespace BOAssociates
             }
             return bResult;
         }
-        public bool UpdateAssociateDetails( AssociatesVO associatesVo, int userId, int associateid, int agentcode)
+        public bool UpdateAssociateDetails(AssociatesVO associatesVo, int userId, int associateid, int agentcode)
         {
             bool bResult = false;
             try
             {
-                bResult = associatesDao.UpdateAssociateDetails( associatesVo, userId, associateid, agentcode);
+                bResult = associatesDao.UpdateAssociateDetails(associatesVo, userId, associateid, agentcode);
 
             }
             catch (BaseApplicationException Ex)
@@ -956,6 +956,20 @@ namespace BOAssociates
             try
             {
                 bResult = associatesDao.AssociateRegistration(associateId, registrationExp, RegistrationNo, assetsGroup);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+        public bool AssociateFieldValidation(string text, string Type, int adviserId, int AdviserAssociateId)
+        {
+            bool bResult = false;
+            try
+            {
+                bResult = associatesDao.AssociateFieldValidation(text, Type, adviserId,AdviserAssociateId);
 
             }
             catch (BaseApplicationException Ex)

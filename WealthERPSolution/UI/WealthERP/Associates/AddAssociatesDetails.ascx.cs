@@ -52,7 +52,7 @@ namespace WealthERP.Associates
             {
                 associatesVo = (AssociatesVO)Session["associatesVo"];
             }
-         
+
             if (!IsPostBack)
             {
                 lblPanDuplicate.Visible = false;
@@ -560,7 +560,7 @@ namespace WealthERP.Associates
 
 
             }
-           
+
 
 
         }
@@ -658,7 +658,7 @@ namespace WealthERP.Associates
             //txtRM.Text = associatesVo.RMNAme;
             txtAssociateName.Text = associatesVo.ContactPersonName;
             txtEmail.Text = associatesVo.Email;
-            
+
         }
 
         private void Updatedepartment()
@@ -942,7 +942,7 @@ namespace WealthERP.Associates
             //btnPreviewSend.PostBackUrl = "~/Reports/Display.aspx?&welcomeNote=1&associateId=" + associateId.ToString();
             //btnPreviewSend.OnClientClick = "window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);";
             Session["associatesVo"] = null;
-            
+
         }
         protected void btnAssociateUpdate_OnClick(object sender, EventArgs e)
         {
@@ -1039,12 +1039,12 @@ namespace WealthERP.Associates
             else
                 associatesVo.EndDate = Convert.ToDateTime(txtEndDate.SelectedDate);
             if (!string.IsNullOrEmpty(ddlBranch.SelectedValue))
-                associatesVo.BranchId = Convert.ToInt32(ddlBranch.SelectedValue);           
+                associatesVo.BranchId = Convert.ToInt32(ddlBranch.SelectedValue);
 
             associatesBo.UpdateAssociateDetails(associatesVo, userId, associateid, agentcode);
             controlEnable(0);
             btnAssociateUpdate.Visible = false;
-            
+
         }
         protected void UpdateContact(string value)
         {
@@ -1318,6 +1318,29 @@ namespace WealthERP.Associates
         }
         protected void btnContactDetails_OnClick(object sender, EventArgs e)
         {
+            int associateId=0;
+            if (Request.QueryString["action"] != "" && Request.QueryString["action"] != null)
+            {
+                if (Request.QueryString["action"].Trim() == "Edit" || Request.QueryString["action"].Trim() == "View")
+                {
+                    associateId = associatesVo.AdviserAssociateId;
+                }
+            }
+            else
+            {
+                associateId = int.Parse(Session["AdviserAssociateIds"].ToString());
+
+            }
+            if (!String.IsNullOrEmpty( txtMobile1.Text) && associatesBo.AssociateFieldValidation(txtMobile1.Text, "Mobile", advisorVo.advisorId, associateId))
+            {
+                lblMobMandatory.Visible = true;
+                return;
+            }
+            if (!String.IsNullOrEmpty(txtEmail.Text) && associatesBo.AssociateFieldValidation(txtEmail.Text, "EMail", advisorVo.advisorId, associateId))
+            {
+                lblEmailMandatory.Visible = true;
+                return;
+            }
             UpdateContact("CD");
             lnkContactDetails.Visible = true;
             btnContactDetails.Visible = false;
@@ -1325,6 +1348,29 @@ namespace WealthERP.Associates
         }
         protected void btnContactDetailsUpdate_OnClick(object sender, EventArgs e)
         {
+            int associateId = 0;
+            if (Request.QueryString["action"] != "" && Request.QueryString["action"] != null)
+            {
+                if (Request.QueryString["action"].Trim() == "Edit" || Request.QueryString["action"].Trim() == "View")
+                {
+                    associateId = associatesVo.AdviserAssociateId;
+                }
+            }
+            else
+            {
+                associateId = int.Parse(Session["AdviserAssociateIds"].ToString());
+
+            }
+            if (!String.IsNullOrEmpty(txtMobile1.Text) && associatesBo.AssociateFieldValidation(txtMobile1.Text, "Mobile", advisorVo.advisorId, associateId))
+            {
+                lblMobMandatory.Visible = true;
+                return;
+            }
+            if (!String.IsNullOrEmpty(txtEmail.Text) && associatesBo.AssociateFieldValidation(txtEmail.Text, "EMail", advisorVo.advisorId, associateId))
+            {
+                lblEmailMandatory.Visible = true;
+                return;
+            }
             UpdateContact("CD");
             btnContactDetailsUpdate.Visible = false;
             ShowMessage("Contact Details Updated Successfully");
@@ -1851,13 +1897,13 @@ namespace WealthERP.Associates
             {
                 associateid = int.Parse(Session["AdviserAssociateIds"].ToString());
             }
-            
+
             if (!string.IsNullOrEmpty(associatesVo.WelcomeNotePath))
             {
                 string targetPath = ConfigurationManager.AppSettings["Welcome_Note_PATH"].ToString();
                 Response.Redirect(targetPath + associatesVo.WelcomeNotePath);
             }
-           
+
         }
         protected void lbtnPreviewSend_Click(object sender, EventArgs e)
         {

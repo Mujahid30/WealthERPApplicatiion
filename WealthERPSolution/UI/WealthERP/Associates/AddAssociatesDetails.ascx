@@ -81,7 +81,7 @@
         </td>
         <td>
             <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" AutoPostBack="true"
-                OnSelectedIndexChanged="ddlRM_SelectedIndexChanged" Style="vertical-align: middle">
+                OnSelectedIndexChanged="ddlRM_SelectedIndexChanged" Style="vertical-align: middle;width:250px;">
             </asp:DropDownList>
             <span id="Span4" class="spnRequiredField">*</span>
             <br />
@@ -109,23 +109,12 @@
         </td>
     </tr>
     <tr id="trBranchRM" runat="server">
-        <%--<td align="right">
-            <asp:Label ID="lblBranch" runat="server" CssClass="FieldName" Text="Branch:"></asp:Label>
-        </td>
-        <td>
-            <asp:TextBox ID="txtBranch" runat="server" CssClass="txtField"></asp:TextBox>
-        </td>
-        <td align="right">
-            <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM:"></asp:Label>
-        </td>
-        <td>
-            <asp:TextBox ID="txtRM" runat="server" CssClass="txtField"></asp:TextBox>
-        </td>--%>
+      
         <td align="right">
             <asp:Label ID="lblAssociateName" runat="server" CssClass="FieldName" Text="Associate Name: "></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtAssociateName" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtAssociateName" runat="server" CssClass="txtField" Style="width: 200px;"></asp:TextBox>
             <span id="Span6" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="ReqtxtAssociateName" runat="server" ErrorMessage="Please Enter Associate Name"
                 CssClass="rfvPCG" ControlToValidate="txtAssociateName" ValidationGroup="SubmitDetails"
@@ -464,6 +453,7 @@
                     </td>
                     <td>
                         <asp:TextBox ID="txtMobile1" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
+                        <asp:Label ID="lblMobMandatory" runat="server" Visible="false" CssClass="Error" Text="Mobile Number already exists"></asp:Label>
                         <asp:RegularExpressionValidator ID="rvMobile1" runat="server" ValidationGroup="Submit"
                             ControlToValidate="txtMobile1" Display="Dynamic" ErrorMessage="<br />Mobile Number must be 10 digit"
                             CssClass="rfvPCG" ValidationExpression="^((\+)?(\d{2}[-]))?(\d{10}){1}?$"></asp:RegularExpressionValidator>
@@ -474,13 +464,14 @@
                         <asp:Label ID="lblEmail" CssClass="FieldName" runat="server" Text="Email:"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtEmail" runat="server" CssClass="txtField"></asp:TextBox>
+                        <asp:TextBox ID="txtEmail" runat="server" CssClass="txtField" Style="width: 250px;"></asp:TextBox>
                         <span id="Span8" class="spnRequiredField">*</span>
                         <br />
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtEmail"
                             ValidationGroup="Submit" ErrorMessage="Please enter an EmailId" Display="Dynamic"
                             runat="server" CssClass="rfvPCG">
                         </asp:RequiredFieldValidator>
+                        <asp:Label ID="lblEmailMandatory" runat="server" Visible="false" CssClass="Error" Text="Email already exists"></asp:Label>
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtEmail"
                             ErrorMessage="Please enter a valid EmailId" Display="Dynamic" runat="server"
                             ValidationGroup="Submit" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
@@ -535,13 +526,13 @@
                         <asp:Label ID="lblCorLine1" CssClass="FieldName" runat="server" Text="Line1(House No./Building):"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtCorLine1" runat="server" CssClass="txtField"></asp:TextBox>
+                        <asp:TextBox ID="txtCorLine1" runat="server" CssClass="txtField" Style="width: 250px;"></asp:TextBox>
                     </td>
                     <td class="leftField">
                         <asp:Label ID="lblCorLine2" CssClass="FieldName" runat="server" Text="Line2(Street):"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtCorLine2" runat="server" CssClass="txtField"></asp:TextBox>
+                        <asp:TextBox ID="txtCorLine2" runat="server" CssClass="txtField" Style="width: 250px;"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
@@ -549,7 +540,7 @@
                         <asp:Label ID="lblCorLine3" runat="server" CssClass="FieldName" Text="Line3(Area):"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtCorLine3" runat="server" CssClass="txtField"></asp:TextBox>
+                        <asp:TextBox ID="txtCorLine3" runat="server" CssClass="txtField" Style="width: 250px;"></asp:TextBox>
                     </td>
                     <td class="leftField">
                         <asp:Label ID="lblCorstate" runat="server" CssClass="FieldName" Text="State:"></asp:Label>
@@ -573,7 +564,7 @@
                         <asp:Label ID="lblCorCity" CssClass="FieldName" runat="server" Text="City:"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtCorCity" runat="server" CssClass="txtField"></asp:TextBox>
+                        <asp:TextBox ID="txtCorCity" runat="server" CssClass="txtField" Style="width: 250px;"></asp:TextBox>
                         <%--<asp:DropDownList ID="ddlCorCity" runat="server" CssClass="cmbField">
                         </asp:DropDownList>--%>
                     </td>
@@ -616,13 +607,13 @@
                         <asp:Label ID="lblPermLine1" CssClass="FieldName" runat="server" Text="Line1(House No./Building):"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtPermAdrLine1" runat="server" CssClass="txtField"></asp:TextBox>
+                        <asp:TextBox ID="txtPermAdrLine1" runat="server" CssClass="txtField" Style="width: 250px;"></asp:TextBox>
                     </td>
                     <td class="leftField">
                         <asp:Label ID="lblPermLine2" CssClass="FieldName" runat="server" Text="Line2(Street):"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtPermAdrLine2" runat="server" CssClass="txtField"></asp:TextBox>
+                        <asp:TextBox ID="txtPermAdrLine2" runat="server" CssClass="txtField" Style="width: 250px;"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
@@ -630,7 +621,7 @@
                         <asp:Label ID="lblPermLine3" runat="server" CssClass="FieldName" Text="Line3(Area):"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtPermAdrLine3" runat="server" CssClass="txtField"></asp:TextBox>
+                        <asp:TextBox ID="txtPermAdrLine3" runat="server" CssClass="txtField" Style="width: 250px;"></asp:TextBox>
                     </td>
                     <td class="leftField">
                         <asp:Label ID="lblPermState" runat="server" CssClass="FieldName" Text="State:"></asp:Label>
@@ -654,7 +645,7 @@
                         <asp:Label ID="lblPermCity" CssClass="FieldName" runat="server" Text="City:"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtPermAdrCity" runat="server" CssClass="txtField"></asp:TextBox>
+                        <asp:TextBox ID="txtPermAdrCity" runat="server" CssClass="txtField" Style="width: 250px;"></asp:TextBox>
                         <%-- <asp:DropDownList ID="ddlPermAdrCity" runat="server" CssClass="cmbField">
                         </asp:DropDownList>--%>
                     </td>
@@ -795,7 +786,7 @@
                         <asp:Label ID="lblBankName" runat="server" Text="Bank Name:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:DropDownList ID="ddlBankName" CssClass="cmbField" runat="server">
+                        <asp:DropDownList ID="ddlBankName" CssClass="cmbLongField" runat="server">
                         </asp:DropDownList>
                         <span id="Span3" class="spnRequiredField">*</span>
                         <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="ddlBankName"
@@ -830,7 +821,7 @@
                         <asp:Label ID="lblBranchName" runat="server" Text="Branch Name:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtBankBranchName" runat="server" CssClass="txtField"></asp:TextBox>
+                        <asp:TextBox ID="txtBankBranchName" runat="server" CssClass="txtField" Style="width: 250px;"></asp:TextBox>
                         <span id="spBranchName" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="rfvBranchName" ControlToValidate="txtBankBranchName"
                             ValidationGroup="btnBank" ErrorMessage="<br />Please enter a Branch Name" Display="Dynamic"

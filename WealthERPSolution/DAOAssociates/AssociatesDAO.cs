@@ -2354,5 +2354,29 @@ namespace DAOAssociates
             }
             return bResult;
         }
+        public bool AssociateFieldValidation(string text, string Type, int adviserId, int AdviserAssociateId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand AssociateFieldValidationCmd;
+            int res;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                AssociateFieldValidationCmd = db.GetStoredProcCommand("SPROC_AssociateFieldValidation");
+                db.AddInParameter(AssociateFieldValidationCmd, "@AdviserAssociateId", DbType.Int32, AdviserAssociateId);
+                db.AddInParameter(AssociateFieldValidationCmd, "@AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(AssociateFieldValidationCmd, "@Type", DbType.String, Type);
+                db.AddInParameter(AssociateFieldValidationCmd, "@Text", DbType.String, text);
+                res = int.Parse(db.ExecuteScalar(AssociateFieldValidationCmd).ToString());
+                if (res > 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return bResult;
+        }
     }
 }
