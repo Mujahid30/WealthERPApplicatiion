@@ -1220,9 +1220,9 @@ namespace DAOAssociates
                     if (!string.IsNullOrEmpty(dr["AA_AccountNum"].ToString().Trim()))
                         associatesVo.AccountNum = dr["AA_AccountNum"].ToString();
                     if (dr["AA_BranchAdrLine1"] != DBNull.Value)
-                        associatesVo.CorrAdrLine1 = dr["AA_BranchAdrLine1"].ToString();
+                        associatesVo.BranchAdrLine1 = dr["AA_BranchAdrLine1"].ToString();
                     else
-                        associatesVo.PerAdrLine1 = string.Empty;
+                        associatesVo.BranchAdrLine1 = string.Empty;
                     if (dr["AA_BranchAdrLine2"] != DBNull.Value)
                         associatesVo.BranchAdrLine2 = dr["AA_BranchAdrLine2"].ToString();
                     else
