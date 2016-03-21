@@ -217,7 +217,8 @@ namespace WealthERP.Associates
                 txtPermAdrPinCode.Enabled = false;
                 ddlPermAdrState.Enabled = false;
                 txtPermAdrCountry.Enabled = false;
-
+                txtCorState.Enabled = false;
+                txtPermState.Enabled = false;
                 ddlMaritalStatus.Enabled = false;
                 ddlQualification.Enabled = false;
                 ddlGender.Enabled = false;
@@ -299,7 +300,8 @@ namespace WealthERP.Associates
                 txtPermAdrPinCode.Enabled = true;
                 ddlPermAdrState.Enabled = true;
                 txtPermAdrCountry.Enabled = true;
-
+                txtCorState.Enabled = true;
+                txtPermState.Enabled = true;
                 ddlMaritalStatus.Enabled = true;
                 ddlQualification.Enabled = true;
                 ddlGender.Enabled = true;
@@ -441,7 +443,10 @@ namespace WealthERP.Associates
             if (associatesVo.CorrAdrPinCode != null)
                 txtCorPin.Text = associatesVo.CorrAdrPinCode.ToString();
             if (!String.IsNullOrEmpty(associatesVo.CorrAdrState))
+            {
                 ddlCorState.SelectedValue = associatesVo.CorrAdrState;
+                txtCorState.Text = associatesVo.CorrAdrState;
+            }
             if (associatesVo.CorrAdrCountry != null)
                 txtCorCountry.Text = associatesVo.CorrAdrCountry;
             if (associatesVo.PanNo != null)
@@ -459,7 +464,10 @@ namespace WealthERP.Associates
                 txtPermAdrPinCode.Text = associatesVo.PerAdrPinCode.ToString();
             //BindState();
             if (!string.IsNullOrEmpty(associatesVo.PerAdrState))
+            {
                 ddlPermAdrState.SelectedValue = associatesVo.PerAdrState;
+                txtPermState.Text = associatesVo.PerAdrState;
+            }
             if (associatesVo.PerAdrCountry != null)
                 txtPermAdrCountry.Text = associatesVo.PerAdrCountry;
 
@@ -744,6 +752,7 @@ namespace WealthERP.Associates
                 txtPermAdrLine2.Text = txtCorLine2.Text;
                 txtPermAdrLine3.Text = txtCorLine3.Text;
                 ddlPermAdrState.SelectedValue = ddlCorState.SelectedValue;
+                txtPermState.Text = txtCorState.Text;
                 txtPermAdrCity.Text = txtCorCity.Text;
                 //if (ddlCorCity.SelectedIndex != 0)
                 //{
@@ -1130,10 +1139,11 @@ namespace WealthERP.Associates
                 associatesVo.CorrAdrPinCode = int.Parse(txtCorPin.Text);
             else
                 associatesVo.CorrAdrPinCode = 0;
-            if (ddlCorState.SelectedIndex != 0)
-                associatesVo.CorrAdrState = ddlCorState.SelectedValue;
-            else
-                associatesVo.CorrAdrState = "";
+            //if (ddlCorState.SelectedIndex != 0)
+            //    associatesVo.CorrAdrState = ddlCorState.SelectedValue;
+            //else
+            //    associatesVo.CorrAdrState = "";
+            associatesVo.CorrAdrState = txtCorState.Text;
             if (!string.IsNullOrEmpty(txtCorCountry.Text))
                 associatesVo.CorrAdrCountry = txtCorCountry.Text;
             else
@@ -1160,10 +1170,11 @@ namespace WealthERP.Associates
                 associatesVo.PerAdrPinCode = int.Parse(txtPermAdrPinCode.Text);
             else
                 associatesVo.PerAdrPinCode = 0;
-            if (ddlPermAdrState.SelectedIndex != 0)
-                associatesVo.PerAdrState = ddlPermAdrState.SelectedValue;
-            else
-                associatesVo.PerAdrState = "";
+            //if (ddlPermAdrState.SelectedIndex != 0)
+            //    associatesVo.PerAdrState = ddlPermAdrState.SelectedValue;
+            //else
+            //    associatesVo.PerAdrState = "";
+            associatesVo.PerAdrState = txtCorState.Text;
             if (!string.IsNullOrEmpty(txtPermAdrCountry.Text))
                 associatesVo.PerAdrCountry = txtPermAdrCountry.Text;
             else
@@ -1398,6 +1409,8 @@ namespace WealthERP.Associates
             txtPermAdrCity.Enabled = true;
             txtPermAdrPinCode.Enabled = true;
             ddlPermAdrState.Enabled = true;
+            txtCorState.Enabled = true;
+            txtPermState.Enabled = true;
             txtPermAdrCountry.Enabled = true;
             chkAddressChk.Enabled = true;
         }

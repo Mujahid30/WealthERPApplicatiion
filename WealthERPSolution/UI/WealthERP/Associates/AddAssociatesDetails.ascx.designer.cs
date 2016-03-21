@@ -43,7 +43,8 @@ namespace WealthERP.Associates {
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnEdit;
         protected global::System.Web.UI.WebControls.LinkButton lbtnPreviewSend;
         protected global::System.Web.UI.WebControls.TextBox txtRegNumber;
-        
+        protected global::System.Web.UI.WebControls.TextBox txtCorState;
+        protected global::System.Web.UI.WebControls.TextBox txtPermState;  
         /// <summary>
         /// lnlBack control.
         /// </summary>

@@ -546,8 +546,9 @@
                         <asp:Label ID="lblCorstate" runat="server" CssClass="FieldName" Text="State:"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:DropDownList ID="ddlCorState" runat="server" CssClass="cmbField">
+                        <asp:DropDownList ID="ddlCorState" Visible="false" runat="server" CssClass="cmbField">
                         </asp:DropDownList>
+                        <asp:TextBox ID="txtCorState" runat="server" CssClass="txtField" ></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
@@ -627,8 +628,9 @@
                         <asp:Label ID="lblPermState" runat="server" CssClass="FieldName" Text="State:"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:DropDownList ID="ddlPermAdrState" runat="server" CssClass="cmbField">
+                        <asp:DropDownList ID="ddlPermAdrState" Visible="false" runat="server" CssClass="cmbField">
                         </asp:DropDownList>
+                         <asp:TextBox ID="txtPermState" runat="server" CssClass="txtField" ></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
