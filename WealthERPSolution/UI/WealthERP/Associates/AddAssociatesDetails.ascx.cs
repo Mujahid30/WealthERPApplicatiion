@@ -1384,10 +1384,18 @@ namespace WealthERP.Associates
                 lblMobMandatory.Visible = true;
                 return;
             }
+            else
+            {
+                lblMobMandatory.Visible = false;
+            }
             if (!String.IsNullOrEmpty(txtEmail.Text) && associatesBo.AssociateFieldValidation(txtEmail.Text, "EMail", advisorVo.advisorId, associateId))
             {
                 lblEmailMandatory.Visible = true;
                 return;
+            }
+            else
+            {
+                lblEmailMandatory.Visible = false;
             }
             UpdateContact("CD");
             lnkContactDetails.Visible = true;
