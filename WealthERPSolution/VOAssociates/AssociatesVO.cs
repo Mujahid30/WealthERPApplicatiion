@@ -116,6 +116,16 @@ namespace VOAssociates
         public int IsDummy { get; set; }
         private string m_WelcomeNotePath;
         private int m_categoryId { get; set; }
+
+
+        public DateTime BankUpdatedDate { get; set; }
+        public DateTime ARNDate { get; set; }
+        public DateTime NomineeDOB { get; set; }
+        public string BankEmail { get; set; }
+        public bool KYDStatus { get; set; }
+        public bool FormBRecvd { get; set; }
+        public string Remarks { get; set; }
+        public long BankMobile { get; set; }
         #endregion
 
         #region Properties

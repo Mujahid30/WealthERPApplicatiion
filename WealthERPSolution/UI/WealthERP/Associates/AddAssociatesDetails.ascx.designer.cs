@@ -486,7 +486,8 @@ namespace WealthERP.Associates {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkIsActive;
-        
+        protected global::System.Web.UI.WebControls.CheckBox chkKYD;
+        protected global::System.Web.UI.WebControls.CheckBox chkFormB;
         /// <summary>
         /// chkIsDummy control.
         /// </summary>
@@ -666,7 +667,11 @@ namespace WealthERP.Associates {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtResPhoneNoStd;
-        
+        protected global::System.Web.UI.WebControls.TextBox txtRemarks;
+        protected global::System.Web.UI.WebControls.TextBox txtBankMobile;
+        protected global::System.Web.UI.WebControls.TextBox txtBankEmail;
+      
+       
         /// <summary>
         /// txtResPhoneNo control.
         /// </summary>
@@ -1440,7 +1445,9 @@ namespace WealthERP.Associates {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadDatePicker txtDOB;
-        
+        protected global::Telerik.Web.UI.RadDatePicker  rdpNomDOB;
+        protected global::Telerik.Web.UI.RadDatePicker rdpUpdateDate;
+        protected global::Telerik.Web.UI.RadDatePicker rdpARNDate;
         /// <summary>
         /// OtherInformation control.
         /// </summary>

@@ -72,6 +72,11 @@ namespace DAOAssociates
                 db.AddInParameter(completeAssociatesCmd, "@AA_ExpiryDate", DbType.DateTime, associatesVo.AssociationExpairyDate);
                 else
                     db.AddInParameter(completeAssociatesCmd, "@AA_ExpiryDate", DbType.DateTime, DBNull.Value);
+                if (associatesVo.ARNDate != DateTime.MinValue)
+                    db.AddInParameter(completeAssociatesCmd, "@ARNDate", DbType.DateTime, associatesVo.ARNDate);
+                else
+                    db.AddInParameter(completeAssociatesCmd, "@ARNDate", DbType.DateTime, DBNull.Value);
+
                 if(associatesVo.StartDate!=DateTime.MinValue)
                 db.AddInParameter(completeAssociatesCmd, "@AA_StartDate", DbType.DateTime, associatesVo.StartDate);
                 else
@@ -86,6 +91,9 @@ namespace DAOAssociates
                 db.AddInParameter(completeAssociatesCmd, "@XCST_CustomerSubTypeCode", DbType.String, associatesVo.AssociateSubType);
                 db.AddInParameter(completeAssociatesCmd, "@AA_IsActive", DbType.Int32, associatesVo.IsActive);
                 db.AddInParameter(completeAssociatesCmd, "@AA_IsDummyAssociate", DbType.Int32, associatesVo.IsDummy);
+                db.AddInParameter(completeAssociatesCmd, "@KYDStatus", DbType.Boolean, associatesVo.KYDStatus);
+                db.AddInParameter(completeAssociatesCmd, "@FormBRecvd", DbType.Boolean, associatesVo.FormBRecvd);
+               
                 if (db.ExecuteNonQuery(completeAssociatesCmd) != 0)
                 {
 
@@ -533,6 +541,26 @@ namespace DAOAssociates
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_NoOfClients", DbType.Int16, DBNull.Value);
                 db.AddInParameter(UpdateAssociatesCmd, "@command", DbType.String, command);
                 db.AddInParameter(UpdateAssociatesCmd, "@categoryId", DbType.Int16, associatesVo.categoryId);
+
+                if (associatesVo.NomineeDOB != DateTime.MinValue)
+                    db.AddInParameter(UpdateAssociatesCmd, "@NomineeDOB", DbType.DateTime, associatesVo.NomineeDOB);
+                else
+                    db.AddInParameter(UpdateAssociatesCmd, "@NomineeDOB", DbType.DateTime, DBNull.Value);
+                if (associatesVo.BankUpdatedDate != DateTime.MinValue)
+                    db.AddInParameter(UpdateAssociatesCmd, "@BankUpdatedDate", DbType.DateTime, associatesVo.BankUpdatedDate);
+                else
+                    db.AddInParameter(UpdateAssociatesCmd, "@BankUpdatedDate", DbType.DateTime, DBNull.Value);
+                db.AddInParameter(UpdateAssociatesCmd, "@BankMobile", DbType.Int64, associatesVo.BankMobile);
+             
+                if (!string.IsNullOrEmpty(associatesVo.Remarks.ToString().Trim()))
+                    db.AddInParameter(UpdateAssociatesCmd, "@Remarks", DbType.String, associatesVo.Remarks);
+                else
+                    db.AddInParameter(UpdateAssociatesCmd, "@Remarks", DbType.String, DBNull.Value);
+                if (!string.IsNullOrEmpty(associatesVo.BankEmail.ToString().Trim()))
+                    db.AddInParameter(UpdateAssociatesCmd, "@BankEmail", DbType.String, associatesVo.BankEmail);
+                else
+                    db.AddInParameter(UpdateAssociatesCmd, "@BankEmail", DbType.String, DBNull.Value);
+
                 db.ExecuteNonQuery(UpdateAssociatesCmd);
                 result = true;
             }
@@ -1316,6 +1344,25 @@ namespace DAOAssociates
                     if (bool.Parse(dr["AA_IsDummyAssociate"].ToString().ToUpper()) != false)
                         associatesVo.IsDummy = 1;
 
+                    if (bool.Parse(dr["AA_FormRecvd"].ToString()) != false)
+                        associatesVo.FormBRecvd = true;
+                    if (bool.Parse(dr["AA_KYDStatus"].ToString().ToUpper()) != false)
+                        associatesVo.KYDStatus = true;
+                    if (dr["AA_ARNDATE"] != DBNull.Value)
+                        associatesVo.ARNDate = DateTime.Parse(dr["AA_ARNDATE"].ToString());
+
+                    if (dr["AA_BankUpdatedDate"] != DBNull.Value)
+                        associatesVo.BankUpdatedDate = DateTime.Parse(dr["AA_BankUpdatedDate"].ToString());
+
+                    if (dr["AA_NomineeDOB"] != DBNull.Value)
+                        associatesVo.NomineeDOB = DateTime.Parse(dr["AA_NomineeDOB"].ToString());
+                    if (dr["AA_Remarks"] != DBNull.Value)
+                        associatesVo.Remarks = dr["AA_Remarks"].ToString();
+
+                    if (dr["AA_BankMobile"] != DBNull.Value)
+                        associatesVo.BankMobile = Convert.ToInt64( dr["AA_BankMobile"].ToString());
+                    if (dr["AA_BankEmail"] != DBNull.Value)
+                        associatesVo.BankEmail = dr["AA_BankEmail"].ToString();
                     if (!string.IsNullOrEmpty(dr["AC_CategoryId"].ToString()))
                         associatesVo.AdviserCategory = dr["AC_CategoryId"].ToString();
 
@@ -2283,6 +2330,13 @@ namespace DAOAssociates
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_IsActive", DbType.Int32, associatesVo.IsActive);
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@AB_BranchId", DbType.Int32, associatesVo.BranchId);
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_IsDummyAssociate", DbType.Int32, associatesVo.IsDummy);
+                db.AddInParameter(UpdateAssociateDetailsCmd, "@KYDStatus", DbType.Boolean, associatesVo.KYDStatus);
+                db.AddInParameter(UpdateAssociateDetailsCmd, "@FormBRecvd", DbType.Boolean, associatesVo.FormBRecvd);
+                if (associatesVo.ARNDate != DateTime.MinValue)
+                    db.AddInParameter(UpdateAssociateDetailsCmd, "@ARNDate", DbType.DateTime, associatesVo.ARNDate);
+                else
+                    db.AddInParameter(UpdateAssociateDetailsCmd, "@ARNDate", DbType.DateTime, DBNull.Value);
+
 
                 if (db.ExecuteNonQuery(UpdateAssociateDetailsCmd) != 0)
                     bResult = true;

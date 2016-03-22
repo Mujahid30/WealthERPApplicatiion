@@ -183,6 +183,8 @@ namespace WealthERP.Associates
 
         private void SetEnableDisable(int flag)
         {
+            ddlTitleList.Enabled = false;
+            ddlRM.Enabled = false;
             if (flag == 0)
             {
 
@@ -233,7 +235,7 @@ namespace WealthERP.Associates
                 txtBankAdrCity.Enabled = false;
                 ddlBankAdrState.Enabled = false;
                 txtBankAdrPinCode.Enabled = false;
-
+                rdpUpdateDate.Enabled = false;
                 txtMicr.Enabled = false;
                 txtIfsc.Enabled = false;
                 txtNomineeName.Enabled = false;
@@ -266,11 +268,17 @@ namespace WealthERP.Associates
                 txtPan.Enabled = false;
                 chkIsActive.Enabled = false;
                 chkIsDummy.Enabled = false;
+                chkKYD.Enabled = false;
+                chkFormB.Enabled = false;
+                txtRemarks.Enabled = false;
+                txtBankEmail.Enabled = false;
+                txtBankMobile.Enabled = false;
+                rdpUpdateDate.Enabled = false;
             }
             else
             {
 
-
+                rdpUpdateDate.Enabled = true;
                 txtAMFINo.Enabled = true;
                 txtStartDate.Enabled = true;
                 txtEndDate.Enabled = true;
@@ -354,6 +362,12 @@ namespace WealthERP.Associates
                 txtPan.Enabled = true;
                 chkIsActive.Enabled = true;
                 chkIsDummy.Enabled = true;
+                chkKYD.Enabled = true;
+                chkFormB.Enabled = true;
+                txtRemarks.Enabled = true;
+                txtBankEmail.Enabled = true;
+                txtBankMobile.Enabled = true;
+                rdpUpdateDate.Enabled = true;
             }
 
         }
@@ -383,11 +397,16 @@ namespace WealthERP.Associates
                 chkIsActive.Checked = true;
             else
                 chkIsActive.Checked = false;
-
+            chkFormB.Checked = associatesVo.FormBRecvd;
+            chkKYD.Checked = associatesVo.KYDStatus;
             if (associatesVo.IsDummy == 1)
                 chkIsDummy.Checked = true;
             else
                 chkIsDummy.Checked = false;
+            chkKYD.Checked = associatesVo.KYDStatus;
+            chkFormB.Checked=associatesVo.FormBRecvd;
+            if (associatesVo.ARNDate != null && associatesVo.ARNDate != DateTime.MinValue)
+                rdpARNDate.SelectedDate = associatesVo.ARNDate;
 
             if (associatesVo.BMName != null)
                 ddlBranch.SelectedValue = associatesVo.BranchId.ToString();
@@ -463,6 +482,7 @@ namespace WealthERP.Associates
             if (associatesVo.PerAdrPinCode != null)
                 txtPermAdrPinCode.Text = associatesVo.PerAdrPinCode.ToString();
             //BindState();
+            
             if (!string.IsNullOrEmpty(associatesVo.PerAdrState))
             {
                 ddlPermAdrState.SelectedValue = associatesVo.PerAdrState;
@@ -479,7 +499,7 @@ namespace WealthERP.Associates
                 ddlGender.SelectedValue = associatesVo.Gender;
             if (associatesVo.DOB != DateTime.MinValue)
                 txtDOB.SelectedDate = associatesVo.DOB;
-
+            txtRemarks.Text = associatesVo.Remarks;
             if (associatesVo.BankCode != null)
                 ddlBankName.SelectedValue = associatesVo.BankCode;
             if (associatesVo.BankAccountTypeCode != null)
@@ -506,7 +526,11 @@ namespace WealthERP.Associates
 
             if (associatesVo.ExpiryDate != DateTime.MinValue)
                 txtRegExpDate.SelectedDate = associatesVo.ExpiryDate;
-
+            txtBankMobile.Text = associatesVo.BankMobile.ToString();
+            txtBankEmail.Text = associatesVo.BankEmail;
+             if (associatesVo.BankUpdatedDate != DateTime.MinValue)
+                 rdpUpdateDate.SelectedDate = associatesVo.BankUpdatedDate;
+            
             if (associatesVo.NomineeName != null)
                 txtNomineeName.Text = associatesVo.NomineeName;
             if (associatesVo.RelationshipCode != null)
@@ -523,7 +547,8 @@ namespace WealthERP.Associates
                 txtGuardianAdress.Text = associatesVo.GuardianAddress;
             if (associatesVo.GuardianTelNo != null)
                 txtGurdianPhone.Text = associatesVo.GuardianTelNo.ToString();
-
+            if (associatesVo.NomineeDOB != DateTime.MinValue)
+                rdpNomDOB.SelectedDate = associatesVo.NomineeDOB;
             if (associatesVo.AdviserCategory != null)
                 ddlAdviserCategory.SelectedValue = associatesVo.AdviserCategory;
 
@@ -844,6 +869,7 @@ namespace WealthERP.Associates
             associatesVo.AAC_UserType = "Associates";
             Session["TempAssociatesVo"] = associatesVo;
             Session["AssociateUserVo"] = associateUserVo;
+
             if (chkIsActive.Checked)
             {
                 associatesVo.IsActive = 1;
@@ -875,6 +901,9 @@ namespace WealthERP.Associates
                 associatesVo.AssociateType = "NIND";
             if (ddlAssociateSubType.SelectedIndex != 0)
                 associatesVo.AssociateSubType = ddlAssociateSubType.SelectedValue;
+            associatesVo.KYDStatus = chkKYD.Checked;
+            associatesVo.FormBRecvd = chkFormB.Checked;
+            associatesVo.ARNDate = Convert.ToDateTime(rdpARNDate.SelectedDate);
             //if (txtStartDate.SelectedDate == null)
             //    associatesVo.StartDate = DateTime.MinValue;
             //else
@@ -1000,6 +1029,8 @@ namespace WealthERP.Associates
             associatesVo.AAC_AgentCode = txtAdviserAgentCode.Text;
             associatesVo.ContactPersonName = txtAssociateName.Text;
             associatesVo.PanNo = txtPan.Text;
+            if (rdpARNDate.SelectedDate!= null)
+                associatesVo.ARNDate = Convert.ToDateTime(rdpARNDate.SelectedDate);
             if (!string.IsNullOrEmpty(txtMobile1.Text))
                 associatesVo.Mobile = long.Parse(txtMobile1.Text);
             else
@@ -1049,7 +1080,8 @@ namespace WealthERP.Associates
                 associatesVo.EndDate = Convert.ToDateTime(txtEndDate.SelectedDate);
             if (!string.IsNullOrEmpty(ddlBranch.SelectedValue))
                 associatesVo.BranchId = Convert.ToInt32(ddlBranch.SelectedValue);
-
+            associatesVo.KYDStatus = chkKYD.Checked;
+            associatesVo.FormBRecvd = chkFormB.Checked;
             associatesBo.UpdateAssociateDetails(associatesVo, userId, associateid, agentcode);
             controlEnable(0);
             btnAssociateUpdate.Visible = false;
@@ -1193,7 +1225,7 @@ namespace WealthERP.Associates
             associatesVo.Gender = ddlGender.SelectedValue;
             if (txtDOB.SelectedDate != DateTime.MinValue)
                 associatesVo.DOB = Convert.ToDateTime(txtDOB.SelectedDate);
-
+              associatesVo.Remarks = txtRemarks.Text;
             //---------------------------------------BANK DETAILS-------------------------------------------
 
             if (ddlBankName.SelectedIndex != 0)
@@ -1240,7 +1272,11 @@ namespace WealthERP.Associates
                 associatesVo.IFSC = txtIfsc.Text;
             else
                 associatesVo.IFSC = "";
-
+            if (rdpUpdateDate.SelectedDate != DateTime.MinValue)
+                associatesVo.BankUpdatedDate = Convert.ToDateTime(rdpUpdateDate.SelectedDate);
+            associatesVo.BankEmail=txtBankEmail.Text;
+            if (!String.IsNullOrEmpty(txtBankMobile.Text))
+                associatesVo.BankMobile = Convert.ToInt64( txtBankMobile.Text);
             //---------------------------------------NOMINEE-------------------------------------------
 
             if (!string.IsNullOrEmpty(txtNomineeName.Text))
@@ -1276,7 +1312,8 @@ namespace WealthERP.Associates
                 associatesVo.GuardianRelationship = ddlGuardianRel.SelectedValue;
             else
                 associatesVo.GuardianRelationship = "";
-
+            if (rdpNomDOB.SelectedDate != DateTime.MinValue)
+                associatesVo.NomineeDOB = Convert.ToDateTime(rdpNomDOB.SelectedDate);
             //---------------------------------------Category-------------------------------------------
 
             if (ddlAdviserCategory.SelectedIndex != 0)
@@ -1329,7 +1366,7 @@ namespace WealthERP.Associates
         }
         protected void btnContactDetails_OnClick(object sender, EventArgs e)
         {
-            int associateId=0;
+            int associateId = 0;
             if (Request.QueryString["action"] != "" && Request.QueryString["action"] != null)
             {
                 if (Request.QueryString["action"].Trim() == "Edit" || Request.QueryString["action"].Trim() == "View")
@@ -1342,7 +1379,7 @@ namespace WealthERP.Associates
                 associateId = int.Parse(Session["AdviserAssociateIds"].ToString());
 
             }
-            if (!String.IsNullOrEmpty( txtMobile1.Text) && associatesBo.AssociateFieldValidation(txtMobile1.Text, "Mobile", advisorVo.advisorId, associateId))
+            if (!String.IsNullOrEmpty(txtMobile1.Text) && associatesBo.AssociateFieldValidation(txtMobile1.Text, "Mobile", advisorVo.advisorId, associateId))
             {
                 lblMobMandatory.Visible = true;
                 return;
@@ -1442,6 +1479,8 @@ namespace WealthERP.Associates
             ddlQualification.Enabled = true;
             ddlGender.Enabled = true;
             txtDOB.Enabled = true;
+            txtRemarks.Enabled = true;
+
         }
         protected void OtherInformation_OnClick(object sender, EventArgs e)
         {
@@ -1480,6 +1519,9 @@ namespace WealthERP.Associates
             txtMicr.Enabled = true;
             txtIfsc.Enabled = true;
             chkAddressChk.Enabled = true;
+            txtBankEmail.Enabled = true;
+            txtBankMobile.Enabled = true;
+            rdpUpdateDate.Enabled = true;
         }
         protected void btnBankDetails_OnClick(object sender, EventArgs e)
         {
@@ -1514,6 +1556,7 @@ namespace WealthERP.Associates
             ddlGuardianRel.Enabled = true;
             txtGuardianAdress.Enabled = true;
             txtGurdianPhone.Enabled = true;
+            rdpNomDOB.Enabled = true;
         }
         protected void btnNominee_OnClick(object sender, EventArgs e)
         {
@@ -1609,6 +1652,9 @@ namespace WealthERP.Associates
                 chkbldepart.Enabled = false;
                 BtnSave.Visible = false;
                 ddlTitleList.Enabled = false;
+                rdpARNDate.Enabled = false;
+                chkFormB.Enabled = false;
+                chkKYD.Enabled = false;
             }
             else
             {

@@ -81,7 +81,8 @@
         </td>
         <td>
             <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" AutoPostBack="true"
-                OnSelectedIndexChanged="ddlRM_SelectedIndexChanged" Style="vertical-align: middle;width:250px;">
+                OnSelectedIndexChanged="ddlRM_SelectedIndexChanged" Style="vertical-align: middle;
+                width: 250px;">
             </asp:DropDownList>
             <span id="Span4" class="spnRequiredField">*</span>
             <br />
@@ -109,7 +110,6 @@
         </td>
     </tr>
     <tr id="trBranchRM" runat="server">
-      
         <td align="right">
             <asp:Label ID="lblAssociateName" runat="server" CssClass="FieldName" Text="Associate Name: "></asp:Label>
         </td>
@@ -225,6 +225,23 @@
                 Type="Date" ControlToValidate="txtEndDate" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
         </td>
+        <td align="right">
+            <asp:Label ID="Label17" CssClass="FieldName" runat="server" Text="ARN Date:"></asp:Label>
+        </td>
+        <td>
+            <telerik:RadDatePicker ID="rdpARNDate" CssClass="txtTo" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar ID="Calendar8" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                    ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput ID="DateInput8" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
+            <asp:CompareValidator ID="CompareValidator12" runat="server" ErrorMessage="<br/>Please enter a valid date."
+                Type="Date" ControlToValidate="rdpARNDate" CssClass="cvPCG" Operator="DataTypeCheck"
+                ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+        </td>
     </tr>
     <tr>
         <td class="leftField" align="right">
@@ -250,7 +267,34 @@
                 ValidationGroup="Submit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
-    <tr>
+    </table>
+    <table width="100%">
+  <tr>
+  <td></td>
+        <td>
+         <asp:CheckBox ID="chkKYD" runat="server" Text="KYD Status" CssClass="txtField" />
+        </td>
+        <td>
+         <asp:CheckBox ID="chkFormB" runat="server" Text="Form'B' received" CssClass="txtField" />
+        </td>
+        <td>
+            <asp:CheckBox ID="chkIsActive" runat="server" Text="IsActive" CssClass="txtField" />
+        </td>
+        <td>
+            <asp:CheckBox ID="chkIsDummy" runat="server" Text="IsDummy" CssClass="txtField" />
+        </td>
+        <td colspan="2">
+            <asp:Button ID="btnPreviewSend" runat="server" Visible="false" target="_blank" Text="Generate & Mail Welcome letter"
+                CssClass="PCGButton" OnClick="lbtnPreviewSend_Click" />
+            <br />
+            <br />
+            <asp:LinkButton ID="lbtnPreviewSend" CssClass="LinkButtons" Visible="false" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);"
+                runat="server" OnClick="btnPreviewSend_Click">View Welcome Letter</asp:LinkButton>
+        </td>
+          
+    </tr>
+   
+      <tr>
         <td align="right">
             <asp:Label ID="lblDept" runat="server" Text="Privilege Name:" CssClass="FieldName"></asp:Label>
         </td>
@@ -264,24 +308,10 @@
                 InitialValue="0" Display="Dynamic">
             </asp:RequiredFieldValidator>
         </td>
-        <td>
-        </td>
-        <td>
-            <asp:CheckBox ID="chkIsActive" runat="server" Text="IsActive" CssClass="txtField" />
-        </td>
-        <td>
-            <asp:CheckBox ID="chkIsDummy" runat="server" Text="IsDummy" CssClass="txtField" />
-        </td>
-        <td colspan="2">
-            <asp:Button ID="btnPreviewSend" runat="server" Visible="false" target="_blank" Text="Generate & Mail Welcome letter"
-                CssClass="PCGButton" OnClick="lbtnPreviewSend_Click" />
-                <br />
-                 <br />
-            <asp:LinkButton ID="lbtnPreviewSend" CssClass="LinkButtons" Visible="false" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);"
-                runat="server" OnClick="btnPreviewSend_Click">View Welcome Letter</asp:LinkButton>
-        </td>
-    </tr>
+        </tr>
     <tr>
+      </table>
+           <table width="100%">
         <td align="right">
             <asp:Label ID="Label3" runat="server" Text="Privilege Role:" CssClass="FieldName"></asp:Label>
         </td>
@@ -471,7 +501,8 @@
                             ValidationGroup="Submit" ErrorMessage="Please enter an EmailId" Display="Dynamic"
                             runat="server" CssClass="rfvPCG">
                         </asp:RequiredFieldValidator>
-                        <asp:Label ID="lblEmailMandatory" runat="server" Visible="false" CssClass="Error" Text="Email already exists"></asp:Label>
+                        <asp:Label ID="lblEmailMandatory" runat="server" Visible="false" CssClass="Error"
+                            Text="Email already exists"></asp:Label>
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtEmail"
                             ErrorMessage="Please enter a valid EmailId" Display="Dynamic" runat="server"
                             ValidationGroup="Submit" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
@@ -548,7 +579,7 @@
                     <td class="rightField">
                         <asp:DropDownList ID="ddlCorState" Visible="false" runat="server" CssClass="cmbField">
                         </asp:DropDownList>
-                        <asp:TextBox ID="txtCorState" runat="server" CssClass="txtField" ></asp:TextBox>
+                        <asp:TextBox ID="txtCorState" runat="server" CssClass="txtField"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
@@ -630,7 +661,7 @@
                     <td class="rightField">
                         <asp:DropDownList ID="ddlPermAdrState" Visible="false" runat="server" CssClass="cmbField">
                         </asp:DropDownList>
-                         <asp:TextBox ID="txtPermState" runat="server" CssClass="txtField" ></asp:TextBox>
+                        <asp:TextBox ID="txtPermState" runat="server" CssClass="txtField"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
@@ -742,6 +773,14 @@
                             <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                             </DateInput>
                         </telerik:RadDatePicker>
+                    </td>
+                </tr>
+                <tr>
+                 <td align="right">
+                        <asp:Label ID="Label16" runat="server" CssClass="FieldName" Text="Remarks:"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtRemarks" runat="server" CssClass="txtField"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
@@ -894,6 +933,42 @@
                     </td>
                     <td class="rightField">
                         <asp:TextBox ID="txtIfsc" runat="server" CssClass="txtField" MaxLength="11"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="Label8" runat="server" Text="Mobile:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtBankMobile" runat="server" CssClass="txtField"></asp:TextBox>
+                        <asp:CompareValidator ID="CompareValidator4" runat="server" ErrorMessage="<br />Enter a numeric value"
+                            CssClass="rfvPCG" Type="Integer" ValidationGroup="btnBank" ControlToValidate="txtBankMobile"
+                            Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
+                    </td>
+                    <td class="leftField">
+                        <asp:Label ID="Label10" runat="server" Text="EMail:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtBankEmail" runat="server" CssClass="txtField"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <asp:Label ID="Label14" CssClass="FieldName" runat="server" Text="Updated Date:"></asp:Label>
+                    </td>
+                    <td>
+                        <telerik:RadDatePicker ID="rdpUpdateDate" CssClass="txtTo" runat="server" Culture="English (United States)"
+                            Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                            <Calendar ID="Calendar6" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                                ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                            </Calendar>
+                            <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                            <DateInput ID="DateInput6" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                            </DateInput>
+                        </telerik:RadDatePicker>
+                        <asp:CompareValidator ID="CompareValidator10" runat="server" ErrorMessage="<br/>Please enter a valid date."
+                            Type="Date" ControlToValidate="rdpUpdateDate" CssClass="cvPCG" Operator="DataTypeCheck"
+                            ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
                     </td>
                 </tr>
                 <tr>
@@ -1070,6 +1145,25 @@
                     </td>
                     <td>
                         <asp:TextBox ID="txtNomineePhone" runat="server" CssClass="txtField"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <asp:Label ID="Label15" CssClass="FieldName" runat="server" Text="Nomine Date Of Birth:"></asp:Label>
+                    </td>
+                    <td>
+                        <telerik:RadDatePicker ID="rdpNomDOB" CssClass="txtTo" runat="server" Culture="English (United States)"
+                            Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                            <Calendar ID="Calendar7" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                                ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                            </Calendar>
+                            <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                            <DateInput ID="DateInput7" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                            </DateInput>
+                        </telerik:RadDatePicker>
+                        <asp:CompareValidator ID="CompareValidator11" runat="server" ErrorMessage="<br/>Please enter a valid date."
+                            Type="Date" ControlToValidate="rdpNomDOB" CssClass="cvPCG" Operator="DataTypeCheck"
+                            ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
                     </td>
                 </tr>
                 <tr>
