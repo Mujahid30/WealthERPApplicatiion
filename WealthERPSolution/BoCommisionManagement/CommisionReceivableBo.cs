@@ -1465,5 +1465,26 @@ namespace BoCommisionManagement
             }
             return bResult;
         }
+        public bool CreateNewRuleAndRate(DataTable dtBrokerRuleRate, int structureId, int userId)
+        {
+            bool bResult = false;
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            bResult = commisionReceivableDao.CreateNewRuleAndRate(dtBrokerRuleRate, structureId, userId);
+            return bResult;
+        }
+        public int RuleIsCreated(int structureId)
+        {
+            int count;
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            count = commisionReceivableDao.RuleIsCreated(structureId);
+            return count;
+        }
+        public bool UpdateRuleRateandTax(int ruleid, decimal serviceTax, decimal TDSValue, decimal recivablerate, decimal payablerate, string brokrageunit, int userId)
+        {
+            bool result = false;
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            result = commisionReceivableDao.UpdateRuleRateandTax(ruleid,serviceTax,TDSValue,recivablerate,payablerate,brokrageunit,userId);
+            return result;
+        }
     }
 }

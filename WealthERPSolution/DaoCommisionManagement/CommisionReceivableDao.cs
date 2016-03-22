@@ -2134,6 +2134,82 @@ namespace DaoCommisionManagement
             return bResult;
 
         }
+        public bool CreateNewRuleAndRate(DataTable dtBrokerRuleRate, int structureId, int userId)
+        {
+            bool bResult = false;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand dbCreateNewRuleAndRate;
+            DataSet dsCreateNewRuleAndRate = new DataSet();
 
+            try
+            {
+                dsCreateNewRuleAndRate.Tables.Add(dtBrokerRuleRate.Copy());
+                dsCreateNewRuleAndRate.DataSetName = "BrokerRuleRateDS";
+                dsCreateNewRuleAndRate.Tables[0].TableName = "BrokerRuleRateDT";
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCreateNewRuleAndRate = db.GetStoredProcCommand("SPROC_CreateMFNCDIPOBrokrageRuleRate");
+                db.AddInParameter(dbCreateNewRuleAndRate, "@StructureId", DbType.Int32, structureId);
+                db.AddInParameter(dbCreateNewRuleAndRate, "@BrokrageTable", DbType.Xml, dsCreateNewRuleAndRate.GetXml().ToString());
+                db.AddInParameter(dbCreateNewRuleAndRate, "@userId", DbType.Int32, userId);
+                if (db.ExecuteNonQuery(dbCreateNewRuleAndRate) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+        public int RuleIsCreated(int structureId)
+        {
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DataSet ds;
+            DbCommand cmdRuleIsCreated;
+            int count = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdRuleIsCreated = db.GetStoredProcCommand("SPROC_GetRuleAndRateCount");
+                db.AddInParameter(cmdRuleIsCreated, "@StructureId", DbType.Int32, structureId);
+                db.AddOutParameter(cmdRuleIsCreated, "@count", DbType.Int32, 0);
+
+                ds = db.ExecuteDataSet(cmdRuleIsCreated);
+                if (db.ExecuteNonQuery(cmdRuleIsCreated) != 0)
+                {
+                    count = Convert.ToInt32(db.GetParameterValue(cmdRuleIsCreated, "count").ToString());
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return count;
+        }
+         public bool UpdateRuleRateandTax(int ruleid,decimal serviceTax,decimal TDSValue,decimal recivablerate,decimal payablerate,string brokrageunit, int userId)
+        {
+            bool bResult = false;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand dbCreateNewRuleAndRate;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCreateNewRuleAndRate = db.GetStoredProcCommand("SPROC_UpdateRuleForBrokrageStructure");
+                db.AddInParameter(dbCreateNewRuleAndRate, "@ruleId", DbType.Int32, ruleid);
+                db.AddInParameter(dbCreateNewRuleAndRate, "@reciviablerate", DbType.Decimal, recivablerate);
+                db.AddInParameter(dbCreateNewRuleAndRate, "@payablerate", DbType.Decimal, payablerate);
+                db.AddInParameter(dbCreateNewRuleAndRate, "@brokrageUnit", DbType.String, brokrageunit);
+                db.AddInParameter(dbCreateNewRuleAndRate, "@ServiceTaxValue", DbType.Decimal, serviceTax);
+                db.AddInParameter(dbCreateNewRuleAndRate, "@reducetax", DbType.Decimal, TDSValue);
+                db.AddInParameter(dbCreateNewRuleAndRate, "@userId", DbType.Int32, userId);
+                if (db.ExecuteNonQuery(dbCreateNewRuleAndRate) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+        
     }
 }

@@ -47,7 +47,7 @@ namespace WealthERP.CommisionManagement
                 BindIssuerDropdown();
             }
         }
-
+        
         private void bindDropdown(DropDownList ddList, DataSet dsListItems)
         {
 
@@ -92,9 +92,6 @@ namespace WealthERP.CommisionManagement
 
             //Populating the product dropdown
             DataRow drProduct = dsLookupData.Tables[0].NewRow();
-            drProduct["PAG_AssetGroupCode"] = "All";
-            drProduct["PAG_AssetGroupName"] = "All";
-            dsLookupData.Tables[0].Rows.InsertAt(drProduct, 0);
             ddProduct.DataSource = dsLookupData.Tables[0];
             ddProduct.DataValueField = dsLookupData.Tables[0].Columns["PAG_AssetGroupCode"].ToString();
             ddProduct.DataTextField = dsLookupData.Tables[0].Columns["PAG_AssetGroupName"].ToString();
@@ -314,6 +311,25 @@ namespace WealthERP.CommisionManagement
             //    myDD.Items.Insert(2, new ListItem("View Mapped Schemes", itemVal));
             //    myDD.SelectedIndexChanged += new EventHandler(ddAction_OnSelectedIndexChanged);
             //}
+        }
+        protected void BindMFRulegrid()
+        {
+            DataTable dtRule = new DataTable();
+            dtRule.Columns.Add("");
+            dtRule.Columns.Add("");
+            dtRule.Columns.Add("");
+            dtRule.Columns.Add("");
+            dtRule.Columns.Add("");
+            dtRule.Columns.Add("");
+            dtRule.Columns.Add("");
+            dtRule.Columns.Add("");
+            dtRule.Columns.Add("");
+            dtRule.Columns.Add("");
+            dtRule.Columns.Add("");
+            dtRule.Columns.Add("");
+
+
+
         }
     }
 }

@@ -40,6 +40,8 @@ namespace WealthERP.Receivable {
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnActivRangeClose;
         protected global::System.Web.UI.WebControls.Button btnCancelSelectedRule;
+        protected global::System.Web.UI.WebControls.Button btnCreateRule;
+        protected global::System.Web.UI.WebControls.Button btnupdate;
         /// <summary>
         /// pnl1 control.
         /// </summary>

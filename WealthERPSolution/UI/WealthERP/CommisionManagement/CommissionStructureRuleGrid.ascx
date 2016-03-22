@@ -109,7 +109,7 @@
                         <table width="100%">
                             <tr>
                                 <td align="left">
-                                   View Brokerage Structure
+                                    View Brokerage Structure
                                 </td>
                                 <td align="right">
                                     <asp:ImageButton ID="ibtExportSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
@@ -140,7 +140,8 @@
                     <asp:Label ID="lblIssuer" runat="server" Text="Issuer :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightData">
-                    <asp:DropDownList ID="ddIssuer" runat="server" CssClass="cmbField" AutoPostBack="false" Width="300px">
+                    <asp:DropDownList ID="ddIssuer" runat="server" CssClass="cmbField" AutoPostBack="false"
+                        Width="300px">
                     </asp:DropDownList>
                     <br />
                     <asp:RequiredFieldValidator ID="rfvIssuer" runat="server" CssClass="rfvPCG" ErrorMessage="Please select an issuer"
@@ -153,17 +154,15 @@
                 <td class="leftLabel">
                     <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
                 </td>
-                <td class="rightData" >
-                    <asp:DropDownList ID="ddCategory" runat="server" CssClass="cmbField" AutoPostBack="true" 
+                <td class="rightData">
+                    <asp:DropDownList ID="ddCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
                         OnSelectedIndexChanged="ddCategory_OnSelectedIndexChanged">
                     </asp:DropDownList>
-                     <span id="Span2" class="spnRequiredField">*</span>
+                    <span id="Span2" class="spnRequiredField">*</span>
                     <br />
                     <asp:RequiredFieldValidator ID="rfvCategory" runat="server" ErrorMessage="Please Select Category"
-                CssClass="rfvPCG" ControlToValidate="ddCategory" ValidationGroup="btnGo" Display="Dynamic" Visible="true"
-                InitialValue="0" SetFocusOnError="true"></asp:RequiredFieldValidator>
-                   
-                    
+                        CssClass="rfvPCG" ControlToValidate="ddCategory" ValidationGroup="btnGo" Display="Dynamic"
+                        Visible="true" InitialValue="0" SetFocusOnError="true"></asp:RequiredFieldValidator>
                 </td>
                 <td class="leftLabel" id="tdlblSubCategory" runat="server" visible="false">
                     <asp:Label ID="lblSubCategory" runat="server" Text="Sub Category" CssClass="FieldName"
@@ -174,8 +173,6 @@
                         Enabled="False" Visible="true">
                         <asp:ListItem>All</asp:ListItem>
                     </asp:DropDownList>
-                    
-                    
                 </td>
                 <td class="leftLabel" id="tdlblStatus" runat="server" visible="false">
                     <asp:Label ID="lblStatus" runat="server" Text="Status" CssClass="FieldName"></asp:Label>
@@ -186,7 +183,6 @@
                         <asp:ListItem Value="Active" Selected="True">Active</asp:ListItem>
                         <asp:ListItem Value="Inactive">Inactive</asp:ListItem>
                     </asp:DropDownList>
-                     
                 </td>
                 <td>
                     &nbsp;
@@ -199,7 +195,8 @@
                 <td>
                 </td>
                 <td colspan="5">
-                    <asp:Button ID="btnGo" runat="server" Text="Go" OnClick="btnGo_Click" CssClass="PCGButton" ValidationGroup="btnGo"/>
+                    <asp:Button ID="btnGo" runat="server" Text="Go" OnClick="btnGo_Click" CssClass="PCGButton"
+                        ValidationGroup="btnGo" />
                 </td>
             </tr>
         </table>
@@ -231,7 +228,7 @@
                                                 AutoPostBack="true" CssClass="cmbField" EnableEmbeddedSkins="false" Width="80px">
                                                 <Items>
                                                     <asp:ListItem Selected="true" Text="Select" Value="Select" />
-                                                    <asp:ListItem Text="View Details" Value="ViewSTDetails"  />
+                                                    <asp:ListItem Text="View Details" Value="ViewSTDetails" />
                                                     <asp:ListItem Text="View Mapped Schemes" Value="ManageSchemeMapping" Enabled="false" />
                                                 </Items>
                                             </asp:DropDownList>
@@ -254,12 +251,12 @@
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="Category" HeaderStyle-Width="100px" CurrentFilterFunction="Contains"
                                         ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Category" UniqueName="cmCategory"
-                                        SortExpression="Category" Visible ="false" >
+                                        SortExpression="Category" Visible="false">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100px" Wrap="false" />
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="SubCategory" HeaderStyle-Width="150px" HeaderText="SubCategory"
                                         CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                        UniqueName="cmSubCategory" >
+                                        UniqueName="cmSubCategory">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="150px" Wrap="false" />
                                     </telerik:GridBoundColumn>
                                     <telerik:GridDateTimeColumn DataField="ValidFrom" DataFormatString="{0:dd/MM/yyyy}"
@@ -274,6 +271,11 @@
                                         SortExpression="ValidTill">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100px" Wrap="false" />
                                     </telerik:GridDateTimeColumn>
+                                    <telerik:GridBoundColumn DataField="ACSM_Note" HeaderStyle-Width="140px" CurrentFilterFunction="Contains"
+                                        ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Note" UniqueName="ACSM_Note"
+                                        SortExpression="ACSM_Note">
+                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="140px" Wrap="false" />
+                                    </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="CreatedOn" HeaderStyle-Width="150px" HeaderText="Created On"
                                         CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                         UniqueName="cmCreatedOn" Visible="true">
@@ -300,7 +302,6 @@
                             <ClientSettings>
                                 <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                                 <Resizing AllowColumnResize="true" />
-                                
                                 <Selecting AllowRowSelect="true" />
                             </ClientSettings>
                             <FilterMenu EnableEmbeddedSkins="False">
