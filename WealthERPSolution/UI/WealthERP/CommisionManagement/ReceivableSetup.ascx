@@ -1107,11 +1107,11 @@
                                             DataField="ACSR_CommissionStructureRuleName">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="WCT_CommissionType" HeaderText="Commission Type "
-                                            DataField="WCT_CommissionType">
+                                        <telerik:GridBoundColumn UniqueName="WCT_CommissionTypeCode" HeaderText="Com Typ"
+                                            DataField="WCT_CommissionTypeCode">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="SchemeName" HeaderText="Customer Category" DataField="XCT_CustomerTypeName">
+                                        <telerik:GridBoundColumn UniqueName="XCT_CustomerTypeCode" HeaderText="INV Typ" DataField="XCT_CustomerTypeCode">
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="ACSR_MinInvestmentAmount" HeaderText="Min. Invest Amount"
                                             DataField="ACSR_MinInvestmentAmount" DataFormatString="{0:N2}">
@@ -1158,7 +1158,7 @@
                                             DataField="ACSR_MaxNumberOfApplications">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="CO_ApplicationNo" HeaderText="App. No." DataField="CO_ApplicationNo">
+                                        <telerik:GridBoundColumn UniqueName="CO_ApplicationNo" HeaderText="App. No." DataField="CO_ApplicationNo" >
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="ASCR_WCMV_IncentiveType" HeaderText="Incentive Type"
@@ -1166,21 +1166,21 @@
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="ACSR_ValidilityStart" HeaderText="Validity From"
-                                            DataField="ACSR_ValidilityStart">
+                                            DataField="ACSR_ValidilityStart" Visible="false">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="ACSR_ValidilityEnd" HeaderText="Validity To"
-                                            DataField="ACSR_ValidilityEnd">
+                                            DataField="ACSR_ValidilityEnd" Visible="false">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridTemplateColumn UniqueName="ACSR_ServiceTaxValue" HeaderText="Service Tax Value"
-                                            DataField="ACSR_ServiceTaxValue" HeaderStyle-Width="50px">
+                                        <telerik:GridTemplateColumn UniqueName="ACSR_ServiceTaxValue" HeaderText="Service Tax Value(%)"
+                                            DataField="ACSR_ServiceTaxValue" HeaderStyle-Width="50px" >
                                             <ItemTemplate>
                                                 <asp:TextBox ID="txtServiceTex" runat="server" Width="50px" Text='<%#Eval("ACSR_ServiceTaxValue")%>'></asp:TextBox>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridTemplateColumn UniqueName="ACSR_ReducedValue" HeaderStyle-Width="50px"
-                                            HeaderText="TDS Value" DataField="ACSR_ReducedValue">
+                                            HeaderText="TDS Value(%)" DataField="ACSR_ReducedValue">
                                             <ItemTemplate>
                                                 <asp:TextBox ID="txtTDSTex" runat="server" Width="50px" Text='<%#Eval("ACSR_ReducedValue")%>'></asp:TextBox>
                                             </ItemTemplate>
@@ -1436,13 +1436,12 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="leftLabel">
-                                                        <asp:Label ID="lblCommissionApplicableLevel" runat="server" Text="Level:" CssClass="FieldName"></asp:Label>
+                                                        <asp:Label ID="lblCommissionApplicableLevel" runat="server" Text="Level:" CssClass="FieldName" Visible="false"></asp:Label>
                                                     </td>
                                                     <td class="rightData">
                                                         <asp:DropDownList ID="ddlCommissionApplicableLevel" runat="server" CssClass="cmbField"
-                                                            AutoPostBack="true" OnSelectedIndexChanged="ddlCommissionApplicableLevel_Selectedindexchanged">
+                                                            AutoPostBack="true" OnSelectedIndexChanged="ddlCommissionApplicableLevel_Selectedindexchanged" Visible="false">
                                                         </asp:DropDownList>
-                                                        <span id="Span9" class="spnRequiredField">*</span>
                                                     </td>
                                                     <td class="leftLabel">
                                                         <asp:Label ID="lblApplyTaxes" runat="server" Text="Apply Taxes(%):" CssClass="FieldName"

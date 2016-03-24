@@ -45,6 +45,7 @@ namespace WealthERP.Receivable
             radAplicationPopUp.VisibleOnPageLoad = false;
             if (!IsPostBack)
             {
+              
                 if (Request.QueryString["StructureId"] != null)
                 {
                     structureId = Convert.ToInt32(Request.QueryString["StructureId"].ToString());
@@ -788,7 +789,7 @@ namespace WealthERP.Receivable
                 commissionStructureMasterVo.AssetCategory = ddlCategory.SelectedValue;
                 commissionStructureMasterVo.Issuer = ddlIssuer.SelectedValue;
 
-                commissionStructureMasterVo.ValidityStartDate = Convert.ToDateTime(txtValidityFrom.Text);
+            commissionStructureMasterVo.ValidityStartDate = Convert.ToDateTime(txtValidityFrom.Text);
                 commissionStructureMasterVo.ValidityEndDate = Convert.ToDateTime(txtValidityTo.Text);
                 commissionStructureMasterVo.CommissionStructureName = txtStructureName.Text.Trim();
                 hdnRulestart.Value = txtValidityFrom.Text;
@@ -1365,6 +1366,14 @@ namespace WealthERP.Receivable
             {
                 DropDownList ddlBrokrageUnit = (DropDownList)e.Item.FindControl("ddlBrokrageUnit");
                 Label lblTransactionType = (Label)e.Item.FindControl("lblTransactionType");
+                if (ddlProductType.SelectedValue == "MF")
+                {
+                    RadGridStructureRule.MasterTableView.GetColumn("ACSR_MinNumberOfApplications").Visible=false;
+                    RadGridStructureRule.MasterTableView.GetColumn("ACSR_MaxNumberOfApplications").Visible = false;
+                    RadGridStructureRule.MasterTableView.GetColumn("CO_ApplicationNo").Visible = false; 
+                    
+
+                }
                 string transactiontype = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_TransactionType"].ToString();
                 if (transactiontype.Contains("ABY,BUY"))
                 {
@@ -1715,7 +1724,7 @@ namespace WealthERP.Receivable
                     }
                     ddlAppCityGroup.SelectedValue = strCityGroupID;
                     ddlReceivableFrequency.SelectedValue = strReceivableRuleFrequency;
-                    ddlCommissionApplicableLevel.SelectedValue = strApplicableLevelCode;
+                    ddlCommissionApplicableLevel.SelectedValue = "TR";
 
                     foreach (ListItem chkItems in chkListApplyTax.Items)
                     {
@@ -2232,7 +2241,7 @@ namespace WealthERP.Receivable
 
                 commissionStructureRuleVo.AdviserCityGroupCode = ddlAppCityGroup.SelectedValue;
                 commissionStructureRuleVo.ReceivableFrequency = ddlReceivableFrequency.SelectedValue;
-                commissionStructureRuleVo.ApplicableLevelCode = ddlCommissionApplicableLevel.SelectedValue;
+                commissionStructureRuleVo.ApplicableLevelCode ="TR";
                 commissionStructureRuleVo.applicationNo = txtApplicationNo.Text;
                 //if (chkSpecial.Checked == true)
                 //    commissionStructureRuleVo.specialIncentiv = 1;
@@ -2400,7 +2409,7 @@ namespace WealthERP.Receivable
                 }
                 else if (CommisionType == "IN" || CommisionType == "IM" || CommisionType == "IA" || CommisionType == "IS")
                 {
-                    ddlCommissionApplicableLevel.SelectedValue = "AD";
+                    ddlCommissionApplicableLevel.SelectedValue = "TR";
                     ddlCommissionApplicableLevel.Enabled = false;
                     tdMinNumberOfApplication.Visible = !enablement;
                     trMinAndMaxNumberOfApplication.Visible = !enablement;
@@ -2936,8 +2945,8 @@ namespace WealthERP.Receivable
 
 
             dr["SNO."] = 1;
-            dr["WCT_CommissionType"] = "Brokerage/UpFront";
-            dr["XCT_CustomerTypeName"] = "Individual";
+            dr["WCT_CommissionType"] = "UP";
+            dr["XCT_CustomerTypeName"] = "IND";
             dr["ACSR_MinInvestmentAge"] = "0";	
             dr["ACSR_MaxInvestmentAge"] = "0";
             dr["ACSR_TransactionType"] = "Normal";
@@ -2954,8 +2963,8 @@ namespace WealthERP.Receivable
             dr = null;
             dr = dttable.NewRow();
             dr["SNO."] = 2;
-            dr["WCT_CommissionType"] = "Brokerage/UpFront";
-            dr["XCT_CustomerTypeName"] = "Individual";
+            dr["WCT_CommissionType"] = "UP";
+            dr["XCT_CustomerTypeName"] = "IND";
             dr["ACSR_MinInvestmentAge"] = "0";
             dr["ACSR_MaxInvestmentAge"] = "0";
             dr["ACSR_TransactionType"] = "Normal";
@@ -2973,8 +2982,8 @@ namespace WealthERP.Receivable
             dr = null;
             dr = dttable.NewRow();
             dr["SNO."] = 3;
-            dr["WCT_CommissionType"] = "Trail Commission";
-            dr["XCT_CustomerTypeName"] = "Individual";
+            dr["WCT_CommissionType"] = "Trail";
+            dr["XCT_CustomerTypeName"] = "IND";
             dr["ACSR_MinInvestmentAmount"] = "0";
             dr["ACSR_MaxInvestmentAmount"] = "0";
             dr["ACSR_MinInvestmentAge"] = "0";
@@ -2986,14 +2995,16 @@ namespace WealthERP.Receivable
             dr["ACG_CityGroupName"] = "T15";
             dr["PaybleValue"] = "0";
             dr["RecievableValue"] = "0";
-            dr["ACSR_CommissionStructureRuleName"] = ddlIssuer.SelectedItem.Text.Substring(0, 5) + " " + "T15" + " " + "UP" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
+            dr["ACSR_InvestmentAgeUnit"] = "Days";
+            
+            dr["ACSR_CommissionStructureRuleName"] = ddlIssuer.SelectedItem.Text.Substring(0, 5) + " " + "T15" + " " + "Trail" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
 
             dttable.Rows.Add(dr);
             dr = null;
             dr = dttable.NewRow();
             dr["SNO."] = 4;
-            dr["WCT_CommissionType"] = "Trail Commission";
-            dr["XCT_CustomerTypeName"] = "Individual";
+            dr["WCT_CommissionType"] = "Trail";
+            dr["XCT_CustomerTypeName"] = "IND";
             dr["ACSR_MinInvestmentAmount"] = "0";
             dr["ACSR_MaxInvestmentAmount"] = "0";
             dr["ACSR_MinInvestmentAge"] = "0";
@@ -3005,14 +3016,16 @@ namespace WealthERP.Receivable
             dr["ACG_CityGroupName"] = "B15";
             dr["PaybleValue"] = "0";
             dr["RecievableValue"] = "0";
-            dr["ACSR_CommissionStructureRuleName"] = ddlIssuer.SelectedItem.Text.Substring(0, 5) + " " + "B15" + " " + "UP" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
+            dr["ACSR_InvestmentAgeUnit"] = "Days";
+
+            dr["ACSR_CommissionStructureRuleName"] = ddlIssuer.SelectedItem.Text.Substring(0, 5) + " " + "B15" + " " + "Trail" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
 
             dttable.Rows.Add(dr);
             dr = null;
             dr = dttable.NewRow();
             dr["SNO."] = 5;
-            dr["WCT_CommissionType"] = "Trail Commission";
-            dr["XCT_CustomerTypeName"] = "Individual";
+            dr["WCT_CommissionType"] = "Trail";
+            dr["XCT_CustomerTypeName"] = "IND";
             dr["ACSR_MinInvestmentAmount"] = "0";
             dr["ACSR_MaxInvestmentAmount"] = "0";
             dr["ACSR_MinInvestmentAge"] = "366";
@@ -3024,14 +3037,16 @@ namespace WealthERP.Receivable
             dr["ACG_CityGroupName"] = "T15";
             dr["PaybleValue"] = "0";
             dr["RecievableValue"] = "0";
-            dr["ACSR_CommissionStructureRuleName"] = ddlIssuer.SelectedItem.Text.Substring(0, 5) + " " + "T15" + " " + "UP" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
+            dr["ACSR_InvestmentAgeUnit"] = "Days";
+
+            dr["ACSR_CommissionStructureRuleName"] = ddlIssuer.SelectedItem.Text.Substring(0, 5) + " " + "T15" + " " + "Trail" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
 
             dttable.Rows.Add(dr);
             dr = null;
             dr = dttable.NewRow();
             dr["SNO."] = 6;
-            dr["WCT_CommissionType"] = "Trail Commission";
-            dr["XCT_CustomerTypeName"] = "Individual";
+            dr["WCT_CommissionType"] = "Trail";
+            dr["XCT_CustomerTypeName"] = "IND";
             dr["ACSR_MinInvestmentAmount"] = "0";
             dr["ACSR_MaxInvestmentAmount"] = "0";
             dr["ACSR_MinInvestmentAge"] = "366";
@@ -3043,14 +3058,16 @@ namespace WealthERP.Receivable
             dr["ACG_CityGroupName"] = "B15";
             dr["PaybleValue"] = "0";
             dr["RecievableValue"] = "0";
-            dr["ACSR_CommissionStructureRuleName"] = ddlIssuer.SelectedItem.Text.Substring(0, 5) + " " + "B15" + " " + "UP" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
+            dr["ACSR_InvestmentAgeUnit"] = "Days";
+
+            dr["ACSR_CommissionStructureRuleName"] = ddlIssuer.SelectedItem.Text.Substring(0, 5) + " " + "B15" + " " + "Trail" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
 
             dttable.Rows.Add(dr);
             dr = null;
             dr = dttable.NewRow();
             dr["SNO."] = 7;
             dr["WCT_CommissionType"] = "Trail Commission";
-            dr["XCT_CustomerTypeName"] = "Individual";
+            dr["XCT_CustomerTypeName"] = "IND";
             dr["ACSR_MinInvestmentAmount"] = "0";
             dr["ACSR_MaxInvestmentAmount"] = "0";
             dr["ACSR_MinInvestmentAge"] = "730";
@@ -3062,14 +3079,16 @@ namespace WealthERP.Receivable
             dr["ACG_CityGroupName"] = "T15";
             dr["PaybleValue"] = "0";
             dr["RecievableValue"] = "0";
-            dr["ACSR_CommissionStructureRuleName"] = ddlIssuer.SelectedItem.Text.Substring(0, 5) + " " + "T15" + " " + "UP" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
+            dr["ACSR_InvestmentAgeUnit"] = "Days";
+
+            dr["ACSR_CommissionStructureRuleName"] = ddlIssuer.SelectedItem.Text.Substring(0, 5) + " " + "T15" + " " + "Trail" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
 
             dttable.Rows.Add(dr);
             dr = null;
             dr = dttable.NewRow();
             dr["SNO."] = 8;
-            dr["WCT_CommissionType"] = "Trail Commission";
-            dr["XCT_CustomerTypeName"] = "Individual";
+            dr["WCT_CommissionType"] = "Trail";
+            dr["XCT_CustomerTypeName"] = "IND";
             dr["ACSR_MinInvestmentAmount"] = "0";
             dr["ACSR_MaxInvestmentAmount"] = "0";
             dr["ACSR_MinInvestmentAge"] = "730";
@@ -3081,7 +3100,9 @@ namespace WealthERP.Receivable
             dr["ACG_CityGroupName"] = "B15";
             dr["PaybleValue"] = "0";
             dr["RecievableValue"] = "0";
-            dr["ACSR_CommissionStructureRuleName"] = ddlIssuer.SelectedItem.Text.Substring(0, 5) + " " + "B15" + " " + "UP" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
+            dr["ACSR_InvestmentAgeUnit"] = "Days";
+
+            dr["ACSR_CommissionStructureRuleName"] = ddlIssuer.SelectedItem.Text.Substring(0, 5) + " " + "B15" + " " + "Trail" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
 
             dttable.Rows.Add(dr);
 
@@ -4597,6 +4618,8 @@ namespace WealthERP.Receivable
             //dtRulecreate.Columns.Add("PayableLookup");
             dtRulecreate.Columns.Add("ValidationFrom",typeof(DateTime));
             dtRulecreate.Columns.Add("ValidationTo", typeof(DateTime));
+            dtRulecreate.Columns.Add("ACSR_InvestmentAgeUnit");
+
 
 
 
@@ -4642,8 +4665,9 @@ namespace WealthERP.Receivable
                 drRulecreate["BrokerageUnit"] = ddlBrokrageUnit.SelectedValue;
                 //drRulecreate["RecvLookup"] = 16019;
                 //drRulecreate["PayableLookup"] = 16020;
-                drRulecreate["ValidationFrom"] = txtValidityFrom.Text;
-                drRulecreate["ValidationTo"] = txtValidityTo.Text;
+                drRulecreate["ValidationFrom"] = Convert.ToDateTime(txtValidityFrom.Text);
+                  drRulecreate["ValidationTo"] =Convert.ToDateTime(txtValidityTo.Text);
+                drRulecreate["ACSR_InvestmentAgeUnit"] = "Days";
                 dtRulecreate.Rows.Add(drRulecreate);
             }
             bool result = false;
