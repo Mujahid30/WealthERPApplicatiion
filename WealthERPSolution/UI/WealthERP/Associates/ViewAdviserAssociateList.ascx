@@ -99,11 +99,7 @@
                                                 HeaderText="Title" UniqueName="Titles">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>--%>
-                                            <telerik:GridBoundColumn DataField="AssociatesName" SortExpression="AssociatesName"
-                                                AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                                AllowFiltering="true" HeaderText="Channel" UniqueName="AssociatesName">
-                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
+                                          
                                             <telerik:GridBoundColumn DataField="ClusterManager" SortExpression="ClusterManager"
                                                 AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                                 AllowFiltering="true" HeaderText="Cluster Manager" UniqueName="ClusterManager">
