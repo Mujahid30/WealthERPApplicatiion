@@ -177,15 +177,21 @@ namespace WealthERP.OffLineOrderManagement
 
                 }
 
-            }
 
-            if (!IsPostBack)
-            {
+                FICategory();
+            
                 if (string.IsNullOrEmpty(ViewForm))
                     RadDateControlBusinessDateValidation(ref txtPaymentInstDate, DateTime.Now);
-                FICategory();
-                //  FIScheme(advisorVo.advisorId, "0");                
-                lblPanDuplicate.Visible = false;
+                if (Request.QueryString["FDOrder"] == "FICDCD")
+                {
+                    ddlCategory.Items.FindByValue("FICGCG").Enabled = false;
+                }
+                else
+                {
+                    ddlCategory.Items.FindByValue("FICDCD").Enabled = false;
+                }
+                    //  FIScheme(advisorVo.advisorId, "0");                
+                    lblPanDuplicate.Visible = false;
                 rbtnIndividual.Checked = true;
                 trIndividualName.Visible = false;
                 trNonIndividualName.Visible = false;

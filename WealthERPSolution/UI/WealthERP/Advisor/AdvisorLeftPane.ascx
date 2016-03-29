@@ -270,6 +270,10 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="FD/54EC Order Book" Value="54EC_ORDER_bOOK">
                                                     </telerik:RadPanelItem>
+                                                     <telerik:RadPanelItem runat="server" Text="Add FD Order" Value="FD_Order">
+                                                    </telerik:RadPanelItem>
+                                                     <telerik:RadPanelItem runat="server" Text="FD Order Book" Value="FD_Order_Book">
+                                                    </telerik:RadPanelItem>
                                                     
                                                 </Items>
                                             </telerik:RadPanelItem>
@@ -1030,6 +1034,10 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="FD/54EC Order Book" Value="54EC_ORDER_bOOK">
                                                     </telerik:RadPanelItem>
+                                                      <telerik:RadPanelItem runat="server" Text="Add FD Order" Value="FD_Order">
+                                                    </telerik:RadPanelItem>
+                                                     <telerik:RadPanelItem runat="server" Text="FD Order Book" Value="FD_Order_Book">
+                                                    </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Online" Value="Online">
@@ -1548,6 +1556,10 @@
                                                     <telerik:RadPanelItem runat="server" Text="Add FD/54EC order" Value="ProductOrderMaster">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="FD/54EC Order Book" Value="54EC_ORDER_bOOK">
+                                                    </telerik:RadPanelItem>
+                                                      <telerik:RadPanelItem runat="server" Text="Add FD Order" Value="FD_Order">
+                                                    </telerik:RadPanelItem>
+                                                     <telerik:RadPanelItem runat="server" Text="FD Order Book" Value="FD_Order_Book">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>

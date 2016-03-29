@@ -603,7 +603,11 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "54EC_ORDER_bOOK")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderBook','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderBook','FDOrderBook=FICGCG');", true);
+                }
+                else if (e.Item.Value == "FD_Order_Book")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderBook','FDOrderBook=FICDCD');", true);
                 }
                 else if (e.Item.Value == "View_Associate_Payable_Rule")
                 {
@@ -689,8 +693,12 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "ProductOrderMaster")
                 {
-                    Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderEntry','login');", true);
+                    // Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderEntry','FDOrder=FICGCG');", true);
+                }
+                else if (e.Item.Value == "FD_Order")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderEntry','FDOrder=FICDCD');", true);
                 }
                 else if (e.Item.Value == "FixedIncomeOrderEntry")
                 {
@@ -1933,7 +1941,11 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "54EC_ORDER_bOOK")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderBook','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderBook','FDOrderBook=FICGCG');", true);
+                }
+                else if (e.Item.Value == "FD_Order_Book")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderBook','FDOrderBook=FICDCD');", true);
                 }
                 else if (e.Item.Value == "SIP_Offline_Book")
                 {
@@ -2148,8 +2160,13 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "ProductOrderMaster")
                 {
                     // Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderEntry','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderEntry','FDOrder=FICGCG');", true);
                 }
+                else if (e.Item.Value == "FD_Order")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderEntry','FDOrder=FICDCD');", true);
+                }
+         
                 else if (e.Item.Value == "Customer_Report")
                 {
                     Session["UserType"] = "ops";
@@ -3669,7 +3686,11 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "54EC_ORDER_bOOK")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderBook','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderBook','FDOrderBook=FICGCG');", true);
+                }
+                else if (e.Item.Value == "FD_Order_Book")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderBook','FDOrderBook=FICDCD');", true);
                 }
                 else if (e.Item.Value == "View_Associate_Payable_Rule")
                 {
@@ -3769,8 +3790,12 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "ProductOrderMaster")
                 {
-                    Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderEntry','login');", true);
+                    // Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderEntry','FDOrder=FICGCG');", true);
+                }
+                else if (e.Item.Value == "FD_Order")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderEntry','FDOrder=FICDCD');", true);
                 }
                 else if (e.Item.Value == "LI_Order")
                 {

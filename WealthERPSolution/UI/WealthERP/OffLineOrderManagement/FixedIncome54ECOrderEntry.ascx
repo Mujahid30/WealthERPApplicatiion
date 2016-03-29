@@ -882,7 +882,7 @@
                         <%--<asp:TextBox ID="txtTax" runat="server" CssClass="txtField" AutoComplete="Off" ReadOnly="true"   />  --%>
                     </td>
                     <td align="right">
-                        <asp:Label ID="lblAssociateReport" runat="server" CssClass="FieldName" Text="Report To:"
+                        <asp:Label ID="lblAssociateReport" runat="server" CssClass="FieldName" Text="RM:"
                             Visible="false"></asp:Label>
                     </td>
                     <td>

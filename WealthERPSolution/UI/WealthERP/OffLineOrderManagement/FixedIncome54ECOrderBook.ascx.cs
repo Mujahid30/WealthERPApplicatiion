@@ -74,6 +74,14 @@ namespace WealthERP.OffLineOrderManagement
                 txtOrderTo.SelectedDate = DateTime.Now;
                 BindNcdCategory();
                 BindOrderStatus();
+                if (Request.QueryString["FDOrderBook"] == "FICDCD")
+                {
+                    ddlCategory.Items.FindByValue("FICGCG").Enabled = false;
+                }
+                else
+                {
+                    ddlCategory.Items.FindByValue("FICDCD").Enabled = false;
+                }
                 if (Request.QueryString["category"] != null)
                 {
                     string categorywise = Request.QueryString["category"].ToString().TrimEnd(' ');
