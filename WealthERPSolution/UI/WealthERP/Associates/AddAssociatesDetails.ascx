@@ -410,13 +410,13 @@
                             MaxLength="3"></asp:TextBox>
                         <asp:TextBox ID="txtResPhoneNo" runat="server" Width="90px" CssClass="txtField" MaxLength="8"></asp:TextBox>
                         <asp:CompareValidator ID="txtResPhoneNoIsd_CompareValidator" ControlToValidate="txtResPhoneNoIsd"
-                            runat="server" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value for ISD code."
+                            runat="server" Display="Dynamic" ValidationGroup="Contact" ErrorMessage="<br />Please enter a numeric value for ISD code."
                             Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
                         <asp:CompareValidator ID="txtResPhoneNoStd_CompareValidator" ControlToValidate="txtResPhoneNoStd"
-                            runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for STD code."
+                            runat="server" Display="Dynamic" ValidationGroup="Contact" ErrorMessage="<br /> Please enter a numeric value for STD code."
                             Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
                         <asp:CompareValidator ID="txtResPhoneNo_CompareValidator" ControlToValidate="txtResPhoneNo"
-                            runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for Phone number."
+                            runat="server" Display="Dynamic" ValidationGroup="Contact" ErrorMessage="<br /> Please enter a numeric value for Phone number."
                             Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
                     </td>
                     <td class="leftField">
@@ -428,13 +428,13 @@
                         <asp:TextBox ID="txtResFaxStd" runat="server" Width="30px" CssClass="txtField" MaxLength="3"></asp:TextBox>
                         <asp:TextBox ID="txtResFax" runat="server" Width="90px" CssClass="txtField" MaxLength="8"></asp:TextBox>
                         <asp:CompareValidator ID="txtResFaxIsd_CompareValidator" ControlToValidate="txtResFaxIsd"
-                            runat="server" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value for ISD code."
-                            Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                            runat="server" Display="Dynamic" ValidationGroup="Contact" ErrorMessage="<br />Please enter a numeric value for ISD code."
+                            Type="Integer" Operator="DataTypeCheck"  CssClass="cvPCG"></asp:CompareValidator>
                         <asp:CompareValidator ID="txtResFaxStd_CompareValidator" ControlToValidate="txtResFaxStd"
-                            runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for STD code."
+                            runat="server" Display="Dynamic" ValidationGroup="Contact" ErrorMessage="<br /> Please enter a numeric value for STD code."
                             Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
                         <asp:CompareValidator ID="txtResFax_CompareValidator" ControlToValidate="txtResFax"
-                            runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for Fax number."
+                            runat="server" Display="Dynamic" ValidationGroup="Contact" ErrorMessage="<br /> Please enter a numeric value for Fax number."
                             Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
                     </td>
                 </tr>
@@ -449,14 +449,14 @@
                             MaxLength="3"></asp:TextBox>
                         <asp:TextBox ID="txtOfcPhoneNo" runat="server" Width="90px" CssClass="txtField" MaxLength="8"></asp:TextBox>
                         <asp:CompareValidator ID="txtOfcPhoneNoIsd_CompareValidator" ControlToValidate="txtOfcPhoneNoIsd"
-                            runat="server" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value for ISD code."
+                            runat="server" Display="Dynamic" ValidationGroup="Contact" ErrorMessage="<br />Please enter a numeric value for ISD code."
                             Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
                         <asp:CompareValidator ID="txtOfcPhoneNoStd_CompareValidator" ControlToValidate="txtOfcPhoneNoStd"
                             runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for STD code."
-                            Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                            Type="Integer" Operator="DataTypeCheck" ValidationGroup="Contact" CssClass="cvPCG"></asp:CompareValidator>
                         <asp:CompareValidator ID="txtOfcPhoneNo_CompareValidator" ControlToValidate="txtOfcPhoneNo"
                             runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for Phone number."
-                            Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                            Type="Integer" Operator="DataTypeCheck" ValidationGroup="Contact" CssClass="cvPCG"></asp:CompareValidator>
                     </td>
                     <td class="leftField">
                         <asp:Label ID="lblFaxOfc" CssClass="FieldName" runat="server" Text="Fax(Off):"></asp:Label>
@@ -468,12 +468,12 @@
                         <asp:TextBox ID="txtOfcFax" runat="server" Width="90px" CssClass="txtField" MaxLength="8"></asp:TextBox>
                         <asp:CompareValidator ID="txtOfcFaxIsd_CompareValidator" ControlToValidate="txtOfcFaxIsd"
                             runat="server" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value for ISD Code."
-                            Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                            Type="Integer" Operator="DataTypeCheck" ValidationGroup="Contact" CssClass="cvPCG"></asp:CompareValidator>
                         <asp:CompareValidator ID="txtOfcFaxStd_CompareValidator" ControlToValidate="txtOfcFaxStd"
-                            runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for STD Code."
+                            runat="server" Display="Dynamic" ValidationGroup="Contact" ErrorMessage="<br /> Please enter a numeric value for STD Code."
                             Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
                         <asp:CompareValidator ID="txtOfcFax_CompareValidator" ControlToValidate="txtOfcFax"
-                            runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for Fax Number."
+                            runat="server" Display="Dynamic" ValidationGroup="Contact" ErrorMessage="<br /> Please enter a numeric value for Fax Number."
                             Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
                     </td>
                 </tr>
@@ -483,10 +483,15 @@
                     </td>
                     <td>
                         <asp:TextBox ID="txtMobile1" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
+                        <span id="Span16" class="spnRequiredField">*</span>
                         <asp:Label ID="lblMobMandatory" runat="server" Visible="false" CssClass="Error" Text="Mobile Number already exists"></asp:Label>
-                        <asp:RegularExpressionValidator ID="rvMobile1" runat="server" ValidationGroup="Submit"
+                        <asp:RegularExpressionValidator ID="rvMobile1" runat="server" ValidationGroup="Contact"
                             ControlToValidate="txtMobile1" Display="Dynamic" ErrorMessage="<br />Mobile Number must be 10 digit"
                             CssClass="rfvPCG" ValidationExpression="^((\+)?(\d{2}[-]))?(\d{10}){1}?$"></asp:RegularExpressionValidator>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator19" ControlToValidate="txtMobile1"
+                            ValidationGroup="Contact" ErrorMessage="Please enter a Mobile No" Display="Dynamic"
+                            runat="server" CssClass="rfvPCG">
+                        </asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
@@ -498,14 +503,14 @@
                         <span id="Span8" class="spnRequiredField">*</span>
                         <br />
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtEmail"
-                            ValidationGroup="Submit" ErrorMessage="Please enter an EmailId" Display="Dynamic"
+                            ValidationGroup="Contact" ErrorMessage="Please enter an EmailId" Display="Dynamic"
                             runat="server" CssClass="rfvPCG">
                         </asp:RequiredFieldValidator>
                         <asp:Label ID="lblEmailMandatory" runat="server" Visible="false" CssClass="Error"
                             Text="Email already exists"></asp:Label>
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtEmail"
                             ErrorMessage="Please enter a valid EmailId" Display="Dynamic" runat="server"
-                            ValidationGroup="Submit" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
+                            ValidationGroup="Contact" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
                             CssClass="revPCG"></asp:RegularExpressionValidator>
                         <%-- <asp:TextBox ID="txtEmail" runat="server" CssClass="txtField"></asp:TextBox>
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtEmail"
@@ -516,9 +521,9 @@
                 <tr>
                     <td>
                         <asp:Button ID="btnContactDetails" runat="server" CssClass="PCGButton" Text="Submit"
-                            OnClick="btnContactDetails_OnClick" Visible="false" />
+                            OnClick="btnContactDetails_OnClick" ValidationGroup="Contact" Visible="false" />
                         <asp:Button ID="btnContactDetailsUpdate" runat="server" CssClass="PCGButton" Text="Update"
-                            OnClick="btnContactDetailsUpdate_OnClick" Visible="false" />
+                            OnClick="btnContactDetailsUpdate_OnClick" ValidationGroup="Contact" Visible="false" />
                     </td>
                 </tr>
             </table>
@@ -558,12 +563,22 @@
                     </td>
                     <td class="rightField">
                         <asp:TextBox ID="txtCorLine1" runat="server" CssClass="txtField" Style="width: 250px;"></asp:TextBox>
+                        <span id="Span13" class="spnRequiredField">*</span>
+                         <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtCorLine1"
+                            ValidationGroup="Address" ErrorMessage="Please enter an address Line1" Display="Dynamic"
+                            runat="server" CssClass="rfvPCG">
+                        </asp:RequiredFieldValidator>
                     </td>
                     <td class="leftField">
                         <asp:Label ID="lblCorLine2" CssClass="FieldName" runat="server" Text="Line2(Street):"></asp:Label>
                     </td>
                     <td class="rightField">
                         <asp:TextBox ID="txtCorLine2" runat="server" CssClass="txtField" Style="width: 250px;"></asp:TextBox>
+                        <span id="Span14" class="spnRequiredField">*</span>
+                         <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtCorLine2"
+                            ValidationGroup="Address" ErrorMessage="Please enter a Line2(Street)" Display="Dynamic"
+                            runat="server" CssClass="rfvPCG">
+                        </asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
@@ -572,14 +587,25 @@
                     </td>
                     <td class="rightField">
                         <asp:TextBox ID="txtCorLine3" runat="server" CssClass="txtField" Style="width: 250px;"></asp:TextBox>
+                        <span id="Span15" class="spnRequiredField">*</span>
+                         <asp:RequiredFieldValidator ID="RequiredFieldValidator20" ControlToValidate="txtCorLine3"
+                            ValidationGroup="Address" ErrorMessage="Please enter a Line3(Area)" Display="Dynamic"
+                            runat="server" CssClass="rfvPCG">
+                        </asp:RequiredFieldValidator>
                     </td>
                     <td class="leftField">
                         <asp:Label ID="lblCorstate" runat="server" CssClass="FieldName" Text="State:"></asp:Label>
+                      
                     </td>
                     <td class="rightField">
                         <asp:DropDownList ID="ddlCorState" Visible="false" runat="server" CssClass="cmbField">
                         </asp:DropDownList>
                         <asp:TextBox ID="txtCorState" runat="server" CssClass="txtField"></asp:TextBox>
+                        <span id="Span17" class="spnRequiredField">*</span>
+                         <asp:RequiredFieldValidator ID="RequiredFieldValidator18" ControlToValidate="txtCorState"
+                            ValidationGroup="Address" ErrorMessage="Please enter a State" Display="Dynamic"
+                            runat="server" CssClass="rfvPCG">
+                        </asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
@@ -587,16 +613,26 @@
                         <asp:Label ID="lblCorPin" CssClass="FieldName" runat="server" Text="Pin Code:"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtCorPin" runat="server" CssClass="txtField" MaxLength="6"></asp:TextBox>
+                        <asp:TextBox ID="txtCorPin" runat="server" CssClass="txtField"  MaxLength="6"></asp:TextBox>
+                        <span id="Span18" class="spnRequiredField">*</span>
+                         <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtCorPin"
+                            ValidationGroup="Address" ErrorMessage="Please enter a Pin Code" Display="Dynamic"
+                            runat="server" CssClass="rfvPCG">
+                        </asp:RequiredFieldValidator>
                         <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="txtCorPin"
-                            CssClass="cvPCG" Display="Dynamic" ErrorMessage="&lt;br /&gt;Please enter a numeric value"
-                            Operator="DataTypeCheck" Type="Integer"></asp:CompareValidator>
+                            CssClass="cvPCG" Display="Dynamic" ValidationGroup="Address" ErrorMessage="&lt;br /&gt;Please enter a numeric value"
+                            Operator="DataTypeCheck"  Type="Integer"></asp:CompareValidator>
                     </td>
                     <td class="leftField">
                         <asp:Label ID="lblCorCity" CssClass="FieldName" runat="server" Text="City:"></asp:Label>
                     </td>
                     <td class="rightField">
                         <asp:TextBox ID="txtCorCity" runat="server" CssClass="txtField" Style="width: 250px;"></asp:TextBox>
+                        <span id="Span19" class="spnRequiredField">*</span>
+                         <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtCorCity"
+                            ValidationGroup="Address" ErrorMessage="Please enter a City" Display="Dynamic"
+                            runat="server" CssClass="rfvPCG">
+                        </asp:RequiredFieldValidator>
                         <%--<asp:DropDownList ID="ddlCorCity" runat="server" CssClass="cmbField">
                         </asp:DropDownList>--%>
                     </td>
@@ -607,6 +643,11 @@
                     </td>
                     <td class="rightField">
                         <asp:TextBox ID="txtCorCountry" runat="server" CssClass="txtField"></asp:TextBox>
+                        <span id="Span20" class="spnRequiredField">*</span>
+                         <asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtCorCountry"
+                            ValidationGroup="Address" ErrorMessage="Please enter a Country" Display="Dynamic"
+                            runat="server" CssClass="rfvPCG">
+                        </asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
@@ -640,12 +681,22 @@
                     </td>
                     <td class="rightField">
                         <asp:TextBox ID="txtPermAdrLine1" runat="server" CssClass="txtField" Style="width: 250px;"></asp:TextBox>
+                        <span id="Span21" class="spnRequiredField">*</span>
+                         <asp:RequiredFieldValidator ID="RequiredFieldValidator11" ControlToValidate="txtPermAdrLine1"
+                            ValidationGroup="Address" ErrorMessage="Please enter an Address Line1" Display="Dynamic"
+                            runat="server" CssClass="rfvPCG">
+                        </asp:RequiredFieldValidator>
                     </td>
                     <td class="leftField">
                         <asp:Label ID="lblPermLine2" CssClass="FieldName" runat="server" Text="Line2(Street):"></asp:Label>
                     </td>
                     <td class="rightField">
                         <asp:TextBox ID="txtPermAdrLine2" runat="server" CssClass="txtField" Style="width: 250px;"></asp:TextBox>
+                        <span id="Span22" class="spnRequiredField">*</span>
+                         <asp:RequiredFieldValidator ID="RequiredFieldValidator12" ControlToValidate="txtPermAdrLine2"
+                            ValidationGroup="Address" ErrorMessage="Please enter a Line2(Street)" Display="Dynamic"
+                            runat="server" CssClass="rfvPCG">
+                        </asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
@@ -654,6 +705,11 @@
                     </td>
                     <td class="rightField">
                         <asp:TextBox ID="txtPermAdrLine3" runat="server" CssClass="txtField" Style="width: 250px;"></asp:TextBox>
+                        <span id="Span23" class="spnRequiredField">*</span>
+                         <asp:RequiredFieldValidator ID="RequiredFieldValidator13" ControlToValidate="txtPermAdrLine3"
+                            ValidationGroup="Address" ErrorMessage="Please enter a Line3(Area)" Display="Dynamic"
+                            runat="server" CssClass="rfvPCG">
+                        </asp:RequiredFieldValidator>
                     </td>
                     <td class="leftField">
                         <asp:Label ID="lblPermState" runat="server" CssClass="FieldName" Text="State:"></asp:Label>
@@ -662,6 +718,11 @@
                         <asp:DropDownList ID="ddlPermAdrState" Visible="false" runat="server" CssClass="cmbField">
                         </asp:DropDownList>
                         <asp:TextBox ID="txtPermState" runat="server" CssClass="txtField"></asp:TextBox>
+                        <span id="Span24" class="spnRequiredField">*</span>
+                         <asp:RequiredFieldValidator ID="RequiredFieldValidator14" ControlToValidate="txtPermState"
+                            ValidationGroup="Address" ErrorMessage="Please enter a State" Display="Dynamic"
+                            runat="server" CssClass="rfvPCG">
+                        </asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
@@ -670,8 +731,13 @@
                     </td>
                     <td class="rightField">
                         <asp:TextBox ID="txtPermAdrPinCode" runat="server" CssClass="txtField" MaxLength="6"></asp:TextBox>
+                        <span id="Span25" class="spnRequiredField">*</span>
+                         <asp:RequiredFieldValidator ID="RequiredFieldValidator15" ControlToValidate="txtPermAdrPinCode"
+                            ValidationGroup="Address" ErrorMessage="Please enter a Pin Code" Display="Dynamic"
+                            runat="server" CssClass="rfvPCG">
+                        </asp:RequiredFieldValidator>
                         <asp:CompareValidator ID="txtPermAdrPinCode_CompareValidator" runat="server" ControlToValidate="txtPermAdrPinCode"
-                            CssClass="cvPCG" Display="Dynamic" ErrorMessage="&lt;br /&gt;Please enter a numeric value"
+                            CssClass="cvPCG" Display="Dynamic" ValidationGroup="Address" ErrorMessage="&lt;br /&gt;Please enter a numeric value"
                             Operator="DataTypeCheck" Type="Integer"></asp:CompareValidator>
                     </td>
                     <td class="leftField">
@@ -679,6 +745,11 @@
                     </td>
                     <td class="rightField">
                         <asp:TextBox ID="txtPermAdrCity" runat="server" CssClass="txtField" Style="width: 250px;"></asp:TextBox>
+                         <span id="Span27" class="spnRequiredField">*</span>
+                         <asp:RequiredFieldValidator ID="RequiredFieldValidator16" ControlToValidate="txtPermAdrCity"
+                            ValidationGroup="Address" ErrorMessage="Please enter a City" Display="Dynamic"
+                            runat="server" CssClass="rfvPCG">
+                        </asp:RequiredFieldValidator>
                         <%-- <asp:DropDownList ID="ddlPermAdrCity" runat="server" CssClass="cmbField">
                         </asp:DropDownList>--%>
                     </td>
@@ -689,14 +760,19 @@
                     </td>
                     <td class="rightField">
                         <asp:TextBox ID="txtPermAdrCountry" runat="server" CssClass="txtField"></asp:TextBox>
+                        <span id="Span26" class="spnRequiredField">*</span>
+                         <asp:RequiredFieldValidator ID="RequiredFieldValidator17" ControlToValidate="txtPermAdrCountry"
+                            ValidationGroup="Address" ErrorMessage="Please enter a Country" Display="Dynamic"
+                            runat="server" CssClass="rfvPCG">
+                        </asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <asp:Button ID="btnCrossPondence" runat="server" CssClass="PCGButton" Text="Submit"
-                            OnClick="btnCrossPondence_OnClick" Visible="false" />
+                            OnClick="btnCrossPondence_OnClick" ValidationGroup="Address" Visible="false" />
                         <asp:Button ID="btnbtnCrossPondenceUpdate" runat="server" CssClass="PCGButton" Text="Update"
-                            OnClick="btnbtnCrossPondenceUpdate_OnClick" Visible="false" />
+                            OnClick="btnbtnCrossPondenceUpdate_OnClick" ValidationGroup="Address" Visible="false" />
                     </td>
                 </tr>
             </table>

@@ -1351,7 +1351,7 @@ namespace WealthERP.Associates
         protected void lnkContactDetails_OnClick(object sender, EventArgs e)
         {
             btnContactDetailsUpdate.Visible = true;
-            msgRecordStatus.Visible = true;
+            msgRecordStatus.Visible = false;
             txtResPhoneNoStd.Enabled = true;
             txtResPhoneNo.Enabled = true;
             txtResFaxStd.Enabled = true;
@@ -1362,6 +1362,8 @@ namespace WealthERP.Associates
             txtOfcFax.Enabled = true;
             txtMobile1.Enabled = true;
             txtEmail.Enabled = true;
+            lblMobMandatory.Visible = false;
+            lblEmailMandatory.Visible = false;
 
         }
         protected void btnContactDetails_OnClick(object sender, EventArgs e)
@@ -1422,10 +1424,18 @@ namespace WealthERP.Associates
                 lblMobMandatory.Visible = true;
                 return;
             }
+            else
+            {
+                lblMobMandatory.Visible = false;
+            }
             if (!String.IsNullOrEmpty(txtEmail.Text) && associatesBo.AssociateFieldValidation(txtEmail.Text, "EMail", advisorVo.advisorId, associateId))
             {
                 lblEmailMandatory.Visible = true;
                 return;
+            }
+            else
+            {
+                lblEmailMandatory.Visible = false;
             }
             UpdateContact("CD");
             btnContactDetailsUpdate.Visible = false;
@@ -1440,7 +1450,7 @@ namespace WealthERP.Associates
         protected void lnkCrossPondingAddress_OnClick(object sender, EventArgs e)
         {
             btnbtnCrossPondenceUpdate.Visible = true;
-            dvCrosspondance.Visible = false;
+            tblCrosspondance.Visible = false;
             txtCorLine1.Enabled = true;
             txtCorLine2.Enabled = true;
             txtCorLine3.Enabled = true;
@@ -1482,7 +1492,7 @@ namespace WealthERP.Associates
         protected void lnkOtherInformation_OnClick(object sender, EventArgs e)
         {
             btnOtherInformationUpdate.Visible = true;
-            dvOther.Visible = false;
+            tblOther.Visible = false;
             ddlMaritalStatus.Enabled = true;
             ddlQualification.Enabled = true;
             ddlGender.Enabled = true;
@@ -1512,7 +1522,7 @@ namespace WealthERP.Associates
         protected void lnkBankDetails_OnClick(object sender, EventArgs e)
         {
             btnBankDetailsUpdate.Visible = true;
-            dvBankDetails.Visible = false;
+            tblBankDetails.Visible = false;
 
             ddlBankName.Enabled = true;
             ddlAccountType.Enabled = true;
@@ -1554,7 +1564,7 @@ namespace WealthERP.Associates
         protected void lnkNominee_OnClick(object sender, EventArgs e)
         {
             btnNomineeUpdate.Visible = true;
-            dvNominee.Visible = false;
+            tblNominee.Visible = false;
 
             txtNomineeName.Enabled = true;
             ddlNomineeRel.Enabled = true;
@@ -1584,7 +1594,7 @@ namespace WealthERP.Associates
         protected void lnkCategory_OnClick(object sender, EventArgs e)
         {
             btnCategoryUpdate.Visible = true;
-            dvCategory.Visible = false;
+            tblCategory.Visible = false;
             ddlAdviserCategory.Enabled = true;
         }
         private void ShowMessageCategory(string msg)
@@ -1615,7 +1625,7 @@ namespace WealthERP.Associates
         protected void lnkBusinessDetails_OnClick(object sender, EventArgs e)
         {
             btnBusinessDetailsUpdate.Visible = true;
-            dvBusinessDetails.Visible = false;
+            tblBusinessDetails.Visible = false;
             txtNoBranches.Enabled = true;
             txtNoofSales.Enabled = true;
             txtNoofSubBrokers.Enabled = true;
