@@ -800,7 +800,7 @@
                     <td>
                     </td>
                     <td align="right">
-                        <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text="Reporting To:"></asp:Label>
+                        <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text="RM:"></asp:Label>
                     </td>
                     <td>
                         <asp:Label ID="lb1RepTo" runat="server" CssClass="FieldName" Enabled="false"></asp:Label>
@@ -921,6 +921,10 @@
                     </td>
                     <td>
                         <asp:TextBox ID="txtApplicationNumber" runat="server" CssClass="txtField" TabIndex="9"></asp:TextBox>
+                            <asp:RegularExpressionValidator ID="regetxtIMultipleamount" ControlToValidate="txtApplicationNumber"
+                                ErrorMessage="Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
+                                ValidationExpression="[0-9]\d*$" ValidationGroup="MFSubmit">     
+                            </asp:RegularExpressionValidator>
                     </td>
                     <td align="right">
                         <asp:Label ID="lblOrderDate" runat="server" Text="Order Date:" CssClass="FieldName"></asp:Label>
@@ -1449,7 +1453,7 @@
                             <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
                             <asp:ListItem Text="Cheque" Value="CQ"></asp:ListItem>
                             <asp:ListItem Text="Draft" Value="DF"></asp:ListItem>
-                            <asp:ListItem Text="ECS" Value="ES"></asp:ListItem>
+                            <asp:ListItem Text="ECS" Value="ES" Enabled="false"></asp:ListItem>
                         </asp:DropDownList>
                         <span id="Span10" class="spnRequiredField">*</span>
                         <asp:CompareValidator ID="CompareValidator13" runat="server" ControlToValidate="ddlPaymentMode"
@@ -1503,7 +1507,7 @@
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="true"
-                            AppendDataBoundItems="true" OnSelectedIndexChanged="ddlBankName_SelectedIndexChanged"
+                            AppendDataBoundItems="false" OnSelectedIndexChanged="ddlBankName_SelectedIndexChanged"
                             TabIndex="35">
                         </asp:DropDownList>
                         <span id="Span4" class="spnRequiredField">*</span>
@@ -1874,8 +1878,7 @@
         </tr>
     </table>
 </asp:Panel>
-<table>
-</table>
+
 <asp:Panel ID="pnlOrderSteps" runat="server" Width="100%" Height="80%" Visible="false">
     <table width="100%">
         <tr>

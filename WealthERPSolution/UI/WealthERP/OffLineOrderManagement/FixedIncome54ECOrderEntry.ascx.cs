@@ -184,10 +184,12 @@ namespace WealthERP.OffLineOrderManagement
                     RadDateControlBusinessDateValidation(ref txtPaymentInstDate, DateTime.Now);
                 if (Request.QueryString["FDOrder"] == "FICDCD")
                 {
+                    lblProductTypess.Text = "Add FD Order Entry";
                     ddlCategory.Items.FindByValue("FICGCG").Enabled = false;
                 }
                 else
                 {
+                    lblProductTypess.Text = "Add 54EC Order Entry";
                     ddlCategory.Items.FindByValue("FICDCD").Enabled = false;
                 }
                     //  FIScheme(advisorVo.advisorId, "0");                

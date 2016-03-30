@@ -329,7 +329,7 @@
                 <td colspan="2">
                 </td>
                 <td class="leftField">
-                    <asp:Label ID="lblAssociateReport" runat="server" CssClass="FieldName" Text="Report To:"
+                    <asp:Label ID="lblAssociateReport" runat="server" CssClass="FieldName" Text="RM:"
                         Visible="true"></asp:Label>
                 </td>
                 <td class="rightField">
@@ -349,7 +349,7 @@
                 <td class="Page_Left_Padding">
                 </td>
                 <td class="leftField">
-                    <asp:Label ID="lblIssueName" runat="server" Text="Select Issue Name:" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="lblIssueName" runat="server" Text="Issuer:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField" colspan="3">
                     <asp:DropDownList ID="ddlIssueList" runat="server" AutoPostBack="true" CssClass="cmbExtraLongField"
@@ -500,10 +500,10 @@
                 <td class="rightField">
                     <asp:TextBox ID="txtASBANO" onkeydown="return (event.keyCode!=13);" runat="server"
                         MaxLength="16" CssClass="txtField" TabIndex="18"></asp:TextBox>
-                    <span id="Span5" class="spnRequiredField">*</span>
+                    <%--<span id="Span5" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="txtASBANO"
                         ErrorMessage="<br />Please Enter Account No." Display="Dynamic" runat="server"
-                        CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
+                        CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>--%>
                 </td>
                 <td class="leftField">
                     <asp:Label ID="lblASBALocation" runat="server" CssClass="FieldName" Text="Location:"></asp:Label>
@@ -512,7 +512,7 @@
                     <asp:TextBox ID="txtASBALocation" onkeydown="return (event.keyCode!=13);" runat="server"
                         CssClass="txtField" AutoComplete="Off" AutoPostBack="True" OnTextChanged="txtASBALocation_OnTextChanged"
                         TabIndex="19">
-                    </asp:TextBox><span id="Span6" class="spnRequiredField">*</span>
+                   </asp:TextBox> <%--<span id="Span6" class="spnRequiredField">*</span>--%>
                     <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" TargetControlID="txtASBALocation"
                         WatermarkText="Enter few chars of Location" runat="server" EnableViewState="false">
                     </cc1:TextBoxWatermarkExtender>
@@ -522,9 +522,10 @@
                         CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
                         CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                         UseContextKey="True" DelimiterCharacters="" Enabled="True" />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator11" ControlToValidate="txtASBALocation"
+                        
+                   <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator11" ControlToValidate="txtASBALocation"
                         ErrorMessage="<br />Please Enter Location" Display="Dynamic" runat="server" CssClass="rfvPCG"
-                        ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
+                        ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>--%>
                 </td>
                 <td class="Page_Right_Padding">
                 </td>

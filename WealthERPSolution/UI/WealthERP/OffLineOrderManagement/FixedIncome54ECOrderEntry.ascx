@@ -302,7 +302,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr id="Tr1" runat="server">
                         <td align="left">
-                            FD/54EC Order Entry
+                        <asp:Label ID="lblProductTypess" runat="server" CssClass="FieldName"></asp:Label>
                         </td>
                         <td align="right">
                             <asp:LinkButton ID="lnkBtnReconBack" runat="server" CssClass="LinkButtons" Text="Back"

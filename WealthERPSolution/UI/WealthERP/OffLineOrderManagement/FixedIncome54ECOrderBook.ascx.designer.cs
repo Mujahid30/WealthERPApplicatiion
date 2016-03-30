@@ -48,7 +48,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCategory;
-        
+        protected global::System.Web.UI.WebControls.Label lblProductTypess;
         /// <summary>
         /// ddlCategory control.
         /// </summary>

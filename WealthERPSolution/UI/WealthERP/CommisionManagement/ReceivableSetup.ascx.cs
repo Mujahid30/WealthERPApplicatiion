@@ -1409,7 +1409,7 @@ namespace WealthERP.Receivable
                 if (ddlSubInstrCategory.SelectedValue == "FICGCG")
                 {
                     chkCategory.Visible = false;
-                    trDateValidation.Visible = true;
+                    trDateValidation.Visible = false;
 
                 }
                 if (ddlSubInstrCategory.SelectedValue == "FISDSD")
@@ -1417,7 +1417,7 @@ namespace WealthERP.Receivable
                     chkMode.Visible = false;
                     tdddlMode.Visible = false;
                     tdlblMode.Visible = false;
-                    trDateValidation.Visible = true;
+                    trDateValidation.Visible = false;
 
                 }
                 if (ddlProductType.SelectedValue == "IP")
@@ -1426,7 +1426,7 @@ namespace WealthERP.Receivable
                     tdddlSeries.Visible = false;
                     tdlblSerise.Visible = false;
                     chkCategory.Visible = true;
-                    trDateValidation.Visible = true;
+                    trDateValidation.Visible = false;
                 }
                 if (ddlProductType.SelectedValue == "MF")
                 {

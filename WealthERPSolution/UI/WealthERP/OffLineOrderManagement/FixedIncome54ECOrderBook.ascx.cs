@@ -76,10 +76,12 @@ namespace WealthERP.OffLineOrderManagement
                 BindOrderStatus();
                 if (Request.QueryString["FDOrderBook"] == "FICDCD")
                 {
+                    lblProductTypess.Text = "FD Order Book";
                     ddlCategory.Items.FindByValue("FICGCG").Enabled = false;
                 }
                 else
                 {
+                    lblProductTypess.Text = "54EC Order Book";
                     ddlCategory.Items.FindByValue("FICDCD").Enabled = false;
                 }
                 if (Request.QueryString["category"] != null)

@@ -771,7 +771,7 @@ namespace WealthERP.OffLineOrderManagement
             txtBankAccount.Visible = false;
             RequiredFieldValidator8.Enabled = false;
             //CompareValidator14.Enabled = false;
-            RequiredFieldValidator9.Enabled = false;
+            //RequiredFieldValidator9.Enabled = false;
             if (ddlPaymentMode.SelectedValue == "CQ")
             {
                 trPINo.Visible = true;
@@ -791,7 +791,7 @@ namespace WealthERP.OffLineOrderManagement
             else if (ddlPaymentMode.SelectedValue == "ES")
             {
                 trASBA.Visible = true;
-                RequiredFieldValidator9.Enabled = true;
+                //RequiredFieldValidator9.Enabled = true;
                 lblBranchName.Visible = false;
                 txtBranchName.Visible = false;
                 //lblBankBranchName.Visible = false;
@@ -1533,7 +1533,12 @@ namespace WealthERP.OffLineOrderManagement
                     drIPOBid["BankName"] = ddlBankName.SelectedValue;
 
                 if (ddlPaymentMode.SelectedValue == "ES")
-                    drIPOBid["BranchName"] = txtASBALocation.Text.Trim();
+                {
+                    if (!string.IsNullOrEmpty(txtASBALocation.Text))
+                        drIPOBid["BranchName"] = txtASBALocation.Text.Trim();
+                    else
+                        drIPOBid["BranchName"] = DBNull.Value;
+                }
                 else
                     drIPOBid["BranchName"] = txtBranchName.Text.Trim();
                 if (!string.IsNullOrEmpty(ddlBrokerCode.SelectedValue))

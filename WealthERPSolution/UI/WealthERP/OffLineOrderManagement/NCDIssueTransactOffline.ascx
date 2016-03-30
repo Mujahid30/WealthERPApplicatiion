@@ -403,7 +403,7 @@
                 <td colspan="2">
                 </td>
                 <td class="leftField">
-                    <asp:Label ID="lblAssociateReport" runat="server" CssClass="FieldName" Text="Report To:"
+                    <asp:Label ID="lblAssociateReport" runat="server" CssClass="FieldName" Text="RM:"
                         Visible="true"></asp:Label>
                 </td>
                 <td class="rightField">
@@ -423,7 +423,7 @@
                 <td class="Page_Left_Padding">
                 </td>
                 <td class="leftField">
-                    <asp:Label ID="lblIssueName" runat="server" Text="Select Issue Name:" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="lblIssueName" runat="server" Text="Issuer:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField" colspan="3">
                     <asp:DropDownList ID="ddlIssueList" runat="server" AutoPostBack="true" CssClass="cmbExtraLongField"
@@ -501,7 +501,7 @@
                         OnSelectedIndexChanged="ddlPaymentMode_SelectedIndexChanged" Width="180px" TabIndex="14">
                         <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
                         <asp:ListItem Text="Cheque/Demand Draft" Value="CQ"></asp:ListItem>
-                        <asp:ListItem Text="ASBA" Value="ES"></asp:ListItem>
+                        <asp:ListItem Text="ASBA" Value="ES" Enabled="false"></asp:ListItem>
                     </asp:DropDownList>
                     <span id="Span10" class="spnRequiredField">*</span>
                     <asp:CompareValidator ID="CompareValidator13" runat="server" ControlToValidate="ddlPaymentMode"

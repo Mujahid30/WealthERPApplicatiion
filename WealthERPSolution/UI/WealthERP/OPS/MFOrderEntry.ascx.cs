@@ -688,9 +688,9 @@ namespace WealthERP.OPS
                     //    BankBranches(Convert.ToInt32(ddlBankName.SelectedValue));
 
                     if (!string.IsNullOrEmpty(dr["BranchName"].ToString()))
-                        ddlBranch.SelectedValue = dr["BranchName"].ToString();
-                    else
-                        ddlBranch.SelectedValue = "";
+                        txtBranchName.Text = dr["BranchName"].ToString();
+                    //else
+                    //    ddlBranch.SelectedValue = "";
 
                     if (!string.IsNullOrEmpty(dr["CMFOD_PinCode"].ToString()))
                         txtCorrAdrPinCode.Text = dr["CMFOD_PinCode"].ToString();
@@ -3292,6 +3292,7 @@ namespace WealthERP.OPS
             BindRMforBranchDropdown(0, 0);
             BindListBranch();
             radCustomApp.Visible = true;
+            radCustomApp.VisibleOnPageLoad = true;
             //trSalutation.Visible = true;
         }
         public bool Validation1()
@@ -3696,6 +3697,7 @@ namespace WealthERP.OPS
                 radCustomApp.Visible = true;
                 trIndividualName.Visible = false;
                 trNonIndividualName.Visible = true;
+                radCustomApp.VisibleOnPageLoad = true;
                 //trSalutation.Visible = false;
             }
             catch (BaseApplicationException Ex)
