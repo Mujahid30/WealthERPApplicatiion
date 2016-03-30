@@ -931,7 +931,7 @@
                 </tr>
                 <tr id="SchemeSeries" runat="server">
                     <td class="leftField" style="width: 20%">
-                        <asp:Label ID="Label9" runat="server" Text="Select Issue: " CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="Label9" runat="server" Text="Issuer:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td class="rightField" colspan="4">
                         <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField" AutoPostBack="true"
@@ -939,7 +939,7 @@
                         </asp:DropDownList>
                         <span id="SpanddlScheme" runat="server" class="spnRequiredField">*</span>
                         <asp:CompareValidator ID="CompareValidator6" runat="server" ControlToValidate="ddlScheme"
-                            CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Issue"
+                            CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Issuer"
                             Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
                     </td>
                 </tr>
