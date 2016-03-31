@@ -1217,7 +1217,7 @@ namespace DAOAssociates
                     else
                         associatesVo.PerAdrCountry = string.Empty;
                     if (dr["AA_OfficePhoneNo"] != DBNull.Value)
-                        associatesVo.OfficePhoneNo = int.Parse(dr["AA_OfficePhoneNo"].ToString());
+                        associatesVo.OfficePhoneNo = Convert.ToInt64(dr["AA_OfficePhoneNo"].ToString());
 
                     if (dr["AA_Fax"] != DBNull.Value)
                         associatesVo.ResFaxNumber = int.Parse(dr["AA_Fax"].ToString());
@@ -1232,7 +1232,7 @@ namespace DAOAssociates
                     if (dr["AA_OfcISDCode"] != DBNull.Value)
                         associatesVo.ResSTDCode = int.Parse(dr["AA_OfcISDCode"].ToString());
                     if (dr["AA_ResPhoneNo"] != DBNull.Value)
-                        associatesVo.ResPhoneNo = int.Parse(dr["AA_ResPhoneNo"].ToString());
+                        associatesVo.ResPhoneNo = Convert.ToInt64(dr["AA_ResPhoneNo"].ToString());
                     if (dr["AA_DOB"] != DBNull.Value)
                         associatesVo.DOB = DateTime.Parse(dr["AA_DOB"].ToString());
                     if (dr["WERPBM_BankCode"] != DBNull.Value)

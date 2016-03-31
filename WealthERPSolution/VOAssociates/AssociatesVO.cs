@@ -19,10 +19,10 @@ namespace VOAssociates
 
         private int m_ResSTDCode;
         private int m_OfcSTDCode;
-        private int m_ResPhoneNo;
+        private long m_ResPhoneNo;
         private int m_ResISDCode;
         private int m_OfcISDCode;
-        private int m_OfficePhoneNo;
+        private long m_OfficePhoneNo;
         private int m_ResFaxStd;
         private int m_ResFaxNumber;
         private int m_OfcFaxSTD;
@@ -177,7 +177,7 @@ namespace VOAssociates
             get { return m_WelcomeNotePath; }
             set { m_WelcomeNotePath = value; }
         }
-        public int  ResPhoneNo
+        public long  ResPhoneNo
         {
             get { return m_ResPhoneNo; }
             set { m_ResPhoneNo = value; }
@@ -192,7 +192,7 @@ namespace VOAssociates
             get { return m_OfcISDCode; }
             set { m_OfcISDCode = value; }
         }
-        public int OfficePhoneNo
+        public long OfficePhoneNo
         {
             get { return m_OfficePhoneNo; }
             set { m_OfficePhoneNo = value; }
