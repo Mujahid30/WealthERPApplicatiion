@@ -1112,7 +1112,7 @@ namespace WealthERP.Associates
             else
                 associatesVo.ResSTDCode = 0;
             if (!string.IsNullOrEmpty(txtResPhoneNo.Text))
-                associatesVo.ResPhoneNo = int.Parse(txtResPhoneNo.Text);
+                associatesVo.ResPhoneNo = Convert.ToInt64(txtResPhoneNo.Text);
             else
                 associatesVo.ResSTDCode = 0;
             if (!string.IsNullOrEmpty(txtOfcPhoneNoStd.Text))
@@ -1120,7 +1120,7 @@ namespace WealthERP.Associates
             else
                 associatesVo.OfcSTDCode = 0;
             if (!string.IsNullOrEmpty(txtOfcPhoneNo.Text))
-                associatesVo.OfficePhoneNo = int.Parse(txtOfcPhoneNo.Text);
+                associatesVo.OfficePhoneNo = Convert.ToInt64(txtOfcPhoneNo.Text);
             else
                 associatesVo.OfficePhoneNo = 0;
             if (!string.IsNullOrEmpty(txtResFaxStd.Text))
