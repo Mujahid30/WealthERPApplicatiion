@@ -67,7 +67,7 @@
                 OnNeedDataSource="gvHirarchy_NeedDataSource" AllowAutomaticUpdates="false" Skin="Telerik"
                 OnItemDataBound="gvHirarchy_ItemDataBound" EnableEmbeddedSkins="false" OnItemCommand="gvHirarchy_ItemCommand"
                 EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="true">
-               <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="ViewAssociateList"
+               <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="Hierarchy List"
                                         Excel-Format="ExcelML">
                                     </ExportSettings>
                 <MasterTableView DataKeyNames="AH_Id,AH_HierarchyName,AH_TitleId,AH_Teamname,AH_TeamId,AH_ReportsToId,AH_ReportsTo,AH_ChannelName,AH_ChannelId,AH_Sequence"
