@@ -206,7 +206,7 @@
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="CO_ASBAAccNo" SortExpression="CO_ASBAAccNo" AutoPostBackOnFilter="true"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
-                                            HeaderStyle-Width="160px" HeaderText="ASBA Bank A/c NO" UniqueName="CO_ASBAAccNo">
+                                            HeaderStyle-Width="160px" HeaderText="ASBA Bank A/c NO" UniqueName="CO_ASBAAccNo" Visible="false">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="JointHolder" SortExpression="JointHolder" AutoPostBackOnFilter="true"

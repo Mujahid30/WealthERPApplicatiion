@@ -134,6 +134,16 @@ namespace WealthERP.OPS
                 AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetailsForAssociates";
 
             }
+            if (Session[SessionContents.CurrentUserRole].ToString() == "Associates" )
+            {
+                if (associateuserheirarchyVo.IsBranchOps == 1)
+                {
+                    txtAssociateSearch.Enabled = true;
+                }
+                else
+                    txtAssociateSearch.Enabled = false;
+            }
+          
 
 
 
@@ -144,6 +154,10 @@ namespace WealthERP.OPS
                 pnl_SIP_PaymentSection.Enabled = false;
                 pnl_SEL_PaymentSection.Enabled = false;
                 txtAssociateSearch.Text = associateuserheirarchyVo.AgentCode;
+                //if (Session[SessionContents.CurrentUserRole].ToString() == "Associates" && associateuserheirarchyVo.IsBranchOps == 0)
+                //    txtAssociateSearch.Enabled = false;
+                //else
+                //    txtAssociateSearch.Enabled = true;
                 DefaultBindings();
 
                 if (Request.QueryString["FormAction"] != null)
@@ -3204,6 +3218,26 @@ namespace WealthERP.OPS
         }
         protected void OnAssociateTextchanged(object sender, EventArgs e)
         {
+            if (!string.IsNullOrEmpty(txtAssociateSearch.Text))
+            {
+                Agentname = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
+                if (!string.IsNullOrEmpty(Agentname.Rows[0][2].ToString()))
+                {
+                    lblAssociatetext.Text = Agentname.Rows[0][0].ToString();
+                    lb1RepTo.Text = Agentname.Rows[0][2].ToString();
+                }
+                else
+                {
+                    lblAssociatetext.Text = "";
+                      lb1RepTo.Text="";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Agent Code is invalid!');", true);
+                    if (userType == "associates")
+                    {
+                        txtAssociateSearch.Text = associateuserheirarchyVo.AgentCode;
+                        txtAgentId.Value = associateuserheirarchyVo.AdviserAgentId.ToString();
+                    }
+                }
+            }
             //txtAgentId.Value 
             //if (!IsPostBack)
             //{
@@ -4710,7 +4744,7 @@ namespace WealthERP.OPS
             lsonlinemforder.Add(onlinemforderVo[1]);
 
             OrderIds = mfOrderBo.CreateOffLineMFSwitchOrderDetails(lsonlinemforder, userVo.UserId, Convert.ToInt32(txtCustomerId.Value), Convert.ToDateTime(txtReceivedDate.SelectedDate.ToString()),
- Convert.ToDateTime(txtOrderDate.SelectedDate), txtApplicationNumber.Text, Convert.ToInt32(txtAgentId.Value), txtAssociateSearch.Text, systematicId);
+     Convert.ToDateTime(txtOrderDate.SelectedDate), txtApplicationNumber.Text, Convert.ToInt32(txtAgentId.Value), txtAssociateSearch.Text, systematicId);
             int OrderId = int.Parse(OrderIds[0].ToString());
             lblGetOrderNo.Text = OrderIds[0].ToString();
             rgvOrderSteps.Visible = true;
@@ -4948,8 +4982,9 @@ namespace WealthERP.OPS
                 mforderVo.AgentId = int.Parse(AgentId.Rows[0][1].ToString());
             }
             else
+            {
                 mforderVo.AgentId = 0;
-
+            }
             if (!String.IsNullOrEmpty(txtSystematicdates.Text))
                 systematicSetupVo.SystematicDate = Convert.ToInt32(txtSystematicdates.Text);
 
