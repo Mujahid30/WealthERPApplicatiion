@@ -247,24 +247,27 @@ namespace WealthERP
 
 
                 string exchangeType = string.Empty;
+                string exchangeType1 = string.Empty;
                 CreateExchangeDetailsSession(Int32.Parse(schemeCode.Value));
                 Dictionary<string, string> SchemetransactType;
                 SchemetransactType = (Dictionary<string, string>)Session["SchemeExchangeee"];
+                OnlineOrderBo onlineOrderBo = new OnlineOrderBo();
+                
+
                 if (SchemetransactType["exchange"].ToString().Contains("Online"))
                 {
                     exchangeType = "&exchangeType=Online";
-
+                    exchangeType1 = "Online";
                 }
                 else
                 {
                     exchangeType = "&exchangeType=Demat";
+                    exchangeType1 = "Demat";
 
                 }
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromSchemeSearch", "LoadTransactPanel('MFOrderPurchaseTransType" + exchangeType + "');", true);
-                //if (!this.ClientScript.IsClientScriptBlockRegistered(this.GetType(), "LoadTransactPanelFromSchemeSearch"))
-                //{
-                //    Page.ClientScript.RegisterStartupScript(this.GetType(), "LoadTransactPanelFromSchemeSearch", @"LoadTransactPanel('MFOrderPurchaseTransType" + exchangeType + "');", true);
-                //}
+                Dictionary<string, string> TransactionTypes = onlineOrderBo.GetTransactionTypeForExchange(exchangeType1, SchemetransactType[exchangeType1].ToString());
+                if (TransactionTypes.Count > 0)
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromSchemeSearch", "LoadTransactPanel('" + TransactionTypes.Keys.ElementAt(0) + exchangeType + "');", true);
                 TextBox1.Text = "";
             }
         }
@@ -275,20 +278,25 @@ namespace WealthERP
 
 
                 string exchangeType = string.Empty;
+                string exchangeType1 = string.Empty;
                 CreateExchangeDetailsSession(Int32.Parse(schemeCode.Value));
                 Dictionary<string, string> SchemetransactType;
                 SchemetransactType = (Dictionary<string, string>)Session["SchemeExchangeee"];
+                OnlineOrderBo onlineOrderBo = new OnlineOrderBo();
+
                 if (SchemetransactType["exchange"].ToString().Contains("Online"))
                 {
                     exchangeType = "&exchangeType=Online";
-
+                    exchangeType1 = "Online";
                 }
                 else
                 {
                     exchangeType = "&exchangeType=Demat";
-
+                    exchangeType1 = "Online";
                 }
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromSchemeSearch", "LoadTransactPanel('MFOrderPurchaseTransType" + exchangeType + "');", true);
+                Dictionary<string, string> TransactionTypes = onlineOrderBo.GetTransactionTypeForExchange(exchangeType1, SchemetransactType[exchangeType1].ToString());
+                if(TransactionTypes.Count>0)
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromSchemeSearch", "LoadTransactPanel('" + TransactionTypes.Keys.ElementAt(0) + exchangeType + "');", true);
                 ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadBottomPanelFromSchemeSearch", "LoadBottomPanelControl('MFSchemeDetails&schemeCode=" + schemeCode.Value + "');", true);
             }
         }
