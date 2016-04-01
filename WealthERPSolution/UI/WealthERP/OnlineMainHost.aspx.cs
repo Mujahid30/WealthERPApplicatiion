@@ -292,7 +292,7 @@ namespace WealthERP
                 else
                 {
                     exchangeType = "&exchangeType=Demat";
-                    exchangeType1 = "Online";
+                    exchangeType1 = "Demat";
                 }
                 Dictionary<string, string> TransactionTypes = onlineOrderBo.GetTransactionTypeForExchange(exchangeType1, SchemetransactType[exchangeType1].ToString());
                 if(TransactionTypes.Count>0)
@@ -305,7 +305,8 @@ namespace WealthERP
             if (schemeCode.Value != "")
             {
 
-
+                OnlineOrderBo onlineOrderBo = new OnlineOrderBo();
+                string exchangeType1 = string.Empty;
                 string exchangeType = string.Empty;
                 CreateExchangeDetailsSession(Int32.Parse(schemeCode.Value));
                 Dictionary<string, string> SchemetransactType;
@@ -313,15 +314,18 @@ namespace WealthERP
                 if (SchemetransactType["exchange"].ToString().Contains("Online"))
                 {
                     exchangeType = "&exchangeType=Online";
-
+                    exchangeType1 = "Online";
                 }
                 else
                 {
                     exchangeType = "&exchangeType=Demat";
-
+                    exchangeType1 = "Demat";
                 }
-
+                Dictionary<string, string> TransactionTypes = onlineOrderBo.GetTransactionTypeForExchange(exchangeType1, SchemetransactType[exchangeType1].ToString());
+                if (TransactionTypes.Count > 0 && TransactionTypes.Keys.Contains(hdnTransactType.Value))
                 ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromMainPage", "LoadTransactPanel('" + hdnTransactType.Value + exchangeType + "');", true);
+                else
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromMainPage", "LoadTransactPanel('" + TransactionTypes.Keys.ElementAt(0) + exchangeType + "');", true);
 
 
 

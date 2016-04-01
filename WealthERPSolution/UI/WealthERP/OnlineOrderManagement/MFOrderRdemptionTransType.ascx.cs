@@ -160,7 +160,9 @@ namespace WealthERP.OnlineOrderManagement
             {
                 PurchaseOrderControlsEnable(false);
 
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('No existing Investment found');", true);
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('No existing Investment found');", true);
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('No existing Investment found','" + "I" + "');", true);
+
                 //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptv2ewv", "LoadTransactPanelFromMainPage('MFOrderPurchaseTransType','" + Session["MFSchemePlan"].ToString() + "')", true); 
                 return;
             }
