@@ -1474,13 +1474,13 @@ namespace WealthERP.Associates
             UpdateContact("CA");
             lnkCrossPondingAddress.Visible = true;
             btnCrossPondence.Visible = false;
-            ShowMessagecross("CrossPondence Details Submited Successfully");
+            ShowMessagecross("correspondence Details Submited Successfully");
         }
         protected void btnbtnCrossPondenceUpdate_OnClick(object sender, EventArgs e)
         {
             UpdateContact("CA");
             btnbtnCrossPondenceUpdate.Visible = false;
-            ShowMessagecross("Correspondence Details Updated Successfully");
+            ShowMessagecross("correspondence Details Updated Successfully");
             lnkCrossPondingAddress.Visible = true;
 
         }
