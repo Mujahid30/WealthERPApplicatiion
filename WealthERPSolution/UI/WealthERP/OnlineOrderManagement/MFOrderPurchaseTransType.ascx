@@ -62,7 +62,7 @@
 
         if (Page_IsValid) {
             if (++crnt > 1) {
-                alert(crnt);
+              
                 return false;
             }
             return true;

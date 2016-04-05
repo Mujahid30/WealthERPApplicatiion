@@ -348,7 +348,7 @@
                                                             <asp:Label ID="lb1IssuerName" runat="server" Text="Issuer:" CssClass="FieldName"></asp:Label>
                                                         </td>
                                                         <td>
-                                                            <asp:TextBox ID="txtIssuerName" runat="server" CssClass="txtField"></asp:TextBox><br />
+                                                            <asp:TextBox ID="txtIssuerName" runat="server" CssClass="txtField" style="text-transform:uppercase;"></asp:TextBox><br />
                                                             <span id="Span21"></span>
                                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator33" ControlToValidate="txtIssuerName"
                                                                 ErrorMessage="Please enter Issuer name" ValidationGroup="rgIssuerOk" Display="Dynamic"
@@ -461,7 +461,7 @@
                     <asp:Label ID="lb1Name" runat="server" Text="Issue Name:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightData">
-                    <asp:TextBox ID="txtName" runat="server" CssClass="txtField" Width="200px" TabIndex="3"></asp:TextBox>
+                    <asp:TextBox ID="txtName" runat="server" CssClass="txtField" Width="200px" style="text-transform:uppercase;" TabIndex="3"></asp:TextBox>
                     <span id="Span12" class="spnRequiredField">*</span>
                     <br />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ErrorMessage="Please Enter Name"
