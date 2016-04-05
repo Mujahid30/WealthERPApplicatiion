@@ -240,7 +240,7 @@ namespace BoOnlineOrderManagement
 
         }
         public Dictionary<string, string> GetschemedetailonlineorDemate(int schemecode)
-        {
+      {
             Dictionary<string, string> SchemetransactType = new Dictionary<string, string>();
             OnlineOrderDao onlineOrderDao = new OnlineOrderDao();
             DataTable dt = onlineOrderDao.GetschemedetailonlineorDemate(schemecode);
@@ -277,6 +277,7 @@ namespace BoOnlineOrderManagement
             }
             else if (exchange == "Demat")
             {
+                if (availableTransType.Contains("Purchase"))
                 TransactionTypes.Add("MFOrderPurchaseTransType", "Purchase");
                 if (availableTransType.Contains("SIP"))
                     TransactionTypes.Add("MFOrderSIPTransType", "SIP");

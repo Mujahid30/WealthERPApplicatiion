@@ -849,7 +849,7 @@
                             </td>
                             <td>
                                 <asp:DropDownList ID="ddlchannel" runat="server" CssClass="cmbField" AutoPostBack="true"
-                                    OnSelectedIndexChanged="ddlchannel_onSelectedChanged" onchange="LoadTransactPanel('MFOrderPurchaseTransType&exchangeType='+this.value)">
+                                    OnSelectedIndexChanged="ddlchannel_onSelectedChanged" >
                                 </asp:DropDownList>
                             </td>
                             <td align="right" style="vertical-align: middle;">

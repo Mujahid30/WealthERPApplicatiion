@@ -238,6 +238,28 @@ namespace WealthERP
         protected void ddlchannel_onSelectedChanged(object sender, EventArgs e)
         {
             BindTransactionType(ddlchannel.SelectedValue);
+            string exchangeType = string.Empty;
+            string exchangeType1 = string.Empty;
+            Dictionary<string, string> SchemetransactType;
+            SchemetransactType = (Dictionary<string, string>)Session["SchemeExchangeee"];
+            OnlineOrderBo onlineOrderBo = new OnlineOrderBo();
+
+
+            if (ddlchannel.SelectedValue == "Online")
+            {
+                exchangeType = "&exchangeType=Online";
+                exchangeType1 = "Online";
+            }
+            else
+            {
+                exchangeType = "&exchangeType=Demat";
+                exchangeType1 = "Demat";
+
+            }
+            Dictionary<string, string> TransactionTypes = onlineOrderBo.GetTransactionTypeForExchange(exchangeType1, SchemetransactType[exchangeType1].ToString());
+            if (TransactionTypes.Count > 0)
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromSchemeSearch", "LoadTransactPanel('" + TransactionTypes.Keys.ElementAt(0) + exchangeType + "');", true);
+               
             //Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscripRajiv", @"LoadTransactPanel('MFOrderPurchaseTransType" + ddlchannel.SelectedValue + "');", true);
         }
         protected void TextBox1_OnTextChanged(object sender, EventArgs e)
