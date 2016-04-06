@@ -650,16 +650,19 @@ namespace BoOnlineOrderManagement
             {
               
                 OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
-                string passkey = "E234586789D";
+                string passkey = "E234586789D12";
                 string password = webOrderEntryClient.getPassword("9501", "12345", passkey);
                 string[] bsePassArray = password.Split('|');
                 isRMSDebited = DebitOrCreditRMSUserAccountBalance(UserID, ClientCode, -onlinemforderVo.Amount, rmsId, out  rmsId);
                 if (isRMSDebited)
                 {
                     int transCode = OnlineMFOrderDao.BSEorderEntryParam("NEW", UserID, ClientCode, onlinemforderVo.BSESchemeCode, "P", "FRESH", "C", onlinemforderVo.Amount.ToString(), "", "N", "", "Y", "", "", "E101765", "Y", "N", "N", "", rmsId);
-                    string orderEntryresponse = webOrderEntryClient.orderEntryParam("NEW", transCode.ToString(), "", "9501", "95", "24214260", "035G", "P", "FRESH", "C", onlinemforderVo.Amount.ToString(), "", "N", "", "", "Y", "", "", "E101765", "Y", "N", "N", "", bsePassArray[1], passkey, "", "", "");
+                    string uniqueRefNo;
+                    Random ran = new Random();
+                    uniqueRefNo = transCode.ToString()+ran.Next().ToString();
+                    string orderEntryresponse = webOrderEntryClient.orderEntryParam("NEW", uniqueRefNo, "", "9501", "95", "24214260", "035G", "P", "FRESH", "C", onlinemforderVo.Amount.ToString(), "", "N", "", "", "Y", "", "", "E101765", "Y", "N", "N", "", bsePassArray[1], passkey, "", "", "");
                     string[] bseorderEntryresponseArray = orderEntryresponse.Split('|');
-                    OnlineMFOrderDao.BSEorderResponseParam(transCode, UserID, Convert.ToInt64(bseorderEntryresponseArray[2]), ClientCode, bseorderEntryresponseArray[6], bseorderEntryresponseArray[7], rmsId);
+                    OnlineMFOrderDao.BSEorderResponseParam(transCode, UserID, Convert.ToInt64(bseorderEntryresponseArray[2]), ClientCode, bseorderEntryresponseArray[6], bseorderEntryresponseArray[7], rmsId, uniqueRefNo);
                     if (Convert.ToInt32(bseorderEntryresponseArray[7]) == 1)
                     {
                         DebitOrCreditRMSUserAccountBalance(UserID, ClientCode, onlinemforderVo.Amount, rmsId, out  rmsId);

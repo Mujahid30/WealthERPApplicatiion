@@ -806,7 +806,7 @@ string EUINVal, string MinRedeem, string DPC, string IPAdd,int rmsId)
             return result;
         
         }
-        public void BSEorderResponseParam(int RequestId,int userId, double BSEOrderId, string ClientCode, string BSERemarks, string Successflag,int rmsId)
+        public void BSEorderResponseParam(int RequestId, int userId, double BSEOrderId, string ClientCode, string BSERemarks, string Successflag, int rmsId, string uniqueRefNo)
         {
             Database db;
             DbCommand GetGetCustomerFolioSchemeWiseCmd;
@@ -819,7 +819,8 @@ string EUINVal, string MinRedeem, string DPC, string IPAdd,int rmsId)
                 db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@BSEOrderId", DbType.Int64, BSEOrderId);
                 db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@Remarks", DbType.String, BSERemarks);
                 db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@Successflag", DbType.Int32, Successflag);
-                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@ReqId", DbType.String, RequestId.ToString());
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@ReqId", DbType.Int64, RequestId);
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@UniqueRefNo", DbType.String, uniqueRefNo);
                 db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@rmsId", DbType.Int32, rmsId);
                db.ExecuteNonQuery(GetGetCustomerFolioSchemeWiseCmd);
             }  
