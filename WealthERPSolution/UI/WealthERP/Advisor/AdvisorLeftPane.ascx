@@ -48,7 +48,7 @@
                     <telerik:RadPanelBar ID="RadPanelBar1" runat="server" EnableEmbeddedSkins="false"
                         ExpandAnimation-Type="InCubic" Skin="Telerik" Width="100%" OnItemClick="RadPanelBar1_ItemClick"
                         AllowCollapseAllItems="True" ExpandMode="SingleExpandedItem">
-                        <items>
+                        <Items>
                             <telerik:RadPanelItem runat="server" Text="Admin" Value="Admin">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="Admin Home" Value="Admin Home">
@@ -270,11 +270,10 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="FD/54EC Order Book" Value="54EC_ORDER_bOOK">
                                                     </telerik:RadPanelItem>
-                                                     <telerik:RadPanelItem runat="server" Text="Add FD Order" Value="FD_Order">
+                                                    <telerik:RadPanelItem runat="server" Text="Add FD Order" Value="FD_Order">
                                                     </telerik:RadPanelItem>
-                                                     <telerik:RadPanelItem runat="server" Text="FD Order Book" Value="FD_Order_Book">
+                                                    <telerik:RadPanelItem runat="server" Text="FD Order Book" Value="FD_Order_Book">
                                                     </telerik:RadPanelItem>
-                                                    
                                                 </Items>
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Online" Value="Online">
@@ -299,11 +298,10 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="UTI AMC" Value="View_UTIAMC">
                                                     </telerik:RadPanelItem>
-                                                      <telerik:RadPanelItem runat="server" Text="FATCA MIS" Value="Facta_MIS">
+                                                    <telerik:RadPanelItem runat="server" Text="FATCA MIS" Value="Facta_MIS">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Online RMS_Log" Value="Online_RMS_Log">
                                                     </telerik:RadPanelItem>
-                                                    
                                                 </Items>
                                             </telerik:RadPanelItem>
                                         </Items>
@@ -416,6 +414,14 @@
                                             <telerik:RadPanelItem runat="server" Text="View Received  Commission Report" Value="View_Received_Commission_Report">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View Associate Payout Report" Value="View_Associate_Payout_Report">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Financial Planning" Value="Financial_Planning_Admin">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Add Prospect" Value="Add_Prospect_Admin">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="FP Offline Form" Value="FP_Offline_Form_admin">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
@@ -547,13 +553,13 @@
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-                        </items>
-                        <expandanimation type="InCubic" />
+                        </Items>
+                        <ExpandAnimation Type="InCubic" />
                     </telerik:RadPanelBar>
                     <telerik:RadPanelBar ID="RadPanelBar2" runat="server" EnableEmbeddedSkins="false"
                         ExpandAnimation-Type="InCubic" Skin="Telerik" OnItemClick="RadPanelBar2_ItemClick"
                         Width="100%" AllowCollapseAllItems="True" ExpandMode="SingleExpandedItem">
-                        <items>
+                        <Items>
                             <telerik:RadPanelItem runat="server" Text="RM" Value="RM">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="RM Home" Value="RM Home">
@@ -679,13 +685,13 @@
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-                        </items>
-                        <expandanimation type="InCubic" />
+                        </Items>
+                        <ExpandAnimation Type="InCubic" />
                     </telerik:RadPanelBar>
                     <telerik:RadPanelBar ID="RadPanelBar3" runat="server" EnableEmbeddedSkins="false"
                         ExpandAnimation-Type="InCubic" Skin="Telerik" OnItemClick="RadPanelBar3_ItemClick"
                         Width="100%" AllowCollapseAllItems="True" ExpandMode="SingleExpandedItem">
-                        <items>
+                        <Items>
                             <telerik:RadPanelItem runat="server" Text="BM" Value="BM">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="BM Home" Value="BM Home">
@@ -801,13 +807,13 @@
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-                        </items>
-                        <expandanimation type="InCubic" />
+                        </Items>
+                        <ExpandAnimation Type="InCubic" />
                     </telerik:RadPanelBar>
                     <telerik:RadPanelBar ID="RadPanelBar4" runat="server" EnableEmbeddedSkins="false"
                         ExpandAnimation-Type="InCubic" Skin="Telerik" Width="100%" AllowCollapseAllItems="True"
                         ExpandMode="SingleExpandedItem" OnItemClick="RadPanelBar4_ItemClick">
-                        <items>
+                        <Items>
                             <telerik:RadPanelItem runat="server" Text="Ops" Value="Ops">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="Admin Home" Value="Admin Home">
@@ -1034,9 +1040,9 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="FD/54EC Order Book" Value="54EC_ORDER_bOOK">
                                                     </telerik:RadPanelItem>
-                                                      <telerik:RadPanelItem runat="server" Text="Add FD Order" Value="FD_Order">
+                                                    <telerik:RadPanelItem runat="server" Text="Add FD Order" Value="FD_Order">
                                                     </telerik:RadPanelItem>
-                                                     <telerik:RadPanelItem runat="server" Text="FD Order Book" Value="FD_Order_Book">
+                                                    <telerik:RadPanelItem runat="server" Text="FD Order Book" Value="FD_Order_Book">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
@@ -1164,6 +1170,14 @@
                                             <telerik:RadPanelItem runat="server" Text="View Received  Commission Report" Value="View_Received_Commission_Report">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View Associate Payout Report" Value="View_Associate_Payout_Report">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
+                                      <telerik:RadPanelItem runat="server" Text="Financial Planning" Value="Financial_Planning_Admin">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Add Prospect" Value="Add_Prospect_Admin">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="FP Offline Form" Value="FP_Offline_Form_admin">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
@@ -1424,13 +1438,13 @@
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-                        </items>
-                        <expandanimation type="InCubic" />
+                        </Items>
+                        <ExpandAnimation Type="InCubic" />
                     </telerik:RadPanelBar>
                     <telerik:RadPanelBar ID="RadPanelBar5" Style="vertical-align: middle;" runat="server"
                         EnableEmbeddedSkins="false" ExpandAnimation-Type="InCubic" Skin="Telerik" Width="100%"
                         AllowCollapseAllItems="True" ExpandMode="SingleExpandedItem" OnItemClick="RadPanelBar5_ItemClick">
-                        <items>
+                        <Items>
                             <telerik:RadPanelItem runat="server" Text=" Advisory Setup" Value="Research">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="Research Dashboard" Value="Research_Dashboard">
@@ -1465,13 +1479,13 @@
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-                        </items>
-                        <expandanimation type="InCubic" />
+                        </Items>
+                        <ExpandAnimation Type="InCubic" />
                     </telerik:RadPanelBar>
                     <telerik:RadPanelBar ID="RadPanelBar6" runat="server" EnableEmbeddedSkins="false"
                         ExpandAnimation-Type="InCubic" Skin="Telerik" Width="100%" OnItemClick="RadPanelBar6_ItemClick"
                         AllowCollapseAllItems="true" ExpandMode="SingleExpandedItem">
-                        <items>
+                        <Items>
                             <telerik:RadPanelItem runat="server" Text="Sales" Value="Associates">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="Dashboard" Value="RM Home">
@@ -1557,9 +1571,9 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="FD/54EC Order Book" Value="54EC_ORDER_bOOK">
                                                     </telerik:RadPanelItem>
-                                                      <telerik:RadPanelItem runat="server" Text="Add FD Order" Value="FD_Order">
+                                                    <telerik:RadPanelItem runat="server" Text="Add FD Order" Value="FD_Order">
                                                     </telerik:RadPanelItem>
-                                                     <telerik:RadPanelItem runat="server" Text="FD Order Book" Value="FD_Order_Book">
+                                                    <telerik:RadPanelItem runat="server" Text="FD Order Book" Value="FD_Order_Book">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
@@ -1722,8 +1736,8 @@
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-                        </items>
-                        <expandanimation type="InCubic" />
+                        </Items>
+                        <ExpandAnimation Type="InCubic" />
                     </telerik:RadPanelBar>
                     <%--<telerik:RadPanelBar ID="RadPnlBrRepository" Style="vertical-align: middle;" runat="server"
                         EnableEmbeddedSkins="false" ExpandAnimation-Type="InCubic" Skin="Telerik" Width="100%"

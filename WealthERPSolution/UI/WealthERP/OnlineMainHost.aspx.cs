@@ -180,7 +180,7 @@ namespace WealthERP
             }
             if (!string.IsNullOrEmpty(customerVo.AccountId))
                 ScriptManager.RegisterStartupScript(this, typeof(Page), "GetRMSAvailableBalance", "GetRMSAvailableBalance('" + customerVo.AccountId + "');", true);
-
+           
         }
 
         private void BindExchangeDropDown(string exchange)
@@ -344,8 +344,13 @@ namespace WealthERP
                     exchangeType1 = "Demat";
                 }
                 Dictionary<string, string> TransactionTypes = onlineOrderBo.GetTransactionTypeForExchange(exchangeType1, SchemetransactType[exchangeType1].ToString());
-                if (TransactionTypes.Count > 0 && TransactionTypes.Keys.Contains(hdnTransactType.Value))
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromMainPage", "LoadTransactPanel('" + hdnTransactType.Value + exchangeType + "');", true);
+                string pageName;
+                if (hdnTransactType.Value.Contains('&'))
+                    pageName = hdnTransactType.Value.Substring(0, hdnTransactType.Value.IndexOf('&'));
+                else
+                    pageName = hdnTransactType.Value;
+                if (TransactionTypes.Count > 0 && TransactionTypes.Keys.Contains(pageName))
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromMainPage", "LoadTransactPanel('" + pageName + exchangeType + "');", true);
                 else
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromMainPage", "LoadTransactPanel('" + TransactionTypes.Keys.ElementAt(0) + exchangeType + "');", true);
 
@@ -797,6 +802,8 @@ namespace WealthERP
             LinkButton lb = (LinkButton)sender;
             string pageName = lb.CommandName;
             ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadBottomPanelFromMainMenu", pageName, true);
+            //if(ddlchannel.SelectedValue!="")
+            //ddlchannel.SelectedValue = "Online";
         }
 
     }

@@ -668,13 +668,13 @@
                     <cc1:TextBoxWatermarkExtender ID="txtSchemeName_water" TargetControlID="SchemeSearch"
                         WatermarkText="Search Scheme" runat="server" EnableViewState="false">
                     </cc1:TextBoxWatermarkExtender>
-                    <div id="listPlacement"  style="text-align: left;z-index:300;cursor: pointer;">
+                    <div id="listPlacement" style="text-align: left; z-index: 300; cursor: pointer;">
                     </div>
-                    <ajaxToolkit:AutoCompleteExtender ID="txtSchemeName_AutoCompleteExtender" runat="server" 
+                    <ajaxToolkit:AutoCompleteExtender ID="txtSchemeName_AutoCompleteExtender" runat="server"
                         TargetControlID="SchemeSearch" ServiceMethod="GetInvestorScheme" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
-                        MinimumPrefixLength="1" EnableCaching="true" CompletionSetCount="5" CompletionInterval="100" 
-                         UseContextKey="True" OnClientItemSelected="GetSchemePlanCode" 
-                        DelimiterCharacters="" CompletionListElementID="listPlacement" Enabled="True" />
+                        MinimumPrefixLength="1" EnableCaching="true" CompletionSetCount="5" CompletionInterval="100"
+                        UseContextKey="True" OnClientItemSelected="GetSchemePlanCode" DelimiterCharacters=""
+                        CompletionListElementID="listPlacement" Enabled="True" />
                 </div>
             </ul>
         </div>
@@ -835,13 +835,14 @@
                                     <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" TargetControlID="TextBox1"
                                         WatermarkText="Search Scheme" runat="server" EnableViewState="false">
                                     </cc1:TextBoxWatermarkExtender>
-                                    <div id="Div2"  style="text-align: left;z-index:300;font-style:normal; cursor: pointer; font-weight: normal;font-size:small">
+                                    <div id="Div2" style="text-align: left; z-index: 300; font-style: normal; cursor: pointer;
+                                        font-weight: normal; font-size: small">
                                     </div>
                                     <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server" TargetControlID="TextBox1"
                                         ServiceMethod="GetInvestorScheme" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
                                         MinimumPrefixLength="1" EnableCaching="true" CompletionSetCount="5" CompletionInterval="100"
-                                         UseContextKey="True" OnClientItemSelected="GetTransactPanelSchemePlanCode"
-                                        DelimiterCharacters="" CompletionListElementID="Div2" Enabled="True" />
+                                        UseContextKey="True" OnClientItemSelected="GetTransactPanelSchemePlanCode" DelimiterCharacters=""
+                                        CompletionListElementID="Div2" Enabled="True" />
                                 </div>
                             </td>
                             <td align="right" style="vertical-align: middle;">
@@ -849,7 +850,7 @@
                             </td>
                             <td>
                                 <asp:DropDownList ID="ddlchannel" runat="server" CssClass="cmbField" AutoPostBack="true"
-                                    OnSelectedIndexChanged="ddlchannel_onSelectedChanged" >
+                                    OnSelectedIndexChanged="ddlchannel_onSelectedChanged">
                                 </asp:DropDownList>
                             </td>
                             <td align="right" style="vertical-align: middle;">
