@@ -730,8 +730,8 @@
                                         <asp:Label ID="Label1" runat="server" Text="Transaction Types:" CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td class="rightField">
-                                        <telerik:RadListBox ID="chkbltranstype" runat="server" CheckBoxes="true" AutoPostBack="true">
-                                        </telerik:RadListBox>
+                                        <asp:CheckBoxList ID="chkbltranstype" runat="server" CheckBoxes="true" AutoPostBack="true">
+                                        </asp:CheckBoxList>
                                     </td>
                                 </tr>
                                 <tr id="tr7" >

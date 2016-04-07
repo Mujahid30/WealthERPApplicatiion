@@ -562,7 +562,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 dl.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
             }
         }
-        private void BindtransactionTypes(RadListBox rlb, string NotificationType)
+        private void BindtransactionTypes(CheckBoxList rlb, string NotificationType)
         {
             DataRow[]  dt;
             DataTable dttransTypes = new DataTable();
@@ -579,12 +579,12 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void NotificationType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             DropDownList NotificationType = (DropDownList)sender;
-            RadListBox rlb = new RadListBox();
+            CheckBoxList rlb = new CheckBoxList();
             if (NotificationType.NamingContainer is Telerik.Web.UI.GridEditFormItem)
             {
                 GridEditFormItem gdi;
                 gdi = (GridEditFormItem)NotificationType.NamingContainer;
-                rlb = (RadListBox)gdi.FindControl("chkbltranstype");
+                rlb = (CheckBoxList)gdi.FindControl("chkbltranstype");
                 NotificationType = (DropDownList)gdi.FindControl("DropDownList1");
                 DropDownList assetgroup = new DropDownList();
                 assetgroup = (DropDownList)gdi.FindControl("ddlAssetGroupName1");
@@ -624,11 +624,11 @@ namespace WealthERP.OnlineOrderBackOffice
             string assetGroupCode = ((DropDownList)insertItem.FindControl("ddlAssetGroupName1")).SelectedValue;
             notificationType = Convert.ToInt32(((DropDownList)insertItem.FindControl("DropDownList1")).SelectedValue);
             PriorDays = Convert.ToInt32(((TextBox)insertItem.FindControl("txtPriorDays")).Text);
-
+           
             string transtypes = string.Empty;
-            foreach (RadListBoxItem li in ((RadListBox)insertItem.FindControl("chkbltranstype")).Items)
+            foreach (ListItem li in ((CheckBoxList)e.Item.FindControl("chkbltranstype")).Items)
             {
-                if (li.Checked == true)
+                if (li.Selected == true)
                     transtypes += li.Value + ",";
             }
             isSMSEnabled = ((CheckBox)insertItem.FindControl("chkSMS")).Checked;
@@ -665,7 +665,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 DropDownList dropDownList1 = (DropDownList)editedItem.FindControl("DropDownList1");
                 DropDownList ddlAssetGroupName1 = (DropDownList)editedItem.FindControl("ddlAssetGroupName1");
                 TextBox txtNotificationHeading = (TextBox)editedItem.FindControl("txtNotificationHeading");
-                RadListBox chkbltranstype = (RadListBox)editedItem.FindControl("chkbltranstype");
+                CheckBoxList chkbltranstype = (CheckBoxList)editedItem.FindControl("chkbltranstype");
                 CheckBox chkSMS = (CheckBox)editedItem.FindControl("chkSMS");
                 CheckBox chkEmail = (CheckBox)editedItem.FindControl("chkEmail");
                 chkSMS.Checked =rgNotification.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_IsSMSEnabled"].ToString() == "True";
@@ -684,11 +684,11 @@ namespace WealthERP.OnlineOrderBackOffice
 
                 for (int i = 0; i < transtype.Length; i++)
                 {
-                    foreach (RadListBoxItem li in chkbltranstype.Items)
+                    foreach (ListItem li in chkbltranstype.Items)
                     {
-                        if (li.Value == transtype[i])
+                        if (li.Value== transtype[i])
                         {
-                            li.Checked = true;
+                            li.Selected = true;
                         }
 
 
@@ -717,9 +717,9 @@ namespace WealthERP.OnlineOrderBackOffice
             int notificationType = Convert.ToInt32(((DropDownList)e.Item.FindControl("DropDownList1")).SelectedValue);
             int priorDays = Convert.ToInt32(((TextBox)e.Item.FindControl("txtPriorDays")).Text);
             string transtypes = string.Empty;
-            foreach (RadListBoxItem li in ((RadListBox)e.Item.FindControl("chkbltranstype")).Items)
+            foreach (ListItem li in ((CheckBoxList)e.Item.FindControl("chkbltranstype")).Items)
             {
-                if (li.Checked == true)
+                if (li.Selected == true)
                     transtypes += li.Value + ",";
             }
             bool isSMSEnabled = ((CheckBox)e.Item.FindControl("chkSMS")).Checked;
