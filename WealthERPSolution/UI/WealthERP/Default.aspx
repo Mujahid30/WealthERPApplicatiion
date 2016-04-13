@@ -311,8 +311,8 @@
                                                                 NavigateUrl="#"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('MarketData','login');" Text="Market Data"
                                                                 Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                            <%--<asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
-                                                                Value="Calculators"></asp:MenuItem>--%>
+                                                         <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
+                                                                Value="Calculators"></asp:MenuItem>
                                                             <%--<asp:MenuItem NavigateUrl="javascript:loadfrommenu('InterestCalculator','login');"
                                                                 Text="Interest Calculator" Value="Interest Calculator"></asp:MenuItem>--%>
                                                             <%--https://calculator.wealtherp.com/--%>

@@ -309,10 +309,10 @@
 </table>
 <telerik:RadTabStrip ID="RadTabStripCustomerProfile" runat="server" EnableTheming="True"
     Skin="Telerik" EnableEmbeddedSkins="False" MultiPageID="CustomerProfileDetails"
-    SelectedIndex="2">
+    SelectedIndex="0">
     <Tabs>
         <telerik:RadTab runat="server" Text="Family Associates" Value="FamilyAssociates"
-            TabIndex="0" Visible="false">
+            TabIndex="0" >
         </telerik:RadTab>
         <telerik:RadTab runat="server" Text="ISA Account" Value="ISAAccount" TabIndex="1">
         </telerik:RadTab>
@@ -334,7 +334,7 @@
     </Tabs>
 </telerik:RadTabStrip>
 <telerik:RadMultiPage ID="CustomerProfileDetails" EnableViewState="true" runat="server">
-    <telerik:RadPageView ID="rpvFamilyAssociates" runat="server" Visible="false">
+    <telerik:RadPageView ID="rpvFamilyAssociates" runat="server" >
         <asp:UpdatePanel ID="UpdatePanel2" runat="server">
             <ContentTemplate>
                 <table style="width: 100%;" visible="false">

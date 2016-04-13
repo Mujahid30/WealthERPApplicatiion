@@ -372,8 +372,12 @@ namespace WealthERP.General
                 //int noOfYears = 0;
                 //int noOfMonths = 0;
                 DateTime endDate = new DateTime();
+                DateTime startDate;
                 DateTime premiumDate = new DateTime();
-                DateTime startDate = DateTime.Parse(txtStartDate.Text);
+                if (!string.IsNullOrEmpty(txtStartDate.Text))
+                    startDate = DateTime.Now;
+                else
+                    startDate = DateTime.Parse(txtStartDate.Text);
 
                 //if (txtTenureYears.Text != string.Empty)
                 //    noOfYears = int.Parse(txtTenureYears.Text);

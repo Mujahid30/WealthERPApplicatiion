@@ -379,10 +379,10 @@ namespace WealthERP.Customer
                     else
                         chkKYC.Checked = false;
 
-                    RadTabStripCustomerProfile.TabIndex = 2;
+                    RadTabStripCustomerProfile.TabIndex = 0;
                     //RadTabStripFPGoalDetails.SelectedTab.Enabled = true;
-                    CustomerProfileDetails.SelectedIndex = 2;
-                    RadTabStripCustomerProfile.Tabs[2].Selected = true;
+                    CustomerProfileDetails.SelectedIndex = 0;
+                    RadTabStripCustomerProfile.Tabs[0].Selected = true;
 
                 }
 
