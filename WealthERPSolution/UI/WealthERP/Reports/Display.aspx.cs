@@ -5080,6 +5080,7 @@ namespace WealthERP.Reports
                 emailVo.AttachmentPath = destFile;
                 emailVo.Subject = hidSubject.Value;
                 emailVo.Body = hidBody.Value;
+                emailVo.EmailType = "WL";
                 EmailSMSBo emailSMS = new EmailSMSBo();
                 isMailSent = emailSMS.CreateReportBulkMailRequest(emailVo);
                 bool isupdated = associateBo.UpdateAssociateWelcomeNotePath(userVo.UserId, associateId, fileName);

@@ -291,6 +291,10 @@ namespace DaoCommon
                     db.AddInParameter(addToEmailQueueCmd, "@FromEmailId", DbType.String, emailVo.EmailFrom);
                 else
                     db.AddInParameter(addToEmailQueueCmd, "@FromEmailId", DbType.String, DBNull.Value);
+                if (emailVo.EmailType != null)
+                    db.AddInParameter(addToEmailQueueCmd, "@TypeCode", DbType.String, emailVo.EmailType);
+                else
+                    db.AddInParameter(addToEmailQueueCmd, "@TypeCode", DbType.String, DBNull.Value);
 
                 db.ExecuteNonQuery(addToEmailQueueCmd);
                 isComplete = true;
