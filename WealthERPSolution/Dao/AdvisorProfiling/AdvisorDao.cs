@@ -3748,7 +3748,39 @@ namespace DaoAdvisorProfiling
             }
             return isOperationDone;
         }
+        #region New Method For CustomerUser Management
+        public DataTable GetOfflineCustomerList(int adviserId)
+        {
+            Database db;
+            DbCommand GetFPCustomerList;
+            DataSet dsGetFPCustomerList;
 
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetFPCustomerList = db.GetStoredProcCommand("SPROC_OFF_GetFPCustomerList");
+                db.AddInParameter(GetFPCustomerList, "@AdviserId", DbType.Int32, adviserId);
+                dsGetFPCustomerList = db.ExecuteDataSet(GetFPCustomerList);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "GetAdviserRoleTreeNodes(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetFPCustomerList.Tables[0];
+        }
+        #endregion New Method For CustomerUser Management
     }
 }
-
+ 

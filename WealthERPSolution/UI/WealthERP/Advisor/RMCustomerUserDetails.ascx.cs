@@ -112,58 +112,21 @@ namespace WealthERP.Advisor
                 advisorVo = (AdvisorVo)Session["advisorVo"];
 
                 int Count = 0;
+                dtRMCustomer = advisorBo.GetOfflineCustomerList(advisorVo.advisorId);
 
-                customerUserList = advisorBo.GetAdviserCustomerList(advisorVo.advisorId,0, out Count, "", "", hdnNameFilter.Value.Trim(), "", "", "", "", "", "0", out genDictParent, out genDictRM, out genDicReassigntRM);
-                //lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
-                if (customerUserList != null)
+                if (dtRMCustomer.Rows.Count !=0)
                 {
-                    //lblMsg.Visible = false;
-                    dtRMCustomer.Columns.Add("UserId");
-                    dtRMCustomer.Columns.Add("CustomerName");
-                    dtRMCustomer.Columns.Add("Login Id");
-                    dtRMCustomer.Columns.Add("Email Id");
-                    dtRMCustomer.Columns.Add("Password");
-
-                    DataRow drRMCustomerUser;
-
-                    for (int i = 0; i < customerUserList.Count; i++)
-                    {
-                        drRMCustomerUser = dtRMCustomer.NewRow();
-                        customerVo = new CustomerVo();
-                        customerVo = customerUserList[i];
-                        userId = customerVo.UserId;
-                        userVo = new UserVo();
-                        userVo = userBo.GetUserDetails(userId);
-
-                        drRMCustomerUser[0] = userVo.UserId.ToString();
-                        drRMCustomerUser[1] = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
-                        drRMCustomerUser[2] = userVo.LoginId.ToString();
-                        drRMCustomerUser[3] = userVo.Email.ToString();
-                        drRMCustomerUser[4] = userVo.Password.ToString();
-                        dtRMCustomer.Rows.Add(drRMCustomerUser);
-                    }
-
-                    if (Cache["Customerdetails" + advisorVo.advisorId] == null)
-                    {
-                        Cache.Insert("Customerdetails" + advisorVo.advisorId, dtRMCustomer);
-                    }
-                    else
+                  
+                  if (Cache["Customerdetails" + advisorVo.advisorId]!= null)
                     {
                         Cache.Remove("Customerdetails" + advisorVo.advisorId);
-                        Cache.Insert("Customerdetails" + advisorVo.advisorId, dtRMCustomer);
                     }
+                    Cache.Insert("Customerdetails" + advisorVo.advisorId, dtRMCustomer);
                     gvCustomer.DataSource = dtRMCustomer;
                     gvCustomer.DataBind();
-
-                    
                 }
                 else
                 {
-                    //mypager.Visible = false;
-                    //lblCurrentPage.Visible = false;
-                    //lblTotalRows.Visible = false;
-                    //tblPager.Visible = false;
-                    // lblMsg.Visible = true;
                     tblMessage.Visible = true;
                     ErrorMessage.Visible = true;
                     SuccessMsg.Visible = false;
