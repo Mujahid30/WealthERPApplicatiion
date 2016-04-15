@@ -1710,6 +1710,11 @@ namespace WealthERP.FP
                 AddCustomerManagePortFolio(customerId);
                 UpdateCustomerForAddProspect(customerId, true);
 
+                #region Mark Client for FP association 
+                CreateFProductionPAssociation(customerId);
+                #endregion Mark Client for FP association 
+
+
                 // Converting all child customers from Prospect to Non Prospect..
 
 
@@ -1759,7 +1764,10 @@ namespace WealthERP.FP
             }
             
         }
-
+        private void CreateFProductionPAssociation(int customerId)
+        {
+            customerBo.CreateProductAssociation(customerId,"FP");
+        }
         protected void btnGetSlab_Click(object sender, EventArgs e)
         {
             bool isGenderExist = false;

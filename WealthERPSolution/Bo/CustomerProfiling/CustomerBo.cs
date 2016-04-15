@@ -496,7 +496,38 @@ namespace BoCustomerProfiling
 
             return customerVo;
         }
+        /// <summary>
+        /// product association for customer with Bussiness channel 
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="productType"></param>
+        /// <returns></returns>
+        public bool CreateProductAssociation(int customerId, string productType)
+        { CustomerDao customerDao = new CustomerDao();
+            try
+                {
+                   return customerDao.CreateProductAssociation(customerId, productType);
 
+                }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerBo.cs:CreateProductAssociation()");
+                object[] objects = new object[2];
+                objects[0] = customerId;
+                objects[1] = productType;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+        }
         /// <summary>
         /// Used to Update Customer Details
         /// </summary>

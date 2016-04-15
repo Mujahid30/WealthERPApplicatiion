@@ -7083,7 +7083,35 @@ namespace DaoCustomerProfiling
             }
             return dtGetDummyPanCustomer;
         }
-
+        /// <summary>
+        /// product association for customer with Bussiness channel 
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
+        public bool CreateProductAssociation(int customerId,string productType)
+        {
+            int result = 0;
+            bool returnValue=false;
+            Database db;
+            DbCommand createCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createCmd = db.GetStoredProcCommand("SPROC_CreateCustomerProductAssociation");
+                db.AddInParameter(createCmd, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(createCmd, "@productType", DbType.String, productType);
+                result = db.ExecuteNonQuery(createCmd);
+                if (result > 0)
+                {
+                    returnValue = true;
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return returnValue;
+        }
 
         public int CreateCustomerMerge(int deletingCustomerId, int matchCustomerId)
         {
