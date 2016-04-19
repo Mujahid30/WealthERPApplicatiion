@@ -1256,6 +1256,13 @@
     <Compile Include="Alerts\NotificationDashboard.ascx.designer.cs">
       <DependentUpon>NotificationDashboard.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Alerts\NotificationStatusDetails.ascx.cs">
+      <DependentUpon>NotificationStatusDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Alerts\NotificationStatusDetails.ascx.designer.cs">
+      <DependentUpon>NotificationStatusDetails.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Associates\AddAssociates.ascx.cs">
       <DependentUpon>AddAssociates.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -4910,6 +4917,7 @@
     <Content Include="Alerts\CustomerInsuranceAlerts.ascx" />
     <Content Include="Alerts\CustomerMFAlert.ascx" />
     <Content Include="Alerts\CustomerTransactionalAlertManagement.ascx" />
+    <Content Include="Alerts\NotificationStatusDetails.ascx" />
     <Content Include="App_Themes\BlackAndWhite\GridViewCss.css" />
     <Content Include="App_Themes\BlackAndWhite\Images\alert.png" />
     <Content Include="App_Themes\BlackAndWhite\Images\bubbletip-B-tail.png" />
