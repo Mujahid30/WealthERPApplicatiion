@@ -20,8 +20,8 @@
                     <asp:RadioButton ID="Subject" runat="server" Checked="true" AutoPostBack="true" GroupName="Email" Text="Email Subject" OnCheckedChanged="RadioBtn_OnCheckedChanged" />
                     <asp:RadioButton ID="Body" runat="server" AutoPostBack="true" GroupName="Email" Text="Email Body" OnCheckedChanged="RadioBtn_OnCheckedChanged" />
                 <div id="divEmailSubject" runat="server" visible="true">
-                    <div style="width: 700px;">
-                        <asp:TextBox ID="txtEmailSubject"  TextMode="MultiLine" runat="server" CssClass="textEditor"
+                    <div style="width: 700px; margin:10px;padding:10px;">
+                        <asp:TextBox ID="txtEmailSubject"  TextMode="MultiLine" runat="server" Width="600px" Height="150px" 
                             onblur="getEmailSubject()"></asp:TextBox>
                     </div>
                     <asp:Button ID="btnEmailSubjectPreview" runat="server" OnClick="previewButton_Onclick"
@@ -46,8 +46,8 @@
                 </div>
             </div>
             <div id="divSMS" runat="server">
-                <div style="width: 400px;">
-                    <asp:TextBox ID="txtSMSBody" TextMode="MultiLine" runat="server" CssClass="textEditor"
+                <div style="width: 400px; margin:10px;padding:10px;">
+                    <asp:TextBox ID="txtSMSBody" TextMode="MultiLine" runat="server" Width="600px" Height="150px"
                         onblur="getSMSBody()"></asp:TextBox>
                 </div>
                 <asp:Button ID="btnSMSBodyPreview" runat="server" OnClick="previewButton_Onclick"

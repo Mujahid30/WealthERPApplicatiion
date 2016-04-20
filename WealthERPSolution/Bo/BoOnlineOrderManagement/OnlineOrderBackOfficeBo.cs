@@ -2638,6 +2638,65 @@ namespace BoOnlineOrderManagement
             }
             return result;
         }
+        public DataSet GetNotificationTypes(string assetGroup)
+        {
+            DataSet dsNotificationTypes = new DataSet();
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            try
+            {
+                dsNotificationTypes = daoOnlineOrderBackOffice.GetNotificationTypes(assetGroup);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsNotificationTypes;
 
+        }
+
+        public DataSet GetNotificationHeader(int notificationTypeId, int adviserId)
+        {
+            DataSet dsGetNotificationHeader = new DataSet();
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            try
+            {
+                dsGetNotificationHeader = daoOnlineOrderBackOffice.GetNotificationHeader(notificationTypeId,adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetNotificationHeader;
+        }
+
+        public DataSet GetNotificationCommChannel(int notificationHeaderId)
+        {
+            DataSet dsNotificationCommChannel = new DataSet();
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            try
+            {
+                dsNotificationCommChannel = daoOnlineOrderBackOffice.GetNotificationCommChannel(notificationHeaderId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsNotificationCommChannel;
+        }
+
+        public DataSet GetNotificationMessageDetails(int notificationHeaderId, string ChannelType)
+        {
+            DataSet ds = new DataSet();
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            try
+            {
+                ds = daoOnlineOrderBackOffice.GetNotificationMessageDetails(notificationHeaderId, ChannelType);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return ds;
+        }
     }
 }

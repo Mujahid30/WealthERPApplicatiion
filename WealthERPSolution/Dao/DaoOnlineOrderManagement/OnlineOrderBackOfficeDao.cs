@@ -3342,5 +3342,83 @@ namespace DaoOnlineOrderManagement
             }
             return bResult;
         }
+
+        public DataSet GetNotificationTypes(string assetGroup)
+        {
+            DataSet dsGetNotificationTypes;
+            Database db;
+            DbCommand cmdGetNotificationTypes;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetNotificationTypes = db.GetStoredProcCommand("SP_GETNotificationTypes");
+                db.AddInParameter(cmdGetNotificationTypes, "@AssetGroup", DbType.String, assetGroup);
+                dsGetNotificationTypes = db.ExecuteDataSet(cmdGetNotificationTypes);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetNotificationTypes;
+        }
+
+        public DataSet GetNotificationHeader(int notificationTypeId,int adviserId)
+        {
+            DataSet dsGetNotificationHeader;
+            Database db;
+            DbCommand cmdGetNotificationHeader;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetNotificationHeader = db.GetStoredProcCommand("SP_GETNotificationHeaders");
+                db.AddInParameter(cmdGetNotificationHeader, "@NotificationTypeId", DbType.Int32, notificationTypeId);
+                db.AddInParameter(cmdGetNotificationHeader, "@AdviserId", DbType.Int32, adviserId);
+                dsGetNotificationHeader = db.ExecuteDataSet(cmdGetNotificationHeader);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetNotificationHeader;
+        }
+
+        public DataSet GetNotificationCommChannel(int notificationHeaderId)
+        {
+            DataSet ds;
+            Database db;
+            DbCommand cmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SP_GetNotificationCommChannel");
+                db.AddInParameter(cmd, "@NotificationHeaderId", DbType.Int32, notificationHeaderId);
+                ds = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return ds;
+        }
+
+        public DataSet GetNotificationMessageDetails(int notificationHeaderId, string ChannelType)
+        {
+            DataSet ds;
+            Database db;
+            DbCommand cmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SP_GetNotificationMessageDetails");
+                db.AddInParameter(cmd, "@NotificationHeaderId", DbType.Int32, notificationHeaderId);
+                db.AddInParameter(cmd, "@ChannelType", DbType.String, ChannelType);
+                ds = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return ds;
+        }
     }
 }

@@ -140,18 +140,18 @@ namespace WealthERP.OnlineOrderBackOffice
                 rgNotification.DataBind();
 
             }
-            if (ds.Tables[1].Rows.Count >= 0)
-            {
-                if (Cache["NotificationType" + userVo.UserId.ToString()] == null)
-                {
-                    Cache.Insert("NotificationType" + userVo.UserId.ToString(), ds.Tables[1]);
-                }
-                else
-                {
-                    Cache.Remove("NotificationType" + userVo.UserId.ToString());
-                    Cache.Insert("NotificationType" + userVo.UserId.ToString(), ds.Tables[1]);
-                }
-            }
+            //if (ds.Tables[1].Rows.Count >= 0)
+            //{
+            //    if (Cache["NotificationType" + userVo.UserId.ToString()] == null)
+            //    {
+            //        Cache.Insert("NotificationType" + userVo.UserId.ToString(), ds.Tables[1]);
+            //    }
+            //    else
+            //    {
+            //        Cache.Remove("NotificationType" + userVo.UserId.ToString());
+            //        Cache.Insert("NotificationType" + userVo.UserId.ToString(), ds.Tables[1]);
+            //    }
+            //}
             if (ds.Tables[2].Rows.Count >= 0)
             {
                 if (Cache["transTypes" + userVo.UserId.ToString()] == null)
@@ -549,22 +549,33 @@ namespace WealthERP.OnlineOrderBackOffice
                 radDateTimePicker.SelectedDate = expirydate;
             }
         }
-        private void BindNotificationType(DropDownList dl)
+        private void BindNotificationType(DropDownList dl, string assetgroup)
         {
             DataTable dt = new DataTable();
-            dt = (DataTable)Cache["NotificationType" + userVo.UserId.ToString()];
-            if (dt != null)
+            DataSet ds = onlineOrderBackOfficeBo.GetNotificationTypes(assetgroup);
+            dl.Items.Clear();
+            if (ds.Tables[0].Rows.Count > 0)
             {
-                dl.DataSource = dt;
-                dl.DataValueField = dt.Columns["CNT_ID"].ToString();
-                dl.DataTextField = dt.Columns["CNT_NotificationType"].ToString();
+                if (Cache["NotificationType" + userVo.UserId.ToString()] == null)
+                {
+                    Cache.Insert("NotificationType" + userVo.UserId.ToString(), ds.Tables[0]);
+                }
+                else
+                {
+                    Cache.Remove("NotificationType" + userVo.UserId.ToString());
+                    Cache.Insert("NotificationType" + userVo.UserId.ToString(), ds.Tables[0]);
+                }
+                dl.DataSource = ds;
+                dl.DataTextField = ds.Tables[0].Columns["CNT_NotificationType"].ToString();
+                dl.DataValueField = ds.Tables[0].Columns["CNT_ID"].ToString();
                 dl.DataBind();
-                dl.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
+
             }
+            dl.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
         }
         private void BindtransactionTypes(CheckBoxList rlb, string NotificationType)
         {
-            DataRow[]  dt;
+            DataRow[] dt;
             DataTable dttransTypes = new DataTable();
             dttransTypes = (DataTable)Cache["transTypes" + userVo.UserId.ToString()];
             dt = dttransTypes.Select("CNT_ID=" + NotificationType);
@@ -588,6 +599,12 @@ namespace WealthERP.OnlineOrderBackOffice
                 NotificationType = (DropDownList)gdi.FindControl("DropDownList1");
                 DropDownList assetgroup = new DropDownList();
                 assetgroup = (DropDownList)gdi.FindControl("ddlAssetGroupName1");
+                Label Label7 = new Label();
+                TextBox txtPriorDays = new TextBox();
+                RequiredFieldValidator Requiredfieldvalidator9 = new RequiredFieldValidator();
+                Label7 = (Label)gdi.FindControl("Label7");
+                txtPriorDays = (TextBox)gdi.FindControl("txtPriorDays");
+                Requiredfieldvalidator9 = (RequiredFieldValidator)gdi.FindControl("Requiredfieldvalidator9");
                 if (assetgroup.SelectedValue == "MF")
                 {
                     if (gdi.IsInEditMode == true)
@@ -599,8 +616,47 @@ namespace WealthERP.OnlineOrderBackOffice
 
                     }
                 }
+                DataTable dt = new DataTable();
+                dt = (DataTable)Cache["NotificationType" + userVo.UserId.ToString()];
+                 DataRow[] foundRows=dt.Select("CNT_ID="+   NotificationType.SelectedValue);
+                 if (foundRows.Length >0&&foundRows[0]["CNT_Code"].ToString() == "Reminder")
+                {
+                    txtPriorDays.Visible = true;
+                    Label7.Visible = true;
+                    Requiredfieldvalidator9.Enabled = true;
+                }
+                else
+                {
+                    txtPriorDays.Visible = false;
+                    Label7.Visible = false;
+                    Requiredfieldvalidator9.Enabled = false;
+                }
             }
 
+        }
+        protected void ddlAssetGroupName_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList assetgroup = (DropDownList)sender;
+            CheckBoxList rlb = new CheckBoxList();
+            if (assetgroup.NamingContainer is Telerik.Web.UI.GridEditFormItem)
+            {
+                GridEditFormItem gdi;
+                gdi = (GridEditFormItem)assetgroup.NamingContainer;
+
+                assetgroup = (DropDownList)gdi.FindControl("ddlAssetGroupName1");
+                DropDownList NotificationType = new DropDownList();
+                NotificationType = (DropDownList)gdi.FindControl("DropDownList1");
+                HtmlTableRow trTransType = (HtmlTableRow)gdi.FindControl("trTransType");
+                BindNotificationType(NotificationType, assetgroup.SelectedValue);
+                if (assetgroup.SelectedValue == "MF")
+                {
+                    trTransType.Visible = true;
+                }
+                else
+                {
+                    trTransType.Visible = false;
+                }
+            }
         }
         protected void rgNotification_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
@@ -624,7 +680,7 @@ namespace WealthERP.OnlineOrderBackOffice
             string assetGroupCode = ((DropDownList)insertItem.FindControl("ddlAssetGroupName1")).SelectedValue;
             notificationType = Convert.ToInt32(((DropDownList)insertItem.FindControl("DropDownList1")).SelectedValue);
             PriorDays = Convert.ToInt32(((TextBox)insertItem.FindControl("txtPriorDays")).Text);
-           
+
             string transtypes = string.Empty;
             foreach (ListItem li in ((CheckBoxList)e.Item.FindControl("chkbltranstype")).Items)
             {
@@ -668,11 +724,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 CheckBoxList chkbltranstype = (CheckBoxList)editedItem.FindControl("chkbltranstype");
                 CheckBox chkSMS = (CheckBox)editedItem.FindControl("chkSMS");
                 CheckBox chkEmail = (CheckBox)editedItem.FindControl("chkEmail");
-                chkSMS.Checked =rgNotification.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_IsSMSEnabled"].ToString() == "True";
+                chkSMS.Checked = rgNotification.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_IsSMSEnabled"].ToString() == "True";
                 chkEmail.Checked = rgNotification.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_ISEmailEnabled"].ToString() == "True";
                 ddlAssetGroupName1.SelectedValue = assetGroupCode;
                 txtNotificationHeading.Text = NotificationHeading;
-                BindNotificationType(dropDownList1);
+                BindNotificationType(dropDownList1, assetGroupCode);
                 dropDownList1.SelectedValue = rgNotification.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CNT_ID"].ToString();
                 BindtransactionTypes(chkbltranstype, dropDownList1.SelectedValue);
                 string transtypes = rgNotification.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_TransactionTypes"].ToString();
@@ -686,7 +742,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     foreach (ListItem li in chkbltranstype.Items)
                     {
-                        if (li.Value== transtype[i])
+                        if (li.Value == transtype[i])
                         {
                             li.Selected = true;
                         }
@@ -701,8 +757,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 GridEditFormItem gefi = (GridEditFormItem)e.Item;
                 DropDownList DropDownList1 = (DropDownList)gefi.FindControl("DropDownList1");
 
-                BindNotificationType(DropDownList1);
-              
+                //BindNotificationType(DropDownList1);
+
 
             }
         }
@@ -713,7 +769,7 @@ namespace WealthERP.OnlineOrderBackOffice
             string headingText = ((TextBox)e.Item.FindControl("txtNotificationHeading")).Text;
             int id = Convert.ToInt32(editedItem.OwnerTableView.DataKeyValues[editedItem.ItemIndex]["CTNS_Id"].ToString());
             string assetGroupCode = ((DropDownList)e.Item.FindControl("ddlAssetGroupName1")).SelectedValue;
-            
+
             int notificationType = Convert.ToInt32(((DropDownList)e.Item.FindControl("DropDownList1")).SelectedValue);
             int priorDays = Convert.ToInt32(((TextBox)e.Item.FindControl("txtPriorDays")).Text);
             string transtypes = string.Empty;
@@ -734,7 +790,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 LinkButton EditLinkEmail = (LinkButton)e.Item.FindControl("EditLinkEmail");
                 EditLinkEmail.OnClientClick = String.Format("return ShowEditForm('{0}','{1}');", "?setupId=" + e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_Id"] + "&FormatType=Email", e.Item.ItemIndex);
                 LinkButton EditLinkSMS = (LinkButton)e.Item.FindControl("EditLinkSMS");
-                EditLinkSMS.OnClientClick = String.Format("return ShowEditForm('{0}','{1}');", "?setupId="+e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_Id"]+"&FormatType=SMS", e.Item.ItemIndex);
+                EditLinkSMS.OnClientClick = String.Format("return ShowEditForm('{0}','{1}');", "?setupId=" + e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_Id"] + "&FormatType=SMS", e.Item.ItemIndex);
             }
         }
         protected void RadAjaxManager1_AjaxRequest(object sender, AjaxRequestEventArgs e)

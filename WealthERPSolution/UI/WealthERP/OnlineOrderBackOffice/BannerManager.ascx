@@ -621,7 +621,7 @@
                 CTNS_IsSMSEnabled ,
                 CTNS_ISEmailEnabled ">
                     <Columns>
-                        <telerik:GridEditCommandColumn EditText="Update" UniqueName="editColumn" CancelText="Cancel"
+                        <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
                             UpdateText="Update" >
                         </telerik:GridEditCommandColumn>
                         <telerik:GridBoundColumn UniqueName="CTNS_NotificationHeader" HeaderText="Notification Heading"
@@ -673,8 +673,8 @@
                                         <span id="Span4" class="spnRequiredField">*</span>
                                         <br />
                                         <asp:RequiredFieldValidator ID="Requiredfieldvalidator5" runat="server" ControlToValidate="txtNotificationHeading"
-                                            ErrorMessage="Notification Heading can't be blank." ValidationGroup='<%# (Container is GridEditFormInsertItem) ? "btnInsertGroup" : "btnUpdateGroup1" %>'
-                                            SetFocusOnError="true" Enabled="false"></asp:RequiredFieldValidator>
+                                            ErrorMessage="Notification Heading can't be blank." ValidationGroup='<%# (Container is GridEditFormInsertItem) ? "btnInsertGroup1" : "btnUpdateGroup1" %>'
+                                            SetFocusOnError="true" Enabled="true"></asp:RequiredFieldValidator>
                                     </td>
                                 </tr>
                                 <tr id="trAddCategory" >
@@ -683,7 +683,7 @@
                                     </td>
                                     <td class="rightField">
                                         <asp:DropDownList ID="ddlAssetGroupName1" runat="server" CssClass="cmbLongField"
-                                            DataValueField='<%# Eval("PAG_AssetGroupCode") %>'>
+                                         AutoPostBack="true"   DataValueField='<%# Eval("PAG_AssetGroupCode") %>' OnSelectedIndexChanged="ddlAssetGroupName_OnSelectedIndexChanged">
                                             <asp:ListItem Selected="True" Value="0">SELECT</asp:ListItem>
                                             <asp:ListItem Selected="False" Value="IP">IPO</asp:ListItem>
                                             <asp:ListItem Selected="False" Value="FI">BOND</asp:ListItem>
@@ -693,7 +693,7 @@
                                         <br />
                                         <asp:RequiredFieldValidator ID="Requiredfieldvalidator3" runat="server" ControlToValidate="ddlAssetGroupName1"
                                             ErrorMessage="Please,Select an AssetGroup." InitialValue="0" ValidationGroup='<%# (Container is GridEditFormInsertItem) ? "btnInsertGroup1" : "btnUpdateGroup1" %>'
-                                            SetFocusOnError="true" Enabled="false"></asp:RequiredFieldValidator>
+                                            SetFocusOnError="true" Enabled="true"></asp:RequiredFieldValidator>
                                     </td>
                                 </tr>
                                 <tr>
@@ -708,24 +708,24 @@
                                         <br />
                                         <asp:RequiredFieldValidator ID="Requiredfieldvalidator8" runat="server" ControlToValidate="DropDownList1"
                                             ErrorMessage="Please,Select an Notification Type." InitialValue="0" ValidationGroup='<%# (Container is GridEditFormInsertItem) ? "btnInsertGroup1" : "btnUpdateGroup1" %>'
-                                            SetFocusOnError="true" Enabled="false"></asp:RequiredFieldValidator>
+                                            SetFocusOnError="true" Enabled="true"></asp:RequiredFieldValidator>
                                     </td>
                                     <td class="leftField">
                                         <asp:Label ID="Label7" runat="server" Text="Prior Days:" CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td class="rightField">
                                         <asp:TextBox ID="txtPriorDays" runat="server" MaxLength="2" Text='<%# Eval("CTNS_PriorDays") %>'></asp:TextBox>
-                                        <span id="Span9" class="spnRequiredField">*</span>
+                                        
                                         <br />
                                         <asp:RequiredFieldValidator ID="Requiredfieldvalidator9" runat="server" ControlToValidate="txtPriorDays"
                                             ErrorMessage="This field Can't be Blank." ValidationGroup='<%# (Container is GridEditFormInsertItem) ? "btnInsertGroup1" : "btnUpdateGroup1" %>'
-                                            SetFocusOnError="true" Enabled="false"></asp:RequiredFieldValidator>
+                                            SetFocusOnError="true" Enabled="true"></asp:RequiredFieldValidator>
                                         <asp:CompareValidator ID="txtPriorDays_CompareValidator" ControlToValidate="txtPriorDays"
                                             runat="server" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value ."
-                                            Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG" Enabled="false"></asp:CompareValidator>
+                                            Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG" Enabled="true"></asp:CompareValidator>
                                     </td>
                                 </tr>
-                                <tr >
+                                <tr id="trTransType" runat="server" >
                                     <td class="leftField">
                                         <asp:Label ID="Label1" runat="server" Text="Transaction Types:" CssClass="FieldName"></asp:Label>
                                     </td>
@@ -759,7 +759,7 @@
                                 <tr>
                                     <td align="right" colspan="2">
                                         <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
-                                            ValidationGroup='<%# (Container is GridEditFormInsertItem) ? "btnInsertGroup1" : "btnUpdateGroup1" %>' CausesValidation="false"
+                                            ValidationGroup='<%# (Container is GridEditFormInsertItem) ? "btnInsertGroup1" : "btnUpdateGroup1" %>' CausesValidation="true"
                                             CssClass="PCGButton" runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
                                         </asp:Button>&nbsp;
                                         <asp:Button ID="Button2" CssClass="PCGButton" Text="Cancel" runat="server" CausesValidation="false"
