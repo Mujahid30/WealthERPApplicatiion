@@ -103,8 +103,7 @@ namespace WealthERP.FP
             //}
             if (!Page.IsPostBack)
             {
-                ddlGoalYear.Items.Remove(DateTime.Today.Year.ToString());
-
+                BindGoalYear();
                 if (Request.QueryString["GoalId"] != null)
                     goalId = int.Parse(Request.QueryString["GoalId"].ToString());
                 if (Request.QueryString["goalAction"] != null)
@@ -224,7 +223,14 @@ namespace WealthERP.FP
 
 
         }
-
+        protected void BindGoalYear()
+        {
+            for (int i = DateTime.Now.Year + 1; i <= DateTime.Now.Year + 30; i++)
+            {
+               ddlGoalYear.Items.Add(new ListItem(i.ToString(), i.ToString()));
+            }
+            
+        }
         protected void TabSelectionBasedOnGoalAction()
         {
             //if (goalAction == "View" || goalAction == "Edit" || string.IsNullOrEmpty(goalAction.Trim()))

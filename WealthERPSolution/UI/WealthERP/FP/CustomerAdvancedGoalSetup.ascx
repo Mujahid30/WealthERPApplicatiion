@@ -241,73 +241,11 @@
                         </td>
                         <td class="rightField">
                             <asp:DropDownList ID="ddlGoalYear" runat="server" CssClass="cmbField" CausesValidation="True">
-                                <asp:ListItem Selected="True">2013</asp:ListItem>
-                                <asp:ListItem>2014</asp:ListItem>
-                                <asp:ListItem>2015</asp:ListItem>
-                                <asp:ListItem>2016</asp:ListItem>
-                                <asp:ListItem>2017</asp:ListItem>
-                                <asp:ListItem>2018</asp:ListItem>
-                                <asp:ListItem>2019</asp:ListItem>
-                                <asp:ListItem>2020</asp:ListItem>
-                                <asp:ListItem>2021</asp:ListItem>
-                                <asp:ListItem>2022</asp:ListItem>
-                                <asp:ListItem>2023</asp:ListItem>
-                                <asp:ListItem>2024</asp:ListItem>
-                                <asp:ListItem>2025</asp:ListItem>
-                                <asp:ListItem>2026</asp:ListItem>
-                                <asp:ListItem>2027</asp:ListItem>
-                                <asp:ListItem>2028</asp:ListItem>
-                                <asp:ListItem>2029</asp:ListItem>
-                                <asp:ListItem>2030</asp:ListItem>
-                                <asp:ListItem>2031</asp:ListItem>
-                                <asp:ListItem>2032</asp:ListItem>
-                                <asp:ListItem>2033</asp:ListItem>
-                                <asp:ListItem>2034</asp:ListItem>
-                                <asp:ListItem>2035</asp:ListItem>
-                                <asp:ListItem>2036</asp:ListItem>
-                                <asp:ListItem>2037</asp:ListItem>
-                                <asp:ListItem>2038</asp:ListItem>
-                                <asp:ListItem>2039</asp:ListItem>
-                                <asp:ListItem>2040</asp:ListItem>
-                                <asp:ListItem>2041</asp:ListItem>
-                                <asp:ListItem>2042</asp:ListItem>
-                                <asp:ListItem>2043</asp:ListItem>
-                                <asp:ListItem>2044</asp:ListItem>
-                                <asp:ListItem>2045</asp:ListItem>
-                                <asp:ListItem>2046</asp:ListItem>
-                                <asp:ListItem>2047</asp:ListItem>
-                                <asp:ListItem>2048</asp:ListItem>
-                                <asp:ListItem>2049</asp:ListItem>
-                                <asp:ListItem>2050</asp:ListItem>
-                                <asp:ListItem>2051</asp:ListItem>
-                                <asp:ListItem>2052</asp:ListItem>
-                                <asp:ListItem>2053</asp:ListItem>
-                                <asp:ListItem>2054</asp:ListItem>
-                                <asp:ListItem>2055</asp:ListItem>
-                                <asp:ListItem>2056</asp:ListItem>
-                                <asp:ListItem>2057</asp:ListItem>
-                                <asp:ListItem>2058</asp:ListItem>
-                                <asp:ListItem>2059</asp:ListItem>
-                                <asp:ListItem>2060</asp:ListItem>
-                                <asp:ListItem>2061</asp:ListItem>
-                                <asp:ListItem>2062</asp:ListItem>
-                                <asp:ListItem>2063</asp:ListItem>
-                                <asp:ListItem>2064</asp:ListItem>
-                                <asp:ListItem>2065</asp:ListItem>
-                                <asp:ListItem>2066</asp:ListItem>
-                                <asp:ListItem>2067</asp:ListItem>
-                                <asp:ListItem>2068</asp:ListItem>
-                                <asp:ListItem>2069</asp:ListItem>
-                                <asp:ListItem>2070</asp:ListItem>
-                                <asp:ListItem>2071</asp:ListItem>
-                                <asp:ListItem>2072</asp:ListItem>
-                                <asp:ListItem>2073</asp:ListItem>
-                                <asp:ListItem>2074</asp:ListItem>
-                                <asp:ListItem>2075</asp:ListItem>
+                               
                             </asp:DropDownList>
                             <span id="SpanGoalYearReq" class="spnRequiredField" runat="server">*</span>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="ddlGoalYear"
-                                CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please Select Goal Year"></asp:RequiredFieldValidator>
+                                CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please Select Goal Year" InitialValue="0"></asp:RequiredFieldValidator>
                         </td>
                         <td class="leftField" id="tdSpouseEOL1" runat="server">
                             <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text="Spouse EOL :"></asp:Label>
