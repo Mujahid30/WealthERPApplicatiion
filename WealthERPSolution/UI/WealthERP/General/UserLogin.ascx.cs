@@ -790,8 +790,8 @@ namespace WealthERP.General
                                         dspotentialHomePage = advisorBo.GetUserPotentialHomepages(advisorVo.advisorId, "Customer");
                                         if (dspotentialHomePage.Tables[0].Rows.Count > 0)
                                             potentialHomePage = dspotentialHomePage.Tables[0].Rows[0][0].ToString();
-                                        string urlPath = "<script type='text/javascript'>window.parent.location.href = '../OnlineMainHost.aspx?WERP=Customer&x-SBI-PType=MF&x-Account-ID="+customerVo.CustCode+"'; </script>";
-                                        Page.ClientScript.RegisterStartupScript(GetType(), "Load", urlPath);
+                                        //string urlPath = "<script type='text/javascript'>window.parent.location.href = '../OnlineMainHost.aspx?WERP=Customer&x-SBI-PType=MF&x-Account-ID="+customerVo.CustCode+"'; </script>";
+                                        //Page.ClientScript.RegisterStartupScript(GetType(), "Load", urlPath);
 
                                         if (potentialHomePage == "Group Dashboard" || potentialHomePage == "Customer Dashboard")
                                         {
@@ -799,22 +799,22 @@ namespace WealthERP.General
                                             isGrpHead = customerBo.CheckCustomerGroupHead(customerVo.CustomerId);
                                             if (isGrpHead == true)
                                             {
-                                                //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewerw", "loadcontrol('CustomerDashBoardShortcut','login');", true);
+                                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewerw", "loadcontrol('CustomerDashBoardShortcut','login');", true);
                                                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMCustGroupDashboard','login','" + UserName + "','" + sourcePath + "');", true);
                                             }
                                             else
                                             {
-                                                //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewerw", "loadcontrol('CustomerDashBoardShortcut','login');", true);
+                                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewerw", "loadcontrol('CustomerDashBoardShortcut','login');", true);
                                                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMCustIndiDashboard','login','" + UserName + "','" + sourcePath + "');", true);
                                             }
                                         }
                                         else
                                         {
                                             Session["IsDashboard"] = "FP";
-                                            //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewerw", "loadcontrol('CustomerFPDashBoard','login');", true);
+                                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewerw", "loadcontrol('CustomerFPDashBoard','login');", true);
                                         }
 
-                                        //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+                                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpanaaaae", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
                                     }
 
                                     else if (userVo.UserType == "Admin")
