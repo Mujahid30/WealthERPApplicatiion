@@ -149,6 +149,7 @@ namespace WealthERP
                     }
                     //SetDemoLink(productType.ToUpper());
                     //SetFAQLink(productType.ToUpper());
+                    Session["MFSchemePlan"] = null;
                     SetProductTypeMenu(productType.ToUpper());
                     SetDefaultPageSetting(productType.ToUpper());
                     Session["PageDefaultSetting"] = defaultProductPageSetting;
