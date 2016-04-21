@@ -59,6 +59,7 @@
 </style>
 <asp:UpdatePanel ID="updpnlNCDSGBBook" runat="server">
     <ContentTemplate>
+    <div style="min-height:600px">
         <table width="100%">
             <tr>
                 <td>
@@ -392,5 +393,6 @@
             </table>
         </div>
         <asp:HiddenField ID="hdnOrderStatus" runat="server" />
+        </div>
     </ContentTemplate>
 </asp:UpdatePanel>
