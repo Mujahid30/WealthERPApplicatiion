@@ -1109,6 +1109,7 @@ namespace DAOAssociates
                 db.AddInParameter(getAdviserAssociateListcmd, "@adviserId", DbType.Int32, Id);
                 db.AddInParameter(getAdviserAssociateListcmd, "@Usertype", DbType.String, Usertype);
                 db.AddInParameter(getAdviserAssociateListcmd, "@agentcode", DbType.String, agentcode);
+                getAdviserAssociateListcmd.CommandTimeout = 60 * 60;
                 dsGetAdviserAssociateList = db.ExecuteDataSet(getAdviserAssociateListcmd);
             }
             catch (BaseApplicationException Ex)
