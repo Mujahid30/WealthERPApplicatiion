@@ -89,17 +89,36 @@
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
+                                             <telerik:GridBoundColumn DataField="AA_AMFIregistrationNo" SortExpression="Titles" AutoPostBackOnFilter="true"
+                                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
+                                                HeaderText="AMFI Registration No" UniqueName="AA_AMFIregistrationNo">
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Branch" DataField="AB_BranchName"
                                                 UniqueName="AB_BranchName" SortExpression="AB_BranchName" AutoPostBackOnFilter="true"
                                                 AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <%-- <telerik:GridBoundColumn DataField="Titles" SortExpression="Titles" AutoPostBackOnFilter="true"
+                                            <telerik:GridBoundColumn DataField="WERPBM_BankName" SortExpression="Titles" AutoPostBackOnFilter="true"
                                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
-                                                HeaderText="Title" UniqueName="Titles">
+                                                HeaderText="Bank Name" UniqueName="WERPBM_BankName">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>--%>
-                                          
+                                            </telerik:GridBoundColumn>
+                                          <telerik:GridBoundColumn DataField="AA_AccountNum" SortExpression="Titles" AutoPostBackOnFilter="true"
+                                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
+                                                HeaderText="Bank Account No" UniqueName="AA_AccountNum">
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="CB_MICR" SortExpression="Titles" AutoPostBackOnFilter="true"
+                                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
+                                                HeaderText="MICR No" UniqueName="CB_MICR">
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="ReportingManagerName" SortExpression="Titles" AutoPostBackOnFilter="true"
+                                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
+                                                HeaderText="Channel Manager Name" UniqueName="ReportingManagerName">
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn DataField="ClusterManager" SortExpression="ClusterManager"
                                                 AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                                 AllowFiltering="true" HeaderText="Cluster Manager" UniqueName="ClusterManager">
