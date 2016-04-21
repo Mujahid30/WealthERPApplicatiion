@@ -412,7 +412,7 @@ namespace WealthERP.OnlineOrderManagement
                             int amcCode = int.Parse(gvr.GetDataKeyValue("AMCCode").ToString());
                             if (e.CommandName == "SelectTransaction")
                             {
-                                BindTransactionDetails(accountddl, SchemePlanCode, gvChildDetails);
+                                BindTransactionDetails(folio, SchemePlanCode, gvChildDetails);
 
                             }
 
