@@ -1053,7 +1053,7 @@ function calc(iframe_id) {
                 F.height = F.contentDocument.documentElement.scrollHeight + 10; //FF 3.0.11, Opera 9.63, and Chrome
             }
             else {
-                F.height = 150;
+                F.height = 200;
             }
         }
 //        else if (F.contentWindow) {
@@ -1062,7 +1062,7 @@ function calc(iframe_id) {
                 F.height = F.contentWindow.document.body.scrollHeight + 10; //IE6, IE7 and Chrome
             }
             else {
-                F.height = 150;
+                F.height = 200;
             }
 //        }
 
