@@ -114,7 +114,30 @@ namespace BoCustomerPortfolio
 
             return bResult;
         }
-        
+        public DataTable GetInsuranceOrders(string Type)
+        {
+            InsuranceDao insuranceDao = new InsuranceDao();
+            try
+            {
+              return  insuranceDao.GetInsuranceOrders(Type);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "InsuranceBo.cs:GetInsuranceOrders()");
+                object[] objects = new object[2];
+                objects[0] = Type;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
         public List<InsuranceVo> GetInsurancePortfolio(int portfolioId, string sortExpression)
         {
             InsuranceDao insuranceDao = new InsuranceDao();

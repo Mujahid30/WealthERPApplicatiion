@@ -240,6 +240,37 @@ namespace DaoCustomerPortfolio
 
             return bResult;
         }
+        public DataTable GetInsuranceOrders(string Type)
+        {
+            Database db;
+            DbCommand getInsuranceOrderCmd;
+            DataTable dtGetInsuranceOrder;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getInsuranceOrderCmd = db.GetStoredProcCommand("SPROC_GetAdviserInsuranceOrder");
+                db.AddInParameter(getInsuranceOrderCmd, "@type", DbType.String, Type);
+                dtGetInsuranceOrder = db.ExecuteDataSet(getInsuranceOrderCmd).Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "InsuranceDao.cs:GetInsuranceOrders()");
+                object[] objects = new object[2];
+                objects[0] = Type;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtGetInsuranceOrder;
+        }
 
         public List<InsuranceVo> GetInsurancePortfolio(int portfolioId, string sortExpression)
         {

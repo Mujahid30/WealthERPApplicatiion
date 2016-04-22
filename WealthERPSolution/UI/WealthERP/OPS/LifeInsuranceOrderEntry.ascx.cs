@@ -40,6 +40,7 @@ namespace WealthERP.OPS
         OperationBo operationBo = new OperationBo();
         OperationVo operationVo = new OperationVo();
         AssetBo assetBo = new AssetBo();
+       
         BoCustomerPortfolio.BoDematAccount bodemataccount = new BoDematAccount();
         int amcCode;
         int accountId;
@@ -136,9 +137,6 @@ namespace WealthERP.OPS
                     pnlOrderSteps.Visible = true;
                     SetValuesToControls(lifeInsuranceOrdervo);
                 }
-
-                LoadCategory();
-                LoadInsuranceIssuerCode();
                 BindAssetParticular();
                 BindFrequencyDropdown();
                 BindPaymentMode();
@@ -177,11 +175,11 @@ namespace WealthERP.OPS
             gvPickNominee.Visible = true;
         }
 
-        public void LoadCategory()
+        public void LoadCategory(string productType)
         {
             try
             {
-                DataSet ds = assetBo.GetAssetInstrumentCategory(group); //Change to the respective GroupCode
+                DataSet ds = assetBo.GetAssetInstrumentCategory(productType); //Change to the respective GroupCode
                 ddlInstrumentCategory.DataSource = ds.Tables[0];
                 ddlInstrumentCategory.DataTextField = "PAIC_AssetInstrumentCategoryName";
                 ddlInstrumentCategory.DataValueField = "PAIC_AssetInstrumentCategoryCode";
@@ -322,7 +320,7 @@ namespace WealthERP.OPS
             if (txtApplicationDate.SelectedDate != null)
                 lifeInsuranceOrdervo.ApplicationReceivedDate = txtApplicationDate.SelectedDate.Value;
 
-            lifeInsuranceOrdervo.AssetGroup = "IN";
+            lifeInsuranceOrdervo.AssetGroup = ddlProductType.SelectedValue;
             if (ddlInstrumentCategory.SelectedValue != null && ddlInstrumentCategory.SelectedValue != string.Empty)
                 lifeInsuranceOrdervo.AssetCategory = ddlInstrumentCategory.SelectedValue;
 
@@ -351,7 +349,7 @@ namespace WealthERP.OPS
             lifeInsuranceOrdervo.PaymentMode = ddlPaymentMode.SelectedValue;
             lifeInsuranceOrdervo.SourceCode = "ME";
             lifeInsuranceOrdervo.SumAssured = double.Parse(txtSumAssured.Text);
-
+            
             if (this.gvPickNominee.Rows.Count > 0)
             {
                 foreach (GridViewRow gvr in this.gvPickNominee.Rows)
@@ -364,7 +362,7 @@ namespace WealthERP.OPS
                 }
             }
 
-            bresult = orderbo.AddLifeInsuranceOrder(lifeInsuranceOrdervo, nomineeAssociationIds, out orderId);
+            bresult = orderbo.AddLifeInsuranceOrder(lifeInsuranceOrdervo, nomineeAssociationIds, out orderId, userVo.UserId);
             if (bresult == true)
             {
                 //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GoalFundPage", "loadcontrol('OrderMIS','?result=" + result + "');", true);
@@ -374,6 +372,7 @@ namespace WealthERP.OPS
                 btnSubmit.Visible = false;
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
                 BindOrderStepsGrid();
+
             }
             else
             {
@@ -406,6 +405,8 @@ namespace WealthERP.OPS
             ddlPaymentMode.Enabled = bentry;
             txtPaymentInstruDate.Enabled = bentry;
             ddlBankName.Enabled = bentry;
+            ddlProductType.Enabled = bentry;
+            ddlAssetSubCategory.Enabled = bentry;
             imgBtnAddBank.Enabled = bentry;
             txtPaymentInstrNo.Enabled = bentry;
 
@@ -486,8 +487,13 @@ namespace WealthERP.OPS
         {
             if (txtAsset.Text.Trim() != "" && ddlPolicyIssuer.SelectedIndex != 0 && ddlInstrumentCategory.SelectedIndex != 0)
             {
-                orderbo.InsertAssetParticularScheme(txtAsset.Text.Trim(), ddlPolicyIssuer.SelectedValue, ddlInstrumentCategory.SelectedValue);
-                BindAssetParticular();
+                orderbo.InsertAssetParticularScheme(txtAsset.Text.Trim(), ddlPolicyIssuer.SelectedValue, ddlProductType.SelectedValue == "LI"?ddlInstrumentCategory.SelectedValue: ddlAssetSubCategory.SelectedValue);
+                if (ddlProductType.SelectedValue == "LI")
+                { BindAssetParticular(); }
+                else
+                {
+                    BindGIAssetParticular(ddlPolicyIssuer.SelectedValue);
+                }
             }
             radwindowPopup.VisibleOnPageLoad = false;
         }
@@ -508,8 +514,15 @@ namespace WealthERP.OPS
 
         protected void ddlPolicyIssuer_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lblIssuerCode.Text = ddlPolicyIssuer.SelectedItem.Text;
-            BindAssetParticular();
+            if (ddlProductType.SelectedValue == "LI")
+            {
+                lblIssuerCode.Text = ddlPolicyIssuer.SelectedItem.Text;
+                BindAssetParticular();
+            }
+            else
+            {
+                BindGIAssetParticular(ddlPolicyIssuer.SelectedValue);
+            }
         }
                 
         protected void btnUpdate_Click(object sender, EventArgs e)
@@ -617,6 +630,7 @@ namespace WealthERP.OPS
             //SetControls(false);
             dsOrderSteps = orderbo.GetOrderStepsDetails(orderId);
             dtOrderDetails = dsOrderSteps.Tables[0];
+            lbOrderBook.Visible = true;
             if (dtOrderDetails.Rows.Count == 0)
             {
                 //lblPickNominee.Text = "You have not placed any Order";
@@ -767,6 +781,123 @@ namespace WealthERP.OPS
         protected void btnCancel_Click(object sender, EventArgs e)
         {
             radwindowPopup.VisibleOnPageLoad = false;
+        }
+        protected void ddlProductType_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadCategory(ddlProductType.SelectedValue == "LI" ? "IN" : ddlProductType.SelectedValue);
+            
+            if (ddlProductType.SelectedValue == "GI")
+            {
+                tdddlAssetSubCategory.Visible = true;
+                tdlblAssetSubCategory.Visible = true;
+                BindGIPolicyIssuerDropDown();
+            }
+            else
+            {
+                tdddlAssetSubCategory.Visible = false;
+                tdlblAssetSubCategory.Visible = false;
+                LoadInsuranceIssuerCode();
+            }
+        }
+        protected void ddlInstrumentCategory_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            loadSubCategory("GI", ddlInstrumentCategory.SelectedValue);
+        }
+        private void loadSubCategory(string productType, string InsturmentCategory)
+        {
+            try
+            {
+                //if (ddlAssetCategory.SelectedIndex != 0)
+                //{
+                DataSet ds = assetBo.GetAssetInstrumentSubCategory(productType, InsturmentCategory);
+                ddlAssetSubCategory.DataSource = ds;
+                ddlAssetSubCategory.DataValueField = ds.Tables[0].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                ddlAssetSubCategory.DataTextField = ds.Tables[0].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                ddlAssetSubCategory.DataBind();
+                ddlAssetSubCategory.Items.Insert(0, new ListItem("Select Asset Sub-Category", "Select Asset Sub-Category"));
+                //}
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "LifeInsuranceOrderEntry.ascx.cs:ddlInstrumentCategory_OnSelectedIndexChanged()");
+
+                object[] objects = new object[4];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+        }
+        private void BindGIPolicyIssuerDropDown()
+        {
+            try
+            {
+                 InsuranceBo  InsuranceBo = new  InsuranceBo();
+                DataSet ds = InsuranceBo.GetGIIssuerList();
+                if (ds != null)
+                {
+                    ddlPolicyIssuer.DataSource = ds;
+                    ddlPolicyIssuer.DataValueField = ds.Tables[0].Columns["XGII_GIIssuerCode"].ToString();
+                    ddlPolicyIssuer.DataTextField = ds.Tables[0].Columns["XGII_GeneralinsuranceCompany"].ToString();
+                    ddlPolicyIssuer.DataBind();
+                }
+                ddlPolicyIssuer.Items.Insert(0, new ListItem("Select", "Select"));
+
+                //ddlPolicyIssuer.Attributes.Add("onChange", "");
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "LifeInsuranceOrderEntry.ascx.cs:BindPolicyIssuerDropDown()");
+
+                object[] objects = new object[4];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+        public void BindGIAssetParticular(string issuerCode)
+        {
+            AssetBo assetBo = new AssetBo();
+            DataSet ds = assetBo.GetGIPlans(issuerCode);
+            DataTable dtSchemePlan = ds.Tables[0];
+            ddlAssetPerticular.Items.Clear();
+            if (dtSchemePlan.Rows.Count > 0)
+            {
+                ddlAssetPerticular.DataSource = dtSchemePlan;
+                ddlAssetPerticular.DataValueField = dtSchemePlan.Columns["PGISP_SchemePlanCode"].ToString();
+                ddlAssetPerticular.DataTextField = dtSchemePlan.Columns["PGISP_SchemePlanName"].ToString();
+                ddlAssetPerticular.DataBind();
+                ddlAssetPerticular.Items.Insert(0, new ListItem("Select", "Select"));
+            }
+            else
+            {
+
+                ddlAssetPerticular.Items.Insert(0, new ListItem("Select", "Select"));
+            }
+
+        }
+        protected void lbOrderBook_OnClick(object sender, EventArgs e)
+        {
+            Session["UserType"] = "adviser";
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ProductOrderDetailsMF','login');", true);
         }
     }
 }

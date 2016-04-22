@@ -768,5 +768,26 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button hiddenassociation;
+        /// <summary>
+        /// remarks
+        /// </summary>
+        protected global::System.Web.UI.WebControls.DropDownList ddlProductType;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected global::System.Web.UI.WebControls.DropDownList ddlAssetSubCategory;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblAssetSubCategory;
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlAssetSubCategory;
+        protected global::System.Web.UI.WebControls.LinkButton lbOrderBook;
     }
 }
