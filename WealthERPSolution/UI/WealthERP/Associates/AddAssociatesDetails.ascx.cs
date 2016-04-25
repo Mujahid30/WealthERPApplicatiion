@@ -982,6 +982,11 @@ namespace WealthERP.Associates
             Session["associatesVo"] = null;
 
         }
+        private void ShowMessageMainAssociateupdate(string msg)
+        {
+            MainAssociateUpdt.Visible = true;
+            MainAssociateUpdt.InnerText = msg;
+        }
         protected void btnAssociateUpdate_OnClick(object sender, EventArgs e)
         {
             int associateid = 0, agentcode = 0, userId = 0;
@@ -1085,7 +1090,7 @@ namespace WealthERP.Associates
             associatesBo.UpdateAssociateDetails(associatesVo, userId, associateid, agentcode);
             controlEnable(0);
             btnAssociateUpdate.Visible = false;
-
+            ShowMessageMainAssociateupdate("Associate details updated successfully.");
         }
         protected void UpdateContact(string value)
         {

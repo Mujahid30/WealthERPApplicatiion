@@ -867,7 +867,11 @@ namespace BoReports
                                                     headerText = headerText.Replace("#Branch#", !string.IsNullOrEmpty(dtAssociateDetails.Rows[0]["BranchName"].ToString().Trim()) ? dtAssociateDetails.Rows[0]["BranchName"].ToString() : string.Empty );
                                                     break;
                                                 }
-                                          
+                                            case "#ProductList#":
+                                                {
+                                                    headerText = headerText.Replace("#ProductList#", !string.IsNullOrEmpty(dtAssociateDetails.Rows[0]["ProductList"].ToString().Trim()) ? dtAssociateDetails.Rows[0]["ProductList"].ToString() : string.Empty);
+                                                    break;
+                                                }
                                         }
                                     }
                                 }
