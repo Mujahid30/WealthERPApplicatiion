@@ -1250,32 +1250,32 @@
                             ValueToCompare="" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>--%>
                     </td>
                     <td align="right" style="width: 22.5%">
-                        <asp:Label ID="lblEndDateSIP" runat="server" Text="End Date:" CssClass="FieldName"></asp:Label>
+                                               <asp:Label ID="lblPeriod" runat="server" Text="Total Installments:" CssClass="FieldName"></asp:Label>
+
                     </td>
                     <td>
                         <%--<asp:DropDownList ID="ddlStartDate" CssClass="cmbField" runat="server" AutoPostBack="True"
                             OnSelectedIndexChanged="ddlStartDate_SelectedIndexChanged" ValidationGroup="btnSubmit">
                             <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                         </asp:DropDownList>--%>
-                        <telerik:RadDatePicker ID="txtendDateSIP" CssClass="txtField" runat="server" Culture="English (United States)"
-                            Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
-                            Enabled="false" TabIndex="23">
-                            <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                                Skin="Telerik" EnableEmbeddedSkins="false" TabIndex="22">
-                            </Calendar>
-                            <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                            <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                            </DateInput>
-                        </telerik:RadDatePicker>
-                        <span id="Span23" class="spnRequiredField">*</span>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator18" ControlToValidate="txtendDateSIP"
-                            CssClass="rfvPCG" ErrorMessage="<br />Please select an EndDate" Display="Dynamic"
-                            runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
-                        <asp:CompareValidator ID="dateCompareValidator" runat="server" ControlToValidate="txtendDateSIP"
-                            ControlToCompare="txtstartDateSIP" Operator="GreaterThanEqual" Type="Date" ValidationGroup="MFSubmit"
-                            Display="Dynamic" ErrorMessage="To date Should be Greater Than or Equal to From Date"
-                            CssClass="rfvPCG">
+                        <asp:TextBox ID="txtTotalInstallments" AutoPostBack="true" runat="server"  TabIndex="23" OnTextChanged="ddlTotalInstallments_SelectedIndexChanged"></asp:TextBox>
+                        <asp:DropDownList ID="ddlTotalInstallments" CssClass="cmbField" runat="server" AutoPostBack="True"
+                            OnSelectedIndexChanged="ddlTotalInstallments_SelectedIndexChanged" Visible="false" TabIndex="23">
+                            <asp:ListItem Value="0">--SELECT--</asp:ListItem>
+                        </asp:DropDownList>
+                        <asp:RequiredFieldValidator ID="rfvPeriod" ControlToValidate="txtTotalInstallments"
+                            ErrorMessage="<br />Please Enter Total Installments." Display="Dynamic" runat="server" CssClass="rfvPCG"
+                            ValidationGroup="MFSubmit">
+                        </asp:RequiredFieldValidator>&nbsp;&nbsp;
+                        <asp:CompareValidator ID="CompareValidator_txtPeriod" runat="server" ControlToValidate="txtTotalInstallments"
+                            ErrorMessage="<br />Please Enter a numeric Value" Operator="DataTypeCheck" Type="Integer"
+                            ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic" ValidationGroup="MFSubmit">
                         </asp:CompareValidator>
+                        <asp:CompareValidator ID="CompareValidator4" runat="server" ControlToValidate="txtTotalInstallments"
+                            ErrorMessage="<br />Please enter a value Greater Than 0." Operator="GreaterThan" Type="Integer"
+                            ValueToCompare="0" CssClass="cvPCG" Display="Dynamic" ValidationGroup="MFSubmit">
+                        </asp:CompareValidator>
+                         <span id="Span21" class="spnRequiredField">*</span>
                     </td>
                 </tr>
                 <tr id="trSystematicDateChk1" runat="server" visible="false">
@@ -1297,16 +1297,32 @@
                 </tr>
                 <tr id="trSystematicDate" runat="server">
                     <td align="right">
-                        <asp:Label ID="lblPeriod" runat="server" Text="Total Installments:" CssClass="FieldName"></asp:Label>
+                         <asp:Label ID="lblEndDateSIP" runat="server" Text="End Date:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlTotalInstallments" CssClass="cmbField" runat="server" AutoPostBack="True"
-                            OnSelectedIndexChanged="ddlTotalInstallments_SelectedIndexChanged" TabIndex="25">
-                            <asp:ListItem Value="0">--SELECT--</asp:ListItem>
-                        </asp:DropDownList>
+                     <telerik:RadDatePicker ID="txtendDateSIP" CssClass="txtField" runat="server" Culture="English (United States)"
+                            Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
+                            Enabled="false" TabIndex="25">
+                            <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                                Skin="Telerik" EnableEmbeddedSkins="false" TabIndex="22">
+                            </Calendar>
+                            <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                            <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                            </DateInput>
+                        </telerik:RadDatePicker>
+                        <span id="Span23" class="spnRequiredField">*</span>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator18" ControlToValidate="txtendDateSIP"
+                            CssClass="rfvPCG" ErrorMessage="<br />Please select an EndDate" Display="Dynamic"
+                            runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+                        <asp:CompareValidator ID="dateCompareValidator" runat="server" ControlToValidate="txtendDateSIP"
+                            ControlToCompare="txtstartDateSIP" Operator="GreaterThanEqual" Type="Date" ValidationGroup="MFSubmit"
+                            Display="Dynamic" ErrorMessage="To date Should be Greater Than or Equal to From Date"
+                            CssClass="rfvPCG">
+                        </asp:CompareValidator>
+                        
                         <asp:TextBox ID="txtPeriod" runat="server" CssClass="txtField" AutoPostBack="true"
                             OnTextChanged="txtPeriod_OnTextChanged" Visible="false" TabIndex="26"></asp:TextBox>
-                        <span id="Span21" class="spnRequiredField">*</span>
+                       
                         <asp:DropDownList ID="ddlPeriodSelection" runat="server" AutoPostBack="true" CssClass="cmbField"
                             CausesValidation="true" ValidationGroup="MFSubmit" OnSelectedIndexChanged="ddlPeriodSelection_SelectedIndexChanged"
                             Visible="false" TabIndex="27">
@@ -1316,18 +1332,7 @@
                         </asp:DropDownList>
                         <asp:Label ID="lblUnits" runat="server" Text="&nbsp;&nbsp;(Units)" Visible="false"
                             CssClass="FieldName"></asp:Label>
-                        <asp:RequiredFieldValidator ID="rfvPeriod" ControlToValidate="ddlTotalInstallments"
-                            ErrorMessage="<br />Please Enter a Period" Display="Dynamic" runat="server" CssClass="rfvPCG"
-                            ValidationGroup="MFSubmit">
-                        </asp:RequiredFieldValidator>&nbsp;&nbsp;
-                        <asp:CompareValidator ID="CompareValidator_txtPeriod" runat="server" ControlToValidate="ddlTotalInstallments"
-                            ErrorMessage="<br />Please Enter a numeric Value" Operator="DataTypeCheck" Type="Integer"
-                            ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic" ValidationGroup="MFSubmit">
-                        </asp:CompareValidator>
-                        <asp:CompareValidator ID="CompareValidator4" runat="server" ControlToValidate="ddlTotalInstallments"
-                            ErrorMessage="<br />Please update the  value" Operator="GreaterThan" Type="Integer"
-                            ValueToCompare="0" CssClass="cvPCG" Display="Dynamic" ValidationGroup="MFSubmit">
-                        </asp:CompareValidator>
+                       
                     </td>
                 </tr>
                 <%--<tr id="trSection2" runat="server" visible="false">
@@ -1843,6 +1848,7 @@
         <asp:PostBackTrigger ControlID="lnkBtnEdit" />
         <asp:PostBackTrigger ControlID="btnImgAddCustomer" />
         <asp:PostBackTrigger ControlID="btnImgAddPAN" />
+        
     </Triggers>
 </asp:UpdatePanel>
 <asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" Height="600px"

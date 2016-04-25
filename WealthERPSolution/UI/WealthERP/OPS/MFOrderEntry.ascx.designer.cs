@@ -45,7 +45,7 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.DropDownList ddlTax;
         protected global::System.Web.UI.WebControls.TextBox txtMobileNumber;
         protected global::System.Web.UI.WebControls.TextBox txtSwitchFolioNo;
-
+        protected global::System.Web.UI.WebControls.TextBox txtTotalInstallments;
 
         
 

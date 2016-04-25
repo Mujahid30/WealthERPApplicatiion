@@ -387,7 +387,7 @@ namespace WealthERP.OPS
             ddlStartDate.DataSource = null;
             GetControlDetails(int.Parse(txtSchemeCode.Value), null, ddlFrequencySIP.SelectedValue);
             BindTotalInstallments();
-            BindStartDates();
+            //BindStartDates();
             ddlFrequencySIP.Focus();
         }
 
@@ -414,15 +414,15 @@ namespace WealthERP.OPS
         protected void ddlTotalInstallments_SelectedIndexChanged(object sender, EventArgs e)
         {
             CaliculateEndDate();
-            ddlTotalInstallments.Focus();
+            txtTotalInstallments.Focus();
             //.ToString("dd-MMM-yyyy");
         }
 
         private void CaliculateEndDate()
         {
-            if (ddlTotalInstallments.SelectedIndex == -1 || ddlFrequencySIP.SelectedIndex == 0) return;
+            if (string.IsNullOrEmpty(txtTotalInstallments.Text)|| ddlFrequencySIP.SelectedIndex == 0) return;
 
-            DateTime dtEndDate = boOnlineOrder.GetSipEndDate(Convert.ToDateTime(txtstartDateSIP.SelectedDate), ddlFrequencySIP.SelectedValue, Convert.ToInt32(ddlTotalInstallments.SelectedValue) - 1);
+            DateTime dtEndDate = boOnlineOrder.GetSipEndDate(Convert.ToDateTime(txtstartDateSIP.SelectedDate), ddlFrequencySIP.SelectedValue, Convert.ToInt32(txtTotalInstallments.Text) - 1);
             txtendDateSIP.SelectedDate = dtEndDate;
         }
 
@@ -759,6 +759,7 @@ namespace WealthERP.OPS
                             txtstartDateSIP.SelectedDate = DateTime.Parse(dr["CMFSS_StartDate"].ToString());
                             BindTotalInstallments();
                             ddlTotalInstallments.SelectedValue = dr["CMFSS_TotalInstallment"].ToString();
+                            txtTotalInstallments.Text = dr["CMFSS_TotalInstallment"].ToString();
                             CaliculateEndDate();
                         }
 
@@ -1158,13 +1159,14 @@ namespace WealthERP.OPS
             if (dtGetAllSIPDataForOrder == null) return;
 
 
-            ddlFrequencySIP.DataSource = dtGetAllSIPDataForOrder;
-            ddlFrequencySIP.DataValueField = "XF_FrequencyCode";
-            ddlFrequencySIP.DataTextField = "XF_Frequency";
+            //ddlFrequencySIP.DataSource = dtGetAllSIPDataForOrder;
+            //ddlFrequencySIP.DataValueField = "XF_FrequencyCode";
+            //ddlFrequencySIP.DataTextField = "XF_Frequency";
 
-            ddlFrequencySIP.DataBind();
-
-
+            //ddlFrequencySIP.DataBind();
+            ddlFrequencySIP.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
+            ddlFrequencySIP.Items.Insert(1, new System.Web.UI.WebControls.ListItem("Monthly", "MN"));
+            ddlFrequencySIP.Items.Insert(2, new System.Web.UI.WebControls.ListItem("Quarterly", "QT"));
             //foreach (DataRow row in dtGetAllSIPDataForOrder.Rows)
             //{
             //    if (row["PASP_SchemePlanCode"].ToString() == txtSchemeCode.Value)
@@ -1173,7 +1175,7 @@ namespace WealthERP.OPS
             //    }
             //}
 
-            ddlFrequencySIP.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
+           
 
             //ddlFrequencySIP.Items.Insert(0, new ListItem(""));
 
@@ -4989,9 +4991,11 @@ namespace WealthERP.OPS
                 systematicSetupVo.SystematicDate = Convert.ToInt32(txtSystematicdates.Text);
 
 
-            if (!string.IsNullOrEmpty(ddlTotalInstallments.SelectedValue))
-                systematicSetupVo.Period = Convert.ToInt32(ddlTotalInstallments.SelectedValue);
+            //if (!string.IsNullOrEmpty(ddlTotalInstallments.SelectedValue))
+            //    systematicSetupVo.Period = Convert.ToInt32(ddlTotalInstallments.SelectedValue);
 
+            if (!string.IsNullOrEmpty(txtTotalInstallments.Text))
+                systematicSetupVo.Period = Convert.ToInt32(txtTotalInstallments.Text);
 
             systematicSetupVo.PeriodSelection = ddlPeriodSelection.SelectedValue;
             if (!string.IsNullOrEmpty(txtRegistrationDate.Text))
