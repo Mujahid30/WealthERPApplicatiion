@@ -89,7 +89,7 @@
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                             <telerik:GridBoundColumn DataField="AA_AMFIregistrationNo" SortExpression="Titles" AutoPostBackOnFilter="true"
+                                             <telerik:GridBoundColumn DataField="AA_AMFIregistrationNo" SortExpression="AA_AMFIregistrationNo" AutoPostBackOnFilter="true"
                                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
                                                 HeaderText="AMFI Registration No" UniqueName="AA_AMFIregistrationNo">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -99,22 +99,22 @@
                                                 AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="WERPBM_BankName" SortExpression="Titles" AutoPostBackOnFilter="true"
+                                            <telerik:GridBoundColumn DataField="WERPBM_BankName" SortExpression="WERPBM_BankName" AutoPostBackOnFilter="true"
                                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
                                                 HeaderText="Bank Name" UniqueName="WERPBM_BankName">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                          <telerik:GridBoundColumn DataField="AA_AccountNum" SortExpression="Titles" AutoPostBackOnFilter="true"
+                                          <telerik:GridBoundColumn DataField="AA_AccountNum" SortExpression="AA_AccountNum" AutoPostBackOnFilter="true"
                                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
                                                 HeaderText="Bank Account No" UniqueName="AA_AccountNum">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="CB_MICR" SortExpression="Titles" AutoPostBackOnFilter="true"
+                                            <telerik:GridBoundColumn DataField="CB_MICR" SortExpression="CB_MICR" AutoPostBackOnFilter="true"
                                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
                                                 HeaderText="MICR No" UniqueName="CB_MICR">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn DataField="ReportingManagerName" SortExpression="Titles" AutoPostBackOnFilter="true"
+                                            <telerik:GridBoundColumn DataField="ReportingManagerName" SortExpression="ReportingManagerName" AutoPostBackOnFilter="true"
                                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
                                                 HeaderText="Channel Manager Name" UniqueName="ReportingManagerName">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
