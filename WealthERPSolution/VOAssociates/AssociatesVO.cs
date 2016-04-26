@@ -24,9 +24,9 @@ namespace VOAssociates
         private int m_OfcISDCode;
         private long m_OfficePhoneNo;
         private int m_ResFaxStd;
-        private int m_ResFaxNumber;
+        private long m_ResFaxNumber;
         private int m_OfcFaxSTD;
-        private int m_OfcFaxNumber;
+        private long m_OfcFaxNumber;
         private long m_Mobile;
 
 
@@ -217,7 +217,7 @@ namespace VOAssociates
             get { return m_ResFaxStd; }
             set { m_ResFaxStd = value; }
         }
-        public int ResFaxNumber
+        public long ResFaxNumber
         {
             get { return m_ResFaxNumber; }
             set { m_ResFaxNumber = value; }
@@ -227,7 +227,7 @@ namespace VOAssociates
             get { return m_OfcFaxSTD; }
             set { m_OfcFaxSTD = value; }
         }
-        public int OfcFaxNumber
+        public long OfcFaxNumber
         {
             get { return m_OfcFaxNumber; }
             set { m_OfcFaxNumber = value; }

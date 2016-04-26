@@ -412,15 +412,15 @@
                     <td class="rightField">
                         <asp:TextBox ID="txtResPhoneNoIsd" runat="server" Width="30px" CssClass="txtField"
                             Enabled="false" MaxLength="3">91</asp:TextBox>
-                        <asp:TextBox ID="txtResPhoneNoStd" runat="server" Width="30px" CssClass="txtField"
-                            MaxLength="3"></asp:TextBox>
-                        <asp:TextBox ID="txtResPhoneNo" runat="server" Width="90px" CssClass="txtField" MaxLength="8"></asp:TextBox>
+                       <%-- <asp:TextBox ID="txtResPhoneNoStd" runat="server" Width="30px" CssClass="txtField"
+                            MaxLength="3"></asp:TextBox>--%>
+                        <asp:TextBox ID="txtResPhoneNo" runat="server" Width="90px" CssClass="txtField" MaxLength="11"></asp:TextBox>
                         <asp:CompareValidator ID="txtResPhoneNoIsd_CompareValidator" ControlToValidate="txtResPhoneNoIsd"
                             runat="server" Display="Dynamic" ValidationGroup="Contact" ErrorMessage="<br />Please enter a numeric value for ISD code."
                             Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
-                        <asp:CompareValidator ID="txtResPhoneNoStd_CompareValidator" ControlToValidate="txtResPhoneNoStd"
+                       <%-- <asp:CompareValidator ID="txtResPhoneNoStd_CompareValidator" ControlToValidate="txtResPhoneNoStd"
                             runat="server" Display="Dynamic" ValidationGroup="Contact" ErrorMessage="<br /> Please enter a numeric value for STD code."
-                            Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                            Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>--%>
                         <asp:CompareValidator ID="txtResPhoneNo_CompareValidator" ControlToValidate="txtResPhoneNo"
                             runat="server" Display="Dynamic" ValidationGroup="Contact" ErrorMessage="<br /> Please enter a numeric value for Phone number."
                             Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
@@ -431,14 +431,14 @@
                     <td class="rightField">
                         <asp:TextBox ID="txtResFaxIsd" runat="server" Width="30px" CssClass="txtField" MaxLength="3"
                             Enabled="false">91</asp:TextBox>
-                        <asp:TextBox ID="txtResFaxStd" runat="server" Width="30px" CssClass="txtField" MaxLength="3"></asp:TextBox>
-                        <asp:TextBox ID="txtResFax" runat="server" Width="90px" CssClass="txtField" MaxLength="8"></asp:TextBox>
+                        <%--<asp:TextBox ID="txtResFaxStd" runat="server" Width="30px" CssClass="txtField" MaxLength="3"></asp:TextBox>--%>
+                        <asp:TextBox ID="txtResFax" runat="server" Width="90px" CssClass="txtField" MaxLength="11"></asp:TextBox>
                         <asp:CompareValidator ID="txtResFaxIsd_CompareValidator" ControlToValidate="txtResFaxIsd"
                             runat="server" Display="Dynamic" ValidationGroup="Contact" ErrorMessage="<br />Please enter a numeric value for ISD code."
                             Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
-                        <asp:CompareValidator ID="txtResFaxStd_CompareValidator" ControlToValidate="txtResFaxStd"
+                        <%--<asp:CompareValidator ID="txtResFaxStd_CompareValidator" ControlToValidate="txtResFaxStd"
                             runat="server" Display="Dynamic" ValidationGroup="Contact" ErrorMessage="<br /> Please enter a numeric value for STD code."
-                            Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                            Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>--%>
                         <asp:CompareValidator ID="txtResFax_CompareValidator" ControlToValidate="txtResFax"
                             runat="server" Display="Dynamic" ValidationGroup="Contact" ErrorMessage="<br /> Please enter a numeric value for Fax number."
                             Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
@@ -451,15 +451,15 @@
                     <td class="rightField">
                         <asp:TextBox ID="txtOfcPhoneNoIsd" runat="server" Width="30px" CssClass="txtField"
                             Enabled="false" MaxLength="3">91</asp:TextBox>
-                        <asp:TextBox ID="txtOfcPhoneNoStd" runat="server" Width="30px" CssClass="txtField"
-                            MaxLength="3"></asp:TextBox>
-                        <asp:TextBox ID="txtOfcPhoneNo" runat="server" Width="90px" CssClass="txtField" MaxLength="8"></asp:TextBox>
+                       <%-- <asp:TextBox ID="txtOfcPhoneNoStd" runat="server" Width="30px" CssClass="txtField"
+                            MaxLength="3"></asp:TextBox>--%>
+                        <asp:TextBox ID="txtOfcPhoneNo" runat="server" Width="90px" CssClass="txtField" MaxLength="11"></asp:TextBox>
                         <asp:CompareValidator ID="txtOfcPhoneNoIsd_CompareValidator" ControlToValidate="txtOfcPhoneNoIsd"
                             runat="server" Display="Dynamic" ValidationGroup="Contact" ErrorMessage="<br />Please enter a numeric value for ISD code."
                             Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
-                        <asp:CompareValidator ID="txtOfcPhoneNoStd_CompareValidator" ControlToValidate="txtOfcPhoneNoStd"
+                    <%--    <asp:CompareValidator ID="txtOfcPhoneNoStd_CompareValidator" ControlToValidate="txtOfcPhoneNoStd"
                             runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for STD code."
-                            Type="Integer" Operator="DataTypeCheck" ValidationGroup="Contact" CssClass="cvPCG"></asp:CompareValidator>
+                            Type="Integer" Operator="DataTypeCheck" ValidationGroup="Contact" CssClass="cvPCG"></asp:CompareValidator>--%>
                         <asp:CompareValidator ID="txtOfcPhoneNo_CompareValidator" ControlToValidate="txtOfcPhoneNo"
                             runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for Phone number."
                             Type="Integer" Operator="DataTypeCheck" ValidationGroup="Contact" CssClass="cvPCG"></asp:CompareValidator>
@@ -470,14 +470,14 @@
                     <td class="rightField">
                         <asp:TextBox ID="txtOfcFaxIsd" runat="server" Width="30px" CssClass="txtField" MaxLength="3"
                             Enabled="false">91</asp:TextBox>
-                        <asp:TextBox ID="txtOfcFaxStd" runat="server" Width="30px" CssClass="txtField" MaxLength="3"></asp:TextBox>
-                        <asp:TextBox ID="txtOfcFax" runat="server" Width="90px" CssClass="txtField" MaxLength="8"></asp:TextBox>
+                        <%--<asp:TextBox ID="txtOfcFaxStd" runat="server" Width="30px" CssClass="txtField" MaxLength="3"></asp:TextBox>--%>
+                        <asp:TextBox ID="txtOfcFax" runat="server" Width="90px" CssClass="txtField" MaxLength="11"></asp:TextBox>
                         <asp:CompareValidator ID="txtOfcFaxIsd_CompareValidator" ControlToValidate="txtOfcFaxIsd"
                             runat="server" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value for ISD Code."
                             Type="Integer" Operator="DataTypeCheck" ValidationGroup="Contact" CssClass="cvPCG"></asp:CompareValidator>
-                        <asp:CompareValidator ID="txtOfcFaxStd_CompareValidator" ControlToValidate="txtOfcFaxStd"
+                        <%--<asp:CompareValidator ID="txtOfcFaxStd_CompareValidator" ControlToValidate="txtOfcFaxStd"
                             runat="server" Display="Dynamic" ValidationGroup="Contact" ErrorMessage="<br /> Please enter a numeric value for STD Code."
-                            Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                            Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>--%>
                         <asp:CompareValidator ID="txtOfcFax_CompareValidator" ControlToValidate="txtOfcFax"
                             runat="server" Display="Dynamic" ValidationGroup="Contact" ErrorMessage="<br /> Please enter a numeric value for Fax Number."
                             Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>

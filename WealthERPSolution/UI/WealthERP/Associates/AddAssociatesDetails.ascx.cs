@@ -194,13 +194,13 @@ namespace WealthERP.Associates
                 txtStartDate.Enabled = false;
                 txtEndDate.Enabled = false;
                 txtAssociateExpDate.Enabled = false;
-                txtResPhoneNoStd.Enabled = false;
+                //txtResPhoneNoStd.Enabled = false;
                 txtResPhoneNo.Enabled = false;
-                txtResFaxStd.Enabled = false;
+                //txtResFaxStd.Enabled = false;
                 txtResFax.Enabled = false;
-                txtOfcPhoneNoStd.Enabled = false;
+                //txtOfcPhoneNoStd.Enabled = false;
                 txtOfcPhoneNo.Enabled = false;
-                txtOfcFaxStd.Enabled = false;
+                //txtOfcFaxStd.Enabled = false;
                 txtOfcFax.Enabled = false;
                 txtMobile1.Enabled = false;
                 txtEmail.Enabled = false;
@@ -283,13 +283,13 @@ namespace WealthERP.Associates
                 txtStartDate.Enabled = true;
                 txtEndDate.Enabled = true;
                 txtAssociateExpDate.Enabled = true;
-                txtResPhoneNoStd.Enabled = true;
+                //txtResPhoneNoStd.Enabled = true;
                 txtResPhoneNo.Enabled = true;
-                txtResFaxStd.Enabled = true;
+                //txtResFaxStd.Enabled = true;
                 txtResFax.Enabled = true;
-                txtOfcPhoneNoStd.Enabled = true;
+                //txtOfcPhoneNoStd.Enabled = true;
                 txtOfcPhoneNo.Enabled = true;
-                txtOfcFaxStd.Enabled = true;
+                //txtOfcFaxStd.Enabled = true;
                 txtOfcFax.Enabled = true;
                 txtMobile1.Enabled = true;
                 txtEmail.Enabled = true;
@@ -429,20 +429,20 @@ namespace WealthERP.Associates
                 txtEndDate.SelectedDate = associatesVo.EndDate;
             if (associatesVo.AssociationExpairyDate != null && associatesVo.AssociationExpairyDate != DateTime.MinValue)
                 txtAssociateExpDate.SelectedDate = associatesVo.AssociationExpairyDate;
-            if (associatesVo.ResPhoneNo != null)
-                txtResPhoneNoStd.Text = associatesVo.ResPhoneNo.ToString();
+            //if (associatesVo.ResPhoneNo != null)
+            //    txtResPhoneNoStd.Text = associatesVo.ResPhoneNo.ToString();
             if (associatesVo.ResPhoneNo != null)
                 txtResPhoneNo.Text = associatesVo.ResPhoneNo.ToString();
-            if (associatesVo.ResFaxStd != null)
-                txtResFaxStd.Text = associatesVo.ResFaxStd.ToString();
+            //if (associatesVo.ResFaxStd != null)
+            //    txtResFaxStd.Text = associatesVo.ResFaxStd.ToString();
             if (associatesVo.ResFaxNumber != null)
                 txtResFax.Text = associatesVo.ResFaxNumber.ToString();
-            if (associatesVo.OfcSTDCode != null)
-                txtOfcPhoneNoStd.Text = associatesVo.OfcSTDCode.ToString();
+            //if (associatesVo.OfcSTDCode != null)
+            //    txtOfcPhoneNoStd.Text = associatesVo.OfcSTDCode.ToString();
             if (associatesVo.OfficePhoneNo != null)
                 txtOfcPhoneNo.Text = associatesVo.OfficePhoneNo.ToString();
-            if (associatesVo.OfcFaxSTD != null)
-                txtOfcFaxStd.Text = associatesVo.OfcFaxSTD.ToString();
+            //if (associatesVo.OfcFaxSTD != null)
+            //    txtOfcFaxStd.Text = associatesVo.OfcFaxSTD.ToString();
             if (associatesVo.OfcFaxNumber != null)
                 txtOfcFax.Text = associatesVo.OfcFaxNumber.ToString();
             if (associatesVo.Mobile != null)
@@ -1112,37 +1112,37 @@ namespace WealthERP.Associates
                 userId = int.Parse(Session["UserIds"].ToString());
             }
 
-            if (!string.IsNullOrEmpty(txtResPhoneNoStd.Text))
-                associatesVo.ResSTDCode = int.Parse(txtResPhoneNoStd.Text);
-            else
-                associatesVo.ResSTDCode = 0;
+            //if (!string.IsNullOrEmpty(txtResPhoneNoStd.Text))
+            //    associatesVo.ResSTDCode = int.Parse(txtResPhoneNoStd.Text);
+            //else
+            //    associatesVo.ResSTDCode = 0;
             if (!string.IsNullOrEmpty(txtResPhoneNo.Text))
                 associatesVo.ResPhoneNo = Convert.ToInt64(txtResPhoneNo.Text);
             else
-                associatesVo.ResSTDCode = 0;
-            if (!string.IsNullOrEmpty(txtOfcPhoneNoStd.Text))
-                associatesVo.OfcSTDCode = int.Parse(txtOfcPhoneNoStd.Text);
-            else
-                associatesVo.OfcSTDCode = 0;
+                associatesVo.ResPhoneNo = 0;
+            //if (!string.IsNullOrEmpty(txtOfcPhoneNoStd.Text))
+            //    associatesVo.OfcSTDCode = int.Parse(txtOfcPhoneNoStd.Text);
+            //else
+            //    associatesVo.OfcSTDCode = 0;
             if (!string.IsNullOrEmpty(txtOfcPhoneNo.Text))
                 associatesVo.OfficePhoneNo = Convert.ToInt64(txtOfcPhoneNo.Text);
             else
                 associatesVo.OfficePhoneNo = 0;
-            if (!string.IsNullOrEmpty(txtResFaxStd.Text))
-                associatesVo.ResFaxStd = int.Parse(txtResFaxStd.Text);
-            else
-                associatesVo.ResFaxStd = 0;
+            //if (!string.IsNullOrEmpty(txtResFaxStd.Text))
+            //    associatesVo.ResFaxStd = int.Parse(txtResFaxStd.Text);
+            //else
+            //    associatesVo.ResFaxStd = 0;
 
             if (!string.IsNullOrEmpty(txtResFax.Text))
-                associatesVo.ResFaxNumber = int.Parse(txtResFax.Text);
+                associatesVo.ResFaxNumber = Convert.ToInt64(txtResFax.Text);
             else
                 associatesVo.ResFaxNumber = 0;
-            if (!string.IsNullOrEmpty(txtOfcFaxStd.Text))
-                associatesVo.OfcFaxSTD = int.Parse(txtOfcFaxStd.Text);
-            else
-                associatesVo.OfcFaxSTD = 0;
+            //if (!string.IsNullOrEmpty(txtOfcFaxStd.Text))
+            //    associatesVo.OfcFaxSTD = int.Parse(txtOfcFaxStd.Text);
+            //else
+            //    associatesVo.OfcFaxSTD = 0;
             if (!string.IsNullOrEmpty(txtOfcFax.Text))
-                associatesVo.OfcFaxNumber = int.Parse(txtOfcFax.Text);
+                associatesVo.OfcFaxNumber = Convert.ToInt64(txtOfcFax.Text);
             else
                 associatesVo.OfcFaxNumber = 0;
             if (!string.IsNullOrEmpty(txtMobile1.Text))
@@ -1357,13 +1357,13 @@ namespace WealthERP.Associates
         {
             btnContactDetailsUpdate.Visible = true;
             msgRecordStatus.Visible = false;
-            txtResPhoneNoStd.Enabled = true;
+            //txtResPhoneNoStd.Enabled = true;
             txtResPhoneNo.Enabled = true;
-            txtResFaxStd.Enabled = true;
+            //txtResFaxStd.Enabled = true;
             txtResFax.Enabled = true;
-            txtOfcPhoneNoStd.Enabled = true;
+            //txtOfcPhoneNoStd.Enabled = true;
             txtOfcPhoneNo.Enabled = true;
-            txtOfcFaxStd.Enabled = true;
+            //txtOfcFaxStd.Enabled = true;
             txtOfcFax.Enabled = true;
             txtMobile1.Enabled = true;
             txtEmail.Enabled = true;
