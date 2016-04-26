@@ -34,17 +34,36 @@ namespace WealthERP.OPS
 {
     public partial class ProductOrderDetailsMF : System.Web.UI.UserControl
     {
-        string path;
+        string path,userType,   UserTitle;                                
         UserVo userVo = new UserVo();
-
+        AdvisorVo advisorVo;
         protected void Page_Load(object sender, EventArgs e)
         {
 
             SessionBo.CheckSession();
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             userVo = (UserVo)Session["userVo"];
+            advisorVo = (AdvisorVo)Session["advisorVo"];
+            AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
+            if (!IsPostBack)
+            {
+                 AgentCode.Value = "0";
+                associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+                {
+                    userType = "associates";
+                    if (UserTitle == "SubBroker")
+                    {
+                        associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                        if (associateuserheirarchyVo.AgentCode != null)
+                        {
+                            AgentCode.Value = associateuserheirarchyVo.AgentCode.ToString();
+                        }
+                        
+                    }
+                }
 
-
+            }
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
@@ -67,7 +86,7 @@ namespace WealthERP.OPS
         {
 
             InsuranceBo insuranceBo = new InsuranceBo();
-            DataTable dtInsuranceOrderBook = insuranceBo.GetInsuranceOrders(ddlInsurance.SelectedValue);
+            DataTable dtInsuranceOrderBook = insuranceBo.GetInsuranceOrders(ddlInsurance.SelectedValue, advisorVo.advisorId,AgentCode.Value.ToString());
             gvrInsurance.DataSource = dtInsuranceOrderBook;
             gvrInsurance.DataBind();
             pnlInsuranceBook.Visible = true;

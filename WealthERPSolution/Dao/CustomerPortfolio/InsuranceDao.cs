@@ -240,7 +240,7 @@ namespace DaoCustomerPortfolio
 
             return bResult;
         }
-        public DataTable GetInsuranceOrders(string Type)
+        public DataTable GetInsuranceOrders(string Type,int adviserid, string agentCode)
         {
             Database db;
             DbCommand getInsuranceOrderCmd;
@@ -250,6 +250,8 @@ namespace DaoCustomerPortfolio
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getInsuranceOrderCmd = db.GetStoredProcCommand("SPROC_GetAdviserInsuranceOrder");
                 db.AddInParameter(getInsuranceOrderCmd, "@type", DbType.String, Type);
+                db.AddInParameter(getInsuranceOrderCmd, "@AdviserId", DbType.Int64, adviserid);
+                db.AddInParameter(getInsuranceOrderCmd, "@AgentCode", DbType.String, agentCode);
                 dtGetInsuranceOrder = db.ExecuteDataSet(getInsuranceOrderCmd).Tables[0];
             }
             catch (BaseApplicationException Ex)

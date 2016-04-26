@@ -92,11 +92,7 @@
                                 AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="SubBroker Code" UniqueName="AAC_AgentCode">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CustomerAssociate" SortExpression="CustomerAssociate"
-                                AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="User Type" UniqueName="CustomerAssociate">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
+                         
                             <telerik:GridBoundColumn DataField="AssociatesName" SortExpression="AssociatesName"
                                 AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                 AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="Associates" UniqueName="AssociatesName">
@@ -165,3 +161,4 @@
         </tr>
     </table>
 </asp:Panel>
+<asp:HiddenField ID="AgentCode" runat="server" />

@@ -461,7 +461,8 @@ namespace WealthERP.OPS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnSchemeName;
+        protected global::System.Web.UI.WebControls.HiddenField AgentCode;
+        
 
         protected global::Telerik.Web.UI.RadGrid gvrInsurance;
         protected global::System.Web.UI.WebControls.Panel pnlInsuranceBook;

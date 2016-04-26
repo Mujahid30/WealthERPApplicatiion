@@ -114,12 +114,12 @@ namespace BoCustomerPortfolio
 
             return bResult;
         }
-        public DataTable GetInsuranceOrders(string Type)
+        public DataTable GetInsuranceOrders(string Type,int adviserId, string agentcode)
         {
             InsuranceDao insuranceDao = new InsuranceDao();
             try
             {
-              return  insuranceDao.GetInsuranceOrders(Type);
+                return insuranceDao.GetInsuranceOrders(Type, adviserId, agentcode);
             }
             catch (BaseApplicationException Ex)
             {
