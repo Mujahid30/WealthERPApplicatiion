@@ -314,8 +314,11 @@ namespace DaoOps
                     db.AddInParameter(LifeInsuranceOrderCmd, "@MaturityDate", DbType.DateTime, lifeInsuranceOrdervo.MaturityDate);
                 else
                     db.AddInParameter(LifeInsuranceOrderCmd, "@MaturityDate", DbType.DateTime, DBNull.Value);
-
                 db.AddInParameter(LifeInsuranceOrderCmd, "@UserId", DbType.Int32,userId);
+                if (!string.IsNullOrEmpty(lifeInsuranceOrdervo.AgentCode))
+                    db.AddInParameter(LifeInsuranceOrderCmd, "@AgentCode", DbType.String, lifeInsuranceOrdervo.AgentCode);
+                if (lifeInsuranceOrdervo.AgentId!=0)
+                    db.AddInParameter(LifeInsuranceOrderCmd, "@AgentId", DbType.Int32, lifeInsuranceOrdervo.AgentId);
                 db.AddOutParameter(LifeInsuranceOrderCmd, "@orderId", DbType.Int32, 5000);
                 if (db.ExecuteNonQuery(LifeInsuranceOrderCmd) != 0)
                 {

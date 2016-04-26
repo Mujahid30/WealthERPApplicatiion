@@ -789,5 +789,47 @@ namespace WealthERP.OPS {
         /// </summary>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlAssetSubCategory;
         protected global::System.Web.UI.WebControls.LinkButton lbOrderBook;
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender2;
+
+        /// <summary>
+        /// AutoCompleteExtender1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.AutoCompleteExtender AutoCompleteExtender2;
+
+
+        protected global::System.Web.UI.WebControls.TextBox txtAssociateSearch;
+
+        /// <summary>
+        /// txtAgentId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField txtAgentId;
+
+        /// <summary>
+        /// lblBranchName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAssociateReport;
+
+        /// <summary>
+        /// lblAssociate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAssociate;
+        protected global::System.Web.UI.WebControls.Label lblAssociatetext;
+        protected global::System.Web.UI.WebControls.Label lblAssociateReportTo;
     }
 }

@@ -19,6 +19,7 @@ using BoProductMaster;
 using BoOps;
 using System.Configuration;
 using VoOps;
+using VOAssociates;
 
 namespace WealthERP.OPS
 {
@@ -42,6 +43,7 @@ namespace WealthERP.OPS
         AssetBo assetBo = new AssetBo();
        
         BoCustomerPortfolio.BoDematAccount bodemataccount = new BoDematAccount();
+        AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
         int amcCode;
         int accountId;
         string categoryCode;
@@ -90,6 +92,8 @@ namespace WealthERP.OPS
                 {
                     txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
                     txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                    AutoCompleteExtender2.ContextKey = advisorVo.advisorId.ToString();
+                    AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetails";
                 }
                 else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
                 {
@@ -100,6 +104,20 @@ namespace WealthERP.OPS
                 {
                     txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
                     txtCustomerName_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
+                }
+                else if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
+                {
+                   
+                    associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                    txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                    txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                    txtAssociateSearch.Text = associateuserheirarchyVo.AgentCode;
+                    GetAgentName(associateuserheirarchyVo.AdviserAgentId);
+                    txtAgentId.Value = associateuserheirarchyVo.AdviserAgentId.ToString();
+                    AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode + "/" + advisorVo.advisorId.ToString() + "/" + associateuserheirarchyVo.IsBranchOps;
+                    AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetailsForAssociates";
+
+
                 }
                 if (!string.IsNullOrEmpty(Request.QueryString["strOrderId"]))
                 {
@@ -143,7 +161,14 @@ namespace WealthERP.OPS
                 BindOrderStepsGrid();
             }
         }
-
+        protected void txtAgentId_ValueChanged1(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtAgentId.Value.ToString().Trim()))
+            {
+                GetAgentName(int.Parse(txtAgentId.Value));
+            }
+            txtAssociateSearch.Focus();
+        }
         protected void txtCustomerId_ValueChanged(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
@@ -309,6 +334,13 @@ namespace WealthERP.OPS
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(txtAgentId.Value.ToString().Trim()))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please select Agent Name.');", true);
+                btnSubmit.Enabled = true;
+
+                return;
+            }
             bool bresult = false;
             string nomineeAssociationIds = "";
 
@@ -349,6 +381,8 @@ namespace WealthERP.OPS
             lifeInsuranceOrdervo.PaymentMode = ddlPaymentMode.SelectedValue;
             lifeInsuranceOrdervo.SourceCode = "ME";
             lifeInsuranceOrdervo.SumAssured = double.Parse(txtSumAssured.Text);
+            lifeInsuranceOrdervo.AgentCode = txtAssociateSearch.Text;
+            lifeInsuranceOrdervo.AgentId = int.Parse(txtAgentId.Value);
             
             if (this.gvPickNominee.Rows.Count > 0)
             {
@@ -898,6 +932,25 @@ namespace WealthERP.OPS
         {
             Session["UserType"] = "adviser";
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ProductOrderDetailsMF','login');", true);
+        }
+        private void GetAgentName(int agentId)
+        {
+            // Admin after selecting agent code and sales login default
+            DataTable Agentname;
+            if (agentId == 0)
+            {
+                return;
+            }
+            lblAssociate.Visible = true;
+            lblAssociateReport.Visible = true;
+            Agentname = customerBo.GetSubBrokerName(agentId);
+            if (Agentname.Rows.Count > 0)
+            {
+                lblAssociatetext.Text = Agentname.Rows[0][0].ToString();
+                lblAssociateReportTo.Text = Agentname.Rows[0][4].ToString();
+                
+            }
+
         }
     }
 }

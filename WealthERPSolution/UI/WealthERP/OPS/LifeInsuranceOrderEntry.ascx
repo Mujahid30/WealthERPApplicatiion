@@ -39,6 +39,12 @@
             return true;
         }
     }
+    function GeAgentId(source, eventArgs) {
+        isItemSelected = true;
+        document.getElementById("<%= txtAgentId.ClientID %>").value = eventArgs.get_value();
+
+        return false;
+    }
 </script>
 
 <script language="javascript" type="text/javascript">
@@ -193,6 +199,44 @@
         </td>
     </tr>
     <tr>
+                    <td class="leftField" style="width: 20%">
+                        <asp:Label ID="lblAssociateSearch" runat="server" CssClass="FieldName" Text="Agent Code:"></asp:Label>
+                    </td>
+                    <td class="rightField" style="width: 20%">
+                        <asp:TextBox ID="txtAssociateSearch" runat="server" CssClass="txtField" AutoComplete="Off"
+                            AutoPostBack="True" TabIndex="5">
+                        </asp:TextBox><span id="Span16" class="spnRequiredField">*</span>
+                        <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" TargetControlID="txtAssociateSearch"
+                            WatermarkText="Enter few chars of Agent Code" runat="server" EnableViewState="false">
+                        </cc1:TextBoxWatermarkExtender>
+                        <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender2" runat="server" TargetControlID="txtAssociateSearch"
+                            ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                            OnClientItemSelected="GeAgentId" MinimumPrefixLength="1" EnableCaching="False"
+                            CompletionSetCount="5" CompletionInterval="100" CompletionListCssClass="AutoCompleteExtender_CompletionList"
+                            CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem" CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                            UseContextKey="True" DelimiterCharacters="" Enabled="True" ShowOnlyCurrentWordInCompletionListItem="true" />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtAssociateSearch"
+                            ErrorMessage="<br />Please Enter a  Agent Code" Display="Dynamic" runat="server"
+                            CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+                    </td>
+                    <td align="right">
+                        <asp:Label ID="lblAssociate" runat="server" CssClass="FieldName" Text="Name:" Visible="false"></asp:Label>
+                    </td>
+                    <td >
+                        <asp:Label ID="lblAssociatetext" runat="server" CssClass="FieldName" Enabled="false"></asp:Label>
+                    </td>
+              
+                </tr>
+                <tr>
+                     <td align="right">
+                        <asp:Label ID="lblAssociateReport" runat="server" CssClass="FieldName" Text="RM:"
+                            Visible="false"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:Label ID="lblAssociateReportTo" runat="server" CssClass="FieldName" Enabled="false"></asp:Label>
+                    </td>
+                </tr>
+                  <tr>
         <td colspan="5">
             <div class="divSectionHeading" style="vertical-align: text-bottom">
                 Account Details
@@ -670,5 +714,6 @@
 <asp:HiddenField ID="hdnSchemeCode" runat="server" />
 <asp:HiddenField ID="hdnType" runat="server" />
 <asp:HiddenField ID="hdnMsgValue" runat="server" />
+<asp:HiddenField ID="txtAgentId" runat="server" OnValueChanged="txtAgentId_ValueChanged1" />
 <asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click"
     BorderStyle="None" BackColor="Transparent" />
