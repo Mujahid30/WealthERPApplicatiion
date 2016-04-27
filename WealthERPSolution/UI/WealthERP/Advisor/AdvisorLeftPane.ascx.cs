@@ -554,6 +554,18 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageLookups','login');", true);
                 }
+                else if (e.Item.Value == "Notfications")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('NotificationStatusDetails','login');", true);
+                }
+                else if (e.Item.Value == "Add_Insurance_Order")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('LifeInsuranceOrderEntry','login');", true);
+                }
+                else if (e.Item.Value == "Insurance_Order_Book")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ProductOrderDetailsMF','login');", true);
+                }
                 else if (e.Item.Value == "Add_Prospect_Admin")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddProspectList','login');", true);
@@ -1081,13 +1093,13 @@ namespace WealthERP.Advisor
                     if (advisorVo.A_AgentCodeBased == 0)
                     {
                         Session["UserType"] = "adviser";
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderDashBoard','login');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderEntry','login');", true);
 
                     }
                     else
                     {
                         Session["UserType"] = "adviser";
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderDashBoard','login');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderEntry','login');", true);
                     }
                 }
 
@@ -1888,6 +1900,18 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageLookups','login');", true);
                 }
+                else if (e.Item.Value == "Notfications")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('NotificationStatusDetails','login');", true);
+                }
+                else if (e.Item.Value == "Add_Insurance_Order")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('LifeInsuranceOrderEntry','login');", true);
+                }
+                else if (e.Item.Value == "Insurance_Order_Book")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ProductOrderDetailsMF','login');", true);
+                }
                 else if (e.Item.Value == "Add_Prospect_Admin")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddProspectList','login');", true);
@@ -2488,7 +2512,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "OrderEntry")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderDashBoard','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderEntry','login');", true);
                 }
                 else if (e.Item.Value == "LI_Order")
                 {
@@ -3699,6 +3723,14 @@ namespace WealthERP.Advisor
                 if (e.Item.Value == "RM Home")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SalesDashBoard','login');", true);
+                }
+                else if (e.Item.Value == "Add_Insurance_Order")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('LifeInsuranceOrderEntry','login');", true);
+                }
+                else if (e.Item.Value == "Insurance_Order_Book")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ProductOrderDetailsMF','login');", true);
                 }
                 else if (e.Item.Value == "54EC_ORDER_bOOK")
                 {

@@ -109,6 +109,7 @@
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
+                                           
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <%--<telerik:RadPanelItem runat="server" Text="Product Group setup" Value="Product Group setup">
@@ -216,6 +217,8 @@
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
+                                             <telerik:RadPanelItem runat="server" Text="Notfications" Value="Notfications">
+                                            </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Product" Value="Product" PostBack="false">
@@ -273,6 +276,10 @@
                                                     <telerik:RadPanelItem runat="server" Text="Add FD Order" Value="FD_Order">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="FD Order Book" Value="FD_Order_Book">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Add Insurance Order" Value="Add_Insurance_Order">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Insurance Order Book" Value="Insurance_Order_Book">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
@@ -436,7 +443,7 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Business MIS" Value="Business MIS">
                                         <Items>
-                                        <telerik:RadPanelItem runat="server" Text="Goal MIS" Value="Goal_MIS" Vissble="true">
+                                            <telerik:RadPanelItem runat="server" Text="Goal MIS" Value="Goal_MIS" Vissble="true">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="MF" Value="MIS_MF">
                                                 <Items>
@@ -1046,6 +1053,10 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="FD Order Book" Value="FD_Order_Book">
                                                     </telerik:RadPanelItem>
+                                                     <telerik:RadPanelItem runat="server" Text="Add Insurance Order" Value="Add_Insurance_Order">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Insurance Order Book" Value="Insurance_Order_Book">
+                                                    </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Online" Value="Online">
@@ -1175,7 +1186,7 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
-                                      <telerik:RadPanelItem runat="server" Text="Financial Planning" Value="Financial_Planning_Admin">
+                                    <telerik:RadPanelItem runat="server" Text="Financial Planning" Value="Financial_Planning_Admin">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Add Prospect" Value="Add_Prospect_Admin">
                                             </telerik:RadPanelItem>
@@ -1194,7 +1205,7 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Business MIS" Value="Business MIS">
                                         <Items>
-                                         <telerik:RadPanelItem runat="server" Text="Goal MIS" Value="Goal_MIS" Vissble="true">
+                                            <telerik:RadPanelItem runat="server" Text="Goal MIS" Value="Goal_MIS" Vissble="true">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="MIS_MF" Value="MF">
                                                 <Items>
@@ -1578,6 +1589,10 @@
                                                     <telerik:RadPanelItem runat="server" Text="Add FD Order" Value="FD_Order">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="FD Order Book" Value="FD_Order_Book">
+                                                    </telerik:RadPanelItem>
+                                                     <telerik:RadPanelItem runat="server" Text="Add Insurance Order" Value="Add_Insurance_Order">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Insurance Order Book" Value="Insurance_Order_Book">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
