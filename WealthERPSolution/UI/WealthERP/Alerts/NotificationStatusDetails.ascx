@@ -97,11 +97,11 @@
 </table>
 <asp:Panel ID="Panel1" runat="server">
     <telerik:RadGrid ID="RadGrid3" runat="server" Skin="Telerik" CssClass="RadGrid" GridLines="None"
-        AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true"
+        AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" 
         AllowAutomaticDeletes="false" AllowAutomaticInserts="false" PageSize="10" 
         OnNeedDataSource="RadGrid3_NeedDataSource" AllowAutomaticUpdates="false" HorizontalAlign="NotSet"
         DataKeyNames="CTNEE_Id">
-        <MasterTableView CommandItemDisplay="Top" EditMode="PopUp">
+        <MasterTableView >
             <Columns>
                
                 <telerik:GridBoundColumn UniqueName="CustCode" HeaderText="Client Code" DataField="CustCode">
