@@ -2081,4 +2081,8 @@
     <value>OnlineOrderManagement//FAQandDemo.ascx</value>
     <comment>OnlineOrderManagement//FAQandDemo.ascx</comment>
   </data>
+  <data name="NotificationStatusDetails" xml:space="preserve">
+    <value>Alerts//NotificationStatusDetails.ascx</value>
+    <comment>Alerts//NotificationStatusDetails.ascx</comment>
+  </data>
 </root>
