@@ -687,7 +687,7 @@ namespace BoOnlineOrderManagement
                 {
                     DebitOrCreditRMSUserAccountBalance(UserID, ClientCode, onlinemforderVo.Amount, rmsId, out  rmsId);
                 }
-                message = "Unable to process the order as BSE is not available for Now.";
+                message = "Unable to process the order as BSE is not available for Now." + ex.Message;
             }
             finally
             {
