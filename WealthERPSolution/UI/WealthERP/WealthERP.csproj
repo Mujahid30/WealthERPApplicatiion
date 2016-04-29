@@ -1305,6 +1305,12 @@
     <Compile Include="Associates\ViewAgentCode.ascx.designer.cs">
       <DependentUpon>ViewAgentCode.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Associates\ViewAssociateList.ascx.cs">
+      <DependentUpon>ViewAssociateList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Associates\ViewAssociateList.ascx.designer.cs">
+      <DependentUpon>ViewAssociateList.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Associates\ViewAssociates.ascx.cs">
       <DependentUpon>ViewAssociates.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7733,6 +7739,7 @@
     <Content Include="Associates\ReassignStaffAssociats.ascx" />
     <Content Include="Associates\ViewAdviserAssociateList.ascx" />
     <Content Include="Associates\ViewAgentCode.ascx" />
+    <Content Include="Associates\ViewAssociateList.ascx" />
     <Content Include="Associates\ViewAssociates.ascx" />
     <Content Include="Base\CSS\bootstrap-theme.css" />
     <Content Include="Base\CSS\bootstrap.css" />

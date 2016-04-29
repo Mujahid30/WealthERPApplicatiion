@@ -2085,4 +2085,8 @@
     <value>Alerts//NotificationStatusDetails.ascx</value>
     <comment>Alerts//NotificationStatusDetails.ascx</comment>
   </data>
+  <data name="ViewAssociateLis" xml:space="preserve">
+    <value>Associates//ViewAssociateList.ascx</value>
+    <comment>Associates//ViewAssociateList.ascx</comment>
+  </data>
 </root>
