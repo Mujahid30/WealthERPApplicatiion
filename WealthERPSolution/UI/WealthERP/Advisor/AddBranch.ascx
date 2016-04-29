@@ -344,12 +344,12 @@
         <td class="rightField" width="15%">
             <asp:DropDownList ID="ddlRmlist" runat="server" Width="90%" CssClass="cmbField">
             </asp:DropDownList>
-            <span id="Span6" class="spnRequiredField">*</span>
+           <%-- <span id="Span6" class="spnRequiredField">*</span>
             <br />
             <asp:CompareValidator ID="CompareValidator12" runat="server" ControlToValidate="ddlRmlist"
                 Display="Dynamic" ErrorMessage="Please select a Branch Head" Operator="NotEqual"
                 ValueToCompare="Select Branch head" CssClass="cvPCG" ValidationGroup="btnSubmit">
-            </asp:CompareValidator>
+            </asp:CompareValidator>--%>
         </td>
         <td>
             <asp:ImageButton ID="btnAddStaff" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
