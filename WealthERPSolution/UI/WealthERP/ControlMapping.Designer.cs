@@ -4131,9 +4131,9 @@ namespace WealthERP {
         /// <summary>
         ///   Looks up a localized string similar to Associates//ViewAssociateList.ascx.
         /// </summary>
-        internal static string ViewAssociateLis {
+        internal static string ViewAssociateList {
             get {
-                return ResourceManager.GetString("ViewAssociateLis", resourceCulture);
+                return ResourceManager.GetString("ViewAssociateList", resourceCulture);
             }
         }
         
