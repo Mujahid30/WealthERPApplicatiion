@@ -64,12 +64,12 @@ namespace DAOAssociates
                 db.AddOutParameter(completeAssociatesCmd, "@AAC_AdviserAgentId", DbType.Int32, 10);
                 db.AddOutParameter(completeAssociatesCmd, "@U_UserId", DbType.Int32, 10);
                 db.AddInParameter(completeAssociatesCmd, "@roleIds", DbType.String, associatesVo.Roleid);
-                if(!string.IsNullOrEmpty(associatesVo.AMFIregistrationNo))
-                db.AddInParameter(completeAssociatesCmd, "@AA_AMFIregistrationNo", DbType.Int32, associatesVo.AMFIregistrationNo);
+                if (!string.IsNullOrEmpty(associatesVo.AMFIregistrationNo))
+                    db.AddInParameter(completeAssociatesCmd, "@AA_AMFIregistrationNo", DbType.Int32, associatesVo.AMFIregistrationNo);
                 else
                     db.AddInParameter(completeAssociatesCmd, "@AA_AMFIregistrationNo", DbType.Int32, 0);
-                if(associatesVo.AssociationExpairyDate!=DateTime.MinValue)
-                db.AddInParameter(completeAssociatesCmd, "@AA_ExpiryDate", DbType.DateTime, associatesVo.AssociationExpairyDate);
+                if (associatesVo.AssociationExpairyDate != DateTime.MinValue)
+                    db.AddInParameter(completeAssociatesCmd, "@AA_ExpiryDate", DbType.DateTime, associatesVo.AssociationExpairyDate);
                 else
                     db.AddInParameter(completeAssociatesCmd, "@AA_ExpiryDate", DbType.DateTime, DBNull.Value);
                 if (associatesVo.ARNDate != DateTime.MinValue)
@@ -77,12 +77,12 @@ namespace DAOAssociates
                 else
                     db.AddInParameter(completeAssociatesCmd, "@ARNDate", DbType.DateTime, DBNull.Value);
 
-                if(associatesVo.StartDate!=DateTime.MinValue)
-                db.AddInParameter(completeAssociatesCmd, "@AA_StartDate", DbType.DateTime, associatesVo.StartDate);
+                if (associatesVo.StartDate != DateTime.MinValue)
+                    db.AddInParameter(completeAssociatesCmd, "@AA_StartDate", DbType.DateTime, associatesVo.StartDate);
                 else
                     db.AddInParameter(completeAssociatesCmd, "@AA_StartDate", DbType.DateTime, DBNull.Value);
-                if(associatesVo.EndDate!=DateTime.MinValue)
-                db.AddInParameter(completeAssociatesCmd, "@AA_EndDate", DbType.DateTime, associatesVo.EndDate);
+                if (associatesVo.EndDate != DateTime.MinValue)
+                    db.AddInParameter(completeAssociatesCmd, "@AA_EndDate", DbType.DateTime, associatesVo.EndDate);
                 else
                     db.AddInParameter(completeAssociatesCmd, "@AA_EndDate", DbType.DateTime, DBNull.Value);
 
@@ -93,7 +93,7 @@ namespace DAOAssociates
                 db.AddInParameter(completeAssociatesCmd, "@AA_IsDummyAssociate", DbType.Int32, associatesVo.IsDummy);
                 db.AddInParameter(completeAssociatesCmd, "@KYDStatus", DbType.Boolean, associatesVo.KYDStatus);
                 db.AddInParameter(completeAssociatesCmd, "@FormBRecvd", DbType.Boolean, associatesVo.FormBRecvd);
-               
+
                 if (db.ExecuteNonQuery(completeAssociatesCmd) != 0)
                 {
 
@@ -551,7 +551,7 @@ namespace DAOAssociates
                 else
                     db.AddInParameter(UpdateAssociatesCmd, "@BankUpdatedDate", DbType.DateTime, DBNull.Value);
                 db.AddInParameter(UpdateAssociatesCmd, "@BankMobile", DbType.Int64, associatesVo.BankMobile);
-             
+
                 if (!string.IsNullOrEmpty(associatesVo.Remarks.ToString().Trim()))
                     db.AddInParameter(UpdateAssociatesCmd, "@Remarks", DbType.String, associatesVo.Remarks);
                 else
@@ -1361,7 +1361,7 @@ namespace DAOAssociates
                         associatesVo.Remarks = dr["AA_Remarks"].ToString();
 
                     if (dr["AA_BankMobile"] != DBNull.Value)
-                        associatesVo.BankMobile = Convert.ToInt64( dr["AA_BankMobile"].ToString());
+                        associatesVo.BankMobile = Convert.ToInt64(dr["AA_BankMobile"].ToString());
                     if (dr["AA_BankEmail"] != DBNull.Value)
                         associatesVo.BankEmail = dr["AA_BankEmail"].ToString();
                     if (!string.IsNullOrEmpty(dr["AC_CategoryId"].ToString()))
@@ -1569,7 +1569,7 @@ namespace DAOAssociates
             }
             return dtChildCodeList;
         }
-        public bool EditAddChildAgentCodeList(AssociatesVO associatesVo, string ChildCode, int PagentId, char flag,string childName,string childEmailId,int userId,string roleIds)
+        public bool EditAddChildAgentCodeList(AssociatesVO associatesVo, string ChildCode, int PagentId, char flag, string childName, string childEmailId, int userId, string roleIds)
         {
             bool result = false;
             Database db;
@@ -2309,12 +2309,12 @@ namespace DAOAssociates
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_ContactPersonName", DbType.String, associatesVo.ContactPersonName);
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_AdviserAssociateId", DbType.Int32, associateid);
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_AMFIregistrationNo", DbType.String, associatesVo.AMFIregistrationNo);
-                if(associatesVo.StartDate!=DateTime.MinValue)
-                db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_StartDate", DbType.DateTime, associatesVo.StartDate);
+                if (associatesVo.StartDate != DateTime.MinValue)
+                    db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_StartDate", DbType.DateTime, associatesVo.StartDate);
                 else
-                    db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_StartDate", DbType.DateTime,DBNull.Value);
-                if(associatesVo.EndDate!=DateTime.MinValue)
-                db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_EndDate", DbType.DateTime, associatesVo.EndDate);
+                    db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_StartDate", DbType.DateTime, DBNull.Value);
+                if (associatesVo.EndDate != DateTime.MinValue)
+                    db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_EndDate", DbType.DateTime, associatesVo.EndDate);
                 else
                     db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_EndDate", DbType.DateTime, DBNull.Value);
 
@@ -2324,8 +2324,8 @@ namespace DAOAssociates
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_PAN", DbType.String, associatesVo.PanNo);
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@AAC_AgentCode", DbType.String, associatesVo.AAC_AgentCode);
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@AgentId", DbType.Int32, agentcode);
-                if(associatesVo.AssociationExpairyDate!=DateTime.MinValue)
-                db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_ExpiryDate", DbType.DateTime, associatesVo.AssociationExpairyDate);
+                if (associatesVo.AssociationExpairyDate != DateTime.MinValue)
+                    db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_ExpiryDate", DbType.DateTime, associatesVo.AssociationExpairyDate);
                 else
                     db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_ExpiryDate", DbType.DateTime, DBNull.Value);
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_IsActive", DbType.Int32, associatesVo.IsActive);
@@ -2387,7 +2387,7 @@ namespace DAOAssociates
             }
             return dtGetAssetsRegistration;
         }
-        public bool AssociateRegistration(int associateId,DateTime registrationExp,int RegistrationNo,string assetsGroup)
+        public bool AssociateRegistration(int associateId, DateTime registrationExp, int RegistrationNo, string assetsGroup)
         {
             bool bResult = false;
             Database db;
@@ -2432,6 +2432,71 @@ namespace DAOAssociates
                 throw (Ex);
             }
             return bResult;
+        }
+
+        public DataSet GetAdviserIndividualAssociateList(int associateId, int adviserId)
+        {
+            Database db;
+            DataSet dsGetAdviserAssociateList;
+            DbCommand getAdviserAssociateListcmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getAdviserAssociateListcmd = db.GetStoredProcCommand("SPROC_GetindividualAdviserAssociateList");
+                db.AddInParameter(getAdviserAssociateListcmd, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(getAdviserAssociateListcmd, "@associateId", DbType.Int32, associateId);
+                dsGetAdviserAssociateList = db.ExecuteDataSet(getAdviserAssociateListcmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetAdviserAssociateList;
+        }
+
+        public DataTable GetAssociateNameDetails(string searchType, string prefixText, int Adviserid)
+        {
+            Database db;
+            DbCommand cmdGetAgentCodeAssociateDetails;
+            DataSet dsAssociatesNames;
+            DataTable dtAssociatesNames;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetAgentCodeAssociateDetails = db.GetStoredProcCommand("SPROC_GetAssociateListFromSearch");
+                db.AddInParameter(cmdGetAgentCodeAssociateDetails, "@SearchType", DbType.String, searchType);
+                db.AddInParameter(cmdGetAgentCodeAssociateDetails, "@PrefixText", DbType.String, prefixText);
+                db.AddInParameter(cmdGetAgentCodeAssociateDetails, "@AdviserId", DbType.Int32, Adviserid);
+
+                dsAssociatesNames = db.ExecuteDataSet(cmdGetAgentCodeAssociateDetails);
+                dtAssociatesNames = dsAssociatesNames.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetAssociateNameDetails()");
+
+
+                object[] objects = new object[1];
+
+                objects[0] = prefixText;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtAssociatesNames;
         }
     }
 }

@@ -978,5 +978,51 @@ namespace BOAssociates
             }
             return bResult;
         }
+        public DataSet GetAdviserIndividualAssociateList(int associateId, int adviserId)
+        
+        {
+            DataSet dsGetAssociateCodeList;
+            try
+            {
+                dsGetAssociateCodeList = associatesDao.GetAdviserIndividualAssociateList(associateId,adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetAssociateCodeList;
+        }
+        public DataTable GetAssociateNameDetails(string searchType, string prefixText, int Adviserid)
+        {
+
+            DataTable dtAssociatesNames = new DataTable();
+            try
+            {
+                dtAssociatesNames = associatesDao.GetAssociateNameDetails(searchType,prefixText, Adviserid);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetAssociateNameDetails()");
+
+
+                object[] objects = new object[0];
+                objects[0] = prefixText;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtAssociatesNames;
+        }
+
     }
-}
+   }
