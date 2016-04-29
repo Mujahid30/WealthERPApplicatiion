@@ -153,10 +153,13 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Associates" Value="Associatess">
                                                 <Items>
+                                                <telerik:RadPanelItem runat="server" Text="View Associate" Value="View_Associates">
+                                                    </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="View Associates List" Value="ViewAssociatess">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Request Associate" Value="AddAssociates">
                                                     </telerik:RadPanelItem>
+                                                    
                                                     <telerik:RadPanelItem runat="server" Text="Associates Status" Value="ViewAssociates">
                                                     </telerik:RadPanelItem>
                                                 </Items>
@@ -929,6 +932,8 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Associates" Value="Associatess">
                                                 <Items>
+                                                <telerik:RadPanelItem runat="server" Text="View Associate" Value="View_Associates">
+                                                    </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="View Associates List" Value="ViewAssociatess">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Request Associate" Value="AddAssociates">
