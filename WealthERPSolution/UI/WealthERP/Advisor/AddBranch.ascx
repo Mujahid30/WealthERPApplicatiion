@@ -67,8 +67,8 @@
 <script language="javascript" type="text/javascript">
     window.onload = function() { assignValueToAgentCode() };
     function assignValueToAgentCode() {
-        document.getElementById("<%=txtAgentCode.ClientID%>").value = "SSLB" + document.getElementById("<%=txtBranchCode.ClientID%>").value;
-        document.getElementById("ctrl_AddBranch_hdnValue").value = "SSLB" + document.getElementById("<%=txtBranchCode.ClientID%>").value;
+        document.getElementById("<%=txtAgentCode.ClientID%>").value = document.getElementById("<%=txtBranchCode.ClientID%>").value + "99999";
+        document.getElementById("ctrl_AddBranch_hdnValue").value = document.getElementById("<%=txtBranchCode.ClientID%>").value + "99999";
 
     }
 </script>
