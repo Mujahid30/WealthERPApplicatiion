@@ -76,6 +76,7 @@ namespace WealthERP.OnlineOrderManagement
                         if( ddlScheme.SelectedValue !="")
                         lblScheme.Text = ddlScheme.SelectedItem.Text;
                         GetControlDetails(int.Parse(Session["MFSchemePlan"].ToString()), null);
+                        SetControlDetails();
                     }
 
                 }

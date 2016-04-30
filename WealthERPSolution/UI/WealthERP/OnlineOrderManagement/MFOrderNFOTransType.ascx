@@ -117,7 +117,7 @@
                     </div>
                     <div class="col-md-3">
                         <asp:ImageButton ID="imgInformation" runat="server" ImageUrl="../Images/help.png"
-                            OnClick="imgInformation_OnClick" ToolTip="Help" Style="cursor: hand;float:right" />
+                            OnClick="imgInformation_OnClick" ToolTip="Help" Style="cursor: hand; float: right" />
                     </div>
                 </div>
                 <div class="col-md-12  col-xs-12 col-sm-12" style="border: 1px solid #ccc;">
@@ -175,7 +175,7 @@
                     </div>
                     <div class="col-md-3" id="divDividentType" runat="server" visible="false">
                         <b class="fontsize">Dividend Type</b>
-                        <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField" Style="width: 250px;">
+                        <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField">
                         </asp:DropDownList>
                         <span id="Span4" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" CssClass="rfvPCG"
@@ -183,7 +183,9 @@
                             InitialValue="0" ValidationGroup="btnSubmit">
                         </asp:RequiredFieldValidator>
                     </div>
-                    <div class="col-md-3">
+                </div>
+                <div class="col-md-12  col-xs-12 col-sm-12">
+                    <div class="col-md-4">
                         <asp:CheckBox ID="chkTermsCondition" runat="server" Font-Bold="True" Font-Names="Shruti"
                             Enabled="false" Checked="false" ForeColor="#145765" Text="" ToolTip="Click 'Terms & Conditions' to proceed further"
                             CausesValidation="true" />
@@ -237,7 +239,8 @@
             </div>
             <telerik:RadWindow ID="rwTermsCondition" runat="server" VisibleOnPageLoad="false"
                 Width="1000px" Height="180px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false"
-                Behaviors="Move,Resize,Close" Title="Terms & Conditions" EnableShadow="true" Left="15%" Top="1" OnClientShow="setCustomPosition">
+                Behaviors="Move,Resize,Close" Title="Terms & Conditions" EnableShadow="true"
+                Left="15%" Top="1" OnClientShow="setCustomPosition">
                 <ContentTemplate>
                     <div style="padding: 0px; width: 100%">
                         <table width="100%" cellpadding="0" cellpadding="0">
@@ -334,7 +337,7 @@
     <tr id="trNewOrder" runat="server" visible="false">
         <td align="center" colspan="4">
             <asp:LinkButton ID="lnkNewOrder" CausesValidation="false" Text="Make another NFO Purchase"
-                runat="server" OnClick="lnkNewOrder_Click" CssClass="LinkButtons" visible="false"></asp:LinkButton>
+                runat="server" OnClick="lnkNewOrder_Click" CssClass="LinkButtons" Visible="false"></asp:LinkButton>
         </td>
     </tr>
 </table>
