@@ -2498,5 +2498,31 @@ namespace DAOAssociates
             }
             return dtAssociatesNames;
         }
+        public string GetSampleAssociateCode(int adviserId, int branchId)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmd;
+            string sampleAssociateCode = string.Empty;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //checking year
+                cmd = db.GetStoredProcCommand("SPROC_GetSampleAssociateCode");
+                db.AddInParameter(cmd, "@BranchID", DbType.Int32, branchId);
+                db.AddInParameter(cmd, "@AdviserId", DbType.Int32, adviserId);
+                db.AddOutParameter(cmd, "@AgentCode", DbType.String, 20);
+                ds = db.ExecuteDataSet(cmd);
+                if (db.ExecuteNonQuery(cmd) != 0)
+                {
+                    sampleAssociateCode = db.GetParameterValue(cmd, "AgentCode").ToString();
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return sampleAssociateCode;
+        }
     }
 }

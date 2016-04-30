@@ -1023,6 +1023,19 @@ namespace BOAssociates
             }
             return dtAssociatesNames;
         }
+        public string GetSampleAssociateCode(int adviserId, int branchId)
+        {
+            string associateCode = string.Empty;
+            try
+            {
+                associateCode = associatesDao.GetSampleAssociateCode(adviserId, branchId);
 
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return associateCode;
+        }
     }
    }

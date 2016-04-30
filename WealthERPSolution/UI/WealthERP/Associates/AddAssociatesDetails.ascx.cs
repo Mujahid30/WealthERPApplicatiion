@@ -404,7 +404,7 @@ namespace WealthERP.Associates
             else
                 chkIsDummy.Checked = false;
             chkKYD.Checked = associatesVo.KYDStatus;
-            chkFormB.Checked=associatesVo.FormBRecvd;
+            chkFormB.Checked = associatesVo.FormBRecvd;
             if (associatesVo.ARNDate != null && associatesVo.ARNDate != DateTime.MinValue)
                 rdpARNDate.SelectedDate = associatesVo.ARNDate;
 
@@ -482,7 +482,7 @@ namespace WealthERP.Associates
             if (associatesVo.PerAdrPinCode != null)
                 txtPermAdrPinCode.Text = associatesVo.PerAdrPinCode.ToString();
             //BindState();
-            
+
             if (!string.IsNullOrEmpty(associatesVo.PerAdrState))
             {
                 ddlPermAdrState.SelectedValue = associatesVo.PerAdrState;
@@ -528,9 +528,9 @@ namespace WealthERP.Associates
                 txtRegExpDate.SelectedDate = associatesVo.ExpiryDate;
             txtBankMobile.Text = associatesVo.BankMobile.ToString();
             txtBankEmail.Text = associatesVo.BankEmail;
-             if (associatesVo.BankUpdatedDate != DateTime.MinValue)
-                 rdpUpdateDate.SelectedDate = associatesVo.BankUpdatedDate;
-            
+            if (associatesVo.BankUpdatedDate != DateTime.MinValue)
+                rdpUpdateDate.SelectedDate = associatesVo.BankUpdatedDate;
+
             if (associatesVo.NomineeName != null)
                 txtNomineeName.Text = associatesVo.NomineeName;
             if (associatesVo.RelationshipCode != null)
@@ -1034,7 +1034,7 @@ namespace WealthERP.Associates
             associatesVo.AAC_AgentCode = txtAdviserAgentCode.Text;
             associatesVo.ContactPersonName = txtAssociateName.Text;
             associatesVo.PanNo = txtPan.Text;
-            if (rdpARNDate.SelectedDate!= null)
+            if (rdpARNDate.SelectedDate != null)
                 associatesVo.ARNDate = Convert.ToDateTime(rdpARNDate.SelectedDate);
             if (!string.IsNullOrEmpty(txtMobile1.Text))
                 associatesVo.Mobile = long.Parse(txtMobile1.Text);
@@ -1230,7 +1230,7 @@ namespace WealthERP.Associates
             associatesVo.Gender = ddlGender.SelectedValue;
             if (txtDOB.SelectedDate != DateTime.MinValue)
                 associatesVo.DOB = Convert.ToDateTime(txtDOB.SelectedDate);
-              associatesVo.Remarks = txtRemarks.Text;
+            associatesVo.Remarks = txtRemarks.Text;
             //---------------------------------------BANK DETAILS-------------------------------------------
 
             if (ddlBankName.SelectedIndex != 0)
@@ -1279,9 +1279,9 @@ namespace WealthERP.Associates
                 associatesVo.IFSC = "";
             if (rdpUpdateDate.SelectedDate != DateTime.MinValue)
                 associatesVo.BankUpdatedDate = Convert.ToDateTime(rdpUpdateDate.SelectedDate);
-            associatesVo.BankEmail=txtBankEmail.Text;
+            associatesVo.BankEmail = txtBankEmail.Text;
             if (!String.IsNullOrEmpty(txtBankMobile.Text))
-                associatesVo.BankMobile = Convert.ToInt64( txtBankMobile.Text);
+                associatesVo.BankMobile = Convert.ToInt64(txtBankMobile.Text);
             //---------------------------------------NOMINEE-------------------------------------------
 
             if (!string.IsNullOrEmpty(txtNomineeName.Text))
@@ -1904,9 +1904,26 @@ namespace WealthERP.Associates
             ddlBranch.DataValueField = dtAdviserStaffBranchList.Columns["AB_BranchId"].ToString();
             ddlBranch.DataTextField = dtAdviserStaffBranchList.Columns["AB_BranchName"].ToString();
             ddlBranch.DataBind();
-            // ddlBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+            ddlBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
 
         }
+        protected void ddlBranch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (Request.QueryString["action"] != "" && Request.QueryString["action"] != null)
+            {
+                if (Request.QueryString["action"].Trim() == "Edit" || Request.QueryString["action"].Trim() == "View")
+                {
+                    return;
+                }
+            }
+            if (ddlBranch.SelectedIndex == 0) return;
+            else
+            {
+                string sampleAssociateCode = associatesBo.GetSampleAssociateCode(advisorVo.advisorId, Convert.ToInt32(ddlBranch.SelectedValue));
+                txtAdviserAgentCode.Text = sampleAssociateCode;
+            }
+        }
+
         protected void ddlRM_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlRM.SelectedIndex > 0)

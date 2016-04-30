@@ -105,15 +105,15 @@
             <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Branch:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlBranch" runat="server" Style="vertical-align: middle" AutoPostBack="false"
-                CssClass="cmbField" Enabled="true">
+            <asp:DropDownList ID="ddlBranch" runat="server" Style="vertical-align: middle" AutoPostBack="true"
+                CssClass="cmbField" Enabled="true" OnSelectedIndexChanged="ddlBranch_SelectedIndexChanged">
             </asp:DropDownList>
             <span id="Span5" class="spnRequiredField">*</span>
             <br />
-            <asp:CompareValidator ID="CompareValidator9" runat="server" ValidationGroup="SubmitDetails"
-                ControlToValidate="ddlBranch" ErrorMessage="Please select a Branch" Operator="NotEqual"
-                TextToCompare="--Select--" CssClass="cvPCG" Display="Dynamic">
-            </asp:CompareValidator>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator21" runat="server" ErrorMessage="Please select a Branch"
+                CssClass="rfvPCG" ControlToValidate="ddlBranch" ValidationGroup="SubmitDetails" Display="Dynamic"
+                InitialValue="0"></asp:RequiredFieldValidator>
+           
         </td>
     </tr>
     <tr id="trBranchRM" runat="server">
@@ -123,6 +123,7 @@
         <td>
             <asp:TextBox ID="txtAssociateName" runat="server" CssClass="txtField" Style="width: 200px;"></asp:TextBox>
             <span id="Span6" class="spnRequiredField">*</span>
+             <br />
             <asp:RequiredFieldValidator ID="ReqtxtAssociateName" runat="server" ErrorMessage="Please Enter Associate Name"
                 CssClass="rfvPCG" ControlToValidate="txtAssociateName" ValidationGroup="SubmitDetails"
                 Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
