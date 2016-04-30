@@ -47,7 +47,7 @@
                 <table table cellspacing="0" cellpadding="2" width="100%">
                     <tr>
                         <td align="left">
-                            VIEW EDIT ASSOCIATE
+                            View Edit Associate
                         </td>
                         <td align="right" style="padding-bottom: 2px;">
                         </td>
@@ -82,7 +82,7 @@
             <asp:TextBox ID="txtCustomerName" runat="server" CssClass="txtField" AutoComplete="Off"
                 AutoPostBack="True" onclientClick="ShowIsa()" Width="250px">  </asp:TextBox>
             <cc1:TextBoxWatermarkExtender ID="txtCustomerName_water" TargetControlID="txtCustomerName"
-                WatermarkText="Enter Three Characters of Customer" runat="server" EnableViewState="false">
+                 runat="server" EnableViewState="false">
             </cc1:TextBoxWatermarkExtender>
             <ajaxToolkit:AutoCompleteExtender ID="txtCustomerName_autoCompleteExtender" runat="server"
                 TargetControlID="txtCustomerName" ServiceMethod="GetAssociateAllCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
