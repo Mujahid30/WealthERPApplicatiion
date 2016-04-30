@@ -18,7 +18,7 @@ using BoWerpAdmin;
 using System.Collections;
 using BoCommon;
 using BoOnlineOrderManagement;
-
+using BOAssociates;
 namespace WealthERP.CustomerPortfolio
 {
     /// <summary>
@@ -568,6 +568,32 @@ namespace WealthERP.CustomerPortfolio
             return names.ToArray();
         }
         [WebMethod]
+        //view edit associate
+        public string[] GetAssociateAllCustomerName(string prefixText, int count, string contextKey)
+        {
+            string[] parts = contextKey.Split('/');
+            AssociatesBo associateBo=new AssociatesBo();
+            string searchType = parts[0];
+            int adviserId = Convert.ToInt32(parts[1]);
+            CustomerBo customerBo = new CustomerBo();
+            DataTable dtAssociateName = new DataTable();
+            int i = 0;
+            List<string> names = new List<string>();
+
+
+            dtAssociateName = associateBo.GetAssociateNameDetails(searchType, prefixText, adviserId);
+            //string[] customerNameList = new string[dtCustomerName.Rows.Count];
+
+            foreach (DataRow dr in dtAssociateName.Rows)
+            {
+
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["searchText"].ToString(), dr["AA_AdviserAssociateId"].ToString());
+                names.Add(item);
+            }
+            return names.ToArray();
+        }
+
+
         public string[] GetStaffName(string prefixText, string contextKey)
         {
 
