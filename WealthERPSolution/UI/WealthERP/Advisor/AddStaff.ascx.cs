@@ -610,8 +610,8 @@ namespace WealthERP.Advisor
                 else
                     ddlTitleList.Enabled = false;
 
-                ddlRportingRole.Enabled = true;
-                ddlReportingMgr.Enabled = true;
+                ddlRportingRole.Enabled = false;
+                ddlReportingMgr.Enabled = false;
 
                 txtMobileNumber.Enabled = true;
                 txtEmail.Enabled = true;

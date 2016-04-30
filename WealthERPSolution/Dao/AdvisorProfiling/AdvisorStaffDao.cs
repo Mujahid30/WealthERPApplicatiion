@@ -699,6 +699,20 @@ namespace DaoAdvisorProfiling
                             rmVo.BranchList = dr["BranchList"].ToString();
                         else
                             rmVo.BranchList = string.Empty;
+
+                        if (!string.IsNullOrEmpty(dr["ReportingTo"].ToString().Trim()))
+                            rmVo.ReportingTo = dr["ReportingTo"].ToString();
+                        else
+                            rmVo.ReportingTo = string.Empty;
+
+                        if (!string.IsNullOrEmpty(dr["ReportingTitle"].ToString().Trim()))
+                            rmVo.ReportingTitle = dr["ReportingTitle"].ToString();
+                        else
+                            rmVo.ReportingTitle = string.Empty;
+                        if (!string.IsNullOrEmpty(dr["Title"].ToString().Trim()))
+                            rmVo.Title = dr["Title"].ToString();
+                        else
+                            rmVo.Title = string.Empty;
                         rmList.Add(rmVo);
                     }
                 }

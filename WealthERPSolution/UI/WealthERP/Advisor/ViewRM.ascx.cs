@@ -384,7 +384,7 @@ namespace WealthERP.Advisor
                         dtAdvisorStaff.Columns.Add("BranchList");
                         dtAdvisorStaff.Columns.Add("Mobile Number");
                         dtAdvisorStaff.Columns.Add("AR_StaffCode");
-
+                      
                         DataRow drAdvisorStaff;
                         for (int i = 0; i < rmList.Count; i++)
                         {
@@ -407,6 +407,7 @@ namespace WealthERP.Advisor
                             drAdvisorStaff[8] = rmVo.Mobile.ToString();
                             drAdvisorStaff[7] =  rmVo.BranchList;
                             drAdvisorStaff[9] = rmVo.StaffCode;
+                      
                             dtAdvisorStaff.Rows.Add(drAdvisorStaff);
                         }
                         gvRMList.DataSource = dtAdvisorStaff;                      
@@ -463,6 +464,9 @@ namespace WealthERP.Advisor
                         dtAdvisorStaff.Columns.Add("BranchList");
                         dtAdvisorStaff.Columns.Add("AR_StaffCode");
                         dtAdvisorStaff.Columns.Add("RoleList");
+                        dtAdvisorStaff.Columns.Add("ReportingTo");
+                        dtAdvisorStaff.Columns.Add("ReportingTitle");
+                        dtAdvisorStaff.Columns.Add("Title");
                         DataRow drAdvisorStaff;
 
                         for (int i = 0; i < advisorStaffList.Count; i++)
@@ -488,6 +492,9 @@ namespace WealthERP.Advisor
                             drAdvisorStaff[8] = rmVo.BranchList.ToString();
                             drAdvisorStaff[9] = rmVo.StaffCode;
                             drAdvisorStaff[10] = rmVo.userRole;
+                            drAdvisorStaff[11] = rmVo.ReportingTo;
+                            drAdvisorStaff[12] = rmVo.ReportingTitle;
+                            drAdvisorStaff[13] = rmVo.Title;
                             dtAdvisorStaff.Rows.Add(drAdvisorStaff);
                         }
                         dtAdvisorStaff.DefaultView.Sort = "RMName ASC";

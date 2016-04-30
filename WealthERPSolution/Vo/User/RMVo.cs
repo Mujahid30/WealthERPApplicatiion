@@ -195,7 +195,9 @@ namespace VoUser
         public string Phone3Isd { get; set; }
         public string Phone3Std { get; set; }
         public string Phone3Number { get; set; }
-
+        public string ReportingTitle { get; set; }
+        public string Title { get; set; }
+        public string ReportingTo { get; set; }
 
         #endregion Properties
     }

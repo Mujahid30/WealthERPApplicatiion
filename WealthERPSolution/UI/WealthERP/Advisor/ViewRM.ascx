@@ -238,6 +238,19 @@
                                 UniqueName="ActiveLevel">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
+                            
+                              <telerik:GridBoundColumn DataField="Title" AllowFiltering="false" HeaderText="Title"
+                                UniqueName="Title">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                              <telerik:GridBoundColumn DataField="ReportingTo" AllowFiltering="false" HeaderText="Reporting To"
+                                UniqueName="ReportingTo">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                              <telerik:GridBoundColumn DataField="ReportingTitle" AllowFiltering="false" HeaderText="Reporting Title"
+                                UniqueName="ReportingTitle">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
                         </Columns>
                     </MasterTableView>
                     <ClientSettings>
