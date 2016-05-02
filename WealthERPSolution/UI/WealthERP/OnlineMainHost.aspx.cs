@@ -147,6 +147,15 @@ namespace WealthERP
                         dvNews.Visible = false;
                         dvTransact.Visible = false;
                     }
+                    if (Session["ExchangeMode"] == null)
+                    {
+                        Session["ExchangeMode"] = "Online";
+                        ddlMode.SelectedValue = "Online";
+                    }
+                    else
+                    {
+                        ddlMode.SelectedValue = Session["ExchangeMode"].ToString();
+                    }
                     //SetDemoLink(productType.ToUpper());
                     //SetFAQLink(productType.ToUpper());
                     Session["MFSchemePlan"] = null;
@@ -806,6 +815,9 @@ namespace WealthERP
             //if(ddlchannel.SelectedValue!="")
             //ddlchannel.SelectedValue = "Online";
         }
-
+        protected void btnMode_OnClick(object sender, EventArgs e)
+        {
+            Session["ExchangeMode"] = ddlMode.SelectedValue;
+        }
     }
 }

@@ -565,6 +565,11 @@
             color: White;
             font-weight: 100;
         }
+        .lblMode
+        {
+            text-align: center;
+            color: White;
+        }
     </style>
     <asp:HiddenField ID="hidUserLogOutPageUrl" Value="" runat="server" />
     <asp:HiddenField ID="hidUserLogInPageUrl" Value="" runat="server" />
@@ -662,7 +667,20 @@
                 <li class="menu_right">
                     <asp:LinkButton ID="LinkButton5" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('FAQandDemo','?Cat=MF&TYP=Demo');">Demo</asp:LinkButton>
                 </li>
-                <div id="lisearchscheme" class="menu_right">
+                <div class="menu_right" style="padding-right: 30px; vertical-align: middle;">
+                    <asp:Button ID="btnMode" Text='Go' CssClass="PCGButton" runat="server" OnClick="btnMode_OnClick">
+                    </asp:Button>
+                </div>
+                <div class="menu_right" style="padding-right: 10px; vertical-align: middle;">
+                    <asp:DropDownList ID="ddlMode" runat="server" CssClass="form-control input-sm" AutoPostBack="false">
+                        <asp:ListItem Text="Online" Value="Online"></asp:ListItem>
+                        <asp:ListItem Text="Demat" Value="Demat"></asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+                <div class="menu_right" style="padding-right: 10px; vertical-align: middle;">
+                    <asp:Label ID="lblMode" runat="server" Text="Mode:" CssClass="lblMode"></asp:Label>
+                </div>
+                <div id="lisearchscheme" class="menu_right" style="padding-right: 70px">
                     <asp:TextBox runat="server" ID="SchemeSearch" AutoPostBack="true" OnTextChanged="SchemeSearch_OnTextChanged"
                         Style="margin-top: 0px; float: right; background-color: #D7E9F5" Width="300px"></asp:TextBox>
                     <cc1:TextBoxWatermarkExtender ID="txtSchemeName_water" TargetControlID="SchemeSearch"
@@ -845,10 +863,10 @@
                                         CompletionListElementID="Div2" Enabled="True" />
                                 </div>
                             </td>
-                            <td align="right" style="vertical-align: middle;">
+                            <td align="right" style="vertical-align: middle; display:none;">
                                 <asp:Label ID="lblchannel" runat="server" Text="Exchange:" CssClass="FieldName"></asp:Label>
                             </td>
-                            <td>
+                            <td style="vertical-align: middle; display:none;">
                                 <asp:DropDownList ID="ddlchannel" runat="server" CssClass="cmbField" AutoPostBack="true"
                                     OnSelectedIndexChanged="ddlchannel_onSelectedChanged">
                                 </asp:DropDownList>
