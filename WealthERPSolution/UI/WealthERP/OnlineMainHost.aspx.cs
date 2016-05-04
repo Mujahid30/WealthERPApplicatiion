@@ -209,7 +209,7 @@ namespace WealthERP
                 }
             }
             DropDownList1.Items.Clear();
-            if (exchange.Contains("Online"))
+            if (exchange.Contains("Online")&& ddlMode.SelectedValue=="Online")
             {
                 BindTransactionType("Online");
 

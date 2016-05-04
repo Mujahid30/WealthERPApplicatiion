@@ -134,7 +134,7 @@ namespace WealthERP.OPS
                 AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetailsForAssociates";
 
             }
-            if (Session[SessionContents.CurrentUserRole].ToString() == "Associates" )
+            if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
             {
                 if (associateuserheirarchyVo.IsBranchOps == 1)
                 {
@@ -143,7 +143,7 @@ namespace WealthERP.OPS
                 else
                     txtAssociateSearch.Enabled = false;
             }
-          
+
 
 
 
@@ -181,7 +181,7 @@ namespace WealthERP.OPS
                         Tra_AMC = Request.QueryString["Tra_AMC"].ToString();
                         Tra_SchemplanCode = Request.QueryString["Tra_SchemplanCode"].ToString();
 
-                      
+
                         mfOrderBo.GetPanDetails(txtPansearch.Text, txtAssociateSearch.Text, advisorVo.advisorId, out customerId, out customerName, out  agentIds);
                         txtCustomerId.Value = customerId.ToString();
                         lblgetcust.Text = customerName;
@@ -190,16 +190,16 @@ namespace WealthERP.OPS
                         ddltransType.SelectedValue = transactionType;
                         ddltransType_SelectedIndexChanged(null, new EventArgs());
 
-                        ddlAMCList.SelectedValue = Tra_AMC;                      
+                        ddlAMCList.SelectedValue = Tra_AMC;
                         txtSchemeCode.Value = Tra_SchemplanCode;
-                      mfOrderBo.GetSchemeNameByCode(Convert.ToInt32(txtSchemeCode.Value), out schemePlanName);
-                      txtSearchScheme.Text = schemePlanName;
+                        mfOrderBo.GetSchemeNameByCode(Convert.ToInt32(txtSchemeCode.Value), out schemePlanName);
+                        txtSearchScheme.Text = schemePlanName;
                         txtSchemeCode_ValueChanged(null, new EventArgs());
 
                         ControlsEnblity("New");
                         //ShowPaymentSectionBasedOnTransactionType(ddltransType.SelectedValue, ViewForm);
                         ButtonsEnablement("New");
-                     //   FrequencyEnablityForTransactionType(ddltransType.SelectedValue);
+                        //   FrequencyEnablityForTransactionType(ddltransType.SelectedValue);
 
                     }
 
@@ -420,7 +420,7 @@ namespace WealthERP.OPS
 
         private void CaliculateEndDate()
         {
-            if (string.IsNullOrEmpty(txtTotalInstallments.Text)|| ddlFrequencySIP.SelectedIndex == 0) return;
+            if (string.IsNullOrEmpty(txtTotalInstallments.Text) || ddlFrequencySIP.SelectedIndex == 0) return;
 
             DateTime dtEndDate = boOnlineOrder.GetSipEndDate(Convert.ToDateTime(txtstartDateSIP.SelectedDate), ddlFrequencySIP.SelectedValue, Convert.ToInt32(txtTotalInstallments.Text) - 1);
             txtendDateSIP.SelectedDate = dtEndDate;
@@ -1085,13 +1085,12 @@ namespace WealthERP.OPS
 
             if (schemeOption == "GR")
             {
-                tdlblDivType.Visible = false;
-                tdddlDivType.Visible = false;
+                trdividenttype.Visible = false;
             }
             else
             {
-                tdlblDivType.Visible = true;
-                tdddlDivType.Visible = true;
+                trdividenttype.Visible = true;
+
             }
         }
 
@@ -1175,7 +1174,7 @@ namespace WealthERP.OPS
             //    }
             //}
 
-           
+
 
             //ddlFrequencySIP.Items.Insert(0, new ListItem(""));
 
@@ -3231,7 +3230,7 @@ namespace WealthERP.OPS
                 else
                 {
                     lblAssociatetext.Text = "";
-                      lb1RepTo.Text="";
+                    lb1RepTo.Text = "";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Agent Code is invalid!');", true);
                     if (userType == "associates")
                     {
@@ -4068,6 +4067,12 @@ namespace WealthERP.OPS
             txtSearchScheme.Text = string.Empty;
             ShowPaymentSectionBasedOnTransactionType(ddltransType.SelectedValue, "");
             PaymentMode(ddlPaymentMode.SelectedValue);
+            txtReceivedDate.SelectedDate = null;
+            txtReceivedDate.SelectedDate = null;
+            txtOrderDate.SelectedDate = null;
+            txtFolioNumber.Text = string.Empty;
+            txtApplicationNumber.Text = string.Empty;
+            ddlDivType.SelectedValue = "0";
             FrequencyEnablityForTransactionType(ddltransType.SelectedValue);
             ddltransType.Focus();
 

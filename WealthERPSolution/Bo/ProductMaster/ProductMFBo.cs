@@ -603,11 +603,11 @@ namespace BoProductMaster
             dtGetSchemePlanOnline = productMFDao.GetSchemePlanOnline(AMCCode);
             return dtGetSchemePlanOnline;
         }
-        public DataTable GetSchemeGuess(string prefix)
+        public DataTable GetSchemeGuess(string prefix, int exchangeType)
         {
             DataTable dtGetSchemePlanName;
             ProductMFDao productMFDao = new ProductMFDao();
-            dtGetSchemePlanName = productMFDao.GetSchemeGuess(prefix);
+            dtGetSchemePlanName = productMFDao.GetSchemeGuess(prefix, exchangeType);
             return dtGetSchemePlanName;
         }
     }

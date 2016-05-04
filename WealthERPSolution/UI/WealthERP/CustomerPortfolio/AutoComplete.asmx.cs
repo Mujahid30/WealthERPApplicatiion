@@ -1145,13 +1145,14 @@ namespace WealthERP.CustomerPortfolio
             }
             return AMCWiseSchemeList;
         }
-        [WebMethod]
+        [WebMethod(EnableSession = true)]
         public string[] GetInvestorScheme(string prefixText)
         {
+            string exchangetype = HttpContext.Current.Session["ExchangeMode"].ToString();
             ProductMFBo productMFBo = new ProductMFBo();
             DataTable dtGetSchemeList = new DataTable();
             List<string> schemelist = new List<string>();
-            dtGetSchemeList = productMFBo.GetSchemeGuess(prefixText);
+            dtGetSchemeList = productMFBo.GetSchemeGuess(prefixText, exchangetype == "Online" ? 1 : 0);
             foreach (DataRow dr in dtGetSchemeList.Rows)
             {
                 string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["PASP_SchemePlanName"].ToString(), dr["PASP_SchemePlanCode"].ToString());

@@ -2180,7 +2180,7 @@ namespace DaoCustomerPortfolio
             }
             return dsGetBankDetailsForCustomer;
         }
-        public List<MFPortfolioNetPositionVo> GetOnlineUnitHolding(int customerId, int portfolioId)
+        public List<MFPortfolioNetPositionVo> GetOnlineUnitHolding(int customerId, int portfolioId,int exchangeType)
         {
             List<MFPortfolioNetPositionVo> mfPortfolioNetPositionList = null;
             MFPortfolioNetPositionVo mfPortfNetPositionVo = new MFPortfolioNetPositionVo();
@@ -2197,6 +2197,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(getMFPortfolioCmd, "@AccountId", DbType.Int32, portfolioId);
                 else
                 db.AddInParameter(getMFPortfolioCmd, "@AccountId", DbType.Int32,DBNull.Value);
+                db.AddInParameter(getMFPortfolioCmd, "@exchangeType", DbType.Int32, exchangeType);
                 dsGetMFPortfolio = db.ExecuteDataSet(getMFPortfolioCmd);
 
                 if (dsGetMFPortfolio.Tables[0].Rows.Count > 0)

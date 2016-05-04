@@ -251,7 +251,7 @@ namespace DaoOnlineOrderManagement
             }
             return onlineMFSchemeDetailsList;
         }
-        public DataSet GetSIPCustomeSchemePlan(int customerId, int AMCCode)
+        public DataSet GetSIPCustomeSchemePlan(int customerId, int AMCCode,int exchangeType)
         {
             DataSet dsGetSIPCustomeSchemePlan;
             Database db;
@@ -262,6 +262,7 @@ namespace DaoOnlineOrderManagement
                 GetSIPCustomeSchemePlancmd = db.GetStoredProcCommand("SPROC_Onl_CustomerOrderSchemePlan");
                 db.AddInParameter(GetSIPCustomeSchemePlancmd, "@customerId", DbType.Int32, customerId);
                 db.AddInParameter(GetSIPCustomeSchemePlancmd, "@AMCCode", DbType.Int32, AMCCode);
+                db.AddInParameter(GetSIPCustomeSchemePlancmd, "@exchangeType", DbType.Int32, exchangeType);
                 dsGetSIPCustomeSchemePlan = db.ExecuteDataSet(GetSIPCustomeSchemePlancmd);
             }
             catch (BaseApplicationException Ex)

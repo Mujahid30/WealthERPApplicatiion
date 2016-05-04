@@ -3584,10 +3584,10 @@ namespace BoCustomerPortfolio
             }
             return dsgetBankDetails;
         }
-        public List<MFPortfolioNetPositionVo> GetOnlineUnitHolding(int customerId, int portfolioId)
+        public List<MFPortfolioNetPositionVo> GetOnlineUnitHolding(int customerId, int portfolioId,int exchangeType)
         {
             CustomerPortfolioDao customerPortfolioDao = new CustomerPortfolioDao();
-            return customerPortfolioDao.GetOnlineUnitHolding(customerId, portfolioId);
+            return customerPortfolioDao.GetOnlineUnitHolding(customerId, portfolioId, exchangeType);
         }
     }
 }

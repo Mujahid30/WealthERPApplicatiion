@@ -569,6 +569,9 @@
         {
             text-align: center;
             color: White;
+            font-size:medium;
+            font-family:Times New Roman;
+           font-weight: bold;
         }
     </style>
     <asp:HiddenField ID="hidUserLogOutPageUrl" Value="" runat="server" />
@@ -668,7 +671,7 @@
                     <asp:LinkButton ID="LinkButton5" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('FAQandDemo','?Cat=MF&TYP=Demo');">Demo</asp:LinkButton>
                 </li>
                 <div class="menu_right" style="padding-right: 30px; vertical-align: middle;">
-                    <asp:Button ID="btnMode" Text='Go' CssClass="PCGButton" runat="server" OnClick="btnMode_OnClick">
+                    <asp:Button ID="btnMode" Text='Go' runat="server" OnClick="btnMode_OnClick">
                     </asp:Button>
                 </div>
                 <div class="menu_right" style="padding-right: 10px; vertical-align: middle;">
@@ -835,6 +838,7 @@
                 <ContentTemplate>
                     <div style="clear: both;">
                         <asp:Button ID="btnBindTransactDdl" runat="server" Style="display: none" OnClick="BindTransactDdl" />
+                        
                     </div>
                     <div style="background-color: #0396CC; width: 100%">
                         <div style="padding-left: 20px; color: White;">

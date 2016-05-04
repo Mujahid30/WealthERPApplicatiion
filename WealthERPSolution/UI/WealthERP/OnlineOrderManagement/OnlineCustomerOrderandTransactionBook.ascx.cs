@@ -30,11 +30,24 @@ namespace WealthERP.OnlineOrderManagement
         UserVo userVo;
         OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();
         CustomerVo customerVO;
+        string exchangeType = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
             userVo = (UserVo)Session[SessionContents.UserVo];
             customerVO = (CustomerVo)Session["customerVo"];
+            if (Session["ExchangeMode"] != null)
+                exchangeType = Session["ExchangeMode"].ToString();
+            if (exchangeType == "Demat")
+            {
+                ddlAction.Items.FindByValue("SIP").Enabled = false;
+                ddlAction.Items.FindByValue("ABY").Enabled = false;
+            }
+            else
+            {
+                ddlAction.Items.FindByValue("SIP").Enabled = true;
+                ddlAction.Items.FindByValue("ABY").Enabled = true;
+            }
             if (!IsPostBack)
             {
                 BindAmc();
@@ -64,7 +77,7 @@ namespace WealthERP.OnlineOrderManagement
             DataSet ds;
             if (ddlAMC.SelectedValue != "")
             {
-                ds = onlineMFSchemeDetailsBo.GetSIPCustomeSchemePlan(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue));
+                ds = onlineMFSchemeDetailsBo.GetSIPCustomeSchemePlan(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), exchangeType == "Online" ? 1 : 0);
                 ddlScheme.DataSource = ds.Tables[0];
                 ddlScheme.DataValueField = ds.Tables[0].Columns["PASP_SchemePlanCode"].ToString();
                 ddlScheme.DataTextField = ds.Tables[0].Columns["PASP_SchemePlanName"].ToString();
@@ -78,20 +91,20 @@ namespace WealthERP.OnlineOrderManagement
             switch (ddlAction.SelectedValue)
             {
                 case "All":
-                    BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "0", int.Parse(ddlExchange.SelectedValue));
+                    BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "0", exchangeType == "Online" ? 1 : 0);
                     break;
                 case "SIP":
-                    BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "SIP", int.Parse(ddlExchange.SelectedValue));
+                    BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "SIP", exchangeType == "Online" ? 1 : 0);
                     break;
                 case "BUY":
-                    BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "BUY", int.Parse(ddlExchange.SelectedValue));
+                    BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "BUY", exchangeType == "Online" ? 1 : 0);
                     break;
                 case "ABY":
-                    BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "ABY", int.Parse(ddlExchange.SelectedValue));
+                    BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "ABY", exchangeType == "Online" ? 1 : 0);
 
                     break;
                 case "SEL":
-                    BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "SEL", int.Parse(ddlExchange.SelectedValue));
+                    BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "SEL", exchangeType == "Online" ? 1 : 0);
                     break;
             }
         }
@@ -137,6 +150,7 @@ namespace WealthERP.OnlineOrderManagement
             {
                 BindScheme();
             }
+            
         }
         protected void btnDetails_OnClick(object sender, EventArgs e)
         {

@@ -892,7 +892,7 @@ namespace DaoProductMaster
             }
             return dtGetSchemePlanOnline;
         }
-        public DataTable GetSchemeGuess(string prefix)
+        public DataTable GetSchemeGuess(string prefix,int exchangeType)
         {
 
             Database db;
@@ -906,6 +906,7 @@ namespace DaoProductMaster
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetGetSchemeGuess = db.GetStoredProcCommand("SPROC_GetSchemeGuessOnline");
                 db.AddInParameter(GetGetSchemeGuess, "@prefix", DbType.String, prefix);
+                db.AddInParameter(GetGetSchemeGuess, "@exchangeType", DbType.Int32, exchangeType);
                 dsGetSchemeGuess = db.ExecuteDataSet(GetGetSchemeGuess);
                 dtGetSchemeGuess = dsGetSchemeGuess.Tables[0];
 

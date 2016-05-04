@@ -37,6 +37,7 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trIndividualName;
         protected global::System.Web.UI.WebControls.RadioButton rbtnIndividual;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trNonIndividualName;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trdividenttype;
         protected global::System.Web.UI.WebControls.Label lblPanDuplicate;
         protected global::System.Web.UI.WebControls.TextBox txtFirstName;
         protected global::System.Web.UI.WebControls.TextBox txtCompanyName;

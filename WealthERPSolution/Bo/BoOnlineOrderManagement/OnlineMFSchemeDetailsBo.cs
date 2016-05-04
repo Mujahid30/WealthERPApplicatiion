@@ -92,12 +92,12 @@ namespace BoOnlineOrderManagement
             }
             return OnlineMFSchemeDetailsList;
         }
-        public DataSet GetSIPCustomeSchemePlan(int customerId, int AMCCode)
+        public DataSet GetSIPCustomeSchemePlan(int customerId, int AMCCode, int exchangeType)
         {
             DataSet ds;
             try
             {
-                ds = OnlineMFSchemeDetailsDao.GetSIPCustomeSchemePlan(customerId, AMCCode);
+                ds = OnlineMFSchemeDetailsDao.GetSIPCustomeSchemePlan(customerId, AMCCode, exchangeType);
             }
             catch (BaseApplicationException Ex)
             {

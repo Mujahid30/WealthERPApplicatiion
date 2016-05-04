@@ -941,7 +941,7 @@ namespace WealthERP.Advisor
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFAAdminMainDashboardOld','login');", true);
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserLoginTrack','login');", true);
                 }
-                else if (e.Item.Value == "Prospect List")
+                else if (e.Item.Value == "Prospect_List")
                 {
                     Session["UserType"] = "adviser";
                     Session.Remove(SessionContents.FPS_ProspectList_CustomerId);
@@ -2265,7 +2265,7 @@ namespace WealthERP.Advisor
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleEqTransactionsEntry','login');", true);
 
                 }
-                else if (e.Item.Value == "Prospect List")
+                else if (e.Item.Value == "Prospect_List")
                 {
                     Session["UserType"] = "adviser";
                     Session.Remove(SessionContents.FPS_ProspectList_CustomerId);

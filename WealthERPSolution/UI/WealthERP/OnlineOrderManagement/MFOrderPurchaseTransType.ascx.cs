@@ -62,16 +62,18 @@ namespace WealthERP.OnlineOrderManagement
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOnlineSchemeManager')", true);
                 return;
             }
-            if (Request.QueryString["exchangeType"] == null)
-            {
-                exchangeType = "Online";
+            //if (Request.QueryString["exchangeType"] == null)
+            //{
+            //    exchangeType = "Online";
 
-            }
-            else
-            {
-                exchangeType = Request.QueryString["exchangeType"].ToString();
+            //}
+            //else
+            //{
+            //    exchangeType = Request.QueryString["exchangeType"].ToString();
 
-            }
+            //}
+            if(Session["ExchangeMode"] != null)
+            exchangeType = Session["ExchangeMode"].ToString();
             if (!IsPostBack)
             {
                 BindKYCDetailDDl();
@@ -83,7 +85,7 @@ namespace WealthERP.OnlineOrderManagement
 
                     lblOption.Visible = false;
                     lblDividendType.Visible = false;
-                    if ((Request.QueryString["accountId"] != null && Request.QueryString["SchemeCode"] != null) || Session["MFSchemePlan"] != null)
+                    if ((Request.QueryString["accountId"] != null && Request.QueryString["SchemeCode"] != null) || Session["MFSchemePlan"] != null )
                     {
                         int accountId = 0;
                         int schemeCode = 0;
@@ -93,7 +95,8 @@ namespace WealthERP.OnlineOrderManagement
                         {
                             schemeCode = int.Parse(Session["MFSchemePlan"].ToString());
                             accountId = int.Parse(Request.QueryString["accountId"].ToString());
-                            //commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category);
+                       
+                            //commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category);exchangeType == "online" ? 1 : 0
                             commonLookupBo.GetSchemeAMCSchemeCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out categoryname, out amcName, out schemeName);
                             lblAmc.Text = amcName;
                             lblCategory.Text = categoryname;
@@ -101,7 +104,7 @@ namespace WealthERP.OnlineOrderManagement
                             BindFolioNumber(int.Parse(Session["MFSchemePlan"].ToString()));
                             ddlFolio.SelectedValue = accountId.ToString();
                             tdFolio.Visible = true;
-                            DataSet ds = onlineMforderBo.GetCustomerSchemeFolioHoldings(customerVo.CustomerId, int.Parse(Session["MFSchemePlan"].ToString()), out schemeDividendOption, exchangeType == "online" ? 1 : 0, accountId);
+                            DataSet ds = onlineMforderBo.GetCustomerSchemeFolioHoldings(customerVo.CustomerId, int.Parse(Session["MFSchemePlan"].ToString()), out schemeDividendOption, exchangeType == "Online" ? 1 : 0, accountId);
                             GetControlDetails(ds);
                             SetControlDetails();
                         }
