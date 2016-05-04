@@ -8,6 +8,7 @@ using Telerik.Web.UI;
 using BoCustomerPortfolio;
 using System.Data;
 using VoUser;
+using BoCommon;
 using BoCustomerProfiling;
 using BoUploads;
 using VoCustomerProfiling;
@@ -55,7 +56,7 @@ namespace WealthERP.FP
         {
             try
             {
-
+               SessionBo.CheckSession();
                 if (Session[SessionContents.CurrentUserRole].ToString() != "")
                     Role = Session[SessionContents.CurrentUserRole].ToString();
                 advisorVo = (AdvisorVo)Session["advisorVo"];
@@ -1687,82 +1688,87 @@ namespace WealthERP.FP
         protected void btnConvertToCustomer_Click(object sender, EventArgs e)
         {
             int count = 0;
-            dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
-            foreach (DataRow drChild in dt.Rows)
+            if ((Session[SessionContents.FPS_ProspectList_CustomerId] != null) && (Session[SessionContents.FPS_ProspectList_CustomerId].ToString() != string.Empty))
             {
-                if (drChild["PanNum"].ToString() == "")
+                dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+                foreach (DataRow drChild in dt.Rows)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please provide PAN number of associate members');", true);
-                }
-                else
-                    count++;
-                
-            }
-            if (count == dt.Rows.Count)
-            {
-                int customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
-
-                //Updating Parent Customer for changing him from Prospect to Non Prospect..
-                customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
-                int PortFolioId = customerPortfolioVo.PortfolioId;
-
-                //UpdateCustomerExistingPortfolio(PortFolioId);
-                AddCustomerManagePortFolio(customerId);
-                UpdateCustomerForAddProspect(customerId, true);
-
-                #region Mark Client for FP association 
-                CreateFProductionPAssociation(customerId);
-                #endregion Mark Client for FP association 
-
-
-                // Converting all child customers from Prospect to Non Prospect..
-
-
-                if ((dt.Rows.Count != 0) && (dt != null))
-                {
-                    int ChildcustomerId = 0;
-                    int ChildPortFolioId = 0;
-                    foreach (DataRow dr in dt.Rows)
+                    if (drChild["PanNum"].ToString() == "")
                     {
-
-                        tempuservo = (UserVo)Session["uservo"];
-                        int createdById = tempuservo.UserId;
-
-                        if (dr["C_CustomerId"] != null && dr["C_CustomerId"].ToString() != "")
-                        {
-                            ChildcustomerId = Convert.ToInt32(dr["C_CustomerID"]);
-                            customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ChildcustomerId);
-                            ChildPortFolioId = customerPortfolioVo.PortfolioId;
-
-                            //UpdateCustomerExistingPortfolio(ChildPortFolioId);
-                            AddCustomerManagePortFolio(ChildcustomerId);
-                            UpdateCustomerForAddProspect(customerId, dr, true);
-                            //if (dr["PanNum"].ToString() == "")
-                            //{
-                            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please provide PAN number of associate members');", true);
-                            //    return;
-                            //}
-                        }
-                        else
-                        {
-                            CreateCustomerForAddProspect(userVo, rmVo, createdById, dr, customerId);
-                            ChildcustomerId = familyVo.AssociateCustomerId;
-                            customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ChildcustomerId);
-                            ChildPortFolioId = customerPortfolioVo.PortfolioId;
-                            //UpdateCustomerExistingPortfolio(ChildPortFolioId);
-                            AddCustomerManagePortFolio(ChildcustomerId);
-                            UpdateCustomerForAddProspect(customerId, dr, true);
-                        }
-
-
-
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please provide PAN number of associate members');", true);
                     }
+                    else
+                        count++;
+
                 }
-                Session["IsCustomerGrid"] = "HighlightCustomerNode";
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "AdvisorLeftPane", "loadlinks('AdvisorLeftPane','login');", true);
+                if (count == dt.Rows.Count)
+                {
+                    int customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+
+                    //Updating Parent Customer for changing him from Prospect to Non Prospect..
+                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
+                    int PortFolioId = customerPortfolioVo.PortfolioId;
+
+                    //UpdateCustomerExistingPortfolio(PortFolioId);
+                    AddCustomerManagePortFolio(customerId);
+                    UpdateCustomerForAddProspect(customerId, true);
+
+                    #region Mark Client for FP association
+                    CreateFProductionPAssociation(customerId);
+                    #endregion Mark Client for FP association
+
+
+                    // Converting all child customers from Prospect to Non Prospect..
+
+
+                    if ((dt.Rows.Count != 0) && (dt != null))
+                    {
+                        int ChildcustomerId = 0;
+                        int ChildPortFolioId = 0;
+                        foreach (DataRow dr in dt.Rows)
+                        {
+
+                            tempuservo = (UserVo)Session["uservo"];
+                            int createdById = tempuservo.UserId;
+
+                            if (dr["C_CustomerId"] != null && dr["C_CustomerId"].ToString() != "")
+                            {
+                                ChildcustomerId = Convert.ToInt32(dr["C_CustomerID"]);
+                                customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ChildcustomerId);
+                                ChildPortFolioId = customerPortfolioVo.PortfolioId;
+
+                                //UpdateCustomerExistingPortfolio(ChildPortFolioId);
+                                AddCustomerManagePortFolio(ChildcustomerId);
+                                UpdateCustomerForAddProspect(customerId, dr, true);
+                                //if (dr["PanNum"].ToString() == "")
+                                //{
+                                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please provide PAN number of associate members');", true);
+                                //    return;
+                                //}
+                            }
+                            else
+                            {
+                                CreateCustomerForAddProspect(userVo, rmVo, createdById, dr, customerId);
+                                ChildcustomerId = familyVo.AssociateCustomerId;
+                                customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ChildcustomerId);
+                                ChildPortFolioId = customerPortfolioVo.PortfolioId;
+                                //UpdateCustomerExistingPortfolio(ChildPortFolioId);
+                                AddCustomerManagePortFolio(ChildcustomerId);
+                                UpdateCustomerForAddProspect(customerId, dr, true);
+                            }
+
+
+
+                        }
+                    }
+                    Session["IsCustomerGrid"] = "HighlightCustomerNode";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "AdvisorLeftPane", "loadlinks('AdvisorLeftPane','login');", true);
+                }
             }
-            
+            else {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please submit the profile information');", true);
+            }
         }
         private void CreateFProductionPAssociation(int customerId)
         {
