@@ -72,8 +72,10 @@ namespace WealthERP.OnlineOrderManagement
             //    exchangeType = Request.QueryString["exchangeType"].ToString();
 
             //}
-            if(Session["ExchangeMode"] != null)
-            exchangeType = Session["ExchangeMode"].ToString();
+            if (Session["ExchangeMode"] != null)
+                exchangeType = Session["ExchangeMode"].ToString();
+            else
+                exchangeType = "Online";
             if (!IsPostBack)
             {
                 BindKYCDetailDDl();

@@ -38,6 +38,9 @@ namespace WealthERP.OnlineOrderManagement
             customerVO = (CustomerVo)Session["customerVo"];
             if (Session["ExchangeMode"] != null)
                 exchangeType = Session["ExchangeMode"].ToString();
+            else
+                exchangeType = "Online";
+
             if (exchangeType == "Demat")
             {
                 ddlAction.Items.FindByValue("SIP").Enabled = false;
@@ -150,7 +153,7 @@ namespace WealthERP.OnlineOrderManagement
             {
                 BindScheme();
             }
-            
+
         }
         protected void btnDetails_OnClick(object sender, EventArgs e)
         {
