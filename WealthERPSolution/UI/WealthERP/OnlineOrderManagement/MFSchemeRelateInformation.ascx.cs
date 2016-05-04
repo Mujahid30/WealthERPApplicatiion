@@ -176,7 +176,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             OnlineOrderBackOfficeBo bo = new OnlineOrderBackOfficeBo();
             int recordCount = 0;
-            DataTable dtBindSchemeRelatedDetails = bo.GetSchemeDetails(amcCode, SchemeCode, category, customerId, isSchemeDetails, NFOType, out recordCount, pageIndex, PageSize, isSIP, SortOn);
+            DataTable dtBindSchemeRelatedDetails = bo.GetSchemeDetails(amcCode, SchemeCode, category, customerId, isSchemeDetails, NFOType, out recordCount, pageIndex, PageSize, isSIP, SortOn, Convert.ToBoolean(Session["ExchangeMode"].ToString()=="Online"?true:false));
             if (Cache["BindSchemeRelatedDetails" + userVo.UserId] != null)
             {
                 Cache.Remove("BindSchemeRelatedDetails" + userVo.UserId);
@@ -665,7 +665,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             OnlineOrderBackOfficeBo boOnlineOrderBackOffice = new OnlineOrderBackOfficeBo();
             int recordCount = 0;
-            DataTable dtTopMarketSchemes = boOnlineOrderBackOffice.GetTopMarketSchemes(category, IsSIP, Returns, customerId, int.Parse(ddlCompare.SelectedValue), double.Parse(txtcmpvalue.Text), out  recordCount, PageIndex, PageSize,sortOn);
+            DataTable dtTopMarketSchemes = boOnlineOrderBackOffice.GetTopMarketSchemes(category, IsSIP, Returns, customerId, int.Parse(ddlCompare.SelectedValue), double.Parse(txtcmpvalue.Text), out  recordCount, PageIndex, PageSize,sortOn, Convert.ToBoolean(Session["ExchangeMode"].ToString()=="Online" ? true:false));
            if (Cache["TopMarketSchemes" + userVo.UserId] != null)
            {
                Cache.Remove("TopMarketSchemes" + userVo.UserId);

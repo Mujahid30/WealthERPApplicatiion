@@ -2539,14 +2539,14 @@ namespace BoOnlineOrderManagement
             }
             return dt;
         }
-        public DataTable GetSchemeDetails(int AMCCode, int Schemeplanecode, string category, int customerId, Int16 SchemeDetails, Boolean NFOType, out int recordCount, int PageIndex, int PageSize, Boolean isSIP, int SortOn)
+        public DataTable GetSchemeDetails(int AMCCode, int Schemeplanecode, string category, int customerId, Int16 SchemeDetails, Boolean NFOType, out int recordCount, int PageIndex, int PageSize, Boolean isSIP, int SortOn, Boolean mode)
         {
 
             DataTable dtGetSchemeDetails = new DataTable();
             OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
             try
             {
-                dtGetSchemeDetails = daoOnlineOrderBackOffice.GetSchemeDetails(AMCCode, Schemeplanecode, category, customerId, SchemeDetails, NFOType, out recordCount, PageIndex, PageSize, isSIP, SortOn);
+                dtGetSchemeDetails = daoOnlineOrderBackOffice.GetSchemeDetails(AMCCode, Schemeplanecode, category, customerId, SchemeDetails, NFOType, out recordCount, PageIndex, PageSize, isSIP, SortOn, mode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -2554,12 +2554,12 @@ namespace BoOnlineOrderManagement
             }
             return dtGetSchemeDetails;
         }
-        public DataTable GetTopMarketSchemes(string category, Boolean isSIP, int returns, int customerId, int returnsOperator, double returnsValue, out int recordCount, int PageIndex, int PageSize, int sortOn)
+        public DataTable GetTopMarketSchemes(string category, Boolean isSIP, int returns, int customerId, int returnsOperator, double returnsValue, out int recordCount, int PageIndex, int PageSize, int sortOn, Boolean mode)
         {
             try
             {
                 OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
-                return daoOnlineOrderBackOffice.GetTopMarketSchemes(category, isSIP, returns, customerId, returnsOperator, returnsValue, out recordCount, PageIndex, PageSize, sortOn);
+                return daoOnlineOrderBackOffice.GetTopMarketSchemes(category, isSIP, returns, customerId, returnsOperator, returnsValue, out recordCount, PageIndex, PageSize, sortOn, mode);
             }
             catch (BaseApplicationException Ex)
             {
