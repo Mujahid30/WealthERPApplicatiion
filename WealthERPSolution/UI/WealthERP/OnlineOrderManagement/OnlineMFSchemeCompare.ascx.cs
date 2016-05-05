@@ -18,9 +18,13 @@ namespace WealthERP.OnlineOrderManagement
         OnlineMFSchemeDetailsBo onlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
         List<int> schemeCompareList = new List<int>();
         string str = string.Empty;
+        string exchangeType = string.Empty;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             OnlineUserSessionBo.CheckSession();
+            if (Session["ExchangeMode"] != null)
+                exchangeType = Session["ExchangeMode"].ToString();
             if (!IsPostBack)
             {
                 BindAMC1();
@@ -39,7 +43,7 @@ namespace WealthERP.OnlineOrderManagement
                 CompareSchemeList = CompareSchemeList + item + ",";
             string DataValueField = CompareSchemeList.TrimEnd(',');
             CustomerVo  customerVO = (CustomerVo)Session["customerVo"];
-            DataSet ds = onlineMFSchemeDetailsBo.GetSIPCustomeSchemePlan(0, 0);
+            DataSet ds = onlineMFSchemeDetailsBo.GetSIPCustomeSchemePlan(0, 0, exchangeType == "Online" ? 1 : 0);
             ddlSchemeList1.DataSource = ds.Tables[0];
             ddlSchemeList1.DataValueField = ds.Tables[0].Columns["PASP_SchemePlanCode"].ToString();
             ddlSchemeList1.DataTextField = ds.Tables[0].Columns["PASP_SchemePlanName"].ToString();
