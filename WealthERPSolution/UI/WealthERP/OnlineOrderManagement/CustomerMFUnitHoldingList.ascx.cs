@@ -40,6 +40,7 @@ namespace WealthERP.OnlineOrderManagement
         int customerId = 0;
         int portfolioId = 0;
         int accountId = 0;
+        string exchangeType = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
             OnlineUserSessionBo.CheckSession();
@@ -48,7 +49,8 @@ namespace WealthERP.OnlineOrderManagement
             userType = Session[SessionContents.CurrentUserRole].ToString();
             userVo = (UserVo)Session["userVo"];
             customerId = customerVO.CustomerId;
-
+            if (Session["ExchangeMode"] != null)
+                exchangeType = Session["ExchangeMode"].ToString();
             if (!IsPostBack)
             {
                 Cache.Remove("UnitHolding" + userVo.UserId);
@@ -181,7 +183,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             DataTable dt = new DataTable();
             //hdnAccount.Value = accountId.ToString();
-            OnlineMFHoldingList = customerPortfolioBo.GetOnlineUnitHolding(customerId, int.Parse(hdnAccount.Value));
+            OnlineMFHoldingList = customerPortfolioBo.GetOnlineUnitHolding(customerId, int.Parse(hdnAccount.Value), exchangeType == "Online" ? 1 : 0);
             if (OnlineMFHoldingList != null)
             {
                 DataTable dtMFUnitHoplding = CreateUnitHoldingListTable();
