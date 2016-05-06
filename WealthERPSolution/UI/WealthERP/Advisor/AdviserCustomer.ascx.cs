@@ -71,8 +71,8 @@ namespace WealthERP.Advisor
             adviserVo = (AdvisorVo)Session["advisorVo"];
             associatesVo = (AssociatesVO)Session["associatesVo"];
             ddlCOption.Items[5].Enabled = false;
-
-            if (rbtnRegister.Checked)
+            assocUsrHeirVo = (AssociatesUserHeirarchyVo)Session["associatesUserHeirarchyVo"];
+              if (rbtnRegister.Checked)
             {
                 rbtnReg = 0;
             }
@@ -80,7 +80,7 @@ namespace WealthERP.Advisor
             {
                 rbtnReg = 1;
             }
-            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops" || userVo.AdviserRole.ContainsValue("CNT"))
             {
                 txtCustomerName_autoCompleteExtender.ContextKey = rbtnReg + "/" + adviserVo.advisorId.ToString();
                 txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserAllCustomerName";
@@ -133,12 +133,12 @@ namespace WealthERP.Advisor
                 rmId = rmVo.RMId;
                 branchHeadId = rmVo.RMId;
             }
-            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates" )
             {
                 UserRole = "associates";
                 AgentId = associatesVo.AAC_AdviserAgentId;
                 branchHeadId = rmVo.RMId;
-                assocUsrHeirVo = (AssociatesUserHeirarchyVo)Session["associatesUserHeirarchyVo"];
+             
                 rbtnRegister.Visible = false;
                 //rbtnNonRegister.Checked = true;
 
@@ -151,6 +151,11 @@ namespace WealthERP.Advisor
                 ddlCOption.Items[4].Enabled = false;
                 ddlCOption.Items[5].Enabled = false;
 
+            }
+            if (userVo.AdviserRole.ContainsValue("CNT"))
+            {
+                rmId = 4682;
+                UserRole = "advisor";
             }
             if (userVo.UserType == "SuperAdmin")
             {
@@ -677,8 +682,10 @@ namespace WealthERP.Advisor
             //} 
 
             if (userVo.UserType == "Advisor") { return; }
-            if (userVo.UserType == "Associates") ;
+            if (userVo.UserType == "Associates") 
             gvCustomerList.MasterTableView.GetColumn("Action").Visible = false;
+            if (userVo.AdviserRole.ContainsValue("CNT")) 
+            gvCustomerList.MasterTableView.GetColumn("Action").Visible = true;
         }
 
         protected void gvCustomerList_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)

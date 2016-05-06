@@ -1030,6 +1030,10 @@ namespace WealthERP.Advisor
                     {
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdviserCustomer", "loadcontrol('AdviserCustomer','login');", true);
                     }
+                    else if ((Session[SessionContents.CurrentUserRole].ToString() == "Associates"))
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdviserCustomer", "loadcontrol('SalesDashBoard','login');", true);
+                    }
                     else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
                     {
                         if (!userVo.RoleList.Contains("Ops"))
