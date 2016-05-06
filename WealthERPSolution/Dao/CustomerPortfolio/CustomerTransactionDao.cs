@@ -1487,7 +1487,8 @@ namespace DaoCustomerPortfolio
                         mfTransactionVo.Price = float.Parse(dr["CMFT_Price"].ToString());
                         mfTransactionVo.Amount = float.Parse(dr["CMFT_Amount"].ToString());
                         mfTransactionVo.Units = double.Parse(dr["CMFT_Units"].ToString());
-                        mfTransactionVo.STT = float.Parse(dr["CMFT_STT"].ToString());
+                        if( !string.IsNullOrEmpty( dr["CMFT_STT"].ToString()))
+                             mfTransactionVo.STT = float.Parse(dr["CMFT_STT"].ToString());
                         mfTransactionVo.IsSourceManual = int.Parse(dr["CMFT_IsSourceManual"].ToString());
                         mfTransactionVo.Source = dr["XES_SourceCode"].ToString();
                         if (dr["CMFT_SwitchSourceTrxId"] != null && dr["CMFT_SwitchSourceTrxId"].ToString() != String.Empty)
