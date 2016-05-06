@@ -133,7 +133,7 @@ namespace WealthERP.Advisor
                 rmId = rmVo.RMId;
                 branchHeadId = rmVo.RMId;
             }
-            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates" )
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates" && !userVo.AdviserRole.ContainsValue("CNT"))
             {
                 UserRole = "associates";
                 AgentId = associatesVo.AAC_AdviserAgentId;
