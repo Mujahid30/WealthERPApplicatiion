@@ -1083,7 +1083,7 @@ namespace WealthERP.OPS
 
             schemeOption = mfOrderBo.GetDividendOptions(int.Parse(txtSchemeCode.Value));
 
-            if (schemeOption == "GR")
+            if (schemeOption == "GR" || ddltransType.SelectedValue == "SWP")
             {
                 trdividenttype.Visible = false;
             }

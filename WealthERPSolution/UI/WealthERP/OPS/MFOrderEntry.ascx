@@ -1274,13 +1274,13 @@
                             CssClass="rfvPCG" ValidationGroup="MFSubmit">
                         </asp:RequiredFieldValidator>&nbsp;&nbsp;
                         <asp:CompareValidator ID="CompareValidator_txtPeriod" runat="server" ControlToValidate="txtTotalInstallments"
-                            ErrorMessage="<br />Please Enter a numeric Value" Operator="DataTypeCheck" Type="Integer"
-                            ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic" ValidationGroup="MFSubmit">
-                        </asp:CompareValidator>
-                        <asp:CompareValidator ID="CompareValidator4" runat="server" ControlToValidate="txtTotalInstallments"
-                            ErrorMessage="<br />Please enter a value Greater Than 0." Operator="GreaterThan"
+                            ErrorMessage="<br />Please enter a valid Installment number." Operator="DataTypeCheck"
                             Type="Integer" ValueToCompare="0" CssClass="cvPCG" Display="Dynamic" ValidationGroup="MFSubmit">
                         </asp:CompareValidator>
+                        <%--  <asp:CompareValidator ID="CompareValidator4" runat="server" ControlToValidate="txtTotalInstallments"
+                            ErrorMessage="<br />Please enter a value Greater Than 0." Operator="GreaterThan"
+                            Type="Integer" ValueToCompare="0" CssClass="cvPCG" Display="Dynamic" ValidationGroup="MFSubmit">
+                        </asp:CompareValidator>--%>
                         <span id="Span21" class="spnRequiredField">*</span>
                     </td>
                 </tr>
@@ -1389,6 +1389,9 @@
                         <asp:RangeValidator ID="RangeValidator3" Display="Dynamic" ValidationGroup="MFSubmit"
                             runat="server" ErrorMessage="<br />Please enter a valid amount" ControlToValidate="txtNewAmount"
                             MaximumValue="2147483647" MinimumValue="1" Type="Double" CssClass="cvPCG"></asp:RangeValidator>
+                        <asp:RegularExpressionValidator ID="rvDecimal" ControlToValidate="txtNewAmount" runat="server" CssClass="cvPCG"
+                            ValidationGroup="MFSubmit" ErrorMessage="Please enter a valid amount/Unit" ValidationExpression="^(-)?\d+(\.\d\d\d\d)?$">
+                        </asp:RegularExpressionValidator>
                     </td>
                 </tr>
                 <tr id="trScheme" runat="server" visible="false">
@@ -1451,6 +1454,10 @@
                         <asp:RangeValidator ID="RangeValidator2" Display="Dynamic" ValidationGroup="MFSubmit"
                             runat="server" ErrorMessage="<br />Please enter a numeric value" ControlToValidate="txtAmount"
                             MaximumValue="2147483647" MinimumValue="1" Type="Double" CssClass="cvPCG"></asp:RangeValidator>
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtAmount"
+                            runat="server" ValidationGroup="MFSubmit" ErrorMessage="Please enter a valid amount/Unit" CssClass="cvPCG"
+                            ValidationExpression="^(-)?\d+(\.\d\d\d\d)?$">
+                        </asp:RegularExpressionValidator>
                     </td>
                     <td align="right" style="width: 22.5%;">
                         <asp:Label ID="lblMode" runat="server" Text="Mode Of Payment:" CssClass="FieldName"></asp:Label>
