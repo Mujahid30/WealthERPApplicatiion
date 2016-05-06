@@ -52,13 +52,12 @@ namespace WealthERP.Associates
         {
             if (ddlStaff.SelectedValue != "Staff")
             {
-                ddlChannel.Items[2].Enabled = false;
-                ddlChannel.Items[4].Enabled = false;
+                
             }
             else
             {
-                ddlChannel.Items[2].Enabled = true;
-                ddlChannel.Items[4].Enabled = true;
+             
+                
             }
         }
         protected void ddltitlechannelId_OnSelectedIndexChanged(object sender, EventArgs e)
