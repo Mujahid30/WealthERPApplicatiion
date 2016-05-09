@@ -223,7 +223,7 @@ function showassocation() {
                     <asp:Label ID="lblCurrentValue" runat="server" CssClass="FieldName" Text="Current Value(Rs):"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtCurrentValue" runat="server" Enabled="false" CssClass="txtField"></asp:TextBox>
+                    <asp:TextBox ID="txtCurrentValue" runat="server" Enabled="true" CssClass="txtField"></asp:TextBox>
                     <%-- <span id="Span7" class="spnRequiredField">*</span>--%>
                     <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtPurchaseDate"
                         ErrorMessage="<br />Please select a Purchase Date" Display="Dynamic" runat="server"

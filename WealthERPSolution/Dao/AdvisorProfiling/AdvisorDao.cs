@@ -3051,7 +3051,7 @@ namespace DaoAdvisorProfiling
         /// <param name="genDictRM"></param>
         /// <param name="genDictReassignRM"></param>
         /// <returns>will return the list of the customers from the data base accroding to the parameters assigned</returns>
-        public List<CustomerVo> GetStaffUserCustomerList(int adviserId, int rmId, int AgentId, string UserRole, int branchHeadId, string agentCode, int rbtnReg, string filterOn, int customerId, string customerCategoryFilter, string customerFilter, string custcodeFilter, string nameFilter, string parentFilter, string panFilter, string BranchFilter, string Rmfilter, string areaFilter, string cityFilter, string pincodeFilter, string IsProspectFilter, string isActiveFilter, string iskycavailableFilter, string processFilter, int pageSize, int pageindex, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM, out int RowCount,int reqId)
+        public List<CustomerVo> GetStaffUserCustomerList(int adviserId, int rmId, int AgentId, string UserRole, int branchHeadId, string agentCode, int rbtnReg, string filterOn, int customerId, string customerCategoryFilter, string customerFilter, string custcodeFilter, string nameFilter, string parentFilter, string panFilter, string BranchFilter, string Rmfilter, string areaFilter, string cityFilter, string pincodeFilter, string IsProspectFilter, string isActiveFilter, string iskycavailableFilter, string processFilter, int pageSize, int pageindex, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM, out int RowCount, int reqId, int producttype)
         {
             List<CustomerVo> customerList = null;
             CustomerVo customerVo;
@@ -3086,6 +3086,10 @@ namespace DaoAdvisorProfiling
                         db.AddInParameter(getCustomerListCmd, "@RequestId", DbType.Int32, reqId);
                     else
                         db.AddInParameter(getCustomerListCmd, "@RequestId", DbType.Int32, DBNull.Value);
+                    if (producttype != 0)
+                        db.AddInParameter(getCustomerListCmd, "@productype", DbType.Int32, producttype);
+                    else
+                        db.AddInParameter(getCustomerListCmd, "@productype", DbType.Int32, DBNull.Value);
                 }
                 else
                 {

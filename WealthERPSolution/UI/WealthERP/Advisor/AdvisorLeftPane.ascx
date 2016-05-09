@@ -184,6 +184,8 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Customer List" Value="CustomerList">
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="FP Client List" Value="FP_Client_List">
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Customer Merge" Value="OfflineCustomerMerge">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View Customer Association(Offline)" Value="View_Customer_Association">

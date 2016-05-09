@@ -169,7 +169,7 @@ namespace WealthERP.CustomerPortfolio
                     btnUsePrice.Visible = true;
                     btnSellPrice.Visible = true;
                     btnSaleCost.Visible = true;
-                    txtCurrentPrice.Enabled = false;
+                    txtCurrentPrice.Enabled = true;
 
 
                 }
@@ -456,7 +456,7 @@ namespace WealthERP.CustomerPortfolio
                 btnUsePrice.Visible = true;
                 btnSellPrice.Visible = true;
                 btnSaleCost.Visible = true;
-                txtCurrentPrice.Enabled = false;
+                txtCurrentPrice.Enabled = true;
             }
 
         }

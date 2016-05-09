@@ -554,7 +554,12 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageLookups','login');", true);
                 }
-
+                else if (e.Item.Value == "FP_Client_List")
+                {
+                    Session["Customer"] = "Customer";
+                    Session["UserType"] = "rm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','action=FPClient');", true);
+                }
                 else if (e.Item.Value == "View_Associates")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewAssociateList','login');", true);
@@ -1419,6 +1424,8 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "rm";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
                 }
+                
+                   
                 else if (e.Item.Value == "Customer_Report")
                 {
                     Session["UserType"] = "rm";

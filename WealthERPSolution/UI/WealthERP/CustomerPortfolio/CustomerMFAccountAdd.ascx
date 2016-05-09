@@ -143,7 +143,11 @@
         }
     }    
 </script>
-
+<script type="text/javascript">
+    function setCustomPosition(sender, args) {
+        sender.moveTo(sender.get_left(), sender.get_top());
+    }
+</script>
 <asp:ScriptManager ID="ScriptManager1" runat="server">
     <Services>
         <asp:ServiceReference Path="AutoComplete.asmx" />
@@ -151,7 +155,7 @@
 </asp:ScriptManager>
 <telerik:RadWindow VisibleOnPageLoad="false" ID="radwindowForGuardian" runat="server"
     Height="30%" Width="550px" Modal="true" BackColor="#DADADA" Top="10px" Left="20px"
-    Behaviors="Move,resize,close" Title="Add Guardian">
+    Behaviors="Move,resize,close" Title="Add Guardian" OnClientShow="setCustomPosition">
     <contenttemplate>
         <div id="divForGuardian" style="width: 75%; text-align: center;" runat="server" class="failure-msg"
             align="center" visible="false">
@@ -191,7 +195,7 @@
 </telerik:RadWindow>
 <telerik:RadWindow VisibleOnPageLoad="false" ID="radwindowForNominee" runat="server"
     Height="30%" Width="550px" Modal="true" BackColor="#DADADA" Top="10px" Left="20px"
-    Behaviors="Move,resize,close" Title="Add Nominee">
+    Behaviors="Move,resize,close" Title="Add Nominee" OnClientShow="setCustomPosition">
     <contenttemplate>
         <div id="DivForNominee" style="width: 75%; text-align: center;" runat="server" class="failure-msg"
             align="center" visible="false">
@@ -231,7 +235,7 @@
 </telerik:RadWindow>
 <telerik:RadWindow VisibleOnPageLoad="false" ID="radwindowForJointHolder" runat="server"
     Height="30%" Width="550px" Modal="true" BackColor="#DADADA" Top="10px" Left="20px"
-    Behaviors="Move,resize,close" Title="Add Joint Holder">
+    Behaviors="Move,resize,close" Title="Add Joint Holder" OnClientShow="setCustomPosition">
     <contenttemplate>
         <div id="DivForJH" style="width: 75%; text-align: center;" runat="server" class="failure-msg"
             align="center" visible="false">
