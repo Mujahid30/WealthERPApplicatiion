@@ -312,7 +312,7 @@
     SelectedIndex="0">
     <Tabs>
         <telerik:RadTab runat="server" Text="Family Associates" Value="FamilyAssociates"
-            TabIndex="0" >
+            TabIndex="0">
         </telerik:RadTab>
         <telerik:RadTab runat="server" Text="ISA Account" Value="ISAAccount" TabIndex="1">
         </telerik:RadTab>
@@ -334,7 +334,7 @@
     </Tabs>
 </telerik:RadTabStrip>
 <telerik:RadMultiPage ID="CustomerProfileDetails" EnableViewState="true" runat="server">
-    <telerik:RadPageView ID="rpvFamilyAssociates" runat="server" >
+    <telerik:RadPageView ID="rpvFamilyAssociates" runat="server">
         <asp:UpdatePanel ID="UpdatePanel2" runat="server">
             <ContentTemplate>
                 <table style="width: 100%;" visible="false">
@@ -455,12 +455,16 @@
                                                                         </td>
                                                                         <td class="rightField" runat="server">
                                                                             <asp:Label ID="lblGetPan" runat="server" Text='<%# Bind("C_PANNum") %>' CssClass="FieldName"></asp:Label>
-                                                                            <asp:TextBox ID="txtPan" runat="server" Text='<%# Bind("C_PANNum") %>' CssClass="txtField"></asp:TextBox>
+                                                                            <asp:TextBox ID="txtPan" runat="server" MaxLength="10" Text='<%# Bind("C_PANNum") %>' CssClass="txtField"></asp:TextBox>
                                                                             <%--<span id="Span10" class="spnRequiredField">*</span>--%><asp:Label ID="lblspan"
                                                                                 runat="server" CssClass="spnRequiredField">*</asp:Label>
                                                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtPan"
                                                                                 ErrorMessage="<br />Please Enter PAN Number" Display="Dynamic" runat="server"
                                                                                 CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
+                                                                              <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" Display="Dynamic"
+                                                                            CssClass="rfvPCG" ErrorMessage="Please check PAN Format(EX-ABCDE1234F)" ControlToValidate="txtPan"
+                                                                            ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}" >
+                                                                        </asp:RegularExpressionValidator>
                                                                         </td>
                                                                         <td>
                                                                             <asp:CheckBox ID="chkIsinvestmem" Text="IS Real Investor" runat="server" />
@@ -550,13 +554,18 @@
                                                                         <asp:Label ID="lblNewPan" runat="server" CssClass="FieldName" Text="PAN:"></asp:Label>
                                                                     </td>
                                                                     <td class="rightField">
-                                                                        <asp:TextBox ID="txtNewPan" runat="server" Text='<%# Bind("C_PANNum") %>' CssClass="txtField"></asp:TextBox>
+                                                                        <asp:TextBox ID="txtNewPan" MaxLength="10" runat="server" Text='<%# Bind("C_PANNum") %>'
+                                                                            CssClass="txtField"></asp:TextBox>
                                                                         <span id="Span6" class="spnRequiredField">*</span>
                                                                         <asp:Label ID="Label10" runat="server" CssClass="Error" Text="PAN Number already exists"
                                                                             Visible="false"></asp:Label>
-                                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtNewPan"
+                                                                        <asp:RequiredFieldValidator ID="RfvNewpan" ControlToValidate="txtNewPan"
                                                                             ErrorMessage="<br />Please Enter PAN Number" Display="Dynamic" runat="server"
                                                                             CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
+                                                                        <asp:RegularExpressionValidator ID="RegxNewpan" runat="server" Display="Dynamic"
+                                                                            CssClass="rfvPCG" ErrorMessage="Please check PAN Format(EX-ABCDE1234F)" ControlToValidate="txtNewPan"
+                                                                            ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}" >
+                                                                        </asp:RegularExpressionValidator>
                                                                     </td>
                                                                     <td>
                                                                         <asp:CheckBox ID="isRealInvestormem" runat="server" Text="ISRealInvestor" />
@@ -611,19 +620,19 @@
                                                         OnClick="btnSave_Click" />
                                                 </td>
                                             </tr>--%>
-                                                                <tr>
-                                                                    <td>
-                                                                    </td>
-                                                                    <td>
-                                                                        <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
-                                                                            runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
-                                                                            ValidationGroup="Submit"></asp:Button>
-                                                                    </td>
-                                                                    <td>
-                                                                        <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
-                                                                            CommandName="Cancel"></asp:Button>
-                                                                    </td>
-                                                                </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                        </td>
+                                                                        <td>
+                                                                            <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                                                                runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
+                                                                                ValidationGroup="Submit"></asp:Button>
+                                                                        </td>
+                                                                        <td>
+                                                                            <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
+                                                                                CommandName="Cancel"></asp:Button>
+                                                                        </td>
+                                                                    </tr>
                                                             </table>
                                                         </td>
                                                     </tr>
