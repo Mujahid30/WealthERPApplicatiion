@@ -397,6 +397,7 @@ namespace WealthERP.Advisor
             dtCustomer.Columns.Add("C_ModifiedOn");
             dtCustomer.Columns.Add("C_ModifiedBy");
             dtCustomer.Columns.Add("C_CreatedBy");
+            dtCustomer.Columns.Add("PAG_AssetGroupCode");
             if (UserRole != "rm")
             {
                 dtCustomer.Columns.Add("BranchName");
@@ -676,16 +677,21 @@ namespace WealthERP.Advisor
 
         protected void gvCustomerList_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            if (e.Item is GridFilteringItem && e.Item.ItemIndex == -1)
+            if (e.Item is GridDataItem)
             {
-                //GridFilteringItem filterItem = (GridFilteringItem)e.Item;
-                //RadComboBox RadComboRM = (RadComboBox)filterItem.FindControl("RadComboRM");
+                int i = int.Parse(gvCustomerList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PAG_AssetGroupCode"].ToString());
+                if (i == 1)
+                {
+                    gvCustomerList.MasterTableView.GetColumn("Remove").Visible = true;
+                    gvCustomerList.MasterTableView.GetColumn("Mark").Visible = false;
 
-                //DataView view = new DataView();
-                //RadComboRM.DataSource = genDictRM;
-                //RadComboRM.DataTextField = "Value";
-                //RadComboRM.DataValueField = "Key";
-                //RadComboRM.DataBind();
+                }
+                else
+                {
+                    gvCustomerList.MasterTableView.GetColumn("Mark").Visible = true;
+                    gvCustomerList.MasterTableView.GetColumn("Remove").Visible = false;
+
+                }
             }
             //if (e.Item is GridPagerItem)
             //{
@@ -695,10 +701,18 @@ namespace WealthERP.Advisor
             //} 
 
             if (userVo.UserType == "Advisor") { return; }
-            if (userVo.UserType == "Associates") 
-            gvCustomerList.MasterTableView.GetColumn("Action").Visible = false;
+            if (userVo.UserType == "Associates")
+            {
+                gvCustomerList.MasterTableView.GetColumn("Action").Visible = false;
+                gvCustomerList.MasterTableView.GetColumn("Remove").Visible = false;
+                gvCustomerList.MasterTableView.GetColumn("Mark").Visible = false;
+            }
             if (userVo.AdviserRole.ContainsValue("CNT")) 
-            gvCustomerList.MasterTableView.GetColumn("Action").Visible = true;
+            {
+                gvCustomerList.MasterTableView.GetColumn("Action").Visible = true;
+                gvCustomerList.MasterTableView.GetColumn("Remove").Visible = false;
+                gvCustomerList.MasterTableView.GetColumn("Mark").Visible = false;
+            }
         }
 
         protected void gvCustomerList_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
@@ -1492,6 +1506,14 @@ namespace WealthERP.Advisor
 
 
             }
+            if (e.CommandName == "Mark")
+            {
+                customerBo.CreateProductAssociation(int.Parse(gvCustomerList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CustomerId"].ToString()), "FP");
+            }
+            if (e.CommandName == "Remove")
+            {
+                customerBo.DeleteProductAssociation(int.Parse(gvCustomerList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CustomerId"].ToString()));
+            }
 
         }
         protected void GetGridFilters()
@@ -1676,6 +1698,7 @@ namespace WealthERP.Advisor
                             drCustomer["custcode"] = customerVo.CustCode.ToString();
                         else
                             drCustomer["custcode"] = "";
+                        drCustomer["PAG_AssetGroupCode"] = customerVo.CustomerPGroup;
                         dtCustomerList.Rows.Add(drCustomer);
 
                     }

@@ -3267,7 +3267,9 @@ namespace DaoAdvisorProfiling
                             customerVo.MfKYC = int.Parse(dr["c_iskycavailable"].ToString());
                         if (!string.IsNullOrEmpty(dr["C_IsRealInvestor"].ToString()))
                             customerVo.IsRealInvestor = bool.Parse(dr["C_IsRealInvestor"].ToString()) ? true : false;
-
+                        if (dr["PAG_AssetGroupCode"].ToString() != "")
+                            customerVo.CustomerPGroup = int.Parse(dr["PAG_AssetGroupCode"].ToString());
+                        
 
                         customerList.Add(customerVo);
                     }

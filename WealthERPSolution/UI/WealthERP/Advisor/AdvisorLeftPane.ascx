@@ -184,21 +184,14 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Customer List" Value="CustomerList">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="FP Client List" Value="FP_Client_List">
-                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Customer Merge" Value="OfflineCustomerMerge">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View Customer Association(Offline)" Value="View_Customer_Association">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Add Customer" Value="Add Customer">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Add FP Prospect" Value="Add FP Prospect">
-                                            </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Manage Portfolio" Value="Manage Portfolio">
-                                                <Items>
-                                                    <telerik:RadPanelItem runat="server" Text="Add Portfolio" Value="Add Portfolio">
-                                                    </telerik:RadPanelItem>
-                                                </Items>
+                                            <telerik:RadPanelItem runat="server" Text="Add FP Prospect" Value="Add FP Prospect"
+                                                Visible="false">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Manage Group Account" Value="Manage Group Account">
                                                 <Items>
@@ -208,7 +201,8 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Reassign RM/Branch" Value="Customer Association">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="FP Offline Form" Value="FP Offline Form">
+                                            <telerik:RadPanelItem runat="server" Text="FP Offline Form" Value="FP Offline Form"
+                                                Visible="false">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Customer Reports" Value="Customer_Report">
                                             </telerik:RadPanelItem>
@@ -428,9 +422,17 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Financial Planning" Value="Financial_Planning_Admin">
                                         <Items>
+                                            <telerik:RadPanelItem runat="server" Text="FP Client List" Value="FP_Client_List">
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Add Prospect" Value="Add_Prospect_Admin">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="FP Offline Form" Value="FP_Offline_Form_admin">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Manage Portfolio" Value="Manage Portfolio">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="Add Portfolio" Value="Add Portfolio">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
@@ -969,14 +971,10 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Add Customer" Value="Add Customer">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Add FP Prospect" Value="Add FP Prospect">
+                                            <telerik:RadPanelItem runat="server" Text="Add FP Prospect" Value="Add FP Prospect"
+                                                Visible="false">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Manage Portfolio" Value="Manage Portfolio">
-                                                <Items>
-                                                    <telerik:RadPanelItem runat="server" Text="Add Portfolio" Value="Add Portfolio">
-                                                    </telerik:RadPanelItem>
-                                                </Items>
-                                            </telerik:RadPanelItem>
+                                            
                                             <telerik:RadPanelItem runat="server" Text="Manage Group Account" Value="Manage Group Account">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="Add Group Account" Value="Add Group Account">
@@ -995,7 +993,8 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="ISA Folio Mapping" Value="ISA_Folio_Mapp">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="FP Offline Form" Value="FP Offline Form">
+                                            <telerik:RadPanelItem runat="server" Text="FP Offline Form" Value="FP Offline Form"
+                                                Visible="false">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Customer Reports" Value="Customer_Report">
                                             </telerik:RadPanelItem>
@@ -1191,9 +1190,17 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Financial Planning" Value="Financial_Planning_Admin">
                                         <Items>
+                                            <telerik:RadPanelItem runat="server" Text="FP Client List" Value="FP_Client_List">
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Add Prospect" Value="Add_Prospect_Admin">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="FP Offline Form" Value="FP_Offline_Form_admin">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Manage Portfolio" Value="Manage Portfolio">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="Add Portfolio" Value="Add Portfolio">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>

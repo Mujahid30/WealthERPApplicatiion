@@ -367,7 +367,7 @@
                             OnItemCommand="gvCustomerList_ItemCommand" AllowCustomPaging="false">
                             <ExportSettings HideStructureColumns="true">
                             </ExportSettings>
-                            <MasterTableView DataKeyNames="CustomerId,UserId,RMId" Width="99%" AllowMultiColumnSorting="True"
+                            <MasterTableView DataKeyNames="CustomerId,UserId,RMId,PAG_AssetGroupCode" Width="99%" AllowMultiColumnSorting="True"
                                 AutoGenerateColumns="false">
                                 <Columns>
                                     <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="Action" DataField="Action"
@@ -382,7 +382,7 @@
                                                     <asp:ListItem Text="Dashboard" Value="Dashboard" Enabled="false" />
                                                     <asp:ListItem Text="Profile" Value="Profile" />
                                                     <asp:ListItem Text="Unit Holdings" Value="UnitHoldings" />
-                                                    <asp:ListItem Text="Transaction Book" Value="TransactionBook" Enabled="false"/>
+                                                    <asp:ListItem Text="Transaction Book" Value="TransactionBook" Enabled="false" />
                                                     <asp:ListItem Text="SIP Book" Value="SIPBook" />
                                                     <asp:ListItem Text="Order Book" Value="OrderBook" />
                                                     <asp:ListItem Text="NCD Issue List" Value="NCDIssueList" />
@@ -489,19 +489,19 @@
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="C_CreatedBy" UniqueName="C_CreatedBy" HeaderText="Created By"
                                         FooterStyle-HorizontalAlign="Left" SortExpression="C_CreatedBy" AutoPostBackOnFilter="true"
-                                        AllowFiltering="true" HeaderStyle-Width="150px" FilterControlWidth="60px" CurrentFilterFunction="Contains"
+                                        AllowFiltering="true" HeaderStyle-Width="80px" FilterControlWidth="60px" CurrentFilterFunction="Contains"
                                         ShowFilterIcon="false">
                                         <ItemStyle Width="55px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="C_ModifiedOn" UniqueName="C_ModifiedOn" HeaderText="Modified On"
                                         FooterStyle-HorizontalAlign="Left" SortExpression="C_ModifiedOn" AutoPostBackOnFilter="true"
-                                        AllowFiltering="true" HeaderStyle-Width="150px" FilterControlWidth="60px" CurrentFilterFunction="Contains"
+                                        AllowFiltering="true" HeaderStyle-Width="100px" FilterControlWidth="60px" CurrentFilterFunction="Contains"
                                         ShowFilterIcon="false">
                                         <ItemStyle Width="55px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="C_ModifiedBy" UniqueName="C_ModifiedBy" HeaderText="Modified By"
                                         FooterStyle-HorizontalAlign="Left" SortExpression="C_ModifiedBy" AutoPostBackOnFilter="true"
-                                        AllowFiltering="true" HeaderStyle-Width="150px" FilterControlWidth="60px" CurrentFilterFunction="Contains"
+                                        AllowFiltering="true" HeaderStyle-Width="80px" FilterControlWidth="60px" CurrentFilterFunction="Contains"
                                         ShowFilterIcon="false">
                                         <ItemStyle Width="55px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                     </telerik:GridBoundColumn>
@@ -510,6 +510,18 @@
                                         AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="67px" SortExpression="ACC_CustomerCategoryName"
                                         FilterControlWidth="50px" CurrentFilterFunction="Contains">
                                         <ItemStyle Width="67px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                                    </telerik:GridBoundColumn>
+                                    <telerik:GridButtonColumn HeaderStyle-Width="120px" Text="Mark FP Client" ButtonType="PushButton"
+                                        ConfirmText="Do you want to Mark as FP Client?" CommandName="Mark" Visible="false" UniqueName="Mark">
+                                    </telerik:GridButtonColumn>
+                                    <telerik:GridButtonColumn HeaderStyle-Width="100px" Text="Delete" ButtonType="PushButton"
+                                        ConfirmText="Do you want to delete FP Client?" CommandName="Remove" Visible="false" UniqueName="Remove">
+                                    </telerik:GridButtonColumn>
+                                     <telerik:GridBoundColumn DataField="PAG_AssetGroupCode" UniqueName="PAG_AssetGroupCode" HeaderText="PAG_AssetGroupCode"
+                                        FooterStyle-HorizontalAlign="Left" SortExpression="PAG_AssetGroupCode" AutoPostBackOnFilter="true"
+                                        AllowFiltering="true" HeaderStyle-Width="150px" FilterControlWidth="60px" CurrentFilterFunction="Contains"
+                                        ShowFilterIcon="false" Visible="false">
+                                        <ItemStyle Width="55px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                     </telerik:GridBoundColumn>
                                 </Columns>
                             </MasterTableView>

@@ -1810,6 +1810,7 @@ namespace DAOAssociates
                     db.AddInParameter(GetProductDetailFromMFOrderCmd, "@agentcode", DbType.String, agentcode);
                 else
                     db.AddInParameter(GetProductDetailFromMFOrderCmd, "@agentcode", DbType.String, DBNull.Value);
+                GetProductDetailFromMFOrderCmd.CommandTimeout = 60 * 60;
                 dsProductDetailFromMFOrder = db.ExecuteDataSet(GetProductDetailFromMFOrderCmd);
             }
             catch (BaseApplicationException Ex)

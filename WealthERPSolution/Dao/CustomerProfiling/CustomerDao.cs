@@ -7133,6 +7133,29 @@ namespace DaoCustomerProfiling
             return result;
         }
 
+        public bool DeleteProductAssociation(int customerId)
+        {
+            int result = 0;
+            bool returnValue = false;
+            Database db;
+            DbCommand createCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createCmd = db.GetStoredProcCommand("SPROC_DeleteCustomerProductAssociation");
+                db.AddInParameter(createCmd, "@customerId", DbType.Int32, customerId);
+                result = db.ExecuteNonQuery(createCmd);
+                if (result > 0)
+                {
+                    returnValue = true;
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return returnValue;
+        }
 
     }
 }

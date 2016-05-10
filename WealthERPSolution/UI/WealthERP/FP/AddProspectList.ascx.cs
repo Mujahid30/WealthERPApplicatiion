@@ -1765,9 +1765,9 @@ namespace WealthERP.FP
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "AdvisorLeftPane", "loadlinks('AdvisorLeftPane','login');", true);
                 }
-            }
-            else {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please submit the profile information');", true);
+                Session["IsCustomerGrid"] = "HighlightCustomerNode";
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','action=FPClient');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "AdvisorLeftPane", "loadlinks('AdvisorLeftPane','login');", true);
             }
         }
         private void CreateFProductionPAssociation(int customerId)

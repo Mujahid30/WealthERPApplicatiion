@@ -144,6 +144,7 @@ namespace VoUser
         public DateTime Modifiefon { get; set; }
         public int Modifiedby { get; set; }
         public int CreatedBy { get; set; }
+        public int CustomerPGroup { get; set; }
         public int CustomerCategoryCode
         {
             get { return m_CustomerCategoryCode; }
