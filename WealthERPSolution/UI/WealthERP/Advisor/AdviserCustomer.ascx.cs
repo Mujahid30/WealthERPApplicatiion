@@ -677,29 +677,6 @@ namespace WealthERP.Advisor
 
         protected void gvCustomerList_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            if (e.Item is GridDataItem)
-            {
-                int i = int.Parse(gvCustomerList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PAG_AssetGroupCode"].ToString());
-                if (i == 1)
-                {
-                    gvCustomerList.MasterTableView.GetColumn("Remove").Visible = true;
-                    gvCustomerList.MasterTableView.GetColumn("Mark").Visible = false;
-
-                }
-                else
-                {
-                    gvCustomerList.MasterTableView.GetColumn("Mark").Visible = true;
-                    gvCustomerList.MasterTableView.GetColumn("Remove").Visible = false;
-
-                }
-            }
-            //if (e.Item is GridPagerItem)
-            //{
-            //    GridPagerItem pager = (GridPagerItem)e.Item;
-            //    RadComboBox PageSizeComboBox = (RadComboBox)pager.FindControl("PageSizeComboBox");
-            //    PageSizeComboBox.Visible = false;
-            //} 
-
             if (userVo.UserType == "Advisor") { return; }
             if (userVo.UserType == "Associates")
             {
@@ -725,10 +702,18 @@ namespace WealthERP.Advisor
             string prospectType = string.Empty;
             string statustype = string.Empty;
             string rmType = string.Empty;
+            if (Request.QueryString["action"] != null)
+            {
+                rbtnRegister.Visible = false;
+                rbtnNonRegister.Visible = false;
+                producttype = 1;
+                tdcustomerlist.Visible = true;
+                lbltype.Visible = false;
+            }
             try
             {
                 GetGridFilters();
-                dtcustomerList = BindOnDemamd(adviserId, rmId, AgentId, UserRole, branchHeadId, AgentCode, rbtnReg, GetSelectedFilterValue(), (!string.IsNullOrEmpty(txtCustomerId.Value)) ? int.Parse(txtCustomerId.Value) : 0, hdncustomerCategoryFilter.Value, hdnSystemId.Value, hdnClientId.Value, hdnName.Value, hdnGroup.Value, hdnPAN.Value, hdnBranch.Value, rmType, hdnArea.Value, hdnCity.Value, hdnPincode.Value, hdnIsProspect.Value, hdnIsActive.Value, hdnIsMFKYC.Value, hdnProcessId.Value, gvCustomerList.PageSize, gvCustomerList.CurrentPageIndex + 1, out genDictParent, out genDictRM, out genDictReassignRM, out RowCount, int.Parse(txtRequestId.Text),producttype);
+                dtcustomerList = BindOnDemamd(adviserId, rmId, AgentId, UserRole, branchHeadId, AgentCode, rbtnReg, GetSelectedFilterValue(), (!string.IsNullOrEmpty(txtCustomerId.Value) && txtCustomerId.Value != "") ? int.Parse(txtCustomerId.Value) : 0, hdncustomerCategoryFilter.Value, hdnSystemId.Value, hdnClientId.Value, hdnName.Value, hdnGroup.Value, hdnPAN.Value, hdnBranch.Value, rmType, hdnArea.Value, hdnCity.Value, hdnPincode.Value, hdnIsProspect.Value, hdnIsActive.Value, hdnIsMFKYC.Value, hdnProcessId.Value, gvCustomerList.PageSize, gvCustomerList.CurrentPageIndex + 1, out genDictParent, out genDictRM, out genDictReassignRM, out RowCount, (!string.IsNullOrEmpty(txtRequestId.Text) && txtRequestId.Text != "") ? int.Parse(txtRequestId.Text) : 0, producttype);
                 gvCustomerList.DataSource = dtcustomerList;
                 gvCustomerList.VirtualItemCount = RowCount;
 
@@ -1508,11 +1493,20 @@ namespace WealthERP.Advisor
             }
             if (e.CommandName == "Mark")
             {
+           
                 customerBo.CreateProductAssociation(int.Parse(gvCustomerList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CustomerId"].ToString()), "FP");
+                LinkButton btnMark = (LinkButton)e.Item.FindControl("btnMark");
+                LinkButton btnDelete = (LinkButton)e.Item.FindControl("btnDelete");
+                btnMark.Visible = false;
+                btnDelete.Visible = true;
             }
             if (e.CommandName == "Remove")
             {
                 customerBo.DeleteProductAssociation(int.Parse(gvCustomerList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CustomerId"].ToString()));
+                LinkButton btnMark = (LinkButton)e.Item.FindControl("btnMark");
+                LinkButton btnDelete = (LinkButton)e.Item.FindControl("btnDelete");
+                btnMark.Visible =true ;
+                btnDelete.Visible = false;
             }
 
         }

@@ -367,8 +367,8 @@
                             OnItemCommand="gvCustomerList_ItemCommand" AllowCustomPaging="false">
                             <ExportSettings HideStructureColumns="true">
                             </ExportSettings>
-                            <MasterTableView DataKeyNames="CustomerId,UserId,RMId,PAG_AssetGroupCode" Width="99%" AllowMultiColumnSorting="True"
-                                AutoGenerateColumns="false">
+                            <MasterTableView DataKeyNames="CustomerId,UserId,RMId,PAG_AssetGroupCode" Width="99%"
+                                AllowMultiColumnSorting="True" AutoGenerateColumns="false">
                                 <Columns>
                                     <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="Action" DataField="Action"
                                         HeaderStyle-Width="140px">
@@ -395,6 +395,12 @@
                                                     <asp:ListItem Text="Financial Planning" Value="FinancialPlanning" Enabled="false" />
                                                 </Items>
                                             </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </telerik:GridTemplateColumn>
+                                     <telerik:GridTemplateColumn HeaderStyle-Width="100px" AllowFiltering="false">
+                                        <ItemTemplate>
+                                            <asp:LinkButton ID="btnMark" runat="server" CommandName="Mark" Text="Mark as FP"  Visible='<% #(Convert.ToInt32(Eval("PAG_AssetGroupCode"))==1) ? false :true %>' ></asp:LinkButton>
+                                            <asp:LinkButton ID="btnDelete" runat="server" CommandName="Remove" Text="Unmark as FP"  Visible='<% #(Convert.ToInt32(Eval("PAG_AssetGroupCode"))==0) ? false :true %>'></asp:LinkButton>
                                         </ItemTemplate>
                                     </telerik:GridTemplateColumn>
                                     <telerik:GridBoundColumn DataField="custcode" UniqueName="custcode" HeaderText="Client Id"
@@ -510,17 +516,12 @@
                                         AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="67px" SortExpression="ACC_CustomerCategoryName"
                                         FilterControlWidth="50px" CurrentFilterFunction="Contains">
                                         <ItemStyle Width="67px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
-                                    </telerik:GridBoundColumn>
-                                    <telerik:GridButtonColumn HeaderStyle-Width="120px" Text="Mark FP Client" ButtonType="PushButton"
-                                        ConfirmText="Do you want to Mark as FP Client?" CommandName="Mark" Visible="false" UniqueName="Mark">
-                                    </telerik:GridButtonColumn>
-                                    <telerik:GridButtonColumn HeaderStyle-Width="100px" Text="Delete" ButtonType="PushButton"
-                                        ConfirmText="Do you want to delete FP Client?" CommandName="Remove" Visible="false" UniqueName="Remove">
-                                    </telerik:GridButtonColumn>
-                                     <telerik:GridBoundColumn DataField="PAG_AssetGroupCode" UniqueName="PAG_AssetGroupCode" HeaderText="PAG_AssetGroupCode"
-                                        FooterStyle-HorizontalAlign="Left" SortExpression="PAG_AssetGroupCode" AutoPostBackOnFilter="true"
-                                        AllowFiltering="true" HeaderStyle-Width="150px" FilterControlWidth="60px" CurrentFilterFunction="Contains"
-                                        ShowFilterIcon="false" Visible="false">
+                                    </telerik:GridBoundColumn >
+                                   
+                                    <telerik:GridBoundColumn DataField="PAG_AssetGroupCode" UniqueName="PAG_AssetGroupCode"
+                                        HeaderText="PAG_AssetGroupCode" FooterStyle-HorizontalAlign="Left" SortExpression="PAG_AssetGroupCode"
+                                        AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="150px" FilterControlWidth="60px"
+                                        CurrentFilterFunction="Contains" ShowFilterIcon="false" Visible="false">
                                         <ItemStyle Width="55px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                     </telerik:GridBoundColumn>
                                 </Columns>
