@@ -1908,7 +1908,7 @@ namespace WealthERP.Customer
                 CheckBox chkbisRealInvestor = (CheckBox)e.Item.FindControl("chkIsinvestmem");
                 if (iskyc == 1)
                     chkycinside.Checked = true;
-                if (irealInvestor)
+                if (irealInvestor!=false)
                     chkbisRealInvestor.Checked = true;
                 GridEditFormItem editedItem = (GridEditFormItem)e.Item;
                 DataTable dtRelationship = customerBo.GetMemberRelationShip();
@@ -2068,6 +2068,7 @@ namespace WealthERP.Customer
                     relationCode = ddlNewRelationship.SelectedValue;
                     CusrtomerDOBDate = Convert.ToDateTime(RadDatePicker1.SelectedDate);
                 }
+                
                 TextBox txtPan1 = (TextBox)e.Item.FindControl("txtPan");
                 if (CheckPanDuplicate(txtPan1.Text.ToString(), cutomerid))
                 {

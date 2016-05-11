@@ -562,10 +562,8 @@
                                                                         <asp:RequiredFieldValidator ID="RfvNewpan" ControlToValidate="txtNewPan"
                                                                             ErrorMessage="<br />Please Enter PAN Number" Display="Dynamic" runat="server"
                                                                             CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
-                                                                        <asp:RegularExpressionValidator ID="RegxNewpan" runat="server" Display="Dynamic"
-                                                                            CssClass="rfvPCG" ErrorMessage="Please check PAN Format(EX-ABCDE1234F)" ControlToValidate="txtNewPan"
-                                                                            ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}" >
-                                                                        </asp:RegularExpressionValidator>
+                                                                      
+                                                                        <asp:RegularExpressionValidator ID="Regexpan" ControlToValidate="txtNewPan" runat="server" Display="Dynamic" ValidationGroup="Submit" ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}" CssClass="rfvPCG" ErrorMessage="Please check PAN Format(EX-ABCDE1234F)"></asp:RegularExpressionValidator>
                                                                     </td>
                                                                     <td>
                                                                         <asp:CheckBox ID="isRealInvestormem" runat="server" Text="ISRealInvestor" />
