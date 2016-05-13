@@ -22,7 +22,9 @@ using VoFPSuperlite;
 using BoResearch;
 using Telerik.Web.UI;
 using System.Web.UI.HtmlControls;
-
+using System.Numeric;
+using DaoFPSuperlite;
+using VoFPSuperlite;
 namespace WealthERP.FP
 {
     public partial class CustomerAdvancedGoalSetup : System.Web.UI.UserControl
@@ -58,7 +60,7 @@ namespace WealthERP.FP
         DataTable dtEqFundedDetails = new DataTable();
         //DataTable dtCustomerGoalFunding = new DataTable();        
         //DataTable dtCustomerSIPGoalFunding = new DataTable();
-
+        UserVo userVo;
         DataSet dsModelPortFolioSchemeDetails = new DataSet();
         decimal weightedReturn = 0;
         double totalInvestedSIPamount = 0;
@@ -66,6 +68,7 @@ namespace WealthERP.FP
 
         DataSet dsGoalFundingDetails = new DataSet();
         RadTab lastClickedTab = null;
+        DataTable dtrecurringtable = new DataTable();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -80,6 +83,7 @@ namespace WealthERP.FP
 
             customerVo = (CustomerVo)Session["CustomerVo"];
             advisorVo = (AdvisorVo)Session["advisorVo"];
+            userVo = (UserVo)Session[SessionContents.UserVo];
             if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
             {
                 rmVo = (RMVo)Session[SessionContents.RmVo];
@@ -227,9 +231,9 @@ namespace WealthERP.FP
         {
             for (int i = DateTime.Now.Year + 1; i <= DateTime.Now.Year + 30; i++)
             {
-               ddlGoalYear.Items.Add(new ListItem(i.ToString(), i.ToString()));
+                ddlGoalYear.Items.Add(new ListItem(i.ToString(), i.ToString()));
             }
-            
+
         }
         protected void TabSelectionBasedOnGoalAction()
         {
@@ -908,7 +912,26 @@ namespace WealthERP.FP
             }
 
             txtGoalDescription.Text = goalProfileSetupVo.GoalDescription;
+            if (!string.IsNullOrEmpty(goalProfileSetupVo.goalType))
+                ddlGoalTypes.SelectedValue = goalProfileSetupVo.goalType;
+            if (goalProfileSetupVo.goalType == "RG")
+            {
+                trRadRecurring.Visible = true;
+                trNoofYears.Visible = true;
+                tdtxtNoofYears.Visible = true;
+                DataSet ds = GoalSetupBo.GetReacrringGoal(goalId);
 
+                DataTable dt = ds.Tables[0];
+                Cache.Remove("RecurringList" + userVo.UserId.ToString());
+                Cache.Insert("RecurringList" + userVo.UserId.ToString(), dt);
+                RadRecurring.DataSource = dt;
+                RadRecurring.DataBind();
+                ViewState["RecurringTable"] = dt;
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    txtNoofYears.Text = dr["NoofYear"].ToString();
+                }
+            }
             switch (goalProfileSetupVo.Goalcode)
             {
                 case "BH":
@@ -1186,7 +1209,7 @@ namespace WealthERP.FP
             CustomerFPGoalDetail.SelectedIndex = 3;
             RadTabStripFPGoalDetails.Tabs[2].Selected = true;
             RadTabStripFPGoalDetails.Tabs[2].Tabs[0].Selected = true;
-        
+
 
         }
         protected void btnSaveAdd_Click(object sender, EventArgs e)
@@ -1246,7 +1269,7 @@ namespace WealthERP.FP
                 customerGoalPlanningVo.CreatedBy = int.Parse(rmVo.RMId.ToString());
                 if (chkApprove.Checked == true)
                     customerGoalPlanningVo.CustomerApprovedOn = DateTime.Parse(txtGoalDate.Text);
-
+                customerGoalPlanningVo.GoalType = ddlGoalTypes.SelectedValue;
 
 
                 if (ddlGoalType.SelectedValue == "RT")
@@ -1270,7 +1293,9 @@ namespace WealthERP.FP
 
                 }
                 CustomerGoalPlanningVo goalplanningSetUpVo = new CustomerGoalPlanningVo();
-                goalplanningSetUpVo = customerGoalPlanningBo.CreateCustomerGoalPlanning(customerGoalPlanningVo, customerAssumptionVo, customerVo.CustomerId, false, out goalId);
+                if (ViewState["RecurringTable"] != null)
+                    dtrecurringtable = (DataTable)ViewState["RecurringTable"];
+                goalplanningSetUpVo = customerGoalPlanningBo.CreateCustomerGoalPlanning(customerGoalPlanningVo, customerAssumptionVo, customerVo.CustomerId, false, dtrecurringtable, out goalId);
                 tdlblInvestmntLumpsum.Visible = true;
                 tdlblInvestmntLumpsumTxt.Visible = true;
                 tdSavingsRequiredMonthly.Visible = true;
@@ -1320,7 +1345,7 @@ namespace WealthERP.FP
                 }
 
                 goalAction = "View";
-                Session["GoalAction"] = goalAction;               
+                Session["GoalAction"] = goalAction;
 
             }
 
@@ -1412,7 +1437,7 @@ namespace WealthERP.FP
                 }
 
                 CustomerGoalPlanningVo goalplanningSetUpVo = new CustomerGoalPlanningVo();
-                goalplanningSetUpVo = customerGoalPlanningBo.CreateCustomerGoalPlanning(customerGoalPlanningVo, customerAssumptionVo, customerVo.CustomerId, false, out goalId);
+                goalplanningSetUpVo = customerGoalPlanningBo.CreateCustomerGoalPlanning(customerGoalPlanningVo, customerAssumptionVo, customerVo.CustomerId, false, dtrecurringtable, out goalId);
 
                 lblInvestmntLumpsumTxt.Text = goalplanningSetUpVo.LumpsumInvestRequired != 0 ? String.Format("{0:n2}", Math.Round(goalplanningSetUpVo.LumpsumInvestRequired, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
 
@@ -1501,9 +1526,9 @@ namespace WealthERP.FP
             {
                 //Customer id select from AutoComplite TextBox Values
                 //int GoalId = (int)Session["GoalId"];
-                
-                if(rdoMFBasedGoalYes.Checked == true)
-                btnFundAdd.Visible = true;
+
+                if (rdoMFBasedGoalYes.Checked == true)
+                    btnFundAdd.Visible = true;
                 else
                     btnFundAdd.Visible = false;
 
@@ -1546,7 +1571,7 @@ namespace WealthERP.FP
                     customerGoalPlanningVo.Comments = txtComment.Text.ToString();
 
                 }
-                customerGoalPlanningVo.CreatedBy = int.Parse(rmVo.RMId.ToString());
+                customerGoalPlanningVo.CreatedBy = int.Parse(userVo.UserId.ToString());
                 if (chkApprove.Checked == true)
                     customerGoalPlanningVo.CustomerApprovedOn = DateTime.Parse(txtGoalDate.Text);
 
@@ -1575,7 +1600,9 @@ namespace WealthERP.FP
 
 
                 CustomerGoalPlanningVo goalplanningSetUpVo = new CustomerGoalPlanningVo();
-                goalplanningSetUpVo = customerGoalPlanningBo.CreateCustomerGoalPlanning(customerGoalPlanningVo, customerAssumptionVo, customerVo.CustomerId, true, out goalId);
+                if (ViewState["RecurringTable"] != null)
+                    dtrecurringtable = (DataTable)ViewState["RecurringTable"];
+                goalplanningSetUpVo = customerGoalPlanningBo.CreateCustomerGoalPlanning(customerGoalPlanningVo, customerAssumptionVo, customerVo.CustomerId, true, dtrecurringtable, out goalId);
 
                 lblInvestmntLumpsumTxt.Text = goalplanningSetUpVo.LumpsumInvestRequired != 0 ? String.Format("{0:n2}", Math.Round(goalplanningSetUpVo.LumpsumInvestRequired, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
 
@@ -1989,7 +2016,7 @@ namespace WealthERP.FP
             CustomerFPGoalDetail.SelectedIndex = 3;
             RadTabStripFPGoalDetails.Tabs[2].Selected = true;
             RadTabStripFPGoalDetails.Tabs[2].Tabs[0].Selected = true;
-        
+
             if (e.CommandName == RadGrid.InitInsertCommandName) //"Add new" button clicked
             {
                 GridEditCommandColumn editColumn = (GridEditCommandColumn)RadGrid1.MasterTableView.GetColumn("EditCommandColumn");
@@ -2049,7 +2076,7 @@ namespace WealthERP.FP
             CustomerFPGoalDetail.SelectedIndex = 3;
             RadTabStripFPGoalDetails.Tabs[2].Selected = true;
             RadTabStripFPGoalDetails.Tabs[2].Tabs[0].Selected = true;
-        
+
             if (e.CommandName == RadGrid.InitInsertCommandName) //"Add new" button clicked
             {
                 GridEditCommandColumn editColumn = (GridEditCommandColumn)RadGrid1.MasterTableView.GetColumn("EditCommandColumn");
@@ -2083,9 +2110,9 @@ namespace WealthERP.FP
 
         }
 
-       
 
-      
+
+
 
         protected void BindMonthlySIPFundingScheme(DataTable dtCustomerGoalFundingSIPDetails)
         {
@@ -2845,11 +2872,11 @@ namespace WealthERP.FP
         {
             if (dsGoalFundingDetails.Tables[2].Rows.Count > 0)
             {
-                ImageButton2.Visible = true;              
+                ImageButton2.Visible = true;
             }
             else if (dsGoalFundingDetails.Tables[2].Rows.Count > 0)
             {
-                ImageButton2.Visible = false;  
+                ImageButton2.Visible = false;
             }
             RadGrid4.DataSource = dsGoalFundingDetails.Tables[2];
             RadGrid4.DataBind();
@@ -2905,25 +2932,25 @@ namespace WealthERP.FP
 
                 TextBox lblAvailableSharesforCurrentGoalEdit = editedItem.FindControl("lblAvailableSharesforCurrentGoalEdit") as TextBox;
                 TextBox lblAvailableSharesforCurrentGoalAdd = editedItem.FindControl("lblAvailableSharesforCurrentGoalAdd") as TextBox;
-                
+
                 HtmlTableRow trTotalShares = editedItem.FindControl("trTotalShares") as HtmlTableRow;
                 HtmlTableRow trOtherGoalAllocation = editedItem.FindControl("trOtherGoalAllocation") as HtmlTableRow;
                 HtmlTableRow trTotalGoalAllocation = editedItem.FindControl("trTotalGoalAllocation") as HtmlTableRow;
                 HtmlTableRow trCurrentValue = editedItem.FindControl("trCurrentValue") as HtmlTableRow;
                 HtmlTableCell tdlblPickScrips = editedItem.FindControl("tdlblPickScrips") as HtmlTableCell;
                 HtmlTableCell tdddlPickScrips = editedItem.FindControl("tdddlPickScrips") as HtmlTableCell;
-                
+
                 tdlblPickScrips.Visible = true;
                 trTotalShares.Visible = true;
                 trCurrentValue.Visible = true;
                 trTotalGoalAllocation.Visible = true;
                 trOtherGoalAllocation.Visible = true;
                 trCurrentValue.Visible = true;
-                tdddlPickScrips.Visible = true; 
+                tdddlPickScrips.Visible = true;
                 if (e.Item.RowIndex == -1)
                 {
                     trTotalShares.Visible = false;
-                    tdddlPickScrips.Visible = false; 
+                    tdddlPickScrips.Visible = false;
                     tdlblPickScrips.Visible = false;
                     trCurrentValue.Visible = false;
                     trTotalGoalAllocation.Visible = false;
@@ -2983,7 +3010,7 @@ namespace WealthERP.FP
             CustomerFPGoalDetail.SelectedIndex = 4;
             RadTabStripFPGoalDetails.Tabs[2].Selected = true;
             RadTabStripFPGoalDetails.Tabs[2].Tabs[1].Selected = true;
-        
+
             DropDownList dropdown = (DropDownList)sender;
             if (dropdown.SelectedValue != "" && dropdown.SelectedValue != "Select")
             {
@@ -3127,15 +3154,15 @@ namespace WealthERP.FP
                         otherAllocation = totalAllocation;
                     }
                     AvialableAllocation = totalSharesHolding - totalAllocation;
-                    txtSharesAdd.Text = Convert.ToString(Math.Round(totalSharesHolding,0));
+                    txtSharesAdd.Text = Convert.ToString(Math.Round(totalSharesHolding, 0));
                     txtShareAvailableAddMode.Text = AvialableAllocation.ToString();
-                    txtInvestedAmtAddEq.Text = currentAllocation != 0 ? String.Format("{0:n2}", Math.Round(currentAllocation,0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                    txtInvestedAmtAddEq.Text = currentAllocation != 0 ? String.Format("{0:n2}", Math.Round(currentAllocation, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                     txtCurrentValueAddMode.Text = currentValue != 0 ? String.Format("{0:n2}", Math.Round(currentValue, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                     txtAllocationTotalAddMode.Text = totalAllocation != 0 ? String.Format("{0:n2}", Math.Round(totalAllocation, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                     txtShareOtherAllocationAddMode.Text = otherAllocation != 0 ? String.Format("{0:n2}", Math.Round(otherAllocation, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                     txtShareAvailableAddMode.Text = AvialableAllocation != 0 ? String.Format("{0:n2}", Math.Round(AvialableAllocation, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
-                    lblAvailableSharesforCurrentGoalAdd.Text =Math.Round((totalSharesHolding - otherAllocation),0).ToString();
-                    
+                    lblAvailableSharesforCurrentGoalAdd.Text = Math.Round((totalSharesHolding - otherAllocation), 0).ToString();
+
                 }
             }
             else
@@ -3152,7 +3179,7 @@ namespace WealthERP.FP
             CustomerFPGoalDetail.SelectedIndex = 4;
             RadTabStripFPGoalDetails.Tabs[2].Selected = true;
             RadTabStripFPGoalDetails.Tabs[2].Tabs[1].Selected = true;
-        
+
 
             if (e.CommandName == RadGrid.InitInsertCommandName) //"Add new" button clicked
             {
@@ -3176,11 +3203,11 @@ namespace WealthERP.FP
                 }
                 else
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill the allocation');", true);                
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill the allocation');", true);
                 }
             }
-            
-            GetGoalFundingProgress();            
+
+            GetGoalFundingProgress();
             BindEquityFundedDetails();
 
         }
@@ -3197,7 +3224,7 @@ namespace WealthERP.FP
             if (ddl.SelectedIndex != -1 && ddl.SelectedIndex != 0)
             {
 
-                int equityNPId =Convert.ToInt32(ddl.SelectedValue);
+                int equityNPId = Convert.ToInt32(ddl.SelectedValue);
 
                 //int.Parse(ddl.SelectedValue);
 
@@ -3294,10 +3321,77 @@ namespace WealthERP.FP
             }
         }
 
-       
+
         #endregion
 
+        protected void btnRecuring_OnClick(object sender, EventArgs e)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Year");
+            dt.Columns.Add("Costperannum");
+            dt.Columns.Add("Inflation");
+            dt.Columns.Add("Yrs");
+            dt.Columns.Add("FutureValue",typeof (decimal));
+            DataRow drRecuring;
+            int noofyr = int.Parse(txtNoofYears.Text);
+            DateTime date = DateTime.Now;
+            int year = date.Year;
+            double finalValue;
+            for (int i = 0; i < noofyr; i++)
+            {
+                drRecuring = dt.NewRow();
+                if (i == 0)
+                {
+                    drRecuring["Yrs"] = int.Parse(ddlGoalYear.SelectedValue) - year;
+                    drRecuring["Year"] = ddlGoalYear.SelectedValue;
+                    drRecuring["FutureValue"] = Financial.Fv(double.Parse(txtInflation.Text) / 100, int.Parse(ddlGoalYear.SelectedValue) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0);
+                    finalValue = Financial.Fv(double.Parse(txtInflation.Text) / 100, int.Parse(ddlGoalYear.SelectedValue) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0);
+                }
+                else
+                {
+                    drRecuring["Yrs"] = (int.Parse(ddlGoalYear.SelectedValue) + i) - year;
+                    drRecuring["Year"] = int.Parse(ddlGoalYear.SelectedValue) + i;
+                    drRecuring["FutureValue"] = Financial.Fv(Convert.ToDouble(txtInflation.Text) / 100, (int.Parse(ddlGoalYear.SelectedValue) + i) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0);
+                    finalValue = Financial.Fv(Convert.ToDouble(txtInflation.Text) / 100, (int.Parse(ddlGoalYear.SelectedValue) + i) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0);
+                }
+                drRecuring["Costperannum"] = (int.Parse(txtGoalCostToday.Text) / int.Parse(txtNoofYears.Text));
+                drRecuring["Inflation"] = txtInflation.Text;
+                dt.Rows.Add(drRecuring);
+
+            }
+            ViewState["RecurringTable"] = dt;
+            Cache.Remove("RecurringList" + userVo.UserId.ToString());
+            Cache.Insert("RecurringList" + userVo.UserId.ToString(), dt);
+            RadRecurring.DataSource = dt;
+            RadRecurring.DataBind();
+            trRadRecurring.Visible = true;
 
 
+        }
+        protected void ddlGoalTypes_OnSelectedIndexChange(object sender, EventArgs e)
+        {
+            if (ddlGoalTypes.SelectedValue == "RG")
+            {
+                trNoofYears.Visible = true;
+                tdtxtNoofYears.Visible = true;
+            }
+            else
+            {
+                trRadRecurring.Visible = false;
+                trNoofYears.Visible = false;
+                tdtxtNoofYears.Visible = false;
+            }
+        }
+
+        protected void RadRecurring_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt;
+            dt = (DataTable)Cache["RecurringList" + userVo.UserId.ToString()];
+            if (dt != null)
+            {
+                RadRecurring.DataSource = dt;
+            }
+
+        }
     }
 }

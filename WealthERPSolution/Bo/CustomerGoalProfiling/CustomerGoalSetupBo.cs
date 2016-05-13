@@ -875,6 +875,20 @@ namespace BoCustomerGoalProfiling
             }
             return dsGetGoals;
         }
+        public DataSet GetReacrringGoal(int goalId)
+        {
+            CustomerGoalSetupDao customerGoalSetupDao = new CustomerGoalSetupDao();
+            DataSet dsGetReacrringGoal;
+            try
+            {
+                dsGetReacrringGoal = customerGoalSetupDao.GetReacrringGoal(goalId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetReacrringGoal;
+        }
         public DataSet GetGoalListMIS(string userType, int advisorId, int rmId, int customerId, int branchHeadId,int branchId, int all, int isGroup, string goalCode)
         {
             CustomerGoalSetupDao goalSetupDao = new CustomerGoalSetupDao();

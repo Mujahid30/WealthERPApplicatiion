@@ -51,7 +51,7 @@ namespace VoFPSuperlite
         private int G_CustomerAge;
 
         private bool G_IsFundFromAsset;
-
+        public string GoalType { get; set; }
         public bool IsFundFromAsset
         {
             get { return G_IsFundFromAsset; }

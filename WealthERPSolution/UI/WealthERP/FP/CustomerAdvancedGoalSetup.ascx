@@ -127,6 +127,10 @@
                                 ErrorMessage="Select Goal Type" Text="Select Goal Type" Display="Dynamic" ValidationGroup="btnSave"
                                 ControlToValidate="ddlGoalType" InitialValue="Select">
                             </asp:RequiredFieldValidator>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator21" runat="server" CssClass="rfvPCG"
+                                ErrorMessage="Select Goal Type" Text="Select Goal Type" Display="Dynamic" ValidationGroup="NoofYears"
+                                ControlToValidate="ddlGoalType" InitialValue="Select">
+                            </asp:RequiredFieldValidator>
                         </td>
                         <td class="leftField" id="tdCustomerAge1" runat="server">
                             <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Customer Age :"></asp:Label>
@@ -205,6 +209,18 @@
                     </tr>
                     <tr>
                         <td class="leftField">
+                            <asp:Label ID="lblGoalType" runat="server" Text="Goal Type:" CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td class="rightField">
+                            <asp:DropDownList ID="ddlGoalTypes" runat="server" AutoPostBack="true" CssClass="cmbfield"
+                                OnSelectedIndexChanged="ddlGoalTypes_OnSelectedIndexChange">
+                                <asp:ListItem Text="Normal" Value="NG"></asp:ListItem>
+                                <asp:ListItem Text="Recurring" Value="RG"></asp:ListItem>
+                            </asp:DropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="leftField">
                             <asp:Label ID="lblGoalCostToday" runat="server" CssClass="FieldName" Text="Goal Cost Today :"></asp:Label>
                         </td>
                         <td id="Td1" class="rightField" runat="server">
@@ -220,6 +236,9 @@
                                 Type="Double" ErrorMessage="Value  should not be more than 15 digit & can't be zero"
                                 ValidationGroup="btnSave" MinimumValue="0.00000000001" MaximumValue="999999999999999"
                                 ControlToValidate="txtGoalCostToday" runat="server"></asp:RangeValidator>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator20" runat="server" ControlToValidate="txtGoalCostToday"
+                                ValidationGroup="NoofYears" CssClass="rfvPCG" ErrorMessage="Goal cost Today Required"
+                                Display="Dynamic"></asp:RequiredFieldValidator>
                         </td>
                         <td class="leftField" id="tdCustomerEOL1" runat="server">
                             <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="Customer EOL :"></asp:Label>
@@ -241,11 +260,11 @@
                         </td>
                         <td class="rightField">
                             <asp:DropDownList ID="ddlGoalYear" runat="server" CssClass="cmbField" CausesValidation="True">
-                               
                             </asp:DropDownList>
                             <span id="SpanGoalYearReq" class="spnRequiredField" runat="server">*</span>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="ddlGoalYear"
-                                CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please Select Goal Year" InitialValue="0"></asp:RequiredFieldValidator>
+                                CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please Select Goal Year"
+                                InitialValue="0"></asp:RequiredFieldValidator>
                         </td>
                         <td class="leftField" id="tdSpouseEOL1" runat="server">
                             <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text="Spouse EOL :"></asp:Label>
@@ -259,6 +278,64 @@
                             <asp:RequiredFieldValidator Display="Dynamic" ID="RequiredFieldValidator12" runat="server"
                                 ControlToValidate="txtSpouseEOL" CssClass="rfvPCG" ValidationGroup="btnSave"
                                 ErrorMessage="Please enter some value"></asp:RequiredFieldValidator>
+                        </td>
+                    </tr>
+                    <tr id="trNoofYears" runat="server" visible="false">
+                        <td class="leftField">
+                            <asp:Label ID="lblNoofYear" runat="server" CssClass="FieldName" Text="No. of years:"></asp:Label>
+                        </td>
+                        <td id="tdtxtNoofYears" runat="server">
+                            <asp:TextBox ID="txtNoofYears" runat="server"> </asp:TextBox>
+                            <asp:Button ID="btnRecuring" runat="server" OnClick="btnRecuring_OnClick" Text="Go"
+                                ValidationGroup="NoofYears" />
+                            <span id="Span3" class="spnRequiredField" runat="server" visible="false">*</span>
+                            <asp:RequiredFieldValidator Display="Dynamic" ID="RequiredFieldValidator19" runat="server"
+                                ControlToValidate="txtNoofYears" CssClass="rfvPCG" ValidationGroup="NoofYears"
+                                ErrorMessage="Please enter year"></asp:RequiredFieldValidator>
+                        </td>
+                    </tr>
+                    <tr id="trRadRecurring" runat="server" visible="false">
+                        <td>
+                        </td>
+                        <td class="rightField" colspan="2">
+                            <telerik:RadGrid ID="RadRecurring" runat="server" GridLines="None" AllowPaging="True"
+                                PageSize="5" AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true"
+                                AllowAutomaticDeletes="false" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
+                                HorizontalAlign="NotSet" OnNeedDataSource="RadRecurring_OnNeedDataSource" ShowFooter="true">
+                                <MasterTableView DataKeyNames="" Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+                                    CommandItemDisplay="None">
+                                    <Columns>
+                                        <telerik:GridBoundColumn DataField="Year" UniqueName="Year" HeaderText="Year" ShowFilterIcon="false"
+                                            AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="90px" SortExpression="Year"
+                                            FilterControlWidth="70px" CurrentFilterFunction="Contains">
+                                            <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="Costperannum" UniqueName="Costperannum" HeaderText="Cost per annum"
+                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="90px"
+                                            SortExpression="Costperannum" FilterControlWidth="70px" CurrentFilterFunction="Contains">
+                                            <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="Inflation" UniqueName="Inflation" HeaderText="Inflation"
+                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="90px"
+                                            SortExpression="Inflation" FilterControlWidth="70px" CurrentFilterFunction="Contains">
+                                            <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="Yrs" UniqueName="Yrs" HeaderText="Yrs" ShowFilterIcon="false"
+                                            AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="90px" SortExpression="Yrs"
+                                            FilterControlWidth="70px" CurrentFilterFunction="Contains">
+                                            <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="FutureValue" UniqueName="FutureValue" HeaderText="Future Value" DataFormatString="{0:F2}"
+                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="90px"
+                                            SortExpression="FutureValue" FilterControlWidth="70px" CurrentFilterFunction="Contains"
+                                            Aggregate="Sum" FooterText="Total:" DataType="System.Decimal">
+                                            <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                                        </telerik:GridBoundColumn>
+                                    </Columns>
+                                </MasterTableView>
+                            </telerik:RadGrid>
+                        </td>
+                        <td>
                         </td>
                     </tr>
                     <tr>
@@ -727,7 +804,7 @@
                 AllowAutomaticUpdates="false" Skin="Telerik" OnItemDataBound="RadGrid1_ItemDataBound"
                 OnDeleteCommand="RadGrid1_DeleteCommand" OnInsertCommand="RadGrid1_ItemInserted"
                 OnItemUpdated="RadGrid1_ItemUpdated" OnItemCommand="RadGrid1_ItemCommand">
-                <ExportSettings HideStructureColumns="false"  ExportOnlyData="true" FileName="ExistMFInvestlist">
+                <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
                 </ExportSettings>
                 <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
                     CommandItemSettings-AddNewRecordText="Select MF Investment" DataKeyNames="SchemeCode,OtherGoalAllocation">
@@ -1117,7 +1194,6 @@
                                                 </td>
                                             </tr>
                                             <tr id="trAllocationEntry" runat="server">
-                                                
                                                 <td align="right">
                                                     <asp:Label ID="Label24" Text="Available Amount:" CssClass="FieldName" runat="server">
                                                     </asp:Label>
@@ -1143,7 +1219,6 @@
                                                 </td>
                                             </tr>
                                             <tr id="trAvailableAmount" runat="server">
-                                               
                                                 <td align="right">
                                                     <asp:Label ID="Label23" Text="Other Goal Invested Amount:" CssClass="FieldName" runat="server">
                                                     </asp:Label>
@@ -1255,7 +1330,7 @@
                 OnItemDataBound="RadGrid4_ItemDataBound" OnItemCommand="RadGrid4_ItemCommand"
                 OnDeleteCommand="RadGrid4_DeleteCommand" OnInsertCommand="RadGrid4_ItemInserted"
                 AllowAutomaticUpdates="false" Skin="Telerik">
-                <ExportSettings HideStructureColumns="false"  ExportOnlyData="true" FileName="ExistEQinvestList">
+                <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistEQinvestList">
                 </ExportSettings>
                 <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
                     CommandItemSettings-AddNewRecordText="Select EQ Investment" DataKeyNames="PEM_ScripCode,CENPS_Id,OtherEquityGoalAllocation">
@@ -1321,7 +1396,7 @@
                                                         CssClass="rfvPCG" ValidationGroup="btnSubmit">
                                                     </asp:RequiredFieldValidator>
                                                 </td>
-                                                <td align="right" id="tdlblPickScrips" runat="server" >
+                                                <td align="right" id="tdlblPickScrips" runat="server">
                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                     <asp:Label ID="lblPickScrips" Text="Scrips:" CssClass="FieldName" runat="server">
                                                     </asp:Label>
@@ -1440,14 +1515,14 @@
                                                     <asp:RegularExpressionValidator Display="Dynamic" ID="RegularExpressionValidator8"
                                                         runat="server" ValidationGroup="btnSubmit" CssClass="rfvPCG" ControlToValidate="txtAllocationEntryEquity"
                                                         ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
-                                                        
                                                     <asp:CompareValidator ID="cvAvlShares" runat="server" CssClass="rfvPCG" Operator="LessThanEqual"
-                                                        Display="Dynamic" ControlToCompare="lblAvailableSharesforCurrentGoalEdit" Type="Double" ControlToValidate="txtAllocationEntryEquity"
-                                                        ErrorMessage="Check Your Available Allocation" ValidationGroup="btnSubmit"></asp:CompareValidator>
-                                                    
-                                                    <asp:CompareValidator ID="CompareValidator1" runat="server" CssClass="rfvPCG" Operator="LessThanEqual" Type="Double"
-                                                        Display="Dynamic" ControlToCompare="lblAvailableSharesforCurrentGoalAdd"  ControlToValidate="txtAllocationEntryEquity"
-                                                        ErrorMessage="Check Your Available Allocation" ValidationGroup="btnSubmit"></asp:CompareValidator>
+                                                        Display="Dynamic" ControlToCompare="lblAvailableSharesforCurrentGoalEdit" Type="Double"
+                                                        ControlToValidate="txtAllocationEntryEquity" ErrorMessage="Check Your Available Allocation"
+                                                        ValidationGroup="btnSubmit"></asp:CompareValidator>
+                                                    <asp:CompareValidator ID="CompareValidator1" runat="server" CssClass="rfvPCG" Operator="LessThanEqual"
+                                                        Type="Double" Display="Dynamic" ControlToCompare="lblAvailableSharesforCurrentGoalAdd"
+                                                        ControlToValidate="txtAllocationEntryEquity" ErrorMessage="Check Your Available Allocation"
+                                                        ValidationGroup="btnSubmit"></asp:CompareValidator>
                                                 </td>
                                             </tr>
                                             <tr id="trOtherGoalAllocation" runat="server">
@@ -1496,11 +1571,8 @@
                         </FormTemplate>
                     </EditFormSettings>
                 </MasterTableView>
-                
-               <ValidationSettings CommandsToValidate="PerformInsert,Update" />
-
+                <ValidationSettings CommandsToValidate="PerformInsert,Update" />
                 <ClientSettings>
-                
                 </ClientSettings>
             </telerik:RadGrid>
         </asp:Panel>

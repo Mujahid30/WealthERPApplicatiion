@@ -706,7 +706,8 @@ namespace DaoCustomerGoalProfiling
                         GoalProfileVo.CorpsToBeLeftBehind = Convert.ToDouble(dr["CG_CorpusLeftBehind"].ToString());
                     }
 
-                   
+                    if (!string.IsNullOrEmpty(dr["CG_GoalType"].ToString()))
+                        GoalProfileVo.goalType = dr["CG_GoalType"].ToString();
                                         
                 }
 
@@ -823,6 +824,7 @@ namespace DaoCustomerGoalProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetGoalsCmd = db.GetStoredProcCommand("SP_GetGoals");
+
                 dsGetGoals = db.ExecuteDataSet(GetGoalsCmd);
             }
             catch (BaseApplicationException Ex)
@@ -831,6 +833,25 @@ namespace DaoCustomerGoalProfiling
             }
             return dsGetGoals;
         }
+        public DataSet GetReacrringGoal(int goalId)
+        {
+            Database db;
+            DbCommand GetReacrringGoalCmd;
+            DataSet dsGetReacrringGoal;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetReacrringGoalCmd = db.GetStoredProcCommand("SPROC_GetGoalReacrring");
+                db.AddInParameter(GetReacrringGoalCmd, "@goalId", DbType.Int32, goalId);
+                dsGetReacrringGoal = db.ExecuteDataSet(GetReacrringGoalCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetReacrringGoal;
+        }
+        
         public DataSet GetGoalListMIS(string userType, int advisorId, int rmId, int customerId, int branchHeadId, int branchId, int All, int isGroup, string goalCode)
         {
             Database db;

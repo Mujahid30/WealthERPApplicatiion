@@ -1474,20 +1474,20 @@ namespace WealthERP.Advisor
             if (e.CommandName == RadGrid.FilterCommandName)
             {
 
-                GridFilteringItem item = gvCustomerList.MasterTableView.GetItems(GridItemType.FilteringItem)[0] as GridFilteringItem;
-                gvCustomerList.CurrentPageIndex = 0;
-                hdncustomerCategoryFilter.Value = (item["ACC_CustomerCategoryName"].Controls[0] as TextBox).Text;
-                hdnSystemId.Value = (item["CustomerId"].Controls[0] as TextBox).Text;
-                hdnClientId.Value = (item["custcode"].Controls[0] as TextBox).Text;
-                hdnName.Value = (item["Cust_Comp_Name"].Controls[0] as TextBox).Text;
-                hdnGroup.Value = (item["ParentId"].Controls[0] as TextBox).Text;
-                hdnPAN.Value = (item["PANNumber"].Controls[0] as TextBox).Text;
-                //hdnBranch.Value = (item["BranchName"].Controls[0] as TextBox).Text;
-                hdnArea.Value = (item["Area"].Controls[0] as TextBox).Text;
-                hdnCity.Value = (item["City"].Controls[0] as TextBox).Text;
-                hdnIsMFKYC.Value = (item["IsMFKYC"].Controls[0] as TextBox).Text;
-                hdnProcessId.Value = (item["ADUL_ProcessId"].Controls[0] as TextBox).Text;
-                hdnSystemAddDate.Value = (item["CreatedOn"].Controls[0] as TextBox).Text;
+                //GridFilteringItem item = gvCustomerList.MasterTableView.GetItems(GridItemType.FilteringItem)[0] as GridFilteringItem;
+                //gvCustomerList.CurrentPageIndex = 0;
+                //hdncustomerCategoryFilter.Value = (item["ACC_CustomerCategoryName"].Controls[0] as TextBox).Text;
+                //hdnSystemId.Value = (item["CustomerId"].Controls[0] as TextBox).Text;
+                //hdnClientId.Value = (item["custcode"].Controls[0] as TextBox).Text;
+                //hdnName.Value = (item["Cust_Comp_Name"].Controls[0] as TextBox).Text;
+                //hdnGroup.Value = (item["ParentId"].Controls[0] as TextBox).Text;
+                //hdnPAN.Value = (item["PANNumber"].Controls[0] as TextBox).Text;
+                ////hdnBranch.Value = (item["BranchName"].Controls[0] as TextBox).Text;
+                //hdnArea.Value = (item["Area"].Controls[0] as TextBox).Text;
+                //hdnCity.Value = (item["City"].Controls[0] as TextBox).Text;
+                //hdnIsMFKYC.Value = (item["IsMFKYC"].Controls[0] as TextBox).Text;
+                //hdnProcessId.Value = (item["ADUL_ProcessId"].Controls[0] as TextBox).Text;
+                //hdnSystemAddDate.Value = (item["CreatedOn"].Controls[0] as TextBox).Text;
 
 
             }

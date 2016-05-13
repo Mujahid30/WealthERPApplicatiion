@@ -51,7 +51,7 @@ namespace WealthERP.Advisor
         int investedAmountForAllGaol = 0;
         int monthlySavingRequired = 0;
         bool isHavingAssumption = false;
-
+        DataTable dtrecurringtable = new DataTable();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session[SessionContents.FPS_ProspectList_CustomerId] != null)
@@ -945,7 +945,7 @@ namespace WealthERP.Advisor
                 }
 
 
-                customerGoalPlanningBo.CreateCustomerGoalPlanning(customerGoalPlanningVo, customerAssumptionVo, ParentCustomerId, false,out goalId);
+                customerGoalPlanningBo.CreateCustomerGoalPlanning(customerGoalPlanningVo, customerAssumptionVo, ParentCustomerId, false, dtrecurringtable, out goalId);
 
 
                 //Tab2ControlVisibility(0);

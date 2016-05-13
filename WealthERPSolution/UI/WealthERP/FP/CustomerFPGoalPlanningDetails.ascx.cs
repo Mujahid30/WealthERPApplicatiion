@@ -810,16 +810,20 @@ namespace WealthERP.FP
                     dtGoalProfile.Rows.Add(drGoalProfile);
                 }
 
-
+                Cache.Remove("dtGoalProfile" + customerVo.CustomerId.ToString());
+                Cache.Insert("dtGoalProfile" + customerVo.CustomerId.ToString(), dtGoalProfile);
                 gvStandardGoaldetails.DataSource = dtGoalProfile;
                 gvStandardGoaldetails.DataBind();
-                Cache[customerVo.CustomerId + "dtGoalProfile"] = dtGoalProfile;
+                
             }
         protected void gvStandardGoaldetails_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataTable dt = new DataTable();
-            dt = (DataTable)Cache[customerVo.CustomerId + "dtGoalProfile"];
-            gvStandardGoaldetails.DataSource = dt;
+            dt = (DataTable)Cache["dtGoalProfile" + customerVo.CustomerId.ToString()];
+            if (dt != null)
+            {
+                gvStandardGoaldetails.DataSource = dt;
+            }
         }
         public void gvStandardGoaldetails_ItemDataBound(object sender, GridItemEventArgs e)
         {

@@ -46,7 +46,7 @@ namespace VoCustomerGoalProfiling
         private double G_GoalCompletionPercent;
         private bool G_IsFundFromAsset;
         private double G_CorpsToBeLeftBehind;
-
+        public string goalType { get; set; }
         public double CorpsToBeLeftBehind
         {
             get { return G_CorpsToBeLeftBehind; }

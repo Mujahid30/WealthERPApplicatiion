@@ -596,7 +596,7 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('HoldingIssueAllotment','login');", true);
                 }
-                    
+
                 else if (e.Item.Value == "Brokerage_Recon")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerUploadNew','login');", true);
@@ -604,11 +604,11 @@ namespace WealthERP.Advisor
 
                 else if (e.Item.Value == "View_Received_Commission_Report")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('BulkRequestStatus','IsRecevableReport="+"1"+"');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('BulkRequestStatus','IsRecevableReport=" + "1" + "');", true);
                 }
                 else if (e.Item.Value == "View_Associate_Payout_Report")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('BulkRequestStatus','IsRecevableReport="+"0"+"');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('BulkRequestStatus','IsRecevableReport=" + "0" + "');", true);
                 }
                 else if (e.Item.Value == "Non-MF_Recon")
                 {
@@ -1424,8 +1424,8 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "rm";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
                 }
-                
-                   
+
+
                 else if (e.Item.Value == "Customer_Report")
                 {
                     Session["UserType"] = "rm";
@@ -1912,6 +1912,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageLookups','login');", true);
                 }
+                else if (e.Item.Value == "FP_Client_List")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','action=FPClient');", true);
+                }
                 else if (e.Item.Value == "Notfications")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('NotificationStatusDetails','login');", true);
@@ -2218,7 +2222,7 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncome54ECOrderEntry','FDOrder=FICDCD');", true);
                 }
-         
+
                 else if (e.Item.Value == "Customer_Report")
                 {
                     Session["UserType"] = "ops";
@@ -4121,7 +4125,7 @@ namespace WealthERP.Advisor
             {
                 if (txtOrderNo.Text != "")
                 {
-                    DataTable dtOrderNo = OnlineOrderBackOfficeBo.SearchOnPRoduct(int.Parse(txtOrderNo.Text),0);
+                    DataTable dtOrderNo = OnlineOrderBackOfficeBo.SearchOnPRoduct(int.Parse(txtOrderNo.Text), 0);
                     foreach (DataRow dr in dtOrderNo.Rows)
                     {
                         orderId = int.Parse(dr["CO_OrderId"].ToString());
@@ -4208,7 +4212,7 @@ namespace WealthERP.Advisor
             {
                 if (txtAppno.Text != "")
                 {
-                    DataTable dtOrderNo = OnlineOrderBackOfficeBo.SearchOnPRoduct(0,int.Parse(txtAppno.Text));
+                    DataTable dtOrderNo = OnlineOrderBackOfficeBo.SearchOnPRoduct(0, int.Parse(txtAppno.Text));
                     foreach (DataRow dr in dtOrderNo.Rows)
                     {
                         orderId = int.Parse(dr["CO_OrderId"].ToString());

@@ -93,13 +93,17 @@ namespace DaoFPSuperlite
         }
 
 
-        public void CreateCustomerGoalPlanning(CustomerGoalPlanningVo GoalPlanningVo, out int goalId)
+        public void CreateCustomerGoalPlanning(CustomerGoalPlanningVo GoalPlanningVo,DataTable dtrecurring, out int goalId)
         {
             Database db;
             DbCommand createCustomerGoalProfileCmd;
             goalId = 0;
+            DataSet dsCreateNewdtrecurring = new DataSet();
             try
             {
+                dsCreateNewdtrecurring.Tables.Add(dtrecurring.Copy());
+                dsCreateNewdtrecurring.DataSetName = "dtrecurringDS";
+                dsCreateNewdtrecurring.Tables[0].TableName = "dtrecurringDT";
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createCustomerGoalProfileCmd = db.GetStoredProcCommand("SP_CreateCustomerGoalPlanning");
                 db.AddInParameter(createCustomerGoalProfileCmd, "@CustomerId", DbType.Int32, GoalPlanningVo.CustomerId);
@@ -150,6 +154,8 @@ namespace DaoFPSuperlite
                 {
                     db.AddInParameter(createCustomerGoalProfileCmd, "@CorpsLeftBehind", DbType.Double, GoalPlanningVo.CorpusLeftBehind);
                 }
+                db.AddInParameter(createCustomerGoalProfileCmd, "@XMLdtrecurring", DbType.Xml, dsCreateNewdtrecurring.GetXml().ToString());
+                db.AddInParameter(createCustomerGoalProfileCmd, "@Goaltype", DbType.String, GoalPlanningVo.GoalType);
 
                 db.AddOutParameter(createCustomerGoalProfileCmd, "@GoalId", DbType.Int32, 10000);
                 createCustomerGoalProfileCmd.CommandTimeout = 60 * 60;
@@ -188,12 +194,16 @@ namespace DaoFPSuperlite
         }
 
 
-        public void UpdateCustomerGoalProfile(CustomerGoalPlanningVo GoalPlanningVo)
+        public void UpdateCustomerGoalProfile(CustomerGoalPlanningVo GoalPlanningVo, DataTable dtrecurring)
         {
             Database db;
             DbCommand updateCustomerGoalProfileCmd;
+            DataSet dsCreateNewdtrecurring = new DataSet();
             try
             {
+                dsCreateNewdtrecurring.Tables.Add(dtrecurring.Copy());
+                dsCreateNewdtrecurring.DataSetName = "dtrecurringDS";
+                dsCreateNewdtrecurring.Tables[0].TableName = "dtrecurringDT";
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 updateCustomerGoalProfileCmd = db.GetStoredProcCommand("SP_UpdateCustomerGoalProfile");
                 db.AddInParameter(updateCustomerGoalProfileCmd, "@GoalId", DbType.Int32, GoalPlanningVo.GoalId);
@@ -239,7 +249,7 @@ namespace DaoFPSuperlite
 
                 db.AddInParameter(updateCustomerGoalProfileCmd, "@CorpsToBeLeftBehind", DbType.Double, GoalPlanningVo.CorpusLeftBehind);
                 db.AddInParameter(updateCustomerGoalProfileCmd, "@LumpSumRequired", DbType.Double, GoalPlanningVo.LumpsumInvestRequired);
-
+                db.AddInParameter(updateCustomerGoalProfileCmd, "@XMLdtrecurring", DbType.Xml, dsCreateNewdtrecurring.GetXml().ToString());
                 db.ExecuteNonQuery(updateCustomerGoalProfileCmd);
 
             }

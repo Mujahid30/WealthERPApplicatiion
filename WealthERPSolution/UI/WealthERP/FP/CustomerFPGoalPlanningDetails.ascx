@@ -92,7 +92,7 @@
                     <asp:GridView ID="gvGoalList" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                         HorizontalAlign="Center" CellPadding="4" EnableViewState="True" AllowPaging="false"
                         ShowFooter="true" CssClass="GridViewStyle" DataKeyNames="GoalId,GoalCode,IsGoalBehind" 
-                        OnRowDataBound="gvGoalList_RowDataBound">
+                        OnRowDataBound="gvGoalList_RowDataBound" >
                         <FooterStyle CssClass="FooterStyle" />
                         <RowStyle CssClass="RowStyle" />
                         <%--  <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle"/>--%>

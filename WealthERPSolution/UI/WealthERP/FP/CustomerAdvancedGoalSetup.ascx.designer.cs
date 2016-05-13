@@ -84,7 +84,7 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trSumbitSuccess;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trNoofYears;
         /// <summary>
         /// trUpdateSuccess control.
         /// </summary>
@@ -93,7 +93,7 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trUpdateSuccess;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRadRecurring;
         /// <summary>
         /// lblGoalbjective control.
         /// </summary>
@@ -138,7 +138,8 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdCustomerAge1;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtNoofYears;
+        protected global::Telerik.Web.UI.RadGrid RadRecurring;
         /// <summary>
         /// Label3 control.
         /// </summary>
@@ -147,7 +148,8 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label3;
-        
+        protected global::System.Web.UI.WebControls.TextBox txtNoofYears;
+        protected global::System.Web.UI.WebControls.DropDownList ddlGoalTypes;
         /// <summary>
         /// tdCustomerAge2 control.
         /// </summary>

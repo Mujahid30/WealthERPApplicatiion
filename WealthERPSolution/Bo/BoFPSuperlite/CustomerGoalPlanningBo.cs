@@ -89,7 +89,7 @@ namespace BoFPSuperlite
         }
 
 
-        public CustomerGoalPlanningVo CreateCustomerGoalPlanning(CustomerGoalPlanningVo goalPlanningVo, CustomerAssumptionVo customerAssumptionVo, int UserId, bool updateGoal, out int goalId)
+        public CustomerGoalPlanningVo CreateCustomerGoalPlanning(CustomerGoalPlanningVo goalPlanningVo, CustomerAssumptionVo customerAssumptionVo, int UserId, bool updateGoal,DataTable dtRecurring, out int goalId)
         {
 
             try
@@ -105,11 +105,11 @@ namespace BoFPSuperlite
 
                 if (updateGoal)
                 {
-                    customerGoalPlanningDao.UpdateCustomerGoalProfile(goalPlanningVo);
+                    customerGoalPlanningDao.UpdateCustomerGoalProfile(goalPlanningVo, dtRecurring);
                     goalId = goalPlanningVo.GoalId;
                 }
                 else
-                    customerGoalPlanningDao.CreateCustomerGoalPlanning(goalPlanningVo, out goalId);
+                    customerGoalPlanningDao.CreateCustomerGoalPlanning(goalPlanningVo,dtRecurring, out goalId);
 
                 return goalPlanningVo;
 
