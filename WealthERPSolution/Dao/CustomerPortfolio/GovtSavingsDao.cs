@@ -53,7 +53,12 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createGovtSavingsCmd, "@CGSNP_InterestAmtPaidOut", DbType.Decimal, govtSavingsVo.InterestAmtPaidOut);
 
                 db.AddInParameter(createGovtSavingsCmd, "@CGSNP_SubsqntDepositAmount", DbType.Decimal, govtSavingsVo.SubsqntDepositAmount);
-
+                db.AddInParameter(createGovtSavingsCmd, "@CGSA_Amount", DbType.Decimal, govtSavingsVo.Amount);
+                db.AddInParameter(createGovtSavingsCmd, "@CGSA_ModeOfPayment", DbType.String, govtSavingsVo.ModeOfPayment);
+                db.AddInParameter(createGovtSavingsCmd, "@CGSA_PaymentInstrumentNumber", DbType.String, govtSavingsVo.PaymentInstrumentNumber);
+                db.AddInParameter(createGovtSavingsCmd, "@CGSA_PaymentInstrumentDate", DbType.DateTime, govtSavingsVo.PaymentInstrumentDate);
+                db.AddInParameter(createGovtSavingsCmd, "@CGSA_BankName", DbType.Int32, govtSavingsVo.BankName);
+                db.AddInParameter(createGovtSavingsCmd, "@CGSA_BankBranch", DbType.String, govtSavingsVo.BankBranch);
                 if (govtSavingsVo.SubsqntDepositDate != DateTime.MinValue)
                     db.AddInParameter(createGovtSavingsCmd, "@CGSNP_SubsqntDepositDate", DbType.Date, govtSavingsVo.SubsqntDepositDate);
 
@@ -138,6 +143,13 @@ namespace DaoCustomerPortfolio
                         govtSavingsVo.InterestAmtAccumalated = float.Parse(dr["CGSNP_InterestAmtAccumalated"].ToString());
                         govtSavingsVo.InterestAmtPaidOut = float.Parse(dr["CGSNP_InterestAmtPaidOut"].ToString());
                         govtSavingsVo.AssetInstrumentCategoryName = dr["PAIC_AssetInstrumentCategoryName"].ToString();
+                        //govtSavingsVo.Amount = float.Parse(dr["CGSA_Amount"].ToString());
+                        //govtSavingsVo.ModeOfPayment = dr["CGSA_ModeOfPayment"].ToString();
+                        //govtSavingsVo.PaymentInstrumentNumber = dr["CGSA_PaymentInstrumentNumber"].ToString();
+                        //govtSavingsVo.PaymentInstrumentDate = DateTime.Parse(dr["CGSA_PaymentInstrumentDate"].ToString());
+                        //govtSavingsVo.BankName = int.Parse(dr["CGSA_BankName"].ToString());
+                        //govtSavingsVo.BankBranch = dr["CGSA_BankBranch"].ToString();
+                        
                         govtSavingsList.Add(govtSavingsVo);
                     }
                 }
@@ -201,7 +213,12 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(updateGovtSavingsPortfolioCmd, "@CGSNP_InterestRate", DbType.Double, govtSavingsVo.InterestRate);
 
                 db.AddInParameter(updateGovtSavingsPortfolioCmd, "@CGSNP_SubsqntDepositAmount", DbType.Decimal, govtSavingsVo.SubsqntDepositAmount);
-
+                db.AddInParameter(updateGovtSavingsPortfolioCmd, "@CGSA_Amount", DbType.Decimal, govtSavingsVo.Amount);
+                db.AddInParameter(updateGovtSavingsPortfolioCmd, "@CGSA_ModeOfPayment", DbType.String, govtSavingsVo.ModeOfPayment);
+                db.AddInParameter(updateGovtSavingsPortfolioCmd, "@CGSA_PaymentInstrumentNumber", DbType.String, govtSavingsVo.PaymentInstrumentNumber);
+                db.AddInParameter(updateGovtSavingsPortfolioCmd, "@CGSA_PaymentInstrumentDate", DbType.DateTime, govtSavingsVo.PaymentInstrumentDate);
+                db.AddInParameter(updateGovtSavingsPortfolioCmd, "@CGSA_BankName", DbType.Int32, govtSavingsVo.BankName);
+                db.AddInParameter(updateGovtSavingsPortfolioCmd, "@CGSA_BankBranch", DbType.String, govtSavingsVo.BankBranch);
                 if (govtSavingsVo.SubsqntDepositDate != DateTime.MinValue)
                     db.AddInParameter(updateGovtSavingsPortfolioCmd, "@CGSNP_SubsqntDepositDate", DbType.Date, govtSavingsVo.SubsqntDepositDate);
 
@@ -338,6 +355,7 @@ namespace DaoCustomerPortfolio
                     govtSavingsVo.InterestRate = float.Parse(dr["CGSNP_InterestRate"].ToString());
                     govtSavingsVo.Name = dr["CGSNP_Name"].ToString();
                     govtSavingsVo.AssetInstrumentCategoryName = dr["PAIC_AssetInstrumentCategoryName"].ToString();
+                    
                     //  govtSavingsVo.Quantity = float.Parse(dr["CIGSP_Quantity"].ToString());
                     if (dr["CGSNP_PurchaseDate"] != DBNull.Value)
                         govtSavingsVo.PurchaseDate = DateTime.Parse(dr["CGSNP_PurchaseDate"].ToString());

@@ -2036,7 +2036,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerCmd, "@CPS_GuardPan", DbType.String, customerVo.GuardPANNum);
 
                 db.AddInParameter(createCustomerCmd, "@C_MfKYC", DbType.Int32, customerVo.MfKYC);
-                db.AddInParameter(createCustomerCmd, "@C_IsRealInvestor", DbType.Boolean, customerVo.IsRealInvestor ? 1 : 0);
+                db.AddInParameter(createCustomerCmd, "@C_IsRealInvestor", DbType.Boolean, customerVo.IsRealInvestor);
                 db.AddInParameter(createCustomerCmd, "@C_WCMV_TaxStatus_Id", DbType.Int16, customerVo.TaxStatusCustomerSubTypeId);
 
 

@@ -234,6 +234,8 @@ namespace WealthERP.CustomerPortfolio
                     dtGovtSavings.Columns.Add("Rate Of Interest",typeof(double));
                     dtGovtSavings.Columns.Add("Current Value",typeof(double));
                     dtGovtSavings.Columns.Add("Maturity Value",typeof(double));
+                    dtGovtSavings.Columns.Add("Amount) ValueType", typeof(decimal));
+
                     DataRow drGovtSavings;
 
                     for (int i = 0; i < govtSavingsList.Count; i++)

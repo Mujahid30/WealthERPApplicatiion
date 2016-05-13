@@ -11,8 +11,10 @@ using BoCustomerPortfolio;
 using VoCustomerPortfolio;
 using VoUser;
 using BoCommon;
+
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
+using BoOps;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -30,7 +32,8 @@ namespace WealthERP.CustomerPortfolio
         GovtSavingsBo govtSavingsBo = new GovtSavingsBo();
         GovtSavingsVo govtSavingsVo = new GovtSavingsVo();
         CustomerAccountBo customerAccountBo = new CustomerAccountBo();
-
+        MFOrderBo mfOrderBo = new MFOrderBo();
+        DataTable dtBankName = new DataTable();
         int portfolioId;
         string command;
         string path;
@@ -158,6 +161,8 @@ namespace WealthERP.CustomerPortfolio
             LoadInterestBasis(path);
             LoadFrequencyCode(path);
             LoadCompoundFrequencyCode(path);
+            BindBank();
+
         }
         /// <summary>
         /// Set the mode to Edit/Add/View based on the Session["action"] value
@@ -478,7 +483,20 @@ namespace WealthERP.CustomerPortfolio
                     newGovtSavingsVo.InterestRate = float.Parse(txtInterstRate.Text);
                 if (ddlInterestBasis != null)
                     newGovtSavingsVo.InterestBasisCode = ddlInterestBasis.SelectedItem.Value.ToString();
-
+                if (txtAmount != null && txtAmount.Text !="")
+                    newGovtSavingsVo.Amount = float.Parse(txtAmount.Text);
+                if (ddlPaymentMode != null)
+                    newGovtSavingsVo.ModeOfPayment = ddlPaymentMode.SelectedItem.Value.ToString();
+                if (txtPaymentNumber != null && txtPaymentNumber.Text != "")
+                    newGovtSavingsVo.PaymentInstrumentNumber = txtPaymentNumber.Text;
+                if (txtPaymentInstDate.SelectedDate != DateTime.MinValue)
+                    newGovtSavingsVo.PaymentInstrumentDate = Convert.ToDateTime(txtPaymentInstDate.SelectedDate);
+                if (txtBranchName != null && txtBranchName.Text != "")
+                    newGovtSavingsVo.BankBranch = txtBranchName.Text;
+                if (ddlBankName != null)
+                    newGovtSavingsVo.BankName = int.Parse(ddlBankName.SelectedValue.ToString());
+                
+                
                 if (newGovtSavingsVo.InterestBasisCode == "SI")
                 {
                     newGovtSavingsVo.InterestPayableFrequencyCode = ddlSimpleInterestFC.SelectedItem.Value.ToString();
@@ -545,6 +563,70 @@ namespace WealthERP.CustomerPortfolio
 
             }
         }
+        protected void ddlPaymentMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            PaymentMode(ddlPaymentMode.SelectedValue);
+            ddlPaymentMode.Focus();
+        }
+        private void PaymentMode(string type)
+        {
+            if (type == "CQ" || type == "DF")
+            {
+                trPINo.Visible = true;
+               // txtPaymentInstDate.MaxDate = txtOrderDate.MaxDate;
+            }
+            else
+            {
+                trPINo.Visible = false;
+            }
+        }
+        protected void txtPaymentInstDate_OnSelectedDateChanged(object sender, EventArgs e)
+        {
+            txtPaymentInstDate.Focus();
+        }
+        protected void ddlBankName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int BankAccountId = 0;
+            BankBranches(Convert.ToInt32(ddlBankName.SelectedValue));
+            ddlBankName.Focus();
+        }
+        private void BankBranches(int BankLookUpId)
+        {
+
+            DataTable dtgetBankBranch = new DataTable();
+            ddlBranch.DataSource = dtgetBankBranch;
+            ddlBranch.Items.Clear();
+            if (ddlBankName.SelectedIndex != 0)
+            {
+
+                dtBankName = mfOrderBo.GetBankBranch(BankLookUpId); ;
+                ddlBranch.DataSource = dtBankName;
+                ddlBranch.DataValueField = dtBankName.Columns["BBL_LookUp_Id"].ToString();
+                ddlBranch.DataTextField = dtBankName.Columns["BBL_BranchName"].ToString();
+                ddlBranch.DataBind();
+                ddlBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
+
+            }
+        }
+
+        protected void imgBtnRefereshBank_OnClick(object sender, EventArgs e)
+        {
+            customerVo = (CustomerVo)Session["customerVo"];
+            BindBank();
+        }
+        private void BindBank()
+        {
+            CommonLookupBo commonLookupBo = new CommonLookupBo();
+            ddlBankName.Items.Clear();
+            DataTable dtBankName = new DataTable();
+            dtBankName = commonLookupBo.GetWERPLookupMasterValueList(7000, 0); ;
+            ddlBankName.DataSource = dtBankName;
+            ddlBankName.DataValueField = dtBankName.Columns["WCMV_LookupId"].ToString();
+            ddlBankName.DataTextField = dtBankName.Columns["WCMV_Name"].ToString();
+            ddlBankName.DataBind();
+            ddlBankName.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+
+        }
 
         public void UpdateAccountDetails(CustomerAccountsVo customerAccountVo)
         {
@@ -559,6 +641,14 @@ namespace WealthERP.CustomerPortfolio
                 newAccountVo.AssetCategory = customerAccountVo.AssetCategory.Trim();
                 newAccountVo.AssetClass = customerAccountVo.AssetClass.Trim();
                 newAccountVo.ModeOfHolding = customerAccountVo.ModeOfHolding.Trim();
+                newAccountVo.BankName = ddlBankName.SelectedValue;
+                newAccountVo.Amount = int.Parse(txtAmount.Text);
+                
+                
+
+                
+               
+                
 
                 Session["newAccountVo"] = newAccountVo;
                 govtSavingsBo.UpdateGovtSavingsAccount(newAccountVo, userVo.UserId);

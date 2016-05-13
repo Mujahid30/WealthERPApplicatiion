@@ -27,7 +27,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             SessionBo.CheckSession();
             userVo = (UserVo)Session["userVo"];
-            adviserVo = (AdvisorVo)Session["advisorVo"];
+             adviserVo = (AdvisorVo)Session["advisorVo"];
             //if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
             //{
                 txtClientCode_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
