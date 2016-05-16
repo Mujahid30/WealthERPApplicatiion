@@ -44,7 +44,7 @@
         border: solid 1.5px #00CEFF;
         cursor: auto;
     }
-     .style1
+    .style1
     {
         width: 37%;
     }
@@ -123,11 +123,6 @@
 <table width="100%">
     <table class="tblMessage" cellpadding="0" cellspacing="0">
         <tr>
-            <td>
-                <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                    OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
-            </td>
         </tr>
     </table>
     <table width="100%">
@@ -139,13 +134,14 @@
                             <td align="left">
                                 SIP Book
                             </td>
+                            <td style="float: right; margin-right: 10px">
+                            </td>
                         </tr>
                     </table>
                 </div>
             </td>
         </tr>
     </table>
-    
 </table>
 <asp:UpdatePanel ID="upSIPBook" runat="server" RenderMode="Block">
     <ContentTemplate>
@@ -157,12 +153,16 @@
                 <div class="col-md-3">
                     <asp:DropDownList CssClass="form-control input-sm" ID="ddlAMCCode" runat="server"
                         AutoPostBack="false">
-                       
                     </asp:DropDownList>
                 </div>
                 <div class="col-md-3">
                     <asp:Button ID="btnViewSIP" runat="server" CssClass="btn btn-primary btn-primary"
                         Text="Go" ValidationGroup="btnViewSIP" OnClick="btnViewOrder_Click" />
+                </div>
+                <div class="col-md-2">
+                    <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                        Height="20px" Width="25px"></asp:ImageButton>
                 </div>
                 <div style="float: right">
                     <asp:ImageButton ID="imgInformation" runat="server" ImageUrl="../Images/help.png"
@@ -194,14 +194,12 @@
                             <HeaderTemplate>
                             </HeaderTemplate>
                             <ItemTemplate>
-                                <div class="col-sm-12 col-sm-12
-col-md-12 col-lg-12 divs">
+                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 divs">
                                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 fk-font-6" style="margin-bottom: 1.5px;">
                                         <font color="#565656"><b>Scheme Name:</b> </font>
                                         <%# Eval("PASP_SchemePlanName")%>
                                     </div>
-                                    <div class="col-xs-3 col-sm-3 col-md-3
-col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                         <font color="#565656"><b>Category:</b></font>
                                         <%# Eval("PAISC_AssetInstrumentSubCategoryName")%>
                                     </div>
@@ -210,11 +208,8 @@ col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                         <%# Eval("CMFA_FolioNum")%>
                                     </div>
                                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
-                                        <font color="#565656"><b>Scheme Rating:</b></font>
-
-
-                                        <a href="#" class="popper" data-popbox="divSchemeRatingDetails"><span class="FieldName">
-                                        </span>
+                                        <font color="#565656"><b>Scheme Rating:</b></font> <a href="#" class="popper" data-popbox="divSchemeRatingDetails">
+                                            <span class="FieldName"></span>
                                             <asp:Image runat="server" ID="imgSchemeRating" onmouseover="BeginHandler()" />
                                         </a>
                                         <asp:Label ID="lblSchemeRating" runat="server" CssClass="cmbField" Text='<%# Eval("SchemeRatingOverall") %>'
@@ -529,4 +524,7 @@ sender.get_top());
             } </script>
 
     </ContentTemplate>
+     <Triggers>
+        <asp:PostBackTrigger ControlID="btnExport" />
+    </Triggers>
 </asp:UpdatePanel>

@@ -160,7 +160,7 @@ namespace WealthERP.OnlineOrderManagement
                 gvSIPSummaryBookMIS.Visible = true;
 
                 //pnlSIPSumBook.Visible = true;
-                btnExport.Visible = false;
+                btnExport.Visible = true;
                 trNoRecords.Visible = false;
                 divNoRecords.Visible = false;
                 Div1.Visible = true;
@@ -380,14 +380,6 @@ namespace WealthERP.OnlineOrderManagement
 
         private void SetParameter()
         {
-            //if (ddlOrderstatus.SelectedIndex != 0)
-            //{
-            //    hdnOrderStatus.Value = ddlOrderstatus.SelectedValue;
-            //    ViewState["OrderstatusDropDown"] = hdnOrderStatus.Value;
-            //}
-            //else
-            //{
-            //    hdnOrderStatus.Value = "0";
             //}
             if (ddlAMCCode.SelectedIndex != 0)
             {
@@ -401,20 +393,6 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //RadComboBox ddlAction = (RadComboBox)sender;
-            //GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
-            //int selectedRow = gvr.ItemIndex + 1;
-            //string action = "";
-            //string orderId = gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString();
-            //string customerId = gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[selectedRow - 1]["C_CustomerId"].ToString();
-            //string assetGroupCode = gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[selectedRow - 1]["PAG_AssetGroupCode"].ToString();
-            //if (ddlAction.SelectedItem.Value.ToString() == "Edit")
-            //{
-            //    action = "Edit";
-            //    if (assetGroupCode == "MF")
-            //    {
-            //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderSIPTransType','strAction=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&customerId=" + customerId + "');", true);
-            //    }
         }
         protected void gvSIPSummaryBookMIS_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
@@ -430,14 +408,103 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void btnExportFilteredData_OnClick(object sender, EventArgs e)
         {
-            gvSIPSummaryBookMIS.ExportSettings.OpenInNewWindow = true;
-            gvSIPSummaryBookMIS.ExportSettings.IgnorePaging = true;
-            gvSIPSummaryBookMIS.ExportSettings.HideStructureColumns = true;
-            gvSIPSummaryBookMIS.ExportSettings.ExportOnlyData = true;
-            gvSIPSummaryBookMIS.ExportSettings.FileName = "SIP Summary Book Details";
-            gvSIPSummaryBookMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvSIPSummaryBookMIS.MasterTableView.ExportToExcel();
+            DataTable dtSIPBook = new DataTable();
+            dtSIPBook = (DataTable)Cache["SIPSumList" + userVo.UserId.ToString()];
+            DataTable dtSIPOrderBook = new DataTable();
+            dtSIPOrderBook.Columns.Add("Scheme Name");
+            dtSIPOrderBook.Columns.Add("Category");
+            dtSIPOrderBook.Columns.Add("Folio No.");
+            dtSIPOrderBook.Columns.Add("Amount");
+            dtSIPOrderBook.Columns.Add("Request No.");
+            dtSIPOrderBook.Columns.Add("Dividend Type");
+            dtSIPOrderBook.Columns.Add("SIP Frequency");
+            dtSIPOrderBook.Columns.Add("Start date");
+            dtSIPOrderBook.Columns.Add("End date");
+            dtSIPOrderBook.Columns.Add("Next SIP Date");
+            dtSIPOrderBook.Columns.Add("Request Date");
+
+            dtSIPOrderBook.Columns.Add("Total Installment");
+            dtSIPOrderBook.Columns.Add("Accepted");
+            dtSIPOrderBook.Columns.Add("Pending");
+            dtSIPOrderBook.Columns.Add("In Process");
+            dtSIPOrderBook.Columns.Add("Rejected");
+            dtSIPOrderBook.Columns.Add("Executed");
+            dtSIPOrderBook.Columns.Add("System Rejected");
+            dtSIPOrderBook.Columns.Add("Other");
+            dtSIPOrderBook.Columns.Add("Channel");
+            dtSIPOrderBook.Columns.Add("Status");
+            //dtSIPOrderBook.Columns.Add("InProcessCount");
+            dtSIPOrderBook.Columns.Add("Reject Remark");
+            foreach (DataRow sourcerow in dtSIPBook.Rows)
+            {
+                DataRow destRow = dtSIPOrderBook.NewRow();
+                destRow["Scheme Name"] = sourcerow["PASP_SchemePlanName"];
+                destRow["Category"] = sourcerow["PAISC_AssetInstrumentSubCategoryName"];
+                destRow["Folio No."] = sourcerow["CMFA_FolioNum"];
+                destRow["Request Date"] = sourcerow["CMFSS_CreatedOn"];
+                destRow["Amount"] = sourcerow["CMFSS_Amount"];
+                destRow["Request No."] = sourcerow["CMFSS_SystematicSetupId"];
+                destRow["SIP Frequency"] = sourcerow["XF_Frequency"];
+                destRow["Dividend Type"] = sourcerow["CMFSS_DividendOption"];
+                destRow["Start date"] = sourcerow["CMFSS_StartDate"];
+                destRow["End date"] = sourcerow["CMFSS_EndDate"];
+                destRow["Next SIP Date"] = sourcerow["CMFSS_NextSIPDueDate"];
+                destRow["Total Installment"] = sourcerow["CMFSS_TotalInstallment"];
+                destRow["Accepted"] = sourcerow["AcceptCount"];
+                destRow["Pending"] = sourcerow["SIPDueCount"];
+                destRow["In Process"] = sourcerow["InProcessCount"];
+                destRow["Rejected"] = sourcerow["RejectedCount"];
+                destRow["Executed"] = sourcerow["ExecutedCount"];
+                destRow["System Rejected"] = sourcerow["SystemRejectCount"];
+                destRow["Other"] = sourcerow["CMFSS_InstallmentOther"];
+                destRow["Channel"] = sourcerow["Channel"];
+                destRow["Status"] = sourcerow["CMFSS_IsCanceled"];
+                //destRow["InProcessCount"] = sourcerow["InProcessCount"];
+                destRow["Reject Remark"] = sourcerow["CMFSS_Remark"];
+                dtSIPOrderBook.Rows.Add(destRow);
+            }
+            System.Data.DataView view = new System.Data.DataView(dtSIPOrderBook);
+
+            System.Data.DataTable selected =
+                    view.ToTable("Selected", false, "Scheme Name", "Category", "Folio No.",
+                    "Request Date", "Amount", "Request No.", "SIP Frequency", "Dividend Type",
+                    "Start date", "End date", "Next SIP Date", "Total Installment", "Accepted",
+                    "Pending", "In Process", "Rejected", "Executed", "System Rejected",
+                    "Other", "Channel", "Status"
+                    , "Reject Remark");
+           
+            if (dtSIPOrderBook.Rows.Count > 0)
+            {
+                {
+                    Response.ClearContent();
+                    Response.Buffer = true;
+                    Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", "CustomerSIPOrder.xls"));
+                    Response.ContentType = "application/ms-excel";
+
+                    string str = string.Empty;
+
+                    foreach (DataColumn dtcol in selected.Columns)
+                    {
+                        Response.Write(str + dtcol.ColumnName);
+                        str = "\t";
+
+                    }
+                    Response.Write("\n");
+                    foreach (DataRow dr in selected.Rows)
+                    {
+                        str = "";
+                        for (int j = 0; j < selected.Columns.Count; j++)
+                        {
+                            Response.Write(str + Convert.ToString(dr[j]));
+                            str = "\t";
+                        }
+                        Response.Write("\n");
+                    }
+                    Response.End();
+                }
+            }
         }
+
         protected void gvSIPSummaryBookMIS_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
             string orderStatus = string.Empty;
@@ -468,14 +535,6 @@ namespace WealthERP.OnlineOrderManagement
                                 if (e.CommandName == "Accepted")
                                 {
                                     BindChildCridDetails(int.Parse(ddlAMCCode.SelectedValue), "PR", systematicId, gvChildOrderBookDetails);
-                                    //if (Session["PageDefaultSetting"] != null)
-                                    //{
-                                    //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerTransactionBookList','?systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA + "&Amount=" + Amount + "&SIPStartDate=" + SIPStartDate + "');", true);
-                                    //}
-                                    //else
-                                    //{
-                                    //    Response.Redirect("ControlHost.aspx?pageid=CustomerTransactionBookList&systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA + "&Amount=" + Amount + "&SIPStartDate=" + SIPStartDate + "", false);
-                                    //}
 
                                 }
                                 if (e.CommandName == "InProcess" | e.CommandName == "Rejected" | e.CommandName == "Executed")
@@ -493,18 +552,6 @@ namespace WealthERP.OnlineOrderManagement
                                         orderStatus = "IP";
                                     }
                                     BindChildCridDetails(int.Parse(ddlAMCCode.SelectedValue), orderStatus, systematicId, gvChildOrderBookDetails);
-
-                                    //if (Session["PageDefaultSetting"] != null)
-                                    //{
-                                    //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerSIPBookList','?systematicId=" + systematicId + "&AmcCode=" + ddlAMCCode.SelectedValue + "&systematicType=" + systematictype + "&OrderStatus=" + orderStatus + "');", true);
-                                    //}
-                                    //else
-                                    //{
-                                    //    Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "&AmcCode=" + ddlAMCCode.SelectedValue + "&systematicType=" + systematictype + "&OrderStatus=" + orderStatus + "", false);
-                                    //    //Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA + "&Amount=" + Amount + "&SIPStartDate=" + SIPStartDate + "", false);
-                                    //    //Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "&OrderStatus=" + orderStatus + "", false);
-                                    //}
-
                                 }
                             }
                         }
@@ -513,9 +560,8 @@ namespace WealthERP.OnlineOrderManagement
             }
         }
         protected void btnDetails_OnClick(object sender, EventArgs e)
-
         {
-           Button lnkOrderNo = (Button)sender;
+            Button lnkOrderNo = (Button)sender;
             GridDataItem gdi;
             DataTable filldt = new DataTable();
             gdi = (GridDataItem)lnkOrderNo.NamingContainer;
@@ -523,7 +569,7 @@ namespace WealthERP.OnlineOrderManagement
             RadGrid gvChildOrderBookDetails = (RadGrid)gdi.FindControl("gvChildOrderBookDetails");
             int systematicId = int.Parse((gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFSS_SystematicSetupId"].ToString()));
             string systematictype = Request.QueryString["systematicType"].ToString();
-            BindChildCridDetails(int.Parse(ddlAMCCode.SelectedValue),null,systematicId,gvChildOrderBookDetails);
+            BindChildCridDetails(int.Parse(ddlAMCCode.SelectedValue), null, systematicId, gvChildOrderBookDetails);
         }
         protected void BindChildCridDetails(int amcCode, string orderstatus, int systematicId, RadGrid gvChildOrderBookDetails)
         {
@@ -539,25 +585,8 @@ namespace WealthERP.OnlineOrderManagement
                 //buttonlink.Text = "+";
             }
             DataTable dtNCDOrderBook = (DataTable)Cache["SIPSumList" + userVo.UserId.ToString()];
-            //DataRow[] rows = dtNCDOrderBook.Select("CMFSS_SystematicSetupId = " + systematicId + " ");
-            //if (rows.Length > 0)
-            //{
-            //    filldt = rows.CopyToDataTable();
-            //}
             gvChildOrderBookDetails.DataSource = dsSIPBookMIS;
             gvChildOrderBookDetails.DataBind();
-            //gvChildOrderBookDetails.Visible = true;
-            //if (Session["PageDefaultSetting"] != null)
-            //{
-            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerSIPBookList','?systematicId=" + systematicId + "&AmcCode=" + ddlAMCCode.SelectedValue + "&systematicType=" + systematictype + "&IsPageDefaultSetting=1" + "');", true);
-            //}
-            //else
-            //{
-            //    Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "&AmcCode=" + ddlAMCCode.SelectedValue + "&systematicType=" + systematictype + "", false);
-            //}
-            //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerSIPBookList", "loadcontrol('CustomerSIPBookList');", true);
-            // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerSIPBookList", "loadcontrol('CustomerSIPBookList','action=viewIsssueList&issueNo=" + issueNo + "&type=" + ddlType.SelectedValue + "&date=" + DateTime.Now + "&product=" + ddlProduct.SelectedValue + "');", true);
-
         }
         protected void gvSIPSummaryBookMIS_UpdateCommand(object source, GridCommandEventArgs e)
         {

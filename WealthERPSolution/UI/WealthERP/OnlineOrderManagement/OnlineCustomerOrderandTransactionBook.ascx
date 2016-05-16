@@ -62,6 +62,8 @@
                         <td align="left">
                             Order Book
                         </td>
+                        <td style="float: right; margin-right: 50px">
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -80,7 +82,7 @@
                     </asp:DropDownList>
                     <%--<asp:RequiredFieldValidator ID="rfvAMC" runat="server" ControlToValidate="ddlAMC" InitialValue="0" ErrorMessage="Please Select AMC" Display="Dynamic"></asp:RequiredFieldValidator>--%>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-4">
                     Scheme:
                     <asp:DropDownList ID="ddlScheme" runat="server" CssClass="form-control input-sm"
                         class="form-control">
@@ -103,6 +105,11 @@
                 <div class="col-md-1" style="margin-top: 1.8%">
                     <asp:Button ID="btnViewSIP" runat="server" CssClass="btn btn-primary btn-primary"
                         Text="Go" ValidationGroup="btnViewSIP" OnClick="btnViewOrder_Click" />
+                </div>
+                <div class="col-md-1" style="margin-top: 1.8%">
+                    <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                        Height="25px" Width="29px"></asp:ImageButton>
                 </div>
             </div>
         </div>
@@ -157,6 +164,10 @@
                                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                         <font color="#565656"><b>Units:</b></font>
                                         <%# Eval("CMFOD_Units")%>
+                                    </div>
+                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
+                                        <font color="#565656"><b>Actioned NAV:</b></font>
+                                        <%# Eval("CMFT_Price")%>
                                     </div>
                                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                         <font color="#565656"><b>Redeem All:</b></font>
@@ -261,4 +272,7 @@
         </script>
 
     </ContentTemplate>
+    <Triggers>
+        <asp:PostBackTrigger ControlID="btnExport" />
+    </Triggers>
 </asp:UpdatePanel>

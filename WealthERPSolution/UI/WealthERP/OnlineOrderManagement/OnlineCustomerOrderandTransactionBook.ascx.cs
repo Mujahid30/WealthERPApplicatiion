@@ -122,7 +122,7 @@ namespace WealthERP.OnlineOrderManagement
             if (dtOrderTransactionBook.Rows.Count >= 0)
             {
                 if (Cache[userVo.UserId.ToString() + "OrderTransactionBook"] != null)
-
+                    
                     Cache.Remove("OrderTransactionBook" + userVo.UserId.ToString());
                 Cache.Insert("OrderTransactionBook" + userVo.UserId.ToString(), dtOrderTransactionBook);
                 var page = 0;
@@ -130,6 +130,7 @@ namespace WealthERP.OnlineOrderManagement
                 gvOrderBook.DataSource = ds.Tables[0];
                 gvOrderBook.DataBind();
                 Div1.Visible = true;
+                btnExport.Visible = true;
             }
         }
         protected void gvOrderBook_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
@@ -185,6 +186,80 @@ namespace WealthERP.OnlineOrderManagement
 
             gvChildDetails.DataSource = filldt;
             gvChildDetails.DataBind();
+        }
+        protected void btnExportFilteredData_OnClick(object sender, EventArgs e)
+        {
+
+            DataTable dtUnitHolding = new DataTable();
+            dtUnitHolding = (DataTable)Cache["OrderTransactionBook" + userVo.UserId.ToString()];
+            DataTable dtMFOrderBook = new DataTable();
+            dtMFOrderBook.Columns.Add("Order Type");
+            dtMFOrderBook.Columns.Add("Scheme Name");
+            dtMFOrderBook.Columns.Add("Order No.");
+            dtMFOrderBook.Columns.Add("Category");
+            dtMFOrderBook.Columns.Add("Request Date", typeof(DateTime));
+            dtMFOrderBook.Columns.Add("Dividend Type");
+            dtMFOrderBook.Columns.Add("Amount");
+            dtMFOrderBook.Columns.Add("Redeem All");
+            dtMFOrderBook.Columns.Add("Online");
+            dtMFOrderBook.Columns.Add("Order Status");
+            dtMFOrderBook.Columns.Add("Reject Remark");
+            dtMFOrderBook.Columns.Add("Units");
+            dtMFOrderBook.Columns.Add("Actioned NAV");
+            foreach (DataRow sourcerow in dtUnitHolding.Rows)
+            {
+                DataRow destRow = dtMFOrderBook.NewRow();
+                destRow["Scheme Name"] = sourcerow["PASP_SchemePlanName"];
+                destRow["Category"] = sourcerow["PAIC_AssetInstrumentCategoryName"];
+                destRow["Order No."] = sourcerow["CO_OrderId"];
+                destRow["Request Date"] = sourcerow["CO_OrderDate"];
+                destRow["Order Type"] = sourcerow["WMTT_TransactionType"];
+                destRow["Dividend Type"] = sourcerow["CMFOD_DividendOption"];
+                destRow["Amount"] = sourcerow["CMFOD_Amount"];
+                destRow["Units"] = sourcerow["CMFOD_Units"];
+                destRow["Actioned NAV"] = sourcerow["CMFT_Price"];
+                destRow["Redeem All"] = sourcerow["CMFOD_IsAllUnits"];
+                destRow["Order Status"] = sourcerow["XS_Status"];
+                destRow["Online"] = sourcerow["Channel"];
+                destRow["Reject Remark"] = sourcerow["COS_Reason"];
+                dtMFOrderBook.Rows.Add(destRow);
+            }
+            System.Data.DataView view = new System.Data.DataView(dtMFOrderBook);
+            
+            
+            System.Data.DataTable selected =
+                    view.ToTable("Selected", false, "Scheme Name", "Category", "Order No.", "Request Date", "Order Type", "Dividend Type",
+                    "Amount", "Units", "Actioned NAV", "Redeem All", "Order Status", "Online", "Reject Remark");
+          
+            if (dtMFOrderBook.Rows.Count > 0)
+            {
+                Response.ClearContent();
+                Response.Buffer = true;
+                Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", "CustomerOrder.xls"));
+                Response.ContentType = "application/ms-excel";
+
+                string str = string.Empty;
+
+                foreach (DataColumn dtcol in selected.Columns)
+                {
+                    Response.Write(str + dtcol.ColumnName);
+                    str = "\t";
+
+                }
+                Response.Write("\n");
+                foreach (DataRow dr in selected.Rows)
+                {
+                    str = "";
+                    for (int j = 0; j < selected.Columns.Count; j++)
+                    {
+                        Response.Write(str + Convert.ToString(dr[j]));
+                        str = "\t";
+                    }
+                    Response.Write("\n");
+                }
+                Response.End();
+
+            }
         }
     }
 }
