@@ -2089,4 +2089,8 @@
     <value>Associates//ViewAssociateList.ascx</value>
     <comment>Associates//ViewAssociateList.ascx</comment>
   </data>
+  <data name="CommonViewer" xml:space="preserve">
+    <value>Reports//CommonViewer.aspx</value>
+    <comment>Reports//CommonViewer.aspx</comment>
+  </data>
 </root>
