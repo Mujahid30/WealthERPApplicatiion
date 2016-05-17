@@ -1307,6 +1307,7 @@
     </Compile>
     <Compile Include="Associates\ViewAssociateList.ascx.cs">
       <DependentUpon>ViewAssociateList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Associates\ViewAssociateList.ascx.designer.cs">
       <DependentUpon>ViewAssociateList.ascx</DependentUpon>
@@ -3598,6 +3599,11 @@
     <Compile Include="RegistrationConfirmation.aspx.designer.cs">
       <DependentUpon>RegistrationConfirmation.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\BranchDS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BranchDS.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Reports\CapitalGainDetails.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -3606,6 +3612,13 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\CapitalGainSummaryDS.Designer.cs" />
+    <Compile Include="Reports\CommonViewer.aspx.cs">
+      <DependentUpon>CommonViewer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\CommonViewer.aspx.designer.cs">
+      <DependentUpon>CommonViewer.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\ComprehensiveMFReport.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -3622,6 +3635,11 @@
     </Compile>
     <Compile Include="Reports\CustomerReportsDashBoard.ascx.designer.cs">
       <DependentUpon>CustomerReportsDashBoard.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\DataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet1.xsd</DependentUpon>
     </Compile>
     <Compile Include="Reports\Display.aspx.cs">
       <DependentUpon>Display.aspx</DependentUpon>
@@ -3846,6 +3864,16 @@
     </Compile>
     <Compile Include="Reports\PortfolioReports.ascx.designer.cs">
       <DependentUpon>PortfolioReports.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ProductAssociateBrokarageReceived.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProductAssociateBrokarageReceived.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ProductBrokerageApplicationWise.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProductBrokerageApplicationWise.xsd</DependentUpon>
     </Compile>
     <Compile Include="Reports\SchemePerformance.cs">
       <AutoGen>True</AutoGen>
@@ -4429,6 +4457,7 @@
       <LastGenOutput>ControlMapping.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\BrokerageMIS.rdlc" />
     <EmbeddedResource Include="Reports\CapitalGainDetails.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CapitalGainDetails1.cs</LastGenOutput>
@@ -8354,6 +8383,7 @@
     <Content Include="Releases.html" />
     <Content Include="Reports\Colorbox\colorbox.css" />
     <Content Include="Reports\Colorbox\jquery.colorbox-min.js" />
+    <Content Include="Reports\CommonViewer.aspx" />
     <Content Include="Reports\CustomerReportsDashBoard.ascx" />
     <Content Include="Reports\Display.aspx" />
     <Content Include="Reports\EmailReport.aspx" />
@@ -8869,6 +8899,17 @@
     <None Include="ReferenceFiles\RTAExtractSampleFiles\SU_FATCA.dbf" />
     <None Include="ReferenceFiles\RTAExtractSampleFiles\TN.dbf" />
     <None Include="ReferenceFiles\RTAExtractSampleFiles\TN_FATCA.dbf" />
+    <None Include="Reports\BranchDS.xsc">
+      <DependentUpon>BranchDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\BranchDS.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>BranchDS.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Reports\BranchDS.xss">
+      <DependentUpon>BranchDS.xsd</DependentUpon>
+    </None>
     <None Include="Reports\CapitalGainDetailsDs.xsc">
       <DependentUpon>CapitalGainDetailsDs.xsd</DependentUpon>
     </None>
@@ -8912,6 +8953,17 @@
     </None>
     <None Include="Reports\CustomerInvestmentDetailsDS.xss">
       <DependentUpon>CustomerInvestmentDetailsDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\DataSet1.xsc">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\DataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Reports\DataSet1.xss">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
     </None>
     <None Include="Reports\EligibleCapitalGainsDetailsDS.xsc">
       <DependentUpon>EligibleCapitalGainsDetailsDS.xsd</DependentUpon>
@@ -9209,6 +9261,28 @@
     </None>
     <None Include="Reports\PerformanceCompositionDS.xss">
       <DependentUpon>PerformanceCompositionDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\ProductAssociateBrokarageReceived.xsc">
+      <DependentUpon>ProductAssociateBrokarageReceived.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\ProductAssociateBrokarageReceived.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ProductAssociateBrokarageReceived.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Reports\ProductAssociateBrokarageReceived.xss">
+      <DependentUpon>ProductAssociateBrokarageReceived.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\ProductBrokerageApplicationWise.xsc">
+      <DependentUpon>ProductBrokerageApplicationWise.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\ProductBrokerageApplicationWise.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ProductBrokerageApplicationWise.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Reports\ProductBrokerageApplicationWise.xss">
+      <DependentUpon>ProductBrokerageApplicationWise.xsd</DependentUpon>
     </None>
     <None Include="Reports\TempReports\MFReports_634040161522846026.pdf" />
     <None Include="Reports\TempReports\MFReports_634042746966961210.pdf" />

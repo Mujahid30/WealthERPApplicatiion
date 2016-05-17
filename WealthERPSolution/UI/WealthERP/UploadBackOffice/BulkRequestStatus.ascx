@@ -345,7 +345,7 @@
                 <table cellspacing="0" width="100%">
                     <tr>
                         <td align="left">
-                            Received Commission Consolidated Report
+                            Commission Consolidated Report
                         </td>
                         <td align="right" style="padding-bottom: 2px;">
                             <asp:ImageButton ID="IbReceibaleReport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
@@ -382,6 +382,16 @@
             <asp:CompareValidator ID="CompareValidator7" runat="server" ControlToValidate="ddlProductCategory"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Category type"
                 Operator="NotEqual" ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
+        </td>
+        <td align="left" class="leftField" width="20%">
+            <asp:Label ID="Label4" runat="server" Text="Brokerage Type:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlBrokerageType" runat="server" AutoPostBack="false" CssClass="cmbField" >
+                <asp:ListItem Text="Receivable" Value="1"></asp:ListItem>
+                <asp:ListItem Text="Payable" Value="0"></asp:ListItem>
+            </asp:DropDownList>
+            
         </td>
     </tr>
     <tr id="trSelectProduct" runat="server">
@@ -438,45 +448,53 @@
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="Please Select AMC Code" Operator="NotEqual"
                 ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
-        <td align="left" class="leftField">
-            <asp:Label ID="lblNAVCategory" runat="server" CssClass="FieldName" Text="Category:"></asp:Label>
-        </td>
-        <td>
-            <asp:DropDownList ID="ddlCategory" runat="server" AutoPostBack="true" CssClass="cmbField"
-                OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged">
-            </asp:DropDownList>
-        </td>
-        <td align="left" class="leftField">
-            <asp:Label ID="lblSelectSchemeNAV" runat="server" CssClass="FieldName" Text="Scheme:"></asp:Label>
-        </td>
-        <td>
-            <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField">
-            </asp:DropDownList>
-            <asp:CompareValidator ID="CompareValidator5" runat="server" ControlToValidate="ddlScheme"
-                CssClass="cvPCG" Display="Dynamic" ErrorMessage="Please Select Scheme" Operator="NotEqual"
-                ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
-        </td>
+      
     </tr>
     <tr>
-        <td class="leftField" id="tdTolbl" runat="server" visible="true">
-            <asp:Label ID="Label11" runat="server" CssClass="FieldName" Text="Year:"></asp:Label>
+     
+        
+          <td align="right">
+            <asp:Label ID="Label2" runat="server" Text="From Date: " CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField" id="tdToDate" runat="server" visible="true">
-            <asp:DropDownList ID="ddlYear" runat="server" CssClass="cmbField">
-            </asp:DropDownList>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ddlYear"
-                CssClass="rfvPCG" ErrorMessage="<br />Please select a Year" Display="Dynamic"
-                runat="server" InitialValue="0" ValidationGroup="vgbtnSubmit"> </asp:RequiredFieldValidator>
+        <td>
+            <asp:TextBox ID="rptTxtFromDate" runat="server" CssClass="txtField">
+            </asp:TextBox>
+            <cc1:CalendarExtender ID="CalendarExtender3" runat="server" TargetControlID="rptTxtFromDate"
+                Format="dd/MM/yyyy">
+            </cc1:CalendarExtender>
+            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="rptTxtFromDate"
+                WatermarkText="dd/mm/yyyy">
+            </cc1:TextBoxWatermarkExtender>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="rptTxtFromDate"
+                CssClass="rfvPCG" ErrorMessage="<br />Please select a  Date" Display="Dynamic"
+                runat="server" InitialValue="" ValidationGroup="btnGo"></asp:RequiredFieldValidator>
+            <asp:CompareValidator ID="CompareValidator6" runat="server" CssClass="rfvPCG" ControlToValidate="rptTxtFromDate"
+                Display="Dynamic" ErrorMessage="Invalid Date" ValidationGroup="btnGo" Operator="DataTypeCheck"
+                Type="Date">
+            </asp:CompareValidator>
         </td>
-        <td id="tdFromDate" class="leftField" runat="server" visible="true">
-            <asp:Label ID="lblPeriod" Text="Month/Quarter:" runat="server" CssClass="FieldName"></asp:Label>
+        <td align="left" class="leftField">
+            <asp:Label ID="Label3" runat="server" Text="To Date: " CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField" id="tdFrom" runat="server" visible="true">
-            <asp:DropDownList ID="ddlMnthQtr" runat="server" CssClass="cmbField">
-            </asp:DropDownList>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="ddlMnthQtr"
-                CssClass="rfvPCG" ErrorMessage="<br />Please Select Month" Display="Dynamic"
-                runat="server" InitialValue="0" ValidationGroup="vgbtnSubmit"> </asp:RequiredFieldValidator>
+        <td colspan="2" class="rightField">
+            <asp:TextBox ID="rpttxtToDate" runat="server" CssClass="txtField"></asp:TextBox>
+            <cc1:CalendarExtender ID="CalendarExtender4" runat="server" TargetControlID="rpttxtToDate"
+                Format="dd/MM/yyyy">
+            </cc1:CalendarExtender>
+            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="rpttxtToDate"
+                WatermarkText="dd/mm/yyyy">
+            </cc1:TextBoxWatermarkExtender>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="rpttxtToDate"
+                CssClass="rfvPCG" ErrorMessage="<br />Please select a Date" Display="Dynamic"
+                runat="server" InitialValue="" ValidationGroup="btnGo"></asp:RequiredFieldValidator>
+          
+            <asp:CompareValidator ID="CompareValidator8" runat="server" CssClass="rfvPCG" ControlToValidate="rpttxtToDate"
+                Display="Dynamic" ErrorMessage="Invalid Date" ValidationGroup="btnGo" Operator="DataTypeCheck"
+                Type="Date">
+            </asp:CompareValidator>
+            <asp:CompareValidator ID="CompareValidator9" runat="server" ErrorMessage="<br/>To Date should not less than From Date"
+                Type="Date" ControlToValidate="rpttxtToDate" ControlToCompare="rpttxtFromDate" Operator="GreaterThanEqual"
+                CssClass="cvPCG" Display="Dynamic" ValidationGroup="btnGo"></asp:CompareValidator>
         </td>
         <td class="rightField" style="padding-right: 50px">
             <asp:Button ID="btnGO" runat="server" CssClass="PCGButton" OnClick="btnGO_OnClick"

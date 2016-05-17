@@ -59,7 +59,7 @@ namespace WealthERP.UploadBackOffice
                     {
                         dvReceivable.Visible = true;
                         BindMutualFundDropDowns();
-                        BindNAVCategory();
+                       
                         LoadAllSchemeList(0);
                         BindProductDropdown();
                         BindMonthsAndYear();
@@ -67,8 +67,7 @@ namespace WealthERP.UploadBackOffice
                         if (associateuserheirarchyVo != null && associateuserheirarchyVo.AgentCode != null)
                         {
                             AgentCode = associateuserheirarchyVo.AgentCode.ToString();
-                            ddlSelectMode.Items.FindByText("Both").Enabled = false;
-                            ddlSelectMode.Items.FindByText("Online-Only").Enabled = false;
+                            
                         }
                     }
                     else
@@ -252,20 +251,7 @@ namespace WealthERP.UploadBackOffice
         }
         private void BindMonthsAndYear()
         {
-            for (int i = 1; i <= 12; i++)
-            {
-                string monthName = DateTimeFormatInfo.CurrentInfo.GetMonthName(i);
-                ddlMnthQtr.Items.Add(new ListItem(monthName, i.ToString().PadLeft(2, '0')));
-            }
-            ddlMnthQtr.Items.Add(new ListItem("Quarter April-June", "13"));
-            ddlMnthQtr.Items.Add(new ListItem("Quarter July-September", "14"));
-            ddlMnthQtr.Items.Add(new ListItem("Quarter October-December", "15"));
-            ddlMnthQtr.Items.Add(new ListItem("Quarter January-March", "16"));
-            ddlMnthQtr.Items.Insert(0, new ListItem("Select", "0"));
-            for (int i = DateTime.Now.Year; i >= 2008; i--)
-            {
-                ddlYear.Items.Add(new ListItem(i.ToString(), i.ToString()));
-            }
+           
 
         }
 
@@ -274,7 +260,7 @@ namespace WealthERP.UploadBackOffice
             if (ddlIssuer.SelectedIndex != 0)
             {
                 int amcCode = int.Parse(ddlIssuer.SelectedValue);
-                ddlCategory.SelectedIndex = 0;
+               
                 LoadAllSchemeList(amcCode);
 
             }
@@ -292,20 +278,11 @@ namespace WealthERP.UploadBackOffice
             {
                 ddlIssueName.Items.Clear();
                 ddlIssueName.DataBind();
-                BindMappedIssues(ddlIssueType.SelectedValue, ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), (ddlProductCategory.SelectedValue == "") ? "FIFIIP" : ddlProductCategory.SelectedValue);
+                BindMappedIssues(ddlIssueType.SelectedValue, ddlProduct.SelectedValue, 2, (ddlProductCategory.SelectedValue == "") ? "FIFIIP" : ddlProductCategory.SelectedValue);
 
             }
         }
-        protected void ddlSearchType_OnSelectedIndexChanged(object sender, EventArgs e)
-        {
-            td1.Visible = true;
-            td2.Visible = true;
-            if (ddlSearchType.SelectedValue != "Select" && ddlProduct.SelectedValue == "MF")
-            {
-                td1.Visible = false;
-                td2.Visible = false;
-            }
-        }
+       
         protected void ddlIssueType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlIssueType.SelectedIndex != 0)
@@ -330,20 +307,7 @@ namespace WealthERP.UploadBackOffice
 
         }
 
-        protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ddlIssuer.SelectedIndex != 0)
-            {
-                if (ddlCategory.SelectedIndex != 0)
-                {
-                    int amcCode = int.Parse(ddlIssuer.SelectedValue);
-                    LoadAllSchemeList(amcCode);
-                    //GdBind_Click(sender,e);
-                }
-
-            }
-
-        }
+       
 
         public void BindMutualFundDropDowns()
         {
@@ -372,8 +336,7 @@ namespace WealthERP.UploadBackOffice
             {
                 trSelectMutualFund.Visible = true;
                 trNCDIPO.Visible = false;
-                tdFrom.Visible = true;
-                tdTolbl.Visible = true;
+                
                 cvddlIssueType.Enabled = false;
                 Label1.Visible = true;
                 ddlCommType.Visible = true;
@@ -386,7 +349,7 @@ namespace WealthERP.UploadBackOffice
             {
                 trSelectMutualFund.Visible = false;
                 trNCDIPO.Visible = true;
-                tdTolbl.Visible = true;
+              
                 ddlIssueName.Items.Clear();
                 ddlIssueName.DataBind();
                 cvddlIssueType.Enabled = true;
@@ -405,23 +368,7 @@ namespace WealthERP.UploadBackOffice
             }
 
         }
-        private void BindNAVCategory()
-        {
-            DataSet dsNavCategory;
-            DataTable dtNavCategory;
-            dsNavCategory = priceBo.GetNavOverAllCategoryList();
-            dtNavCategory = dsNavCategory.Tables[0];
-            if (dtNavCategory.Rows.Count > 0)
-            {
-
-                ddlCategory.DataSource = dtNavCategory;
-                ddlCategory.DataValueField = dtNavCategory.Columns["Category_Code"].ToString();
-                ddlCategory.DataTextField = dtNavCategory.Columns["Category_Name"].ToString();
-                ddlCategory.DataBind();
-                ddlCategory.Items.Insert(0, new ListItem("All", "All"));
-
-            }
-        }
+      
         protected void ddlProductCategory_OnSelectedIndexChanged(object Sender, EventArgs e)
         {
             if (ddlProductCategory.SelectedValue != "Select")
@@ -430,8 +377,7 @@ namespace WealthERP.UploadBackOffice
                 td2.Visible = false;
                 if (ddlProductCategory.SelectedValue != "FISDSD")
                 {
-                    tdFrom.Visible = true;
-                    tdTolbl.Visible = true;
+                    
                     td1.Visible = true;
 
                     td2.Visible = true;
@@ -446,39 +392,16 @@ namespace WealthERP.UploadBackOffice
             if (ddlIssuer.SelectedIndex != 0)
             {
                 amcCode = int.Parse(ddlIssuer.SelectedValue.ToString());
-                categoryCode = ddlCategory.SelectedValue;
+                
                 //dtLoadAllScheme = priceBo.GetAllScehmeList(amcCode);
                 dsLoadAllScheme = priceBo.GetSchemeListCategoryConcatenation(amcCode, categoryCode);
                 dtLoadAllScheme = dsLoadAllScheme.Tables[0];
             }
 
-            if (dtLoadAllScheme.Rows.Count > 0)
-            {
-                ddlScheme.DataSource = dtLoadAllScheme;
-                ddlScheme.DataTextField = dtLoadAllScheme.Columns["PASP_SchemePlanName"].ToString();
-                ddlScheme.DataValueField = dtLoadAllScheme.Columns["PASP_SchemePlanCode"].ToString();
-                ddlScheme.DataBind();
-                ddlScheme.Items.Insert(0, new ListItem("All", "0"));
-            }
-            else
-            {
-                ddlScheme.Items.Clear();
-                ddlScheme.DataSource = null;
-                ddlScheme.DataBind();
-                ddlScheme.Items.Insert(0, new ListItem("All", "0"));
-            }
 
         }
         private void SetParameters()
         {
-            if (string.IsNullOrEmpty(ddlMnthQtr.SelectedItem.Value.ToString()) != true)
-                hdnFromDate.Value = ddlMnthQtr.SelectedItem.Value.ToString();
-            if (string.IsNullOrEmpty(ddlYear.SelectedItem.Value.ToString()) != true)
-                hdnToDate.Value = ddlYear.SelectedItem.Value.ToString();
-            if (string.IsNullOrEmpty(ddlScheme.SelectedItem.Value.ToString()) != true)
-                hdnschemeId.Value = ddlScheme.SelectedItem.Value.ToString();
-            if (string.IsNullOrEmpty(ddlCategory.SelectedItem.Value.ToString()) != true)
-                hdnCategory.Value = ddlCategory.SelectedItem.Value.ToString();
             if (ddlIssuer.SelectedValue.ToString() != "Select")
                 hdnSBbrokercode.Value = ddlIssuer.SelectedItem.Value.ToString();
             else
@@ -491,6 +414,9 @@ namespace WealthERP.UploadBackOffice
                 hdnProductCategory.Value = ddlProductCategory.SelectedValue.ToString();
             else
                 hdnProductCategory.Value = "0";
+            hdnFromDate.Value = rptTxtFromDate.Text.ToString();
+        hdnToDate.Value=  rpttxtToDate.Text.ToString();
+        hdnschemeId.Value = "0";
 
         }
 
@@ -538,8 +464,8 @@ namespace WealthERP.UploadBackOffice
         protected void GetCommisionTypes()
         {
 
-            ddlSearchType.Items.Insert(0, new ListItem("Select", "Select"));
-            ddlSearchType.Items.Insert(1, new ListItem("Brokerage", "0"));
+            //ddlSearchType.Items.Insert(0, new ListItem("Select", "Select"));
+            //ddlSearchType.Items.Insert(1, new ListItem("Brokerage", "0"));
         }
         private void BindBondCategories()
         {
@@ -559,18 +485,7 @@ namespace WealthERP.UploadBackOffice
         protected void btnGO_OnClick(object sender, EventArgs e)
         {
             SetParameters();
-            pnlProductDetails.Visible = true;
-            DataTable dtProductCommissionReceivable = commisionReceivableBo.getProductCommissionReceivable(ddlProduct.SelectedValue, hdnProductCategory.Value, int.Parse(hdnSBbrokercode.Value), int.Parse(hdnschemeId.Value), advisorVo.advisorId, int.Parse(hdnIssueId.Value), int.Parse(hdnFromDate.Value), int.Parse(hdnToDate.Value));
-            rgReceivableReport.DataSource = dtProductCommissionReceivable;
-            rgReceivableReport.DataBind();
-            IbReceibaleReport.Visible = true;
-            if (Cache["ProductCommissionReport" + userVo.UserId] != null)
-            {
-
-                Cache.Remove("ProductCommissionReport" + userVo.UserId);
-            }
-            Cache.Insert("ProductCommissionReport" + userVo.UserId, dtProductCommissionReceivable);
-
+            Response.Redirect("~/Reports/CommonViewer.aspx?ReportCode=25&Product=" + ddlProduct.SelectedValue + "&ProductCategory=" + hdnProductCategory.Value + "&AmcCode=" + int.Parse(hdnSBbrokercode.Value) + "&SchemeId=" + int.Parse(hdnschemeId.Value) + "&AdviserId=" + advisorVo.advisorId + "&Issueid=" + int.Parse(hdnIssueId.Value) + "&Fromdate=" + hdnFromDate.Value+ "&Todate=" + hdnToDate.Value+"&IsReceivable="+ddlBrokerageType.SelectedValue);
         }
         protected void rgReceivableReport_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
