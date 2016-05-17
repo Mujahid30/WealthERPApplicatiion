@@ -71,6 +71,11 @@
                     CommandItemDisplay="None" GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
                     GroupLoadMode="Client" ShowGroupFooter="true" DataKeyNames="StructureId">
                     <Columns>
+                     <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="AMC Name" DataField="PA_AMCName"
+                            UniqueName="PA_AMCName" SortExpression="PA_AMCName" FilterControlWidth="60%"
+                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Scheme Plan" DataField="PASP_SchemePlanName"
                             UniqueName="PASP_SchemePlanName" SortExpression="PASP_SchemePlanName" FilterControlWidth="60%"
                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true">
