@@ -869,13 +869,13 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.TextBox txtAmount;
         
         /// <summary>
-        /// RequiredFieldValidator5 control.
+        /// rfvAmount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator5;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvAmount;
         
         /// <summary>
         /// RangeValidator2 control.

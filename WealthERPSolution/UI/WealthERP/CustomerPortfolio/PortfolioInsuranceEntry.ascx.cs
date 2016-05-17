@@ -37,6 +37,8 @@ namespace WealthERP.CustomerPortfolio
         CalendarExtender ce;
         TextBoxWatermarkExtender txtWE;
         DataTable dtULIPSubPlanSchedule = new DataTable();
+        MFOrderBo mfOrderBo = new MFOrderBo();
+        DataTable dtBankName = new DataTable();
 
         int count;
         int insuranceId;
@@ -74,6 +76,7 @@ namespace WealthERP.CustomerPortfolio
 
                     ClearFields();
                     LoadNominees();
+                    BindBank();
                     BindDropDowns(path, customerAccountVo.AssetCategory.ToString().Trim());
                     AddAttributesToDropdown(customerAccountVo.AssetCategory.ToString().Trim());
                     LoadInsuranceIssuerCode(path);
@@ -1528,6 +1531,14 @@ namespace WealthERP.CustomerPortfolio
                         insuranceVo.StartDate = DateTime.Parse(txtPolicyCommencementDate.Text.Trim());
                         insuranceVo.EndDate = DateTime.Parse(txtPolicyMaturity.Text.Trim());
                         insuranceVo.SumAssured = double.Parse(txtSumAssured.Text);
+                        insuranceVo.BankBranch = txtBranchName.Text;
+                        insuranceVo.PaymentInstrumentNumber = txtPaymentNumber.Text;
+                        //insuranceVo.PaymentInstrumentDate = Convert.ToDateTime(txtPaymentInstDate.SelectedDate);
+                        if(txtPaymentInstDate.SelectedDate!=DateTime.MinValue)
+                        insuranceVo.PaymentInstrumentDate = Convert.ToDateTime(txtPaymentInstDate.SelectedDate);
+                        insuranceVo.Amount = int.Parse(txtAmount.Text.Trim());
+                        insuranceVo.BankName = int.Parse(ddlBankName.SelectedValue);
+                        insuranceVo.ModeOfPayment = ddlPaymentMode.SelectedValue;
                         if (txtApplDate.Text.Trim() != "")
                             insuranceVo.ApplicationDate = DateTime.Parse(txtApplDate.Text.Trim());
                         insuranceVo.ApplicationNumber = txtApplicationNumber.Text;
@@ -3512,5 +3523,73 @@ namespace WealthERP.CustomerPortfolio
             }
             
         }
+
+
+
+        protected void ddlPaymentMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            PaymentMode(ddlPaymentMode.SelectedValue);
+            ddlPaymentMode.Focus();
+        }
+        private void PaymentMode(string type)
+        {
+            if (type == "CQ" || type == "DF")
+            {
+                trPINo.Visible = true;
+                // txtPaymentInstDate.MaxDate = txtOrderDate.MaxDate;
+            }
+            else
+            {
+                trPINo.Visible = false;
+            }
+        }
+        protected void txtPaymentInstDate_OnSelectedDateChanged(object sender, EventArgs e)
+        {
+            txtPaymentInstDate.Focus();
+        }
+        protected void ddlBankName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int BankAccountId = 0;
+            BankBranches(Convert.ToInt32(ddlBankName.SelectedValue));
+            ddlBankName.Focus();
+        }
+        private void BankBranches(int BankLookUpId)
+        {
+
+            DataTable dtgetBankBranch = new DataTable();
+            ddlBranch.DataSource = dtgetBankBranch;
+            ddlBranch.Items.Clear();
+            if (ddlBankName.SelectedIndex != 0)
+            {
+
+                dtBankName = mfOrderBo.GetBankBranch(BankLookUpId); ;
+                ddlBranch.DataSource = dtBankName;
+                ddlBranch.DataValueField = dtBankName.Columns["BBL_LookUp_Id"].ToString();
+                ddlBranch.DataTextField = dtBankName.Columns["BBL_BranchName"].ToString();
+                ddlBranch.DataBind();
+                ddlBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
+
+            }
+        }
+
+        protected void imgBtnRefereshBank_OnClick(object sender, EventArgs e)
+        {
+            customerVo = (CustomerVo)Session["customerVo"];
+            BindBank();
+        }
+        private void BindBank()
+        {
+            CommonLookupBo commonLookupBo = new CommonLookupBo();
+            ddlBankName.Items.Clear();
+            DataTable dtBankName = new DataTable();
+            dtBankName = commonLookupBo.GetWERPLookupMasterValueList(7000, 0); ;
+            ddlBankName.DataSource = dtBankName;
+            ddlBankName.DataValueField = dtBankName.Columns["WCMV_LookupId"].ToString();
+            ddlBankName.DataTextField = dtBankName.Columns["WCMV_Name"].ToString();
+            ddlBankName.DataBind();
+            ddlBankName.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+
+        }
+
     }
 }

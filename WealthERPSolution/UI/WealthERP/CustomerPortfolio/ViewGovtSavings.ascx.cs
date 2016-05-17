@@ -234,7 +234,12 @@ namespace WealthERP.CustomerPortfolio
                     dtGovtSavings.Columns.Add("Rate Of Interest",typeof(double));
                     dtGovtSavings.Columns.Add("Current Value",typeof(double));
                     dtGovtSavings.Columns.Add("Maturity Value",typeof(double));
-                    dtGovtSavings.Columns.Add("Amount) ValueType", typeof(decimal));
+                    dtGovtSavings.Columns.Add("Amount", typeof(double));
+                    dtGovtSavings.Columns.Add("ModeOfPayment");
+                    dtGovtSavings.Columns.Add("PaymentInstrumentNumber");
+                    dtGovtSavings.Columns.Add("PaymentInstrumentDate", typeof(DateTime));
+                    dtGovtSavings.Columns.Add("BankName");
+                    dtGovtSavings.Columns.Add("BankBranch");
 
                     DataRow drGovtSavings;
 
@@ -259,7 +264,13 @@ namespace WealthERP.CustomerPortfolio
                         drGovtSavings[8] = govtSavingsVo.CurrentValue.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                         //if(govtSavingsVo.MaturityValue != null)
                         drGovtSavings[9] = govtSavingsVo.MaturityValue.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-
+                        drGovtSavings[10] = govtSavingsVo.Amount.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        drGovtSavings[11] = govtSavingsVo.ModeOfPayment.ToString();
+                        drGovtSavings[12] = govtSavingsVo.PaymentInstrumentNumber.ToString();
+                        if (govtSavingsVo.PaymentInstrumentDate != DateTime.MinValue)
+                        drGovtSavings[13] = govtSavingsVo.PaymentInstrumentDate.ToString();
+                        drGovtSavings[14] = govtSavingsVo.BankName.ToString();
+                        drGovtSavings[15] = govtSavingsVo.BankBranch.ToString();
                         dtGovtSavings.Rows.Add(drGovtSavings);
 
                     }

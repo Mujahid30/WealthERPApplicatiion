@@ -91,6 +91,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createCustomerInsuranceAccountCmd, "@CIA_ModifiedBy", DbType.String, userId);
                 db.AddOutParameter(createCustomerInsuranceAccountCmd, "@CIA_AccountId", DbType.Int32, 5000);
 
+
                 if (db.ExecuteNonQuery(createCustomerInsuranceAccountCmd) != 0)
 
                     accountId = int.Parse(db.GetParameterValue(createCustomerInsuranceAccountCmd, "CIA_AccountId").ToString());
@@ -2496,6 +2497,9 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createInsuranceAccountAssociationCmd, "@associationIds", DbType.String, associationIds);
                 db.AddInParameter(createInsuranceAccountAssociationCmd, "@CIAA_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(createInsuranceAccountAssociationCmd, "@CIAA_ModifiedBy", DbType.Int32, userId);
+               
+
+
                 if (db.ExecuteNonQuery(createInsuranceAccountAssociationCmd) != 0)
                     bResult = true;
             }

@@ -101,10 +101,31 @@ namespace WealthERP.CustomerPortfolio
                     txtMaturityValue.Text = govtSavingsVo.MaturityValue.ToString();
                 if (txtRemarks != null)
                     txtRemarks.Text = govtSavingsVo.Remarks.ToString();
+                if (txtAmount != null)
+                    txtAmount.Text = govtSavingsVo.Amount.ToString();
+                if (txtPaymentNumber != null)
+                    txtPaymentNumber.Text = govtSavingsVo.PaymentInstrumentNumber.ToString();
+                if (txtBranchName != null)
+                    txtBranchName.Text = govtSavingsVo.BankBranch.ToString();
+
+                if (txtPaymentInstDate != null && govtSavingsVo.PaymentInstrumentDate != DateTime.MinValue)
+                    txtPaymentInstDate.SelectedDate = govtSavingsVo.PaymentInstrumentDate.Date;
+               
+                
 
                 //Assign dropdown selected values
                 if (ddlModeOfHolding != null && ddlModeOfHolding.Items.Count > 0)
                     ddlModeOfHolding.SelectedValue = customerAccountsVo.ModeOfHolding.Trim();
+                if (ddlBankName != null && ddlBankName.Items.Count > 0)
+                    ddlBankName.SelectedValue = govtSavingsVo.BankName.ToString();
+                if (ddlPaymentMode != null && ddlPaymentMode.Items.Count > 0)
+                    ddlPaymentMode.SelectedValue = govtSavingsVo.ModeOfPayment.Trim();
+                if (ddlPaymentMode.SelectedValue == "CQ")
+                {
+                    trPINo.Visible = true;
+                }
+                else
+                    trPINo.Visible = true;
 
                 if (ddlDebtIssuerCode != null && ddlDebtIssuerCode.Items.Count > 0)
                     ddlDebtIssuerCode.SelectedValue = govtSavingsVo.DebtIssuerCode.Trim();

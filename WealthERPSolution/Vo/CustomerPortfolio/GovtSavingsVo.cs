@@ -42,7 +42,7 @@ namespace VoCustomerPortfolio
         public int BankName { set; get; }
         public string PaymentInstrumentNumber { set; get; }
         public string ModeOfPayment { set; get; }
-        public float Amount { set; get; }
+       public float Amount { set; get; }
 
         #endregion
 
@@ -171,6 +171,12 @@ namespace VoCustomerPortfolio
             get { return m_InterestBasisCode; }
             set { m_InterestBasisCode = value; }
         }
+
+        //public float Amount
+        //{
+        //    get { return m_Amount; }
+        //    set { m_Amount = value; }
+        //}
         #endregion Properties
 
 

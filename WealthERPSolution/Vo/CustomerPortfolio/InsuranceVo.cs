@@ -54,6 +54,13 @@ namespace VoCustomerPortfolio
         private string m_PolicyTermsDuration;
         private string m_InsuranceIssuerName;
 
+        public string BankBranch { set; get; }
+        public DateTime PaymentInstrumentDate { set; get; }
+        public int BankName { set; get; }
+        public string PaymentInstrumentNumber { set; get; }
+        public string ModeOfPayment { set; get; }
+        public float Amount { set; get; }
+
         #endregion Fields
 
 

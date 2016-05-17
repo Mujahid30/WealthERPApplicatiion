@@ -438,15 +438,15 @@
                     </td>
                     <td style="width: 22%;">
                         <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField" CausesValidation="true"
-                            ValidationGroup="MFSubmit" TabIndex="31"></asp:TextBox><span id="Span8" class="spnRequiredField">*</span>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtAmount"
-                            CssClass="rfvPCG" ErrorMessage="<br />Please select amount" Display="Dynamic"
-                            runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
-                        <asp:RangeValidator ID="RangeValidator2" Display="Dynamic" ValidationGroup="MFSubmit"
+                             ></asp:TextBox><span id="Span8" class="spnRequiredField">*</span>
+               
+                            <asp:RequiredFieldValidator ID="rfvAmount" runat="server" ControlToValidate="txtAmount" CssClass="rfvPCG" ErrorMessage="<br />Please select amount" Display="Dynamic"
+                        ></asp:RequiredFieldValidator> 
+                        <asp:RangeValidator ID="RangeValidator2" Display="Dynamic" 
                             runat="server" ErrorMessage="<br />Please enter a numeric value" ControlToValidate="txtAmount"
                             MaximumValue="2147483647" MinimumValue="1" Type="Double" CssClass="cvPCG"></asp:RangeValidator>
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtAmount"
-                            runat="server" ValidationGroup="MFSubmit" ErrorMessage="Please enter a valid amount/Unit" CssClass="cvPCG"
+                            runat="server"  ErrorMessage="Please enter a valid amount/Unit" CssClass="cvPCG"
                             ValidationExpression="^(-)?\d+(\.\d\d\d\d)?$">
                         </asp:RegularExpressionValidator>
                     </td>
@@ -455,7 +455,7 @@
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlPaymentMode" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlPaymentMode_SelectedIndexChanged"
-                            AutoPostBack="true" TabIndex="32">
+                            AutoPostBack="true" >
                             <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
                             <asp:ListItem Text="Cheque" Value="CQ"></asp:ListItem>
                             <asp:ListItem Text="Draft" Value="DF"></asp:ListItem>
@@ -464,7 +464,7 @@
                         <span id="Span10" class="spnRequiredField">*</span>
                         <asp:CompareValidator ID="CompareValidator13" runat="server" ControlToValidate="ddlPaymentMode"
                             CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select  Mode Of Payment"
-                            Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
+                            Operator="NotEqual"  ValueToCompare="Select"></asp:CompareValidator>
                     </td>
                 </tr>
                 <tr id="trPINo" runat="server" visible="false">
@@ -474,7 +474,7 @@
                     </td>
                     <td>
                         <asp:TextBox ID="txtPaymentNumber" runat="server" MaxLength="6" CssClass="txtField"
-                            TabIndex="33"></asp:TextBox>
+                            ></asp:TextBox>
                         <span id="Span12" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtPaymentNumber"
                             ErrorMessage="<br />Please Enter a Payment Instrument No." Display="Dynamic"
@@ -486,7 +486,7 @@
                     <td>
                         <telerik:RadDatePicker ID="txtPaymentInstDate" CssClass="txtField" runat="server"
                             Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
-                            ShowAnimation-Type="Fade" AutoPostBack="true" MinDate="1900-01-01" TabIndex="34"
+                            ShowAnimation-Type="Fade" AutoPostBack="true" MinDate="1900-01-01" 
                             OnSelectedDateChanged="txtPaymentInstDate_OnSelectedDateChanged">
                             <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                 Skin="Telerik" EnableEmbeddedSkins="false">
@@ -509,23 +509,23 @@
                     <td>
                         <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="true"
                             AppendDataBoundItems="false" OnSelectedIndexChanged="ddlBankName_SelectedIndexChanged"
-                            TabIndex="35">
+                            >
                         </asp:DropDownList>
                         <span id="Span10" class="spnRequiredField">*</span>
                         <asp:ImageButton ID="imgAddBank" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                             AlternateText="Add" runat="server" ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()"
                             Height="15px" Width="15px" Visible="false"></asp:ImageButton>
-                        <%-- --%>
+                      
                         <asp:ImageButton ID="imgBtnRefereshBank" ImageUrl="~/Images/refresh.png" AlternateText="Refresh"
                             runat="server" ToolTip="Click here to refresh Bank List" OnClick="imgBtnRefereshBank_OnClick"
-                            OnClientClick="return closepopupAddBank()" Height="15px" Width="25px" TabIndex="19"
+                            OnClientClick="return closepopupAddBank()" Height="15px" Width="25px" 
                             Visible="false"></asp:ImageButton>
                         <asp:CompareValidator ID="CompareValidator18" runat="server" ControlToValidate="ddlBankName"
                             CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a Bank"
-                            Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
+                            Operator="NotEqual"  ValueToCompare="Select"></asp:CompareValidator>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator22" ControlToValidate="ddlBankName"
                             CssClass="rfvPCG" ErrorMessage="<br />Please select an Bank" Display="Dynamic"
-                            runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+                            runat="server" InitialValue=""></asp:RequiredFieldValidator>
                         
                     </td>
                     <td align="right">
@@ -533,9 +533,9 @@
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlBranch" runat="server" CssClass="cmbField" AutoPostBack="false"
-                            AppendDataBoundItems="true" TabIndex="36" Visible="false">
+                            AppendDataBoundItems="true"  Visible="false">
                         </asp:DropDownList>
-                        <asp:TextBox ID="txtBranchName" runat="server" CssClass="txtField" TabIndex="37"></asp:TextBox>
+                        <asp:TextBox ID="txtBranchName" runat="server" CssClass="txtField" ></asp:TextBox>
                     </td>
                 </tr>
             </table>

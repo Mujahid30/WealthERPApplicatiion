@@ -178,7 +178,7 @@
                             <asp:Label ID="lblGoalDescription" runat="server" CssClass="FieldName" Text="Goal Description :"></asp:Label>
                         </td>
                         <td id="Td333444" class="rightField" runat="server">
-                            <asp:TextBox ID="txtGoalDescription" runat="server" MaxLength="15" AutoCompleteType="Disabled"
+                            <asp:TextBox ID="txtGoalDescription" runat="server" MaxLength="100" AutoCompleteType="Disabled"
                                 CssClass="txtField"></asp:TextBox>
                         </td>
                         <td class="leftField" id="tdRetirementAge1" runat="server">

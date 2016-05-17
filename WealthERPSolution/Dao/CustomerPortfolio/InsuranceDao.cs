@@ -83,6 +83,13 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_PremiumPaymentDate", DbType.Int16, insuranceVo.PremiumPaymentDate);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_ModifiedBy", DbType.Int32, userId);
                 db.AddOutParameter(createInsurancePortfolioCmd, "@InsuranceId", DbType.Int32, 5000);
+                db.AddInParameter(createInsurancePortfolioCmd, "@CINP_Amount", DbType.Decimal, insuranceVo.Amount);
+                db.AddInParameter(createInsurancePortfolioCmd, "@CINP_ModeOfPayment", DbType.String, insuranceVo.ModeOfPayment);
+                db.AddInParameter(createInsurancePortfolioCmd, "@CINP_PaymentInstrumentNumber", DbType.String, insuranceVo.PaymentInstrumentNumber);
+                db.AddInParameter(createInsurancePortfolioCmd, "@CINP_PaymentInstrumentDate", DbType.DateTime, insuranceVo.PaymentInstrumentDate);
+                db.AddInParameter(createInsurancePortfolioCmd, "@CINP_BankName", DbType.Int32, insuranceVo.BankName);
+                db.AddInParameter(createInsurancePortfolioCmd, "@CINP_BankBranch", DbType.String, insuranceVo.BankBranch);
+
 
                 if (db.ExecuteNonQuery(createInsurancePortfolioCmd) != 0)
                     insuranceId = int.Parse(db.GetParameterValue(createInsurancePortfolioCmd, "InsuranceId").ToString());
