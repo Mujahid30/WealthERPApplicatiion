@@ -42,5 +42,9 @@ namespace BoFPUtility
         {
             return fpUserDao.GetQuestionOption(questionId, advisorId);
         }
+        public bool CheckInvestorExists(int adviserId, string panNo, string clientCode)
+        {
+            return fpUserDao.CheckInvestorExists(adviserId, panNo, clientCode);
+        }
     }
 }

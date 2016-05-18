@@ -151,6 +151,30 @@ namespace DaoFPUtility
             }
             return dsGetQuestionOption;
         }
+        public bool CheckInvestorExists(int adviserId,string panNo,string clientCode)
+        {
+            bool result = false;
+            DataSet ds;
+            Database db;
+            DbCommand dbCommand;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_FPUtility_CheckInvestorExists");
+                db.AddInParameter(dbCommand, "@AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(dbCommand, "@PanNo", DbType.String, panNo);
+                db.AddInParameter(dbCommand, "@ClientCode", DbType.String, clientCode);
+                ds = db.ExecuteDataSet(dbCommand);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    result = true;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return result;
+        }
 
     }
 }

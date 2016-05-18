@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using VOFPUtilityUser;
 using BoFPUtility;
 using System.Collections;
+using System.Configuration;
 
 namespace FPUtilityTool
 {
@@ -28,7 +29,38 @@ namespace FPUtilityTool
         }
         protected void btnsignInsubmit_Click(object sender, EventArgs e)
         {
-
+            if (Session["UserVo"] != null)
+            {
+                Response.Redirect("Questionnaire.aspx");
+            }
+            else
+            {
+                bool isValidUser = false;
+                FPUserVo fpUserVo = new FPUserVo();
+                fpUserVo.MobileNo = 0;
+                fpUserVo.UserName = "";
+                fpUserVo.Pan = txtpan2.Text;
+                fpUserVo.EMail = "";
+                FPUserVo UserVo = new FPUserVo();
+                int adviserId = Convert.ToInt32(ConfigurationManager.AppSettings["ONLINE_ADVISER"]);
+                if (fpUserBo.CheckInvestorExists(adviserId, txtpan2.Text, txtclientCode.Text))
+                {
+                    lblClient.Visible = false;
+                    UserVo = fpUserBo.CreateAndGetFPUtilityUserDetails(fpUserVo, txtclientCode.Text, true);
+                    isValidUser = ValidateSingleSessionPerUser(UserVo.UserId.ToString());
+                    if (isValidUser)
+                    {
+                        Session["UserVo"] = UserVo;
+                        Response.Redirect("Questionnaire.aspx");
+                    }
+                    else
+                        lbllogedIn2.Visible = true;
+                }
+                else
+                {
+                    lblClient.Visible = true;
+                }
+            }
 
 
         }
@@ -54,6 +86,8 @@ namespace FPUtilityTool
                     Session["UserVo"] = UserVo;
                     Response.Redirect("Questionnaire.aspx");
                 }
+                else
+                    lbllogedIn1.Visible = true;
             }
 
         }

@@ -67,6 +67,10 @@
                                             <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control required" placeholder="Enter Email Id"></asp:TextBox>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtEmail"
                                                 ValidationGroup="btnsignUpsubmit" runat="server" />
+                                            <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtEmail"
+                                                ErrorMessage="Please enter a valid EmailId" Display="Dynamic" runat="server"
+                                                ValidationGroup="btnsignUpsubmit" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
+                                                CssClass="revPCG"></asp:RegularExpressionValidator>
                                         </div>
                                     </div>
                                 </div>
@@ -78,6 +82,9 @@
                                             <asp:TextBox ID="txtMobNo" runat="server" CssClass="form-control required" placeholder="Enter Mobile No"></asp:TextBox>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtMobNo"
                                                 ValidationGroup="btnsignUpsubmit" runat="server" />
+                                            <asp:CompareValidator ID="cvMobileNo" ControlToValidate="txtMobNo" runat="server"
+                                                Display="Dynamic" ValidationGroup="btnsignUpsubmit" ErrorMessage="Please enter a valid Mobile No."
+                                                Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-6">
@@ -87,11 +94,16 @@
                                             <asp:TextBox ID="txtPan1" runat="server" CssClass="form-control required" placeholder="Enter PAN"></asp:TextBox>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtPan1"
                                                 ValidationGroup="btnsignUpsubmit" runat="server" />
+                                            <asp:RegularExpressionValidator ID="revPan" runat="server" Display="Dynamic" ValidationGroup="btnsignUpsubmit"
+                                                CssClass="text-danger" ErrorMessage="Please check PAN Format" ControlToValidate="txtPan1"
+                                                ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}">
+                                            </asp:RegularExpressionValidator>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-9">
+                                    <asp:Label ID="lbllogedIn1" runat="server" Visible="false" Text="User already loged In." CssClass="text-danger"></asp:Label>
                                     </div>
                                     <div class="col-sm-2">
                                         <div class="form-group">
@@ -116,6 +128,10 @@
                                             <asp:TextBox ID="txtpan2" runat="server" CssClass="form-control required" placeholder="Enter PAN"></asp:TextBox>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtpan2"
                                                 ValidationGroup="btnsignInsubmit" runat="server" />
+                                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" Display="Dynamic"
+                                                ValidationGroup="btnsignInsubmit" CssClass="text-danger" ErrorMessage="Please check PAN Format"
+                                                ControlToValidate="txtpan2" ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}">
+                                            </asp:RegularExpressionValidator>
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-6">
@@ -130,6 +146,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-9">
+                                        <asp:Label ID="lblClient" runat="server" Visible="false" Text="Client does not exists." CssClass="text-danger"></asp:Label>
+                                         <asp:Label ID="lbllogedIn2" runat="server" Visible="false" Text="User already loged In." CssClass="text-danger"></asp:Label>
                                     </div>
                                     <div class="col-sm-2">
                                         <div class="form-group">
