@@ -76,13 +76,14 @@
     <Content Include="bin\Microsoft.Practices.ObjectBuilder2.dll" />
     <Content Include="bin\Microsoft.Practices.Unity.dll" />
     <Content Include="Content\CSS\bootstrap-3.3.6.min.css" />
+    <Content Include="Content\CSS\commonStyle.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Questionnaire.aspx" />
     <Content Include="Result.aspx" />
     <Content Include="Scripts\bootstrap-3.3.6.min.js" />
     <Content Include="Scripts\CommonJScript.js" />
-    <Content Include="Scripts\jquery 2.1.1.min.js" />
+    <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -111,6 +112,13 @@
     <Compile Include="Result.aspx.designer.cs">
       <DependentUpon>Result.aspx</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <None Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="Content\fonts\glyphicons-halflings-regular.woff2" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

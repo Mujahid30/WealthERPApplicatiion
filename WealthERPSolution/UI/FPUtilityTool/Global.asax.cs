@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
+using System.Collections;
 
 namespace FPUtilityTool
 {
@@ -37,7 +38,15 @@ namespace FPUtilityTool
 
         protected void Session_End(object sender, EventArgs e)
         {
-
+            Hashtable currentLoginUserList = new Hashtable();
+            if (Application["LoginUserList"] != null)
+            {
+                Application.Lock();
+                currentLoginUserList = (Hashtable)Application["LoginUserList"];
+                currentLoginUserList.Remove(Session.SessionID.ToString());
+                Application["LoginUserList"] = currentLoginUserList;
+                Application.UnLock();
+            }
         }
 
         protected void Application_End(object sender, EventArgs e)

@@ -5,7 +5,14 @@ using System.Text;
 
 namespace VOFPUtilityUser
 {
-    class FPUserVo
+  public  class FPUserVo
     {
+        public string UserName { get; set; }
+        public string Pan { get; set; }
+        public string EMail { get; set; }
+        public long MobileNo { get; set; }
+        public Int32 UserId { get; set; }
+        public Int32 C_CustomerId { get; set; }
+        public DateTime CreatedOn { get; set; }
     }
 }
