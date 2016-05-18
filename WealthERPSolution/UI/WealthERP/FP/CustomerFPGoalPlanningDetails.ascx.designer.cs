@@ -86,6 +86,7 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.GridView gvGoalList;
         protected global::Telerik.Web.UI.RadGrid gvStandardGoaldetails;
         protected global::Telerik.Web.UI.RadComboBox ddlActionGoalType;
+        protected global::Telerik.Web.UI.RadGrid RadgvStandardGoaldetails;
         /// <summary>
         /// hidRTSaveReq control.
         /// </summary>

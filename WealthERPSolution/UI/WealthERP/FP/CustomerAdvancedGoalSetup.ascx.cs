@@ -45,7 +45,7 @@ namespace WealthERP.FP
         bool isHavingAssumption = false;
         int goalId = 0;
         string goalAction = string.Empty;
-
+        double finalValue = 0;
         CustomerGoalFundingProgressVo customerGoalFundingProgressVo = new CustomerGoalFundingProgressVo();
         CustomerGoalPlanningVo goalPlanningVo = new CustomerGoalPlanningVo();
         //CustomerAssumptionVo customerAssumptionVo = new CustomerAssumptionVo();
@@ -160,24 +160,24 @@ namespace WealthERP.FP
                 }
                 if (goalId == 0 || goalProfileSetupVo.IsFundFromAsset == false)
                 {
-                    //RadPageView2.Visible = false;
+                //    //RadPageView2.Visible = false;
 
 
-                    //ModelPortFolio
+                //    //ModelPortFolio
                     pnlModelPortfolio.Visible = false;
                     pnlModelPortfolioNoRecoredFound.Visible = true;
 
-                    //GoalFunding and Progress
+                //    //GoalFunding and Progress
                     pnlFundingProgress.Visible = false;
                     pnlDocuments.Visible = false;
                     pnlMFFunding.Visible = false;
-                    //pnlNoRecordFoundGoalFundingProgress.Visible = true;
+                //    //pnlNoRecordFoundGoalFundingProgress.Visible = true;
 
 
 
-                }
-                else
-                {
+            }
+            else
+            {
                     GetGoalFundingProgress();
                     BindExistingFundingScheme(dsGoalFundingDetails.Tables[0]);
                     BindMonthlySIPFundingScheme(dsGoalFundingDetails.Tables[1]);
@@ -496,10 +496,12 @@ namespace WealthERP.FP
                 SpanCurrInvestmentAllocated.Visible = false;
                 SpanReturnOnExistingInvestment.Visible = false;
                 spnCorpsToBeLeftBehind.Visible = false;
-
+                ddlGoalTypes.Enabled = false;
+                txtNoofYears.Enabled = false;
+                btnRecuring.Enabled = false;
                 lblGoalbjective.Text = "Goal Type :";
                 lblPickChild.Text = "Child Name :";
-
+                btnCalculateSavLum.Visible = false;
                 lblNoteHeading.Visible = false;
                 lblNote.Visible = false;
                 trRequiedNote.Visible = false;
@@ -541,10 +543,14 @@ namespace WealthERP.FP
                     SpanCurrInvestmentAllocated.Visible = true;
                     SpanReturnOnExistingInvestment.Visible = true;
                     spnCorpsToBeLeftBehind.Visible = true;
-
+                    ddlGoalTypes.Enabled = true;
+                    txtNoofYears.Enabled = true;
+                    btnRecuring.Enabled = true;
                     lblNoteHeading.Visible = true;
                     lblNote.Visible = true;
                     trRequiedNote.Visible = true;
+                    btnCalculateSavLum.Visible = true;
+
                     //lblHeader.Text = "Goal Profile ";
                     //lblPickCustomer.Text = "Pick a Customer :";
                     lblGoalbjective.Text = "Pick Goal Objective :";
@@ -571,7 +577,9 @@ namespace WealthERP.FP
                     rdoMFBasedGoalYes.Enabled = true;
                     rdoMFBasedGoalNo.Enabled = true;
                     txtCorpusToBeLeftBehind.Enabled = true;
-
+                    ddlGoalTypes.Enabled = true;
+                    txtNoofYears.Enabled = true;
+                    btnRecuring.Enabled = true;
                     //SpanPicCustomerReq.Visible = true;
                     SpanGoalDateReq.Visible = true;
                     SpanGoalCostTodayReq.Visible = true;
@@ -585,7 +593,7 @@ namespace WealthERP.FP
                     SpanCurrInvestmentAllocated.Visible = true;
                     SpanReturnOnExistingInvestment.Visible = true;
                     spnCorpsToBeLeftBehind.Visible = true;
-
+                    btnCalculateSavLum.Visible = true;
                     lblNoteHeading.Visible = true;
                     lblNote.Visible = true;
                     trRequiedNote.Visible = true;
@@ -930,6 +938,7 @@ namespace WealthERP.FP
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     txtNoofYears.Text = dr["NoofYear"].ToString();
+                    ViewState["finalValue"] = dr["totalValue"].ToString();
                 }
             }
             switch (goalProfileSetupVo.Goalcode)
@@ -1228,7 +1237,10 @@ namespace WealthERP.FP
                 //int ParentCustomerId = int.Parse(Session["FP_UserID"].ToString());
                 customerGoalPlanningVo.CustomerId = customerVo.CustomerId;
                 customerGoalPlanningVo.Goalcode = ddlGoalType.SelectedValue.ToString();
+                if(ddlGoalTypes.SelectedValue!="RG")
                 customerGoalPlanningVo.CostOfGoalToday = double.Parse(txtGoalCostToday.Text.Trim());
+                else
+                    customerGoalPlanningVo.CostOfGoalToday = double.Parse(ViewState["finalValue"].ToString());
                 customerGoalPlanningVo.GoalDate = DateTime.Parse(txtGoalDate.Text);
                 customerGoalPlanningVo.GoalYear = int.Parse(ddlGoalYear.SelectedValue);
                 if (ddlGoalType.SelectedValue == "ED" || ddlGoalType.SelectedValue == "MR")
@@ -1295,15 +1307,17 @@ namespace WealthERP.FP
                 CustomerGoalPlanningVo goalplanningSetUpVo = new CustomerGoalPlanningVo();
                 if (ViewState["RecurringTable"] != null)
                     dtrecurringtable = (DataTable)ViewState["RecurringTable"];
-                goalplanningSetUpVo = customerGoalPlanningBo.CreateCustomerGoalPlanning(customerGoalPlanningVo, customerAssumptionVo, customerVo.CustomerId, false, dtrecurringtable, out goalId);
-                tdlblInvestmntLumpsum.Visible = true;
+                    goalplanningSetUpVo = customerGoalPlanningBo.CreateCustomerGoalPlanning(customerGoalPlanningVo, customerAssumptionVo, customerVo.CustomerId, false, dtrecurringtable, out goalId);
+                    lblInvestmntLumpsumTxt.Text = goalplanningSetUpVo.LumpsumInvestRequired != 0 ? String.Format("{0:n2}", Math.Round(goalplanningSetUpVo.LumpsumInvestRequired, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+
+                    lblSavingsRequiredMonthlyTxt.Text = goalplanningSetUpVo.MonthlySavingsReq != 0 ? String.Format("{0:n2}", Math.Round(goalplanningSetUpVo.MonthlySavingsReq, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+               
+                    tdlblInvestmntLumpsum.Visible = true;
                 tdlblInvestmntLumpsumTxt.Visible = true;
                 tdSavingsRequiredMonthly.Visible = true;
                 tdSavingsRequiredMonthlyTxt.Visible = true;
                 //lumpsumInvestment = customerGoalPlanningBo.PV(goalplanningSetUpVo.ExpectedROI / 100, goalplanningSetUpVo.GoalYear - DateTime.Now.Year, 0, -goalplanningSetUpVo.FutureValueOfCostToday, 1);
-                lblInvestmntLumpsumTxt.Text = goalplanningSetUpVo.LumpsumInvestRequired != 0 ? String.Format("{0:n2}", Math.Round(goalplanningSetUpVo.LumpsumInvestRequired, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
-
-                lblSavingsRequiredMonthlyTxt.Text = goalplanningSetUpVo.MonthlySavingsReq != 0 ? String.Format("{0:n2}", Math.Round(goalplanningSetUpVo.MonthlySavingsReq, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                
 
                 //After Save Goal Is in View Mode
                 Session["GoalId"] = goalId;
@@ -1540,7 +1554,10 @@ namespace WealthERP.FP
                 customerGoalPlanningVo.GoalId = goalId;
                 customerGoalPlanningVo.CustomerId = customerVo.CustomerId;
                 customerGoalPlanningVo.Goalcode = ddlGoalType.SelectedValue.ToString();
-                customerGoalPlanningVo.CostOfGoalToday = double.Parse(txtGoalCostToday.Text.Trim());
+                if (ddlGoalTypes.SelectedValue != "RG")
+                    customerGoalPlanningVo.CostOfGoalToday = double.Parse(txtGoalCostToday.Text.Trim());
+                else
+                    customerGoalPlanningVo.CostOfGoalToday = double.Parse(ViewState["finalValue"].ToString());
                 customerGoalPlanningVo.GoalDate = DateTime.Parse(txtGoalDate.Text);
                 customerGoalPlanningVo.GoalYear = int.Parse(ddlGoalYear.SelectedValue);
                 if (ddlGoalType.SelectedValue == "ED" || ddlGoalType.SelectedValue == "MR")
@@ -1551,7 +1568,7 @@ namespace WealthERP.FP
                 {
                     customerGoalPlanningVo.GoalDescription = txtGoalDescription.Text;
                 }
-
+                customerGoalPlanningVo.GoalType = ddlGoalTypes.SelectedValue;
                 if (rdoMFBasedGoalYes.Checked)
                 {
                     customerGoalPlanningVo.IsFundFromAsset = true;
@@ -3336,7 +3353,7 @@ namespace WealthERP.FP
             int noofyr = int.Parse(txtNoofYears.Text);
             DateTime date = DateTime.Now;
             int year = date.Year;
-            double finalValue;
+            
             for (int i = 0; i < noofyr; i++)
             {
                 drRecuring = dt.NewRow();
@@ -3352,13 +3369,14 @@ namespace WealthERP.FP
                     drRecuring["Yrs"] = (int.Parse(ddlGoalYear.SelectedValue) + i) - year;
                     drRecuring["Year"] = int.Parse(ddlGoalYear.SelectedValue) + i;
                     drRecuring["FutureValue"] = Financial.Fv(Convert.ToDouble(txtInflation.Text) / 100, (int.Parse(ddlGoalYear.SelectedValue) + i) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0);
-                    finalValue = Financial.Fv(Convert.ToDouble(txtInflation.Text) / 100, (int.Parse(ddlGoalYear.SelectedValue) + i) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0);
+                    finalValue +=  Financial.Fv(Convert.ToDouble(txtInflation.Text) / 100, (int.Parse(ddlGoalYear.SelectedValue) + i) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0);
                 }
                 drRecuring["Costperannum"] = (int.Parse(txtGoalCostToday.Text) / int.Parse(txtNoofYears.Text));
                 drRecuring["Inflation"] = txtInflation.Text;
                 dt.Rows.Add(drRecuring);
 
             }
+            ViewState["finalValue"] = finalValue;
             ViewState["RecurringTable"] = dt;
             Cache.Remove("RecurringList" + userVo.UserId.ToString());
             Cache.Insert("RecurringList" + userVo.UserId.ToString(), dt);
@@ -3392,6 +3410,27 @@ namespace WealthERP.FP
                 RadRecurring.DataSource = dt;
             }
 
+        }
+        protected void OnClick_btnCalculateSavLum(object sender, EventArgs e)
+        {
+            double finalvalues = 0;
+            double rateOfReturn = double.Parse(txtExpRateOfReturn.Text);
+            double requiredAfter = int.Parse(ddlGoalYear.SelectedValue) - DateTime.Today.Year;
+            if (ddlGoalTypes.SelectedValue == "RG")
+                finalvalues = double.Parse(ViewState["finalValue"].ToString());
+            else
+                finalvalues = Financial.Fv(double.Parse(txtInflation.Text)/100, requiredAfter, 0, -double.Parse(txtGoalCostToday.Text), 0);
+           
+            
+            double lumpsumamout = customerGoalPlanningBo.PV(rateOfReturn / 100, requiredAfter, 0, -finalvalues, 1);
+            double requiredSavings = customerGoalPlanningBo.PMT((rateOfReturn/1200 ), (requiredAfter*12), 0, -finalvalues, 1);
+            lblInvestmntLumpsumTxt.Text = lumpsumamout != 0 ? String.Format("{0:n2}", Math.Round(lumpsumamout, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+        
+            lblSavingsRequiredMonthlyTxt.Text = requiredSavings != 0 ? String.Format("{0:n2}", Math.Round(requiredSavings, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+            tdlblInvestmntLumpsum.Visible = true;
+            tdlblInvestmntLumpsumTxt.Visible = true;
+            tdSavingsRequiredMonthly.Visible = true;
+            tdSavingsRequiredMonthlyTxt.Visible = true;
         }
     }
 }

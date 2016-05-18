@@ -48,8 +48,8 @@
                                  Text="FP" onclick="lnkbtnFPDashBoard_Click" ></asp:LinkButton>
                         </div>
                     </td>
-                    <td style="width: 30%;" align="center">
-                         <div class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'" onmouseout="this.className='divDashBoardMouseInLinks'">
+                   <%-- <td style="width: 30%;" align="center" visible="false">
+                         <div visible="false" class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'" onmouseout="this.className='divDashBoardMouseInLinks'">
                             <asp:ImageButton ID="imgOrderentry" ImageUrl="~/Images/Dashboard-MF-Order.png" runat="server"
                                 ToolTip="Navigate to Order Management"  Width="70px" 
                                  onclick="imgOrderentry_Click" />
@@ -58,7 +58,7 @@
                                 ToolTip="Navigate to Order Management" Text="Product Order" 
                                  onclick="lnkbtnProductOrder_Click" ></asp:LinkButton>
                         </div>
-                    </td>
+                    </td>--%>
                 </tr>
             </table>
         </td>
@@ -99,8 +99,8 @@
                                 ToolTip="Navigate to Equity" Text="Equity" onclick="lnkbtnEquity_Click"></asp:LinkButton>
                         </div>
                     </td>
-                    <td style="width: 30%;" align="center">
-                            <div class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'" onmouseout="this.className='divDashBoardMouseInLinks'">
+                    <%--<td style="width: 30%;" align="center" visible="false">
+                            <div visible="false" class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'" onmouseout="this.className='divDashBoardMouseInLinks'">
                             <asp:ImageButton ID="imgbtnNotification" ImageUrl="~/Images/DashBoard-Notification.png"
                                 runat="server" ToolTip="Navigate to Notification" 
                                 Width="70px" onclick="imgbtnNotification_Click" />
@@ -109,7 +109,7 @@
                                 ToolTip="Navigate to Add Alerts" Text="Notifications" 
                                     onclick="lnkbtnAlerts_Click" ></asp:LinkButton>
                         </div>
-                    </td>
+                    </td>--%>
                 </tr>
             </table>
         </td>

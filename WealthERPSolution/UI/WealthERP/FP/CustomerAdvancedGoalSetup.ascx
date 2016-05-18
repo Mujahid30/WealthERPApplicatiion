@@ -60,7 +60,7 @@
                 </telerik:RadTab>
                 <telerik:RadTab runat="server" Text="Equity" Value="EQ" TabIndex="4">
                 </telerik:RadTab>
-                <telerik:RadTab runat="server" Text="Fixed Income" Value="FI" TabIndex="5" Visible="false">
+                <telerik:RadTab runat="server" Text="Fixed Income" Value="FI" TabIndex="5" Visible="false" >
                 </telerik:RadTab>
             </Tabs>
         </telerik:RadTab>
@@ -212,7 +212,7 @@
                             <asp:Label ID="lblGoalType" runat="server" Text="Goal Type:" CssClass="FieldName"></asp:Label>
                         </td>
                         <td class="rightField">
-                            <asp:DropDownList ID="ddlGoalTypes" runat="server" AutoPostBack="true" CssClass="cmbfield"
+                            <asp:DropDownList ID="ddlGoalTypes" runat="server" AutoPostBack="true" CssClass="cmbField"
                                 OnSelectedIndexChanged="ddlGoalTypes_OnSelectedIndexChange">
                                 <asp:ListItem Text="Normal" Value="NG"></asp:ListItem>
                                 <asp:ListItem Text="Recurring" Value="RG"></asp:ListItem>
@@ -282,7 +282,7 @@
                     </tr>
                     <tr id="trNoofYears" runat="server" visible="false">
                         <td class="leftField">
-                            <asp:Label ID="lblNoofYear" runat="server" CssClass="FieldName" Text="No. of years:"></asp:Label>
+                            <asp:Label ID="lblNoofYear" runat="server" CssClass="FieldName" Text="No. of Periods:"></asp:Label>
                         </td>
                         <td id="tdtxtNoofYears" runat="server">
                             <asp:TextBox ID="txtNoofYears" runat="server"> </asp:TextBox>
@@ -565,9 +565,11 @@
         <asp:Panel ID="pnlButtonControls" runat="server">
             <table class="TableBackground">
                 <tr id="trchkApprove" runat="server">
-                    <td id="Td8" runat="server">
+                    <td id="Td8" runat="server" style="width:350px">
                         <asp:CheckBox ID="chkApprove" runat="server" CssClass="FieldName" Text=" Approved by Customer" />
                     </td>
+                    <td style="float:left"><asp:Button ID="btnCalculateSavLum" runat="server" CssClass="PCGButton" Text="Calculate" ValidationGroup="btnSave" OnClick="OnClick_btnCalculateSavLum" /> </td>
+                    
                 </tr>
                 <tr id="trlblApproveOn" runat="server">
                     <td id="Td9" runat="server">

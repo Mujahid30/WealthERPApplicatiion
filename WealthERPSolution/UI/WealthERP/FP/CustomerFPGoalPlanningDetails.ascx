@@ -33,11 +33,10 @@
                         <td align="left">
                             Goal List
                         </td>
-                        <td align="right" >
+                        <td align="right">
                             <asp:ImageButton ID="imgBtnStandardGoalList" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                                OnClientClick="setFormat('excel')" Height="25px" Width="25px" Visible="false">
-                            </asp:ImageButton>
+                                Height="25px" Width="25px" Visible="false"></asp:ImageButton>
                         </td>
                     </tr>
                 </table>
@@ -91,8 +90,8 @@
                 <div id="dvHoldings" runat="server" style="width: 650px; padding: 4px">
                     <asp:GridView ID="gvGoalList" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                         HorizontalAlign="Center" CellPadding="4" EnableViewState="True" AllowPaging="false"
-                        ShowFooter="true" CssClass="GridViewStyle" DataKeyNames="GoalId,GoalCode,IsGoalBehind" 
-                        OnRowDataBound="gvGoalList_RowDataBound" >
+                        ShowFooter="true" CssClass="GridViewStyle" DataKeyNames="GoalId,GoalCode,IsGoalBehind"
+                        OnRowDataBound="gvGoalList_RowDataBound">
                         <FooterStyle CssClass="FooterStyle" />
                         <RowStyle CssClass="RowStyle" />
                         <%--  <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle"/>--%>
@@ -146,14 +145,14 @@
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Target Yr" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblGoalYear" runat="server"  Text='<%#Eval("GoalYear") %>'>
+                                    <asp:Label ID="lblGoalYear" runat="server" Text='<%#Eval("GoalYear") %>'>
                                     </asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Goal Amount" HeaderStyle-HorizontalAlign="Center"
                                 ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblGaolAmount" runat="server"  Text='<%#Eval("GoalAmount")%>'>
+                                    <asp:Label ID="lblGaolAmount" runat="server" Text='<%#Eval("GoalAmount")%>'>
                                     </asp:Label>
                                 </ItemTemplate>
                                 <FooterTemplate>
@@ -164,7 +163,7 @@
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Goal Start Dt" HeaderStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblGoalDate" runat="server"  Text='<%#Eval("GoalPrifileDate", "{0:M-dd-yyyy}")  %>'>
+                                    <asp:Label ID="lblGoalDate" runat="server" Text='<%#Eval("GoalPrifileDate", "{0:M-dd-yyyy}")  %>'>
                                     </asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
@@ -183,28 +182,28 @@
                             <asp:TemplateField HeaderText="Infl.(%)" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Right"
                                 FooterStyle-HorizontalAlign="Right">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblInflation" runat="server"  Text='<%#Eval("Inflation")%>'>
+                                    <asp:Label ID="lblInflation" runat="server" Text='<%#Eval("Inflation")%>'>
                                     </asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Return on  Existing Investment(%)" HeaderStyle-HorizontalAlign="Center"
                                 ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblRtnOnExistingInvestment" runat="server"  Text='<%#Eval("ROIEarned")%>'>
+                                    <asp:Label ID="lblRtnOnExistingInvestment" runat="server" Text='<%#Eval("ROIEarned")%>'>
                                     </asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Return on Future Investment(%)" HeaderStyle-HorizontalAlign="Center"
                                 ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblExpROI" runat="server"  Text='<%#Eval("ExpROI")%>'>
+                                    <asp:Label ID="lblExpROI" runat="server" Text='<%#Eval("ExpROI")%>'>
                                     </asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Investment Required-Lumpsum" HeaderStyle-HorizontalAlign="Center"
                                 ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblLumpsumInvestment" runat="server"  Text='<%#Eval("LumpsumInvestment")%>'>
+                                    <asp:Label ID="lblLumpsumInvestment" runat="server" Text='<%#Eval("LumpsumInvestment")%>'>
                                     </asp:Label>
                                 </ItemTemplate>
                                 <FooterTemplate>
@@ -228,8 +227,7 @@
                             <asp:TemplateField HeaderText="Amt Funded(Cost)" HeaderStyle-HorizontalAlign="Center"
                                 ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblAllocatedAmountToWardsGoal" runat="server" 
-                                        Text='<%#Eval("AllocatedAmountToWardsGoal")%>'>
+                                    <asp:Label ID="lblAllocatedAmountToWardsGoal" runat="server" Text='<%#Eval("AllocatedAmountToWardsGoal")%>'>
                                     </asp:Label>
                                 </ItemTemplate>
                                 <FooterTemplate>
@@ -241,7 +239,7 @@
                             <asp:TemplateField HeaderText="Amt Funded(Cur Val)" HeaderStyle-HorizontalAlign="Center"
                                 ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblCurrentGoalValue" runat="server"  Text='<%#Eval("CurrentGoalValue")%>'>
+                                    <asp:Label ID="lblCurrentGoalValue" runat="server" Text='<%#Eval("CurrentGoalValue")%>'>
                                     </asp:Label>
                                 </ItemTemplate>
                                 <FooterTemplate>
@@ -253,7 +251,7 @@
                             <asp:TemplateField HeaderText="Monthly Investment-Commited" HeaderStyle-HorizontalAlign="Center"
                                 ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblValueOfInvestment" runat="server"  Text='<%#Eval("SIPAmount")%>'>
+                                    <asp:Label ID="lblValueOfInvestment" runat="server" Text='<%#Eval("SIPAmount")%>'>
                                     </asp:Label>
                                 </ItemTemplate>
                                 <FooterTemplate>
@@ -265,7 +263,7 @@
                             <asp:TemplateField HeaderText="Projected Funds Value On Goal Year" HeaderStyle-HorizontalAlign="Center"
                                 ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblProjectedValue" runat="server"  Text='<%#Eval("ProjectedValue")%>'>
+                                    <asp:Label ID="lblProjectedValue" runat="server" Text='<%#Eval("ProjectedValue")%>'>
                                     </asp:Label>
                                 </ItemTemplate>
                                 <FooterTemplate>
@@ -277,7 +275,7 @@
                             <asp:TemplateField HeaderText="Projected Gap" HeaderStyle-HorizontalAlign="Center"
                                 ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblProjectedGapValue" runat="server"  Text='<%#Eval("ProjectedGapValue")%>'>
+                                    <asp:Label ID="lblProjectedGapValue" runat="server" Text='<%#Eval("ProjectedGapValue")%>'>
                                     </asp:Label>
                                 </ItemTemplate>
                                 <FooterTemplate>
@@ -289,7 +287,7 @@
                             <asp:TemplateField HeaderText="Additional Savings Required-Monthly" HeaderStyle-HorizontalAlign="Center"
                                 ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblAdditionalSavingReq" runat="server"  Text='<%#Eval("AdditionalSavingReq")%>'>
+                                    <asp:Label ID="lblAdditionalSavingReq" runat="server" Text='<%#Eval("AdditionalSavingReq")%>'>
                                     </asp:Label>
                                 </ItemTemplate>
                                 <FooterTemplate>
@@ -300,7 +298,7 @@
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="IsActive" HeaderStyle-HorizontalAlign="Center" Visible="false">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblIsActive" runat="server"  Text='<%#Eval("IsActive") %>'>
+                                    <asp:Label ID="lblIsActive" runat="server" Text='<%#Eval("IsActive") %>'>
                                     </asp:Label>
                                 </ItemTemplate>
                                 <HeaderTemplate>
@@ -314,14 +312,14 @@
                                         </asp:ListItem>
                                     </asp:DropDownList>
                                     <br></br>
-                                    <asp:Label ID="ActiveMessage" runat="server" BackColor="Transparent" 
-                                        Font-Bold="true" Text="No Active Goals">
+                                    <asp:Label ID="ActiveMessage" runat="server" BackColor="Transparent" Font-Bold="true"
+                                        Text="No Active Goals">
                                     </asp:Label>
                                 </HeaderTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Progress Indicator" ItemStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblIsGoalGap" runat="server"  Text='<%#Eval("IsGoalBehind") %>'>
+                                    <asp:Label ID="lblIsGoalGap" runat="server" Text='<%#Eval("IsGoalBehind") %>'>
                                     </asp:Label>
                                     <asp:Image ID="imgGoalFundGap" ImageAlign="Middle" runat="server" />
                                 </ItemTemplate>
@@ -346,12 +344,11 @@
                 <div id="Div3" runat="server">
                     <telerik:RadGrid ID="gvStandardGoaldetails" runat="server" GridLines="None" AutoGenerateColumns="False"
                         AlternatingItemStyle-Wrap="true" PageSize="10" AllowSorting="true" AllowPaging="True"
-                        ShowStatusBar="True" ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" OnNeedDataSource="gvStandardGoaldetails_OnNeedDataSource"
-                        AllowFilteringByColumn="true" AllowAutomaticInserts="false" OnItemDataBound="gvStandardGoaldetails_ItemDataBound">
-                        <ExportSettings HideStructureColumns="false">
-                        </ExportSettings>
+                        ShowStatusBar="True" ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false"
+                        OnNeedDataSource="gvStandardGoaldetails_OnNeedDataSource" AllowFilteringByColumn="true"
+                        AllowAutomaticInserts="false" OnItemDataBound="gvStandardGoaldetails_ItemDataBound" EnableViewState = "true">
                         <MasterTableView Width="100%" DataKeyNames="GoalId,GoalCode,IsGoalBehind" AllowMultiColumnSorting="True"
-                            AutoGenerateColumns="false" CommandItemDisplay="None">
+                            AutoGenerateColumns="false" CommandItemDisplay="None" EnableViewState = "true">
                             <Columns>
                                 <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action">
                                     <ItemTemplate>
@@ -379,7 +376,7 @@
                                         <%--<asp:LinkButton ID="lnkGoalType" runat="server" CssClass="cmbField" 
                                             OnClick="lnkGoalType_Click" Text='<%# Eval("GoalName") %>'>
                                         </asp:LinkButton>--%>
-                                        <asp:Label ID="lblGoalName" runat="server"  Text='<%# Eval("GoalCode") %>'>
+                                        <asp:Label ID="lblGoalName" runat="server" Text='<%# Eval("GoalCode") %>'>
                                         </asp:Label>
                                         <asp:Image ID="imgGoalImage" ImageAlign="Middle" runat="server" />
                                     </ItemTemplate>
@@ -389,25 +386,23 @@
                                         </asp:Label>
                                     </FooterTemplate>
                                 </telerik:GridTemplateColumn>
-                                <telerik:GridTemplateColumn HeaderText="Target Yr" DataField="GoalYear" AllowFiltering="false"
-                                    HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblGoalYear" runat="server"  Text='<%#Eval("GoalYear") %>'>
-                                        </asp:Label>
-                                    </ItemTemplate>
-                                </telerik:GridTemplateColumn>
+                                <telerik:GridBoundColumn DataField="GoalYear" UniqueName="GoalYear" HeaderText="Target Yr"
+                                    ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="70px"
+                                    SortExpression="GoalYear" FilterControlWidth="70px" CurrentFilterFunction="Contains">
+                                    <ItemStyle Width="70px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                                </telerik:GridBoundColumn>
                                 <telerik:GridTemplateColumn HeaderText="Goal Amount" DataField="GoalAmount" Aggregate="Sum"
                                     FooterAggregateFormatString="{0:N0}" HeaderStyle-HorizontalAlign="Center" AllowFiltering="false"
                                     ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblGaolAmount" runat="server"  Text='<%#Eval("GoalAmount")%>'>
+                                        <asp:Label ID="lblGaolAmount" runat="server" Text='<%#Eval("GoalAmount")%>'>
                                         </asp:Label>
                                     </ItemTemplate>
                                 </telerik:GridTemplateColumn>
                                 <telerik:GridTemplateColumn HeaderText="Goal Start Dt" DataField="GoalPrifileDate"
                                     AllowFiltering="false" HeaderStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblGoalDate" runat="server"  Text='<%#Eval("GoalPrifileDate", "{0:M-dd-yyyy}")  %>'>
+                                        <asp:Label ID="lblGoalDate" runat="server" Text='<%#Eval("GoalPrifileDate", "{0:M-dd-yyyy}")  %>'>
                                         </asp:Label>
                                     </ItemTemplate>
                                 </telerik:GridTemplateColumn>
@@ -415,14 +410,14 @@
                                     DataField="CostToday" Aggregate="Sum" FooterAggregateFormatString="{0:N0}" HeaderStyle-HorizontalAlign="Center"
                                     ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblCostToday" runat="server"  Text='<%#Eval("CostToday")%>'>
+                                        <asp:Label ID="lblCostToday" runat="server" Text='<%#Eval("CostToday")%>'>
                                         </asp:Label>
                                     </ItemTemplate>
                                 </telerik:GridTemplateColumn>
                                 <telerik:GridTemplateColumn HeaderText="Infl.(%)" DataField="Inflation" AllowFiltering="false"
                                     HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblInflation" runat="server"  Text='<%#Eval("Inflation")%>'>
+                                        <asp:Label ID="lblInflation" runat="server" Text='<%#Eval("Inflation")%>'>
                                         </asp:Label>
                                     </ItemTemplate>
                                 </telerik:GridTemplateColumn>
@@ -430,7 +425,7 @@
                                     HeaderStyle-Width="10%" AllowFiltering="false" HeaderStyle-HorizontalAlign="Center"
                                     ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblRtnOnExistingInvestment" runat="server"  Text='<%#Eval("ROIEarned")%>'>
+                                        <asp:Label ID="lblRtnOnExistingInvestment" runat="server" Text='<%#Eval("ROIEarned")%>'>
                                         </asp:Label>
                                     </ItemTemplate>
                                 </telerik:GridTemplateColumn>
@@ -438,7 +433,7 @@
                                     AllowFiltering="false" HeaderStyle-Width="10%" HeaderStyle-HorizontalAlign="Center"
                                     ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblExpROI" runat="server"  Text='<%#Eval("ExpROI")%>'>
+                                        <asp:Label ID="lblExpROI" runat="server" Text='<%#Eval("ExpROI")%>'>
                                         </asp:Label>
                                     </ItemTemplate>
                                 </telerik:GridTemplateColumn>
@@ -446,7 +441,7 @@
                                     Aggregate="Sum" FooterAggregateFormatString="{0:N0}" AllowFiltering="false" HeaderStyle-HorizontalAlign="Center"
                                     ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblLumpsumInvestment" runat="server"  Text='<%#Eval("LumpsumInvestment")%>'>
+                                        <asp:Label ID="lblLumpsumInvestment" runat="server" Text='<%#Eval("LumpsumInvestment")%>'>
                                         </asp:Label>
                                     </ItemTemplate>
                                 </telerik:GridTemplateColumn>
@@ -454,22 +449,20 @@
                                     AllowFiltering="false" Aggregate="Sum" FooterAggregateFormatString="{0:N0}" HeaderStyle-HorizontalAlign="Center"
                                     ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblMonthlyReq" runat="server"  Text='<%#Eval("SavingRequired")%>'>
+                                        <asp:Label ID="lblMonthlyReq" runat="server" Text='<%#Eval("SavingRequired")%>'>
                                         </asp:Label>
                                     </ItemTemplate>
                                 </telerik:GridTemplateColumn>
                                 <telerik:GridTemplateColumn HeaderText="IsActive" HeaderStyle-HorizontalAlign="Center"
                                     Visible="false">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblIsActive" runat="server"  Text='<%#Eval("IsActive") %>'>
+                                        <asp:Label ID="lblIsActive" runat="server" Text='<%#Eval("IsActive") %>'>
                                         </asp:Label>
                                     </ItemTemplate>
                                 </telerik:GridTemplateColumn>
                             </Columns>
                         </MasterTableView>
-                        <ClientSettings>
-                            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                        </ClientSettings>
+                       
                     </telerik:RadGrid>
                 </div>
             </asp:Panel>
@@ -479,7 +472,7 @@
 <table>
     <tr id="trNote1" runat="server">
         <td>
-            <asp:Label ID="lblNoteHeading" runat="server" CssClass="cmbFielde"   Text="Note :"></asp:Label>
+            <asp:Label ID="lblNoteHeading" runat="server" CssClass="cmbFielde" Text="Note :"></asp:Label>
         </td>
     </tr>
     <tr id="trNote2" runat="server">

@@ -163,8 +163,10 @@ namespace BoFPSuperlite
                 rateOfReturn = goalPlanningVo.ExpectedROI / 100;
                 inflationValues = (Double)goalPlanningVo.InflationPercent / 100;
 
-
-                futureCost = Math.Abs(FutureValue(inflationValues, requiredAfter, 0, costToday, 1));
+                if (goalPlanningVo.GoalType != "RG")
+                    futureCost = Math.Abs(FutureValue(inflationValues, requiredAfter, 0, costToday, 1));
+                else
+                    futureCost = costToday;
                 if (currentValue == 0 && rateEarned == 0)
                 {
                     futureInvValue = 0;
@@ -323,10 +325,11 @@ namespace BoFPSuperlite
         }
 
 
-        public double PMT(double rate, double nper, double pv, double fv, int type)
+        public double PMT(double rate, double nper, double pv, double fv, double type)
         {
             double result = 0;
-            result = Financial.Pmt(rate, nper, pv, fv, DueDate.BegOfPeriod);
+            Math.Round(fv, 2);
+            result = Financial.Pmt(rate, nper, pv, Math.Round(fv, 2), DueDate.BegOfPeriod);
             return result;
         }
 

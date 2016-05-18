@@ -824,6 +824,10 @@ namespace WealthERP.FP
             {
                 gvStandardGoaldetails.DataSource = dt;
             }
+            trNote1.Visible = true;
+            trNote2.Visible = true;
+            Panel2.Visible = true;
+
         }
         public void gvStandardGoaldetails_ItemDataBound(object sender, GridItemEventArgs e)
         {
@@ -960,36 +964,36 @@ namespace WealthERP.FP
 
         public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
-           DataTable dtGoalProfile=  (DataTable)Cache[customerVo.CustomerId + "dtGoalProfile"];
-           foreach (DataRow dr in dtGoalProfile.Rows)
-           {    
-               if (dr["GoalCode"].ToString() == "MR")
-               {
-                   dr["GoalCode"] = "Children Marriage";
-               }
-               else if (dr["GoalCode"].ToString() == "RT")
-               {
-                   dr["GoalCode"] = "Retirement";
-               }
+           //DataTable dtGoalProfile=  (DataTable)Cache[customerVo.CustomerId + "dtGoalProfile"];
+           //foreach (DataRow dr in dtGoalProfile.Rows)
+           //{    
+           //    if (dr["GoalCode"].ToString() == "MR")
+           //    {
+           //        dr["GoalCode"] = "Children Marriage";
+           //    }
+           //    else if (dr["GoalCode"].ToString() == "RT")
+           //    {
+           //        dr["GoalCode"] = "Retirement";
+           //    }
 
-               else if (dr["GoalCode"].ToString() == "OT")
-               {
-                   dr["GoalCode"] = "Other";
-               }
+           //    else if (dr["GoalCode"].ToString() == "OT")
+           //    {
+           //        dr["GoalCode"] = "Other";
+           //    }
 
-               else if (dr["GoalCode"].ToString() == "ED")
-               {
-                   dr["GoalCode"] = "Children Education";
-               }
+           //    else if (dr["GoalCode"].ToString() == "ED")
+           //    {
+           //        dr["GoalCode"] = "Children Education";
+           //    }
 
-               else if (dr["GoalCode"].ToString() == "BH")
-               {
-                   dr["GoalCode"] = "Buy Home";
-               }
+           //    else if (dr["GoalCode"].ToString() == "BH")
+           //    {
+           //        dr["GoalCode"] = "Buy Home";
+           //    }
 
 
-           }
-           gvStandardGoaldetails.DataSource = dtGoalProfile;
+           //}
+           //gvStandardGoaldetails.DataSource = dtGoalProfile;
             //if(dtGoalProfile.Columns[
             gvStandardGoaldetails.ExportSettings.OpenInNewWindow = true;
             gvStandardGoaldetails.ExportSettings.IgnorePaging = true;
