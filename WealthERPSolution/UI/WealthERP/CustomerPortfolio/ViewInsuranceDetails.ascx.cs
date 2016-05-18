@@ -235,6 +235,12 @@ namespace WealthERP.CustomerPortfolio
                     dtInsurance.Columns.Add("Next Due Date", typeof(DateTime));
                     dtInsurance.Columns.Add("XF_Frequency");
                     dtInsurance.Columns.Add("PolicyNo");
+                    dtInsurance.Columns.Add("Amount", typeof(double));
+                    dtInsurance.Columns.Add("ModeOfPayment");
+                    dtInsurance.Columns.Add("PaymentInstrumentNumber");
+                    dtInsurance.Columns.Add("PaymentInstrumentDate", typeof(DateTime));
+                    dtInsurance.Columns.Add("BankName");
+                    dtInsurance.Columns.Add("BankBranch");
 
                     DataRow drInsurance;
 
@@ -408,12 +414,23 @@ namespace WealthERP.CustomerPortfolio
                         drInsurance["XII_InsuranceIssuerName"] = insuranceVo.InsuranceIssuerName;
                         drInsurance["XF_Frequency"] = insuranceVo.Frequency;
                         drInsurance["PolicyNo"] = insuranceVo.PolicyNumber;
+                        if (insuranceVo.Amount.ToString() != "")
+                            drInsurance["Amount"] = insuranceVo.Amount;
+                        if (insuranceVo.PaymentInstrumentDate != DateTime.MinValue)
+                            drInsurance["PaymentInstrumentDate"] = insuranceVo.PaymentInstrumentDate;
+                        drInsurance["ModeOfPayment"] = insuranceVo.ModeOfPayment.ToString();
+                        drInsurance["PaymentInstrumentNumber"] = insuranceVo.PaymentInstrumentNumber;
+                        drInsurance["BankName"] = insuranceVo.BankName;
+                        drInsurance["BankBranch"] = insuranceVo.BankBranch;
 
                         string frequency = "";
                         DateTime startDate = insuranceVo.FirstPremiumDate;
                         DateTime endDate = DateTime.Parse(drInsurance["Maturity Date"].ToString());
                         frequency = insuranceVo.PremiumFrequencyCode;
                         DateTime nextPremiumDate = GetNextPremiumDate(frequency, startDate, endDate);
+
+                        
+                        
                         if (nextPremiumDate != DateTime.MinValue)
                         {
                             drInsurance["Next Due Date"] = nextPremiumDate.ToShortDateString();
@@ -519,7 +536,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 nextPremiumDate = DateTime.MinValue;
             }
-            while (nextPremiumDate < currentDate && nextPremiumDate <endDate)
+            if (nextPremiumDate < currentDate && nextPremiumDate <endDate)
             {
                 nextPremiumDate = new DateTime(nextPremiumDate.Year, nextPremiumDate.Month, 1);
                 if (frequency != "Daily")
@@ -554,8 +571,7 @@ namespace WealthERP.CustomerPortfolio
                         nextPremiumDate=DateTime.MinValue;
                         break;
                         }
-                if (nextPremiumDate == DateTime.MinValue)
-                    break;
+               
                 
             }
             

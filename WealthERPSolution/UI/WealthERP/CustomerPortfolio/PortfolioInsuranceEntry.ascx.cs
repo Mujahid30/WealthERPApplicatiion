@@ -453,6 +453,28 @@ namespace WealthERP.CustomerPortfolio
                     if (insuranceVo.PurchaseDate != DateTime.MinValue)
                         txtPolicyPurchaseDate.Text = insuranceVo.PurchaseDate.ToShortDateString();
 
+
+                    if (insuranceVo.Amount != null)
+                        txtAmount.Text = insuranceVo.Amount.ToString();
+                    if (insuranceVo.PaymentInstrumentNumber != null)
+                        txtPaymentNumber.Text = insuranceVo.PaymentInstrumentNumber.ToString();
+                    if (insuranceVo.BankBranch != null)
+                        txtBranchName.Text = insuranceVo.BankBranch.ToString();
+
+                    if (insuranceVo.PaymentInstrumentDate != null && insuranceVo.PaymentInstrumentDate != DateTime.MinValue)
+                        txtPaymentInstDate.SelectedDate = insuranceVo.PaymentInstrumentDate.Date;
+                    if (insuranceVo.bankcode != null && ddlBankName.Items.Count > 0)
+                        ddlBankName.SelectedValue = insuranceVo.bankcode.ToString();
+                    if (insuranceVo.BankBranch != null)
+                        txtBranchName.Text = insuranceVo.BankBranch.ToString();
+                    if (insuranceVo.ModeOfPayment != null)
+                        ddlPaymentMode.SelectedValue = insuranceVo.ModeOfPayment.Trim();
+                    if (ddlPaymentMode.SelectedValue == "CQ")
+                    {
+                        trPINo.Visible = true;
+                    }
+                    else
+                        trPINo.Visible = true;
                     
                     DataTable dtAssociationId = (DataTable)Session["dtAssociationId"];
                     if (dtAssociationId.Rows.Count > 0)
@@ -830,6 +852,12 @@ namespace WealthERP.CustomerPortfolio
                     rgULIPSubPlanSchedule.Visible = false;
                     rgULIPSubPlanSchedule.Enabled = false;
                     gvNominee.Enabled = false;
+                    txtAmount.Enabled = false;
+                    txtPaymentInstDate.Enabled = false;
+                    txtPaymentNumber.Enabled = false;
+                    ddlBankName.Enabled = false;
+                    ddlPaymentMode.Enabled = false;
+                    txtBranchName.Enabled = false;
 
                     ddlPeriodSelection.Enabled = false;
                     txtPolicyPurchaseDate.Enabled = false;
@@ -1537,7 +1565,7 @@ namespace WealthERP.CustomerPortfolio
                         if(txtPaymentInstDate.SelectedDate!=DateTime.MinValue)
                         insuranceVo.PaymentInstrumentDate = Convert.ToDateTime(txtPaymentInstDate.SelectedDate);
                         insuranceVo.Amount = int.Parse(txtAmount.Text.Trim());
-                        insuranceVo.BankName = int.Parse(ddlBankName.SelectedValue);
+                        insuranceVo.bankcode =  int.Parse(ddlBankName.SelectedValue);
                         insuranceVo.ModeOfPayment = ddlPaymentMode.SelectedValue;
                         if (txtApplDate.Text.Trim() != "")
                             insuranceVo.ApplicationDate = DateTime.Parse(txtApplDate.Text.Trim());
@@ -2005,6 +2033,13 @@ namespace WealthERP.CustomerPortfolio
                     insuranceVo.StartDate = DateTime.Parse(txtPolicyCommencementDate.Text.Trim());
                     insuranceVo.EndDate = DateTime.Parse(txtPolicyMaturity.Text.Trim());
                     insuranceVo.SumAssured = double.Parse(txtSumAssured.Text);
+                    insuranceVo.BankBranch = txtBranchName.Text;
+                    insuranceVo.ModeOfPayment = ddlPaymentMode.SelectedValue.ToString();
+                   
+                  // insuranceVo.PaymentInstrumentDate = DateTime.Parse(txtPaymentInstDate.SelectedDate.ToString());
+                    insuranceVo.PaymentInstrumentNumber = txtPaymentNumber.Text;
+                    insuranceVo.Amount = int.Parse(txtAmount.Text);
+                    insuranceVo.bankcode = int.Parse(ddlBankName.SelectedValue);
                     if (txtApplDate.Text.Trim() != "")
                         insuranceVo.ApplicationDate = DateTime.Parse(txtApplDate.Text.Trim());
                     insuranceVo.ApplicationNumber = txtApplicationNumber.Text;

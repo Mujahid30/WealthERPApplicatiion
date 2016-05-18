@@ -181,6 +181,12 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_GracePeriod", DbType.Decimal, insuranceVo.GracePeriod);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_PremiumPaymentDate", DbType.Int16, insuranceVo.PremiumPaymentDate);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_ModifiedBy", DbType.String, userId);
+                db.AddInParameter(createInsurancePortfolioCmd, "@CINP_Amount", DbType.Decimal, insuranceVo.Amount);
+                db.AddInParameter(createInsurancePortfolioCmd, "@CINP_ModeOfPayment", DbType.String, insuranceVo.ModeOfPayment);
+                db.AddInParameter(createInsurancePortfolioCmd, "@CINP_PaymentInstrumentNumber", DbType.String, insuranceVo.PaymentInstrumentNumber);
+                db.AddInParameter(createInsurancePortfolioCmd, "@CINP_PaymentInstrumentDate", DbType.DateTime, insuranceVo.PaymentInstrumentDate);
+                db.AddInParameter(createInsurancePortfolioCmd, "@CINP_BankName", DbType.Int32, insuranceVo.BankName);
+                db.AddInParameter(createInsurancePortfolioCmd, "@CINP_BankBranch", DbType.String, insuranceVo.BankBranch);
 
                 if (db.ExecuteNonQuery(createInsurancePortfolioCmd) != 0)
                     bResult = true;
@@ -321,6 +327,16 @@ namespace DaoCustomerPortfolio
                         insuranceVo.Name = dr["CINP_Name"].ToString();
                         insuranceVo.PremiumAccumalated = float.Parse(dr["CINP_PremiumAccumalated"].ToString());
                         insuranceVo.PremiumAmount = float.Parse(dr["CINP_PremiumAmount"].ToString());
+                        if (dr["CINP_Amount"].ToString() != string.Empty)
+                         insuranceVo.Amount = float.Parse(dr["CINP_Amount"].ToString());
+                        insuranceVo.BankBranch = dr["CINP_BankBranch"].ToString();
+                        if (dr["CINP_BankName"].ToString() != string.Empty)
+                            insuranceVo.BankName = dr["CINP_BankName"].ToString();
+                        insuranceVo.ModeOfPayment = dr["CINP_ModeOfPayment"].ToString();
+                        if (dr["CINP_PaymentInstrumentDate"].ToString() != string.Empty)
+                            insuranceVo.PaymentInstrumentDate = DateTime.Parse(dr["CINP_PaymentInstrumentDate"].ToString());
+                        insuranceVo.PaymentInstrumentNumber = dr["CINP_PaymentInstrumentNumber"].ToString();
+
 
                         if (dr["CINP_MortalityCharges"].ToString() != null && dr["CINP_MortalityCharges"].ToString() != "")
                             insuranceVo.MortalityCharges = float.Parse(dr["CINP_MortalityCharges"].ToString());
@@ -553,7 +569,17 @@ namespace DaoCustomerPortfolio
                     {
                         insuranceVo.PolicyTerms = Math.Abs((insuranceVo.EndDate.Month - insuranceVo.StartDate.Month) + 12 * (insuranceVo.EndDate.Year - insuranceVo.StartDate.Year));
                     }
-
+                    if (dr["CINP_Amount"].ToString() != string.Empty)
+                        insuranceVo.Amount = float.Parse(dr["CINP_Amount"].ToString());
+                    insuranceVo.BankBranch = dr["CINP_BankBranch"].ToString();
+                    if (dr["CINP_BankName"].ToString() != string.Empty)
+                        insuranceVo.BankName = dr["CINP_BankName"].ToString();
+                    insuranceVo.ModeOfPayment = dr["CINP_ModeOfPayment"].ToString();
+                    if (dr["CINP_PaymentInstrumentDate"].ToString() != string.Empty)
+                        insuranceVo.PaymentInstrumentDate = DateTime.Parse(dr["CINP_PaymentInstrumentDate"].ToString());
+                    if (dr["bankcode"].ToString() != string.Empty)
+                        insuranceVo.bankcode = int.Parse(dr["bankcode"].ToString());
+                    insuranceVo.PaymentInstrumentNumber = dr["CINP_PaymentInstrumentNumber"].ToString();
                     insuranceVo.PolicyTermsDuration = "MN";
                 }
 
