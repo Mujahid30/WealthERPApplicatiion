@@ -9,10 +9,10 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
-      <rsweb:ReportViewer ID="RptViewer" runat="server" Width="100%"  >
+
+      <rsweb:ReportViewer ID="RptViewer" runat="server" Width="100%"   Height="800px">
     </rsweb:ReportViewer>
-    </div>
+   
     </form>
     </body>
 </html>

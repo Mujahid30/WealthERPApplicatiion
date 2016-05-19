@@ -62,7 +62,7 @@ namespace WealthERP.Reports
             RptViewer.LocalReport.DataSources.Add(rds2);
             RptViewer.LocalReport.DataSources.Add(rds3);
             RptViewer.LocalReport.DataSources.Add(rds4);
-            RptViewer.LocalReport.ReportPath = Server.MapPath("BrokerageMIS.rdlc");
+            RptViewer.LocalReport.ReportPath = @"Reports\BrokerageMIS.rdlc";
             ReportParameter[] RP = new ReportParameter[]{
             new ReportParameter("Product",product),
         new ReportParameter("Category",productCategory),
