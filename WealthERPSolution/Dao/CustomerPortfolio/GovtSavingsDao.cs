@@ -150,10 +150,11 @@ namespace DaoCustomerPortfolio
                         govtSavingsVo.PaymentInstrumentNumber = dr["CGSNP_PaymentInstrumentNumber"].ToString();
                         if (dr["CGSNP_PaymentInstrumentDate"] != DBNull.Value && dr["CGSNP_PaymentInstrumentDate"] !="")
                         govtSavingsVo.PaymentInstrumentDate = DateTime.Parse(dr["CGSNP_PaymentInstrumentDate"].ToString());
-                        if (dr["CGSNP_BankName"] != DBNull.Value)
+                        if (dr["WCMV_Name"] != DBNull.Value)
 
-                        govtSavingsVo.BankName = int.Parse(dr["CGSNP_BankName"].ToString());
+                            govtSavingsVo.BankName = dr["WCMV_Name"].ToString();
                         govtSavingsVo.BankBranch = dr["CGSNP_BankBranch"].ToString();
+                       
                         
                         govtSavingsList.Add(govtSavingsVo);
                     }
@@ -360,6 +361,7 @@ namespace DaoCustomerPortfolio
                     govtSavingsVo.InterestRate = float.Parse(dr["CGSNP_InterestRate"].ToString());
                     govtSavingsVo.Name = dr["CGSNP_Name"].ToString();
                     govtSavingsVo.AssetInstrumentCategoryName = dr["PAIC_AssetInstrumentCategoryName"].ToString();
+                    if (dr["CGSNP_Amount"] !=DBNull.Value)
                     govtSavingsVo.Amount = float.Parse(dr["CGSNP_Amount"].ToString());
                     //  govtSavingsVo.Quantity = float.Parse(dr["CIGSP_Quantity"].ToString());
                     if (dr["CGSNP_PurchaseDate"] != DBNull.Value)
@@ -396,7 +398,7 @@ namespace DaoCustomerPortfolio
                         govtSavingsVo.PaymentInstrumentDate = DateTime.Parse(dr["CGSNP_PaymentInstrumentDate"].ToString());
                     if (dr["CGSNP_BankName"] != DBNull.Value)
 
-                        govtSavingsVo.BankName = int.Parse(dr["CGSNP_BankName"].ToString());
+                        govtSavingsVo.BankName = dr["CGSNP_BankName"].ToString();
                     govtSavingsVo.BankBranch = dr["CGSNP_BankBranch"].ToString();
                     govtSavingsVo.Remarks = dr["CGSNP_Remark"].ToString();
 

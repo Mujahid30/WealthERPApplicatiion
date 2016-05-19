@@ -34,15 +34,16 @@ namespace VoCustomerPortfolio
         private string m_Remarks;
         private string m_AssetInstrumentCategoryName;
 
-        public double SubsqntDepositAmount{set;get;}
-        public DateTime SubsqntDepositDate{set;get;}
-        public string DepositFrequencyCode { set; get; }
-        public string BankBranch { set; get; }
-        public DateTime PaymentInstrumentDate { set; get; }
-        public int BankName { set; get; }
-        public string PaymentInstrumentNumber { set; get; }
-        public string ModeOfPayment { set; get; }
-       public float Amount { set; get; }
+        public double SubsqntDepositAmount { get; set; }
+        public DateTime SubsqntDepositDate { get; set; }
+        public string DepositFrequencyCode { get; set; }
+        public string BankBranch { get; set; }
+        public DateTime PaymentInstrumentDate { get; set; }
+        public string BankName { get; set; }
+        public string PaymentInstrumentNumber { get; set; }
+        public string ModeOfPayment { get; set; }
+        public float Amount { get; set; }
+        public int bankcode { get; set; }
 
         #endregion
 

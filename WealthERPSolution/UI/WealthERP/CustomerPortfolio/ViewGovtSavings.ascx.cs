@@ -269,8 +269,8 @@ namespace WealthERP.CustomerPortfolio
                         drGovtSavings[12] = govtSavingsVo.PaymentInstrumentNumber.ToString();
                         if (govtSavingsVo.PaymentInstrumentDate != DateTime.MinValue)
                         drGovtSavings[13] = govtSavingsVo.PaymentInstrumentDate.ToString();
-                        drGovtSavings[14] = govtSavingsVo.BankName.ToString();
-                        drGovtSavings[15] = govtSavingsVo.BankBranch.ToString();
+                        drGovtSavings[14] = govtSavingsVo.BankName;
+                        drGovtSavings[15] = govtSavingsVo.BankBranch;
                         dtGovtSavings.Rows.Add(drGovtSavings);
 
                     }

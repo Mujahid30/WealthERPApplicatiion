@@ -117,7 +117,7 @@ namespace WealthERP.CustomerPortfolio
                 if (ddlModeOfHolding != null && ddlModeOfHolding.Items.Count > 0)
                     ddlModeOfHolding.SelectedValue = customerAccountsVo.ModeOfHolding.Trim();
                 if (ddlBankName != null && ddlBankName.Items.Count > 0)
-                    ddlBankName.SelectedValue = govtSavingsVo.BankName.ToString();
+                    ddlBankName.SelectedValue = govtSavingsVo.BankName;
                 if (ddlPaymentMode != null && ddlPaymentMode.Items.Count > 0)
                     ddlPaymentMode.SelectedValue = govtSavingsVo.ModeOfPayment.Trim();
                 if (ddlPaymentMode.SelectedValue == "CQ")
@@ -515,8 +515,8 @@ namespace WealthERP.CustomerPortfolio
                 if (txtBranchName != null && txtBranchName.Text != "")
                     newGovtSavingsVo.BankBranch = txtBranchName.Text;
                 if (ddlBankName != null)
-                    newGovtSavingsVo.BankName = int.Parse(ddlBankName.SelectedValue.ToString());
-                
+                    newGovtSavingsVo.BankName = ddlBankName.SelectedValue.ToString();
+                    newGovtSavingsVo.bankcode = int.Parse(ddlBankName.SelectedValue);
                 
                 if (newGovtSavingsVo.InterestBasisCode == "SI")
                 {
