@@ -1888,7 +1888,7 @@
                     </td>
                     <td style="width: 22%;">
                         <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField" CausesValidation="true"
-                            ValidationGroup="MFSubmit" TabIndex="31"></asp:TextBox><span id="Span1" class="spnRequiredField">*</span>
+                            ValidationGroup="MFSubmit" ></asp:TextBox><span id="Span1" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtAmount"
                             CssClass="rfvPCG" ErrorMessage="<br />Please select amount" Display="Dynamic"
                             runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
@@ -1905,7 +1905,7 @@
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlPaymentMode" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlPaymentMode_SelectedIndexChanged"
-                            AutoPostBack="true" TabIndex="32">
+                            AutoPostBack="true" >
                             <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
                             <asp:ListItem Text="Cheque" Value="CQ"></asp:ListItem>
                             <asp:ListItem Text="Draft" Value="DF"></asp:ListItem>
@@ -1924,7 +1924,7 @@
                     </td>
                     <td>
                         <asp:TextBox ID="txtPaymentNumber" runat="server" MaxLength="6" CssClass="txtField"
-                            TabIndex="33"></asp:TextBox>
+                           ></asp:TextBox>
                         <span id="Span15" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtPaymentNumber"
                             ErrorMessage="<br />Please Enter a Payment Instrument No." Display="Dynamic"
@@ -1936,7 +1936,7 @@
                     <td>
                         <telerik:RadDatePicker ID="txtPaymentInstDate" CssClass="txtField" runat="server"
                             Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
-                            ShowAnimation-Type="Fade" AutoPostBack="true" MinDate="1900-01-01" TabIndex="34"
+                            ShowAnimation-Type="Fade" AutoPostBack="true" MinDate="1900-01-01" 
                             OnSelectedDateChanged="txtPaymentInstDate_OnSelectedDateChanged">
                             <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                 Skin="Telerik" EnableEmbeddedSkins="false">
@@ -1968,7 +1968,7 @@
                         <%-- --%>
                         <asp:ImageButton ID="imgBtnRefereshBank" ImageUrl="~/Images/refresh.png" AlternateText="Refresh"
                             runat="server" ToolTip="Click here to refresh Bank List" OnClick="imgBtnRefereshBank_OnClick"
-                            OnClientClick="return closepopupAddBank()" Height="15px" Width="25px" TabIndex="19"
+                            OnClientClick="return closepopupAddBank()" Height="15px" Width="25px" 
                             Visible="false"></asp:ImageButton>
                         <asp:CompareValidator ID="CompareValidator61" runat="server" ControlToValidate="ddlBankName"
                             CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a Bank"
@@ -1985,7 +1985,7 @@
                         <asp:DropDownList ID="ddlBranch" runat="server" CssClass="cmbField" AutoPostBack="false"
                             AppendDataBoundItems="true" TabIndex="36" Visible="false">
                         </asp:DropDownList>
-                        <asp:TextBox ID="txtBranchName" runat="server" CssClass="txtField" TabIndex="37"></asp:TextBox>
+                        <asp:TextBox ID="txtBranchName" runat="server" CssClass="txtField" ></asp:TextBox>
                     </td>
                 </tr>
             </table>
