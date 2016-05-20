@@ -181,13 +181,14 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_GracePeriod", DbType.Decimal, insuranceVo.GracePeriod);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_PremiumPaymentDate", DbType.Int16, insuranceVo.PremiumPaymentDate);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_ModifiedBy", DbType.String, userId);
+                if (insuranceVo.Amount != null)
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_Amount", DbType.Decimal, insuranceVo.Amount);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_ModeOfPayment", DbType.String, insuranceVo.ModeOfPayment);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_PaymentInstrumentNumber", DbType.String, insuranceVo.PaymentInstrumentNumber);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_PaymentInstrumentDate", DbType.DateTime, insuranceVo.PaymentInstrumentDate);
-                db.AddInParameter(createInsurancePortfolioCmd, "@CINP_BankName", DbType.Int32, insuranceVo.BankName);
+                if (insuranceVo.bankcode != null)
+                db.AddInParameter(createInsurancePortfolioCmd, "@CINP_BankName", DbType.Int32, insuranceVo.bankcode);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_BankBranch", DbType.String, insuranceVo.BankBranch);
-
                 if (db.ExecuteNonQuery(createInsurancePortfolioCmd) != 0)
                     bResult = true;
             }

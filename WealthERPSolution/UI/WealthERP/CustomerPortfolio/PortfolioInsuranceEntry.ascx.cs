@@ -2039,10 +2039,9 @@ namespace WealthERP.CustomerPortfolio
                     insuranceVo.StartDate = DateTime.Parse(txtPolicyCommencementDate.Text.Trim());
                     insuranceVo.EndDate = DateTime.Parse(txtPolicyMaturity.Text.Trim());
                     insuranceVo.SumAssured = double.Parse(txtSumAssured.Text);
-                    insuranceVo.BankBranch = txtBranchName.Text.ToString();
+                    insuranceVo.BankBranch = txtBranchName.Text;
                     insuranceVo.ModeOfPayment = ddlPaymentMode.SelectedValue.ToString();
-                   
-                  // insuranceVo.PaymentInstrumentDate = DateTime.Parse(txtPaymentInstDate.SelectedDate.ToString());
+                  
                     insuranceVo.PaymentInstrumentNumber = txtPaymentNumber.Text;
                     insuranceVo.Amount = int.Parse(txtAmount.Text);
                     insuranceVo.bankcode = int.Parse(ddlBankName.SelectedValue);
