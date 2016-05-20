@@ -87,7 +87,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_ModeOfPayment", DbType.String, insuranceVo.ModeOfPayment);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_PaymentInstrumentNumber", DbType.String, insuranceVo.PaymentInstrumentNumber);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_PaymentInstrumentDate", DbType.DateTime, insuranceVo.PaymentInstrumentDate);
-                db.AddInParameter(createInsurancePortfolioCmd, "@CINP_BankName", DbType.Int32, insuranceVo.BankName);
+                db.AddInParameter(createInsurancePortfolioCmd, "@CINP_BankName", DbType.Int32, insuranceVo.bankcode);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_BankBranch", DbType.String, insuranceVo.BankBranch);
 
 
@@ -336,7 +336,7 @@ namespace DaoCustomerPortfolio
                         if (dr["CINP_PaymentInstrumentDate"].ToString() != string.Empty)
                             insuranceVo.PaymentInstrumentDate = DateTime.Parse(dr["CINP_PaymentInstrumentDate"].ToString());
                         insuranceVo.PaymentInstrumentNumber = dr["CINP_PaymentInstrumentNumber"].ToString();
-
+                        
 
                         if (dr["CINP_MortalityCharges"].ToString() != null && dr["CINP_MortalityCharges"].ToString() != "")
                             insuranceVo.MortalityCharges = float.Parse(dr["CINP_MortalityCharges"].ToString());

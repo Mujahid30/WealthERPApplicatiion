@@ -1959,13 +1959,13 @@
                     <td>
                         <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="true"
                             AppendDataBoundItems="false" OnSelectedIndexChanged="ddlBankName_SelectedIndexChanged"
-                            TabIndex="35">
+                           >
                         </asp:DropDownList>
                         <span id="Span18" class="spnRequiredField">*</span>
                         <asp:ImageButton ID="imgAddBank" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                             AlternateText="Add" runat="server" ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()"
                             Height="15px" Width="15px" Visible="false"></asp:ImageButton>
-                        <%-- --%>
+                       
                         <asp:ImageButton ID="imgBtnRefereshBank" ImageUrl="~/Images/refresh.png" AlternateText="Refresh"
                             runat="server" ToolTip="Click here to refresh Bank List" OnClick="imgBtnRefereshBank_OnClick"
                             OnClientClick="return closepopupAddBank()" Height="15px" Width="25px" 
@@ -1975,7 +1975,7 @@
                             Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator22" ControlToValidate="ddlBankName"
                             CssClass="rfvPCG" ErrorMessage="<br />Please select an Bank" Display="Dynamic"
-                            runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+                            runat="server" InitialValue="" ></asp:RequiredFieldValidator>
                         
                     </td>
                     <td align="right">

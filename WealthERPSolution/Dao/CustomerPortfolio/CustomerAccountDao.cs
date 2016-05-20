@@ -2497,6 +2497,15 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createInsuranceAccountAssociationCmd, "@associationIds", DbType.String, associationIds);
                 db.AddInParameter(createInsuranceAccountAssociationCmd, "@CIAA_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(createInsuranceAccountAssociationCmd, "@CIAA_ModifiedBy", DbType.Int32, userId);
+               // if (customerAccountAssociationVo.Amount != null)
+                //db.AddInParameter(createInsuranceAccountAssociationCmd, "@CINP_Amount", DbType.Decimal, customerAccountAssociationVo.Amount);
+                //db.AddInParameter(createInsuranceAccountAssociationCmd, "@CINP_ModeOfPayment", DbType.String, customerAccountAssociationVo.ModeOfPayment);
+                //db.AddInParameter(createInsuranceAccountAssociationCmd, "@CINP_PaymentInstrumentNumber", DbType.String, customerAccountAssociationVo.PaymentInstrumentNumber);
+                //if (customerAccountAssociationVo.PaymentInstrumentDate != DateTime.MinValue)
+
+                //db.AddInParameter(createInsuranceAccountAssociationCmd, "@CINP_PaymentInstrumentDate", DbType.DateTime, customerAccountAssociationVo.PaymentInstrumentDate);
+                //db.AddInParameter(createInsuranceAccountAssociationCmd, "@CINP_BankName", DbType.Int32, customerAccountAssociationVo.BankName);
+                //db.AddInParameter(createInsuranceAccountAssociationCmd, "@CINP_BankBranch", DbType.String, customerAccountAssociationVo.BankBranch);
                
 
 

@@ -17,12 +17,12 @@ namespace VoCustomerPortfolio
         private int m_NomineeShare;
 
 
-        public string BankBranch { set; get; }
-        public DateTime PaymentInstrumentDate { set; get; }
-        public int BankName { set; get; }
-        public string PaymentInstrumentNumber { set; get; }
-        public string ModeOfPayment { set; get; }
-        public float Amount { set; get; }
+        public string BankBranch { get; set; }
+        public DateTime PaymentInstrumentDate { get; set; }
+        public int BankName { get; set; }
+        public string PaymentInstrumentNumber { get; set; }
+        public string ModeOfPayment { get; set; }
+        public float Amount { get; set; }
 
         
 

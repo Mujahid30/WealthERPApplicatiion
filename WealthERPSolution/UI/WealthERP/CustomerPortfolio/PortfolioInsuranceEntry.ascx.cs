@@ -1104,6 +1104,12 @@ namespace WealthERP.CustomerPortfolio
                     ddlPeriodSelection.Enabled = true;
                     txtPolicyPurchaseDate.Enabled = true;
                     txtPolicyTerms.Enabled = true;
+                    txtAmount.Enabled = true;
+                    txtPaymentInstDate.Enabled = true;
+                    txtPaymentNumber.Enabled = true;
+                    ddlBankName.Enabled = true;
+                    ddlPaymentMode.Enabled = true;
+                    txtBranchName.Enabled = true;
 
                     if (CategoryCode == "INEP")
                     {
@@ -1561,11 +1567,11 @@ namespace WealthERP.CustomerPortfolio
                         insuranceVo.SumAssured = double.Parse(txtSumAssured.Text);
                         insuranceVo.BankBranch = txtBranchName.Text;
                         insuranceVo.PaymentInstrumentNumber = txtPaymentNumber.Text;
-                        //insuranceVo.PaymentInstrumentDate = Convert.ToDateTime(txtPaymentInstDate.SelectedDate);
                         if(txtPaymentInstDate.SelectedDate!=DateTime.MinValue)
                         insuranceVo.PaymentInstrumentDate = Convert.ToDateTime(txtPaymentInstDate.SelectedDate);
                         insuranceVo.Amount = int.Parse(txtAmount.Text.Trim());
                         insuranceVo.bankcode =  int.Parse(ddlBankName.SelectedValue);
+                      //  insuranceVo.BankName = ddlBankName.SelectedValue.ToString();
                         insuranceVo.ModeOfPayment = ddlPaymentMode.SelectedValue;
                         if (txtApplDate.Text.Trim() != "")
                             insuranceVo.ApplicationDate = DateTime.Parse(txtApplDate.Text.Trim());
@@ -2033,7 +2039,7 @@ namespace WealthERP.CustomerPortfolio
                     insuranceVo.StartDate = DateTime.Parse(txtPolicyCommencementDate.Text.Trim());
                     insuranceVo.EndDate = DateTime.Parse(txtPolicyMaturity.Text.Trim());
                     insuranceVo.SumAssured = double.Parse(txtSumAssured.Text);
-                    insuranceVo.BankBranch = txtBranchName.Text;
+                    insuranceVo.BankBranch = txtBranchName.Text.ToString();
                     insuranceVo.ModeOfPayment = ddlPaymentMode.SelectedValue.ToString();
                    
                   // insuranceVo.PaymentInstrumentDate = DateTime.Parse(txtPaymentInstDate.SelectedDate.ToString());
