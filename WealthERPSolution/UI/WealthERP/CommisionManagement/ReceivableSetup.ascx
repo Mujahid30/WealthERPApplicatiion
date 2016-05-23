@@ -1080,9 +1080,9 @@
                 </tr>
             </table>
             <asp:Panel ID="pnlrulegrid" runat="server" Width="1140px" ScrollBars="Horizontal">
-            <table id="tblCommissionStructureRule1" runat="server">
-                <tr>
-                    <td>
+                <table id="tblCommissionStructureRule1" runat="server">
+                    <tr>
+                        <td>
                             <telerik:RadGrid ID="RadGridStructureRule" runat="server" CssClass="RadGrid" GridLines="Both"
                                 AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
                                 ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
@@ -1096,7 +1096,7 @@
                                     EditMode="EditForms" CommandItemSettings-AddNewRecordText="Add Rule" DataKeyNames="ACSR_CommissionStructureRuleName,ACSR_CommissionStructureRuleId,ACSR_MinTenure,WCT_CommissionTypeCode,XCT_CustomerTypeCode,ACSR_TenureUnit,
                                 ACSR_TransactionType,WCT_CommissionType,WCU_UnitCode,WCCO_CalculatedOnCode,ACSM_AUMFrequency,ACSR_MaxTenure,ACSR_SIPFrequency,ACG_CityGroupID,
                                 ACSR_ReceivableRuleFrequency,WCAL_ApplicableLevelCode,ACSR_IsServiceTaxReduced,ACSR_IsTDSReduced,ACSM_IsOtherTaxReduced,PaybleValue,RecievableValue,ACSR_ServiceTaxValue,ASCR_WCMV_IncentiveType,CO_ApplicationNo,ACSR_ValidilityStart,ACSR_ValidilityEnd,ACSR_MinInvestmentAmount,ACSR_MaxInvestmentAmount
-                                ,AID_IssueDetailId,ACSR_Mode,AIIC_InvestorCatgeoryId,ACSR_EForm,ACSR_InvestmentAgeUnit,ACSR_TenureUnit,ACSR_MinInvestmentAge,ACSR_MaxInvestmentAge,WCU_UnitCode1">
+                                ,AID_IssueDetailId,ACSR_Mode,AIIC_InvestorCatgeoryId,ACSR_EForm,ACSR_InvestmentAgeUnit,ACSR_TenureUnit,ACSR_MinInvestmentAge,ACSR_MaxInvestmentAge,WCU_UnitCode1,RecievableValue,PaybleValue">
                                     <Columns>
                                         <telerik:GridEditCommandColumn EditText="Edit" UniqueName="Edit">
                                         </telerik:GridEditCommandColumn>
@@ -1108,7 +1108,7 @@
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="WCT_CommissionTypeCode" HeaderText="Com Typ"
-                                            DataField="WCT_CommissionTypeCode">
+                                            DataField="WCT_CommissionTypeCode" Visible="false">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="XCT_CustomerTypeCode" HeaderText="INV Typ" DataField="XCT_CustomerTypeCode">
@@ -1146,7 +1146,7 @@
                                         </telerik:GridBoundColumn>
                                         <telerik:GridTemplateColumn UniqueName="ACSR_TransactionType" HeaderText="Transaction Types"
                                             DataField="ACSR_TransactionType">
-                                           <ItemTemplate>
+                                            <ItemTemplate>
                                                 <asp:Label ID="lblTransactionType" runat="server" Width="50px" Text='<%#Eval("ACSR_TransactionType")%>'></asp:Label>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
@@ -1158,7 +1158,7 @@
                                             DataField="ACSR_MaxNumberOfApplications">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="CO_ApplicationNo" HeaderText="App. No." DataField="CO_ApplicationNo" >
+                                        <telerik:GridBoundColumn UniqueName="CO_ApplicationNo" HeaderText="App. No." DataField="CO_ApplicationNo">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="ASCR_WCMV_IncentiveType" HeaderText="Incentive Type"
@@ -1174,7 +1174,7 @@
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
                                         <telerik:GridTemplateColumn UniqueName="ACSR_ServiceTaxValue" HeaderText="Service Tax Value(%)"
-                                            DataField="ACSR_ServiceTaxValue" HeaderStyle-Width="50px" >
+                                            DataField="ACSR_ServiceTaxValue" HeaderStyle-Width="50px">
                                             <ItemTemplate>
                                                 <asp:TextBox ID="txtServiceTex" runat="server" Width="50px" Text='<%#Eval("ACSR_ServiceTaxValue")%>'></asp:TextBox>
                                             </ItemTemplate>
@@ -1212,17 +1212,17 @@
                                         <%-- <telerik:GridBoundColumn UniqueName="PaybleUnit" HeaderText="Payable  Unit" DataField="PaybleUnit">
                                         </telerik:GridBoundColumn>--%>
                                         <telerik:GridBoundColumn UniqueName="WCCO_CalculatedOn" HeaderText="Calculated On"
-                                            DataField="WCCO_CalculatedOn">
+                                            DataField="WCCO_CalculatedOn" Visible="false">
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="ACSM_AUMFrequency" HeaderText="AUM Frequency"
-                                            DataField="ACSM_AUMFrequency">
+                                            DataField="ACSM_AUMFrequency" Visible="false">
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="ACSR_AUMMonth" HeaderText="AUM Month" DataField="ACSR_AUMMonth">
+                                        <telerik:GridBoundColumn UniqueName="ACSR_AUMMonth" HeaderText="AUM Month" DataField="ACSR_AUMMonth" Visible="false">
                                         </telerik:GridBoundColumn>
                                         <telerik:GridTemplateColumn UniqueName="Update">
-                                        <ItemTemplate>
-                                        <asp:Button ID="btnupdate" runat="server" CssClass="PCGButton" Text="Update" OnClick="btnupdate_OnClick" />
-                                        </ItemTemplate>
+                                            <ItemTemplate>
+                                                <asp:Button ID="btnupdate" runat="server" CssClass="PCGButton" Text="Update" OnClick="btnupdate_OnClick" />
+                                            </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                     </Columns>
                                     <EditFormSettings EditFormType="Template">
@@ -1436,11 +1436,13 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="leftLabel">
-                                                        <asp:Label ID="lblCommissionApplicableLevel" runat="server" Text="Level:" CssClass="FieldName" Visible="false"></asp:Label>
+                                                        <asp:Label ID="lblCommissionApplicableLevel" runat="server" Text="Level:" CssClass="FieldName"
+                                                            Visible="false"></asp:Label>
                                                     </td>
                                                     <td class="rightData">
                                                         <asp:DropDownList ID="ddlCommissionApplicableLevel" runat="server" CssClass="cmbField"
-                                                            AutoPostBack="true" OnSelectedIndexChanged="ddlCommissionApplicableLevel_Selectedindexchanged" Visible="false">
+                                                            AutoPostBack="true" OnSelectedIndexChanged="ddlCommissionApplicableLevel_Selectedindexchanged"
+                                                            Visible="false">
                                                         </asp:DropDownList>
                                                     </td>
                                                     <td class="leftLabel">
@@ -1880,15 +1882,15 @@
                                     </EditFormSettings>
                                 </MasterTableView>
                             </telerik:RadGrid>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <asp:Button ID="btnCreateRule" runat="server" CssClass="PCGButton" Text="Create Rule"
-                            OnClick="btnCreateRule_OnClick" />
-                    </td>
-                </tr>
-            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:Button ID="btnCreateRule" runat="server" CssClass="PCGButton" Text="Create Rule"
+                                OnClick="btnCreateRule_OnClick" />
+                        </td>
+                    </tr>
+                </table>
             </asp:Panel>
             <table id="Table5" runat="server" width="100%" style="float: left; padding-right: 10px;
                 clear: both" visible="false">
@@ -2145,11 +2147,12 @@
                                         <telerik:RadListBox SelectionMode="Multiple" EnableDragAndDrop="true" AccessKey="y"
                                             AllowTransferOnDoubleClick="true" AllowTransferDuplicates="false" EnableViewState="true"
                                             EnableMarkMatches="true" runat="server" ID="LBAgentCodes" Height="200px" Width="300px"
-                                            AllowTransfer="true" TransferToID="RadListBoxSelectedAgentCodes" CssClass="cmbFielde"
-                                            Visible="true">
+                                            AllowTransfer="true" TransferToID="RadListBoxSelectedAgentCodes" 
+                                            Visible="true" IsTextSearchEnable="true" TextSearchMode="Contains">
                                         </telerik:RadListBox>
-                                        <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" SelectionMode="Multiple"
-                                            ID="RadListBoxSelectedAgentCodes" Height="200px" Width="300px" CssClass="cmbField">
+                                        <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" SelectionMode="Multiple" AccessKey="y"
+                                            ID="RadListBoxSelectedAgentCodes" EnableViewState="true" Height="200px" Width="300px" 
+                                             IsTextSearchEnable="true" TextSearchMode="Contains"  EnableMarkMatches="true">
                                         </telerik:RadListBox>
                                     </asp:Panel>
                                 </div>
