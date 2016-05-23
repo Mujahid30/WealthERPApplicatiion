@@ -175,6 +175,28 @@ namespace DaoFPUtility
             }
             return result;
         }
-
+        public bool UpdateCustomerProspect(int customerId,int fpUserId)
+        {
+            bool result = false;
+            DataSet ds;
+            Database db;
+            DbCommand dbCommand;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_FPUtility_UpdateCustomerProspect");
+                db.AddInParameter(dbCommand, "@CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(dbCommand, "@fpUserId", DbType.Int32, fpUserId);
+                ds = db.ExecuteDataSet(dbCommand);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    result = true;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return result;
+        }
     }
 }

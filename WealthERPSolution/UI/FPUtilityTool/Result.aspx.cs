@@ -9,13 +9,15 @@ using System.Data;
 using VOFPUtilityUser;
 using System.Configuration;
 using System.Web.Services;
-
+using VoUser;
+using BoCustomerProfiling;
+using VoCustomerPortfolio;
 namespace FPUtilityTool
 {
     public partial class Result : System.Web.UI.Page
     {
         FPUserBO fpUserBo = new FPUserBO();
-        FPUserVo userVo = new FPUserVo();
+        FPUserVo fpuserVo = new FPUserVo();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -25,10 +27,10 @@ namespace FPUtilityTool
                 //    Response.Redirect("Questionnaire.aspx");
             }
             FPUserBO.CheckSession();
-            userVo = (FPUserVo)Session["UserVo"];
+            fpuserVo = (FPUserVo)Session["UserVo"];
             int adviserId = Convert.ToInt32(ConfigurationManager.AppSettings["ONLINE_ADVISER"]);
-            lblUserName.Text = " " + userVo.UserName;
-            DataSet dsRiskClass = fpUserBo.GetRiskClass(userVo.UserId, adviserId);
+            lblUserName.Text = " " + fpuserVo.UserName;
+            DataSet dsRiskClass = fpUserBo.GetRiskClass(fpuserVo.UserId, adviserId);
             if (dsRiskClass.Tables[0].Rows.Count > 0)
             {
                 lblRiskClass.Text = dsRiskClass.Tables[0].Rows[0]["XRC_RiskClass"].ToString();
@@ -42,7 +44,47 @@ namespace FPUtilityTool
         }
         protected void btnTnC_Click(object sender, EventArgs e)
         {
-            divTncSuccess.Visible = true;
+            CustomerVo customerVo = new CustomerVo();
+            UserVo userVo = new UserVo();
+            CustomerBo customerBo = new CustomerBo();
+            CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
+            List<int> customerIds = new List<int>();
+            if (Page.IsValid)
+            {
+                if (fpuserVo.C_CustomerId == null || fpuserVo.C_CustomerId == 0)
+                {
+                    customerVo.RmId = 4682;
+                    customerVo.BranchId = 1339;
+                    customerVo.Type = "IND";
+                    customerVo.FirstName = fpuserVo.UserName;
+                    userVo.FirstName = fpuserVo.UserName;
+                    customerVo.Email = fpuserVo.EMail;
+                    customerVo.IsProspect = 1;
+                    customerVo.IsFPClient = 1;
+                    customerVo.IsActive = 1;
+                    customerVo.PANNum = fpuserVo.Pan;
+                    customerVo.Mobile1 = fpuserVo.MobileNo;
+                    customerVo.ProspectAddDate = DateTime.Now;
+                    userVo.Email = fpuserVo.EMail;
+                    customerPortfolioVo.IsMainPortfolio = 0;
+                    customerPortfolioVo.PortfolioTypeCode = "RGL";
+                    customerPortfolioVo.PortfolioName = "MyPortfolioProspect";
+                    customerIds = customerBo.CreateCompleteCustomer(customerVo, userVo, customerPortfolioVo, fpuserVo.UserId);
+                    if(UpdateCustomerIdInFPUserTable(fpuserVo.UserId, customerIds[1]))
+                        divTncSuccess.Visible = true;
+                }
+                else
+                {
+                    if(UpdateCustomerIdInFPUserTable(fpuserVo.UserId, fpuserVo.C_CustomerId))
+                        divTncSuccess.Visible = true;
+                }
+
+                
+            }
+        }
+        private bool UpdateCustomerIdInFPUserTable(int fpUserId,int customerId)
+        {
+           return fpUserBo.UpdateCustomerProspect(customerId, fpUserId);
         }
         [WebMethod(EnableSession = true)]
         public static List<object> GetChartData()
