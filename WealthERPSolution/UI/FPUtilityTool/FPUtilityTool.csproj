@@ -63,6 +63,7 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Mobile" />
+    <Reference Include="VoCustomerPortfolio, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VOFPUtilityUser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VoUser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
