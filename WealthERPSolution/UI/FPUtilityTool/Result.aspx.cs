@@ -8,6 +8,7 @@ using BoFPUtility;
 using System.Data;
 using VOFPUtilityUser;
 using System.Configuration;
+using System.Web.Services;
 
 namespace FPUtilityTool
 {
@@ -19,13 +20,14 @@ namespace FPUtilityTool
         {
             if (!IsPostBack)
             {
-                if (Request.UrlReferrer == null)
-                    Response.Redirect("Questionnaire.aspx");
+                divTncSuccess.Visible = false;
+                //if (Request.UrlReferrer == null)
+                //    Response.Redirect("Questionnaire.aspx");
             }
             FPUserBO.CheckSession();
             userVo = (FPUserVo)Session["UserVo"];
             int adviserId = Convert.ToInt32(ConfigurationManager.AppSettings["ONLINE_ADVISER"]);
-            lblUserName.Text = " "+userVo.UserName;
+            lblUserName.Text = " " + userVo.UserName;
             DataSet dsRiskClass = fpUserBo.GetRiskClass(userVo.UserId, adviserId);
             if (dsRiskClass.Tables[0].Rows.Count > 0)
             {
@@ -38,5 +40,33 @@ namespace FPUtilityTool
             Session.Abandon();
             Response.Redirect("Default.aspx");
         }
+        protected void btnTnC_Click(object sender, EventArgs e)
+        {
+            divTncSuccess.Visible = true;
+        }
+        [WebMethod(EnableSession = true)]
+        public static List<object> GetChartData()
+        {
+            FPUserBO fpUserBo = new FPUserBO();
+            FPUserVo userVo = new FPUserVo();
+            userVo = (FPUserVo)HttpContext.Current.Session["UserVo"];
+            int adviserId = Convert.ToInt32(ConfigurationManager.AppSettings["ONLINE_ADVISER"]);
+            List<object> chartData = new List<object>();
+            chartData.Add(new object[]
+             {
+               "WAC_AssetClassification", "AllocationPercentage"
+              });
+            DataSet dsRiskClass = fpUserBo.GetRiskClass(userVo.UserId, adviserId);
+            foreach (DataRow dr in dsRiskClass.Tables[1].Rows)
+            {
+                chartData.Add(new object[]
+                    {
+                        dr["WAC_AssetClassification"], dr["AllocationPercentage"]
+                    });
+            }
+            return chartData;
+
+        }
     }
+
 }

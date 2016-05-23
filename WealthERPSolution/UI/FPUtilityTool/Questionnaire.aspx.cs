@@ -74,7 +74,7 @@ namespace FPUtilityTool
                 prevbtn.ID = "btnprev" + questionNo.ToString();
                 prevbtn.CommandName = "PrevView";
                 prevbtn.Text = "« Prev";
-                prevbtn.CssClass = "btn btn-default";
+                prevbtn.CssClass = "btn btn-info";
                 if (questioncount != 1)
                 {
                     placeholder.Controls.Add(prevbtn);
@@ -83,7 +83,7 @@ namespace FPUtilityTool
                 Button btnNext = new Button();
                 btnNext.ID = "btnNext" + questionNo.ToString();
                 btnNext.Text = "Next »";
-                btnNext.CssClass = "btn btn-default";
+                btnNext.CssClass = "btn btn-info";
 
                 btnNext.ValidationGroup = questionNo.ToString();
                 btnNext.Click += new EventHandler(btnNext_click);
@@ -91,7 +91,7 @@ namespace FPUtilityTool
                 Button btnSubmit = new Button();
                 btnSubmit.ID = "btnNext" + questionNo.ToString();
                 btnSubmit.Text = "Submit";
-                btnSubmit.CssClass = "btn btn-default";
+                btnSubmit.CssClass = "btn btn-info";
                 btnSubmit.ValidationGroup = questionNo.ToString();
                 btnSubmit.Click += new EventHandler(btnSubmit_click);
 

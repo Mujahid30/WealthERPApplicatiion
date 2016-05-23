@@ -109,7 +109,7 @@
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-6 pull-right">
                                                 <asp:Button ID="btnSignUpsubmit" runat="server" OnClick="btnsignUpsubmit_Click" Text="Submit"
-                                                    ValidationGroup="btnsignUpsubmit" CssClass="btn btn-default" />
+                                                    ValidationGroup="btnsignUpsubmit" CssClass="btn btn-info" />
                                             </div>
                                         </div>
                                     </div>
@@ -153,7 +153,7 @@
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-6 pull-right">
                                                 <asp:Button ID="btnsignInsubmit" runat="server" OnClick="btnsignInsubmit_Click" Text="Submit"
-                                                    ValidationGroup="btnsignInsubmit" CssClass="btn btn-default" />
+                                                    ValidationGroup="btnsignInsubmit" CssClass="btn btn-info" />
                                             </div>
                                         </div>
                                     </div>
