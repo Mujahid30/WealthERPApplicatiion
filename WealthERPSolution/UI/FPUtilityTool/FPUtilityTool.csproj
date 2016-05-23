@@ -34,6 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BoCustomerProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="BoFPUtility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Configuration.Design, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -63,6 +64,7 @@
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Mobile" />
     <Reference Include="VOFPUtilityUser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="VoUser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Common.dll" />
@@ -119,6 +121,7 @@
     <None Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <None Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="Scripts\jsapi" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

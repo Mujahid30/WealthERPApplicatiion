@@ -132,7 +132,6 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>xcopy /Q /Y "$(TargetPath)" "..\..\FPUtilityTool\bin\"</PostBuildEvent>
   </PropertyGroup>
 </Project>
