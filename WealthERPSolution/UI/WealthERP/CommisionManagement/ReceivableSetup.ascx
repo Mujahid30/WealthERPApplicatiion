@@ -1121,31 +1121,24 @@
                                             DataField="ACSR_MaxInvestmentAmount" DataFormatString="{0:N2}">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="ACSR_MinTenure" HeaderText="Min. Tenure (SIP)"
-                                            DataField="ACSR_MinTenure">
-                                            <HeaderStyle></HeaderStyle>
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="ACSR_MaxTenure" HeaderText="Max. Tenure (SIP)"
-                                            DataField="ACSR_MaxTenure">
-                                            <HeaderStyle></HeaderStyle>
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="ACSR_TenureUnit" HeaderText="Tenure Unit" DataField="ACSR_TenureUnit">
+                                        <telerik:GridBoundColumn UniqueName="ACSR_TenureUnit" HeaderText="Tenure Unit" DataField="ACSR_TenureUnit"
+                                            Visible="false">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="ACSR_MinInvestmentAge" HeaderText="Min. Invest Age"
-                                            DataField="ACSR_MinInvestmentAge">
+                                            DataField="ACSR_MinInvestmentAge" Visible="false">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="ACSR_MaxInvestmentAge" HeaderText="Max.Invest Age"
-                                            DataField="ACSR_MaxInvestmentAge">
+                                            DataField="ACSR_MaxInvestmentAge" Visible="false">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="ACSR_InvestmentAgeUnit" HeaderText="Invest Age Unit"
-                                            DataField="ACSR_InvestmentAgeUnit">
+                                            DataField="ACSR_InvestmentAgeUnit" Visible="false">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
                                         <telerik:GridTemplateColumn UniqueName="ACSR_TransactionType" HeaderText="Transaction Types"
-                                            DataField="ACSR_TransactionType">
+                                            DataField="ACSR_TransactionType" Visible="false">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblTransactionType" runat="server" Width="50px" Text='<%#Eval("ACSR_TransactionType")%>'></asp:Label>
                                             </ItemTemplate>
@@ -1173,22 +1166,10 @@
                                             DataField="ACSR_ValidilityEnd" Visible="false">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridTemplateColumn UniqueName="ACSR_ServiceTaxValue" HeaderText="Service Tax Value(%)"
-                                            DataField="ACSR_ServiceTaxValue" HeaderStyle-Width="50px">
-                                            <ItemTemplate>
-                                                <asp:TextBox ID="txtServiceTex" runat="server" Width="50px" Text='<%#Eval("ACSR_ServiceTaxValue")%>'></asp:TextBox>
-                                            </ItemTemplate>
-                                        </telerik:GridTemplateColumn>
-                                        <telerik:GridTemplateColumn UniqueName="ACSR_ReducedValue" HeaderStyle-Width="50px"
-                                            HeaderText="TDS Value(%)" DataField="ACSR_ReducedValue">
-                                            <ItemTemplate>
-                                                <asp:TextBox ID="txtTDSTex" runat="server" Width="50px" Text='<%#Eval("ACSR_ReducedValue")%>'></asp:TextBox>
-                                            </ItemTemplate>
-                                        </telerik:GridTemplateColumn>
                                         <telerik:GridTemplateColumn UniqueName="ReceivableValue" HeaderStyle-Width="50px"
                                             HeaderText="Receivable Rate" DataField="RecievableValue">
                                             <ItemTemplate>
-                                                <asp:TextBox ID="txtReceivableValue" runat="server" Width="50px" Text='<%#Eval("RecievableValue")%>'></asp:TextBox>
+                                                <asp:TextBox ID="txtReceivableValue" runat="server" Width="50px" Text='<%#  Eval("RecievableValue")%>'></asp:TextBox>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <%--<telerik:GridBoundColumn UniqueName="ReceivableUnit" HeaderText="Receivable  Unit"
@@ -1203,12 +1184,32 @@
                                         <telerik:GridTemplateColumn HeaderStyle-Width="50px" UniqueName="Brokrage_unit" HeaderText="Brokerage Unit">
                                             <ItemTemplate>
                                                 <asp:DropDownList ID="ddlBrokrageUnit" runat="server">
+                                                    <asp:ListItem Text="Percentage" Value="PER"></asp:ListItem>
                                                     <asp:ListItem Text="Adhoc Amount" Value="ADA"></asp:ListItem>
                                                     <asp:ListItem Text="Amount Per Unit" Value="APU"></asp:ListItem>
-                                                    <asp:ListItem Text="Percentage" Value="PER"></asp:ListItem>
                                                 </asp:DropDownList>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
+                                        <telerik:GridTemplateColumn UniqueName="ACSR_ServiceTaxValue" HeaderText="Service Tax Value(%)"
+                                            DataField="ACSR_ServiceTaxValue" HeaderStyle-Width="50px">
+                                            <ItemTemplate>
+                                                <asp:TextBox ID="txtServiceTex" runat="server" Width="50px" Text='<%#Eval("ACSR_ServiceTaxValue")%>'></asp:TextBox>
+                                            </ItemTemplate>
+                                        </telerik:GridTemplateColumn>
+                                        <telerik:GridTemplateColumn UniqueName="ACSR_ReducedValue" HeaderStyle-Width="50px"
+                                            HeaderText="TDS Value(%)" DataField="ACSR_ReducedValue">
+                                            <ItemTemplate>
+                                                <asp:TextBox ID="txtTDSTex" runat="server" Width="50px" Text='<%#Eval("ACSR_ReducedValue")%>'></asp:TextBox>
+                                            </ItemTemplate>
+                                        </telerik:GridTemplateColumn>
+                                        <telerik:GridBoundColumn UniqueName="ACSR_MinTenure" HeaderText="Min. Tenure (SIP)"
+                                            DataField="ACSR_MinTenure">
+                                            <HeaderStyle></HeaderStyle>
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn UniqueName="ACSR_MaxTenure" HeaderText="Max. Tenure (SIP)"
+                                            DataField="ACSR_MaxTenure">
+                                            <HeaderStyle></HeaderStyle>
+                                        </telerik:GridBoundColumn>
                                         <%-- <telerik:GridBoundColumn UniqueName="PaybleUnit" HeaderText="Payable  Unit" DataField="PaybleUnit">
                                         </telerik:GridBoundColumn>--%>
                                         <telerik:GridBoundColumn UniqueName="WCCO_CalculatedOn" HeaderText="Calculated On"
@@ -1217,11 +1218,18 @@
                                         <telerik:GridBoundColumn UniqueName="ACSM_AUMFrequency" HeaderText="AUM Frequency"
                                             DataField="ACSM_AUMFrequency" Visible="false">
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="ACSR_AUMMonth" HeaderText="AUM Month" DataField="ACSR_AUMMonth" Visible="false">
+                                        <telerik:GridBoundColumn UniqueName="ACSR_AUMMonth" HeaderText="AUM Month" DataField="ACSR_AUMMonth"
+                                            Visible="false">
                                         </telerik:GridBoundColumn>
+                                        
+                                        <telerik:GridTemplateColumn UniqueName="Edit1">
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="lnkEdit" runat="server" CssClass="LinkButtons" Text="Edit" OnClick="btnruleEdit_OnClick"></asp:LinkButton>
+                                            </ItemTemplate>
+                                        </telerik:GridTemplateColumn>
                                         <telerik:GridTemplateColumn UniqueName="Update">
                                             <ItemTemplate>
-                                                <asp:Button ID="btnupdate" runat="server" CssClass="PCGButton" Text="Update" OnClick="btnupdate_OnClick" />
+                                                <asp:Button ID="btnupdate" runat="server" CssClass="PCGButton" Visible="false" Text="Update" OnClick="btnupdate_OnClick" />
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                     </Columns>
@@ -2147,12 +2155,12 @@
                                         <telerik:RadListBox SelectionMode="Multiple" EnableDragAndDrop="true" AccessKey="y"
                                             AllowTransferOnDoubleClick="true" AllowTransferDuplicates="false" EnableViewState="true"
                                             EnableMarkMatches="true" runat="server" ID="LBAgentCodes" Height="200px" Width="300px"
-                                            AllowTransfer="true" TransferToID="RadListBoxSelectedAgentCodes" 
-                                            Visible="true" IsTextSearchEnable="true" TextSearchMode="Contains">
+                                            AllowTransfer="true" TransferToID="RadListBoxSelectedAgentCodes" Visible="true"
+                                            IsTextSearchEnable="true" TextSearchMode="Contains">
                                         </telerik:RadListBox>
-                                        <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" SelectionMode="Multiple" AccessKey="y"
-                                            ID="RadListBoxSelectedAgentCodes" EnableViewState="true" Height="200px" Width="300px" 
-                                             IsTextSearchEnable="true" TextSearchMode="Contains"  EnableMarkMatches="true">
+                                        <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" SelectionMode="Multiple"
+                                            AccessKey="y" ID="RadListBoxSelectedAgentCodes" EnableViewState="true" Height="200px"
+                                            Width="300px" IsTextSearchEnable="true" TextSearchMode="Contains" EnableMarkMatches="true">
                                         </telerik:RadListBox>
                                     </asp:Panel>
                                 </div>
