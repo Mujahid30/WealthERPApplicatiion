@@ -125,7 +125,7 @@
                 CssClass="rfvPCG" ControlToValidate="ddlCategory" ValidationGroup="btnGo" Display="Dynamic"
                 InitialValue="0"></asp:RequiredFieldValidator>
         </td>
-        <td  id="tdProductType" runat="server" visible="false">
+        <td id="tdProductType" runat="server" visible="false">
             <span class="FieldName">Product Type:</span>
             <asp:DropDownList ID="ddlIsonline" runat="server" CssClass="cmbField">
                 <asp:ListItem Text="Select" Value="2"></asp:ListItem>
@@ -141,7 +141,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="lb1date" runat="server" Text="Requested Date:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lb1date" runat="server" Text="Requested From Date:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
             <telerik:RadDatePicker ID="txtReqDate" CssClass="txtField" runat="server" Culture="English (United States)"
@@ -161,7 +161,32 @@
                 InitialValue="" ValidationGroup="btnGo">
             </asp:RequiredFieldValidator>
         </td>
-        <td >
+        <td class="leftField">
+            <asp:Label ID="Label1" runat="server" Text="Requested To Date:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField">
+            <telerik:RadDatePicker ID="rdpToDate" CssClass="txtField" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
+                TabIndex="17" Width="150px" AutoPostBack="false">
+                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
+            <span id="Span4" class="spnRequiredField">*</span>
+            <br />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" CssClass="rfvPCG"
+                ErrorMessage="Please Select a Date" Display="Dynamic" ControlToValidate="rdpToDate"
+                InitialValue="" ValidationGroup="btnGo">
+            
+            </asp:RequiredFieldValidator>
+            <asp:CompareValidator ID="CompareValidator1" runat="server" CssClass="rfvPCG" ErrorMessage="To date must be greater than from date."
+                ControlToCompare="txtReqDate" ValidationGroup="btnGo" ControlToValidate="rdpToDate"
+                Type="Date" Operator="GreaterThanEqual"></asp:CompareValidator>
+        </td>
+        <td>
             <asp:Button ID="btnGo" runat="server" Text="Go" CssClass="PCGButton" ValidationGroup="btnGo"
                 OnClick="btnGo_Click" />
         </td>

@@ -36,6 +36,7 @@ namespace WealthERP.OnlineOrderBackOffice
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlType;
         protected global::Telerik.Web.UI.RadDatePicker txtReqDate;
+        protected global::Telerik.Web.UI.RadDatePicker rdpToDate;
         protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
         protected global::System.Web.UI.WebControls.DropDownList ddlIsonline;
         protected global::System.Web.UI.WebControls.DropDownList ddlProduct;

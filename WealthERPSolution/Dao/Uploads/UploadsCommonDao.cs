@@ -4473,7 +4473,7 @@ namespace DaoUploads
             return dsType;
         }
 
-        public DataSet GetCMLData(int taskId, DateTime dtReqDate, int adviserId, string category)
+        public DataSet GetCMLData(int taskId, DateTime dtReqDate, int adviserId, string category, DateTime toDate)
         {
             DataSet dsData;
             Database db;
@@ -4484,6 +4484,7 @@ namespace DaoUploads
                 dbCommand = db.GetStoredProcCommand("SPROC_GetCMLData");
                 db.AddInParameter(dbCommand, "@taskId", DbType.Int32, taskId);
                 db.AddInParameter(dbCommand, "@date", DbType.DateTime, dtReqDate);
+                db.AddInParameter(dbCommand, "@ToDate", DbType.DateTime, toDate);
                 db.AddInParameter(dbCommand, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(dbCommand, "@category", DbType.String, category);
                 dsData = db.ExecuteDataSet(dbCommand);
@@ -4760,7 +4761,7 @@ namespace DaoUploads
             }
             return existsCount;
         }
-        public DataTable GetOrderRejectedData(DateTime request, string category,int isOnline)
+        public DataTable GetOrderRejectedData(DateTime request, string category, int isOnline, DateTime requestTodate)
         {
             DataSet dsGetOrderRejectedData;
             Database db;
@@ -4770,6 +4771,7 @@ namespace DaoUploads
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbCommand = db.GetStoredProcCommand("SPROC_OFF_BondsAndIPORecon");
                 db.AddInParameter(dbCommand, "@Processcreateddate", DbType.DateTime, request);
+                db.AddInParameter(dbCommand, "@ToDate", DbType.DateTime, requestTodate);
                 db.AddInParameter(dbCommand, "@category", DbType.String, category);
                 db.AddInParameter(dbCommand, "@isonline", DbType.Int16, isOnline);
                 dsGetOrderRejectedData = db.ExecuteDataSet(dbCommand);

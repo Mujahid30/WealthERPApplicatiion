@@ -55,7 +55,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             try
             {
-                DataTable dtOrderReject = uploadCommonBo.GetOrderRejectedData(Convert.ToDateTime(txtReqDate.SelectedDate), (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "FIFIIP", int.Parse(ddlIsonline.SelectedValue));
+                DataTable dtOrderReject = uploadCommonBo.GetOrderRejectedData(Convert.ToDateTime(txtReqDate.SelectedDate), (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "FIFIIP", int.Parse(ddlIsonline.SelectedValue),Convert.ToDateTime(rdpToDate.SelectedDate));
                 if (Cache[userVo.UserId.ToString() + "OrderReject"] != null)
                     Cache.Remove(userVo.UserId.ToString() + "OrderReject");
                 Cache.Insert(userVo.UserId.ToString() + "OrderReject", dtOrderReject);
@@ -94,7 +94,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 DataTable dtType = new DataTable();
                 DataSet dsType = new DataSet();
-                dsType = uploadCommonBo.GetCMLData(Convert.ToInt32(ddlType.SelectedValue), Convert.ToDateTime(txtReqDate.SelectedDate), advisorVo.advisorId, (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "IP");
+                dsType = uploadCommonBo.GetCMLData(Convert.ToInt32(ddlType.SelectedValue), Convert.ToDateTime(txtReqDate.SelectedDate), advisorVo.advisorId, (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "IP",Convert.ToDateTime(rdpToDate.SelectedDate));
                 if (dsType.Tables.Count == 0)
                     return;
                 if (dsType != null)
