@@ -37,6 +37,11 @@ namespace DaoFPUtility
                     fpUserVo.C_CustomerId = !string.IsNullOrEmpty(ds.Tables[0].Rows[0]["C_CustomerId"].ToString()) ? Convert.ToInt32(ds.Tables[0].Rows[0]["C_CustomerId"].ToString()) : 0;
                     fpUserVo.UserId = Convert.ToInt32(ds.Tables[0].Rows[0]["FPUUD_UserId"].ToString());
                     fpUserVo.CreatedOn = Convert.ToDateTime(ds.Tables[0].Rows[0]["FPUUD_CreatedOn"].ToString());
+                    fpUserVo.ModifiedOn = Convert.ToDateTime(ds.Tables[0].Rows[0]["FPUUD_ModifiedOn"].ToString());
+                    fpUserVo.RiskClassCode = ds.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
+                    fpUserVo.IsProspectmarked = !string.IsNullOrEmpty(ds.Tables[0].Rows[0]["FPUUD_IsProspectmarked"].ToString()) ? Convert.ToBoolean(ds.Tables[0].Rows[0]["FPUUD_IsProspectmarked"]) : false;
+                    bool i;
+                    fpUserVo.IsClientExists =bool.TryParse(ds.Tables[0].Rows[0]["FPUUD_IsClientExists"].ToString() , out i) ? (bool?)i : null;
                 }
             }
 
@@ -197,6 +202,41 @@ namespace DaoFPUtility
             {
             }
             return result;
+        }
+        public FPUserVo GetFPUser(int fpUserId)
+        {
+            FPUserVo fpUserVo = new FPUserVo();
+            DataSet ds;
+            Database db;
+            DbCommand dbCommand;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_FPUtility_GETFPUtilityUser");
+                db.AddInParameter(dbCommand, "@UserId", DbType.Int32, fpUserId);
+                ds = db.ExecuteDataSet(dbCommand);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    fpUserVo.EMail = ds.Tables[0].Rows[0]["FPUUD_EMail"].ToString();
+                    fpUserVo.UserName = ds.Tables[0].Rows[0]["FPUUD_Name"].ToString();
+                    fpUserVo.Pan = ds.Tables[0].Rows[0]["FPUUD_PAN"].ToString();
+                    fpUserVo.MobileNo = Convert.ToInt64(ds.Tables[0].Rows[0]["FPUUD_MobileNo"].ToString());
+                    fpUserVo.C_CustomerId = !string.IsNullOrEmpty(ds.Tables[0].Rows[0]["C_CustomerId"].ToString()) ? Convert.ToInt32(ds.Tables[0].Rows[0]["C_CustomerId"].ToString()) : 0;
+                    fpUserVo.UserId = Convert.ToInt32(ds.Tables[0].Rows[0]["FPUUD_UserId"].ToString());
+                    fpUserVo.CreatedOn = Convert.ToDateTime(ds.Tables[0].Rows[0]["FPUUD_CreatedOn"].ToString());
+                    fpUserVo.ModifiedOn = Convert.ToDateTime(ds.Tables[0].Rows[0]["FPUUD_ModifiedOn"].ToString());
+                    fpUserVo.RiskClassCode = ds.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
+                    fpUserVo.IsProspectmarked = !string.IsNullOrEmpty(ds.Tables[0].Rows[0]["FPUUD_IsProspectmarked"].ToString()) ? Convert.ToBoolean(ds.Tables[0].Rows[0]["FPUUD_IsProspectmarked"]) : false;
+                    bool i;
+                    fpUserVo.IsClientExists = bool.TryParse(ds.Tables[0].Rows[0]["FPUUD_IsClientExists"].ToString(), out i) ? (bool?)i : null;
+                }
+            }
+
+            catch (Exception Ex)
+            {
+
+            }
+            return fpUserVo;
         }
     }
 }

@@ -20,22 +20,27 @@ namespace FPUtilityTool
         FPUserVo fpuserVo = new FPUserVo();
         protected void Page_Load(object sender, EventArgs e)
         {
+            FPUserBO.CheckSession();
+            fpuserVo = (FPUserVo)Session["FPUserVo"];
+            int adviserId = Convert.ToInt32(ConfigurationManager.AppSettings["ONLINE_ADVISER"]);
+            lblUserName.Text = " " + fpuserVo.UserName;
             if (!IsPostBack)
             {
                 divTncSuccess.Visible = false;
-                //if (Request.UrlReferrer == null)
-                //    Response.Redirect("Questionnaire.aspx");
+                if (Request.UrlReferrer == null)
+                    Response.Redirect("Questionnaire.aspx");
+                else
+                {
+                    DataSet dsRiskClass = fpUserBo.GetRiskClass(fpuserVo.UserId, adviserId);
+                    if (dsRiskClass.Tables[0].Rows.Count > 0)
+                    {
+                        lblRiskClass.Text = dsRiskClass.Tables[0].Rows[0]["XRC_RiskClass"].ToString();
+                        lblRiskText.Text = dsRiskClass.Tables[0].Rows[0]["ARC_RiskText"].ToString();
+                    }
+                }
             }
-            FPUserBO.CheckSession();
-            fpuserVo = (FPUserVo)Session["UserVo"];
-            int adviserId = Convert.ToInt32(ConfigurationManager.AppSettings["ONLINE_ADVISER"]);
-            lblUserName.Text = " " + fpuserVo.UserName;
-            DataSet dsRiskClass = fpUserBo.GetRiskClass(fpuserVo.UserId, adviserId);
-            if (dsRiskClass.Tables[0].Rows.Count > 0)
-            {
-                lblRiskClass.Text = dsRiskClass.Tables[0].Rows[0]["XRC_RiskClass"].ToString();
-                lblRiskText.Text = dsRiskClass.Tables[0].Rows[0]["ARC_RiskText"].ToString();
-            }
+          
+           
         }
         protected void btnLogOut_OnClick(object sender, EventArgs e)
         {
@@ -70,28 +75,32 @@ namespace FPUtilityTool
                     customerPortfolioVo.PortfolioTypeCode = "RGL";
                     customerPortfolioVo.PortfolioName = "MyPortfolioProspect";
                     customerIds = customerBo.CreateCompleteCustomer(customerVo, userVo, customerPortfolioVo, fpuserVo.UserId);
-                    if(UpdateCustomerIdInFPUserTable(fpuserVo.UserId, customerIds[1]))
+                    if (UpdateCustomerIdInFPUserTable(fpuserVo.UserId, customerIds[1]))
                         divTncSuccess.Visible = true;
                 }
                 else
                 {
-                    if(UpdateCustomerIdInFPUserTable(fpuserVo.UserId, fpuserVo.C_CustomerId))
+                    if (UpdateCustomerIdInFPUserTable(fpuserVo.UserId, fpuserVo.C_CustomerId))
                         divTncSuccess.Visible = true;
                 }
 
-                
+
             }
         }
-        private bool UpdateCustomerIdInFPUserTable(int fpUserId,int customerId)
+        private bool UpdateCustomerIdInFPUserTable(int fpUserId, int customerId)
         {
-           return fpUserBo.UpdateCustomerProspect(customerId, fpUserId);
+            bool result = false;
+            result = fpUserBo.UpdateCustomerProspect(customerId, fpUserId);
+            fpuserVo = fpUserBo.GetFPUser(fpUserId);
+            Session["FPUserVo"] = fpuserVo;
+            return result;
         }
         [WebMethod(EnableSession = true)]
         public static List<object> GetChartData()
         {
             FPUserBO fpUserBo = new FPUserBO();
             FPUserVo userVo = new FPUserVo();
-            userVo = (FPUserVo)HttpContext.Current.Session["UserVo"];
+            userVo = (FPUserVo)HttpContext.Current.Session["FPUserVo"];
             int adviserId = Convert.ToInt32(ConfigurationManager.AppSettings["ONLINE_ADVISER"]);
             List<object> chartData = new List<object>();
             chartData.Add(new object[]

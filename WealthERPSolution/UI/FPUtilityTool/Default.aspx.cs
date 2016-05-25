@@ -19,7 +19,7 @@ namespace FPUtilityTool
         {
             if (!IsPostBack)
             {
-                if (Session["UserVo"] != null)
+                if (Session["FPUserVo"] != null)
                     Response.Redirect("Questionnaire.aspx");
             }
             if (this.IsPostBack)
@@ -29,7 +29,7 @@ namespace FPUtilityTool
         }
         protected void btnsignInsubmit_Click(object sender, EventArgs e)
         {
-            if (Session["UserVo"] != null)
+            if (Session["FPUserVo"] != null)
             {
                 Response.Redirect("Questionnaire.aspx");
             }
@@ -50,7 +50,7 @@ namespace FPUtilityTool
                     isValidUser = ValidateSingleSessionPerUser(UserVo.UserId.ToString());
                     if (isValidUser)
                     {
-                        Session["UserVo"] = UserVo;
+                        Session["FPUserVo"] = UserVo;
                         Response.Redirect("Questionnaire.aspx");
                     }
                     else
@@ -66,7 +66,7 @@ namespace FPUtilityTool
         }
         protected void btnsignUpsubmit_Click(object sender, EventArgs e)
         {
-            if (Session["UserVo"] != null)
+            if (Session["FPUserVo"] != null)
             {
                 Response.Redirect("Questionnaire.aspx");
             }
@@ -83,7 +83,7 @@ namespace FPUtilityTool
                 isValidUser = ValidateSingleSessionPerUser(UserVo.UserId.ToString());
                 if (isValidUser)
                 {
-                    Session["UserVo"] = UserVo;
+                    Session["FPUserVo"] = UserVo;
                     Response.Redirect("Questionnaire.aspx");
                 }
                 else

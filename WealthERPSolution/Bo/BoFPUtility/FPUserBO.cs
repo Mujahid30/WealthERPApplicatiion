@@ -13,7 +13,7 @@ namespace BoFPUtility
         FPUserDAO fpUserDao = new FPUserDAO();
         public static void CheckSession()
         {
-            if (System.Web.HttpContext.Current.Session["UserVo"] == null)
+            if (System.Web.HttpContext.Current.Session["FPUserVo"] == null)
             {
                 System.Web.HttpContext.Current.Response.Redirect("Default.aspx");
             }
@@ -49,6 +49,10 @@ namespace BoFPUtility
         public bool UpdateCustomerProspect(int customerId, int fpUserId)
         {
             return fpUserDao.UpdateCustomerProspect(customerId, fpUserId);
+        }
+        public FPUserVo GetFPUser(int fpUserId)
+        {
+            return fpUserDao.GetFPUser(fpUserId);
         }
     }
 }

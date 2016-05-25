@@ -134,12 +134,12 @@
                                             </asp:RegularExpressionValidator>
                                         </div>
                                     </div>
-                                    <div class="form-group col-sm-6">
+                                    <div class="form-group col-sm-6"style="visibility:hidden">
                                         <label class="control-label col-sm-4" for="txtclientCode">
                                             Client Code:</label>
                                         <div class="col-sm-8">
                                             <asp:TextBox ID="txtclientCode" runat="server" CssClass="form-control required" placeholder="Enter Client Code"></asp:TextBox>
-                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtclientCode"
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" Enabled="false" ControlToValidate="txtclientCode"
                                                 ValidationGroup="btnsignInsubmit" runat="server" />
                                         </div>
                                     </div>

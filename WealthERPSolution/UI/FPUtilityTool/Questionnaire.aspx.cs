@@ -19,7 +19,7 @@ namespace FPUtilityTool
         {
 
             FPUserBO.CheckSession();
-            userVo = (FPUserVo)Session["UserVo"];
+            userVo = (FPUserVo)Session["FPUserVo"];
             DataSet dsQuestionNOptions = fpUserBo.GetQuestionAndOptions(userVo.UserId);
             int adviserId = Convert.ToInt32(ConfigurationManager.AppSettings["ONLINE_ADVISER"]);
             DataSet dsGetquestionList = new DataSet();
