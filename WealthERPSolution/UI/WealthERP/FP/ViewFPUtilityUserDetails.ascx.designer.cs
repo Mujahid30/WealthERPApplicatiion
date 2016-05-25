@@ -14,5 +14,6 @@ namespace WealthERP.FP
 
     public partial class ViewFPUtilityUserDetails
     {
+        protected global::Telerik.Web.UI.RadGrid gvLeadList;
     }
 }
