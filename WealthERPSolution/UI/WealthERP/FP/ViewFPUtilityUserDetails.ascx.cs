@@ -9,6 +9,7 @@ using BoCustomerRiskProfiling;
 using BoCommon;
 using BoUser;
 using VoUser;
+using Telerik.Web.UI;
 
 namespace WealthERP.FP
 {
