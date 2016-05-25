@@ -1148,7 +1148,9 @@ namespace WealthERP.CustomerPortfolio
         [WebMethod(EnableSession = true)]
         public string[] GetInvestorScheme(string prefixText)
         {
-            string exchangetype = HttpContext.Current.Session["ExchangeMode"].ToString();
+            string exchangetype =string.Empty;
+            if( HttpContext.Current.Session["ExchangeMode"]!=null)
+                exchangetype = HttpContext.Current.Session["ExchangeMode"].ToString();
             ProductMFBo productMFBo = new ProductMFBo();
             DataTable dtGetSchemeList = new DataTable();
             List<string> schemelist = new List<string>();

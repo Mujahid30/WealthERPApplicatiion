@@ -107,7 +107,7 @@
                                 <telerik:RadTab runat="server" Text="Realized" Value="Realized" TabIndex="2">
                                 </telerik:RadTab>
                                 <telerik:RadTab runat="server" Text="Analysis Chart" Value="Performance and Analysis"
-                                    TabIndex="3">
+                                    TabIndex="3" Visible="false">
                                 </telerik:RadTab>
                             </Tabs>
                         </telerik:RadTabStrip>

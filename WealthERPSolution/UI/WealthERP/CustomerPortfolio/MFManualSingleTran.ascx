@@ -179,7 +179,7 @@
             </tr>
         </table>
         <table style="width: 100%;" class="TableBackground">
-            <tr>
+            <tr id="trCustomerSearch" runat="server" >
                 <td class="leftField" style="width: 20%;">
                     <asp:Label ID="lblCustomerName" runat="server" Text="Search For:" CssClass="FieldName"></asp:Label>
                 </td>
@@ -193,7 +193,7 @@
                     </asp:DropDownList>
                 </td>
             </tr>
-            <tr>
+            <tr id="trtxtcustomerName" runat="server" >
                 <td class="leftField" style="width: 20%;">
                 </td>
                 <td class="rightField" style="width: 80%;" colspan="4">
@@ -259,7 +259,7 @@
                 </td>
                 <td class="rightField" id="td2" runat="server">
                     <asp:TextBox ID="TxtsubBrokerCode" runat="server" CssClass="txtField" MaxLength="18"
-                        AutoPostBack="true"></asp:TextBox>
+                      ></asp:TextBox>
                     <%--<span id="Span17" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="TxtsubBrokerCode"
                         CssClass="rfvPCG" ValidationGroup="MFSubmit" ErrorMessage="<br />Please enter the SubBroker Code"

@@ -1650,6 +1650,7 @@ namespace WealthERP.Receivable
                 btnCreateRule.Visible = false;
                 RadGridStructureRule.MasterTableView.GetColumn("Update").Visible = false;
                 RadGridStructureRule.MasterTableView.GetColumn("Edit1").Visible = true;
+                ViewState["gridEdit"] = "0";
             }
             RadGridStructureRule.DataSource = dtStructureRules;
             RadGridStructureRule.DataBind();
@@ -2870,7 +2871,7 @@ namespace WealthERP.Receivable
                 rlbAvailSchemes.DataTextField = dsAvailSchemes.Tables[0].Columns["PASP_SchemePlanName"].ToString();
                 rlbAvailSchemes.DataBind();
 
-                lblAvailableSchemes.Text = "Available Schemes";
+                //lblAvailableSchemes.Text = "Available Schemes";
             }
             catch (BaseApplicationException Ex)
             {
@@ -2953,7 +2954,7 @@ namespace WealthERP.Receivable
 
         protected void rlbAvailSchemes_Transferred(object sender, RadListBoxTransferredEventArgs e)
         {
-            lblAvailableSchemes.Text = "Available Schemes(" + rlbAvailSchemes.Items.Count.ToString() + ")";
+            //lblAvailableSchemes.Text = "Available Schemes(" + rlbAvailSchemes.Items.Count.ToString() + ")";
         }
 
         protected void rlbMappedSchemes_Transferred(object sender, RadListBoxTransferredEventArgs e)

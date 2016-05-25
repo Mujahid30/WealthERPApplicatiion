@@ -57,7 +57,7 @@ namespace WealthERP.CustomerPortfolio
         CommonProgrammingBo commonMethods = new CommonProgrammingBo();
         Dictionary<int, int> genDictPortfolioDetails = new Dictionary<int, int>();
         int customerId = 0;
-
+        string userType = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
             //try
@@ -84,6 +84,14 @@ namespace WealthERP.CustomerPortfolio
                 txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
                 //AutoCompleteExtender2.ContextKey = advisorVo.advisorId.ToString();
                 //AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetails";
+            }
+           if (Session["IsCustomerDrillDown"] != null)
+            {
+                userType = "Customer";
+                trCustomerSearch.Visible = false;
+                trtxtcustomerName.Visible = false;
+                hdntxtcustomerId.Value = customerVo.CustomerId.ToString();
+                BindPortfolioDropDown();
             }
             if (!IsPostBack)
             {
@@ -563,7 +571,10 @@ namespace WealthERP.CustomerPortfolio
                 //if (txtSearchScheme.Text != "" && lblScheme.Text == txtSearchScheme.Text)
                 //if(ddlScheme.SelectedIndex !=0 && lblScheme.Text == ddlScheme.SelectedItem.Text)
                 //{
-                customerId = int.Parse(hdntxtcustomerId.Value);
+                if (userType != "Customer")
+                    customerId = int.Parse(hdntxtcustomerId.Value);
+                else
+                    customerId = customerVo.CustomerId;
                 mfTransactionVo.CustomerId = customerId;
                 mfTransactionVo.AccountId = int.Parse(ddlFolioNum.SelectedItem.Value.ToString());
                 mfTransactionVo.AMCCode = int.Parse(ddlAMC.SelectedValue.ToString());

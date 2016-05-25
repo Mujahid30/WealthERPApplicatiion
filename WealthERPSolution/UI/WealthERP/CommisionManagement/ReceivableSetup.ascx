@@ -20,6 +20,42 @@
 <script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
 
 <script language="JavaScript" type="text/jscript">
+    function SearchList() {
+        var tb = document.getElementById('<%=TextBox1.ClientID%>').value;
+        var list = $find("<%= rlbAvailSchemes.ClientID %>"); var items = list.get_items();
+        if (tb == "") { ClearSelection(); } else {
+            for (var i = 0; i < items.get_count(); i++) {
+                var x = list.getItem(i).get_text().toLowerCase(); var y = tb.toLowerCase();
+                if (x.match(y)) {
+                    list.getItem(i).select(); list.getItem(i).ensureVisible(); //
+                    ////                    return false;
+                } else { list.getItem(i).unselect(); }
+            }
+        }
+    } function ClearSelection() {
+        var list = $find("<%= rlbAvailSchemes.ClientID %>"); var items = list.get_items();
+        for (var i = 0; i < items.get_count(); i++) list.getItem(i).unselect();
+    } </script>
+
+<script language="JavaScript" type="text/jscript">
+    function Associate() {
+        var tb = document.getElementById('<%=txtAssociateSearch.ClientID%>').value;
+        var list = $find("<%= LBAgentCodes.ClientID %>"); var items = list.get_items();
+        if (tb == "") { ClearSelection(); } else {
+            for (var i = 0; i < items.get_count(); i++) {
+                var x = list.getItem(i).get_text().toLowerCase(); var y = tb.toLowerCase();
+                if (x.match(y)) {
+                    list.getItem(i).select(); list.getItem(i).ensureVisible(); //
+                    ////                    return false;
+                } else { list.getItem(i).unselect(); }
+            }
+        }
+    } function ClearSelection() {
+        var list = $find("<%= LBAgentCodes.ClientID %>"); var items = list.get_items();
+        for (var i = 0; i < items.get_count(); i++) list.getItem(i).unselect();
+    } </script>
+
+<script language="JavaScript" type="text/jscript">
     function DeleteAllStructureRule() {
         alert(hi);
         var conf = confirm("Are you sure you want to delete this image?");
@@ -812,7 +848,8 @@
                             &nbsp;
                         </td>
                         <td class="rightData">
-                            <asp:Label ID="lblAvailableSchemes" runat="server" Text="Available Schemes" CssClass="FieldName"></asp:Label>
+                            <%-- <asp:Label ID="lblAvailableSchemes" runat="server" Text="Available Schemes" CssClass="FieldName"></asp:Label>
+                        --%>
                         </td>
                         <td class="rightData">
                             <asp:Label ID="lblMappedSchemes" runat="server" Text="Mapped Schemes" CssClass="FieldName"></asp:Label>
@@ -825,6 +862,16 @@
                         </td>
                         <td>
                             &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            <label class="FieldName">
+                                Search Scheme:</label>
+                            <asp:TextBox ID="TextBox1" runat="server" Width="310px" onkeyup="return SearchList();"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
@@ -1221,7 +1268,6 @@
                                         <telerik:GridBoundColumn UniqueName="ACSR_AUMMonth" HeaderText="AUM Month" DataField="ACSR_AUMMonth"
                                             Visible="false">
                                         </telerik:GridBoundColumn>
-                                        
                                         <telerik:GridTemplateColumn UniqueName="Edit1">
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="lnkEdit" runat="server" CssClass="LinkButtons" Text="Edit" OnClick="btnruleEdit_OnClick"></asp:LinkButton>
@@ -1229,7 +1275,8 @@
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridTemplateColumn UniqueName="Update">
                                             <ItemTemplate>
-                                                <asp:Button ID="btnupdate" runat="server" CssClass="PCGButton" Visible="false" Text="Update" OnClick="btnupdate_OnClick" />
+                                                <asp:Button ID="btnupdate" runat="server" CssClass="PCGButton" Visible="false" Text="Update"
+                                                    OnClick="btnupdate_OnClick" />
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                     </Columns>
@@ -2033,7 +2080,7 @@
             </td> </tr> </table>
             <asp:Label ID="lblEligible" runat="server"></asp:Label>
             <telerik:RadWindow ID="radAplicationPopUp" runat="server" VisibleOnPageLoad="false"
-                Height="600px" Width="900px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false"
+                Height="750px" Width="900px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false"
                 Behaviors="Resize, Close, Move" Title="Map Associate" Left="10" Top="20" OnClientShow="setCustomPosition">
                 <ContentTemplate>
                     <table id="tblMapping" runat="server" width="100%">
@@ -2144,6 +2191,12 @@
                         <tr runat="server" id="trListControls">
                             <td>
                                 <div class="clearfix" style="margin-bottom: 1em;">
+                                <div>
+                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label class="FieldName">
+                                    Search AgentCodes:</label>
+                                <asp:TextBox ID="txtAssociateSearch" runat="server" Width="250px" onkeyup="return Associate();"></asp:TextBox>
+                                
+                                </div>
                                     <asp:Panel ID="PLCustomer" runat="server" Style="float: left; padding-left: 150px;">
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <asp:Label ID="lblSelectBranch" runat="server" CssClass="FieldName" Text="Existing AgentCodes">
@@ -2159,8 +2212,7 @@
                                             IsTextSearchEnable="true" TextSearchMode="Contains">
                                         </telerik:RadListBox>
                                         <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" SelectionMode="Multiple"
-                                            AccessKey="y" ID="RadListBoxSelectedAgentCodes" EnableViewState="true" Height="200px"
-                                            Width="300px" IsTextSearchEnable="true" TextSearchMode="Contains" EnableMarkMatches="true">
+                                            ID="RadListBoxSelectedAgentCodes" Height="200px" Width="300px">
                                         </telerik:RadListBox>
                                     </asp:Panel>
                                 </div>
