@@ -422,6 +422,8 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Financial Planning" Value="Financial_Planning_Admin">
                                         <Items>
+                                        <telerik:RadPanelItem runat="server" Text="View Leads" Value="View Leads">
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="FP Client List" Value="FP_Client_List">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Add Prospect" Value="Add_Prospect_Admin">
@@ -1191,6 +1193,8 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Financial Planning" Value="Financial_Planning_Admin">
                                         <Items>
+                                        <telerik:RadPanelItem runat="server" Text="View Leads" Value="View Leads">
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="FP Client List" Value="FP_Client_List">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Add Prospect" Value="Add_Prospect_Admin">
