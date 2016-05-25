@@ -1621,6 +1621,20 @@
     <Compile Include="CustomerPortfolio\CustomerEQAccountAdd.ascx.designer.cs">
       <DependentUpon>CustomerEQAccountAdd.ascx</DependentUpon>
     </Compile>
+    <Compile Include="CustomerPortfolio\CustomerEQAccountRateAdd.ascx.cs">
+      <DependentUpon>CustomerEQAccountRateAdd.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\CustomerEQAccountRateAdd.ascx.designer.cs">
+      <DependentUpon>CustomerEQAccountRateAdd.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPortfolio\CustomerEQAccountRateView.ascx.cs">
+      <DependentUpon>CustomerEQAccountRateView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\CustomerEQAccountRateView.ascx.designer.cs">
+      <DependentUpon>CustomerEQAccountRateView.ascx</DependentUpon>
+    </Compile>
     <Compile Include="CustomerPortfolio\CustomerEQAccountView.ascx.cs">
       <DependentUpon>CustomerEQAccountView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2558,6 +2572,13 @@
     </Compile>
     <Compile Include="FP\ProspectList.ascx.designer.cs">
       <DependentUpon>ProspectList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="FP\ViewFPUtilityUserDetails.ascx.cs">
+      <DependentUpon>ViewFPUtilityUserDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FP\ViewFPUtilityUserDetails.ascx.designer.cs">
+      <DependentUpon>ViewFPUtilityUserDetails.ascx</DependentUpon>
     </Compile>
     <Compile Include="General\AccountDeactive.ascx.cs">
       <DependentUpon>AccountDeactive.ascx</DependentUpon>
@@ -7906,6 +7927,8 @@
     <Content Include="CustomerAssetDetails\CustomerGovtSaving.ascx" />
     <Content Include="CustomerPortfolio\AdviserLoanScheme.ascx" />
     <Content Include="CustomerPortfolio\AdviserLoanSchemeView.ascx" />
+    <Content Include="CustomerPortfolio\CustomerEQAccountRateAdd.ascx" />
+    <Content Include="CustomerPortfolio\CustomerEQAccountRateView.ascx" />
     <Content Include="CustomerPortfolio\CustomerEQAccountView.ascx" />
     <Content Include="CustomerPortfolio\CustomerMFFolioView.ascx" />
     <Content Include="CustomerPortfolio\CustomerMFSystematicTransactionReport.ascx" />
@@ -7992,6 +8015,7 @@
     <Content Include="FP\FinancialPlanning.htm" />
     <Content Include="FP\OfflineForm.aspx" />
     <Content Include="FP\ProspectList.ascx" />
+    <Content Include="FP\ViewFPUtilityUserDetails.ascx" />
     <Content Include="FusionCharts\AngularGauge.swf" />
     <Content Include="FusionCharts\Area2D.swf" />
     <Content Include="FusionCharts\Bar2D.swf" />

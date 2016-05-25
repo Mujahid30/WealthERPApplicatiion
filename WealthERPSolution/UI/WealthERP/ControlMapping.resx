@@ -2093,4 +2093,16 @@
     <value>Reports//CommonViewer.aspx</value>
     <comment>Reports//CommonViewer.aspx</comment>
   </data>
+  <data name="CustomerEQAccountRateAdd" xml:space="preserve">
+    <value>CustomerPortfolio//CustomerEQAccountRateAdd.ascx</value>
+    <comment>CustomerPortfolio//CustomerEQAccountRateAdd.ascx</comment>
+  </data>
+  <data name="CustomerEQAccountRateView" xml:space="preserve">
+    <value>CustomerPortfolio//CustomerEQAccountRateView.ascx</value>
+    <comment>CustomerPortfolio//CustomerEQAccountRateView.ascx</comment>
+  </data>
+  <data name="ViewFPUtilityUserDetails" xml:space="preserve">
+    <value>FP//ViewFPUtilityUserDetails.ascx</value>
+    <comment>FP//ViewFPUtilityUserDetails.ascx</comment>
+  </data>
 </root>
