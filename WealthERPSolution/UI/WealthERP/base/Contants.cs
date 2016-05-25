@@ -265,10 +265,12 @@ namespace WealthERP.Base
         
         // Session Contents for Valuation Date - Created on 27.03.2012, By: Joshan John
         public const string ValuationDate = "ValuationDate";
+        public const string MaxPriceDate = "MaxPriceDate";
 
         public const string AssociatesLogin_AssociatesHierarchy = "associatesUserHeirarchyVo";
 
     }
+
 
     public static class Resources
     {

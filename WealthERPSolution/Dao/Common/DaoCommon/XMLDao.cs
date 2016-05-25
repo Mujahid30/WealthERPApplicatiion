@@ -1132,16 +1132,51 @@ namespace DaoCommon
             return dt;
         }
 
-        public static DataTable GetExchangeType(string path)
+        //public static DataTable GetExchangeType(string path)
+        //{
+        //    DataSet ds;
+        //    DataTable dt;
+        //    try
+        //    {
+        //        ds = new DataSet();
+        //        ds.ReadXml(path);
+        //        dt = ds.Tables["Exchange"];
+
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "XMLDao.cs:GetExchangeType()");
+        //        object[] objects = new object[1];
+        //        objects[0] = path;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+
+        //    }
+        //    return dt;
+        //}
+
+
+
+        public static DataSet GetExchangeType(string Type)
         {
             DataSet ds;
             DataTable dt;
+            Database db;
+            DbCommand getExchange;
             try
             {
-                ds = new DataSet();
-                ds.ReadXml(path);
-                dt = ds.Tables["Exchange"];
-
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getExchange = db.GetStoredProcCommand("SPROC_GetExchange");
+                db.AddInParameter(getExchange, "@Type", DbType.String, Type);
+                ds = db.ExecuteDataSet(getExchange);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1153,14 +1188,14 @@ namespace DaoCommon
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "XMLDao.cs:GetExchangeType()");
                 object[] objects = new object[1];
-                objects[0] = path;
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
 
             }
-            return dt;
+            return ds;
         }
 
         public static DataTable GetRelationship(string path,string type)
@@ -3217,5 +3252,8 @@ namespace DaoCommon
 
             return dsReportServerConfig;
         }
+
+
+
     }
 }

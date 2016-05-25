@@ -19,6 +19,7 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using BoCommon;
 using Telerik.Web.UI;
+using Telerik.Web.UI.Calendar.Utils;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -34,30 +35,17 @@ namespace WealthERP.CustomerPortfolio
         CustomerPortfolioVo customerPortfolioVo;
         private const string ASCENDING = " ASC";
         private const string DESCENDING = " DESC";
-        //  DateTime tradeDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day);
+        AdvisorVo advisorVo = new AdvisorVo();
+
         DateTime tradeDate = new DateTime();
-        decimal currentPrice_All = 0;
-        decimal currentPrice_UnRe = 0;
-        private double realised_all = 0;
-        private double realised_delivery = 0;
-        private double realised_spec = 0;
-        private double unrealised_all = 0;
-        private double unrealisedPNL = 0;
-        double costofpurchase_all = 0;
-        double costofpurchase_Unrealized = 0;
+
         Dictionary<string, DateTime> genDict = new Dictionary<string, DateTime>();
-        private decimal currentValue = 0;
+
         static int portfolioId;
         RMVo rmVo = new RMVo();
-        string strLblCurrentValue;
 
-        public enum Constants
-        {
-            EQ = 0,     // explicitly specifying the enum constant values will improve performance
-            MF = 1,
-            EQDate = 2,
-            MFDate = 3
-        };
+
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -67,33 +55,31 @@ namespace WealthERP.CustomerPortfolio
                 customerVo = (CustomerVo)Session["customerVo"];
                 rmVo = (RMVo)Session["rmVo"];
                 userVo = (UserVo)Session["userVo"];
+                advisorVo = (AdvisorVo)Session["advisorVo"];
                 customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerVo.CustomerId);
-                GetLatestValuationDate();
+                GetLatestDate();
 
-                if (Session[SessionContents.ValuationDate] == null)
-                    GetLatestValuationDate();
-                genDict = (Dictionary<string, DateTime>)Session[SessionContents.ValuationDate];
+                genDict = (Dictionary<string, DateTime>)Session[SessionContents.MaxPriceDate];
                 string strValuationDate = genDict[Constants.EQDate.ToString()].ToString();
-                lblPickDate.Text = DateTime.Parse(genDict[Constants.EQDate.ToString()].ToString()).ToShortDateString();
 
+                radEqTranxDetails.VisibleOnPageLoad = false;
+                radEqSellPair.VisibleOnPageLoad = false;
+                radEqAvgPriceDetails.VisibleOnPageLoad = false;
 
                 if (!IsPostBack)
                 {
-                    EQPortfolioTabPages.Visible = false;
-                    RadTabStrip1.Visible = false;
-                    //Label3.Visible = false;
-                    lblCurrentValue.Visible = false;
-                    Label1.Visible = false;
+                    if (ddlDateRange.SelectedValue == "ASON")
+                    {
 
-                    //if (Session[SessionContents.PortfolioId] != null)
-                    //    portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
-                    //else
-                    //    portfolioId = customerPortfolioVo.PortfolioId;
+                    }
+                    if (ddlDateRange.SelectedValue == "DateRange")
+                    {
+
+                    }
+
+
                     BindPortfolioDropDown();
-                    //LoadEquityPortfolio();
-                    //lblCurrentValue.Text = decimal.Parse(currentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                    lblCurrentValue.Text = strLblCurrentValue;
-                    Label3.Text = strLblCurrentValue;
+
                 }
 
             }
@@ -116,32 +102,25 @@ namespace WealthERP.CustomerPortfolio
                 throw exBase;
             }
         }
-        private void GetLatestValuationDate()
+
+        public enum Constants
         {
-            DateTime EQValuationDate = new DateTime();
-            DateTime MFValuationDate = new DateTime();
+            EQ = 0,     // explicitly specifying the enum constant values will improve performance
+            MF = 1,
+            EQDate = 2,
+            MFDate = 3
+        };
+        private void GetLatestDate()
+        {
+            DateTime EQLatestDate = new DateTime();
             PortfolioBo portfolioBo = null;
             genDict = new Dictionary<string, DateTime>();
-            AdvisorVo advisorVo = new AdvisorVo();
-            int adviserId = 0;
             try
             {
                 portfolioBo = new PortfolioBo();
-                advisorVo = (AdvisorVo)Session["advisorVo"];
-                adviserId = advisorVo.advisorId;
-
-               
-                if (portfolioBo.GetLatestValuationDate(adviserId, "EQ") != null)
-                {
-                    EQValuationDate = DateTime.Parse(portfolioBo.GetLatestValuationDate(adviserId, "EQ").ToString());
-                }
-                if (portfolioBo.GetLatestValuationDate(adviserId, "MF") != null)
-                {
-                    MFValuationDate = DateTime.Parse(portfolioBo.GetLatestValuationDate(adviserId, "MF").ToString());
-                }
-                genDict.Add("EQDate", EQValuationDate);
-                genDict.Add("MFDate", MFValuationDate);
-                Session["ValuationDate"] = genDict;
+               //EQLatestDate = DateTime.Parse(portfolioBo.GetLatestDate().ToString());
+                genDict.Add("EQDate", EQLatestDate);
+                Session["MaxPriceDate"] = genDict;
             }
             catch (BaseApplicationException Ex)
             {
@@ -151,11 +130,9 @@ namespace WealthERP.CustomerPortfolio
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "PortfolioDashboard.ascx.cs:GetLatestValuationDate()");
+                FunctionInfo.Add("Method", "PortfolioDashboard.ascx.cs:GetLatestDate()");
                 object[] objects = new object[3];
-                objects[0] = EQValuationDate;
-                objects[1] = adviserId;
-                objects[2] = MFValuationDate;
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -177,337 +154,110 @@ namespace WealthERP.CustomerPortfolio
         public void LoadEquityPortfolio()
         {
             int count = 0;
+            DataSet dsCustomeNP = new DataSet();
+            DataTable dtUnRealized = new DataTable();
+            DataTable dtRealizedDelivery = new DataTable();
+            DataTable dtRealizedSpeculative = new DataTable();
+            DataTable dtAll = new DataTable();
+
             try
             {
-                genDict = (Dictionary<string, DateTime>)Session["ValuationDate"];
-                tradeDate = DateTime.Parse(genDict["EQDate"].ToString());
-                if (tradeDate == DateTime.MinValue)
+                tradeDate = DateTime.Parse(txtPickDate.SelectedDate.ToString());
+
+                RadAjaxPanel4.Visible = false;
+                RadAjaxPanel1.Visible = true;
+
+
+                dsCustomeNP = customerPortfolioBo.GetCustomerEquityNP(advisorVo.advisorId, int.Parse(ddlPortfolio.SelectedValue.ToString()), tradeDate, ddl_type.SelectedItem.Value.ToString());
+
+
+                dtUnRealized = dsCustomeNP.Tables[1];
+                dtRealizedDelivery = dsCustomeNP.Tables[0];
+                dtAll = dsCustomeNP.Tables[2];
+                dtRealizedSpeculative = dsCustomeNP.Tables[3];
+
+                if (dtUnRealized.Rows.Count > 0)
                 {
-                    count = 0;
-                }
-                else
-                {
-                    eqPortfolioList = customerPortfolioBo.GetCustomerEquityPortfolio(customerVo.CustomerId,int.Parse(ddlPortfolio.SelectedValue), tradeDate, hdnScipNameFilter.Value.Trim(), string.Empty);
-                    if (eqPortfolioList != null)
+                    gvEquityPortfolio.DataSource = dtUnRealized;
+                    gvEquityPortfolio.DataBind();
+                    if (Cache["gvEquityPortfolio" + customerVo.CustomerId.ToString()] == null)
                     {
-                        count = eqPortfolioList.Count;
-                    }
-                }
-
-                if (count == 0)
-                {
-
-                    lblMessage.Visible = true;
-                    lblMessageD.Visible = true;
-                    lblMessageSpeculative.Visible = true;
-                    lblMessageUnrealized.Visible = true;
-
-                    EQPortfolioTabPages.Visible = false;
-                    RadTabStrip1.Visible = false;
-                    Label4.Visible = false;
-                    lblCurrentValue.Visible = false;
-                    Label1.Visible = false;
-                    lblErrorMsg.Visible = true;
-                    lblErrorMsg.Text = "Records not found for '"+ ddlPortfolio.SelectedItem +"' ";
-
-                }
-                else
-                {
-                    lblErrorMsg.Visible = false;
-                    EQPortfolioTabPages.Visible = true;
-                    RadTabStrip1.Visible = true;
-                    Label4.Visible = true;
-                    lblCurrentValue.Visible = true;
-                    Label1.Visible = true;
-
-                    lblMessage.Visible = false;
-                    lblMessageD.Visible = false;
-                    lblMessageSpeculative.Visible = false;
-                    lblMessageUnrealized.Visible = false;
-                    //tblDelivery.Visible = true;
-                    //tblPortfolio.Visible = true;
-                    //tblSpec.Visible = true;
-                    //tblUnrealized.Visible = true;
-                    DataTable dtEqPortfolio = new DataTable();
-                    DataTable dtEqPortfolioDelivery = new DataTable();
-                    DataTable dtEqPortfolioSpeculative = new DataTable();
-                    DataTable dtEqPortfolioUnrealized = new DataTable();
-
-                    // Consolidated View Datatable
-                    dtEqPortfolio.Columns.Add("Sl.No.");
-                    dtEqPortfolio.Columns.Add("CompanyName");
-                    dtEqPortfolio.Columns.Add("Quantity",typeof(double));
-                    dtEqPortfolio.Columns.Add("AveragePrice", typeof(double));
-                    dtEqPortfolio.Columns.Add("CostOfPurchase", typeof(double));
-                    dtEqPortfolio.Columns.Add("MarketPrice", typeof(double));
-                    dtEqPortfolio.Columns.Add("CurrentValue", typeof(double));
-                    dtEqPortfolio.Columns.Add("UnRealizedPL", typeof(double));
-                    dtEqPortfolio.Columns.Add("RealizedPL", typeof(double));
-                    dtEqPortfolio.Columns.Add("XIRR", typeof(double));
-
-                    //Delivery Based View Datatable
-                    dtEqPortfolioDelivery.Columns.Add("Sl.No.");
-                    dtEqPortfolioDelivery.Columns.Add("CompanyName");
-                    dtEqPortfolioDelivery.Columns.Add("SaleQty", typeof(double));
-                    dtEqPortfolioDelivery.Columns.Add("CostOfSales", typeof(double));
-                    dtEqPortfolioDelivery.Columns.Add("RealizedSalesProceeds", typeof(double));
-                    dtEqPortfolioDelivery.Columns.Add("RealizedPL", typeof(double));
-                    dtEqPortfolioDelivery.Columns.Add("XIRR", typeof(double));
-
-                    //Speculative Based View Datatable
-                    dtEqPortfolioSpeculative.Columns.Add("Sl.No.");
-                    dtEqPortfolioSpeculative.Columns.Add("CompanyName");
-                    dtEqPortfolioSpeculative.Columns.Add("SaleQty", typeof(double));
-                    dtEqPortfolioSpeculative.Columns.Add("RealizedSalesProceeds", typeof(double));
-                    dtEqPortfolioSpeculative.Columns.Add("CostOfSales", typeof(double));
-                    dtEqPortfolioSpeculative.Columns.Add("RealizedPL", typeof(double));
-                    dtEqPortfolioSpeculative.Columns.Add("XIRR", typeof(double));
-
-                    //Unrealized View Datatable
-                    dtEqPortfolioUnrealized.Columns.Add("Sl.No.");
-                    dtEqPortfolioUnrealized.Columns.Add("CompanyName");
-                    dtEqPortfolioUnrealized.Columns.Add("Quantity", typeof(double));
-                    dtEqPortfolioUnrealized.Columns.Add("AveragePrice", typeof(double));
-                    dtEqPortfolioUnrealized.Columns.Add("CostOfPurchase", typeof(double));
-                    dtEqPortfolioUnrealized.Columns.Add("MarketPrice", typeof(double));
-                    dtEqPortfolioUnrealized.Columns.Add("CurrentValue", typeof(double));
-                    dtEqPortfolioUnrealized.Columns.Add("UnRealizedPL", typeof(double));
-                    dtEqPortfolioUnrealized.Columns.Add("XIRR", typeof(double));
-
-                    DataRow drEqPortfolio;
-                    DataRow drEqPortfolioDelivery;
-                    DataRow drEqPortfolioSpeculative;
-                    DataRow drEqPortfolioUnrealized;
-
-                    for (int i = 0; i < eqPortfolioList.Count; i++)
-                    {
-                        drEqPortfolio = dtEqPortfolio.NewRow();
-                        drEqPortfolioDelivery = dtEqPortfolioDelivery.NewRow();
-                        drEqPortfolioSpeculative = dtEqPortfolioSpeculative.NewRow();
-
-                        eqPortfolioVo = new EQPortfolioVo();
-                        eqPortfolioVo = eqPortfolioList[i];
-                        //Consolidated View
-                        drEqPortfolio[0] = eqPortfolioVo.EqPortfolioId.ToString();
-                        drEqPortfolio[1] = eqPortfolioVo.EQCompanyName.ToString();
-                        drEqPortfolio[2] = eqPortfolioVo.Quantity.ToString("f0");
-                        drEqPortfolio[3] = double.Parse(eqPortfolioVo.AveragePrice.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                        if (eqPortfolioVo.CostOfPurchase.ToString() != string.Empty)
-                        {
-                            costofpurchase_all = costofpurchase_all + eqPortfolioVo.CostOfPurchase;
-                            drEqPortfolio[4] = double.Parse(eqPortfolioVo.CostOfPurchase.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                        }
-                        drEqPortfolio[5] = double.Parse(eqPortfolioVo.MarketPrice.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                        drEqPortfolio[6] = double.Parse(eqPortfolioVo.CurrentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                        if (eqPortfolioVo.UnRealizedPNL.ToString() != string.Empty)
-                        {
-                            unrealised_all = unrealised_all + eqPortfolioVo.UnRealizedPNL;
-                            drEqPortfolio[7] = double.Parse(eqPortfolioVo.UnRealizedPNL.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                        }
-
-
-                        if (eqPortfolioVo.RealizedPNL.ToString() != string.Empty)
-                        {
-                            realised_all = realised_all + eqPortfolioVo.RealizedPNL;
-                            drEqPortfolio[8] = double.Parse(eqPortfolioVo.RealizedPNL.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                        }
-                        drEqPortfolio[9] = double.Parse(eqPortfolioVo.XIRR.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-
-                        dtEqPortfolio.Rows.Add(drEqPortfolio);
-
-                        if (eqPortfolioVo.DeliverySalesQuantity != 0)
-                        {
-                            //Delivery Based View
-                            drEqPortfolioDelivery[0] = eqPortfolioVo.EqPortfolioId.ToString();
-                            drEqPortfolioDelivery[1] = eqPortfolioVo.EQCompanyName.ToString();
-                            drEqPortfolioDelivery[2] = eqPortfolioVo.DeliverySalesQuantity.ToString("f0");
-                            drEqPortfolioDelivery[3] = double.Parse(eqPortfolioVo.DeliveryRealizedSalesProceeds.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                            drEqPortfolioDelivery[4] = double.Parse(eqPortfolioVo.DeliveryCostOfSales.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                            if (eqPortfolioVo.DeliveryRealizedProfitLoss.ToString() != string.Empty)
-                            {
-                                realised_delivery = realised_delivery + eqPortfolioVo.DeliveryRealizedProfitLoss;
-                                drEqPortfolioDelivery[5] = double.Parse(eqPortfolioVo.DeliveryRealizedProfitLoss.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                            }
-                            drEqPortfolioDelivery[6] = double.Parse(eqPortfolioVo.XIRR.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-
-
-                            dtEqPortfolioDelivery.Rows.Add(drEqPortfolioDelivery);
-                        }
-                        if (eqPortfolioVo.SpeculativeSalesQuantity != 0)
-                        {
-                            //Speculative Based View
-                            drEqPortfolioSpeculative[0] = eqPortfolioVo.EqPortfolioId.ToString();
-                            drEqPortfolioSpeculative[1] = eqPortfolioVo.EQCompanyName.ToString();
-                            drEqPortfolioSpeculative[2] = eqPortfolioVo.SpeculativeSalesQuantity.ToString("f0");
-                            drEqPortfolioSpeculative[3] = double.Parse(eqPortfolioVo.SpeculativeRealizedSalesProceeds.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                            drEqPortfolioSpeculative[4] = double.Parse(eqPortfolioVo.SpeculativeCostOfSales.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                            if (eqPortfolioVo.SpeculativeRealizedProfitLoss.ToString() != string.Empty)
-                            {
-                                realised_spec = realised_spec + eqPortfolioVo.SpeculativeRealizedProfitLoss;
-                                drEqPortfolioSpeculative[5] = double.Parse(eqPortfolioVo.SpeculativeRealizedProfitLoss.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                            }
-                            drEqPortfolioSpeculative[6] = double.Parse(eqPortfolioVo.XIRR.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-
-                            dtEqPortfolioSpeculative.Rows.Add(drEqPortfolioSpeculative);
-                        }
-
-                        if (eqPortfolioVo.Quantity != 0)
-                        {
-                            drEqPortfolioUnrealized = dtEqPortfolioUnrealized.NewRow();
-                            drEqPortfolioUnrealized[0] = eqPortfolioVo.EqPortfolioId.ToString();
-                            drEqPortfolioUnrealized[1] = eqPortfolioVo.EQCompanyName.ToString();
-                            drEqPortfolioUnrealized[2] = eqPortfolioVo.Quantity.ToString("f0");
-                            drEqPortfolioUnrealized[3] = double.Parse(eqPortfolioVo.AveragePrice.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                            if (eqPortfolioVo.CostOfPurchase.ToString() != string.Empty)
-                            {
-                                costofpurchase_Unrealized = costofpurchase_Unrealized + eqPortfolioVo.CostOfPurchase;
-                                drEqPortfolioUnrealized[4] = double.Parse(eqPortfolioVo.CostOfPurchase.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                            }
-                            drEqPortfolioUnrealized[5] = double.Parse(eqPortfolioVo.MarketPrice.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                            drEqPortfolioUnrealized[6] = double.Parse(eqPortfolioVo.CurrentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                            if (eqPortfolioVo.UnRealizedPNL.ToString() != string.Empty)
-                            {
-                                unrealisedPNL = unrealisedPNL + eqPortfolioVo.UnRealizedPNL;
-                                drEqPortfolioUnrealized[7] = double.Parse(eqPortfolioVo.UnRealizedPNL.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                            }
-                            drEqPortfolioUnrealized[8] = double.Parse(eqPortfolioVo.XIRR.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-
-                            dtEqPortfolioUnrealized.Rows.Add(drEqPortfolioUnrealized);
-                        }
-                    }
-
-                    // Bind EQ Net Position Details
-                    if (dtEqPortfolio.Rows.Count > 0)
-                    {
-                        hdnNoOfRecords.Value = dtEqPortfolio.Rows.Count.ToString();
-                        gvEquityPortfolio.DataSource = dtEqPortfolio;
-                        gvEquityPortfolio.DataBind();
-
-
-                        GridFooterItem footer = (GridFooterItem)gvEquityPortfolio.MasterTableView.GetItems(GridItemType.Footer)[0];
-                        strLblCurrentValue = Convert.ToString(footer.Cells[9].Text);
-                        lblCurrentValue.Text = strLblCurrentValue;
-                        Label3.Text = strLblCurrentValue;
-                        //currentValue = int.Parse(totaltemp);
-
-                        gvEquityPortfolio.Visible = true;
-                        imgBtnExport3.Visible = true;
-
-                        if (Cache["gvEquityPortfolioDetails" + customerPortfolioVo.CustomerId.ToString()] == null)
-                        {
-                            Cache.Insert("gvEquityPortfolioDetails" + customerPortfolioVo.CustomerId.ToString(), dtEqPortfolio);
-                        }
-                        else
-                        {
-                            Cache.Remove("gvEquityPortfolioDetails" + customerPortfolioVo.CustomerId.ToString());
-                            Cache.Insert("gvEquityPortfolioDetails" + customerPortfolioVo.CustomerId.ToString(), dtEqPortfolio);
-                        }
+                        Cache.Insert("gvEquityPortfolio" + customerVo.CustomerId.ToString(), dtUnRealized);
                     }
                     else
                     {
-                        gvEquityPortfolio.DataSource = null;
-                        gvEquityPortfolio.DataBind();
-                        lblMessage.Visible = true;
+                        Cache.Remove("gvEquityPortfolio" + customerVo.CustomerId.ToString());
+                        Cache.Insert("gvEquityPortfolio" + customerVo.CustomerId.ToString(), dtUnRealized);
                     }
-                                      
-                    // Bind EQ Delivery Details
-                    string SearchExpression = string.Empty;
-
-                    if (hdnRealizedScipFilter.Value.Trim() != "")
-                    {
-                        SearchExpression = "CompanyName like '%" + hdnRealizedScipFilter.Value.Trim() + "%'";
-                        dtEqPortfolioDelivery.DefaultView.RowFilter = SearchExpression;
-                    }
-
-                    if (dtEqPortfolioDelivery.Rows.Count > 0)
-                    {
-                        hdnNoOfRecords.Value = dtEqPortfolioDelivery.Rows.Count.ToString();
-                        gvEquityPortfolioDelivery.DataSource = dtEqPortfolioDelivery;
-                        gvEquityPortfolioDelivery.DataBind();
-                        gvEquityPortfolioDelivery.Visible = true;
-                        imgBtnExport1.Visible = true;
-                        if (Cache["gvEquityPortfolioDeliveryDetails" + customerPortfolioVo.CustomerId.ToString()] == null)
-                        {
-                            Cache.Insert("gvEquityPortfolioDeliveryDetails" + customerPortfolioVo.CustomerId.ToString(), dtEqPortfolioDelivery);
-                        }
-                        else
-                        {
-                            Cache.Remove("gvEquityPortfolioDeliveryDetails" + customerPortfolioVo.CustomerId.ToString());
-                            Cache.Insert("gvEquityPortfolioDeliveryDetails" + customerPortfolioVo.CustomerId.ToString(), dtEqPortfolioDelivery);
-                        }
-                    }
-                    else
-                    {
-                        gvEquityPortfolioDelivery.DataSource = null;
-                        gvEquityPortfolioDelivery.DataBind();
-                        lblMessageD.Visible = true;
-                    }
-                   
-                    // Bind EQ Speculative Details
-                    if (hdnRealizedSpecScipFilter.Value.Trim() != "")
-                    {
-                        SearchExpression = "CompanyName like '%" + hdnRealizedSpecScipFilter.Value.Trim() + "%'";
-                        dtEqPortfolioSpeculative.DefaultView.RowFilter = SearchExpression;
-                    }
-
-                    if (dtEqPortfolioSpeculative.Rows.Count > 0)
-                    {
-                        hdnNoOfRecords.Value = dtEqPortfolioSpeculative.Rows.Count.ToString();
-                        gvEquityPortfolioSpeculative.DataSource = dtEqPortfolioSpeculative;
-                        gvEquityPortfolioSpeculative.DataBind();
-                        gvEquityPortfolioSpeculative.Visible = true;
-                        imgBtnExport2.Visible = true;
-
-                        if (Cache["gvEquityPortfolioSpeculativeDetails" + customerPortfolioVo.CustomerId.ToString()] == null)
-                        {
-                            Cache.Insert("gvEquityPortfolioSpeculativeDetails" + customerPortfolioVo.CustomerId.ToString(), dtEqPortfolioSpeculative);
-                        }
-                        else
-                        {
-                            Cache.Remove("gvEquityPortfolioSpeculativeDetails" + customerPortfolioVo.CustomerId.ToString());
-                            Cache.Insert("gvEquityPortfolioSpeculativeDetails" + customerPortfolioVo.CustomerId.ToString(), dtEqPortfolioSpeculative);
-                        }
-                    }
-                    else
-                    {
-                        gvEquityPortfolioSpeculative.DataSource = null;
-                        gvEquityPortfolioSpeculative.DataBind();
-                        lblMessageSpeculative.Visible = true;
-                    }
-
-                    // Bind EQ Unrealized Details
-                    if (hdnUnRealizedScipFilter.Value.Trim() != "")
-                    {
-                        SearchExpression = "CompanyName like '%" + hdnUnRealizedScipFilter.Value.Trim() + "%'";
-                        dtEqPortfolioUnrealized.DefaultView.RowFilter = SearchExpression;
-                    }
-
-                    if (dtEqPortfolioUnrealized.Rows.Count > 0)
-                    {
-                        hdnNoOfRecords.Value = dtEqPortfolioUnrealized.Rows.Count.ToString();
-                        gvEquityPortfolioUnrealized.DataSource = dtEqPortfolioUnrealized;
-                        gvEquityPortfolioUnrealized.DataBind();
-                        gvEquityPortfolioUnrealized.Visible = true;
-                        imgBtnExport.Visible = true;
-
-                        if (Cache["gvEquityPortfolioUnrealizedDetails" + customerPortfolioVo.CustomerId.ToString()] == null)
-                        {
-                            Cache.Insert("gvEquityPortfolioUnrealizedDetails" + customerPortfolioVo.CustomerId.ToString(), dtEqPortfolioUnrealized);
-                        }
-                        else
-                        {
-                            Cache.Remove("gvEquityPortfolioUnrealizedDetails" + customerPortfolioVo.CustomerId.ToString());
-                            Cache.Insert("gvEquityPortfolioUnrealizedDetails" + customerPortfolioVo.CustomerId.ToString(), dtEqPortfolioUnrealized);
-                        }
-                    }
-                    else
-                    {
-                        gvEquityPortfolioUnrealized.DataSource = null;
-                        gvEquityPortfolioUnrealized.DataBind();
-                        lblMessageUnrealized.Visible = true;
-                    }                   
                 }
+                if (dtUnRealized.Rows.Count == 0)
+                {
+                    gvEquityPortfolio.DataBind();
+                }
+
+                if (dtRealizedDelivery.Rows.Count > 0)
+                {
+
+                    gvEquityPortfolioRealizedDelivery.DataSource = dtRealizedDelivery;
+                    gvEquityPortfolioRealizedDelivery.DataBind();
+                    if (Cache["gvEquityPortfolioRealizedDeliveryeDetails" + customerVo.CustomerId.ToString()] == null)
+                    {
+                        Cache.Insert("gvEquityPortfolioRealizedDeliveryeDetails" + customerVo.CustomerId.ToString(), dtRealizedDelivery);
+                    }
+                    else
+                    {
+                        Cache.Remove("gvEquityPortfolioRealizedDeliveryeDetails" + customerVo.CustomerId.ToString());
+                        Cache.Insert("gvEquityPortfolioRealizedDeliveryeDetails" + customerVo.CustomerId.ToString(), dtRealizedDelivery);
+                    }
+
+                }
+                if (dtRealizedDelivery.Rows.Count == 0)
+                {
+                    gvEquityPortfolioRealizedDelivery.DataBind();
+                }
+
+
+                if (dtAll.Rows.Count > 0)
+                {
+
+                    gvrEQAll.DataSource = dtAll;
+                    gvrEQAll.DataBind();
+                    if (Cache["gvrEQAll" + customerVo.CustomerId.ToString()] == null)
+                    {
+                        Cache.Insert("gvrEQAll" + customerVo.CustomerId.ToString(), dtAll);
+                    }
+                    else
+                    {
+                        Cache.Remove("gvrEQAll" + customerVo.CustomerId.ToString());
+                        Cache.Insert("gvrEQAll" + customerVo.CustomerId.ToString(), dtAll);
+                    }
+                }
+                if (dtAll.Rows.Count == 0)
+                {
+                    gvrEQAll.DataBind();
+                }
+                if (dtRealizedSpeculative.Rows.Count > 0)
+                {
+
+                    gvEquityPortfolioRealizedSpeculative.DataSource = dtRealizedSpeculative;
+                    gvEquityPortfolioRealizedSpeculative.DataBind();
+                    if (Cache["gvEquityPortfolioRealizedSpeculative" + customerVo.CustomerId.ToString()] == null)
+                    {
+                        Cache.Insert("gvEquityPortfolioRealizedSpeculative" + customerVo.CustomerId.ToString(), dtRealizedSpeculative);
+                    }
+                    else
+                    {
+                        Cache.Remove("gvEquityPortfolioRealizedSpeculative" + customerVo.CustomerId.ToString());
+                        Cache.Insert("gvEquityPortfolioRealizedSpeculative" + customerVo.CustomerId.ToString(), dtRealizedSpeculative);
+                    }
+                }
+                if (dtRealizedSpeculative.Rows.Count == 0)
+                {
+                    gvEquityPortfolioRealizedSpeculative.DataBind();
+                }
+
             }
+
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
@@ -516,7 +266,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "ViewEquityPortfolios.ascx:LoadEquityPortfolio()");
+                FunctionInfo.Add("Method", "CustomerEquityNP.aspx:LoadEquityPortfolio()");
                 object[] objects = new object[4];
                 objects[0] = customerVo;
                 objects[1] = eqPortfolioVo;
@@ -531,100 +281,37 @@ namespace WealthERP.CustomerPortfolio
         }
         protected void ddlPortfolio_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
-            //Session[SessionContents.PortfolioId] = portfolioId;
-            //LoadEquityPortfolio();
-            ////lblCurrentValue.Text = decimal.Parse(currentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+            portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
+            Session[SessionContents.PortfolioId] = portfolioId;
+            LoadEquityPortfolio();
+            //lblCurrentValue.Text = decimal.Parse(currentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
             //lblCurrentValue.Text = strLblCurrentValue;
-        }       
-        #region Equity Portfolio Consolidated Grid View Methods     
+        }
+
 
         protected void gvEquityPortfolio_ItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
             try
             {
-                LoadEquityPortfolio();
-                //lblCurrentValue.Text = decimal.Parse(currentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                lblCurrentValue.Text = strLblCurrentValue;
-                Label3.Text = strLblCurrentValue;
-                if (e.CommandName.ToString() != "Filter")
+
+                if (e.CommandName == "Select")
                 {
-                    if (e.CommandName.ToString() != "Sort")
-                    {
-                        if (e.CommandName.ToString() != "Page")
-                        {
-                            if (e.CommandName.ToString() != "ChangePageSize")
-                            {
-                                GridDataItem gvr = (GridDataItem)e.Item;
-                                int selectedRow = gvr.ItemIndex + 1;
-                                int slNo = Convert.ToInt32(gvr.GetDataKeyValue("Sl.No."));
+                    GridDataItem gvr = (GridDataItem)e.Item;
+                    int ScripCode = Convert.ToInt32(gvr.GetDataKeyValue("ScripCode"));
+                    DateTime From = customerPortfolioBo.GetMinimumInvestmentDate(int.Parse(ddlPortfolio.SelectedValue.ToString()), ScripCode);
+                    string To = txtPickDate.SelectedDate.ToString();
+                    string Currency = ddl_type.SelectedValue.ToString();
+                    string PortfolioId = ddlPortfolio.SelectedValue.ToString();
+                    string CustomerId = customerVo.CustomerId.ToString();
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "loadcontrol", "loadcontrol('EquityTransactionsView','?ScripCode=" + ScripCode + "&From=" + From.ToString() + "&To=" + To + "&Currency=" + Currency + "&PortfolioId=" + PortfolioId + "&CustomerId=" + CustomerId + "');", true);
 
-                                //int slNo = int.Parse(gvEquityPortfolio.DataKeys[index].Value.ToString());
-                                Session["EquityPortfolioTransactionList"] = eqPortfolioList[slNo - 1].EQPortfolioTransactionVo;
-                                Session["EquityPortfolio"] = eqPortfolioList[slNo - 1];
-
-                                if (e.CommandName == "Select")
-                                {
-                                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewEquityPortfolioTransactions','none');", true);
-                                }
-                            }
-                        }
-                    }
                 }
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "ViewEquityPortfolios.ascx:gvEquityPortfolio_RowCommand()");
-                object[] objects = new object[1];
-                objects[0] = eqPortfolioList;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-
-            }
-        } 
-        #endregion Equity Portfolio Consolidated Grid View Methods
-
-        #region Equity Portfolio Delivery Based Grid View Methods
-        protected void gvEquityPortfolioDelivery_ItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
-        {
-            try
-            {
-                LoadEquityPortfolio();
-                //lblCurrentValue.Text = decimal.Parse(currentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                lblCurrentValue.Text = strLblCurrentValue;
-                Label3.Text = strLblCurrentValue;
-                if (e.CommandName.ToString() != "Filter")
+                if (e.CommandName == "AvgPriceCalculation")
                 {
-                    if (e.CommandName.ToString() != "Sort")
-                    {
-                        if (e.CommandName.ToString() != "Page")
-                        {
-                            if (e.CommandName.ToString() != "ChangePageSize")
-                            {
-                                GridDataItem gvr = (GridDataItem)e.Item;
-                                int selectedRow = gvr.ItemIndex + 1;
-                                int slNo = Convert.ToInt32(gvr.GetDataKeyValue("Sl.No."));
-
-                                //int slNo = int.Parse(gvEquityPortfolioDelivery.DataKeys[index].Value.ToString());
-                                Session["EquityPortfolioTransactionList"] = eqPortfolioList[slNo - 1].EQPortfolioTransactionVo;
-                                Session["EquityPortfolio"] = eqPortfolioList[slNo - 1];
-
-
-                                if (e.CommandName == "Select")
-                                {
-                                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewEquityPortfolioTransactions','none');", true);
-                                }
-                            }
-                        }
-                    }
+                    GridDataItem gvr = (GridDataItem)e.Item;
+                    int ScripCode = Convert.ToInt32(gvr.GetDataKeyValue("ScripCode"));
+                    radEqAvgPriceDetails.VisibleOnPageLoad = true;
+                    LoadAvgPriceCalculationDetails(ScripCode);
                 }
 
             }
@@ -646,43 +333,19 @@ namespace WealthERP.CustomerPortfolio
 
             }
         }
-        #endregion Equity Portfolio Delivery Based Grid View Methods
-
-        #region Equity Portfolio Speculative Based Grid View Methods
-        protected void gvEquityPortfolioSpeculative_ItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
+        protected void gvEquityPortfolioRealizedDelivery_ItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
             try
             {
-                LoadEquityPortfolio();
-                //lblCurrentValue.Text = String.Format("{0:n2}", decimal.Parse(currentValue.ToString()));
-                lblCurrentValue.Text = strLblCurrentValue;
-                Label4.Text = strLblCurrentValue;
-                if (e.CommandName.ToString() != "Filter")
+
+                if (e.CommandName == "Select")
                 {
-                    if (e.CommandName.ToString() != "Sort")
-                    {
-                        if (e.CommandName.ToString() != "Page")
-                        {
-                            if (e.CommandName.ToString() != "ChangePageSize")
-                            {
-                                GridDataItem gvr = (GridDataItem)e.Item;
-                                int selectedRow = gvr.ItemIndex + 1;
-                                int slNo = Convert.ToInt32(gvr.GetDataKeyValue("Sl.No."));
-
-
-                                //int slNo = int.Parse(gvEquityPortfolioSpeculative.DataKeys[index].Value.ToString());
-                                Session["EquityPortfolioTransactionList"] = eqPortfolioList[slNo - 1].EQPortfolioTransactionVo;
-                                Session["EquityPortfolio"] = eqPortfolioList[slNo - 1];
-
-
-                                if (e.CommandName == "Select")
-                                {
-                                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewEquityPortfolioTransactions','none');", true);
-                                }
-                            }
-                        }
-                    }
+                    GridDataItem gvr = (GridDataItem)e.Item;
+                    int ScripCode = Convert.ToInt32(gvr.GetDataKeyValue("ScripCode"));
+                    LoadEquityPortfolioSellPairDetails(ScripCode);
                 }
+
+
 
             }
             catch (BaseApplicationException Ex)
@@ -693,7 +356,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "ViewEquityPortfolios.ascx:gvEquityPortfolioSpeculative_RowCommand()");
+                FunctionInfo.Add("Method", "ViewEquityPortfolios.ascx:gvEquityPortfolioRealizedDelivery_RowCommand()");
                 object[] objects = new object[1];
                 objects[0] = eqPortfolioList;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
@@ -702,18 +365,13 @@ namespace WealthERP.CustomerPortfolio
                 throw exBase;
 
             }
-        }       
-        #endregion Equity Portfolio Speculative Based Grid View Methods
-
-        #region Equity Portfolio Unrealized Grid View Methods
+        }
         protected void gvEquityPortfolioUnrealized_ItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
-        {            
+        {
             try
-            {               
+            {
                 LoadEquityPortfolio();
-                //lblCurrentValue.Text = String.Format("{0:n2}", decimal.Parse(currentValue.ToString()));
-                lblCurrentValue.Text = strLblCurrentValue;
-                Label3.Text = strLblCurrentValue;
+
                 if (e.CommandName.ToString() != "Filter")
                 {
                     if (e.CommandName.ToString() != "Sort")
@@ -726,7 +384,6 @@ namespace WealthERP.CustomerPortfolio
                                 int selectedRow = gvr.ItemIndex + 1;
                                 int slNo = Convert.ToInt32(gvr.GetDataKeyValue("Sl.No."));
 
-                                //int slNo = int.Parse(gvEquityPortfolioUnrealized.DataKeys[index].Value.ToString());
                                 Session["EquityPortfolioTransactionList"] = eqPortfolioList[slNo - 1].EQPortfolioTransactionVo;
                                 Session["EquityPortfolio"] = eqPortfolioList[slNo - 1];
 
@@ -758,17 +415,27 @@ namespace WealthERP.CustomerPortfolio
 
             }
         }
-        #endregion Equity Portfolio Unrealized Grid View Methods
-
-        protected void btnUpdateNP_Click(object sender, EventArgs e)
+        protected void gvEquityPortfolioRealizedSpeculative_ItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
             try
             {
-                if (eqPortfolioList != null)
+
+
+                if (e.CommandName == "Select")
                 {
-                    customerPortfolioBo.DeleteEquityNetPosition(customerVo.CustomerId, tradeDate);
-                    customerPortfolioBo.AddEquityNetPosition(eqPortfolioList, userVo.UserId);
+                    GridDataItem gvr = (GridDataItem)e.Item;
+                    int ScripCode = Convert.ToInt32(gvr.GetDataKeyValue("ScripCode"));
+                    DateTime From = customerPortfolioBo.GetMinimumInvestmentDate(int.Parse(ddlPortfolio.SelectedValue.ToString()), ScripCode);
+                    string To = txtPickDate.SelectedDate.ToString();
+                    string Currency = ddl_type.SelectedValue.ToString();
+                    string PortfolioId = ddlPortfolio.SelectedValue.ToString();
+                    string CustomerId = customerVo.CustomerId.ToString();
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "loadcontrol", "loadcontrol('EquityTransactionsView','?ScripCode=" + ScripCode + "&From=" + From.ToString() + "&To=" + To + "&Currency=" + Currency + "&PortfolioId=" + PortfolioId + "&CustomerId=" + CustomerId + "');", true);
+
                 }
+
+
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -778,11 +445,9 @@ namespace WealthERP.CustomerPortfolio
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "ViewEquityPortfolios.ascx:btnUpdateNP_Click()");
-                object[] objects = new object[3];
-                objects[0] = customerVo;
-                objects[1] = userVo;
-                objects[2] = eqPortfolioList;
+                FunctionInfo.Add("Method", "ViewEquityPortfolios.ascx:gvEquityPortfolio_RowCommand()");
+                object[] objects = new object[1];
+                objects[0] = eqPortfolioList;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -790,86 +455,740 @@ namespace WealthERP.CustomerPortfolio
 
             }
         }
-        #region export option
-        public void btngvEquityPortfolioUnrealizedExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
-        {
-            gvEquityPortfolioUnrealized.ExportSettings.OpenInNewWindow = true;
-            gvEquityPortfolioUnrealized.ExportSettings.IgnorePaging = true;
-            gvEquityPortfolioUnrealized.ExportSettings.HideStructureColumns = true;
-            gvEquityPortfolioUnrealized.ExportSettings.ExportOnlyData = true;
-            gvEquityPortfolioUnrealized.ExportSettings.FileName = "Equity Portfolio Unrealized Details";
-            gvEquityPortfolioUnrealized.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvEquityPortfolioUnrealized.MasterTableView.ExportToExcel();
-        }
-        public void btngvEquityPortfolioDeliveryExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
-        {
-            gvEquityPortfolioDelivery.ExportSettings.OpenInNewWindow = true;
-            gvEquityPortfolioDelivery.ExportSettings.IgnorePaging = true;
-            gvEquityPortfolioDelivery.ExportSettings.HideStructureColumns = true;
-            gvEquityPortfolioDelivery.ExportSettings.ExportOnlyData = true;
-            gvEquityPortfolioDelivery.ExportSettings.FileName = "Equity Portfolio Delivery Details";
-            gvEquityPortfolioDelivery.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvEquityPortfolioDelivery.MasterTableView.ExportToExcel();
-        }
-        public void btngvEquityPortfolioSpeculativeExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
-        {
-            gvEquityPortfolioSpeculative.ExportSettings.OpenInNewWindow = true;
-            gvEquityPortfolioSpeculative.ExportSettings.IgnorePaging = true;
-            gvEquityPortfolioSpeculative.ExportSettings.HideStructureColumns = true;
-            gvEquityPortfolioSpeculative.ExportSettings.ExportOnlyData = true;
-            gvEquityPortfolioSpeculative.ExportSettings.FileName = "Equity Portfolio Speculative Details";
-            gvEquityPortfolioSpeculative.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvEquityPortfolioSpeculative.MasterTableView.ExportToExcel();
-        }
-        public void btngvEquityPortfolioExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
-        {
-            gvEquityPortfolio.ExportSettings.OpenInNewWindow = true;
-            gvEquityPortfolio.ExportSettings.IgnorePaging = true;
-            gvEquityPortfolio.ExportSettings.HideStructureColumns = true;
-            gvEquityPortfolio.ExportSettings.ExportOnlyData = true;
-            gvEquityPortfolio.ExportSettings.FileName = "Equity Portfolio Details";
-            gvEquityPortfolio.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvEquityPortfolio.MasterTableView.ExportToExcel();
-        }
-        #endregion
 
-        #region needdatasource
+
+        protected void gvEquityPortfolio_DataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
+        {
+
+
+            DataTable dt = new DataTable();
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataItem = e.Item as GridDataItem;
+                if ((Convert.ToDouble(dataItem["UnRealizedPL"].Text) < 0))
+                    dataItem["UnRealizedPL"].ForeColor = System.Drawing.Color.Red;
+                if (Convert.ToDouble(dataItem["PnlPercent"].Text) < 0)
+                    dataItem["PnlPercent"].ForeColor = System.Drawing.Color.Red;
+                if (Convert.ToDouble(dataItem["XIRRValue"].Text) < 0)
+                    dataItem["XIRRValue"].ForeColor = System.Drawing.Color.Red;
+            }
+
+            if (ddl_type.SelectedValue.ToString() == "INR")
+            {
+                gvEquityPortfolio.MasterTableView.GetColumn("ForExCurrentpPrice").Display = false;
+                gvEquityPortfolio.MasterTableView.GetColumn("ForExCurrentPriceDate").Display = false;
+
+
+            }
+            else
+            {
+                gvEquityPortfolio.MasterTableView.GetColumn("ForExCurrentpPrice").Display = true;
+                gvEquityPortfolio.MasterTableView.GetColumn("ForExCurrentPriceDate").Display = true;
+            }
+
+        }
+        protected void gvEquityPortfolioRealizedDelivery_OnItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataItem = e.Item as GridDataItem;
+                if (Convert.ToDouble(dataItem["RealizedPL"].Text) < 0)
+                    dataItem["RealizedPL"].ForeColor = System.Drawing.Color.Red;
+                if (Convert.ToDouble(dataItem["PnlPercent"].Text) < 0)
+                    dataItem["PnlPercent"].ForeColor = System.Drawing.Color.Red;
+
+
+            }
+
+        }
+        protected void gvrEQAll_DataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataItem = e.Item as GridDataItem;
+                if (Convert.ToDouble(dataItem["RealizedPL"].Text) < 0)
+                    dataItem["RealizedPL"].ForeColor = System.Drawing.Color.Red;
+                if (Convert.ToDouble(dataItem["UnRealizedPL"].Text) < 0)
+                    dataItem["UnRealizedPL"].ForeColor = System.Drawing.Color.Red;
+                if (Convert.ToDouble(dataItem["TotalXIRRValue"].Text) < 0)
+                    dataItem["TotalXIRRValue"].ForeColor = System.Drawing.Color.Red;
+                if (Convert.ToDouble(dataItem["TotalPL"].Text) < 0)
+                    dataItem["TotalPL"].ForeColor = System.Drawing.Color.Red;
+                if (Convert.ToDouble(dataItem["Multiple"].Text) < 1)
+                    dataItem["Multiple"].ForeColor = System.Drawing.Color.Red;
+                if (Convert.ToDouble(dataItem["PnlPercent"].Text) < 0)
+                    dataItem["PnlPercent"].ForeColor = System.Drawing.Color.Red;
+                if (ddl_type.SelectedValue.ToString() == "INR")
+                {
+                    gvrEQAll.MasterTableView.GetColumn("ForExCurrentpPrice").Display = false;
+                    gvrEQAll.MasterTableView.GetColumn("ForExCurrentPriceDate").Display = false;
+
+
+                }
+                else
+                {
+                    gvrEQAll.MasterTableView.GetColumn("ForExCurrentpPrice").Display = true;
+                    gvrEQAll.MasterTableView.GetColumn("ForExCurrentPriceDate").Display = true;
+                }
+
+
+
+            }
+
+
+        }
+        protected void gvEquityPortfolioRealizedSpeculative_OnItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
+        {
+        }
+
+        protected void gvEquityPortfolioRealizedDelivery_OnDataBound(object sender, EventArgs e)
+        {
+            RadGrid grid = sender as RadGrid;
+            int gridItems = grid.MasterTableView.Items.Count;
+            if (gridItems < 11)
+            {
+                grid.ClientSettings.Scrolling.ScrollHeight = Unit.Pixel((gridItems * 24) + 24);
+            }
+            else
+            {
+                grid.ClientSettings.Scrolling.ScrollHeight = Unit.Pixel(11 * 24);
+            }
+        }
+
+
+
+
+
         protected void gvEquityPortfolio_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataTable dtgvEquityPortfolioDetails = new DataTable();
-            dtgvEquityPortfolioDetails = (DataTable)Cache["gvEquityPortfolioDetails" + customerVo.CustomerId.ToString()];
+            dtgvEquityPortfolioDetails = (DataTable)Cache["gvEquityPortfolio" + customerVo.CustomerId.ToString()];
             gvEquityPortfolio.DataSource = dtgvEquityPortfolioDetails;
         }
-        protected void gvEquityPortfolioSpeculative_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        protected void gvEquityPortfolioRealizedDelivery_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            DataTable dtgvEquityPortfolioSpeculativeDetails = new DataTable();
-            dtgvEquityPortfolioSpeculativeDetails = (DataTable)Cache["gvEquityPortfolioSpeculativeDetails" + customerVo.CustomerId.ToString()];
-            gvEquityPortfolioSpeculative.DataSource = dtgvEquityPortfolioSpeculativeDetails;
+            DataTable dtgvEquityPortfolioRealizedDeliveryDetails = new DataTable();
+            dtgvEquityPortfolioRealizedDeliveryDetails = (DataTable)Cache["gvEquityPortfolioRealizedDeliveryeDetails" + customerVo.CustomerId.ToString()];
+            gvEquityPortfolioRealizedDelivery.DataSource = dtgvEquityPortfolioRealizedDeliveryDetails;
         }
-        protected void gvEquityPortfolioDelivery_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        protected void gvEquityPortfolioRealizedSpeculative_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            DataTable dtgvEquityPortfolioDeliveryDetails = new DataTable();
-            dtgvEquityPortfolioDeliveryDetails = (DataTable)Cache["gvEquityPortfolioDeliveryDetails" + customerVo.CustomerId.ToString()];
-            gvEquityPortfolioDelivery.DataSource = dtgvEquityPortfolioDeliveryDetails;
+
+            DataTable dtgvEquityPortfolioRealizedSpeculative = new DataTable();
+            dtgvEquityPortfolioRealizedSpeculative = (DataTable)Cache["gvEquityPortfolioRealizedSpeculative" + customerVo.CustomerId.ToString()];
+            gvEquityPortfolioRealizedSpeculative.DataSource = dtgvEquityPortfolioRealizedSpeculative;
+
         }
-        protected void gvEquityPortfolioUnrealized_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        protected void gvrEQAll_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-                DataTable dtgvEquityPortfolioUnrealizedDetails = new DataTable();
-                dtgvEquityPortfolioUnrealizedDetails = (DataTable)Cache["gvEquityPortfolioUnrealizedDetails" + customerVo.CustomerId.ToString()];
-                gvEquityPortfolioUnrealized.DataSource = dtgvEquityPortfolioUnrealizedDetails;
-            
+            DataTable dtgvEquityPortfolioDetails = new DataTable();
+            dtgvEquityPortfolioDetails = (DataTable)Cache["gvrEQAll" + customerVo.CustomerId.ToString()];
+            gvrEQAll.DataSource = dtgvEquityPortfolioDetails;
+
         }
-        #endregion
+
 
 
         protected void btnGo_Click(object sender, EventArgs e)
         {
-            //portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
-            //Session[SessionContents.PortfolioId] = portfolioId;
-            LoadEquityPortfolio();
-            //lblCurrentValue.Text = decimal.Parse(currentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-            lblCurrentValue.Text = strLblCurrentValue;
-            Label3.Text = strLblCurrentValue;
+            if (ddlDateRange.SelectedValue == "ASON")
+            {
+
+                LoadEquityPortfolio();
+            }
+            if (ddlDateRange.SelectedValue == "DateRange")
+            {
+
+                LoadEquityPortfolioNPInDateRange();
+            }
+
         }
+
+
+
+        public void LoadEquityPortfolioTransactionDetails(int ScripCode, int Is_Specuative)
+        {
+            int count = 0;
+            DataSet dsCustomeNP = new DataSet();
+            DataTable dtEqTranx = new DataTable();
+            DataTable dtEqAvg = new DataTable();
+            try
+            {
+                tradeDate = DateTime.Parse(txtPickDate.SelectedDate.ToString());
+
+
+                dsCustomeNP = customerPortfolioBo.GetCustomerEquityNPTransactionDetails(int.Parse(ddlPortfolio.SelectedValue.ToString()), tradeDate, ScripCode, Is_Specuative, ddl_type.SelectedValue.ToString());
+                radEqTranxDetails.VisibleOnPageLoad = true;
+                dtEqTranx = dsCustomeNP.Tables[0];
+                if (dtEqTranx.Rows.Count > 0)
+                {
+
+                    gvEqTranxDetails.DataSource = dtEqTranx;
+                    ViewState["dtEqTranx"] = dtEqTranx;
+                    gvEqTranxDetails.DataBind();
+
+                    if (Cache["gvEqTranxDetails" + customerVo.CustomerId.ToString()] == null)
+                    {
+                        Cache.Insert("gvEqTranxDetails" + customerVo.CustomerId.ToString(), dtEqTranx);
+                    }
+                    else
+                    {
+                        Cache.Remove("gvEqTranxDetails" + customerVo.CustomerId.ToString());
+                        Cache.Insert("gvEqTranxDetails" + customerVo.CustomerId.ToString(), dtEqTranx);
+                    }
+                }
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ViewEquityPortfolios.ascx:LoadEquityPortfolio()");
+                object[] objects = new object[4];
+                objects[0] = customerVo;
+                objects[1] = eqPortfolioVo;
+                objects[2] = count;
+                objects[3] = eqPortfolioList;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+        }
+        public void LoadEquityPortfolioSellPairDetails(int ScripCode)
+        {
+            DataSet dsCustomeNP = new DataSet();
+            DataTable dtEqSellpair = new DataTable();
+            try
+            {
+                tradeDate = DateTime.Parse(txtPickDate.SelectedDate.ToString());
+
+
+                dsCustomeNP = customerPortfolioBo.GetCustomerEquityNPSellPair(int.Parse(ddlPortfolio.SelectedValue.ToString()), tradeDate, ScripCode, ddl_type.SelectedValue.ToString());
+                radEqSellPair.VisibleOnPageLoad = true;
+                dtEqSellpair = dsCustomeNP.Tables[0];
+
+
+
+                if (dtEqSellpair.Rows.Count > 0)
+                {
+
+                    gvEqSellPairDetails.DataSource = dtEqSellpair;
+                    gvEqSellPairDetails.DataBind();
+                    if (Cache["gvEqSellPairDetails" + customerVo.CustomerId.ToString()] == null)
+                    {
+                        Cache.Insert("gvEqSellPairDetails" + customerVo.CustomerId.ToString(), dtEqSellpair);
+                    }
+                    else
+                    {
+                        Cache.Remove("gvEqSellPairDetails" + customerVo.CustomerId.ToString());
+                        Cache.Insert("gvEqSellPairDetails" + customerVo.CustomerId.ToString(), dtEqSellpair);
+                    }
+                }
+
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ViewEquityPortfolios.ascx:LoadEquityPortfolio()");
+                object[] objects = new object[4];
+                objects[0] = customerVo;
+                objects[1] = eqPortfolioVo;
+                objects[3] = eqPortfolioList;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+        }
+        public void LoadAvgPriceCalculationDetails(int ScripCode)
+        {
+            DataSet dsCustomeNP = new DataSet();
+            DataTable dtEqAvgPrice = new DataTable();
+            try
+            {
+                tradeDate = DateTime.Parse(txtPickDate.SelectedDate.ToString());
+
+
+                dsCustomeNP = customerPortfolioBo.GetCustomerEquityAvgPriceCalculation(int.Parse(ddlPortfolio.SelectedValue.ToString()), tradeDate, ScripCode, ddl_type.SelectedValue.ToString());
+
+
+                dtEqAvgPrice = dsCustomeNP.Tables[0];
+
+
+
+                if (dtEqAvgPrice.Rows.Count > 0)
+                {
+
+                    gvAvgPriceCalcDetails.DataSource = dtEqAvgPrice;
+                    ViewState["dtEqAvg"] = dtEqAvgPrice;
+                    gvAvgPriceCalcDetails.DataBind();
+
+                    if (Cache["gvEqAvgPriceDetails" + customerVo.CustomerId.ToString()] == null)
+                    {
+                        Cache.Insert("gvEqAvgPriceDetails" + customerVo.CustomerId.ToString(), dtEqAvgPrice);
+                    }
+                    else
+                    {
+                        Cache.Remove("gvEqAvgPriceDetails" + customerVo.CustomerId.ToString());
+                        Cache.Insert("gvEqAvgPriceDetails" + customerVo.CustomerId.ToString(), dtEqAvgPrice);
+                    }
+                }
+
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerEquityNP.ascx:LoadAvgPriceCalculationDetails()");
+                object[] objects = new object[4];
+                objects[0] = customerVo;
+                objects[1] = eqPortfolioVo;
+                objects[3] = eqPortfolioList;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+        }
+
+        protected void gvEqSellPairDetails_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtgvEqSellPairDetails = new DataTable();
+            dtgvEqSellPairDetails = (DataTable)Cache["gvEqSellPairDetails" + customerVo.CustomerId.ToString()];
+            gvEqSellPairDetails.DataSource = dtgvEqSellPairDetails;
+        }
+        protected void gvEqTranxDetails_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtgvEqTranxDetails = new DataTable();
+            dtgvEqTranxDetails = (DataTable)Cache["gvEqTranxDetails" + customerVo.CustomerId.ToString()];
+            gvEqTranxDetails.DataSource = dtgvEqTranxDetails;
+
+        }
+        protected void gvAvgPriceCalcDetails_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtgvEqAvgPriceDetails = new DataTable();
+            dtgvEqAvgPriceDetails = (DataTable)Cache["gvEqAvgPriceDetails" + customerVo.CustomerId.ToString()];
+            gvAvgPriceCalcDetails.DataSource = dtgvEqAvgPriceDetails;
+
+        }
+
+        protected void gvEqSellPairDetails_PageIndexChanged(object sender, Telerik.Web.UI.GridPageChangedEventArgs e)
+        {
+            int index = gvEqSellPairDetails.CurrentPageIndex;
+            radEqSellPair.VisibleOnPageLoad = true;
+
+        }
+        protected void gvEqTranxDetails_PageIndexChanged(object sender, Telerik.Web.UI.GridPageChangedEventArgs e)
+        {
+            int index = gvEqTranxDetails.CurrentPageIndex;
+            radEqTranxDetails.VisibleOnPageLoad = true;
+        }
+        protected void gvAvgPriceCalcDetails_PageIndexChanged(object sender, Telerik.Web.UI.GridPageChangedEventArgs e)
+        {
+            int index = gvAvgPriceCalcDetails.CurrentPageIndex;
+            radEqAvgPriceDetails.VisibleOnPageLoad = true;
+        }
+
+
+        protected void gvEqTranxDetails_DataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
+        {
+            DataTable dtgvAvgPriceCalcDetails = new DataTable();
+
+            dtgvAvgPriceCalcDetails = (DataTable)ViewState["dtEqAvg"];
+            if (dtgvAvgPriceCalcDetails != null)
+            {
+                object sumQuantity;
+                sumQuantity = dtgvAvgPriceCalcDetails.Compute("Sum(CET_Quantity)", "");
+
+                object sumTradeTotal;
+                sumTradeTotal = dtgvAvgPriceCalcDetails.Compute("Sum(InvestedAmount)", "");
+
+                Double avgValue = double.Parse(sumTradeTotal.ToString()) / double.Parse(sumQuantity.ToString());
+                if (e.Item is GridFooterItem)
+                {
+                    GridFooterItem footer = (GridFooterItem)e.Item;
+                    footer["CET_Rate"].Text = "Avg Price:" + " " + String.Format("{0:0.0000}", avgValue);
+
+                }
+
+
+            }
+
+        }
+        protected void gvEqSellPairDetails_DataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
+        {
+            int Count = 0;
+            int row = 0;
+            foreach (GridDataItem item in gvEqSellPairDetails.Items)
+            {
+                if (Count % 2 == 0)
+                {
+                    item["ScripName"].BackColor = System.Drawing.Color.RoyalBlue;
+                    item["TradeDate"].BackColor = System.Drawing.Color.RoyalBlue;
+                    item["CET_BuySell"].BackColor = System.Drawing.Color.RoyalBlue;
+                    item["Quantity"].BackColor = System.Drawing.Color.RoyalBlue;
+                    item["CET_Rate"].BackColor = System.Drawing.Color.RoyalBlue;
+                    item["Amount"].BackColor = System.Drawing.Color.RoyalBlue;
+                    item["ProfitOrLoss"].BackColor = System.Drawing.Color.RoyalBlue;
+
+                    row++;
+                    if (row == 2)
+                    {
+                        Count++;
+                        row = 0;
+                    }
+                }
+
+                else
+                {
+                    item["ScripName"].BackColor = System.Drawing.Color.IndianRed;
+                    item["TradeDate"].BackColor = System.Drawing.Color.IndianRed;
+                    item["CET_BuySell"].BackColor = System.Drawing.Color.IndianRed;
+                    item["Quantity"].BackColor = System.Drawing.Color.IndianRed;
+                    item["CET_Rate"].BackColor = System.Drawing.Color.IndianRed;
+                    item["Amount"].BackColor = System.Drawing.Color.IndianRed;
+                    item["ProfitOrLoss"].BackColor = System.Drawing.Color.IndianRed;
+                    row++;
+                    if (row == 2)
+                    {
+                        Count++;
+                        row = 0;
+                    }
+                }
+            }
+        }
+
+
+        protected void Button2_Click(object sender, System.EventArgs e)
+        {
+            ImageButton clickedButton = sender as ImageButton;
+
+            if (RadTabStrip1.SelectedIndex == 0)
+            {
+
+                if (clickedButton.ClientID == "ctrl_CustomerEquityNP_ImageButton1")
+                {
+                    ConfigureExport(1, 0);
+
+                }
+                if (clickedButton.ClientID == "ctrl_CustomerEquityNP_ImageButton2")
+                {
+                    ConfigureExport(1, 1);
+
+                }
+            }
+            else if (RadTabStrip1.SelectedIndex == 1)
+            {
+                if (clickedButton.ClientID == "ctrl_CustomerEquityNP_ImageButton1")
+                {
+                    ConfigureExport(2, 0);
+
+                }
+                if (clickedButton.ClientID == "ctrl_CustomerEquityNP_ImageButton2")
+                {
+                    ConfigureExport(2, 1);
+
+                }
+
+            }
+            else if (RadTabStrip1.SelectedIndex == 2)
+            {
+                if (clickedButton.ClientID == "ctrl_CustomerEquityNP_ImageButton1")
+                {
+                    ConfigureExport(3, 0);
+
+                }
+                if (clickedButton.ClientID == "ctrl_CustomerEquityNP_ImageButton2")
+                {
+                    ConfigureExport(3, 1);
+
+                }
+            }
+            else
+            {
+                if (clickedButton.ClientID == "ctrl_CustomerEquityNP_ImageButton1")
+                {
+                    ConfigureExport(4, 0);
+
+                }
+                if (clickedButton.ClientID == "ctrl_CustomerEquityNP_ImageButton2")
+                {
+                    ConfigureExport(4, 1);
+
+                }
+            }
+
+
+        }
+        protected void ButtonAvg_Click(object sender, System.EventArgs e)
+        {
+            ConfigureExport(5);
+
+        }
+        protected void ButtonTranx_Click(object sender, System.EventArgs e)
+        {
+            ConfigureExport(3);
+
+        }
+        protected void ButtonSellPair_Click(object sender, System.EventArgs e)
+        {
+
+            ConfigureExport(4);
+        }
+        public void ConfigureExport(int x)
+        {
+
+            if (x == 3)
+            {
+                if (gvEqTranxDetails.Items.Count != 0)
+                {
+                    gvEqTranxDetails.ExportSettings.ExportOnlyData = true;
+                    gvEqTranxDetails.ExportSettings.IgnorePaging = true;
+                    gvEqTranxDetails.ExportSettings.OpenInNewWindow = true;
+                    gvEqTranxDetails.MasterTableView.ExportToCSV();
+                }
+            }
+            if (x == 4)
+            {
+                if (gvEqSellPairDetails.Items.Count != 0)
+                {
+                    gvEqSellPairDetails.ExportSettings.ExportOnlyData = true;
+                    gvEqSellPairDetails.ExportSettings.IgnorePaging = true;
+                    gvEqSellPairDetails.ExportSettings.OpenInNewWindow = true;
+                    gvEqSellPairDetails.MasterTableView.ExportToCSV();
+                }
+            }
+            if (x == 5)
+            {
+                if (gvAvgPriceCalcDetails.Items.Count != 0)
+                {
+                    gvAvgPriceCalcDetails.ExportSettings.ExportOnlyData = true;
+                    gvAvgPriceCalcDetails.ExportSettings.IgnorePaging = true;
+                    gvAvgPriceCalcDetails.ExportSettings.OpenInNewWindow = true;
+                    gvAvgPriceCalcDetails.MasterTableView.ExportToCSV();
+                }
+            }
+        }
+        public void ConfigureExport(int x, int y)
+        {
+            if (x == 1)
+            {
+                if (gvEquityPortfolio.Items.Count != 0)
+                {
+                    gvEquityPortfolio.ExportSettings.ExportOnlyData = true;
+                    gvEquityPortfolio.ExportSettings.IgnorePaging = true;
+                    gvEquityPortfolio.ExportSettings.OpenInNewWindow = true;
+                    gvEquityPortfolio.MasterTableView.GetColumn("action").Display = false;
+                   
+                    gvEquityPortfolio.MasterTableView.GetColumn("AvgPriceDup").Visible = true;
+                    gvEquityPortfolio.MasterTableView.GetColumn("AvgPrice").Visible = false;
+                    if (y == 0)
+                        gvEquityPortfolio.MasterTableView.ExportToExcel();
+                    else if (y == 1)
+                        gvEquityPortfolio.MasterTableView.ExportToCSV();
+                }
+            }
+            if (x == 2)
+            {
+                if (gvEquityPortfolioRealizedDelivery.Items.Count != 0)
+                {
+                    gvEquityPortfolioRealizedDelivery.ExportSettings.ExportOnlyData = true;
+                    gvEquityPortfolioRealizedDelivery.ExportSettings.IgnorePaging = true;
+                    gvEquityPortfolioRealizedDelivery.ExportSettings.OpenInNewWindow = true;
+                    gvEquityPortfolioRealizedDelivery.MasterTableView.GetColumn("action").Display = false;
+                    if (y == 0)
+                        gvEquityPortfolioRealizedDelivery.MasterTableView.ExportToExcel();
+                    else if (y == 1)
+                        gvEquityPortfolioRealizedDelivery.MasterTableView.ExportToCSV();
+                }
+            }
+            if (x == 3)
+            {
+                if (gvrEQAll.Items.Count != 0)
+                {
+                    gvrEQAll.ExportSettings.ExportOnlyData = true;
+                    gvrEQAll.ExportSettings.IgnorePaging = true;
+                    gvrEQAll.ExportSettings.OpenInNewWindow = true;
+                    gvrEQAll.MasterTableView.GetColumn("action").Display = false;
+                    if (y == 0)
+                        gvrEQAll.MasterTableView.ExportToExcel();
+                    else if (y == 1)
+                        gvrEQAll.MasterTableView.ExportToCSV();
+                }
+            }
+            if (x == 4)
+            {
+                if (gvEquityPortfolioRealizedSpeculative.Items.Count != 0)
+                {
+                    gvEquityPortfolioRealizedSpeculative.ExportSettings.ExportOnlyData = true;
+                    gvEquityPortfolioRealizedSpeculative.ExportSettings.IgnorePaging = true;
+                    gvEquityPortfolioRealizedSpeculative.ExportSettings.OpenInNewWindow = true;
+                    gvEquityPortfolioRealizedSpeculative.MasterTableView.GetColumn("action").Display = false;
+                    if (y == 0)
+                        gvEquityPortfolioRealizedSpeculative.MasterTableView.ExportToExcel();
+                    else if (y == 1)
+                        gvEquityPortfolioRealizedSpeculative.MasterTableView.ExportToCSV();
+                }
+            }
+        }
+
+        protected void ddlDateRange_OnCheckedChanged(object sender, EventArgs e)
+        {
+            if (ddlDateRange.SelectedValue == "DateRange")
+            {
+                if ((DateTime.Now.Month <= 3))
+                    txtPickDate.SelectedDate = DateTime.Parse("1/04/" + ((DateTime.Now.Year) - 1));
+                else
+                    txtPickDate.SelectedDate = DateTime.Parse("1/04/" + (DateTime.Now.Year));
+
+                radToDate.SelectedDate = DateTime.Now;
+                tdlblDate.Visible = true;
+                tdToDate.Visible = true;
+                lblDate.Text = "From:";
+                RadAjaxPanel4.Visible = false;
+                RadAjaxPanel1.Visible = false;
+            }
+            else
+            {
+                txtPickDate.SelectedDate = DateTime.Parse(genDict[Constants.EQDate.ToString()].ToString());
+                tdlblDate.Visible = false;
+                tdToDate.Visible = false;
+                lblDate.Text = "As On:";
+                RadAjaxPanel4.Visible = false;
+                RadAjaxPanel1.Visible = false;
+            }
+        }
+        public void LoadEquityPortfolioNPInDateRange()
+        {
+            RadAjaxPanel4.Visible = true;
+            DataSet dsCustomeNP = new DataSet();
+            DataTable dtUnRealized = new DataTable();
+            DataTable dtRealizedDelivery = new DataTable();
+            DateTime dtStartDate;
+            DateTime dtToDate;
+
+
+            try
+            {
+                dtStartDate = DateTime.Parse(txtPickDate.SelectedDate.ToString());
+                dtToDate = DateTime.Parse(radToDate.SelectedDate.ToString());
+                RadAjaxPanel4.Visible = true;
+                RadAjaxPanel1.Visible = false;
+
+
+                dsCustomeNP = customerPortfolioBo.GetCustomerEquityNPInDateRange(int.Parse(ddlPortfolio.SelectedValue.ToString()), dtStartDate, dtToDate, ddl_type.SelectedItem.Value.ToString());
+
+
+                dtUnRealized = dsCustomeNP.Tables[0];
+
+                if (dtUnRealized.Rows.Count > 0)
+                {
+                    gvUnRealizedHolding.DataSource = dtUnRealized;
+                    gvUnRealizedHolding.DataBind();
+                    if (Cache["gvUnRealizedHolding" + customerVo.CustomerId.ToString()] == null)
+                    {
+                        Cache.Insert("gvUnRealizedHolding" + customerVo.CustomerId.ToString(), dtUnRealized);
+                    }
+                    else
+                    {
+                        Cache.Remove("gvUnRealizedHolding" + customerVo.CustomerId.ToString());
+                        Cache.Insert("gvUnRealizedHolding" + customerVo.CustomerId.ToString(), dtUnRealized);
+                    }
+                }
+                else
+                    gvUnRealizedHolding.DataBind();
+
+
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ViewEquityPortfolios.ascx:LoadEquityPortfolio()");
+                object[] objects = new object[4];
+                objects[0] = customerVo;
+                objects[1] = eqPortfolioVo;
+                objects[3] = eqPortfolioList;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+        }
+        protected void gvUnRealizedHolding_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtgvUnRealizedHolding = new DataTable();
+            dtgvUnRealizedHolding = (DataTable)Cache["gvUnRealizedHolding" + customerVo.CustomerId.ToString()];
+            gvUnRealizedHolding.DataSource = dtgvUnRealizedHolding;
+        }
+        protected void gvUnRealizedHolding_OnItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataItem = e.Item as GridDataItem;
+                if (Convert.ToDouble(dataItem["RealisedProfitOrLoss"].Text) < 0)
+                    dataItem["RealisedProfitOrLoss"].ForeColor = System.Drawing.Color.Red;
+                if (Convert.ToDouble(dataItem["UnrealizedProfit"].Text) < 0)
+                    dataItem["UnrealizedProfit"].ForeColor = System.Drawing.Color.Red;
+                if (Convert.ToDouble(dataItem["TotalProfitOrLoss"].Text) < 0)
+                    dataItem["TotalProfitOrLoss"].ForeColor = System.Drawing.Color.Red;
+                if (Convert.ToDouble(dataItem["XIRRValue"].Text) < 0)
+                    dataItem["XIRRValue"].ForeColor = System.Drawing.Color.Red;
+
+            }
+           
+        }
+        protected void Button3_Click(object sender, System.EventArgs e)
+        {
+            ImageButton clickedButton = sender as ImageButton;
+
+
+            if (clickedButton.ClientID == "ctrl_CustomerEquityNP_ImageButton5")
+            {
+                gvUnRealizedHolding.ExportSettings.ExportOnlyData = true;
+                gvUnRealizedHolding.ExportSettings.IgnorePaging = true;
+                gvUnRealizedHolding.ExportSettings.OpenInNewWindow = true;
+                gvUnRealizedHolding.MasterTableView.ExportToExcel();
+
+            }
+            if (clickedButton.ClientID == "ctrl_CustomerEquityNP_ImageButton6")
+            {
+                gvUnRealizedHolding.ExportSettings.ExportOnlyData = true;
+                gvUnRealizedHolding.ExportSettings.IgnorePaging = true;
+                gvUnRealizedHolding.ExportSettings.OpenInNewWindow = true;
+                gvUnRealizedHolding.MasterTableView.ExportToCSV();
+            }
+
+
+        }
+
+  
+    }  
     }
-}

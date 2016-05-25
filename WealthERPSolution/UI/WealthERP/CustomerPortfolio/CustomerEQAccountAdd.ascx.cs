@@ -82,10 +82,10 @@ namespace WealthERP.CustomerPortfolio
                         ddlBrokerCode.DataTextField = "Broker";
                         ddlBrokerCode.DataValueField = "BrokerCode";
                         ddlBrokerCode.DataBind();
-
+                        //Txt_ServiceTax.Text = 12.36.ToString();
                         if (Request.QueryString["action"] != "" && Request.QueryString["action"] != null)
                         {
-                          
+
                             customerAccountsVo = (CustomerAccountsVo)Session["EQAccountVoRow"];
                             if (Request.QueryString["action"].Trim() == "Edit")
                             {
@@ -119,7 +119,7 @@ namespace WealthERP.CustomerPortfolio
                         }
                     }
                 }
-                
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -170,7 +170,7 @@ namespace WealthERP.CustomerPortfolio
                 else if (dr["TYPE"].ToString() == "D")
                     drEqLedgerMISDetails["MarginDetails"] = "Balance Margin";
 
-                if (Math.Round(decimal.Parse(dr["Amount"].ToString()),0) != 0)
+                if (Math.Round(decimal.Parse(dr["Amount"].ToString()), 0) != 0)
                     drEqLedgerMISDetails["Amount"] = Math.Round(decimal.Parse(dr["Amount"].ToString()), 0);
                 else
                     drEqLedgerMISDetails["Amount"] = "";
@@ -266,12 +266,12 @@ namespace WealthERP.CustomerPortfolio
                 customerAccountsVo.BrokerCode = ddlBrokerCode.SelectedItem.Value.ToString();
                 if (!string.IsNullOrEmpty(accountopeningdate.Trim()))
                     customerAccountsVo.AccountOpeningDate = DateTime.Parse(accountopeningdate);// ddlDay.SelectedItem.Text.ToString() + "/" + ddlMonth.SelectedItem.Value.ToString() + "/" + ddlYear.SelectedItem.Value.ToString()
-                if (txtBrokeragePerDelivery.Text == "")
-                    txtBrokeragePerDelivery.Text = "0";
-                if (txtBrokeragePerSpeculative.Text == "")
-                    txtBrokeragePerSpeculative.Text = "0";
-                if (txtOtherCharges.Text == "")
-                    txtOtherCharges.Text = "0";
+                //if (txtBrokeragePerDelivery.Text == "")
+                //    txtBrokeragePerDelivery.Text = "0";
+                //if (txtBrokeragePerSpeculative.Text == "")
+                //    txtBrokeragePerSpeculative.Text = "0";
+                //if (txtOtherCharges.Text == "")
+                //    txtOtherCharges.Text = "0";
 
                 if (ddlBankList.SelectedIndex != 0)
                     customerAccountsVo.BankNameInExtFile = ddlBankList.SelectedValue;
@@ -279,21 +279,66 @@ namespace WealthERP.CustomerPortfolio
                     customerAccountsVo.BankId = int.Parse(ddlAccountNum.SelectedValue);
                 //customerAccountsVo.BankName = ddlBankList.SelectedValue.ToString();
                 //customerAccountsVo.BankAccountNum = account;
-                if (txtBrokeragePerDelivery.Text != "" || txtBrokeragePerSpeculative.Text != "" || txtOtherCharges.Text != "")
-                {
+                //if (Txt_SEBITrnfee.Text != "")
+                //{
+                //    customerAccountsVo.SebiTurnOverFee = double.Parse(Txt_SEBITrnfee.Text);
+                //}
+                //else
+                //{
+                //    customerAccountsVo.SebiTurnOverFee = 0.0;
+                //}
+                //if (Txt_Transcharges.Text != "")
+                //{
+                //    customerAccountsVo.TransactionCharges = double.Parse(Txt_Transcharges.Text);
+                //}
+                //else
+                //{
+                //    customerAccountsVo.TransactionCharges = 0.0;
+                //}
+                //if (Txt_stampcharges.Text != "")
+                //{
+                //    customerAccountsVo.StampCharges = double.Parse(Txt_stampcharges.Text);
+                //}
+                //else
+                //{
+                //    customerAccountsVo.StampCharges = 0.0;
+                //}
+                //if (Txt_STT.Text != "")
+                //{
+                //    customerAccountsVo.Stt = double.Parse(Txt_STT.Text);
+                //}
+                //else
+                //{
+                //    customerAccountsVo.Stt = 0.0;
+                //}
+                //if (Txt_ServiceTax.Text != "")
+                //{
+                //    customerAccountsVo.ServiceTax = double.Parse(Txt_ServiceTax.Text);
+                //}
+                //else
+                //{
+                //    customerAccountsVo.ServiceTax = 0.0;
+                //}
 
-                    customerAccountsVo.BrokerageDeliveryPercentage = double.Parse(txtBrokeragePerDelivery.Text);
-                    customerAccountsVo.BrokerageSpeculativePercentage = double.Parse(txtBrokeragePerSpeculative.Text);
-                    customerAccountsVo.OtherCharges = double.Parse(txtOtherCharges.Text);
-                }
-                else
-                {
-                    customerAccountsVo.BrokerageDeliveryPercentage = 0.0;
-                    customerAccountsVo.BrokerageSpeculativePercentage = 0.0;
-                    customerAccountsVo.OtherCharges = 0.0;
 
-                }
+                //if (txtBrokeragePerDelivery.Text != "" || txtBrokeragePerSpeculative.Text != "")
+                //{
+
+                //    customerAccountsVo.BrokerageDeliveryPercentage = double.Parse(txtBrokeragePerDelivery.Text);
+                //    customerAccountsVo.BrokerageSpeculativePercentage = double.Parse(txtBrokeragePerSpeculative.Text);
+                //    //customerAccountsVo.OtherCharges = double.Parse(txtOtherCharges.Text);
+                //}
+                //else
+                //{
+                //    customerAccountsVo.BrokerageDeliveryPercentage = 0.0;
+                //    customerAccountsVo.BrokerageSpeculativePercentage = 0.0;
+                //    customerAccountsVo.OtherCharges = 0.0;
+
+                //}
+
                 tradeAccountId = customerAccountBo.CreateCustomerEQAccount(customerAccountsVo, userVo.UserId);
+                //Txt_ServiceTax.Text = string.Empty;
+
 
                 //if (rbtnYes.Checked)
                 //{
@@ -325,6 +370,14 @@ namespace WealthERP.CustomerPortfolio
                     //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EquityManualSingleTransaction','" + queryString + "');", true);
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('EquityManualSingleTransaction','" + queryString + "');", true);
                 }
+
+                else if (Request.QueryString["Equitypopup"] == "1" && Request.QueryString["Equitypopup"] != null)
+                {
+
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Trade Account Added Successfully');", true);
+
+                }
+
                 else
                 {
                     //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
@@ -335,6 +388,7 @@ namespace WealthERP.CustomerPortfolio
                 //{
                 //    Sample.Text = "Fail";
                 //}
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -377,7 +431,7 @@ namespace WealthERP.CustomerPortfolio
 
         private void ViewEQAccountDetails()
         {
-            
+
 
             ddlBrokerCode.SelectedValue = customerAccountsVo.BrokerCode;
             txtTradeNum.Text = customerAccountsVo.TradeNum;
@@ -385,9 +439,14 @@ namespace WealthERP.CustomerPortfolio
                 txtAccountStartingDate.Text = customerAccountsVo.AccountOpeningDate.ToShortDateString();
             else
                 txtAccountStartingDate.Text = "";
-            txtBrokeragePerDelivery.Text = customerAccountsVo.BrokerageDeliveryPercentage.ToString();
-            txtBrokeragePerSpeculative.Text = customerAccountsVo.BrokerageSpeculativePercentage.ToString();
-            txtOtherCharges.Text = customerAccountsVo.OtherCharges.ToString();
+            //txtBrokeragePerDelivery.Text = customerAccountsVo.BrokerageDeliveryPercentage.ToString();
+            //txtBrokeragePerSpeculative.Text = customerAccountsVo.BrokerageSpeculativePercentage.ToString();
+            //Txt_SEBITrnfee.Text = customerAccountsVo.SebiTurnOverFee.ToString();
+            //Txt_Transcharges.Text = customerAccountsVo.TransactionCharges.ToString();
+            //Txt_stampcharges.Text = customerAccountsVo.StampCharges.ToString();
+            //Txt_STT.Text = customerAccountsVo.Stt.ToString();
+            //Txt_ServiceTax.Text = customerAccountsVo.ServiceTax.ToString();
+            //txtOtherCharges.Text = customerAccountsVo.OtherCharges.ToString();
             ddlBankList.SelectedValue = customerAccountsVo.BankNameInExtFile;
             BindAccountNum();
             ddlAccountNum.SelectedValue = customerAccountsVo.BankId.ToString();
@@ -406,9 +465,14 @@ namespace WealthERP.CustomerPortfolio
                 txtAccountStartingDate.Text = customerAccountsVo.AccountOpeningDate.ToShortDateString();
             else
                 txtAccountStartingDate.Text = "";
-            txtBrokeragePerDelivery.Text = customerAccountsVo.BrokerageDeliveryPercentage.ToString();
-            txtBrokeragePerSpeculative.Text = customerAccountsVo.BrokerageSpeculativePercentage.ToString();
-            txtOtherCharges.Text = customerAccountsVo.OtherCharges.ToString();
+            //txtBrokeragePerDelivery.Text = customerAccountsVo.BrokerageDeliveryPercentage.ToString();
+            //txtBrokeragePerSpeculative.Text = customerAccountsVo.BrokerageSpeculativePercentage.ToString();
+            //txtOtherCharges.Text = customerAccountsVo.OtherCharges.ToString();
+            //Txt_SEBITrnfee.Text = customerAccountsVo.SebiTurnOverFee.ToString();
+            //Txt_Transcharges.Text = customerAccountsVo.TransactionCharges.ToString();
+            //Txt_stampcharges.Text = customerAccountsVo.StampCharges.ToString();
+            //Txt_STT.Text = customerAccountsVo.Stt.ToString();
+            //Txt_ServiceTax.Text = customerAccountsVo.ServiceTax.ToString();
             ddlBankList.SelectedValue = customerAccountsVo.BankNameInExtFile;
             BindAccountNum();
             ddlAccountNum.SelectedValue = customerAccountsVo.BankId.ToString();
@@ -426,11 +490,16 @@ namespace WealthERP.CustomerPortfolio
                 ddlBrokerCode.Enabled = false;
                 txtTradeNum.Enabled = false;
                 txtAccountStartingDate.Enabled = false;
-                txtBrokeragePerDelivery.Enabled = false;
-                txtBrokeragePerSpeculative.Enabled = false;
-                txtOtherCharges.Enabled = false;
+                //txtBrokeragePerDelivery.Enabled = false;
+                //txtBrokeragePerSpeculative.Enabled = false;
+                //txtOtherCharges.Enabled = false;
                 ddlBankList.Enabled = false;
                 ddlAccountNum.Enabled = false;
+                //Txt_SEBITrnfee.Enabled = false;
+                //Txt_Transcharges.Enabled = false;
+                //Txt_stampcharges.Enabled = false;
+                //Txt_STT.Enabled = false;
+                //Txt_ServiceTax.Enabled = false;
 
 
             }
@@ -441,11 +510,16 @@ namespace WealthERP.CustomerPortfolio
                 ddlBrokerCode.Enabled = true;
                 txtTradeNum.Enabled = true;
                 txtAccountStartingDate.Enabled = true;
-                txtBrokeragePerDelivery.Enabled = true;
-                txtBrokeragePerSpeculative.Enabled = true;
-                txtOtherCharges.Enabled = true;
+                //txtBrokeragePerDelivery.Enabled = true;
+                //txtBrokeragePerSpeculative.Enabled = true;
+                //txtOtherCharges.Enabled = true;
                 ddlBankList.Enabled = true;
                 ddlAccountNum.Enabled = true;
+                //Txt_SEBITrnfee.Enabled = true;
+                //Txt_Transcharges.Enabled = true;
+                //Txt_stampcharges.Enabled = true;
+                //Txt_STT.Enabled = true;
+                //Txt_ServiceTax.Enabled = true;
 
 
             }
@@ -500,7 +574,7 @@ namespace WealthERP.CustomerPortfolio
             account = ddlAccountNum.SelectedValue.ToString();
             if (ddlBankList.SelectedIndex != 0)
                 dsbindAccount = customerAccountBo.GetEQAccountNumber(customerId, bankId);
-                
+
             if (dsbindAccount.Tables.Count > 0)
             {
                 dtAccountNo = dsbindAccount.Tables[0];
@@ -512,7 +586,7 @@ namespace WealthERP.CustomerPortfolio
             }
             ddlAccountNum.Items.Insert(0, new ListItem("Select", "0"));
 
-            
+
         }
 
         /// <summary>
@@ -521,18 +595,18 @@ namespace WealthERP.CustomerPortfolio
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void ddlBankList_SelectedIndexChanged(object sender, EventArgs e)
-        {   
+        {
             //empty string initialization for bankcode
-            string bankCode =string.Empty;
+            string bankCode = string.Empty;
             //0 initialization for int customerid
-            int customerId=0;
+            int customerId = 0;
             try
             {
                 // see if the selectedindex is not zero
                 if (ddlBankList.SelectedIndex != 0)
                 {
-                   BindAccountNum();
-                   
+                    BindAccountNum();
+
                 }
             }
             catch (BaseApplicationException Ex)
@@ -587,55 +661,67 @@ namespace WealthERP.CustomerPortfolio
                 customerAccountsVo = (CustomerAccountsVo)Session["EQAccountVoRow"];
                 oldaccountID = customerAccountsVo.TradeNum;
                 newAccountVo.TradeNum = txtTradeNum.Text.ToString();
-               if (oldaccountID == txtTradeNum.Text)
-               {
-                   newAccountVo.AccountId = customerAccountsVo.AccountId;
+                if (oldaccountID == txtTradeNum.Text)
+                {
+                    newAccountVo.AccountId = customerAccountsVo.AccountId;
 
-                   newAccountVo.PortfolioId = int.Parse(ddlPortfolio.SelectedValue);
-                   newAccountVo.BrokerCode = ddlBrokerCode.SelectedValue;
+                    newAccountVo.PortfolioId = int.Parse(ddlPortfolio.SelectedValue);
+                    newAccountVo.BrokerCode = ddlBrokerCode.SelectedValue;
 
-                   newAccountVo.BrokerageDeliveryPercentage = double.Parse(txtBrokeragePerDelivery.Text);
-                   newAccountVo.BrokerageSpeculativePercentage = double.Parse(txtBrokeragePerSpeculative.Text);
-                   newAccountVo.OtherCharges = double.Parse(txtOtherCharges.Text);
-                   if (txtAccountStartingDate.Text != "")
-                       newAccountVo.AccountOpeningDate = DateTime.Parse(txtAccountStartingDate.Text);
-                   if (ddlBankList.SelectedIndex != 0)
-                       newAccountVo.BankNameInExtFile = ddlBankList.SelectedValue;
-                   if (ddlAccountNum.SelectedIndex != 0)
-                       newAccountVo.BankId = int.Parse(ddlAccountNum.SelectedValue);
-                   if (customerTransactionBo.UpdateCustomerEQAccountDetails(newAccountVo, userVo.UserId))
-                       //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
-               }
-               else
-               {
-                   TradeAccNo = txtTradeNum.Text;
+                    //newAccountVo.BrokerageDeliveryPercentage = double.Parse(txtBrokeragePerDelivery.Text);
+                    //newAccountVo.BrokerageSpeculativePercentage = double.Parse(txtBrokeragePerSpeculative.Text);
+                    //newAccountVo.SebiTurnOverFee = double.Parse(Txt_SEBITrnfee.Text);
+                    //newAccountVo.TransactionCharges = double.Parse(Txt_Transcharges.Text);
+                    //newAccountVo.StampCharges= double.Parse(Txt_stampcharges.Text);
+                    //newAccountVo.Stt = double.Parse(Txt_STT.Text);
+                    //newAccountVo.ServiceTax = double.Parse(Txt_ServiceTax.Text);
+                    //newAccountVo.OtherCharges = double.Parse(txtOtherCharges.Text);
+
+                    if (txtAccountStartingDate.Text != "")
+                        newAccountVo.AccountOpeningDate = DateTime.Parse(txtAccountStartingDate.Text);
+                    if (ddlBankList.SelectedIndex != 0)
+                        newAccountVo.BankNameInExtFile = ddlBankList.SelectedValue;
+                    if (ddlAccountNum.SelectedIndex != 0)
+                        newAccountVo.BankId = int.Parse(ddlAccountNum.SelectedValue);
+                    if (customerTransactionBo.UpdateCustomerEQAccountDetails(newAccountVo, userVo.UserId))
+                        //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
+                }
+                else
+                {
+                    TradeAccNo = txtTradeNum.Text;
                     BrokerCode = customerAccountsVo.BrokerCode.ToString();
-                   PortfolioId = customerAccountsVo.PortfolioId;
+                    PortfolioId = customerAccountsVo.PortfolioId;
 
-                   if (ControlHost.CheckTradeNoAvailabilityForUpdate(TradeAccNo, BrokerCode, PortfolioId))
-                   {
-                       newAccountVo.AccountId = customerAccountsVo.AccountId;
-                       newAccountVo.PortfolioId = int.Parse(ddlPortfolio.SelectedValue);
-                       newAccountVo.BrokerCode = ddlBrokerCode.SelectedValue;
-                       newAccountVo.BrokerageDeliveryPercentage = double.Parse(txtBrokeragePerDelivery.Text);
-                       newAccountVo.BrokerageSpeculativePercentage = double.Parse(txtBrokeragePerSpeculative.Text);
-                       newAccountVo.OtherCharges = double.Parse(txtOtherCharges.Text);
-                       if (txtAccountStartingDate.Text != "")
-                           newAccountVo.AccountOpeningDate = DateTime.Parse(txtAccountStartingDate.Text);
-                       if(ddlBankList.SelectedIndex!=0)
+                    if (ControlHost.CheckTradeNoAvailabilityForUpdate(TradeAccNo, BrokerCode, PortfolioId))
+                    {
+                        newAccountVo.AccountId = customerAccountsVo.AccountId;
+                        newAccountVo.PortfolioId = int.Parse(ddlPortfolio.SelectedValue);
+                        newAccountVo.BrokerCode = ddlBrokerCode.SelectedValue;
+                        //newAccountVo.BrokerageDeliveryPercentage = double.Parse(txtBrokeragePerDelivery.Text);
+                        //newAccountVo.BrokerageSpeculativePercentage = double.Parse(txtBrokeragePerSpeculative.Text);
+                        //newAccountVo.SebiTurnOverFee = double.Parse(Txt_SEBITrnfee.Text);
+                        //newAccountVo.TransactionCharges = double.Parse(Txt_Transcharges.Text);
+                        //newAccountVo.StampCharges = double.Parse(Txt_stampcharges.Text);
+                        //newAccountVo.Stt = double.Parse(Txt_STT.Text);
+                        //newAccountVo.ServiceTax = double.Parse(Txt_ServiceTax.Text);
+
+                        //newAccountVo.OtherCharges = double.Parse(txtOtherCharges.Text);
+                        if (txtAccountStartingDate.Text != "")
+                            newAccountVo.AccountOpeningDate = DateTime.Parse(txtAccountStartingDate.Text);
+                        if (ddlBankList.SelectedIndex != 0)
                             newAccountVo.BankNameInExtFile = ddlBankList.SelectedValue;
-                       if(ddlAccountNum.SelectedIndex !=0)
+                        if (ddlAccountNum.SelectedIndex != 0)
                             newAccountVo.BankId = int.Parse(ddlAccountNum.SelectedValue);
-                       if (customerTransactionBo.UpdateCustomerEQAccountDetails(newAccountVo, userVo.UserId))
-                           //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
-                           ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
-                   }
-                   else
-                   {
+                        if (customerTransactionBo.UpdateCustomerEQAccountDetails(newAccountVo, userVo.UserId))
+                            //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountView','none');", true);
+                    }
+                    else
+                    {
 
-                       ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Trade account already exists');", true);
-                   }
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Trade account already exists');", true);
+                    }
                 }
             }
             catch (BaseApplicationException Ex)
@@ -704,5 +790,7 @@ namespace WealthERP.CustomerPortfolio
             }
             gvEqMIS.MasterTableView.ExportToExcel();
         }
+
+
     }
 }

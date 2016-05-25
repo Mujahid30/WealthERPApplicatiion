@@ -64,6 +64,8 @@ namespace VoUser
         private DateTime s_lastlogin;
         public int A_AgentCodeBased { get; set; }
 
+        public bool A_IsFamilyOffice { get; set; }
+
         #endregion Fields
 
         #region Properties

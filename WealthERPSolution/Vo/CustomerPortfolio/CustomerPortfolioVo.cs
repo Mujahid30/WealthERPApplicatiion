@@ -15,6 +15,8 @@ namespace VoCustomerPortfolio
         private string m_PortfolioTypeCode;        
         private string m_PMSIdentifier;
         private string m_PortfolioName;
+        private string m_CategoryId;
+        private string m_SubCategoryId;
 
         
         #endregion Fields
@@ -52,7 +54,16 @@ namespace VoCustomerPortfolio
             get { return m_PMSIdentifier; }
             set { m_PMSIdentifier = value; }
         }
-
+        public string CategoryId
+        {
+            get { return m_CategoryId; }
+            set { m_CategoryId = value; }
+        }
+        public string SubCategoryId
+        {
+            get { return m_SubCategoryId; }
+            set { m_SubCategoryId = value; }
+        }
         #endregion Properties
 
     }

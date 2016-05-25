@@ -18,12 +18,15 @@ using System.Collections;
 using iTextSharp.text.pdf;
 using BoCommon;
 using Telerik.Web.UI;
+using System.Reflection;
+using DaoCustomerPortfolio;
 
 namespace WealthERP.CustomerPortfolio
 {
     public partial class EquityTransactionsView : System.Web.UI.UserControl
     {
         CustomerVo customerVo = new CustomerVo();
+        AdvisorVo advisorVo = new AdvisorVo();
         CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
         EQTransactionVo equityTransactionVo = new EQTransactionVo();
         List<EQTransactionVo> equityTransactionList = null;
@@ -39,109 +42,8 @@ namespace WealthERP.CustomerPortfolio
         UserVo userVo = new UserVo();
         RMVo rmVo = new RMVo();
         RadComboBox rcbTradeDate = new RadComboBox();
-        //protected override void OnInit(EventArgs e)
-        //{
-        //    try
-        //    {
-        //        ((Pager)Pager1).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
-        //        Pager1.EnableViewState = true;
-        //        base.OnInit(e);
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-        //        FunctionInfo.Add("Method", "EquityTransactionsView.ascx.cs:OnInit()");
-        //        object[] objects = new object[0];
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
 
 
-        //}
-
-        //public void HandlePagerEvent(object sender, ItemClickEventArgs e)
-        //{
-        //    try
-        //    {
-        //        GetPageCount();
-        //        this.BindGridView(customerVo.CustomerId, 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-        //        FunctionInfo.Add("Method", "EquityTransactionsView.ascx.cs:HandlePagerEvent()");
-        //        object[] objects = new object[1];
-        //        objects[0] = customerVo;
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //}
-
-        //private void GetPageCount()
-        //{
-        //    string upperlimit = "";
-        //    int rowCount = 0;
-        //    int ratio = 0;
-        //    string lowerlimit = "";
-        //    string PageRecords = "";
-        //    try
-        //    {
-
-        //        if (hdnRecordCount.Value != "")
-        //            rowCount = Convert.ToInt32(hdnRecordCount.Value);
-        //        if (rowCount > 0)
-        //        {
-        //            ratio = rowCount / 30;
-        //            Pager1.PageCount = rowCount % 30 == 0 ? ratio : ratio + 1;
-        //            Pager1.Set_Page(Pager1.CurrentPage, Pager1.PageCount);
-        //            lowerlimit = (((Pager1.CurrentPage - 1) * 30)+1).ToString();
-        //            upperlimit = (Pager1.CurrentPage * 30).ToString();
-        //            if (Pager1.CurrentPage == Pager1.PageCount)
-        //                upperlimit = hdnRecordCount.Value;
-        //            PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);
-        //            lblCurrentPage.Text = PageRecords;
-
-        //            hdnCurrentPage.Value = Pager1.CurrentPage.ToString();
-        //        }
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-        //        FunctionInfo.Add("Method", "TransactionsView.ascx.cs:GetPageCount()");
-        //        object[] objects = new object[5];
-        //        objects[0] = upperlimit;
-        //        objects[1] = rowCount;
-        //        objects[2] = ratio;
-        //        objects[3] = lowerlimit;
-        //        objects[4] = PageRecords;
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-
-        //}
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -154,37 +56,72 @@ namespace WealthERP.CustomerPortfolio
             {
                 SessionBo.CheckSession();
                 System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-GB");
-
-
-
+                advisorVo = (AdvisorVo)Session["advisorVo"];
                 customerVo = (CustomerVo)Session["CustomerVo"];
                 customerId = customerVo.CustomerId;
                 userVo = (UserVo)Session["userVo"];
                 rmVo = (RMVo)Session["rmVo"];
+                if (Request.QueryString["CurrentPageIndex"] != null)
+                {
+                    int CustomerId = int.Parse(customerVo.CustomerId.ToString());
+                    int PortfolioId = int.Parse(Request.QueryString["portfolioId"].ToString());
+                    ddlPortfolio.SelectedValue = PortfolioId.ToString();
+                    DateTime From = DateTime.Parse(Request.QueryString["FrmDt"].ToString());
+                    txtFromTran.SelectedDate = From;
+                    DateTime To = DateTime.Parse(Request.QueryString["ToDt"].ToString());
+                    txtToTran.SelectedDate = To;
+                    string Currency = Request.QueryString["Currency"].ToString();
+                    ddl_type.SelectedValue = Currency.ToString();
+                    BindGridView(customerId, txtFromTran.SelectedDate.Value, txtToTran.SelectedDate.Value);
+                    gvEquityTransactions.CurrentPageIndex = int.Parse(Request.QueryString["CurrentPageIndex"]);
+                    gvEquityTransactions.Rebind();
+                    PropertyInfo isreadonly = typeof(System.Collections.Specialized.NameValueCollection).GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
+                    // make collection editable
+                    isreadonly.SetValue(this.Request.QueryString, false, null);
+                    Request.QueryString.Clear();
+                }
+
                 if (!IsPostBack)
                 {
-
-                    portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
-                    BindPortfolioDropDown();
-                    if (Session["tranDates"] != null)
+                    if (Request.QueryString["From"] != null && Request.QueryString["To"] != null)
                     {
-                        ht = (Hashtable)Session["tranDates"];
-                        txtFromTran.SelectedDate = DateTime.Parse(ht["From"].ToString());
-                        txtToTran.SelectedDate = DateTime.Parse(ht["To"].ToString());
-                        BindGridView(customerId, txtFromTran.SelectedDate.Value, txtToTran.SelectedDate.Value);
-                        Session.Remove("tranDates");
+                        BindPortfolioDropDown();
+                        int CustomerId = int.Parse(Request.QueryString["CustomerId"].ToString());
+                        int PortfolioId = int.Parse(Request.QueryString["PortfolioId"].ToString());
+                        ddlPortfolio.SelectedValue = PortfolioId.ToString();
+                        DateTime From = DateTime.Parse(Request.QueryString["From"].ToString());
+                        txtFromTran.SelectedDate = From;
+                        DateTime To = DateTime.Parse(Request.QueryString["To"].ToString());
+                        txtToTran.SelectedDate = To;
+                        string Currency = Request.QueryString["Currency"].ToString();
+                        ddl_type.SelectedValue = Currency.ToString();
+                        BindGridView(CustomerId, From, To);
+
                     }
                     else
                     {
-                        if (txtFromTran.SelectedDate != null || txtToTran.SelectedDate != null)
-                            // txtFromTran.SelectedDate = DateTime.Parse(DateTime.Now.ToShortDateString());
-                            // if (txtToTran.SelectedDate == null)
-                            //txtToTran.SelectedDate = DateTime.Parse(DateTime.Now.ToShortDateString());
-                            //BindGridView(customerId, txtFromTran.SelectedDate.Value, txtToTran.SelectedDate.Value);
+
+                        ViewState["filter"] = null;
+                        portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
+                        BindPortfolioDropDown();
+                        if (Session["tranDates"] != null)
+                        {
+                            ht = (Hashtable)Session["tranDates"];
+                            txtFromTran.SelectedDate = DateTime.Parse(ht["From"].ToString());
+                            txtToTran.SelectedDate = DateTime.Parse(ht["To"].ToString());
                             BindGridView(customerId, txtFromTran.SelectedDate.Value, txtToTran.SelectedDate.Value);
+                            Session.Remove("tranDates");
+                        }
+                        else
+                        {
+                            if (txtFromTran.SelectedDate != null || txtToTran.SelectedDate != null)
+                                BindGridView(customerId, txtFromTran.SelectedDate.Value, txtToTran.SelectedDate.Value);
+                        }
                     }
 
+
                 }
+
 
             }
             catch (BaseApplicationException Ex)
@@ -225,7 +162,6 @@ namespace WealthERP.CustomerPortfolio
         {
             string type, mode;
             RadComboBox radComboBoxTradeDate = new RadComboBox();
-            //DataRow drTradedate;
 
             DataSet dsExange = new DataSet(); ;
             DataTable dtEquityTransactions = new DataTable();
@@ -234,32 +170,67 @@ namespace WealthERP.CustomerPortfolio
             Dictionary<string, string> genDictTranType = new Dictionary<string, string>();
             Dictionary<string, string> genDictExchange = new Dictionary<string, string>();
             Dictionary<string, string> genDictTradeDate = new Dictionary<string, string>();
+            int Visible = 0;
 
             try
             {
 
-                equityTransactionList = customerTransactionBo.GetEquityTransactions(customerId, portfolioId, from, to);
+                if (Request.QueryString["From"] != null && Request.QueryString["To"] != null)
+                {
+                    equityTransactionList = customerTransactionBo.GetEquityTransactions(customerId, int.Parse(Request.QueryString["PortfolioId"].ToString()), int.Parse(Request.QueryString["ScripCode"].ToString()), from, to, Request.QueryString["Currency"].ToString());
+                    Visible = 1;
+                }
+                else
+                {
+                    equityTransactionList = customerTransactionBo.GetEquityTransactions(customerId, portfolioId, 0, from, to, (ddl_type.SelectedValue));
+                }
 
                 if (equityTransactionList != null)
                 {
-                    // lblMsg.Visible = false;
                     ErrorMessage.Visible = false;
                     gvEquityTransactions.Visible = true;
                     dtEquityTransactions.Columns.Add("TransactionId");
+                    dtEquityTransactions.Columns.Add("InvestorName");
+                    dtEquityTransactions.Columns.Add("PanNo");
+                    dtEquityTransactions.Columns.Add("ManagerName");
+                    dtEquityTransactions.Columns.Add("BrokerName");
                     dtEquityTransactions.Columns.Add("TradeAccountNum");
+                    dtEquityTransactions.Columns.Add("DematAccountNo");
+                    dtEquityTransactions.Columns.Add("SettlementNo");
+                    dtEquityTransactions.Columns.Add("BillNo");
                     dtEquityTransactions.Columns.Add("Scheme Name");
-                    dtEquityTransactions.Columns.Add("Transaction Type");
-                    dtEquityTransactions.Columns.Add("Exchange");
-                    dtEquityTransactions.Columns.Add("TradeDate", typeof(DateTime));
-                    dtEquityTransactions.Columns.Add("Rate", typeof(double));
-                    dtEquityTransactions.Columns.Add("Quantity", typeof(double));
-                    dtEquityTransactions.Columns.Add("Brokerage", typeof(double));
-                    dtEquityTransactions.Columns.Add("TradeTotal", typeof(double));
-                    dtEquityTransactions.Columns.Add("OtherCharges", typeof(double));
-                    dtEquityTransactions.Columns.Add("TransactionStatus");
+                    dtEquityTransactions.Columns.Add("Scripcode");
 
-                    //dtTradeDate.Columns.Add("TransactionId");
-                    //dtTradeDate.Columns.Add("TradeDate");
+                    dtEquityTransactions.Columns.Add("Transaction Type");
+                    dtEquityTransactions.Columns.Add("Transaction Code");
+                    dtEquityTransactions.Columns.Add("Dividend Status");
+                    dtEquityTransactions.Columns.Add("Exchange");
+                    dtEquityTransactions.Columns.Add("TradeDate");
+                    dtEquityTransactions.Columns.Add("Quantity", typeof(double));
+                    dtEquityTransactions.Columns.Add("Rate", typeof(double));
+
+                    dtEquityTransactions.Columns.Add("FORExRate");
+                    dtEquityTransactions.Columns.Add("FORExDate", typeof(DateTime));
+
+                    dtEquityTransactions.Columns.Add("Gross Trade Consideration", typeof(double));
+                    dtEquityTransactions.Columns.Add("Brokerage", typeof(double));
+                    dtEquityTransactions.Columns.Add("Net Rate With Brokerage", typeof(double));
+                    dtEquityTransactions.Columns.Add("Net Trade Consideration With Brokerage", typeof(double));
+                    dtEquityTransactions.Columns.Add("SebiTurnOverFee", typeof(double));
+                    dtEquityTransactions.Columns.Add("TransactionCharges", typeof(double));
+                    dtEquityTransactions.Columns.Add("StampCharges", typeof(double));
+                    dtEquityTransactions.Columns.Add("STT", typeof(double));
+                    dtEquityTransactions.Columns.Add("ServiceTax", typeof(double));
+                    dtEquityTransactions.Columns.Add("OtherCharges", typeof(double));
+                    dtEquityTransactions.Columns.Add("Difference In Amount", typeof(double));
+                    dtEquityTransactions.Columns.Add("Net Rate With All Charges", typeof(double));
+                    dtEquityTransactions.Columns.Add("TradeTotal", typeof(double));
+                    dtEquityTransactions.Columns.Add("TransactionStatus");
+                    dtEquityTransactions.Columns.Add("Purpose");
+                    dtEquityTransactions.Columns.Add("Demat Charge", typeof(double));
+                    dtEquityTransactions.Columns.Add("FXCurencyRate");
+                    dtEquityTransactions.Columns.Add("MktClosingForexRate");
+                    dtEquityTransactions.Columns.Add("CET_CreatedOn", typeof(DateTime));
 
                     DataRow drEquityTransaction;
                     DataRow drTradedate;
@@ -275,43 +246,94 @@ namespace WealthERP.CustomerPortfolio
                         drEquityTransaction["TradeAccountNum"] = equityTransactionVo.TradeAccountNum.ToString();
                         drEquityTransaction["Scheme Name"] = equityTransactionVo.ScripName.ToString();
 
+
                         if (equityTransactionVo.TradeType.ToString() == "D")
                         {
-                            //drEquityTransaction[2] = "Delivery";
                             mode = "Delivery";
                         }
                         else
                         {
-                            //drEquityTransaction[2] = "Speculation";
                             mode = "Speculation";
                         }
-                        drEquityTransaction["Transaction Type"] = equityTransactionVo.TransactionType + "/" + mode;
+                        if (equityTransactionVo.TransactionCode == 1 || equityTransactionVo.TransactionCode == 2)
+                        {
+                            drEquityTransaction["Transaction Type"] = equityTransactionVo.TransactionType + "/" + mode;
+                        }
+                        else
+                        {
+                            drEquityTransaction["Transaction Type"] = equityTransactionVo.TransactionType;
+                        }
+                        drEquityTransaction["Transaction Code"] = equityTransactionVo.TransactionCode.ToString();
                         drEquityTransaction["Exchange"] = equityTransactionVo.Exchange.ToString();
-                        //  dsExange.Tables[0].Rows[i][0] = equityTransactionVo.Exchange;
-                        drEquityTransaction["TradeDate"] = equityTransactionVo.TradeDate.ToShortDateString().ToString();
-                        drEquityTransaction["Rate"] = decimal.Parse(equityTransactionVo.Rate.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        drEquityTransaction["TradeDate"] = equityTransactionVo.TradeDate.ToString("dd MMM yy", System.Globalization.CultureInfo.InvariantCulture);
+                        drEquityTransaction["Rate"] = decimal.Parse(equityTransactionVo.Rate.ToString()).ToString();
                         drEquityTransaction["Quantity"] = equityTransactionVo.Quantity.ToString("f0");
-                        drEquityTransaction["Brokerage"] = (decimal.Parse(equityTransactionVo.Brokerage.ToString()) * decimal.Parse(equityTransactionVo.Quantity.ToString("f0").ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                        drEquityTransaction["TradeTotal"] = decimal.Parse(equityTransactionVo.TradeTotal.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                        drEquityTransaction["OtherCharges"] = (decimal.Parse(equityTransactionVo.OtherCharges.ToString()) * decimal.Parse(equityTransactionVo.Quantity.ToString("f0").ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                        drEquityTransaction["TransactionStatus"] = equityTransactionVo.TransactionStatus.ToString();
 
+                        drEquityTransaction["Brokerage"] = decimal.Parse(equityTransactionVo.Brokerage.ToString());
+                        drEquityTransaction["TradeTotal"] = decimal.Parse(equityTransactionVo.TradeTotal.ToString()).ToString();
+
+                        drEquityTransaction["TransactionStatus"] = equityTransactionVo.TransactionStatus.ToString();
+                        drEquityTransaction["ManagerName"] = equityTransactionVo.ManagerName.ToString();
+                        drEquityTransaction["BrokerName"] = equityTransactionVo.BrokerName.ToString();
+                        drEquityTransaction["DematAccountNo"] = equityTransactionVo.DpclientId.ToString();
+                        drEquityTransaction["Purpose"] = equityTransactionVo.Purpose.ToString();
+                        drEquityTransaction["InvestorName"] = equityTransactionVo.InvestorName.ToString();
+                        drEquityTransaction["PanNo"] = equityTransactionVo.PanNo.ToString();
+                        drEquityTransaction["Scripcode"] = equityTransactionVo.Scripcode.ToString();
+                        drEquityTransaction["SettlementNo"] = equityTransactionVo.SettlementNo.ToString();
+                        drEquityTransaction["BillNo"] = equityTransactionVo.BillNo.ToString();
+                        drEquityTransaction["SebiTurnOverFee"] = equityTransactionVo.SebiTurnOverFee.ToString();
+                        drEquityTransaction["TransactionCharges"] = equityTransactionVo.TransactionCharges.ToString();
+                        drEquityTransaction["StampCharges"] = equityTransactionVo.StampCharges.ToString();
+                        drEquityTransaction["STT"] = equityTransactionVo.STT.ToString();
+                        drEquityTransaction["ServiceTax"] = equityTransactionVo.ServiceTax.ToString();
+                        drEquityTransaction["Difference In Amount"] = equityTransactionVo.DifferenceInBrokerage.ToString();
+                        drEquityTransaction["OtherCharges"] = equityTransactionVo.OtherCharges.ToString();
+                        drEquityTransaction["Gross Trade Consideration"] = equityTransactionVo.GrossConsideration.ToString();
+                        drEquityTransaction["Net Rate With Brokerage"] = equityTransactionVo.RateInclBrokerage.ToString();
+                        drEquityTransaction["Net Trade Consideration With Brokerage"] = equityTransactionVo.TradeTotalIncBrokerage.ToString();
+                        drEquityTransaction["Net Rate With All Charges"] = equityTransactionVo.RateIncBrokerageAllCharges.ToString();
+                        if (equityTransactionVo.DividendRecieved == true)
+                        {
+                            drEquityTransaction["Dividend Status"] = "Received";
+                        }
+                        else if (equityTransactionVo.DividendRecieved == false)
+                        {
+                            drEquityTransaction["Dividend Status"] = "Receivable";
+                        }
+                        drEquityTransaction["Demat Charge"] = equityTransactionVo.DematCharge;
+                        drEquityTransaction["FORExRate"] = equityTransactionVo.ForExRate;
+
+                        drEquityTransaction["FORExRate"] = equityTransactionVo.ForExRate;
+                        if (equityTransactionVo.ForExRateDate != DateTime.MinValue)
+                            drEquityTransaction["FORExDate"] = equityTransactionVo.ForExRateDate;
+
+                        drEquityTransaction["FXCurencyRate"] = equityTransactionVo.FXCurencyRate;
+                        drEquityTransaction["MktClosingForexRate"] = equityTransactionVo.MktClosingForexRate;
+                        drEquityTransaction["CET_CreatedOn"] = DateTime.Parse(equityTransactionVo.CreatedOn.ToString());
 
                         dtEquityTransactions.Rows.Add(drEquityTransaction);
 
-
                     }
-
-
                     gvEquityTransactions.DataSource = dtEquityTransactions;
+
+                    ViewState["asd"] = dtEquityTransactions;
                     gvEquityTransactions.DataBind();
                     gvEquityTransactions.Visible = true;
+                    if (Visible == 1)
+                        gvEquityTransactions.MasterTableView.GetColumn("action").Visible = false;
                     Panel1.Visible = true;
-                    //RadComboBoxItem rci = new RadComboBoxItem();
+                    trSelectAction.Visible = true;
+                    ddlAction.SelectedIndex = 0;
 
 
-
-
+                    if (!advisorVo.A_IsFamilyOffice)
+                    {
+                        gvEquityTransactions.MasterTableView.GetColumn("ManagerName").Visible = false;
+                        ddlAction.Items[2].Enabled = false;
+                        ddlAction.Items[3].Enabled = false;
+                        ddlAction.Items[4].Enabled = false;
+                    }
                     if (Cache["EquityTransactionsDetails" + customerPortfolioVo.CustomerId.ToString()] == null)
                     {
                         Cache.Insert("EquityTransactionsDetails" + customerPortfolioVo.CustomerId.ToString(), dtEquityTransactions);
@@ -349,6 +371,7 @@ namespace WealthERP.CustomerPortfolio
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+
         }
 
 
@@ -372,6 +395,25 @@ namespace WealthERP.CustomerPortfolio
             gvEquityTransactions.ExportSettings.ExportOnlyData = true;
             gvEquityTransactions.ExportSettings.FileName = "Equity Transaction Details";
             gvEquityTransactions.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            if (ddl_type.SelectedValue == "$")
+            {
+                gvEquityTransactions.MasterTableView.GetColumn("Rate").HeaderText = "Rate($)";
+                gvEquityTransactions.MasterTableView.GetColumn("Brokerage").HeaderText = "Brokerage($)";
+                gvEquityTransactions.MasterTableView.GetColumn("Net Rate With Brokerage").HeaderText = "Rate Inclusive Brokerage ($)";
+                gvEquityTransactions.MasterTableView.GetColumn("Net Trade Consideration With Brokerage").HeaderText = "Gross Consideration with Brokerage ($)";
+                gvEquityTransactions.MasterTableView.GetColumn("SebiTurnOverFee").HeaderText = "Sebi TurnOver Fee($)";
+                gvEquityTransactions.MasterTableView.GetColumn("OtherCharges").HeaderText = "OtherCharges($)";
+                gvEquityTransactions.MasterTableView.GetColumn("TradeTotal").HeaderText = "TradeTotal($)";
+                gvEquityTransactions.MasterTableView.GetColumn("Net Rate With All Charges").HeaderText = "Net Rate Inclusive All Charges ($)";
+                gvEquityTransactions.MasterTableView.GetColumn("Gross Trade Consideration").HeaderText = "Net Consideration Of All Charges ($)";
+                //----
+                gvEquityTransactions.MasterTableView.GetColumn("TransactionCharges").HeaderText = "Transaction Charges ($)";
+                gvEquityTransactions.MasterTableView.GetColumn("StampCharges").HeaderText = "Stamp Charges ($)";
+                gvEquityTransactions.MasterTableView.GetColumn("STT").HeaderText = "STT ($)";
+                gvEquityTransactions.MasterTableView.GetColumn("ServiceTax").HeaderText = "Service Tax ($)";
+                gvEquityTransactions.MasterTableView.GetColumn("Demat Charge").HeaderText = "Demat Charge ($)";
+                gvEquityTransactions.MasterTableView.GetColumn("Difference In Amount").HeaderText = "Difference In Amount ($)";
+            }
             gvEquityTransactions.MasterTableView.ExportToExcel();
         }
 
@@ -400,19 +442,9 @@ namespace WealthERP.CustomerPortfolio
         {
             if (txtFromTran.SelectedDate != null || txtToTran.SelectedDate != null)
             {
-                //if (ddlPortfolio.SelectedIndex != 0)
-                //{
-                //    dtFrom = txtFromTran.SelectedDate.Value;
-                //    dtTo = txtToTran.SelectedDate.Value;
-                //    // hdnStatus.Value = "1";
-                //    BindGridView(customerId, dtFrom, dtTo);
-                //}
-                //else
-                //{
-                    portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
-                    Session[SessionContents.PortfolioId] = portfolioId;
-                    BindGridView(customerId, txtFromTran.SelectedDate.Value, txtToTran.SelectedDate.Value);
-                //}
+                portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
+                Session[SessionContents.PortfolioId] = portfolioId;
+                BindGridView(customerId, txtFromTran.SelectedDate.Value, txtToTran.SelectedDate.Value);
             }
         }
 
@@ -426,6 +458,106 @@ namespace WealthERP.CustomerPortfolio
             }
             else
                 Panel1.Visible = false;
+        }
+        protected void gvEquityTransactions_OnItemDataBound(object sender, GridCommandEventArgs e)
+        {
+
+            if (e.CommandName == RadGrid.FilterCommandName)
+            {
+                double BuySum = 0, SellSum = 0, Total = 0;
+                Pair filterPair = (Pair)e.CommandArgument;
+                string value = filterPair.Second.ToString();//accessing function name
+                if (value == "SettlementNo")
+                {
+                    TextBox tbPattern = (e.Item as GridFilteringItem)["SettlementNo"].Controls[0] as TextBox;
+                    string[] values = tbPattern.Text.Split(' ');
+                    string s = values[0];
+                    ViewState["filter"] = s;
+                    DataTable dt = new DataTable();
+                    dt = (DataTable)ViewState["asd"];
+                    DataTable dt1 = dt.Select("SettlementNo like '" + s + "' ").CopyToDataTable();
+
+                    foreach (DataRow dr in dt1.Rows)
+                    {
+                        if (dr["Transaction Type"].ToString() == "Buy/Delivery" || dr["Transaction Type"].ToString() == "Buy/Speculation" && Convert.ToInt16(dr["Transaction Code"]) == 1)
+                        {
+                            BuySum = BuySum + Convert.ToDouble(dr["TradeTotal"]);
+
+                        }
+                        if (dr["Transaction Type"].ToString() == "Sell/Delivery" || dr["Transaction Type"].ToString() == "Sell/Speculation" && Convert.ToInt16(dr["Transaction Code"]) == 2)
+                        {
+                            SellSum = SellSum + Convert.ToDouble(dr["TradeTotal"]);
+
+                        }
+                    }
+                    Total = SellSum - BuySum;
+                    Session["Total"] = Total;
+                }
+            }
+
+
+        }
+
+        protected void RadGrid1_DataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
+        {
+            double total = 0;
+            string settlementno = string.Empty;
+            if (ViewState["filter"] != null)
+                settlementno = ViewState["filter"].ToString();
+            if (settlementno != "")
+            {
+
+                if (e.Item is GridFooterItem)
+                {
+                    GridFooterItem footer = (GridFooterItem)e.Item;
+                    if (gvEquityTransactions.Items.Count > 0)
+
+                        total = Convert.ToDouble(Session["Total"]);
+                    footer["TradeTotal"].Text = total.ToString("f2");
+
+                }
+
+            }
+            if (e.Item is GridHeaderItem)
+            {
+                GridHeaderItem header = (GridHeaderItem)e.Item;
+                if (ddl_type.SelectedValue == "$")
+                {
+                    header["Rate"].Text = "Rate($)";
+                    header["Brokerage"].Text = "Brokerage($)";
+                    header["Net Rate With Brokerage"].Text = "Rate Inclusive Brokerage ($)";
+                    header["Net Trade Consideration With Brokerage"].Text = "Gross Consideration with Brokerage ($)";
+                    header["SebiTurnOverFee"].Text = "Sebi TurnOver Fee($)";
+                    header["OtherCharges"].Text = "OtherCharges($)";
+                    header["TradeTotal"].Text = "Gross Consideration ($)";
+                    header["Net Rate With All Charges"].Text = "Net Rate Inclusive All Charges ($)";
+                    header["Gross Trade Consideration"].Text = "Net Consideration Of All Charges ($)";
+                    //----
+                    header["TransactionCharges"].Text = "Transaction Charges ($)";
+                    header["StampCharges"].Text = "Stamp Charges ($)";
+                    header["STT"].Text = "STT ($)";
+                    header["ServiceTax"].Text = "Service Tax ($)";
+                    header["Demat Charge"].Text = "Demat Charge ($)";
+                    header["Difference In Amount"].Text = "Difference In Amount ($)";
+                }
+            }
+
+            if (ddl_type.SelectedValue.ToString() == "INR")
+            {
+                gvEquityTransactions.MasterTableView.GetColumn("ForExRate").Display = false;
+                gvEquityTransactions.MasterTableView.GetColumn("ForExDate").Display = false;
+                gvEquityTransactions.MasterTableView.GetColumn("FXCurencyRate").Display = false;
+                gvEquityTransactions.MasterTableView.GetColumn("MktClosingForexRate").Display = false;
+
+
+            }
+            else
+            {
+                gvEquityTransactions.MasterTableView.GetColumn("ForExRate").Display = true;
+                gvEquityTransactions.MasterTableView.GetColumn("ForExDate").Display = true;
+                gvEquityTransactions.MasterTableView.GetColumn("FXCurencyRate").Display = true;
+                gvEquityTransactions.MasterTableView.GetColumn("MktClosingForexRate").Display = true;
+            }
         }
 
 
@@ -441,7 +573,7 @@ namespace WealthERP.CustomerPortfolio
                 GridDataItem gvr = (GridDataItem)btnViewDetails.NamingContainer;
                 int selectedRow = gvr.ItemIndex + 1;
                 transactionId = int.Parse(gvEquityTransactions.MasterTableView.DataKeyValues[selectedRow - 1]["TransactionId"].ToString());
-                Session["EquityTransactionVo"] = customerTransactionBo.GetEquityTransaction(transactionId);
+                Session["EquityTransactionVo"] = customerTransactionBo.GetEquityTransaction(transactionId, ddl_type.SelectedValue.ToString());
 
 
                 hshTranDates = new Hashtable();
@@ -469,6 +601,174 @@ namespace WealthERP.CustomerPortfolio
                 throw exBase;
             }
         }
+        protected void ddlAction_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
 
+                int transactionId;
+                RadComboBox ddlAction = (RadComboBox)sender;
+                GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+                int selectedRow = gvr.ItemIndex + 1;
+
+                transactionId = int.Parse(gvEquityTransactions.MasterTableView.DataKeyValues[selectedRow - 1]["TransactionId"].ToString());
+                Session["TransactionId"] = transactionId;
+                Session["EquityTransactionVo"] = customerTransactionBo.GetEquityTransaction(transactionId, ddl_type.SelectedValue.ToString());
+                int currentPageIndex = int.Parse(gvEquityTransactions.CurrentPageIndex.ToString());
+                int portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
+                string FrmDt = txtFromTran.SelectedDate.ToString();
+                string ToDt = txtToTran.SelectedDate.ToString();
+                string Currency = ddl_type.SelectedValue.ToString();
+
+                if (ddlAction.SelectedValue.ToString() == "Edit")
+                {
+
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EquityManualSingleTransaction','?action=Edit &CurrentPageIndex=" + currentPageIndex + "&FrmDt=" + FrmDt.ToString() + "&ToDt=" + ToDt + "&Currency=" + Currency + "&PortfolioId=" + portfolioId + "');", true);
+                }
+                if (ddlAction.SelectedValue.ToString() == "View")
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EquityManualSingleTransaction','action=View &CurrentPageIndex=" + currentPageIndex + "&FrmDt=" + FrmDt.ToString() + "&ToDt=" + ToDt + "&Currency=" + Currency + "&PortfolioId=" + portfolioId + "');", true);
+                }
+                if (ddlAction.SelectedValue.ToString() == "Delete")
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "ShowAlertToDelete();", true);
+                }
+
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerMFFolioView.ascx:ddlAction_OnSelectedIndexChange()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+        }
+
+        protected void BtnDelete_Click(object sender, EventArgs e)
+        {
+            CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
+            string HiddenVal = hdnStatusValue.Value;
+            int transactionId = 0;
+            if (Session["TransactionId"] != null)
+                transactionId = int.Parse(Session["TransactionId"].ToString());
+            if (HiddenVal == "1")
+            {
+                if (hddeletiontype.Value == "Bulk")
+                {
+                    string transid = Session["TransId"].ToString();
+                    customerTransactionBo.BulkEqTransactionDeletion(transid);
+
+                    ddlAction.SelectedIndex = 0;
+
+                }
+                else
+                {
+                    customerTransactionBo.DeleteEquityTransaction(transactionId);
+                }
+
+            }
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EquityTransactionsView','none');", true);
+        }
+        protected void ddlActionSec_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int i = 0;
+            string transid = string.Empty;
+
+            foreach (GridDataItem gvr in this.gvEquityTransactions.Items)
+            {
+                if (((CheckBox)gvr.FindControl("chk_id")).Checked == true)
+                {
+                    i = i + 1;
+                }
+            }
+            if (i == 0)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select record to process!');", true);
+                ddlAction.SelectedIndex = 0;
+            }
+            else
+            {
+                foreach (GridDataItem gvr in this.gvEquityTransactions.Items)
+                {
+                    if (((CheckBox)gvr.FindControl("chk_id")).Checked == true)
+                    {
+                        transid += Convert.ToString(gvEquityTransactions.MasterTableView.DataKeyValues[gvr.ItemIndex]["TransactionId"]) + "~";
+                    }
+
+                }
+                if (ddlAction.SelectedValue == "Del")
+                {
+                    hddeletiontype.Value = "Bulk";
+                    Session["TransId"] = transid;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "ShowAlertToDelete();", true);
+
+
+                }
+                else if (ddlAction.SelectedValue == "MapToCi")
+                {
+                    string Type = "Ci";
+                    customerTransactionBo.MapEQTransactionToCIAndPI(transid, Type);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EquityTransactionsView','none');", true);
+                    ddlAction.SelectedIndex = 0;
+                }
+                else if (ddlAction.SelectedValue == "MapToPi")
+                {
+                    string Type = "Pi";
+                    customerTransactionBo.MapEQTransactionToCIAndPI(transid, Type);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EquityTransactionsView','none');", true);
+                    ddlAction.SelectedIndex = 0;
+                }
+                else if (ddlAction.SelectedValue == "MapToManager")
+                {
+                    customerTransactionBo.MapEQToManager(transid);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EquityTransactionsView','none');", true);
+                    ddlAction.SelectedIndex = 0;
+                }
+            }
+        }
+
+
+        public List<EQTransactionVo> GetEquityTransactions(int customerId, int portfolioId)
+        {
+            CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+
+            List<EQTransactionVo> eqTransactionsList = new List<EQTransactionVo>();
+            try
+            {
+                eqTransactionsList = customerTransactionDao.GetEquityTransactions(customerId, portfolioId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerTransactionBo.cs:GetEquityTransactions()");
+
+
+                object[] objects = new object[2];
+                objects[0] = customerId;
+                objects[1] = portfolioId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return eqTransactionsList;
+        }
+
+
+
+ 
     }
 }

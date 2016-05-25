@@ -2172,5 +2172,412 @@ namespace BoCustomerPortfolio
             return mfTransactionsBookList;
 
         }
+
+
+        //add bo for migrate
+
+
+        public CustomerAccountsVo GetEquityRateForTransaction(int Accountid, int TransactionMode, string TransactionType, DateTime TradeDate)
+        {
+            CustomerAccountsVo AccountVo = new CustomerAccountsVo();
+            CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+            try
+            {
+
+                AccountVo = customerTransactionDao.GetEquityRateForTransaction(Accountid, TransactionMode, TransactionType, TradeDate);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetCustomerMFFolioDetails()");
+                object[] objects = new object[1];
+                objects[0] = Accountid;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return AccountVo;
+        }
+
+
+        public float GetEQScripPrice(int ScripCode, DateTime navDate, String Currency)
+        {
+            float ScripPrice = 0;
+            CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+            ScripPrice = customerTransactionDao.GetEQScripPrice(ScripCode, navDate, Currency);
+            return ScripPrice;
+        }
+
+
+        public void AddDividend(string CorpAxnCode, int scripcode, DateTime DivDeclaredDate, double DivPercentage, double facevalue)
+        {
+
+
+            CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+            try
+            {
+
+                customerTransactionDao.AddDividend(CorpAxnCode, scripcode, DivDeclaredDate, DivPercentage, facevalue);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetDividendHistory()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+        }
+
+        public int GetNoOfShares(int AccountId, int scripCode, DateTime TradeDate, int DematAccountNum, int managedby)
+        {
+            int NoOfShares;
+
+            CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+            try
+            {
+
+                NoOfShares = customerTransactionDao.GetNoOfShares(AccountId, scripCode, TradeDate, DematAccountNum, managedby);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetDividendHistory()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return NoOfShares;
+        }
+        public DataSet GetDividendHistory(int scripCode)
+        {
+            DataSet ds;
+            CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+            try
+            {
+
+                ds = customerTransactionDao.GetDividendHistory(scripCode);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetDividendHistory()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return ds;
+        }
+        public DataSet GetManagedby(int advisorid)
+        {
+            DataSet ds;
+            CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+            try
+            {
+
+                ds = customerTransactionDao.GetManagedby(advisorid);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetManagedby()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return ds;
+        }
+           public DataSet GetDematAccountNumber(int portfolioid)
+        {
+            DataSet ds;
+            CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+            try
+            {
+
+                ds = customerTransactionDao.GetDematAccountNumber(portfolioid);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetDematAccountNumber()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return ds;
+        }
+           public string GetDollarRate(DateTime TradeDate)
+           {
+               CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+               string Rate;
+               try
+               {
+                   Rate = customerTransactionDao.GetDollarRate(TradeDate);
+               }
+               catch (BaseApplicationException Ex)
+               {
+                   throw Ex;
+               }
+               catch (Exception Ex)
+               {
+                   BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                   NameValueCollection FunctionInfo = new NameValueCollection();
+                   FunctionInfo.Add("Method", "CustomerTransactionBo.cs:UpdateEquityTransaction()");
+                   object[] objects = new object[2];
+                   FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                   exBase.AdditionalInformation = FunctionInfo;
+                   ExceptionManager.Publish(exBase);
+                   throw exBase;
+
+               }
+               return Rate;
+           }
+           public DataSet GetType()
+           {
+               DataSet ds;
+               CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+               try
+               {
+
+                   ds = customerTransactionDao.GetType();
+
+               }
+               catch (BaseApplicationException Ex)
+               {
+                   throw Ex;
+               }
+               catch (Exception Ex)
+               {
+                   BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                   NameValueCollection FunctionInfo = new NameValueCollection();
+                   FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetManagedby()");
+                   object[] objects = new object[0];
+                   FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                   exBase.AdditionalInformation = FunctionInfo;
+                   ExceptionManager.Publish(exBase);
+                   throw exBase;
+
+               }
+               return ds;
+           }
+           public List<EQTransactionVo> GetEquityTransactions(int customerId, int portfolioId, int ScripCode, DateTime FromDate, DateTime ToDate, string Price)
+           {
+               CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+
+               List<EQTransactionVo> eqTransactionsList = new List<EQTransactionVo>();
+
+               //genDictTranType = new Dictionary<string, string>();
+               //genDictExchange = new Dictionary<string, string>();
+               //genDictTradeDate = new Dictionary<string, string>();
+
+               try
+               {
+                   eqTransactionsList = customerTransactionDao.GetEquityTransactions(customerId, portfolioId, ScripCode, FromDate, ToDate, Price);
+               }
+               catch (BaseApplicationException Ex)
+               {
+                   throw Ex;
+               }
+               catch (Exception Ex)
+               {
+                   BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                   NameValueCollection FunctionInfo = new NameValueCollection();
+
+                   FunctionInfo.Add("Method", "CustomerTransactionBo.cs:GetEquityTransactions()");
+
+
+                   object[] objects = new object[1];
+                   objects[0] = customerId;
+
+                   FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                   exBase.AdditionalInformation = FunctionInfo;
+                   ExceptionManager.Publish(exBase);
+                   throw exBase;
+
+               }
+               return eqTransactionsList;
+           }
+           public bool MapEQTransactionToCIAndPI(string EQTraxnIds, string Type)
+           {
+               CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+               bool bResult = false;
+               try
+               {
+                   bResult = customerTransactionDao.MapEQTransactionToCIAndPI(EQTraxnIds, Type);
+               }
+               catch (BaseApplicationException Ex)
+               {
+                   throw Ex;
+               }
+               catch (Exception Ex)
+               {
+                   BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                   NameValueCollection FunctionInfo = new NameValueCollection();
+                   FunctionInfo.Add("Method", "CustomerTransactionBo.cs:UpdateEquityTransaction()");
+                   object[] objects = new object[2];
+                   FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                   exBase.AdditionalInformation = FunctionInfo;
+                   ExceptionManager.Publish(exBase);
+                   throw exBase;
+
+               }
+               return bResult;
+           }
+           public bool MapEQToManager(string EQTraxnIds)
+           {
+               CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+               bool bResult = false;
+               try
+               {
+                   bResult = customerTransactionDao.MapEQToManager(EQTraxnIds);
+               }
+               catch (BaseApplicationException Ex)
+               {
+                   throw Ex;
+               }
+               catch (Exception Ex)
+               {
+                   BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                   NameValueCollection FunctionInfo = new NameValueCollection();
+                   FunctionInfo.Add("Method", "CustomerTransactionBo.cs:UpdateEquityTransaction()");
+                   object[] objects = new object[2];
+                   FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                   exBase.AdditionalInformation = FunctionInfo;
+                   ExceptionManager.Publish(exBase);
+                   throw exBase;
+
+               }
+               return bResult;
+           }
+           public bool DeleteEquityTransaction(int eqTransId)
+           {
+               bool bResult = false;
+               CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+               try
+               {
+
+                   bResult = customerTransactionDao.DeleteEquityTransaction(eqTransId);
+
+               }
+               catch (BaseApplicationException Ex)
+               {
+                   throw Ex;
+               }
+               return bResult;
+           }
+           public bool BulkEqTransactionDeletion(string EQTraxnIds)
+           {
+               CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+               bool bResult = false;
+               try
+               {
+                   bResult = customerTransactionDao.BulkEqTransactionDeletion(EQTraxnIds);
+               }
+               catch (BaseApplicationException Ex)
+               {
+                   throw Ex;
+               }
+               catch (Exception Ex)
+               {
+                   BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                   NameValueCollection FunctionInfo = new NameValueCollection();
+                   FunctionInfo.Add("Method", "CustomerTransactionBo.cs:UpdateEquityTransaction()");
+                   object[] objects = new object[2];
+                   FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                   exBase.AdditionalInformation = FunctionInfo;
+                   ExceptionManager.Publish(exBase);
+                   throw exBase;
+
+               }
+               return bResult;
+           }
+           public EQTransactionVo GetEquityTransaction(int eqTransactionId, String Currency)
+           {
+               CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+
+               EQTransactionVo eqTransactionVo = new EQTransactionVo();
+
+               try
+               {
+                   eqTransactionVo = customerTransactionDao.GetEquityTransaction(eqTransactionId, Currency);
+               }
+               catch (BaseApplicationException Ex)
+               {
+                   throw Ex;
+               }
+               catch (Exception Ex)
+               {
+                   BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                   NameValueCollection FunctionInfo = new NameValueCollection();
+
+                   FunctionInfo.Add("Method", "CustomerTransactionBo.cs:GetEquityTransaction()");
+
+
+                   object[] objects = new object[1];
+                   objects[0] = eqTransactionId;
+
+                   FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                   exBase.AdditionalInformation = FunctionInfo;
+                   ExceptionManager.Publish(exBase);
+                   throw exBase;
+
+               }
+               return eqTransactionVo;
+           }
+
     }
 }

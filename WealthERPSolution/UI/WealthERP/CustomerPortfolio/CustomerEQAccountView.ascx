@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerEQAccountView.ascx.cs"
     Inherits="WealthERP.CustomerPortfolio.CustomerEQAccountView" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
-<asp:ScriptManager runat="server">
+<asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
 
 <script type="text/javascript">
@@ -99,7 +99,7 @@
                             CurrentFilterFunction="Contains">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="Brkrg % for Del" DataField="Broker Del Percent"
+                       <%-- <telerik:GridBoundColumn HeaderText="Brkrg % for Del" DataField="Broker Del Percent"
                             UniqueName="BrokerDelPercent" SortExpression="Broker Del Percent" AutoPostBackOnFilter="true"
                             AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -108,12 +108,37 @@
                             UniqueName="BrokerSpecPercent" SortExpression="Broker Spec Percent" AutoPostBackOnFilter="true"
                             AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="Other charges %" DataField="Other Charges" UniqueName="OtherCharges"
+                        </telerik:GridBoundColumn>--%>
+                       <%-- <telerik:GridBoundColumn HeaderText="Other charges %" DataField="Other Charges" UniqueName="OtherCharges"
                             SortExpression="Other Charges" AutoPostBackOnFilter="true" AllowFiltering="false"
                             ShowFilterIcon="false" CurrentFilterFunction="Contains">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>--%>
+                       <%-- <telerik:GridBoundColumn HeaderText="SEBI Turn Over Fee %" DataField="Sebi Turn Over Fee" UniqueName="Sebi Turn Over Fee"
+                            SortExpression="Sebi Turn Over Fee" AutoPostBackOnFilter="true" AllowFiltering="false"
+                            ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
+                           <telerik:GridBoundColumn HeaderText="Transaction Charges %" DataField="Transaction Charges" UniqueName="Transaction Charges"
+                            SortExpression="Transaction Charges" AutoPostBackOnFilter="true" AllowFiltering="false"
+                            ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn HeaderText="Stamp Charges %" DataField="Stamp Charges" UniqueName="Stamp Charges"
+                            SortExpression="Stamp Charges" AutoPostBackOnFilter="true" AllowFiltering="false"
+                            ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                         <telerik:GridBoundColumn HeaderText="STT %" DataField="STT" UniqueName="STT"
+                            SortExpression="STT" AutoPostBackOnFilter="true" AllowFiltering="false"
+                            ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                         <telerik:GridBoundColumn HeaderText="Service Tax %" DataField="Service Tax" UniqueName="Service Tax"
+                            SortExpression="Service Tax" AutoPostBackOnFilter="true" AllowFiltering="false"
+                            ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>--%>
                         <telerik:GridDateTimeColumn DataField="A/C Opening Date" SortExpression="A/C Opening Date"
                             AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" AllowFiltering="true"
                             HeaderText="Account Opening date" UniqueName="A/COpeningDate" DataFormatString="{0:d}"
@@ -171,3 +196,4 @@
     OnClick="btnTradeNoAssociation_Click" />
      <asp:HiddenField ID="hdnIsMainPortfolio" runat="server"/>
 <asp:HiddenField ID="hdnIsCustomerLogin" runat="server" />
+

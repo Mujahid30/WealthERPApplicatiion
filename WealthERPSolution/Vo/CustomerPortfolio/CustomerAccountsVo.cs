@@ -90,6 +90,26 @@ namespace VoCustomerPortfolio
         public int IsOnline { get; set; }
 
 
+        public int TransactionMode { get; set; }
+        public string Basis { get; set; }
+        public string Type { get; set; }
+        public double Rate { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public double SebiTurnOverFee { get; set; }
+        public double TransactionCharges { get; set; }
+        public double StampCharges { get; set; }
+        public double Stt { get; set; }
+        public double ServiceTax { get; set; }
+        public int CebId { get; set; }
+        public int IsSebiApplicableToStax { get; set; }
+        public int IsTrxnApplicableToStax { get; set; }
+        public int IsStampApplicableToStax { get; set; }
+        public int IsBrApplicableToStax { get; set; }
+        public int IsExcludeReport { get; set; }
+        public int FolioType { get; set; }
+        public string FolioTypeName { get; set; }
+        public string DematAccount { get; set; }
 
         #region Properties
 

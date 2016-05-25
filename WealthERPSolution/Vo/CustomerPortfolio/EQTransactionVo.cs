@@ -12,7 +12,7 @@ namespace VoCustomerPortfolio
     {
         #region fields
 
-        private int m_TransactionId; 
+        private int m_TransactionId;
         private int m_CustomerId;
         private int m_PortfolioId;
         private int m_AccountId;
@@ -23,30 +23,39 @@ namespace VoCustomerPortfolio
         private string m_TradeAccountNum;
         private long m_OrderNum;
         private int m_IsSpeculative;
-        private string m_TradeType;       
-        private string m_Exchange;     
-        private DateTime m_TradeDate;        
-        private float m_Rate;        
-        private float  m_Quantity;   
-        private float m_Brokerage;        
+        private string m_TradeType;
+        private string m_Exchange;
+        private DateTime m_TradeDate;
+        private float m_Rate;
+        private float m_Quantity;
+        private float m_Brokerage;
         private float m_ServiceTax;
-        private float m_EducationCess;       
+        private float m_EducationCess;
         private float m_STT;
-        private float m_OtherCharges;       
-        private float m_RateInclBrokerage;        
+        private float m_OtherCharges;
+        private float m_RateInclBrokerage;
         private double m_TradeTotal;
         private string m_BrokerCode;
-        private int m_IsSplit;        
+        private int m_IsSplit;
         private int m_SplitTransactionId;
         private string m_SourceCode;
         private int m_IsCorpAction;
         private int m_TransactionCode;
         private string m_TransactionType;
-        private int m_IsSourceManual;       
+        private int m_IsSourceManual;
         private long m_TradeNum;
         private string m_TransactionStatus;
+        private int m_DematAccountNo;
+      
+        public string CreatedOn { get; set; }
+        public string ManagerName { get; set; }
+        public string BrokerName { get; set; }
+        public string Purpose { get; set; }
+        public string InvestorName { get; set; }
+        public string PanNo { get; set; }
+        public string Scripcode { get; set; }
 
-        
+
         #endregion fields
 
         #region properties
@@ -71,6 +80,11 @@ namespace VoCustomerPortfolio
         {
             get { return m_PortfolioId; }
             set { m_PortfolioId = value; }
+        }
+        public int DematAccountNo
+        {
+            get { return m_DematAccountNo; }
+            set { m_DematAccountNo = value; }
         }
 
         public int AccountId
@@ -247,6 +261,36 @@ namespace VoCustomerPortfolio
             set { m_TransactionStatus = value; }
         }
 
+
+
+        public int ManagedBy { get; set; }
+        public int Type { get; set; }
+        public int DemateAccountId { get; set; }
+        public string BillNo { get; set; }
+        public string SettlementNo { get; set; }
+        public DateTime SettlementDate { get; set; }
+        public double SebiTurnOverFee { get; set; }
+        public double TransactionCharges { get; set; }
+        public double StampCharges { get; set; }
+        public double NoOfSharesForDiv { get; set; }
+        public double DifferenceInBrokerage { get; set; }
+        public Nullable<bool> DividendRecieved { get; set; }
+        public float DematCharge { get; set; }
+        public double TradeTotalIncBrokerage { get; set; }
+        public double RateIncBrokerageAllCharges { get; set; }
+        public string BankReferenceNo { get; set; }
+        public int DailyCorpAxnId { get; set; }
+        public double GrossConsideration { get; set; }
+        public string DpclientId { get; set; }
+
+        public float ForExRate { get; set; }
+        public DateTime ForExRateDate { get; set; }
+        public String Currency { get; set; }
+        public double FXCurencyRate { get; set; }
+        public string FXCurencyType { get; set; }
+        public double MktClosingForexRate { get; set; }
+        public string Remark { get; set; }
+
         #endregion properties
 
         public EQTransactionVo Clone()
@@ -269,6 +313,7 @@ namespace VoCustomerPortfolio
             clone.m_Rate = m_Rate;
             clone.m_RateInclBrokerage = m_RateInclBrokerage;
             clone.m_ScripName = m_ScripName;
+            clone.m_DematAccountNo = m_DematAccountNo;
             clone.m_ServiceTax = m_ServiceTax;
             clone.m_SourceCode = m_SourceCode;
             clone.m_SplitTransactionId = m_SplitTransactionId;

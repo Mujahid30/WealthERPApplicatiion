@@ -94,7 +94,7 @@ namespace WealthERP.CustomerPortfolio
                 {
                     LinkButton1.Visible = false;
                 }
-                LoadExchangeType(path);
+               // LoadExchangeType(path);
                 ddlExchange.SelectedValue = eqTransactionVo.Exchange.ToString();
 
                 LoadTransactionType(path);
@@ -293,38 +293,38 @@ namespace WealthERP.CustomerPortfolio
                 dvTransactionType.Visible = true;
             }
         }
-        private void LoadExchangeType(string path)
-        {
-            try
-            {
-                DataTable dt = XMLBo.GetExchangeType(path);
-                if (ddlExchange.Items.Count == 0)
-                {
-                    ddlExchange.DataTextField = "ExchangeName";
-                    ddlExchange.DataValueField = "ExchangeCode";
-                    ddlExchange.DataSource = dt;
-                    ddlExchange.DataBind();
-                    ddlExchange.Items.Insert(0, new ListItem("Select an Exchange", "Select an Exchange"));
-                }
-            }
-            catch (BaseApplicationException ex)
-            {
-                throw ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "ViewEquityTransaction.ascx:LoadExchangeType()");
-                object[] objects = new object[1];
-                objects[0] = path;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
+        //private void LoadExchangeType(string path)
+        //{
+        //    try
+        //    {
+        //        DataTable dt = XMLBo.GetExchangeType(path);
+        //        if (ddlExchange.Items.Count == 0)
+        //        {
+        //            ddlExchange.DataTextField = "ExchangeName";
+        //            ddlExchange.DataValueField = "ExchangeCode";
+        //            ddlExchange.DataSource = dt;
+        //            ddlExchange.DataBind();
+        //            ddlExchange.Items.Insert(0, new ListItem("Select an Exchange", "Select an Exchange"));
+        //        }
+        //    }
+        //    catch (BaseApplicationException ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "ViewEquityTransaction.ascx:LoadExchangeType()");
+        //        object[] objects = new object[1];
+        //        objects[0] = path;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
 
-            }
-        }
+        //    }
+        //}
 
         protected void LinkButton1_Click(object sender, EventArgs e)
         {

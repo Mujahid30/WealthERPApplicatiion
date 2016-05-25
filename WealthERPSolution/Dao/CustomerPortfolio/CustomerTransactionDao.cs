@@ -5058,6 +5058,843 @@ namespace DaoCustomerPortfolio
             }            
             return mfTransactionsBookList;
         }
+        // add dao
+
+        public float GetEQScripPrice(int ScripCode, DateTime navDate, String Currency)
+        {
+            float ScripPlanNAV = 0;
+            Database db;
+            DbCommand getEQScripPriceCmd;
+            DataSet dsEQScripPrice;
+            DataTable dtdsEQScripPrice;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getEQScripPriceCmd = db.GetStoredProcCommand("SP_GetEquityScripPrice");
+
+                db.AddInParameter(getEQScripPriceCmd, "@PEP_Date", DbType.DateTime, navDate);
+                db.AddInParameter(getEQScripPriceCmd, "@PEM_ScripCode", DbType.Int32, ScripCode);
+                if (Currency != null)
+                {
+                    db.AddInParameter(getEQScripPriceCmd, "@Currency", DbType.String, Currency);
+                }
+                else
+                    db.AddInParameter(getEQScripPriceCmd, "@Currency", DbType.String, DBNull.Value);
+                dsEQScripPrice = db.ExecuteDataSet(getEQScripPriceCmd);
+                if (dsEQScripPrice.Tables[0].Rows.Count > 0)
+                {
+                    dtdsEQScripPrice = dsEQScripPrice.Tables[0];
+
+                    foreach (DataRow dr in dtdsEQScripPrice.Rows)
+                    {
+                        if (!string.IsNullOrEmpty(dr["PESPH_ClosePrice"].ToString().Trim()))
+                            ScripPlanNAV = float.Parse(dr["PESPH_ClosePrice"].ToString());
+                    }
+
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerPortfolioDao.cs:GetEQScripPrice(int scripCode, DateTime priceDate)");
+
+
+                object[] objects = new object[2];
+                objects[0] = ScripPlanNAV;
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return ScripPlanNAV;
+        }
+
+
+        public CustomerAccountsVo GetEquityRateForTransaction(int Accountid, int TransactionMode, string TransactionType, DateTime TradeDate)
+        {
+            Database db;
+            DbCommand GetEquityRate;
+            CustomerAccountsVo AccountVo = new CustomerAccountsVo();
+            DataSet dsGetEquityRatesForTransaction;
+            DataRow dr;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetEquityRate = db.GetStoredProcCommand("SPROC_GetRateForEquityTransaction");
+                db.AddInParameter(GetEquityRate, "@Accountid", DbType.Int16, Accountid);
+                db.AddInParameter(GetEquityRate, "@TransactiionMode", DbType.Int16, TransactionMode);
+                db.AddInParameter(GetEquityRate, "@TransactionType", DbType.String, TransactionType);
+                db.AddInParameter(GetEquityRate, "@TradeDate", DbType.DateTime, TradeDate);
+                dsGetEquityRatesForTransaction = db.ExecuteDataSet(GetEquityRate);
+
+                if (dsGetEquityRatesForTransaction.Tables[0].Rows.Count > 0)
+                {
+                    dr = dsGetEquityRatesForTransaction.Tables[0].Rows[0];
+                    AccountVo = new CustomerAccountsVo();
+                    if (dsGetEquityRatesForTransaction.Tables[0].Rows.Count > 0)
+                    {
+                        dr = dsGetEquityRatesForTransaction.Tables[0].Rows[0];
+                        AccountVo = new CustomerAccountsVo();
+
+                        AccountVo.AccountId = Convert.ToInt16(dr["CETA_AccountId"]);
+                        //AccountVo.TradeNum = dr["CETA_TradeAccountNum"].ToString();
+                        if (dr["CEB_TransactionMode"].ToString() != "")
+                        {
+                            AccountVo.TransactionMode = Convert.ToInt16(dr["CEB_TransactionMode"]);
+                        }
+                        if (dr["CEB_Type"].ToString() != "")
+                        {
+                            AccountVo.Type = dr["CEB_Type"].ToString();
+                        }
+
+                        if (dr["CEB_Rate"].ToString() != "")
+                        {
+                            AccountVo.Rate = double.Parse(dr["CEB_Rate"].ToString());
+                        }
+                        else
+                        {
+                            AccountVo.Rate = 0.0;
+                        }
+
+                        if (dr["CEB_SebiTurnOverFee"].ToString() != "")
+                        {
+                            AccountVo.SebiTurnOverFee = double.Parse(dr["CEB_SebiTurnOverFee"].ToString());
+                        }
+                        else
+                        {
+                            AccountVo.SebiTurnOverFee = 0.0;
+                        }
+
+                        if (dr["CEB_TransactionCharges"].ToString() != "")
+                        {
+                            AccountVo.TransactionCharges = double.Parse(dr["CEB_TransactionCharges"].ToString());
+                        }
+                        else
+                        {
+                            AccountVo.TransactionCharges = 0.0;
+                        }
+                        if (dr["CEB_StampCharges"].ToString() != "")
+                        {
+                            AccountVo.StampCharges = double.Parse(dr["CEB_StampCharges"].ToString());
+                        }
+                        else
+                        {
+                            AccountVo.StampCharges = 0.0;
+                        }
+                        if (dr["CEB_STT"].ToString() != string.Empty)
+                        {
+                            AccountVo.Stt = double.Parse(dr["CEB_STT"].ToString());
+                        }
+                        else
+                        {
+                            AccountVo.Stt = 0.0;
+                        }
+                        if (dr["CEB_ServiceTax"].ToString() != string.Empty)
+                        {
+                            AccountVo.ServiceTax = double.Parse(dr["CEB_ServiceTax"].ToString());
+                        }
+                        else
+                        {
+                            AccountVo.ServiceTax = 0.0;
+                        }
+                        if (dr["CEB_IsSebiApplicableToStax"].ToString() != string.Empty)
+                        {
+                            AccountVo.IsSebiApplicableToStax = Convert.ToInt16(dr["CEB_IsSebiApplicableToStax"]);
+                        }
+                        if (dr["CEB_IsTrxnApplicableToStax"].ToString() != string.Empty)
+                        {
+                            AccountVo.IsTrxnApplicableToStax = Convert.ToInt16(dr["CEB_IsTrxnApplicableToStax"]);
+                        }
+                        if (dr["CEB_IsStampApplicableToStax"].ToString() != string.Empty)
+                        {
+                            AccountVo.IsStampApplicableToStax = Convert.ToInt16(dr["CEB_IsStampApplicableToStax"]);
+                        }
+                        if (dr["CEB_IsBrApplicableToStax"].ToString() != string.Empty)
+                        {
+                            AccountVo.IsBrApplicableToStax = Convert.ToInt16(dr["CEB_IsBrApplicableToStax"]);
+                        }
+
+                        if (dr["CEB_StartDate"].ToString() != string.Empty)
+                            AccountVo.StartDate = DateTime.Parse(dr["CEB_StartDate"].ToString());
+                        else
+                            AccountVo.StartDate = DateTime.MinValue;
+                        if (dr["CEB_EndDate"].ToString() != string.Empty)
+                            AccountVo.EndDate = DateTime.Parse(dr["CEB_EndDate"].ToString());
+                        else
+                            AccountVo.EndDate = DateTime.MinValue;
+
+
+
+                    }
+                }
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerBankAccountDao.cs:GetCustomerCapitalLedgerMIS()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return AccountVo;
+
+        }
+        public void AddDividend(string CorpAxnCode, int scripcode, DateTime DivDeclaredDate, double DivPercentage, double facevalue)
+        {
+
+            Database db;
+            DbCommand AddDividend;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                AddDividend = db.GetStoredProcCommand("SPROC_CreateDividend");
+                db.AddInParameter(AddDividend, "@PECAM_CorpAxnCode", DbType.String, CorpAxnCode);
+                db.AddInParameter(AddDividend, "@PEM_ScripCode1", DbType.Int32, scripcode);
+                db.AddInParameter(AddDividend, "@PECA_RecordDate", DbType.DateTime, DivDeclaredDate);
+                db.AddInParameter(AddDividend, "@PECA_Ratio1", DbType.Double, DivPercentage);
+                db.AddInParameter(AddDividend, "@PECA_FaceValueExisting", DbType.Double, facevalue);
+                //db.AddInParameter(AddDividend, "@PECA_CreatedOn", DbType.,);
+                //db.AddInParameter(AddDividend, "@PECA_ModifiedOn", DbType.Double,);
+                db.ExecuteScalar(AddDividend);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:AddDividend()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+        }
+        public int GetNoOfShares(int AccountId, int scripCode, DateTime TradeDate, int DematAccountNum, int managedby)
+        {
+            int NoOfShares;
+            Database db;
+            DbCommand GetNoOfShares;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetNoOfShares = db.GetStoredProcCommand("SPROC_GetNoOfSharesForEquity");
+                db.AddInParameter(GetNoOfShares, "@AccountId", DbType.Int32, AccountId);
+                db.AddInParameter(GetNoOfShares, "@ScripCode", DbType.Int32, scripCode);
+                db.AddInParameter(GetNoOfShares, "@TradeDate", DbType.DateTime, TradeDate);
+                db.AddInParameter(GetNoOfShares, "@DematAccountNum", DbType.Int32, DematAccountNum);
+                db.AddInParameter(GetNoOfShares, "@managedby", DbType.Int32, managedby);
+                NoOfShares = Convert.ToInt32(db.ExecuteScalar(GetNoOfShares));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetNoOfShares()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return NoOfShares;
+        }
+        public DataSet GetDividendHistory(int scripCode)
+        {
+            DataSet ds = null;
+            Database db;
+            DbCommand DividendHistory;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                DividendHistory = db.GetStoredProcCommand("SPROC_GetPastDividendHistory");
+                db.AddInParameter(DividendHistory, "@ScripCode", DbType.Int32, scripCode);
+                ds = db.ExecuteDataSet(DividendHistory);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetDividendHistory()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return ds;
+        }
+
+
+        public DataSet GetManagedby(int advisorid)
+        {
+            DataSet ds = null;
+            Database db;
+            DbCommand getmanagedbyCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getmanagedbyCmd = db.GetStoredProcCommand("SPROC_GetAllManagedBy");
+                db.AddInParameter(getmanagedbyCmd, "AdvisorId", DbType.Int16, advisorid);
+                ds = db.ExecuteDataSet(getmanagedbyCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetManagedby()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return ds;
+        }
+
+        public DataSet GetDematAccountNumber(int portfolioid)
+        {
+            DataSet ds = null;
+            Database db;
+            DbCommand getDematAcctCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getDematAcctCmd = db.GetStoredProcCommand("SPROC_GetDematAccountNumber");
+                db.AddInParameter(getDematAcctCmd, "@portfolioid", DbType.Int32, portfolioid);
+                ds = db.ExecuteDataSet(getDematAcctCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetDematAccountNumber()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return ds;
+        }
+
+        public string GetDollarRate(DateTime TradeDate)
+        {
+            Database db;
+            DbCommand CmdgetdollarRate;
+            String Rate = string.Empty;
+            DataSet ds;
+            DataTable dtdollarprice;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CmdgetdollarRate = db.GetStoredProcCommand("SPROC_GetDollarRate");
+                db.AddInParameter(CmdgetdollarRate, "@TradeDate", DbType.DateTime, TradeDate);
+                ds = db.ExecuteDataSet(CmdgetdollarRate);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    dtdollarprice = ds.Tables[0];
+                    foreach (DataRow dr in dtdollarprice.Rows)
+                    {
+                        if (!string.IsNullOrEmpty(dr["Rate"].ToString().Trim()))
+                            Rate = dr["Rate"].ToString();
+                    }
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:BulkEqTransactionDeletion()");
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return Rate;
+        }
+        public DataSet GetType()
+        {
+            DataSet ds = null;
+            Database db;
+            DbCommand gettypeCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                gettypeCmd = db.GetStoredProcCommand("SPROC_GetEquityType");
+
+                ds = db.ExecuteDataSet(gettypeCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetType()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return ds;
+        }
+        public List<EQTransactionVo> GetEquityTransactions(int customerId,
+                                                                  int portfolioId, int ScripCode,
+                                                         DateTime FromDate, DateTime ToDate, string price
+                                                                  )
+        {
+            List<EQTransactionVo> eqTransactionsList = null;
+            EQTransactionVo eqTransactionVo = new EQTransactionVo();
+            Database db;
+            DbCommand getEquityTransactionsCmd;
+            DataSet dsGetEquityTransactions;
+            DataTable dtGetEquityTransactions;
+
+            //genDictTranType = new Dictionary<string, string>();
+            //genDictExchange = new Dictionary<string, string>();
+            //genDictTradeDate = new Dictionary<string, string>();
+
+            //Count = 0;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getEquityTransactionsCmd = db.GetStoredProcCommand("SP_GetCustomerEquityTransactions");
+                db.AddInParameter(getEquityTransactionsCmd, "@C_CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(getEquityTransactionsCmd, "@CP_PortfolioId", DbType.Int32, portfolioId);
+                db.AddInParameter(getEquityTransactionsCmd, "@ScripCode", DbType.Int32, ScripCode);
+                db.AddInParameter(getEquityTransactionsCmd, "@fromDate", DbType.DateTime, FromDate);
+                db.AddInParameter(getEquityTransactionsCmd, "@toDate", DbType.DateTime, ToDate);
+                db.AddInParameter(getEquityTransactionsCmd, "@Currency", DbType.String, price);
+                dsGetEquityTransactions = db.ExecuteDataSet(getEquityTransactionsCmd);
+                if (dsGetEquityTransactions.Tables[0].Rows.Count > 0)
+                {
+                    dtGetEquityTransactions = dsGetEquityTransactions.Tables[0];
+                    eqTransactionsList = new List<EQTransactionVo>();
+                    foreach (DataRow dr in dtGetEquityTransactions.Rows)
+                    {
+                        eqTransactionVo = new EQTransactionVo();
+                        eqTransactionVo.TransactionId = int.Parse(dr["CET_EqTransId"].ToString());
+                        eqTransactionVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
+                        eqTransactionVo.PortfolioId = int.Parse(dr["CP_PortfolioId"].ToString());
+                        eqTransactionVo.AccountId = int.Parse(dr["CETA_AccountId"].ToString());
+
+                        if (!string.IsNullOrEmpty(dr["PEM_ScripCode"].ToString()))
+                            eqTransactionVo.ScripCode = int.Parse(dr["PEM_ScripCode"].ToString());
+                        else
+
+                            eqTransactionVo.ScripCode = 0;
+
+                        eqTransactionVo.ScripName = dr["PEM_CompanyName"].ToString();
+                        eqTransactionVo.Ticker = dr["PEM_Ticker"].ToString();
+                        eqTransactionVo.TradeAccountNum = (dr["CETA_TradeAccountNum"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_OrderNum"].ToString()))
+                            eqTransactionVo.OrderNum = Int64.Parse(dr["CET_OrderNum"].ToString());
+                        eqTransactionVo.BuySell = dr["CET_BuySell"].ToString();
+                        eqTransactionVo.IsSpeculative = int.Parse(dr["CET_IsSpeculative"].ToString());
+                        if (dr["CET_IsSpeculative"].ToString() == "1")
+                            eqTransactionVo.TradeType = "S";
+                        else
+                            eqTransactionVo.TradeType = "D";
+
+                        if (!string.IsNullOrEmpty(dr["XE_ExchangeCode"].ToString()))
+                            eqTransactionVo.Exchange = dr["XE_ExchangeCode"].ToString();
+                        else
+                            eqTransactionVo.Exchange = "";
+                        eqTransactionVo.TradeDate = DateTime.Parse(dr["CET_TradeDate"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_Rate"].ToString()))
+                            eqTransactionVo.Rate = float.Parse(dr["CET_Rate"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_Quantity"].ToString()))
+                            eqTransactionVo.Quantity = float.Parse(dr["CET_Quantity"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_Brokerage"].ToString()))
+                            eqTransactionVo.Brokerage = float.Parse(dr["CET_Brokerage"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_ServiceTax"].ToString()))
+                            eqTransactionVo.ServiceTax = float.Parse(dr["CET_ServiceTax"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_EducationCess"].ToString()))
+                            eqTransactionVo.EducationCess = float.Parse(dr["CET_EducationCess"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_STT"].ToString()))
+                            eqTransactionVo.STT = float.Parse(dr["CET_STT"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_OtherCharges"].ToString()))
+                            eqTransactionVo.OtherCharges = float.Parse(dr["CET_OtherCharges"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_RateInclBrokerage"].ToString()))
+                            eqTransactionVo.RateInclBrokerage = float.Parse(dr["CET_RateInclBrokerage"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_TradeTotal"].ToString()))
+                            eqTransactionVo.TradeTotal = double.Parse(dr["CET_TradeTotal"].ToString());
+                        eqTransactionVo.BrokerCode = dr["XB_BrokerCode"].ToString();
+                        eqTransactionVo.IsSplit = int.Parse(dr["CET_IsSplit"].ToString());
+                        eqTransactionVo.SplitTransactionId = int.Parse(dr["CET_SplitCustEqTransId"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_IsSourceManual"].ToString()))
+                            eqTransactionVo.IsSourceManual = int.Parse(dr["CET_IsSourceManual"].ToString());
+
+                        eqTransactionVo.SourceCode = dr["XES_SourceCode"].ToString();
+                        eqTransactionVo.TransactionCode = int.Parse(dr["WETT_TransactionCode"].ToString());
+                        eqTransactionVo.TransactionType = dr["WETT_TransactionTypeName"].ToString();
+                        eqTransactionVo.IsCorpAction = int.Parse(dr["WETT_IsCorpAxn"].ToString());
+                        eqTransactionVo.TransactionStatus = dr["WTS_TransactionStatus"].ToString();
+                        eqTransactionVo.ManagerName = dr["ManagedBy"].ToString();
+                        eqTransactionVo.BrokerName = dr["XB_BrokerName"].ToString();
+                        if (!string.IsNullOrEmpty(dr["CEDA_DPClientId"].ToString()))
+                            eqTransactionVo.DpclientId = dr["CEDA_DPClientId"].ToString();
+                        else
+                            eqTransactionVo.DpclientId = "";
+                        eqTransactionVo.Purpose = dr["IsTradeType"].ToString();
+                        eqTransactionVo.InvestorName = dr["InvesterName"].ToString();
+                        eqTransactionVo.PanNo = dr["C_PANNum"].ToString();
+                        eqTransactionVo.Scripcode = dr["PesmIdentifier"].ToString();
+                        eqTransactionVo.SettlementNo = dr["CET_SettlementNo"].ToString();
+                        eqTransactionVo.BillNo = dr["CET_BillNo"].ToString();
+
+                        if (!string.IsNullOrEmpty(dr["CET_SebiTurnOverFee"].ToString()))
+                            eqTransactionVo.SebiTurnOverFee = double.Parse(dr["CET_SebiTurnOverFee"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_TrxnCharges"].ToString()))
+                            eqTransactionVo.TransactionCharges = double.Parse(dr["CET_TrxnCharges"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_StampCharges"].ToString()))
+                            eqTransactionVo.StampCharges = double.Parse(dr["CET_StampCharges"].ToString());
+                        if (!string.IsNullOrEmpty(dr["cet_stt"].ToString()))
+                            eqTransactionVo.STT = float.Parse(dr["cet_stt"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_ServiceTax"].ToString()))
+                            eqTransactionVo.ServiceTax = float.Parse(dr["CET_ServiceTax"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_DifferenceInBrokerage"].ToString()))
+                            eqTransactionVo.DifferenceInBrokerage = double.Parse(dr["CET_DifferenceInBrokerage"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_RateInclBrokerage"].ToString()))
+                            eqTransactionVo.RateInclBrokerage = float.Parse(dr["CET_RateInclBrokerage"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_GrossConsideration"].ToString()))
+                            eqTransactionVo.GrossConsideration = double.Parse(dr["CET_GrossConsideration"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_RateIncBrokerageAllCharges"].ToString()))
+                            eqTransactionVo.RateIncBrokerageAllCharges = double.Parse(dr["CET_RateIncBrokerageAllCharges"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_TrTotalIncBrokerage"].ToString()))
+                            eqTransactionVo.TradeTotalIncBrokerage = double.Parse(dr["CET_TrTotalIncBrokerage"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_DividendRecieved"].ToString()))
+                            eqTransactionVo.DividendRecieved = bool.Parse(dr["CET_DividendRecieved"].ToString());
+                        else
+                            eqTransactionVo.DividendRecieved = null;
+                        if (!string.IsNullOrEmpty(dr["CET_DematCharge"].ToString()))
+                            eqTransactionVo.DematCharge = float.Parse(dr["CET_DematCharge"].ToString());
+
+
+                        eqTransactionVo.ForExRate = float.Parse(dr["ForExRate"].ToString());
+                        if (!string.IsNullOrEmpty(dr["ForExDate"].ToString()))
+                            eqTransactionVo.ForExRateDate = DateTime.Parse(dr["ForExDate"].ToString());
+                        else
+                            eqTransactionVo.ForExRateDate = DateTime.MinValue;
+                        if (!string.IsNullOrEmpty(dr["CET_FXCurencyType"].ToString()))
+                            eqTransactionVo.FXCurencyType = dr["CET_FXCurencyType"].ToString();
+                        else
+                            eqTransactionVo.FXCurencyType = null;
+
+                        if (!string.IsNullOrEmpty(dr["CET_FXCurencyRate"].ToString()))
+                            eqTransactionVo.FXCurencyRate = Convert.ToDouble(dr["CET_FXCurencyRate"].ToString());
+                        else
+                            eqTransactionVo.FXCurencyRate = 0.0;
+
+                        if (!string.IsNullOrEmpty(dr["MktClosingForexRate"].ToString()))
+                            eqTransactionVo.MktClosingForexRate = Convert.ToDouble(dr["MktClosingForexRate"].ToString());
+                        else
+                            eqTransactionVo.FXCurencyRate = 0.0;
+                        eqTransactionVo.CreatedOn = dr["CET_CreatedOn"].ToString();
+
+                        eqTransactionsList.Add(eqTransactionVo);
+                    }
+                }
+
+                //if (dsGetEquityTransactions.Tables[2].Rows.Count > 0)
+                //{
+                //    string type = string.Empty;
+                //    string mode = string.Empty;
+                //    string tranType = string.Empty;
+
+                //    foreach (DataRow dr in dsGetEquityTransactions.Tables[2].Rows)
+                //    {
+                //        if (dr["CET_IsSpeculative"].ToString() == "1")
+                //            mode = "Speculation";
+                //        else if (dr["CET_IsSpeculative"].ToString() == "0")
+                //            mode = "Delivery";
+                //        if (dr["WETT_TransactionCode"].ToString() == "1")
+                //            type = "Buy";
+                //        else if (dr["WETT_TransactionCode"].ToString() == "2")
+                //            type = "Sell";
+                //        else if (dr["WETT_TransactionCode"].ToString() == "13")
+                //            type = "Holdings";
+                //        tranType = type + "/" + mode;
+
+                //        //if (!genDictTranType.ContainsKey(tranType))
+                //        //{
+                //        //    genDictTranType.Add(tranType, tranType);
+                //        //}
+                //    }
+                //}
+
+                //if (dsGetEquityTransactions.Tables[3].Rows.Count > 0)
+                //{
+                //    foreach (DataRow dr in dsGetEquityTransactions.Tables[3].Rows)
+                //    {
+                //        genDictExchange.Add(dr["XE_ExchangeCode"].ToString(), dr["XE_ExchangeCode"].ToString());
+                //    }
+                //}
+
+                //if (dsGetEquityTransactions.Tables[4].Rows.Count > 0)
+                //{
+                //    foreach (DataRow dr in dsGetEquityTransactions.Tables[4].Rows)
+                //    {
+                //        genDictTradeDate.Add(DateTime.Parse(dr["CET_TradeDate"].ToString()).ToShortDateString(), DateTime.Parse(dr["CET_TradeDate"].ToString()).ToShortDateString());
+                //    }
+                //}
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetEquityTransactions()");
+
+                object[] objects = new object[1];
+                objects[0] = customerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            // if (dsGetEquityTransactions.Tables[1].Rows.Count > 0)
+            // Count = Int32.Parse(dsGetEquityTransactions.Tables[1].Rows[0]["CNT"].ToString());
+
+            return eqTransactionsList;
+        }
+        public bool MapEQTransactionToCIAndPI(string EQTraxnIds, string Type)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand MapEQTransactionToCIAndPICmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+
+                MapEQTransactionToCIAndPICmd = db.GetStoredProcCommand("SPROC_MapEQTransactionToCIAndPI");
+                db.AddInParameter(MapEQTransactionToCIAndPICmd, "@EQTraxnIds", DbType.String, EQTraxnIds);
+                db.AddInParameter(MapEQTransactionToCIAndPICmd, "@Type", DbType.String, Type);
+                if (db.ExecuteNonQuery(MapEQTransactionToCIAndPICmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:MapEQTransactionToCI()");
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+        public bool MapEQToManager(string EQTraxnIds)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand MapToManagerCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+
+                MapToManagerCmd = db.GetStoredProcCommand("SPROC_MapEQToManager");
+                db.AddInParameter(MapToManagerCmd, "@EQTraxnIds", DbType.String, EQTraxnIds);
+                if (db.ExecuteNonQuery(MapToManagerCmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:MapEQToManager()");
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+        public bool BulkEqTransactionDeletion(string EQTraxnIds)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand MapToManagerCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+
+                MapToManagerCmd = db.GetStoredProcCommand("SPROC_DeleteEqTransactions");
+                db.AddInParameter(MapToManagerCmd, "@EQTraxnIds", DbType.String, EQTraxnIds);
+                if (db.ExecuteNonQuery(MapToManagerCmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:BulkEqTransactionDeletion()");
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+        public bool DeleteEquityTransaction(int eqTransId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand deleteEquityTransactionCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deleteEquityTransactionCmd = db.GetStoredProcCommand("SPROC_DeleteEquityTransaction");
+
+                db.AddInParameter(deleteEquityTransactionCmd, "@CET_EqTransId", DbType.Int32, eqTransId);
+                if (db.ExecuteNonQuery(deleteEquityTransactionCmd) != 0)
+
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:DeleteEQTransaction()");
+
+                object[] objects = new object[1];
+                objects[0] = eqTransId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+        public EQTransactionVo GetEquityTransaction(int eqTransactionId, String Currency)
+        {
+            CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+
+            EQTransactionVo eqTransactionVo = new EQTransactionVo();
+
+            try
+            {
+                eqTransactionVo = customerTransactionDao.GetEquityTransaction(eqTransactionId, Currency);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerTransactionBo.cs:GetEquityTransaction()");
+
+
+                object[] objects = new object[1];
+                objects[0] = eqTransactionId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return eqTransactionVo;
+        }
+
 
     }
 }

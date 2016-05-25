@@ -3589,5 +3589,95 @@ namespace BoCustomerPortfolio
             CustomerPortfolioDao customerPortfolioDao = new CustomerPortfolioDao();
             return customerPortfolioDao.GetOnlineUnitHolding(customerId, portfolioId, exchangeType);
         }
+
+        public DataSet GetCustomerEquityNP(int advisorId, int PortfolioId, DateTime asOnDate, string Price)
+        {
+            DataSet dsGetCustomerEquityNP = new DataSet();
+            CustomerPortfolioDao customerPortfolioDao = new CustomerPortfolioDao();
+            try
+            {
+                dsGetCustomerEquityNP = customerPortfolioDao.GetCustomerEquityNP(advisorId, PortfolioId, asOnDate, Price);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetCustomerEquityNP;
+        }
+        public DateTime GetMinimumInvestmentDate(int PortfolioId, int ScripCode)
+        {
+            DateTime dt;
+            CustomerPortfolioDao customerPortfolioDao = new CustomerPortfolioDao();
+            try
+            {
+                dt = customerPortfolioDao.GetMinimumInvestmentDate(PortfolioId, ScripCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dt;
+        }
+        public DataSet GetCustomerEquityAvgPriceCalculation(int PortfolioId, DateTime asOnDate, int ScripCode, string Price)
+        {
+            DataSet dsGetCustomerEquityNP = new DataSet();
+            CustomerPortfolioDao customerPortfolioDao = new CustomerPortfolioDao();
+            try
+            {
+                dsGetCustomerEquityNP = customerPortfolioDao.GetCustomerEquityAvgPriceCalculation(PortfolioId, asOnDate, ScripCode, Price);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetCustomerEquityNP;
+        }
+        public DataSet GetCustomerEquityNPSellPair(int PortfolioId, DateTime asOnDate, int ScripCode, string Price)
+        {
+            DataSet dsGetCustomerEquityNP = new DataSet();
+            CustomerPortfolioDao customerPortfolioDao = new CustomerPortfolioDao();
+            try
+            {
+                dsGetCustomerEquityNP = customerPortfolioDao.GetCustomerEquityNPSellPair(PortfolioId, asOnDate, ScripCode, Price);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetCustomerEquityNP;
+        }
+
+        public DataSet GetCustomerEquityNPInDateRange(int PortfolioId, DateTime StartDate, DateTime ToDate, string Price)
+        {
+            DataSet dsGetCustomerEquityNP = new DataSet();
+            CustomerPortfolioDao customerPortfolioDao = new CustomerPortfolioDao();
+            try
+            {
+                dsGetCustomerEquityNP = customerPortfolioDao.GetCustomerEquityNPInDateRange(PortfolioId, StartDate, ToDate, Price);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetCustomerEquityNP;
+        }
+
+
+        public DataSet GetCustomerEquityNPTransactionDetails(int PortfolioId, DateTime asOnDate, int ScripCode, int Is_Specuative, string Price)
+        {
+            DataSet dsGetCustomerEquityNP = new DataSet();
+            CustomerPortfolioDao customerPortfolioDao = new CustomerPortfolioDao();
+            try
+            {
+                dsGetCustomerEquityNP = customerPortfolioDao.GetCustomerEquityNPTransactionDetails(PortfolioId, asOnDate, ScripCode, Is_Specuative, Price);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetCustomerEquityNP;
+        }
+
+
     }
 }

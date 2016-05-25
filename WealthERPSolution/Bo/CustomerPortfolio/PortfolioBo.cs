@@ -415,5 +415,37 @@ namespace BoCustomerPortfolio
             return ds;
 
         }
+        public DateTime? GetLatestDate()
+        {
+            DateTime? valuationDate = new DateTime?();
+
+            PortfolioDao portfolioDao = new PortfolioDao();
+            try
+            {
+                valuationDate = portfolioDao.GetLatestDate();
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "PortfolioBo.cs:GetLatestDate()");
+
+
+                object[] objects = new object[2];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return valuationDate;
+        }
     }
 }

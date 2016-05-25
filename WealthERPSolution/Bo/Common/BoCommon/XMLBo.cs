@@ -806,12 +806,14 @@ namespace BoCommon
 
         }
 
-        public static DataTable GetExchangeType(string path)
+
+        public static DataSet GetExchangeType(string Type)
         {
             DataTable dt;
+            DataSet ds;
             try
             {
-                dt = XMLDao.GetExchangeType(path);
+                ds = XMLDao.GetExchangeType(Type);
             }
             catch (BaseApplicationException Ex)
             {
@@ -823,14 +825,14 @@ namespace BoCommon
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "XMLBo.cs:GetExchangeType()");
                 object[] objects = new object[1];
-                objects[0] = path;
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
 
             }
-            return dt;
+            return ds;
 
         }
 

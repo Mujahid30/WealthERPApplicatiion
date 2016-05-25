@@ -67,17 +67,21 @@ namespace WealthERP.CustomerPortfolio
                     //lblTotalRows.Visible = true;
                     //lblCurrentPage.Visible = true;
                     //DivPager.Visible = true;
-                  
+
 
                     dtEQAcc.Columns.Add("AccountId");
                     dtEQAcc.Columns.Add("Broker Name");
                     dtEQAcc.Columns.Add("Trade No");
-                    dtEQAcc.Columns.Add("Broker Del Percent");
-                    dtEQAcc.Columns.Add("Broker Spec Percent");
-                    dtEQAcc.Columns.Add("Other Charges");
+                    //dtEQAcc.Columns.Add("Broker Del Percent");
+                    //dtEQAcc.Columns.Add("Broker Spec Percent");
+                    //dtEQAcc.Columns.Add("Other Charges");
+                    //dtEQAcc.Columns.Add("Sebi Turn Over Fee");
+                    //dtEQAcc.Columns.Add("Transaction Charges");
+                    //dtEQAcc.Columns.Add("Stamp Charges");
+                    //dtEQAcc.Columns.Add("STT");
+                    //dtEQAcc.Columns.Add("Service Tax");
+                    //dtEQAcc.Columns.Add("Demat Charges");
                     dtEQAcc.Columns.Add("A/C Opening Date");
-
-
                     DataRow drEQAcc;
 
                     for (int i = 0; i < FolioList.Count; i++)
@@ -88,9 +92,15 @@ namespace WealthERP.CustomerPortfolio
                         drEQAcc["AccountId"] = FolioVo.AccountId.ToString();
                         drEQAcc["Broker Name"] = FolioVo.BrokerName.ToString();
                         drEQAcc["Trade No"] = FolioVo.TradeNum.ToString();
-                        drEQAcc["Broker Del Percent"] = FolioVo.BrokerageDeliveryPercentage.ToString();
-                        drEQAcc["Broker Spec Percent"] = FolioVo.BrokerageSpeculativePercentage.ToString();
-                        drEQAcc["Other Charges"] = FolioVo.OtherCharges.ToString();
+                        //drEQAcc["Broker Del Percent"] = FolioVo.BrokerageDeliveryPercentage.ToString();
+                        //drEQAcc["Broker Spec Percent"] = FolioVo.BrokerageSpeculativePercentage.ToString();
+                        //drEQAcc["Other Charges"] = FolioVo.OtherCharges.ToString();
+                        //drEQAcc["Sebi Turn Over Fee"] = FolioVo.SebiTurnOverFee.ToString();
+                        //drEQAcc["Transaction Charges"] = FolioVo.TransactionCharges.ToString();
+                        //drEQAcc["Stamp Charges"] = FolioVo.StampCharges.ToString();
+                        //drEQAcc["STT"] = FolioVo.Stt.ToString();
+                        //drEQAcc["Service Tax"] = FolioVo.ServiceTax.ToString();
+
                         if (FolioVo.AccountOpeningDate != DateTime.MinValue)
                             drEQAcc["A/C Opening Date"] = FolioVo.AccountOpeningDate.ToShortDateString();
                         else
@@ -192,10 +202,10 @@ namespace WealthERP.CustomerPortfolio
                 Session["EQAccountVoRow"] = CustomerTransactionBo.GetCustomerEQAccountDetails(EQAccountId, portfolioId);
                 if (ddlAction.SelectedValue.ToString() == "Edit")
                 {
-                     if (hdnIsCustomerLogin.Value == "Customer" && hdnIsMainPortfolio.Value == "1")
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Permisssion denied for Manage Portfolio !!');", true);                     
-                     else
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountAdd','action=Edit');", true);
+                    if (hdnIsCustomerLogin.Value == "Customer" && hdnIsMainPortfolio.Value == "1")
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Permisssion denied for Manage Portfolio !!');", true);
+                    else
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerEQAccountAdd','action=Edit');", true);
                 }
                 if (ddlAction.SelectedValue.ToString() == "View")
                 {
@@ -240,7 +250,7 @@ namespace WealthERP.CustomerPortfolio
         protected void btnTradeNoAssociation_Click(object sender, EventArgs e)
         {
             string HiddenVal = hdnStatusValue.Value;
-            if(Session["AccountId"] != "")
+            if (Session["AccountId"] != "")
                 EQAccountId = int.Parse(Session["AccountId"].ToString());
             if (HiddenVal == "1")
             {
@@ -270,5 +280,6 @@ namespace WealthERP.CustomerPortfolio
             gvEQAcc.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvEQAcc.MasterTableView.ExportToExcel();
         }
+  
     }
 }

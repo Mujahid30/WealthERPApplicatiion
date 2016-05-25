@@ -2414,5 +2414,229 @@ namespace DaoCustomerPortfolio
             }
             return mfPortfolioNetPositionList;
         }
+        public DataSet GetCustomerEquityNP(int advisorId, int PortfolioId, DateTime asOnDate, string Price)
+        {
+
+            Database db;
+            DbCommand getGetCustomerEquityNPCmd;
+            DataSet dsGetCustomerEquityNP;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getGetCustomerEquityNPCmd = db.GetStoredProcCommand("SPROC_CustomerEQNetPosition");
+                db.AddInParameter(getGetCustomerEquityNPCmd, "@PortfolioId", DbType.Int32, PortfolioId);
+                db.AddInParameter(getGetCustomerEquityNPCmd, "@AsonDate", DbType.DateTime, asOnDate);
+                db.AddInParameter(getGetCustomerEquityNPCmd, "@Currency", DbType.String, Price);
+                db.AddInParameter(getGetCustomerEquityNPCmd, "@AdvisorId", DbType.Int32, advisorId);
+
+
+
+         
+
+                dsGetCustomerEquityNP = db.ExecuteDataSet(getGetCustomerEquityNPCmd);
+                getGetCustomerEquityNPCmd.CommandTimeout = 60 * 60;
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerPortfolioDao.cs:GetCustomerEquityNP( PortfolioId,  asOnDate,  Price)");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetCustomerEquityNP;
+        }
+        public DateTime GetMinimumInvestmentDate(int PortfolioId, int ScripCode)
+        {
+
+            Database db;
+            DbCommand getGetMinInvestmentDateCmd;
+            DateTime dt;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getGetMinInvestmentDateCmd = db.GetStoredProcCommand("SPROC_GetEqScripInvestmentDate");
+                db.AddInParameter(getGetMinInvestmentDateCmd, "@PortfolioId", DbType.Int32, PortfolioId);
+                db.AddInParameter(getGetMinInvestmentDateCmd, "@ScripCode", DbType.Int32, ScripCode);
+
+
+                object ob = db.ExecuteScalar(getGetMinInvestmentDateCmd);
+                dt = DateTime.Parse(ob.ToString());
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dt;
+        }
+        public DataSet GetCustomerEquityAvgPriceCalculation(int PortfolioId, DateTime asOnDate, int ScripCode, string Price)
+        {
+
+            Database db;
+            DbCommand getGetCustomerEquityNPCmd;
+            DataSet dsGetCustomerEquityNP;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getGetCustomerEquityNPCmd = db.GetStoredProcCommand("SPROC_CustomerEquityAvgPriceCalculation");
+                db.AddInParameter(getGetCustomerEquityNPCmd, "@PortfolioId", DbType.Int32, PortfolioId);
+                db.AddInParameter(getGetCustomerEquityNPCmd, "@AsonDate", DbType.DateTime, asOnDate);
+                db.AddInParameter(getGetCustomerEquityNPCmd, "@ScripCode", DbType.Int32, ScripCode);
+                db.AddInParameter(getGetCustomerEquityNPCmd, "@Currency", DbType.String, Price);
+
+                dsGetCustomerEquityNP = db.ExecuteDataSet(getGetCustomerEquityNPCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerPortfolioDao.cs:GetCustomerEquityAvgPriceCalculation( PortfolioId,  asOnDate,  ScripCode,  Price)");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetCustomerEquityNP;
+        }
+        public DataSet GetCustomerEquityNPSellPair(int PortfolioId, DateTime asOnDate, int ScripCode, string Price)
+        {
+
+            Database db;
+            DbCommand getGetCustomerEquityNPCmd;
+            DataSet dsGetCustomerEquityNP;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getGetCustomerEquityNPCmd = db.GetStoredProcCommand("SPROC_CustomerEquityNPSellPair");
+                db.AddInParameter(getGetCustomerEquityNPCmd, "@PortfolioId", DbType.Int32, PortfolioId);
+                db.AddInParameter(getGetCustomerEquityNPCmd, "@AsonDate", DbType.DateTime, asOnDate);
+                db.AddInParameter(getGetCustomerEquityNPCmd, "@ScripCode", DbType.Int32, ScripCode);
+                db.AddInParameter(getGetCustomerEquityNPCmd, "@Currency", DbType.String, Price);
+
+                dsGetCustomerEquityNP = db.ExecuteDataSet(getGetCustomerEquityNPCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerPortfolioDao.cs:GetCustomerEquityNPSellPair( PortfolioId,  asOnDate,  ScripCode,  Price)");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetCustomerEquityNP;
+        }
+        public DataSet GetCustomerEquityNPInDateRange(int PortfolioId, DateTime StartDate, DateTime ToDate, string Price)
+        {
+
+            Database db;
+            DbCommand getGetCustomerEquityNPCmd;
+            DataSet dsGetCustomerEquityNP;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getGetCustomerEquityNPCmd = db.GetStoredProcCommand("SPROC_CustomerEquityNPInADateRange");
+                db.AddInParameter(getGetCustomerEquityNPCmd, "@PortfolioId", DbType.Int32, PortfolioId);
+                db.AddInParameter(getGetCustomerEquityNPCmd, "@StartDate", DbType.DateTime, StartDate);
+                db.AddInParameter(getGetCustomerEquityNPCmd, "@AsonDate", DbType.DateTime, ToDate);
+                db.AddInParameter(getGetCustomerEquityNPCmd, "@Currency", DbType.String, Price);
+
+                dsGetCustomerEquityNP = db.ExecuteDataSet(getGetCustomerEquityNPCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerPortfolioDao.cs:GetCustomerEquityNPInDateRange(int PortfolioId, DateTime StartDate, DateTime ToDate,  string Price)");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetCustomerEquityNP;
+        }
+        public DataSet GetCustomerEquityNPTransactionDetails(int PortfolioId, DateTime asOnDate, int ScripCode, int Is_Specuative, string Price)
+        {
+
+            Database db;
+            DbCommand getGetCustomerEquityNPCmd;
+            DataSet dsGetCustomerEquityNP;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getGetCustomerEquityNPCmd = db.GetStoredProcCommand("SPROC_EqTransactionDetails");
+                db.AddInParameter(getGetCustomerEquityNPCmd, "@PortfolioId", DbType.Int32, PortfolioId);
+                db.AddInParameter(getGetCustomerEquityNPCmd, "@AsonDate", DbType.DateTime, asOnDate);
+                db.AddInParameter(getGetCustomerEquityNPCmd, "@PEM_ScripCode", DbType.Int32, ScripCode);
+                db.AddInParameter(getGetCustomerEquityNPCmd, "@CET_IsSpeculative", DbType.Int32, Is_Specuative);
+                db.AddInParameter(getGetCustomerEquityNPCmd, "@Currency", DbType.String, Price);
+                dsGetCustomerEquityNP = db.ExecuteDataSet(getGetCustomerEquityNPCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerPortfolioDao.cs: GetCustomerEquityNPTransactionDetails( PortfolioId,  asOnDate,  ScripCode,  Price)");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetCustomerEquityNP;
+        }
+
+
     }
 }

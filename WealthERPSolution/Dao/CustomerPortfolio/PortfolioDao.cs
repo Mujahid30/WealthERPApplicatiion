@@ -301,7 +301,7 @@ namespace DaoCustomerPortfolio
 
                 dsGetCustomerPortfolio = db.ExecuteDataSet(getCustomerPortfolioCmd);
 
-                if (dsGetCustomerPortfolio.Tables[0] != null && dsGetCustomerPortfolio.Tables[0].Rows.Count > 0)
+               if (dsGetCustomerPortfolio.Tables[0] != null && dsGetCustomerPortfolio.Tables[0].Rows.Count > 0)
                 {
                     customerPortfolioVo = new CustomerPortfolioVo();
                     dr = dsGetCustomerPortfolio.Tables[0].Rows[0];
@@ -722,5 +722,45 @@ namespace DaoCustomerPortfolio
             }
             return dsTransactionBalancedDetails;
         }
+
+
+        public DateTime? GetLatestDate()
+        {
+            DateTime? valuationDate = new DateTime?();
+            Database db;
+            DbCommand GetLatestValuationDateCmd;
+            DataSet ds;
+            try
+            {
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetLatestValuationDateCmd = db.GetStoredProcCommand("SP_GetLatestDate");
+                ds = db.ExecuteDataSet(GetLatestValuationDateCmd);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    if (!string.IsNullOrEmpty(ds.Tables[0].Rows[0]["Column1"].ToString()))
+                    valuationDate = Convert.ToDateTime(ds.Tables[0].Rows[0]["Column1"]);
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "PortfolioDao.cs:GetLatestDate()");
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return valuationDate;
+        }
+
+
+
     }
 }
