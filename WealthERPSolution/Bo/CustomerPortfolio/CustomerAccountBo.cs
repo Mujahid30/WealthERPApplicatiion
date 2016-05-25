@@ -2359,5 +2359,137 @@ namespace BoCustomerPortfolio
             return isduplicate;
 
         }
+        public int UpdateEquityRates(CustomerAccountsVo customerAccountVo)
+        {
+            int flag = 0;
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+
+            try
+            {
+                flag = customerAccountDao.UpdateEquityRates(customerAccountVo);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerBankAccountBo.cs:GetCustomerCapitalLedgerMIS()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return flag;
+        }
+        public int AddEquityRates(CustomerAccountsVo customerAccountVo)
+        {
+            int flag = 0;
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+
+            try
+            {
+                flag = customerAccountDao.AddEquityRates(customerAccountVo);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerBankAccountBo.cs:GetCustomerCapitalLedgerMIS()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return flag;
+        }
+        public List<CustomerAccountsVo> GetEquityRates(int PortfolioId)
+        {
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+            List<CustomerAccountsVo> AccountList = new List<CustomerAccountsVo>();
+            try
+            {
+
+                AccountList = customerAccountDao.GetEquityRates(PortfolioId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerBankAccountBo.cs:GetCustomerCapitalLedgerMIS()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return AccountList;
+
+        }
+        public CustomerAccountsVo GetEquityRate(int AccountId)
+        {
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+            CustomerAccountsVo AccountVo = new CustomerAccountsVo();
+            try
+            {
+
+                AccountVo = customerAccountDao.GetEquityRate(AccountId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerBankAccountBo.cs:GetCustomerCapitalLedgerMIS()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return AccountVo;
+
+        }
+        public bool DeleteEqRate(int eqTradeAccId)
+        {
+            bool blResult = false;
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+            try
+            {
+
+                blResult = customerAccountDao.DeleteEqRate(eqTradeAccId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:CheckEQTradeAccNoAssociatedWithTransactions()");
+                object[] objects = new object[2];
+                objects[0] = eqTradeAccId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return blResult;
+        }
+
     }
 }

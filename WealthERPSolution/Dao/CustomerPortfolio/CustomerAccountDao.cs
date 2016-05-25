@@ -3875,5 +3875,410 @@ namespace DaoCustomerPortfolio
            
             return bResult;
         }
+        public int UpdateEquityRates(CustomerAccountsVo customerAccountVo)
+        {
+            Database db;
+            DbCommand UpdateEquityRates;
+            int flag = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                UpdateEquityRates = db.GetStoredProcCommand("SPROC_UpdateEqRates");
+                db.AddInParameter(UpdateEquityRates, "@CEB_ID", DbType.Int16, customerAccountVo.CebId);
+                db.AddInParameter(UpdateEquityRates, "@CETA_AccountId", DbType.Int16, customerAccountVo.AccountId);
+                db.AddInParameter(UpdateEquityRates, "@CEB_TransactionMode", DbType.Int16, customerAccountVo.TransactionMode);
+                db.AddInParameter(UpdateEquityRates, "@CEB_Basis", DbType.String, customerAccountVo.Basis);
+                db.AddInParameter(UpdateEquityRates, "@CEB_Type", DbType.String, customerAccountVo.Type);
+                db.AddInParameter(UpdateEquityRates, "@CEB_Rate", DbType.Double, customerAccountVo.Rate);
+                db.AddInParameter(UpdateEquityRates, "@CEB_SebiTurnOverFee", DbType.Double, customerAccountVo.SebiTurnOverFee);
+                db.AddInParameter(UpdateEquityRates, "@CEB_TransactionCharges", DbType.Double, customerAccountVo.TransactionCharges);
+                db.AddInParameter(UpdateEquityRates, "@CEB_StampCharges", DbType.Double, customerAccountVo.StampCharges);
+                db.AddInParameter(UpdateEquityRates, "@CEB_STT", DbType.Double, customerAccountVo.Stt);
+                db.AddInParameter(UpdateEquityRates, "@CEB_ServiceTax", DbType.Double, customerAccountVo.ServiceTax);
+                db.AddInParameter(UpdateEquityRates, "@CEB_IsSebiApplicableToStax", DbType.Int16, customerAccountVo.IsSebiApplicableToStax);
+                db.AddInParameter(UpdateEquityRates, "@CEB_IsTrxnApplicableToStax", DbType.Int16, customerAccountVo.IsTrxnApplicableToStax);
+                db.AddInParameter(UpdateEquityRates, "@CEB_IsStampApplicableToStax", DbType.Int16, customerAccountVo.IsStampApplicableToStax);
+                db.AddInParameter(UpdateEquityRates, "@CEB_IsBrApplicableToStax", DbType.Int16, customerAccountVo.IsBrApplicableToStax);
+                if (customerAccountVo.StartDate != DateTime.MinValue)
+                {
+                    db.AddInParameter(UpdateEquityRates, "@CEB_StartDate", DbType.DateTime, customerAccountVo.StartDate);
+                }
+                else
+                {
+                    db.AddInParameter(UpdateEquityRates, "@CEB_StartDate", DbType.DateTime, DBNull.Value);
+                }
+                if (customerAccountVo.EndDate != DateTime.MinValue)
+                {
+                    db.AddInParameter(UpdateEquityRates, "@CEB_EndDate", DbType.DateTime, customerAccountVo.EndDate);
+                }
+                else
+                {
+                    db.AddInParameter(UpdateEquityRates, "@CEB_EndDate", DbType.DateTime, DBNull.Value);
+                }
+                db.AddOutParameter(UpdateEquityRates, "@flag", DbType.Int16, 0);
+                if (db.ExecuteNonQuery(UpdateEquityRates) != 0)
+                {
+                    flag = int.Parse(db.GetParameterValue(UpdateEquityRates, "@flag").ToString());
+                }
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerBankAccountDao.cs:GetCustomerCapitalLedgerMIS()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return flag;
+        }
+        public int AddEquityRates(CustomerAccountsVo customerAccountVo)
+        {
+            Database db;
+            DbCommand AddEquityRates;
+            int flag = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                AddEquityRates = db.GetStoredProcCommand("SPROC_AddEqRates");
+                db.AddInParameter(AddEquityRates, "@CETA_AccountId", DbType.Int16, customerAccountVo.AccountId);
+                db.AddInParameter(AddEquityRates, "@CEB_TransactionMode", DbType.Int16, customerAccountVo.TransactionMode);
+                db.AddInParameter(AddEquityRates, "@CEB_Basis", DbType.String, customerAccountVo.Basis);
+                db.AddInParameter(AddEquityRates, "@CEB_Type", DbType.String, customerAccountVo.Type);
+                db.AddInParameter(AddEquityRates, "@CEB_Rate", DbType.Double, customerAccountVo.Rate);
+                db.AddInParameter(AddEquityRates, "@CEB_SebiTurnOverFee", DbType.Double, customerAccountVo.SebiTurnOverFee);
+                db.AddInParameter(AddEquityRates, "@CEB_TransactionCharges", DbType.Double, customerAccountVo.TransactionCharges);
+                db.AddInParameter(AddEquityRates, "@CEB_StampCharges", DbType.Double, customerAccountVo.StampCharges);
+                db.AddInParameter(AddEquityRates, "@CEB_STT", DbType.Double, customerAccountVo.Stt);
+                db.AddInParameter(AddEquityRates, "@CEB_ServiceTax", DbType.Double, customerAccountVo.ServiceTax);
+                db.AddInParameter(AddEquityRates, "@CEB_IsSebiApplicableToStax", DbType.Int16, customerAccountVo.IsSebiApplicableToStax);
+                db.AddInParameter(AddEquityRates, "@CEB_IsTrxnApplicableToStax", DbType.Int16, customerAccountVo.IsTrxnApplicableToStax);
+                db.AddInParameter(AddEquityRates, "@CEB_IsStampApplicableToStax", DbType.Int16, customerAccountVo.IsStampApplicableToStax);
+                db.AddInParameter(AddEquityRates, "@CEB_IsBrApplicableToStax", DbType.Int16, customerAccountVo.IsBrApplicableToStax);
+                db.AddInParameter(AddEquityRates, "@CEB_StartDate", DbType.DateTime, customerAccountVo.StartDate);
+                if (customerAccountVo.EndDate != DateTime.MinValue)
+                {
+                    db.AddInParameter(AddEquityRates, "@CEB_EndDate", DbType.DateTime, customerAccountVo.EndDate);
+                }
+                else
+                {
+
+                    db.AddInParameter(AddEquityRates, "@CEB_EndDate", DbType.DateTime, DBNull.Value);
+                }
+                db.AddOutParameter(AddEquityRates, "@flag", DbType.Int16, 0);
+                if (db.ExecuteNonQuery(AddEquityRates) != 0)
+                {
+                    flag = int.Parse(db.GetParameterValue(AddEquityRates, "@flag").ToString());
+                }
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerBankAccountDao.cs:GetCustomerCapitalLedgerMIS()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return flag;
+        }
+
+        public List<CustomerAccountsVo> GetEquityRates(int PortfolioId)
+        {
+            Database db;
+            DbCommand GetEquityRates;
+            DataSet dsGetEquityRates;
+            List<CustomerAccountsVo> AccountList = null;
+            CustomerAccountsVo AccountVo = new CustomerAccountsVo();
+            DataTable dtEQAcc = new DataTable();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetEquityRates = db.GetStoredProcCommand("SPROC_GetEqRates");
+                db.AddInParameter(GetEquityRates, "@Portfolioid", DbType.Int32, PortfolioId);
+                dsGetEquityRates = db.ExecuteDataSet(GetEquityRates);
+
+                if (dsGetEquityRates.Tables[0].Rows.Count > 0)
+                {
+                    dtEQAcc = dsGetEquityRates.Tables[0];
+                    AccountList = new List<CustomerAccountsVo>();
+                    foreach (DataRow dr in dtEQAcc.Rows)
+                    {
+                        AccountVo = new CustomerAccountsVo();
+                        //AccountVo.AccountId = int.Parse(dr["CETA_AccountId"].ToString());
+                        AccountVo.CebId = Convert.ToInt16(dr["CEB_ID"]);
+                        AccountVo.AccountId = Convert.ToInt16(dr["CETA_AccountId"]);
+                        AccountVo.TradeNum = dr["CETA_TradeAccountNum"].ToString();
+                        if (dr["CEB_TransactionMode"].ToString() != "")
+                        {
+                            AccountVo.TransactionMode = Convert.ToInt16(dr["CEB_TransactionMode"]);
+                        }
+                        if (dr["CEB_Type"].ToString() != "")
+                        {
+                            AccountVo.Type = dr["CEB_Type"].ToString();
+                        }
+
+                        if (dr["CEB_Rate"].ToString() != "")
+                        {
+                            AccountVo.Rate = double.Parse(dr["CEB_Rate"].ToString());
+                        }
+                        else
+                        {
+                            AccountVo.Rate = 0.0;
+                        }
+
+                        if (dr["CEB_SebiTurnOverFee"].ToString() != "")
+                        {
+                            AccountVo.SebiTurnOverFee = double.Parse(dr["CEB_SebiTurnOverFee"].ToString());
+                        }
+                        else
+                        {
+                            AccountVo.SebiTurnOverFee = 0.0;
+                        }
+
+                        if (dr["CEB_TransactionCharges"].ToString() != "")
+                        {
+                            AccountVo.TransactionCharges = double.Parse(dr["CEB_TransactionCharges"].ToString());
+                        }
+                        else
+                        {
+                            AccountVo.TransactionCharges = 0.0;
+                        }
+                        if (dr["CEB_StampCharges"].ToString() != "")
+                        {
+                            AccountVo.StampCharges = double.Parse(dr["CEB_StampCharges"].ToString());
+                        }
+                        else
+                        {
+                            AccountVo.StampCharges = 0.0;
+                        }
+                        if (dr["CEB_STT"].ToString() != string.Empty)
+                        {
+                            AccountVo.Stt = double.Parse(dr["CEB_STT"].ToString());
+                        }
+                        else
+                        {
+                            AccountVo.Stt = 0.0;
+                        }
+                        if (dr["CEB_ServiceTax"].ToString() != string.Empty)
+                        {
+                            AccountVo.ServiceTax = double.Parse(dr["CEB_ServiceTax"].ToString());
+                        }
+                        else
+                        {
+                            AccountVo.ServiceTax = 0.0;
+                        }
+
+                        if (dr["CEB_StartDate"].ToString() != string.Empty)
+                            AccountVo.StartDate = DateTime.Parse(dr["CEB_StartDate"].ToString());
+                        else
+                            AccountVo.StartDate = DateTime.MinValue;
+                        if (dr["CEB_EndDate"].ToString() != string.Empty)
+                            AccountVo.EndDate = DateTime.Parse(dr["CEB_EndDate"].ToString());
+                        else
+                            AccountVo.EndDate = DateTime.MinValue;
+
+                        AccountList.Add(AccountVo);
+
+                    }
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerBankAccountDao.cs:GetCustomerCapitalLedgerMIS()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return AccountList;
+        }
+        public CustomerAccountsVo GetEquityRate(int Accountid)
+        {
+            Database db;
+            DbCommand GetEquityRate;
+            CustomerAccountsVo AccountVo = new CustomerAccountsVo();
+            DataSet dsGetEquityRates;
+            DataRow dr;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetEquityRate = db.GetStoredProcCommand("SPROC_GetEquityRate");
+                db.AddInParameter(GetEquityRate, "@Accountid", DbType.Int16, Accountid);
+                dsGetEquityRates = db.ExecuteDataSet(GetEquityRate);
+
+                if (dsGetEquityRates.Tables[0].Rows.Count > 0)
+                {
+                    dr = dsGetEquityRates.Tables[0].Rows[0];
+                    AccountVo = new CustomerAccountsVo();
+                    if (dsGetEquityRates.Tables[0].Rows.Count > 0)
+                    {
+                        dr = dsGetEquityRates.Tables[0].Rows[0];
+                        AccountVo = new CustomerAccountsVo();
+
+                        AccountVo.AccountId = Convert.ToInt16(dr["CETA_AccountId"]);
+                        AccountVo.TradeNum = dr["CETA_TradeAccountNum"].ToString();
+                        if (dr["CEB_TransactionMode"].ToString() != "")
+                        {
+                            AccountVo.TransactionMode = Convert.ToInt16(dr["CEB_TransactionMode"]);
+                        }
+                        if (dr["CEB_Type"].ToString() != "")
+                        {
+                            AccountVo.Type = dr["CEB_Type"].ToString();
+                        }
+
+                        if (dr["CEB_Rate"].ToString() != "")
+                        {
+                            AccountVo.Rate = double.Parse(dr["CEB_Rate"].ToString());
+                        }
+                        else
+                        {
+                            AccountVo.Rate = 0.0;
+                        }
+
+                        if (dr["CEB_SebiTurnOverFee"].ToString() != "")
+                        {
+                            AccountVo.SebiTurnOverFee = double.Parse(dr["CEB_SebiTurnOverFee"].ToString());
+                        }
+                        else
+                        {
+                            AccountVo.SebiTurnOverFee = 0.0;
+                        }
+
+                        if (dr["CEB_TransactionCharges"].ToString() != "")
+                        {
+                            AccountVo.TransactionCharges = double.Parse(dr["CEB_TransactionCharges"].ToString());
+                        }
+                        else
+                        {
+                            AccountVo.TransactionCharges = 0.0;
+                        }
+                        if (dr["CEB_StampCharges"].ToString() != "")
+                        {
+                            AccountVo.StampCharges = double.Parse(dr["CEB_StampCharges"].ToString());
+                        }
+                        else
+                        {
+                            AccountVo.StampCharges = 0.0;
+                        }
+                        if (dr["CEB_STT"].ToString() != string.Empty)
+                        {
+                            AccountVo.Stt = double.Parse(dr["CEB_STT"].ToString());
+                        }
+                        else
+                        {
+                            AccountVo.Stt = 0.0;
+                        }
+                        if (dr["CEB_ServiceTax"].ToString() != string.Empty)
+                        {
+                            AccountVo.ServiceTax = double.Parse(dr["CEB_ServiceTax"].ToString());
+                        }
+                        else
+                        {
+                            AccountVo.ServiceTax = 0.0;
+                        }
+
+                        if (dr["CEB_IsSebiApplicableToStax"].ToString() != string.Empty)
+                        {
+                            AccountVo.IsSebiApplicableToStax = Convert.ToInt16(dr["CEB_IsSebiApplicableToStax"]);
+                        }
+                        if (dr["CEB_IsTrxnApplicableToStax"].ToString() != string.Empty)
+                        {
+                            AccountVo.IsTrxnApplicableToStax = Convert.ToInt16(dr["CEB_IsTrxnApplicableToStax"]);
+                        }
+                        if (dr["CEB_IsStampApplicableToStax"].ToString() != string.Empty)
+                        {
+                            AccountVo.IsStampApplicableToStax = Convert.ToInt16(dr["CEB_IsStampApplicableToStax"]);
+                        }
+                        if (dr["CEB_IsBrApplicableToStax"].ToString() != string.Empty)
+                        {
+                            AccountVo.IsBrApplicableToStax = Convert.ToInt16(dr["CEB_IsBrApplicableToStax"]);
+                        }
+                        if (dr["CEB_StartDate"].ToString() != string.Empty)
+                            AccountVo.StartDate = DateTime.Parse(dr["CEB_StartDate"].ToString());
+                        else
+                            AccountVo.StartDate = DateTime.MinValue;
+                        if (dr["CEB_EndDate"].ToString() != string.Empty)
+                            AccountVo.EndDate = DateTime.Parse(dr["CEB_EndDate"].ToString());
+                        else
+                            AccountVo.EndDate = DateTime.MinValue;
+
+
+
+                    }
+                }
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerBankAccountDao.cs:GetCustomerCapitalLedgerMIS()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return AccountVo;
+
+        }
+        public bool DeleteEqRate(int eqTradeAccId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand DeleteTradeAccountCmd;
+
+            try
+            {
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                DeleteTradeAccountCmd = db.GetStoredProcCommand("SPROC_DeleteEqRate");
+
+                db.AddInParameter(DeleteTradeAccountCmd, "@eqTradeAccId", DbType.Int32, eqTradeAccId);
+                if (db.ExecuteNonQuery(DeleteTradeAccountCmd) != 0)
+
+                    bResult = true;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:DeleteTradeAccount()");
+                object[] objects = new object[2];
+                objects[0] = eqTradeAccId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+
     }
 }
