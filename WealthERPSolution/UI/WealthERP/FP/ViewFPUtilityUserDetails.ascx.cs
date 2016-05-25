@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 using System.Data;
 using BoCustomerRiskProfiling;
 using BoCommon;
+using BoUser;
+using VoUser;
 
 namespace WealthERP.FP
 {
