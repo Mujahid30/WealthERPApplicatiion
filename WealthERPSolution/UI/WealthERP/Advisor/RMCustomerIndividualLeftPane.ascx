@@ -237,6 +237,10 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View Equity Account" Value="View Equity Account">
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Add Rates" Value="Add Rates">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="View Rates" Value="View Rates">
+                                            </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="MF" Value="M_F">

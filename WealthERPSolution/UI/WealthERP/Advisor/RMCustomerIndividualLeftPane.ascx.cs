@@ -1607,6 +1607,14 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueHoldings", "loadcontrol('MFOrderSTPTransType','none');", true);
                 }
+                else if (e.Item.Value == "Add Rates")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueHoldings", "loadcontrol('CustomerEQAccountRateAdd','none');", true);
+                }
+                else if (e.Item.Value == "View Rates")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueHoldings", "loadcontrol('CustomerEQAccountRateView','none');", true);
+                }
                 else if (e.Item.Value == "Bond_Order")
                 {
                 }
