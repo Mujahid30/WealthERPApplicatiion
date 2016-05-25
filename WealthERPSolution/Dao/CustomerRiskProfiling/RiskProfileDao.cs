@@ -766,5 +766,24 @@ namespace DaoCustomerRiskProfiling
 
             return dsAssetAllocationMIS;
         }
+        public DataSet GetFPUtilityUserDetailsList()
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_GetFPUtilityUserDetailsList");
+                ds = db.ExecuteDataSet(cmd);
+
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw ex;
+            }
+
+            return ds;
+        }
     }
 }

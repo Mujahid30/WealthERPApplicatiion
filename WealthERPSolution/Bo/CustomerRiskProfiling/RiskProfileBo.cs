@@ -314,6 +314,19 @@ namespace BoCustomerRiskProfiling
             }
             return dsAssetallocationMIS;
         }
+        public DataSet GetFPUtilityUserDetailsList()
+        {
+            DataSet ds= new DataSet();
+            try
+            {
+                ds = riskprofiledao.GetFPUtilityUserDetailsList();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return ds;
+        }
 
     }
 }
