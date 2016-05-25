@@ -1586,7 +1586,7 @@ namespace WealthERP.FP
                 }
                 else if (userRole == "Admin" || userRole == "Ops")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','action=FPClient');", true);
                 }
                 
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "AdvisorLeftPane", "loadlinks('AdvisorLeftPane','login');", true);

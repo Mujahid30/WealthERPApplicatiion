@@ -497,5 +497,8 @@ namespace WealthERP.Advisor
         protected global::System.Web.UI.WebControls.RadioButton rbtnRegister;
         protected global::System.Web.UI.WebControls.RadioButton rbtnNonRegister;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trRegister;
+        protected global::System.Web.UI.WebControls.RadioButton rbtnProspect;
+        protected global::System.Web.UI.WebControls.RadioButton rbtnFpClient;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trfpcustomer;
     }
 }

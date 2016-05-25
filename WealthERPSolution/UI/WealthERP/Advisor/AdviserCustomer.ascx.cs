@@ -232,11 +232,14 @@ namespace WealthERP.Advisor
                 {
                     rbtnRegister.Visible = false;
                     rbtnNonRegister.Visible = false;
-                    producttype = 1;
-
-                    BindCustomerGrid();
+                  
                     tdcustomerlist.Visible = true;
                     lbltype.Visible = false;
+                    trfpcustomer.Visible = true;
+                }
+                else
+                {
+                    trfpcustomer.Visible = false;
                 }
             }
         }
@@ -677,7 +680,21 @@ namespace WealthERP.Advisor
 
         protected void gvCustomerList_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            if (userVo.UserType == "Advisor") { return; }
+            if (userVo.UserType == "Advisor") {
+                if (producttype == 2)
+                {
+                    gvCustomerList.MasterTableView.GetColumn("Action").Visible = false;
+                    gvCustomerList.MasterTableView.GetColumn("MarkFPClient").Visible = false;
+                    gvCustomerList.MasterTableView.GetColumn("ActionForProspect").Visible = true;
+                }
+                else
+                {
+                    gvCustomerList.MasterTableView.GetColumn("Action").Visible = true;
+                    gvCustomerList.MasterTableView.GetColumn("MarkFPClient").Visible = true;
+                    gvCustomerList.MasterTableView.GetColumn("ActionForProspect").Visible = false;
+                }
+                return; 
+            }
             if (userVo.UserType == "Associates")
             {
                 gvCustomerList.MasterTableView.GetColumn("Action").Visible = false;
@@ -690,6 +707,7 @@ namespace WealthERP.Advisor
                 gvCustomerList.MasterTableView.GetColumn("Remove").Visible = false;
                 gvCustomerList.MasterTableView.GetColumn("Mark").Visible = false;
             }
+           
         }
 
         protected void gvCustomerList_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
@@ -943,7 +961,101 @@ namespace WealthERP.Advisor
                 Combo.SelectedValue = ViewState["IsActive"].ToString();
             }
         }
+        protected void ddlActionForProspect_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            int userId = 0;
+            UserBo userBo = new UserBo();
+            bool isGrpHead = false;
+            if (Session[SessionContents.PortfolioId] != null)
+            {
+                Session.Remove(SessionContents.PortfolioId);
+            }
+            try
+            {
+                DropDownList ddlAction = (DropDownList)sender;
+                //RadComboBox ddlAction = (RadComboBox)sender;
+                GridDataItem item = (GridDataItem)ddlAction.NamingContainer;
+                ParentId = int.Parse(gvCustomerList.MasterTableView.DataKeyValues[item.ItemIndex]["CustomerId"].ToString());
+                userId = int.Parse(gvCustomerList.MasterTableView.DataKeyValues[item.ItemIndex]["UserId"].ToString());
+                Session["ParentIdForDelete"] = ParentId;
+                customerVo = customerBo.GetCustomer(ParentId);
+                Session["CustomerVo"] = customerVo;
+                isGrpHead = customerBo.CheckCustomerGroupHead(ParentId);
+                if (ddlAction.SelectedItem.Value.ToString() != "Profile")
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerIndi", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+                }
+                //to set portfolio Id and its details
+                customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ParentId);
+                Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+                Session["customerPortfolioVo"] = customerPortfolioVo;
+                if (ddlAction.SelectedItem.Value.ToString() == "Profile")
+                {
+                    Session["IsDashboard"] = "false";
+                    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ParentId);
+                    if (customerVo.IsProspect == 0)
+                    {
+                        Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+                        Session["customerPortfolioVo"] = customerPortfolioVo;
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMCustomerIndividualDashboard", "loadcontrol('RMCustomerIndividualDashboard','login');", true);
+                    }
+                    else
+                    {
+                        isGrpHead = customerBo.CheckCustomerGroupHead(ParentId);
+                        if (isGrpHead == false)
+                        {
+                            ParentId = customerBo.GetCustomerGroupHead(ParentId);
+                        }
+                        else
+                        {
+                            ParentId = customerVo.CustomerId;
+                        }
+                        Session[SessionContents.FPS_ProspectList_CustomerId] = ParentId;
+                        Session[SessionContents.FPS_AddProspectListActionStatus] = "View";
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddProspectList','login');", true);
+                        //Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
+                    }
+                }
+                else if (ddlAction.SelectedItem.Value.ToString() == "FinancialPlanning")
+                {
+                    Session["IsDashboard"] = "FP";
+                    if (ParentId != 0)
+                    {
+                        if (customerVo.IsProspect == 0)
+                        {
+                            Session[SessionContents.FPS_ProspectList_CustomerId] = ParentId;
+                        }
+                        else
+                        {
+                            isGrpHead = customerBo.CheckCustomerGroupHead(ParentId);
+                            if (isGrpHead == false)
+                            {
+                                ParentId = customerBo.GetCustomerGroupHead(ParentId);
+                            }
+                            else
+                            {
+                                CustomerId = customerVo.CustomerId;
+                            }
+                            Session[SessionContents.FPS_ProspectList_CustomerId] = ParentId;
+                            customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ParentId);
+                            Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+                            customerVo = customerBo.GetCustomer(ParentId);
+                            Session["CustomerVo"] = customerVo;
+                        }
+                    }
+                    Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
+                    Session[SessionContents.FPS_CustomerPospect_ActionStatus] = "View";
+                    Session[SessionContents.FPS_AddProspectListActionStatus] = "FPDashBoard";
+                  
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerFPDashBoard','login');", true);
+                    
+                }
+            }
+            catch(Exception ex)
+            {
 
+            }
+        }
         protected void ddlAction_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             int userId = 0;
@@ -1757,6 +1869,27 @@ namespace WealthERP.Advisor
             tdtxtClientCode.Visible = false;
             ddlCOption.Items[6].Enabled = true;
             ddlCOption.Items[7].Enabled = false;
+        }
+        protected void rbtnProspect_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbtnProspect.Checked)
+            {
+                producttype = 2;
+
+                BindCustomerGrid();
+
+            }
+
+        }
+        protected void rbtnFpClient_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbtnFpClient.Checked)
+            {
+                producttype = 1;
+
+                BindCustomerGrid();
+
+            }
         }
 
     }
