@@ -14,5 +14,9 @@ namespace VOFPUtilityUser
         public Int32 UserId { get; set; }
         public Int32 C_CustomerId { get; set; }
         public DateTime CreatedOn { get; set; }
+        public DateTime ModifiedOn { get; set; }
+        public bool? IsClientExists { get; set; }
+        public bool IsProspectmarked { get; set; }
+        public string RiskClassCode { get; set; }
     }
 }
