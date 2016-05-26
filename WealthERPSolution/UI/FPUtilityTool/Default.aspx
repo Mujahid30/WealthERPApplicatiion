@@ -79,7 +79,7 @@
                                         <label class="control-label col-sm-4" for="txtMobNo">
                                             Mobile No:</label>
                                         <div class="col-sm-8">
-                                            <asp:TextBox ID="txtMobNo" runat="server" CssClass="form-control required" placeholder="Enter Mobile No"></asp:TextBox>
+                                            <asp:TextBox ID="txtMobNo" runat="server" CssClass="form-control required" MaxLength="10" placeholder="Enter Mobile No"></asp:TextBox>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtMobNo"
                                                 ValidationGroup="btnsignUpsubmit" runat="server" />
                                             <asp:CompareValidator ID="cvMobileNo" ControlToValidate="txtMobNo" runat="server"
@@ -91,7 +91,7 @@
                                         <label class="control-label col-sm-4" for="txtPan1">
                                             PAN:</label>
                                         <div class="col-sm-8">
-                                            <asp:TextBox ID="txtPan1" runat="server" CssClass="form-control required" placeholder="Enter PAN"></asp:TextBox>
+                                            <asp:TextBox ID="txtPan1" runat="server" CssClass="form-control required" MaxLength="10" placeholder="Enter PAN"></asp:TextBox>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtPan1"
                                                 ValidationGroup="btnsignUpsubmit" runat="server" />
                                             <asp:RegularExpressionValidator ID="revPan" runat="server" Display="Dynamic" ValidationGroup="btnsignUpsubmit"
@@ -125,7 +125,7 @@
                                         <label class="control-label col-sm-4" for="txtpan2">
                                             PAN:</label>
                                         <div class="col-sm-8">
-                                            <asp:TextBox ID="txtpan2" runat="server" CssClass="form-control required" placeholder="Enter PAN"></asp:TextBox>
+                                            <asp:TextBox ID="txtpan2" runat="server" CssClass="form-control required" MaxLength="10" placeholder="Enter PAN"></asp:TextBox>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtpan2"
                                                 ValidationGroup="btnsignInsubmit" runat="server" />
                                             <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" Display="Dynamic"

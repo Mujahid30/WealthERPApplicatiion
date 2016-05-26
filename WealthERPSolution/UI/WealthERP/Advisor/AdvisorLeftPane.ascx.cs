@@ -583,6 +583,8 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Add_Prospect_Admin")
                 {
+                    Session.Remove(SessionContents.FPS_ProspectList_CustomerId);
+                    Session.Remove(SessionContents.FPS_AddProspectListActionStatus);
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddProspectList','login');", true);
                 }
                 else if (e.Item.Value == "FP_Offline_Form_admin")
@@ -1940,6 +1942,8 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Add_Prospect_Admin")
                 {
+                    Session.Remove(SessionContents.FPS_ProspectList_CustomerId);
+                    Session.Remove(SessionContents.FPS_AddProspectListActionStatus);
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddProspectList','login');", true);
                 }
                 else if (e.Item.Value == "FP_Offline_Form_admin")

@@ -467,9 +467,19 @@ namespace WealthERP.Advisor
             {
                 dtcustomerList = BindOnDemamd(adviserId, rmId, AgentId, UserRole, branchHeadId, AgentCode, rbtnReg, GetSelectedFilterValue(), (!string.IsNullOrEmpty(txtCustomerId.Value)) ? int.Parse(txtCustomerId.Value) : 0, null, null, (!string.IsNullOrEmpty(custCode)) ? custCode : null, null, null, (!string.IsNullOrEmpty(pan)) ? pan : null, null, null, null, null, null, null, null, null, null, gvCustomerList.PageSize, gvCustomerList.CurrentPageIndex + 1, out genDictParent, out genDictRM, out genDictReassignRM, out RowCount, (!string.IsNullOrEmpty(txtRequestId.Text)) ? int.Parse(txtRequestId.Text) : 0, producttype);
             }
+            
             gvCustomerList.DataSource = dtcustomerList;
             gvCustomerList.VirtualItemCount = RowCount;
             gvCustomerList.DataBind();
+            if (Cache["gvCustomerList" + userVo.UserId] == null)
+            {
+                Cache.Insert("gvCustomerList" + userVo.UserId, dtcustomerList);
+            }
+            else
+            {
+                Cache.Remove("gvCustomerList" + userVo.UserId);
+                Cache.Insert("gvCustomerList" + userVo.UserId, dtcustomerList);
+            }
             DivCustomerList.Visible = true;
             gvCustomerList.Visible = true;
             pnlCustomerList.Visible = true;
@@ -681,6 +691,10 @@ namespace WealthERP.Advisor
         protected void gvCustomerList_ItemDataBound(object sender, GridItemEventArgs e)
         {
             if (userVo.UserType == "Advisor") {
+                if (rbtnProspect.Checked)
+                    producttype = 2;
+                else if (rbtnFpClient.Checked)
+                    producttype = 1;
                 if (producttype == 2)
                 {
                     gvCustomerList.MasterTableView.GetColumn("Action").Visible = false;
@@ -720,21 +734,23 @@ namespace WealthERP.Advisor
             string prospectType = string.Empty;
             string statustype = string.Empty;
             string rmType = string.Empty;
-            if (Request.QueryString["action"] != null)
-            {
-                rbtnRegister.Visible = false;
-                rbtnNonRegister.Visible = false;
-                producttype = 1;
-                tdcustomerlist.Visible = true;
-                lbltype.Visible = false;
-            }
+            //if (Request.QueryString["action"] != null)
+            //{
+            ////    rbtnRegister.Visible = false;
+            ////    rbtnNonRegister.Visible = false;
+            ////    producttype = 1;
+            ////    tdcustomerlist.Visible = true;
+            ////    lbltype.Visible = false;
+            //}
             try
             {
-                GetGridFilters();
-                dtcustomerList = BindOnDemamd(adviserId, rmId, AgentId, UserRole, branchHeadId, AgentCode, rbtnReg, GetSelectedFilterValue(), (!string.IsNullOrEmpty(txtCustomerId.Value) && txtCustomerId.Value != "") ? int.Parse(txtCustomerId.Value) : 0, hdncustomerCategoryFilter.Value, hdnSystemId.Value, hdnClientId.Value, hdnName.Value, hdnGroup.Value, hdnPAN.Value, hdnBranch.Value, rmType, hdnArea.Value, hdnCity.Value, hdnPincode.Value, hdnIsProspect.Value, hdnIsActive.Value, hdnIsMFKYC.Value, hdnProcessId.Value, gvCustomerList.PageSize, gvCustomerList.CurrentPageIndex + 1, out genDictParent, out genDictRM, out genDictReassignRM, out RowCount, (!string.IsNullOrEmpty(txtRequestId.Text) && txtRequestId.Text != "") ? int.Parse(txtRequestId.Text) : 0, producttype);
-                gvCustomerList.DataSource = dtcustomerList;
-                gvCustomerList.VirtualItemCount = RowCount;
-
+                //GetGridFilters();
+                //dtcustomerList = BindOnDemamd(adviserId, rmId, AgentId, UserRole, branchHeadId, AgentCode, rbtnReg, GetSelectedFilterValue(), (!string.IsNullOrEmpty(txtCustomerId.Value) && txtCustomerId.Value != "") ? int.Parse(txtCustomerId.Value) : 0, hdncustomerCategoryFilter.Value, hdnSystemId.Value, hdnClientId.Value, hdnName.Value, hdnGroup.Value, hdnPAN.Value, hdnBranch.Value, rmType, hdnArea.Value, hdnCity.Value, hdnPincode.Value, hdnIsProspect.Value, hdnIsActive.Value, hdnIsMFKYC.Value, hdnProcessId.Value, gvCustomerList.PageSize, gvCustomerList.CurrentPageIndex + 1, out genDictParent, out genDictRM, out genDictReassignRM, out RowCount, (!string.IsNullOrEmpty(txtRequestId.Text) && txtRequestId.Text != "") ? int.Parse(txtRequestId.Text) : 0, producttype);
+                //gvCustomerList.DataSource = dtcustomerList;
+                //gvCustomerList.VirtualItemCount = RowCount;
+                DataTable dtGetAdviserAssociateList = new DataTable();
+                dtGetAdviserAssociateList = (DataTable)Cache["gvCustomerList" + userVo.UserId];
+                gvCustomerList.DataSource = dtGetAdviserAssociateList;
 
             }
 

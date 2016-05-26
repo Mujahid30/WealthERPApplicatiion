@@ -12,6 +12,7 @@ using System.Web.Services;
 using VoUser;
 using BoCustomerProfiling;
 using VoCustomerPortfolio;
+using VoCustomerProfiling;
 namespace FPUtilityTool
 {
     public partial class Result : System.Web.UI.Page
@@ -75,6 +76,15 @@ namespace FPUtilityTool
                     customerPortfolioVo.PortfolioTypeCode = "RGL";
                     customerPortfolioVo.PortfolioName = "MyPortfolioProspect";
                     customerIds = customerBo.CreateCompleteCustomer(customerVo, userVo, customerPortfolioVo, fpuserVo.UserId);
+                    if (customerIds != null)
+                    {
+                        CustomerFamilyVo familyVo = new CustomerFamilyVo();
+                        CustomerFamilyBo familyBo = new CustomerFamilyBo();
+                        familyVo.AssociateCustomerId = customerIds[1];
+                        familyVo.CustomerId = customerIds[1];
+                        familyVo.Relationship = "SELF";
+                        familyBo.CreateCustomerFamily(familyVo, customerIds[1], userVo.UserId);
+                    }
                     if (UpdateCustomerIdInFPUserTable(fpuserVo.UserId, customerIds[1]))
                         divTncSuccess.Visible = true;
                 }
