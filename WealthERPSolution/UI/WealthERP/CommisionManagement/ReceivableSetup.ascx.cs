@@ -2538,8 +2538,8 @@ namespace WealthERP.Receivable
 
 
             dr["SNO."] = 1;
-            dr["WCT_CommissionType"] = "UP";
-            dr["WCT_CommissionTypeCode"] = "UP";
+            dr["WCT_CommissionType"] = "UF";
+            dr["WCT_CommissionTypeCode"] = "UF";
             dr["XCT_CustomerTypeName"] = "IND";
             dr["ACSR_MinInvestmentAge"] = "0";
             dr["ACSR_MaxInvestmentAge"] = "0";
@@ -2554,13 +2554,13 @@ namespace WealthERP.Receivable
             dr["RecievableValue"] = "0";
             dr["CSRD_IsUpdate"] = 0;
 
-            dr["ACSR_CommissionStructureRuleName"] = ddlIssuer.SelectedItem.Text.Substring(0, 5) + " " + "T15" + " " + "UP" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
+            dr["ACSR_CommissionStructureRuleName"] = ddlIssuer.SelectedItem.Text.Substring(0, 5) + " " + "T15" + " " + "UF" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
             dttable.Rows.Add(dr);
             dr = null;
             dr = dttable.NewRow();
             dr["SNO."] = 2;
-            dr["WCT_CommissionType"] = "UP";
-            dr["WCT_CommissionTypeCode"] = "UP";
+            dr["WCT_CommissionType"] = "UF";
+            dr["WCT_CommissionTypeCode"] = "UF";
 
             dr["XCT_CustomerTypeName"] = "IND";
             dr["ACSR_MinInvestmentAge"] = "0";
@@ -2576,7 +2576,7 @@ namespace WealthERP.Receivable
             dr["RecievableValue"] = "0";
             dr["CSRD_IsUpdate"] = 0;
 
-            dr["ACSR_CommissionStructureRuleName"] = ddlIssuer.SelectedItem.Text.Substring(0, 5) + " " + "B15" + " " + "UP" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
+            dr["ACSR_CommissionStructureRuleName"] = ddlIssuer.SelectedItem.Text.Substring(0, 5) + " " + "B15" + " " + "UF" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
 
             dttable.Rows.Add(dr);
             dr = null;
