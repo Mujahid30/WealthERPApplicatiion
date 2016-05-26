@@ -430,6 +430,9 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="FP Offline Form" Value="FP_Offline_Form_admin">
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Sync" Value="GoalFunding_Sync">
+                                            </telerik:RadPanelItem>
+                                            
                                             <telerik:RadPanelItem runat="server" Text="Manage Portfolio" Value="Manage Portfolio">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="Add Portfolio" Value="Add Portfolio">
@@ -1200,6 +1203,8 @@
                                             <telerik:RadPanelItem runat="server" Text="Add Prospect" Value="Add_Prospect_Admin">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="FP Offline Form" Value="FP_Offline_Form_admin">
+                                            </telerik:RadPanelItem>
+                                             <telerik:RadPanelItem runat="server" Text="Sync" Value="GoalFunding_Sync">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Manage Portfolio" Value="Manage Portfolio">
                                                 <Items>

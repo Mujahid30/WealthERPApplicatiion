@@ -458,14 +458,17 @@ namespace WealthERP.Advisor
                 {
                     rbtnReg = 1;
                 }
-                    
+
                 txtRequestId.Text = int.Parse(Request.QueryString["reqId"]).ToString();
                 dtcustomerList = BindOnDemamd(adviserId, rmId, AgentId, UserRole, branchHeadId, AgentCode, rbtnReg, GetSelectedFilterValue(), (!string.IsNullOrEmpty(txtCustomerId.Value)) ? int.Parse(txtCustomerId.Value) : 0, null, null, (!string.IsNullOrEmpty(custCode)) ? custCode : null, null, null, (!string.IsNullOrEmpty(pan)) ? pan : null, null, null, null, null, null, null, null, null, null, gvCustomerList.PageSize, gvCustomerList.CurrentPageIndex + 1, out genDictParent, out genDictRM, out genDictReassignRM, out RowCount, (!string.IsNullOrEmpty(txtRequestId.Text)) ? int.Parse(txtRequestId.Text) : 0, producttype);
                 trRegister.Visible = false;
             }
             else
             {
-                dtcustomerList = BindOnDemamd(adviserId, rmId, AgentId, UserRole, branchHeadId, AgentCode, rbtnReg, GetSelectedFilterValue(), (!string.IsNullOrEmpty(txtCustomerId.Value)) ? int.Parse(txtCustomerId.Value) : 0, null, null, (!string.IsNullOrEmpty(custCode)) ? custCode : null, null, null, (!string.IsNullOrEmpty(pan)) ? pan : null, null, null, null, null, null, null, null, null, null, gvCustomerList.PageSize, gvCustomerList.CurrentPageIndex + 1, out genDictParent, out genDictRM, out genDictReassignRM, out RowCount, (!string.IsNullOrEmpty(txtRequestId.Text)) ? int.Parse(txtRequestId.Text) : 0, producttype);
+                if ((!string.IsNullOrEmpty(txtCustomerId.Value) && ddlCOption.SelectedIndex > 0 && Request.QueryString["action"] == null) || Request.QueryString["action"] != null)
+                {
+                    dtcustomerList = BindOnDemamd(adviserId, rmId, AgentId, UserRole, branchHeadId, AgentCode, rbtnReg, GetSelectedFilterValue(), (!string.IsNullOrEmpty(txtCustomerId.Value)) ? int.Parse(txtCustomerId.Value) : 0, null, null, (!string.IsNullOrEmpty(custCode)) ? custCode : null, null, null, (!string.IsNullOrEmpty(pan)) ? pan : null, null, null, null, null, null, null, null, null, null, gvCustomerList.PageSize, gvCustomerList.CurrentPageIndex + 1, out genDictParent, out genDictRM, out genDictReassignRM, out RowCount, (!string.IsNullOrEmpty(txtRequestId.Text)) ? int.Parse(txtRequestId.Text) : 0, producttype);
+                }
             }
             
             gvCustomerList.DataSource = dtcustomerList;

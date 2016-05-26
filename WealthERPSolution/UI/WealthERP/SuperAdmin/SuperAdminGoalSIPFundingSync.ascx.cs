@@ -34,7 +34,7 @@ namespace WealthERP.SuperAdmin
                 ddlAdviserList.DataValueField = "A_AdviserId";
                 ddlAdviserList.DataBind();
             }
-            ddlAdviserList.Items.Insert(0, new System.Web.UI.WebControls.ListItem("ALL", "0"));
+            //ddlAdviserList.Items.Insert(0, new System.Web.UI.WebControls.ListItem("ALL", "0"));
         }
 
         protected void btnSubmitSync_Click(object sender, EventArgs e)

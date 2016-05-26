@@ -554,6 +554,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageLookups','login');", true);
                 }
+                else if (e.Item.Value == "GoalFunding_Sync")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SuperAdminGoalSIPFundingSync','login');", true);
+                }
                 else if (e.Item.Value == "FP_Client_List")
                 {
                     Session["Customer"] = "Customer";
@@ -1918,6 +1922,11 @@ namespace WealthERP.Advisor
                 if (e.Item.Value == "Manage Lookups")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageLookups','login');", true);
+                }
+
+                else if (e.Item.Value == "GoalFunding_Sync")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SuperAdminGoalSIPFundingSync','login');", true);
                 }
                 else if (e.Item.Value == "FP_Client_List")
                 {
