@@ -103,7 +103,8 @@ namespace FPUtilityTool
                 {
                     placeholder.Controls.Add(btnSubmit);
                 }
-                placeholder.Controls.Add(new LiteralControl("</div></div></div>"));
+                placeholder.Controls.Add(new LiteralControl("</div></div><div class=\"row\"><div class=\"col-sm-4 text-primary\">Displaying Question " + questioncount.ToString() + " of " + dsGetquestionList.Tables[0].Rows.Count.ToString()
+                    + "</div><div class=\"col-sm-4\"></div><div class=\"col-sm-4\"></div></div></div>"));
                 View myView = new View();
                 myView.ID = "View" + questionNo.ToString();
                 myView.Controls.Add(placeholder);
@@ -119,6 +120,25 @@ namespace FPUtilityTool
             lblUserName.Text = " " + userVo.UserName;
             if (!IsPostBack)
             {
+                userVo = (FPUserVo)Session["FPUserVo"];
+                DataSet dsQuestionNOptions = fpUserBo.GetQuestionAndOptions(userVo.UserId);
+                MultiView1.ActiveViewIndex = dsQuestionNOptions.Tables[0].Rows.Count - 1;
+                //int adviserId = Convert.ToInt32(ConfigurationManager.AppSettings["ONLINE_ADVISER"]);
+                //DataSet dsGetquestionList = new DataSet();
+                //dsGetquestionList = fpUserBo.GetRiskProfileQuestion(adviserId);
+                //if (dsGetquestionList.Tables[0].Rows.Count == dsQuestionNOptions.Tables[0].Rows.Count)
+                //{
+                //    if (!string.IsNullOrEmpty(userVo.RiskClassCode))
+                //    {
+                //        Response.Redirect("Result.aspx");
+                //    }
+
+
+                //}
+                //else if (dsGetquestionList.Tables[0].Rows.Count >= dsQuestionNOptions.Tables[0].Rows.Count)
+                //{
+                //    MultiView1.ActiveViewIndex = dsQuestionNOptions.Tables[0].Rows.Count - 1;
+                //}
                 //string prevPage = Request.UrlReferrer.ToString();
 
             }
