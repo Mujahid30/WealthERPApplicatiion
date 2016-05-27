@@ -322,7 +322,7 @@ namespace WealthERP.FP
                 txtSpouseAge.Text = customerAssumptionVo.SpouseAge.ToString();
                 txtRetirementAge.Text = customerAssumptionVo.RetirementAge.ToString();
                 txtCustomerEOL.Text = customerAssumptionVo.CustomerEOL.ToString();
-                txtSpouseEOL.Text = customerAssumptionVo.SpouseEOL.ToString();
+                txtSpouseEOL.Text = "80";//customerAssumptionVo.SpouseEOL.ToString();
                 txtPostRetirementReturns.Text = customerAssumptionVo.PostRetirementReturn.ToString();
                 txtPostRetirementInflation.Text = customerAssumptionVo.PostRetirementInflation.ToString();
                 //txtExpRateOfReturn.Text = customerAssumptionVo.WeightedReturn.ToString();

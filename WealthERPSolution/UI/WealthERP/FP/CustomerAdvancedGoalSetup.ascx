@@ -270,7 +270,7 @@
                             <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text="Spouse EOL :"></asp:Label>
                         </td>
                         <td class="rightField" id="tdSpouseEOL2" runat="server">
-                            <asp:TextBox ID="txtSpouseEOL" runat="server" AutoCompleteType="Disabled" CssClass="txtField"></asp:TextBox>
+                            <asp:TextBox ID="txtSpouseEOL" runat="server"  Text="80" CssClass="txtField"></asp:TextBox>
                             <span id="Span4" class="spnRequiredField" runat="server" visible="false">*</span>
                             <asp:RangeValidator ID="RangeValidator8" Display="Dynamic" SetFocusOnError="True"
                                 Type="Double" ErrorMessage="Value should be between 30 to 150" MinimumValue="0"
