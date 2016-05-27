@@ -2,14 +2,15 @@
 <xs:schema id="ProductBrokerageApplicationWise" targetNamespace="http://tempuri.org/ProductBrokerageApplicationWise.xsd" xmlns:mstns="http://tempuri.org/ProductBrokerageApplicationWise.xsd" xmlns="http://tempuri.org/ProductBrokerageApplicationWise.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:annotation>
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
-      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="1" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections>
           <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="wealtherp" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="wealtherp (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.wealtherp.ConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="WealthERP_SBI_DEVConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="WealthERP_SBI_DEVConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.WealthERP_SBI_DEVConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
         </Connections>
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="SPROC_GetProductBrokerageApplicationWiseTableAdapter" GeneratorDataComponentClassName="SPROC_GetProductBrokerageApplicationWiseTableAdapter" Name="SPROC_GetProductBrokerageApplicationWise" UserDataComponentName="SPROC_GetProductBrokerageApplicationWiseTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="wealtherp (Web.config)" DbObjectName="WealthERP_SBI_DEV.dbo.SPROC_GetProductBrokerageApplicationWise" DbObjectType="StoredProcedure" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="WealthERP_SBI_DEVConnectionString (Web.config)" DbObjectName="WealthERP_SBI_DEV.dbo.SPROC_GetProductBrokerageApplicationWise" DbObjectType="StoredProcedure" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
                     <CommandText>dbo.SPROC_GetProductBrokerageApplicationWise</CommandText>
@@ -46,11 +47,18 @@
               <Mapping SourceColumn="WCD_Act_Pay_BrokerageDate" DataSetColumn="WCD_Act_Pay_BrokerageDate" />
               <Mapping SourceColumn="AB_BranchName" DataSetColumn="AB_BranchName" />
               <Mapping SourceColumn="AB_City" DataSetColumn="AB_City" />
-              <Mapping SourceColumn="Bank" DataSetColumn="Bank" />
-              <Mapping SourceColumn="ECS" DataSetColumn="ECS" />
-              <Mapping SourceColumn="Banck Account" DataSetColumn="Banck Account" />
-              <Mapping SourceColumn="Bank branch" DataSetColumn="Bank branch" />
-              <Mapping SourceColumn="PAN" DataSetColumn="PAN" />
+              <Mapping SourceColumn="WCD_CustomerName" DataSetColumn="WCD_CustomerName" />
+              <Mapping SourceColumn="C_CustCode" DataSetColumn="C_CustCode" />
+              <Mapping SourceColumn="AR_FirstName" DataSetColumn="AR_FirstName" />
+              <Mapping SourceColumn="AR_EUIN" DataSetColumn="AR_EUIN" />
+              <Mapping SourceColumn="BrokerageType" DataSetColumn="BrokerageType" />
+              <Mapping SourceColumn="ECS_MICR" DataSetColumn="ECS_MICR" />
+              <Mapping SourceColumn="Bank" DataSetColumn="Bank1" />
+              <Mapping SourceColumn="BankAddress" DataSetColumn="BankAddress" />
+              <Mapping SourceColumn="ECS" DataSetColumn="ECS1" />
+              <Mapping SourceColumn="Banck Account" DataSetColumn="Banck Account1" />
+              <Mapping SourceColumn="Bank branch" DataSetColumn="Bank branch1" />
+              <Mapping SourceColumn="PAN" DataSetColumn="PAN1" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -59,10 +67,10 @@
       </DataSource>
     </xs:appinfo>
   </xs:annotation>
-  <xs:element name="ProductBrokerageApplicationWise" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="ProductBrokerageApplicationWise" msprop:Generator_UserDSName="ProductBrokerageApplicationWise" msprop:EnableTableAdapterManager="true">
+  <xs:element name="ProductBrokerageApplicationWise" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="ProductBrokerageApplicationWise" msprop:Generator_DataSetName="ProductBrokerageApplicationWise" msprop:EnableTableAdapterManager="true">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="SPROC_GetProductBrokerageApplicationWise" msprop:Generator_UserTableName="SPROC_GetProductBrokerageApplicationWise" msprop:Generator_RowDeletedName="SPROC_GetProductBrokerageApplicationWiseRowDeleted" msprop:Generator_TableClassName="SPROC_GetProductBrokerageApplicationWiseDataTable" msprop:Generator_RowChangedName="SPROC_GetProductBrokerageApplicationWiseRowChanged" msprop:Generator_RowClassName="SPROC_GetProductBrokerageApplicationWiseRow" msprop:Generator_RowChangingName="SPROC_GetProductBrokerageApplicationWiseRowChanging" msprop:Generator_RowEvArgName="SPROC_GetProductBrokerageApplicationWiseRowChangeEvent" msprop:Generator_RowEvHandlerName="SPROC_GetProductBrokerageApplicationWiseRowChangeEventHandler" msprop:Generator_TablePropName="SPROC_GetProductBrokerageApplicationWise" msprop:Generator_TableVarName="tableSPROC_GetProductBrokerageApplicationWise" msprop:Generator_RowDeletingName="SPROC_GetProductBrokerageApplicationWiseRowDeleting">
+        <xs:element name="SPROC_GetProductBrokerageApplicationWise" msprop:Generator_UserTableName="SPROC_GetProductBrokerageApplicationWise" msprop:Generator_RowDeletedName="SPROC_GetProductBrokerageApplicationWiseRowDeleted" msprop:Generator_RowChangedName="SPROC_GetProductBrokerageApplicationWiseRowChanged" msprop:Generator_RowClassName="SPROC_GetProductBrokerageApplicationWiseRow" msprop:Generator_RowChangingName="SPROC_GetProductBrokerageApplicationWiseRowChanging" msprop:Generator_RowEvArgName="SPROC_GetProductBrokerageApplicationWiseRowChangeEvent" msprop:Generator_RowEvHandlerName="SPROC_GetProductBrokerageApplicationWiseRowChangeEventHandler" msprop:Generator_TableClassName="SPROC_GetProductBrokerageApplicationWiseDataTable" msprop:Generator_TableVarName="tableSPROC_GetProductBrokerageApplicationWise" msprop:Generator_RowDeletingName="SPROC_GetProductBrokerageApplicationWiseRowDeleting" msprop:Generator_TablePropName="SPROC_GetProductBrokerageApplicationWise">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="CO_ApplicationNumber" msprop:Generator_UserColumnName="CO_ApplicationNumber" msprop:Generator_ColumnPropNameInRow="CO_ApplicationNumber" msprop:Generator_ColumnVarNameInTable="columnCO_ApplicationNumber" msprop:Generator_ColumnPropNameInTable="CO_ApplicationNumberColumn" minOccurs="0">
@@ -121,6 +129,84 @@
               <xs:element name="Banck_x0020_Account" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Banck Account" msprop:Generator_ColumnPropNameInRow="Banck_Account" msprop:Generator_ColumnVarNameInTable="columnBanck_Account" msprop:Generator_ColumnPropNameInTable="Banck_AccountColumn" type="xs:int" minOccurs="0" />
               <xs:element name="Bank_x0020_branch" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Bank branch" msprop:Generator_ColumnPropNameInRow="Bank_branch" msprop:Generator_ColumnVarNameInTable="columnBank_branch" msprop:Generator_ColumnPropNameInTable="Bank_branchColumn" type="xs:int" minOccurs="0" />
               <xs:element name="PAN" msdata:ReadOnly="true" msprop:Generator_UserColumnName="PAN" msprop:Generator_ColumnPropNameInRow="PAN" msprop:Generator_ColumnVarNameInTable="columnPAN" msprop:Generator_ColumnPropNameInTable="PANColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="WCD_CustomerName" msprop:Generator_UserColumnName="WCD_CustomerName" msprop:Generator_ColumnVarNameInTable="columnWCD_CustomerName" msprop:Generator_ColumnPropNameInRow="WCD_CustomerName" msprop:Generator_ColumnPropNameInTable="WCD_CustomerNameColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="C_CustCode" msprop:Generator_UserColumnName="C_CustCode" msprop:Generator_ColumnVarNameInTable="columnC_CustCode" msprop:Generator_ColumnPropNameInRow="C_CustCode" msprop:Generator_ColumnPropNameInTable="C_CustCodeColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="AR_FirstName" msprop:Generator_UserColumnName="AR_FirstName" msprop:Generator_ColumnVarNameInTable="columnAR_FirstName" msprop:Generator_ColumnPropNameInRow="AR_FirstName" msprop:Generator_ColumnPropNameInTable="AR_FirstNameColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="AR_EUIN" msprop:Generator_UserColumnName="AR_EUIN" msprop:Generator_ColumnVarNameInTable="columnAR_EUIN" msprop:Generator_ColumnPropNameInRow="AR_EUIN" msprop:Generator_ColumnPropNameInTable="AR_EUINColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BrokerageType" msdata:ReadOnly="true" msprop:Generator_UserColumnName="BrokerageType" msprop:Generator_ColumnVarNameInTable="columnBrokerageType" msprop:Generator_ColumnPropNameInRow="BrokerageType" msprop:Generator_ColumnPropNameInTable="BrokerageTypeColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="9" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ECS_MICR" msdata:ReadOnly="true" msprop:Generator_UserColumnName="ECS_MICR" msprop:Generator_ColumnVarNameInTable="columnECS_MICR" msprop:Generator_ColumnPropNameInRow="ECS_MICR" msprop:Generator_ColumnPropNameInTable="ECS_MICRColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="Bank1" msdata:Caption="Bank" msprop:Generator_UserColumnName="Bank1" msprop:Generator_ColumnPropNameInRow="Bank1" msprop:Generator_ColumnVarNameInTable="columnBank1" msprop:Generator_ColumnPropNameInTable="Bank1Column" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BankAddress" msdata:ReadOnly="true" msprop:Generator_UserColumnName="BankAddress" msprop:Generator_ColumnPropNameInRow="BankAddress" msprop:Generator_ColumnVarNameInTable="columnBankAddress" msprop:Generator_ColumnPropNameInTable="BankAddressColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="225" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ECS1" msdata:Caption="ECS" msprop:Generator_UserColumnName="ECS1" msprop:Generator_ColumnPropNameInRow="ECS1" msprop:Generator_ColumnVarNameInTable="columnECS1" msprop:Generator_ColumnPropNameInTable="ECS1Column" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="11" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Banck_x0020_Account1" msdata:Caption="Banck Account" msprop:Generator_UserColumnName="Banck Account1" msprop:Generator_ColumnPropNameInRow="Banck_Account1" msprop:Generator_ColumnVarNameInTable="columnBanck_Account1" msprop:Generator_ColumnPropNameInTable="Banck_Account1Column" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Bank_x0020_branch1" msdata:Caption="Bank branch" msprop:Generator_UserColumnName="Bank branch1" msprop:Generator_ColumnPropNameInRow="Bank_branch1" msprop:Generator_ColumnVarNameInTable="columnBank_branch1" msprop:Generator_ColumnPropNameInTable="Bank_branch1Column" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PAN1" msdata:Caption="PAN" msprop:Generator_UserColumnName="PAN1" msprop:Generator_ColumnPropNameInRow="PAN1" msprop:Generator_ColumnVarNameInTable="columnPAN1" msprop:Generator_ColumnPropNameInTable="PAN1Column" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>

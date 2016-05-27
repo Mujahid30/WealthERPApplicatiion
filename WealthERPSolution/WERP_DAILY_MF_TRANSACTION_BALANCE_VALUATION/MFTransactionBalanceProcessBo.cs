@@ -29,14 +29,14 @@ namespace WERP_DAILY_MF_TRANSACTION_BALANCE_VALUATION
         public void ProcessMFTransactionBalance(int commonId1,int commonId2, ValuationLevel Level)
         {
             try
-            {
+             {
 
                 switch (Level.ToString())
                 {
 
                     case "AllAdviser":
                         {
-                            mfEngineBo = new MFEngineBo(BoValuation.MFEngineBo.ValuationLabel.Advisor);
+                            mfEngineBo = new MFEngineBo();
                             List<AdvisorVo> adviserVoList = new List<AdvisorVo>();  
                             adviserVoList = adviserMaintenanceBo.GetAdviserList();
                             BoValuation.MFEngineBo.ValuationLabel valuationFor = BoValuation.MFEngineBo.ValuationLabel.Advisor;
@@ -65,7 +65,7 @@ namespace WERP_DAILY_MF_TRANSACTION_BALANCE_VALUATION
                         {
                             try
                             {
-                                mfEngineBo = new MFEngineBo(BoValuation.MFEngineBo.ValuationLabel.Advisor);
+                                mfEngineBo = new MFEngineBo();
                                 BoValuation.MFEngineBo.ValuationLabel valuationFor = BoValuation.MFEngineBo.ValuationLabel.Advisor;
                                 int logId = 0;
                                 logId = CreateAdviserEODLog("MF_Balance", DateTime.Now, commonId1);
@@ -82,8 +82,8 @@ namespace WERP_DAILY_MF_TRANSACTION_BALANCE_VALUATION
                         {
                             try
                             {
-                                mfEngineBo = new MFEngineBo(BoValuation.MFEngineBo.ValuationLabel.Customer);
-                                mfEngineBo = new MFEngineBo(BoValuation.MFEngineBo.ValuationLabel.Advisor);
+                                mfEngineBo = new MFEngineBo();
+                                mfEngineBo = new MFEngineBo();
                                 BoValuation.MFEngineBo.ValuationLabel valuationFor = BoValuation.MFEngineBo.ValuationLabel.Customer;
                                 mfEngineBo.MFBalanceCreation(commonId1, 0, valuationFor);
                             }
@@ -97,7 +97,7 @@ namespace WERP_DAILY_MF_TRANSACTION_BALANCE_VALUATION
                         {
                             try
                             {
-                                mfEngineBo = new MFEngineBo(BoValuation.MFEngineBo.ValuationLabel.AccountScheme);
+                                mfEngineBo = new MFEngineBo();
                                 BoValuation.MFEngineBo.ValuationLabel valuationFor = BoValuation.MFEngineBo.ValuationLabel.AccountScheme;
                                 mfEngineBo.MFBalanceCreation(commonId1, commonId2, valuationFor);
                             }

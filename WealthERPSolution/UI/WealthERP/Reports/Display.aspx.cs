@@ -4114,10 +4114,10 @@ namespace WealthERP.Reports
                 crmain.SetParameterValue("MobileNo", "Phone: " + "+" + advisorVo.MobileNumber.ToString());
 
                 string formatstring = "";
-                if (!string.IsNullOrEmpty(customerVo.Adr1Line1.Trim()))
+                if (!string.IsNullOrEmpty(customerVo.Adr1Line1))
                     formatstring = customerVo.Adr1Line1.Trim();
                 //array[0] = customerVo.Adr1Line1.Trim();
-                if (!string.IsNullOrEmpty(customerVo.Adr1Line2.Trim()))
+                if (!string.IsNullOrEmpty(customerVo.Adr1Line2))
                 {
                     if (formatstring == "")
                     {
