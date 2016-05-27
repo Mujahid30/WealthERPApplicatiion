@@ -122,7 +122,7 @@ namespace FPUtilityTool
             {
                 userVo = (FPUserVo)Session["FPUserVo"];
                 DataSet dsQuestionNOptions = fpUserBo.GetQuestionAndOptions(userVo.UserId);
-                MultiView1.ActiveViewIndex = dsQuestionNOptions.Tables[0].Rows.Count - 1;
+                MultiView1.ActiveViewIndex = dsQuestionNOptions.Tables[0].Rows.Count;
                 //int adviserId = Convert.ToInt32(ConfigurationManager.AppSettings["ONLINE_ADVISER"]);
                 //DataSet dsGetquestionList = new DataSet();
                 //dsGetquestionList = fpUserBo.GetRiskProfileQuestion(adviserId);

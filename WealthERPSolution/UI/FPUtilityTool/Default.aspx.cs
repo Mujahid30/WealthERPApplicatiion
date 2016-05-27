@@ -48,7 +48,7 @@ namespace FPUtilityTool
                     lblClient.Visible = false;
                     UserVo = fpUserBo.CreateAndGetFPUtilityUserDetails(fpUserVo, txtclientCode.Text, true);
                     isValidUser = ValidateSingleSessionPerUser(UserVo.UserId.ToString());
-                    if (isValidUser)
+                    if (isValidUser && UserVo.UserId!=0)
                     {
                         Session["FPUserVo"] = UserVo;
                         Response.Redirect("Questionnaire.aspx");
@@ -81,7 +81,7 @@ namespace FPUtilityTool
                 FPUserVo UserVo = new FPUserVo();
                 UserVo = fpUserBo.CreateAndGetFPUtilityUserDetails(fpUserVo, "", false);
                 isValidUser = ValidateSingleSessionPerUser(UserVo.UserId.ToString());
-                if (isValidUser)
+                if (isValidUser && UserVo.UserId != 0)
                 {
                     Session["FPUserVo"] = UserVo;
                     Response.Redirect("Questionnaire.aspx");
