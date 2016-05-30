@@ -887,12 +887,12 @@ namespace WealthERP.CustomerPortfolio
             if (RadTabStrip1.SelectedIndex == 0)
             {
 
-                if (clickedButton.ClientID == "ctrl_CustomerEquityNP_ImageButton1")
+                if (clickedButton.ClientID == "ctrl_ViewEquityPortfolios_ImageButton1")
                 {
                     ConfigureExport(1, 0);
 
                 }
-                if (clickedButton.ClientID == "ctrl_CustomerEquityNP_ImageButton2")
+                if (clickedButton.ClientID == "ctrl_ViewEquityPortfolios_ImageButton2")
                 {
                     ConfigureExport(1, 1);
 
@@ -900,12 +900,12 @@ namespace WealthERP.CustomerPortfolio
             }
             else if (RadTabStrip1.SelectedIndex == 1)
             {
-                if (clickedButton.ClientID == "ctrl_CustomerEquityNP_ImageButton1")
+                if (clickedButton.ClientID == "ctrl_ViewEquityPortfolios_ImageButton1")
                 {
                     ConfigureExport(2, 0);
 
                 }
-                if (clickedButton.ClientID == "ctrl_CustomerEquityNP_ImageButton2")
+                if (clickedButton.ClientID == "ctrl_ViewEquityPortfolios_ImageButton2")
                 {
                     ConfigureExport(2, 1);
 
@@ -914,12 +914,12 @@ namespace WealthERP.CustomerPortfolio
             }
             else if (RadTabStrip1.SelectedIndex == 2)
             {
-                if (clickedButton.ClientID == "ctrl_CustomerEquityNP_ImageButton1")
+                if (clickedButton.ClientID == "ctrl_ViewEquityPortfolios_ImageButton1")
                 {
                     ConfigureExport(3, 0);
 
                 }
-                if (clickedButton.ClientID == "ctrl_CustomerEquityNP_ImageButton2")
+                if (clickedButton.ClientID == "ctrl_ViewEquityPortfolios_ImageButton2")
                 {
                     ConfigureExport(3, 1);
 
@@ -927,12 +927,12 @@ namespace WealthERP.CustomerPortfolio
             }
             else
             {
-                if (clickedButton.ClientID == "ctrl_CustomerEquityNP_ImageButton1")
+                if (clickedButton.ClientID == "ctrl_ViewEquityPortfolios_ImageButton1")
                 {
                     ConfigureExport(4, 0);
 
                 }
-                if (clickedButton.ClientID == "ctrl_CustomerEquityNP_ImageButton2")
+                if (clickedButton.ClientID == "ctrl_ViewEquityPortfolios_ImageButton2")
                 {
                     ConfigureExport(4, 1);
 
