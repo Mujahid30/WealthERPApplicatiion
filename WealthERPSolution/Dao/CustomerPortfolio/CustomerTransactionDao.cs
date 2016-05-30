@@ -5372,7 +5372,7 @@ namespace DaoCustomerPortfolio
                 getmanagedbyCmd = db.GetStoredProcCommand("SPROC_GetAllManagedBy");
                 db.AddInParameter(getmanagedbyCmd, "AdvisorId", DbType.Int16, advisorid);
                 ds = db.ExecuteDataSet(getmanagedbyCmd);
-            }
+           }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
@@ -5861,15 +5861,180 @@ namespace DaoCustomerPortfolio
             }
             return bResult;
         }
+        //public EQTransactionVo GetEquityTransaction(int eqTransactionId, String Currency)
+        //{
+        //    CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+
+        //    EQTransactionVo eqTransactionVo = new EQTransactionVo();
+
+        //    try
+        //    {
+        //        eqTransactionVo = customerTransactionDao.GetEquityTransaction(eqTransactionId, Currency);
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+
+        //        FunctionInfo.Add("Method", "CustomerTransactionBo.cs:GetEquityTransaction()");
+
+
+        //        object[] objects = new object[1];
+        //        objects[0] = eqTransactionId;
+
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+
+        //    }
+        //    return eqTransactionVo;
+        //}
         public EQTransactionVo GetEquityTransaction(int eqTransactionId, String Currency)
         {
-            CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+            EQTransactionVo eqTransactionVo = null;
 
-            EQTransactionVo eqTransactionVo = new EQTransactionVo();
-
+            Database db;
+            DbCommand getEquityTransactionCmd;
+            DataSet dsGetEquityTransaction;
+            DataTable dtGetEquityTransaction;
             try
             {
-                eqTransactionVo = customerTransactionDao.GetEquityTransaction(eqTransactionId, Currency);
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getEquityTransactionCmd = db.GetStoredProcCommand("SP_GetCustomerEquityTransaction");
+                db.AddInParameter(getEquityTransactionCmd, "@CET_EqTransId", DbType.Int32, eqTransactionId);
+                db.AddInParameter(getEquityTransactionCmd, "@Currency", DbType.String, Currency);
+                dsGetEquityTransaction = db.ExecuteDataSet(getEquityTransactionCmd);
+                if (dsGetEquityTransaction.Tables[0].Rows.Count > 0)
+                {
+                    dtGetEquityTransaction = dsGetEquityTransaction.Tables[0];
+
+                    eqTransactionVo = new EQTransactionVo();
+
+                    foreach (DataRow dr in dtGetEquityTransaction.Rows)
+                    {
+                        eqTransactionVo.TransactionId = int.Parse(dr["CET_EqTransId"].ToString());
+                        //eqTransactionVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
+                        //eqTransactionVo.PortfolioId = int.Parse(dr["CP_PortfolioId"].ToString());
+                        eqTransactionVo.AccountId = int.Parse(dr["CETA_AccountId"].ToString());
+                        if (!string.IsNullOrEmpty(dr["PEM_ScripCode"].ToString()))
+                            eqTransactionVo.ScripCode = int.Parse(dr["PEM_ScripCode"].ToString());
+                        else
+                            eqTransactionVo.ScripCode = 0;
+                        //eqTransactionVo.ScripName = dr["PEM_CompanyName"].ToString();
+                        //eqTransactionVo.Ticker = dr["PEM_Ticker"].ToString();
+                        eqTransactionVo.TradeAccountNum = (dr["CET_TradeNum"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_OrderNum"].ToString()))
+                            eqTransactionVo.OrderNum = Int64.Parse(dr["CET_OrderNum"].ToString());
+                        eqTransactionVo.BuySell = dr["CET_BuySell"].ToString();
+                        if (!string.IsNullOrEmpty(dr["CEDA_DematAccountId"].ToString()))
+                            eqTransactionVo.DematAccountNo = int.Parse(dr["CEDA_DematAccountId"].ToString());
+                        eqTransactionVo.IsSpeculative = int.Parse(dr["CET_IsSpeculative"].ToString());
+                        if (dr["CET_IsSpeculative"].ToString() == "1")
+                            eqTransactionVo.TradeType = "S";
+                        else
+                            eqTransactionVo.TradeType = "D";
+
+                        eqTransactionVo.Exchange = dr["XE_ExchangeCode"].ToString();
+                        eqTransactionVo.TradeDate = DateTime.Parse(dr["CET_TradeDate"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_Rate"].ToString()))
+                            eqTransactionVo.Rate = float.Parse(dr["CET_Rate"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_Quantity"].ToString()))
+                            eqTransactionVo.Quantity = float.Parse(dr["CET_Quantity"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_Brokerage"].ToString()))
+                            eqTransactionVo.Brokerage = float.Parse(dr["CET_Brokerage"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_ServiceTax"].ToString()))
+                            eqTransactionVo.ServiceTax = float.Parse(dr["CET_ServiceTax"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_EducationCess"].ToString()))
+                            eqTransactionVo.EducationCess = float.Parse(dr["CET_EducationCess"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_STT"].ToString()))
+                            eqTransactionVo.STT = float.Parse(dr["CET_STT"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_OtherCharges"].ToString()))
+                            eqTransactionVo.OtherCharges = float.Parse(dr["CET_OtherCharges"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_RateInclBrokerage"].ToString()))
+                            eqTransactionVo.RateInclBrokerage = float.Parse(dr["CET_RateInclBrokerage"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_TradeTotal"].ToString()))
+                            eqTransactionVo.TradeTotal = Convert.ToDouble((dr["CET_TradeTotal"].ToString()));
+                        if (!string.IsNullOrEmpty(dr["XB_BrokerCode"].ToString()))
+                            eqTransactionVo.BrokerCode = dr["XB_BrokerCode"].ToString();
+                        else
+                            eqTransactionVo.BrokerCode = "";
+                        eqTransactionVo.IsSplit = int.Parse(dr["CET_IsSplit"].ToString());
+                        eqTransactionVo.SplitTransactionId = int.Parse(dr["CET_SplitCustEqTransId"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_IsSourceManual"].ToString()))
+                            eqTransactionVo.IsSourceManual = int.Parse(dr["CET_IsSourceManual"].ToString());
+                        eqTransactionVo.SourceCode = dr["XES_SourceCode"].ToString();
+                        eqTransactionVo.TransactionCode = int.Parse(dr["WETT_TransactionCode"].ToString());
+                        eqTransactionVo.ManagerName = dr["C_FirstName"].ToString();
+                        if (!string.IsNullOrEmpty(dr["CET_DifferenceInBrokerage"].ToString()))
+                            eqTransactionVo.DifferenceInBrokerage = double.Parse(dr["CET_DifferenceInBrokerage"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_SebiTurnOverFee"].ToString()))
+                            eqTransactionVo.SebiTurnOverFee = double.Parse(dr["CET_SebiTurnOverFee"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_TrxnCharges"].ToString()))
+                            eqTransactionVo.TransactionCharges = double.Parse(dr["CET_TrxnCharges"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_StampCharges"].ToString()))
+                            eqTransactionVo.StampCharges = double.Parse(dr["CET_StampCharges"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_NoOfSharesEligibleForDiv"].ToString()))
+                            eqTransactionVo.NoOfSharesForDiv = int.Parse(dr["CET_NoOfSharesEligibleForDiv"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_DividendRecieved"].ToString()))
+                            eqTransactionVo.DividendRecieved = bool.Parse(dr["CET_DividendRecieved"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_BankReferenceNo"].ToString()))
+                            eqTransactionVo.BankReferenceNo = dr["CET_BankReferenceNo"].ToString();
+                        if (!string.IsNullOrEmpty(dr["PECA_DailyCorpAxnId"].ToString()))
+                            eqTransactionVo.DailyCorpAxnId = int.Parse(dr["PECA_DailyCorpAxnId"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_BillNo"].ToString()))
+                            eqTransactionVo.BillNo = dr["CET_BillNo"].ToString();
+                        if (!string.IsNullOrEmpty(dr["CET_SettlementNo"].ToString()))
+                            eqTransactionVo.SettlementNo = dr["CET_SettlementNo"].ToString();
+
+                        if (!string.IsNullOrEmpty(dr["CET_SettlementDate"].ToString()))
+                            eqTransactionVo.SettlementDate = Convert.ToDateTime(dr["CET_SettlementDate"].ToString());
+                        else
+                            eqTransactionVo.SettlementDate = DateTime.MinValue;
+                        if (!string.IsNullOrEmpty(dr["CET_Managedby"].ToString()))
+                            eqTransactionVo.ManagedBy = int.Parse(dr["CET_Managedby"].ToString());
+
+                        if (!string.IsNullOrEmpty(dr["CET_IsTradeType"].ToString()))
+                            eqTransactionVo.Type = int.Parse(dr["CET_IsTradeType"].ToString());
+                        if (!string.IsNullOrEmpty(dr["CET_RateIncBrokerageAllCharges"].ToString()))
+
+                            eqTransactionVo.RateIncBrokerageAllCharges = double.Parse(dr["CET_RateIncBrokerageAllCharges"].ToString());
+                        eqTransactionVo.Currency = Currency.ToString();
+
+                        if (!string.IsNullOrEmpty(dr["CET_FXCurencyType"].ToString()))
+                            eqTransactionVo.FXCurencyType = dr["CET_FXCurencyType"].ToString();
+                        else
+                            eqTransactionVo.FXCurencyType = null;
+
+                        if (!string.IsNullOrEmpty(dr["CET_FXCurencyRate"].ToString()))
+                            eqTransactionVo.FXCurencyRate = Convert.ToDouble(dr["CET_FXCurencyRate"].ToString());
+                        else
+                            eqTransactionVo.FXCurencyRate = 0.0;
+
+                        if (!string.IsNullOrEmpty(dr["CET_DematCharge"].ToString()))
+                            eqTransactionVo.DematCharge = float.Parse(dr["CET_DematCharge"].ToString());
+
+
+
+                        if (!string.IsNullOrEmpty(dr["CET_TrTotalIncBrokerage"].ToString()))
+                            eqTransactionVo.TradeTotalIncBrokerage = double.Parse(dr["CET_TrTotalIncBrokerage"].ToString());
+
+                        if (!string.IsNullOrEmpty(dr["CET_GrossConsideration"].ToString()))
+                            eqTransactionVo.GrossConsideration = double.Parse(dr["CET_GrossConsideration"].ToString());
+
+
+                        if (!string.IsNullOrEmpty(dr["CET_Remark"].ToString()))
+                            eqTransactionVo.Remark = dr["CET_Remark"].ToString();
+
+                        //eqTransactionVo.TransactionType = dr["WETT_TransactionTypeName"].ToString();
+                        //eqTransactionVo.IsCorpAction = int.Parse(dr["WETT_IsCorpAxn"].ToString());
+
+                    }
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -5880,7 +6045,7 @@ namespace DaoCustomerPortfolio
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
 
-                FunctionInfo.Add("Method", "CustomerTransactionBo.cs:GetEquityTransaction()");
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetEquityTransaction()");
 
 
                 object[] objects = new object[1];
@@ -5892,6 +6057,8 @@ namespace DaoCustomerPortfolio
                 throw exBase;
 
             }
+
+
             return eqTransactionVo;
         }
 

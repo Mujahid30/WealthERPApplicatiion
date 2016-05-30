@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EquityManualSingleTransaction.ascx.cs"
-    Inherits="WealthERP.CustomerPortfolio.EquityManualSingleTransaction" EnableViewState="true" %>
+    Inherits="WealthERP.CustomerPortfolio.EquityManualSingleTransaction"  %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
 
@@ -404,9 +404,7 @@
 </script>
 
 <asp:ScriptManager ID="ScriptManager1" runat="server">
-    <Services>
-        <asp:ServiceReference Path="AutoComplete.asmx" />
-    </Services>
+    
 </asp:ScriptManager>
 <table width="100%">
     <tr>
@@ -477,15 +475,15 @@
                         Display="Dynamic" ClientValidationFunction="ChkForMainPortFolio" CssClass="revPCG"
                         ErrorMessage="CustomValidator">Permisssion denied for Manage Portfolio !!</asp:CustomValidator>
                 </td>
-                <div id="DivManaged" visible="false" runat="server">
-                    <td class="leftField">
+               <%-- <div id="DivManaged" visible="false" runat="server">
+                   <td class="leftField">
                         <asp:Label ID="Lbl_Managedby" runat="server" CssClass="FieldName" Text="Managed By :"></asp:Label>
                     </td>
                     <td class="rightField">
                         <asp:DropDownList ID="ddl_Managedby" runat="server" Width="154px" CssClass="cmbField">
                         </asp:DropDownList>
                     </td>
-                </div>
+                </div>--%>
                 <td>
                 </td>
             </tr>

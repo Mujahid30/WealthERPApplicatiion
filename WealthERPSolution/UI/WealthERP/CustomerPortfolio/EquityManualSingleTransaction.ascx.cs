@@ -99,7 +99,7 @@ namespace WealthERP.CustomerPortfolio
                 if (!IsPostBack)
                 {
                     LoadEquityTradeNumbers();
-                    LoadManagedby();
+                    //LoadManagedby();
                     BindTransactionType();
                     if (Request.QueryString["action"] != "" && Request.QueryString["action"] != null)
                     {
@@ -181,8 +181,8 @@ namespace WealthERP.CustomerPortfolio
         private void EQAccountDetails()
         {
 
-            if (eqTransactionVo.ManagedBy != 0)
-                ddl_Managedby.SelectedValue = eqTransactionVo.ManagedBy.ToString();
+            //if (eqTransactionVo.ManagedBy != 0)
+            //    ddl_Managedby.SelectedValue = eqTransactionVo.ManagedBy.ToString();
 
             if (eqTransactionVo.DematAccountNo != 0)
                 Ddl_dematAcc.SelectedValue = eqTransactionVo.DematAccountNo.ToString();
@@ -314,7 +314,7 @@ namespace WealthERP.CustomerPortfolio
         {
             if (p == 1)
             {
-                ddl_Managedby.Enabled = true;
+              //  ddl_Managedby.Enabled = true;
                 ddlTradeAcc.Enabled = true;
                 TxtBillNo.Enabled = true;
                 TxtSettlemntNo.Enabled = true;
@@ -367,7 +367,7 @@ namespace WealthERP.CustomerPortfolio
             }
             else
             {
-                ddl_Managedby.Enabled = false;
+               // ddl_Managedby.Enabled = false;
                 ddlTradeAcc.Enabled = false;
                 TxtBillNo.Enabled = false;
                 TxtSettlemntNo.Enabled = false;
@@ -433,10 +433,10 @@ namespace WealthERP.CustomerPortfolio
             {
                 eqTransactionVo.ScripCode = int.Parse(ds.Tables[0].Rows[0]["PEM_ScripCode"].ToString());
             }
-            if (ddl_Managedby.SelectedValue != "Select")
-            {
-                eqTransactionVo.ManagedBy = Convert.ToInt32(ddl_Managedby.SelectedValue);
-            }
+            //if (ddl_Managedby.SelectedValue != "Select")
+            //{
+            //    eqTransactionVo.ManagedBy = Convert.ToInt32(ddl_Managedby.SelectedValue);
+            //}
             if (Ddl_dematAcc.SelectedIndex != 0)
                 eqTransactionVo.DemateAccountId = int.Parse(Ddl_dematAcc.SelectedItem.Value.ToString());
             eqTransactionVo.AccountId = int.Parse(ddlTradeAcc.SelectedItem.Value.ToString());
@@ -704,15 +704,15 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
-        private void LoadManagedby()
-        {
-            DataSet dsManagedby = customerTransactionBo.GetManagedby(advisorVo.advisorId);
-            ddl_Managedby.DataSource = dsManagedby;
-            ddl_Managedby.DataValueField = "C_CustomerId";
-            ddl_Managedby.DataTextField = "C_FirstName";
-            ddl_Managedby.DataBind();
-            ddl_Managedby.Items.Insert(0, new ListItem("Select", "Select"));
-        }
+        //private void LoadManagedby()
+        //{
+        //    DataSet dsManagedby = customerTransactionBo.GetManagedby(advisorVo.advisorId);
+        //    ddl_Managedby.DataSource = dsManagedby;
+        //    ddl_Managedby.DataValueField = "C_CustomerId";
+        //    ddl_Managedby.DataTextField = "C_FirstName";
+        //    ddl_Managedby.DataBind();
+        //    ddl_Managedby.Items.Insert(0, new ListItem("Select", "Select"));
+        //}
         private void LoadType()
         {
             DataSet dsGetType = customerTransactionBo.GetType();
@@ -807,8 +807,8 @@ namespace WealthERP.CustomerPortfolio
 
                 DataSet ds = XMLBo.GetExchangeType(EType);
                ddlExchange.DataSource = ds;
-                ddlExchange.DataTextField = "ExchangeName";
-                ddlExchange.DataValueField = "ExchangeCode";
+               ddlExchange.DataTextField = "ExchangeName";
+               ddlExchange.DataValueField = "ExchangeCode";
                 ddlExchange.DataBind();
                 ddlExchange.Items.Insert(0, new ListItem("Select an Exchange", "Select an Exchange"));
             }
@@ -941,10 +941,10 @@ namespace WealthERP.CustomerPortfolio
                     eqTransactionVo.FXCurencyRate = 0.0;
                 }
 
-                if (ddl_Managedby.SelectedValue != "Select")
-                {
-                    eqTransactionVo.ManagedBy = Convert.ToInt32(ddl_Managedby.SelectedValue);
-                }
+                //if (ddl_Managedby.SelectedValue != "Select")
+                //{
+                //    eqTransactionVo.ManagedBy = Convert.ToInt32(ddl_Managedby.SelectedValue);
+                //}
                 if (Ddl_dematAcc.SelectedIndex != 0)
                     eqTransactionVo.DemateAccountId = int.Parse(Ddl_dematAcc.SelectedItem.Value.ToString());
                 if (ddlTradeAcc.SelectedValue != "0")
@@ -1227,7 +1227,7 @@ namespace WealthERP.CustomerPortfolio
         {
             if (AddmoreFlag == 1)
             {
-                ddl_Managedby.Enabled = false;
+              //  ddl_Managedby.Enabled = false;
                 ddlTradeAcc.Enabled = false;
                 TxtBillNo.Enabled = false;
                 TxtSettlemntNo.Enabled = false;
@@ -1277,7 +1277,7 @@ namespace WealthERP.CustomerPortfolio
                 txtScrip.Text = string.Empty;
                 ddlTransactionType.SelectedIndex = 0;
                 ddlExchange.SelectedIndex = 0;
-                ddl_Managedby.SelectedIndex = 0;
+              //  ddl_Managedby.SelectedIndex = 0;
                 ddl_type.SelectedIndex = 0;
                 ddlTradeAcc.SelectedIndex = 0;
                 lblticker.Text = string.Empty;
@@ -1304,7 +1304,7 @@ namespace WealthERP.CustomerPortfolio
                 TxtStampCharges.Text = string.Empty;
                 TxtDiffInBrkrg.Text = string.Empty;
                 Txt_DematCharge.Text = string.Empty;
-                ddl_Managedby.Enabled = true;
+              //  ddl_Managedby.Enabled = true;
                 ddl_type.Enabled = true;
                 ddlTradeAcc.Enabled = true;
                 TxtBillNo.Enabled = true;
@@ -1628,8 +1628,8 @@ namespace WealthERP.CustomerPortfolio
                     double rate = double.Parse(List1[0]);
                     facevalue = double.Parse(List[2]);
 
-                    if (ddl_Managedby.SelectedIndex != 0)
-                        managedby = Convert.ToInt32(ddl_Managedby.SelectedValue);
+                    //if (ddl_Managedby.SelectedIndex != 0)
+                    //    managedby = Convert.ToInt32(ddl_Managedby.SelectedValue);
                     if (Ddl_dematAcc.SelectedIndex != 0)
                         DematAccountNum = Convert.ToInt32(Ddl_dematAcc.SelectedValue);
                     NoOfShares = customerTransactionBo.GetNoOfShares(Convert.ToInt32(ddlTradeAcc.SelectedValue), scripCode, TradeDate, DematAccountNum, managedby);
