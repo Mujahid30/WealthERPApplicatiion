@@ -189,15 +189,21 @@
                                                         </FooterTemplate>
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top"/>
                                                     </telerik:GridTemplateColumn>--%>
-                                                                <telerik:GridTemplateColumn HeaderStyle-Width="350px" UniqueName="Scheme" SortExpression="Scheme"
+<%--                                                                <telerik:GridTemplateColumn HeaderStyle-Width="350px" UniqueName="Scheme" SortExpression="Scheme"
                                                                     AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                                                     HeaderText="Scheme" Groupable="False" ItemStyle-Wrap="false" AllowFiltering="true"
                                                                     DataField="Scheme">
                                                                     <ItemTemplate>
                                                                         <asp:LinkButton ID="lnkScheme" runat="server" Text='<%# Eval("Scheme").ToString() %>'
-                                                                            CommandName="NavigateToMarketData"></asp:LinkButton>
+                                                                            CommandName="NavigateToMarketData" style="text-decoration:none;color:Black;cursor:"></asp:LinkButton>
                                                                     </ItemTemplate>
-                                                                </telerik:GridTemplateColumn>
+                                                                </telerik:GridTemplateColumn>--%>
+                                                                
+                                                                   <telerik:GridBoundColumn HeaderStyle-Width="350px" SortExpression="Scheme" AutoPostBackOnFilter="true"
+                                                                    CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="Scheme"
+                                                                    HeaderText="Scheme" DataField="Scheme">
+                                                                    <ItemStyle HorizontalAlign="Left" />
+                                                                </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="103px" SortExpression="FolioNum" AutoPostBackOnFilter="true"
                                                                     CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="FolioNum"
                                                                     HeaderText="Folio" DataField="FolioNum">
@@ -385,7 +391,7 @@
                                                         </FooterTemplate>
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridTemplateColumn>--%>
-                                                                <telerik:GridTemplateColumn HeaderStyle-Width="350px" UniqueName="Schemes" SortExpression="Scheme"
+                                                            <%--    <telerik:GridTemplateColumn HeaderStyle-Width="350px" UniqueName="Schemes" SortExpression="Scheme"
                                                                     AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                                                     HeaderText="Scheme" Groupable="False" ItemStyle-Wrap="false" AllowFiltering="true"
                                                                     DataField="Scheme">
@@ -393,7 +399,12 @@
                                                                         <asp:LinkButton ID="lnkScheme" runat="server" Text='<%# Eval("Scheme").ToString() %>'
                                                                             CommandName="NavigateToMarketData"></asp:LinkButton>
                                                                     </ItemTemplate>
-                                                                </telerik:GridTemplateColumn>
+                                                                </telerik:GridTemplateColumn>--%>
+                                                                  <telerik:GridBoundColumn HeaderStyle-Width="350px" SortExpression="Scheme" AutoPostBackOnFilter="true"
+                                                                    CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="Scheme"
+                                                                    HeaderText="Scheme" DataField="Scheme">
+                                                                    <ItemStyle HorizontalAlign="Left" />
+                                                                </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="100px" SortExpression="FolioNum" AutoPostBackOnFilter="true"
                                                                     CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="FolioNum"
                                                                     HeaderText="Folio" DataField="FolioNum">
@@ -594,7 +605,7 @@
                                                         </FooterTemplate>
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridTemplateColumn>--%>
-                                                                <telerik:GridTemplateColumn HeaderStyle-Width="350px" SortExpression="Scheme" AutoPostBackOnFilter="true"
+                                                               <%-- <telerik:GridTemplateColumn HeaderStyle-Width="350px" SortExpression="Scheme" AutoPostBackOnFilter="true"
                                                                     CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="Schemes"
                                                                     HeaderText="Scheme" Groupable="False" ItemStyle-Wrap="false" AllowFiltering="true"
                                                                     DataField="Scheme">
@@ -602,11 +613,16 @@
                                                                         <asp:LinkButton ID="lnkScheme" runat="server" Text='<%# Eval("Scheme").ToString() %>'
                                                                             CommandName="NavigateToMarketData"></asp:LinkButton>
                                                                     </ItemTemplate>
-                                                                </telerik:GridTemplateColumn>
+                                                                </telerik:GridTemplateColumn>--%>
+                                                                 <telerik:GridBoundColumn HeaderStyle-Width="350px" SortExpression="Scheme" AutoPostBackOnFilter="true"
+                                                                    CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="Scheme"
+                                                                    HeaderText="Scheme" DataField="Scheme">
+                                                                    <ItemStyle HorizontalAlign="Right" />
+                                                                </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="100px" SortExpression="FolioNum" AutoPostBackOnFilter="true"
                                                                     CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="FolioNum"
                                                                     HeaderText="Folio" DataField="FolioNum">
-                                                                    <ItemStyle HorizontalAlign="Right" />
+                                                                    <ItemStyle HorizontalAlign="Left" />
                                                                 </telerik:GridBoundColumn>
                                                                 <%--  <telerik:GridDateTimeColumn  AutoPostBackOnFilter="false" CurrentFilterFunction="Contains"
                                                             SortExpression="FolioStartDate" UniqueName="FolioStartDate" AllowFiltering="True" HeaderText="FolioStartDate"

@@ -3349,6 +3349,8 @@ namespace WealthERP.FP
             dt.Columns.Add("Inflation");
             dt.Columns.Add("Yrs");
             dt.Columns.Add("FutureValue",typeof (decimal));
+            dt.Columns.Add("PresentValue", typeof(decimal));
+            dt.Columns.Add("Returnoninvestment");
             DataRow drRecuring;
             int noofyr = int.Parse(txtNoofYears.Text);
             DateTime date = DateTime.Now;
@@ -3363,6 +3365,7 @@ namespace WealthERP.FP
                     drRecuring["Year"] = ddlGoalYear.SelectedValue;
                     drRecuring["FutureValue"] = Financial.Fv(double.Parse(txtInflation.Text) / 100, int.Parse(ddlGoalYear.SelectedValue) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0);
                     finalValue = Financial.Fv(double.Parse(txtInflation.Text) / 100, int.Parse(ddlGoalYear.SelectedValue) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0);
+                    drRecuring["PresentValue"] = Financial.Pv(double.Parse(txtExpRateOfReturn.Text) / 100, int.Parse(ddlGoalYear.SelectedValue) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Financial.Fv(Convert.ToDouble(txtInflation.Text) / 100, (int.Parse(ddlGoalYear.SelectedValue) + i) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0)), 0);
                 }
                 else
                 {
@@ -3370,7 +3373,9 @@ namespace WealthERP.FP
                     drRecuring["Year"] = int.Parse(ddlGoalYear.SelectedValue) + i;
                     drRecuring["FutureValue"] = Financial.Fv(Convert.ToDouble(txtInflation.Text) / 100, (int.Parse(ddlGoalYear.SelectedValue) + i) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0);
                     finalValue +=  Financial.Fv(Convert.ToDouble(txtInflation.Text) / 100, (int.Parse(ddlGoalYear.SelectedValue) + i) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0);
+                    drRecuring["PresentValue"] = Financial.Pv(double.Parse(txtExpRateOfReturn.Text) / 100, (int.Parse(ddlGoalYear.SelectedValue) + i) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Financial.Fv(Convert.ToDouble(txtInflation.Text) / 100, (int.Parse(ddlGoalYear.SelectedValue) + i) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0)), 0);
                 }
+                drRecuring["Returnoninvestment"] = txtExpRateOfReturn.Text;
                 drRecuring["Costperannum"] = (int.Parse(txtGoalCostToday.Text) / int.Parse(txtNoofYears.Text));
                 drRecuring["Inflation"] = txtInflation.Text;
                 dt.Rows.Add(drRecuring);

@@ -60,7 +60,7 @@
                 </telerik:RadTab>
                 <telerik:RadTab runat="server" Text="Equity" Value="EQ" TabIndex="4">
                 </telerik:RadTab>
-                <telerik:RadTab runat="server" Text="Fixed Income" Value="FI" TabIndex="5" Visible="false" >
+                <telerik:RadTab runat="server" Text="Fixed Income" Value="FI" TabIndex="5" Visible="false">
                 </telerik:RadTab>
             </Tabs>
         </telerik:RadTab>
@@ -270,7 +270,7 @@
                             <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text="Spouse EOL :"></asp:Label>
                         </td>
                         <td class="rightField" id="tdSpouseEOL2" runat="server">
-                            <asp:TextBox ID="txtSpouseEOL" runat="server"  Text="80" CssClass="txtField"></asp:TextBox>
+                            <asp:TextBox ID="txtSpouseEOL" runat="server" Text="80" CssClass="txtField"></asp:TextBox>
                             <span id="Span4" class="spnRequiredField" runat="server" visible="false">*</span>
                             <asp:RangeValidator ID="RangeValidator8" Display="Dynamic" SetFocusOnError="True"
                                 Type="Double" ErrorMessage="Value should be between 30 to 150" MinimumValue="0"
@@ -297,7 +297,7 @@
                     <tr id="trRadRecurring" runat="server" visible="false">
                         <td>
                         </td>
-                        <td class="rightField" colspan="2">
+                        <td class="rightField" colspan="3">
                             <telerik:RadGrid ID="RadRecurring" runat="server" GridLines="None" AllowPaging="True"
                                 PageSize="5" AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true"
                                 AllowAutomaticDeletes="false" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
@@ -325,10 +325,22 @@
                                             FilterControlWidth="70px" CurrentFilterFunction="Contains">
                                             <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="FutureValue" UniqueName="FutureValue" HeaderText="Future Value" DataFormatString="{0:F2}"
-                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="90px"
-                                            SortExpression="FutureValue" FilterControlWidth="70px" CurrentFilterFunction="Contains"
-                                            Aggregate="Sum" FooterText="Total:" DataType="System.Decimal">
+                                        <telerik:GridBoundColumn DataField="FutureValue" UniqueName="FutureValue" HeaderText="Future Value"
+                                            DataFormatString="{0:F2}" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            AllowFiltering="true" HeaderStyle-Width="90px" SortExpression="FutureValue" FilterControlWidth="70px"
+                                            CurrentFilterFunction="Contains" Aggregate="Sum" FooterText="Total:" DataType="System.Decimal">
+                                            <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="Returnoninvestment" UniqueName="Returnoninvestment"
+                                            HeaderText="Return on investment" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            AllowFiltering="true" HeaderStyle-Width="90px" SortExpression="FutureValue" FilterControlWidth="70px"
+                                            CurrentFilterFunction="Contains">
+                                            <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="PresentValue" UniqueName="PresentValue" HeaderText="Present Value"
+                                            DataFormatString="{0:F2}" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            AllowFiltering="true" HeaderStyle-Width="90px" SortExpression="PresentValue" FilterControlWidth="70px"
+                                            CurrentFilterFunction="Contains" Aggregate="Sum" FooterText="Total:" DataType="System.Decimal">
                                             <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                         </telerik:GridBoundColumn>
                                     </Columns>
@@ -565,11 +577,13 @@
         <asp:Panel ID="pnlButtonControls" runat="server">
             <table class="TableBackground">
                 <tr id="trchkApprove" runat="server">
-                    <td id="Td8" runat="server" style="width:350px">
+                    <td id="Td8" runat="server" style="width: 350px">
                         <asp:CheckBox ID="chkApprove" runat="server" CssClass="FieldName" Text=" Approved by Customer" />
                     </td>
-                    <td style="float:left"><asp:Button ID="btnCalculateSavLum" runat="server" CssClass="PCGButton" Text="Calculate" ValidationGroup="btnSave" OnClick="OnClick_btnCalculateSavLum" /> </td>
-                    
+                    <td style="float: left">
+                        <asp:Button ID="btnCalculateSavLum" runat="server" CssClass="PCGButton" Text="Calculate"
+                            ValidationGroup="btnSave" OnClick="OnClick_btnCalculateSavLum" />
+                    </td>
                 </tr>
                 <tr id="trlblApproveOn" runat="server">
                     <td id="Td9" runat="server">
