@@ -617,7 +617,7 @@
                                                                  <telerik:GridBoundColumn HeaderStyle-Width="350px" SortExpression="Scheme" AutoPostBackOnFilter="true"
                                                                     CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="Scheme"
                                                                     HeaderText="Scheme" DataField="Scheme">
-                                                                    <ItemStyle HorizontalAlign="Right" />
+                                                                    <ItemStyle HorizontalAlign="Left" />
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="100px" SortExpression="FolioNum" AutoPostBackOnFilter="true"
                                                                     CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="FolioNum"
