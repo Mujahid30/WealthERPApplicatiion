@@ -97,11 +97,7 @@
                             ShowFilterIcon="false" CurrentFilterFunction="Contains">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                       <%-- <telerik:GridBoundColumn HeaderText="Other charges %" DataField="Other Charges" UniqueName="OtherCharges"
-                            SortExpression="Other Charges" AutoPostBackOnFilter="true" AllowFiltering="false"
-                            ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>--%>
+                     
                         <telerik:GridBoundColumn HeaderText="SEBI Turn Over Fee %" DataField="Sebi Turn Over Fee" UniqueName="Sebi Turn Over Fee"
                             SortExpression="Sebi Turn Over Fee" AutoPostBackOnFilter="true" AllowFiltering="false"
                             ShowFilterIcon="false" CurrentFilterFunction="Contains">
@@ -128,7 +124,7 @@
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridDateTimeColumn DataField="Start Date" SortExpression="Start Date"
-                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" AllowFiltering="true"
+                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" AllowFiltering="false"
                             HeaderText="Start Date" UniqueName="Start Date" DataFormatString="{0:d}"
                             ShowFilterIcon="false">
                             <ItemStyle Width="110px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -138,7 +134,7 @@
                             </FilterTemplate>
                         </telerik:GridDateTimeColumn>
                             <telerik:GridDateTimeColumn DataField="End Date" SortExpression="End Date"
-                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" AllowFiltering="true"
+                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" AllowFiltering="false"
                             HeaderText="End Date" UniqueName="End Date" DataFormatString="{0:d}"
                             ShowFilterIcon="false">
                             <ItemStyle Width="110px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />

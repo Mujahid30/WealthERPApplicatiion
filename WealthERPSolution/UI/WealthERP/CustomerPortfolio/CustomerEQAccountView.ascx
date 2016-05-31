@@ -99,93 +99,20 @@
                             CurrentFilterFunction="Contains">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                       <%-- <telerik:GridBoundColumn HeaderText="Brkrg % for Del" DataField="Broker Del Percent"
-                            UniqueName="BrokerDelPercent" SortExpression="Broker Del Percent" AutoPostBackOnFilter="true"
-                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="Brkrg % for Spec" DataField="Broker Spec Percent"
-                            UniqueName="BrokerSpecPercent" SortExpression="Broker Spec Percent" AutoPostBackOnFilter="true"
-                            AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>--%>
-                       <%-- <telerik:GridBoundColumn HeaderText="Other charges %" DataField="Other Charges" UniqueName="OtherCharges"
-                            SortExpression="Other Charges" AutoPostBackOnFilter="true" AllowFiltering="false"
-                            ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>--%>
-                       <%-- <telerik:GridBoundColumn HeaderText="SEBI Turn Over Fee %" DataField="Sebi Turn Over Fee" UniqueName="Sebi Turn Over Fee"
-                            SortExpression="Sebi Turn Over Fee" AutoPostBackOnFilter="true" AllowFiltering="false"
-                            ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                           <telerik:GridBoundColumn HeaderText="Transaction Charges %" DataField="Transaction Charges" UniqueName="Transaction Charges"
-                            SortExpression="Transaction Charges" AutoPostBackOnFilter="true" AllowFiltering="false"
-                            ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn HeaderText="Stamp Charges %" DataField="Stamp Charges" UniqueName="Stamp Charges"
-                            SortExpression="Stamp Charges" AutoPostBackOnFilter="true" AllowFiltering="false"
-                            ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                         <telerik:GridBoundColumn HeaderText="STT %" DataField="STT" UniqueName="STT"
-                            SortExpression="STT" AutoPostBackOnFilter="true" AllowFiltering="false"
-                            ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                         <telerik:GridBoundColumn HeaderText="Service Tax %" DataField="Service Tax" UniqueName="Service Tax"
-                            SortExpression="Service Tax" AutoPostBackOnFilter="true" AllowFiltering="false"
-                            ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>--%>
-                        <telerik:GridDateTimeColumn DataField="A/C Opening Date" SortExpression="A/C Opening Date"
-                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" AllowFiltering="true"
-                            HeaderText="Account Opening date" UniqueName="A/COpeningDate" DataFormatString="{0:d}"
+                        <telerik:GridBoundColumn DataField="A/C Opening Date" SortExpression="A/C Opening Date"
+                            AutoPostBackOnFilter="true" CurrentFilterFunction="EqualTo" AllowFiltering="true"
+                            HeaderText="Account Opening date" UniqueName="A/COpeningDate" DataFormatString="{0:dd-MMM-yy}"
                             ShowFilterIcon="false">
                             <ItemStyle Width="110px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            <FilterTemplate>
-                                <telerik:RadDatePicker Width="250px" ID="calFilter" runat="server">
-                                </telerik:RadDatePicker>
-                            </FilterTemplate>
-                        </telerik:GridDateTimeColumn>
+                           
+                        </telerik:GridBoundColumn>
                     </Columns>
                 </MasterTableView>
                 <ClientSettings>
                     <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                 </ClientSettings>
             </telerik:RadGrid>
-            <%-- <asp:GridView ID="gvEQAcc" runat="server" AutoGenerateColumns="False" CellPadding="4"
-                CssClass="GridViewStyle" DataKeyNames="AccountId" AllowSorting="True" HorizontalAlign="Center"
-                ShowFooter="True">
-                <FooterStyle CssClass="FooterStyle" />
-                <RowStyle CssClass="RowStyle" />
-                <EditRowStyle HorizontalAlign="Left" VerticalAlign="Top" CssClass="EditRowStyle" />
-                <SelectedRowStyle CssClass="SelectedRowStyle" />
-                <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
-                <HeaderStyle CssClass="HeaderStyle" />
-                <AlternatingRowStyle CssClass="AltRowStyle" />
-                <Columns>
-                    <asp:TemplateField>
-                        <ItemTemplate>
-                            <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" 
-                                CssClass="GridViewCmbField" 
-                                onselectedindexchanged="ddlAction_SelectedIndexChanged">
-                                <asp:ListItem Text="Select" />
-                                <asp:ListItem Text="View" />
-                                <asp:ListItem Text="Edit" />
-                                <asp:ListItem Text="Delete" />
-                            </asp:DropDownList>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:BoundField DataField="Broker Name" HeaderText="Broker" />
-                    <asp:BoundField DataField="Trade No" HeaderText="Trade Acc No." />
-                    <asp:BoundField DataField="Broker Del Percent" HeaderText="Brkrg % for Del" />
-                    <asp:BoundField DataField="Broker Spec Percent" HeaderText="Brkrg % for Spec" />
-                    <asp:BoundField DataField="Other Charges" HeaderText="Other charges %" />
-                    <asp:BoundField DataField="A/C Opening Date" HeaderText="Account Opening date" />
-                </Columns>
-            </asp:GridView>--%>
+            
         </td>
     </tr>
 </table>
