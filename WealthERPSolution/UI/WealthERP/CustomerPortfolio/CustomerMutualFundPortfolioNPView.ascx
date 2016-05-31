@@ -136,7 +136,7 @@
                                                         Visible="false" CssClass="FieldName">Go Back</asp:LinkButton>
                                                     <asp:ImageButton Visible="false" ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                                         runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportrgHoldingsFilteredData_OnClick"
-                                                        OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+                                                         Height="25px" Width="25px"></asp:ImageButton>
                                                     <telerik:RadGrid ID="rgHoldings" runat="server" Width="1500px" PageSize="10" AllowAutomaticDeletes="false"
                                                         ShowFooter="true" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
                                                         HorizontalAlign="NotSet" AllowPaging="true" GridLines="None" AutoGenerateColumns="false"
@@ -339,7 +339,7 @@
                                                         CssClass="FieldName">Go Back</asp:LinkButton>
                                                     <asp:ImageButton Visible="false" ID="imgBtnrgAll" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                                         runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportrgAllFilteredData_OnClick"
-                                                        OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+                                                       Height="25px" Width="25px"></asp:ImageButton>
                                                     <telerik:RadGrid ID="rgAll" runat="server" Width="1500px" PageSize="10" AllowPaging="True"
                                                         OnExcelMLExportStylesCreated="rgAll_OnExcelMLExportStylesCreated" OnExcelMLExportRowCreated="rgAll_OnExcelMLExportRowCreated"
                                                         GridLines="None" AutoGenerateColumns="true" Style="border: 0; outline: none;"
@@ -555,7 +555,7 @@
                                                         Visible="false" CssClass="FieldName">Go Back</asp:LinkButton>
                                                     <asp:ImageButton Visible="false" ID="imgBtnrgRealized" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                                         runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportrgRealizedFilteredData_OnClick"
-                                                        OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+                                                       Height="25px" Width="25px"></asp:ImageButton>
                                                     <telerik:RadGrid ID="rgRealized" runat="server" Width="1500px" PageSize="10" AllowPaging="True"
                                                         AllowSorting="true" GridLines="None" AutoGenerateColumns="true" Style="border: 0;
                                                         outline: none;" OnExcelMLExportStylesCreated="rgRealized_OnExcelMLExportStylesCreated"
