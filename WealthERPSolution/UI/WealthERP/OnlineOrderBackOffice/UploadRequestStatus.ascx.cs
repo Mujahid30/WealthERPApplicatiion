@@ -35,7 +35,8 @@ namespace WealthERP.OnlineOrderBackOffice
             SessionBo.CheckSession();
             userVo = (UserVo)Session[SessionContents.UserVo];
             advisorVo = (AdvisorVo)Session["advisorVo"];
-            txtReqDate.SelectedDate = DateTime.Now.Date;
+            txtReqDate.SelectedDate = DateTime.Now.Date.AddDays(-2);
+            rdpToDate.SelectedDate = DateTime.Now.Date;
             if (!IsPostBack)
             {
                 GetTypes();

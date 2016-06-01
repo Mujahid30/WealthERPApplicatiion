@@ -139,6 +139,8 @@
                 InitialValue="2"></asp:RequiredFieldValidator>
         </td>
     </tr>
+</table>
+<table>
     <tr>
         <td class="leftField">
             <asp:Label ID="lb1date" runat="server" Text="Requested From Date:" CssClass="FieldName"></asp:Label>
