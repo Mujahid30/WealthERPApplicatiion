@@ -34,6 +34,6 @@ namespace VoOnlineOrderManagemnet
         public bool IsAllUnits { set; get; }
         public string SWPRedeemValueType { set; get; }
         public string BSESchemeCode { set; get; }
-        
+        public int OrderType { get; set; }
     }
 }

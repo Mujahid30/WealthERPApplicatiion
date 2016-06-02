@@ -32,6 +32,8 @@ namespace WealthERP.OnlineOrderManagement
         string path;
         int PageSize = 5;
         OnlineMFSchemeDetailsBo OnlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
+        string exchangeType = string.Empty;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -39,7 +41,11 @@ namespace WealthERP.OnlineOrderManagement
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             OnlineUserSessionBo.CheckSession();
             customerVo = (CustomerVo)Session["customerVo"];
-            userVo = (UserVo)Session["userVo"];           
+            userVo = (UserVo)Session["userVo"];
+            if (Session["ExchangeMode"] != null)
+                exchangeType = Session["ExchangeMode"].ToString();
+            else
+                exchangeType = "Online";
             if (!IsPostBack)
             {
                 BindAMC();
@@ -138,7 +144,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             DataTable dt;
             OnlineMFSchemeDetailsBo OnlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
-            dt = OnlineMFSchemeDetailsBo.GetAMCandCategoryWiseScheme(int.Parse(ddlAMC.SelectedValue), ddlCategory.SelectedValue);
+            dt = OnlineMFSchemeDetailsBo.GetAMCandCategoryWiseScheme(int.Parse(ddlAMC.SelectedValue), ddlCategory.SelectedValue, exchangeType == "Online" ? 1 : 0);
             ddlScheme.Items.Clear();
             if (dt.Rows.Count > 0)
             {

@@ -101,7 +101,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             DataSet dsFolioAccount;
             DataTable dtFolioAccount;
-            dsFolioAccount = OnlineMFOrderBo.GetFolioAccount(customerId);
+            dsFolioAccount = OnlineMFOrderBo.GetFolioAccount(customerId, exchangeType == "Online" ? 1 : 0);
             dtFolioAccount = dsFolioAccount.Tables[0];
             if (dtFolioAccount.Rows.Count > 0)
             {

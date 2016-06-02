@@ -32,10 +32,15 @@ namespace WealthERP.OnlineOrderManagement
         List<int> schemeCompareList = new List<int>();
         OnlineMFSchemeDetailsVo onlineMFSchemeDetailsVo;
         CommonLookupBo commonLookupBo = new CommonLookupBo();
+        string exchangeType = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
             OnlineUserSessionBo.CheckSession();
             customerVo = (CustomerVo)Session["CustomerVo"];
+            if (Session["ExchangeMode"] != null)
+                exchangeType = Session["ExchangeMode"].ToString();
+            else
+                exchangeType = "Online";
             if (!IsPostBack)
             {
                 BindAMC();
@@ -87,7 +92,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlScheme.Items.Clear();
             DataTable dt;
             OnlineMFSchemeDetailsBo OnlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
-            dt = OnlineMFSchemeDetailsBo.GetAMCandCategoryWiseScheme(int.Parse(ddlAMC.SelectedValue), ddlCategory.SelectedValue);
+            dt = OnlineMFSchemeDetailsBo.GetAMCandCategoryWiseScheme(int.Parse(ddlAMC.SelectedValue), ddlCategory.SelectedValue, exchangeType == "Online" ? 1 : 0);
             if (dt.Rows.Count > 0)
             {
                 ddlScheme.DataSource = dt;

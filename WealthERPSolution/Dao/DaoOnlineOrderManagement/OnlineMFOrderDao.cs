@@ -97,7 +97,7 @@ namespace DaoOnlineOrderManagement
             return dsOrderBookMIS;
         }
 
-        public DataSet GetFolioAccount(int CustomerId)
+        public DataSet GetFolioAccount(int CustomerId,int exchangeType)
         {
             DataSet dsFolioAccount;
             Database db;
@@ -107,6 +107,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetFolioAccountCmd = db.GetStoredProcCommand("SPROC_Onl_BindFolioAccount");
                 db.AddInParameter(GetFolioAccountCmd, "@C_CustomerId", DbType.Int32, CustomerId);
+                db.AddInParameter(GetFolioAccountCmd, "@exchangeType", DbType.Int32, exchangeType);
                 dsFolioAccount = db.ExecuteDataSet(GetFolioAccountCmd);
 
             }
@@ -227,7 +228,8 @@ namespace DaoOnlineOrderManagement
                 }
                 else
                     db.AddInParameter(CreateCustomerOnlineMFOrderDetailsCmd, "@IsAllUnits", DbType.Boolean, 0);
-
+                db.AddInParameter(CreateCustomerOnlineMFOrderDetailsCmd, "@IsDemate", DbType.Int32, onlinemforderVo.OrderType);
+                
                 if (db.ExecuteNonQuery(CreateCustomerOnlineMFOrderDetailsCmd) != 0)
                 {
                     orderId = Convert.ToInt32(db.GetParameterValue(CreateCustomerOnlineMFOrderDetailsCmd, "CO_OrderId").ToString());

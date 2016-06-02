@@ -501,6 +501,7 @@ namespace WealthERP.OnlineOrderManagement
             char msgType = 'F';
             if (exchangeType == "Online")
             {
+                onlinemforderVo.OrderType = 1;
                 if (availableBalance >= Convert.ToDecimal(onlinemforderVo.Amount))
                 {
                     OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
@@ -518,6 +519,7 @@ namespace WealthERP.OnlineOrderManagement
             }
             else if (exchangeType == "Demat")
             {
+                onlinemforderVo.OrderType = 0;
                 if (availableBalance >= Convert.ToDecimal(onlinemforderVo.Amount))
                 {
                     OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();

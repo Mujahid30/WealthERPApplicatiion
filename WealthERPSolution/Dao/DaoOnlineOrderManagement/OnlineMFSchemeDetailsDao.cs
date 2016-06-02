@@ -190,7 +190,7 @@ namespace DaoOnlineOrderManagement
             return cmotCode;
         }
     
-        public List<OnlineMFSchemeDetailsVo> GetCompareMFSchemeDetails(string schemeCompareList)
+        public List<OnlineMFSchemeDetailsVo> GetCompareMFSchemeDetails(string schemeCompareList,int exchangeType)
         {
             List<OnlineMFSchemeDetailsVo> onlineMFSchemeDetailsList = new List<OnlineMFSchemeDetailsVo>();
             Database db;
@@ -201,6 +201,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetSchemeDetailsCmd = db.GetStoredProcCommand("SPROC_Onl_GetMFSchemeCompareDetails");
                 db.AddInParameter(GetSchemeDetailsCmd, "@schemePlanCode", DbType.String, schemeCompareList);
+                db.AddInParameter(GetSchemeDetailsCmd, "@exchangeType", DbType.Int32, exchangeType);
                 GetSchemeDetailsDs = db.ExecuteDataSet(GetSchemeDetailsCmd);
                 if (GetSchemeDetailsDs.Tables[0].Rows.Count > 0)
                 {
@@ -271,7 +272,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetSIPCustomeSchemePlan;
         }
-        public DataTable GetAMCandCategoryWiseScheme(int AMCCode,string category)
+        public DataTable GetAMCandCategoryWiseScheme(int AMCCode,string category,int exchangeType)
         {
             Database db;
             DbCommand GetdtGetAMCandCategoryWiseScheme;
@@ -284,6 +285,9 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(GetdtGetAMCandCategoryWiseScheme, "@amcCode", DbType.Int32, AMCCode);
                 if(category!="0")
                 db.AddInParameter(GetdtGetAMCandCategoryWiseScheme, "@category", DbType.String, category);
+                db.AddInParameter(GetdtGetAMCandCategoryWiseScheme, "@exchangeType", DbType.Int32, exchangeType);
+
+                
                 dsGetAMCandCategoryWiseScheme = db.ExecuteDataSet(GetdtGetAMCandCategoryWiseScheme);
                 dtGetAMCandCategoryWiseScheme = dsGetAMCandCategoryWiseScheme.Tables[0];
             }

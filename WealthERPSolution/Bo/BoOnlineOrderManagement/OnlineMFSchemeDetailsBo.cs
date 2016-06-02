@@ -79,12 +79,12 @@ namespace BoOnlineOrderManagement
         }
 
 
-        public List<OnlineMFSchemeDetailsVo> GetCompareMFSchemeDetails(string schemeCompareList)
+        public List<OnlineMFSchemeDetailsVo> GetCompareMFSchemeDetails(string schemeCompareList,int exchangeType)
         {
             List<OnlineMFSchemeDetailsVo> OnlineMFSchemeDetailsList = new List<OnlineMFSchemeDetailsVo>();
             try
             {
-                OnlineMFSchemeDetailsList = OnlineMFSchemeDetailsDao.GetCompareMFSchemeDetails(schemeCompareList);
+                OnlineMFSchemeDetailsList = OnlineMFSchemeDetailsDao.GetCompareMFSchemeDetails(schemeCompareList, exchangeType);
             }
             catch (BaseApplicationException Ex)
             {
@@ -105,12 +105,12 @@ namespace BoOnlineOrderManagement
             }
             return ds;
         }
-        public DataTable GetAMCandCategoryWiseScheme(int AMCCode, string category)
+        public DataTable GetAMCandCategoryWiseScheme(int AMCCode, string category,int exchangeType)
         {
             DataTable dt;
             try
             {
-                dt = OnlineMFSchemeDetailsDao.GetAMCandCategoryWiseScheme(AMCCode, category);
+                dt = OnlineMFSchemeDetailsDao.GetAMCandCategoryWiseScheme(AMCCode, category, exchangeType);
             }
             catch (BaseApplicationException Ex)
             {

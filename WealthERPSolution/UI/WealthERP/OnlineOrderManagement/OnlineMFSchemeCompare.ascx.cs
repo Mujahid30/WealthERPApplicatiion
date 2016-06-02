@@ -25,6 +25,8 @@ namespace WealthERP.OnlineOrderManagement
             OnlineUserSessionBo.CheckSession();
             if (Session["ExchangeMode"] != null)
                 exchangeType = Session["ExchangeMode"].ToString();
+            else
+                exchangeType = "Online";
             if (!IsPostBack)
             {
                 BindAMC1();
@@ -54,7 +56,7 @@ namespace WealthERP.OnlineOrderManagement
         protected void GetSchemeCompareList(string CompareScheme, int schemeColNo)
         {
             List<OnlineMFSchemeDetailsVo> OnlineMFSchemeDetailslist = new List<OnlineMFSchemeDetailsVo>();
-            OnlineMFSchemeDetailslist = onlineMFSchemeDetailsBo.GetCompareMFSchemeDetails(CompareScheme);
+            OnlineMFSchemeDetailslist = onlineMFSchemeDetailsBo.GetCompareMFSchemeDetails(CompareScheme, exchangeType == "Online" ? 1 : 0);
             if (schemeColNo == 0)
             {
                 //Session["SchemeCompareList"] = null;
@@ -127,7 +129,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             DataTable dt;
             OnlineMFSchemeDetailsBo OnlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
-            dt = OnlineMFSchemeDetailsBo.GetAMCandCategoryWiseScheme(int.Parse(ddlAMC1.SelectedValue), ddlCategory1.SelectedValue);
+            dt = OnlineMFSchemeDetailsBo.GetAMCandCategoryWiseScheme(int.Parse(ddlAMC1.SelectedValue), ddlCategory1.SelectedValue, exchangeType == "Online" ? 1 : 0);
             if (dt.Rows.Count > 0)
             {
                 ddlSchemeList1.DataSource = dt;
@@ -183,7 +185,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             DataTable dt;
             OnlineMFSchemeDetailsBo OnlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
-            dt = OnlineMFSchemeDetailsBo.GetAMCandCategoryWiseScheme(int.Parse(ddlAMC2.SelectedValue), ddlCategory2.SelectedValue);
+            dt = OnlineMFSchemeDetailsBo.GetAMCandCategoryWiseScheme(int.Parse(ddlAMC2.SelectedValue), ddlCategory2.SelectedValue, exchangeType == "Online" ? 1 : 0);
             if (dt.Rows.Count > 0)
             {
                 ddlSchemeList2.DataSource = dt;
@@ -197,7 +199,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             DataTable dt;
             OnlineMFSchemeDetailsBo OnlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
-            dt = OnlineMFSchemeDetailsBo.GetAMCandCategoryWiseScheme(int.Parse(ddlAMC3.SelectedValue), ddlCategory3.SelectedValue);
+            dt = OnlineMFSchemeDetailsBo.GetAMCandCategoryWiseScheme(int.Parse(ddlAMC3.SelectedValue), ddlCategory3.SelectedValue, exchangeType == "Online" ? 1 : 0);
             if (dt.Rows.Count > 0)
             {
                 ddlSchemeList3.DataSource = dt;
@@ -211,7 +213,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             DataTable dt;
             OnlineMFSchemeDetailsBo OnlineMFSchemeDetailsBo = new OnlineMFSchemeDetailsBo();
-            dt = OnlineMFSchemeDetailsBo.GetAMCandCategoryWiseScheme(int.Parse(ddlAMC4.SelectedValue), ddlCategory4.SelectedValue);
+            dt = OnlineMFSchemeDetailsBo.GetAMCandCategoryWiseScheme(int.Parse(ddlAMC4.SelectedValue), ddlCategory4.SelectedValue, exchangeType == "Online" ? 1 : 0);
             if (dt.Rows.Count > 0)
             {
                 ddlSchemeList4.DataSource = dt;

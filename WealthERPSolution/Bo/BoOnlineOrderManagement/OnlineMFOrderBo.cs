@@ -48,13 +48,13 @@ namespace BoOnlineOrderManagement
             return dsOrderBookMIS;
         }
 
-        public DataSet GetFolioAccount(int CustomerId)
+        public DataSet GetFolioAccount(int CustomerId,int exchangeType)
         {
             DataSet dsFolioAccount = null;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             try
             {
-                dsFolioAccount = OnlineMFOrderDao.GetFolioAccount(CustomerId);
+                dsFolioAccount = OnlineMFOrderDao.GetFolioAccount(CustomerId, exchangeType);
             }
             catch (BaseApplicationException Ex)
             {
