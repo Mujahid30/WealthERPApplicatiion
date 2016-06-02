@@ -205,7 +205,7 @@ namespace WealthERP.CustomerPortfolio
                     dtEquityTransactions.Columns.Add("Transaction Code");
                     dtEquityTransactions.Columns.Add("Dividend Status");
                     dtEquityTransactions.Columns.Add("Exchange");
-                    dtEquityTransactions.Columns.Add("TradeDate");
+                    dtEquityTransactions.Columns.Add("TradeDate" , typeof(DateTime));
                     dtEquityTransactions.Columns.Add("Quantity", typeof(double));
                     dtEquityTransactions.Columns.Add("Rate", typeof(double));
 
@@ -265,7 +265,7 @@ namespace WealthERP.CustomerPortfolio
                         }
                         drEquityTransaction["Transaction Code"] = equityTransactionVo.TransactionCode.ToString();
                         drEquityTransaction["Exchange"] = equityTransactionVo.Exchange.ToString();
-                        drEquityTransaction["TradeDate"] = equityTransactionVo.TradeDate.ToString("dd MMM yy", System.Globalization.CultureInfo.InvariantCulture);
+                        drEquityTransaction["TradeDate"] = DateTime.Parse(equityTransactionVo.TradeDate.ToString());
                         drEquityTransaction["Rate"] = decimal.Parse(equityTransactionVo.Rate.ToString()).ToString();
                         drEquityTransaction["Quantity"] = equityTransactionVo.Quantity.ToString("f0");
 

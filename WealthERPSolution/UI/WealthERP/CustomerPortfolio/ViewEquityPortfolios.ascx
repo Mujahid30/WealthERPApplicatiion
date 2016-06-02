@@ -117,11 +117,18 @@
                 <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
                     ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
                 </Calendar>
+                
                 <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                 <DateInput ID="DateInput1" EmptyMessage="dd/mm/yyyy" runat="server" DisplayDateFormat="d/M/yyyy"
                     DateFormat="d/M/yyyy">
                 </DateInput>
+                 
             </telerik:RadDatePicker>
+         
+                     <span id ="spn" class="spnRequiredField">*</span> 
+                <asp:RequiredFieldValidator ID ="RequiredFieldValidator1"  runat="server" CssClass="cvPCG" Display="Dynamic" ValidationGroup="vgBtnGo"  ControlToValidate="txtPickDate"  ErrorMessage="<br />Please select  Date">
+                </asp:RequiredFieldValidator>
+              
         </td>
         <td class="leftField" id="tdlblDate" runat="server" visible="false">
             <asp:Label ID="lblToDate" runat="server" CssClass="FieldName">To:</asp:Label>

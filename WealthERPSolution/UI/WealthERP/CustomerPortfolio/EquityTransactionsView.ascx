@@ -330,7 +330,7 @@
                     </telerik:GridBoundColumn>
                     <telerik:GridDateTimeColumn DataField="TradeDate" SortExpression="TradeDate" AutoPostBackOnFilter="true"
                         HeaderStyle-Width="100px" CurrentFilterFunction="EqualTo" AllowFiltering="true" 
-                        HeaderText="TradeDate" UniqueName="TradeDate" DataFormatString="{0:d}" ShowFilterIcon="false"
+                        HeaderText="TradeDate" UniqueName="TradeDate" DataFormatString="{0:d-MMM-yyy}" ShowFilterIcon="false"
                         HeaderStyle-HorizontalAlign="Center" HeaderStyle-VerticalAlign="Middle">
                         <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                         <FilterTemplate>
@@ -562,12 +562,12 @@
                         Visible="true" HeaderStyle-HorizontalAlign="Center" HeaderStyle-VerticalAlign="Middle">
                         <ItemStyle Width="" Wrap="false" VerticalAlign="Top" CssClass="font" />
                     </telerik:GridBoundColumn>
-                     <telerik:GridBoundColumn HeaderText="Created On" DataField="CET_CreatedOn"
+                     <telerik:GridDateTimeColumn HeaderText="Created On" DataField="CET_CreatedOn"
                         HeaderStyle-Width="150px" UniqueName="CET_CreatedOn" SortExpression="CET_CreatedOn" AllowFiltering="true"
-                        CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" ShowFilterIcon="true"
-                        Visible="true" HeaderStyle-HorizontalAlign="Center" HeaderStyle-VerticalAlign="Middle" DataFormatString="{0:d-MMM-yyyy hh:mm }"> 
+                        CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" ShowFilterIcon="false"
+                        Visible="true" HeaderStyle-HorizontalAlign="Center" HeaderStyle-VerticalAlign="Middle" DataFormatString="{0:d-MMM-yyy}"> 
                         <ItemStyle Width="" Wrap="false" VerticalAlign="Top" CssClass="font" />
-                    </telerik:GridBoundColumn>
+                    </telerik:GridDateTimeColumn>
                 </Columns>
             </MasterTableView>
             <ClientSettings>
