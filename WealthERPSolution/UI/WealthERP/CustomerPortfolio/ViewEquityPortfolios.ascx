@@ -144,6 +144,9 @@
                     DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
+              <span id ="Span1" class="spnRequiredField">*</span> 
+                <asp:RequiredFieldValidator ID ="RequiredFieldValidator2"  runat="server" CssClass="cvPCG" Display="Dynamic" ValidationGroup="vgBtnGo"  ControlToValidate="radToDate"  ErrorMessage="<br />Please select  Date">
+                </asp:RequiredFieldValidator>
         </td>
         <td class="rightField">
             <asp:Button ID="btnGo" runat="server" Text="GO" CssClass="PCGButton" OnClick="btnGo_Click"
