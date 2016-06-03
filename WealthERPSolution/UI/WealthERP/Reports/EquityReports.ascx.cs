@@ -112,11 +112,14 @@ namespace WealthERP.Reports
 
                 if (!IsPostBack)
                 {
+                    txtFromDate.Text = DateTime.Now.AddMonths(-1).ToString();
+                    txtToDate.Text = DateTime.Now.ToString();
                     CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
                     DataSet ds = customerTransactionBo.GetLastTradeDate();
                     if (ds.Tables != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0 && ds.Tables[0].Rows[0]["WTD_Date"] != null)
                         txtAsOnDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
-
+                    txtFromDate.Text = DateTime.Now.AddMonths(-1).ToString("MM/dd/yyyy");
+                    txtToDate.Text = DateTime.Now.ToString("MM/dd/yyyy");
                     if (CustomerLogin == true)
                     {
                         trCustomerGrHead.Visible = true;
@@ -186,7 +189,9 @@ namespace WealthERP.Reports
             {
                 chckdate = DateTime.Parse(txtFromDate.Text);
                 ValidateBussDate(chckdate);
+               
             }
+          
         }
         public void ChckBussToDate_Textchanged(object sender, EventArgs e)
         {
@@ -195,6 +200,7 @@ namespace WealthERP.Reports
                 chckdate = DateTime.Parse(txtToDate.Text);
                 ValidateBussDate(chckdate);
             }
+          
         }
         public void ValidateBussDate( DateTime chckdate)
         {
@@ -216,6 +222,7 @@ namespace WealthERP.Reports
         {
             if (rbtnPickDate.Checked == true)
             {
+                
                 trRange.Visible = true;
                 trPeriod.Visible = false;
             }

@@ -322,7 +322,7 @@
                 </p>
             </div>
             <asp:Button ID="btnView" runat="server" OnClientClick="return validate('')" PostBackUrl="~/Reports/Display.aspx"
-                CssClass="CrystalButton" />&nbsp;&nbsp;
+                CssClass="CrystalButton" ValidationGroup="" />&nbsp;&nbsp;
             <div id="div1" style="display: none;">
                 <p class="tip">
                     Click here to view equity report.
@@ -341,21 +341,21 @@
     <tr id="trCustomerButton" runat="server">
         <td colspan="2" align="right">
             <asp:Button ID="btnCustomerExportToPDF" runat="server" OnClientClick="return CustomerValidate('pdf')"
-                PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton"  />&nbsp;&nbsp;
+                PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton" ValidationGroup="btnview"  />&nbsp;&nbsp;
             <div id="div5" style="display: none;">
                 <p class="tip">
                     Click here to view equity report in pdf format.
                 </p>
             </div>
             <asp:Button ID="btnCustomerViewReport" runat="server" OnClientClick="return CustomerValidate('view')"
-                PostBackUrl="~/Reports/Display.aspx?mail=3" CssClass="CrystalButton"  />&nbsp;&nbsp;
+                PostBackUrl="~/Reports/Display.aspx?mail=3" CssClass="CrystalButton" ValidationGroup="btnview"  />&nbsp;&nbsp;
             <div id="div4" style="display: none;">
                 <p class="tip">
                     Click here to view equity report.
                 </p>
             </div>
             <asp:Button ID="btnCustomerViewInDOC" runat="server" CssClass="DOCButton" OnClientClick="return CustomerValidate('doc')"
-                PostBackUrl="~/Reports/Display.aspx?mail=4"  />&nbsp;&nbsp;
+                PostBackUrl="~/Reports/Display.aspx?mail=4" ValidationGroup="btnview" />&nbsp;&nbsp;
             <div id="div6" style="display: none;">
                 <p class="tip">
                     Click here to view equity report in word doc.</p>
@@ -610,7 +610,7 @@
                             <tr>
                                 <td>
                                     <asp:Label ID="lblPickDate" runat="server" Text="Pick a date range" CssClass="Field"></asp:Label>
-                                    <asp:RadioButton ID="rbtnPickDate" Checked="true" runat="server" ValidationGroup="btnGo" GroupName="Date"
+                                    <asp:RadioButton ID="rbtnPickDate" Checked="true" runat="server" ValidationGroup="btnview" GroupName="Date"
                                         onclick="DisplayDates('DATE_RANGE')" Text="" />
                                 </td>
                                 <td>
@@ -636,7 +636,7 @@
 
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtFromDate"
                                         CssClass="rfvPCG" ErrorMessage="<br />Please select a From Date" Display="Dynamic"
-                                        runat="server" Operator="NotEqual"  ValidationGroup="btnGo" > </asp:RequiredFieldValidator>
+                                        runat="server"   ValidationGroup="btnview" > </asp:RequiredFieldValidator>
                                 </td>
                                 <td>
                                     <asp:Label ID="lblToDate" runat="server" CssClass="FieldName">To:</asp:Label>
@@ -651,12 +651,12 @@
                                     </ajaxToolkit:TextBoxWatermarkExtender>
                                              <span id="Span3" class="spnRequiredField">*</span>
 
-                                   <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtToDate"
+                                  <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtToDate"
                                         CssClass="rfvPCG" ErrorMessage="<br />Please select a To Date" Display="Dynamic"
-                                        runat="server" Operator="GreaterThanEqual" InitialValue="" ValidationGroup="btnGo"> </asp:RequiredFieldValidator>--%>
+                                        runat="server" ValidationGroup="btnview"> </asp:RequiredFieldValidator>
                                     <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Please Select a To date"
                                         Type="Date" ControlToValidate="txtToDate" ControlToCompare="txtFromDate" Operator="GreaterThanEqual"
-                                        CssClass="cvPCG" Display="Dynamic" ValidationGroup="btnGo"></asp:CompareValidator>
+                                        CssClass="cvPCG" Display="Dynamic" ValidationGroup="btnview"></asp:CompareValidator>
                                 </td>
                             </tr>
                         </table>
