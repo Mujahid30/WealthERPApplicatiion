@@ -164,16 +164,17 @@ namespace WealthERP.FP
                         txtFirstName.Text = customerVo.FirstName;
                         txtMiddleName.Text = customerVo.MiddleName;
                         txtLastName.Text = customerVo.LastName;
-                        
-                        if (customerVo.Gender.ToUpper().ToString() == "M")
+                        if (!string.IsNullOrEmpty(customerVo.Gender))
                         {
-                            rbtnMale.Checked = true;
+                            if (customerVo.Gender.ToUpper().ToString() == "M")
+                            {
+                                rbtnMale.Checked = true;
+                            }
+                            else if (customerVo.Gender.ToUpper().ToString() == "F")
+                            {
+                                rbtnFemale.Checked = true;
+                            }
                         }
-                        else if (customerVo.Gender.ToUpper().ToString() == "F")
-                        {
-                            rbtnFemale.Checked = true;
-                        }
-
                         txtSlab.Text = customerVo.TaxSlab.ToString();
 
                         if (customerVo.Dob != DateTime.Parse("01/01/0001 00:00:00") && customerVo.Dob != null)
