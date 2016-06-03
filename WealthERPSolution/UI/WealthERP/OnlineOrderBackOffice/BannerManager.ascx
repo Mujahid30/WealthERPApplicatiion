@@ -563,9 +563,11 @@
                 <script type="text/javascript">
                     function ShowEditForm(id, rowIndex) {
                         var grid = $find("<%= rgNotification.ClientID %>");
-                        var rowControl = grid.get_masterTableView().get_dataItems()[rowIndex].get_element();
-                        grid.get_masterTableView().selectItem(rowControl, true);
-                     
+
+//                        var rowControl = grid.get_masterTableView().get_dataItems()[rowIndex].get_element();
+//                        alert(rowControl);
+//                        grid.get_masterTableView().selectItem(rowControl, true);
+//                       
                         window.radopen("../InvestorOnline.aspx" + id, "UserListDialog1");
 
                         return false;

@@ -619,7 +619,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 DataTable dt = new DataTable();
                 dt = (DataTable)Cache["NotificationType" + userVo.UserId.ToString()];
                  DataRow[] foundRows=dt.Select("CNT_ID="+   NotificationType.SelectedValue);
-                 if (foundRows.Length >0&&foundRows[0]["CNT_Code"].ToString() == "Reminder")
+                 if (foundRows.Length >0&&foundRows[0]["CNT_Code"].ToString().ToUpper() == "REMINDER")
                 {
                     txtPriorDays.Visible = true;
                     Label7.Visible = true;
@@ -679,7 +679,7 @@ namespace WealthERP.OnlineOrderBackOffice
             headingText = ((TextBox)insertItem.FindControl("txtNotificationHeading")).Text;
             string assetGroupCode = ((DropDownList)insertItem.FindControl("ddlAssetGroupName1")).SelectedValue;
             notificationType = Convert.ToInt32(((DropDownList)insertItem.FindControl("DropDownList1")).SelectedValue);
-            PriorDays = Convert.ToInt32(((TextBox)insertItem.FindControl("txtPriorDays")).Text);
+            PriorDays = Convert.ToInt32(string.IsNullOrEmpty(((TextBox)insertItem.FindControl("txtPriorDays")).Text)?"0":((TextBox)insertItem.FindControl("txtPriorDays")).Text);
 
             string transtypes = string.Empty;
             foreach (ListItem li in ((CheckBoxList)e.Item.FindControl("chkbltranstype")).Items)
@@ -749,6 +749,27 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
                     }
+                }
+                Label Label7 = new Label();
+                TextBox txtPriorDays = new TextBox();
+                RequiredFieldValidator Requiredfieldvalidator9 = new RequiredFieldValidator();
+                Label7 = (Label)editedItem.FindControl("Label7");
+                txtPriorDays = (TextBox)editedItem.FindControl("txtPriorDays");
+                Requiredfieldvalidator9 = (RequiredFieldValidator)editedItem.FindControl("Requiredfieldvalidator9");
+                DataTable dt = new DataTable();
+                dt = (DataTable)Cache["NotificationType" + userVo.UserId.ToString()];
+                DataRow[] foundRows = dt.Select("CNT_ID=" + dropDownList1.SelectedValue);
+                if (foundRows.Length > 0 && foundRows[0]["CNT_Code"].ToString().ToUpper() == "REMINDER")
+                {
+                    txtPriorDays.Visible = true;
+                    Label7.Visible = true;
+                    Requiredfieldvalidator9.Enabled = true;
+                }
+                else
+                {
+                    txtPriorDays.Visible = false;
+                    Label7.Visible = false;
+                    Requiredfieldvalidator9.Enabled = false;
                 }
             }
             if ((e.Item is GridEditFormInsertItem) && (e.Item.OwnerTableView.IsItemInserted))
