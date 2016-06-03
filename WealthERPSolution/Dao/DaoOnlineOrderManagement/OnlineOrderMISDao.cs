@@ -15,7 +15,7 @@ namespace DaoOnlineOrderManagement
 {
     public class OnlineOrderMISDao
     {
-        public DataSet GetOrderBookMIS(int adviserId, int AmcCode, string OrderStatus, DateTime dtFrom, DateTime dtTo,int orderNo,string folioNo)
+        public DataSet GetOrderBookMIS(int adviserId, int AmcCode, string OrderStatus, DateTime dtFrom, DateTime dtTo, int orderNo, string folioNo, int Isdemat)
         {
             DataSet dsOrderBookMIS;
             Database db;
@@ -46,6 +46,8 @@ namespace DaoOnlineOrderManagement
                 else
                     db.AddInParameter(GetOrderBookMISCmd, "@orderNo", DbType.Int32, 0);
                 db.AddInParameter(GetOrderBookMISCmd, "@folioNo", DbType.String, folioNo);
+                db.AddInParameter(GetOrderBookMISCmd, "@Isdemat", DbType.Int32, Isdemat);
+
                 GetOrderBookMISCmd.CommandTimeout = 60 * 60;
                 dsOrderBookMIS = db.ExecuteDataSet(GetOrderBookMISCmd);
 

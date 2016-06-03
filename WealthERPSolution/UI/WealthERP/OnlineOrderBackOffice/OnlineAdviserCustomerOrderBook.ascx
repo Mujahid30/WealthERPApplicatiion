@@ -38,26 +38,35 @@
             <asp:Label ID="lblType" runat="server" CssClass="FieldName" Text="Search Type:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlType_OnSelectedIndexChanged" AutoPostBack="true">
-               
+            <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlType_OnSelectedIndexChanged"
+                AutoPostBack="true">
                 <asp:ListItem Text="Order No." Value="ON"></asp:ListItem>
                 <asp:ListItem Text="Without Order No." Value="WON" Selected="True"></asp:ListItem>
             </asp:DropDownList>
-              <span id="Span3" class="spnRequiredField">*</span>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="ddlType"
-                        ErrorMessage="<br />Please select search type" CssClass="cvPCG" Display="Dynamic"
-                        runat="server" InitialValue="Select" ValidationGroup="btnViewOrder">
-                    </asp:RequiredFieldValidator>
+            <span id="Span3" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="ddlType"
+                ErrorMessage="<br />Please select search type" CssClass="cvPCG" Display="Dynamic"
+                runat="server" InitialValue="Select" ValidationGroup="btnViewOrder">
+            </asp:RequiredFieldValidator>
         </td>
     </tr>
 </table>
 <div id="divConditional" runat="server" style="padding-top: 4px" visible="false">
     <table>
-        <tr >
-            <td id="tdlblRejectReason" runat="server" align="right" style="padding-left:45px;">
+        <tr>
+            <td>
+                <asp:Label runat="server" class="FieldName" Text="Mode:" ID="lblMode"></asp:Label>
+            </td>
+            <td>
+            <asp:DropDownList ID="ddlMode" runat="server" CssClass="cmbField">
+            <asp:ListItem Value="0" Text="Online"></asp:ListItem>
+            <asp:ListItem Value="1" Text="Demat"></asp:ListItem>
+            </asp:DropDownList>
+            </td>
+            <td id="tdlblRejectReason" runat="server" align="right" style="padding-left: 45px;">
                 <asp:Label runat="server" class="FieldName" Text="AMC:" ID="lblAccount"></asp:Label>
-                </td>
-                <td>
+            </td>
+            <td>
                 <asp:DropDownList CssClass="cmbField" ID="ddlAmc" runat="server" AutoPostBack="false">
                 </asp:DropDownList>
             </td>
@@ -67,8 +76,8 @@
            &nbsp--%>
             <td id="td1" runat="server" align="right">
                 <asp:Label runat="server" class="FieldName" Text="Order Status:" ID="Label1"></asp:Label>
-                 </td>
-                <td>
+            </td>
+            <td>
                 <asp:DropDownList CssClass="cmbField" ID="ddlOrderStatus" runat="server" AutoPostBack="false">
                 </asp:DropDownList>
             </td>
@@ -190,8 +199,9 @@
                                 UniqueName="CO_OrderId" SortExpression="CO_OrderId" ShowFilterIcon="false" CurrentFilterFunction="EqualTo"
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="60px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                 <ItemTemplate>
-                                    <asp:LinkButton ID="lnkprAmcB" runat="server" CommandName="Select" Text='<%# Eval("CO_OrderId").ToString() %>' OnClientClick="return confirm('The Order step will be Reverted to Executed.Would you like to Continue?');">
+                                <ItemTemplate>
+                                    <asp:LinkButton ID="lnkprAmcB" runat="server" CommandName="Select" Text='<%# Eval("CO_OrderId").ToString() %>'
+                                        OnClientClick="return confirm('The Order step will be Reverted to Executed.Would you like to Continue?');">
                                     </asp:LinkButton>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>

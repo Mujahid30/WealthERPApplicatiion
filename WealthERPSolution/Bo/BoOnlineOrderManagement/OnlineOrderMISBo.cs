@@ -17,13 +17,13 @@ namespace BoOnlineOrderManagement
 {
     public class OnlineOrderMISBo
     {
-        public DataSet GetOrderBookMIS(int adviserId, int AmcCode, string OrderStatus, DateTime dtFrom, DateTime dtTo, int orderNo, string folioNo)
+        public DataSet GetOrderBookMIS(int adviserId, int AmcCode, string OrderStatus, DateTime dtFrom, DateTime dtTo, int orderNo, string folioNo,int Isdemat)
         {
             DataSet dsOrderBookMIS = null;
             OnlineOrderMISDao OnlineOrderMISDao = new OnlineOrderMISDao();
             try
             {
-                dsOrderBookMIS = OnlineOrderMISDao.GetOrderBookMIS(adviserId, AmcCode, OrderStatus, dtFrom, dtTo, orderNo, folioNo);
+                dsOrderBookMIS = OnlineOrderMISDao.GetOrderBookMIS(adviserId, AmcCode, OrderStatus, dtFrom, dtTo, orderNo, folioNo, Isdemat);
             }
             catch (BaseApplicationException Ex)
             {

@@ -31,6 +31,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton imgexportButton;
          protected global::System.Web.UI.WebControls.DropDownList ddlType;
+         protected global::System.Web.UI.WebControls.DropDownList ddlMode;
         protected global::System.Web.UI.WebControls.Label lblOrderNo;
         protected global::System.Web.UI.WebControls.TextBox txtOrderNo;
         /// <summary>

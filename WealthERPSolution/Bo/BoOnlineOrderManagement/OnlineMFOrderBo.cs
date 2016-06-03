@@ -651,7 +651,7 @@ namespace BoOnlineOrderManagement
               
                 OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
                 string passkey = "E234586789D12";
-                string password = webOrderEntryClient.getPassword("9501", "A@123", passkey);
+                string password = webOrderEntryClient.getPassword("9501", "S@123", passkey);
                 string[] bsePassArray = password.Split('|');
                 isRMSDebited = DebitOrCreditRMSUserAccountBalance(UserID, ClientCode, -onlinemforderVo.Amount, rmsId, out  rmsId);
                 if (isRMSDebited)
@@ -671,6 +671,7 @@ namespace BoOnlineOrderManagement
                     else if ((Convert.ToInt32(bseorderEntryresponseArray[7]) == 0))
                     {
                         orderIds = CreateCustomerOnlineMFOrderDetails(onlinemforderVo, UserID, CustomerId);
+                        bool result = OnlineMFOrderDao.BSERequestOrderIdUpdate(orderIds[0], transCode, rmsId);
                          message = "Order placed successfully, Order reference no is " + orderIds[0].ToString() ;
                          msgType = 'S';
                     }

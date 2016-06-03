@@ -15,8 +15,8 @@ namespace DaoOnlineOrderManagement
 {
     public class OnlineMFSchemeDetailsDao
     {
-            OnlineMFSchemeDetailsVo OnlineMFSchemeDetailsVo = new OnlineMFSchemeDetailsVo();
-            public OnlineMFSchemeDetailsVo GetSchemeDetails(int amcCode, int schemeCode, string category, out DataTable dtNavDetails)
+        OnlineMFSchemeDetailsVo OnlineMFSchemeDetailsVo = new OnlineMFSchemeDetailsVo();
+        public OnlineMFSchemeDetailsVo GetSchemeDetails(int amcCode, int schemeCode, string category, out DataTable dtNavDetails)
         {
             Database db;
             DataSet GetSchemeDetailsDs;
@@ -74,8 +74,8 @@ namespace DaoOnlineOrderManagement
                         OnlineMFSchemeDetailsVo.mornigStar = int.Parse(dr["SchemeRatingOverall"].ToString());
                         OnlineMFSchemeDetailsVo.overAllRating = int.Parse(dr["SchemeRatingOverall"].ToString());
                         OnlineMFSchemeDetailsVo.navDate = dr["PASPSP_Date"].ToString();
-                        if(dr["CMFNP_CurrentValue"].ToString() !="")
-                        OnlineMFSchemeDetailsVo.NAV = Convert.ToDecimal(dr["CMFNP_CurrentValue"]);
+                        if (dr["CMFNP_CurrentValue"].ToString() != "")
+                            OnlineMFSchemeDetailsVo.NAV = Convert.ToDecimal(dr["CMFNP_CurrentValue"]);
                     }
                 }
             }
@@ -85,43 +85,43 @@ namespace DaoOnlineOrderManagement
             }
             return OnlineMFSchemeDetailsVo;
         }
-            public bool DeleteSchemeFromCustomerWatch(int schemeCode, int customerId,string productType)
+        public bool DeleteSchemeFromCustomerWatch(int schemeCode, int customerId, string productType)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand createCmd;
+            try
             {
-                bool bResult = false;
-                Database db;
-                DbCommand createCmd;
-                try
-                {
-                    db = DatabaseFactory.CreateDatabase("wealtherp");
-                    createCmd = db.GetStoredProcCommand("SPROC_ONL_DeleteProductFromWatchList");
-                    db.AddInParameter(createCmd, "@customerId", DbType.Int32, customerId);
-                    db.AddInParameter(createCmd, "@productId", DbType.Int32, schemeCode);
-                    db.AddInParameter(createCmd, "@productType", DbType.String, productType);
-                   if (db.ExecuteNonQuery(createCmd) != 0)
-                        bResult = true;
-                    else
-                        bResult = false;
-                }
-                catch (BaseApplicationException Ex)
-                {
-                    throw Ex;
-                }
-                catch (Exception Ex)
-                {
-                    BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                    NameValueCollection FunctionInfo = new NameValueCollection();
-                    FunctionInfo.Add("Method", "DeleteSchemeFromCustomerWatch(int schemeCode, int customerId,string productType)");
-                    object[] objects = new object[3];
-                    objects[0] = customerId;
-                    objects[1] = schemeCode;
-                    FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                    exBase.AdditionalInformation = FunctionInfo;
-                    ExceptionManager.Publish(exBase);
-                    throw exBase;
-
-                }
-                return bResult;
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createCmd = db.GetStoredProcCommand("SPROC_ONL_DeleteProductFromWatchList");
+                db.AddInParameter(createCmd, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(createCmd, "@productId", DbType.Int32, schemeCode);
+                db.AddInParameter(createCmd, "@productType", DbType.String, productType);
+                if (db.ExecuteNonQuery(createCmd) != 0)
+                    bResult = true;
+                else
+                    bResult = false;
             }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "DeleteSchemeFromCustomerWatch(int schemeCode, int customerId,string productType)");
+                object[] objects = new object[3];
+                objects[0] = customerId;
+                objects[1] = schemeCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
         public bool CustomerAddMFSchemeToWatch(int customerId, int schemeCode, string assetGroup, int userId)
         {
             bool bResult = false;
@@ -189,8 +189,8 @@ namespace DaoOnlineOrderManagement
             }
             return cmotCode;
         }
-    
-        public List<OnlineMFSchemeDetailsVo> GetCompareMFSchemeDetails(string schemeCompareList,int exchangeType)
+
+        public List<OnlineMFSchemeDetailsVo> GetCompareMFSchemeDetails(string schemeCompareList, int exchangeType)
         {
             List<OnlineMFSchemeDetailsVo> onlineMFSchemeDetailsList = new List<OnlineMFSchemeDetailsVo>();
             Database db;
@@ -209,18 +209,34 @@ namespace DaoOnlineOrderManagement
                     {
                         OnlineMFSchemeDetailsVo.amcName = dr["PA_AMCName"].ToString();
                         OnlineMFSchemeDetailsVo.schemeName = dr["PASP_SchemePlanName"].ToString();
-                        OnlineMFSchemeDetailsVo.fundManager = dr["PMFRD_FundManagerName"].ToString();
-                        OnlineMFSchemeDetailsVo.schemeBanchMark = dr["PMFRD_BenchmarksIndexName"].ToString();
-                        OnlineMFSchemeDetailsVo.category = dr["PAIC_AssetInstrumentCategoryName"].ToString();
-                        OnlineMFSchemeDetailsVo.exitLoad = int.Parse(dr["PASPD_ExitLoadPercentage"].ToString());
-                        if (dr["PMFRD_FixedIncStyleBoxLong"].ToString() != "")
+                        if (!string.IsNullOrEmpty(dr["PMFRD_FundManagerName"].ToString()))
+                            OnlineMFSchemeDetailsVo.fundManager = dr["PMFRD_FundManagerName"].ToString();
+                        if (!string.IsNullOrEmpty(dr["PMFRD_BenchmarksIndexName"].ToString()))
+                            OnlineMFSchemeDetailsVo.schemeBanchMark = dr["PMFRD_BenchmarksIndexName"].ToString();
+                        if (!string.IsNullOrEmpty(dr["PAIC_AssetInstrumentCategoryName"].ToString()))
+                            OnlineMFSchemeDetailsVo.category = dr["PAIC_AssetInstrumentCategoryName"].ToString();
+                        if (!string.IsNullOrEmpty(dr["PASPD_ExitLoadPercentage"].ToString()))
+                            OnlineMFSchemeDetailsVo.exitLoad = int.Parse(dr["PASPD_ExitLoadPercentage"].ToString());
+                        if (!string.IsNullOrEmpty(dr["PMFRD_FixedIncStyleBoxLong"].ToString()))
                             OnlineMFSchemeDetailsVo.schemeBox = int.Parse(dr["PMFRD_FixedIncStyleBoxLong"].ToString());
-                        OnlineMFSchemeDetailsVo.SchemeReturn3Year = dr["SchemeReturn3Year"].ToString();
-                        OnlineMFSchemeDetailsVo.SchemeReturn5Year = dr["SchemeReturn5Year"].ToString();
-                        OnlineMFSchemeDetailsVo.SchemeReturn10Year = dr["SchemeReturn10Year"].ToString();
-                        OnlineMFSchemeDetailsVo.benchmarkReturn1stYear = dr["PMFRD_Return1Year_BM"].ToString();
-                        OnlineMFSchemeDetailsVo.benchmark3rhYear = dr["PMFRD_Return3Year_BM"].ToString();
-                        OnlineMFSchemeDetailsVo.benchmark5thdYear = dr["PMFRD_Return5Year_BM"].ToString();
+                        if (!string.IsNullOrEmpty(dr["SchemeReturn3Year"].ToString()))
+
+                            OnlineMFSchemeDetailsVo.SchemeReturn3Year = dr["SchemeReturn3Year"].ToString();
+                        if (!string.IsNullOrEmpty(dr["SchemeReturn5Year"].ToString()))
+
+                            OnlineMFSchemeDetailsVo.SchemeReturn5Year = dr["SchemeReturn5Year"].ToString();
+                        if (!string.IsNullOrEmpty(dr["SchemeReturn10Year"].ToString()))
+
+                            OnlineMFSchemeDetailsVo.SchemeReturn10Year = dr["SchemeReturn10Year"].ToString();
+                        if (!string.IsNullOrEmpty(dr["PMFRD_Return1Year_BM"].ToString()))
+
+                            OnlineMFSchemeDetailsVo.benchmarkReturn1stYear = dr["PMFRD_Return1Year_BM"].ToString();
+                        if (!string.IsNullOrEmpty(dr["PMFRD_Return3Year_BM"].ToString()))
+
+                            OnlineMFSchemeDetailsVo.benchmark3rhYear = dr["PMFRD_Return3Year_BM"].ToString();
+                        if (!string.IsNullOrEmpty(dr["PMFRD_Return5Year_BM"].ToString()))
+
+                            OnlineMFSchemeDetailsVo.benchmark5thdYear = dr["PMFRD_Return5Year_BM"].ToString();
                         if (dr["SchemeRisk3Year"].ToString() != "")
                             OnlineMFSchemeDetailsVo.SchemeRisk3Year = dr["SchemeRisk3Year"].ToString();
                         if (dr["SchemeRisk5Year"].ToString() != "")
@@ -229,18 +245,29 @@ namespace DaoOnlineOrderManagement
                             OnlineMFSchemeDetailsVo.SchemeRisk10Year = dr["SchemeRisk10Year"].ToString();
                         if (dr["PASPD_IsPurchaseAvailable"].ToString() == "True")
                             OnlineMFSchemeDetailsVo.isPurchaseAvaliable = 1;
-                        if (dr["PASPD_IsRedeemAvailable"].ToString() =="True")
+                        if (dr["PASPD_IsRedeemAvailable"].ToString() == "True")
                             OnlineMFSchemeDetailsVo.isRedeemAvaliable = 1;
                         if (dr["PASPD_IsSIPAvailable"].ToString() == "True")
-                            OnlineMFSchemeDetailsVo.isSIPAvaliable =1;
-                        OnlineMFSchemeDetailsVo.minmumInvestmentAmount = int.Parse(dr["PASPD_InitialPurchaseAmount"].ToString());
-                        OnlineMFSchemeDetailsVo.multipleOf = int.Parse(dr["PASPD_InitialMultipleAmount"].ToString());
-                        OnlineMFSchemeDetailsVo.minSIPInvestment = int.Parse(dr["PASPSD_MinAmount"].ToString());
-                        OnlineMFSchemeDetailsVo.SIPmultipleOf = int.Parse(dr["PASPSD_MultipleAmount"].ToString());
-                        OnlineMFSchemeDetailsVo.overAllRating = int.Parse(dr["SchemeRatingOverall"].ToString());
-                        OnlineMFSchemeDetailsVo.navDate=dr["PASPSP_Date"].ToString();
-                        if(dr["CMFNP_CurrentValue"].ToString()!="")
-                        OnlineMFSchemeDetailsVo.NAV =Convert.ToDecimal(dr["CMFNP_CurrentValue"]);
+                            OnlineMFSchemeDetailsVo.isSIPAvaliable = 1;
+                        if (!string.IsNullOrEmpty(dr["PASPD_InitialPurchaseAmount"].ToString()))
+
+                            OnlineMFSchemeDetailsVo.minmumInvestmentAmount = int.Parse(dr["PASPD_InitialPurchaseAmount"].ToString());
+                        if (!string.IsNullOrEmpty(dr["PASPD_InitialMultipleAmount"].ToString()))
+
+                            OnlineMFSchemeDetailsVo.multipleOf = int.Parse(dr["PASPD_InitialMultipleAmount"].ToString());
+                        if (!string.IsNullOrEmpty(dr["PASPSD_MinAmount"].ToString()))
+
+                            OnlineMFSchemeDetailsVo.minSIPInvestment = int.Parse(dr["PASPSD_MinAmount"].ToString());
+                        if (!string.IsNullOrEmpty(dr["PASPSD_MultipleAmount"].ToString()))
+
+                            OnlineMFSchemeDetailsVo.SIPmultipleOf = int.Parse(dr["PASPSD_MultipleAmount"].ToString());
+                        if (!string.IsNullOrEmpty(dr["SchemeRatingOverall"].ToString()))
+
+                            OnlineMFSchemeDetailsVo.overAllRating = int.Parse(dr["SchemeRatingOverall"].ToString());
+
+                        OnlineMFSchemeDetailsVo.navDate = dr["PASPSP_Date"].ToString();
+                        if (dr["CMFNP_CurrentValue"].ToString() != "")
+                            OnlineMFSchemeDetailsVo.NAV = Convert.ToDecimal(dr["CMFNP_CurrentValue"]);
                         onlineMFSchemeDetailsList.Add(OnlineMFSchemeDetailsVo);
 
                     }
@@ -252,7 +279,7 @@ namespace DaoOnlineOrderManagement
             }
             return onlineMFSchemeDetailsList;
         }
-        public DataSet GetSIPCustomeSchemePlan(int customerId, int AMCCode,int exchangeType)
+        public DataSet GetSIPCustomeSchemePlan(int customerId, int AMCCode, int exchangeType)
         {
             DataSet dsGetSIPCustomeSchemePlan;
             Database db;
@@ -272,7 +299,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetSIPCustomeSchemePlan;
         }
-        public DataTable GetAMCandCategoryWiseScheme(int AMCCode,string category,int exchangeType)
+        public DataTable GetAMCandCategoryWiseScheme(int AMCCode, string category, int exchangeType)
         {
             Database db;
             DbCommand GetdtGetAMCandCategoryWiseScheme;
@@ -283,11 +310,11 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetdtGetAMCandCategoryWiseScheme = db.GetStoredProcCommand("SPROC_ONL_GetAMCandCategoryWiseScheme");
                 db.AddInParameter(GetdtGetAMCandCategoryWiseScheme, "@amcCode", DbType.Int32, AMCCode);
-                if(category!="0")
-                db.AddInParameter(GetdtGetAMCandCategoryWiseScheme, "@category", DbType.String, category);
+                if (category != "0")
+                    db.AddInParameter(GetdtGetAMCandCategoryWiseScheme, "@category", DbType.String, category);
                 db.AddInParameter(GetdtGetAMCandCategoryWiseScheme, "@exchangeType", DbType.Int32, exchangeType);
 
-                
+
                 dsGetAMCandCategoryWiseScheme = db.ExecuteDataSet(GetdtGetAMCandCategoryWiseScheme);
                 dtGetAMCandCategoryWiseScheme = dsGetAMCandCategoryWiseScheme.Tables[0];
             }
@@ -327,7 +354,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(GetSchemeNavHistorycmd, "@FromDate", DbType.Date, fromDate);
                 db.AddInParameter(GetSchemeNavHistorycmd, "@ToDate", DbType.Date, toDate);
                 dsdtGetSchemeNavHistory = db.ExecuteDataSet(GetSchemeNavHistorycmd);
-                
+
             }
             catch (BaseApplicationException Ex)
             {

@@ -830,5 +830,26 @@ string EUINVal, string MinRedeem, string DPC, string IPAdd,int rmsId)
             {
             }
         }
+        public bool BSERequestOrderIdUpdate(int orderId,long bseReqId,int rmsId)
+        {
+            Database db;
+            DbCommand BSERequestOrderIdUpdateCmd;
+            bool result = false;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                BSERequestOrderIdUpdateCmd = db.GetStoredProcCommand("SPROC_BSE_OrderIdUpdate");
+                db.AddInParameter(BSERequestOrderIdUpdateCmd, "@orderId", DbType.Int32, orderId);
+                db.AddInParameter(BSERequestOrderIdUpdateCmd, "@RMSId", DbType.Int32, rmsId);
+                db.AddInParameter(BSERequestOrderIdUpdateCmd, "@BSEReqId", DbType.Int64,bseReqId);
+                if (db.ExecuteNonQuery(BSERequestOrderIdUpdateCmd) != 0)
+                    result = true;
+
+            }
+            catch (Exception ex)
+            {
+            }
+            return result;
+        }
     }
 }
