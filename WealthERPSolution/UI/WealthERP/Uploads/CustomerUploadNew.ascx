@@ -66,6 +66,52 @@
                 inputTypes[i].checked = mainChkBox.checked;
         }
     }
+    function checkAllRecBoxes() {
+
+        //get total number of rows in the gridview and do whatever
+        //you want with it..just grabbing it just cause
+        var gvControl = document.getElementById('<%= gvbrokerageRecon.ClientID %>');
+
+        //this is the checkbox in the item template...this has to be the same name as the ID of it
+        var gvChkBoxControl = "chkIdRec";
+
+        //this is the checkbox in the header template
+        var mainChkBox = document.getElementById("chkIdRecAll");
+
+        //get an array of input types in the gridview
+        var inputTypes = gvControl.getElementsByTagName("input");
+
+        for (var i = 0; i < inputTypes.length; i++) {
+            //if the input type is a checkbox and the id of it is what we set above
+            //then check or uncheck according to the main checkbox in the header template
+            var chkIdAll = inputTypes[i].id;
+            if (inputTypes[i].type == 'checkbox' && chkIdAll.indexOf(gvChkBoxControl) >= 0)
+                inputTypes[i].checked = mainChkBox.checked;
+        }
+    }
+    function checkAllPayBoxes() {
+
+        //get total number of rows in the gridview and do whatever
+        //you want with it..just grabbing it just cause
+        var gvControl = document.getElementById('<%= gvbrokerageRecon.ClientID %>');
+
+        //this is the checkbox in the item template...this has to be the same name as the ID of it
+        var gvChkBoxControl = "chkIdPay";
+
+        //this is the checkbox in the header template
+        var mainChkBox = document.getElementById("chkIdPayAll");
+
+        //get an array of input types in the gridview
+        var inputTypes = gvControl.getElementsByTagName("input");
+
+        for (var i = 0; i < inputTypes.length; i++) {
+            //if the input type is a checkbox and the id of it is what we set above
+            //then check or uncheck according to the main checkbox in the header template
+            var chkIdAll = inputTypes[i].id;
+            if (inputTypes[i].type == 'checkbox' && chkIdAll.indexOf(gvChkBoxControl) >= 0)
+                inputTypes[i].checked = mainChkBox.checked;
+        }
+    }
 </script>
 
 <style>
@@ -421,6 +467,9 @@
                 </telerik:GridTemplateColumn>
                 <telerik:GridTemplateColumn AllowFiltering="true" UniqueName="IsRecLocked" DataField="IsRecLocked"
                     HeaderStyle-Width="110px" HeaderText="Lock Received">
+                    <HeaderTemplate>
+                        <input id="chkIdRecAll" name="chkIdRecAll" type="checkbox" onclick="checkAllRecBoxes()" /><br /> Lock Received
+                    </HeaderTemplate>
                     <ItemTemplate>
                         <asp:CheckBox ID="chkIdRec" runat="server" Checked='<%# Bind("IsRecLocked") %>' OnClick="return validation();" />
                     </ItemTemplate>
@@ -469,6 +518,9 @@
                 </telerik:GridTemplateColumn>
                 <telerik:GridTemplateColumn AllowFiltering="false" HeaderText="lock Payout" UniqueName="IsPayLocked"
                     DataField="IsPayLocked" HeaderStyle-Width="110px">
+                    <HeaderTemplate>
+                        <input id="chkIdPayAll" name="chkIdPayAll" type="checkbox"  onclick="checkAllPayBoxes()" /><br />lock Payout
+                    </HeaderTemplate>
                     <ItemTemplate>
                         <asp:CheckBox ID="chkIdPay" Checked='<%# Bind("IsPayLocked") %>' OnClick="return validation();"
                             runat="server" />
