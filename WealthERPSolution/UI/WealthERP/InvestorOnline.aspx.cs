@@ -60,6 +60,10 @@ namespace WealthERP
                         //BindLiteral(ds.Tables[0]);
 
                     }
+                    else
+                    {
+                        Cache.Remove("NotificationParameter" + userVo.UserId.ToString());
+                    }
                     if (ds.Tables[1].Rows.Count > 0)
                     {
                         if (Cache["EmailDetails" + userVo.UserId.ToString()] == null)
@@ -77,6 +81,10 @@ namespace WealthERP
                         hdnEmailBody.Value = ds.Tables[1].Rows[0]["CTNEF_EmailBodyFormat"].ToString();
                         hdnEmailSubject.Value = ds.Tables[1].Rows[0]["CTNEF_EmailSubjectFormat"].ToString();
                     }
+                    else
+                    {
+                        Cache.Remove("EmailDetails" + userVo.UserId.ToString());
+                    }
                     if (ds.Tables[2].Rows.Count > 0)
                     {
                         if (Cache["SMSDetails" + userVo.UserId.ToString()] == null)
@@ -90,6 +98,10 @@ namespace WealthERP
                         }
                         txtSMSBody.Text = ds.Tables[2].Rows[0]["CTNSF_SMSBodyFormat"].ToString();
                         hdnSMSBody.Value = ds.Tables[2].Rows[0]["CTNSF_SMSBodyFormat"].ToString();
+                    }
+                    else
+                    {
+                        Cache.Remove("SMSDetails" + userVo.UserId.ToString());
                     }
 
                 }
