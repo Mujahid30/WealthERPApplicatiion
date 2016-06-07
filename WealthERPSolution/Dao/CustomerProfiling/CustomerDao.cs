@@ -4991,7 +4991,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(cmdGetCustomerUploadedProofs, "@CPU_ProofUploadId", DbType.Int32, proofId);
 
                 dsGetCustomerUploadedProofs = db.ExecuteDataSet(cmdGetCustomerUploadedProofs);
-                if (dsGetCustomerUploadedProofs.Tables.Count != 0)
+             //  if (dsGetCustomerUploadedProofs.Tables.Count != 0)
                     dtGetCustomerUploadedProofs = dsGetCustomerUploadedProofs.Tables[0];
 
             }

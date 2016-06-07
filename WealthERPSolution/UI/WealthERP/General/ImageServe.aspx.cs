@@ -19,7 +19,7 @@ namespace WealthERP.General
             Response.ContentType = "image/jpeg"; // for JPEG file
             string physicalFileName = Temppath;
             if (!Temppath.Equals(String.Empty))
-                Response.WriteFile(physicalFileName);
+               Response.WriteFile(physicalFileName);
         }
     }
 }

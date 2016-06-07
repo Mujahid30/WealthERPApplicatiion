@@ -419,7 +419,7 @@ namespace WealthERP.Customer
                                 CPUVo.ProofTypeCode = Convert.ToInt32(ddlProofType.SelectedValue);
                                 CPUVo.ProofCode = Convert.ToInt32(ddlProof.SelectedValue);
                                 CPUVo.ProofCopyTypeCode = ddlProofCopyType.SelectedValue;
-                                CPUVo.ProofImage = path + "\\" + newFileName;
+                                CPUVo.ProofImage = path + newFileName;
 
                                 blResult = CreateDBReferrenceForProofUploads(CPUVo);
 
@@ -460,103 +460,7 @@ namespace WealthERP.Customer
             }
             return blResult;
 
-            #region Old Code
-
-            //    FileIOPermission fp = new FileIOPermission(FileIOPermissionAccess.AllAccess, path);
-            //    PermissionSet ps = new PermissionSet(PermissionState.None);
-            //    ps.AddPermission(fp);
-            //    DirectoryInfo[] DI = new DirectoryInfo(path).GetDirectories("*.*", SearchOption.AllDirectories);
-            //    FileInfo[] FI = new DirectoryInfo(path).GetFiles("*.*", SearchOption.AllDirectories);
-
-            //    foreach (FileInfo F1 in FI)
-            //    {
-            //        DirSize += F1.Length;
-            //    }
-            //    //Converting in Mega bytes
-            //    DirSize = DirSize / 1048576;
-
-            //    #region Update Code 1
-
-            //    if (Session["ImagePath"] != null)
-            //    {
-            //        // If Uploaded File Exists
-            //        FileInfo fi = new FileInfo(Session["ImagePath"].ToString());
-            //        float alreadyUploadedFileSize = fi.Length;
-            //        alreadyUploadedFileSize = alreadyUploadedFileSize / 1048576;
-            //        DirSize = DirSize - alreadyUploadedFileSize;
-            //    }
-
-            //    #endregion
-
-            //    if ((fileSize < adviserVo.VaultSize) && (DirSize < adviserVo.VaultSize))
-            //    {
-            //        foreach (UploadedFile f in radUploadProof.UploadedFiles)
-            //        {
-            //            int l = (int)f.InputStream.Length;
-            //            byte[] bytes = new byte[l];
-            //            f.InputStream.Read(bytes, 0, l);
-
-            //            imageUploadPath = customerVo.CustomerId + "_" + guid + "_" + f.GetName();
-            //            if (btnSubmit.Text == "Submit")
-            //            {
-            //                // Submit part
-            //                if (extension != ".pdf")
-            //                {
-            //                    UploadImage(path, f, imageUploadPath);
-            //                }
-            //                else
-            //                {
-            //                    f.SaveAs(path + "\\" + imageUploadPath);
-            //                }
-            //            }
-
-            //            #region Update Code 2
-
-            //            else
-            //            {
-            //                if (extension != ".pdf")
-            //                {
-            //                    File.Delete(path + UploadedFileName);
-            //                    DataTable dtGetPerticularProofs = new DataTable();
-            //                    if (Session["ProofID"] != null)
-            //                    {
-            //                        int ProofIdToDelete = Convert.ToInt32(Session["ProofID"].ToString());
-            //                        dtGetPerticularProofs = GetUploadedImagePaths(ProofIdToDelete);
-            //                        string imageAttachmentPath = dtGetPerticularProofs.Rows[0]["CPU_Image"].ToString();
-            //                        if (customerBo.DeleteCustomerUploadedProofs(customerVo.CustomerId, ProofIdToDelete))
-            //                        {
-            //                            File.Delete(imageAttachmentPath);
-            //                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "loadcontrol('ViewCustomerProofs','login');", true);
-            //                        }
-            //                    }
-            //                }
-            //                f.SaveAs(path + "\\" + imageUploadPath);
-            //            }
-
-            //            #endregion
-
-            //        }
-            //    }
-            //    else
-            //    {
-            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Sorry your Document attachment size exceeds the allowable limit..!');", true);
-            //    }
-            //}
-
-            //CPUVo.CustomerId = customerVo.CustomerId;
-            //CPUVo.ProofTypeCode = Convert.ToInt32(ddlProofType.SelectedValue);
-            //CPUVo.ProofCode = Convert.ToInt32(ddlProof.SelectedValue);
-            //CPUVo.ProofCopyTypeCode = ddlProofCopyType.SelectedValue;
-            //if (imageUploadPath == "")
-            //    CPUVo.ProofImage = path + "\\" + UploadedFileName;
-            //else
-            //    CPUVo.ProofImage = path + "\\" + imageUploadPath;
-            //CreateDBReferrenceForProofUploads(CPUVo);
-
-            //LoadImages();
-            //Session["ImagePath"] = null;
-
-            #endregion
+            
         }
 
         private string SaveFileIntoServer(UploadedFile file, string strGuid, string strPath, int intCustId)
@@ -725,7 +629,7 @@ namespace WealthERP.Customer
                                 CPUVo.ProofTypeCode = Convert.ToInt32(ddlProofType.SelectedValue);
                                 CPUVo.ProofCode = Convert.ToInt32(ddlProof.SelectedValue);
                                 CPUVo.ProofCopyTypeCode = ddlProofCopyType.SelectedValue;
-                                CPUVo.ProofImage = path + "\\" + newFileName;
+                                CPUVo.ProofImage = path +  newFileName;
 
                                 blResult = CreateDBReferrenceForProofUploads(CPUVo);
 
@@ -1055,31 +959,31 @@ namespace WealthERP.Customer
 
                 if (!imgPath.Equals(String.Empty))
                 {
-                    string[] strArray = new string[2];
+                    string[] strArray = new string[5];
                     strArray = imgPath.Split('\\');
-                    strFileName = strArray[4];
+                    strFileName = strArray[3];
                     string[] strExtn = new string[2];
                     strExtn = imgPath.Split('.');
                     strExt = strExtn[1];
                     strAdvisorIdWithFielName = strArray[2];
 
-                    imgPath = strArray[0] + "\\\\" + strArray[1] + "\\\\" + strArray[2] + "\\\\" + strArray[4];
+                    imgPath = strArray[0] + "\\\\" + strArray[1] + "\\\\" + strArray[2] + "\\\\" + strArray[3] ;
 
                 }
 
                 if (strExt.Equals("pdf"))
                 {
                     string Filepath = Server.MapPath("TempCustomerProof") + "\\" + customerVo.CustomerId.ToString() + "\\";
-                    Directory.CreateDirectory(Filepath);  
-                    
+                    Directory.CreateDirectory(Filepath);
+
                     Filepath = Filepath + strFileName;
                     if (!File.Exists(Filepath))
                     {
-                        File.Copy(imgPath , Filepath);
+                        File.Copy(imgPath, Filepath);
                     }
 
                     Response.Write("<script type='text/javascript'>detailedresults= window.open('../TempCustomerProof/" + customerVo.CustomerId.ToString() + "/" + strFileName + "', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no');</script>");
-
+                    //Response.Write("<script type='text/javascript'>detailedresults= window.open('"+imageAttachmentPath+"', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no');</script>");
                     //Response.Write("<script>");
                     //Response.Write("window.open('../Inventory/pages/printableads.pdf', '_newtab');");
                     //Response.Write("</script>");
