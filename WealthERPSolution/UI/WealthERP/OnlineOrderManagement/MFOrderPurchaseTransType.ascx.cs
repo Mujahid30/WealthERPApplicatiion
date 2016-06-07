@@ -112,16 +112,16 @@ namespace WealthERP.OnlineOrderManagement
                         }
                         else
                         {
-                            if (exchangeType == "Online")
-                                tdFolio.Visible = true;
-                            else
-                            {
+                            //if (exchangeType == "Online")
+                            //    tdFolio.Visible = true;
+                            //else
+                            //{
                                 DataSet ds;
                                 ds = onlineMforderBo.GetControlDetails(int.Parse(Session["MFSchemePlan"].ToString()), null, exchangeType == "Online" ? 1 : 0);
                                 lblUnitsheldDisplay.Visible = false;
                                 GetControlDetails(ds);
 
-                            }
+                            //}
                             scheme = int.Parse(Session["MFSchemePlan"].ToString());
 
                             //commonLookupBo.GetSchemeAMCCategory(38122, out amcCode, out category);

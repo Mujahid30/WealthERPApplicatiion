@@ -126,7 +126,7 @@
                                 <asp:Image runat="server" ID="imgSchemeRating" />
                                 <asp:Label ID="lblSchemeRatingAsOn" runat="server" CssClass="fieldFontSize"></asp:Label>
                             </td>
-                            <td style="margin-left: 5px" id="tdFolio" runat="server" visible="false">
+                            <td style="margin-left: 5px" id="tdFolio" runat="server" >
                                 <b class="fontsize">Folio Number:</b>
                                 <asp:DropDownList ID="ddlFolio" CssClass="cmbField" OnSelectedIndexChanged="ddlFolio_OnSelectedIndexChanged"
                                     runat="server" AutoPostBack="True">

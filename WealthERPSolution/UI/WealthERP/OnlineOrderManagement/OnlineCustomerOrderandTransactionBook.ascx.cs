@@ -44,7 +44,7 @@ namespace WealthERP.OnlineOrderManagement
             if (exchangeType == "Demat")
             {
                 ddlAction.Items.FindByValue("SIP").Enabled = false;
-                ddlAction.Items.FindByValue("ABY").Enabled = false;
+                //ddlAction.Items.FindByValue("ABY").Enabled = false;
             }
             else
             {
