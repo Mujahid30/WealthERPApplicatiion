@@ -33,7 +33,6 @@ namespace WealthERP
             {
                 if (!string.IsNullOrEmpty(Request.QueryString["setupId"]))
                 {
-                    DataSet ds = onlineOrderBackOfficeBo.GetNotificationParameterwithEmailSMSDetails(Convert.ToInt32(Request.QueryString["setupId"].Trim()));
                     if (Request.QueryString["FormatType"] == "Email")
                     {
                         divEmail.Visible = true;
@@ -46,68 +45,74 @@ namespace WealthERP
                         divSMS.Visible = true;
                         hdnCurrentTextEditor.Value = "txtSMSBody";
                     }
-                    if (ds.Tables[0].Rows.Count > 0)
-                    {
-                        if (Cache["NotificationParameter" + userVo.UserId.ToString()] == null)
-                        {
-                            Cache.Insert("NotificationParameter" + userVo.UserId.ToString(), ds.Tables[0]);
-                        }
-                        else
-                        {
-                            Cache.Remove("NotificationParameter" + userVo.UserId.ToString());
-                            Cache.Insert("NotificationParameter" + userVo.UserId.ToString(), ds.Tables[0]);
-                        }
-                        //BindLiteral(ds.Tables[0]);
 
-                    }
-                    else
-                    {
-                        Cache.Remove("NotificationParameter" + userVo.UserId.ToString());
-                    }
-                    if (ds.Tables[1].Rows.Count > 0)
-                    {
-                        if (Cache["EmailDetails" + userVo.UserId.ToString()] == null)
-                        {
-                            Cache.Insert("EmailDetails" + userVo.UserId.ToString(), ds.Tables[1]);
-                        }
-                        else
-                        {
-                            Cache.Remove("EmailDetails" + userVo.UserId.ToString());
-                            Cache.Insert("EmailDetails" + userVo.UserId.ToString(), ds.Tables[1]);
-                        }
-
-                        txtEmailSubject.Text = ds.Tables[1].Rows[0]["CTNEF_EmailSubjectFormat"].ToString();
-                        txtEmailBody.Text = ds.Tables[1].Rows[0]["CTNEF_EmailBodyFormat"].ToString();
-                        hdnEmailBody.Value = ds.Tables[1].Rows[0]["CTNEF_EmailBodyFormat"].ToString();
-                        hdnEmailSubject.Value = ds.Tables[1].Rows[0]["CTNEF_EmailSubjectFormat"].ToString();
-                    }
-                    else
-                    {
-                        Cache.Remove("EmailDetails" + userVo.UserId.ToString());
-                    }
-                    if (ds.Tables[2].Rows.Count > 0)
-                    {
-                        if (Cache["SMSDetails" + userVo.UserId.ToString()] == null)
-                        {
-                            Cache.Insert("SMSDetails" + userVo.UserId.ToString(), ds.Tables[2]);
-                        }
-                        else
-                        {
-                            Cache.Remove("SMSDetails" + userVo.UserId.ToString());
-                            Cache.Insert("SMSDetails" + userVo.UserId.ToString(), ds.Tables[2]);
-                        }
-                        txtSMSBody.Text = ds.Tables[2].Rows[0]["CTNSF_SMSBodyFormat"].ToString();
-                        hdnSMSBody.Value = ds.Tables[2].Rows[0]["CTNSF_SMSBodyFormat"].ToString();
-                    }
-                    else
-                    {
-                        Cache.Remove("SMSDetails" + userVo.UserId.ToString());
-                    }
-
+                    GetNotificationDetails(Convert.ToInt32(Request.QueryString["setupId"].Trim()));
                 }
             }
            
             BindLiteral();
+        }
+        protected void GetNotificationDetails(int setupId)
+        {
+            DataSet ds = onlineOrderBackOfficeBo.GetNotificationParameterwithEmailSMSDetails(setupId);
+
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                if (Cache["NotificationParameter" + userVo.UserId.ToString()] == null)
+                {
+                    Cache.Insert("NotificationParameter" + userVo.UserId.ToString(), ds.Tables[0]);
+                }
+                else
+                {
+                    Cache.Remove("NotificationParameter" + userVo.UserId.ToString());
+                    Cache.Insert("NotificationParameter" + userVo.UserId.ToString(), ds.Tables[0]);
+                }
+                //BindLiteral(ds.Tables[0]);
+
+            }
+            else
+            {
+                Cache.Remove("NotificationParameter" + userVo.UserId.ToString());
+            }
+            if (ds.Tables[1].Rows.Count > 0)
+            {
+                if (Cache["EmailDetails" + userVo.UserId.ToString()] == null)
+                {
+                    Cache.Insert("EmailDetails" + userVo.UserId.ToString(), ds.Tables[1]);
+                }
+                else
+                {
+                    Cache.Remove("EmailDetails" + userVo.UserId.ToString());
+                    Cache.Insert("EmailDetails" + userVo.UserId.ToString(), ds.Tables[1]);
+                }
+
+                txtEmailSubject.Text = ds.Tables[1].Rows[0]["CTNEF_EmailSubjectFormat"].ToString();
+                txtEmailBody.Text = ds.Tables[1].Rows[0]["CTNEF_EmailBodyFormat"].ToString();
+                hdnEmailBody.Value = ds.Tables[1].Rows[0]["CTNEF_EmailBodyFormat"].ToString();
+                hdnEmailSubject.Value = ds.Tables[1].Rows[0]["CTNEF_EmailSubjectFormat"].ToString();
+            }
+            else
+            {
+                Cache.Remove("EmailDetails" + userVo.UserId.ToString());
+            }
+            if (ds.Tables[2].Rows.Count > 0)
+            {
+                if (Cache["SMSDetails" + userVo.UserId.ToString()] == null)
+                {
+                    Cache.Insert("SMSDetails" + userVo.UserId.ToString(), ds.Tables[2]);
+                }
+                else
+                {
+                    Cache.Remove("SMSDetails" + userVo.UserId.ToString());
+                    Cache.Insert("SMSDetails" + userVo.UserId.ToString(), ds.Tables[2]);
+                }
+                txtSMSBody.Text = ds.Tables[2].Rows[0]["CTNSF_SMSBodyFormat"].ToString();
+                hdnSMSBody.Value = ds.Tables[2].Rows[0]["CTNSF_SMSBodyFormat"].ToString();
+            }
+            else
+            {
+                Cache.Remove("SMSDetails" + userVo.UserId.ToString());
+            }
         }
         protected void BindLiteral()
         {
@@ -214,6 +219,7 @@ namespace WealthERP
                 onlineOrderBackOfficeBo.InsertUpdateNotificationFormat(userVo.UserId, notificationId, "SMS", GetParameters(txtSMSBody.Text), txtSMSBody.Text, smsId);
 
             }
+            GetNotificationDetails(notificationId);
 
         }
         protected void RadioBtn_OnCheckedChanged(object sender, EventArgs e)
