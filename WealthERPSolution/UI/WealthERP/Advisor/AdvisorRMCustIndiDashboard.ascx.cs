@@ -410,11 +410,70 @@ namespace WealthERP.Advisor
             }
         }
 
+        //public void BindCustomerAlerts()
+        //{
+        //    try
+        //    {
+        //        dsCustomerAlerts = alertsBo.GetCustomerDashboardAlerts(customerId);
+        //        if (dsCustomerAlerts.Tables[0].Rows.Count == 0)
+        //        {
+        //            lblAlertsMessage.Visible = true;
+        //        }
+        //        else
+        //        {
+        //            lblAlertsMessage.Visible = false;
+        //            DataTable dtCustomerAlerts = new DataTable();
+        //            dtCustomerAlerts.Columns.Add("Details");
+        //            dtCustomerAlerts.Columns.Add("EventMessage");
+
+
+        //            foreach (DataRow dr in dsCustomerAlerts.Tables[0].Rows)
+        //            {
+        //                drCustomerAlerts = dtCustomerAlerts.NewRow();
+
+        //                drCustomerAlerts[0] = dr["EventCode"].ToString() + " : " + dr["Name"].ToString();
+        //                drCustomerAlerts[1] = dr["EventMessage"].ToString();
+
+        //                dtCustomerAlerts.Rows.Add(drCustomerAlerts);
+
+        //            }
+        //            gvCustomerAlerts.DataSource = dtCustomerAlerts;
+        //            gvCustomerAlerts.DataBind();
+        //            gvCustomerAlerts.Visible = true;
+        //        }
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+
+        //        FunctionInfo.Add("Method", "AdvisorRMCustIndiDashboard.ascx:BindCustomerAlerts()");
+
+
+        //        object[] objects = new object[2];
+
+        //        objects[0] = customerId;
+        //        objects[1] = dsCustomerAlerts;
+
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+
+        //    }
+        //}
+
+
         public void BindCustomerAlerts()
         {
             try
             {
-                dsCustomerAlerts = alertsBo.GetCustomerDashboardAlerts(customerId);
+                dsCustomerAlerts = alertsBo.GetCustomerDashboardAlert(customerId);
                 if (dsCustomerAlerts.Tables[0].Rows.Count == 0)
                 {
                     lblAlertsMessage.Visible = true;
@@ -422,22 +481,9 @@ namespace WealthERP.Advisor
                 else
                 {
                     lblAlertsMessage.Visible = false;
-                    DataTable dtCustomerAlerts = new DataTable();
-                    dtCustomerAlerts.Columns.Add("Details");
-                    dtCustomerAlerts.Columns.Add("EventMessage");
 
 
-                    foreach (DataRow dr in dsCustomerAlerts.Tables[0].Rows)
-                    {
-                        drCustomerAlerts = dtCustomerAlerts.NewRow();
-
-                        drCustomerAlerts[0] = dr["EventCode"].ToString() + " : " + dr["Name"].ToString();
-                        drCustomerAlerts[1] = dr["EventMessage"].ToString();
-
-                        dtCustomerAlerts.Rows.Add(drCustomerAlerts);
-
-                    }
-                    gvCustomerAlerts.DataSource = dtCustomerAlerts;
+                    gvCustomerAlerts.DataSource = dsCustomerAlerts;
                     gvCustomerAlerts.DataBind();
                     gvCustomerAlerts.Visible = true;
                 }
@@ -467,6 +513,7 @@ namespace WealthERP.Advisor
 
             }
         }
+
 
         protected string GetSchemeName(string alertType, int SchemeID)
         {

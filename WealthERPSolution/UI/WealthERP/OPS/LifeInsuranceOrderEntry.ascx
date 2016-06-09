@@ -142,7 +142,7 @@
                 OnClientClick="return openpopupAddCustomer()" />--%>
             <asp:ImageButton ID="btnImgAddCustomer" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                 runat="server" ToolTip="Click here to Add Customer" OnClientClick="return openpopupAddCustomer()"
-                Height="6%" Width="6%"></asp:ImageButton>
+                Height="18%" Width="8%"></asp:ImageButton>
             <cc1:TextBoxWatermarkExtender ID="txtCustomer_water" TargetControlID="txtCustomerName"
                 WatermarkText="Enter few chars of Customer" runat="server" EnableViewState="false">
             </cc1:TextBoxWatermarkExtender>
@@ -320,7 +320,7 @@
             </asp:CompareValidator>
             <asp:ImageButton ID="imgBtnOpenPopup" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                 runat="server" ToolTip="Click here to Add Scheme" OnClick="btnOpenPopup_Click"
-                CausesValidation="false" Height="5%" Width="5%"></asp:ImageButton>
+                CausesValidation="false"  Height="18%" Width="8%"></asp:ImageButton>
         </td>
     </tr>
     <tr>
@@ -429,7 +429,7 @@
             <asp:Label ID="lblApplicationNo" runat="server" Text="Application Number: " CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtApplicationNo" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtApplicationNo" runat="server" MaxLength="20" CssClass="txtField"></asp:TextBox>
             <span id="Span4" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="rfvPCG"
@@ -499,7 +499,7 @@
             <asp:Label ID="lblSumAssured" runat="server" Text="Sum Assured: " CssClass="FieldName"></asp:Label>
         </td>
         <td valign="middle">
-            <asp:TextBox ID="txtSumAssured" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtSumAssured" runat="server" MaxLength="20" CssClass="txtField"></asp:TextBox>
             <span id="Span8" class="spnRequiredField">*</span><br />
             <asp:RegularExpressionValidator ID="revPaymentInstrNo" runat="server" CssClass="rfvPCG"
                 ValidationExpression="^\d+$" ControlToValidate="txtSumAssured" Display="Dynamic"
@@ -602,7 +602,7 @@
                 Operator="NotEqual" ValidationGroup="Submit" ValueToCompare="Select"></asp:CompareValidator>
             <asp:ImageButton ID="imgBtnAddBank" Visible="false" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                 runat="server" ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()"
-                Height="6%" Width="6%"></asp:ImageButton>
+                Height="18%" Width="8%"></asp:ImageButton>
             <asp:ImageButton ID="imgBtnRefereshBank" Visible="false" ImageUrl="~/Images/refresh.png"
                 AlternateText="Refresh" runat="server" ToolTip="Click here to refresh Bank List"
                 OnClick="imgBtnRefereshBank_OnClick" Height="15px" Width="25px"></asp:ImageButton>
@@ -611,7 +611,7 @@
             <asp:Label ID="lblPaymentInstrNo" CssClass="FieldName" Text="Instrument No:" runat="server"></asp:Label>
         </td>
         <td class="rightField" style="width: 25%">
-            <asp:TextBox ID="txtPaymentInstrNo" CssClass="txtField" runat="server"></asp:TextBox>
+            <asp:TextBox ID="txtPaymentInstrNo" CssClass="txtField" MaxLength="20" runat="server"></asp:TextBox>
             <span id="Span13" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator3" ValidationGroup="Submit"
@@ -656,7 +656,7 @@
                     AutoGenerateColumns="False" OnItemCreated="rgvOrderSteps_ItemCreated" ShowStatusBar="true"
                     AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="CO_OrderId,WOS_OrderStepCode"
                     OnItemDataBound="rgvOrderSteps_ItemDataBound" OnItemCommand="rgvOrderSteps_ItemCommand"
-                    OnNeedDataSource="rgvOrderSteps_NeedDataSource">
+                    OnNeedDataSource="rgvOrderSteps_NeedDataSource" >
                     <MasterTableView CommandItemDisplay="none" EditMode="PopUp" EnableViewState="false">
                         <Columns>
                             <telerik:GridBoundColumn DataField="CO_OrderId" HeaderText="Serial No." UniqueName="CO_OrderId"
@@ -694,10 +694,14 @@
                             </telerik:GridTemplateColumn>
                             <telerik:GridDateTimeColumn DataField="CMFOS_Date" HeaderText="Date" DataFormatString="{0:d}"
                                 HtmlEncode="false" DataType="System.DateTime" UniqueName="CMFOS_Date" ReadOnly="true" />
-                            <telerik:GridEditCommandColumn UpdateText="Update" EditText="Edit" UniqueName="EditCommandColumn"
+<%--                           <telerik:GridEditCommandColumn UpdateText="Update" EditText="Edit"  UniqueName="EditCommandColumn"
                                 CancelText="Cancel">
+                                
                                 <HeaderStyle Width="85px"></HeaderStyle>
                             </telerik:GridEditCommandColumn>
+--%>                     
+                                        
+                                  
                             <telerik:GridBoundColumn DataField="COS_IsEditable" DataType="System.Boolean" UniqueName="COS_IsEditable"
                                 Display="false" ReadOnly="True">
                             </telerik:GridBoundColumn>

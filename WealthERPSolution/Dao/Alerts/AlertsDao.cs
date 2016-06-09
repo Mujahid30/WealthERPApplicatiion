@@ -1029,6 +1029,8 @@ namespace DaoAlerts
             return dsGetCustomerAlertsList;
         }
 
+
+
         public DataSet GetCustomerGrpDashboardAlerts(int customerId)
         {
             Database db;
@@ -3194,5 +3196,44 @@ namespace DaoAlerts
             }
             return count;
         }
+
+
+        public DataSet GetCustomerDashboardAlert(int customerId)
+        {
+            Database db;
+            DbCommand getCustomerAlertsCmd;
+            DataSet dsGetCustomerAlertsList;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustomerAlertsCmd = db.GetStoredProcCommand("SPROC_GetCustomerDashboardAlerts");
+                db.AddInParameter(getCustomerAlertsCmd, "@C_CustomerID", DbType.Int32, customerId);
+
+                dsGetCustomerAlertsList = db.ExecuteDataSet(getCustomerAlertsCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AlertsDao.cs:GetCustomerDashboardAlerts()");
+
+                object[] objects = new object[1];
+                objects[0] = customerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsGetCustomerAlertsList;
+        }
+
     }
 }

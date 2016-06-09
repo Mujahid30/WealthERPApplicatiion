@@ -166,9 +166,9 @@
         <tr>
             <td width="50%" valign="top">
                 <asp:Label ID="lblAlertsMessage" runat="server" CssClass="FieldName" Text="No Alerts..."></asp:Label>
-                <asp:GridView ID="gvCustomerAlerts" runat="server" AllowSorting="True" AutoGenerateColumns="False"
+<%--                <asp:GridView ID="gvCustomerAlerts" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                     CellPadding="4" CssClass="GridViewStyle" EnableViewState="false" Width="100%">
-                    <%--<FooterStyle HorizontalAlign="Center" CssClass="FooterStyle"/>--%>
+                    <FooterStyle HorizontalAlign="Center" CssClass="FooterStyle"/>
                     <RowStyle CssClass="RowStyle" />
                     <SelectedRowStyle CssClass="SelectedRowStyle" />
                     <PagerStyle CssClass="PagerStyle" HorizontalAlign="Center" />
@@ -179,7 +179,27 @@
                         <asp:BoundField DataField="EventMessage" HeaderText="EventMessage" />
                     </Columns>
                 </asp:GridView>
-            </td>
+--%>
+
+
+ <asp:GridView ID="gvCustomerAlerts" runat="server" AllowSorting="True" AutoGenerateColumns="False"
+                    CellPadding="4" CssClass="GridViewStyle" EnableViewState="false" Width="100%">
+                    <FooterStyle HorizontalAlign="Center" CssClass="FooterStyle"/>
+                    <RowStyle CssClass="RowStyle" />
+                    <SelectedRowStyle CssClass="SelectedRowStyle" />
+                    <PagerStyle CssClass="PagerStyle" HorizontalAlign="Center" />
+                    <HeaderStyle CssClass="HeaderStyle" />
+                    <AlternatingRowStyle CssClass="AltRowStyle" />
+                    <Columns>
+                        <asp:BoundField DataField="DashBoardCustomerNotification" HeaderText="Message"  />
+                    </Columns>
+                </asp:GridView>
+
+
+
+
+          
+  </td>
             <td width="50%" valign="top">
                 <asp:Label ID="lblMaturityMsg" runat="server" CssClass="FieldName" Text="No Upcoming Maturity Dates.."></asp:Label>
                 <asp:GridView ID="gvMaturitySchedule" runat="server" AllowSorting="True" AutoGenerateColumns="False"

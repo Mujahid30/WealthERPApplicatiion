@@ -159,6 +159,7 @@ namespace WealthERP.OPS
                 BindFrequencyDropdown();
                 BindPaymentMode();
                 BindOrderStepsGrid();
+
             }
         }
         protected void txtAgentId_ValueChanged1(object sender, EventArgs e)
@@ -721,15 +722,15 @@ namespace WealthERP.OPS
                 //((Literal)dataItem["DropDownColumnStatus"].Controls[0]).Text = dataItem.GetDataKeyValue("WOS_OrderStepCode").ToString();
                 //((Literal)dataItem["DropDownColumnStatusReason"].Controls[0]).Text = dataItem.GetDataKeyValue("WOS_OrderStepCode").ToString();
 
-                LinkButton editButton = dataItem["EditCommandColumn"].Controls[0] as LinkButton;
+               // LinkButton editButton = dataItem["EditCommandColumn"].Controls[0] as LinkButton;
                 string editColumn = dataItem["COS_IsEditable"].Text;
                 if (editColumn == "1")
                 {
-                    editButton.Enabled = true;
+                   // editButton.Enabled = true;
                 }
                 else
                 {
-                    editButton.Enabled = false;
+                  //  editButton.Enabled = false;
                 }
             }
         }
