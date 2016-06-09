@@ -3356,6 +3356,8 @@ Parameters!Product.Value="IP","IPO"
                             <BorderStyle>
                               <Default>Solid</Default>
                             </BorderStyle>
+                            <FontSize>11pt</FontSize>
+                            <FontWeight>600</FontWeight>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -4080,6 +4082,7 @@ Parameters!Product.Value="IP","IPO"
                               <Style>
                                 <BackgroundColor>White</BackgroundColor>
                                 <FontFamily>Times New Roman</FontFamily>
+                                <FontSize>11pt</FontSize>
                                 <FontWeight>600</FontWeight>
                                 <PaddingLeft>2pt</PaddingLeft>
                                 <PaddingRight>2pt</PaddingRight>
