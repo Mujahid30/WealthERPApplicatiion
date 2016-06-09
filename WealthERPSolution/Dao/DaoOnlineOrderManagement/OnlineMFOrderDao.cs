@@ -739,7 +739,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsOGetCustomerOrderBookTransaction;
         }
-        public DataTable GetCustomerFolioSchemeWise(int customerId, int schemeCode)
+        public DataTable GetCustomerFolioSchemeWise(int customerId, int schemeCode,int IsDemat)
         {
             DataSet dsGetCustomerFolioSchemeWise;
             Database db;
@@ -751,6 +751,7 @@ namespace DaoOnlineOrderManagement
                 GetGetCustomerFolioSchemeWiseCmd = db.GetStoredProcCommand("SPROC_ONL_GetCustomerFolioAsPerScheme");
                 db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@customerId", DbType.Int32, customerId);
                 db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@SchemeId", DbType.Int32, schemeCode);
+                db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@IsDemat", DbType.Int32, IsDemat);
                 dsGetCustomerFolioSchemeWise = db.ExecuteDataSet(GetGetCustomerFolioSchemeWiseCmd);
                 dtGetCustomerFolioSchemeWise = dsGetCustomerFolioSchemeWise.Tables[0];
 

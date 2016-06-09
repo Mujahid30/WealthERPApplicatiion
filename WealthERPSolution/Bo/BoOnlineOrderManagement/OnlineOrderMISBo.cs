@@ -100,7 +100,7 @@ namespace BoOnlineOrderManagement
             }
             return dsSIPSummaryBookMIS;
         }
-        public DataSet GetSchemeMIS(string Assettype, int Onlinetype, string Status)
+        public DataSet GetSchemeMIS(string Assettype, int Onlinetype, string Status,int IsDemat)
         {
             DataSet dsSchemeMIS;
             OnlineOrderMISDao onlineOrderMISDao = new OnlineOrderMISDao();
@@ -108,7 +108,7 @@ namespace BoOnlineOrderManagement
             try
             {
 
-                dsSchemeMIS = onlineOrderMISDao.GetSchemeMIS(Assettype, Onlinetype, Status);
+                dsSchemeMIS = onlineOrderMISDao.GetSchemeMIS(Assettype, Onlinetype, Status, IsDemat);
             }
             catch (BaseApplicationException Ex)
             {

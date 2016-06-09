@@ -890,7 +890,7 @@ namespace DaoCustomerPortfolio
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                dbDematDetails = db.GetStoredProcCommand("SP_UpdateDematDetails");
+                dbDematDetails = db.GetStoredProcCommand("SP_GetCustomerActiveDematAccount");
 
                 db.AddInParameter(dbDematDetails, "@CustomerId", DbType.Int32, customerId);
 

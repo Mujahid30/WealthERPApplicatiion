@@ -295,7 +295,7 @@ namespace WealthERP.OnlineOrderManagement
 
 
                 DataTable dtGetAmcFolioNo = new DataTable();
-                dtGetAmcFolioNo = commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(ddlAmc.SelectedValue), customerVo.CustomerId);
+                dtGetAmcFolioNo = commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(ddlAmc.SelectedValue), customerVo.CustomerId,0);
                 if (schemeType == "SO")
                 {
                     if (dtGetAmcFolioNo.Rows.Count > 0)

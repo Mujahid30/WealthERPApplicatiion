@@ -489,13 +489,13 @@ namespace BoOnlineOrderManagement
             return SchemePlancodes;
         }
 
-        public MFProductAMCSchemePlanDetailsVo GetOnlineSchemeSetUp(int SchemePlanCode)
+        public MFProductAMCSchemePlanDetailsVo GetOnlineSchemeSetUp(int SchemePlanCode,int IsDemat)
         {
             MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo = new MFProductAMCSchemePlanDetailsVo();
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                mfProductAMCSchemePlanDetailsVo = OnlineOrderBackOfficeDao.GetOnlineSchemeSetUp(SchemePlanCode);
+                mfProductAMCSchemePlanDetailsVo = OnlineOrderBackOfficeDao.GetOnlineSchemeSetUp(SchemePlanCode, IsDemat);
 
             }
             catch (BaseApplicationException Ex)

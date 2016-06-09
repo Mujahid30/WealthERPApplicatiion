@@ -102,6 +102,14 @@ namespace VoOnlineOrderManagemnet
         public int IsOnlineEnablement { get; set; }
         public string ISINNo { get; set; }
         public int IsETFT { get; set; }
+        public int BSE { get; set; }
+        public int RTA { get; set; }
+        public int BBSE { get; set; }
+        public int BRTA { get; set; }
+        public string DVPISIN { get; set; }
+        public string DVRISIN { get; set; }
+        public string DVPExternalCode { get; set; }
+        public string DVRExternalCode { get; set; }
     }
 
     public class TradeBusinessDateVo

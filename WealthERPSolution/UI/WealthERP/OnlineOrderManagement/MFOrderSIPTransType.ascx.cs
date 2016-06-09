@@ -56,6 +56,8 @@ namespace WealthERP.OnlineOrderManagement
         DataTable dtFrequency;
         string clientMFAccessCode = string.Empty;
         int debitstatus = 0;
+        string exchangeType = string.Empty;
+
         protected void Page_Init(object sender, EventArgs e)
         {
 
@@ -78,6 +80,16 @@ namespace WealthERP.OnlineOrderManagement
 
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadTransactPanel('MFOnlineSchemeManager')", true);
                 return;
+            }
+            if (Request.QueryString["exchangeType"] == null)
+            {
+                exchangeType = "Online";
+
+            }
+            else
+            {
+                exchangeType = Request.QueryString["exchangeType"].ToString();
+
             }
             if (custPortVo == null)
             {
@@ -802,10 +814,10 @@ namespace WealthERP.OnlineOrderManagement
             try
             {
                 if (strAction != "Edit")
-                    dtgetfolioNo = boOnlineOrder.GetCustomerFolioSchemeWise(customerVo.CustomerId, amcCode);
+                    dtgetfolioNo = boOnlineOrder.GetCustomerFolioSchemeWise(customerVo.CustomerId, amcCode, exchangeType == "Online" ? 1 : 0);
                         //commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(ddlAmc.SelectedValue), customerVo.CustomerId);
                 else
-                    dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(onlineMFOrderVo.AssetGroup), customerVo.CustomerId);
+                    dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(onlineMFOrderVo.AssetGroup), customerVo.CustomerId,0);
 
                 if (dtgetfolioNo.Rows.Count > 0)
                 {

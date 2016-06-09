@@ -65,28 +65,21 @@ namespace WealthERP.OnlineOrderManagement
 
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOnlineSchemeManager')", true);
                 return;
-                
-            }
-            if (Request.QueryString["exchangeType"] == null)
-            {
-                exchangeType = "Online";
 
             }
+            if (Session["ExchangeMode"] != null)
+                exchangeType = Session["ExchangeMode"].ToString();
             else
-            {
-                exchangeType = Request.QueryString["exchangeType"].ToString();
-
-            }
+                exchangeType = "Online";
             if (!IsPostBack)
-            
-{
+            {
                 clientMFAccessCode = onlineMforderBo.GetClientMFAccessStatus(customerVo.CustomerId);
                 if (clientMFAccessCode == "FA" || clientMFAccessCode == "PA")
                 {
                     AmcBind();
                     //CategoryBind();
                     BindNomineeAndJointHolders();
-                    dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(0, customerVo.CustomerId);
+                    dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(0, customerVo.CustomerId, exchangeType == "Online" ? 0 : 1);
                     lnkOfferDoc.Visible = false;
                     lnkFactSheet.Visible = false;
                     lnkExitLoad.Visible = false;
@@ -110,17 +103,18 @@ namespace WealthERP.OnlineOrderManagement
                             lblAmc.Text = amcName;
                             lblCategory.Text = categoryname;
                             lblScheme.Text = schemeName;
+                            dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(amcCode, customerVo.CustomerId, exchangeType == "Online" ? 0 : 1);
                             SetSelectedDisplay(accountId, int.Parse(Session["MFSchemePlan"].ToString()), amcCode, category);
                         }
                         else
                         {
-                           
+
                             //commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category);
                             commonLookupBo.GetSchemeAMCSchemeCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out categoryname, out amcName, out schemeName);
                             lblAmc.Text = amcName;
                             lblCategory.Text = categoryname;
                             lblScheme.Text = schemeName;
-                           
+
                             SetSelectedDisplay(0, int.Parse(Session["MFSchemePlan"].ToString()), amcCode, category);
 
 
@@ -378,7 +372,7 @@ namespace WealthERP.OnlineOrderManagement
 
             if (subcategory == "MFEQTP")
             {
-                ddlRedeem.Items[3].Enabled=false;
+                ddlRedeem.Items[3].Enabled = false;
             }
             if ((double.Parse(lblUnitsheldDisplay.Text) <= 0) && (subcategory == "MFEQTP"))
             {
@@ -525,8 +519,8 @@ namespace WealthERP.OnlineOrderManagement
             DataTable dtScheme = new DataTable();
             try
             {
-                dtScheme = onlineMforderBo.GetCustomerFolioSchemeWise(customerVo.CustomerId, amcCode);
-                    //commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(ddlAmc.SelectedValue), customerVo.CustomerId);
+                dtScheme = onlineMforderBo.GetCustomerFolioSchemeWise(customerVo.CustomerId, amcCode, exchangeType == "Online" ? 1 : 0);
+                //commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(ddlAmc.SelectedValue), customerVo.CustomerId);
 
                 if (dtScheme.Rows.Count > 0)
                 {
@@ -711,14 +705,32 @@ namespace WealthERP.OnlineOrderManagement
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please enter a valid Units');", true); return;
                 }
             }
-            OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
-            OrderId = int.Parse(OrderIds[0].ToString());
+            string message = string.Empty;
+            char msgType = 'F';
+            if (exchangeType == "Online")
+            {
+                onlinemforderVo.OrderType = 1;
+                OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
+                OrderId = int.Parse(OrderIds[0].ToString());
+                CreateUserMessage(OrderId, isCutOffTimeOver);
+                ShowMessage(message);
+            }
+            else if (exchangeType == "Demat")
+            {
+                onlinemforderVo.OrderType = 0;
+                DematAccountVo dematevo = new DematAccountVo();
+                BoDematAccount bo = new BoDematAccount();
+                dematevo = bo.GetCustomerActiveDematAccount(customerVo.CustomerId);
 
-
-            string message = CreateUserMessage(OrderId, isCutOffTimeOver);
-            ShowMessage(message);
-
+                OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();
+                message = OnlineMFOrderBo.BSEorderEntryParam(userVo.UserId, customerVo.CustCode, onlinemforderVo, customerVo.CustomerId, dematevo.DepositoryName, out msgType);
+            }
+            else
+            {
+                message = "Order cannot be processed. Insufficient balance";
+            }
             PurchaseOrderControlsEnable(false);
+            ShowMessage(message);
 
         }
 
@@ -785,7 +797,7 @@ namespace WealthERP.OnlineOrderManagement
             RadInformation.VisibleOnPageLoad = true;
 
         }
-       
+
     }
 }
 

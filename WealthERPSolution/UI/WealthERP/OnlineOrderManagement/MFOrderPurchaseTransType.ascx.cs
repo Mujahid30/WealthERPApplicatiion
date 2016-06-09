@@ -62,16 +62,7 @@ namespace WealthERP.OnlineOrderManagement
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOnlineSchemeManager')", true);
                 return;
             }
-            //if (Request.QueryString["exchangeType"] == null)
-            //{
-            //    exchangeType = "Online";
-
-            //}
-            //else
-            //{
-            //    exchangeType = Request.QueryString["exchangeType"].ToString();
-
-            //}
+           
             if (Session["ExchangeMode"] != null)
                 exchangeType = Session["ExchangeMode"].ToString();
             else
@@ -322,7 +313,7 @@ namespace WealthERP.OnlineOrderManagement
             DataTable dt;
             try
             {
-                dt = onlineMforderBo.GetCustomerFolioSchemeWise(customerVo.CustomerId, schemecode);
+                dt = onlineMforderBo.GetCustomerFolioSchemeWise(customerVo.CustomerId, schemecode, exchangeType == "Online" ? 1 : 0);
                 if (dt.Rows.Count > 0)
                 {
                     ddlFolio.DataSource = dt;
@@ -520,10 +511,13 @@ namespace WealthERP.OnlineOrderManagement
             else if (exchangeType == "Demat")
             {
                 onlinemforderVo.OrderType = 0;
+                DematAccountVo dematevo = new DematAccountVo();
+                BoDematAccount bo = new BoDematAccount();
+                dematevo = bo.GetCustomerActiveDematAccount(customerVo.CustomerId);
                 if (availableBalance >= Convert.ToDecimal(onlinemforderVo.Amount))
                 {
                     OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();
-                    message = OnlineMFOrderBo.BSEorderEntryParam(userVo.UserId, customerVo.CustCode, onlinemforderVo, customerVo.CustomerId, out msgType);
+                    message = OnlineMFOrderBo.BSEorderEntryParam(userVo.UserId, customerVo.CustCode, onlinemforderVo, customerVo.CustomerId,dematevo.DepositoryName, out msgType);
                 }
                 else
                 {

@@ -33,7 +33,7 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(GetOrderBookMISCmd, "@Status", DbType.String, OrderStatus);
                 else
                     db.AddInParameter(GetOrderBookMISCmd, "@Status", DbType.String, DBNull.Value);
-                if(dtFrom!=DateTime.MinValue)
+                if (dtFrom != DateTime.MinValue)
                     db.AddInParameter(GetOrderBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
                 else
                     db.AddInParameter(GetOrderBookMISCmd, "@Fromdate", DbType.DateTime, DBNull.Value);
@@ -41,7 +41,7 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(GetOrderBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
                 else
                     db.AddInParameter(GetOrderBookMISCmd, "@ToDate", DbType.DateTime, DBNull.Value);
-                if(orderNo !=0)
+                if (orderNo != 0)
                     db.AddInParameter(GetOrderBookMISCmd, "@orderNo", DbType.Int32, orderNo);
                 else
                     db.AddInParameter(GetOrderBookMISCmd, "@orderNo", DbType.Int32, 0);
@@ -91,12 +91,12 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(GetSIPBookMISCmd, "@systematicId", DbType.Int32, systematicId);
                 else
                     db.AddInParameter(GetSIPBookMISCmd, "@systematicId", DbType.Int32, 0);
-                if(dtFrom!=DateTime.MinValue)
-                db.AddInParameter(GetSIPBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
+                if (dtFrom != DateTime.MinValue)
+                    db.AddInParameter(GetSIPBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
                 else
                     db.AddInParameter(GetSIPBookMISCmd, "@Fromdate", DbType.DateTime, DBNull.Value);
                 if (dtTo != DateTime.MinValue)
-                db.AddInParameter(GetSIPBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
+                    db.AddInParameter(GetSIPBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
                 else
                     db.AddInParameter(GetSIPBookMISCmd, "@ToDate", DbType.DateTime, DBNull.Value);
                 if (orderId != 0)
@@ -166,7 +166,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsSIPSummaryBookMIS;
         }
-        public DataSet GetSchemeMIS(string Assettype, int Onlinetype,string Status)
+        public DataSet GetSchemeMIS(string Assettype, int Onlinetype, string Status, int IsDemat)
         {
             DataSet dsSchemeMIS;
             Database db;
@@ -175,16 +175,9 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetSchemeMISCmd = db.GetStoredProcCommand("SPROC_GetProductAMCSchemePlanDetails");
-                //if (Assettype == "All")
-                //{
-                //    db.AddInParameter(GetSchemeMISCmd, "@assettype", DbType.String, null);
-                //}
-                //else
-                //{
-                //    db.AddInParameter(GetSchemeMISCmd, "@assettype", DbType.String, Assettype);
-                //}
+
                 db.AddInParameter(GetSchemeMISCmd, "@assettype", DbType.String, Assettype);
-                if (Onlinetype ==2)
+                if (Onlinetype == 2)
                 {
                     db.AddInParameter(GetSchemeMISCmd, "@onlinetype", DbType.Int32, Onlinetype);
 
@@ -194,17 +187,13 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(GetSchemeMISCmd, "@onlinetype", DbType.Int32, Onlinetype);
 
                 }
-                //if (Status == "All")
-                //{
-                    db.AddInParameter(GetSchemeMISCmd, "@status", DbType.String, Status);
 
-                //}
-                //else
-                //{
-                //    db.AddInParameter(GetSchemeMISCmd, "@status", DbType.String, Status);
+                db.AddInParameter(GetSchemeMISCmd, "@status", DbType.String, Status);
 
-                //}
-                    GetSchemeMISCmd.CommandTimeout = 60 * 60;
+
+                db.AddInParameter(GetSchemeMISCmd, "@IsDemat", DbType.Int32, IsDemat);
+
+                GetSchemeMISCmd.CommandTimeout = 60 * 60;
                 dsSchemeMIS = db.ExecuteDataSet(GetSchemeMISCmd);
 
             }
@@ -225,7 +214,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsSchemeMIS;
         }
-        public DataTable GetAdviserCustomerTransaction(int adviserId, int AmcCode, DateTime dtFrom, DateTime dtTo, int PageSize, int CurrentPage, string CustomerNamefilter,string custCode,string panNo,string folioNo,string schemeName,string type,string dividentType,string fundName,int orderNo, out int RowCount)
+        public DataTable GetAdviserCustomerTransaction(int adviserId, int AmcCode, DateTime dtFrom, DateTime dtTo, int PageSize, int CurrentPage, string CustomerNamefilter, string custCode, string panNo, string folioNo, string schemeName, string type, string dividentType, string fundName, int orderNo, out int RowCount)
         {
             DataTable dtGetAdviserCustomerTransaction;
             Database db;
@@ -243,20 +232,20 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(GetGetAdviserCustomerTransaction, "@AMC", DbType.Int32, 0);
                 db.AddInParameter(GetGetAdviserCustomerTransaction, "@Fromdate", DbType.DateTime, dtFrom);
                 db.AddInParameter(GetGetAdviserCustomerTransaction, "@ToDate", DbType.DateTime, dtTo);
-                if(custCode !="")
-                db.AddInParameter(GetGetAdviserCustomerTransaction, "@CustCode", DbType.String, custCode);
+                if (custCode != "")
+                    db.AddInParameter(GetGetAdviserCustomerTransaction, "@CustCode", DbType.String, custCode);
                 else
                     db.AddInParameter(GetGetAdviserCustomerTransaction, "@CustCode", DbType.String, DBNull.Value);
-                if(panNo !="")
-                db.AddInParameter(GetGetAdviserCustomerTransaction, "@Panno", DbType.String, panNo);
+                if (panNo != "")
+                    db.AddInParameter(GetGetAdviserCustomerTransaction, "@Panno", DbType.String, panNo);
                 else
                     db.AddInParameter(GetGetAdviserCustomerTransaction, "@Panno", DbType.String, DBNull.Value);
-                if(folioNo !="")
-                db.AddInParameter(GetGetAdviserCustomerTransaction, "@FolioNo", DbType.String, folioNo);
+                if (folioNo != "")
+                    db.AddInParameter(GetGetAdviserCustomerTransaction, "@FolioNo", DbType.String, folioNo);
                 else
                     db.AddInParameter(GetGetAdviserCustomerTransaction, "@FolioNo", DbType.String, DBNull.Value);
-                if(schemeName !="")
-                db.AddInParameter(GetGetAdviserCustomerTransaction, "@SchemeName", DbType.String, schemeName);
+                if (schemeName != "")
+                    db.AddInParameter(GetGetAdviserCustomerTransaction, "@SchemeName", DbType.String, schemeName);
                 else
                     db.AddInParameter(GetGetAdviserCustomerTransaction, "@SchemeName", DbType.String, DBNull.Value);
                 if (type != "")
@@ -275,8 +264,8 @@ namespace DaoOnlineOrderManagement
                 //    db.AddInParameter(GetGetAdviserCustomerTransaction, "@OrderNo", DbType.Int32, orderNo);
                 //else
                 //    db.AddInParameter(GetGetAdviserCustomerTransaction, "@OrderNo", DbType.Int32, DBNull.Value);
-                if(CustomerNamefilter !="")
-                db.AddInParameter(GetGetAdviserCustomerTransaction, "@CustomerNameFilter", DbType.String, CustomerNamefilter);
+                if (CustomerNamefilter != "")
+                    db.AddInParameter(GetGetAdviserCustomerTransaction, "@CustomerNameFilter", DbType.String, CustomerNamefilter);
                 else
                     db.AddInParameter(GetGetAdviserCustomerTransaction, "@CustomerNameFilter", DbType.String, DBNull.Value);
                 db.AddInParameter(GetGetAdviserCustomerTransaction, "@CurrentPage", DbType.Int32, CurrentPage);
@@ -308,13 +297,13 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetAdviserCustomerTransaction;
         }
-        public DataTable GetAdviserCustomerTransactionsBookSIP(int AdviserID, int customerId, int SystematicId, int IsSourceAA, int AccountId, int SchemePlanCode,int requestId)
+        public DataTable GetAdviserCustomerTransactionsBookSIP(int AdviserID, int customerId, int SystematicId, int IsSourceAA, int AccountId, int SchemePlanCode, int requestId)
         {
             DataTable dtGetAdviserCustomerTransactionsBookSIP;
             Database db;
             DataSet dsGetAdviserCustomerTransactionsBookSIP;
             DbCommand GetAdviserCustomerTransactionsBookSIPcmd;
-             try
+            try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetAdviserCustomerTransactionsBookSIPcmd = db.GetStoredProcCommand("SPROC_ONL_GetAdviserCustomerMFSIPTransactionsBook");
@@ -356,22 +345,22 @@ namespace DaoOnlineOrderManagement
                 }
                 GetAdviserCustomerTransactionsBookSIPcmd.CommandTimeout = 60 * 60;
                 dsGetAdviserCustomerTransactionsBookSIP = db.ExecuteDataSet(GetAdviserCustomerTransactionsBookSIPcmd);
-                 dtGetAdviserCustomerTransactionsBookSIP=dsGetAdviserCustomerTransactionsBookSIP.Tables[0];
-        }
-             catch (BaseApplicationException Ex)
-             {
-                 throw Ex;
-             }
-             catch (Exception Ex)
-             {
-                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                 NameValueCollection FunctionInfo = new NameValueCollection();
-                 FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:Getproductcode()");
-                 exBase.AdditionalInformation = FunctionInfo;
-                 ExceptionManager.Publish(exBase);
-                 throw exBase;
-             }
-             return dtGetAdviserCustomerTransactionsBookSIP;
+                dtGetAdviserCustomerTransactionsBookSIP = dsGetAdviserCustomerTransactionsBookSIP.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:Getproductcode()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtGetAdviserCustomerTransactionsBookSIP;
         }
         public DataTable GetMFHolding()
         {

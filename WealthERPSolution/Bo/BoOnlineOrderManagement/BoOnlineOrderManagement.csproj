@@ -114,16 +114,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Service References\DemoBSEMFOrderEntry\MFOrder.xsd" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\DemoBSEMFOrderEntry\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\DemoBSEMFOrderEntry\MFOrder.disco" />
-    <None Include="Service References\DemoBSEMFOrderEntry\MFOrder.wsdl" />
-    <None Include="Service References\DemoBSEMFOrderEntry\MFOrder1.wsdl" />
-    <None Include="Service References\DemoBSEMFOrderEntry\MFOrder1.xsd" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\DemoBSEMFOrderEntry\configuration91.svcinfo" />
@@ -132,10 +125,17 @@
     <None Include="Service References\DemoBSEMFOrderEntry\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Service References\DemoBSEMFOrderEntry\MFOrder2.xsd" />
     <None Include="Service References\DemoBSEMFOrderEntry\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\DemoBSEMFOrderEntry\MFOrder1.disco" />
+    <None Include="Service References\DemoBSEMFOrderEntry\MFOrder2.wsdl" />
+    <None Include="Service References\DemoBSEMFOrderEntry\MFOrder21.wsdl" />
+    <None Include="Service References\DemoBSEMFOrderEntry\MFOrder21.xsd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -127,7 +127,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 DataSet dsSchemeMIs = new DataSet();
                 DataTable dtschememis = new DataTable();
-                dsSchemeMIs = OnlineOrderMISBo.GetSchemeMIS(hdnAssettype.Value, int.Parse(ddlTosee.SelectedItem.Value), hdnStatus.Value);
+                dsSchemeMIs = OnlineOrderMISBo.GetSchemeMIS(hdnAssettype.Value, int.Parse(ddlTosee.SelectedItem.Value), hdnStatus.Value,int.Parse(ddlMode.SelectedValue));
                 dtschememis = dsSchemeMIs.Tables[0];
 
                 if (dtschememis.Rows.Count > 0)
@@ -237,18 +237,10 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void ddlAction_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-
-            string product = "";
-            string type = "";
             DropDownList ddlAction = (DropDownList)sender;
             GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
-            string action = "";
             SchemePlanCode = int.Parse(gvonlineschememis.MasterTableView.DataKeyValues[gvr.ItemIndex]["PASP_SchemePlanCode"].ToString());
-            // string Status = (gvonlineschememis.MasterTableView.DataKeyValues[gvr.ItemIndex]["PASP_Status"].ToString());
-           // string filterValue = gvonlineschememis.MasterTableView.GetColumn("PASP_SchemePlanName").CurrentFilterValue;
-            Session["SchemeList"] = OnlineOrderBackOfficeBo.GetOnlineSchemeSetUp(SchemePlanCode);
-            //product= ddlProduct.SelectedValue;
-            //type = ddlTosee.SelectedValue;
+            Session["SchemeList"] = OnlineOrderBackOfficeBo.GetOnlineSchemeSetUp(SchemePlanCode,int.Parse(ddlMode.SelectedValue));
 
             if (ddlAction.SelectedItem.Value.ToString() == "View")
             {
@@ -256,10 +248,6 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineSchemeSetUp", "loadcontrol('OnlineSchemeSetUp','?SchemePlanCode=" + SchemePlanCode + "&strAction=" + ddlAction.SelectedItem.Value.ToString() + "&product=" + ddlProduct.SelectedValue + "&type=" + ddlTosee.SelectedValue + "&status=" + ddlststus.SelectedValue + "');", true);
                 }
-                //else
-                //{
-                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Is InActive Scheme !!');", true);
-                //}
             }
             if (ddlAction.SelectedValue.ToString() == "Edit")
             {
@@ -276,8 +264,6 @@ namespace WealthERP.OnlineOrderBackOffice
         {
 
             DataTable dtschememis = new DataTable();
-            //dsSchemeMIS = (DataSet)Cache["SchemeMIS" + adviserVo.advisorId.ToString()];
-            //DataTable dtCustomer = new DataTable();
             dtschememis = (DataTable)Cache["SchemeMIS" + userVo.UserId];
 
             if (dtschememis != null)

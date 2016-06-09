@@ -48,7 +48,7 @@ namespace BoOnlineOrderManagement
             return dsOrderBookMIS;
         }
 
-        public DataSet GetFolioAccount(int CustomerId,int exchangeType)
+        public DataSet GetFolioAccount(int CustomerId, int exchangeType)
         {
             DataSet dsFolioAccount = null;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
@@ -85,13 +85,13 @@ namespace BoOnlineOrderManagement
 
             return dsOrderStatus;
         }
-        public DataSet GetControlDetails(int scheme, string folio,int demat)
+        public DataSet GetControlDetails(int scheme, string folio, int demat)
         {
             DataSet ds = null;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             try
             {
-                ds = OnlineMFOrderDao.GetControlDetails(scheme, folio,demat);
+                ds = OnlineMFOrderDao.GetControlDetails(scheme, folio, demat);
             }
             catch (BaseApplicationException Ex)
             {
@@ -134,9 +134,9 @@ namespace BoOnlineOrderManagement
 
             try
             {
-             
-                    orderIds = onlineOrderdao.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, UserId, CustomerId);
-               
+
+                orderIds = onlineOrderdao.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, UserId, CustomerId);
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -465,7 +465,7 @@ namespace BoOnlineOrderManagement
             return dtGetMFSchemeDetailsForLanding;
         }
 
-        public DataSet GetCustomerSchemeFolioHoldings(int customerId, int schemeId, out string schemeDividendOption, int Demate,int accountId)
+        public DataSet GetCustomerSchemeFolioHoldings(int customerId, int schemeId, out string schemeDividendOption, int Demate, int accountId)
         {
             DataSet ds = null;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
@@ -565,7 +565,7 @@ namespace BoOnlineOrderManagement
 
             return dsOrderStatus;
         }
-        public DataSet GetCustomerOrderBookTransaction(int customerId, int amcCode, int schemeCode, string orderType,int exchangeType)
+        public DataSet GetCustomerOrderBookTransaction(int customerId, int amcCode, int schemeCode, string orderType, int exchangeType)
         {
             DataSet dsGetCustomerOrderBookTransaction;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
@@ -579,14 +579,14 @@ namespace BoOnlineOrderManagement
             }
             return dsGetCustomerOrderBookTransaction;
         }
-        public DataTable GetCustomerFolioSchemeWise(int customerId, int schemeCode)
+        public DataTable GetCustomerFolioSchemeWise(int customerId, int schemeCode, int IsDemat)
         {
             DataTable dt;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
 
             try
             {
-                dt = OnlineMFOrderDao.GetCustomerFolioSchemeWise(customerId, schemeCode);
+                dt = OnlineMFOrderDao.GetCustomerFolioSchemeWise(customerId, schemeCode, IsDemat);
             }
             catch (BaseApplicationException Ex)
             {
@@ -638,42 +638,78 @@ namespace BoOnlineOrderManagement
             return result;
 
         }
-        public string BSEorderEntryParam(int UserID, string ClientCode, OnlineMFOrderVo onlinemforderVo, int CustomerId, out char msgType)
+        public string BSEorderEntryParam(int UserID, string ClientCode, OnlineMFOrderVo onlinemforderVo, int CustomerId, string DematAcctype, out char msgType)
         {
             DemoBSEMFOrderEntry.MFOrderEntryClient webOrderEntryClient = new DemoBSEMFOrderEntry.MFOrderEntryClient();
             List<int> orderIds = new List<int>();
             msgType = 'F';
             string message = string.Empty;
             bool isRMSDebited = false;
-            int rmsId=0;
+            int rmsId = 0;
             try
             {
-              
+                string PurchaseType = string.Empty;
+                string purchase = string.Empty;
                 OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
                 string passkey = "E234586789D12";
                 string password = webOrderEntryClient.getPassword("9501", "S@123", passkey);
                 string[] bsePassArray = password.Split('|');
-                isRMSDebited = DebitOrCreditRMSUserAccountBalance(UserID, ClientCode, -onlinemforderVo.Amount, rmsId, out  rmsId);
+
+                if (DematAcctype == "CDSL" || DematAcctype == "")
+                {
+                    DematAcctype = "C";
+                }
+                else if (DematAcctype == "NSDL")
+                {
+                    DematAcctype = "N";
+                }
+                if (onlinemforderVo.TransactionType == "NEW")
+                {
+                    PurchaseType = "FRESH";
+                    purchase = "P";
+                }
+                else if (onlinemforderVo.TransactionType == "ABY")
+                {
+                    PurchaseType = "ADDITIONAL";
+                    purchase = "P";
+                }
+                else if (onlinemforderVo.TransactionType == "SEL")
+                {
+                    PurchaseType = "FRESH";
+                    purchase = "R";
+                }
+                if (onlinemforderVo.TransactionType != "SEL")
+                {
+                    isRMSDebited = DebitOrCreditRMSUserAccountBalance(UserID, ClientCode, -onlinemforderVo.Amount, rmsId, out  rmsId);
+                }
+                else if (onlinemforderVo.TransactionType == "SEL")
+                {
+                    isRMSDebited = true;
+                }
                 if (isRMSDebited)
                 {
-                    int transCode = OnlineMFOrderDao.BSEorderEntryParam("NEW", UserID, ClientCode, onlinemforderVo.BSESchemeCode, "P", "FRESH", "C", onlinemforderVo.Amount.ToString(), "", "N", "", "Y", "", "", "E101765", "Y", "N", "N", "", rmsId);
+                    int transCode = OnlineMFOrderDao.BSEorderEntryParam("NEW", UserID, ClientCode, onlinemforderVo.BSESchemeCode, purchase, PurchaseType, DematAcctype, onlinemforderVo.Amount.ToString(), "", "N", "", "Y", "", "", "E101765", "Y", "N", "N", "", rmsId);
                     string uniqueRefNo;
                     Random ran = new Random();
-                    uniqueRefNo = transCode.ToString()+ran.Next().ToString();
-                    string orderEntryresponse = webOrderEntryClient.orderEntryParam("NEW", uniqueRefNo, "", "9501", "95", ClientCode, onlinemforderVo.BSESchemeCode, "P", "FRESH", "C", onlinemforderVo.Amount.ToString(), "", "N", "", "", "Y", "", "", "E101765", "Y", "N", "N", "", bsePassArray[1], passkey, "", "", "");
+                    uniqueRefNo = transCode.ToString() + ran.Next().ToString();
+                    string orderEntryresponse = webOrderEntryClient.orderEntryParam("NEW", uniqueRefNo, "", "9501", "95", ClientCode, onlinemforderVo.BSESchemeCode, purchase, PurchaseType, DematAcctype, onlinemforderVo.Amount.ToString(), "", "N", "", "", "Y", "", "", "E101765", "Y", "N", "N", "", bsePassArray[1], passkey, "", "", "");
                     string[] bseorderEntryresponseArray = orderEntryresponse.Split('|');
                     OnlineMFOrderDao.BSEorderResponseParam(transCode, UserID, Convert.ToInt64(bseorderEntryresponseArray[2]), ClientCode, bseorderEntryresponseArray[6], bseorderEntryresponseArray[7], rmsId, uniqueRefNo);
                     if (Convert.ToInt32(bseorderEntryresponseArray[7]) == 1)
                     {
-                        DebitOrCreditRMSUserAccountBalance(UserID, ClientCode, onlinemforderVo.Amount, rmsId, out  rmsId);
+                        if (onlinemforderVo.TransactionType != "SEL")
+                        {
+                            DebitOrCreditRMSUserAccountBalance(UserID, ClientCode, onlinemforderVo.Amount, rmsId, out  rmsId);
+
+                        }
                         message = "Order cannot be processed." + bseorderEntryresponseArray[6];
                     }
                     else if ((Convert.ToInt32(bseorderEntryresponseArray[7]) == 0))
                     {
                         orderIds = CreateCustomerOnlineMFOrderDetails(onlinemforderVo, UserID, CustomerId);
                         bool result = OnlineMFOrderDao.BSERequestOrderIdUpdate(orderIds[0], transCode, rmsId);
-                         message = "Order placed successfully, Order reference no is " + orderIds[0].ToString() ;
-                         msgType = 'S';
+                        message = "Order placed successfully, Order reference no is " + orderIds[0].ToString();
+                        msgType = 'S';
                     }
                 }
                 else

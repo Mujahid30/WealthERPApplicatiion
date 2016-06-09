@@ -240,7 +240,7 @@ namespace DaoCommon
             return ds.Tables[0];
         }
 
-        public DataTable GetFolioNumberForSIP(int AmcCode, int CustomerId)
+        public DataTable GetFolioNumberForSIP(int AmcCode, int CustomerId,int IsDemat)
         {
             Database db;
             DbCommand cmd;
@@ -253,6 +253,7 @@ namespace DaoCommon
                 db.AddInParameter(cmd, "@amcCode", DbType.Int32, AmcCode);
                 db.AddInParameter(cmd, "@CustomerId", DbType.Int32, CustomerId);
 
+                db.AddInParameter(cmd, "@IsDemat", DbType.Int32, IsDemat);
 
                 dsGetAmcSchemeList = db.ExecuteDataSet(cmd);
             }

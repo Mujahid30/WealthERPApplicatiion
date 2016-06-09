@@ -48,7 +48,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlProduct;
-        
+        protected global::System.Web.UI.WebControls.DropDownList ddlMode;
         /// <summary>
         /// rfvType control.
         /// </summary>

@@ -200,7 +200,7 @@ namespace WealthERP.OnlineOrderManagement
             try
             {
                 ddlFolio.Items.Clear();
-                dtCustomerFolioList = commonLookupBo.GetFolioNumberForSIP(amcCode, customerVo.CustomerId);
+                dtCustomerFolioList = commonLookupBo.GetFolioNumberForSIP(amcCode, customerVo.CustomerId,0);
                 if (dtCustomerFolioList.Rows.Count > 0)
                 {
                     ddlFolio.DataSource = dtCustomerFolioList;
