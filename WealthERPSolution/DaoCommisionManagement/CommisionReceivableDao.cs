@@ -2015,6 +2015,7 @@ namespace DaoCommisionManagement
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
+                
             }
             return dsGetAssociateCommissionPayout.Tables[0];
         }
@@ -2185,7 +2186,7 @@ namespace DaoCommisionManagement
             }
             return count;
         }
-         public bool UpdateRuleRateandTax(int ruleid,decimal serviceTax,decimal TDSValue,decimal recivablerate,decimal payablerate,string brokrageunit, int userId)
+        public bool UpdateRuleRateandTax(int ruleid,decimal serviceTax,decimal TDSValue,decimal recivablerate,decimal payablerate,string brokrageunit, int userId)
         {
             bool bResult = false;
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -2210,6 +2211,191 @@ namespace DaoCommisionManagement
             }
             return bResult;
         }
+        public DataTable GetBranchBrokerage(string product, string productCategory, string fromdate, string todate, int amcCode, int schemeId, int adviserId, int issueid,string commissionType)
+         {
+             DataSet dsGetAssociateCommissionPayout;
+             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+             DbCommand dbCommand;
+             try
+             {
+                 db = DatabaseFactory.CreateDatabase("wealtherp");
+                 dbCommand = db.GetStoredProcCommand("SPROC_GetBranchBrokerageReceivable");
+                 db.AddInParameter(dbCommand, "@Product", DbType.String, product);
+                 db.AddInParameter(dbCommand, "@ProductCategory", DbType.String, productCategory);
+                 db.AddInParameter(dbCommand, "@IssueId", DbType.Int32, issueid);
+                 db.AddInParameter(dbCommand, "@IsReceivable", DbType.Boolean, false);
+                 db.AddInParameter(dbCommand, "@FromDate", DbType.DateTime, fromdate);
+                 db.AddInParameter(dbCommand, "@ToDate", DbType.DateTime, todate);
+                 db.AddInParameter(dbCommand, "@Channel", DbType.Boolean, true);
+                 db.AddInParameter(dbCommand, "@commissionType", DbType.String, commissionType);
+                 db.AddInParameter(dbCommand, "@AmcCode", DbType.Int32, amcCode);
+                 db.AddInParameter(dbCommand, "@AdviserId", DbType.Int32, adviserId);
+                 dsGetAssociateCommissionPayout = db.ExecuteDataSet(dbCommand);
+             }
+             catch (BaseApplicationException Ex)
+             {
+                 throw Ex;
+             }
+             catch (Exception Ex)
+             {
+                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                 NameValueCollection FunctionInfo = new NameValueCollection();
+                 FunctionInfo.Add("Method", "GetBranchBrokerage(string product, string productCategory, string fromdate, string todate, int amcCode, int schemeId, int adviserId, int issueid,string commissionType)");
+                 object[] objects = new object[10];
+                 objects[0] = product;
+                 objects[1] = productCategory;
+                 objects[2] = issueid;
+                 objects[3] = fromdate;
+                 objects[4] = todate;
+                 objects[5] = commissionType;
+                 objects[6] = amcCode;
+                 objects[7] = adviserId;
+                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                 exBase.AdditionalInformation = FunctionInfo;
+                 ExceptionManager.Publish(exBase);
+                 throw exBase;
+             }
+             return dsGetAssociateCommissionPayout.Tables[0];
+         }
+        public DataTable GetAssociateBrokerage(string product, string productCategory, string fromdate, string todate, int amcCode, int schemeId, int adviserId, int issueid, string commissionType)
+         {
+             DataSet dsGetAssociateCommissionPayout;
+             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+             DbCommand dbCommand;
+             try
+             {
+                 db = DatabaseFactory.CreateDatabase("wealtherp");
+                 dbCommand = db.GetStoredProcCommand("SPROC_GetAssociateWiseBrokerageReceived");
+                 db.AddInParameter(dbCommand, "@Product", DbType.String, product);
+                 db.AddInParameter(dbCommand, "@ProductCategory", DbType.String, productCategory);
+                 db.AddInParameter(dbCommand, "@IssueId", DbType.Int32, issueid);
+                 db.AddInParameter(dbCommand, "@IsReceivable", DbType.Boolean, false);
+                 db.AddInParameter(dbCommand, "@FromDate", DbType.DateTime, fromdate);
+                 db.AddInParameter(dbCommand, "@ToDate", DbType.DateTime, todate);
+                 db.AddInParameter(dbCommand, "@Channel", DbType.Boolean, true);
+                 db.AddInParameter(dbCommand, "@commissionType", DbType.String, commissionType);
+                 db.AddInParameter(dbCommand, "@AmcCode", DbType.Int32, amcCode);
+                 db.AddInParameter(dbCommand, "@AdviserId", DbType.Int32, adviserId);
+                 dsGetAssociateCommissionPayout = db.ExecuteDataSet(dbCommand);
+             }
+             catch (BaseApplicationException Ex)
+             {
+                 throw Ex;
+             }
+             catch (Exception Ex)
+             {
+                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                 NameValueCollection FunctionInfo = new NameValueCollection();
+                 FunctionInfo.Add("Method", "GetAssocaiteBrokerage(string product, string productCategory, string fromdate, string todate, int amcCode, int schemeId, int adviserId, int issueid, string commissionType)");
+                 object[] objects = new object[10];
+                 objects[0] = product;
+                 objects[1] = productCategory;
+                 objects[2] = issueid;
+                 objects[3] = fromdate;
+                 objects[4] = todate;
+                 objects[5] = commissionType;
+                 objects[6] = amcCode;
+                 objects[7] = adviserId;
+                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                 exBase.AdditionalInformation = FunctionInfo;
+                 ExceptionManager.Publish(exBase);
+                 throw exBase;
+             }
+             return dsGetAssociateCommissionPayout.Tables[0];
+         }
+        public DataTable GetProductApplicationWiseData(string product, string productCategory, string fromdate, string todate, int amcCode, int schemeId, int adviserId, int issueid, string commissionType)
+         {
+             DataSet dsGetAssociateCommissionPayout;
+             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+             DbCommand dbCommand;
+             try
+             {
+                 db = DatabaseFactory.CreateDatabase("wealtherp");
+                 dbCommand = db.GetStoredProcCommand("SPROC_GetProductBrokerageApplicationWise");
+                 db.AddInParameter(dbCommand, "@Product", DbType.String, product);
+                 db.AddInParameter(dbCommand, "@ProductCategory", DbType.String, productCategory);
+                 db.AddInParameter(dbCommand, "@IssueId", DbType.Int32, issueid);
+                 db.AddInParameter(dbCommand, "@IsReceivable", DbType.Boolean, false);
+                 db.AddInParameter(dbCommand, "@FromDate", DbType.DateTime, fromdate);
+                 db.AddInParameter(dbCommand, "@ToDate", DbType.DateTime, todate);
+                 db.AddInParameter(dbCommand, "@Channel", DbType.Boolean, true);
+                 db.AddInParameter(dbCommand, "@commissionType", DbType.String, commissionType);
+                 db.AddInParameter(dbCommand, "@AmcCode", DbType.Int32, amcCode);
+                 db.AddInParameter(dbCommand, "@AdviserId", DbType.Int32, adviserId);
+                 dsGetAssociateCommissionPayout = db.ExecuteDataSet(dbCommand);
+             }
+             catch (BaseApplicationException Ex)
+             {
+                 throw Ex;
+             }
+             catch (Exception Ex)
+             {
+                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                 NameValueCollection FunctionInfo = new NameValueCollection();
+                 FunctionInfo.Add("Method", "GetProductApplicationWiseData(string product, string productCategory, string fromdate, string todate, int amcCode, int schemeId, int adviserId, int issueid, string commissionType)");
+                 object[] objects = new object[10];
+                 objects[0] = product;
+                 objects[1] = productCategory;
+                 objects[2] = issueid;
+                 objects[3] = fromdate;
+                 objects[4] = todate;
+                 objects[5] = commissionType;
+                 objects[6] = amcCode;
+                 objects[7] = adviserId;
+                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                 exBase.AdditionalInformation = FunctionInfo;
+                 ExceptionManager.Publish(exBase);
+                 throw exBase;
+             }
+             return dsGetAssociateCommissionPayout.Tables[0];
+         }
+        public DataTable GetAssocaiteApplicationWiseData(string product, string productCategory, string fromdate, string todate, int amcCode, int schemeId, int adviserId, int issueid, string commissionType)
+        {
+            DataSet dsGetAssociateCommissionPayout;
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand dbCommand;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_GetBranchAssociateCommissionPayOuts");
+                db.AddInParameter(dbCommand, "@Product", DbType.String, product);
+                db.AddInParameter(dbCommand, "@ProductCategory", DbType.String, productCategory);
+                db.AddInParameter(dbCommand, "@IssueId", DbType.Int32, issueid);
+                db.AddInParameter(dbCommand, "@IsReceivable", DbType.Boolean, false);
+                db.AddInParameter(dbCommand, "@FromDate", DbType.DateTime, fromdate);
+                db.AddInParameter(dbCommand, "@ToDate", DbType.DateTime, todate);
+                db.AddInParameter(dbCommand, "@Channel", DbType.Boolean, true);
+                db.AddInParameter(dbCommand, "@commissionType", DbType.String, commissionType);
+                db.AddInParameter(dbCommand, "@AmcCode", DbType.Int32, amcCode);
+                db.AddInParameter(dbCommand, "@AdviserId", DbType.Int32, adviserId);
+                dsGetAssociateCommissionPayout = db.ExecuteDataSet(dbCommand);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "GetAssocaiteApplicationWiseData(string product, string productCategory, string fromdate, string todate, int amcCode, int schemeId, int adviserId, int issueid, string commissionType)");
+                object[] objects = new object[10];
+                objects[0] = product;
+                objects[1] = productCategory;
+                objects[2] = issueid;
+                objects[3] = fromdate;
+                objects[4] = todate;
+                objects[5] = commissionType;
+                objects[6] = amcCode;
+                objects[7] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetAssociateCommissionPayout.Tables[0];
+        }
+
         
     }
 }

@@ -1486,5 +1486,53 @@ namespace BoCommisionManagement
             result = commisionReceivableDao.UpdateRuleRateandTax(ruleid,serviceTax,TDSValue,recivablerate,payablerate,brokrageunit,userId);
             return result;
         }
+        public DataTable GetBranchBrokerage(string product, string productCategory, string fromdate, string todate, int amcCode, int schemeId, int adviserId, int issueid, string commissionType)
+        {
+            try
+            {
+                CommisionReceivableDao CommisionReceivableDao = new CommisionReceivableDao();
+                return CommisionReceivableDao.GetBranchBrokerage(product, productCategory, fromdate, todate, amcCode, schemeId, adviserId, issueid, commissionType);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public DataTable GetAssociateBrokerage(string product, string productCategory, string fromdate, string todate, int amcCode, int schemeId, int adviserId, int issueid, string commissionType)
+        {
+            try
+            {
+                CommisionReceivableDao CommisionReceivableDao = new CommisionReceivableDao();
+                return CommisionReceivableDao.GetAssociateBrokerage(product, productCategory, fromdate, todate, amcCode, schemeId, adviserId, issueid, commissionType);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public DataTable GetProductApplicationWiseData(string product, string productCategory, string fromdate, string todate, int amcCode, int schemeId, int adviserId, int issueid, string commissionType)
+        {
+            try
+            {
+                CommisionReceivableDao CommisionReceivableDao = new CommisionReceivableDao();
+                return CommisionReceivableDao.GetProductApplicationWiseData(product, productCategory, fromdate, todate, amcCode, schemeId, adviserId, issueid, commissionType);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public DataTable GetAssocaiteApplicationWiseData(string product, string productCategory, string fromdate, string todate, int amcCode, int schemeId, int adviserId, int issueid, string commissionType)
+        {
+            try
+            {
+                CommisionReceivableDao CommisionReceivableDao = new CommisionReceivableDao();
+                return CommisionReceivableDao.GetAssocaiteApplicationWiseData(product, productCategory, fromdate, todate, amcCode, schemeId, adviserId, issueid, commissionType);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

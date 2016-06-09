@@ -485,7 +485,7 @@ namespace WealthERP.UploadBackOffice
         protected void btnGO_OnClick(object sender, EventArgs e)
         {
             SetParameters();
-            Response.Redirect("~/Reports/CommonViewer.aspx?ReportCode=25&Product=" + ddlProduct.SelectedValue + "&ProductCategory=" + hdnProductCategory.Value + "&AmcCode=" + int.Parse(hdnSBbrokercode.Value) + "&SchemeId=" + int.Parse(hdnschemeId.Value) + "&AdviserId=" + advisorVo.advisorId + "&Issueid=" + int.Parse(hdnIssueId.Value) + "&Fromdate=" + hdnFromDate.Value+ "&Todate=" + hdnToDate.Value+"&IsReceivable="+ddlBrokerageType.SelectedValue);
+            Response.Redirect("~/Reports/CommonViewer.aspx?ReportCode=25&Product=" + ddlProduct.SelectedValue + "&ProductCategory=" + hdnProductCategory.Value + "&AmcCode=" + int.Parse(hdnSBbrokercode.Value) + "&SchemeId=" + int.Parse(hdnschemeId.Value) + "&AdviserId=" + advisorVo.advisorId + "&Issueid=" + int.Parse(hdnIssueId.Value) + "&Fromdate=" + hdnFromDate.Value + "&Todate=" + hdnToDate.Value + "&IsReceivable=" + ddlBrokerageType.SelectedValue + "&CommissionType=" + ddlCommType.SelectedValue);
         }
         protected void rgReceivableReport_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
