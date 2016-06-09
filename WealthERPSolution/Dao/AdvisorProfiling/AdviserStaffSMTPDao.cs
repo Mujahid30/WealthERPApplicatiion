@@ -94,6 +94,7 @@ namespace DaoAdvisorProfiling
                         adviserStaffSMTPVo.Smspassword = dsSMTPCredentials.Tables[1].Rows[0]["ASMSP_Password"].ToString();
                         adviserStaffSMTPVo.SmsInitialcredit = Convert.ToInt32(dsSMTPCredentials.Tables[1].Rows[0]["ASMSP_InitialCredit"].ToString());
                         adviserStaffSMTPVo.SmsCreditLeft = Convert.ToInt32(dsSMTPCredentials.Tables[1].Rows[0]["ASMSP_CreditLeft"].ToString());
+                        adviserStaffSMTPVo.SmsSenderId = dsSMTPCredentials.Tables[1].Rows[0]["ASMSP_SenderId"].ToString();
                     }
                 }
 
@@ -171,7 +172,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(createSMSProviderCmd, "@ASMSP_CreditLeft", DbType.Int32, adviserStaffSMTPvo.SmsCreditLeft);
                 db.AddInParameter(createSMSProviderCmd, "@ASMSP_CreatedBy", DbType.Int32, adviserStaffSMTPvo.SmsCreatedBy);
                 db.AddInParameter(createSMSProviderCmd, "@ASMSP_ModifiedBy", DbType.Int32, adviserStaffSMTPvo.SmsModifiedBy);
-
+                db.AddInParameter(createSMSProviderCmd, "@SenderId", DbType.String, adviserStaffSMTPvo.SmsSenderId);
                 db.ExecuteNonQuery(createSMSProviderCmd);
                 bResult = true;
             }

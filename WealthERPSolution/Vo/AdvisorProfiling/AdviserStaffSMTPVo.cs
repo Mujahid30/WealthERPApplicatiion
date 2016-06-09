@@ -103,7 +103,12 @@ namespace VoAdvisorProfiling
             get { return m_SmsURL; }
             set { m_SmsURL = value; }
         }
-
+        private string m_SmsSenderId;
+        public string SmsSenderId
+        {
+            get { return m_SmsSenderId; }
+            set { m_SmsSenderId = value; }
+        }
         private string m_SmsUserName;
         public string SmsUserName
         {

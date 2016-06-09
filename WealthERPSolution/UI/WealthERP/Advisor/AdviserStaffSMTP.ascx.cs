@@ -56,6 +56,7 @@ namespace WealthERP.Advisor
                 chkAthenticationRequired.Checked = Convert.ToBoolean(adviserstaffsmtpvo.IsAuthenticationRequired);
                 ddlSMSProvider.SelectedValue = adviserstaffsmtpvo.SmsProviderId.ToString();
                 txtUserName.Text = adviserstaffsmtpvo.SmsUserName;
+                txtSenderID.Text = adviserstaffsmtpvo.SmsSenderId;
                 // txtPwd.Text = adviserstaffsmtpvo.Smspassword;
                 if (!String.IsNullOrEmpty(adviserstaffsmtpvo.Smspassword))
                     txtPwd.Attributes.Add("value", adviserstaffsmtpvo.Smspassword);
@@ -198,6 +199,7 @@ namespace WealthERP.Advisor
             adviserstaffsmtpvo.SmsCreditLeft = int.Parse(txtsmsCredit.Text);
             adviserstaffsmtpvo.SmsCreatedBy = userVo.UserId;
             adviserstaffsmtpvo.SmsModifiedBy = userVo.UserId;
+            adviserstaffsmtpvo.SmsSenderId = txtSenderID.Text;
             txtPwd.Attributes.Add("value", txtPwd.Text.Trim());
 
             result = advstaffsmtpbo.CreateSMSProviderDetails(adviserstaffsmtpvo);

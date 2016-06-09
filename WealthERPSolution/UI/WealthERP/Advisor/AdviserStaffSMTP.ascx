@@ -143,10 +143,10 @@
         </telerik:RadTab>
         <telerik:RadTab runat="server" Text="SMS" Value="sms" TabIndex="1">
         </telerik:RadTab>
-        <telerik:RadTab runat="server" Text="Preference Setting" Value="Preferance" TabIndex="3"
+        <telerik:RadTab runat="server" Text="Preference Setting" Value="Preferance" TabIndex="3" Visible="false"
             PageViewID="RadPageView3">
         </telerik:RadTab>
-        <telerik:RadTab runat="server" Text="Display" Value="Display" TabIndex="2" PageViewID="RadPageView4">
+        <telerik:RadTab runat="server" Text="Display" Value="Display" TabIndex="2" PageViewID="RadPageView4"  Visible="false">
         </telerik:RadTab>
     </Tabs>
 </telerik:RadTabStrip>
@@ -366,6 +366,18 @@
                         <span id="Span6" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtPwd"
                             CssClass="rfvPCG" ErrorMessage="<br />Please enter password" Display="Dynamic"
+                            runat="server" InitialValue="" ValidationGroup="btnSubmit"></asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                 <tr>
+                    <td class="leftField">
+                        <asp:Label ID="Label6" runat="server" Text="SenderId:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtSenderID" runat="server" MaxLength="15"  CssClass="txtField"></asp:TextBox>
+                        <span id="Span13" class="spnRequiredField">*</span>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtSenderID"
+                            CssClass="rfvPCG" ErrorMessage="<br />Please enter Sender ID" Display="Dynamic"
                             runat="server" InitialValue="" ValidationGroup="btnSubmit"></asp:RequiredFieldValidator>
                     </td>
                 </tr>

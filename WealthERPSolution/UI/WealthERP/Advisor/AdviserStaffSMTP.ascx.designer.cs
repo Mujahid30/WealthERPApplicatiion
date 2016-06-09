@@ -84,6 +84,7 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSMTPHost;
+        protected global::System.Web.UI.WebControls.TextBox txtSenderID;
         
         /// <summary>
         /// Label2 control.
