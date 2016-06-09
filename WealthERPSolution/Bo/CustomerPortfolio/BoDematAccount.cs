@@ -200,6 +200,10 @@ namespace BoCustomerPortfolio
             return result;
 
         }
+        public DematAccountVo GetCustomerActiveDematAccount(int customerId)
+        {
+            return demataccountdao.GetCustomerActiveDematAccount(customerId);
+        }
 
     }
 }

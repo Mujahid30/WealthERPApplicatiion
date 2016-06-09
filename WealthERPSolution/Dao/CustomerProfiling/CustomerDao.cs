@@ -899,6 +899,16 @@ namespace DaoCustomerProfiling
                     if (!string.IsNullOrEmpty(dr["C_WCMV_TaxStatus_Id"].ToString()))
                         customerVo.TaxStatusCustomerSubTypeId = int.Parse(dr["C_WCMV_TaxStatus_Id"].ToString());
 
+                    if (dr["C_DematAcceptedon"].ToString() == DateTime.MinValue.ToString() || dr["C_DematAcceptedon"].ToString() == "")
+                    {
+                        customerVo.DematAcceptedon = DateTime.MinValue;
+                    }
+                    else
+                        customerVo.DematAcceptedon = DateTime.Parse(dr["C_DematAcceptedon"].ToString());
+                    if (!string.IsNullOrEmpty(dr["C_IsDematAccepted"].ToString()))
+                        customerVo.IsDematAccepted = bool.Parse(dr["C_IsDematAccepted"].ToString()) ? true : false;
+                  
+
                 }
             }
             catch (BaseApplicationException Ex)
@@ -7144,6 +7154,29 @@ namespace DaoCustomerProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createCmd = db.GetStoredProcCommand("SPROC_DeleteCustomerProductAssociation");
                 db.AddInParameter(createCmd, "@customerId", DbType.Int32, customerId);
+                result = db.ExecuteNonQuery(createCmd);
+                if (result > 0)
+                {
+                    returnValue = true;
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return returnValue;
+        }
+        public bool UpdateDematAcceptance(int customerId)
+        {
+            int result = 0;
+            bool returnValue = false;
+            Database db;
+            DbCommand createCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createCmd = db.GetStoredProcCommand("SPROC_UpdateCustomerDematAcceptance");
+                db.AddInParameter(createCmd, "@CustomerId", DbType.Int32, customerId);
                 result = db.ExecuteNonQuery(createCmd);
                 if (result > 0)
                 {

@@ -145,6 +145,8 @@ namespace VoUser
         public int Modifiedby { get; set; }
         public int CreatedBy { get; set; }
         public int CustomerPGroup { get; set; }
+        public bool IsDematAccepted { get; set; }
+        public DateTime DematAcceptedon { get; set; }
         public int CustomerCategoryCode
         {
             get { return m_CustomerCategoryCode; }

@@ -3961,6 +3961,20 @@ namespace BoCustomerProfiling
             }
             return dtNcdIssuenameDetails;
         }
+        public bool UpdateDematAcceptance(int customerId)
+        {
+            CustomerDao customerDao = new CustomerDao();
+            bool result=false;
+            try
+            {
+                result = customerDao.UpdateDematAcceptance(customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
+        }
     }
 
 }

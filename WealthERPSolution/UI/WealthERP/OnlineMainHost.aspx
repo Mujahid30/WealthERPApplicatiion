@@ -9,6 +9,14 @@
 <head runat="server">
     <title></title>
     <!-- Latest compiled and minified JavaScript -->
+    <%-- <link href="../Base/CSS/bootstrap-theme.css" rel="stylesheet" type="text/css" />
+    <link href="../Base/CSS/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="../Base/CSS/bootstrap.min.css" rel="stylesheet" type="text/css" />--%>
+    <link href="../Base/CSS/bootstrap-3.3.6.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="../Scripts/jquery-2.1.1.min.js" type="text/javascript"></script>
+
+    <script src="../Scripts/bootstrap-3.3.6.min.js" type="text/javascript"></script>
 
     <script src="../Scripts/jquery.js" type="text/javascript"></script>
 
@@ -22,14 +30,16 @@
 
     <script language="javascript" type="text/javascript" src="Scripts/JScript.js"></script>
 
-    <link href="../Base/CSS/bootstrap-theme.css" rel="stylesheet" type="text/css" />
-    <link href="../Base/CSS/bootstrap.css" rel="stylesheet" type="text/css" />
-    <link href="../Base/CSS/bootstrap.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server">
 
     <script language="javascript" type="text/javascript">
+        function ShowModal() {
+
+            $("#btnShowPopup").click();
+
+        }
         function calcIFrameHeight(ifrm_id) {
             try {
 
@@ -42,6 +52,10 @@
    
    
     </script>
+
+    <button type="button" style="display: none;" id="btnShowPopup" data-toggle="modal"
+        data-target="#myModal">
+    </button>
 
     <script type="text/javascript" language="javascript">
         function GetTransactPanelSchemePlanCode(source, eventArgs) {
@@ -569,9 +583,9 @@
         {
             text-align: center;
             color: White;
-            font-size:medium;
-            font-family:Times New Roman;
-           font-weight: bold;
+            font-size: medium;
+            font-family: Times New Roman;
+            font-weight: bold;
         }
     </style>
     <asp:HiddenField ID="hidUserLogOutPageUrl" Value="" runat="server" />
@@ -671,8 +685,7 @@
                     <asp:LinkButton ID="LinkButton5" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('FAQandDemo','?Cat=MF&TYP=Demo');">Demo</asp:LinkButton>
                 </li>
                 <div class="menu_right" style="padding-right: 30px; vertical-align: middle;">
-                    <asp:Button ID="btnMode" Text='Go' runat="server" OnClick="btnMode_OnClick">
-                    </asp:Button>
+                    <asp:Button ID="btnMode" Text='Go' runat="server" OnClick="btnMode_OnClick"></asp:Button>
                 </div>
                 <div class="menu_right" style="padding-right: 10px; vertical-align: middle;">
                     <asp:DropDownList ID="ddlMode" runat="server" CssClass="form-control input-sm" AutoPostBack="false">
@@ -827,6 +840,38 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="myModal" role="dialog" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <%-- <button type="button" class="close" data-dismiss="modal">
+                        &times;</button>--%>
+                    <asp:Button ID="Button2" runat="server" Text="&times;" OnClick="btnDematTnCCanceled_Click"
+                        CssClass="close"  />
+                    <h4 class="modal-title">
+                        BSE STAR AGREEMENT</h4>
+                </div>
+                <div class="modal-body well">
+                    <iframe src="../ReferenceFiles/DematConsentLetter.htm" name="iframeconsentLetter"
+                        style="width: 100%; height:600px"></iframe>
+                    <div class="row">
+                        <div class="col-sm-4">
+                        </div>
+                        <div class="col-sm-2">
+                            <asp:Button ID="btnDematTnCAccepted" runat="server" Text="Submit" OnClick="btnDematTnCAccepted_Click"
+                                CssClass="btn btn-md btn-info " />
+                        </div>
+                        <div class="col-sm-2">
+                            <asp:Button ID="btnDematTnCCanceled" runat="server" Text="Cancel" 
+                                OnClick="btnDematTnCCanceled_Click" CssClass="btn btn-info " />
+                        </div>
+                        <div class="col-sm-4">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div style="margin-top: 10px; z-index: 3;">
         <iframe name="bottomframe" class="bottomframe" width="100%" id="bottomframe" onload="javascript:calcIFrameHeight('bottomframe');"
             src="OnlineBottomHost.aspx" scrolling="no"></iframe>
@@ -838,7 +883,6 @@
                 <ContentTemplate>
                     <div style="clear: both;">
                         <asp:Button ID="btnBindTransactDdl" runat="server" Style="display: none" OnClick="BindTransactDdl" />
-                        
                     </div>
                     <div style="background-color: #0396CC; width: 100%">
                         <div style="padding-left: 20px; color: White;">
@@ -867,10 +911,10 @@
                                         CompletionListElementID="Div2" Enabled="True" />
                                 </div>
                             </td>
-                            <td align="right" style="vertical-align: middle; display:none;">
+                            <td align="right" style="vertical-align: middle; display: none;">
                                 <asp:Label ID="lblchannel" runat="server" Text="Exchange:" CssClass="FieldName"></asp:Label>
                             </td>
-                            <td style="vertical-align: middle; display:none;">
+                            <td style="vertical-align: middle; display: none;">
                                 <asp:DropDownList ID="ddlchannel" runat="server" CssClass="cmbField" AutoPostBack="true"
                                     OnSelectedIndexChanged="ddlchannel_onSelectedChanged">
                                 </asp:DropDownList>

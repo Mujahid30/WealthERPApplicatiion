@@ -18,33 +18,33 @@ namespace DaoCustomerPortfolio
 {
     public class DematAccountDao
     {
-        
+
         public DataSet GetCustomerAccociation(int customerId)
         {
-            DataSet datasetCustomerAssociationList=null;
+            DataSet datasetCustomerAssociationList = null;
             Database db;
             DbCommand dbCustomerAssociationList;
-            
+
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbCustomerAssociationList = db.GetStoredProcCommand("SP_GetCustomerAssociatesRel");
                 db.AddInParameter(dbCustomerAssociationList, "@C_CustomerId", DbType.Int32, customerId);
                 datasetCustomerAssociationList = db.ExecuteDataSet(dbCustomerAssociationList);
-            }            
-            catch(BaseApplicationException ex)
+            }
+            catch (BaseApplicationException ex)
             {
                 throw ex;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                BaseApplicationException exBase = new BaseApplicationException(ex.Message , ex);
+                BaseApplicationException exBase = new BaseApplicationException(ex.Message, ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
 
                 FunctionInfo.Add("Method", "AdvisorDao.cs:GetAdviserCustomerListDataSet()");
 
                 object[] objects = new object[1];
-                
+
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -53,12 +53,12 @@ namespace DaoCustomerPortfolio
             }
             return datasetCustomerAssociationList;
 
-            
+
         }
 
         public DataSet GetTradeAccountNumber(CustomerVo customervo)
         {
-            DataSet dsTradeAccount=null;
+            DataSet dsTradeAccount = null;
             Database db;
             DbCommand dbcommandTradeAccount;
             try
@@ -68,12 +68,12 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(dbcommandTradeAccount, "@CustomerId", DbType.Int32, customervo.CustomerId);
                 dsTradeAccount = db.ExecuteDataSet(dbcommandTradeAccount);
 
-            }            
-            catch(BaseApplicationException ex)
+            }
+            catch (BaseApplicationException ex)
             {
                 throw ex;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 BaseApplicationException exBase = new BaseApplicationException(ex.Message, ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
@@ -81,7 +81,7 @@ namespace DaoCustomerPortfolio
                 FunctionInfo.Add("Method", "AdvisorDao.cs:GetAdviserCustomerListDataSet()");
 
                 object[] objects = new object[1];
-                objects[0]=customervo.CustomerId;
+                objects[0] = customervo.CustomerId;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -90,7 +90,7 @@ namespace DaoCustomerPortfolio
             }
             return dsTradeAccount;
         }
-        public DataSet GetAvailableTrades(int customerId,int dematAccountId)
+        public DataSet GetAvailableTrades(int customerId, int dematAccountId)
         {
             DataSet dsGetAvailableTrades = null;
             Database db;
@@ -162,29 +162,29 @@ namespace DaoCustomerPortfolio
             int result = 0;
             Database db;
             DbCommand dbDematDetails;
-            
-            int dematAccountId=0;
+
+            int dematAccountId = 0;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                dbDematDetails = db.GetStoredProcCommand("SP_AddDematDetails");               
+                dbDematDetails = db.GetStoredProcCommand("SP_AddDematDetails");
 
-                db.AddInParameter(dbDematDetails,"@CP_PortfolioId",DbType.Int32,portfolioId);
-                db.AddInParameter(dbDematDetails,"@CEDA_DPClientId",DbType.String,demataccountvo.DpclientId);
-                db.AddInParameter(dbDematDetails,"@CEDA_DPId",DbType.String,demataccountvo.DpId);
-                db.AddInParameter(dbDematDetails,"@CEDA_DPName",DbType.String,demataccountvo.DpName);
+                db.AddInParameter(dbDematDetails, "@CP_PortfolioId", DbType.Int32, portfolioId);
+                db.AddInParameter(dbDematDetails, "@CEDA_DPClientId", DbType.String, demataccountvo.DpclientId);
+                db.AddInParameter(dbDematDetails, "@CEDA_DPId", DbType.String, demataccountvo.DpId);
+                db.AddInParameter(dbDematDetails, "@CEDA_DPName", DbType.String, demataccountvo.DpName);
                 db.AddInParameter(dbDematDetails, "@CEDA_DepositoryName", DbType.String, demataccountvo.DepositoryName);
-                db.AddInParameter(dbDematDetails,"@XMOH_ModeOfHoldingCode",DbType.String,demataccountvo.ModeOfHolding);
-                db.AddInParameter(dbDematDetails,"@CEDA_IsJointlyHeld",DbType.Int16,demataccountvo.IsHeldJointly);
+                db.AddInParameter(dbDematDetails, "@XMOH_ModeOfHoldingCode", DbType.String, demataccountvo.ModeOfHolding);
+                db.AddInParameter(dbDematDetails, "@CEDA_IsJointlyHeld", DbType.Int16, demataccountvo.IsHeldJointly);
                 db.AddInParameter(dbDematDetails, "@CEDA_IsActive", DbType.Int16, demataccountvo.IsActive);
-                if (demataccountvo.AccountOpeningDate!=DateTime.MinValue)
-                db.AddInParameter(dbDematDetails,"@CEDA_AccountOpeningDate",DbType.DateTime,demataccountvo.AccountOpeningDate);
+                if (demataccountvo.AccountOpeningDate != DateTime.MinValue)
+                    db.AddInParameter(dbDematDetails, "@CEDA_AccountOpeningDate", DbType.DateTime, demataccountvo.AccountOpeningDate);
                 else
                     db.AddInParameter(dbDematDetails, "@CEDA_AccountOpeningDate", DbType.DateTime, DBNull.Value);
                 //db.AddInParameter(dbDematDetails,"@CEDA_BeneficiaryAccountNum",DbType.String,demataccountvo.BeneficiaryAccountNbr);
-                db.AddInParameter(dbDematDetails,"@CEDA_CreatedBy",DbType.Int32,rmvo.RMId);
-                db.AddInParameter(dbDematDetails,"@CEDA_ModifiedBy",DbType.Int32,rmvo.RMId);
-                db.AddInParameter(dbDematDetails,"@C_CustomerId",DbType.Int32,customerId);
+                db.AddInParameter(dbDematDetails, "@CEDA_CreatedBy", DbType.Int32, rmvo.RMId);
+                db.AddInParameter(dbDematDetails, "@CEDA_ModifiedBy", DbType.Int32, rmvo.RMId);
+                db.AddInParameter(dbDematDetails, "@C_CustomerId", DbType.Int32, customerId);
                 db.AddOutParameter(dbDematDetails, "@CEDA_DematAccountId", DbType.Int32, 1000);
 
                 if (db.ExecuteNonQuery(dbDematDetails) != 0)
@@ -193,7 +193,7 @@ namespace DaoCustomerPortfolio
                 //{
                 //    result = true;
                 //}
-                
+
             }
             catch (BaseApplicationException ex)
             {
@@ -216,8 +216,8 @@ namespace DaoCustomerPortfolio
             }
             return result;
         }
-        
-        
+
+
         # region Dont need
         //public void AddAssociationTypesForDemat(int associationId, string associationtype)
         //{
@@ -291,8 +291,8 @@ namespace DaoCustomerPortfolio
         //
         //
         //
-# endregion
-        public DataSet GetDematDetails(int customerId,int dematId)
+        # endregion
+        public DataSet GetDematDetails(int customerId, int dematId)
         {
             DataSet datasetDematDetails = null;
             Database db;
@@ -334,7 +334,7 @@ namespace DaoCustomerPortfolio
         public DataSet GetDematAccountHolderDetails(int customerId)
         {
             DataSet datasetDematDetails = null;
-            
+
             Database db;
             DbCommand dbDematDetails;
 
@@ -343,9 +343,9 @@ namespace DaoCustomerPortfolio
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbDematDetails = db.GetStoredProcCommand("SP_GetDematAccountHolderDetails");
                 db.AddInParameter(dbDematDetails, "@C_CustomerId", DbType.Int32, customerId);
-                
+
                 datasetDematDetails = db.ExecuteDataSet(dbDematDetails);
-                
+
             }
             catch (BaseApplicationException ex)
             {
@@ -596,7 +596,7 @@ namespace DaoCustomerPortfolio
         //    }
         //}
 
-# endregion
+        # endregion
         //Add For Getting the depository Type
         public DataTable GetDepositoryNames()
         {
@@ -622,7 +622,7 @@ namespace DaoCustomerPortfolio
                 FunctionInfo.Add("Method", "AdvisorDao.cs:GetAdviserCustomerListDataSet()");
 
                 object[] objects = new object[1];
-               
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -635,8 +635,8 @@ namespace DaoCustomerPortfolio
         {
             int result = 0;
             Database db;
-            DbCommand dbDematAccountAssociates;     
-           
+            DbCommand dbDematAccountAssociates;
+
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -648,7 +648,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(dbDematAccountAssociates, "@CDAA_Name", DbType.String, name);
                 db.AddInParameter(dbDematAccountAssociates, "@CDAA_PanNum", DbType.String, panNum);
                 db.AddInParameter(dbDematAccountAssociates, "@CDAA_Sex", DbType.String, sex);
-                if (dob!=DateTime.MinValue)
+                if (dob != DateTime.MinValue)
                     db.AddInParameter(dbDematAccountAssociates, "@CDAA_DOB", DbType.DateTime, dob);
                 else
                     db.AddInParameter(dbDematAccountAssociates, "@CDAA_DOB", DbType.DateTime, DBNull.Value);
@@ -656,9 +656,9 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(dbDematAccountAssociates, "@XR_RelationshipCode", DbType.String, relationshipCode);
                 db.AddInParameter(dbDematAccountAssociates, "@CDAA_ModifiedBy", DbType.Int32, modifiedBy);
                 db.AddOutParameter(dbDematAccountAssociates, "@return", DbType.Int32, 1000);
-              
-              if( db.ExecuteNonQuery(dbDematAccountAssociates)!=0)
-                  result = Convert.ToInt32(db.GetParameterValue(dbDematAccountAssociates, "@return").ToString()); ;
+
+                if (db.ExecuteNonQuery(dbDematAccountAssociates) != 0)
+                    result = Convert.ToInt32(db.GetParameterValue(dbDematAccountAssociates, "@return").ToString()); ;
 
             }
             catch (BaseApplicationException ex)
@@ -692,8 +692,8 @@ namespace DaoCustomerPortfolio
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbDematAccountAssociates = db.GetStoredProcCommand("SP_DeleteCustomerDematAccountAssociates");
                 db.AddInParameter(dbDematAccountAssociates, "@CDAA_Id", DbType.Int32, associationId);
-                if(db.ExecuteNonQuery(dbDematAccountAssociates)!=0)
-                  bResult = true;
+                if (db.ExecuteNonQuery(dbDematAccountAssociates) != 0)
+                    bResult = true;
             }
             catch (BaseApplicationException ex)
             {
@@ -714,7 +714,7 @@ namespace DaoCustomerPortfolio
                 throw exBase;
             }
             return bResult;
- 
+
         }
         public int AddCustomerDematAccountAssociates(int associationId, int dematAccountId, string associateType, string name, string panNum, string sex, DateTime dob, int isKYC, string relationshipCode, int createdBy)
         {
@@ -769,12 +769,12 @@ namespace DaoCustomerPortfolio
             }
             return result;
         }
-        public void UpdateDematDetails(int customerId, int portfolioId,int dematId, DematAccountVo demataccountvo, RMVo rmvo)
+        public void UpdateDematDetails(int customerId, int portfolioId, int dematId, DematAccountVo demataccountvo, RMVo rmvo)
         {
             //DataSet dsDematDetails = null;
             Database db;
             DbCommand dbDematDetails;
-            
+
             DbCommand dbDeleteAssociates = null;
             int dematAccountId = dematId;
             try
@@ -799,8 +799,8 @@ namespace DaoCustomerPortfolio
                 {
                     db.AddInParameter(dbDematDetails, "@CEDA_AccountOpeningDate", DbType.DateTime, demataccountvo.AccountOpeningDate);
                 }
-                db.AddInParameter(dbDematDetails, "@CEDA_BeneficiaryAccountNum", DbType.String, demataccountvo.BeneficiaryAccountNbr);              
-                db.AddInParameter(dbDematDetails, "@C_CustomerId", DbType.Int32, customerId);                
+                db.AddInParameter(dbDematDetails, "@CEDA_BeneficiaryAccountNum", DbType.String, demataccountvo.BeneficiaryAccountNbr);
+                db.AddInParameter(dbDematDetails, "@C_CustomerId", DbType.Int32, customerId);
                 db.ExecuteNonQuery(dbDematDetails);
 
                 dbDeleteAssociates = db.GetStoredProcCommand("SP_DeleteDematAndTradeAssociates");
@@ -880,6 +880,43 @@ namespace DaoCustomerPortfolio
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+        }
+        public DematAccountVo GetCustomerActiveDematAccount(int customerId)
+        {
+            Database db;
+            DbCommand dbDematDetails;
+            DataSet ds;
+            DematAccountVo dematAccVo = new DematAccountVo();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbDematDetails = db.GetStoredProcCommand("SP_UpdateDematDetails");
+
+                db.AddInParameter(dbDematDetails, "@CustomerId", DbType.Int32, customerId);
+
+                ds = db.ExecuteDataSet(dbDematDetails);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    dematAccVo.AccountOpeningDate = Convert.ToDateTime(ds.Tables[0].Rows[0]["CEDA_AccountOpeningDate"].ToString());
+                    dematAccVo.DepositoryName = ds.Tables[0].Rows[0]["CEDA_DepositoryName"].ToString();
+                    dematAccVo.BeneficiaryAccountNbr = ds.Tables[0].Rows[0]["CEDA_BeneficiaryAccountNum"].ToString();
+                    dematAccVo.DpclientId = ds.Tables[0].Rows[0]["CEDA_DPClientId"].ToString();
+                    dematAccVo.DpId = ds.Tables[0].Rows[0]["CEDA_DPId"].ToString();
+                    dematAccVo.DpName = ds.Tables[0].Rows[0]["CEDA_DPName"].ToString();
+                    dematAccVo.IsActive = Convert.ToInt32(ds.Tables[0].Rows[0]["CEDA_IsActive"].ToString());
+                    dematAccVo.IsHeldJointly = Convert.ToInt32(ds.Tables[0].Rows[0]["CEDA_IsJointlyHeld"].ToString());
+                    dematAccVo.ModeOfHolding = ds.Tables[0].Rows[0]["XMOH_ModeOfHolding"].ToString();
+                }
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            return dematAccVo;
         }
     }
 }
