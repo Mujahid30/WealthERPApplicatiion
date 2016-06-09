@@ -326,6 +326,16 @@ namespace WealthERP.Reports {
             
             private global::System.Data.DataColumn columnPAN1;
             
+            private global::System.Data.DataColumn columnWMTT_TransactionClassificationName;
+            
+            private global::System.Data.DataColumn columnWCD_CommissionType;
+            
+            private global::System.Data.DataColumn columnECS_AcctType;
+            
+            private global::System.Data.DataColumn columnECS_NEFT;
+            
+            private global::System.Data.DataColumn columnECS_MICR1;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public SPROC_GetProductBrokerageApplicationWiseDataTable() {
                 this.TableName = "SPROC_GetProductBrokerageApplicationWise";
@@ -581,6 +591,41 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn WMTT_TransactionClassificationNameColumn {
+                get {
+                    return this.columnWMTT_TransactionClassificationName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn WCD_CommissionTypeColumn {
+                get {
+                    return this.columnWCD_CommissionType;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn ECS_AcctTypeColumn {
+                get {
+                    return this.columnECS_AcctType;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn ECS_NEFTColumn {
+                get {
+                    return this.columnECS_NEFT;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn ECS_MICR1Column {
+                get {
+                    return this.columnECS_MICR1;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -641,7 +686,12 @@ namespace WealthERP.Reports {
                         string ECS1, 
                         string Banck_Account1, 
                         string Bank_branch1, 
-                        string PAN1) {
+                        string PAN1, 
+                        string WMTT_TransactionClassificationName, 
+                        string WCD_CommissionType, 
+                        int ECS_AcctType, 
+                        int ECS_NEFT, 
+                        int ECS_MICR1) {
                 SPROC_GetProductBrokerageApplicationWiseRow rowSPROC_GetProductBrokerageApplicationWiseRow = ((SPROC_GetProductBrokerageApplicationWiseRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         CO_ApplicationNumber,
@@ -675,7 +725,12 @@ namespace WealthERP.Reports {
                         ECS1,
                         Banck_Account1,
                         Bank_branch1,
-                        PAN1};
+                        PAN1,
+                        WMTT_TransactionClassificationName,
+                        WCD_CommissionType,
+                        ECS_AcctType,
+                        ECS_NEFT,
+                        ECS_MICR1};
                 rowSPROC_GetProductBrokerageApplicationWiseRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSPROC_GetProductBrokerageApplicationWiseRow);
                 return rowSPROC_GetProductBrokerageApplicationWiseRow;
@@ -727,6 +782,11 @@ namespace WealthERP.Reports {
                 this.columnBanck_Account1 = base.Columns["Banck Account1"];
                 this.columnBank_branch1 = base.Columns["Bank branch1"];
                 this.columnPAN1 = base.Columns["PAN1"];
+                this.columnWMTT_TransactionClassificationName = base.Columns["WMTT_TransactionClassificationName"];
+                this.columnWCD_CommissionType = base.Columns["WCD_CommissionType"];
+                this.columnECS_AcctType = base.Columns["ECS_AcctType"];
+                this.columnECS_NEFT = base.Columns["ECS_NEFT"];
+                this.columnECS_MICR1 = base.Columns["ECS_MICR1"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -795,6 +855,16 @@ namespace WealthERP.Reports {
                 base.Columns.Add(this.columnBank_branch1);
                 this.columnPAN1 = new global::System.Data.DataColumn("PAN1", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPAN1);
+                this.columnWMTT_TransactionClassificationName = new global::System.Data.DataColumn("WMTT_TransactionClassificationName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWMTT_TransactionClassificationName);
+                this.columnWCD_CommissionType = new global::System.Data.DataColumn("WCD_CommissionType", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWCD_CommissionType);
+                this.columnECS_AcctType = new global::System.Data.DataColumn("ECS_AcctType", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnECS_AcctType);
+                this.columnECS_NEFT = new global::System.Data.DataColumn("ECS_NEFT", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnECS_NEFT);
+                this.columnECS_MICR1 = new global::System.Data.DataColumn("ECS_MICR1", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnECS_MICR1);
                 this.columnCO_ApplicationNumber.MaxLength = 250;
                 this.columnAAC_AgentCode.MaxLength = 250;
                 this.columnAA_ContactPersonName.MaxLength = 250;
@@ -825,6 +895,11 @@ namespace WealthERP.Reports {
                 this.columnBank_branch1.MaxLength = 50;
                 this.columnPAN1.Caption = "PAN";
                 this.columnPAN1.MaxLength = 10;
+                this.columnWMTT_TransactionClassificationName.MaxLength = 250;
+                this.columnWCD_CommissionType.MaxLength = 250;
+                this.columnECS_AcctType.ReadOnly = true;
+                this.columnECS_NEFT.ReadOnly = true;
+                this.columnECS_MICR1.ReadOnly = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1469,6 +1544,86 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string WMTT_TransactionClassificationName {
+                get {
+                    try {
+                        return ((string)(this[this.tableSPROC_GetProductBrokerageApplicationWise.WMTT_TransactionClassificationNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'WMTT_TransactionClassificationName\' in table \'SPROC_GetProd" +
+                                "uctBrokerageApplicationWise\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSPROC_GetProductBrokerageApplicationWise.WMTT_TransactionClassificationNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string WCD_CommissionType {
+                get {
+                    try {
+                        return ((string)(this[this.tableSPROC_GetProductBrokerageApplicationWise.WCD_CommissionTypeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'WCD_CommissionType\' in table \'SPROC_GetProductBrokerageAppl" +
+                                "icationWise\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSPROC_GetProductBrokerageApplicationWise.WCD_CommissionTypeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int ECS_AcctType {
+                get {
+                    try {
+                        return ((int)(this[this.tableSPROC_GetProductBrokerageApplicationWise.ECS_AcctTypeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ECS_AcctType\' in table \'SPROC_GetProductBrokerageApplicatio" +
+                                "nWise\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSPROC_GetProductBrokerageApplicationWise.ECS_AcctTypeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int ECS_NEFT {
+                get {
+                    try {
+                        return ((int)(this[this.tableSPROC_GetProductBrokerageApplicationWise.ECS_NEFTColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ECS_NEFT\' in table \'SPROC_GetProductBrokerageApplicationWis" +
+                                "e\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSPROC_GetProductBrokerageApplicationWise.ECS_NEFTColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int ECS_MICR1 {
+                get {
+                    try {
+                        return ((int)(this[this.tableSPROC_GetProductBrokerageApplicationWise.ECS_MICR1Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ECS_MICR1\' in table \'SPROC_GetProductBrokerageApplicationWi" +
+                                "se\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSPROC_GetProductBrokerageApplicationWise.ECS_MICR1Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsCO_ApplicationNumberNull() {
                 return this.IsNull(this.tableSPROC_GetProductBrokerageApplicationWise.CO_ApplicationNumberColumn);
             }
@@ -1787,6 +1942,56 @@ namespace WealthERP.Reports {
             public void SetPAN1Null() {
                 this[this.tableSPROC_GetProductBrokerageApplicationWise.PAN1Column] = global::System.Convert.DBNull;
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsWMTT_TransactionClassificationNameNull() {
+                return this.IsNull(this.tableSPROC_GetProductBrokerageApplicationWise.WMTT_TransactionClassificationNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetWMTT_TransactionClassificationNameNull() {
+                this[this.tableSPROC_GetProductBrokerageApplicationWise.WMTT_TransactionClassificationNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsWCD_CommissionTypeNull() {
+                return this.IsNull(this.tableSPROC_GetProductBrokerageApplicationWise.WCD_CommissionTypeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetWCD_CommissionTypeNull() {
+                this[this.tableSPROC_GetProductBrokerageApplicationWise.WCD_CommissionTypeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsECS_AcctTypeNull() {
+                return this.IsNull(this.tableSPROC_GetProductBrokerageApplicationWise.ECS_AcctTypeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetECS_AcctTypeNull() {
+                this[this.tableSPROC_GetProductBrokerageApplicationWise.ECS_AcctTypeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsECS_NEFTNull() {
+                return this.IsNull(this.tableSPROC_GetProductBrokerageApplicationWise.ECS_NEFTColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetECS_NEFTNull() {
+                this[this.tableSPROC_GetProductBrokerageApplicationWise.ECS_NEFTColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsECS_MICR1Null() {
+                return this.IsNull(this.tableSPROC_GetProductBrokerageApplicationWise.ECS_MICR1Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetECS_MICR1Null() {
+                this[this.tableSPROC_GetProductBrokerageApplicationWise.ECS_MICR1Column] = global::System.Convert.DBNull;
+            }
         }
         
         /// <summary>
@@ -1966,13 +2171,18 @@ namespace WealthERP.Reports.ProductBrokerageApplicationWiseTableAdapters {
             tableMapping.ColumnMappings.Add("Banck Account", "Banck Account1");
             tableMapping.ColumnMappings.Add("Bank branch", "Bank branch1");
             tableMapping.ColumnMappings.Add("PAN", "PAN1");
+            tableMapping.ColumnMappings.Add("WMTT_TransactionClassificationName", "WMTT_TransactionClassificationName");
+            tableMapping.ColumnMappings.Add("WCD_CommissionType", "WCD_CommissionType");
+            tableMapping.ColumnMappings.Add("ECS_AcctType", "ECS_AcctType");
+            tableMapping.ColumnMappings.Add("ECS_NEFT", "ECS_NEFT");
+            tableMapping.ColumnMappings.Add("ECS_MICR1", "ECS_MICR1");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["WealthERP_SBI_DEVConnectionString"].ConnectionString;
+            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
