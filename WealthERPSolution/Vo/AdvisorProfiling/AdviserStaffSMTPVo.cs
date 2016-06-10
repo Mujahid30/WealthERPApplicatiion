@@ -146,5 +146,45 @@ namespace VoAdvisorProfiling
             set { m_SmsModifiedBy = value; }
         }
 
+
+
+        private int m_ApiProviderId;
+        public int ApiProviderId
+        {
+            get { return m_ApiProviderId; }
+            set { m_ApiProviderId = value; }
+        }
+
+        private string m_ApiUserName;
+        public string ApiUserName
+        {
+            get { return m_ApiUserName; }
+            set { m_ApiUserName = value; }
+        }
+        private string m_Apipassword;
+        public string Apipassword
+        {
+            get { return m_Apipassword; }
+            set { m_Apipassword = value; }
+        }
+        private int m_ApiCreatedBy;
+        public int ApiCreatedBy
+        {
+            get { return m_ApiCreatedBy; }
+            set { m_ApiCreatedBy = value; }
+        }
+        private int m_ApiModifiedBy;
+        public int ApiModifiedBy
+        {
+            get { return m_ApiModifiedBy; }
+            set { m_ApiModifiedBy = value; }
+        }
+
+        private string m_ApiMemberId;
+        public string ApiMemberId
+        {
+            get { return m_ApiMemberId; }
+            set { m_ApiMemberId = value; }
+        }
     }
 }

@@ -96,6 +96,13 @@ namespace DaoAdvisorProfiling
                         adviserStaffSMTPVo.SmsCreditLeft = Convert.ToInt32(dsSMTPCredentials.Tables[1].Rows[0]["ASMSP_CreditLeft"].ToString());
                         adviserStaffSMTPVo.SmsSenderId = dsSMTPCredentials.Tables[1].Rows[0]["ASMSP_SenderId"].ToString();
                     }
+                    if (dsSMTPCredentials.Tables[2].Rows.Count > 0)
+                    {
+                        adviserStaffSMTPVo.ApiProviderId = Convert.ToInt32(dsSMTPCredentials.Tables[2].Rows[0]["WEAM_ID"].ToString());
+                        adviserStaffSMTPVo.ApiUserName = dsSMTPCredentials.Tables[2].Rows[0]["AEAC_Username"].ToString();
+                        adviserStaffSMTPVo.Apipassword = dsSMTPCredentials.Tables[2].Rows[0]["AEAC_Password"].ToString();
+                        adviserStaffSMTPVo.ApiMemberId = dsSMTPCredentials.Tables[2].Rows[0]["AEAC_MemberId"].ToString();
+                    }
                 }
 
                 //SqlDataReader sdr = (SqlDataReader)db.ExecuteReader(cmd);
@@ -174,6 +181,53 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(createSMSProviderCmd, "@ASMSP_ModifiedBy", DbType.Int32, adviserStaffSMTPvo.SmsModifiedBy);
                 db.AddInParameter(createSMSProviderCmd, "@SenderId", DbType.String, adviserStaffSMTPvo.SmsSenderId);
                 db.ExecuteNonQuery(createSMSProviderCmd);
+                bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+
+
+        public DataSet GetAPIProvider()
+        {
+            DataSet dsAPIProvider;
+            Database db;
+            DbCommand getAPIProviderCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getAPIProviderCmd = db.GetStoredProcCommand("SP_GetAPIProviderMaster");
+                dsAPIProvider = db.ExecuteDataSet(getAPIProviderCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsAPIProvider;
+        }
+
+        public bool CreateAPIProviderDetails(AdviserStaffSMTPVo adviserStaffSMTPvo)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand createAPIProviderCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createAPIProviderCmd = db.GetStoredProcCommand("SP_CreateAPIProviderDetails");
+
+                db.AddInParameter(createAPIProviderCmd, "@WEAM_ID", DbType.Int32, adviserStaffSMTPvo.ApiProviderId);
+                db.AddInParameter(createAPIProviderCmd, "@A_AdviserId", DbType.Int32, adviserStaffSMTPvo.AdvisorId);
+                db.AddInParameter(createAPIProviderCmd, "@AEAC_Username", DbType.String, adviserStaffSMTPvo.ApiUserName);
+                db.AddInParameter(createAPIProviderCmd, "@AEAC_Password", DbType.String, adviserStaffSMTPvo.Apipassword);
+                db.AddInParameter(createAPIProviderCmd, "@AEAC_CreatedBy", DbType.Int32, adviserStaffSMTPvo.ApiCreatedBy);
+                db.AddInParameter(createAPIProviderCmd, "@AEAC_MemberId", DbType.String, adviserStaffSMTPvo.ApiMemberId);
+                db.ExecuteNonQuery(createAPIProviderCmd);
                 bResult = true;
             }
             catch (BaseApplicationException Ex)

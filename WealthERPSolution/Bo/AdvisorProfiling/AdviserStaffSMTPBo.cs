@@ -91,5 +91,43 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
+
+
+
+
+        public DataSet GetAPIProvider()
+        {
+            DataSet dsAPIProvider;
+            try
+            {
+                AdviserStaffSMTPDao adviserStaffSMTdao = new AdviserStaffSMTPDao();
+                dsAPIProvider = adviserStaffSMTdao.GetAPIProvider();
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsAPIProvider;
+        }
+
+
+
+        public bool CreateAPIProviderDetails(AdviserStaffSMTPVo adviserStaffSMTPvo)
+        {
+            bool bResult = false;
+            try
+            {
+                AdviserStaffSMTPDao adviserStaffSMTdao = new AdviserStaffSMTPDao();
+                bResult = adviserStaffSMTdao.CreateAPIProviderDetails(adviserStaffSMTPvo);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
     }
+
+
 }

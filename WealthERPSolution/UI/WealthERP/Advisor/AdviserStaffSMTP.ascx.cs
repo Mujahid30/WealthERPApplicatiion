@@ -42,6 +42,7 @@ namespace WealthERP.Advisor
             advrm = adviserstaffbo.GetAdvisorStaff(userVo.UserId);
             adviserstaffsmtpvo.RMId = advrm.RMId;
             BindSMSProvider();
+            BindAPIProvider();
             if (!IsPostBack)
             {
                 //if (trInsertMessage.Visible == true)
@@ -57,11 +58,14 @@ namespace WealthERP.Advisor
                 ddlSMSProvider.SelectedValue = adviserstaffsmtpvo.SmsProviderId.ToString();
                 txtUserName.Text = adviserstaffsmtpvo.SmsUserName;
                 txtSenderID.Text = adviserstaffsmtpvo.SmsSenderId;
-                // txtPwd.Text = adviserstaffsmtpvo.Smspassword;
                 if (!String.IsNullOrEmpty(adviserstaffsmtpvo.Smspassword))
                     txtPwd.Attributes.Add("value", adviserstaffsmtpvo.Smspassword);
                 txtsmsCredit.Text = adviserstaffsmtpvo.SmsInitialcredit.ToString();
-
+                ddlAPIProvider.SelectedValue = adviserstaffsmtpvo.ApiProviderId.ToString();
+                  txtUname.Text = adviserstaffsmtpvo.ApiUserName;
+                txtMemberId.Text = Convert.ToString(adviserstaffsmtpvo.ApiMemberId);
+                if (!String.IsNullOrEmpty(adviserstaffsmtpvo.Apipassword))
+                    txtPassword1.Attributes.Add("value", adviserstaffsmtpvo.Apipassword);
                 SetAdviserPreference();
               
 
@@ -92,7 +96,28 @@ namespace WealthERP.Advisor
                 throw Ex;
             }
         }
+        private void BindAPIProvider()
+        {
+            try
+            {
+                DataSet dsAPIProvider;
+                dsAPIProvider = advstaffsmtpbo.GetAPIProvider();
+                DataTable dtAPIProvider = dsAPIProvider.Tables[0];
+                if (dtAPIProvider != null)
+                {
+                    ddlAPIProvider.DataSource = dtAPIProvider;
+                    ddlAPIProvider.DataValueField = dtAPIProvider.Columns["WEAM_ID"].ToString();
+                    ddlAPIProvider.DataTextField = dtAPIProvider.Columns["WEAM_Name"].ToString();
+                    ddlAPIProvider.DataBind();
+                }
+                ddlAPIProvider.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
 
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+        }
         protected void btnSave_Click(object sender, EventArgs e)
         {
             bool result = false;
@@ -399,6 +424,34 @@ namespace WealthERP.Advisor
             SetAdviserPreference();
             Session["AdvisorPreferenceVo"] = advisorPreferenceVo;
         
+        }
+
+
+        protected void btnSubmit1_Click(object sender, EventArgs e)
+        {
+
+           bool result = false;
+            adviserstaffsmtpvo.ApiProviderId = int.Parse(ddlAPIProvider.SelectedValue);
+            adviserstaffsmtpvo.AdvisorId = adviserVo.advisorId;
+            adviserstaffsmtpvo.ApiUserName = txtUname.Text;
+            adviserstaffsmtpvo.Apipassword = txtPassword1.Text;
+            adviserstaffsmtpvo.ApiCreatedBy = userVo.UserId;
+            adviserstaffsmtpvo.ApiModifiedBy = userVo.UserId;
+            adviserstaffsmtpvo.ApiMemberId = txtMemberId.Text; 
+            txtPwd.Attributes.Add("value", txtPwd.Text.Trim());
+
+            result = advstaffsmtpbo.CreateAPIProviderDetails(adviserstaffsmtpvo);
+
+            if (result)
+            {
+                trBtnSaveMsg.Visible = true;
+                lblbtnSaveMsg.Text = "Values inserted Successfully";
+            }
+            else
+            {
+                lblbtnSaveMsg.Text = "There was an error in inserting the values";
+            }
+
         }
     }
 }

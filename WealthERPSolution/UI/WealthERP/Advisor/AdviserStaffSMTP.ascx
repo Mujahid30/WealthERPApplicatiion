@@ -137,12 +137,16 @@
 <%--<telerik:RadTabStrip ID="RadTabStrip2" runat="server" Skin="Telerik" MultiPageID="SetupEmailSMS"
     SelectedIndex="0">--%>
     <telerik:RadTabStrip ID="RadTabStrip2" EnableTheming="True" Skin="Telerik" EnableEmbeddedSkins="False"
-    runat="server" MultiPageID="SetupEmailSMS" SelectedIndex="0">
+    runat="server" MultiPageID="SetupEmailSMS" SelectedIndex="1">
     <Tabs>
-        <telerik:RadTab runat="server" Text="Emails" Value="Email" TabIndex="0" Selected="True">
+        <telerik:RadTab runat="server" Text="Emails" Value="Email" TabIndex="0">
         </telerik:RadTab>
-        <telerik:RadTab runat="server" Text="SMS" Value="sms" TabIndex="1">
+        <telerik:RadTab runat="server" Text="SMS" Value="sms" TabIndex="1" 
+            Selected="True">
         </telerik:RadTab>
+         <telerik:RadTab runat="server" Text="API" Value="API" TabIndex="5"  PageViewID="RadPageView5"
+            Selected="True">
+             </telerik:RadTab>
         <telerik:RadTab runat="server" Text="Preference Setting" Value="Preferance" TabIndex="3" Visible="false"
             PageViewID="RadPageView3">
         </telerik:RadTab>
@@ -150,7 +154,7 @@
         </telerik:RadTab>
     </Tabs>
 </telerik:RadTabStrip>
-<telerik:RadMultiPage ID="SetupEmailSMS" EnableViewState="false" runat="server" SelectedIndex="0"
+<telerik:RadMultiPage ID="SetupEmailSMS" EnableViewState="false" runat="server" SelectedIndex="1"
     Width="100%">
     <telerik:RadPageView ID="RadPageView1" runat="server" Style="margin-top: 20px">
         <asp:Panel ID="pnlSystameticSetupView" runat="server" Width="100%">
@@ -660,6 +664,95 @@
             </asp:UpdatePanel>
         </asp:Panel>
     </telerik:RadPageView>
+    
+        <telerik:RadPageView ID="RadPageView5" runat="server">
+        <asp:Panel ID="Panel2" runat="server" Width="100%">
+            <table width="47%" class="TableBackground">
+                <tr>
+                    <td colspan="2">
+                        &nbsp;&nbsp;<br />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="lblAPI" runat="server" Text="API:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:DropDownList ID="ddlAPIProvider" runat="server" CssClass="cmbField">
+                        </asp:DropDownList>
+                        <span id="Span14" runat="server" class="spnRequiredField">*</span>
+                        <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlAPIProvider"
+                            CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Provider"
+                            Operator="NotEqual" ValidationGroup="btnSubmit" ValueToCompare="Select"></asp:CompareValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="lblUName" runat="server" Text="User Name:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                       
+                <asp:TextBox ID="txtUname" runat="server" CssClass="txtField" ></asp:TextBox>
+ <span id="Span15" class="spnRequiredField">*</span>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtUname"
+                            CssClass="rfvPCG" ErrorMessage="<br />Please enter UserName" Display="Dynamic"
+                            runat="server" InitialValue="" ValidationGroup="btnSubmit"></asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="lblPassword1" runat="server" Text="Password:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtPassword1" runat="server" MaxLength="15" TextMode="Password" CssClass="txtField"></asp:TextBox>
+                        <span id="Span16" class="spnRequiredField">*</span>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtPassword1"
+                            CssClass="rfvPCG" ErrorMessage="<br />Please enter password" Display="Dynamic"
+                            runat="server" InitialValue="" ValidationGroup="btnSubmit"></asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                 <tr>
+                    <td class="leftField">
+                        <asp:Label ID="lblMemberId" runat="server" Text="Member Id:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtMemberId" runat="server" MaxLength="15"  CssClass="txtField"></asp:TextBox>
+                        <span id="Span17" class="spnRequiredField">*</span>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtMemberId"
+                            CssClass="rfvPCG" ErrorMessage="<br />Please enter Member ID" Display="Dynamic"
+                            runat="server" InitialValue="" ValidationGroup="btnSubmit"></asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                    </td>
+                    <td class="rightField">
+                        <asp:Button ID="btnSubmit1" runat="server" Text="Save" CssClass="PCGButton" ValidationGroup="btnSubmit"
+                            OnClick="btnSubmit1_Click" />
+                    </td>
+                </tr>
+                <tr id="tr1" runat="server">
+                    <td class="leftField">
+                    </td>
+                    <td>
+                        <asp:Label ID="Label12" runat="server" Text="" CssClass="FieldName"></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div id="Div5" class="Note">
+                            <p>
+                                <span style="font-weight: bold">Note:</span><br />
+                                1. You can pick up your 3rd Party API Provider .<br />
+                                2. If your Provider is not in the list, please contact customer Care.
+                            </p>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </asp:Panel>
+    </telerik:RadPageView>
+
 </telerik:RadMultiPage>
 <%--<telerik:RadFormDecorator runat="server" ID="RadFormDecorator2" DecoratedControls="Textarea">
     </telerik:RadFormDecorator>--%>
