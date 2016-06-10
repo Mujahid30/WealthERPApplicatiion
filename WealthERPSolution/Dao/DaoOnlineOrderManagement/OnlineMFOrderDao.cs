@@ -872,5 +872,23 @@ string EUINVal, string MinRedeem, string DPC, string IPAdd, int rmsId)
             }
             return BSECode;
         }
+        public DataSet GetAPICredentials(string APIName, int AdviserId)
+        {
+            Database db;
+            DbCommand Cmd;
+            DataSet ds=new DataSet();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                Cmd = db.GetStoredProcCommand("SPROC_GetAPICredentials");
+                db.AddInParameter(Cmd, "@APIName", DbType.String, APIName);
+                db.AddInParameter(Cmd, "@AdviserId", DbType.Int32, AdviserId);
+                ds = db.ExecuteDataSet(Cmd);
+            }
+            catch (Exception ex)
+            {
+            }
+            return ds;
+        }
     }
 }

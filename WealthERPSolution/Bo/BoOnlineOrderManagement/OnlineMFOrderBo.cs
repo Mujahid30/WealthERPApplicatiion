@@ -651,84 +651,99 @@ namespace BoOnlineOrderManagement
                 string PurchaseType = string.Empty;
                 string purchase = string.Empty;
                 OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
+                string bseuserID = string.Empty;
+                string bsepass = string.Empty;
+                string bseMemberId = string.Empty;
+                DataSet ds = OnlineMFOrderDao.GetAPICredentials("BSE", 1021);
+                if (ds != null && ds.Tables[0].Rows.Count > 0)
+                {
+                    bseuserID = ds.Tables[0].Rows[0]["AEAC_Username"].ToString();
+                    bsepass = ds.Tables[0].Rows[0]["AEAC_Password"].ToString();
+                    bseMemberId = ds.Tables[0].Rows[0]["AEAC_MemberId"].ToString();
+                }
                 string passkey = "E234586789D12";
-                string password = webOrderEntryClient.getPassword("9501", "S@123", passkey);
+                string password = webOrderEntryClient.getPassword(bseuserID, bsepass, passkey);
                 string[] bsePassArray = password.Split('|');
-                if (onlinemforderVo.DividendType != "0" && onlinemforderVo.DividendType != "")
-                    onlinemforderVo.BSESchemeCode = OnlineMFOrderDao.BSESchemeCode(onlinemforderVo.SchemePlanCode, onlinemforderVo.DividendType);
-                string allRedeem = "N";
-                string Amount = string.Empty;
-                string Unit = string.Empty;
-                if (DematAcctype == "CDSL" || DematAcctype == "")
+                if (bsePassArray[0].ToString() == "100")
                 {
-                    DematAcctype = "C";
-                }
-                else if (DematAcctype == "NSDL")
-                {
-                    DematAcctype = "N";
-                }
-                if (onlinemforderVo.TransactionType == "BUY")
-                {
-                    Amount = onlinemforderVo.Amount.ToString();
-                    PurchaseType = "FRESH";
-                    purchase = "P";
-                }
-                else if (onlinemforderVo.TransactionType == "ABY")
-                {
-                    Amount = onlinemforderVo.Amount.ToString();
-                    PurchaseType = "ADDITIONAL";
-                    purchase = "P";
-                }
-                else if (onlinemforderVo.TransactionType == "SEL")
-                {
-                    if (onlinemforderVo.IsAllUnits)
+                    if (onlinemforderVo.DividendType != "0" && onlinemforderVo.DividendType != "")
+                        onlinemforderVo.BSESchemeCode = OnlineMFOrderDao.BSESchemeCode(onlinemforderVo.SchemePlanCode, onlinemforderVo.DividendType);
+                    string allRedeem = "N";
+                    string Amount = string.Empty;
+                    string Unit = string.Empty;
+                    if (DematAcctype == "CDSL" || DematAcctype == "")
                     {
-                        allRedeem = "Y";
+                        DematAcctype = "C";
+                    }
+                    else if (DematAcctype == "NSDL")
+                    {
+                        DematAcctype = "N";
+                    }
+                    if (onlinemforderVo.TransactionType == "BUY")
+                    {
+                        Amount = onlinemforderVo.Amount.ToString();
+                        PurchaseType = "FRESH";
+                        purchase = "P";
+                    }
+                    else if (onlinemforderVo.TransactionType == "ABY")
+                    {
+                        Amount = onlinemforderVo.Amount.ToString();
+                        PurchaseType = "ADDITIONAL";
+                        purchase = "P";
+                    }
+                    else if (onlinemforderVo.TransactionType == "SEL")
+                    {
+                        if (onlinemforderVo.IsAllUnits)
+                        {
+                            allRedeem = "Y";
+                        }
+                        else
+                            Unit = onlinemforderVo.Redeemunits.ToString();
+                        PurchaseType = "FRESH";
+                        purchase = "R";
+                    }
+                    if (onlinemforderVo.TransactionType != "SEL")
+                    {
+                        isRMSDebited = DebitOrCreditRMSUserAccountBalance(UserID, ClientCode, -onlinemforderVo.Amount, rmsId, out  rmsId);
+                    }
+                    else if (onlinemforderVo.TransactionType == "SEL")
+                    {
+                        isRMSDebited = true;
+                    }
+                    if (isRMSDebited)
+                    {
+                        int transCode = OnlineMFOrderDao.BSEorderEntryParam("NEW", UserID, ClientCode, onlinemforderVo.BSESchemeCode, purchase, PurchaseType, DematAcctype, Amount, Unit, allRedeem, "", "Y", "", "", "E101765", "Y", "N", "N", "", rmsId);
+                        string uniqueRefNo;
+                        Random ran = new Random();
+                        uniqueRefNo = transCode.ToString() + ran.Next().ToString();
+                        string orderEntryresponse = webOrderEntryClient.orderEntryParam("NEW", uniqueRefNo, "", bseuserID, bseMemberId, ClientCode, onlinemforderVo.BSESchemeCode, purchase, PurchaseType, DematAcctype, Amount, Unit, allRedeem, "", "", "Y", "", "", "E101765", "Y", "N", "N", "", bsePassArray[1], passkey, "", "", "");
+                        string[] bseorderEntryresponseArray = orderEntryresponse.Split('|');
+                        OnlineMFOrderDao.BSEorderResponseParam(transCode, UserID, Convert.ToInt64(bseorderEntryresponseArray[2]), ClientCode, bseorderEntryresponseArray[6], bseorderEntryresponseArray[7], rmsId, uniqueRefNo);
+                        if (Convert.ToInt32(bseorderEntryresponseArray[7]) == 1)
+                        {
+                            if (onlinemforderVo.TransactionType != "SEL")
+                            {
+                                DebitOrCreditRMSUserAccountBalance(UserID, ClientCode, onlinemforderVo.Amount, rmsId, out  rmsId);
+
+                            }
+                            message = "Order cannot be processed." + bseorderEntryresponseArray[6];
+                        }
+                        else if ((Convert.ToInt32(bseorderEntryresponseArray[7]) == 0))
+                        {
+                            orderIds = CreateCustomerOnlineMFOrderDetails(onlinemforderVo, UserID, CustomerId);
+                            bool result = OnlineMFOrderDao.BSERequestOrderIdUpdate(orderIds[0], transCode, rmsId);
+                            message = "Order placed successfully with Exchange. Order reference no is " + orderIds[0].ToString();
+                            msgType = 'S';
+                        }
                     }
                     else
-                        Unit = onlinemforderVo.Redeemunits.ToString();
-                    PurchaseType = "FRESH";
-                    purchase = "R";
-                }
-                if (onlinemforderVo.TransactionType != "SEL")
-                {
-                    isRMSDebited = DebitOrCreditRMSUserAccountBalance(UserID, ClientCode, -onlinemforderVo.Amount, rmsId, out  rmsId);
-                }
-                else if (onlinemforderVo.TransactionType == "SEL")
-                {
-                    isRMSDebited = true;
-                }
-                if (isRMSDebited)
-                {
-                    int transCode = OnlineMFOrderDao.BSEorderEntryParam("NEW", UserID, ClientCode, onlinemforderVo.BSESchemeCode, purchase, PurchaseType, DematAcctype, Amount, Unit, allRedeem, "", "Y", "", "", "E101765", "Y", "N", "N", "", rmsId);
-                    string uniqueRefNo;
-                    Random ran = new Random();
-                    uniqueRefNo = transCode.ToString() + ran.Next().ToString();
-                    string orderEntryresponse = webOrderEntryClient.orderEntryParam("NEW", uniqueRefNo, "", "9501", "95", ClientCode, onlinemforderVo.BSESchemeCode, purchase, PurchaseType, DematAcctype, Amount, Unit, allRedeem, "", "", "Y", "", "", "E101765", "Y", "N", "N", "", bsePassArray[1], passkey, "", "", "");
-                    string[] bseorderEntryresponseArray = orderEntryresponse.Split('|');
-                    OnlineMFOrderDao.BSEorderResponseParam(transCode, UserID, Convert.ToInt64(bseorderEntryresponseArray[2]), ClientCode, bseorderEntryresponseArray[6], bseorderEntryresponseArray[7], rmsId, uniqueRefNo);
-                    if (Convert.ToInt32(bseorderEntryresponseArray[7]) == 1)
                     {
-                        if (onlinemforderVo.TransactionType != "SEL")
-                        {
-                            DebitOrCreditRMSUserAccountBalance(UserID, ClientCode, onlinemforderVo.Amount, rmsId, out  rmsId);
+                        message = "No response from RMS";
 
-                        }
-                        message = "Order cannot be processed." + bseorderEntryresponseArray[6];
-                    }
-                    else if ((Convert.ToInt32(bseorderEntryresponseArray[7]) == 0))
-                    {
-                        orderIds = CreateCustomerOnlineMFOrderDetails(onlinemforderVo, UserID, CustomerId);
-                        bool result = OnlineMFOrderDao.BSERequestOrderIdUpdate(orderIds[0], transCode, rmsId);
-                        message = "Order placed successfully with Exchange. Order reference no is " + orderIds[0].ToString();
-                        msgType = 'S';
                     }
                 }
                 else
-                {
-                    message = "No response from RMS";
-
-                }
+                    message = "Unable to process the order as Exchange is not available for Now.";
             }
             catch (Exception ex)
             {
