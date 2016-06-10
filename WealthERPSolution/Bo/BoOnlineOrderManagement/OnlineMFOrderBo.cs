@@ -654,7 +654,9 @@ namespace BoOnlineOrderManagement
                 string passkey = "E234586789D12";
                 string password = webOrderEntryClient.getPassword("9501", "S@123", passkey);
                 string[] bsePassArray = password.Split('|');
-
+                string allRedeem = "N";
+                string Amount = string.Empty;
+                string Unit = string.Empty;
                 if (DematAcctype == "CDSL" || DematAcctype == "")
                 {
                     DematAcctype = "C";
@@ -665,16 +667,24 @@ namespace BoOnlineOrderManagement
                 }
                 if (onlinemforderVo.TransactionType == "NEW")
                 {
+                    Amount = onlinemforderVo.Amount.ToString();
                     PurchaseType = "FRESH";
                     purchase = "P";
                 }
                 else if (onlinemforderVo.TransactionType == "ABY")
                 {
+                    Amount = onlinemforderVo.Amount.ToString();
                     PurchaseType = "ADDITIONAL";
                     purchase = "P";
                 }
                 else if (onlinemforderVo.TransactionType == "SEL")
                 {
+                    if (onlinemforderVo.IsAllUnits)
+                    {
+                        allRedeem = "Y";
+                    }
+                    else
+                        Unit = onlinemforderVo.Redeemunits.ToString();
                     PurchaseType = "FRESH";
                     purchase = "R";
                 }
@@ -688,11 +698,11 @@ namespace BoOnlineOrderManagement
                 }
                 if (isRMSDebited)
                 {
-                    int transCode = OnlineMFOrderDao.BSEorderEntryParam("NEW", UserID, ClientCode, onlinemforderVo.BSESchemeCode, purchase, PurchaseType, DematAcctype, onlinemforderVo.Amount.ToString(), "", "N", "", "Y", "", "", "E101765", "Y", "N", "N", "", rmsId);
+                    int transCode = OnlineMFOrderDao.BSEorderEntryParam("NEW", UserID, ClientCode, onlinemforderVo.BSESchemeCode, purchase, PurchaseType, DematAcctype, Amount, Unit, allRedeem, "", "Y", "", "", "E101765", "Y", "N", "N", "", rmsId);
                     string uniqueRefNo;
                     Random ran = new Random();
                     uniqueRefNo = transCode.ToString() + ran.Next().ToString();
-                    string orderEntryresponse = webOrderEntryClient.orderEntryParam("NEW", uniqueRefNo, "", "9501", "95", ClientCode, onlinemforderVo.BSESchemeCode, purchase, PurchaseType, DematAcctype, onlinemforderVo.Amount.ToString(), "", "N", "", "", "Y", "", "", "E101765", "Y", "N", "N", "", bsePassArray[1], passkey, "", "", "");
+                    string orderEntryresponse = webOrderEntryClient.orderEntryParam("NEW", uniqueRefNo, "", "9501", "95", ClientCode, onlinemforderVo.BSESchemeCode, purchase, PurchaseType, DematAcctype, Amount, Unit, allRedeem, "", "", "Y", "", "", "E101765", "Y", "N", "N", "", bsePassArray[1], passkey, "", "", "");
                     string[] bseorderEntryresponseArray = orderEntryresponse.Split('|');
                     OnlineMFOrderDao.BSEorderResponseParam(transCode, UserID, Convert.ToInt64(bseorderEntryresponseArray[2]), ClientCode, bseorderEntryresponseArray[6], bseorderEntryresponseArray[7], rmsId, uniqueRefNo);
                     if (Convert.ToInt32(bseorderEntryresponseArray[7]) == 1)
@@ -720,11 +730,11 @@ namespace BoOnlineOrderManagement
             }
             catch (Exception ex)
             {
-                if (isRMSDebited)
+                if (isRMSDebited && onlinemforderVo.TransactionType != "SEL")
                 {
                     DebitOrCreditRMSUserAccountBalance(UserID, ClientCode, onlinemforderVo.Amount, rmsId, out  rmsId);
                 }
-                message = "Unable to process the order as BSE is not available for Now." + ex.Message;
+                message = "Unable to process the order as Exchange is not available for Now." + ex.Message;
             }
             finally
             {

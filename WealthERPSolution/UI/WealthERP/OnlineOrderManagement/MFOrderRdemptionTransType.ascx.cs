@@ -123,7 +123,7 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 else
                 {
-                    ShowMessage(onlineMforderBo.GetOnlineOrderUserMessage(clientMFAccessCode));
+                    ShowMessage(onlineMforderBo.GetOnlineOrderUserMessage(clientMFAccessCode),'F');
                     PurchaseOrderControlsEnable(false);
                     divControlContainer.Visible = false;
                     divClientAccountBalance.Visible = false;
@@ -359,6 +359,13 @@ namespace WealthERP.OnlineOrderManagement
                     }
 
                 }
+            }
+            if(exchangeType == "Demat")
+                ddlRedeem.Items[2].Enabled = false;
+            if (ds.Tables[4].Rows.Count > 0)
+            {
+
+                onlinemforderVo.BSESchemeCode = ds.Tables[4].Rows[0][0].ToString();
             }
             DataSet dsNav = commonLookupBo.GetLatestNav(scheme);
             if (dsNav.Tables[0].Rows.Count > 0)
@@ -620,9 +627,13 @@ namespace WealthERP.OnlineOrderManagement
             }
 
         }
-        private void ShowMessage(string msg)
+        private void ShowMessage(string msg, char type)
         {
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','S');", true);
+            //--S(success)
+            //--F(failure)
+            //--W(warning)
+            //--I(information)
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','" + type.ToString() + "');", true);
         }
         protected void OnClick_Submit(object sender, EventArgs e)
         {
@@ -705,6 +716,7 @@ namespace WealthERP.OnlineOrderManagement
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please enter a valid Units');", true); return;
                 }
             }
+            
             string message = string.Empty;
             char msgType = 'F';
             if (exchangeType == "Online")
@@ -712,8 +724,8 @@ namespace WealthERP.OnlineOrderManagement
                 onlinemforderVo.OrderType = 1;
                 OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
                 OrderId = int.Parse(OrderIds[0].ToString());
-                CreateUserMessage(OrderId, isCutOffTimeOver);
-                ShowMessage(message);
+                message=CreateUserMessage(OrderId, isCutOffTimeOver,out msgType);
+               
             }
             else if (exchangeType == "Demat")
             {
@@ -725,18 +737,16 @@ namespace WealthERP.OnlineOrderManagement
                 OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();
                 message = OnlineMFOrderBo.BSEorderEntryParam(userVo.UserId, customerVo.CustCode, onlinemforderVo, customerVo.CustomerId, dematevo.DepositoryName, out msgType);
             }
-            else
-            {
-                message = "Order cannot be processed. Insufficient balance";
-            }
+           
             PurchaseOrderControlsEnable(false);
-            ShowMessage(message);
+            ShowMessage(message, msgType);
 
         }
 
-        private string CreateUserMessage(int orderId, bool isCutOffTimeOver)
+        private string CreateUserMessage(int orderId, bool isCutOffTimeOver,out char msgType)
         {
             string userMessage = string.Empty;
+            msgType = 'S';
             if (orderId != 0)
             {
                 if (isCutOffTimeOver)
@@ -744,6 +754,8 @@ namespace WealthERP.OnlineOrderManagement
                 else
                     userMessage = "Order placed successfully, Order reference no is " + orderId.ToString();
             }
+            else
+                msgType = 'F';
             return userMessage;
 
         }
