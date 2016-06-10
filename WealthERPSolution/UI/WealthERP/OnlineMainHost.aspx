@@ -26,8 +26,6 @@
 
     <script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
 
-    <script src="../Scripts/bootstrap.js" type="text/javascript"></script>
-
     <script language="javascript" type="text/javascript" src="Scripts/JScript.js"></script>
 
 </head>
@@ -587,7 +585,17 @@
             font-family: Times New Roman;
             font-weight: bold;
         }
+        #ddlMode
+        {
+            height: 28px;
+        }
+        #btnMode
+        {
+            height: 29px;
+        }
     </style>
+    
+   
     <asp:HiddenField ID="hidUserLogOutPageUrl" Value="" runat="server" />
     <asp:HiddenField ID="hidUserLogInPageUrl" Value="" runat="server" />
     <div>
@@ -684,17 +692,22 @@
                 <li class="menu_right">
                     <asp:LinkButton ID="LinkButton5" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('FAQandDemo','?Cat=MF&TYP=Demo');">Demo</asp:LinkButton>
                 </li>
-                <div class="menu_right" style="padding-right: 30px; vertical-align: middle;">
+                <div class="menu_right" style="padding-right: 30px; vertical-align: middle; height: 28px;">
                     <asp:Button ID="btnMode" Text='Go' runat="server" OnClick="btnMode_OnClick"></asp:Button>
                 </div>
-                <div class="menu_right" style="padding-right: 10px; vertical-align: middle;">
+                <div class="menu_right" style="padding-right: 10px; padding-top: 1px; vertical-align: middle;">
                     <asp:DropDownList ID="ddlMode" runat="server" CssClass="form-control input-sm" AutoPostBack="false">
                         <asp:ListItem Text="Online" Value="Online"></asp:ListItem>
-                        <asp:ListItem Text="Demat" Value="Demat"></asp:ListItem>
+                        <asp:ListItem Text="Exchange" Value="Demat"></asp:ListItem>
                     </asp:DropDownList>
                 </div>
-                <div class="menu_right" style="padding-right: 10px; vertical-align: middle;">
+                <div class="menu_right" style="padding-right: 10px; vertical-align: middle; padding-top: 4px;">
                     <asp:Label ID="lblMode" runat="server" Text="Mode:" CssClass="lblMode"></asp:Label>
+                </div>
+                <div class="menu_right" style="padding-right: 10px; vertical-align: middle; padding-top: 6px;">
+                  <img  data-toggle="tooltip"  data-placement="bottom" title="Now you can place an order  through Exchange from here , Select Mode:Exchange"
+                        src="Images/new_icon.gif" />
+                     
                 </div>
                 <div id="lisearchscheme" class="menu_right" style="padding-right: 70px">
                     <asp:TextBox runat="server" ID="SchemeSearch" AutoPostBack="true" OnTextChanged="SchemeSearch_OnTextChanged"
@@ -847,13 +860,13 @@
                     <%-- <button type="button" class="close" data-dismiss="modal">
                         &times;</button>--%>
                     <asp:Button ID="Button2" runat="server" Text="&times;" OnClick="btnDematTnCCanceled_Click"
-                        CssClass="close"  />
+                        CssClass="close" />
                     <h4 class="modal-title">
                         BSE STAR AGREEMENT</h4>
                 </div>
                 <div class="modal-body well">
                     <iframe src="../ReferenceFiles/DematConsentLetter.htm" name="iframeconsentLetter"
-                        style="width: 100%; height:600px"></iframe>
+                        style="width: 100%; height: 600px"></iframe>
                     <div class="row">
                         <div class="col-sm-4">
                         </div>
@@ -862,8 +875,8 @@
                                 CssClass="btn btn-md btn-info " />
                         </div>
                         <div class="col-sm-2">
-                            <asp:Button ID="btnDematTnCCanceled" runat="server" Text="Cancel" 
-                                OnClick="btnDematTnCCanceled_Click" CssClass="btn btn-info " />
+                            <asp:Button ID="btnDematTnCCanceled" runat="server" Text="Cancel" OnClick="btnDematTnCCanceled_Click"
+                                CssClass="btn btn-info " />
                         </div>
                         <div class="col-sm-4">
                         </div>
@@ -876,6 +889,7 @@
         <iframe name="bottomframe" class="bottomframe" width="100%" id="bottomframe" onload="javascript:calcIFrameHeight('bottomframe');"
             src="OnlineBottomHost.aspx" scrolling="no"></iframe>
     </div>
+     
     <div id="dvTransact" runat="server" style="clear: both; background-color: #E5F6FF;
         font-weight: bold; font-size: smaller">
         <div>
@@ -941,6 +955,8 @@
     </div>
     <asp:HiddenField ID="schemeCode" runat="server" />
     <asp:HiddenField ID="hdnTransactType" runat="server" />
+
+ 
     </form>
 </body>
 </html>
