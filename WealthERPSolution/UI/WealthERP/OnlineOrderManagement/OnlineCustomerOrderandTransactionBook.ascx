@@ -60,7 +60,7 @@
                 <table width="100%">
                     <tr>
                         <td align="left">
-                            Order Book
+                        <asp:Label ID="lblHeader" runat="server"></asp:Label>
                         </td>
                         <td style="float: right; margin-right: 50px">
                         </td>
@@ -177,9 +177,10 @@
                                         <font color="#565656"><b>Order Status:</b></font>
                                         <%# Eval("XS_Status")%>
                                     </div>
-                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
-                                        <font color="#565656"><b>Online:</b></font>
-                                        <%# Eval("Channel")%>
+                                   
+                                    <div id="DivBSE" runat="server" class="col-xs-9 col-sm-9 col-md-9 col-lg-9 fk-font-9" style="margin-bottom: 1.5px;">
+                                        <font color="#565656"><b>Exchange Order No.:</b></font>
+                                        <%# Eval("BMOERD_BSEOrderId")%>
                                     </div>
                                     <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 fk-font-9" style="margin-bottom: 1.5px;">
                                         <font color="#565656"><b>Reject Remark:</b></font>

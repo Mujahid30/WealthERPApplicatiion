@@ -288,8 +288,8 @@ namespace WealthERP.OnlineOrderManagement
                     {
                         lblDividendType.Text = dr["PSLV_LookupValue"].ToString();
                     }
-
-
+                    if (!string.IsNullOrEmpty(dr["PSLV_DividendType"].ToString()))
+                    ddlDivType.SelectedValue = dr["PSLV_DividendType"].ToString();
                     if (!string.IsNullOrEmpty(dr["CutOffTime"].ToString()))
                     {
                         lbltime.Text = dr["CutOffTime"].ToString();
@@ -365,7 +365,7 @@ namespace WealthERP.OnlineOrderManagement
             if (ds.Tables[4].Rows.Count > 0)
             {
 
-                onlinemforderVo.BSESchemeCode = ds.Tables[4].Rows[0][0].ToString();
+                ViewState["BseCode"] = ds.Tables[4].Rows[0][0].ToString();
             }
             DataSet dsNav = commonLookupBo.GetLatestNav(scheme);
             if (dsNav.Tables[0].Rows.Count > 0)
@@ -733,7 +733,7 @@ namespace WealthERP.OnlineOrderManagement
                 DematAccountVo dematevo = new DematAccountVo();
                 BoDematAccount bo = new BoDematAccount();
                 dematevo = bo.GetCustomerActiveDematAccount(customerVo.CustomerId);
-
+                onlinemforderVo.BSESchemeCode = ViewState["BseCode"].ToString(); 
                 OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();
                 message = OnlineMFOrderBo.BSEorderEntryParam(userVo.UserId, customerVo.CustCode, onlinemforderVo, customerVo.CustomerId, dematevo.DepositoryName, out msgType);
             }

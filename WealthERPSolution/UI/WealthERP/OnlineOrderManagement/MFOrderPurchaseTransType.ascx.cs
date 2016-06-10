@@ -423,6 +423,7 @@ namespace WealthERP.OnlineOrderManagement
             }
             else
                 onlinemforderVo.Amount = 0.0;
+        
             onlinemforderVo.DividendType = ddlDivType.SelectedValue;
             if (ddlFolio.SelectedValue != "New" && ddlFolio.SelectedValue != "0")
             {
@@ -487,7 +488,7 @@ namespace WealthERP.OnlineOrderManagement
             //    }
 
             //}
-            onlinemforderVo.BSESchemeCode = lblDemate.Text;
+            //onlinemforderVo.BSESchemeCode = lblDemate.Text;
             string message = string.Empty;
             char msgType = 'F';
             if (exchangeType == "Online")
@@ -514,6 +515,7 @@ namespace WealthERP.OnlineOrderManagement
                 DematAccountVo dematevo = new DematAccountVo();
                 BoDematAccount bo = new BoDematAccount();
                 dematevo = bo.GetCustomerActiveDematAccount(customerVo.CustomerId);
+                onlinemforderVo.BSESchemeCode = lblDemate.Text;
                 if (availableBalance >= Convert.ToDecimal(onlinemforderVo.Amount))
                 {
                     OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();

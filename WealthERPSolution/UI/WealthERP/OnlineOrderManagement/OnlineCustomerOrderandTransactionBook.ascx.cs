@@ -53,6 +53,10 @@ namespace WealthERP.OnlineOrderManagement
             }
             if (!IsPostBack)
             {
+                if (exchangeType == "Online")
+                    lblHeader.Text = "Order Book(Online)";
+                else
+                    lblHeader.Text = "Order Book(Exchange)";
                 BindAmc();
                 BindScheme();
             }
@@ -117,12 +121,11 @@ namespace WealthERP.OnlineOrderManagement
         {
             DataSet ds = OnlineMFOrderBo.GetCustomerOrderBookTransaction(customerId, amcCode, schemeCode, OrderType, exchangeType);
 
-            string df = ds.GetXml();
             DataTable dtOrderTransactionBook = ds.Tables[0];
             if (dtOrderTransactionBook.Rows.Count >= 0)
             {
                 if (Cache[userVo.UserId.ToString() + "OrderTransactionBook"] != null)
-                    
+
                     Cache.Remove("OrderTransactionBook" + userVo.UserId.ToString());
                 Cache.Insert("OrderTransactionBook" + userVo.UserId.ToString(), dtOrderTransactionBook);
                 var page = 0;
@@ -143,6 +146,12 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void gvOrderBook_ItemDataBound(object sender, GridItemEventArgs e)
         {
+            if (e.Item is GridDataItem)
+            {
+                System.Web.UI.HtmlControls.HtmlGenericControl DivBSE = (System.Web.UI.HtmlControls.HtmlGenericControl)e.Item.FindControl("DivBSE");
+                if (exchangeType == "Online")
+                    DivBSE.Visible = false;
+            }
         }
         protected void ddlAMC_OnSelectedIndexChanged(object sender, EventArgs e)
         {
@@ -225,12 +234,12 @@ namespace WealthERP.OnlineOrderManagement
                 dtMFOrderBook.Rows.Add(destRow);
             }
             System.Data.DataView view = new System.Data.DataView(dtMFOrderBook);
-            
-            
+
+
             System.Data.DataTable selected =
                     view.ToTable("Selected", false, "Scheme Name", "Category", "Order No.", "Request Date", "Order Type", "Dividend Type",
                     "Amount", "Units", "Actioned NAV", "Redeem All", "Order Status", "Online", "Reject Remark");
-          
+
             if (dtMFOrderBook.Rows.Count > 0)
             {
                 Response.ClearContent();

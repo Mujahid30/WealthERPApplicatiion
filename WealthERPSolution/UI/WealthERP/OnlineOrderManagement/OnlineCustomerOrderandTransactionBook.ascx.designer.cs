@@ -40,7 +40,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlScheme;
         protected global::System.Web.UI.WebControls.DropDownList ddlAction;
-
+        protected global::System.Web.UI.WebControls.Label lblHeader;
         
         /// <summary>
         /// ddlExchange control.

@@ -32,6 +32,7 @@ namespace WealthERP.OnlineOrderManagement
         string userType;
         int customerId = 0;
         string systematicType;
+        string exchangeType = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -44,9 +45,21 @@ namespace WealthERP.OnlineOrderManagement
             //BindAmc();
             BindOrderStatus();
             RadInformation1.VisibleOnPageLoad = false;
+            if (Session["ExchangeMode"] != null)
+                exchangeType = Session["ExchangeMode"].ToString();
+            else
+                exchangeType = "Online";
             if (!Page.IsPostBack)
             {
-
+                if (exchangeType == "Demat")
+                {
+                    btnViewSIP.Enabled = false;
+                    btnViewSIP.ToolTip = "Not Applicable For Exchange";
+                    ddlAMCCode.Enabled = false;
+                    ddlAMCCode.ToolTip = "Not Applicable For Exchange";
+                }
+                else
+                    btnViewSIP.ToolTip = "";
                 if (Request.QueryString["systematicType"] != null)
                 {
                     hdnsystamaticType.Value = Request.QueryString["systematicType"].ToString();

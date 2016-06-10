@@ -97,7 +97,7 @@ namespace DaoOnlineOrderManagement
             return dsOrderBookMIS;
         }
 
-        public DataSet GetFolioAccount(int CustomerId,int exchangeType)
+        public DataSet GetFolioAccount(int CustomerId, int exchangeType)
         {
             DataSet dsFolioAccount;
             Database db;
@@ -156,7 +156,7 @@ namespace DaoOnlineOrderManagement
 
             return dsOrderStatus;
         }
-        public DataSet GetControlDetails(int Scheme, string folio,int demat)
+        public DataSet GetControlDetails(int Scheme, string folio, int demat)
         {
             DataSet dsGetControlDetails;
             Database db;
@@ -229,7 +229,7 @@ namespace DaoOnlineOrderManagement
                 else
                     db.AddInParameter(CreateCustomerOnlineMFOrderDetailsCmd, "@IsAllUnits", DbType.Boolean, 0);
                 db.AddInParameter(CreateCustomerOnlineMFOrderDetailsCmd, "@IsDemate", DbType.Int32, onlinemforderVo.OrderType);
-                
+
                 if (db.ExecuteNonQuery(CreateCustomerOnlineMFOrderDetailsCmd) != 0)
                 {
                     orderId = Convert.ToInt32(db.GetParameterValue(CreateCustomerOnlineMFOrderDetailsCmd, "CO_OrderId").ToString());
@@ -716,7 +716,7 @@ namespace DaoOnlineOrderManagement
             return dsCustomerSchemeFolioHoldings;
         }
 
-        public DataSet GetCustomerOrderBookTransaction(int customerId, int amcCode, int schemeCode, string orderType,int exchangeType)
+        public DataSet GetCustomerOrderBookTransaction(int customerId, int amcCode, int schemeCode, string orderType, int exchangeType)
         {
             DataSet dsOGetCustomerOrderBookTransaction;
             Database db;
@@ -739,7 +739,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsOGetCustomerOrderBookTransaction;
         }
-        public DataTable GetCustomerFolioSchemeWise(int customerId, int schemeCode,int IsDemat)
+        public DataTable GetCustomerFolioSchemeWise(int customerId, int schemeCode, int IsDemat)
         {
             DataSet dsGetCustomerFolioSchemeWise;
             Database db;
@@ -762,14 +762,14 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetCustomerFolioSchemeWise;
         }
-        public int BSEorderEntryParam(string TransCode,  int UserID, string ClientCode, string SchemeCd, string BuySell, string BuySellType,
-string DPTxn, string OrderVal, string Qty, string AllRedeem,  string Remarks, string KYCStatus, string RefNo, string SubBrCode, string EUIN,
-string EUINVal, string MinRedeem, string DPC, string IPAdd,int rmsId)
+        public int BSEorderEntryParam(string TransCode, int UserID, string ClientCode, string SchemeCd, string BuySell, string BuySellType,
+string DPTxn, string OrderVal, string Qty, string AllRedeem, string Remarks, string KYCStatus, string RefNo, string SubBrCode, string EUIN,
+string EUINVal, string MinRedeem, string DPC, string IPAdd, int rmsId)
         {
             Database db;
             DbCommand GetGetCustomerFolioSchemeWiseCmd;
-           
-            int result=0;
+
+            int result = 0;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -797,9 +797,9 @@ string EUINVal, string MinRedeem, string DPC, string IPAdd,int rmsId)
                 if (db.ExecuteNonQuery(GetGetCustomerFolioSchemeWiseCmd) != 0)
                 {
                     result = Convert.ToInt32(db.GetParameterValue(GetGetCustomerFolioSchemeWiseCmd, "OutOrderId").ToString());
-                    
+
                 }
-               
+
 
             }
             catch (BaseApplicationException Ex)
@@ -807,7 +807,7 @@ string EUINVal, string MinRedeem, string DPC, string IPAdd,int rmsId)
                 throw Ex;
             }
             return result;
-        
+
         }
         public void BSEorderResponseParam(int RequestId, int userId, double BSEOrderId, string ClientCode, string BSERemarks, string Successflag, int rmsId, string uniqueRefNo)
         {
@@ -825,13 +825,13 @@ string EUINVal, string MinRedeem, string DPC, string IPAdd,int rmsId)
                 db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@ReqId", DbType.Int64, RequestId);
                 db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@UniqueRefNo", DbType.String, uniqueRefNo);
                 db.AddInParameter(GetGetCustomerFolioSchemeWiseCmd, "@rmsId", DbType.Int32, rmsId);
-               db.ExecuteNonQuery(GetGetCustomerFolioSchemeWiseCmd);
-            }  
-            catch(Exception ex)
+                db.ExecuteNonQuery(GetGetCustomerFolioSchemeWiseCmd);
+            }
+            catch (Exception ex)
             {
             }
         }
-        public bool BSERequestOrderIdUpdate(int orderId,long bseReqId,int rmsId)
+        public bool BSERequestOrderIdUpdate(int orderId, long bseReqId, int rmsId)
         {
             Database db;
             DbCommand BSERequestOrderIdUpdateCmd;
@@ -842,7 +842,7 @@ string EUINVal, string MinRedeem, string DPC, string IPAdd,int rmsId)
                 BSERequestOrderIdUpdateCmd = db.GetStoredProcCommand("SPROC_BSE_OrderIdUpdate");
                 db.AddInParameter(BSERequestOrderIdUpdateCmd, "@orderId", DbType.Int32, orderId);
                 db.AddInParameter(BSERequestOrderIdUpdateCmd, "@RMSId", DbType.Int32, rmsId);
-                db.AddInParameter(BSERequestOrderIdUpdateCmd, "@BSEReqId", DbType.Int64,bseReqId);
+                db.AddInParameter(BSERequestOrderIdUpdateCmd, "@BSEReqId", DbType.Int64, bseReqId);
                 if (db.ExecuteNonQuery(BSERequestOrderIdUpdateCmd) != 0)
                     result = true;
 
@@ -851,6 +851,26 @@ string EUINVal, string MinRedeem, string DPC, string IPAdd,int rmsId)
             {
             }
             return result;
+        }
+        public string BSESchemeCode(int schemecode, string divdentType)
+        {
+            Database db;
+            DbCommand BSESchemeCodeCmd;
+            string BSECode = string.Empty;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                BSESchemeCodeCmd = db.GetStoredProcCommand("SPROC_BSE_BSESchemeCode");
+                db.AddInParameter(BSESchemeCodeCmd, "@schemecode", DbType.Int32, schemecode);
+                db.AddInParameter(BSESchemeCodeCmd, "@divdentType", DbType.String, divdentType);
+                db.AddOutParameter(BSESchemeCodeCmd, "@BSECode", DbType.String, 100);
+                if (db.ExecuteNonQuery(BSESchemeCodeCmd) != 0)
+                    BSECode = db.GetParameterValue(BSESchemeCodeCmd, "BSECode").ToString();
+            }
+            catch (Exception ex)
+            {
+            }
+            return BSECode;
         }
     }
 }

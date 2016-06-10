@@ -654,6 +654,8 @@ namespace BoOnlineOrderManagement
                 string passkey = "E234586789D12";
                 string password = webOrderEntryClient.getPassword("9501", "S@123", passkey);
                 string[] bsePassArray = password.Split('|');
+                if (onlinemforderVo.DividendType != "0" && onlinemforderVo.DividendType != "")
+                    onlinemforderVo.BSESchemeCode = OnlineMFOrderDao.BSESchemeCode(onlinemforderVo.SchemePlanCode, onlinemforderVo.DividendType);
                 string allRedeem = "N";
                 string Amount = string.Empty;
                 string Unit = string.Empty;
@@ -665,7 +667,7 @@ namespace BoOnlineOrderManagement
                 {
                     DematAcctype = "N";
                 }
-                if (onlinemforderVo.TransactionType == "NEW")
+                if (onlinemforderVo.TransactionType == "BUY")
                 {
                     Amount = onlinemforderVo.Amount.ToString();
                     PurchaseType = "FRESH";
@@ -718,7 +720,7 @@ namespace BoOnlineOrderManagement
                     {
                         orderIds = CreateCustomerOnlineMFOrderDetails(onlinemforderVo, UserID, CustomerId);
                         bool result = OnlineMFOrderDao.BSERequestOrderIdUpdate(orderIds[0], transCode, rmsId);
-                        message = "Order placed successfully, Order reference no is " + orderIds[0].ToString();
+                        message = "Order placed successfully with Exchange. Order reference no is " + orderIds[0].ToString();
                         msgType = 'S';
                     }
                 }
@@ -744,5 +746,6 @@ namespace BoOnlineOrderManagement
 
             return message;
         }
+        
     }
 }

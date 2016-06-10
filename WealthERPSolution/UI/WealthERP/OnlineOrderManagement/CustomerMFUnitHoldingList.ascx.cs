@@ -51,8 +51,14 @@ namespace WealthERP.OnlineOrderManagement
             customerId = customerVO.CustomerId;
             if (Session["ExchangeMode"] != null)
                 exchangeType = Session["ExchangeMode"].ToString();
+           
+
             if (!IsPostBack)
             {
+                if (exchangeType == "Online")
+                    lblHeader.Text = "MF Holdings(Online)";
+                else
+                    lblHeader.Text = " MF Holdings(Exchange)";
                 Cache.Remove("UnitHolding" + userVo.UserId);
                 BindFolioAccount();
                 BindLink();
