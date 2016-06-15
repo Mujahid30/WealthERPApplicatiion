@@ -594,6 +594,7 @@ namespace WealthERP.Receivable
             ddlMFCategory.DataValueField = dsLookupData.Tables[0].Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
             ddlMFCategory.DataTextField = dsLookupData.Tables[0].Columns["PAIC_AssetInstrumentCategoryName"].ToString();
             ddlMFCategory.DataBind();
+            ddlMFCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
         }
         protected void GetCommisionTypes()
         {
@@ -1000,6 +1001,9 @@ namespace WealthERP.Receivable
             System.Web.UI.HtmlControls.HtmlTableRow trMinMAxInvAmount = new System.Web.UI.HtmlControls.HtmlTableRow();
             System.Web.UI.HtmlControls.HtmlTableCell tdApplicationNo = new System.Web.UI.HtmlControls.HtmlTableCell();
             System.Web.UI.HtmlControls.HtmlTableCell tdlblApplicationNo = new System.Web.UI.HtmlControls.HtmlTableCell();
+            System.Web.UI.HtmlControls.HtmlTableCell tdlblClock = new System.Web.UI.HtmlControls.HtmlTableCell();
+
+            
             DropDownList ddlIncentiveType = new DropDownList();
             Label lblTransactionType = new Label();
             CheckBoxList chkListTtansactionType = new CheckBoxList();
@@ -1013,14 +1017,17 @@ namespace WealthERP.Receivable
             TextBox txtMaxNumberOfApplication = new TextBox();
             DropDownList ddlCommissionApplicableLevel = new DropDownList();
             System.Web.UI.HtmlControls.HtmlTableRow trincentive = new System.Web.UI.HtmlControls.HtmlTableRow();
-
+            CheckBox check = new CheckBox();
+            Label lbl =new Label(); 
+            TextBox txtbox =new TextBox();
             if (ddlCommissionType.NamingContainer is Telerik.Web.UI.GridEditFormItem)
             {
                 GridEditFormItem gdi;
 
                 gdi = (GridEditFormItem)ddlCommissionType.NamingContainer;
                 lblTransactionType = (Label)gdi.FindControl("lblTransactionType");
-
+                check = (CheckBox)gdi.FindControl("chkCloBack");
+                tdlblClock = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdlblClock");
                 chkListTtansactionType = (CheckBoxList)gdi.FindControl("chkListTtansactionType");
                 lblMinNumberOfApplication = (Label)gdi.FindControl("lblMinNumberOfApplication");
                 lblMaxNumberOfApplication = (Label)gdi.FindControl("lblMaxNumberOfApplication");
@@ -1055,6 +1062,8 @@ namespace WealthERP.Receivable
                 GridEditFormInsertItem gdi;
                 gdi = (GridEditFormInsertItem)ddlCommissionType.NamingContainer;
                 lblTransactionType = (Label)gdi.FindControl("lblTransactionType");
+                check = (CheckBox)gdi.FindControl("chkCloBack");
+                tdlblClock = (System.Web.UI.HtmlControls.HtmlTableCell)gdi.FindControl("tdlblClock");
 
                 chkListTtansactionType = (CheckBoxList)gdi.FindControl("chkListTtansactionType");
                 lblMinNumberOfApplication = (Label)gdi.FindControl("lblMinNumberOfApplication");
@@ -1088,7 +1097,7 @@ namespace WealthERP.Receivable
             }
             ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(lblReceivableFrequency, ddlReceivableFrequency, trTransactionTypeSipFreq, tdlb1SipFreq, tdddlSipFreq, trMinMaxTenure, trMinMaxAge, tdlb1MinNumberOfApplication, tdtxtMinNumberOfApplication, ddlProductType.SelectedValue, ddlCommissionType.SelectedValue
                  , lblMinNumberOfApplication, txtMinNumberOfApplication, lblSIPFrequency, ddlSIPFrequency, ddlTransaction, chkListTtansactionType, lblTransactionType, ddlCommisionCalOn, ddlCommissionApplicableLevel,
-                 lblMaxNumberOfApplication, tdlb1MaxNumberOfApplication, tdtxtMaxNumberOfApplication, txtMaxNumberOfApplication, trMinAndMaxNumberOfApplication, trMinMAxInvAmount, tdlblApplicationNo, tdApplicationNo, trincentive, ddlIncentiveType, ddlCommissionType);
+                 lblMaxNumberOfApplication, tdlb1MaxNumberOfApplication, tdtxtMaxNumberOfApplication, txtMaxNumberOfApplication, trMinAndMaxNumberOfApplication, trMinMAxInvAmount, tdlblApplicationNo, tdApplicationNo, trincentive, ddlIncentiveType, ddlCommissionType, check, tdlblClock);
         }
 
         protected void RadGridStructureRule_ItemDataBound(object sender, GridItemEventArgs e)
@@ -1105,7 +1114,9 @@ namespace WealthERP.Receivable
                 TextBox txtServiceTex = (TextBox)e.Item.FindControl("txtServiceTex");
                 TextBox txtTDSTex = (TextBox)e.Item.FindControl("txtTDSTex");
                 Button btnupdate = (Button)e.Item.FindControl("btnupdate");
-
+                CheckBox check = (CheckBox)e.Item.FindControl("ChkIsclowBack");
+                TextBox txtbox = (TextBox)e.Item.FindControl("txtClawBackAge");
+                string transtype = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WCT_CommissionTypeCode"].ToString();
                 if (ddlProductType.SelectedValue == "MF")
                 {
                     RadGridStructureRule.MasterTableView.GetColumn("ACSR_MinNumberOfApplications").Visible = false;
@@ -1124,10 +1135,16 @@ namespace WealthERP.Receivable
                             txtTDSTex.Enabled = false;
                             btnupdate.Enabled = false;
                             ddlBrokrageUnit.Enabled = false;
+                            check.Enabled = false;
+                            txtbox.Enabled = false;
                         }
                     }
                 }
-
+                if (ddlProductType.SelectedValue == "MF" && transtype !="UF")
+                {
+                    check.Visible = false;
+                    txtbox.Visible = false;
+                }
                 if (ViewState["ruleid"] != null)
                 {
                     foreach (var item in ViewState["ruleid"].ToString().TrimEnd(',').Split(','))
@@ -1328,8 +1345,11 @@ namespace WealthERP.Receivable
                 CheckBox chkMode = (CheckBox)editform.FindControl("chkMode");
                 CheckBox chkEForm = (CheckBox)editform.FindControl("chkEForm");
                 Label lblApplyTaxes = (Label)editform.FindControl("lblApplyTaxes");
+                CheckBox check = (CheckBox)editform.FindControl("chkCloBack");
+
                 System.Web.UI.HtmlControls.HtmlTableRow trDateValidation = (System.Web.UI.HtmlControls.HtmlTableRow)e.Item.FindControl("trDateValidation");
                 System.Web.UI.HtmlControls.HtmlTableRow trCity = (System.Web.UI.HtmlControls.HtmlTableRow)e.Item.FindControl("trCity");
+                System.Web.UI.HtmlControls.HtmlTableCell tdlblClock = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdlblClock");
 
                 if (ddlProductType.SelectedValue == "MF")
                 {
@@ -1492,7 +1512,7 @@ namespace WealthERP.Receivable
                     ddlCommissionType.SelectedValue = strCommissionType;
                     ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(lblReceivableFrequency, ddlReceivableFrequency, trTransactionTypeSipFreq, tdlb1SipFreq, tdddlSipFreq, trMinMaxTenure, trMinMaxAge, tdMinNumberOfApplication, tdtxtMinNumberOfApplication1, ddlProductType.SelectedValue, ddlCommissionType.SelectedValue
                         , lblMinNumberOfApplication, txtMinNumberOfApplication, lblSIPFrequency, ddlSIPFrequency, ddlTransaction, chkListTtansactionType, lblTransactionType, ddlCommisionCalOn, ddlCommissionApplicableLevel
-                        , lblMaxNumberOfApplication, tdlb1MaxNumberOfApplication, tdtxtMaxNumberOfApplication, txtMaxNumberOfApplication, trMinAndMaxNumberOfApplication, trMinMAxInvAmount, tdlblApplicationNo, tdApplicationNo, trincentive, ddlIncentiveType, ddlCommissionType);
+                        , lblMaxNumberOfApplication, tdlb1MaxNumberOfApplication, tdtxtMaxNumberOfApplication, txtMaxNumberOfApplication, trMinAndMaxNumberOfApplication, trMinMAxInvAmount, tdlblApplicationNo, tdApplicationNo, trincentive, ddlIncentiveType, ddlCommissionType, check, tdlblClock);
 
 
                     ddlInvestorType.SelectedValue = strCustomerCategory;
@@ -1868,6 +1888,8 @@ namespace WealthERP.Receivable
                 DropDownList ddlCategorys = (DropDownList)e.Item.FindControl("ddlCategorys");
                 DropDownList ddlSeries = (DropDownList)e.Item.FindControl("ddlSeries");
                 DropDownList ddlMode = (DropDownList)e.Item.FindControl("ddlMode");
+                CheckBox check = (CheckBox)e.Item.FindControl("chkCloBack");
+                TextBox txtbox = (TextBox)e.Item.FindControl("txtAge");
                 commissionStructureRuleVo.eForm = Convert.ToBoolean((chkEForm.Checked) ? true : false);
                 if (ddlMode.SelectedValue != "Select")
                     commissionStructureRuleVo.mode = ddlMode.SelectedValue;
@@ -1963,7 +1985,8 @@ namespace WealthERP.Receivable
                 if (!string.IsNullOrEmpty(txtStruRuleComment.Text.Trim()))
                     commissionStructureRuleVo.StructureRuleComment = txtStruRuleComment.Text.Trim();
                 commissionStructureRuleVo.AdviserId = rmVo.AdviserId;
-
+                commissionStructureRuleVo.IsClawBack = (check.Checked) ? 1 : 0;
+                commissionStructureRuleVo.ClawBackAge = (!string.IsNullOrEmpty(txtbox.Text)) ? int.Parse(txtbox.Text) : 0;
             }
             catch (BaseApplicationException Ex)
             {
@@ -1998,7 +2021,7 @@ namespace WealthERP.Receivable
         private void ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(Label lblReceivableFrequency, DropDownList ddlReceivableFrequency, System.Web.UI.HtmlControls.HtmlTableRow trTransactionTypeSipFreq, System.Web.UI.HtmlControls.HtmlTableCell tdlb1SipFreq, System.Web.UI.HtmlControls.HtmlTableCell tdddlSipFreq, System.Web.UI.HtmlControls.HtmlTableRow trMinMaxTenure, System.Web.UI.HtmlControls.HtmlTableRow trMinMaxAge, System.Web.UI.HtmlControls.HtmlTableCell tdMinNumberOfApplication, System.Web.UI.HtmlControls.HtmlTableCell tdtxtMinNumberOfApplication1, string product, string CommisionType
             , Label lblMinNumberOfApplication, TextBox txtMinNumberOfApplication, Label lblSIPFrequency, DropDownList ddlSIPFrequency, DropDownList ddlTransaction, CheckBoxList chkListTtansactionType, Label lblTransactionType, DropDownList ddlCommisionCalOn, DropDownList ddlCommissionApplicableLevel
             , Label lblMaxNumberOfApplication, System.Web.UI.HtmlControls.HtmlTableCell tdlb1MaxNumberOfApplication, System.Web.UI.HtmlControls.HtmlTableCell tdtxtMaxNumberOfApplication, TextBox txtMaxNumberOfApplication, System.Web.UI.HtmlControls.HtmlTableRow trMinAndMaxNumberOfApplication, System.Web.UI.HtmlControls.HtmlTableRow trMinMAxInvAmount,
-            System.Web.UI.HtmlControls.HtmlTableCell tdlblApplicationNo, System.Web.UI.HtmlControls.HtmlTableCell tdApplicationNo, System.Web.UI.HtmlControls.HtmlTableRow trincentive, DropDownList ddlIncentiveType, DropDownList ddlCommissionType)
+            System.Web.UI.HtmlControls.HtmlTableCell tdlblApplicationNo, System.Web.UI.HtmlControls.HtmlTableCell tdApplicationNo, System.Web.UI.HtmlControls.HtmlTableRow trincentive, DropDownList ddlIncentiveType, DropDownList ddlCommissionType, CheckBox check, System.Web.UI.HtmlControls.HtmlTableCell tdlblClock)
         {
             bool enablement = false;
             lblSIPFrequency.Visible = enablement;
@@ -2123,6 +2146,9 @@ namespace WealthERP.Receivable
                     ddlCommisionCalOn.Items[2].Enabled = false;
                     ddlCommisionCalOn.Items[3].Enabled = false;
                     ddlCommisionCalOn.Items[5].Enabled = false;
+                    tdlblClock.Visible = false;
+                    check.Visible = false;
+                    check.Checked = false;
                     foreach (ListItem chkItems in chkListTtansactionType.Items)
                     {
 
@@ -2147,6 +2173,9 @@ namespace WealthERP.Receivable
                     tdApplicationNo.Visible = false;
                     tdlblApplicationNo.Visible = false;
                     trMinMAxInvAmount.Visible = false;
+                    tdlblClock.Visible = false;
+                    check.Visible = false;
+                    check.Checked = false;
                     foreach (ListItem chkItems in chkListTtansactionType.Items)
                     {
 
@@ -2163,6 +2192,9 @@ namespace WealthERP.Receivable
                     lblTransactionType.Visible = !enablement;
                     trMinMAxInvAmount.Visible = true;
                     ddlCommissionApplicableLevel.Enabled = true;
+                    check.Visible = true;
+                    tdlblClock.Visible = true;
+
                     foreach (ListItem chkItems in chkListTtansactionType.Items)
                     {
                         chkItems.Selected = true;
@@ -2436,7 +2468,7 @@ namespace WealthERP.Receivable
                 ddlProductType.Enabled = false;
                 ddlCategory.Enabled = false;
                 rlbAssetSubCategory.Enabled = false;
-                ddlIssuer.Enabled = false;
+                ddlIssuer.Enabled = true;
                 txtValidityFrom.Enabled = false;
                 txtValidityTo.Enabled = false;
                 txtStructureName.Enabled = false;
@@ -2553,8 +2585,10 @@ namespace WealthERP.Receivable
             dr["PaybleValue"] = "0";
             dr["RecievableValue"] = "0";
             dr["CSRD_IsUpdate"] = 0;
+            dr["ACSR_ClawBackAge"] = "0";
+            dr["ACSR_IsClaWback"] = 0;
 
-            dr["ACSR_CommissionStructureRuleName"] = ddlIssuer.SelectedItem.Text.Substring(0, 5) + " " + "T15" + " " + "UF" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "T15" + " " + "UF" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
             dttable.Rows.Add(dr);
             dr = null;
             dr = dttable.NewRow();
@@ -2575,8 +2609,9 @@ namespace WealthERP.Receivable
             dr["PaybleValue"] = "0";
             dr["RecievableValue"] = "0";
             dr["CSRD_IsUpdate"] = 0;
-
-            dr["ACSR_CommissionStructureRuleName"] = ddlIssuer.SelectedItem.Text.Substring(0, 5) + " " + "B15" + " " + "UF" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
+            dr["ACSR_ClawBackAge"] = "0";
+            dr["ACSR_IsClaWback"] = 0;
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "B15" + " " + "UF" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
 
             dttable.Rows.Add(dr);
             dr = null;
@@ -2599,8 +2634,9 @@ namespace WealthERP.Receivable
             dr["RecievableValue"] = "0";
             dr["ACSR_InvestmentAgeUnit"] = "Days";
             dr["CSRD_IsUpdate"] = 0;
-
-            dr["ACSR_CommissionStructureRuleName"] = ddlIssuer.SelectedItem.Text.Substring(0, 5) + " " + "T15" + " " + "Trail" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
+            dr["ACSR_ClawBackAge"] = "0";
+            dr["ACSR_IsClaWback"] = 0;
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "T15" + " " + "Trail" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
 
             dttable.Rows.Add(dr);
             dr = null;
@@ -2623,8 +2659,9 @@ namespace WealthERP.Receivable
             dr["RecievableValue"] = "0";
             dr["ACSR_InvestmentAgeUnit"] = "Days";
             dr["CSRD_IsUpdate"] = 0;
-
-            dr["ACSR_CommissionStructureRuleName"] = ddlIssuer.SelectedItem.Text.Substring(0, 5) + " " + "B15" + " " + "Trail" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
+            dr["ACSR_ClawBackAge"] = "0";
+            dr["ACSR_IsClaWback"] = 0;
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "B15" + " " + "Trail" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
 
             dttable.Rows.Add(dr);
             dr = null;
@@ -2647,8 +2684,9 @@ namespace WealthERP.Receivable
             dr["RecievableValue"] = "0";
             dr["ACSR_InvestmentAgeUnit"] = "Days";
             dr["CSRD_IsUpdate"] = 0;
-
-            dr["ACSR_CommissionStructureRuleName"] = ddlIssuer.SelectedItem.Text.Substring(0, 5) + " " + "T15" + " " + "Trail" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
+            dr["ACSR_ClawBackAge"] = "0";
+            dr["ACSR_IsClaWback"] = 0;
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "T15" + " " + "Trail" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
 
             dttable.Rows.Add(dr);
             dr = null;
@@ -2670,8 +2708,9 @@ namespace WealthERP.Receivable
             dr["RecievableValue"] = "0";
             dr["ACSR_InvestmentAgeUnit"] = "Days";
             dr["CSRD_IsUpdate"] = 0;
-
-            dr["ACSR_CommissionStructureRuleName"] = ddlIssuer.SelectedItem.Text.Substring(0, 5) + " " + "B15" + " " + "Trail" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
+            dr["ACSR_ClawBackAge"] = "0";
+            dr["ACSR_IsClaWback"] = 0;
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "B15" + " " + "Trail" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
 
             dttable.Rows.Add(dr);
             dr = null;
@@ -2694,8 +2733,9 @@ namespace WealthERP.Receivable
             dr["RecievableValue"] = "0";
             dr["ACSR_InvestmentAgeUnit"] = "Days";
             dr["CSRD_IsUpdate"] = 0;
-
-            dr["ACSR_CommissionStructureRuleName"] = ddlIssuer.SelectedItem.Text.Substring(0, 5) + " " + "T15" + " " + "Trail" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
+            dr["ACSR_ClawBackAge"] = "0";
+            dr["ACSR_IsClaWback"] = 0;
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "T15" + " " + "Trail" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
 
             dttable.Rows.Add(dr);
             dr = null;
@@ -2718,7 +2758,9 @@ namespace WealthERP.Receivable
             dr["RecievableValue"] = "0";
             dr["ACSR_InvestmentAgeUnit"] = "Days";
             dr["CSRD_IsUpdate"] = 0;
-            dr["ACSR_CommissionStructureRuleName"] = ddlIssuer.SelectedItem.Text.Substring(0, 5) + " " + "B15" + " " + "Trail" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
+            dr["ACSR_ClawBackAge"] = "0";
+            dr["ACSR_IsClaWback"] = 0;
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "B15" + " " + "Trail" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
 
             dttable.Rows.Add(dr);
 
@@ -2778,7 +2820,8 @@ namespace WealthERP.Receivable
             dtCommissionStructureRule.Columns.Add("RecievableValue");
             dtCommissionStructureRule.Columns.Add("WCU_UnitCode1");
             dtCommissionStructureRule.Columns.Add("CSRD_IsUpdate");
-
+            dtCommissionStructureRule.Columns.Add("ACSR_IsClaWback");
+            dtCommissionStructureRule.Columns.Add("ACSR_ClawBackAge");
 
             return dtCommissionStructureRule;
         }
@@ -2860,7 +2903,12 @@ namespace WealthERP.Receivable
             try
             {
                 int sStructId = int.Parse(hidCommissionStructureName.Value);
-                int sIssuerId = int.Parse(hdnIssuerId.Value);
+                int sIssuerId;
+                if (ddlProductType.SelectedValue == "MF")
+                    sIssuerId = int.Parse(ddlIssuer.SelectedValue);
+                else
+                    sIssuerId = int.Parse(hdnIssuerId.Value);
+
                 string sProduct = hdnProductId.Value;
                 string sCategory = ddlMFCategory.SelectedValue;
                 string sSubcats = "m";
@@ -2941,11 +2989,8 @@ namespace WealthERP.Receivable
 
         protected void btn_GetAvailableSchemes_Click(object sender, EventArgs e)
         {
-
-
             tbSchemeMapping.Visible = true;
             tbSchemeMapped.Visible = true;
-            lblMapError.Text = "";
             rlbAvailSchemes.Items.Clear();
             rlbMappedSchemes.Items.Clear();
             BindAvailSchemesToList();
@@ -2954,7 +2999,6 @@ namespace WealthERP.Receivable
 
         protected void rlbAvailSchemes_Transferred(object sender, RadListBoxTransferredEventArgs e)
         {
-            //lblAvailableSchemes.Text = "Available Schemes(" + rlbAvailSchemes.Items.Count.ToString() + ")";
         }
 
         protected void rlbMappedSchemes_Transferred(object sender, RadListBoxTransferredEventArgs e)
@@ -3858,7 +3902,6 @@ namespace WealthERP.Receivable
                 btnIssueMap.Visible = true;
             }
         }
-
         protected void chkListrate_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             radAplicationPopUp.VisibleOnPageLoad = true;
@@ -3969,6 +4012,8 @@ namespace WealthERP.Receivable
             dtRulecreate.Columns.Add("ValidationFrom", typeof(DateTime));
             dtRulecreate.Columns.Add("ValidationTo", typeof(DateTime));
             dtRulecreate.Columns.Add("ACSR_InvestmentAgeUnit");
+            dtRulecreate.Columns.Add("IsClawBack");
+            dtRulecreate.Columns.Add("ClowBackAge");
 
 
 
@@ -3981,6 +4026,8 @@ namespace WealthERP.Receivable
                 TextBox txtReceivableValue = (TextBox)radItem.FindControl("txtReceivableValue");
                 TextBox txtPaybleValue = (TextBox)radItem.FindControl("txtPaybleValue");
                 DropDownList ddlBrokrageUnit = (DropDownList)radItem.FindControl("ddlBrokrageUnit");
+                CheckBox check = (CheckBox)radItem.FindControl("ChkIsclowBack");
+                TextBox txtbox = (TextBox)radItem.FindControl("txtClawBackAge");
                 string commtype = RadGridStructureRule.MasterTableView.DataKeyValues[radItem.ItemIndex]["WCT_CommissionTypeCode"].ToString();
                 string minage = RadGridStructureRule.MasterTableView.DataKeyValues[radItem.ItemIndex]["ACSR_MinInvestmentAge"].ToString();
                 string MaxAge = RadGridStructureRule.MasterTableView.DataKeyValues[radItem.ItemIndex]["ACSR_MaxInvestmentAge"].ToString();
@@ -3993,8 +4040,8 @@ namespace WealthERP.Receivable
                 else
                     drRulecreate["CityGroup"] = "1010";
                 drRulecreate["TRXNType"] = "NonSIP";
-                drRulecreate["S_Tax"] = txtServiceTex.Text;
-                drRulecreate["TDS"] = txtTDSTex.Text;
+                drRulecreate["S_Tax"] = (!string.IsNullOrEmpty(txtServiceTex.Text))? Convert.ToDecimal(txtServiceTex.Text):0;
+                drRulecreate["TDS"] = (!string.IsNullOrEmpty(txtTDSTex.Text))? Convert.ToDecimal(txtTDSTex.Text):0;
                 drRulecreate["MinAmt"] = RadGridStructureRule.MasterTableView.DataKeyValues[radItem.ItemIndex]["ACSR_MinInvestmentAmount"];
                 drRulecreate["MaxAmt"] = RadGridStructureRule.MasterTableView.DataKeyValues[radItem.ItemIndex]["ACSR_MaxInvestmentAmount"];
                 if (minage == "N/A" || minage == "0")
@@ -4005,12 +4052,18 @@ namespace WealthERP.Receivable
                     drRulecreate["MaxAge"] = "0";
                 else
                     drRulecreate["MaxAge"] = MaxAge;
-                drRulecreate["Rec"] = txtReceivableValue.Text;
-                drRulecreate["Payable"] = txtPaybleValue.Text;
+
+                drRulecreate["Rec"] =(!string.IsNullOrEmpty(txtReceivableValue.Text))? Convert.ToDecimal(txtReceivableValue.Text):0;
+                drRulecreate["Payable"] =(!string.IsNullOrEmpty(txtPaybleValue.Text))? Convert.ToDecimal(txtPaybleValue.Text):0;
                 drRulecreate["BrokerageUnit"] = ddlBrokrageUnit.SelectedValue;
                 drRulecreate["ValidationFrom"] = Convert.ToDateTime(txtValidityFrom.Text);
                 drRulecreate["ValidationTo"] = Convert.ToDateTime(txtValidityTo.Text);
                 drRulecreate["ACSR_InvestmentAgeUnit"] = "Days";
+                drRulecreate["IsClawBack"] = (check.Checked) ? 1 : 0;
+                if (check.Checked)
+                    drRulecreate["ClowBackAge"] = (!string.IsNullOrEmpty(txtbox.Text)) ? int.Parse(txtbox.Text) : 0;
+                else
+                    drRulecreate["ClowBackAge"] = 0;
                 dtRulecreate.Rows.Add(drRulecreate);
 
             }
@@ -4039,11 +4092,13 @@ namespace WealthERP.Receivable
             TextBox txtReceivableValue = (TextBox)gr.FindControl("txtReceivableValue");
             TextBox txtPaybleValue = (TextBox)gr.FindControl("txtPaybleValue");
             DropDownList ddlBrokrageUnit = (DropDownList)gr.FindControl("ddlBrokrageUnit");
+            CheckBox check = (CheckBox)gr.FindControl("ChkIsclowBack");
+            TextBox txtbox = (TextBox)gr.FindControl("txtClawBackAge");
             bool result = false;
 
             ViewState["ruleid"] = ViewState["ruleid"] + ruleid.ToString() + ",";
-            result = commisionReceivableBo.UpdateRuleRateandTax(ruleid, (txtServiceTex.Text) == "" ? 0 : Convert.ToDecimal(txtServiceTex.Text),
-                (txtTDSTex.Text) == "" ? 0 : Convert.ToDecimal(txtTDSTex.Text), (txtReceivableValue.Text) == "" ? 0 : Convert.ToDecimal(txtReceivableValue.Text), (txtPaybleValue.Text) == "" ? 0 : Convert.ToDecimal(txtPaybleValue.Text), ddlBrokrageUnit.SelectedValue, userVo.UserId);
+            result = commisionReceivableBo.UpdateRuleRateandTax(ruleid, (txtServiceTex.Text == "") ? 0 : Convert.ToDecimal(txtServiceTex.Text),
+                (txtTDSTex.Text == "" )? 0 : Convert.ToDecimal(txtTDSTex.Text), (txtReceivableValue.Text == "") ? 0 : Convert.ToDecimal(txtReceivableValue.Text), (txtPaybleValue.Text == "") ? 0 : Convert.ToDecimal(txtPaybleValue.Text), ddlBrokrageUnit.SelectedValue, userVo.UserId,(check.Checked) ? 1 : 0,(!string.IsNullOrEmpty(txtbox.Text)) ? int.Parse(txtbox.Text) : 0);
             if (result == true)
                 BindCommissionStructureRuleGrid(int.Parse(hidCommissionStructureName.Value));
 
@@ -4062,6 +4117,8 @@ namespace WealthERP.Receivable
                 TextBox txtTDSTex = (TextBox)gvr.FindControl("txtTDSTex");
                 Button btnupdate = (Button)gvr.FindControl("btnupdate");
                 DropDownList ddlBrokrageUnit = (DropDownList)gvr.FindControl("ddlBrokrageUnit");
+                CheckBox check = (CheckBox)gvr.FindControl("ChkIsclowBack");
+                TextBox txtbox = (TextBox)gvr.FindControl("txtClawBackAge");
                 txtReceivableValue.Enabled = true;
                 txtPaybleValue.Enabled = true;
                 txtServiceTex.Enabled = true;
@@ -4070,10 +4127,47 @@ namespace WealthERP.Receivable
                 ddlBrokrageUnit.Enabled = true;
                 lnkEdit.Visible = false;
                 btnupdate.Visible = true;
+                check.Enabled = true;
+                txtbox.Enabled = true;
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
+            }
+        }
+        protected void chkCloBack_OnCheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox chk = (CheckBox)sender;
+            GridEditFormInsertItem gvr = (GridEditFormInsertItem)chk.NamingContainer;
+            CheckBox check = (CheckBox)gvr.FindControl("chkCloBack");
+            Label lnkEdit = (Label)gvr.FindControl("lblClock");
+            TextBox txtbox = (TextBox)gvr.FindControl("txtAge");
+            System.Web.UI.HtmlControls.HtmlTableCell tdlblClock = (System.Web.UI.HtmlControls.HtmlTableCell)gvr.FindControl("tdlblClock");
+
+            if (chk.Checked == true)
+            {
+                check.Visible = true;
+                lnkEdit.Visible = true;
+                txtbox.Visible = true;
+                tdlblClock.Visible = true;
+            }
+            else
+            {
+                tdlblClock.Visible = false;
+                check.Visible = false;
+                lnkEdit.Visible = false;
+                txtbox.Visible = false;
+            }
+        }
+        protected void ChkIsclowBack_OnCheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox chk = (CheckBox)sender;
+            GridDataItem gvr = (GridDataItem)chk.NamingContainer;
+            CheckBox check = (CheckBox)gvr.FindControl("ChkIsclowBack");
+            TextBox txtbox = (TextBox)gvr.FindControl("txtClawBackAge");
+            if (check.Checked)
+            {
+                txtbox.Enabled = true;
             }
         }
     }

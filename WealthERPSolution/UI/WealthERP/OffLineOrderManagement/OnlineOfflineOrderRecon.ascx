@@ -173,7 +173,7 @@
         </td>
         <td>
             <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlType_OnSelectedIndexChanged"
-                Width="240px">
+                Width="300px">
                 <asp:ListItem Text="All" Value="1">
                 </asp:ListItem>
                 <asp:ListItem Text="Orders Exist & Allotment Exist(Accepted)" Value="2">
@@ -269,7 +269,7 @@
                             <telerik:GridTemplateColumn HeaderText="Alloted Quantity" DataField="COAD_Quantity"
                                 HeaderStyle-Width="20px" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                 <ItemTemplate>
-                                    <asp:TextBox ID="COAD_Quantity" runat="server" Text='<%# Bind("COAD_Quantity") %>'></asp:TextBox>
+                                    <asp:TextBox ID="COAD_Quantity" Width="50px" runat="server" Text='<%# Bind("COAD_Quantity") %>'></asp:TextBox>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn DataField="issueName" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
@@ -282,11 +282,11 @@
                                 HeaderText="Alloted SubBrokerCode" UniqueName="COAD_SubBrokerCode" SortExpression="COAD_SubBrokerCode"
                                 AllowFiltering="true">
                                 <ItemTemplate>
-                                    <asp:TextBox ID="txtAllotedSubBrokerCodetoAllotment" runat="server" CssClass="txtField"
+                                    <asp:TextBox ID="txtAllotedSubBrokerCodetoAllotment" Width="90px" runat="server" CssClass="txtField"
                                         Text='<%# Bind("COAD_SubBrokerCode") %>'></asp:TextBox>
                                 </ItemTemplate>
                                 <FooterTemplate>
-                                    <asp:TextBox ID="txtAllotedSubBrokerCode" runat="server" CssClass="txtField" Text='<%# Bind("COAD_SubBrokerCode") %>'></asp:TextBox>
+                                    <asp:TextBox ID="txtAllotedSubBrokerCode" Width="90px" runat="server" CssClass="txtField" Text='<%# Bind("COAD_SubBrokerCode") %>'></asp:TextBox>
                                     <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender2" runat="server" TargetControlID="txtAllotedSubBrokerCode"
                                         ServiceMethod="GetAgentCodeAssociateDetails" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
                                         MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
@@ -313,7 +313,7 @@
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Alloted PAN" UniqueName="COAD_PAN"
                                 SortExpression="COAD_PAN" AllowFiltering="true">
                                 <ItemTemplate>
-                                    <asp:TextBox ID="txtAllotmentPAN" runat="server" Text='<%# Bind("COAD_PAN") %>'></asp:TextBox>
+                                    <asp:TextBox ID="txtAllotmentPAN" Width="90px" runat="server" Text='<%# Bind("COAD_PAN") %>'></asp:TextBox>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn DataField="AllotedInvestorName" HeaderStyle-Width="20px"
@@ -333,7 +333,7 @@
                                 UniqueName="CFIOD_Quantity" SortExpression="CFIOD_Quantity" AllowFiltering="true"
                                 Visible="true" HeaderStyle-ForeColor="Black">
                                 <ItemTemplate>
-                                    <asp:TextBox ID="txtOrderQuantity" runat="server" Text='<%# Bind("CFIOD_Quantity") %>'></asp:TextBox>
+                                    <asp:TextBox ID="txtOrderQuantity" Width="50px" runat="server" Text='<%# Bind("CFIOD_Quantity") %>'></asp:TextBox>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridTemplateColumn DataField="AAC_AgentCode" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
@@ -341,10 +341,10 @@
                                 UniqueName="AAC_AgentCode" SortExpression="AAC_AgentCode" AllowFiltering="true"
                                 HeaderStyle-ForeColor="Black">
                                 <ItemTemplate>
-                                    <asp:TextBox ID="txtOrderAgentCode" runat="server" Text='<%# Bind("AAC_AgentCode") %>'></asp:TextBox>
+                                    <asp:TextBox ID="txtOrderAgentCode" Width="90px" runat="server" Text='<%# Bind("AAC_AgentCode") %>'></asp:TextBox>
                                 </ItemTemplate>
                                 <FooterTemplate>
-                                    <asp:TextBox ID="txtOrderSubbrokerCode" runat="server" CssClass="txtField"></asp:TextBox>
+                                    <asp:TextBox ID="txtOrderSubbrokerCode" Width="90px" runat="server" CssClass="txtField"></asp:TextBox>
                                     <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender2_txtOrderSubbrokerCode"
                                         runat="server" TargetControlID="txtOrderSubbrokerCode" ServiceMethod="GetAgentCodeAssociateDetails"
                                         ServicePath="~/CustomerPortfolio/AutoComplete.asmx" MinimumPrefixLength="1" EnableCaching="False"

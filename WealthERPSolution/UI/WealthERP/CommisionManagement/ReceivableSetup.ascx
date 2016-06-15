@@ -185,7 +185,8 @@
         }
     }
 
-
+  
+  
 </script>
 
 <script type="text/javascript">
@@ -577,18 +578,6 @@
                 </tr>
                 <tr id="trIssuer" runat="server">
                     <td class="leftLabel">
-                        <asp:Label ID="lblIssuer" runat="server" Text="Issuer :" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td class="rightData">
-                        <asp:DropDownList ID="ddlIssuer" runat="server" CssClass="cmbLongField">
-                        </asp:DropDownList>
-                        <span id="Span6" class="spnRequiredField">*</span>
-                        <br />
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please Select Issuer"
-                            CssClass="rfvPCG" ControlToValidate="ddlIssuer" ValidationGroup="btnStrAddUpdate"
-                            Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
-                    </td>
-                    <td class="leftLabel">
                     </td>
                     <td class="rightData">
                     </td>
@@ -794,6 +783,18 @@
                 <table width="100%" style="clear: both" runat="server" id="tbSchemeButton">
                     <tr>
                         <td class="leftLabel">
+                            <asp:Label ID="lblIssuer" runat="server" Text="Issuer :" CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td class="rightData">
+                            <asp:DropDownList ID="ddlIssuer" runat="server" CssClass="cmbLongField">
+                            </asp:DropDownList>
+                            <span id="Span6" class="spnRequiredField">*</span>
+                            <br />
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please Select Issuer"
+                                CssClass="rfvPCG" ControlToValidate="ddlIssuer" ValidationGroup="btnscheme" Display="Dynamic"
+                                InitialValue="0"></asp:RequiredFieldValidator>
+                        </td>
+                        <td class="leftLabel">
                             <asp:Label ID="lblPeriodStart" runat="server" CssClass="FieldName" Text="Category:"></asp:Label>
                         </td>
                         <td>
@@ -801,27 +802,12 @@
                             </asp:DropDownList>
                         </td>
                         <td>
-                            <asp:Button ID="btn_GetAvailableSchemes" runat="server" Text="Schemes" CssClass="PCGButton"
-                                OnClick="btn_GetAvailableSchemes_Click" />
                         </td>
                         <td class="rightData">
-                            <telerik:RadDatePicker ID="rdpPeriodStart" runat="server" Visible="false">
-                            </telerik:RadDatePicker>
                         </td>
                         <td class="leftLabel">
-                            <telerik:RadDatePicker ID="rdpPeriodEnd" runat="server" Visible="false">
-                            </telerik:RadDatePicker>
-                        </td>
-                        <td colspan="2">
-                            <asp:RequiredFieldValidator ID="rfvPeriodStart" runat="server" CssClass="rfvPCG"
-                                ErrorMessage="Please enter valid date(s)" ControlToValidate="rdpPeriodStart"
-                                ValidationGroup="availSchemesPeriod" Display="Dynamic"></asp:RequiredFieldValidator>
-                            <asp:RequiredFieldValidator ID="rfvPeriodEnd" runat="server" CssClass="rfvPCG" ErrorMessage="Please enter valid date(s)"
-                                ControlToValidate="rdpPeriodEnd" ValidationGroup="availSchemesPeriod" Display="Dynamic"></asp:RequiredFieldValidator>
-                            <asp:CompareValidator ID="cvPeriodEnd" runat="server" CssClass="rfvPCG" ControlToCompare="rdpPeriodStart"
-                                ErrorMessage="Please enter valid date(s)" ControlToValidate="rdpPeriodEnd" Display="Dynamic"
-                                Operator="GreaterThan" SetFocusOnError="True" Type="Date" ValidationGroup="availSchemesPeriod"></asp:CompareValidator>
-                            <asp:Label ID="lblMapError" runat="server" CssClass="rfvPCG" Text=""></asp:Label>
+                            <asp:Button ID="btn_GetAvailableSchemes" runat="server" Text="Schemes" CssClass="PCGButton"
+                                OnClick="btn_GetAvailableSchemes_Click" />
                         </td>
                     </tr>
                     <tr>
@@ -1237,6 +1223,18 @@
                                                 </asp:DropDownList>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
+                                         <telerik:GridTemplateColumn UniqueName="ACSR_IsClaWback" HeaderText="IsClowBack"
+                                            DataField="ACSR_IsClaWback" HeaderStyle-Width="50px">
+                                            <ItemTemplate>
+                                            <asp:CheckBox ID="ChkIsclowBack" runat="server" AutoPostBack="true" CssClass="cmbFielde" OnCheckedChanged="ChkIsclowBack_OnCheckedChanged" Checked='<%# (Eval("ACSR_IsClaWback").ToString() == "1" ? true : false) %>'/>
+                                            </ItemTemplate>
+                                        </telerik:GridTemplateColumn>
+                                         <telerik:GridTemplateColumn UniqueName="ACSR_ClawBackAge" HeaderText="ClawBackAge"
+                                            DataField="ACSR_ClawBackAge" HeaderStyle-Width="50px">
+                                            <ItemTemplate>
+                                                <asp:TextBox ID="txtClawBackAge" runat="server" Enabled="false" Width="50px" Text='<%#Eval("ACSR_ClawBackAge")%>'></asp:TextBox>
+                                            </ItemTemplate>
+                                        </telerik:GridTemplateColumn>
                                         <telerik:GridTemplateColumn UniqueName="ACSR_ServiceTaxValue" HeaderText="Service Tax Value(%)"
                                             DataField="ACSR_ServiceTaxValue" HeaderStyle-Width="50px">
                                             <ItemTemplate>
@@ -1373,6 +1371,18 @@
                                                         <asp:RequiredFieldValidator runat="server" ID="rfvCommissionType" ValidationGroup="btnSubmitRule"
                                                             Display="Dynamic" ControlToValidate="ddlCommissionType" Visible="true" ErrorMessage="Please Select Commission Type"
                                                             InitialValue="0" />
+                                                    </td>
+                                                    <td>
+                                                        <asp:CheckBox ID="chkCloBack" runat="server" CssClass="cmbFielde" Visible="false" Text="IsClawback" AutoPostBack="true" OnCheckedChanged="chkCloBack_OnCheckedChanged" />
+                                                    </td>
+                                                    <td id="tdlblClock" runat="server">
+                                                        <asp:Label ID="lblClock" runat="server" CssClass="FieldName" Text="Age:" Visible="false"></asp:Label>
+                                                        <asp:TextBox ID="txtAge" runat="server" Visible="false"></asp:TextBox>
+                                                         <span id="Span9" class="spnRequiredField">*</span>
+                                                        <br />
+                                                          <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator15" ValidationGroup="btnSubmitRule"
+                                                            Display="Dynamic" ControlToValidate="txtAge" ErrorMessage="<br />Enter Age"
+                                                            Text="" />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -2191,12 +2201,12 @@
                         <tr runat="server" id="trListControls">
                             <td>
                                 <div class="clearfix" style="margin-bottom: 1em;">
-                                <div>
-                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label class="FieldName">
-                                    Search AgentCodes:</label>
-                                <asp:TextBox ID="txtAssociateSearch" runat="server" Width="250px" onkeyup="return Associate();"></asp:TextBox>
-                                
-                                </div>
+                                    <div>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <label class="FieldName">
+                                            Search AgentCodes:</label>
+                                        <asp:TextBox ID="txtAssociateSearch" runat="server" Width="250px" onkeyup="return Associate();"></asp:TextBox>
+                                    </div>
                                     <asp:Panel ID="PLCustomer" runat="server" Style="float: left; padding-left: 150px;">
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <asp:Label ID="lblSelectBranch" runat="server" CssClass="FieldName" Text="Existing AgentCodes">

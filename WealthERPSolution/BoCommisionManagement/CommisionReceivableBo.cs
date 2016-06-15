@@ -1479,11 +1479,11 @@ namespace BoCommisionManagement
             count = commisionReceivableDao.RuleIsCreated(structureId);
             return count;
         }
-        public bool UpdateRuleRateandTax(int ruleid, decimal serviceTax, decimal TDSValue, decimal recivablerate, decimal payablerate, string brokrageunit, int userId)
+        public bool UpdateRuleRateandTax(int ruleid, decimal serviceTax, decimal TDSValue, decimal recivablerate, decimal payablerate, string brokrageunit, int userId,int IsClawBack,int clowBack)
         {
             bool result = false;
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
-            result = commisionReceivableDao.UpdateRuleRateandTax(ruleid,serviceTax,TDSValue,recivablerate,payablerate,brokrageunit,userId);
+            result = commisionReceivableDao.UpdateRuleRateandTax(ruleid,serviceTax,TDSValue,recivablerate,payablerate,brokrageunit,userId,IsClawBack,clowBack);
             return result;
         }
         public DataTable GetBranchBrokerage(string product, string productCategory, string fromdate, string todate, int amcCode, int schemeId, int adviserId, int issueid, string commissionType)

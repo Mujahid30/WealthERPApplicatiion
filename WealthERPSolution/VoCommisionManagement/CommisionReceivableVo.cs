@@ -99,6 +99,8 @@ namespace VoCommisionManagement
         public int Category { get; set; }
         public int series { get; set; }
         public Boolean eForm { get; set; }
+        public int IsClawBack { get; set; }
+        public int ClawBackAge { get; set; }
 
 
     }

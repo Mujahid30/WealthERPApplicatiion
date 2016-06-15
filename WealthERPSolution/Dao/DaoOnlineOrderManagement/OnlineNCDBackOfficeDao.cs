@@ -4046,7 +4046,7 @@ namespace DaoOnlineOrderManagement
                     dbGetOrderMissMatchDetails = db.GetStoredProcCommand("SPROC_54ECANDCDOrderMissMatchDetails");
                     db.AddInParameter(dbGetOrderMissMatchDetails, "@type", DbType.Int32, type);
                 }
-                db.AddInParameter(dbGetOrderMissMatchDetails, "@Searchtype", DbType.Int32, 1);
+                db.AddInParameter(dbGetOrderMissMatchDetails, "@Searchtype", DbType.Int32, type);
                 db.AddInParameter(dbGetOrderMissMatchDetails, "@issueid", DbType.Int32, issueid);
                 db.AddInParameter(dbGetOrderMissMatchDetails, "@orderstapcode", DbType.String, orderstapcode);
                 db.AddInParameter(dbGetOrderMissMatchDetails, "@category", DbType.String, category);

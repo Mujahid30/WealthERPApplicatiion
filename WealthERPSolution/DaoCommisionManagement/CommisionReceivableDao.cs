@@ -630,6 +630,8 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@AID_IssueDetailId", DbType.Int32, commissionStructureRuleVo.series);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@AIIC_InvestorCatgeoryId", DbType.Int32, commissionStructureRuleVo.Category);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_EForm", DbType.Int32, commissionStructureRuleVo.eForm);
+                db.AddInParameter(cmdCreateCommissionStructureRule, "@IsClawBack", DbType.Int32, commissionStructureRuleVo.ClawBackAge);
+                db.AddInParameter(cmdCreateCommissionStructureRule, "@ClawBack", DbType.Int32, commissionStructureRuleVo.IsClawBack);
                 db.AddOutParameter(cmdCreateCommissionStructureRule, "@CommissionRuleId", DbType.Int32, 0);
                 ////db.ExecuteNonQuery(cmdCreateCommissionStructureRule);
                 if (db.ExecuteNonQuery(cmdCreateCommissionStructureRule) != 0)
@@ -2186,7 +2188,7 @@ namespace DaoCommisionManagement
             }
             return count;
         }
-        public bool UpdateRuleRateandTax(int ruleid,decimal serviceTax,decimal TDSValue,decimal recivablerate,decimal payablerate,string brokrageunit, int userId)
+        public bool UpdateRuleRateandTax(int ruleid,decimal serviceTax,decimal TDSValue,decimal recivablerate,decimal payablerate,string brokrageunit, int userId,int IsClawBack,int clawBackAge)
         {
             bool bResult = false;
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -2202,6 +2204,9 @@ namespace DaoCommisionManagement
                 db.AddInParameter(dbCreateNewRuleAndRate, "@ServiceTaxValue", DbType.Decimal, serviceTax);
                 db.AddInParameter(dbCreateNewRuleAndRate, "@reducetax", DbType.Decimal, TDSValue);
                 db.AddInParameter(dbCreateNewRuleAndRate, "@userId", DbType.Int32, userId);
+                db.AddInParameter(dbCreateNewRuleAndRate, "@IsClawBack", DbType.Int32, IsClawBack);
+                db.AddInParameter(dbCreateNewRuleAndRate, "@clawBackAge", DbType.Int32, clawBackAge);
+
                 if (db.ExecuteNonQuery(dbCreateNewRuleAndRate) != 0)
                     bResult = true;
             }
