@@ -3301,7 +3301,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsNotificationSetup;
         }
-        public bool InsertUpdateDeleteNotificationSetupDetails(int id, int userId, int adviserId, string assetGroupCode, int notificationTypeID, string transactionTypes, string notificationHeader, int priorDays, bool IsSMSEnabled, bool IsEmailEnabled, bool IstoUpdate)
+        public bool InsertUpdateDeleteNotificationSetupDetails(int id, int userId, int adviserId, string assetGroupCode, int notificationTypeID, string transactionTypes, string notificationHeader, int priorDays, bool IsSMSEnabled, bool IsEmailEnabled, bool IstoUpdate, bool IsDashBoardEnabled)
         {
             bool bResult = false;
             Database db;
@@ -3322,6 +3322,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmd, "@IsSMSEnabled", DbType.Boolean, IsSMSEnabled);
                 db.AddInParameter(cmd, "@IsEmailEnabled", DbType.Boolean, IsEmailEnabled);
                 db.AddInParameter(cmd, "@IstoUpdate", DbType.Boolean, IstoUpdate);
+                db.AddInParameter(cmd, "@IsDashBoardEnabled", DbType.Boolean, IsDashBoardEnabled);
+
                 if (db.ExecuteNonQuery(cmd) != 0)
                     bResult = true;
             }

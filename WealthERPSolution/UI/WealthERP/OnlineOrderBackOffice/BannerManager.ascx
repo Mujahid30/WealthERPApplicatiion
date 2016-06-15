@@ -621,7 +621,9 @@
                 CNT_ID ,CNT_NotificationType,
                 CTNS_PriorDays ,
                 CTNS_IsSMSEnabled ,
-                CTNS_ISEmailEnabled ">
+               CTNS_IsDashBoardEnabled,
+                CTNS_ISEmailEnabled
+                 ">
                     <Columns>
                         <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
                             UpdateText="Update" >
@@ -648,6 +650,19 @@
                         <telerik:GridTemplateColumn UniqueName="TemplateEditColumnEmail" HeaderText="Edit/View Email">
                             <ItemTemplate>
                                 <asp:LinkButton ID="EditLinkEmail" Visible='<%# Eval("CTNS_ISEmailEnabled") %>' runat="server"
+                                    Text="Edit/View"></asp:LinkButton>
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>
+                      <%--  <telerik:GridTemplateColumn UniqueName="TemplateEditColumnDashBoard" HeaderText="Edit/View DashBoard">
+                            <ItemTemplate>
+                       
+                                    <asp:LinkButton ID="EditLinkDashBoard" Visible='<%# Eval("CTNS_IsDashBoardEnabled") %>' runat="server"
+                                    Text="Edit/View"></asp:LinkButton>  
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>--%>
+                         <telerik:GridTemplateColumn UniqueName="TemplateEditColumnDashBoard" HeaderText="Edit/View DashBoard">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="EditLinkDashBoard" Visible='<%# Eval("CTNS_IsDashBoardEnabled") %>' runat="server"
                                     Text="Edit/View"></asp:LinkButton>
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
@@ -749,15 +764,21 @@
                                     <td class="rightField">
                                         <asp:CheckBox ID="chkEmail" runat="server" Checked='<%# Convert.IsDBNull(Eval("CTNS_ISEmailEnabled")) ? false :Convert.ToInt16( Eval("CTNS_ISEmailEnabled"))==1 ? true : false %>' />
                                     </td>
-                                </tr>
-                                <%-- <tr id="tr3">
-                                    <td class="leftField">
-                                        <asp:Label ID="Label2" runat="server" Text="IS Active:" CssClass="FieldName"></asp:Label>
+                                    <%-- <td class="leftField">
+                                        <asp:Label ID="Label5" runat="server" Text="IS DashBoard Enabled:" CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td class="rightField">
-                                        <asp:CheckBox ID="CheckBox" runat="server" Checked='<%# Convert.IsDBNull(Eval("PUHD_IsActive")) ? false :Convert.ToInt16( Eval("PUHD_IsActive"))==1 ? true : false %>' />
+                                        <asp:CheckBox ID="chkDashBoard" runat="server" Checked='<%# Convert.IsDBNull(Eval("CTNS_IsDashBoardEnabled")) ? false :Convert.ToInt16( Eval("CTNS_IsDashBoardEnabled"))==1 ? true : false %>' />
+                                    </td>--%>
+                                     <td class="leftField">
+                                        <asp:Label ID="Label5" runat="server" Text="IS DashBoard Enabled:" CssClass="FieldName"></asp:Label>
                                     </td>
-                                </tr>--%>
+                                    <td class="rightField">
+                                        <asp:CheckBox ID="chkDashBoard" runat="server" Checked='<%# Convert.IsDBNull(Eval("CTNS_IsDashBoardEnabled")) ? false :Convert.ToInt16( Eval("CTNS_IsSMSEnabled"))==1 ? true : false %>' />
+                                    </td>
+                                    
+                                </tr>
+                             
                                 <tr>
                                     <td align="right" colspan="2">
                                         <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'

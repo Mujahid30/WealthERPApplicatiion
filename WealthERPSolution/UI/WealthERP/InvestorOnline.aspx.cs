@@ -37,13 +37,23 @@ namespace WealthERP
                     {
                         divEmail.Visible = true;
                         divSMS.Visible = false;
+                        divDashBoard.Visible = false;
                         hdnCurrentTextEditor.Value = "txtEmailSubject";
                     }
                     else if (Request.QueryString["FormatType"] == "SMS")
                     {
                         divEmail.Visible = false;
                         divSMS.Visible = true;
+                        divDashBoard.Visible = false;
                         hdnCurrentTextEditor.Value = "txtSMSBody";
+                    }
+
+                    else if (Request.QueryString["FormatType"] == "DashBoard")
+                    {
+                        divEmail.Visible = false;
+                        divSMS.Visible = false;
+                        divDashBoard.Visible = true;
+                        hdnCurrentTextEditor.Value = "txtDashBoard";
                     }
 
                     GetNotificationDetails(Convert.ToInt32(Request.QueryString["setupId"].Trim()));
@@ -112,6 +122,25 @@ namespace WealthERP
             else
             {
                 Cache.Remove("SMSDetails" + userVo.UserId.ToString());
+            }
+
+            if (ds.Tables[3].Rows.Count > 0)
+            {
+                if (Cache["DashBoardDetails" + userVo.UserId.ToString()] == null)
+                {
+                    Cache.Insert("DashBoardDetails" + userVo.UserId.ToString(), ds.Tables[3]);
+                }
+                else
+                {
+                    Cache.Remove("DashBoardDetails" + userVo.UserId.ToString());
+                    Cache.Insert("DashBoardDetails" + userVo.UserId.ToString(), ds.Tables[3]);
+                }
+                txtDashBoard.Text = ds.Tables[3].Rows[0]["CTNDBF_DashBoardBodyFormat"].ToString();
+                hdnDashBoardBody.Value = ds.Tables[3].Rows[0]["CTNDBF_DashBoardBodyFormat"].ToString();
+            }
+            else
+            {
+                Cache.Remove("DashBoardDetails" + userVo.UserId.ToString());
             }
         }
         protected void BindLiteral()
@@ -185,16 +214,24 @@ namespace WealthERP
             {
                 lblSampleSMSBody.Text = SampleText(txtSMSBody.Text);
             }
+            else if (btn.ID == "btnDashBoardBodyPreview")
+            {
+                lblSampleDashBoardBody.Text = SampleText(txtDashBoard.Text);
+   
+            }
         }
         protected void SaveButton_Onclick(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
             DataTable dtEmail;
             DataTable dtSms;
+            DataTable dtDashBoard;
             dtEmail = (DataTable)Cache["EmailDetails" + userVo.UserId.ToString()];
             dtSms = (DataTable)Cache["SMSDetails" + userVo.UserId.ToString()];
+            dtDashBoard = (DataTable)Cache["DashBoardDetails" + userVo.UserId.ToString()];
             int emailId = 0;
             int smsId = 0;
+            int dashboardId = 0;
             int notificationId = Convert.ToInt32(Request.QueryString["setupId"]);
             if (dtEmail != null && dtEmail.Rows.Count > 0)
             {
@@ -205,6 +242,11 @@ namespace WealthERP
             {
 
                 smsId = Convert.ToInt32(dtSms.Rows[0]["CTNSF_Id"].ToString());
+            }
+            if (dtDashBoard != null && dtDashBoard.Rows.Count > 0)
+            {
+
+                dashboardId = Convert.ToInt32(dtDashBoard.Rows[0]["CTNDBF_Id"].ToString());
             }
             if (btn.ID == "btnEmailSubjectSave")
             {
@@ -217,6 +259,11 @@ namespace WealthERP
             else if (btn.ID == "btnSMSBodySave")
             {
                 onlineOrderBackOfficeBo.InsertUpdateNotificationFormat(userVo.UserId, notificationId, "SMS", GetParameters(txtSMSBody.Text), txtSMSBody.Text, smsId);
+
+            }
+            else if (btn.ID == "btnDashBoardBodySave")
+            {
+                onlineOrderBackOfficeBo.InsertUpdateNotificationFormat(userVo.UserId, notificationId, "DashBoard", GetParameters(txtDashBoard.Text), txtDashBoard.Text, dashboardId);
 
             }
             GetNotificationDetails(notificationId);

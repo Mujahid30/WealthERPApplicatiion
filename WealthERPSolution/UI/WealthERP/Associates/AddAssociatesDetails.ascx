@@ -1448,46 +1448,29 @@
                 </tr>
                 <tr>
                     <td class="leftField">
+                   <asp:Panel ID="pnl" runat="server" Width="1010px" ScrollBars="Horizontal">
                         <table id="tableGrid" runat="server" width="100%">
                             <tr>
                                 <td align="center">
-                                    <asp:LinkButton ID="lbkbtnAddChildCodes" Enabled="false" CssClass="LinkButtons" runat="server"
+                                    <asp:LinkButton ID="lbkbtnAddChildCodes" Enabled="false" Visible="false"  CssClass="LinkButtons" runat="server"
                                         OnClick="lnkBtnChildCodes_Click">Add Child Codes</asp:LinkButton>
-                                    <%-- <telerik:RadGrid ID="gvChildCode" runat="server" Skin="Telerik" CssClass="RadGrid"
-                                        GridLines="None" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="False"
-                                        ShowStatusBar="true" AllowAutomaticDeletes="false" AllowAutomaticInserts="false"
-                                        OnNeedDataSource="gvChildCode_OnNeedDataSource" Visible="false" AllowAutomaticUpdates="false"
-                                        HorizontalAlign="NotSet"  >
-                                        <MasterTableView CommandItemDisplay="Top" EditMode="PopUp" DataKeyNames="AAC_AdviserAgentId,AAC_AdviserAgentIdParent,AAC_AgentCode"
-                                            CommandItemSettings-ShowRefreshButton="false" CommandItemSettings-AddNewRecordText="Add child codes">
-                                            <Columns>
-                                                <telerik:GridBoundColumn UniqueName="AAC_AgentCode" HeaderText="Child Code" DataField="AAC_AgentCode">
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridEditCommandColumn EditText="Update" UniqueName="editColumn" CancelText="Cancel"
-                                                    UpdateText="Edit">
-                                                </telerik:GridEditCommandColumn>
-                                                <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete the code?"
-                                                    ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
-                                                    Text="Delete">
-                                                    <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
-                                                </telerik:GridButtonColumn>
-                                            </Columns>
-                                        </MasterTableView>
-                                        <ClientSettings>
-                                            <ClientEvents />
-                                        </ClientSettings>
-                                    </telerik:RadGrid>--%>
+                                    
                                 </td>
                                 <td>
                                 </td>
                             </tr>
                             <tr>
                                 <td align="left">
-                                    <asp:Label ID="lblChildCodeList" runat="server" Text="ChildCode List" CssClass="FieldName"></asp:Label>
+                                    <asp:Label ID="lblChildCodeList" runat="server" Text="ChildCode List"  CssClass="FieldName"></asp:Label>
+                                 
+                                   
                                     <asp:Label ID="lblChildCodeListView" runat="server" CssClass="txtField"></asp:Label>
-                                </td>
+                                      </td> 
+                               
                             </tr>
+                          
                         </table>
+                       </asp:Panel>  
                     </td>
                 </tr>
             </table>

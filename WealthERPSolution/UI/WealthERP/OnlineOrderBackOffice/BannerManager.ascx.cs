@@ -676,6 +676,7 @@ namespace WealthERP.OnlineOrderBackOffice
             int PriorDays = 0;
             bool isSMSEnabled = false;
             bool isEMailEnabled = false;
+            bool isDashBoardEnabled = false;
             headingText = ((TextBox)insertItem.FindControl("txtNotificationHeading")).Text;
             string assetGroupCode = ((DropDownList)insertItem.FindControl("ddlAssetGroupName1")).SelectedValue;
             notificationType = Convert.ToInt32(((DropDownList)insertItem.FindControl("DropDownList1")).SelectedValue);
@@ -687,18 +688,21 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (li.Selected == true)
                     transtypes += li.Value + ",";
             }
+            //transtypes += ")";
+
             isSMSEnabled = ((CheckBox)insertItem.FindControl("chkSMS")).Checked;
             isEMailEnabled = ((CheckBox)insertItem.FindControl("chkEmail")).Checked;
+            isDashBoardEnabled = ((CheckBox)insertItem.FindControl("chkDashBoard")).Checked;
 
 
-            onlineOrderBackOfficeBo.InsertUpdateDeleteNotificationSetupDetails(0, userVo.UserId, adviserVo.advisorId, assetGroupCode, notificationType, transtypes, headingText, PriorDays, isSMSEnabled, isEMailEnabled, false);
+            onlineOrderBackOfficeBo.InsertUpdateDeleteNotificationSetupDetails(0, userVo.UserId, adviserVo.advisorId, assetGroupCode, notificationType, transtypes, headingText, PriorDays, isSMSEnabled, isEMailEnabled, isDashBoardEnabled, false);
             BindNotificationSetup();
         }
         protected void rgNotification_DeleteCommand(object source, GridCommandEventArgs e)
         {
             GridDataItem item = e.Item as GridDataItem;
             int id = Convert.ToInt32(item.OwnerTableView.DataKeyValues[item.ItemIndex]["CTNS_Id"].ToString());
-            onlineOrderBackOfficeBo.InsertUpdateDeleteNotificationSetupDetails(id, userVo.UserId, adviserVo.advisorId, string.Empty, 0, string.Empty, string.Empty, 0, false, false, false);
+           onlineOrderBackOfficeBo.InsertUpdateDeleteNotificationSetupDetails(id, userVo.UserId, adviserVo.advisorId, string.Empty, 0, string.Empty, string.Empty, 0, false, false,false, false);
             //retrive entity form the Db
             BindNotificationSetup();
         }
@@ -724,8 +728,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 CheckBoxList chkbltranstype = (CheckBoxList)editedItem.FindControl("chkbltranstype");
                 CheckBox chkSMS = (CheckBox)editedItem.FindControl("chkSMS");
                 CheckBox chkEmail = (CheckBox)editedItem.FindControl("chkEmail");
+                CheckBox chkDashBoard = (CheckBox)editedItem.FindControl("chkDashBoard");
                 chkSMS.Checked = rgNotification.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_IsSMSEnabled"].ToString() == "True";
                 chkEmail.Checked = rgNotification.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_ISEmailEnabled"].ToString() == "True";
+                chkDashBoard.Checked = rgNotification.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_IsDashBoardEnabled"].ToString() == "True";
                 ddlAssetGroupName1.SelectedValue = assetGroupCode;
                 txtNotificationHeading.Text = NotificationHeading;
                 BindNotificationType(dropDownList1, assetGroupCode);
@@ -799,9 +805,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (li.Selected == true)
                     transtypes += li.Value + ",";
             }
+            //transtypes += ")";
             bool isSMSEnabled = ((CheckBox)e.Item.FindControl("chkSMS")).Checked;
             bool isEmailEnabled = ((CheckBox)e.Item.FindControl("chkEmail")).Checked;
-            onlineOrderBackOfficeBo.InsertUpdateDeleteNotificationSetupDetails(id, userVo.UserId, adviserVo.advisorId, assetGroupCode, notificationType, transtypes, headingText, priorDays, isSMSEnabled, isEmailEnabled, true);
+            bool isDashBoardEnabled = ((CheckBox)e.Item.FindControl("chkDashBoard")).Checked;
+            onlineOrderBackOfficeBo.InsertUpdateDeleteNotificationSetupDetails(id, userVo.UserId, adviserVo.advisorId, assetGroupCode, notificationType, transtypes, headingText, priorDays, isSMSEnabled, isEmailEnabled, isDashBoardEnabled ,  true);
             BindNotificationSetup();
         }
         protected void rgNotification_ItemCreated(object sender, GridItemEventArgs e)
@@ -812,6 +820,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 EditLinkEmail.OnClientClick = String.Format("return ShowEditForm('{0}','{1}');", "?setupId=" + e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_Id"] + "&FormatType=Email", e.Item.ItemIndex);
                 LinkButton EditLinkSMS = (LinkButton)e.Item.FindControl("EditLinkSMS");
                 EditLinkSMS.OnClientClick = String.Format("return ShowEditForm('{0}','{1}');", "?setupId=" + e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_Id"] + "&FormatType=SMS", e.Item.ItemIndex);
+                LinkButton EditLinkDashBoard = (LinkButton)e.Item.FindControl("EditLinkDashBoard");
+                EditLinkDashBoard.OnClientClick = String.Format("return ShowEditForm('{0}','{1}');", "?setupId=" + e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_Id"] + "&FormatType=DashBoard", e.Item.ItemIndex);
+ 
             }
         }
         protected void RadAjaxManager1_AjaxRequest(object sender, AjaxRequestEventArgs e)

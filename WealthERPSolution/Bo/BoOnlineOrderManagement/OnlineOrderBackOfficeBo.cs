@@ -2596,13 +2596,13 @@ namespace BoOnlineOrderManagement
             }
             return dsNotificationSetup;
         }
-        public bool InsertUpdateDeleteNotificationSetupDetails(int id, int userId, int adviserId, string assetGroupCode, int notificationTypeID, string transactionTypes, string notificationHeader, int priorDays, bool IsSMSEnabled, bool IsEmailEnabled, bool IstoUpdate)
+        public bool InsertUpdateDeleteNotificationSetupDetails(int id, int userId, int adviserId, string assetGroupCode, int notificationTypeID, string transactionTypes, string notificationHeader, int priorDays, bool IsSMSEnabled, bool IsEmailEnabled, bool IsDashBoardEnabled , bool IstoUpdate)
         {
             bool result = false;
             OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
             try
             {
-                result = daoOnlineOrderBackOffice.InsertUpdateDeleteNotificationSetupDetails(id, userId, adviserId, assetGroupCode, notificationTypeID, transactionTypes, notificationHeader, priorDays, IsSMSEnabled, IsEmailEnabled, IstoUpdate);
+                result = daoOnlineOrderBackOffice.InsertUpdateDeleteNotificationSetupDetails(id, userId, adviserId, assetGroupCode, notificationTypeID, transactionTypes, notificationHeader, priorDays, IsSMSEnabled, IsEmailEnabled,  IsDashBoardEnabled , IstoUpdate);
             }
             catch (BaseApplicationException Ex)
             {

@@ -57,6 +57,19 @@
                     <asp:Label ID="lblSampleSMSBody" runat="server"></asp:Label>
                 </div>
             </div>
+            
+           <div id="divDashBoard" runat="server">
+                <div style="width: 400px; margin:10px;padding:10px;">
+                    <asp:TextBox ID="txtDashBoard" TextMode="MultiLine" runat="server" Width="600px" Height="150px"
+                        onblur="getDashBoardBody()"></asp:TextBox>
+                </div>
+                <asp:Button ID="btnDashBoardBodyPreview" runat="server" OnClick="previewButton_Onclick"
+                    Text="Preview" />
+                <asp:Button ID="btnDashBoardBodySave" runat="server" OnClick="SaveButton_Onclick" Text="Save" />
+                <div style="border:solid 2px Blue; margin:20px;padding:20px;">
+                    <asp:Label ID="lblSampleDashBoardBody" runat="server"></asp:Label>
+                </div>
+            </div> 
         </div>
         <div style="width: 300px; float: left; margin-top:50px;">
         <div style="float:right;">
@@ -67,6 +80,8 @@
     <asp:HiddenField ID="hdnEmailSubject" runat="server" />
     <asp:HiddenField ID="hdnEmailBody" runat="server" />
     <asp:HiddenField ID="hdnSMSBody" runat="server" />
+    <asp:HiddenField ID="hdnDashBoardBody" runat="server" />
+
     <asp:HiddenField ID="hdnCurrentTextEditor" runat="server" />
     
 <script src="../Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
@@ -84,6 +99,9 @@
      }
      function getSMSBody() {
          document.getElementById('<%=hdnSMSBody.ClientID %>').value = document.getElementById('<%=txtSMSBody.ClientID %>').value;
+     }
+     function getDashBoardBody() {
+         document.getElementById('<%=hdnDashBoardBody.ClientID %>').value = document.getElementById('<%=txtDashBoard.ClientID %>').value;
      }
      function SetParameter(id) {
          var x = document.getElementById('<%=hdnCurrentTextEditor.ClientID %>').value;
