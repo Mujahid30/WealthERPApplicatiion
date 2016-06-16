@@ -113,6 +113,15 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::Telerik.Web.UI.RadPageView rpvScroller;
         
         /// <summary>
+        /// Scroller control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Scroller;
+        
+        /// <summary>
         /// RadGrid2 control.
         /// </summary>
         /// <remarks>
@@ -129,6 +138,15 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadPageView rpvDemo;
+        
+        /// <summary>
+        /// Panel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel1;
         
         /// <summary>
         /// RadGrid3 control.

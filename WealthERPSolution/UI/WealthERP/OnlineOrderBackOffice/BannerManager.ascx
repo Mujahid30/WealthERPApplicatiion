@@ -14,6 +14,7 @@
     }
 
 </script>
+ 
 
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
@@ -195,7 +196,7 @@
         </asp:Panel>
     </telerik:RadPageView>
     <telerik:RadPageView ID="rpvScroller" runat="server">
-        <asp:Panel ID="Scroller">
+        <asp:Panel ID="Scroller" runat="server">
             <telerik:RadGrid ID="RadGrid2" runat="server" Skin="Telerik" CssClass="RadGrid" GridLines="None"
                 AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true"
                 AllowAutomaticDeletes="false" AllowAutomaticInserts="false" PageSize="3" OnInsertCommand="RadGrid2_InsertCommand"
@@ -294,7 +295,7 @@
         </asp:Panel>
     </telerik:RadPageView>
     <telerik:RadPageView ID="rpvDemo" runat="server">
-        <asp:Panel ID="Panel1">
+        <asp:Panel ID="Panel1" runat="server">
             <telerik:RadGrid ID="RadGrid3" runat="server" Skin="Telerik" CssClass="RadGrid" GridLines="None"
                 AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true"
                 AllowAutomaticDeletes="false" AllowAutomaticInserts="false" PageSize="3" OnInsertCommand="RadGrid3_InsertCommand"
@@ -653,13 +654,7 @@
                                     Text="Edit/View"></asp:LinkButton>
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
-                      <%--  <telerik:GridTemplateColumn UniqueName="TemplateEditColumnDashBoard" HeaderText="Edit/View DashBoard">
-                            <ItemTemplate>
-                       
-                                    <asp:LinkButton ID="EditLinkDashBoard" Visible='<%# Eval("CTNS_IsDashBoardEnabled") %>' runat="server"
-                                    Text="Edit/View"></asp:LinkButton>  
-                            </ItemTemplate>
-                        </telerik:GridTemplateColumn>--%>
+                     
                          <telerik:GridTemplateColumn UniqueName="TemplateEditColumnDashBoard" HeaderText="Edit/View DashBoard">
                             <ItemTemplate>
                                 <asp:LinkButton ID="EditLinkDashBoard" Visible='<%# Eval("CTNS_IsDashBoardEnabled") %>' runat="server"
@@ -668,11 +663,16 @@
                         </telerik:GridTemplateColumn>
                         <telerik:GridBoundColumn UniqueName="CTNS_CreatedOn" HeaderText="Created On" DataField="CTNS_CreatedOn">
                         </telerik:GridBoundColumn>
-                        <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete this ?"
+                        <%--<telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete this ?"
                             ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
                             Text="Delete" >
                             <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
-                        </telerik:GridButtonColumn>
+                        </telerik:GridButtonColumn>--%>
+                        <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete this Banner?"
+                                        ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                                        Text="Delete">
+                                        <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                                    </telerik:GridButtonColumn>
                     </Columns>
                     <EditFormSettings InsertCaption="Add" FormTableStyle-HorizontalAlign="Center" CaptionFormatString="Edit"
                         FormCaptionStyle-CssClass="TableBackground" PopUpSettings-Modal="true" PopUpSettings-ZIndex="20"

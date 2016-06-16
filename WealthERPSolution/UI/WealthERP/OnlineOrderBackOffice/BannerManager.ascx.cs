@@ -469,7 +469,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void RadGrid1_InsertCommand(object source, GridCommandEventArgs e)
         {
 
-
+            Random ran = new Random();
             GridEditFormInsertItem insertItem = e.Item as GridEditFormInsertItem;
             string fileName = string.Empty;
             string assetGroupCode = ((DropDownList)insertItem.FindControl("ddlAssetGroupName")).SelectedValue;
@@ -484,18 +484,19 @@ namespace WealthERP.OnlineOrderBackOffice
                     Directory.CreateDirectory(uploadFilePath);
                 }
                 fileName = fileUpload.FileName.ToString();
+                fileName = ran.Next().ToString() + "_" + fileName;
                 fileUpload.SaveAs(uploadFilePath + fileName);
+               // fileUpload.SaveAs(uploadFilePath + fileName);
+
+                onlineOrderBackOfficeBo.InsertUpdateDeleteOnBannerDetails(0, assetGroupCode, userVo.UserId, fileName, expireDate, 0);
+                BindBannerDetails();
 
             }
-            onlineOrderBackOfficeBo.InsertUpdateDeleteOnBannerDetails(0, assetGroupCode, userVo.UserId, fileName, expireDate, 0);
-            BindBannerDetails();
-
-
         }
         protected void RadGrid1_UpdateCommand(object source, GridCommandEventArgs e)
         {
 
-
+            Random ran = new Random();
             GridEditableItem editedItem = e.Item as GridEditableItem;
             string fileName = string.Empty;
             int id = Convert.ToInt32(editedItem.OwnerTableView.DataKeyValues[editedItem.ItemIndex]["PBD_Id"].ToString());
@@ -511,9 +512,12 @@ namespace WealthERP.OnlineOrderBackOffice
                     Directory.CreateDirectory(uploadFilePath);
                 }
                 fileName = fileUpload.FileName.ToString();
+                fileName = ran.Next().ToString() + "_" + fileName;
                 fileUpload.SaveAs(uploadFilePath + fileName);
 
             }
+
+           
             onlineOrderBackOfficeBo.InsertUpdateDeleteOnBannerDetails(id, assetGroupCode, userVo.UserId, fileName, expireDate, 0);
 
             BindBannerDetails();
@@ -618,8 +622,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 DataTable dt = new DataTable();
                 dt = (DataTable)Cache["NotificationType" + userVo.UserId.ToString()];
-                 DataRow[] foundRows=dt.Select("CNT_ID="+   NotificationType.SelectedValue);
-                 if (foundRows.Length >0&&foundRows[0]["CNT_Code"].ToString().ToUpper() == "REMINDER")
+                DataRow[] foundRows = dt.Select("CNT_ID=" + NotificationType.SelectedValue);
+                if (foundRows.Length > 0 && foundRows[0]["CNT_Code"].ToString().ToUpper() == "REMINDER")
                 {
                     txtPriorDays.Visible = true;
                     Label7.Visible = true;
@@ -680,7 +684,7 @@ namespace WealthERP.OnlineOrderBackOffice
             headingText = ((TextBox)insertItem.FindControl("txtNotificationHeading")).Text;
             string assetGroupCode = ((DropDownList)insertItem.FindControl("ddlAssetGroupName1")).SelectedValue;
             notificationType = Convert.ToInt32(((DropDownList)insertItem.FindControl("DropDownList1")).SelectedValue);
-            PriorDays = Convert.ToInt32(string.IsNullOrEmpty(((TextBox)insertItem.FindControl("txtPriorDays")).Text)?"0":((TextBox)insertItem.FindControl("txtPriorDays")).Text);
+            PriorDays = Convert.ToInt32(string.IsNullOrEmpty(((TextBox)insertItem.FindControl("txtPriorDays")).Text) ? "0" : ((TextBox)insertItem.FindControl("txtPriorDays")).Text);
 
             string transtypes = string.Empty;
             foreach (ListItem li in ((CheckBoxList)e.Item.FindControl("chkbltranstype")).Items)
@@ -688,7 +692,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (li.Selected == true)
                     transtypes += li.Value + ",";
             }
-            //transtypes += ")";
+            transtypes = transtypes.TrimEnd(',');
 
             isSMSEnabled = ((CheckBox)insertItem.FindControl("chkSMS")).Checked;
             isEMailEnabled = ((CheckBox)insertItem.FindControl("chkEmail")).Checked;
@@ -702,7 +706,8 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             GridDataItem item = e.Item as GridDataItem;
             int id = Convert.ToInt32(item.OwnerTableView.DataKeyValues[item.ItemIndex]["CTNS_Id"].ToString());
-           onlineOrderBackOfficeBo.InsertUpdateDeleteNotificationSetupDetails(id, userVo.UserId, adviserVo.advisorId, string.Empty, 0, string.Empty, string.Empty, 0, false, false,false, false);
+            onlineOrderBackOfficeBo.InsertUpdateDeleteNotificationSetupDetails(id, userVo.UserId, adviserVo.advisorId, string.Empty, 0, string.Empty, string.Empty, 0, false, false, false, false);
+
             //retrive entity form the Db
             BindNotificationSetup();
         }
@@ -804,12 +809,13 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 if (li.Selected == true)
                     transtypes += li.Value + ",";
+
             }
-            //transtypes += ")";
+            transtypes = transtypes.TrimEnd(',');
             bool isSMSEnabled = ((CheckBox)e.Item.FindControl("chkSMS")).Checked;
             bool isEmailEnabled = ((CheckBox)e.Item.FindControl("chkEmail")).Checked;
             bool isDashBoardEnabled = ((CheckBox)e.Item.FindControl("chkDashBoard")).Checked;
-            onlineOrderBackOfficeBo.InsertUpdateDeleteNotificationSetupDetails(id, userVo.UserId, adviserVo.advisorId, assetGroupCode, notificationType, transtypes, headingText, priorDays, isSMSEnabled, isEmailEnabled, isDashBoardEnabled ,  true);
+            onlineOrderBackOfficeBo.InsertUpdateDeleteNotificationSetupDetails(id, userVo.UserId, adviserVo.advisorId, assetGroupCode, notificationType, transtypes, headingText, priorDays, isSMSEnabled, isEmailEnabled, isDashBoardEnabled, true);
             BindNotificationSetup();
         }
         protected void rgNotification_ItemCreated(object sender, GridItemEventArgs e)
@@ -822,7 +828,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 EditLinkSMS.OnClientClick = String.Format("return ShowEditForm('{0}','{1}');", "?setupId=" + e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_Id"] + "&FormatType=SMS", e.Item.ItemIndex);
                 LinkButton EditLinkDashBoard = (LinkButton)e.Item.FindControl("EditLinkDashBoard");
                 EditLinkDashBoard.OnClientClick = String.Format("return ShowEditForm('{0}','{1}');", "?setupId=" + e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_Id"] + "&FormatType=DashBoard", e.Item.ItemIndex);
- 
+
             }
         }
         protected void RadAjaxManager1_AjaxRequest(object sender, AjaxRequestEventArgs e)
