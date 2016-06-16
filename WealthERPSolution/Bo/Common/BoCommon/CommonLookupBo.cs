@@ -612,11 +612,11 @@ namespace BoCommon
                 throw exBase;
             }
         }
-        public void GetSchemeAMCSchemeCategory(int schemePlanCode, out int amcCode, out string category, out string categoryName, out string amcname, out string SchemeplanName)
+        public void GetSchemeAMCSchemeCategory(int schemePlanCode, out int amcCode, out string category, out string categoryName, out string amcname, out string SchemeplanName, out int IsSIPAvaliable, out int IspurchaseAvaliable, out int IsRedeemAvaliable)
         {
             try
             {
-                daoCommonLookup.GetSchemeAMCSchemeCategory(schemePlanCode, out amcCode, out category,out categoryName,out amcname,out SchemeplanName);
+                daoCommonLookup.GetSchemeAMCSchemeCategory(schemePlanCode, out amcCode, out category,out categoryName,out amcname,out SchemeplanName,out  IsSIPAvaliable, out  IspurchaseAvaliable, out  IsRedeemAvaliable);
             }
 
             catch (BaseApplicationException Ex)

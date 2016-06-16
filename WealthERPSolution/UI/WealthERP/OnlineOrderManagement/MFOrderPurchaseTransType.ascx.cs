@@ -48,6 +48,9 @@ namespace WealthERP.OnlineOrderManagement
         string schemeDividendOption;
         string exchangeType = string.Empty;
         int debitstatus = 0;
+        int IsRedeemAvaliable = 0;
+        int IspurchaseAvaliable = 0;
+        int IsSIPAvaliable = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
@@ -88,9 +91,15 @@ namespace WealthERP.OnlineOrderManagement
                         {
                             schemeCode = int.Parse(Session["MFSchemePlan"].ToString());
                             accountId = int.Parse(Request.QueryString["accountId"].ToString());
-                       
-                            //commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category);exchangeType == "online" ? 1 : 0
-                            commonLookupBo.GetSchemeAMCSchemeCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out categoryname, out amcName, out schemeName);
+                            commonLookupBo.GetSchemeAMCSchemeCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out categoryname, out amcName, out schemeName,out  IsSIPAvaliable, out  IspurchaseAvaliable, out  IsRedeemAvaliable);
+                            
+                            if (IspurchaseAvaliable != 1)
+                            {
+                                ViewState["IspurchaseAvaliable"] = IspurchaseAvaliable;
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Purchase is not avaliable');", true); return;
+                            }
+                            else
+                                ViewState["IspurchaseAvaliable"] = IspurchaseAvaliable;
                             lblAmc.Text = amcName;
                             lblCategory.Text = categoryname;
                             lblScheme.Text = schemeName;
@@ -116,7 +125,14 @@ namespace WealthERP.OnlineOrderManagement
                             scheme = int.Parse(Session["MFSchemePlan"].ToString());
 
                             //commonLookupBo.GetSchemeAMCCategory(38122, out amcCode, out category);
-                            commonLookupBo.GetSchemeAMCSchemeCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out categoryname, out amcName, out schemeName);
+                            commonLookupBo.GetSchemeAMCSchemeCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out categoryname, out amcName, out schemeName, out  IsSIPAvaliable, out  IspurchaseAvaliable, out  IsRedeemAvaliable);
+                            if (IspurchaseAvaliable != 1)
+                            {
+                                ViewState["IspurchaseAvaliable"] = IspurchaseAvaliable;
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Purchase is not avaliable');", true); return;
+                            }
+                            else
+                                ViewState["IspurchaseAvaliable"] = IspurchaseAvaliable;
                             BindFolioNumber(int.Parse(Session["MFSchemePlan"].ToString()));
                             lblAmc.Text = amcName;
                             lblScheme.Text = schemeName;
@@ -408,8 +424,13 @@ namespace WealthERP.OnlineOrderManagement
         }
 
         protected void rbConfirm_OK_Click(object sender, EventArgs e)
-        {
-            CreatePurchaseOrderType();
+         {
+            if (ViewState["IspurchaseAvaliable"] != null && int.Parse(ViewState["IspurchaseAvaliable"].ToString()) == 1)
+                CreatePurchaseOrderType();
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Purchase is not avaliable');", true); return;
+            }
         }
 
         private void CreatePurchaseOrderType()

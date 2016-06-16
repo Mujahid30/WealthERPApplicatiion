@@ -984,7 +984,7 @@ namespace DaoCommon
             }
             return dtSchemeDividentType;
         }
-        public void GetSchemeAMCSchemeCategory(int schemePlanCode, out int amcCode, out string category, out string categoryName, out string amcname, out string SchemeplanName)
+        public void GetSchemeAMCSchemeCategory(int schemePlanCode, out int amcCode, out string category, out string categoryName, out string amcname, out string SchemeplanName, out int IsSIPAvaliable, out int IspurchaseAvaliable, out int IsRedeemAvaliable)
         {
             Database db;
             DbCommand cmd;
@@ -993,6 +993,9 @@ namespace DaoCommon
             categoryName = string.Empty;
             amcname = string.Empty;
             SchemeplanName = string.Empty;
+            IsSIPAvaliable = 0;
+            IspurchaseAvaliable = 0;
+            IsRedeemAvaliable = 0;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -1003,6 +1006,9 @@ namespace DaoCommon
                   db.AddOutParameter(cmd, "@categoryName", DbType.String, 1000000);
                 db.AddOutParameter(cmd, "@AMCName", DbType.String, 100000);
                   db.AddOutParameter(cmd, "@SchemeName", DbType.String, 1000000);
+                  db.AddOutParameter(cmd, "@IsSIPAvaliable", DbType.Int32, 1000000);
+                  db.AddOutParameter(cmd, "@IsPurchaseAvaliable", DbType.Int32, 1000000);
+                  db.AddOutParameter(cmd, "@IsRedeemAvaliable", DbType.Int32, 1000000);
                 db.ExecuteNonQuery(cmd);
                 Object objAMCCode = db.GetParameterValue(cmd, "@AMCCode");
                 if (objAMCCode != DBNull.Value)
@@ -1019,6 +1025,15 @@ namespace DaoCommon
                 Object objSchemeplanName = db.GetParameterValue(cmd, "@SchemeName");
                 if (objSchemeplanName != DBNull.Value)
                     SchemeplanName = Convert.ToString(objSchemeplanName);
+                Object objIsSIPAvaliable = db.GetParameterValue(cmd, "@IsSIPAvaliable");
+                if (objIsSIPAvaliable != DBNull.Value)
+                    IsSIPAvaliable = Convert.ToInt32(objIsSIPAvaliable);
+                Object objIsPurchaseAvaliable = db.GetParameterValue(cmd, "@IsPurchaseAvaliable");
+                if (objIsPurchaseAvaliable != DBNull.Value)
+                    IspurchaseAvaliable = Convert.ToInt32(objIsPurchaseAvaliable);
+                Object objIsRedeemAvaliable = db.GetParameterValue(cmd, "@IsRedeemAvaliable");
+                if (objIsRedeemAvaliable != DBNull.Value)
+                    IsRedeemAvaliable = Convert.ToInt32(objIsRedeemAvaliable);
             }
             catch (BaseApplicationException Ex)
             {
