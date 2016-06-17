@@ -105,12 +105,9 @@ namespace WealthERP.OnlineOrderManagement
                             commonLookupBo.GetSchemeAMCSchemeCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out categoryname, out amcName, out schemeName, out  IsSIPAvaliable, out  IspurchaseAvaliable, out  IsRedeemAvaliable);
                             if (IsRedeemAvaliable != 1)
                             {
-                                ViewState["IsRedeemAvaliable"] = IsRedeemAvaliable;
-
-                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Redeem is not avaliable');", true); return;
+                                ShowMessage("Redeem is not available", 'I'); return;
                             }
-                            else
-                                ViewState["IsRedeemAvaliable"] = IsRedeemAvaliable;
+                          
 
                             lblAmc.Text = amcName;
                             lblCategory.Text = categoryname;
@@ -121,16 +118,12 @@ namespace WealthERP.OnlineOrderManagement
                         else
                         {
 
-                            //commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category);
                             commonLookupBo.GetSchemeAMCSchemeCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out categoryname, out amcName, out schemeName, out  IsSIPAvaliable, out  IspurchaseAvaliable, out  IsRedeemAvaliable);
                             if (IsRedeemAvaliable != 1)
                             {
-                                ViewState["IsRedeemAvaliable"] = IsRedeemAvaliable;
+                                ShowMessage("Redeem is not available", 'I'); return;
 
-                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Redeem is not avaliable');", true); return;
                             }
-                            else
-                                ViewState["IsRedeemAvaliable"] = IsRedeemAvaliable;
 
                             lblAmc.Text = amcName;
                             lblCategory.Text = categoryname;
@@ -666,7 +659,8 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void rbConfirm_OK_Click(object sender, EventArgs e)
         {
-            if (ViewState["IsRedeemAvaliable"] != null && int.Parse(ViewState["IsRedeemAvaliable"].ToString()) == 1)
+            commonLookupBo.GetSchemeAMCSchemeCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out categoryname, out amcName, out schemeName, out  IsSIPAvaliable, out  IspurchaseAvaliable, out  IsRedeemAvaliable);
+            if (IsRedeemAvaliable == 1)
                 CreateRedemptionOrderType();
                
             else

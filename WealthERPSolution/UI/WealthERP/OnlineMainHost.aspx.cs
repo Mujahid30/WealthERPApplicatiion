@@ -269,7 +269,8 @@ namespace WealthERP
             Dictionary<string, string> TransactionTypes = onlineOrderBo.GetTransactionTypeForExchange(exchangeType1, SchemetransactType[exchangeType1].ToString());
             if (TransactionTypes.Count > 0)
                 ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromSchemeSearch", "LoadTransactPanel('" + TransactionTypes.Keys.ElementAt(0) + exchangeType + "');", true);
-
+            else
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromSchemeSearch", "LoadTransactPanel('MFOrderPurchaseTransType');", true);
             //Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscripRajiv", @"LoadTransactPanel('MFOrderPurchaseTransType" + ddlchannel.SelectedValue + "');", true);
         }
         protected void TextBox1_OnTextChanged(object sender, EventArgs e)
@@ -300,6 +301,9 @@ namespace WealthERP
                 Dictionary<string, string> TransactionTypes = onlineOrderBo.GetTransactionTypeForExchange(exchangeType1, SchemetransactType[exchangeType1].ToString());
                 if (TransactionTypes.Count > 0)
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromSchemeSearch", "LoadTransactPanel('" + TransactionTypes.Keys.ElementAt(0) + exchangeType + "');", true);
+                else
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromSchemeSearch", "LoadTransactPanel('MFOrderPurchaseTransType');", true);
+
                 TextBox1.Text = "";
             }
         }
@@ -329,6 +333,8 @@ namespace WealthERP
                 Dictionary<string, string> TransactionTypes = onlineOrderBo.GetTransactionTypeForExchange(exchangeType1, SchemetransactType[exchangeType1].ToString());
                 if (TransactionTypes.Count > 0)
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromSchemeSearch", "LoadTransactPanel('" + TransactionTypes.Keys.ElementAt(0) + exchangeType + "');", true);
+                else
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromSchemeSearch", "LoadTransactPanel('MFOrderPurchaseTransType');", true);
                 ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadBottomPanelFromSchemeSearch", "LoadBottomPanelControl('MFSchemeDetails&schemeCode=" + schemeCode.Value + "');", true);
             }
         }
@@ -361,8 +367,7 @@ namespace WealthERP
                     pageName = hdnTransactType.Value;
                 if (TransactionTypes.Count > 0 && TransactionTypes.Keys.Contains(pageName))
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromMainPage", "LoadTransactPanel('" + hdnTransactType.Value + exchangeType + "');", true);
-                else
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromMainPage", "LoadTransactPanel('" + TransactionTypes.Keys.ElementAt(0) + exchangeType + "');", true);
+               
             }
         }
         private void SetProductTypeMenu(string productType)

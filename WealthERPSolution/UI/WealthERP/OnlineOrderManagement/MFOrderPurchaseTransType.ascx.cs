@@ -65,7 +65,7 @@ namespace WealthERP.OnlineOrderManagement
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOnlineSchemeManager')", true);
                 return;
             }
-           
+
             if (Session["ExchangeMode"] != null)
                 exchangeType = Session["ExchangeMode"].ToString();
             else
@@ -81,7 +81,7 @@ namespace WealthERP.OnlineOrderManagement
 
                     lblOption.Visible = false;
                     lblDividendType.Visible = false;
-                    if ((Request.QueryString["accountId"] != null && Request.QueryString["SchemeCode"] != null) || Session["MFSchemePlan"] != null )
+                    if ((Request.QueryString["accountId"] != null && Request.QueryString["SchemeCode"] != null) || Session["MFSchemePlan"] != null)
                     {
                         int accountId = 0;
                         int schemeCode = 0;
@@ -91,15 +91,19 @@ namespace WealthERP.OnlineOrderManagement
                         {
                             schemeCode = int.Parse(Session["MFSchemePlan"].ToString());
                             accountId = int.Parse(Request.QueryString["accountId"].ToString());
-                            commonLookupBo.GetSchemeAMCSchemeCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out categoryname, out amcName, out schemeName,out  IsSIPAvaliable, out  IspurchaseAvaliable, out  IsRedeemAvaliable);
-                            
+                            commonLookupBo.GetSchemeAMCSchemeCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out categoryname, out amcName, out schemeName, out  IsSIPAvaliable, out  IspurchaseAvaliable, out  IsRedeemAvaliable);
+
                             if (IspurchaseAvaliable != 1)
                             {
-                                ViewState["IspurchaseAvaliable"] = IspurchaseAvaliable;
-                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Purchase is not avaliable');", true); return;
+                                ShowMessage("Purchase is not available", 'I');
+                                lblNavDisplay.Text = "";
+                                lblMintxt.Text = "";
+                                lblMulti.Text = "";
+                                lbltime.Text = "";
+                                lblSchemeRatingAsOn.Text = "";
+                                return;
                             }
-                            else
-                                ViewState["IspurchaseAvaliable"] = IspurchaseAvaliable;
+
                             lblAmc.Text = amcName;
                             lblCategory.Text = categoryname;
                             lblScheme.Text = schemeName;
@@ -116,10 +120,10 @@ namespace WealthERP.OnlineOrderManagement
                             //    tdFolio.Visible = true;
                             //else
                             //{
-                                DataSet ds;
-                                ds = onlineMforderBo.GetControlDetails(int.Parse(Session["MFSchemePlan"].ToString()), null, exchangeType == "Online" ? 1 : 0);
-                                lblUnitsheldDisplay.Visible = false;
-                                GetControlDetails(ds);
+                            DataSet ds;
+                            ds = onlineMforderBo.GetControlDetails(int.Parse(Session["MFSchemePlan"].ToString()), null, exchangeType == "Online" ? 1 : 0);
+                            lblUnitsheldDisplay.Visible = false;
+                            GetControlDetails(ds);
 
                             //}
                             scheme = int.Parse(Session["MFSchemePlan"].ToString());
@@ -128,11 +132,9 @@ namespace WealthERP.OnlineOrderManagement
                             commonLookupBo.GetSchemeAMCSchemeCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out categoryname, out amcName, out schemeName, out  IsSIPAvaliable, out  IspurchaseAvaliable, out  IsRedeemAvaliable);
                             if (IspurchaseAvaliable != 1)
                             {
-                                ViewState["IspurchaseAvaliable"] = IspurchaseAvaliable;
-                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Purchase is not avaliable');", true); return;
+                                ShowMessage("Purchase is not available", 'I'); return;
                             }
-                            else
-                                ViewState["IspurchaseAvaliable"] = IspurchaseAvaliable;
+
                             BindFolioNumber(int.Parse(Session["MFSchemePlan"].ToString()));
                             lblAmc.Text = amcName;
                             lblScheme.Text = schemeName;
@@ -424,8 +426,10 @@ namespace WealthERP.OnlineOrderManagement
         }
 
         protected void rbConfirm_OK_Click(object sender, EventArgs e)
-         {
-            if (ViewState["IspurchaseAvaliable"] != null && int.Parse(ViewState["IspurchaseAvaliable"].ToString()) == 1)
+        {
+            commonLookupBo.GetSchemeAMCSchemeCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out categoryname, out amcName, out schemeName, out  IsSIPAvaliable, out  IspurchaseAvaliable, out  IsRedeemAvaliable);
+
+            if (IspurchaseAvaliable == 1)
                 CreatePurchaseOrderType();
             else
             {
@@ -444,7 +448,7 @@ namespace WealthERP.OnlineOrderManagement
             }
             else
                 onlinemforderVo.Amount = 0.0;
-        
+
             onlinemforderVo.DividendType = ddlDivType.SelectedValue;
             if (ddlFolio.SelectedValue != "New" && ddlFolio.SelectedValue != "0")
             {
@@ -540,7 +544,7 @@ namespace WealthERP.OnlineOrderManagement
                 if (availableBalance >= Convert.ToDecimal(onlinemforderVo.Amount))
                 {
                     OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();
-                    message = OnlineMFOrderBo.BSEorderEntryParam(userVo.UserId, customerVo.CustCode, onlinemforderVo, customerVo.CustomerId,dematevo.DepositoryName, out msgType);
+                    message = OnlineMFOrderBo.BSEorderEntryParam(userVo.UserId, customerVo.CustCode, onlinemforderVo, customerVo.CustomerId, dematevo.DepositoryName, out msgType);
                 }
                 else
                 {

@@ -126,12 +126,9 @@ namespace WealthERP.OnlineOrderManagement
                             commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category, out  isSipAvaliable);
                             if (isSipAvaliable != 1)
                             {
-                                ViewState["isSipAvaliable"] = isSipAvaliable;
-
-                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('SIP is not avaliable');", true); return;
+                                ShowMessage("SIP is not available", 'I'); return;
                             }
-                            else
-                                ViewState["isSipAvaliable"] = isSipAvaliable;
+                           
                             OnDrillDownBindControlValue(amcCode, category, accountId, schemeCode);
                             ddlFolio.SelectedValue = accountId.ToString();
                             DataViewOnEdit();
@@ -141,12 +138,9 @@ namespace WealthERP.OnlineOrderManagement
                             commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out  isSipAvaliable);
                             if (isSipAvaliable != 1)
                             {
-                                ViewState["isSipAvaliable"] = isSipAvaliable;
-
-                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('SIP is not avaliable');", true); return;
+                                ShowMessage("SIP is not available", 'I'); return;
                             }
-                            else
-                                ViewState["isSipAvaliable"] = isSipAvaliable;
+                          
                             OnDrillDownBindControlValue(amcCode, category, 0, int.Parse(Session["MFSchemePlan"].ToString()));
                             BindSchemeDividendTypes(int.Parse(Session["MFSchemePlan"].ToString()));
                         }
@@ -444,7 +438,13 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void rbConfirm_OK_Click(object sender, EventArgs e)
         {
-            if (ViewState["isSipAvaliable"] != null && int.Parse(ViewState["isSipAvaliable"].ToString()) == 1)
+            int schemeCode = 0;
+            int amcCode = 0;
+            string category = string.Empty;
+            int isSipAvaliable = 0;
+            commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category, out  isSipAvaliable);
+
+            if (isSipAvaliable == 1)
                 CreateSIPOrder();
             else
             {
