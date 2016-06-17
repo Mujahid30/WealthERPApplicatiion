@@ -1451,8 +1451,8 @@
                    <asp:Panel ID="pnl" runat="server" Width="1010px" ScrollBars="Horizontal">
                         <table id="tableGrid" runat="server" width="100%">
                             <tr>
-                                <td align="center">
-                                    <asp:LinkButton ID="lbkbtnAddChildCodes" Enabled="false" Visible="false"  CssClass="LinkButtons" runat="server"
+                                <td align="left">
+                                    <asp:LinkButton ID="lbkbtnAddChildCodes" Enabled="false" Visible="true"  CssClass="LinkButtons" runat="server"
                                         OnClick="lnkBtnChildCodes_Click">Add Child Codes</asp:LinkButton>
                                     
                                 </td>
