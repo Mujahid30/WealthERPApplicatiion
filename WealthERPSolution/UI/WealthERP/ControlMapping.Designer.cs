@@ -2122,6 +2122,24 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OfflineOrderBackOffice//InsuranceIssueList.ascx.
+        /// </summary>
+        internal static string InsuranceIssueList {
+            get {
+                return ResourceManager.GetString("InsuranceIssueList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OfflineOrderBackOffice//InsuranceIssueSetup.ascx.
+        /// </summary>
+        internal static string InsuranceIssueSetup {
+            get {
+                return ResourceManager.GetString("InsuranceIssueSetup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to General//InterestCalculator.ascx.
         /// </summary>
         internal static string InterestCalculator {

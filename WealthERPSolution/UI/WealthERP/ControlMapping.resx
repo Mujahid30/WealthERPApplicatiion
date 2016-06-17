@@ -2105,4 +2105,12 @@
     <value>FP//ViewFPUtilityUserDetails.ascx</value>
     <comment>FP//ViewFPUtilityUserDetails.ascx</comment>
   </data>
+  <data name="InsuranceIssueList" xml:space="preserve">
+    <value>OfflineOrderBackOffice//InsuranceIssueList.ascx</value>
+    <comment>OfflineOrderBackOffice//InsuranceIssueList.ascx</comment>
+  </data>
+  <data name="InsuranceIssueSetup" xml:space="preserve">
+    <value>OfflineOrderBackOffice//InsuranceIssueSetup.ascx</value>
+    <comment>OfflineOrderBackOffice//InsuranceIssueSetup.ascx</comment>
+  </data>
 </root>
