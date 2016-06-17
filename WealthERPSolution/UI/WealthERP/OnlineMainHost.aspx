@@ -692,19 +692,19 @@
                 <li class="menu_right">
                     <asp:LinkButton ID="LinkButton5" runat="server" OnClick="MenuLink_Click" CommandName="LoadBottomPanelControl('FAQandDemo','?Cat=MF&TYP=Demo');">Demo</asp:LinkButton>
                 </li>
-                <div class="menu_right" style="padding-right: 30px; vertical-align: middle; height: 28px; visibility:hidden;">
+                <div class="menu_right" style="padding-right: 30px; vertical-align: middle; height: 28px; ">
                     <asp:Button ID="btnMode" Text='Go' runat="server" OnClick="btnMode_OnClick"></asp:Button>
                 </div>
-                <div class="menu_right" style="padding-right: 10px; padding-top: 1px; vertical-align: middle; visibility:hidden;">
+                <div class="menu_right" style="padding-right: 10px; padding-top: 1px; vertical-align: middle; ">
                     <asp:DropDownList ID="ddlMode" runat="server" CssClass="form-control input-sm" AutoPostBack="false">
                         <asp:ListItem Text="Online" Value="Online"></asp:ListItem>
                         <asp:ListItem Text="Exchange" Value="Demat"></asp:ListItem>
                     </asp:DropDownList>
                 </div>
-                <div class="menu_right" style="padding-right: 10px; vertical-align: middle; padding-top: 4px; visibility:hidden;">
+                <div class="menu_right" style="padding-right: 10px; vertical-align: middle; padding-top: 4px; ">
                     <asp:Label ID="lblMode" runat="server" Text="Mode:" CssClass="lblMode"></asp:Label>
                 </div>
-                <div class="menu_right" style="padding-right: 10px; vertical-align: middle; padding-top: 6px; visibility:hidden;">
+                <div class="menu_right" style="padding-right: 10px; vertical-align: middle; padding-top: 6px; ">
                   <img  data-toggle="tooltip"  data-placement="bottom" title="Now you can place an order  through Exchange from here , Select Mode:Exchange"
                         src="Images/new_icon.gif" />
                      
