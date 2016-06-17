@@ -588,11 +588,11 @@ namespace BoCommon
         }
 
 
-        public void GetSchemeAMCCategory(int schemePlanCode, out int amcCode, out string category)
+        public void GetSchemeAMCCategory(int schemePlanCode, out int amcCode, out string category, out int isSipAvaliable)
         {
             try
             {
-                daoCommonLookup.GetSchemeAMCCategory(schemePlanCode, out amcCode, out category);
+                daoCommonLookup.GetSchemeAMCCategory(schemePlanCode, out amcCode, out category,out  isSipAvaliable);
             }
 
             catch (BaseApplicationException Ex)

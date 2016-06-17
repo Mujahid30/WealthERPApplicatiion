@@ -49,8 +49,9 @@ namespace WealthERP.OnlineOrderManagement
                     Session["MFSchemePlan"] = Request.QueryString["schemeCode"];
                     int amcCode = 0;
                     string category = string.Empty;
+                    int isSIPAvaliable = 0;
                     BindCategory();
-                    commonLookupBo.GetSchemeAMCCategory(int.Parse(Request.QueryString["schemeCode"].ToString()), out amcCode, out category);
+                    commonLookupBo.GetSchemeAMCCategory(int.Parse(Request.QueryString["schemeCode"].ToString()), out amcCode, out category, out isSIPAvaliable);
                     int schemecode = int.Parse(Request.QueryString["schemeCode"].ToString());
                     ddlAMC.SelectedValue = amcCode.ToString();
                     ddlCategory.SelectedValue = category;

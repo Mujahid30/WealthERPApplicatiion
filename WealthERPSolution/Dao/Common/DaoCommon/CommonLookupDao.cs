@@ -616,12 +616,13 @@ namespace DaoCommon
             return dsGetAllCategoryList;
         }
 
-        public void GetSchemeAMCCategory(int schemePlanCode, out int amcCode, out string category)
+        public void GetSchemeAMCCategory(int schemePlanCode, out int amcCode, out string category, out int isSipAvaliable)
         {
             Database db;
             DbCommand cmd;
             amcCode = 0;
             category = string.Empty;
+            isSipAvaliable = 0;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -629,6 +630,8 @@ namespace DaoCommon
                 db.AddInParameter(cmd, "@SchemePlanCode", DbType.Int32, schemePlanCode);
                 db.AddOutParameter(cmd, "@AMCCode", DbType.Int64, 1000000);
                 db.AddOutParameter(cmd, "@CategoryCode", DbType.String, 100000);
+                db.AddOutParameter(cmd, "@isSipAvaliable", DbType.Int32, 100000);
+
                 db.ExecuteNonQuery(cmd);
                 Object objAMCCode = db.GetParameterValue(cmd, "@AMCCode");
                 if (objAMCCode != DBNull.Value)
@@ -637,7 +640,10 @@ namespace DaoCommon
                 Object objCategory = db.GetParameterValue(cmd, "@CategoryCode");
                 if (objCategory != DBNull.Value)
                     category = Convert.ToString(objCategory);
-
+                Object objisSipAvaliable = db.GetParameterValue(cmd, "@isSipAvaliable");
+                if (objisSipAvaliable != DBNull.Value)
+                    isSipAvaliable = Convert.ToInt32(objisSipAvaliable);
+                
             }
             catch (BaseApplicationException Ex)
             {

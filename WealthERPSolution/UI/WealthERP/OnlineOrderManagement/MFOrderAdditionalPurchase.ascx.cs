@@ -77,17 +77,18 @@ namespace WealthERP.OnlineOrderManagement
                         int schemeCode = 0;
                         int amcCode = 0;
                         string category = string.Empty;
+                        int isSIPAvaliable = 0;
                         if (Request.QueryString["accountId"] != null)
                         {
                             schemeCode = int.Parse(Request.QueryString["SchemeCode"].ToString());
                             accountId = int.Parse(Request.QueryString["accountId"].ToString());
-                            commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category);
+                            commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category, out isSIPAvaliable);
                             SetSelectedDisplay(accountId, schemeCode, amcCode, category);
                             SetControlVisisbility();
                         }
                         else
                         {
-                            commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category);
+                            commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out isSIPAvaliable);
                             SetSelectedDisplay(0, int.Parse(Session["MFSchemePlan"].ToString()), amcCode, category);
                             //amcCode = int.Parse(Request.QueryString["Amc"].ToString());
                             //ddlAmc.SelectedValue = amcCode.ToString();

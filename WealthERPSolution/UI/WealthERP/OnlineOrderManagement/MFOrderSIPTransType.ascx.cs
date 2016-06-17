@@ -118,18 +118,35 @@ namespace WealthERP.OnlineOrderManagement
                         int schemeCode = 0;
                         int amcCode = 0;
                         string category = string.Empty;
+                        int isSipAvaliable = 0;
                         if (Request.QueryString["accountId"] != null)
                         {
                             schemeCode = int.Parse(Session["MFSchemePlan"].ToString());
                             accountId = int.Parse(Request.QueryString["accountId"].ToString());
-                            commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category);
+                            commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category, out  isSipAvaliable);
+                            if (isSipAvaliable != 1)
+                            {
+                                ViewState["isSipAvaliable"] = isSipAvaliable;
+
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('SIP is not avaliable');", true); return;
+                            }
+                            else
+                                ViewState["isSipAvaliable"] = isSipAvaliable;
                             OnDrillDownBindControlValue(amcCode, category, accountId, schemeCode);
                             ddlFolio.SelectedValue = accountId.ToString();
                             DataViewOnEdit();
                         }
                         else
                         {
-                            commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category);
+                            commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out  isSipAvaliable);
+                            if (isSipAvaliable != 1)
+                            {
+                                ViewState["isSipAvaliable"] = isSipAvaliable;
+
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('SIP is not avaliable');", true); return;
+                            }
+                            else
+                                ViewState["isSipAvaliable"] = isSipAvaliable;
                             OnDrillDownBindControlValue(amcCode, category, 0, int.Parse(Session["MFSchemePlan"].ToString()));
                             BindSchemeDividendTypes(int.Parse(Session["MFSchemePlan"].ToString()));
                         }
@@ -427,7 +444,12 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void rbConfirm_OK_Click(object sender, EventArgs e)
         {
-            CreateSIPOrder();
+            if (ViewState["isSipAvaliable"] != null && int.Parse(ViewState["isSipAvaliable"].ToString()) == 1)
+                CreateSIPOrder();
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('SIP is not avaliable');", true); return;
+            }
         }
 
         private void CreateSIPOrder()
@@ -631,7 +653,7 @@ namespace WealthERP.OnlineOrderManagement
             DateTime currentDate = DateTime.Now;
             foreach (DateTime d in dtStartdates)
                 if (d.Date != currentDate.Date)
-                ddlStartDate.Items.Add(new ListItem(d.ToString("dd-MMM-yyyy")));
+                    ddlStartDate.Items.Add(new ListItem(d.ToString("dd-MMM-yyyy")));
             ddlStartDate.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
             //ddlStartDate.Items.Insert(0, new ListItem("--SELECT--"));
             ddlStartDate.SelectedIndex = 0;
@@ -815,9 +837,9 @@ namespace WealthERP.OnlineOrderManagement
             {
                 if (strAction != "Edit")
                     dtgetfolioNo = boOnlineOrder.GetCustomerFolioSchemeWise(customerVo.CustomerId, amcCode, exchangeType == "Online" ? 1 : 0);
-                        //commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(ddlAmc.SelectedValue), customerVo.CustomerId);
+                //commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(ddlAmc.SelectedValue), customerVo.CustomerId);
                 else
-                    dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(onlineMFOrderVo.AssetGroup), customerVo.CustomerId,0);
+                    dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(onlineMFOrderVo.AssetGroup), customerVo.CustomerId, 0);
 
                 if (dtgetfolioNo.Rows.Count > 0)
                 {
@@ -966,7 +988,7 @@ namespace WealthERP.OnlineOrderManagement
                 BindNomineeAndJointHolders();
                 BindSipUiOnSchemeSelectionNew(Convert.ToInt32(ddlScheme.SelectedValue));
                 GetControlDetails(Convert.ToInt32(ddlScheme.SelectedValue), ddlFolio.SelectedValue);
-               
+
                 //ddlFrequency.SelectedIndex = 0;
             }
             else
