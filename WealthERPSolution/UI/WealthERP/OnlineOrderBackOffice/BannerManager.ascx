@@ -663,13 +663,9 @@
                         </telerik:GridTemplateColumn>
                         <telerik:GridBoundColumn UniqueName="CTNS_CreatedOn" HeaderText="Created On" DataField="CTNS_CreatedOn">
                         </telerik:GridBoundColumn>
-                        <%--<telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete this ?"
-                            ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
-                            Text="Delete" >
-                            <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
-                        </telerik:GridButtonColumn>--%>
-                        <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete this Banner?"
-                                        ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                       
+                       <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete this Banner?"
+                                        ConfirmDialogType="Classic" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
                                         Text="Delete">
                                         <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
                                     </telerik:GridButtonColumn>
@@ -764,12 +760,7 @@
                                     <td class="rightField">
                                         <asp:CheckBox ID="chkEmail" runat="server" Checked='<%# Convert.IsDBNull(Eval("CTNS_ISEmailEnabled")) ? false :Convert.ToInt16( Eval("CTNS_ISEmailEnabled"))==1 ? true : false %>' />
                                     </td>
-                                    <%-- <td class="leftField">
-                                        <asp:Label ID="Label5" runat="server" Text="IS DashBoard Enabled:" CssClass="FieldName"></asp:Label>
-                                    </td>
-                                    <td class="rightField">
-                                        <asp:CheckBox ID="chkDashBoard" runat="server" Checked='<%# Convert.IsDBNull(Eval("CTNS_IsDashBoardEnabled")) ? false :Convert.ToInt16( Eval("CTNS_IsDashBoardEnabled"))==1 ? true : false %>' />
-                                    </td>--%>
+                                  
                                      <td class="leftField">
                                         <asp:Label ID="Label5" runat="server" Text="IS DashBoard Enabled:" CssClass="FieldName"></asp:Label>
                                     </td>
