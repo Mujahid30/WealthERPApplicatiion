@@ -1003,7 +1003,7 @@ namespace WealthERP.Receivable
             System.Web.UI.HtmlControls.HtmlTableCell tdlblApplicationNo = new System.Web.UI.HtmlControls.HtmlTableCell();
             System.Web.UI.HtmlControls.HtmlTableCell tdlblClock = new System.Web.UI.HtmlControls.HtmlTableCell();
 
-            
+
             DropDownList ddlIncentiveType = new DropDownList();
             Label lblTransactionType = new Label();
             CheckBoxList chkListTtansactionType = new CheckBoxList();
@@ -1018,8 +1018,8 @@ namespace WealthERP.Receivable
             DropDownList ddlCommissionApplicableLevel = new DropDownList();
             System.Web.UI.HtmlControls.HtmlTableRow trincentive = new System.Web.UI.HtmlControls.HtmlTableRow();
             CheckBox check = new CheckBox();
-            Label lbl =new Label(); 
-            TextBox txtbox =new TextBox();
+            Label lbl = new Label();
+            TextBox txtbox = new TextBox();
             if (ddlCommissionType.NamingContainer is Telerik.Web.UI.GridEditFormItem)
             {
                 GridEditFormItem gdi;
@@ -1140,7 +1140,7 @@ namespace WealthERP.Receivable
                         }
                     }
                 }
-                if (ddlProductType.SelectedValue == "MF" && transtype !="UF")
+                if (ddlProductType.SelectedValue == "MF" && transtype != "UF")
                 {
                     check.Visible = false;
                     txtbox.Visible = false;
@@ -1985,7 +1985,13 @@ namespace WealthERP.Receivable
                 if (!string.IsNullOrEmpty(txtStruRuleComment.Text.Trim()))
                     commissionStructureRuleVo.StructureRuleComment = txtStruRuleComment.Text.Trim();
                 commissionStructureRuleVo.AdviserId = rmVo.AdviserId;
-                commissionStructureRuleVo.IsClawBack = (check.Checked) ? 1 : 0;
+                if (check.Checked)
+                {
+                    commissionStructureRuleVo.IsClawBack = 1;
+                }
+                else
+                    commissionStructureRuleVo.IsClawBack = 0;
+
                 commissionStructureRuleVo.ClawBackAge = (!string.IsNullOrEmpty(txtbox.Text)) ? int.Parse(txtbox.Text) : 0;
             }
             catch (BaseApplicationException Ex)
@@ -2588,7 +2594,7 @@ namespace WealthERP.Receivable
             dr["ACSR_ClawBackAge"] = "0";
             dr["ACSR_IsClaWback"] = 0;
 
-            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "T15" + " " + "UF" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "T15" + " " + "UF" + " " + "Normal";
             dttable.Rows.Add(dr);
             dr = null;
             dr = dttable.NewRow();
@@ -2611,7 +2617,7 @@ namespace WealthERP.Receivable
             dr["CSRD_IsUpdate"] = 0;
             dr["ACSR_ClawBackAge"] = "0";
             dr["ACSR_IsClaWback"] = 0;
-            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "B15" + " " + "UF" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "B15" + " " + "UF" + " " + "Normal";
 
             dttable.Rows.Add(dr);
             dr = null;
@@ -2636,7 +2642,7 @@ namespace WealthERP.Receivable
             dr["CSRD_IsUpdate"] = 0;
             dr["ACSR_ClawBackAge"] = "0";
             dr["ACSR_IsClaWback"] = 0;
-            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "T15" + " " + "Trail" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "T15" + " " + "Trail" + " " + "Normal";
 
             dttable.Rows.Add(dr);
             dr = null;
@@ -2661,7 +2667,7 @@ namespace WealthERP.Receivable
             dr["CSRD_IsUpdate"] = 0;
             dr["ACSR_ClawBackAge"] = "0";
             dr["ACSR_IsClaWback"] = 0;
-            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "B15" + " " + "Trail" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "B15" + " " + "Trail" + " " + "Normal";
 
             dttable.Rows.Add(dr);
             dr = null;
@@ -2686,7 +2692,7 @@ namespace WealthERP.Receivable
             dr["CSRD_IsUpdate"] = 0;
             dr["ACSR_ClawBackAge"] = "0";
             dr["ACSR_IsClaWback"] = 0;
-            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "T15" + " " + "Trail" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "T15" + " " + "Trail" + " " + "Normal";
 
             dttable.Rows.Add(dr);
             dr = null;
@@ -2710,7 +2716,7 @@ namespace WealthERP.Receivable
             dr["CSRD_IsUpdate"] = 0;
             dr["ACSR_ClawBackAge"] = "0";
             dr["ACSR_IsClaWback"] = 0;
-            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "B15" + " " + "Trail" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "B15" + " " + "Trail" + " " + "Normal";
 
             dttable.Rows.Add(dr);
             dr = null;
@@ -2735,7 +2741,7 @@ namespace WealthERP.Receivable
             dr["CSRD_IsUpdate"] = 0;
             dr["ACSR_ClawBackAge"] = "0";
             dr["ACSR_IsClaWback"] = 0;
-            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "T15" + " " + "Trail" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "T15" + " " + "Trail" + " " + "Normal";
 
             dttable.Rows.Add(dr);
             dr = null;
@@ -2760,7 +2766,7 @@ namespace WealthERP.Receivable
             dr["CSRD_IsUpdate"] = 0;
             dr["ACSR_ClawBackAge"] = "0";
             dr["ACSR_IsClaWback"] = 0;
-            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "B15" + " " + "Trail" + " " + "Normal" + " " + DateTime.Now.ToString("dd-MM-yyyy");
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "B15" + " " + "Trail" + " " + "Normal";
 
             dttable.Rows.Add(dr);
 
@@ -2895,7 +2901,7 @@ namespace WealthERP.Receivable
 
         private void BindMappedSchemesToList()
         {
-            lblMappedSchemes.Text = "Schemes available to be mapped";
+            //lblMappedSchemes.Text = "Schemes available to be mapped";
         }
 
         private void BindAvailSchemesToList()
@@ -3003,7 +3009,7 @@ namespace WealthERP.Receivable
 
         protected void rlbMappedSchemes_Transferred(object sender, RadListBoxTransferredEventArgs e)
         {
-            lblMappedSchemes.Text = "Mapped Schemes(" + rlbMappedSchemes.Items.Count.ToString() + ")";
+            //lblMappedSchemes.Text = "Mapped Schemes(" + rlbMappedSchemes.Items.Count.ToString() + ")";
         }
 
         private void MapSchemesToStructure()
@@ -4040,8 +4046,8 @@ namespace WealthERP.Receivable
                 else
                     drRulecreate["CityGroup"] = "1010";
                 drRulecreate["TRXNType"] = "NonSIP";
-                drRulecreate["S_Tax"] = (!string.IsNullOrEmpty(txtServiceTex.Text))? Convert.ToDecimal(txtServiceTex.Text):0;
-                drRulecreate["TDS"] = (!string.IsNullOrEmpty(txtTDSTex.Text))? Convert.ToDecimal(txtTDSTex.Text):0;
+                drRulecreate["S_Tax"] = (!string.IsNullOrEmpty(txtServiceTex.Text)) ? Convert.ToDecimal(txtServiceTex.Text) : 0;
+                drRulecreate["TDS"] = (!string.IsNullOrEmpty(txtTDSTex.Text)) ? Convert.ToDecimal(txtTDSTex.Text) : 0;
                 drRulecreate["MinAmt"] = RadGridStructureRule.MasterTableView.DataKeyValues[radItem.ItemIndex]["ACSR_MinInvestmentAmount"];
                 drRulecreate["MaxAmt"] = RadGridStructureRule.MasterTableView.DataKeyValues[radItem.ItemIndex]["ACSR_MaxInvestmentAmount"];
                 if (minage == "N/A" || minage == "0")
@@ -4053,8 +4059,8 @@ namespace WealthERP.Receivable
                 else
                     drRulecreate["MaxAge"] = MaxAge;
 
-                drRulecreate["Rec"] =(!string.IsNullOrEmpty(txtReceivableValue.Text))? Convert.ToDecimal(txtReceivableValue.Text):0;
-                drRulecreate["Payable"] =(!string.IsNullOrEmpty(txtPaybleValue.Text))? Convert.ToDecimal(txtPaybleValue.Text):0;
+                drRulecreate["Rec"] = (!string.IsNullOrEmpty(txtReceivableValue.Text)) ? Convert.ToDecimal(txtReceivableValue.Text) : 0;
+                drRulecreate["Payable"] = (!string.IsNullOrEmpty(txtPaybleValue.Text)) ? Convert.ToDecimal(txtPaybleValue.Text) : 0;
                 drRulecreate["BrokerageUnit"] = ddlBrokrageUnit.SelectedValue;
                 drRulecreate["ValidationFrom"] = Convert.ToDateTime(txtValidityFrom.Text);
                 drRulecreate["ValidationTo"] = Convert.ToDateTime(txtValidityTo.Text);
@@ -4098,7 +4104,7 @@ namespace WealthERP.Receivable
 
             ViewState["ruleid"] = ViewState["ruleid"] + ruleid.ToString() + ",";
             result = commisionReceivableBo.UpdateRuleRateandTax(ruleid, (txtServiceTex.Text == "") ? 0 : Convert.ToDecimal(txtServiceTex.Text),
-                (txtTDSTex.Text == "" )? 0 : Convert.ToDecimal(txtTDSTex.Text), (txtReceivableValue.Text == "") ? 0 : Convert.ToDecimal(txtReceivableValue.Text), (txtPaybleValue.Text == "") ? 0 : Convert.ToDecimal(txtPaybleValue.Text), ddlBrokrageUnit.SelectedValue, userVo.UserId,(check.Checked) ? 1 : 0,(!string.IsNullOrEmpty(txtbox.Text)) ? int.Parse(txtbox.Text) : 0);
+                (txtTDSTex.Text == "") ? 0 : Convert.ToDecimal(txtTDSTex.Text), (txtReceivableValue.Text == "") ? 0 : Convert.ToDecimal(txtReceivableValue.Text), (txtPaybleValue.Text == "") ? 0 : Convert.ToDecimal(txtPaybleValue.Text), ddlBrokrageUnit.SelectedValue, userVo.UserId, (check.Checked) ? 1 : 0, (!string.IsNullOrEmpty(txtbox.Text)) ? int.Parse(txtbox.Text) : 0);
             if (result == true)
                 BindCommissionStructureRuleGrid(int.Parse(hidCommissionStructureName.Value));
 
@@ -4143,6 +4149,7 @@ namespace WealthERP.Receivable
             Label lnkEdit = (Label)gvr.FindControl("lblClock");
             TextBox txtbox = (TextBox)gvr.FindControl("txtAge");
             System.Web.UI.HtmlControls.HtmlTableCell tdlblClock = (System.Web.UI.HtmlControls.HtmlTableCell)gvr.FindControl("tdlblClock");
+            RequiredFieldValidator RequiredFieldValidator15 = (RequiredFieldValidator)gvr.FindControl("RequiredFieldValidator15");
 
             if (chk.Checked == true)
             {
@@ -4150,13 +4157,15 @@ namespace WealthERP.Receivable
                 lnkEdit.Visible = true;
                 txtbox.Visible = true;
                 tdlblClock.Visible = true;
+                RequiredFieldValidator15.Visible = true;
             }
             else
             {
                 tdlblClock.Visible = false;
-                check.Visible = false;
+                check.Visible = true;
                 lnkEdit.Visible = false;
                 txtbox.Visible = false;
+                RequiredFieldValidator15.Visible = false;
             }
         }
         protected void ChkIsclowBack_OnCheckedChanged(object sender, EventArgs e)

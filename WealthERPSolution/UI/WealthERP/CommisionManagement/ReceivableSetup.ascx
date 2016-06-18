@@ -651,7 +651,7 @@
                     </td>
                     <td class="rightDataThreeColumn" colspan="3">
                         <asp:CheckBox ID="chkHasClawBackOption" Text="" runat="server" Visible="false" />
-                        <asp:Label ID="lblHasClawBackOption" runat="server" Text="Has claw back option" CssClass="txtField"
+                        <asp:Label ID="lblHasClawBackOption" runat="server" Text="Has clawback option" CssClass="txtField"
                             Visible="false"></asp:Label>
                         <asp:CheckBox ID="chkMoneytaryReward" Text="" runat="server" />
                         <asp:Label ID="Label1" runat="server" Text="Is non moneytary reward" CssClass="txtField"></asp:Label>
@@ -783,48 +783,34 @@
                 <table width="100%" style="clear: both" runat="server" id="tbSchemeButton">
                     <tr>
                         <td class="leftLabel">
-                            <asp:Label ID="lblIssuer" runat="server" Text="Issuer :" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="lblIssuer" runat="server" Text="Issuer:" CssClass="FieldName"></asp:Label>
                         </td>
-                        <td class="rightData">
+                        <td style="width: 24%">
                             <asp:DropDownList ID="ddlIssuer" runat="server" CssClass="cmbLongField">
                             </asp:DropDownList>
                             <span id="Span6" class="spnRequiredField">*</span>
                             <br />
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please Select Issuer"
-                                CssClass="rfvPCG" ControlToValidate="ddlIssuer" ValidationGroup="btnscheme" Display="Dynamic"
+                                CssClass="rfvPCG" ControlToValidate="ddlIssuer" ValidationGroup="btnScheme_Go" Display="Dynamic"
                                 InitialValue="0"></asp:RequiredFieldValidator>
                         </td>
                         <td class="leftLabel">
-                            <asp:Label ID="lblPeriodStart" runat="server" CssClass="FieldName" Text="Category:"></asp:Label>
+                            <asp:Label ID="lblPeriodStart" runat="server" Style="text-align: right" CssClass="FieldName"
+                                Text="Category:"></asp:Label>
+                                
                         </td>
                         <td>
                             <asp:DropDownList ID="ddlMFCategory" runat="server" CssClass="cmbField">
                             </asp:DropDownList>
-                        </td>
-                        <td>
+                              <span id="Span20" class="spnRequiredField">*</span>
+                            <br />
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator16" runat="server" ErrorMessage="Select Category"
+                                CssClass="rfvPCG" ControlToValidate="ddlMFCategory" ValidationGroup="btnScheme_Go" Display="Dynamic"
+                                InitialValue="0" ></asp:RequiredFieldValidator>
                         </td>
                         <td class="rightData">
-                        </td>
-                        <td class="leftLabel">
-                            <asp:Button ID="btn_GetAvailableSchemes" runat="server" Text="Schemes" CssClass="PCGButton"
-                                OnClick="btn_GetAvailableSchemes_Click" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td>
-                            &nbsp;
+                            <asp:Button ID="btn_GetAvailableSchemes" runat="server" Text="Go" CssClass="PCGButton"
+                                OnClick="btn_GetAvailableSchemes_Click" ValidationGroup="btnScheme_Go"/>
                         </td>
                     </tr>
                 </table>
@@ -833,31 +819,11 @@
                         <td>
                             &nbsp;
                         </td>
-                        <td class="rightData">
-                            <%-- <asp:Label ID="lblAvailableSchemes" runat="server" Text="Available Schemes" CssClass="FieldName"></asp:Label>
-                        --%>
-                        </td>
-                        <td class="rightData">
-                            <asp:Label ID="lblMappedSchemes" runat="server" Text="Mapped Schemes" CssClass="FieldName"></asp:Label>
-                        </td>
                         <td>
-                            &nbsp;
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td>
-                            <label class="FieldName">
-                                Search Scheme:</label>
-                            <asp:TextBox ID="TextBox1" runat="server" Width="310px" onkeyup="return SearchList();"></asp:TextBox>
+                            <asp:TextBox ID="TextBox1" runat="server" Width="412px" onkeyup="return SearchList();"></asp:TextBox>
+                            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="TextBox1"
+                                WatermarkText="Search Scheme">
+                            </cc1:TextBoxWatermarkExtender>
                         </td>
                     </tr>
                     <tr>
@@ -876,26 +842,6 @@
                             <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" SelectionMode="Multiple"
                                 ID="rlbMappedSchemes" Height="200px" Width="450px" CssClass="cmbFielde">
                             </telerik:RadListBox>
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td>
-                            &nbsp;
                         </td>
                         <td>
                             &nbsp;
@@ -1223,13 +1169,14 @@
                                                 </asp:DropDownList>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
-                                         <telerik:GridTemplateColumn UniqueName="ACSR_IsClaWback" HeaderText="IsClowBack"
+                                        <telerik:GridTemplateColumn UniqueName="ACSR_IsClaWback" HeaderText="IsClawBack"
                                             DataField="ACSR_IsClaWback" HeaderStyle-Width="50px">
                                             <ItemTemplate>
-                                            <asp:CheckBox ID="ChkIsclowBack" runat="server" AutoPostBack="true" CssClass="cmbFielde" OnCheckedChanged="ChkIsclowBack_OnCheckedChanged" Checked='<%# (Eval("ACSR_IsClaWback").ToString() == "1" ? true : false) %>'/>
+                                                <asp:CheckBox ID="ChkIsclowBack" runat="server" AutoPostBack="true" CssClass="cmbFielde"
+                                                    OnCheckedChanged="ChkIsclowBack_OnCheckedChanged" Checked='<%# (Eval("ACSR_IsClaWback").ToString() == "1" ? true : false) %>' />
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
-                                         <telerik:GridTemplateColumn UniqueName="ACSR_ClawBackAge" HeaderText="ClawBackAge"
+                                        <telerik:GridTemplateColumn UniqueName="ACSR_ClawBackAge" HeaderText="ClawBack Age(Days)"
                                             DataField="ACSR_ClawBackAge" HeaderStyle-Width="50px">
                                             <ItemTemplate>
                                                 <asp:TextBox ID="txtClawBackAge" runat="server" Enabled="false" Width="50px" Text='<%#Eval("ACSR_ClawBackAge")%>'></asp:TextBox>
@@ -1373,16 +1320,16 @@
                                                             InitialValue="0" />
                                                     </td>
                                                     <td>
-                                                        <asp:CheckBox ID="chkCloBack" runat="server" CssClass="cmbFielde" Visible="false" Text="IsClawback" AutoPostBack="true" OnCheckedChanged="chkCloBack_OnCheckedChanged" />
+                                                        <asp:CheckBox ID="chkCloBack" runat="server" CssClass="cmbFielde" Visible="false"
+                                                            Text="IsClawback" AutoPostBack="true" OnCheckedChanged="chkCloBack_OnCheckedChanged" />
                                                     </td>
-                                                    <td id="tdlblClock" runat="server">
-                                                        <asp:Label ID="lblClock" runat="server" CssClass="FieldName" Text="Age:" Visible="false"></asp:Label>
+                                                    <td id="tdlblClock" runat="server" visible="false">
+                                                        <asp:Label ID="lblClock" runat="server" CssClass="FieldName" Text="Age(Days):" Visible="false"></asp:Label>
                                                         <asp:TextBox ID="txtAge" runat="server" Visible="false"></asp:TextBox>
-                                                         <span id="Span9" class="spnRequiredField">*</span>
+                                                        <span id="Span9" class="spnRequiredField">*</span>
                                                         <br />
-                                                          <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator15" ValidationGroup="btnSubmitRule"
-                                                            Display="Dynamic" ControlToValidate="txtAge" ErrorMessage="<br />Enter Age"
-                                                            Text="" />
+                                                        <asp:RequiredFieldValidator Visible="false" runat="server" ID="RequiredFieldValidator15" ValidationGroup="btnSubmitRule"
+                                                            Display="Dynamic" ControlToValidate="txtAge" ErrorMessage="<br />Enter Age" Text="" />
                                                     </td>
                                                 </tr>
                                                 <tr>
