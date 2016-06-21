@@ -7192,5 +7192,92 @@ namespace DaoCustomerProfiling
             return returnValue;
         }
 
+        public DataTable GetCategoryNames(string prefixText, int adviserId)
+        {
+
+            Database db;
+            DbCommand cmdGetCategoryNames;
+            DataSet dsCategoryNames;
+            DataTable dtCategoryNames;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetCategoryNames = db.GetStoredProcCommand("SP_GetCategoryNames");
+                db.AddInParameter(cmdGetCategoryNames, "@prefixText", DbType.String, prefixText);
+                db.AddInParameter(cmdGetCategoryNames, "@A_AdviserId", DbType.Int32, adviserId);
+                dsCategoryNames = db.ExecuteDataSet(cmdGetCategoryNames);
+                dtCategoryNames = dsCategoryNames.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetAllCustomerName()");
+
+
+                object[] objects = new object[1];
+
+                objects[0] = prefixText;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtCategoryNames;
+        }
+
+        public DataTable CustomerCategoryList(String categoryIds)
+        {
+            Database db;
+            DbCommand cmdCustomerCategoryList;
+            DataSet dsCustomerCategoryList;
+            DataTable dtCustomerCategoryList;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdCustomerCategoryList = db.GetStoredProcCommand("SP_CustomerCategoryList");
+                //db.AddInParameter(cmdCustomerCategoryList, "@customerId", DbType.Int32,customerId );
+                db.AddInParameter(cmdCustomerCategoryList, "@C_Cateids", DbType.String, categoryIds);
+                dsCustomerCategoryList = db.ExecuteDataSet(cmdCustomerCategoryList);
+                dtCustomerCategoryList = dsCustomerCategoryList.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:CustomerCategoryList()");
+
+
+                object[] objects = new object[1];
+
+                //objects[0] = prefixText;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtCustomerCategoryList;
+        }
+
     }
 }

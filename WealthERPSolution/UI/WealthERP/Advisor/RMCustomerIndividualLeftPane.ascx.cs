@@ -348,9 +348,9 @@ namespace WealthERP.Advisor
                     }
                     else if (IsDashboard == "MFAssets")
                     {
-                        RadPanelBar1.FindItemByValue("Portfolio Dashboard").Expanded = true;
-                        RadPanelBar1.FindItemByValue("MF").Selected = true;
-                        RadPanelBar1.FindItemByValue("MF").Expanded = true;
+                        //RadPanelBar1.FindItemByValue("Portfolio Dashboard").Expanded = true;
+                        //RadPanelBar1.FindItemByValue("MF").Selected = true;
+                        //RadPanelBar1.FindItemByValue("MF").Expanded = true;
                         //Session["IsDashboard"] = "false";
                     }
                     else if (IsDashboard == "FixedIncome")
@@ -491,7 +491,7 @@ namespace WealthERP.Advisor
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('RMCustomerIndividualLeftPane');", true);
                     if (Session["NodeType"] == "M_F")
                     {
-                        RadPanelBar1.FindItemByValue("Portfolio Dashboard").Expanded = true;
+                     //   RadPanelBar1.FindItemByValue("Portfolio Dashboard").Expanded = true;
                         RadPanelBar1.FindItemByValue("M_F").Expanded = true;
                         RadPanelBar1.FindItemByValue("M_F").Selected = true;
 

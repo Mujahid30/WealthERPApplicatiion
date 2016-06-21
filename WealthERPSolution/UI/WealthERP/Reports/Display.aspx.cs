@@ -4487,6 +4487,7 @@ namespace WealthERP.Reports
             {
 
                 fromDate = Convert.ToDateTime(Request.Form[ctrlPrefix + "txtFromDate"]);
+               
                 toDate = Convert.ToDateTime(Request.Form[ctrlPrefix + "txtToDate"]);
             }
             else if (Request.Form["ctrl_MFReports$hidDateType"] == "PERIOD" || Request.Form["ctrl_EquityReports$hidDateType"] == "PERIOD")

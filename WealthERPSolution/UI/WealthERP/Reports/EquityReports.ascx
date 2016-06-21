@@ -625,7 +625,7 @@
                                     <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName">From:</asp:Label>
                                     &nbsp;
                                     <asp:TextBox ID="txtFromDate" runat="server" OnTextChanged="ChckBussFromDate_Textchanged"
-                                        AutoPostBack="true" CssClass="txtField"></asp:TextBox>
+                                        AutoPostBack="true" CssClass="txtField"  ></asp:TextBox>
                                     <ajaxToolkit:CalendarExtender ID="txtFromDate_CalendarExtender" runat="server" TargetControlID="txtFromDate"
                                         Format="dd/MM/yyyy">
                                     </ajaxToolkit:CalendarExtender>

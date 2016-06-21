@@ -3975,6 +3975,77 @@ namespace BoCustomerProfiling
             }
             return result;
         }
+
+
+
+        public DataTable GetCategoryNames(string prefixText, int adviserId)
+        {
+            CustomerDao customerDao = new CustomerDao();
+
+            DataTable dtCategoryNames = new DataTable();
+            try
+            {
+                dtCategoryNames = customerDao.GetCategoryNames(prefixText, adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetCategoryNames()");
+
+
+                object[] objects = new object[0];
+                objects[0] = prefixText;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtCategoryNames;
+        }
+
+
+        public DataTable CustomerCategoryList(string categoryIds)
+        {
+            CustomerDao customerDao = new CustomerDao();
+
+            DataTable dtCategoryNames = new DataTable();
+            try
+            {
+                dtCategoryNames = customerDao.CustomerCategoryList(categoryIds);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:CustomerCategoryList()");
+
+
+                object[] objects = new object[0];
+                //objects[0] = prefixText;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtCategoryNames;
+        }
+
+
     }
 
 }

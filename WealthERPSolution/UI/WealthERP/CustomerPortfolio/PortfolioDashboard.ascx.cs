@@ -83,6 +83,8 @@ namespace WealthERP.CustomerPortfolio
                     BindPortfolioDropDown();
 
                 }
+                
+
             }
             catch (BaseApplicationException Ex)
             {

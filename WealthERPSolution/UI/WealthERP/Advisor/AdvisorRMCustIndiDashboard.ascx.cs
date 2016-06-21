@@ -808,9 +808,12 @@ namespace WealthERP.Advisor
                 else
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewEquityPortfolios','none');", true);
             }
+
+           
             else 
             {
                 Session["IsDashboard"] = "LiabilitiesView";
+
                 if (Session["S_CurrentUserRole"] == "Customer")
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('LiabilityView','none');", true);
                 else

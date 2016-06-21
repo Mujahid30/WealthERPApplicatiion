@@ -118,8 +118,8 @@ namespace WealthERP.Reports
                     DataSet ds = customerTransactionBo.GetLastTradeDate();
                     if (ds.Tables != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0 && ds.Tables[0].Rows[0]["WTD_Date"] != null)
                         txtAsOnDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
-                    txtFromDate.Text = DateTime.Now.AddMonths(-1).ToString("MM/dd/yyyy");
-                    txtToDate.Text = DateTime.Now.ToString("MM/dd/yyyy");
+                    txtFromDate.Text = DateTime.Now.AddMonths(-1).ToString();
+                    txtToDate.Text = DateTime.Now.ToString();
                     if (CustomerLogin == true)
                     {
                         trCustomerGrHead.Visible = true;
