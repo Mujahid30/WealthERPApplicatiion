@@ -306,7 +306,7 @@
             <asp:DropDownList ID="ddlAlltmntTyp" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlAlltmntTyp_OnSelectedIndexChanged" Visible="false">
                 <asp:ListItem Selected="True" Value="Select">--SELECT--</asp:ListItem>
-                <asp:ListItem Value="WSR" Text="Advance" Enabled="false"></asp:ListItem>
+                <asp:ListItem Value="WSR" Text="Advance" ></asp:ListItem>
                 <asp:ListItem Value="R1" Text="Basic"></asp:ListItem>
             </asp:DropDownList>
             <br />

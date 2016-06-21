@@ -1681,7 +1681,7 @@ namespace BoOnlineOrderManagement
         {
             if (onlineNCDBackOfficeDao == null) onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
 
-            DataTable dtHeaderMap = onlineNCDBackOfficeDao.GetHeaderMapping(fileTypeId, extSource);
+             DataTable dtHeaderMap = onlineNCDBackOfficeDao.GetHeaderMapping(fileTypeId, extSource);
             if (dtHeaderMap.Rows.Count <= 0) return null;
 
             List<OnlineIssueHeader> fileHeaderList = new List<OnlineIssueHeader>();
@@ -1880,7 +1880,7 @@ namespace BoOnlineOrderManagement
             }
             return result;
         }
-        public DataTable UploadAllotmentFile(DataTable dtCheckOrder, int fileTypeId, int issueId, ref string isEligbleIssue, int adviserid, string source, ref string result, string product, string filePath, int userId, int isOnline, string SubCategoryCode, ref int totalOrders, ref int rejectedOrders, ref int acceptedOrders,int ProcessIds)
+        public DataTable UploadAllotmentFile(DataTable dtCheckOrder, int fileTypeId, int issueId, ref string isEligbleIssue, int adviserid, string source, ref string result, string product, string filePath, int userId, int isOnline, string SubCategoryCode, ref int totalOrders, ref int rejectedOrders, ref int acceptedOrders, int ProcessIds, int RegisterType)
         {
             DataTable dtUploadAllotment = new DataTable();
             try
@@ -1897,7 +1897,7 @@ namespace BoOnlineOrderManagement
                     result = "1";
                 }
                 if (result != string.Empty && result != "0")
-                    dtUploadAllotment = daoOnlNcdBackOff.UploadAllotmentIssueDataDynamic(dtCheckOrder, issueId, ref  result, product, filePath, userId, isOnline, SubCategoryCode, ref  totalOrders, ref  rejectedOrders, ref  acceptedOrders, ProcessIds);
+                    dtUploadAllotment = daoOnlNcdBackOff.UploadAllotmentIssueDataDynamic(dtCheckOrder, issueId, ref  result, product, filePath, userId, isOnline, SubCategoryCode, ref  totalOrders, ref  rejectedOrders, ref  acceptedOrders, ProcessIds, RegisterType);
                 else
                 {
                     result = "Pls Fill Allotment Date";

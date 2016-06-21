@@ -2514,7 +2514,7 @@ namespace DaoOnlineOrderManagement
             }
             return result;
         }
-        public DataTable UploadAllotmentIssueDataDynamic(DataTable dtData, int issueId, ref string isValidated, string product, string filePath, int userId, int isOnline, string subCategoryCode,ref int totalOrders,ref int rejectedOrders,ref int acceptedOrders,int processIds)
+        public DataTable UploadAllotmentIssueDataDynamic(DataTable dtData, int issueId, ref string isValidated, string product, string filePath, int userId, int isOnline, string subCategoryCode, ref int totalOrders, ref int rejectedOrders, ref int acceptedOrders, int processIds, int RegisterType)
         {
             int result = 0;
             UploadData(dtData);
@@ -2535,6 +2535,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmdAllotmentUpload, "@IsOnline", DbType.String, isOnline);
                 db.AddInParameter(cmdAllotmentUpload, "@subCategoryCode", DbType.String, subCategoryCode);
                 db.AddInParameter(cmdAllotmentUpload, "@processIds", DbType.Int32, processIds);
+                db.AddInParameter(cmdAllotmentUpload, "@registerType", DbType.Int32, RegisterType);
                 db.AddOutParameter(cmdAllotmentUpload, "@TotalOrders", DbType.Int32, 0);
                 db.AddOutParameter(cmdAllotmentUpload, "@RejectedOrders", DbType.Int32, 0);
                 db.AddOutParameter(cmdAllotmentUpload, "@AcceptedOrders", DbType.Int32, 0);
