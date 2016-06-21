@@ -55,7 +55,10 @@ namespace WealthERP.OnlineOrderManagement
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOnlineSchemeManager')", true);
                 return;
             }
-
+            if (Session["ExchangeMode"] != null)
+                exchangeType = Session["ExchangeMode"].ToString();
+            else
+                exchangeType = "Online";
             if (!IsPostBack)
             {
                 clientMFAccessCode = onlineMforderBo.GetClientMFAccessStatus(customerVo.CustomerId);
@@ -68,10 +71,7 @@ namespace WealthERP.OnlineOrderManagement
                     lblDividendType.Visible = false;
                     if (Session["MFSchemePlan"] != null)
                     {
-                        if (Request.QueryString["exchangeType"] == null)
-                            exchangeType = "online";
-                        else
-                            exchangeType = Request.QueryString["exchangeType"].ToString();
+                      
                         ddlScheme.SelectedValue = Session["MFSchemePlan"].ToString();
                         if( ddlScheme.SelectedValue !="")
                         lblScheme.Text = ddlScheme.SelectedItem.Text;
@@ -325,7 +325,11 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void rbConfirm_OK_Click(object sender, EventArgs e)
         {
+            if(exchangeType =="Online")
             CreateNFOOrderType();
+            else
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('NFO is not avaliable for Exchange');", true); return;
+
         }
 
         private void CreateNFOOrderType()

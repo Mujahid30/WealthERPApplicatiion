@@ -987,8 +987,8 @@ namespace WealthERP.OnlineOrderManagement
             }
             else
             {
-                BindSipUiOnSchemeSelectionNew(Convert.ToInt32(ddlScheme.SelectedValue));
                 ddlFrequency.SelectedValue = "0";
+                BindSipUiOnSchemeSelectionNew(Convert.ToInt32(ddlScheme.SelectedValue));
                 GetControlDetails(Convert.ToInt32(ddlScheme.SelectedValue), null);
             }
         }
