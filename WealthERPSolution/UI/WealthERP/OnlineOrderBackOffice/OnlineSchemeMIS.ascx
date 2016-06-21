@@ -31,8 +31,8 @@
             <asp:Label ID="lblproduct" CssClass="FieldName" runat="server" Text="Product:" valign="top"></asp:Label>
         </td>
         <td style="width: 10%;">
-            <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" OnSelectedIndexChanged="Onselectedindex_select"
-                AutoPostBack="false" Enabled="false">
+            <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" AutoPostBack="false"
+                Enabled="false">
                 <Items>
                     <asp:ListItem Text="Select" Value="Select" Selected="false" />
                     <asp:ListItem Text="Mutual Funds" Value="MF" Selected="True" />
@@ -47,7 +47,8 @@
             <asp:Label ID="lblTosee" CssClass="FieldName" runat="server" Text="Do You Wish To See:"></asp:Label>
         </td>
         <td id="tdtosee" runat="server" style="width: 10%;">
-            <asp:DropDownList ID="ddlTosee" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlTosee" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlTosee_OnSelectedIndexChanged"
+                AutoPostBack="true">
                 <Items>
                     <asp:ListItem Text="Both" Value="2" />
                     <asp:ListItem Text="Online Scheme" Value="1" Selected="True" />
@@ -56,10 +57,19 @@
                 </Items>
             </asp:DropDownList>
         </td>
-        <td style="width: 8%;" align="right">
+        <td style="width: 20%;" id="tdMode" runat="server">
+            <label class="FieldName" style="width: 4%; margin-left: 25px">
+                Mode:</label>
+            <asp:DropDownList ID="ddlMode" CssClass="cmbField" runat="server">
+                <asp:ListItem Text="Select" Value="2"></asp:ListItem>
+                <asp:ListItem Selected="True" Text="Online" Value="1"></asp:ListItem>
+                <asp:ListItem Text="Demat" Value="0"></asp:ListItem>
+            </asp:DropDownList>
+        </td>
+        <td style="width: 5%;" align="right">
             <asp:Label ID="lblstatus" CssClass="FieldName" runat="server" Text="Status:"> </asp:Label>
         </td>
-        <td style="width: 15%;">
+        <td style="width: 10%;">
             <asp:DropDownList ID="ddlststus" runat="server" CssClass="cmbField" AutoPostBack="true">
                 <Items>
                     <%--    <asp:ListItem Text="Both" Value="All" />--%>
@@ -71,15 +81,7 @@
                 </Items>
             </asp:DropDownList>
         </td>
-        <td>
-            <label class="FieldName">
-                Mode:</label>
-            <asp:DropDownList ID="ddlMode" CssClass="cmbField" runat="server">
-                <asp:ListItem Selected="True" Text="Online" Value="1"></asp:ListItem>
-                <asp:ListItem Text="Demat" Value="0"></asp:ListItem>
-            </asp:DropDownList>
-        </td>
-        <td align="left">
+        <td align="left" style="margin-left: 15px">
             <asp:Button ID="btngo" runat="server" Text="Go" CssClass="PCGMediumButton" OnClick="btngo_Click"
                 ValidationGroup="OnlineMis" />
         </td>

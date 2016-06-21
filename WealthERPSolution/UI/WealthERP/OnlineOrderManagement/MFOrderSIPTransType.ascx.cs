@@ -81,16 +81,11 @@ namespace WealthERP.OnlineOrderManagement
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadTransactPanel('MFOnlineSchemeManager')", true);
                 return;
             }
-            if (Request.QueryString["exchangeType"] == null)
-            {
-                exchangeType = "Online";
 
-            }
+            if (Session["ExchangeMode"] != null)
+                exchangeType = Session["ExchangeMode"].ToString();
             else
-            {
-                exchangeType = Request.QueryString["exchangeType"].ToString();
-
-            }
+                exchangeType = "Online";
             if (custPortVo == null)
             {
                 custPortVo = portfolioBo.GetCustomerDefaultPortfolio(customerVo.CustomerId);
@@ -123,7 +118,7 @@ namespace WealthERP.OnlineOrderManagement
                         {
                             schemeCode = int.Parse(Session["MFSchemePlan"].ToString());
                             accountId = int.Parse(Request.QueryString["accountId"].ToString());
-                            commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category, out  isSipAvaliable);
+                            commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category, out  isSipAvaliable, exchangeType == "Online" ? 1 : 0);
                             if (isSipAvaliable != 1)
                             {
                                 ShowMessage("SIP is not available", 'I'); return;
@@ -135,7 +130,7 @@ namespace WealthERP.OnlineOrderManagement
                         }
                         else
                         {
-                            commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out  isSipAvaliable);
+                            commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out  isSipAvaliable, exchangeType == "Online" ? 1 : 0);
                             if (isSipAvaliable != 1)
                             {
                                 ShowMessage("SIP is not available", 'I'); return;
@@ -438,11 +433,10 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void rbConfirm_OK_Click(object sender, EventArgs e)
         {
-            int schemeCode = 0;
             int amcCode = 0;
             string category = string.Empty;
             int isSipAvaliable = 0;
-            commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category, out  isSipAvaliable);
+            commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out  isSipAvaliable, exchangeType == "Online" ? 1 : 0);
 
             if (isSipAvaliable == 1)
                 CreateSIPOrder();
@@ -994,7 +988,7 @@ namespace WealthERP.OnlineOrderManagement
             else
             {
                 BindSipUiOnSchemeSelectionNew(Convert.ToInt32(ddlScheme.SelectedValue));
-
+                ddlFrequency.SelectedValue = "0";
                 GetControlDetails(Convert.ToInt32(ddlScheme.SelectedValue), null);
             }
         }

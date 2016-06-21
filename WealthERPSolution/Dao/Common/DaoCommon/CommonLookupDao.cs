@@ -616,7 +616,7 @@ namespace DaoCommon
             return dsGetAllCategoryList;
         }
 
-        public void GetSchemeAMCCategory(int schemePlanCode, out int amcCode, out string category, out int isSipAvaliable)
+        public void GetSchemeAMCCategory(int schemePlanCode, out int amcCode, out string category, out int isSipAvaliable,int Online)
         {
             Database db;
             DbCommand cmd;
@@ -628,6 +628,8 @@ namespace DaoCommon
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmd = db.GetStoredProcCommand("SPROC_ONL_GetSchemeAMCCategory");
                 db.AddInParameter(cmd, "@SchemePlanCode", DbType.Int32, schemePlanCode);
+                db.AddInParameter(cmd, "@demat", DbType.Int32, Online);
+
                 db.AddOutParameter(cmd, "@AMCCode", DbType.Int64, 1000000);
                 db.AddOutParameter(cmd, "@CategoryCode", DbType.String, 100000);
                 db.AddOutParameter(cmd, "@isSipAvaliable", DbType.Int32, 100000);
@@ -990,7 +992,7 @@ namespace DaoCommon
             }
             return dtSchemeDividentType;
         }
-        public void GetSchemeAMCSchemeCategory(int schemePlanCode, out int amcCode, out string category, out string categoryName, out string amcname, out string SchemeplanName, out int IsSIPAvaliable, out int IspurchaseAvaliable, out int IsRedeemAvaliable)
+        public void GetSchemeAMCSchemeCategory(int schemePlanCode, out int amcCode, out string category, out string categoryName, out string amcname, out string SchemeplanName, out int IsSIPAvaliable, out int IspurchaseAvaliable, out int IsRedeemAvaliable,int Online)
         {
             Database db;
             DbCommand cmd;
@@ -1007,6 +1009,7 @@ namespace DaoCommon
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmd = db.GetStoredProcCommand("SPROC_ONL_GetProductWiseCtegoryAMC");
                 db.AddInParameter(cmd, "@SchemePlanCode", DbType.Int32, schemePlanCode);
+                db.AddInParameter(cmd, "@Demat", DbType.Int32, Online);
                 db.AddOutParameter(cmd, "@AMCCode", DbType.Int64, 1000000);
                 db.AddOutParameter(cmd, "@CategoryCode", DbType.String, 100000);
                   db.AddOutParameter(cmd, "@categoryName", DbType.String, 1000000);

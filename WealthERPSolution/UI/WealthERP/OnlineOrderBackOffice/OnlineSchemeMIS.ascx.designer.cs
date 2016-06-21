@@ -66,7 +66,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell llbtosee;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdMode;
         /// <summary>
         /// lblTosee control.
         /// </summary>

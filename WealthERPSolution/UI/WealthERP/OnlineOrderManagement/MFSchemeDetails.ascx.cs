@@ -51,7 +51,7 @@ namespace WealthERP.OnlineOrderManagement
                     string category = string.Empty;
                     int isSIPAvaliable = 0;
                     BindCategory();
-                    commonLookupBo.GetSchemeAMCCategory(int.Parse(Request.QueryString["schemeCode"].ToString()), out amcCode, out category, out isSIPAvaliable);
+                    commonLookupBo.GetSchemeAMCCategory(int.Parse(Request.QueryString["schemeCode"].ToString()), out amcCode, out category, out isSIPAvaliable, exchangeType == "Online" ? 1 : 0);
                     int schemecode = int.Parse(Request.QueryString["schemeCode"].ToString());
                     ddlAMC.SelectedValue = amcCode.ToString();
                     ddlCategory.SelectedValue = category;

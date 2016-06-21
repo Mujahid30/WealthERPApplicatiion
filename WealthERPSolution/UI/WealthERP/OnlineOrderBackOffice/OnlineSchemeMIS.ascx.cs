@@ -108,18 +108,15 @@ namespace WealthERP.OnlineOrderBackOffice
             }
 
         }
-        protected void Onselectedindex_select(object sender, EventArgs e)
+        protected void ddlTosee_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            //if (ddlProduct.SelectedValue == "BO")
-            //{
-            //    tdtosee.Visible = false;
-            //    llbtosee.Visible = false;
-            //}
-            //else
-            //{
-            //    tdtosee.Visible = true;
-            //    llbtosee.Visible = true;
-            //}
+            if (ddlTosee.SelectedValue != "1")
+            { tdMode.Visible = false;
+            ddlMode.SelectedValue = "2";
+            }
+            else
+            { tdMode.Visible = true; ddlMode.SelectedValue = "1"; }
+
         }
         protected void BindSchemeMIS()
         {
@@ -246,14 +243,14 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 if (ddlProduct.SelectedItem.Value.ToString() == "MF")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineSchemeSetUp", "loadcontrol('OnlineSchemeSetUp','?SchemePlanCode=" + SchemePlanCode + "&strAction=" + ddlAction.SelectedItem.Value.ToString() + "&product=" + ddlProduct.SelectedValue + "&type=" + ddlTosee.SelectedValue + "&status=" + ddlststus.SelectedValue + "');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineSchemeSetUp", "loadcontrol('OnlineSchemeSetUp','?SchemePlanCode=" + SchemePlanCode + "&strAction=" + ddlAction.SelectedItem.Value.ToString() + "&product=" + ddlProduct.SelectedValue + "&type=" + ddlTosee.SelectedValue + "&status=" + ddlststus.SelectedValue + "&Mode=" + ddlMode.SelectedValue + "');", true);
                 }
             }
             if (ddlAction.SelectedValue.ToString() == "Edit")
             {
                 if (ddlProduct.SelectedItem.Value.ToString() == "MF")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineSchemeSetUp", "loadcontrol('OnlineSchemeSetUp','?SchemePlanCode=" + SchemePlanCode + "&strAction=" + ddlAction.SelectedItem.Value.ToString() + "&product=" + ddlProduct.SelectedValue + "&type=" + ddlTosee.SelectedValue + "&status=" + ddlststus.SelectedValue + "');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineSchemeSetUp", "loadcontrol('OnlineSchemeSetUp','?SchemePlanCode=" + SchemePlanCode + "&strAction=" + ddlAction.SelectedItem.Value.ToString() + "&product=" + ddlProduct.SelectedValue + "&type=" + ddlTosee.SelectedValue + "&status=" + ddlststus.SelectedValue + "&Mode=" + ddlMode.SelectedValue + "');", true);
 
                 }
 

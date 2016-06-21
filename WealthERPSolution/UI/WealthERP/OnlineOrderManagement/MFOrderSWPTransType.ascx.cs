@@ -98,7 +98,7 @@ namespace WealthERP.OnlineOrderManagement
                         int isSIPAvaliable=0;
                         accountId = int.Parse(Request.QueryString["accountId"].ToString());
                         schemeCode = int.Parse(Request.QueryString["SchemeCode"].ToString());
-                        commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category, out isSIPAvaliable);
+                        commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category, out isSIPAvaliable, 1);
                         OnDrillDownBindControlValue(amcCode, category, accountId, schemeCode);
                         DataViewOnEdit();
                     }

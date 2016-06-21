@@ -588,11 +588,11 @@ namespace BoCommon
         }
 
 
-        public void GetSchemeAMCCategory(int schemePlanCode, out int amcCode, out string category, out int isSipAvaliable)
+        public void GetSchemeAMCCategory(int schemePlanCode, out int amcCode, out string category, out int isSipAvaliable,int Online)
         {
             try
             {
-                daoCommonLookup.GetSchemeAMCCategory(schemePlanCode, out amcCode, out category,out  isSipAvaliable);
+                daoCommonLookup.GetSchemeAMCCategory(schemePlanCode, out amcCode, out category, out  isSipAvaliable, Online);
             }
 
             catch (BaseApplicationException Ex)
@@ -612,11 +612,11 @@ namespace BoCommon
                 throw exBase;
             }
         }
-        public void GetSchemeAMCSchemeCategory(int schemePlanCode, out int amcCode, out string category, out string categoryName, out string amcname, out string SchemeplanName, out int IsSIPAvaliable, out int IspurchaseAvaliable, out int IsRedeemAvaliable)
+        public void GetSchemeAMCSchemeCategory(int schemePlanCode, out int amcCode, out string category, out string categoryName, out string amcname, out string SchemeplanName, out int IsSIPAvaliable, out int IspurchaseAvaliable, out int IsRedeemAvaliable,int Online)
         {
             try
             {
-                daoCommonLookup.GetSchemeAMCSchemeCategory(schemePlanCode, out amcCode, out category,out categoryName,out amcname,out SchemeplanName,out  IsSIPAvaliable, out  IspurchaseAvaliable, out  IsRedeemAvaliable);
+                daoCommonLookup.GetSchemeAMCSchemeCategory(schemePlanCode, out amcCode, out category, out categoryName, out amcname, out SchemeplanName, out  IsSIPAvaliable, out  IspurchaseAvaliable, out  IsRedeemAvaliable, Online);
             }
 
             catch (BaseApplicationException Ex)

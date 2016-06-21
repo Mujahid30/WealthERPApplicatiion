@@ -86,8 +86,16 @@ namespace WealthERP.OnlineOrderBackOffice
                         txtReInv.Enabled = true;
                         chkBSE.Enabled = true;
                         chkRTA.Enabled = true;
-                        rbtnBSE.Enabled = true;
-                        rbtnRTA.Enabled = true;
+                        if (Request.QueryString["Mode"] == "1")
+                        {
+                            rbtnBSE.Enabled = false;
+                            rbtnRTA.Enabled = true;
+                        }
+                        else
+                        {
+                            rbtnBSE.Enabled = true;
+                            rbtnRTA.Enabled = false;
+                        }
                     }
                     else if (Request.QueryString["strAction"].Trim() == "View")
                     {
@@ -117,8 +125,16 @@ namespace WealthERP.OnlineOrderBackOffice
                         txtReInv.Enabled = false;
                         chkBSE.Enabled = false;
                         chkRTA.Enabled = false;
-                        rbtnBSE.Enabled = false;
-                        rbtnRTA.Enabled = false;
+                        if (Request.QueryString["Mode"] == "1")
+                        {
+                            rbtnBSE.Enabled = false;
+                            rbtnRTA.Enabled = true;
+                        }
+                        else
+                        {
+                            rbtnBSE.Enabled = true;
+                            rbtnRTA.Enabled = false;
+                        }
                         if (ddlNFoStatus.SelectedValue == "Merged")
                         {
                             lbBack.Visible = false;
@@ -1674,6 +1690,16 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void lnkEdit_OnClick(object sender, EventArgs e)
         {
             ControlEditSubmit();
+            if (Request.QueryString["Mode"] == "1")
+            {
+                rbtnBSE.Enabled = false;
+                rbtnRTA.Enabled = true;
+            }
+            else
+            {
+                rbtnBSE.Enabled = true;
+                rbtnRTA.Enabled = false;
+            }
             btnsubmit.Visible = false;
             btnupdate.Visible = true;
         }
