@@ -907,6 +907,8 @@ namespace DaoCustomerProfiling
                         customerVo.DematAcceptedon = DateTime.Parse(dr["C_DematAcceptedon"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_IsDematAccepted"].ToString()))
                         customerVo.IsDematAccepted = bool.Parse(dr["C_IsDematAccepted"].ToString()) ? true : false;
+                    if (!string.IsNullOrEmpty(dr["C_IsDematInvestor"].ToString()))
+                        customerVo.IsDematInvestor = bool.Parse(dr["C_IsDematInvestor"].ToString()) ? true : false;
                   
 
                 }

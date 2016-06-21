@@ -146,6 +146,7 @@ namespace VoUser
         public int CreatedBy { get; set; }
         public int CustomerPGroup { get; set; }
         public bool IsDematAccepted { get; set; }
+        public bool IsDematInvestor { get; set; }
         public DateTime DematAcceptedon { get; set; }
         public int CustomerCategoryCode
         {

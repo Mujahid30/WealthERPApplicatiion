@@ -98,7 +98,7 @@ namespace WealthERP
 
         protected void DropDownList1_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            string value = DropDownList1.SelectedValue + "&exchangeType=" + ddlchannel.SelectedValue;
+            string value = DropDownList1.SelectedValue;
             ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadBottomPanelFromtRANSACT", "LoadTransactPanel('" + value + "');", true);
 
         }
@@ -243,7 +243,8 @@ namespace WealthERP
             Session["MFSchemePlan"] = schemeCode;
             SchemetransactType = OnlineOrderBo.GetschemedetailonlineorDemate(schemeCode);
             Session["SchemeExchangeee"] = SchemetransactType;
-            BindExchangeDropDown(SchemetransactType["exchange"].ToString());
+            //BindExchangeDropDown(SchemetransactType["exchange"].ToString());
+            BindTransactionType(Session["ExchangeMode"].ToString());
         }
         protected void ddlchannel_onSelectedChanged(object sender, EventArgs e)
         {
@@ -285,22 +286,10 @@ namespace WealthERP
                 Dictionary<string, string> SchemetransactType;
                 SchemetransactType = (Dictionary<string, string>)Session["SchemeExchangeee"];
                 OnlineOrderBo onlineOrderBo = new OnlineOrderBo();
-
-
-                if (SchemetransactType["exchange"].ToString().Contains("Online"))
-                {
-                    exchangeType = "&exchangeType=Online";
-                    exchangeType1 = "Online";
-                }
-                else
-                {
-                    exchangeType = "&exchangeType=Demat";
-                    exchangeType1 = "Demat";
-
-                }
+                exchangeType1 = Session["ExchangeMode"].ToString();
                 Dictionary<string, string> TransactionTypes = onlineOrderBo.GetTransactionTypeForExchange(exchangeType1, SchemetransactType[exchangeType1].ToString());
                 if (TransactionTypes.Count > 0)
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromSchemeSearch", "LoadTransactPanel('" + TransactionTypes.Keys.ElementAt(0) + exchangeType + "');", true);
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromSchemeSearch", "LoadTransactPanel('" + TransactionTypes.Keys.ElementAt(0) + "');", true);
                 else
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromSchemeSearch", "LoadTransactPanel('MFOrderPurchaseTransType');", true);
 
@@ -319,20 +308,10 @@ namespace WealthERP
                 Dictionary<string, string> SchemetransactType;
                 SchemetransactType = (Dictionary<string, string>)Session["SchemeExchangeee"];
                 OnlineOrderBo onlineOrderBo = new OnlineOrderBo();
-
-                if (SchemetransactType["exchange"].ToString().Contains("Online"))
-                {
-                    exchangeType = "&exchangeType=Online";
-                    exchangeType1 = "Online";
-                }
-                else
-                {
-                    exchangeType = "&exchangeType=Demat";
-                    exchangeType1 = "Demat";
-                }
+                exchangeType1 = Session["ExchangeMode"].ToString();
                 Dictionary<string, string> TransactionTypes = onlineOrderBo.GetTransactionTypeForExchange(exchangeType1, SchemetransactType[exchangeType1].ToString());
                 if (TransactionTypes.Count > 0)
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromSchemeSearch", "LoadTransactPanel('" + TransactionTypes.Keys.ElementAt(0) + exchangeType + "');", true);
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromSchemeSearch", "LoadTransactPanel('" + TransactionTypes.Keys.ElementAt(0) + "');", true);
                 else
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromSchemeSearch", "LoadTransactPanel('MFOrderPurchaseTransType');", true);
                 ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadBottomPanelFromSchemeSearch", "LoadBottomPanelControl('MFSchemeDetails&schemeCode=" + schemeCode.Value + "');", true);
@@ -349,16 +328,7 @@ namespace WealthERP
                 CreateExchangeDetailsSession(Int32.Parse(schemeCode.Value));
                 Dictionary<string, string> SchemetransactType;
                 SchemetransactType = (Dictionary<string, string>)Session["SchemeExchangeee"];
-                if (SchemetransactType["exchange"].ToString().Contains("Online"))
-                {
-                    exchangeType = "&exchangeType=Online";
-                    exchangeType1 = "Online";
-                }
-                else
-                {
-                    exchangeType = "&exchangeType=Demat";
-                    exchangeType1 = "Demat";
-                }
+                exchangeType1 = Session["ExchangeMode"].ToString();
                 Dictionary<string, string> TransactionTypes = onlineOrderBo.GetTransactionTypeForExchange(exchangeType1, SchemetransactType[exchangeType1].ToString());
                 string pageName;
                 if (hdnTransactType.Value.Contains('&'))
@@ -366,8 +336,8 @@ namespace WealthERP
                 else
                     pageName = hdnTransactType.Value;
                 if (TransactionTypes.Count > 0 && TransactionTypes.Keys.Contains(pageName))
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromMainPage", "LoadTransactPanel('" + hdnTransactType.Value + exchangeType + "');", true);
-               
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadTransactPanelFromMainPage", "LoadTransactPanel('" + hdnTransactType.Value + "');", true);
+
             }
         }
         private void SetProductTypeMenu(string productType)
@@ -821,7 +791,7 @@ namespace WealthERP
         protected void btnMode_OnClick(object sender, EventArgs e)
         {
             customerVo = (CustomerVo)Session["CustomerVo"];
-            if (customerVo.IsDematAccepted && ddlMode.SelectedValue == "Demat")
+            if (customerVo.IsDematAccepted && customerVo.IsDematInvestor && ddlMode.SelectedValue == "Demat")
                 Session["ExchangeMode"] = "Demat";
             else if (!customerVo.IsDematAccepted && ddlMode.SelectedValue == "Demat")
             {
@@ -829,6 +799,10 @@ namespace WealthERP
             }
             else if (ddlMode.SelectedValue == "Online")
                 Session["ExchangeMode"] = "Online";
+            else if (customerVo.IsDematAccepted && !customerVo.IsDematInvestor && ddlMode.SelectedValue == "Demat")
+            {
+                ddlMode.SelectedValue = "Online";
+            }
 
         }
         protected void btnDematTnCCanceled_Click(object sender, EventArgs e)
@@ -857,15 +831,21 @@ namespace WealthERP
                 userVo = userBo.GetUserAccountDetails(userAccountId, advisorVo.advisorId);
             }
             customerVo = (CustomerVo)Session["CustomerVo"];
-            
+
             CustomerBo customerBo = new CustomerBo();
             customerBo.UpdateDematAcceptance(customerVo.CustomerId);
             customerVo = customerBo.GetCustomerInfo(userVo.UserId);
             Session["CustomerVo"] = customerVo;
-            if (customerVo.IsDematAccepted)
+            if (customerVo.IsDematAccepted && customerVo.IsDematInvestor)
             {
                 Session["ExchangeMode"] = "Demat";
                 ddlMode.SelectedValue = "Demat";
+            }
+            else if (customerVo.IsDematAccepted && !customerVo.IsDematInvestor)
+            {
+                ddlMode.SelectedValue = "Online";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "alertwq", "alert('We have taken your request for registration of your client code for BSE StAR MF segment. The same will be activated shortly.');", true);
+                
             }
             else
                 ddlMode.SelectedValue = "Online";

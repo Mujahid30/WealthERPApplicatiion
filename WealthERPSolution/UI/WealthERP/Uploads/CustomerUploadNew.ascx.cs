@@ -378,6 +378,8 @@ namespace WealthERP.Uploads
             gvbrokerageRecon.MasterTableView.GetColumn("CumulativeNAV").Visible = false;
             gvbrokerageRecon.MasterTableView.GetColumn("ClosingNAV").Visible = false;
             gvbrokerageRecon.MasterTableView.GetColumn("TotalNAV").Visible = false;
+            gvbrokerageRecon.MasterTableView.GetColumn("WCD_AID_IssueDetailName").Visible = false;
+            gvbrokerageRecon.MasterTableView.GetColumn("WCD_AIIC_InvestorCatgeoryName").Visible = false;
             if (ddlProduct.SelectedValue == "MF")
             {
                 amcCode = Int32.Parse(ddlIssuer.SelectedValue);
@@ -400,12 +402,18 @@ namespace WealthERP.Uploads
             if (ddlProduct.SelectedValue == "FI")
             {
                 productCategory = ddlProductCategory.SelectedValue;
+                if (ddlProductCategory.SelectedValue == "FISDSD")
+                {
+                    gvbrokerageRecon.MasterTableView.GetColumn("WCD_AID_IssueDetailName").Visible = true;
+                    gvbrokerageRecon.MasterTableView.GetColumn("WCD_AIIC_InvestorCatgeoryName").Visible = true;
+                }
+
             }
             if (ddlProduct.SelectedValue == "MF")
             {
                 productCategory = ddlCommType.SelectedValue;
             }
-            ds = adviserMFMIS.GetWERPCommissionDetails(ddlProduct.SelectedValue, advisorVo.advisorId, Int32.Parse(ddlMnthQtr.SelectedValue), Int32.Parse(ddlYear.SelectedValue), category, IssueId, productCategory, amcCode, schemeCode, Convert.ToInt32(ddlDateFilterType.SelectedValue),Convert.ToInt32(ddlSelectMode.SelectedValue));
+            ds = adviserMFMIS.GetWERPCommissionDetails(ddlProduct.SelectedValue, advisorVo.advisorId, Int32.Parse(ddlMnthQtr.SelectedValue), Int32.Parse(ddlYear.SelectedValue), category, IssueId, productCategory, amcCode, schemeCode, Convert.ToInt32(ddlDateFilterType.SelectedValue), Convert.ToInt32(ddlSelectMode.SelectedValue));
             if (ds.Tables[0] != null)
             {
 

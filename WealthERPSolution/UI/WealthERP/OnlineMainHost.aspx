@@ -705,7 +705,7 @@
                     <asp:Label ID="lblMode" runat="server" Text="Mode:" CssClass="lblMode"></asp:Label>
                 </div>
                 <div class="menu_right" style="padding-right: 10px; vertical-align: middle; padding-top: 6px; ">
-                  <img  data-toggle="tooltip"  data-placement="bottom" title="Now you can place an order  through Exchange from here , Select Mode:Exchange"
+                  <img  data-toggle="tooltip"  data-placement="bottom" title="Now you can place an order with Exchange from here , Select Mode:Exchange"
                         src="Images/new_icon.gif" />
                      
                 </div>

@@ -399,6 +399,18 @@
                     HeaderStyle-Width="290px">
                     <ItemStyle Wrap="false" Width="290px" HorizontalAlign="Left" />
                 </telerik:GridBoundColumn>
+                 <telerik:GridBoundColumn AllowFiltering="true" DataField="WCD_AID_IssueDetailName" AutoPostBackOnFilter="true"
+                    HeaderText="Series" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    UniqueName="WCD_AID_IssueDetailName" SortExpression="WCD_AID_IssueDetailName" FooterStyle-HorizontalAlign="Right"
+                    HeaderStyle-Width="290px">
+                    <ItemStyle Wrap="false" Width="290px" HorizontalAlign="Left" />
+                </telerik:GridBoundColumn>
+                 <telerik:GridBoundColumn AllowFiltering="true" DataField="WCD_AIIC_InvestorCatgeoryName" AutoPostBackOnFilter="true"
+                    HeaderText="Catgeory" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    UniqueName="WCD_AIIC_InvestorCatgeoryName" SortExpression="WCD_AIIC_InvestorCatgeoryName" FooterStyle-HorizontalAlign="Right"
+                    HeaderStyle-Width="290px">
+                    <ItemStyle Wrap="false" Width="290px" HorizontalAlign="Left" />
+                </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn AllowFiltering="true" DataField="WCD_BrokerName" AutoPostBackOnFilter="true"
                     HeaderText="Broker Name" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     UniqueName="WCD_BrokerName" SortExpression="WCD_BrokerName" FooterStyle-HorizontalAlign="Right"
