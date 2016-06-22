@@ -334,4 +334,17 @@ namespace VoCustomerPortfolio
         
         #endregion Properties
     }
+    public class InsuranceIssueVO
+    {
+      public  string insuranceType { get; set; }
+      public string issureCode { get; set; }
+      public string category { get; set; }
+      public string subCategory { get; set; }
+      public string policyName { get; set; }
+      public string remarks { get; set; }
+      public DateTime launchDate { get; set; }
+      public DateTime closeDate { get; set; }
+      public int active { get; set; }
+
+    }
 }

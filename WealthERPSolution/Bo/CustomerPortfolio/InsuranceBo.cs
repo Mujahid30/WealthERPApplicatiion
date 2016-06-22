@@ -21,7 +21,7 @@ namespace BoCustomerPortfolio
             int insuranceId = 0;
             try
             {
-            //    bResult = insuranceDao.CreateInsurancePortfolio(insuranceVo, userId);
+                //    bResult = insuranceDao.CreateInsurancePortfolio(insuranceVo, userId);
                 insuranceId = insuranceDao.CreateInsurancePortfolio(insuranceVo, userId);
 
             }
@@ -114,7 +114,7 @@ namespace BoCustomerPortfolio
 
             return bResult;
         }
-        public DataTable GetInsuranceOrders(string Type,int adviserId, string agentcode)
+        public DataTable GetInsuranceOrders(string Type, int adviserId, string agentcode)
         {
             InsuranceDao insuranceDao = new InsuranceDao();
             try
@@ -269,11 +269,11 @@ namespace BoCustomerPortfolio
 
         public int CreateInsuranceAccount(InsuranceVo insuranceVo, int userId)
         {
-            InsuranceDao insuranceDao = new InsuranceDao();       
+            InsuranceDao insuranceDao = new InsuranceDao();
             int id = 0;
             try
             {
-               id = insuranceDao.CreateInsuranceAccount(insuranceVo, userId);
+                id = insuranceDao.CreateInsuranceAccount(insuranceVo, userId);
 
             }
             catch (BaseApplicationException Ex)
@@ -305,7 +305,7 @@ namespace BoCustomerPortfolio
         public DataSet GetCustomerInsuranceAccounts(int customerId, string assetGroup)
         {
             DataSet dsInsuranceAccounts;
-            InsuranceDao insuranceDao=new InsuranceDao();
+            InsuranceDao insuranceDao = new InsuranceDao();
             try
             {
                 dsInsuranceAccounts = insuranceDao.GetCustomerInsuranceAccounts(customerId, assetGroup);
@@ -354,7 +354,7 @@ namespace BoCustomerPortfolio
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "InsuranceBo.cs:CreateMoneyBackEpisode()");
                 object[] objects = new object[1];
-                objects[0] = moneyBackEpisodeVo;              
+                objects[0] = moneyBackEpisodeVo;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -412,7 +412,7 @@ namespace BoCustomerPortfolio
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "InsuranceBo.cs:CreateInsuranceULIPPlan()");
                 object[] objects = new object[1];
-                objects[0] = insuranceUlipVo;           
+                objects[0] = insuranceUlipVo;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -483,7 +483,7 @@ namespace BoCustomerPortfolio
 
             return bResult;
         }
-        
+
         public InsuranceULIPVo GetInsuranceULIPDetails(int insuranceUlipId)
         {
             InsuranceDao insuranceDao = new InsuranceDao();
@@ -1397,13 +1397,13 @@ namespace BoCustomerPortfolio
         }
 
 
-        public DataSet GetAllProductMIS(int advisorId, int branchId, int rmId, int branchHeadId, int customerId,int AgentId,int IsAssociate, int isGroup)
+        public DataSet GetAllProductMIS(int advisorId, int branchId, int rmId, int branchHeadId, int customerId, int AgentId, int IsAssociate, int isGroup)
         {
             InsuranceDao insuaranceDao = new InsuranceDao();
             DataSet dsAllProductMIS;
             try
             {
-                dsAllProductMIS = insuaranceDao.GetAllProductMIS(advisorId, branchId, rmId, branchHeadId, customerId,AgentId,IsAssociate, isGroup);
+                dsAllProductMIS = insuaranceDao.GetAllProductMIS(advisorId, branchId, rmId, branchHeadId, customerId, AgentId, IsAssociate, isGroup);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1593,6 +1593,79 @@ namespace BoCustomerPortfolio
                 throw exBase;
             }
             return bResult;
+        }
+        public bool CreateInsurenceIssue(InsuranceIssueVO InsuranceIssuevo, int userId)
+        {
+            bool bResult = false;
+            InsuranceDao insuranceDao = new InsuranceDao();
+            try
+            {
+                bResult = insuranceDao.CreateInsurenceIssue(InsuranceIssuevo, userId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+        public DataTable GetIssueList(string type, string category, int status)
+        {
+            InsuranceDao insuranceDao = new InsuranceDao();
+            DataTable dt;
+            try
+            {
+                dt = insuranceDao.GetIssueList(type, category, status);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dt;
+        }
+        public InsuranceIssueVO ViewEditInsuraceIssue(int issueId)
+        {
+            InsuranceDao insuranceDao = new InsuranceDao();
+            InsuranceIssueVO InsuranceIssueVO = new InsuranceIssueVO();
+
+            try
+            {
+                InsuranceIssueVO = insuranceDao.ViewEditInsuraceIssue(issueId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return InsuranceIssueVO;
+
+        }
+        public bool UpdateInsuraceIssue(InsuranceIssueVO InsuranceIssuevo, int issueId, int userId)
+        {
+            bool bResult = false;
+            InsuranceDao insuranceDao = new InsuranceDao();
+
+            try
+            {
+                bResult = insuranceDao.UpdateInsuraceIssue(InsuranceIssuevo,issueId, userId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+        public DataSet GetGILIIssuerList(string type)
+        {
+            InsuranceDao insuranceDao = new InsuranceDao();
+            DataSet ds;
+            try
+            {
+                ds = insuranceDao.GetGILIIssuerList(type);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return ds;
         }
     }
 }
