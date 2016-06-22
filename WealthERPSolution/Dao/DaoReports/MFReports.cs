@@ -34,7 +34,7 @@ namespace DaoReports
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getCustomerNPListCmd = db.GetStoredProcCommand("SP_RPT_MF_FundSummaryOpenPosition");
 
-                db.AddInParameter(getCustomerNPListCmd, "@PortfolioIds", DbType.String, report.PortfolioIds);
+                db.AddInParameter(getCustomerNPListCmd, "PortfolioIds", DbType.String, report.PortfolioIds);
                 db.AddInParameter(getCustomerNPListCmd, "@StartDate", DbType.DateTime, DateBo.GetPreviousMonthLastDate(report.FromDate));
                 db.AddInParameter(getCustomerNPListCmd, "@EndDate", DbType.DateTime,report.ToDate);
                 db.AddInParameter(getCustomerNPListCmd, "@AdviserId", DbType.Int32, adviserId);
