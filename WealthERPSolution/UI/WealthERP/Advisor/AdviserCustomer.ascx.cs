@@ -715,14 +715,14 @@ namespace WealthERP.Advisor
             if (userVo.UserType == "Associates")
             {
                 gvCustomerList.MasterTableView.GetColumn("Action").Visible = false;
-                gvCustomerList.MasterTableView.GetColumn("Remove").Visible = false;
-                gvCustomerList.MasterTableView.GetColumn("Mark").Visible = false;
+                gvCustomerList.MasterTableView.GetColumn("MarkFPClient").Visible = false;
+                gvCustomerList.MasterTableView.GetColumn("ActionForProspect").Visible = false;
             }
             if (userVo.AdviserRole.ContainsValue("CNT")) 
             {
                 gvCustomerList.MasterTableView.GetColumn("Action").Visible = true;
-                gvCustomerList.MasterTableView.GetColumn("Remove").Visible = false;
-                gvCustomerList.MasterTableView.GetColumn("Mark").Visible = false;
+                gvCustomerList.MasterTableView.GetColumn("MarkFPClient").Visible = false;
+                gvCustomerList.MasterTableView.GetColumn("ActionForProspect").Visible = false;
             }
            
         }
