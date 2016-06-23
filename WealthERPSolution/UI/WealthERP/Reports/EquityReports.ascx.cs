@@ -67,8 +67,6 @@ namespace WealthERP.Reports
                     {
                         TabPanel1.Visible = false;
                         TabPanel2.Visible = true;
-                        //Session["txtCustomerId"]=customerVo.CustomerId.ToString();
-                        //Session["txtParentCustomerId"] = null;
                         if (!IsPostBack)
                         {
                             HdnIsGroupHeadReport.Value = "1";
@@ -78,16 +76,11 @@ namespace WealthERP.Reports
                     {
                         TabPanel1.Visible = true;
                         TabPanel2.Visible = true;
-                        //txtParentCustomerId.Value = customerVo.CustomerId.ToString();
-                        //Session["txtParentCustomerId"] = customerVo.CustomerId.ToString();
-                        //Session["txtCustomerId"] = customerVo.CustomerId.ToString();
                         if (!IsPostBack)
                         {
                             HdnIsGroupHeadReport.Value = "0";
                         }
                     }
-                    //if(TabContainer1.ActiveTabIndex==0)
-                    //    if(Request.Form["ctrl_EquityReports$ctrl_EquityReports$TabContainer1"]!=null)
                     CustomerLogin = true;
                     hndCustomerLogin.Value = "true";
                     Session["hndCustomerLogin"] = hndCustomerLogin.Value;
@@ -104,8 +97,6 @@ namespace WealthERP.Reports
                 }
 
                 BindPeriodDropDown();
-                //txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                //txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
 
                 if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
                     advisorVo = (AdvisorVo)Session["advisorVo"];
@@ -131,7 +122,6 @@ namespace WealthERP.Reports
                         hdnCustomerId1.Value = customerVo.CustomerId.ToString();
                         ShowGroupCustomers();
                         IndivisulCustomerLogin();
-                        //ShowFolios();
 
                     }
                     else
@@ -144,7 +134,6 @@ namespace WealthERP.Reports
                         trStepGrHead.Visible = true;
 
 
-                        //This for Customer Search AutoCompelete TextBox Dynamic Assign Service Method.
                         if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
                         {
                             txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
@@ -208,7 +197,7 @@ namespace WealthERP.Reports
             bool isCorrect = false;
              isCorrect = customerBo.ChckBussinessDate(chckdate);
             if (isCorrect == true)
-            { //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert(' Valid Bussiness Date choosen');", true);
+            {
             }
             else
             {
@@ -232,11 +221,6 @@ namespace WealthERP.Reports
                 trPeriod.Visible = true;
                 BindPeriodDropDown();
             }
-            //gvMFTransactions.DataSource = null;
-            //gvMFTransactions.DataBind();
-            //lblCurrentPage.Text = string.Empty;
-            //lblTotalRows.Text = string.Empty;
-            //mypager.Visible = false;
         }
         protected void txtCustomerId_ValueChanged(object sender, EventArgs e)
         {
@@ -245,7 +229,6 @@ namespace WealthERP.Reports
             {
                 DataTable dt = customerBo.GetCustomerPanAddress(int.Parse(txtCustomerId.Value));
                 DataRow dr = dt.Rows[0];
-                //customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
                 hdnCustomerId1.Value = txtCustomerId.Value.ToString();
                 customerVo = customerBo.GetCustomer(int.Parse(hdnCustomerId1.Value));
                 Session["customerVo"] = customerVo;
@@ -267,7 +250,6 @@ namespace WealthERP.Reports
         {
             hdnCustomerId1.Value = txtParentCustomerId.Value.ToString();
             customerVo = customerBo.GetCustomer(int.Parse(hdnCustomerId1.Value));
-            //customerVo = customerBo.GetCustomer(int.Parse(txtParentCustomerId.Value));
             Session["customerVo"] = customerVo;
             ShowGroupCustomers();
 
@@ -285,13 +267,11 @@ namespace WealthERP.Reports
                     strCustomers.Append("<table border='0'>");
 
                     strCustomers.Append("<tr><td colspan='3'><b>All Customers Under Group Head :</b></td></tr>");
-                    //strCustomers.Append("<tr><td>Customer Name</td><td>Customer Id</td><td>&nbsp;</td></tr>");
 
                     foreach (DataRow dr in dt.Rows)
                     {
                         strCustomers.Append("<tr>");
                         strCustomers.Append("<td>" + dr["CustomerName"].ToString() + "</td>");
-                        //strCustomers.Append("<td>" + dr["C_AssociateCustomerId"].ToString() + "</td>");
                         strCustomers.Append("<td>" + ShowGroupFolios(Convert.ToInt32(dr["C_AssociateCustomerId"])) + "</td>");
                         strCustomers.Append("</tr>");
                     }
@@ -308,7 +288,6 @@ namespace WealthERP.Reports
             txtCustomer.Text = String.Empty;
             TabContainer1.ActiveTab = TabContainer1.Tabs[activeTabIndex];
             TabContainer1.ActiveTabIndex = activeTabIndex;
-            //divPortfolios.InnerHtml = string.Empty;
         }
         private void BindPeriodDropDown()
         {
@@ -324,9 +303,6 @@ namespace WealthERP.Reports
 
         protected void btnView_Click(object sender, EventArgs e)
         {
-            //CalculateDateRange();
-            //Page.RegisterStartupScript("startup","<script>alert('robinthomas')<script>");
-            //Page.ClientScript.RegisterStartupScript(this.GetType(), "startup", "<script>window.open('Reports/Display.aspx')</script>");
         }
 
         protected void MultiView1_ActiveViewChanged(object sender, EventArgs e)
@@ -347,18 +323,15 @@ namespace WealthERP.Reports
         {
 
             PortfolioBo portfolioBo = new PortfolioBo();
-            //divPortfolios.InnerHtml = string.Empty;
-            if (!String.IsNullOrEmpty(hdnCustomerId1.Value)) //Note : customer Id assigned to hdnCustomerId(hidden field) when the user selects customer from customer name suggestion text box
+            if (!String.IsNullOrEmpty(hdnCustomerId1.Value)) 
             {
                 int customerId = Convert.ToInt32(hdnCustomerId1.Value);
-                List<CustomerPortfolioVo> customerPortfolioVos = portfolioBo.GetCustomerPortfolios(customerId); //Get all the portfolios of the selected customer.
-                if (customerPortfolioVos != null && customerPortfolioVos.Count > 0) //One or more folios available for selected customer
+                List<CustomerPortfolioVo> customerPortfolioVos = portfolioBo.GetCustomerPortfolios(customerId); 
+                if (customerPortfolioVos != null && customerPortfolioVos.Count > 0) 
                 {
                     StringBuilder checkbox = new StringBuilder();
 
-                    //CheckBoxList checkboxList = new CheckBoxList();
-                    //checkboxList.RepeatDirection = RepeatDirection.Horizontal;
-                    //checkboxList.CssClass = "Field";
+                   
                     foreach (CustomerPortfolioVo custPortfolio in customerPortfolioVos)
                     {
                         if (ddlPortfolioGroup.SelectedValue == "MANAGED" && (custPortfolio.IsMainPortfolio != 1))
@@ -375,23 +348,20 @@ namespace WealthERP.Reports
                         }
                         if (String.IsNullOrEmpty(custPortfolio.PortfolioName))
                             custPortfolio.PortfolioName = "No Name";
-                        //checkboxList.Items.Add(new ListItem(custPortfolio.PortfolioName, custPortfolio.PortfolioId.ToString()));
                         checkbox.Append("<input type='checkbox' checked name='chk--" + custPortfolio.PortfolioId + "' id='chk--" + custPortfolio.PortfolioId + "'>" + custPortfolio.PortfolioName);
                         
                     }
                     divPortfolios.InnerHtml = checkbox.ToString();
-                    //divPortfolios.Controls.Add(checkboxList);
                 }
-                else //No portfolios found for this customer.
+                else 
                 {
                     divPortfolios.InnerHtml = "<span class='Error'>No portfolios found for this customer.Can't create report.</span>";
                 }
             }
-            else // Something went wrong :( customer id is not assigned to the hidden field.
+            else 
             {
                 divPortfolios.InnerHtml = "<span class='Error'>Invalid Customer selected.</span>";
             }
-            //divGroupCustomers.InnerHtml = string.Empty;
             
         }
 
@@ -399,11 +369,10 @@ namespace WealthERP.Reports
         {
             StringBuilder checkbox = new StringBuilder();
             PortfolioBo portfolioBo = new PortfolioBo();
-            if (!String.IsNullOrEmpty(hdnCustomerId1.Value)) //Note : customer Id assigned to txtCustomerId(hidden field) when the user selects customer from customer name suggestion text box
+            if (!String.IsNullOrEmpty(hdnCustomerId1.Value)) 
             {
-                //int customerId = Convert.ToInt32(txtParentCustomerId.Value);
-                List<CustomerPortfolioVo> customerPortfolioVos = portfolioBo.GetCustomerPortfolios(customerId); //Get all the portfolios of the selected customer.
-                if (customerPortfolioVos != null && customerPortfolioVos.Count > 0) //One or more folios available for selected customer
+                List<CustomerPortfolioVo> customerPortfolioVos = portfolioBo.GetCustomerPortfolios(customerId); 
+                if (customerPortfolioVos != null && customerPortfolioVos.Count > 0) 
                 {
 
                     foreach (CustomerPortfolioVo custPortfolio in customerPortfolioVos)
@@ -423,31 +392,25 @@ namespace WealthERP.Reports
                         if (String.IsNullOrEmpty(custPortfolio.PortfolioName))
                             custPortfolio.PortfolioName = "No Name";
                         checkbox.Append("<input type='checkbox' checked name='chk--" + custPortfolio.PortfolioId + "' id='chk--" + custPortfolio.PortfolioId + "'>" + custPortfolio.PortfolioName);
-                        //checkboxList.Items.Add(new ListItem(custPortfolio.PortfolioName, custPortfolio.PortfolioId.ToString()));
 
                     }
-                    //control.Controls.Add(checkboxList);
                 }
-                else //No portfolios found for this customer.
+                else 
                 {
                     checkbox.Append("--");
                 }
 
             }
-            else // Something went wrong :( customer id is not assigned to the hidden field.
+            else 
             {
                 divPortfolios.InnerHtml = "<span class='Error'>Invalid Customer selected.</span>";
             }
             return checkbox.ToString();
         }
 
-        //protected void TabContainer1_ActiveTabChanged(object sender, EventArgs e)
-        //{
-
-        //}
+       
         protected void IndivisulCustomerLogin()
         {
-            //CustomerBo customerBo = new CustomerBo();
             lblCustomerIndi.Text = customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName;
             DataTable dt = customerBo.GetCustomerPanAddress(customerVo.CustomerId);
             DataRow dr = dt.Rows[0];

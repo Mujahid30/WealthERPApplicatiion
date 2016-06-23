@@ -48,7 +48,6 @@ namespace WealthERP.Reports
         DateTime LatestValuationdate = new DateTime();
         AdvisorMISBo adviserMISBo = new AdvisorMISBo();
         int advisorId;
-        //For Storing customer Details in to session for Report
         CustomerVo customerVo = new CustomerVo();
         bool isGrpHead = false;
         bool CustomerLogin = false;
@@ -67,16 +66,12 @@ namespace WealthERP.Reports
 
         protected void Page_Init(object sender, EventArgs e)
         {
-            // When using the ListBox with UpdatePanels, you should disable 
-            // partial rendering for FF < v1.5. If you decide not to, reloads
-            // (F5) can still cause client / server loss of synchronization.
-            // The least you should do is disable page caching for FF < v1.5.
+          
             if (Request.Browser.Browser.Equals("Firefox")
                 && Request.Browser.MajorVersion < 2
                 && Request.Browser.MinorVersion < 0.5)
             {
                 ScriptManager.GetCurrent(Page).EnablePartialRendering = false;
-                //Response.Cache.SetNoStore();
             }
         }
 
@@ -94,55 +89,22 @@ namespace WealthERP.Reports
                     gvRequestStatus.DataSource = dtGvSchemeDetails;
                     RadTabStrip2.Tabs[2].Selected = true;
                     tabViewAndEmailReports.SelectedIndex = 2;
-                    //pnlGvRequestStatus.Visible = true;
                 }
             }
 
 
-            //
+           
         }
 
-        //protected void txtEmailAsOnDate_DayRender(object sender, Telerik.Web.UI.Calendar.DayRenderEventArgs e)
-        //{
-        //    // modify the cell rendered content for the days we want to be disabled (e.g. every Saturday and Sunday)
-        //    if (e.Day.Date.DayOfWeek == DayOfWeek.Saturday || e.Day.Date.DayOfWeek == DayOfWeek.Sunday)
-        //    {
-        //        // if you are using the skin bundled as a webresource("Default"), the Skin property returns empty string
-        //        string calendarSkin = txtEmailAsOnDate.Calendar.Skin != "" ? txtEmailAsOnDate.Calendar.Skin : "Default";
-        //        string otherMonthCssClass = String.Format("otherMonth_{0}", calendarSkin);
-
-        //        // clear the default cell content (anchor tag) as we need to disable the hover effect for this cell
-        //        e.Cell.Text = "";
-        //        e.Cell.CssClass = otherMonthCssClass; //set new CssClass for the disabled calendar day cells (e.g. look like other month days here)
-
-        //        // render a span element with the processed calendar day number instead of the removed anchor -- necessary for the calendar skinning mechanism 
-        //        Label label = new Label();
-        //        label.Text = e.Day.Date.Day.ToString();
-        //        e.Cell.Controls.Add(label);
-
-        //        // disable the selection for the specific day
-        //        RadCalendarDay calendarDay = new RadCalendarDay();
-        //        calendarDay.Date = e.Day.Date;
-        //        calendarDay.IsSelectable = false;
-        //        calendarDay.ItemStyle.CssClass = otherMonthCssClass;
-        //        txtEmailAsOnDate.Calendar.SpecialDays.Add(calendarDay);
-        //    }
-        //}
+        
 
         protected void ListBoxSource_Transferred(object source , Telerik.Web.UI.RadListBoxTransferredEventArgs e)
         {
             LBCustomer.Items.Sort();
         }
-        /// <summary>
-        /// This will add selected list Items(Customer) From One Lst to Other List. Author:Pramod 
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="target"></param>
-        /// <param name="moveAllItems"></param>
-
+       
         private void moveSelectedItems(DanLudwig.Controls.Web.ListBox source, DanLudwig.Controls.Web.ListBox target, bool moveAllItems)
         {
-            // loop through all source items to find selected ones
             for (int i = source.Items.Count - 1; i >= 0; i--)
             {
                 ListItem item = source.Items[i];
@@ -152,8 +114,6 @@ namespace WealthERP.Reports
 
                 if (item.Selected)
                 {
-                    // if the target already contains items, loop through
-                    // them to place this new item in correct sorted order
                     if (target.Items.Count > 0)
                     {
                         for (int ii = 0; ii < target.Items.Count; ii++)
@@ -167,14 +127,12 @@ namespace WealthERP.Reports
                         }
                     }
 
-                    // if item is still selected, it must be appended
                     if (item.Selected)
                     {
                         target.Items.Add(item);
                         item.Selected = false;
                     }
 
-                    // remove the item from the source list
                     source.Items.Remove(item);
                 }
             }
@@ -210,7 +168,6 @@ namespace WealthERP.Reports
                 pnlGvRequestStatus.Visible = true;
 
 
-                //ddlReportSubType.Attributes.Add("onchange", "ChangeDates()");
                 rdoGroup.Attributes.Add("onClick", "javascript:ChangeCustomerSelectionTextBox(value);");
 
                 rdoIndividual.Attributes.Add("onClick", "javascript:ChangeCustomerSelectionTextBox(value);");
@@ -223,16 +180,13 @@ namespace WealthERP.Reports
 
                 
                
-                // cvAsOnDate.ValueToCompare = DateTime.Now.ToShortDateString();
 
-                //GetRequestStatusList(151586, Convert.ToDateTime("2013-05-08"));
                 if (userVo.UserType!="SuperAdmin")
                 {
                     trAdviserSelection.Visible = false;
                       if (Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnViewReport"] != "View Report" && Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlEmailReports$btnEmailReport"] != "Email Report")
                     {
                         path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
-                          //issue may be 
                         if (Session[SessionContents.RmVo] != null)
                         {
                             if (!string.IsNullOrEmpty(Session[SessionContents.RmVo].ToString()))
@@ -255,10 +209,7 @@ namespace WealthERP.Reports
                                 CustomerLogin = true;
                                 hndCustomerLogin.Value = "true";
                                 Session["hndCustomerLogin"] = hndCustomerLogin.Value;
-                                //old code
-                                //tabpnlEmailReports.Visible = false;
-
-                                //new gr
+                              
                                 RadTabStrip2.Tabs[1].Visible = false;
                                 RadTabStrip2.Tabs[2].Visible = false;
 
@@ -274,11 +225,7 @@ namespace WealthERP.Reports
 
                         BindPeriodDropDown();
 
-                        //if (CustomerLogin == false)
-                        //{
-                        //    txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                        //    txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                        //}
+                      
 
                         #region new gr
                         if (CustomerLogin == true)
@@ -321,41 +268,15 @@ namespace WealthERP.Reports
 
                             trAdminRM.Visible = true;
                             trCustomer.Visible = false;
-                            //if (rdoGroup.Checked)
-                            //    hdnCustomerId_ValueChanged(this, null);
+                           
                         }
 
 
-                        //tabpnlEmailReports.Visible = false;
                         if (CustomerLogin == false)
                         {
-                            //This for Customer Search AutoCompelete TextBox Dynamic Assign Service Method.
-                            //if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
-                            //{
-                            //    txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                            //    txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                            //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
-                            //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
-                            //}
-                            //else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
-                            //{
-                            //    txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                            //    txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                            //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-                            //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
-
-                            //}
-
-
-                            //ListBox horizontal Scorling enabled false
-                            //old code
-                            //LBCustomer.HorizontalScrollEnabled = false;
-                            //old code
-                            //LBSelectCustomer.HorizontalScrollEnabled = false;
-
+                           
                             CustomerBo customerBo = new CustomerBo();
                             DataTable dtGroupCustomerList = new DataTable();
-                            //dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
                             if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
                             {
                                 RadTabStrip2.Tabs[1].Visible = false;
@@ -365,20 +286,14 @@ namespace WealthERP.Reports
                             }
                             else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() == "Ops")
                             {
-                                //old code
-                                //tabpnlEmailReports.Visible = true;
-
-                                //new gr
+                                
                                 RadTabStrip2.Tabs[1].Visible = true;
                                 dtGroupCustomerList = customerBo.GetAdviserGroupCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
                                 imgBtnrgHoldings.Visible = true;
                             }
                             else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
                             {
-                                //old code
-                                //tabpnlEmailReports.Visible = false;
-
-                                //new gr
+                              
                                 RadTabStrip2.Tabs[1].Visible = false;
                                 RadTabStrip2.Tabs[2].Visible = false;
                                 imgBtnrgHoldings.Visible = false;
@@ -416,7 +331,6 @@ namespace WealthERP.Reports
                         {
 
 
-                            //imgBtnrgHoldings.Visible = false;
                             if (Cache["gvRequestStatus" + advisorVo.advisorId] != null)
                             {
                                 Cache.Remove("gvRequestStatus" + advisorVo.advisorId);
@@ -427,100 +341,7 @@ namespace WealthERP.Reports
                             rdpShowRequestStausGrid.SelectedDate = DateTime.Now;
                             lblNote2.Visible = true;
 
-                            #region old code
-                            //if (CustomerLogin == true)
-                            //{
-                            //    trCustomerName.Visible = true;
-                            //    trIndCustomer.Visible = false;
-                            //    trGroupCustomer.Visible = false;
-                            //    IndivisulCustomerLogin();
-
-                            //    trAdvisorRadioList.Visible = false;
-                            //    trCustomerRadioList.Visible = true;
-
-                            //    trAdminRM.Visible = false;
-                            //    trCustomer.Visible = true;
-
-                            //    isGrpHead = customerBo.CheckCustomerGroupHead(customerVo.CustomerId);
-                            //    if (isGrpHead == false)
-                            //    {
-                            //        trCustomerRadioList.Visible = false;
-                            //        rdoCustomerIndivisual.Checked = true;
-                            //        divGroupCustomers.Visible = false;
-                            //        hndSelfOrGroup.Value = "self";
-                            //        ShowFolios();
-                            //    }
-                            //    else
-                            //    {
-                            //        rdoCustomerGroup.Checked = true;
-                            //        hndSelfOrGroup.Value = "";
-                            //    }
-
-                            //}
-                            //else
-                            //{
-                            //    trCustomerName.Visible = false;
-                            //    trIndCustomer.Visible = true;
-                            //    trGroupCustomer.Visible = true;
-
-                            //    trAdvisorRadioList.Visible = true;
-                            //    trCustomerRadioList.Visible = false;
-
-                            //    trAdminRM.Visible = true;
-                            //    trCustomer.Visible = false;
-                            //}
-
-
-                            ////tabpnlEmailReports.Visible = false;
-                            //if (CustomerLogin == false)
-                            //{
-                            //    //This for Customer Search AutoCompelete TextBox Dynamic Assign Service Method.
-                            //    //if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
-                            //    //{
-                            //    //    txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                            //    //    txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                            //    //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
-                            //    //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
-                            //    //}
-                            //    //else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
-                            //    //{
-                            //    //    txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                            //    //    txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                            //    //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-                            //    //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
-
-                            //    //}
-
-
-                            //    //ListBox horizontal Scorling enabled false
-                            //    LBCustomer.HorizontalScrollEnabled = false;
-                            //    LBSelectCustomer.HorizontalScrollEnabled = false;
-
-                            //    CustomerBo customerBo = new CustomerBo();
-                            //    DataTable dtGroupCustomerList = new DataTable();
-                            //    //dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
-                            //    if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
-                            //    {
-                            //        dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
-                            //    }
-                            //    else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() == "Ops")
-                            //    {
-                            //        tabpnlEmailReports.Visible = true;
-                            //        dtGroupCustomerList = customerBo.GetAdviserGroupCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
-
-                            //    }
-                            //    else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
-                            //    {
-                            //        tabpnlEmailReports.Visible = false;
-                            //    }
-
-
-                            //    LBCustomer.DataSource = dtGroupCustomerList;
-                            //    LBCustomer.DataTextField = "C_FirstName";
-                            //    LBCustomer.DataValueField = "C_CustomerId";
-                            //    LBCustomer.DataBind();
-                            //}
-                            #endregion
+                            
 
                             CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
                             DataSet ds = customerTransactionBo.GetLastMFTradeDate();
@@ -528,35 +349,14 @@ namespace WealthERP.Reports
 
                             if (ds.Tables != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0 && ds.Tables[0].Rows[0]["WTD_Date"] != null)
                             {
-                                //AsonDate = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]);
-                                //AsonDate = AsonDate.AddDays(-1);
-
-                                //txtAsOnDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
-                                ////txtAsOnDate1 = DateTime.Parse(txtAsOnDate.Text.ToString());
-                                //txtFromDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
-                                //txtToDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
-                                //txtEmailAsOnDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
-                                //txtEmailFromDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
-                                //txtEmailToDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
+                               
                             }
-                            //Transaction Subreport search invissible intitialy..
-                            //trTranFilter1.Visible = false;
-                            //trTranFilter2.Visible = false;
-
-                            //old code
-                            //tabViewAndEmailReports.ActiveTabIndex = 0;
-
-                            //new gr
+                          
                             RadTabStrip2.Tabs.FindTabByValue("tabpnlViewReports").Selected = true;
                             tabViewAndEmailReports.SelectedIndex = 0;
 
-                            //ShowFolios();
                             advisorId = advisorVo.advisorId;
-                            //---------------------------------- Old code to get last Valuation date from History----
-                            //LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
-                            //hdnValuationDate.Value = LatestValuationdate.ToString();
 
-                            //---------------------------------- New code to get last Valuation date----------------------
                             if (Session[SessionContents.ValuationDate] == null)
                                 GetLatestValuationDate();
                             genDict = (Dictionary<string, DateTime>)Session[SessionContents.ValuationDate];
@@ -574,29 +374,7 @@ namespace WealthERP.Reports
                             }
 
                         }
-                        //if (ddlReportSubType.SelectedValue.ToString() == "RETURNS_PORTFOLIO" || ddlReportSubType.SelectedValue.ToString() == "COMPREHENSIVE" || ddlReportSubType.SelectedValue.ToString() == "CATEGORY_WISE" || ddlReportSubType.SelectedValue.ToString() == "REALIZED_REPORT")
-                        //{
-                        //    //LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
-                        //    LatestValuationdate = DateTime.Parse(portfolioBo.GetLatestValuationDate(advisorId, "MF").ToString());
-                        //    hdnValuationDate.Value = LatestValuationdate.ToString();
-                        //    txtAsOnDate.Text = LatestValuationdate.ToShortDateString();
-
-                        //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
-                        //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
-
-                        //}
-                        //else
-                        //{
-                        //    LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
-                        //    hdnValuationDate.Value = LatestValuationdate.ToString();
-                        //    txtAsOnDate.Text = LatestValuationdate.ToShortDateString();
-                        //    txtFromDate.Text = LatestValuationdate.ToShortDateString();
-                        //    txtToDate.Text = LatestValuationdate.ToShortDateString();
-                        //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
-                        //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
-                        //    txtEmailFromDate.Text = LatestValuationdate.ToShortDateString();
-                        //    txtEmailToDate.Text = LatestValuationdate.ToShortDateString();
-                        //}
+                       
                         if (CustomerLogin == false)
                         {
                             if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
@@ -633,11 +411,7 @@ namespace WealthERP.Reports
                             activeTabIndex = Convert.ToInt32(Request.Form["ctrl_MFReports$hidTabIndex"]);
 
 
-                            //old code
-                            //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
-
-
-                            //new gr
+                          
                             RadTabStrip2.Tabs[activeTabIndex].Selected = true;
                             tabViewAndEmailReports.SelectedIndex = 0;
                         }
@@ -676,11 +450,7 @@ namespace WealthERP.Reports
 
                         BindPeriodDropDown();
 
-                        //if (CustomerLogin == false)
-                        //{
-                        //    txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                        //    txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                        //}
+                      
 
                        
                             trCustomerName.Visible = false;
@@ -692,43 +462,16 @@ namespace WealthERP.Reports
 
                             trAdminRM.Visible = true;
                             trCustomer.Visible = false;
-                            //if (rdoGroup.Checked)
-                            //    hdnCustomerId_ValueChanged(this, null);
-                      
+                           
 
 
-                        //tabpnlEmailReports.Visible = false;
                         if (CustomerLogin == false)
                         {
-                            //This for Customer Search AutoCompelete TextBox Dynamic Assign Service Method.
-                            //if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
-                            //{
-                            //    txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                            //    txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                            //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
-                            //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
-                            //}
-                            //else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
-                            //{
-                            //    txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                            //    txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                            //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-                            //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
-
-                            //}
-
-
-                            //ListBox horizontal Scorling enabled false
-                            //old code
-                            //LBCustomer.HorizontalScrollEnabled = false;
-                            //old code
-                            //LBSelectCustomer.HorizontalScrollEnabled = false;
+                           
 
                             CustomerBo customerBo = new CustomerBo();
                             DataTable dtGroupCustomerList = new DataTable();
-                            //dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
                            
-                                //new gr
                                 RadTabStrip2.Tabs[1].Visible = true;
                                 if (ddlAdviser.SelectedIndex!=0)
                                 dtGroupCustomerList = customerBo.GetAdviserGroupCustomerName("BULKMAIL", int.Parse(ddlAdviser.SelectedValue.ToString()));
@@ -766,7 +509,6 @@ namespace WealthERP.Reports
                         {
 
 
-                            //imgBtnrgHoldings.Visible = false;
                             if (Cache["gvRequestStatus" + ddlAdviser.SelectedValue] != null)
                             {
                                 Cache.Remove("gvRequestStatus" + ddlAdviser.SelectedValue);
@@ -777,100 +519,7 @@ namespace WealthERP.Reports
                             rdpShowRequestStausGrid.SelectedDate = DateTime.Now;
                             lblNote2.Visible = true;
 
-                            #region old code
-                            //if (CustomerLogin == true)
-                            //{
-                            //    trCustomerName.Visible = true;
-                            //    trIndCustomer.Visible = false;
-                            //    trGroupCustomer.Visible = false;
-                            //    IndivisulCustomerLogin();
-
-                            //    trAdvisorRadioList.Visible = false;
-                            //    trCustomerRadioList.Visible = true;
-
-                            //    trAdminRM.Visible = false;
-                            //    trCustomer.Visible = true;
-
-                            //    isGrpHead = customerBo.CheckCustomerGroupHead(customerVo.CustomerId);
-                            //    if (isGrpHead == false)
-                            //    {
-                            //        trCustomerRadioList.Visible = false;
-                            //        rdoCustomerIndivisual.Checked = true;
-                            //        divGroupCustomers.Visible = false;
-                            //        hndSelfOrGroup.Value = "self";
-                            //        ShowFolios();
-                            //    }
-                            //    else
-                            //    {
-                            //        rdoCustomerGroup.Checked = true;
-                            //        hndSelfOrGroup.Value = "";
-                            //    }
-
-                            //}
-                            //else
-                            //{
-                            //    trCustomerName.Visible = false;
-                            //    trIndCustomer.Visible = true;
-                            //    trGroupCustomer.Visible = true;
-
-                            //    trAdvisorRadioList.Visible = true;
-                            //    trCustomerRadioList.Visible = false;
-
-                            //    trAdminRM.Visible = true;
-                            //    trCustomer.Visible = false;
-                            //}
-
-
-                            ////tabpnlEmailReports.Visible = false;
-                            //if (CustomerLogin == false)
-                            //{
-                            //    //This for Customer Search AutoCompelete TextBox Dynamic Assign Service Method.
-                            //    //if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
-                            //    //{
-                            //    //    txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                            //    //    txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                            //    //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
-                            //    //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
-                            //    //}
-                            //    //else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
-                            //    //{
-                            //    //    txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                            //    //    txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                            //    //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-                            //    //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
-
-                            //    //}
-
-
-                            //    //ListBox horizontal Scorling enabled false
-                            //    LBCustomer.HorizontalScrollEnabled = false;
-                            //    LBSelectCustomer.HorizontalScrollEnabled = false;
-
-                            //    CustomerBo customerBo = new CustomerBo();
-                            //    DataTable dtGroupCustomerList = new DataTable();
-                            //    //dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
-                            //    if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
-                            //    {
-                            //        dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
-                            //    }
-                            //    else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() == "Ops")
-                            //    {
-                            //        tabpnlEmailReports.Visible = true;
-                            //        dtGroupCustomerList = customerBo.GetAdviserGroupCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
-
-                            //    }
-                            //    else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
-                            //    {
-                            //        tabpnlEmailReports.Visible = false;
-                            //    }
-
-
-                            //    LBCustomer.DataSource = dtGroupCustomerList;
-                            //    LBCustomer.DataTextField = "C_FirstName";
-                            //    LBCustomer.DataValueField = "C_CustomerId";
-                            //    LBCustomer.DataBind();
-                            //}
-                            #endregion
+                            
 
                             CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
                             DataSet ds = customerTransactionBo.GetLastMFTradeDate();
@@ -878,36 +527,16 @@ namespace WealthERP.Reports
 
                             if (ds.Tables != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0 && ds.Tables[0].Rows[0]["WTD_Date"] != null)
                             {
-                                //AsonDate = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]);
-                                //AsonDate = AsonDate.AddDays(-1);
-
-                                //txtAsOnDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
-                                ////txtAsOnDate1 = DateTime.Parse(txtAsOnDate.Text.ToString());
-                                //txtFromDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
-                                //txtToDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
-                                //txtEmailAsOnDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
-                                //txtEmailFromDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
-                                //txtEmailToDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
                             }
-                            //Transaction Subreport search invissible intitialy..
-                            //trTranFilter1.Visible = false;
-                            //trTranFilter2.Visible = false;
+                           
 
-                            //old code
-                            //tabViewAndEmailReports.ActiveTabIndex = 0;
 
-                            //new gr
                             RadTabStrip2.Tabs.FindTabByValue("tabpnlViewReports").Selected = true;
                             tabViewAndEmailReports.SelectedIndex = 0;
 
-                            //ShowFolios();
                             if (ddlAdviser.SelectedIndex!=0)
                             advisorId =Convert.ToInt32(ddlAdviser.SelectedValue);
-                            //---------------------------------- Old code to get last Valuation date from History----
-                            //LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
-                            //hdnValuationDate.Value = LatestValuationdate.ToString();
-
-                            //---------------------------------- New code to get last Valuation date----------------------
+                          
                             if (Session[SessionContents.ValuationDate] == null)
                                 GetLatestValuationDate();
                             genDict = (Dictionary<string, DateTime>)Session[SessionContents.ValuationDate];
@@ -925,29 +554,7 @@ namespace WealthERP.Reports
                             }
 
                         }
-                        //if (ddlReportSubType.SelectedValue.ToString() == "RETURNS_PORTFOLIO" || ddlReportSubType.SelectedValue.ToString() == "COMPREHENSIVE" || ddlReportSubType.SelectedValue.ToString() == "CATEGORY_WISE" || ddlReportSubType.SelectedValue.ToString() == "REALIZED_REPORT")
-                        //{
-                        //    //LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
-                        //    LatestValuationdate = DateTime.Parse(portfolioBo.GetLatestValuationDate(advisorId, "MF").ToString());
-                        //    hdnValuationDate.Value = LatestValuationdate.ToString();
-                        //    txtAsOnDate.Text = LatestValuationdate.ToShortDateString();
-
-                        //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
-                        //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
-
-                        //}
-                        //else
-                        //{
-                        //    LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
-                        //    hdnValuationDate.Value = LatestValuationdate.ToString();
-                        //    txtAsOnDate.Text = LatestValuationdate.ToShortDateString();
-                        //    txtFromDate.Text = LatestValuationdate.ToShortDateString();
-                        //    txtToDate.Text = LatestValuationdate.ToShortDateString();
-                        //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
-                        //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
-                        //    txtEmailFromDate.Text = LatestValuationdate.ToShortDateString();
-                        //    txtEmailToDate.Text = LatestValuationdate.ToShortDateString();
-                        //}
+                       
                         if (CustomerLogin == false)
                         {
                             
@@ -967,11 +574,7 @@ namespace WealthERP.Reports
                             activeTabIndex = Convert.ToInt32(Request.Form["ctrl_MFReports$hidTabIndex"]);
 
 
-                            //old code
-                            //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
-
-
-                            //new gr
+                          
                             RadTabStrip2.Tabs[activeTabIndex].Selected = true;
                             tabViewAndEmailReports.SelectedIndex = 0;
                         }
@@ -1036,7 +639,6 @@ namespace WealthERP.Reports
             
             txtCustomer.Text="";
             txtParentCustomer.Text = "";
-            //ddlPortfolioGroup.SelectedIndex = 0;
 
 
 
@@ -1046,19 +648,12 @@ namespace WealthERP.Reports
             if (Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnViewReport"] != "View Report" && Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlEmailReports$btnEmailReport"] != "Email Report")
             {
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
-                //if (!string.IsNullOrEmpty(Session[SessionContents.RmVo].ToString()))
-                //    rmVo = (RMVo)Session[SessionContents.RmVo];
-
              
 
 
                 BindPeriodDropDown();
 
-                //if (CustomerLogin == false)
-                //{
-                //    txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                //    txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                //}
+              
 
                 #region new gr
                 
@@ -1071,40 +666,15 @@ namespace WealthERP.Reports
 
                     trAdminRM.Visible = true;
                     trCustomer.Visible = false;
-                    //if (rdoGroup.Checked)
-                    //    hdnCustomerId_ValueChanged(this, null);
-               
-
-                //tabpnlEmailReports.Visible = false;
+                   
                 if (CustomerLogin == false)
                 {
-                    //This for Customer Search AutoCompelete TextBox Dynamic Assign Service Method.
-                    //if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
-                    //{
-                    //    txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                    //    txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                    //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
-                    //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
-                    //}
-                    //else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
-                    //{
-                    //    txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                    //    txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                    //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-                    //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
+                   
 
-                    //}
-
-
-                    //ListBox horizontal Scorling enabled false
-                    //old code
-                    //LBCustomer.HorizontalScrollEnabled = false;
-                    //old code
-                    //LBSelectCustomer.HorizontalScrollEnabled = false;
+                  
 
                     CustomerBo customerBo = new CustomerBo();
                     DataTable dtGroupCustomerList = new DataTable();
-                    //dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
                    
                         dtGroupCustomerList = customerBo.GetAdviserGroupCustomerName("BULKMAIL", int.Parse(advisorId.ToString()));
                         imgBtnrgHoldings.Visible = true;
@@ -1142,7 +712,6 @@ namespace WealthERP.Reports
                 {
 
 
-                    //imgBtnrgHoldings.Visible = false;
                     if (Cache["gvRequestStatus" + advisorVo.advisorId] != null)
                     {
                         Cache.Remove("gvRequestStatus" + advisorVo.advisorId);
@@ -1153,100 +722,7 @@ namespace WealthERP.Reports
                     rdpShowRequestStausGrid.SelectedDate = DateTime.Now;
                     lblNote2.Visible = true;
 
-                    #region old code
-                    //if (CustomerLogin == true)
-                    //{
-                    //    trCustomerName.Visible = true;
-                    //    trIndCustomer.Visible = false;
-                    //    trGroupCustomer.Visible = false;
-                    //    IndivisulCustomerLogin();
-
-                    //    trAdvisorRadioList.Visible = false;
-                    //    trCustomerRadioList.Visible = true;
-
-                    //    trAdminRM.Visible = false;
-                    //    trCustomer.Visible = true;
-
-                    //    isGrpHead = customerBo.CheckCustomerGroupHead(customerVo.CustomerId);
-                    //    if (isGrpHead == false)
-                    //    {
-                    //        trCustomerRadioList.Visible = false;
-                    //        rdoCustomerIndivisual.Checked = true;
-                    //        divGroupCustomers.Visible = false;
-                    //        hndSelfOrGroup.Value = "self";
-                    //        ShowFolios();
-                    //    }
-                    //    else
-                    //    {
-                    //        rdoCustomerGroup.Checked = true;
-                    //        hndSelfOrGroup.Value = "";
-                    //    }
-
-                    //}
-                    //else
-                    //{
-                    //    trCustomerName.Visible = false;
-                    //    trIndCustomer.Visible = true;
-                    //    trGroupCustomer.Visible = true;
-
-                    //    trAdvisorRadioList.Visible = true;
-                    //    trCustomerRadioList.Visible = false;
-
-                    //    trAdminRM.Visible = true;
-                    //    trCustomer.Visible = false;
-                    //}
-
-
-                    ////tabpnlEmailReports.Visible = false;
-                    //if (CustomerLogin == false)
-                    //{
-                    //    //This for Customer Search AutoCompelete TextBox Dynamic Assign Service Method.
-                    //    //if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
-                    //    //{
-                    //    //    txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                    //    //    txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                    //    //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
-                    //    //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
-                    //    //}
-                    //    //else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
-                    //    //{
-                    //    //    txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                    //    //    txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                    //    //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-                    //    //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
-
-                    //    //}
-
-
-                    //    //ListBox horizontal Scorling enabled false
-                    //    LBCustomer.HorizontalScrollEnabled = false;
-                    //    LBSelectCustomer.HorizontalScrollEnabled = false;
-
-                    //    CustomerBo customerBo = new CustomerBo();
-                    //    DataTable dtGroupCustomerList = new DataTable();
-                    //    //dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
-                    //    if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
-                    //    {
-                    //        dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
-                    //    }
-                    //    else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() == "Ops")
-                    //    {
-                    //        tabpnlEmailReports.Visible = true;
-                    //        dtGroupCustomerList = customerBo.GetAdviserGroupCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
-
-                    //    }
-                    //    else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
-                    //    {
-                    //        tabpnlEmailReports.Visible = false;
-                    //    }
-
-
-                    //    LBCustomer.DataSource = dtGroupCustomerList;
-                    //    LBCustomer.DataTextField = "C_FirstName";
-                    //    LBCustomer.DataValueField = "C_CustomerId";
-                    //    LBCustomer.DataBind();
-                    //}
-                    #endregion
+                    
 
                     CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
                     DataSet ds = customerTransactionBo.GetLastMFTradeDate();
@@ -1254,35 +730,12 @@ namespace WealthERP.Reports
 
                     if (ds.Tables != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0 && ds.Tables[0].Rows[0]["WTD_Date"] != null)
                     {
-                        //AsonDate = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]);
-                        //AsonDate = AsonDate.AddDays(-1);
-
-                        //txtAsOnDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
-                        ////txtAsOnDate1 = DateTime.Parse(txtAsOnDate.Text.ToString());
-                        //txtFromDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
-                        //txtToDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
-                        //txtEmailAsOnDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
-                        //txtEmailFromDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
-                        //txtEmailToDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
                     }
-                    //Transaction Subreport search invissible intitialy..
-                    //trTranFilter1.Visible = false;
-                    //trTranFilter2.Visible = false;
-
-                    //old code
-                    //tabViewAndEmailReports.ActiveTabIndex = 0;
-
-                    //new gr
+                   
                     RadTabStrip2.Tabs.FindTabByValue("tabpnlViewReports").Selected = true;
                     tabViewAndEmailReports.SelectedIndex = 0;
 
-                    //ShowFolios();
                     advisorId = advisorVo.advisorId;
-                    //---------------------------------- Old code to get last Valuation date from History----
-                    //LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
-                    //hdnValuationDate.Value = LatestValuationdate.ToString();
-
-                    //---------------------------------- New code to get last Valuation date----------------------
                     if (Session[SessionContents.ValuationDate] == null)
                         GetLatestValuationDate();
                     genDict = (Dictionary<string, DateTime>)Session[SessionContents.ValuationDate];
@@ -1300,29 +753,7 @@ namespace WealthERP.Reports
                     }
 
                 }
-                //if (ddlReportSubType.SelectedValue.ToString() == "RETURNS_PORTFOLIO" || ddlReportSubType.SelectedValue.ToString() == "COMPREHENSIVE" || ddlReportSubType.SelectedValue.ToString() == "CATEGORY_WISE" || ddlReportSubType.SelectedValue.ToString() == "REALIZED_REPORT")
-                //{
-                //    //LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
-                //    LatestValuationdate = DateTime.Parse(portfolioBo.GetLatestValuationDate(advisorId, "MF").ToString());
-                //    hdnValuationDate.Value = LatestValuationdate.ToString();
-                //    txtAsOnDate.Text = LatestValuationdate.ToShortDateString();
-
-                //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
-                //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
-
-                //}
-                //else
-                //{
-                //    LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
-                //    hdnValuationDate.Value = LatestValuationdate.ToString();
-                //    txtAsOnDate.Text = LatestValuationdate.ToShortDateString();
-                //    txtFromDate.Text = LatestValuationdate.ToShortDateString();
-                //    txtToDate.Text = LatestValuationdate.ToShortDateString();
-                //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
-                //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
-                //    txtEmailFromDate.Text = LatestValuationdate.ToShortDateString();
-                //    txtEmailToDate.Text = LatestValuationdate.ToShortDateString();
-                //}
+              
                 if (CustomerLogin == false)
                 {
                   
@@ -1342,11 +773,7 @@ namespace WealthERP.Reports
                     activeTabIndex = Convert.ToInt32(Request.Form["ctrl_MFReports$hidTabIndex"]);
 
 
-                    //old code
-                    //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
-
-
-                    //new gr
+                 
                     RadTabStrip2.Tabs[activeTabIndex].Selected = true;
                     tabViewAndEmailReports.SelectedIndex = 0;
                 }
@@ -1420,7 +847,6 @@ namespace WealthERP.Reports
 
         public void BindGvRequestStatus(int adviserId, DateTime dtSelectedRequestDate)
         {
-            //GetRequestStatusList(151586, Convert.ToDateTime("2013-05-27"));
             GetRequestStatusList(adviserId, dtSelectedRequestDate);
             gvRequestStatus.DataSource = dtRequestStatusList;
 
@@ -1431,7 +857,6 @@ namespace WealthERP.Reports
             gvRequestStatus.MasterTableView.UseAllDataFields = false;
             gvRequestStatus.DataBind();
 
-            //new gr
 
             RadTabStrip2.Tabs[2].Selected = true;
             tabViewAndEmailReports.SelectedIndex = 2;
@@ -1441,10 +866,7 @@ namespace WealthERP.Reports
             if (dtRequestStatusList.Rows.Count != 0)
             {
 
-                //pnlGvRequestStatus.Visible = true;
             }
-            //else
-            //    pnlGvRequestStatus.Visible = false;
         }
 
 
@@ -1456,22 +878,7 @@ namespace WealthERP.Reports
 
         protected void rbtnDate_CheckedChanged(object sender, EventArgs e)
         {
-            //if (rbtnPickDate.Checked == true)
-            //{
-            //    trRange.Visible = true;
-            //    trPeriod.Visible = false;
-            //}
-            //else if (rbtnPickPeriod.Checked == true)
-            //{
-            //    trRange.Visible = false;
-            //    trPeriod.Visible = true;
-            //    BindPeriodDropDown();
-            //}
-            ////gvMFTransactions.DataSource = null;
-            ////gvMFTransactions.DataBind();
-            ////lblCurrentPage.Text = string.Empty;
-            ////lblTotalRows.Text = string.Empty;
-            ////mypager.Visible = false;
+            
         }
 
         protected void hdnCustomerId_ValueChanged(object sender, EventArgs e)
@@ -1485,36 +892,24 @@ namespace WealthERP.Reports
                 hdnCustomerId1.Value = hdnCustomerId.Value;
                 txtCustomerPAN.Text = dr["C_PANNum"].ToString();
                 trCustomerDetails.Style.Add("display", "block");
-                //trCustomerDetails.Visible = true;
-                //trPortfolioDetails.Visible = true;
                 if (rdoIndividual.Checked)
                     ShowFolios();
                 else
                     ShowGroupCustomers();
-                //Storing Customer details in session to Access in Display.aspx for passing report parameter
-                //CustomerVo customerVo = new CustomerVo();
                 customerVo = customerBo.GetCustomer(int.Parse(hdnCustomerId.Value));
                 Session["CusVo"] = customerVo;
                 txtParentCustomer.Text = customerVo.FirstName.ToString() + customerVo.MiddleName.ToString() + customerVo.LastName.ToString();
                 txtCustomer.Text = customerVo.FirstName.ToString() + customerVo.MiddleName.ToString() + customerVo.LastName.ToString();
                 hdnCustomerId.Value = "";
             }
-            //old code
-            //tabViewAndEmailReports.ActiveTab = tabViewAndEmailReports.Tabs[activeTabIndex];
-            //tabViewAndEmailReports.ActiveTabIndex = 0;
-
-
-            //new gr
+          
             RadTabStrip2.Tabs[0].Selected = true;
             tabViewAndEmailReports.SelectedIndex = 0;
 
         }
-        /// <summary>
-        /// Getting Details of Customer for MFReport when Customer Indivisul login. Author:Pramod  
-        /// </summary>
+       
         protected void IndivisulCustomerLogin()
         {
-            //CustomerBo customerBo = new CustomerBo();
             lblCustomerName.Text = customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName;
             DataTable dt = customerBo.GetCustomerPanAddress(customerVo.CustomerId);
             DataRow dr = dt.Rows[0];
@@ -1526,14 +921,7 @@ namespace WealthERP.Reports
                 ShowFolios();
             else
                 ShowAllCustomer();
-            //Storing Customer details in session to Access in Display.aspx for passing report parameter
-
-
-            //old code
-            //tabViewAndEmailReports.ActiveTab = tabViewAndEmailReports.Tabs[activeTabIndex];
-            //tabViewAndEmailReports.ActiveTabIndex = 0;
-
-            //new gr
+           
             RadTabStrip2.Tabs[activeTabIndex].Selected = true;
             tabViewAndEmailReports.SelectedIndex = 0;
         }
@@ -1604,9 +992,7 @@ namespace WealthERP.Reports
 
         }
 
-        /// <summary>
-        /// When Customer Indivisua login, then and group report is selected then Show all Customer. Author:Pramod
-        /// </summary>
+      
         private void ShowAllCustomer()
         {
             CustomerFamilyBo customerFamilyBo = new CustomerFamilyBo();
@@ -1621,13 +1007,11 @@ namespace WealthERP.Reports
                 strCustomers.Append("<table border='0'>");
 
                 strCustomers.Append("<tr><td colspan='3'><b>All Customers Under Group Head :</b></td></tr>");
-                //strCustomers.Append("<tr><td>Customer Name</td><td>Customer Id</td><td>&nbsp;</td></tr>");
 
                 foreach (DataRow dr in dt.Rows)
                 {
                     strCustomers.Append("<tr>");
                     strCustomers.Append("<td>" + dr["CustomerName"].ToString() + "</td>");
-                    //strCustomers.Append("<td>" + dr["C_AssociateCustomerId"].ToString() + "</td>");
                     strCustomers.Append("<td>" + ShowGroupFolioCustomerlogin(Convert.ToInt32(dr["C_AssociateCustomerId"])) + "</td>");
                     strCustomers.Append("</tr>");
                 }
@@ -1640,20 +1024,14 @@ namespace WealthERP.Reports
                 divGroupCustomers.InnerHtml = "No Customers found";
             }
 
-            //old code
-            //tabViewAndEmailReports.ActiveTab = tabViewAndEmailReports.Tabs[activeTabIndex];
-            //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
-
-            //new gr
+            
             RadTabStrip2.Tabs[activeTabIndex].Selected = true;
             tabViewAndEmailReports.SelectedIndex = activeTabIndex;
 
             divPortfolios.InnerHtml = string.Empty;
         }
 
-        /// <summary>
-        /// When group report is selected then Show all Customer belong to a Group Head. Author:Pramod
-        /// </summary>
+        
         private void ShowGroupCustomers()
         {
             CustomerBo customerBo = new CustomerBo();
@@ -1671,13 +1049,11 @@ namespace WealthERP.Reports
                     strCustomers.Append("<table border='0'>");
 
                     strCustomers.Append("<tr><td colspan='3'><b>All Customers Under Group Head :</b></td></tr>");
-                    //strCustomers.Append("<tr><td>Customer Name</td><td>Customer Id</td><td>&nbsp;</td></tr>");
 
                     foreach (DataRow dr in dt.Rows)
                     {
                         strCustomers.Append("<tr>");
                         strCustomers.Append("<td>" + dr["CustomerName"].ToString() + "</td>");
-                        //strCustomers.Append("<td>" + dr["C_AssociateCustomerId"].ToString() + "</td>");
                         strCustomers.Append("<td>" + ShowGroupFolios(Convert.ToInt32(dr["C_AssociateCustomerId"])) + "</td>");
                         strCustomers.Append("</tr>");
                     }
@@ -1689,28 +1065,16 @@ namespace WealthERP.Reports
                 {
                     divGroupCustomers.InnerHtml = "No Customers found";
                 }
-                //DataRow dr = dt.Rows[0];
 
-                //txtPanParent.Text = dr["C_PANNum"].ToString();
-                //trCustomerDetails.Visible = true;
-                //trPortfolioDetails.Visible = true;
-                //ShowFolios();
             }
-            //old code
-            //tabViewAndEmailReports.ActiveTab = tabViewAndEmailReports.Tabs[activeTabIndex];
-            //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
-
-            //new gr
+         
             RadTabStrip2.Tabs[activeTabIndex].Selected = true;
             tabViewAndEmailReports.SelectedIndex = activeTabIndex;
 
             divPortfolios.InnerHtml = string.Empty;
         }
 
-        /// <summary>
-        /// Binding Period Dropdown From Xml File
-        /// </summary>
-
+    
         private void BindPeriodDropDown()
         {
             DataTable dtPeriod;
@@ -1747,9 +1111,7 @@ namespace WealthERP.Reports
                 ShowGroupCustomers();
         }
 
-        /// <summary>
-        /// It Creats checkBox dynamically with folio ID and Name on indivisual report generate. 
-        /// </summary>
+       
 
         private void ShowFolios()
         {
@@ -1760,17 +1122,15 @@ namespace WealthERP.Reports
            {
                return ;
            }
-            if (!String.IsNullOrEmpty(hdnCustomerId1.Value) ) //Note : customer Id assigned to hdnCustomerId(hidden field) when the user selects customer from customer name suggestion text box
+            if (!String.IsNullOrEmpty(hdnCustomerId1.Value) ) 
             {
                 int customerId = Convert.ToInt32(hdnCustomerId1.Value);
-                List<CustomerPortfolioVo> customerPortfolioVos = portfolioBo.GetCustomerPortfolios(customerId); //Get all the portfolios of the selected customer.
-                if (customerPortfolioVos != null && customerPortfolioVos.Count > 0) //One or more folios available for selected customer
+                List<CustomerPortfolioVo> customerPortfolioVos = portfolioBo.GetCustomerPortfolios(customerId); 
+                if (customerPortfolioVos != null && customerPortfolioVos.Count > 0) 
                 {
                     StringBuilder checkbox = new StringBuilder();
 
-                    //CheckBoxList checkboxList = new CheckBoxList();
-                    //checkboxList.RepeatDirection = RepeatDirection.Horizontal;
-                    //checkboxList.CssClass = "Field";
+                  
                     foreach (CustomerPortfolioVo custPortfolio in customerPortfolioVos)
                     {
                         if (ddlPortfolioGroup.SelectedValue == "MANAGED" && (custPortfolio.IsMainPortfolio != 1))
@@ -1787,28 +1147,22 @@ namespace WealthERP.Reports
                         }
                         if (String.IsNullOrEmpty(custPortfolio.PortfolioName))
                             custPortfolio.PortfolioName = "No Name";
-                        //checkboxList.Items.Add(new ListItem(custPortfolio.PortfolioName, custPortfolio.PortfolioId.ToString()));
                         checkbox.Append("<input type='checkbox' checked name='chk--" + custPortfolio.PortfolioId + "' id='chk--" + custPortfolio.PortfolioId + "'>" + custPortfolio.PortfolioName);
                     }
                     divPortfolios.InnerHtml = checkbox.ToString();
-                    //divPortfolios.Controls.Add(checkboxList);
                 }
-                else //No portfolios found for this customer.
+                else 
                 {
                     divPortfolios.InnerHtml = "<span class='Error'>No portfolios found for this customer.Can't create report.</span>";
                 }
             }
-            else // Something went wrong :( customer id is not assigned to the hidden field.
+            else 
             {
                 divPortfolios.InnerHtml = "<span class='Error'>Invalid Customer selected.</span>";
             }
             divGroupCustomers.InnerHtml = string.Empty;
         }
-        /// <summary>
-        /// It Creats checkBox dynamically with folio ID and Name on Group report generate. 
-        /// </summary>
-        /// <param name="customerId"></param>
-        /// <returns></returns>
+     
         private string ShowGroupFolios(int customerId)
         {
             StringBuilder checkbox = new StringBuilder();
@@ -1817,15 +1171,12 @@ namespace WealthERP.Reports
             {
                 return "";
             }
-            if (!String.IsNullOrEmpty(hdnCustomerId1.Value)) //Note : customer Id assigned to txtCustomerId(hidden field) when the user selects customer from customer name suggestion text box
+            if (!String.IsNullOrEmpty(hdnCustomerId1.Value)) 
             {
-                //int customerId = Convert.ToInt32(txtParentCustomerId.Value);
-                List<CustomerPortfolioVo> customerPortfolioVos = portfolioBo.GetCustomerPortfolios(customerId); //Get all the portfolios of the selected customer.
-                if (customerPortfolioVos != null && customerPortfolioVos.Count > 0) //One or more folios available for selected customer
+                List<CustomerPortfolioVo> customerPortfolioVos = portfolioBo.GetCustomerPortfolios(customerId); 
+                if (customerPortfolioVos != null && customerPortfolioVos.Count > 0) 
                 {
-                    // CheckBoxList checkboxList = new CheckBoxList();
-                    // checkboxList.RepeatDirection = RepeatDirection.Horizontal;
-                    //checkboxList.CssClass = "Field";
+                    
                     foreach (CustomerPortfolioVo custPortfolio in customerPortfolioVos)
                     {
                         if (ddlPortfolioGroup.SelectedValue == "MANAGED" && (custPortfolio.IsMainPortfolio != 1))
@@ -1843,29 +1194,22 @@ namespace WealthERP.Reports
                         if (String.IsNullOrEmpty(custPortfolio.PortfolioName))
                             custPortfolio.PortfolioName = "No Name";
                         checkbox.Append("<input type='checkbox' checked name='chk--" + custPortfolio.PortfolioId + "' id='chk--" + custPortfolio.PortfolioId + "'>" + custPortfolio.PortfolioName);
-                        //checkboxList.Items.Add(new ListItem(custPortfolio.PortfolioName, custPortfolio.PortfolioId.ToString()));
                     }
-                    //control.Controls.Add(checkboxList);
                 }
-                else //No portfolios found for this customer.
+                else 
                 {
                     checkbox.Append("--");
                 }
 
             }
-            else // Something went wrong :( customer id is not assigned to the hidden field.
+            else 
             {
                 divPortfolios.InnerHtml = "<span class='Error'>Invalid Customer selected.</span>";
             }
             return checkbox.ToString();
         }
 
-        /// <summary>
-        /// Create's CheckBox Dynamically  with name of PortfolioID. :Author Pramod
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        /// 
+        
         private string ShowGroupFolioCustomerlogin(int customerId)
         {
             StringBuilder checkbox = new StringBuilder();
@@ -1874,15 +1218,12 @@ namespace WealthERP.Reports
             {
                 return "";
             }
-            if (!String.IsNullOrEmpty(customerVo.CustomerId.ToString()))   //Note : customer Id assigned to txtCustomerId(hidden field) when the user selects customer from customer name suggestion text box
+            if (!String.IsNullOrEmpty(customerVo.CustomerId.ToString()))   
             {
-                //int customerId = Convert.ToInt32(txtParentCustomerId.Value);
-                List<CustomerPortfolioVo> customerPortfolioVos = portfolioBo.GetCustomerPortfolios(customerId); //Get all the portfolios of the selected customer.
-                if (customerPortfolioVos != null && customerPortfolioVos.Count > 0) //One or more folios available for selected customer
+                List<CustomerPortfolioVo> customerPortfolioVos = portfolioBo.GetCustomerPortfolios(customerId); 
+                if (customerPortfolioVos != null && customerPortfolioVos.Count > 0) 
                 {
-                    // CheckBoxList checkboxList = new CheckBoxList();
-                    // checkboxList.RepeatDirection = RepeatDirection.Horizontal;
-                    //checkboxList.CssClass = "Field";
+                  
                     foreach (CustomerPortfolioVo custPortfolio in customerPortfolioVos)
                     {
                         if (ddlPortfolioGroup.SelectedValue == "MANAGED" && (custPortfolio.IsMainPortfolio != 1))
@@ -1900,17 +1241,15 @@ namespace WealthERP.Reports
                         if (String.IsNullOrEmpty(custPortfolio.PortfolioName))
                             custPortfolio.PortfolioName = "No Name";
                         checkbox.Append("<input type='checkbox' checked name='chk--" + custPortfolio.PortfolioId + "' id='chk--" + custPortfolio.PortfolioId + "'>" + custPortfolio.PortfolioName);
-                        //checkboxList.Items.Add(new ListItem(custPortfolio.PortfolioName, custPortfolio.PortfolioId.ToString()));
                     }
-                    //control.Controls.Add(checkboxList);
                 }
-                else //No portfolios found for this customer.
+                else 
                 {
                     checkbox.Append("--");
                 }
 
             }
-            else // Something went wrong :( customer id is not assigned to the hidden field.
+            else 
             {
                 divPortfolios.InnerHtml = "<span class='Error'>Invalid Customer selected.</span>";
             }
@@ -1918,33 +1257,7 @@ namespace WealthERP.Reports
 
         }
 
-        /* protected void ddlReportSubType_SelectedIndexChanged(object sender, EventArgs e)
-         {
-             if (ddlReportSubType.SelectedValue == "TRANSACTION_REPORT")
-             {
-                 MFReportsBo mfReportBo = new MFReportsBo();
-                 DataSet ds=new DataSet();
-                 ds = mfReportBo.GetMFTransactionType();
-                 trTranFilter1.Visible = true;
-                 trTranFilter2.Visible = true;
-                 ddlMFTransactionType.DataSource = ds;
-                 ddlMFTransactionType.DataValueField = "TransCode";
-                 ddlMFTransactionType.DataTextField = "TransName";
-                 ddlMFTransactionType.DataBind();
-                 ddlMFTransactionType.Items.Insert(0, new ListItem("ALL", "0"));
-                 ddlMFTransactionType.SelectedIndex = 0;
-                 rddate.Checked = true;
-             }
-             else 
-             {
-                 if (trTranFilter1.Visible == true)
-                     trTranFilter1.Visible = false;
-                 if (trTranFilter2.Visible == true)
-                     trTranFilter2.Visible = false;
-              }
-             tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
-            
-         }*/
+       
 
         protected void ddlMFTransactionTypeBind()
         {
@@ -1964,8 +1277,6 @@ namespace WealthERP.Reports
 
         protected void rbnGroup_CheckedChanged(object sender, EventArgs e)
         {
-            //old code
-            //LBSelectCustomer.Items.Clear();
             if (userVo.UserType != "SuperAdmin")
             {
                 LBCustomer.Items.Clear();
@@ -2004,10 +1315,7 @@ namespace WealthERP.Reports
 
                     LBCustomer.Items[0].Enabled = false;
                 }
-                //old code
-                //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
-
-                //new gr
+                
                 if (RadTabStrip2.Tabs[1].Selected != false)
                 {
                     RadTabStrip2.Tabs[1].Selected = true;
@@ -2034,7 +1342,6 @@ namespace WealthERP.Reports
 
                 
 
-                   // dtGroupCustomerList = customerBo.GetAdviserGroupCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
 
                 
 
@@ -2052,10 +1359,7 @@ namespace WealthERP.Reports
 
                     LBCustomer.Items[0].Enabled = false;
                 }
-                //old code
-                //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
-
-                //new gr
+               
                 if (RadTabStrip2.Tabs[1].Selected != false)
                 {
                     RadTabStrip2.Tabs[1].Selected = true;
@@ -2074,8 +1378,7 @@ namespace WealthERP.Reports
         {
             if (userVo.UserType != "SuperAdmin")
             {
-                //old code
-                //LBSelectCustomer.Items.Clear();
+               
                 LBCustomer.Items.Clear();
                 string controlName = this.Request.Params.Get("__EVENTTARGET");
 
@@ -2112,10 +1415,7 @@ namespace WealthERP.Reports
 
                 LBCustomer.Items[0].Enabled = false;
 
-                //old code
-                //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
 
-                //new gr
                 if (RadTabStrip2.Tabs[1].Selected != false)
                 {
                     RadTabStrip2.Tabs[1].Selected = true;
@@ -2129,8 +1429,7 @@ namespace WealthERP.Reports
 
             }
             else
-            { //old code
-                //LBSelectCustomer.Items.Clear();
+            { 
                 LBCustomer.Items.Clear();
                 string controlName = this.Request.Params.Get("__EVENTTARGET");
 
@@ -2162,10 +1461,7 @@ namespace WealthERP.Reports
 
                 LBCustomer.Items[0].Enabled = false;
 
-                //old code
-                //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
-
-                //new gr
+              
                 if (RadTabStrip2.Tabs[1].Selected != false)
                 {
                     RadTabStrip2.Tabs[1].Selected = true;
@@ -2183,15 +1479,10 @@ namespace WealthERP.Reports
         }
 
 
-        /// <summary>
-        /// Getting All Customer ID From ListBox containing all customers. Author:Pramod
-        /// </summary>
-        /// <param name="CustomerSelectedListBox"></param>
-        /// <returns></returns>
+    
         private string GetAllSelectedCustomerID(DanLudwig.Controls.Web.ListBox CustomerSelectedListBox)
         {
             String AllCustomerId = "";
-            // loop through all source items to find selected ones
             for (int i = CustomerSelectedListBox.Items.Count - 1; i >= 0; i--)
             {
                 ListItem TempItem = CustomerSelectedListBox.Items[i];
@@ -2208,33 +1499,28 @@ namespace WealthERP.Reports
         protected void AddSelected_Click(object sender, EventArgs e)
         {
 
-            //this.moveSelectedItems(LBCustomer, LBSelectCustomer, false);
-            //SelectLastItem(LBSelectCustomer);
         }
 
         protected void RemoveSelected_Click(object sender, EventArgs e)
         {
-            //this.moveSelectedItems(LBSelectCustomer, LBCustomer, false);
-            //SelectLastItem(LBSelectCustomer);
+           
         }
 
         protected void SelectAll_Click(object sender, EventArgs e)
         {
-            //this.moveSelectedItems(LBCustomer, LBSelectCustomer, true);
-            //LBSelectCustomer.Items[0].Selected = true;
+          
 
         }
         protected void RemoveAll_Click(object sender, EventArgs e)
         {
-            //this.moveSelectedItems(LBSelectCustomer, LBCustomer, true);
+           
         }
 
         protected void rbnAllCustomer_CheckedChanged(object sender, EventArgs e)
         {
             if (userVo.UserType != "SuperAdmin")
             {
-                //old code
-                //LBSelectCustomer.Items.Clear();
+               
                 LBCustomer.Items.Clear();
                 string controlName = this.Request.Params.Get("__EVENTTARGET");
 
@@ -2269,12 +1555,7 @@ namespace WealthERP.Reports
 
                 LBCustomer.Items[0].Enabled = false;
 
-                //old code
-                //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
-
-                //new gr
-
-                //new gr
+               
                 if (RadTabStrip2.Tabs[1].Selected != false)
                 {
                     RadTabStrip2.Tabs[1].Selected = true;
@@ -2287,8 +1568,7 @@ namespace WealthERP.Reports
                 }
             }
             else
-            { //old code
-                //LBSelectCustomer.Items.Clear();
+            { 
                 LBCustomer.Items.Clear();
                 string controlName = this.Request.Params.Get("__EVENTTARGET");
 
@@ -2317,12 +1597,7 @@ namespace WealthERP.Reports
 
                 LBCustomer.Items[0].Enabled = false;
 
-                //old code
-                //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
-
-                //new gr
-
-                //new gr
+      
                 if (RadTabStrip2.Tabs[1].Selected != false)
                 {
                     RadTabStrip2.Tabs[1].Selected = true;
@@ -2351,83 +1626,7 @@ namespace WealthERP.Reports
             RadListBoxDestination.Items.Clear();
 
         }
-        //protected void btnEmailReport_Click(object sender, EventArgs e)
-        //{
-        //    String allCustomerId = string.Empty;
 
-        //    foreach (RadListBoxItem ListItem in this.RadListBoxDestination.Items)
-        //    {
-        //        allCustomerId = allCustomerId + ListItem.Value.ToString() + ",";
-
-        //    }
-        //    CustomerVo custVo = new CustomerVo();
-        //    AdvisorStaffBo adviserStaffBo = new AdvisorStaffBo();
-        //    RMVo customerRMVo = new RMVo();
-        //    char[] separator = new char[] { ',' };
-        //    int customerId = 0;
-        //    string[] strSplitArr = allCustomerId.Split(separator);
-        //    //bool isForGroupCustomer = false;
-        //    int groupCustomerId = 0;
-        //    int parentrequestId = 0;
-        //    List<MFReportVo> mfReportVoList = null;
-        //    MFReportEmailVo mfReportEmailVo = new MFReportEmailVo();
-        //    DateTime fromDateRangeRpt;
-        //    DateTime toDateRangeRpt;
-
-        //    CalculateDateRange(out fromDateRangeRpt, out toDateRangeRpt);
-
-
-        //    foreach (string arrStr in strSplitArr)
-        //    {
-        //        if (!String.IsNullOrEmpty(arrStr))
-        //        {
-        //            mfReportVoList = new List<MFReportVo>();
-        //            mfReportEmailVo = new MFReportEmailVo();
-        //            customerId = int.Parse(arrStr);
-        //            taskRequestManagementBo.CreateTaskRequest(1, userVo.UserId, out parentrequestId);
-        //            //If Group Customer radio Button is selected then assign group HeadId Else GroupCustomer FLAG Make false 
-        //            if (rbtnGrp.Checked == true)
-        //            {
-        //                groupCustomerId = int.Parse(arrStr);
-        //            }
-
-        //            custVo = customerBo.GetCustomer(customerId);
-        //            customerRMVo = adviserStaffBo.GetAdvisorStaffDetails(custVo.RmId);
-        //            foreach (ListItem chkItems in chkAsOnReportList.Items)
-        //            {
-        //                if (chkItems.Selected == true)
-        //                {
-        //                    mfReportVoList.Add(GetReportInputData(chkItems, customerId, groupCustomerId, ref fromDateRangeRpt, ref toDateRangeRpt, "ASON"));
-        //                }
-
-        //            }
-
-        //            foreach (ListItem chkItems in chkRangeReportList.Items)
-        //            {
-        //                if (chkItems.Selected == true)
-        //                {
-        //                    mfReportVoList.Add(GetReportInputData(chkItems, customerId, groupCustomerId, ref fromDateRangeRpt, ref toDateRangeRpt, "RANGE"));
-        //                }
-
-        //            }
-
-        //            mfReportEmailVo.AdviserId = advisorVo.advisorId;
-        //            mfReportEmailVo.CustomerId = custVo.CustomerId;
-        //            mfReportEmailVo.CustomerEmail = custVo.Email;
-        //            mfReportEmailVo.RMEmail = customerRMVo.Email;
-        //            mfReportEmailVo.ReportTypeName = "Mutual Fund Portfolio Statement";
-
-        //            taskRequestManagementBo.CreateBulkReportRequest(mfReportVoList, mfReportEmailVo, parentrequestId, 1, userVo.UserId);
-
-        //        }
-        //    }
-
-        //    msgEmailSentComplete.Visible = true;
-
-        //    RadTabStrip2.Tabs[1].Selected = true;
-        //    tabViewAndEmailReports.SelectedIndex = 1;
-        //    RadListBoxDestination.Items.Clear();
-        //}
 
         protected void btnEmailReport_Click(object sender, EventArgs e)
         {
@@ -2533,11 +1732,7 @@ namespace WealthERP.Reports
 
 
 
-        /// <summary>
-        /// This Returns all portfolio Id of all customers of One Group Head Author:Pramod
-        /// </summary>
-        /// <returns></returns>
-
+      
         private string GetGroupCustomerAllPortfolio(int groupCustomerId)
         {
             string AllFolioIds = "";
@@ -2560,20 +1755,15 @@ namespace WealthERP.Reports
             return AllFolioIds;
         }
 
-        /// <summary>
-        /// This Returns all portfolio Id of a particular customer. Author:Pramod
-        /// </summary>
-        /// <param name="customerId"></param>
-        /// <returns></returns>
+      
         private string GetCustomerAllPortfolio(int customerId)
         {
             string portfolioIDs = "";
             PortfolioBo portfolioBo = new PortfolioBo();
-            if (!String.IsNullOrEmpty(customerId.ToString())) //Note : customer Id assigned to txtCustomerId(hidden field) when the user selects customer from customer name suggestion text box
+            if (!String.IsNullOrEmpty(customerId.ToString())) 
             {
-                //int customerId = Convert.ToInt32(txtParentCustomerId.Value);
-                List<CustomerPortfolioVo> customerPortfolioVos = portfolioBo.GetCustomerPortfolios(customerId); //Get all the portfolios of the selected customer.
-                if (customerPortfolioVos != null && customerPortfolioVos.Count > 0) //One or more folios available for selected customer
+                List<CustomerPortfolioVo> customerPortfolioVos = portfolioBo.GetCustomerPortfolios(customerId); 
+                if (customerPortfolioVos != null && customerPortfolioVos.Count > 0) 
                 {
 
                     foreach (CustomerPortfolioVo custPortfolio in customerPortfolioVos)
@@ -2583,9 +1773,7 @@ namespace WealthERP.Reports
                             portfolioIDs = portfolioIDs + custPortfolio.PortfolioId;
                             portfolioIDs = portfolioIDs + ",";
                         }
-                        //checkbox.Append("<input type='checkbox' checked name='chk--" + custPortfolio.PortfolioId + "' id='chk--" + custPortfolio.PortfolioId + "'>" + custPortfolio.PortfolioName);
-                        //checkboxList.Items.Add(new ListItem(custPortfolio.PortfolioName, custPortfolio.PortfolioId.ToString()));
-                    }
+                                           }
 
                 }
 
@@ -2602,7 +1790,7 @@ namespace WealthERP.Reports
                 dtBo.CalculateFromToDatesUsingPeriod(ddlEmailDatePeriod.SelectedValue, out fromDate, out toDate);
 
             }
-            else //if (Request.Form[ctrlPrefix + "hidDateType"] == "AS_ON")
+            else 
             {
                 fromDate = Convert.ToDateTime(txtEmailFromDate.SelectedDate);
                 toDate = Convert.ToDateTime(txtEmailToDate.SelectedDate);
@@ -2620,8 +1808,7 @@ namespace WealthERP.Reports
         private DataTable PrepareFinalRequestStatsuDataTable(DataSet dsRequestStatusList)
         {
             DataTable dtRequestList = dsRequestStatusList.Tables[0];
-            //DataTable dtRequestInputParameterList = dsRequestStatusList.Tables[1];
-            //DataTable dtRequestLog = dsRequestStatusList.Tables[2];
+          
             DataTable dtFinalRequestListStatus = new DataTable();
             dtFinalRequestListStatus.Columns.Add("RequestId");
             dtFinalRequestListStatus.Columns.Add("TaskName");
@@ -2689,71 +1876,14 @@ namespace WealthERP.Reports
                     drFinalStatus["FromDate"] = drRequest["FromDate"].ToString();
                     drFinalStatus["ToDate"] = drRequest["ToDate"].ToString();
 
-                   // DataView dvRequestInputParameter = new DataView(dtRequestInputParameterList, "WR_RequestId=" + requestId.ToString(), "WR_RequestId", DataViewRowState.CurrentRows);
-                    //DataView dvRequestLog = new DataView(dtRequestLog, "WR_RequestId='" + requestId.ToString() + "'", "WR_RequestId", DataViewRowState.CurrentRows);
-
-                    //foreach (DataRow drParameter in dvRequestInputParameter.ToTable().Rows)
-                    //{
-                    //    switch (Convert.ToInt32(drParameter["WTP_Id"].ToString()))
-                    //    {
-                    //        case 1006:
-                    //            drFinalStatus["CustomerName"] = drParameter["WRD_InputParameterValue"].ToString();
-                    //            break;
-                    //        case 1009:
-                    //            drFinalStatus["CustomerName"] = drParameter["WRD_InputParameterValue"].ToString();
-                    //            break;
-                    //        case 1000:
-                    //            drFinalStatus["ReportName"] = drParameter["WRD_InputParameterValue"].ToString();
-                    //            break;
-                    //        case 1001:
-                    //            drFinalStatus["FromDate"] =Convert.ToDateTime(drParameter["WRD_InputParameterValue"].ToString());
-                    //            break;
-                    //        case 1002:
-                    //            drFinalStatus["ToDate"] =Convert.ToDateTime(drParameter["WRD_InputParameterValue"].ToString());
-                    //            break;
-
-                    //    }
-
-                    //}
-
-                    //if (dvRequestLog.ToTable().Rows.Count > 0)
-                    //{
-                    //    foreach (DataRow drlog in dvRequestLog.ToTable().Rows)
-                    //    {
-                    //        drFinalStatus["ExecutionStartTime"] = drlog["WRL_ExecuteStartTime"].ToString();
-                    //        drFinalStatus["ExecutionEndTime"] = drlog["WRL_EndTime"].ToString();
-                    //        drFinalStatus["Message"] = drlog["WRL_Message"].ToString();
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    drFinalStatus["ExecutionStartTime"] = String.Empty;
-                    //    drFinalStatus["ExecutionEndTime"] = String.Empty;
-                    //    drFinalStatus["Message"] = String.Empty;
-
-                    //}
+                 
 
                     dtFinalRequestListStatus.Rows.Add(drFinalStatus);
 
 
                 }
 
-                //dtFinalRequestListStatus.Columns.Add("statusYN", typeof(string));
-
-                //foreach (System.Data.DataRow dr in dtFinalRequestListStatus.Rows)
-                //{
-                //    if (Convert.ToInt32(dr["RequestStatus"]) == 1)
-                //        dr["statusYN"] = "Yes";
-                //    else
-                //        dr["statusYN"] = "No";
-                //}
-
-
-                //if (dtFinalRequestListStatus.Rows.Count != 0)
-                //    pnlGvRequestStatus.Visible = false;
-                //else
-                //    pnlGvRequestStatus.Visible = true;
-
+             
                 if (Cache["gvRequestStatus" + advisorVo.advisorId] == null)
                 {
                     Cache.Insert("gvRequestStatus" + advisorVo.advisorId, dtFinalRequestListStatus);
@@ -2794,7 +1924,6 @@ namespace WealthERP.Reports
                 gvRequestStatus.ExportSettings.HideStructureColumns = true;
                 gvRequestStatus.ExportSettings.ExportOnlyData = true;
                 gvRequestStatus.ExportSettings.FileName = "Bulk Mail Status Details";
-                //gvRequestStatus.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
                 gvRequestStatus.MasterTableView.ExportToExcel();
             }
         }
