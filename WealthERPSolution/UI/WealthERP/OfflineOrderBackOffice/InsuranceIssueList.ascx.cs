@@ -58,6 +58,14 @@ namespace WealthERP.OfflineOrderBackOffice
                     pnlGrid.Visible = true;
                     imgexportButton.Visible = true;
                 }
+                else
+                {
+                    gvInsuranceList.DataSource = dt;
+                    gvInsuranceList.DataBind();
+                    pnlGrid.Visible = true;
+                    imgexportButton.Visible = false;
+
+                }
             }
             catch (BaseApplicationException Ex)
             {

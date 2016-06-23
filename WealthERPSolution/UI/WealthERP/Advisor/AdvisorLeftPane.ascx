@@ -236,6 +236,14 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="NCD and IPO Issue List" Value="NCDIssueList">
                                             </telerik:RadPanelItem>
+                                              <telerik:RadPanelItem runat="server" Text="Insurance" Value="Insurance">
+                                               <Items>
+                                                 <telerik:RadPanelItem runat="server" Text="Add Policies" Value="Add_Policies">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="View Policies" Value="View_Policies">
+                                                    </telerik:RadPanelItem>
+                                               </Items>
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Loans" Value="Loan">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="Loan Schemes" Value="Loan Schemes">
@@ -1023,6 +1031,14 @@
                                             <telerik:RadPanelItem runat="server" Text="NCD and IPO Issue Add" Value="NCDIssuesetup">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="NCD and IPO Issue List" Value="NCDIssueList">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Insurance" Value="Insurance">
+                                               <Items>
+                                                 <telerik:RadPanelItem runat="server" Text="Add Policies" Value="Add_Policies">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="View Policies" Value="View_Policies">
+                                                    </telerik:RadPanelItem>
+                                               </Items>
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Loans" Value="Loan">
                                                 <Items>

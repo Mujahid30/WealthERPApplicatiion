@@ -558,6 +558,14 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SuperAdminGoalSIPFundingSync','login');", true);
                 }
+                else if (e.Item.Value == "Add_Policies")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('InsuranceIssueSetup','login');", true);
+                }
+                else if (e.Item.Value == "View_Policies")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('InsuranceIssueList','login');", true);
+                }
                 else if (e.Item.Value == "FP_Client_List")
                 {
                     Session["Customer"] = "Customer";
@@ -1923,7 +1931,14 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageLookups','login');", true);
                 }
-
+                else if (e.Item.Value == "Add_Policies")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('InsuranceIssueSetup','login');", true);
+                }
+                else if (e.Item.Value == "View_Policies")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('InsuranceIssueList','login');", true);
+                }
                 else if (e.Item.Value == "GoalFunding_Sync")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SuperAdminGoalSIPFundingSync','login');", true);

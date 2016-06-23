@@ -11,7 +11,7 @@
                 <table cellspacing="0" cellpadding="2" width="100%">
                     <tr>
                         <td align="left">
-                            Insurance List
+                            View Policies
                         </td>
                         <td align="right" style="width: 10px">
                             <asp:ImageButton ID="imgexportButton" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
@@ -33,7 +33,7 @@
             <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlType_OnSelectedIndexChanged">
                 <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
-                <asp:ListItem Text="Life Insurance" Value="LI"></asp:ListItem>
+                <asp:ListItem Text="Life Insurance" Value="IN"></asp:ListItem>
                 <asp:ListItem Text="General Insurance" Value="GI"></asp:ListItem>
             </asp:DropDownList>
             <span id="Span7" class="spnRequiredField">*</span>

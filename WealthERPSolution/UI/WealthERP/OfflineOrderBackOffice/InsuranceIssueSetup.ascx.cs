@@ -55,7 +55,7 @@ namespace WealthERP.OfflineOrderBackOffice
         {
             BindInsuranceIssuer(ddlType.SelectedValue);
             LoadCategory(ddlType.SelectedValue);
-            if (ddlType.SelectedValue == "LI")
+            if (ddlType.SelectedValue == "IN")
             {
                 lblReq.Visible = false;
                 ddlSubCategory.Visible = false;
@@ -137,6 +137,8 @@ namespace WealthERP.OfflineOrderBackOffice
                 bresult = InsuranceBo.CreateInsurenceIssue(InsuranceIssuevo, userVo.UserId);
                 btnGo.Visible = false;
                 ControlEnable(false);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Issue Created');", true);
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -216,7 +218,12 @@ namespace WealthERP.OfflineOrderBackOffice
              bool bresult = false;
             try
             {
+                SaveIssueDetails();
                 bresult = InsuranceBo.UpdateInsuraceIssue(InsuranceIssuevo, int.Parse(Request.QueryString["IssueID"]), userVo.UserId);
+                btnUpdate.Visible = false;
+                ControlEnable(false);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Issue Updated Successfully');", true);
+
             }
             catch (BaseApplicationException Ex)
             {

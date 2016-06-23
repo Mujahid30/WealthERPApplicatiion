@@ -2661,7 +2661,7 @@ namespace DaoCustomerPortfolio
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                cmdUpdateInsuraceIssue = db.GetStoredProcCommand("SPROC_CreateInsuraceIssue");
+                cmdUpdateInsuraceIssue = db.GetStoredProcCommand("SPROC_UpdateInsuranceIssue");
                 db.AddInParameter(cmdUpdateInsuraceIssue, "@Type", DbType.String, InsuranceIssuevo.insuranceType);
                 db.AddInParameter(cmdUpdateInsuraceIssue, "@issuer", DbType.String, InsuranceIssuevo.issureCode);
                 db.AddInParameter(cmdUpdateInsuraceIssue, "@category", DbType.String, InsuranceIssuevo.category);
