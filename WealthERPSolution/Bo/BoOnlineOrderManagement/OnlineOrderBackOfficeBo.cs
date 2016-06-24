@@ -16,6 +16,7 @@ using System.Text.RegularExpressions;
 using System.IO;
 using BoCommon;
 using System.Configuration;
+using Microsoft.SqlServer.Management.Smo;
 
 namespace BoOnlineOrderManagement
 {
@@ -2596,6 +2597,28 @@ namespace BoOnlineOrderManagement
             }
             return dsNotificationSetup;
         }
+
+
+        public bool ExcuteNotification(int CNT_ID, string SPName)
+        {
+            bool bResult = false;
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            try
+            {
+                bResult = daoOnlineOrderBackOffice.ExcuteNotification(CNT_ID, SPName);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+       
+
+
+
+
+
         public bool InsertUpdateDeleteNotificationSetupDetails(int id, int userId, int adviserId, string assetGroupCode, int notificationTypeID, string transactionTypes, string notificationHeader, int priorDays, bool IsSMSEnabled, bool IsEmailEnabled, bool IsDashBoardEnabled , bool IstoUpdate)
         {
             bool result = false;

@@ -14,7 +14,6 @@
     }
 
 </script>
- 
 
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
@@ -565,10 +564,10 @@
                     function ShowEditForm(id, rowIndex) {
                         var grid = $find("<%= rgNotification.ClientID %>");
 
-//                        var rowControl = grid.get_masterTableView().get_dataItems()[rowIndex].get_element();
-//                        alert(rowControl);
-//                        grid.get_masterTableView().selectItem(rowControl, true);
-//                       
+                        //                        var rowControl = grid.get_masterTableView().get_dataItems()[rowIndex].get_element();
+                        //                        alert(rowControl);
+                        //                        grid.get_masterTableView().selectItem(rowControl, true);
+                        //                       
                         window.radopen("../InvestorOnline.aspx" + id, "UserListDialog1");
 
                         return false;
@@ -623,11 +622,11 @@
                 CTNS_PriorDays ,
                 CTNS_IsSMSEnabled ,
                CTNS_IsDashBoardEnabled,
-                CTNS_ISEmailEnabled
+                CTNS_ISEmailEnabled,CNT_SPName
                  ">
                     <Columns>
                         <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
-                            UpdateText="Update" >
+                            UpdateText="Update">
                         </telerik:GridEditCommandColumn>
                         <telerik:GridBoundColumn UniqueName="CTNS_NotificationHeader" HeaderText="Notification Heading"
                             DataField="CTNS_NotificationHeader">
@@ -654,21 +653,24 @@
                                     Text="Edit/View"></asp:LinkButton>
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
-                     
-                         <telerik:GridTemplateColumn UniqueName="TemplateEditColumnDashBoard" HeaderText="Edit/View DashBoard">
+                        <telerik:GridTemplateColumn UniqueName="TemplateEditColumnDashBoard" HeaderText="Edit/View DashBoard">
                             <ItemTemplate>
-                                <asp:LinkButton ID="EditLinkDashBoard" Visible='<%# Eval("CTNS_IsDashBoardEnabled") %>' runat="server"
-                                    Text="Edit/View"></asp:LinkButton>
+                                <asp:LinkButton ID="EditLinkDashBoard" Visible='True'
+                                    runat="server" Text="Edit/View"></asp:LinkButton>
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
+                        <telerik:GridButtonColumn UniqueName="runSP" ConfirmText="Are you sure you want to excute this ?"
+                            ConfirmDialogType="Classic"  ConfirmTitle="Excute"   ButtonType="LinkButton" CommandName="RunSP"
+                            Text="Excute">
+                            <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                        </telerik:GridButtonColumn>
                         <telerik:GridBoundColumn UniqueName="CTNS_CreatedOn" HeaderText="Created On" DataField="CTNS_CreatedOn">
                         </telerik:GridBoundColumn>
-                       
-                       <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete this Banner?"
-                                        ConfirmDialogType="Classic" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
-                                        Text="Delete">
-                                        <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
-                                    </telerik:GridButtonColumn>
+                        <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete this customer notification?"
+                            ConfirmDialogType="Classic" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                            Text="Delete">
+                            <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                        </telerik:GridButtonColumn>
                     </Columns>
                     <EditFormSettings InsertCaption="Add" FormTableStyle-HorizontalAlign="Center" CaptionFormatString="Edit"
                         FormCaptionStyle-CssClass="TableBackground" PopUpSettings-Modal="true" PopUpSettings-ZIndex="20"
@@ -676,7 +678,7 @@
                         PopUpSettings-Width="500px">
                         <FormTemplate>
                             <table>
-                                <tr id="tr4" >
+                                <tr id="tr4">
                                     <td class="leftField">
                                         <asp:Label ID="Label3" runat="server" Text="Notification Heading:" CssClass="FieldName"></asp:Label>
                                     </td>
@@ -690,17 +692,17 @@
                                             SetFocusOnError="true" Enabled="true"></asp:RequiredFieldValidator>
                                     </td>
                                 </tr>
-                                <tr id="trAddCategory" >
+                                <tr id="trAddCategory">
                                     <td class="leftField">
                                         <asp:Label ID="lblAssetGroup1" runat="server" Text="AssetGroup:" CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td class="rightField">
                                         <asp:DropDownList ID="ddlAssetGroupName1" runat="server" CssClass="cmbLongField"
-                                         AutoPostBack="true"   DataValueField='<%# Eval("PAG_AssetGroupCode") %>' OnSelectedIndexChanged="ddlAssetGroupName_OnSelectedIndexChanged">
-                                            <asp:ListItem Selected="True" Value="0">SELECT</asp:ListItem>
+                                            AutoPostBack="true" OnSelectedIndexChanged="ddlAssetGroupName_OnSelectedIndexChanged">
+                                            <%-- <asp:ListItem Selected="True" Value="0">SELECT</asp:ListItem>
                                             <asp:ListItem Selected="False" Value="IP">IPO</asp:ListItem>
                                             <asp:ListItem Selected="False" Value="FI">BOND</asp:ListItem>
-                                            <asp:ListItem Selected="False" Value="MF">Mutual Fund</asp:ListItem>
+                                            <asp:ListItem Selected="False" Value="MF">Mutual Fund</asp:ListItem>--%>
                                         </asp:DropDownList>
                                         <span id="Span2" class="spnRequiredField">*</span>
                                         <br />
@@ -728,7 +730,6 @@
                                     </td>
                                     <td class="rightField">
                                         <asp:TextBox ID="txtPriorDays" runat="server" MaxLength="2" Text='<%# Eval("CTNS_PriorDays") %>'></asp:TextBox>
-                                        
                                         <br />
                                         <asp:RequiredFieldValidator ID="Requiredfieldvalidator9" runat="server" ControlToValidate="txtPriorDays"
                                             ErrorMessage="This field Can't be Blank." ValidationGroup='<%# (Container is GridEditFormInsertItem) ? "btnInsertGroup1" : "btnUpdateGroup1" %>'
@@ -738,7 +739,7 @@
                                             Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG" Enabled="true"></asp:CompareValidator>
                                     </td>
                                 </tr>
-                                <tr id="trTransType" runat="server" >
+                                <tr id="trTransType" runat="server">
                                     <td class="leftField">
                                         <asp:Label ID="Label1" runat="server" Text="Transaction Types:" CssClass="FieldName"></asp:Label>
                                     </td>
@@ -747,7 +748,7 @@
                                         </asp:CheckBoxList>
                                     </td>
                                 </tr>
-                                <tr id="tr7" >
+                                <tr id="tr7">
                                     <td class="leftField">
                                         <asp:Label ID="Label8" runat="server" Text="IS SMS Enabled:" CssClass="FieldName"></asp:Label>
                                     </td>
@@ -760,21 +761,18 @@
                                     <td class="rightField">
                                         <asp:CheckBox ID="chkEmail" runat="server" Checked='<%# Convert.IsDBNull(Eval("CTNS_ISEmailEnabled")) ? false :Convert.ToInt16( Eval("CTNS_ISEmailEnabled"))==1 ? true : false %>' />
                                     </td>
-                                  
-                                     <td class="leftField">
+                                    <td class="leftField">
                                         <asp:Label ID="Label5" runat="server" Text="IS DashBoard Enabled:" CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td class="rightField">
                                         <asp:CheckBox ID="chkDashBoard" runat="server" Checked='<%# Convert.IsDBNull(Eval("CTNS_IsDashBoardEnabled")) ? false :Convert.ToInt16( Eval("CTNS_IsSMSEnabled"))==1 ? true : false %>' />
                                     </td>
-                                    
                                 </tr>
-                             
                                 <tr>
                                     <td align="right" colspan="2">
                                         <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
-                                            ValidationGroup='<%# (Container is GridEditFormInsertItem) ? "btnInsertGroup1" : "btnUpdateGroup1" %>' CausesValidation="true"
-                                            CssClass="PCGButton" runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                                            ValidationGroup='<%# (Container is GridEditFormInsertItem) ? "btnInsertGroup1" : "btnUpdateGroup1" %>'
+                                            CausesValidation="true" CssClass="PCGButton" runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
                                         </asp:Button>&nbsp;
                                         <asp:Button ID="Button2" CssClass="PCGButton" Text="Cancel" runat="server" CausesValidation="false"
                                             CommandName="Cancel"></asp:Button>
@@ -786,7 +784,6 @@
                         </FormTemplate>
                     </EditFormSettings>
                 </MasterTableView>
-           
             </telerik:RadGrid>
             <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager1" runat="server"
                 EnableShadow="true">

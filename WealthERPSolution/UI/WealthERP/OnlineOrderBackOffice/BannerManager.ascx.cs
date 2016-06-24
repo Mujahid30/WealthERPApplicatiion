@@ -36,6 +36,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 BindDemoVideoDetails();
                 BindFAQDetails();
                 BindNotificationSetup();
+                //BindDropDownAssetGroup():
                 BindSchemeRankDetails(adviserVo.advisorId);
                 //hdnButtonText.Value = ConfigurationManager.AppSettings["ADVISOR_UPLOAD_PATH"].ToString() + "\\";
             }
@@ -700,7 +701,13 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
             onlineOrderBackOfficeBo.InsertUpdateDeleteNotificationSetupDetails(0, userVo.UserId, adviserVo.advisorId, assetGroupCode, notificationType, transtypes, headingText, PriorDays, isSMSEnabled, isEMailEnabled, isDashBoardEnabled, false);
+
+
             BindNotificationSetup();
+          
+
+
+
         }
         protected void rgNotification_DeleteCommand(object source, GridCommandEventArgs e)
         {
@@ -718,6 +725,16 @@ namespace WealthERP.OnlineOrderBackOffice
                 ScriptManager.RegisterStartupScript(this, GetType(), "SetEditMode", "isEditMode = true;", true);
                 this.rgNotification.MasterTableView.Items[0].Edit = true;
             }
+            if (e.CommandName == "RunSP")
+            {
+                GridDataItem item = e.Item as GridDataItem;
+                int id = Convert.ToInt32(item.OwnerTableView.DataKeyValues[item.ItemIndex]["CTNS_Id"].ToString());
+                string spName = item.OwnerTableView.DataKeyValues[item.ItemIndex]["CNT_SPName"].ToString();
+                bool result = onlineOrderBackOfficeBo.ExcuteNotification(id, spName);
+
+            }
+
+          
         }
         protected void rgNotification_ItemDataBound(object sender, GridItemEventArgs e)
         {
@@ -744,6 +761,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 BindtransactionTypes(chkbltranstype, dropDownList1.SelectedValue);
                 string transtypes = rgNotification.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_TransactionTypes"].ToString();
                 string[] transtype;
+                
+                BindDropDownAssetGroup(ddlAssetGroupName1);
+
                 if (string.IsNullOrEmpty(transtypes))
                     return;
                 else
@@ -788,8 +808,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
                 GridEditFormItem gefi = (GridEditFormItem)e.Item;
                 DropDownList DropDownList1 = (DropDownList)gefi.FindControl("DropDownList1");
-
-                //BindNotificationType(DropDownList1);
+                DropDownList ddlAssetGroupName1 = (DropDownList)gefi.FindControl("ddlAssetGroupName1");
+                BindDropDownAssetGroup(ddlAssetGroupName1);
 
 
             }
@@ -817,6 +837,7 @@ namespace WealthERP.OnlineOrderBackOffice
             bool isDashBoardEnabled = ((CheckBox)e.Item.FindControl("chkDashBoard")).Checked;
             onlineOrderBackOfficeBo.InsertUpdateDeleteNotificationSetupDetails(id, userVo.UserId, adviserVo.advisorId, assetGroupCode, notificationType, transtypes, headingText, priorDays, isSMSEnabled, isEmailEnabled, isDashBoardEnabled, true);
             BindNotificationSetup();
+
         }
         protected void rgNotification_ItemCreated(object sender, GridItemEventArgs e)
         {
@@ -828,6 +849,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 EditLinkSMS.OnClientClick = String.Format("return ShowEditForm('{0}','{1}');", "?setupId=" + e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_Id"] + "&FormatType=SMS", e.Item.ItemIndex);
                 LinkButton EditLinkDashBoard = (LinkButton)e.Item.FindControl("EditLinkDashBoard");
                 EditLinkDashBoard.OnClientClick = String.Format("return ShowEditForm('{0}','{1}');", "?setupId=" + e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_Id"] + "&FormatType=DashBoard", e.Item.ItemIndex);
+
 
             }
         }
@@ -1055,6 +1077,18 @@ namespace WealthERP.OnlineOrderBackOffice
             BindSchemeRankDetails(adviserVo.advisorId);
         }
 
+        private void BindDropDownAssetGroup(DropDownList ddlAssetGroupName1)
+        {
+            DataTable dt = new DataTable();
+            DataSet ds = onlineOrderBackOfficeBo.BindNotificationSetup(adviserVo.advisorId);
 
+            ddlAssetGroupName1.DataSource = ds.Tables[1];
+            ddlAssetGroupName1.DataValueField = "Code";
+            ddlAssetGroupName1.DataTextField = "Name";
+            ddlAssetGroupName1.DataBind();
+            ddlAssetGroupName1.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
+        }
+
+       
     }
 }

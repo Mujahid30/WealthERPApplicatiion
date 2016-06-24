@@ -3301,6 +3301,32 @@ namespace DaoOnlineOrderManagement
             }
             return dsNotificationSetup;
         }
+
+
+        public bool ExcuteNotification(int CNT_ID, string SPName)
+        {
+            bool bResult = false;
+            Database db;
+
+            DbCommand cmdStoredProcedure;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdStoredProcedure = db.GetStoredProcCommand(SPName);
+                db.AddInParameter(cmdStoredProcedure, "@CTNS_Id", DbType.String, CNT_ID);           
+                 if (db.ExecuteNonQuery(cmdStoredProcedure) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+
+
+
+
         public bool InsertUpdateDeleteNotificationSetupDetails(int id, int userId, int adviserId, string assetGroupCode, int notificationTypeID, string transactionTypes, string notificationHeader, int priorDays, bool IsSMSEnabled, bool IsEmailEnabled, bool IstoUpdate, bool IsDashBoardEnabled)
         {
             bool bResult = false;
