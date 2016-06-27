@@ -92,15 +92,15 @@ namespace WealthERP.OnlineOrderManagement
                             schemeCode = int.Parse(Session["MFSchemePlan"].ToString());
                             accountId = int.Parse(Request.QueryString["accountId"].ToString());
                             commonLookupBo.GetSchemeAMCSchemeCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out categoryname, out amcName, out schemeName, out  IsSIPAvaliable, out  IspurchaseAvaliable, out  IsRedeemAvaliable, exchangeType == "Online" ? 1 : 0);
-
+                            lblNavDisplay.Text = "";
+                            lblMintxt.Text = "";
+                            lblMulti.Text = "";
+                            lbltime.Text = "";
+                            lblSchemeRatingAsOn.Text = "";
                             if (IspurchaseAvaliable != 1)
                             {
                                 ShowMessage("Purchase is not available", 'I');
-                                lblNavDisplay.Text = "";
-                                lblMintxt.Text = "";
-                                lblMulti.Text = "";
-                                lbltime.Text = "";
-                                lblSchemeRatingAsOn.Text = "";
+                              
                                 return;
                             }
 
@@ -127,7 +127,11 @@ namespace WealthERP.OnlineOrderManagement
 
                             //}
                             scheme = int.Parse(Session["MFSchemePlan"].ToString());
-
+                            lblNavDisplay.Text = "";
+                            lblMintxt.Text = "";
+                            lblMulti.Text = "";
+                            lbltime.Text = "";
+                            lblSchemeRatingAsOn.Text = "";
                             //commonLookupBo.GetSchemeAMCCategory(38122, out amcCode, out category);
                             commonLookupBo.GetSchemeAMCSchemeCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out categoryname, out amcName, out schemeName, out  IsSIPAvaliable, out  IspurchaseAvaliable, out  IsRedeemAvaliable, exchangeType == "Online" ? 1 : 0);
                             if (IspurchaseAvaliable != 1)
