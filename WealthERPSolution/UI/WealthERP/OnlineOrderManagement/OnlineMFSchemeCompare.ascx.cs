@@ -108,6 +108,7 @@ namespace WealthERP.OnlineOrderManagement
         protected void ddlAMC1_SelectedIndexChanged(object sender, EventArgs e)
         {
             BindCategory();
+            BindScheme();
         }
         protected void ddlCategory1_OnSelectedIndexChanged(object sender, EventArgs e)
         {
@@ -171,16 +172,19 @@ namespace WealthERP.OnlineOrderManagement
         protected void ddlAMC2_SelectedIndexChanged(object sender, EventArgs e)
         {
             BindCategory();
+            BindScheme2();
             //}
         }
         protected void ddlAMC3_SelectedIndexChanged(object sender, EventArgs e)
         {
             BindCategory();
+            BindScheme3();
             //}
         }
         protected void ddlAMC4_SelectedIndexChanged(object sender, EventArgs e)
         {
             BindCategory();
+            BindScheme4();
             ////}
         }
         protected void BindScheme2()
