@@ -792,16 +792,23 @@ namespace WealthERP
         {
             customerVo = (CustomerVo)Session["CustomerVo"];
             if (customerVo.IsDematAccepted && customerVo.IsDematInvestor && ddlMode.SelectedValue == "Demat")
+            {
                 Session["ExchangeMode"] = "Demat";
+                Session["MFSchemePlan"] = null;
+            }
             else if (!customerVo.IsDematAccepted && ddlMode.SelectedValue == "Demat")
             {
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "ShowModal();", true);
             }
             else if (ddlMode.SelectedValue == "Online")
+            {
                 Session["ExchangeMode"] = "Online";
+                Session["MFSchemePlan"] = null;
+            }
             else if (customerVo.IsDematAccepted && !customerVo.IsDematInvestor && ddlMode.SelectedValue == "Demat")
             {
                 ddlMode.SelectedValue = "Online";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "alertwq", "alert('We have taken your request for registration of your client code for BSE StAR MF segment. The same will be activated shortly.');", true);
             }
 
         }
