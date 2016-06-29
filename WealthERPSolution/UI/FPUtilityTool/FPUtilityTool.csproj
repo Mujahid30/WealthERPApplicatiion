@@ -82,6 +82,7 @@
     <Content Include="bin\Microsoft.Practices.Unity.dll" />
     <Content Include="Content\CSS\bootstrap-3.3.6.min.css" />
     <Content Include="Content\CSS\commonStyle.css" />
+    <Content Include="Content\CSS\datepicker.css" />
     <Content Include="Content\Images\1021_1189700.png" />
     <Content Include="Content\Pie2D.swf" />
     <Content Include="Default.aspx" />
@@ -89,6 +90,7 @@
     <Content Include="Questionnaire.aspx" />
     <Content Include="Result.aspx" />
     <Content Include="Scripts\bootstrap-3.3.6.min.js" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\CommonJScript.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Web.config" />
