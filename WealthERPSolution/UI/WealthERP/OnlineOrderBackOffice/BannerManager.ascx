@@ -74,6 +74,12 @@
                     function OnClientFileUploaded(sender, eventArgs) {
                         uploadedFilesCount++;
                     }
+
+
+
+
+                    
+                    }
              
                 </script>
 
@@ -587,6 +593,58 @@
                     function RowDblClick(sender, eventArgs) {
                         window.radopen("../InvestorOnline.aspx?EmployeeID=" + eventArgs.getDataKeyValue("CTNS_Id"), "UserListDialog");
                     }
+
+
+
+
+//                    function Validate() {
+//                        var isValid = false;
+//                        isValid = Page_ClientValidate('Button1');
+//                        if (isValid) {
+//                            isValid = Page_ClientValidate('btnTC');
+//                        }
+
+//                        return isValid;
+//                    }
+//                    var crnt = 0;
+//                    function PreventClicks() {
+
+//                        if (typeof (Page_ClientValidate('Button1')) == 'function') {
+//                            Page_ClientValidate();
+//                        }
+
+//                        if (Page_IsValid) {
+//                            if (++crnt > 1) {
+//                                return false;
+//                            }
+//                            return true;
+//                        }
+//                        else {
+//                            return false;
+//                        }
+//                    }
+
+
+                    var crnt = 0;
+                    function PreventClicks() {
+
+                        if (typeof (Page_ClientValidate('Button1')) == 'function') {
+                            Page_ClientValidate();
+                        }
+
+                        if (Page_IsValid) {
+                            if (++crnt > 1) {
+
+                                return false;
+                            }
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    }
+           
+              
                 </script>
 
             </telerik:RadCodeBlock>
@@ -655,13 +713,12 @@
                         </telerik:GridTemplateColumn>
                         <telerik:GridTemplateColumn UniqueName="TemplateEditColumnDashBoard" HeaderText="Edit/View DashBoard">
                             <ItemTemplate>
-                                <asp:LinkButton ID="EditLinkDashBoard" Visible='True'
-                                    runat="server" Text="Edit/View"></asp:LinkButton>
+                                <asp:LinkButton ID="EditLinkDashBoard" Visible='True' runat="server" Text="Edit/View"></asp:LinkButton>
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
-                        <telerik:GridButtonColumn UniqueName="runSP" ConfirmText="Are you sure you want to excute this ?"
-                            ConfirmDialogType="Classic"  ConfirmTitle="Excute"   ButtonType="LinkButton" CommandName="RunSP"
-                            Text="Excute">
+                        <telerik:GridButtonColumn UniqueName="runSP" ConfirmText="Are you sure you want to Send SMS/Email this ?"
+                            ConfirmDialogType="Classic" ConfirmTitle="SendSMS/Email" ButtonType="LinkButton" CommandName="RunSP"
+                            Text="SendSMS/Email">
                             <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
                         </telerik:GridButtonColumn>
                         <telerik:GridBoundColumn UniqueName="CTNS_CreatedOn" HeaderText="Created On" DataField="CTNS_CreatedOn">
@@ -683,7 +740,7 @@
                                         <asp:Label ID="Label3" runat="server" Text="Notification Heading:" CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td class="rightField">
-                                        <asp:TextBox ID="txtNotificationHeading" runat="server" TextMode="MultiLine" CssClass="txtField"
+                                        <asp:TextBox ID="txtNotificationHeading" on runat="server" TextMode="MultiLine" CssClass="txtField"
                                             Text='<%# Eval("CTNS_NotificationHeader") %>'></asp:TextBox>
                                         <span id="Span4" class="spnRequiredField">*</span>
                                         <br />
@@ -699,10 +756,6 @@
                                     <td class="rightField">
                                         <asp:DropDownList ID="ddlAssetGroupName1" runat="server" CssClass="cmbLongField"
                                             AutoPostBack="true" OnSelectedIndexChanged="ddlAssetGroupName_OnSelectedIndexChanged">
-                                            <%-- <asp:ListItem Selected="True" Value="0">SELECT</asp:ListItem>
-                                            <asp:ListItem Selected="False" Value="IP">IPO</asp:ListItem>
-                                            <asp:ListItem Selected="False" Value="FI">BOND</asp:ListItem>
-                                            <asp:ListItem Selected="False" Value="MF">Mutual Fund</asp:ListItem>--%>
                                         </asp:DropDownList>
                                         <span id="Span2" class="spnRequiredField">*</span>
                                         <br />
@@ -772,7 +825,8 @@
                                     <td align="right" colspan="2">
                                         <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
                                             ValidationGroup='<%# (Container is GridEditFormInsertItem) ? "btnInsertGroup1" : "btnUpdateGroup1" %>'
-                                            CausesValidation="true" CssClass="PCGButton" runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                                            CausesValidation="true"  CssClass="PCGButton"
+                                            runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
                                         </asp:Button>&nbsp;
                                         <asp:Button ID="Button2" CssClass="PCGButton" Text="Cancel" runat="server" CausesValidation="false"
                                             CommandName="Cancel"></asp:Button>

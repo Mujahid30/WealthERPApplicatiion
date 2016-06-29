@@ -3482,5 +3482,29 @@ namespace DaoOnlineOrderManagement
             }
             return ds;
         }
+
+
+
+        public DataSet BindCustomerDetails(int adviserId)
+        {
+            DataSet dsCustomerDetails;
+            Database db;
+            DbCommand cmdCustomerDetails;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdCustomerDetails = db.GetStoredProcCommand("SP_GETCustomerDetails");
+                db.AddInParameter(cmdCustomerDetails, "@AdviserID", DbType.Int32, adviserId);
+                dsCustomerDetails = db.ExecuteDataSet(cmdCustomerDetails);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsCustomerDetails;
+        }
+
+
+
     }
 }

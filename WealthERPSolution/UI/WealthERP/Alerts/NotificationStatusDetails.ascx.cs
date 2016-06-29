@@ -67,6 +67,8 @@ namespace WealthERP.Alerts
         }
         protected void Submit_OnClick(object sender, EventArgs e)
         {
+            //fromdate = DateTime.Parse(txtFromDate.SelectedDate.ToString());
+            
             DataSet ds = onlineOrderBackOfficeBo.GetNotificationMessageDetails(Convert.ToInt32(DropDownList2.SelectedValue), DropDownList3.SelectedValue);
             if (ds.Tables[0].Rows.Count > 0)
             {

@@ -4046,6 +4046,22 @@ namespace BoCustomerProfiling
         }
 
 
+        //public DataSet GetCustomerDetails(int adviserId)
+        //{
+        //   CustomerDao customerDao = new CustomerDao();
+
+        //    DataTable dtGetCustomerDetails = new DataTable();
+        //    dtGetCustomerDetails = customerDao.GetCustomerDetails(adviserId);
+        //    return dtGetCustomerDetails;
+
+           
+
+        //    }
+
+        }
+
+
+
     }
 
-}
+

@@ -87,12 +87,44 @@
                 ErrorMessage="Please,Select a field." InitialValue="0" ValidationGroup='Submit'
                 SetFocusOnError="true" Enabled="true"></asp:RequiredFieldValidator>
         </td>
-        <td>
+         <td align="right">
+            <asp:Label ID="lblNfostartdate" runat="server" Text="From Date" CssClass="FieldName"></asp:Label>
         </td>
         <td>
+            <telerik:RadDatePicker ID="txtFromDate" CssClass="txtField" runat="server" Culture="English (United States)"
+                AutoPostBack="false" Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade"
+                MinDate="1900-01-01" TabIndex="5">
+                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
+          
+        </td>
+        <td align="right">
+            <asp:Label ID="lblNfoEnddate" runat="server" Text="To Date" CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+            <telerik:RadDatePicker ID="txtToDate" CssClass="txtField" runat="server" Culture="English (United States)"
+                AutoPostBack="false" Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade"
+                MinDate="1900-01-01" TabIndex="5">
+                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
+          
+        </td>
+        <tr>
+        <td align="right">
             <asp:Button ID="Button1" Text='Submit' ValidationGroup='Submit' CausesValidation="true"
                 CssClass="PCGButton" runat="server" OnClick="Submit_OnClick"></asp:Button>
         </td>
+        </tr>
     </tr>
 </table>
 <asp:Panel ID="Panel1" runat="server">

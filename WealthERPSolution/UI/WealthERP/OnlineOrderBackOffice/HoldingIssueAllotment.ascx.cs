@@ -27,6 +27,8 @@ namespace WealthERP.OnlineOrderBackOffice
         AdvisorVo advisorVo = new AdvisorVo();
         DateTime fromdate;
         DateTime todate;
+        AdvisorVo adviserVo;
+        OnlineOrderBackOfficeBo onlineOrderBackOfficeBo = new OnlineOrderBackOfficeBo();
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -270,11 +272,41 @@ namespace WealthERP.OnlineOrderBackOffice
             //}
             //ddlIssuer.Items.Insert(0, new ListItem("All", "0"));
         }
+
+
+        protected void BindCustomerDetailsGrid()
+        {
+
+          
+            DataTable dtBindCustomerDetailsGrid;
+            if (txtFromDate.SelectedDate != null)
+                fromdate = DateTime.Parse(txtFromDate.SelectedDate.ToString());
+            if (txtToDate.SelectedDate != null)
+                todate = DateTime.Parse(txtToDate.SelectedDate.ToString());
+
+            //if (!Boolean.Parse(ddlOrderType.SelectedValue))
+            //{
+            //    dtBindCustomerDetailsGrid = onlineOrderBackOffice.GetRTAInitialReport(ddlType.SelectedValue.ToString(), fromdate, todate, Boolean.Parse(ddlOrderType.SelectedValue), int.Parse(ddlAMC.SelectedValue));
+            //    if (Cache["RTAInitialReport" + advisorVo.advisorId] != null)
+            //    {
+            //        Cache.Remove("RTAInitialReport" + advisorVo.advisorId);
+            //    }
+            //    Cache.Insert("RTAInitialReport" + advisorVo.advisorId, dtBindCustomerDetailsGrid);
+               
+                DataSet ds = onlineOrderBackOfficeBo.BindCustomerDetails(adviserVo.advisorId);
+                gvCustomerDetails.DataSource = ds.Tables[0];
+                gvCustomerDetails.DataBind();
+            }
+        
+
+
         protected void Go_OnClick(object sender, EventArgs e)
         {
             BindRTAInitialReport();
             //BindAdviserIssueAllotmentList();
             imgexportButton.Visible = true;
+            //BindCustomerDetailsGrid();
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('SetTheme','none');", true);
 
         }
         public void btnExportData_OnClick(object sender, ImageClickEventArgs e)

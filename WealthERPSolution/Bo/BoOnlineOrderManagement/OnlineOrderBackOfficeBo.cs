@@ -2721,5 +2721,21 @@ namespace BoOnlineOrderManagement
             }
             return ds;
         }
+
+
+        public DataSet BindCustomerDetails(int adviserId)
+        {
+            DataSet dsCustomerDetails = new DataSet();
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            try
+            {
+                dsCustomerDetails = daoOnlineOrderBackOffice.BindCustomerDetails(adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsCustomerDetails;
+        }
     }
 }

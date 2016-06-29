@@ -700,8 +700,8 @@ namespace WealthERP.OnlineOrderBackOffice
             isDashBoardEnabled = ((CheckBox)insertItem.FindControl("chkDashBoard")).Checked;
 
 
-            onlineOrderBackOfficeBo.InsertUpdateDeleteNotificationSetupDetails(0, userVo.UserId, adviserVo.advisorId, assetGroupCode, notificationType, transtypes, headingText, PriorDays, isSMSEnabled, isEMailEnabled, isDashBoardEnabled, false);
 
+            onlineOrderBackOfficeBo.InsertUpdateDeleteNotificationSetupDetails(0, userVo.UserId, adviserVo.advisorId, assetGroupCode, notificationType, transtypes, headingText, PriorDays, isSMSEnabled, isEMailEnabled, isDashBoardEnabled, false);
 
             BindNotificationSetup();
           

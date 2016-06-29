@@ -349,7 +349,7 @@ Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 125
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://moon:8080/tfs/Ampsys%20WealthERP
+		SccTeamFoundationServer = http://192.168.0.2:8080/tfs/Ampsys%20wealthERP
 		SccLocalPath0 = .
 		SccProjectUniqueName1 = UI\\WealthERP\\WealthERP.csproj
 		SccProjectTopLevelParentUniqueName1 = WealthERPSolution.sln
@@ -562,10 +562,12 @@ Global
 		SccProjectUniqueName53 = Bo\\BoReports\\BoReports.csproj
 		SccProjectTopLevelParentUniqueName53 = WealthERPSolution.sln
 		SccProjectName53 = Bo/BoReports
+		SccAuxPath53 = http://192.168.0.2:8080/tfs/Ampsys%20WealthERP
 		SccLocalPath53 = Bo\\BoReports
 		SccProjectUniqueName54 = Dao\\DaoReports\\DaoReports.csproj
 		SccProjectTopLevelParentUniqueName54 = WealthERPSolution.sln
 		SccProjectName54 = Dao/DaoReports
+		SccAuxPath54 = http://192.168.0.2:8080/tfs/Ampsys%20WealthERP
 		SccLocalPath54 = Dao\\DaoReports
 		SccProjectUniqueName55 = Vo\\VoReports\\VoReports.csproj
 		SccProjectTopLevelParentUniqueName55 = WealthERPSolution.sln

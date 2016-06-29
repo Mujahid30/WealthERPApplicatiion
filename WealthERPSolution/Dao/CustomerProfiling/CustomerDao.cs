@@ -7279,5 +7279,23 @@ namespace DaoCustomerProfiling
             return dtCustomerCategoryList;
         }
 
+        //public DataTable GetCustomerDetails(int Adviserid)
+        //{
+
+        //    Database db;
+        //    DbCommand cmdGetCustomerDetails;
+        //    DataSet dsGetCustomerDetails;
+        //    DataTable dtGetCustomerDetails;
+
+          
+        //        db = DatabaseFactory.CreateDatabase("wealtherp");
+        //        cmdGetCustomerDetails = db.GetStoredProcCommand("SP_GETCustomerDetails");
+        //        db.AddInParameter(cmdGetCustomerDetails, "@A_AdviserId", DbType.Int32, Adviserid);
+        //        dsGetCustomerDetails = db.ExecuteDataSet(cmdGetCustomerDetails);
+        //        dtGetCustomerDetails = dsGetCustomerDetails.Tables[0];
+
+        //        return dtGetCustomerDetails;
+        //}
+
     }
 }
