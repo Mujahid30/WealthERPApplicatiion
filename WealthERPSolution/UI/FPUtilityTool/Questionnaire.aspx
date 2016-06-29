@@ -97,7 +97,6 @@
         {
             background-color: #f6f6f6;
         }
-       
     </style>
 </head>
 <body>
@@ -110,7 +109,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <span class="navbar-brand">SBI Capsec</span>
+      <span class="navbar-brand"><img alt="Logo" class="img-responsive" src="Content/Images/1021_1189700.png"  /> </span>
     </div>
    <div class="collapse navbar-collapse" id="myNavbar">
     <ul class="nav navbar-nav navbar-right">
@@ -125,7 +124,7 @@
         <div class="row">
             <div class="col-sm-1">
             </div>
-            <div class="col-sm-10">
+<div class="col-sm-10">
                 <h2 class="text-left">
                     Risk Profile Questionnaire</h2>
                 <asp:MultiView ID="MultiView1" runat="server" OnActiveViewChanged="MultiView1_ActiveViewChanged">
@@ -136,7 +135,8 @@
         </div>
     </div>
     <footer class="container-fluid text-center">
-  <p>Copyright : Ampsys Consulting Pvt. Ltd.</p>  
+  <p>
+© 2016. All rights Reserved. SBICAP Securities Limited </p>  
 </footer>
     </form>
 </body>

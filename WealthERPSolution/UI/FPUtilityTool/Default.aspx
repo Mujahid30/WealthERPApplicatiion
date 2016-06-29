@@ -12,7 +12,10 @@
 
     <script src="Scripts/bootstrap-3.3.6.min.js" type="text/javascript"></script>
 
+
+
     <link href="Content/CSS/commonStyle.css" rel="stylesheet" type="text/css" />
+    <link href="Content/CSS/datepicker.css" rel="stylesheet" type="text/css" />
     <style>
         .invalid
         {
@@ -22,6 +25,7 @@
             -moz-box-shadow: 0px 0px 6px red;
             -webkit-box-shadow: 0px 0px 6px red;
         }
+      
     </style>
 </head>
 <body>
@@ -29,7 +33,7 @@
     <nav class="navbar  navbar-default">
   <div class="container-fluid">
      <div class="navbar-header">
-      <span class="navbar-brand">SBI Capsec</span>
+      <span class="navbar-brand"><img alt="Logo" class="img-responsive" src="Content/Images/1021_1189700.png"  /> </span>
     </div>
   </div>
 </nav>
@@ -79,7 +83,8 @@
                                         <label class="control-label col-sm-4" for="txtMobNo">
                                             Mobile No:</label>
                                         <div class="col-sm-8">
-                                            <asp:TextBox ID="txtMobNo" runat="server" CssClass="form-control required" MaxLength="10" placeholder="Enter Mobile No"></asp:TextBox>
+                                            <asp:TextBox ID="txtMobNo" runat="server" CssClass="form-control required" MaxLength="10"
+                                                placeholder="Enter Mobile No"></asp:TextBox>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtMobNo"
                                                 ValidationGroup="btnsignUpsubmit" runat="server" />
                                             <asp:CompareValidator ID="cvMobileNo" ControlToValidate="txtMobNo" runat="server"
@@ -91,7 +96,8 @@
                                         <label class="control-label col-sm-4" for="txtPan1">
                                             PAN:</label>
                                         <div class="col-sm-8">
-                                            <asp:TextBox ID="txtPan1" runat="server" CssClass="form-control required" MaxLength="10" placeholder="Enter PAN"></asp:TextBox>
+                                            <asp:TextBox ID="txtPan1" runat="server" CssClass="form-control required" MaxLength="10"
+                                                placeholder="Enter PAN"></asp:TextBox>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtPan1"
                                                 ValidationGroup="btnsignUpsubmit" runat="server" />
                                             <asp:RegularExpressionValidator ID="revPan" runat="server" Display="Dynamic" ValidationGroup="btnsignUpsubmit"
@@ -102,18 +108,26 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-9">
-                                    <asp:Label ID="lbllogedIn1" runat="server" Visible="false" Text="User already loged In." CssClass="text-danger"></asp:Label>
+                                    <div class="form-group col-sm-6">
+                                        <label class="control-label col-sm-4" for="txtDob">
+                                            Date of Birth:</label>
+                                        <div class="col-sm-8">
+                                            <asp:TextBox ID="txtDob" runat="server" data-date="" data-date-format="dd/mm/yyyy"  CssClass="form-control required" ></asp:TextBox>
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtDob"
+                                                ValidationGroup="btnsignUpsubmit" runat="server" />
+                                            <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="txtDob"
+                                                ErrorMessage="Enter valid Date" Operator="DataTypeCheck" Type="Date"></asp:CompareValidator>
+                                        </div>
                                     </div>
-                                    <div class="col-sm-2">
+                                    <div class="form-group col-sm-6">
+                                        <asp:Label ID="lbllogedIn1" runat="server" Visible="false" Text="User already loged In."
+                                            CssClass="text-danger"></asp:Label>
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-6 pull-right">
                                                 <asp:Button ID="btnSignUpsubmit" runat="server" OnClick="btnsignUpsubmit_Click" Text="Submit"
                                                     ValidationGroup="btnsignUpsubmit" CssClass="btn btn-info" />
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-1">
                                     </div>
                                 </div>
                             </div>
@@ -125,7 +139,8 @@
                                         <label class="control-label col-sm-4" for="txtpan2">
                                             PAN:</label>
                                         <div class="col-sm-8">
-                                            <asp:TextBox ID="txtpan2" runat="server" CssClass="form-control required" MaxLength="10" placeholder="Enter PAN"></asp:TextBox>
+                                            <asp:TextBox ID="txtpan2" runat="server" CssClass="form-control required" MaxLength="10"
+                                                placeholder="Enter PAN"></asp:TextBox>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtpan2"
                                                 ValidationGroup="btnsignInsubmit" runat="server" />
                                             <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" Display="Dynamic"
@@ -134,7 +149,7 @@
                                             </asp:RegularExpressionValidator>
                                         </div>
                                     </div>
-                                    <div class="form-group col-sm-6"style="visibility:hidden">
+                                    <div class="form-group col-sm-6" style="visibility: hidden">
                                         <label class="control-label col-sm-4" for="txtclientCode">
                                             Client Code:</label>
                                         <div class="col-sm-8">
@@ -146,8 +161,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-9">
-                                        <asp:Label ID="lblClient" runat="server" Visible="false" Text="Client does not exists." CssClass="text-danger"></asp:Label>
-                                         <asp:Label ID="lbllogedIn2" runat="server" Visible="false" Text="User already loged In." CssClass="text-danger"></asp:Label>
+                                        <asp:Label ID="lblClient" runat="server" Visible="false" Text="Client does not exists."
+                                            CssClass="text-danger"></asp:Label>
+                                        <asp:Label ID="lbllogedIn2" runat="server" Visible="false" Text="User already loged In."
+                                            CssClass="text-danger"></asp:Label>
                                     </div>
                                     <div class="col-sm-2">
                                         <div class="form-group">
@@ -168,19 +185,25 @@
         </div>
     </div>
     <footer class="container-fluid text-center">
-  <p>Copyright : Ampsys Consulting Pvt. Ltd.</p>  
+  <p>© 2016. All rights Reserved. SBICAP Securities Limited </p>
 </footer>
     <asp:HiddenField ID="TabName" runat="server" />
     </form>
-
+    <script src="Scripts/bootstrap-datepicker.js" type="text/javascript" charset="UTF-8"></script>
     <script>
 
         $(function() {
+
             var tabName = $("[id*=TabName]").val() != "" ? $("[id*=TabName]").val() : "signUp";
             $('#Tabs a[href="#' + tabName + '"]').tab('show');
             $("#Tabs a").click(function() {
                 $("[id*=TabName]").val($(this).attr("href").replace("#", ""));
             });
+            $('#txtDob').datepicker({
+            autoclose: 1
+            });
+
+
         });
 
         $(document).ready(function() {
@@ -198,6 +221,7 @@
                         $(elements[i]).removeClass("invalid");
                     }
                 }
+
 
 
 
@@ -220,6 +244,7 @@
                 }
 
             });
+
         });
 
          

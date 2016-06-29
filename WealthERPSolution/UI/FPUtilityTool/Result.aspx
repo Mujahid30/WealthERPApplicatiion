@@ -68,7 +68,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <span class="navbar-brand">SBI Capsec</span>
+      <span class="navbar-brand"><img alt="Logo" class="img-responsive" src="Content/Images/1021_1189700.png"  /> </span>
     </div>
    <div class="collapse navbar-collapse" id="myNavbar">
     <ul class="nav navbar-nav navbar-right">
@@ -118,8 +118,9 @@
                 <div class="col-sm-2">
                 </div>
                 <div class="col-sm-8  form-group">
-                    <div id="chart" style="height: 50%;">
-                    </div>
+                  <%--  <div id="chart" style="height: 50%;">
+                    </div>--%>
+                    <asp:Literal ID="ltrAssets" runat="server"></asp:Literal>
                 </div>
                 <div class="col-sm-2">
                 </div>
@@ -222,7 +223,8 @@
         </div>
     </div>
     <footer class="container-fluid text-center">
-  <p>Copyright : Ampsys Consulting Pvt. Ltd.</p>  
+  <p>
+© 2016. All rights Reserved. SBICAP Securities Limited </p>  
 </footer>
     </form>
 </body>

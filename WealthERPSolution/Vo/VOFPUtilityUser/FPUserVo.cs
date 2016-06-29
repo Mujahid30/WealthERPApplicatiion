@@ -18,5 +18,6 @@ namespace VOFPUtilityUser
         public bool? IsClientExists { get; set; }
         public bool IsProspectmarked { get; set; }
         public string RiskClassCode { get; set; }
+        public DateTime DOB { get; set; }
     }
 }

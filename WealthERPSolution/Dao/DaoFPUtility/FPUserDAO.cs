@@ -27,6 +27,7 @@ namespace DaoFPUtility
                 db.AddInParameter(dbCommand, "@MobileNo", DbType.Int64, userVo.MobileNo);
                 db.AddInParameter(dbCommand, "@ClientCode", DbType.String, clientCode);
                 db.AddInParameter(dbCommand, "@UserType", DbType.Boolean, userType);
+                db.AddInParameter(dbCommand, "@DOB", DbType.DateTime, userVo.DOB);
                 ds = db.ExecuteDataSet(dbCommand);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
@@ -40,6 +41,7 @@ namespace DaoFPUtility
                     fpUserVo.ModifiedOn = Convert.ToDateTime(ds.Tables[0].Rows[0]["FPUUD_ModifiedOn"].ToString());
                     fpUserVo.RiskClassCode = ds.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
                     fpUserVo.IsProspectmarked = !string.IsNullOrEmpty(ds.Tables[0].Rows[0]["FPUUD_IsProspectmarked"].ToString()) ? Convert.ToBoolean(ds.Tables[0].Rows[0]["FPUUD_IsProspectmarked"]) : false;
+                    fpUserVo.DOB = Convert.ToDateTime(ds.Tables[0].Rows[0]["FPUUD_DOB"].ToString());
                     bool i;
                     fpUserVo.IsClientExists =bool.TryParse(ds.Tables[0].Rows[0]["FPUUD_IsClientExists"].ToString() , out i) ? (bool?)i : null;
                 }

@@ -48,10 +48,15 @@ namespace FPUtilityTool
                     lblClient.Visible = false;
                     UserVo = fpUserBo.CreateAndGetFPUtilityUserDetails(fpUserVo, txtclientCode.Text, true);
                     isValidUser = ValidateSingleSessionPerUser(UserVo.UserId.ToString());
-                    if (isValidUser && UserVo.UserId!=0)
+                    if (isValidUser && UserVo.UserId != 0 && !string.IsNullOrEmpty(UserVo.RiskClassCode))
                     {
                         Session["FPUserVo"] = UserVo;
                         Response.Redirect("Questionnaire.aspx");
+                    }
+                    else if (isValidUser && UserVo.UserId != 0 && !string.IsNullOrEmpty(UserVo.RiskClassCode))
+                    {
+                        Session["FPUserVo"] = UserVo;
+                        Response.Redirect("Result.aspx");
                     }
                     else
                         lbllogedIn2.Visible = true;
@@ -78,13 +83,19 @@ namespace FPUtilityTool
                 fpUserVo.UserName = txtName.Text;
                 fpUserVo.Pan = txtPan1.Text;
                 fpUserVo.EMail = txtEmail.Text;
+                fpUserVo.DOB = Convert.ToDateTime(txtDob.Text);
                 FPUserVo UserVo = new FPUserVo();
                 UserVo = fpUserBo.CreateAndGetFPUtilityUserDetails(fpUserVo, "", false);
                 isValidUser = ValidateSingleSessionPerUser(UserVo.UserId.ToString());
-                if (isValidUser && UserVo.UserId != 0)
+                if (isValidUser && UserVo.UserId != 0 && string.IsNullOrEmpty(UserVo.RiskClassCode))
                 {
                     Session["FPUserVo"] = UserVo;
                     Response.Redirect("Questionnaire.aspx");
+                }
+                else if (isValidUser && UserVo.UserId != 0 && !string.IsNullOrEmpty(UserVo.RiskClassCode))
+                {
+                    Session["FPUserVo"] = UserVo;
+                    Response.Redirect("Result.aspx");
                 }
                 else
                     lbllogedIn1.Visible = true;
