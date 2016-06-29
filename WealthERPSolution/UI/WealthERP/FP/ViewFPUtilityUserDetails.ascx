@@ -34,6 +34,7 @@
                     AutoGenerateColumns="false" CommandItemDisplay="None" GroupsDefaultExpanded="false"
                     ExpandCollapseColumn-Groupable="true" GroupLoadMode="Client" ShowGroupFooter="true">
                     <Columns>
+                    
                         <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Customer Name" DataField="FPUUD_Name"
                             UniqueName="FPUUD_Name" SortExpression="FPUUD_Name" AutoPostBackOnFilter="true"
                             AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
@@ -73,6 +74,11 @@
                         <telerik:GridBoundColumn DataField="IsCustomerAvailable" SortExpression="IsCustomerAvailable"
                             AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                             AllowFiltering="true" HeaderText="Existing Customer" UniqueName="IsCustomerAvailable">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                         <telerik:GridBoundColumn DataField="RiskClass" SortExpression="RiskClass"
+                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                            AllowFiltering="false" HeaderText="Risk Class" UniqueName="RiskClass">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                     </Columns>
