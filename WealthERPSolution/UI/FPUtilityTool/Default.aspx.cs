@@ -8,6 +8,7 @@ using VOFPUtilityUser;
 using BoFPUtility;
 using System.Collections;
 using System.Configuration;
+using System.Globalization;
 
 namespace FPUtilityTool
 {
@@ -41,6 +42,7 @@ namespace FPUtilityTool
                 fpUserVo.UserName = "";
                 fpUserVo.Pan = txtpan2.Text;
                 fpUserVo.EMail = "";
+                fpUserVo.DOB = DateTime.MinValue;
                 FPUserVo UserVo = new FPUserVo();
                 int adviserId = Convert.ToInt32(ConfigurationManager.AppSettings["ONLINE_ADVISER"]);
                 if (fpUserBo.CheckInvestorExists(adviserId, txtpan2.Text, txtclientCode.Text))
@@ -83,7 +85,7 @@ namespace FPUtilityTool
                 fpUserVo.UserName = txtName.Text;
                 fpUserVo.Pan = txtPan1.Text;
                 fpUserVo.EMail = txtEmail.Text;
-                fpUserVo.DOB = Convert.ToDateTime(txtDob.Text);
+                fpUserVo.DOB = DateTime.ParseExact(txtDob.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 FPUserVo UserVo = new FPUserVo();
                 UserVo = fpUserBo.CreateAndGetFPUtilityUserDetails(fpUserVo, "", false);
                 isValidUser = ValidateSingleSessionPerUser(UserVo.UserId.ToString());

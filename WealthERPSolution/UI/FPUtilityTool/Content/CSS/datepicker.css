@@ -346,6 +346,7 @@
     float: left;
     display: none;
     min-width: 260px;
+    max-width:260px;
     list-style: none;
     background-color: #ffffff;
     border: 1px solid #ccc;

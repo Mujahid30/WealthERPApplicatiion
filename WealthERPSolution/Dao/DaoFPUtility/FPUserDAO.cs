@@ -9,7 +9,7 @@ using VOFPUtilityUser;
 
 namespace DaoFPUtility
 {
-  public  class FPUserDAO
+    public class FPUserDAO
     {
         public FPUserVo CreateAndGetFPUtilityUserDetails(FPUserVo userVo, string clientCode, bool userType)
         {
@@ -27,7 +27,10 @@ namespace DaoFPUtility
                 db.AddInParameter(dbCommand, "@MobileNo", DbType.Int64, userVo.MobileNo);
                 db.AddInParameter(dbCommand, "@ClientCode", DbType.String, clientCode);
                 db.AddInParameter(dbCommand, "@UserType", DbType.Boolean, userType);
-                db.AddInParameter(dbCommand, "@DOB", DbType.DateTime, userVo.DOB);
+                if (userVo.DOB == DateTime.MinValue)
+                    db.AddInParameter(dbCommand, "@DOB", DbType.DateTime, DBNull.Value);
+                else
+                    db.AddInParameter(dbCommand, "@DOB", DbType.DateTime, userVo.DOB);
                 ds = db.ExecuteDataSet(dbCommand);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
@@ -43,7 +46,7 @@ namespace DaoFPUtility
                     fpUserVo.IsProspectmarked = !string.IsNullOrEmpty(ds.Tables[0].Rows[0]["FPUUD_IsProspectmarked"].ToString()) ? Convert.ToBoolean(ds.Tables[0].Rows[0]["FPUUD_IsProspectmarked"]) : false;
                     fpUserVo.DOB = Convert.ToDateTime(ds.Tables[0].Rows[0]["FPUUD_DOB"].ToString());
                     bool i;
-                    fpUserVo.IsClientExists =bool.TryParse(ds.Tables[0].Rows[0]["FPUUD_IsClientExists"].ToString() , out i) ? (bool?)i : null;
+                    fpUserVo.IsClientExists = bool.TryParse(ds.Tables[0].Rows[0]["FPUUD_IsClientExists"].ToString(), out i) ? (bool?)i : null;
                 }
             }
 
@@ -129,10 +132,10 @@ namespace DaoFPUtility
                 db.AddInParameter(dbGetCustomerList, "@A_AdviserId", DbType.Int32, advisorId);
                 dsGetCustomerList = db.ExecuteDataSet(dbGetCustomerList);
             }
-           
+
             catch (Exception ex)
             {
-               
+
             }
             return dsGetCustomerList;
         }
@@ -140,7 +143,7 @@ namespace DaoFPUtility
         public DataSet GetQuestionOption(int questionId, int advisorId)
         {
             Database db;
-            DataSet dsGetQuestionOption = null; 
+            DataSet dsGetQuestionOption = null;
             DbCommand dbGetQuestionOption;
             try
             {
@@ -151,14 +154,14 @@ namespace DaoFPUtility
                 dsGetQuestionOption = db.ExecuteDataSet(dbGetQuestionOption);
 
             }
-            
+
             catch (Exception ex)
             {
-              
+
             }
             return dsGetQuestionOption;
         }
-        public bool CheckInvestorExists(int adviserId,string panNo,string clientCode)
+        public bool CheckInvestorExists(int adviserId, string panNo, string clientCode)
         {
             bool result = false;
             DataSet ds;
@@ -182,7 +185,7 @@ namespace DaoFPUtility
             }
             return result;
         }
-        public bool UpdateCustomerProspect(int customerId,int fpUserId)
+        public bool UpdateCustomerProspect(int customerId, int fpUserId)
         {
             bool result = false;
             DataSet ds;
