@@ -1096,6 +1096,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderBackOffice//CustomerDematAcceptedDetails.ascx.
+        /// </summary>
+        internal static string CustomerDematAcceptedDetails {
+            get {
+                return ResourceManager.GetString("CustomerDematAcceptedDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CustomerPortfolio//CustomerEQAccountAdd.ascx.
         /// </summary>
         internal static string CustomerEQAccountAdd {

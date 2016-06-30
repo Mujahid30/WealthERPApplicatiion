@@ -2891,6 +2891,13 @@
     <Compile Include="OnlineOrderBackOffice\BannerManager.ascx.designer.cs">
       <DependentUpon>BannerManager.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderBackOffice\CustomerDematAcceptedDetails.ascx.cs">
+      <DependentUpon>CustomerDematAcceptedDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\CustomerDematAcceptedDetails.ascx.designer.cs">
+      <DependentUpon>CustomerDematAcceptedDetails.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderBackOffice\CustomerProfileAudit.ascx.cs">
       <DependentUpon>CustomerProfileAudit.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -8306,6 +8313,7 @@
     <Content Include="OnlineMainHost.aspx" />
     <Content Include="OnlineOrderBackOffice\AMCManage.ascx" />
     <Content Include="OnlineOrderBackOffice\BannerManager.ascx" />
+    <Content Include="OnlineOrderBackOffice\CustomerDematAcceptedDetails.ascx" />
     <Content Include="OnlineOrderBackOffice\CustomerProfileAudit.ascx" />
     <Content Include="OnlineOrderBackOffice\ExternalFieldMapping.ascx" />
     <Content Include="OnlineOrderBackOffice\ExternalHeaderMapping.ascx" />

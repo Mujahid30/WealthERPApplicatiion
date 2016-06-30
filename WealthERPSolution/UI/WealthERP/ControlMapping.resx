@@ -2113,4 +2113,8 @@
     <value>OfflineOrderBackOffice//InsuranceIssueSetup.ascx</value>
     <comment>OfflineOrderBackOffice//InsuranceIssueSetup.ascx</comment>
   </data>
+  <data name="CustomerDematAcceptedDetails" xml:space="preserve">
+    <value>OnlineOrderBackOffice//CustomerDematAcceptedDetails.ascx</value>
+    <comment>OnlineOrderBackOffice//CustomerDematAcceptedDetails.ascx</comment>
+  </data>
 </root>
