@@ -128,10 +128,10 @@ namespace FPUtilityTool
                 dsGetquestionList = fpUserBo.GetRiskProfileQuestion(adviserId);
                 if (dsGetquestionList.Tables[0].Rows.Count <= dsQuestionNOptions.Tables[0].Rows.Count)
                 {
-                    //if (!string.IsNullOrEmpty(userVo.RiskClassCode))
-                    //{
-                    //    Response.Redirect("Result.aspx");
-                    //}
+                    if (!string.IsNullOrEmpty(userVo.RiskClassCode))
+                    {
+                        Response.Redirect("Result.aspx");
+                    }
                     MultiView1.ActiveViewIndex = dsGetquestionList.Tables[0].Rows.Count - 1;
 
 
