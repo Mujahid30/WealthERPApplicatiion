@@ -136,21 +136,12 @@
                         Display="Dynamic" ControlToValidate="ddProduct" InitialValue="Select" ValidationGroup="btnGo">
                     </asp:RequiredFieldValidator>
                 </td>
-                <td class="leftLabel">
-                    <asp:Label ID="lblIssuer" runat="server" Text="Issuer :" CssClass="FieldName"></asp:Label>
-                </td>
-                <td class="rightData">
-                    <asp:DropDownList ID="ddIssuer" runat="server" CssClass="cmbField" AutoPostBack="false"
-                        Width="300px">
-                    </asp:DropDownList>
-                    <br />
-                    <asp:RequiredFieldValidator ID="rfvIssuer" runat="server" CssClass="rfvPCG" ErrorMessage="Please select an issuer"
-                        Display="Dynamic" ControlToValidate="ddIssuer" InitialValue="Select" ValidationGroup="btnGo"></asp:RequiredFieldValidator>
-                </td>
+              
                 <td colspan="2">
                 </td>
             </tr>
             <tr id="trCategory" runat="server">
+             
                 <td class="leftLabel">
                     <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
                 </td>
@@ -163,6 +154,17 @@
                     <asp:RequiredFieldValidator ID="rfvCategory" runat="server" ErrorMessage="Please Select Category"
                         CssClass="rfvPCG" ControlToValidate="ddCategory" ValidationGroup="btnGo" Display="Dynamic"
                         Visible="true" InitialValue="0" SetFocusOnError="true"></asp:RequiredFieldValidator>
+                </td>
+                 <td class="leftLabel">
+                    <asp:Label ID="lblIssuer" runat="server" Text="Issuer :" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightData">
+                    <asp:DropDownList ID="ddIssuer" runat="server" CssClass="cmbField" AutoPostBack="false"
+                        Width="300px">
+                    </asp:DropDownList>
+                    <br />
+                    <asp:RequiredFieldValidator ID="rfvIssuer" runat="server" CssClass="rfvPCG" ErrorMessage="Please select an issuer"
+                        Display="Dynamic" ControlToValidate="ddIssuer" InitialValue="Select" ValidationGroup="btnGo"></asp:RequiredFieldValidator>
                 </td>
                 <td class="leftLabel" id="tdlblSubCategory" runat="server" visible="false">
                     <asp:Label ID="lblSubCategory" runat="server" Text="Sub Category" CssClass="FieldName"
