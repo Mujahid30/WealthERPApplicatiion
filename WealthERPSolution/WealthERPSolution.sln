@@ -345,11 +345,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoFPUtility", "Bo\BoFPUtili
 		{B022FE84-67F8-468B-A4E5-9CC8C53196EB} = {B022FE84-67F8-468B-A4E5-9CC8C53196EB}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WERPMarketDataAPI", "WERPMarketDataAPI", "{39968012-E072-4C57-93A2-A0F8A757FA2B}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 125
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://192.168.0.2:8080/tfs/Ampsys%20wealthERP
+		SccTeamFoundationServer = http://192.168.0.2:8080/tfs/Ampsys%20WealthERP
 		SccLocalPath0 = .
 		SccProjectUniqueName1 = UI\\WealthERP\\WealthERP.csproj
 		SccProjectTopLevelParentUniqueName1 = WealthERPSolution.sln
@@ -562,12 +564,10 @@ Global
 		SccProjectUniqueName53 = Bo\\BoReports\\BoReports.csproj
 		SccProjectTopLevelParentUniqueName53 = WealthERPSolution.sln
 		SccProjectName53 = Bo/BoReports
-		SccAuxPath53 = http://192.168.0.2:8080/tfs/Ampsys%20WealthERP
 		SccLocalPath53 = Bo\\BoReports
 		SccProjectUniqueName54 = Dao\\DaoReports\\DaoReports.csproj
 		SccProjectTopLevelParentUniqueName54 = WealthERPSolution.sln
 		SccProjectName54 = Dao/DaoReports
-		SccAuxPath54 = http://192.168.0.2:8080/tfs/Ampsys%20WealthERP
 		SccLocalPath54 = Dao\\DaoReports
 		SccProjectUniqueName55 = Vo\\VoReports\\VoReports.csproj
 		SccProjectTopLevelParentUniqueName55 = WealthERPSolution.sln
@@ -1711,6 +1711,7 @@ Global
 		{4B428E7B-A968-4113-AE99-186A48573FB3} = {2FCE7859-BA5D-4014-BCC0-CCCB65CB6560}
 		{12DD3E39-E014-4C64-8C24-09CE008863E7} = {2FCE7859-BA5D-4014-BCC0-CCCB65CB6560}
 		{2E81E8A7-EBAA-4718-9C50-08CC6D77EC8D} = {2FCE7859-BA5D-4014-BCC0-CCCB65CB6560}
+		{39968012-E072-4C57-93A2-A0F8A757FA2B} = {2FCE7859-BA5D-4014-BCC0-CCCB65CB6560}
 		{DEE28FF1-B036-4E3B-B918-F072EAD23DA9} = {8827221A-E5D7-4E5E-AB4C-84CC43981A8F}
 		{C1D81E96-A54F-4AB4-8FAB-2250A6B9D441} = {8827221A-E5D7-4E5E-AB4C-84CC43981A8F}
 		{BC5B407E-ECDB-4CB2-B173-0058F2EEDBD0} = {8827221A-E5D7-4E5E-AB4C-84CC43981A8F}
