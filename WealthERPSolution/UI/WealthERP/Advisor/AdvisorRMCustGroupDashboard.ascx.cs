@@ -1061,27 +1061,27 @@ namespace WealthERP.Advisor
         //    }
         //}
 
-        protected void GVSample_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            DataRowView drview = e.Row.DataItem as DataRowView;
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                //HyperLink HLdetails = e.Row.FindControl("hyprlnkdetails") as HyperLink;
-                LinkButton lnkCustomerName = e.Row.FindControl("lnkCustomerName") as LinkButton;
-               // Label lblText = e.Row.FindControl("lblText") as Label;
-                if (drview[3].ToString() == "True")
-                {
-                    lnkCustomerName.Enabled = true;
-                    //HLdetails.Text = "Click here to view";
-                    //HLdetails.NavigateUrl = String.Format("~/details.aspx?UserID={0}", drview[8].ToString());
-                }
-                else
-                {
-                    lnkCustomerName.Enabled = false;
-                    //HLdetails.Visible = false;
-                    //lblText.Text = "View Restricted";
-                }
-            }
-        }
+        //protected void GVSample_RowDataBound(object sender, GridViewRowEventArgs e)
+        //{
+        //    DataRowView drview = e.Row.DataItem as DataRowView;
+        //    if (e.Row.RowType == DataControlRowType.DataRow)
+        //    {
+        //        //HyperLink HLdetails = e.Row.FindControl("hyprlnkdetails") as HyperLink;
+        //        LinkButton lnkCustomerName = e.Row.FindControl("lnkCustomerName") as LinkButton;
+        //       // Label lblText = e.Row.FindControl("lblText") as Label;
+        //        if (drview[3].ToString() == "True")
+        //        {
+        //            lnkCustomerName.Enabled = true;
+        //            //HLdetails.Text = "Click here to view";
+        //            //HLdetails.NavigateUrl = String.Format("~/details.aspx?UserID={0}", drview[8].ToString());
+        //        }
+        //        else
+        //        {
+        //            lnkCustomerName.Enabled = false;
+        //            //HLdetails.Visible = false;
+        //            //lblText.Text = "View Restricted";
+        //        }
+        //    }
+        //}
     }
 }

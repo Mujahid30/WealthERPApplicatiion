@@ -45,7 +45,7 @@
             <asp:Label ID="lblMessage" runat="server" Text="You have not Added Family Details.."
                 Class="FieldName"> </asp:Label>
             <asp:GridView ID="gvCustomerFamily" runat="server" CellPadding="4" CssClass="GridViewStyle"
-                Width="100%" DataKeyNames="CustomerId" AutoGenerateColumns="False" Style="margin-bottom: 0px" OnRowDataBound="GVSample_RowDataBound" >
+                Width="100%" DataKeyNames="CustomerId" AutoGenerateColumns="False" Style="margin-bottom: 0px"  >
                 <RowStyle CssClass="RowStyle" />
                 <FooterStyle CssClass="FooterStyle" />
                 <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
