@@ -712,11 +712,11 @@ namespace BoOnlineOrderManagement
                     }
                     if (isRMSDebited)
                     {
-                        int transCode = OnlineMFOrderDao.BSEorderEntryParam("NEW", UserID, ClientCode, onlinemforderVo.BSESchemeCode, purchase, PurchaseType, DematAcctype, Amount, Unit, allRedeem, "", "Y", "", "", "E116327", "Y", "N", "N", "", rmsId);
+                        int transCode = OnlineMFOrderDao.BSEorderEntryParam("NEW", UserID, ClientCode, onlinemforderVo.BSESchemeCode, purchase, PurchaseType, DematAcctype, Amount, Unit, allRedeem, "", "Y", "", "", "E116327", "Y", "N", "Y", "", rmsId);
                         string uniqueRefNo;
                         Random ran = new Random();
                         uniqueRefNo = transCode.ToString() + ran.Next().ToString();
-                        string orderEntryresponse = webOrderEntryClient.orderEntryParam("NEW", uniqueRefNo, "", bseuserID, bseMemberId, ClientCode, onlinemforderVo.BSESchemeCode, purchase, PurchaseType, DematAcctype, Amount, Unit, allRedeem, "", "", "Y", "", "", "E116327", "Y", "N", "N", "", bsePassArray[1], passkey, "", "", "");
+                        string orderEntryresponse = webOrderEntryClient.orderEntryParam("NEW", uniqueRefNo, "", bseuserID, bseMemberId, ClientCode, onlinemforderVo.BSESchemeCode, purchase, PurchaseType, DematAcctype, Amount, Unit, allRedeem, "", "", "Y", "", "", "E116327", "Y", "N", "Y", "", bsePassArray[1], passkey, "", "", "");
                         string[] bseorderEntryresponseArray = orderEntryresponse.Split('|');
                         OnlineMFOrderDao.BSEorderResponseParam(transCode, UserID, Convert.ToInt64(bseorderEntryresponseArray[2]), ClientCode, bseorderEntryresponseArray[6], bseorderEntryresponseArray[7], rmsId, uniqueRefNo);
                         if (Convert.ToInt32(bseorderEntryresponseArray[7]) == 1)
