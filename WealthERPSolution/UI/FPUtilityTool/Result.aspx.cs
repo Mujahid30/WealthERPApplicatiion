@@ -68,7 +68,7 @@ namespace FPUtilityTool
                         break;
                 }
                 strXML3.Append(@"</chart>");
-                ltrAssets.Text = FusionCharts.RenderChartHTML("../Content/Pie2D.swf", "", strXML3.ToString(), "asst", "100%", "350", false, true, false);
+                ltrAssets.Text = FusionCharts.RenderChartHTML("../Content/Pie2D.swf", "", strXML3.ToString(), "asst", "100%", "350", false, true, true);
             }
             else
                 ltrAssets.Text = "No record found";

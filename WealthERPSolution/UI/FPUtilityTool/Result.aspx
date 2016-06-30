@@ -117,7 +117,7 @@
             <div class="row">
                 <div class="col-sm-2">
                 </div>
-                <div class="col-sm-8  form-group">
+                <div class="col-sm-8  form-group" style="z-index:1" >
                   <%--  <div id="chart" style="height: 50%;">
                     </div>--%>
                     <asp:Literal ID="ltrAssets" runat="server"></asp:Literal>
@@ -158,8 +158,8 @@
             </div>
         </div>
         <!-- Modal -->
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog modal-lg">
+        <div class="modal fade" id="myModal" role="dialog" >
+            <div class="modal-dialog modal-lg" style="z-index:10000">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">

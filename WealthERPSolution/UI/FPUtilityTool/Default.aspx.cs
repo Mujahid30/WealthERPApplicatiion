@@ -50,7 +50,7 @@ namespace FPUtilityTool
                     lblClient.Visible = false;
                     UserVo = fpUserBo.CreateAndGetFPUtilityUserDetails(fpUserVo, txtclientCode.Text, true);
                     isValidUser = ValidateSingleSessionPerUser(UserVo.UserId.ToString());
-                    if (isValidUser && UserVo.UserId != 0 && !string.IsNullOrEmpty(UserVo.RiskClassCode))
+                    if (isValidUser && UserVo.UserId != 0 && string.IsNullOrEmpty(UserVo.RiskClassCode))
                     {
                         Session["FPUserVo"] = UserVo;
                         Response.Redirect("Questionnaire.aspx");
