@@ -77,6 +77,24 @@ namespace FPUtilityTool {
         protected global::System.Web.UI.WebControls.Label lblRiskText;
         
         /// <summary>
+        /// divtnc1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divtnc1;
+        
+        /// <summary>
+        /// divtnc2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divtnc2;
+        
+        /// <summary>
         /// chkAgree control.
         /// </summary>
         /// <remarks>

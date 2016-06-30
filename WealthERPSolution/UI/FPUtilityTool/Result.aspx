@@ -135,7 +135,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div id="divtnc1" runat="server" class="row">
             <div class="col-sm-2">
             </div>
             <div class="col-sm-8 text-center">
@@ -146,7 +146,7 @@
             <div class="col-sm-2">
             </div>
         </div>
-        <div class="row">
+        <div id="divtnc2" runat="server" class="row">
             <div class="col-sm-4">
             </div>
             <div class="col-sm-4 text-center">

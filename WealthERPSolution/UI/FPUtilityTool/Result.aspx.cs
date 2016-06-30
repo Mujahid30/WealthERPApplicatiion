@@ -35,17 +35,21 @@ namespace FPUtilityTool
                 //    Response.Redirect("Questionnaire.aspx");
                 //else
                 //{
-                    DataSet dsRiskClass = fpUserBo.GetRiskClass(fpuserVo.UserId, adviserId);
-                    if (dsRiskClass.Tables[0].Rows.Count > 0)
-                    {
-                        lblRiskClass.Text = dsRiskClass.Tables[0].Rows[0]["XRC_RiskClass"].ToString();
-                        lblRiskText.Text = dsRiskClass.Tables[0].Rows[0]["ARC_RiskText"].ToString();
-                    }
-                    if (dsRiskClass.Tables[1].Rows.Count > 0)
-                    {
-                        BindAssetsPiaChart(dsRiskClass.Tables[1]);
-                    }
-
+                DataSet dsRiskClass = fpUserBo.GetRiskClass(fpuserVo.UserId, adviserId);
+                if (dsRiskClass.Tables[0].Rows.Count > 0)
+                {
+                    lblRiskClass.Text = dsRiskClass.Tables[0].Rows[0]["XRC_RiskClass"].ToString();
+                    lblRiskText.Text = dsRiskClass.Tables[0].Rows[0]["ARC_RiskText"].ToString();
+                }
+                if (dsRiskClass.Tables[1].Rows.Count > 0)
+                {
+                    BindAssetsPiaChart(dsRiskClass.Tables[1]);
+                }
+                if (!string.IsNullOrEmpty(fpuserVo.RiskClassCode))
+                {
+                    divtnc1.Visible = false;
+                    divtnc2.Visible = false;
+                }
                 //}
             }
 
@@ -102,6 +106,7 @@ namespace FPUtilityTool
                     customerVo.PANNum = fpuserVo.Pan;
                     customerVo.Mobile1 = fpuserVo.MobileNo;
                     customerVo.ProspectAddDate = DateTime.Now;
+                    customerVo.Dob = fpuserVo.DOB;
                     userVo.Email = fpuserVo.EMail;
                     customerPortfolioVo.IsMainPortfolio = 0;
                     customerPortfolioVo.PortfolioTypeCode = "RGL";
@@ -124,7 +129,8 @@ namespace FPUtilityTool
                     if (UpdateCustomerIdInFPUserTable(fpuserVo.UserId, fpuserVo.C_CustomerId))
                         divTncSuccess.Visible = true;
                 }
-
+                divtnc1.Visible = false;
+                divtnc2.Visible = false;
 
             }
         }
