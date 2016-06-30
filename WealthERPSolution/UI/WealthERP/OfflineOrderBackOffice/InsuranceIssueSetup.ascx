@@ -27,14 +27,14 @@
         <td>
             <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlType_OnSelectedIndexChanged">
-                <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
+                <asp:ListItem Text="Select" Value="0"></asp:ListItem>
                 <asp:ListItem Text="Life Insurance" Value="IN"></asp:ListItem>
                 <asp:ListItem Text="General Insurance" Value="GI"></asp:ListItem>
             </asp:DropDownList>
             <span id="Span7" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="ddlType"
                 ErrorMessage="Select Type" CssClass="cvPCG" Display="Dynamic" runat="server"
-                InitialValue="" ValidationGroup="btnSubmit">
+                InitialValue="0" ValidationGroup="btnSubmit">
             </asp:RequiredFieldValidator>
         </td>
         <td style="text-align: right">
@@ -46,7 +46,7 @@
             <span id="Span6" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="ddlIssuer"
                 ErrorMessage="Select Issure" CssClass="cvPCG" Display="Dynamic" runat="server"
-                InitialValue="" ValidationGroup="btnSubmit">
+                InitialValue="0" ValidationGroup="btnSubmit">
             </asp:RequiredFieldValidator>
         </td>
     </tr>
@@ -72,9 +72,9 @@
                 AutoPostBack="true" CssClass="cmbField">
             </asp:DropDownList>
             <span id="Span4" class="spnRequiredField">*</span>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="ddlSubCategory"
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="ddlCategory"
                 ErrorMessage="Select Category" CssClass="cvPCG" Display="Dynamic" runat="server"
-                InitialValue="" ValidationGroup="btnSubmit">
+                InitialValue="0" ValidationGroup="btnSubmit">
             </asp:RequiredFieldValidator>
         </td>
         <td style="text-align: right">
@@ -86,7 +86,7 @@
             <asp:Label ID="lblReq" runat="server" Text="*" CssClass="spnRequiredField"></asp:Label>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="ddlSubCategory"
                 ErrorMessage="Select Sub Category" CssClass="cvPCG" Display="Dynamic" runat="server"
-                InitialValue="" ValidationGroup="btnSubmit">
+                InitialValue="0" ValidationGroup="btnSubmit">
             </asp:RequiredFieldValidator>
         </td>
     </tr>
@@ -107,7 +107,7 @@
             <div id="dvTransactionDate" runat="server" class="dvInLine">
                 <span id="Span1" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="rfvtxtTransactionDate" ControlToValidate="txtOrderFrom"
-                    ErrorMessage="<br />Select a From Date" CssClass="cvPCG" Display="Dynamic" runat="server"
+                    ErrorMessage="<br />Select From Date" CssClass="cvPCG" Display="Dynamic" runat="server"
                     InitialValue="" ValidationGroup="btnSubmit">
                 </asp:RequiredFieldValidator>
                 <asp:CompareValidator ID="CompareValidator9" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
@@ -131,12 +131,12 @@
             <div id="Div1" runat="server" class="dvInLine">
                 <span id="Span2" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtOrderTo"
-                    ErrorMessage="<br />Select a To Date" CssClass="cvPCG" Display="Dynamic" runat="server"
-                    InitialValue="" ValidationGroup="btnViewOrder">
+                    ErrorMessage="<br />Select To Date" CssClass="cvPCG" Display="Dynamic" runat="server"
+                    InitialValue="" ValidationGroup="btnSubmit">
                 </asp:RequiredFieldValidator>
                 <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
                     Type="Date" ControlToValidate="txtOrderTo" CssClass="cvPCG" Operator="DataTypeCheck"
-                    Display="Dynamic"></asp:CompareValidator>
+                    Display="Dynamic" ValidationGroup="btnSubmit"></asp:CompareValidator>
             </div>
             <asp:CompareValidator ID="CompareValidator14" runat="server" ControlToValidate="txtOrderTo"
                 ErrorMessage="<br/> To Date should be greater than From Date" Type="Date" Operator="GreaterThanEqual"
