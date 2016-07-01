@@ -1284,7 +1284,7 @@ namespace WealthERP.Advisor
                     {
                         if (ConfigurationSettings.AppSettings["NCD_TREE_NODE"].ToString().Contains(advisorVo.advisorId.ToString())) 
                         {
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "PortfolioDashboard", "loadcontrol('PortfolioDashboard','none');", false);
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "PortfolioDashboard", "loadcontrol('PortfolioDashboard','none');", true);
                         }
                     }
                     else
