@@ -13,7 +13,7 @@
 
 <script language="javascript" type="text/javascript">
     function FilterRows(sender, args) {
-        alert("hi   ");
+     
         var tableView = $find("<%# ((GridItem)Container).OwnerTableView.ClientID %>");
         alert(tableView);
         tableView.filter("TradeDate", args.get_item().get_value(), "EqualTo");
