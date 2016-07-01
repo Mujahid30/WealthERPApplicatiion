@@ -351,11 +351,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WERP_API", "WERP_API", "{8F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EquityMarketData", "EquityMarketData", "{F293EE08-C9D6-48D6-BFE6-AAE8FC6B84E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EquityMarketDateAPI", "WERP_API\EquityMarketData\EquityMarketDateAPI.csproj", "{DBAB07B5-006E-49B2-BBBC-832B24EFD202}"
-EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 126
+		SccNumberOfProjects = 125
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://192.168.0.2:8080/tfs/Ampsys%20WealthERP
 		SccLocalPath0 = .
@@ -855,10 +853,6 @@ Global
 		SccProjectTopLevelParentUniqueName124 = WealthERPSolution.sln
 		SccProjectName124 = Bo/BoFPUtility
 		SccLocalPath124 = Bo\\BoFPUtility
-		SccProjectUniqueName125 = WERP_API\\EquityMarketData\\EquityMarketDateAPI.csproj
-		SccProjectTopLevelParentUniqueName125 = WealthERPSolution.sln
-		SccProjectName125 = WERP_API/EquityMarketData
-		SccLocalPath125 = WERP_API\\EquityMarketData
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1616,12 +1610,6 @@ Global
 		{04802CFC-9703-4EC8-A452-CEB982A807DE}.Development|Any CPU.Build.0 = Debug|Any CPU
 		{04802CFC-9703-4EC8-A452-CEB982A807DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04802CFC-9703-4EC8-A452-CEB982A807DE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DBAB07B5-006E-49B2-BBBC-832B24EFD202}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DBAB07B5-006E-49B2-BBBC-832B24EFD202}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DBAB07B5-006E-49B2-BBBC-832B24EFD202}.Development|Any CPU.ActiveCfg = Debug|Any CPU
-		{DBAB07B5-006E-49B2-BBBC-832B24EFD202}.Development|Any CPU.Build.0 = Debug|Any CPU
-		{DBAB07B5-006E-49B2-BBBC-832B24EFD202}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DBAB07B5-006E-49B2-BBBC-832B24EFD202}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1771,6 +1759,5 @@ Global
 		{CDBDEA87-CBD4-4CC7-BE7F-0F96508E0590} = {2061F06B-7FF4-4AA2-97AA-ED4918852CE1}
 		{54ADB742-2996-4325-A5FE-EE533479522C} = {2DE4567D-A720-4E31-A867-0F4C7C1E0653}
 		{F293EE08-C9D6-48D6-BFE6-AAE8FC6B84E5} = {8FBF9A17-63F1-4582-A69C-EA50EF458F80}
-		{DBAB07B5-006E-49B2-BBBC-832B24EFD202} = {F293EE08-C9D6-48D6-BFE6-AAE8FC6B84E5}
 	EndGlobalSection
 EndGlobal
