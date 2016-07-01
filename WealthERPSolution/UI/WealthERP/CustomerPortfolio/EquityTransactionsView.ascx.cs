@@ -19,7 +19,7 @@ using iTextSharp.text.pdf;
 using BoCommon;
 using Telerik.Web.UI;
 using System.Reflection;
-using DaoCustomerPortfolio;
+using DaoCustomerPortfolio; 
 
 namespace WealthERP.CustomerPortfolio
 {

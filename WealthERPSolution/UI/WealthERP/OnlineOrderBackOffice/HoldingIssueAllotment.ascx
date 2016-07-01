@@ -12,7 +12,7 @@
                     <tr>
                         <td align="left">
                             Initial Order Report AMC/RTA Wise
-                        </td>
+                        </td> 
                         <td align="right">
                             <asp:ImageButton ID="imgexportButton" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 Visible="false" runat="server" AlternateText="Excel" ToolTip="Export To Excel"

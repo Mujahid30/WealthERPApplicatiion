@@ -14,10 +14,12 @@ using WealthERP.Base;
 using System.Collections;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Web.UI.DataVisualization.Charting;
-using System.Data;
+using System.Data;  
 using System.Drawing;
 using System.Collections.Specialized;
-using BoCommon; 
+using BoCommon;
+
+  
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -36,6 +38,7 @@ namespace WealthERP.CustomerPortfolio
         double amountInvestedTotal = 0;
         double currentValueTotal = 0;
         double changeTotal = 0;
+
         double percentChangeTotal = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
