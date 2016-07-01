@@ -3313,7 +3313,7 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdStoredProcedure = db.GetStoredProcCommand(SPName);
-                db.AddInParameter(cmdStoredProcedure, "@CTNS_Id", DbType.String, CNT_ID);           
+                db.AddInParameter(cmdStoredProcedure, "@CTNS_Id", DbType.Int32, CNT_ID);           
                  if (db.ExecuteNonQuery(cmdStoredProcedure) != 0)
                     bResult = true;
             }
