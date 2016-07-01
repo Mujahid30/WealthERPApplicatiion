@@ -761,8 +761,13 @@ namespace WealthERP.OnlineOrderBackOffice
                 BindtransactionTypes(chkbltranstype, dropDownList1.SelectedValue);
                 string transtypes = rgNotification.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_TransactionTypes"].ToString();
                 string[] transtype;
-                
-                BindDropDownAssetGroup(ddlAssetGroupName1);
+                HtmlTableRow trTransType = (HtmlTableRow)editedItem.FindControl("trTransType");
+                if (assetGroupCode == "MF")
+                    trTransType.Visible = true;
+                else
+                    trTransType.Visible = false;
+
+                    BindDropDownAssetGroup(ddlAssetGroupName1);
 
                 if (string.IsNullOrEmpty(transtypes))
                     return;
