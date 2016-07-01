@@ -116,9 +116,9 @@ namespace WealthERP.CustomerPortfolio
             PortfolioBo portfolioBo = null;
             genDict = new Dictionary<string, DateTime>();
             try
-            {
+            { 
                 portfolioBo = new PortfolioBo();
-               //EQLatestDate = DateTime.Parse(portfolioBo.GetLatestDate().ToString());
+               EQLatestDate = DateTime.Parse(portfolioBo.GetLatestDate().ToString());
                 genDict.Add("EQDate", EQLatestDate);
                 Session["MaxPriceDate"] = genDict;
             }

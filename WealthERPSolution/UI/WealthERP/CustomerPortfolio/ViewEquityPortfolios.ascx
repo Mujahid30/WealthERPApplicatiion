@@ -7,7 +7,7 @@
 </telerik:RadScriptManager>
 
 <script type="text/javascript" language="javascript">
-    (function() {
+    (function() { 
         var x = window.x = {};
 
         onRequestStart = function(sender, args) {
