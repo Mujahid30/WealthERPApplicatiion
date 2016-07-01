@@ -347,6 +347,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoFPUtility", "Bo\BoFPUtili
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WERPMarketDataAPI", "WERPMarketDataAPI", "{39968012-E072-4C57-93A2-A0F8A757FA2B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WERP_API", "WERP_API", "{8FBF9A17-63F1-4582-A69C-EA50EF458F80}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 125
