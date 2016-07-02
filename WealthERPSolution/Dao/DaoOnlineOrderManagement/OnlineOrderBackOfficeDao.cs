@@ -2691,6 +2691,35 @@ namespace DaoOnlineOrderManagement
             }
             return bResult;
         }
+
+        public bool UpdateCustomerCode(DataTable dtcustomer,int userid)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand UpdateNewCustomerCode;
+            DataSet dsUpdateNewCustomerCode = new DataSet();
+             
+            try
+            {
+                dsUpdateNewCustomerCode.Tables.Add(dtcustomer.Copy());
+                dsUpdateNewCustomerCode.DataSetName = "Subdtcustomerds";
+                dsUpdateNewCustomerCode.Tables[0].TableName = "Subdtcustomerdt";
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                UpdateNewCustomerCode = db.GetStoredProcCommand("SPROC_UpdateCustomerDematAccepted");
+                db.AddInParameter(UpdateNewCustomerCode, "@dtCustomer", DbType.Xml, dsUpdateNewCustomerCode.GetXml().ToString());
+                db.AddInParameter(UpdateNewCustomerCode, "@userid", DbType.Int32, userid);
+                if (db.ExecuteNonQuery(UpdateNewCustomerCode) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+
+
+
         public int SchemeCode(string externalcode, int AMCCode)
         {
             Database db;

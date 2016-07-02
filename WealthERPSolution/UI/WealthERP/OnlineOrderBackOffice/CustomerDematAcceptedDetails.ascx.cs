@@ -31,8 +31,9 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void Page_Load(object sender, EventArgs e)
         {
             adviserVo = (AdvisorVo)Session["advisorVo"];
-            BindCustomerDetailsGrid();
-           
+            if (!IsPostBack)
+                BindCustomerDetailsGrid();
+
         }
 
         protected void gvCustomerDetails_ItemDataBound(object sender, GridItemEventArgs e)
@@ -63,32 +64,67 @@ namespace WealthERP.OnlineOrderBackOffice
                 gvCustomerDetails.MasterTableView.GetColumn("MarkFPClient").Visible = false;
                 gvCustomerDetails.MasterTableView.GetColumn("ActionForProspect").Visible = false;
             }
-            if (e.Item is GridDataItem)
+            if (e.Item is GridDataItem) 
             {
                 GridDataItem dataItem = (GridDataItem)e.Item;
-                Boolean Iscancel = Convert.ToBoolean(gvCustomerDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_IsRealInvestor"]); 
-                CheckBox chk=(CheckBox)e.Item.FindControl("chk");
-                if (Iscancel == true)
+                Boolean Iscancel = Convert.ToBoolean(gvCustomerDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_IsDematInvestor"]);
+                CheckBox chk = (CheckBox)e.Item.FindControl("chk");
+                if (Iscancel)
                     chk.Visible = false;
                 else
                     chk.Visible = true;
             }
         }
-           
-       
+
+
 
         public void BindCustomerDetailsGrid()
         {
             DataSet ds = onlineOrderBackOfficeBo.BindCustomerDetails(adviserVo.advisorId);
-                gvCustomerDetails.DataSource = ds.Tables[0];
-                gvCustomerDetails.DataBind();
+            gvCustomerDetails.DataSource = ds.Tables[0];
+            gvCustomerDetails.DataBind();
         }
 
 
         protected void Button1_Click(object sender, EventArgs e)
         {
+            int i = 0;
+            OnlineOrderBackOfficeBo OnlineOrderBackOfficeBo = new OnlineOrderBackOfficeBo();
+            foreach (GridDataItem dataItem in gvCustomerDetails.MasterTableView.Items)
+            {
+                if ((dataItem.FindControl("chk") as CheckBox).Checked == true)
+                {
+                    i = i + 1;
+                }
+            }
+            if (i == 0)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select a customer!');", true);
+                return;
+            }
+            else
+            {
+                DataTable dtcustomer = new DataTable();
+                dtcustomer.Columns.Add("customerId", typeof(Int32));
+                dtcustomer.Columns.Add("demataccepted", typeof(int));
+                DataRow drcustomer;
+                foreach (GridDataItem radItem in gvCustomerDetails.MasterTableView.Items)
+                {
+
+                    if ((radItem.FindControl("chk") as CheckBox).Checked == true)
+                    {
+                        drcustomer = dtcustomer.NewRow();
+                        drcustomer["customerId"] = int.Parse(gvCustomerDetails.MasterTableView.DataKeyValues[radItem.ItemIndex ]["C_CustomerId"].ToString());
+                        CheckBox chk = radItem.FindControl("chk") as CheckBox;
+                        drcustomer["demataccepted"] = chk.Checked ? 1 : 0;
+                        dtcustomer.Rows.Add(drcustomer);
+                    }
+                }
+                OnlineOrderBackOfficeBo.UpdateCustomerCode(dtcustomer, userVo.UserId);
+                BindCustomerDetailsGrid();
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Selected Customer Marked as Demat Investor!!');", true);
+            }
 
         }
-
     }
-    }
+}

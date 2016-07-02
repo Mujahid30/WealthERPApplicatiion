@@ -7,6 +7,7 @@
 <table width="100%">
     <tr>
         <td>
+        
             <div class="divPageHeading">
                 <table cellspacing="0" cellpadding="2" width="100%">
                     <tr>
@@ -24,7 +25,8 @@
             </div>
         </td>
     </tr>
-</table>
+</table>  
+
 <table>
     <tr>
         <td align="right">
@@ -36,7 +38,7 @@
                 <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                 <asp:ListItem Text="Client Intial Orders" Value="False" />
                 <asp:ListItem Text="FATCA" Value="True" />
-                <asp:ListItem Text="Consent Accepted" Value="false"></asp:ListItem>
+                <asp:ListItem Text="BSE" Value="false"></asp:ListItem>
                 
             </asp:DropDownList>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="rfvPCG"

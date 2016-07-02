@@ -2223,7 +2223,23 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
             return bResult;
+        } 
+
+        public bool UpdateCustomerCode(DataTable dtcustomer , int userid)
+        {
+            bool bResult = false;
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                bResult = OnlineOrderBackOfficeDao.UpdateCustomerCode(dtcustomer,userid);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
         }
+
         public int SchemeCode(string externalcode, int AMCCode)
         {
             int result = 0;
