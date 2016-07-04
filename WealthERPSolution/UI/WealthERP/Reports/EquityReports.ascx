@@ -234,12 +234,12 @@
                 var checkboxName = document.forms[0].elements[i].name;
                 if (checkboxName.substr(0, 5) == "chk--" && document.forms[0].elements[i].checked == true) {
 
-                   isPorfolioSelected = true;
+                    isPorfolioSelected = true;
 
                 }
             }
         }
-       // alert(isPorfolioSelected);
+        // alert(isPorfolioSelected);
         if (isPorfolioSelected == false) {
             alert("Please choose customer or portfolio")
             return false;
@@ -315,7 +315,7 @@
     <tr id="trAdminRmButton" runat="server">
         <td colspan="2" align="right">
             <asp:Button ID="btnViewInPDF" runat="server" OnClientClick="return validate('pdf')"
-                PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton"  />&nbsp;&nbsp;
+                PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton" />&nbsp;&nbsp;
             <div id="div2" style="display: none;">
                 <p class="tip">
                     Click here to view equity report in pdf format.
@@ -331,7 +331,7 @@
             <%--<asp:Button ID="btnMail" runat="server" Text="Email Report" OnClientClick="return validate('mail')"
                 PostBackUrl="~/Reports/Display.aspx?mail=1" CssClass="PCGMediumButton" />--%>
             <asp:Button ID="btnViewInDOC" runat="server" CssClass="DOCButton" OnClientClick="return validate('doc')"
-                PostBackUrl="~/Reports/Display.aspx?mail=4"  />&nbsp;&nbsp;
+                PostBackUrl="~/Reports/Display.aspx?mail=4" />&nbsp;&nbsp;
             <div id="div3" style="display: none;">
                 <p class="tip">
                     Click here to view equity report in word doc.</p>
@@ -341,14 +341,14 @@
     <tr id="trCustomerButton" runat="server">
         <td colspan="2" align="right">
             <asp:Button ID="btnCustomerExportToPDF" runat="server" OnClientClick="return CustomerValidate('pdf')"
-                PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton" ValidationGroup="btnview"  />&nbsp;&nbsp;
+                PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton" ValidationGroup="btnview" />&nbsp;&nbsp;
             <div id="div5" style="display: none;">
                 <p class="tip">
                     Click here to view equity report in pdf format.
                 </p>
             </div>
             <asp:Button ID="btnCustomerViewReport" runat="server" OnClientClick="return CustomerValidate('view')"
-                PostBackUrl="~/Reports/Display.aspx?mail=3" CssClass="CrystalButton" ValidationGroup="btnview"  />&nbsp;&nbsp;
+                PostBackUrl="~/Reports/Display.aspx?mail=3" CssClass="CrystalButton" ValidationGroup="btnview" />&nbsp;&nbsp;
             <div id="div4" style="display: none;">
                 <p class="tip">
                     Click here to view equity report.
@@ -376,16 +376,16 @@
                     <ContentTemplate>
                         <table border="0" id="tblGroup" style="display: block;">
                             <tr id="trStepGrHead" runat="server">
-                                <td colspan="2">
+                                <td colspan="2" runat="server">
                                     <asp:Label ID="lblSelectCustomer" runat="server" CssClass="HeaderTextSmall" Style='font-weight: normal;'
                                         Text="Step 1: Select Customer"></asp:Label>
                                 </td>
                             </tr>
                             <tr id="trAdminCustomer" runat="server">
-                                <td style="width: 80px" align="right">
+                                <td style="width: 80px" align="right" runat="server">
                                     <asp:Label ID="lblGroupHead" runat="server" CssClass="FieldName" Text="Group Head :"></asp:Label>
                                 </td>
-                                <td align="left">
+                                <td align="left" runat="server">
                                     <asp:TextBox ID="txtParentCustomer" runat="server" AutoComplete="Off" AutoPostBack="True"
                                         CssClass="txtField"></asp:TextBox><asp:HiddenField ID="txtParentCustomerId" runat="server"
                                             OnValueChanged="txtParentCustomerId_ValueChanged" />
@@ -407,10 +407,10 @@
                                 </td>
                             </tr>
                             <tr id="trCustomerGrHead" runat="server">
-                                <td>
-                                    <asp:Label ID="lblCustomerGrHead" runat="server" Text="" CssClass="FieldName"></asp:Label>
+                                <td runat="server">
+                                    <asp:Label ID="lblCustomerGrHead" runat="server" CssClass="FieldName"></asp:Label>
                                 </td>
-                                <td>
+                                <td runat="server">
                                 </td>
                             </tr>
                             <tr>
@@ -610,12 +610,18 @@
                             <tr>
                                 <td>
                                     <asp:Label ID="lblPickDate" runat="server" Text="Pick a date range" CssClass="Field"></asp:Label>
-                                    <asp:RadioButton ID="rbtnPickDate" Checked="true" runat="server" ValidationGroup="btnview" GroupName="Date"
-                                        onclick="DisplayDates('DATE_RANGE')" Text="" />
-                                </td>
+                                    </td>
+                                    <td>
+                                    <asp:RadioButton ID="rbtnPickDate" Checked="true" runat="server" ValidationGroup="btnview"
+                                        GroupName="Date" onclick="DisplayDates('DATE_RANGE')" Text="" />
+                              </td>
+                             
+                              
                                 <td>
-                                    <asp:RadioButton ID="rbtnPickPeriod" runat="server" GroupName="Date" onclick="DisplayDates('PERIOD')" />
                                     <asp:Label ID="lblPickPeriod" runat="server" Text="Pick a Period" CssClass="Field"></asp:Label>
+                                    </td>
+                                    <td>
+                                    <asp:RadioButton ID="rbtnPickPeriod" runat="server" GroupName="Date" onclick="DisplayDates('PERIOD')" />
                                 </td>
                             </tr>
                         </table>
@@ -625,7 +631,7 @@
                                     <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName">From:</asp:Label>
                                     &nbsp;
                                     <asp:TextBox ID="txtFromDate" runat="server" OnTextChanged="ChckBussFromDate_Textchanged"
-                                        AutoPostBack="true" CssClass="txtField"  ></asp:TextBox>
+                                        AutoPostBack="true" CssClass="txtField"></asp:TextBox>
                                     <ajaxToolkit:CalendarExtender ID="txtFromDate_CalendarExtender" runat="server" TargetControlID="txtFromDate"
                                         Format="dd/MM/yyyy">
                                     </ajaxToolkit:CalendarExtender>
@@ -633,10 +639,9 @@
                                         TargetControlID="txtFromDate" WatermarkText="dd/mm/yyyy">
                                     </ajaxToolkit:TextBoxWatermarkExtender>
                                     <span id="Span2" class="spnRequiredField">*</span>
-
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtFromDate"
                                         CssClass="rfvPCG" ErrorMessage="<br />Please select a From Date" Display="Dynamic"
-                                        runat="server"   ValidationGroup="btnview" > </asp:RequiredFieldValidator>
+                                        runat="server" ValidationGroup="btnview"> </asp:RequiredFieldValidator>
                                 </td>
                                 <td>
                                     <asp:Label ID="lblToDate" runat="server" CssClass="FieldName">To:</asp:Label>
@@ -649,9 +654,8 @@
                                     <ajaxToolkit:TextBoxWatermarkExtender ID="txtToDate_TextBoxWatermarkExtender" runat="server"
                                         TargetControlID="txtToDate" WatermarkText="dd/mm/yyyy">
                                     </ajaxToolkit:TextBoxWatermarkExtender>
-                                             <span id="Span3" class="spnRequiredField">*</span>
-
-                                  <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtToDate"
+                                    <span id="Span3" class="spnRequiredField">*</span>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtToDate"
                                         CssClass="rfvPCG" ErrorMessage="<br />Please select a To Date" Display="Dynamic"
                                         runat="server" ValidationGroup="btnview"> </asp:RequiredFieldValidator>
                                     <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Please Select a To date"
@@ -670,8 +674,8 @@
                                     <asp:DropDownList ID="ddlPeriod" runat="server" CssClass="cmbField">
                                     </asp:DropDownList>
                                     <span id="Span4" class="spnRequiredField">*</span>
-                                    <br />
-                                    <br />
+                                    <%-- <br />
+                                    <br />--%>
                                     <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlPeriod"
                                         CssClass="rfvPCG" ErrorMessage="Please select a Period" Operator="NotEqual" ValueToCompare="Select a Period"
                                         ValidationGroup="btnGo">

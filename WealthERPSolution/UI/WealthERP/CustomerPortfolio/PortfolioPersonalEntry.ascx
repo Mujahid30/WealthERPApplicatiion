@@ -33,7 +33,26 @@
             args.IsValid = true;
         }
 
-    }    
+    }
+
+    var crnt = 0;
+    function PreventClicks() {
+
+        if (typeof (Page_ClientValidate('btnConfirmOrder')) == 'function') {
+            Page_ClientValidate();
+        }
+
+        if (Page_IsValid) {
+            if (++crnt > 1) {
+                return false;
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+        
 </script>
 
 <asp:ScriptManager ID="scrptMgr" runat="server">
@@ -225,10 +244,10 @@
         <table style="width: 100%;">
             <tr>
                 <td align="center" colspan="2">
-                    <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" Text="Submit" OnClick="btnSubmit_Click" ValidationGroup="btnSubmit"
+                    <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" Text="Submit" OnClientClick="return PreventClicks(); Validate();" OnClick="btnSubmit_Click" ValidationGroup="btnSubmit"
                         onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_PortfolioPersonalEntry_btnSubmit');"
                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_PortfolioPersonalEntry_btnSubmit');" />
-                    <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" Text="Update" OnClick="btnUpdate_Click" ValidationGroup="btnSubmit"
+                    <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" Text="Update" OnClientClick="return PreventClicks(); Validate();" OnClick="btnUpdate_Click" ValidationGroup="btnSubmit"
                         onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_PortfolioPersonalEntry_btnUpdate');"
                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_PortfolioPersonalEntry_btnUpdate');" />
                 </td>

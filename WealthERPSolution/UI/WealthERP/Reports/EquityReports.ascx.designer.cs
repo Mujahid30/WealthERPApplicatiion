@@ -635,15 +635,6 @@ namespace WealthERP.Reports {
         protected global::System.Web.UI.WebControls.RadioButton rbtnPickDate;
         
         /// <summary>
-        /// rbtnPickPeriod control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbtnPickPeriod;
-        
-        /// <summary>
         /// lblPickPeriod control.
         /// </summary>
         /// <remarks>
@@ -651,6 +642,15 @@ namespace WealthERP.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPickPeriod;
+        
+        /// <summary>
+        /// rbtnPickPeriod control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbtnPickPeriod;
         
         /// <summary>
         /// trRange control.

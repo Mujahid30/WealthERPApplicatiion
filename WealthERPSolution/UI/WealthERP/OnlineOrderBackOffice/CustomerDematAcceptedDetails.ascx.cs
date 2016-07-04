@@ -31,7 +31,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void Page_Load(object sender, EventArgs e)
         {
             adviserVo = (AdvisorVo)Session["advisorVo"];
-            if (!IsPostBack)
+            //if (!IsPostBack)
                 BindCustomerDetailsGrid();
 
         }
