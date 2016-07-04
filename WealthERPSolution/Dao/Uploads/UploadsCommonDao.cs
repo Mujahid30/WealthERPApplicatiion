@@ -4529,7 +4529,7 @@ namespace DaoUploads
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbCommand = db.GetStoredProcCommand("SPROC_RequestWiseRejects");
                 db.AddInParameter(dbCommand, "@reqId", DbType.Int32, reqId);
-
+                dbCommand.CommandTimeout=3600;
                 dsReqRej = db.ExecuteDataSet(dbCommand);
             }
             catch (BaseApplicationException Ex)
