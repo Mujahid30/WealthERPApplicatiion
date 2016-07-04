@@ -2763,7 +2763,7 @@
   <HostConfiguration>
     <WERPHostConfiguration
                            HAC_HostId="1000"
-                           HAC_HostName="WealthERP"
+                           HAC_HostName="SBICAPSEC"
                            HAC_HostLogoPlacement="NoLogo"
                            HAC_HostLogo="wealth_erp_logo.jpg"
                            HAC_AdviserLogoPlacement="TopLeftCorner"
@@ -2771,8 +2771,8 @@
                            HAC_ContactPersonName="Pramoda Sahoo"
                            HAC_TelephoneNumber="8050567008"
                            HAC_LoginPageContent="WERP is an on-demand wealth management cum financial services platform for wealth advisors and financial planners and distributors. The platform covers multiple asset classes and allows advisors to plan, manage and analyze investments across assets and have a 360 Degree view of their client’s investment portfolio. WERP’s key differentiators are integrated investment management with a process driven ERP approach which comes loaded with knowledge based investment tools and financial planning models."
-                           HAC_ApplicationName="Wealtherp"
-                           HAC_Email="psahoo@ampsys.in"
+                           HAC_ApplicationName="SBICAPSEC"
+                           HAC_Email="mjamwal@ampsys.in"
                            Deleted="False"	/>
 
 
