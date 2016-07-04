@@ -87,7 +87,7 @@
             <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField">
             </asp:DropDownList>
         </td>
-        <td class="leftField">
+        <td class="leftField">                                      
             <asp:Label ID="lblNPType" Text="Select Type:" CssClass="FieldName" runat="server" />
         </td>
         <td class="rightField">
