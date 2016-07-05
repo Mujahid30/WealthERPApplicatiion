@@ -777,7 +777,7 @@
             <asp:Label ID="Label24" runat="server" CssClass="FieldName" Text="PAN No.:"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtPanNo" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtPanNo" runat="server" MaxLength="11" CssClass="txtField"></asp:TextBox>
         </td>
         <td class="leftField" style="width: 20%">
             <asp:Label CssClass="FieldName" Text="Address 1 :" runat="server"></asp:Label>
@@ -844,7 +844,7 @@
             <asp:Label ID="Label7" CssClass="FieldName" Text="Ph. No.(office) :" runat="server"></asp:Label>
         </td>
         <td class="rightField" style="width: 25%">
-            <asp:TextBox CssClass="txtField" ID="txtCustPhNoOff" runat="server"></asp:TextBox>
+            <asp:TextBox CssClass="txtField" ID="txtCustPhNoOff" MaxLength="13" runat="server"></asp:TextBox>
             <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="<br />Enter a numeric value"
                 CssClass="rfvPCG" Type="Integer" ControlToValidate="txtCustPhNoOff" ValidationGroup="btnSubmit"
                 Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
@@ -853,7 +853,7 @@
             <asp:Label ID="Label8" CssClass="FieldName" Text="Ph. No.(res) :" runat="server"></asp:Label>
         </td>
         <td class="rightField" style="width: 25%">
-            <asp:TextBox CssClass="txtField" ID="txtCustPhNoRes" runat="server"></asp:TextBox>
+            <asp:TextBox CssClass="txtField" ID="txtCustPhNoRes" MaxLength="13" runat="server"></asp:TextBox>
             <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />Enter a numeric value"
                 CssClass="rfvPCG" Type="Integer" ControlToValidate="txtCustPhNoRes" ValidationGroup="btnSubmit"
                 Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>

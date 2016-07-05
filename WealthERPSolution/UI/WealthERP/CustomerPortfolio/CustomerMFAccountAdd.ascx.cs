@@ -1707,24 +1707,24 @@ namespace WealthERP.CustomerPortfolio
         {
             BindDropDowns(path);
 
-            txtAccNo.Text = dsbankDetails.Tables[0].Rows[0]["CB_AccountNum"].ToString();
-            txtBankName.Text = dsbankDetails.Tables[0].Rows[0]["WERPBM_BankName"].ToString();
-            txtBranchName.Text = dsbankDetails.Tables[0].Rows[0]["CB_BranchName"].ToString();
-            txtBLine1.Text = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrLine1"].ToString();
-            txtBLine2.Text = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrLine2"].ToString();
-            txtBLine3.Text = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrLine3"].ToString();
-            if (dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrState"].ToString() != "Select" && dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrState"].ToString().Equals("") != true)
+            //txtAccNo.Text = dsbankDetails.Tables[0].Rows[0]["CB_AccountNum"].ToString();
+            //txtBankName.Text = dsbankDetails.Tables[0].Rows[0]["WERPBM_BankName"].ToString();
+            //txtBranchName.Text = dsbankDetails.Tables[0].Rows[0]["CB_BranchName"].ToString();
+            //txtBLine1.Text = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrLine1"].ToString();
+            //txtBLine2.Text = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrLine2"].ToString();
+            //txtBLine3.Text = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrLine3"].ToString();
+            //if (dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrState"].ToString() != "Select" && dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrState"].ToString().Equals("") != true)
 
-                ddlBState.SelectedValue = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrState"].ToString();
+            //    ddlBState.SelectedValue = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrState"].ToString();
 
-            if (dsbankDetails.Tables[0].Rows[0]["XMOH_ModeOfHoldingCode"].ToString().Trim() != "")
-                ddlModeOfOpn.SelectedValue = dsbankDetails.Tables[0].Rows[0]["XMOH_ModeOfHoldingCode"].ToString().Trim();
-            ddlAccType.SelectedValue = dsbankDetails.Tables[0].Rows[0]["PAIC_AssetInstrumentCategoryCode"].ToString().Trim();
-            ddlALLBankList.SelectedValue = dsbankDetails.Tables[0].Rows[0]["WERPBM_BankCode"].ToString();
-            txtPinCode.Text = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrPinCode"].ToString();
-            txtMicr.Text = dsbankDetails.Tables[0].Rows[0]["CB_MICR"].ToString();
-            txtIfsc.Text = dsbankDetails.Tables[0].Rows[0]["CB_IFSC"].ToString();
-            txtCity.Text = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrCity"].ToString();
+            //if (dsbankDetails.Tables[0].Rows[0]["XMOH_ModeOfHoldingCode"].ToString().Trim() != "")
+            //    ddlModeOfOpn.SelectedValue = dsbankDetails.Tables[0].Rows[0]["XMOH_ModeOfHoldingCode"].ToString().Trim();
+            //ddlAccType.SelectedValue = dsbankDetails.Tables[0].Rows[0]["PAIC_AssetInstrumentCategoryCode"].ToString().Trim();
+            //ddlALLBankList.SelectedValue = dsbankDetails.Tables[0].Rows[0]["WERPBM_BankCode"].ToString();
+            //txtPinCode.Text = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrPinCode"].ToString();
+            //txtMicr.Text = dsbankDetails.Tables[0].Rows[0]["CB_MICR"].ToString();
+            //txtIfsc.Text = dsbankDetails.Tables[0].Rows[0]["CB_IFSC"].ToString();
+            //txtCity.Text = dsbankDetails.Tables[0].Rows[0]["CB_BranchAdrCity"].ToString();
         }
 
         public void BindDropDowns(string path)
