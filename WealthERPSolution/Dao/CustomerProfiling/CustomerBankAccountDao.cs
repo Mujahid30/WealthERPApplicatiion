@@ -621,6 +621,7 @@ namespace DaoCustomerProfiling
                         customerBankAccountVo.BranchAddCountryId = int.Parse(dr["WCMV_Lookup_BranchAddCountryId"].ToString());
                     if (!string.IsNullOrEmpty(dr["CB_BankBranchCode"].ToString()))
                         customerBankAccountVo.BankBranchCode = dr["CB_BankBranchCode"].ToString();
+                    if (!string.IsNullOrEmpty(dr["CB_IsCurrent"].ToString()))
                     customerBankAccountVo.IsCurrent = Convert.ToBoolean(dr["CB_IsCurrent"]);
 
                 }

@@ -93,6 +93,7 @@ namespace DaoCustomerPortfolio
             }
             return AccountList;
         }
+        
         public bool AddEquityTransaction(EQTransactionVo eqTransactionVo, int userId)
         {
             bool bResult = false;
@@ -105,13 +106,21 @@ namespace DaoCustomerPortfolio
                 createEquityTransactionCmd = db.GetStoredProcCommand("SP_AddEquityTransaction");
 
                 db.AddInParameter(createEquityTransactionCmd, "@CETA_AccountId", DbType.Int32, eqTransactionVo.AccountId);
-                db.AddInParameter(createEquityTransactionCmd, "@PEM_ScripCode", DbType.String, eqTransactionVo.ScripCode);
+                if (eqTransactionVo.ScripCode != 0)
+                    db.AddInParameter(createEquityTransactionCmd, "@PEM_ScripCode", DbType.String, eqTransactionVo.ScripCode);
+                else
+                    db.AddInParameter(createEquityTransactionCmd, "@PEM_ScripCode", DbType.String, DBNull.Value);
+
                 db.AddInParameter(createEquityTransactionCmd, "@CET_TradeNum", DbType.Int64, eqTransactionVo.TradeNum);
                 db.AddInParameter(createEquityTransactionCmd, "@CET_OrderNum", DbType.Int64, eqTransactionVo.OrderNum);
                 db.AddInParameter(createEquityTransactionCmd, "@CET_BuySell", DbType.String, eqTransactionVo.BuySell);
                 db.AddInParameter(createEquityTransactionCmd, "@CET_IsSpeculative", DbType.Int16, eqTransactionVo.IsSpeculative);
                 db.AddInParameter(createEquityTransactionCmd, "@XE_ExchangeCode", DbType.String, eqTransactionVo.Exchange);
-                db.AddInParameter(createEquityTransactionCmd, "@CET_TradeDate", DbType.DateTime, eqTransactionVo.TradeDate);
+                if (eqTransactionVo.TradeDate != DateTime.MinValue)
+                    db.AddInParameter(createEquityTransactionCmd, "@CET_TradeDate", DbType.DateTime, eqTransactionVo.TradeDate);
+                else
+                    db.AddInParameter(createEquityTransactionCmd, "@CET_TradeDate", DbType.DateTime, DBNull.Value);
+
                 db.AddInParameter(createEquityTransactionCmd, "@CET_Rate", DbType.Decimal, eqTransactionVo.Rate);
                 db.AddInParameter(createEquityTransactionCmd, "@CET_Quantity", DbType.Decimal, eqTransactionVo.Quantity);
                 db.AddInParameter(createEquityTransactionCmd, "@CET_Brokerage", DbType.Decimal, eqTransactionVo.Brokerage);
@@ -125,11 +134,56 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createEquityTransactionCmd, "@CET_IsSplit", DbType.Int16, eqTransactionVo.IsSplit);
                 db.AddInParameter(createEquityTransactionCmd, "@CET_SplitCustEqTransId", DbType.Int32, eqTransactionVo.SplitTransactionId);
                 db.AddInParameter(createEquityTransactionCmd, "@XES_SourceCode", DbType.String, eqTransactionVo.SourceCode);
-                db.AddInParameter(createEquityTransactionCmd, "@WETT_TransactionCode", DbType.Int16, eqTransactionVo.TransactionCode);
+                if (eqTransactionVo.TransactionCode != 0)
+                    db.AddInParameter(createEquityTransactionCmd, "@WETT_TransactionCode", DbType.Int16, eqTransactionVo.TransactionCode);
+                else
+                    db.AddInParameter(createEquityTransactionCmd, "@WETT_TransactionCode", DbType.Int16, DBNull.Value);
                 db.AddInParameter(createEquityTransactionCmd, "@CET_IsSourceManual", DbType.Int16, eqTransactionVo.IsSourceManual);
                 db.AddInParameter(createEquityTransactionCmd, "@CET_ModifiedBy", DbType.String, userId);
                 db.AddInParameter(createEquityTransactionCmd, "@CET_CreatedBy", DbType.String, userId);
+                db.AddInParameter(createEquityTransactionCmd, "@CET_ManagedBy", DbType.Int32, eqTransactionVo.ManagedBy);
+                db.AddInParameter(createEquityTransactionCmd, "@CET_IsTradeType", DbType.Int32, eqTransactionVo.Type);
+                if (eqTransactionVo.DemateAccountId != 0)
+                    db.AddInParameter(createEquityTransactionCmd, "@CEDA_DematAccountId", DbType.Int32, eqTransactionVo.DemateAccountId);
+                else
+                {
+                    db.AddInParameter(createEquityTransactionCmd, "@CEDA_DematAccountId", DbType.Int32, DBNull.Value);
+                }
+                db.AddInParameter(createEquityTransactionCmd, "@CET_BillNo", DbType.String, eqTransactionVo.BillNo);
+                db.AddInParameter(createEquityTransactionCmd, "@CET_SettlementNo", DbType.String, eqTransactionVo.SettlementNo);
+                if (eqTransactionVo.SettlementDate != DateTime.MinValue)
+                    db.AddInParameter(createEquityTransactionCmd, "@CET_SettlementDate", DbType.DateTime, eqTransactionVo.SettlementDate);
+                else
+                {
+                    db.AddInParameter(createEquityTransactionCmd, "@CET_SettlementDate", DbType.DateTime, DBNull.Value);
+                }
+                db.AddInParameter(createEquityTransactionCmd, "@CET_SebiTurnOverFee", DbType.Decimal, eqTransactionVo.SebiTurnOverFee);
+                db.AddInParameter(createEquityTransactionCmd, "@CET_TrxnCharges", DbType.Decimal, eqTransactionVo.TransactionCharges);
+                db.AddInParameter(createEquityTransactionCmd, "@CET_StampCharges", DbType.Decimal, eqTransactionVo.StampCharges);
+                db.AddInParameter(createEquityTransactionCmd, "@CET_NoOfSharesEligibleForDiv", DbType.Decimal, eqTransactionVo.NoOfSharesForDiv);
+                db.AddInParameter(createEquityTransactionCmd, "@CET_DifferenceInBrokerage", DbType.Decimal, eqTransactionVo.DifferenceInBrokerage);
+                if (eqTransactionVo.TransactionCode == 6)
+                    db.AddInParameter(createEquityTransactionCmd, "@CET_DividendRecieved", DbType.Boolean, eqTransactionVo.DividendRecieved);
+                else
+                    db.AddInParameter(createEquityTransactionCmd, "@CET_DividendRecieved", DbType.Int32, DBNull.Value);
+                db.AddInParameter(createEquityTransactionCmd, "@CET_DematCharge", DbType.Decimal, eqTransactionVo.DematCharge);
+                db.AddInParameter(createEquityTransactionCmd, "CET_TrTotalIncBrokerage", DbType.Decimal, eqTransactionVo.TradeTotalIncBrokerage);
+                db.AddInParameter(createEquityTransactionCmd, "@CET_RateIncBrokerageAllCharges", DbType.Decimal, eqTransactionVo.RateIncBrokerageAllCharges);
+                db.AddInParameter(createEquityTransactionCmd, "@CET_BankReferenceNo", DbType.String, eqTransactionVo.BankReferenceNo);
+                if (eqTransactionVo.DailyCorpAxnId != 0)
+                    db.AddInParameter(createEquityTransactionCmd, "@PECA_DailyCorpAxnId", DbType.Int16, eqTransactionVo.DailyCorpAxnId);
+                else
+                    db.AddInParameter(createEquityTransactionCmd, "@PECA_DailyCorpAxnId", DbType.Int32, DBNull.Value);
+                db.AddInParameter(createEquityTransactionCmd, "@CET_GrossConsideration", DbType.Decimal, eqTransactionVo.GrossConsideration);
+
+
                 db.AddOutParameter(createEquityTransactionCmd, "CET_EqTransId", DbType.Int32, 5000);
+                db.AddInParameter(createEquityTransactionCmd, "@FXCurencyType", DbType.String, eqTransactionVo.FXCurencyType);
+                db.AddInParameter(createEquityTransactionCmd, "@FXCurencyRate", DbType.Decimal, eqTransactionVo.FXCurencyRate);
+                if (eqTransactionVo.TransactionCode != 19)
+                    db.AddInParameter(createEquityTransactionCmd, "@CET_Remark", DbType.String, eqTransactionVo.Remark);
+                else
+                    db.AddInParameter(createEquityTransactionCmd, "@CET_Remark", DbType.String, DBNull.Value);
                 db.ExecuteNonQuery(createEquityTransactionCmd);
 
                 transactionId = int.Parse(db.GetParameterValue(createEquityTransactionCmd, "CET_EqTransId").ToString());
@@ -163,6 +217,7 @@ namespace DaoCustomerPortfolio
 
             return bResult;
         }
+
 
         public List<EQTransactionVo> GetEquityTransactions(int customerId,
                                                             int portfolioId,
