@@ -3364,16 +3364,21 @@ namespace WealthERP.FP
                     drRecuring["Yrs"] = int.Parse(ddlGoalYear.SelectedValue) - year;
                     drRecuring["Year"] = ddlGoalYear.SelectedValue;
                     drRecuring["FutureValue"] = Financial.Fv(double.Parse(txtInflation.Text) / 100, int.Parse(ddlGoalYear.SelectedValue) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0);
-                    finalValue = Financial.Fv(double.Parse(txtInflation.Text) / 100, int.Parse(ddlGoalYear.SelectedValue) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0);
-                    drRecuring["PresentValue"] = Financial.Pv(double.Parse(txtExpRateOfReturn.Text) / 100, int.Parse(ddlGoalYear.SelectedValue) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Financial.Fv(Convert.ToDouble(txtInflation.Text) / 100, (int.Parse(ddlGoalYear.SelectedValue) + i) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0)), 0);
+                    finalValue = Financial.Pv(double.Parse(txtExpRateOfReturn.Text) / 100, ((int.Parse(ddlGoalYear.SelectedValue) - year) - (int.Parse(ddlGoalYear.SelectedValue) - year)), Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Financial.Fv(Convert.ToDouble(txtInflation.Text) / 100, (int.Parse(ddlGoalYear.SelectedValue) + i) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0)), 0);
+                        //Financial.Fv(double.Parse(txtInflation.Text) / 100, int.Parse(ddlGoalYear.SelectedValue) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0);
+                    drRecuring["PresentValue"] = Financial.Pv(double.Parse(txtExpRateOfReturn.Text) / 100, ((int.Parse(ddlGoalYear.SelectedValue) - year) - (int.Parse(ddlGoalYear.SelectedValue) - year)), Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Financial.Fv(Convert.ToDouble(txtInflation.Text) / 100, (int.Parse(ddlGoalYear.SelectedValue) + i) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0)), 0);
+
+
+                    double r = Financial.Pv(double.Parse(txtExpRateOfReturn.Text) / 100, ((int.Parse(ddlGoalYear.SelectedValue) - year) - (int.Parse(ddlGoalYear.SelectedValue) - year)), Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Financial.Fv(Convert.ToDouble(txtInflation.Text) / 100, (int.Parse(ddlGoalYear.SelectedValue) + i) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0)), 0);
                 }
                 else
                 {
                     drRecuring["Yrs"] = (int.Parse(ddlGoalYear.SelectedValue) + i) - year;
                     drRecuring["Year"] = int.Parse(ddlGoalYear.SelectedValue) + i;
                     drRecuring["FutureValue"] = Financial.Fv(Convert.ToDouble(txtInflation.Text) / 100, (int.Parse(ddlGoalYear.SelectedValue) + i) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0);
-                    finalValue +=  Financial.Fv(Convert.ToDouble(txtInflation.Text) / 100, (int.Parse(ddlGoalYear.SelectedValue) + i) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0);
-                    drRecuring["PresentValue"] = Financial.Pv(double.Parse(txtExpRateOfReturn.Text) / 100, (int.Parse(ddlGoalYear.SelectedValue) + i) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Financial.Fv(Convert.ToDouble(txtInflation.Text) / 100, (int.Parse(ddlGoalYear.SelectedValue) + i) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0)), 0);
+                    finalValue += Financial.Pv(double.Parse(txtExpRateOfReturn.Text) / 100, (((int.Parse(ddlGoalYear.SelectedValue) + i) - year) - (int.Parse(ddlGoalYear.SelectedValue) - year)), Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Financial.Fv(Convert.ToDouble(txtInflation.Text) / 100, (int.Parse(ddlGoalYear.SelectedValue) + i) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0)), 0);
+                        //Financial.Fv(Convert.ToDouble(txtInflation.Text) / 100, (int.Parse(ddlGoalYear.SelectedValue) + i) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0);
+                    drRecuring["PresentValue"] = Financial.Pv(double.Parse(txtExpRateOfReturn.Text) / 100, (((int.Parse(ddlGoalYear.SelectedValue) + i) - year) - (int.Parse(ddlGoalYear.SelectedValue) - year)), Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Financial.Fv(Convert.ToDouble(txtInflation.Text) / 100, (int.Parse(ddlGoalYear.SelectedValue) + i) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0)), 0);
                 }
                 drRecuring["Returnoninvestment"] = txtExpRateOfReturn.Text;
                 drRecuring["Costperannum"] = (int.Parse(txtGoalCostToday.Text) / int.Parse(txtNoofYears.Text));
@@ -3428,7 +3433,7 @@ namespace WealthERP.FP
            
             
             double lumpsumamout = customerGoalPlanningBo.PV(rateOfReturn / 100, requiredAfter, 0, -finalvalues, 1);
-            double requiredSavings = customerGoalPlanningBo.PMT((rateOfReturn/1200 ), (requiredAfter*12), 0, -finalvalues, 1);
+            double requiredSavings = customerGoalPlanningBo.PMT((rateOfReturn/1200 ), (requiredAfter*12), 0, -finalvalues, 0);
             lblInvestmntLumpsumTxt.Text = lumpsumamout != 0 ? String.Format("{0:n2}", Math.Round(lumpsumamout, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
         
             lblSavingsRequiredMonthlyTxt.Text = requiredSavings != 0 ? String.Format("{0:n2}", Math.Round(requiredSavings, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";

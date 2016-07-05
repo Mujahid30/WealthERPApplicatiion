@@ -337,7 +337,7 @@
                                             CurrentFilterFunction="Contains">
                                             <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="PresentValue" UniqueName="PresentValue" HeaderText="Present Value"
+                                        <telerik:GridBoundColumn DataField="PresentValue" UniqueName="PresentValue" HeaderText="FV as on start of Goal Date"
                                             DataFormatString="{0:F2}" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                             AllowFiltering="true" HeaderStyle-Width="90px" SortExpression="PresentValue" FilterControlWidth="70px"
                                             CurrentFilterFunction="Contains" Aggregate="Sum" FooterText="Total:" DataType="System.Decimal">
