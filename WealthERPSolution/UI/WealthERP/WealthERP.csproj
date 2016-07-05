@@ -2793,6 +2793,13 @@
     <Compile Include="OfflineOrderBackOffice\InsuranceIssueSetup.ascx.designer.cs">
       <DependentUpon>InsuranceIssueSetup.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OffLineOrderManagement\CustomerOfflineBondOrder.ascx.cs">
+      <DependentUpon>CustomerOfflineBondOrder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OffLineOrderManagement\CustomerOfflineBondOrder.ascx.designer.cs">
+      <DependentUpon>CustomerOfflineBondOrder.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OffLineOrderManagement\FixedIncome54ECOrderBook.ascx.cs">
       <DependentUpon>FixedIncome54ECOrderBook.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -8299,6 +8306,7 @@
     <Content Include="Messages\MessageOutbox.ascx" />
     <Content Include="OfflineOrderBackOffice\InsuranceIssueList.ascx" />
     <Content Include="OfflineOrderBackOffice\InsuranceIssueSetup.ascx" />
+    <Content Include="OffLineOrderManagement\CustomerOfflineBondOrder.ascx" />
     <Content Include="OffLineOrderManagement\FixedIncome54ECOrderBook.ascx" />
     <Content Include="OffLineOrderManagement\FixedIncome54ECOrderEntry.ascx" />
     <Content Include="OffLineOrderManagement\IPOIssueTransactOffline.ascx" />

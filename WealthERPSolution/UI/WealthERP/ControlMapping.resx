@@ -2117,4 +2117,8 @@
     <value>OnlineOrderBackOffice//CustomerDematAcceptedDetails.ascx</value>
     <comment>OnlineOrderBackOffice//CustomerDematAcceptedDetails.ascx</comment>
   </data>
+  <data name="CustomerOfflineBondOrder" xml:space="preserve">
+    <value>OffLineOrderManagement//CustomerOfflineBondOrder.ascx</value>
+    <comment>OffLineOrderManagement//CustomerOfflineBondOrder.ascx</comment>
+  </data>
 </root>
