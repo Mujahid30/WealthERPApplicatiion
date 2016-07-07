@@ -3528,6 +3528,8 @@ namespace WealthERP.Receivable
             {
                 hdneligible.Value = "";
                 hdnViewMode.Value = "";
+                btnCancelSelectedRule.Visible = true;
+
             }
             gvPayaMapping.DataSource = dsPayable;
             gvPayaMapping.DataBind();
@@ -3920,15 +3922,16 @@ namespace WealthERP.Receivable
                     if (chkListrate.Items[i].Selected)
                     {
                         //Storing the selected values
-
+                        chkListrate.Enabled = false;
+                        btnCancelSelectedRule.Visible = true;
                         MappedruleId = MappedruleId + "," + chkListrate.Items[i].Value;
                         count++;
                     }
-                    if (hdneligible.Value != "")
-                    {
+                    //if (hdneligible.Value != "")
+                    //{
                         chkListrate.Enabled = false;
 
-                    }
+                    //}
                 }
             }
 
