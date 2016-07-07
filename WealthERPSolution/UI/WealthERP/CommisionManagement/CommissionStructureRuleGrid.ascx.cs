@@ -293,7 +293,6 @@ namespace WealthERP.CommisionManagement
                 }
                 else
                 {
-                    gvCommMgmt.MasterTableView.GetColumn("cmIssuer").Visible = true;
                     gvCommMgmt.MasterTableView.GetColumn("cmSubCategory").Visible = false;
                     gvCommMgmt.MasterTableView.GetColumn("cmCategory").Visible = false;
                     //

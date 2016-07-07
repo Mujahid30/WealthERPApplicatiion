@@ -248,7 +248,7 @@
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="Issuer" HeaderStyle-Width="200px" CurrentFilterFunction="Contains"
                                         ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Issuer" UniqueName="cmIssuer"
-                                        SortExpression="Issuer">
+                                        SortExpression="Issuer" Visible="false">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="200px" Wrap="true" />
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="Category" HeaderStyle-Width="100px" CurrentFilterFunction="Contains"
