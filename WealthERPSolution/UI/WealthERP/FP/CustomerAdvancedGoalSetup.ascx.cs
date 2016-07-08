@@ -3369,9 +3369,8 @@ namespace WealthERP.FP
                     drRecuring["PresentValue"] = Financial.Pv(double.Parse(txtExpRateOfReturn.Text) / 100, ((int.Parse(ddlGoalYear.SelectedValue) - year) - (int.Parse(ddlGoalYear.SelectedValue) - year)), Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Financial.Fv(Convert.ToDouble(txtInflation.Text) / 100, (int.Parse(ddlGoalYear.SelectedValue) + i) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0)), 0);
 
 
-                    double r = Financial.Pv(double.Parse(txtExpRateOfReturn.Text) / 100, ((int.Parse(ddlGoalYear.SelectedValue) - year) - (int.Parse(ddlGoalYear.SelectedValue) - year)), Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Financial.Fv(Convert.ToDouble(txtInflation.Text) / 100, (int.Parse(ddlGoalYear.SelectedValue) + i) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0)), 0);
                 }
-                else
+                else    
                 {
                     drRecuring["Yrs"] = (int.Parse(ddlGoalYear.SelectedValue) + i) - year;
                     drRecuring["Year"] = int.Parse(ddlGoalYear.SelectedValue) + i;
