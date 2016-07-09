@@ -2482,6 +2482,13 @@
     <Compile Include="FP\CustomerAdvancedGoalSetup.ascx.designer.cs">
       <DependentUpon>CustomerAdvancedGoalSetup.ascx</DependentUpon>
     </Compile>
+    <Compile Include="FP\CustomerCashFlow.ascx.cs">
+      <DependentUpon>CustomerCashFlow.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FP\CustomerCashFlow.ascx.designer.cs">
+      <DependentUpon>CustomerCashFlow.ascx</DependentUpon>
+    </Compile>
     <Compile Include="FP\CustomerFPAnalyticsDynamic.ascx.cs">
       <DependentUpon>CustomerFPAnalyticsDynamic.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -8029,6 +8036,7 @@
     <Content Include="FP\AddProspectList.ascx" />
     <Content Include="FP\ByPass.aspx" />
     <Content Include="FP\CustomerAdvancedGoalSetup.ascx" />
+    <Content Include="FP\CustomerCashFlow.ascx" />
     <Content Include="FP\CustomerFPAnalyticsDynamic.ascx" />
     <Content Include="FP\CustomerFPAnalyticsStandard.ascx" />
     <Content Include="FP\CustomerFPDashBoard.ascx" />
