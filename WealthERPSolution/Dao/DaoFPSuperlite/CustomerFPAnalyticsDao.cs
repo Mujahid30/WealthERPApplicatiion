@@ -213,6 +213,30 @@ namespace DaoFPSuperlite
 
             return dtBindDropdownsRebalancing;
         }
+        public DataTable GetCustomerCashFlow(int customerId)
+        {
+            Database db;
+            DbCommand Cmd;
+            DataTable dt = new DataTable();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                Cmd = db.GetStoredProcCommand("SP_GetCustomerBeforeRetCasflowDetails");
+
+                db.AddInParameter(Cmd, "@CustomerId", DbType.Int32, customerId);
+                DataSet ds = db.ExecuteDataSet(Cmd);
+                if (ds != null)
+                {
+                    dt = ds.Tables[0];
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dt;
+        }
          
     }
 }

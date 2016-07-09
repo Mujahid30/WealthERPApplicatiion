@@ -15,7 +15,8 @@ using System.Web.UI.DataVisualization.Charting;
 using System.Drawing;
 using VoReports;
 using System.Xml;
-using InfoSoftGlobal; // Namespace added for Fusionchart Implementation...
+using InfoSoftGlobal;
+using Telerik.Web.UI; // Namespace added for Fusionchart Implementation...
 
 namespace WealthERP.FP
 {
@@ -44,6 +45,7 @@ namespace WealthERP.FP
 
         AdvisorVo advisorVo;
         CustomerVo customerVo;
+        UserVo userVo = new UserVo();
         DataSet dsGetCustomerFPAnalyticsStandard;
         CustomerProspectBo customerprospectbo = new CustomerProspectBo();
         FinancialPlanningReportsBo financialplanningreportsbo = new FinancialPlanningReportsBo();
@@ -68,7 +70,7 @@ namespace WealthERP.FP
 
             advisorVo = (AdvisorVo)Session["advisorVo"];
             customerVo = (CustomerVo)Session["customerVo"];
-
+            userVo = (UserVo)Session["userVo"];
             fpSectional.advisorId = advisorVo.advisorId;
             fpSectional.CustomerId = customerVo.CustomerId.ToString();
 
@@ -85,6 +87,7 @@ namespace WealthERP.FP
             dtCustomerFPRatio = dsGetCustomerFPAnalyticsStandard.Tables["CustomerFPRatio"];
             if (!IsPostBack)
             {
+                BindCashFlow();
                 BindIncomeGridChart(dsGetCustomerFPAnalyticsStandard.Tables["Income"]);
                 BindExpenseGridChart(dsGetCustomerFPAnalyticsStandard.Tables["Expense"]);
                 BindCashChart(dsGetCustomerFPAnalyticsStandard.Tables["CashFlow"]);
@@ -160,7 +163,28 @@ namespace WealthERP.FP
 
 
 
-
+        private void BindCashFlow()
+        {
+            DataTable dt = ObjcustomerFPAnalyticsbo.GetCustomerCashFlow(customerVo.CustomerId);
+            gvCashFlowList.Visible = true;
+            gvCashFlowList.DataSource = dt;
+            gvCashFlowList.DataBind();
+            if (Cache["gvCashFlowList" + userVo.UserId.ToString()] == null)
+            {
+                Cache.Insert("gvCashFlowList" + userVo.UserId.ToString(), dt);
+            }
+            else
+            {
+                Cache.Remove("gvCashFlowList" + userVo.UserId.ToString());
+                Cache.Insert("gvCashFlowList" + userVo.UserId.ToString(), dt);
+            }
+        }
+        protected void gvCashFlowList_OnNeedDataSource(Object sender, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt = new DataTable();
+            dt = (DataTable)Cache["gvCashFlowList" + userVo.UserId.ToString()];
+            gvCashFlowList.DataSource = dt;
+        }
         /* *** XML SetUp Code Starts here for Fusion Chart Implementation by (Vinayak Patil)  *** */
 
         private void FusionLineChartXMLSetUp()

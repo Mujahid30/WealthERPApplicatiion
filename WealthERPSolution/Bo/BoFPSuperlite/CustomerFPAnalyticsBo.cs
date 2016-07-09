@@ -977,6 +977,22 @@ namespace BoFPSuperlite
             }
             return dtBindDropdownsRebalancing;
         }
-    
+        public DataTable GetCustomerCashFlow(int customerId)
+        {
+            CustomerFPAnalyticsDao customerFPAnalyticsDao = new CustomerFPAnalyticsDao();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                dt = customerFPAnalyticsDao.GetCustomerCashFlow(customerId);
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dt;
+        }
     }
 }

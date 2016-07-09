@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerFPAnalyticsStandard.ascx.cs"
     Inherits="WealthERP.FP.CustomerFPAnalyticsStandard" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
+
 <style type="text/css">
     .one
     {
@@ -65,6 +66,9 @@
         </telerik:RadTab>
         <telerik:RadTab runat="server" Text="General Insurance" Value="Health Insurance"
             TabIndex="4" Selected="True">
+        </telerik:RadTab>
+        <telerik:RadTab runat="server" Text="Cash Flow" Value="Cash Flow"
+            TabIndex="5" >
         </telerik:RadTab>
         <%--        <telerik:RadTab runat="server" Text="Cash Flow"
         Value="Cash Flow" TabIndex="5">
@@ -671,6 +675,109 @@
                 </tr>
             </table>
         </asp:Panel>
+    </telerik:RadPageView>
+     <telerik:RadPageView ID="RadPageCF" runat="server">
+        <asp:Panel ID="pnlCF" runat="server">
+             <telerik:RadGrid ID="gvCashFlowList" runat="server" AllowAutomaticDeletes="false" PageSize="20"
+                EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
+                ShowStatusBar="false" ShowFooter="false" AllowPaging="true" AllowSorting="true"
+                OnNeedDataSource="gvCashFlowList_OnNeedDataSource" GridLines="none" AllowAutomaticInserts="false"
+                 Skin="Telerik" EnableHeaderContextMenu="true"
+                Width="95%" Visible="false">
+                <MasterTableView Width="100%" DataKeyNames="ID" AllowMultiColumnSorting="True"
+                    AutoGenerateColumns="false" CommandItemDisplay="None" GroupsDefaultExpanded="false"
+                    ExpandCollapseColumn-Groupable="true" GroupLoadMode="Client" ShowGroupFooter="true">
+                    <Columns>
+                        <telerik:GridBoundColumn HeaderText="YEAR" DataField="YEAR" UniqueName="YEAR"
+                            SortExpression="YEAR" AutoPostBackOnFilter="true" AllowFiltering="false"
+                            ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                            <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn HeaderText="Age" DataField="Age" UniqueName="Age"
+                            SortExpression="Age" AutoPostBackOnFilter="true" AllowFiltering="true"
+                            ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="OpeningBalance" SortExpression="OpeningBalance" AutoPostBackOnFilter="true"
+                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
+                            HeaderText="Opening Balance" UniqueName="OpeningBalance">
+                            <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="SelfIncome" SortExpression="SelfIncome"
+                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                            AllowFiltering="true" HeaderText="Self Income" UniqueName="SelfIncome">
+                            <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="PensionIncome" SortExpression="PensionIncome"
+                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                            AllowFiltering="true" HeaderText="Pension Income" UniqueName="PensionIncome">
+                            <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="RentalIncome" SortExpression="RentalIncome"
+                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                            AllowFiltering="true" HeaderText="Rental Income" UniqueName="RentalIncome">
+                            <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="OtherIncome" SortExpression="OtherIncome" AutoPostBackOnFilter="true"
+                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
+                            HeaderText="Other Income" UniqueName="OtherIncome">
+                            <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="AssetMaturity" SortExpression="AssetMaturity"
+                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                            AllowFiltering="true" HeaderText="Asset Maturity" UniqueName="AssetMaturity">
+                            <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                        
+                          <telerik:GridBoundColumn DataField="ToTalInflow" SortExpression="ToTalInflow"
+                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                            AllowFiltering="true" HeaderText="ToTal Inflow" UniqueName="ToTalInflow">
+                            <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                          <telerik:GridBoundColumn DataField="Expense" SortExpression="Expense"
+                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                            AllowFiltering="true" HeaderText="Expenses" UniqueName="Expense">
+                            <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                          <telerik:GridBoundColumn DataField="Liabilities" SortExpression="Liabilities"
+                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                            AllowFiltering="true" HeaderText="Liabilities" UniqueName="Liabilities">
+                            <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                          <telerik:GridBoundColumn DataField="PremiumAmount" SortExpression="PremiumAmount"
+                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                            AllowFiltering="true" HeaderText="Premium Amount" UniqueName="PremiumAmount">
+                            <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                          <telerik:GridBoundColumn DataField="SIPAmount" SortExpression="SIPAmount"
+                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                            AllowFiltering="true" HeaderText="SIP Amount" UniqueName="SIPAmount">
+                            <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                          <telerik:GridBoundColumn DataField="GoalOutflow" SortExpression="GoalOutflow"
+                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                            AllowFiltering="true" HeaderText="Goal Outflow" UniqueName="GoalOutflow">
+                            <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                          <telerik:GridBoundColumn DataField="TotalOutflow" SortExpression="TotalOutflow"
+                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                            AllowFiltering="true" HeaderText="Total Outflow" UniqueName="TotalOutflow">
+                            <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                          <telerik:GridBoundColumn DataField="ClosingBalance" SortExpression="ClosingBalance"
+                            AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                            AllowFiltering="true" HeaderText="Closing Balance" UniqueName="ClosingBalance">
+                            <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                    </Columns>
+                </MasterTableView>
+                <ClientSettings>
+                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                    <Scrolling AllowScroll="true" UseStaticHeaders="true" />
+                </ClientSettings>
+            </telerik:RadGrid>
+         </asp:Panel>
     </telerik:RadPageView>
     <telerik:RadPageView ID="RadPageCashFlow" runat="server">
         <asp:Panel ID="pnlPageCashFlow" runat="server">

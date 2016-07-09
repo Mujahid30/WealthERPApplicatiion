@@ -21,7 +21,7 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadStyleSheetManager RadStyleSheetManager1;
-        
+        protected global::Telerik.Web.UI.RadGrid gvCashFlowList;
         /// <summary>
         /// RadScriptManager1 control.
         /// </summary>

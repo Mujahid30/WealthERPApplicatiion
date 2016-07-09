@@ -14,6 +14,7 @@ using BoCustomerProfiling;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using BoCommon;
+using Telerik.Web.UI;
 
 namespace WealthERP.Alerts
 {
@@ -143,7 +144,10 @@ namespace WealthERP.Alerts
                 userVo = (UserVo)Session[SessionContents.UserVo];
                 if (userVo.UserType == "Customer")
                 {
+                   
+                    
                     customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
+                   
                 }
                 else
                 {
@@ -151,6 +155,7 @@ namespace WealthERP.Alerts
                     customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
                     rmId = rmVo.RMId;
                 }
+                
                 userId = userVo.UserId;
 
                 //BindCustomerListDropDown(rmId);
@@ -160,9 +165,41 @@ namespace WealthERP.Alerts
                 pnlNotifications.Visible = false;
                 trSelectCustomer.Visible = false;
                 BindCustomerSpecificNotifications(customerVo);
+                BindCustomerNotificationDetails(customerVo.CustomerId);
             }
         }
 
+        private void BindCustomerNotificationDetails(int customerId)
+        {
+            gvNotification.Visible = false;
+            DataSet dsCustomerAlerts=new DataSet();
+            dsCustomerAlerts = alertsBo.GetCustomerDashboardAlert(customerId);
+            if (dsCustomerAlerts.Tables[0].Rows.Count > 0)
+            {
+                pnlNoEntries.Visible = false;
+                gvCustomerAlerts.Visible = true;
+                gvCustomerAlerts.DataSource = dsCustomerAlerts;
+                gvCustomerAlerts.DataBind();
+
+                if (Cache["dsCustomerAlerts" + userVo.UserId.ToString()] == null)
+                {
+                    Cache.Insert("dsCustomerAlerts" + userVo.UserId.ToString(), dsCustomerAlerts);
+                }
+                else
+                {
+                    Cache.Remove("dsCustomerAlerts" + userVo.UserId.ToString());
+                    Cache.Insert("dsCustomerAlerts" + userVo.UserId.ToString(), dsCustomerAlerts);
+                }
+            }
+            else
+                pnlNoEntries.Visible = true;
+        }
+        protected void gvCustomerAlerts_OnNeedDataSource(Object sender, GridNeedDataSourceEventArgs e)
+        {
+            DataSet ds = new DataSet();
+            ds = (DataSet)Cache["dsCustomerAlerts" + userVo.UserId.ToString()];
+            gvCustomerAlerts.DataSource = ds;
+        }
         private void BindCustomerListDropDown(int rmId)
         {
             DataSet dsCustomerList = new DataSet();

@@ -1,7 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NotificationDashboard.ascx.cs"
     Inherits="WealthERP.Alerts.NotificationDashboard" %>
-    <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
+<%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 
+<asp:ScriptManager ID="scrptMgr" runat="server">
+</asp:ScriptManager>
 <asp:Panel ID="pnlHeader" runat="server" Visible="true">
     <table style="width: 100%;" cssclass="TableBackground">
         <tr>
@@ -55,8 +58,8 @@
         </tr>
         <tr>
             <td class="leftField">
-                <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
-                <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
+                <asp:Label ID="lblCurrentPage" Visible="false" class="Field" runat="server"></asp:Label>
+                <asp:Label ID="lblTotalRows" Visible="false" class="Field" runat="server"></asp:Label>
             </td>
         </tr>
         <tr>
@@ -64,12 +67,12 @@
                 <%-- <asp:UpdatePanel ID="upPnlDateGrid" runat="server">
                     <ContentTemplate>--%>
                 <asp:GridView ID="gvNotification" runat="server" AutoGenerateColumns="False" CellPadding="4"
-                    CssClass="GridViewStyle" DataKeyNames="EventQueueID" AllowSorting="false" Font-Size="Small"
-                    HorizontalAlign="Center" ShowFooter="True" EnableViewState="true">
+                    Visible="false" CssClass="GridViewStyle" DataKeyNames="EventQueueID" AllowSorting="false"
+                    Font-Size="Small" HorizontalAlign="Center" ShowFooter="True" EnableViewState="true">
                     <%-- OnRowEditing="gvDateAlerts_RowEditing" OnRowCommand="gvDateAlerts_RowCommand" OnRowUpdating="gvDateAlerts_RowUpdating" OnRowCancelingEdit="gvDateAlerts_RowCancelingEdit"
                     OnRowDataBound="gvDateAlerts_RowDataBound" --%>
-                    <FooterStyle Font-Bold="True" ForeColor="White"/>
-                    <RowStyle Font-Size="Small" CssClass="RowStyle"/>
+                    <FooterStyle Font-Bold="True" ForeColor="White" />
+                    <RowStyle Font-Size="Small" CssClass="RowStyle" />
                     <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" CssClass="SelectedRowStyle" />
                     <PagerStyle ForeColor="White" HorizontalAlign="Center" CssClass="PagerStyle" />
                     <HeaderStyle Font-Bold="True" ForeColor="White" Font-Size="Small" HorizontalAlign="Center" />
@@ -89,9 +92,33 @@
                         <asp:BoundField DataField="Alert" HeaderText="Sub Category" />
                         <asp:BoundField DataField="Scheme" HeaderText="Detail" />
                         <asp:BoundField DataField="Message" HeaderText="Message" />
-                        <asp:BoundField DataField="NotifiedDate" HeaderText="Notified Date" ItemStyle-HorizontalAlign="Center"/>
+                        <asp:BoundField DataField="NotifiedDate" HeaderText="Notified Date" ItemStyle-HorizontalAlign="Center" />
                     </Columns>
                 </asp:GridView>
+                <telerik:RadGrid ID="gvCustomerAlerts" runat="server" AllowAutomaticDeletes="false" Visible="false"
+                    PageSize="20" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
+                    ShowStatusBar="false" ShowFooter="false" AllowPaging="true" AllowSorting="true"
+                    OnNeedDataSource="gvCustomerAlerts_OnNeedDataSource" GridLines="none" AllowAutomaticInserts="false"
+                    Skin="Telerik" EnableHeaderContextMenu="true" Width="95%" >
+                    <MasterTableView Width="100%" DataKeyNames="ID" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+                        CommandItemDisplay="None" GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
+                        GroupLoadMode="Client" ShowGroupFooter="true">
+                        <Columns>
+                            <telerik:GridBoundColumn HeaderText="Message" DataField="DashBoardCustomerNotification" UniqueName="DashBoardCustomerNotification" SortExpression="DashBoardCustomerNotification"
+                                AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn HeaderText="Notified Date" DataField="CTNDE_CreatedOn" UniqueName="CTNDE_CreatedOn" SortExpression="CTNDE_CreatedOn"
+                                AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                        </Columns>
+                    </MasterTableView>
+                    <ClientSettings>
+                        <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                        <Scrolling AllowScroll="true" UseStaticHeaders="true" />
+                    </ClientSettings>
+                </telerik:RadGrid>
                 <br />
                 <%--<div align="center">
                             <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="upPnlDateGrid"
@@ -108,7 +135,7 @@
         <table style="width: 100%" id="tblPager" runat="server" visible="false">
             <tr>
                 <td>
-                    <pager:pager id="mypager" runat="server"></pager:pager>
+                    <Pager:Pager ID="mypager" runat="server" Visible="false"></Pager:Pager>
                 </td>
             </tr>
         </table>
