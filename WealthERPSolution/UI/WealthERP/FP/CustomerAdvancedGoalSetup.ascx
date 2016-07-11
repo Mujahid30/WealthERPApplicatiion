@@ -60,7 +60,7 @@
                 </telerik:RadTab>
                 <telerik:RadTab runat="server" Text="Equity" Value="EQ" TabIndex="4">
                 </telerik:RadTab>
-                <telerik:RadTab runat="server" Text="Fixed Income" Value="FI" TabIndex="5" Visible="false">
+                <telerik:RadTab runat="server" Text="Fixed Income" Value="FI" TabIndex="5">
                 </telerik:RadTab>
             </Tabs>
         </telerik:RadTab>
@@ -339,8 +339,9 @@
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="PresentValue" UniqueName="PresentValue" HeaderText="FV as on start of Goal Date"
                                             DataFormatString="{0:F2}" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                            AllowFiltering="true" HeaderStyle-Width="90px" SortExpression="PresentValue" FilterControlWidth="70px"
-                                            CurrentFilterFunction="Contains" Aggregate="Sum" FooterText="Total:" DataType="System.Decimal">
+                                            AllowFiltering="true" HeaderStyle-Width="90px" SortExpression="PresentValue"
+                                            FilterControlWidth="70px" CurrentFilterFunction="Contains" Aggregate="Sum" FooterText="Total:"
+                                            DataType="System.Decimal">
                                             <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                         </telerik:GridBoundColumn>
                                     </Columns>
@@ -1595,15 +1596,118 @@
     </telerik:RadPageView>
     <telerik:RadPageView ID="RadPageView3" runat="server">
         <asp:Panel ID="Panel2" runat="server">
-            <table width="100%">
-                <tr>
-                    <td align="center">
-                        <div id="Div5" class="failure-msg" align="center">
-                            Fixed Income No Record Found
-                        </div>
-                    </td>
-                </tr>
-            </table>
+           
+            <telerik:RadGrid ID="gvBondsOrder" runat="server" CssClass="RadGrid" GridLines="Both"
+                Width="100%" AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
+                ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
+                OnItemDataBound="gvBondsOrder_ItemDataBound" OnItemCommand="gvBondsOrder_ItemCommand" OnNeedDataSource="gvBondsOrder_OnNeedDataSource"
+                AllowAutomaticUpdates="false" Skin="Telerik">
+                <%--OnDeleteCommand="gvBondsOrder_DeleteCommand" OnInsertCommand="gvBondsOrder_ItemInserted"--%>
+                <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="Fixed Income">
+                </ExportSettings>
+                <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
+                    CommandItemSettings-AddNewRecordText="Select FI Investment" DataKeyNames="AIM_IssueId,CEBOTGA_AllotedQuentity,AID_IssueDetailId,AIDCSR_Id,AIIC_InvestorCatgeoryId" >
+                    <Columns>
+                        <telerik:GridEditCommandColumn>
+                        </telerik:GridEditCommandColumn>
+                        <telerik:GridBoundColumn UniqueName="CEBOTGA_AllotedQuentity" HeaderText="Alloted Quentity"
+                            DataField="CEBOTGA_AllotedQuentity">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn UniqueName="AIM_IssueName" HeaderText="IssueName" DataField="AIM_IssueName">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn UniqueName="AIIC_InvestorCatgeoryId" HeaderText="CatgeoryId"
+                            DataField="AIIC_InvestorCatgeoryId" Visible="false">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                          <telerik:GridBoundColumn UniqueName="AIM_IssueId" HeaderText="AIM_IssueId" DataField="AIM_IssueId" Visible="false">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                          <telerik:GridBoundColumn UniqueName="AID_IssueDetailId" HeaderText="AID_IssueDetailId" DataField="AID_IssueDetailId" Visible="false">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                          <telerik:GridBoundColumn UniqueName="AIDCSR_Id" HeaderText="AIDCSR_Id" DataField="AIDCSR_Id" Visible="false">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                        <%--<telerik:GridButtonColumn CommandName="Delete" Text="Delete" ConfirmText="Are you sure you want to Remove this Record?"
+                            UniqueName="column">
+                        </telerik:GridButtonColumn>--%>
+                    </Columns>
+                    <EditFormSettings EditFormType="Template" CaptionFormatString="Fixed Income">
+                        <FormTemplate>
+                            <table id="tblFixedIncomeFundingHeader" cellspacing="2" cellpadding="1" width="100%" border="0"
+                                class="EditFormSettingsTableColor">
+                                <tr>
+                                    <td>
+                                        <table id="tblFixedIncome" cellspacing="1" cellpadding="1" border="0" class="module">
+                                            <tr runat="server" id="trScriptDDL">
+                                                <td>
+                                                    <asp:Label ID="lblBondIssue" runat="server" CssClass="FieldName" Text="Issuer:"></asp:Label>
+                                                </td>
+                                                <td>
+                                                    <asp:DropDownList ID="ddlBondIssue" runat="server" CssClass="cmbField" AutoPostBack="true"
+                                                        OnSelectedIndexChanged="ddlBondIssue_OnSelectedIndexChanged">
+                                                    </asp:DropDownList>
+                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator10" Text="Select Issuer" InitialValue="Select"
+                                                        ControlToValidate="ddlBondIssue" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                                                        ValidationGroup="btnBondSubmit">
+                                                    </asp:RequiredFieldValidator>
+                                                </td>
+                                                <td align="right" id="tdIssuerCategory" runat="server">
+                                                    <asp:Label ID="lblIssuerCategory" Text="Issue Category" CssClass="FieldName" runat="server">
+                                                    </asp:Label>
+                                                </td>
+                                                <td id="tdddlIssuerCategory" runat="server">
+                                                    <asp:DropDownList ID="ddlIssuerCategory" runat="server" CssClass="cmbLongField" AutoPostBack="true"
+                                                        OnSelectedIndexChanged="ddlIssuerCategory_OnSelectedIndexChanged">
+                                                    </asp:DropDownList>
+                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" Text="Select Issuer Category"
+                                                        InitialValue="Select" ControlToValidate="ddlIssuerCategory" Display="Dynamic"
+                                                        runat="server" CssClass="rfvPCG" ValidationGroup="btnBondSubmit">
+                                                    </asp:RequiredFieldValidator>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <asp:Label ID="lblSeriesId" runat="server" Text="Series:" CssClass="FieldName"></asp:Label>
+                                                </td>
+                                                <td>
+                                                    <asp:DropDownList ID="ddlSeries" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlSeries_OnSelectedIndexChanged">
+                                                    </asp:DropDownList>
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblQuentiry" runat="server" CssClass="FieldName" Text="Alloted Quentity:"></asp:Label>
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblAllotedQuentity" runat="server" CssClass="FieldName"></asp:Label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <asp:Label ID="lblFundAllotment" runat="server" CssClass="FieldName" Text="Fund Allotment:"></asp:Label>
+                                                </td>
+                                                <td>
+                                                    <asp:TextBox runat="server" ID="txtFundAllotment"></asp:TextBox>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right" colspan="2">
+                                        <asp:Button ID="btnUpdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                            runat="server" CssClass="PCGButton" ValidationGroup="btnBondSubmit" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                                        </asp:Button>&nbsp;
+                                        <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
+                                            CssClass="PCGButton" CommandName="Cancel"></asp:Button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </FormTemplate>
+                    </EditFormSettings>
+                </MasterTableView>
+            </telerik:RadGrid>
         </asp:Panel>
     </telerik:RadPageView>
     <telerik:RadPageView ID="RadPageView2" runat="server">

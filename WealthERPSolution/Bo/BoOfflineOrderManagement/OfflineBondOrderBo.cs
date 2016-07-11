@@ -194,6 +194,19 @@ namespace BoOfflineOrderManagement
                 throw (Ex);
             }
         }
-
+        public bool CreateAllotmentDetails(int userid, DataTable dtOrderAllotmentDetails)
+        {
+            bool result = false;
+            OfflineBondOrderDao offlineBondDao = new OfflineBondOrderDao();
+            result = offlineBondDao.CreateAllotmentDetails(userid, dtOrderAllotmentDetails);
+           return result;
+        }
+        public int GetAdviserIssueDetailsId(int IssueCategory)
+        {
+            int IssueCategoryid = 0;
+            OfflineBondOrderDao offlineBondDao = new OfflineBondOrderDao();
+            IssueCategoryid = offlineBondDao.GetAdviserIssueDetailsId(IssueCategory);
+            return IssueCategoryid;
+        }
     }
 }

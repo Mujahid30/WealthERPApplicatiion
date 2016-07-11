@@ -328,6 +328,55 @@ namespace DaoOfflineOrderManagement
             }
            
         }
+        public bool CreateAllotmentDetails(int userid, DataTable dtOrderAllotmentDetails)
+        {
 
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand CreateAllotmentDetailscmd;
+            bool bResult = false;
+            DataSet dsdtOrderAllotmentDetails = new DataSet();
+            try
+            {
+                dsdtOrderAllotmentDetails.Tables.Add(dtOrderAllotmentDetails.Copy());
+                dsdtOrderAllotmentDetails.DataSetName = "dtOrderAllotmentDetailsDS";
+                dsdtOrderAllotmentDetails.Tables[0].TableName = "dtOrderAllotmentDetailsDT";
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CreateAllotmentDetailscmd = db.GetStoredProcCommand("SPROC_CreateAllotmentDetails");
+                db.AddInParameter(CreateAllotmentDetailscmd, "@xmlBondsAllotmentDetails", DbType.Xml, dsdtOrderAllotmentDetails.GetXml().ToString());
+                db.AddInParameter(CreateAllotmentDetailscmd, "@UserId", DbType.Int32, userid);
+                db.ExecuteNonQuery(CreateAllotmentDetailscmd);
+                bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+        public int GetAdviserIssueDetailsId(int IssueCategory)
+        {
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DataSet ds;
+            DbCommand cmdGetAdviserIssueDetailsId;
+            int IssueCategoryid = 0;
+            try
+            {
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetAdviserIssueDetailsId = db.GetStoredProcCommand("SPROC_GetCategoryRuleDetailsId");
+                db.AddInParameter(cmdGetAdviserIssueDetailsId, "@SeriesId", DbType.Int32, IssueCategory);
+                db.AddOutParameter(cmdGetAdviserIssueDetailsId, "@IssueCategoryid", DbType.Int32, 0);
+                ds = db.ExecuteDataSet(cmdGetAdviserIssueDetailsId);
+                if (db.ExecuteNonQuery(cmdGetAdviserIssueDetailsId) != 0)
+                {
+                    IssueCategoryid = Convert.ToInt32(db.GetParameterValue(cmdGetAdviserIssueDetailsId, "IssueCategoryid").ToString());
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return IssueCategoryid;
+        }
     }
 }

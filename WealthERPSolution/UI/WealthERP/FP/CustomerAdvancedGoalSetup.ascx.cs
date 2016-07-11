@@ -158,30 +158,31 @@ namespace WealthERP.FP
                     }
 
                 }
-                if (goalId == 0 || goalProfileSetupVo.IsFundFromAsset == false)
+                if (goalId == 0)// || goalProfileSetupVo.IsFundFromAsset == false)
                 {
-                //    //RadPageView2.Visible = false;
+                    //    //RadPageView2.Visible = false;
 
 
-                //    //ModelPortFolio
+                    //    //ModelPortFolio
                     pnlModelPortfolio.Visible = false;
                     pnlModelPortfolioNoRecoredFound.Visible = true;
 
-                //    //GoalFunding and Progress
+                    //    //GoalFunding and Progress
                     pnlFundingProgress.Visible = false;
                     pnlDocuments.Visible = false;
                     pnlMFFunding.Visible = false;
-                //    //pnlNoRecordFoundGoalFundingProgress.Visible = true;
+                    //    //pnlNoRecordFoundGoalFundingProgress.Visible = true;
 
 
 
-            }
-            else
-            {
+                }
+                else
+                {
                     GetGoalFundingProgress();
                     BindExistingFundingScheme(dsGoalFundingDetails.Tables[0]);
                     BindMonthlySIPFundingScheme(dsGoalFundingDetails.Tables[1]);
                     BindEquityFundedDetails();
+                    BindFixedIncomeDetails();
                     ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
                     BindddlModelPortfolioGoalSchemes();
                     SetGoalProgressImage(goalPlanningVo.Goalcode);
@@ -235,6 +236,194 @@ namespace WealthERP.FP
             }
 
         }
+        protected void BindFixedIncomeDetails()
+        {
+            DataSet ds = customerGoalPlanningBo.BindGoalDetails(int.Parse(Session["GoalId"].ToString()));
+            Cache.Remove("Bondallotment" + userVo.UserId.ToString());
+            Cache.Insert("Bondallotment" + userVo.UserId.ToString(), ds.Tables[0]);
+            gvBondsOrder.DataSource = ds.Tables[0];
+            gvBondsOrder.DataBind();
+        }
+        protected void gvBondsOrder_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtOrder;
+            dtOrder = (DataTable)Cache["Bondallotment" + userVo.UserId.ToString()];
+            if (dtOrder != null)
+            {
+                gvBondsOrder.DataSource = dtOrder;
+            }
+
+        }
+
+        protected void gvBondsOrder_ItemCommand(object source, GridCommandEventArgs e)
+        {
+            bool result = false;
+            if (e.CommandName == "PerformInsert")
+            {
+                TextBox txtFundAllotment = (TextBox)e.Item.FindControl("txtFundAllotment");
+                DropDownList ddlBondIssue = (DropDownList)e.Item.FindControl("ddlBondIssue");
+                DropDownList ddlIssuerCategory = (DropDownList)e.Item.FindControl("ddlIssuerCategory");
+                DropDownList ddlSeries = (DropDownList)e.Item.FindControl("ddlSeries");
+                result = customerGoalPlanningBo.BondOrderAssociateToGoal(int.Parse(Session["GoalId"].ToString()), int.Parse(txtFundAllotment.Text), int.Parse(ddlSeries.SelectedValue), 0, int.Parse(ddlIssuerCategory.SelectedValue), int.Parse(ddlBondIssue.SelectedValue));
+            }
+            if (e.CommandName == "PerformUpdate")
+            {
+                TextBox txtFundAllotment = (TextBox)e.Item.FindControl("txtFundAllotment");
+                DropDownList ddlBondIssue = (DropDownList)e.Item.FindControl("ddlBondIssue");
+                DropDownList ddlIssuerCategory = (DropDownList)e.Item.FindControl("ddlIssuerCategory");
+                DropDownList ddlSeries = (DropDownList)e.Item.FindControl("ddlSeries");
+                result = customerGoalPlanningBo.BondOrderAssociateToGoal(int.Parse(Session["GoalId"].ToString()), int.Parse(txtFundAllotment.Text), int.Parse(ddlSeries.SelectedValue), 0, int.Parse(ddlIssuerCategory.SelectedValue), int.Parse(ddlBondIssue.SelectedValue));
+                BindFixedIncomeDetails();
+            }
+            BindFixedIncomeDetails();
+        }
+        protected void gvBondsOrder_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            RadTabStripFPGoalDetails.TabIndex = 5;
+            CustomerFPGoalDetail.SelectedIndex = 5;
+            RadTabStripFPGoalDetails.Tabs[2].Selected = true;
+            RadTabStripFPGoalDetails.Tabs[2].Tabs[0].Selected = true;
+            if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)
+            {
+                GridEditFormItem dataItem = (GridEditFormItem)e.Item;
+                DropDownList ddlBondIssue = (DropDownList)dataItem.FindControl("ddlBondIssue");
+                DropDownList ddlIssuerCategory = (DropDownList)dataItem.FindControl("ddlIssuerCategory");
+                DropDownList ddlSeries = (DropDownList)dataItem.FindControl("ddlSeries");
+                Label lblAllotedQuentity = (Label)dataItem.FindControl("lblAllotedQuentity");
+
+                BindISsuer(ddlBondIssue);
+                ddlBondIssue.SelectedValue = gvBondsOrder.MasterTableView.DataKeyValues[dataItem.ItemIndex]["AIM_IssueId"].ToString();
+                BindIssueCategory(ddlIssuerCategory, int.Parse(ddlBondIssue.SelectedValue));
+                ddlIssuerCategory.SelectedValue = gvBondsOrder.MasterTableView.DataKeyValues[dataItem.ItemIndex]["AIIC_InvestorCatgeoryId"].ToString();
+                BindSeries(ddlSeries, int.Parse(ddlBondIssue.SelectedValue));
+                ddlSeries.SelectedValue = gvBondsOrder.MasterTableView.DataKeyValues[dataItem.ItemIndex]["AID_IssueDetailId"].ToString();
+                BindSeriesAllotmentData(lblAllotedQuentity, int.Parse(ddlBondIssue.SelectedValue), int.Parse(ddlSeries.SelectedValue));
+            }
+            if (e.Item is GridEditFormItem)
+            {
+                GridEditFormItem dataItem = e.Item as GridEditFormItem;
+                //DropDownList ddlBondIssue = (DropDownList)dataItem.FindControl("ddlBondIssue");
+                //DropDownList ddlIssuerCategory = (DropDownList)dataItem.FindControl("ddlIssuerCategory");
+                //DropDownList ddlSeries = (DropDownList)dataItem.FindControl("ddlSeries");
+                //BindISsuer(ddlBondIssue);
+                //ddlBondIssue.SelectedValue = gvBondsOrder.MasterTableView.DataKeyValues[dataItem.ItemIndex]["AIM_IssueId"].ToString();
+                //BindIssueCategory(ddlIssuerCategory, int.Parse(ddlBondIssue.SelectedValue));
+                //ddlIssuerCategory.SelectedValue = gvBondsOrder.MasterTableView.DataKeyValues[dataItem.ItemIndex]["AIIC_InvestorCatgeoryId"].ToString();
+                //BindSeries(ddlSeries, int.Parse(ddlBondIssue.SelectedValue));
+                //ddlSeries.SelectedValue = gvBondsOrder.MasterTableView.DataKeyValues[dataItem.ItemIndex]["AID_IssueDetailId"].ToString();
+            }
+
+            if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
+            {
+                GridEditFormItem dataItem = (GridEditFormItem)e.Item;
+                DropDownList ddlBondIssue = (DropDownList)dataItem.FindControl("ddlBondIssue");
+                DropDownList ddlIssuerCategory = (DropDownList)dataItem.FindControl("ddlIssuerCategory");
+                DropDownList ddlSeries = (DropDownList)dataItem.FindControl("ddlSeries");
+                BindISsuer(ddlBondIssue);
+
+            }
+        }
+        protected void BindISsuer(DropDownList ddlissue)
+        {
+            DataSet ds = customerGoalPlanningBo.BindBondAllotedIssue(customerVo.CustomerId);
+            ddlissue.DataSource = ds.Tables[0];
+            ddlissue.DataValueField = ds.Tables[0].Columns["AIM_IssueId"].ToString();
+            ddlissue.DataTextField = ds.Tables[0].Columns["AIM_IssueName"].ToString();
+            ddlissue.DataBind();
+            ddlissue.Items.Insert(0, new ListItem("Select", "0"));
+        }
+        protected void ddlBondIssue_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            RadTabStripFPGoalDetails.TabIndex = 5;
+            //RadTabStripFPGoalDetails.SelectedTab.Enabled = true;
+            CustomerFPGoalDetail.SelectedIndex = 5;
+            RadTabStripFPGoalDetails.Tabs[2].Selected = true;
+            RadTabStripFPGoalDetails.Tabs[2].Tabs[0].Selected = true;
+            DropDownList ddlAction = (DropDownList)sender;
+            GridEditFormInsertItem gvr = (GridEditFormInsertItem)ddlAction.NamingContainer;
+            DropDownList ddlBondIssue = (DropDownList)gvr.FindControl("ddlBondIssue");
+            DropDownList ddlIssuerCategory = (DropDownList)gvr.FindControl("ddlIssuerCategory");
+            System.Web.UI.HtmlControls.HtmlTableCell tdIssuerCategory = (System.Web.UI.HtmlControls.HtmlTableCell)gvr.FindControl("tdIssuerCategory");
+            System.Web.UI.HtmlControls.HtmlTableCell tdddlIssuerCategory = (System.Web.UI.HtmlControls.HtmlTableCell)gvr.FindControl("tdddlIssuerCategory");
+            BindIssueCategory(ddlIssuerCategory, int.Parse(ddlBondIssue.SelectedValue));
+            string categoryType = customerGoalPlanningBo.GetAdviserIssueCategory(int.Parse(ddlBondIssue.SelectedValue));
+            if (categoryType == "FICGCG")
+            {
+                ddlIssuerCategory_OnSelectedIndexChanged(sender, e);
+                tdIssuerCategory.Visible = false;
+                tdddlIssuerCategory.Visible = false;
+
+            }
+
+        }
+        protected void BindIssueCategory(DropDownList ddlIssuerCategory, int issueId)
+        {
+            DataSet ds = customerGoalPlanningBo.BindBondAllotedCategoryForCustomer(customerVo.CustomerId, issueId);
+            ddlIssuerCategory.DataSource = ds.Tables[0];
+            ddlIssuerCategory.DataValueField = ds.Tables[0].Columns["AIIC_InvestorCatgeoryId"].ToString();
+            ddlIssuerCategory.DataTextField = ds.Tables[0].Columns["AIIC_InvestorCatgeoryName"].ToString();
+            ddlIssuerCategory.DataBind();
+            ddlIssuerCategory.Items.Insert(0, new ListItem("Select", "0"));
+        }
+        protected void ddlIssuerCategory_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            RadTabStripFPGoalDetails.TabIndex = 5;
+            //RadTabStripFPGoalDetails.SelectedTab.Enabled = true;
+            CustomerFPGoalDetail.SelectedIndex = 5;
+            RadTabStripFPGoalDetails.Tabs[2].Selected = true;
+            RadTabStripFPGoalDetails.Tabs[2].Tabs[0].Selected = true;
+            DropDownList ddlAction = (DropDownList)sender;
+            GridEditFormInsertItem gvr = (GridEditFormInsertItem)ddlAction.NamingContainer;
+            DropDownList ddlBondIssue = (DropDownList)gvr.FindControl("ddlBondIssue");
+            DropDownList ddlSeries = (DropDownList)gvr.FindControl("ddlSeries");
+            BindSeries(ddlSeries, int.Parse(ddlBondIssue.SelectedValue));
+        }
+        protected void BindSeries(DropDownList ddlseries, int issurId)
+        {
+            DataSet ds = customerGoalPlanningBo.BindBondSeriesAllotmentDetails(customerVo.CustomerId, issurId);
+            ddlseries.DataSource = ds.Tables[0];
+            ddlseries.DataValueField = ds.Tables[0].Columns["AID_IssueDetailId"].ToString();
+            ddlseries.DataTextField = ds.Tables[0].Columns["AID_IssueDetailName"].ToString();
+            ddlseries.DataBind();
+            ddlseries.Items.Insert(0, new ListItem("Select", "0"));
+        }
+        protected void ddlSeries_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            RadTabStripFPGoalDetails.TabIndex = 5;
+            //RadTabStripFPGoalDetails.SelectedTab.Enabled = true;
+            CustomerFPGoalDetail.SelectedIndex = 5;
+            RadTabStripFPGoalDetails.Tabs[2].Selected = true;
+            RadTabStripFPGoalDetails.Tabs[2].Tabs[0].Selected = true;
+            DropDownList ddlAction = (DropDownList)sender;
+            GridEditFormInsertItem gvr = (GridEditFormInsertItem)ddlAction.NamingContainer;
+            DropDownList ddlBondIssue = (DropDownList)gvr.FindControl("ddlBondIssue");
+            Label lblAllotedQuentity = (Label)gvr.FindControl("lblAllotedQuentity");
+            DropDownList ddlSeries = (DropDownList)gvr.FindControl("ddlSeries");
+
+
+            BindSeriesAllotmentData(lblAdditionalInvestments, int.Parse(ddlBondIssue.SelectedValue), int.Parse(ddlSeries.SelectedValue));
+        }
+        protected void BindSeriesAllotmentData(Label lbldata, int issueId, int seriesId)
+        {
+            DataSet ds = customerGoalPlanningBo.BindBondAllotedOrderQuentity(customerVo.CustomerId, issueId);
+            DataTable dt = new DataTable();
+            DataSet dsgoalAssociat = customerGoalPlanningBo.BindBondGoalAssociateQuentity(int.Parse(Session["GoalId"].ToString()), issueId, seriesId);
+            dt = ds.Tables[0];
+            int associateQty=0;
+            foreach (DataRow dr in dsgoalAssociat.Tables[0].Rows)
+            {
+                associateQty = int.Parse(dr["CEBOTGA_AllotedQuentity"].ToString());
+            }
+            foreach (DataRow dr in dt.Rows)
+            {
+                int quty = int.Parse(dr["COAD_Quantity"].ToString());
+                lbldata.Text =(quty  - associateQty).ToString();
+            }
+        }
+
         protected void TabSelectionBasedOnGoalAction()
         {
             //if (goalAction == "View" || goalAction == "Edit" || string.IsNullOrEmpty(goalAction.Trim()))
@@ -1237,8 +1426,8 @@ namespace WealthERP.FP
                 //int ParentCustomerId = int.Parse(Session["FP_UserID"].ToString());
                 customerGoalPlanningVo.CustomerId = customerVo.CustomerId;
                 customerGoalPlanningVo.Goalcode = ddlGoalType.SelectedValue.ToString();
-                if(ddlGoalTypes.SelectedValue!="RG")
-                customerGoalPlanningVo.CostOfGoalToday = double.Parse(txtGoalCostToday.Text.Trim());
+                if (ddlGoalTypes.SelectedValue != "RG")
+                    customerGoalPlanningVo.CostOfGoalToday = double.Parse(txtGoalCostToday.Text.Trim());
                 else
                     customerGoalPlanningVo.CostOfGoalToday = double.Parse(ViewState["finalValue"].ToString());
                 customerGoalPlanningVo.GoalDate = DateTime.Parse(txtGoalDate.Text);
@@ -1307,17 +1496,17 @@ namespace WealthERP.FP
                 CustomerGoalPlanningVo goalplanningSetUpVo = new CustomerGoalPlanningVo();
                 if (ViewState["RecurringTable"] != null)
                     dtrecurringtable = (DataTable)ViewState["RecurringTable"];
-                    goalplanningSetUpVo = customerGoalPlanningBo.CreateCustomerGoalPlanning(customerGoalPlanningVo, customerAssumptionVo, customerVo.CustomerId, false, dtrecurringtable, out goalId);
-                    lblInvestmntLumpsumTxt.Text = goalplanningSetUpVo.LumpsumInvestRequired != 0 ? String.Format("{0:n2}", Math.Round(goalplanningSetUpVo.LumpsumInvestRequired, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                goalplanningSetUpVo = customerGoalPlanningBo.CreateCustomerGoalPlanning(customerGoalPlanningVo, customerAssumptionVo, customerVo.CustomerId, false, dtrecurringtable, out goalId);
+                lblInvestmntLumpsumTxt.Text = goalplanningSetUpVo.LumpsumInvestRequired != 0 ? String.Format("{0:n2}", Math.Round(goalplanningSetUpVo.LumpsumInvestRequired, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
 
-                    lblSavingsRequiredMonthlyTxt.Text = goalplanningSetUpVo.MonthlySavingsReq != 0 ? String.Format("{0:n2}", Math.Round(goalplanningSetUpVo.MonthlySavingsReq, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
-               
-                    tdlblInvestmntLumpsum.Visible = true;
+                lblSavingsRequiredMonthlyTxt.Text = goalplanningSetUpVo.MonthlySavingsReq != 0 ? String.Format("{0:n2}", Math.Round(goalplanningSetUpVo.MonthlySavingsReq, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+
+                tdlblInvestmntLumpsum.Visible = true;
                 tdlblInvestmntLumpsumTxt.Visible = true;
                 tdSavingsRequiredMonthly.Visible = true;
                 tdSavingsRequiredMonthlyTxt.Visible = true;
                 //lumpsumInvestment = customerGoalPlanningBo.PV(goalplanningSetUpVo.ExpectedROI / 100, goalplanningSetUpVo.GoalYear - DateTime.Now.Year, 0, -goalplanningSetUpVo.FutureValueOfCostToday, 1);
-                
+
 
                 //After Save Goal Is in View Mode
                 Session["GoalId"] = goalId;
@@ -3348,14 +3537,14 @@ namespace WealthERP.FP
             dt.Columns.Add("Costperannum");
             dt.Columns.Add("Inflation");
             dt.Columns.Add("Yrs");
-            dt.Columns.Add("FutureValue",typeof (decimal));
+            dt.Columns.Add("FutureValue", typeof(decimal));
             dt.Columns.Add("PresentValue", typeof(decimal));
             dt.Columns.Add("Returnoninvestment");
             DataRow drRecuring;
             int noofyr = int.Parse(txtNoofYears.Text);
             DateTime date = DateTime.Now;
             int year = date.Year;
-            
+
             for (int i = 0; i < noofyr; i++)
             {
                 drRecuring = dt.NewRow();
@@ -3365,18 +3554,18 @@ namespace WealthERP.FP
                     drRecuring["Year"] = ddlGoalYear.SelectedValue;
                     drRecuring["FutureValue"] = Financial.Fv(double.Parse(txtInflation.Text) / 100, int.Parse(ddlGoalYear.SelectedValue) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0);
                     finalValue = Financial.Pv(double.Parse(txtExpRateOfReturn.Text) / 100, ((int.Parse(ddlGoalYear.SelectedValue) - year) - (int.Parse(ddlGoalYear.SelectedValue) - year)), Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Financial.Fv(Convert.ToDouble(txtInflation.Text) / 100, (int.Parse(ddlGoalYear.SelectedValue) + i) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0)), 0);
-                        //Financial.Fv(double.Parse(txtInflation.Text) / 100, int.Parse(ddlGoalYear.SelectedValue) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0);
+                    //Financial.Fv(double.Parse(txtInflation.Text) / 100, int.Parse(ddlGoalYear.SelectedValue) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0);
                     drRecuring["PresentValue"] = Financial.Pv(double.Parse(txtExpRateOfReturn.Text) / 100, ((int.Parse(ddlGoalYear.SelectedValue) - year) - (int.Parse(ddlGoalYear.SelectedValue) - year)), Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Financial.Fv(Convert.ToDouble(txtInflation.Text) / 100, (int.Parse(ddlGoalYear.SelectedValue) + i) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0)), 0);
 
 
                 }
-                else    
+                else
                 {
                     drRecuring["Yrs"] = (int.Parse(ddlGoalYear.SelectedValue) + i) - year;
                     drRecuring["Year"] = int.Parse(ddlGoalYear.SelectedValue) + i;
                     drRecuring["FutureValue"] = Financial.Fv(Convert.ToDouble(txtInflation.Text) / 100, (int.Parse(ddlGoalYear.SelectedValue) + i) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0);
                     finalValue += Financial.Pv(double.Parse(txtExpRateOfReturn.Text) / 100, (((int.Parse(ddlGoalYear.SelectedValue) + i) - year) - (int.Parse(ddlGoalYear.SelectedValue) - year)), Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Financial.Fv(Convert.ToDouble(txtInflation.Text) / 100, (int.Parse(ddlGoalYear.SelectedValue) + i) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0)), 0);
-                        //Financial.Fv(Convert.ToDouble(txtInflation.Text) / 100, (int.Parse(ddlGoalYear.SelectedValue) + i) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0);
+                    //Financial.Fv(Convert.ToDouble(txtInflation.Text) / 100, (int.Parse(ddlGoalYear.SelectedValue) + i) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0);
                     drRecuring["PresentValue"] = Financial.Pv(double.Parse(txtExpRateOfReturn.Text) / 100, (((int.Parse(ddlGoalYear.SelectedValue) + i) - year) - (int.Parse(ddlGoalYear.SelectedValue) - year)), Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Financial.Fv(Convert.ToDouble(txtInflation.Text) / 100, (int.Parse(ddlGoalYear.SelectedValue) + i) - year, Convert.ToDouble(txtCurrentInvestPurpose.Text), -(Convert.ToDouble(txtGoalCostToday.Text) / Convert.ToDouble(txtNoofYears.Text)), 0)), 0);
                 }
                 drRecuring["Returnoninvestment"] = txtExpRateOfReturn.Text;
@@ -3428,13 +3617,13 @@ namespace WealthERP.FP
             if (ddlGoalTypes.SelectedValue == "RG")
                 finalvalues = double.Parse(ViewState["finalValue"].ToString());
             else
-                finalvalues = Financial.Fv(double.Parse(txtInflation.Text)/100, requiredAfter, 0, -double.Parse(txtGoalCostToday.Text), 0);
-           
-            
+                finalvalues = Financial.Fv(double.Parse(txtInflation.Text) / 100, requiredAfter, 0, -double.Parse(txtGoalCostToday.Text), 0);
+
+
             double lumpsumamout = customerGoalPlanningBo.PV(rateOfReturn / 100, requiredAfter, 0, -finalvalues, 1);
-            double requiredSavings = customerGoalPlanningBo.PMT((rateOfReturn/1200 ), (requiredAfter*12), 0, -finalvalues, 0);
+            double requiredSavings = customerGoalPlanningBo.PMT((rateOfReturn / 1200), (requiredAfter * 12), 0, -finalvalues, 0);
             lblInvestmntLumpsumTxt.Text = lumpsumamout != 0 ? String.Format("{0:n2}", Math.Round(lumpsumamout, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
-        
+
             lblSavingsRequiredMonthlyTxt.Text = requiredSavings != 0 ? String.Format("{0:n2}", Math.Round(requiredSavings, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
             tdlblInvestmntLumpsum.Visible = true;
             tdlblInvestmntLumpsumTxt.Visible = true;

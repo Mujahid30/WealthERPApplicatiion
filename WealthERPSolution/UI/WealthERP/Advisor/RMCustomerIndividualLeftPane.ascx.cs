@@ -1351,7 +1351,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Add Fixed Income")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerAccountAdd", "loadcontrol('CustomerAccountAdd', '?action=FI')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerOfflineBondOrder", "loadcontrol('CustomerOfflineBondOrder', 'none')", true);
                 }
                 else if (e.Item.Value == "Govt Savings")
                 {

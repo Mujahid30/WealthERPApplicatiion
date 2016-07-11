@@ -141,6 +141,7 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdCustomerAge1;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtNoofYears;
         protected global::Telerik.Web.UI.RadGrid RadRecurring;
+        protected global::Telerik.Web.UI.RadGrid gvBondsOrder;
         /// <summary>
         /// Label3 control.
         /// </summary>

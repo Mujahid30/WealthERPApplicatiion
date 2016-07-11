@@ -1054,5 +1054,199 @@ namespace DaoFPSuperlite
             }
 
         }
+        public DataSet BindGoalDetails(int goalId)
+        {
+            Database db;
+            DbCommand getBindGoalDetails;
+            DataSet dsBindGoalDetails = new DataSet();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getBindGoalDetails = db.GetStoredProcCommand("SPROC_GetBondsOrderGoalAssociatedDetails");
+                db.AddInParameter(getBindGoalDetails, "@goalId", DbType.Int32, goalId);
+                dsBindGoalDetails = db.ExecuteDataSet(getBindGoalDetails);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dsBindGoalDetails;
+        }
+
+        public DataSet BindBondAllotedIssue(int customerId)
+        {
+            Database db;
+            DbCommand getBindBondAllotedIssue;
+            DataSet dsBindBondAllotedIssue = new DataSet();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getBindBondAllotedIssue = db.GetStoredProcCommand("SPROC_GetIssueBondOrderAllotmentData");
+                db.AddInParameter(getBindBondAllotedIssue, "@cusromerId", DbType.Int32, customerId);
+                dsBindBondAllotedIssue = db.ExecuteDataSet(getBindBondAllotedIssue);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dsBindBondAllotedIssue;
+        }
+        public DataSet BindBondAllotedCategoryForCustomer(int customerId,int issueId)
+        {
+            Database db;
+            DbCommand getBindBondAllotedCategoryForCustomer;
+            DataSet dsBindBondAllotedCategoryForCustomer = new DataSet();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getBindBondAllotedCategoryForCustomer = db.GetStoredProcCommand("SPROC_GetAllotedCategoryForCustomer");
+                db.AddInParameter(getBindBondAllotedCategoryForCustomer, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(getBindBondAllotedCategoryForCustomer, "@issueId", DbType.Int32, issueId);
+                dsBindBondAllotedCategoryForCustomer = db.ExecuteDataSet(getBindBondAllotedCategoryForCustomer);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dsBindBondAllotedCategoryForCustomer;
+        }
+        public DataSet BindBondSeriesAllotmentDetails(int customerId, int issueId)
+        {
+            Database db;
+            DbCommand getBindBondSeriesAllotmentDetails;
+            DataSet dsBindBondSeriesAllotmentDetails = new DataSet();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getBindBondSeriesAllotmentDetails = db.GetStoredProcCommand("SPROC_GetSeriesAllotmentDetails");
+                db.AddInParameter(getBindBondSeriesAllotmentDetails, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(getBindBondSeriesAllotmentDetails, "@aimissueId", DbType.Int32, issueId);
+                dsBindBondSeriesAllotmentDetails = db.ExecuteDataSet(getBindBondSeriesAllotmentDetails);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dsBindBondSeriesAllotmentDetails;
+        }
+        public DataSet BindBondAllotedOrderQuentity(int customerId,int issueId)
+        {
+            Database db;
+            DbCommand getBindBondAllotedOrderQuentity;
+            DataSet dsBindBondAllotedOrderQuentity = new DataSet();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getBindBondAllotedOrderQuentity = db.GetStoredProcCommand("SPROC_GetAllotedQuentity");
+                db.AddInParameter(getBindBondAllotedOrderQuentity, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(getBindBondAllotedOrderQuentity, "@aimIssueId", DbType.Int32, issueId);
+                dsBindBondAllotedOrderQuentity = db.ExecuteDataSet(getBindBondAllotedOrderQuentity);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dsBindBondAllotedOrderQuentity;
+        }
+        public bool BondOrderAssociateToGoal(int goalId, int AllotedQuentity, int IssueDetailId, int AIDCSR_Id, int InvestorCatgeoryId, int IssueId)
+        {
+            Database db;
+            DbCommand CreateCustomerGoalFundingCmd;
+            bool result = false;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CreateCustomerGoalFundingCmd = db.GetStoredProcCommand("SPROC_CreateAllotmentAssociateToBondOrder");
+                db.AddInParameter(CreateCustomerGoalFundingCmd, "@CG_GoalId", DbType.Int32, goalId);
+                db.AddInParameter(CreateCustomerGoalFundingCmd, "@CEBOTGA_AllotedQuentity", DbType.Int32, AllotedQuentity);
+                db.AddInParameter(CreateCustomerGoalFundingCmd, "@AID_IssueDetailId", DbType.Int32, IssueDetailId);
+                db.AddInParameter(CreateCustomerGoalFundingCmd, "@AIDCSR_Id", DbType.Int32, AIDCSR_Id);
+                db.AddInParameter(CreateCustomerGoalFundingCmd, "@AIIC_InvestorCatgeoryId", DbType.Int32, InvestorCatgeoryId);
+                db.AddInParameter(CreateCustomerGoalFundingCmd, "@AIM_IssueId", DbType.Int32, IssueId);
+                db.ExecuteNonQuery(CreateCustomerGoalFundingCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
+        }
+        public string GetAdviserIssueCategory(int IssueId)
+        {
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DataSet ds;
+            DbCommand cmdGetAdviserIssueDetailsId;
+            string ProductType = string.Empty;
+            try
+            {
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetAdviserIssueDetailsId = db.GetStoredProcCommand("SPROC_GetISsueInvestmentCategory");
+                db.AddInParameter(cmdGetAdviserIssueDetailsId, "@issueid", DbType.Int32, IssueId);
+                db.AddOutParameter(cmdGetAdviserIssueDetailsId, "@ProductType", DbType.String,1000);
+                ds = db.ExecuteDataSet(cmdGetAdviserIssueDetailsId);
+                if (db.ExecuteNonQuery(cmdGetAdviserIssueDetailsId) != 0)
+                {
+                    ProductType = db.GetParameterValue(cmdGetAdviserIssueDetailsId, "ProductType").ToString();
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return ProductType;
+        }
+        public DataSet BindBondGoalAssociateQuentity(int goalId, int issueId, int seriesId)
+        {
+            Database db;
+            DbCommand getBindBondGoalAssociateQuentity;
+            DataSet dsBindBondGoalAssociateQuentity = new DataSet();
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getBindBondGoalAssociateQuentity = db.GetStoredProcCommand("SPROC_GetAssociateAllotedQuentity");
+                db.AddInParameter(getBindBondGoalAssociateQuentity, "@goalId", DbType.Int32, goalId);
+                db.AddInParameter(getBindBondGoalAssociateQuentity, "@issueId", DbType.Int32, issueId);
+                db.AddInParameter(getBindBondGoalAssociateQuentity, "@seriesId", DbType.Int32, seriesId);
+                dsBindBondGoalAssociateQuentity = db.ExecuteDataSet(getBindBondGoalAssociateQuentity);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dsBindBondGoalAssociateQuentity;
+        }
+        public bool BondOrderAssociateToGoalUpdate(int goalId, int AllotedQuentity, int IssueDetailId, int AIDCSR_Id, int InvestorCatgeoryId, int IssueId)
+        {
+            Database db;
+            DbCommand BondOrderAssociateToGoalUpdateCmd;
+            bool result = false;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                BondOrderAssociateToGoalUpdateCmd = db.GetStoredProcCommand("SPROC_UpdateGoalAssociateQuentity");
+                db.AddInParameter(BondOrderAssociateToGoalUpdateCmd, "@CG_GoalId", DbType.Int32, goalId);
+                db.AddInParameter(BondOrderAssociateToGoalUpdateCmd, "@CEBOTGA_AllotedQuentity", DbType.Int32, AllotedQuentity);
+                db.AddInParameter(BondOrderAssociateToGoalUpdateCmd, "@AID_IssueDetailId", DbType.Int32, IssueDetailId);
+                db.AddInParameter(BondOrderAssociateToGoalUpdateCmd, "@AIDCSR_Id", DbType.Int32, AIDCSR_Id);
+                db.AddInParameter(BondOrderAssociateToGoalUpdateCmd, "@AIIC_InvestorCatgeoryId", DbType.Int32, InvestorCatgeoryId);
+                db.AddInParameter(BondOrderAssociateToGoalUpdateCmd, "@AIM_IssueId", DbType.Int32, IssueId);
+                db.ExecuteNonQuery(BondOrderAssociateToGoalUpdateCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
+        }
     }
 }

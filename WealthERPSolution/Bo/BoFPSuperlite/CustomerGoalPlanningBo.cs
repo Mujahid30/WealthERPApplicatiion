@@ -1547,6 +1547,68 @@ namespace BoFPSuperlite
             }
         }
 
-
+        public DataSet BindGoalDetails(int goalId)
+        {
+            CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
+            DataSet ds = new DataSet();
+            ds = customerGoalPlanningDao.BindGoalDetails(goalId);
+            return ds;
+        }
+        public DataSet BindBondAllotedIssue(int customerId)
+        {
+            CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
+            DataSet ds = new DataSet();
+            ds = customerGoalPlanningDao.BindBondAllotedIssue(customerId);
+            return ds;
+        }
+        public DataSet BindBondAllotedCategoryForCustomer(int customerId, int issueId)
+        {
+            CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
+            DataSet ds = new DataSet();
+            ds = customerGoalPlanningDao.BindBondAllotedCategoryForCustomer(customerId,issueId);
+            return ds;
+        }
+        public DataSet BindBondSeriesAllotmentDetails(int customerId, int issueId)
+        {
+            CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
+            DataSet ds = new DataSet();
+            ds = customerGoalPlanningDao.BindBondSeriesAllotmentDetails(customerId, issueId);
+            return ds;
+        }
+        public DataSet BindBondAllotedOrderQuentity(int customerId, int issueId)
+        {
+            CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
+            DataSet ds = new DataSet();
+            ds = customerGoalPlanningDao.BindBondAllotedOrderQuentity(customerId, issueId);
+            return ds;
+        }
+        public bool BondOrderAssociateToGoal(int goalId, int AllotedQuentity, int IssueDetailId, int AIDCSR_Id, int InvestorCatgeoryId, int IssueId)
+        {
+            bool result = false;
+            CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
+            result = customerGoalPlanningDao.BondOrderAssociateToGoal(goalId, AllotedQuentity, IssueDetailId, AIDCSR_Id, InvestorCatgeoryId, IssueId);
+            return result;
+        }
+        public string GetAdviserIssueCategory(int IssueId)
+        {
+            string ProductType = string.Empty;
+            CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
+            ProductType = customerGoalPlanningDao.GetAdviserIssueCategory(IssueId);
+            return ProductType;
+        }
+        public DataSet BindBondGoalAssociateQuentity(int goalId, int issueId, int seriesId)
+        {
+            CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
+            DataSet ds = new DataSet();
+            ds = customerGoalPlanningDao.BindBondGoalAssociateQuentity(goalId, issueId, seriesId);
+            return ds;
+        }
+        public bool BondOrderAssociateToGoalUpdate(int goalId, int AllotedQuentity, int IssueDetailId, int AIDCSR_Id, int InvestorCatgeoryId, int IssueId)
+        {
+            bool result = false;
+            CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
+            result = customerGoalPlanningDao.BondOrderAssociateToGoalUpdate(goalId, AllotedQuentity, IssueDetailId, AIDCSR_Id, InvestorCatgeoryId, IssueId);
+            return result;
+        }
     }
 }
