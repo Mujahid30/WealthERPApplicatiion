@@ -1888,15 +1888,16 @@
                     </td>
                     <td style="width: 22%;">
                         <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField" CausesValidation="true"
-                            ValidationGroup="MFSubmit" ></asp:TextBox><span id="Span1" class="spnRequiredField">*</span>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtAmount"
+                            ValidationGroup="vgSubmit" ></asp:TextBox>
+                            <span id="Span1" class="spnRequiredField">*</span>
+                       <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtAmount"
                             CssClass="rfvPCG" ErrorMessage="<br />Please select amount" Display="Dynamic"
-                            runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
-                        <asp:RangeValidator ID="RangeValidator2" Display="Dynamic" ValidationGroup="MFSubmit"
+                            runat="server" InitialValue="" ValidationGroup="vgSubmit"></asp:RequiredFieldValidator>
+                        <asp:RangeValidator ID="RangeValidator2" Display="Dynamic" ValidationGroup="vgSubmit"
                             runat="server" ErrorMessage="<br />Please enter a numeric value" ControlToValidate="txtAmount"
                             MaximumValue="2147483647" MinimumValue="1" Type="Double" CssClass="cvPCG"></asp:RangeValidator>
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtAmount"
-                            runat="server" ValidationGroup="MFSubmit" ErrorMessage="Please enter a valid amount/Unit" CssClass="cvPCG"
+                            runat="server" ValidationGroup="vgSubmit" ErrorMessage="Please enter a valid amount/Unit" CssClass="cvPCG"
                             ValidationExpression="^(-)?\d+(\.\d\d\d\d)?$">
                         </asp:RegularExpressionValidator>
                     </td>
@@ -1914,7 +1915,7 @@
                         <span id="Span13" class="spnRequiredField">*</span>
                         <asp:CompareValidator ID="CompareValidator10" runat="server" ControlToValidate="ddlPaymentMode"
                             CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select  Mode Of Payment"
-                            Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
+                            Operator="NotEqual" ValidationGroup="vgSubmit" ValueToCompare="Select"></asp:CompareValidator>
                     </td>
                 </tr>
                 <tr id="trPINo" runat="server" visible="false">
@@ -1928,7 +1929,7 @@
                         <span id="Span15" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtPaymentNumber"
                             ErrorMessage="<br />Please Enter a Payment Instrument No." Display="Dynamic"
-                            runat="server" CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+                            runat="server" CssClass="rfvPCG" ValidationGroup="vgSubmit"></asp:RequiredFieldValidator>
                     </td>
                     <td align="right">
                         <asp:Label ID="lblPIDate" runat="server" Text="Payment Instrument Date:" CssClass="FieldName"></asp:Label>
@@ -1972,10 +1973,10 @@
                             Visible="false"></asp:ImageButton>
                         <asp:CompareValidator ID="CompareValidator61" runat="server" ControlToValidate="ddlBankName"
                             CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a Bank"
-                            Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
+                            Operator="NotEqual" ValidationGroup="vgSubmit" ValueToCompare="Select"></asp:CompareValidator>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator22" ControlToValidate="ddlBankName"
                             CssClass="rfvPCG" ErrorMessage="<br />Please select an Bank" Display="Dynamic"
-                            runat="server" InitialValue="" ></asp:RequiredFieldValidator>
+                            runat="server" InitialValue="" ValidationGroup="vgSubmit" ></asp:RequiredFieldValidator>
                         
                     </td>
                     <td align="right">
