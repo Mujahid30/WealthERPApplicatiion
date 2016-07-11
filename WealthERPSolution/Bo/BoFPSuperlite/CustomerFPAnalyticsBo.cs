@@ -977,6 +977,62 @@ namespace BoFPSuperlite
             }
             return dtBindDropdownsRebalancing;
         }
+
+
+        public DataSet GetProductTypes()
+        {
+            CustomerFPAnalyticsDao customerFPAnalyticsDao = new CustomerFPAnalyticsDao();
+            DataSet dsGetProductTypes;
+            try
+            {
+                dsGetProductTypes = customerFPAnalyticsDao.GetProductTypes();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "ProductMFBo.cs:GetProductAmc()");
+
+
+                object[] objects = new object[0];
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetProductTypes;
+        }
+
+
+
+        public int CreateCashFlowRecomendation(int CustomerId, int userId, int CCRLSourceId, int CCRL_ID, decimal CCRLAmount, DateTime startDate, DateTime endDate, decimal SumAssured, string Remarks, String CCRL_FrequencyMode)
+        {
+            CustomerFPAnalyticsDao customerFPAnalyticsDao = new CustomerFPAnalyticsDao();
+            int customercashrecomendationid;
+            try
+            {
+                customercashrecomendationid = customerFPAnalyticsDao.CreateCashFlowRecomendation(CustomerId, userId, CCRLSourceId, CCRL_ID, CCRLAmount, startDate, endDate, SumAssured, Remarks, CCRL_FrequencyMode);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+          
+
+            return customercashrecomendationid;
+
+        }
+
+    
         public DataTable GetCustomerCashFlow(int customerId)
         {
             CustomerFPAnalyticsDao customerFPAnalyticsDao = new CustomerFPAnalyticsDao();

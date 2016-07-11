@@ -46,7 +46,7 @@ namespace VoCustomerProfiling
         public int BranchAddStateId { get; set; }
         public int BranchAddCountryId { get; set; }
 
-
+      
 
 
 
@@ -189,6 +189,12 @@ namespace VoCustomerProfiling
             get { return m_BankBranchCode; }
             set { m_BankBranchCode = value; }
         }
+
+        //public string BankName
+        //{
+        //    get { return m_BankName; }
+        //    set { m_BankName = value; }
+        //}
 
         #endregion Properties
     }

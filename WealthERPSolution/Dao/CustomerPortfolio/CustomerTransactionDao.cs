@@ -3491,6 +3491,8 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(updateMFFolioDetailsCmd, "@CMFA_IsOnline", DbType.Int32, AccountVo.IsOnline);
                 db.AddInParameter(updateMFFolioDetailsCmd, "@WCMV_LookupId_BankId", DbType.Int32, AccountVo.BankId);
                 db.AddInParameter(updateMFFolioDetailsCmd, "@WCMV_LookupId_AccType", DbType.Int32, AccountVo.BankAccTypeId);
+                db.AddInParameter(updateMFFolioDetailsCmd, "@CMFA_BankNameInExtFile", DbType.String, AccountVo.BankNameInExtFile);
+
                 if (AccountVo.AccountOpeningDate != DateTime.MinValue)
                     db.AddInParameter(updateMFFolioDetailsCmd, "@CMFA_AccountOpeningDate", DbType.DateTime, AccountVo.AccountOpeningDate);
                 else

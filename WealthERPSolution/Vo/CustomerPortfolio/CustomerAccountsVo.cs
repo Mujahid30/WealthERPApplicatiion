@@ -110,6 +110,17 @@ namespace VoCustomerPortfolio
         public int FolioType { get; set; }
         public string FolioTypeName { get; set; }
         public string DematAccount { get; set; }
+        public string CCRLSourceId { get; set; }
+        public string CCRLAmount { get; set; }
+        public string startDate { get; set; }
+        public string endDate { get; set; }
+        public string SumAssured { get; set; }
+        public string Remarks { get; set; }
+        public string Producttype { get; set; }
+
+
+
+
 
         #region Properties
 

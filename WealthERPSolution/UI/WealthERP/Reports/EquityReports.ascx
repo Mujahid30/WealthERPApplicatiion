@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EquityReports.ascx.cs"
-    Inherits="WealthERP.Reports.EquityReports" %>
+    Inherits="WealthERP.Reports.EquityReports"  %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -283,7 +283,7 @@
 
         setTimeout(function() {
             window.document.forms[0].target = '';
-            window.document.forms[0].action = "ControlHost.aspx?pageid=MFReports";
+//            window.document.forms[0].action = "ControlHost.aspx?pageid=MFReports";
         }, 500);
         return true;
 
@@ -633,15 +633,15 @@
                                     <asp:TextBox ID="txtFromDate" runat="server" OnTextChanged="ChckBussFromDate_Textchanged"
                                         AutoPostBack="true" CssClass="txtField"></asp:TextBox>
                                     <ajaxToolkit:CalendarExtender ID="txtFromDate_CalendarExtender" runat="server" TargetControlID="txtFromDate"
-                                        Format="dd/MM/yyyy">
+                                        Format="dd/MM/yyyy" >
                                     </ajaxToolkit:CalendarExtender>
                                     <ajaxToolkit:TextBoxWatermarkExtender ID="txtFromDate_TextBoxWatermarkExtender" runat="server"
-                                        TargetControlID="txtFromDate" WatermarkText="dd/mm/yyyy">
+                                        TargetControlID="txtFromDate" WatermarkText="dd/mm/yyyy" >
                                     </ajaxToolkit:TextBoxWatermarkExtender>
                                     <span id="Span2" class="spnRequiredField">*</span>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtFromDate"
                                         CssClass="rfvPCG" ErrorMessage="<br />Please select a From Date" Display="Dynamic"
-                                        runat="server" ValidationGroup="btnview"> </asp:RequiredFieldValidator>
+                                        runat="server" ValidationGroup="btnview" > </asp:RequiredFieldValidator>
                                 </td>
                                 <td>
                                     <asp:Label ID="lblToDate" runat="server" CssClass="FieldName">To:</asp:Label>

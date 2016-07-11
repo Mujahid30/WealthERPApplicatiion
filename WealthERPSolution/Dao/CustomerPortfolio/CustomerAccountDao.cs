@@ -718,7 +718,7 @@ namespace DaoCustomerPortfolio
 
 
                 db.AddInParameter(createCustomerMFAccountCmd, "@CB_ModifiedBy", DbType.Int32, userId);
-
+                db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_BankNameInExtFile", DbType.String, customerAccountVo.BankNameInExtFile);
 
                 if (db.ExecuteNonQuery(createCustomerMFAccountCmd) > 0)
                 {

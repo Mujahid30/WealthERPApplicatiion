@@ -7,7 +7,6 @@ using System.Collections.Specialized;
 using System.Data;
 using System.Data.Sql;
 using System.Data.Common;
-
 using Microsoft.Practices.EnterpriseLibrary.Data;
 using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
@@ -213,6 +212,71 @@ namespace DaoFPSuperlite
 
             return dtBindDropdownsRebalancing;
         }
+
+
+
+        public DataSet GetProductTypes()
+        {
+            Database db;
+            DbCommand getProductTypesCmd;
+            DataSet dsGetProductTypes;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getProductTypesCmd = db.GetStoredProcCommand("SPROC_GetProductTypes");
+                dsGetProductTypes = db.ExecuteDataSet(getProductTypesCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+           
+
+            return dsGetProductTypes;
+        }
+
+
+
+
+
+
+
+        public int CreateCashFlowRecomendation(int CustomerId, int userId, int CCRLSourceId, int CCRL_ID, decimal CCRLAmount, DateTime startDate, DateTime endDate, decimal SumAssured, string Remarks, String CCRL_FrequencyMode)
+        {
+            int customercashrecomendationid = 0;
+            Database db;
+            DbCommand createCashFlowRecomendationCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createCashFlowRecomendationCmd = db.GetStoredProcCommand("SP_CreateRecomendationInvestment");
+                db.AddInParameter(createCashFlowRecomendationCmd, "@C_CustomerId", DbType.Int32, CustomerId);
+                db.AddInParameter(createCashFlowRecomendationCmd, "@CCRL_SourceId", DbType.Int32, CCRLSourceId);
+                db.AddInParameter(createCashFlowRecomendationCmd, "@CCRL_Amount", DbType.Decimal, CCRLAmount);
+                db.AddInParameter(createCashFlowRecomendationCmd, "@CCRL_StartDate", DbType.DateTime, startDate);
+                db.AddInParameter(createCashFlowRecomendationCmd, "@CCRL_EndDate", DbType.DateTime, endDate);
+                db.AddInParameter(createCashFlowRecomendationCmd, "@CCRL_SumAssured", DbType.Decimal, SumAssured);
+                db.AddInParameter(createCashFlowRecomendationCmd, "@CCRL_Remarks", DbType.String, Remarks);
+                db.AddInParameter(createCashFlowRecomendationCmd, "@CCRL_CreatedBy", DbType.String, userId);
+                db.AddInParameter(createCashFlowRecomendationCmd, "@CCRL_FrequencyMode", DbType.String, CCRL_FrequencyMode);
+                db.ExecuteNonQuery(createCashFlowRecomendationCmd);
+
+                  //if (db.ExecuteNonQuery(createCashFlowRecomendationCmd) != 0)
+
+                  //  customercashrecomendationid = int.Parse(db.GetParameterValue(createCashFlowRecomendationCmd, "CCRL_ID").ToString());
+
+            }
+
+            
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return customercashrecomendationid;
+        }
+
+
         public DataTable GetCustomerCashFlow(int customerId)
         {
             Database db;

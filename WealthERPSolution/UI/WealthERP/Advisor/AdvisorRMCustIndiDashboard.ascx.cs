@@ -776,14 +776,16 @@ namespace WealthERP.Advisor
                 else
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewCollectiblesPortfolio','none');", true);
             }
-            else if (str == "Cash&Savings")
+
+            else if (str == "BankAccountDetails")
             {
-                Session["IsDashboard"] = "CashandSavings";
+                Session["IsDashboard"] = "BankAccountDetails";
                 if (Session["S_CurrentUserRole"] == "Customer")
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('PortfolioCashSavingsView','none');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('ViewBankDetails','none');", true);
                 else
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioCashSavingsView','none');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewBankDetails','none');", true);
             }
+
             else if (str == "Insurance")
             {
                 Session["IsDashboard"] = "Insurance";
@@ -809,9 +811,10 @@ namespace WealthERP.Advisor
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewEquityPortfolios','none');", true);
             }
 
-           
-            else 
+
+            else
             {
+
                 Session["IsDashboard"] = "LiabilitiesView";
 
                 if (Session["S_CurrentUserRole"] == "Customer")

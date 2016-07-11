@@ -3359,8 +3359,8 @@ namespace WealthERP.OPS
         {
             CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
             customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(int.Parse(txtCustomerId.Value));
-            customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
-            Session["customerVo"] = customerVo;
+             customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
+            Session["customerVo"] =customerVo;
             lblGetBranch.Text = customerVo.BranchName;
             lblgetPan.Text = customerVo.PANNum;
 
