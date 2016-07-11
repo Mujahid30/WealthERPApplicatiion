@@ -285,7 +285,31 @@ namespace DaoFPSuperlite
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                Cmd = db.GetStoredProcCommand("SP_GetCustomerBeforeRetCasflowDetails");
+                Cmd = db.GetStoredProcCommand("SP_GetCustomerBeforeRetCashflowDetails");
+
+                db.AddInParameter(Cmd, "@CustomerId", DbType.Int32, customerId);
+                DataSet ds = db.ExecuteDataSet(Cmd);
+                if (ds != null)
+                {
+                    dt = ds.Tables[0];
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dt;
+        }
+        public DataTable GetCustomerCashFlowAfterRetirement(int customerId)
+        {
+            Database db;
+            DbCommand Cmd;
+            DataTable dt = new DataTable();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                Cmd = db.GetStoredProcCommand("SP_GetCustomerAfterRetCasflowDetails");
 
                 db.AddInParameter(Cmd, "@CustomerId", DbType.Int32, customerId);
                 DataSet ds = db.ExecuteDataSet(Cmd);

@@ -35,6 +35,20 @@ namespace WealthERP.FP
             ds = (DataSet)Cache["gvLeadList"];
             gvLeadList.DataSource = ds;
         }
+        protected void gvLeadList_ItemCreated(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                //LinkButton EditLinkEmail = (LinkButton)e.Item.FindControl("EditLinkEmail");
+                //EditLinkEmail.OnClientClick = String.Format("return ShowEditForm('{0}','{1}');", "?setupId=" + e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_Id"] + "&FormatType=Email", e.Item.ItemIndex);
+                //LinkButton EditLinkSMS = (LinkButton)e.Item.FindControl("EditLinkSMS");
+                //EditLinkSMS.OnClientClick = String.Format("return ShowEditForm('{0}','{1}');", "?setupId=" + e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_Id"] + "&FormatType=SMS", e.Item.ItemIndex);
+                //LinkButton EditLinkDashBoard = (LinkButton)e.Item.FindControl("EditLinkDashBoard");
+                //EditLinkDashBoard.OnClientClick = String.Format("return ShowEditForm('{0}','{1}');", "?setupId=" + e.Item.OwnerTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_Id"] + "&FormatType=DashBoard", e.Item.ItemIndex);
+
+
+            }
+        }
         protected void BindGrid()
         {
             RiskProfileBo bo = new RiskProfileBo();
@@ -67,50 +81,46 @@ namespace WealthERP.FP
             {
                 Session.Remove(SessionContents.PortfolioId);
             }
-            DropDownList ddlAction = (DropDownList)sender;
+            LinkButton lnkAction = (LinkButton)sender;
             //RadComboBox ddlAction = (RadComboBox)sender;
-            GridDataItem item = (GridDataItem)ddlAction.NamingContainer;
+            GridDataItem item = (GridDataItem)lnkAction.NamingContainer;
             ParentId = int.Parse(gvLeadList.MasterTableView.DataKeyValues[item.ItemIndex]["C_CustomerId"].ToString());
 
             Session["ParentIdForDelete"] = ParentId;
             customerVo = customerBo.GetCustomer(ParentId);
             Session["CustomerVo"] = customerVo;
             isGrpHead = customerBo.CheckCustomerGroupHead(ParentId);
-            if (ddlAction.SelectedItem.Value.ToString() != "Profile")
-            {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerIndi", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
-            }
+
             //to set portfolio Id and its details
             customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ParentId);
             Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
             Session["customerPortfolioVo"] = customerPortfolioVo;
-            if (ddlAction.SelectedItem.Value.ToString() == "Profile")
+
+            Session["IsDashboard"] = "false";
+            customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ParentId);
+            if (customerVo.IsProspect == 0)
             {
-                Session["IsDashboard"] = "false";
-                customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ParentId);
-                if (customerVo.IsProspect == 0)
+                //Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+                //Session["customerPortfolioVo"] = customerPortfolioVo;
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMCustomerIndividualDashboard", "loadcontrol('RMCustomerIndividualDashboard','login');", true);
+            }
+            else
+            {
+                isGrpHead = customerBo.CheckCustomerGroupHead(ParentId);
+                if (isGrpHead == false)
                 {
-                    Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
-                    Session["customerPortfolioVo"] = customerPortfolioVo;
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMCustomerIndividualDashboard", "loadcontrol('RMCustomerIndividualDashboard','login');", true);
+                    ParentId = customerBo.GetCustomerGroupHead(ParentId);
                 }
                 else
                 {
-                    isGrpHead = customerBo.CheckCustomerGroupHead(ParentId);
-                    if (isGrpHead == false)
-                    {
-                        ParentId = customerBo.GetCustomerGroupHead(ParentId);
-                    }
-                    else
-                    {
-                        ParentId = customerVo.CustomerId;
-                    }
-                    Session[SessionContents.FPS_ProspectList_CustomerId] = ParentId;
-                    Session[SessionContents.FPS_AddProspectListActionStatus] = "View";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddProspectList','login');", true);
-                    //Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
+                    ParentId = customerVo.CustomerId;
                 }
+                Session[SessionContents.FPS_ProspectList_CustomerId] = ParentId;
+                Session[SessionContents.FPS_AddProspectListActionStatus] = "View";
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddProspectList','login');", true);
+                //Session[SessionContents.FPS_TreeView_Status] = "FinanceProfile";
             }
+
         }
     }
 }

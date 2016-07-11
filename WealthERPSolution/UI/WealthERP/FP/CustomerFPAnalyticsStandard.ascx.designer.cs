@@ -22,6 +22,7 @@ namespace WealthERP.FP {
         /// </remarks>
         protected global::Telerik.Web.UI.RadStyleSheetManager RadStyleSheetManager1;
         protected global::Telerik.Web.UI.RadGrid gvCashFlowList;
+        protected global::Telerik.Web.UI.RadGrid gvRetCashFlowList;
         /// <summary>
         /// RadScriptManager1 control.
         /// </summary>
