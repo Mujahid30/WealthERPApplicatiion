@@ -208,5 +208,17 @@ namespace BoOfflineOrderManagement
             IssueCategoryid = offlineBondDao.GetAdviserIssueDetailsId(IssueCategory);
             return IssueCategoryid;
         }
+        public DataSet GetIntrestFrequency(int detailsId)
+        {
+            OfflineBondOrderDao offlineBondDao = new OfflineBondOrderDao();
+            DataSet ds = offlineBondDao.GetIntrestFrequency(detailsId);
+            return ds;
+        }
+        public DataSet GetCustomerAllotedData(int customerId)
+        {
+            OfflineBondOrderDao offlineBondDao = new OfflineBondOrderDao();
+            DataSet ds = offlineBondDao.GetCustomerAllotedData(customerId);
+            return ds;
+        }
     }
 }

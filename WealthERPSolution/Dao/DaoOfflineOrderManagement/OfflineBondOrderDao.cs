@@ -13,7 +13,7 @@ namespace DaoOfflineOrderManagement
 {
     public class OfflineBondOrderDao
     {
-        public DataSet GetOfflineAdviserIssuerList(int adviserId, int issueId, int type,int category)
+        public DataSet GetOfflineAdviserIssuerList(int adviserId, int issueId, int type, int category)
         {
             Database db;
             DbCommand cmdGetCommissionStructureRules;
@@ -51,7 +51,7 @@ namespace DaoOfflineOrderManagement
             }
             return ds;
         }
-        public DataSet GetOfflineLiveBondTransaction(int SeriesId,  int orderId,int category)
+        public DataSet GetOfflineLiveBondTransaction(int SeriesId, int orderId, int category)
         {
             Database db;
             DbCommand cmdGetCommissionStructureRules;
@@ -161,7 +161,7 @@ namespace DaoOfflineOrderManagement
                 db.AddInParameter(cmdOfflineBondTransact, "@DematDepositoryName", DbType.String, OnlineBondVo.DematDepositoryName);
                 db.AddInParameter(cmdOfflineBondTransact, "@DematDPId", DbType.String, OnlineBondVo.DematDPId);
                 db.AddInParameter(cmdOfflineBondTransact, "@customerBankAccountID", DbType.Double, OnlineBondVo.BankAccountNo);
-                
+
                 if (db.ExecuteNonQuery(cmdOfflineBondTransact) != 0)
                 {
 
@@ -216,15 +216,15 @@ namespace DaoOfflineOrderManagement
             DbCommand cmdGetFD54IssueOrder;
             DataSet ds = null;
             DataTable dtGetFD54IssueOrder;
-           
+
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetFD54IssueOrder = db.GetStoredProcCommand("SPROC_Get54ECOrderBook");
                 db.AddInParameter(cmdGetFD54IssueOrder, "@issueId", DbType.Int32, issueId);
                 db.AddInParameter(cmdGetFD54IssueOrder, "@AdviserID", DbType.Int32, adviserId);
-                if(fromDate!=DateTime.MinValue)
-                db.AddInParameter(cmdGetFD54IssueOrder, "@Fromdate", DbType.DateTime, fromDate);
+                if (fromDate != DateTime.MinValue)
+                    db.AddInParameter(cmdGetFD54IssueOrder, "@Fromdate", DbType.DateTime, fromDate);
                 else
                     db.AddInParameter(cmdGetFD54IssueOrder, "@Fromdate", DbType.DateTime, "2014-9-1");
                 db.AddInParameter(cmdGetFD54IssueOrder, "@Todate", DbType.DateTime, toDate);
@@ -236,7 +236,7 @@ namespace DaoOfflineOrderManagement
                 else
                     db.AddInParameter(cmdGetFD54IssueOrder, "@Status", DbType.String, DBNull.Value);
                 db.AddInParameter(cmdGetFD54IssueOrder, "@AuthenticateStatus", DbType.Int32, AuthenticateStatus);
-                if(orderNo !=0)
+                if (orderNo != 0)
                     db.AddInParameter(cmdGetFD54IssueOrder, "@orderNo", DbType.Int32, orderNo);
                 db.AddInParameter(cmdGetFD54IssueOrder, "@userId", DbType.Int32, userId);
                 ds = db.ExecuteDataSet(cmdGetFD54IssueOrder);
@@ -286,7 +286,7 @@ namespace DaoOfflineOrderManagement
             }
             return bResult;
         }
-        public void GetCustomerCat(int issueId,  int adviserId,int customerSubType, double amt, ref string catName, ref int issueDetId, ref int categoryId, ref string Description)
+        public void GetCustomerCat(int issueId, int adviserId, int customerSubType, double amt, ref string catName, ref int issueDetId, ref int categoryId, ref string Description)
         {
             Database db;
             DbCommand dbCommand;
@@ -326,7 +326,7 @@ namespace DaoOfflineOrderManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-           
+
         }
         public bool CreateAllotmentDetails(int userid, DataTable dtOrderAllotmentDetails)
         {
@@ -377,6 +377,45 @@ namespace DaoOfflineOrderManagement
                 throw Ex;
             }
             return IssueCategoryid;
+        }
+        public DataSet GetIntrestFrequency(int detailsId)
+        {
+            Database db;
+            DbCommand cmdGetFDIddueList;
+            DataSet ds = new DataSet();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetFDIddueList = db.GetStoredProcCommand("SPROC_GetFrequencyAndIntrestRate");
+                db.AddInParameter(cmdGetFDIddueList, "@IssueDetailId", DbType.Int32, detailsId);
+                ds = db.ExecuteDataSet(cmdGetFDIddueList);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return ds;
+        }
+
+
+
+        public DataSet GetCustomerAllotedData(int customerId)
+        {
+            Database db;
+            DbCommand cmdGetCustomerAllotedData;
+            DataSet ds = new DataSet();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetCustomerAllotedData = db.GetStoredProcCommand("SPROC_GetBondsAllotmentDetails");
+                db.AddInParameter(cmdGetCustomerAllotedData, "@CustomerId", DbType.Int32, customerId);
+                ds = db.ExecuteDataSet(cmdGetCustomerAllotedData);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return ds;
         }
     }
 }

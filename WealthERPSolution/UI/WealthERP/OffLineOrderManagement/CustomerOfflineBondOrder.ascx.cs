@@ -84,6 +84,25 @@ namespace WealthERP.OffLineOrderManagement
                 BindIssueCategory(int.Parse(ddlIssue.SelectedValue));
             }
         }
+        protected void ddlSeries_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlSeries.SelectedValue != "0")
+            {
+                BindFrequency();
+                DataSet ds = OfflineBondOrderBo.GetIntrestFrequency(int.Parse(ddlSeries.SelectedValue));
+
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    ddlFrequency.SelectedValue = dr["WCMV_Lookup_FreqId"].ToString();
+                }
+
+                foreach (DataRow dr in ds.Tables[1].Rows)
+                {
+                    txtInterestRate.Text = dr["AIDCSR_DefaultInterestRate"].ToString();
+                }
+            }
+        }
+
         private void IssureSeries(int IssueId)
         {
             FIOrderBo fiorderBo = new FIOrderBo();
@@ -112,11 +131,21 @@ namespace WealthERP.OffLineOrderManagement
                 dtBondOrder.Columns.Add("Quentity");
                 dtBondOrder.Columns.Add("Price");
                 dtBondOrder.Columns.Add("issuecategory");
+                dtBondOrder.Columns.Add("MaturityDate", typeof(DateTime));
+                dtBondOrder.Columns.Add("MaturityAmount");
+                dtBondOrder.Columns.Add("Frequency");
+                dtBondOrder.Columns.Add("FrequencyText");
+                dtBondOrder.Columns.Add("InterestRate");
                 DataRow dr = dtBondOrder.NewRow();
                 dr["SeriesId"] = ddlSeries.SelectedValue;
                 dr["Quentity"] = txtQuentity.Text;
                 dr["Price"] = textPrice.Text;
                 dr["issuecategory"] = ddlIssueCategory.SelectedValue;
+                dr["MaturityDate"] = RadMaturityDate.SelectedDate;
+                dr["MaturityAmount"] = txtMaturityAmount.Text;
+                dr["Frequency"] = ddlFrequency.SelectedValue;
+                dr["InterestRate"] = txtInterestRate.Text;
+                dr["FrequencyText"] = ddlFrequency.SelectedItem.Text;
                 dtBondOrder.Rows.Add(dr);
             }
             else
@@ -133,6 +162,11 @@ namespace WealthERP.OffLineOrderManagement
                 dr["Quentity"] = txtQuentity.Text;
                 dr["Price"] = textPrice.Text;
                 dr["issuecategory"] = ddlIssueCategory.SelectedValue;
+                dr["MaturityDate"] = RadMaturityDate.SelectedDate;
+                dr["MaturityAmount"] = txtMaturityAmount.Text;
+                dr["Frequency"] = ddlFrequency.SelectedValue;
+                dr["InterestRate"] = txtInterestRate.Text;
+                dr["FrequencyText"] = ddlFrequency.SelectedItem.Text;
                 dtBondOrder.Rows.Add(dr);
             }
             BindOrderList(dtBondOrder);
@@ -170,7 +204,7 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void OnClick_btnCreateAllotment(object sender, EventArgs e)
         {
-                OfflineBondOrderBo OfflineBondOrderBo=new OfflineBondOrderBo();
+            OfflineBondOrderBo OfflineBondOrderBo = new OfflineBondOrderBo();
             Button btn = (Button)sender;
             DataTable dtOrder = new DataTable();
             dtOrder.Columns.Add("Category");
@@ -183,29 +217,54 @@ namespace WealthERP.OffLineOrderManagement
             dtOrder.Columns.Add("OrderDate", typeof(DateTime));
             dtOrder.Columns.Add("AllotmentDate", typeof(DateTime));
             dtOrder.Columns.Add("AIDR_Id");
+            dtOrder.Columns.Add("MaturityDate", typeof(DateTime));
+            dtOrder.Columns.Add("MaturityAmount");
+            dtOrder.Columns.Add("Frequency");
+            dtOrder.Columns.Add("InterestRate");
+
             DataRow dr;
             foreach (GridDataItem row in gvBondOrderList.Items) // loops through each rows in RadGrid
             {
                 dr = dtOrder.NewRow();
-                dr["Category"]=ddlCategory.SelectedValue;
-                dr["IssuerId"]=ddlIssue.SelectedValue;
-                dr["IssuerCategory"]=ddlIssueCategory.SelectedValue;
+                dr["Category"] = ddlCategory.SelectedValue;
+                dr["IssuerId"] = ddlIssue.SelectedValue;
+                dr["IssuerCategory"] = ddlIssueCategory.SelectedValue;
                 dr["CustomerId"] = customerVO.CustomerId;
                 dr["SeriesId"] = gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["SeriesId"].ToString();
                 dr["OrderQuentity"] = gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["Quentity"].ToString();
                 dr["Price"] = gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["Price"].ToString();
-                if (int.Parse(gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["issuecategory"].ToString())>0)
-                dr["AIDR_Id"]=OfflineBondOrderBo.GetAdviserIssueDetailsId(int.Parse(gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["issuecategory"].ToString()));
-                dr["OrderDate"]=txtOrderFrom.SelectedDate;
-                dr["AllotmentDate"]=txtOrderTo.SelectedDate;
+                if (int.Parse(gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["issuecategory"].ToString()) > 0)
+                    dr["AIDR_Id"] = OfflineBondOrderBo.GetAdviserIssueDetailsId(int.Parse(gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["issuecategory"].ToString()));
+                dr["OrderDate"] = txtOrderFrom.SelectedDate;
+                dr["MaturityDate"] = gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["MaturityDate"].ToString();
+                dr["MaturityAmount"] = gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["MaturityAmount"].ToString();
+                dr["Frequency"] = gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["Frequency"].ToString();
+                dr["InterestRate"] = gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["InterestRate"].ToString();
+                dr["AllotmentDate"] = txtOrderTo.SelectedDate;
                 dtOrder.Rows.Add(dr);
             }
             if (dtOrder.Rows.Count > 0)
             {
                 OfflineBondOrderBo.CreateAllotmentDetails(userVo.UserId, dtOrder);
                 Cache.Remove("BondOrderBookList" + userVo.UserId.ToString());
+                btnCreateAllotment.Visible = false;
+                btnGo.Visible = false;
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Fixed Income order created');", true);
+
             }
         }
-        
+        private void BindFrequency()
+        {
+            DataTable dtFrequency = new DataTable();
+            OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
+            dtFrequency = onlineNCDBackOfficeBo.GetFrequency();
+            if (dtFrequency.Rows.Count > 0)
+            {
+                ddlFrequency.DataSource = dtFrequency;
+                ddlFrequency.DataValueField = dtFrequency.Columns["WCMV_LookupId"].ToString();
+                ddlFrequency.DataTextField = dtFrequency.Columns["WCMV_Name"].ToString();
+                ddlFrequency.DataBind();
+            }
+        }
     }
 }

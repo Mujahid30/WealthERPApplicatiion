@@ -1347,7 +1347,9 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Fixed Income")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "PortfolioFixedIncomeView", "loadcontrol('PortfolioFixedIncomeView', 'none')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerOfflineBondOrderView", "loadcontrol('CustomerOfflineBondOrderView', 'none')", true);
+
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "PortfolioFixedIncomeView", "loadcontrol('PortfolioFixedIncomeView', 'none')", true);
                 }
                 else if (e.Item.Value == "Add Fixed Income")
                 {

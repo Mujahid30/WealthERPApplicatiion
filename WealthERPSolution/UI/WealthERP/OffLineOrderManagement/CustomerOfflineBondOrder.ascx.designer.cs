@@ -52,7 +52,7 @@ namespace WealthERP.OffLineOrderManagement {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
         protected global::Telerik.Web.UI.RadDatePicker txtOrderFrom;
         protected global::Telerik.Web.UI.RadDatePicker txtOrderTo;
-        
+        protected global::Telerik.Web.UI.RadDatePicker RadMaturityDate;
         /// <summary>
         /// lblIssue control.
         /// </summary>
@@ -72,7 +72,9 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlIssue;
-        
+        protected global::System.Web.UI.WebControls.DropDownList ddlFrequency;
+        protected global::System.Web.UI.WebControls.TextBox txtInterestRate;
+        protected global::System.Web.UI.WebControls.TextBox txtMaturityAmount;
         /// <summary>
         /// RequiredFieldValidator1 control.
         /// </summary>

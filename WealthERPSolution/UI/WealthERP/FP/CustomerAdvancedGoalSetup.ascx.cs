@@ -158,7 +158,7 @@ namespace WealthERP.FP
                     }
 
                 }
-                if (goalId == 0)// || goalProfileSetupVo.IsFundFromAsset == false)
+                if (goalId == 0|| goalProfileSetupVo.IsFundFromAsset == false)
                 {
                     //    //RadPageView2.Visible = false;
 
@@ -264,16 +264,27 @@ namespace WealthERP.FP
                 DropDownList ddlBondIssue = (DropDownList)e.Item.FindControl("ddlBondIssue");
                 DropDownList ddlIssuerCategory = (DropDownList)e.Item.FindControl("ddlIssuerCategory");
                 DropDownList ddlSeries = (DropDownList)e.Item.FindControl("ddlSeries");
-                result = customerGoalPlanningBo.BondOrderAssociateToGoal(int.Parse(Session["GoalId"].ToString()), int.Parse(txtFundAllotment.Text), int.Parse(ddlSeries.SelectedValue), 0, int.Parse(ddlIssuerCategory.SelectedValue), int.Parse(ddlBondIssue.SelectedValue));
+                Label lblAllotedQuentity = (Label)e.Item.FindControl("lblAllotedQuentity");
+                if (int.Parse(txtFundAllotment.Text) <= int.Parse(lblAllotedQuentity.Text))
+                {
+                    result = customerGoalPlanningBo.BondOrderAssociateToGoal(int.Parse(Session["GoalId"].ToString()), int.Parse(txtFundAllotment.Text), int.Parse(ddlSeries.SelectedValue), 0, int.Parse(ddlIssuerCategory.SelectedValue), int.Parse(ddlBondIssue.SelectedValue));
+                }
+                else
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter quantity less than alloted quantity');", true);
             }
-            if (e.CommandName == "PerformUpdate")
+            if (e.CommandName == "Update")
             {
                 TextBox txtFundAllotment = (TextBox)e.Item.FindControl("txtFundAllotment");
                 DropDownList ddlBondIssue = (DropDownList)e.Item.FindControl("ddlBondIssue");
                 DropDownList ddlIssuerCategory = (DropDownList)e.Item.FindControl("ddlIssuerCategory");
                 DropDownList ddlSeries = (DropDownList)e.Item.FindControl("ddlSeries");
-                result = customerGoalPlanningBo.BondOrderAssociateToGoal(int.Parse(Session["GoalId"].ToString()), int.Parse(txtFundAllotment.Text), int.Parse(ddlSeries.SelectedValue), 0, int.Parse(ddlIssuerCategory.SelectedValue), int.Parse(ddlBondIssue.SelectedValue));
-                BindFixedIncomeDetails();
+                Label lblAllotedQuentity = (Label)e.Item.FindControl("lblAllotedQuentity");
+                if (int.Parse(txtFundAllotment.Text) <= int.Parse(lblAllotedQuentity.Text))
+                {
+                    result = customerGoalPlanningBo.BondOrderAssociateToGoalUpdate(int.Parse(Session["GoalId"].ToString()), int.Parse(txtFundAllotment.Text), int.Parse(ddlSeries.SelectedValue), 0, int.Parse(ddlIssuerCategory.SelectedValue), int.Parse(ddlBondIssue.SelectedValue));
+                }
+                else
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter quantity less than alloted quantity');", true);
             }
             BindFixedIncomeDetails();
         }
@@ -290,7 +301,9 @@ namespace WealthERP.FP
                 DropDownList ddlIssuerCategory = (DropDownList)dataItem.FindControl("ddlIssuerCategory");
                 DropDownList ddlSeries = (DropDownList)dataItem.FindControl("ddlSeries");
                 Label lblAllotedQuentity = (Label)dataItem.FindControl("lblAllotedQuentity");
-
+                TextBox txtFundAllotment = (TextBox)dataItem.FindControl("txtFundAllotment");
+                System.Web.UI.HtmlControls.HtmlTableCell tdIssuerCategory = (System.Web.UI.HtmlControls.HtmlTableCell)dataItem.FindControl("tdIssuerCategory");
+                System.Web.UI.HtmlControls.HtmlTableCell tdddlIssuerCategory = (System.Web.UI.HtmlControls.HtmlTableCell)dataItem.FindControl("tdddlIssuerCategory");
                 BindISsuer(ddlBondIssue);
                 ddlBondIssue.SelectedValue = gvBondsOrder.MasterTableView.DataKeyValues[dataItem.ItemIndex]["AIM_IssueId"].ToString();
                 BindIssueCategory(ddlIssuerCategory, int.Parse(ddlBondIssue.SelectedValue));
@@ -298,6 +311,15 @@ namespace WealthERP.FP
                 BindSeries(ddlSeries, int.Parse(ddlBondIssue.SelectedValue));
                 ddlSeries.SelectedValue = gvBondsOrder.MasterTableView.DataKeyValues[dataItem.ItemIndex]["AID_IssueDetailId"].ToString();
                 BindSeriesAllotmentData(lblAllotedQuentity, int.Parse(ddlBondIssue.SelectedValue), int.Parse(ddlSeries.SelectedValue));
+                txtFundAllotment.Text = gvBondsOrder.MasterTableView.DataKeyValues[dataItem.ItemIndex]["CEBOTGA_AllotedQuentity"].ToString();
+                string categoryType = customerGoalPlanningBo.GetAdviserIssueCategory(int.Parse(ddlBondIssue.SelectedValue));
+                if (categoryType == "FICGCG")
+                {
+                    tdIssuerCategory.Visible = false;
+                    tdddlIssuerCategory.Visible = false;
+
+                }
+
             }
             if (e.Item is GridEditFormItem)
             {
@@ -341,7 +363,7 @@ namespace WealthERP.FP
             RadTabStripFPGoalDetails.Tabs[2].Selected = true;
             RadTabStripFPGoalDetails.Tabs[2].Tabs[0].Selected = true;
             DropDownList ddlAction = (DropDownList)sender;
-            GridEditFormInsertItem gvr = (GridEditFormInsertItem)ddlAction.NamingContainer;
+            GridEditFormItem gvr = (GridEditFormItem)ddlAction.NamingContainer;
             DropDownList ddlBondIssue = (DropDownList)gvr.FindControl("ddlBondIssue");
             DropDownList ddlIssuerCategory = (DropDownList)gvr.FindControl("ddlIssuerCategory");
             System.Web.UI.HtmlControls.HtmlTableCell tdIssuerCategory = (System.Web.UI.HtmlControls.HtmlTableCell)gvr.FindControl("tdIssuerCategory");
@@ -375,7 +397,7 @@ namespace WealthERP.FP
             RadTabStripFPGoalDetails.Tabs[2].Selected = true;
             RadTabStripFPGoalDetails.Tabs[2].Tabs[0].Selected = true;
             DropDownList ddlAction = (DropDownList)sender;
-            GridEditFormInsertItem gvr = (GridEditFormInsertItem)ddlAction.NamingContainer;
+            GridEditFormItem gvr = (GridEditFormItem)ddlAction.NamingContainer;
             DropDownList ddlBondIssue = (DropDownList)gvr.FindControl("ddlBondIssue");
             DropDownList ddlSeries = (DropDownList)gvr.FindControl("ddlSeries");
             BindSeries(ddlSeries, int.Parse(ddlBondIssue.SelectedValue));
@@ -398,13 +420,13 @@ namespace WealthERP.FP
             RadTabStripFPGoalDetails.Tabs[2].Selected = true;
             RadTabStripFPGoalDetails.Tabs[2].Tabs[0].Selected = true;
             DropDownList ddlAction = (DropDownList)sender;
-            GridEditFormInsertItem gvr = (GridEditFormInsertItem)ddlAction.NamingContainer;
+            GridEditFormItem gvr = (GridEditFormItem)ddlAction.NamingContainer;
             DropDownList ddlBondIssue = (DropDownList)gvr.FindControl("ddlBondIssue");
             Label lblAllotedQuentity = (Label)gvr.FindControl("lblAllotedQuentity");
             DropDownList ddlSeries = (DropDownList)gvr.FindControl("ddlSeries");
 
 
-            BindSeriesAllotmentData(lblAdditionalInvestments, int.Parse(ddlBondIssue.SelectedValue), int.Parse(ddlSeries.SelectedValue));
+            BindSeriesAllotmentData(lblAllotedQuentity, int.Parse(ddlBondIssue.SelectedValue), int.Parse(ddlSeries.SelectedValue));
         }
         protected void BindSeriesAllotmentData(Label lbldata, int issueId, int seriesId)
         {
