@@ -1492,6 +1492,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OffLineOrderManagement//CustomerOfflineBondOrderView.ascx.
+        /// </summary>
+        internal static string CustomerOfflineBondOrderView {
+            get {
+                return ResourceManager.GetString("CustomerOfflineBondOrderView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OPS//CustomerOrderList.ascx.
         /// </summary>
         internal static string CustomerOrderList {
