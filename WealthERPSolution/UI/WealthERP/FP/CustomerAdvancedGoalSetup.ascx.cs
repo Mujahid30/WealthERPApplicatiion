@@ -279,9 +279,10 @@ namespace WealthERP.FP
                 DropDownList ddlIssuerCategory = (DropDownList)e.Item.FindControl("ddlIssuerCategory");
                 DropDownList ddlSeries = (DropDownList)e.Item.FindControl("ddlSeries");
                 Label lblAllotedQuentity = (Label)e.Item.FindControl("lblAllotedQuentity");
+                int associatId=int.Parse(gvBondsOrder.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CEBOTGA_Id"].ToString());
                 if (int.Parse(txtFundAllotment.Text) <= int.Parse(lblAllotedQuentity.Text))
                 {
-                    result = customerGoalPlanningBo.BondOrderAssociateToGoalUpdate(int.Parse(Session["GoalId"].ToString()), int.Parse(txtFundAllotment.Text), int.Parse(ddlSeries.SelectedValue), 0, int.Parse(ddlIssuerCategory.SelectedValue), int.Parse(ddlBondIssue.SelectedValue));
+                    result = customerGoalPlanningBo.BondOrderAssociateToGoalUpdate(associatId, int.Parse(txtFundAllotment.Text), int.Parse(ddlSeries.SelectedValue), 0, int.Parse(ddlIssuerCategory.SelectedValue), int.Parse(ddlBondIssue.SelectedValue));
                 }
                 else
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter quantity less than alloted quantity');", true);

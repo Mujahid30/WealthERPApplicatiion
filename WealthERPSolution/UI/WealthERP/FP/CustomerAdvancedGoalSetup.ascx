@@ -1606,7 +1606,7 @@
                 <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="Fixed Income">
                 </ExportSettings>
                 <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
-                    CommandItemSettings-AddNewRecordText="Select FI Investment" DataKeyNames="AIM_IssueId,CEBOTGA_AllotedQuentity,AID_IssueDetailId,AIDCSR_Id,AIIC_InvestorCatgeoryId" >
+                    CommandItemSettings-AddNewRecordText="Select FI Investment" DataKeyNames="AIM_IssueId,CEBOTGA_AllotedQuentity,AID_IssueDetailId,AIDCSR_Id,AIIC_InvestorCatgeoryId,CEBOTGA_Id" >
                     <Columns>
                         <telerik:GridEditCommandColumn>
                         </telerik:GridEditCommandColumn>
