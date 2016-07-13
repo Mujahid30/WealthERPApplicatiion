@@ -2129,4 +2129,8 @@
     <value>OffLineOrderManagement//CustomerOfflineBondOrderView.ascx</value>
     <comment>OffLineOrderManagement//CustomerOfflineBondOrderView.ascx</comment>
   </data>
+  <data name="CustomerCashFlowView" xml:space="preserve">
+    <value>FP//CustomerCashFlowView.ascx</value>
+    <comment>FP//CustomerCashFlowView.ascx</comment>
+  </data>
 </root>
