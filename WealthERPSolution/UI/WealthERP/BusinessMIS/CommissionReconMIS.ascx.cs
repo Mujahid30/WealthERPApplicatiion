@@ -699,6 +699,7 @@ namespace WealthERP.BusinessMIS
             tdlblRequestAmc.Visible = false;
             tdddlRSCategory.Visible = false;
             tdRSCategory.Visible = false;
+            ddlRequestCommissionType.Items.FindByText("Trail").Enabled = true;
             if (ddlRequestProduct.SelectedValue == "FI")
             {
                 tdNonMF.Visible = true;
@@ -709,6 +710,7 @@ namespace WealthERP.BusinessMIS
             else if (ddlRequestProduct.SelectedValue =="IP")
             {
                 tdNonMF.Visible = true;
+                ddlRequestCommissionType.Items.FindByText("Trail").Enabled = false;
             }
             else
             {
