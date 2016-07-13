@@ -142,7 +142,7 @@ namespace WealthERP.OffLineOrderManagement
                 dr["Price"] = textPrice.Text;
                 dr["issuecategory"] = ddlIssueCategory.SelectedValue;
                 dr["MaturityDate"] = RadMaturityDate.SelectedDate;
-                dr["MaturityAmount"] = txtMaturityAmount.Text;
+                dr["MaturityAmount"] = (!string.IsNullOrEmpty(txtMaturityAmount.Text)) ? txtMaturityAmount.Text : "0";
                 dr["Frequency"] = ddlFrequency.SelectedValue;
                 dr["InterestRate"] = txtInterestRate.Text;
                 dr["FrequencyText"] = ddlFrequency.SelectedItem.Text;
@@ -163,7 +163,7 @@ namespace WealthERP.OffLineOrderManagement
                 dr["Price"] = textPrice.Text;
                 dr["issuecategory"] = ddlIssueCategory.SelectedValue;
                 dr["MaturityDate"] = RadMaturityDate.SelectedDate;
-                dr["MaturityAmount"] = txtMaturityAmount.Text;
+                dr["MaturityAmount"] = (!string.IsNullOrEmpty(txtMaturityAmount.Text)) ? txtMaturityAmount.Text : "0";
                 dr["Frequency"] = ddlFrequency.SelectedValue;
                 dr["InterestRate"] = txtInterestRate.Text;
                 dr["FrequencyText"] = ddlFrequency.SelectedItem.Text;
@@ -235,12 +235,12 @@ namespace WealthERP.OffLineOrderManagement
                 dr["Price"] = gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["Price"].ToString();
                 if (int.Parse(gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["issuecategory"].ToString()) > 0)
                     dr["AIDR_Id"] = OfflineBondOrderBo.GetAdviserIssueDetailsId(int.Parse(gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["issuecategory"].ToString()));
-                dr["OrderDate"] = txtOrderFrom.SelectedDate;
+                dr["OrderDate"] = (txtOrderFrom.SelectedDate!=null)?txtOrderFrom.SelectedDate:DateTime.Now;
                 dr["MaturityDate"] = gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["MaturityDate"].ToString();
                 dr["MaturityAmount"] = gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["MaturityAmount"].ToString();
                 dr["Frequency"] = gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["Frequency"].ToString();
                 dr["InterestRate"] = gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["InterestRate"].ToString();
-                dr["AllotmentDate"] = txtOrderTo.SelectedDate;
+                dr["AllotmentDate"] = (txtOrderTo.SelectedDate != null) ? txtOrderTo.SelectedDate : DateTime.Now;
                 dtOrder.Rows.Add(dr);
             }
             if (dtOrder.Rows.Count > 0)

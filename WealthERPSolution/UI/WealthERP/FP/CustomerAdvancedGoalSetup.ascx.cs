@@ -3644,7 +3644,7 @@ namespace WealthERP.FP
 
 
             double lumpsumamout = customerGoalPlanningBo.PV(rateOfReturn / 100, requiredAfter, 0, -finalvalues, 1);
-            double requiredSavings = customerGoalPlanningBo.PMT((rateOfReturn / 1200), (requiredAfter * 12), 0, -finalvalues, 0);
+            double requiredSavings = Financial.Pmt(rateOfReturn / 1200, requiredAfter * 12, 0, -finalvalues, 0);
             lblInvestmntLumpsumTxt.Text = lumpsumamout != 0 ? String.Format("{0:n2}", Math.Round(lumpsumamout, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
 
             lblSavingsRequiredMonthlyTxt.Text = requiredSavings != 0 ? String.Format("{0:n2}", Math.Round(requiredSavings, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";

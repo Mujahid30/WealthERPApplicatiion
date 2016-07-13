@@ -48,18 +48,12 @@
                                                         HeaderStyle-Width="60px" FilterControlWidth="75px">
                                                         <ItemStyle Width="60px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="AIIC_InvestorCatgeoryName" AllowFiltering="true"
-                                                        HeaderText="Investor CatgeoryName" UniqueName="Price" SortExpression="AIIC_InvestorCatgeoryName"
-                                                        ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                                        HeaderStyle-Width="80px" FilterControlWidth="75px">
+                                                    <telerik:GridBoundColumn DataField="AIM_AllotmentDate" SortExpression="AIM_AllotmentDate" AutoPostBackOnFilter="true"
+                                                        CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
+                                                        HeaderStyle-Width="160px" HeaderText="AllotmentDate" UniqueName="AIM_AllotmentDate" >
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="AID_IssueDetailName" SortExpression="AID_IssueDetailName"
-                                                        AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                                        AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="Series" UniqueName="AID_IssueDetailName">
-                                                        <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                    </telerik:GridBoundColumn>
-                                                     <telerik:GridBoundColumn DataField="COAD_Quantity" SortExpression="COAD_Quantity" AutoPostBackOnFilter="true"
+                                                    <telerik:GridBoundColumn DataField="COAD_Quantity" SortExpression="COAD_Quantity" AutoPostBackOnFilter="true"
                                                         CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
                                                         HeaderStyle-Width="160px" HeaderText="Quantity" UniqueName="COAD_Quantity" >
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -69,20 +63,37 @@
                                                         HeaderStyle-Width="160px" HeaderText="Price" UniqueName="COAD_Price" >
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
-                                                    
+                                                     <telerik:GridBoundColumn DataField="COAD_InterestAmount" SortExpression="COAD_InterestAmount" AutoPostBackOnFilter="true"
+                                                        CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
+                                                        HeaderStyle-Width="160px" HeaderText="Interest Rate(%)" UniqueName="COAD_InterestAmount">
+                                                        <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                    </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="WCMV_Name" SortExpression="WCMV_Name"
                                                         AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                                         AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="Frequency" UniqueName="WCMV_Name">
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="COAD_InterestAmount" SortExpression="COAD_InterestAmount" AutoPostBackOnFilter="true"
-                                                        CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
-                                                        HeaderStyle-Width="160px" HeaderText="Interest Rate(%)" UniqueName="COAD_InterestAmount">
+                                                  
+                                                    <telerik:GridBoundColumn DataField="AIIC_InvestorCatgeoryName" AllowFiltering="true"
+                                                        HeaderText="Investor CatgeoryName" UniqueName="Price" SortExpression="AIIC_InvestorCatgeoryName"
+                                                        ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                                        HeaderStyle-Width="80px" FilterControlWidth="75px" Visible="false">
+                                                        <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn DataField="AID_IssueDetailName" SortExpression="AID_IssueDetailName"
+                                                        AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                                        AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="Series" UniqueName="AID_IssueDetailName" Visible="false">
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="COAD_MaturityDate" SortExpression="COAD_MaturityDate" AutoPostBackOnFilter="true"
                                                         CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
-                                                        HeaderStyle-Width="160px" HeaderText="MaturityDate" UniqueName="COAD_MaturityDate">
+                                                        HeaderStyle-Width="160px" HeaderText="MaturityDate" UniqueName="COAD_MaturityDate" Visible="false">
+                                                        <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                    </telerik:GridBoundColumn>
+                                                     <telerik:GridBoundColumn DataField="currentValue" SortExpression="currentValue"
+                                                        AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                                        AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="Current Value"
+                                                        UniqueName="currentValue">
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="COAD_MaturityAmount" SortExpression="COAD_MaturityAmount"
@@ -91,15 +102,10 @@
                                                         UniqueName="COAD_MaturityAmount">
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="AIM_AllotmentDate" SortExpression="AIM_AllotmentDate" AutoPostBackOnFilter="true"
-                                                        CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
-                                                        HeaderStyle-Width="160px" HeaderText="AllotmentDate" UniqueName="AIM_AllotmentDate">
-                                                        <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                    </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="COAD_OrderDate" SortExpression="COAD_OrderDate"
                                                         AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                                         AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="Order Date"
-                                                        UniqueName="COAD_OrderDate">
+                                                        UniqueName="COAD_OrderDate" Visible="false">
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
                                                 </Columns>

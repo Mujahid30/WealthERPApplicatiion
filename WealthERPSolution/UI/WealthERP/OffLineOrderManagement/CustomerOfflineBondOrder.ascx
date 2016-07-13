@@ -179,16 +179,7 @@
                 <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
-            <div id="dvTransactionDate" runat="server" class="dvInLine">
-                <span id="Span1" class="spnRequiredField">*</span>
-                <asp:RequiredFieldValidator ID="rfvtxtTransactionDate" ControlToValidate="txtOrderFrom"
-                    ErrorMessage="<br />Please select a From Date" CssClass="cvPCG" Display="Dynamic"
-                    runat="server" InitialValue="" ValidationGroup="btnViewOrder">
-                </asp:RequiredFieldValidator>
-                <asp:CompareValidator ID="CompareValidator9" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
-                    Type="Date" ControlToValidate="txtOrderFrom" CssClass="cvPCG" Operator="DataTypeCheck"
-                    Display="Dynamic"></asp:CompareValidator>
-            </div>
+           
         </td>
         <td align="right">
             <asp:Label ID="lblTo" runat="server" CssClass="FieldName" Text="Allotment Date:"></asp:Label>
@@ -203,21 +194,8 @@
                 <DateInput ID="DateInput2" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
-            <div id="Div1" runat="server" class="dvInLine">
-                <span id="Span2" class="spnRequiredField">*</span>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtOrderTo"
-                    ErrorMessage="<br />Please select a To Date" CssClass="cvPCG" Display="Dynamic"
-                    runat="server" InitialValue="" ValidationGroup="btnViewOrder">
-                </asp:RequiredFieldValidator>
-                <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
-                    Type="Date" ControlToValidate="txtOrderTo" CssClass="cvPCG" Operator="DataTypeCheck"
-                    Display="Dynamic"></asp:CompareValidator>
-            </div>
-            <asp:CompareValidator ID="CompareValidator14" runat="server" ControlToValidate="txtOrderTo"
-                ErrorMessage="<br/> To Date should be greater than From Date" Type="Date" Operator="GreaterThanEqual"
-                ControlToCompare="txtOrderFrom" CssClass="cvPCG" ValidationGroup="btnViewOrder"
-                Display="Dynamic">
-            </asp:CompareValidator>
+           
+           
         </td>
     </tr>
     <tr>
