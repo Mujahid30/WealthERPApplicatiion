@@ -314,12 +314,12 @@ namespace BoCustomerRiskProfiling
             }
             return dsAssetallocationMIS;
         }
-        public DataSet GetFPUtilityUserDetailsList()
+        public DataSet GetFPUtilityUserDetailsList(DateTime fromDate,DateTime toDate)
         {
             DataSet ds= new DataSet();
             try
             {
-                ds = riskprofiledao.GetFPUtilityUserDetailsList();
+                ds = riskprofiledao.GetFPUtilityUserDetailsList(fromDate,toDate);
             }
             catch (BaseApplicationException Ex)
             {

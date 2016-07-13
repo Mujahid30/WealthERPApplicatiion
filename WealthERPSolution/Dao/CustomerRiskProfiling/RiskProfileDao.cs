@@ -766,7 +766,7 @@ namespace DaoCustomerRiskProfiling
 
             return dsAssetAllocationMIS;
         }
-        public DataSet GetFPUtilityUserDetailsList()
+        public DataSet GetFPUtilityUserDetailsList(DateTime fromDate, DateTime toDate)
         {
             Database db;
             DataSet ds;
@@ -775,6 +775,8 @@ namespace DaoCustomerRiskProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmd = db.GetStoredProcCommand("SPROC_GetFPUtilityUserDetailsList");
+                db.AddInParameter(cmd, "@FromDate", DbType.DateTime, fromDate);
+                db.AddInParameter(cmd, "@Todate", DbType.DateTime, toDate);
                 ds = db.ExecuteDataSet(cmd);
 
             }
