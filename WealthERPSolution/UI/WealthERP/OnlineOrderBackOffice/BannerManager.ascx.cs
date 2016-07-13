@@ -725,12 +725,12 @@ namespace WealthERP.OnlineOrderBackOffice
                 ScriptManager.RegisterStartupScript(this, GetType(), "SetEditMode", "isEditMode = true;", true);
                 this.rgNotification.MasterTableView.Items[0].Edit = true;
             }
-            if (e.CommandName == "RunSP")
+            if (e.CommandName == "SMS" || e.CommandName == "EMail" || e.CommandName == "DashBoard")
             {
                 GridDataItem item = e.Item as GridDataItem;
                 int id = Convert.ToInt32(item.OwnerTableView.DataKeyValues[item.ItemIndex]["CTNS_Id"].ToString());
                 string spName = item.OwnerTableView.DataKeyValues[item.ItemIndex]["CNT_SPName"].ToString();
-                bool result = onlineOrderBackOfficeBo.ExcuteNotification(id, spName);
+                bool result = onlineOrderBackOfficeBo.ExcuteNotification(id, spName, e.CommandName);
 
             }
 

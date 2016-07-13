@@ -2615,13 +2615,13 @@ namespace BoOnlineOrderManagement
         }
 
 
-        public bool ExcuteNotification(int CNT_ID, string SPName)
+        public bool ExcuteNotification(int CNT_ID, string SPName, string DeliveryOption)
         {
             bool bResult = false;
             OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
             try
             {
-                bResult = daoOnlineOrderBackOffice.ExcuteNotification(CNT_ID, SPName);
+                bResult = daoOnlineOrderBackOffice.ExcuteNotification(CNT_ID, SPName, DeliveryOption);
             }
             catch (BaseApplicationException Ex)
             {

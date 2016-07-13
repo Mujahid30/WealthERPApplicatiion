@@ -597,32 +597,32 @@
 
 
 
-//                    function Validate() {
-//                        var isValid = false;
-//                        isValid = Page_ClientValidate('Button1');
-//                        if (isValid) {
-//                            isValid = Page_ClientValidate('btnTC');
-//                        }
+                    //                    function Validate() {
+                    //                        var isValid = false;
+                    //                        isValid = Page_ClientValidate('Button1');
+                    //                        if (isValid) {
+                    //                            isValid = Page_ClientValidate('btnTC');
+                    //                        }
 
-//                        return isValid;
-//                    }
-//                    var crnt = 0;
-//                    function PreventClicks() {
+                    //                        return isValid;
+                    //                    }
+                    //                    var crnt = 0;
+                    //                    function PreventClicks() {
 
-//                        if (typeof (Page_ClientValidate('Button1')) == 'function') {
-//                            Page_ClientValidate();
-//                        }
+                    //                        if (typeof (Page_ClientValidate('Button1')) == 'function') {
+                    //                            Page_ClientValidate();
+                    //                        }
 
-//                        if (Page_IsValid) {
-//                            if (++crnt > 1) {
-//                                return false;
-//                            }
-//                            return true;
-//                        }
-//                        else {
-//                            return false;
-//                        }
-//                    }
+                    //                        if (Page_IsValid) {
+                    //                            if (++crnt > 1) {
+                    //                                return false;
+                    //                            }
+                    //                            return true;
+                    //                        }
+                    //                        else {
+                    //                            return false;
+                    //                        }
+                    //                    }
 
 
                     var crnt = 0;
@@ -713,12 +713,22 @@
                         </telerik:GridTemplateColumn>
                         <telerik:GridTemplateColumn UniqueName="TemplateEditColumnDashBoard" HeaderText="Edit/View DashBoard">
                             <ItemTemplate>
-                                <asp:LinkButton ID="EditLinkDashBoard" Visible='True' runat="server" Text="Edit/View"></asp:LinkButton>
+                                <asp:LinkButton ID="EditLinkDashBoard" Visible='<%# Eval("CTNS_IsDashBoardEnabled") %>' runat="server" Text="Edit/View"></asp:LinkButton>
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
-                        <telerik:GridButtonColumn UniqueName="runSP" ConfirmText="Are you sure you want to Send SMS/Email this ?"
-                            ConfirmDialogType="Classic" ConfirmTitle="SendSMS/Email" ButtonType="LinkButton" CommandName="RunSP"
-                            Text="SendSMS/Email">
+                        <telerik:GridButtonColumn UniqueName="SendSMS" ConfirmText="Are you sure you want to Send SMS ?"
+                            ConfirmDialogType="Classic" ConfirmTitle="SendSMS" ButtonType="LinkButton" CommandName="SMS"
+                            Text="Send SMS">
+                            <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                        </telerik:GridButtonColumn>
+                        <telerik:GridButtonColumn UniqueName="SendEMail" ConfirmText="Are you sure you want to Send Email ?"
+                            ConfirmDialogType="Classic" ConfirmTitle="SendEmail" ButtonType="LinkButton"
+                            CommandName="EMail" Text="Send Email">
+                            <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                        </telerik:GridButtonColumn>
+                        <telerik:GridButtonColumn UniqueName="GenerateOnDashBoard" ConfirmText="Are you sure you want to Generate Notification On Dashboard?"
+                            ConfirmDialogType="Classic" ConfirmTitle="Generate Notification On Dashboard"
+                            ButtonType="LinkButton" CommandName="DashBoard" Text="Generate Notification">
                             <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
                         </telerik:GridButtonColumn>
                         <telerik:GridBoundColumn UniqueName="CTNS_CreatedOn" HeaderText="Created On" DataField="CTNS_CreatedOn">
@@ -825,8 +835,7 @@
                                     <td align="right" colspan="2">
                                         <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
                                             ValidationGroup='<%# (Container is GridEditFormInsertItem) ? "btnInsertGroup1" : "btnUpdateGroup1" %>'
-                                            CausesValidation="true"  CssClass="PCGButton"
-                                            runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                                            CausesValidation="true" CssClass="PCGButton" runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
                                         </asp:Button>&nbsp;
                                         <asp:Button ID="Button2" CssClass="PCGButton" Text="Cancel" runat="server" CausesValidation="false"
                                             CommandName="Cancel"></asp:Button>

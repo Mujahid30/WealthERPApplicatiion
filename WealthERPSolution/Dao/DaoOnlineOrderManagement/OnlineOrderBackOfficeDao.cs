@@ -3332,7 +3332,7 @@ namespace DaoOnlineOrderManagement
         }
 
 
-        public bool ExcuteNotification(int CNT_ID, string SPName)
+        public bool ExcuteNotification(int CNT_ID, string SPName, string DeliveryOption)
         {
             bool bResult = false;
             Database db;
@@ -3342,7 +3342,8 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdStoredProcedure = db.GetStoredProcCommand(SPName);
-                db.AddInParameter(cmdStoredProcedure, "@CTNS_Id", DbType.Int32, CNT_ID);           
+                db.AddInParameter(cmdStoredProcedure, "@CTNS_Id", DbType.Int32, CNT_ID);
+                db.AddInParameter(cmdStoredProcedure, "@DeliveryOption", DbType.Int32, DeliveryOption);
                  if (db.ExecuteNonQuery(cmdStoredProcedure) != 0)
                     bResult = true;
             }
@@ -3356,7 +3357,7 @@ namespace DaoOnlineOrderManagement
 
 
 
-        public bool InsertUpdateDeleteNotificationSetupDetails(int id, int userId, int adviserId, string assetGroupCode, int notificationTypeID, string transactionTypes, string notificationHeader, int priorDays, bool IsSMSEnabled, bool IsEmailEnabled, bool IstoUpdate, bool IsDashBoardEnabled)
+        public bool InsertUpdateDeleteNotificationSetupDetails(int id, int userId, int adviserId, string assetGroupCode, int notificationTypeID, string transactionTypes, string notificationHeader, int priorDays, bool IsSMSEnabled, bool IsEmailEnabled, bool IsDashBoardEnabled, bool IstoUpdate)
         {
             bool bResult = false;
             Database db;
