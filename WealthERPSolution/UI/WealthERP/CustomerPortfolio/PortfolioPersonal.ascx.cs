@@ -109,24 +109,7 @@ namespace WealthERP.CustomerPortfolio
 
 
 
-            //string upperlimit = "";
-            //int rowCount = 0;
-            //int ratio = 0;
-            //string lowerlimit = "";
-            //string PageRecords = "";
-            //try
-            //{
-            //    rowCount = Convert.ToInt32(hdnRecordCount.Value);
-            //    ratio = rowCount / 10;
-            //    mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
-            //    mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-            //    lowerlimit = ((mypager.CurrentPage - 1) * 10).ToString();
-            //    upperlimit = (mypager.CurrentPage * 10).ToString();
-            //    if (mypager.CurrentPage == mypager.PageCount)
-            //        upperlimit = hdnRecordCount.Value;
-            //    PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);
-            //    lblCurrentPage.Text = PageRecords;
-            //}
+           
             catch (BaseApplicationException Ex)
             {
                 throw Ex;

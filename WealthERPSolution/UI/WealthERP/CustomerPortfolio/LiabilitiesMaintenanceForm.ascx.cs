@@ -1401,19 +1401,30 @@ namespace WealthERP.CustomerPortfolio
             DateTime endDate = new DateTime();
             if (ddlEMIFrequency.SelectedItem.Value == "MN")
             {
-                endDate = startDate.AddYears(period);
+                int a = (period * 12) + ((!string.IsNullOrEmpty(txtTenureMonths.Text)) ? int.Parse(txtTenureMonths.Text) : 0);
+                DateTime dt = DateTime.Now.AddMonths(a);
+                endDate = dt;
             }
             else if (ddlEMIFrequency.SelectedItem.Value == "YR")
             {
-                endDate = startDate.AddYears(period);
+                int a = (period * 12) + ((!string.IsNullOrEmpty(txtTenureMonths.Text)) ? int.Parse(txtTenureMonths.Text) : 0);
+                DateTime dt = DateTime.Now.AddMonths(a);
+                endDate = dt;
+                //endDate = startDate.AddYears(period);
             }
             else if (ddlEMIFrequency.SelectedItem.Value == "QT")
             {
-                endDate = startDate.AddYears(period);
+                int a = (period * 12) + ((!string.IsNullOrEmpty(txtTenureMonths.Text)) ? int.Parse(txtTenureMonths.Text) : 0);
+                DateTime dt = DateTime.Now.AddMonths(a);
+                endDate = dt;
+                //endDate = startDate.AddYears(period);
             }
             else if (ddlEMIFrequency.SelectedItem.Value == "HY")
             {
-                endDate = startDate.AddYears(period);
+                int a = (period * 12) + ((!string.IsNullOrEmpty(txtTenureMonths.Text)) ? int.Parse(txtTenureMonths.Text) : 0);
+                DateTime dt = DateTime.Now.AddMonths(a);
+                endDate = dt;
+                //endDate = startDate.AddYears(period);
             }
             txtInstallmentEndDt.Text = endDate.ToShortDateString();
         }
@@ -2403,20 +2414,13 @@ namespace WealthERP.CustomerPortfolio
 
             }
 
-            //if 
-            //{
-            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill enter values into Previous texboxs');", true);
-            //}
-
-            //if (ddlRepaymentType.SelectedIndex == 0)
-            //{
-            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill enter values into Previous texboxs');", true);
-            //}
+          
             else
             {
-                //chckPreviousFields(sender,e);
                 CalculateNumberOfInvestements();
                 CalcEndDate(Int16.Parse(txtTenture.Text), DateTime.Parse(txtInstallmentStartDt.Text.ToString()));
+                //CalcEndDate(Int16.Parse(txtTenture.Text) * 12 + Int16.Parse(txtTenureMonths.Text), DateTime.Parse(txtInstallmentStartDt.Text.ToString()));
+
                 CalculateInstallmentAmount();
                 btnSubmit.Enabled = true;
             }

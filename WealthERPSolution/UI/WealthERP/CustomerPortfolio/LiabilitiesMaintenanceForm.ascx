@@ -485,7 +485,7 @@
                         ErrorMessage="Please select a year" Display="Dynamic" ValidationGroup="vgBtnSubmitTemp"
                         ControlToValidate="txtTenture">
                     </asp:RequiredFieldValidator>
-                    <asp:TextBox ID="txtTenureMonths" runat="server"  CssClass="txtField" onchange="ResetDDL()" ></asp:TextBox>
+                    <asp:TextBox ID="txtTenureMonths"  runat="server"  CssClass="txtField" onchange="ResetDDL()" ></asp:TextBox>
                     <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtTenureMonths"
                         WatermarkText="Months">
                     </cc1:TextBoxWatermarkExtender>

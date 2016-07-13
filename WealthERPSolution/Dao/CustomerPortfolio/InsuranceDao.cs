@@ -185,6 +185,10 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(createInsurancePortfolioCmd, "@CINP_Amount", DbType.Decimal, insuranceVo.Amount);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_ModeOfPayment", DbType.String, insuranceVo.ModeOfPayment);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_PaymentInstrumentNumber", DbType.String, insuranceVo.PaymentInstrumentNumber);
+                //if (insuranceVo.PurchaseDate != DateTime.MinValue)
+                //    db.AddInParameter(createInsurancePortfolioCmd, "@CINP_PaymentInstrumentDate", DbType.DateTime, insuranceVo.PaymentInstrumentDate);
+                //else
+                //    db.AddInParameter(createInsurancePortfolioCmd, "@CINP_PaymentInstrumentDate", DbType.DateTime, DBNull.Value);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_PaymentInstrumentDate", DbType.DateTime, insuranceVo.PaymentInstrumentDate);
                 if (insuranceVo.bankcode != null)
                     db.AddInParameter(createInsurancePortfolioCmd, "@CINP_BankName", DbType.Int32, insuranceVo.bankcode);

@@ -684,7 +684,7 @@ namespace WealthERP.CustomerPortfolio
             ddlProductAmc.Items.Insert(0, new ListItem("Select", "0"));
         }
 
-
+         
         private void BindCustomerSubType()
         {
             dsCustomerTypes = productMfBo.GetCustomerTypes();

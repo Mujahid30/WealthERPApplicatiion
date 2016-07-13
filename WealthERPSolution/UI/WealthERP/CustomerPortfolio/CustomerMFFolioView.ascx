@@ -186,7 +186,7 @@
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn UniqueName="Name" HeaderStyle-Width="100px" HeaderText="Name"
-                    DataField="Name" SortExpression="Name" AllowFiltering="true" ShowFilterIcon="false"
+                    DataField="CMFA_INV_NAME" SortExpression="Name" AllowFiltering="true" ShowFilterIcon="false"
                     AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
