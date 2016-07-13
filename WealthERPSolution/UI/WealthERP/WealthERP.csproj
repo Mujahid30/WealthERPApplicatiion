@@ -4682,6 +4682,10 @@
       <Project>{92650A8F-D5DF-486E-9181-A00799F2C50C}</Project>
       <Name>BoFPSuperlite</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Bo\BoFPUtility\BoFPUtility.csproj">
+      <Project>{04802CFC-9703-4EC8-A452-CEB982A807DE}</Project>
+      <Name>BoFPUtility</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Bo\BoHostConfig\BoHostConfig.csproj">
       <Project>{474120D8-F814-40FB-96F8-376B9480D925}</Project>
       <Name>BoHostConfig</Name>
