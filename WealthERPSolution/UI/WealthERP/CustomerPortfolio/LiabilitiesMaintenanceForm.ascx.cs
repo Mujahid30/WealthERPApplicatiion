@@ -1441,40 +1441,14 @@ namespace WealthERP.CustomerPortfolio
             LiabilitiesVo liabilitiesVo = new LiabilitiesVo();
             liabilitiesVo = (LiabilitiesVo)Session["liabilityVo"];
 
-            //if (liabilitiesVo.LoanTypeCode.ToString() == "1" || liabilitiesVo.LoanTypeCode.ToString() == "2")
-            //{
+           
 
-            //    trLAP.Visible = false;
-            //    trLAPTitle.Visible = false;
-            //    trLAPError.Visible = false;
-            //}
-
-
-            //else if (liabilitiesVo.LoanTypeCode.ToString() == "3" || liabilitiesVo.LoanTypeCode.ToString() == "4")
-            //{
-            //    trLAP.Visible = true;
-            //    trLAPTitle.Visible = true;
-            //    trExistingAssets.Visible = false;
-            //    BindLAPCheckList();
-            //}
-            //else
-            //{
-            //    trLAP.Visible = false;
-            //    trLAPTitle.Visible = false;
-            //    //trAssets.Visible = false;
-            //    // btnAddAsset0.Visible = false;
-            //    trExistingAssets.Visible = false;
-            //}
-
-            //trLoanExceptionsTitle.Visible = true;
-            //trLoanExceptions.Visible = false;
-            //txtAmountPrepaid.Text = liabilitiesVo.AmountPrepaid.ToString();
-            //txtAmountPrepaid.Enabled = true;
+            
             txtEMIAmount.Text = liabilityVo.EMIAmount.ToString();
-            txtEMIAmount.Enabled = true;
+            txtEMIAmount.Enabled = false;
             if (liabilityVo.InstallmentEndDate != DateTime.MinValue)
                 txtInstallmentEndDt.Text = liabilityVo.InstallmentEndDate.ToShortDateString();
-            txtInstallmentEndDt.Enabled = true;
+            txtInstallmentEndDt.Enabled = false;
 
             if (liabilityVo.InstallmentStartDate != DateTime.MinValue)
                 txtInstallmentStartDt.Text = liabilityVo.InstallmentStartDate.ToShortDateString();
@@ -1506,7 +1480,7 @@ namespace WealthERP.CustomerPortfolio
             txtGuarantor.Enabled = true;
 
             txtNoOfInstallments.Text = liabilityVo.NoOfInstallments.ToString();
-            txtNoOfInstallments.Enabled = true;
+            txtNoOfInstallments.Enabled = false;
 
             txtLumpsumRepaymentAmount.Text = liabilityVo.LumpsumRepaymentAmount.ToString();
             txtLumpsumRepaymentAmount.Enabled = true;

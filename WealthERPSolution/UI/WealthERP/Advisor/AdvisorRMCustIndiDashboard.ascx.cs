@@ -768,6 +768,7 @@ namespace WealthERP.Advisor
                 else
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewGoldPortfolio','none');", true);
             }
+           
             else if (str == "Collectibles")
             {
                 Session["IsDashboard"] = "Collectibles";
@@ -777,14 +778,14 @@ namespace WealthERP.Advisor
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewCollectiblesPortfolio','none');", true);
             }
 
-            else if (str == "BankAccountDetails")
-            {
-                Session["IsDashboard"] = "BankAccountDetails";
-                if (Session["S_CurrentUserRole"] == "Customer")
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('ViewBankDetails','none');", true);
-                else
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewBankDetails','none');", true);
-            }
+            //else if (str == "BankAccountDetails")
+            //{
+            //    Session["IsDashboard"] = "BankAccountDetails";
+            //    if (Session["S_CurrentUserRole"] == "Customer")
+            //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('ViewBankDetails','none');", true);
+            //    else
+            //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewBankDetails','none');", true);
+            //}
 
             else if (str == "Insurance")
             {
@@ -812,7 +813,7 @@ namespace WealthERP.Advisor
             }
 
 
-            else
+            else if (str == "LiabilitiesView")
             {
 
                 Session["IsDashboard"] = "LiabilitiesView";
@@ -822,6 +823,15 @@ namespace WealthERP.Advisor
                 else
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('LiabilityView','none');", true);
             }
+            else  
+            {
+                Session["IsDashboard"] = "BankAccountDetails";
+                if (Session["S_CurrentUserRole"] == "Customer")
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('ViewBankDetails','none');", true);
+                else
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewBankDetails','none');", true);
+            }
+
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerIndLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
 
         }
