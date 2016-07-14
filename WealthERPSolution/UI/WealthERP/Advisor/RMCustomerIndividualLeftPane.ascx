@@ -166,6 +166,14 @@
                                         Value="Preferences">
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Recommendation" Value="CustomerFPRecommendation">
+                                     <Items>
+                                            <telerik:RadPanelItem runat="server" Text="View Recommendation" Value="View_Recommendation">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Add Recommendation" Value="Add_Recommendation">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Note" Value="Note">
+                                            </telerik:RadPanelItem>
+                                        </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Risk Profile and Asset Allocation" Value="Risk profile and asset allocation">
                                     </telerik:RadPanelItem>

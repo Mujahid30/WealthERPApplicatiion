@@ -18,7 +18,7 @@
                                     Visible="true">
                                     <telerik:RadGrid ID="gvCashFlowDetails" runat="server" GridLines="None" AutoGenerateColumns="False"
                                         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                                        OnItemDataBound="gvCashFlowDetails_ItemDataBound" Skin="Telerik" EnableEmbeddedSkins="false"
+                                         Skin="Telerik" EnableEmbeddedSkins="false"
                                         Width="100%" AllowFilteringByColumn="true" AllowAutomaticInserts="false">
                                         <ExportSettings HideStructureColumns="true">
                                         </ExportSettings>

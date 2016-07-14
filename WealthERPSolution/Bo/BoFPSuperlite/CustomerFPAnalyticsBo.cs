@@ -1068,5 +1068,22 @@ namespace BoFPSuperlite
             }
             return dt;
         }
+        public DataTable GetCustomerCashFlowRecomendation(int customerId)
+        {
+            CustomerFPAnalyticsDao customerFPAnalyticsDao = new CustomerFPAnalyticsDao();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                dt = customerFPAnalyticsDao.GetCustomerCashFlowRecomendation(customerId);
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dt;
+        }
     }
 }

@@ -1232,7 +1232,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "CustomerFPRecommendation")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerAdvisorsNote", "loadcontrol('CustomerFPRecommendation','none');", true);
+                   // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerAdvisorsNote", "loadcontrol('CustomerFPRecommendation','none');", true);
                 }
                 else if (e.Item.Value == "Risk profile and asset allocation")
                 {
@@ -1616,6 +1616,18 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "View Rates")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueHoldings", "loadcontrol('CustomerEQAccountRateView','none');", true);
+                }
+                else if (e.Item.Value == "View_Recommendation")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerCashFlowView", "loadcontrol('CustomerCashFlowView','none');", true);
+                }
+                else if (e.Item.Value == "Add_Recommendation")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerCashFlow", "loadcontrol('CustomerCashFlow','none');", true);
+                }
+                else if (e.Item.Value == "Note")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFPRecommendation", "loadcontrol('CustomerFPRecommendation','none');", true);
                 }
                 else if (e.Item.Value == "Bond_Order")
                 {

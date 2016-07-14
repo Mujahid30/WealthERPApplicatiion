@@ -325,6 +325,33 @@ namespace DaoFPSuperlite
 
             return dt;
         }
+
+
+
+        public DataTable GetCustomerCashFlowRecomendation(int customerId)
+        {
+            Database db;
+            DbCommand Cmd;
+            DataTable dt = new DataTable();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                Cmd = db.GetStoredProcCommand("SP_GETCustomerCashFlowRecommendedList");
+
+                db.AddInParameter(Cmd, "@CustomerId", DbType.Int32, customerId);
+                DataSet ds = db.ExecuteDataSet(Cmd);
+                if (ds != null)
+                {
+                    dt = ds.Tables[0];
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dt;
+        }
          
     }
 }

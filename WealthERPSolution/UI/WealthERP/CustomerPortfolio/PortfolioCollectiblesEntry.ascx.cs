@@ -159,10 +159,10 @@ namespace WealthERP.CustomerPortfolio
             {
                 genDictPortfolioDetails = (Dictionary<int, int>)Session["genDictPortfolioDetails"];
             }
-            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
-            //int value = keyValuePair.Value;
+          //  var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+           // int value = keyValuePair.Value;
 
-            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+           // hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
             hdnIsCustomerLogin.Value = userVo.UserType;
         }
 
@@ -352,10 +352,10 @@ namespace WealthERP.CustomerPortfolio
             {
                 genDictPortfolioDetails = (Dictionary<int, int>)Session["genDictPortfolioDetails"];
             }
-            var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
+           // var keyValuePair = genDictPortfolioDetails.Single(x => x.Key == portfolioId);
             //int value = keyValuePair.Value;
 
-            hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
+           // hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
             hdnIsCustomerLogin.Value = userVo.UserType;
         
         }
