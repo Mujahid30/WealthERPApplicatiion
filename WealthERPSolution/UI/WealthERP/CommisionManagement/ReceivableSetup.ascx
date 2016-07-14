@@ -802,11 +802,7 @@
                         <td>
                             <asp:DropDownList ID="ddlMFCategory" runat="server" CssClass="cmbField">
                             </asp:DropDownList>
-                              <span id="Span20" class="spnRequiredField">*</span>
-                            <br />
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator16" runat="server" ErrorMessage="Select Category"
-                                CssClass="rfvPCG" ControlToValidate="ddlMFCategory" ValidationGroup="btnScheme_Go" Display="Dynamic"
-                                InitialValue="0" ></asp:RequiredFieldValidator>
+                           
                         </td>
                         <td class="rightData">
                             <asp:Button ID="btn_GetAvailableSchemes" runat="server" Text="Go" CssClass="PCGButton"

@@ -594,7 +594,7 @@ namespace WealthERP.Receivable
             ddlMFCategory.DataValueField = dsLookupData.Tables[0].Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
             ddlMFCategory.DataTextField = dsLookupData.Tables[0].Columns["PAIC_AssetInstrumentCategoryName"].ToString();
             ddlMFCategory.DataBind();
-            ddlMFCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+            ddlMFCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
         }
         protected void GetCommisionTypes()
         {
