@@ -45,7 +45,7 @@ namespace FPUtilityTool
                 {
                     BindAssetsPiaChart(dsRiskClass.Tables[1]);
                 }
-                if (!string.IsNullOrEmpty(fpuserVo.RiskClassCode))
+                if (!string.IsNullOrEmpty(fpuserVo.RiskClassCode)&&fpuserVo.IsProspectmarked)
                 {
                     divtnc1.Visible = false;
                     divtnc2.Visible = false;
