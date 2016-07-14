@@ -251,13 +251,17 @@ namespace WealthERP.Admin
             //    ddlSelectMutualFund.SelectedIndex = 0;
             //    ddlSelectSchemeNAV.SelectedIndex = 0;
             //}
-            if (rbtnHistorical.Checked)
+            if (rbtnHistorical.Checked || rbtnMissingNAV.Checked)
             {
                 //trFromDate.Style.Add("display", "block");
                 //trToDate.Style.Add("display", "block");
                 tdFromDate.Visible = true;
                 tdToDate.Visible = true;
                 btnSubmit.Visible = true;
+            }
+            if (rbtnMissingNAV.Checked)
+            {
+                Panel1.Visible = false;
             }
             if (hdnassetType.Value == "MF")
             {
@@ -380,6 +384,7 @@ namespace WealthERP.Admin
             DataSet ds;
             lblIllegal.Visible = false;
             trgvEquityView.Visible = true;
+            pnlMissingNAV.Visible = false;
             //trgrMfView.Visible = true;
             //trPageCount.Visible = true;
             // trPager.Visible = true;
@@ -615,6 +620,22 @@ namespace WealthERP.Admin
                         //hdnSchemeSearch.Value = null;
                     }
                 }
+            }
+            else if (rbtnMissingNAV.Checked)
+            {
+                DateTime StartDate = DateTime.Parse(txtFrom.SelectedDate.ToString());
+                DateTime EndDate = DateTime.Parse(txtTo.SelectedDate.ToString());
+                DataTable dt = PriceObj.GetMissingNAVSchemeList(int.Parse(ddlSelectMutualFund.SelectedValue), ddlNAVCategory.SelectedValue, int.Parse(ddlSelectSchemeNAV.SelectedValue), StartDate, EndDate);
+                rdMFMissingNAV.DataSource = dt;
+                rdMFMissingNAV.DataBind();
+                pnlMissingNAV.Visible = true;
+                DivMF.Style.Add("display", "visible");
+                if (Cache["MFMissingNAV" + advisorVo.advisorId] != null)
+                {
+                    Cache.Remove("MFMissingNAV" + advisorVo.advisorId);
+                }
+                Cache.Insert("MFMissingNAV" + advisorVo.advisorId, dt);
+                
             }
         }
         public void PagingTelerikGrid()
@@ -1445,7 +1466,13 @@ namespace WealthERP.Admin
         {
             BindMonth();
         }
-
+         protected void rdMFMissingNAV_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtMFMissingNAV = new DataTable();
+            dtMFMissingNAV = (DataTable)Cache["MFMissingNAV" + advisorVo.advisorId.ToString()];
+            rdMFMissingNAV.DataSource = dtMFMissingNAV;
+        }
+        
         protected void gvMFFundPerformance_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataView dtFundPerformanceDetailsDetails = new DataView();
@@ -1633,142 +1660,7 @@ namespace WealthERP.Admin
                 }
             }
         }
-        //private void BindNavSubCategory()
-        //{
-        //    string categoryCode = ddlNAVCategory.SelectedValue;
-        //    dsCategoryList = priceBo.BindddlMFSubCategory();
-        //    if (categoryCode == "All")
-        //    {
-        //        trNavSubCategory.Visible = false;
-        //        hdnSubCategory.Value = "";
-
-        //    }
-        //    if (categoryCode == "MFCO")
-        //    {
-        //        trNavSubCategory.Visible = true;
-        //        ddlNAVSubCategory.DataSource = dsCategoryList.Tables[0];
-        //        ddlNAVSubCategory.DataTextField = dsCategoryList.Tables[0].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
-        //        ddlNAVSubCategory.DataValueField = dsCategoryList.Tables[0].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
-        //        ddlNAVSubCategory.DataBind();
-        //        ddlNAVSubCategory.Items.Insert(0, new ListItem("All", "All"));
-        //    }
-        //    if (categoryCode == "MFDT")
-        //    {
-        //        trNavSubCategory.Visible = true;
-        //        ddlNAVSubCategory.DataSource = dsCategoryList.Tables[1];
-        //        ddlNAVSubCategory.DataTextField = dsCategoryList.Tables[1].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
-        //        ddlNAVSubCategory.DataValueField = dsCategoryList.Tables[1].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
-        //        ddlNAVSubCategory.DataBind();
-        //        ddlNAVSubCategory.Items.Insert(0, new ListItem("All", "All"));
-        //    }
-        //    if (categoryCode == "MFEQ")
-        //    {
-        //        trNavSubCategory.Visible = true;
-        //        ddlNAVSubCategory.DataSource = dsCategoryList.Tables[2];
-        //        ddlNAVSubCategory.DataTextField = dsCategoryList.Tables[2].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
-        //        ddlNAVSubCategory.DataValueField = dsCategoryList.Tables[2].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
-        //        ddlNAVSubCategory.DataBind();
-        //        ddlNAVSubCategory.Items.Insert(0, new ListItem("All", "All"));
-        //    }
-        //    if (categoryCode == "MFHY")
-        //    {
-        //        trNavSubCategory.Visible = true;
-        //        ddlNAVSubCategory.DataSource = dsCategoryList.Tables[3];
-        //        ddlNAVSubCategory.DataTextField = dsCategoryList.Tables[3].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
-        //        ddlNAVSubCategory.DataValueField = dsCategoryList.Tables[3].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
-        //        ddlNAVSubCategory.DataBind();
-        //        ddlNAVSubCategory.Items.Insert(0, new ListItem("All", "All"));
-        //    }
-        //    LoadAllSchemeNAV();
-        //}
-        //protected void ddlNAVSubCategory_OnSelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    LoadAllSchemeNAV();
-        //}
-        //private void BindMFFundPerformance(DataTable dt)
-        //{
-        //    DataTable dtMFFundPerformance = new DataTable();
-        //    DataRow drMFFundPerformance;
-        //    try
-        //    {
-        //        if (dt.Rows.Count > 0)
-        //        {
-        //            dtMFFundPerformance.Columns.Add("SchemeName");
-        //            //dtMFFundPerformance.Columns.Add("AUM");
-        //            dtMFFundPerformance.Columns.Add("LaunchDate");
-        //            dtMFFundPerformance.Columns.Add("NAV");
-        //            //dtMFFundPerformance.Columns.Add("HighestNAV");
-        //            //dtMFFundPerformance.Columns.Add("LowestNAV");
-        //            //dtMFFundPerformance.Columns.Add("YTD");
-        //            dtMFFundPerformance.Columns.Add("OneWeekReturn");
-        //            dtMFFundPerformance.Columns.Add("OneMonthReturn");
-        //            dtMFFundPerformance.Columns.Add("ThreeMonthReturn");
-        //            dtMFFundPerformance.Columns.Add("SixMonthReturn");
-        //            dtMFFundPerformance.Columns.Add("OneYearReturn");
-        //            dtMFFundPerformance.Columns.Add("TwoYearReturn");
-        //            dtMFFundPerformance.Columns.Add("ThreeYearReturn");
-        //            dtMFFundPerformance.Columns.Add("FiveYearReturn");
-        //            dtMFFundPerformance.Columns.Add("InceptionReturn");
-        //            dtMFFundPerformance.Columns.Add("PE");
-        //            dtMFFundPerformance.Columns.Add("PB");
-        //            //dtMFFundPerformance.Columns.Add("Cash");
-        //            dtMFFundPerformance.Columns.Add("Sharpe");
-        //            dtMFFundPerformance.Columns.Add("SD");
-        //            //dtMFFundPerformance.Columns.Add("Top 5 Holdings");
-
-        //            foreach (DataRow dr in dt.Rows)
-        //            {
-        //                drMFFundPerformance = dtMFFundPerformance.NewRow();
-        //                drMFFundPerformance["SchemeName"] = dr["SchemeName"].ToString();
-        //                //drMFFundPerformance["AUM"] = dr["AUM"].ToString();
-        //                drMFFundPerformance["LaunchDate"] = DateTime.Parse(dr["LaunchDate"].ToString()).ToShortDateString();
-        //                drMFFundPerformance["NAV"] = dr["NAV"].ToString();
-        //                //drMFFundPerformance["HighestNAV"] = dr["HighestNAV"].ToString();
-        //                //drMFFundPerformance["LowestNAV"] = dr["LowestNAV"].ToString();
-        //                //drMFFundPerformance["YTD"] = DateTime.Parse(dr["YTD"].ToString()).ToShortDateString();
-        //                drMFFundPerformance["OneWeekReturn"] = dr["OneWeekReturn"].ToString();
-        //                drMFFundPerformance["OneMonthReturn"] = dr["OneMonthReturn"].ToString();
-        //                drMFFundPerformance["ThreeMonthReturn"] = dr["ThreeMonthReturn"].ToString();
-        //                drMFFundPerformance["SixMonthReturn"] = dr["SixMonthReturn"].ToString();
-        //                drMFFundPerformance["OneYearReturn"] = dr["OneYearReturn"].ToString();
-        //                drMFFundPerformance["TwoYearReturn"] = dr["TwoYearReturn"].ToString();
-        //                drMFFundPerformance["ThreeYearReturn"] = dr["ThreeYearReturn"].ToString();
-        //                drMFFundPerformance["FiveYearReturn"] = dr["FiveYearReturn"].ToString();
-        //                drMFFundPerformance["InceptionReturn"] = dr["InceptionReturn"].ToString();
-        //                drMFFundPerformance["PE"] = dr["PE"].ToString();
-        //                drMFFundPerformance["PB"] = dr["PB"].ToString();
-        //                //drMFFundPerformance["Cash"] = dr["Cash"].ToString();
-        //                drMFFundPerformance["Sharpe"] = dr["Sharpe"].ToString();
-        //                drMFFundPerformance["SD"] = dr["SD"].ToString();
-        //                //drMFFundPerformance["Top5Holdings"] = dr["Top5Holdings"].ToString();
-
-        //                dtMFFundPerformance.Rows.Add(drMFFundPerformance);
-        //            }
-        //            gvMFFundPerformance.DataSource = dtMFFundPerformance;
-        //            gvMFFundPerformance.DataBind();
-        //        }
-        //        else
-        //        {
-
-        //        }
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-        //        FunctionInfo.Add("Method", "PriceList.ascx:BindgvMFFundPerformance()");
-        //        object[] objects = new object[1];
-        //        objects[0] = Session["FP_UserID"];
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-        //}
+        
         protected void ddlFactCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlAmcCode.SelectedIndex != 0)
@@ -1813,6 +1705,16 @@ namespace WealthERP.Admin
             gvEquityRecord.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvEquityRecord.MasterTableView.ExportToExcel();
         }
+        public void imgMissingNavExprt_OnClick(object sender, ImageClickEventArgs e)
+        {
+            rdMFMissingNAV.ExportSettings.OpenInNewWindow = true;
+            rdMFMissingNAV.ExportSettings.IgnorePaging = true;
+            rdMFMissingNAV.ExportSettings.HideStructureColumns = true;
+            rdMFMissingNAV.ExportSettings.ExportOnlyData = true;
+            rdMFMissingNAV.ExportSettings.FileName = "Missing NAV";
+            rdMFMissingNAV.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            rdMFMissingNAV.MasterTableView.ExportToExcel();
+        }      
 
 
     }

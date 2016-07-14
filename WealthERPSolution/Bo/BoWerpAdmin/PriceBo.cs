@@ -60,7 +60,11 @@ namespace BoWerpAdmin
 
         }
 
-
+        public DataTable GetMissingNAVSchemeList(int amcCode, string categoryCode, int schemePlancode, DateTime fromDate, DateTime toDate)
+        {
+            PriceDao PriceObj = new PriceDao();
+            return PriceObj.GetMissingNAVSchemeList(amcCode, categoryCode, schemePlancode, fromDate, toDate);
+        }
 
         public DataSet GetAMFISnapshot(string Flag, String Search, int amfiCode, int schemeCode, int selectAllCode,int All,string CategoryCode)
         {

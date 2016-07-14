@@ -335,6 +335,30 @@ namespace DaoWerpAdmin
             return dsFactsheetschemeDetails;
 
         }
+        public DataTable GetMissingNAVSchemeList(int amcCode, string categoryCode, int schemePlancode,DateTime fromDate,DateTime toDate)
+        {
+
+            DataSet dsSchemeListMissingNAV = new DataSet();
+            Database dbsheetschemeDetails;
+            DbCommand CmdSchemeListMissingNAV;
+            try
+            {
+                dbsheetschemeDetails = DatabaseFactory.CreateDatabase("wealtherp");
+                CmdSchemeListMissingNAV = dbsheetschemeDetails.GetStoredProcCommand("SPROC_GetSchemeMissingNAV");
+                dbsheetschemeDetails.AddInParameter(CmdSchemeListMissingNAV, "@PA_AmcCode", DbType.Int32, amcCode);
+                dbsheetschemeDetails.AddInParameter(CmdSchemeListMissingNAV, "@category", DbType.String, categoryCode);
+                dbsheetschemeDetails.AddInParameter(CmdSchemeListMissingNAV, "@schemePlancode", DbType.Int64, schemePlancode);
+                dbsheetschemeDetails.AddInParameter(CmdSchemeListMissingNAV, "@fromDate", DbType.Date, fromDate);
+                dbsheetschemeDetails.AddInParameter(CmdSchemeListMissingNAV, "@toDate", DbType.Date, toDate);
+                CmdSchemeListMissingNAV.CommandTimeout = 60 * 60;
+                dsSchemeListMissingNAV = dbsheetschemeDetails.ExecuteDataSet(CmdSchemeListMissingNAV);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsSchemeListMissingNAV.Tables[0];
+        }
         public DataSet GetSchemeListCategorySubCategory(int amcCode, string categoryCode, string subCategory)
         {
             

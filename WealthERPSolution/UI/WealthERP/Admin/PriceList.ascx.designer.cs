@@ -1874,5 +1874,8 @@ namespace WealthERP.Admin {
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdToDate;
         protected global::Telerik.Web.UI.RadDatePicker txtFrom;
         protected global::Telerik.Web.UI.RadDatePicker txtTo;
+        protected global::Telerik.Web.UI.RadGrid rdMFMissingNAV;
+        protected global::System.Web.UI.WebControls.RadioButton rbtnMissingNAV;
+        protected global::System.Web.UI.WebControls.Panel pnlMissingNAV;
     }
 }

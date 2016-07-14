@@ -139,6 +139,9 @@
                                 &nbsp
                                 <asp:RadioButton ID="rbtnHistorical" runat="server" AutoPostBack="true" CssClass="txtField"
                                     GroupName="Snapshot" OnCheckedChanged="rbtnHistorical_CheckedChanged" Text="Historical" />
+                                    
+                                     <asp:RadioButton ID="rbtnMissingNAV" runat="server" AutoPostBack="true" CssClass="txtField"
+                                    GroupName="Snapshot" OnCheckedChanged="rbtnHistorical_CheckedChanged" Text="Missing NAV" />
                             </td>
                             <tr>
                                 <td align="right">
@@ -353,6 +356,62 @@
                                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
                                             </Columns>
+                                        </MasterTableView>
+                                        <ClientSettings>
+                                            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                                        </ClientSettings>
+                                    </telerik:RadGrid>
+                                </td>
+                            </tr>
+                        </table>
+                    </asp:Panel>
+                    <asp:Panel ID="pnlMissingNAV" runat="server" class="Landscape" Width="99%" ScrollBars="Horizontal">
+                        <table width="99%">
+                            <tr id="tr2" runat="server">
+                                <td>
+                                    <asp:ImageButton ID="imgMissingNavExprt" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgMissingNavExprt_OnClick"
+                                        OnClientClick="setFormat('CSV')" Height="25px" Width="25px"></asp:ImageButton>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <telerik:RadGrid OnNeedDataSource="rdMFMissingNAV_OnNeedDataSource" ID="rdMFMissingNAV" runat="server"
+                                        GridLines="None" AutoGenerateColumns="False" PageSize="10" AllowSorting="true"
+                                        AllowPaging="True" ShowStatusBar="True" ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false"
+                                        Width="120%" AllowFilteringByColumn="false" AllowAutomaticInserts="false">
+                                        <ExportSettings ExportOnlyData="true" HideStructureColumns="true" FileName="MFNavRecordslist">
+                                        </ExportSettings>
+                                        <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+                                            CommandItemDisplay="None">
+                                            <%-- <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
+                    ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="true"/>--%>
+                                            <Columns>
+                                                <telerik:GridBoundColumn DataField="PASP_SchemePlanCode" AllowFiltering="false" HeaderText="Scheme Plan Code"
+                                                    UniqueName="PASP_SchemePlanCode">
+                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn DataField="SchemePlanName" AllowFiltering="false" HeaderText="Scheme Plan Name"
+                                                    UniqueName="SchemePlanName">
+                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn DataField="MONTH" HeaderText="Month"
+                                                    AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="MONTH" ShowFilterIcon="false"
+                                                    CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="MONTH"
+                                                    FooterStyle-HorizontalAlign="Left">
+                                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn DataField="Difference(Days)" HeaderText="Difference(Days)"
+                                                    AllowFiltering="false" HeaderStyle-Wrap="false" SortExpression="Difference(Days)"
+                                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                                    UniqueName="Difference(Days)" FooterStyle-HorizontalAlign="Left">
+                                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn DataField="MissingDates" AllowFiltering="false" HeaderText="MissingDates"
+                                                    UniqueName="MissingDates">
+                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                </telerik:GridBoundColumn>
+                                                                                           </Columns>
                                         </MasterTableView>
                                         <ClientSettings>
                                             <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
