@@ -7860,6 +7860,8 @@
     <Content Include="bin\BoCustomerRiskProfiling.dll" />
     <Content Include="bin\BoCustomerRiskProfiling.pdb" />
     <Content Include="bin\BoFPSuperlite.pdb" />
+    <Content Include="bin\BoFPUtility.dll" />
+    <Content Include="bin\BoFPUtility.pdb" />
     <Content Include="bin\BoHostConfig.dll" />
     <Content Include="bin\BoHostConfig.pdb" />
     <Content Include="bin\BoOfflineOrderManagement.dll" />
@@ -7882,6 +7884,8 @@
     <Content Include="bin\DaoCommon.pdb" />
     <Content Include="bin\DaoFPSuperlite.dll" />
     <Content Include="bin\DaoFPSuperlite.pdb" />
+    <Content Include="bin\DaoFPUtility.dll" />
+    <Content Include="bin\DaoFPUtility.pdb" />
     <Content Include="bin\DaoOfflineOrderManagement.dll" />
     <Content Include="bin\DaoOfflineOrderManagement.pdb" />
     <Content Include="bin\DaoOnlineOrderManagement.dll" />
@@ -7926,6 +7930,8 @@
     <Content Include="bin\VoCommon.pdb" />
     <Content Include="bin\VoEmailSMS.dll" />
     <Content Include="bin\VoEmailSMS.pdb" />
+    <Content Include="bin\VOFPUtilityUser.dll" />
+    <Content Include="bin\VOFPUtilityUser.pdb" />
     <Content Include="bin\VoHostConfig.dll" />
     <Content Include="bin\VoHostConfig.pdb" />
     <Content Include="bin\VoOnlineOrderManagemnet.dll" />
