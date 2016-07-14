@@ -26,6 +26,13 @@ namespace WealthERP.Alerts
             
             if(!IsPostBack)
             {
+                DataSet ds = onlineOrderBackOfficeBo.BindNotificationSetup(adviserVo.advisorId);
+
+                ddlAssetGroupName1.DataSource = ds.Tables[1];
+                ddlAssetGroupName1.DataValueField = "Code";
+                ddlAssetGroupName1.DataTextField = "Name";
+                ddlAssetGroupName1.DataBind();
+                ddlAssetGroupName1.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
                 Panel1.Visible = false;
             }
         }
@@ -40,6 +47,8 @@ namespace WealthERP.Alerts
                 DropDownList1.DataBind();
                 DropDownList1.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
             }
+            else
+                DropDownList1.Items.Clear();
         }
         protected void NotificationType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
@@ -52,6 +61,8 @@ namespace WealthERP.Alerts
                 DropDownList2.DataBind();
                 DropDownList2.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
             }
+            else
+                DropDownList2.Items.Clear();
         }
         protected void NotificationHeader_OnSelectedIndexChanged(object sender, EventArgs e)
         {
@@ -64,12 +75,14 @@ namespace WealthERP.Alerts
                 DropDownList3.DataBind();
                 DropDownList3.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
             }
+            else
+                DropDownList3.Items.Clear();
         }
         protected void Submit_OnClick(object sender, EventArgs e)
         {
             //fromdate = DateTime.Parse(txtFromDate.SelectedDate.ToString());
-            
-            DataSet ds = onlineOrderBackOfficeBo.GetNotificationMessageDetails(Convert.ToInt32(DropDownList2.SelectedValue), DropDownList3.SelectedValue);
+
+            DataSet ds = onlineOrderBackOfficeBo.GetNotificationMessageDetails(Convert.ToInt32(DropDownList2.SelectedValue), DropDownList3.SelectedValue, Convert.ToDateTime(txtFromDate.SelectedDate),Convert.ToDateTime(txtToDate.SelectedDate));
             if (ds.Tables[0].Rows.Count > 0)
             {
                 if (Cache["MessageDetails" + userVo.UserId.ToString()] == null)

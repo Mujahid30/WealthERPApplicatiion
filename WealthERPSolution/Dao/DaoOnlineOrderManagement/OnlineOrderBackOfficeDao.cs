@@ -3493,7 +3493,7 @@ namespace DaoOnlineOrderManagement
             return ds;
         }
 
-        public DataSet GetNotificationMessageDetails(int notificationHeaderId, string ChannelType)
+        public DataSet GetNotificationMessageDetails(int notificationHeaderId, string ChannelType, DateTime fromDate, DateTime todate)
         {
             DataSet ds;
             Database db;
@@ -3504,6 +3504,8 @@ namespace DaoOnlineOrderManagement
                 cmd = db.GetStoredProcCommand("SP_GetNotificationMessageDetails");
                 db.AddInParameter(cmd, "@NotificationHeaderId", DbType.Int32, notificationHeaderId);
                 db.AddInParameter(cmd, "@ChannelType", DbType.String, ChannelType);
+                db.AddInParameter(cmd, "@FromDate", DbType.DateTime, fromDate);
+                db.AddInParameter(cmd, "@ToDate", DbType.DateTime, todate);
                 ds = db.ExecuteDataSet(cmd);
             }
             catch (BaseApplicationException Ex)

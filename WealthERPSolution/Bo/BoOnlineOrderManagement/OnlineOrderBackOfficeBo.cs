@@ -2723,13 +2723,13 @@ namespace BoOnlineOrderManagement
             return dsNotificationCommChannel;
         }
 
-        public DataSet GetNotificationMessageDetails(int notificationHeaderId, string ChannelType)
+        public DataSet GetNotificationMessageDetails(int notificationHeaderId, string ChannelType,DateTime fromDate,DateTime todate)
         {
             DataSet ds = new DataSet();
             OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
             try
             {
-                ds = daoOnlineOrderBackOffice.GetNotificationMessageDetails(notificationHeaderId, ChannelType);
+                ds = daoOnlineOrderBackOffice.GetNotificationMessageDetails(notificationHeaderId, ChannelType,fromDate,todate);
             }
             catch (BaseApplicationException Ex)
             {

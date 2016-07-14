@@ -30,10 +30,6 @@
         <td class="rightField">
             <asp:DropDownList ID="ddlAssetGroupName1" runat="server" CssClass="cmbField"
            AutoPostBack="true"     OnSelectedIndexChanged="ddlAssetGroupName_OnSelectedIndexChanged">
-                <asp:ListItem Selected="True" Value="0">SELECT</asp:ListItem>
-                <asp:ListItem Selected="False" Value="IP">IPO</asp:ListItem>
-                <asp:ListItem Selected="False" Value="FI">BOND</asp:ListItem>
-                <asp:ListItem Selected="False" Value="MF">Mutual Fund</asp:ListItem>
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
             <br />
