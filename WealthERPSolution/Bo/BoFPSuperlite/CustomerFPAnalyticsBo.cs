@@ -1068,22 +1068,24 @@ namespace BoFPSuperlite
             }
             return dt;
         }
-        public DataTable GetCustomerCashFlowRecomendation(int customerId)
-        {
-            CustomerFPAnalyticsDao customerFPAnalyticsDao = new CustomerFPAnalyticsDao();
-            DataTable dt = new DataTable();
 
+
+
+
+        public DataSet BindCustomerCashFlowDetails(int CustomerId)
+        {
+            DataSet dsCustomerCashFlowDetails = new DataSet();
+            CustomerFPAnalyticsDao daoOnlineOrderBackOffice = new CustomerFPAnalyticsDao();
             try
             {
-                dt = customerFPAnalyticsDao.GetCustomerCashFlowRecomendation(customerId);
-
-
+                dsCustomerCashFlowDetails = daoOnlineOrderBackOffice.BindCustomerCashFlowDetails(CustomerId);
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
-            return dt;
+            return dsCustomerCashFlowDetails;
         }
+
     }
 }

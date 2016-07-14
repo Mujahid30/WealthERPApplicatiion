@@ -22,11 +22,11 @@
                                         Width="100%" AllowFilteringByColumn="true" AllowAutomaticInserts="false">
                                         <ExportSettings HideStructureColumns="true">
                                         </ExportSettings>
-                                        <MasterTableView Width="100%" AllowMultiColumnSorting="True" DataKeyNames="CCRL_ID"
+                                        <MasterTableView Width="100%" AllowMultiColumnSorting="True" DataKeyNames=""
                                             AutoGenerateColumns="false" CommandItemDisplay="None">
                                             <Columns>
-                                                <telerik:GridBoundColumn HeaderText="Product" DataField="C_CustCode" UniqueName="C_CustCode"
-                                                    SortExpression="Client Code" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                                <telerik:GridBoundColumn HeaderText="Product" Visible="false" DataField="" UniqueName="Product"
+                                                    SortExpression="Product" AutoPostBackOnFilter="true" AllowFiltering="true"
                                                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
@@ -36,11 +36,11 @@
                                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Start Date" DataField="CCRL_StartDate" UniqueName="CCRL_StartDate" SortExpression="CCRL_StartDate"
-                                                    AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="End Date" DataField="CCRL_EndDate" UniqueName="CCRL_EndDate"
-                                                    SortExpression="CCRL_EndDate" AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false"
+                                                    SortExpression="CCRL_EndDate" AutoPostBackOnFilter="true"  AllowFiltering="false" ShowFilterIcon="false"
                                                     CurrentFilterFunction="Contains">
                                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>

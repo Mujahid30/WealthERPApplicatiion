@@ -99,7 +99,7 @@
                                 Skin="Telerik" EnableEmbeddedSkins="false">
                             </Calendar>
                             <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                            <DateInput ID="DateInput1" DisplayDateFormat="d/M/yyyy" runat="server" DateFormat="d/M/yyyy">
+                            <DateInput ID="DateInput1" DisplayDateFormat="dd/MM/yyyy" runat="server" DateFormat="dd/MM/yyyy">
                             </DateInput>
                         </telerik:RadDatePicker>
                        
@@ -116,7 +116,7 @@
                                 Skin="Telerik" EnableEmbeddedSkins="false">
                             </Calendar>
                             <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                            <DateInput ID="DateInput2" DisplayDateFormat="d/M/yyyy" runat="server" DateFormat="d/M/yyyy">
+                            <DateInput ID="DateInput2" DisplayDateFormat="dd/MM/yyyy" runat="server" DateFormat="dd/MM/yyyy">
                             </DateInput>
                         </telerik:RadDatePicker>
                        

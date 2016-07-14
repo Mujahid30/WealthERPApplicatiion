@@ -44,8 +44,8 @@ namespace WealthERP.FP
 
         protected void Page_Load(object sender, EventArgs e)
         {
-             //customerVo = (CustomerVo)Session["customerVo"];
-            //userVo = (UserVo)Session["userVo"];
+            customerVo = (CustomerVo)Session["customerVo"];
+            userVo = (UserVo)Session["userVo"];
             if (!IsPostBack)
             {
                 BindProductType();

@@ -14,18 +14,18 @@ namespace WealthERP.FP
     {
         CustomerFPAnalyticsBo customerFPAnalyticsBo = new CustomerFPAnalyticsBo();
         CustomerVo customerVo = new CustomerVo();
-        //CustomerVo customerVo;
         protected void Page_Load(object sender, EventArgs e)
         {
+            customerVo = (CustomerVo)Session["customerVo"];
             BindCustomerCashFlowDetailsGrid();
         }
 
 
         public void BindCustomerCashFlowDetailsGrid()
         {
-            //DataSet ds = customerFPAnalyticsBo.GetCustomerCashFlowRecomendation(customerVo.customerId);
-            //gvCashFlowDetails.DataSource = ds.Tables[0];
-            //gvCashFlowDetails.DataBind();
+            DataSet ds = customerFPAnalyticsBo.BindCustomerCashFlowDetails(customerVo.CustomerId);
+            gvCashFlowDetails.DataSource = ds.Tables[0];
+            gvCashFlowDetails.DataBind();
         }
     }
 }
