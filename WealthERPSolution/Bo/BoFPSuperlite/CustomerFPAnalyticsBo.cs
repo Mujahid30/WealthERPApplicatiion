@@ -1013,13 +1013,13 @@ namespace BoFPSuperlite
 
 
 
-        public int CreateCashFlowRecomendation(int CustomerId, int userId, int CCRLSourceId, int CCRL_ID, decimal CCRLAmount, DateTime startDate, DateTime endDate, decimal SumAssured, string Remarks, String CCRL_FrequencyMode)
+        public int CreateCashFlowRecomendation(int CustomerId, int userId, int CRPL_ID, int CCRLSourceId, String CCRL_BuyType, decimal CCRLAmount, DateTime startDate, DateTime endDate, decimal SumAssured, string Remarks, String CCRL_FrequencyMode)
         {
             CustomerFPAnalyticsDao customerFPAnalyticsDao = new CustomerFPAnalyticsDao();
             int customercashrecomendationid;
             try
             {
-                customercashrecomendationid = customerFPAnalyticsDao.CreateCashFlowRecomendation(CustomerId, userId, CCRLSourceId, CCRL_ID, CCRLAmount, startDate, endDate, SumAssured, Remarks, CCRL_FrequencyMode);
+                customercashrecomendationid = customerFPAnalyticsDao.CreateCashFlowRecomendation(CustomerId, userId,CRPL_ID, CCRLSourceId,CCRL_BuyType,  CCRLAmount, startDate, endDate, SumAssured, Remarks, CCRL_FrequencyMode);
 
             }
             catch (BaseApplicationException Ex)
@@ -1067,6 +1067,22 @@ namespace BoFPSuperlite
                 throw Ex;
             }
             return dt;
+        }
+
+        public DataSet GetCustomerCashFlowDropDownList(int ProductListId)
+        {
+            CustomerFPAnalyticsDao customerFPAnalyticsDao = new CustomerFPAnalyticsDao();
+            DataSet dsGetDropDownList;
+            try
+            {
+                dsGetDropDownList = customerFPAnalyticsDao.GetCustomerCashFlowDropDownList(ProductListId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dsGetDropDownList;
         }
 
 

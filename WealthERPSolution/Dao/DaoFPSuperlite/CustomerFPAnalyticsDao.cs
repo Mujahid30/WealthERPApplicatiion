@@ -241,7 +241,7 @@ namespace DaoFPSuperlite
 
 
 
-        public int CreateCashFlowRecomendation(int CustomerId, int userId, int CCRLSourceId, int CCRL_ID, decimal CCRLAmount, DateTime startDate, DateTime endDate, decimal SumAssured, string Remarks, String CCRL_FrequencyMode)
+        public int CreateCashFlowRecomendation(int CustomerId, int userId,int CRPL_ID, int CCRLSourceId, String CCRL_BuyType, decimal CCRLAmount, DateTime startDate, DateTime endDate, decimal SumAssured, string Remarks, String CCRL_FrequencyMode)
         {
             int customercashrecomendationid = 0;
             Database db;
@@ -259,6 +259,9 @@ namespace DaoFPSuperlite
                 db.AddInParameter(createCashFlowRecomendationCmd, "@CCRL_Remarks", DbType.String, Remarks);
                 db.AddInParameter(createCashFlowRecomendationCmd, "@CCRL_CreatedBy", DbType.String, userId);
                 db.AddInParameter(createCashFlowRecomendationCmd, "@CCRL_FrequencyMode", DbType.String, CCRL_FrequencyMode);
+                db.AddInParameter(createCashFlowRecomendationCmd, "@CCRL_BuyType", DbType.String, CCRL_BuyType);
+                db.AddInParameter(createCashFlowRecomendationCmd, "@CRPL_ID", DbType.String, CRPL_ID);
+
                 db.ExecuteNonQuery(createCashFlowRecomendationCmd);
 
                   //if (db.ExecuteNonQuery(createCashFlowRecomendationCmd) != 0)
@@ -346,6 +349,33 @@ namespace DaoFPSuperlite
             }
             return dsCustomerCashFlowDetails;
         }
+
+
+
+        public DataSet GetCustomerCashFlowDropDownList(int ProductListId)
+        {
+            Database db;
+            DbCommand getDropDownCmd;
+            DataSet dsGetDropDownList;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getDropDownCmd = db.GetStoredProcCommand("SP_CashFlow_GetRecomendedProductDetails");
+                db.AddInParameter(getDropDownCmd, "@ProductListId", DbType.Int32, ProductListId);
+
+                dsGetDropDownList = db.ExecuteDataSet(getDropDownCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+
+            return dsGetDropDownList;
+        }
+
+
+
          
     }
 }

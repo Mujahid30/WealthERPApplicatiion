@@ -16,12 +16,12 @@
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
 
 <script src="../Scripts/jquery.bxslider.js" type="text/javascript"></script>
-<script type="text/javascript">
+<%--<script type="text/javascript">
     function ShowIsa() {
 
         var hdn = document.getElementById("<%=hdnIsSubscripted.ClientID%>").value;
     }
-</script>
+</script>--%>
 
 
        
@@ -35,6 +35,15 @@
                     </td>
                 </tr>
             </table>
+            
+            <tr>
+                <td>
+                    <asp:LinkButton ID="lnkEdit" runat="server" CssClass="LinkButtons" OnClick="lnkEdit_Click"
+                        CommandName="EditClick" Visible="False">Edit</asp:LinkButton>
+                    <asp:LinkButton ID="lnkBack" runat="server" CommandName="BackClick" CssClass="LinkButtons"
+                        OnClick="lnkBack_Click" Visible="False">Back</asp:LinkButton>
+                </td>
+            </tr>
             <table width="100%">
             
              
@@ -48,7 +57,8 @@
                     </td>
                     <td style="width: 23.5%">
                  <asp:DropDownList ID="ddlptype" runat="server" CssClass="cmbField" 
-                            AutoPostBack="true" TabIndex="1">
+                            AutoPostBack="true" TabIndex="1" 
+                            onselectedindexchanged="ddlptype_SelectedIndexChanged">
                            
                         </asp:DropDownList>
                         </td>
@@ -58,7 +68,7 @@
                         <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text=""></asp:Label>
                     </td>
                      <td style="width: 30px;">
-                        <asp:DropDownList ID="DropDownList1" runat="server" CssClass="cmbField" AutoPostBack="true">
+                        <asp:DropDownList ID="DropDownList1" runat="server" CssClass="cmbField" AutoPostBack="false">
                            </asp:DropDownList>
                            </td>
                     </tr>
@@ -67,8 +77,11 @@
                         <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text=""></asp:Label>
                     </td>
                      <td style="width: 30px;">
-                        <asp:DropDownList ID="DropDownList2" runat="server" CssClass="cmbField" AutoPostBack="true">
-                           </asp:DropDownList>
+                        <asp:DropDownList ID="DropDownList2" runat="server" CssClass="cmbField" 
+                             AutoPostBack="false" 
+                             onselectedindexchanged="DropDownList2_SelectedIndexChanged">
+                         
+                        </asp:DropDownList>
                            </td>
                     </tr>
                     
@@ -80,10 +93,9 @@
                     </td>
                     <td style="width: 23.5%">
                  <asp:DropDownList ID="ddlpaytyppe" runat="server" CssClass="cmbField" 
-                            AutoPostBack="true" TabIndex="1">
-                           <asp:ListItem Text="Select" Value="0"></asp:ListItem>
-                            <asp:ListItem Text="Installment" Value="1"></asp:ListItem>
-                            <asp:ListItem Text="Lumpsum" Value="2"></asp:ListItem> 
+                            AutoPostBack="true"  
+                            onselectedindexchanged="ddlpaytyppe_SelectedIndexChanged">
+                          
                         </asp:DropDownList>
                         </td>
                     </tr>
@@ -94,7 +106,7 @@
                     <td>
                         <telerik:RadDatePicker ID="txtStartDate" CssClass="txtField" runat="server" Culture="English (United States)"
                             Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
-                            AutoPostBack="true"  TabIndex="10">
+                            AutoPostBack="false"  TabIndex="10">
                             <Calendar ID="Calendar1" UseRowHeadersAsSelectors="False" runat="server" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                 Skin="Telerik" EnableEmbeddedSkins="false">
                             </Calendar>
@@ -106,12 +118,12 @@
                     </td>
                     
                       <td align="right">
-                        <asp:Label ID="lblEndDate" runat="server" Text="End Date:" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblEndDate" runat="server"  Text="End Date:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <telerik:RadDatePicker ID="txtEndDate" CssClass="txtField" runat="server" Culture="English (United States)"
+                        <telerik:RadDatePicker ID="txtEndDate"  CssClass="txtField" runat="server" Culture="English (United States)"
                             Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
-                            AutoPostBack="true"  TabIndex="10">
+                            AutoPostBack="false"  TabIndex="10">
                             <Calendar ID="Calendar2" UseRowHeadersAsSelectors="False" runat="server" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                                 Skin="Telerik" EnableEmbeddedSkins="false">
                             </Calendar>
@@ -121,14 +133,15 @@
                         </telerik:RadDatePicker>
                        
                     </td>
+                   
                     </tr>
-                    <tr>
+                    <tr id="trfq">
                       <td align="right" style="width: 15%;">
-                        <asp:Label ID="lblfrequncy" runat="server" CssClass="FieldName" Text="Frequency:"></asp:Label>
+                        <asp:Label ID="lblfrequncy"  runat="server" CssClass="FieldName" Text="Frequency:"></asp:Label>
                     </td>
                     <td style="width: 23.5%">
                  <asp:DropDownList ID="ddlfrequncy" runat="server" CssClass="cmbField" 
-                            AutoPostBack="true" TabIndex="1">
+                            AutoPostBack="false"  TabIndex="1">
                             <asp:ListItem Text="Select" Value="0"></asp:ListItem>
                             <asp:ListItem Text="Weekly" Value="WK"></asp:ListItem>
                             <asp:ListItem Text="Yearly" Value="YR"></asp:ListItem> 
@@ -149,7 +162,7 @@
                     <tr>
                           
                         <td align="right">
-                        <asp:Label ID="lblsumassure" runat="server" Text="Sum Assure:" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblsumassure" runat="server" Text="Sum Assured:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtsumassure" runat="server" CssClass="txtField" TabIndex="28"></asp:TextBox>
@@ -164,14 +177,23 @@
                     onkeydown="return (event.keyCode!=13);" runat="server" CssClass="txtField" TabIndex="51"></asp:TextBox>
             </td>
         </tr>
-        <tr id="trBtnSubmit" runat="server">
+        <%--<tr id="trBtnSubmit" runat="server">
             <td align="left" colspan="3">
                 <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton"  
                     TabIndex="52" onclick="btnSubmit_Click" />
         
                 
             </td>
-        </tr>
-                   
+        </tr>--%>
+        <tr>
+        <td class="rightField">
+                    <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerEQAccountAdd_btnSubmit', 'S');"
+                        onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerEQAccountAdd_btnSubmit', 'S');"
+                        Text="Submit" OnClick="btnSubmit_Click" OnClientClick="return isValid()" />
+                    <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" Text="Update" 
+                        OnClientClick="return isValidInUpdateCase()" Visible="False" 
+                        onclick="btnUpdate_Click" />
+                </td>
+                  </tr> 
             </table>
        <asp:HiddenField ID="hdnIsSubscripted" runat="server" />

@@ -166,7 +166,7 @@
                                         Value="Preferences">
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Recommendation" Value="CustomerFPRecommendation">
-                                     <Items>
+                                        <Items>
                                             <telerik:RadPanelItem runat="server" Text="View Recommendation" Value="View_Recommendation">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Add Recommendation" Value="Add_Recommendation">
@@ -202,6 +202,8 @@
                                     <telerik:RadPanelItem runat="server" Text="Analytics" Value="Analytics">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Standard" Value="Standard">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Cash Flow" Value="Cash_Flow">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
@@ -379,39 +381,39 @@
                                             <telerik:RadPanelItem runat="server" Text="STP" Value="MF_STP">
                                             </telerik:RadPanelItem>
                                         </Items>
-                            </telerik:RadPanelItem>
-                            <telerik:RadPanelItem runat="server" Text="Books" Value="Books">
-                                <Items>
-                                    <telerik:RadPanelItem runat="server" Text="Order Book" Value="OrderBook">
                                     </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" Text="Transaction Book" Value="TransactionBook"  Visible="false">
+                                    <telerik:RadPanelItem runat="server" Text="Books" Value="Books">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Order Book" Value="OrderBook">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Transaction Book" Value="TransactionBook"
+                                                Visible="false">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="SIP Book" Value="SIPBook">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="SWPBook" Value="SWP_Book">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="SIP Book" Value="SIPSumBook" Visible="false">
+                                            </telerik:RadPanelItem>
+                                        </Items>
                                     </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" Text="SIP Book" Value="SIPBook">
-                                    </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" Text="SWPBook" Value="SWP_Book">
-                                    </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" Text="SIP Book" Value="SIPSumBook" Visible="false">
+                                    <telerik:RadPanelItem runat="server" Text="Holdings" Value="Holdings">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="UnitHoldings" Value="UnitHoldings">
+                                            </telerik:RadPanelItem>
+                                        </Items>
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-                            <telerik:RadPanelItem runat="server" Text="Holdings" Value="Holdings">
+                            <telerik:RadPanelItem runat="server" Text="NCD Order-Online" Value="NCD_Online_Order">
                                 <Items>
-                                    <telerik:RadPanelItem runat="server" Text="UnitHoldings" Value="UnitHoldings">
-                                    </telerik:RadPanelItem>
-                                </Items>
-                            </telerik:RadPanelItem>
-                        </Items>
-                        </telerik:RadPanelItem>
-                        <telerik:RadPanelItem runat="server" Text="NCD Order-Online" Value="NCD_Online_Order">
-                            <items>
                                     <telerik:RadPanelItem runat="server" Text="Transact" Value="NCDTransact">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="NCD Issue List" Value="NCDIssueList">
                                             </telerik:RadPanelItem>
-                                             <telerik:RadPanelItem runat="server" Text="NCD Issue List" Value="NCDIssueList">
+                                            <telerik:RadPanelItem runat="server" Text="NCD Issue List" Value="NCDIssueList">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="SGB Issue List" Value="SGBIssueList"
-                                                Visible="false">
+                                            <telerik:RadPanelItem runat="server" Text="SGB Issue List" Value="SGBIssueList" Visible="false">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
@@ -419,7 +421,7 @@
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="NCD Order Book" Value="NCDOrderBook">
                                             </telerik:RadPanelItem>
-                                             <telerik:RadPanelItem runat="server" Text="SGB Order Book" Value="SGBOrderBook">
+                                            <telerik:RadPanelItem runat="server" Text="SGB Order Book" Value="SGBOrderBook">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
@@ -427,14 +429,14 @@
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="NCDHolding" Value="NCDHolding">
                                             </telerik:RadPanelItem>
-                                             <telerik:RadPanelItem runat="server" Text="SGBHolding" Value="SGBHolding">
+                                            <telerik:RadPanelItem runat="server" Text="SGBHolding" Value="SGBHolding">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
-                                </items>
-                        </telerik:RadPanelItem>
-                        <telerik:RadPanelItem runat="server" Text="IPO Order-Online" Value="IPO_Online_Order">
-                            <items>
+                                </Items>
+                            </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Text="IPO Order-Online" Value="IPO_Online_Order">
+                                <Items>
                                     <telerik:RadPanelItem runat="server" Text="Transact" Value="IPOIssueTransact">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="IPO Issue List" Value="IPOIssueList">
@@ -445,10 +447,10 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
-                                </items>
-                        </telerik:RadPanelItem>
-                        <telerik:RadPanelItem runat="server" Text="Investor Online Order" Value="INVESTOR_ONLINE_ORDER">
-                            <items>
+                                </Items>
+                            </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Text="Investor Online Order" Value="INVESTOR_ONLINE_ORDER">
+                                <Items>
                                     <telerik:RadPanelItem runat="server" Text="Online Investor Page" Value="ONLINE_INVESTOR_PAGE">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="MF Order" Value="MF_Order_Investor">
@@ -459,8 +461,8 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
-                                </items>
-                        </telerik:RadPanelItem>
+                                </Items>
+                            </telerik:RadPanelItem>
                         </Items>
                         <ExpandAnimation Type="InCubic" />
                     </telerik:RadPanelBar>

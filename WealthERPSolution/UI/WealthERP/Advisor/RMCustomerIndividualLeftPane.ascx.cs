@@ -1621,6 +1621,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerCashFlowView", "loadcontrol('CustomerCashFlowView','none');", true);
                 }
+                else if (e.Item.Value == "Cash_Flow")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerCashFlowDetailsView", "loadcontrol('CustomerCashFlowDetailsView','none');", true);
+                }
                 else if (e.Item.Value == "Add_Recommendation")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerCashFlow", "loadcontrol('CustomerCashFlow','none');", true);
