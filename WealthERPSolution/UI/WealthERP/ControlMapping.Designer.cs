@@ -1069,6 +1069,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FP//CustomerCashFlowDetailsView.ascx.
+        /// </summary>
+        internal static string CustomerCashFlowDetailsView {
+            get {
+                return ResourceManager.GetString("CustomerCashFlowDetailsView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FP//CustomerCashFlowView.ascx.
         /// </summary>
         internal static string CustomerCashFlowView {

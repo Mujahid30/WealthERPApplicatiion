@@ -2133,4 +2133,8 @@
     <value>FP//CustomerCashFlowView.ascx</value>
     <comment>FP//CustomerCashFlowView.ascx</comment>
   </data>
+  <data name="CustomerCashFlowDetailsView" xml:space="preserve">
+    <value>FP//CustomerCashFlowDetailsView.ascx</value>
+    <comment>FP//CustomerCashFlowDetailsView.ascx</comment>
+  </data>
 </root>
