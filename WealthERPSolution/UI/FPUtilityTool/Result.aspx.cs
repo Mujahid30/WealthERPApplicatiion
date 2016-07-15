@@ -108,7 +108,7 @@ namespace FPUtilityTool
                     customerVo.ProspectAddDate = DateTime.Now;
                     customerVo.Dob = fpuserVo.DOB;
                     userVo.Email = fpuserVo.EMail;
-                    customerPortfolioVo.IsMainPortfolio = 0;
+                    customerPortfolioVo.IsMainPortfolio = 1;
                     customerPortfolioVo.PortfolioTypeCode = "RGL";
                     customerPortfolioVo.PortfolioName = "MyPortfolioProspect";
                     customerIds = customerBo.CreateCompleteCustomer(customerVo, userVo, customerPortfolioVo, fpuserVo.UserId);
