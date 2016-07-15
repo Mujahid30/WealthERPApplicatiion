@@ -77,7 +77,7 @@
                                                     <telerik:GridBoundColumn DataField="AIIC_InvestorCatgeoryName" AllowFiltering="true"
                                                         HeaderText="Investor CatgeoryName" UniqueName="Price" SortExpression="AIIC_InvestorCatgeoryName"
                                                         ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                                        HeaderStyle-Width="80px" FilterControlWidth="75px" Visible="false">
+                                                        HeaderStyle-Width="80px" FilterControlWidth="75px" >
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="AID_IssueDetailName" SortExpression="AID_IssueDetailName"
