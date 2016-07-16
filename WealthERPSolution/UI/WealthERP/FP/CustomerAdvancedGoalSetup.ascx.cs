@@ -270,7 +270,7 @@ namespace WealthERP.FP
                     result = customerGoalPlanningBo.BondOrderAssociateToGoal(int.Parse(Session["GoalId"].ToString()), int.Parse(txtFundAllotment.Text), int.Parse(ddlSeries.SelectedValue), 0, int.Parse(ddlIssuerCategory.SelectedValue), int.Parse(ddlBondIssue.SelectedValue));
                 }
                 else
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter quantity less than alloted quantity');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter quantity less than available quantity');", true);
             }
             if (e.CommandName == "Update")
             {
@@ -285,7 +285,7 @@ namespace WealthERP.FP
                     result = customerGoalPlanningBo.BondOrderAssociateToGoalUpdate(associatId, int.Parse(txtFundAllotment.Text), int.Parse(ddlSeries.SelectedValue), 0, int.Parse(ddlIssuerCategory.SelectedValue), int.Parse(ddlBondIssue.SelectedValue));
                 }
                 else
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter quantity less than alloted quantity');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter quantity less than available quantity');", true);
             }
             BindFixedIncomeDetails();
         }
@@ -303,6 +303,8 @@ namespace WealthERP.FP
                 DropDownList ddlSeries = (DropDownList)dataItem.FindControl("ddlSeries");
                 Label lblAllotedQuentity = (Label)dataItem.FindControl("lblAllotedQuentity");
                 TextBox txtFundAllotment = (TextBox)dataItem.FindControl("txtFundAllotment");
+                Label lblInvestmentAmount = (Label)dataItem.FindControl("lblInvestmentAmount");
+
                 System.Web.UI.HtmlControls.HtmlTableCell tdIssuerCategory = (System.Web.UI.HtmlControls.HtmlTableCell)dataItem.FindControl("tdIssuerCategory");
                 System.Web.UI.HtmlControls.HtmlTableCell tdddlIssuerCategory = (System.Web.UI.HtmlControls.HtmlTableCell)dataItem.FindControl("tdddlIssuerCategory");
                 BindISsuer(ddlBondIssue);
@@ -311,7 +313,7 @@ namespace WealthERP.FP
                 ddlIssuerCategory.SelectedValue = gvBondsOrder.MasterTableView.DataKeyValues[dataItem.ItemIndex]["AIIC_InvestorCatgeoryId"].ToString();
                 BindSeries(ddlSeries, int.Parse(ddlBondIssue.SelectedValue));
                 ddlSeries.SelectedValue = gvBondsOrder.MasterTableView.DataKeyValues[dataItem.ItemIndex]["AID_IssueDetailId"].ToString();
-                BindSeriesAllotmentData(lblAllotedQuentity, int.Parse(ddlBondIssue.SelectedValue), int.Parse(ddlSeries.SelectedValue));
+                BindSeriesAllotmentData(lblAllotedQuentity, int.Parse(ddlBondIssue.SelectedValue), int.Parse(ddlSeries.SelectedValue), lblInvestmentAmount);
                 txtFundAllotment.Text = gvBondsOrder.MasterTableView.DataKeyValues[dataItem.ItemIndex]["CEBOTGA_AllotedQuentity"].ToString();
                 string categoryType = customerGoalPlanningBo.GetAdviserIssueCategory(int.Parse(ddlBondIssue.SelectedValue));
                 if (categoryType == "FICGCG")
@@ -425,25 +427,29 @@ namespace WealthERP.FP
             DropDownList ddlBondIssue = (DropDownList)gvr.FindControl("ddlBondIssue");
             Label lblAllotedQuentity = (Label)gvr.FindControl("lblAllotedQuentity");
             DropDownList ddlSeries = (DropDownList)gvr.FindControl("ddlSeries");
+            Label lblInvestmentAmount = (Label)gvr.FindControl("lblInvestmentAmount");
 
-
-            BindSeriesAllotmentData(lblAllotedQuentity, int.Parse(ddlBondIssue.SelectedValue), int.Parse(ddlSeries.SelectedValue));
+            BindSeriesAllotmentData(lblAllotedQuentity, int.Parse(ddlBondIssue.SelectedValue), int.Parse(ddlSeries.SelectedValue), lblInvestmentAmount);
         }
-        protected void BindSeriesAllotmentData(Label lbldata, int issueId, int seriesId)
+        protected void BindSeriesAllotmentData(Label lbldata, int issueId, int seriesId, Label lblInvestmentAmount)
         {
             DataSet ds = customerGoalPlanningBo.BindBondAllotedOrderQuentity(customerVo.CustomerId, issueId);
             DataTable dt = new DataTable();
             DataSet dsgoalAssociat = customerGoalPlanningBo.BindBondGoalAssociateQuentity(int.Parse(Session["GoalId"].ToString()), issueId, seriesId);
             dt = ds.Tables[0];
             int associateQty=0;
+            decimal Allotedprice = 0;
             foreach (DataRow dr in dsgoalAssociat.Tables[0].Rows)
             {
                 associateQty = int.Parse(dr["CEBOTGA_AllotedQuentity"].ToString());
             }
             foreach (DataRow dr in dt.Rows)
             {
-                int quty = int.Parse(dr["COAD_Quantity"].ToString());
+                int quty=0;
+                quty = int.Parse(dr["COAD_Quantity"].ToString());
+                Allotedprice = Convert.ToDecimal(dr["COAD_Price"].ToString()) / quty;
                 lbldata.Text =(quty  - associateQty).ToString();
+                lblInvestmentAmount.Text =Math.Round(Allotedprice * Convert.ToDecimal(lbldata.Text),2).ToString();
             }
         }
 

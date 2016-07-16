@@ -52,5 +52,14 @@ namespace WealthERP.OffLineOrderManagement
             }
 
         }
+        protected void ddlAction_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddlAction = (DropDownList)sender;
+            GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+            Int32 COAD_Id = Convert.ToInt32(gvBondOrderList.MasterTableView.DataKeyValues[gvr.ItemIndex]["COAD_Id"].ToString());
+            string category = gvBondOrderList.MasterTableView.DataKeyValues[gvr.ItemIndex]["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FixedIncome54ECOrderEntry", "loadcontrol( 'CustomerOfflineBondOrder','action=" + ddlAction.SelectedItem.Value.ToString() + "&COADID=" + COAD_Id + "&Category=" + category + "');", true);
+        }
+        
     }
 }

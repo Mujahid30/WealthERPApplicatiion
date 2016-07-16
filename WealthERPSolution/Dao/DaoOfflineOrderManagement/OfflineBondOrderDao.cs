@@ -417,5 +417,50 @@ namespace DaoOfflineOrderManagement
             }
             return ds;
         }
+        public DataSet GetCustomerAllotedDetailData(int customerId)
+        {
+            Database db;
+            DbCommand cmdGetCustomerAllotedDetailData;
+            DataSet ds = new DataSet();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetCustomerAllotedDetailData = db.GetStoredProcCommand("SPROC_GetCustomerBondAllotedData");
+                db.AddInParameter(cmdGetCustomerAllotedDetailData, "@coadId", DbType.Int32, customerId);
+                ds = db.ExecuteDataSet(cmdGetCustomerAllotedDetailData);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return ds;
+        }
+
+        public bool UpdateAllotmentDetails(int userid, DataTable dtOrderAllotmentDetails,int coadId)
+        {
+
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand CreateAllotmentDetailscmd;
+            bool bResult = false;
+            DataSet dsdtOrderAllotmentDetails = new DataSet();
+            try
+            {
+                dsdtOrderAllotmentDetails.Tables.Add(dtOrderAllotmentDetails.Copy());
+                dsdtOrderAllotmentDetails.DataSetName = "dtOrderAllotmentDetailsDS";
+                dsdtOrderAllotmentDetails.Tables[0].TableName = "dtOrderAllotmentDetailsDT";
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CreateAllotmentDetailscmd = db.GetStoredProcCommand("SPROC_UpdateAllotmentOrderDetails");
+                db.AddInParameter(CreateAllotmentDetailscmd, "@xmlBondsAllotmentDetails", DbType.Xml, dsdtOrderAllotmentDetails.GetXml().ToString());
+                db.AddInParameter(CreateAllotmentDetailscmd, "@UserId", DbType.Int32, userid);
+                db.AddInParameter(CreateAllotmentDetailscmd, "@coadId", DbType.Int32, coadId);
+                db.ExecuteNonQuery(CreateAllotmentDetailscmd);
+                bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
     }
 }

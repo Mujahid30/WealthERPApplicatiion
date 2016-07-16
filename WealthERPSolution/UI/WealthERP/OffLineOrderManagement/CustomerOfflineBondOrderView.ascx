@@ -11,7 +11,7 @@
                 <table cellspacing="0" cellpadding="2" width="100%">
                     <tr>
                         <td align="left">
-                            Fixed Income Book
+                           Bond
                         </td>
                     </tr>
                 </table>
@@ -34,9 +34,23 @@
                                             PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" OnNeedDataSource="gvBondOrderList_OnNeedDataSource"
                                             ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false"
                                             AllowAutomaticInserts="false" Height="400px">
-                                            <MasterTableView DataKeyNames="COAD_Id"  AllowMultiColumnSorting="True"
+                                            <MasterTableView DataKeyNames="COAD_Id,PAISC_AssetInstrumentSubCategoryCode"  AllowMultiColumnSorting="True"
                                                 AutoGenerateColumns="false" AllowFilteringByColumn="true" EditMode="PopUp">
                                                 <Columns>
+                                                 <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="Action" DataField="Action"
+                                                        HeaderStyle-Width="110px">
+                                                        <ItemTemplate>
+                                                            <asp:DropDownList ID="ddlAction" CssClass="cmbField" runat="server" EnableEmbeddedSkins="false"
+                                                                AutoPostBack="true" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChanged"
+                                                                Width="110px">
+                                                                <Items>
+                                                                    <asp:ListItem Text="Select" Value="Select" Selected="true" />
+                                                                    <asp:ListItem Text="View" Value="View" />
+                                                                    <asp:ListItem Text="Edit" Value="Edit" />
+                                                                </Items>
+                                                            </asp:DropDownList>
+                                                        </ItemTemplate>
+                                                    </telerik:GridTemplateColumn>
                                                     <telerik:GridBoundColumn DataField="AIM_IssueName" SortExpression="AIM_IssueName"
                                                         AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                                         AllowFiltering="true" HeaderStyle-Width="60px" HeaderText="Issure" UniqueName="AIM_IssueName">
@@ -73,7 +87,6 @@
                                                         AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="Frequency" UniqueName="WCMV_Name">
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
-                                                  
                                                     <telerik:GridBoundColumn DataField="AIIC_InvestorCatgeoryName" AllowFiltering="true"
                                                         HeaderText="Investor CatgeoryName" UniqueName="Price" SortExpression="AIIC_InvestorCatgeoryName"
                                                         ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"

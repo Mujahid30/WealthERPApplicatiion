@@ -11,7 +11,11 @@
                 <table cellspacing="0" cellpadding="2" width="100%">
                     <tr>
                         <td align="left">
-                           Fixed Income
+                            Bond
+                        </td>
+                        <td style="float: right">
+                            <asp:LinkButton ID="lnkEdit" runat="server" OnClick="OnClick_Edit" Text="Edit" CssClass="LinkButtons"
+                                Visible="false"></asp:LinkButton>
                         </td>
                     </tr>
                 </table>
@@ -52,6 +56,8 @@
                 ErrorMessage="<br />select Issue" CssClass="cvPCG" Display="Dynamic" runat="server"
                 InitialValue=" " ValidationGroup="btnaddSeries">
             </asp:RequiredFieldValidator>
+        </td>
+        <td>
             <asp:LinkButton ID="lnkbuttonAddSeries" runat="server" OnClick="OnClick_lnkbuttonAddSeries"
                 Text="Add Issuer" CssClass="LinkButtons" ValidationGroup="btnaddSeries"></asp:LinkButton>
         </td>
@@ -63,22 +69,13 @@
         <td id="tdIssueCategory" runat="server">
             <asp:DropDownList ID="ddlIssueCategory" runat="server" CssClass="cmbField">
             </asp:DropDownList>
-            <span id="Span5" class="spnRequiredField">*</span>
-            <br />
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ddlIssueCategory"
-                ErrorMessage="<br />select Category" CssClass="cvPCG" Display="Dynamic" runat="server"
-                InitialValue="0" ValidationGroup="btnViewOrder">
-            </asp:RequiredFieldValidator>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="ddlIssueCategory"
-                ErrorMessage="<br />select issue Category" CssClass="cvPCG" Display="Dynamic"
-                runat="server" InitialValue=" " ValidationGroup="btnViewOrder">
-            </asp:RequiredFieldValidator>
         </td>
         <td align="right">
             <asp:Label ID="lblSeries" runat="server" CssClass="FieldName" Text="Series:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlSeries" runat="server"  CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlSeries_OnSelectedIndexChanged">
+            <asp:DropDownList ID="ddlSeries" runat="server" CssClass="cmbField" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlSeries_OnSelectedIndexChanged">
             </asp:DropDownList>
             <span id="Span6" class="spnRequiredField">*</span>
             <br />
@@ -101,7 +98,7 @@
             </asp:DropDownList>
         </td>
         <td align="right">
-            <asp:Label ID="lblIntrestRate" runat="server" CssClass="FieldName" Text="Interest Rate"></asp:Label>
+            <asp:Label ID="lblIntrestRate" runat="server" CssClass="FieldName" Text="Interest Rate (%)"></asp:Label>
         </td>
         <td>
             <asp:TextBox ID="txtInterestRate" runat="server" Enabled="false"></asp:TextBox>
@@ -109,7 +106,7 @@
     </tr>
     <tr>
         <td align="right">
-            <asp:Label ID="lblQuentity" runat="server" Text="Quentity:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblQuentity" runat="server" Text="Quantity:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
             <asp:TextBox ID="txtQuentity" runat="server"></asp:TextBox>
@@ -179,10 +176,9 @@
                 <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
-           
         </td>
         <td align="right">
-            <asp:Label ID="lblTo" runat="server" CssClass="FieldName" Text="Allotment Date:"></asp:Label>
+            <asp:Label ID="lblTo" runat="server" CssClass="FieldName" Text="Purchase/Allotment Date:"></asp:Label>
         </td>
         <td>
             <telerik:RadDatePicker ID="txtOrderTo" CssClass="txtField" runat="server" Culture="English (United States)"
@@ -194,14 +190,28 @@
                 <DateInput ID="DateInput2" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
-           
-           
+            <div id="Div1" runat="server" class="dvInLine">
+                <span id="Span1" class="spnRequiredField">*</span>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtOrderTo"
+                    ErrorMessage="<br />Purchase/Allotment Date" CssClass="cvPCG" Display="Dynamic"
+                    runat="server" InitialValue="" ValidationGroup="btnViewOrder">
+                </asp:RequiredFieldValidator>
+            </div>
         </td>
     </tr>
     <tr>
         <td>
+            <asp:Button ID="btnCreateAllotment" runat="server" Text="Create Allotment" CssClass="PCGButton"
+                OnClick="OnClick_btnCreateAllotment"  ValidationGroup="btnViewOrder"/>
+            <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" Text="Update" OnClick="OnClick_btnUpdate"  ValidationGroup="btnViewOrder" Visible="false"/>
+        </td>
+    </tr>
+</table>
+<table visible="false">
+    <tr>
+        <td>
             <asp:Button runat="server" CssClass="PCGButton" ID="btnGo" Text="Go" OnClick="btnGo_OnClick"
-                ValidationGroup="btnViewOrder" />
+                ValidationGroup="btnViewOrder" visible="false"/>
         </td>
     </tr>
     <tr>
@@ -256,9 +266,9 @@
                                                         UniqueName="MaturityAmount">
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="FrequencyText" SortExpression="FrequencyText" AutoPostBackOnFilter="true"
-                                                        CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
-                                                        HeaderStyle-Width="160px" HeaderText="Frequency" UniqueName="FrequencyText">
+                                                    <telerik:GridBoundColumn DataField="FrequencyText" SortExpression="FrequencyText"
+                                                        AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                                        AllowFiltering="false" HeaderStyle-Width="160px" HeaderText="Frequency" UniqueName="FrequencyText">
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="Frequency" SortExpression="Frequency" AutoPostBackOnFilter="true"
@@ -281,12 +291,6 @@
                     </tr>
                 </table>
             </asp:Panel>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <asp:Button ID="btnCreateAllotment" runat="server" Text="Create Allotment" CssClass="PCGButton"
-                OnClick="OnClick_btnCreateAllotment" Visible="false" />
         </td>
     </tr>
 </table>

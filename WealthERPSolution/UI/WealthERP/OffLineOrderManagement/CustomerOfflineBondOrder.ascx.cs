@@ -31,6 +31,59 @@ namespace WealthERP.OffLineOrderManagement
             {
                 Cache.Remove("BondOrderBookList" + userVo.UserId.ToString());
                 BindNcdCategory();
+                if (Request.QueryString["COADID"] != null)
+                {
+                    btnCreateAllotment.Visible = false;
+                    BindControlData();
+                    if (Request.QueryString["action"] == "View")
+                    {
+                        ControlVisiblity(false);
+                        lnkEdit.Visible = true;
+                    }
+                    else
+                    {
+                        ControlVisiblity(true);
+                        btnUpdate.Visible = true;
+                    }
+                }
+            }
+        }
+
+        protected bool ControlVisiblity(bool type)
+        {
+            ddlCategory.Enabled = type;
+            ddlIssueCategory.Enabled = type;
+            ddlIssue.Enabled = type;
+            ddlSeries.Enabled = type;
+            txtMaturityAmount.Enabled = type;
+            txtQuentity.Enabled = type;
+            textPrice.Enabled = type;
+            RadMaturityDate.Enabled = type;
+            txtOrderFrom.Enabled = type;
+            txtOrderTo.Enabled = type;
+            return type;
+        }
+        protected void BindControlData()
+        {
+            ddlCategory.SelectedValue = Request.QueryString["category"].ToString();
+            BindIssue(ddlCategory.SelectedValue);
+            DataSet ds = OfflineBondOrderBo.GetCustomerAllotedDetailData(int.Parse(Request.QueryString["COADID"]));
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                ddlCategory.SelectedValue = dr["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                ddlIssue.SelectedValue = dr["AIM_IssueId"].ToString();
+                BindIssueCategory(int.Parse(ddlIssue.SelectedValue));
+                ddlIssueCategory.SelectedValue = dr["AIIC_InvestorCatgeoryId"].ToString();
+                IssureSeries(int.Parse(ddlIssue.SelectedValue));
+                ddlSeries.SelectedValue = dr["AID_IssueDetailId"].ToString();
+                BindSeriesDetails();
+                txtMaturityAmount.Text = dr["COAD_MaturityAmount"].ToString();
+                txtQuentity.Text = dr["COAD_Quantity"].ToString();
+                txtInterestRate.Text = dr["COAD_InterestAmount"].ToString();
+                textPrice.Text = dr["COAD_Price"].ToString();
+                RadMaturityDate.SelectedDate = Convert.ToDateTime(dr["COAD_MaturityDate"].ToString());
+                txtOrderFrom.SelectedDate = Convert.ToDateTime(dr["COAD_OrderDate"].ToString());
+                txtOrderTo.SelectedDate = Convert.ToDateTime(dr["AIM_AllotmentDate"].ToString());
             }
         }
         private void BindNcdCategory()
@@ -88,18 +141,23 @@ namespace WealthERP.OffLineOrderManagement
         {
             if (ddlSeries.SelectedValue != "0")
             {
-                BindFrequency();
-                DataSet ds = OfflineBondOrderBo.GetIntrestFrequency(int.Parse(ddlSeries.SelectedValue));
+                BindSeriesDetails();
+            }
+        }
 
-                foreach (DataRow dr in ds.Tables[0].Rows)
-                {
-                    ddlFrequency.SelectedValue = dr["WCMV_Lookup_FreqId"].ToString();
-                }
+        protected void BindSeriesDetails()
+        {
+            BindFrequency();
+            DataSet ds = OfflineBondOrderBo.GetIntrestFrequency(int.Parse(ddlSeries.SelectedValue));
 
-                foreach (DataRow dr in ds.Tables[1].Rows)
-                {
-                    txtInterestRate.Text = dr["AIDCSR_DefaultInterestRate"].ToString();
-                }
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                ddlFrequency.SelectedValue = dr["WCMV_Lookup_FreqId"].ToString();
+            }
+
+            foreach (DataRow dr in ds.Tables[1].Rows)
+            {
+                txtInterestRate.Text = dr["AIDCSR_DefaultInterestRate"].ToString();
             }
         }
 
@@ -116,7 +174,11 @@ namespace WealthERP.OffLineOrderManagement
                 ddlSeries.Items.Insert(0, new ListItem("Select", "0"));
             }
         }
-
+        protected void OnClick_Edit(object sender, EventArgs e)
+        {
+            ControlVisiblity(true);
+            btnUpdate.Visible = true;
+        }
         protected void OnClick_lnkbuttonAddSeries(object sender, EventArgs e)
         {
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineNCDIssueSetup", "loadcontrol('OnlineNCDIssueSetup');", true);
@@ -200,12 +262,18 @@ namespace WealthERP.OffLineOrderManagement
             ddlIssueCategory.DataValueField = "AIIC_InvestorCatgeoryId";
             ddlIssueCategory.DataTextField = "AIIC_InvestorCatgeoryName";
             ddlIssueCategory.DataBind();
-            ddlIssueCategory.Items.Insert(0, new ListItem("--SELECT--", "0"));
+            //ddlIssueCategory.Items.Insert(0, new ListItem("--SELECT--", "0"));
         }
-        protected void OnClick_btnCreateAllotment(object sender, EventArgs e)
+        protected void OnClick_btnUpdate(object sender, EventArgs e)
         {
             OfflineBondOrderBo OfflineBondOrderBo = new OfflineBondOrderBo();
-            Button btn = (Button)sender;
+            OfflineBondOrderBo.UpdateAllotmentDetails(userVo.UserId, SaveDetails(),int.Parse(Request.QueryString["COADID"]));
+            btnUpdate.Visible = false;
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Fixed Income order Updated');", true);
+            ControlVisiblity(false);
+        }
+        protected DataTable SaveDetails()
+        {
             DataTable dtOrder = new DataTable();
             dtOrder.Columns.Add("Category");
             dtOrder.Columns.Add("IssuerId");
@@ -223,35 +291,35 @@ namespace WealthERP.OffLineOrderManagement
             dtOrder.Columns.Add("InterestRate");
 
             DataRow dr;
-            foreach (GridDataItem row in gvBondOrderList.Items) // loops through each rows in RadGrid
-            {
-                dr = dtOrder.NewRow();
-                dr["Category"] = ddlCategory.SelectedValue;
-                dr["IssuerId"] = ddlIssue.SelectedValue;
-                dr["IssuerCategory"] = ddlIssueCategory.SelectedValue;
-                dr["CustomerId"] = customerVO.CustomerId;
-                dr["SeriesId"] = gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["SeriesId"].ToString();
-                dr["OrderQuentity"] = gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["Quentity"].ToString();
-                dr["Price"] = gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["Price"].ToString();
-                if (int.Parse(gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["issuecategory"].ToString()) > 0)
-                    dr["AIDR_Id"] = OfflineBondOrderBo.GetAdviserIssueDetailsId(int.Parse(gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["issuecategory"].ToString()));
-                dr["OrderDate"] = (txtOrderFrom.SelectedDate!=null)?txtOrderFrom.SelectedDate:DateTime.Now;
-                dr["MaturityDate"] = gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["MaturityDate"].ToString();
-                dr["MaturityAmount"] = gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["MaturityAmount"].ToString();
-                dr["Frequency"] = gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["Frequency"].ToString();
-                dr["InterestRate"] = gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["InterestRate"].ToString();
-                dr["AllotmentDate"] = (txtOrderTo.SelectedDate != null) ? txtOrderTo.SelectedDate : DateTime.Now;
-                dtOrder.Rows.Add(dr);
-            }
-            if (dtOrder.Rows.Count > 0)
-            {
-                OfflineBondOrderBo.CreateAllotmentDetails(userVo.UserId, dtOrder);
-                Cache.Remove("BondOrderBookList" + userVo.UserId.ToString());
-                btnCreateAllotment.Visible = false;
-                btnGo.Visible = false;
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Fixed Income order created');", true);
 
-            }
+            dr = dtOrder.NewRow();
+            dr["Category"] = ddlCategory.SelectedValue;
+            dr["IssuerId"] = ddlIssue.SelectedValue;
+            dr["IssuerCategory"] = ddlIssueCategory.SelectedValue;
+            dr["CustomerId"] = customerVO.CustomerId;
+            dr["SeriesId"] = ddlSeries.SelectedValue; //gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["SeriesId"].ToString();
+            dr["OrderQuentity"] = txtQuentity.Text; //gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["Quentity"].ToString();
+            dr["Price"] = textPrice.Text;//gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["Price"].ToString();
+            if (ddlIssueCategory.SelectedValue != "0")
+                dr["AIDR_Id"] = OfflineBondOrderBo.GetAdviserIssueDetailsId(int.Parse(ddlIssueCategory.SelectedValue));
+            dr["OrderDate"] = (txtOrderFrom.SelectedDate != null) ? txtOrderFrom.SelectedDate : DateTime.Now;
+            dr["MaturityDate"] = (RadMaturityDate.SelectedDate != null) ? RadMaturityDate.SelectedDate : DateTime.Now; ;
+            dr["MaturityAmount"] = (!string.IsNullOrEmpty(txtMaturityAmount.Text))?txtMaturityAmount.Text:"0";
+            dr["Frequency"] = ddlFrequency.SelectedValue;
+            dr["InterestRate"] = txtInterestRate.Text;
+            dr["AllotmentDate"] = (txtOrderTo.SelectedDate != null) ? txtOrderTo.SelectedDate : DateTime.Now;
+            dtOrder.Rows.Add(dr);
+            return dtOrder;
+        }
+        protected void OnClick_btnCreateAllotment(object sender, EventArgs e)
+        {
+            OfflineBondOrderBo OfflineBondOrderBo = new OfflineBondOrderBo();
+            OfflineBondOrderBo.CreateAllotmentDetails(userVo.UserId, SaveDetails());
+            //Cache.Remove("BondOrderBookList" + userVo.UserId.ToString());
+            ControlVisiblity(false);
+            btnCreateAllotment.Visible = false;
+            btnGo.Visible = false;
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Fixed Income order created');", true);
         }
         private void BindFrequency()
         {

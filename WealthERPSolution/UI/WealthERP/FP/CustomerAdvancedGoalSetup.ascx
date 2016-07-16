@@ -1596,21 +1596,21 @@
     </telerik:RadPageView>
     <telerik:RadPageView ID="RadPageView3" runat="server">
         <asp:Panel ID="Panel2" runat="server">
-           
             <telerik:RadGrid ID="gvBondsOrder" runat="server" CssClass="RadGrid" GridLines="Both"
                 Width="100%" AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
                 ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
-                OnItemDataBound="gvBondsOrder_ItemDataBound" OnItemCommand="gvBondsOrder_ItemCommand" OnNeedDataSource="gvBondsOrder_OnNeedDataSource"
-                AllowAutomaticUpdates="false" Skin="Telerik">
+                OnItemDataBound="gvBondsOrder_ItemDataBound" OnItemCommand="gvBondsOrder_ItemCommand"
+                OnNeedDataSource="gvBondsOrder_OnNeedDataSource" AllowAutomaticUpdates="false"
+                Skin="Telerik">
                 <%--OnDeleteCommand="gvBondsOrder_DeleteCommand" OnInsertCommand="gvBondsOrder_ItemInserted"--%>
                 <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="Fixed Income">
                 </ExportSettings>
                 <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
-                    CommandItemSettings-AddNewRecordText="Select FI Investment" DataKeyNames="AIM_IssueId,CEBOTGA_AllotedQuentity,AID_IssueDetailId,AIDCSR_Id,AIIC_InvestorCatgeoryId,CEBOTGA_Id" >
+                    CommandItemSettings-AddNewRecordText="Select FI Investment" DataKeyNames="AIM_IssueId,CEBOTGA_AllotedQuentity,AID_IssueDetailId,AIDCSR_Id,AIIC_InvestorCatgeoryId,CEBOTGA_Id">
                     <Columns>
                         <telerik:GridEditCommandColumn>
                         </telerik:GridEditCommandColumn>
-                        <telerik:GridBoundColumn UniqueName="CEBOTGA_AllotedQuentity" HeaderText="Alloted Quentity"
+                        <telerik:GridBoundColumn UniqueName="CEBOTGA_AllotedQuentity" HeaderText="Alloted Quantity"
                             DataField="CEBOTGA_AllotedQuentity">
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
@@ -1621,13 +1621,16 @@
                             DataField="AIIC_InvestorCatgeoryId" Visible="false">
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
-                          <telerik:GridBoundColumn UniqueName="AIM_IssueId" HeaderText="AIM_IssueId" DataField="AIM_IssueId" Visible="false">
+                        <telerik:GridBoundColumn UniqueName="AIM_IssueId" HeaderText="AIM_IssueId" DataField="AIM_IssueId"
+                            Visible="false">
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
-                          <telerik:GridBoundColumn UniqueName="AID_IssueDetailId" HeaderText="AID_IssueDetailId" DataField="AID_IssueDetailId" Visible="false">
+                        <telerik:GridBoundColumn UniqueName="AID_IssueDetailId" HeaderText="AID_IssueDetailId"
+                            DataField="AID_IssueDetailId" Visible="false">
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
-                          <telerik:GridBoundColumn UniqueName="AIDCSR_Id" HeaderText="AIDCSR_Id" DataField="AIDCSR_Id" Visible="false">
+                        <telerik:GridBoundColumn UniqueName="AIDCSR_Id" HeaderText="AIDCSR_Id" DataField="AIDCSR_Id"
+                            Visible="false">
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
                         <%--<telerik:GridButtonColumn CommandName="Delete" Text="Delete" ConfirmText="Are you sure you want to Remove this Record?"
@@ -1636,8 +1639,8 @@
                     </Columns>
                     <EditFormSettings EditFormType="Template" CaptionFormatString="Fixed Income">
                         <FormTemplate>
-                            <table id="tblFixedIncomeFundingHeader" cellspacing="2" cellpadding="1" width="100%" border="0"
-                                class="EditFormSettingsTableColor">
+                            <table id="tblFixedIncomeFundingHeader" cellspacing="2" cellpadding="1" width="100%"
+                                border="0" class="EditFormSettingsTableColor">
                                 <tr>
                                     <td>
                                         <table id="tblFixedIncome" cellspacing="1" cellpadding="1" border="0" class="module">
@@ -1673,11 +1676,12 @@
                                                     <asp:Label ID="lblSeriesId" runat="server" Text="Series:" CssClass="FieldName"></asp:Label>
                                                 </td>
                                                 <td>
-                                                    <asp:DropDownList ID="ddlSeries" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlSeries_OnSelectedIndexChanged">
+                                                    <asp:DropDownList ID="ddlSeries" runat="server" CssClass="cmbField" AutoPostBack="true"
+                                                        OnSelectedIndexChanged="ddlSeries_OnSelectedIndexChanged">
                                                     </asp:DropDownList>
                                                 </td>
                                                 <td>
-                                                    <asp:Label ID="lblQuentiry" runat="server" CssClass="FieldName" Text="Alloted Quentity:"></asp:Label>
+                                                    <asp:Label ID="lblQuentiry" runat="server" CssClass="FieldName" Text="Available Quantity:"></asp:Label>
                                                 </td>
                                                 <td>
                                                     <asp:Label ID="lblAllotedQuentity" runat="server" CssClass="FieldName"></asp:Label>
@@ -1685,7 +1689,13 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <asp:Label ID="lblFundAllotment" runat="server" CssClass="FieldName" Text="Fund Allotment:"></asp:Label>
+                                                    <asp:Label ID="lblPrice" runat="server" CssClass="FieldName" Text="Investment Amount:"></asp:Label>
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblInvestmentAmount" runat="server" CssClass="FieldName"></asp:Label>
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblFundAllotment" runat="server" CssClass="FieldName" Text="Alloted Quantity:"></asp:Label>
                                                 </td>
                                                 <td>
                                                     <asp:TextBox runat="server" ID="txtFundAllotment"></asp:TextBox>

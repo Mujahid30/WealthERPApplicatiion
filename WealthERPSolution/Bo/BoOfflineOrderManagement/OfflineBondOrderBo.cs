@@ -220,5 +220,18 @@ namespace BoOfflineOrderManagement
             DataSet ds = offlineBondDao.GetCustomerAllotedData(customerId);
             return ds;
         }
+        public DataSet GetCustomerAllotedDetailData(int customerId)
+        {
+            OfflineBondOrderDao offlineBondDao = new OfflineBondOrderDao();
+            DataSet ds = offlineBondDao.GetCustomerAllotedDetailData(customerId);
+            return ds;
+        }
+        public bool UpdateAllotmentDetails(int userid, DataTable dtOrderAllotmentDetails, int coadId)
+        {
+            bool result = false;
+            OfflineBondOrderDao offlineBondDao = new OfflineBondOrderDao();
+            result = offlineBondDao.UpdateAllotmentDetails(userid, dtOrderAllotmentDetails,coadId);
+            return result;
+        }
     }
 }
