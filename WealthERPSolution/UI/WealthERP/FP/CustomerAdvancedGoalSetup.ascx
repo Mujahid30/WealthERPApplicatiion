@@ -1610,11 +1610,11 @@
                     <Columns>
                         <telerik:GridEditCommandColumn>
                         </telerik:GridEditCommandColumn>
-                        <telerik:GridBoundColumn UniqueName="CEBOTGA_AllotedQuentity" HeaderText="Alloted Quantity"
-                            DataField="CEBOTGA_AllotedQuentity">
+                        <telerik:GridBoundColumn UniqueName="AIM_IssueName" HeaderText="IssueName" DataField="AIM_IssueName">
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="AIM_IssueName" HeaderText="IssueName" DataField="AIM_IssueName">
+                        <telerik:GridBoundColumn UniqueName="CEBOTGA_AllotedQuentity" HeaderText="Alloted Quantity"
+                            DataField="CEBOTGA_AllotedQuentity">
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="AIIC_InvestorCatgeoryId" HeaderText="CatgeoryId"
