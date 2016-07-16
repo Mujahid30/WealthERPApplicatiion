@@ -280,7 +280,7 @@ namespace DaoFPSuperlite
         }
 
 
-        public DataTable GetCustomerCashFlow(int customerId)
+        public DataTable GetCustomerCashFlow(int customerId, bool isIncludeSpouse)
         {
             Database db;
             DbCommand Cmd;
@@ -291,6 +291,7 @@ namespace DaoFPSuperlite
                 Cmd = db.GetStoredProcCommand("SP_GetCustomerBeforeRetCashflowDetails");
 
                 db.AddInParameter(Cmd, "@CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(Cmd, "@IncludeSpouse", DbType.Boolean, isIncludeSpouse);
                 DataSet ds = db.ExecuteDataSet(Cmd);
                 if (ds != null)
                 {
@@ -315,6 +316,7 @@ namespace DaoFPSuperlite
                 Cmd = db.GetStoredProcCommand("SP_GetCustomerAfterRetCasflowDetails");
 
                 db.AddInParameter(Cmd, "@CustomerId", DbType.Int32, customerId);
+        
                 DataSet ds = db.ExecuteDataSet(Cmd);
                 if (ds != null)
                 {

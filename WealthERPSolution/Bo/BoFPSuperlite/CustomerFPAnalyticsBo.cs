@@ -1032,15 +1032,15 @@ namespace BoFPSuperlite
 
         }
 
-    
-        public DataTable GetCustomerCashFlow(int customerId)
+
+        public DataTable GetCustomerCashFlow(int customerId, bool isIncludeSpouse)
         {
             CustomerFPAnalyticsDao customerFPAnalyticsDao = new CustomerFPAnalyticsDao();
             DataTable dt = new DataTable();
 
             try
             {
-                dt = customerFPAnalyticsDao.GetCustomerCashFlow(customerId);
+                dt = customerFPAnalyticsDao.GetCustomerCashFlow(customerId, isIncludeSpouse);
 
 
             }
