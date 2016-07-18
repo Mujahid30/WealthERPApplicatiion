@@ -84,7 +84,7 @@
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="WCMV_Name" SortExpression="WCMV_Name"
                                                         AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                                        AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="Frequency" UniqueName="WCMV_Name">
+                                                        AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="Interest Frequency" UniqueName="WCMV_Name">
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="AIIC_InvestorCatgeoryName" AllowFiltering="true"

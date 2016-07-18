@@ -212,7 +212,7 @@ namespace WealthERP.Advisor
             Session["NodeType"] = "AddProspectList";
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
 
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrderentry", "loadcontrol('AddProspectList','login');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrderentry", "loadcontrol('ViewFPUtilityUserDetails','login');", true);
 
         }
         public void lnkbtnFPClients_OnClick(object sender, EventArgs e)
@@ -221,7 +221,7 @@ namespace WealthERP.Advisor
             Session["NodeType"] = "AddProspectList";
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
 
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrderentry", "loadcontrol('AddProspectList','login');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrderentry", "loadcontrol('ViewFPUtilityUserDetails','login');", true);
 
         }
 

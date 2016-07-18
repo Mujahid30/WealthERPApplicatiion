@@ -66,6 +66,16 @@ namespace WealthERP.OffLineOrderManagement
         protected void BindControlData()
         {
             ddlCategory.SelectedValue = Request.QueryString["category"].ToString();
+            if (ddlCategory.SelectedValue == "FICGCG")
+            {
+                tdIssuerCategory.Visible = false;
+                tdIssueCategory.Visible = false;
+            }
+            else
+            {
+                tdIssuerCategory.Visible = true;
+                tdIssueCategory.Visible = true;
+            }
             BindIssue(ddlCategory.SelectedValue);
             DataSet ds = OfflineBondOrderBo.GetCustomerAllotedDetailData(int.Parse(Request.QueryString["COADID"]));
             foreach (DataRow dr in ds.Tables[0].Rows)
@@ -81,8 +91,11 @@ namespace WealthERP.OffLineOrderManagement
                 txtQuentity.Text = dr["COAD_Quantity"].ToString();
                 txtInterestRate.Text = dr["COAD_InterestAmount"].ToString();
                 textPrice.Text = dr["COAD_Price"].ToString();
+                if(dr["COAD_MaturityDate"].ToString()!="" && dr["COAD_MaturityDate"].ToString()!=null)
                 RadMaturityDate.SelectedDate = Convert.ToDateTime(dr["COAD_MaturityDate"].ToString());
+                if (dr["COAD_OrderDate"].ToString() != "" && dr["COAD_OrderDate"].ToString() != null)
                 txtOrderFrom.SelectedDate = Convert.ToDateTime(dr["COAD_OrderDate"].ToString());
+                if (dr["AIM_AllotmentDate"].ToString() != "" && dr["AIM_AllotmentDate"].ToString() != null)
                 txtOrderTo.SelectedDate = Convert.ToDateTime(dr["AIM_AllotmentDate"].ToString());
             }
         }
@@ -116,7 +129,7 @@ namespace WealthERP.OffLineOrderManagement
             if (ddlCategory.SelectedValue != "0")
             {
                 BindIssue(ddlCategory.SelectedValue);
-                ddlCategory.Enabled = false;
+                //ddlCategory.Enabled = false;
             }
         }
 
@@ -269,7 +282,7 @@ namespace WealthERP.OffLineOrderManagement
             OfflineBondOrderBo OfflineBondOrderBo = new OfflineBondOrderBo();
             OfflineBondOrderBo.UpdateAllotmentDetails(userVo.UserId, SaveDetails(),int.Parse(Request.QueryString["COADID"]));
             btnUpdate.Visible = false;
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Fixed Income order Updated');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Bond order Updated');", true);
             ControlVisiblity(false);
         }
         protected DataTable SaveDetails()
@@ -300,7 +313,7 @@ namespace WealthERP.OffLineOrderManagement
             dr["SeriesId"] = ddlSeries.SelectedValue; //gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["SeriesId"].ToString();
             dr["OrderQuentity"] = txtQuentity.Text; //gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["Quentity"].ToString();
             dr["Price"] = textPrice.Text;//gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["Price"].ToString();
-            if (ddlIssueCategory.SelectedValue != "0")
+            if (ddlIssueCategory.SelectedValue != "0" && ddlIssueCategory.SelectedValue !="")
                 dr["AIDR_Id"] = OfflineBondOrderBo.GetAdviserIssueDetailsId(int.Parse(ddlIssueCategory.SelectedValue));
             dr["OrderDate"] = (txtOrderFrom.SelectedDate != null) ? txtOrderFrom.SelectedDate : DateTime.Now;
             dr["MaturityDate"] = (RadMaturityDate.SelectedDate != null) ? RadMaturityDate.SelectedDate : DateTime.Now; ;
@@ -319,7 +332,7 @@ namespace WealthERP.OffLineOrderManagement
             ControlVisiblity(false);
             btnCreateAllotment.Visible = false;
             btnGo.Visible = false;
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Fixed Income order created');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Bond order created');", true);
         }
         private void BindFrequency()
         {

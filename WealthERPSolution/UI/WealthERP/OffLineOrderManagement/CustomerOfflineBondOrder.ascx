@@ -91,14 +91,14 @@
     </tr>
     <tr>
         <td align="right">
-            <asp:Label ID="lblFrequency" runat="server" CssClass="FieldName" Text="Frequency"></asp:Label>
+            <asp:Label ID="lblFrequency" runat="server" CssClass="FieldName" Text="Frequency:"></asp:Label>
         </td>
         <td>
             <asp:DropDownList ID="ddlFrequency" runat="server" CssClass="cmbField" Enabled="false">
             </asp:DropDownList>
         </td>
         <td align="right">
-            <asp:Label ID="lblIntrestRate" runat="server" CssClass="FieldName" Text="Interest Rate (%)"></asp:Label>
+            <asp:Label ID="lblIntrestRate" runat="server" CssClass="FieldName" Text="Interest Rate (%):"></asp:Label>
         </td>
         <td>
             <asp:TextBox ID="txtInterestRate" runat="server" Enabled="false"></asp:TextBox>
@@ -118,7 +118,7 @@
             </asp:RequiredFieldValidator>
         </td>
         <td align="right">
-            <asp:Label ID="lblPrice" runat="server" CssClass="FieldName" Text="Price:"></asp:Label>
+            <asp:Label ID="lblPrice" runat="server" CssClass="FieldName" Text="Current Value:"></asp:Label>
         </td>
         <td>
             <asp:TextBox ID="textPrice" runat="server"></asp:TextBox>
@@ -201,7 +201,7 @@
     </tr>
     <tr>
         <td>
-            <asp:Button ID="btnCreateAllotment" runat="server" Text="Create Allotment" CssClass="PCGButton"
+            <asp:Button ID="btnCreateAllotment" runat="server" Text="Submit" CssClass="PCGButton"
                 OnClick="OnClick_btnCreateAllotment"  ValidationGroup="btnViewOrder"/>
             <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" Text="Update" OnClick="OnClick_btnUpdate"  ValidationGroup="btnViewOrder" Visible="false"/>
         </td>

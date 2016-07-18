@@ -185,11 +185,11 @@
                         <div class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'"
                             onmouseout="this.className='divDashBoardMouseInLinks'">
                             <asp:ImageButton ID="imgbtnFPClients" ImageUrl="~/Images/DashBoard-ProspectUser.png"
-                                runat="server" ToolTip="Navigate to Add FP Customers" OnClick="imgbtnFPClients_OnClick"
+                                runat="server" ToolTip="Navigate to View Leads" OnClick="imgbtnFPClients_OnClick"
                                 Width="70px" />
                             <br />
                             <asp:LinkButton ID="lnkbtnFPClients" runat="server" Font-Underline="false" CssClass="FieldName"
-                                OnClick="lnkbtnFPClients_OnClick" ToolTip="Navigate to Add FP Customers" Text="FP Clients"></asp:LinkButton>
+                                OnClick="lnkbtnFPClients_OnClick" ToolTip="Navigate to View Leads" Text="View Leads"></asp:LinkButton>
                         </div>
                     </td>
                 </tr>

@@ -108,6 +108,8 @@ namespace WealthERP.FP
             if (!Page.IsPostBack)
             {
                 BindGoalYear();
+
+                Cache.Remove("Bondallotment" + userVo.UserId.ToString());
                 if (Request.QueryString["GoalId"] != null)
                     goalId = int.Parse(Request.QueryString["GoalId"].ToString());
                 if (Request.QueryString["goalAction"] != null)
