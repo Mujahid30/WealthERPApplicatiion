@@ -155,24 +155,29 @@
                         <asp:TextBox ID="txtsumassure" runat="server" CssClass="txtField" TabIndex="28"></asp:TextBox>
                     </td>     
                     </tr>
-                    <tr>
-                      <td class="leftField">
-                <asp:Label ID="lblRemarks" runat="server" Text="Remarks:" CssClass="FieldName"></asp:Label>
-            </td>
-            <td class="rightField">
-                <asp:TextBox ID="txtRemarks" Width="300px" TextMode="MultiLine" MaxLength="300" Height="65px"
-                    onkeydown="return (event.keyCode!=13);" runat="server" CssClass="txtField" TabIndex="51"></asp:TextBox>
-            </td>
-        </tr>
-        <tr id="trBtnSubmit" runat="server">
-            <td align="left" colspan="3">
-                <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton"  
-                    TabIndex="52" onclick="btnSubmit_Click" />
-        
-                
-            </td>
-        </tr>
-                   
-            </table>
-       <asp:HiddenField ID="hdnIsSubscripted" runat="server" />
+                </table>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <asp:Label ID="lblSelect" runat="server" Text="Select Theme :" CssClass="FieldName"></asp:Label>
+            <asp:DropDownList runat="server" ID="ddlTheme" AutoPostBack="true" CssClass="cmbField"
+                OnSelectedIndexChanged="ddlTheme_SelectedIndexChanged">
+                <asp:ListItem Value="0">Select a Theme</asp:ListItem>
+                <asp:ListItem Value="BlackAndWhite">Black & white</asp:ListItem>
+                <asp:ListItem Value="Blue">Blue</asp:ListItem>
+                <asp:ListItem Value="Desert">Desert</asp:ListItem>
+                <asp:ListItem Value="Green">Green</asp:ListItem>
+                <asp:ListItem Value="Maroon">Maroon</asp:ListItem>
+                <asp:ListItem Value="Purple">Purple</asp:ListItem>
+                <asp:ListItem Value="Yellow">Yellow</asp:ListItem>
+                <asp:ListItem Value="LightPurple">LightPurple</asp:ListItem>
+                <asp:ListItem Value="SBICAP">Light Blue</asp:ListItem>
+                <asp:ListItem Value="SBIOnLine">SBI Blue</asp:ListItem>
+            </asp:DropDownList>
+        </td>
+    </tr>
+</table>
+
 
