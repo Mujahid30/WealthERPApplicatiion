@@ -702,7 +702,7 @@
                     </td>
                 </tr>
             </table>
-            <telerik:RadGrid ID="gvCashFlowList" runat="server" AllowAutomaticDeletes="false"
+            <telerik:RadGrid ID="gvCashFlowList" runat="server" AllowAutomaticDeletes="false" Culture="de-De"
                 PageSize="20" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
                 ShowStatusBar="false" ShowFooter="false" AllowPaging="true" AllowSorting="true"
                 OnNeedDataSource="gvCashFlowList_OnNeedDataSource" GridLines="none" AllowAutomaticInserts="false"
@@ -767,7 +767,7 @@
                             AllowFiltering="true" HeaderText="Liabilities" UniqueName="Liabilities">
                             <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="LIPremiumAmount" SortExpression="LIPremiumAmount"
+                        <telerik:GridBoundColumn DataField="LIPremiumAmount"  SortExpression="LIPremiumAmount"
                             DataFormatString="{0:N0}" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
                             ShowFilterIcon="false" AllowFiltering="true" HeaderText="LI Premium Amount" UniqueName="LIPremiumAmount">
                             <ItemStyle HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />

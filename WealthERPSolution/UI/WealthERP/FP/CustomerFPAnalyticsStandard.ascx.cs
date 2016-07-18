@@ -186,7 +186,7 @@ namespace WealthERP.FP
 
         private void BindCashFlow()
         {
-            DataTable dt = ObjcustomerFPAnalyticsbo.GetCustomerCashFlow(customerVo.CustomerId);
+            DataTable dt = ObjcustomerFPAnalyticsbo.GetCustomerCashFlow(customerVo.CustomerId, false);
             gvCashFlowList.Visible = true;
             gvCashFlowList.DataSource = dt;
             gvCashFlowList.DataBind();
