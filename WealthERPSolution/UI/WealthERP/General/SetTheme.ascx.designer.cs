@@ -11,7 +11,7 @@
 namespace WealthERP.General {
     
     
-    public partial class SetTheme {
+    public partial class SetTheme { 
         
         /// <summary>
         /// scrptMgr control.
