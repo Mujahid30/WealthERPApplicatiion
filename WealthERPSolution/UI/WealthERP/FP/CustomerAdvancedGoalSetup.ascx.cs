@@ -1458,9 +1458,14 @@ namespace WealthERP.FP
                 customerGoalPlanningVo.CustomerId = customerVo.CustomerId;
                 customerGoalPlanningVo.Goalcode = ddlGoalType.SelectedValue.ToString();
                 if (ddlGoalTypes.SelectedValue != "RG")
+
                     customerGoalPlanningVo.CostOfGoalToday = double.Parse(txtGoalCostToday.Text.Trim());
                 else
+                {
+                    //customerGoalPlanningVo.LumpsumInvestRequired = int.Parse(lblInvestmntLumpsumTxt.Text.Trim(','));
+                    //customerGoalPlanningVo.MonthlySavingsReq = int.Parse(lblSavingsRequiredMonthlyTxt.Text);
                     customerGoalPlanningVo.CostOfGoalToday = double.Parse(ViewState["finalValue"].ToString());
+                }
                 customerGoalPlanningVo.GoalDate = DateTime.Parse(txtGoalDate.Text);
                 customerGoalPlanningVo.GoalYear = int.Parse(ddlGoalYear.SelectedValue);
                 if (ddlGoalType.SelectedValue == "ED" || ddlGoalType.SelectedValue == "MR")
