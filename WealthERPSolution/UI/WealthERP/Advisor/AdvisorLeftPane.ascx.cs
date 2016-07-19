@@ -554,10 +554,7 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageLookups','login');", true);
                 }
-                else if (e.Item.Value == "GoalFunding_Sync")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SuperAdminGoalSIPFundingSync','login');", true);
-                }
+               
                 else if (e.Item.Value == "Add_Policies")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('InsuranceIssueSetup','login');", true);
@@ -566,16 +563,7 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('InsuranceIssueList','login');", true);
                 }
-                else if (e.Item.Value == "FP_Client_List")
-                {
-                    Session["Customer"] = "Customer";
-                    Session["UserType"] = "rm";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','action=FPClient');", true);
-                }
-                else if (e.Item.Value == "View Leads")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewFPUtilityUserDetails','login');", true);
-                }
+               
                     
                 else if (e.Item.Value == "View_Associates")
                 {
@@ -593,16 +581,8 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ProductOrderDetailsMF','login');", true);
                 }
-                else if (e.Item.Value == "Add_Prospect_Admin")
-                {
-                    Session.Remove(SessionContents.FPS_ProspectList_CustomerId);
-                    Session.Remove(SessionContents.FPS_AddProspectListActionStatus);
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddProspectList','login');", true);
-                }
-                else if (e.Item.Value == "FP_Offline_Form_admin")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OfflineForm','login');", true);
-                }
+              
+               
                 else if (e.Item.Value == "Online_RMS_Log")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineAdviserCustomerRMSLog','login');", true);
@@ -890,16 +870,7 @@ namespace WealthERP.Advisor
                     Session.Remove(SessionContents.FPS_AddProspectListActionStatus);
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddProspectList','login');", true);
                 }
-                else if (e.Item.Value == "Manage Portfolio")
-                {
-                    Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerPortfolio','login');", true);
-                }
-                else if (e.Item.Value == "Add Portfolio")
-                {
-                    Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerPortfolioSetup','login');", true);
-                }
+               
                 else if (e.Item.Value == "Manage Group Account")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewCustomerFamily','login');", true);
@@ -1003,11 +974,7 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserEQMIS','login');", true);
                 }
-                else if (e.Item.Value == "Goal_MIS")
-                {
-                    Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('GoalMIS','login');", true);
-                }
+               
                 else if (e.Item.Value == "Asset_Allocation_MIS")
                 {
                     Session["UserType"] = "adviser";
@@ -3712,6 +3679,45 @@ namespace WealthERP.Advisor
                 if (e.Item.Value == "Research_Dashboard")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ResearchDashboard','login');", true);
+                }
+                else if (e.Item.Value == "GoalFunding_Sync")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SuperAdminGoalSIPFundingSync','login');", true);
+                }
+                else if (e.Item.Value == "FP_Client_List")
+                {
+                    Session["Customer"] = "Customer";
+                    Session["UserType"] = "rm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','action=FPClient');", true);
+                }
+                else if (e.Item.Value == "View Leads")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewFPUtilityUserDetails','login');", true);
+                }
+                else if (e.Item.Value == "Add_Prospect_Admin")
+                {
+                    Session.Remove(SessionContents.FPS_ProspectList_CustomerId);
+                    Session.Remove(SessionContents.FPS_AddProspectListActionStatus);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddProspectList','login');", true);
+                }
+                else if (e.Item.Value == "FP_Offline_Form_admin")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OfflineForm','login');", true);
+                }
+                else if (e.Item.Value == "Manage Portfolio")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerPortfolio','login');", true);
+                }
+                else if (e.Item.Value == "Add Portfolio")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerPortfolioSetup','login');", true);
+                }
+                else if (e.Item.Value == "Goal_MIS")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('GoalMIS','login');", true);
                 }
                 else if (e.Item.Value == "RiskGoal_Classes")
                 {

@@ -295,7 +295,7 @@ namespace WealthERP.OffLineOrderManagement
             dtOrder.Columns.Add("SeriesId");
             dtOrder.Columns.Add("OrderQuentity");
             dtOrder.Columns.Add("Price");
-            dtOrder.Columns.Add("OrderDate", typeof(DateTime));
+            dtOrder.Columns.Add("OrderDate");
             dtOrder.Columns.Add("AllotmentDate", typeof(DateTime));
             dtOrder.Columns.Add("AIDR_Id");
             dtOrder.Columns.Add("MaturityDate", typeof(DateTime));
@@ -315,12 +315,12 @@ namespace WealthERP.OffLineOrderManagement
             dr["Price"] = textPrice.Text;//gvBondOrderList.MasterTableView.DataKeyValues[row.ItemIndex]["Price"].ToString();
             if (ddlIssueCategory.SelectedValue != "0" && ddlIssueCategory.SelectedValue !="")
                 dr["AIDR_Id"] = OfflineBondOrderBo.GetAdviserIssueDetailsId(int.Parse(ddlIssueCategory.SelectedValue));
-            dr["OrderDate"] = (txtOrderFrom.SelectedDate != null) ? txtOrderFrom.SelectedDate : DateTime.Now;
-            dr["MaturityDate"] = (RadMaturityDate.SelectedDate != null) ? RadMaturityDate.SelectedDate : DateTime.Now; ;
-            dr["MaturityAmount"] = (!string.IsNullOrEmpty(txtMaturityAmount.Text))?txtMaturityAmount.Text:"0";
+            dr["OrderDate"] = (txtOrderFrom.SelectedDate!=null)?txtOrderFrom.SelectedDate.ToString(): string.Empty ;
+            dr["MaturityDate"] =RadMaturityDate.SelectedDate;
+            dr["MaturityAmount"] = (!string.IsNullOrEmpty(txtMaturityAmount.Text )) ? txtMaturityAmount.Text : 0.ToString();
             dr["Frequency"] = ddlFrequency.SelectedValue;
             dr["InterestRate"] = txtInterestRate.Text;
-            dr["AllotmentDate"] = (txtOrderTo.SelectedDate != null) ? txtOrderTo.SelectedDate : DateTime.Now;
+            dr["AllotmentDate"] = txtOrderTo.SelectedDate;
             dtOrder.Rows.Add(dr);
             return dtOrder;
         }
