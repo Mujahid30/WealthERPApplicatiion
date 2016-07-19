@@ -65,7 +65,7 @@
                     </tr>
                     <tr id="tr1" visible="false">
                     <td align="right" style="width: 15%;">
-                        <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text=""></asp:Label>
+                        <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="scheme"></asp:Label>
                     </td>
                      <td style="width: 30px;">
                         <asp:DropDownList ID="DropDownList1" runat="server" CssClass="cmbField" AutoPostBack="false">
@@ -74,10 +74,10 @@
                     </tr>
                      <tr id="tr2" visible="false">
                      <td align="right" style="width: 15%;">
-                        <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text=""></asp:Label>
+                        <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Buy/Sell"></asp:Label>
                     </td>
                      <td style="width: 30px;">
-                        <asp:DropDownList ID="DropDownList2" runat="server" CssClass="cmbField" 
+                        <asp:DropDownList ID="DropDownList2"  runat="server" CssClass="cmbField" 
                              AutoPostBack="false" 
                              onselectedindexchanged="DropDownList2_SelectedIndexChanged">
                          

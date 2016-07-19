@@ -102,20 +102,20 @@ namespace WealthERP.Admin
                 btnSubmit.Visible = false;
                 trSelectMutualFund.Visible = false;
                 trSelectSchemeNAV.Visible = false;
-                //RadTabStrip1.Tabs[1].Visible = false;
-                //RadTabStrip1.Tabs[2].Visible = false;
+              //  RadTabStrip1.Tabs[1].Visible = false;
+               // RadTabStrip1.Tabs[2].Visible = false;
                 lblheader.Text = "Equity Data Query";
                 pnlSchemeComparison.Visible = false;
                 rbtnCurrent.Visible = true;
                 rbtnHistorical.Visible = true;
-                // trgvEquityView.Visible = false;
-                // gvEquityRecord.Visible = true;
+                trgvEquityView.Visible = false;
+                gvEquityRecord.Visible = true;
                 trSelectMutualFund.Visible = false;
                 trSelectSchemeNAV.Visible = false;
                 trNavCategory.Visible = false;
                 tdFromDate.Visible = false;
                 tdToDate.Visible = false;
-                RadTabStrip1.Tabs[0].Text = "Price";
+              //  RadTabStrip1.Tabs[0].Text = "Price";
             }
             if (!IsPostBack)
             {
@@ -1492,7 +1492,7 @@ namespace WealthERP.Admin
             gvEquityRecord.ExportSettings.ExportOnlyData = true;
             gvEquityRecord.ExportSettings.FileName = "Equity Details";
             gvEquityRecord.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvEquityRecord.MasterTableView.ExportToExcel();
+            //gvEquityRecord.MasterTableView.ExportToExcel();
         }
 
         protected void gvMFRecord_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)

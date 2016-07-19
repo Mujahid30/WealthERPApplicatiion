@@ -43,6 +43,7 @@ namespace WealthERP.FP
         UserVo userVo = new UserVo();
         DataSet dsGetDropDownList;
         int ProductListId;
+        int CCRL_ID;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -51,30 +52,64 @@ namespace WealthERP.FP
             if (!IsPostBack)
             {
                 BindProductType();
-               
+                if (Request.QueryString["action"] != "" && Request.QueryString["action"] != null)
+                {
+                    if (Request.QueryString["action"].Trim() == "Edit")
+                    {
+                        BtnSetVisiblity(1);
+                        EditCustomerCashFlowDetails();
+                    }
+                    else if (Request.QueryString["action"].Trim() == "View")
+                    {
+                        BtnSetVisiblity(0);
+                        lnkBack.Visible = true;
+                        BindCustomerCashFlowDetails();
+                    }
+                    else
+                    {
+                       // BtnSetVisiblity(0);
+                        //BindCustomerCashFlowDetails();
+                    }
+                }
             }
         }
+
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-
-
-
-            //customercashrecomendationid = customerFPAnalyticsBo.CreateCashFlowRecomendation(customerVo.CustomerId, userVo.UserId, Convert.ToInt32(ddlptype.SelectedValue), Convert.ToInt32(DropDownList1.SelectedValue), Convert.ToInt32(DropDownList2.SelectedValue), Convert.ToDateTime(txtStartDate.SelectedDate), Convert.ToDateTime(txtEndDate.SelectedDate), Convert.ToDecimal(txtsumassure.Text), txtRemarks.Text, ddlfrequncy.SelectedValue);
             customercashrecomendationid = customerFPAnalyticsBo.CreateCashFlowRecomendation(customerVo.CustomerId, userVo.UserId, Convert.ToInt32(ddlptype.SelectedValue), Convert.ToInt32(DropDownList1.SelectedValue), DropDownList2.SelectedValue, Convert.ToDecimal(txtAmount.Text), Convert.ToDateTime(txtStartDate.SelectedDate), Convert.ToDateTime(txtEndDate.SelectedDate), Convert.ToDecimal(txtsumassure.Text), txtRemarks.Text, ddlfrequncy.SelectedValue);
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerCashFlowView','none');", true);
-
-
-
-
         }
 
+        private void BindCustomerCashFlowDetails()
+        {
+            DataSet ds = customerFPAnalyticsBo.CustomerCashFlowDetails(int.Parse(Request.QueryString["CFCustomerId"]));
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                ddlptype.SelectedValue = dr["CRPL_ID"].ToString();
+                BindAllControl();
+                txtAmount.Text = dr["CCRL_Amount"].ToString();
+                txtRemarks.Text = dr["CCRL_Remarks"].ToString();
+                txtsumassure.Text = dr["CCRL_SumAssured"].ToString();
+                ddlfrequncy.SelectedValue = dr["CCRL_FrequencyMode"].ToString();
+                
+                SetVisiblity(0);
 
+            }
+        }
 
-
-
-
-
-
+        private void EditCustomerCashFlowDetails()
+        {
+            DataSet ds = customerFPAnalyticsBo.CustomerCashFlowDetails(int.Parse(Request.QueryString["CFCustomerId"]));
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                ddlptype.SelectedValue = dr["CRPL_ID"].ToString();
+                BindAllControl();
+                txtAmount.Text = dr["CCRL_Amount"].ToString();
+                txtRemarks.Text = dr["CCRL_Remarks"].ToString();
+                txtsumassure.Text = dr["CCRL_SumAssured"].ToString();
+                ddlfrequncy.SelectedValue = dr["CCRL_FrequencyMode"].ToString();
+            }
+        }
 
         private void BindProductType()
         {
@@ -88,9 +123,6 @@ namespace WealthERP.FP
 
         }
 
-
-       
-
         protected void ddlpaytyppe_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlpaytyppe.SelectedItem.Value.ToString() == "LumpSum")
@@ -99,8 +131,6 @@ namespace WealthERP.FP
                 lblfrequncy.Visible = false;
                 txtEndDate.Visible = false;
                 lblEndDate.Visible = false;
-                
-
             }
             else
             {
@@ -113,7 +143,6 @@ namespace WealthERP.FP
                 lblfrequncy.Visible = true;
                 lblEndDate.Visible = true;
                 txtEndDate.Visible = true;
-
             }
         }
 
@@ -121,11 +150,13 @@ namespace WealthERP.FP
         {
 
         }
-
         protected void ddlptype_SelectedIndexChanged(object sender, EventArgs e)
         {
+            BindAllControl();
+        }
+        protected void BindAllControl()
+        {
             dsGetDropDownList = customerFPAnalyticsBo.GetCustomerCashFlowDropDownList(Convert.ToInt32(ddlptype.SelectedValue));
-
             DropDownList1.DataSource = dsGetDropDownList.Tables[0];
             DropDownList1.DataTextField = "Name";
             DropDownList1.DataValueField = "code";
@@ -135,25 +166,21 @@ namespace WealthERP.FP
             DropDownList2.DataTextField = "Name";
             DropDownList2.DataValueField = "code";
             DropDownList2.DataBind();
-            DropDownList2.Items.Insert(0, new ListItem("Select", "0"));
-            ddlpaytyppe.DataSource = dsGetDropDownList.Tables[2];
-            ddlpaytyppe.DataTextField = "Name";
-            ddlpaytyppe.DataValueField = "code";
-            ddlpaytyppe.DataBind();
-            ddlpaytyppe.Items.Insert(0, new ListItem("Select", "0"));
-        
-        }
+            //DropDownList2.Items.Insert(0, new ListItem("Select", "0"));
+            //ddlpaytyppe.DataSource = dsGetDropDownList.Tables[2];
+            //ddlpaytyppe.DataTextField = "Name";
+            //ddlpaytyppe.DataValueField = "code";
+            //ddlpaytyppe.DataBind();
+            //ddlpaytyppe.Items.Insert(0, new ListItem("Select", "0"));
 
+        }
         protected void lnkEdit_Click(object sender, EventArgs e)
         {
-          
-
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerCashFlowView','none');", true);
-
         }
 
         protected void lnkBack_Click(object sender, EventArgs e)
@@ -163,7 +190,76 @@ namespace WealthERP.FP
         }
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
+
+            customercashrecomendationid = customerFPAnalyticsBo.UpdateCashFlowRecomendation(CCRL_ID,customerVo.CustomerId, userVo.UserId, Convert.ToInt32(ddlptype.SelectedValue), Convert.ToInt32(DropDownList1.SelectedValue), DropDownList2.SelectedValue, Convert.ToDecimal(txtAmount.Text), Convert.ToDateTime(txtStartDate.SelectedDate), Convert.ToDateTime(txtEndDate.SelectedDate), Convert.ToDecimal(txtsumassure.Text), txtRemarks.Text, ddlfrequncy.SelectedValue);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerCashFlowView','none');", true);
+       
         }
- 
+
+
+        private void SetVisiblity(int p)
+        {
+            if (p == 0)
+            {
+                // For View Mode
+                ddlfrequncy.Enabled = false;
+                ddlpaytyppe.Enabled = false;
+                DropDownList1.Enabled = false;
+                DropDownList2.Enabled = false;
+                txtStartDate.Enabled = false;
+                txtEndDate.Enabled = false;
+                txtRemarks.Enabled = false;
+                txtAmount.Enabled = false;
+                txtsumassure.Enabled = false;
+                ddlptype.Enabled = false;
+
+            }
+            else
+            {
+                //for Edit Mode
+
+                ddlfrequncy.Enabled = true;
+                ddlpaytyppe.Enabled = true;
+                DropDownList1.Enabled = true;
+                DropDownList2.Enabled = true;
+                txtStartDate.Enabled = true;
+                txtEndDate.Enabled = true;
+                txtRemarks.Enabled = true;
+                txtAmount.Enabled = true;
+                txtsumassure.Enabled = true;
+                ddlptype.Enabled = true;
+
+
+            }
+        }
+
+
+
+
+        private void BtnSetVisiblity(int p)
+        {
+            if (p == 0)
+            {   //for view selected
+               // lblError.Visible = false;
+                lnkEdit.Visible = true;
+                btnSubmit.Visible = false;
+                btnUpdate.Visible = false;
+                lnkBack.Visible = false;
+
+            }
+            else
+            {  //for Edit selected 
+               // lblError.Visible = true;
+                lnkEdit.Visible = false;
+                btnSubmit.Visible = false;
+                btnUpdate.Visible = true;
+                lnkBack.Visible = true;
+            }
+
+
+        }
+
+
+
     }
 }

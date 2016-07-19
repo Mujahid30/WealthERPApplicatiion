@@ -16,9 +16,11 @@ namespace WealthERP.FP
         CustomerFPAnalyticsBo customerFPAnalyticsBo = new CustomerFPAnalyticsBo();
         CustomerVo customerVo = new CustomerVo();
         int CFCustomerId = 0;
+        int CCRL_ID;
         protected void Page_Load(object sender, EventArgs e)
         {
             customerVo = (CustomerVo)Session["customerVo"];
+            if(!IsPostBack)
             BindCustomerCashFlowDetailsGrid();
         }
 
@@ -26,59 +28,65 @@ namespace WealthERP.FP
         public void BindCustomerCashFlowDetailsGrid()
         {
             DataSet ds = customerFPAnalyticsBo.BindCustomerCashFlowDetails(customerVo.CustomerId);
+            Cache.Remove("CashFlowDetails" + customerVo.CustomerId.ToString());
+            Cache.Insert("CashFlowDetails" + customerVo.CustomerId.ToString(), ds.Tables[0]);
             gvCashFlowDetails.DataSource = ds.Tables[0];
             gvCashFlowDetails.DataBind();
         }
         protected void gvCashFlowDetails_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            //DataTable dtProcessLogDetails = new DataTable();
-            //dtProcessLogDetails = (DataTable)Cache["EQAccountDetails" + portfolioId];
-            //gvEQAcc.DataSource = dtProcessLogDetails;
+            DataTable dtCashFlowDetails;
+            dtCashFlowDetails = (DataTable)Cache["CashFlowDetails" + customerVo.CustomerId.ToString()];
+            if (dtCashFlowDetails != null)
+            {
+                gvCashFlowDetails.DataSource = dtCashFlowDetails;
+            }
         }
 
         protected void ddlAction_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
 
-
-                RadComboBox ddlAction = (RadComboBox)sender;
+            DropDownList ddlAction = (DropDownList)sender;
                 GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
                 int selectedRow = gvr.ItemIndex + 1;
-
                 CFCustomerId = int.Parse(gvCashFlowDetails.MasterTableView.DataKeyValues[selectedRow - 1]["CCRL_ID"].ToString());
-                Session["CustomerId"] = CFCustomerId;
-                Session["EQAccountVoRow"] = customerFPAnalyticsBo.BindCustomerCashFlowDetails(customerVo.CustomerId);
                 if (ddlAction.SelectedValue.ToString() == "Edit")
+                {
+                    //if (hdnIsCustomerLogin.Value == "Customer" && hdnIsMainPortfolio.Value == "1")
+                    //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Permisssion denied for Manage Portfolio !!');", true);
+                    //else
+                    if (hdnIsCustomerLogin.Value == "Customer")
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Permisssion denied for Manage Portfolio !!');", true);
+                    else
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerCashFlow", "loadcontrol('CustomerCashFlow','action=" + ddlAction.SelectedItem.Value.ToString() + "&CFCustomerId=" + CFCustomerId +"');", true);
+                        //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerCashFlow?CFCustomerId="+ +'&action= Edit');", true);
+                }
+                if (ddlAction.SelectedValue == "View")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerCashFlow", "loadcontrol('CustomerCashFlow','action=" + ddlAction.SelectedItem.Value.ToString() + "&CFCustomerId=" + CFCustomerId + "');", true);
+                  
+                }
+                if (ddlAction.SelectedValue.ToString() == "Delete")
                 {
                     if (hdnIsCustomerLogin.Value == "Customer" && hdnIsMainPortfolio.Value == "1")
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Permisssion denied for Manage Portfolio !!');", true);
                     else
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerCashFlow','action=Edit');", true);
-                }
-                if (ddlAction.SelectedValue.ToString() == "View")
-                {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerCashFlow','action=View');", true);
-                }
-                //if (ddlAction.SelectedValue.ToString() == "Delete")
-                //{
-                //    if (hdnIsCustomerLogin.Value == "Customer" && hdnIsMainPortfolio.Value == "1")
-                //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Permisssion denied for Manage Portfolio !!');", true);
-                //    else
-                //    {
-                //        bool CheckTradeAccAssociationWithTransactions;
-                //        CheckTradeAccAssociationWithTransactions = customerFPAnalyticsBo.CheckEQTradeAccNoAssociatedWithTransactions(CFCustomerId);
+                    {
+                        bool CheckCustomerCashFlow;
+                        CheckCustomerCashFlow = customerFPAnalyticsBo.DeleteEquityTransaction(CCRL_ID);
 
-                //        if (CheckTradeAccAssociationWithTransactions == true)
-                //        {
-                //            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Trade Account can not be deleted as some Transactions are Associated with this Trade Account Number.');", true);
-                //        }
-                //        else if (CheckTradeAccAssociationWithTransactions == false)
-                //        {
-                //            Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "ShowAlertToDelete();", true);
-                //        }
-                //    }
+                        //if (CheckTradeAccAssociationWithTransactions == true)
+                        //{
+                        //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Trade Account can not be deleted as some Transactions are Associated with this Trade Account Number.');", true);
+                        //}
+                        if (CheckCustomerCashFlow == false)
+                        {
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "ShowAlertToDelete();", true);
+                        }
+                    }
 
-                //}
+                }
+              
             }
 
 

@@ -28,29 +28,31 @@
                                             <Columns>
                                                 <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action">
                                                     <ItemTemplate>
-                                                        <telerik:RadComboBox ID="ddlAction" OnSelectedIndexChanged="ddlAction_SelectedIndexChanged"
-                                                            CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
-                                                            AllowCustomText="true" Width="120px" AutoPostBack="true">
-                                                            <Items>
-                                                                <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="Select"
-                                                                    Selected="true"></telerik:RadComboBoxItem>
-                                                                <telerik:RadComboBoxItem Text="View" Value="View" ImageUrl="~/Images/DetailedView.png"
-                                                                    runat="server"></telerik:RadComboBoxItem>
-                                                                <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Edit" Value="Edit"
-                                                                    runat="server"></telerik:RadComboBoxItem>
-                                                                <telerik:RadComboBoxItem ImageUrl="~/Images/delete.png" Text="Delete" Value="Delete"
-                                                                    runat="server"></telerik:RadComboBoxItem>
-                                                            </Items>
-                                                        </telerik:RadComboBox>
+                                                           <asp:DropDownList ID="ddlAction" CssClass="cmbField" runat="server" EnableEmbeddedSkins="false"
+                                                                AutoPostBack="true" OnSelectedIndexChanged="ddlAction_SelectedIndexChanged"
+                                                                Width="110px">
+                                                                <Items>
+                                                                    <asp:ListItem Text="Select" Value="Select" Selected="true" />
+                                                                    <asp:ListItem Text="View" Value="View" />
+                                                                    <asp:ListItem Text="Edit" Value="Edit"/> 
+                                                                   <asp:ListItem Text="Delete" Value="Delete" />
+
+                                                                </Items>
+                                                            </asp:DropDownList>
                                                     </ItemTemplate>
                                                 </telerik:GridTemplateColumn>
-                                                <telerik:GridBoundColumn HeaderText="Product" Visible="false" DataField="" UniqueName="Product"
-                                                    SortExpression="Product" AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false"
+                                                <telerik:GridBoundColumn HeaderText="Product"  DataField="CRPL_ID" UniqueName="Product"
+                                                    SortExpression="Product" AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false"
                                                     CurrentFilterFunction="Contains">
                                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="Payment Type" DataField="CCRL_SourceId" UniqueName="CCRL_SourceId"
+                                                <telerik:GridBoundColumn HeaderText="Scheme" DataField="CCRL_SourceId" UniqueName="CCRL_SourceId"
                                                     SortExpression="CCRL_SourceId" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Buy/Sell" DataField="CCRL_BuyType" UniqueName="CCRL_BuyType"
+                                                    SortExpression="CCRL_BuyType" AutoPostBackOnFilter="true" AllowFiltering="false"
                                                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>

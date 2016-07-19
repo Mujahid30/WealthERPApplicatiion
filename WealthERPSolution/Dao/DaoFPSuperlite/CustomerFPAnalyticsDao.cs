@@ -279,6 +279,43 @@ namespace DaoFPSuperlite
             return customercashrecomendationid;
         }
 
+        public int UpdateCashFlowRecomendation(int CCRL_ID,int CustomerId, int userId, int CRPL_ID, int CCRLSourceId, String CCRL_BuyType, decimal CCRLAmount, DateTime startDate, DateTime endDate, decimal SumAssured, string Remarks, String CCRL_FrequencyMode)
+        {
+            int customercashrecomendationid = 0;
+            Database db;
+            DbCommand updateCashFlowRecomendationCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                updateCashFlowRecomendationCmd = db.GetStoredProcCommand("SP_UpdateCustomerRecomendationDetails");
+                db.AddInParameter(updateCashFlowRecomendationCmd, "@CCRL_ID", DbType.Int32, CCRL_ID);
+                db.AddInParameter(updateCashFlowRecomendationCmd, "@C_CustomerId", DbType.Int32, CustomerId);
+                db.AddInParameter(updateCashFlowRecomendationCmd, "@CCRL_SourceId", DbType.Int32, CCRLSourceId);
+                db.AddInParameter(updateCashFlowRecomendationCmd, "@CCRL_Amount", DbType.Decimal, CCRLAmount);
+                db.AddInParameter(updateCashFlowRecomendationCmd, "@CCRL_StartDate", DbType.DateTime, startDate);
+                db.AddInParameter(updateCashFlowRecomendationCmd, "@CCRL_EndDate", DbType.DateTime, endDate);
+                db.AddInParameter(updateCashFlowRecomendationCmd, "@CCRL_SumAssured", DbType.Decimal, SumAssured);
+                db.AddInParameter(updateCashFlowRecomendationCmd, "@CCRL_Remarks", DbType.String, Remarks);
+                db.AddInParameter(updateCashFlowRecomendationCmd, "@CCRL_FrequencyMode", DbType.String, CCRL_FrequencyMode);
+                db.AddInParameter(updateCashFlowRecomendationCmd, "@CCRL_BuyType", DbType.String, CCRL_BuyType);
+                db.AddInParameter(updateCashFlowRecomendationCmd, "@CRPL_ID", DbType.Int32, CRPL_ID);
+
+                db.ExecuteNonQuery(updateCashFlowRecomendationCmd);
+
+                //if (db.ExecuteNonQuery(createCashFlowRecomendationCmd) != 0)
+
+                //  customercashrecomendationid = int.Parse(db.GetParameterValue(createCashFlowRecomendationCmd, "CCRL_ID").ToString());
+
+            }
+
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return customercashrecomendationid;
+        }
 
         public DataTable GetCustomerCashFlow(int customerId, bool isIncludeSpouse)
         {
@@ -342,7 +379,7 @@ namespace DaoFPSuperlite
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdCustomerCashFlowDetails = db.GetStoredProcCommand("SP_GETCustomerCashFlowRecommendedList");
-                db.AddInParameter(cmdCustomerCashFlowDetails, "@CustomerId", DbType.Int32, CustomerId);
+                db.AddInParameter(cmdCustomerCashFlowDetails, "@C_CustomerId", DbType.Int32, CustomerId);
                 dsCustomerCashFlowDetails = db.ExecuteDataSet(cmdCustomerCashFlowDetails);
             }
             catch (BaseApplicationException Ex)
@@ -375,6 +412,53 @@ namespace DaoFPSuperlite
 
             return dsGetDropDownList;
         }
+
+
+        public DataSet CustomerCashFlowDetails(int customercashrecomendationid)
+        {
+            DataSet dsCustomerCashFlowDetailsList;
+            Database db;
+            DbCommand cmdCustomerCashFlowDetailsList;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdCustomerCashFlowDetailsList = db.GetStoredProcCommand("SPROC_GETCustomerCashFlowRecommended");
+                db.AddInParameter(cmdCustomerCashFlowDetailsList, "@ccrlId", DbType.Int32, customercashrecomendationid);
+                dsCustomerCashFlowDetailsList = db.ExecuteDataSet(cmdCustomerCashFlowDetailsList);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsCustomerCashFlowDetailsList;
+        }
+
+
+
+        public bool DeleteCustomerCashFlowDetails(int CCRL_ID)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand deleteCustomerCashFlowDetailsCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deleteCustomerCashFlowDetailsCmd = db.GetStoredProcCommand("SP_DeleteCustomerRecomendationDetails");
+
+                db.AddInParameter(deleteCustomerCashFlowDetailsCmd, "@CCRL_ID", DbType.Int32, CCRL_ID);
+                if (db.ExecuteNonQuery(deleteCustomerCashFlowDetailsCmd) != 0)
+
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+           
+            return bResult;
+        }
+
 
 
 

@@ -1031,6 +1031,24 @@ namespace BoFPSuperlite
             return customercashrecomendationid;
 
         }
+        public int UpdateCashFlowRecomendation(int CCRL_ID, int CustomerId, int userId, int CRPL_ID, int CCRLSourceId, String CCRL_BuyType, decimal CCRLAmount, DateTime startDate, DateTime endDate, decimal SumAssured, string Remarks, String CCRL_FrequencyMode)
+        {
+            CustomerFPAnalyticsDao customerFPAnalyticsDao = new CustomerFPAnalyticsDao();
+            int customercashrecomendationid;
+            try
+            {
+                customercashrecomendationid = customerFPAnalyticsDao.UpdateCashFlowRecomendation(CCRL_ID,CustomerId, userId, CRPL_ID, CCRLSourceId, CCRL_BuyType, CCRLAmount, startDate, endDate, SumAssured, Remarks, CCRL_FrequencyMode);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+
+            return customercashrecomendationid;
+
+        }
 
 
         public DataTable GetCustomerCashFlow(int customerId, bool isIncludeSpouse)
@@ -1091,16 +1109,48 @@ namespace BoFPSuperlite
         public DataSet BindCustomerCashFlowDetails(int CustomerId)
         {
             DataSet dsCustomerCashFlowDetails = new DataSet();
-            CustomerFPAnalyticsDao daoOnlineOrderBackOffice = new CustomerFPAnalyticsDao();
+            CustomerFPAnalyticsDao customerFPAnalyticsDao = new CustomerFPAnalyticsDao();
             try
             {
-                dsCustomerCashFlowDetails = daoOnlineOrderBackOffice.BindCustomerCashFlowDetails(CustomerId);
+                dsCustomerCashFlowDetails = customerFPAnalyticsDao.BindCustomerCashFlowDetails(CustomerId);
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
             return dsCustomerCashFlowDetails;
+        }
+        public DataSet CustomerCashFlowDetails(int customercashrecomendationid)
+        {
+            DataSet dsCustomerCashFlowDetailsList = new DataSet();
+            CustomerFPAnalyticsDao customerFPAnalyticsDao = new CustomerFPAnalyticsDao();
+            try
+            {
+                dsCustomerCashFlowDetailsList = customerFPAnalyticsDao.CustomerCashFlowDetails(customercashrecomendationid);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsCustomerCashFlowDetailsList;
+        }
+
+
+        public bool DeleteEquityTransaction(int CCRL_ID)
+        {
+            bool bResult = false;
+            CustomerFPAnalyticsDao customerFPAnalyticsDao = new CustomerFPAnalyticsDao();
+            try
+            {
+
+                bResult = customerFPAnalyticsDao.DeleteCustomerCashFlowDetails(CCRL_ID);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
         }
 
     }
