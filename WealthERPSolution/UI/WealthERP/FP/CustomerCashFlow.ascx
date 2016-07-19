@@ -16,15 +16,6 @@
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
 
 <script src="../Scripts/jquery.bxslider.js" type="text/javascript"></script>
-<%--<script type="text/javascript">
-    function ShowIsa() {
-
-        var hdn = document.getElementById("<%=hdnIsSubscripted.ClientID%>").value;
-    }
-</script>--%>
-
-
-       
 
             <table width="100%">
                 <tr>
@@ -114,7 +105,10 @@
                             <DateInput ID="DateInput1" DisplayDateFormat="dd/MM/yyyy" runat="server" DateFormat="dd/MM/yyyy">
                             </DateInput>
                         </telerik:RadDatePicker>
-                       
+                        <span id="Span8" class="spnRequiredField">*</span><span id="Span9"></span>
+                    <asp:RequiredFieldValidator ID="rfvStartDate" ControlToValidate="txtStartDate"
+                        ErrorMessage="Please enter the StartDate" ValidationGroup="Vg" runat="server" CssClass="rfvPCG">
+                    </asp:RequiredFieldValidator>
                     </td>
                     
                       <td align="right">
@@ -130,7 +124,12 @@
                             <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                             <DateInput ID="DateInput2" DisplayDateFormat="dd/MM/yyyy" runat="server" DateFormat="dd/MM/yyyy">
                             </DateInput>
+                            
                         </telerik:RadDatePicker>
+                         <span id="Span6" class="spnRequiredField">*</span><span id="Span7"></span>
+                    <asp:RequiredFieldValidator ID="rfvEndDate" ControlToValidate="txtEndDate"
+                        ErrorMessage="Please enter the EndDate" ValidationGroup="Vg" runat="server" CssClass="rfvPCG">
+                    </asp:RequiredFieldValidator>
                        
                     </td>
                    
@@ -157,6 +156,10 @@
                     </td>
                     <td>
                         <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField" TabIndex="28"></asp:TextBox>
+                         <span id="Span4" class="spnRequiredField">*</span><span id="Span5"></span>
+                    <asp:RequiredFieldValidator ID="rfvAmount" ControlToValidate="txtAmount"
+                        ErrorMessage="Please enter the Amount" ValidationGroup="Vg" runat="server" CssClass="rfvPCG">
+                    </asp:RequiredFieldValidator>
                     </td>
                     </tr>
                     <tr>
@@ -166,6 +169,12 @@
                     </td>
                     <td>
                         <asp:TextBox ID="txtsumassure" runat="server" CssClass="txtField" TabIndex="28"></asp:TextBox>
+                         <span id="Span1" class="spnRequiredField">*</span><span id="Span2"></span>
+                    <asp:RequiredFieldValidator ID="rfvsumassure" ControlToValidate="txtsumassure"
+                        ErrorMessage="Please enter sumassured" ValidationGroup="Vg" runat="server" CssClass="rfvPCG">
+                    </asp:RequiredFieldValidator>
+                   <asp:RegularExpressionValidator runat="server" id="rexsumassure" CssClass="rfvPCG" controltovalidate="txtsumassure" 
+                   validationexpression="((\d+)+(\.\d+))$" errormessage="Please enter a  number!" />
                     </td>     
                     </tr>
                     <tr>
@@ -175,21 +184,19 @@
             <td class="rightField">
                 <asp:TextBox ID="txtRemarks" Width="300px" TextMode="MultiLine" MaxLength="300" Height="65px"
                     onkeydown="return (event.keyCode!=13);" runat="server" CssClass="txtField" TabIndex="51"></asp:TextBox>
+                    <td>
+                     <span id="Span3" class="spnRequiredField">*</span><span id="spnLoginStatus"></span>
+                    <asp:RequiredFieldValidator ID="rfvRemarks" ControlToValidate="txtRemarks"
+                        ErrorMessage="Please enter the remarks" ValidationGroup="Vg" runat="server" CssClass="rfvPCG">
+                    </asp:RequiredFieldValidator>
+                    </td>
             </td>
         </tr>
-        <%--<tr id="trBtnSubmit" runat="server">
-            <td align="left" colspan="3">
-                <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton"  
-                    TabIndex="52" onclick="btnSubmit_Click" />
-        
-                
-            </td>
-        </tr>--%>
+      
         <tr>
         <td class="rightField">
-                    <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerEQAccountAdd_btnSubmit', 'S');"
-                        onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerEQAccountAdd_btnSubmit', 'S');"
-                        Text="Submit" OnClick="btnSubmit_Click" OnClientClick="return isValid()" />
+                    <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" 
+                        Text="Submit" OnClick="btnSubmit_Click" ValidationGroup="Vg"  />
                     <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" Text="Update" 
                         OnClientClick="return isValidInUpdateCase()" Visible="False" 
                         onclick="btnUpdate_Click" />

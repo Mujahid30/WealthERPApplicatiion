@@ -43,7 +43,9 @@ namespace WealthERP.FP
         UserVo userVo = new UserVo();
         DataSet dsGetDropDownList;
         int ProductListId;
-        int CCRL_ID;
+        int CCRL_ID = 0;
+        int CFCustomerId = 0;
+      
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -91,7 +93,6 @@ namespace WealthERP.FP
                 txtRemarks.Text = dr["CCRL_Remarks"].ToString();
                 txtsumassure.Text = dr["CCRL_SumAssured"].ToString();
                 ddlfrequncy.SelectedValue = dr["CCRL_FrequencyMode"].ToString();
-                
                 SetVisiblity(0);
 
             }
@@ -119,7 +120,6 @@ namespace WealthERP.FP
             ddlptype.DataValueField = "CRPL_ID";
             ddlptype.DataBind();
             ddlptype.Items.Insert(0, new ListItem("Select", "0"));
-
 
         }
 
@@ -190,7 +190,6 @@ namespace WealthERP.FP
         }
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-
             customercashrecomendationid = customerFPAnalyticsBo.UpdateCashFlowRecomendation(CCRL_ID,customerVo.CustomerId, userVo.UserId, Convert.ToInt32(ddlptype.SelectedValue), Convert.ToInt32(DropDownList1.SelectedValue), DropDownList2.SelectedValue, Convert.ToDecimal(txtAmount.Text), Convert.ToDateTime(txtStartDate.SelectedDate), Convert.ToDateTime(txtEndDate.SelectedDate), Convert.ToDecimal(txtsumassure.Text), txtRemarks.Text, ddlfrequncy.SelectedValue);
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerCashFlowView','none');", true);
        

@@ -131,6 +131,15 @@ namespace WealthERP.FP {
         protected global::Telerik.Web.UI.RadDatePicker txtStartDate;
         
         /// <summary>
+        /// rfvStartDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvStartDate;
+        
+        /// <summary>
         /// lblEndDate control.
         /// </summary>
         /// <remarks>
@@ -147,6 +156,15 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadDatePicker txtEndDate;
+        
+        /// <summary>
+        /// rfvEndDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEndDate;
         
         /// <summary>
         /// lblfrequncy control.
@@ -185,6 +203,15 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.TextBox txtAmount;
         
         /// <summary>
+        /// rfvAmount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvAmount;
+        
+        /// <summary>
         /// lblsumassure control.
         /// </summary>
         /// <remarks>
@@ -203,6 +230,24 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.TextBox txtsumassure;
         
         /// <summary>
+        /// rfvsumassure control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvsumassure;
+        
+        /// <summary>
+        /// rexsumassure control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator rexsumassure;
+        
+        /// <summary>
         /// lblRemarks control.
         /// </summary>
         /// <remarks>
@@ -219,6 +264,15 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtRemarks;
+        
+        /// <summary>
+        /// rfvRemarks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvRemarks;
         
         /// <summary>
         /// btnSubmit control.
