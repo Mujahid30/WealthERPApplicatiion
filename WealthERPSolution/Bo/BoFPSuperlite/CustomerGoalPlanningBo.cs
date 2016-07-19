@@ -329,7 +329,8 @@ namespace BoFPSuperlite
         {
             double result = 0;
             Math.Round(fv, 2);
-            result = Financial.Pmt(rate, nper, pv, Math.Round(fv, 2), DueDate.BegOfPeriod);
+            //result = Financial.Pmt(rate, nper, pv, Math.Round(fv, 2), 1);
+          result=  Financial.Pmt(rate, nper, pv, -Math.Round(fv, 2), 0);
             return result;
         }
 
