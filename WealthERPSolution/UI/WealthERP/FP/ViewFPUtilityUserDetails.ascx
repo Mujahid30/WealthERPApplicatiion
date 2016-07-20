@@ -81,10 +81,12 @@
     </tr>
     </tr>
 </table>
+ <asp:Panel ID="pnlCustomerList" runat="server" class="Landscape" ScrollBars="Horizontal"
+         Width="100%" Height="80%">
 <table width="100%">
     <tr>
         <td>
-            <asp:Panel ID="paqwnel1" runat="server" Width="95%">
+           
                 <telerik:RadGrid ID="gvLeadList" runat="server" AllowAutomaticDeletes="false" PageSize="20"
                     EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
                     ShowStatusBar="false" ShowFooter="false" AllowPaging="true" AllowSorting="true"
@@ -159,7 +161,7 @@
                     </MasterTableView>
                     <ClientSettings>
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                        <Scrolling AllowScroll="true" UseStaticHeaders="true" />
+                        
                     </ClientSettings>
                 </telerik:RadGrid>
                 <telerik:RadWindowManager RenderMode="Lightweight" ID="RadWindowManager1" runat="server"
@@ -181,9 +183,9 @@
                     }
                 </script>
 
-            </asp:Panel>
         </td>
         <td>
         </td>
     </tr>
 </table>
+ </asp:Panel>
