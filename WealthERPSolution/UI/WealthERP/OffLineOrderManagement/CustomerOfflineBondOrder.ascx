@@ -91,7 +91,7 @@
     </tr>
     <tr>
         <td align="right">
-            <asp:Label ID="lblFrequency" runat="server" CssClass="FieldName" Text="Frequency:"></asp:Label>
+            <asp:Label ID="lblFrequency" runat="server" CssClass="FieldName" Text="Interest Frequency:"></asp:Label>
         </td>
         <td>
             <asp:DropDownList ID="ddlFrequency" runat="server" CssClass="cmbField" Enabled="false">
@@ -118,10 +118,10 @@
             </asp:RequiredFieldValidator>
         </td>
         <td align="right">
-            <asp:Label ID="lblPrice" runat="server" CssClass="FieldName" Text="Current Value:"></asp:Label>
+            <asp:Label ID="lblPrice" runat="server" CssClass="FieldName" Text="Price:"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="textPrice" runat="server"></asp:TextBox>
+            <asp:TextBox ID="textPrice" runat="server" OnTextChanged="textPrice_OnTextChanged" AutoPostBack="true"></asp:TextBox>
             <span id="Span8" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="textPrice"
@@ -200,10 +200,19 @@
         </td>
     </tr>
     <tr>
+        <td align="right">
+            <asp:Label ID="lblCurrentPrice" runat="server" CssClass="FieldName" Text="Current Value:"></asp:Label>
+        </td>
+        <td>
+            <asp:TextBox ID="txtCurrentPrice" runat="server" Enabled="false"></asp:TextBox>
+        </td>
+    </tr>
+    <tr>
         <td>
             <asp:Button ID="btnCreateAllotment" runat="server" Text="Submit" CssClass="PCGButton"
-                OnClick="OnClick_btnCreateAllotment"  ValidationGroup="btnViewOrder"/>
-            <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" Text="Update" OnClick="OnClick_btnUpdate"  ValidationGroup="btnViewOrder" Visible="false"/>
+                OnClick="OnClick_btnCreateAllotment" ValidationGroup="btnViewOrder" />
+            <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" Text="Update" OnClick="OnClick_btnUpdate"
+                ValidationGroup="btnViewOrder" Visible="false" />
         </td>
     </tr>
 </table>
@@ -211,7 +220,7 @@
     <tr>
         <td>
             <asp:Button runat="server" CssClass="PCGButton" ID="btnGo" Text="Go" OnClick="btnGo_OnClick"
-                ValidationGroup="btnViewOrder" visible="false"/>
+                ValidationGroup="btnViewOrder" Visible="false" />
         </td>
     </tr>
     <tr>

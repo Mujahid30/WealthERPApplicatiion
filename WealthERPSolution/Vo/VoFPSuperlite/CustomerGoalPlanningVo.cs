@@ -49,6 +49,7 @@ namespace VoFPSuperlite
         private bool G_CorpusToBeLeftBehind;
         private string G_FPCalculationBasis;
         private int G_CustomerAge;
+        public double RCgoalCoast { get; set; }
 
         private bool G_IsFundFromAsset;
         public string GoalType { get; set; }

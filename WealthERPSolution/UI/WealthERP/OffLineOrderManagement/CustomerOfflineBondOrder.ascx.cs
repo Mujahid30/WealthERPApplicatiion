@@ -97,6 +97,7 @@ namespace WealthERP.OffLineOrderManagement
                 txtOrderFrom.SelectedDate = Convert.ToDateTime(dr["COAD_OrderDate"].ToString());
                 if (dr["AIM_AllotmentDate"].ToString() != "" && dr["AIM_AllotmentDate"].ToString() != null)
                 txtOrderTo.SelectedDate = Convert.ToDateTime(dr["AIM_AllotmentDate"].ToString());
+                txtCurrentPrice.Text = dr["currentValue"].ToString();
             }
         }
         private void BindNcdCategory()
@@ -345,6 +346,14 @@ namespace WealthERP.OffLineOrderManagement
                 ddlFrequency.DataValueField = dtFrequency.Columns["WCMV_LookupId"].ToString();
                 ddlFrequency.DataTextField = dtFrequency.Columns["WCMV_Name"].ToString();
                 ddlFrequency.DataBind();
+            }
+        }
+
+        protected void textPrice_OnTextChanged(object sender, EventArgs e)
+        {
+            if((!string.IsNullOrEmpty(txtQuentity.Text)) && (!string.IsNullOrEmpty(textPrice.Text)))
+            {
+                txtCurrentPrice.Text=(int.Parse(txtQuentity.Text)* int.Parse(textPrice.Text)).ToString();
             }
         }
     }

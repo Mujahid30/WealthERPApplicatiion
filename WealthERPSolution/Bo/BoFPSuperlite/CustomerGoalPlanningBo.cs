@@ -99,7 +99,9 @@ namespace BoFPSuperlite
                 goalId = 0;
 
                 if (goalPlanningVo.Goalcode != "RT")
+                {
                     goalPlanningVo = CalculateGoalProfile(goalPlanningVo, customerAssumptionVo);
+                }
                 else if (goalPlanningVo.Goalcode == "RT")
                     goalPlanningVo = CalculateGoalProfileRT(goalPlanningVo, customerAssumptionVo);
 
@@ -155,7 +157,10 @@ namespace BoFPSuperlite
 
             try
             {
+                if (goalPlanningVo.GoalType != "RG")
                 costToday = goalPlanningVo.CostOfGoalToday;
+                else
+                    costToday = goalPlanningVo.RCgoalCoast;
                 // requiredAfter = GoalProfileVo.GoalYear;
                 requiredAfter = goalPlanningVo.GoalYear - DateTime.Today.Year;
                 currentValue = goalPlanningVo.CurrInvestementForGoal;

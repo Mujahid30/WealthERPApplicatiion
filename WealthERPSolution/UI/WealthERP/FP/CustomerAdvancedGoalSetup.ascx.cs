@@ -1462,7 +1462,9 @@ namespace WealthERP.FP
                     customerGoalPlanningVo.CostOfGoalToday = double.Parse(txtGoalCostToday.Text.Trim());
                 else
                 {
-                    customerGoalPlanningVo.CostOfGoalToday = double.Parse(ViewState["finalValue"].ToString());
+                    customerGoalPlanningVo.CostOfGoalToday = double.Parse(txtGoalCostToday.Text.Trim());
+                     customerGoalPlanningVo.RCgoalCoast= double.Parse(ViewState["finalValue"].ToString());
+
                 }
                 customerGoalPlanningVo.GoalDate = DateTime.Parse(txtGoalDate.Text);
                 customerGoalPlanningVo.GoalYear = int.Parse(ddlGoalYear.SelectedValue);
@@ -1780,7 +1782,10 @@ namespace WealthERP.FP
                 if (ddlGoalTypes.SelectedValue != "RG")
                     customerGoalPlanningVo.CostOfGoalToday = double.Parse(txtGoalCostToday.Text.Trim());
                 else
-                    customerGoalPlanningVo.CostOfGoalToday = double.Parse(ViewState["finalValue"].ToString());
+                {
+                    customerGoalPlanningVo.CostOfGoalToday = double.Parse(txtGoalCostToday.Text.Trim());
+                    customerGoalPlanningVo.RCgoalCoast = double.Parse(ViewState["finalValue"].ToString());
+                }
                 customerGoalPlanningVo.GoalDate = DateTime.Parse(txtGoalDate.Text);
                 customerGoalPlanningVo.GoalYear = int.Parse(ddlGoalYear.SelectedValue);
                 if (ddlGoalType.SelectedValue == "ED" || ddlGoalType.SelectedValue == "MR")
