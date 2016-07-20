@@ -45,13 +45,15 @@
             <table cellspacing="0" cellpadding="2" width="100%">
                 <tr>
                     <td align="right">
-                    <asp:CheckBox ID="chkincludeSpouse" runat="server" CssClass="cmbField" Text="Include Spouse" />
+                    <asp:CheckBox ID="chkincludeSpouse" runat="server"  Text="Include Spouse" />
                     </td>
                     <td align="left">
                     <asp:Button ID="btnGo" Text="Submit" runat="server" OnClick="btnGo_OnClick" CssClass="PCGMediumButton" />
                     </td>
                 </tr>
             </table>
+            <asp:Panel ID="pnlCustomerList" runat="server" class="Landscape" ScrollBars="Horizontal"
+         Width="100%" Height="80%">
             <telerik:RadGrid ID="gvCashFlowList" runat="server" AllowAutomaticDeletes="false"
                 Culture="de-De" PageSize="20" EnableEmbeddedSkins="false" AllowFilteringByColumn="true"
                 AutoGenerateColumns="False" ShowStatusBar="false" ShowFooter="false" AllowPaging="true"
@@ -173,9 +175,10 @@
                 </MasterTableView>
                 <ClientSettings>
                     <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                    <Scrolling AllowScroll="true" UseStaticHeaders="true" />
+                    
                 </ClientSettings>
             </telerik:RadGrid>
+            </asp:Panel>
         </asp:Panel>
     </telerik:RadPageView>
     <telerik:RadPageView ID="RadPageCFafterRet" runat="server">
@@ -200,6 +203,8 @@
                     </td>
                 </tr>
             </table>
+            <asp:Panel ID="Panel2" runat="server" class="Landscape" ScrollBars="Horizontal"
+         Width="100%" Height="80%">
             <telerik:RadGrid ID="gvRetCashFlowList" runat="server" AllowAutomaticDeletes="false"
                 PageSize="20" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
                 ShowStatusBar="false" ShowFooter="false" AllowPaging="true" AllowSorting="true"
@@ -262,9 +267,10 @@
                 </MasterTableView>
                 <ClientSettings>
                     <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                    <Scrolling AllowScroll="true" UseStaticHeaders="true" />
+                 
                 </ClientSettings>
             </telerik:RadGrid>
+            </asp:Panel>
         </asp:Panel>
     </telerik:RadPageView>
 </telerik:RadMultiPage>
