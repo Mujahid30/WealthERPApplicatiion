@@ -241,7 +241,7 @@ namespace DaoFPSuperlite
 
 
 
-        public int CreateCashFlowRecomendation(int CustomerId, int userId,int CRPL_ID, int CCRLSourceId, String CCRL_BuyType, decimal CCRLAmount, DateTime startDate, DateTime endDate, decimal SumAssured, string Remarks, String CCRL_FrequencyMode)
+        public int CreateCashFlowRecomendation(int CustomerId, int userId,int CRPL_ID, int CCRLSourceId, String CCRL_BuyType, decimal CCRLAmount, DateTime startDate, DateTime endDate, decimal SumAssured, DateTime CCRL_RecommendationDate, string Remarks, String CCRL_FrequencyMode)
         {
             int customercashrecomendationid = 0;
             Database db;
@@ -261,6 +261,7 @@ namespace DaoFPSuperlite
                 db.AddInParameter(createCashFlowRecomendationCmd, "@CCRL_FrequencyMode", DbType.String, CCRL_FrequencyMode);
                 db.AddInParameter(createCashFlowRecomendationCmd, "@CCRL_BuyType", DbType.String, CCRL_BuyType);
                 db.AddInParameter(createCashFlowRecomendationCmd, "@CRPL_ID", DbType.String, CRPL_ID);
+                db.AddInParameter(createCashFlowRecomendationCmd, "@CCRL_RecommendationDate", DbType.DateTime, CCRL_RecommendationDate);
 
                 db.ExecuteNonQuery(createCashFlowRecomendationCmd);
 

@@ -175,7 +175,28 @@
                     </asp:RequiredFieldValidator>
                    <asp:RegularExpressionValidator runat="server" id="rexsumassure" CssClass="rfvPCG" controltovalidate="txtsumassure" 
                    validationexpression="((\d+)+(\.\d+))$" errormessage="Please enter a  number!" />
-                    </td>     
+                    </td>
+                      <td align="right">
+                        <asp:Label ID="lblRecomendationDate" runat="server"  Text="Recommendation Date:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td>
+                        <telerik:RadDatePicker ID="txtRecomendationDate"  CssClass="txtField" runat="server" Culture="English (United States)"
+                            Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
+                            AutoPostBack="false"  TabIndex="10">
+                            <Calendar ID="Calendar3" UseRowHeadersAsSelectors="False" runat="server" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                                Skin="Telerik" EnableEmbeddedSkins="false">
+                            </Calendar>
+                            <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                            <DateInput ID="DateInput3" DisplayDateFormat="dd/MM/yyyy" runat="server" DateFormat="dd/MM/yyyy">
+                            </DateInput>
+                            
+                        </telerik:RadDatePicker>
+                         <span id="Span10" class="spnRequiredField">*</span><span id="Span11"></span>
+                    <asp:RequiredFieldValidator ID="rfvRecomendationDate" ControlToValidate="txtRecomendationDate"
+                        ErrorMessage="Please enter the RecomendationDate" ValidationGroup="Vg" runat="server" CssClass="rfvPCG">
+                    </asp:RequiredFieldValidator>
+                       
+                    </td>         
                     </tr>
                     <tr>
                       <td class="leftField">
@@ -189,6 +210,11 @@
                     <asp:RequiredFieldValidator ID="rfvRemarks" ControlToValidate="txtRemarks"
                         ErrorMessage="Please enter the remarks" ValidationGroup="Vg" runat="server" CssClass="rfvPCG">
                     </asp:RequiredFieldValidator>
+                     <br />
+                    <br />
+                    <br />
+                    <asp:CheckBox ID="chkIsactive" runat="server" Text="Is active" CssClass="FieldName"
+                onClick="return UseProfileName()" AutoPostBack="false"  />
                     </td>
             </td>
         </tr>

@@ -29,33 +29,7 @@ namespace WealthERP.CustomerPortfolio
         private const string DESCENDING = " DESC";
         Dictionary<int, int> genDictPortfolioDetails = new Dictionary<int, int>();
 
-        protected override void OnInit(EventArgs e)
-        {
-            try
-            {
-
-                ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
-                mypager.EnableViewState = true;
-                base.OnInit(e);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "PortfolioViewDashboard.ascx.cs:OnInit()");
-                object[] objects = new object[0];
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-
-
-        }
+ 
 
         public void HandlePagerEvent(object sender, ItemClickEventArgs e)
         {
@@ -307,7 +281,9 @@ namespace WealthERP.CustomerPortfolio
                 DropDownList MyDropDownList = (DropDownList)sender;
                 GridViewRow gvr = (GridViewRow)MyDropDownList.NamingContainer;
                 int selectedRow = gvr.RowIndex;
-                portfolioId = int.Parse(gvrPensionAndGratuities.DataKeys[selectedRow].Value.ToString());
+                //portfolioId = int.Parse(gvrPensionAndGratuities.DataKeys[selectedRow].Value.ToString());
+                portfolioId = int.Parse(gvrPensionAndGratuities.MasterTableView.DataKeyValues[selectedRow - 1]["portfolioId"].ToString());
+
                 hdndeleteId.Value = portfolioId.ToString();
                 pensionAndGratuitiesVo = pensionAndGratuitiesBo.GetPensionAndGratuities(portfolioId);
                 Session["pensionAndGratuitiesVo"] = pensionAndGratuitiesVo;
@@ -357,11 +333,11 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
-        protected void gvrPensionAndGratuities_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            gvrPensionAndGratuities.PageIndex = e.NewPageIndex;
-            gvrPensionAndGratuities.DataBind();
-        }
+        //protected void gvrPensionAndGratuities_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        //{
+        //    gvrPensionAndGratuities.PageIndex = e.NewPageIndex;
+        //    gvrPensionAndGratuities.DataBind();
+        //}
 
         protected void gvrPensionAndGratuities_Sorting(object sender, GridViewSortEventArgs e)
         {
@@ -404,6 +380,16 @@ namespace WealthERP.CustomerPortfolio
         protected void gvrPensionAndGratuities_DataBound(object sender, EventArgs e)
         {
 
+        }
+        public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvrPensionAndGratuities.ExportSettings.OpenInNewWindow = true;
+            gvrPensionAndGratuities.ExportSettings.IgnorePaging = true;
+            gvrPensionAndGratuities.ExportSettings.HideStructureColumns = true;
+            gvrPensionAndGratuities.ExportSettings.ExportOnlyData = true;
+            gvrPensionAndGratuities.ExportSettings.FileName = "Pension And Gratuities Details";
+           // gvrPensionAndGratuities.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvrPensionAndGratuities.MasterTableView.ExportToExcel();
         }
 
         protected void hiddenassociation_Click(object sender, EventArgs e)

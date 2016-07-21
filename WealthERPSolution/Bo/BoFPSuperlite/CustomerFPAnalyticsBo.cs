@@ -1013,13 +1013,13 @@ namespace BoFPSuperlite
 
 
 
-        public int CreateCashFlowRecomendation(int CustomerId, int userId, int CRPL_ID, int CCRLSourceId, String CCRL_BuyType, decimal CCRLAmount, DateTime startDate, DateTime endDate, decimal SumAssured, string Remarks, String CCRL_FrequencyMode)
+        public int CreateCashFlowRecomendation(int CustomerId, int userId, int CRPL_ID, int CCRLSourceId, String CCRL_BuyType, decimal CCRLAmount, DateTime startDate, DateTime endDate, decimal SumAssured, DateTime CCRL_RecommendationDate, string Remarks, String CCRL_FrequencyMode)
         {
             CustomerFPAnalyticsDao customerFPAnalyticsDao = new CustomerFPAnalyticsDao();
             int customercashrecomendationid;
             try
             {
-                customercashrecomendationid = customerFPAnalyticsDao.CreateCashFlowRecomendation(CustomerId, userId,CRPL_ID, CCRLSourceId,CCRL_BuyType,  CCRLAmount, startDate, endDate, SumAssured, Remarks, CCRL_FrequencyMode);
+                customercashrecomendationid = customerFPAnalyticsDao.CreateCashFlowRecomendation(CustomerId, userId,CRPL_ID, CCRLSourceId,CCRL_BuyType,  CCRLAmount, startDate, endDate, SumAssured, CCRL_RecommendationDate, Remarks, CCRL_FrequencyMode);
 
             }
             catch (BaseApplicationException Ex)

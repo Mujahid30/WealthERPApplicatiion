@@ -46,7 +46,7 @@
                                                     CurrentFilterFunction="Contains">
                                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="Scheme" DataField="CCRL_SourceId" UniqueName="CCRL_SourceId"
+                                                <telerik:GridBoundColumn HeaderText="Scheme" DataField="PASP_SchemePlanName" UniqueName="PASP_SchemePlanName"
                                                     SortExpression="CCRL_SourceId" AutoPostBackOnFilter="true" AllowFiltering="false"
                                                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />

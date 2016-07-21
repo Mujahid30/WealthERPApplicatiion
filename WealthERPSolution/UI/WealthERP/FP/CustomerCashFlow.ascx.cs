@@ -1,4 +1,5 @@
-﻿using System;
+﻿using VoUser;
+using BoFPSuperlite;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -31,6 +32,7 @@ using VoOnlineOrderManagemnet;
 using System.Text;
 using VoCustomerProfiling;
 using BoFPSuperlite;
+using System;
 
 namespace WealthERP.FP
 {
@@ -78,7 +80,7 @@ namespace WealthERP.FP
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            customercashrecomendationid = customerFPAnalyticsBo.CreateCashFlowRecomendation(customerVo.CustomerId, userVo.UserId, Convert.ToInt32(ddlptype.SelectedValue), Convert.ToInt32(DropDownList1.SelectedValue), DropDownList2.SelectedValue, Convert.ToDecimal(txtAmount.Text), Convert.ToDateTime(txtStartDate.SelectedDate), Convert.ToDateTime(txtEndDate.SelectedDate), Convert.ToDecimal(txtsumassure.Text), txtRemarks.Text, ddlfrequncy.SelectedValue);
+            customercashrecomendationid = customerFPAnalyticsBo.CreateCashFlowRecomendation(customerVo.CustomerId, userVo.UserId, Convert.ToInt32(ddlptype.SelectedValue), Convert.ToInt32(DropDownList1.SelectedValue), DropDownList2.SelectedValue, Convert.ToDecimal(txtAmount.Text), Convert.ToDateTime(txtStartDate.SelectedDate), Convert.ToDateTime(txtEndDate.SelectedDate), Convert.ToDecimal(txtsumassure.Text), Convert.ToDateTime(txtRecomendationDate.SelectedDate), txtRemarks.Text, ddlfrequncy.SelectedValue);
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerCashFlowView','none');", true);
         }
 
@@ -93,6 +95,10 @@ namespace WealthERP.FP
                 txtRemarks.Text = dr["CCRL_Remarks"].ToString();
                 txtsumassure.Text = dr["CCRL_SumAssured"].ToString();
                 ddlfrequncy.SelectedValue = dr["CCRL_FrequencyMode"].ToString();
+                txtStartDate.SelectedDate = Convert.ToDateTime(dr["CCRL_StartDate"].ToString());
+                txtEndDate.SelectedDate = Convert.ToDateTime(dr["CCRL_EndDate"].ToString());
+                txtRecomendationDate.SelectedDate = Convert.ToDateTime(dr["CCRL_RecommendationDate"].ToString());
+
                 SetVisiblity(0);
 
             }
@@ -109,6 +115,9 @@ namespace WealthERP.FP
                 txtRemarks.Text = dr["CCRL_Remarks"].ToString();
                 txtsumassure.Text = dr["CCRL_SumAssured"].ToString();
                 ddlfrequncy.SelectedValue = dr["CCRL_FrequencyMode"].ToString();
+                txtStartDate.SelectedDate = Convert.ToDateTime(dr["CCRL_StartDate"].ToString());
+                txtEndDate.SelectedDate = Convert.ToDateTime(dr["CCRL_EndDate"].ToString());
+                txtRecomendationDate.SelectedDate = Convert.ToDateTime(dr["CCRL_RecommendationDate"].ToString());
             }
         }
 
@@ -211,6 +220,7 @@ namespace WealthERP.FP
                 txtAmount.Enabled = false;
                 txtsumassure.Enabled = false;
                 ddlptype.Enabled = false;
+                txtRecomendationDate.Enabled = false;
 
             }
             else
@@ -227,6 +237,7 @@ namespace WealthERP.FP
                 txtAmount.Enabled = true;
                 txtsumassure.Enabled = true;
                 ddlptype.Enabled = true;
+                txtRecomendationDate.Enabled = true;
 
 
             }
