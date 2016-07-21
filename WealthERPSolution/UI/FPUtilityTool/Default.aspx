@@ -12,8 +12,6 @@
 
     <script src="Scripts/bootstrap-3.3.6.min.js" type="text/javascript"></script>
 
-
-
     <link href="Content/CSS/commonStyle.css" rel="stylesheet" type="text/css" />
     <link href="Content/CSS/datepicker.css" rel="stylesheet" type="text/css" />
     <style>
@@ -25,7 +23,6 @@
             -moz-box-shadow: 0px 0px 6px red;
             -webkit-box-shadow: 0px 0px 6px red;
         }
-      
     </style>
 </head>
 <body>
@@ -87,9 +84,10 @@
                                                 placeholder="Enter Mobile No"></asp:TextBox>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtMobNo"
                                                 ValidationGroup="btnsignUpsubmit" runat="server" />
-                                            <asp:CompareValidator ID="cvMobileNo" ControlToValidate="txtMobNo" runat="server"
-                                                Display="Dynamic" ValidationGroup="btnsignUpsubmit" ErrorMessage="Please enter a valid Mobile No."
-                                                Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                                            <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" Display="Dynamic"
+                                                ValidationGroup="btnsignUpsubmit" CssClass="text-danger" ErrorMessage="Please enter a valid Mobile No."
+                                                ControlToValidate="txtMobNo" ValidationExpression="\d{10}">
+                                            </asp:RegularExpressionValidator>
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-6">
@@ -112,7 +110,8 @@
                                         <label class="control-label col-sm-4" for="txtDob">
                                             Date of Birth:</label>
                                         <div class="col-sm-8">
-                                            <asp:TextBox ID="txtDob" runat="server" data-date="" data-date-format="dd/mm/yyyy"  CssClass="form-control required" ></asp:TextBox>
+                                            <asp:TextBox ID="txtDob" runat="server" data-date="" data-date-format="dd/mm/yyyy"
+                                                CssClass="form-control required"></asp:TextBox>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtDob"
                                                 ValidationGroup="btnsignUpsubmit" runat="server" />
                                             <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="txtDob"
@@ -120,8 +119,15 @@
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-6">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div id="asd" class="form-group col-sm-6">
+                                        <asp:Label ID="Label1" runat="server" Visible="false" CssClass="ValidationMsg">Client already exists.<a data-toggle="tab" aria-controls="signUp" href="#signUp">SignUp here.</a></asp:Label>
                                         <asp:Label ID="lbllogedIn1" runat="server" Visible="false" Text="User already loged In."
-                                            CssClass="text-danger"></asp:Label>
+                                            CssClass="ValidationMsg"></asp:Label>
+                                    </div>
+                                    <div class="form-group col-sm-6">
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-6 pull-right">
                                                 <asp:Button ID="btnSignUpsubmit" runat="server" OnClick="btnsignUpsubmit_Click" Text="Submit"
@@ -161,10 +167,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-9">
-                                        <asp:Label ID="lblClient" runat="server" Visible="false" Text="Client does not exists."
-                                            CssClass="text-danger"></asp:Label>
+                                        <asp:Label ID="lblClient" runat="server" Visible="false" 
+                                            CssClass="ValidationMsg">Client does not exists.<a data-toggle="tab" aria-controls="signIn" href="#signIn">SignIn here.</a></asp:Label>
                                         <asp:Label ID="lbllogedIn2" runat="server" Visible="false" Text="User already loged In."
-                                            CssClass="text-danger"></asp:Label>
+                                            CssClass="ValidationMsg"></asp:Label>
                                     </div>
                                     <div class="col-sm-2">
                                         <div class="form-group">
@@ -189,7 +195,9 @@
 </footer>
     <asp:HiddenField ID="TabName" runat="server" />
     </form>
+
     <script src="Scripts/bootstrap-datepicker.js" type="text/javascript" charset="UTF-8"></script>
+
     <script>
 
         $(function() {
@@ -199,8 +207,13 @@
             $("#Tabs a").click(function() {
                 $("[id*=TabName]").val($(this).attr("href").replace("#", ""));
             });
+            $("#asd a").click(function() {
+                $('ul.nav li:eq(1)').addClass("active");
+                $('ul.nav li:eq(0)').removeClass("active");
+                $("[id*=TabName]").val($(this).attr("href").replace("#", ""));
+            });
             $('#txtDob').datepicker({
-            autoclose: 1
+                autoclose: 1
             });
 
 

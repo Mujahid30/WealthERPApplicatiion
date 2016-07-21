@@ -54,3 +54,7 @@
     padding: 1px;
     width: auto;
 }
+.ValidationMsg
+{
+    color:Red;
+}

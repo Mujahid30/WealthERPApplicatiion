@@ -103,6 +103,7 @@ namespace FPUtilityTool
                     customerVo.IsProspect = 1;
                     customerVo.IsFPClient = 1;
                     customerVo.IsActive = 1;
+                    customerVo.IsRealInvestor = true;
                     customerVo.PANNum = fpuserVo.Pan;
                     customerVo.Mobile1 = fpuserVo.MobileNo;
                     customerVo.ProspectAddDate = DateTime.Now;

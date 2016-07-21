@@ -89,18 +89,27 @@ namespace FPUtilityTool
                 FPUserVo UserVo = new FPUserVo();
                 UserVo = fpUserBo.CreateAndGetFPUtilityUserDetails(fpUserVo, "", false);
                 isValidUser = ValidateSingleSessionPerUser(UserVo.UserId.ToString());
-                if (isValidUser && UserVo.UserId != 0 && string.IsNullOrEmpty(UserVo.RiskClassCode))
+                int adviserId = Convert.ToInt32(ConfigurationManager.AppSettings["ONLINE_ADVISER"]);
+                if (!fpUserBo.CheckInvestorExists(adviserId, txtPan1.Text, txtclientCode.Text))
                 {
-                    Session["FPUserVo"] = UserVo;
-                    Response.Redirect("Questionnaire.aspx");
-                }
-                else if (isValidUser && UserVo.UserId != 0 && !string.IsNullOrEmpty(UserVo.RiskClassCode))
-                {
-                    Session["FPUserVo"] = UserVo;
-                    Response.Redirect("Result.aspx");
+                    Label1.Visible = false;
+                    if (isValidUser && UserVo.UserId != 0 && string.IsNullOrEmpty(UserVo.RiskClassCode))
+                    {
+                        Session["FPUserVo"] = UserVo;
+                        Response.Redirect("Questionnaire.aspx");
+                    }
+                    else if (isValidUser && UserVo.UserId != 0 && !string.IsNullOrEmpty(UserVo.RiskClassCode))
+                    {
+                        Session["FPUserVo"] = UserVo;
+                        Response.Redirect("Result.aspx");
+                    }
+                    else
+                        lbllogedIn1.Visible = true;
                 }
                 else
-                    lbllogedIn1.Visible = true;
+                {
+                    Label1.Visible = true;
+                }
             }
 
         }
