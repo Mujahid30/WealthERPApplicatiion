@@ -791,22 +791,20 @@
                             <span id="Span6" class="spnRequiredField">*</span>
                             <br />
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please Select Issuer"
-                                CssClass="rfvPCG" ControlToValidate="ddlIssuer" ValidationGroup="btnScheme_Go" Display="Dynamic"
-                                InitialValue="0"></asp:RequiredFieldValidator>
+                                CssClass="rfvPCG" ControlToValidate="ddlIssuer" ValidationGroup="btnScheme_Go"
+                                Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
                         </td>
                         <td class="leftLabel">
                             <asp:Label ID="lblPeriodStart" runat="server" Style="text-align: right" CssClass="FieldName"
                                 Text="Category:"></asp:Label>
-                                
                         </td>
                         <td>
                             <asp:DropDownList ID="ddlMFCategory" runat="server" CssClass="cmbField">
                             </asp:DropDownList>
-                           
                         </td>
                         <td class="rightData">
                             <asp:Button ID="btn_GetAvailableSchemes" runat="server" Text="Go" CssClass="PCGButton"
-                                OnClick="btn_GetAvailableSchemes_Click" ValidationGroup="btnScheme_Go"/>
+                                OnClick="btn_GetAvailableSchemes_Click" ValidationGroup="btnScheme_Go" />
                         </td>
                     </tr>
                 </table>
@@ -1075,9 +1073,7 @@
                                     <Columns>
                                         <telerik:GridEditCommandColumn EditText="Edit" UniqueName="Edit">
                                         </telerik:GridEditCommandColumn>
-                                        <telerik:GridButtonColumn CommandName="Delete" Text="Delete" ConfirmText="Do you want to delete this rule? Click OK to proceed"
-                                            UniqueName="Delete">
-                                        </telerik:GridButtonColumn>
+                                       
                                         <telerik:GridBoundColumn UniqueName="ACSR_CommissionStructureRuleName" HeaderText="Rule Name"
                                             DataField="ACSR_CommissionStructureRuleName">
                                             <HeaderStyle></HeaderStyle>
@@ -1088,24 +1084,20 @@
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="XCT_CustomerTypeCode" HeaderText="INV Typ" DataField="XCT_CustomerTypeCode">
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="ACSR_MinInvestmentAmount" HeaderText="Min. Invest Amount"
-                                            DataField="ACSR_MinInvestmentAmount" DataFormatString="{0:N2}">
-                                            <HeaderStyle></HeaderStyle>
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="ACSR_MaxInvestmentAmount" HeaderText="Max. Invest Amount"
-                                            DataField="ACSR_MaxInvestmentAmount" DataFormatString="{0:N2}">
-                                            <HeaderStyle></HeaderStyle>
-                                        </telerik:GridBoundColumn>
+                                        <telerik:GridTemplateColumn UniqueName="ACSR_MinInvestmentAmount" HeaderText="Min. Invest Amount"
+                                            DataField="ACSR_MinInvestmentAmount">
+                                            <ItemTemplate>
+                                                <asp:TextBox ID="txtMinInvestmentAmount"  Width="80px" runat="server" Text='<%#Eval("ACSR_MinInvestmentAmount")%>'></asp:TextBox>
+                                            </ItemTemplate>
+                                        </telerik:GridTemplateColumn>
+                                        <telerik:GridTemplateColumn UniqueName="ACSR_MaxInvestmentAmount" HeaderText="Max. Invest Amount"
+                                            DataField="ACSR_MaxInvestmentAmount">
+                                            <ItemTemplate>
+                                                <asp:TextBox ID="txtMaxInvestmentAmount"  Width="80px" runat="server" Text='<%#Eval("ACSR_MaxInvestmentAmount")%>'></asp:TextBox>
+                                            </ItemTemplate>
+                                        </telerik:GridTemplateColumn>
                                         <telerik:GridBoundColumn UniqueName="ACSR_TenureUnit" HeaderText="Tenure Unit" DataField="ACSR_TenureUnit"
                                             Visible="false">
-                                            <HeaderStyle></HeaderStyle>
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="ACSR_MinInvestmentAge" HeaderText="Min. Invest Age"
-                                            DataField="ACSR_MinInvestmentAge" Visible="false">
-                                            <HeaderStyle></HeaderStyle>
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="ACSR_MaxInvestmentAge" HeaderText="Max.Invest Age"
-                                            DataField="ACSR_MaxInvestmentAge" Visible="false">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="ACSR_InvestmentAgeUnit" HeaderText="Invest Age Unit"
@@ -1190,12 +1182,20 @@
                                                 <asp:TextBox ID="txtTDSTex" runat="server" Width="50px" Text='<%#Eval("ACSR_ReducedValue")%>'></asp:TextBox>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
+                                        <telerik:GridBoundColumn UniqueName="ACSR_MinInvestmentAge" HeaderText="Min. Invest Age"
+                                            DataField="ACSR_MinInvestmentAge">
+                                            <HeaderStyle></HeaderStyle>
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn UniqueName="ACSR_MaxInvestmentAge" HeaderText="Max.Invest Age"
+                                            DataField="ACSR_MaxInvestmentAge">
+                                            <HeaderStyle></HeaderStyle>
+                                        </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="ACSR_MinTenure" HeaderText="Min. Tenure (SIP)"
-                                            DataField="ACSR_MinTenure">
+                                            DataField="ACSR_MinTenure" Visible="false">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn UniqueName="ACSR_MaxTenure" HeaderText="Max. Tenure (SIP)"
-                                            DataField="ACSR_MaxTenure">
+                                            DataField="ACSR_MaxTenure" Visible="false">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>
                                         <%-- <telerik:GridBoundColumn UniqueName="PaybleUnit" HeaderText="Payable  Unit" DataField="PaybleUnit">
@@ -1209,11 +1209,15 @@
                                         <telerik:GridBoundColumn UniqueName="ACSR_AUMMonth" HeaderText="AUM Month" DataField="ACSR_AUMMonth"
                                             Visible="false">
                                         </telerik:GridBoundColumn>
+                                       
                                         <telerik:GridTemplateColumn UniqueName="Edit1">
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="lnkEdit" runat="server" CssClass="LinkButtons" Text="Edit" OnClick="btnruleEdit_OnClick"></asp:LinkButton>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
+                                          <telerik:GridButtonColumn CommandName="Delete" Text="Delete" ConfirmText="Do you want to delete this rule? Click OK to proceed"
+                                            UniqueName="Delete">
+                                        </telerik:GridButtonColumn>
                                         <telerik:GridTemplateColumn UniqueName="Update">
                                             <ItemTemplate>
                                                 <asp:Button ID="btnupdate" runat="server" CssClass="PCGButton" Visible="false" Text="Update"
@@ -1324,8 +1328,9 @@
                                                         <asp:TextBox ID="txtAge" runat="server" Visible="false"></asp:TextBox>
                                                         <span id="Span9" class="spnRequiredField">*</span>
                                                         <br />
-                                                        <asp:RequiredFieldValidator Visible="false" runat="server" ID="RequiredFieldValidator15" ValidationGroup="btnSubmitRule"
-                                                            Display="Dynamic" ControlToValidate="txtAge" ErrorMessage="<br />Enter Age" Text="" />
+                                                        <asp:RequiredFieldValidator Visible="false" runat="server" ID="RequiredFieldValidator15"
+                                                            ValidationGroup="btnSubmitRule" Display="Dynamic" ControlToValidate="txtAge"
+                                                            ErrorMessage="<br />Enter Age" Text="" />
                                                     </td>
                                                 </tr>
                                                 <tr>

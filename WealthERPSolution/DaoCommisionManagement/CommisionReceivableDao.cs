@@ -2188,7 +2188,7 @@ namespace DaoCommisionManagement
             }
             return count;
         }
-        public bool UpdateRuleRateandTax(int ruleid,decimal serviceTax,decimal TDSValue,decimal recivablerate,decimal payablerate,string brokrageunit, int userId,int IsClawBack,int clawBackAge)
+        public bool UpdateRuleRateandTax(int ruleid, decimal serviceTax, decimal TDSValue, decimal recivablerate, decimal payablerate, string brokrageunit, int userId, int IsClawBack, int clawBackAge, decimal MAXInvestment, decimal MINInvestment)
         {
             bool bResult = false;
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -2206,7 +2206,8 @@ namespace DaoCommisionManagement
                 db.AddInParameter(dbCreateNewRuleAndRate, "@userId", DbType.Int32, userId);
                 db.AddInParameter(dbCreateNewRuleAndRate, "@IsClawBack", DbType.Int32, IsClawBack);
                 db.AddInParameter(dbCreateNewRuleAndRate, "@clawBackAge", DbType.Int32, clawBackAge);
-
+                db.AddInParameter(dbCreateNewRuleAndRate, "@MAXInvestment", DbType.Decimal, MAXInvestment);
+                db.AddInParameter(dbCreateNewRuleAndRate, "@MINInvestment", DbType.Decimal, MINInvestment);
                 if (db.ExecuteNonQuery(dbCreateNewRuleAndRate) != 0)
                     bResult = true;
             }

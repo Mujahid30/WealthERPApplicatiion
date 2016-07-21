@@ -273,17 +273,14 @@ namespace WealthERP.Receivable
             if (ddlProductType.SelectedValue == "MF")
             {
 
-                RadGridStructureRule.MasterTableView.GetColumn("ACSR_MinTenure").Visible = true;
-                RadGridStructureRule.MasterTableView.GetColumn("ACSR_MaxTenure").Visible = true;
                 RadGridStructureRule.MasterTableView.GetColumn("ACSR_TenureUnit").Visible = false;
-                RadGridStructureRule.MasterTableView.GetColumn("ACSR_MinInvestmentAge").Visible = false;
-                RadGridStructureRule.MasterTableView.GetColumn("ACSR_MaxInvestmentAge").Visible = false;
                 RadGridStructureRule.MasterTableView.GetColumn("ACSM_AUMFrequency").Visible = false;
                 RadGridStructureRule.MasterTableView.GetColumn("ACSR_AUMMonth").Visible = false;
                 RadGridStructureRule.MasterTableView.GetColumn("ACSR_InvestmentAgeUnit").Visible = false;
                 RadGridStructureRule.MasterTableView.GetColumn("ACSR_TransactionType").Visible = false;
                 RadGridStructureRule.MasterTableView.GetColumn("Edit").Visible = false;
-                RadGridStructureRule.MasterTableView.GetColumn("Delete").Visible = false;
+                RadGridStructureRule.MasterTableView.GetColumn("ACSR_MinInvestmentAge").Visible = true;
+                RadGridStructureRule.MasterTableView.GetColumn("ACSR_MaxInvestmentAge").Visible = true;
 
             }
             else
@@ -307,7 +304,7 @@ namespace WealthERP.Receivable
         }
         protected void btnSubmitCommissionTypeBrokerage_Click(object sender, EventArgs e)
         {
-            RadWDCommissionTypeBrokerage.VisibleOnPageLoad = true;
+            //RadWDCommissionTypeBrokerage.VisibleOnPageLoad = true;
 
         }
 
@@ -491,7 +488,7 @@ namespace WealthERP.Receivable
         }
         protected void BtnActivRangeClose_Click(object sender, EventArgs e)
         {
-            RadWDCommissionTypeBrokerage.VisibleOnPageLoad = false;
+            //RadWDCommissionTypeBrokerage.VisibleOnPageLoad = false;
 
         }
 
@@ -1020,6 +1017,9 @@ namespace WealthERP.Receivable
             CheckBox check = new CheckBox();
             Label lbl = new Label();
             TextBox txtbox = new TextBox();
+            TextBox txtMaxInvestmentAmount = new TextBox();
+            TextBox txtMinInvestmentAmount = new TextBox();
+
             if (ddlCommissionType.NamingContainer is Telerik.Web.UI.GridEditFormItem)
             {
                 GridEditFormItem gdi;
@@ -1110,6 +1110,9 @@ namespace WealthERP.Receivable
                 DropDownList ddlBrokrageUnit = (DropDownList)e.Item.FindControl("ddlBrokrageUnit");
                 Label lblTransactionType = (Label)e.Item.FindControl("lblTransactionType");
                 TextBox txtReceivableValue = (TextBox)e.Item.FindControl("txtReceivableValue");
+                TextBox txtMaxInvestmentAmount = (TextBox)e.Item.FindControl("txtMaxInvestmentAmount");
+                TextBox txtMinInvestmentAmount = (TextBox)e.Item.FindControl("txtMinInvestmentAmount");
+
                 TextBox txtPaybleValue = (TextBox)e.Item.FindControl("txtPaybleValue");
                 TextBox txtServiceTex = (TextBox)e.Item.FindControl("txtServiceTex");
                 TextBox txtTDSTex = (TextBox)e.Item.FindControl("txtTDSTex");
@@ -1128,7 +1131,7 @@ namespace WealthERP.Receivable
                         {
                             RadGridStructureRule.MasterTableView.GetColumn("Edit1").Visible = true;
                             RadGridStructureRule.MasterTableView.GetColumn("Update").Visible = true;
-
+                            RadGridStructureRule.MasterTableView.GetColumn("Delete").Visible = true;
                             txtReceivableValue.Enabled = false;
                             txtPaybleValue.Enabled = false;
                             txtServiceTex.Enabled = false;
@@ -1137,6 +1140,9 @@ namespace WealthERP.Receivable
                             ddlBrokrageUnit.Enabled = false;
                             check.Enabled = false;
                             txtbox.Enabled = false;
+                            txtMaxInvestmentAmount.Enabled = false;
+                            txtMinInvestmentAmount.Enabled = false;
+
                         }
                     }
                 }
@@ -1278,7 +1284,7 @@ namespace WealthERP.Receivable
                 {
                     ShowHideControlsForRulesBasedOnProduct(true, e);
                     RadGridStructureRule.MasterTableView.GetColumn("Edit").Visible = false;
-                    RadGridStructureRule.MasterTableView.GetColumn("Delete").Visible = false;
+                    RadGridStructureRule.MasterTableView.GetColumn("Delete").Visible = true;
                     RadGridStructureRule.MasterTableView.GetColumn("Edit1").Visible = true;
 
                 }
@@ -1356,7 +1362,7 @@ namespace WealthERP.Receivable
                     trDateValidation.Visible = false;
                     trCity.Visible = true;
                     RadGridStructureRule.MasterTableView.GetColumn("Edit").Visible = false;
-                    RadGridStructureRule.MasterTableView.GetColumn("Delete").Visible = false;
+                    RadGridStructureRule.MasterTableView.GetColumn("Delete").Visible = true;
                     RadGridStructureRule.MasterTableView.GetColumn("Edit1").Visible = true;
 
                 }
@@ -1664,12 +1670,16 @@ namespace WealthERP.Receivable
                 dtStructureRules = CreateCommissionStructureRuleDataTable();
                 dtStructureRules = Createtable(dtStructureRules);
                 RadGridStructureRule.MasterTableView.GetColumn("Edit1").Visible = false;
+                RadGridStructureRule.MasterTableView.GetColumn("Delete").Visible = false;
+
             }
             else
             {
                 btnCreateRule.Visible = false;
                 RadGridStructureRule.MasterTableView.GetColumn("Update").Visible = false;
                 RadGridStructureRule.MasterTableView.GetColumn("Edit1").Visible = true;
+                RadGridStructureRule.MasterTableView.GetColumn("Delete").Visible = true;
+
                 ViewState["gridEdit"] = "0";
             }
             RadGridStructureRule.DataSource = dtStructureRules;
@@ -1799,6 +1809,8 @@ namespace WealthERP.Receivable
                     else
                     {
                         RadGridStructureRule.MasterTableView.GetColumn("Edit1").Visible = true;
+                        RadGridStructureRule.MasterTableView.GetColumn("Delete").Visible = true;
+
                         btnCreateRule.Visible = false;
                     }
                     ruleId = commisionReceivableBo.CreateCommissionStructureRule(commissionStructureRuleVo, userVo.UserId, sbRuleHash.ToString());
@@ -2174,8 +2186,9 @@ namespace WealthERP.Receivable
                     chkListTtansactionType.Visible = !enablement;
                     lblTransactionType.Visible = !enablement;
                     ddlCommisionCalOn.Items[0].Enabled = true;
-                    ddlCommisionCalOn.SelectedValue = "AGAM";
-                    ddlCommisionCalOn.Enabled = false;
+                    //ddlCommisionCalOn.SelectedValue = "AGAM";
+                    //ddlCommisionCalOn.Enabled = false;
+                    ddlCommisionCalOn.Items[1].Enabled = true;
                     tdApplicationNo.Visible = false;
                     tdlblApplicationNo.Visible = false;
                     trMinMAxInvAmount.Visible = false;
@@ -2564,6 +2577,7 @@ namespace WealthERP.Receivable
             {
                 btnCreateRule.Visible = false;
                 RadGridStructureRule.MasterTableView.GetColumn("Edit1").Visible = false;
+                RadGridStructureRule.MasterTableView.GetColumn("Delete").Visible = false;
 
             }
             RadGridStructureRule.DataSource = dtStructureRules;
@@ -2642,7 +2656,7 @@ namespace WealthERP.Receivable
             dr["CSRD_IsUpdate"] = 0;
             dr["ACSR_ClawBackAge"] = "0";
             dr["ACSR_IsClaWback"] = 0;
-            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "T15" + " " + "Trail" + " " + "Normal";
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "T15 1st Year" + " " + "Trail" + " " + "Normal";
 
             dttable.Rows.Add(dr);
             dr = null;
@@ -2667,7 +2681,7 @@ namespace WealthERP.Receivable
             dr["CSRD_IsUpdate"] = 0;
             dr["ACSR_ClawBackAge"] = "0";
             dr["ACSR_IsClaWback"] = 0;
-            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "B15" + " " + "Trail" + " " + "Normal";
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "B15 1st Year" + " " + "Trail" + " " + "Normal";
 
             dttable.Rows.Add(dr);
             dr = null;
@@ -2692,7 +2706,7 @@ namespace WealthERP.Receivable
             dr["CSRD_IsUpdate"] = 0;
             dr["ACSR_ClawBackAge"] = "0";
             dr["ACSR_IsClaWback"] = 0;
-            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "T15" + " " + "Trail" + " " + "Normal";
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "T15 2nd Year" + " " + "Trail" + " " + "Normal";
 
             dttable.Rows.Add(dr);
             dr = null;
@@ -2716,7 +2730,7 @@ namespace WealthERP.Receivable
             dr["CSRD_IsUpdate"] = 0;
             dr["ACSR_ClawBackAge"] = "0";
             dr["ACSR_IsClaWback"] = 0;
-            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "B15" + " " + "Trail" + " " + "Normal";
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "B15 2nd Year" + " " + "Trail" + " " + "Normal";
 
             dttable.Rows.Add(dr);
             dr = null;
@@ -2741,7 +2755,7 @@ namespace WealthERP.Receivable
             dr["CSRD_IsUpdate"] = 0;
             dr["ACSR_ClawBackAge"] = "0";
             dr["ACSR_IsClaWback"] = 0;
-            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "T15" + " " + "Trail" + " " + "Normal";
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "T15 3rd Year" + " " + "Trail" + " " + "Normal";
 
             dttable.Rows.Add(dr);
             dr = null;
@@ -2766,7 +2780,7 @@ namespace WealthERP.Receivable
             dr["CSRD_IsUpdate"] = 0;
             dr["ACSR_ClawBackAge"] = "0";
             dr["ACSR_IsClaWback"] = 0;
-            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "B15" + " " + "Trail" + " " + "Normal";
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "B15 3rd Year" + " " + "Trail" + " " + "Normal";
 
             dttable.Rows.Add(dr);
 
@@ -4034,6 +4048,8 @@ namespace WealthERP.Receivable
                 TextBox txtTDSTex = (TextBox)radItem.FindControl("txtTDSTex");
                 TextBox txtReceivableValue = (TextBox)radItem.FindControl("txtReceivableValue");
                 TextBox txtPaybleValue = (TextBox)radItem.FindControl("txtPaybleValue");
+                TextBox txtMinInvestmentAmount = (TextBox)radItem.FindControl("txtMinInvestmentAmount");
+                TextBox txtMaxInvestmentAmount = (TextBox)radItem.FindControl("txtMaxInvestmentAmount");
                 DropDownList ddlBrokrageUnit = (DropDownList)radItem.FindControl("ddlBrokrageUnit");
                 CheckBox check = (CheckBox)radItem.FindControl("ChkIsclowBack");
                 TextBox txtbox = (TextBox)radItem.FindControl("txtClawBackAge");
@@ -4051,8 +4067,8 @@ namespace WealthERP.Receivable
                 drRulecreate["TRXNType"] = "NonSIP";
                 drRulecreate["S_Tax"] = (!string.IsNullOrEmpty(txtServiceTex.Text)) ? Convert.ToDecimal(txtServiceTex.Text) : 0;
                 drRulecreate["TDS"] = (!string.IsNullOrEmpty(txtTDSTex.Text)) ? Convert.ToDecimal(txtTDSTex.Text) : 0;
-                drRulecreate["MinAmt"] = RadGridStructureRule.MasterTableView.DataKeyValues[radItem.ItemIndex]["ACSR_MinInvestmentAmount"];
-                drRulecreate["MaxAmt"] = RadGridStructureRule.MasterTableView.DataKeyValues[radItem.ItemIndex]["ACSR_MaxInvestmentAmount"];
+                drRulecreate["MinAmt"] = (!string.IsNullOrEmpty(txtMinInvestmentAmount.Text)) ? Convert.ToDecimal(txtMinInvestmentAmount.Text) : 0;//RadGridStructureRule.MasterTableView.DataKeyValues[radItem.ItemIndex]["ACSR_MinInvestmentAmount"];
+                drRulecreate["MaxAmt"] = (!string.IsNullOrEmpty(txtMaxInvestmentAmount.Text)) ? Convert.ToDecimal(txtMaxInvestmentAmount.Text) : 0;//RadGridStructureRule.MasterTableView.DataKeyValues[radItem.ItemIndex]["ACSR_MaxInvestmentAmount"];
                 if (minage == "N/A" || minage == "0")
                     drRulecreate["MinAge"] = "0";
                 else
@@ -4088,6 +4104,9 @@ namespace WealthERP.Receivable
             {
                 btnCreateRule.Visible = false;
                 RadGridStructureRule.MasterTableView.GetColumn("Edit1").Visible = true;
+                RadGridStructureRule.MasterTableView.GetColumn("Delete").Visible = true;
+     
+
             }
         }
 
@@ -4100,6 +4119,8 @@ namespace WealthERP.Receivable
             TextBox txtTDSTex = (TextBox)gr.FindControl("txtTDSTex");
             TextBox txtReceivableValue = (TextBox)gr.FindControl("txtReceivableValue");
             TextBox txtPaybleValue = (TextBox)gr.FindControl("txtPaybleValue");
+            TextBox txtMinInvestmentAmount = (TextBox)gr.FindControl("txtMinInvestmentAmount");
+            TextBox txtMaxInvestmentAmount = (TextBox)gr.FindControl("txtMaxInvestmentAmount");
             DropDownList ddlBrokrageUnit = (DropDownList)gr.FindControl("ddlBrokrageUnit");
             CheckBox check = (CheckBox)gr.FindControl("ChkIsclowBack");
             TextBox txtbox = (TextBox)gr.FindControl("txtClawBackAge");
@@ -4107,7 +4128,7 @@ namespace WealthERP.Receivable
 
             ViewState["ruleid"] = ViewState["ruleid"] + ruleid.ToString() + ",";
             result = commisionReceivableBo.UpdateRuleRateandTax(ruleid, (txtServiceTex.Text == "") ? 0 : Convert.ToDecimal(txtServiceTex.Text),
-                (txtTDSTex.Text == "") ? 0 : Convert.ToDecimal(txtTDSTex.Text), (txtReceivableValue.Text == "") ? 0 : Convert.ToDecimal(txtReceivableValue.Text), (txtPaybleValue.Text == "") ? 0 : Convert.ToDecimal(txtPaybleValue.Text), ddlBrokrageUnit.SelectedValue, userVo.UserId, (check.Checked) ? 1 : 0, (!string.IsNullOrEmpty(txtbox.Text)) ? int.Parse(txtbox.Text) : 0);
+                (txtTDSTex.Text == "") ? 0 : Convert.ToDecimal(txtTDSTex.Text), (txtReceivableValue.Text == "") ? 0 : Convert.ToDecimal(txtReceivableValue.Text), (txtPaybleValue.Text == "") ? 0 : Convert.ToDecimal(txtPaybleValue.Text), ddlBrokrageUnit.SelectedValue, userVo.UserId, (check.Checked) ? 1 : 0, (!string.IsNullOrEmpty(txtbox.Text)) ? int.Parse(txtbox.Text) : 0, (txtMaxInvestmentAmount.Text == "") ? 0 : Convert.ToDecimal(txtMaxInvestmentAmount.Text), (txtMinInvestmentAmount.Text == "") ? 0 : Convert.ToDecimal(txtMinInvestmentAmount.Text));
             if (result == true)
                 BindCommissionStructureRuleGrid(int.Parse(hidCommissionStructureName.Value));
 
@@ -4128,6 +4149,11 @@ namespace WealthERP.Receivable
                 DropDownList ddlBrokrageUnit = (DropDownList)gvr.FindControl("ddlBrokrageUnit");
                 CheckBox check = (CheckBox)gvr.FindControl("ChkIsclowBack");
                 TextBox txtbox = (TextBox)gvr.FindControl("txtClawBackAge");
+                TextBox txtMinInvestmentAmount = (TextBox)gvr.FindControl("txtMinInvestmentAmount");
+                TextBox txtMaxInvestmentAmount = (TextBox)gvr.FindControl("txtMaxInvestmentAmount");
+                RadGridStructureRule.MasterTableView.GetColumn("Delete").Visible = true;
+                txtMinInvestmentAmount.Enabled = true;
+                txtMaxInvestmentAmount.Enabled = true;
                 txtReceivableValue.Enabled = true;
                 txtPaybleValue.Enabled = true;
                 txtServiceTex.Enabled = true;

@@ -23,26 +23,6 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.ScriptManager scrptMgr;
         
         /// <summary>
-        /// RadWDCommissionTypeBrokerage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadWindow RadWDCommissionTypeBrokerage;
-        
-        /// <summary>
-        /// BtnActivRangeClose control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnActivRangeClose;
-        protected global::System.Web.UI.WebControls.Button btnCancelSelectedRule;
-        protected global::System.Web.UI.WebControls.Button btnCreateRule;
-        protected global::System.Web.UI.WebControls.Button btnupdate;
-        /// <summary>
         /// pnl1 control.
         /// </summary>
         /// <remarks>
@@ -59,8 +39,7 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trStepOneHeading;
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trCity;
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trDateValidation;
+        
         /// <summary>
         /// imgStepOneStatus control.
         /// </summary>
@@ -69,6 +48,15 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image imgStepOneStatus;
+        
+        /// <summary>
+        /// ImageButton3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImageButton3;
         
         /// <summary>
         /// Label2 control.
@@ -98,15 +86,6 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.WebControls.LinkButton lnkEditStructure;
         
         /// <summary>
-        /// ImageButton3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImageButton3;
-        
-        /// <summary>
         /// tb1 control.
         /// </summary>
         /// <remarks>
@@ -132,8 +111,6 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlProductType;
-        protected global::System.Web.UI.WebControls.DropDownList ddlAMFIAvaliable;
-        protected global::System.Web.UI.WebControls.DropDownList ddlMFCategory;
         
         /// <summary>
         /// RequiredFieldValidator1 control.
@@ -253,15 +230,6 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.WebControls.Label lblSubCategory;
         
         /// <summary>
-        /// SpanSubCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl SpanSubCategory;
-        
-        /// <summary>
         /// trIssuer control.
         /// </summary>
         /// <remarks>
@@ -269,33 +237,6 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trIssuer;
-        
-        /// <summary>
-        /// lblIssuer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblIssuer;
-        
-        /// <summary>
-        /// ddlIssuer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlIssuer;
-        
-        /// <summary>
-        /// RequiredFieldValidator2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
         
         /// <summary>
         /// rlbAssetSubCategory control.
@@ -451,6 +392,15 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4;
         
         /// <summary>
+        /// trReward control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trReward;
+        
+        /// <summary>
         /// lblOptions control.
         /// </summary>
         /// <remarks>
@@ -568,6 +518,15 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow tr1;
         
         /// <summary>
+        /// ImageButton4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImageButton4;
+        
+        /// <summary>
         /// Label4 control.
         /// </summary>
         /// <remarks>
@@ -584,15 +543,6 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton ibtExportSummary;
-        
-        /// <summary>
-        /// ImageButton4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImageButton4;
         
         /// <summary>
         /// Table1 control.
@@ -667,6 +617,33 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.HtmlControls.HtmlTable tbSchemeButton;
         
         /// <summary>
+        /// lblIssuer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIssuer;
+        
+        /// <summary>
+        /// ddlIssuer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlIssuer;
+        
+        /// <summary>
+        /// RequiredFieldValidator2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
+        
+        /// <summary>
         /// lblPeriodStart control.
         /// </summary>
         /// <remarks>
@@ -676,22 +653,13 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.WebControls.Label lblPeriodStart;
         
         /// <summary>
-        /// rdpPeriodStart control.
+        /// ddlMFCategory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadDatePicker rdpPeriodStart;
-        
-        /// <summary>
-        /// rdpPeriodEnd control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadDatePicker rdpPeriodEnd;
+        protected global::System.Web.UI.WebControls.DropDownList ddlMFCategory;
         
         /// <summary>
         /// btn_GetAvailableSchemes control.
@@ -703,42 +671,6 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.WebControls.Button btn_GetAvailableSchemes;
         
         /// <summary>
-        /// rfvPeriodStart control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPeriodStart;
-        
-        /// <summary>
-        /// rfvPeriodEnd control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPeriodEnd;
-        
-        /// <summary>
-        /// cvPeriodEnd control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator cvPeriodEnd;
-        
-        /// <summary>
-        /// lblMapError control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMapError;
-        
-        /// <summary>
         /// tbSchemeMapping control.
         /// </summary>
         /// <remarks>
@@ -748,22 +680,22 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.HtmlControls.HtmlTable tbSchemeMapping;
         
         /// <summary>
-        /// lblAvailableSchemes control.
+        /// TextBox1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAvailableSchemes;
+        protected global::System.Web.UI.WebControls.TextBox TextBox1;
         
         /// <summary>
-        /// lblMappedSchemes control.
+        /// TextBoxWatermarkExtender3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMappedSchemes;
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender3;
         
         /// <summary>
         /// rlbAvailSchemes control.
@@ -910,6 +842,15 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow tr3;
         
         /// <summary>
+        /// ImageButton5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImageButton5;
+        
+        /// <summary>
         /// Label11 control.
         /// </summary>
         /// <remarks>
@@ -926,15 +867,6 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton ImageButton2;
-        
-        /// <summary>
-        /// ImageButton5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImageButton5;
         
         /// <summary>
         /// tbNcdIssueList control.
@@ -1036,15 +968,6 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.WebControls.Panel pnlIssueList;
         
         /// <summary>
-        /// lblNoRecordFound control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNoRecordFound;
-        
-        /// <summary>
         /// dvIssueList control.
         /// </summary>
         /// <remarks>
@@ -1090,6 +1013,15 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.WebControls.Image Image1;
         
         /// <summary>
+        /// imgBuy1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton imgBuy1;
+        
+        /// <summary>
         /// lblStage control.
         /// </summary>
         /// <remarks>
@@ -1117,13 +1049,13 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.WebControls.LinkButton lnkDeleteAllRule;
         
         /// <summary>
-        /// imgBuy1 control.
+        /// pnlrulegrid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton imgBuy1;
+        protected global::System.Web.UI.WebControls.Panel pnlrulegrid;
         
         /// <summary>
         /// tblCommissionStructureRule1 control.
@@ -1135,15 +1067,6 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.HtmlControls.HtmlTable tblCommissionStructureRule1;
         
         /// <summary>
-        /// Panel2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel2;
-        
-        /// <summary>
         /// RadGridStructureRule control.
         /// </summary>
         /// <remarks>
@@ -1151,6 +1074,15 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid RadGridStructureRule;
+        
+        /// <summary>
+        /// btnCreateRule control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCreateRule;
         
         /// <summary>
         /// Table5 control.
@@ -1171,6 +1103,15 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trPayableMapping;
         
         /// <summary>
+        /// ImageButton7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImageButton7;
+        
+        /// <summary>
         /// Label15 control.
         /// </summary>
         /// <remarks>
@@ -1189,15 +1130,6 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.WebControls.ImageButton ImageButton6;
         
         /// <summary>
-        /// ImageButton7 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImageButton7;
-        
-        /// <summary>
         /// gvPayaMapping control.
         /// </summary>
         /// <remarks>
@@ -1207,15 +1139,6 @@ namespace WealthERP.Receivable {
         protected global::Telerik.Web.UI.RadGrid gvPayaMapping;
         
         /// <summary>
-        /// lblEligible control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEligible;
-        
-        /// <summary>
         /// btnIssueMap control.
         /// </summary>
         /// <remarks>
@@ -1223,6 +1146,15 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnIssueMap;
+        
+        /// <summary>
+        /// lblEligible control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEligible;
         
         /// <summary>
         /// radAplicationPopUp control.
@@ -1279,6 +1211,24 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.WebControls.DropDownList ddlType;
         
         /// <summary>
+        /// lblAMFIAvaliable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAMFIAvaliable;
+        
+        /// <summary>
+        /// ddlAMFIAvaliable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlAMFIAvaliable;
+        
+        /// <summary>
         /// lblAssetCategory control.
         /// </summary>
         /// <remarks>
@@ -1297,6 +1247,24 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.WebControls.DropDownList ddlAdviserCategory;
         
         /// <summary>
+        /// rgPayableMapping control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid rgPayableMapping;
+        
+        /// <summary>
+        /// btnCancelSelectedRule control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCancelSelectedRule;
+        
+        /// <summary>
         /// trListControls control.
         /// </summary>
         /// <remarks>
@@ -1304,6 +1272,15 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trListControls;
+        
+        /// <summary>
+        /// txtAssociateSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAssociateSearch;
         
         /// <summary>
         /// PLCustomer control.
@@ -1349,15 +1326,6 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadListBox RadListBoxSelectedAgentCodes;
-        
-        /// <summary>
-        /// rgPayableMapping control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid rgPayableMapping;
         
         /// <summary>
         /// btnGo control.
