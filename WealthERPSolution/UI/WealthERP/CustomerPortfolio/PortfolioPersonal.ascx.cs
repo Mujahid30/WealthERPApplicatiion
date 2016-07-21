@@ -12,6 +12,7 @@ using WealthERP.Base;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using BoCommon;
+using Telerik.Web.UI;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -27,7 +28,7 @@ namespace WealthERP.CustomerPortfolio
         CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
         PortfolioBo portfolioBo = new PortfolioBo();
         Dictionary<int, int> genDictPortfolioDetails = new Dictionary<int, int>();
-
+        static int PersonalId;
         protected override void OnInit(EventArgs e)
         {
 
@@ -314,10 +315,10 @@ namespace WealthERP.CustomerPortfolio
                 DropDownList ddlAction = (DropDownList)sender;
                 GridViewRow gvr = (GridViewRow)ddlAction.NamingContainer;
                 int selectedRow = gvr.RowIndex;
-                int personalsId = int.Parse(gvrPersonal.DataKeys[selectedRow].Value.ToString());
-                hdndeleteId.Value = personalsId.ToString();
+                portfolioId = int.Parse(gvrPersonal.MasterTableView.DataKeyValues[selectedRow - 1]["PersonalId"].ToString());
+                hdndeleteId.Value = PersonalId.ToString();
                 // Set the VO into the Session
-                Session["personalVo"] = personalBo.GetPersonalAsset(personalsId);
+                Session["personalVo"] = personalBo.GetPersonalAsset(PersonalId);
                 if (ddlAction.SelectedItem.Value.ToString() == "Edit")
                 {
                     if (hdnIsCustomerLogin.Value == "Customer" && hdnIsMainPortfolio.Value == "1")
@@ -359,8 +360,8 @@ namespace WealthERP.CustomerPortfolio
 
         protected void gvrPersonal_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvrPersonal.PageIndex = e.NewPageIndex;
-            gvrPersonal.DataBind();
+            //gvrPersonal.PageIndex = e.NewPageIndex;
+            //gvrPersonal.DataBind();
         }
 
         protected void gvrPersonal_Sorting(object sender, GridViewSortEventArgs e)
@@ -392,6 +393,22 @@ namespace WealthERP.CustomerPortfolio
                 return (SortDirection)ViewState["sortDirection"];
             }
             set { ViewState["sortDirection"] = value; }
+        }
+        protected void gvrPersonal_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            //DataTable dtProcessLogDetails = new DataTable();
+            //dtProcessLogDetails = (DataTable)Cache["EQAccountDetails" + portfolioId];
+            //gvEQAcc.DataSource = dtProcessLogDetails;
+        }
+        public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvrPersonal.ExportSettings.OpenInNewWindow = true;
+            gvrPersonal.ExportSettings.IgnorePaging = true;
+            gvrPersonal.ExportSettings.HideStructureColumns = true;
+            gvrPersonal.ExportSettings.ExportOnlyData = true;
+            gvrPersonal.ExportSettings.FileName = "Pension And Gratuities Details";
+            // gvrPensionAndGratuities.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvrPersonal.MasterTableView.ExportToExcel();
         }
 
         protected void hiddenassociation_Click(object sender, EventArgs e)
