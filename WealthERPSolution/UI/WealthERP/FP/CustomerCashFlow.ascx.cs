@@ -80,7 +80,7 @@ namespace WealthERP.FP
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            customercashrecomendationid = customerFPAnalyticsBo.CreateCashFlowRecomendation(customerVo.CustomerId, userVo.UserId, Convert.ToInt32(ddlptype.SelectedValue), Convert.ToInt32(DropDownList1.SelectedValue), DropDownList2.SelectedValue, Convert.ToDecimal(txtAmount.Text), Convert.ToDateTime(txtStartDate.SelectedDate), Convert.ToDateTime(txtEndDate.SelectedDate), Convert.ToDecimal(txtsumassure.Text), Convert.ToDateTime(txtRecomendationDate.SelectedDate), txtRemarks.Text, ddlfrequncy.SelectedValue);
+            customercashrecomendationid = customerFPAnalyticsBo.CreateCashFlowRecomendation(customerVo.CustomerId, userVo.UserId, Convert.ToInt32(ddlptype.SelectedValue), Convert.ToInt32(DropDownList1.SelectedValue), DropDownList2.SelectedValue, Convert.ToDecimal(txtAmount.Text), Convert.ToDateTime(txtStartDate.SelectedDate), Convert.ToDateTime(txtEndDate.SelectedDate), Convert.ToDecimal(txtsumassure.Text), Convert.ToDateTime(txtRecomendationDate.SelectedDate), txtRemarks.Text, ddlfrequncy.SelectedValue,Convert.ToInt32(ddlpaytyppe.SelectedValue), Convert.ToDecimal(txtRecurringamt.Text),Convert.ToInt32(txttenure.Text));
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerCashFlowView','none');", true);
         }
 
@@ -98,6 +98,10 @@ namespace WealthERP.FP
                 txtStartDate.SelectedDate = Convert.ToDateTime(dr["CCRL_StartDate"].ToString());
                 txtEndDate.SelectedDate = Convert.ToDateTime(dr["CCRL_EndDate"].ToString());
                 txtRecomendationDate.SelectedDate = Convert.ToDateTime(dr["CCRL_RecommendationDate"].ToString());
+                txttenure.Text = dr["CCRL_tenure"].ToString();
+                txtRecurringamt.Text = dr["CCRL_RecurringAmount"].ToString();
+                ddlpaytyppe.SelectedValue = dr["CCRL_Paymentmode"].ToString();
+                chkIsactive.Checked = Convert.ToBoolean(dr["CCRL_Isactive"].ToString());
 
                 SetVisiblity(0);
 
@@ -118,6 +122,10 @@ namespace WealthERP.FP
                 txtStartDate.SelectedDate = Convert.ToDateTime(dr["CCRL_StartDate"].ToString());
                 txtEndDate.SelectedDate = Convert.ToDateTime(dr["CCRL_EndDate"].ToString());
                 txtRecomendationDate.SelectedDate = Convert.ToDateTime(dr["CCRL_RecommendationDate"].ToString());
+                txttenure.Text = dr["CCRL_tenure"].ToString();
+                txtRecurringamt.Text = dr["CCRL_RecurringAmount"].ToString();
+                ddlpaytyppe.SelectedValue = dr["CCRL_Paymentmode"].ToString();
+                chkIsactive.Checked = Convert.ToBoolean(dr["CCRL_Isactive"].ToString());
             }
         }
 
@@ -134,7 +142,7 @@ namespace WealthERP.FP
 
         protected void ddlpaytyppe_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlpaytyppe.SelectedItem.Value.ToString() == "LumpSum")
+            if (ddlpaytyppe.SelectedItem.Value.ToString() == "lump sum amt")
             {
                 ddlfrequncy.Visible = false;
                 lblfrequncy.Visible = false;
@@ -152,6 +160,9 @@ namespace WealthERP.FP
                 lblfrequncy.Visible = true;
                 lblEndDate.Visible = true;
                 txtEndDate.Visible = true;
+                txtRecurringamt.Visible = true;
+                txttenure.Visible = true;
+                chkIsactive.Visible = true;
             }
         }
 
@@ -221,6 +232,9 @@ namespace WealthERP.FP
                 txtsumassure.Enabled = false;
                 ddlptype.Enabled = false;
                 txtRecomendationDate.Enabled = false;
+                txttenure.Enabled = false;
+                chkIsactive.Enabled = false;
+                txtRecurringamt.Enabled = false;
 
             }
             else
@@ -238,6 +252,9 @@ namespace WealthERP.FP
                 txtsumassure.Enabled = true;
                 ddlptype.Enabled = true;
                 txtRecomendationDate.Enabled = true;
+                txttenure.Enabled = true;
+                chkIsactive.Enabled = true;
+                txtRecurringamt.Enabled = true;
 
 
             }

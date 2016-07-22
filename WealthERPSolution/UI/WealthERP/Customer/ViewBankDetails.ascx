@@ -66,7 +66,7 @@
 </script>
 <script type="text/javascript" language="javascript">
     function conformation() {
-            var answer = confirm("Are you sure you want to delete?");
+            var answer = confirm("Cannot delete the bank is Associate with Folio/Trade Account");
             if (answer)
                 return true;
             else
@@ -110,7 +110,7 @@
     }
 </script>
 
-<table style: width="100%;">
+<table style: width="100%;" >
     <tr>
         <td>
             <div class="divPageHeading">
@@ -133,7 +133,7 @@
             </div>
         </td>
     </tr>
-    <tr id="trMessage" runat="server" visible="false">
+    <tr id="trMessage" runat="server" visible="false" >
         <td>
             <asp:Label ID="lblMessage" runat="server" Text="No Records Found..." CssClass="Error"></asp:Label>
         </td>
@@ -145,10 +145,10 @@
             <asp:Image ID="Image2" runat="server" ImageUrl="~/App_Themes/Loading.gif" style="border: 0px;">  
             </asp:Image> 
         </telerik:RadAjaxLoadingPanel> --%>
-<div style="width: 100%; padding-left: 4px; padding-right: 10px;">
+<div style="width: 100%; padding-left: 4px; padding-right: 10px;" >
     <telerik:RadGrid ID="gvBankDetails" runat="server" GridLines="None" Width="99%" AllowPaging="true"
         PageSize="10" AllowSorting="True" AutoGenerateColumns="false" ShowStatusBar="true" ShowFooter="true"
-        AllowAutomaticDeletes="True" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
+        AllowAutomaticDeletes="True" AllowAutomaticInserts="false" AllowAutomaticUpdates="false" 
         Skin="Telerik" EnableEmbeddedSkins="false"
         OnItemCommand="gvBankDetails_ItemCommand" EnableHeaderContextMenu="false" OnPreRender="gvBankDetails_PreRender"
         EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="false" OnNeedDataSource="gvBankDetails_NeedDataSource"

@@ -15,7 +15,7 @@
                         </td>
                         <tr>
                             <td>
-                                <asp:Panel ID="pnlCashFlowDetails" runat="server" ScrollBars="both" Width="100%"
+                                <asp:Panel ID="pnlCashFlowDetails" runat="server" ScrollBars="Horizontal" Width="95%"
                                     Visible="true">
                                     <telerik:RadGrid ID="gvCashFlowDetails" runat="server" GridLines="None" AutoGenerateColumns="False"
                                         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
@@ -56,6 +56,26 @@
                                                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
+                                                 <telerik:GridBoundColumn HeaderText="Payment Type" DataField="CCRL_Paymentmode" UniqueName="CCRL_Paymentmode"
+                                                    SortExpression="CCRL_Paymentmode" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                </telerik:GridBoundColumn>
+                                                 <telerik:GridBoundColumn HeaderText="Recurring amt" DataField="CCRL_RecurringAmount" UniqueName="CCRL_RecurringAmount"
+                                                    SortExpression="CCRL_RecurringAmount" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderText="Recurring freq" DataField="CCRL_FrequencyMode" UniqueName="CCRL_FrequencyMode"
+                                                    SortExpression="CCRL_FrequencyMode" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                </telerik:GridBoundColumn>
+                                                 <telerik:GridBoundColumn HeaderText="Tenure(in month)" DataField="CCRL_tenure" UniqueName="CCRL_tenure"
+                                                    SortExpression="CCRL_tenure" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                </telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Start Date" DataField="CCRL_StartDate" UniqueName="CCRL_StartDate"
                                                     SortExpression="CCRL_StartDate" AutoPostBackOnFilter="true" AllowFiltering="false"
                                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:dd-MMM-yy}">
@@ -66,11 +86,6 @@
                                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:dd-MMM-yy}">
                                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="Frequency" DataField="CCRL_FrequencyMode" UniqueName="CCRL_FrequencyMode"
-                                                    SortExpression="CCRL_FrequencyMode" AutoPostBackOnFilter="true" AllowFiltering="false"
-                                                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Amount" DataField="CCRL_Amount" UniqueName="CCRL_Amount"
                                                     SortExpression="CCRL_Amount" AutoPostBackOnFilter="true" AllowFiltering="false"
                                                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
@@ -78,6 +93,16 @@
                                                 </telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderText="Sum Assure" DataField="CCRL_SumAssured" UniqueName="CCRL_SumAssured"
                                                     SortExpression="CCRL_SumAssured" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                </telerik:GridBoundColumn>
+                                                 <telerik:GridBoundColumn HeaderText="Date of recommendation" DataField="CCRL_RecommendationDate" UniqueName="CCRL_RecommendationDate"
+                                                    SortExpression="CCRL_RecommendationDate" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:dd-MMM-yy}">
+                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                </telerik:GridBoundColumn>
+                                                 <telerik:GridBoundColumn HeaderText="IsActive" DataField="CCRL_Isactive" UniqueName="CCRL_Isactive"
+                                                    SortExpression="CCRL_Isactive" AutoPostBackOnFilter="true" AllowFiltering="false"
                                                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>

@@ -63,47 +63,7 @@
     </tr>
     <tr>
         <td>
-            <%-- <asp:GridView ID="gvGoldPortfolio" runat="server" AutoGenerateColumns="False" CellPadding="4"
-                CssClass="GridViewStyle" DataKeyNames="GoldNPId" OnSelectedIndexChanged="gvGoldPortfolio_SelectedIndexChanged"
-                AllowSorting="True" AllowPaging="True" OnPageIndexChanging="gvGoldPortfolio_PageIndexChanging"
-                OnSorting="gvGoldPortfolio_Sorting" ShowFooter="True">
-                <FooterStyle CssClass="FooterStyle" />
-                <RowStyle CssClass="RowStyle" />
-                <EditRowStyle HorizontalAlign="Left" VerticalAlign="Top" CssClass="EditRowStyle" />
-                <SelectedRowStyle CssClass="SelectedRowStyle" />
-                <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
-                <HeaderStyle CssClass="HeaderStyle" />
-                <AlternatingRowStyle CssClass="AltRowStyle" />
-                <Columns>
-                    <asp:TemplateField>
-                        <ItemTemplate>
-                            <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" CssClass="GridViewCmbField"
-                                OnSelectedIndexChanged="ddlAction_OnSelectedIndexChange">
-                                <asp:ListItem Text="Select" />
-                                <asp:ListItem Text="View" Value="View">View</asp:ListItem>
-                                <asp:ListItem Text="Edit" Value="Edit">Edit</asp:ListItem>
-                                <asp:ListItem Text="Delete" Value="Delete">Delete</asp:ListItem>
-                            </asp:DropDownList>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:BoundField DataField="Instrument Category" HeaderText="Instrument Category" />
-                    <asp:BoundField DataField="Purchase Date" HeaderText="Purchase Date (dd/mm/yyyy)"
-                        ItemStyle-HorizontalAlign="Center" />
-                    <asp:BoundField DataField="Purchase Value" HeaderText="Purchase Value (Rs)" ItemStyle-HorizontalAlign="Right" />
-                    <asp:BoundField DataField="Current Value" HeaderText="Current Value (Rs)" ItemStyle-HorizontalAlign="Right" />
-                    <asp:TemplateField HeaderText="P/L (Rs)" ItemStyle-HorizontalAlign="Right">
-                        <ItemTemplate>
-                            <asp:Label ID="LblTotal" runat="server" Text='<%# Convert.ToDouble(Eval("Current Value")) - Convert.ToDouble(Eval("Purchase Value"))%>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                      <asp:TemplateField HeaderText="P/L (%)" ItemStyle-HorizontalAlign="Right">
-                        <ItemTemplate>
-                            <asp:Label ID="LblPercentage" runat="server" Text='<%# (Convert.ToDouble(Eval("Current Value")) - Convert.ToDouble(Eval("Purchase Value")))/100%>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:BoundField DataField="Remarks" HeaderText="Remarks" />
-                </Columns>
-            </asp:GridView>--%>
+            
             <telerik:RadGrid ID="gvGoldPortfolio" runat="server" GridLines="None" AutoGenerateColumns="False"
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                 Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"

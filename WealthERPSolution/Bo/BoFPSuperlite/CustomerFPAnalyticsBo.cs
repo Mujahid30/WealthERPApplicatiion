@@ -991,35 +991,19 @@ namespace BoFPSuperlite
             {
                 throw Ex;
             }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-
-                FunctionInfo.Add("Method", "ProductMFBo.cs:GetProductAmc()");
-
-
-                object[] objects = new object[0];
-
-
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-
-            }
+           
             return dsGetProductTypes;
         }
 
 
 
-        public int CreateCashFlowRecomendation(int CustomerId, int userId, int CRPL_ID, int CCRLSourceId, String CCRL_BuyType, decimal CCRLAmount, DateTime startDate, DateTime endDate, decimal SumAssured, DateTime CCRL_RecommendationDate, string Remarks, String CCRL_FrequencyMode)
+        public int CreateCashFlowRecomendation(int CustomerId, int userId, int CRPL_ID, int CCRLSourceId, String CCRL_BuyType, decimal CCRLAmount, DateTime startDate, DateTime endDate, decimal SumAssured, DateTime CCRL_RecommendationDate, string Remarks, String CCRL_FrequencyMode, int CCRL_Paymentmode, decimal CCRL_RecurringAmount, int CCRL_tenure)
         {
             CustomerFPAnalyticsDao customerFPAnalyticsDao = new CustomerFPAnalyticsDao();
             int customercashrecomendationid;
             try
             {
-                customercashrecomendationid = customerFPAnalyticsDao.CreateCashFlowRecomendation(CustomerId, userId,CRPL_ID, CCRLSourceId,CCRL_BuyType,  CCRLAmount, startDate, endDate, SumAssured, CCRL_RecommendationDate, Remarks, CCRL_FrequencyMode);
+                customercashrecomendationid = customerFPAnalyticsDao.CreateCashFlowRecomendation(CustomerId, userId, CRPL_ID, CCRLSourceId, CCRL_BuyType, CCRLAmount, startDate, endDate, SumAssured, CCRL_RecommendationDate, Remarks, CCRL_FrequencyMode, CCRL_Paymentmode, CCRL_RecurringAmount, CCRL_tenure);
 
             }
             catch (BaseApplicationException Ex)
