@@ -56,6 +56,7 @@ namespace WealthERP.FP
             try
             {
 
+                
                 if (Session[SessionContents.CurrentUserRole].ToString() != "")
                     Role = Session[SessionContents.CurrentUserRole].ToString();
                 advisorVo = (AdvisorVo)Session["advisorVo"];
@@ -74,7 +75,7 @@ namespace WealthERP.FP
                 btnDelete.Enabled = false;
                 int customerId = 0;
                 bmID = rmVo.RMId;
-                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "Research")
                 {
                     userType = "advisor";
                 }
@@ -296,7 +297,7 @@ namespace WealthERP.FP
                     //    BindBranch(advisorVo.advisorId, rmVo.RMId);
                     //}
                     //RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = true;
-                }
+                 }
                
 
             }
@@ -1585,7 +1586,7 @@ namespace WealthERP.FP
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMCustomer','login');", true);
                 }
-                else if (userRole == "Admin" || userRole == "Ops")
+                else if (userRole == "Admin" || userRole == "Ops"||userRole=="Research")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','action=FPClient');", true);
                 }
