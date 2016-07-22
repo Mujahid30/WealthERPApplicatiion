@@ -313,12 +313,16 @@ namespace WealthERP.CustomerPortfolio
             try
             {
                 DropDownList ddlAction = (DropDownList)sender;
-                GridViewRow gvr = (GridViewRow)ddlAction.NamingContainer;
-                int selectedRow = gvr.RowIndex;
+                GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+                int selectedRow = gvr.ItemIndex + 1;
                 portfolioId = int.Parse(gvrPersonal.MasterTableView.DataKeyValues[selectedRow - 1]["PersonalId"].ToString());
                 hdndeleteId.Value = PersonalId.ToString();
+                //DropDownList ddlAction = (DropDownList)sender;
+                //GridViewRow gvr = (GridViewRow)ddlAction.NamingContainer;
+                //int selectedRow = gvr.RowIndex + 1;
+                //portfolioId = int.Parse(gvrPersonal.MasterTableView.DataKeyValues[selectedRow - 1]["PersonalId"].ToString());
                 // Set the VO into the Session
-                Session["personalVo"] = personalBo.GetPersonalAsset(PersonalId);
+                Session["personalVo"] = personalBo.GetPersonalAsset(portfolioId);
                 if (ddlAction.SelectedItem.Value.ToString() == "Edit")
                 {
                     if (hdnIsCustomerLogin.Value == "Customer" && hdnIsMainPortfolio.Value == "1")

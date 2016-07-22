@@ -74,24 +74,21 @@
                 <MasterTableView DataKeyNames="PersonalId" Width="100%" AllowMultiColumnSorting="True"
                     AutoGenerateColumns="false" CommandItemDisplay="None">
                     <Columns>
-                        <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action">
-                            <ItemTemplate>
-                                <telerik:RadComboBox ID="ddlMenu" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged"
-                                    CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
-                                    AllowCustomText="true" Width="120px" AutoPostBack="true">
-                                    <Items>
-                                        <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="Select"
-                                            Selected="true"></telerik:RadComboBoxItem>
-                                        <telerik:RadComboBoxItem Text="View" Value="View" ImageUrl="~/Images/DetailedView.png"
-                                            runat="server"></telerik:RadComboBoxItem>
-                                        <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Edit" Value="Edit"
-                                            runat="server"></telerik:RadComboBoxItem>
-                                        <telerik:RadComboBoxItem ImageUrl="~/Images/delete.png" Text="Delete" Value="Delete"
-                                            runat="server"></telerik:RadComboBoxItem>
-                                    </Items>
-                                </telerik:RadComboBox>
-                            </ItemTemplate>
-                        </telerik:GridTemplateColumn>
+                         <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action">
+                                                    <ItemTemplate>
+                                                           <asp:DropDownList ID="ddlMenu" CssClass="cmbField" runat="server" EnableEmbeddedSkins="false"
+                                                                AutoPostBack="true" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged"
+                                                                Width="110px">
+                                                                <Items>
+                                                                    <asp:ListItem Text="Select" Value="Select" Selected="true" />
+                                                                    <asp:ListItem Text="View" Value="View" />
+                                                                    <asp:ListItem Text="Edit" Value="Edit"/> 
+                                                                   <asp:ListItem Text="Delete" Value="Delete" />
+
+                                                                </Items>
+                                                            </asp:DropDownList>
+                                                    </ItemTemplate>
+                                                </telerik:GridTemplateColumn>
                         <telerik:GridBoundColumn HeaderText="Name" DataField="Name" UniqueName="Name" SortExpression="Name"
                             AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
