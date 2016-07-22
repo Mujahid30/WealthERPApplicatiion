@@ -23,6 +23,15 @@ namespace WealthERP.OffLineOrderManagement {
         protected global::System.Web.UI.ScriptManager scrptMgr;
         
         /// <summary>
+        /// imgexportButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton imgexportButton;
+        
+        /// <summary>
         /// pnlGrid control.
         /// </summary>
         /// <remarks>
@@ -30,7 +39,6 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlGrid;
-        protected global::System.Web.UI.WebControls.ImageButton imgexportButton;
         
         /// <summary>
         /// gvBondOrderList control.

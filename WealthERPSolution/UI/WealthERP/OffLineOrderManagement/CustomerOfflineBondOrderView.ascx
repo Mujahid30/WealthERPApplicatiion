@@ -106,7 +106,7 @@
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="COAD_MaturityDate" SortExpression="COAD_MaturityDate" AutoPostBackOnFilter="true"
                                                         CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
-                                                        HeaderStyle-Width="160px" HeaderText="MaturityDate" UniqueName="COAD_MaturityDate" Visible="false">
+                                                        HeaderStyle-Width="160px" HeaderText="Maturity Date" UniqueName="COAD_MaturityDate" >
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
                                                      <telerik:GridBoundColumn DataField="currentValue" SortExpression="currentValue"
