@@ -14,6 +14,7 @@ using WealthERP.Customer;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using BoCommon;
+using Telerik.Web.UI;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -289,7 +290,7 @@ namespace WealthERP.CustomerPortfolio
 
         protected void gvCollectiblesPortfolio_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvCollectiblesPortfolio.PageIndex = e.NewPageIndex;
+           // gvCollectiblesPortfolio.PageIndex = e.NewPageIndex;
             gvCollectiblesPortfolio.DataBind();
         }
 
@@ -298,9 +299,12 @@ namespace WealthERP.CustomerPortfolio
             try
             {
                 DropDownList ddlAction = (DropDownList)sender;
-                GridViewRow gvr = (GridViewRow)ddlAction.NamingContainer;
-                int selectedRow = gvr.RowIndex;
-                int collectiblesId = int.Parse(gvCollectiblesPortfolio.DataKeys[selectedRow].Value.ToString());
+              //  GridViewRow gvr = (GridViewRow)ddlAction.NamingContainer;
+              //  int selectedRow = gvr.RowIndex;
+
+                GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+                int selectedRow = gvr.ItemIndex + 1;
+                int collectiblesId = int.Parse(gvCollectiblesPortfolio.MasterTableView.DataKeyValues[selectedRow - 1]["CollectibleId"].ToString());
                 hdndeleteId.Value = collectiblesId.ToString();
                 Session["collectiblesVo"] = collectiblesBo.GetCollectiblesAsset(collectiblesId);
                 if (ddlAction.SelectedValue.ToString() == "Edit")
@@ -336,7 +340,16 @@ namespace WealthERP.CustomerPortfolio
 
             }
         }
-
+        public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvCollectiblesPortfolio.ExportSettings.OpenInNewWindow = true;
+            gvCollectiblesPortfolio.ExportSettings.IgnorePaging = true;
+            gvCollectiblesPortfolio.ExportSettings.HideStructureColumns = true;
+            gvCollectiblesPortfolio.ExportSettings.ExportOnlyData = true;
+            gvCollectiblesPortfolio.ExportSettings.FileName = "Pension And Gratuities Details";
+            // gvrPensionAndGratuities.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvCollectiblesPortfolio.MasterTableView.ExportToExcel();
+        }
         protected void gvCollectiblesPortfolio_Sorting(object sender, GridViewSortEventArgs e)
         {
             string sortExpression = e.SortExpression;
@@ -384,8 +397,8 @@ namespace WealthERP.CustomerPortfolio
         {
             if ((Convert.ToBoolean(ViewState["sorted"]) == true) && (Convert.ToBoolean(ViewState["isselected"]) == true))
             {
-                int collectiblesId = int.Parse(this.gvCollectiblesPortfolio.DataKeys[this.gvCollectiblesPortfolio.SelectedRow.RowIndex].Value.ToString());
-                Session["collectiblesVo"] = collectiblesBo.GetCollectiblesAsset(collectiblesId);
+                //int collectiblesId = int.Parse(this.gvCollectiblesPortfolio.DataKeys[this.gvCollectiblesPortfolio.SelectedRow.RowIndex].Value.ToString());
+               // Session["collectiblesVo"] = collectiblesBo.GetCollectiblesAsset(collectiblesId);
             }
         }
 

@@ -76,7 +76,7 @@
                 <MasterTableView DataKeyNames="PortfolioId" Width="100%" AllowMultiColumnSorting="True"
                     AutoGenerateColumns="false" CommandItemDisplay="None">
                     <Columns>
-                        <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action">
+                       <%--  <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action">
                             <ItemTemplate>
                                 <telerik:RadComboBox ID="ddlMenu" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged"
                                     CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
@@ -93,7 +93,24 @@
                                     </Items>
                                 </telerik:RadComboBox>
                             </ItemTemplate>
-                        </telerik:GridTemplateColumn>
+                            
+                            
+                        </telerik:GridTemplateColumn>--%>
+                        <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action">
+                                                    <ItemTemplate>
+                                                           <asp:DropDownList ID="ddlMenu" CssClass="cmbField" runat="server" EnableEmbeddedSkins="false"
+                                                                AutoPostBack="true" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged"
+                                                                Width="110px">
+                                                                <Items>
+                                                                    <asp:ListItem Text="Select" Value="Select" Selected="true" />
+                                                                    <asp:ListItem Text="View" Value="View" />
+                                                                    <asp:ListItem Text="Edit" Value="Edit"/> 
+                                                                   <asp:ListItem Text="Delete" Value="Delete" />
+
+                                                                </Items>
+                                                            </asp:DropDownList>
+                                                    </ItemTemplate>
+                                                </telerik:GridTemplateColumn>
                         <telerik:GridBoundColumn HeaderText="Organization Name" DataField="Organization Name" UniqueName="Organization Name"
                             SortExpression="Organization Name " AutoPostBackOnFilter="true" AllowFiltering="true"
                             ShowFilterIcon="false" CurrentFilterFunction="Contains">

@@ -12,6 +12,7 @@ using VoCustomerPortfolio;
 using BoCustomerPortfolio;
 using WealthERP.Base;
 using BoCommon;
+using Telerik.Web.UI;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -22,14 +23,14 @@ namespace WealthERP.CustomerPortfolio
         PensionAndGratuitiesVo pensionAndGratuitiesVo = new PensionAndGratuitiesVo();
         PensionAndGratuitiesBo pensionAndGratuitiesBo = new PensionAndGratuitiesBo();
         CustomerAccountBo customerAccountsBo = new CustomerAccountBo();
+        CustomerAccountsVo customerAccountVo = new CustomerAccountsVo();
         static int portfolioId;
         PortfolioBo portfolioBo = new PortfolioBo();
         CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
         private const string ASCENDING = " ASC";
         private const string DESCENDING = " DESC";
         Dictionary<int, int> genDictPortfolioDetails = new Dictionary<int, int>();
-
- 
+        int PortfolioId = 0;
 
         public void HandlePagerEvent(object sender, ItemClickEventArgs e)
         {
@@ -274,28 +275,29 @@ namespace WealthERP.CustomerPortfolio
 
         protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string menu;
+           string menu;
 
             try
             {
+                
                 DropDownList MyDropDownList = (DropDownList)sender;
-                GridViewRow gvr = (GridViewRow)MyDropDownList.NamingContainer;
-                int selectedRow = gvr.RowIndex;
-                //portfolioId = int.Parse(gvrPensionAndGratuities.DataKeys[selectedRow].Value.ToString());
-                portfolioId = int.Parse(gvrPensionAndGratuities.MasterTableView.DataKeyValues[selectedRow - 1]["portfolioId"].ToString());
-
+                GridDataItem gvr = (GridDataItem)MyDropDownList.NamingContainer;
+                int selectedRow = gvr.ItemIndex + 1;
+                PortfolioId = int.Parse(gvrPensionAndGratuities.MasterTableView.DataKeyValues[selectedRow - 1]["PortfolioId"].ToString());
                 hdndeleteId.Value = portfolioId.ToString();
-                pensionAndGratuitiesVo = pensionAndGratuitiesBo.GetPensionAndGratuities(portfolioId);
                 Session["pensionAndGratuitiesVo"] = pensionAndGratuitiesVo;
-                Session["customerAccountVo"] = customerAccountsBo.GetCustomerPensionAndGratuitiesAccount(pensionAndGratuitiesVo.AccountId);
+                Session["customerAccountVo"] = customerAccountsBo.GetCustomerPensionAndGratuitiesAccount(PortfolioId);
+                pensionAndGratuitiesVo = pensionAndGratuitiesBo.GetPensionAndGratuities(portfolioId);
+
 
                 menu = MyDropDownList.SelectedItem.Value.ToString();
+
                 if (menu == "Edit")
                 {
                     if (hdnIsCustomerLogin.Value == "Customer" && hdnIsMainPortfolio.Value == "1")
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Permisssion denied for Manage Portfolio !!');", true);
                     else
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PensionAndGratuities','action=edit');", true);
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PensionAndGratuities','action=edit');", true);
                 }
                 if (menu == "View")
                 {
@@ -306,7 +308,7 @@ namespace WealthERP.CustomerPortfolio
                     if (hdnIsCustomerLogin.Value == "Customer" && hdnIsMainPortfolio.Value == "1")
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Permisssion denied for Manage Portfolio !!');", true);
                     else
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
                 }
 
             }

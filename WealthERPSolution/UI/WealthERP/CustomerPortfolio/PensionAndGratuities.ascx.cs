@@ -74,6 +74,7 @@ namespace WealthERP.CustomerPortfolio
 
                             LoadFields(pensionAndGratuitiesVo, customerAccountVo, "view");
                         }
+                       
                         else
                         {
                             trEditButton.Visible = false;

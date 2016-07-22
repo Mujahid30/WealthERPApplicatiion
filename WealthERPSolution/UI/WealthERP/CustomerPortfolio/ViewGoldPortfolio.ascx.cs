@@ -14,6 +14,7 @@ using WealthERP.Customer;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using BoCommon;
+using Telerik.Web.UI;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -276,7 +277,7 @@ namespace WealthERP.CustomerPortfolio
         {
             try
             {
-                goldPortfolioId = int.Parse(gvGoldPortfolio.SelectedDataKey.Value.ToString());
+                //goldPortfolioId = int.Parse(gvGoldPortfolio.SelectedDataKey.Value.ToString());
                 //goldVo = goldBo.GetGoldPortfolio(goldPortfolioId);
                 Session["CustomerVo"] = customerVo;
                 if (customerVo.Type == "Individual")
@@ -310,7 +311,7 @@ namespace WealthERP.CustomerPortfolio
 
         protected void gvGoldPortfolio_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvGoldPortfolio.PageIndex = e.NewPageIndex;
+           // gvGoldPortfolio.PageIndex = e.NewPageIndex;
             gvGoldPortfolio.DataBind();
 
         }
@@ -320,9 +321,12 @@ namespace WealthERP.CustomerPortfolio
             try
             {
                 DropDownList ddlAction = (DropDownList)sender;
-                GridViewRow gvr = (GridViewRow)ddlAction.NamingContainer;
-                int selectedRow = gvr.RowIndex;
-                int goldId = int.Parse(gvGoldPortfolio.DataKeys[selectedRow].Value.ToString());
+                GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+                int selectedRow = gvr.ItemIndex + 1;
+                // GridViewRow gvr = (GridViewRow)ddlAction.NamingContainer;
+               // int selectedRow = gvr.RowIndex;
+                int goldId = int.Parse(gvGoldPortfolio.MasterTableView.DataKeyValues[selectedRow - 1]["GoldNPId"].ToString());
+
                 hdndeleteId.Value = goldId.ToString();
                 Session["goldVo"] = goldBo.GetGoldAsset(goldId);
 
@@ -402,7 +406,16 @@ namespace WealthERP.CustomerPortfolio
             //goldList = goldBo.GetGoldNetPosition(portfolioId, mypager.CurrentPage, hdnSort.Value, out count);
 
         }
-
+        public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvGoldPortfolio.ExportSettings.OpenInNewWindow = true;
+            gvGoldPortfolio.ExportSettings.IgnorePaging = true;
+            gvGoldPortfolio.ExportSettings.HideStructureColumns = true;
+            gvGoldPortfolio.ExportSettings.ExportOnlyData = true;
+            gvGoldPortfolio.ExportSettings.FileName = "Gold Details";
+            // gvrPensionAndGratuities.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvGoldPortfolio.MasterTableView.ExportToExcel();
+        }
         protected void hiddenassociation_Click(object sender, EventArgs e)
         {
             string val = Convert.ToString(hdnMsgValue.Value);
