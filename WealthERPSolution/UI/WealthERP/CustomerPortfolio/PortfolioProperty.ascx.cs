@@ -13,6 +13,7 @@ using System.Collections.Specialized;
 using WealthERP.Base;
 using BoCommon;
 using System.Configuration;
+using Telerik.Web.UI;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -299,10 +300,13 @@ namespace WealthERP.CustomerPortfolio
         {
             try
             {
+                //GridViewRow gvr = (GridViewRow)ddlAction.NamingContainer;                
+                //int selectedRow = gvr.RowIndex;
+                //int propertyId = int.Parse(gvrProperty.DataKeys[selectedRow].Value.ToString());
                 DropDownList ddlAction = (DropDownList)sender;
-                GridViewRow gvr = (GridViewRow)ddlAction.NamingContainer;                
-                int selectedRow = gvr.RowIndex;
-                int propertyId = int.Parse(gvrProperty.DataKeys[selectedRow].Value.ToString());
+                GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+                int selectedRow = gvr.ItemIndex + 1;
+                int propertyId = int.Parse(gvrProperty.MasterTableView.DataKeyValues[selectedRow - 1]["PropertyId"].ToString());
                 hdndeleteId.Value = propertyId.ToString();
 
                 // Set the VO into the Session
@@ -348,9 +352,20 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
+        public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvrProperty.ExportSettings.OpenInNewWindow = true;
+            gvrProperty.ExportSettings.IgnorePaging = true;
+            gvrProperty.ExportSettings.HideStructureColumns = true;
+            gvrProperty.ExportSettings.ExportOnlyData = true;
+            gvrProperty.ExportSettings.FileName = "Gold Details";
+            // gvrPensionAndGratuities.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvrProperty.MasterTableView.ExportToExcel();
+        }
+
         protected void gvrProperty_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvrProperty.PageIndex = e.NewPageIndex;
+           // gvrProperty.PageIndex = e.NewPageIndex;
             gvrProperty.DataBind();
         }
 

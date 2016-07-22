@@ -1,7 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PortfolioProperty.ascx.cs"
     Inherits="WealthERP.CustomerPortfolio.PortfolioProperty" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
-
+<asp:ScriptManager ID="ScriptManager1" runat="server">
+</asp:ScriptManager>
 <script language="javascript" type="text/javascript">
     function showmessage() {
 
@@ -36,9 +37,14 @@
             <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Property Portfolio"></asp:Label>
             <hr />
         </td>
+         <td align="right">
+            <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
+                Height="20px" Width="25px" OnClick="btnExportFilteredData_OnClick"></asp:ImageButton>
+        </td>
     </tr>
     <tr>
-        <td>
+        <td runat="server">
             <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Portfolio Name:"></asp:Label>
             <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
@@ -52,62 +58,88 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
-            <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
+            <asp:Label ID="lblCurrentPage" class="Field" Visible="false" runat="server"></asp:Label>
+            <asp:Label ID="lblTotalRows" class="Field" runat="server" Visible="false"></asp:Label>
         </td>
     </tr>
     <tr>
         <td colspan="3">
-            <asp:GridView ID="gvrProperty" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                CellPadding="4" DataKeyNames="PropertyId" EnableViewState="true" AllowPaging="True"
-                OnSorting="gvrProperty_Sorting" CssClass="GridViewStyle" OnDataBound="gvrProperty_DataBound"
-                ShowFooter="True">
-                <RowStyle CssClass="RowStyle" />
-                <FooterStyle CssClass="FooterStyle" />
-                <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
-                <SelectedRowStyle CssClass="SelectedRowStyle" />
-                <HeaderStyle CssClass="HeaderStyle" />
-                <EditRowStyle CssClass="EditRowStyle" />
-                <AlternatingRowStyle CssClass="AltRowStyle" />
-                <Columns>
-                    <asp:TemplateField>
-                        <ItemTemplate>
-                            <asp:DropDownList ID="ddlMenu" AutoPostBack="true" runat="server" CssClass="GridViewCmbField"
-                                OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged">
-                                <asp:ListItem>Select </asp:ListItem>
-                                <asp:ListItem Text="View" Value="View">View</asp:ListItem>
-                                <asp:ListItem Text="Edit" Value="Edit">Edit</asp:ListItem>
-                                <asp:ListItem Text="Delete" Value="Delete">Delete</asp:ListItem>
-                            </asp:DropDownList>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:BoundField DataField="Sub Category" HeaderText="Asset Category" ItemStyle-HorizontalAlign="Justify">
-                        <ItemStyle HorizontalAlign="Justify"></ItemStyle>
-                    </asp:BoundField>
-                    <asp:BoundField DataField="Particulars" HeaderText="Particulars" ItemStyle-HorizontalAlign="Justify">
-                        <ItemStyle HorizontalAlign="Justify"></ItemStyle>
-                    </asp:BoundField>
-                    <asp:BoundField DataField="City" HeaderText="City" ItemStyle-HorizontalAlign="Justify">
-                        <ItemStyle HorizontalAlign="Justify"></ItemStyle>
-                    </asp:BoundField>
-                    <asp:BoundField DataField="Area" HeaderText="Area" ItemStyle-HorizontalAlign="Right">
-                        <ItemStyle HorizontalAlign="Right"></ItemStyle>
-                    </asp:BoundField>
-                    <asp:BoundField DataField="Measurement Unit" HeaderText="Measurement Unit" ItemStyle-HorizontalAlign="Justify">
-                        <ItemStyle HorizontalAlign="Justify"></ItemStyle>
-                    </asp:BoundField>
-                    <asp:BoundField DataField="Purchase Date" HeaderText="Purchase Date(dd/mm/yyyy)"
-                        ItemStyle-HorizontalAlign="Center">
-                        <ItemStyle HorizontalAlign="Center"></ItemStyle>
-                    </asp:BoundField>
-                    <asp:BoundField DataField="Purchase Cost" HeaderText="Purchase Cost (Rs)" ItemStyle-HorizontalAlign="Right">
-                        <ItemStyle HorizontalAlign="Right"></ItemStyle>
-                    </asp:BoundField>
-                    <asp:BoundField DataField="Current Value" HeaderText="Current Value (Rs)" ItemStyle-HorizontalAlign="Right">
-                        <ItemStyle HorizontalAlign="Right"></ItemStyle>
-                    </asp:BoundField>
-                </Columns>
-            </asp:GridView>
+            
+            
+            <telerik:RadGrid ID="gvrProperty" runat="server" GridLines="None" AutoGenerateColumns="False"
+                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
+                AllowAutomaticInserts="false" ExportSettings-FileName="Gold Details">
+                <ExportSettings HideStructureColumns="true">
+                </ExportSettings>
+                <MasterTableView DataKeyNames="PropertyId" Width="100%" AllowMultiColumnSorting="True"
+                    AutoGenerateColumns="false" CommandItemDisplay="None">
+                    <Columns>
+                        <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action">
+                            <ItemTemplate>
+                                <asp:DropDownList ID="ddlMenu" CssClass="cmbField" runat="server" EnableEmbeddedSkins="false"
+                                    AutoPostBack="true" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged"
+                                    Width="110px">
+                                    <Items>
+                                        <asp:ListItem Text="Select" Value="Select" Selected="true" />
+                                        <asp:ListItem Text="View" Value="View" />
+                                        <asp:ListItem Text="Edit" Value="Edit" />
+                                        <asp:ListItem Text="Delete" Value="Delete" />
+                                    </Items>
+                                </asp:DropDownList>
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>
+                        <telerik:GridBoundColumn HeaderText="Asset Category" DataField="Sub Category"
+                            UniqueName="Sub Category" SortExpression="Sub Category" AutoPostBackOnFilter="true"
+                            AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn HeaderText="Particulars" DataField="Particulars"
+                            UniqueName="Particulars" SortExpression="Particulars" AutoPostBackOnFilter="true"
+                            AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="City" SortExpression="City"
+                            AutoPostBackOnFilter="true" CurrentFilterFunction="EqualTo" AllowFiltering="true"
+                            HeaderText="City" UniqueName="City"
+                            ShowFilterIcon="false">
+                            <ItemStyle Width="110px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="Area" SortExpression="Area"
+                            AutoPostBackOnFilter="true" CurrentFilterFunction="EqualTo" AllowFiltering="true"
+                            HeaderText="Area" UniqueName="Area" 
+                            ShowFilterIcon="false">
+                            <ItemStyle Width="110px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="Measurement Unit" SortExpression="Measurement Unit" AutoPostBackOnFilter="true"
+                            CurrentFilterFunction="EqualTo" AllowFiltering="true" HeaderText="Measurement Unit" UniqueName="Measurement Unit"
+                             ShowFilterIcon="false">
+                            <ItemStyle Width="110px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                         <telerik:GridBoundColumn DataField="Purchase Date" SortExpression="Purchase Date" AutoPostBackOnFilter="true"
+                            CurrentFilterFunction="EqualTo" AllowFiltering="true" HeaderText="Purchase Date(dd/mm/yyyy)" UniqueName="Purchase Date"
+                          DataFormatString="{0:dd-MMM-yy}"   ShowFilterIcon="false">
+                            <ItemStyle Width="110px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                         <telerik:GridBoundColumn DataField="Purchase Cost" SortExpression="Purchase Cost" AutoPostBackOnFilter="true"
+                            CurrentFilterFunction="EqualTo" AllowFiltering="true" HeaderText="Purchase Cost (Rs)" UniqueName="Purchase Cost"
+                             ShowFilterIcon="false">
+                            <ItemStyle Width="110px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                         <telerik:GridBoundColumn DataField="Current Value" SortExpression="Current Value" AutoPostBackOnFilter="true"
+                            CurrentFilterFunction="EqualTo" AllowFiltering="true" HeaderText="Current Value (Rs)" UniqueName="Current Value"
+                             ShowFilterIcon="false">
+                            <ItemStyle Width="110px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                    </Columns>
+                </MasterTableView>
+                <ClientSettings>
+                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                </ClientSettings>
+            </telerik:RadGrid>
+            
+            
+            
         </td>
     </tr>
 </table>
@@ -122,7 +154,7 @@
 <table style="width: 100%" id="tblPager" runat="server" visible="false">
     <tr>
         <td>
-            <Pager:Pager ID="mypager" runat="server"></Pager:Pager>
+            <Pager:Pager ID="mypager" Visible="false" runat="server"></Pager:Pager>
         </td>
     </tr>
 </table>

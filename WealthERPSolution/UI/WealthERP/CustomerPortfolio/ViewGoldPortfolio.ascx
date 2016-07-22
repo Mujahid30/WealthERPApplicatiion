@@ -133,25 +133,25 @@
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn HeaderText="Purchase Date (dd/mm/yyyy)" DataField="Purchase Date"
-                            UniqueName="Purchase Date" SortExpression="Purchase Date" AutoPostBackOnFilter="true"
+                            UniqueName="Purchase Date" DataFormatString="{0:dd-MMM-yy}" SortExpression="Purchase Date" AutoPostBackOnFilter="true"
                             AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Purchase Value" SortExpression="Purchase Value"
                             AutoPostBackOnFilter="true" CurrentFilterFunction="EqualTo" AllowFiltering="true"
-                            HeaderText="Purchase Value (Rs)" UniqueName="Purchase Value" DataFormatString="{0:dd-MMM-yy}"
+                            HeaderText="Purchase Value (Rs)" UniqueName="Purchase Value" 
                             ShowFilterIcon="false">
                             <ItemStyle Width="110px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Current Value" SortExpression="Current Value"
                             AutoPostBackOnFilter="true" CurrentFilterFunction="EqualTo" AllowFiltering="true"
-                            HeaderText="Current Value (Rs)" UniqueName="Current Value" DataFormatString="{0:dd-MMM-yy}"
+                            HeaderText="Current Value (Rs)" UniqueName="Current Value" 
                             ShowFilterIcon="false">
                             <ItemStyle Width="110px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Remarks" SortExpression="Remarks" AutoPostBackOnFilter="true"
                             CurrentFilterFunction="EqualTo" AllowFiltering="true" HeaderText="Remarks" UniqueName="Remarks"
-                            DataFormatString="{0:dd-MMM-yy}" ShowFilterIcon="false">
+                             ShowFilterIcon="false">
                             <ItemStyle Width="110px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                     </Columns>
