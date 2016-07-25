@@ -42,7 +42,16 @@ namespace WealthERP.FP
                 gvCashFlowDetails.DataSource = dtCashFlowDetails;
             }
         }
-
+        public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvCashFlowDetails.ExportSettings.OpenInNewWindow = true;
+            gvCashFlowDetails.ExportSettings.IgnorePaging = true;
+            gvCashFlowDetails.ExportSettings.HideStructureColumns = true;
+            gvCashFlowDetails.ExportSettings.ExportOnlyData = true;
+            gvCashFlowDetails.ExportSettings.FileName = "Gold Details";
+            // gvrPensionAndGratuities.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvCashFlowDetails.MasterTableView.ExportToExcel();
+        }
         protected void ddlAction_SelectedIndexChanged(object sender, EventArgs e)
         {
 

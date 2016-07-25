@@ -81,6 +81,8 @@ namespace WealthERP.FP
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             customercashrecomendationid = customerFPAnalyticsBo.CreateCashFlowRecomendation(customerVo.CustomerId, userVo.UserId, Convert.ToInt32(ddlptype.SelectedValue), Convert.ToInt32(DropDownList1.SelectedValue), DropDownList2.SelectedValue, Convert.ToDecimal(txtAmount.Text), Convert.ToDateTime(txtStartDate.SelectedDate), Convert.ToDateTime(txtEndDate.SelectedDate), Convert.ToDecimal(txtsumassure.Text), Convert.ToDateTime(txtRecomendationDate.SelectedDate), txtRemarks.Text, ddlfrequncy.SelectedValue,Convert.ToInt32(ddlpaytyppe.SelectedValue), Convert.ToDecimal(txtRecurringamt.Text),Convert.ToInt32(txttenure.Text));
+            txtEndDate.Enabled = false;
+
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerCashFlowView','none');", true);
         }
 
@@ -121,6 +123,7 @@ namespace WealthERP.FP
                 ddlfrequncy.SelectedValue = dr["CCRL_FrequencyMode"].ToString();
                 txtStartDate.SelectedDate = Convert.ToDateTime(dr["CCRL_StartDate"].ToString());
                 txtEndDate.SelectedDate = Convert.ToDateTime(dr["CCRL_EndDate"].ToString());
+                txtEndDate.Enabled = false;
                 txtRecomendationDate.SelectedDate = Convert.ToDateTime(dr["CCRL_RecommendationDate"].ToString());
                 txttenure.Text = dr["CCRL_tenure"].ToString();
                 txtRecurringamt.Text = dr["CCRL_RecurringAmount"].ToString();
@@ -196,6 +199,49 @@ namespace WealthERP.FP
         }
         protected void lnkEdit_Click(object sender, EventArgs e)
         {
+            txtEndDate.Enabled = false;
+            SetEditFields();
+
+        }
+        private void SetEditFields()
+        {
+            btnSubmit.Visible = false;
+            btnUpdate.Visible = true;
+            ddlfrequncy.Enabled = true;
+            ddlpaytyppe.Enabled = true;
+            DropDownList1.Enabled = true;
+            DropDownList2.Enabled = true;
+            txtStartDate.Enabled = true;
+            txtEndDate.Enabled = false;
+            txtRemarks.Enabled = true;
+            txtAmount.Enabled = true;
+            txtsumassure.Enabled = true;
+            ddlptype.Enabled = true;
+            txtRecomendationDate.Enabled = true;
+            txttenure.Enabled = true;
+            chkIsactive.Enabled = true;
+            txtRecurringamt.Enabled = true;
+            lnkEdit.Visible = false;
+
+
+            DataSet ds = customerFPAnalyticsBo.CustomerCashFlowDetails(int.Parse(Request.QueryString["CFCustomerId"]));
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                ddlptype.SelectedValue = dr["CRPL_ID"].ToString();
+                BindAllControl();
+                txtAmount.Text = dr["CCRL_Amount"].ToString();
+                txtRemarks.Text = dr["CCRL_Remarks"].ToString();
+                txtsumassure.Text = dr["CCRL_SumAssured"].ToString();
+                ddlfrequncy.SelectedValue = dr["CCRL_FrequencyMode"].ToString();
+                txtStartDate.SelectedDate = Convert.ToDateTime(dr["CCRL_StartDate"].ToString());
+                txtEndDate.SelectedDate = Convert.ToDateTime(dr["CCRL_EndDate"].ToString());
+                txtEndDate.Enabled = false;
+                txtRecomendationDate.SelectedDate = Convert.ToDateTime(dr["CCRL_RecommendationDate"].ToString());
+                txttenure.Text = dr["CCRL_tenure"].ToString();
+                txtRecurringamt.Text = dr["CCRL_RecurringAmount"].ToString();
+                ddlpaytyppe.SelectedValue = dr["CCRL_Paymentmode"].ToString();
+                chkIsactive.Checked = Convert.ToBoolean(dr["CCRL_Isactive"].ToString());
+            }
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
@@ -210,12 +256,9 @@ namespace WealthERP.FP
         }
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            customercashrecomendationid = customerFPAnalyticsBo.UpdateCashFlowRecomendation(CCRL_ID,customerVo.CustomerId, userVo.UserId, Convert.ToInt32(ddlptype.SelectedValue), Convert.ToInt32(DropDownList1.SelectedValue), DropDownList2.SelectedValue, Convert.ToDecimal(txtAmount.Text), Convert.ToDateTime(txtStartDate.SelectedDate), Convert.ToDateTime(txtEndDate.SelectedDate), Convert.ToDecimal(txtsumassure.Text), txtRemarks.Text, ddlfrequncy.SelectedValue);
+            customercashrecomendationid = customerFPAnalyticsBo.UpdateCashFlowRecomendation(customerVo.CustomerId, userVo.UserId,CCRL_ID, Convert.ToInt32(ddlptype.SelectedValue), Convert.ToInt32(DropDownList1.SelectedValue), DropDownList2.SelectedValue, Convert.ToDecimal(txtAmount.Text), Convert.ToDateTime(txtStartDate.SelectedDate), Convert.ToDateTime(txtEndDate.SelectedDate), Convert.ToDecimal(txtsumassure.Text), Convert.ToDateTime(txtRecomendationDate.SelectedDate), txtRemarks.Text, ddlfrequncy.SelectedValue, Convert.ToInt32(ddlpaytyppe.SelectedValue), Convert.ToDecimal(txtRecurringamt.Text), Convert.ToInt32(txttenure.Text));
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerCashFlowView','none');", true);
-       
         }
-
-
         private void SetVisiblity(int p)
         {
             if (p == 0)
@@ -246,7 +289,7 @@ namespace WealthERP.FP
                 DropDownList1.Enabled = true;
                 DropDownList2.Enabled = true;
                 txtStartDate.Enabled = true;
-                txtEndDate.Enabled = true;
+                txtEndDate.Enabled = false;
                 txtRemarks.Enabled = true;
                 txtAmount.Enabled = true;
                 txtsumassure.Enabled = true;
@@ -286,7 +329,60 @@ namespace WealthERP.FP
 
         }
 
+        protected void ddlfrequncy_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
+
+            if ((String.IsNullOrEmpty(txttenure.Text)) || (String.IsNullOrEmpty(txtStartDate.ToString())))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill enter values into Previous texboxs');", true);
+
+            }
+
+
+            else
+            {
+              //  CalcEndDate(Int16.Parse(txttenure.Text), DateTime.Parse(txtStartDate.ToString()));
+                CalcEndDate(Int16.Parse(txttenure.Text), DateTime.Parse(txtStartDate.SelectedDate.ToString()));
+
+
+                btnSubmit.Enabled = true;
+            }
+
+        }
+
+        private void CalcEndDate(Int16 period, DateTime startDate)
+        {
+            DateTime endDate = new DateTime();
+            if (ddlfrequncy.SelectedItem.Value == "MN")
+            {
+                int a = (period * 12) + ((!string.IsNullOrEmpty(txtTenureMonths.Text)) ? int.Parse(txtTenureMonths.Text) : 0);
+                DateTime dt = DateTime.Now.AddMonths(a);
+                endDate = dt;
+            }
+            else if (ddlfrequncy.SelectedItem.Value == "YR")
+            {
+                int a = (period * 12) + ((!string.IsNullOrEmpty(txtTenureMonths.Text)) ? int.Parse(txtTenureMonths.Text) : 0);
+                DateTime dt = DateTime.Now.AddMonths(a);
+                endDate = dt;
+                //endDate = startDate.AddYears(period);
+            }
+            else if (ddlfrequncy.SelectedItem.Value == "QT")
+            {
+                int a = (period * 12) + ((!string.IsNullOrEmpty(txtTenureMonths.Text)) ? int.Parse(txtTenureMonths.Text) : 0);
+                DateTime dt = DateTime.Now.AddMonths(a);
+                endDate = dt;
+                //endDate = startDate.AddYears(period);
+            }
+            else if (ddlfrequncy.SelectedItem.Value == "HY")
+            {
+                int a = (period * 12) + ((!string.IsNullOrEmpty(txtTenureMonths.Text)) ? int.Parse(txtTenureMonths.Text) : 0);
+                DateTime dt = DateTime.Now.AddMonths(a);
+                endDate = dt;
+                //endDate = startDate.AddYears(period);
+            }
+            txtEndDate.SelectedDate = Convert.ToDateTime(endDate.ToString());
+        }
 
     }
 }

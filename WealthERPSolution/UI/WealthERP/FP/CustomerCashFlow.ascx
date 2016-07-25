@@ -50,8 +50,8 @@
         <td align="right" style="width: 15%;">
             <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="scheme"></asp:Label>
         </td>
-        <td style="width: 30px;">
-            <asp:DropDownList ID="DropDownList1" runat="server" CssClass="cmbField" AutoPostBack="false">
+        <td style="width: 300px;">
+            <asp:DropDownList ID="DropDownList1" runat="server" Width="400px" CssClass="cmbField" AutoPostBack="false">
             </asp:DropDownList>
         </td>
     </tr>
@@ -80,13 +80,29 @@
          <td align="right">
             <asp:Label ID="lbltenure" runat="server" Text="tenure:" CssClass="FieldName"></asp:Label>
         </td>
-        <td>
-            <asp:TextBox ID="txttenure" runat="server" CssClass="txtField" TabIndex="28"></asp:TextBox>
-            <span id="Span1" class="spnRequiredField">*</span><span id="Span2"></span>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txttenure" ErrorMessage="Please enter the tenure"
-                ValidationGroup="Vg" runat="server" CssClass="rfvPCG">
-            </asp:RequiredFieldValidator>
-        </td>
+        <td class="rightField">
+                    <asp:TextBox ID="txttenure" runat="server"   CssClass="txtField"  onchange ="ResetDDL()"                 
+                        AutoPostBack="true"></asp:TextBox>
+                    <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txttenure"
+                        WatermarkText="Years">
+                    </cc1:TextBoxWatermarkExtender>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" CssClass="rfvPCG"
+                        ErrorMessage="Please select a year" Display="Dynamic" ValidationGroup="vgBtnSubmitTemp"
+                        ControlToValidate="txttenure">
+                    </asp:RequiredFieldValidator>
+                    <asp:TextBox ID="txtTenureMonths"  runat="server"  CssClass="txtField" onchange="ResetDDL()" ></asp:TextBox>
+                    <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtTenureMonths"
+                        WatermarkText="Months">
+                    </cc1:TextBoxWatermarkExtender>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator7" ControlToValidate="txtTenureMonths"
+                        ValidationGroup="vgBtnSubmitTemp" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                        Operator="DataTypeCheck" ErrorMessage="Tenure in Years Not in acceptable format"
+                        ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator8" ControlToValidate="txttenure"
+                        ValidationGroup="vgBtnSubmitTemp" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                        Operator="DataTypeCheck" ErrorMessage="Tenure in Months Not in acceptable format"
+                        ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
+                </td>
     </tr>
     <tr>
         <td align="right">
@@ -104,8 +120,8 @@
                 </DateInput>
             </telerik:RadDatePicker>
             <span id="Span8" class="spnRequiredField">*</span><span id="Span9"></span>
-            <asp:RequiredFieldValidator ID="rfvStartDate" ControlToValidate="txtStartDate" ErrorMessage="Please enter the StartDate"
-                ValidationGroup="Vg" runat="server" CssClass="rfvPCG">
+           <asp:RequiredFieldValidator ID="rfvStartDate" ControlToValidate="txtStartDate" ErrorMessage="Please enter the StartDate"
+                Validatio nGroup="Vg" runat="server" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
         </td>
         <td align="right">
@@ -125,12 +141,12 @@
         </td>
     </tr>
     <tr id="trfq">
-        <td align="right" style="width: 15%;">
-            <asp:Label ID="lblfrequncy" runat="server" CssClass="FieldName" Text="Recurring freq:"></asp:Label>
+        <td align="right"  style="width: 15%;">
+            <asp:Label ID="lblfrequncy" runat="server"  CssClass="FieldName" Text="Recurring freq:"></asp:Label>
         </td>
         <td style="width: 23.5%">
-            <asp:DropDownList ID="ddlfrequncy" runat="server" CssClass="cmbField" AutoPostBack="false"
-                TabIndex="1">
+            <asp:DropDownList ID="ddlfrequncy" runat="server" CssClass="cmbField" AutoPostBack="true"
+                TabIndex="1" onselectedindexchanged="ddlfrequncy_SelectedIndexChanged">
                 <asp:ListItem Text="Select" Value="0"></asp:ListItem>
                 <asp:ListItem Text="Weekly" Value="WK"></asp:ListItem>
                 <asp:ListItem Text="Yearly" Value="YR"></asp:ListItem>
@@ -187,10 +203,7 @@
         <td class="rightField">
             <asp:TextBox ID="txtRemarks" Width="200px" TextMode="MultiLine" MaxLength="300" Height="65px"
                 onkeydown="return (event.keyCode!=13);" runat="server" CssClass="txtField" TabIndex="51"></asp:TextBox>
-            <span id="Span3" class="spnRequiredField">*</span><span id="spnLoginStatus"></span>
-            <asp:RequiredFieldValidator ID="rfvRemarks" ControlToValidate="txtRemarks" ErrorMessage="Please enter the remarks"
-                ValidationGroup="Vg" runat="server" CssClass="rfvPCG">
-            </asp:RequiredFieldValidator>
+                <br />
             <asp:CheckBox ID="chkIsactive" runat="server" Text="Is active" CssClass="FieldName"
                 onClick="return UseProfileName()" AutoPostBack="false" />
         </td>

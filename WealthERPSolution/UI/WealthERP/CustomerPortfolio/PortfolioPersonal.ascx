@@ -74,23 +74,21 @@
                 <MasterTableView DataKeyNames="PersonalId" Width="100%" AllowMultiColumnSorting="True"
                     AutoGenerateColumns="false" CommandItemDisplay="None">
                     <Columns>
-                         <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action">
-                                                    <ItemTemplate>
-                                                           <asp:DropDownList ID="ddlMenu" CssClass="cmbField" runat="server" EnableEmbeddedSkins="false"
-                                                                AutoPostBack="true" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged"
-                                                                Width="110px">
-                                                                <Items>
-                                                                    <asp:ListItem Text="Select" Value="Select" Selected="true" />
-                                                                    <asp:ListItem Text="View" Value="View" />
-                                                                    <asp:ListItem Text="Edit" Value="Edit"/> 
-                                                                   <asp:ListItem Text="Delete" Value="Delete" />
-
-                                                                </Items>
-                                                            </asp:DropDownList>
-                                                    </ItemTemplate>
-                                                </telerik:GridTemplateColumn>
+                        <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action">
+                            <ItemTemplate>
+                                <asp:DropDownList ID="ddlMenu" CssClass="cmbField" runat="server" EnableEmbeddedSkins="false"
+                                    AutoPostBack="true" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged" Width="110px">
+                                    <Items>
+                                        <asp:ListItem Text="Select" Value="Select" Selected="true" />
+                                        <asp:ListItem Text="View" Value="View" />
+                                        <asp:ListItem Text="Edit" Value="Edit" />
+                                        <asp:ListItem Text="Delete" Value="Delete" />
+                                    </Items>
+                                </asp:DropDownList>
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>
                         <telerik:GridBoundColumn HeaderText="Name" DataField="Name" UniqueName="Name" SortExpression="Name"
-                            AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                            AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterText="Grand Total:">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn HeaderText="Category" DataField="Category" UniqueName="Category"
@@ -105,13 +103,15 @@
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn HeaderText="Current Value (Rs)" DataField="Current Value"
                             UniqueName="CateCurrent Valuegory" SortExpression="Current Value" AutoPostBackOnFilter="true"
-                            AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                            FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}">
+                            <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn HeaderText="Purchase Value (Rs)" DataField="Purchase Value"
                             UniqueName="Purchase Value" SortExpression="Purchase Value" AutoPostBackOnFilter="true"
-                            AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                            FooterStyle-HorizontalAlign="Right"  DataFormatString="{0:N0}">
+                            <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn HeaderText="Purchase Date (dd/mm/yyyy)" DataField="Purchase Date"
                             UniqueName="Purchase Date" SortExpression="Purchase Date" AutoPostBackOnFilter="true"

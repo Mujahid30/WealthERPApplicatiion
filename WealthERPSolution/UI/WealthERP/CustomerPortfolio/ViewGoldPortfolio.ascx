@@ -37,10 +37,10 @@
             <asp:Label ID="Label1" runat="server" CssClass="HeaderTextBig" Text="Gold"></asp:Label>
             <hr />
         </td>
-        <td align="right">
+         <td align="right">
             <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
-                Height="20px" Width="25px" OnClick="btnExportFilteredData_OnClick"></asp:ImageButton>
+               Height="20px" Width="25px" OnClick="btnExportFilteredData_OnClick"></asp:ImageButton>
         </td>
     </tr>
     <tr>
@@ -89,7 +89,7 @@
                         </telerik:GridTemplateColumn>
                         <telerik:GridBoundColumn HeaderText="Instrument Category" DataField="Instrument Category"
                             UniqueName="Instrument Category" SortExpression="Instrument Category " AutoPostBackOnFilter="true"
-                            AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                            AllowFiltering="true"  ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterText="Grand Total:">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn HeaderText="Purchase Date (dd/mm/yyyy)" DataField="Purchase Date"
@@ -99,15 +99,15 @@
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Purchase Value" SortExpression="Purchase Value"
                             AutoPostBackOnFilter="true" CurrentFilterFunction="EqualTo" AllowFiltering="true"
-                            HeaderText="Purchase Value (Rs)" UniqueName="Purchase Value" 
+                            HeaderText="Purchase Value (Rs)" UniqueName="Purchase Value" FooterStyle-HorizontalAlign="Right"   Aggregate="Sum" DataFormatString="{0:N0}" 
                             ShowFilterIcon="false">
-                            <ItemStyle Width="110px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            <ItemStyle Width="110px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Current Value" SortExpression="Current Value"
                             AutoPostBackOnFilter="true" CurrentFilterFunction="EqualTo" AllowFiltering="true"
-                            HeaderText="Current Value (Rs)" UniqueName="Current Value" 
+                            HeaderText="Current Value (Rs)" UniqueName="Current Value" FooterStyle-HorizontalAlign="Right" Aggregate="Sum" DataFormatString="{0:N0}" 
                             ShowFilterIcon="false">
-                            <ItemStyle Width="110px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            <ItemStyle Width="110px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Remarks" SortExpression="Remarks" AutoPostBackOnFilter="true"
                             CurrentFilterFunction="EqualTo" AllowFiltering="true" HeaderText="Remarks" UniqueName="Remarks"

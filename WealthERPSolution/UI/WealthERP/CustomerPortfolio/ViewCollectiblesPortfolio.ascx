@@ -64,50 +64,6 @@
     </tr>
     <tr>
         <td>
-            <%-- <asp:GridView ID="gvCollectiblesPortfolio" runat="server" AutoGenerateColumns="False"
-                CellPadding="4" CssClass="GridViewStyle" DataKeyNames="CollectibleId" OnSelectedIndexChanged="gvCollectiblesPortfolio_SelectedIndexChanged"
-                AllowSorting="True" HorizontalAlign="Center" AllowPaging="True" OnPageIndexChanging="gvCollectiblesPortfolio_PageIndexChanging"
-                OnSorting="gvCollectiblesPortfolio_Sorting" OnRowCommand="gvCollectiblesPortfolio_RowCommand"
-                OnRowEditing="gvCollectiblesPortfolio_RowEditing" OnPreRender="gvCollectiblesPortfolio_PreRender"
-                OnSelectedIndexChanging="gvCollectiblesPortfolio_SelectedIndexChanging" OnSorted="gvCollectiblesPortfolio_Sorted"
-                OnDataBound="gvCollectiblesPortfolio_DataBound" ShowFooter="True">
-                <FooterStyle CssClass="FooterStyle" />
-                <RowStyle CssClass="RowStyle" />
-                <EditRowStyle HorizontalAlign="Left" VerticalAlign="Top" CssClass="EditRowStyle" />
-                <SelectedRowStyle CssClass="SelectedRowStyle" />
-                <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
-                <HeaderStyle CssClass="HeaderStyle" />
-                <AlternatingRowStyle CssClass="AltRowStyle" />
-                <Columns>
-                    <asp:TemplateField>
-                        <ItemTemplate>
-                            <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" CssClass="GridViewCmbField"
-                                OnSelectedIndexChanged="ddlAction_OnSelectedIndexChange">
-                                <asp:ListItem>Select </asp:ListItem>
-                                <asp:ListItem Text="Edit" Value="Edit">Edit</asp:ListItem>
-                                <asp:ListItem Text="View" Value="View">View</asp:ListItem>
-                                <asp:ListItem Text="Delete" Value="Delete">Delete</asp:ListItem>
-                            </asp:DropDownList>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:BoundField DataField="Instrument Category" HeaderText="Asset Category"  />
-                    <asp:BoundField DataField="Particulars" HeaderText="Particulars" SortExpression="Particulars"
-                        ItemStyle-HorizontalAlign="Justify">
-                        <ItemStyle HorizontalAlign="Justify"></ItemStyle>
-                    </asp:BoundField>
-                    <asp:BoundField DataField="Purchase Date" HeaderText="Purchase Date (dd/mm/yyyy)" 
-                        ItemStyle-HorizontalAlign="Center">
-                        <ItemStyle HorizontalAlign="Center"></ItemStyle>
-                    </asp:BoundField>
-                    <asp:BoundField DataField="Purchase Value" HeaderText="Purchase Value (Rs)" ItemStyle-HorizontalAlign="Right">
-                        <ItemStyle HorizontalAlign="Right"></ItemStyle>
-                    </asp:BoundField>
-                    <asp:BoundField DataField="Current Value" HeaderText="Current Value (Rs)" ItemStyle-HorizontalAlign="Right">
-                        <ItemStyle HorizontalAlign="Right"></ItemStyle>
-                    </asp:BoundField>
-                    <asp:BoundField DataField="Remarks" HeaderText="Remarks"  />
-                </Columns>
-            </asp:GridView> --%>
             <telerik:RadGrid ID="gvCollectiblesPortfolio" runat="server" GridLines="None" AutoGenerateColumns="False"
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                 Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
@@ -133,8 +89,8 @@
                         </telerik:GridTemplateColumn>
                         <telerik:GridBoundColumn HeaderText="Asset Category" DataField="Instrument Category"
                             UniqueName="Instrument Category" SortExpression="Instrument Category" AutoPostBackOnFilter="true"
-                            AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterText="Grand Total:">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top"  />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn HeaderText="Particulars" DataField="Particulars" UniqueName="Particulars"
                             SortExpression="Particulars" AutoPostBackOnFilter="true" AllowFiltering="true"
@@ -149,13 +105,15 @@
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Purchase Value" SortExpression="Purchase Value"
                             AutoPostBackOnFilter="true" CurrentFilterFunction="EqualTo" AllowFiltering="true"
-                            HeaderText="Purchase Value (Rs)" UniqueName="Purchase Value" ShowFilterIcon="false">
-                            <ItemStyle Width="110px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            HeaderText="Purchase Value (Rs)" FooterStyle-HorizontalAlign="Right" 
+                            DataFormatString="{0:N0}" UniqueName="Purchase Value" ShowFilterIcon="false">
+                            <ItemStyle Width="110px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Current Value" SortExpression="Current Value"
                             AutoPostBackOnFilter="true" CurrentFilterFunction="EqualTo" AllowFiltering="true"
-                            HeaderText="Current Value (Rs)" UniqueName="Current Value" ShowFilterIcon="false">
-                            <ItemStyle Width="110px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            HeaderText="Current Value (Rs)" UniqueName="Current Value" ShowFilterIcon="false"
+                            FooterStyle-HorizontalAlign="Right"  DataFormatString="{0:N0}">
+                            <ItemStyle Width="110px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Remarks" SortExpression="Remarks" AutoPostBackOnFilter="true"
                             CurrentFilterFunction="EqualTo" AllowFiltering="true" HeaderText="Remarks" UniqueName="Remarks"

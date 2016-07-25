@@ -1015,13 +1015,13 @@ namespace BoFPSuperlite
             return customercashrecomendationid;
 
         }
-        public int UpdateCashFlowRecomendation(int CCRL_ID, int CustomerId, int userId, int CRPL_ID, int CCRLSourceId, String CCRL_BuyType, decimal CCRLAmount, DateTime startDate, DateTime endDate, decimal SumAssured, string Remarks, String CCRL_FrequencyMode)
+        public int UpdateCashFlowRecomendation(int CustomerId, int userId, int CCRL_ID, int CRPL_ID, int CCRLSourceId, String CCRL_BuyType, decimal CCRLAmount, DateTime startDate, DateTime endDate, decimal SumAssured, DateTime CCRL_RecommendationDate, string Remarks, String CCRL_FrequencyMode, int CCRL_Paymentmode, decimal CCRL_RecurringAmount, int CCRL_tenure)
         {
             CustomerFPAnalyticsDao customerFPAnalyticsDao = new CustomerFPAnalyticsDao();
             int customercashrecomendationid;
             try
             {
-                customercashrecomendationid = customerFPAnalyticsDao.UpdateCashFlowRecomendation(CCRL_ID,CustomerId, userId, CRPL_ID, CCRLSourceId, CCRL_BuyType, CCRLAmount, startDate, endDate, SumAssured, Remarks, CCRL_FrequencyMode);
+                customercashrecomendationid = customerFPAnalyticsDao.UpdateCashFlowRecomendation(CCRL_ID,CustomerId, userId, CRPL_ID, CCRLSourceId, CCRL_BuyType, CCRLAmount, startDate, endDate, SumAssured,CCRL_RecommendationDate, Remarks, CCRL_FrequencyMode,CCRL_Paymentmode,CCRL_RecurringAmount,CCRL_tenure);
 
             }
             catch (BaseApplicationException Ex)

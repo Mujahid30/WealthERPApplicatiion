@@ -113,7 +113,7 @@
                                                 </telerik:GridTemplateColumn>
                         <telerik:GridBoundColumn HeaderText="Organization Name" DataField="Organization Name" UniqueName="Organization Name"
                             SortExpression="Organization Name " AutoPostBackOnFilter="true" AllowFiltering="true"
-                            ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                            ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterText="Grand Total:">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn HeaderText="Category" DataField="Category" UniqueName="Category"
@@ -123,16 +123,18 @@
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Deposit Amount" SortExpression="Deposit Amount"
                             AutoPostBackOnFilter="true" CurrentFilterFunction="EqualTo" AllowFiltering="true"
-                            HeaderText="Deposit Amount (Rs)" UniqueName="Deposit Amount" DataFormatString="{0:dd-MMM-yy}"
+                            HeaderText="Deposit Amount (Rs)" FooterStyle-HorizontalAlign="Right" 
+                          DataFormatString="{0:N0}" UniqueName="Deposit Amount" 
                             ShowFilterIcon="false">
-                            <ItemStyle Width="110px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            <ItemStyle Width="110px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                            
                         </telerik:GridBoundColumn>
                          <telerik:GridBoundColumn DataField="Current Value" SortExpression="Current Value"
                             AutoPostBackOnFilter="true" CurrentFilterFunction="EqualTo" AllowFiltering="true"
-                            HeaderText="Current Value (Rs)" UniqueName="Current Value" DataFormatString="{0:dd-MMM-yy}"
+                            HeaderText="Current Value (Rs)" FooterStyle-HorizontalAlign="Right" 
+                                               DataFormatString="{0:N0}" UniqueName="Current Value" 
                             ShowFilterIcon="false">
-                            <ItemStyle Width="110px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            <ItemStyle Width="110px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                            
                         </telerik:GridBoundColumn>
                     </Columns>
