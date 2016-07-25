@@ -487,7 +487,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 fileName = fileUpload.FileName.ToString();
                 fileName = ran.Next().ToString() + "_" + fileName;
                 fileUpload.SaveAs(uploadFilePath + fileName);
-               // fileUpload.SaveAs(uploadFilePath + fileName);
+                // fileUpload.SaveAs(uploadFilePath + fileName);
 
                 onlineOrderBackOfficeBo.InsertUpdateDeleteOnBannerDetails(0, assetGroupCode, userVo.UserId, fileName, expireDate, 0);
                 BindBannerDetails();
@@ -518,7 +518,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
             }
 
-           
+
             onlineOrderBackOfficeBo.InsertUpdateDeleteOnBannerDetails(id, assetGroupCode, userVo.UserId, fileName, expireDate, 0);
 
             BindBannerDetails();
@@ -610,7 +610,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 Label7 = (Label)gdi.FindControl("Label7");
                 txtPriorDays = (TextBox)gdi.FindControl("txtPriorDays");
                 Requiredfieldvalidator9 = (RequiredFieldValidator)gdi.FindControl("Requiredfieldvalidator9");
-                if (assetgroup.SelectedValue == "MF")
+                if (assetgroup.SelectedValue == "MF" || assetgroup.SelectedValue == "FI")
                 {
                     if (gdi.IsInEditMode == true)
                     {
@@ -653,7 +653,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 NotificationType = (DropDownList)gdi.FindControl("DropDownList1");
                 HtmlTableRow trTransType = (HtmlTableRow)gdi.FindControl("trTransType");
                 BindNotificationType(NotificationType, assetgroup.SelectedValue);
-                if (assetgroup.SelectedValue == "MF")
+                if (assetgroup.SelectedValue == "MF" || assetgroup.SelectedValue == "FI")
                 {
                     trTransType.Visible = true;
                 }
@@ -704,7 +704,7 @@ namespace WealthERP.OnlineOrderBackOffice
             onlineOrderBackOfficeBo.InsertUpdateDeleteNotificationSetupDetails(0, userVo.UserId, adviserVo.advisorId, assetGroupCode, notificationType, transtypes, headingText, PriorDays, isSMSEnabled, isEMailEnabled, isDashBoardEnabled, false);
 
             BindNotificationSetup();
-          
+
 
 
 
@@ -734,7 +734,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
             }
 
-          
+
         }
         protected void rgNotification_ItemDataBound(object sender, GridItemEventArgs e)
         {
@@ -762,12 +762,12 @@ namespace WealthERP.OnlineOrderBackOffice
                 string transtypes = rgNotification.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_TransactionTypes"].ToString();
                 string[] transtype;
                 HtmlTableRow trTransType = (HtmlTableRow)editedItem.FindControl("trTransType");
-                if (assetGroupCode == "MF")
+                if (assetGroupCode == "MF" || assetGroupCode == "FI")
                     trTransType.Visible = true;
                 else
                     trTransType.Visible = false;
 
-                    BindDropDownAssetGroup(ddlAssetGroupName1);
+                BindDropDownAssetGroup(ddlAssetGroupName1);
 
                 if (string.IsNullOrEmpty(transtypes))
                     return;
@@ -817,6 +817,25 @@ namespace WealthERP.OnlineOrderBackOffice
                 BindDropDownAssetGroup(ddlAssetGroupName1);
 
 
+            }
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem item = (GridDataItem)e.Item;
+                LinkButton btnSendSMS = (LinkButton)item["SendSMS"].Controls[0];
+                LinkButton btnSendEMail = (LinkButton)item["SendEMail"].Controls[0];
+                LinkButton btnGenerateOnDashBoard = (LinkButton)item["GenerateOnDashBoard"].Controls[0]; 
+                if (rgNotification.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_IsSMSEnabled"].ToString() != "True") 
+                {
+                    btnSendSMS.Visible = false;
+                }
+                if (rgNotification.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_ISEmailEnabled"].ToString() != "True")
+                {
+                    btnSendEMail.Visible = false;
+                }
+                if (rgNotification.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CTNS_IsDashBoardEnabled"].ToString() != "True")
+                {
+                    btnGenerateOnDashBoard.Visible = false;
+                }
             }
         }
         protected void rgNotification_UpdateCommand(object source, GridCommandEventArgs e)
@@ -1094,6 +1113,6 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlAssetGroupName1.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
         }
 
-       
+
     }
 }

@@ -563,25 +563,16 @@
         </telerik:RadGrid>
     </telerik:RadPageView>
     <telerik:RadPageView ID="rpvNotification" runat="server">
-        <asp:Panel ID="Notification" runat="server">
+        <asp:Panel ID="Notification" runat="server" ScrollBars="Horizontal"
+         Width="100%" Height="80%">
             <telerik:RadCodeBlock ID="RadCodeBlock2" runat="server">
 
                 <script type="text/javascript">
                     function ShowEditForm(id, rowIndex) {
                         var grid = $find("<%= rgNotification.ClientID %>");
-
-                        //                        var rowControl = grid.get_masterTableView().get_dataItems()[rowIndex].get_element();
-                        //                        alert(rowControl);
-                        //                        grid.get_masterTableView().selectItem(rowControl, true);
-                        //                       
                         window.radopen("../InvestorOnline.aspx" + id, "UserListDialog1");
-
                         return false;
                     }
-                    //                    function ShowInsertForm() {
-                    //                        window.radopen("EditForm_csharp.aspx", "UserListDialog");
-                    //                        return false;
-                    //                    }
                     function refreshGrid(arg) {
                         if (!arg) {
                             $find("<%= RadAjaxManager1.ClientID %>").ajaxRequest("Rebind");
@@ -593,38 +584,6 @@
                     function RowDblClick(sender, eventArgs) {
                         window.radopen("../InvestorOnline.aspx?EmployeeID=" + eventArgs.getDataKeyValue("CTNS_Id"), "UserListDialog");
                     }
-
-
-
-
-                    //                    function Validate() {
-                    //                        var isValid = false;
-                    //                        isValid = Page_ClientValidate('Button1');
-                    //                        if (isValid) {
-                    //                            isValid = Page_ClientValidate('btnTC');
-                    //                        }
-
-                    //                        return isValid;
-                    //                    }
-                    //                    var crnt = 0;
-                    //                    function PreventClicks() {
-
-                    //                        if (typeof (Page_ClientValidate('Button1')) == 'function') {
-                    //                            Page_ClientValidate();
-                    //                        }
-
-                    //                        if (Page_IsValid) {
-                    //                            if (++crnt > 1) {
-                    //                                return false;
-                    //                            }
-                    //                            return true;
-                    //                        }
-                    //                        else {
-                    //                            return false;
-                    //                        }
-                    //                    }
-
-
                     var crnt = 0;
                     function PreventClicks() {
 
@@ -669,11 +628,11 @@
             <telerik:RadGrid ID="rgNotification" runat="server" Skin="Telerik" CssClass="RadGrid"
                 GridLines="None" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False"
                 ShowStatusBar="true" AllowAutomaticDeletes="false" AllowAutomaticInserts="false"
-                PageSize="3" OnInsertCommand="rgNotification_InsertCommand" OnNeedDataSource="rgNotification_NeedDataSource"
+                PageSize="10" OnInsertCommand="rgNotification_InsertCommand" OnNeedDataSource="rgNotification_NeedDataSource"
                 OnDeleteCommand="rgNotification_DeleteCommand" OnUpdateCommand="rgNotification_UpdateCommand"
                 OnItemCreated="rgNotification_ItemCreated" OnItemCommand="rgNotification_ItemCommand"
                 OnItemDataBound="rgNotification_ItemDataBound" AllowAutomaticUpdates="false"
-                HorizontalAlign="NotSet">
+                HorizontalAlign="Left">
                 <MasterTableView CommandItemDisplay="Top" EditMode="EditForms" DataKeyNames="CTNS_Id,PAG_AssetGroupCode ,PAG_AssetGroupName,CTNS_TransactionTypes ,
                 CTNS_NotificationHeader ,
                 CNT_ID ,CNT_NotificationType,
@@ -686,7 +645,7 @@
                         <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
                             UpdateText="Update">
                         </telerik:GridEditCommandColumn>
-                        <telerik:GridBoundColumn UniqueName="CTNS_NotificationHeader" HeaderText="Notification Heading"
+                        <telerik:GridBoundColumn UniqueName="CTNS_NotificationHeader" HeaderText="Notification Heading" ItemStyle-Width="100px"
                             DataField="CTNS_NotificationHeader">
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="CNT_NotificationType" HeaderText="Notification Type"
@@ -695,7 +654,7 @@
                         <telerik:GridBoundColumn UniqueName="PAG_AssetGroupName" HeaderText="Asset Group"
                             DataField="PAG_AssetGroupName">
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="TransType" HeaderText="Transaction Types" DataField="TransType">
+                        <telerik:GridBoundColumn UniqueName="TransType" HeaderText="Transaction/Product Types" DataField="TransType">
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="CTNS_PriorDays" HeaderText="Prior Days" DataField="CTNS_PriorDays">
                         </telerik:GridBoundColumn>
@@ -719,7 +678,7 @@
                         <telerik:GridButtonColumn UniqueName="SendSMS" ConfirmText="Are you sure you want to Send SMS ?"
                             ConfirmDialogType="Classic" ConfirmTitle="SendSMS" ButtonType="LinkButton" CommandName="SMS"
                             Text="Send SMS">
-                            <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                            <ItemStyle HorizontalAlign="Center"  CssClass="MyImageButton" />
                         </telerik:GridButtonColumn>
                         <telerik:GridButtonColumn UniqueName="SendEMail" ConfirmText="Are you sure you want to Send Email ?"
                             ConfirmDialogType="Classic" ConfirmTitle="SendEmail" ButtonType="LinkButton"
@@ -804,7 +763,7 @@
                                 </tr>
                                 <tr id="trTransType" runat="server">
                                     <td class="leftField">
-                                        <asp:Label ID="Label1" runat="server" Text="Transaction Types:" CssClass="FieldName"></asp:Label>
+                                        <asp:Label ID="Label1" runat="server" Text="Transaction/Product Types:" CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td class="rightField">
                                         <asp:CheckBoxList ID="chkbltranstype" runat="server" CheckBoxes="true" AutoPostBack="true">
@@ -816,7 +775,7 @@
                                         <asp:Label ID="Label8" runat="server" Text="IS SMS Enabled:" CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td class="rightField">
-                                        <asp:CheckBox ID="chkSMS" runat="server" Checked='<%# Convert.IsDBNull(Eval("CTNS_IsSMSEnabled")) ? false :Convert.ToInt16( Eval("CTNS_IsSMSEnabled"))==1 ? true : false %>' />
+                                        <asp:CheckBox ID="chkSMS" runat="server"  Checked='<%# Convert.IsDBNull(Eval("CTNS_IsSMSEnabled")) ? false :Convert.ToInt16( Eval("CTNS_IsSMSEnabled"))==1 ? true : false %>' />
                                     </td>
                                     <td class="leftField">
                                         <asp:Label ID="Label9" runat="server" Text="IS  Email Enabled:" CssClass="FieldName"></asp:Label>
