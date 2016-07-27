@@ -75,7 +75,7 @@ namespace WealthERP.FP
                 btnDelete.Enabled = false;
                 int customerId = 0;
                 bmID = rmVo.RMId;
-                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "Research")
+                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "research")
                 {
                     userType = "advisor";
                 }
@@ -1586,7 +1586,7 @@ namespace WealthERP.FP
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMCustomer','login');", true);
                 }
-                else if (userRole == "Admin" || userRole == "Ops"||userRole=="Research")
+                else if (userRole == "Admin" || userRole == "Ops"||userRole=="research")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','action=FPClient');", true);
                 }
