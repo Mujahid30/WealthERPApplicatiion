@@ -353,7 +353,7 @@ namespace WealthERP.OffLineOrderManagement
         {
             if((!string.IsNullOrEmpty(txtQuentity.Text)) && (!string.IsNullOrEmpty(textPrice.Text)))
             {
-                txtCurrentPrice.Text=(int.Parse(txtQuentity.Text)* int.Parse(textPrice.Text)).ToString();
+                txtCurrentPrice.Text=(int.Parse(txtQuentity.Text)*Convert.ToDecimal(textPrice.Text)).ToString();
             }
         }
     }
