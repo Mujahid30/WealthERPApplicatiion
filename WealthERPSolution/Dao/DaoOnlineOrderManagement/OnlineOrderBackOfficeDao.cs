@@ -833,6 +833,7 @@ namespace DaoOnlineOrderManagement
             DbCommand cmd;
             try
             {
+                rtaIdentifier = "CA";
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmd = db.GetStoredProcCommand("SPROC_ONL_DailyAdviserRTAOrderExtract");
                 //db.AddInParameter(cmd, "@WTBD_ExecutionDate", DbType.DateTime, ExecutionDate);
@@ -3225,7 +3226,7 @@ namespace DaoOnlineOrderManagement
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "OnlineMFSchemeDetailsDao.cs:CustomerAddMFSchemeToWatch()");
+                FunctionInfo.Add("Method", "OnlineMFSchemeDetailsDao.cs:GetTopMarketSchemes()");
                 object[] objects = new object[4];
                 objects[0] = category;
                 objects[1] = isSIP;
