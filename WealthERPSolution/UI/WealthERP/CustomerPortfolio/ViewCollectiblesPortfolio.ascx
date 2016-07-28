@@ -31,37 +31,45 @@
         </td>
     </tr>
 </table>
-<table class="TableBackground" style="width: 100%">
-    <tr>
-        <td class="HeaderCell">
-            <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Collectibles Portfolio"></asp:Label>
-            <hr />
-        </td>
-        <td align="right">
-            <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
-                Height="20px" Width="25px" OnClick="btnExportFilteredData_OnClick"></asp:ImageButton>
-        </td>
-    </tr>
+<table width="100%">
     <tr>
         <td>
-            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Portfolio Name:"></asp:Label>
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                          Collectibles Portfolio
+                        </td>
+                        <td align="right">
+                            <asp:ImageButton ID="btnExportFilteredData" Visible="true" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
+                                OnClick="btnExportFilteredData_OnClick" Height="20px" Width="25px"></asp:ImageButton>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>
+            <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Portfolio Name:"></asp:Label>
             <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
             </asp:DropDownList>
         </td>
     </tr>
-    <%--<tr>
-        <td>
-            <asp:Label ID="lblMessage" runat="server" CssClass="Error" Text="No Records Found!"></asp:Label>
-        </td>
-    </tr>--%>
     <tr>
         <td class="leftField" runat="server" visible="false">
             <asp:Label ID="lblCurrentPage" class="Field" Visible="false" runat="server"></asp:Label>
-            <asp:Label ID="lblTotalRows" class="Field" Visible="false" runat="server"></asp:Label>
+            <asp:Label ID="lblTotalRows" class="Field" runat="server" Visible="false"></asp:Label>
         </td>
     </tr>
+</table>
+
+   <asp:Panel ID ="pnl" runat="server"  ScrollBars="Vertical">
+<table width="100%" cellspacing="0" cellpadding="3">
     <tr>
         <td>
             <telerik:RadGrid ID="gvCollectiblesPortfolio" runat="server" GridLines="None" AutoGenerateColumns="False"
@@ -106,13 +114,13 @@
                         <telerik:GridBoundColumn DataField="Purchase Value" SortExpression="Purchase Value"
                             AutoPostBackOnFilter="true" CurrentFilterFunction="EqualTo" AllowFiltering="true"
                             HeaderText="Purchase Value (Rs)" FooterStyle-HorizontalAlign="Right" 
-                            DataFormatString="{0:N0}" UniqueName="Purchase Value" ShowFilterIcon="false">
+                            DataFormatString="{0:N0}" Aggregate="Sum" UniqueName="Purchase Value" ShowFilterIcon="false">
                             <ItemStyle Width="110px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Current Value" SortExpression="Current Value"
                             AutoPostBackOnFilter="true" CurrentFilterFunction="EqualTo" AllowFiltering="true"
                             HeaderText="Current Value (Rs)" UniqueName="Current Value" ShowFilterIcon="false"
-                            FooterStyle-HorizontalAlign="Right"  DataFormatString="{0:N0}">
+                            FooterStyle-HorizontalAlign="Right"  DataFormatString="{0:N0}" Aggregate="Sum">
                             <ItemStyle Width="110px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Remarks" SortExpression="Remarks" AutoPostBackOnFilter="true"
@@ -129,6 +137,7 @@
         </td>
     </tr>
 </table>
+</asp:Panel>
 <table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server"
     visible="false">
     <tr>

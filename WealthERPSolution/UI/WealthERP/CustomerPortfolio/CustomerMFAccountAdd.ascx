@@ -429,10 +429,7 @@
         <td class="rightField">
             <asp:TextBox ID="txtAssociateCode" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
-        <%-- <td class="rightField">
-            <asp:DropDownList ID="ddlAssociateCode" runat="server" CssClass="cmbField">
-            </asp:DropDownList>
-        </td>--%>
+      
         <td>
         </td>
     </tr>
@@ -444,18 +441,18 @@
             <asp:TextBox Visible="false" ID="txtTaxStatus" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
     </tr>
-    <tr>
-        <td class="leftField">
-            <asp:Label ID="lblddlBankList" runat="server" CssClass="FieldName" Text="Bank :"></asp:Label>
+    <tr >
+        <td class="leftField" >
+            <asp:Label ID="lblddlBankList" runat="server" visible="false" CssClass="FieldName" Text="Bank :"></asp:Label>
         </td>
         <td class="rightField" colspan="4">
-            <asp:DropDownList ID="ddlBankList" runat="server" CssClass="cmbField" AutoPostBack="true"
+            <asp:DropDownList ID="ddlBankList" runat="server" Visible="false" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlBankList_SelectedIndexChanged">
             </asp:DropDownList>
-            <asp:ImageButton ID="imgBtnAddBank" ImageUrl="~/Images/user_add.png" runat="server"
+            <asp:ImageButton ID="imgBtnAddBank" Visible="false" ImageUrl="~/Images/user_add.png" runat="server"
                 ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()" Height="15px"
                 Width="15px"></asp:ImageButton>
-            <asp:ImageButton ID="imgBtnRefereshBank" ImageUrl="~/Images/refresh.png" AlternateText="Refresh"
+            <asp:ImageButton ID="imgBtnRefereshBank" Visible="false" ImageUrl="~/Images/refresh.png" AlternateText="Refresh"
                 runat="server" ToolTip="Click here to refresh Bank List" OnClick="imgBtnRefereshBank_OnClick"
                 Height="15px" Width="25px"></asp:ImageButton>
         </td>
@@ -610,7 +607,8 @@
             <div id="divBankDetails" runat="server">
                 <tr>
                     <td class="leftField">
-                        <asp:Label ID="Label28" runat="server" CssClass="FieldName" Text="All Banks :"></asp:Label>
+                    <asp:Label ID="Label28" runat="server" CssClass="FieldName" Text="Banks :"></asp:Label>
+                        <%--<asp:Label ID="Label28" runat="server" CssClass="FieldName" Text="All Banks :"></asp:Label>--%>
                     </td>
                     <td class="rightField">
                         <asp:DropDownList ID="ddlALLBankList" runat="server" CssClass="cmbField">
@@ -648,10 +646,10 @@
                 </tr>
                 <tr>
                     <td class="leftField">
-                        <asp:Label ID="Label11" CssClass="FieldName" Text="Bank Name :" runat="server"></asp:Label>
+                        <asp:Label ID="Label11" CssClass="FieldName" Text="Bank Name :" Visible="false" runat="server"></asp:Label>
                     </td>
                     <td class="rightField" style="width: 25%">
-                        <asp:TextBox ID="txtBankName" CssClass="txtField" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtBankName" CssClass="txtField" Visible="false" runat="server"></asp:TextBox>
                     </td>
                     <td class="leftField" style="width: 20%">
                         <asp:Label ID="Label14" CssClass="FieldName" Text="Branch Name :" runat="server"></asp:Label>

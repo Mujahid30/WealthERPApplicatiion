@@ -32,31 +32,22 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgRecordStatus;
         
         /// <summary>
-        /// lblHeader control.
+        /// btnExportFilteredData control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblHeader;
+        protected global::System.Web.UI.WebControls.ImageButton btnExportFilteredData;
         
         /// <summary>
-        /// imgBtnrgHoldings control.
+        /// lblPortfolio control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton imgBtnrgHoldings;
-        
-        /// <summary>
-        /// Label1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label lblPortfolio;
         
         /// <summary>
         /// ddlPortfolio control.
@@ -84,6 +75,15 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTotalRows;
+        
+        /// <summary>
+        /// pnl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnl;
         
         /// <summary>
         /// gvCollectiblesPortfolio control.

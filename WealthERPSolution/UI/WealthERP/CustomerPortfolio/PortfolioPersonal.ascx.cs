@@ -216,8 +216,8 @@ namespace WealthERP.CustomerPortfolio
                     dtPersonal.Columns.Add("Name");
                     dtPersonal.Columns.Add("Category");
                     dtPersonal.Columns.Add("Quantity");
-                    dtPersonal.Columns.Add("Current Value");
-                    dtPersonal.Columns.Add("Purchase Value");
+                    dtPersonal.Columns.Add("Current Value", typeof(Double));
+                    dtPersonal.Columns.Add("Purchase Value", typeof(Double));
                     dtPersonal.Columns.Add("Purchase Date");
                     DataRow drPersonal;
                     for (int i = 0; i < personalList.Count; i++)

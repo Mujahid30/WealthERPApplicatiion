@@ -152,24 +152,7 @@
                         </asp:DropDownList>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
-                <%-- <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="120px">
-                    <ItemTemplate>
-                        <telerik:RadComboBox ID="ddlAction" OnSelectedIndexChanged="ddlAction_SelectedIndexChanged"
-                            CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
-                            AllowCustomText="true" AutoPostBack="true">
-                            <Items>
-                                <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="Select"
-                                    Selected="true"></telerik:RadComboBoxItem>
-                                <telerik:RadComboBoxItem Text="View" Value="View" ImageUrl="~/Images/DetailedView.png"
-                                    runat="server"></telerik:RadComboBoxItem>
-                                <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Edit" Value="Edit"
-                                    runat="server"></telerik:RadComboBoxItem>
-                                <telerik:RadComboBoxItem ImageUrl="~/Images/DeleteRecord.png" Text="Delete" Value="Delete"
-                                    runat="server"></telerik:RadComboBoxItem>
-                            </Items>
-                        </telerik:RadComboBox>
-                    </ItemTemplate>
-                </telerik:GridTemplateColumn>--%>
+                
                 <telerik:GridBoundColumn UniqueName="Folio No" HeaderStyle-Width="80px" HeaderText="Folio No."
                     DataField="Folio No" SortExpression="Folio No" AllowFiltering="true" ShowFilterIcon="false"
                     AutoPostBackOnFilter="true">
@@ -185,8 +168,8 @@
                     AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn UniqueName="Name" HeaderStyle-Width="100px" HeaderText="Name"
-                    DataField="CMFA_INV_NAME" SortExpression="Name" AllowFiltering="true" ShowFilterIcon="false"
+                <telerik:GridBoundColumn UniqueName="Name" Visible="false" HeaderStyle-Width="100px" HeaderText="Name"
+                    DataField="Name" SortExpression="Name" AllowFiltering="true" ShowFilterIcon="false"
                     AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>

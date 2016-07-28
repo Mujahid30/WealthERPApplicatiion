@@ -213,8 +213,10 @@ namespace WealthERP.CustomerPortfolio
                     dtPension.Columns.Add("PortfolioId");
                     dtPension.Columns.Add("Organization Name");
                     dtPension.Columns.Add("Category");
-                    dtPension.Columns.Add("Deposit Amount");
-                    dtPension.Columns.Add("Current Value");
+                   // dtPension.Columns.Add("Deposit Amount");
+                   // dtPension.Columns.Add("Current Value");
+                    dtPension.Columns.Add("Purchase Value", typeof(Double));
+                    dtPension.Columns.Add("Current Value", typeof(Double));
                     DataRow drPension;
                     for (int i = 0; i < pensionAndGratuitiesList.Count; i++)
                     {
@@ -227,6 +229,10 @@ namespace WealthERP.CustomerPortfolio
                         drPension[2] = pensionAndGratuitiesVo.AssetInstrumentCategoryName.ToString();
                         drPension[3] = String.Format("{0:n2}", decimal.Parse(pensionAndGratuitiesVo.DepositAmount.ToString("f2")));
                         drPension[4] = String.Format("{0:n2}", decimal.Parse(pensionAndGratuitiesVo.CurrentValue.ToString("f2")));
+                       // drPension[3] = pensionAndGratuitiesVo.DepositAmount.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                       // drPension[4] = pensionAndGratuitiesVo.CurrentValue.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                   
+
                         dtPension.Rows.Add(drPension);
 
                     }

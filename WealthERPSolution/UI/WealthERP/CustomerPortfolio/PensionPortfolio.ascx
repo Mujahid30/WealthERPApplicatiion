@@ -31,19 +31,17 @@
         </td>
     </tr>
 </table>
-
 <table style="width: 100%;">
     <tr>
         <td colspan="2">
             <asp:Label ID="lblHeader" Text="Pension & Gratuities Portfolio" runat="server" CssClass="HeaderTextBig"></asp:Label>
             <hr />
         </td>
-        
-                        <td align="right">
-                            <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
-                                Height="20px" Width="25px" OnClick="btnExportFilteredData_OnClick"></asp:ImageButton>
-                        </td>
+        <td align="right">
+            <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
+                Height="20px" Width="25px" OnClick="btnExportFilteredData_OnClick"></asp:ImageButton>
+        </td>
     </tr>
     <tr>
         <td>
@@ -54,7 +52,6 @@
         </td>
     </tr>
     <tr>
-       
     </tr>
     <tr id="trTotalRows" runat="server">
         <td class="leftField">
@@ -64,56 +61,32 @@
     </tr>
     <tr>
         <td colspan="2">
-            
-          
-          <telerik:RadGrid ID="gvrPensionAndGratuities" runat="server" GridLines="None" AutoGenerateColumns="False"
+            <telerik:RadGrid ID="gvrPensionAndGratuities" runat="server" GridLines="None" AutoGenerateColumns="False"
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                 Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
-                AllowAutomaticInserts="false" ExportSettings-FileName="Pension And Gratuities Details"
-                >
+                AllowAutomaticInserts="false" ExportSettings-FileName="Pension And Gratuities Details">
                 <ExportSettings HideStructureColumns="true">
                 </ExportSettings>
                 <MasterTableView DataKeyNames="PortfolioId" Width="100%" AllowMultiColumnSorting="True"
                     AutoGenerateColumns="false" CommandItemDisplay="None">
                     <Columns>
-                       <%--  <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action">
-                            <ItemTemplate>
-                                <telerik:RadComboBox ID="ddlMenu" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged"
-                                    CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
-                                    AllowCustomText="true" Width="120px" AutoPostBack="true">
-                                    <Items>
-                                        <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="Select"
-                                            Selected="true"></telerik:RadComboBoxItem>
-                                        <telerik:RadComboBoxItem Text="View" Value="View" ImageUrl="~/Images/DetailedView.png"
-                                            runat="server"></telerik:RadComboBoxItem>
-                                        <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Edit" Value="Edit"
-                                            runat="server"></telerik:RadComboBoxItem>
-                                        <telerik:RadComboBoxItem ImageUrl="~/Images/delete.png" Text="Delete" Value="Delete"
-                                            runat="server"></telerik:RadComboBoxItem>
-                                    </Items>
-                                </telerik:RadComboBox>
-                            </ItemTemplate>
-                            
-                            
-                        </telerik:GridTemplateColumn>--%>
                         <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action">
-                                                    <ItemTemplate>
-                                                           <asp:DropDownList ID="ddlMenu" CssClass="cmbField" runat="server" EnableEmbeddedSkins="false"
-                                                                AutoPostBack="true" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged"
-                                                                Width="110px">
-                                                                <Items>
-                                                                    <asp:ListItem Text="Select" Value="Select" Selected="true" />
-                                                                    <asp:ListItem Text="View" Value="View" />
-                                                                    <asp:ListItem Text="Edit" Value="Edit"/> 
-                                                                   <asp:ListItem Text="Delete" Value="Delete" />
-
-                                                                </Items>
-                                                            </asp:DropDownList>
-                                                    </ItemTemplate>
-                                                </telerik:GridTemplateColumn>
-                        <telerik:GridBoundColumn HeaderText="Organization Name" DataField="Organization Name" UniqueName="Organization Name"
-                            SortExpression="Organization Name " AutoPostBackOnFilter="true" AllowFiltering="true"
-                            ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterText="Grand Total:">
+                            <ItemTemplate>
+                                <asp:DropDownList ID="ddlMenu" CssClass="cmbField" runat="server" EnableEmbeddedSkins="false"
+                                    AutoPostBack="true" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged" Width="110px">
+                                    <Items>
+                                        <asp:ListItem Text="Select" Value="Select" Selected="true" />
+                                        <asp:ListItem Text="View" Value="View" />
+                                        <asp:ListItem Text="Edit" Value="Edit" />
+                                        <asp:ListItem Text="Delete" Value="Delete" />
+                                    </Items>
+                                </asp:DropDownList>
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>
+                        <telerik:GridBoundColumn HeaderText="Organization Name" DataField="Organization Name"
+                            UniqueName="Organization Name" SortExpression="Organization Name " AutoPostBackOnFilter="true"
+                            AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                            FooterText="Grand Total:">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn HeaderText="Category" DataField="Category" UniqueName="Category"
@@ -123,19 +96,15 @@
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Deposit Amount" SortExpression="Deposit Amount"
                             AutoPostBackOnFilter="true" CurrentFilterFunction="EqualTo" AllowFiltering="true"
-                            HeaderText="Deposit Amount (Rs)" FooterStyle-HorizontalAlign="Right" 
-                          DataFormatString="{0:N0}" UniqueName="Deposit Amount" 
-                            ShowFilterIcon="false">
+                            HeaderText="Deposit Amount (Rs)" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}"
+                            UniqueName="Deposit Amount" ShowFilterIcon="false">
                             <ItemStyle Width="110px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                           
                         </telerik:GridBoundColumn>
-                         <telerik:GridBoundColumn DataField="Current Value" SortExpression="Current Value"
+                        <telerik:GridBoundColumn DataField="Current Value" SortExpression="Current Value"
                             AutoPostBackOnFilter="true" CurrentFilterFunction="EqualTo" AllowFiltering="true"
-                            HeaderText="Current Value (Rs)" FooterStyle-HorizontalAlign="Right" 
-                                               DataFormatString="{0:N0}" UniqueName="Current Value" 
-                            ShowFilterIcon="false">
+                            HeaderText="Current Value (Rs)" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}" Aggregate="Sum"
+                            UniqueName="Current Value" ShowFilterIcon="false">
                             <ItemStyle Width="110px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                           
                         </telerik:GridBoundColumn>
                     </Columns>
                 </MasterTableView>
@@ -143,21 +112,19 @@
                     <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                 </ClientSettings>
             </telerik:RadGrid>
-          
-          
-          
         </td>
     </tr>
 </table>
-<table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server" visible="false">
+<table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server"
+    visible="false">
     <tr>
-    <td align="center">
-     <div class="failure-msg" id="ErrorMessage" runat="server" visible="false" align="center">
-    </div>
-    </td>
+        <td align="center">
+            <div class="failure-msg" id="ErrorMessage" runat="server" visible="false" align="center">
+            </div>
+        </td>
     </tr>
- </table>
-<table style="width: 100%" id="tblPager"  runat="server" visible="false">
+</table>
+<table style="width: 100%" id="tblPager" runat="server" visible="false">
     <tr>
         <td>
             <Pager:Pager ID="mypager" Visible="false" runat="server"></Pager:Pager>
@@ -167,10 +134,8 @@
 <asp:HiddenField ID="hdnSort" runat="server" Value="InstrumentCategory ASC" />
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnPortfolioID" runat="server" />
-
-  <asp:HiddenField ID="hdnIsMainPortfolio" runat="server"/>
+<asp:HiddenField ID="hdnIsMainPortfolio" runat="server" />
 <asp:HiddenField ID="hdnIsCustomerLogin" runat="server" />
-
 <asp:HiddenField ID="hdnMsgValue" runat="server" />
 <asp:HiddenField ID="hdndeleteId" runat="server" />
 <asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click"

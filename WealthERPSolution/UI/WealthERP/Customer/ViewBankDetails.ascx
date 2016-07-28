@@ -68,7 +68,7 @@
     function conformation() {
             var answer = confirm("Cannot delete the bank is Associate with Folio/Trade Account");
             if (answer)
-                return true;
+                return false;
             else
                 return false;
     }

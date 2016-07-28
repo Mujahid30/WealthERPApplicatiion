@@ -238,8 +238,8 @@ namespace WealthERP.CustomerPortfolio
                     dtProperty.Columns.Add("Area");
                     dtProperty.Columns.Add("Measurement Unit");
                     dtProperty.Columns.Add("Purchase Date");
-                    dtProperty.Columns.Add("Purchase Cost");
-                    dtProperty.Columns.Add("Current Value");
+                    dtProperty.Columns.Add("Purchase Cost",typeof(Double));
+                    dtProperty.Columns.Add("Current Value",typeof(Double));
                     DataRow drProperty;
                     for (int i = 0; i < propertyList.Count; i++)
                     {
@@ -358,10 +358,28 @@ namespace WealthERP.CustomerPortfolio
             gvrProperty.ExportSettings.IgnorePaging = true;
             gvrProperty.ExportSettings.HideStructureColumns = true;
             gvrProperty.ExportSettings.ExportOnlyData = true;
-            gvrProperty.ExportSettings.FileName = "Gold Details";
-            // gvrPensionAndGratuities.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvrProperty.ExportSettings.FileName = "Portfolio Property";
+          //  gvrProperty.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvrProperty.MasterTableView.ExportToExcel();
         }
+        protected void gvrProperty_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+
+            DataTable dtProperty = new DataTable();
+            dtProperty = (DataTable)Cache["gvrProperty" + customerVo.CustomerId];
+            gvrProperty.DataSource = dtProperty;
+            if (dtProperty != null)
+            {
+
+                gvrProperty.Visible = true;
+            }
+            else
+            {
+                gvrProperty.Visible = false;
+
+            }
+        }
+
 
         protected void gvrProperty_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {

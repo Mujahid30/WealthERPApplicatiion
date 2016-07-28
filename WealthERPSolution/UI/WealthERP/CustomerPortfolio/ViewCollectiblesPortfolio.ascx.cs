@@ -222,8 +222,8 @@ namespace WealthERP.CustomerPortfolio
                     dtCollectiblesPortfolio.Columns.Add("Instrument Category");
                     dtCollectiblesPortfolio.Columns.Add("Particulars");
                     dtCollectiblesPortfolio.Columns.Add("Purchase Date");
-                    dtCollectiblesPortfolio.Columns.Add("Purchase Value");
-                    dtCollectiblesPortfolio.Columns.Add("Current Value");
+                    dtCollectiblesPortfolio.Columns.Add("Purchase Value",typeof(Double));
+                    dtCollectiblesPortfolio.Columns.Add("Current Value",typeof(Double));
                     dtCollectiblesPortfolio.Columns.Add("Remarks");
 
                     DataRow drCollectiblesPortfolio;

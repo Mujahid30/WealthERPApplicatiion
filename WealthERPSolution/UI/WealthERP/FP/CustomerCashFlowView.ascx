@@ -9,7 +9,7 @@
                 <table cellspacing="0" width="100%">
                     <tr>
                         <td colspan="4" class="HeaderCell">
-                            <asp:Label ID="Label1" runat="server" CssClass="HeaderTextBig" Text=" Cash Flow Recommendation Details"></asp:Label>
+                            <asp:Label ID="Label1" runat="server" CssClass="HeaderTextBig" Text="Recommendation Details"></asp:Label>
                             <hr />
                         </td>
                     </tr>
@@ -66,18 +66,18 @@
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderText="Recurring amt"  DataField="CCRL_RecurringAmount"
+                                            <telerik:GridBoundColumn HeaderText="Recurring amt"  Visible="false" DataField="CCRL_RecurringAmount"
                                                 UniqueName="CCRL_RecurringAmount" SortExpression="CCRL_RecurringAmount" AutoPostBackOnFilter="true"
                                                 AllowFiltering="false" ShowFilterIcon="false" FooterStyle-HorizontalAlign="Right" 
                                                 Aggregate="Sum" DataFormatString="{0:N0}" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderText="Recurring freq" DataField="CCRL_FrequencyMode"
+                                            <telerik:GridBoundColumn HeaderText="Recurring Frequency" DataField="CCRL_FrequencyMode"
                                                 UniqueName="CCRL_FrequencyMode" SortExpression="CCRL_FrequencyMode" AutoPostBackOnFilter="true"
                                                 AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderText="Tenure(in month)" DataField="CCRL_tenure" UniqueName="CCRL_tenure"
+                                            <telerik:GridBoundColumn HeaderText="Tenure(in Year)" DataField="CCRL_tenure" UniqueName="CCRL_tenure"
                                                 SortExpression="CCRL_tenure" AutoPostBackOnFilter="true" AllowFiltering="false"
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -92,8 +92,8 @@
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:dd-MMM-yy}">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderText="Amount"   DataField="CCRL_Amount" UniqueName="CCRL_Amount"
-                                                SortExpression="CCRL_Amount" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                            <telerik:GridBoundColumn HeaderText="Recurring amt"   DataField="CCRL_Amount" UniqueName="CCRL_Amount"
+                                                SortExpression="CCRL_Amount" DataFormatString="{0:N0}" AutoPostBackOnFilter="true" AllowFiltering="false"
                                                 ShowFilterIcon="false" FooterStyle-HorizontalAlign="Right" Aggregate="Sum" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
@@ -103,7 +103,7 @@
                                                 Aggregate="Sum" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderText="Date of recommendation" DataField="CCRL_RecommendationDate"
+                                            <telerik:GridBoundColumn HeaderText="Date Of Recommendation" DataField="CCRL_RecommendationDate"
                                                 UniqueName="CCRL_RecommendationDate" SortExpression="CCRL_RecommendationDate"
                                                 AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                 DataFormatString="{0:dd-MMM-yy}">

@@ -180,14 +180,7 @@
                 </td>
             </tr>
             <tr>
-                <%-- <td class="leftField">
-            <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Portfolio Name:"></asp:Label>
-        </td>
-        <td colspan="4" class="rightField">
-            <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
-                OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
-            </asp:DropDownList>
-        </td>--%>
+                
             </tr>
         </table>
         <table width="100%" class="TableBackground">
@@ -244,102 +237,6 @@
                     </ajaxToolkit:TextBoxWatermarkExtender>
                 </td>
             </tr>
-           <%-- <tr>
-                <td class="leftField" align="right">
-                    <asp:Label ID="lblBrokeragePerDelivery" runat="server" Text="Brokerage % for Delivery"
-                        CssClass="FieldName"></asp:Label>
-                </td>
-                <td>
-                    <asp:TextBox ID="txtBrokeragePerDelivery" runat="server" CssClass="txtField"></asp:TextBox>
-                    <asp:RangeValidator ID="RangeValidator4" runat="server" ErrorMessage="Percentage should not be greater than 100"
-                        MaximumValue="100" MinimumValue="0" ControlToValidate="txtBrokeragePerDelivery"
-                        Type="Double" Display="Dynamic"></asp:RangeValidator>
-                </td>
-            </tr>
-            <tr>
-                <td class="leftField" align="right">
-                    <asp:Label ID="lblBrokeragePerSpeculative" runat="server" Text="Brokerage % for Speculative"
-                        CssClass="FieldName"></asp:Label>
-                </td>
-                <td>
-                    <asp:TextBox ID="txtBrokeragePerSpeculative" runat="server" CssClass="txtField"></asp:TextBox>
-                    <asp:RangeValidator ID="RangeValidator2" runat="server" ErrorMessage="Percentage should not be greater than 100"
-                        MaximumValue="100" MinimumValue="0" ControlToValidate="txtBrokeragePerSpeculative"
-                        Type="Double"></asp:RangeValidator>
-                </td>
-            </tr>
-            <tr>
-            <td class="leftField" align="right">
-             <asp:Label ID="Lbl_sebiturnoverfee" runat="server" Text="SEBI TurnOver Fee"
-                        CssClass="FieldName"></asp:Label>
-            </td>
-            <td>
-             <asp:TextBox ID="Txt_SEBITrnfee" runat="server" CssClass="txtField"></asp:TextBox>
-                    <asp:RangeValidator ID="RangeValidator1" runat="server" ErrorMessage="Percentage should not be greater than 100"
-                        MaximumValue="100" MinimumValue="0" ControlToValidate="Txt_SEBITrnfee"
-                        Type="Double"></asp:RangeValidator>
-            </td>
-            </tr>
-              <tr>
-            <td class="leftField" align="right">
-             <asp:Label ID="Lbl_Transcharges" runat="server" Text="Transaction Charges"
-                        CssClass="FieldName"></asp:Label>
-            </td>
-            <td>
-             <asp:TextBox ID="Txt_Transcharges" runat="server" CssClass="txtField"></asp:TextBox>
-                    <asp:RangeValidator ID="RangeValidator5" runat="server" ErrorMessage="Percentage should not be greater than 100"
-                        MaximumValue="100" MinimumValue="0" ControlToValidate="Txt_Transcharges"
-                        Type="Double"></asp:RangeValidator>
-            </td>
-            </tr>
-             <tr>
-            <td class="leftField" align="right">
-             <asp:Label ID="Lbl_stampcharges" runat="server" Text="Stamp Charges"
-                        CssClass="FieldName"></asp:Label>
-            </td>
-            <td>
-             <asp:TextBox ID="Txt_stampcharges" runat="server" CssClass="txtField"></asp:TextBox>
-                    <asp:RangeValidator ID="RangeValidator6" runat="server" ErrorMessage="Percentage should not be greater than 100"
-                        MaximumValue="100" MinimumValue="0" ControlToValidate="Txt_stampcharges"
-                        Type="Double"></asp:RangeValidator>
-            </td>
-            </tr>
-             <tr>
-            <td class="leftField" align="right">
-             <asp:Label ID="Lbl_STT" runat="server" Text="STT"
-                        CssClass="FieldName"></asp:Label>
-            </td>
-            <td>
-             <asp:TextBox ID="Txt_STT" runat="server" CssClass="txtField"></asp:TextBox>
-                    <asp:RangeValidator ID="RangeValidator7" runat="server" ErrorMessage="Percentage should not be greater than 100"
-                        MaximumValue="100" MinimumValue="0" ControlToValidate="Txt_STT"
-                        Type="Double"></asp:RangeValidator>
-            </td>
-            </tr>
-             <tr>
-            <td class="leftField" align="right">
-             <asp:Label ID="Lbl_ServiceTax" runat="server" Text="Service Tax"
-                        CssClass="FieldName"></asp:Label>
-            </td>
-            <td>
-             <asp:TextBox ID="Txt_ServiceTax" runat="server" CssClass="txtField"></asp:TextBox>
-                    <asp:RangeValidator ID="RangeValidator8" runat="server" ErrorMessage="Percentage should not be greater than 100"
-                        MaximumValue="100" MinimumValue="0" ControlToValidate="Txt_ServiceTax"
-                        Type="Double"></asp:RangeValidator>
-            </td>
-            </tr>--%>
-       <%--  ------------------------------------------------------------------------------------%>
-           <%-- <tr>
-                <td class="leftField" align="right">
-                    <asp:Label ID="lblOtherCharges" runat="server" Text="Other Charges(%)" CssClass="FieldName"></asp:Label>
-                </td>
-                <td>
-                    <asp:TextBox ID="txtOtherCharges" runat="server" CssClass="txtField"></asp:TextBox>
-                    <asp:RangeValidator ID="RangeValidator3" runat="server" ControlToValidate="txtOtherCharges"
-                        ErrorMessage="Percentage should not be greater than 100" MaximumValue="100" MinimumValue="0"
-                        Type="Double"></asp:RangeValidator>
-                </td>
-            </tr>--%>
             <tr>
                 <td class="leftField">
                     <asp:Label ID="lblddlBankList" runat="server" CssClass="FieldName" Text="Bank :"></asp:Label>

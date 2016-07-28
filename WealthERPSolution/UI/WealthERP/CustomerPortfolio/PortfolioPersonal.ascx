@@ -104,13 +104,13 @@
                         <telerik:GridBoundColumn HeaderText="Current Value (Rs)" DataField="Current Value"
                             UniqueName="CateCurrent Valuegory" SortExpression="Current Value" AutoPostBackOnFilter="true"
                             AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                            FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}">
+                            FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}" Aggregate="Sum">
                             <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn HeaderText="Purchase Value (Rs)" DataField="Purchase Value"
                             UniqueName="Purchase Value" SortExpression="Purchase Value" AutoPostBackOnFilter="true"
                             AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                            FooterStyle-HorizontalAlign="Right"  DataFormatString="{0:N0}">
+                            FooterStyle-HorizontalAlign="Right"  DataFormatString="{0:N0}" Aggregate="Sum">
                             <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn HeaderText="Purchase Date (dd/mm/yyyy)" DataField="Purchase Date"

@@ -86,7 +86,7 @@
                         </telerik:GridTemplateColumn>
                         <telerik:GridBoundColumn DataField="Category" UniqueName="Category" HeaderText="Category"
                             ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="125px"
-                            SortExpression="Category" CurrentFilterFunction="Contains">
+                            SortExpression="Category" CurrentFilterFunction="Contains"  FooterText="Grand Total:">
                             <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Particulars" UniqueName="Particulars" HeaderText="Particulars"
@@ -105,28 +105,32 @@
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Deposit Amount" UniqueName="Deposit Amount" HeaderText="Deposit Amount (Rs)"
                             ShowFilterIcon="false" SortExpression="Deposit Amount" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="105px" DataFormatString="{0:n0}"
-                            CurrentFilterFunction="Contains">
+                            CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right"   
+                            Aggregate="Sum">
                             <ItemStyle Width="67px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Rate Of Interest" UniqueName="Rate Of Interest" FilterControlWidth="60px"
                             HeaderText="Rate Of Interest (%)" AutoPostBackOnFilter="true" ShowFilterIcon="false" SortExpression="Rate Of Interest" 
-                            AllowFiltering="true" HeaderStyle-Width="76px" CurrentFilterFunction="Contains">
+                            AllowFiltering="true" HeaderStyle-Width="76px" CurrentFilterFunction="Contains" >
                             <ItemStyle Width="100px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Current Value" UniqueName="Current Value" HeaderText="Current Value (Rs)"
-                            AutoPostBackOnFilter="true" ShowFilterIcon="false" SortExpression="Current Value"
+                            AutoPostBackOnFilter="true" ShowFilterIcon="false" SortExpression="Current Value" FooterStyle-HorizontalAlign="Right" 
+                            DataFormatString="{0:N0}" Aggregate="Sum"
                             AllowFiltering="true" HeaderStyle-Width="115px">
                             <ItemStyle Width="140px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Maturity Value" UniqueName="Maturity Value" HeaderText="Maturity Value (Rs)"
                             AllowFiltering="false" HeaderStyle-Width="100px" SortExpression="Maturity Value"
-                            CurrentFilterFunction="Contains" ShowFilterIcon="false">
+                            CurrentFilterFunction="Contains" ShowFilterIcon="false" FooterStyle-HorizontalAlign="Right" 
+                            DataFormatString="{0:N0}" Aggregate="Sum">
                             <ItemStyle Width="80px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Amount" UniqueName="Amount" HeaderText="Amount"
                             ShowFilterIcon="false"  HeaderStyle-Width="160px"
-                            SortExpression="Amount" CurrentFilterFunction="Contains" FilterControlWidth="95px">
-                            <ItemStyle Width="140px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                            SortExpression="Amount" CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right" 
+                            DataFormatString="{0:N0}" Aggregate="Sum" FilterControlWidth="95px">
+                            <ItemStyle Width="140px" HorizontalAlign="right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
                         
                          <telerik:GridBoundColumn DataField="ModeOfPayment" UniqueName="ModeOfPayment" HeaderText="Mode Of Payment"

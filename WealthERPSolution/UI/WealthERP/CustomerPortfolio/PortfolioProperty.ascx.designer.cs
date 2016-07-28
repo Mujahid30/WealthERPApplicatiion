@@ -32,22 +32,13 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgRecordStatus;
         
         /// <summary>
-        /// lblHeader control.
+        /// btnExportFilteredData control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblHeader;
-        
-        /// <summary>
-        /// imgBtnrgHoldings control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton imgBtnrgHoldings;
+        protected global::System.Web.UI.WebControls.ImageButton btnExportFilteredData;
         
         /// <summary>
         /// lblPortfolio control.
@@ -84,6 +75,15 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTotalRows;
+        
+        /// <summary>
+        /// pnl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnl;
         
         /// <summary>
         /// gvrProperty control.

@@ -74,15 +74,15 @@ namespace WealthERP.FP
                        // BtnSetVisiblity(0);
                         //BindCustomerCashFlowDetails();
                     }
+
                 }
             }
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            customercashrecomendationid = customerFPAnalyticsBo.CreateCashFlowRecomendation(customerVo.CustomerId, userVo.UserId, Convert.ToInt32(ddlptype.SelectedValue), Convert.ToInt32(DropDownList1.SelectedValue), DropDownList2.SelectedValue, Convert.ToDecimal(txtAmount.Text), Convert.ToDateTime(txtStartDate.SelectedDate), Convert.ToDateTime(txtEndDate.SelectedDate), Convert.ToDecimal(txtsumassure.Text), Convert.ToDateTime(txtRecomendationDate.SelectedDate), txtRemarks.Text, ddlfrequncy.SelectedValue,Convert.ToInt32(ddlpaytyppe.SelectedValue), Convert.ToDecimal(txtRecurringamt.Text),Convert.ToInt32(txttenure.Text));
-            txtEndDate.Enabled = false;
-
+            customercashrecomendationid = customerFPAnalyticsBo.CreateCashFlowRecomendation(customerVo.CustomerId, userVo.UserId, Convert.ToInt32(ddlptype.SelectedValue), Convert.ToInt32(DropDownList1.SelectedValue), DropDownList2.SelectedValue, Convert.ToDecimal(txtAmount.Text), Convert.ToDateTime(txtStartDate.SelectedDate), Convert.ToDateTime(txtEndDate.SelectedDate), Convert.ToDecimal(txtsumassure.Text), Convert.ToDateTime(txtRecomendationDate.SelectedDate), txtRemarks.Text, ddlfrequncy.SelectedValue,Convert.ToInt32(ddlpaytyppe.SelectedValue),Convert.ToInt32(txttenure.Text));
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Record Submitted Sucessfully.');", true);
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerCashFlowView','none');", true);
         }
 
@@ -101,7 +101,6 @@ namespace WealthERP.FP
                 txtEndDate.SelectedDate = Convert.ToDateTime(dr["CCRL_EndDate"].ToString());
                 txtRecomendationDate.SelectedDate = Convert.ToDateTime(dr["CCRL_RecommendationDate"].ToString());
                 txttenure.Text = dr["CCRL_tenure"].ToString();
-                txtRecurringamt.Text = dr["CCRL_RecurringAmount"].ToString();
                 ddlpaytyppe.SelectedValue = dr["CCRL_Paymentmode"].ToString();
                 chkIsactive.Checked = Convert.ToBoolean(dr["CCRL_Isactive"].ToString());
 
@@ -126,7 +125,6 @@ namespace WealthERP.FP
                 txtEndDate.Enabled = false;
                 txtRecomendationDate.SelectedDate = Convert.ToDateTime(dr["CCRL_RecommendationDate"].ToString());
                 txttenure.Text = dr["CCRL_tenure"].ToString();
-                txtRecurringamt.Text = dr["CCRL_RecurringAmount"].ToString();
                 ddlpaytyppe.SelectedValue = dr["CCRL_Paymentmode"].ToString();
                 chkIsactive.Checked = Convert.ToBoolean(dr["CCRL_Isactive"].ToString());
             }
@@ -163,7 +161,6 @@ namespace WealthERP.FP
                 lblfrequncy.Visible = true;
                 lblEndDate.Visible = true;
                 txtEndDate.Visible = true;
-                txtRecurringamt.Visible = true;
                 txttenure.Visible = true;
                 chkIsactive.Visible = true;
             }
@@ -184,7 +181,7 @@ namespace WealthERP.FP
             DropDownList1.DataTextField = "Name";
             DropDownList1.DataValueField = "code";
             DropDownList1.DataBind();
-            DropDownList1.Items.Insert(0, new ListItem("Select", "0"));
+            //DropDownList1.Items.Insert(0, new ListItem("Select", "0"));
             DropDownList2.DataSource = dsGetDropDownList.Tables[1];
             DropDownList2.DataTextField = "Name";
             DropDownList2.DataValueField = "code";
@@ -220,7 +217,6 @@ namespace WealthERP.FP
             txtRecomendationDate.Enabled = true;
             txttenure.Enabled = true;
             chkIsactive.Enabled = true;
-            txtRecurringamt.Enabled = true;
             lnkEdit.Visible = false;
 
 
@@ -238,7 +234,6 @@ namespace WealthERP.FP
                 txtEndDate.Enabled = false;
                 txtRecomendationDate.SelectedDate = Convert.ToDateTime(dr["CCRL_RecommendationDate"].ToString());
                 txttenure.Text = dr["CCRL_tenure"].ToString();
-                txtRecurringamt.Text = dr["CCRL_RecurringAmount"].ToString();
                 ddlpaytyppe.SelectedValue = dr["CCRL_Paymentmode"].ToString();
                 chkIsactive.Checked = Convert.ToBoolean(dr["CCRL_Isactive"].ToString());
             }
@@ -256,7 +251,8 @@ namespace WealthERP.FP
         }
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            customercashrecomendationid = customerFPAnalyticsBo.UpdateCashFlowRecomendation(customerVo.CustomerId, userVo.UserId,CCRL_ID, Convert.ToInt32(ddlptype.SelectedValue), Convert.ToInt32(DropDownList1.SelectedValue), DropDownList2.SelectedValue, Convert.ToDecimal(txtAmount.Text), Convert.ToDateTime(txtStartDate.SelectedDate), Convert.ToDateTime(txtEndDate.SelectedDate), Convert.ToDecimal(txtsumassure.Text), Convert.ToDateTime(txtRecomendationDate.SelectedDate), txtRemarks.Text, ddlfrequncy.SelectedValue, Convert.ToInt32(ddlpaytyppe.SelectedValue), Convert.ToDecimal(txtRecurringamt.Text), Convert.ToInt32(txttenure.Text));
+            customercashrecomendationid = customerFPAnalyticsBo.UpdateCashFlowRecomendation(customerVo.CustomerId, userVo.UserId,20, Convert.ToInt32(ddlptype.SelectedValue), Convert.ToInt32(DropDownList1.SelectedValue), DropDownList2.SelectedValue, Convert.ToDecimal(txtAmount.Text), Convert.ToDateTime(txtStartDate.SelectedDate), Convert.ToDateTime(txtEndDate.SelectedDate), Convert.ToDecimal(txtsumassure.Text), Convert.ToDateTime(txtRecomendationDate.SelectedDate), txtRemarks.Text, ddlfrequncy.SelectedValue, Convert.ToInt32(ddlpaytyppe.SelectedValue), Convert.ToInt32(txttenure.Text));
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Record Updated Sucessfully.');", true);
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerCashFlowView','none');", true);
         }
         private void SetVisiblity(int p)
@@ -277,7 +273,8 @@ namespace WealthERP.FP
                 txtRecomendationDate.Enabled = false;
                 txttenure.Enabled = false;
                 chkIsactive.Enabled = false;
-                txtRecurringamt.Enabled = false;
+                txtTenureMonths.Visible = false;
+
 
             }
             else
@@ -297,8 +294,7 @@ namespace WealthERP.FP
                 txtRecomendationDate.Enabled = true;
                 txttenure.Enabled = true;
                 chkIsactive.Enabled = true;
-                txtRecurringamt.Enabled = true;
-
+                txtTenureMonths.Enabled = true;
 
             }
         }

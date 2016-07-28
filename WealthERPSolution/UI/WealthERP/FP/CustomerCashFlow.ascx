@@ -22,7 +22,7 @@
     <tr>
         <td colspan="6">
             <div class="divSectionHeading" style="vertical-align: text-bottom">
-                Cash Flow Recommendation
+                Recommendation
             </div>
         </td>
     </tr>
@@ -121,14 +121,14 @@
             </telerik:RadDatePicker>
             <span id="Span8" class="spnRequiredField">*</span><span id="Span9"></span>
            <asp:RequiredFieldValidator ID="rfvStartDate" ControlToValidate="txtStartDate" ErrorMessage="Please enter the StartDate"
-                Validatio nGroup="Vg" runat="server" CssClass="rfvPCG">
+                ValidationGroup="Vg" runat="server" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
         </td>
         <td align="right">
             <asp:Label ID="lblEndDate" runat="server" Text="End Date:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <telerik:RadDatePicker ID="txtEndDate" CssClass="txtField" runat="server" Culture="English (United States)"
+            <telerik:RadDatePicker ID="txtEndDate" Enabled="false" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
                 AutoPostBack="false" TabIndex="10">
                 <Calendar ID="Calendar2" UseRowHeadersAsSelectors="False" runat="server" UseColumnHeadersAsSelectors="False"
@@ -142,7 +142,7 @@
     </tr>
     <tr id="trfq">
         <td align="right"  style="width: 15%;">
-            <asp:Label ID="lblfrequncy" runat="server"  CssClass="FieldName" Text="Recurring freq:"></asp:Label>
+            <asp:Label ID="lblfrequncy" runat="server"  CssClass="FieldName" Text="Recurring Frequency:"></asp:Label>
         </td>
         <td style="width: 23.5%">
             <asp:DropDownList ID="ddlfrequncy" runat="server" CssClass="cmbField" AutoPostBack="true"
@@ -158,7 +158,7 @@
             </asp:DropDownList>
         </td>
         <td align="right">
-            <asp:Label ID="lblAmount" runat="server" Text="Amount:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblAmount" runat="server" Text="Recurring amt:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
             <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField" TabIndex="28"></asp:TextBox>
@@ -206,16 +206,6 @@
                 <br />
             <asp:CheckBox ID="chkIsactive" runat="server" Text="Is active" CssClass="FieldName"
                 onClick="return UseProfileName()" AutoPostBack="false" />
-        </td>
-         <td align="right">
-            <asp:Label ID="lblRecurringamt" runat="server" Text="Recurring amt:" CssClass="FieldName"></asp:Label>
-        </td>
-        <td>
-            <asp:TextBox ID="txtRecurringamt" runat="server" CssClass="txtField" TabIndex="28"></asp:TextBox>
-            <span id="Span6" class="spnRequiredField">*</span><span id="Span7"></span>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtRecurringamt" ErrorMessage="Please enter the Recurringamt"
-                ValidationGroup="Vg" runat="server" CssClass="rfvPCG">
-            </asp:RequiredFieldValidator>
         </td>
     </tr>
     <tr>
