@@ -113,5 +113,15 @@ namespace WealthERP.Alerts
                 RadGrid3.DataSource = dt;
             }
         }
+        protected void btnExportData_OnClick(object sender, EventArgs e)
+        {
+            RadGrid3.ExportSettings.OpenInNewWindow = true;
+            RadGrid3.ExportSettings.IgnorePaging = true;
+            RadGrid3.ExportSettings.HideStructureColumns = true;
+            RadGrid3.ExportSettings.ExportOnlyData = true;
+            RadGrid3.ExportSettings.FileName = "NotificationStatus";
+            RadGrid3.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            RadGrid3.MasterTableView.ExportToExcel();
+        }
     }
 }

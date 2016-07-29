@@ -16,6 +16,12 @@
                         <td align="left">
                             Notification Status
                         </td>
+                         <td align="right">
+                            <asp:ImageButton ID="imgexportButton" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                Visible="true" runat="server" AlternateText="Excel" ToolTip="Export To Excel"
+                                OnClick="btnExportData_OnClick" OnClientClick="setFormat('excel')" Height="22px"
+                                Width="25px"></asp:ImageButton>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -28,8 +34,8 @@
             <asp:Label ID="lblAssetGroup1" runat="server" Text="AssetGroup:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:DropDownList ID="ddlAssetGroupName1" runat="server" CssClass="cmbField"
-           AutoPostBack="true"     OnSelectedIndexChanged="ddlAssetGroupName_OnSelectedIndexChanged">
+            <asp:DropDownList ID="ddlAssetGroupName1" runat="server" CssClass="cmbField" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlAssetGroupName_OnSelectedIndexChanged">
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
             <br />
@@ -83,7 +89,7 @@
                 ErrorMessage="Please,Select a field." InitialValue="0" ValidationGroup='Submit'
                 SetFocusOnError="true" Enabled="true"></asp:RequiredFieldValidator>
         </td>
-         <td align="right">
+        <td align="right">
             <asp:Label ID="lblNfostartdate" runat="server" Text="From Date" CssClass="FieldName"></asp:Label>
         </td>
         <td>
@@ -97,7 +103,6 @@
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
-          
         </td>
         <td align="right">
             <asp:Label ID="lblNfoEnddate" runat="server" Text="To Date" CssClass="FieldName"></asp:Label>
@@ -113,39 +118,53 @@
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
-          
         </td>
         <tr>
-        <td align="right">
-            <asp:Button ID="Button1" Text='Submit' ValidationGroup='Submit' CausesValidation="true"
-                CssClass="PCGButton" runat="server" OnClick="Submit_OnClick"></asp:Button>
-        </td>
+            <td align="right">
+                <asp:Button ID="Button1" Text='Submit' ValidationGroup='Submit' CausesValidation="true"
+                    CssClass="PCGButton" runat="server" OnClick="Submit_OnClick"></asp:Button>
+            </td>
         </tr>
     </tr>
 </table>
 <asp:Panel ID="Panel1" runat="server">
     <telerik:RadGrid ID="RadGrid3" runat="server" Skin="Telerik" CssClass="RadGrid" GridLines="None"
-        AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" 
-        AllowAutomaticDeletes="false" AllowAutomaticInserts="false" PageSize="10" 
-        OnNeedDataSource="RadGrid3_NeedDataSource" AllowAutomaticUpdates="false" HorizontalAlign="NotSet"
-        DataKeyNames="CTNEE_Id">
-        <MasterTableView >
+        AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" AllowAutomaticDeletes="false"
+        AllowAutomaticInserts="false" PageSize="10" OnNeedDataSource="RadGrid3_NeedDataSource"
+        AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="CTNEE_Id">
+        <MasterTableView>
             <Columns>
-               
-                <telerik:GridBoundColumn UniqueName="CustCode" HeaderText="Client Code" DataField="CustCode">
+                <telerik:GridBoundColumn DataField="CustCode" AllowFiltering="true" HeaderText="Client Code"
+                    UniqueName="CustCode" SortExpression="CustCode" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    AutoPostBackOnFilter="true" HeaderStyle-Width="120px" FilterControlWidth="60px">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                 <telerik:GridBoundColumn UniqueName="Name" HeaderText="Customer Name" DataField="Name">
+                <telerik:GridBoundColumn DataField="Name" AllowFiltering="true" HeaderText="Customer Name"
+                    UniqueName="Name" SortExpression="Name" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    AutoPostBackOnFilter="true" HeaderStyle-Width="120px" FilterControlWidth="60px">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn UniqueName="CommId" HeaderText="EMailId/MobileNo" DataField="CommId">
+                <telerik:GridBoundColumn DataField="CommId" AllowFiltering="true" HeaderText="EMailId/MobileNo"
+                    UniqueName="CommId" SortExpression="CommId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    AutoPostBackOnFilter="true" HeaderStyle-Width="120px" FilterControlWidth="60px">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                
-                <telerik:GridBoundColumn UniqueName="[Subject]" HeaderText="Content" DataField="[Subject]">
+                <telerik:GridBoundColumn DataField="[Subject]" AllowFiltering="true" HeaderText="Content"
+                    UniqueName="[Subject]" SortExpression="[Subject]" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    AutoPostBackOnFilter="true" HeaderStyle-Width="120px" FilterControlWidth="60px">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn UniqueName="CTNEE_CreatedOn" HeaderText="Created On" DataField="CTNEE_CreatedOn">
+                <telerik:GridBoundColumn DataField="CTNEE_CreatedOn" AllowFiltering="true" HeaderText="Created On"
+                    UniqueName="CTNEE_CreatedOn" SortExpression="CTNEE_CreatedOn" ShowFilterIcon="false"
+                    CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="120px"
+                    FilterControlWidth="60px">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                 <telerik:GridBoundColumn UniqueName="[Status]" HeaderText="Status" DataField="[Status]">
+                <telerik:GridBoundColumn DataField="[Status]" AllowFiltering="true" HeaderText="Status"
+                    UniqueName="[Status]" SortExpression="[Status]" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    AutoPostBackOnFilter="true" HeaderStyle-Width="120px" FilterControlWidth="60px">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                
             </Columns>
         </MasterTableView>
         <ClientSettings>
