@@ -69,8 +69,9 @@
         </td>
         <td width="50%" runat="server" valign="top">
             <asp:Label runat="server" CssClass="FieldName" Text="No details to display.." ID="lblBankDetailsMsg"></asp:Label>
+            <asp:Panel ID="pnl" runat="server" ScrollBars="Vertical" Height="400px">
             <asp:GridView ID="gvBankDetails" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                CellPadding="4" EnableViewState="false" CssClass="GridViewStyle">
+                CellPadding="4"  EnableViewState="false" CssClass="GridViewStyle">
                 <RowStyle CssClass="RowStyle" />
                 <FooterStyle CssClass="FooterStyle" />
                 <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
@@ -84,6 +85,7 @@
                     <asp:BoundField DataField="Account Number" HeaderText="A/C Number" />
                 </Columns>
             </asp:GridView>
+            </asp:Panel>
             <br />
             <table>
                 <tr>
