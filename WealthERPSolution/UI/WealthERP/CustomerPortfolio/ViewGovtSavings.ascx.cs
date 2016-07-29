@@ -381,33 +381,10 @@ namespace WealthERP.CustomerPortfolio
 
         protected void gvrGovtSavings_Sorting(object sender, GridViewSortEventArgs e)
         {
-            //string sortExpression = e.SortExpression;
-            //ViewState["sortExpression"] = sortExpression;
-            //if (GridViewSortDirection == SortDirection.Ascending)
-            //{
-            //    GridViewSortDirection = SortDirection.Descending;
-            //    hdnSort.Value = sortExpression + " DESC";
-            //  // SortGridVIew(sortExpression, DESCENDING);
-            //}
-            //else
-            //{
-            //    GridViewSortDirection = SortDirection.Ascending;
-            //    hdnSort.Value = sortExpression + " ASC";
-            // //  SortGridVIew(sortExpression, ASCENDING);
-            //}
-            //this.LoadGridview(portfolioId);
+          
         }
 
-      //  private SortDirection GridViewSortDirection
-      //  {
-      //  //    get
-      //  //    {
-      //  //        if (ViewState["sortDirection"] == null)
-      //  //            ViewState["sortDirection"] = SortDirection.Ascending;
-      //  //        return (SortDirection)ViewState["sortDirection"];
-      //  //    }
-      //  //    set { ViewState["sortDirection"] = value; }
-      //}
+     
 
         private void SortGridVIew(string sortExpression, string direction)
         {
@@ -417,60 +394,7 @@ namespace WealthERP.CustomerPortfolio
 
         protected void gvrGovtSavings_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            //GovtSavingsBo govtSavingsBo=new GovtSavingsBo();
-            //try
-            //{
-            //    string govtSavingId = "";
-            //    int index = Convert.ToInt16(e.CommandArgument.ToString());
-            //    int portfolioId = int.Parse(gvGovtSavings.MasterTableView.DataKeyValues[index].ToString());
-            //    govtSavingId = gvGovtSavings.MasterTableView.DataKeyValues[index]["GovtSavingId"].ToString();
-            //    hdndeleteId.Value = govtSavingId;
-            //    Session["govtSavingsVo"] = govtSavingsBo.GetGovtSavingsDetails(portfolioId);
-            //    if (e.CommandName.ToString() == "Edit")
-            //    {
-            //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('PortfolioGovtSavingsEntry','EditGS');", true);
-            //    }
-            //    else if (e.CommandName.ToString() == "View")
-            //    {
-            //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('PortfolioGovtSavingsEntry','ViewGS');", true);
-            //    }
-            //    else if (e.CommandName.ToString() == "Delete")
-            //    {
-            //        Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
-            //    }
-            //    else if (e.CommandName.ToString() == "Sort")
-            //    {
-            //        string sortExpression = e.CommandArgument.ToString();
-            //        ViewState["sortExpression"] = sortExpression;
-            //        if (GridViewSortDirection == SortDirection.Ascending)
-            //        {
-            //            GridViewSortDirection = SortDirection.Descending;
-            //            SortGridVIew(sortExpression, DESCENDING);
-            //        }
-            //        else
-            //        {
-            //            GridViewSortDirection = SortDirection.Ascending;
-            //            SortGridVIew(sortExpression, ASCENDING);
-            //        }
-            //    }
-            //}
-            //catch (BaseApplicationException Ex)
-            //{
-            //    throw Ex;
-            //}
-            //catch (Exception Ex)
-            //{
-            //    BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-            //    NameValueCollection FunctionInfo = new NameValueCollection();
-            //    FunctionInfo.Add("Method", "ViewGovtSavings.ascx:gvrGovtSavings_RowCommand()");
-            //    object[] objects = new object[1];
-            //    objects[1] = portfolioId;
-            //    FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-            //    exBase.AdditionalInformation = FunctionInfo;
-            //    ExceptionManager.Publish(exBase);
-            //    throw exBase;
-
-            //}
+            
         }
 
         protected void gvrGovtSavings_RowEditing(object sender, GridViewEditEventArgs e)
@@ -509,7 +433,7 @@ namespace WealthERP.CustomerPortfolio
         }
         public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
-            gvGovtSavings.ExportSettings.OpenInNewWindow = true;
+            gvGovtSavings.ExportSettings.OpenInNewWindow = false;
             gvGovtSavings.ExportSettings.IgnorePaging = true;
             gvGovtSavings.ExportSettings.HideStructureColumns = true;
             gvGovtSavings.ExportSettings.ExportOnlyData = true;

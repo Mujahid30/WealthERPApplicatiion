@@ -79,8 +79,8 @@
             <telerik:RadGrid ID="gvrProperty" runat="server" GridLines="None" AutoGenerateColumns="False"
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                 Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
-                AllowAutomaticInserts="false" ExportSettings-FileName="Portfolio Property" OnNeedDataSource="gvrProperty_OnNeedDataSource">
-                <ExportSettings HideStructureColumns="true">
+                AllowAutomaticInserts="false" ExportSettings-Excel-Format="ExcelML" OnNeedDataSource="gvrProperty_OnNeedDataSource">
+                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="Portfolio Property">
                 </ExportSettings>
                 <MasterTableView DataKeyNames="PropertyId" Width="100%" AllowMultiColumnSorting="True"
                     AutoGenerateColumns="false" CommandItemDisplay="None">

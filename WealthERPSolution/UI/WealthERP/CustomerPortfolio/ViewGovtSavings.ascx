@@ -4,8 +4,7 @@
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
-<%--<telerik:RadStyleSheetManager ID="RdStylesheet" runat="server">
-</telerik:RadStyleSheetManager>--%>
+
 
 <script language="javascript" type="text/javascript">
     function showmessage() {
@@ -41,7 +40,7 @@
                         <td align="right">
                             <asp:ImageButton ID="btnExportFilteredData" Visible="false" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
-                                OnClick="btnExportFilteredData_OnClick" Height="20px" Width="25px"></asp:ImageButton>
+                                OnClick="btnExportFilteredData_OnClick"  Height="20px" Width="25px"></asp:ImageButton>
                         </td>
                     </tr>
                 </table>
@@ -62,7 +61,8 @@
 <asp:Panel ID ="pnl" runat="server"  ScrollBars="Vertical">
 <table width="100%" cellspacing="0" cellpadding="3">
     <tr>
-        <td>           
+        <td>
+                   
             <telerik:RadGrid ID="gvGovtSavings" runat="server" AllowAutomaticDeletes="false"
                 EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
                 ShowStatusBar="false" ShowFooter="true" AllowPaging="true" AllowSorting="true" OnNeedDataSource="gvGovtSavings_OnNeedDataSource"

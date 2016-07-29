@@ -37,11 +37,12 @@
             <asp:Label ID="Label1" runat="server" CssClass="HeaderTextBig" Text="Gold"></asp:Label>
             <hr />
         </td>
+         
          <td align="right">
-            <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
-               Height="20px" Width="25px" OnClick="btnExportFilteredData_OnClick"></asp:ImageButton>
-        </td>
+                            <asp:ImageButton ID="btnExportFilteredData" Visible="true" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
+                                OnClick="btnExportFilteredData_OnClick" Height="20px" Width="25px"></asp:ImageButton>
+                        </td>
     </tr>
     <tr>
         <td>
@@ -66,7 +67,7 @@
             
             <telerik:RadGrid ID="gvGoldPortfolio" runat="server" GridLines="None" AutoGenerateColumns="False"
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
+                Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true" OnNeedDataSource="gvGoldPortfolio_OnNeedDataSource"
                 AllowAutomaticInserts="false" ExportSettings-FileName="Gold Details">
                 <ExportSettings HideStructureColumns="true">
                 </ExportSettings>
@@ -79,7 +80,7 @@
                                     AutoPostBack="true" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChange"
                                     Width="110px">
                                     <Items>
-                                        <asp:ListItem Text="Select" Value="Select" Selected="true" />
+                                       <asp:ListItem>Select </asp:ListItem>
                                         <asp:ListItem Text="View" Value="View" />
                                         <asp:ListItem Text="Edit" Value="Edit" />
                                         <asp:ListItem Text="Delete" Value="Delete" />
@@ -116,7 +117,8 @@
                         </telerik:GridBoundColumn>
                     </Columns>
                 </MasterTableView>
-                <ClientSettings>
+                 <ClientSettings>
+                    <Resizing AllowColumnResize="true" />
                     <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                 </ClientSettings>
             </telerik:RadGrid>

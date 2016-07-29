@@ -408,13 +408,30 @@ namespace WealthERP.CustomerPortfolio
         }
         public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
+            //gvGoldPortfolio.ExportSettings.OpenInNewWindow = true;
+            //gvGoldPortfolio.ExportSettings.IgnorePaging = true;
+            //gvGoldPortfolio.ExportSettings.HideStructureColumns = true;
+            //gvGoldPortfolio.ExportSettings.ExportOnlyData = true;
+            //gvGoldPortfolio.ExportSettings.FileName = "Gold Details";
+            //gvGoldPortfolio.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            //gvGoldPortfolio.MasterTableView.ExportToExcel();
             gvGoldPortfolio.ExportSettings.OpenInNewWindow = true;
             gvGoldPortfolio.ExportSettings.IgnorePaging = true;
-            gvGoldPortfolio.ExportSettings.HideStructureColumns = true;
-            gvGoldPortfolio.ExportSettings.ExportOnlyData = true;
-            gvGoldPortfolio.ExportSettings.FileName = "Gold Details";
-            // gvrPensionAndGratuities.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            foreach (GridFilteringItem filter in gvGoldPortfolio.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
             gvGoldPortfolio.MasterTableView.ExportToExcel();
+
+        }
+        protected void gvGoldPortfolio_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            gvGoldPortfolio.Visible = true;
+            DataTable dtGoldPortfolio = new DataTable();
+
+            btnExportFilteredData.Visible = true;
+            dtGoldPortfolio = (DataTable)Cache["dtGoldPortfolio + '" + customerVo.CustomerId + "'"];
+            gvGoldPortfolio.DataSource = dtGoldPortfolio;
         }
         protected void hiddenassociation_Click(object sender, EventArgs e)
         {
