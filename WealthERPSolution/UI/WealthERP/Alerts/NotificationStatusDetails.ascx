@@ -129,7 +129,7 @@
 </table>
 <asp:Panel ID="Panel1" runat="server">
     <telerik:RadGrid ID="RadGrid3" runat="server" Skin="Telerik" CssClass="RadGrid" GridLines="None"
-        AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" AllowAutomaticDeletes="false"
+        AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" AllowAutomaticDeletes="false" AllowFilteringByColumn="true"
         AllowAutomaticInserts="false" PageSize="10" OnNeedDataSource="RadGrid3_NeedDataSource"
         AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="CTNEE_Id">
         <MasterTableView>
