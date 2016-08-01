@@ -72,6 +72,7 @@
                             <asp:ListItem Value="Select">Select</asp:ListItem>
                             <asp:ListItem Value="FI">Order Book NCD</asp:ListItem>
                             <asp:ListItem Value="IP">Order Book IPO</asp:ListItem>
+                            <asp:ListItem Value="AssoList">Associate List</asp:ListItem>
                         </asp:DropDownList>
                         <span id="Span1" class="spnRequiredField">*</span>
                         <br />
@@ -85,7 +86,7 @@
                         <asp:Label ID="Label3" runat="server" Text="Select Issue:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td class="rightData">
-                        <asp:DropDownList ID="ddlSelectIssue" runat="server" CssClass="cmbField" AutoPostBack="true"
+                        <asp:DropDownList ID="ddlSelectIssue" runat="server" CssClass="cmbField" AutoPostBack="false"
                             Width="205px" Visible="false" TabIndex="2">
                         </asp:DropDownList>
                         <span id="Span3" class="spnRequiredField">*</span>
@@ -166,6 +167,7 @@
                             <asp:ListItem Value="0">Select</asp:ListItem>
                             <asp:ListItem Value="FI">Order Book NCD</asp:ListItem>
                             <asp:ListItem Value="IP">Order Book IPO</asp:ListItem>
+                             <asp:ListItem Value="AssoList">Associate List</asp:ListItem>
                         </asp:DropDownList>
                         <span id="Span2" class="spnRequiredField">*</span>
                         <br />
@@ -264,7 +266,7 @@
                                             FilterControlWidth="50px" CurrentFilterFunction="Contains">
                                             <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="IssueType" UniqueName="IssueType" HeaderText="Issue Type"
+                                        <telerik:GridBoundColumn DataField="IssueType" UniqueName="IssueType" HeaderText="Request Type"
                                             ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="67px"
                                             SortExpression="IssueType" FilterControlWidth="50px" CurrentFilterFunction="Contains">
                                             <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />

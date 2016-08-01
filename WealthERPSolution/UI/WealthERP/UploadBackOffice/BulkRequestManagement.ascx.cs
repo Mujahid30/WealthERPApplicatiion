@@ -47,7 +47,11 @@ namespace WealthERP.UploadBackOffice
         {
             int ReqId;
             string OBT = ddlSelectType.SelectedItem.Value;
-            string IssueNo = ddlSelectIssue.SelectedItem.Value;
+            string IssueNo = string.Empty;
+            if (ddlSelectType.SelectedValue != "AssoList")
+            {
+                IssueNo = ddlSelectIssue.SelectedItem.Value;
+            }
             WERPTaskRequestManagementBo werpTaskRequestManagementBo = new WERPTaskRequestManagementBo();
             werpTaskRequestManagementBo.CreateTaskRequestForBulk(6, userVo.UserId, out ReqId, advisorVo.advisorId, OBT, IssueNo);
             msgUploadComplete.Visible = true;
@@ -156,10 +160,13 @@ namespace WealthERP.UploadBackOffice
         }
         protected void Product_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ddlSelectIssue.Visible = true;
-            BindViewListGrid(DateTime.Now, ddlSelectType.SelectedValue);
-            ddlSelectIssue.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
-            trSelectIssueRow.Visible = true;
+            if (ddlSelectType.SelectedValue != "AssoList")
+            {
+                ddlSelectIssue.Visible = true;
+                BindViewListGrid(DateTime.Now, ddlSelectType.SelectedValue);
+                ddlSelectIssue.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+                trSelectIssueRow.Visible = true;
+            }
         }
         protected void gvBulkOrderStatusList_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
@@ -202,10 +209,11 @@ namespace WealthERP.UploadBackOffice
             if (e.CommandName == "Download")
             {
                 GridDataItem ditem = (GridDataItem)e.Item;
-                string filenamepath = ditem["FileNamePath"].Text.ToString().Trim();
-                string issuename = ditem["IssueName"].Text.ToString().Trim();
-                string RequestId = ditem["RequestId"].Text.ToString().Trim();
-                string RequestDateTime = ditem["RequestDateTime"].Text.ToString().Substring(0, ditem["RequestDateTime"].Text.ToString().IndexOf(' '));
+
+                string filenamepath = ditem.OwnerTableView.DataKeyValues[ditem.ItemIndex]["FileNamePath"].ToString();
+                string issuename = ditem.OwnerTableView.DataKeyValues[ditem.ItemIndex]["IssueName"].ToString();
+                string RequestId = ditem.OwnerTableView.DataKeyValues[ditem.ItemIndex]["RequestId"].ToString();
+                string RequestDateTime = ditem.OwnerTableView.DataKeyValues[ditem.ItemIndex]["RequestDateTime"].ToString().Substring(0, ditem.OwnerTableView.DataKeyValues[ditem.ItemIndex]["RequestDateTime"].ToString().IndexOf(' '));
                 string fileName = (RequestId + "_" + issuename + RequestDateTime + ".xlsx").Replace(" ", "").Trim();
                 //string path = MapPath("C:\\Users\\Jgeorge\\Downloads\\" + filename);
                 if (filenamepath != null || filenamepath == "&nbsp;")
