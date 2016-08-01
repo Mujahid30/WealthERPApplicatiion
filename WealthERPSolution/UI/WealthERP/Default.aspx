@@ -302,11 +302,11 @@
                                                             </asp:MenuItem>--%>
                                                            <%-- <asp:MenuItem NavigateUrl="javascript:loadfrommenu('TransactBusinessOnlineLinks','login');"
                                                                 Text="Transact/Business online" Value="Transact/Business online" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
-                                                            </asp:MenuItem>--%>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewRepository','login');" Text="Repository"
-                                                                Value="Repository" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            </asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewRepository','login');" Text="Repository" 
+                                                                Value="Repository"  SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('InfoLinks','login');" Text="Info links"
-                                                                Value="Info links"></asp:MenuItem>
+                                                                Value="Info links"></asp:MenuItem>--%>
                                                             <asp:MenuItem Enabled="false" Text="<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>"
                                                                 NavigateUrl="#"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('MarketData','login');" Text="Market Data"
