@@ -84,7 +84,7 @@
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
                         <telerik:GridBoundColumn HeaderText="Organization Name" DataField="Organization Name"
-                            UniqueName="Organization Name" SortExpression="Organization Name " AutoPostBackOnFilter="true"
+                            UniqueName="Organization Name" SortExpression="Organization Name " AutoPostBackOnFilter="true" 
                             AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                             FooterText="Grand Total:">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -102,7 +102,7 @@
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Current Value" SortExpression="Current Value"
                             AutoPostBackOnFilter="true" CurrentFilterFunction="EqualTo" AllowFiltering="true"
-                            HeaderText="Current Value (Rs)" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}" Aggregate="Sum"
+                            HeaderText="Current Value (Rs)" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}" 
                             UniqueName="Current Value" ShowFilterIcon="false">
                             <ItemStyle Width="110px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>

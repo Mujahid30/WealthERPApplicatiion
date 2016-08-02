@@ -64,13 +64,15 @@ namespace WealthERP.BusinessMIS
             if (!IsPostBack)
             {
                 BindGoal();
+                BindBranchDropDown();
+                BindRMDropDown();
                 ddlCustomerType.Visible = false;
                 lblSelectTypeOfCustomer.Visible = false;
                 trCustomerSearch.Visible = false;             
                 if (userType == "advisor")
                 {
                     BindBranchDropDown();
-                    BindRMDropDown();
+                   BindRMDropDown();
                 }
                 else if (userType == "rm")
                 {
@@ -329,7 +331,7 @@ namespace WealthERP.BusinessMIS
                 {
                     if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex == 0))
                     {
-                        txtIndividualCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                       txtIndividualCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
                         txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
                     }
                     else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))

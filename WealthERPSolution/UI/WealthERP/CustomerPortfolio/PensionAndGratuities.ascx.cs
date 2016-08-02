@@ -423,8 +423,14 @@ namespace WealthERP.CustomerPortfolio
                     // Bind Values Here
                     if (customerAccountVo.AssetCategory.ToString().Trim() == "PGGY")
                     {
-                        txtGraOrganisationName.Text = pensionAndGratuitiesVo.OrganizationName.ToString().Trim();
-                        txtGraAmount.Text = pensionAndGratuitiesVo.DepositAmount.ToString().Trim();
+                        if (pensionAndGratuitiesVo.OrganizationName != null)
+                            txtGraOrganisationName.Text = pensionAndGratuitiesVo.OrganizationName.ToString().Trim();
+                        else
+                            txtGraOrganisationName.Text = "";
+                        if (pensionAndGratuitiesVo.DepositAmount != null)
+                            txtGraAmount.Text = pensionAndGratuitiesVo.DepositAmount.ToString().Trim();
+                        else
+                            txtGraAmount.Text = "";
                         if (pensionAndGratuitiesVo.Remarks != null)
                             txtGraRemarks.Text = pensionAndGratuitiesVo.Remarks.ToString().Trim();
                         else
@@ -459,14 +465,14 @@ namespace WealthERP.CustomerPortfolio
                             ddlEPFInterestBasis.SelectedValue = pensionAndGratuitiesVo.InterestBasis.ToString().Trim();
                         else
                             ddlEPFInterestBasis.SelectedValue = "";
-                        if (ddlEPFInterestBasis.SelectedValue == "CI")
-                        {
-                            ddlEPFInterestCalFreq.SelectedValue = pensionAndGratuitiesVo.CompoundInterestFrequencyCode.ToString().Trim();
-                        }
-                        else
-                        {
-                            ddlEPFInterestCalFreq.SelectedValue = pensionAndGratuitiesVo.InterestPayableFrequencyCode.ToString().Trim();
-                        }
+                        //if (ddlEPFInterestBasis.SelectedValue == "CI")
+                        //{
+                        //    ddlEPFInterestCalFreq.SelectedValue = pensionAndGratuitiesVo.CompoundInterestFrequencyCode.ToString().Trim();
+                        //}
+                        //else
+                        //{
+                        //    ddlEPFInterestCalFreq.SelectedValue = pensionAndGratuitiesVo.InterestPayableFrequencyCode.ToString().Trim();
+                        //}
 
                         if (ddlEPFInterestCalFreq.SelectedValue == "AM")
                         {
@@ -488,18 +494,23 @@ namespace WealthERP.CustomerPortfolio
                     else if (customerAccountVo.AssetCategory.ToString().Trim() == "PGPF")
                     {
                         txtPPFAccum.Text = pensionAndGratuitiesVo.DepositAmount.ToString();
-                        ddlPPFAccumFiscal.SelectedValue = pensionAndGratuitiesVo.FiscalYearCode.ToString().Trim();
+                        if (pensionAndGratuitiesVo.FiscalYearCode != null)
+                            ddlPPFAccumFiscal.SelectedValue = pensionAndGratuitiesVo.FiscalYearCode.ToString().Trim();
+                        else
+                            ddlPPFAccumFiscal.SelectedValue = "";
                         txtPPFYearlyContribution.Text = pensionAndGratuitiesVo.EmployeeContribution.ToString();
                         txtPPFInterestRate.Text = pensionAndGratuitiesVo.InterestRate.ToString();
+                        if(pensionAndGratuitiesVo.InterestBasis!=null)
                         ddlPPFInterestBasis.SelectedValue = pensionAndGratuitiesVo.InterestBasis.ToString().Trim();
-                        if (ddlPPFInterestBasis.SelectedValue == "CI")
-                        {
-                            ddlPPFInterestFrequency.SelectedValue = pensionAndGratuitiesVo.CompoundInterestFrequencyCode.ToString().Trim();
-                        }
-                        else
-                        {
-                            ddlPPFInterestFrequency.SelectedValue = pensionAndGratuitiesVo.InterestPayableFrequencyCode.ToString().Trim();
-                        }
+                        ddlPPFInterestBasis.SelectedValue = "";
+                        //if (ddlPPFInterestBasis.SelectedValue == "CI")
+                        //{
+                        //    ddlPPFInterestFrequency.SelectedValue = pensionAndGratuitiesVo.CompoundInterestFrequencyCode.ToString().Trim();
+                        //}
+                        //else
+                        //{
+                        //    ddlPPFInterestFrequency.SelectedValue = pensionAndGratuitiesVo.InterestPayableFrequencyCode.ToString().Trim();
+                        //}
 
                         if (ddlPPFInterestFrequency.SelectedValue == "AM")
                         {
@@ -520,19 +531,25 @@ namespace WealthERP.CustomerPortfolio
                     }
                     else if (customerAccountVo.AssetCategory.ToString().Trim() == "PGSN")
                     {
-                        txtSuperAccum.Text = pensionAndGratuitiesVo.DepositAmount.ToString();
-                        ddlSuperAccumFiscal.SelectedValue = pensionAndGratuitiesVo.FiscalYearCode.ToString().Trim();
+                        if (pensionAndGratuitiesVo.DepositAmount != null)
+                            txtSuperAccum.Text = pensionAndGratuitiesVo.DepositAmount.ToString();
+                        else
+                            txtSuperAccum.Text = "";
+                        if (pensionAndGratuitiesVo.FiscalYearCode != null)
+                            ddlSuperAccumFiscal.SelectedValue = pensionAndGratuitiesVo.FiscalYearCode.ToString().Trim();
+                        else
+                            ddlSuperAccumFiscal.SelectedValue = "";
                         txtSuperYearlyContribution.Text = pensionAndGratuitiesVo.EmployeeContribution.ToString();
                         txtSuperInterestRate.Text = pensionAndGratuitiesVo.InterestRate.ToString();
                         ddlSuperInterestBasis.SelectedValue = pensionAndGratuitiesVo.InterestBasis.ToString().Trim();
-                        if (ddlSuperInterestBasis.SelectedValue == "CI")
-                        {
-                            ddlSuperInterestCalcFreq.SelectedValue = pensionAndGratuitiesVo.CompoundInterestFrequencyCode.ToString().Trim();
-                        }
-                        else
-                        {
-                            ddlSuperInterestCalcFreq.SelectedValue = pensionAndGratuitiesVo.InterestPayableFrequencyCode.ToString().Trim();
-                        }
+                        //if (ddlSuperInterestBasis.SelectedValue == "CI")
+                        //{
+                        //    ddlSuperInterestCalcFreq.SelectedValue = pensionAndGratuitiesVo.CompoundInterestFrequencyCode.ToString().Trim();
+                        //}
+                        //else
+                        //{
+                        //    ddlSuperInterestCalcFreq.SelectedValue = pensionAndGratuitiesVo.InterestPayableFrequencyCode.ToString().Trim();
+                        //}
 
                         if (ddlSuperInterestCalcFreq.SelectedValue == "AM")
                         {
