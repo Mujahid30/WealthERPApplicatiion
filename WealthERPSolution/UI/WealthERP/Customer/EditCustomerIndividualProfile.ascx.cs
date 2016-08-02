@@ -300,7 +300,7 @@ namespace WealthERP.Customer
                     ddlPermAdrState.SelectedValue = customerVo.PermanentStateId.ToString();
 
                     txtPermAdrCountry.Text = customerVo.Adr2Country;
-                    txtOfcCompanyName.Text = customerVo.CompanyName;
+                   // txtOfcCompanyName.Text = customerVo.CompanyName;
                     txtOfcAdrLine1.Text = customerVo.OfcAdrLine1;
                     txtOfcAdrLine2.Text = customerVo.OfcAdrLine2;
                     txtOfcAdrLine3.Text = customerVo.OfcAdrLine3;

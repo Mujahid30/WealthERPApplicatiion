@@ -200,7 +200,7 @@ namespace WealthERP.CustomerPortfolio
                     ddlPPFInterestFrequency.DataBind();
                     ddlPPFInterestFrequency.Items.Insert(0, new ListItem("Select a Frequency", "Select a Frequency"));
                 }
-                else if (AssetInstrumentCat == "PGSN")
+                else if (AssetInstrumentCat == "PGSN") 
                 {
                     // Bind Interest Basis Drop Downs
                     ddlSuperInterestBasis.DataSource = dtInterestBasis;
@@ -432,13 +432,33 @@ namespace WealthERP.CustomerPortfolio
                     }
                     else if (customerAccountVo.AssetCategory.ToString().Trim() == "PGEF")
                     {
-                        txtEPFOrganisationName.Text = pensionAndGratuitiesVo.OrganizationName.ToString().Trim();
-                        txtEPFAccum.Text = pensionAndGratuitiesVo.DepositAmount.ToString();
-                        ddlEPFAccumFiscalYear.SelectedValue = pensionAndGratuitiesVo.FiscalYearCode.ToString().Trim();
+                        if (pensionAndGratuitiesVo.OrganizationName != null)
+                        txtEPFOrganisationName.Text = pensionAndGratuitiesVo.OrganizationName.ToString();
+                        else
+                        txtEPFOrganisationName.Text = "";
+                        if (pensionAndGratuitiesVo.DepositAmount != null)
+                            txtEPFAccum.Text = pensionAndGratuitiesVo.DepositAmount.ToString();
+                        else
+                            txtEPFAccum.Text = "";
+                        if (pensionAndGratuitiesVo.FiscalYearCode != null)
+                            ddlEPFAccumFiscalYear.SelectedValue = pensionAndGratuitiesVo.FiscalYearCode.ToString().Trim();
+                        else
+                            ddlEPFAccumFiscalYear.SelectedValue = "";
+                        if(pensionAndGratuitiesVo.EmployeeContribution !=null)
                         txtEPFEmployeeContribution.Text = pensionAndGratuitiesVo.EmployeeContribution.ToString();
-                        txtEPFEmployerContribution.Text = pensionAndGratuitiesVo.EmployerContribution.ToString();
-                        txtEPFInterestRate.Text = pensionAndGratuitiesVo.InterestRate.ToString();
-                        ddlEPFInterestBasis.SelectedValue = pensionAndGratuitiesVo.InterestBasis.ToString().Trim();
+                        else
+                            txtEPFEmployeeContribution.Text = "";
+
+                      //  txtEPFEmployerContribution.Text = pensionAndGratuitiesVo.EmployerContribution.ToString();
+                        if (pensionAndGratuitiesVo.InterestRate != null)
+                            txtEPFInterestRate.Text = pensionAndGratuitiesVo.InterestRate.ToString();
+                        else
+                            txtEPFInterestRate.Text = "";
+                        if (pensionAndGratuitiesVo.InterestBasis != null)
+
+                            ddlEPFInterestBasis.SelectedValue = pensionAndGratuitiesVo.InterestBasis.ToString().Trim();
+                        else
+                            ddlEPFInterestBasis.SelectedValue = "";
                         if (ddlEPFInterestBasis.SelectedValue == "CI")
                         {
                             ddlEPFInterestCalFreq.SelectedValue = pensionAndGratuitiesVo.CompoundInterestFrequencyCode.ToString().Trim();
@@ -773,7 +793,8 @@ namespace WealthERP.CustomerPortfolio
                     }
                     else if (customerAccountVo.AssetCategory.ToString().Trim() == "PGPF")
                     {
-                        pensionAndGratuitiesVo.OrganizationName = "";
+                       // pensionAndGratuitiesVo.OrganizationName = "";
+                        pensionAndGratuitiesVo.OrganizationName = txtEPFOrganisationName.Text.Trim();
                         pensionAndGratuitiesVo.DepositAmount = float.Parse(txtPPFAccum.Text.Trim());
                         pensionAndGratuitiesVo.FiscalYearCode = ddlPPFAccumFiscal.SelectedValue;
                         pensionAndGratuitiesVo.EmployeeContribution = float.Parse(txtPPFYearlyContribution.Text);

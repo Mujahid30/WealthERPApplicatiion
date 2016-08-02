@@ -19,7 +19,7 @@ using iTextSharp.text.pdf;
 using BoCommon;
 using Telerik.Web.UI;
 using System.Reflection;
-using DaoCustomerPortfolio; 
+using DaoCustomerPortfolio;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -42,7 +42,7 @@ namespace WealthERP.CustomerPortfolio
         UserVo userVo = new UserVo();
         RMVo rmVo = new RMVo();
         RadComboBox rcbTradeDate = new RadComboBox();
-
+         Dictionary<string, DateTime> genDict = new Dictionary<string, DateTime>();
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -146,6 +146,14 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
+        public enum Constants
+        {
+            EQ = 0,     // explicitly specifying the enum constant values will improve performance
+            MF = 1,
+            EQDate = 2,
+            MFDate = 3
+        };
+
         private void BindPortfolioDropDown()
         {
             DataSet ds = portfolioBo.GetCustomerPortfolio(customerVo.CustomerId);
@@ -205,7 +213,7 @@ namespace WealthERP.CustomerPortfolio
                     dtEquityTransactions.Columns.Add("Transaction Code");
                     dtEquityTransactions.Columns.Add("Dividend Status");
                     dtEquityTransactions.Columns.Add("Exchange");
-                    dtEquityTransactions.Columns.Add("TradeDate" , typeof(DateTime));
+                    dtEquityTransactions.Columns.Add("TradeDate", typeof(DateTime));
                     dtEquityTransactions.Columns.Add("Quantity", typeof(double));
                     dtEquityTransactions.Columns.Add("Rate", typeof(double));
 
@@ -649,6 +657,12 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
+
+
+
+
+
+
         protected void BtnDelete_Click(object sender, EventArgs e)
         {
             CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
@@ -769,6 +783,34 @@ namespace WealthERP.CustomerPortfolio
 
 
 
- 
+
+
+
+
+        protected void ddlDateRange_OnCheckedChanged(object sender, EventArgs e)
+        {
+              if (ddlDateRange.SelectedValue == "DateRange")
+             {
+            //  if ((DateTime.Now.Month <= 3))
+            //txtPickDate.SelectedDate = DateTime.Parse("1/04/" + ((DateTime.Now.Year) - 1));
+            // else
+            // txtPickDate.SelectedDate = DateTime.Parse("1/04/" + (DateTime.Now.Year));
+
+              txtToTran.SelectedDate = DateTime.Now;
+              tdlblDate.Visible = true;
+              tdToDate.Visible = true;
+              lblDate.Text = "To:";
+              Panel1.Visible = false;
+             }
+              else
+              {
+           // txtPickDate.SelectedDate = DateTime.Parse(genDict[Constants.EQDate.ToString()].ToString());
+            tdlblDate.Visible = false;
+             tdToDate.Visible = false;
+            lblDate.Text = "As On:";
+            Panel1.Visible = false;
+             }
+              }
+
+        }
     }
-}

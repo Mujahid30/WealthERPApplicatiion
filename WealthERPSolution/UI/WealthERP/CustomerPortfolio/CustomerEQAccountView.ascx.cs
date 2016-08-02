@@ -72,6 +72,7 @@ namespace WealthERP.CustomerPortfolio
                     dtEQAcc.Columns.Add("AccountId");
                     dtEQAcc.Columns.Add("Broker Name");
                     dtEQAcc.Columns.Add("Trade No");
+                    dtEQAcc.Columns.Add("CB_CustBankAccId");
                     //dtEQAcc.Columns.Add("Broker Del Percent");
                     //dtEQAcc.Columns.Add("Broker Spec Percent");
                     //dtEQAcc.Columns.Add("Other Charges");
@@ -92,6 +93,10 @@ namespace WealthERP.CustomerPortfolio
                         drEQAcc["AccountId"] = FolioVo.AccountId.ToString();
                         drEQAcc["Broker Name"] = FolioVo.BrokerName.ToString();
                         drEQAcc["Trade No"] = FolioVo.TradeNum.ToString();
+                        if (FolioVo.BankName != null)
+                            drEQAcc["CB_CustBankAccId"] = FolioVo.BankName.ToString();
+                        else
+                            drEQAcc["CB_CustBankAccId"] = string.Empty;
                         //drEQAcc["Broker Del Percent"] = FolioVo.BrokerageDeliveryPercentage.ToString();
                         //drEQAcc["Broker Spec Percent"] = FolioVo.BrokerageSpeculativePercentage.ToString();
                         //drEQAcc["Other Charges"] = FolioVo.OtherCharges.ToString();

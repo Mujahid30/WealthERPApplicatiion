@@ -199,12 +199,44 @@
                 Skin="Telerik" AllowCustomText="true" Width="120px">
             </telerik:RadComboBox>
         </td>
+          <td class="leftField">                                      
+            <asp:Label ID="lblNPType" Text="Select Type:" CssClass="FieldName" runat="server" />
+        </td>
+        <td class="rightField">
+            <asp:DropDownList ID="ddlDateRange" runat="server" OnSelectedIndexChanged="ddlDateRange_OnCheckedChanged"
+                AutoPostBack="true" CssClass="cmbField">
+                <asp:ListItem Text="As On" Value="ASON"></asp:ListItem>
+                <asp:ListItem Text="Date Range" Value="DateRange"></asp:ListItem>
+            </asp:DropDownList>
+        </td>
         <td>
         </td>
-        <td align="right">
+         <td class="leftField">
+            <asp:Label ID="lblDate" runat="server" CssClass="FieldName">As On:</asp:Label>
+        </td>
+        <td class="rightField">
+            <telerik:RadDatePicker ID="txtPickDate" CssClass="txtField" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar ID="Calendar3" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                    ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput ID="DateInput3" EmptyMessage="dd/mm/yyyy" runat="server" DisplayDateFormat="d/M/yyyy"
+                    DateFormat="d/M/yyyy">
+                </DateInput>
+                 
+            </telerik:RadDatePicker>
+         
+                     <span id ="spn" class="spnRequiredField">*</span> 
+                <asp:RequiredFieldValidator ID ="RequiredFieldValidator2"  runat="server" CssClass="cvPCG" Display="Dynamic" ValidationGroup="vgBtnGo"  ControlToValidate="txtPickDate"  ErrorMessage="<br />Please select  Date">
+                </asp:RequiredFieldValidator>
+              
+        </td>
+        <td align="right" id="tdlblDate" runat="server" visible="false">
             <asp:Label ID="lblFromTran" Text="From :" CssClass="FieldName" runat="server" />
         </td>
-        <td>
+        <td id="tdToDate" visible="false" runat="server">
             <telerik:RadDatePicker ID="txtFromTran" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                 <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
@@ -230,7 +262,7 @@
         <td>
             <asp:Label ID="lblToTran" Text="To :" CssClass="FieldName" runat="server" />
         </td>
-        <td>
+        <td id="tdDateTo" visible="false" runat="server">
             <telerik:RadDatePicker ID="txtToTran" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                 <Calendar ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
