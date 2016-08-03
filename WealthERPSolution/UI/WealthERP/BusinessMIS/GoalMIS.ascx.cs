@@ -451,7 +451,7 @@ namespace WealthERP.BusinessMIS
 
         private void SetParameters()
         {
-            if ((ddlSelectCustomer.SelectedItem.Value == "All Customer") && (userType == "advisor"))
+            if ((ddlSelectCustomer.SelectedItem.Value == "All Customer") && ((userType == "advisor")||(userType == "research")))
             {
                 if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
                 {
@@ -523,7 +523,7 @@ namespace WealthERP.BusinessMIS
             }
 
 
-            if (ddlSelectCustomer.SelectedItem.Value == "Pick Customer" && userType == "advisor")
+            if (ddlSelectCustomer.SelectedItem.Value == "Pick Customer" &&   ((userType == "advisor")||(userType == "research")))
             {
 
                 if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
