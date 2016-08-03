@@ -64,12 +64,11 @@ namespace WealthERP.BusinessMIS
             if (!IsPostBack)
             {
                 BindGoal();
-                BindBranchDropDown();
-                BindRMDropDown();
+               
                 ddlCustomerType.Visible = false;
                 lblSelectTypeOfCustomer.Visible = false;
-                trCustomerSearch.Visible = false;             
-                if (userType == "advisor")
+                trCustomerSearch.Visible = false;
+                if (userType == "advisor" || userType == "research")
                 {
                     BindBranchDropDown();
                    BindRMDropDown();
@@ -120,6 +119,7 @@ namespace WealthERP.BusinessMIS
                     ddlBranch.DataBind();
                 }
                 ddlBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", bmID.ToString()));
+                ddlCustomerType.SelectedIndex = 0;
             }
             catch (BaseApplicationException Ex)
             {
@@ -154,6 +154,7 @@ namespace WealthERP.BusinessMIS
                     ddlRM.DataBind();
                 }
                 ddlRM.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "2"));
+                ddlCustomerType.SelectedIndex = 0;
             }
             catch (BaseApplicationException Ex)
             {
@@ -267,7 +268,7 @@ namespace WealthERP.BusinessMIS
                     txtIndividualCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
                     txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
                 }
-                else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops" || Session[SessionContents.CurrentUserRole].ToString() == "Research")
                 {
                     if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex == 0))
                     {
@@ -327,7 +328,7 @@ namespace WealthERP.BusinessMIS
                     txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
 
                 }
-                else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops" || Session[SessionContents.CurrentUserRole].ToString() == "Research")
                 {
                     if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex == 0))
                     {

@@ -79,7 +79,7 @@
                 CssClass="PCGButton" runat="server" OnClick="Submit_OnClick"></asp:Button>
         </td>
     </tr>
-    </tr>
+   
 </table>
  <asp:Panel ID="pnlCustomerList" runat="server" class="Landscape" ScrollBars="Horizontal"
          Width="100%" Height="80%">
