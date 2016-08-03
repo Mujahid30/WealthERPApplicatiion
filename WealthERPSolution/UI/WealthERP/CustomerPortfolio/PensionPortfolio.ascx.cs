@@ -213,7 +213,7 @@ namespace WealthERP.CustomerPortfolio
                     dtPension.Columns.Add("PortfolioId");
                     dtPension.Columns.Add("Organization Name");
                     dtPension.Columns.Add("Category");
-                    dtPension.Columns.Add("Deposit Amount");
+                    dtPension.Columns.Add("Deposit Amount",typeof(Double));
                     dtPension.Columns.Add("Current Value", typeof(Double));
                     dtPension.Columns.Add("Purchase Value", typeof(Double));
                     //dtPension.Columns.Add("Current Value", typeof(Double));

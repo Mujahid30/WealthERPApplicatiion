@@ -97,13 +97,13 @@
                         <telerik:GridBoundColumn DataField="Deposit Amount" SortExpression="Deposit Amount"
                             AutoPostBackOnFilter="true" CurrentFilterFunction="EqualTo" AllowFiltering="true"
                             HeaderText="Deposit Amount (Rs)" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}"
-                            UniqueName="Deposit Amount" ShowFilterIcon="false">
+                            UniqueName="Deposit Amount" Aggregate="sum" ShowFilterIcon="false">
                             <ItemStyle Width="110px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Current Value" SortExpression="Current Value"
                             AutoPostBackOnFilter="true" CurrentFilterFunction="EqualTo" AllowFiltering="true"
                             HeaderText="Current Value (Rs)" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}" 
-                            UniqueName="Current Value" ShowFilterIcon="false">
+                            UniqueName="Current Value" Aggregate="Sum"  ShowFilterIcon="false">
                             <ItemStyle Width="110px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                     </Columns>
