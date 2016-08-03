@@ -1722,6 +1722,27 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
+                                    
+                                    
+                                 <telerik:RadPanelItem runat="server" Text="Insurance" Value="Insurance">
+                                <Items>
+                                    <telerik:RadPanelItem runat="server" Text="Life Insurance" Value="Life Insurance">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Add Life Insurance" Value="Add Life Insurance">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
+                                   <%-- <telerik:RadPanelItem runat="server" Text="General Insurance" Value="General Insurance">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Add General Insurance" Value="Add General Insurance">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>--%>
+                                </Items>
+                            </telerik:RadPanelItem>
+                                    
+                                    
+                                    
                                     <%-- <telerik:RadPanelItem runat="server" Text="Business MIS" Value="Business MIS">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="MF Dashboard MIS" Value="MFDashboard"
