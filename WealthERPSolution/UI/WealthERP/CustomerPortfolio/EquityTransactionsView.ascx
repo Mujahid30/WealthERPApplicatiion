@@ -6,7 +6,7 @@
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
 <telerik:RadScriptManager ID="scptMgr" runat="server">
-</telerik:RadScriptManager>
+</telerik:RadScriptManager> 
 
 
 <script type="text/javascript" src="../Scripts/JScript.js"></script>

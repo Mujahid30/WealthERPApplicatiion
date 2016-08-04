@@ -106,11 +106,11 @@
                             <ItemStyle Width="110px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                            
                         </telerik:GridBoundColumn>
-                         <telerik:GridBoundColumn HeaderText="Bank" DataField="CB_CustBankAccId" UniqueName="CB_CustBankAccId"
+                         <%--<telerik:GridBoundColumn HeaderText="Bank"  DataField="CB_CustBankAccId" UniqueName="CB_CustBankAccId"
                             SortExpression="CB_CustBankAccId" AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false"
                             CurrentFilterFunction="Contains">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
+                        </telerik:GridBoundColumn>--%>
                     </Columns>
                 </MasterTableView>
                 <ClientSettings>
