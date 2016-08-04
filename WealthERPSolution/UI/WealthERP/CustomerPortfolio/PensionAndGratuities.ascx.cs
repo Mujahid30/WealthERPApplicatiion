@@ -465,14 +465,14 @@ namespace WealthERP.CustomerPortfolio
                             ddlEPFInterestBasis.SelectedValue = pensionAndGratuitiesVo.InterestBasis.ToString().Trim();
                         else
                             ddlEPFInterestBasis.SelectedValue = "";
-                        //if (ddlEPFInterestBasis.SelectedValue == "CI")
-                        //{
-                        //    ddlEPFInterestCalFreq.SelectedValue = pensionAndGratuitiesVo.CompoundInterestFrequencyCode.ToString().Trim();
-                        //}
-                        //else
-                        //{
-                        //    ddlEPFInterestCalFreq.SelectedValue = pensionAndGratuitiesVo.InterestPayableFrequencyCode.ToString().Trim();
-                        //}
+                        if (ddlEPFInterestBasis.SelectedValue == "CI")
+                        {
+                            ddlEPFInterestCalFreq.SelectedValue = pensionAndGratuitiesVo.CompoundInterestFrequencyCode.ToString().Trim();
+                        }
+                        else
+                        {
+                            ddlEPFInterestCalFreq.SelectedValue = pensionAndGratuitiesVo.InterestPayableFrequencyCode.ToString().Trim();
+                        }
 
                         if (ddlEPFInterestCalFreq.SelectedValue == "AM")
                         {
@@ -503,14 +503,14 @@ namespace WealthERP.CustomerPortfolio
                         if(pensionAndGratuitiesVo.InterestBasis!=null)
                         ddlPPFInterestBasis.SelectedValue = pensionAndGratuitiesVo.InterestBasis.ToString().Trim();
                         ddlPPFInterestBasis.SelectedValue = "";
-                        //if (ddlPPFInterestBasis.SelectedValue == "CI")
-                        //{
-                        //    ddlPPFInterestFrequency.SelectedValue = pensionAndGratuitiesVo.CompoundInterestFrequencyCode.ToString().Trim();
-                        //}
-                        //else
-                        //{
-                        //    ddlPPFInterestFrequency.SelectedValue = pensionAndGratuitiesVo.InterestPayableFrequencyCode.ToString().Trim();
-                        //}
+                        if (ddlPPFInterestBasis.SelectedValue == "CI")
+                        {
+                            ddlPPFInterestFrequency.SelectedValue = pensionAndGratuitiesVo.CompoundInterestFrequencyCode.ToString().Trim();
+                        }
+                        else
+                        {
+                            ddlPPFInterestFrequency.SelectedValue = pensionAndGratuitiesVo.InterestPayableFrequencyCode.ToString().Trim();
+                        }
 
                         if (ddlPPFInterestFrequency.SelectedValue == "AM")
                         {
@@ -542,14 +542,14 @@ namespace WealthERP.CustomerPortfolio
                         txtSuperYearlyContribution.Text = pensionAndGratuitiesVo.EmployeeContribution.ToString();
                         txtSuperInterestRate.Text = pensionAndGratuitiesVo.InterestRate.ToString();
                         ddlSuperInterestBasis.SelectedValue = pensionAndGratuitiesVo.InterestBasis.ToString().Trim();
-                        //if (ddlSuperInterestBasis.SelectedValue == "CI")
-                        //{
-                        //    ddlSuperInterestCalcFreq.SelectedValue = pensionAndGratuitiesVo.CompoundInterestFrequencyCode.ToString().Trim();
-                        //}
-                        //else
-                        //{
-                        //    ddlSuperInterestCalcFreq.SelectedValue = pensionAndGratuitiesVo.InterestPayableFrequencyCode.ToString().Trim();
-                        //}
+                        if (ddlSuperInterestBasis.SelectedValue == "CI")
+                        {
+                            ddlSuperInterestCalcFreq.SelectedValue = pensionAndGratuitiesVo.CompoundInterestFrequencyCode.ToString().Trim();
+                        }
+                        else
+                        {
+                            ddlSuperInterestCalcFreq.SelectedValue = pensionAndGratuitiesVo.InterestPayableFrequencyCode.ToString().Trim();
+                        }
 
                         if (ddlSuperInterestCalcFreq.SelectedValue == "AM")
                         {

@@ -76,7 +76,7 @@ namespace WealthERP.CustomerPortfolio
                 ratio = rowCount / 10;
                 mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
                 mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-                lowerlimit = (((mypager.CurrentPage - 1) * 10)+1).ToString();
+                lowerlimit = (((mypager.CurrentPage - 1) * 10) + 1).ToString();
                 upperlimit = (mypager.CurrentPage * 10).ToString();
                 if (mypager.CurrentPage == mypager.PageCount)
                     upperlimit = hdnRecordCount.Value;
@@ -132,7 +132,7 @@ namespace WealthERP.CustomerPortfolio
                 customerVo = (CustomerVo)Session["customerVo"];
                 portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                 if (!IsPostBack)
-                {                   
+                {
                     BindPortfolioDropDown();
                     LoadGridview(portfolioId);
                 }
@@ -179,7 +179,7 @@ namespace WealthERP.CustomerPortfolio
             hdnIsMainPortfolio.Value = keyValuePair.Value.ToString();
             Session["genDictPortfolioDetails"] = genDictPortfolioDetails;
             hdnIsCustomerLogin.Value = userVo.UserType;
-           
+
         }
 
         public void LoadGridview(int portfolioId)
@@ -213,7 +213,7 @@ namespace WealthERP.CustomerPortfolio
                     dtPension.Columns.Add("PortfolioId");
                     dtPension.Columns.Add("Organization Name");
                     dtPension.Columns.Add("Category");
-                    dtPension.Columns.Add("Deposit Amount",typeof(Double));
+                    dtPension.Columns.Add("Deposit Amount", typeof(Double));
                     dtPension.Columns.Add("Current Value", typeof(Double));
                     dtPension.Columns.Add("Purchase Value", typeof(Double));
                     //dtPension.Columns.Add("Current Value", typeof(Double));
@@ -229,9 +229,9 @@ namespace WealthERP.CustomerPortfolio
                         drPension[2] = pensionAndGratuitiesVo.AssetInstrumentCategoryName.ToString();
                         drPension[3] = String.Format("{0:n2}", decimal.Parse(pensionAndGratuitiesVo.DepositAmount.ToString("f2")));
                         drPension[4] = String.Format("{0:n2}", decimal.Parse(pensionAndGratuitiesVo.CurrentValue.ToString("f2")));
-                       // drPension[3] = pensionAndGratuitiesVo.DepositAmount.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                       // drPension[4] = pensionAndGratuitiesVo.CurrentValue.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                   
+                        // drPension[3] = pensionAndGratuitiesVo.DepositAmount.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        // drPension[4] = pensionAndGratuitiesVo.CurrentValue.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+
 
                         dtPension.Rows.Add(drPension);
 
@@ -281,19 +281,19 @@ namespace WealthERP.CustomerPortfolio
 
         protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
-           string menu;
+            string menu;
 
             try
             {
-                
+
                 DropDownList MyDropDownList = (DropDownList)sender;
                 GridDataItem gvr = (GridDataItem)MyDropDownList.NamingContainer;
                 int selectedRow = gvr.ItemIndex + 1;
                 PortfolioId = int.Parse(gvrPensionAndGratuities.MasterTableView.DataKeyValues[selectedRow - 1]["PortfolioId"].ToString());
                 hdndeleteId.Value = portfolioId.ToString();
-                Session["pensionAndGratuitiesVo"] = pensionAndGratuitiesVo;
+
                 Session["customerAccountVo"] = customerAccountsBo.GetCustomerPensionAndGratuitiesAccount(PortfolioId);
-                pensionAndGratuitiesVo = pensionAndGratuitiesBo.GetPensionAndGratuities(portfolioId);
+                Session["pensionAndGratuitiesVo"] = pensionAndGratuitiesBo.GetPensionAndGratuities(PortfolioId);
 
 
                 menu = MyDropDownList.SelectedItem.Value.ToString();
@@ -305,11 +305,11 @@ namespace WealthERP.CustomerPortfolio
                     else
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PensionAndGratuities','action=edit');", true);
                 }
-                if (menu == "View")
+                else if (menu == "View")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PensionAndGratuities','action=view');", true);
                 }
-                if (menu == "Delete")
+                else if (menu == "Delete")
                 {
                     if (hdnIsCustomerLogin.Value == "Customer" && hdnIsMainPortfolio.Value == "1")
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Permisssion denied for Manage Portfolio !!');", true);
@@ -368,7 +368,7 @@ namespace WealthERP.CustomerPortfolio
             portfolioId = Int32.Parse(Session[SessionContents.PortfolioId].ToString());
             LoadGridview(portfolioId);
         }
-        
+
         private SortDirection GridViewSortDirection
         {
             get
@@ -396,7 +396,7 @@ namespace WealthERP.CustomerPortfolio
             gvrPensionAndGratuities.ExportSettings.HideStructureColumns = true;
             gvrPensionAndGratuities.ExportSettings.ExportOnlyData = true;
             gvrPensionAndGratuities.ExportSettings.FileName = "Pension And Gratuities Details";
-           // gvrPensionAndGratuities.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            // gvrPensionAndGratuities.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvrPensionAndGratuities.MasterTableView.ExportToExcel();
         }
 
