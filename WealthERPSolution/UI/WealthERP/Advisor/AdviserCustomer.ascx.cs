@@ -71,7 +71,7 @@ namespace WealthERP.Advisor
             rmVo = (RMVo)Session["rmVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
             associatesVo = (AssociatesVO)Session["associatesVo"];
-            ddlCOption.Items[5].Enabled = false;
+            ddlCOption.Items[4].Enabled = false;
             assocUsrHeirVo = (AssociatesUserHeirarchyVo)Session["associatesUserHeirarchyVo"];
               if (rbtnRegister.Checked)
             {
@@ -465,7 +465,7 @@ namespace WealthERP.Advisor
             }
             else
             {
-                if ((!string.IsNullOrEmpty(txtCustomerId.Value) && ddlCOption.SelectedIndex > 0 && Request.QueryString["action"] == null) || Request.QueryString["action"] != null)
+                if (((!string.IsNullOrEmpty(txtCustomerId.Value) || !string.IsNullOrEmpty(txtRequestId.Text)) && ddlCOption.SelectedIndex > 0 && Request.QueryString["action"] == null) || Request.QueryString["action"] != null)
                 {
                     dtcustomerList = BindOnDemamd(adviserId, rmId, AgentId, UserRole, branchHeadId, AgentCode, rbtnReg, GetSelectedFilterValue(), (!string.IsNullOrEmpty(txtCustomerId.Value)) ? int.Parse(txtCustomerId.Value) : 0, null, null, (!string.IsNullOrEmpty(custCode)) ? custCode : null, null, null, (!string.IsNullOrEmpty(pan)) ? pan : null, null, null, null, null, null, null, null, null, null, gvCustomerList.PageSize, gvCustomerList.CurrentPageIndex + 1, out genDictParent, out genDictRM, out genDictReassignRM, out RowCount, (!string.IsNullOrEmpty(txtRequestId.Text)) ? int.Parse(txtRequestId.Text) : 0, producttype);
                 }
@@ -1876,18 +1876,18 @@ namespace WealthERP.Advisor
         {
             trSearchtype.Visible = true;
             ddlCOption.Items[3].Enabled = true;
-            ddlCOption.Items[5].Enabled = false;
-            ddlCOption.Items[6].Enabled = true;
-            ddlCOption.Items[7].Enabled = false;
+            ddlCOption.Items[4].Enabled = false;
+            ddlCOption.Items[5].Enabled = true;
+            ddlCOption.Items[6].Enabled = false;
         }
         protected void rbtnNonRegister_CheckedChanged(object sender, EventArgs e)
         {
             trSearchtype.Visible = true;
-            ddlCOption.Items[5].Enabled = false;
+            ddlCOption.Items[4].Enabled = false;
             ddlCOption.Items[3].Enabled = false;
             tdtxtClientCode.Visible = false;
-            ddlCOption.Items[6].Enabled = true;
-            ddlCOption.Items[7].Enabled = false;
+            ddlCOption.Items[5].Enabled = true;
+            ddlCOption.Items[6].Enabled = false;
         }
         protected void rbtnProspect_CheckedChanged(object sender, EventArgs e)
         {

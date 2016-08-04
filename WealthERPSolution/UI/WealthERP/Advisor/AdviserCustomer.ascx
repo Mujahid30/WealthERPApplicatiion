@@ -279,7 +279,7 @@
                 <asp:ListItem Text="Name" Value="Name" />
                 <asp:ListItem Text="PAN" Value="Panno" />
                 <asp:ListItem Text="Client Code" Value="Clientcode" />
-                <asp:ListItem Text="KYC" Value="kyc" />
+<%--                <asp:ListItem Text="KYC" Value="kyc" />
                 <%--<asp:ListItem Text="All MF Investor" Value="allmfinvestor"  />--%>
                 <asp:ListItem Text="Real Investor" Value="realinvestor" />
                 <asp:ListItem Text="Req. Id" Value="ReqId" />
