@@ -1869,16 +1869,16 @@
         </td>
     </tr>
     
-    <table width="120%">
-            <tr>
-                <td colspan="6">
-                    <div class="divSectionHeading" style="vertical-align: text-bottom">
+    <table width="120%" >
+            <tr visible="false" runat="server">
+                <td colspan="6" >
+                    <div class="divSectionHeading"  style="vertical-align: text-bottom">
                         Payment Section
                     </div>
                 </td>
             </tr>
         </table>
-     <asp:Panel ID="pnl_BUY_ABY_SIP_PaymentSection" runat="server" class="Landscape" Width="100%"
+     <asp:Panel ID="pnl_BUY_ABY_SIP_PaymentSection" runat="server" Visible="false"  class="Landscape" Width="100%"
             Height="80%" ScrollBars="None">
             <table id="tb_BUY_ABY_SIP_PaymentSection" width="100%">
                
