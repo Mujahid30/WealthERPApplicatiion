@@ -414,7 +414,7 @@
     </tr>
     
     <table width="120%">
-            <tr>
+            <tr runat="server" visible="false">
                 <td colspan="6">
                     <div class="divSectionHeading" style="vertical-align: text-bottom">
                         Payment Section
@@ -428,7 +428,7 @@
         
         
         
-        <asp:Panel ID="pnl_BUY_ABY_SIP_PaymentSection" runat="server" class="Landscape" Width="100%"
+        <asp:Panel ID="pnl_BUY_ABY_SIP_PaymentSection" runat="server" Visible="false" class="Landscape" Width="100%"
             Height="80%" ScrollBars="None">
             <table id="tb_BUY_ABY_SIP_PaymentSection" width="100%">
                

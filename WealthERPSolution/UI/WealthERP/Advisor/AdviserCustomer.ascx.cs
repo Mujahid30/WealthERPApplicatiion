@@ -710,6 +710,20 @@ namespace WealthERP.Advisor
                     gvCustomerList.MasterTableView.GetColumn("MarkFPClient").Visible = true;
                     gvCustomerList.MasterTableView.GetColumn("ActionForProspect").Visible = false;
                 }
+                if (Request.QueryString["action"] != null)
+                {
+                    gvCustomerList.MasterTableView.GetColumn("UserId").Visible = false;
+                    gvCustomerList.MasterTableView.GetColumn("CustomerId").Visible = false;
+                    gvCustomerList.MasterTableView.GetColumn("Group").Visible = false;
+                    gvCustomerList.MasterTableView.GetColumn("Area").Visible = false;
+                    gvCustomerList.MasterTableView.GetColumn("City").Visible = false;
+                    gvCustomerList.MasterTableView.GetColumn("Pincode").Visible = false;
+                    gvCustomerList.MasterTableView.GetColumn("IsMFKYC").Visible = false;
+                    gvCustomerList.MasterTableView.GetColumn("ADUL_ProcessId").Visible = false;
+                    gvCustomerList.MasterTableView.GetColumn("ACC_CustomerCategoryName").Visible = false;
+                    gvCustomerList.MasterTableView.GetColumn("PAG_AssetGroupCode").Visible = false;
+
+                }
                 return; 
             }
             if (userVo.UserType == "Associates")

@@ -12,6 +12,9 @@ using BoOnlineOrderManagement;
 using BoOfflineOrderManagement;
 using BoOps;
 using Telerik.Web.UI;
+using Microsoft.ApplicationBlocks.ExceptionManagement;
+using BoCustomerPortfolio;
+using VoCustomerPortfolio;
 
 namespace WealthERP.OffLineOrderManagement
 {
@@ -21,6 +24,18 @@ namespace WealthERP.OffLineOrderManagement
         CustomerVo customerVO = new CustomerVo();
         UserVo userVo;
         OfflineBondOrderBo OfflineBondOrderBo = new OfflineBondOrderBo();
+
+        CustomerAccountBo customerAccountBo = new CustomerAccountBo();
+        CustomerAccountsVo customerAccountsVo = new CustomerAccountsVo();
+        CustomerAccountAssociationVo customerAccountAssociationVo = new CustomerAccountAssociationVo();
+        CustomerVo customerVo = new CustomerVo();
+        DataSet dsAssetCategories;
+        DataSet dsCustomerAssociates;
+        DataSet dsAssetSubCategories;
+        DataTable dtCustomerAssociatesRaw = new DataTable();
+        DataTable dtCustomerAssociates = new DataTable();
+        DataRow drCustomerAssociates;
+      
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -31,6 +46,7 @@ namespace WealthERP.OffLineOrderManagement
             {
                 Cache.Remove("BondOrderBookList" + userVo.UserId.ToString());
                 BindNcdCategory();
+                LoadNominees();
                 if (Request.QueryString["COADID"] != null)
                 {
                     btnCreateAllotment.Visible = false;
@@ -356,5 +372,62 @@ namespace WealthERP.OffLineOrderManagement
                 txtCurrentPrice.Text=(int.Parse(txtQuentity.Text)*Convert.ToDecimal(textPrice.Text)).ToString();
             }
         }
+
+
+
+
+        public void LoadNominees()
+        {
+            try
+            {
+                dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRel(customerVo.CustomerId);
+                dtCustomerAssociatesRaw = dsCustomerAssociates.Tables[0];
+
+                dtCustomerAssociates.Columns.Add("MemberCustomerId");
+                dtCustomerAssociates.Columns.Add("AssociationId");
+                dtCustomerAssociates.Columns.Add("Name");
+                dtCustomerAssociates.Columns.Add("Relationship");
+
+                foreach (DataRow dr in dtCustomerAssociatesRaw.Rows)
+                {
+
+                    drCustomerAssociates = dtCustomerAssociates.NewRow();
+                    drCustomerAssociates[0] = dr["C_AssociateCustomerId"].ToString();
+                    drCustomerAssociates[1] = dr["CA_AssociationId"].ToString();
+                    drCustomerAssociates[2] = dr["C_FirstName"].ToString() + " " + dr["C_LastName"].ToString();
+                    drCustomerAssociates[3] = dr["XR_Relationship"].ToString();
+                    dtCustomerAssociates.Rows.Add(drCustomerAssociates);
+                }
+
+                if (dtCustomerAssociates.Rows.Count > 0)
+                {
+                    gvNominees.DataSource = dtCustomerAssociates;
+                    gvNominees.DataBind();
+                    gvNominees.Visible = true;
+
+                    trNoNominee.Visible = false;
+                    trNominees.Visible = true;
+                }
+                else
+                {
+                    trNoNominee.Visible = true;
+                    trNominees.Visible = false;
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+        }
+
+
+
+
+
+
+
+
+
     }
 }

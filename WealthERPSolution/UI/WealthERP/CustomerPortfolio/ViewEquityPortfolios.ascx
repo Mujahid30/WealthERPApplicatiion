@@ -94,7 +94,7 @@
             <asp:DropDownList ID="ddlDateRange" runat="server" OnSelectedIndexChanged="ddlDateRange_OnCheckedChanged"
                 AutoPostBack="true" CssClass="cmbField">
                 <asp:ListItem Text="As On" Value="ASON"></asp:ListItem>
-                <asp:ListItem Text="Date Range" Value="DateRange"></asp:ListItem>
+               <%-- <asp:ListItem Text=""  Value="DateRange"></asp:ListItem>--%>
             </asp:DropDownList>
         </td>
         <td class="leftField">
@@ -178,14 +178,14 @@
         EnableEmbeddedSkins="False" Width="100%" MultiPageID="EQPortfolioTabPages" SelectedIndex="0"
         EnableViewState="true">
         <Tabs>
-            <telerik:RadTab runat="server" Text="UnRealized" Value="UnRealized" TabIndex="0">
+            <telerik:RadTab runat="server" Text="UnRealized" Value="UnRealized" Visible="false" TabIndex="0">
             </telerik:RadTab>
-            <telerik:RadTab runat="server" Text="Realized Delivery" Value="Realized Delivery"
+            <telerik:RadTab runat="server" Text="Realized Delivery" Visible="false" Value="Realized Delivery"
                 TabIndex="1">
             </telerik:RadTab>
-            <telerik:RadTab runat="server" Text="All" Value="All" TabIndex="2">
+            <telerik:RadTab runat="server" Text="All" Value="All" Visible="false" TabIndex="2">
             </telerik:RadTab>
-            <telerik:RadTab runat="server" Text="Speculative" Value="Speculative" TabIndex="3">
+            <telerik:RadTab runat="server" Visible="false" Text="Speculative" Value="Speculative" TabIndex="3">
             </telerik:RadTab>
         </Tabs>
     </telerik:RadTabStrip>

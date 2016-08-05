@@ -942,7 +942,7 @@ namespace WealthERP.Research
                                 }
                             }
 
-                            if (category == "Commodity")
+                       else if (category == "Commodity")
                             {
                                 if (assetClassificationCode == "Equity")
                                 {

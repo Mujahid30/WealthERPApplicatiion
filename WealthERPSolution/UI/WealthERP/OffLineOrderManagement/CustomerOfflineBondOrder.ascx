@@ -58,7 +58,7 @@
             </asp:RequiredFieldValidator>
         </td>
         <td>
-            <asp:LinkButton ID="lnkbuttonAddSeries" runat="server" OnClick="OnClick_lnkbuttonAddSeries"
+            <asp:LinkButton ID="lnkbuttonAddSeries" Visible="false" runat="server" OnClick="OnClick_lnkbuttonAddSeries"
                 Text="Add Issuer" CssClass="LinkButtons" ValidationGroup="btnaddSeries"></asp:LinkButton>
         </td>
     </tr>
@@ -207,6 +207,52 @@
             <asp:TextBox ID="txtCurrentPrice" runat="server" Enabled="false"></asp:TextBox>
         </td>
     </tr>
+    
+    
+    
+      <tr id="trNomineeCaption" runat="server" visible="true">
+                <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
+                    <div class="divSectionHeading" style="vertical-align: text-bottom">
+                        Nominees
+                    </div>
+                </td>
+            </tr>
+            <%-- <tr id="trNomineeCaption" runat="server">
+                <td colspan="2">
+                    <asp:Label ID="lblNominees" runat="server" CssClass="HeaderTextSmall" Text="Nominees"></asp:Label>
+                    <hr />
+                </td>
+            </tr>--%>
+            <tr id="trNominees" runat="server">
+                <td colspan="2">
+                    <asp:GridView ID="gvNominees" runat="server" AutoGenerateColumns="False" CellPadding="4"
+                        Width="60%" ShowFooter="true" DataKeyNames="MemberCustomerId, AssociationId"
+                        AllowSorting="True" CssClass="GridViewStyle">
+                        <FooterStyle CssClass="FooterStyle" />
+                        <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
+                        <SelectedRowStyle CssClass="SelectedRowStyle" />
+                        <HeaderStyle CssClass="HeaderStyle" />
+                        <EditRowStyle CssClass="EditRowStyle" />
+                        <AlternatingRowStyle CssClass="AltRowStyle" />
+                        <RowStyle CssClass="RowStyle" />
+                        <Columns>
+                            <asp:TemplateField HeaderText="Select">
+                                <ItemTemplate>
+                                    <asp:CheckBox ID="chkId0" runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:BoundField DataField="Name" HeaderText="Name" />
+                            <asp:BoundField DataField="Relationship" HeaderText="Relationship" />
+                        </Columns>
+                    </asp:GridView>
+                </td>
+            </tr>
+            <tr id="trNoNominee" runat="server" visible="false">
+                <td class="Message" colspan="2">
+                    <asp:Label ID="lblNoNominee" runat="server" Text="You have no Associations" CssClass="FieldName"></asp:Label>
+                </td>
+            </tr> 
+    
     <tr>
         <td>
             <asp:Button ID="btnCreateAllotment" runat="server" Text="Submit" CssClass="PCGButton"
