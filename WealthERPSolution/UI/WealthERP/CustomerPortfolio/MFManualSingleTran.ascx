@@ -179,7 +179,7 @@
             </tr>
         </table>
         <table style="width: 100%;" class="TableBackground">
-            <tr id="trCustomerSearch" runat="server" >
+            <tr id="trCustomerSearch" runat="server">
                 <td class="leftField" style="width: 20%;">
                     <asp:Label ID="lblCustomerName" runat="server" Text="Search For:" CssClass="FieldName"></asp:Label>
                 </td>
@@ -193,7 +193,7 @@
                     </asp:DropDownList>
                 </td>
             </tr>
-            <tr id="trtxtcustomerName" runat="server" >
+            <tr id="trtxtcustomerName" runat="server">
                 <td class="leftField" style="width: 20%;">
                 </td>
                 <td class="rightField" style="width: 80%;" colspan="4">
@@ -221,7 +221,8 @@
                         CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                         UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
                         Enabled="True" />
-                 <asp:Label ID="lblcustandcustomer" runat="server" Text="*" CssClass="spnRequiredField" Visible="false"></asp:Label>
+                    <asp:Label ID="lblcustandcustomer" runat="server" Text="*" CssClass="spnRequiredField"
+                        Visible="false"></asp:Label>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtcustomerName"
                         ErrorMessage="<br />Please Enter Customer Name" Display="Dynamic" runat="server"
                         Enabled="false" CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
@@ -258,8 +259,7 @@
                     <asp:Label ID="Label1" runat="server" Text="SubBroker Code :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField" id="td2" runat="server">
-                    <asp:TextBox ID="TxtsubBrokerCode" runat="server" CssClass="txtField" MaxLength="18"
-                      ></asp:TextBox>
+                    <asp:TextBox ID="TxtsubBrokerCode" runat="server" CssClass="txtField" MaxLength="18"></asp:TextBox>
                     <%--<span id="Span17" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="TxtsubBrokerCode"
                         CssClass="rfvPCG" ValidationGroup="MFSubmit" ErrorMessage="<br />Please enter the SubBroker Code"
@@ -402,13 +402,9 @@
                             ControlToValidate="ddlFolioNum" InitialValue="0">
                         </asp:RequiredFieldValidator>
                     </td>
-                    <td class="style2">
-                    </td>
-                    <td class="style1">
-                    </td>
                     <td>
                         <asp:Button ID="btnNewFolioAdd" runat="server" Text="Add New Folio Number" CssClass="PCGLongButton"
-                            OnClick="btnNewFolioAdd_Click" Height="26px" Width="167px" Visible="false" />
+                            OnClick="btnNewFolioAdd_Click" Height="26px" Width="167px" Visible="true" />
                     </td>
                 </tr>
                 <tr>
