@@ -226,7 +226,7 @@
             <tr id="trNominees" runat="server">
                 <td colspan="2">
                     <asp:GridView ID="gvNominees" runat="server" AutoGenerateColumns="False" CellPadding="4"
-                        Width="60%" ShowFooter="true" DataKeyNames="MemberCustomerId, AssociationId"
+                        Width="750px" ShowFooter="true" DataKeyNames="MemberCustomerId, AssociationId"
                         AllowSorting="True" CssClass="GridViewStyle">
                         <FooterStyle CssClass="FooterStyle" />
                         <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
