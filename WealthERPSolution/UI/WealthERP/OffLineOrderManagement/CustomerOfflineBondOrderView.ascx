@@ -28,7 +28,7 @@
 <table width="80%">
     <tr>
         <td>
-            <asp:Panel ID="pnlGrid" runat="server" CssClass="Landscape" Width="85%" ScrollBars="Horizontal"
+            <asp:Panel ID="pnlGrid" runat="server" CssClass="Landscape" Width="1250px" ScrollBars="Horizontal"
                 Visible="false">
                 <table>
                     <tr>
@@ -59,7 +59,7 @@
                                                     </telerik:GridTemplateColumn>
                                                     <telerik:GridBoundColumn DataField="AIM_IssueName" SortExpression="AIM_IssueName"
                                                         AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                                        AllowFiltering="true" HeaderStyle-Width="60px" HeaderText="Issure" UniqueName="AIM_IssueName">
+                                                        AllowFiltering="true" HeaderStyle-Width="60px" HeaderText="Issure" UniqueName="AIM_IssueName" FooterText="Grand Total:">
                                                         <ItemStyle Width="60px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="PAISC_AssetInstrumentSubCategoryName" AllowFiltering="true"
@@ -80,7 +80,7 @@
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="COAD_Price" SortExpression="COAD_Price" AutoPostBackOnFilter="true"
                                                         CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
-                                                        HeaderStyle-Width="160px" HeaderText="Price" UniqueName="COAD_Price" >
+                                                        HeaderStyle-Width="160px" HeaderText="Price" UniqueName="COAD_Price" DataFormatString="{0:N2}" Aggregate="Sum" >
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
                                                      <telerik:GridBoundColumn DataField="COAD_InterestAmount" SortExpression="COAD_InterestAmount" AutoPostBackOnFilter="true"
@@ -111,13 +111,13 @@
                                                     </telerik:GridBoundColumn>
                                                      <telerik:GridBoundColumn DataField="currentValue" SortExpression="currentValue"
                                                         AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                                        AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="Current Value"
+                                                        AllowFiltering="true" HeaderStyle-Width="160px" Aggregate="Sum" DataFormatString="{0:N2}" HeaderText="Current Value"
                                                         UniqueName="currentValue">
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="COAD_MaturityAmount" SortExpression="COAD_MaturityAmount"
                                                         AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                                        AllowFiltering="true" HeaderStyle-Width="160px" HeaderText="Maturity Amount"
+                                                        AllowFiltering="true" HeaderStyle-Width="160px" Aggregate="Sum" DataFormatString="{0:N2}" HeaderText="Maturity Amount"
                                                         UniqueName="COAD_MaturityAmount">
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
