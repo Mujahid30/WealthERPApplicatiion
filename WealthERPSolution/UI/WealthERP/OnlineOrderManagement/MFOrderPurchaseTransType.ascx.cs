@@ -59,6 +59,21 @@ namespace WealthERP.OnlineOrderManagement
             userVo = (UserVo)Session["userVo"];
             Session["OrderId"] = OrderId;
             RadInformation.VisibleOnPageLoad = false;
+            TimeSpan now = DateTime.Now.TimeOfDay;
+            if (Session["ExchangeMode"] != null && Session["ExchangeMode"].ToString() == "Demat")
+            {
+                CommonLookupBo boCommon = new CommonLookupBo();
+                if (!boCommon.CheckForBusinessDate(DateTime.Now))
+                {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadBottomPanelFromBlocking", "LoadTransactPanel('MFOnlineSchemeManager');", true);
+                    return;
+                }
+                if (!(now >= TimeSpan.Parse(ConfigurationSettings.AppSettings["BSETradeOpTime"]) && now <= TimeSpan.Parse(ConfigurationSettings.AppSettings["BSETradeEnTime"])))
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOnlineSchemeManager')", true);
+                    return;
+                }
+            }
             int TOcpmaretime = int.Parse(DateTime.Now.ToShortTimeString().Split(':')[0]);
             if (TOcpmaretime >= int.Parse(ConfigurationSettings.AppSettings["START_TIME"]) && TOcpmaretime < int.Parse(ConfigurationSettings.AppSettings["END_TIME"]))
             {

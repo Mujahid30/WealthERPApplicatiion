@@ -32,6 +32,7 @@ namespace WealthERP
         UserVo userVo = new UserVo();
         AdvisorVo advisorVo = new AdvisorVo();
         CustomerVo customerVo = new CustomerVo();
+       
         RMVo rmVo = new RMVo();
         AdvisorPreferenceVo advisorPreferenceVo = new AdvisorPreferenceVo();
         string userAccountId;
@@ -791,6 +792,7 @@ namespace WealthERP
         protected void btnMode_OnClick(object sender, EventArgs e)
         {
             customerVo = (CustomerVo)Session["CustomerVo"];
+            
             if (customerVo.IsDematAccepted && customerVo.IsDematInvestor && ddlMode.SelectedValue == "Demat")
             {
                 Session["ExchangeMode"] = "Demat";
@@ -810,6 +812,40 @@ namespace WealthERP
                 ddlMode.SelectedValue = "Online";
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "alertwq", "alert('We have taken your request for registration of your client code for BSE StAR MF segment. The same will be activated shortly.');", true);
             }
+            TimeSpan now = DateTime.Now.TimeOfDay;
+            if (Session["ExchangeMode"] != null && Session["ExchangeMode"].ToString() == "Demat")
+            {
+                CommonLookupBo boCommon = new CommonLookupBo();
+                if (!boCommon.CheckForBusinessDate(DateTime.Now))
+                {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadBottomPanelFromBlocking", "LoadTransactPanel('MFOnlineSchemeManager');", true);
+                    return;
+                }
+
+                if (!(now >= TimeSpan.Parse(ConfigurationSettings.AppSettings["BSETradeOpTime"]) && now <= TimeSpan.Parse(ConfigurationSettings.AppSettings["BSETradeEnTime"])))
+                {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadBottomPanelFromBlocking", "LoadTransactPanel('MFOnlineSchemeManager');", true);
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadBottomPanelFromBlocking", "LoadTransactPanel('MFOrderPurchaseTransType');", true);
+                }
+            }
+            else if (Session["ExchangeMode"] != null && Session["ExchangeMode"].ToString() == "Online")
+            {
+                int TOcpmaretime = int.Parse(DateTime.Now.ToShortTimeString().Split(':')[0]);
+                if (TOcpmaretime >= int.Parse(ConfigurationSettings.AppSettings["START_TIME"]) && TOcpmaretime < int.Parse(ConfigurationSettings.AppSettings["END_TIME"]))
+                {
+
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadBottomPanelFromBlocking", "LoadTransactPanel('MFOnlineSchemeManager');", true);
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadBottomPanelFromBlocking", "LoadTransactPanel('MFOrderPurchaseTransType');", true);
+                }
+
+            }
+           
 
         }
         protected void btnDematTnCCanceled_Click(object sender, EventArgs e)
