@@ -2499,7 +2499,7 @@ namespace DAOAssociates
             }
             return dtAssociatesNames;
         }
-        public string GetSampleAssociateCode(int adviserId, int branchId)
+        public string GetSampleAssociateCode(int adviserId, int branchId, string Type)
         {
             Database db;
             DataSet ds;
@@ -2513,6 +2513,7 @@ namespace DAOAssociates
                 db.AddInParameter(cmd, "@BranchID", DbType.Int32, branchId);
                 db.AddInParameter(cmd, "@AdviserId", DbType.Int32, adviserId);
                 db.AddOutParameter(cmd, "@AgentCode", DbType.String, 20);
+                db.AddInParameter(cmd, "@Type", DbType.String, Type);
                 ds = db.ExecuteDataSet(cmd);
                 if (db.ExecuteNonQuery(cmd) != 0)
                 {
@@ -2525,5 +2526,64 @@ namespace DAOAssociates
             }
             return sampleAssociateCode;
         }
+
+
+
+
+
+        public string CreateBulkChildCode(int adviserId, string Type, int startingchildcode, int noofchaildcode, string parentcode)
+        {
+            Database db;
+            DbCommand getCreateBulkChildCodecmd;
+            string mssage = string.Empty;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCreateBulkChildCodecmd = db.GetStoredProcCommand("SP_CreateBulkChildCode");
+                db.AddInParameter(getCreateBulkChildCodecmd, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(getCreateBulkChildCodecmd, "@flag", DbType.String, Type);
+                db.AddInParameter(getCreateBulkChildCodecmd, "@StartCode", DbType.Int32, startingchildcode);
+                db.AddInParameter(getCreateBulkChildCodecmd, "@NoOfCode", DbType.Int32, noofchaildcode);
+                db.AddInParameter(getCreateBulkChildCodecmd, "@ParentAgentCode", DbType.String, parentcode);
+                db.AddOutParameter(getCreateBulkChildCodecmd, "@msg", DbType.String, 10000);
+                if (db.ExecuteNonQuery(getCreateBulkChildCodecmd) != 0)
+                {
+
+
+                    if (!string.IsNullOrEmpty(db.GetParameterValue(getCreateBulkChildCodecmd, "msg").ToString()))
+                        mssage = (db.GetParameterValue(getCreateBulkChildCodecmd, "msg").ToString());
+
+
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return mssage;
+        }
+
+
+        public DataTable GetAssociatetype()
+        {
+            DataTable dtGetAssociatetype;
+            DataSet dsGetAssociatetype;
+            DbCommand cmdGetAssociatetype;
+            Database db;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetAssociatetype = db.GetStoredProcCommand("SPROC_GetAssociateProductMappingList");
+                dsGetAssociatetype = db.ExecuteDataSet(cmdGetAssociatetype);
+                dtGetAssociatetype = dsGetAssociatetype.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dtGetAssociatetype;
+        }
+      
+
     }
 }

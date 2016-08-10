@@ -95,6 +95,7 @@ namespace WealthERP.Associates
                     if (Request.QueryString["Flag"] != null)
                     {
                         checkUser();
+                        RadTabStrip1.Visible = true;
                         getChildCodes();
 
                     }
@@ -367,7 +368,9 @@ namespace WealthERP.Associates
 
         protected void ddlSelectType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            RadTabStrip1.Visible = true;
             getChildCodes();
+
         }
         protected void getChildCodes()
         {
@@ -628,5 +631,26 @@ namespace WealthERP.Associates
             //chkbldepart.DataBind();
 
         }
+
+
+        protected void Button3_Click(object sender, EventArgs e)
+        {
+
+            string mssage;
+            mssage = associatesBo.CreateBulkChildCode(advisorVo.advisorId, "Check", Convert.ToInt32(txtStartingchild.Text), Convert.ToInt32(txtnofochildcode.Text), txtAgentCode.Text);
+            lblMessage.Text = mssage;
+        }
+
+
+
+
+        protected void Button4_Click(object sender, EventArgs e)
+        {
+            string mssage;
+            mssage = associatesBo.CreateBulkChildCode(advisorVo.advisorId, "Create", Convert.ToInt32(txtStartingchild.Text), Convert.ToInt32(txtnofochildcode.Text), txtAgentCode.Text);
+            lblMessage.Text = mssage;
+
+        }
+
     }
 }

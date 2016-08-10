@@ -1023,12 +1023,12 @@ namespace BOAssociates
             }
             return dtAssociatesNames;
         }
-        public string GetSampleAssociateCode(int adviserId, int branchId)
+        public string GetSampleAssociateCode(int adviserId, int branchId,string Type)
         {
             string associateCode = string.Empty;
             try
             {
-                associateCode = associatesDao.GetSampleAssociateCode(adviserId, branchId);
+                associateCode = associatesDao.GetSampleAssociateCode(adviserId, branchId, Type);
 
             }
             catch (BaseApplicationException Ex)
@@ -1036,6 +1036,34 @@ namespace BOAssociates
                 throw Ex;
             }
             return associateCode;
+        }
+
+        public string CreateBulkChildCode(int adviserId, string Type, int startingchildcode, int noofchaildcode, string parentcode)
+        {
+            string mssage = string.Empty;
+            try
+            {
+                mssage = associatesDao.CreateBulkChildCode(adviserId, Type, startingchildcode, noofchaildcode, parentcode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+             return mssage;;
+        }
+
+        public DataTable GetAssociatetype()
+        {
+            DataTable dtGetAssociatetype = new DataTable();
+            try
+            {
+                dtGetAssociatetype = associatesDao.GetAssociatetype();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetAssociatetype;
         }
     }
    }
