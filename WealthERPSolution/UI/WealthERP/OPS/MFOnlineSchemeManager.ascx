@@ -42,6 +42,6 @@
     <div  style="margin-left: 5%; font-size: 20px; display:none" class="col-md-10 col-xs-10 col-sm-10" id="dvDematMessage">
         <img src="../Images/imagesyellow.png" width="50px" height="50px"/>
     
-        <font color="#fff" ><b>Currently closed for orders.  Orders can only be placed during market hours between 9 am and 3 pm.</b></font>
+        <font color="#fff" ><b>Currently closed for orders.  Orders can only be placed during Exchange market hours between 9 am and 3 pm.</b></font>
     </div>
 </div>
