@@ -61,14 +61,14 @@
         </td>
     </tr>
 </table>
-  <table id="Table1" width="100%" visible="true" style="padding-top: 0px;">
-                            <tr id="tr1">
-                                <td align="center">
-                                    <div id="MainAssociateUpdt" class="success-msg" align="center" runat="server" visible="false">
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
+<table id="Table1" width="100%" visible="true" style="padding-top: 0px;">
+    <tr id="tr1">
+        <td align="center">
+            <div id="MainAssociateUpdt" class="success-msg" align="center" runat="server" visible="false">
+            </div>
+        </td>
+    </tr>
+</table>
 <table width="100%">
     <tr>
         <td align="right">
@@ -111,9 +111,38 @@
             <span id="Span5" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator21" runat="server" ErrorMessage="Please select a Branch"
-                CssClass="rfvPCG" ControlToValidate="ddlBranch" ValidationGroup="SubmitDetails" Display="Dynamic"
-                InitialValue="0"></asp:RequiredFieldValidator>
-           
+                CssClass="rfvPCG" ControlToValidate="ddlBranch" ValidationGroup="SubmitDetails"
+                Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
+        </td>
+    </tr>
+    <tr>
+        <td align="right" id="td1" runat="server">
+            <asp:Label ID="Label18" runat="server" CssClass="FieldName" Text="Source:"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlSource" runat="server" Style="vertical-align: middle"
+                AutoPostBack="true" CssClass="cmbField" Enabled="true" 
+                onselectedindexchanged="ddlSource_SelectedIndexChanged">
+                <asp:ListItem Text="Select" Value="0"></asp:ListItem>
+                <asp:ListItem Text="SSL" Value="1"></asp:ListItem>
+                <asp:ListItem Text="SBI Associate" Value="2"></asp:ListItem>
+            </asp:DropDownList>
+        </td>
+        <td align="right" id="td2" runat="server">
+            <asp:Label ID="Label19" runat="server" Visible="false" CssClass="FieldName" Text="Type:"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlType" Visible="false" runat="server" Style="vertical-align: middle"
+                AutoPostBack="true" CssClass="cmbField" Enabled="true" 
+                onselectedindexchanged="ddlType_SelectedIndexChanged">
+               <%-- <asp:ListItem Text="Select" Value="0"></asp:ListItem>
+                <asp:ListItem Text="SBI Life Insurance" Value="SBIL"></asp:ListItem>
+                <asp:ListItem Text="SBI General Insurance" Value="GI"></asp:ListItem>
+                <asp:ListItem Text="SBI Home Loan" Value="HL"></asp:ListItem>
+                <asp:ListItem Text="SBI Car Loan" Value="CL"></asp:ListItem>
+                <asp:ListItem Text="SBI Credit Card" Value="CC"></asp:ListItem>
+                <asp:ListItem Text="SBI Mutual Fund" Value="MF"></asp:ListItem>--%>
+            </asp:DropDownList>
         </td>
     </tr>
     <tr id="trBranchRM" runat="server">
@@ -123,7 +152,7 @@
         <td>
             <asp:TextBox ID="txtAssociateName" runat="server" CssClass="txtField" Style="width: 200px;"></asp:TextBox>
             <span id="Span6" class="spnRequiredField">*</span>
-             <br />
+            <br />
             <asp:RequiredFieldValidator ID="ReqtxtAssociateName" runat="server" ErrorMessage="Please Enter Associate Name"
                 CssClass="rfvPCG" ControlToValidate="txtAssociateName" ValidationGroup="SubmitDetails"
                 Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
@@ -413,13 +442,13 @@
                     <td class="rightField">
                         <asp:TextBox ID="txtResPhoneNoIsd" runat="server" Width="30px" CssClass="txtField"
                             Enabled="false" MaxLength="3">91</asp:TextBox>
-                       <%-- <asp:TextBox ID="txtResPhoneNoStd" runat="server" Width="30px" CssClass="txtField"
+                        <%-- <asp:TextBox ID="txtResPhoneNoStd" runat="server" Width="30px" CssClass="txtField"
                             MaxLength="3"></asp:TextBox>--%>
                         <asp:TextBox ID="txtResPhoneNo" runat="server" Width="90px" CssClass="txtField" MaxLength="11"></asp:TextBox>
                         <asp:CompareValidator ID="txtResPhoneNoIsd_CompareValidator" ControlToValidate="txtResPhoneNoIsd"
                             runat="server" Display="Dynamic" ValidationGroup="Contact" ErrorMessage="<br />Please enter a numeric value for ISD code."
                             Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
-                       <%-- <asp:CompareValidator ID="txtResPhoneNoStd_CompareValidator" ControlToValidate="txtResPhoneNoStd"
+                        <%-- <asp:CompareValidator ID="txtResPhoneNoStd_CompareValidator" ControlToValidate="txtResPhoneNoStd"
                             runat="server" Display="Dynamic" ValidationGroup="Contact" ErrorMessage="<br /> Please enter a numeric value for STD code."
                             Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>--%>
                         <asp:CompareValidator ID="txtResPhoneNo_CompareValidator" ControlToValidate="txtResPhoneNo"
@@ -452,13 +481,13 @@
                     <td class="rightField">
                         <asp:TextBox ID="txtOfcPhoneNoIsd" runat="server" Width="30px" CssClass="txtField"
                             Enabled="false" MaxLength="3">91</asp:TextBox>
-                       <%-- <asp:TextBox ID="txtOfcPhoneNoStd" runat="server" Width="30px" CssClass="txtField"
+                        <%-- <asp:TextBox ID="txtOfcPhoneNoStd" runat="server" Width="30px" CssClass="txtField"
                             MaxLength="3"></asp:TextBox>--%>
                         <asp:TextBox ID="txtOfcPhoneNo" runat="server" Width="90px" CssClass="txtField" MaxLength="11"></asp:TextBox>
                         <asp:CompareValidator ID="txtOfcPhoneNoIsd_CompareValidator" ControlToValidate="txtOfcPhoneNoIsd"
                             runat="server" Display="Dynamic" ValidationGroup="Contact" ErrorMessage="<br />Please enter a numeric value for ISD code."
                             Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
-                    <%--    <asp:CompareValidator ID="txtOfcPhoneNoStd_CompareValidator" ControlToValidate="txtOfcPhoneNoStd"
+                        <%--    <asp:CompareValidator ID="txtOfcPhoneNoStd_CompareValidator" ControlToValidate="txtOfcPhoneNoStd"
                             runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for STD code."
                             Type="Integer" Operator="DataTypeCheck" ValidationGroup="Contact" CssClass="cvPCG"></asp:CompareValidator>--%>
                         <asp:CompareValidator ID="txtOfcPhoneNo_CompareValidator" ControlToValidate="txtOfcPhoneNo"
@@ -1448,29 +1477,24 @@
                 </tr>
                 <tr>
                     <td class="leftField">
-                   <asp:Panel ID="pnl" runat="server" Width="1010px" ScrollBars="Horizontal">
-                        <table id="tableGrid" runat="server" width="100%">
-                            <tr>
-                                <td align="left">
-                                    <asp:LinkButton ID="lbkbtnAddChildCodes" Enabled="false" Visible="true"  CssClass="LinkButtons" runat="server"
-                                        OnClick="lnkBtnChildCodes_Click">Add Child Codes</asp:LinkButton>
-                                    
-                                </td>
-                                <td>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="left">
-                                    <asp:Label ID="lblChildCodeList" runat="server" Text="ChildCode List"  CssClass="FieldName"></asp:Label>
-                                 
-                                   
-                                    <asp:Label ID="lblChildCodeListView" runat="server" CssClass="txtField"></asp:Label>
-                                      </td> 
-                               
-                            </tr>
-                          
-                        </table>
-                       </asp:Panel>  
+                        <asp:Panel ID="pnl" runat="server" Width="1010px" ScrollBars="Horizontal">
+                            <table id="tableGrid" runat="server" width="100%">
+                                <tr>
+                                    <td align="left">
+                                        <asp:LinkButton ID="lbkbtnAddChildCodes" Enabled="false" Visible="true" CssClass="LinkButtons"
+                                            runat="server" OnClick="lnkBtnChildCodes_Click">Add Child Codes</asp:LinkButton>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">
+                                        <asp:Label ID="lblChildCodeList" runat="server" Text="ChildCode List" CssClass="FieldName"></asp:Label>
+                                        <asp:Label ID="lblChildCodeListView" runat="server" CssClass="txtField"></asp:Label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </asp:Panel>
                     </td>
                 </tr>
             </table>

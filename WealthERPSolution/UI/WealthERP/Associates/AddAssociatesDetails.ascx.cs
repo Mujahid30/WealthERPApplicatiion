@@ -65,6 +65,7 @@ namespace WealthERP.Associates
                 BindRegistration();
                 BindAccountType();
                 BindBankName();
+                BindAssociatetype();
                 BindState();
                 BindQualification();
                 BindClassification();
@@ -327,9 +328,9 @@ namespace WealthERP.Associates
 
                 txtMicr.Enabled = true;
                 txtIfsc.Enabled = true;
-                ddlCategory.Enabled = true;
-                txtRegNo.Enabled = true;
-                txtRegExpDate.Enabled = true;
+                //ddlCategory.Enabled = true;
+                //txtRegNo.Enabled = true;
+                //txtRegExpDate.Enabled = true;
 
 
                 txtNomineeName.Enabled = true;
@@ -524,8 +525,8 @@ namespace WealthERP.Associates
             if (associatesVo.IFSC != null)
                 txtIfsc.Text = associatesVo.IFSC;
 
-            if (associatesVo.ExpiryDate != DateTime.MinValue)
-                txtRegExpDate.SelectedDate = associatesVo.ExpiryDate;
+            //if (associatesVo.ExpiryDate != DateTime.MinValue)
+            //    txtRegExpDate.SelectedDate = associatesVo.ExpiryDate;
             txtBankMobile.Text = associatesVo.BankMobile.ToString();
             txtBankEmail.Text = associatesVo.BankEmail;
             if (associatesVo.BankUpdatedDate != DateTime.MinValue)
@@ -1920,7 +1921,7 @@ namespace WealthERP.Associates
             if (ddlBranch.SelectedIndex == 0) return;
             else
             {
-                string sampleAssociateCode = associatesBo.GetSampleAssociateCode(advisorVo.advisorId, Convert.ToInt32(ddlBranch.SelectedValue));
+                string sampleAssociateCode = associatesBo.GetSampleAssociateCode(advisorVo.advisorId, Convert.ToInt32(ddlBranch.SelectedValue),"BranchType");
                 txtAdviserAgentCode.Text = sampleAssociateCode;
             }
         }
@@ -2021,6 +2022,50 @@ namespace WealthERP.Associates
             }
             string redirectPath = ConfigurationManager.AppSettings["WEL_COME_LETER_QUERY_STRING"].ToString();
             Response.Redirect(redirectPath + associateid);
+        }
+
+        protected void ddlType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (Request.QueryString["action"] != "" && Request.QueryString["action"] != null)
+            {
+                if (Request.QueryString["action"].Trim() == "Edit" || Request.QueryString["action"].Trim() == "View")
+                {
+                    return;
+                }
+            }
+            if (ddlType.SelectedIndex == 0) return;
+            else
+            {
+                string sampleAssociateCode = associatesBo.GetSampleAssociateCode(advisorVo.advisorId, Convert.ToInt32(ddlType.SelectedValue),"ProductType");
+                txtAdviserAgentCode.Text = sampleAssociateCode;
+            }
+        }
+
+        private void BindAssociatetype()
+        {
+            DataTable dtAssociatetype = new DataTable();
+            dtAssociatetype = associatesBo.GetAssociatetype();
+            ddlType.DataSource = dtAssociatetype;
+            ddlType.DataValueField = dtAssociatetype.Columns["AMPL_ID"].ToString();
+            ddlType.DataTextField = dtAssociatetype.Columns["AMPL_ProductName"].ToString();
+            ddlType.DataBind();
+            ddlType.Items.Insert(0, new ListItem("Select", "Select"));
+        }
+
+        protected void ddlSource_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlSource.SelectedValue.ToString() != "1")
+            {
+
+                ddlType.Visible = true;
+                Label19.Visible = true;
+            }
+            else
+            {
+                ddlType.Visible = false;
+                Label19.Visible = false;
+            }
+
         }
     }
 }
