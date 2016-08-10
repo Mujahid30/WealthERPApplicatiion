@@ -528,7 +528,7 @@ namespace DaoCommisionManagement
         }
 
         public int CreateCommissionStructureRule(CommissionStructureRuleVo commissionStructureRuleVo, int userId, string ruleHash)
-        {
+            {
             Database db;
             DbCommand cmdCreateCommissionStructureRule;
             int CommissionRuleId = 0;
@@ -550,11 +550,11 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_IsTDSReduced", DbType.Int16, commissionStructureRuleVo.IsTDSReduced);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSM_IsOtherTaxReduced", DbType.Int16, commissionStructureRuleVo.IsOtherTaxReduced);
 
-                if (commissionStructureRuleVo.MinInvestmentAmount != 0)
+                if (!string.IsNullOrEmpty(commissionStructureRuleVo.MinInvestmentAmount.ToString()))
                 {
                     db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_MinInvestmentAmount", DbType.Decimal, commissionStructureRuleVo.MinInvestmentAmount);
                 }
-                if (commissionStructureRuleVo.MaxInvestmentAmount != 0)
+                if (!string.IsNullOrEmpty(commissionStructureRuleVo.MaxInvestmentAmount.ToString()))
                 {
                     db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_MaxInvestmentAmount", DbType.Decimal, commissionStructureRuleVo.MaxInvestmentAmount);
                 }
@@ -1160,12 +1160,12 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_IsTDSReduced", DbType.Int16, commissionStructureRuleVo.IsTDSReduced);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_IsOtherTaxReduced", DbType.Int16, commissionStructureRuleVo.IsOtherTaxReduced);
 
-                if (commissionStructureRuleVo.MinInvestmentAmount != 0)
+                if  (!string.IsNullOrEmpty(commissionStructureRuleVo.MinInvestmentAmount.ToString()))
                 {
                     db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_MinInvestmentAmount", DbType.Decimal, commissionStructureRuleVo.MinInvestmentAmount);
 
                 }
-                if (commissionStructureRuleVo.MaxInvestmentAmount != 0)
+                if (!string.IsNullOrEmpty(commissionStructureRuleVo.MaxInvestmentAmount.ToString()))
                 {
                     db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_MaxInvestmentAmount", DbType.Decimal, commissionStructureRuleVo.MaxInvestmentAmount);
                 }

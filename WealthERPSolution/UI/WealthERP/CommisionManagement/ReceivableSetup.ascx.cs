@@ -278,7 +278,6 @@ namespace WealthERP.Receivable
                 RadGridStructureRule.MasterTableView.GetColumn("ACSR_AUMMonth").Visible = false;
                 RadGridStructureRule.MasterTableView.GetColumn("ACSR_InvestmentAgeUnit").Visible = false;
                 RadGridStructureRule.MasterTableView.GetColumn("ACSR_TransactionType").Visible = false;
-                RadGridStructureRule.MasterTableView.GetColumn("Edit").Visible = false;
                 RadGridStructureRule.MasterTableView.GetColumn("ACSR_MinInvestmentAge").Visible = true;
                 RadGridStructureRule.MasterTableView.GetColumn("ACSR_MaxInvestmentAge").Visible = true;
 
@@ -1129,8 +1128,9 @@ namespace WealthERP.Receivable
                     {
                         if (ViewState["gridEdit"].ToString() != "1")
                         {
-                            RadGridStructureRule.MasterTableView.GetColumn("Edit1").Visible = true;
-                            RadGridStructureRule.MasterTableView.GetColumn("Update").Visible = true;
+                            RadGridStructureRule.MasterTableView.GetColumn("Edit1").Visible = false;
+                            RadGridStructureRule.MasterTableView.GetColumn("Edit").Visible = true;
+                            RadGridStructureRule.MasterTableView.GetColumn("Update").Visible = false;
                             RadGridStructureRule.MasterTableView.GetColumn("Delete").Visible = true;
                             txtReceivableValue.Enabled = false;
                             txtPaybleValue.Enabled = false;
@@ -1187,6 +1187,8 @@ namespace WealthERP.Receivable
                 CheckBox chkCategory = (CheckBox)e.Item.FindControl("chkCategory");
                 CheckBox chkSeries = (CheckBox)e.Item.FindControl("chkSeries");
                 CheckBox chkMode = (CheckBox)e.Item.FindControl("chkMode");
+                CheckBox check = (CheckBox)e.Item.FindControl("ChkIsclowBack");
+                TextBox txtbox = (TextBox)e.Item.FindControl("txtClawBackAge");
                 System.Web.UI.HtmlControls.HtmlTableCell tdddlSeries = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdddlSeries");
                 System.Web.UI.HtmlControls.HtmlTableCell tdlblSerise = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdlblSerise");
                 System.Web.UI.HtmlControls.HtmlTableCell tdlblMode = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdlblMode");
@@ -1222,7 +1224,8 @@ namespace WealthERP.Receivable
                 if (ddlProductType.SelectedValue == "MF")
                 {
                     trCity.Visible = true;
-                    RadGridStructureRule.MasterTableView.GetColumn("Edit").Visible = false;
+                    RadGridStructureRule.MasterTableView.GetColumn("Edit").Visible = true;
+                    RadGridStructureRule.MasterTableView.GetColumn("Edit1").Visible = false;
                     RadGridStructureRule.MasterTableView.GetColumn("Delete").Visible = false;
 
                 }
@@ -1283,9 +1286,9 @@ namespace WealthERP.Receivable
                 if (ddlProductType.SelectedValue == "MF")
                 {
                     ShowHideControlsForRulesBasedOnProduct(true, e);
-                    RadGridStructureRule.MasterTableView.GetColumn("Edit").Visible = false;
+                    RadGridStructureRule.MasterTableView.GetColumn("Edit").Visible = true;
                     RadGridStructureRule.MasterTableView.GetColumn("Delete").Visible = true;
-                    RadGridStructureRule.MasterTableView.GetColumn("Edit1").Visible = true;
+                    RadGridStructureRule.MasterTableView.GetColumn("Edit1").Visible = false;
 
                 }
                 else
@@ -1351,8 +1354,10 @@ namespace WealthERP.Receivable
                 CheckBox chkMode = (CheckBox)editform.FindControl("chkMode");
                 CheckBox chkEForm = (CheckBox)editform.FindControl("chkEForm");
                 Label lblApplyTaxes = (Label)editform.FindControl("lblApplyTaxes");
-                CheckBox check = (CheckBox)editform.FindControl("chkCloBack");
+                CheckBox chkCloBack = (CheckBox)editform.FindControl("chkCloBack");
 
+                TextBox txtClawBackAge = (TextBox)e.Item.FindControl("txtAge");
+              
                 System.Web.UI.HtmlControls.HtmlTableRow trDateValidation = (System.Web.UI.HtmlControls.HtmlTableRow)e.Item.FindControl("trDateValidation");
                 System.Web.UI.HtmlControls.HtmlTableRow trCity = (System.Web.UI.HtmlControls.HtmlTableRow)e.Item.FindControl("trCity");
                 System.Web.UI.HtmlControls.HtmlTableCell tdlblClock = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdlblClock");
@@ -1361,9 +1366,9 @@ namespace WealthERP.Receivable
                 {
                     trDateValidation.Visible = false;
                     trCity.Visible = true;
-                    RadGridStructureRule.MasterTableView.GetColumn("Edit").Visible = false;
+                    RadGridStructureRule.MasterTableView.GetColumn("Edit").Visible = true;
                     RadGridStructureRule.MasterTableView.GetColumn("Delete").Visible = true;
-                    RadGridStructureRule.MasterTableView.GetColumn("Edit1").Visible = true;
+                    RadGridStructureRule.MasterTableView.GetColumn("Edit1").Visible = false;
 
                 }
                 if (ddlProductType.SelectedValue != "MF")
@@ -1458,6 +1463,11 @@ namespace WealthERP.Receivable
                     string strIsOtherTaxReduced = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSM_IsOtherTaxReduced"].ToString();
                     string IncentiveType = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ASCR_WCMV_IncentiveType"].ToString();
                     string incentiveAge = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_InvestmentAgeUnit"].ToString();
+                    bool IsClaWback=false;
+                    if (!string.IsNullOrEmpty(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_IsClaWback"].ToString()))
+                        IsClaWback = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_IsClaWback"].ToString()=="1"?true:false;
+                    string ClawBackAge = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_ClawBackAge"].ToString();
+                    
 
                     if (RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AID_IssueDetailId"].ToString() != string.Empty)
                     {
@@ -1493,7 +1503,8 @@ namespace WealthERP.Receivable
                     ddlAppCityGroup.SelectedValue = strCityGroupID;
                     ddlReceivableFrequency.SelectedValue = strReceivableRuleFrequency;
                     ddlCommissionApplicableLevel.SelectedValue = "TR";
-
+                    chkCloBack.Checked = IsClaWback;
+                    txtClawBackAge.Text = ClawBackAge;
                     foreach (ListItem chkItems in chkListApplyTax.Items)
                     {
 
@@ -1518,7 +1529,7 @@ namespace WealthERP.Receivable
                     ddlCommissionType.SelectedValue = strCommissionType;
                     ShowAndHideSTructureRuleControlsBasedOnProductAndCommisionType(lblReceivableFrequency, ddlReceivableFrequency, trTransactionTypeSipFreq, tdlb1SipFreq, tdddlSipFreq, trMinMaxTenure, trMinMaxAge, tdMinNumberOfApplication, tdtxtMinNumberOfApplication1, ddlProductType.SelectedValue, ddlCommissionType.SelectedValue
                         , lblMinNumberOfApplication, txtMinNumberOfApplication, lblSIPFrequency, ddlSIPFrequency, ddlTransaction, chkListTtansactionType, lblTransactionType, ddlCommisionCalOn, ddlCommissionApplicableLevel
-                        , lblMaxNumberOfApplication, tdlb1MaxNumberOfApplication, tdtxtMaxNumberOfApplication, txtMaxNumberOfApplication, trMinAndMaxNumberOfApplication, trMinMAxInvAmount, tdlblApplicationNo, tdApplicationNo, trincentive, ddlIncentiveType, ddlCommissionType, check, tdlblClock);
+                        , lblMaxNumberOfApplication, tdlb1MaxNumberOfApplication, tdtxtMaxNumberOfApplication, txtMaxNumberOfApplication, trMinAndMaxNumberOfApplication, trMinMAxInvAmount, tdlblApplicationNo, tdApplicationNo, trincentive, ddlIncentiveType, ddlCommissionType, chkCloBack, tdlblClock);
 
 
                     ddlInvestorType.SelectedValue = strCustomerCategory;
@@ -1738,9 +1749,15 @@ namespace WealthERP.Receivable
             {
 
                 string sbRuleHash = commisionReceivableBo.GetHash(commissionStructureRuleVo);
-
-                commissionStructureRuleVo.CommissionStructureRuleId = Convert.ToInt32(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_CommissionStructureRuleId"].ToString());
-                commisionReceivableBo.UpdateCommissionStructureRule(commissionStructureRuleVo, userVo.UserId, sbRuleHash);
+                if (!string.IsNullOrEmpty(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_CommissionStructureRuleId"].ToString()))
+                {
+                    commissionStructureRuleVo.CommissionStructureRuleId = Convert.ToInt32(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_CommissionStructureRuleId"].ToString());
+                    commisionReceivableBo.UpdateCommissionStructureRule(commissionStructureRuleVo, userVo.UserId, sbRuleHash);
+                }
+                else
+                {
+                    RadGridStructureRule_InsertCommand(source, e);
+                }
                 BindCommissionStructureRuleGrid(Convert.ToInt32(hidCommissionStructureName.Value));
 
             }
@@ -1936,10 +1953,8 @@ namespace WealthERP.Receivable
                 commissionStructureRuleVo.ReceivableFrequency = ddlReceivableFrequency.SelectedValue;
                 commissionStructureRuleVo.ApplicableLevelCode = "TR";
                 commissionStructureRuleVo.applicationNo = txtApplicationNo.Text;
-
-                commissionStructureRuleVo.RuleValidateFrom = Convert.ToDateTime(txtRuleValidityFrom.Text);
-                commissionStructureRuleVo.RuleValidateTo = Convert.ToDateTime(txtRuleValidityTo.Text);
-
+                commissionStructureRuleVo.RuleValidateFrom = Convert.ToDateTime(txtValidityFrom.Text);
+                commissionStructureRuleVo.RuleValidateTo = Convert.ToDateTime(txtValidityTo.Text);
 
                 if (chkListApplyTax.Items[0].Selected)
                 {
@@ -2568,7 +2583,7 @@ namespace WealthERP.Receivable
                 ViewState["gridEdit"] = 1;
                 dtStructureRules = Createtable(dtStructureRules);
                 RadGridStructureRule.MasterTableView.GetColumn("Update").Visible = false;
-                RadGridStructureRule.MasterTableView.GetColumn("Edit").Visible = false;
+                RadGridStructureRule.MasterTableView.GetColumn("Edit").Visible = true;
                 RadGridStructureRule.MasterTableView.GetColumn("Delete").Visible = false;
                 RadGridStructureRule.MasterTableView.GetColumn("Edit1").Visible = false;
                 btnCreateRule.Visible = true;
@@ -3453,8 +3468,8 @@ namespace WealthERP.Receivable
             TextBox txtRuleValidityFrom = (TextBox)e.Item.FindControl("txtRuleValidityFrom");
             TextBox txtRuleValidityTo = (TextBox)e.Item.FindControl("txtRuleValidityTo");
             bool result = true;
-            DateTime start = Convert.ToDateTime(txtRuleValidityFrom.Text);
-            DateTime end = Convert.ToDateTime(txtRuleValidityTo.Text);
+            DateTime start = Convert.ToDateTime(txtValidityFrom.Text);
+            DateTime end = Convert.ToDateTime(txtValidityTo.Text);
             if (!(start >= Convert.ToDateTime(hdnStructValidFrom.Value) && end <= Convert.ToDateTime(hdnStructValidTill.Value)))
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select rule start and rule end date as on structure date');", true);
@@ -3943,7 +3958,7 @@ namespace WealthERP.Receivable
                     }
                     //if (hdneligible.Value != "")
                     //{
-                        chkListrate.Enabled = false;
+                    chkListrate.Enabled = false;
 
                     //}
                 }
@@ -4067,8 +4082,8 @@ namespace WealthERP.Receivable
                 drRulecreate["TRXNType"] = "NonSIP";
                 drRulecreate["S_Tax"] = (!string.IsNullOrEmpty(txtServiceTex.Text)) ? Convert.ToDecimal(txtServiceTex.Text) : 0;
                 drRulecreate["TDS"] = (!string.IsNullOrEmpty(txtTDSTex.Text)) ? Convert.ToDecimal(txtTDSTex.Text) : 0;
-                drRulecreate["MinAmt"] = (!string.IsNullOrEmpty(txtMinInvestmentAmount.Text)) ? Convert.ToDecimal(txtMinInvestmentAmount.Text) : 0;//RadGridStructureRule.MasterTableView.DataKeyValues[radItem.ItemIndex]["ACSR_MinInvestmentAmount"];
-                drRulecreate["MaxAmt"] = (!string.IsNullOrEmpty(txtMaxInvestmentAmount.Text)) ? Convert.ToDecimal(txtMaxInvestmentAmount.Text) : 0;//RadGridStructureRule.MasterTableView.DataKeyValues[radItem.ItemIndex]["ACSR_MaxInvestmentAmount"];
+                drRulecreate["MinAmt"] = (!string.IsNullOrEmpty(txtMinInvestmentAmount.Text)) ? Convert.ToDecimal(txtMinInvestmentAmount.Text) : 1;//RadGridStructureRule.MasterTableView.DataKeyValues[radItem.ItemIndex]["ACSR_MinInvestmentAmount"];
+                drRulecreate["MaxAmt"] = (!string.IsNullOrEmpty(txtMaxInvestmentAmount.Text)) ? Convert.ToDecimal(txtMaxInvestmentAmount.Text) : 1;//RadGridStructureRule.MasterTableView.DataKeyValues[radItem.ItemIndex]["ACSR_MaxInvestmentAmount"];
                 if (minage == "N/A" || minage == "0")
                     drRulecreate["MinAge"] = "0";
                 else
@@ -4105,7 +4120,7 @@ namespace WealthERP.Receivable
                 btnCreateRule.Visible = false;
                 RadGridStructureRule.MasterTableView.GetColumn("Edit1").Visible = true;
                 RadGridStructureRule.MasterTableView.GetColumn("Delete").Visible = true;
-     
+
 
             }
         }
@@ -4173,12 +4188,31 @@ namespace WealthERP.Receivable
         protected void chkCloBack_OnCheckedChanged(object sender, EventArgs e)
         {
             CheckBox chk = (CheckBox)sender;
-            GridEditFormInsertItem gvr = (GridEditFormInsertItem)chk.NamingContainer;
-            CheckBox check = (CheckBox)gvr.FindControl("chkCloBack");
-            Label lnkEdit = (Label)gvr.FindControl("lblClock");
-            TextBox txtbox = (TextBox)gvr.FindControl("txtAge");
-            System.Web.UI.HtmlControls.HtmlTableCell tdlblClock = (System.Web.UI.HtmlControls.HtmlTableCell)gvr.FindControl("tdlblClock");
-            RequiredFieldValidator RequiredFieldValidator15 = (RequiredFieldValidator)gvr.FindControl("RequiredFieldValidator15");
+            CheckBox check = new CheckBox();
+            Label lnkEdit = new Label();
+            TextBox txtbox = new TextBox();
+            RequiredFieldValidator RequiredFieldValidator15 = new RequiredFieldValidator();
+            System.Web.UI.HtmlControls.HtmlTableCell tdlblClock = new System.Web.UI.HtmlControls.HtmlTableCell();
+
+            if (chk.NamingContainer is Telerik.Web.UI.GridEditFormItem)
+            {
+                GridEditFormItem gvr = (GridEditFormItem)chk.NamingContainer;
+                check = (CheckBox)gvr.FindControl("chkCloBack");
+                lnkEdit = (Label)gvr.FindControl("lblClock");
+                txtbox = (TextBox)gvr.FindControl("txtAge");
+                tdlblClock = (System.Web.UI.HtmlControls.HtmlTableCell)gvr.FindControl("tdlblClock");
+                RequiredFieldValidator15 = (RequiredFieldValidator)gvr.FindControl("RequiredFieldValidator15");
+            }
+            else if (chk.NamingContainer is Telerik.Web.UI.GridEditFormInsertItem)
+            {
+                GridEditFormInsertItem gvr = (GridEditFormInsertItem)chk.NamingContainer;
+                check = (CheckBox)gvr.FindControl("chkCloBack");
+                lnkEdit = (Label)gvr.FindControl("lblClock");
+                txtbox = (TextBox)gvr.FindControl("txtAge");
+                tdlblClock = (System.Web.UI.HtmlControls.HtmlTableCell)gvr.FindControl("tdlblClock");
+                RequiredFieldValidator15 = (RequiredFieldValidator)gvr.FindControl("RequiredFieldValidator15");
+            }
+
 
             if (chk.Checked == true)
             {
