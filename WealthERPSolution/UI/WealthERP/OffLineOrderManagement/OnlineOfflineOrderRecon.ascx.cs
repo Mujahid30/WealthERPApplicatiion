@@ -19,7 +19,7 @@ namespace WealthERP.OffLineOrderManagement
         UserBo userBo;
         UserVo userVo;
         OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
-        AdvisorVo advisorVo;
+        AdvisorVo advisorVo = new AdvisorVo();
         DataTable dBindOrderMissMatchDetails;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -252,7 +252,7 @@ namespace WealthERP.OffLineOrderManagement
             gvOrderRecon.DataSource = dBindOrderMissMatchDetails;
             gvOrderRecon.DataBind();
             pnlOrderRecon.Visible = true;
-            ibtExportSummary.Visible = false;
+            ibtExportSummary.Visible = true;
             HandlingLinkbuttons();
         }
 
@@ -267,7 +267,7 @@ namespace WealthERP.OffLineOrderManagement
         {
             DataTable dtBindOrderMatchDetails = new DataTable();
             dtBindOrderMatchDetails = (DataTable)Cache["OrderMatch" + userVo.UserId.ToString()];
-            rgMatch.DataSource = dtBindOrderMatchDetails;
+           // rgMatch.DataSource = dtBindOrderMatchDetails;
         }
 
         protected void gvOrderRecon_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
@@ -303,9 +303,9 @@ namespace WealthERP.OffLineOrderManagement
                 GridFooterItem FooterItem = (GridFooterItem)e.Item;
 
                 AutoCompleteExtender AutoCompleteExtender2 = (AutoCompleteExtender)e.Item.FindControl("AutoCompleteExtender2");
-                AutoCompleteExtender2.ContextKey = advisorVo.advisorId.ToString();
+              //  AutoCompleteExtender2.ContextKey = advisorVo.advisorId.ToString();
                 AutoCompleteExtender AutoCompleteExtender2_txtOrderSubbrokerCode = (AutoCompleteExtender)e.Item.FindControl("AutoCompleteExtender2_txtOrderSubbrokerCode");
-                AutoCompleteExtender2_txtOrderSubbrokerCode.ContextKey = advisorVo.advisorId.ToString();
+                //AutoCompleteExtender2_txtOrderSubbrokerCode.ContextKey = advisorVo.advisorId.ToString();
 
 
             }
