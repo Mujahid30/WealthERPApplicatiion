@@ -212,7 +212,7 @@ namespace WealthERP.Associates
                 txtCorPin.Enabled = false;
                 ddlCorState.Enabled = false;
                 txtCorCountry.Enabled = false;
-
+                ddlSource.Enabled = false;
                 txtPermAdrLine1.Enabled = false;
                 txtPermAdrLine2.Enabled = false;
                 txtPermAdrLine3.Enabled = false;
@@ -301,7 +301,7 @@ namespace WealthERP.Associates
                 txtCorPin.Enabled = true;
                 ddlCorState.Enabled = true;
                 txtCorCountry.Enabled = true;
-
+                ddlSource.Enabled = true;
                 txtPermAdrLine1.Enabled = true;
                 txtPermAdrLine2.Enabled = true;
                 txtPermAdrLine3.Enabled = true;
@@ -379,6 +379,7 @@ namespace WealthERP.Associates
             BindStaffBranchDropList(associatesVo.RMId);
             BindStaffDropList(associatesVo.adviserhirerchi);
             BinddepartDropList();
+            //BindAssociatetype();
             if (associatesVo.Departmrntid != 0)
             {
                 BindAdviserrole(associatesVo.Departmrntid);
@@ -393,6 +394,19 @@ namespace WealthERP.Associates
                         }
                     }
                 }
+            }
+            if (associatesVo.AssociateProductMappingListID == 0)
+            {
+                ddlType.Visible = false;
+                Label19.Visible = false;
+                ddlSource.SelectedValue = "1";
+            }
+            else if (associatesVo.AssociateProductMappingListID == 0)
+            {
+                ddlType.Visible = true;
+                Label19.Visible = true;
+                ddlSource.SelectedValue = "2";
+                ddlType.SelectedValue = associatesVo.AssociateProductMappingListID.ToString();
             }
             if (associatesVo.IsActive == 1)
                 chkIsActive.Checked = true;
@@ -420,6 +434,7 @@ namespace WealthERP.Associates
                 ddlRM.SelectedValue = associatesVo.RMId.ToString();
             if (associatesVo.adviserhirerchi != 0)
                 ddlTitleList.SelectedValue = associatesVo.adviserhirerchi.ToString();
+            ddlType.SelectedValue = associatesVo.AssociateProductMappingListID.ToString();
             if (associatesVo.ContactPersonName != null)
                 txtAssociateName.Text = associatesVo.ContactPersonName;
             if (associatesVo.AMFIregistrationNo != null)
@@ -862,6 +877,7 @@ namespace WealthERP.Associates
             associatesVo.RMNAme = ddlRM.SelectedItem.Text;
             associatesVo.UserRoleId = 1009;
             associatesVo.PanNo = txtPan.Text;
+            associatesVo.AssociateProductMappingListID = Convert.ToInt32(ddlType.SelectedValue);
             if (!string.IsNullOrEmpty(txtMobile1.Text))
                 associatesVo.Mobile = long.Parse(txtMobile1.Text);
             else
@@ -1088,6 +1104,7 @@ namespace WealthERP.Associates
                 associatesVo.BranchId = Convert.ToInt32(ddlBranch.SelectedValue);
             associatesVo.KYDStatus = chkKYD.Checked;
             associatesVo.FormBRecvd = chkFormB.Checked;
+            associatesVo.AssociateProductMappingListID = Convert.ToInt32(ddlType.SelectedValue);
             associatesBo.UpdateAssociateDetails(associatesVo, userId, associateid, agentcode);
             controlEnable(0);
             btnAssociateUpdate.Visible = false;

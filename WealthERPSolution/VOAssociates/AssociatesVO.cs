@@ -587,7 +587,7 @@ namespace VOAssociates
         public string EUIN { get; set; }
         public string AssociateType { get; set; }
         public string AssociateSubType { get; set; }
-
+        public int AssociateProductMappingListID { get; set; }
         #endregion
     }
 }

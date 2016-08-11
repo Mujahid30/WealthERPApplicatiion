@@ -93,6 +93,7 @@ namespace DAOAssociates
                 db.AddInParameter(completeAssociatesCmd, "@AA_IsDummyAssociate", DbType.Int32, associatesVo.IsDummy);
                 db.AddInParameter(completeAssociatesCmd, "@KYDStatus", DbType.Boolean, associatesVo.KYDStatus);
                 db.AddInParameter(completeAssociatesCmd, "@FormBRecvd", DbType.Boolean, associatesVo.FormBRecvd);
+                db.AddInParameter(completeAssociatesCmd, "@AMPL_ID", DbType.Int32, associatesVo.AssociateProductMappingListID);
 
                 if (db.ExecuteNonQuery(completeAssociatesCmd) != 0)
                 {
@@ -2334,6 +2335,8 @@ namespace DAOAssociates
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_IsDummyAssociate", DbType.Int32, associatesVo.IsDummy);
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@KYDStatus", DbType.Boolean, associatesVo.KYDStatus);
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@FormBRecvd", DbType.Boolean, associatesVo.FormBRecvd);
+                db.AddInParameter(UpdateAssociateDetailsCmd, "@AMPL_ID", DbType.Boolean, associatesVo.AssociateProductMappingListID);
+
                 if (associatesVo.ARNDate != DateTime.MinValue)
                     db.AddInParameter(UpdateAssociateDetailsCmd, "@ARNDate", DbType.DateTime, associatesVo.ARNDate);
                 else

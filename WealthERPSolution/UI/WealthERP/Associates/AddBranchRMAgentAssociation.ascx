@@ -163,10 +163,10 @@
                                                 <table>
                                                     <tr id="trRiskClassTxt" runat="server">
                                                         <td class="leftField">
-                                                            <asp:Label ID="lblChildCode" runat="server" Text="Child Code :" CssClass="FieldName"></asp:Label>
+                                                            <asp:Label ID="lblChildCode"  runat="server" Text="Child Code :" CssClass="FieldName"></asp:Label>
                                                         </td>
                                                         <td class="rightField" onkeypress="return keyPress(this, event)">
-                                                            <asp:TextBox ID="txtChildCode" CssClass="txtField" Text='<%# Bind( "AAC_AgentCode") %>'
+                                                            <asp:TextBox ID="txtChildCode" Width="230px" CssClass="txtField" Text='<%# Bind( "AAC_AgentCode") %>'
                                                                 runat="server">
                                                             </asp:TextBox><span id="Span6" class="spnRequiredField">*</span>
                                                         </td>
@@ -181,7 +181,7 @@
                                                             <asp:Label ID="lblChildName" runat="server" Text="Name:" CssClass="FieldName"></asp:Label>
                                                         </td>
                                                         <td class="rightField" onkeypress="return keyPress(this, event)">
-                                                            <asp:TextBox ID="txtChildName" CssClass="txtField" Text='<%# Bind( "ChildName") %>'
+                                                            <asp:TextBox ID="txtChildName"  Width="230px" CssClass="txtField" Text='<%# Bind( "ChildName") %>'
                                                                 runat="server"></asp:TextBox>
                                                         </td>
                                                     </tr>
@@ -190,7 +190,7 @@
                                                             <asp:Label ID="lblChildEmailId" runat="server" Text="EmailId:" CssClass="FieldName"></asp:Label>
                                                         </td>
                                                         <td class="rightField" onkeypress="return keyPress(this, event)">
-                                                            <asp:TextBox ID="txtChildEmailId" CssClass="txtField" Text='<%# Bind( "EmailId") %>'
+                                                            <asp:TextBox ID="txtChildEmailId"  Width="230px" CssClass="txtField" Text='<%# Bind( "EmailId") %>'
                                                                 runat="server">
                                                             </asp:TextBox><span id="Span3" class="spnRequiredField">*</span>
                                                         </td>
@@ -210,7 +210,7 @@
                                                             <asp:Label ID="Label3" runat="server" Text="Privilege Role:" CssClass="FieldName"></asp:Label>
                                                         </td>
                                                         <td class="rightData" colspan="5">
-                                                            <telerik:RadListBox ID="chkbldepart" runat="server" CheckBoxes="true" AutoPostBack="true"
+                                                            <telerik:RadListBox ID="chkbldepart"  Width="230px" runat="server" CheckBoxes="true" AutoPostBack="true"
                                                                 CssClass="horizontalListbox">
                                                             </telerik:RadListBox>
                                                             <span id="Span12" class="spnRequiredField">*</span>
