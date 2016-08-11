@@ -801,6 +801,9 @@
                         <td>
                             <asp:DropDownList ID="ddlMFCategory" runat="server" CssClass="cmbField">
                             </asp:DropDownList>
+                             <asp:RequiredFieldValidator ID="RequiredFieldValidator16" runat="server" ErrorMessage="Please Select category"
+                                CssClass="rfvPCG" ControlToValidate="ddlMFCategory" ValidationGroup="btnScheme_Go"
+                                Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
                         </td>
                         <td class="rightData">
                             <asp:Button ID="btn_GetAvailableSchemes" runat="server" Text="Go" CssClass="PCGButton"
@@ -1073,7 +1076,6 @@
                                     <Columns>
                                         <telerik:GridEditCommandColumn EditText="Edit" UniqueName="Edit">
                                         </telerik:GridEditCommandColumn>
-                                       
                                         <telerik:GridBoundColumn UniqueName="ACSR_CommissionStructureRuleName" HeaderText="Rule Name"
                                             DataField="ACSR_CommissionStructureRuleName">
                                             <HeaderStyle></HeaderStyle>
@@ -1087,13 +1089,13 @@
                                         <telerik:GridTemplateColumn UniqueName="ACSR_MinInvestmentAmount" HeaderText="Min. Invest Amount"
                                             DataField="ACSR_MinInvestmentAmount">
                                             <ItemTemplate>
-                                                <asp:TextBox ID="txtMinInvestmentAmount"  Width="80px" runat="server" Text='<%#Eval("ACSR_MinInvestmentAmount")%>'></asp:TextBox>
+                                                <asp:TextBox ID="txtMinInvestmentAmount" Width="80px" runat="server" Text='<%#Eval("ACSR_MinInvestmentAmount")%>' Enabled="false"></asp:TextBox>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridTemplateColumn UniqueName="ACSR_MaxInvestmentAmount" HeaderText="Max. Invest Amount"
                                             DataField="ACSR_MaxInvestmentAmount">
                                             <ItemTemplate>
-                                                <asp:TextBox ID="txtMaxInvestmentAmount"  Width="80px" runat="server" Text='<%#Eval("ACSR_MaxInvestmentAmount")%>'></asp:TextBox>
+                                                <asp:TextBox ID="txtMaxInvestmentAmount" Width="80px" runat="server" Text='<%#Eval("ACSR_MaxInvestmentAmount")%>' Enabled="false"></asp:TextBox>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridBoundColumn UniqueName="ACSR_TenureUnit" HeaderText="Tenure Unit" DataField="ACSR_TenureUnit"
@@ -1107,7 +1109,7 @@
                                         <telerik:GridTemplateColumn UniqueName="ACSR_TransactionType" HeaderText="Transaction Types"
                                             DataField="ACSR_TransactionType" Visible="false">
                                             <ItemTemplate>
-                                                <asp:Label ID="lblTransactionType" runat="server" Width="50px" Text='<%#Eval("ACSR_TransactionType")%>'></asp:Label>
+                                                <asp:Label ID="lblTransactionType" runat="server" Width="50px" Text='<%#Eval("ACSR_TransactionType")%>' Enabled="false"></asp:Label>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridBoundColumn UniqueName="ACSR_MinNumberOfApplications" HeaderText="Min. No. of App."
@@ -1136,7 +1138,7 @@
                                         <telerik:GridTemplateColumn UniqueName="ReceivableValue" HeaderStyle-Width="50px"
                                             HeaderText="Receivable Rate" DataField="RecievableValue">
                                             <ItemTemplate>
-                                                <asp:TextBox ID="txtReceivableValue" runat="server" Width="50px" Text='<%#  Eval("RecievableValue")%>'></asp:TextBox>
+                                                <asp:TextBox ID="txtReceivableValue" runat="server" Width="50px" Text='<%#  Eval("RecievableValue")%>' Enabled="false"></asp:TextBox>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <%--<telerik:GridBoundColumn UniqueName="ReceivableUnit" HeaderText="Receivable  Unit"
@@ -1145,12 +1147,12 @@
                                         <telerik:GridTemplateColumn UniqueName="PaybleValue" HeaderStyle-Width="50px" HeaderText="Payable Rate"
                                             DataField="PaybleValue">
                                             <ItemTemplate>
-                                                <asp:TextBox ID="txtPaybleValue" runat="server" Width="50px" Text='<%#Eval("PaybleValue")%>'></asp:TextBox>
+                                                <asp:TextBox ID="txtPaybleValue" runat="server" Width="50px" Text='<%#Eval("PaybleValue")%>' Enabled="false"></asp:TextBox>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridTemplateColumn HeaderStyle-Width="50px" UniqueName="Brokrage_unit" HeaderText="Brokerage Unit">
                                             <ItemTemplate>
-                                                <asp:DropDownList ID="ddlBrokrageUnit" runat="server">
+                                                <asp:DropDownList ID="ddlBrokrageUnit" runat="server" Enabled="false">
                                                     <asp:ListItem Text="Percentage" Value="PER"></asp:ListItem>
                                                     <asp:ListItem Text="Adhoc Amount" Value="ADA"></asp:ListItem>
                                                     <asp:ListItem Text="Amount Per Unit" Value="APU"></asp:ListItem>
@@ -1161,25 +1163,25 @@
                                             DataField="ACSR_IsClaWback" HeaderStyle-Width="50px">
                                             <ItemTemplate>
                                                 <asp:CheckBox ID="ChkIsclowBack" runat="server" AutoPostBack="true" CssClass="cmbFielde"
-                                                    OnCheckedChanged="ChkIsclowBack_OnCheckedChanged" Checked='<%# (Eval("ACSR_IsClaWback").ToString() == "1" ? true : false) %>' />
+                                                    OnCheckedChanged="ChkIsclowBack_OnCheckedChanged" Checked='<%# (Eval("ACSR_IsClaWback").ToString() == "1" ? true : false) %>' Enabled="false"/>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridTemplateColumn UniqueName="ACSR_ClawBackAge" HeaderText="ClawBack Age(Days)"
                                             DataField="ACSR_ClawBackAge" HeaderStyle-Width="50px">
                                             <ItemTemplate>
-                                                <asp:TextBox ID="txtClawBackAge" runat="server" Enabled="false" Width="50px" Text='<%#Eval("ACSR_ClawBackAge")%>'></asp:TextBox>
+                                                <asp:TextBox ID="txtClawBackAge" runat="server" Enabled="false" Width="50px" Text='<%#Eval("ACSR_ClawBackAge")%>' ></asp:TextBox>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridTemplateColumn UniqueName="ACSR_ServiceTaxValue" HeaderText="Service Tax Value(%)"
                                             DataField="ACSR_ServiceTaxValue" HeaderStyle-Width="50px">
                                             <ItemTemplate>
-                                                <asp:TextBox ID="txtServiceTex" runat="server" Width="50px" Text='<%#Eval("ACSR_ServiceTaxValue")%>'></asp:TextBox>
+                                                <asp:TextBox ID="txtServiceTex" runat="server" Width="50px" Text='<%#Eval("ACSR_ServiceTaxValue")%>' Enabled="false"></asp:TextBox>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridTemplateColumn UniqueName="ACSR_ReducedValue" HeaderStyle-Width="50px"
                                             HeaderText="TDS Value(%)" DataField="ACSR_ReducedValue">
                                             <ItemTemplate>
-                                                <asp:TextBox ID="txtTDSTex" runat="server" Width="50px" Text='<%#Eval("ACSR_ReducedValue")%>'></asp:TextBox>
+                                                <asp:TextBox ID="txtTDSTex" runat="server" Width="50px" Text='<%#Eval("ACSR_ReducedValue")%>' Enabled="false"></asp:TextBox>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridBoundColumn UniqueName="ACSR_MinInvestmentAge" HeaderText="Min. Invest Age"
@@ -1209,13 +1211,13 @@
                                         <telerik:GridBoundColumn UniqueName="ACSR_AUMMonth" HeaderText="AUM Month" DataField="ACSR_AUMMonth"
                                             Visible="false">
                                         </telerik:GridBoundColumn>
-                                       
                                         <telerik:GridTemplateColumn UniqueName="Edit1">
                                             <ItemTemplate>
-                                                <asp:LinkButton ID="lnkEdit" runat="server" CssClass="LinkButtons" Text="Edit" OnClick="btnruleEdit_OnClick"></asp:LinkButton>
+                                                <asp:LinkButton ID="lnkEdit" runat="server" CssClass="LinkButtons" Text="Edit" OnClick="btnruleEdit_OnClick"
+                                                    Visible="false"></asp:LinkButton>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
-                                          <telerik:GridButtonColumn CommandName="Delete" Text="Delete" ConfirmText="Do you want to delete this rule? Click OK to proceed"
+                                        <telerik:GridButtonColumn CommandName="Delete" Text="Delete" ConfirmText="Do you want to delete this rule? Click OK to proceed"
                                             UniqueName="Delete">
                                         </telerik:GridButtonColumn>
                                         <telerik:GridTemplateColumn UniqueName="Update">
@@ -1900,7 +1902,7 @@
                     <tr>
                         <td>
                             <asp:Button ID="btnCreateRule" runat="server" CssClass="PCGButton" Text="Create Rule"
-                                OnClick="btnCreateRule_OnClick" />
+                                OnClick="btnCreateRule_OnClick"  Visible="false"/>
                         </td>
                     </tr>
                 </table>
