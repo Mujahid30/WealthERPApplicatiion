@@ -801,6 +801,7 @@ namespace WealthERP
             else if (!customerVo.IsDematAccepted && ddlMode.SelectedValue == "Demat")
             {
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "ShowModal();", true);
+                return;
             }
             else if (ddlMode.SelectedValue == "Online")
             {
@@ -811,6 +812,7 @@ namespace WealthERP
             {
                 ddlMode.SelectedValue = "Online";
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "alertwq", "alert('We have taken your request for registration of your client code for BSE StAR MF segment. The same will be activated shortly.');", true);
+                return;
             }
             TimeSpan now = DateTime.Now.TimeOfDay;
             if (Session["ExchangeMode"] != null && Session["ExchangeMode"].ToString() == "Demat")
