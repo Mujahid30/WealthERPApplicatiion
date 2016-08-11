@@ -649,6 +649,8 @@ namespace WealthERP.Associates
             string mssage;
             mssage = associatesBo.CreateBulkChildCode(advisorVo.advisorId, "Create", Convert.ToInt32(txtStartingchild.Text), Convert.ToInt32(txtnofochildcode.Text), txtAgentCode.Text);
             lblMessage.Text = mssage;
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Record Generated Sucessfully.');", true);
+
 
         }
 
