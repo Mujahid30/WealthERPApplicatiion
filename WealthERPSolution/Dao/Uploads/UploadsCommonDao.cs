@@ -4473,7 +4473,7 @@ namespace DaoUploads
             return dsType;
         }
 
-        public DataSet GetCMLData(int taskId, DateTime dtReqDate, int adviserId, string category, DateTime toDate)
+        public DataSet GetCMLData(int taskId, DateTime dtReqDate, int adviserId, string category, DateTime toDate, int reqId)
         {
             DataSet dsData;
             Database db;
@@ -4483,10 +4483,17 @@ namespace DaoUploads
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbCommand = db.GetStoredProcCommand("SPROC_GetCMLData");
                 db.AddInParameter(dbCommand, "@taskId", DbType.Int32, taskId);
-                db.AddInParameter(dbCommand, "@date", DbType.DateTime, dtReqDate);
-                db.AddInParameter(dbCommand, "@ToDate", DbType.DateTime, toDate);
+                if (dtReqDate == DateTime.MinValue)
+                    db.AddInParameter(dbCommand, "@date", DbType.DateTime, DBNull.Value);
+                else
+                    db.AddInParameter(dbCommand, "@date", DbType.DateTime, dtReqDate);
+                if (toDate == DateTime.MinValue)
+                    db.AddInParameter(dbCommand, "@ToDate", DbType.DateTime, DBNull.Value);
+                else
+                    db.AddInParameter(dbCommand, "@ToDate", DbType.DateTime, toDate);
                 db.AddInParameter(dbCommand, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(dbCommand, "@category", DbType.String, category);
+                db.AddInParameter(dbCommand, "@ReqId", DbType.Int32, reqId);
                 dsData = db.ExecuteDataSet(dbCommand);
             }
             catch (BaseApplicationException Ex)
@@ -4495,7 +4502,7 @@ namespace DaoUploads
             }
             return dsData;
         }
-        public DataTable GetCMLBONCDData(int taskId, DateTime dtReqDate, int adviserId, string category,int isOnline)
+        public DataTable GetCMLBONCDData(int taskId, DateTime dtReqDate, int adviserId, string category, int isOnline)
         {
             DataSet dsData;
             Database db;
@@ -4509,7 +4516,7 @@ namespace DaoUploads
                 db.AddInParameter(dbCommand, "@category", DbType.String, category);
                 db.AddInParameter(dbCommand, "@isonline", DbType.Int32, isOnline);
 
-                
+
                 dsData = db.ExecuteDataSet(dbCommand);
             }
             catch (BaseApplicationException Ex)
@@ -4518,7 +4525,7 @@ namespace DaoUploads
             }
             return dsData.Tables[0];
         }
-        
+
         public DataSet RequestWiseRejects(int reqId)
         {
             DataSet dsReqRej;
@@ -4529,7 +4536,7 @@ namespace DaoUploads
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbCommand = db.GetStoredProcCommand("SPROC_RequestWiseRejects");
                 db.AddInParameter(dbCommand, "@reqId", DbType.Int32, reqId);
-                dbCommand.CommandTimeout=3600;
+                dbCommand.CommandTimeout = 3600;
                 dsReqRej = db.ExecuteDataSet(dbCommand);
             }
             catch (BaseApplicationException Ex)

@@ -38,13 +38,18 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::Telerik.Web.UI.RadDatePicker txtReqDate;
         protected global::Telerik.Web.UI.RadDatePicker rdpToDate;
         protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        protected global::System.Web.UI.WebControls.TextBox txtreqId;
         protected global::System.Web.UI.WebControls.DropDownList ddlIsonline;
         protected global::System.Web.UI.WebControls.DropDownList ddlProduct;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdCategory;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdProduct;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow tblMessagee;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdProductType;
-
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdreqId;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdFromD;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdToDate;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell td1;
         protected global::Telerik.Web.UI.RadGrid rgRequests;
         protected global::Telerik.Web.UI.RadGrid rgBondsGrid;
         protected global::Telerik.Web.UI.RadGrid radGridOrderDetails;

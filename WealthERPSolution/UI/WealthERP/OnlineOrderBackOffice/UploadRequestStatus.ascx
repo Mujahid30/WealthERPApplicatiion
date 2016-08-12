@@ -142,10 +142,28 @@
 </table>
 <table>
     <tr>
-        <td class="leftField">
-            <asp:Label ID="lb1date" runat="server" Text="Requested From Date:" CssClass="FieldName"></asp:Label>
+        <td id="td1" runat="server" >
+            <span class="FieldName">Filter On:</span>
+            <asp:DropDownList ID="DropDownList1" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="DropDownList1_OnSelectedIndexChanged">
+                <asp:ListItem Text="Select" Value="0"></asp:ListItem>
+                <asp:ListItem Text="Request Id" Value="1"></asp:ListItem>
+                <asp:ListItem Text="Request Date" Value="2"></asp:ListItem>
+            </asp:DropDownList>
+            <span id="Span6" class="spnRequiredField">*</span>
+            <br />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" 
+                CssClass="rfvPCG" ControlToValidate="DropDownList1" ValidationGroup="btnGo" Display="Dynamic"
+                InitialValue="0"></asp:RequiredFieldValidator>
         </td>
-        <td class="rightField">
+        <td id="tdreqId" runat="server" visible="false">
+        <asp:TextBox ID="txtreqId" runat="server" CssClass="txtField"></asp:TextBox>
+            <span id="Span5" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtreqId" ErrorMessage="<br />Please Enter the request Id"
+                Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnSubmit">
+            </asp:RequiredFieldValidator>
+        </td>
+        <td id="tdFromD" runat="server" visible="false">
+         <span class="FieldName">Requested From Date:</span>
             <telerik:RadDatePicker ID="txtReqDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
                 TabIndex="17" Width="150px" AutoPostBack="false">
@@ -163,10 +181,9 @@
                 InitialValue="" ValidationGroup="btnGo">
             </asp:RequiredFieldValidator>
         </td>
-        <td class="leftField">
-            <asp:Label ID="Label1" runat="server" Text="Requested To Date:" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightField">
+     
+     <td id="tdToDate" runat="server" visible="false">
+        <span class="FieldName">Requested From Date:</span>
             <telerik:RadDatePicker ID="rdpToDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
                 TabIndex="17" Width="150px" AutoPostBack="false">

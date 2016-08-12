@@ -56,7 +56,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             try
             {
-                DataTable dtOrderReject = uploadCommonBo.GetOrderRejectedData(Convert.ToDateTime(txtReqDate.SelectedDate), (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "FIFIIP", int.Parse(ddlIsonline.SelectedValue),Convert.ToDateTime(rdpToDate.SelectedDate));
+                DataTable dtOrderReject = uploadCommonBo.GetOrderRejectedData(Convert.ToDateTime(txtReqDate.SelectedDate), (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "FIFIIP", int.Parse(ddlIsonline.SelectedValue), Convert.ToDateTime(rdpToDate.SelectedDate));
                 if (Cache[userVo.UserId.ToString() + "OrderReject"] != null)
                     Cache.Remove(userVo.UserId.ToString() + "OrderReject");
                 Cache.Insert(userVo.UserId.ToString() + "OrderReject", dtOrderReject);
@@ -93,9 +93,21 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             try
             {
+                DateTime todate = DateTime.MinValue;
+                DateTime Fromdate = DateTime.MinValue;
+                int reqId = 0;
+                if (DropDownList1.SelectedValue == "1")
+                {
+                    reqId = Convert.ToInt32(txtreqId.Text);
+                }
+                else if (DropDownList1.SelectedValue == "2")
+                {
+                    todate = Convert.ToDateTime(rdpToDate.SelectedDate);
+                    Fromdate = Convert.ToDateTime(txtReqDate.SelectedDate);
+                }
                 DataTable dtType = new DataTable();
                 DataSet dsType = new DataSet();
-                dsType = uploadCommonBo.GetCMLData(Convert.ToInt32(ddlType.SelectedValue), Convert.ToDateTime(txtReqDate.SelectedDate), advisorVo.advisorId, (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "IP",Convert.ToDateTime(rdpToDate.SelectedDate));
+                dsType = uploadCommonBo.GetCMLData(Convert.ToInt32(ddlType.SelectedValue), Fromdate, advisorVo.advisorId, (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "IP", todate, reqId);
                 if (dsType.Tables.Count == 0)
                     return;
                 if (dsType != null)
@@ -332,14 +344,41 @@ namespace WealthERP.OnlineOrderBackOffice
                 tdProductType.Visible = true;
             }
         }
+        protected void DropDownList1_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (DropDownList1.SelectedValue == "1")
+            {
+                tdreqId.Visible = true;
+                tdToDate.Visible = false;
+                tdFromD.Visible = false;
+            }
+            if (DropDownList1.SelectedValue == "2")
+            {
+                tdreqId.Visible = false;
+                tdToDate.Visible = true;
+                tdFromD.Visible = true;
+            }
+
+        }
         protected void ddlType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             tdProduct.Visible = false;
             tdCategory.Visible = false;
             if (ddlType.SelectedValue == "11")
             {
+                td1.Visible = false;
+                tdreqId.Visible = false;
+                tdToDate.Visible = true;
+                tdFromD.Visible = true;
                 tdProduct.Visible = true;
                 tdCategory.Visible = true;
+            }
+            else
+            {
+                td1.Visible = false;
+                tdreqId.Visible = false;
+                tdToDate.Visible = false;
+                tdFromD.Visible = false;
             }
 
 
@@ -362,7 +401,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void btnReprocess_OnClick(object sender, EventArgs e)
         {
-            int i = 0,issueId=0,ProcessIds=0;
+            int i = 0, issueId = 0, ProcessIds = 0;
 
             foreach (GridDataItem dataItem in rgBondsGrid.MasterTableView.Items)
             {
@@ -444,20 +483,20 @@ namespace WealthERP.OnlineOrderBackOffice
                         drSubBrokerCode["PaymentDate"] = rgBondsGrid.MasterTableView.DataKeyValues[radItem.ItemIndex]["AIAUL_AllotmentDate"];
                         drSubBrokerCode["AIM_IssueName"] = rgBondsGrid.MasterTableView.DataKeyValues[radItem.ItemIndex]["AIM_IssueName"];
                         drSubBrokerCode["AIAUL_Id"] = rgBondsGrid.MasterTableView.DataKeyValues[radItem.ItemIndex]["AIAUL_Id"];
-                         dtSubBrokerCode.Rows.Add(drSubBrokerCode);
+                        dtSubBrokerCode.Rows.Add(drSubBrokerCode);
                     }
                 }
 
-                DataTable dtValidatedData = onlineNCDBackOfficeBo.ValidateUploadData(dtSubBrokerCode,46, "R1", ref columnNameError);
+                DataTable dtValidatedData = onlineNCDBackOfficeBo.ValidateUploadData(dtSubBrokerCode, 46, "R1", ref columnNameError);
                 ToggleUpload(dtValidatedData, issueId);
                 DataTable dtUploadData = CheckHeadersGrid(dtValidatedData);
 
                 rgBondsGrid.DataSource = dtUploadData;
                 rgBondsGrid.Rebind(); btnReprocess.Visible = false;
-                
+
             }
         }
-        private void ToggleUpload(DataTable dtUpload,int  issueId)
+        private void ToggleUpload(DataTable dtUpload, int issueId)
         {
             bool bUpload = true;
             int r = 46;
@@ -469,7 +508,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 break;
             }
 
-            if (r == 46 && bUpload==true)
+            if (r == 46 && bUpload == true)
             {
                 UploadIssueAllotmentData(dtUpload, true, issueId);
             }
@@ -479,7 +518,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
 
         }
-        public void UploadIssueAllotmentData(DataTable dtUploadData, bool IsAllotmentUpload,int issueId)
+        public void UploadIssueAllotmentData(DataTable dtUploadData, bool IsAllotmentUpload, int issueId)
         {
             string isIssueAvailable = "";
             string result = "";
@@ -489,10 +528,10 @@ namespace WealthERP.OnlineOrderBackOffice
             dtUploadData = CheckHeaders(dtUploadData);
             if (IsAllotmentUpload)
             {
-                dtAllotmentUpload = boNcdBackOff.UploadAllotmentFile(dtUploadData, 46, issueId, ref isIssueAvailable, advisorVo.advisorId, null, ref result, ddlProduct.SelectedValue, null, userVo.UserId, Convert.ToInt32(ddlType.SelectedValue), "FICGCG", ref totalOrder, ref rejectedOrders, ref acceptedOrders,int.Parse(hdnProcessId.Value),0);
+                dtAllotmentUpload = boNcdBackOff.UploadAllotmentFile(dtUploadData, 46, issueId, ref isIssueAvailable, advisorVo.advisorId, null, ref result, ddlProduct.SelectedValue, null, userVo.UserId, Convert.ToInt32(ddlType.SelectedValue), "FICGCG", ref totalOrder, ref rejectedOrders, ref acceptedOrders, int.Parse(hdnProcessId.Value), 0);
             }
 
-           
+
             else if (result != string.Empty && result != "1")
             {
                 ShowMessage(result, "W");
@@ -558,7 +597,7 @@ namespace WealthERP.OnlineOrderBackOffice
             OnlineNCDBackOfficeBo boNcdBackOff = new OnlineNCDBackOfficeBo();
             List<OnlineIssueHeader> updHeaders;
             updHeaders = boNcdBackOff.GetHeaderDetails(46, "R1");
-            
+
             foreach (OnlineIssueHeader header in updHeaders)
             {
                 if (header.IsUploadRelated == true)
@@ -568,7 +607,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         dtUploadData.Columns[header.HeaderName].ColumnName = header.ColumnName;
                     }
                 }
-               
+
             }
 
             if (dtUploadData.Columns.Contains("SN"))
@@ -597,8 +636,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 dtUploadData.Columns.Remove(dtUploadData.Columns["AIAPL_IssueId"]);
 
             }
-            
-            
+
+
             dtUploadData.AcceptChanges();
 
             return dtUploadData;
@@ -614,7 +653,7 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void BindBondIPOProductrejectedData(int processId)
         {
-            DataTable dtType = uploadCommonBo.GetCMLBONCDData(processId, Convert.ToDateTime(txtReqDate.SelectedDate), advisorVo.advisorId, (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "IP",int.Parse(ddlIsonline.SelectedValue));
+            DataTable dtType = uploadCommonBo.GetCMLBONCDData(processId, Convert.ToDateTime(txtReqDate.SelectedDate), advisorVo.advisorId, (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "IP", int.Parse(ddlIsonline.SelectedValue));
             if (Cache[userVo.UserId.ToString() + "OrderRejectdtType"] != null)
                 Cache.Remove(userVo.UserId.ToString() + "OrderRejectdtType");
             Cache.Insert(userVo.UserId.ToString() + "OrderRejectdtType", dtType);

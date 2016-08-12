@@ -4938,14 +4938,14 @@ namespace BoUploads
             }
             return dsType;
         }
-        public DataSet GetCMLData(int taskId, DateTime dtReqDate,int adviserId,string category,DateTime toDate)
+        public DataSet GetCMLData(int taskId, DateTime dtReqDate,int adviserId,string category,DateTime toDate,int reqId)
         {
             DataSet dsType = new DataSet();
             UploadsCommonDao uploadDAO = new UploadsCommonDao();
 
             try
             {
-                dsType = uploadDAO.GetCMLData(taskId, dtReqDate, adviserId, category, toDate);
+                dsType = uploadDAO.GetCMLData(taskId, dtReqDate, adviserId, category, toDate, reqId);
             }
             catch (BaseApplicationException Ex)
             {
