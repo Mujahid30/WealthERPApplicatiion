@@ -275,6 +275,8 @@ namespace WealthERP.Associates
                 txtBankEmail.Enabled = false;
                 txtBankMobile.Enabled = false;
                 rdpUpdateDate.Enabled = false;
+                ddlType.Enabled = false;
+                ddlSource.Enabled = false;
             }
             else
             {
@@ -369,6 +371,8 @@ namespace WealthERP.Associates
                 txtBankEmail.Enabled = true;
                 txtBankMobile.Enabled = true;
                 rdpUpdateDate.Enabled = true;
+                ddlType.Enabled = true;
+                ddlSource.Enabled = true;
             }
 
         }
@@ -401,7 +405,7 @@ namespace WealthERP.Associates
                 Label19.Visible = false;
                 ddlSource.SelectedValue = "1";
             }
-            else if (associatesVo.AssociateProductMappingListID == 0)
+            else if (associatesVo.AssociateProductMappingListID != 0)
             {
                 ddlType.Visible = true;
                 Label19.Visible = true;
@@ -1696,6 +1700,8 @@ namespace WealthERP.Associates
                 rdpARNDate.Enabled = false;
                 chkFormB.Enabled = false;
                 chkKYD.Enabled = false;
+                ddlType.Enabled = false;
+                ddlSource.Enabled = false;
             }
             else
             {
@@ -1717,6 +1723,8 @@ namespace WealthERP.Associates
                 lbkbtnAddChildCodes.Enabled = true;
                 ddlBranch.Enabled = true;
                 lnkBtnEdit.Visible = false;
+                ddlType.Enabled = true;
+                ddlSource.Enabled = true;
 
             }
         }
@@ -2063,15 +2071,15 @@ namespace WealthERP.Associates
             DataTable dtAssociatetype = new DataTable();
             dtAssociatetype = associatesBo.GetAssociatetype();
             ddlType.DataSource = dtAssociatetype;
-            ddlType.DataValueField = dtAssociatetype.Columns["AMPL_ID"].ToString();
-            ddlType.DataTextField = dtAssociatetype.Columns["AMPL_ProductName"].ToString();
+            ddlType.DataValueField = dtAssociatetype.Columns["WCMV_Code"].ToString();
+            ddlType.DataTextField = dtAssociatetype.Columns["WCMV_Name"].ToString();
             ddlType.DataBind();
             ddlType.Items.Insert(0, new ListItem("Select", "Select"));
         }
 
         protected void ddlSource_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlSource.SelectedValue.ToString() != "1")
+            if (ddlSource.SelectedValue== "2")
             {
 
                 ddlType.Visible = true;
@@ -2079,8 +2087,22 @@ namespace WealthERP.Associates
             }
             else
             {
+
                 ddlType.Visible = false;
                 Label19.Visible = false;
+                if (Request.QueryString["action"] != "" && Request.QueryString["action"] != null)
+                {
+                    if (Request.QueryString["action"].Trim() == "Edit" || Request.QueryString["action"].Trim() == "View")
+                    {
+                        return;
+                    }
+                }
+                if (ddlBranch.SelectedIndex == 0) return;
+                else
+                {
+                    string sampleAssociateCode = associatesBo.GetSampleAssociateCode(advisorVo.advisorId, Convert.ToInt32(ddlBranch.SelectedValue), "BranchType");
+                    txtAdviserAgentCode.Text = sampleAssociateCode;
+                }
             }
 
         }

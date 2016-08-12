@@ -93,7 +93,7 @@ namespace DAOAssociates
                 db.AddInParameter(completeAssociatesCmd, "@AA_IsDummyAssociate", DbType.Int32, associatesVo.IsDummy);
                 db.AddInParameter(completeAssociatesCmd, "@KYDStatus", DbType.Boolean, associatesVo.KYDStatus);
                 db.AddInParameter(completeAssociatesCmd, "@FormBRecvd", DbType.Boolean, associatesVo.FormBRecvd);
-                db.AddInParameter(completeAssociatesCmd, "@AMPL_ID", DbType.Int32, associatesVo.AssociateProductMappingListID);
+                db.AddInParameter(completeAssociatesCmd, "@UDN_ID", DbType.Int32, associatesVo.AssociateProductMappingListID);
 
                 if (db.ExecuteNonQuery(completeAssociatesCmd) != 0)
                 {
@@ -1367,6 +1367,8 @@ namespace DAOAssociates
                         associatesVo.BankEmail = dr["AA_BankEmail"].ToString();
                     if (!string.IsNullOrEmpty(dr["AC_CategoryId"].ToString()))
                         associatesVo.AdviserCategory = dr["AC_CategoryId"].ToString();
+                    associatesVo.AssociateProductMappingListID = Convert.ToInt32(dr["WCMV_UDNCode"].ToString());
+                    
 
                 }
             }
