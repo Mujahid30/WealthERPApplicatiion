@@ -13,7 +13,7 @@
                 <table cellspacing="0" width="100%">
                     <tr>
                         <td align="left">
-                            Add SubBroker Code
+                            Add SubBroker (Child Code)
                         </td>
                     </tr>
                 </table>
@@ -44,9 +44,10 @@
                 Text="Agent" oncheckedchanged="rbtnAgent_CheckedChanged" />
         </td>--%>
     </tr>
+    
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Generate code for:"></asp:Label>
+            <asp:Label ID="Label1" runat="server" Width="150px" CssClass="FieldName" Text="Generate code for:"></asp:Label>
         </td>
         <td class="rightField">
             <asp:DropDownList ID="ddlUserType" runat="server" CssClass="cmbField" AutoPostBack="true"
@@ -64,8 +65,8 @@
         <td class="leftField">
             <asp:Label ID="lblSelectType" runat="server" CssClass="FieldName" Text="Select:"></asp:Label>
         </td>
-        <td class="rightField">
-            <asp:DropDownList ID="ddlSelectType" runat="server" CssClass="cmbField" AutoPostBack="true"
+        <td class="leftField">
+            <asp:DropDownList ID="ddlSelectType" runat="server" Width="350px" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlSelectType_SelectedIndexChanged">
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
@@ -74,6 +75,7 @@
                 Operator="NotEqual" ValidationGroup="Submit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
     </tr>
+   
     <%--<tr>
         <td class="leftField">
             <asp:Label ID="lblNoOfCode" CssClass="FieldName" runat="server" Text="No. of code to be generated:"></asp:Label>
@@ -97,6 +99,7 @@
             <asp:Label ID="lblPanDuplicate" runat="server" CssClass="Error" Text="SubBroker Code already exists"></asp:Label>
         </td>
     </tr>
+    </table>
     <%--<tr>
         <td class="leftField">
             <asp:Label ID="lblNoOfCodes" CssClass="FieldName" runat="server" Text="AddMultiple Codes:"
@@ -110,6 +113,7 @@
                 ValidationGroup="Submit" OnClick="btnAddCode_Click" />
         </td>
     </tr>--%>
+    <table>
     <tr>
         <td>
         </td>
@@ -118,10 +122,10 @@
                 Skin="Telerik" EnableEmbeddedSkins="False" Width="100%" MultiPageID="SubbroTabPages"
                 SelectedIndex="0" EnableViewState="true">
                 <Tabs>
-                    <telerik:RadTab runat="server" Text="Single Create ChildCode" Value="rpvChildCode"
+                    <telerik:RadTab runat="server" Text="Child Codes" Value="rpvChildCode"
                         TabIndex="0">
                     </telerik:RadTab>
-                    <telerik:RadTab runat="server" Text="Add code in bulk" Value="rpvBulkChildCode"
+                    <telerik:RadTab runat="server" Text="Add codes in bulk" Value="rpvBulkChildCode"
                         TabIndex="1">
                     </telerik:RadTab>
                 </Tabs>
@@ -132,7 +136,7 @@
                         <tr>
                             <td>
                                 <telerik:RadGrid ID="gvChildCode" runat="server" Skin="Telerik" CssClass="RadGrid"
-                                    GridLines="None" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="False"
+                                    GridLines="None" AllowPaging="True" Width="600px" PageSize="10" AllowSorting="True" AutoGenerateColumns="False"
                                     ShowStatusBar="true" AllowAutomaticDeletes="false" AllowAutomaticInserts="false"
                                     OnItemCommand="gvChildCode_ItemCommand" OnItemDataBound="gvChildCode_ItemDataBound"
                                     OnNeedDataSource="gvChildCode_OnNeedDataSource" Visible="false" AllowAutomaticUpdates="false"
@@ -146,7 +150,7 @@
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn UniqueName="ChildName" HeaderText="Name" DataField="ChildName">
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridEditCommandColumn EditText="Update" UniqueName="editColumn" CancelText="Cancel"
+                                            <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
                                                 UpdateText="Edit">
                                             </telerik:GridEditCommandColumn>
                                             <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete the code?"
@@ -243,9 +247,7 @@
                 </telerik:RadPageView>
                 <telerik:RadPageView ID="rpvBulkChildCode" runat="server">
                     <table>
-                        <asp:Panel ID="pnl" runat="server" ScrollBars="Horizontal" Width="400px" >
-                            <asp:Label ID="lblMessage" Text="" Height="40%"  runat="server" CssClass="FieldName" ></asp:Label>
-                        </asp:Panel>
+                       
                         <tr>
                             <td class="leftField">
                                 <asp:Label ID="Label2" runat="server" Text="Enter Start Code :" CssClass="FieldName"></asp:Label>
@@ -263,7 +265,7 @@
                         </tr>
                         <tr>
                             <td class="leftField">
-                                <asp:Label ID="Label4" runat="server" Text="No. Of code required :" CssClass="FieldName"></asp:Label>
+                                <asp:Label ID="Label4" runat="server" Text="No. of code required :" CssClass="FieldName"></asp:Label>
                             </td>
                             <td>
                                 <asp:TextBox ID="txtnofochildcode" runat="server"></asp:TextBox>
@@ -289,6 +291,12 @@
                                     OnClick="Button4_Click" CssClass="PCGButton" />
                             </td>
                         </tr>
+                        <tr>
+                       
+                            <asp:Label ID="lblMessage" Text="" Height="40%"  runat="server" CssClass="FieldName" ></asp:Label>
+                       
+                        </tr>
+                         
                     </table>
                 </telerik:RadPageView>
             </telerik:RadMultiPage>

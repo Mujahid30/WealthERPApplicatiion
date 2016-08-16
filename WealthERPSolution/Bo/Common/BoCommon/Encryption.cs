@@ -207,6 +207,7 @@ public class Encryption
         // Convert our ciphertext into a byte array.        
        // cipherText = cipherText.Replace(" ", "+");
         byte[] cipherTextBytes = Convert.FromBase64String(cipherText.Replace('+', ' '));
+
        //  byte[] cipherTextBytes= System.Text.Encoding.Unicode.GetBytes(cipherText);
 
        

@@ -438,7 +438,6 @@ namespace WealthERP.Associates
                 ddlRM.SelectedValue = associatesVo.RMId.ToString();
             if (associatesVo.adviserhirerchi != 0)
                 ddlTitleList.SelectedValue = associatesVo.adviserhirerchi.ToString();
-            ddlType.SelectedValue = associatesVo.AssociateProductMappingListID.ToString();
             if (associatesVo.ContactPersonName != null)
                 txtAssociateName.Text = associatesVo.ContactPersonName;
             if (associatesVo.AMFIregistrationNo != null)

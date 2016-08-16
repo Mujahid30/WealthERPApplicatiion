@@ -49,8 +49,8 @@ namespace WealthERP.Advisor
                 //    trInsertMessage.Visible = false;
                 adviserstaffsmtpvo = advstaffsmtpbo.GetSMTPCredentials(advrm.RMId);
                 txtEmail.Text = adviserstaffsmtpvo.Email;
-                if (!String.IsNullOrEmpty(adviserstaffsmtpvo.Password))
-                    txtPassword.Attributes.Add("value", Encryption.Decrypt(adviserstaffsmtpvo.Password));
+                //if (!String.IsNullOrEmpty(adviserstaffsmtpvo.Password))
+                   // txtPassword.Attributes.Add("value", Encryption.Decrypt(adviserstaffsmtpvo.Password));
                 txtSMTPHost.Text = adviserstaffsmtpvo.HostServer;
                 txtSMTPPort.Text = adviserstaffsmtpvo.Port;
                 txtSenderEmailAlias.Text = adviserstaffsmtpvo.SenderEmailAlias;
