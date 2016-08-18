@@ -7851,6 +7851,7 @@
     <Content Include="Associates\ViewAgentCode.ascx" />
     <Content Include="Associates\ViewAssociateList.ascx" />
     <Content Include="Associates\ViewAssociates.ascx" />
+    <Content Include="Base\CSS\bootstrap-3.3.6.min.css" />
     <Content Include="Base\CSS\bootstrap-theme.css" />
     <Content Include="Base\CSS\bootstrap.css" />
     <Content Include="Base\CSS\bootstrap.min.css" />
@@ -8261,6 +8262,7 @@
     <Content Include="Images\Money_Touch_360_logo1.gif" />
     <Content Include="Images\msgUnRead.png" />
     <Content Include="Images\new.gif" />
+    <Content Include="Images\new_icon.gif" />
     <Content Include="Images\nologo.png" />
     <Content Include="Images\NotApplicable.png" />
     <Content Include="Images\OtherGoal.jpg" />
@@ -8466,6 +8468,7 @@
     <Content Include="Admin\UploadRejects.ascx" />
     <Content Include="Admin\ViewRepository.ascx" />
     <Content Include="Admin\WERPAdminDownloadProcessLog.ascx" />
+    <Content Include="ReferenceFiles\DematConsentLetter.htm" />
     <Content Include="ReferenceFiles\HelpAdditional Purchase.htm" />
     <Content Include="ReferenceFiles\HelpNewPurchaseInformation.htm" />
     <Content Include="ReferenceFiles\HelpNFO.htm" />
@@ -8504,12 +8507,14 @@
     <Content Include="Research\RiskGoalClass.ascx" />
     <Content Include="Research\RiskScore.ascx" />
     <Content Include="Research\SchemeMappingToModelPortfolio.ascx" />
+    <Content Include="Scripts\bootstrap-3.3.6.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\Dashboard.js" />
     <Content Include="Scripts\jquery-1.2.6-vsdoc.js" />
     <Content Include="Scripts\jquery-1.2.6.js" />
     <Content Include="Scripts\jquery-1.3.1.min.js" />
     <Content Include="Scripts\jquery-1.4.2.min.js" />
+    <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.7.2.custom.min.js" />
     <Content Include="Scripts\jquery.betterTooltip.js" />
     <Content Include="Scripts\jQuery.bubbletip-1.0.6.js" />
