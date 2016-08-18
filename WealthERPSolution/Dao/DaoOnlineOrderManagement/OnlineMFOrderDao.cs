@@ -574,7 +574,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetSIPAmcDetails;
         }
-        public DataSet GetOrderAmcDetails(int customerId)
+        public DataSet GetOrderAmcDetails(int customerId, Boolean IsRTA)
         {
             DataSet dsGetOrderAmcDetails;
             Database db;
@@ -584,6 +584,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetOrderAmcDetailscmd = db.GetStoredProcCommand("sproc_onl_BindAmcOrder");
                 db.AddInParameter(GetOrderAmcDetailscmd, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(GetOrderAmcDetailscmd, "@IsRTA", DbType.Boolean, IsRTA);
                 dsGetOrderAmcDetails = db.ExecuteDataSet(GetOrderAmcDetailscmd);
             }
             catch (BaseApplicationException Ex)

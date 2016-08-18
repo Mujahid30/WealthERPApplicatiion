@@ -82,7 +82,7 @@ namespace WealthERP.OnlineOrderManagement
 
             DataTable dtGetAMCList = new DataTable();
             CommonLookupBo commonLookupBo = new CommonLookupBo();
-            dtGetAMCList = commonLookupBo.GetProdAmc(0, true);
+            dtGetAMCList = commonLookupBo.GetProdAmc(0, exchangeType == "Online" ? true : false);
             ddlAMC1.DataSource = dtGetAMCList;
             ddlAMC1.DataTextField = dtGetAMCList.Columns["PA_AMCName"].ToString();
             ddlAMC1.DataValueField = dtGetAMCList.Columns["PA_AMCCode"].ToString();

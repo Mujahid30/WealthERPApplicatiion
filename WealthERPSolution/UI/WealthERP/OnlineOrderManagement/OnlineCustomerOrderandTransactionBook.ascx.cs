@@ -65,7 +65,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             DataSet ds = new DataSet();
             DataTable dtAmc = new DataTable();
-            ds = OnlineMFOrderBo.GetOrderAmcDetails(customerVO.CustomerId);
+            ds = OnlineMFOrderBo.GetOrderAmcDetails(customerVO.CustomerId, exchangeType == "Online"?true:false);
             dtAmc = ds.Tables[0];
 
             if (dtAmc.Rows.Count > 0)

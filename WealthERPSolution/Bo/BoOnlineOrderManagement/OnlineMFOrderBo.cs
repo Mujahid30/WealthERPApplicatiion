@@ -377,13 +377,13 @@ namespace BoOnlineOrderManagement
             }
             return dsGetSIPAmcDetails;
         }
-        public DataSet GetOrderAmcDetails(int customerId)
+        public DataSet GetOrderAmcDetails(int customerId, bool IsRTA)
         {
             DataSet dsGetOrderAmcDetails;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             try
             {
-                dsGetOrderAmcDetails = OnlineMFOrderDao.GetOrderAmcDetails(customerId);
+                dsGetOrderAmcDetails = OnlineMFOrderDao.GetOrderAmcDetails(customerId, IsRTA);
             }
             catch (BaseApplicationException Ex)
             {

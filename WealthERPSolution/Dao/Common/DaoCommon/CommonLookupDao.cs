@@ -50,7 +50,7 @@ namespace DaoCommon
         /// <param name="AmcCode">AMCCode for the desired AMC. '0' to return list of all AMCs</param>
         /// <returns> 
         /// DataTable containing AMC list that have only schemes</returns> 
-        public DataTable GetProductAmc(int AmcCode, bool hasOnlineShcemes)
+        public DataTable GetProductAmc(int AmcCode, bool IsRTA)
         {
             Database db;
             DbCommand cmdGetProdAmc;
@@ -61,7 +61,7 @@ namespace DaoCommon
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetProdAmc = db.GetStoredProcCommand("SP_GetProductAmc");
                 if (AmcCode > 0) db.AddInParameter(cmdGetProdAmc, "@PA_AMCCode", DbType.Int32, AmcCode);
-                if (hasOnlineShcemes) db.AddInParameter(cmdGetProdAmc, "@onlyOnlineSchemes", DbType.Boolean, hasOnlineShcemes);
+                 db.AddInParameter(cmdGetProdAmc, "@IsRTA", DbType.Boolean, IsRTA);
                 ds = db.ExecuteDataSet(cmdGetProdAmc);
             }
             catch (BaseApplicationException Ex)

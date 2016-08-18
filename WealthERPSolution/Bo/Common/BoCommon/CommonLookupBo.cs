@@ -158,12 +158,12 @@ namespace BoCommon
         /// <param name="hasOnlineShcemes">true if AMC with only online schemes, otherwise false</param>
         /// <returns> 
         /// DataTable containing AMC list</returns>
-        public DataTable GetProdAmc(int AmcCode, bool hasOnlineShcemes)
+        public DataTable GetProdAmc(int AmcCode, bool IsRTA)
         {
             DataTable dtAmc;
             try
             {
-                dtAmc = daoCommonLookup.GetProductAmc(AmcCode, hasOnlineShcemes);
+                dtAmc = daoCommonLookup.GetProductAmc(AmcCode, IsRTA);
             }
             catch (BaseApplicationException Ex)
             {
@@ -173,7 +173,7 @@ namespace BoCommon
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "CommonLookupBo.cs:GetProdAmc(int AmcCode, bool hasOnlineShcemes)");
+                FunctionInfo.Add("Method", "CommonLookupBo.cs:GetProdAmc(int AmcCode, bool IsRTA)");
                 object[] objParams = new object[1];
                 objParams[0] = AmcCode;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
