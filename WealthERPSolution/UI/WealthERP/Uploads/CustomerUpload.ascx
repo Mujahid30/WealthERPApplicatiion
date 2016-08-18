@@ -264,7 +264,7 @@
                 <asp:ListItem Value="EQTA" Enabled="false">Equity Trade Account Only</asp:ListItem>
                 <%-- <asp:ListItem Value="EQDA">Equity Demat Account Only</asp:ListItem>--%>
                 <asp:ListItem Value="EQT" Enabled="false">Equity Transaction</asp:ListItem>
-                <asp:ListItem Value="MFSS" Enabled="false">Systematic</asp:ListItem>
+                <asp:ListItem Value="MFSS" >Systematic</asp:ListItem>
                 <asp:ListItem Value="TRAIL" Enabled="false">Trail Commission</asp:ListItem>
                 <asp:ListItem Value="P">Profile Incremental</asp:ListItem>
                 <asp:ListItem Value="CM">Client Modification</asp:ListItem>
