@@ -245,7 +245,7 @@
                                 ShowStatusBar="false" ShowFooter="true" AllowPaging="true" pagesize="10" AllowSorting="true"
                                 GridLines="none" AllowAutomaticInserts="false" Skin="Telerik" EnableHeaderContextMenu="true"
                                 OnNeedDataSource="gvBulkOrderStatusList_OnNeedDataSource" OnItemDataBound="gvBulkOrderStatusList_OnDataBound"
-                                OnItemCommand="gvBulkOrderStatusList_OnItemCommand" Visible="true">
+                                OnItemCommand="gvBulkOrderStatusList_OnItemCommand">
                                 <ExportSettings HideStructureColumns="true">
                                 </ExportSettings>
                                 <MasterTableView DataKeyNames="RequestId,IssueName,RequestDateTime,FileNamePath"

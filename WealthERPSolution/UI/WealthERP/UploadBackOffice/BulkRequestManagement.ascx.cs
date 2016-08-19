@@ -37,7 +37,7 @@ namespace WealthERP.UploadBackOffice
                 multipageBulkOrderRequest.SelectedIndex = 0;
                 ddlSelectIssue.Visible = false;
                 trSelectIssueRow.Visible = false;
-                gvBulkOrderStatusList.Visible = false;
+                gvBulkOrderStatusList.Visible = true;
                 msgNoRecords.Visible = false;
 
             }
@@ -68,14 +68,14 @@ namespace WealthERP.UploadBackOffice
         {
             try
             {
-                DataSet dtBulkOrderStatusList = new DataSet();
+              //  DataSet dtBulkOrderStatusList = new DataSet();
 
                 int reqId = 0;
                 string OBT = null;
                 DateTime Fromdate = DateTime.MinValue;
                 DateTime Todate = DateTime.MinValue;
                 msgNoRecords.Visible = false;
-                gvBulkOrderStatusList.Visible = false;
+                gvBulkOrderStatusList.Visible = true;
                 if (txtRequestId.Text != "")
                 {
                     reqId = Convert.ToInt32(txtRequestId.Text);
@@ -103,22 +103,34 @@ namespace WealthERP.UploadBackOffice
                 {
                     Todate = DateTime.MinValue;
                 }
-                //string Fromdate=frmdt.ToString("yyyy-mm-dd");
-                //string Todate=todt.ToString("yyyy-mm-dd");
-                WERPTaskRequestManagementBo werpTaskRequestManagementBo = new WERPTaskRequestManagementBo();
 
+
+
+                DataSet dtBulkOrderStatusList;
+                WERPTaskRequestManagementBo werpTaskRequestManagementBo = new WERPTaskRequestManagementBo();
                 dtBulkOrderStatusList = werpTaskRequestManagementBo.GetBulkOrderStatus(reqId, OBT, Fromdate, Todate);
                 if (dtBulkOrderStatusList.Tables[0].Rows.Count > 0)
                 {
                     gvBulkOrderStatusList.Visible = true;
                     gvBulkOrderStatusList.DataSource = dtBulkOrderStatusList.Tables[0];
                     gvBulkOrderStatusList.DataBind();
+                    if (Cache["gvBulkOrderStatusList" + userVo.UserId] == null)
+                    {
+                        Cache.Insert("gvBulkOrderStatusList" + userVo.UserId, dtBulkOrderStatusList);
+                    }
+                    else
+                    {
+                        Cache.Remove("gvBulkOrderStatusList" + userVo.UserId);
+                        Cache.Insert("gvBulkOrderStatusList" + userVo.UserId, dtBulkOrderStatusList);
+                    }
+
                 }
                 else
                 {
                     msgNoRecords.Visible = true;
                     msgNoRecords.InnerText = "No records Found";
-
+                   
+                   
                 }
 
 
@@ -175,26 +187,10 @@ namespace WealthERP.UploadBackOffice
         {
             try
             {
-               // int reqId = 0;
-                DataTable dtBulkOrderStatusList = new DataTable();
-                dtBulkOrderStatusList = (DataTable)Cache["gvBulkOrderStatusList" + userVo.UserId.ToString()];
+                DataSet dtBulkOrderStatusList = new DataSet();
+                dtBulkOrderStatusList = (DataSet)Cache["gvBulkOrderStatusList" + userVo.UserId.ToString()];
                 gvBulkOrderStatusList.DataSource = dtBulkOrderStatusList;
-
-                gvBulkOrderStatusList.Visible = true;
-               
-
-                    //reqId = Convert.ToInt32(txtRequestId.Text);
-                    //string OBT = ddlIssueType.SelectedItem.Value;
-                    //DateTime Fromdate = txtReqFromDate.SelectedDate.Value;
-                    //DateTime Todate = txtReqToDate.SelectedDate.Value;
-                    //string Fromdate = frmdt.ToString("yyyy-mm-dd");
-                    //string Todate = todt.ToString("yyyy-mm-dd");
-                    //WERPTaskRequestManagementBo werpTaskRequestManagementBo = new WERPTaskRequestManagementBo();
-                    //dtBulkOrderStatusList = werpTaskRequestManagementBo.GetBulkOrderStatus(reqId, OBT, Fromdate, Todate);
-                    //gvBulkOrderStatusList.DataSource = dtBulkOrderStatusList;
-              
-
-
+                
             }
 
             catch (BaseApplicationException Ex)
@@ -264,7 +260,7 @@ namespace WealthERP.UploadBackOffice
                 ddlIssueType.SelectedValue = "0";
                 txtReqFromDate.SelectedDate = null;
                 txtReqToDate.SelectedDate = null;
-                gvBulkOrderStatusList.Visible = false;
+                gvBulkOrderStatusList.Visible = true;
             }
             else if (ddlType.SelectedValue == "RT")
             {
@@ -283,7 +279,7 @@ namespace WealthERP.UploadBackOffice
                 txtRequestId.Text = "";
                 txtReqFromDate.SelectedDate = null;
                 txtReqToDate.SelectedDate = null;
-                gvBulkOrderStatusList.Visible = false;
+                gvBulkOrderStatusList.Visible = true;
             }
             else if (ddlType.SelectedValue == "RD")
             {
@@ -300,7 +296,7 @@ namespace WealthERP.UploadBackOffice
                 rfvType2.Visible = false;
                 ddlIssueType.SelectedValue = "0";
                 txtRequestId.Text = "";
-                gvBulkOrderStatusList.Visible = false;
+                gvBulkOrderStatusList.Visible = true;
             }
         }
 
