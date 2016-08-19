@@ -375,8 +375,8 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else
             {
-                td1.Visible = false;
-                tdreqId.Visible = false;
+                td1.Visible = true;
+                tdreqId.Visible = true;
                 tdToDate.Visible = false;
                 tdFromD.Visible = false;
             }
