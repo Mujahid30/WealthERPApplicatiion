@@ -37,7 +37,7 @@ namespace WealthERP.UploadBackOffice
                 multipageBulkOrderRequest.SelectedIndex = 0;
                 ddlSelectIssue.Visible = false;
                 trSelectIssueRow.Visible = false;
-                gvBulkOrderStatusList.Visible = true;
+                gvBulkOrderStatusList.Visible = false;
                 msgNoRecords.Visible = false;
 
             }
@@ -75,7 +75,7 @@ namespace WealthERP.UploadBackOffice
                 DateTime Fromdate = DateTime.MinValue;
                 DateTime Todate = DateTime.MinValue;
                 msgNoRecords.Visible = false;
-                gvBulkOrderStatusList.Visible = true;
+                gvBulkOrderStatusList.Visible = false;
                 if (txtRequestId.Text != "")
                 {
                     reqId = Convert.ToInt32(txtRequestId.Text);
@@ -260,7 +260,7 @@ namespace WealthERP.UploadBackOffice
                 ddlIssueType.SelectedValue = "0";
                 txtReqFromDate.SelectedDate = null;
                 txtReqToDate.SelectedDate = null;
-                gvBulkOrderStatusList.Visible = true;
+                gvBulkOrderStatusList.Visible = false;
             }
             else if (ddlType.SelectedValue == "RT")
             {
@@ -279,7 +279,7 @@ namespace WealthERP.UploadBackOffice
                 txtRequestId.Text = "";
                 txtReqFromDate.SelectedDate = null;
                 txtReqToDate.SelectedDate = null;
-                gvBulkOrderStatusList.Visible = true;
+                gvBulkOrderStatusList.Visible = false;
             }
             else if (ddlType.SelectedValue == "RD")
             {
@@ -296,7 +296,7 @@ namespace WealthERP.UploadBackOffice
                 rfvType2.Visible = false;
                 ddlIssueType.SelectedValue = "0";
                 txtRequestId.Text = "";
-                gvBulkOrderStatusList.Visible = true;
+                gvBulkOrderStatusList.Visible = false;
             }
         }
 
