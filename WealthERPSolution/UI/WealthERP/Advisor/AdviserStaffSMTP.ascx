@@ -683,7 +683,7 @@
                         <span id="Span14" runat="server" class="spnRequiredField">*</span>
                         <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlAPIProvider"
                             CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Provider"
-                            Operator="NotEqual" ValidationGroup="btnSubmit" ValueToCompare="Select"></asp:CompareValidator>
+                            Operator="NotEqual" ValidationGroup="vg" ValueToCompare="Select"></asp:CompareValidator>
                     </td>
                 </tr>
                 <tr>
@@ -696,7 +696,7 @@
  <span id="Span15" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtUname"
                             CssClass="rfvPCG" ErrorMessage="<br />Please enter UserName" Display="Dynamic"
-                            runat="server" InitialValue="" ValidationGroup="btnSubmit"></asp:RequiredFieldValidator>
+                            runat="server" InitialValue="" ValidationGroup="vg"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
@@ -708,7 +708,7 @@
                         <span id="Span16" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtPassword1"
                             CssClass="rfvPCG" ErrorMessage="<br />Please enter password" Display="Dynamic"
-                            runat="server" InitialValue="" ValidationGroup="btnSubmit"></asp:RequiredFieldValidator>
+                            runat="server" InitialValue="" ValidationGroup="vg"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
                  <tr>
@@ -720,14 +720,14 @@
                         <span id="Span17" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtMemberId"
                             CssClass="rfvPCG" ErrorMessage="<br />Please enter Member ID" Display="Dynamic"
-                            runat="server" InitialValue="" ValidationGroup="btnSubmit"></asp:RequiredFieldValidator>
+                            runat="server" InitialValue="" ValidationGroup="vg"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
                     <td class="leftField">
                     </td>
                     <td class="rightField">
-                        <asp:Button ID="btnSubmit1" runat="server" Text="Save" CssClass="PCGButton" ValidationGroup="btnSubmit"
+                        <asp:Button ID="btnSubmit1" runat="server" Text="Save" CssClass="PCGButton" ValidationGroup="vg"
                             OnClick="btnSubmit1_Click" />
                     </td>
                 </tr>

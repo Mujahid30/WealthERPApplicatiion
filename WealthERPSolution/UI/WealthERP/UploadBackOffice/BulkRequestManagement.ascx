@@ -241,8 +241,8 @@
                     <td id="tdBulkOrderStatusList" runat="server">
                         <div id="DivBulkOrderStatusList" runat="server" style="width: 100%; padding-left: 5px;">
                             <telerik:RadGrid ID="gvBulkOrderStatusList" runat="server" AllowAutomaticDeletes="false"
-                                EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
-                                ShowStatusBar="false" ShowFooter="true" AllowPaging="true" AllowSorting="true"
+                                EnableEmbeddedSkins="false"  AllowFilteringByColumn="true" AutoGenerateColumns="False"
+                                ShowStatusBar="false" ShowFooter="true" AllowPaging="true" pagesize="10" AllowSorting="true"
                                 GridLines="none" AllowAutomaticInserts="false" Skin="Telerik" EnableHeaderContextMenu="true"
                                 OnNeedDataSource="gvBulkOrderStatusList_OnNeedDataSource" OnItemDataBound="gvBulkOrderStatusList_OnDataBound"
                                 OnItemCommand="gvBulkOrderStatusList_OnItemCommand" Visible="true">

@@ -68,6 +68,8 @@ namespace WealthERP.UploadBackOffice
         {
             try
             {
+                DataSet dtBulkOrderStatusList = new DataSet();
+
                 int reqId = 0;
                 string OBT = null;
                 DateTime Fromdate = DateTime.MinValue;
@@ -116,6 +118,7 @@ namespace WealthERP.UploadBackOffice
                 {
                     msgNoRecords.Visible = true;
                     msgNoRecords.InnerText = "No records Found";
+
                 }
 
 
@@ -172,16 +175,26 @@ namespace WealthERP.UploadBackOffice
         {
             try
             {
-                int reqId = 0;
-                reqId = Convert.ToInt32(txtRequestId.Text);
-                string OBT = ddlIssueType.SelectedItem.Value;
-                DateTime Fromdate = txtReqFromDate.SelectedDate.Value;
-                DateTime Todate = txtReqToDate.SelectedDate.Value;
-                //string Fromdate = frmdt.ToString("yyyy-mm-dd");
-                //string Todate = todt.ToString("yyyy-mm-dd");
-                WERPTaskRequestManagementBo werpTaskRequestManagementBo = new WERPTaskRequestManagementBo();
-                dtBulkOrderStatusList = werpTaskRequestManagementBo.GetBulkOrderStatus(reqId, OBT, Fromdate, Todate);
+               // int reqId = 0;
+                DataTable dtBulkOrderStatusList = new DataTable();
+                dtBulkOrderStatusList = (DataTable)Cache["gvBulkOrderStatusList" + userVo.UserId.ToString()];
                 gvBulkOrderStatusList.DataSource = dtBulkOrderStatusList;
+
+                gvBulkOrderStatusList.Visible = true;
+               
+
+                    //reqId = Convert.ToInt32(txtRequestId.Text);
+                    //string OBT = ddlIssueType.SelectedItem.Value;
+                    //DateTime Fromdate = txtReqFromDate.SelectedDate.Value;
+                    //DateTime Todate = txtReqToDate.SelectedDate.Value;
+                    //string Fromdate = frmdt.ToString("yyyy-mm-dd");
+                    //string Todate = todt.ToString("yyyy-mm-dd");
+                    //WERPTaskRequestManagementBo werpTaskRequestManagementBo = new WERPTaskRequestManagementBo();
+                    //dtBulkOrderStatusList = werpTaskRequestManagementBo.GetBulkOrderStatus(reqId, OBT, Fromdate, Todate);
+                    //gvBulkOrderStatusList.DataSource = dtBulkOrderStatusList;
+              
+
+
             }
 
             catch (BaseApplicationException Ex)
