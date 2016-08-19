@@ -101,6 +101,11 @@ namespace VoCommisionManagement
         public Boolean eForm { get; set; }
         public int IsClawBack { get; set; }
         public int ClawBackAge { get; set; }
+        public bool ServiceTaxInclusive { get; set; }
+        public bool IsSBCApplicable { get; set; }
+        public bool IsKKCApplicable { get; set; }
+        public decimal SBCValue { get; set; }
+        public decimal KKCValue { get; set; }
 
 
     }

@@ -1072,7 +1072,7 @@
                                     EditMode="EditForms" CommandItemSettings-AddNewRecordText="Add Rule" DataKeyNames="ACSR_CommissionStructureRuleName,ACSR_CommissionStructureRuleId,ACSR_MinTenure,WCT_CommissionTypeCode,XCT_CustomerTypeCode,ACSR_TenureUnit,
                                 ACSR_TransactionType,WCT_CommissionType,WCU_UnitCode,WCCO_CalculatedOnCode,ACSM_AUMFrequency,ACSR_MaxTenure,ACSR_SIPFrequency,ACG_CityGroupID,
                                 ACSR_ReceivableRuleFrequency,WCAL_ApplicableLevelCode,ACSR_IsServiceTaxReduced,ACSR_IsTDSReduced,ACSM_IsOtherTaxReduced,PaybleValue,RecievableValue,ACSR_ServiceTaxValue,ASCR_WCMV_IncentiveType,CO_ApplicationNo,ACSR_ValidilityStart,ACSR_ValidilityEnd,ACSR_MinInvestmentAmount,ACSR_MaxInvestmentAmount
-                                ,AID_IssueDetailId,ACSR_Mode,AIIC_InvestorCatgeoryId,ACSR_EForm,ACSR_InvestmentAgeUnit,ACSR_TenureUnit,ACSR_MinInvestmentAge,ACSR_MaxInvestmentAge,WCU_UnitCode1,RecievableValue,PaybleValue,ACSR_IsClaWback,ACSR_ClawBackAge">
+                                ,AID_IssueDetailId,ACSR_Mode,AIIC_InvestorCatgeoryId,ACSR_EForm,ACSR_InvestmentAgeUnit,ACSR_TenureUnit,ACSR_MinInvestmentAge,ACSR_MaxInvestmentAge,WCU_UnitCode1,RecievableValue,PaybleValue,ACSR_IsClaWback,ACSR_ClawBackAge,ACSR_IsServiceTaxInclusive,ACSR_IsSBCApplicable,ACSR_IsKKCApplicable,ACSR_SBCValue,ACSR_KKCValue">
                                     <Columns>
                                         <telerik:GridEditCommandColumn EditText="Edit" UniqueName="Edit">
                                         </telerik:GridEditCommandColumn>
@@ -1373,9 +1373,12 @@
                                                                 </td>
                                                                 <td>
                                                                     <asp:CheckBoxList ID="chkListApplyTax" runat="server" CssClass="txtField" RepeatDirection="Horizontal"
-                                                                        AutoPostBack="true" OnSelectedIndexChanged="chkListApplyTax_CheckChanged" Width="150px">
+                                                                        AutoPostBack="true" OnSelectedIndexChanged="chkListApplyTax_CheckChanged" Width="100%">
                                                                         <asp:ListItem Text="Service Tax" Value="ServiceTax"></asp:ListItem>
                                                                         <asp:ListItem Text="TDS" Value="TDS"></asp:ListItem>
+                                                                        <asp:ListItem Text="SBC" Value="SBC"></asp:ListItem>
+                                                                        <asp:ListItem Text="KKC" Value="KKC"></asp:ListItem>
+                                                                        <asp:ListItem Text="Tax Inclusive" Value="TI"></asp:ListItem>
                                                                     </asp:CheckBoxList>
                                                                     <%-- <asp:CheckBoxList>
                                                         <asp:CheckBox ID="chkServiceTax" runat="server" CssClass="txtField" OnCheckedChanged="chkListApplyTax_CheckChanged"
@@ -1474,12 +1477,26 @@
                                                                         runat="server" EnableViewState="false">
                                                                     </cc1:TextBoxWatermarkExtender>
                                                                 </td>
+                                                                <td>
+                                                                    <asp:TextBox ID="txtSBCValue" Text='<%# Bind( "ACSR_SBCValue") %>' runat="server"
+                                                                        CssClass="txtField" Visible="false"></asp:TextBox>
+                                                                    <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" TargetControlID="txtSBCValue" WatermarkText="Enter SBC Tax"
+                                                                        runat="server" EnableViewState="false">
+                                                                    </cc1:TextBoxWatermarkExtender>
+                                                                </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>
                                                                     <asp:TextBox ID="txtTDS" Text='<%# Bind( "ACSR_ReducedValue") %>' runat="server"
                                                                         CssClass="txtField" Visible="false"></asp:TextBox>
                                                                     <cc1:TextBoxWatermarkExtender ID="twttxtTDS" TargetControlID="txtTDS" WatermarkText="Enter  TDS Tax"
+                                                                        runat="server" EnableViewState="false">
+                                                                    </cc1:TextBoxWatermarkExtender>
+                                                                </td>
+                                                                 <td>
+                                                                    <asp:TextBox ID="txtKKCValue" Text='<%# Bind( "ACSR_KKCValue") %>' runat="server"
+                                                                        CssClass="txtField" Visible="false"></asp:TextBox>
+                                                                    <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender5" TargetControlID="txtKKCValue" WatermarkText="Enter KKC Tax"
                                                                         runat="server" EnableViewState="false">
                                                                     </cc1:TextBoxWatermarkExtender>
                                                                 </td>

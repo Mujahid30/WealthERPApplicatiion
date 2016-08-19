@@ -632,6 +632,11 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_EForm", DbType.Int32, commissionStructureRuleVo.eForm);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@IsClawBack", DbType.Int32, commissionStructureRuleVo.IsClawBack);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@ClawBack", DbType.Int32, commissionStructureRuleVo.ClawBackAge);
+                db.AddInParameter(cmdCreateCommissionStructureRule, "@ServiceTaxInclusive", DbType.Boolean, commissionStructureRuleVo.ServiceTaxInclusive);
+                db.AddInParameter(cmdCreateCommissionStructureRule, "@IsSBCApplicable", DbType.Boolean, commissionStructureRuleVo.IsSBCApplicable);
+                db.AddInParameter(cmdCreateCommissionStructureRule, "@IsKKCApplicable", DbType.Boolean, commissionStructureRuleVo.IsKKCApplicable);
+                db.AddInParameter(cmdCreateCommissionStructureRule, "@SBCValue", DbType.Decimal, commissionStructureRuleVo.SBCValue);
+                db.AddInParameter(cmdCreateCommissionStructureRule, "@KKCValue", DbType.Decimal, commissionStructureRuleVo.KKCValue);
                 db.AddOutParameter(cmdCreateCommissionStructureRule, "@CommissionRuleId", DbType.Int32, 0);
                 ////db.ExecuteNonQuery(cmdCreateCommissionStructureRule);
                 if (db.ExecuteNonQuery(cmdCreateCommissionStructureRule) != 0)
@@ -1199,33 +1204,24 @@ namespace DaoCommisionManagement
                 {
                     db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_MaxInvestmentAge", DbType.Int32, commissionStructureRuleVo.MaxInvestmentAge);
                 }
-
-
                 if (!string.IsNullOrEmpty(commissionStructureRuleVo.InvestmentAgeUnit))
                     db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_InvestmentAgeUnit", DbType.String, commissionStructureRuleVo.InvestmentAgeUnit);
-
-
                 if (!string.IsNullOrEmpty(commissionStructureRuleVo.TransactionType))
                     db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_TransactionType", DbType.String, commissionStructureRuleVo.TransactionType);
-
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_BrokerageValue", DbType.Decimal, commissionStructureRuleVo.BrokerageValue);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@WCU_UnitCode", DbType.String, commissionStructureRuleVo.BrokerageUnitCode);
-
-
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@WCCO_CalculatedOnCode", DbType.String, commissionStructureRuleVo.CalculatedOnCode);
                 if (commissionStructureRuleVo.AUMMonth != 0)
                 {
                     db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSM_AUMFrequency", DbType.String, commissionStructureRuleVo.AUMFrequency);
                     db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_AUMMonth", DbType.Int16, commissionStructureRuleVo.AUMMonth);
                 }
-
                 if (commissionStructureRuleVo.MinNumberofApplications != 0)
                     db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_MinNumberOfApplications", DbType.Int32, commissionStructureRuleVo.MinNumberofApplications);
                 if (commissionStructureRuleVo.MaxNumberofApplications != 0)
                     db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_MaxNumberOfApplications", DbType.Int32, commissionStructureRuleVo.MaxNumberofApplications);
                 if (!string.IsNullOrEmpty(commissionStructureRuleVo.StructureRuleComment))
                     db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_Comment", DbType.String, commissionStructureRuleVo.StructureRuleComment);
-
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@UsetId", DbType.Int32, userId);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_CommissionRuleHash", DbType.String, strRuleHash);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_ServiceTaxValue", DbType.Decimal, commissionStructureRuleVo.TaxValue);
@@ -1240,6 +1236,11 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_EForm", DbType.Int32, commissionStructureRuleVo.eForm);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_IsClaWback", DbType.Boolean, commissionStructureRuleVo.IsClawBack);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_ClawBackAge", DbType.Int32, commissionStructureRuleVo.ClawBackAge);
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@ServiceTaxInclusive", DbType.Boolean, commissionStructureRuleVo.ServiceTaxInclusive);
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@IsSBCApplicable", DbType.Boolean, commissionStructureRuleVo.IsSBCApplicable);
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@IsKKCApplicable", DbType.Boolean, commissionStructureRuleVo.IsKKCApplicable);
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@SBCValue", DbType.Decimal, commissionStructureRuleVo.SBCValue);
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@KKCValue", DbType.Decimal, commissionStructureRuleVo.KKCValue);
                 db.ExecuteNonQuery(cmdUpdateCommissionStructureRule);
 
             }

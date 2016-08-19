@@ -233,6 +233,8 @@ namespace WealthERP.Receivable
             CheckBoxList chkListApplyTax1 = (CheckBoxList)gdi.FindControl("chkListApplyTax");
             TextBox txtTaxValue = (TextBox)gdi.FindControl("txtTaxValue");
             TextBox txtTDS = (TextBox)gdi.FindControl("txtTDS");
+            TextBox txtSBCValue = (TextBox)gdi.FindControl("txtSBCValue");
+            TextBox txtKKCValue = (TextBox)gdi.FindControl("txtKKCValue");
             Label lblApplyTaxes = (Label)gdi.FindControl("lblApplyTaxes");
             lblApplyTaxes.Visible = false;
             if (chkListApplyTax.Items[0].Selected)
@@ -255,10 +257,32 @@ namespace WealthERP.Receivable
                 txtTDS.Visible = false;
 
             }
-            if (chkListApplyTax.Items[0].Selected && chkListApplyTax.Items[1].Selected)
+            if (chkListApplyTax.Items[2].Selected)
+            {
+                txtSBCValue.Visible = true;
+                lblApplyTaxes.Visible = true;
+            }
+            else
+            {
+                txtSBCValue.Visible = false;
+
+            }
+            if (chkListApplyTax.Items[3].Selected)
+            {
+                txtKKCValue.Visible = true;
+                lblApplyTaxes.Visible = true;
+            }
+            else
+            {
+                txtKKCValue.Visible = false;
+
+            }
+            if (chkListApplyTax.Items[0].Selected && chkListApplyTax.Items[1].Selected && chkListApplyTax.Items[2].Selected && chkListApplyTax.Items[3].Selected)
             {
                 txtTaxValue.Visible = true;
                 txtTDS.Visible = true;
+                txtKKCValue.Visible = true;
+                txtSBCValue.Visible = true;
                 lblApplyTaxes.Visible = true;
 
             }
@@ -1341,6 +1365,8 @@ namespace WealthERP.Receivable
                 Label lblApplyTaxes = (Label)editform.FindControl("lblApplyTaxes");
                 CheckBox chkCloBack = (CheckBox)editform.FindControl("chkCloBack");
                 TextBox txtClawBackAge = (TextBox)e.Item.FindControl("txtAge");
+                TextBox txtSBCValue = (TextBox)e.Item.FindControl("txtSBCValue");
+                TextBox txtKKCValue = (TextBox)e.Item.FindControl("txtKKCValue");
                 System.Web.UI.HtmlControls.HtmlTableRow trDateValidation = (System.Web.UI.HtmlControls.HtmlTableRow)e.Item.FindControl("trDateValidation");
                 System.Web.UI.HtmlControls.HtmlTableRow trCity = (System.Web.UI.HtmlControls.HtmlTableRow)e.Item.FindControl("trCity");
                 System.Web.UI.HtmlControls.HtmlTableCell tdlblClock = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdlblClock");
@@ -1446,9 +1472,10 @@ namespace WealthERP.Receivable
                     string strIsOtherTaxReduced = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSM_IsOtherTaxReduced"].ToString();
                     string IncentiveType = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ASCR_WCMV_IncentiveType"].ToString();
                     string incentiveAge = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_InvestmentAgeUnit"].ToString();
-                    bool IsClaWback=false;
+                    bool IsClaWback = false, IsServiceTaxInclusive = false, IsSBCApplicable = false, IsKKCApplicable = false;
+
                     if (!string.IsNullOrEmpty(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_IsClaWback"].ToString()))
-                        IsClaWback = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_IsClaWback"].ToString()=="1"?true:false;
+                        IsClaWback = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_IsClaWback"].ToString() == "1" ? true : false;
                     string ClawBackAge = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_ClawBackAge"].ToString();
                     if (IsClaWback)
                         txtClawBackAge.Visible = true;
@@ -1462,6 +1489,14 @@ namespace WealthERP.Receivable
                     {
                         categoryss = int.Parse(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIIC_InvestorCatgeoryId"].ToString());
                     }
+                    if (!string.IsNullOrEmpty(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_IsServiceTaxInclusive"].ToString()))
+                        IsServiceTaxInclusive =Convert.ToBoolean(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_IsServiceTaxInclusive"].ToString());
+                    if (!string.IsNullOrEmpty(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_IsSBCApplicable"].ToString()))
+                        IsSBCApplicable = Convert.ToBoolean(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_IsSBCApplicable"].ToString());
+                    if (!string.IsNullOrEmpty(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_IsKKCApplicable"].ToString()))
+                        IsKKCApplicable = Convert.ToBoolean(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_IsKKCApplicable"].ToString());
+                    string SBCValue = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_SBCValue"].ToString();
+                    string KKCValue = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_KKCValue"].ToString();
                     string mode = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_Mode"].ToString();
                     ddlIncentiveType.SelectedValue = IncentiveType;
                     if (mode != "")
@@ -1506,6 +1541,24 @@ namespace WealthERP.Receivable
                             lblApplyTaxes.Visible = true;
 
                         }
+                        else if (chkItems.Value == "SBC" & IsSBCApplicable == true)
+                        {
+                            chkItems.Selected = true;
+                            txtSBCValue.Visible = true;
+                            lblApplyTaxes.Visible = true;
+                        }
+                        else if (chkItems.Value == "KKC" & IsKKCApplicable==true)
+                        {
+                            chkItems.Selected = true;
+                            txtKKCValue.Visible = true;
+                            lblApplyTaxes.Visible = true;
+
+                        }
+                        else if (chkItems.Value == "TI" & IsServiceTaxInclusive==true)
+                        {
+                            chkItems.Selected = true;
+                        }
+
 
                     }
 
@@ -1671,7 +1724,7 @@ namespace WealthERP.Receivable
             }
             else
             {
-                
+
                 RadGridStructureRule.MasterTableView.GetColumn("Update").Visible = false;
                 RadGridStructureRule.MasterTableView.GetColumn("Edit1").Visible = true;
                 RadGridStructureRule.MasterTableView.GetColumn("Delete").Visible = true;
@@ -1900,6 +1953,8 @@ namespace WealthERP.Receivable
                 DropDownList ddlMode = (DropDownList)e.Item.FindControl("ddlMode");
                 CheckBox check = (CheckBox)e.Item.FindControl("chkCloBack");
                 TextBox txtbox = (TextBox)e.Item.FindControl("txtAge");
+                TextBox txtSBCValue = (TextBox)e.Item.FindControl("txtSBCValue");
+                TextBox txtKKCValue = (TextBox)e.Item.FindControl("txtKKCValue");
                 commissionStructureRuleVo.eForm = Convert.ToBoolean((chkEForm.Checked) ? true : false);
                 if (ddlMode.SelectedValue != "Select")
                     commissionStructureRuleVo.mode = ddlMode.SelectedValue;
@@ -1947,9 +2002,20 @@ namespace WealthERP.Receivable
                     commissionStructureRuleVo.IsTDSReduced = true;
                     commissionStructureRuleVo.TDSValue = Convert.ToDecimal(txtTDS.Text.Trim());
                 }
-
-
-
+                if (chkListApplyTax.Items[2].Selected)
+                {
+                    commissionStructureRuleVo.IsSBCApplicable = true;
+                    commissionStructureRuleVo.SBCValue = Convert.ToDecimal(txtSBCValue.Text.Trim());
+                }
+                if (chkListApplyTax.Items[3].Selected)
+                {
+                    commissionStructureRuleVo.IsKKCApplicable = true;
+                    commissionStructureRuleVo.KKCValue = Convert.ToDecimal(txtKKCValue.Text.Trim());
+                }
+                if (chkListApplyTax.Items[4].Selected)
+                {
+                    commissionStructureRuleVo.ServiceTaxInclusive = true;
+                }
                 if (!string.IsNullOrEmpty(txtMinInvestmentAmount.Text.Trim()))
                     commissionStructureRuleVo.MinInvestmentAmount = Convert.ToDecimal(txtMinInvestmentAmount.Text.Trim());
                 if (!string.IsNullOrEmpty(txtMaxInvestmentAmount.Text.Trim()))
@@ -2160,9 +2226,11 @@ namespace WealthERP.Receivable
                     ddlCommisionCalOn.Items[2].Enabled = false;
                     ddlCommisionCalOn.Items[3].Enabled = false;
                     ddlCommisionCalOn.Items[5].Enabled = false;
-                    tdlblClock.Visible = false;
                     check.Visible = false;
                     check.Checked = false;
+                    tdlblClock.Visible = true;
+                    check.Visible = true;
+                    check.Checked = true;
                     foreach (ListItem chkItems in chkListTtansactionType.Items)
                     {
 
@@ -2581,8 +2649,6 @@ namespace WealthERP.Receivable
         protected DataTable Createtable(DataTable dttable)
         {
             DataRow dr = dttable.NewRow();
-
-
             dr["SNO."] = 1;
             dr["WCT_CommissionType"] = "UF";
             dr["WCT_CommissionTypeCode"] = "UF";
@@ -2603,6 +2669,9 @@ namespace WealthERP.Receivable
             dr["CSRD_IsUpdate"] = 0;
             dr["ACSR_ClawBackAge"] = "0";
             dr["ACSR_IsClaWback"] = 0;
+            dr["ACSR_IsServiceTaxInclusive"] = "false";
+            dr["ACSR_IsSBCApplicable"] = "false";
+            dr["ACSR_IsKKCApplicable"] = "false";
 
             dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "T15" + " " + "UF" + " " + "Normal";
             dttable.Rows.Add(dr);
@@ -2629,6 +2698,9 @@ namespace WealthERP.Receivable
             dr["ACSR_ClawBackAge"] = "0";
             dr["ACSR_IsClaWback"] = 0;
             dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "B15" + " " + "UF" + " " + "Normal";
+            dr["ACSR_IsServiceTaxInclusive"] = "false";
+            dr["ACSR_IsSBCApplicable"] = "false";
+            dr["ACSR_IsKKCApplicable"] = "false";
 
             dttable.Rows.Add(dr);
             dr = null;
@@ -2655,6 +2727,9 @@ namespace WealthERP.Receivable
             dr["ACSR_ClawBackAge"] = "0";
             dr["ACSR_IsClaWback"] = 0;
             dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "T15 1st Year" + " " + "Trail" + " " + "Normal";
+            dr["ACSR_IsServiceTaxInclusive"] = "false";
+            dr["ACSR_IsSBCApplicable"] = "false";
+            dr["ACSR_IsKKCApplicable"] = "false";
 
             dttable.Rows.Add(dr);
             dr = null;
@@ -2681,6 +2756,9 @@ namespace WealthERP.Receivable
             dr["ACSR_ClawBackAge"] = "0";
             dr["ACSR_IsClaWback"] = 0;
             dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "B15 1st Year" + " " + "Trail" + " " + "Normal";
+            dr["ACSR_IsServiceTaxInclusive"] = "false";
+            dr["ACSR_IsSBCApplicable"] = "false";
+            dr["ACSR_IsKKCApplicable"] = "false";
 
             dttable.Rows.Add(dr);
             dr = null;
@@ -2707,7 +2785,9 @@ namespace WealthERP.Receivable
             dr["ACSR_ClawBackAge"] = "0";
             dr["ACSR_IsClaWback"] = 0;
             dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "T15 2nd Year" + " " + "Trail" + " " + "Normal";
-
+            dr["ACSR_IsServiceTaxInclusive"] = "false";
+            dr["ACSR_IsSBCApplicable"] = "false";
+            dr["ACSR_IsKKCApplicable"] = "false";
             dttable.Rows.Add(dr);
             dr = null;
             dr = dttable.NewRow();
@@ -2733,6 +2813,9 @@ namespace WealthERP.Receivable
             dr["ACSR_ClawBackAge"] = "0";
             dr["ACSR_IsClaWback"] = 0;
             dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "B15 2nd Year" + " " + "Trail" + " " + "Normal";
+            dr["ACSR_IsServiceTaxInclusive"] = "false";
+            dr["ACSR_IsSBCApplicable"] = "false";
+            dr["ACSR_IsKKCApplicable"] = "false";
 
             dttable.Rows.Add(dr);
             dr = null;
@@ -2759,6 +2842,9 @@ namespace WealthERP.Receivable
             dr["ACSR_ClawBackAge"] = "0";
             dr["ACSR_IsClaWback"] = 0;
             dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "T15 3rd Year" + " " + "Trail" + " " + "Normal";
+            dr["ACSR_IsServiceTaxInclusive"] = "false";
+            dr["ACSR_IsSBCApplicable"] = "false";
+            dr["ACSR_IsKKCApplicable"] = "false";
 
             dttable.Rows.Add(dr);
             dr = null;
@@ -2785,6 +2871,9 @@ namespace WealthERP.Receivable
             dr["ACSR_ClawBackAge"] = "0";
             dr["ACSR_IsClaWback"] = 0;
             dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "B15 3rd Year" + " " + "Trail" + " " + "Normal";
+            dr["ACSR_IsServiceTaxInclusive"] = "false";
+            dr["ACSR_IsSBCApplicable"] = "false";
+            dr["ACSR_IsKKCApplicable"] = "false";
 
             dttable.Rows.Add(dr);
 
@@ -2796,7 +2885,7 @@ namespace WealthERP.Receivable
             dtCommissionStructureRule.Columns.Add("SNO.");
             dtCommissionStructureRule.Columns.Add("WCT_CommissionType");
             dtCommissionStructureRule.Columns.Add("XCT_CustomerTypeName");
-            dtCommissionStructureRule.Columns.Add("XCC_CustomerCategory"); 
+            dtCommissionStructureRule.Columns.Add("XCC_CustomerCategory");
             dtCommissionStructureRule.Columns.Add("ACSR_MinInvestmentAmount");
             dtCommissionStructureRule.Columns.Add("ACSR_MaxInvestmentAmount");
             dtCommissionStructureRule.Columns.Add("ACSR_MinTenure");
@@ -2847,7 +2936,11 @@ namespace WealthERP.Receivable
             dtCommissionStructureRule.Columns.Add("CSRD_IsUpdate");
             dtCommissionStructureRule.Columns.Add("ACSR_IsClaWback");
             dtCommissionStructureRule.Columns.Add("ACSR_ClawBackAge");
-
+            dtCommissionStructureRule.Columns.Add("ACSR_IsServiceTaxInclusive");
+            dtCommissionStructureRule.Columns.Add("ACSR_IsSBCApplicable");
+            dtCommissionStructureRule.Columns.Add("ACSR_IsKKCApplicable");
+            dtCommissionStructureRule.Columns.Add("ACSR_SBCValue");
+            dtCommissionStructureRule.Columns.Add("ACSR_KKCValue");
             return dtCommissionStructureRule;
         }
 
@@ -2926,19 +3019,19 @@ namespace WealthERP.Receivable
         private void BindAvailSchemesToList()
         {
             int sStructId = int.Parse(hidCommissionStructureName.Value);
-            int sIssuerId=0;
+            int sIssuerId = 0;
             string sProduct = string.Empty, sCategory = string.Empty, sSubcats = string.Empty;
             try
             {
-                
+
                 if (ddlProductType.SelectedValue == "MF")
                     sIssuerId = int.Parse(ddlIssuer.SelectedValue);
                 else
                     sIssuerId = int.Parse(hdnIssuerId.Value);
 
-                 sProduct = hdnProductId.Value;
-                 sCategory = ddlMFCategory.SelectedValue;
-                 sSubcats = "m";
+                sProduct = hdnProductId.Value;
+                sCategory = ddlMFCategory.SelectedValue;
+                sSubcats = "m";
 
                 DataSet dsAvailSchemes = commisionReceivableBo.GetAvailSchemes(advisorVo.advisorId, sStructId, sIssuerId, sProduct, sCategory, sSubcats, Convert.ToDateTime(txtValidityFrom.Text), Convert.ToDateTime(txtValidityTo.Text));
                 rlbAvailSchemes.DataSource = dsAvailSchemes.Tables[0];
@@ -3775,7 +3868,7 @@ namespace WealthERP.Receivable
                 {
                     ruleId = ruleId.Trim(',');
                     ruleId = ruleId.TrimEnd(',');
-                   
+
                     dtRuleMapping.Columns.Add("agentId", typeof(string));
                     dtRuleMapping.Columns.Add("ruleids");
                     DataRow drRuleMapping;
@@ -4089,10 +4182,6 @@ namespace WealthERP.Receivable
             dtRulecreate.Columns.Add("ACSR_InvestmentAgeUnit");
             dtRulecreate.Columns.Add("IsClawBack");
             dtRulecreate.Columns.Add("ClowBackAge");
-
-
-
-
             DataRow drRulecreate = dtRulecreate.NewRow();
             foreach (GridDataItem radItem in RadGridStructureRule.MasterTableView.Items)
             {
@@ -4145,7 +4234,7 @@ namespace WealthERP.Receivable
                         drRulecreate["ClowBackAge"] = 0;
                     dtRulecreate.Rows.Add(drRulecreate);
                 }
-               
+
 
             }
             bool result = false;
