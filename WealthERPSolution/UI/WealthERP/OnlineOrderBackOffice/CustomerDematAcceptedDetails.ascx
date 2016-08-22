@@ -22,7 +22,7 @@
                                         Width="100%" AllowFilteringByColumn="true" AllowAutomaticInserts="false">
                                         <ExportSettings HideStructureColumns="true">
                                         </ExportSettings>
-                                        <MasterTableView Width="100%" AllowMultiColumnSorting="True" DataKeyNames="C_CustomerId,C_IsDematInvestor"
+                                        <MasterTableView Width="100%" AllowMultiColumnSorting="True" DataKeyNames="C_CustomerId"
                                             AutoGenerateColumns="false" CommandItemDisplay="None">
                                             <Columns>
                                                 <telerik:GridBoundColumn HeaderText="Client Code" DataField="C_CustCode" UniqueName="C_CustCode"
