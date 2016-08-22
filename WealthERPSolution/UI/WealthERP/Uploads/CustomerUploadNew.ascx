@@ -465,6 +465,11 @@
                     Aggregate="Sum" HeaderStyle-Width="90px">
                     <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                 </telerik:GridBoundColumn>
+                <telerik:GridCalculatedColumn AllowFiltering="true" DataFields="NetRec_brokerage,RTABrokerageAmt" UniqueName="Difference" HeaderText="Difference" DataType ="System.Decimal"
+                                    Expression="{0}-{1}"   AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" HeaderStyle-Width="90px"
+                                    ShowFilterIcon="false" Visible="true"   Aggregate="Sum">
+                                    <ItemStyle Wrap="false"  Width="" HorizontalAlign="Right"  />
+                                </telerik:GridCalculatedColumn>
                 <telerik:GridTemplateColumn AllowFiltering="true" DataField="WCD_Act_Rec_Brokerage"
                     AutoPostBackOnFilter="true" HeaderText="Actual received" ShowFilterIcon="false"
                     Aggregate="Sum" UniqueName="WCD_Act_Rec_Brokerage" SortExpression="WCD_Act_Rec_Brokerage"

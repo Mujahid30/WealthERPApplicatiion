@@ -103,16 +103,16 @@ namespace WealthERP.Uploads
 
             }
         }
-        protected void ddlSearchType_OnSelectedIndexChanged(object sender, EventArgs e)
-        {
-            td1.Visible = true;
-            td2.Visible = true;
-            if (ddlSearchType.SelectedValue != "Select" && ddlProduct.SelectedValue == "MF")
-            {
-                td1.Visible = false;
-                td2.Visible = false;
-            }
-        }
+        //protected void ddlSearchType_OnSelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    td1.Visible = true;
+        //    td2.Visible = true;
+        //    if (ddlSearchType.SelectedValue != "Select" && ddlProduct.SelectedValue == "MF")
+        //    {
+        //        td1.Visible = false;
+        //        td2.Visible = false;
+        //    }
+        //}
         protected void ddlIssueType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlIssueType.SelectedIndex != 0)
@@ -276,30 +276,30 @@ namespace WealthERP.Uploads
             }
 
         }
-        private void SetParameters()
-        {
-            if (string.IsNullOrEmpty(ddlMnthQtr.SelectedItem.Value.ToString()) != true)
-                hdnFromDate.Value = ddlMnthQtr.SelectedItem.Value.ToString();
-            if (string.IsNullOrEmpty(ddlYear.SelectedItem.Value.ToString()) != true)
-                hdnToDate.Value = ddlYear.SelectedItem.Value.ToString();
-            if (string.IsNullOrEmpty(ddlScheme.SelectedItem.Value.ToString()) != true)
-                hdnschemeId.Value = ddlScheme.SelectedItem.Value.ToString();
-            if (string.IsNullOrEmpty(ddlCategory.SelectedItem.Value.ToString()) != true)
-                hdnCategory.Value = ddlCategory.SelectedItem.Value.ToString();
-            if (ddlIssuer.SelectedValue.ToString() != "Select")
-                hdnSBbrokercode.Value = ddlIssuer.SelectedItem.Value.ToString();
-            else
-                hdnSBbrokercode.Value = "0";
-            if (string.IsNullOrEmpty(ddlIssueName.SelectedValue.ToString()) != true)
-                hdnIssueId.Value = ddlIssueName.SelectedValue.ToString();
-            else
-                hdnIssueId.Value = "0";
-            if (ddlProductCategory.SelectedValue.ToString() != "Select")
-                hdnProductCategory.Value = ddlProductCategory.SelectedValue.ToString();
-            else
-                hdnProductCategory.Value = "0";
+        //private void SetParameters()
+        //{
+        //    if (string.IsNullOrEmpty(ddlMnthQtr.SelectedItem.Value.ToString()) != true)
+        //        hdnFromDate.Value = ddlMnthQtr.SelectedItem.Value.ToString();
+        //    if (string.IsNullOrEmpty(ddlYear.SelectedItem.Value.ToString()) != true)
+        //        hdnToDate.Value = ddlYear.SelectedItem.Value.ToString();
+        //    if (string.IsNullOrEmpty(ddlScheme.SelectedItem.Value.ToString()) != true)
+        //        hdnschemeId.Value = ddlScheme.SelectedItem.Value.ToString();
+        //    if (string.IsNullOrEmpty(ddlCategory.SelectedItem.Value.ToString()) != true)
+        //        hdnCategory.Value = ddlCategory.SelectedItem.Value.ToString();
+        //    if (ddlIssuer.SelectedValue.ToString() != "Select")
+        //        hdnSBbrokercode.Value = ddlIssuer.SelectedItem.Value.ToString();
+        //    else
+        //        hdnSBbrokercode.Value = "0";
+        //    if (string.IsNullOrEmpty(ddlIssueName.SelectedValue.ToString()) != true)
+        //        hdnIssueId.Value = ddlIssueName.SelectedValue.ToString();
+        //    else
+        //        hdnIssueId.Value = "0";
+        //    if (ddlProductCategory.SelectedValue.ToString() != "Select")
+        //        hdnProductCategory.Value = ddlProductCategory.SelectedValue.ToString();
+        //    else
+        //        hdnProductCategory.Value = "0";
 
-        }
+        //}
 
         protected void ddlProduct_SelectedIndexChanged(object source, EventArgs e)
         {
@@ -342,12 +342,12 @@ namespace WealthERP.Uploads
             ddlProduct.DataBind();
             ddlProduct.Items.Insert(0, new ListItem("Select", "Select"));
         }
-        protected void GetCommisionTypes()
-        {
+        //protected void GetCommisionTypes()
+        //{
 
-            ddlSearchType.Items.Insert(0, new ListItem("Select", "Select"));
-            ddlSearchType.Items.Insert(1, new ListItem("Brokerage", "0"));
-        }
+        //    ddlSearchType.Items.Insert(0, new ListItem("Select", "Select"));
+        //    ddlSearchType.Items.Insert(1, new ListItem("Brokerage", "0"));
+        //}
         private void BindBondCategories()
         {
             OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
