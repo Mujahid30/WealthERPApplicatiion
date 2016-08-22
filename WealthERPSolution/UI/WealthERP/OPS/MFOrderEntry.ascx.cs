@@ -1182,14 +1182,14 @@ namespace WealthERP.OPS
         }
         protected void BindDIvidendOptions(int schemPlanCode)
         {
-            DataTable dtScheme = new DataTable();
+            //DataTable dtScheme = new DataTable();
 
-            dtScheme = commonLookupBo.GetMFSchemeDividentType(schemPlanCode);
-            ddlDivType.DataSource = dtScheme;
-            ddlDivType.DataValueField = "PSLV_LookupValueCode";
-            ddlDivType.DataTextField = "PSLV_LookupValue";
-            ddlDivType.DataBind();
-            ddlDivType.Items.Insert(0, new ListItem("Select", "0"));
+            //dtScheme = commonLookupBo.GetMFSchemeDividentType(schemPlanCode);
+            //ddlDivType.DataSource = dtScheme;
+            //ddlDivType.DataValueField = "PSLV_LookupValueCode";
+            //ddlDivType.DataTextField = "PSLV_LookupValue";
+            //ddlDivType.DataBind();
+            //ddlDivType.Items.Insert(0, new ListItem("Select", "0"));
         }
 
         protected void GetControlDetails(int scheme, string folio, string frequency)
@@ -3007,7 +3007,7 @@ namespace WealthERP.OPS
                 trSIPStartDate.Visible = false;
                 trAddress6.Visible = false;
 
-                trSection2.Visible = false;
+               // trSection2.Visible = false;
 
                 trGetAmount.Visible = false;
                 trRedeemed.Visible = false;
@@ -3041,7 +3041,7 @@ namespace WealthERP.OPS
                 trSIPStartDate.Visible = true;
                 trAddress6.Visible = true;
 
-                trSection2.Visible = false;
+                //trSection2.Visible = false;
 
                 trGetAmount.Visible = false;
                 trRedeemed.Visible = false;
@@ -3074,7 +3074,7 @@ namespace WealthERP.OPS
                 trSIPStartDate.Visible = false;
                 trAddress6.Visible = false;
 
-                trSection2.Visible = false;
+                //trSection2.Visible = false;
 
                 if (advisorVo.A_AgentCodeBased == 1)
                 {
@@ -3114,7 +3114,7 @@ namespace WealthERP.OPS
                 trSIPStartDate.Visible = false;
                 trAddress6.Visible = false;
 
-                trSection2.Visible = false;
+                //trSection2.Visible = false;
 
                 trGetAmount.Visible = false;
                 trRedeemed.Visible = false;
@@ -4765,14 +4765,14 @@ namespace WealthERP.OPS
         protected void BindSchemeDividendTypes(int schemeId)
         {
             DataTable dtSchemeDividendOption = commonLookupBo.GetMFSchemeDividentType(schemeId);
-            ddlSwitchDvdnType.Items.Clear();
+            //ddlSwitchDvdnType.Items.Clear();
             if (dtSchemeDividendOption.Rows.Count > 0)
             {
-                ddlSwitchDvdnType.DataSource = dtSchemeDividendOption;
-                ddlSwitchDvdnType.DataValueField = dtSchemeDividendOption.Columns["PSLV_LookupValueCode"].ToString();
-                ddlSwitchDvdnType.DataTextField = dtSchemeDividendOption.Columns["PSLV_LookupValue"].ToString();
-                ddlSwitchDvdnType.DataBind();
-                ddlSwitchDvdnType.Items.Insert(0, new ListItem("--SELECT--", "0"));
+               // ddlSwitchDvdnType.DataSource = dtSchemeDividendOption;
+               // ddlSwitchDvdnType.DataValueField = dtSchemeDividendOption.Columns["PSLV_LookupValueCode"].ToString();
+               // ddlSwitchDvdnType.DataTextField = dtSchemeDividendOption.Columns["PSLV_LookupValue"].ToString();
+                //ddlSwitchDvdnType.DataBind();
+               // ddlSwitchDvdnType.Items.Insert(0, new ListItem("--SELECT--", "0"));
 
             }
 

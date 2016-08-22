@@ -1204,7 +1204,7 @@
                 </tr>
             </table>
         </asp:Panel>
-        <table width="120%">
+        <table width="120%" visible="false" runat="server">
             <tr>
                 <td colspan="6">
                     <div class="divSectionHeading" style="vertical-align: text-bottom">
@@ -1863,7 +1863,7 @@
 <asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" Height="600px"
     ScrollBars="None">
     <table runat="server">
-        <tr id="trRemarks" runat="server">
+        <tr id="trRemarks" visible="false" runat="server">
             <td>
                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
             </td>
