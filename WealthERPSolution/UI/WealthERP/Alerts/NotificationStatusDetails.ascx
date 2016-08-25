@@ -127,7 +127,7 @@
         </tr>
     </tr>
 </table>
-<asp:Panel ID="Panel1" runat="server">
+<asp:Panel ID="Panel1" runat="server" ScrollBars="Vertical">
     <telerik:RadGrid ID="RadGrid3" runat="server" Skin="Telerik" CssClass="RadGrid" GridLines="None"
         AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" AllowAutomaticDeletes="false" AllowFilteringByColumn="true"
         AllowAutomaticInserts="false" PageSize="10" OnNeedDataSource="RadGrid3_NeedDataSource"

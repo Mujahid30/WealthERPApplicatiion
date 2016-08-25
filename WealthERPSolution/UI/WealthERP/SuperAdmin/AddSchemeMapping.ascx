@@ -501,7 +501,7 @@
                                                 </asp:Label>
                                             </td>
                                             <td>
-                                                <asp:TextBox Width="300px" CssClass="txtField" ID="txttransactiontype" Text='<%# Bind("Transaction_Type") %>'
+                                                <asp:TextBox Width="150px" CssClass="txtField" ID="txttransactiontype" Text='<%# Bind("Transaction_Type") %>'
                                                     runat="server"></asp:TextBox>
                                             </td>
                                         </tr>
@@ -511,8 +511,8 @@
                                                 </asp:Label>
                                             </td>
                                             <td>
-                                                <asp:TextBox CssClass="txtField" ID="txtDescription" Text='<%# Bind("Description") %>'
-                                                    runat="server"></asp:TextBox>
+                                                <asp:TextBox CssClass="txtField" ID="txtDescription" MaxLength="250" 
+                                                    runat="server" Width="300px" ></asp:TextBox>
                                             </td>
                                         </tr>
                                         <tr>
@@ -641,7 +641,7 @@
                                                 </asp:Label>
                                             </td>
                                             <td>
-                                                <asp:TextBox Width="300px" CssClass="txtField" ID="txttransactiontype" Text='<%# Bind("Transaction_Type") %>'
+                                                <asp:TextBox Width="150px" CssClass="txtField" ID="txttransactiontype" Text='<%# Bind("Transaction_Type") %>'
                                                     runat="server"></asp:TextBox>
                                             </td>
                                         </tr>
@@ -651,8 +651,8 @@
                                                 </asp:Label>
                                             </td>
                                             <td>
-                                                <asp:TextBox CssClass="txtField" ID="txtDescription" Text='<%# Bind("Description") %>'
-                                                    runat="server"></asp:TextBox>
+                                                <asp:TextBox CssClass="txtField" MaxLength="250" ID="txtDescription" 
+                                                    runat="server" Width="300px"></asp:TextBox>
                                             </td>
                                         </tr>
                                         <tr>
