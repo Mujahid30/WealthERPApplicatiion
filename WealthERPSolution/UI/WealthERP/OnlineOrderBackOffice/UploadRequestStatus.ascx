@@ -156,10 +156,10 @@
                 InitialValue="0"></asp:RequiredFieldValidator>
         </td>
         <td id="tdreqId" runat="server" visible="false">
-        <asp:TextBox ID="txtreqId" runat="server" CssClass="txtField"></asp:TextBox>
+        <asp:TextBox ID="txtreqId" runat="server" CssClass="txtField" ></asp:TextBox>
             <span id="Span5" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtreqId" ErrorMessage="<br />Please Enter the request Id"
-                Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnSubmit">
+                Display="Dynamic" runat="server" ValidationGroup="btnGo" CssClass="rfvPCG" >
             </asp:RequiredFieldValidator>
         </td>
         <td id="tdFromD" runat="server" visible="false">

@@ -37,6 +37,7 @@ namespace WealthERP.OnlineOrderBackOffice
             advisorVo = (AdvisorVo)Session["advisorVo"];
             txtReqDate.SelectedDate = DateTime.Now.Date.AddDays(-2);
             rdpToDate.SelectedDate = DateTime.Now.Date;
+           
             if (!IsPostBack)
             {
                 GetTypes();
@@ -367,7 +368,7 @@ namespace WealthERP.OnlineOrderBackOffice
             if (ddlType.SelectedValue == "11")
             {
                 td1.Visible = false;
-                tdreqId.Visible = false;
+                tdreqId.Visible = true;
                 tdToDate.Visible = true;
                 tdFromD.Visible = true;
                 tdProduct.Visible = true;
@@ -376,7 +377,7 @@ namespace WealthERP.OnlineOrderBackOffice
             else
             {
                 td1.Visible = true;
-                tdreqId.Visible = true;
+                tdreqId.Visible = false;
                 tdToDate.Visible = false;
                 tdFromD.Visible = false;
             }
