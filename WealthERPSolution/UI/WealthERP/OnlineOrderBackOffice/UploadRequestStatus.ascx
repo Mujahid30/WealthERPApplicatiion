@@ -151,7 +151,7 @@
             </asp:DropDownList>
             <span id="Span6" class="spnRequiredField">*</span>
             <br />
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Please Select Product Filter On"
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Please Select  Filter"
                 CssClass="rfvPCG" ControlToValidate="DropDownList1" ValidationGroup="btnGo" Display="Dynamic"
                 InitialValue="0"></asp:RequiredFieldValidator>
         </td>

@@ -367,6 +367,7 @@ namespace WealthERP.OnlineOrderBackOffice
             tdProduct.Visible = false;
             tdCategory.Visible = false;
             DropDownList1.SelectedValue = "0";
+            txtreqId.Text = "";
             if (ddlType.SelectedValue == "11")
             {
                 td1.Visible = false;
