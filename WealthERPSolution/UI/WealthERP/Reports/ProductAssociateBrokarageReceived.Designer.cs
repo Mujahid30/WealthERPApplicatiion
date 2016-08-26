@@ -320,6 +320,10 @@ namespace WealthERP.Reports {
             
             private global::System.Data.DataColumn columnWCD_Act_Rec_BrokerageDate;
             
+            private global::System.Data.DataColumn columnWCD_ACSR_KKC;
+            
+            private global::System.Data.DataColumn columnWCD_ACSR_SKC;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public SPROC_GetAssociateWiseBrokerageReceivedDataTable() {
                 this.TableName = "SPROC_GetAssociateWiseBrokerageReceived";
@@ -442,6 +446,20 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn WCD_ACSR_KKCColumn {
+                get {
+                    return this.columnWCD_ACSR_KKC;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn WCD_ACSR_SKCColumn {
+                get {
+                    return this.columnWCD_ACSR_SKC;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -470,7 +488,7 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public SPROC_GetAssociateWiseBrokerageReceivedRow AddSPROC_GetAssociateWiseBrokerageReceivedRow(string AAC_AgentCode, string AA_ContactPersonName, string PAG_AssetGroupName, string PAISC_AssetInstrumentSubCategoryName, string AIM_IssueName, string AB_BranchName, decimal WCD_Brokeragevalue, decimal WCD_Act_Rec_Brokerage, decimal WCD_ACSR_ServiceTaxValue, decimal WCD_ACSR_ReducedValue, decimal WCD_Act_Pay_Brokerage, System.DateTime WCD_Act_Pay_BrokerageDate, System.DateTime WCD_Act_Rec_BrokerageDate) {
+            public SPROC_GetAssociateWiseBrokerageReceivedRow AddSPROC_GetAssociateWiseBrokerageReceivedRow(string AAC_AgentCode, string AA_ContactPersonName, string PAG_AssetGroupName, string PAISC_AssetInstrumentSubCategoryName, string AIM_IssueName, string AB_BranchName, decimal WCD_Brokeragevalue, decimal WCD_Act_Rec_Brokerage, decimal WCD_ACSR_ServiceTaxValue, decimal WCD_ACSR_ReducedValue, decimal WCD_Act_Pay_Brokerage, System.DateTime WCD_Act_Pay_BrokerageDate, System.DateTime WCD_Act_Rec_BrokerageDate, string WCD_ACSR_KKC, string WCD_ACSR_SKC) {
                 SPROC_GetAssociateWiseBrokerageReceivedRow rowSPROC_GetAssociateWiseBrokerageReceivedRow = ((SPROC_GetAssociateWiseBrokerageReceivedRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         AAC_AgentCode,
@@ -485,7 +503,9 @@ namespace WealthERP.Reports {
                         WCD_ACSR_ReducedValue,
                         WCD_Act_Pay_Brokerage,
                         WCD_Act_Pay_BrokerageDate,
-                        WCD_Act_Rec_BrokerageDate};
+                        WCD_Act_Rec_BrokerageDate,
+                        WCD_ACSR_KKC,
+                        WCD_ACSR_SKC};
                 rowSPROC_GetAssociateWiseBrokerageReceivedRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSPROC_GetAssociateWiseBrokerageReceivedRow);
                 return rowSPROC_GetAssociateWiseBrokerageReceivedRow;
@@ -518,6 +538,8 @@ namespace WealthERP.Reports {
                 this.columnWCD_Act_Pay_Brokerage = base.Columns["WCD_Act_Pay_Brokerage"];
                 this.columnWCD_Act_Pay_BrokerageDate = base.Columns["WCD_Act_Pay_BrokerageDate"];
                 this.columnWCD_Act_Rec_BrokerageDate = base.Columns["WCD_Act_Rec_BrokerageDate"];
+                this.columnWCD_ACSR_KKC = base.Columns["WCD_ACSR_KKC"];
+                this.columnWCD_ACSR_SKC = base.Columns["WCD_ACSR_SKC"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -548,6 +570,10 @@ namespace WealthERP.Reports {
                 base.Columns.Add(this.columnWCD_Act_Pay_BrokerageDate);
                 this.columnWCD_Act_Rec_BrokerageDate = new global::System.Data.DataColumn("WCD_Act_Rec_BrokerageDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnWCD_Act_Rec_BrokerageDate);
+                this.columnWCD_ACSR_KKC = new global::System.Data.DataColumn("WCD_ACSR_KKC", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWCD_ACSR_KKC);
+                this.columnWCD_ACSR_SKC = new global::System.Data.DataColumn("WCD_ACSR_SKC", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWCD_ACSR_SKC);
                 this.columnAAC_AgentCode.MaxLength = 20;
                 this.columnAA_ContactPersonName.MaxLength = 150;
                 this.columnPAG_AssetGroupName.MaxLength = 30;
@@ -1435,6 +1461,38 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string WCD_ACSR_KKC {
+                get {
+                    try {
+                        return ((string)(this[this.tableSPROC_GetAssociateWiseBrokerageReceived.WCD_ACSR_KKCColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'WCD_ACSR_KKC\' in table \'SPROC_GetAssociateWiseBrokerageRece" +
+                                "ived\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSPROC_GetAssociateWiseBrokerageReceived.WCD_ACSR_KKCColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string WCD_ACSR_SKC {
+                get {
+                    try {
+                        return ((string)(this[this.tableSPROC_GetAssociateWiseBrokerageReceived.WCD_ACSR_SKCColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'WCD_ACSR_SKC\' in table \'SPROC_GetAssociateWiseBrokerageRece" +
+                                "ived\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSPROC_GetAssociateWiseBrokerageReceived.WCD_ACSR_SKCColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsAAC_AgentCodeNull() {
                 return this.IsNull(this.tableSPROC_GetAssociateWiseBrokerageReceived.AAC_AgentCodeColumn);
             }
@@ -1562,6 +1620,26 @@ namespace WealthERP.Reports {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetWCD_Act_Rec_BrokerageDateNull() {
                 this[this.tableSPROC_GetAssociateWiseBrokerageReceived.WCD_Act_Rec_BrokerageDateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsWCD_ACSR_KKCNull() {
+                return this.IsNull(this.tableSPROC_GetAssociateWiseBrokerageReceived.WCD_ACSR_KKCColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetWCD_ACSR_KKCNull() {
+                this[this.tableSPROC_GetAssociateWiseBrokerageReceived.WCD_ACSR_KKCColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsWCD_ACSR_SKCNull() {
+                return this.IsNull(this.tableSPROC_GetAssociateWiseBrokerageReceived.WCD_ACSR_SKCColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetWCD_ACSR_SKCNull() {
+                this[this.tableSPROC_GetAssociateWiseBrokerageReceived.WCD_ACSR_SKCColumn] = global::System.Convert.DBNull;
             }
         }
         

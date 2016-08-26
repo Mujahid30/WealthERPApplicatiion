@@ -336,6 +336,12 @@ namespace WealthERP.Reports {
             
             private global::System.Data.DataColumn columnECS_MICR1;
             
+            private global::System.Data.DataColumn columnWCD_ACSR_SKC;
+            
+            private global::System.Data.DataColumn columnWCD_ACSR_KKC;
+            
+            private global::System.Data.DataColumn columnDataColumn1;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public SPROC_GetProductBrokerageApplicationWiseDataTable() {
                 this.TableName = "SPROC_GetProductBrokerageApplicationWise";
@@ -626,6 +632,27 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn WCD_ACSR_SKCColumn {
+                get {
+                    return this.columnWCD_ACSR_SKC;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn WCD_ACSR_KKCColumn {
+                get {
+                    return this.columnWCD_ACSR_KKC;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn DataColumn1Column {
+                get {
+                    return this.columnDataColumn1;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -691,7 +718,10 @@ namespace WealthERP.Reports {
                         string WCD_CommissionType, 
                         int ECS_AcctType, 
                         int ECS_NEFT, 
-                        int ECS_MICR1) {
+                        int ECS_MICR1, 
+                        string WCD_ACSR_SKC, 
+                        string WCD_ACSR_KKC, 
+                        string DataColumn1) {
                 SPROC_GetProductBrokerageApplicationWiseRow rowSPROC_GetProductBrokerageApplicationWiseRow = ((SPROC_GetProductBrokerageApplicationWiseRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         CO_ApplicationNumber,
@@ -730,7 +760,10 @@ namespace WealthERP.Reports {
                         WCD_CommissionType,
                         ECS_AcctType,
                         ECS_NEFT,
-                        ECS_MICR1};
+                        ECS_MICR1,
+                        WCD_ACSR_SKC,
+                        WCD_ACSR_KKC,
+                        DataColumn1};
                 rowSPROC_GetProductBrokerageApplicationWiseRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSPROC_GetProductBrokerageApplicationWiseRow);
                 return rowSPROC_GetProductBrokerageApplicationWiseRow;
@@ -787,6 +820,9 @@ namespace WealthERP.Reports {
                 this.columnECS_AcctType = base.Columns["ECS_AcctType"];
                 this.columnECS_NEFT = base.Columns["ECS_NEFT"];
                 this.columnECS_MICR1 = base.Columns["ECS_MICR1"];
+                this.columnWCD_ACSR_SKC = base.Columns["WCD_ACSR_SKC"];
+                this.columnWCD_ACSR_KKC = base.Columns["WCD_ACSR_KKC"];
+                this.columnDataColumn1 = base.Columns["DataColumn1"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -865,6 +901,12 @@ namespace WealthERP.Reports {
                 base.Columns.Add(this.columnECS_NEFT);
                 this.columnECS_MICR1 = new global::System.Data.DataColumn("ECS_MICR1", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnECS_MICR1);
+                this.columnWCD_ACSR_SKC = new global::System.Data.DataColumn("WCD_ACSR_SKC", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWCD_ACSR_SKC);
+                this.columnWCD_ACSR_KKC = new global::System.Data.DataColumn("WCD_ACSR_KKC", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWCD_ACSR_KKC);
+                this.columnDataColumn1 = new global::System.Data.DataColumn("DataColumn1", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDataColumn1);
                 this.columnCO_ApplicationNumber.MaxLength = 250;
                 this.columnAAC_AgentCode.MaxLength = 250;
                 this.columnAA_ContactPersonName.MaxLength = 250;
@@ -1624,6 +1666,54 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string WCD_ACSR_SKC {
+                get {
+                    try {
+                        return ((string)(this[this.tableSPROC_GetProductBrokerageApplicationWise.WCD_ACSR_SKCColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'WCD_ACSR_SKC\' in table \'SPROC_GetProductBrokerageApplicatio" +
+                                "nWise\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSPROC_GetProductBrokerageApplicationWise.WCD_ACSR_SKCColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string WCD_ACSR_KKC {
+                get {
+                    try {
+                        return ((string)(this[this.tableSPROC_GetProductBrokerageApplicationWise.WCD_ACSR_KKCColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'WCD_ACSR_KKC\' in table \'SPROC_GetProductBrokerageApplicatio" +
+                                "nWise\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSPROC_GetProductBrokerageApplicationWise.WCD_ACSR_KKCColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string DataColumn1 {
+                get {
+                    try {
+                        return ((string)(this[this.tableSPROC_GetProductBrokerageApplicationWise.DataColumn1Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DataColumn1\' in table \'SPROC_GetProductBrokerageApplication" +
+                                "Wise\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSPROC_GetProductBrokerageApplicationWise.DataColumn1Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsCO_ApplicationNumberNull() {
                 return this.IsNull(this.tableSPROC_GetProductBrokerageApplicationWise.CO_ApplicationNumberColumn);
             }
@@ -1991,6 +2081,36 @@ namespace WealthERP.Reports {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetECS_MICR1Null() {
                 this[this.tableSPROC_GetProductBrokerageApplicationWise.ECS_MICR1Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsWCD_ACSR_SKCNull() {
+                return this.IsNull(this.tableSPROC_GetProductBrokerageApplicationWise.WCD_ACSR_SKCColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetWCD_ACSR_SKCNull() {
+                this[this.tableSPROC_GetProductBrokerageApplicationWise.WCD_ACSR_SKCColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsWCD_ACSR_KKCNull() {
+                return this.IsNull(this.tableSPROC_GetProductBrokerageApplicationWise.WCD_ACSR_KKCColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetWCD_ACSR_KKCNull() {
+                this[this.tableSPROC_GetProductBrokerageApplicationWise.WCD_ACSR_KKCColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDataColumn1Null() {
+                return this.IsNull(this.tableSPROC_GetProductBrokerageApplicationWise.DataColumn1Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDataColumn1Null() {
+                this[this.tableSPROC_GetProductBrokerageApplicationWise.DataColumn1Column] = global::System.Convert.DBNull;
             }
         }
         

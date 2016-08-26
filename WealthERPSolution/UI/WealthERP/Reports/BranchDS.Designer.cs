@@ -286,6 +286,10 @@ namespace WealthERP.Reports {
             
             private global::System.Data.DataColumn columnPAN;
             
+            private global::System.Data.DataColumn columnWCD_ACSR_KKC;
+            
+            private global::System.Data.DataColumn columnWCD_ACSR_SKC;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public SPROC_GetBranchBrokerageReceivableDataTable() {
                 this.TableName = "SPROC_GetBranchBrokerageReceivable";
@@ -401,6 +405,20 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn WCD_ACSR_KKCColumn {
+                get {
+                    return this.columnWCD_ACSR_KKC;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn WCD_ACSR_SKCColumn {
+                get {
+                    return this.columnWCD_ACSR_SKC;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -429,7 +447,7 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public SPROC_GetBranchBrokerageReceivableRow AddSPROC_GetBranchBrokerageReceivableRow(string AB_BranchName, string AB_City, decimal NET_Receivable, decimal NET_Payable_, decimal TDS, decimal SVC_Tax, int No_of_APPLICATION, int Bank, int ECS, int Banck_Account, int Bank_branch, int PAN) {
+            public SPROC_GetBranchBrokerageReceivableRow AddSPROC_GetBranchBrokerageReceivableRow(string AB_BranchName, string AB_City, decimal NET_Receivable, decimal NET_Payable_, decimal TDS, decimal SVC_Tax, int No_of_APPLICATION, int Bank, int ECS, int Banck_Account, int Bank_branch, int PAN, string WCD_ACSR_KKC, string WCD_ACSR_SKC) {
                 SPROC_GetBranchBrokerageReceivableRow rowSPROC_GetBranchBrokerageReceivableRow = ((SPROC_GetBranchBrokerageReceivableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         AB_BranchName,
@@ -443,7 +461,9 @@ namespace WealthERP.Reports {
                         ECS,
                         Banck_Account,
                         Bank_branch,
-                        PAN};
+                        PAN,
+                        WCD_ACSR_KKC,
+                        WCD_ACSR_SKC};
                 rowSPROC_GetBranchBrokerageReceivableRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSPROC_GetBranchBrokerageReceivableRow);
                 return rowSPROC_GetBranchBrokerageReceivableRow;
@@ -475,6 +495,8 @@ namespace WealthERP.Reports {
                 this.columnBanck_Account = base.Columns["Banck Account"];
                 this.columnBank_branch = base.Columns["Bank branch"];
                 this.columnPAN = base.Columns["PAN"];
+                this.columnWCD_ACSR_KKC = base.Columns["WCD_ACSR_KKC"];
+                this.columnWCD_ACSR_SKC = base.Columns["WCD_ACSR_SKC"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -503,6 +525,10 @@ namespace WealthERP.Reports {
                 base.Columns.Add(this.columnBank_branch);
                 this.columnPAN = new global::System.Data.DataColumn("PAN", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPAN);
+                this.columnWCD_ACSR_KKC = new global::System.Data.DataColumn("WCD_ACSR_KKC", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWCD_ACSR_KKC);
+                this.columnWCD_ACSR_SKC = new global::System.Data.DataColumn("WCD_ACSR_SKC", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWCD_ACSR_SKC);
                 this.columnAB_BranchName.MaxLength = 2147483647;
                 this.columnAB_City.MaxLength = 25;
                 this.columnNET_Receivable.ReadOnly = true;
@@ -839,6 +865,38 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string WCD_ACSR_KKC {
+                get {
+                    try {
+                        return ((string)(this[this.tableSPROC_GetBranchBrokerageReceivable.WCD_ACSR_KKCColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'WCD_ACSR_KKC\' in table \'SPROC_GetBranchBrokerageReceivable\'" +
+                                " is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSPROC_GetBranchBrokerageReceivable.WCD_ACSR_KKCColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string WCD_ACSR_SKC {
+                get {
+                    try {
+                        return ((string)(this[this.tableSPROC_GetBranchBrokerageReceivable.WCD_ACSR_SKCColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'WCD_ACSR_SKC\' in table \'SPROC_GetBranchBrokerageReceivable\'" +
+                                " is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSPROC_GetBranchBrokerageReceivable.WCD_ACSR_SKCColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsAB_BranchNameNull() {
                 return this.IsNull(this.tableSPROC_GetBranchBrokerageReceivable.AB_BranchNameColumn);
             }
@@ -956,6 +1014,26 @@ namespace WealthERP.Reports {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetPANNull() {
                 this[this.tableSPROC_GetBranchBrokerageReceivable.PANColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsWCD_ACSR_KKCNull() {
+                return this.IsNull(this.tableSPROC_GetBranchBrokerageReceivable.WCD_ACSR_KKCColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetWCD_ACSR_KKCNull() {
+                this[this.tableSPROC_GetBranchBrokerageReceivable.WCD_ACSR_KKCColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsWCD_ACSR_SKCNull() {
+                return this.IsNull(this.tableSPROC_GetBranchBrokerageReceivable.WCD_ACSR_SKCColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetWCD_ACSR_SKCNull() {
+                this[this.tableSPROC_GetBranchBrokerageReceivable.WCD_ACSR_SKCColumn] = global::System.Convert.DBNull;
             }
         }
         
