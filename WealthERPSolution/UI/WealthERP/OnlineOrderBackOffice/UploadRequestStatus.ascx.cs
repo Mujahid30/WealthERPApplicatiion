@@ -41,6 +41,7 @@ namespace WealthERP.OnlineOrderBackOffice
             if (!IsPostBack)
             {
                 GetTypes();
+                GetRequests();
             }
         }
         protected void btnGo_Click(object sender, EventArgs e)

@@ -92,7 +92,7 @@
             <asp:Label ID="lb1Type" runat="server" Text="Type:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 70px">
-            <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" AutoPostBack="true"
+            <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" AutoPostBack="true" TabIndex="41"
                 Width="240px" OnSelectedIndexChanged="ddlType_OnSelectedIndexChanged">
             </asp:DropDownList>
             <span id="Span7" class="spnRequiredField">*</span>
@@ -151,7 +151,7 @@
             </asp:DropDownList>
             <span id="Span6" class="spnRequiredField">*</span>
             <br />
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" 
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Please Select Product Filter On"
                 CssClass="rfvPCG" ControlToValidate="DropDownList1" ValidationGroup="btnGo" Display="Dynamic"
                 InitialValue="0"></asp:RequiredFieldValidator>
         </td>

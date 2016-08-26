@@ -708,7 +708,7 @@ namespace WealthERP.Advisor
 
                 else
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Please select the Branch Head..!');", true);
+                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Please select the Branch Head..!');", true);
                 }
             }
             catch (BaseApplicationException Ex)

@@ -141,7 +141,7 @@
         </td>
     </tr>
 </table>
-<table style="width: 100%;"  class="TableBackground">
+<table style="width: 100%;" class="TableBackground">
     <%-- <tr>
         <td colspan="4">
             <label id="lbl" class="lblRequiredText">
@@ -344,12 +344,6 @@
         <td class="rightField" width="15%">
             <asp:DropDownList ID="ddlRmlist" runat="server" Width="90%" CssClass="cmbField">
             </asp:DropDownList>
-           <%-- <span id="Span6" class="spnRequiredField">*</span>
-            <br />
-            <asp:CompareValidator ID="CompareValidator12" runat="server" ControlToValidate="ddlRmlist"
-                Display="Dynamic" ErrorMessage="Please select a Branch Head" Operator="NotEqual"
-                ValueToCompare="Select Branch head" CssClass="cvPCG" ValidationGroup="btnSubmit">
-            </asp:CompareValidator>--%>
         </td>
         <td>
             <asp:ImageButton ID="btnAddStaff" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
@@ -359,18 +353,6 @@
             <asp:ImageButton ID="btnRefresh" ImageUrl="~/Images/refresh.png" AlternateText="Refresh Branch Head"
                 runat="server" ToolTip="Click here to Refresh" OnClick="btnRefresh_Click" Height="15px"
                 Width="15px" TabIndex="3"></asp:ImageButton>
-        </td>
-        <td class="leftField">
-            &nbsp;
-            <%--<asp:Label ID="lblFax0" runat="server" CssClass="FieldName" Text="Mobile Number :"></asp:Label>--%>
-        </td>
-        <td class="rightField">
-            <%--<asp:TextBox ID="txtMobileNumber" CssClass="txtField" runat="server" MaxLength="10"></asp:TextBox>
-            <br />           
-            <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" CssClass="cvPCG"
-                ErrorMessage="Please give only 10 digit Numbers" ValidationGroup="btnSubmit" ValidationExpression="^[0-9]{10}"  ControlToValidate="txtMobileNumber"
-                Display="Dynamic"></asp:RegularExpressionValidator>--%>
-            &nbsp;
         </td>
     </tr>
     <tr id="trNoOfTerminals" runat="server">
@@ -388,12 +370,6 @@
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_AddBranch_btnAddTerminal','M');" />
         </td>
     </tr>
-    <%--<tr>
-        <td class="style4">
-        </td>
-        <td class="style2">
-        </td>
-    </tr>--%>
     <tr>
         <td>
             &nbsp;&nbsp;
