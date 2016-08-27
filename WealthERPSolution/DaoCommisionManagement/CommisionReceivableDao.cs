@@ -2405,6 +2405,52 @@ namespace DaoCommisionManagement
             return dsGetAssociateCommissionPayout.Tables[0];
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="structureId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public int CreateStructureFromExisting(int structureId, DateTime FromValidity,DateTime ToValidity, int userId)
+        {
+            int CommissionStructureId=0;
+            try
+            {
+                Database db;
+                DbCommand cmdCreateCommissionStructure;
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdCreateCommissionStructure = db.GetStoredProcCommand("SPROC_CreateStructureFromExisting");
+                db.AddInParameter(cmdCreateCommissionStructure, "@ACSM_CommissionStructureId", DbType.Int64, structureId);
+                db.AddInParameter(cmdCreateCommissionStructure, "@ACSM_ValidityStartDate", DbType.Date, FromValidity);
+                db.AddInParameter(cmdCreateCommissionStructure, "@ACSM_ValidityEndDate", DbType.Date, ToValidity);
+                db.AddInParameter(cmdCreateCommissionStructure, "@userId", DbType.Int64, userId);
+                db.AddOutParameter(cmdCreateCommissionStructure, "@StructureId", DbType.Int64, 100);
+                if (db.ExecuteNonQuery(cmdCreateCommissionStructure) != 0)
+                {
+                    CommissionStructureId = Convert.ToInt32(db.GetParameterValue(cmdCreateCommissionStructure, "StructureId").ToString());
+                }
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommisionReceivableDao.cs:CreateStructureFromExisting(int structureId, int userId,ref int CommissionStructureId)");
+                object[] objects = new object[2];
+                objects[0] = structureId;
+                objects[1] = userId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return CommissionStructureId;
+        }
+
         
     }
 }

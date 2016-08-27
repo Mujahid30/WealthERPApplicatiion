@@ -1534,5 +1534,33 @@ namespace BoCommisionManagement
                 throw ex;
             }
         }
+        public int CreateStructureFromExisting(int structureId, DateTime FromValidity, DateTime ToValidity, int userId)
+        {
+            
+            try
+            {
+                CommisionReceivableDao CommisionReceivableDao = new CommisionReceivableDao();
+               return CommisionReceivableDao.CreateStructureFromExisting(structureId,FromValidity,ToValidity, userId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommisionReceivableBo.cs:CreateStructureFromExisting(int structureId, int userId,ref int CommissionStructureId)");
+                object[] objects = new object[2];
+                objects[0] = structureId;
+                objects[1] = userId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            
+        }
     }
 }

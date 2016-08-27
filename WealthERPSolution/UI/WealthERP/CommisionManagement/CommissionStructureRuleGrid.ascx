@@ -100,7 +100,7 @@
         padding-right: 5px;
     }
 </style>
-<asp:UpdatePanel ID="upCMGrid" runat="server">
+<asp:UpdatePanel ID="upCMGrid" runat="server" ChildrenAsTriggers="true">
     <ContentTemplate>
         <table width="100%">
             <tr>
@@ -219,7 +219,7 @@
                             <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="CommissionStructureRule">
                             </ExportSettings>
                             <PagerStyle AlwaysVisible="True" />
-                            <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="StructureId"
+                            <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="StructureId,Name"
                                 AutoGenerateColumns="false" AllowFilteringByColumn="true" Width="100%">
                                 <CommandItemSettings ExportToPdfText="Export to Pdf" />
                                 <Columns>
@@ -231,6 +231,7 @@
                                                 <Items>
                                                     <asp:ListItem Selected="true" Text="Select" Value="Select" />
                                                     <asp:ListItem Text="View Details" Value="ViewSTDetails" />
+                                                    <asp:ListItem Text="Copy & Create Structure" Value="CopyStructure" />
                                                     <asp:ListItem Text="View Mapped Schemes" Value="ManageSchemeMapping" Enabled="false" />
                                                 </Items>
                                             </asp:DropDownList>
@@ -316,8 +317,75 @@
         <%--       </td>
             </tr>
         </table>--%>
+        <telerik:RadWindow ID="radCopyStructurePopUp" runat="server" VisibleOnPageLoad="false"
+                Height="150px" Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false"
+                Behaviors="Resize, Close, Move" Title="Copy & Create Structure" Left="10" Top="20" OnClientShow="setCustomPosition">
+                <ContentTemplate>
+                <table>
+                <tr>
+                <td colspan="2">
+                  <asp:Label ID="lblStructureName" CssClass="FieldName" runat="server"></asp:Label>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                  <asp:Label ID="lblValidityStart" CssClass="FieldName" runat="server" Text="Valid From:"></asp:Label>
+                </td>
+                <td class="rightData">
+                 <asp:TextBox ID="txtValidityFrom" runat="server" CssClass="txtField"></asp:TextBox>
+                        <span id="Span1" class="spnRequiredField">*</span>
+                        <cc1:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtValidityFrom"
+                            Format="dd/MM/yyyy">
+                        </cc1:CalendarExtender>
+                        <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtValidityFrom"
+                            WatermarkText="dd/mm/yyyy">
+                        </cc1:TextBoxWatermarkExtender>
+                        <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br/>Please enter a valid date."
+                            Type="Date" ControlToValidate="txtValidityFrom" CssClass="cvPCG" Operator="DataTypeCheck"
+                            ValidationGroup="btnCopyStructure" ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtValidityFrom"
+                            ErrorMessage="<br />Please enter a validity from Date" Display="Dynamic" CssClass="rfvPCG"
+                            runat="server" InitialValue="" ValidationGroup="btnCopyStructure">
+                        </asp:RequiredFieldValidator>
+                </td>
+                <td class="leftLabel">
+                  <asp:Label ID="lblValidityTo" CssClass="FieldName" runat="server" Text="Valid To:"></asp:Label>
+                </td>
+                <td class="rightData">
+                 <asp:TextBox ID="txtValidityTo" runat="server" CssClass="txtField"></asp:TextBox>
+                        <span id="Span3" class="spnRequiredField">*</span>
+                        <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtValidityTo"
+                            Format="dd/MM/yyyy">
+                        </cc1:CalendarExtender>
+                        <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtValidityTo"
+                            WatermarkText="dd/mm/yyyy">
+                        </cc1:TextBoxWatermarkExtender>
+                        <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="<br/>Please enter a valid date."
+                            Type="Date" ControlToValidate="txtValidityTo" CssClass="cvPCG" Operator="DataTypeCheck"
+                            ValidationGroup="btnCopyStructure" ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtValidityTo"
+                            ErrorMessage="<br />Please enter a validity from Date" Display="Dynamic" CssClass="rfvPCG"
+                            runat="server" InitialValue="" ValidationGroup="btnCopyStructure">
+                        </asp:RequiredFieldValidator>
+                </td>
+                </tr>
+                <tr>
+                <td >
+                <asp:Button ID="btnCopyStructure" runat="server" Text="Copy and Create" CssClass="PCGMediumButton" ValidationGroup="btnCopyStructure" OnClick="btnCopyStructure_OnClick"/>
+                </td>
+                </tr>
+                </table>
+                 </ContentTemplate>
+            </telerik:RadWindow>
+            <asp:HiddenField ID="hdnStructure" runat="server" />
     </ContentTemplate>
     <Triggers>
         <asp:PostBackTrigger ControlID="ibtExportSummary" />
+         
     </Triggers>
 </asp:UpdatePanel>
+  <script type="text/javascript">
+    function setCustomPosition(sender, args) {
+        sender.moveTo(sender.get_left(), sender.get_top());
+    }
+</script>

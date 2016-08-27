@@ -34,6 +34,7 @@ namespace WealthERP.CommisionManagement
             rmVo = (RMVo)Session["rmVo"];
 
             ibtExportSummary.Visible = false;
+            radCopyStructurePopUp.VisibleOnPageLoad = false;
 
             if (!IsPostBack)
             {
@@ -240,6 +241,7 @@ namespace WealthERP.CommisionManagement
             DropDownList ddlAction = (DropDownList)sender;
             GridDataItem item = (GridDataItem)ddlAction.NamingContainer;
             int structureId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[item.ItemIndex]["StructureId"].ToString());
+            string structureName = gvCommMgmt.MasterTableView.DataKeyValues[item.ItemIndex]["Name"].ToString();
             string prodType = this.ddProduct.SelectedValue;
             if (ddProduct.SelectedValue == "MF")
             {
@@ -251,6 +253,11 @@ namespace WealthERP.CommisionManagement
                         break;
                     case "ManageSchemeMapping":
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('CommissionStructureToSchemeMapping','ID=" + structureId + "&p=" + prodType + "');", true);
+                        break;
+                    case "CopyStructure":
+                        radCopyStructurePopUp.VisibleOnPageLoad = true;
+                        lblStructureName.Text = structureName;
+                        hdnStructure.Value = structureId.ToString();
                         break;
                     default:
                         return;
@@ -266,6 +273,9 @@ namespace WealthERP.CommisionManagement
                         break;
                     case "ManageSchemeMapping":
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('CommisionManagementStructureToIssueMapping','ID=" + structureId + "&Product=" + prodType + "');", true);
+                        break;
+                    case "CopyStructure":
+                        radCopyStructurePopUp.VisibleOnPageLoad = true;
                         break;
                     default:
                         return;
@@ -327,6 +337,20 @@ namespace WealthERP.CommisionManagement
             dtRule.Columns.Add("");
             dtRule.Columns.Add("");
 
+
+
+        }
+        protected void btnCopyStructure_OnClick(object sender, EventArgs e)
+        {
+            int structureId=0;
+            if (!string.IsNullOrEmpty(hdnStructure.Value))
+            {
+                structureId=commisionReceivableBo.CreateStructureFromExisting(Convert.ToInt32(hdnStructure.Value.ToString()), Convert.ToDateTime(txtValidityFrom.Text), Convert.ToDateTime(txtValidityTo.Text), userVo.UserId);
+            }
+            if (structureId > 0)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Create Structure successfully');", true);
+            }
 
 
         }

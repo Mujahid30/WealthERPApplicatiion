@@ -183,6 +183,7 @@ namespace WealthERP.CommisionManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblStatus;
+        protected global::System.Web.UI.WebControls.Label lblStructureName;
         
         /// <summary>
         /// tdddStatus control.
@@ -228,5 +229,9 @@ namespace WealthERP.CommisionManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvCommMgmt;
+        protected global::Telerik.Web.UI.RadWindow radCopyStructurePopUp;
+        protected global::System.Web.UI.WebControls.TextBox txtValidityFrom;
+        protected global::System.Web.UI.WebControls.TextBox txtValidityTo;
+        protected global::System.Web.UI.WebControls.HiddenField hdnStructure;
     }
 }
