@@ -275,7 +275,10 @@ namespace WealthERP.CommisionManagement
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('CommisionManagementStructureToIssueMapping','ID=" + structureId + "&Product=" + prodType + "');", true);
                         break;
                     case "CopyStructure":
+                       
                         radCopyStructurePopUp.VisibleOnPageLoad = true;
+                        lblStructureName.Text = structureName;
+                        hdnStructure.Value = structureId.ToString();
                         break;
                     default:
                         return;
