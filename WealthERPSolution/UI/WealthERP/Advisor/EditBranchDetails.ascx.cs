@@ -598,7 +598,7 @@ namespace WealthERP.Advisor
                     newAdvisorBranchVo.Phone2Number = int.Parse(txtPhone2.Text.ToString());
                     newAdvisorBranchVo.Phone2Std = int.Parse(txtStdPhone2.Text.ToString());
                     newAdvisorBranchVo.PinCode = int.Parse(txtPinCode.Text.ToString());
-                    newAdvisorBranchVo.BranchHeadId = int.Parse(ddlRmlist.SelectedItem.Value.ToString());
+                    //newAdvisorBranchVo.BranchHeadId = int.Parse(ddlRmlist.SelectedItem.Value.ToString());
                    
                     if (ddlState.SelectedIndex != 0)
                     {

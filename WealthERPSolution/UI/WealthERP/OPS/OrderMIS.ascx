@@ -380,7 +380,7 @@
                                 </telerik:GridBoundColumn>
                                 
                                 <telerik:GridBoundColumn DataField="Customer_Name" HeaderText="Customer" SortExpression="Customer_Name"
-                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                    ShowFilterIcon="false" FilterControlWidth="200px" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                     UniqueName="Customer_Name" FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
@@ -421,7 +421,7 @@
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="PASP_SchemePlanName" HeaderText="Scheme Name"
                                     SortExpression="PASP_SchemePlanName" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                    AutoPostBackOnFilter="true" UniqueName="PASP_SchemePlanName" FooterStyle-HorizontalAlign="Left">
+                                    AutoPostBackOnFilter="true" FilterControlWidth="310px" UniqueName="PASP_SchemePlanName" FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="CO_ApplicationReceivedDate" HeaderText="App rcv Date"

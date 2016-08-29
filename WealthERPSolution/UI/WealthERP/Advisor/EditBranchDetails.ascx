@@ -257,10 +257,10 @@
             <asp:DropDownList ID="ddlRmlist" runat="server" CssClass="cmbField" AutoPostBack="True"
                 OnSelectedIndexChanged="ddlRmlist_SelectedIndexChanged">
             </asp:DropDownList>
-            <span id="Span6" class="spnRequiredField">*</span>
-            <asp:CompareValidator ID="CompareValidator8" runat="server" ErrorMessage="Please Select a Branch Head"
+<%--            <span id="Span6" class="spnRequiredField">*</span>
+--%>            <%--<asp:CompareValidator ID="CompareValidator8" runat="server" ErrorMessage="Please Select a Branch Head"
                 ValidationGroup="btnSubmit" CssClass="cvPCG" ControlToValidate="ddlRmlist" Operator="NotEqual"
-                ValueToCompare="Select Branch head" Display="Dynamic"></asp:CompareValidator>
+                ValueToCompare="Select Branch head" Display="Dynamic"></asp:CompareValidator>--%>
         </td>
     </tr>   
     <tr>
