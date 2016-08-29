@@ -810,6 +810,18 @@
                                     FooterStyle-HorizontalAlign="Right">
                                     <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderStyle-Width="2%" HeaderText="KKC(%)" DataField="WCD_ACSR_KKC"
+                                    HeaderStyle-HorizontalAlign="Left" AutoPostBackOnFilter="true"
+                                    AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    FooterStyle-HorizontalAlign="Left">
+                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderStyle-Width="2%" HeaderText="SKC(%)" DataField="WCD_ACSR_SKC"
+                                    HeaderStyle-HorizontalAlign="Left"  AutoPostBackOnFilter="true"
+                                    AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    FooterStyle-HorizontalAlign="Left">
+                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn HeaderStyle-Width="2%" HeaderText="TDS(%)" DataField="ACSR_ReducedValue"
                                     HeaderStyle-HorizontalAlign="Center" UniqueName="ACSR_ReducedValue" SortExpression="ACSR_ReducedValue"
                                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
@@ -1122,6 +1134,18 @@
                                     HeaderStyle-HorizontalAlign="Right" UniqueName="ACSR_ServiceTaxValue" SortExpression="ACSR_ServiceTaxValue"
                                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     FooterStyle-HorizontalAlign="Right">
+                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                 <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="KKC(%)" DataField="WCD_ACSR_KKC"
+                                    HeaderStyle-HorizontalAlign="Left" AutoPostBackOnFilter="true"
+                                    AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    FooterStyle-HorizontalAlign="Left">
+                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="SKC(%)" DataField="WCD_ACSR_SKC"
+                                    HeaderStyle-HorizontalAlign="Left"  AutoPostBackOnFilter="true"
+                                    AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="TDS(%)" DataField="ACSR_ReducedValue"
