@@ -306,7 +306,7 @@ namespace WealthERP.OnlineOrderBackOffice
             //BindAdviserIssueAllotmentList();
             imgexportButton.Visible = true;
             //BindCustomerDetailsGrid();
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('CustomerDematAcceptedDetails','none');", true);
+           // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('CustomerDematAcceptedDetails','none');", true);
 
         }
         public void btnExportData_OnClick(object sender, ImageClickEventArgs e)
