@@ -158,7 +158,7 @@
             <span id="Span1" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ControlToValidate="txtBranchCode" ErrorMessage="Please enter the Branch Code"
-                CssClass="rfvPCG" Display="Dynamic" ID="rfvBranchCode" ValidationGroup="btnSubmit"
+                CssClass="rfvPCG" Display="Dynamic" ID="rfvBranchCode" ValidationGroup="VGSave"
                 runat="server"></asp:RequiredFieldValidator>
             <asp:RegularExpressionValidator ID="revCode" runat="server" Display="Dynamic" CssClass="rfvPCG"
                 ErrorMessage="Please check Alphanumeric Format" ControlToValidate="txtBranchCode"
@@ -184,7 +184,7 @@
            <%-- <span id="Span8" class="spnRequiredField">*</span>--%>
     <%--  <br />--%>
     <%-- <asp:RequiredFieldValidator ControlToValidate="txtBranchCode" ErrorMessage="Please enter the Branch Code"
-                CssClass="rfvPCG" Display="Dynamic" ID="RequiredFieldValidator6" ValidationGroup="btnSubmit"
+                CssClass="rfvPCG" Display="Dynamic" ID="RequiredFieldValidator6" ValidationGroup="VGSave"
                 runat="server"></asp:RequiredFieldValidator>--%>
     <tr>
         <td class="leftField" width="25%">
@@ -196,7 +196,7 @@
             <span id="Span2" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ControlToValidate="txtBranchName" ErrorMessage="Please enter the Branch/Associate Name"
-                CssClass="rfvPCG" Display="Dynamic" ID="RequiredFieldValidator1" ValidationGroup="btnSubmit"
+                CssClass="rfvPCG" Display="Dynamic" ID="RequiredFieldValidator1" ValidationGroup="VGSave"
                 runat="server"></asp:RequiredFieldValidator>
         </td>
         <td class="leftField" width="25%">
@@ -210,7 +210,7 @@
             <%-- <span id="Span4" class="spnRequiredField">*</span> </br>--%>
             <asp:CompareValidator ID="ddlBranchAssociateType_CompareValidator" runat="server"
                 ControlToValidate="ddlBranchAssociateType" ErrorMessage="Please select a Branch/Associate Type"
-                Operator="NotEqual" ValueToCompare="Select a Type" CssClass="cvPCG" ValidationGroup="btnSubmit">
+                Operator="NotEqual" ValueToCompare="Select a Type" CssClass="cvPCG" ValidationGroup="VGSave">
             </asp:CompareValidator>
         </td>
     </tr>
@@ -271,7 +271,7 @@
                 <tr>
                     <td colspan="2">
                         <asp:RequiredFieldValidator ControlToValidate="txtLine1" ErrorMessage="Please enter the Address Line1"
-                            CssClass="rfvPCG" Display="Dynamic" ID="RequiredFieldValidator2" ValidationGroup="btnSubmit"
+                            CssClass="rfvPCG" Display="Dynamic" ID="RequiredFieldValidator2" ValidationGroup="VGSave"
                             runat="server"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
@@ -299,10 +299,10 @@
                 MaxLength="6" CssClass="txtField"></asp:TextBox>
             <span id="Span7" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtPinCode"
-                ErrorMessage="Pincode Required" CssClass="cvPCG" ValidationGroup="btnSubmit"
+                ErrorMessage="Pincode Required" CssClass="cvPCG" ValidationGroup="VGSave"
                 Display="Dynamic"></asp:RequiredFieldValidator>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" CssClass="cvPCG"
-                ErrorMessage="</br>Please give min. 6 digit Numbers" ValidationGroup="btnSubmit"
+                ErrorMessage="</br>Please give min. 6 digit Numbers" ValidationGroup="VGSave"
                 ValidationExpression="^\d{6,6}$" ControlToValidate="txtPinCode" Display="Dynamic"></asp:RegularExpressionValidator>
         </td>
     </tr>
@@ -396,7 +396,7 @@
             <span id="Span5" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtPhone1"
                 ErrorMessage="<br />Please enter the Contact Number" Display="Dynamic" runat="server"
-                CssClass="rfvPCG" ValidationGroup="btnSubmit">
+                CssClass="rfvPCG" ValidationGroup="VGSave">
             </asp:RequiredFieldValidator>
             </asp:RequiredFieldValidator>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator7" runat="server" CssClass="cvPCG"
@@ -406,7 +406,7 @@
                 ErrorMessage="<br />Please give only Numbers" ValidationExpression="\d+" ControlToValidate="txtStdPhone1"
                 Display="Dynamic"></asp:RegularExpressionValidator>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator9" runat="server" CssClass="cvPCG"
-                ValidationGroup="btnSubmit" ErrorMessage="<br />Please give only Numbers" ValidationExpression="^[0-9]+$"
+                ValidationGroup="VGSave" ErrorMessage="<br />Please give only Numbers" ValidationExpression="^[0-9]+$"
                 ControlToValidate="txtPhone1" Display="Dynamic"></asp:RegularExpressionValidator>
         </td>
     </tr>
@@ -434,7 +434,7 @@
                 CssClass="cvPCG" ErrorMessage="<br />Please give only Numbers" ValidationExpression="\d+"
                 ControlToValidate="txtStdPhone2" Display="Dynamic"></asp:RegularExpressionValidator>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator12" runat="server"
-                CssClass="cvPCG" ValidationGroup="btnSubmit" ErrorMessage="<br />Please give only Numbers"
+                CssClass="cvPCG" ValidationGroup="VGSave" ErrorMessage="<br />Please give only Numbers"
                 ValidationExpression="^[0-9]+$" ControlToValidate="txtPhone2" Display="Dynamic"></asp:RegularExpressionValidator>
         </td>
     </tr>
@@ -462,7 +462,7 @@
                 CssClass="cvPCG" ErrorMessage="<br />Please give only Numbers" ValidationExpression="\d+"
                 ControlToValidate="txtStdFax" Display="Dynamic"></asp:RegularExpressionValidator>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator15" runat="server"
-                CssClass="cvPCG" ValidationGroup="btnSubmit" ErrorMessage="<br />Please give only Numbers"
+                CssClass="cvPCG" ValidationGroup="VGSave" ErrorMessage="<br />Please give only Numbers"
                 ValidationExpression="^[0-9]+$" ControlToValidate="txtFax" Display="Dynamic"></asp:RegularExpressionValidator>
         </td>
     </tr>
@@ -473,7 +473,7 @@
         <td class="rightField" colspan="3">
             <asp:TextBox ID="txtEmail" CssClass="txtField" runat="server"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtEmail"
-                ValidationGroup="btnSubmit" ErrorMessage="Please enter a valid Email ID" Display="Dynamic"
+                ValidationGroup="VGSave" ErrorMessage="Please enter a valid Email ID" Display="Dynamic"
                 runat="server" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
                 CssClass="revPCG"></asp:RegularExpressionValidator>
         </td>
@@ -581,7 +581,7 @@
                                 CssClass="rfvPCG" ValidationGroup="btnAdd" Display="Dynamic" ErrorMessage="Please select a End Date"></asp:RequiredFieldValidator>
                             <asp:CompareValidator ID="CompareValidator14" runat="server" ControlToValidate="txtEndDate"
                                 ErrorMessage="End Date should be greater than Start Date" Type="Date" Operator="GreaterThanEqual"
-                                ControlToCompare="txtStartDate" CssClass="cvPCG" ValidationGroup="btnSubmit"
+                                ControlToCompare="txtStartDate" CssClass="cvPCG" ValidationGroup="VGSave"
                                 Display="Dynamic">
                             </asp:CompareValidator>
                         </ItemTemplate>
@@ -637,7 +637,7 @@
         <td class="SubmitCell" colspan="2">
             <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_AddBranch_btnSubmit','S');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_AddBranch_btnSubmit','S');"
-                Text="Submit" OnClick="btnSaveChanges_Click" ValidationGroup="btnSubmit" />
+                Text="Submit" OnClick="btnSaveChanges_Click" ValidationGroup="VGSave" />
         </td>
     </tr>
     <tr id="trAddBranchCode" runat="server">

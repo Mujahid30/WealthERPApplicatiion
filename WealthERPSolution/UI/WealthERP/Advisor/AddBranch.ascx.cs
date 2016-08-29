@@ -426,6 +426,7 @@ namespace WealthERP.Advisor
 
         protected void btnSaveChanges_Click(object sender, EventArgs e)
         {
+            AdvisorBranchVo newAdvisorBranchVo = new AdvisorBranchVo();
             string branchAdd = "";
 
             UserVo userVo = null;
@@ -434,23 +435,16 @@ namespace WealthERP.Advisor
             {
                 branchAdd = Session["BranchAdd"].ToString();
                 userVo = (UserVo)Session["UserVo"];
-
-                // if (chkAvailability())
-                //{
-
-
                 if (Validation())
                 {
+
                     AdvisorBo advisorBo = new AdvisorBo();
                     advisorId = advisorVo.advisorId;
                     userId = userVo.UserId;
-
-                    //advisorBranchVo.BranchId = advisorBo.getId();
                     advisorBranchVo.AddressLine1 = txtLine1.Text.ToString();
                     advisorBranchVo.AddressLine2 = txtLine2.Text.ToString();
                     advisorBranchVo.AddressLine3 = txtLine3.Text.ToString();
                     advisorBranchVo.BranchCode = txtBranchCode.Text.ToString();
-
                     rmList = advisorStaffBo.GetRMList(advisorVo.advisorId);
                     if (rmList == null)
                     {
@@ -463,15 +457,7 @@ namespace WealthERP.Advisor
                             advisorBranchVo.BranchHeadId = int.Parse(ddlRmlist.SelectedItem.Value.ToString());
                         }
                     }
-                    //if (txtMobileNumber.Text == "")
-                    //{
-                    //    advisorBranchVo.MobileNumber = 0;
-                    //}
-                    //else
-                    //{
-                    //    advisorBranchVo.MobileNumber = long.Parse(txtMobileNumber.Text);
-                    //}
-                    //advisorBranchVo.BranchId = advisorBo.getId().ToString();
+                    
                     advisorBranchVo.BranchName = txtBranchName.Text.ToString();
                     advisorBranchVo.City = txtCity.Text.Trim();
                     advisorBranchVo.Country = ddlCountry.SelectedItem.Value.ToString();
@@ -708,7 +694,8 @@ namespace WealthERP.Advisor
 
                 else
                 {
-                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Please select the Branch Head..!');", true);
+                   // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Please select the Branch Head..!');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewBranches','none');", true);
                 }
             }
             catch (BaseApplicationException Ex)
