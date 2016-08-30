@@ -44,12 +44,17 @@ namespace WealthERP.OnlineOrderManagement
             if (exchangeType == "Demat")
             {
                 ddlAction.Items.FindByValue("SIP").Enabled = false;
+                ddlAction.Items.FindByValue("BNS").Enabled = true;
+                ddlAction.Items.FindByValue("XSIP").Enabled = true;
                 //ddlAction.Items.FindByValue("ABY").Enabled = false;
             }
             else
             {
                 ddlAction.Items.FindByValue("SIP").Enabled = true;
                 ddlAction.Items.FindByValue("ABY").Enabled = true;
+                ddlAction.Items.FindByValue("BNS").Enabled = false;
+                ddlAction.Items.FindByValue("XSIP").Enabled = false;
+
             }
             if (!IsPostBack)
             {
