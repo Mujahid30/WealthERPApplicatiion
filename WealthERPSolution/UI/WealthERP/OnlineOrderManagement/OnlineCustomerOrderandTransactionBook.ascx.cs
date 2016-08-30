@@ -118,6 +118,13 @@ namespace WealthERP.OnlineOrderManagement
                 case "SEL":
                     BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "SEL", exchangeType == "Online" ? 1 : 0);
                     break;
+                case "BNS":
+                    BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "BNS", exchangeType == "Online" ? 1 : 0);
+                    break;
+
+                case "XSIP":
+                    BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "XSIP", exchangeType == "Online" ? 1 : 0);
+                    break;
             }
         }
 
