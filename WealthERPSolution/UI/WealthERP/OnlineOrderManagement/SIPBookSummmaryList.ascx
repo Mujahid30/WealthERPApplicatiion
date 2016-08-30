@@ -132,8 +132,8 @@
                     <table width="100%">
                         <tr>
                             <td align="left">
-                                SIP Book
-                            </td>
+                        <asp:Label ID="lblHeader" runat="server"></asp:Label>
+                        </td>
                             <td style="float: right; margin-right: 10px">
                             </td>
                         </tr>
@@ -155,6 +155,17 @@
                         AutoPostBack="false">
                     </asp:DropDownList>
                 </div>
+                <div class="col-md-1" style="text-align: right; padding-top: 3px">
+                <asp:Label ID="Label2" runat="server" Text="SIP Type:"></asp:Label>
+                    </div>
+                    <div class="col-md-3">
+                    <asp:DropDownList CssClass="form-control input-sm" ID="ddlSIP" runat="server"
+                        AutoPostBack="false">
+                         <asp:ListItem Value="0" Text="BSE Normal SIP "></asp:ListItem>
+                         <asp:ListItem Value="1" Text="X-SIP"></asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+
                 <div class="col-md-3">
                     <asp:Button ID="btnViewSIP" runat="server" CssClass="btn btn-primary btn-primary"
                         Text="Go" ValidationGroup="btnViewSIP" OnClick="btnViewOrder_Click" />

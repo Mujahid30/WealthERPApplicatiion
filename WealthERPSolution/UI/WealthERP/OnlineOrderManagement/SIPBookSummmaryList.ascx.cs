@@ -51,15 +51,28 @@ namespace WealthERP.OnlineOrderManagement
                 exchangeType = "Online";
             if (!Page.IsPostBack)
             {
-                if (exchangeType == "Demat")
+                //if (exchangeType == "Demat")
+                //{
+                //    btnViewSIP.Enabled = false;
+                //    btnViewSIP.ToolTip = "Not Applicable For Exchange";
+                //    ddlAMCCode.Enabled = false;
+                //    ddlAMCCode.ToolTip = "Not Applicable For Exchange";
+                //}
+                //else
+                //    btnViewSIP.ToolTip = "";
+                if (exchangeType == "Online")
                 {
-                    btnViewSIP.Enabled = false;
-                    btnViewSIP.ToolTip = "Not Applicable For Exchange";
-                    ddlAMCCode.Enabled = false;
-                    ddlAMCCode.ToolTip = "Not Applicable For Exchange";
+                    lblHeader.Text = "SIP Book(Online)";
+                    ddlSIP.Visible = false;
+                    Label2.Visible = false;
                 }
+
                 else
-                    btnViewSIP.ToolTip = "";
+                {
+                    lblHeader.Text = "SIP Book(Exchange)";
+                    ddlSIP.Visible = true;
+                    Label2.Visible = true;
+                }
                 if (Request.QueryString["systematicType"] != null)
                 {
                     hdnsystamaticType.Value = Request.QueryString["systematicType"].ToString();
