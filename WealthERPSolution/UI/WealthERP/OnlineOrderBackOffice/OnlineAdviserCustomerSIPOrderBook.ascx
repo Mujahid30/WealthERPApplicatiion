@@ -57,6 +57,33 @@
                     <%--<asp:ListItem Text="All" Value="0"></asp:ListItem>--%>
                 </asp:DropDownList>
             </td>
+            <td>
+                <asp:Label runat="server" class="FieldName" Text="Mode:" ID="lblMode"></asp:Label>
+            </td>
+            <td>
+            <asp:DropDownList ID="ddlMode" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlMode_OnSelectedIndexChanged" AutoPostBack="true">
+              <asp:ListItem Value="0" Text="Select"></asp:ListItem>
+            <asp:ListItem Value="1" Text="Online"></asp:ListItem>
+            <asp:ListItem Value="2" Text="Demat"></asp:ListItem>
+            </asp:DropDownList>
+             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="ddlMode"
+                        ErrorMessage="<br />Select Mode" CssClass="cvPCG" Display="Dynamic"
+                        runat="server" InitialValue="Select" ValidationGroup="btnViewSIP">
+                    </asp:RequiredFieldValidator>
+            </td>
+            <td>
+                <asp:Label runat="server" class="FieldName" Text="SIP Type:" ID="Label3"></asp:Label>
+            </td>
+            <td>
+            <asp:DropDownList ID="ddlSIP" runat="server" CssClass="cmbField" AutoPostBack="true">
+            <asp:ListItem Value="0" Text="BSE Normal SIP "></asp:ListItem>
+            <asp:ListItem Value="1" Text="X-SIP"></asp:ListItem>
+            </asp:DropDownList>
+             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ddlSIP"
+                        ErrorMessage="<br />Select SIP Type" CssClass="cvPCG" Display="Dynamic"
+                        runat="server" InitialValue="Select" ValidationGroup="btnViewSIP">
+                    </asp:RequiredFieldValidator>
+            </td>
             <td id="td1" runat="server">
                 <asp:Label runat="server" class="FieldName" Text="Order Status:" ID="Label1"></asp:Label>
             </td>

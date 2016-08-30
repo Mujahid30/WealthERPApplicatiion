@@ -53,6 +53,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 fromDate = DateTime.Now;
                 txtFrom.SelectedDate = fromDate.Date;
                 txtTo.SelectedDate = DateTime.Now;
+                ddlSIP.Visible = false;
+                Label3.Visible = false;
+                
                 if (ddlType.SelectedValue != "ON")
                 {
                     divConditional.Visible = true;
@@ -114,6 +117,20 @@ namespace WealthERP.OnlineOrderBackOffice
             }
 
 
+        }
+
+        protected void ddlMode_OnSelectedIndexChanged(object Sender, EventArgs e)
+        {
+            if (ddlMode.SelectedValue =="0")
+            {
+                ddlSIP.Visible = false;
+                Label3.Visible = false;
+            }
+            else
+            {
+                ddlSIP.Visible = true;
+                Label3.Visible = true;
+            }
         }
         protected void btnViewOrder_Click(object sender, EventArgs e)
         {

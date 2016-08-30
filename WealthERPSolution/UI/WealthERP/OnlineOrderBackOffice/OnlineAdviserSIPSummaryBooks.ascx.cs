@@ -54,6 +54,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtFrom.SelectedDate = fromDate.Date;
                 txtTo.SelectedDate = DateTime.Now;
                 tdStatusType.Visible = false;
+                ddlSIP.Visible = false;
+                Label4.Visible = false;
                 if (Request.QueryString["SIPBook"] != null)
                 {
                     string r = Request.QueryString["SIPBook"].ToString();
@@ -80,6 +82,19 @@ namespace WealthERP.OnlineOrderBackOffice
                 tdTxtFromDate.Visible = true;
                 tdlblToDate.Visible = true;
                 tdTxtToDate.Visible = true;
+            }
+        }
+        protected void ddlMode_OnSelectedIndexChanged(object Sender, EventArgs e)
+        {
+            if (ddlMode.SelectedValue == "0")
+            {
+                ddlSIP.Visible = false;
+                Label4.Visible = false;
+            }
+            else
+            {
+                ddlSIP.Visible = true;
+                Label4.Visible = true;
             }
         }
 

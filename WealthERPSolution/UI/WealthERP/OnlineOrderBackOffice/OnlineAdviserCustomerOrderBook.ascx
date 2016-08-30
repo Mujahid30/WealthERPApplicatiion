@@ -58,7 +58,7 @@
                 <asp:Label runat="server" class="FieldName" Text="Mode:" ID="lblMode"></asp:Label>
             </td>
             <td>
-            <asp:DropDownList ID="ddlMode" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlMode"  runat="server" CssClass="cmbField">
             <asp:ListItem Value="0" Text="Online"></asp:ListItem>
             <asp:ListItem Value="1" Text="Demat"></asp:ListItem>
             </asp:DropDownList>
