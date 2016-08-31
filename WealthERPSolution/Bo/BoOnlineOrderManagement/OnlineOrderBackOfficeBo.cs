@@ -20,7 +20,7 @@ using Microsoft.SqlServer.Management.Smo;
 
 namespace BoOnlineOrderManagement
 {
-    public class OnlineOrderBackOfficeBo
+    public class OnlineOrderBackOfficeBo 
     {
         OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao;
         CommonLookupBo boCommonLookup;

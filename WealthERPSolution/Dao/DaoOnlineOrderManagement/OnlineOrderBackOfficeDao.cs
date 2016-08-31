@@ -24,7 +24,7 @@ namespace DaoOnlineOrderManagement
         {
             DataSet dsExtractType;
             Database db;
-            DbCommand GetGetMfOrderExtractCmd;
+            DbCommand GetGetMfOrderExtractCmd; 
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
