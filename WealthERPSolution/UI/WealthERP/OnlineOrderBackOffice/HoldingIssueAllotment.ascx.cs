@@ -28,16 +28,17 @@ namespace WealthERP.OnlineOrderBackOffice
         DateTime fromdate;
         DateTime todate;
         AdvisorVo adviserVo;
+          int producttype = 0;
         OnlineOrderBackOfficeBo onlineOrderBackOfficeBo = new OnlineOrderBackOfficeBo();
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             SessionBo.CheckSession();
             userVo = (UserVo)Session[SessionContents.UserVo];
-            advisorVo = (AdvisorVo)Session["advisorVo"];
-            // BindRTAInitialReport();
+            adviserVo = (AdvisorVo)Session["advisorVo"];
             if (!IsPostBack)
             {
-
+                BindRTAInitialReport();
                 fromdate = DateTime.Now.AddDays(-1);
                 txtFromDate.SelectedDate = fromdate;
                 txtToDate.SelectedDate = DateTime.Now;
@@ -94,10 +95,11 @@ namespace WealthERP.OnlineOrderBackOffice
                     fromdate = DateTime.Parse(txtFromDate.SelectedDate.ToString());
                 if (txtToDate.SelectedDate != null)
                     todate = DateTime.Parse(txtToDate.SelectedDate.ToString());
-               
-                if (!Boolean.Parse(ddlOrderType.SelectedValue))
+
+                //if (ddlOrderType.SelectedValue))
+                if (ddlOrderType.SelectedValue == "1")
                 {
-                    dtBindRTAInitialReport = onlineOrderBackOffice.GetRTAInitialReport(ddlType.SelectedValue.ToString(), fromdate, todate, Boolean.Parse(ddlOrderType.SelectedValue), int.Parse(ddlAMC.SelectedValue));
+                    dtBindRTAInitialReport = onlineOrderBackOffice.GetRTAInitialReport(ddlType.SelectedValue.ToString(), fromdate, todate, Convert.ToInt32((ddlOrderType.SelectedValue)), int.Parse(ddlAMC.SelectedValue));
                     if (Cache["RTAInitialReport" + advisorVo.advisorId] != null)
                     {
                         Cache.Remove("RTAInitialReport" + advisorVo.advisorId);
@@ -107,11 +109,31 @@ namespace WealthERP.OnlineOrderBackOffice
                     gvOrderReport.DataSource = dtBindRTAInitialReport;
                     gvOrderReport.DataBind();
                     pnlOrderReport.Visible = true;
+                    pnlCustomerDetails.Visible = false;
+                    pnlFATCA.Visible = false;
 
                 }
-                else
+
+               //if (!Boolean.Parse(ddlOrderType.SelectedValue))
+                else if (ddlOrderType.SelectedValue == "3")
                 {
-                    dtBindRTAInitialReport = onlineOrderBackOffice.GetRTAInitialReport(ddlType.SelectedValue.ToString(), fromdate, todate, Boolean.Parse(ddlOrderType.SelectedValue), int.Parse(ddlAMC.SelectedValue));
+                    dtBindRTAInitialReport = onlineOrderBackOffice.GetCustomerDetails(adviserVo.advisorId, ddlType.SelectedValue.ToString(), fromdate, todate);
+          
+                    gvCustomerDetails1.DataSource = dtBindRTAInitialReport;
+                    gvCustomerDetails1.DataBind();
+                    pnlCustomerDetails.Visible = true;
+                    pnlFATCA.Visible = false;
+                    pnlOrderReport.Visible = false;
+                    Button1.Visible = true;
+
+                }
+
+
+
+                else if (ddlOrderType.SelectedValue == "2")
+                {
+
+                    dtBindRTAInitialReport = onlineOrderBackOffice.GetRTAInitialReport(ddlType.SelectedValue.ToString(), fromdate, todate, Convert.ToInt32((ddlOrderType.SelectedValue)), int.Parse(ddlAMC.SelectedValue));
                     if (Cache["FATCAReport" + advisorVo.advisorId] != null)
                     {
                         Cache.Remove("FATCAReport" + advisorVo.advisorId);
@@ -121,7 +143,11 @@ namespace WealthERP.OnlineOrderBackOffice
                     rgFATCA.DataSource = dtBindRTAInitialReport;
                     rgFATCA.DataBind();
                     pnlFATCA.Visible = true;
+                    pnlCustomerDetails.Visible = false;
+                    pnlOrderReport.Visible = false;
                 }
+
+
             }
 
             catch (BaseApplicationException Ex)
@@ -144,20 +170,44 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void ddlOrderType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            tdlblAMC.Visible = false;
-            tdddlAMC.Visible = false;
-            tdddlType.Visible = false;
-            tdlblType.Visible = false;
-            if (Boolean.Parse(ddlOrderType.SelectedValue))
+            //tdlblAMC.Visible = false;
+            //tdddlAMC.Visible = false;
+            //tdddlType.Visible = false;
+            //tdlblType.Visible = false;
+            if (ddlOrderType.SelectedValue=="1")
             {
                 tdlblAMC.Visible = true;
                 tdddlAMC.Visible = true;
+                tdddlType.Visible = false;
+                tdlblType.Visible = false;
+                pnlOrderReport.Visible = true;
+                pnlCustomerDetails.Visible = false;
+                pnlFATCA.Visible = false;
+
             }
-            else
+            if (ddlOrderType.SelectedValue == "2")
             {
                 tdddlType.Visible =true;
                 tdlblType.Visible = true;
+                tdlblAMC.Visible = false;
+                tdddlAMC.Visible = false;
+                pnlFATCA.Visible = true;
+                pnlCustomerDetails.Visible = false;
+                pnlOrderReport.Visible = false;
             }
+
+           if (ddlOrderType.SelectedValue == "3")
+           {
+               tdddlType.Visible = false;
+               tdlblType.Visible = false;
+               tdlblAMC.Visible = false;
+               tdddlAMC.Visible = false;
+               pnlCustomerDetails.Visible = true;
+               pnlFATCA.Visible = false;
+               pnlOrderReport.Visible = false;
+
+           }
+         
         }
         protected void gvOrderReport_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
@@ -274,29 +324,7 @@ namespace WealthERP.OnlineOrderBackOffice
         }
 
 
-        protected void BindCustomerDetailsGrid()
-        {
-
-          
-            DataTable dtBindCustomerDetailsGrid;
-            if (txtFromDate.SelectedDate != null)
-                fromdate = DateTime.Parse(txtFromDate.SelectedDate.ToString());
-            if (txtToDate.SelectedDate != null)
-                todate = DateTime.Parse(txtToDate.SelectedDate.ToString());
-
-            //if (!Boolean.Parse(ddlOrderType.SelectedValue))
-            //{
-            //    dtBindCustomerDetailsGrid = onlineOrderBackOffice.GetRTAInitialReport(ddlType.SelectedValue.ToString(), fromdate, todate, Boolean.Parse(ddlOrderType.SelectedValue), int.Parse(ddlAMC.SelectedValue));
-            //    if (Cache["RTAInitialReport" + advisorVo.advisorId] != null)
-            //    {
-            //        Cache.Remove("RTAInitialReport" + advisorVo.advisorId);
-            //    }
-            //    Cache.Insert("RTAInitialReport" + advisorVo.advisorId, dtBindCustomerDetailsGrid);
-               
-                DataSet ds = onlineOrderBackOfficeBo.BindCustomerDetails(adviserVo.advisorId);
-                gvCustomerDetails.DataSource = ds.Tables[0];
-                gvCustomerDetails.DataBind();
-            }
+      
         
 
 
@@ -305,7 +333,7 @@ namespace WealthERP.OnlineOrderBackOffice
             BindRTAInitialReport();
             //BindAdviserIssueAllotmentList();
             imgexportButton.Visible = true;
-            //BindCustomerDetailsGrid();
+             //BindCustomerDetailsGrid();
            // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('CustomerDematAcceptedDetails','none');", true);
 
         }
@@ -345,5 +373,95 @@ namespace WealthERP.OnlineOrderBackOffice
                 gvAdviserIssueList.DataSource = dsGetAdviserissueallotmentList;
             }
         }
+
+
+
+
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            int i = 0;
+            OnlineOrderBackOfficeBo OnlineOrderBackOfficeBo = new OnlineOrderBackOfficeBo();
+            foreach (GridDataItem dataItem in gvCustomerDetails1.MasterTableView.Items)
+            {
+                if ((dataItem.FindControl("chk") as CheckBox).Checked == true)
+                {
+                    i = i + 1;
+                }
+            }
+            if (i == 0)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select a customer!');", true);
+                return;
+            }
+            else
+            {
+                DataTable dtcustomer = new DataTable();
+                dtcustomer.Columns.Add("customerId", typeof(Int32));
+                dtcustomer.Columns.Add("demataccepted", typeof(int));
+                DataRow drcustomer;
+                foreach (GridDataItem radItem in gvCustomerDetails1.MasterTableView.Items)
+                {
+
+                    if ((radItem.FindControl("chk") as CheckBox).Checked == true)
+                    {
+                        drcustomer = dtcustomer.NewRow();
+                        drcustomer["customerId"] = int.Parse(gvCustomerDetails1.MasterTableView.DataKeyValues[radItem.ItemIndex]["C_CustomerId"].ToString());
+                        CheckBox chk = radItem.FindControl("chk") as CheckBox;
+                        drcustomer["demataccepted"] = chk.Checked ? 1 : 0;
+                        dtcustomer.Rows.Add(drcustomer);
+                    }
+                }
+                OnlineOrderBackOfficeBo.UpdateCustomerCode(dtcustomer, userVo.UserId);
+               
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Selected Customer Marked as Demat Investor!!');", true);
+            }
+
+        }
+        
+
+         protected void gvCustomerDetails_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (userVo.UserType == "Advisor")
+            {
+                //if (rbtnProspect.Checked)
+                //    producttype = 2;
+                //else if (rbtnFpClient.Checked)
+                //    producttype = 1;
+                if (producttype == 2)
+                {
+                    gvCustomerDetails1.MasterTableView.GetColumn("Action").Visible = false;
+                    gvCustomerDetails1.MasterTableView.GetColumn("MarkFPClient").Visible = false;
+                    gvCustomerDetails1.MasterTableView.GetColumn("ActionForProspect").Visible = true;
+                }
+                else
+                {
+                    //gvCustomerDetails1.MasterTableView.GetColumn("").Visible = true;
+                    //gvCustomerDetails1.MasterTableView.GetColumn("").Visible = true;
+                    //gvCustomerDetails1.MasterTableView.GetColumn("").Visible = false;
+                }
+                return;
+            }
+            if (userVo.UserType == "Associates")
+            {
+                gvCustomerDetails1.MasterTableView.GetColumn("Action").Visible = false;
+                gvCustomerDetails1.MasterTableView.GetColumn("MarkFPClient").Visible = false;
+                gvCustomerDetails1.MasterTableView.GetColumn("ActionForProspect").Visible = false;
+            }
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataItem = (GridDataItem)e.Item;
+                Boolean Iscancel = Convert.ToBoolean(gvCustomerDetails1.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_IsDematInvestor"]);
+                CheckBox chk = (CheckBox)e.Item.FindControl("chk");
+                if (Iscancel)
+                    chk.Visible = false;
+                else
+                    chk.Visible = true;
+            }
+        }
+
+
+
+
     }
-}
+    }

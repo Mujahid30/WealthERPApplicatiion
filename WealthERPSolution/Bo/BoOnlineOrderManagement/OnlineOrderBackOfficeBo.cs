@@ -2154,7 +2154,7 @@ namespace BoOnlineOrderManagement
             dtGetSchemeLookupType = daoOnlineOrderBackOffice.GetSchemeLookupType(dividentType);
             return dtGetSchemeLookupType;
         }
-        public DataTable GetRTAInitialReport(string type, DateTime fromDate, DateTime toDate, Boolean ReportType, int amcCode)
+        public DataTable GetRTAInitialReport(string type, DateTime fromDate, DateTime toDate, int ReportType, int amcCode)
         {
             DataTable dt;
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
@@ -2168,6 +2168,24 @@ namespace BoOnlineOrderManagement
             }
             return dt;
         }
+
+        public DataTable GetCustomerDetails(int adviserId, string type, DateTime fromDate, DateTime toDate)
+        {
+            DataTable dt;
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            try
+            {
+                dt = daoOnlineOrderBackOffice.GetCustomerDetails(adviserId, type, fromDate, toDate);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dt;
+        }
+
+
+
         public DataTable GetAMCListRNTWise(string RNTType)
         {
             DataTable dtGetAMCListRNTWise;
@@ -2739,19 +2757,6 @@ namespace BoOnlineOrderManagement
         }
 
 
-        public DataSet BindCustomerDetails(int adviserId)
-        {
-            DataSet dsCustomerDetails = new DataSet();
-            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
-            try
-            {
-                dsCustomerDetails = daoOnlineOrderBackOffice.BindCustomerDetails(adviserId);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            return dsCustomerDetails;
-        }
+      
     }
 }

@@ -61,7 +61,7 @@ namespace DaoCommon
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetProdAmc = db.GetStoredProcCommand("SP_GetProductAmc");
                 if (AmcCode > 0) db.AddInParameter(cmdGetProdAmc, "@PA_AMCCode", DbType.Int32, AmcCode);
-                 db.AddInParameter(cmdGetProdAmc, "@IsRTA", DbType.Boolean, IsRTA);
+                db.AddInParameter(cmdGetProdAmc, "@IsRTA", DbType.Boolean, IsRTA);
                 ds = db.ExecuteDataSet(cmdGetProdAmc);
             }
             catch (BaseApplicationException Ex)

@@ -2572,7 +2572,7 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetSchemeLookupType;
         }
-        public DataTable GetRTAInitialReport(string type, DateTime fromDate, DateTime toDate, Boolean ReportType, int amcCode)
+        public DataTable GetRTAInitialReport(string type, DateTime fromDate, DateTime toDate, int ReportType, int amcCode)
         {
             Database db;
             DbCommand cmdGetRTAInitialReport;
@@ -2586,7 +2586,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmdGetRTAInitialReport, "@Fromdate", DbType.DateTime, fromDate);
                 db.AddInParameter(cmdGetRTAInitialReport, "@Todate", DbType.DateTime, toDate);
                 db.AddInParameter(cmdGetRTAInitialReport, "@IsFatca", DbType.Boolean, ReportType);
-                db.AddInParameter(cmdGetRTAInitialReport, "@AMCCode", DbType.Int32, amcCode);
+                db.AddInParameter(cmdGetRTAInitialReport, "@AMCCode", DbType.Int32, amcCode); 
                 cmdGetRTAInitialReport.CommandTimeout = 60 * 60;
                 dsGetRTAInitialReport = db.ExecuteDataSet(cmdGetRTAInitialReport);
                 dtGetRTAInitialReport = dsGetRTAInitialReport.Tables[0];
@@ -2597,6 +2597,35 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetRTAInitialReport;
         }
+
+        public DataTable GetCustomerDetails(int adviserId, string type, DateTime fromDate, DateTime toDate)
+        {
+            DataSet dsCustomerDetails;
+            Database db;
+            DataTable dtGetCustomerDetails;
+            DbCommand cmdCustomerDetails;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdCustomerDetails = db.GetStoredProcCommand("SP_GETCustomerDetails");
+                db.AddInParameter(cmdCustomerDetails, "@AdviserID", DbType.Int32, adviserId);
+                db.AddInParameter(cmdCustomerDetails, "@AMCWise", DbType.String, type);
+                db.AddInParameter(cmdCustomerDetails, "@Fromdate", DbType.DateTime, fromDate);
+                db.AddInParameter(cmdCustomerDetails, "@Todate", DbType.DateTime, toDate);
+               cmdCustomerDetails.CommandTimeout = 60 * 60;
+                dsCustomerDetails = db.ExecuteDataSet(cmdCustomerDetails);
+                dtGetCustomerDetails = dsCustomerDetails.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetCustomerDetails;
+        }
+
+
+
+
         public DataTable GetAMCListRNTWise(string RNTType)
         {
             DataSet dsGetAMCListRNTWise;
@@ -3518,24 +3547,24 @@ namespace DaoOnlineOrderManagement
 
 
 
-        public DataSet BindCustomerDetails(int adviserId)
-        {
-            DataSet dsCustomerDetails;
-            Database db;
-            DbCommand cmdCustomerDetails;
-            try
-            {
-                db = DatabaseFactory.CreateDatabase("wealtherp");
-                cmdCustomerDetails = db.GetStoredProcCommand("SP_GETCustomerDetails");
-                db.AddInParameter(cmdCustomerDetails, "@AdviserID", DbType.Int32, adviserId);
-                dsCustomerDetails = db.ExecuteDataSet(cmdCustomerDetails);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            return dsCustomerDetails;
-        }
+        //public DataSet BindCustomerDetails(int adviserId)
+        //{
+        //    DataSet dsCustomerDetails;
+        //    Database db;
+        //    DbCommand cmdCustomerDetails;
+        //    try
+        //    {
+        //        db = DatabaseFactory.CreateDatabase("wealtherp");
+        //        cmdCustomerDetails = db.GetStoredProcCommand("SP_GETCustomerDetails");
+        //        db.AddInParameter(cmdCustomerDetails, "@AdviserID", DbType.Int32, adviserId);
+        //        dsCustomerDetails = db.ExecuteDataSet(cmdCustomerDetails);
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    return dsCustomerDetails;
+        //}
 
 
 
