@@ -485,22 +485,46 @@ namespace WealthERP.OnlineOrderManagement
                 string message = string.Empty;
                 int OrderId = 0;
                 int sipId = 0;
-                if (availableBalance >= Convert.ToDecimal(onlineMFOrderVo.Amount))
+                char msgType;
+                if (exchangeType == "Online")
                 {
-                    SaveOrderDetails();
-                    sipOrderIds = boOnlineOrder.CreateOrderMFSipDetails(onlineMFOrderVo, userVo.UserId);
-                    OrderId = int.Parse(sipOrderIds["OrderId"].ToString());
-                    sipId = int.Parse(sipOrderIds["SIPId"].ToString());
-
-                    if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
+                    if (availableBalance >= Convert.ToDecimal(onlineMFOrderVo.Amount))
                     {
-                        accountDebitStatus = boOnlineOrder.DebitRMSUserAccountBalance(customerVo.AccountId, -onlineMFOrderVo.Amount, OrderId, out debitstatus);
-                        ShowAvailableLimits();
+                        SaveOrderDetails();
+                        onlineMFOrderVo.ModeTypeCode = "RSIP";
+                        sipOrderIds = boOnlineOrder.CreateOrderMFSipDetails(onlineMFOrderVo, userVo.UserId);
+                        OrderId = int.Parse(sipOrderIds["OrderId"].ToString());
+                        sipId = int.Parse(sipOrderIds["SIPId"].ToString());
+
+                        if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
+                        {
+                            accountDebitStatus = boOnlineOrder.DebitRMSUserAccountBalance(customerVo.AccountId, -onlineMFOrderVo.Amount, OrderId, out debitstatus);
+                            ShowAvailableLimits();
+                        }
+                    }
+                    
+                }
+                else if (exchangeType == "Demat")
+                {
+                    onlineMFOrderVo.OrderType = 0;
+                    DematAccountVo dematevo = new DematAccountVo();
+                    BoDematAccount bo = new BoDematAccount();
+                    dematevo = bo.GetCustomerActiveDematAccount(customerVo.CustomerId);
+                    //onlineMFOrderVo.BSESchemeCode = lblDemate.Text;
+                    SaveOrderDetails();
+                    onlineMFOrderVo.ModeTypeCode = "BSSIP";
+                    
+                    OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();
+                    message = OnlineMFOrderBo.BSESIPorderEntryParam(userVo.UserId, customerVo.CustCode, onlineMFOrderVo, customerVo.CustomerId, dematevo.DepositoryName, out msgType, out sipOrderIds);
+                    if (sipOrderIds != null)
+                    {
+                        OrderId = int.Parse(sipOrderIds["OrderId"].ToString());
+                        sipId = int.Parse(sipOrderIds["SIPId"].ToString());
                     }
                 }
-                char msgType;
                 message = CreateUserMessage(OrderId, sipId, accountDebitStatus, retVal == 1 ? true : false, out msgType);
                 ShowMessage(message, msgType);
+
             }
             else
             {

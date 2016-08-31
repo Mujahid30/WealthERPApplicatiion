@@ -763,6 +763,164 @@ namespace BoOnlineOrderManagement
 
             return message;
         }
-        
+
+
+        public string BSESIPorderEntryParam(int UserID, string ClientCode, OnlineMFOrderVo onlinemforderVo, int CustomerId, string DematAcctype, out char msgType, out  IDictionary<string, string> sipOrderIds)
+        {
+            DemoBSEMFOrderEntry.MFOrderEntryClient webOrderEntryClient = new DemoBSEMFOrderEntry.MFOrderEntryClient();
+            BSEMFSIPOdererVo bseMFSIPOdererVo = new BSEMFSIPOdererVo();            
+            msgType = 'F';
+            string message = string.Empty;
+            bool isRMSDebited = false;
+            int rmsId = 0;
+            string uniqueRefNo;
+            sipOrderIds = null;
+                       
+            try
+            {
+                string PurchaseType = string.Empty;
+                string purchase = string.Empty;
+                OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
+                string bseuserID = string.Empty;
+                string bsepass = string.Empty;
+                string bseMemberId = string.Empty;
+             
+                DataSet ds = OnlineMFOrderDao.GetAPICredentials("BSE", 1021);
+                if (ds != null && ds.Tables[0].Rows.Count > 0)
+                {
+                    bseuserID = ds.Tables[0].Rows[0]["AEAC_Username"].ToString();
+                    bsepass = ds.Tables[0].Rows[0]["AEAC_Password"].ToString();
+                   
+                    bseMemberId = ds.Tables[0].Rows[0]["AEAC_MemberId"].ToString();
+                }
+                string passkey = "E234586789D12";
+                string password = webOrderEntryClient.getPassword(bseuserID, bsepass, passkey);
+                string[] bsePassArray = password.Split('|');
+
+                if (bsePassArray[0].ToString() == "100")
+                {
+                    if (onlinemforderVo.DividendType != "0" && onlinemforderVo.DividendType != "")
+                        onlinemforderVo.BSESchemeCode = OnlineMFOrderDao.BSESchemeCode(onlinemforderVo.SchemePlanCode, onlinemforderVo.DividendType);
+                    if (DematAcctype == "CDSL" || DematAcctype == "")
+                    {
+                        DematAcctype = "C";
+                    }
+                    else if (DematAcctype == "NSDL")
+                    {
+                        DematAcctype = "N";
+                    }
+                    bseMFSIPOdererVo.Password = bsePassArray[1];
+                    bseMFSIPOdererVo.Transactioncode = "NEW";                    
+                    bseMFSIPOdererVo.BSEOrderId = 0;
+                    bseMFSIPOdererVo.BSEUserId = bseuserID;
+                    bseMFSIPOdererVo.MemberId = bseMemberId;
+                    bseMFSIPOdererVo.ClientCode = ClientCode;
+                    bseMFSIPOdererVo.SchemeCode = onlinemforderVo.BSESchemeCode;
+                    //bseMFSIPOdererVo.InternalReferenceNo = transCode;
+                    bseMFSIPOdererVo.TransMode = "D";
+                    bseMFSIPOdererVo.DPTransactionMode = DematAcctype;
+                    bseMFSIPOdererVo.StartDate = String.Format("{0:d}", onlinemforderVo.StartDate);
+                    bseMFSIPOdererVo.FrequenceType = GetBSESIPFrequencyCode(onlinemforderVo.FrequencyCode);
+                    bseMFSIPOdererVo.FrequenceAllowed = "1";
+                    bseMFSIPOdererVo.InstallmentAmount = Convert.ToInt16(onlinemforderVo.Amount).ToString();
+                    bseMFSIPOdererVo.NoOfInstallments = onlinemforderVo.TotalInstallments.ToString();
+                    bseMFSIPOdererVo.Remarks = string.Empty;
+                    bseMFSIPOdererVo.FolioNo = string.Empty;// As its demat SIP
+                    bseMFSIPOdererVo.FirstOrderFlag = "Y";
+                    bseMFSIPOdererVo.SubBRCode = string.Empty;
+                    bseMFSIPOdererVo.EUIN = "E116327";
+                    bseMFSIPOdererVo.EUINDeclarationFlag = "Y";
+                    bseMFSIPOdererVo.DPC = "Y";
+                    bseMFSIPOdererVo.REGID = string.Empty;
+                    bseMFSIPOdererVo.IPAddress = string.Empty;
+                    bseMFSIPOdererVo.Password = bsePassArray[1];
+                    bseMFSIPOdererVo.PassKey = passkey;
+                    bseMFSIPOdererVo.Param1 = string.Empty;
+                    bseMFSIPOdererVo.Param2 = string.Empty;
+                    bseMFSIPOdererVo.Param3 = string.Empty;
+
+                    //if (onlinemforderVo.TransactionType == "SIP")
+                    //{
+                    //    isRMSDebited = DebitOrCreditRMSUserAccountBalance(UserID, ClientCode, -onlinemforderVo.Amount, rmsId, out  rmsId);
+                    //}
+
+                    //if (isRMSDebited)
+                    //{
+                        Random ran = new Random();
+
+                        int transCode = OnlineMFOrderDao.BSEMFSIPorderResponseParam(bseMFSIPOdererVo, rmsId, UserID);
+                        
+                        bseMFSIPOdererVo.UniqueReferanceNumber = transCode.ToString() + ran.Next().ToString();
+                        bseMFSIPOdererVo.InternalReferenceNo = transCode.ToString();
+                        string orderEntryresponse = webOrderEntryClient.sipOrderEntryParam(bseMFSIPOdererVo.Transactioncode,
+                            bseMFSIPOdererVo.UniqueReferanceNumber, bseMFSIPOdererVo.SchemeCode, bseMFSIPOdererVo.MemberId, bseMFSIPOdererVo.ClientCode,bseMFSIPOdererVo.BSEUserId,
+                            bseMFSIPOdererVo.InternalReferenceNo, bseMFSIPOdererVo.TransMode, bseMFSIPOdererVo.DPTransactionMode,
+                            bseMFSIPOdererVo.StartDate, bseMFSIPOdererVo.FrequenceType, bseMFSIPOdererVo.FrequenceAllowed, bseMFSIPOdererVo.InstallmentAmount,
+                            bseMFSIPOdererVo.NoOfInstallments, bseMFSIPOdererVo.Remarks, bseMFSIPOdererVo.FolioNo, bseMFSIPOdererVo.FirstOrderFlag,
+                            bseMFSIPOdererVo.SubBRCode,bseMFSIPOdererVo.EUIN,bseMFSIPOdererVo.EUINDeclarationFlag,bseMFSIPOdererVo.DPC,bseMFSIPOdererVo.REGID,
+                            bseMFSIPOdererVo.IPAddress, bseMFSIPOdererVo.Password, bseMFSIPOdererVo.PassKey,
+                            bseMFSIPOdererVo.Param1, bseMFSIPOdererVo.Param2, bseMFSIPOdererVo.Param3);
+                        
+
+                        
+                        string[] bseorderEntryresponseArray = orderEntryresponse.Split('|');
+                        OnlineMFOrderDao.BSEMFSIPorderResponseParam(transCode, UserID, Convert.ToInt64(bseorderEntryresponseArray[2]), bseMemberId, ClientCode, bseorderEntryresponseArray[6], bseorderEntryresponseArray[7], rmsId, bseMFSIPOdererVo.UniqueReferanceNumber);
+                        if (bseorderEntryresponseArray[7] == "1")
+                        {
+                            sipOrderIds = CreateOrderMFSipDetails(onlinemforderVo, UserID);
+                            bool result = OnlineMFOrderDao.BSESIPRequestUpdate(Convert.ToInt32(sipOrderIds["SIPId"].ToString()), transCode);
+                            message = "Order placed successfully with Exchange.Order reference no is " + sipOrderIds["SIPId"];
+                            msgType = 'S';
+                        }
+                    //}
+                    //else
+                    //{
+                    //    message = "No response from RMS";
+
+                    //}
+
+                }
+                else
+                    message = "Unable to process the order as Exchange is not available for Now.";
+            }
+            catch (Exception ex)
+            {
+                if (isRMSDebited && onlinemforderVo.TransactionType != "SEL")
+                {
+                    DebitOrCreditRMSUserAccountBalance(UserID, ClientCode, onlinemforderVo.Amount, rmsId, out  rmsId);
+                }
+                message = "Unable to process the order as Exchange is not available for Now." + ex.Message;
+            }
+            finally
+            {
+                webOrderEntryClient.Close();
+
+            }
+
+            return message;
+        }
+
+        private string GetBSESIPFrequencyCode(string frequencyCode)
+        {
+            string BSEFrequencyCode = string.Empty;
+            switch (frequencyCode)
+            {
+                case "MN":
+                    BSEFrequencyCode = "MONTHLY";
+                    break;
+                case "QA":
+                    BSEFrequencyCode = "QUARTELY";
+                    break;
+                case "WK":
+                    BSEFrequencyCode = "WEEKLY";
+                    break;
+                default:
+                    BSEFrequencyCode = "MONTHLY";
+                    break;
+            }
+            return BSEFrequencyCode;
+
+        }
+
     }
 }

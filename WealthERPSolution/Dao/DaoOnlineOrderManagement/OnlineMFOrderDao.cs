@@ -397,6 +397,9 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createMFOrderTrackingCmd, "@CMFOD_DividendOption", DbType.String, onlineMFOrderVo.DivOption);
                 if (!string.IsNullOrEmpty(onlineMFOrderVo.SWPRedeemValueType))
                     db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_SWPRedeemValueType", DbType.String, onlineMFOrderVo.SWPRedeemValueType);
+                if (!string.IsNullOrEmpty(onlineMFOrderVo.ModeTypeCode))
+                 db.AddInParameter(createMFOrderTrackingCmd, "@ModeTypeCode", DbType.String, onlineMFOrderVo.ModeTypeCode);
+                
 
                 db.AddOutParameter(createMFOrderTrackingCmd, "@SIPRegisterId", DbType.Int32, 10000);
 
@@ -853,6 +856,29 @@ string EUINVal, string MinRedeem, string DPC, string IPAdd, int rmsId)
             }
             return result;
         }
+
+        public bool BSESIPRequestUpdate(int systematicId, long bseReqId)
+        {
+            Database db;
+            DbCommand cmd;
+            bool result = false;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_BSE_SIPOrderIdUpdate");
+
+                db.AddInParameter(cmd, "@SystematicId", DbType.Int64, systematicId);
+                db.AddInParameter(cmd, "@BSEReqId", DbType.Int64, bseReqId);
+                if (db.ExecuteNonQuery(cmd) != 0)
+                    result = true;
+
+            }
+            catch (Exception ex)
+            {
+            }
+            return result;
+        }
+
         public string BSESchemeCode(int schemecode, string divdentType)
         {
             Database db;
@@ -877,7 +903,7 @@ string EUINVal, string MinRedeem, string DPC, string IPAdd, int rmsId)
         {
             Database db;
             DbCommand Cmd;
-            DataSet ds=new DataSet();
+            DataSet ds = new DataSet();
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -890,6 +916,83 @@ string EUINVal, string MinRedeem, string DPC, string IPAdd, int rmsId)
             {
             }
             return ds;
+        }
+        public int BSEMFSIPorderResponseParam(BSEMFSIPOdererVo bseMFSIPOdererVo, int rmId, int userId)
+        {
+            Database db;
+            DbCommand cmd;
+            int result = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_ONL_CreateBSEMFSIPOrderRequest");
+                db.AddInParameter(cmd, "@Transactioncode", DbType.String, bseMFSIPOdererVo.Transactioncode);
+                db.AddInParameter(cmd, "@BSEOrderId", DbType.String, bseMFSIPOdererVo.BSEOrderId);
+                db.AddInParameter(cmd, "@UniqueReferanceNumber", DbType.String, bseMFSIPOdererVo.UniqueReferanceNumber);
+                db.AddInParameter(cmd, "@SchemeCode", DbType.String, bseMFSIPOdererVo.SchemeCode);
+                db.AddInParameter(cmd, "@MemberId", DbType.String, bseMFSIPOdererVo.MemberId);
+                db.AddInParameter(cmd, "@ClientCode", DbType.String, bseMFSIPOdererVo.ClientCode);
+                db.AddInParameter(cmd, "@BSEUserId", DbType.String, bseMFSIPOdererVo.BSEUserId);
+                db.AddInParameter(cmd, "@InternalReferenceNo", DbType.String, bseMFSIPOdererVo.InternalReferenceNo);
+                db.AddInParameter(cmd, "@TransMode", DbType.String, bseMFSIPOdererVo.Transactioncode);
+                db.AddInParameter(cmd, "@DPTransactionMode", DbType.String, bseMFSIPOdererVo.DPTransactionMode);
+                db.AddInParameter(cmd, "@StartDate", DbType.String, bseMFSIPOdererVo.StartDate);
+                db.AddInParameter(cmd, "@FrequenceType", DbType.String, bseMFSIPOdererVo.FrequenceType);
+                db.AddInParameter(cmd, "@FrequenceAllowed", DbType.String, bseMFSIPOdererVo.FrequenceAllowed);
+                db.AddInParameter(cmd, "@InstallmentType", DbType.String, bseMFSIPOdererVo.InstallmentType);
+                db.AddInParameter(cmd, "@NoOfInstallments", DbType.String, bseMFSIPOdererVo.NoOfInstallments);
+                db.AddInParameter(cmd, "@Remarks", DbType.String, bseMFSIPOdererVo.Remarks);
+                db.AddInParameter(cmd, "@FolioNo", DbType.String, bseMFSIPOdererVo.FolioNo);
+                db.AddInParameter(cmd, "@FirstOrderFlag", DbType.String, bseMFSIPOdererVo.FirstOrderFlag);
+                db.AddInParameter(cmd, "@SubBRCode", DbType.String, bseMFSIPOdererVo.SubBRCode);
+                db.AddInParameter(cmd, "@EUIN", DbType.String, bseMFSIPOdererVo.EUIN);
+                db.AddInParameter(cmd, "@EUINDeclarationFlag", DbType.String, bseMFSIPOdererVo.EUINDeclarationFlag);
+                db.AddInParameter(cmd, "@DPC", DbType.String, bseMFSIPOdererVo.DPC);
+                db.AddInParameter(cmd, "@REGID", DbType.String, bseMFSIPOdererVo.REGID);
+                db.AddInParameter(cmd, "@Password", DbType.String, bseMFSIPOdererVo.Password);
+                db.AddInParameter(cmd, "@PassKey", DbType.String, bseMFSIPOdererVo.PassKey);
+                db.AddInParameter(cmd, "@Param1", DbType.String, bseMFSIPOdererVo.Param1);
+                db.AddInParameter(cmd, "@Param2", DbType.String, bseMFSIPOdererVo.Param2);
+                db.AddInParameter(cmd, "@Param3", DbType.String, bseMFSIPOdererVo.Param3);
+               
+                db.AddInParameter(cmd, "@IPAddress", DbType.String, bseMFSIPOdererVo.IPAddress);
+                db.AddInParameter(cmd, "@UserId", DbType.Int32, userId);
+
+                db.AddOutParameter(cmd, "@OutSIPOrderId", DbType.Int32, 10);
+                if (db.ExecuteNonQuery(cmd) != 0)
+                {
+                    result = Convert.ToInt32(db.GetParameterValue(cmd, "OutSIPOrderId").ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return result;
+        }
+
+        public void BSEMFSIPorderResponseParam(int RequestId, int userId, double BSEOrderId, string memberId, string ClientCode, string BSERemarks, string Successflag, int rmsId, string uniqueRefNo)
+        {
+            Database db;
+            DbCommand BSEMFSIPorderResponseParamCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                BSEMFSIPorderResponseParamCmd = db.GetStoredProcCommand("SPROC_ONL_CreateBSEMFSIPOrderResponse");
+                db.AddInParameter(BSEMFSIPorderResponseParamCmd, "@UserID", DbType.Int32, userId);
+                db.AddInParameter(BSEMFSIPorderResponseParamCmd, "@MemberId", DbType.String, memberId);
+                db.AddInParameter(BSEMFSIPorderResponseParamCmd, "@ClientCode", DbType.String, ClientCode);
+                db.AddInParameter(BSEMFSIPorderResponseParamCmd, "@BSESIPOrderId", DbType.Int64, BSEOrderId);
+                db.AddInParameter(BSEMFSIPorderResponseParamCmd, "@Remarks", DbType.String, BSERemarks);
+                db.AddInParameter(BSEMFSIPorderResponseParamCmd, "@Successflag", DbType.Int32, Successflag);
+                db.AddInParameter(BSEMFSIPorderResponseParamCmd, "@ReqId", DbType.Int64, RequestId);
+                db.AddInParameter(BSEMFSIPorderResponseParamCmd, "@rmsId", DbType.Int32, rmsId);
+                db.AddInParameter(BSEMFSIPorderResponseParamCmd, "@UniqueRefNo", DbType.String, uniqueRefNo);
+                db.ExecuteNonQuery(BSEMFSIPorderResponseParamCmd);
+            }
+            catch (Exception ex)
+            {
+            }
         }
     }
 }
