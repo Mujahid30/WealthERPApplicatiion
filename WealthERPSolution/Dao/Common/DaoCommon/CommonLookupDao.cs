@@ -412,7 +412,7 @@ namespace DaoCommon
         }
 
 
-        public DataTable GetAllSIPDataForOrder(int schemdCode,string frequencyCode,string systematicType)
+        public DataTable GetAllSIPDataForOrder(int schemdCode, string frequencyCode, string systematicType, int exchangeType)
         {
             Database db;
             DbCommand cmd;
@@ -426,7 +426,7 @@ namespace DaoCommon
                 if (frequencyCode!="0")
                 db.AddInParameter(cmd, "@FrequencyCode", DbType.String, frequencyCode);
                 db.AddInParameter(cmd, "@SystematicType", DbType.String, systematicType);
-                
+                db.AddInParameter(cmd, "@exchangeType", DbType.Int16, exchangeType);
                 dsGetAmcSchemeList = db.ExecuteDataSet(cmd);
             }
             catch (BaseApplicationException Ex)

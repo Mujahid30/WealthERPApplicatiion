@@ -398,12 +398,12 @@ namespace BoCommon
             }
             return dtAllSIPDataForOrder;
         }
-        public DataTable GetAllSIPDataForOrder(int schemeCode, string frequencyCode,string systematicType)
+        public DataTable GetAllSIPDataForOrder(int schemeCode, string frequencyCode, string systematicType, int exchangeType)
         {
             DataTable dtAllSIPDataForOrder = new DataTable();
             try
             {
-                dtAllSIPDataForOrder = daoCommonLookup.GetAllSIPDataForOrder(schemeCode, frequencyCode,systematicType);
+                dtAllSIPDataForOrder = daoCommonLookup.GetAllSIPDataForOrder(schemeCode, frequencyCode, systematicType, exchangeType);
             }
             catch (BaseApplicationException Ex)
             {

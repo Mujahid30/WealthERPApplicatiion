@@ -647,7 +647,7 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void BindSipUiOnSchemeSelection(int schemeCode)
         {
-            dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(schemeCode, ddlFrequency.SelectedValue.ToString(), "STP");
+            dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(schemeCode, ddlFrequency.SelectedValue.ToString(), "STP",1);
             SetLatestNav(schemeCode);
             BindFrequency();
             BindAllControlsWithSIPData();
@@ -726,7 +726,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             ddlTotalInstallments.Items.Clear();
 
-            if (dtGetAllSIPDataForOrder == null) dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(ddlSchemeName.SelectedValue), ddlFrequency.SelectedValue.ToString(), "STP");
+            if (dtGetAllSIPDataForOrder == null) dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(ddlSchemeName.SelectedValue), ddlFrequency.SelectedValue.ToString(), "STP",1);
             if (dtGetAllSIPDataForOrder == null) return;
 
             int minDues;

@@ -769,7 +769,7 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void BindSipUiOnSchemeSelection(int schemeCode)
         {
-            dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(schemeCode, ddlFrequency.SelectedValue.ToString(), "SIP");
+            dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(schemeCode, ddlFrequency.SelectedValue.ToString(), "SIP", GetExchangeType(exchangeType));
 
             SetLatestNav();
             BindFrequency();
@@ -954,7 +954,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             ddlTotalInstallments.Items.Clear();
 
-            if (dtGetAllSIPDataForOrder == null) dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(ddlScheme.SelectedValue), ddlFrequency.SelectedValue.ToString(), "SIP");
+            if (dtGetAllSIPDataForOrder == null) dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(ddlScheme.SelectedValue), ddlFrequency.SelectedValue.ToString(), "SIP", GetExchangeType(exchangeType));
             if (dtGetAllSIPDataForOrder == null) return;
 
             int minDues;
@@ -1033,14 +1033,14 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void BindSipUiOnSchemeSelectionNew(int schemeCode)
         {
-            dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(schemeCode, ddlFrequency.SelectedValue.ToString(), "SIP");
+            dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(schemeCode, ddlFrequency.SelectedValue.ToString(), "SIP", GetExchangeType(exchangeType));
             BindFrequency();
         }
         protected void lnkExitLoad_Click(object sender, EventArgs e)
         {
             lblExitLoad.Text = "";
 
-            if (dtGetAllSIPDataForOrder == null) dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(ddlScheme.SelectedValue), ddlFrequency.SelectedValue.ToString(), "SIP");
+            if (dtGetAllSIPDataForOrder == null) dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(ddlScheme.SelectedValue), ddlFrequency.SelectedValue.ToString(), "SIP", GetExchangeType(exchangeType));
             if (dtGetAllSIPDataForOrder == null) return;
 
             if (dtGetAllSIPDataForOrder.Rows.Count <= 0) return;
@@ -1106,6 +1106,18 @@ namespace WealthERP.OnlineOrderManagement
         protected void imgInformation_OnClick(object sender, EventArgs e)
         {
             RadInformation.VisibleOnPageLoad = true;
+
+        }
+
+        private int GetExchangeType(string exchangeType)
+        {
+            int exchanType = 1;
+            if (exchangeType == "Online")
+                exchanType = 1;
+            else if (exchangeType == "Demat")
+                exchanType = 0;
+
+            return exchanType;
 
         }
     }

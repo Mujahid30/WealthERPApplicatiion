@@ -837,7 +837,7 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void BindSipUiOnSchemeSelection(int schemeCode)
         {
-            dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(schemeCode, ddlFrequency.SelectedValue.ToString(),"SWP");
+            dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(schemeCode, ddlFrequency.SelectedValue.ToString(),"SWP",1);
 
             SetLatestNav();
             BindFrequency();
@@ -987,7 +987,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             ddlTotalInstallments.Items.Clear();
 
-            if (dtGetAllSIPDataForOrder == null || dtGetAllSIPDataForOrder.Rows.Count == 0) dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(ddlScheme.SelectedValue), ddlFrequency.SelectedValue.ToString(),"SWP");
+            if (dtGetAllSIPDataForOrder == null || dtGetAllSIPDataForOrder.Rows.Count == 0) dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(ddlScheme.SelectedValue), ddlFrequency.SelectedValue.ToString(),"SWP",1);
             if (dtGetAllSIPDataForOrder == null || dtGetAllSIPDataForOrder.Rows.Count == 0) return;
 
             int minDues;
@@ -1069,7 +1069,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             lblExitLoad.Text = "";
 
-            if (dtGetAllSIPDataForOrder == null || dtGetAllSIPDataForOrder.Rows.Count==0) dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(ddlScheme.SelectedValue), ddlFrequency.SelectedValue.ToString(),"SWP");
+            if (dtGetAllSIPDataForOrder == null || dtGetAllSIPDataForOrder.Rows.Count==0) dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(ddlScheme.SelectedValue), ddlFrequency.SelectedValue.ToString(),"SWP",1);
             if (dtGetAllSIPDataForOrder == null || dtGetAllSIPDataForOrder.Rows.Count == 0) return;
 
             if (dtGetAllSIPDataForOrder.Rows.Count <= 0) return;
