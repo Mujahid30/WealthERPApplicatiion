@@ -34,6 +34,7 @@ namespace WealthERP.OnlineOrderBackOffice
         DateTime fromDate;
         DateTime toDate;
         int systematicId = 0;
+        string exchangeType = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -246,7 +247,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
             else
             {
-                dsSIPBookMIS = OnlineOrderMISBo.GetSIPBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), hdnOrderStatus.Value, systematicId, fromDate, toDate, (!string.IsNullOrEmpty(txtOrderNo.Text)) ? int.Parse(txtOrderNo.Text) : (ViewState["OrderId"] != null ? int.Parse(ViewState["OrderId"].ToString()) : 0),  null,ddlMode.SelectedValue);
+                dsSIPBookMIS = OnlineOrderMISBo.GetSIPBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), hdnOrderStatus.Value, systematicId, fromDate, toDate, (!string.IsNullOrEmpty(txtOrderNo.Text)) ? int.Parse(txtOrderNo.Text) : (ViewState["OrderId"] != null ? int.Parse(ViewState["OrderId"].ToString()) : 0), null, exchangeType == "Online" ? "RSIP" : ddlMode.SelectedValue);
 
             }
 
