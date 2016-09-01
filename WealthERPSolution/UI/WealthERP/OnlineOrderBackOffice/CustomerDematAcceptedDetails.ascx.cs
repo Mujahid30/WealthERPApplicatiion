@@ -80,9 +80,9 @@ namespace WealthERP.OnlineOrderBackOffice
 
         public void BindCustomerDetailsGrid()
         {
-            DataSet ds = onlineOrderBackOfficeBo.BindCustomerDetails(adviserVo.advisorId);
-            gvCustomerDetails.DataSource = ds.Tables[0];
-            gvCustomerDetails.DataBind();
+           //DataSet ds = onlineOrderBackOfficeBo.BindCustomerDetails(adviserVo.advisorId);
+           // gvCustomerDetails.DataSource = ds.Tables[0];
+           // gvCustomerDetails.DataBind();
         }
 
 

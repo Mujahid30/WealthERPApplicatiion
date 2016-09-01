@@ -64,16 +64,26 @@
                                                 AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
+                                           <%--  <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Child code count" DataField="Childcodecount"
+                                                UniqueName="Childcodecount" SortExpression="Childcodecount" AutoPostBackOnFilter="true"
+                                                AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>--%>
+                                           <telerik:GridTemplateColumn HeaderText="Child code count" ItemStyle-HorizontalAlign="Right"
+                                                HeaderStyle-Width="80px" AllowFiltering="true" DataField="AA_ContactPersonName"
+                                                ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                                                <ItemTemplate>
+                                                    <asp:LinkButton ID="LnkRQ" runat="server" CssClass="CmbField" OnClick="LnkRQ_Click"
+                                                        Text='<%#Eval("AA_ContactPersonName") %>'>
+                                                    </asp:LinkButton>
+                                                </ItemTemplate>
+                                            </telerik:GridTemplateColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="PAN" DataField="AA_PAN"
                                                 UniqueName="AA_PAN" SortExpression="AA_PAN" AutoPostBackOnFilter="true" AllowFiltering="true"
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <%--<telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="RM" DataField="RMName"
-                                                UniqueName="RMName" SortExpression="RMName" AutoPostBackOnFilter="true"
-                                                AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>--%>
+                                        
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Mobile" DataField="AA_Mobile"
                                                 UniqueName="AA_Mobile" SortExpression="AA_Mobile" AutoPostBackOnFilter="true"
                                                 AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">

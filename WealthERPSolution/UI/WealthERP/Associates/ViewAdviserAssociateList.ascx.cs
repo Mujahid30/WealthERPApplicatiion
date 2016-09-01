@@ -209,5 +209,12 @@ namespace WealthERP.Associates
 
             
         }
+
+
+
+        protected void LnkRQ_Click(object sender, EventArgs e)
+        {
+           
+        }
     }
 }

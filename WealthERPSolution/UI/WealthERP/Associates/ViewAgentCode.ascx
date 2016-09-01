@@ -65,12 +65,30 @@
                                                 AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
+                                            
                                            
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Type" DataField="AAC_UserType"
                                                 UniqueName="AAC_UserType" SortExpression="AAC_UserType" AutoPostBackOnFilter="true"
                                                 AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
+                                            
+                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Parent Id" DataField="ClusterManager"
+                                                UniqueName="ParentId" SortExpression="ParentId" AutoPostBackOnFilter="true"
+                                                AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                              <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Parent name" DataField="ClusterManager"
+                                                UniqueName="Parentname" SortExpression="Parentname" AutoPostBackOnFilter="true"
+                                                AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Parent PAN" DataField="ClusterManager"
+                                                UniqueName="Parentpan" SortExpression="Parentpan" AutoPostBackOnFilter="true"
+                                                AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            
                                             <telerik:GridBoundColumn DataField="Titles" SortExpression="Titles" AutoPostBackOnFilter="true"
                                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
                                                 HeaderText="Title" UniqueName="Titles">
@@ -82,22 +100,22 @@
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="130px" DataField="ClusterManager" SortExpression="ClusterManager" AutoPostBackOnFilter="true"
-                                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
+                                                CurrentFilterFunction="Contains" Visible="false" ShowFilterIcon="false" AllowFiltering="true"
                                                 HeaderText="Cluster Manager" UniqueName="ClusterManager">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn DataField="AreaManager" SortExpression="AreaManager" AutoPostBackOnFilter="true"
-                                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
+                                                CurrentFilterFunction="Contains" Visible="false" ShowFilterIcon="false" AllowFiltering="true"
                                                 HeaderText="Area Manager" UniqueName="AreaManager">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn DataField="ZonalManagerName" SortExpression="ZonalManagerName" AutoPostBackOnFilter="true"
-                                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
+                                                CurrentFilterFunction="Contains" Visible="false" ShowFilterIcon="false" AllowFiltering="true"
                                                 HeaderText="Zone Manager" UniqueName="ZonalManagerName">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="130px" DataField="DeputyHead" SortExpression="DeputyHead"
-                                                AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                                AutoPostBackOnFilter="true" Visible="false" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                                 AllowFiltering="true" HeaderText="Deputy Head" UniqueName="DeputyHead">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
