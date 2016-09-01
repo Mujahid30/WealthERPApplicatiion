@@ -421,6 +421,7 @@
                             <asp:DropDownList ID="ddlRequestCommissionType" runat="server" CssClass="cmbField"
                                 AutoPostBack="true">
                                 <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
+                                  <asp:ListItem Text="All" Value="AL"></asp:ListItem>
                                 <asp:ListItem Text="Upfront" Value="UF" Selected="True"></asp:ListItem>
                                 <asp:ListItem Text="Trail" Value="TC"></asp:ListItem>
                               
@@ -615,6 +616,11 @@
                                                 SortExpression="PA_AMCName" FilterControlWidth="50px">
                                                 <ItemStyle Width="100px" HorizontalAlign="left" Wrap="true" VerticalAlign="top" />
                                             </telerik:GridBoundColumn>
+                                              <%-- <telerik:GridBoundColumn DataField="Cannel" UniqueName="Cannel" HeaderText="commission type"
+                                                ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="67px"
+                                                SortExpression="Cannel" FilterControlWidth="50px" CurrentFilterFunction="Contains">
+                                                <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                                            </telerik:GridBoundColumn>--%>
                                             <telerik:GridBoundColumn DataField="brokeragemonth" UniqueName="brokeragemonth" HeaderText="Month"
                                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="67px"
                                                 SortExpression="brokeragemonth" FilterControlWidth="50px" CurrentFilterFunction="Contains">
@@ -649,6 +655,11 @@
                                             <telerik:GridBoundColumn DataField="RequestCount" UniqueName="RequestCount" HeaderText="Count"
                                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="67px"
                                                 SortExpression="RequestCount" FilterControlWidth="50px" CurrentFilterFunction="Contains">
+                                                <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                                            </telerik:GridBoundColumn>
+                                             <telerik:GridBoundColumn DataField="Cannel" UniqueName="Cannel" HeaderText="Online"
+                                                ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="67px"
+                                                SortExpression="Cannel" FilterControlWidth="50px" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                             </telerik:GridBoundColumn>
                                         </Columns>
