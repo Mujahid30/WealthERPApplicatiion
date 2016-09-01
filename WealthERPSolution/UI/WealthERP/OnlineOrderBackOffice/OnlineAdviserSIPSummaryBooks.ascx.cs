@@ -86,7 +86,7 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void ddlMode_OnSelectedIndexChanged(object Sender, EventArgs e)
         {
-            if (ddlMode.SelectedValue == "0")
+            if (ddlMode.SelectedValue == "0" || ddlMode.SelectedValue == "1")
             {
                 ddlSIP.Visible = false;
                 Label4.Visible = false;
@@ -196,7 +196,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 fromDate = DateTime.Parse(txtFrom.SelectedDate.ToString());
             if (txtTo.SelectedDate != null)
                 toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
-            dsSIPBookMIS = OnlineOrderMISBo.GetSIPSummaryBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), fromDate, toDate, searchType, statusType, ddlSystematicType.SelectedValue);
+            dsSIPBookMIS = OnlineOrderMISBo.GetSIPSummaryBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), fromDate, toDate, searchType, statusType, ddlSystematicType.SelectedValue, ddlMode.SelectedValue);
             dtSIPBookMIS = dsSIPBookMIS.Tables[0];
             dtSIPBookMIS = createSIPOrderBook(dsSIPBookMIS);
             if (dtSIPBookMIS.Rows.Count > 0)

@@ -121,7 +121,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void ddlMode_OnSelectedIndexChanged(object Sender, EventArgs e)
         {
-            if (ddlMode.SelectedValue =="0")
+            if (ddlMode.SelectedValue == "0" || ddlMode.SelectedValue == "1")
             {
                 ddlSIP.Visible = false;
                 Label3.Visible = false;
@@ -237,16 +237,16 @@ namespace WealthERP.OnlineOrderBackOffice
             //string OrderStatus = ViewState["OrderStatus"].ToString();
             if (ViewState["OrderStatus"] != null)
             {
-                dsSIPBookMIS = OnlineOrderMISBo.GetSIPBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), ViewState["OrderStatus"].ToString(), systematicId, fromDate, toDate, (!string.IsNullOrEmpty(txtOrderNo.Text)) ? int.Parse(txtOrderNo.Text) : 0,null);
+                dsSIPBookMIS = OnlineOrderMISBo.GetSIPBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), ViewState["OrderStatus"].ToString(), systematicId, fromDate, toDate, (!string.IsNullOrEmpty(txtOrderNo.Text)) ? int.Parse(txtOrderNo.Text) : 0, null, null);
             }
             else if (Request.QueryString["txtFolioNo"] != null)
             {
-                dsSIPBookMIS = OnlineOrderMISBo.GetSIPBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), hdnOrderStatus.Value, systematicId, fromDate, toDate, (!string.IsNullOrEmpty(txtOrderNo.Text)) ? int.Parse(txtOrderNo.Text) : (ViewState["OrderId"] != null ? int.Parse(ViewState["OrderId"].ToString()) : 0), (!string.IsNullOrEmpty(ViewState["FolioNo"].ToString())) ? ViewState["FolioNo"].ToString() : null);
+                dsSIPBookMIS = OnlineOrderMISBo.GetSIPBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), hdnOrderStatus.Value, systematicId, fromDate, toDate, (!string.IsNullOrEmpty(txtOrderNo.Text)) ? int.Parse(txtOrderNo.Text) : (ViewState["OrderId"] != null ? int.Parse(ViewState["OrderId"].ToString()) : 0), (!string.IsNullOrEmpty(ViewState["FolioNo"].ToString())) ? ViewState["FolioNo"].ToString() : null, null);
 
                 }
             else
             {
-                dsSIPBookMIS = OnlineOrderMISBo.GetSIPBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), hdnOrderStatus.Value, systematicId, fromDate, toDate, (!string.IsNullOrEmpty(txtOrderNo.Text)) ? int.Parse(txtOrderNo.Text) : (ViewState["OrderId"] != null ? int.Parse(ViewState["OrderId"].ToString()) : 0),  null);
+                dsSIPBookMIS = OnlineOrderMISBo.GetSIPBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), hdnOrderStatus.Value, systematicId, fromDate, toDate, (!string.IsNullOrEmpty(txtOrderNo.Text)) ? int.Parse(txtOrderNo.Text) : (ViewState["OrderId"] != null ? int.Parse(ViewState["OrderId"].ToString()) : 0),  null,ddlMode.SelectedValue);
 
             }
 

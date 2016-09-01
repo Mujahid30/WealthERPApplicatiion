@@ -76,8 +76,8 @@
             </td>
             <td>
             <asp:DropDownList ID="ddlSIP" runat="server" CssClass="cmbField" AutoPostBack="true">
-            <asp:ListItem Value="0" Text="BSE Normal SIP "></asp:ListItem>
-            <asp:ListItem Value="1" Text="X-SIP"></asp:ListItem>
+            <asp:ListItem Value="BSSIP" Text="BSE Normal SIP "></asp:ListItem>
+            <asp:ListItem Value="BXSIP" Text="X-SIP"></asp:ListItem>
             </asp:DropDownList>
              <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ddlSIP"
                         ErrorMessage="<br />Select SIP Type" CssClass="cvPCG" Display="Dynamic"
