@@ -60,7 +60,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 btnPreview.Visible = false;
             }
             pnlOnlneIssueExtract.Visible = false;
-            btnDownload.Visible = false;
+            //btnDownload.Visible = false;
         }
         protected void BindIssueExtract()
         {
@@ -248,6 +248,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlFileType.Items.FindByText("Bid Order File-NASBA").Enabled = false;
                
             }
+            btnDownload.Visible = true;
         }
         private void BindIssue(string product)
         {
