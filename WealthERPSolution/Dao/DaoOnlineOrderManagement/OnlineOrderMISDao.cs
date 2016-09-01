@@ -69,7 +69,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsOrderBookMIS;
         }
-        public DataSet GetSIPBookMIS(int adviserId, int AmcCode, string OrderStatus, int systematicId, DateTime dtFrom, DateTime dtTo, int orderId, string folioNo)
+        public DataSet GetSIPBookMIS(int adviserId, int AmcCode, string OrderStatus, int systematicId, DateTime dtFrom, DateTime dtTo, int orderId, string folioNo,string Mode)
         {
             DataSet dsSIPBookMIS;
             Database db;
@@ -104,6 +104,9 @@ namespace DaoOnlineOrderManagement
                 else
                     db.AddInParameter(GetSIPBookMISCmd, "@orderNo", DbType.Int32, 0);
                 db.AddInParameter(GetSIPBookMISCmd, "@folioNo", DbType.String, folioNo);
+              
+                    db.AddInParameter(GetSIPBookMISCmd, "@Mode", DbType.String, Mode);
+                
 
                 GetSIPBookMISCmd.CommandTimeout = 60 * 60;
                 dsSIPBookMIS = db.ExecuteDataSet(GetSIPBookMISCmd);
@@ -126,7 +129,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsSIPBookMIS;
         }
-        public DataSet GetSIPSummaryBookMIS(int adviserId, int AmcCode, DateTime dtFrom, DateTime dtTo, int searchType, int statusType, string systematicType)
+        public DataSet GetSIPSummaryBookMIS(int adviserId, int AmcCode, DateTime dtFrom, DateTime dtTo, int searchType, int statusType, string systematicType, string Mode)
         {
             DataSet dsSIPSummaryBookMIS;
             Database db;
@@ -145,6 +148,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(GetSIPSummaryBookMISCmd, "@Type", DbType.Int32, searchType);
                 db.AddInParameter(GetSIPSummaryBookMISCmd, "@StatusType", DbType.Int32, statusType);
                 db.AddInParameter(GetSIPSummaryBookMISCmd, "@systematicType", DbType.String, systematicType);
+                db.AddInParameter(GetSIPSummaryBookMISCmd, "@Mode", DbType.String, Mode);
                 GetSIPSummaryBookMISCmd.CommandTimeout = 60 * 60;
                 dsSIPSummaryBookMIS = db.ExecuteDataSet(GetSIPSummaryBookMISCmd);
 

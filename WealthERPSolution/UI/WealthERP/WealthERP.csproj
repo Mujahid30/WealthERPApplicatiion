@@ -7930,6 +7930,8 @@
     <Content Include="bin\Microsoft.Vbe.Interop.dll" />
     <Content Include="bin\office.dll" />
     <Content Include="bin\office.xml" />
+    <Content Include="bin\PCGMailLib.dll" />
+    <Content Include="bin\PCGMailLib.pdb" />
     <Content Include="bin\System.Web.DataVisualization.dll" />
     <Content Include="bin\Telerik.Web.UI.dll" />
     <Content Include="bin\VoCommisionManagement.dll" />
