@@ -161,8 +161,8 @@
                     <div class="col-md-3">
                     <asp:DropDownList CssClass="form-control input-sm" ID="ddlSIP" runat="server"
                         AutoPostBack="false">
-                         <asp:ListItem Value="0" Text="BSE Normal SIP "></asp:ListItem>
-                         <asp:ListItem Value="1" Text="X-SIP"></asp:ListItem>
+                         <asp:ListItem Value="BSSIP" Text="BSE Normal SIP "></asp:ListItem>
+                         <asp:ListItem Value="BXSIP" Text="X-SIP" Enabled=false></asp:ListItem>
                     </asp:DropDownList>
                 </div>
 
