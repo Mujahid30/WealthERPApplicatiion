@@ -2276,7 +2276,7 @@ namespace DaoCustomerPortfolio
                             mfPortfNetPositionVo.ReturnsHoldAcqCost = double.Parse(dr["CMFNP_RET_Hold_AcqCost"].ToString());
 
                         if (dr["CMFNP_RET_Hold_TotalPL"].ToString().Trim() != String.Empty)
-                            mfPortfNetPositionVo.ReturnsHoldTotalPL = double.Parse(dr["CMFNP_RET_Hold_TotalPL"].ToString());
+                            mfPortfNetPositionVo.ReturnsHoldTotalPL = double.Parse(dr["CMFNP_TAX_Hold_TotalPL"].ToString());
 
                         if (dr["CMFNP_RET_Hold_AbsReturn"].ToString().Trim() != String.Empty)
                             mfPortfNetPositionVo.ReturnsHoldAbsReturn = double.Parse(dr["CMFNP_RET_Hold_AbsReturn"].ToString());
