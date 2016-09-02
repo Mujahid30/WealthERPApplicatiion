@@ -810,7 +810,7 @@ namespace BoOnlineOrderManagement
                         DematAcctype = "N";
                     }
                     bseMFSIPOdererVo.Password = bsePassArray[1];
-                    bseMFSIPOdererVo.Transactioncode = "NEW";                    
+                    bseMFSIPOdererVo.Transactioncode = "NEW";
                     bseMFSIPOdererVo.BSEOrderId = 0;
                     bseMFSIPOdererVo.BSEUserId = bseuserID;
                     bseMFSIPOdererVo.MemberId = bseMemberId;
@@ -846,32 +846,32 @@ namespace BoOnlineOrderManagement
 
                     //if (isRMSDebited)
                     //{
-                        Random ran = new Random();
+                    Random ran = new Random();
 
-                        int transCode = OnlineMFOrderDao.BSEMFSIPorderResponseParam(bseMFSIPOdererVo, rmsId, UserID);
-                        
-                        bseMFSIPOdererVo.UniqueReferanceNumber = transCode.ToString() + ran.Next().ToString();
-                        bseMFSIPOdererVo.InternalReferenceNo = transCode.ToString();
-                        string orderEntryresponse = webOrderEntryClient.sipOrderEntryParam(bseMFSIPOdererVo.Transactioncode,
-                            bseMFSIPOdererVo.UniqueReferanceNumber, bseMFSIPOdererVo.SchemeCode, bseMFSIPOdererVo.MemberId, bseMFSIPOdererVo.ClientCode,bseMFSIPOdererVo.BSEUserId,
-                            bseMFSIPOdererVo.InternalReferenceNo, bseMFSIPOdererVo.TransMode, bseMFSIPOdererVo.DPTransactionMode,
-                            bseMFSIPOdererVo.StartDate, bseMFSIPOdererVo.FrequenceType, bseMFSIPOdererVo.FrequenceAllowed, bseMFSIPOdererVo.InstallmentAmount,
-                            bseMFSIPOdererVo.NoOfInstallments, bseMFSIPOdererVo.Remarks, bseMFSIPOdererVo.FolioNo, bseMFSIPOdererVo.FirstOrderFlag,
-                            bseMFSIPOdererVo.SubBRCode,bseMFSIPOdererVo.EUIN,bseMFSIPOdererVo.EUINDeclarationFlag,bseMFSIPOdererVo.DPC,bseMFSIPOdererVo.REGID,
-                            bseMFSIPOdererVo.IPAddress, bseMFSIPOdererVo.Password, bseMFSIPOdererVo.PassKey,
-                            bseMFSIPOdererVo.Param1, bseMFSIPOdererVo.Param2, bseMFSIPOdererVo.Param3);
-                        
+                    int transCode = OnlineMFOrderDao.BSEMFSIPorderResponseParam(bseMFSIPOdererVo, rmsId, UserID);
 
-                        
-                        string[] bseorderEntryresponseArray = orderEntryresponse.Split('|');
-                        OnlineMFOrderDao.BSEMFSIPorderResponseParam(transCode, UserID, Convert.ToInt64(bseorderEntryresponseArray[2]), bseMemberId, ClientCode, bseorderEntryresponseArray[6], bseorderEntryresponseArray[7], rmsId, bseMFSIPOdererVo.UniqueReferanceNumber);
-                        if (bseorderEntryresponseArray[7] == "1")
-                        {
-                            sipOrderIds = CreateOrderMFSipDetails(onlinemforderVo, UserID);
-                            bool result = OnlineMFOrderDao.BSESIPRequestUpdate(Convert.ToInt32(sipOrderIds["SIPId"].ToString()), transCode);
-                            message = "Order placed successfully with Exchange.Order reference no is " + sipOrderIds["SIPId"];
-                            msgType = 'S';
-                        }
+                    bseMFSIPOdererVo.UniqueReferanceNumber = transCode.ToString() + ran.Next().ToString();
+                    bseMFSIPOdererVo.InternalReferenceNo = transCode.ToString();
+                    string orderEntryresponse = webOrderEntryClient.sipOrderEntryParam(bseMFSIPOdererVo.Transactioncode,
+                        bseMFSIPOdererVo.UniqueReferanceNumber, bseMFSIPOdererVo.SchemeCode, bseMFSIPOdererVo.MemberId, bseMFSIPOdererVo.ClientCode, bseMFSIPOdererVo.BSEUserId,
+                        bseMFSIPOdererVo.InternalReferenceNo, bseMFSIPOdererVo.TransMode, bseMFSIPOdererVo.DPTransactionMode,
+                        bseMFSIPOdererVo.StartDate, bseMFSIPOdererVo.FrequenceType, bseMFSIPOdererVo.FrequenceAllowed, bseMFSIPOdererVo.InstallmentAmount,
+                        bseMFSIPOdererVo.NoOfInstallments, bseMFSIPOdererVo.Remarks, bseMFSIPOdererVo.FolioNo, bseMFSIPOdererVo.FirstOrderFlag,
+                        bseMFSIPOdererVo.SubBRCode, bseMFSIPOdererVo.EUIN, bseMFSIPOdererVo.EUINDeclarationFlag, bseMFSIPOdererVo.DPC, bseMFSIPOdererVo.REGID,
+                        bseMFSIPOdererVo.IPAddress, bseMFSIPOdererVo.Password, bseMFSIPOdererVo.PassKey,
+                        bseMFSIPOdererVo.Param1, bseMFSIPOdererVo.Param2, bseMFSIPOdererVo.Param3);
+
+
+
+                    string[] bseorderEntryresponseArray = orderEntryresponse.Split('|');
+                    OnlineMFOrderDao.BSEMFSIPorderResponseParam(transCode, UserID, Convert.ToInt64(bseorderEntryresponseArray[2]), bseMemberId, ClientCode, bseorderEntryresponseArray[6], bseorderEntryresponseArray[7], rmsId, bseMFSIPOdererVo.UniqueReferanceNumber);
+                    if (bseorderEntryresponseArray[7] == "0")
+                    {
+                        sipOrderIds = CreateOrderMFSipDetails(onlinemforderVo, UserID);
+                        bool result = OnlineMFOrderDao.BSESIPRequestUpdate(Convert.ToInt32(sipOrderIds["SIPId"].ToString()), transCode);
+                        msgType = 'S';
+                    }
+                    message = bseorderEntryresponseArray[6];
                     //}
                     //else
                     //{
@@ -881,15 +881,14 @@ namespace BoOnlineOrderManagement
 
                 }
                 else
+                {                   
                     message = "Unable to process the order as Exchange is not available for Now.";
+                }
             }
             catch (Exception ex)
             {
-                if (isRMSDebited && onlinemforderVo.TransactionType != "SEL")
-                {
-                    DebitOrCreditRMSUserAccountBalance(UserID, ClientCode, onlinemforderVo.Amount, rmsId, out  rmsId);
-                }
-                message = "Unable to process the order as Exchange is not available for Now." + ex.Message;
+                
+               message = "Unable to process the order as Exchange is not available for Now." + ex.Message;
             }
             finally
             {

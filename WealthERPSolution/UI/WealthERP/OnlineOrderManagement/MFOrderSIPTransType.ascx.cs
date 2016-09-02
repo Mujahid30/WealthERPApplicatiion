@@ -485,7 +485,7 @@ namespace WealthERP.OnlineOrderManagement
                 string message = string.Empty;
                 int OrderId = 0;
                 int sipId = 0;
-                char msgType;
+                char msgType='F';
                 if (exchangeType == "Online")
                 {
                     if (availableBalance >= Convert.ToDecimal(onlineMFOrderVo.Amount))
@@ -522,7 +522,7 @@ namespace WealthERP.OnlineOrderManagement
                         sipId = int.Parse(sipOrderIds["SIPId"].ToString());
                     }
                 }
-                message = CreateUserMessage(OrderId, sipId, accountDebitStatus, retVal == 1 ? true : false, out msgType);
+                //message = CreateUserMessage(OrderId, sipId, accountDebitStatus, retVal == 1 ? true : false, out msgType);
                 ShowMessage(message, msgType);
 
             }
