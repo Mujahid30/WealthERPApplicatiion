@@ -2337,7 +2337,7 @@ namespace DAOAssociates
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@AA_IsDummyAssociate", DbType.Int32, associatesVo.IsDummy);
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@KYDStatus", DbType.Boolean, associatesVo.KYDStatus);
                 db.AddInParameter(UpdateAssociateDetailsCmd, "@FormBRecvd", DbType.Boolean, associatesVo.FormBRecvd);
-                db.AddInParameter(UpdateAssociateDetailsCmd, "@AMPL_ID", DbType.Boolean, associatesVo.AssociateProductMappingListID);
+                //db.AddInParameter(UpdateAssociateDetailsCmd, "@AMPL_ID", DbType.Boolean, associatesVo.AssociateProductMappingListID);
 
                 if (associatesVo.ARNDate != DateTime.MinValue)
                     db.AddInParameter(UpdateAssociateDetailsCmd, "@ARNDate", DbType.DateTime, associatesVo.ARNDate);
