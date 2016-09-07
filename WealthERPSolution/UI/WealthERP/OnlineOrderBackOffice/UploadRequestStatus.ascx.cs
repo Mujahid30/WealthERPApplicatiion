@@ -371,11 +371,13 @@ namespace WealthERP.OnlineOrderBackOffice
             if (ddlType.SelectedValue == "11")
             {
                 td1.Visible = false;
-                tdreqId.Visible = true;
+                tdreqId.Visible = false;
                 tdToDate.Visible = true;
                 tdFromD.Visible = true;
                 tdProduct.Visible = true;
                 tdCategory.Visible = true;
+                txtreqId.Visible = false;
+               
             }
             else
             {
@@ -383,6 +385,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 tdreqId.Visible = false;
                 tdToDate.Visible = false;
                 tdFromD.Visible = false;
+                txtreqId.Visible = false;
             }
 
 
