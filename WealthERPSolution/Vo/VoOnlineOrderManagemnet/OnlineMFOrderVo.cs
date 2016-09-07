@@ -36,7 +36,7 @@ namespace VoOnlineOrderManagemnet
         public string ModeTypeCode { set; get; }
         public string BSESchemeCode { set; get; }
         public int OrderType { get; set; }
-        public string ModeTypeCode { get; set; }
+       
     }
 
     public class BSEMFSIPOdererVo
