@@ -60,11 +60,13 @@
         <td align="right" id="tdlblType" runat="server" visible="false">
             <asp:Label ID="lblType" CssClass="FieldName" runat="server" Text="Type:"></asp:Label>
         </td>
-        <td id="tdddlType" runat="server" visible="false">
+        <td id="tdddlType" runat="server">
             <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField">
                 <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                 <asp:ListItem Text="AMC Wise" Value="AMC" />
                 <asp:ListItem Text="RTA Wise" Value="RNT" />
+                <asp:ListItem Text="Extract BSE Client File " Value="EBSE" />
+                 <asp:ListItem Text="Exchange MIS" Value="EMIS" />
             </asp:DropDownList>
             <asp:RequiredFieldValidator ID="rfvType" runat="server" CssClass="rfvPCG" ErrorMessage="Please select a Type"
                 ControlToValidate="ddlType" Display="Dynamic" InitialValue="0" ValidationGroup="Issueallotment">
@@ -107,8 +109,39 @@
             <asp:Button ID="btnGo" runat="server" Text="Go" CssClass="PCGButton" OnClick="Go_OnClick"
                 ValidationGroup="Issueallotment" />
         </td>
+        
+                <td width="10%">
+                    <asp:Button ID="btnDownload" runat="server" Text="Download File" ValidationGroup="IssueExtract"
+                        CssClass="PCGLongButton" OnClick="btnDownload_Click" Visible="false"/>
+                </td>
+         
     </tr>
 </table>
+<asp:Panel ID="pnlOnlneIssueExtract" runat="server" Width="100%" ScrollBars="Horizontal"
+            Visible="false">
+            <tr>
+                <td>
+                    <telerik:RadGrid ID="gvOnlineIssueExtract" runat="server" AutoGenerateColumns="true"
+                        AllowPaging="true" AllowSorting="true" Skin="Telerik" EnableHeaderContextMenu="true"
+                        GridLines="Both" EnableEmbeddedSkins="false"
+                        ShowFooter="true" PagerStyle-AlwaysVisible="true" EnableViewState="true" ShowStatusBar="true"
+                        AllowFilteringByColumn="true" PageSize="5">
+                        <ExportSettings HideStructureColumns="true">
+                        </ExportSettings>
+                        <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="true"
+                            HeaderStyle-Width="120px">
+                        </MasterTableView>
+                        <ClientSettings>
+                            <Resizing AllowColumnResize="true" />
+                            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                        </ClientSettings>
+                        <FilterMenu EnableEmbeddedSkins="false">
+                        </FilterMenu>
+                    </telerik:RadGrid>
+                </td>
+            </tr>
+        </asp:Panel>
+
 <asp:Panel ID="pnlOrderReport" runat="server" ScrollBars="Horizontal" Width="100%"
     Visible="false">
     <table width="100%" cellspacing="0" cellpadding="1">
@@ -324,64 +357,32 @@
         </tr>
     </table>
 </asp:Panel>
-<asp:Panel ID="pnlCustomerDetails" runat="server"  Width="100%"
-                                    Visible="true">
-                                    <telerik:RadGrid ID="gvCustomerDetails1" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                        PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                                        OnItemDataBound="gvCustomerDetails_ItemDataBound" Skin="Telerik" EnableEmbeddedSkins="false"
-                                        Width="100%" AllowFilteringByColumn="true" AllowAutomaticInserts="false">
-                                        <ExportSettings HideStructureColumns="true">
-                                        </ExportSettings>
-                                        <MasterTableView Width="100%" AllowMultiColumnSorting="True" DataKeyNames="C_CustomerId"
-                                            AutoGenerateColumns="false" CommandItemDisplay="None">
-                                            <Columns>
-                                                <telerik:GridBoundColumn HeaderText="Client Code" DataField="C_CustCode" UniqueName="C_CustCode"
-                                                    SortExpression="Client Code" AutoPostBackOnFilter="true" AllowFiltering="true"
-                                                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="Customer Name" DataField="C_FirstName" UniqueName="Customer Name"
-                                                    SortExpression="Customer Name" AutoPostBackOnFilter="true" AllowFiltering="false"
-                                                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="PAN" DataField="C_PANNum" UniqueName="PAN" SortExpression="Transaction Type"
-                                                    AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="Email ID" DataField="C_Email" UniqueName="Email ID"
-                                                    SortExpression="Email ID" AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false"
-                                                    CurrentFilterFunction="Contains">
-                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="Mobile Number" DataField="C_Mobile1" UniqueName="Mobile Number"
-                                                    SortExpression="Mobile Number" AutoPostBackOnFilter="true" AllowFiltering="false"
-                                                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="Demat Accepted" DataField="C_IsDematAccepted"
-                                                    UniqueName="Demat Accepted" SortExpression="Demat Accepted" AutoPostBackOnFilter="true"
-                                                    AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderText="Demat Acceptance Date" DataField="C_DematAcceptedon"
-                                                    UniqueName="Demat Acceptance Date" SortExpression="Demat Acceptance Date" AutoPostBackOnFilter="true"
-                                                    AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                </telerik:GridBoundColumn>
-                                                <telerik:GridTemplateColumn HeaderText="Demat Investor" AllowFiltering="false" DataField="C_IsDematInvestor"
-                                                    UniqueName="C_IsDematInvestor">
-                                                    <ItemTemplate>
-                                                        <asp:CheckBox ID="chk" runat="server" />
-                                                    </ItemTemplate>
-                                                </telerik:GridTemplateColumn>
-                                               
-                                            </Columns>
-                                        </MasterTableView>
-                                        <ClientSettings>
-                                            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                                        </ClientSettings>
-                                    </telerik:RadGrid>
-                                    
-                                    <asp:Button ID="Button1" runat="server" Visible="false" Text="Update" OnClick="Button1_Click" />
-                                </asp:Panel>
+<asp:Panel ID="pnlCustomerDetails" runat="server" ScrollBars="Horizontal" Width="100%"
+    Visible="false">
+    <table width="100%" cellspacing="0" cellpadding="1">
+        <tr>
+            <td>
+                <telerik:RadGrid ID="gvCustomerDetails" runat="server"  AutoGenerateColumns="true"
+                    AllowPaging="true" AllowSorting="true" Skin="Telerik" EnableHeaderContextMenu="true"
+                        GridLines="Both" EnableEmbeddedSkins="false"
+                        ShowFooter="true" PagerStyle-AlwaysVisible="true" EnableViewState="true" ShowStatusBar="true"
+                        AllowFilteringByColumn="true" PageSize="5">
+                     <ExportSettings HideStructureColumns="true">
+                        </ExportSettings>
+                        <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="true"
+                            HeaderStyle-Width="120px">
+                        </MasterTableView>
+                        <ClientSettings>
+                            <Resizing AllowColumnResize="true" />
+                            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                        </ClientSettings>
+                        <FilterMenu EnableEmbeddedSkins="false">
+                        </FilterMenu>
+                </telerik:RadGrid>
+               
+            </td>
+        </tr>
+    </table>
+   
+</asp:Panel>
+

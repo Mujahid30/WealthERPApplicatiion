@@ -194,6 +194,33 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.Button btnGo;
         
         /// <summary>
+        /// btnDownload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDownload;
+        
+        /// <summary>
+        /// pnlOnlneIssueExtract control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlOnlneIssueExtract;
+        
+        /// <summary>
+        /// gvOnlineIssueExtract control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid gvOnlineIssueExtract;
+        
+        /// <summary>
         /// pnlOrderReport control.
         /// </summary>
         /// <remarks>
@@ -210,6 +237,15 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvOrderReport;
+
+        /// <summary>
+        /// gvCustomerDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid gvCustomerDetails;
         
         /// <summary>
         /// trddlType control.

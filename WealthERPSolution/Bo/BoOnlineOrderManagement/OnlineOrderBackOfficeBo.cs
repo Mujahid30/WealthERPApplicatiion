@@ -2154,6 +2154,7 @@ namespace BoOnlineOrderManagement
             dtGetSchemeLookupType = daoOnlineOrderBackOffice.GetSchemeLookupType(dividentType);
             return dtGetSchemeLookupType;
         }
+
         public DataTable GetRTAInitialReport(string type, DateTime fromDate, DateTime toDate, int ReportType, int amcCode)
         {
             DataTable dt;
@@ -2681,6 +2682,20 @@ namespace BoOnlineOrderManagement
             }
             return ds;
         }
+        //public DataSet GetBSECustomer(int A_AdviserId)
+        //{
+        //    DataSet dsBSECustomer;
+        //    OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+        //    try
+        //    {
+        //        dsBSECustomer = daoOnlineOrderBackOffice.GetBSECustomer(A_AdviserId);
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    return dsBSECustomer;
+        //}
         public bool InsertUpdateNotificationFormat(int userId, int notificationId, string formatType, string parameterCodes, string Formattext, int formatId)
         {
             bool result = false;
@@ -2708,6 +2723,23 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
             return dsNotificationTypes;
+
+        }
+       
+
+        public DataSet GetBSECustomer(int A_AdviserId)
+        {
+            DataSet dsBSECustomer = new DataSet();
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            try
+            {
+                dsBSECustomer = daoOnlineOrderBackOffice.GetBSECustomer(A_AdviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsBSECustomer;
 
         }
 

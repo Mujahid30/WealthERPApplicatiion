@@ -24,7 +24,7 @@ namespace DaoOnlineOrderManagement
         {
             DataSet dsExtractType;
             Database db;
-            DbCommand GetGetMfOrderExtractCmd; 
+            DbCommand GetGetMfOrderExtractCmd;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -2572,32 +2572,6 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetSchemeLookupType;
         }
-        public DataTable GetRTAInitialReport(string type, DateTime fromDate, DateTime toDate, int ReportType, int amcCode)
-        {
-            Database db;
-            DbCommand cmdGetRTAInitialReport;
-            DataTable dtGetRTAInitialReport;
-            DataSet dsGetRTAInitialReport = null;
-            try
-            {
-                db = DatabaseFactory.CreateDatabase("wealtherp");
-                cmdGetRTAInitialReport = db.GetStoredProcCommand("SPROC_ONL_GetIntialOrdersReport");
-                db.AddInParameter(cmdGetRTAInitialReport, "@AMCWise", DbType.String, type);
-                db.AddInParameter(cmdGetRTAInitialReport, "@Fromdate", DbType.DateTime, fromDate);
-                db.AddInParameter(cmdGetRTAInitialReport, "@Todate", DbType.DateTime, toDate);
-                db.AddInParameter(cmdGetRTAInitialReport, "@IsFatca", DbType.Boolean, ReportType);
-                db.AddInParameter(cmdGetRTAInitialReport, "@AMCCode", DbType.Int32, amcCode); 
-                cmdGetRTAInitialReport.CommandTimeout = 60 * 60;
-                dsGetRTAInitialReport = db.ExecuteDataSet(cmdGetRTAInitialReport);
-                dtGetRTAInitialReport = dsGetRTAInitialReport.Tables[0];
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            return dtGetRTAInitialReport;
-        }
-
         public DataTable GetCustomerDetails(int adviserId, string type, DateTime fromDate, DateTime toDate)
         {
             DataSet dsCustomerDetails;
@@ -2612,7 +2586,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmdCustomerDetails, "@AMCWise", DbType.String, type);
                 db.AddInParameter(cmdCustomerDetails, "@Fromdate", DbType.DateTime, fromDate);
                 db.AddInParameter(cmdCustomerDetails, "@Todate", DbType.DateTime, toDate);
-               cmdCustomerDetails.CommandTimeout = 60 * 60;
+                cmdCustomerDetails.CommandTimeout = 60 * 60;
                 dsCustomerDetails = db.ExecuteDataSet(cmdCustomerDetails);
                 dtGetCustomerDetails = dsCustomerDetails.Tables[0];
             }
@@ -2622,10 +2596,31 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetCustomerDetails;
         }
-
-
-
-
+        public DataTable GetRTAInitialReport(string type, DateTime fromDate, DateTime toDate, int ReportType, int amcCode)
+        {
+            Database db;
+            DbCommand cmdGetRTAInitialReport;
+            DataTable dtGetRTAInitialReport;
+            DataSet dsGetRTAInitialReport = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetRTAInitialReport = db.GetStoredProcCommand("SPROC_ONL_GetIntialOrdersReport");
+                db.AddInParameter(cmdGetRTAInitialReport, "@AMCWise", DbType.String, type);
+                db.AddInParameter(cmdGetRTAInitialReport, "@Fromdate", DbType.DateTime, fromDate);
+                db.AddInParameter(cmdGetRTAInitialReport, "@Todate", DbType.DateTime, toDate);
+                db.AddInParameter(cmdGetRTAInitialReport, "@IsFatca", DbType.Int32, ReportType);
+                db.AddInParameter(cmdGetRTAInitialReport, "@AMCCode", DbType.Int32, amcCode);
+                cmdGetRTAInitialReport.CommandTimeout = 60 * 60;
+                dsGetRTAInitialReport = db.ExecuteDataSet(cmdGetRTAInitialReport);
+                dtGetRTAInitialReport = dsGetRTAInitialReport.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetRTAInitialReport;
+        }
         public DataTable GetAMCListRNTWise(string RNTType)
         {
             DataSet dsGetAMCListRNTWise;
@@ -3483,6 +3478,28 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetNotificationTypes;
         }
+       
+        //public DataSet GetBSECustomer(int A_AdviserId)
+        //{
+        //    DataSet dsBSECustomer;
+          
+        //    Database db;
+        //    DbCommand cmdGetBSECustomer;
+        //    try
+        //    {
+        //        db = DatabaseFactory.CreateDatabase("wealtherp");
+        //        cmdGetBSECustomer = db.GetStoredProcCommand("SPROC_ONL_BSECustomerDematAcceptance");
+        //        db.AddInParameter(cmdGetBSECustomer, "@A_AdviserId", DbType.String, A_AdviserId);
+        //        dsBSECustomer = db.ExecuteDataSet(cmdGetBSECustomer);
+                
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    return dsBSECustomer;
+        //}
+       
 
         public DataSet GetNotificationHeader(int notificationTypeId, int adviserId)
         {
@@ -3545,26 +3562,47 @@ namespace DaoOnlineOrderManagement
             return ds;
         }
 
+        public DataSet GetBSECustomer(int A_AdviserId)
+        {
+            DataSet dsBSECustomer;
+            Database db;
+            DbCommand cmdBSECustomer;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdBSECustomer = db.GetStoredProcCommand("SPROC_ONL_BSECustomerDematAcceptance ");
+                db.AddInParameter(cmdBSECustomer, "@A_AdviserId", DbType.Int32, A_AdviserId);
+                dsBSECustomer = db.ExecuteDataSet(cmdBSECustomer);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsBSECustomer;
+        }
 
 
-        //public DataSet BindCustomerDetails(int adviserId)
-        //{
-        //    DataSet dsCustomerDetails;
-        //    Database db;
-        //    DbCommand cmdCustomerDetails;
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        cmdCustomerDetails = db.GetStoredProcCommand("SP_GETCustomerDetails");
-        //        db.AddInParameter(cmdCustomerDetails, "@AdviserID", DbType.Int32, adviserId);
-        //        dsCustomerDetails = db.ExecuteDataSet(cmdCustomerDetails);
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    return dsCustomerDetails;
-        //}
+
+
+        public DataSet BindCustomerDetails(int adviserId)
+        {
+            DataSet dsCustomerDetails;
+            Database db;
+            DbCommand cmdCustomerDetails;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdCustomerDetails = db.GetStoredProcCommand("SP_GETCustomerDetails");
+                db.AddInParameter(cmdCustomerDetails, "@AdviserID", DbType.Int32, adviserId);
+                db.AddInParameter(cmdCustomerDetails, "@AMCWise", DbType.Int32, adviserId);
+                dsCustomerDetails = db.ExecuteDataSet(cmdCustomerDetails);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsCustomerDetails;
+        }
 
 
 

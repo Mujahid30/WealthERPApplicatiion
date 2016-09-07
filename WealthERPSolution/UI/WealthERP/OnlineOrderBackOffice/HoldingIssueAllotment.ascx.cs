@@ -14,6 +14,9 @@ using WealthERP.Base;
 using BoOnlineOrderManagement;
 using VoOnlineOrderManagemnet;
 using Telerik.Web.UI;
+using System.IO;
+
+
 
     
 namespace WealthERP.OnlineOrderBackOffice
@@ -43,10 +46,13 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtFromDate.SelectedDate = fromdate;
                 txtToDate.SelectedDate = DateTime.Now;
                 BindAMC();
+                btnDownload.Visible = false;
+                ddlType.Visible = false;
                 //BindAdviserIssueAllotmentList();
                 // BindDropDownListIssuer();
                 //BindIssuerId();
             }
+
 
         }
         protected void BindAMC()
@@ -82,6 +88,135 @@ namespace WealthERP.OnlineOrderBackOffice
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
+            }
+        }
+        protected void btnDownload_Click(object sender, EventArgs e)
+        {
+            DataSet dsExtractData = new DataSet();
+            DownloadBidFile(dsExtractData, "abc", "|");
+        }
+        private void DownloadBidFile(DataSet dsExtractData, string filename, string delimit)
+        {
+            try
+            {
+
+                string dateFormat = "dd-mm-yyyy";
+
+                dsExtractData = onlineOrderBackOfficeBo.GetBSECustomer(advisorVo.advisorId);
+
+                StreamWriter str = new StreamWriter(Server.MapPath(@"~/UploadFiles/" + filename), false, System.Text.Encoding.Default);
+
+                string Columns = string.Empty;
+
+                foreach (DataColumn column in dsExtractData.Tables[0].Columns)
+                    Columns += column.ColumnName + delimit;
+
+                // Headers  For different types
+
+
+                DataColumn[] arrCols = new DataColumn[dsExtractData.Tables[0].Columns.Count];
+                dsExtractData.Tables[0].Columns.CopyTo(arrCols, 0);
+                foreach (DataRow datarow in dsExtractData.Tables[0].Rows)
+                {
+                    string row = string.Empty;
+                    int i = 0;
+                    foreach (object item in datarow.ItemArray)
+                    {
+                        if (arrCols[i].DataType.FullName == "System.DateTime")
+                        {
+                            string strDate = string.IsNullOrEmpty(item.ToString()) ? "" : DateTime.Parse(item.ToString()).ToString(dateFormat);
+                            row += strDate + delimit;
+                        }
+                        else
+                        {
+                            row += item.ToString().Trim() + delimit;
+                        }
+                        i++;
+                    }
+                    str.WriteLine(row.Remove(row.Length - 1, 1));
+                }
+                str.Flush();
+                str.Close();
+                string myFileData;
+                // File in
+                myFileData = File.ReadAllText(Server.MapPath("~/UploadFiles/" + filename));
+                // Remove last CR/LF
+                // 1) Check that the file has CR/LF at the end
+                if (myFileData.EndsWith(Environment.NewLine))
+                {
+                    //2) Remove CR/LF from the end and write back to file (new file)
+                    //File.WriteAllText(@"D:\test_backup.csv", myFileData.TrimEnd(null)); // Removes ALL white spaces from the end!
+                    File.WriteAllText(Server.MapPath("~/UploadFiles/" + filename), myFileData.TrimEnd(Environment.NewLine.ToCharArray())); // Removes ALL CR/LF from the end!
+                }
+                #region download notepad or text file.
+                Response.ContentType = "Text/Plain";
+                Response.AppendHeader("Content-Disposition", "attachment;filename=" + filename);
+                string aaa = Server.MapPath("~/UploadFiles/" + filename);
+                Response.TransmitFile(Server.MapPath("~/UploadFiles/" + filename));
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                Response.End();
+                #endregion
+            }
+            catch (Exception ex)
+            {
+
+            }
+            //finally
+            //{
+            //    System.IO.File.Delete(Server.MapPath("~/UploadFiles/" + filename));
+            //}
+
+        }
+        //protected void gvCustomerDetails_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        //{
+        //    DataTable dsExtractData = new DataTable();
+        //    if (dsExtractData != null) gvCustomerDetails.DataSource = dsExtractData;
+
+        //}
+
+
+        protected void GetExtractData()
+        {
+            try
+            {
+                DataTable dsExtractData = new DataTable();
+                dsExtractData = onlineOrderBackOfficeBo.GetBSECustomer(advisorVo.advisorId).Tables[0];
+                if (dsExtractData.Rows.Count > 0)
+                {
+                    if (Cache["pnlCustomerDetails" + advisorVo.advisorId] == null)
+                    {
+                        Cache.Insert("pnlCustomerDetails" + advisorVo.advisorId, dsExtractData);
+                    }
+                    else
+                    {
+                        Cache.Remove("pnlCustomerDetails" + advisorVo.advisorId);
+                        Cache.Insert("pnlCustomerDetails" + advisorVo.advisorId, dsExtractData);
+                    }
+                    gvCustomerDetails.DataSource = dsExtractData;
+                    gvCustomerDetails.DataBind();
+                    pnlCustomerDetails.Visible = true;
+                }
+                else
+                {
+                    gvCustomerDetails.DataSource = dsExtractData;
+                    gvCustomerDetails.DataBind();
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineClientAccess.ascx.cs: GetExtractData()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
             }
         }
         protected void BindRTAInitialReport()
@@ -183,6 +318,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 pnlOrderReport.Visible = true;
                 pnlCustomerDetails.Visible = false;
                 pnlFATCA.Visible = false;
+               
 
             }
             if (ddlOrderType.SelectedValue == "2")
@@ -194,18 +330,29 @@ namespace WealthERP.OnlineOrderBackOffice
                 pnlFATCA.Visible = true;
                 pnlCustomerDetails.Visible = false;
                 pnlOrderReport.Visible = false;
+                ddlType.Visible = true;
+                ddlType.Items.FindByValue("EBSE").Enabled = false;
+                ddlType.Items.FindByValue("EMIS").Enabled = false;
+                ddlType.Items.FindByValue("AMC").Enabled = true;
+                ddlType.Items.FindByValue("RNT").Enabled = true;
+
             }
 
            if (ddlOrderType.SelectedValue == "3")
            {
-               tdddlType.Visible = false;
-               tdlblType.Visible = false;
+               tdddlType.Visible = true;
+               tdlblType.Visible = true;
                tdlblAMC.Visible = false;
                tdddlAMC.Visible = false;
                pnlCustomerDetails.Visible = true;
                pnlFATCA.Visible = false;
                pnlOrderReport.Visible = false;
-
+               ddlType.Visible = true;
+               ddlType.Items.FindByValue("EBSE").Enabled = true;
+               ddlType.Items.FindByValue("EMIS").Enabled = true;
+               ddlType.Items.FindByValue("AMC").Enabled = false;
+               ddlType.Items.FindByValue("RNT").Enabled = false;
+               
            }
          
         }
@@ -328,15 +475,31 @@ namespace WealthERP.OnlineOrderBackOffice
         
 
 
+
         protected void Go_OnClick(object sender, EventArgs e)
         {
-            BindRTAInitialReport();
-            //BindAdviserIssueAllotmentList();
-            imgexportButton.Visible = true;
-             //BindCustomerDetailsGrid();
-           // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('CustomerDematAcceptedDetails','none');", true);
+            if (ddlType.SelectedValue == "EBSE")
+            {
+                GetExtractData();
+            }
+            if (ddlType.SelectedValue == "EMIS")
+            {
+                BindRTAInitialReport();
+                //BindAdviserIssueAllotmentList();
+                imgexportButton.Visible = true;
+                //BindCustomerDetailsGrid();
+                // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('CustomerDematAcceptedDetails','none');", true);
+            }
+
+            DataTable dsBSECustomer = new DataTable();
+
+            if (dsBSECustomer.Rows.Count > 0)
+            {
+                btnDownload.Visible = true;
+            }
 
         }
+        
         public void btnExportData_OnClick(object sender, ImageClickEventArgs e)
         {
             if (!Boolean.Parse(ddlOrderType.SelectedValue))
