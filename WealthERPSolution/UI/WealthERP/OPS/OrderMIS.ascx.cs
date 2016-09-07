@@ -189,8 +189,8 @@ namespace WealthERP.OPS
             if (!IsPostBack)
             {
                 gvCustomerOrderMIS.Visible = false;
-                btnMannualMatch.Visible = false;
-                btnSync.Visible = false;
+                btnMannualMatch.Visible = true;
+                btnSync.Visible = true;
                 if (userType == "advisor")
                 {
                     BindBranchDropDown();
@@ -385,13 +385,13 @@ namespace WealthERP.OPS
                 //this.GetPageCount();
                 if (ddlMISOrderStatus.SelectedValue == "OMIP")
                 {
-                    btnSync.Visible = false;
-                    btnMannualMatch.Visible = false;
+                    btnSync.Visible = true;
+                    btnMannualMatch.Visible = true;
                 }
                 else
                 {
-                    btnSync.Visible = false;
-                    btnMannualMatch.Visible = false;
+                    btnSync.Visible = true;
+                    btnMannualMatch.Visible = true;
                 }
                 if (Cache["FIOrderMIS" + advisorVo.advisorId] == null)
                 {
@@ -417,8 +417,8 @@ namespace WealthERP.OPS
                 //btnSubmit.Visible = false;
                 ErrorMessage.Visible = true;
                 ErrorMessage.InnerText = "No Records Found...!";
-                btnSync.Visible = false;
-                btnMannualMatch.Visible = false;
+                btnSync.Visible = true;
+                btnMannualMatch.Visible = true;
 
                 btnMForderRecon.Visible = false;
                 //imgBtnExport.Visible = false;
@@ -660,8 +660,8 @@ namespace WealthERP.OPS
             }
             else
             {
-                btnMannualMatch.Visible = false;
-                btnSync.Visible = false;
+                btnMannualMatch.Visible = true;
+                btnSync.Visible = true;
             }
         }
         private void SetFIParameters()
@@ -1493,6 +1493,25 @@ namespace WealthERP.OPS
         //        }
         //    }
         //}
+
+        protected void ddlType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //if (ddlType.SelectedValue=2)
+            //{
+            //     btnMannualMatch.Visible=false;
+            //    btnSync.Visible=false;
+            
+            //}
+            //else
+            //{
+            //btnMannualMatch.Visible=true;
+            //    btnSync.Visible=true;
+            //}
+        
+        
+        }
+
+
         protected void ddlCustomerType_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtIndividualCustomer.Text = string.Empty;

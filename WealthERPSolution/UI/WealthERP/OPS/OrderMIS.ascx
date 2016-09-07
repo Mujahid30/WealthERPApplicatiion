@@ -286,7 +286,7 @@
             <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Type:"></asp:Label>
         </td>
         <td>
-         <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField"   Width="320px" >
+         <asp:DropDownList ID="ddlType"  runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlType_SelectedIndexChanged" Width="320px" >
             <asp:ListItem Text="All" Value="1" Enabled="false">
             </asp:ListItem>
              <asp:ListItem Text="Orders Exist & Transaction Exist(Accepted)" Value="2">
@@ -658,9 +658,9 @@
         <tr>
             <td>
                 <asp:Button ID="btnSync" runat="server" Text="Auto Match" CssClass="PCGMediumButton"
-                    OnClick="btnSync_Click" Visible="false" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    OnClick="btnSync_Click" Visible="true" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Button ID="btnMannualMatch" runat="server" Text="Manual Match" CssClass="PCGMediumButton"
-                    OnClick="btnMannualMatch_Click" Visible="false" />
+                    OnClick="btnMannualMatch_Click" Visible="true" />
             </td>
         </tr>
     </table>
