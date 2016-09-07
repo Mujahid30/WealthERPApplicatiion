@@ -121,7 +121,7 @@ namespace WealthERP
             RMVo rmVo = new RMVo();
             AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
             GeneralConfigurationVo generalconfigurationvo = new GeneralConfigurationVo();
-            string url = HttpContext.Current.Request.Url.AbsoluteUri;
+             string url = HttpContext.Current.Request.Url.AbsoluteUri;
 
             //tdTermsCondition.Visible = false;
             try
