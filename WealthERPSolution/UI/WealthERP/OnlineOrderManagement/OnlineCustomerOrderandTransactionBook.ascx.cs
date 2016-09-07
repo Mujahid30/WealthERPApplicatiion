@@ -44,16 +44,16 @@ namespace WealthERP.OnlineOrderManagement
             if (exchangeType == "Demat")
             {
                 ddlAction.Items.FindByValue("SIP").Enabled = false;
-                ddlAction.Items.FindByValue("BNS").Enabled = true;
-                ddlAction.Items.FindByValue("XSIP").Enabled = true;
+                ddlAction.Items.FindByValue("BSSIP").Enabled = true;
+                ddlAction.Items.FindByValue("BXSIP").Enabled = true;
                 //ddlAction.Items.FindByValue("ABY").Enabled = false;
             }
             else
             {
                 ddlAction.Items.FindByValue("SIP").Enabled = true;
                 ddlAction.Items.FindByValue("ABY").Enabled = true;
-                ddlAction.Items.FindByValue("BNS").Enabled = false;
-                ddlAction.Items.FindByValue("XSIP").Enabled = false;
+                ddlAction.Items.FindByValue("BSSIP").Enabled = false;
+                ddlAction.Items.FindByValue("BXSIP").Enabled = false;
 
             }
             if (!IsPostBack)
@@ -118,12 +118,12 @@ namespace WealthERP.OnlineOrderManagement
                 case "SEL":
                     BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "SEL", exchangeType == "Online" ? 1 : 0);
                     break;
-                case "BNS":
-                    BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "BNS", exchangeType == "Online" ? 1 : 0);
+                case "BSSIP":
+                    BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "BSSIP", exchangeType == "Online" ? 1 : 0);
                     break;
 
-                case "XSIP":
-                    BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "XSIP", exchangeType == "Online" ? 1 : 0);
+                case "BXSIP":
+                    BindOrderTransactionBook(customerVO.CustomerId, int.Parse(ddlAMC.SelectedValue), int.Parse(ddlScheme.SelectedValue), "BXSIP", exchangeType == "Online" ? 1 : 0);
                     break;
             }
         }

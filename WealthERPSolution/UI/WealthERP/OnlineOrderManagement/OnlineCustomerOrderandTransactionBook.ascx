@@ -97,8 +97,8 @@
                         <asp:ListItem Text="New Purchase" Value="BUY"></asp:ListItem>
                         <asp:ListItem Text="Additional Purchase" Value="ABY"></asp:ListItem>
                         <asp:ListItem Text="Redeem" Value="SEL"></asp:ListItem>
-                         <asp:ListItem Text="BSE Normal SIP" Value="BNS"></asp:ListItem>
-                        <asp:ListItem Text="X-SIP" Value="XSIP"></asp:ListItem>
+                         <asp:ListItem Text="BSE Normal SIP" Value="BSSIP"></asp:ListItem>
+                        <asp:ListItem Text="X-SIP" Value="BXSIP"></asp:ListItem>
                     </asp:DropDownList>
                     <%--  <span id="Span7" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvAmc" runat="server" CssClass="rfvPCG" ErrorMessage="Please Select an AMC"
