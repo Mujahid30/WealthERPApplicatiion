@@ -37,7 +37,8 @@ namespace WealthERP
             string userTheme = string.Empty;
             string url = HttpContext.Current.Request.Url.AbsoluteUri;
 
-            if (url == "http://122.166.49.40:86/" || url == "http://192.168.0.1:86/")
+         
+            if (url == "http://122.166.49.40:86/" || url == "http://192.168.0.1:86/" || ConfigurationManager.AppSettings["Website_ADVISER"].ToString()!="1021")
             {
                 PCGLabel.Text = "2015 @ Ampsys Consulting Pvt. Ltd.";
             }
@@ -116,9 +117,11 @@ namespace WealthERP
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            //advisorVo = (AdvisorVo)Session["advisorVo"];
             RMVo rmVo = new RMVo();
             AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
             GeneralConfigurationVo generalconfigurationvo = new GeneralConfigurationVo();
+            string url = HttpContext.Current.Request.Url.AbsoluteUri;
 
             //tdTermsCondition.Visible = false;
             try
@@ -135,23 +138,25 @@ namespace WealthERP
 
                     if (!IsPostBack)
                     {
-                        imgLeftPlaceHolder.Src = "~/Images/LogoSBICAPSEC.jpg";
                         if (!string.IsNullOrEmpty(generalconfigurationvo.HostLogoPlacement))
                         {
                             if (generalconfigurationvo.HostLogoPlacement == "TopLeftCorner")
                             {
                                 imgLeftPlaceHolder.Style.Add("display", "block");
-                                imgLeftPlaceHolder.Src = "Images/" + generalconfigurationvo.HostLogo;
                             }
                             else if (generalconfigurationvo.HostLogoPlacement == "TopRightCorner")
                             {
                                 imgRightPlaceholder.Style.Add("display", "block");
-                                imgRightPlaceholder.Src = "Images/" + generalconfigurationvo.HostLogo;
                             }
                             else if (generalconfigurationvo.HostLogoPlacement == "TopCenter")
                             {
                                 imgCenterPlaceholder.Style.Add("display", "block");
-                                imgCenterPlaceholder.Src = "Images/" + generalconfigurationvo.HostLogo;
+                            }
+                            if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["Website_Logo"].ToString()))
+                            {
+                                imgLeftPlaceHolder.Src = ConfigurationManager.AppSettings["Website_Logo"].ToString();
+
+
                             }
                         }
                     }
