@@ -637,7 +637,7 @@
         <td class="SubmitCell" colspan="2">
             <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_AddBranch_btnSubmit','S');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_AddBranch_btnSubmit','S');"
-                Text="Submit" OnClick="btnSaveChanges_Click" ValidationGroup="VGSave" />
+                Text="Submit" OnClick="btnSaveChanges_Click"  />
         </td>
     </tr>
     <tr id="trAddBranchCode" runat="server">

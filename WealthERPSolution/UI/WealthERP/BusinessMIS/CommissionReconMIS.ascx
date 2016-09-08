@@ -657,11 +657,17 @@
                                                 SortExpression="RequestCount" FilterControlWidth="50px" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                             </telerik:GridBoundColumn>
-                                             <telerik:GridBoundColumn DataField="Cannel" UniqueName="Cannel" HeaderText="Online"
+                                              <telerik:GridBoundColumn DataField="WRD_InputParameterValue" UniqueName="WP_ParameterCode" HeaderText="Commission Type"
                                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="67px"
-                                                SortExpression="Cannel" FilterControlWidth="50px" CurrentFilterFunction="Contains">
+                                                SortExpression="WP_ParameterCode" FilterControlWidth="50px" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                             </telerik:GridBoundColumn>
+                                             <telerik:GridBoundColumn DataField="WR_Online" UniqueName="WR_Online" HeaderText="Online"
+                                                ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="67px"
+                                                SortExpression="WR_Online" FilterControlWidth="50px" CurrentFilterFunction="Contains">
+                                                <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                                            </telerik:GridBoundColumn>
+                                         
                                         </Columns>
                                     </MasterTableView>
                                     <ClientSettings>

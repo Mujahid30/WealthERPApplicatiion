@@ -435,8 +435,8 @@ namespace WealthERP.Advisor
             {
                 branchAdd = Session["BranchAdd"].ToString();
                 userVo = (UserVo)Session["UserVo"];
-                if (Validation())
-                {
+                //if (Validation())
+                //{
 
                     AdvisorBo advisorBo = new AdvisorBo();
                     advisorId = advisorVo.advisorId;
@@ -623,11 +623,11 @@ namespace WealthERP.Advisor
                     }
 
                     // Creating Branch Association
-                    int cnt = advisorStaffBo.CheckRMMainBranch(advisorBranchVo.BranchHeadId);
-                    if (cnt == 0)
-                        advisorBranchBo.AssociateBranch(advisorBranchVo.BranchHeadId, advisorBranchVo.BranchId, 1, userId);
-                    else
-                        advisorBranchBo.AssociateBranch(advisorBranchVo.BranchHeadId, advisorBranchVo.BranchId, 0, userId);
+                    //int cnt = advisorStaffBo.CheckRMMainBranch(advisorBranchVo.BranchHeadId);
+                    //if (cnt == 0)
+                    //    advisorBranchBo.AssociateBranch(advisorBranchVo.BranchHeadId, advisorBranchVo.BranchId, 1, userId);
+                    //else
+                    //    advisorBranchBo.AssociateBranch(advisorBranchVo.BranchHeadId, advisorBranchVo.BranchId, 0, userId);
                     // Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
                     // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Branch Details added successfully.Select Either to add agent code or view branches');", true);
 
@@ -690,13 +690,13 @@ namespace WealthERP.Advisor
                     // trAddBranchCode.Visible = true;
                     // BtnBranchCode_Click(this, null);
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewBranches','none');", true);
-                }
+                //}
 
-                else
-                {
-                   // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Please select the Branch Head..!');", true);
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewBranches','none');", true);
-                }
+                //else
+                //{
+                //   // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Please select the Branch Head..!');", true);
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewBranches','none');", true);
+                //}
             }
             catch (BaseApplicationException Ex)
             {
