@@ -102,7 +102,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
                 string dateFormat = "dd-mm-yyyy";
 
-                dsExtractData = onlineOrderBackOfficeBo.GetBSECustomer(advisorVo.advisorId);
+                dsExtractData = onlineOrderBackOfficeBo.GetBSECustomer(adviserVo.advisorId);
 
                 StreamWriter str = new StreamWriter(Server.MapPath(@"~/UploadFiles/" + filename), false, System.Text.Encoding.Default);
 
@@ -180,17 +180,17 @@ namespace WealthERP.OnlineOrderBackOffice
             try
             {
                 DataTable dsExtractData = new DataTable();
-                dsExtractData = onlineOrderBackOfficeBo.GetBSECustomer(advisorVo.advisorId).Tables[0];
+                dsExtractData = onlineOrderBackOfficeBo.GetBSECustomer(adviserVo.advisorId).Tables[0];
                 if (dsExtractData.Rows.Count > 0)
                 {
-                    if (Cache["pnlCustomerDetails" + advisorVo.advisorId] == null)
+                    if (Cache["pnlCustomerDetails" + adviserVo.advisorId] == null)
                     {
-                        Cache.Insert("pnlCustomerDetails" + advisorVo.advisorId, dsExtractData);
+                        Cache.Insert("pnlCustomerDetails" + adviserVo.advisorId, dsExtractData);
                     }
                     else
                     {
-                        Cache.Remove("pnlCustomerDetails" + advisorVo.advisorId);
-                        Cache.Insert("pnlCustomerDetails" + advisorVo.advisorId, dsExtractData);
+                        Cache.Remove("pnlCustomerDetails" + adviserVo.advisorId);
+                        Cache.Insert("pnlCustomerDetails" + adviserVo.advisorId, dsExtractData);
                     }
                     gvCustomerDetails.DataSource = dsExtractData;
                     gvCustomerDetails.DataBind();
