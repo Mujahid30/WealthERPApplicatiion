@@ -201,6 +201,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     gvCustomerDetails.DataSource = dsExtractData;
                     gvCustomerDetails.DataBind();
                 }
+                
             }
             catch (BaseApplicationException Ex)
             {
@@ -491,9 +492,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('CustomerDematAcceptedDetails','none');", true);
             }
 
-            DataTable dsBSECustomer = new DataTable();
+            DataTable dsExtractData = new DataTable();
+            dsExtractData = onlineOrderBackOfficeBo.GetBSECustomer(adviserVo.advisorId).Tables[0];
 
-            if (dsBSECustomer.Rows.Count > 0)
+            if (dsExtractData.Rows.Count > 0)
             {
                 btnDownload.Visible = true;
             }
