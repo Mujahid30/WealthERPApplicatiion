@@ -183,14 +183,14 @@ namespace WealthERP.OnlineOrderBackOffice
                 dsExtractData = onlineOrderBackOfficeBo.GetBSECustomer(adviserVo.advisorId).Tables[0];
                 if (dsExtractData.Rows.Count > 0)
                 {
-                    if (Cache["pnlCustomerDetails" + adviserVo.advisorId] == null)
+                    if (Cache["pnlCustomerDetails" + advisorVo.advisorId] == null)
                     {
-                        Cache.Insert("pnlCustomerDetails" + adviserVo.advisorId, dsExtractData);
+                        Cache.Insert("pnlCustomerDetails" + advisorVo.advisorId, dsExtractData);
                     }
                     else
                     {
-                        Cache.Remove("pnlCustomerDetails" + adviserVo.advisorId);
-                        Cache.Insert("pnlCustomerDetails" + adviserVo.advisorId, dsExtractData);
+                        Cache.Remove("pnlCustomerDetails" + advisorVo.advisorId);
+                        Cache.Insert("pnlCustomerDetails" + advisorVo.advisorId, dsExtractData);
                     }
                     gvCustomerDetails.DataSource = dsExtractData;
                     gvCustomerDetails.DataBind();
