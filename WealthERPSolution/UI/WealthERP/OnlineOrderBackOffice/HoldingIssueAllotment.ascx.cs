@@ -254,13 +254,13 @@ namespace WealthERP.OnlineOrderBackOffice
                 else if (ddlOrderType.SelectedValue == "3")
                 {
                     dtBindRTAInitialReport = onlineOrderBackOffice.GetCustomerDetails(adviserVo.advisorId, ddlType.SelectedValue.ToString(), fromdate, todate);
-          
-                    gvCustomerDetails1.DataSource = dtBindRTAInitialReport;
-                    gvCustomerDetails1.DataBind();
+
+                    gvCustomerDetails.DataSource = dtBindRTAInitialReport;
+                    gvCustomerDetails.DataBind();
                     pnlCustomerDetails.Visible = true;
                     pnlFATCA.Visible = false;
                     pnlOrderReport.Visible = false;
-                    Button1.Visible = true;
+                    //Button1.Visible = true;
 
                 }
 
