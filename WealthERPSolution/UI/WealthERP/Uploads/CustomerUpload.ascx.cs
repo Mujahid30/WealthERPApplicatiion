@@ -5188,9 +5188,7 @@ namespace WealthERP.Uploads
 
                 ListItem li = ddlListCompany.Items.FindByValue("DT");
                 ddlListCompany.Items.Remove(li);
-
-                li = ddlListCompany.Items.FindByValue("SU");
-                ddlListCompany.Items.Remove(li);
+                               
                 li = ddlListCompany.Items.FindByValue("WPT");
                 ddlListCompany.Items.Remove(li);
             }
