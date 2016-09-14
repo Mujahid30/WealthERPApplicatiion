@@ -1367,6 +1367,7 @@ namespace DAOAssociates
                         associatesVo.BankEmail = dr["AA_BankEmail"].ToString();
                     if (!string.IsNullOrEmpty(dr["AC_CategoryId"].ToString()))
                         associatesVo.AdviserCategory = dr["AC_CategoryId"].ToString();
+                    if (!string.IsNullOrEmpty(dr["WCMV_UDNCode"].ToString()))
                     associatesVo.AssociateProductMappingListID = Convert.ToInt32(dr["WCMV_UDNCode"].ToString());
                     
 
