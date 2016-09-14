@@ -189,8 +189,7 @@ namespace WealthERP.OPS
             if (!IsPostBack)
             {
                 gvCustomerOrderMIS.Visible = false;
-                btnMannualMatch.Visible = true;
-                btnSync.Visible = true;
+               
                 if (userType == "advisor")
                 {
                     BindBranchDropDown();
@@ -383,6 +382,7 @@ namespace WealthERP.OPS
                 gvCustomerFIOrderMIS.DataBind();
                 gvCustomerFIOrderMIS.Visible = true;
                 //this.GetPageCount();
+               
                 if (ddlMISOrderStatus.SelectedValue == "OMIP")
                 {
                     btnSync.Visible = true;
@@ -442,7 +442,9 @@ namespace WealthERP.OPS
             }
 
             dsOrderMIS = mforderBo.GetCustomerMFOrderMIS(advisorVo.advisorId, DateTime.Parse(hdnFromdate.Value), DateTime.Parse(hdnTodate.Value), hdnBranchId.Value, hdnRMId.Value, hdnTransactionType.Value, hdnOrdStatus.Value, hdnOrderType.Value, hdnamcCode.Value, hdnCustomerId.Value, OnlineStatus, ddlType.SelectedValue);
-            if (dsOrderMIS.Tables.Count > 0)
+          
+            
+           if (dsOrderMIS.Tables.Count > 0)
             {
                 dtOrderMIS = dsOrderMIS.Tables[0];
                 if (dtOrderMIS.Rows.Count > 0)
@@ -455,7 +457,7 @@ namespace WealthERP.OPS
                     gvCustomerOrderMIS.Visible = true;
 
 
-                    if (Cache["OrderMIS" + advisorVo.advisorId] == null)
+                    if (Cache["OrderMIS" + userVo.UserId] == null)
                     {
                         Cache.Insert("OrderMIS" + userVo.UserId, dtOrderMIS);
                     }
@@ -472,7 +474,12 @@ namespace WealthERP.OPS
                     btnMForderRecon.Visible = true;
 
                 }
+                else
+                {
+                    Cache.Remove("OrderMIS" + userVo.UserId);
+                }
             }
+
             else
             {
                 gvCustomerOrderMIS.Visible = false;
@@ -486,7 +493,18 @@ namespace WealthERP.OPS
 
             }
 
-            setMatchButtonsVisblity();
+            //setMatchButtonsVisblity();
+            if(ddlType.SelectedValue=="2")
+            {
+                btnMannualMatch.Visible = false;
+                btnSync.Visible = false;
+            }
+            else
+            {
+                btnMannualMatch.Visible = true;
+                btnSync.Visible = true;
+            }
+
 
         }
 
@@ -549,6 +567,10 @@ namespace WealthERP.OPS
         }
 
 
+       
+
+
+
         protected void ddlOnlineOffline_SelectedIndexChanged(object sender, EventArgs e)
         {
             OnMfOrdersMediumSelection(ddlOnlineOffline.SelectedValue);
@@ -559,7 +581,7 @@ namespace WealthERP.OPS
             if (ordersMedium == "Select")
             {
                 Common_MfControls_Visiblity(false);
-                return;
+                //return;
             }
 
             else if (ordersMedium == "Online")
@@ -653,16 +675,17 @@ namespace WealthERP.OPS
 
         private void setMatchButtonsVisblity()
         {
-            if (ddlMISOrderStatus.SelectedValue == "IP" && ddlOnlineOffline.SelectedValue.ToUpper() == "OFFLINE")
+            if (ddlMISOrderStatus.SelectedValue == "IP" && ddlOnlineOffline.SelectedValue.ToUpper() == "OFFLINE" && ddlType.SelectedValue=="2")
             {
-                btnMannualMatch.Visible = true;
-                btnSync.Visible = true;
+                btnMannualMatch.Visible = false;
+                btnSync.Visible = false;
             }
             else
             {
                 btnMannualMatch.Visible = true;
                 btnSync.Visible = true;
             }
+          
         }
         private void SetFIParameters()
         {
@@ -1494,22 +1517,22 @@ namespace WealthERP.OPS
         //    }
         //}
 
-        protected void ddlType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //if (ddlType.SelectedValue=2)
-            //{
-            //     btnMannualMatch.Visible=false;
-            //    btnSync.Visible=false;
-            
-            //}
-            //else
-            //{
-            //btnMannualMatch.Visible=true;
-            //    btnSync.Visible=true;
-            //}
+        //protected void ddlType_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    if (ddlType.SelectedValue = 2)
+        //    {
+        //        btnMannualMatch.Visible = false;
+        //        btnSync.Visible = false;
+
+        //    }
+        //    else
+        //    {
+        //        btnMannualMatch.Visible = true;
+        //        btnSync.Visible = true;
+        //    }
         
         
-        }
+        //}
 
 
         protected void ddlCustomerType_SelectedIndexChanged(object sender, EventArgs e)
@@ -2134,6 +2157,21 @@ namespace WealthERP.OPS
             gvCustomerOrderMIS.ExportSettings.ExportOnlyData = true;
             gvCustomerOrderMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvCustomerOrderMIS.MasterTableView.ExportToExcel();
+        }
+
+        protected void ddlType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlType.SelectedValue == "2")
+            {
+                btnSync.Visible = false;
+                btnMannualMatch.Visible = false;
+            
+            }
+            else
+            {
+                btnSync.Visible = true;
+                btnMannualMatch.Visible = true;
+            }
         }
     }
 }
