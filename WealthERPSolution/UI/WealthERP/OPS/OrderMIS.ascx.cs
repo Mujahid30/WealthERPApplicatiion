@@ -487,11 +487,12 @@ namespace WealthERP.OPS
             else
             {
                 gvCustomerOrderMIS.Visible = false;
-                tblMessage.Visible = true;
+                //tblMessage.Visible = true;
 
                 ErrorMessage.Visible = true;
                 ErrorMessage.InnerText = "No Records Found...!";
-
+                btnMannualMatch.Visible = false;
+                btnSync.Visible = false;
 
                 btnMForderRecon.Visible = false;
 
@@ -505,8 +506,11 @@ namespace WealthERP.OPS
             }
             else
             {
-                btnMannualMatch.Visible = true;
-                btnSync.Visible = true;
+                if (dsOrderMIS.Tables.Count > 0)
+                {
+                    btnMannualMatch.Visible = true;
+                    btnSync.Visible = true;
+                }
             }
 
 
