@@ -506,11 +506,11 @@ namespace WealthERP.OPS
             }
             else
             {
-                if (dsOrderMIS.Tables.Count > 0)
-                {
+                //if (dsOrderMIS.Tables.Count > 0)
+                //{
                     btnMannualMatch.Visible = true;
                     btnSync.Visible = true;
-                }
+                //}
             }
 
 
