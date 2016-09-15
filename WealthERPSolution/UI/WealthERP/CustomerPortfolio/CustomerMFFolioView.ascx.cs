@@ -621,7 +621,7 @@ namespace WealthERP.CustomerPortfolio
         protected void gvMFFolio_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataTable dtProcessLogDetails = new DataTable();
-            dtProcessLogDetails = (DataTable)Cache["FolioDetails" + customerVo.CustomerId.ToString()];
+             dtProcessLogDetails = (DataTable)Cache["FolioDetails" + customerVo.CustomerId.ToString()];
             gvMFFolio.DataSource = dtProcessLogDetails;            
         }
         //protected void gvMFFolio_RowDataBound(object sender, GridViewRowEventArgs e)

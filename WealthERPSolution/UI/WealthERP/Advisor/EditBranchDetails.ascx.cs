@@ -663,10 +663,10 @@ namespace WealthERP.Advisor
                     }
                     // Creating Branch Association
                     int cnt = advisorStaffBo.CheckRMMainBranch(advisorBranchVo.BranchHeadId);
-                    if (cnt == 0)
-                        advisorBranchBo.AssociateBranch(newAdvisorBranchVo.BranchHeadId, advisorBranchVo.BranchId, 1, userVo.UserId);
-                    else
-                        advisorBranchBo.AssociateBranch(newAdvisorBranchVo.BranchHeadId, advisorBranchVo.BranchId, 0, userVo.UserId);
+                    //if (cnt == 0)
+                    //    advisorBranchBo.AssociateBranch(newAdvisorBranchVo.BranchHeadId, advisorBranchVo.BranchId, 1, userVo.UserId);
+                    //else
+                    //    advisorBranchBo.AssociateBranch(newAdvisorBranchVo.BranchHeadId, advisorBranchVo.BranchId, 0, userVo.UserId);
                     btnSaveChanges.Enabled = false;
                     if (Session["FromAdvisorView"] != null)
                     {

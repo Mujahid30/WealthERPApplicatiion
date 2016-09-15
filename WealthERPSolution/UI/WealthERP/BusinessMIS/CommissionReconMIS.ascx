@@ -662,7 +662,7 @@
                                                 SortExpression="WP_ParameterCode" FilterControlWidth="50px" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                             </telerik:GridBoundColumn>
-                                             <telerik:GridBoundColumn DataField="WR_Online" UniqueName="WR_Online" HeaderText="Online"
+                                             <telerik:GridBoundColumn DataField="Cannel" UniqueName="Cannel" HeaderText="Online"
                                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="67px"
                                                 SortExpression="WR_Online" FilterControlWidth="50px" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />

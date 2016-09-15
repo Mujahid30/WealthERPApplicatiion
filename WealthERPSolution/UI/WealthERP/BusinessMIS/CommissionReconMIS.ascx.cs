@@ -49,6 +49,7 @@ namespace WealthERP.BusinessMIS
         protected void Page_load(object sender, EventArgs e)
         {
             advisorVo = (AdvisorVo)Session["advisorVo"];
+            userVo = (UserVo)Session["userVo"];
             SessionBo.CheckSession();
 
             if (!IsPostBack)
@@ -609,27 +610,30 @@ namespace WealthERP.BusinessMIS
         }
         protected void btnGo2_OnClick(object sender, EventArgs e)
         {
-
-            DataTable DtStatus = werpTaskRequestManagementBo.GetBrokerageCalculationStatus(ddlRequestProduct.SelectedValue, (ddlRSProductCategory.SelectedValue == "" ? null : ddlRSProductCategory.SelectedValue), int.Parse(ddlRequestAmc.SelectedValue), (ddlRSIssueName.SelectedValue =="" ?0:int.Parse(ddlRSIssueName.SelectedValue)), ddlRequestCommissionType.SelectedValue, int.Parse(ddlRequesttMnthQtr.SelectedValue), int.Parse(ddlRequestYear.SelectedValue));
-            gvBrokerageRequestStatus.DataSource = DtStatus;
-            gvBrokerageRequestStatus.DataBind();
-            gvBrokerageRequestStatus.Visible = true;
-            btnExportFilteredData.Visible = false;
-            dvMfMIS.Visible = false;
-            dvNCDIPOMIS.Visible = false;
-            if (DtStatus.Rows.Count > 0)
-            {
-                btnDelete.Visible = true;
-                btnReprocess.Visible = true;
-            }
-            if (Cache["gvBulkOrderStatusList" + userVo.UserId.ToString()] != null)
-            {
-                Cache.Remove("gvBulkOrderStatusList" + userVo.UserId.ToString());
-
-            }
-            Cache.Insert("gvBulkOrderStatusList" + userVo.UserId.ToString(), DtStatus);
+           
+                DataTable DtStatus = werpTaskRequestManagementBo.GetBrokerageCalculationStatus(ddlRequestProduct.SelectedValue, (ddlRSProductCategory.SelectedValue == "" ? null : ddlRSProductCategory.SelectedValue), int.Parse(ddlRequestAmc.SelectedValue), (ddlRSIssueName.SelectedValue == "" ? 0 : int.Parse(ddlRSIssueName.SelectedValue)), ddlRequestCommissionType.SelectedValue, int.Parse(ddlRequesttMnthQtr.SelectedValue), int.Parse(ddlRequestYear.SelectedValue));
+                gvBrokerageRequestStatus.DataSource = DtStatus;
+                gvBrokerageRequestStatus.DataBind();
+                gvBrokerageRequestStatus.Visible = true;
+                btnExportFilteredData.Visible = false;
+                dvMfMIS.Visible = false;
+                dvNCDIPOMIS.Visible = false;
+                if (DtStatus.Rows.Count > 0)
+                {
+                    btnDelete.Visible = true;
+                    btnReprocess.Visible = true;
+                }
 
 
+                 if (Cache["gvBulkOrderStatusList" + userVo.UserId.ToString()] == null)
+                    {
+                        Cache.Insert("gvBulkOrderStatusList" + userVo.UserId.ToString(), DtStatus);
+                    }
+                    else
+                    {
+                        Cache.Remove("gvBulkOrderStatusList" + userVo.UserId.ToString());
+                        Cache.Insert("gvBulkOrderStatusList" + userVo.UserId.ToString(), DtStatus);
+                    }
         }
         protected void gvBrokerageRequestStatus_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
@@ -686,9 +690,9 @@ namespace WealthERP.BusinessMIS
         }
         protected void gvBrokerageRequestStatus_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            DataTable dt = new DataTable();
-            dt = (DataTable)Cache[" gvBrokerageRequestStatus" + userVo.UserId];
-            gvBrokerageRequestStatus.DataSource = dt;
+            DataTable DtStatus = new DataTable();
+            DtStatus = (DataTable)Cache[" gvBrokerageRequestStatus" + userVo.UserId];
+            gvBrokerageRequestStatus.DataSource = DtStatus;
             gvBrokerageRequestStatus.Visible = true;
 
         }

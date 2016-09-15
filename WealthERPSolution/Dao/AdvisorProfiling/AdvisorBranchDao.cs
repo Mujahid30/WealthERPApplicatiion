@@ -44,7 +44,10 @@ namespace DaoAdvisorProfiling
                 //}
                 //else
                 //{
-                db.AddInParameter(createAdvisorBranchCmd, "@AB_BranchHeadId", DbType.Int32, advisorBranchVo.BranchHeadId);
+                if (advisorBranchVo.BranchHeadId != 0)
+                {
+                    db.AddInParameter(createAdvisorBranchCmd, "@AB_BranchHeadId", DbType.Int32, advisorBranchVo.BranchHeadId);
+                }
                 //}
                 //db.AddInParameter(createAdvisorBranchCmd, "@AB_BranchHeadMobile", DbType.Double, advisorBranchVo.MobileNumber);
                 db.AddInParameter(createAdvisorBranchCmd, "@AB_BranchName", DbType.String, advisorBranchVo.BranchName);
@@ -90,7 +93,7 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(createAdvisorBranchCmd, "@AB_ZoneClusterId", DbType.Int32, advisorBranchVo.ZoneClusterId);
                 }
 
-                if (db.ExecuteNonQuery(createAdvisorBranchCmd) != 0)
+                if (db.ExecuteNonQuery(createAdvisorBranchCmd) != null)
                     branchId = int.Parse(db.GetParameterValue(createAdvisorBranchCmd, "BranchId").ToString());
 
 
