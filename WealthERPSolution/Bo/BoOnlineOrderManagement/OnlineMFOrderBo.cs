@@ -864,7 +864,9 @@ namespace BoOnlineOrderManagement
 
 
                     string[] bseorderEntryresponseArray = orderEntryresponse.Split('|');
-                    OnlineMFOrderDao.BSEMFSIPorderResponseParam(transCode, UserID, Convert.ToInt64(bseorderEntryresponseArray[2]), bseMemberId, ClientCode, bseorderEntryresponseArray[6], bseorderEntryresponseArray[7], rmsId, bseMFSIPOdererVo.UniqueReferanceNumber);
+                    Int64 bseSIPId=0;
+                    Int64.TryParse(bseorderEntryresponseArray[5], out bseSIPId);
+                    OnlineMFOrderDao.BSEMFSIPorderResponseParam(transCode, UserID, bseSIPId, bseMemberId, ClientCode, bseorderEntryresponseArray[6], bseorderEntryresponseArray[7], rmsId, bseMFSIPOdererVo.UniqueReferanceNumber);
                     if (bseorderEntryresponseArray[7] == "0")
                     {
                         sipOrderIds = CreateOrderMFSipDetails(onlinemforderVo, UserID);
