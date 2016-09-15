@@ -69,7 +69,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(GetGetMfOrderExtractCmd, "@fromDate", DbType.DateTime, fromDate);
                 db.AddInParameter(GetGetMfOrderExtractCmd, "@toDate", DbType.DateTime, toDate);
                 db.AddInParameter(GetGetMfOrderExtractCmd, "@status", DbType.String, status);
-
+                GetGetMfOrderExtractCmd.CommandTimeout = 600 * 600;
 
 
                 dsExtractType = db.ExecuteDataSet(GetGetMfOrderExtractCmd);
