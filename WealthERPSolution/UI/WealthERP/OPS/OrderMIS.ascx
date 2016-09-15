@@ -650,6 +650,9 @@
             </td>
         </tr>
         <tr>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
             <td>
                 <asp:Button ID="btnSync" runat="server" Text="Auto Match" CssClass="PCGMediumButton"
                     OnClick="btnSync_Click" Visible="false" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

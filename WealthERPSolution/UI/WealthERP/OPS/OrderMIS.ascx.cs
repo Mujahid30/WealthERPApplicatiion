@@ -476,7 +476,11 @@ namespace WealthERP.OPS
                 }
                 else
                 {
+                    gvCustomerOrderMIS.DataSource = dtOrderMIS;
+                    gvCustomerOrderMIS.DataBind();
                     Cache.Remove("OrderMIS" + userVo.UserId);
+                    //ErrorMessage.Visible = true;
+                    //tblMessage.Visible = true;
                 }
             }
 
