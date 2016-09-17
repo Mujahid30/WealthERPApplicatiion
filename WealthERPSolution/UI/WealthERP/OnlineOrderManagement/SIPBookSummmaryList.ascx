@@ -377,6 +377,10 @@
                                         <font color="#565656"><b>Other:</b></font>
                                         <%# Eval("CMFSS_InstallmentOther")%>
                                     </div>
+                                  <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;" id="dvBSEReg" runat="server">
+                                        <font color="#565656"><b>SIP Exchange Reference No:</b></font>
+                                        <%# Eval("BMFSRD_BSESIPREGID")%>
+                                    </div>
                                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fk-font-3" style="margin-bottom: 1.5px;">
                                         <font color="#565656"><b>Channel:</b></font>
                                         <%# Eval("Channel")%>

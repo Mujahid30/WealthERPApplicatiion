@@ -339,6 +339,7 @@ namespace WealthERP.OnlineOrderManagement
                 drSIPOrderBook["SchemeRisk3Year"] = drSIP["PMFRD_Risk3Year"];
                 drSIPOrderBook["SchemeRisk5Year"] = drSIP["PMFRD_Risk5Year"];
                 drSIPOrderBook["SchemeRisk10Year"] = drSIP["PMFRD_Risk10Year"];
+                drSIPOrderBook["BMFSRD_BSESIPREGID"] = drSIP["BMFSRD_BSESIPREGID"];
 
                 drSIPOrderBook["SchemeRatingOverall"] = drSIP["PMFRD_RatingOverall"];
                 drSIPOrderBook["SchemeRatingSubscriptionExpiryDtae"] = drSIP["AVSD_ExpiryDtae"];
@@ -398,6 +399,7 @@ namespace WealthERP.OnlineOrderManagement
             dtSIPOrderBook.Columns.Add("SchemeRatingOverall");
             dtSIPOrderBook.Columns.Add("SchemeRatingSubscriptionExpiryDtae");
             dtSIPOrderBook.Columns.Add("SchemeRatingDate");
+            dtSIPOrderBook.Columns.Add("BMFSRD_BSESIPREGID");
             return dtSIPOrderBook;
 
         }
@@ -657,7 +659,11 @@ namespace WealthERP.OnlineOrderManagement
                         buttonCancel.Visible = false;
                     }
                 }
+                System.Web.UI.HtmlControls.HtmlGenericControl DivBSE = (System.Web.UI.HtmlControls.HtmlGenericControl)e.Item.FindControl("dvBSEReg");
+                if (exchangeType == "Online")
+                    DivBSE.Visible = false;
             }
+            
             if (hdnsystamaticType.Value == "SWP")
             {
                 //gvSIPSummaryBookMIS.MasterTableView.GetColumn("CMFSS_Amount").Visible = false;
