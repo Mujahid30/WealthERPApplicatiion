@@ -165,7 +165,7 @@ namespace WealthERP.OnlineOrderManagement
             DataSet dsSIPBookMIS = new DataSet();
             DataTable dtSIPBookMIS = new DataTable();
 
-            //dsSIPBookMIS = OnlineMFOrderBo.GetSIPSummaryBookMIS(customerId, int.Parse(hdnAmc.Value), hdnsystamaticType.Value,  exchangeType =="Online"?"RSIP":ddlSIP.SelectedValue);
+            dsSIPBookMIS = OnlineMFOrderBo.GetSIPSummaryBookMIS(customerId, int.Parse(hdnAmc.Value), hdnsystamaticType.Value,  exchangeType =="Online"?"RSIP":ddlSIP.SelectedValue);
             dtSIPBookMIS = dsSIPBookMIS.Tables[0];
             dtSIPBookMIS = createSIPOrderBook(dsSIPBookMIS);
             if (dtSIPBookMIS.Rows.Count > 0)
