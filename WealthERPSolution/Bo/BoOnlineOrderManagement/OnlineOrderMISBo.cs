@@ -74,13 +74,13 @@ namespace BoOnlineOrderManagement
             }
             return dsSIPBookMIS;
         }
-        public DataSet GetSIPSummaryBookMIS(int adviserId, int AmcCode, DateTime dtFrom, DateTime dtTo, int searchType, int statusType, string systematicType, string Mode)
+        public DataSet GetSIPSummaryBookMIS(int adviserId, int AmcCode, DateTime dtFrom, DateTime dtTo, int searchType, int statusType, string systematicType, string SIPMode)
         {
             DataSet dsSIPSummaryBookMIS = null;
             OnlineOrderMISDao OnlineOrderMISDao = new OnlineOrderMISDao();
             try
             {
-                dsSIPSummaryBookMIS = OnlineOrderMISDao.GetSIPSummaryBookMIS(adviserId, AmcCode, dtFrom, dtTo, searchType, statusType, systematicType,Mode);
+                dsSIPSummaryBookMIS = OnlineOrderMISDao.GetSIPSummaryBookMIS(adviserId, AmcCode, dtFrom, dtTo, searchType, statusType, systematicType,SIPMode);
             }
             catch (BaseApplicationException Ex)
             {
