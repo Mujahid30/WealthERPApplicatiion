@@ -352,6 +352,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
         }
         private void BindOrderStatus()
+        
         {
             DataSet dsOrderStaus;
             DataTable dtOrderStatus;
@@ -366,6 +367,8 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             ddlOrderStatus.Items.Insert(0, new ListItem("Select", "Select"));
             ddlOrderStatus.Items.Insert(0, new ListItem("ALL", "ALL"));
+            ddlOrderStatus.Items.FindByText("EXECUTED").Selected = true;
+           
 
         }
 
