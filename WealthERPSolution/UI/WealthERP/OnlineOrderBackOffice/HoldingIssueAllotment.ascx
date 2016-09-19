@@ -61,7 +61,7 @@
             <asp:Label ID="lblType" CssClass="FieldName" runat="server" Text="Type:"></asp:Label>
         </td>
         <td id="tdddlType" runat="server">
-            <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlType" AutoPostBack="true" runat="server" CssClass="cmbField">
                 <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                 <asp:ListItem Text="AMC Wise" Value="AMC" />
                 <asp:ListItem Text="RTA Wise" Value="RNT" />
@@ -125,7 +125,7 @@
                         AllowPaging="true" AllowSorting="true" Skin="Telerik" EnableHeaderContextMenu="true"
                         GridLines="Both" EnableEmbeddedSkins="false"
                         ShowFooter="true" PagerStyle-AlwaysVisible="true" EnableViewState="true" ShowStatusBar="true"
-                        AllowFilteringByColumn="true" PageSize="5">
+                        AllowFilteringByColumn="true" PageSize="10">
                         <ExportSettings HideStructureColumns="true">
                         </ExportSettings>
                         <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="true"
@@ -149,7 +149,7 @@
             <td>
                 <telerik:RadGrid ID="gvOrderReport" runat="server" fAllowAutomaticDeletes="false"
                     EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
-                    ShowStatusBar="false" ShowFooter="false" AllowPaging="true" AllowSorting="true" 
+                    ShowStatusBar="false" AllowPaging="true" PageSize="10"  ShowFooter="false"  AllowSorting="true" 
                     GridLines="none" AllowAutomaticInserts="false" Skin="Telerik" EnableHeaderContextMenu="true"
                     OnNeedDataSource="gvOrderReport_OnNeedDataSource">
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
@@ -233,7 +233,7 @@
             <td>
                 <telerik:RadGrid ID="gvAdviserIssueList" runat="server" fAllowAutomaticDeletes="false"
                     EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
-                    ShowStatusBar="false" ShowFooter="false" AllowPaging="true" AllowSorting="true"
+                    ShowStatusBar="false" ShowFooter="false" AllowPaging="true" PageSize="10" AllowSorting="true"
                     GridLines="none" AllowAutomaticInserts="false" Skin="Telerik" EnableHeaderContextMenu="true"
                     OnNeedDataSource="gvAdviserIssueList_OnNeedDataSource">
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
@@ -307,7 +307,7 @@
             <td>
                 <telerik:RadGrid ID="rgFATCA" runat="server" fAllowAutomaticDeletes="false" EnableEmbeddedSkins="false"
                     AllowFilteringByColumn="true" AutoGenerateColumns="False" ShowStatusBar="false"
-                    ShowFooter="false" AllowPaging="true" AllowSorting="true" GridLines="none" AllowAutomaticInserts="false"
+                    ShowFooter="false" AllowPaging="true" PageSize="10" AllowSorting="true" GridLines="none" AllowAutomaticInserts="false"
                     Skin="Telerik" EnableHeaderContextMenu="true" OnNeedDataSource="rgFATCA_OnNeedDataSource">
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                         FileName="FATCA" Excel-Format="ExcelML">
@@ -364,7 +364,7 @@
             <td>
                 <telerik:RadGrid ID="gvCustomerDetails" runat="server"  AutoGenerateColumns="true"
                     AllowPaging="true" AllowSorting="true" Skin="Telerik" EnableHeaderContextMenu="true"
-                        GridLines="Both" EnableEmbeddedSkins="false"
+                        GridLines="Both" EnableEmbeddedSkins="false"  OnNeedDataSource="gvCustomerDetails_OnNeedDataSource"
                         ShowFooter="true" PagerStyle-AlwaysVisible="true" EnableViewState="true" ShowStatusBar="true"
                         AllowFilteringByColumn="true" PageSize="10">
                      <ExportSettings HideStructureColumns="true">

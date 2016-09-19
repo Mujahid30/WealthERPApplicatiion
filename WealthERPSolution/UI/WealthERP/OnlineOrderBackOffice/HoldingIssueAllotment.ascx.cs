@@ -250,6 +250,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     pnlOrderReport.Visible = true;
                     pnlCustomerDetails.Visible = false;
                     pnlFATCA.Visible = false;
+                    imgexportButton.Visible = true;
+                    btnDownload.Visible = false;
 
                 }
 
@@ -257,13 +259,27 @@ namespace WealthERP.OnlineOrderBackOffice
                 else if (ddlOrderType.SelectedValue == "3")
                 {
                     dtBindRTAInitialReport = onlineOrderBackOffice.GetCustomerDetails(adviserVo.advisorId, ddlType.SelectedValue.ToString(), fromdate, todate);
-
+                    if (Cache["BSEReport" + advisorVo.advisorId] != null)
+                    {
+                        Cache.Remove("BSEReport" + advisorVo.advisorId);
+                    }
+                    Cache.Insert("BSEReport" + advisorVo.advisorId, dtBindRTAInitialReport);
                     gvCustomerDetails.DataSource = dtBindRTAInitialReport;
                     gvCustomerDetails.DataBind();
                     pnlCustomerDetails.Visible = true;
                     pnlFATCA.Visible = false;
                     pnlOrderReport.Visible = false;
                     //Button1.Visible = true;
+                    imgexportButton.Visible = false;
+                    if (ddlType.SelectedValue == "EBSE")
+                    {
+                        btnDownload.Visible = true;
+                    }
+                    else
+                    {
+
+                        btnDownload.Visible = false;
+                    }
 
                 }
 
@@ -284,6 +300,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     pnlFATCA.Visible = true;
                     pnlCustomerDetails.Visible = false;
                     pnlOrderReport.Visible = false;
+                    btnDownload.Visible = false;
                 }
 
 
@@ -360,6 +377,18 @@ namespace WealthERP.OnlineOrderBackOffice
            }
          
         }
+
+        protected void gvCustomerDetails_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtCustomerDetailsReport = new DataTable();
+            dtCustomerDetailsReport = (DataTable)Cache["BSEReport" + advisorVo.advisorId];
+
+            if (dtCustomerDetailsReport != null)
+            {
+                gvCustomerDetails.DataSource = dtCustomerDetailsReport;
+            }
+        }
+
         protected void gvOrderReport_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dtBindRTAInitialReport = new DataTable();
@@ -482,25 +511,27 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void Go_OnClick(object sender, EventArgs e)
         {
-            if (ddlType.SelectedValue == "EBSE")
-            {
-                GetExtractData();
-            }
-            if (ddlType.SelectedValue == "EMIS")
-            {
-                BindRTAInitialReport();
-                //BindAdviserIssueAllotmentList();
-                //BindCustomerDetailsGrid();
-                // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('CustomerDematAcceptedDetails','none');", true);
-            }
 
-            DataTable dsExtractData = new DataTable();
-            dsExtractData = onlineOrderBackOfficeBo.GetBSECustomer(adviserVo.advisorId).Tables[0];
 
-            if (dsExtractData.Rows.Count > 0)
-            {
-                btnDownload.Visible = true;
-            }
+            BindRTAInitialReport();
+            //if (ddlType.SelectedValue == "EBSE")
+            //{
+            //    GetExtractData();
+            //}
+            //if (ddlType.SelectedValue == "EMIS")
+            //{
+            //    BindRTAInitialReport();
+           
+            //}
+
+            //DataTable dsExtractData = new DataTable();
+            //dsExtractData = onlineOrderBackOfficeBo.GetBSECustomer(adviserVo.advisorId).Tables[0];
+
+            //if (dsExtractData.Rows.Count > 0)
+            //{
+            //    btnDownload.Visible = true;
+               
+            //}
 
         }
         
@@ -532,17 +563,13 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else if (ddlOrderType.SelectedValue == "3")
             {
-                if (txtFromDate.SelectedDate != null)
-                    fromdate = DateTime.Parse(txtFromDate.SelectedDate.ToString());
-                if (txtToDate.SelectedDate != null)
-                    todate = DateTime.Parse(txtToDate.SelectedDate.ToString());
                 gvCustomerDetails.ExportSettings.OpenInNewWindow = true;
                 gvCustomerDetails.ExportSettings.IgnorePaging = true;
                 gvCustomerDetails.ExportSettings.HideStructureColumns = true;
                 gvCustomerDetails.ExportSettings.ExportOnlyData = true;
-                //gvCustomerDetails.ExportSettings.FileName = "FATCA Report For " + ddlAMC.SelectedItem.Text + " " + fromdate.ToShortDateString() + "-" + todate.ToShortDateString();
+                gvCustomerDetails.ExportSettings.FileName = "BSE Report AMC/RTA Wise";
                 gvCustomerDetails.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-                gvCustomerDetails.MasterTableView.ExportToExcel();
+                gvCustomerDetails.MasterTableView.ExportToExcel(); 
             }
         }
         protected void gvAdviserIssueList_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
