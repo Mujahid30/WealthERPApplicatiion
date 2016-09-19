@@ -487,7 +487,6 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 BindRTAInitialReport();
                 //BindAdviserIssueAllotmentList();
-                imgexportButton.Visible = true;
                 //BindCustomerDetailsGrid();
                 // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('CustomerDematAcceptedDetails','none');", true);
             }
@@ -504,7 +503,7 @@ namespace WealthERP.OnlineOrderBackOffice
         
         public void btnExportData_OnClick(object sender, ImageClickEventArgs e)
         {
-            if (!Boolean.Parse(ddlOrderType.SelectedValue))
+            if (ddlOrderType.SelectedValue=="1")
             {
                 gvOrderReport.ExportSettings.OpenInNewWindow = true;
                 gvOrderReport.ExportSettings.IgnorePaging = true;
@@ -514,7 +513,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 gvOrderReport.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
                 gvOrderReport.MasterTableView.ExportToExcel();
             }
-            else
+            else if (ddlOrderType.SelectedValue=="2") 
             {
                 if (txtFromDate.SelectedDate != null)
                     fromdate = DateTime.Parse(txtFromDate.SelectedDate.ToString());
@@ -527,6 +526,20 @@ namespace WealthERP.OnlineOrderBackOffice
                 rgFATCA.ExportSettings.FileName = "FATCA Report For " + ddlAMC.SelectedItem.Text + " " + fromdate.ToShortDateString() + "-" + todate.ToShortDateString();
                 rgFATCA.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
                 rgFATCA.MasterTableView.ExportToExcel();
+            }
+            else if (ddlOrderType.SelectedValue == "3")
+            {
+                if (txtFromDate.SelectedDate != null)
+                    fromdate = DateTime.Parse(txtFromDate.SelectedDate.ToString());
+                if (txtToDate.SelectedDate != null)
+                    todate = DateTime.Parse(txtToDate.SelectedDate.ToString());
+                gvCustomerDetails.ExportSettings.OpenInNewWindow = true;
+                gvCustomerDetails.ExportSettings.IgnorePaging = true;
+                gvCustomerDetails.ExportSettings.HideStructureColumns = true;
+                gvCustomerDetails.ExportSettings.ExportOnlyData = true;
+                //gvCustomerDetails.ExportSettings.FileName = "FATCA Report For " + ddlAMC.SelectedItem.Text + " " + fromdate.ToShortDateString() + "-" + todate.ToShortDateString();
+                gvCustomerDetails.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+                gvCustomerDetails.MasterTableView.ExportToExcel();
             }
         }
         protected void gvAdviserIssueList_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
@@ -547,7 +560,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             int i = 0;
             OnlineOrderBackOfficeBo OnlineOrderBackOfficeBo = new OnlineOrderBackOfficeBo();
-            foreach (GridDataItem dataItem in gvCustomerDetails1.MasterTableView.Items)
+            foreach (GridDataItem dataItem in gvCustomerDetails.MasterTableView.Items)
             {
                 if ((dataItem.FindControl("chk") as CheckBox).Checked == true)
                 {
@@ -565,13 +578,13 @@ namespace WealthERP.OnlineOrderBackOffice
                 dtcustomer.Columns.Add("customerId", typeof(Int32));
                 dtcustomer.Columns.Add("demataccepted", typeof(int));
                 DataRow drcustomer;
-                foreach (GridDataItem radItem in gvCustomerDetails1.MasterTableView.Items)
+                foreach (GridDataItem radItem in gvCustomerDetails.MasterTableView.Items)
                 {
 
                     if ((radItem.FindControl("chk") as CheckBox).Checked == true)
                     {
                         drcustomer = dtcustomer.NewRow();
-                        drcustomer["customerId"] = int.Parse(gvCustomerDetails1.MasterTableView.DataKeyValues[radItem.ItemIndex]["C_CustomerId"].ToString());
+                        drcustomer["customerId"] = int.Parse(gvCustomerDetails.MasterTableView.DataKeyValues[radItem.ItemIndex]["C_CustomerId"].ToString());
                         CheckBox chk = radItem.FindControl("chk") as CheckBox;
                         drcustomer["demataccepted"] = chk.Checked ? 1 : 0;
                         dtcustomer.Rows.Add(drcustomer);
@@ -595,9 +608,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 //    producttype = 1;
                 if (producttype == 2)
                 {
-                    gvCustomerDetails1.MasterTableView.GetColumn("Action").Visible = false;
-                    gvCustomerDetails1.MasterTableView.GetColumn("MarkFPClient").Visible = false;
-                    gvCustomerDetails1.MasterTableView.GetColumn("ActionForProspect").Visible = true;
+                    gvCustomerDetails.MasterTableView.GetColumn("Action").Visible = false;
+                    gvCustomerDetails.MasterTableView.GetColumn("MarkFPClient").Visible = false;
+                    gvCustomerDetails.MasterTableView.GetColumn("ActionForProspect").Visible = true;
                 }
                 else
                 {
@@ -609,14 +622,14 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             if (userVo.UserType == "Associates")
             {
-                gvCustomerDetails1.MasterTableView.GetColumn("Action").Visible = false;
-                gvCustomerDetails1.MasterTableView.GetColumn("MarkFPClient").Visible = false;
-                gvCustomerDetails1.MasterTableView.GetColumn("ActionForProspect").Visible = false;
+                gvCustomerDetails.MasterTableView.GetColumn("Action").Visible = false;
+                gvCustomerDetails.MasterTableView.GetColumn("MarkFPClient").Visible = false;
+                gvCustomerDetails.MasterTableView.GetColumn("ActionForProspect").Visible = false;
             }
             if (e.Item is GridDataItem)
             {
                 GridDataItem dataItem = (GridDataItem)e.Item;
-                Boolean Iscancel = Convert.ToBoolean(gvCustomerDetails1.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_IsDematInvestor"]);
+                Boolean Iscancel = Convert.ToBoolean(gvCustomerDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_IsDematInvestor"]);
                 CheckBox chk = (CheckBox)e.Item.FindControl("chk");
                 if (Iscancel)
                     chk.Visible = false;

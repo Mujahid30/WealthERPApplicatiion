@@ -366,7 +366,7 @@
                     AllowPaging="true" AllowSorting="true" Skin="Telerik" EnableHeaderContextMenu="true"
                         GridLines="Both" EnableEmbeddedSkins="false"
                         ShowFooter="true" PagerStyle-AlwaysVisible="true" EnableViewState="true" ShowStatusBar="true"
-                        AllowFilteringByColumn="true" PageSize="5">
+                        AllowFilteringByColumn="true" PageSize="10">
                      <ExportSettings HideStructureColumns="true">
                         </ExportSettings>
                         <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="true"
