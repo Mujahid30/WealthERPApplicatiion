@@ -92,8 +92,10 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void btnDownload_Click(object sender, EventArgs e)
         {
-            DataSet dsExtractData = new DataSet();
-            DownloadBidFile(dsExtractData, "abc", "|");
+            DataSet dsExtractData = new DataSet(); 
+           
+            String filename = "BSEClientupload-"+ DateTime.Now.Day.ToString()+"-"+ DateTime.Now.Month.ToString()+"-"+ DateTime.Now.Year.ToString()+".txt";
+            DownloadBidFile(dsExtractData,filename,"|");
         }
         private void DownloadBidFile(DataSet dsExtractData, string filename, string delimit)
         {
@@ -103,6 +105,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 string dateFormat = "dd-mm-yyyy";
 
                 dsExtractData = onlineOrderBackOfficeBo.GetBSECustomer(adviserVo.advisorId);
+               
 
                 StreamWriter str = new StreamWriter(Server.MapPath(@"~/UploadFiles/" + filename), false, System.Text.Encoding.Default);
 
