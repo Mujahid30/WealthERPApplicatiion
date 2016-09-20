@@ -252,7 +252,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlAmc.Items.Clear();
             if (ddlAmc.SelectedIndex == 0) return;
 
-            DataTable dtAmc = commonLookupBo.GetProdAmc(0, true);
+            DataTable dtAmc = commonLookupBo.GetProdAmc(0, exchangeType == "Online" ? true : false);
             if (dtAmc == null) return;
 
             if (dtAmc.Rows.Count > 0)
