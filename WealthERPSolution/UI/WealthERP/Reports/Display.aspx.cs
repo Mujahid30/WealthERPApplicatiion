@@ -75,7 +75,6 @@ namespace WealthERP.Reports
         WERPReports CommonReport = new WERPReports();
         Dictionary<string, string> chkBoxsList = new Dictionary<string, string>();
         DataSet dsCustomerFPReportDetails;
-
         string riskClass = string.Empty;
         double recEquity, recDebt, recCash, recAlternate, currEquity, currDebt, currCash, currAlternate = 0;
 
@@ -100,6 +99,7 @@ namespace WealthERP.Reports
         string ChequeDate = string.Empty;
         string SchemeSwitch = string.Empty;
         long associateId = 0;
+      
         string welcomeNote;
         string associateMailId;
         private ReportType CurrentReportType
@@ -242,6 +242,8 @@ namespace WealthERP.Reports
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            advisorVo = (AdvisorVo)Session["advisorVo"];
             if (!Page.IsPostBack && CurrentReportType == ReportType.FinancialPlanningSectional)
             {
                 HideShowFPSection();
@@ -548,6 +550,7 @@ namespace WealthERP.Reports
 
                 if (!string.IsNullOrEmpty(headerText.Trim()))
                 {
+                    setLogo();
                     
                     crmain.SetParameterValue("Body", !string.IsNullOrEmpty(headerText.Trim()) ? headerText.ToString() : string.Empty);
                     crmain.SetParameterValue("footer", !string.IsNullOrEmpty(footerText.Trim()) ? footerText.ToString() : string.Empty);
@@ -5135,17 +5138,25 @@ namespace WealthERP.Reports
         private void setLogo()
         {
 
+            //string advisorLogo = "spacer.png";
+            //if (advisorVo.LogoPath != null && advisorVo.LogoPath != string.Empty)
+            //    advisorLogo = advisorVo.LogoPath;
+
+            //string logoPath = System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + advisorLogo);
+            //if (!File.Exists(logoPath))
+            //    advisorLogo = "spacer.png";
+
+            //crmain.Database.Tables["Images"].SetDataSource(ImageTable(System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + advisorLogo)));
+
             string advisorLogo = "spacer.png";
             if (advisorVo.LogoPath != null && advisorVo.LogoPath != string.Empty)
                 advisorLogo = advisorVo.LogoPath;
 
             string logoPath = System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + advisorLogo);
             if (!File.Exists(logoPath))
-                advisorLogo = "spacer.png";
-
-            crmain.Database.Tables["Images"].SetDataSource(ImageTable(System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + advisorLogo)));
-
-
+                advisorLogo = "1045_Eastnd1.png";
+            DataTable dt = ImageTable(System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + advisorLogo));
+            crmain.Database.Tables["Images"].SetDataSource(dt);
 
         }
 
