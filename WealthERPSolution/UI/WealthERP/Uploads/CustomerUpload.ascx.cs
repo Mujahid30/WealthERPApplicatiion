@@ -224,17 +224,17 @@ namespace WealthERP.Uploads
             ddlUploadType.Items[8].Enabled = false;
             ddlUploadType.Items[9].Enabled = false;
             ddlUploadType.Items[10].Enabled = false;
+            ddlUploadType.Items[11].Enabled = false;
             ddlUploadType.Items[12].Enabled = false;
-            ddlUploadType.Items[13].Enabled = false;
-            ddlUploadType.Items[14].Enabled = false;
+            //ddlUploadType.Items[13].Enabled = false;
             if (UploadType == "1")
             {
                 ddlUploadType.Items[0].Enabled = true;
                 ddlUploadType.Items[2].Enabled = true;
                 ddlUploadType.Items[8].Enabled = true;
                 ddlUploadType.Items[9].Enabled = true;
-                ddlUploadType.Items[13].Enabled = true;
-                ddlUploadType.Items[14].Enabled = true;
+                ddlUploadType.Items[12].Enabled = true;
+                //ddlUploadType.Items[13].Enabled = true;
             }
             else
             {
@@ -244,8 +244,8 @@ namespace WealthERP.Uploads
                 ddlUploadType.Items[6].Enabled = true;
                 ddlUploadType.Items[7].Enabled = true;
                 ddlUploadType.Items[10].Enabled = true;
+                ddlUploadType.Items[11].Enabled = true;
                 ddlUploadType.Items[12].Enabled = true;
-                ddlUploadType.Items[13].Enabled = true;
 
             }
 
