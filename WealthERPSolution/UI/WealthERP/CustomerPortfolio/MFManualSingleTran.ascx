@@ -404,7 +404,7 @@
                     </td>
                     <td>
                         <asp:Button ID="btnNewFolioAdd" runat="server" Text="Add New Folio Number" CssClass="PCGLongButton"
-                            OnClick="btnNewFolioAdd_Click" Height="26px" Width="167px" Visible="true" />
+                            OnClick="btnNewFolioAdd_Click" Height="26px" ValidationGroup="vgs"  Width="167px" Visible="true" />
                     </td>
                 </tr>
                 <tr>
