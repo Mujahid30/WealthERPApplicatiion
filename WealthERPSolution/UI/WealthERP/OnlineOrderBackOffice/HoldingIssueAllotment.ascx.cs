@@ -170,13 +170,13 @@ namespace WealthERP.OnlineOrderBackOffice
             //}
 
         }
-        protected void gvCustomerDetails_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
-        {
-        //    DataTable dsExtractData = new DataTable();
-        //    if (dsExtractData != null) gvCustomerDetails.DataSource = dsExtractData;
+       // protected void gvCustomerDetails_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+       // {
+       // //    DataTable dsExtractData = new DataTable();
+       // //    if (dsExtractData != null) gvCustomerDetails.DataSource = dsExtractData;
 
         
-       }
+       //}
 
 
         protected void GetExtractData()
