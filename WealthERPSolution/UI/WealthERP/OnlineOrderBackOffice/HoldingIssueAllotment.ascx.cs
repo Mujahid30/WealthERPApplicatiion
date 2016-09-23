@@ -15,7 +15,8 @@ using BoOnlineOrderManagement;
 using VoOnlineOrderManagemnet;
 using Telerik.Web.UI;
 using System.IO;
-
+using System.Configuration;
+using Ionic.Zip;
 
 
     
@@ -367,7 +368,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
             }
-            if (ddlOrderType.SelectedValue == "4" || ddlOrderType.SelectedValue == "5")
+            if (ddlOrderType.SelectedValue == "KA" || ddlOrderType.SelectedValue == "CA")
             {
                 tdddlType.Visible = true;
                 tdlblType.Visible = true;
@@ -381,8 +382,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlType.Items.FindByValue("EMIS").Enabled = false;
                 ddlType.Items.FindByValue("AMC").Enabled = false;
                 ddlType.Items.FindByValue("RNT").Enabled = false;
-                ddlType.Items.FindByValue("1").Enabled = true;
-                ddlType.Items.FindByValue("2").Enabled = true;
+                ddlType.Items.FindByValue("FCS").Enabled = true;
+                ddlType.Items.FindByValue("FCD").Enabled = true;
 
             }
           
@@ -520,7 +521,32 @@ namespace WealthERP.OnlineOrderBackOffice
 
         public void AutoOrderExtract()
         {
-            onlineOrderBackOfficeBo.GenerateDailyOrderFATCASummaryFiles(Server.MapPath("~/ReferenceFiles/RTAExtractSampleFiles/"), ddlOrderType.SelectedValue,ddlType.SelectedValue, advisorVo.advisorId);
+            if (txtFromDate.SelectedDate != null)
+                fromdate = DateTime.Parse(txtFromDate.SelectedDate.ToString());
+            if (txtToDate.SelectedDate != null)
+                todate = DateTime.Parse(txtToDate.SelectedDate.ToString());
+                string dailyDirName = ddlOrderType.SelectedItem.Text + @"_" + ddlType.SelectedItem.Text;
+                string extractPath = ConfigurationSettings.AppSettings["RTA_EXTRACT_PATH"];
+                string downloadFileName = ddlType.SelectedValue == "FCS" ? "SM_FATCA" : "DT_FATCA";
+                string localFilePath = onlineOrderBackOfficeBo.GenerateDailyOrderFATCASummaryFiles(Server.MapPath("~/ReferenceFiles/RTAExtractSampleFiles/"), ddlOrderType.SelectedValue, ddlType.SelectedValue, adviserVo.advisorId, fromdate,todate);
+                File.Copy(localFilePath, extractPath + @"\" + adviserVo.advisorId + @"\" + dailyDirName + @"\" + downloadFileName + ".DBF");
+                System.Threading.Thread.Sleep(1000);
+                if (string.IsNullOrEmpty(localFilePath))
+                {
+
+                    return;
+                }
+                
+                Response.ContentType = "application/zip";
+                Response.AddHeader("content-disposition", "attachment; filename=" + dailyDirName + ".ZIP");
+                using (ZipFile zipfile = new ZipFile())
+                {
+                    zipfile.AlternateEncoding = System.Text.Encoding.Unicode;
+                    zipfile.AddDirectory(extractPath + @"\" + adviserVo.advisorId + @"\" + dailyDirName );
+                    zipfile.Save(Response.OutputStream);
+                }
+                Response.End();
+
         }       
 
 
@@ -533,20 +559,11 @@ namespace WealthERP.OnlineOrderBackOffice
             if (ddlType.SelectedValue == "EMIS")
             {
                 BindRTAInitialReport();
-                //BindAdviserIssueAllotmentList();
-                //BindCustomerDetailsGrid();
-                // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('CustomerDematAcceptedDetails','none');", true);
             }
-
-            //DataTable dsExtractData = new DataTable();
-            //dsExtractData = onlineOrderBackOfficeBo.GetBSECustomer(adviserVo.advisorId).Tables[0];
-
-            //if (dsExtractData.Rows.Count > 0)
-            //{
-            //    btnDownload.Visible = true;
-               
-            //}
-
+            else if (ddlType.SelectedValue == "FCS" || ddlType.SelectedValue == "FCD")
+            {
+                AutoOrderExtract();
+            }
         }
         
         public void btnExportData_OnClick(object sender, ImageClickEventArgs e)

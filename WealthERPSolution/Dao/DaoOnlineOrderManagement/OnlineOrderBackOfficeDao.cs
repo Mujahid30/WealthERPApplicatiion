@@ -135,24 +135,20 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetMfOrderExtract;
         }
-        public DataSet GetMfFATCAOrderExtract(int AdviserId, string ExternalCode,string Type, int FACTAType)
+        public DataSet GetMfFATCAOrderExtract(int AdviserId, string ExternalCode,string Type,DateTime fromDate, DateTime toDate)
         {
             DataSet dsGetMfFATCAOrderExtract;
             Database db;
             DbCommand cmd;
-            //if (AmcCode == 19 && TransactionType == "AMCBANK")
-            //{
-
-            //}
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmd = db.GetStoredProcCommand("SPROC_ONL_GetRTAFATCADetails");
                 db.AddInParameter(cmd, "@AdviserId", DbType.Int32, AdviserId);
-                db.AddInParameter(cmd, "@FileType", DbType.Int32, ExternalCode);
-                db.AddInParameter(cmd, "@FACTAType", DbType.String, FACTAType);
+                db.AddInParameter(cmd, "@FileType", DbType.String, ExternalCode);
                 db.AddInParameter(cmd, "@Type", DbType.String, Type);
-              
+                db.AddInParameter(cmd, "@FromDate", DbType.Date, fromDate);
+                db.AddInParameter(cmd, "@ToDate", DbType.Date, toDate);
                 dsGetMfFATCAOrderExtract = db.ExecuteDataSet(cmd);
             }
             catch (BaseApplicationException Ex)
@@ -164,11 +160,13 @@ namespace DaoOnlineOrderManagement
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetMfFATCAOrderExtract(int AdviserId, string ExternalCode, int FACTAType)");
-                object[] objects = new object[4];
+                object[] objects = new object[10];
               
                 objects[0] = AdviserId;
                 objects[1] = ExternalCode;
-                objects[2] = FACTAType;
+                objects[2] = Type;
+                objects[3] = fromDate;
+                objects[4] = toDate;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);

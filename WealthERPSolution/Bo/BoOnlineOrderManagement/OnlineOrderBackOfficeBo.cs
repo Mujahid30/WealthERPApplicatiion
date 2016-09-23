@@ -233,14 +233,14 @@ namespace BoOnlineOrderManagement
             }
             return dsMfOrderExtract;
         }
-          public DataSet GetMfFATCAOrderExtract(int AdviserId, string ExternalCode,string Type,int FACTAType)
+          public DataSet GetMfFATCAOrderExtract(int AdviserId, string ExternalCode,string Type, DateTime fromDate, DateTime toDate)
         {
             DataSet dsMfOrderExtract = null;
             OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             try
             {
-                dsMfOrderExtract = daoOnlineOrderBackOffice.GetMfFATCAOrderExtract( AdviserId, ExternalCode, Type, FACTAType);
+                dsMfOrderExtract = daoOnlineOrderBackOffice.GetMfFATCAOrderExtract( AdviserId, ExternalCode, Type, fromDate, toDate);
             }
             catch (BaseApplicationException Ex)
             {
@@ -384,8 +384,8 @@ namespace BoOnlineOrderManagement
 
         public string CreatDbfFile(DataTable OrderExtract, string RnTType, string workDir, string type, bool isFatca)
         {
-            //string seedFileName = (isFatca == true) ? "FATCA" : RnTType;
-            string seedFileName = "";
+            string seedFileName = (isFatca == true) ? "FATCA" : RnTType;
+            //string seedFileName = "";
 
 
             switch (type)
@@ -396,11 +396,11 @@ namespace BoOnlineOrderManagement
                 case "SIPBOOK":
                     seedFileName = "sipbook";
                     break;
-                case "2":
-                    seedFileName = "FATCA_Dt";
+                case "FCS":
+                    seedFileName = "SM_FATCA";
                     break;
-                case "1":
-                    seedFileName = "FATCA_UP";
+                case "FCD":
+                    seedFileName = "DT_FATCA";
                     break;
             }
 
@@ -1616,16 +1616,17 @@ namespace BoOnlineOrderManagement
                 }
             }
         }
-        public void GenerateDailyOrderFATCASummaryFiles(string refFilePath, string extractType,string Type,int adviserId)
+        public string GenerateDailyOrderFATCASummaryFiles(string refFilePath, string extractType,string Type,int adviserId, DateTime fromDate, DateTime toDate)
         {
-           
-            //List<RTAExtractHeadeInfoVo> headerMap = GetRtaColumnDetails("FCD", false);
+            string localFilePath = string.Empty; 
             List<RTAExtractHeadeInfoVo> headerMap = GetRtaColumnDetails(Type, false);
-            DataSet FATCAOrderExtract = GetMfFATCAOrderExtract(adviserId, extractType,Type, 1);
-             DataTable dtorderExtract=GetExternalHeader(FATCAOrderExtract, headerMap);
-             //string localFilePath = CreatDbfFile(dtorderExtract,"",refFilePath,"FCD",false);
-             string localFilePath = CreatDbfFile(dtorderExtract, "", refFilePath, Type, false);
-             
+            DataSet FATCAOrderExtract = GetMfFATCAOrderExtract(adviserId, extractType,Type,fromDate,toDate);
+            if (FATCAOrderExtract.Tables[0].Rows.Count > 0)
+            {
+                DataTable dtorderExtract = GetExternalHeader(FATCAOrderExtract, headerMap);
+                 localFilePath = CreatDbfFile(dtorderExtract, "", refFilePath, Type, false);
+            }
+            return localFilePath;
         }
         public DataSet GetTradeBusinessDates()
         {
