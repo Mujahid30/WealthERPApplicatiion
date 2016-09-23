@@ -196,6 +196,7 @@ namespace BoOnlineOrderManagement
             return lsHeaderMapping;
         }
 
+          
         /// <summary>
         /// 
         /// </summary>
@@ -232,6 +233,35 @@ namespace BoOnlineOrderManagement
             }
             return dsMfOrderExtract;
         }
+          public DataSet GetMfFATCAOrderExtract(int AdviserId, string ExternalCode,string Type,int FACTAType)
+        {
+            DataSet dsMfOrderExtract = null;
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
+            try
+            {
+                dsMfOrderExtract = daoOnlineOrderBackOffice.GetMfFATCAOrderExtract( AdviserId, ExternalCode, Type, FACTAType);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "OrderBo.cs:GetMfOrderExtract()");
+
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsMfOrderExtract;
+        }
+
 
         /// <summary>
         /// Returns the data table for the order extract
@@ -242,6 +272,7 @@ namespace BoOnlineOrderManagement
         public DataTable GetOrderExtractForRta(DateTime ExecutionDate, int AdviserId, string OrderType, string RtaIdentifier, int AmcCode)
         {
             DataTable dtOrderExtract = new DataTable();
+           
             try
             {
 
@@ -256,23 +287,7 @@ namespace BoOnlineOrderManagement
                 //        break;
                 //}
                 DataSet dsOrderExtract = GetMfOrderExtract(ExecutionDate, AdviserId, OrderType, RtaIdentifier, AmcCode);
-                dtOrderExtract = new DataTable("OrderExtract");
-                foreach (RTAExtractHeadeInfoVo header in headerMap)
-                {
-                    dtOrderExtract.Columns.Add(header.HeaderName, System.Type.GetType(header.DataType));
-                }
-                foreach (DataRow row in dsOrderExtract.Tables[0].Rows)
-                {
-                    List<object> lsItems = new List<object>();
-                    foreach (DataColumn dc in dtOrderExtract.Columns)
-                    {
-                        string werpColName = headerMap.Find(c => c.HeaderName == dc.ColumnName).WerpColumnName;
-                        if (werpColName == "UNKNOWN") { lsItems.Add(""); continue; }
-                        lsItems.Add(row[werpColName]);
-                    }
-                    if (lsItems.Count > 0)
-                        dtOrderExtract.Rows.Add(lsItems.ToArray());
-                }
+                 dtOrderExtract = GetExternalHeader(dsOrderExtract, headerMap);
             }
             catch (Exception Ex)
             {
@@ -289,7 +304,28 @@ namespace BoOnlineOrderManagement
             }
             return dtOrderExtract;
         }
+        private DataTable GetExternalHeader(DataSet dsOrderExtract, List<RTAExtractHeadeInfoVo> headerMap)
+        {
+          DataTable  dtOrderExtract = new DataTable("OrderExtract");
+            foreach (RTAExtractHeadeInfoVo header in headerMap)
+            {
+                dtOrderExtract.Columns.Add(header.HeaderName, System.Type.GetType(header.DataType));
+            }
+            foreach (DataRow row in dsOrderExtract.Tables[0].Rows)
+            {
+                List<object> lsItems = new List<object>();
+                foreach (DataColumn dc in dtOrderExtract.Columns)
+                {
+                    string werpColName = headerMap.Find(c => c.HeaderName == dc.ColumnName).WerpColumnName;
+                    if (werpColName == "UNKNOWN") { lsItems.Add(""); continue; }
+                    lsItems.Add(row[werpColName]);
+                }
+                if (lsItems.Count > 0)
+                    dtOrderExtract.Rows.Add(lsItems.ToArray());
+            }
+            return dtOrderExtract;
 
+        }
         public void CreateCalendar(int year)
         {
             OnlineOrderBackOfficeDao onlineorderbackofficedao = new OnlineOrderBackOfficeDao();
@@ -348,7 +384,8 @@ namespace BoOnlineOrderManagement
 
         public string CreatDbfFile(DataTable OrderExtract, string RnTType, string workDir, string type, bool isFatca)
         {
-            string seedFileName = (isFatca == true) ? "FATCA" : RnTType;
+            //string seedFileName = (isFatca == true) ? "FATCA" : RnTType;
+            string seedFileName = "";
 
 
             switch (type)
@@ -359,8 +396,14 @@ namespace BoOnlineOrderManagement
                 case "SIPBOOK":
                     seedFileName = "sipbook";
                     break;
-
+                case "2":
+                    seedFileName = "FATCA_Dt";
+                    break;
+                case "1":
+                    seedFileName = "FATCA_UP";
+                    break;
             }
+
 
 
             string dbfFile = "ORDEREXT.DBF";
@@ -431,6 +474,8 @@ namespace BoOnlineOrderManagement
             }
             return workDir + dbfFile;
         }
+      
+
 
         /// <summary>
         /// 
@@ -1571,8 +1616,17 @@ namespace BoOnlineOrderManagement
                 }
             }
         }
-
-
+        public void GenerateDailyOrderFATCASummaryFiles(string refFilePath, string extractType,string Type,int adviserId)
+        {
+           
+            //List<RTAExtractHeadeInfoVo> headerMap = GetRtaColumnDetails("FCD", false);
+            List<RTAExtractHeadeInfoVo> headerMap = GetRtaColumnDetails(Type, false);
+            DataSet FATCAOrderExtract = GetMfFATCAOrderExtract(adviserId, extractType,Type, 1);
+             DataTable dtorderExtract=GetExternalHeader(FATCAOrderExtract, headerMap);
+             //string localFilePath = CreatDbfFile(dtorderExtract,"",refFilePath,"FCD",false);
+             string localFilePath = CreatDbfFile(dtorderExtract, "", refFilePath, Type, false);
+             
+        }
         public DataSet GetTradeBusinessDates()
         {
             DataSet dsGetTradeBusinessDate;

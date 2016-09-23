@@ -170,12 +170,13 @@ namespace WealthERP.OnlineOrderBackOffice
             //}
 
         }
-        //protected void gvCustomerDetails_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
-        //{
+        protected void gvCustomerDetails_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
         //    DataTable dsExtractData = new DataTable();
         //    if (dsExtractData != null) gvCustomerDetails.DataSource = dsExtractData;
 
-        //}
+        
+       }
 
 
         protected void GetExtractData()
@@ -270,16 +271,6 @@ namespace WealthERP.OnlineOrderBackOffice
                     pnlFATCA.Visible = false;
                     pnlOrderReport.Visible = false;
                     //Button1.Visible = true;
-                    imgexportButton.Visible = false;
-                    if (ddlType.SelectedValue == "EBSE")
-                    {
-                        btnDownload.Visible = true;
-                    }
-                    else
-                    {
-
-                        btnDownload.Visible = false;
-                    }
 
                 }
 
@@ -359,22 +350,42 @@ namespace WealthERP.OnlineOrderBackOffice
 
             }
 
-           if (ddlOrderType.SelectedValue == "3")
-           {
-               tdddlType.Visible = true;
-               tdlblType.Visible = true;
-               tdlblAMC.Visible = false;
-               tdddlAMC.Visible = false;
-               pnlCustomerDetails.Visible = true;
-               pnlFATCA.Visible = false;
-               pnlOrderReport.Visible = false;
-               ddlType.Visible = true;
-               ddlType.Items.FindByValue("EBSE").Enabled = true;
-               ddlType.Items.FindByValue("EMIS").Enabled = true;
-               ddlType.Items.FindByValue("AMC").Enabled = false;
-               ddlType.Items.FindByValue("RNT").Enabled = false;
-               
-           }
+            if (ddlOrderType.SelectedValue == "3")
+            {
+                tdddlType.Visible = true;
+                tdlblType.Visible = true;
+                tdlblAMC.Visible = false;
+                tdddlAMC.Visible = false;
+                pnlCustomerDetails.Visible = true;
+                pnlFATCA.Visible = false;
+                pnlOrderReport.Visible = false;
+                ddlType.Visible = true;
+                ddlType.Items.FindByValue("EBSE").Enabled = true;
+                ddlType.Items.FindByValue("EMIS").Enabled = true;
+                ddlType.Items.FindByValue("AMC").Enabled = false;
+                ddlType.Items.FindByValue("RNT").Enabled = false;
+
+
+            }
+            if (ddlOrderType.SelectedValue == "4" || ddlOrderType.SelectedValue == "5")
+            {
+                tdddlType.Visible = true;
+                tdlblType.Visible = true;
+                tdlblAMC.Visible = false;
+                tdddlAMC.Visible = false;
+                pnlCustomerDetails.Visible = true;
+                pnlFATCA.Visible = false;
+                pnlOrderReport.Visible = false;
+                ddlType.Visible = true;
+                ddlType.Items.FindByValue("EBSE").Enabled = false;
+                ddlType.Items.FindByValue("EMIS").Enabled = false;
+                ddlType.Items.FindByValue("AMC").Enabled = false;
+                ddlType.Items.FindByValue("RNT").Enabled = false;
+                ddlType.Items.FindByValue("1").Enabled = true;
+                ddlType.Items.FindByValue("2").Enabled = true;
+
+            }
+          
          
         }
 
@@ -504,25 +515,28 @@ namespace WealthERP.OnlineOrderBackOffice
         }
 
 
-      
-        
 
+
+
+        public void AutoOrderExtract()
+        {
+            onlineOrderBackOfficeBo.GenerateDailyOrderFATCASummaryFiles(Server.MapPath("~/ReferenceFiles/RTAExtractSampleFiles/"), ddlOrderType.SelectedValue,ddlType.SelectedValue, advisorVo.advisorId);
+        }       
 
 
         protected void Go_OnClick(object sender, EventArgs e)
         {
-
-
-            BindRTAInitialReport();
-            //if (ddlType.SelectedValue == "EBSE")
-            //{
-            //    GetExtractData();
-            //}
-            //if (ddlType.SelectedValue == "EMIS")
-            //{
-            //    BindRTAInitialReport();
-           
-            //}
+            if (ddlType.SelectedValue == "EBSE")
+            {
+                GetExtractData();
+            }
+            if (ddlType.SelectedValue == "EMIS")
+            {
+                BindRTAInitialReport();
+                //BindAdviserIssueAllotmentList();
+                //BindCustomerDetailsGrid();
+                // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('CustomerDematAcceptedDetails','none');", true);
+            }
 
             //DataTable dsExtractData = new DataTable();
             //dsExtractData = onlineOrderBackOfficeBo.GetBSECustomer(adviserVo.advisorId).Tables[0];
@@ -567,7 +581,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 gvCustomerDetails.ExportSettings.IgnorePaging = true;
                 gvCustomerDetails.ExportSettings.HideStructureColumns = true;
                 gvCustomerDetails.ExportSettings.ExportOnlyData = true;
-                gvCustomerDetails.ExportSettings.FileName = "BSE Report AMC/RTA Wise";
+                //gvCustomerDetails.ExportSettings.FileName = "FATCA Report For " + ddlAMC.SelectedItem.Text + " " + fromdate.ToShortDateString() + "-" + todate.ToShortDateString();
                 gvCustomerDetails.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
                 gvCustomerDetails.MasterTableView.ExportToExcel(); 
             }

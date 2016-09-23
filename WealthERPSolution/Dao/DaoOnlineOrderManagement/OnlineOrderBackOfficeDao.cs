@@ -135,6 +135,48 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetMfOrderExtract;
         }
+        public DataSet GetMfFATCAOrderExtract(int AdviserId, string ExternalCode,string Type, int FACTAType)
+        {
+            DataSet dsGetMfFATCAOrderExtract;
+            Database db;
+            DbCommand cmd;
+            //if (AmcCode == 19 && TransactionType == "AMCBANK")
+            //{
+
+            //}
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_ONL_GetRTAFATCADetails");
+                db.AddInParameter(cmd, "@AdviserId", DbType.Int32, AdviserId);
+                db.AddInParameter(cmd, "@FileType", DbType.Int32, ExternalCode);
+                db.AddInParameter(cmd, "@FACTAType", DbType.String, FACTAType);
+                db.AddInParameter(cmd, "@Type", DbType.String, Type);
+              
+                dsGetMfFATCAOrderExtract = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetMfFATCAOrderExtract(int AdviserId, string ExternalCode, int FACTAType)");
+                object[] objects = new object[4];
+              
+                objects[0] = AdviserId;
+                objects[1] = ExternalCode;
+                objects[2] = FACTAType;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetMfFATCAOrderExtract;
+        }
+
 
         public DataSet GetOrderExtractHeaderMapping(string RtaIdentifier, bool isFatca)
         {
@@ -161,6 +203,36 @@ namespace DaoOnlineOrderManagement
                 FunctionInfo.Add("Method", "OperationDao.cs:GetOrderExtractHeaderMapping(string RtaIdentifier)");
                 object[] objects = new object[1];
                 objects[0] = RtaIdentifier;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsHeaderMapping;
+        }
+        public DataSet GetFATCAOrderExtractHeaderMapping()
+        {
+            DataSet dsHeaderMapping;
+            Database db;
+            DbCommand cmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_OrderExtractHeaderMapping");
+              
+                dsHeaderMapping = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationDao.cs:GetOrderExtractHeaderMapping(string RtaIdentifier)");
+                object[] objects = new object[1];
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);

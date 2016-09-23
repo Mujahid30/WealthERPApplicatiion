@@ -38,7 +38,9 @@
                 <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                 <asp:ListItem Text="Client Intial Orders" Value="1" />
                 <asp:ListItem Text="FATCA" Value="2" />
-                <asp:ListItem Text="BSE" Value="3"></asp:ListItem>
+                <asp:ListItem Text="BSE" Value="3"/>
+                <asp:ListItem Text="CAMS Client DBF" Value="4"/>
+                 <asp:ListItem Text="Karvy Client DBF" Value="5"></asp:ListItem>
                 
             </asp:DropDownList>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="rfvPCG"
@@ -67,6 +69,9 @@
                 <asp:ListItem Text="RTA Wise" Value="RNT" />
                 <asp:ListItem Text="Extract BSE Client File " Value="EBSE" />
                  <asp:ListItem Text="Exchange MIS" Value="EMIS" />
+                  <asp:ListItem Text="Summary DBF" Value="1" />
+                   <asp:ListItem Text="Detail DBF" Value="2" />
+                 
             </asp:DropDownList>
             <asp:RequiredFieldValidator ID="rfvType" runat="server" CssClass="rfvPCG" ErrorMessage="Please select a Type"
                 ControlToValidate="ddlType" Display="Dynamic" InitialValue="0" ValidationGroup="Issueallotment">
