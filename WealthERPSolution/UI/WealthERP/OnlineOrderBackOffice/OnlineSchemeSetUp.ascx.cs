@@ -796,6 +796,8 @@ namespace WealthERP.OnlineOrderBackOffice
             {
 
                 ddlAmc.SelectedValue = mfProductAMCSchemePlanDetailsVo.AMCCode.ToString();
+                LoadAllSchemeList(Convert.ToInt32(ddlAmc.SelectedValue));
+
             }
 
 
@@ -809,8 +811,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlcategory.SelectedValue = "0";
             }
 
-            LoadAllSchemeList(Convert.ToInt32(ddlAmc.SelectedValue));
-
+         
             if (mfProductAMCSchemePlanDetailsVo.SchemePlanCode != 0)
             {
                 ddlSchemeList.SelectedValue = mfProductAMCSchemePlanDetailsVo.SchemePlanCode.ToString();
@@ -1204,6 +1205,8 @@ namespace WealthERP.OnlineOrderBackOffice
             {
 
                 ddlAmc.SelectedValue = mfProductAMCSchemePlanDetailsVo.AMCCode.ToString();
+                LoadAllSchemeList(Convert.ToInt32(ddlAmc.SelectedValue));
+
             }
             else
             {
@@ -1218,8 +1221,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlcategory.SelectedValue = "0";
             }
 
-            LoadAllSchemeList(Convert.ToInt32(ddlAmc.SelectedValue));
-
+        
             if (mfProductAMCSchemePlanDetailsVo.SchemePlanCode != 0)
             {
                 ddlSchemeList.SelectedValue = mfProductAMCSchemePlanDetailsVo.SchemePlanCode.ToString();
