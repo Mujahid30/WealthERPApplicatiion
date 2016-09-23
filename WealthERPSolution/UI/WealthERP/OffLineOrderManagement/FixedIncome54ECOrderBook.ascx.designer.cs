@@ -23,6 +23,15 @@ namespace WealthERP.OffLineOrderManagement {
         protected global::System.Web.UI.ScriptManager scrptMgr;
         
         /// <summary>
+        /// lblProductTypess control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblProductTypess;
+        
+        /// <summary>
         /// imgexportButton control.
         /// </summary>
         /// <remarks>
@@ -48,7 +57,7 @@ namespace WealthERP.OffLineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCategory;
-        protected global::System.Web.UI.WebControls.Label lblProductTypess;
+        
         /// <summary>
         /// ddlCategory control.
         /// </summary>
