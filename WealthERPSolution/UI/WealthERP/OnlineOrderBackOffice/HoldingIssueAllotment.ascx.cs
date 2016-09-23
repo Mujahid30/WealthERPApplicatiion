@@ -533,7 +533,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 System.Threading.Thread.Sleep(1000);
                 if (string.IsNullOrEmpty(localFilePath))
                 {
-
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('No Data Available to download');", true);
                     return;
                 }
                 
