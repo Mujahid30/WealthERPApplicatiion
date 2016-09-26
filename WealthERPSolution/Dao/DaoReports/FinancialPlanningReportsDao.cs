@@ -362,6 +362,7 @@ namespace DaoReports
                 throw (ex);
             }
 
+
         }
 
         public DataSet GetWelComeNoteDetails(long associateId)

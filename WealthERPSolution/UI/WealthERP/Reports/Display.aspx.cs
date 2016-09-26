@@ -5154,7 +5154,7 @@ namespace WealthERP.Reports
 
             string logoPath = System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + advisorLogo);
             if (!File.Exists(logoPath))
-                advisorLogo = "1045_Eastnd1.png";
+                advisorLogo = "ABC_Company_company_logo.png";
             DataTable dt = ImageTable(System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + advisorLogo));
             crmain.Database.Tables["Images"].SetDataSource(dt);
 

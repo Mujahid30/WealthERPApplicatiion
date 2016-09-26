@@ -905,8 +905,7 @@ namespace WealthERP.CustomerPortfolio
         protected void btnNewFolioAdd_Click(object sender, EventArgs e)
         {
             SaveCurrentPageState();
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerMFAccountAdd','?FromPage=MFManualSingleTran');", true);
-
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerMFAccountAdd');", true);
         }
 
         protected void txtTransactionDate_TextChanged(object sender, EventArgs e)

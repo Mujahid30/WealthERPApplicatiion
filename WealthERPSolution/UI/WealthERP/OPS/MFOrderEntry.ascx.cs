@@ -3231,7 +3231,7 @@ namespace WealthERP.OPS
                 {
                     lblAssociatetext.Text = "";
                     lb1RepTo.Text = "";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Agent Code is invalid!');", true);
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Agent Code is invalid!');", true);
                     if (userType == "associates")
                     {
                         txtAssociateSearch.Text = associateuserheirarchyVo.AgentCode;
