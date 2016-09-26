@@ -529,22 +529,22 @@ namespace WealthERP.OnlineOrderBackOffice
                 string extractPath = ConfigurationSettings.AppSettings["RTA_EXTRACT_PATH"];
                 string downloadFileName = ddlType.SelectedValue == "FCS" ? "SM_FATCA" : "DT_FATCA";
                 string localFilePath = onlineOrderBackOfficeBo.GenerateDailyOrderFATCASummaryFiles(Server.MapPath("~/ReferenceFiles/RTAExtractSampleFiles/"), ddlOrderType.SelectedValue, ddlType.SelectedValue, adviserVo.advisorId, fromdate,todate);
-                File.Copy(localFilePath, extractPath + @"\" + adviserVo.advisorId + @"\" + dailyDirName + @"\" + downloadFileName + ".DBF");
+                if (File.Exists(extractPath + @"\" + adviserVo.advisorId + @"\"+ downloadFileName + ".DBF") == true)
+                {
+                    System.IO.File.Delete(extractPath + @"\" + adviserVo.advisorId + @"\" + downloadFileName + ".DBF");
+                }
+                File.Copy(localFilePath, extractPath + @"\" + adviserVo.advisorId + @"\"  + downloadFileName + ".DBF");
                 System.Threading.Thread.Sleep(1000);
                 if (string.IsNullOrEmpty(localFilePath))
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('No Data Available to download');", true);
                     return;
                 }
-                
-                Response.ContentType = "application/zip";
-                Response.AddHeader("content-disposition", "attachment; filename=" + dailyDirName + ".ZIP");
-                using (ZipFile zipfile = new ZipFile())
-                {
-                    zipfile.AlternateEncoding = System.Text.Encoding.Unicode;
-                    zipfile.AddDirectory(extractPath + @"\" + adviserVo.advisorId + @"\" + dailyDirName );
-                    zipfile.Save(Response.OutputStream);
-                }
+                Response.ContentType = "application/dbf";
+                Response.AppendHeader("Content-Disposition", "attachment;filename=" + downloadFileName);
+                string aaa = extractPath + @"\" + adviserVo.advisorId + @"\" + downloadFileName + ".DBF";
+                Response.TransmitFile(extractPath + @"\" + adviserVo.advisorId + @"\" + downloadFileName + ".DBF");
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
                 Response.End();
 
         }       
