@@ -25,8 +25,8 @@
             
         }
         else {
-            dvDematMessage.style.display = 'block';
-            dvOnlineMessage.style.display = 'none';
+            dvDematMessage.style.display = 'none';
+            dvOnlineMessage.style.display = 'block';
         }
 
     };
