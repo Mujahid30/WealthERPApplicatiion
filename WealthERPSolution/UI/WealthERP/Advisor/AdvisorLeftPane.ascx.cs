@@ -4164,6 +4164,7 @@ namespace WealthERP.Advisor
         public void imgButton_OnClick(object sender, ImageClickEventArgs e)
         {
             int orderId = 0, isonline = 0; string productcode = string.Empty; string subCategoryType = string.Empty; string Type = string.Empty;
+            Boolean IsDemat = false; string SIPType = string.Empty;
             OnlineOrderBackOfficeBo OnlineOrderBackOfficeBo = new OnlineOrderBackOfficeBo();
             if (ddlSearchtype.SelectedValue == "ON")
             {
@@ -4177,16 +4178,18 @@ namespace WealthERP.Advisor
                         productcode = dr["PAG_AssetGroupCode"].ToString();
                         subCategoryType = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
                         Type = dr["WMTT_TransactionClassificationCode"].ToString();
+                        IsDemat = Convert.ToBoolean(dr["CO_IsDemat"].ToString());
+                        SIPType = dr["WSTM_ModeTypeCode"].ToString();
                     }
 
                     if (productcode == "MF" && isonline == 1 && Type != "SIP")
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineAdviserCustomerOrderBook", "loadcontrol('OnlineAdviserCustomerOrderBook','?orderId=" + orderId + "&txtFolioNo=" + null + "');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineAdviserCustomerOrderBook", "loadcontrol('OnlineAdviserCustomerOrderBook','?orderId=" + orderId + "&txtFolioNo=" + null + "&IsDemat=" + IsDemat + "');", true);
 
                     }
                     if (productcode == "MF" && isonline == 1 && Type == "SIP")
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineAdviserCustomerSIPOrderBook", "loadcontrol('OnlineAdviserCustomerSIPOrderBook','?orderId=" + orderId + "');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineAdviserCustomerSIPOrderBook", "loadcontrol('OnlineAdviserCustomerSIPOrderBook','?orderId=" + orderId + "&SIPType=" + SIPType + "');", true);
 
                     }
                     if (productcode == "FI" && isonline == 1)

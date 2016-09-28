@@ -68,6 +68,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     ViewState["OrderId"] = int.Parse(Request.QueryString["orderId"].ToString());
                     ViewState["FolioNo"] = Request.QueryString["txtFolioNo"];
+                    ViewState["IsDemat"] = Request.QueryString["IsDemat"];
                     BindOrderBook();
                     tblField.Visible = false;
                     tblOrder.Visible = false;
@@ -184,7 +185,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
             if (Request.QueryString["orderId"] != null || Request.QueryString["txtFolioNo"] != null)
             {
-                dsOrderBookMIS = OnlineOrderMISBo.GetOrderBookMIS(advisorVo.advisorId, 0, "0", fromDate, toDate, (!string.IsNullOrEmpty(ViewState["OrderId"].ToString())) ? int.Parse(ViewState["OrderId"].ToString()) : 0, (!string.IsNullOrEmpty(ViewState["FolioNo"].ToString())) ? ViewState["FolioNo"].ToString() : null,0);
+                dsOrderBookMIS = OnlineOrderMISBo.GetOrderBookMIS(advisorVo.advisorId, 0, "0", fromDate, toDate, (!string.IsNullOrEmpty(ViewState["OrderId"].ToString())) ? int.Parse(ViewState["OrderId"].ToString()) : 0, (!string.IsNullOrEmpty(ViewState["FolioNo"].ToString())) ? ViewState["FolioNo"].ToString() : null, int.Parse(ViewState["IsDemat"].ToString()));
             }
             else
             {

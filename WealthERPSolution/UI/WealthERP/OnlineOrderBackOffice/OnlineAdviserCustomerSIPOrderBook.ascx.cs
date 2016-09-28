@@ -68,6 +68,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     ViewState["OrderId"] = int.Parse(Request.QueryString["orderId"].ToString());
                     ViewState["FolioNo"] = Request.QueryString["txtFolioNo"];
+                    ViewState["SIPType"] = Request.QueryString["SIPType"];
                     trSearchType.Visible = false;
                     btnViewSIP.Visible = false;
                     SetParameter();
@@ -238,11 +239,11 @@ namespace WealthERP.OnlineOrderBackOffice
             //string OrderStatus = ViewState["OrderStatus"].ToString();
             if (ViewState["OrderStatus"] != null)
             {
-                dsSIPBookMIS = OnlineOrderMISBo.GetSIPBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), ViewState["OrderStatus"].ToString(), systematicId, fromDate, toDate, (!string.IsNullOrEmpty(txtOrderNo.Text)) ? int.Parse(txtOrderNo.Text) : 0, null, null);
+                dsSIPBookMIS = OnlineOrderMISBo.GetSIPBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), ViewState["OrderStatus"].ToString(), systematicId, fromDate, toDate, (!string.IsNullOrEmpty(txtOrderNo.Text)) ? int.Parse(txtOrderNo.Text) : 0, null, ViewState["SIPType"].ToString());
             }
-            else if (Request.QueryString["txtFolioNo"] != null)
+            else if (Request.QueryString["OrderId"] != null || Request.QueryString["SIPType"] != null)
             {
-                dsSIPBookMIS = OnlineOrderMISBo.GetSIPBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), hdnOrderStatus.Value, systematicId, fromDate, toDate, (!string.IsNullOrEmpty(txtOrderNo.Text)) ? int.Parse(txtOrderNo.Text) : (ViewState["OrderId"] != null ? int.Parse(ViewState["OrderId"].ToString()) : 0), (!string.IsNullOrEmpty(ViewState["FolioNo"].ToString())) ? ViewState["FolioNo"].ToString() : null, null);
+                dsSIPBookMIS = OnlineOrderMISBo.GetSIPBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), hdnOrderStatus.Value, systematicId, fromDate, toDate, (!string.IsNullOrEmpty(txtOrderNo.Text)) ? int.Parse(txtOrderNo.Text) : (ViewState["OrderId"] != null ? int.Parse(ViewState["OrderId"].ToString()) : 0), null, ViewState["SIPType"].ToString());
 
                 }
             else
