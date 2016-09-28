@@ -47,8 +47,14 @@ namespace WealthERP.OnlineOrderBackOffice
             //customerId = customerVO.CustomerId;
             BindAmc();
             BindOrderStatus();
+            if (Session["ExchangeMode"] != null)
+                exchangeType = Session["ExchangeMode"].ToString();
+            else
+                exchangeType = "Online";
+            
             if (!Page.IsPostBack)
             {
+               
                 BindAmc();
                 BindOrderStatus();
                 fromDate = DateTime.Now;
@@ -218,6 +224,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 btnExport.Visible = true;
                 trNoRecords.Visible = false;
                 divNoRecords.Visible = false;
+               
 
             }
             else
@@ -372,9 +379,17 @@ namespace WealthERP.OnlineOrderBackOffice
                 drSIPOrderBook["C_Mobile1"] = drSIP["C_Mobile1"].ToString();
                 drSIPOrderBook["C_Email"] = drSIP["C_Email"];
                 drSIPOrderBook["Unit"] = drSIP["Unit"];
+                drSIPOrderBook["BMFSRD_BSESIPREGID"] = drSIP["BMFSRD_BSESIPREGID"];
                 dtFinalSIPOrderBook.Rows.Add(drSIPOrderBook);
             }
-
+            if (ddlMode.SelectedValue == "1")
+            {
+                gvSIPSummaryBookMIS.Columns[2].Visible = false;
+            }
+            else
+            {
+                gvSIPSummaryBookMIS.Columns[2].Visible = true;
+            }
             return dtFinalSIPOrderBook;
 
         }
@@ -423,6 +438,7 @@ namespace WealthERP.OnlineOrderBackOffice
             dtSIPOrderBook.Columns.Add("CustCode");
             dtSIPOrderBook.Columns.Add("C_Mobile1");
             dtSIPOrderBook.Columns.Add("C_Email");
+            dtSIPOrderBook.Columns.Add("BMFSRD_BSESIPREGID");
             dtSIPOrderBook.Columns.Add("Unit", typeof(double));
             return dtSIPOrderBook;
 
@@ -556,6 +572,8 @@ namespace WealthERP.OnlineOrderBackOffice
                         }
                     }
                 }
+               
+                    
             }
         }
         protected void gvSIPSummaryBookMIS_UpdateCommand(object source, GridCommandEventArgs e)
