@@ -532,6 +532,16 @@ namespace WealthERP.CustomerPortfolio
 
                 accountId = customerAccountBo.CreateCustomerPensionGratuitiesAccount(customerAccountsVo, userVo.UserId);
                     customerAccountAssociationVo.AccountId = accountId;
+                    foreach (GridViewRow gvr in this.gvNominees.Rows)
+                    {
+                        if (((CheckBox)gvr.FindControl("chkId0")).Checked == true)
+                        {
+                            i++;
+                            customerAccountAssociationVo.AssociationId = int.Parse(gvNominees.DataKeys[gvr.RowIndex].Values[1].ToString());
+                            customerAccountAssociationVo.AssociationType = "Nominee";
+                            customerAccountBo.CreatePensionGratuitiesAccountAssociation(customerAccountAssociationVo, userVo.UserId);
+                        }
+                    }
 
                     if (this.gvJointHoldersList.Rows.Count > 0)
                     {

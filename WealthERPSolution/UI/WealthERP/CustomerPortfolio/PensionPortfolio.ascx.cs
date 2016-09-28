@@ -203,35 +203,32 @@ namespace WealthERP.CustomerPortfolio
                 }
                 if (pensionAndGratuitiesList != null)
                 {
-                    //lblMsg.Visible = false;
 
                     tblMessage.Visible = false;
                     ErrorMessage.Visible = false;
                     ErrorMessage.InnerText = "No Records Found...!";
                     DataTable dtPension = new DataTable();
-                    //dtPension.Columns.Add("SI.No");
                     dtPension.Columns.Add("PortfolioId");
                     dtPension.Columns.Add("Organization Name");
                     dtPension.Columns.Add("Category");
                     dtPension.Columns.Add("Deposit Amount", typeof(Double));
                     dtPension.Columns.Add("Current Value", typeof(Double));
                     dtPension.Columns.Add("Purchase Value", typeof(Double));
-                    //dtPension.Columns.Add("Current Value", typeof(Double));
+                    dtPension.Columns.Add("JntName");
+                    dtPension.Columns.Add("NName");
                     DataRow drPension;
                     for (int i = 0; i < pensionAndGratuitiesList.Count; i++)
                     {
                         drPension = dtPension.NewRow();
                         pensionAndGratuitiesVo = new PensionAndGratuitiesVo();
                         pensionAndGratuitiesVo = pensionAndGratuitiesList[i];
-                        //drPension[0] = (i + 1).ToString();
                         drPension[0] = pensionAndGratuitiesVo.PensionGratuitiesPortfolioId.ToString();
                         drPension[1] = pensionAndGratuitiesVo.OrganizationName.ToString();
                         drPension[2] = pensionAndGratuitiesVo.AssetInstrumentCategoryName.ToString();
                         drPension[3] = String.Format("{0:n2}", decimal.Parse(pensionAndGratuitiesVo.DepositAmount.ToString("f2")));
                         drPension[4] = String.Format("{0:n2}", decimal.Parse(pensionAndGratuitiesVo.CurrentValue.ToString("f2")));
-                        // drPension[3] = pensionAndGratuitiesVo.DepositAmount.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                        // drPension[4] = pensionAndGratuitiesVo.CurrentValue.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-
+                        drPension[6] = pensionAndGratuitiesVo.JointHolderName.ToString();
+                        drPension[7] = pensionAndGratuitiesVo.Nomniee.ToString();
 
                         dtPension.Rows.Add(drPension);
 

@@ -84,7 +84,7 @@
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
                         <telerik:GridBoundColumn HeaderText="Organization Name" DataField="Organization Name"
-                            UniqueName="Organization Name" SortExpression="Organization Name " AutoPostBackOnFilter="true" 
+                            UniqueName="Organization Name" SortExpression="Organization Name " AutoPostBackOnFilter="true"
                             AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                             FooterText="Grand Total:">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -102,9 +102,19 @@
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Current Value" SortExpression="Current Value"
                             AutoPostBackOnFilter="true" CurrentFilterFunction="EqualTo" AllowFiltering="true"
-                            HeaderText="Current Value (Rs)" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}" 
-                            UniqueName="Current Value" Aggregate="Sum"  ShowFilterIcon="false">
+                            HeaderText="Current Value (Rs)" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}"
+                            UniqueName="Current Value" Aggregate="Sum" ShowFilterIcon="false">
                             <ItemStyle Width="110px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn HeaderText="Nomniee Name" DataField="NName"
+                            UniqueName="NName" SortExpression="NName" AutoPostBackOnFilter="true" AllowFiltering="false"
+                            ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                          <telerik:GridBoundColumn HeaderText="JointHolder Name" DataField="JntName" UniqueName="JntName"
+                            SortExpression="JntName" AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false"
+                            CurrentFilterFunction="Contains">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                     </Columns>
                 </MasterTableView>

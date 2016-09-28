@@ -72,7 +72,7 @@
 
 
 
-   <asp:Panel ID ="pnl" runat="server"  ScrollBars="Vertical">
+   <asp:Panel ID ="pnl" runat="server"   ScrollBars="Vertical">
 <table width="100%" cellspacing="0" cellpadding="3">
     <tr>
         <td colspan="3">
@@ -140,6 +140,16 @@
                             HeaderText="Current Value (Rs)" UniqueName="Current Value" ShowFilterIcon="false"
                             FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}"  >
                             <ItemStyle Width="110px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                         <telerik:GridBoundColumn HeaderText="Nomniee Name" DataField="JntName"
+                            UniqueName="NName" SortExpression="NName" AutoPostBackOnFilter="true" AllowFiltering="false"
+                            ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn HeaderText="JointHolder Name" DataField="JntName"
+                            UniqueName="JntName" SortExpression="JntName" AutoPostBackOnFilter="true" AllowFiltering="false"
+                            ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                     </Columns>
                 </MasterTableView>

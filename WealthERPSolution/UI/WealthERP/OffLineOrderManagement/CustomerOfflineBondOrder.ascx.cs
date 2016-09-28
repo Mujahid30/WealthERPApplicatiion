@@ -35,7 +35,8 @@ namespace WealthERP.OffLineOrderManagement
         DataTable dtCustomerAssociatesRaw = new DataTable();
         DataTable dtCustomerAssociates = new DataTable();
         DataRow drCustomerAssociates;
-      
+        DataTable dtModeOfHolding;
+        string path;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -48,6 +49,8 @@ namespace WealthERP.OffLineOrderManagement
                 LoadNominees();
                 Cache.Remove("BondOrderBookList" + userVo.UserId.ToString());
                 BindNcdCategory();
+
+                LoadModeOfHolding(path);
                
                 if (Request.QueryString["COADID"] != null)
                 {
@@ -424,10 +427,88 @@ namespace WealthERP.OffLineOrderManagement
         }
 
 
+        protected void rbtnYes_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (rbtnYes.Checked)
+                {
+                    ddlModeOfHolding.Enabled = true;
+
+                    dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRel(customerVo.CustomerId);
+                    dtCustomerAssociates.Rows.Clear();
+                    dtCustomerAssociatesRaw = dsCustomerAssociates.Tables[0];
+
+                    dtCustomerAssociates.Columns.Clear();
+                    dtCustomerAssociates.Columns.Add("MemberCustomerId");
+                    dtCustomerAssociates.Columns.Add("AssociationId");
+                    dtCustomerAssociates.Columns.Add("Name");
+                    dtCustomerAssociates.Columns.Add("Relationship");
+
+                    foreach (DataRow dr in dtCustomerAssociatesRaw.Rows)
+                    {
+                        drCustomerAssociates = dtCustomerAssociates.NewRow();
+                        drCustomerAssociates[0] = dr["C_AssociateCustomerId"].ToString();
+                        drCustomerAssociates[1] = dr["CA_AssociationId"].ToString();
+                        drCustomerAssociates[2] = dr["C_FirstName"].ToString() + " " + dr["C_LastName"].ToString();
+                        drCustomerAssociates[3] = dr["XR_Relationship"].ToString();
+                        dtCustomerAssociates.Rows.Add(drCustomerAssociates);
+                    }
+
+                    if (dtCustomerAssociates.Rows.Count > 0)
+                    {
+                        trNoJointHolders.Visible = false;
+                        trJoinHolders.Visible = true;
+                        trJointHolderGrid.Visible = true;
+                        gvJointHoldersList.DataSource = dtCustomerAssociates;
+                        gvJointHoldersList.DataBind();
+                        gvJointHoldersList.Visible = true;
+                    }
+                    else
+                    {
+                        trNoJointHolders.Visible = true;
+                        trJoinHolders.Visible = false;
+                        trJointHolderGrid.Visible = false;
+                    }
+                    ddlModeOfHolding.SelectedIndex = 0;
+                }
+                else
+                {
+                    ddlModeOfHolding.SelectedValue = "SI";
+                    ddlModeOfHolding.Enabled = false;
+                    trJoinHolders.Visible = false;
+                    trJointHolderGrid.Visible = false;
+                    trNoJointHolders.Visible = false;
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+        }
 
 
+        private void LoadModeOfHolding(string path)
+        {
+            try
+            {
+                //dtModeOfHolding = XMLBo.GetModeOfHolding(path);
+                //ddlModeOfHolding.DataSource = dtModeOfHolding;
+                //ddlModeOfHolding.DataTextField = "ModeOfHolding";
+                //ddlModeOfHolding.DataValueField = "ModeOfHoldingCode";
+                //ddlModeOfHolding.DataBind();
+                //ddlModeOfHolding.Items.Insert(0, new ListItem("Select", "Select"));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
 
 
+           
+
+        }
 
 
 

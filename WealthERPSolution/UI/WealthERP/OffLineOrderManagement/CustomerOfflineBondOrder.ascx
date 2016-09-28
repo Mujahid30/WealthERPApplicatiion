@@ -208,8 +208,72 @@
         </td>
     </tr>
     
-    
-    
+         <tr id="trJoingHolding" runat="server">
+                <td class="leftField">
+                    <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="Joint Holding:"></asp:Label>
+                </td>
+                <td>
+                    <asp:RadioButton ID="rbtnYes" runat="server" CssClass="cmbFielde" GroupName="rbtnJointHolding"
+                        Text="Yes" OnCheckedChanged="rbtnYes_CheckedChanged" AutoPostBack="true" />
+                    <asp:RadioButton ID="rbtnNo" runat="server" CssClass="cmbFielde" GroupName="rbtnJointHolding"
+                        Text="No" AutoPostBack="true" OnCheckedChanged="rbtnYes_CheckedChanged" Checked="true" />
+                </td>
+                <td class="leftField">
+                    <asp:Label ID="Label1" runat="server" CssClass="FieldName" Visible="false" Text="Mode Of Holding:"></asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlModeOfHolding" Visible="false" runat="server" CssClass="cmbField">
+                    </asp:DropDownList>
+                   <%-- <span id="Span5" class="spnRequiredField">*</span>
+                    <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />Please select a Mode of Holding"
+                        ControlToValidate="ddlModeOfHolding" Operator="NotEqual" ValueToCompare="Select"
+                        Display="Dynamic" CssClass="cvPCG" SetFocusOnError="true"></asp:CompareValidator>--%>
+                </td>
+            </tr>
+       
+             <tr id="trNoJointHolders" runat="server" visible="false">
+                <td class="Message" colspan="2">
+                    <asp:Label ID="lblNoJointHolders" runat="server" Text="You have no Joint Holder"
+                        CssClass="FieldName"></asp:Label>
+                </td>
+            </tr>
+            
+            
+             <tr id="trJoinHolders" runat="server" visible="true">
+                <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
+                    <div class="divSectionHeading" style="vertical-align: text-bottom">
+                        Joint Holder
+                    </div>
+                </td>
+            </tr>
+            <tr id="trJointHolderGrid" runat="server">
+                <td colspan="2">
+                    <asp:GridView ID="gvJointHoldersList" runat="server" AutoGenerateColumns="False"
+                       Width="750px" CellPadding="4" DataKeyNames="MemberCustomerId, AssociationId" AllowSorting="True"
+                        ShowFooter="true" CssClass="GridViewStyle">
+                        <FooterStyle CssClass="FooterStyle" />
+                        <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
+                        <SelectedRowStyle CssClass="SelectedRowStyle" />
+                        <HeaderStyle CssClass="HeaderStyle" />
+                        <EditRowStyle CssClass="EditRowStyle" />
+                        <AlternatingRowStyle CssClass="AltRowStyle" />
+                        <RowStyle CssClass="RowStyle" />
+                        <Columns>
+                            <asp:TemplateField HeaderText="Select">
+                                <ItemTemplate>
+                                    <asp:CheckBox ID="chkId" runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:BoundField DataField="Name" HeaderText="Name" />
+                            <asp:BoundField DataField="Relationship" HeaderText="Relationship" />
+                        </Columns>
+                    </asp:GridView>
+                </td>
+            </tr>
+            
+            
+            
+            
       <tr id="trNomineeCaption" runat="server" visible="true">
                 <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
                     <div class="divSectionHeading" style="vertical-align: text-bottom">

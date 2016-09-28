@@ -35,7 +35,8 @@ namespace VoCustomerPortfolio
         private string m_Remarks;
         private float m_EmployeeContri;
         private float m_EmployerContri;
-
+        private string m_Nomniee;
+        private string m_JointHolderName;
         #endregion Fields
 
         #region Properties
@@ -104,6 +105,16 @@ namespace VoCustomerPortfolio
         {
             get { return m_OrganizationName; }
             set { m_OrganizationName = value; }
+        }
+        public string Nomniee
+        {
+            get { return m_Nomniee; }
+            set { m_Nomniee = value; }
+        }
+        public string JointHolderName
+        {
+            get { return m_JointHolderName; }
+            set { m_JointHolderName = value; }
         }
        
         public DateTime PurchaseDate

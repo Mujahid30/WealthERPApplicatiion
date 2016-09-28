@@ -514,9 +514,9 @@ namespace WealthERP.CustomerPortfolio
                     newGovtSavingsVo.PaymentInstrumentDate = Convert.ToDateTime(txtPaymentInstDate.SelectedDate);
                 if (txtBranchName != null && txtBranchName.Text != "")
                     newGovtSavingsVo.BankBranch = txtBranchName.Text;
-                if (ddlBankName != null)
-                    newGovtSavingsVo.BankName = ddlBankName.SelectedValue.ToString();
-                    newGovtSavingsVo.bankcode = int.Parse(ddlBankName.SelectedValue);
+                //if (ddlBankName != null && ddlBankName.SelectedValue !="")
+                //    newGovtSavingsVo.BankName = ddlBankName.SelectedValue.ToString();
+                //    newGovtSavingsVo.bankcode = int.Parse(ddlBankName.SelectedValue);
                 
                 if (newGovtSavingsVo.InterestBasisCode == "SI")
                 {

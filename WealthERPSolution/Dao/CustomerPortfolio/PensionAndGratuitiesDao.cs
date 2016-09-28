@@ -237,9 +237,13 @@ namespace DaoCustomerPortfolio
                         pensionAndGratuitiesVo.InterestAmtPaidOut = float.Parse(dr["CPGNP_InterestAmtPaidOut"].ToString());
                         pensionAndGratuitiesVo.Remarks = dr["CPGNP_Remark"].ToString();
                         pensionAndGratuitiesVo.AssetInstrumentCategoryName = dr["PAIC_AssetInstrumentCategoryName"].ToString();
+                        pensionAndGratuitiesVo.JointHolderName = dr["JntName"].ToString();
+                        pensionAndGratuitiesVo.Nomniee = dr["NName"].ToString();
+
 
                         pensionAndGratuitiesList.Add(pensionAndGratuitiesVo);
                     }
+                
                 }
             }
             catch (BaseApplicationException Ex)
