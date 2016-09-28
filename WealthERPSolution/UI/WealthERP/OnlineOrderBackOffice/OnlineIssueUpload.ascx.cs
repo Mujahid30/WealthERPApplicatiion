@@ -212,7 +212,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (string.IsNullOrEmpty(row["Remarks"].ToString().Trim())) continue;
                 bUpload = false;
                 ShowMessage("Please check the data in the file & re-upload","F");
-                break;
+                return;
             }
 
 
