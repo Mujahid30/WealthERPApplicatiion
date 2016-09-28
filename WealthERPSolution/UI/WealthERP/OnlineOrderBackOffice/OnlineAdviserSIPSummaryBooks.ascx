@@ -212,7 +212,7 @@
                                     </asp:LinkButton>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                             <telerik:GridBoundColumn  DataField="BMFSRD_BSESIPREGID" AllowFiltering="true" HeaderText="SIP Exchange Reference No:"
+                             <telerik:GridBoundColumn  DataField="BMFSRD_BSESIPREGID" AllowFiltering="true" HeaderText="BSE Exchange No"
                                 UniqueName="BMFSRD_BSESIPREGID" SortExpression="BMFSRD_BSESIPREGID" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="75px" FilterControlWidth="50px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
