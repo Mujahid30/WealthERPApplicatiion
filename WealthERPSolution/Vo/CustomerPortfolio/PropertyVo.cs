@@ -36,6 +36,8 @@ namespace VoCustomerPortfolio
         private float m_SellPrice;       
         private float m_SellValue;
         private string m_Remark;
+        private string m_JointHolderName;
+        private string m_Nomniee;
 
         
         #endregion Fields
@@ -43,7 +45,16 @@ namespace VoCustomerPortfolio
 
         #region Properties
 
-
+        public string JointHolderName
+        {
+            get { return m_JointHolderName; }
+            set { m_JointHolderName = value; }
+        }
+        public string Nominee
+        {
+            get { return m_Nomniee; }
+            set { m_Nomniee = value; }
+        }
         public int PropertyId
         {
             get { return m_PropertyId; }

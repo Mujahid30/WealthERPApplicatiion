@@ -240,6 +240,8 @@ namespace WealthERP.CustomerPortfolio
                     dtProperty.Columns.Add("Purchase Date");
                     dtProperty.Columns.Add("Purchase Cost",typeof(Double));
                     dtProperty.Columns.Add("Current Value",typeof(Double));
+                    dtProperty.Columns.Add("JntName");
+                    dtProperty.Columns.Add("NName");
                     DataRow drProperty;
                     for (int i = 0; i < propertyList.Count; i++)
                     {
@@ -250,6 +252,8 @@ namespace WealthERP.CustomerPortfolio
                         drProperty[0] = propertyVo.PropertyId.ToString();
                         drProperty[1] = propertyVo.AssetSubCategoryName.ToString();
                         drProperty[2] = propertyVo.Name.ToString();
+                        drProperty[10] = propertyVo.JointHolderName.ToString();
+                        drProperty[9] = propertyVo.Nominee.ToString();
                         drProperty[3] = propertyVo.PropertyCity.ToString();
                         drProperty[4] = propertyVo.Quantity.ToString("f0");
                         drProperty[5] = XMLBo.GetMeasureCodeName(path, propertyVo.MeasureCode.ToString());
@@ -259,7 +263,7 @@ namespace WealthERP.CustomerPortfolio
                             drProperty[6] = string.Empty;
                         drProperty[7] = propertyVo.PurchaseValue.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                         drProperty[8] = propertyVo.CurrentValue.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-
+                      
                         dtProperty.Rows.Add(drProperty);
                     }
                     gvrProperty.DataSource = dtProperty;

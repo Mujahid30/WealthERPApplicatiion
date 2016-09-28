@@ -739,16 +739,16 @@ namespace WealthERP.CustomerPortfolio
                     {
                         i = -1;
                     }
-                    //foreach (GridViewRow gvr in this.gvNominees.Rows)
-                    //{
-                    //    if (((CheckBox)gvr.FindControl("chkId0")).Checked == true)
-                    //    {
-                    //        i++;
-                    //        customerAccountAssociationVo.AssociationId = int.Parse(gvNominees.DataKeys[gvr.RowIndex].Values[1].ToString());
-                    //        customerAccountAssociationVo.AssociationType = "Nominee";
-                    //        customerAccountBo.CreatePropertyAccountAssociation(customerAccountAssociationVo, userVo.UserId);//change after making all classes
-                    //    }
-                    //}
+                    foreach (GridViewRow gvr in this.gvNominees.Rows)
+                    {
+                        if (((CheckBox)gvr.FindControl("chkId0")).Checked == true)
+                        {
+                            i++;
+                            customerAccountAssociationVo.AssociationId = int.Parse(gvNominees.DataKeys[gvr.RowIndex].Values[1].ToString());
+                            customerAccountAssociationVo.AssociationType = "Nominee";
+                            customerAccountBo.CreatePropertyAccountAssociation(customerAccountAssociationVo, userVo.UserId);//change after making all classes
+                        }
+                    }
 
                     if (rbtnYes.Checked)
                     {
@@ -822,16 +822,16 @@ namespace WealthERP.CustomerPortfolio
                     {
                         i = -1;
                     }
-                    //foreach (GridViewRow gvr in this.gvNominees.Rows)
-                    //{
-                    //    if (((CheckBox)gvr.FindControl("chkId0")).Checked == true)
-                    //    {
-                    //        i++;
-                    //        customerAccountAssociationVo.AssociationId = int.Parse(gvNominees.DataKeys[gvr.RowIndex].Values[1].ToString());
-                    //        customerAccountAssociationVo.AssociationType = "Nominee";
-                    //        customerAccountBo.CreateGovtSavingsAccountAssociation(customerAccountAssociationVo, userVo.UserId);//change after making all classes
-                    //    }
-                    //}
+                    foreach (GridViewRow gvr in this.gvNominees.Rows)
+                    {
+                        if (((CheckBox)gvr.FindControl("chkId0")).Checked == true)
+                        {
+                            i++;
+                            customerAccountAssociationVo.AssociationId = int.Parse(gvNominees.DataKeys[gvr.RowIndex].Values[1].ToString());
+                            customerAccountAssociationVo.AssociationType = "Nominee";
+                            customerAccountBo.CreateGovtSavingsAccountAssociation(customerAccountAssociationVo, userVo.UserId);//change after making all classes
+                        }
+                    }
 
                     if (rbtnYes.Checked)
                     {
@@ -894,16 +894,16 @@ namespace WealthERP.CustomerPortfolio
                     {
                         i = -1;
                     }
-                    //foreach (GridViewRow gvr in this.gvNominees.Rows)
-                    //{
-                    //    if (((CheckBox)gvr.FindControl("chkId0")).Checked == true)
-                    //    {
-                    //        i++;
-                    //        customerAccountAssociationVo.AssociationId = int.Parse(gvNominees.DataKeys[gvr.RowIndex].Values[1].ToString());
-                    //        customerAccountAssociationVo.AssociationType = "Nominee";
-                    //        customerAccountBo.CreateFixedIncomeAccountAssociation(customerAccountAssociationVo, userVo.UserId);//change after making all classes
-                    //    }
-                    //}
+                    foreach (GridViewRow gvr in this.gvNominees.Rows)
+                    {
+                        if (((CheckBox)gvr.FindControl("chkId0")).Checked == true)
+                        {
+                            i++;
+                            customerAccountAssociationVo.AssociationId = int.Parse(gvNominees.DataKeys[gvr.RowIndex].Values[1].ToString());
+                            customerAccountAssociationVo.AssociationType = "Nominee";
+                            customerAccountBo.CreateFixedIncomeAccountAssociation(customerAccountAssociationVo, userVo.UserId);//change after making all classes
+                        }
+                    }
 
                     if (rbtnYes.Checked)
                     {

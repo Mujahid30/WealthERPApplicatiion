@@ -149,7 +149,8 @@ namespace DaoCustomerPortfolio
                             propertyVo.SellValue = float.Parse(dr["CPNP_SellValue"].ToString());
                         propertyVo.Remark = dr["CPNP_Remark"].ToString();
                         propertyVo.AssetSubCategoryName = dr["PAISC_AssetInstrumentSubCategoryName"].ToString();
-
+                        propertyVo.JointHolderName = dr["JntName"].ToString();
+                        propertyVo.Nominee = dr["NName"].ToString();
                         propertyList.Add(propertyVo);
                     }
                 }
