@@ -56,6 +56,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createGovtSavingsCmd, "@CGSNP_Amount", DbType.Decimal, govtSavingsVo.Amount);
                 db.AddInParameter(createGovtSavingsCmd, "@CGSNP_ModeOfPayment", DbType.String, govtSavingsVo.ModeOfPayment);
                 db.AddInParameter(createGovtSavingsCmd, "@CGSNP_PaymentInstrumentNumber", DbType.String, govtSavingsVo.PaymentInstrumentNumber);
+                if (govtSavingsVo.PaymentInstrumentDate != DateTime.MinValue)
                 db.AddInParameter(createGovtSavingsCmd, "@CGSNP_PaymentInstrumentDate", DbType.DateTime, govtSavingsVo.PaymentInstrumentDate);
                 db.AddInParameter(createGovtSavingsCmd, "@CGSNP_BankName", DbType.Int32, govtSavingsVo.BankName);
                 db.AddInParameter(createGovtSavingsCmd, "@CGSNP_BankBranch", DbType.String, govtSavingsVo.BankBranch);

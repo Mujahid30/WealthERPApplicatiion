@@ -44,6 +44,9 @@ namespace VoCustomerPortfolio
         public string ModeOfPayment { get; set; }
         public float Amount { get; set; }
         public int bankcode { get; set; }
+        public string Nomniee { get; set;}
+        public string JontHolderName { get; set; }
+
 
         #endregion
 

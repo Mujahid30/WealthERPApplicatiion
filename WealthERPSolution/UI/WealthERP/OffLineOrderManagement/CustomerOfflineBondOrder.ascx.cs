@@ -470,7 +470,7 @@ namespace WealthERP.OffLineOrderManagement
                         trJoinHolders.Visible = false;
                         trJointHolderGrid.Visible = false;
                     }
-                    ddlModeOfHolding.SelectedIndex = 0;
+                    //ddlModeOfHolding.SelectedIndex = 0;
                 }
                 else
                 {

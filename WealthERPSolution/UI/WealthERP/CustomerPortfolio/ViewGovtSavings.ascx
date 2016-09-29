@@ -126,39 +126,48 @@
                             DataFormatString="{0:N0}" Aggregate="Sum">
                             <ItemStyle Width="80px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="Amount" UniqueName="Amount" HeaderText="Amount"
+                        <telerik:GridBoundColumn DataField="Amount" Visible="false" UniqueName="Amount" HeaderText="Amount"
                             ShowFilterIcon="false"  HeaderStyle-Width="160px"
                             SortExpression="Amount" CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right" 
                             DataFormatString="{0:N0}" Aggregate="Sum" FilterControlWidth="95px">
                             <ItemStyle Width="140px" HorizontalAlign="right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
                         
-                         <telerik:GridBoundColumn DataField="ModeOfPayment" UniqueName="ModeOfPayment" HeaderText="Mode Of Payment"
+                         <telerik:GridBoundColumn DataField="ModeOfPayment" Visible="false" UniqueName="ModeOfPayment" HeaderText="Mode Of Payment"
                             AllowFiltering="false" HeaderStyle-Width="100px" SortExpression="ModeOfPayment"
                             CurrentFilterFunction="Contains" ShowFilterIcon="false">
                             <ItemStyle Width="80px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="PaymentInstrumentNumber" UniqueName="PaymentInstrumentNumber" HeaderText="Payment Instrument Number"
-                            AllowFiltering="false" HeaderStyle-Width="100px" SortExpression="PaymentInstrumentNumber"
+                            AllowFiltering="false" Visible="false"  HeaderStyle-Width="100px" SortExpression="PaymentInstrumentNumber"
                             CurrentFilterFunction="Contains" ShowFilterIcon="false">
                             <ItemStyle Width="80px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
-                           <telerik:GridBoundColumn DataField="PaymentInstrumentDate" UniqueName="PaymentInstrumentDate" HeaderText="Payment Instrument Date"
+                           <telerik:GridBoundColumn DataField="PaymentInstrumentDate" Visible="false" UniqueName="PaymentInstrumentDate" HeaderText="Payment Instrument Date"
                             AllowFiltering="false" HeaderStyle-Width="100px" SortExpression="PaymentInstrumentDate"
                             CurrentFilterFunction="Contains" ShowFilterIcon="false">
                             <ItemStyle Width="80px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
-                         <telerik:GridBoundColumn DataField="BankName" UniqueName="BankName" HeaderText="Bank Name"
+                         <telerik:GridBoundColumn DataField="BankName" Visible="false" UniqueName="BankName" HeaderText="Bank Name"
                             AllowFiltering="false" HeaderStyle-Width="100px" SortExpression="BankName"
                             CurrentFilterFunction="Contains" ShowFilterIcon="false">
                             <ItemStyle Width="80px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
-                         <telerik:GridBoundColumn DataField="BankBranch" UniqueName="BankBranch" HeaderText="Bank Branch"
+                         <telerik:GridBoundColumn DataField="BankBranch" Visible="false" UniqueName="BankBranch" HeaderText="Bank Branch"
                             AllowFiltering="false" HeaderStyle-Width="100px" SortExpression="BankBranch"
                             CurrentFilterFunction="Contains" ShowFilterIcon="false">
                             <ItemStyle Width="80px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
-                        
+                         <telerik:GridBoundColumn HeaderText="Nomniee Name" DataField="NName"
+                            UniqueName="NName" SortExpression="NName" AutoPostBackOnFilter="true" AllowFiltering="true"
+                            ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                          <telerik:GridBoundColumn HeaderText="JointHolder Name" DataField="JntName" UniqueName="JntName"
+                            SortExpression="JntName" AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false"
+                            CurrentFilterFunction="Contains">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
                         
                         
                     </Columns>

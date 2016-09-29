@@ -799,7 +799,7 @@ namespace WealthERP.CustomerPortfolio
 
             govtSavingsVo = GetValuesFromFields();
             bool bResult = govtSavingsBo.CreateGovtSavingsNP(govtSavingsVo, userVo.UserId);
-            UpdateAccountDetails(customerAccountsVo);
+            //UpdateAccountDetails(customerAccountsVo);
             if (bResult)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewGovtSavings','none');", true);

@@ -202,7 +202,7 @@ namespace WealthERP.CustomerPortfolio
         }
 
         public void LoadGridview(int portfolioId)
-        {
+       {
             List<GovtSavingsVo> govtSavingsList = new List<GovtSavingsVo>();
             int count=0;
             try
@@ -240,6 +240,8 @@ namespace WealthERP.CustomerPortfolio
                     dtGovtSavings.Columns.Add("PaymentInstrumentDate", typeof(DateTime));
                     dtGovtSavings.Columns.Add("BankName");
                     dtGovtSavings.Columns.Add("BankBranch");
+                    dtGovtSavings.Columns.Add("Nomniee");
+                    dtGovtSavings.Columns.Add("JointHolderName");
 
                     DataRow drGovtSavings;
 
@@ -271,6 +273,8 @@ namespace WealthERP.CustomerPortfolio
                         drGovtSavings[13] = govtSavingsVo.PaymentInstrumentDate.ToString();
                         drGovtSavings[14] = govtSavingsVo.BankName;
                         drGovtSavings[15] = govtSavingsVo.BankBranch;
+                        drGovtSavings[16] = govtSavingsVo.Nomniee;
+                        drGovtSavings[17] = govtSavingsVo.JontHolderName;
                         dtGovtSavings.Rows.Add(drGovtSavings);
 
                     }
