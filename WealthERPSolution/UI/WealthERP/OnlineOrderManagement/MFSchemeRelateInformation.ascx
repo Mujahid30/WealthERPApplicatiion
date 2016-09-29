@@ -260,11 +260,17 @@
                             </asp:RequiredFieldValidator>--%>
                             </fieldset>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <asp:DropDownList ID="ddlScheme" runat="server" CssClass="form-control input-sm"
                                 class="form-control">
                             </asp:DropDownList>
                         </div>
+                         <div class="col-md-2">
+                                    <asp:DropDownList ID="ddlFilter" runat="server" AutoPostBack="false" CssClass="form-control input-sm">
+                                        <asp:ListItem Text="SIP" Value="true"></asp:ListItem>
+                                        <asp:ListItem Text="Normal" Value="false" Selected="True"></asp:ListItem>
+                                    </asp:DropDownList>
+                                </div>
                         <div class="col-md-1">
                             <asp:Button ID="Button1" runat="server" class="btn btn-sm btn-primary" Text="GO"
                                 OnClick="Go_OnClick" ValidationGroup="btnViewscheme"></asp:Button></div>

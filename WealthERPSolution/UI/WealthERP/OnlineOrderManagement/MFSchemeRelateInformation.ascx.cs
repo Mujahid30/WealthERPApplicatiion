@@ -46,6 +46,16 @@ namespace WealthERP.OnlineOrderManagement
                 exchangeType = Session["ExchangeMode"].ToString();
             else
                 exchangeType = "Online";
+            if (exchangeType == "Online")
+            {
+                ddlFilter.Visible = false;
+            }
+            else
+            {
+                ddlFilter.Visible = true;
+            }
+
+
             if (!IsPostBack)
             {
                 BindAMC();
@@ -166,7 +176,7 @@ namespace WealthERP.OnlineOrderManagement
             hfIsSchemeDetails.Value = "1";
             hfNFOType.Value = "false";
             rblNFOType.Visible = false;
-            hfIsSIP.Value =" true";
+            hfIsSIP.Value =ddlFilter.SelectedValue;
             BindSchemeRelatedDetails(int.Parse(hfAMCCode.Value), int.Parse(hfSchemeCode.Value), hfCategory.Value, int.Parse(hfCustomerId.Value), Int16.Parse(hfIsSchemeDetails.Value), Boolean.Parse(hfNFOType.Value), 1, Boolean.Parse(hfIsSIP.Value),int.Parse(hfSortOn.Value));
             lblHeading.Text = "Schemes Details";
             RadTabStripAdsUpload.Tabs[0].Visible = false;
