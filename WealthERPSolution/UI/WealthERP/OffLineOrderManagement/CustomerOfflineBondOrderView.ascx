@@ -131,12 +131,12 @@
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn HeaderText="Nomniee Name" DataField="JntName" UniqueName="NName"
-                                                        SortExpression="NName" AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false"
+                                                        SortExpression="NName" AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false"
                                                         CurrentFilterFunction="Contains">
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn HeaderText="JointHolder Name" DataField="JntName" UniqueName="JntName"
-                                                        SortExpression="JntName" AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false"
+                                                        SortExpression="JntName" AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false"
                                                         CurrentFilterFunction="Contains">
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>

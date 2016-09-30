@@ -41,7 +41,8 @@ namespace WealthERP.OffLineOrderManagement
         {
             SessionBo.CheckSession();
             advisorVo = (AdvisorVo)Session["advisorVo"];
-            customerVo = (CustomerVo)Session["CustomerVo"];
+            customerVO = (CustomerVo)Session["customerVo"];
+
             userVo = (UserVo)Session[SessionContents.UserVo];
           
             if (!IsPostBack)
