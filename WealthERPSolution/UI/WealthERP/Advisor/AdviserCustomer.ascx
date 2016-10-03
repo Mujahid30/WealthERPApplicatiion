@@ -247,10 +247,10 @@
             <asp:Label ID="lbltype" runat="server" CssClass="FieldName" Text="Type:"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:RadioButton ID="rbtnRegister" runat="server" CssClass="txtField" Text="Registered"
+            <asp:RadioButton ID="rbtnRegister" runat="server" CssClass="txtField" Text="Registered" ToolTip="Holds Demat Acct. With SSL." 
                 GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnRegister_CheckedChanged" />
             &nbsp;&nbsp;
-            <asp:RadioButton ID="rbtnNonRegister" runat="server" CssClass="txtField" Text="Non Registered"
+            <asp:RadioButton ID="rbtnNonRegister" runat="server" CssClass="txtField" Text="Non Registered" ToolTip="Does Not Holds Demat Acct. With SSL."
                 GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnNonRegister_CheckedChanged" />
         </td>
     </tr>
