@@ -41,6 +41,7 @@ namespace WealthERP.OffLineOrderManagement
         {
             SessionBo.CheckSession();
             advisorVo = (AdvisorVo)Session["advisorVo"];
+          
             customerVO = (CustomerVo)Session["customerVo"];
 
             userVo = (UserVo)Session[SessionContents.UserVo];
@@ -384,6 +385,7 @@ namespace WealthERP.OffLineOrderManagement
 
         public void LoadNominees()
         {
+
             try
             {
                 dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRel(customerVo.CustomerId);
