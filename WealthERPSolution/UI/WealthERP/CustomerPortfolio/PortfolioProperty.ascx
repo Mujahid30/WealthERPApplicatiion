@@ -141,7 +141,7 @@
                             FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}"  >
                             <ItemStyle Width="110px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                         <telerik:GridBoundColumn HeaderText="Nomniee Name" DataField="JntName"
+                         <telerik:GridBoundColumn HeaderText="Nominee Name" DataField="JntName"
                             UniqueName="NName" SortExpression="NName" AutoPostBackOnFilter="true" AllowFiltering="false"
                             ShowFilterIcon="false" CurrentFilterFunction="Contains">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />

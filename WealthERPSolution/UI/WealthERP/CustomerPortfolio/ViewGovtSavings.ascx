@@ -158,7 +158,7 @@
                             CurrentFilterFunction="Contains" ShowFilterIcon="false">
                             <ItemStyle Width="80px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
-                         <telerik:GridBoundColumn HeaderText="Nomniee Name" DataField="NName"
+                         <telerik:GridBoundColumn HeaderText="Nominee Name" DataField="NName"
                             UniqueName="NName" SortExpression="NName" AutoPostBackOnFilter="true" AllowFiltering="true"
                             ShowFilterIcon="false" CurrentFilterFunction="Contains">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
