@@ -71,10 +71,14 @@ namespace WealthERP.Customer
             {
                 bankname = Request.QueryString["bankname"].ToString();
             }
+
+
+
+            BindDDLBankDetails();
             if (Pagetype == "Add")
             {
                 lblheader.Text = "Add Bank Transaction/Balance";
-                
+               
                 if (!IsPostBack)
                 {
                     BindDDLBankDetails();
@@ -92,6 +96,7 @@ namespace WealthERP.Customer
                 imgBtnrgHoldings.Visible = true;
                 if (!IsPostBack)
                 {
+
                     BindTransactionGrid(bankId);
                     gvCashSavingTransaction.Visible = true;
                     DivTransaction.Visible = true;

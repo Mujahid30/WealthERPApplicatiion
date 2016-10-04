@@ -240,7 +240,7 @@
                     </asp:DropDownList>
                     <span id="Span6" class="spnRequiredField">*</span>
                     <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="<br />Please select a Mode of Holding"
-                        ControlToValidate="ddlModeOfHolding" Operator="NotEqual" ValueToCompare="Select"
+                        ControlToValidate="ddlModeOfHolding" ValidationGroup="AccountAdd" Operator="NotEqual" ValueToCompare="Select"
                         Display="Dynamic" CssClass="cvPCG" SetFocusOnError="true"></asp:CompareValidator>
                 </td>
             </tr>

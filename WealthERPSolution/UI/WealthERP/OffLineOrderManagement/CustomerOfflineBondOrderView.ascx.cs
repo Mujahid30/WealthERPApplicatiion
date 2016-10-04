@@ -33,14 +33,15 @@ namespace WealthERP.OffLineOrderManagement
         protected void BindFixedIncomeList()
         {
             DataSet ds = OfflineBondOrderBo.GetCustomerAllotedData(customerVO.CustomerId);
-            //if (ds.Tables[0].Rows.Count > 0)
-            //{
-            //Cache.Remove("BondOrderBookList" + userVo.UserId.ToString());
-            //Cache.Insert("BondOrderBookList" + userVo.UserId.ToString(), ds.Tables[0]);
+            
                 pnlGrid.Visible = true;
                 imgexportButton.Visible = true;
                 gvBondOrderList.DataSource = ds.Tables[0];
                 gvBondOrderList.DataBind();
+            //if (ds.Tables[0].Rows.Count > 0)
+            //{
+            //Cache.Remove("BondOrderBookList" + userVo.UserId.ToString());
+            //Cache.Insert("BondOrderBookList" + userVo.UserId.ToString(), ds.Tables[0]);
             //}
         }
         protected void gvBondOrderList_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)

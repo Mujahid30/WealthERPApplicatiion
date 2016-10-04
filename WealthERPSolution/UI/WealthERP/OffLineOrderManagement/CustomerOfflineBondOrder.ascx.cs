@@ -42,16 +42,25 @@ namespace WealthERP.OffLineOrderManagement
             SessionBo.CheckSession();
             advisorVo = (AdvisorVo)Session["advisorVo"];
           
-            customerVO = (CustomerVo)Session["customerVo"];
+            //customerVO = (CustomerVo)Session["customerVo"];
+            customerVo = (CustomerVo)Session["CustomerVo"];
 
             userVo = (UserVo)Session[SessionContents.UserVo];
-          
+
+
+
+
+
+
+
+
+           
             if (!IsPostBack)
             {
-                LoadNominees();
-                Cache.Remove("BondOrderBookList" + userVo.UserId.ToString());
+                
+                //Cache.Remove("BondOrderBookList" + userVo.UserId.ToString());
                 BindNcdCategory();
-
+               LoadNominees();
                 LoadModeOfHolding(path);
                
                 if (Request.QueryString["COADID"] != null)
