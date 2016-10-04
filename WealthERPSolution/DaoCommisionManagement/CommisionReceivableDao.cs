@@ -639,10 +639,10 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@KKCValue", DbType.Decimal, commissionStructureRuleVo.KKCValue);
                 db.AddOutParameter(cmdCreateCommissionStructureRule, "@CommissionRuleId", DbType.Int32, 0);
                 db.ExecuteNonQuery(cmdCreateCommissionStructureRule);
-                //if (db.ExecuteNonQuery(cmdCreateCommissionStructureRule) != 0)
-                //{
-                //    CommissionRuleId = Convert.ToInt32(db.GetParameterValue(cmdCreateCommissionStructureRule, "CommissionRuleId").ToString());
-                //}
+                if (db.ExecuteNonQuery(cmdCreateCommissionStructureRule) != 0)
+                {
+                    CommissionRuleId = Convert.ToInt32(db.GetParameterValue(cmdCreateCommissionStructureRule, "CommissionRuleId").ToString());
+                }
             }
             catch (BaseApplicationException Ex)
             {
