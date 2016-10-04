@@ -100,6 +100,14 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             SetParameter();
             BindOrderBook();
+            if (ddlMode.SelectedValue == "1")
+            {
+                gvOrderBookMIS.Columns[2].Visible = true;
+            }
+            else
+            {
+                gvOrderBookMIS.Columns[2].Visible = false;
+            }
         }
 
         /// <summary>
@@ -273,6 +281,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 strRemark = txtRemark.Text;
                 LinkButton buttonEdit = editItem["MarkAsReject"].Controls[0] as LinkButton;
                 Int32 orderId = Convert.ToInt32(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
+                Int32 ExchangeNo = Convert.ToInt32(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["BMOERD_BSEOrderId"].ToString());
                 IsMarked = mforderBo.MarkAsReject(orderId, txtRemark.Text);
                 BindOrderBook();
 
@@ -289,6 +298,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 strRemark = txtRemark.Text;
                 LinkButton buttonEdit = editItem["MarkAsReject"].Controls[0] as LinkButton;
                 Int32 orderId = Convert.ToInt32(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
+                Int32 ExchangeNo = Convert.ToInt32(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["BMOERD_BSEOrderId"].ToString());
                 IsMarked = mforderBo.MarkAsReject(orderId, txtRemark.Text);
                 BindOrderBook();
 
@@ -298,6 +308,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 GridEditableItem editItem = e.Item as GridEditableItem;
                 LinkButton lnkprAmcB = (LinkButton)editItem.FindControl("lnkprAmcB");
                 Int32 orderId = Convert.ToInt32(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
+                Int32 ExchangeNo = Convert.ToInt32(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["BMOERD_BSEOrderId"].ToString());
                 OnlineOrderMISBo.UpdateOrderReverse(orderId, userVo.UserId);
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Order updated !!');", true);
                 BindOrderBook();

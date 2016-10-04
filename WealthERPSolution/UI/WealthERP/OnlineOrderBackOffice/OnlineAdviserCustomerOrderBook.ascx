@@ -205,6 +205,11 @@
                                     </asp:LinkButton>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
+                            <telerik:GridBoundColumn  DataField="BMOERD_BSEOrderId" AllowFiltering="true" HeaderText="BSE Exchange No"
+                                UniqueName="BMOERD_BSEOrderId" SortExpression="BMOERD_BSEOrderId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="75px" FilterControlWidth="50px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
                             <%--  <telerik:GridBoundColumn DataField="CO_OrderId" AllowFiltering="true" HeaderText="Order No."
                                 UniqueName="CO_OrderId" SortExpression="CO_OrderId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="75px" FilterControlWidth="50px">
