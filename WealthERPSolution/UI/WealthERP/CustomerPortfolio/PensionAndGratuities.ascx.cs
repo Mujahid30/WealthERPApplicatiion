@@ -1174,9 +1174,11 @@ namespace WealthERP.CustomerPortfolio
         protected void lnkBtnBack_Click(object sender, EventArgs e)
         {
             if(Manage=="Edit" || Manage=="View")
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PensionPortfolio', 'none')", true);
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', 'none')", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PensionPortfolio', 'action=PG')", true);
+
             else
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerAccountAdd', 'action=PG')", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PensionPortfolio', 'action=PG')", true);
 
         }
     }
