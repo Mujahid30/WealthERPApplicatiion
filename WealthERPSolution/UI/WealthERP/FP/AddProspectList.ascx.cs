@@ -270,7 +270,7 @@ namespace WealthERP.FP
                             if ((Role != "") && (Role == "Admin" || Role == "Ops"))
                                 btnConvertToCustomer.Enabled = true;
                             else
-                                btnConvertToCustomer.Enabled = false;
+                                btnConvertToCustomer.Enabled = true;
                             rcbRM.Enabled = false;
                             ddlPickBranch.Enabled = false;
                             rtb.Visible = false;
