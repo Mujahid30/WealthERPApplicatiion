@@ -71,9 +71,7 @@ namespace WealthERP.OffLineOrderManagement
                     {
                         ControlVisiblity(false);
                         lnkEdit.Visible = true;
-                        gvNominees.Enabled = false;
-                        rbtnYes.Enabled = false;
-                        rbtnNo.Enabled = false;
+                       
                     }
                     else
                     {
@@ -97,6 +95,10 @@ namespace WealthERP.OffLineOrderManagement
             RadMaturityDate.Enabled = type;
             txtOrderFrom.Enabled = type;
             txtOrderTo.Enabled = type;
+            gvNominees.Enabled = type;
+            gvJointHoldersList.Enabled = type;
+            rbtnYes.Enabled = type;
+            rbtnNo.Enabled = type;
             return type;
         }
         protected void BindControlData()
