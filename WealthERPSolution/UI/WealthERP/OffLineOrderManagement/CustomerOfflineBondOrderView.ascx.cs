@@ -38,11 +38,11 @@ namespace WealthERP.OffLineOrderManagement
                 imgexportButton.Visible = true;
                 gvBondOrderList.DataSource = ds.Tables[0];
                 gvBondOrderList.DataBind();
-            //if (ds.Tables[0].Rows.Count > 0)
-            //{
-            //Cache.Remove("BondOrderBookList" + userVo.UserId.ToString());
-            //Cache.Insert("BondOrderBookList" + userVo.UserId.ToString(), ds.Tables[0]);
-            //}
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    Cache.Remove("BondOrderBookList" + userVo.UserId.ToString());
+                    Cache.Insert("BondOrderBookList" + userVo.UserId.ToString(), ds.Tables[0]);
+                }
         }
         protected void gvBondOrderList_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
@@ -52,6 +52,8 @@ namespace WealthERP.OffLineOrderManagement
             {
                 gvBondOrderList.DataSource = dtOrder;
             }
+
+          
 
         }
         protected void ddlAction_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -64,13 +66,15 @@ namespace WealthERP.OffLineOrderManagement
         }
         public void btnExportData_OnClick(object sender, ImageClickEventArgs e)
         {
-            gvBondOrderList.MasterTableView.HierarchyLoadMode = GridChildLoadMode.ServerBind;
             gvBondOrderList.ExportSettings.OpenInNewWindow = true;
             gvBondOrderList.ExportSettings.IgnorePaging = true;
-            gvBondOrderList.ExportSettings.HideStructureColumns = true;
+            foreach (GridFilteringItem filter in gvBondOrderList.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
             gvBondOrderList.ExportSettings.ExportOnlyData = true;
             gvBondOrderList.ExportSettings.FileName = "Bond";
-            gvBondOrderList.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            //gvBondOrderList.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvBondOrderList.MasterTableView.ExportToExcel();
 
         }
