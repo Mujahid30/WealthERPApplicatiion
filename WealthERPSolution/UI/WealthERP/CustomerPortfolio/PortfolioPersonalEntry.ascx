@@ -2,7 +2,6 @@
     Inherits="WealthERP.CustomerPortfolio.PortfolioPersonalEntry" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
-
 <script type="text/javascript">
     function checkDate(sender, args) {
 
@@ -19,6 +18,7 @@
         }
     }
 </script>
+
 <script type="text/javascript">
     function ChkForMainPortFolio(source, args) {
 
@@ -60,16 +60,14 @@
 <asp:UpdatePanel ID="up1" runat="server">
     <ContentTemplate>
         <table style="width: 100%;" class="TableBackground">
-          <tr>
+            <tr>
                 <td colspan="3" class="HeaderCell">
                     <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Add Personal Asset"></asp:Label>
-                    
                 </td>
             </tr>
             <tr>
                 <td colspan="3" class="HeaderCell">
                     <asp:Label ID="Label1" runat="server" CssClass="HeaderTextBig" Text="View Personal Asset"></asp:Label>
-                    
                 </td>
             </tr>
             <tr>
@@ -102,11 +100,10 @@
                     <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
                         OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
                     </asp:DropDownList>
-                       <br />
-                                <asp:CustomValidator ID="cvCheckForManageOrUnManage" runat="server"  ValidationGroup="btnSubmit"
-                                    Display="Dynamic" ClientValidationFunction="ChkForMainPortFolio" CssClass="revPCG"
-                                    ErrorMessage="CustomValidator">Permisssion denied for Manage Portfolio !!</asp:CustomValidator>
-                    
+                    <br />
+                    <asp:CustomValidator ID="cvCheckForManageOrUnManage" runat="server" ValidationGroup="btnSubmit"
+                        Display="Dynamic" ClientValidationFunction="ChkForMainPortFolio" CssClass="revPCG"
+                        ErrorMessage="CustomValidator">Permisssion denied for Manage Portfolio !!</asp:CustomValidator>
                 </td>
             </tr>
             <tr id="trCategory" runat="server">
@@ -118,9 +115,9 @@
                         OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged">
                     </asp:DropDownList>
                     <span id="Span11" class="spnRequiredField">*</span>
-                    <asp:CompareValidator ID="CompareValidator8" runat="server" ControlToValidate="ddlCategory" ValidationGroup="btnSubmit"
-                        ErrorMessage="Please select a Category" Operator="NotEqual" ValueToCompare="Select a Category"
-                        CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                    <asp:CompareValidator ID="CompareValidator8" runat="server" ControlToValidate="ddlCategory"
+                        ValidationGroup="btnSubmit" ErrorMessage="Please select a Category" Operator="NotEqual"
+                        ValueToCompare="Select a Category" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
                 </td>
             </tr>
             <tr id="trSubCategory" runat="server">
@@ -131,9 +128,9 @@
                     <asp:DropDownList ID="ddlSubCategory" runat="server" CssClass="cmbField">
                     </asp:DropDownList>
                     <span id="Span12" class="spnRequiredField">*</span>
-                    <asp:CompareValidator ID="CompareValidator10" runat="server" ControlToValidate="ddlSubCategory" ValidationGroup="btnSubmit"
-                        ErrorMessage="Please select a Sub-Category" Operator="NotEqual" ValueToCompare="Select a Sub-Category"
-                        CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                    <asp:CompareValidator ID="CompareValidator10" runat="server" ControlToValidate="ddlSubCategory"
+                        ValidationGroup="btnSubmit" ErrorMessage="Please select a Sub-Category" Operator="NotEqual"
+                        ValueToCompare="Select a Sub-Category" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
                 </td>
             </tr>
             <tr id="trAssetIdentifier" runat="server">
@@ -143,8 +140,9 @@
                 <td class="rightField">
                     <asp:TextBox ID="txtName" runat="server" CssClass="txtField"></asp:TextBox>
                     <span id="Span10" class="spnRequiredField">*</span>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtName"  ValidationGroup="btnSubmit"
-                        ErrorMessage="Please enter the Name" Display="Dynamic" runat="server" CssClass="rfvPCG">
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtName"
+                        ValidationGroup="btnSubmit" ErrorMessage="Please enter the Name" Display="Dynamic"
+                        runat="server" CssClass="rfvPCG">
                     </asp:RequiredFieldValidator>
                 </td>
             </tr>
@@ -153,13 +151,16 @@
                     <asp:Label ID="lblQuantity" runat="server" CssClass="FieldName" Text="Quantity:"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtQuantity" runat="server" CssClass="txtField" MaxLength="5"></asp:TextBox>
+                    <asp:TextBox ID="txtQuantity" runat="server" CssClass="txtField" MaxLength="5" autopostback="true" 
+                        ontextchanged="txtQuantity_TextChanged" ></asp:TextBox>
                     <span id="Span13" class="spnRequiredField">*</span>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtQuantity" ValidationGroup="btnSubmit"
-                        ErrorMessage="Please enter the Quantity" Display="Dynamic" runat="server" CssClass="rfvPCG">
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtQuantity"
+                        ValidationGroup="btnSubmit" ErrorMessage="Please enter the Quantity" Display="Dynamic"
+                        runat="server" CssClass="rfvPCG">
                     </asp:RequiredFieldValidator>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="txtQuantity" CssClass="cvPCG" 
-                        Display="Dynamic" runat="server" ErrorMessage="Enter a numeric value" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="txtQuantity"
+                        CssClass="cvPCG" Display="Dynamic" runat="server" ErrorMessage="Enter a numeric value"
+                        ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
                 </td>
             </tr>
             <tr id="trPurchaseDate" runat="server">
@@ -169,11 +170,11 @@
                 <td class="rightField">
                     <asp:TextBox ID="txtPurchaseDate" runat="server" CssClass="txtField">
                     </asp:TextBox>
-                     <span id="Span23" class="spnRequiredField">*</span>
-                      <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtPurchaseDate" ValidationGroup="btnSubmit"
-                        ErrorMessage="Please enter the Purchase Date" Display="Dynamic" runat="server"
-                        CssClass="rfvPCG">
-                         </asp:RequiredFieldValidator>
+                    <span id="Span23" class="spnRequiredField">*</span>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtPurchaseDate"
+                        ValidationGroup="btnSubmit" ErrorMessage="Please enter the Purchase Date" Display="Dynamic"
+                        runat="server" CssClass="rfvPCG">
+                    </asp:RequiredFieldValidator>
                     <cc1:CalendarExtender ID="CalendarExtender_txtPurchaseDate" runat="server" TargetControlID="txtPurchaseDate"
                         Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate">
                     </cc1:CalendarExtender>
@@ -190,14 +191,16 @@
                     <asp:Label ID="lblPurchasePrice" runat="server" CssClass="FieldName" Text="Purchase Price:"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtPurchasePrice" runat="server" CssClass="txtField" MaxLength="18"></asp:TextBox>
+                    <asp:TextBox ID="txtPurchasePrice" runat="server" CssClass="txtField" autopostback="true" 
+                        MaxLength="18" ontextchanged="txtPurchasePrice_TextChanged"></asp:TextBox>
                     <span id="Span15" class="spnRequiredField">*</span>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="txtPurchasePrice" ValidationGroup="btnSubmit"
-                        ErrorMessage="Please enter the Purchase Price" Display="Dynamic" runat="server"
-                        CssClass="rfvPCG">
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="txtPurchasePrice"
+                        ValidationGroup="btnSubmit" ErrorMessage="Please enter the Purchase Price" Display="Dynamic"
+                        runat="server" CssClass="rfvPCG">
                     </asp:RequiredFieldValidator>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtPurchasePrice" CssClass="cvPCG"
-                        Display="Dynamic" runat="server" ErrorMessage="Not acceptable format" ValidationExpression="^\d*(\.(\d{0,5}))?$"></asp:RegularExpressionValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtPurchasePrice"
+                        CssClass="cvPCG" Display="Dynamic" runat="server" ErrorMessage="Not acceptable format"
+                        ValidationExpression="^\d*(\.(\d{0,5}))?$"></asp:RegularExpressionValidator>
                 </td>
             </tr>
             <tr id="trPurchaseValue" runat="server">
@@ -207,12 +210,13 @@
                 <td class="rightField">
                     <asp:TextBox ID="txtPurchaseValue" runat="server" CssClass="txtField"></asp:TextBox>
                     <span id="Span16" class="spnRequiredField">*</span>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtPurchaseValue" ValidationGroup="btnSubmit"
-                        ErrorMessage="Please enter the Purchase Value" Display="Dynamic" runat="server"
-                        CssClass="rfvPCG">
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtPurchaseValue"
+                        ValidationGroup="btnSubmit" ErrorMessage="Please enter the Purchase Value" Display="Dynamic"
+                        runat="server" CssClass="rfvPCG">
                     </asp:RequiredFieldValidator>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtPurchaseValue" CssClass="cvPCG"
-                        Display="Dynamic" runat="server" ErrorMessage="Not acceptable format" ValidationExpression="^\d*(\.(\d{0,5}))?$"></asp:RegularExpressionValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtPurchaseValue"
+                        CssClass="cvPCG" Display="Dynamic" runat="server" ErrorMessage="Not acceptable format"
+                        ValidationExpression="^\d*(\.(\d{0,5}))?$"></asp:RegularExpressionValidator>
                 </td>
             </tr>
             <tr id="trCurrentPrice" runat="server">
@@ -220,9 +224,11 @@
                     <asp:Label ID="lblCurrentPrice" runat="server" CssClass="FieldName" Text="Current Price:"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtCurrentPrice" runat="server" CssClass="txtField"></asp:TextBox>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="txtCurrentPrice" CssClass="cvPCG"
-                        Display="Dynamic" runat="server" ErrorMessage="Not acceptable format" ValidationExpression="^\d*(\.(\d{0,5}))?$"></asp:RegularExpressionValidator>
+                    <asp:TextBox ID="txtCurrentPrice" runat="server" CssClass="txtField" autopostback="true"
+                        ontextchanged="txtCurrentPrice_TextChanged"></asp:TextBox>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="txtCurrentPrice"
+                        CssClass="cvPCG" Display="Dynamic" runat="server" ErrorMessage="Not acceptable format"
+                        ValidationExpression="^\d*(\.(\d{0,5}))?$"></asp:RegularExpressionValidator>
                 </td>
             </tr>
             <tr id="trCurrentValue" runat="server">
@@ -231,8 +237,9 @@
                 </td>
                 <td class="rightField">
                     <asp:TextBox ID="txtCurrentValue" runat="server" CssClass="txtField"></asp:TextBox>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="txtCurrentValue" CssClass="cvPCG"
-                        Display="Dynamic" runat="server" ErrorMessage="Not acceptable format" ValidationExpression="^\d*(\.(\d{0,5}))?$"></asp:RegularExpressionValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="txtCurrentValue"
+                        CssClass="cvPCG" Display="Dynamic" runat="server" ErrorMessage="Not acceptable format"
+                        ValidationExpression="^\d*(\.(\d{0,5}))?$"></asp:RegularExpressionValidator>
                 </td>
             </tr>
             <tr>
@@ -244,17 +251,17 @@
         <table style="width: 100%;">
             <tr>
                 <td align="center" colspan="2">
-                    <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" Text="Submit" OnClientClick="return PreventClicks(); Validate();" OnClick="btnSubmit_Click" ValidationGroup="btnSubmit"
-                        onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_PortfolioPersonalEntry_btnSubmit');"
+                    <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" Text="Submit" OnClientClick="return PreventClicks(); Validate();"
+                        OnClick="btnSubmit_Click" ValidationGroup="btnSubmit" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_PortfolioPersonalEntry_btnSubmit');"
                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_PortfolioPersonalEntry_btnSubmit');" />
-                    <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" Text="Update" OnClientClick="return PreventClicks(); Validate();" OnClick="btnUpdate_Click" ValidationGroup="btnSubmit"
-                        onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_PortfolioPersonalEntry_btnUpdate');"
+                    <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" Text="Update" OnClientClick="return PreventClicks(); Validate();"
+                        OnClick="btnUpdate_Click" ValidationGroup="btnSubmit" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_PortfolioPersonalEntry_btnUpdate');"
                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_PortfolioPersonalEntry_btnUpdate');" />
                 </td>
             </tr>
         </table>
-         <asp:HiddenField ID="hdnIsMainPortfolio" runat="server"/>
-<asp:HiddenField ID="hdnIsCustomerLogin" runat="server" />
+        <asp:HiddenField ID="hdnIsMainPortfolio" runat="server" />
+        <asp:HiddenField ID="hdnIsCustomerLogin" runat="server" />
     </ContentTemplate>
 </asp:UpdatePanel>
 <%--<asp:Panel ID="pnlViewEdit" runat="server" Visible="false">

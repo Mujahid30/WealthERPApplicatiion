@@ -42,7 +42,7 @@ namespace WealthERP.CustomerPortfolio
                 portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                 if (!IsPostBack)
                 {
-                   
+
                     BindPortfolioDropDown();
                     trSubCategory.Visible = false;
                     dsAssetCategories = assetBo.GetAssetInstrumentCategory("PI"); //Change to the respective GroupCode
@@ -349,7 +349,7 @@ namespace WealthERP.CustomerPortfolio
                     }
                     else
                     {
-                       ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('PortfolioPersonal','none');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioPersonal','none');", true);
                     }
                 }
             }
@@ -459,7 +459,7 @@ namespace WealthERP.CustomerPortfolio
 
         protected void lnkBtnBack_Click(object sender, EventArgs e)
         {
-           ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "leftpane", "loadcontrol('PortfolioPersonal','none');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioPersonal','none');", true);
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
@@ -512,7 +512,38 @@ namespace WealthERP.CustomerPortfolio
 
             }
         }
-      
 
+        protected void txtQuantity_TextChanged(object sender, EventArgs e)
+        {
+
+            if ((!string.IsNullOrEmpty(txtQuantity.Text)) && (!string.IsNullOrEmpty(txtPurchasePrice.Text)))
+            {
+                txtPurchaseValue.Text = (Convert.ToInt32(txtQuantity.Text) * Convert.ToInt32(txtPurchasePrice.Text)).ToString();
+            }
+
+            if ((!string.IsNullOrEmpty(txtQuantity.Text)) && (!string.IsNullOrEmpty(txtCurrentPrice.Text)))
+            {
+                txtCurrentValue.Text = (Convert.ToInt32(txtQuantity.Text) * Convert.ToInt32(txtCurrentPrice.Text)).ToString();
+            }
+        }
+
+
+        protected void txtPurchasePrice_TextChanged(object sender, EventArgs e)
+        {
+            if ((!string.IsNullOrEmpty(txtQuantity.Text)) && (!string.IsNullOrEmpty(txtPurchasePrice.Text)))
+
+                txtPurchaseValue.Text = (Convert.ToInt32(txtQuantity.Text) * Convert.ToInt32(txtPurchasePrice.Text)).ToString();
+
+        }
+
+        protected void txtCurrentPrice_TextChanged(object sender, EventArgs e)
+        {
+            if ((!string.IsNullOrEmpty(txtQuantity.Text)) && (!string.IsNullOrEmpty(txtCurrentPrice.Text)))
+
+                txtCurrentValue.Text = (Convert.ToInt32(txtQuantity.Text) * Convert.ToInt32(txtCurrentPrice.Text)).ToString();
+
+        }
     }
 }
+   
+
