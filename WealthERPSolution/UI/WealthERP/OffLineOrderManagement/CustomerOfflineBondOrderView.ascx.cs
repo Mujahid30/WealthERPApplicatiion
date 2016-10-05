@@ -32,28 +32,49 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void BindFixedIncomeList()
         {
-            DataSet ds = OfflineBondOrderBo.GetCustomerAllotedData(customerVO.CustomerId);
-            
-                pnlGrid.Visible = true;
-                imgexportButton.Visible = true;
-                gvBondOrderList.DataSource = ds.Tables[0];
-                gvBondOrderList.DataBind();
-                if (ds.Tables[0].Rows.Count > 0)
-                {
-                    Cache.Remove("BondOrderBookList" + userVo.UserId.ToString());
-                    Cache.Insert("BondOrderBookList" + userVo.UserId.ToString(), ds.Tables[0]);
-                }
+           
+                
+                    DataSet ds = OfflineBondOrderBo.GetCustomerAllotedData(customerVO.CustomerId);
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        if (Cache["gvBondOrderList" + userVo.UserId + customerVO.CustomerId] == null)
+                        {
+                            Cache.Insert("gvBondOrderList" + userVo.UserId + customerVO.CustomerId, ds.Tables[0]);
+                        }
+                        else
+                        {
+                            Cache.Remove("gvBondOrderList" + userVo.UserId + customerVO.CustomerId);
+                            Cache.Insert("gvBondOrderList" + userVo.UserId + customerVO.CustomerId, ds.Tables[0]);
+                        }
+                        pnlGrid.Visible = true;
+                        imgexportButton.Visible = true;
+                        gvBondOrderList.DataSource = ds.Tables[0];
+                        gvBondOrderList.DataBind();
+                    }
+                    else
+                    {
+                        gvBondOrderList.DataSource = ds.Tables[0];
+                        gvBondOrderList.DataBind();
+                        gvBondOrderList.Visible = true;
+                       
+                    }
+               
         }
         protected void gvBondOrderList_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            DataTable dtOrder;
-            dtOrder = (DataTable)Cache["BondOrderBookList" + userVo.UserId.ToString()];
-            if (dtOrder != null)
+            //DataTable dtOrder;
+            //dtOrder = (DataTable)Cache["BondOrderBookList" + userVo.UserId.ToString()];
+            //if (dtOrder != null)
+            //{
+            //    gvBondOrderList.DataSource = dtOrder;
+            //}
+
+            DataTable dtOrder = new DataTable();
+            if (Cache["gvDetailsForBank" + userVo.UserId + customerVO.CustomerId] != null)
             {
+                dtOrder = (DataTable)Cache["gvBondOrderList" + userVo.UserId + customerVO.CustomerId];
                 gvBondOrderList.DataSource = dtOrder;
             }
-
-          
 
         }
         protected void ddlAction_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -72,6 +93,7 @@ namespace WealthERP.OffLineOrderManagement
             {
                 filter.Visible = false;
             }
+            gvBondOrderList.ExportSettings.HideStructureColumns = true;
             gvBondOrderList.ExportSettings.ExportOnlyData = true;
             gvBondOrderList.ExportSettings.FileName = "Bond";
             //gvBondOrderList.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;

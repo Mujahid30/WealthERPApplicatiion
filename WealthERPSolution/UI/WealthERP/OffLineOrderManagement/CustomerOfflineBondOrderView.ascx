@@ -39,6 +39,8 @@
                                             PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" OnNeedDataSource="gvBondOrderList_OnNeedDataSource"
                                             ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false"
                                             AllowAutomaticInserts="false" Height="400px">
+                                              <ExportSettings HideStructureColumns="true">
+                                              </ExportSettings>
                                             <MasterTableView DataKeyNames="COAD_Id,PAISC_AssetInstrumentSubCategoryCode" AllowMultiColumnSorting="True"
                                                 AutoGenerateColumns="false" AllowFilteringByColumn="true" EditMode="PopUp">
                                                 <Columns>

@@ -71,11 +71,15 @@ namespace WealthERP.OffLineOrderManagement
                     {
                         ControlVisiblity(false);
                         lnkEdit.Visible = true;
+                        gvNominees.Enabled = false;
+                        rbtnYes.Enabled = false;
+                        rbtnNo.Enabled = false;
                     }
                     else
                     {
                         ControlVisiblity(true);
                         btnUpdate.Visible = true;
+
                     }
                 }
             }
@@ -224,6 +228,7 @@ namespace WealthERP.OffLineOrderManagement
         {
             ControlVisiblity(true);
             btnUpdate.Visible = true;
+            lnkEdit.Visible = false;
         }
         protected void OnClick_lnkbuttonAddSeries(object sender, EventArgs e)
         {
