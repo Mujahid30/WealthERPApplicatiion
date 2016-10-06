@@ -432,27 +432,35 @@ namespace WealthERP.Advisor
         {
 
            bool result = false;
+           string message;
             adviserstaffsmtpvo.ApiProviderId = int.Parse(ddlAPIProvider.SelectedValue);
             adviserstaffsmtpvo.AdvisorId = adviserVo.advisorId;
             adviserstaffsmtpvo.ApiUserName = txtUname.Text;
             adviserstaffsmtpvo.Apipassword = txtPassword1.Text;
+            adviserstaffsmtpvo.ConfirmPassword = txtConfirmPassword.Text;
+            adviserstaffsmtpvo.NewPassword = txtNewPassword.Text;
             adviserstaffsmtpvo.ApiCreatedBy = userVo.UserId;
             adviserstaffsmtpvo.ApiModifiedBy = userVo.UserId;
             adviserstaffsmtpvo.ApiMemberId = txtMemberId.Text; 
             txtPwd.Attributes.Add("value", txtPwd.Text.Trim());
 
-            result = advstaffsmtpbo.CreateAPIProviderDetails(adviserstaffsmtpvo);
+            result = advstaffsmtpbo.CreateAPIProviderDetails(adviserstaffsmtpvo, out message);
 
             if (result)
             {
                 trBtnSaveMsg.Visible = true;
-                lblbtnSaveMsg.Text = "Values inserted Successfully";
+                //lblbtnSaveMsg.Text = message;
+                Response.Write("<script>alert('" + (message) + "')</script>");
             }
             else
             {
-                lblbtnSaveMsg.Text = "There was an error in inserting the values";
+               // lblbtnSaveMsg.Text = message; 
+                Response.Write("<script>alert('" + (message) + "')</script>");
+
             }
 
         }
+        
+        
     }
 }

@@ -7,6 +7,14 @@ namespace VoAdvisorProfiling
 {
     public class AdviserStaffSMTPVo
     {
+
+
+
+        public string NewPassword { get; set; }
+
+        public string ConfirmPassword { get; set; }
+
+
         private int m_RMId;
 
         public int RMId
@@ -77,6 +85,10 @@ namespace VoAdvisorProfiling
             get { return m_Password; }
             set { m_Password = value; }
         }
+   
+
+       
+       
         private string m_Port;
 
         public string Port

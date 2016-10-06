@@ -410,14 +410,7 @@
                         <asp:Button ID="btnSubmit" runat="server" Text="Save" CssClass="PCGButton" ValidationGroup="btnSubmit"
                             OnClick="btnSubmit_Click" />
                     </td>
-                </tr>
-                <tr id="trBtnSaveMsg" runat="server">
-                    <td class="leftField">
-                    </td>
-                    <td>
-                        <asp:Label ID="lblbtnSaveMsg" runat="server" Text="" CssClass="FieldName"></asp:Label>
-                    </td>
-                </tr>
+               
                 <tr>
                     <td colspan="2">
                         <div id="Div1" class="Note">
@@ -699,18 +692,6 @@
                             runat="server" InitialValue="" ValidationGroup="vg"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
-                <tr>
-                    <td class="leftField">
-                        <asp:Label ID="lblPassword1" runat="server" Text="Password:" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td class="rightField">
-                        <asp:TextBox ID="txtPassword1" runat="server" MaxLength="15" TextMode="Password" CssClass="txtField"></asp:TextBox>
-                        <span id="Span16" class="spnRequiredField">*</span>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtPassword1"
-                            CssClass="rfvPCG" ErrorMessage="<br />Please enter password" Display="Dynamic"
-                            runat="server" InitialValue="" ValidationGroup="vg"></asp:RequiredFieldValidator>
-                    </td>
-                </tr>
                  <tr>
                     <td class="leftField">
                         <asp:Label ID="lblMemberId" runat="server" Text="Member Id:" CssClass="FieldName"></asp:Label>
@@ -725,10 +706,63 @@
                 </tr>
                 <tr>
                     <td class="leftField">
+                        <asp:Label ID="lblPassword1" runat="server" Text="Current Password:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtPassword1" runat="server" MaxLength="15"  CssClass="txtField" ></asp:TextBox>
+                        <span id="Span16" class="spnRequiredField">*</span>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtPassword1"
+                            CssClass="rfvPCG" ErrorMessage="<br />Please enter password" Display="Dynamic"
+                            runat="server" InitialValue="" ValidationGroup="vg"></asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                 <tr>
+                    <td class="leftField">
+                        <asp:Label ID="Label7" runat="server" Text="New Password:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtNewPassword" runat="server"  TextMode="Password" CssClass="txtField" Visible="true"></asp:TextBox>
+                        <span id="Span18" class="spnRequiredField">*</span>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="txtNewPassword"
+                            CssClass="rfvPCG" ErrorMessage="<br />Please enter password" Display="Dynamic"
+                            runat="server" InitialValue="" ValidationGroup="vg"></asp:RequiredFieldValidator>
+                              <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" Display="Dynamic"
+                                                ErrorMessage="Please, enter valid number.Only 8 Characters" CssClass="rfvPCG" ValidationExpression="^.{1,8}$"
+                                                ControlToValidate="txtNewPassword">
+                                            </asp:RegularExpressionValidator>
+                    </td>
+                </tr>
+                 <tr>
+                    <td class="leftField">
+                        <asp:Label ID="Label8" runat="server" Text="Confirm Password:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtConfirmPassword" runat="server"  TextMode="Password" CssClass="txtField" Visible="true"></asp:TextBox>
+                        <span id="Span19" class="spnRequiredField">*</span>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtConfirmPassword"
+                            CssClass="rfvPCG" ErrorMessage="<br />Please enter password" Display="Dynamic"
+                            runat="server" InitialValue="" ValidationGroup="vg"></asp:RequiredFieldValidator>
+                              <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" Display="Dynamic"
+                                                ErrorMessage="Please, enter valid number.Only 8 Characters" CssClass="rfvPCG" ValidationExpression="^.{1,8}$"
+                                                ControlToValidate="txtConfirmPassword">
+                                            </asp:RegularExpressionValidator>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="leftField">
                     </td>
                     <td class="rightField">
                         <asp:Button ID="btnSubmit1" runat="server" Text="Save" CssClass="PCGButton" ValidationGroup="vg"
                             OnClick="btnSubmit1_Click" />
+                    </td>
+                </tr>
+                 </tr>
+                <tr id="trBtnSaveMsg" runat="server">
+                    <td class="leftField">
+                    </td>
+                    <td>
+                        <asp:Label ID="lblbtnSaveMsg" runat="server" Text="" CssClass="FieldName"></asp:Label>
                     </td>
                 </tr>
                 <tr id="tr1" runat="server">

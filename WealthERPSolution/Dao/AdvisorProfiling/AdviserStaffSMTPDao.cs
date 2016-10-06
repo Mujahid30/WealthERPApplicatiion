@@ -224,7 +224,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(createAPIProviderCmd, "@WEAM_ID", DbType.Int32, adviserStaffSMTPvo.ApiProviderId);
                 db.AddInParameter(createAPIProviderCmd, "@A_AdviserId", DbType.Int32, adviserStaffSMTPvo.AdvisorId);
                 db.AddInParameter(createAPIProviderCmd, "@AEAC_Username", DbType.String, adviserStaffSMTPvo.ApiUserName);
-                db.AddInParameter(createAPIProviderCmd, "@AEAC_Password", DbType.String, adviserStaffSMTPvo.Apipassword);
+                db.AddInParameter(createAPIProviderCmd, "@AEAC_Password", DbType.String, adviserStaffSMTPvo.NewPassword);
                 db.AddInParameter(createAPIProviderCmd, "@AEAC_CreatedBy", DbType.Int32, adviserStaffSMTPvo.ApiCreatedBy);
                 db.AddInParameter(createAPIProviderCmd, "@AEAC_MemberId", DbType.String, adviserStaffSMTPvo.ApiMemberId);
                 db.ExecuteNonQuery(createAPIProviderCmd);
