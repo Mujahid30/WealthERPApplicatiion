@@ -42,7 +42,7 @@
                         </td>
                         <td align="right">
                             <asp:ImageButton ID="btnExportFilteredData" Visible="true" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')" 
                                 OnClick="btnExportFilteredData_OnClick" Height="20px" Width="25px"></asp:ImageButton>
                         </td>
                     </tr>
@@ -75,13 +75,14 @@
    <asp:Panel ID ="pnl" runat="server"   ScrollBars="Vertical">
 <table width="100%" cellspacing="0" cellpadding="3">
     <tr>
-        <td colspan="3">
+        <td>
             <telerik:RadGrid ID="gvrProperty" runat="server" GridLines="None" AutoGenerateColumns="False"
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                 Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
-                AllowAutomaticInserts="false" ExportSettings-Excel-Format="ExcelML" OnNeedDataSource="gvrProperty_OnNeedDataSource">
-                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="Portfolio Property">
-                </ExportSettings>
+                AllowAutomaticInserts="false"  ExportSettings-ExportOnlyData="true" ExportSettings-Excel-Format="ExcelML"
+                OnNeedDataSource="gvrProperty_OnNeedDataSource">
+                <%--<ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="Portfolio Property">
+                </ExportSettings>--%>
                 <MasterTableView DataKeyNames="PropertyId" Width="100%" AllowMultiColumnSorting="True"
                     AutoGenerateColumns="false" CommandItemDisplay="None">
                     <Columns>

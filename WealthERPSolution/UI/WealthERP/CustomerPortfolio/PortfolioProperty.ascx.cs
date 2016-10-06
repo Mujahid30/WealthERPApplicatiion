@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.HtmlControls;
 using System.Data;
+using System.Data.SqlClient;
 using VoCustomerPortfolio;
 using BoCustomerPortfolio;
 using VoUser;
@@ -238,8 +240,8 @@ namespace WealthERP.CustomerPortfolio
                     dtProperty.Columns.Add("Area");
                     dtProperty.Columns.Add("Measurement Unit");
                     dtProperty.Columns.Add("Purchase Date");
-                    dtProperty.Columns.Add("Purchase Cost",typeof(Double));
-                    dtProperty.Columns.Add("Current Value",typeof(Double));
+                    dtProperty.Columns.Add("Purchase Cost", typeof(Double));
+                    dtProperty.Columns.Add("Current Value", typeof(Double));
                     dtProperty.Columns.Add("JntName");
                     dtProperty.Columns.Add("NName");
                     DataRow drProperty;
@@ -263,12 +265,19 @@ namespace WealthERP.CustomerPortfolio
                             drProperty[6] = string.Empty;
                         drProperty[7] = propertyVo.PurchaseValue.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                         drProperty[8] = propertyVo.CurrentValue.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                      
+
                         dtProperty.Rows.Add(drProperty);
                     }
                     gvrProperty.DataSource = dtProperty;
                     gvrProperty.DataBind();
-                    this.GetPageCount();
+                    if (Cache["gvrProperty" + userVo.UserId.ToString()] == null)
+                    {
+                        Cache.Insert("gvrProperty" + userVo.UserId.ToString(), dtProperty);
+                    }
+                    else
+                    {
+                        Cache.Remove("gvrProperty" + userVo.UserId.ToString());
+                    }
                 }
                 else
                 {
@@ -359,31 +368,28 @@ namespace WealthERP.CustomerPortfolio
         public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
 
-            gvrProperty.ExportSettings.OpenInNewWindow = false;
+            gvrProperty.ExportSettings.OpenInNewWindow = true;
             gvrProperty.ExportSettings.IgnorePaging = true;
-            //gvrProperty.ExportSettings.HideStructureColumns = true;
-            //gvrProperty.ExportSettings.ExportOnlyData = true;
-            //gvrProperty.ExportSettings.FileName = "Portfolio Property";
-            //gvrProperty.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            //gvrProperty.MasterTableView.ExportToExcel();
-            foreach (GridFilteringItem filter in gvrProperty.MasterTableView.GetItems(GridItemType.FilteringItem))
-            {
-                filter.Visible = false;
-            }
+            gvrProperty.ExportSettings.HideStructureColumns = true;
+            gvrProperty.ExportSettings.ExportOnlyData = true;
+            gvrProperty.ExportSettings.FileName = "Portfolio Property";
+           // gvrProperty.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvrProperty.MasterTableView.GetColumn("action").Visible = false;
             gvrProperty.MasterTableView.ExportToExcel();
-
-
         }
         protected void gvrProperty_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-
             gvrProperty.Visible = true;
             DataTable dtProperty = new DataTable();
-
             btnExportFilteredData.Visible = true;
-            dtProperty = (DataTable)Cache["drProperty + '" + customerVo.CustomerId + "'"];
-            gvrProperty.DataSource = dtProperty;
+            if (Cache["gvrProperty" + userVo.UserId.ToString()] != null)
+            {
+                dtProperty = (DataTable)Cache["gvrProperty" + userVo.UserId.ToString()];
+                gvrProperty.DataSource = dtProperty;
+            }
         }
+
+
 
 
         protected void gvrProperty_PageIndexChanging(object sender, GridViewPageEventArgs e)
