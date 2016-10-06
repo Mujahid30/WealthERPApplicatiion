@@ -146,11 +146,11 @@
             <div class="col-sm-2">
             </div>
         </div>
-        <div id="divtnc2" runat="server" class="row">
+        <div id="divtnc2" visible="false" runat="server" class="row">
             <div class="col-sm-4">
             </div>
-            <div class="col-sm-4 text-center">
-                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-keyboard="true"
+            <div class="col-sm-4 text-center" visible="false">
+                <button type="button" visible="false" class="btn btn-info btn-lg" data-toggle="modal" data-keyboard="true"
                     data-target="#myModal">
                     Click Here</button>
             </div>
