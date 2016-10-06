@@ -113,13 +113,44 @@ namespace BoAdvisorProfiling
 
 
 
-        public bool CreateAPIProviderDetails(AdviserStaffSMTPVo adviserStaffSMTPvo)
+        public bool CreateAPIProviderDetails(AdviserStaffSMTPVo adviserStaffSMTPvo, out string message)
         {
             bool bResult = false;
+            
+            string[] bsePasswordResponse;
+            message = string.Empty;
             try
             {
                 AdviserStaffSMTPDao adviserStaffSMTdao = new AdviserStaffSMTPDao();
-                bResult = adviserStaffSMTdao.CreateAPIProviderDetails(adviserStaffSMTPvo);
+
+                //bResult = adviserStaffSMTdao.CreateAPIProviderDetails(adviserStaffSMTPvo);
+               
+                UCC.MFUploadServiceClient c = new BoAdvisorProfiling.UCC.MFUploadServiceClient();
+               
+                string password = c.getPassword(adviserStaffSMTPvo.ApiUserName, adviserStaffSMTPvo.ApiMemberId, adviserStaffSMTPvo.Apipassword, "E234586789D12");
+                string[] bsePassArray = password.Split('|');
+
+                if (bsePassArray[0].ToString() == "100")
+                {
+                    string REPSONSE = c.MFAPI("04", adviserStaffSMTPvo.ApiUserName, bsePassArray[1], adviserStaffSMTPvo.Apipassword + "|" + adviserStaffSMTPvo.NewPassword + "|" + adviserStaffSMTPvo.ConfirmPassword);
+                    bsePasswordResponse = REPSONSE.Split('|');
+
+                    if (bsePasswordResponse[0].ToString() == "100")
+                    {
+                        bResult = adviserStaffSMTdao.CreateAPIProviderDetails(adviserStaffSMTPvo);
+                        bResult = true;
+                        message = bsePasswordResponse[1].ToString();
+                    }
+                    else
+                        message = bsePasswordResponse[1].ToString();
+
+                }
+               
+                else
+                {
+                    message = bsePassArray[1].ToString();
+                }
+                
             }
             catch (BaseApplicationException Ex)
             {
