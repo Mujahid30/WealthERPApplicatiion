@@ -695,7 +695,7 @@ namespace DaoCommon
                 if (!string.IsNullOrEmpty(sRequestIds))
                     db.AddInParameter(dbCommand, "@RequestIds", DbType.String, sRequestIds);
                 if (userId != 0)
-                    db.AddInParameter(dbCommand, "@userId", DbType.Date, userId);
+                    db.AddInParameter(dbCommand, "@userId", DbType.Int32, userId);
                 db.AddInParameter(dbCommand, "@CommandType", DbType.String, CommandType);
 
                 if (db.ExecuteNonQuery(dbCommand) != 0)
