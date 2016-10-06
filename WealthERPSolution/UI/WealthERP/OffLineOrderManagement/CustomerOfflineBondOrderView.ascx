@@ -37,7 +37,7 @@
                                     <td>
                                         <telerik:RadGrid ID="gvBondOrderList" runat="server" GridLines="None" AutoGenerateColumns="False"
                                             PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" OnNeedDataSource="gvBondOrderList_OnNeedDataSource"
-                                            ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false"
+                                            ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false" ExportSettings-Excel-Format="ExcelML"
                                             AllowAutomaticInserts="false" Height="400px">
                                               <ExportSettings HideStructureColumns="true">
                                               </ExportSettings>

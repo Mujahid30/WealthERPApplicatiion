@@ -62,12 +62,7 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void gvBondOrderList_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            //DataTable dtOrder;
-            //dtOrder = (DataTable)Cache["BondOrderBookList" + userVo.UserId.ToString()];
-            //if (dtOrder != null)
-            //{
-            //    gvBondOrderList.DataSource = dtOrder;
-            //}
+            
 
             DataTable dtOrder = new DataTable();
             if (Cache["gvBondOrderList" + userVo.UserId + customerVO.CustomerId] != null)

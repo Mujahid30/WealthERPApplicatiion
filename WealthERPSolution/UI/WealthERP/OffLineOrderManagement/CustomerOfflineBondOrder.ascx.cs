@@ -238,6 +238,7 @@ namespace WealthERP.OffLineOrderManagement
         }
         protected void btnGo_OnClick(object sender, EventArgs e)
         {
+            int i = 0;
             DataTable dtBondOrder;
             if (Cache["BondOrderBookList" + userVo.UserId.ToString()] == null)
             {
@@ -262,6 +263,39 @@ namespace WealthERP.OffLineOrderManagement
                 dr["InterestRate"] = txtInterestRate.Text;
                 dr["FrequencyText"] = ddlFrequency.SelectedItem.Text;
                 dtBondOrder.Rows.Add(dr);
+
+
+                if (this.gvJointHoldersList.Rows.Count > 0)
+                {
+                    foreach (GridViewRow gvr in this.gvJointHoldersList.Rows)
+                    {
+                        if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
+                        {
+                            i++;
+                            customerAccountAssociationVo.AssociationId = int.Parse(gvJointHoldersList.DataKeys[gvr.RowIndex].Values[1].ToString());
+                            customerAccountAssociationVo.AssociationType = "Joint Holder";
+                            customerAccountBo.CreateFixedIncomeAccountAssociation(customerAccountAssociationVo, userVo.UserId);
+                        }
+
+                    }
+                }
+                else
+                {
+                    i = -1;
+                }
+                foreach (GridViewRow gvr in this.gvNominees.Rows)
+                {
+                    if (((CheckBox)gvr.FindControl("chkId0")).Checked == true)
+                    {
+                        i++;
+                        customerAccountAssociationVo.AssociationId = int.Parse(gvNominees.DataKeys[gvr.RowIndex].Values[1].ToString());
+                        customerAccountAssociationVo.AssociationType = "Nominee";
+                        customerAccountBo.CreateFixedIncomeAccountAssociation(customerAccountAssociationVo, userVo.UserId);//change after making all classes
+                    }
+                }
+
+
+
             }
             else
             {
