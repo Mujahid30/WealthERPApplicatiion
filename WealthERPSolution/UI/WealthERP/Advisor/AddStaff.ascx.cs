@@ -21,7 +21,7 @@ using BOAssociates;
 using WealthERP.Base;
 using DanLudwig;
 using CrystalDecisions.CrystalReports.Engine;
-using System.Collections.Specialized;
+using System.Collections;
 using Telerik.Web.UI;
 using System.Web.UI.HtmlControls;
 using BoCustomerProfiling;
@@ -48,6 +48,9 @@ namespace WealthERP.Advisor
         String userType;
         string agentCode = string.Empty;
         int agentId = 0;
+        ArrayList arraylist1 =new ArrayList();
+        ArrayList arraylist2=new ArrayList();
+        string message;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -193,9 +196,9 @@ namespace WealthERP.Advisor
             }
             else
             {
-                foreach (RadListBoxItem ListItem in this.RadListBoxDestination.Items)
+                foreach (ListItem ListItem in this.lstMappedBranches.Items)
                 {
-                    AllBranchId = AllBranchId + ListItem.Value.ToString() + ",";
+                    AllBranchId = AllBranchId + ListItem.Value + ",";
                 }
             }
             rmStaffVo.StaffBranchAssociation = AllBranchId.TrimEnd(',');
@@ -527,12 +530,12 @@ namespace WealthERP.Advisor
             }
 
         }
-        protected void ListBoxSource_Transferred(object source, Telerik.Web.UI.RadListBoxTransferredEventArgs e)
-        {
+        //protected void ListBoxSource_Transferred(object source, Telerik.Web.UI.RadListBoxTransferredEventArgs e)
+        //{
 
-            LBStaffBranch.Items.Sort();
+        //    LBStaffBranch.Items.Sort();
 
-        }
+        //}
         private void ControlViewEditMode(bool isViewMode)
         {
             if (isViewMode)
@@ -573,7 +576,7 @@ namespace WealthERP.Advisor
                 LBStaffBranch.Enabled = false;
                 lnkAddNewStaff.Visible = false;
                 lnkEditStaff.Visible = true;
-                RadListBoxDestination.Enabled = false;
+                lstMappedBranches.Enabled = false;
                 txtFaxSTD.Enabled = false;
                 ddlDepart.Enabled = false;
                 chkbldepart.Enabled = false;
@@ -589,7 +592,7 @@ namespace WealthERP.Advisor
 
                 LBStaffBranch.Enabled = true;
                 trTeamTitle.Visible = true;
-                RadListBoxDestination.Enabled = true;
+                lstMappedBranches.Enabled = true;
                 ddlBranch.Enabled = true;
                 ddlChannel.Enabled = false;
                 ddlTeamList.Enabled = false;
@@ -688,9 +691,9 @@ namespace WealthERP.Advisor
             }
             if (ddlTeamList.SelectedValue != "14")
             {
-                foreach (RadListBoxItem ListItem in this.RadListBoxDestination.Items)
+                foreach (ListItem ListItem in this.lstMappedBranches.Items)
                 {
-                    BranchId = BranchId + ListItem.Value.ToString();
+                    BranchId = BranchId + ListItem.Value;
                 }
 
                 if (BranchId == string.Empty)
@@ -963,10 +966,10 @@ namespace WealthERP.Advisor
             if (!string.IsNullOrEmpty(rmStaffVo.StaffBranchAssociation))
             {
                 DataSet ds = advisorStaffBo.GetStaffBranchAssociation(rmStaffVo.StaffBranchAssociation, advisorVo.advisorId);
-                RadListBoxDestination.DataSource = ds.Tables[0];
-                RadListBoxDestination.DataValueField = ds.Tables[0].Columns["StaffBranch"].ToString();
-                RadListBoxDestination.DataTextField = ds.Tables[0].Columns["AB_BranchName"].ToString();
-                RadListBoxDestination.DataBind();
+                lstMappedBranches.DataSource = ds.Tables[0];
+                lstMappedBranches.DataValueField = ds.Tables[0].Columns["StaffBranch"].ToString();
+                lstMappedBranches.DataTextField = ds.Tables[0].Columns["AB_BranchName"].ToString();
+                lstMappedBranches.DataBind();
                 LBStaffBranch.DataSource = ds.Tables[1];
                 LBStaffBranch.DataValueField = ds.Tables[1].Columns["AB_BranchId"].ToString();
                 LBStaffBranch.DataTextField = ds.Tables[1].Columns["AB_BranchName"].ToString();
@@ -974,6 +977,90 @@ namespace WealthERP.Advisor
             }
 
         }
+        protected void RightArrow_Click(Object sender, EventArgs e)
+        {
+            if (LBStaffBranch.SelectedIndex >= 0)
+            {
+                for (int i = 0; i < LBStaffBranch.Items.Count; i++)
+                {
+                    if (LBStaffBranch.Items[i].Selected)
+                    {
+                        if (!arraylist1.Contains(LBStaffBranch.Items[i]))
+                        {
+                            arraylist1.Add(LBStaffBranch.Items[i]);
+
+                        }
+                    }
+                }
+                for (int i = 0; i < arraylist1.Count; i++)
+                   {
+              if (!lstMappedBranches.Items.Contains(((ListItem)arraylist1[i])))
+                    {
+              lstMappedBranches.Items.Add(((ListItem)arraylist1[i]));
+                      }
+              LBStaffBranch.Items.Remove(((ListItem)arraylist1[i]));
+                      }
+               lstMappedBranches.SelectedIndex = -1;
+                      }
+                     else
+                     {
+                message="Please select atleast one item";
+                Response.Write("<script>alert('" + message + "')</script>");
+                         }
+            }
+        
+        protected void LeftArrow_Click(Object sender, EventArgs e)
+        {
+            if (lstMappedBranches.SelectedIndex >= 0)
+            {
+                for (int i = 0; i < lstMappedBranches.Items.Count; i++)
+                {
+                    if (lstMappedBranches.Items[i].Selected)
+                    {
+                        if (!arraylist2.Contains(lstMappedBranches.Items[i]))
+                        {
+                            arraylist2.Add(lstMappedBranches.Items[i]);
+                        }
+                    }
+                }
+                for (int i = 0; i < arraylist2.Count; i++)
+                {
+                    if (!LBStaffBranch.Items.Contains(((ListItem)arraylist2[i])))
+                    {
+                        LBStaffBranch.Items.Add(((ListItem)arraylist2[i]));
+                    }
+                    lstMappedBranches.Items.Remove(((ListItem)arraylist2[i]));
+                }
+                LBStaffBranch.SelectedIndex = -1;
+            }
+            else
+            {
+                message = "Please select atleast one item";
+                Response.Write("<script>alert('" + message + "')</script>");
+            }
+        }
+        protected void RightShift_Click(Object sender, EventArgs e)
+        {
+            while (LBStaffBranch.Items.Count != 0)
+            {
+                for (int i = 0; i < LBStaffBranch.Items.Count; i++)
+                {
+                    lstMappedBranches.Items.Add(LBStaffBranch.Items[i]);
+                    LBStaffBranch.Items.Remove(LBStaffBranch.Items[i]);
+                }
+            }
+        }
+        protected void LeftShift_Click(Object sender,EventArgs e)
+        {
+            while (lstMappedBranches.Items.Count != 0)
+            {
+                for (int i = 0; i < lstMappedBranches.Items.Count; i++)
+                {
+                    LBStaffBranch.Items.Add(lstMappedBranches.Items[i]);
+                    lstMappedBranches.Items.Remove(lstMappedBranches.Items[i]);
+                }
+            }
+            }
         private string GetAllSelectedCustomerID(DanLudwig.Controls.Web.ListBox CustomerSelectedListBox)
         {
             String AllBranchId = "";

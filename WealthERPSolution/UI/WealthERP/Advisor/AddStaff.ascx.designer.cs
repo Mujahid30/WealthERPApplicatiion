@@ -895,8 +895,17 @@ namespace WealthERP.Advisor {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadListBox LBStaffBranch;
-        
+        protected global::System.Web.UI.WebControls.ListBox LBStaffBranch;
+
+
+        /// <summary>
+        /// lstMappedBranches control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox lstMappedBranches;
         /// <summary>
         /// Label3 control.
         /// </summary>
@@ -906,14 +915,7 @@ namespace WealthERP.Advisor {
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label3;
         
-        /// <summary>
-        /// RadListBoxDestination control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadListBox RadListBoxDestination;
+       
         
         /// <summary>
         /// btnSubmit control.
