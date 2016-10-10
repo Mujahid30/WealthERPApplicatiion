@@ -521,7 +521,7 @@
                                         ShowFilterIcon="false">
                                         <ItemStyle Width="55px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="C_CreatedBy" UniqueName="C_CreatedBy" HeaderText="Created By"
+                                    <telerik:GridBoundColumn DataField="Cust_Comp_Name" UniqueName="C_CreatedBy" HeaderText="Created By"
                                         FooterStyle-HorizontalAlign="Left" SortExpression="C_CreatedBy" AutoPostBackOnFilter="true"
                                         AllowFiltering="true" HeaderStyle-Width="80px" FilterControlWidth="60px" CurrentFilterFunction="Contains"
                                         ShowFilterIcon="false">
@@ -533,7 +533,7 @@
                                         ShowFilterIcon="false">
                                         <ItemStyle Width="55px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="C_ModifiedBy" UniqueName="C_ModifiedBy" HeaderText="Modified By"
+                                    <telerik:GridBoundColumn DataField="Cust_Comp_Name" UniqueName="C_ModifiedBy" HeaderText="Modified By"
                                         FooterStyle-HorizontalAlign="Left" SortExpression="C_ModifiedBy" AutoPostBackOnFilter="true"
                                         AllowFiltering="true" HeaderStyle-Width="80px" FilterControlWidth="60px" CurrentFilterFunction="Contains"
                                         ShowFilterIcon="false">
