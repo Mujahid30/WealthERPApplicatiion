@@ -52,7 +52,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Emailer.cs" />
+    <Compile Include="Emailer.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="EmailMessage.cs" />
     <Compile Include="MailMessageErrorSolution.cs" />
     <Compile Include="PcgMailMessage.cs" />

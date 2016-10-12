@@ -216,6 +216,8 @@ namespace WealthERP.CustomerPortfolio
             List<PropertyVo> propertyList = new List<PropertyVo>();
             try
             {
+                customerVo = (CustomerVo)Session["CustomerVo"];
+
                 string path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 int count;
               
@@ -268,6 +270,8 @@ namespace WealthERP.CustomerPortfolio
 
                         dtProperty.Rows.Add(drProperty);
                     }
+
+                  
                     gvrProperty.DataSource = dtProperty;
                     gvrProperty.DataBind();
                     if (Cache["gvrProperty" + userVo.UserId.ToString()] == null)
@@ -368,25 +372,29 @@ namespace WealthERP.CustomerPortfolio
         public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
 
-            gvrProperty.ExportSettings.OpenInNewWindow = true;
+            gvrProperty.ExportSettings.OpenInNewWindow = false;
             gvrProperty.ExportSettings.IgnorePaging = true;
-            gvrProperty.ExportSettings.HideStructureColumns = true;
-            gvrProperty.ExportSettings.ExportOnlyData = true;
-            gvrProperty.ExportSettings.FileName = "Portfolio Property";
-           // gvrProperty.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvrProperty.MasterTableView.GetColumn("action").Visible = false;
+            //gvrProperty.ExportSettings.HideStructureColumns = true;
+            //gvrProperty.ExportSettings.ExportOnlyData = true;
+            //gvrProperty.ExportSettings.FileName = "Portfolio Property";
+            //gvrProperty.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            //gvrProperty.MasterTableView.ExportToExcel();
+            foreach (GridFilteringItem filter in gvrProperty.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
             gvrProperty.MasterTableView.ExportToExcel();
+
+
         }
         protected void gvrProperty_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             gvrProperty.Visible = true;
             DataTable dtProperty = new DataTable();
+
             btnExportFilteredData.Visible = true;
-            if (Cache["gvrProperty" + userVo.UserId.ToString()] != null)
-            {
-                dtProperty = (DataTable)Cache["gvrProperty" + userVo.UserId.ToString()];
-                gvrProperty.DataSource = dtProperty;
-            }
+            dtProperty = (DataTable)Cache["drProperty + '" + customerVo.CustomerId + "'"];
+            gvrProperty.DataSource = dtProperty;
         }
 
 

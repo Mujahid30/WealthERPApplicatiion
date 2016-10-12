@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AdvisorLeftPane.ascx.cs"
-    Inherits="WealthERP.Advisor.AdvisorLeftPane" %>
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+    Inherits="WealthERP.Advisor.AdvisorLeftPane"  %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1"  %>
 
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
 
@@ -542,7 +542,7 @@
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <%------------------New Tree View--------------%>
-                                    <telerik:RadPanelItem runat="server" Text="Message" Value="Message" PostBack="false">
+                                    <telerik:RadPanelItem runat="server"  Text="Message" Value="Message" PostBack="false"  >
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Compose" Value="Compose">
                                             </telerik:RadPanelItem>

@@ -80,6 +80,7 @@
     <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Data.xml" />
     <Content Include="bin\Microsoft.Practices.ObjectBuilder2.dll" />
     <Content Include="bin\Microsoft.Practices.Unity.dll" />
+    <Content Include="bin\System.Web.DataVisualization.dll" />
     <Content Include="Content\CSS\bootstrap-3.3.6.min.css" />
     <Content Include="Content\CSS\commonStyle.css" />
     <Content Include="Content\CSS\datepicker.css" />

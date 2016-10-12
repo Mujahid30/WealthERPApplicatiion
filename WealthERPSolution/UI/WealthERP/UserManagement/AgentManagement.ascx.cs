@@ -194,10 +194,10 @@ namespace WealthERP.UserManagement
                             email.Body = email.Body.Replace("[DESIGNATION]", advisorVo.Designation.Trim());
                         else
                             email.Body = email.Body.Replace("[DESIGNATION]", string.Empty);
-                        if (!string.IsNullOrEmpty(advisorVo.Phone1Number.ToString()))
-                            email.Body = email.Body.Replace("[PHONE]", advisorVo.Phone1Std.ToString().Trim() + "-" + advisorVo.Phone1Number.ToString().Trim());
-                        else
-                            email.Body = email.Body.Replace("[PHONE]", string.Empty);
+                        //if (!string.IsNullOrEmpty(advisorVo.Phone1Number.ToString()))
+                        //    email.Body = email.Body.Replace("[PHONE]", advisorVo.Phone1Std.ToString().Trim() + "-" + advisorVo.Phone1Number.ToString().Trim());
+                        //else
+                        //    email.Body = email.Body.Replace("[PHONE]", string.Empty);
 
                         if (!string.IsNullOrEmpty(advisorVo.Email))
                             email.Body = email.Body.Replace("[EMAIL]", advisorVo.Email.Trim());

@@ -30,7 +30,13 @@ namespace FPUtilityTool
             lblUserName.Text = " " + fpuserVo.UserName;
             if (!IsPostBack)
             {
-                divTncSuccess.Visible = true;
+
+                if (ClientID == null)
+                    divTncSuccess.Visible = true;
+                else
+                {
+                    divTncSuccess.Visible = false;
+                }
                
                 //if (Request.UrlReferrer == null)
                 //    Response.Redirect("Questionnaire.aspx");

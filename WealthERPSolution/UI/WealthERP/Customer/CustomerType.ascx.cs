@@ -417,7 +417,7 @@ namespace WealthERP.Customer
                         {
                             rmVo = (RMVo)Session["rmVo"];
                             tempUserVo = (UserVo)Session["userVo"];
-                            //customerVo.RmId = rmVo.RMId;
+                            customerVo.RmId = rmVo.RMId;
                             if (customerVo.RmId == rmVo.RMId)
                             {
                                 customerVo.RmId = int.Parse(ddlAdviseRMList.SelectedValue.ToString());
