@@ -31,12 +31,9 @@ namespace FPUtilityTool
             if (!IsPostBack)
             {
 
-                if (ClientID == null)
+              
                     divTncSuccess.Visible = true;
-                else
-                {
-                    divTncSuccess.Visible = false;
-                }
+               
                
                 //if (Request.UrlReferrer == null)
                 //    Response.Redirect("Questionnaire.aspx");

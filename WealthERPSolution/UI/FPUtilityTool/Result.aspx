@@ -146,7 +146,7 @@
             <div class="col-sm-2">
             </div>
         </div>
-        <div id="divtnc2" visible="false" runat="server" class="row">
+        <div id="divtnc2" visible="true" runat="server" class="row">
             <div class="col-sm-4">
             </div>
             <div class="col-sm-4 text-center" visible="false">
