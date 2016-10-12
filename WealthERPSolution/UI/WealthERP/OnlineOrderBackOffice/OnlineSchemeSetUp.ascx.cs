@@ -2989,7 +2989,7 @@ namespace WealthERP.OnlineOrderBackOffice
             pnlSIPDetails.Visible = false;
             ChkISSwitch.Visible = false;
             LalChkISSwitch.Visible = false;
-            btnsubmit.Visible = true;
+            btnsubmit.Visible = false;
             lblESSchemecode.Visible = false;
             txtESSchemecode.Visible = false;
             ddlDFrequency.SelectedValue = "0";
