@@ -333,11 +333,11 @@ namespace WealthERP.BusinessMIS
                 rgNCDIPOMIS.MasterTableView.GetColumn("Rec_rate").Visible = true;
                 rgNCDIPOMIS.MasterTableView.GetColumn("Rec_WCU_UnitCode").Visible = true;
                 rgNCDIPOMIS.MasterTableView.GetColumn("Rec_brokeragevalue").Visible = true;
-                rgNCDIPOMIS.MasterTableView.GetColumn("Rec_borkageExpectedvalue").Visible = true;
+                //rgNCDIPOMIS.MasterTableView.GetColumn("Rec_borkageExpectedvalue").Visible = true;
                 rgNCDIPOMIS.MasterTableView.GetColumn("rate").Visible = true;
                 rgNCDIPOMIS.MasterTableView.GetColumn("WCU_UnitCode").Visible = true;
                 rgNCDIPOMIS.MasterTableView.GetColumn("brokeragevalue").Visible = true;
-                rgNCDIPOMIS.MasterTableView.GetColumn("borkageExpectedvalue").Visible = true;
+                //rgNCDIPOMIS.MasterTableView.GetColumn("borkageExpectedvalue").Visible = true;
                 rgNCDIPOMIS.MasterTableView.GetColumn("Retention1").Visible = true;
                 rgNCDIPOMIS.MasterTableView.GetColumn("AIIC_InvestorCatgeoryName").Visible = true;
                 if (hdnAgentCode.Value.ToString() != "0")
@@ -345,7 +345,7 @@ namespace WealthERP.BusinessMIS
                     rgNCDIPOMIS.MasterTableView.GetColumn("Rec_rate").Visible = false;
                     rgNCDIPOMIS.MasterTableView.GetColumn("Rec_WCU_UnitCode").Visible = false;
                     rgNCDIPOMIS.MasterTableView.GetColumn("Rec_brokeragevalue").Visible = false;
-                    rgNCDIPOMIS.MasterTableView.GetColumn("Rec_borkageExpectedvalue").Visible = false;
+                    //rgNCDIPOMIS.MasterTableView.GetColumn("Rec_borkageExpectedvalue").Visible = false;
                     rgNCDIPOMIS.MasterTableView.GetColumn("Retention1").Visible = false;
                 }
                 if (hdnProductCategory.Value.ToString() == "FICGCG")
