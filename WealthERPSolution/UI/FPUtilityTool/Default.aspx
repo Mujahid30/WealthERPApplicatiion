@@ -39,17 +39,17 @@
             <div class="panel-body">
                 <div id="Tabs" role="tabpanel">
                     <ul class="nav nav-tabs nav-justified">
-                        <li><a data-toggle="tab" aria-controls="signUp" href="#signUp">
+                        <li><a data-toggle="tab" id="tbl" runat="server" aria-controls="signUp" href="#signUp">
                             <p class="lead">
                                 New Investor</p>
                         </a></li>
-                        <li><a data-toggle="tab" aria-controls="signIn" href="#signIn">
+                        <li><a data-toggle="tab" id="tbl1" runat="server" aria-controls="signIn" href="#signIn">
                             <p class="lead">
                                 Existing Investor</p>
                         </a></li>
                     </ul>
                     <div class="tab-content">
-                        <div id="signUp" class="tab-pane fade in">
+                        <div id="signUp" runat="server" class="tab-pane fade in">
                             <div class="well">
                                 <div class="row">
                                     <div class="form-group col-sm-6">
@@ -123,7 +123,7 @@
                                 </div>
                                 <div class="row">
                                     <div id="asd" class="form-group col-sm-6">
-                                        <asp:Label ID="Label1" runat="server" Visible="false" CssClass="ValidationMsg">Client already exists.<a data-toggle="tab" aria-controls="signUp" href="#signUp">SignUp here.</a></asp:Label>
+                                        <asp:Label ID="Label1" runat="server" Visible="false" CssClass="ValidationMsg">Client already exists.<a data-toggle="tab" id="A1" runat="server" aria-controls="signIn" href="#signIn">Signin here</a></asp:Label>
                                         <asp:Label ID="lbllogedIn1" runat="server" Visible="false" Text="User already loged In."
                                             CssClass="ValidationMsg"></asp:Label>
                                     </div>
@@ -168,7 +168,7 @@
                                 <div class="row">
                                     <div class="col-sm-9">
                                         <asp:Label ID="lblClient" runat="server" Visible="false" 
-                                            CssClass="ValidationMsg">Client does not exists.<a data-toggle="tab" aria-controls="signIn" href="#signIn">SignIn here.</a></asp:Label>
+                                            CssClass="ValidationMsg">Client does not exists.<a data-toggle="tab" onclick="lblClient_Click" runat="server" aria-controls="signIn" href="#signUp">SignIn here.</a></asp:Label>
                                         <asp:Label ID="lbllogedIn2" runat="server" Visible="false" Text="User already loged In."
                                             CssClass="ValidationMsg"></asp:Label>
                                     </div>

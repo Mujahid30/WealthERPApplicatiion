@@ -23,6 +23,33 @@ namespace FPUtilityTool {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// tbl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor tbl;
+        
+        /// <summary>
+        /// tbl1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor tbl1;
+        
+        /// <summary>
+        /// signUp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl signUp;
+        
+        /// <summary>
         /// txtName control.
         /// </summary>
         /// <remarks>
@@ -156,6 +183,15 @@ namespace FPUtilityTool {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label1;
+        
+        /// <summary>
+        /// A1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor A1;
         
         /// <summary>
         /// lbllogedIn1 control.
