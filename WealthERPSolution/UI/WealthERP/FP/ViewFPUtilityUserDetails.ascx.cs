@@ -103,7 +103,7 @@ namespace WealthERP.FP
 
             //to set portfolio Id and its details
             customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(ParentId);
-            Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
+            //Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
             Session["customerPortfolioVo"] = customerPortfolioVo;
 
             Session["IsDashboard"] = "false";
