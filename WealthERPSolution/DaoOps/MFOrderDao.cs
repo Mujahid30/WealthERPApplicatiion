@@ -740,6 +740,42 @@ namespace DaoOps
 
             return IsMarked;
         }
+        public int RevertToExecute(int orderId, int userId)
+        {
+            int IsMarked = 0;
+
+            Database db;
+            DbCommand revertToExecuteCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                revertToExecuteCmd = db.GetStoredProcCommand("SPROC_RevertTransactionToExecuted");
+                db.AddInParameter(revertToExecuteCmd, "@orderId", DbType.Int32, orderId);
+                db.AddInParameter(revertToExecuteCmd, "@userId", DbType.Int32, userId);
+                IsMarked = Convert.ToInt32(db.ExecuteScalar(revertToExecuteCmd));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "MFOrderDao.cs:RevertToExecute()");
+
+                object[] objects = new object[2];
+                objects[0] = orderId;
+                objects[1] = userId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsMarked;
+        }
 
         public string GetDividendOptions(int schemePlanCode)
         {

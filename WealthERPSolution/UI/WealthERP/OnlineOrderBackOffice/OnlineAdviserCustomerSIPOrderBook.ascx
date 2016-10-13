@@ -407,6 +407,15 @@
                             <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="60px" UniqueName="MarkAsReject"
                                 EditText="Mark As Reject" CancelText="Cancel" UpdateText="OK">
                             </telerik:GridEditCommandColumn>
+                            <telerik:GridTemplateColumn ItemStyle-Width="60px" AllowFiltering="false" HeaderText="Action" UniqueName="RevertToExecute"
+                                Visible="false">
+                                <ItemTemplate>
+                                <asp:LinkButton ID="RevertToExecute" runat="server" Text="Revert To Execute" ></asp:LinkButton>
+                                </ItemTemplate>
+                                </telerik:GridTemplateColumn> 
+                           <%-- <telerik:GridEditCommandColumn Visible="false" HeaderStyle-Width="60px" UniqueName="RevertToExecute"
+                                EditText="Revert To Execute" CancelText="Cancel" UpdateText="OK" HeaderText="Action">
+                            </telerik:GridEditCommandColumn>--%>
                         </Columns>
                         <EditFormSettings FormTableStyle-Height="40%" EditFormType="Template" FormMainTableStyle-Width="300px"
                             CaptionFormatString=" Order canceling Request">

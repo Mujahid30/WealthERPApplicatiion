@@ -231,6 +231,34 @@ namespace BoOps
             }
             return IsMarked;
         }
+        public int RevertToExecute(int orderId, int userId)
+        {
+            int IsMarked = 0;
+            try
+            {
+                IsMarked = mfOrderDao.RevertToExecute(orderId, userId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "MFOrderBo.cs:RevertToExecute()");
+
+                object[] objects = new object[2];
+                objects[0] = orderId;
+                objects[1] = userId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsMarked;
+        }
 
         public string GetDividendOptions(int schemePlanCode)
         {

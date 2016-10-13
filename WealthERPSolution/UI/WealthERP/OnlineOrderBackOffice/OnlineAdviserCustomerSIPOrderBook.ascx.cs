@@ -16,6 +16,9 @@ using BoCustomerProfiling;
 using BoOnlineOrderManagement;
 using VoOps;
 using BoOps;
+using Microsoft.ApplicationBlocks.ExceptionManagement;
+using System.Collections.Specialized;
+
 
 namespace WealthERP.OnlineOrderBackOffice
 {
@@ -34,6 +37,7 @@ namespace WealthERP.OnlineOrderBackOffice
         DateTime fromDate;
         DateTime toDate;
         int systematicId = 0;
+        UserVo userVo;
         string exchangeType = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -142,11 +146,47 @@ namespace WealthERP.OnlineOrderBackOffice
             if (txtTo.SelectedDate != null)
                 toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
             BindSIPBook(fromDate, toDate);
+            if (ddlOrderstatus.SelectedValue=="PR")
+            {
+                gvSIPBookMIS.MasterTableView.GetColumn("RevertToExecute").Visible = true;
+            }
+            else
+            {
+                gvSIPBookMIS.MasterTableView.GetColumn("RevertToExecute").Visible = false;
+            }
+        }
+
+        public void RevertToExecute(int orderId, int userId)
+        {
+            int IsMarked;
+            try
+            {
+                IsMarked = mforderBo.RevertToExecute(orderId, userId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineAdviserCustomerSIPOrderBook.ascx:RevertToExecute()");
+                object[] objects = new object[2];
+                objects[0] = orderId;
+                objects[1] = userId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
         }
 
         /// <summary>
         /// Get Bind Orderstatus
         /// </summary>
+        /// 
         private void BindOrderStatus()
         {
             ddlOrderstatus.Items.Clear();
@@ -298,6 +338,7 @@ namespace WealthERP.OnlineOrderBackOffice
             if (ddlAMCCode.SelectedIndex != 0)
             {
                 hdnAmc.Value = ddlAMCCode.SelectedValue;
+
                 ViewState["AMCDropDown"] = hdnAmc.Value;
             }
             else
@@ -307,6 +348,7 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void gvSIPBookMIS_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
+            Int32 orderId = Convert.ToInt32(gvSIPBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
             //if (e.CommandName == "Edit")
             //{
             //    string orderId = gvSIPBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString();
@@ -325,7 +367,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 TextBox txtRemark = (TextBox)e.Item.FindControl("txtRemark");
                 strRemark = txtRemark.Text;
                 LinkButton buttonEdit = editItem["MarkAsReject"].Controls[0] as LinkButton;
-                Int32 orderId = Convert.ToInt32(gvSIPBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
+                //Int32 orderId = Convert.ToInt32(gvSIPBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
                 IsMarked = mforderBo.MarkAsReject(orderId, txtRemark.Text);
                 if (txtFrom.SelectedDate != null)
                     fromDate = DateTime.Parse(txtFrom.SelectedDate.ToString());
@@ -334,6 +376,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 BindSIPBook(fromDate, toDate);
 
             }
+            RevertToExecute(orderId, userVo.UserId);
         }
         protected void gvSIPBookMIS_ItemDataBound(object sender, GridItemEventArgs e)
         {

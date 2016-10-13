@@ -18,6 +18,8 @@ using BoCustomerProfiling;
 using BoOnlineOrderManagement;
 using VoOps;
 using BoOps;
+using Microsoft.ApplicationBlocks.ExceptionManagement;
+using System.Collections.Specialized;
 
 namespace WealthERP.OnlineOrderBackOffice
 {
@@ -107,6 +109,14 @@ namespace WealthERP.OnlineOrderBackOffice
             else
             {
                 gvOrderBookMIS.Columns[2].Visible = false;
+            }
+            if (ddlOrderStatus.SelectedValue == "PR")
+            {
+                gvOrderBookMIS.MasterTableView.GetColumn("RevertToExecute").Visible = true;
+            }
+            else
+            {
+                gvOrderBookMIS.MasterTableView.GetColumn("RevertToExecute").Visible = false;
             }
         }
 
@@ -267,11 +277,12 @@ namespace WealthERP.OnlineOrderBackOffice
                 gvOrderBookMIS.DataSource = dtOrderBookMIS;
                 gvOrderBookMIS.Visible = true;
             }
-
+           
         }
 
         protected void gvOrderBookMIS_UpdateCommand(object source, GridCommandEventArgs e)
         {
+
             string strRemark = string.Empty;
             int IsMarked = 0;
             if (e.CommandName == RadGrid.UpdateCommandName)
@@ -283,36 +294,64 @@ namespace WealthERP.OnlineOrderBackOffice
                 Int32 orderId = Convert.ToInt32(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
                 Int32 ExchangeNo = Convert.ToInt32(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["BMOERD_BSEOrderId"].ToString());
                 IsMarked = mforderBo.MarkAsReject(orderId, txtRemark.Text);
+                //RevertToExecute(orderVo.OrderId, userVo.UserId);
                 BindOrderBook();
-
             }
+        }
+        public void RevertToExecute(int orderId,int userId)
+        {
+           int IsMarked;
+           try
+           {
+               IsMarked = mforderBo.RevertToExecute(orderId,userId);
+           }
+           catch (BaseApplicationException Ex)
+           {
+               throw (Ex);
+           }
+           catch (Exception Ex)
+           {
+               BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+               NameValueCollection FunctionInfo = new NameValueCollection();
+               FunctionInfo.Add("Method", "OnlineAdviserCustomerOrderBook.ascx:RevertToExecute()");
+               object[] objects = new object[2];
+               objects[0] = orderId;
+               objects[1] = userId;
+               FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+               exBase.AdditionalInformation = FunctionInfo;
+               ExceptionManager.Publish(exBase);
+               throw exBase;
+           }
+
         }
         protected void gvOrderBookMIS_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
             string strRemark = string.Empty;
             int IsMarked = 0;
+            Int32 orderId = Convert.ToInt32(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
+                
             if (e.CommandName == RadGrid.UpdateCommandName)
             {
                 GridEditableItem editItem = e.Item as GridEditableItem;
                 TextBox txtRemark = (TextBox)e.Item.FindControl("txtRemark");
                 strRemark = txtRemark.Text;
                 LinkButton buttonEdit = editItem["MarkAsReject"].Controls[0] as LinkButton;
-                Int32 orderId = Convert.ToInt32(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
+                //Int32 orderId = Convert.ToInt32(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
                 Int32 ExchangeNo = Convert.ToInt32(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["BMOERD_BSEOrderId"].ToString());
                 IsMarked = mforderBo.MarkAsReject(orderId, txtRemark.Text);
                 BindOrderBook();
-
+               
             }
             if (e.CommandName == "Select")
             {
                 GridEditableItem editItem = e.Item as GridEditableItem;
                 LinkButton lnkprAmcB = (LinkButton)editItem.FindControl("lnkprAmcB");
-                Int32 orderId = Convert.ToInt32(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
+                //Int32 orderId = Convert.ToInt32(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
                 Int32 ExchangeNo = Convert.ToInt32(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["BMOERD_BSEOrderId"].ToString());
                 OnlineOrderMISBo.UpdateOrderReverse(orderId, userVo.UserId);
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Order updated !!');", true);
                 BindOrderBook();
-
+                
             }
             //if (e.CommandName == "Edit")
             //{
@@ -336,7 +375,7 @@ namespace WealthERP.OnlineOrderBackOffice
             //        }
             //    }
             //}
-
+            RevertToExecute(orderId, userVo.UserId);
         }
         protected void gvOrderBookMIS_ItemDataBound(object sender, GridItemEventArgs e)
         {
@@ -358,15 +397,18 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (OrderStepCode == "ACCEPTED")
                 {
                     lnkprAmcB.Enabled = true;
+                    
                 }
                 else
                 {
                     lnkprAmcB.ForeColor = System.Drawing.Color.Black;
                     lnkprAmcB.Enabled = false;
                     lnkprAmcB.OnClientClick = "";
+                   
                 }
 
             }
+            
         }
         protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
