@@ -62,7 +62,7 @@
     <tr>
         <td colspan="2">
             <telerik:RadGrid ID="gvrPensionAndGratuities" runat="server" GridLines="None" AutoGenerateColumns="False"
-                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                PageSize="10" OnNeedDataSource="gvrPensionAndGratuities_OnNeedDataSource"  AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                 Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
                 AllowAutomaticInserts="false" ExportSettings-FileName="Pension And Gratuities Details">
                 <ExportSettings HideStructureColumns="true">

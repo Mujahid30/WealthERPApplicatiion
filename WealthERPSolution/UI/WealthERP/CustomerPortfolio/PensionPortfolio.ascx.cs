@@ -182,6 +182,19 @@ namespace WealthERP.CustomerPortfolio
 
         }
 
+        protected void gvrPensionAndGratuities_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+
+
+            DataTable dtPension = new DataTable();
+            if (Cache["gvrPensionAndGratuities" + userVo.UserId + customerVo.CustomerId] != null)
+            {
+                dtPension = (DataTable)Cache["gvrPensionAndGratuities" + userVo.UserId + customerVo.CustomerId];
+                gvrPensionAndGratuities.DataSource = dtPension;
+            }
+
+        }
+
         public void LoadGridview(int portfolioId)
         {
             List<PensionAndGratuitiesVo> pensionAndGratuitiesList = new List<PensionAndGratuitiesVo>();
@@ -233,7 +246,15 @@ namespace WealthERP.CustomerPortfolio
                         dtPension.Rows.Add(drPension);
 
                     }
-
+                    if (Cache["gvrPensionAndGratuities" + userVo.UserId + customerVo.CustomerId] == null)
+                    {
+                        Cache.Insert("gvrPensionAndGratuities" + userVo.UserId + customerVo.CustomerId, dtPension);
+                    }
+                    else
+                    {
+                        Cache.Remove("gvrPensionAndGratuities" + userVo.UserId + customerVo.CustomerId);
+                        Cache.Insert("gvrPensionAndGratuities" + userVo.UserId + customerVo.CustomerId, dtPension);
+                    }
                     gvrPensionAndGratuities.DataSource = dtPension;
                     gvrPensionAndGratuities.DataBind();
                     gvrPensionAndGratuities.Visible = true;
