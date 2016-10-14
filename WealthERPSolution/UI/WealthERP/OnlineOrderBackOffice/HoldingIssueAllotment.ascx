@@ -69,8 +69,8 @@
                 <asp:ListItem Text="RTA Wise" Value="RNT" />
                 <asp:ListItem Text="Extract BSE Client File " Value="EBSE" />
                  <asp:ListItem Text="Exchange MIS" Value="EMIS" />
-                  <asp:ListItem Text="Summary DBF" Value="FCS" />
-                   <asp:ListItem Text="Detail DBF" Value="FCD" />
+                  <asp:ListItem Text="Summary" Value="FCS" />
+                   <asp:ListItem Text="Detail" Value="FCD" />
                  
             </asp:DropDownList>
             <asp:RequiredFieldValidator ID="rfvType" runat="server" CssClass="rfvPCG" ErrorMessage="Please select a Type"

@@ -200,6 +200,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     gvCustomerDetails.DataSource = dsExtractData;
                     gvCustomerDetails.DataBind();
                     pnlCustomerDetails.Visible = true;
+                    btnDownload.Visible = true;
                 }
                 else
                 {
@@ -322,6 +323,8 @@ namespace WealthERP.OnlineOrderBackOffice
             //tdddlAMC.Visible = false;
             //tdddlType.Visible = false;
             //tdlblType.Visible = false;
+            ddlType.Items.FindByValue("FCS").Enabled = false;
+            ddlType.Items.FindByValue("FCD").Enabled = false;
             if (ddlOrderType.SelectedValue=="1")
             {
                 tdlblAMC.Visible = true;
@@ -361,6 +364,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 pnlFATCA.Visible = false;
                 pnlOrderReport.Visible = false;
                 ddlType.Visible = true;
+                
                 ddlType.Items.FindByValue("EBSE").Enabled = true;
                 ddlType.Items.FindByValue("EMIS").Enabled = true;
                 ddlType.Items.FindByValue("AMC").Enabled = false;
@@ -382,8 +386,15 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlType.Items.FindByValue("EMIS").Enabled = false;
                 ddlType.Items.FindByValue("AMC").Enabled = false;
                 ddlType.Items.FindByValue("RNT").Enabled = false;
-                ddlType.Items.FindByValue("FCS").Enabled = true;
-                ddlType.Items.FindByValue("FCD").Enabled = true;
+                if (ddlOrderType.SelectedValue == "KA")
+                {
+                    ddlType.Items.FindByValue("FCD").Enabled = true;
+                }
+                else
+                {
+                    ddlType.Items.FindByValue("FCS").Enabled = true;
+                }
+                
 
             }
           
@@ -527,7 +538,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 todate = DateTime.Parse(txtToDate.SelectedDate.ToString());
                 string dailyDirName = ddlOrderType.SelectedItem.Text + @"_" + ddlType.SelectedItem.Text;
                 string extractPath = ConfigurationSettings.AppSettings["RTA_EXTRACT_PATH"];
-                string downloadFileName = ddlType.SelectedValue == "FCS" ? "SM_FATCA" : "DT_FATCA";
+                string downloadFileName = ddlType.SelectedValue == "FCS" ? "CAMS_SM" : "DOC_0011" + todate.ToString("dd-MM-yyyy");
                 string localFilePath = onlineOrderBackOfficeBo.GenerateDailyOrderFATCASummaryFiles(Server.MapPath("~/ReferenceFiles/RTAExtractSampleFiles/"), ddlOrderType.SelectedValue, ddlType.SelectedValue, adviserVo.advisorId, fromdate,todate);
                 if (File.Exists(extractPath + @"\" + adviserVo.advisorId + @"\"+ downloadFileName + ".DBF") == true)
                 {
