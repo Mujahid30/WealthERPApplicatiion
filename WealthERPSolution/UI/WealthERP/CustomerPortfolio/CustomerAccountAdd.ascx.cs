@@ -1141,6 +1141,8 @@ namespace WealthERP.CustomerPortfolio
                     dtCustomerAssociates.Columns.Add("Name");
                     dtCustomerAssociates.Columns.Add("Relationship");
 
+                    ddlModeOfHolding.Items.FindByValue("SI").Enabled = false;
+
                     foreach (DataRow dr in dtCustomerAssociatesRaw.Rows)
                     {
                         drCustomerAssociates = dtCustomerAssociates.NewRow();
