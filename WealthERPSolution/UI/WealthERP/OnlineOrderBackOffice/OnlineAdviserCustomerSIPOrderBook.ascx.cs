@@ -44,6 +44,7 @@ namespace WealthERP.OnlineOrderBackOffice
             SessionBo.CheckSession();
             advisorVo = (AdvisorVo)Session["advisorVo"];
             customerVO = (CustomerVo)Session["customerVo"];
+            userVo = (UserVo)Session["UserVo"];
             userType = Session[SessionContents.CurrentUserRole].ToString();
            // customerId = customerVO.CustomerId;
             //BindAmc();
@@ -348,17 +349,7 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void gvSIPBookMIS_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
-            Int32 orderId = Convert.ToInt32(gvSIPBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
-            //if (e.CommandName == "Edit")
-            //{
-            //    string orderId = gvSIPBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString();
-            //    string customerId = gvSIPBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_CustomerId"].ToString();
-            //    string assetGroupCode = gvSIPBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PAG_AssetGroupCode"].ToString();
-            //    if (assetGroupCode == "MF")
-            //    {
-            //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderSIPTransType','&orderId=" + orderId + "&customerId=" + customerId + "');", true);
-            //    }
-            //}
+           
             string strRemark = string.Empty;
             int IsMarked = 0;
             if (e.CommandName == RadGrid.UpdateCommandName)
@@ -367,7 +358,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 TextBox txtRemark = (TextBox)e.Item.FindControl("txtRemark");
                 strRemark = txtRemark.Text;
                 LinkButton buttonEdit = editItem["MarkAsReject"].Controls[0] as LinkButton;
-                //Int32 orderId = Convert.ToInt32(gvSIPBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
+                Int32 orderId = Convert.ToInt32(gvSIPBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
                 IsMarked = mforderBo.MarkAsReject(orderId, txtRemark.Text);
                 if (txtFrom.SelectedDate != null)
                     fromDate = DateTime.Parse(txtFrom.SelectedDate.ToString());
@@ -376,7 +367,19 @@ namespace WealthERP.OnlineOrderBackOffice
                 BindSIPBook(fromDate, toDate);
 
             }
-            RevertToExecute(orderId, userVo.UserId);
+            else if (e.CommandName == "RevertToExecute")
+            {
+                GridEditableItem editItem = e.Item as GridEditableItem;
+                Int32 orderId = Convert.ToInt32(gvSIPBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
+                RevertToExecute(orderId, userVo.UserId);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Order updated !!');", true);
+                if (txtFrom.SelectedDate != null)
+                    fromDate = DateTime.Parse(txtFrom.SelectedDate.ToString());
+                if (txtTo.SelectedDate != null)
+                    toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
+                BindSIPBook(fromDate, toDate);
+                
+            }
         }
         protected void gvSIPBookMIS_ItemDataBound(object sender, GridItemEventArgs e)
         {

@@ -195,16 +195,11 @@
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="120px" FilterControlWidth="60px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridTemplateColumn DataField="CO_OrderId" AllowFiltering="true" HeaderText="Order No."
+                            <telerik:GridBoundColumn DataField="CO_OrderId" AllowFiltering="true" HeaderText="Order No."
                                 UniqueName="CO_OrderId" SortExpression="CO_OrderId" ShowFilterIcon="false" CurrentFilterFunction="EqualTo"
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="60px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                <ItemTemplate>
-                                    <asp:LinkButton ID="lnkprAmcB" runat="server" CommandName="Select" Text='<%# Eval("CO_OrderId").ToString() %>'
-                                        OnClientClick="return confirm('The Order step will be Reverted to Executed.Would you like to Continue?');">
-                                    </asp:LinkButton>
-                                </ItemTemplate>
-                            </telerik:GridTemplateColumn>
+                            </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn  DataField="BMOERD_BSEOrderId" AllowFiltering="true" HeaderText="BSE Exchange No"
                                 UniqueName="BMOERD_BSEOrderId" SortExpression="BMOERD_BSEOrderId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="75px" FilterControlWidth="50px">
@@ -406,7 +401,7 @@
                             <telerik:GridTemplateColumn ItemStyle-Width="60px" AllowFiltering="false" HeaderText="Action" UniqueName="RevertToExecute"
                                 Visible="false">
                                 <ItemTemplate>
-                                <asp:LinkButton ID="RevertToExecute" runat="server" Text="Revert To Execute" ></asp:LinkButton>
+                                <asp:LinkButton ID="RevertToExecute" runat="server" Text="Revert To Execute" CommandName="RevertToExecute"  OnClientClick="return confirm('The Order step will be Reverted to Executed.Would you like to Continue?');"></asp:LinkButton>
                                 </ItemTemplate>
                                 </telerik:GridTemplateColumn> 
                                 

@@ -410,7 +410,7 @@
                             <telerik:GridTemplateColumn ItemStyle-Width="60px" AllowFiltering="false" HeaderText="Action" UniqueName="RevertToExecute"
                                 Visible="false">
                                 <ItemTemplate>
-                                <asp:LinkButton ID="RevertToExecute" runat="server" Text="Revert To Execute" ></asp:LinkButton>
+                                <asp:LinkButton ID="RevertToExecute" runat="server" Text="Revert To Execute" CommandName="RevertToExecute"  OnClientClick="return confirm('The Order step will be Reverted to Executed.Would you like to Continue?');"></asp:LinkButton>
                                 </ItemTemplate>
                                 </telerik:GridTemplateColumn> 
                            <%-- <telerik:GridEditCommandColumn Visible="false" HeaderStyle-Width="60px" UniqueName="RevertToExecute"

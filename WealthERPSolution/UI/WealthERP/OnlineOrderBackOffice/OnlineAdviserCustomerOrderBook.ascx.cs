@@ -328,54 +328,38 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             string strRemark = string.Empty;
             int IsMarked = 0;
-            Int32 orderId = Convert.ToInt32(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
-                
+                        
             if (e.CommandName == RadGrid.UpdateCommandName)
             {
                 GridEditableItem editItem = e.Item as GridEditableItem;
                 TextBox txtRemark = (TextBox)e.Item.FindControl("txtRemark");
                 strRemark = txtRemark.Text;
                 LinkButton buttonEdit = editItem["MarkAsReject"].Controls[0] as LinkButton;
-                //Int32 orderId = Convert.ToInt32(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
+                Int32 orderId = Convert.ToInt32(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
                 Int32 ExchangeNo = Convert.ToInt32(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["BMOERD_BSEOrderId"].ToString());
                 IsMarked = mforderBo.MarkAsReject(orderId, txtRemark.Text);
                 BindOrderBook();
                
             }
-            if (e.CommandName == "Select")
+            else if  (e.CommandName == "Select")
             {
                 GridEditableItem editItem = e.Item as GridEditableItem;
                 LinkButton lnkprAmcB = (LinkButton)editItem.FindControl("lnkprAmcB");
-                //Int32 orderId = Convert.ToInt32(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
+                Int32 orderId = Convert.ToInt32(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
                 Int32 ExchangeNo = Convert.ToInt32(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["BMOERD_BSEOrderId"].ToString());
                 OnlineOrderMISBo.UpdateOrderReverse(orderId, userVo.UserId);
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Order updated !!');", true);
                 BindOrderBook();
                 
             }
-            //if (e.CommandName == "Edit")
-            //{
-            //string orderId = gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString();
-            //string customerId = gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_CustomerId"].ToString();
-            //string assetGroupCode = gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PAG_AssetGroupCode"].ToString();
-            //string Code = gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WMTT_TransactionClassificationCode"].ToString();
-            //    if (assetGroupCode == "MF")
-            //    {
-            //        if (Code == "BUY")
-            //        {
-            //            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFOrderPurchaseTransType", "loadcontrol('MFOrderPurchaseTransType','action=Edit');", true);
-            //        }
-            //        else if (Code == "ABY")
-            //        {
-            //            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFOrderAdditionalPurchase", "loadcontrol('MFOrderAdditionalPurchase','action=Edit');", true);
-            //        }
-            //        else
-            //        {
-            //            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFOrderRdemptionTransType", "loadcontrol('MFOrderRdemptionTransType','action=Edit');", true);
-            //        }
-            //    }
-            //}
-            RevertToExecute(orderId, userVo.UserId);
+            else if (e.CommandName == "RevertToExecute")
+            {
+                GridEditableItem editItem = e.Item as GridEditableItem;
+                Int32 orderId = Convert.ToInt32(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
+                RevertToExecute(orderId, userVo.UserId);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Order updated !!');", true);
+                BindOrderBook();
+            }
         }
         protected void gvOrderBookMIS_ItemDataBound(object sender, GridItemEventArgs e)
         {
@@ -384,7 +368,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 GridDataItem dataItem = e.Item as GridDataItem;
                 LinkButton lbtnMarkAsReject = dataItem["MarkAsReject"].Controls[0] as LinkButton;
-                LinkButton lnkprAmcB = (LinkButton)dataItem.FindControl("lnkprAmcB");
+               
                 string OrderStepCode = Convert.ToString(gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["XS_Status"]);
                 if (OrderStepCode == "INPROCESS" || OrderStepCode == "EXECUTED")
                 {
@@ -394,18 +378,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     lbtnMarkAsReject.Visible = false;
                 }
-                if (OrderStepCode == "ACCEPTED")
-                {
-                    lnkprAmcB.Enabled = true;
-                    
-                }
-                else
-                {
-                    lnkprAmcB.ForeColor = System.Drawing.Color.Black;
-                    lnkprAmcB.Enabled = false;
-                    lnkprAmcB.OnClientClick = "";
-                   
-                }
+               
 
             }
             
