@@ -58,7 +58,38 @@
         });
     }
 </script>
-
+<script language="javascript" type="text/javascript">
+    function GetCheckedItemCount(objCheckbox) {
+        if (objCheckbox.checked == true) {
+            if (document.getElementById('<%=hdnCheckedCount.ClientID %>').value >= 1) {
+                alert('Please select only one rows');
+                objCheckbox.checked = false;
+            }
+            else {
+                document.getElementById('<%=hdnCheckedCount.ClientID %>').value = parseInt(document.getElementById('<%=hdnCheckedCount.ClientID %>').value) + 1;
+            }
+        }
+        else {
+            document.getElementById('<%=hdnCheckedCount.ClientID %>').value = parseInt(document.getElementById('<%=hdnCheckedCount.ClientID %>').value) - 1;
+        }
+    }
+    </script>
+    <script language="javascript" type="text/javascript">
+    function GetCheckedItemCount1(objCheckbox) {
+        if (objCheckbox.checked == true) {
+            if (document.getElementById('<%=hdnCheckedCount1.ClientID %>').value >= 1) {
+                alert('Please select only one rows');
+                objCheckbox.checked = false;
+            }
+            else {
+                document.getElementById('<%=hdnCheckedCount1.ClientID %>').value = parseInt(document.getElementById('<%=hdnCheckedCount1.ClientID %>').value) + 1;
+            }
+        }
+        else {
+            document.getElementById('<%=hdnCheckedCount1.ClientID %>').value = parseInt(document.getElementById('<%=hdnCheckedCount1.ClientID %>').value) - 1;
+        }
+    }
+</script>
 <script language="javascript" type="text/javascript">
     function checkDate(sender, args) {
         var selectedDate = new Date();
@@ -287,7 +318,7 @@
                         <Columns>
                             <asp:TemplateField HeaderText="Select">
                                 <ItemTemplate>
-                                    <asp:CheckBox ID="chkId" runat="server" />
+                                    <asp:CheckBox ID="chkId" onClick="GetCheckedItemCount(this)"  runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:BoundField DataField="Name" HeaderText="Name" />
@@ -335,7 +366,7 @@
                         <Columns>
                             <asp:TemplateField HeaderText="Select">
                                 <ItemTemplate>
-                                    <asp:CheckBox ID="chkId0" runat="server" />
+                                    <asp:CheckBox ID="chkId0" onClick="GetCheckedItemCount1(this)"   runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:BoundField DataField="Name" HeaderText="Name" />
@@ -380,3 +411,5 @@
 </table>
 <asp:HiddenField ID="HdnAdviserId" runat="server" />
 <asp:HiddenField ID="hidValidCheck" runat="server" EnableViewState="true" />
+<asp:HiddenField ID="hdnCheckedCount" runat="server" Value="0" />
+<asp:HiddenField ID="hdnCheckedCount1" runat="server" Value="0" />
