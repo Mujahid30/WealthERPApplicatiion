@@ -680,6 +680,19 @@ namespace WealthERP.Advisor
             RoleIds = RoleIds.Remove(RoleIds.Length - 1);
             string theme = userVo.theme;
             string BranchId = string.Empty;
+            if (ddlRportingRole.SelectedValue == "0")
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Reporting To Role');", true);
+                return;
+            }
+            if (ddlReportingMgr.SelectedValue == "0")
+            {
+                //ValidateStaffReportingManager();
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Reporting Manager');", true);
+                return;
+
+            }
+
             if (txtStaffcode.Text != string.Empty)
             {
                 int staffCodeDuplicatechec = customerbo.CheckStaffCode(txtStaffcode.Text);
@@ -791,7 +804,19 @@ namespace WealthERP.Advisor
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (ValidateStaffReportingManager())
+            if (ddlRportingRole.SelectedValue == "0")
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Reporting To Role');", true);
+                return;
+            }
+            if (ddlReportingMgr.SelectedValue == "0")
+            {
+                //ValidateStaffReportingManager();
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Reporting Manager');", true);
+                return;
+
+            }
+            if (ValidateStaffReportingManager() )
             {
                 rmStaffVo = CollectAdviserStaffData();
                 rmUserVo = CollectAdviserStaffUserData();
@@ -804,6 +829,7 @@ namespace WealthERP.Advisor
                 divMsgSuccess.InnerText = "Staff updated Sucessfully";
                 trSuccessMsg.Visible = true;
             }
+          
         }
 
         protected void ControlInitialState()

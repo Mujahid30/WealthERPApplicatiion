@@ -240,7 +240,9 @@
             <asp:DropDownList ID="ddlRportingRole" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlRportingRole_SelectedIndexChanged">
             </asp:DropDownList>
-            <span id="Span7" class="spnRequiredField">*</span>
+              <span id="Span7" class="spnRequiredField">*</span>
+            
+          
         </td>
         <td class="leftLabel">
             <asp:Label ID="Label2" runat="server" Text="Reporting Manager:" CssClass="FieldName"></asp:Label>
@@ -248,7 +250,9 @@
         <td class="rightData">
             <asp:DropDownList ID="ddlReportingMgr" runat="server" CssClass="cmbField">
             </asp:DropDownList>
-            <span id="Span8" class="spnRequiredField">*</span>
+              <span id="Span8" class="spnRequiredField">*</span>
+            
+          
         </td>
     </tr>
     <tr>
