@@ -246,6 +246,7 @@ namespace WealthERP.CustomerPortfolio
                     dtProperty.Columns.Add("Current Value", typeof(Double));
                     dtProperty.Columns.Add("JntName");
                     dtProperty.Columns.Add("NName");
+
                     DataRow drProperty;
                     for (int i = 0; i < propertyList.Count; i++)
                     {
@@ -256,8 +257,8 @@ namespace WealthERP.CustomerPortfolio
                         drProperty[0] = propertyVo.PropertyId.ToString();
                         drProperty[1] = propertyVo.AssetSubCategoryName.ToString();
                         drProperty[2] = propertyVo.Name.ToString();
-                        drProperty[10] = propertyVo.JointHolderName.ToString();
-                        drProperty[9] = propertyVo.Nominee.ToString();
+                        drProperty[9] = propertyVo.JointHolderName.ToString();
+                        drProperty[10] = propertyVo.Nominee.ToString();
                         drProperty[3] = propertyVo.PropertyCity.ToString();
                         drProperty[4] = propertyVo.Quantity.ToString("f0");
                         drProperty[5] = XMLBo.GetMeasureCodeName(path, propertyVo.MeasureCode.ToString());
@@ -271,17 +272,18 @@ namespace WealthERP.CustomerPortfolio
                         dtProperty.Rows.Add(drProperty);
                     }
 
-                  
-                    gvrProperty.DataSource = dtProperty;
-                    gvrProperty.DataBind();
-                    if (Cache["gvrProperty" + userVo.UserId.ToString()] == null)
+                    if (Cache["gvrProperty" + userVo.UserId + customerVo.CustomerId] == null)
                     {
-                        Cache.Insert("gvrProperty" + userVo.UserId.ToString(), dtProperty);
+                        Cache.Insert("gvrProperty" + userVo.UserId + customerVo.CustomerId, dtProperty);
                     }
                     else
                     {
-                        Cache.Remove("gvrProperty" + userVo.UserId.ToString());
+                        Cache.Remove("gvrProperty" + userVo.UserId + customerVo.CustomerId);
+                        Cache.Insert("gvrProperty" + userVo.UserId + customerVo.CustomerId, dtProperty);
                     }
+                    gvrProperty.DataSource = dtProperty;
+                    gvrProperty.DataBind();
+                  
                 }
                 else
                 {
@@ -389,12 +391,15 @@ namespace WealthERP.CustomerPortfolio
         }
         protected void gvrProperty_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            gvrProperty.Visible = true;
-            DataTable dtProperty = new DataTable();
 
-            btnExportFilteredData.Visible = true;
-            dtProperty = (DataTable)Cache["drProperty + '" + customerVo.CustomerId + "'"];
-            gvrProperty.DataSource = dtProperty;
+            DataTable dtProperty = new DataTable();
+            if (Cache["gvrProperty" + userVo.UserId + customerVo.CustomerId] != null)
+            {
+                dtProperty = (DataTable)Cache["gvrProperty" + userVo.UserId + customerVo.CustomerId];
+                gvrProperty.DataSource = dtProperty;
+            }
+
+           
         }
 
 

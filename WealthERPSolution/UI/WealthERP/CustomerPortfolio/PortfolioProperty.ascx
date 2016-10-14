@@ -77,7 +77,7 @@
     <tr>
         <td>
             <telerik:RadGrid ID="gvrProperty" runat="server" GridLines="None" AutoGenerateColumns="False"
-                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                PageSize="5" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                 Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
                 AllowAutomaticInserts="false"  ExportSettings-ExportOnlyData="true" ExportSettings-Excel-Format="ExcelML"
                 OnNeedDataSource="gvrProperty_OnNeedDataSource">
