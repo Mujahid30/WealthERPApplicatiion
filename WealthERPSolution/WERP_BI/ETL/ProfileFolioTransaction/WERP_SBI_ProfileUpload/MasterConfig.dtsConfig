@@ -105,13 +105,13 @@
     <ConfiguredValue></ConfiguredValue>
   </Configuration>
   <Configuration ConfiguredType="Property" Path="\Package.Connections[SERVER.sa].Properties[InitialCatalog]" ValueType="String">
-    <ConfiguredValue>WealthERP_SBI_STG</ConfiguredValue>
+    <ConfiguredValue>WealthERP_SBI_APP_COPY</ConfiguredValue>
   </Configuration>
   <Configuration ConfiguredType="Property" Path="\Package.Connections[SERVER.sa].Properties[Name]" ValueType="String">
     <ConfiguredValue>SERVER.sa</ConfiguredValue>
   </Configuration>
   <Configuration ConfiguredType="Property" Path="\Package.Connections[SERVER.sa].Properties[Password]" ValueType="String">
-    <ConfiguredValue>$BI@123</ConfiguredValue>
+    <ConfiguredValue>sbicap@123</ConfiguredValue>
   </Configuration>
   <Configuration ConfiguredType="Property" Path="\Package.Connections[SERVER.sa].Properties[ProtectionLevel]" ValueType="Int32">
     <ConfiguredValue>1</ConfiguredValue>
@@ -120,7 +120,7 @@
     <ConfiguredValue>0</ConfiguredValue>
   </Configuration>
   <Configuration ConfiguredType="Property" Path="\Package.Connections[SERVER.sa].Properties[ServerName]" ValueType="String">
-    <ConfiguredValue>124.153.79.44</ConfiguredValue>
+    <ConfiguredValue>172.15.17.111</ConfiguredValue>
   </Configuration>
   <Configuration ConfiguredType="Property" Path="\Package.Connections[SERVER.sa].Properties[UserName]" ValueType="String">
     <ConfiguredValue>sa</ConfiguredValue>
@@ -153,7 +153,7 @@
     <ConfiguredValue>C:\WERP_WINDOWS_JOBS\WERP_CML_UPLOAD\PACKAGE_REFERENCE_FILES\PM\CM.xlsx</ConfiguredValue>
   </Configuration>
   <Configuration ConfiguredType="Property" Path="\Package.Variables[User::varConStr].Properties[Value]" ValueType="String">
-    <ConfiguredValue>Data Source=124.153.79.44;User ID=sa;Password=$BI@123;Initial Catalog=WealthERP_SBI_STG;Provider=SQLNCLI10.1;Application Name=SSIS-InputToStaging-{9a06fb71-ab67-4b5f-8ae8-2fa1a85814c8}SERVER.sa;</ConfiguredValue>
+    <ConfiguredValue>Data Source=172.15.17.111;User ID=sa;Password=sbicap@123;Initial Catalog=WealthERP_SBI_APP_COPY;Provider=SQLNCLI10.1;Application Name=SSIS-InputToStaging-{9a06fb71-ab67-4b5f-8ae8-2fa1a85814c8}SERVER.sa;</ConfiguredValue>
   </Configuration>
   
 </DTSConfiguration>
