@@ -22,17 +22,20 @@ namespace FPUtilityTool
     {
         FPUserBO fpUserBo = new FPUserBO();
         FPUserVo fpuserVo = new FPUserVo();
+        CustomerVo customerVo = new CustomerVo();
         protected void Page_Load(object sender, EventArgs e)
         {
             FPUserBO.CheckSession();
             fpuserVo = (FPUserVo)Session["FPUserVo"];
             int adviserId = Convert.ToInt32(ConfigurationManager.AppSettings["ONLINE_ADVISER"]);
             lblUserName.Text = " " + fpuserVo.UserName;
+           
             if (!IsPostBack)
             {
 
-              
-                    divTncSuccess.Visible = true;
+                //Save();
+                    divTncSuccess.Visible = false;
+                    divtnc2.Visible = true;
                
                
                 //if (Request.UrlReferrer == null)
@@ -89,6 +92,11 @@ namespace FPUtilityTool
         }
         protected void btnTnC_Click(object sender, EventArgs e)
         {
+            Save();
+        }
+
+        private void Save()
+        {
             CustomerVo customerVo = new CustomerVo();
             UserVo userVo = new UserVo();
             CustomerBo customerBo = new CustomerBo();
@@ -136,9 +144,10 @@ namespace FPUtilityTool
                 }
                 divtnc1.Visible = false;
                 divtnc2.Visible = false;
+                divTncSuccess.Visible = true;
 
             }
-        }
+       }
         private bool UpdateCustomerIdInFPUserTable(int fpUserId, int customerId)
         {
             bool result = false;

@@ -117,8 +117,8 @@
             <div class="row">
                 <div class="col-sm-2">
                 </div>
-                <div class="col-sm-8  form-group" style="z-index:1" >
-                  <%--  <div id="chart" style="height: 50%;">
+                <div class="col-sm-8  form-group" style="z-index: 1">
+                    <%--  <div id="chart" style="height: 50%;">
                     </div>--%>
                     <asp:Literal ID="ltrAssets" runat="server"></asp:Literal>
                 </div>
@@ -146,20 +146,28 @@
             <div class="col-sm-2">
             </div>
         </div>
-        <div id="divtnc2" visible="true" runat="server" class="row">
+        <div id="divtnc2" runat="server" class="row">
             <div class="col-sm-4">
             </div>
-            <div class="col-sm-4 text-center" visible="false">
-                <button type="button" visible="false" class="btn btn-info btn-lg" data-toggle="modal" data-keyboard="true"
-                    data-target="#myModal">
-                    Click Here</button>
-            </div>
+           <%-- <div class="col-sm-4 text-center">
+                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-keyboard="true"
+                    data-target="#divTncSuccess">
+                    Click Here</button>--%>
+                  <%--<button type="button" visible="true" class="btn btn-info btn-lg" data-toggle="modal" data-keyboard="true"   data-target="#divTncSuccess">
+                    Click Here</button>--%>
+           <%-- </div>--%>
+           
+             <div class="col-sm-4 text-center">
+                                    <asp:Button ID="btnTnC" runat="server" Text="Click Here" ValidationGroup="accept" OnClick="btnTnC_Click"
+                                        CssClass="btn btn-info " />
+                                </div>
+           
             <div class="col-sm-4">
             </div>
         </div>
         <!-- Modal -->
-        <div class="modal fade" id="myModal" role="dialog" >
-            <div class="modal-dialog modal-lg" style="z-index:10000">
+        <div class="modal fade" id="myModal" visible="false" role="dialog">
+            <div class="modal-dialog modal-lg" style="z-index: 10000">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">
@@ -205,16 +213,15 @@
                         <div class="row">
                             <div class="col-sm-5">
                                 <div class="checkbox  pull-right">
-                                    <label>
-                                        <asp:CheckBox ID="chkAgree" runat="server" />I Agree</label>
+                                    <%--  <label>
+                                        <asp:CheckBox ID="chkAgree" runat="server" />I Agree</label>--%>
                                 </div>
-                                <asp:CustomValidator runat="server" ID="CheckBoxRequired" EnableClientScript="true" ValidationGroup="accept"
-                                    ClientValidationFunction="CheckBoxRequired_ClientValidate"></asp:CustomValidator>
-                            </div>
-                            <div class="col-sm-2 pull-left">
-                                <asp:Button ID="btnTnC" runat="server" Text="Submit" ValidationGroup="accept" OnClick="btnTnC_Click" CssClass="btn btn-info " />
-                            </div>
-                            <div class="col-sm-5">
+                                <div class="col-sm-2 pull-left">
+                                    <%--<asp:Button ID="btnTnC" runat="server" Text="Submit" ValidationGroup="accept" OnClick="btnTnC_Click"
+                                        CssClass="btn btn-info " />--%>
+                                </div>
+                                <div class="col-sm-5">
+                                </div>
                             </div>
                         </div>
                     </div>
