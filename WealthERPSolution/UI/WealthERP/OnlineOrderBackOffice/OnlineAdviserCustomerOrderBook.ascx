@@ -202,7 +202,7 @@
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn  DataField="BMOERD_BSEOrderId" AllowFiltering="true" HeaderText="BSE Exchange No"
                                 UniqueName="BMOERD_BSEOrderId" SortExpression="BMOERD_BSEOrderId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                AutoPostBackOnFilter="true" HeaderStyle-Width="75px" FilterControlWidth="50px">
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="60px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <%--  <telerik:GridBoundColumn DataField="CO_OrderId" AllowFiltering="true" HeaderText="Order No."

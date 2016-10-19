@@ -74,7 +74,10 @@ namespace WealthERP.OnlineOrderBackOffice
                     ViewState["OrderId"] = int.Parse(Request.QueryString["orderId"].ToString());
                     ViewState["FolioNo"] = Request.QueryString["txtFolioNo"];
                     ViewState["SIPType"] = Request.QueryString["SIPType"];
-                    trSearchType.Visible = false;
+                    //if(Request.QueryString["IsDemat"]=="True")
+                    //{
+                       
+                        trSearchType.Visible = false;
                     btnViewSIP.Visible = false;
                     SetParameter();
                     BindSIPBook(DateTime.Parse("01-01-1990"), DateTime.Now);
@@ -396,6 +399,14 @@ namespace WealthERP.OnlineOrderBackOffice
                 else
                 {
                     lbtnMarkAsReject.Visible = false;
+                }
+                if (OrderStepCode == "ACCEPTED")
+                {
+                    gvSIPBookMIS.MasterTableView.GetColumn("RevertToExecute").Visible = true;
+                }
+                else
+                {
+                    gvSIPBookMIS.MasterTableView.GetColumn("RevertToExecute").Visible = false;
                 }
             }
         }

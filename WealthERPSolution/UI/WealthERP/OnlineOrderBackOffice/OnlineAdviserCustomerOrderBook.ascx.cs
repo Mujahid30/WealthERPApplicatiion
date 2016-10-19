@@ -46,6 +46,7 @@ namespace WealthERP.OnlineOrderBackOffice
             customerVO = (CustomerVo)Session["customerVo"];
             userVo = (UserVo)Session[SessionContents.UserVo];
             userType = Session[SessionContents.CurrentUserRole].ToString();
+           
             // customerId = customerVO.CustomerId;                              
             if (!Page.IsPostBack)
             {
@@ -71,13 +72,27 @@ namespace WealthERP.OnlineOrderBackOffice
                     ViewState["OrderId"] = int.Parse(Request.QueryString["orderId"].ToString());
                     ViewState["FolioNo"] = Request.QueryString["txtFolioNo"];
                     ViewState["IsDemat"] = Request.QueryString["IsDemat"];
+                  
+                    if(Request.QueryString["IsDemat"]=="True")
+                    {
+
+                        gvOrderBookMIS.MasterTableView.GetColumn("BMOERD_BSEOrderId").Visible = true;
+                    }
+                    else
+                    {
+                        gvOrderBookMIS.MasterTableView.GetColumn("BMOERD_BSEOrderId").Visible = false;
+                    }
                     BindOrderBook();
                     tblField.Visible = false;
                     tblOrder.Visible = false;
                     divConditional.Visible = false;
                 }
+               
+
 
             }
+            
+            
 
         }
         protected void ddlType_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -369,11 +384,32 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (OrderStepCode == "INPROCESS" || OrderStepCode == "EXECUTED")
                 {
                     lbtnMarkAsReject.Visible = true;
+                    gvOrderBookMIS.MasterTableView.GetColumn("RevertToExecute").Visible = false;
                 }
                 else
                 {
                     lbtnMarkAsReject.Visible = false;
                 }
+                if (OrderStepCode=="ACCEPTED")
+                {
+                    gvOrderBookMIS.MasterTableView.GetColumn("RevertToExecute").Visible = true;
+                }
+                else
+                {
+                    gvOrderBookMIS.MasterTableView.GetColumn("RevertToExecute").Visible = false;
+                }
+                if (Request.QueryString["IsDemat"] == "True")
+                {
+
+                    gvOrderBookMIS.MasterTableView.GetColumn("BMOERD_BSEOrderId").Visible = true;
+                }
+                else
+                {
+                    gvOrderBookMIS.MasterTableView.GetColumn("BMOERD_BSEOrderId").Visible = false;
+                }
+                
+               
+               
                
 
             }
