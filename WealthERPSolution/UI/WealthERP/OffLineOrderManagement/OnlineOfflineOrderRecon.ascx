@@ -459,10 +459,10 @@
         <tr runat="server" id="trReprocess">
             <td>
                 <asp:Button ID="btnReprocess" Text="Reprocess" runat="server" CausesValidation="False"
-                    CssClass="PCGButton" OnClick="btnReprocess_Click"></asp:Button>
+                    CssClass="PCGButton" OnClick="btnReprocess_Click" Visible="false"></asp:Button>
                 <asp:Button ID="btnBulkOrder" Text="BulkOrderGeneration" runat="server" CausesValidation="False"
-                    CssClass="PCGButton" OnClick="BulkOrderGeneration_Click"></asp:Button>
-                <asp:Button ID="btnUpdate" runat="server"  CssClass="PCGButton" Text="Update" OnClick="btnUpdateAllDetails_Update" />
+                    CssClass="PCGButton" OnClick="BulkOrderGeneration_Click" Visible="false"></asp:Button>
+                <asp:Button ID="btnUpdate" runat="server"  CssClass="PCGButton" Text="Update" OnClick="btnUpdateAllDetails_Update" Visible="false"/>
             </td>
             <td>
             </td>

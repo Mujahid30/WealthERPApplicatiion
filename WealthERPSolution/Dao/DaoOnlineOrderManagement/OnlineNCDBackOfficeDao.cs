@@ -4087,7 +4087,7 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetIssueName;
         }
-        public bool UpdateAllotedMissMatchOrder(int AllotmentId, int qty, string brokerCode, string PAN, string category)
+        public bool UpdateAllotedMissMatchOrder(int AllotmentId, int qty, string brokerCode, string PAN, string category, int orderId, int IssueId,int userId)
         {
             bool bResult = false;
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -4101,7 +4101,9 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(UpdateAllotedMissMatchOrderCmd, "@PAN", DbType.String, PAN);
                 db.AddInParameter(UpdateAllotedMissMatchOrderCmd, "@allotmentId", DbType.Int32, AllotmentId);
                 db.AddInParameter(UpdateAllotedMissMatchOrderCmd, "@category", DbType.String, category);
-
+                db.AddInParameter(UpdateAllotedMissMatchOrderCmd, "@orderId", DbType.Int64, orderId);
+                db.AddInParameter(UpdateAllotedMissMatchOrderCmd, "@IssueId", DbType.Int32, IssueId);
+                db.AddInParameter(UpdateAllotedMissMatchOrderCmd, "@userId", DbType.Int32, userId);
                 if (db.ExecuteNonQuery(UpdateAllotedMissMatchOrderCmd) != 0)
                     bResult = true;
             }

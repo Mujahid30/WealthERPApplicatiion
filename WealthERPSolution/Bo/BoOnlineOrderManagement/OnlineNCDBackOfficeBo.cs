@@ -2557,13 +2557,13 @@ namespace BoOnlineOrderManagement
 
 
         }
-        public bool UpdateAllotedMissMatchOrder(int AllotmentId, int qty, string brokerCode, string PAN, string category)
+        public bool UpdateAllotedMissMatchOrder(int AllotmentId, int qty, string brokerCode, string PAN, string category, int orderId, int IssueId,int userId)
         {
             OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
             bool bResult = false;
             try
             {
-                bResult = daoOnlNcdBackOff.UpdateAllotedMissMatchOrder(AllotmentId, qty, brokerCode, PAN, category);
+                bResult = daoOnlNcdBackOff.UpdateAllotedMissMatchOrder(AllotmentId, qty, brokerCode, PAN, category, orderId,IssueId,userId);
 
             }
             catch (BaseApplicationException Ex)
