@@ -47,5 +47,10 @@
       <FullPath>MFReconHolding.dtsx</FullPath>
       <References />
     </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>SIP.dtsx</Name>
+      <FullPath>SIP.dtsx</FullPath>
+      <References />
+    </DtsPackage>
   </DTSPackages>
 </Project>
