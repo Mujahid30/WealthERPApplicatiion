@@ -202,7 +202,6 @@ namespace WealthERP.OffLineOrderManagement
             if (ddlType.SelectedValue == "4")
             {
                 gvOrderRecon.MasterTableView.GetColumn("action").Visible = true;
-                gvOrderRecon.MasterTableView.GetColumn("AddOrder").Visible = true;
                 gvOrderRecon.MasterTableView.GetColumn("editColumn").Visible = false;
                 gvOrderRecon.MasterTableView.GetColumn("MissmatchType").Visible = false;
                 if (ddlCategory.SelectedValue == "FICGCG" || ddlCategory.SelectedValue == "FICDCD")
