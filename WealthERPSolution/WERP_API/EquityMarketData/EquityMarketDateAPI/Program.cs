@@ -20,43 +20,47 @@ namespace EquityMarketDateAPI
     {
         static void Main(string[] args)
         {
+            DataSet dsResult = new DataSet();
             EquityAPIBO EquityAPIBO = new EquityAPIBO();
-            WebResponse response;
-            string result;
-            WebRequest request = HttpWebRequest.Create(ConfigurationSettings.AppSettings["EquityMarket"]+ DateTime.Now.ToString("yyyy-MM-dd"));
-            response = request.GetResponse();
-            using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+            dsResult = TriggerAPIConvertToDT(ConfigurationSettings.AppSettings["EquityMarket"] + DateTime.Now.ToString("yyyy-MM-dd"), "EquityMaster");
+            if (dsResult.Tables.Count > 1 && dsResult.Tables[1].Rows[0]["StatusCode"].ToString() == "01")
             {
-                result = reader.ReadToEnd();
-                reader.Close();
+                EquityAPIBO.CreateUpdateEquityMarketData(dsResult.Tables[0]);
             }
-            StringReader theReader = new StringReader(result);
-            string content = theReader.ReadToEnd();
-            XmlDocument doc1 = (XmlDocument)JsonConvert.DeserializeXmlNode(content, "EquityMarketPriceList");
-            XDocument xDoc1 = XDocument.Load(new XmlNodeReader(doc1));
-            StringReader theReader123 = new StringReader(xDoc1.ToString());
-            DataSet ds1 = new DataSet();
-            ds1.ReadXml(theReader123);
-
-            EquityAPIBO.CreateUpdateEquityMarketData(ds1.Tables[0]);
-
-            string result1;
-            WebRequest request1 = HttpWebRequest.Create(ConfigurationSettings.AppSettings["EquityMaster"]);
-            response = request1.GetResponse();
-            using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+            dsResult.Reset();
+            dsResult = TriggerAPIConvertToDT(ConfigurationSettings.AppSettings["EquityMaster"], "EquityScriptMasterList");
+            if (dsResult.Tables.Count > 1 && dsResult.Tables[1].Rows[0]["StatusCode"].ToString() == "01")
             {
-                result1 = reader.ReadToEnd();
-                reader.Close();
+                EquityAPIBO.CreateUpdateEquityMasterData(dsResult.Tables[0]);
             }
-            StringReader theReader1 = new StringReader(result1);
-            string content1 = theReader1.ReadToEnd();
-            XmlDocument doc = (XmlDocument)JsonConvert.DeserializeXmlNode(content1, "EquityScriptMasterList");
-            XDocument xDoc = XDocument.Load(new XmlNodeReader(doc));
-            StringReader theReader12 = new StringReader(xDoc.ToString());
+        }
+        public static DataSet TriggerAPIConvertToDT(string API, string rootName)
+        {
             DataSet ds = new DataSet();
-            ds.ReadXml(theReader12);
-            EquityAPIBO.CreateUpdateEquityMasterData(ds.Tables[0]);
+            try
+            {
+                WebResponse response;
+                string result;
+                WebRequest request1 = HttpWebRequest.Create(API);
+                response = request1.GetResponse();
+                using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                {
+                    result = reader.ReadToEnd();
+                    reader.Close();
+                }
+                StringReader theReader1 = new StringReader(result);
+                string content1 = theReader1.ReadToEnd();
+                XmlDocument doc = (XmlDocument)JsonConvert.DeserializeXmlNode(content1, rootName);
+                XDocument xDoc = XDocument.Load(new XmlNodeReader(doc));
+                StringReader theReader12 = new StringReader(xDoc.ToString());
+                ds.ReadXml(theReader12);
 
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return ds;
         }
 
     }
