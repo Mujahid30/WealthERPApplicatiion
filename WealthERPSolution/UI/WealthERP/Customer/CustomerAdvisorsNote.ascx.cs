@@ -115,6 +115,15 @@ namespace WealthERP.Customer
                 //}
             }
         }
+        protected void ddlClassification_Load(object sender, EventArgs e)
+        {
+
+            ddlClassification.Items.FindByValue("8").Enabled = false;
+            ddlClassification.Items.FindByValue("9").Enabled = false;
+
+
+
+        }
 
     }
 }

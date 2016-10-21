@@ -19,7 +19,7 @@
             </asp:Label>
         </td>
         <td class="rightField">
-            <asp:DropDownList ID="ddlClassification" CssClass="cmbField" width="150px" runat="server">
+            <asp:DropDownList ID="ddlClassification" CssClass="cmbField" width="150px" runat="server" AutoPostBack="true" OnLoad="ddlClassification_Load" >
             </asp:DropDownList>
             
              <asp:CompareValidator ID="ddlClassfication_CompareValidator" runat="server" ControlToValidate="ddlClassification" ValidationGroup="btnSubmit"
