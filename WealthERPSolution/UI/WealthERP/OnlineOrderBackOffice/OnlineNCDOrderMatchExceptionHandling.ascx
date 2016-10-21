@@ -138,7 +138,8 @@
             <asp:Label ID="lblType" runat="server" Text="Select Type" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlType_SelectedIndexChanged" AutoPostBack="true" >
+                 <asp:ListItem Text="Select" Value="0"></asp:ListItem>
                 <asp:ListItem Text="Online" Value="1"></asp:ListItem>
                 <asp:ListItem Text="Offline" Value="2"></asp:ListItem>
             </asp:DropDownList>

@@ -185,6 +185,51 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.DropDownList ddlType;
         
         /// <summary>
+        /// tdlblSubCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblSubCategory;
+        
+        /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
+        
+        /// <summary>
+        /// tdSubCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdSubCategory;
+        
+        /// <summary>
+        /// ddlSubCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSubCategory;
+        
+        /// <summary>
+        /// RequiredFieldValidator5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator5;
+        
+        /// <summary>
         /// lblOrderStatus control.
         /// </summary>
         /// <remarks>
@@ -257,6 +302,24 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.Button btnGo;
         
         /// <summary>
+        /// PnlMultiSeries control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PnlMultiSeries;
+        
+        /// <summary>
+        /// RadMultiSeries control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid RadMultiSeries;
+        
+        /// <summary>
         /// pnlGrid control.
         /// </summary>
         /// <remarks>
@@ -264,8 +327,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlGrid;
-        protected global::System.Web.UI.WebControls.Panel PnlMultiSeries;
-        protected global::Telerik.Web.UI.RadGrid RadMultiSeries;
+        
         /// <summary>
         /// gvOrders control.
         /// </summary>
@@ -319,8 +381,5 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnMannualMatch;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdSubCategory;
-        protected global::System.Web.UI.WebControls.DropDownList ddlSubCategory;
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblSubCategory;
     }
 }

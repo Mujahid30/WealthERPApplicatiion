@@ -443,6 +443,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
                     else
                     {
+                       
                         gvOfflineAllotment.DataSource = dtOrdersMatch;
                         gvOfflineAllotment.DataBind();
                         pnlOfflineNCDIPO.Visible = true;
@@ -454,6 +455,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 else
                 {
+                      
                     dtOrdersMatch = onlineNCDBackOfficeBo.GetAdviserOrders(int.Parse(ddlIssue.SelectedValue), ddlProduct.SelectedValue, advisorVo.advisorId, 1, userType, AgentCode, ddlSubCategory.SelectedValue).Tables[0];
                     gvOrders.DataSource = dtOrdersMatch;
                     gvOrders.DataBind();
@@ -538,6 +540,20 @@ namespace WealthERP.OnlineOrderBackOffice
 
         }
 
+        protected void ddlType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlType.SelectedValue == "1")
+            {
+                ddlSubCategory.Items.FindByValue("FICDCD").Enabled = false;
+                ddlSubCategory.Items.FindByValue("FICGCG").Enabled = false;
+            }
+            else
+            {
+                ddlSubCategory.Items.FindByValue("FICDCD").Enabled = true;
+                ddlSubCategory.Items.FindByValue("FICGCG").Enabled = true;
+            }
+
+        }
         private void BindIssue()
         {
             try
@@ -722,6 +738,23 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
         }
+        //protected void ddlType_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    if (ddlType.SelectedValue == "1")
+        //    {
+
+        //        ddlSubCategory.Items.FindByValue("FICDCD").Enabled = false;
+        //        
+        //    }
+        //    else
+        //    {
+        //        ddlSubCategory.Items.FindByValue("FICDCD").Enabled = true;
+        //    }
+
+
+
+        //}
+
 
         //protected void lnkOrderId_Click(object sender, EventArgs e)
         //{
