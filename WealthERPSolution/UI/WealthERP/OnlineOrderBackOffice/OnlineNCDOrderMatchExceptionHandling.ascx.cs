@@ -146,7 +146,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void btnNcdIpoExport_Click(object sender, ImageClickEventArgs e)
         {
-            if (ddlType.SelectedValue == "2")
+            if (ddlType.SelectedValue == "16018")
             {
                 if (ddlSubCategory.SelectedValue == "FISDSD")
                 {
@@ -427,11 +427,11 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 DataTable dtOrdersMatch = new DataTable();
 
-                if (ddlType.SelectedValue == "2")
+                if (ddlType.SelectedValue == "16018")
                 {
                     pnlGrid.Visible = false;
-                    dtOrdersMatch = onlineNCDBackOfficeBo.GetAdviserOrders(int.Parse(ddlIssue.SelectedValue), ddlProduct.SelectedValue, advisorVo.advisorId, 2, userType, AgentCode, ddlSubCategory.SelectedValue).Tables[0];
-                    if (ddlType.SelectedValue == "2" && ddlSubCategory.SelectedValue == "FISDSD")
+                    dtOrdersMatch = onlineNCDBackOfficeBo.GetAdviserOrders(int.Parse(ddlIssue.SelectedValue), ddlProduct.SelectedValue, advisorVo.advisorId, int.Parse(ddlType.SelectedValue), userType, AgentCode, ddlSubCategory.SelectedValue).Tables[0];
+                    if (ddlType.SelectedValue == "16018" && ddlSubCategory.SelectedValue == "FISDSD")
                     {
                         RadMultiSeries.DataSource = dtOrdersMatch;
                         RadMultiSeries.DataBind();
@@ -456,7 +456,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 else
                 {
                       
-                    dtOrdersMatch = onlineNCDBackOfficeBo.GetAdviserOrders(int.Parse(ddlIssue.SelectedValue), ddlProduct.SelectedValue, advisorVo.advisorId, 1, userType, AgentCode, ddlSubCategory.SelectedValue).Tables[0];
+                    dtOrdersMatch = onlineNCDBackOfficeBo.GetAdviserOrders(int.Parse(ddlIssue.SelectedValue), ddlProduct.SelectedValue, advisorVo.advisorId,int.Parse(ddlType.SelectedValue), userType, AgentCode, ddlSubCategory.SelectedValue).Tables[0];
                     gvOrders.DataSource = dtOrdersMatch;
                     gvOrders.DataBind();
                     pnlGrid.Visible = true;
@@ -542,7 +542,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void ddlType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlType.SelectedValue == "1")
+            if (ddlType.SelectedValue == "16017")
             {
                 ddlSubCategory.Items.FindByValue("FICDCD").Enabled = false;
                 ddlSubCategory.Items.FindByValue("FICGCG").Enabled = false;
@@ -552,7 +552,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlSubCategory.Items.FindByValue("FICDCD").Enabled = true;
                 ddlSubCategory.Items.FindByValue("FICGCG").Enabled = true;
             }
-
+            BindIssue();
         }
         private void BindIssue()
         {
@@ -560,7 +560,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ddlIssue.Items.Clear();
                 DataSet dsIssuer = new DataSet();
-                dsIssuer = onlineNCDBackOfficeBo.GetIssuerAllotmentIssues(advisorVo.advisorId, ddlProduct.SelectedValue,0, "PR", ddlSubCategory.SelectedValue);
+                dsIssuer = onlineNCDBackOfficeBo.GetIssuerAllotmentIssues(advisorVo.advisorId, ddlProduct.SelectedValue,int.Parse(ddlType.SelectedValue), "PR", ddlSubCategory.SelectedValue);
                 if (dsIssuer.Tables[0].Rows.Count > 0)
                 {
                     ddlIssue.DataSource = dsIssuer;

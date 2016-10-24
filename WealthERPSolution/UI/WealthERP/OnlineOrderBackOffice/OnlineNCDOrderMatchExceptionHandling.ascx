@@ -140,8 +140,8 @@
         <td>
             <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlType_SelectedIndexChanged" AutoPostBack="true" >
                  <asp:ListItem Text="Select" Value="0"></asp:ListItem>
-                <asp:ListItem Text="Online" Value="1"></asp:ListItem>
-                <asp:ListItem Text="Offline" Value="2"></asp:ListItem>
+                <asp:ListItem Text="Online" Value="16017"></asp:ListItem>
+                <asp:ListItem Text="Offline" Value="16018"></asp:ListItem>
             </asp:DropDownList>
         </td>
         <td id="tdlblSubCategory" runat="server" visible="false">
