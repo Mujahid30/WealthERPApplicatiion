@@ -833,7 +833,7 @@
                                     FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn HeaderStyle-Width="2%" HeaderText="SKC(%)" DataField="WCD_ACSR_SKC"
+                                <telerik:GridBoundColumn HeaderStyle-Width="2%" HeaderText="SBC(%)" DataField="WCD_ACSR_SKC"
                                     HeaderStyle-HorizontalAlign="Left"  AutoPostBackOnFilter="true"
                                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     FooterStyle-HorizontalAlign="Left">
@@ -853,7 +853,7 @@
                                     FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn HeaderStyle-Width="2%" HeaderText="SKC(AMT)" DataField="WCD_SBC_Value"
+                                <telerik:GridBoundColumn HeaderStyle-Width="2%" HeaderText="SBC(AMT)" DataField="WCD_SBC_Value"
                                     HeaderStyle-HorizontalAlign="Left"  AutoPostBackOnFilter="true"
                                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     FooterStyle-HorizontalAlign="Left">
@@ -1186,7 +1186,7 @@
                                     FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="SKC(%)" DataField="WCD_ACSR_SKC"
+                                <telerik:GridBoundColumn HeaderStyle-Width="10%" HeaderText="SBC(%)" DataField="WCD_ACSR_SKC"
                                     HeaderStyle-HorizontalAlign="Left"  AutoPostBackOnFilter="true"
                                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     FooterStyle-HorizontalAlign="Left">
@@ -1198,7 +1198,7 @@
                                     FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn HeaderStyle-Width="2%" HeaderText="SKC(AMT)" DataField="WCD_SBC_Value"
+                                <telerik:GridBoundColumn HeaderStyle-Width="2%" HeaderText="SBC(AMT)" DataField="WCD_SBC_Value"
                                     HeaderStyle-HorizontalAlign="Left"  AutoPostBackOnFilter="true"
                                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     FooterStyle-HorizontalAlign="Left">
