@@ -39,7 +39,9 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createSystematicSchemeSetupCmd,"@XSTT_SystematicTypeCode",DbType.String,systematicSetupVo.SystematicTypeCode);
                 db.AddInParameter(createSystematicSchemeSetupCmd,"@CMFSS_StartDate",DbType.DateTime,systematicSetupVo.StartDate);
                 db.AddInParameter(createSystematicSchemeSetupCmd,"@CMFSS_EndDate",DbType.DateTime,systematicSetupVo.EndDate);
-                db.AddInParameter(createSystematicSchemeSetupCmd,"@CMFSS_SystematicDate",DbType.Int32,systematicSetupVo.SystematicDate);
+             
+                db.AddInParameter(createSystematicSchemeSetupCmd, "@CMFSS_IsHistoricalCreated", DbType.String, systematicSetupVo.IsHistoricalCreated);
+              
                 db.AddInParameter(createSystematicSchemeSetupCmd, "@CMFSS_Amount", DbType.Decimal, systematicSetupVo.Amount);
                 db.AddInParameter(createSystematicSchemeSetupCmd,"@CMFSS_IsManual",DbType.Int32,systematicSetupVo.IsManual);
                 db.AddInParameter(createSystematicSchemeSetupCmd,"@XES_SourceCode",DbType.String,systematicSetupVo.SourceCode);
@@ -48,7 +50,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createSystematicSchemeSetupCmd,"@CMFSS_CreatedBy",DbType.Int32,userId);
                 db.AddInParameter(createSystematicSchemeSetupCmd,"@CMFSS_ModifiedBy",DbType.Int32,userId);
                 db.AddInParameter(createSystematicSchemeSetupCmd,"@CMFSS_Tenure",DbType.Int32, systematicSetupVo.Period);
-                db.AddInParameter(createSystematicSchemeSetupCmd, "@IsAutoTranx", DbType.Int32, systematicSetupVo.IsAutoTransaction);
+                db.AddInParameter(createSystematicSchemeSetupCmd, "@IsAutoTranx", DbType.String, systematicSetupVo.IsAutoTransaction);
                 db.AddInParameter(createSystematicSchemeSetupCmd, "@TenureCycle", DbType.String, systematicSetupVo.PeriodSelection);
 
                 if (systematicSetupVo.SipChequeDate!=DateTime.MinValue)
@@ -127,7 +129,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@XSTT_SystematicTypeCode", DbType.String, systematicSetupVo.SystematicTypeCode);
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFSS_StartDate", DbType.DateTime, systematicSetupVo.StartDate);
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFSS_EndDate", DbType.DateTime, systematicSetupVo.EndDate);
-                db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFSS_SystematicDate", DbType.Int32, systematicSetupVo.SystematicDate);
+               
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFSS_Amount", DbType.Double, systematicSetupVo.Amount);
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFSS_IsManual", DbType.Int32, systematicSetupVo.IsManual);
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@XES_SourceCode", DbType.String, systematicSetupVo.SourceCode);
@@ -205,11 +207,14 @@ namespace DaoCustomerPortfolio
             Database db;
             DbCommand getSystematicSetupListCmd;
             DataSet dsSystematicSetups;
+            
+
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getSystematicSetupListCmd = db.GetStoredProcCommand("SP_GetSystematicSetupSchemes");
                 db.AddInParameter(getSystematicSetupListCmd, "@CP_PortfolioId", DbType.Int32, portfolioId);
+              
                 //db.AddInParameter(getSystematicSetupListCmd, "@CurrentPage", DbType.Int16, CurrentPage);
                 //db.AddInParameter(getSystematicSetupListCmd, "@SortOrder", DbType.String, sortOrder);
 
@@ -241,8 +246,18 @@ namespace DaoCustomerPortfolio
                         systematicSetupVo.SystematicType = dr["XSTT_SystematicType"].ToString();
                         systematicSetupVo.SystematicTypeCode = dr["XSTT_SystematicTypeCode"].ToString();
                         systematicSetupVo.StartDate = DateTime.Parse(dr["CMFSS_StartDate"].ToString());
-                        systematicSetupVo.EndDate = DateTime.Parse(dr["CMFSS_EndDate"].ToString());                        
-                        systematicSetupVo.SystematicDate = int.Parse(dr["CMFSS_SystematicDate"].ToString());
+                        systematicSetupVo.EndDate = DateTime.Parse(dr["CMFSS_EndDate"].ToString());
+                       
+                        
+                        if (!string.IsNullOrEmpty(dr["CMFSS_IsHistoricalCreated"].ToString()))
+                           
+                            systematicSetupVo.IsHistoricalCreated = dr["CMFSS_IsHistoricalCreated"].ToString();
+                        else
+                            systematicSetupVo.IsHistoricalCreated = "0";
+                        if (!string.IsNullOrEmpty(dr["CMFSS_IsAutoTransaction"].ToString()))
+                            systematicSetupVo.IsAutoTransaction = dr["CMFSS_IsAutoTransaction"].ToString();
+                        else
+                            systematicSetupVo.IsAutoTransaction = "0";
                         systematicSetupVo.Amount = double.Parse(dr["CMFSS_Amount"].ToString());
                         systematicSetupVo.IsManual = int.Parse(dr["CMFSS_IsManual"].ToString());
                         systematicSetupVo.SourceName = dr["XES_SourceName"].ToString();
@@ -350,8 +365,7 @@ namespace DaoCustomerPortfolio
                     systematicSetupVo.Folio = dr["CMFA_FolioNum"].ToString();
                     systematicSetupVo.StartDate = DateTime.Parse(dr["CMFSS_StartDate"].ToString());
                     systematicSetupVo.EndDate = DateTime.Parse(dr["CMFSS_EndDate"].ToString());
-                    if (!string.IsNullOrEmpty(dr["CMFSS_SystematicDate"].ToString()))
-                    systematicSetupVo.SystematicDate = int.Parse(dr["CMFSS_SystematicDate"].ToString());
+                   
                     systematicSetupVo.Amount = double.Parse(dr["CMFSS_Amount"].ToString());
                     systematicSetupVo.AccountId = int.Parse(dr["CMFA_AccountId"].ToString());
                     systematicSetupVo.SchemePlanCodeSwitch = int.Parse(dr["SwitchSchemeCode"].ToString());
@@ -377,7 +391,10 @@ namespace DaoCustomerPortfolio
                         systematicSetupVo.PaymentModeCode = dr["XPM_PaymentModeCode"].ToString();
                     systematicSetupVo.PeriodSelection = dr["CMFSS_TenureCycle"].ToString();
                     if (!string.IsNullOrEmpty(dr["CMFSS_IsAutoTransaction"].ToString()))
-                        systematicSetupVo.IsAutoTransaction = int.Parse(dr["CMFSS_IsAutoTransaction"].ToString());
+                        systematicSetupVo.IsAutoTransaction = dr["CMFSS_IsAutoTransaction"].ToString();
+                    if (!string.IsNullOrEmpty(dr["CMFSS_IsHistoricalCreated"].ToString()))
+                        systematicSetupVo.IsHistoricalCreated = dr["CMFSS_IsHistoricalCreated"].ToString();
+
 
                     if (!string.IsNullOrEmpty(dr["CMFSS_REMARKS"].ToString()))
                         systematicSetupVo.Remarks = dr["CMFSS_REMARKS"].ToString();
@@ -391,6 +408,16 @@ namespace DaoCustomerPortfolio
                         systematicSetupVo.SubBrokerCode = dr["CMFSS_SubBrokerCode"].ToString();
                     else
                         systematicSetupVo.SubBrokerCode = "";
+
+                    if (!string.IsNullOrEmpty(dr["CMFSS_IsHistoricalCreated"].ToString()))
+
+                        systematicSetupVo.IsHistoricalCreated = dr["CMFSS_IsHistoricalCreated"].ToString();
+                    else
+                        systematicSetupVo.IsHistoricalCreated = "0";
+                    if (!string.IsNullOrEmpty(dr["CMFSS_IsAutoTransaction"].ToString()))
+                        systematicSetupVo.IsAutoTransaction = dr["CMFSS_IsAutoTransaction"].ToString();
+                    else
+                        systematicSetupVo.IsAutoTransaction = "0";
                     
 
                 }

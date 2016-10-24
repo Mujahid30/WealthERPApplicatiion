@@ -45,6 +45,7 @@ namespace WealthERP.CustomerPortfolio
         string Manage = string.Empty;
         string PageRecon = string.Empty;
         int fundGoalId = 0;
+        DateTime TodayDate = DateTime.Today;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -60,9 +61,13 @@ namespace WealthERP.CustomerPortfolio
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
             userVo = (UserVo)Session[SessionContents.UserVo];
+           
+         
             if (!IsPostBack)
             {
+                
 
+                
                 trSipAutoTranx.Visible = false;
                 //customerAccountsVo = (CustomerAccountsVo)Session["customerAccountVo"];
                 if (Session["systematicSetupVo"] != null)
@@ -119,9 +124,11 @@ namespace WealthERP.CustomerPortfolio
                 }
 
             }
+            
 
         }
 
+       
         private void BindPortfolioDropDown()
         {
             DataSet ds = portfolioBo.GetCustomerPortfolio(customerVo.CustomerId);
@@ -162,18 +169,18 @@ namespace WealthERP.CustomerPortfolio
                     trSipChequeDate.Visible = true;
                     trSipChequeNo.Visible = true;
                     trPaymentMode.Visible = true;
-                    trSystematicDate.Visible = false;
+                   
 
 
                 }
                 else if (ddlSystematicType.SelectedValue == "STP")
                 {
                     trPaymentMode.Visible = true;
-                    trSystematicDate.Visible = false;
+                   
                 }
                 else if (ddlSystematicType.SelectedValue == "SWP")
                 {
-                    trSystematicDate.Visible = false;
+                   
                 }
                 txtSearchScheme.Text = hashRetainPreviousState["SearchScheme"].ToString();
                 txtSwicthSchemeSearch.Text = hashRetainPreviousState["SwicthSchemeSearch"].ToString();
@@ -207,7 +214,7 @@ namespace WealthERP.CustomerPortfolio
                     SetPreviousValuesForCheckboxes();
                 }
 
-                txtSystematicDate.Text = hashRetainPreviousState["SystematicDate"].ToString();
+               
                 ddlFrequency.SelectedValue = hashRetainPreviousState["Frequency"].ToString();
                 txtAmount.Text = hashRetainPreviousState["Amount"].ToString();
                 txtPeriod.Text = hashRetainPreviousState["Period"].ToString();
@@ -234,160 +241,160 @@ namespace WealthERP.CustomerPortfolio
         {
             Hashtable hashSetPreviousValuesForCheckboxes = new Hashtable();
             hashSetPreviousValuesForCheckboxes = (Hashtable)Session["MaintainCheckBoxes"];
-            if (hashSetPreviousValuesForCheckboxes["chkDate1"] == "1")
-                chkDate1.Checked = true;
-            else
-                chkDate1.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate1"] == "1")
+            //    chkDate1.Checked = true;
+            //else
+            //    chkDate1.Checked = false;
 
-            if (hashSetPreviousValuesForCheckboxes["chkDate2"] == "1")
-                chkDate2.Checked = true;
-            else
-                chkDate2.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate2"] == "1")
+            //    chkDate2.Checked = true;
+            //else
+            //    chkDate2.Checked = false;
 
-            if (hashSetPreviousValuesForCheckboxes["chkDate3"] == "1")
-                chkDate3.Checked = true;
-            else
-                chkDate3.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate3"] == "1")
+            //    chkDate3.Checked = true;
+            //else
+            //    chkDate3.Checked = false;
 
-            if (hashSetPreviousValuesForCheckboxes["chkDate4"] == "1")
-                chkDate4.Checked = true;
-            else
-                chkDate4.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate4"] == "1")
+            //    chkDate4.Checked = true;
+            //else
+            //    chkDate4.Checked = false;
 
-            if (hashSetPreviousValuesForCheckboxes["chkDate5"] == "1")
-                chkDate5.Checked = true;
-            else
-                chkDate5.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate5"] == "1")
+            //    chkDate5.Checked = true;
+            //else
+            //    chkDate5.Checked = false;
 
-            if (hashSetPreviousValuesForCheckboxes["chkDate6"] == "1")
-                chkDate6.Checked = true;
-            else
-                chkDate6.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate6"] == "1")
+            //    chkDate6.Checked = true;
+            //else
+            //    chkDate6.Checked = false;
 
-            if (hashSetPreviousValuesForCheckboxes["chkDate7"] == "1")
-                chkDate7.Checked = true;
-            else
-                chkDate7.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate7"] == "1")
+            //    chkDate7.Checked = true;
+            //else
+            //    chkDate7.Checked = false;
 
-            if (hashSetPreviousValuesForCheckboxes["chkDate8"] == "1")
-                chkDate8.Checked = true;
-            else
-                chkDate8.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate8"] == "1")
+            //    chkDate8.Checked = true;
+            //else
+            //    chkDate8.Checked = false;
 
 
-            if (hashSetPreviousValuesForCheckboxes["chkDate9"] == "1")
-                chkDate9.Checked = true;
-            else
-                chkDate9.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate9"] == "1")
+            //    chkDate9.Checked = true;
+            //else
+            //    chkDate9.Checked = false;
 
-            if (hashSetPreviousValuesForCheckboxes["chkDate10"] == "1")
-                chkDate10.Checked = true;
-            else
-                chkDate10.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate10"] == "1")
+            //    chkDate10.Checked = true;
+            //else
+            //    chkDate10.Checked = false;
 
-            if (hashSetPreviousValuesForCheckboxes["chkDate11"] == "1")
-                chkDate11.Checked = true;
-            else
-                chkDate11.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate11"] == "1")
+            //    chkDate11.Checked = true;
+            //else
+            //    chkDate11.Checked = false;
 
-            if (hashSetPreviousValuesForCheckboxes["chkDate12"] == "1")
-                chkDate12.Checked = true;
-            else
-                chkDate12.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate12"] == "1")
+            //    chkDate12.Checked = true;
+            //else
+            //    chkDate12.Checked = false;
 
-            if (hashSetPreviousValuesForCheckboxes["chkDate13"] == "1")
-                chkDate13.Checked = true;
-            else
-                chkDate13.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate13"] == "1")
+            //    chkDate13.Checked = true;
+            //else
+            //    chkDate13.Checked = false;
 
-            if (hashSetPreviousValuesForCheckboxes["chkDate13"] == "1")
-                chkDate13.Checked = true;
-            else
-                chkDate13.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate13"] == "1")
+            //    chkDate13.Checked = true;
+            //else
+            //    chkDate13.Checked = false;
 
-            if (hashSetPreviousValuesForCheckboxes["chkDate14"] == "1")
-                chkDate14.Checked = true;
-            else
-                chkDate14.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate14"] == "1")
+            //    chkDate14.Checked = true;
+            //else
+            //    chkDate14.Checked = false;
 
-            if (hashSetPreviousValuesForCheckboxes["chkDate15"] == "1")
-                chkDate15.Checked = true;
-            else
-                chkDate15.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate15"] == "1")
+            //    chkDate15.Checked = true;
+            //else
+            //    chkDate15.Checked = false;
 
-            if (hashSetPreviousValuesForCheckboxes["chkDate16"] == "1")
-                chkDate16.Checked = true;
-            else
-                chkDate16.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate16"] == "1")
+            //    chkDate16.Checked = true;
+            //else
+            //    chkDate16.Checked = false;
 
-            if (hashSetPreviousValuesForCheckboxes["chkDate17"] == "1")
-                chkDate17.Checked = true;
-            else
-                chkDate17.Checked = false;
-            if (hashSetPreviousValuesForCheckboxes["chkDate18"] == "1")
-                chkDate18.Checked = true;
-            else
-                chkDate18.Checked = false;
-            if (hashSetPreviousValuesForCheckboxes["chkDate19"] == "1")
-                chkDate19.Checked = true;
-            else
-                chkDate19.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate17"] == "1")
+            //    chkDate17.Checked = true;
+            //else
+            //    chkDate17.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate18"] == "1")
+            //    chkDate18.Checked = true;
+            //else
+            //    chkDate18.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate19"] == "1")
+            //    chkDate19.Checked = true;
+            //else
+            //    chkDate19.Checked = false;
 
-            if (hashSetPreviousValuesForCheckboxes["chkDate20"] == "1")
-                chkDate20.Checked = true;
-            else
-                chkDate20.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate20"] == "1")
+            //    chkDate20.Checked = true;
+            //else
+            //    chkDate20.Checked = false;
 
-            if (hashSetPreviousValuesForCheckboxes["chkDate21"] == "1")
-                chkDate21.Checked = true;
-            else
-                chkDate21.Checked = false;
-            if (hashSetPreviousValuesForCheckboxes["chkDate22"] == "1")
-                chkDate22.Checked = true;
-            else
-                chkDate22.Checked = false;
-            if (hashSetPreviousValuesForCheckboxes["chkDate23"] == "1")
-                chkDate23.Checked = true;
-            else
-                chkDate23.Checked = false;
-            if (hashSetPreviousValuesForCheckboxes["chkDate24"] == "1")
-                chkDate24.Checked = true;
-            else
-                chkDate24.Checked = false;
-            if (hashSetPreviousValuesForCheckboxes["chkDate25"] == "1")
-                chkDate25.Checked = true;
-            else
-                chkDate25.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate21"] == "1")
+            //    chkDate21.Checked = true;
+            //else
+            //    chkDate21.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate22"] == "1")
+            //    chkDate22.Checked = true;
+            //else
+            //    chkDate22.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate23"] == "1")
+            //    chkDate23.Checked = true;
+            //else
+            //    chkDate23.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate24"] == "1")
+            //    chkDate24.Checked = true;
+            //else
+            //    chkDate24.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate25"] == "1")
+            //    chkDate25.Checked = true;
+            //else
+            //    chkDate25.Checked = false;
 
-            if (hashSetPreviousValuesForCheckboxes["chkDate26"] == "1")
-                chkDate26.Checked = true;
-            else
-                chkDate26.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate26"] == "1")
+            //    chkDate26.Checked = true;
+            //else
+            //    chkDate26.Checked = false;
 
-            if (hashSetPreviousValuesForCheckboxes["chkDate27"] == "1")
-                chkDate27.Checked = true;
-            else
-                chkDate27.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate27"] == "1")
+            //    chkDate27.Checked = true;
+            //else
+            //    chkDate27.Checked = false;
 
-            if (hashSetPreviousValuesForCheckboxes["chkDate28"] == "1")
-                chkDate28.Checked = true;
-            else
-                chkDate28.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate28"] == "1")
+            //    chkDate28.Checked = true;
+            //else
+            //    chkDate28.Checked = false;
 
-            if (hashSetPreviousValuesForCheckboxes["chkDate29"] == "1")
-                chkDate29.Checked = true;
-            else
-                chkDate29.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate29"] == "1")
+            //    chkDate29.Checked = true;
+            //else
+            //    chkDate29.Checked = false;
 
-            if (hashSetPreviousValuesForCheckboxes["chkDate30"] == "1")
-                chkDate30.Checked = true;
-            else
-                chkDate30.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate30"] == "1")
+            //    chkDate30.Checked = true;
+            //else
+            //    chkDate30.Checked = false;
 
-            if (hashSetPreviousValuesForCheckboxes["chkDate31"] == "1")
-                chkDate31.Checked = true;
-            else
-                chkDate31.Checked = false;
+            //if (hashSetPreviousValuesForCheckboxes["chkDate31"] == "1")
+            //    chkDate31.Checked = true;
+            //else
+            //    chkDate31.Checked = false;
 
 
         }
@@ -460,7 +467,7 @@ namespace WealthERP.CustomerPortfolio
                     ddlportfolio.SelectedIndex = 0;
                     ddlFolioNumber.SelectedIndex = -1;
                     txtStartDate.Text = "";
-                    txtSystematicDate.Text = "";
+                    
                     ddlFrequency.SelectedIndex = -1;
                     txtAmount.Text = "";
                     txtPeriod.Text = "";
@@ -496,7 +503,7 @@ namespace WealthERP.CustomerPortfolio
                     if (systematicSetupVo.SchemePlan != "")
                         txtSwitchSchemeCode_AutoCompleteExtender.ContextKey = txtSchemeCode.Value;
                     txtStartDate.Text = "";
-                    txtSystematicDate.Text = "";
+                  
                     ddlFrequency.SelectedValue = "";
                     txtAmount.Text = systematicSetupVo.Amount.ToString();
                     SipChequeDate_CalendarExtender.Enabled = true;
@@ -570,11 +577,11 @@ namespace WealthERP.CustomerPortfolio
                 if (ddlportfolio.SelectedItem.Text != "MyPortfolio")
                 {
                     trSipAutoTranx.Visible = true;
-                    if (systematicSetupVo.IsAutoTransaction == 1)
+                    if (systematicSetupVo.IsAutoTransaction == "1")
                         SipAutoTranx.Checked = true;
                 }
                 txtStartDate.Text = systematicSetupVo.StartDate.ToShortDateString();
-                txtSystematicDate.Text = systematicSetupVo.SystematicDate.ToString();
+                
                 ddlFrequency.SelectedValue = systematicSetupVo.FrequencyCode.Trim();
                 txtAmount.Text = systematicSetupVo.Amount.ToString();
                 txtPeriod.Text = systematicSetupVo.Period.ToString();
@@ -636,7 +643,7 @@ namespace WealthERP.CustomerPortfolio
                 ddlportfolio.SelectedIndex = 0;
                 ddlFolioNumber.SelectedIndex = -1;
                 txtStartDate.Text = "";
-                txtSystematicDate.Text = "";
+              
                 ddlFrequency.SelectedIndex = -1;
                 txtAmount.Text = "";
                 txtPeriod.Text = "";
@@ -671,14 +678,11 @@ namespace WealthERP.CustomerPortfolio
                 ddlFolioNumber.Enabled = false;
                 txtSearchScheme.Enabled = false;
                 txtStartDate.Enabled = false;
-                trSystematicDateChk1.Visible = false;
-                trSystematicDateChk2.Visible = false;
-                trSystematicDateChk3.Visible = false;
+               
                 ddlFrequency.Enabled = false;
                 txtAmount.Enabled = false;
                 txtPeriod.Enabled = false;
-                txtSystematicDate.Enabled = false;
-                trSystematicDate.Visible = true;
+               
                 txtSipChequeDate.Enabled = false;
 
                 txtSipChecqueNo.Enabled = false;
@@ -690,6 +694,24 @@ namespace WealthERP.CustomerPortfolio
                 txtCeaseDate.Enabled = false;
                 txtRemarks.Enabled = false;
                 txtSubbrokerCode.Enabled=false;
+                if (systematicSetupVo.IsHistoricalCreated == "1")
+                {
+                    chkHistoricalCreated.Checked = true;
+                }
+                else
+                {
+                    chkHistoricalCreated.Checked = false;
+                }
+                if (systematicSetupVo.IsAutoTransaction == "1")
+                {
+                    chkAutoTransaction.Checked = true;   
+                }
+                else
+                {
+                    chkAutoTransaction.Checked=false;
+                }
+                chkHistoricalCreated.Enabled = false;
+                chkAutoTransaction.Enabled = false;
 
                 if (systematicSetupVo.SystematicTypeCode == "SIP")
                 {
@@ -701,6 +723,7 @@ namespace WealthERP.CustomerPortfolio
                     trPaymentMode.Visible = true;
                     ddlPaymentMode.Enabled = false;
                     txtPeriod.Text = systematicSetupVo.Period.ToString();
+
 
                 }
                 if (systematicSetupVo.SystematicTypeCode == "STP")
@@ -734,44 +757,12 @@ namespace WealthERP.CustomerPortfolio
                 ddlFolioNumber.Enabled = true;
                 txtSearchScheme.Enabled = true;
                 txtStartDate.Enabled = true;
-                chkDate1.Enabled = true;
-                chkDate2.Enabled = true;
-                chkDate3.Enabled = true;
-                chkDate4.Enabled = true;
-                chkDate5.Enabled = true;
-                chkDate6.Enabled = true;
-                chkDate7.Enabled = true;
-                chkDate8.Enabled = true;
-                chkDate9.Enabled = true;
-                chkDate10.Enabled = true;
-                chkDate11.Enabled = true;
-                chkDate12.Enabled = true;
-                chkDate13.Enabled = true;
-                chkDate14.Enabled = true;
-                chkDate15.Enabled = true;
-                chkDate16.Enabled = true;
-                chkDate17.Enabled = true;
-                chkDate18.Enabled = true;
-                chkDate19.Enabled = true;
-                chkDate20.Enabled = true;
-                chkDate21.Enabled = true;
-                chkDate22.Enabled = true;
-                chkDate23.Enabled = true;
-                chkDate24.Enabled = true;
-                chkDate25.Enabled = true;
-                chkDate26.Enabled = true;
-                chkDate27.Enabled = true;
-                chkDate28.Enabled = true;
-                chkDate29.Enabled = true;
-                chkDate30.Enabled = true;
-                chkDate31.Enabled = true;
+               
                 ddlFrequency.Enabled = true;
                 txtAmount.Enabled = true;
                 txtPeriod.Enabled = true;
-                trSystematicDate.Visible = false;
-                trSystematicDateChk1.Visible = true;
-                trSystematicDateChk2.Visible = true;
-                trSystematicDateChk3.Visible = true;
+               
+               
                 txtSipChequeDate.Enabled = true;
                 txtEndDate.Enabled = false;
                 btnSubmit.Text = "Submit";
@@ -790,7 +781,22 @@ namespace WealthERP.CustomerPortfolio
 
             else if (action == "edit")
             {
-
+                if (systematicSetupVo.IsHistoricalCreated == "1")
+                {
+                    chkHistoricalCreated.Checked = true;
+                }
+                else
+                {
+                    chkHistoricalCreated.Checked = false;
+                }
+                if (systematicSetupVo.IsAutoTransaction == "1")
+                {
+                    chkAutoTransaction.Checked = true;
+                }
+                else
+                {
+                    chkAutoTransaction.Checked = false;
+                }
                 ddlSystematicType.Enabled = true;
                 ddlportfolio.Enabled = true;
                 ddlFolioNumber.Enabled = true;
@@ -799,12 +805,9 @@ namespace WealthERP.CustomerPortfolio
                 ddlFrequency.Enabled = true;
                 txtAmount.Enabled = true;
                 txtPeriod.Enabled = true;
-                trSystematicDate.Visible = true;
-                txtSystematicDate.Enabled = true;
-                trSystematicDateChk1.Visible = false;
-                trSystematicDateChk2.Visible = false;
-                trSystematicDateChk3.Visible = false;
+                chkAutoTransaction.Enabled = true;
 
+                chkHistoricalCreated.Enabled = true;
                 txtEndDate.Enabled = false;
                 txtRegistrationDate.Enabled = true;
                 txtCeaseDate.Enabled = true;
@@ -923,16 +926,20 @@ namespace WealthERP.CustomerPortfolio
             systematicSetupVo.Amount = double.Parse(txtAmount.Text.ToString().Trim());
             //systematicSetupVo.EndDate = CalcEndDate(int.Parse(txtPeriod.Text.ToString()), DateTime.Parse(txtStartDate.Text.ToString()));
             systematicSetupVo.EndDate = DateTime.Parse(txtEndDate.Text);
+          
             systematicSetupVo.Period = int.Parse(txtPeriod.Text.ToString());
             systematicSetupVo.IsManual = 1;
+           
+           
             if (SipAutoTranx.Checked)
             {
-                systematicSetupVo.IsAutoTransaction = 1;
+                systematicSetupVo.IsAutoTransaction = "1";
             }
             else
             {
-                systematicSetupVo.IsAutoTransaction = 0;
+                systematicSetupVo.IsAutoTransaction = "0";
             }
+           
             if (!string.IsNullOrEmpty(txtSipChequeDate.Text.ToString().Trim()) && txtSipChequeDate.Text != "dd/mm/yyyy")
                 systematicSetupVo.SipChequeDate = DateTime.Parse(txtSipChequeDate.Text.ToString());
             else
@@ -987,166 +994,19 @@ namespace WealthERP.CustomerPortfolio
 
             if (btnSubmit.Text == "Submit")
             {
-                //CheckBox chk = new CheckBox();
-                //for (int i = 1; i <= 31; i++)
-                //{
-                //    chk.ID = "chkDate" + i.ToString();
-                if (chkDate1.Checked)
+                if ((chkHistoricalCreated.Checked))
                 {
-                    systematicSetupVo.SystematicDate = 1;
+                    systematicSetupVo.IsHistoricalCreated ="1";
                     systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
                 }
-                if (chkDate2.Checked)
+                else if (chkAutoTransaction.Checked)
                 {
-                    systematicSetupVo.SystematicDate = 2;
+                    systematicSetupVo.IsAutoTransaction = "1";
                     systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
                 }
-                if (chkDate3.Checked)
-                {
-                    systematicSetupVo.SystematicDate = 3;
-                    systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
-                }
-                if (chkDate4.Checked)
-                {
-                    systematicSetupVo.SystematicDate = 4;
-                    systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
-                }
-                if (chkDate5.Checked)
-                {
-                    systematicSetupVo.SystematicDate = 5;
-                    systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
-                }
-                if (chkDate6.Checked)
-                {
-                    systematicSetupVo.SystematicDate = 6;
-                    systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
-                }
-                if (chkDate7.Checked)
-                {
-                    systematicSetupVo.SystematicDate = 7;
-                    systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
-                }
-                if (chkDate8.Checked)
-                {
-                    systematicSetupVo.SystematicDate = 8;
-                    systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
-                }
-                if (chkDate9.Checked)
-                {
-                    systematicSetupVo.SystematicDate = 9;
-                    systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
-                }
-                if (chkDate10.Checked)
-                {
-                    systematicSetupVo.SystematicDate = 10;
-                    systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
-                }
-                if (chkDate11.Checked)
-                {
-                    systematicSetupVo.SystematicDate = 11;
-                    systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
-                }
-                if (chkDate12.Checked)
-                {
-                    systematicSetupVo.SystematicDate = 12;
-                    systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
-                }
-                if (chkDate13.Checked)
-                {
-                    systematicSetupVo.SystematicDate = 13;
-                    systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
-                }
-                if (chkDate14.Checked)
-                {
-                    systematicSetupVo.SystematicDate = 14;
-                    systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
-                }
-                if (chkDate15.Checked)
-                {
-                    systematicSetupVo.SystematicDate = 15;
-                    systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
-                }
-                if (chkDate16.Checked)
-                {
-                    systematicSetupVo.SystematicDate = 16;
-                    systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
-                }
-                if (chkDate17.Checked)
-                {
-                    systematicSetupVo.SystematicDate = 17;
-                    systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
-                }
-                if (chkDate18.Checked)
-                {
-                    systematicSetupVo.SystematicDate = 18;
-                    systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
-                }
-                if (chkDate19.Checked)
-                {
-                    systematicSetupVo.SystematicDate = 19;
-                    systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
-                }
-                if (chkDate20.Checked)
-                {
-                    systematicSetupVo.SystematicDate = 20;
-                    systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
-                }
-                if (chkDate21.Checked)
-                {
-                    systematicSetupVo.SystematicDate = 21;
-                    systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
-                }
-                if (chkDate22.Checked)
-                {
-                    systematicSetupVo.SystematicDate = 22;
-                    systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
-                }
-                if (chkDate23.Checked)
-                {
-                    systematicSetupVo.SystematicDate = 23;
-                    systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
-                }
-                if (chkDate24.Checked)
-                {
-                    systematicSetupVo.SystematicDate = 24;
-                    systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
-                }
-                if (chkDate25.Checked)
-                {
-                    systematicSetupVo.SystematicDate = 25;
-                    systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
-                }
-                if (chkDate26.Checked)
-                {
-                    systematicSetupVo.SystematicDate = 26;
-                    systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
-                }
-                if (chkDate27.Checked)
-                {
-                    systematicSetupVo.SystematicDate = 27;
-                    systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
-                }
-                if (chkDate28.Checked)
-                {
-                    systematicSetupVo.SystematicDate = 28;
-                    systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
-                }
-                if (chkDate29.Checked)
-                {
-                    systematicSetupVo.SystematicDate = 29;
-                    systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
-                }
-                if (chkDate30.Checked)
-                {
-                    systematicSetupVo.SystematicDate = 30;
-                    systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
-                }
-                if (chkDate31.Checked)
-                {
-                    systematicSetupVo.SystematicDate = 31;
-                    systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
+                
 
-                }
+
 
                 if (Session["SourcePage"] != null && Session["SourcePage"].ToString() == "ReconReport")
                 {
@@ -1168,7 +1028,7 @@ namespace WealthERP.CustomerPortfolio
             if (btnSubmit.Text == "Update")
             {
                 //systematicSetupVo.SystematicSetupId = systematicSetupId;
-                systematicSetupVo.SystematicDate = int.Parse(txtSystematicDate.Text.ToString());
+             
                 systematicSetupBo.UpdateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PortfolioSystematicView','none');", true);
 
@@ -1189,6 +1049,7 @@ namespace WealthERP.CustomerPortfolio
             if (ddlPeriodSelection.SelectedItem.Value == "DA")
             {
                 endDate = startDate.AddDays(period - 1);
+
             }
             else if (ddlPeriodSelection.SelectedItem.Value == "MN")
             {
@@ -1204,6 +1065,7 @@ namespace WealthERP.CustomerPortfolio
 
             return endDate;
         }
+       
 
         /// <summary>
         /// Function to get the Scheme Code from the selected scheme
@@ -1290,12 +1152,13 @@ namespace WealthERP.CustomerPortfolio
         protected void ddlPeriodSelection_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtEndDate.Text = CalcEndDate(int.Parse(txtPeriod.Text.ToString()), DateTime.Parse(txtStartDate.Text.ToString())).ToShortDateString();
+           
         }
 
         protected void txtPeriod_TextChanged(object sender, EventArgs e)
         {
             txtEndDate.Text = CalcEndDate(int.Parse(txtPeriod.Text.ToString()), DateTime.Parse(txtStartDate.Text.ToString())).ToShortDateString();
-
+           
         }
 
         protected void btnAddFolio_Click(object sender, EventArgs e)
@@ -1331,7 +1194,7 @@ namespace WealthERP.CustomerPortfolio
             hashSaveCurrentPageStatus.Add("SipChequeDate", txtSipChequeDate.Text);
             hashSaveCurrentPageStatus.Add("SipChecqueNo", txtSipChecqueNo.Text);
             SaveCheckboxes();
-            hashSaveCurrentPageStatus.Add("SystematicDate", txtSystematicDate.Text);
+           
             hashSaveCurrentPageStatus.Add("Frequency", ddlFrequency.SelectedValue);
             hashSaveCurrentPageStatus.Add("Amount", txtAmount.Text);
             hashSaveCurrentPageStatus.Add("Period", txtPeriod.Text);
@@ -1349,127 +1212,127 @@ namespace WealthERP.CustomerPortfolio
         private void SaveCheckboxes()
         {
             Hashtable hashSavecheckBoxes = new Hashtable();
-            if (chkDate1.Checked == true)
-                hashSavecheckBoxes.Add("chkDate1", 1);
-            else
-                hashSavecheckBoxes.Add("chkDate1", 0);
-            if (chkDate2.Checked == true)
-                hashSavecheckBoxes.Add("chkDate2", 1);
-            else
-                hashSavecheckBoxes.Add("chkDate2", 0);
-            if (chkDate3.Checked == true)
-                hashSavecheckBoxes.Add("chkDate3", 1);
-            else
-                hashSavecheckBoxes.Add("chkDate3", 0);
-            if (chkDate4.Checked == true)
-                hashSavecheckBoxes.Add("chkDate4", 1);
-            else
-                hashSavecheckBoxes.Add("chkDate4", 0);
-            if (chkDate5.Checked == true)
-                hashSavecheckBoxes.Add("chkDate5", 1);
-            else
-                hashSavecheckBoxes.Add("chkDate5", 0);
-            if (chkDate6.Checked == true)
-                hashSavecheckBoxes.Add("chkDate6", 1);
-            else
-                hashSavecheckBoxes.Add("chkDate6", 0);
-            if (chkDate7.Checked == true)
-                hashSavecheckBoxes.Add("chkDate7", 1);
-            else
-                hashSavecheckBoxes.Add("chkDate7", 0);
-            if (chkDate8.Checked == true)
-                hashSavecheckBoxes.Add("chkDate8", 1);
-            else
-                hashSavecheckBoxes.Add("chkDate8", 0);
-            if (chkDate10.Checked == true)
-                hashSavecheckBoxes.Add("chkDate10", 1);
-            else
-                hashSavecheckBoxes.Add("chkDate10", 0);
+            //if (chkDate1.Checked == true)
+            //    hashSavecheckBoxes.Add("chkDate1", 1);
+            //else
+            //    hashSavecheckBoxes.Add("chkDate1", 0);
+            //if (chkDate2.Checked == true)
+            //    hashSavecheckBoxes.Add("chkDate2", 1);
+            //else
+            //    hashSavecheckBoxes.Add("chkDate2", 0);
+            //if (chkDate3.Checked == true)
+            //    hashSavecheckBoxes.Add("chkDate3", 1);
+            //else
+            //    hashSavecheckBoxes.Add("chkDate3", 0);
+            //if (chkDate4.Checked == true)
+            //    hashSavecheckBoxes.Add("chkDate4", 1);
+            //else
+            //    hashSavecheckBoxes.Add("chkDate4", 0);
+            //if (chkDate5.Checked == true)
+            //    hashSavecheckBoxes.Add("chkDate5", 1);
+            //else
+            //    hashSavecheckBoxes.Add("chkDate5", 0);
+            //if (chkDate6.Checked == true)
+            //    hashSavecheckBoxes.Add("chkDate6", 1);
+            //else
+            //    hashSavecheckBoxes.Add("chkDate6", 0);
+            //if (chkDate7.Checked == true)
+            //    hashSavecheckBoxes.Add("chkDate7", 1);
+            //else
+            //    hashSavecheckBoxes.Add("chkDate7", 0);
+            //if (chkDate8.Checked == true)
+            //    hashSavecheckBoxes.Add("chkDate8", 1);
+            //else
+            //    hashSavecheckBoxes.Add("chkDate8", 0);
+            //if (chkDate10.Checked == true)
+            //    hashSavecheckBoxes.Add("chkDate10", 1);
+            //else
+            //    hashSavecheckBoxes.Add("chkDate10", 0);
 
-            if (chkDate11.Checked == true)
-                hashSavecheckBoxes.Add("chkDate11", 1);
-            else
-                hashSavecheckBoxes.Add("chkDate11", 0);
-            if (chkDate12.Checked == true)
-                hashSavecheckBoxes.Add("chkDate12", 1);
-            else
-                hashSavecheckBoxes.Add("chkDate12", 0);
-            if (chkDate13.Checked == true)
-                hashSavecheckBoxes.Add("chkDate13", 1);
-            else
-                hashSavecheckBoxes.Add("chkDate13", 0);
-            if (chkDate14.Checked == true)
-                hashSavecheckBoxes.Add("chkDate14", 1);
-            else
-                hashSavecheckBoxes.Add("chkDate14", 0);
-            if (chkDate15.Checked == true)
-                hashSavecheckBoxes.Add("chkDate15", 1);
-            else
-                hashSavecheckBoxes.Add("chkDate15", 0);
-            if (chkDate16.Checked == true)
-                hashSavecheckBoxes.Add("chkDate16", 1);
-            else
-                hashSavecheckBoxes.Add("chkDate16", 0);
-            if (chkDate17.Checked == true)
-                hashSavecheckBoxes.Add("chkDate17", 1);
-            else
-                hashSavecheckBoxes.Add("chkDate17", 0);
-            if (chkDate18.Checked == true)
-                hashSavecheckBoxes.Add("chkDate18", 1);
-            else
-                hashSavecheckBoxes.Add("chkDate18", 0);
-            if (chkDate19.Checked == true)
-                hashSavecheckBoxes.Add("chkDate19", 1);
-            else
-                hashSavecheckBoxes.Add("chkDate19", 0);
-            if (chkDate20.Checked == true)
-                hashSavecheckBoxes.Add("chkDate20", 1);
-            else
-                hashSavecheckBoxes.Add("chkDate20", 0);
-            if (chkDate21.Checked == true)
-                hashSavecheckBoxes.Add("chkDate21", 1);
-            else
-                hashSavecheckBoxes.Add("chkDate21", 0);
-            if (chkDate22.Checked == true)
-                hashSavecheckBoxes.Add("chkDate22", 1);
-            else
-                hashSavecheckBoxes.Add("chkDate22", 0);
-            if (chkDate23.Checked == true)
-                hashSavecheckBoxes.Add("chkDate23", 1);
-            else
-                hashSavecheckBoxes.Add("chkDate23", 0);
-            if (chkDate24.Checked == true)
-                hashSavecheckBoxes.Add("chkDate24", 1);
-            else
-                hashSavecheckBoxes.Add("chkDate24", 0);
-            if (chkDate25.Checked == true)
-                hashSavecheckBoxes.Add("chkDate25", 1);
-            else
-                hashSavecheckBoxes.Add("chkDate25", 0);
-            if (chkDate26.Checked == true)
-                hashSavecheckBoxes.Add("chkDate26", 1);
-            else
-                hashSavecheckBoxes.Add("chkDate26", 0);
-            if (chkDate27.Checked == true)
-                hashSavecheckBoxes.Add("chkDate27", 1);
-            else
-                hashSavecheckBoxes.Add("chkDate27", 0);
-            if (chkDate28.Checked == true)
-                hashSavecheckBoxes.Add("chkDate28", 1);
-            else
-                hashSavecheckBoxes.Add("chkDate28", 0);
-            if (chkDate29.Checked == true)
-                hashSavecheckBoxes.Add("chkDate29", 1);
-            else
-                hashSavecheckBoxes.Add("chkDate29", 0);
-            if (chkDate30.Checked == true)
-                hashSavecheckBoxes.Add("chkDate30", 1);
-            else
-                hashSavecheckBoxes.Add("chkDate30", 0);
-            if (chkDate31.Checked == true)
-                hashSavecheckBoxes.Add("chkDate31", 1);
-            else
-                hashSavecheckBoxes.Add("chkDate31", 0);
+            //if (chkDate11.Checked == true)
+            //    hashSavecheckBoxes.Add("chkDate11", 1);
+            //else
+            //    hashSavecheckBoxes.Add("chkDate11", 0);
+            //if (chkDate12.Checked == true)
+            //    hashSavecheckBoxes.Add("chkDate12", 1);
+            //else
+            //    hashSavecheckBoxes.Add("chkDate12", 0);
+            //if (chkDate13.Checked == true)
+            //    hashSavecheckBoxes.Add("chkDate13", 1);
+            //else
+            //    hashSavecheckBoxes.Add("chkDate13", 0);
+            //if (chkDate14.Checked == true)
+            //    hashSavecheckBoxes.Add("chkDate14", 1);
+            //else
+            //    hashSavecheckBoxes.Add("chkDate14", 0);
+            //if (chkDate15.Checked == true)
+            //    hashSavecheckBoxes.Add("chkDate15", 1);
+            //else
+            //    hashSavecheckBoxes.Add("chkDate15", 0);
+            //if (chkDate16.Checked == true)
+            //    hashSavecheckBoxes.Add("chkDate16", 1);
+            //else
+            //    hashSavecheckBoxes.Add("chkDate16", 0);
+            //if (chkDate17.Checked == true)
+            //    hashSavecheckBoxes.Add("chkDate17", 1);
+            //else
+            //    hashSavecheckBoxes.Add("chkDate17", 0);
+            //if (chkDate18.Checked == true)
+            //    hashSavecheckBoxes.Add("chkDate18", 1);
+            //else
+            //    hashSavecheckBoxes.Add("chkDate18", 0);
+            //if (chkDate19.Checked == true)
+            //    hashSavecheckBoxes.Add("chkDate19", 1);
+            //else
+            //    hashSavecheckBoxes.Add("chkDate19", 0);
+            //if (chkDate20.Checked == true)
+            //    hashSavecheckBoxes.Add("chkDate20", 1);
+            //else
+            //    hashSavecheckBoxes.Add("chkDate20", 0);
+            //if (chkDate21.Checked == true)
+            //    hashSavecheckBoxes.Add("chkDate21", 1);
+            //else
+            //    hashSavecheckBoxes.Add("chkDate21", 0);
+            //if (chkDate22.Checked == true)
+            //    hashSavecheckBoxes.Add("chkDate22", 1);
+            //else
+            //    hashSavecheckBoxes.Add("chkDate22", 0);
+            //if (chkDate23.Checked == true)
+            //    hashSavecheckBoxes.Add("chkDate23", 1);
+            //else
+            //    hashSavecheckBoxes.Add("chkDate23", 0);
+            //if (chkDate24.Checked == true)
+            //    hashSavecheckBoxes.Add("chkDate24", 1);
+            //else
+            //    hashSavecheckBoxes.Add("chkDate24", 0);
+            //if (chkDate25.Checked == true)
+            //    hashSavecheckBoxes.Add("chkDate25", 1);
+            //else
+            //    hashSavecheckBoxes.Add("chkDate25", 0);
+            //if (chkDate26.Checked == true)
+            //    hashSavecheckBoxes.Add("chkDate26", 1);
+            //else
+            //    hashSavecheckBoxes.Add("chkDate26", 0);
+            //if (chkDate27.Checked == true)
+            //    hashSavecheckBoxes.Add("chkDate27", 1);
+            //else
+            //    hashSavecheckBoxes.Add("chkDate27", 0);
+            //if (chkDate28.Checked == true)
+            //    hashSavecheckBoxes.Add("chkDate28", 1);
+            //else
+            //    hashSavecheckBoxes.Add("chkDate28", 0);
+            //if (chkDate29.Checked == true)
+            //    hashSavecheckBoxes.Add("chkDate29", 1);
+            //else
+            //    hashSavecheckBoxes.Add("chkDate29", 0);
+            //if (chkDate30.Checked == true)
+            //    hashSavecheckBoxes.Add("chkDate30", 1);
+            //else
+            //    hashSavecheckBoxes.Add("chkDate30", 0);
+            //if (chkDate31.Checked == true)
+            //    hashSavecheckBoxes.Add("chkDate31", 1);
+            //else
+            //    hashSavecheckBoxes.Add("chkDate31", 0);
 
             Session["MaintainCheckBoxes"] = hashSavecheckBoxes;
         }
@@ -1509,10 +1372,31 @@ namespace WealthERP.CustomerPortfolio
 
         protected void txtStartDate_TextChanged(object sender, EventArgs e)
         {
+          
+
+           txtStartDate_CalendarExtender.SelectedDate = DateTime.Parse(txtStartDate.Text.ToString());
             if (!string.IsNullOrEmpty(txtPeriod.Text.ToString().Trim()))
             {
                 txtEndDate.Text = CalcEndDate(int.Parse(txtPeriod.Text.ToString()), DateTime.Parse(txtStartDate.Text.ToString())).ToShortDateString();
             }
+            if (txtStartDate_CalendarExtender.SelectedDate> TodayDate)
+            {
+                
+                chkHistoricalCreated.Visible = false;
+                chkAutoTransaction.Visible = true;
+                lblHistoricalCreated.Visible = false;
+                lblAutoTransaction.Visible = true;
+
+            }
+            if(txtStartDate_CalendarExtender.SelectedDate < TodayDate)
+            {
+                chkAutoTransaction.Visible = false;
+                chkHistoricalCreated.Visible = true;
+                lblHistoricalCreated.Visible = true;
+                lblAutoTransaction.Visible = false;
+            }
+          
+           
         }
 
     }

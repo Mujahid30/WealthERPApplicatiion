@@ -102,11 +102,18 @@
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderText="Systematic Date" DataField="Systematic Date"
-                    UniqueName="Systematic Date" SortExpression="Systematic Date" HeaderStyle-Width="71px"
+             
+                <telerik:GridBoundColumn HeaderText="HistoricalCreated" DataField="HistoricalCreated"
+                    UniqueName="HistoricalCreated" SortExpression="HistoricalCreated" HeaderStyle-Width="90px"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
+                 <telerik:GridBoundColumn HeaderText="AutoTransaction" DataField="AutoTransaction"
+                    UniqueName="AutoTransaction" SortExpression="AutoTransaction" HeaderStyle-Width="90px"
+                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+               
                 <telerik:GridBoundColumn HeaderText="Amount (Rs)" DataField="Amount" UniqueName="Amount"
                     DataFormatString="{0:N0}" Aggregate="Sum" SortExpression="Amount" AutoPostBackOnFilter="true"
                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">

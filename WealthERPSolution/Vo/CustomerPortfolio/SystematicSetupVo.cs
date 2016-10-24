@@ -7,6 +7,7 @@ namespace VoCustomerPortfolio
 {
     public class SystematicSetupVo
     {
+      
         #region Fields
 
         private int m_SystematicSetupId;
@@ -36,19 +37,21 @@ namespace VoCustomerPortfolio
         private DateTime m_RegistrationDate;
         private string m_Portfolio;
         private int m_portfolioId;
-        private int m_IsAutoTransaction;
+        private string m_IsAutoTransaction;
         private DateTime m_CeaseDate;
         private string m_Remarks;
         private string m_SubBrokerCode;
-
+        public string IsHistoricalCreated { get; set; }
+       
+       
 
 
         #endregion
 
 
         #region Properties
-
-        public int IsAutoTransaction
+       
+        public string IsAutoTransaction
         {
             get { return m_IsAutoTransaction; }
             set { m_IsAutoTransaction = value; }

@@ -48,20 +48,6 @@
 
     $(document).ready(function() {
         $('.loadme').click(function() {
-            var panel1 = document.getElementById('<%= trSystematicDateChk1.ClientID %>');
-            var chkArray1 = panel1.getElementsByTagName("input");
-            var checked1 = 0;
-
-            //********************
-            var panel2 = document.getElementById('<%= trSystematicDateChk2.ClientID %>');
-            var chkArray2 = panel2.getElementsByTagName("input");
-            var checked2 = 0;
-
-            //*******************
-
-            var panel3 = document.getElementById('<%= trSystematicDateChk3.ClientID %>');
-            var chkArray3 = panel3.getElementsByTagName("input");
-            var checked3 = 0;
 
             for (var i = 0; i < chkArray1.length; i++) {
                 if (chkArray1[i].type == "checkbox" && chkArray1[i].checked == true) {
@@ -129,6 +115,7 @@
     }    
 </script>
 
+
 <script type="text/javascript">
     function GetSchemeCode(source, eventArgs) {
 
@@ -142,8 +129,57 @@
 
         return false;
     };
+   
+    
 
 </script>
+<%--<script type="text/javascript">
+  
+        function checkDate(sender, args)
+        {
+
+            var selectedDate = sender.get_selectedDate();
+            var date = new Date();
+            if (selectedDate > date) {
+//                selectedDate.setDate(selectedDate.getDate() + 1);
+//                sender.setSelectedDate(selectedDate);
+
+                alert('Selected Today Date');
+            }
+
+        }
+
+    </script>--%>
+    
+    <script type="text/javascript">
+        function checkDate(sender, args) {
+                   var toDate = new Date();
+           var selectedDate = sender._selectedDate;
+
+            toDate.setMinutes(0);
+            toDate.setSeconds(0);
+            toDate.setHours(0);
+            toDate.setMilliseconds(0);
+
+            selectedDate.setMinutes(0);
+            selectedDate.setSeconds(0);
+            selectedDate.setHours(0);
+            selectedDate.setMilliseconds(0);
+            if (!(selectedDate > toDate)) {
+                if (!(selectedDate < toDate)) {
+
+                    alert("You cannot select a Today Date !");
+                    selectedDate.setDate(selectedDate.getDate() + 1);
+                    sender._textbox.set_Value(sender._selectedDate.format(sender._format))
+                }
+            }
+          
+
+        }
+    
+    </script>
+    
+   
 
 <table class="TableBackground" style="width: 100%">
     <tr>
@@ -307,11 +343,15 @@
             <asp:Label ID="lblStartDate" runat="server" Text="Start date:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtStartDate" runat="server" CssClass="txtField" AutoPostBack="true"
-                OnTextChanged="txtStartDate_TextChanged"></asp:TextBox>
-            <cc1:CalendarExtender ID="txtStartDate_CalendarExtender" runat="server" TargetControlID="txtStartDate"
-                Format="dd/MM/yyyy">
+            <asp:TextBox ID="txtStartDate" runat="server" CssClass="txtField" AutoPostBack="true" 
+                OnTextChanged="txtStartDate_TextChanged"  ></asp:TextBox>
+                
+                   
+      
+            <cc1:CalendarExtender ID="txtStartDate_CalendarExtender" runat="server" TargetControlID="txtStartDate"  Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate"  >
             </cc1:CalendarExtender>
+            
+      
             <cc1:TextBoxWatermarkExtender ID="txtStartDate_TextBoxWatermarkExtender" runat="server"
                 TargetControlID="txtStartDate" WatermarkText="dd/mm/yyyy">
             </cc1:TextBoxWatermarkExtender>
@@ -336,6 +376,7 @@
             <cc1:CalendarExtender ID="SipChequeDate_CalendarExtender" runat="server" TargetControlID="txtSipChequeDate"
                 Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
+
             <cc1:TextBoxWatermarkExtender ID="SipChequeDate_TextBoxWatermarkExtender" runat="server"
                 TargetControlID="txtSipChequeDate" WatermarkText="dd/mm/yyyy">
             </cc1:TextBoxWatermarkExtender>
@@ -364,76 +405,20 @@
         <td>
         </td>
     </tr>
-    <tr id="trSystematicDateChk1" runat="server">
+         <tr>
         <td width="25%" class="leftField">
-            <asp:Label ID="lblSystematicDate" runat="server" Text="Date of Systematic Trx:" CssClass="FieldName"></asp:Label>
-        </td>
-        <td>
-            <asp:CheckBox ID="chkDate1" Text="1" runat="server" CssClass="cmbFielde" Width="40px" />
-            <asp:CheckBox ID="chkDate2" Text="2" runat="server" CssClass="cmbFielde" Width="40px" />
-            <asp:CheckBox ID="chkDate3" Text="3" runat="server" CssClass="cmbFielde" Width="40px" />
-            <asp:CheckBox ID="chkDate4" Text="4" runat="server" CssClass="cmbFielde" Width="40px" />
-            <asp:CheckBox ID="chkDate5" Text="5" runat="server" CssClass="cmbFielde" Width="40px" />
-            <asp:CheckBox ID="chkDate6" Text="6" runat="server" CssClass="cmbFielde" Width="40px" />
-            <asp:CheckBox ID="chkDate7" Text="7" runat="server" CssClass="cmbFielde" Width="40px" />
-            <asp:CheckBox ID="chkDate8" Text="8" runat="server" CssClass="cmbFielde" Width="40px" />
-            <asp:CheckBox ID="chkDate9" Text="9" runat="server" CssClass="cmbFielde" Width="40px" />
-            <asp:CheckBox ID="chkDate10" Text="10" runat="server" CssClass="cmbFielde" Width="40px" />
-        </td>
-        <td>
-        </td>
+             <asp:CheckBox ID="chkHistoricalCreated" runat="server" CssClass="cmbFielde" Width="40px" ></asp:CheckBox>
+    <asp:Label ID="lblHistoricalCreated" runat="server" Text="HistoricalCreated" CssClass="FieldName"></asp:Label>
+
+    </td>
+    <td  >
+     <asp:CheckBox ID="chkAutoTransaction" runat="server" CssClass="cmbFielde" Width="40px" ></asp:CheckBox>
+   
+    <asp:Label ID="lblAutoTransaction" runat="server" Text="AutoTransaction" CssClass="FieldName"></asp:Label>
+    </td>
     </tr>
-    <tr id="trSystematicDateChk2" runat="server">
-        <td>
-        </td>
-        <td>
-            <asp:CheckBox ID="chkDate11" Text="11" runat="server" CssClass="cmbFielde" Width="40px" />
-            <asp:CheckBox ID="chkDate12" Text="12" runat="server" CssClass="cmbFielde" Width="40px" />
-            <asp:CheckBox ID="chkDate13" Text="13" runat="server" CssClass="cmbFielde" Width="40px" />
-            <asp:CheckBox ID="chkDate14" Text="14" runat="server" CssClass="cmbFielde" Width="40px" />
-            <asp:CheckBox ID="chkDate15" Text="15" runat="server" CssClass="cmbFielde" Width="40px" />
-            <asp:CheckBox ID="chkDate16" Text="16" runat="server" CssClass="cmbFielde" Width="40px" />
-            <asp:CheckBox ID="chkDate17" Text="17" runat="server" CssClass="cmbFielde" Width="40px" />
-            <asp:CheckBox ID="chkDate18" Text="18" runat="server" CssClass="cmbFielde" Width="40px" />
-            <asp:CheckBox ID="chkDate19" Text="19" runat="server" CssClass="cmbFielde" Width="40px" />
-            <asp:CheckBox ID="chkDate20" Text="20" runat="server" CssClass="cmbFielde" Width="40px" />
-        </td>
-        <td>
-        </td>
-    </tr>
-    <tr id="trSystematicDateChk3" runat="server">
-        <td>
-        </td>
-        <td>
-            <asp:CheckBox ID="chkDate21" Text="21" runat="server" CssClass="cmbFielde" Width="40px" />
-            <asp:CheckBox ID="chkDate22" Text="22" runat="server" CssClass="cmbFielde" Width="40px" />
-            <asp:CheckBox ID="chkDate23" Text="23" runat="server" CssClass="cmbFielde" Width="40px" />
-            <asp:CheckBox ID="chkDate24" Text="24" runat="server" CssClass="cmbFielde" Width="40px" />
-            <asp:CheckBox ID="chkDate25" Text="25" runat="server" CssClass="cmbFielde" Width="40px" />
-            <asp:CheckBox ID="chkDate26" Text="26" runat="server" CssClass="cmbFielde" Width="40px" />
-            <asp:CheckBox ID="chkDate27" Text="27" runat="server" CssClass="cmbFielde" Width="40px" />
-            <asp:CheckBox ID="chkDate28" Text="28" runat="server" CssClass="cmbFielde" Width="40px" />
-            <asp:CheckBox ID="chkDate29" Text="29" runat="server" CssClass="cmbFielde" Width="40px" />
-            <asp:CheckBox ID="chkDate30" Text="30" runat="server" CssClass="cmbFielde" Width="40px" />
-            <asp:CheckBox ID="chkDate31" Text="31" runat="server" CssClass="cmbFielde" Width="40px" />
-        </td>
-        <td>
-        </td>
-    </tr>
-    <tr id="trSystematicDate" runat="server">
-        <td class="leftField">
-            <asp:Label ID="lblSystematicDateText" runat="server" Text="Date of Systematic Trx:"
-                CssClass="FieldName"></asp:Label>
-        </td>
-        <td>
-            <asp:TextBox ID="txtSystematicDate" runat="server" CssClass="txtField"></asp:TextBox>
-            <asp:CompareValidator ID="cvSystematicDate" runat="server" ErrorMessage="<br />Please Enter Systematic Date between 1 to 31"
-                ValidationGroup="MFSubmit" ControlToValidate="txtSystematicDate" class="rfvPCG"
-                Operator="LessThan" Type="Integer" ValueToCompare="32" Display="Dynamic"></asp:CompareValidator>
-        </td>
-        <td>
-        </td>
-    </tr>
+   
+  
     <tr>
         <td class="leftField" width="25%">
             <asp:Label ID="lblFrequency" runat="server" Text="Frequency:" CssClass="FieldName"></asp:Label>
@@ -513,6 +498,7 @@
             <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtEndDate"
                 Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
+             
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtEndDate"
                 WatermarkText="dd/mm/yyyy">
             </cc1:TextBoxWatermarkExtender>

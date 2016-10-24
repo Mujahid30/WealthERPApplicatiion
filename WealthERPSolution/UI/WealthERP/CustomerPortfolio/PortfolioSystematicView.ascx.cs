@@ -150,6 +150,7 @@ namespace WealthERP.CustomerPortfolio
                     BindPortfolioDropDown(customerVo.CustomerId);
                     ddlportfolio.SelectedValue = portfolioId.ToString();
                     LoadSystematicSetupGrid(portfolioId);
+
                 }
             }
             catch (BaseApplicationException Ex)
@@ -188,7 +189,10 @@ namespace WealthERP.CustomerPortfolio
                     dtSystematicSetup.Columns.Add("Systematic Transaction Type");
                     dtSystematicSetup.Columns.Add("Start Date");
                     dtSystematicSetup.Columns.Add("End Date");
-                    dtSystematicSetup.Columns.Add("Systematic Date");
+                   // dtSystematicSetup.Columns.Add("Systematic Date");
+                    dtSystematicSetup.Columns.Add("HistoricalCreated");
+                    dtSystematicSetup.Columns.Add("AutoTransaction");
+                 
                     dtSystematicSetup.Columns.Add("Amount",typeof (double));
                     dtSystematicSetup.Columns.Add("Frequency");
                     dtSystematicSetup.Columns.Add("SubBrokerCode");
@@ -207,9 +211,12 @@ namespace WealthERP.CustomerPortfolio
                             drSystematicSetup[3] = systematicSetupVo.SystematicType.ToString();//join
                             drSystematicSetup[4] = systematicSetupVo.StartDate.ToShortDateString();
                             drSystematicSetup[5] = systematicSetupVo.EndDate.ToShortDateString();
-                            drSystematicSetup[6] = systematicSetupVo.SystematicDate.ToString();
-                            drSystematicSetup[7] = systematicSetupVo.Amount;
-                            drSystematicSetup[8] = systematicSetupVo.Frequency.ToString();//join
+                          
+                            drSystematicSetup[6] = systematicSetupVo.IsHistoricalCreated.ToString();
+                            drSystematicSetup[7] = systematicSetupVo.IsAutoTransaction.ToString();
+                          
+                            drSystematicSetup[8] = systematicSetupVo.Amount;
+                            drSystematicSetup[9] = systematicSetupVo.Frequency.ToString();//join
                             drSystematicSetup["SubBrokerCode"] = systematicSetupVo.SubBrokerCode;
 
                             dtSystematicSetup.Rows.Add(drSystematicSetup);
@@ -288,6 +295,9 @@ namespace WealthERP.CustomerPortfolio
                 }
                 if (ddlAction.SelectedItem.Value.ToString() == "View")
                 {
+                    
+                        
+
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioSystematicEntry','action=view');", true);
                 }
             }
