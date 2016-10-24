@@ -31,7 +31,7 @@ namespace WealthERP.Advisor
             userVo = (UserVo)Session[SessionContents.UserVo];
             if (!IsPostBack)
             {
-                //ShowUnreadMessageAlert();
+                ShowUnreadMessageAlert();
                 ShowMessageBroadcast();
                 BindProductwiseAuthenticated();
 
@@ -203,8 +203,23 @@ namespace WealthERP.Advisor
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('CommissionReconMIS','login');", true);
             //}
+
+
+          
+        }
+        public void imgInbox_OnClick1(object sender, EventArgs e)
+        {
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('MessageInbox','login');", true);
         }
 
+        public void lnkbtnInbox1_OnClick(object sender, EventArgs e)
+        {
+
+            Session["NodeType"] = "CustomerReportsDashBoard";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrderentry", "loadcontrol('MessageInbox','login');", true);
+        }
 
         public void imgbtnFPClients_OnClick(object sender, EventArgs e)
         {
@@ -228,7 +243,7 @@ namespace WealthERP.Advisor
         private void ShowUnreadMessageAlert()
         {
             MessageBo msgBo = new MessageBo();
-
+            DataTable dt;
             // Get unread messages from the DB
             int intCount = 0;
             int flavourId = 0;
@@ -236,14 +251,14 @@ namespace WealthERP.Advisor
             hdfFlavourId.Value = flavourId.ToString();
             if (intCount > 0)
             {
-                lnkbtnInbox.Text = "Reports " + "(" + intCount + ")";
-                imgInbox.ImageUrl = "~/Images/msgUnRead.png";
+                lnkbtnInbox1.Text = "New Massage " + "(" + intCount + ")";
+                imgInbox1.ImageUrl = "~/Images/msgUnRead.png";
             }
 
             else
             {
-                lnkbtnInbox.Text = "Reports " + "(" + intCount + ")";
-                imgInbox.ImageUrl = "~/Images/messageread.png";
+                lnkbtnInbox1.Text = "New Massage " + "(" + intCount + ")";
+                imgInbox1.ImageUrl = "~/Images/messageread.png";
             }
         }
 

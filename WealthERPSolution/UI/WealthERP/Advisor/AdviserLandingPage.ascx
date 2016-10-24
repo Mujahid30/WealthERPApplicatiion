@@ -192,6 +192,19 @@
                                 OnClick="lnkbtnFPClients_OnClick" ToolTip="Navigate to View Leads" Text="View Leads"></asp:LinkButton>
                         </div>
                     </td>
+                 
+                </tr>
+                <tr>
+                   <td style="width: 30%;" align="center">
+                        <div class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'"
+                            onmouseout="this.className='divDashBoardMouseInLinks'">
+                            <asp:ImageButton ID="imgInbox1" ImageUrl="~/Images/report.png" runat="server" ToolTip=""
+                                OnClick="imgInbox_OnClick1" Width="70px" />
+                            <br />
+                            <asp:LinkButton ID="lnkbtnInbox1" runat="server" Font-Underline="false" CssClass="FieldName"
+                                OnClick="lnkbtnInbox1_OnClick" ToolTip="Navigate to Inbox" Text=""></asp:LinkButton>
+                        </div>
+                    </td>
                 </tr>
             </table>
         </td>
@@ -238,6 +251,16 @@
         </td>
     </tr>
 </table>
+<table width="100%" visible="false" class="TableBackground">
+    <tr>
+        <td class="HeaderCell" Visible="false" id="td1" runat="server" style="padding-left: 5%;">
+            <div onclick="">
+                + <asp:Label ID="Label1"  runat="server" CssClass="HeaderTextSmall" Text="New Massage:"></asp:Label>
+            <asp:Label ID="lblMassageCount" runat="server" CssClass="HeaderTextSmall"></asp:Label></div>
+             
+        </td>
+        </tr>
+        </table>
 <table width="100%" class="TableBackground" visible="false" id="tblMail" runat="server">
     <tr>
         <td class="HeaderCell">
