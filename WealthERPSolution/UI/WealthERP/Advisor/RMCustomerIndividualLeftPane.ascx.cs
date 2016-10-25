@@ -1005,7 +1005,9 @@ namespace WealthERP.Advisor
                         Session["FPDataSet"] = null;
                     if (Session["UserType"] != null)
                         Session["UserType"] = null;
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFAAdminMainDashboard','login');", true);
                     Session["rmVo"] = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
+                  
                     if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
                     {
                         dspotentialHomePage = advisorBo.GetUserPotentialHomepages(advisorVo.advisorId, "BM");
