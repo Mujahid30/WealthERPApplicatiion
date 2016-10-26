@@ -128,7 +128,12 @@
                                     UniqueName="ActiveLevel">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right"
+                                <telerik:GridBoundColumn HeaderText="Nominee Name" DataField="NName"
+                                   UniqueName="NName" SortExpression="NName" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                   ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                   <telerik:GridBoundColumn DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right"
                                     DataField="InsuredAmount" AllowFiltering="false" HeaderText="Sum Assured" UniqueName="ActiveLevel"
                                     Aggregate="Sum">
                                     <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
