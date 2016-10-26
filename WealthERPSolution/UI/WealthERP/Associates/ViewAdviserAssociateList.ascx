@@ -33,11 +33,11 @@
                                     pagesize="10" enableembeddedskins="false" allowfilteringbycolumn="true" autogeneratecolumns="False"
                                     showstatusbar="false" showfooter="false" allowpaging="true" allowsorting="true"
                                     gridlines="none" allowautomaticinserts="false" skin="Telerik" enableheadercontextmenu="true"
-                                    onneeddatasource="gvAdviserAssociateList_OnNeedDataSource" onitemdatabound="gvAdviserAssociateList_ItemDataBound">
+                                    onneeddatasource="gvAdviserAssociateList_OnNeedDataSource" onitemdatabound="gvAdviserAssociateList_ItemDataBound" OnItemCommand="gvAdviserAssociateList_OnItemCommand">
                                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="ViewAssociateList"
                                         Excel-Format="ExcelML">
                                     </ExportSettings>
-                                    <MasterTableView Width="80%" DataKeyNames="AA_AdviserAssociateId,WelcomeNotePath" AllowMultiColumnSorting="True"
+                                    <MasterTableView Width="80%" DataKeyNames="AA_AdviserAssociateId,WelcomeNotePath,SubBrokerCode" AllowMultiColumnSorting="True"
                                         AutoGenerateColumns="false" CommandItemDisplay="None" GroupsDefaultExpanded="false"
                                         ExpandCollapseColumn-Groupable="true" GroupLoadMode="Client" ShowGroupFooter="true">
                                         <Columns>
@@ -70,11 +70,11 @@
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>--%>
                                            <telerik:GridTemplateColumn HeaderText="Child code count" ItemStyle-HorizontalAlign="Right"
-                                                HeaderStyle-Width="80px" AllowFiltering="true" DataField="AA_ContactPersonName"
+                                                HeaderStyle-Width="80px" AllowFiltering="true" DataField="ChildCount"
                                                 ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                                 <ItemTemplate>
                                                     <asp:LinkButton ID="LnkRQ" runat="server" CssClass="CmbField" OnClick="LnkRQ_Click"
-                                                        Text='<%#Eval("AA_ContactPersonName") %>'>
+                                                        Text='<%#Eval("ChildCount") %>' CommandName="childAgentcode">
                                                     </asp:LinkButton>
                                                 </ItemTemplate>
                                             </telerik:GridTemplateColumn>

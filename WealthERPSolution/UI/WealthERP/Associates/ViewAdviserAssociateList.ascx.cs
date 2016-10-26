@@ -209,7 +209,17 @@ namespace WealthERP.Associates
 
             
         }
-
+        protected void gvAdviserAssociateList_OnItemCommand(object sender, GridCommandEventArgs e)
+        {
+            if (e.CommandName == "childAgentcode")
+            {
+                GridEditableItem editItem = e.Item as GridEditableItem;
+                LinkButton lnkprAmcB = (LinkButton)editItem.FindControl("LnkRQ");
+                string SubBrokerCode = gvAdviserAssociateList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["SubBrokerCode"].ToString();
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewAgentCode','AgentCode=" + SubBrokerCode + "');", true);
+            }
+        
+        }
 
 
         protected void LnkRQ_Click(object sender, EventArgs e)

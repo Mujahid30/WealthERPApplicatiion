@@ -42,7 +42,14 @@ namespace WealthERP.Associates
             }
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
             {
-                Agentcode = string.Empty;
+                if (Request.QueryString["AgentCode"] != null)
+                {
+                    Agentcode = Request.QueryString["AgentCode"].ToString();
+                }
+                else {
+                    Agentcode = string.Empty;
+                }
+               
             }
             else
             {
