@@ -42,7 +42,7 @@
             document.getElementById('<%= hdnGroupPolicy.ClientID %>').value = '1';
             document.getElementById('<%= ddlTypeOfPolicy.ClientID %>').disabled = false;
             document.getElementById('divGridView').style.display = 'block';
-            document.getElementById('<%= txtSumAssured1.ClientID %>').disabled = true;
+            document.getElementById('<%= txtSumAssured1.ClientID %>').disabled = false;
             ChangePolicyType();
         }
         else {
