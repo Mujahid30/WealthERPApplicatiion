@@ -3087,7 +3087,8 @@ namespace WealthERP.Advisor
                             Item.Text = dr[2].ToString();
                             if (dr[2].ToString().ToLower() == "content" || dr[2].ToString().ToLower() == "message" || dr[2].ToString().ToLower() == "order")
                             {
-                                Item.Text += " <img id='img1' src='/Images/new.gif'/>";
+                                //Item.Text += " <img id='img1' src='/Images/new.gif'/>";
+
                             }
                         }
                     }
@@ -3117,7 +3118,8 @@ namespace WealthERP.Advisor
                                 || dr[2].ToString() == "ISA Status" || dr[2].ToString() == "MF Dashboard"
                                 || dr[2].ToString() == "ISA Folio Mapping" || dr[2].ToString() == "Customer Accounts Compare" || dr[2].ToString() == "Returns" || dr[2].ToString() == "Customer SignUp")
                             {
-                                Item.Text += " <img id='img1' src='/Images/new.gif'/>";
+                                //Item.Text += " <img id='img1' src='/Images/new.gif'/>";
+
                             }
                         }
                     }
@@ -3143,7 +3145,7 @@ namespace WealthERP.Advisor
                             Item.Text = dr[2].ToString();
                             if (dr[2].ToString() == "Login History" || dr[2].ToString() == "MF NP & Tranx Compare")
                             {
-                                Item.Text += " <img id='img1' src='/Images/new.gif'/>";
+                                //Item.Text += " <img id='img1' src='/Images/new.gif'/>";
                             }
 
                         }

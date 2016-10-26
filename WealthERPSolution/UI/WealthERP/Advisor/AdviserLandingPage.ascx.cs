@@ -209,7 +209,19 @@ namespace WealthERP.Advisor
         }
         public void imgInbox_OnClick1(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('MessageInbox','login');", true);
+            //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+            //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('MessageInbox','login');", true);
+            Session["NodeType"] = "AdviserCustomer";
+            if (advisorVo.IsOpsEnable == 1)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('MessageInbox','login');", true);
+            }
+            else
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('MessageInbox','login');", true);
+            }
         }
 
         public void lnkbtnInbox1_OnClick(object sender, EventArgs e)
