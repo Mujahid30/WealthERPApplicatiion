@@ -47,7 +47,7 @@
             </td>
             <td>
             <asp:DropDownList ID="ddlMode" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlMode_OnSelectedIndexChanged" AutoPostBack="true">
-            <asp:ListItem Value="0" Text="Select"></asp:ListItem>
+           
             <asp:ListItem Value="1" Text="Online"></asp:ListItem>
             <asp:ListItem Value="2" Text="Demat"></asp:ListItem>
             </asp:DropDownList>
