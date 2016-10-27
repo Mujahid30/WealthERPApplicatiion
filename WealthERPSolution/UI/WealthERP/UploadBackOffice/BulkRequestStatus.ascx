@@ -466,10 +466,10 @@
                 WatermarkText="dd/mm/yyyy">
             </cc1:TextBoxWatermarkExtender>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="rptTxtFromDate"
-                CssClass="rfvPCG" ErrorMessage="<br />Please select a  Date" Display="Dynamic"
-                runat="server" InitialValue="" ValidationGroup="btnGo"></asp:RequiredFieldValidator>
+                CssClass="rfvPCG" ErrorMessage="<br />Please select a  Date" Display="Dynamic" ValidationGroup="vgbtnSubmit"
+                runat="server" InitialValue=""></asp:RequiredFieldValidator>
             <asp:CompareValidator ID="CompareValidator6" runat="server" CssClass="rfvPCG" ControlToValidate="rptTxtFromDate"
-                Display="Dynamic" ErrorMessage="Invalid Date" ValidationGroup="btnGo" Operator="DataTypeCheck"
+                Display="Dynamic" ErrorMessage="Invalid Date" Operator="DataTypeCheck" ValidationGroup="vgbtnSubmit"
                 Type="Date">
             </asp:CompareValidator>
         </td>
@@ -484,17 +484,17 @@
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="rpttxtToDate"
                 WatermarkText="dd/mm/yyyy">
             </cc1:TextBoxWatermarkExtender>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="rpttxtToDate"
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="rpttxtToDate" ValidationGroup="vgbtnSubmit"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select a Date" Display="Dynamic"
-                runat="server" InitialValue="" ValidationGroup="btnGo"></asp:RequiredFieldValidator>
+                runat="server" InitialValue="" ></asp:RequiredFieldValidator>
           
             <asp:CompareValidator ID="CompareValidator8" runat="server" CssClass="rfvPCG" ControlToValidate="rpttxtToDate"
-                Display="Dynamic" ErrorMessage="Invalid Date" ValidationGroup="btnGo" Operator="DataTypeCheck"
+                Display="Dynamic" ErrorMessage="Invalid Date" Operator="DataTypeCheck" ValidationGroup="vgbtnSubmit"
                 Type="Date">
             </asp:CompareValidator>
             <asp:CompareValidator ID="CompareValidator9" runat="server" ErrorMessage="<br/>To Date should not less than From Date"
                 Type="Date" ControlToValidate="rpttxtToDate" ControlToCompare="rpttxtFromDate" Operator="GreaterThanEqual"
-                CssClass="cvPCG" Display="Dynamic" ValidationGroup="btnGo"></asp:CompareValidator>
+                CssClass="cvPCG" Display="Dynamic" ValidationGroup="vgbtnSubmit" ></asp:CompareValidator>
         </td>
         <td class="rightField" style="padding-right: 50px">
             <asp:Button ID="btnGO" runat="server" CssClass="PCGButton" OnClick="btnGO_OnClick"
