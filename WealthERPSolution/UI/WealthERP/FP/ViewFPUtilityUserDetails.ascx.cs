@@ -50,6 +50,19 @@ namespace WealthERP.FP
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "customQnAOpener", script, true);
             }
 
+           else if (e.CommandName == "OpenQnAEdit")
+            {
+                GridDataItem item = e.Item as GridDataItem;
+                int id = Convert.ToInt32(item.OwnerTableView.DataKeyValues[item.ItemIndex]["FPUUD_UserId"].ToString());
+                string spName = item.OwnerTableView.DataKeyValues[item.ItemIndex]["FPUUD_Name"].ToString();
+                //lbl1.Text = id.ToString() + "_" + spName;
+                //placeholder.Controls.Add(new LiteralControl());
+                BindQnAEdit(id);
+                string script = "function f(){radopen(null, 'UserListDialog1'); Sys.Application.remove_load(f);}Sys.Application.add_load(f);";
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "customQnAOpener", script, true);
+            }
+
+
 
         }
         protected void gvLeadList_OnNeedDataSource(Object sender, GridNeedDataSourceEventArgs e)
@@ -183,6 +196,61 @@ namespace WealthERP.FP
             }
             
         }
+
+
+        private void BindQnAEdit(int id)
+        {
+            DataSet dsQuestionNOptions = fpUserBo.GetQuestionAndOptions(id);
+            DataSet dsGetquestionList = new DataSet();
+            dsGetquestionList = fpUserBo.GetRiskProfileQuestion(adviserVo.advisorId);
+            int questionNo = 0;
+            int questioncount = 1;
+            foreach (DataRow dr in dsGetquestionList.Tables[0].Rows)
+            {
+                //lbl1.Text = "asa";
+                questionNo = Convert.ToInt32(dr["QM_QuestionId"].ToString());
+                //PlaceHolder placeholder = new PlaceHolder();
+                placeholder.Controls.Add(new LiteralControl("<div class=\"well\"><div class=\"row\"><div class=\"col-sm-2  form-group\"></div><div class=\"col-sm-8  form-group\"><p>" + questioncount.ToString() + "." + dr["QM_Question"].ToString()
+                    + "</p></div><div class=\"col-sm-2\"></div></div><div class=\"row\"><div class=\"col-sm-3\"></div><div class=\"col-sm-3\"></div><div class=\"col-sm-6\">"));
+
+                placeholder.Controls.Add(new LiteralControl("</div></div>"));
+
+                DataSet ds = new DataSet();
+                ds = fpUserBo.GetQuestionOption(Convert.ToInt32(dr["QM_QuestionId"].ToString()), adviserVo.advisorId);
+                int optionNo = 1;
+                foreach (DataRow droption in ds.Tables[0].Rows)
+                {
+                    optionNo = Convert.ToInt32(droption["QOM_OptionId"].ToString());
+                    placeholder.Controls.Add(new LiteralControl("<div class=\"row\"><div class=\"col-sm-3  form-group\"></div><div class=\"col-sm-6  form-group\"><div class=\"radio radio-info radio-inline\">"));
+                    RadioButton rbtn = new RadioButton();
+                    rbtn.ID = "rbtn" + questionNo.ToString() + optionNo.ToString();
+                    rbtn.GroupName = questionNo.ToString();
+                    //rbtn.AccessKey = optionNo.ToString();
+                    rbtn.ValidationGroup = optionNo.ToString();
+                    rbtn.Enabled = true;
+                    if (dsQuestionNOptions.Tables[0].Rows.Count > 0)
+                    {
+                        string expression;
+                        expression = "AQM_QuestionId=" + questionNo.ToString();
+                        DataRow[] foundRows;
+                        foundRows = dsQuestionNOptions.Tables[0].Select(expression);
+                        if (foundRows.Length > 0)
+                        {
+                            if (foundRows[0]["AQOM_OptionId"].ToString() == optionNo.ToString())
+                                rbtn.Checked = true;
+                        }
+                    }
+                    placeholder.Controls.Add(rbtn);
+                    placeholder.Controls.Add(new LiteralControl("<label for=\"" + rbtn.ID + "\">" + droption["QOM_Option"].ToString()
+                        + "</label></div></div><div class=\"col-sm-3\"></div></div>"));
+
+                }
+                questioncount++;
+            }
+
+        }
+
+
         public void imgBtngvLeadList_OnClick(object sender, ImageClickEventArgs e)
         {
             gvLeadList.ExportSettings.OpenInNewWindow = true;

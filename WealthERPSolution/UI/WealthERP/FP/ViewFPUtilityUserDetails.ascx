@@ -150,6 +150,15 @@
                                         Visible="true"></asp:LinkButton>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
+                             <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="RiskClass" HeaderText="Risk Class(Edit)"
+                                Visible="true">
+                                <ItemTemplate>
+                                    <asp:LinkButton ID="lnkViewProspect2" CommandName="OpenQnAEdit" runat="server" Text='<%# Eval("RiskClass") %>'
+                                        Visible="true"></asp:LinkButton>
+                                </ItemTemplate>
+                            </telerik:GridTemplateColumn>
+                            
+                            
                             <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="ActionForProspect"
                                 HeaderText="View Profile" Visible="true">
                                 <ItemTemplate>
@@ -179,7 +188,7 @@
 
                 <script type="text/javascript">
                     function setCustomPosition(sender, args) {
-                        sender.moveTo(sender.get_left(), sender.get_top());
+                        sender.moveTo(sender.get_left(), sender.get_top()); 
                     }
                 </script>
 
