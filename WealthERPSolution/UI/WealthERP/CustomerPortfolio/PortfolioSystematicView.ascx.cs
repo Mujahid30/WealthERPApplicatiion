@@ -221,7 +221,7 @@ namespace WealthERP.CustomerPortfolio
 
                             dtSystematicSetup.Rows.Add(drSystematicSetup);
                         }
-
+                       
                         gvrSystematicSchemes.DataSource = dtSystematicSetup;
                         gvrSystematicSchemes.DataBind();
                         if (Cache["SIP Details" + customerVo.CustomerId.ToString()] == null)

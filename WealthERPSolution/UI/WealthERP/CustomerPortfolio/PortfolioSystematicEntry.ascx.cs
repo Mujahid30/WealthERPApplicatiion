@@ -61,13 +61,13 @@ namespace WealthERP.CustomerPortfolio
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
             userVo = (UserVo)Session[SessionContents.UserVo];
-           
-         
+
+
             if (!IsPostBack)
             {
-                
 
-                
+
+
                 trSipAutoTranx.Visible = false;
                 //customerAccountsVo = (CustomerAccountsVo)Session["customerAccountVo"];
                 if (Session["systematicSetupVo"] != null)
@@ -124,11 +124,11 @@ namespace WealthERP.CustomerPortfolio
                 }
 
             }
-            
+
 
         }
 
-       
+
         private void BindPortfolioDropDown()
         {
             DataSet ds = portfolioBo.GetCustomerPortfolio(customerVo.CustomerId);
@@ -169,18 +169,18 @@ namespace WealthERP.CustomerPortfolio
                     trSipChequeDate.Visible = true;
                     trSipChequeNo.Visible = true;
                     trPaymentMode.Visible = true;
-                   
+
 
 
                 }
                 else if (ddlSystematicType.SelectedValue == "STP")
                 {
                     trPaymentMode.Visible = true;
-                   
+
                 }
                 else if (ddlSystematicType.SelectedValue == "SWP")
                 {
-                   
+
                 }
                 txtSearchScheme.Text = hashRetainPreviousState["SearchScheme"].ToString();
                 txtSwicthSchemeSearch.Text = hashRetainPreviousState["SwicthSchemeSearch"].ToString();
@@ -214,7 +214,7 @@ namespace WealthERP.CustomerPortfolio
                     SetPreviousValuesForCheckboxes();
                 }
 
-               
+
                 ddlFrequency.SelectedValue = hashRetainPreviousState["Frequency"].ToString();
                 txtAmount.Text = hashRetainPreviousState["Amount"].ToString();
                 txtPeriod.Text = hashRetainPreviousState["Period"].ToString();
@@ -227,11 +227,14 @@ namespace WealthERP.CustomerPortfolio
                 txtRemarks.Text = hashRetainPreviousState["Remarks"].ToString();
 
                 Session.Remove("SystematicHT");
+
+
             }
             else
             {
                 BindPortfolioDropDown();
                 ddlFolioNumber.Items.Insert(0, "Select");
+
             }
 
 
@@ -467,7 +470,7 @@ namespace WealthERP.CustomerPortfolio
                     ddlportfolio.SelectedIndex = 0;
                     ddlFolioNumber.SelectedIndex = -1;
                     txtStartDate.Text = "";
-                    
+
                     ddlFrequency.SelectedIndex = -1;
                     txtAmount.Text = "";
                     txtPeriod.Text = "";
@@ -503,7 +506,7 @@ namespace WealthERP.CustomerPortfolio
                     if (systematicSetupVo.SchemePlan != "")
                         txtSwitchSchemeCode_AutoCompleteExtender.ContextKey = txtSchemeCode.Value;
                     txtStartDate.Text = "";
-                  
+
                     ddlFrequency.SelectedValue = "";
                     txtAmount.Text = systematicSetupVo.Amount.ToString();
                     SipChequeDate_CalendarExtender.Enabled = true;
@@ -514,7 +517,7 @@ namespace WealthERP.CustomerPortfolio
                     if (systematicSetupVo.SipChequeNo != 0)
                         txtSipChecqueNo.Text = systematicSetupVo.SipChequeNo.ToString();
                     else
-                        txtSipChecqueNo.Text = "";
+                        txtSipChecqueNo.Text = "dd/mm/yyyy";
 
                     if (systematicSetupVo.SipChequeDate != DateTime.MinValue)
                         txtSipChequeDate.Text = systematicSetupVo.SipChequeDate.ToShortDateString();
@@ -581,7 +584,7 @@ namespace WealthERP.CustomerPortfolio
                         SipAutoTranx.Checked = true;
                 }
                 txtStartDate.Text = systematicSetupVo.StartDate.ToShortDateString();
-                
+
                 ddlFrequency.SelectedValue = systematicSetupVo.FrequencyCode.Trim();
                 txtAmount.Text = systematicSetupVo.Amount.ToString();
                 txtPeriod.Text = systematicSetupVo.Period.ToString();
@@ -643,7 +646,7 @@ namespace WealthERP.CustomerPortfolio
                 ddlportfolio.SelectedIndex = 0;
                 ddlFolioNumber.SelectedIndex = -1;
                 txtStartDate.Text = "";
-              
+
                 ddlFrequency.SelectedIndex = -1;
                 txtAmount.Text = "";
                 txtPeriod.Text = "";
@@ -678,11 +681,11 @@ namespace WealthERP.CustomerPortfolio
                 ddlFolioNumber.Enabled = false;
                 txtSearchScheme.Enabled = false;
                 txtStartDate.Enabled = false;
-               
+
                 ddlFrequency.Enabled = false;
                 txtAmount.Enabled = false;
                 txtPeriod.Enabled = false;
-               
+
                 txtSipChequeDate.Enabled = false;
 
                 txtSipChecqueNo.Enabled = false;
@@ -693,10 +696,11 @@ namespace WealthERP.CustomerPortfolio
                 btnAddFolio.Visible = false;
                 txtCeaseDate.Enabled = false;
                 txtRemarks.Enabled = false;
-                txtSubbrokerCode.Enabled=false;
+                txtSubbrokerCode.Enabled = false;
                 if (systematicSetupVo.IsHistoricalCreated == "1")
                 {
                     chkHistoricalCreated.Checked = true;
+                    chkAutoTransaction.Checked = false;
                 }
                 else
                 {
@@ -704,14 +708,17 @@ namespace WealthERP.CustomerPortfolio
                 }
                 if (systematicSetupVo.IsAutoTransaction == "1")
                 {
-                    chkAutoTransaction.Checked = true;   
+                    chkAutoTransaction.Checked = true;
+                    chkHistoricalCreated.Checked = false;
                 }
                 else
                 {
-                    chkAutoTransaction.Checked=false;
+
+                    chkAutoTransaction.Checked = false;
                 }
                 chkHistoricalCreated.Enabled = false;
                 chkAutoTransaction.Enabled = false;
+                lnkEdit.Visible = true;
 
                 if (systematicSetupVo.SystematicTypeCode == "SIP")
                 {
@@ -757,12 +764,12 @@ namespace WealthERP.CustomerPortfolio
                 ddlFolioNumber.Enabled = true;
                 txtSearchScheme.Enabled = true;
                 txtStartDate.Enabled = true;
-               
+
                 ddlFrequency.Enabled = true;
                 txtAmount.Enabled = true;
                 txtPeriod.Enabled = true;
-               
-               
+
+
                 txtSipChequeDate.Enabled = true;
                 txtEndDate.Enabled = false;
                 btnSubmit.Text = "Submit";
@@ -784,19 +791,30 @@ namespace WealthERP.CustomerPortfolio
                 if (systematicSetupVo.IsHistoricalCreated == "1")
                 {
                     chkHistoricalCreated.Checked = true;
+                    chkHistoricalCreated.Visible = true;
+                    lblHistoricalCreated.Visible = true;
+                    chkAutoTransaction.Checked = false;
                 }
                 else
                 {
                     chkHistoricalCreated.Checked = false;
+                    chkHistoricalCreated.Visible = false;
+                    lblHistoricalCreated.Visible = false;
                 }
                 if (systematicSetupVo.IsAutoTransaction == "1")
                 {
                     chkAutoTransaction.Checked = true;
+                    chkAutoTransaction.Visible = true;
+                    lblAutoTransaction.Visible = true;
+                    chkHistoricalCreated.Checked = false;
                 }
                 else
                 {
                     chkAutoTransaction.Checked = false;
+                    chkAutoTransaction.Visible = false;
+                    lblAutoTransaction.Visible = false;
                 }
+
                 ddlSystematicType.Enabled = true;
                 ddlportfolio.Enabled = true;
                 ddlFolioNumber.Enabled = true;
@@ -815,6 +833,7 @@ namespace WealthERP.CustomerPortfolio
 
                 SipAutoTranx.Enabled = true;
                 txtSubbrokerCode.Enabled = true;
+
 
                 if ((systematicSetupVo.SystematicTypeCode == "SIP") || (systematicSetupVo.SystematicTypeCode == "STP"))
                 {
@@ -855,7 +874,7 @@ namespace WealthERP.CustomerPortfolio
                 btnSubmit.Visible = true;
             }
         }
-
+       
         /// <summary>
         /// Function to submit and Update the data
         /// </summary>
@@ -926,11 +945,18 @@ namespace WealthERP.CustomerPortfolio
             systematicSetupVo.Amount = double.Parse(txtAmount.Text.ToString().Trim());
             //systematicSetupVo.EndDate = CalcEndDate(int.Parse(txtPeriod.Text.ToString()), DateTime.Parse(txtStartDate.Text.ToString()));
             systematicSetupVo.EndDate = DateTime.Parse(txtEndDate.Text);
-          
+
             systematicSetupVo.Period = int.Parse(txtPeriod.Text.ToString());
             systematicSetupVo.IsManual = 1;
-           
-           
+            if ((chkHistoricalCreated.Checked))
+            {
+                systematicSetupVo.IsHistoricalCreated = "1";
+            }
+            if (chkAutoTransaction.Checked)
+            {
+                systematicSetupVo.IsAutoTransaction = "1";
+            }
+
             if (SipAutoTranx.Checked)
             {
                 systematicSetupVo.IsAutoTransaction = "1";
@@ -939,7 +965,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 systematicSetupVo.IsAutoTransaction = "0";
             }
-           
+
             if (!string.IsNullOrEmpty(txtSipChequeDate.Text.ToString().Trim()) && txtSipChequeDate.Text != "dd/mm/yyyy")
                 systematicSetupVo.SipChequeDate = DateTime.Parse(txtSipChequeDate.Text.ToString());
             else
@@ -992,20 +1018,29 @@ namespace WealthERP.CustomerPortfolio
                     systematicSetupVo.PaymentMode = ddlPaymentMode.SelectedItem.Value.ToString();
             }
 
-            if (btnSubmit.Text == "Submit")
+            if ((btnSubmit.Text == "Submit"))
             {
                 if ((chkHistoricalCreated.Checked))
                 {
-                    systematicSetupVo.IsHistoricalCreated ="1";
+                    systematicSetupVo.IsHistoricalCreated = "1";
                     systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
                 }
-                else if (chkAutoTransaction.Checked)
+                if (chkAutoTransaction.Checked)
                 {
                     systematicSetupVo.IsAutoTransaction = "1";
                     systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
                 }
-                
 
+                //if (!(chkHistoricalCreated.Checked))
+                //{
+                //    if (!(chkAutoTransaction.Checked))
+                //    {
+
+                //        string Message = "Please select either Historical created or Autotransaction checkbox";
+                //        Response.Write("<script>alert('" + Message + ")</script>");
+                //    }
+
+                //}
 
 
                 if (Session["SourcePage"] != null && Session["SourcePage"].ToString() == "ReconReport")
@@ -1028,13 +1063,57 @@ namespace WealthERP.CustomerPortfolio
             if (btnSubmit.Text == "Update")
             {
                 //systematicSetupVo.SystematicSetupId = systematicSetupId;
-             
+
+
+
                 systematicSetupBo.UpdateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PortfolioSystematicView','none');", true);
 
             }
 
         }
+        protected void lnkEdit_Click(object sender, EventArgs e)
+        {
+            ddlSystematicType.Enabled = true;
+            ddlportfolio.Enabled = true;
+            ddlFolioNumber.Enabled = true;
+            txtSearchScheme.Enabled = true;
+            txtStartDate.Enabled = true;
+
+            ddlFrequency.Enabled = true;
+            txtAmount.Enabled = true;
+            txtPeriod.Enabled = true;
+
+            txtSipChequeDate.Enabled = true;
+            if (txtSipChecqueNo.Text != null)
+            {
+                txtSipChecqueNo.Enabled = true;
+            }
+            ddlPeriodSelection.Enabled = true;
+            txtRegistrationDate.Enabled = true;
+            txtEndDate.Enabled = false;
+            btnSubmit.Visible = true;
+            btnAddFolio.Visible = true;
+            txtCeaseDate.Enabled = true;
+            txtRemarks.Enabled = true;
+            txtSubbrokerCode.Enabled = true;
+
+            chkHistoricalCreated.Enabled = true;
+            chkAutoTransaction.Enabled = true;
+            lnkEdit.Visible = false;
+
+            SipAutoTranx.Enabled = true;
+
+            ddlPaymentMode.Enabled = true;
+
+            txtSwicthSchemeSearch.Enabled = true;
+            ddlPaymentMode.Enabled = true;
+
+            ddlPaymentMode.Enabled = true;
+            btnSubmit.Text = "Update";
+
+        }
+
 
 
         /// <summary>
@@ -1065,7 +1144,7 @@ namespace WealthERP.CustomerPortfolio
 
             return endDate;
         }
-       
+
 
         /// <summary>
         /// Function to get the Scheme Code from the selected scheme
@@ -1152,13 +1231,13 @@ namespace WealthERP.CustomerPortfolio
         protected void ddlPeriodSelection_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtEndDate.Text = CalcEndDate(int.Parse(txtPeriod.Text.ToString()), DateTime.Parse(txtStartDate.Text.ToString())).ToShortDateString();
-           
+
         }
 
         protected void txtPeriod_TextChanged(object sender, EventArgs e)
         {
             txtEndDate.Text = CalcEndDate(int.Parse(txtPeriod.Text.ToString()), DateTime.Parse(txtStartDate.Text.ToString())).ToShortDateString();
-           
+
         }
 
         protected void btnAddFolio_Click(object sender, EventArgs e)
@@ -1194,7 +1273,7 @@ namespace WealthERP.CustomerPortfolio
             hashSaveCurrentPageStatus.Add("SipChequeDate", txtSipChequeDate.Text);
             hashSaveCurrentPageStatus.Add("SipChecqueNo", txtSipChecqueNo.Text);
             SaveCheckboxes();
-           
+
             hashSaveCurrentPageStatus.Add("Frequency", ddlFrequency.SelectedValue);
             hashSaveCurrentPageStatus.Add("Amount", txtAmount.Text);
             hashSaveCurrentPageStatus.Add("Period", txtPeriod.Text);
@@ -1372,31 +1451,30 @@ namespace WealthERP.CustomerPortfolio
 
         protected void txtStartDate_TextChanged(object sender, EventArgs e)
         {
-          
 
-           txtStartDate_CalendarExtender.SelectedDate = DateTime.Parse(txtStartDate.Text.ToString());
+            txtStartDate_CalendarExtender.SelectedDate = DateTime.Parse(txtStartDate.Text.ToString());
             if (!string.IsNullOrEmpty(txtPeriod.Text.ToString().Trim()))
             {
                 txtEndDate.Text = CalcEndDate(int.Parse(txtPeriod.Text.ToString()), DateTime.Parse(txtStartDate.Text.ToString())).ToShortDateString();
             }
-            if (txtStartDate_CalendarExtender.SelectedDate> TodayDate)
+            if (txtStartDate_CalendarExtender.SelectedDate > TodayDate)
             {
-                
+
                 chkHistoricalCreated.Visible = false;
                 chkAutoTransaction.Visible = true;
                 lblHistoricalCreated.Visible = false;
                 lblAutoTransaction.Visible = true;
 
             }
-            if(txtStartDate_CalendarExtender.SelectedDate < TodayDate)
+            if (txtStartDate_CalendarExtender.SelectedDate < TodayDate)
             {
                 chkAutoTransaction.Visible = false;
                 chkHistoricalCreated.Visible = true;
                 lblHistoricalCreated.Visible = true;
                 lblAutoTransaction.Visible = false;
             }
-          
-           
+
+
         }
 
     }

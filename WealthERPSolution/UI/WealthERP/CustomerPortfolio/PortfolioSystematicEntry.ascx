@@ -28,6 +28,23 @@
 </asp:ScriptManager>
 <%--Javascript Calendar Controls - Required Files--%>
 
+
+
+<script type = "text/javascript">
+
+function Validate()
+{
+   var CHK = document.getElementById("<%=chkAutoTransaction.ClientID%>").checked;
+   if(CHK) {
+       return true;
+   }
+   else {
+       alert("Please select CheckBox");
+       return false;
+   }
+   }
+   </script>
+ 
 <script type="text/javascript">
     //    $(document).ready(function() {
     //        $('.loadme').click(function() {
@@ -115,7 +132,6 @@
     }    
 </script>
 
-
 <script type="text/javascript">
     function GetSchemeCode(source, eventArgs) {
 
@@ -133,23 +149,8 @@
     
 
 </script>
-<%--<script type="text/javascript">
-  
-        function checkDate(sender, args)
-        {
 
-            var selectedDate = sender.get_selectedDate();
-            var date = new Date();
-            if (selectedDate > date) {
-//                selectedDate.setDate(selectedDate.getDate() + 1);
-//                sender.setSelectedDate(selectedDate);
 
-                alert('Selected Today Date');
-            }
-
-        }
-
-    </script>--%>
     
     <script type="text/javascript">
         function checkDate(sender, args) {
@@ -168,16 +169,20 @@
             if (!(selectedDate > toDate)) {
                 if (!(selectedDate < toDate)) {
 
-                    alert("You cannot select a Today Date !");
+                    alert("You can not select Today Date!");
                     selectedDate.setDate(selectedDate.getDate() + 1);
                     sender._textbox.set_Value(sender._selectedDate.format(sender._format))
                 }
             }
+            
           
 
         }
     
     </script>
+    
+ 
+    
     
    
 
@@ -189,6 +194,10 @@
                     <tr>
                         <td align="left">
                             <asp:Label ID="lblHeader" runat="server" Text="Systematic Transactions Setup"></asp:Label>
+                        </td>
+                         <td align="right">
+                            <asp:LinkButton ID="lnkEdit" Visible="false" runat="server" CssClass="LinkButtons"
+                                OnClick="lnkEdit_Click">Edit</asp:LinkButton>
                         </td>
                         <td align="right" colspan="2">
                             <img src="../Images/helpImage.png" height="15px" width="20px" style="float: right;"
@@ -323,9 +332,9 @@
             <asp:Label ID="lblMFAccount" runat="server" Text="Folio:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlFolioNumber" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlFolioNumber"  runat="server" CssClass="cmbField">
             </asp:DropDownList>
-            <span id="Span6" class="spnRequiredField">* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+           <span id="Span6" class="spnRequiredField">* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
             <asp:Button ID="btnAddFolio" runat="server" Text="AddFolio" CssClass="PCGButton"
                 CausesValidation="false" OnClick="btnAddFolio_Click" Style="height: 26px" />
             <asp:CompareValidator ID="cvMFAccount" runat="server" ErrorMessage="<br />Select a Folio"
@@ -372,9 +381,9 @@
             <asp:Label ID="lblSipChequeDate" runat="server" Text="First SIP Cheque Date: " CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtSipChequeDate" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtSipChequeDate" runat="server" CssClass="txtField" AutoPostBack="true"></asp:TextBox>
             <cc1:CalendarExtender ID="SipChequeDate_CalendarExtender" runat="server" TargetControlID="txtSipChequeDate"
-                Format="dd/MM/yyyy">
+                Format="dd/MM/yyyy" >
             </cc1:CalendarExtender>
 
             <cc1:TextBoxWatermarkExtender ID="SipChequeDate_TextBoxWatermarkExtender" runat="server"
@@ -383,6 +392,9 @@
             <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
                 Type="Date" ControlToValidate="txtSipChequeDate" Operator="DataTypeCheck" CssClass="cvPCG"
                 Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
+                 <asp:CompareValidator ID="CompareValidator5" runat="server" ErrorMessage="SipChequeDate should be greater than start date"
+                    Type="Date" ControlToValidate="txtSipChequeDate" ControlToCompare="txtStartDate" ValidationGroup="MFSubmit"
+                    Operator="GreaterThanEqual" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
             <%--<span id="Span8" class="spnRequiredField">*</span>--%>
             <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtSipChequeDate"
                 ValidationGroup="MFSubmit" ErrorMessage="<br />Please Enter SIP Cheque Date" Display="Dynamic"
@@ -399,7 +411,7 @@
         <td>
             <asp:TextBox ID="txtSipChecqueNo" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
             <asp:CompareValidator ID="cvBankPinCode" runat="server" ErrorMessage="<br/>Enter a numeric value"
-                CssClass="rfvPCG" Type="Integer" ControlToValidate="txtSipChecqueNo" ValidationGroup="btnSubmit"
+                CssClass="rfvPCG" Type="Integer" ControlToValidate="txtSipChecqueNo" ValidationGroup="MFSubmit"
                 Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td>
@@ -407,15 +419,16 @@
     </tr>
          <tr>
         <td width="25%" class="leftField">
-             <asp:CheckBox ID="chkHistoricalCreated" runat="server" CssClass="cmbFielde" Width="40px" ></asp:CheckBox>
-    <asp:Label ID="lblHistoricalCreated" runat="server" Text="HistoricalCreated" CssClass="FieldName"></asp:Label>
-
+             <asp:CheckBox ID="chkHistoricalCreated"   runat="server" CssClass="cmbFielde" Width="15px" onclick="this.checked = !this.checked"  ></asp:CheckBox>
+    <asp:Label ID="lblHistoricalCreated" runat="server" Text="HistoricalCreated" CssClass="FieldName" ></asp:Label>
+ 
     </td>
-    <td  >
-     <asp:CheckBox ID="chkAutoTransaction" runat="server" CssClass="cmbFielde" Width="40px" ></asp:CheckBox>
+    <td width="25%" >
+     <asp:CheckBox ID="chkAutoTransaction" runat="server" CssClass="cmbFielde" Width="15px" ></asp:CheckBox>
+  
+    <asp:Label ID="lblAutoTransaction" runat="server" Text="AutoTransaction" CssClass="FieldName" ></asp:Label>
    
-    <asp:Label ID="lblAutoTransaction" runat="server" Text="AutoTransaction" CssClass="FieldName"></asp:Label>
-    </td>
+   </td>
     </tr>
    
   
@@ -612,10 +625,10 @@
         <td class="leftField" width="25%">
         </td>
         <td>
-            <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="loadme PCGButton"
+            <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="loadme PCGButton" 
                 OnClick="btnSubmit_Click" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_PortfolioPropertyEntry_btnSubmit');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_PortfolioPropertyEntry_btnSubmit');"
-                ValidationGroup="MFSubmit" />
+                OnClientClick ="return Validate()"  />
         </td>
         <td>
         </td>

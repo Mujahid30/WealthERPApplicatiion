@@ -32,6 +32,15 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.Label lblHeader;
         
         /// <summary>
+        /// lnkEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkEdit;
+        
+        /// <summary>
         /// lblPortfolio control.
         /// </summary>
         /// <remarks>
@@ -273,8 +282,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtStartDate;
-
-
+        
         /// <summary>
         /// txtStartDate_CalendarExtender control.
         /// </summary>
@@ -283,7 +291,6 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.CalendarExtender txtStartDate_CalendarExtender;
-       
         
         /// <summary>
         /// txtStartDate_TextBoxWatermarkExtender control.
@@ -365,6 +372,15 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator2;
+        
+        /// <summary>
+        /// CompareValidator5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator5;
         
         /// <summary>
         /// trSipChequeNo control.
