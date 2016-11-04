@@ -1291,7 +1291,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "MF_Online_SIP_Ord_Book")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineAdviserCustomerSIPOrderBook','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineAdviserCustomerSIPOrderBook','MFOrder=Online');", true);
 
                 }
                 else if (e.Item.Value == "MF_Offline_SIP_Ord_Book")
@@ -2655,7 +2655,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "MF_Online_SIP_Ord_Book")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineAdviserCustomerSIPOrderBook','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineAdviserCustomerSIPOrderBook','MFOrder=Online');", true);
 
                 }
                 else if (e.Item.Value == "MF_Offline_SIP_Ord_Book")
