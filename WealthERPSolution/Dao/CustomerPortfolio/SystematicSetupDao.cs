@@ -129,14 +129,15 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@XSTT_SystematicTypeCode", DbType.String, systematicSetupVo.SystematicTypeCode);
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFSS_StartDate", DbType.DateTime, systematicSetupVo.StartDate);
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFSS_EndDate", DbType.DateTime, systematicSetupVo.EndDate);
-               
+                db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFSS_IsHistoricalCreated", DbType.String, systematicSetupVo.IsHistoricalCreated);
+              
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFSS_Amount", DbType.Double, systematicSetupVo.Amount);
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFSS_IsManual", DbType.Int32, systematicSetupVo.IsManual);
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@XES_SourceCode", DbType.String, systematicSetupVo.SourceCode);
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@XF_FrequencyCode", DbType.String, systematicSetupVo.FrequencyCode);
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@XPM_PaymentModeCode", DbType.String, systematicSetupVo.PaymentModeCode);
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFSS_ModifiedBy", DbType.Int32, userId);
-                db.AddInParameter(updateSystematicSchemeSetupCmd, "@IsAutoTranx", DbType.Int32, systematicSetupVo.IsAutoTransaction);
+                db.AddInParameter(updateSystematicSchemeSetupCmd, "@IsAutoTranx", DbType.String, systematicSetupVo.IsAutoTransaction);
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@TenureCycle", DbType.String, systematicSetupVo.PeriodSelection);
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@Tenure", DbType.Int16, systematicSetupVo.Period);
 
@@ -724,7 +725,10 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(getAccountIdcmd, "@folioNo", DbType.String, folioNo);
                 db.AddInParameter(getAccountIdcmd, "@portfolioId", DbType.Int32, portfolioId);
                 dsgetAccountId = db.ExecuteDataSet(getAccountIdcmd);
-                accountId = int.Parse(dsgetAccountId.Tables[0].Rows[0]["CMFA_AccountId"].ToString());
+                if (dsgetAccountId.Tables[0].Rows.Count>0)
+                {
+                    accountId = int.Parse(dsgetAccountId.Tables[0].Rows[0]["CMFA_AccountId"].ToString());
+                }
             }
             catch (BaseApplicationException Ex)
             {
