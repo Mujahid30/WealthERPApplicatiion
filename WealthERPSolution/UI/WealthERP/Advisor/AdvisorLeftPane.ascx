@@ -264,6 +264,8 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="MF Order Book" Value="Order_List">
                                                     </telerik:RadPanelItem>
+                                                     <telerik:RadPanelItem runat="server" Text="SIP Offline Book" Value="MF_Offline_SIP_Ord_Book">
+                                                    </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="SIP Offline Book" Value="SIP_Offline_Book">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Add NCD Order" Value="Add_NCD_Order">
@@ -1036,6 +1038,8 @@
                                                     <telerik:RadPanelItem runat="server" Text="Add MF Order" Value="OrderEntry">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="MF Order Book" Value="Order_List">
+                                                    </telerik:RadPanelItem>
+                                                      <telerik:RadPanelItem runat="server" Text="SIP Offline Order Book" Value="MF_Offline_SIP_Ord_Book">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="SIP Offline Book" Value="SIP_Offline_Book">
                                                     </telerik:RadPanelItem>
