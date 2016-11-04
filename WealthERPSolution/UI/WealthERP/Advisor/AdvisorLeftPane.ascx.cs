@@ -339,7 +339,9 @@ namespace WealthERP.Advisor
                 RadPanelBar1.FindItemByValue("Message").Expanded = true;
                 RadPanelBar1.FindItemByValue("Inbox").Expanded = true;
                 RadPanelBar1.FindItemByValue("Inbox").Selected = true;
-
+                RadPanelBar4.FindItemByValue("Message").Expanded = true;
+                RadPanelBar4.FindItemByValue("Inbox").Expanded = true;
+                RadPanelBar4.FindItemByValue("Inbox").Selected = true;
             }
 
             else if (Session["NodeType"] == "AddProspectList")
