@@ -67,6 +67,19 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     string r = Request.QueryString["SIPBook"].ToString();
                 }
+                if (Request.QueryString["MFOrder"] != null)
+                {
+                    if (Request.QueryString["MFOrder"] == "Offline")
+                    {
+                        ddlMode.Items.FindByText("Offline").Selected = true;
+                        ddlMode.Items.FindByText("Offline").Enabled = true;
+
+                    }
+                    else
+                    {
+                        ddlMode.Items.FindByText("Offline").Enabled = false;
+                    }
+                }
             }
         }
         protected void ddlSearchtype_SelectedIndexChanged(object sender, EventArgs e)
@@ -203,7 +216,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 fromDate = DateTime.Parse(txtFrom.SelectedDate.ToString());
             if (txtTo.SelectedDate != null)
                 toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
-            dsSIPBookMIS = OnlineOrderMISBo.GetSIPSummaryBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), fromDate, toDate, searchType, statusType, ddlSystematicType.SelectedValue, ddlMode.SelectedValue == "1" ? "RSIP" : ddlSIP.SelectedValue);
+            dsSIPBookMIS = OnlineOrderMISBo.GetSIPSummaryBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), fromDate, toDate, searchType, statusType, ddlSystematicType.SelectedValue, ddlMode.SelectedValue == "1" ? "RSIP" : ddlSIP.SelectedValue,ddlMode.SelectedValue);
             dtSIPBookMIS = dsSIPBookMIS.Tables[0];
             dtSIPBookMIS = createSIPOrderBook(dsSIPBookMIS);
             if (dtSIPBookMIS.Rows.Count > 0)

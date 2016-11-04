@@ -50,7 +50,9 @@
            
             <asp:ListItem Value="1" Text="Online"></asp:ListItem>
             <asp:ListItem Value="2" Text="Demat"></asp:ListItem>
-            </asp:DropDownList>
+            <asp:ListItem Value="0" Text="Offline" enabled="false"></asp:ListItem>
+          
+ </asp:DropDownList>
              <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="ddlMode"
                         ErrorMessage="<br />Select Mode" CssClass="cvPCG" Display="Dynamic"
                         runat="server" InitialValue="Select" ValidationGroup="btnViewSIP">

@@ -129,7 +129,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsSIPBookMIS;
         }
-        public DataSet GetSIPSummaryBookMIS(int adviserId, int AmcCode, DateTime dtFrom, DateTime dtTo, int searchType, int statusType, string systematicType, string SIPMode)
+        public DataSet GetSIPSummaryBookMIS(int adviserId, int AmcCode, DateTime dtFrom, DateTime dtTo, int searchType, int statusType, string systematicType, string SIPMode,string Mode)
         {
             DataSet dsSIPSummaryBookMIS;
             Database db;
@@ -149,6 +149,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(GetSIPSummaryBookMISCmd, "@StatusType", DbType.Int32, statusType);
                 db.AddInParameter(GetSIPSummaryBookMISCmd, "@systematicType", DbType.String, systematicType);
                 db.AddInParameter(GetSIPSummaryBookMISCmd, "@SIPMode", DbType.String, SIPMode);
+                db.AddInParameter(GetSIPSummaryBookMISCmd, "@Mode", DbType.String, Mode);
                 GetSIPSummaryBookMISCmd.CommandTimeout = 60 * 60;
                 dsSIPSummaryBookMIS = db.ExecuteDataSet(GetSIPSummaryBookMISCmd);
 
