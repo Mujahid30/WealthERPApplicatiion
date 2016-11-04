@@ -1298,7 +1298,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "MF_Offline_SIP_Ord_Book")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineAdviserCustomerSIPOrderBook','MFOrder=Offline');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineOrderBackOffice','MFOrder=Offline');", true);
 
                 }
                 else if (e.Item.Value == "MF_Online_OrderBook")
@@ -2662,7 +2662,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "MF_Offline_SIP_Ord_Book")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineAdviserCustomerSIPOrderBook','MFOrder=Offline');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineOrderBackOffice','MFOrder=Offline');", true);
 
                 }
                 else if (e.Item.Value == "MF_Online_OrderBook")
@@ -4182,7 +4182,8 @@ namespace WealthERP.Advisor
         public void imgButton_OnClick(object sender, ImageClickEventArgs e)
         {
             int orderId = 0, isonline = 0; string productcode = string.Empty; string subCategoryType = string.Empty; string Type = string.Empty;
-            Boolean IsDemat = false; string SIPType = string.Empty;
+            Boolean IsDemat = false; 
+            string SIPType = string.Empty;
             OnlineOrderBackOfficeBo OnlineOrderBackOfficeBo = new OnlineOrderBackOfficeBo();
             if (ddlSearchtype.SelectedValue == "ON")
             {
@@ -4199,12 +4200,14 @@ namespace WealthERP.Advisor
                         IsDemat = Convert.ToBoolean(dr["CO_IsDemat"].ToString());
                         SIPType = dr["WSTM_ModeTypeCode"].ToString();
                     }
+                  
 
                     if (productcode == "MF" && isonline == 1 && Type != "SIP")
                     {
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineAdviserCustomerOrderBook", "loadcontrol('OnlineAdviserCustomerOrderBook','?orderId=" + orderId + "&txtFolioNo=" + null + "&IsDemat=" + IsDemat + "');", true);
 
                     }
+               
                     if (productcode == "MF" && isonline == 1 && Type == "SIP")
                     {
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineAdviserCustomerSIPOrderBook", "loadcontrol('OnlineAdviserCustomerSIPOrderBook','?orderId=" + orderId + "&SIPType=" + SIPType + "');", true);
