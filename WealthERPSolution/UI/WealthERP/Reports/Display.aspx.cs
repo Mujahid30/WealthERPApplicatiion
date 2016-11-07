@@ -5150,11 +5150,14 @@ namespace WealthERP.Reports
 
             string advisorLogo = "spacer.png";
             if (advisorVo.LogoPath != null && advisorVo.LogoPath != string.Empty)
-                advisorLogo = advisorVo.LogoPath;
+                if (advisorVo.advisorId == 1021)
+                    advisorLogo = ConfigurationManager.AppSettings["AdviserWelcomeLetterLogo"].ToString();
+                else
+                    advisorLogo = advisorVo.LogoPath;
 
             string logoPath = System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + advisorLogo);
             if (!File.Exists(logoPath))
-                advisorLogo = "ABC_Company_company_logo.png";
+                advisorLogo = @"ABC_Company_company_logo.png";
             DataTable dt = ImageTable(System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + advisorLogo));
             crmain.Database.Tables["Images"].SetDataSource(dt);
 
