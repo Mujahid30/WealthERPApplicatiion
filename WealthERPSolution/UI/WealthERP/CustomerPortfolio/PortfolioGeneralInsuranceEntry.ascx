@@ -512,10 +512,10 @@
             <asp:Label ID="lblWhtFamilyPolicy" runat="server" CssClass="FieldName" Text="Whether Family/Group Policy:"></asp:Label>
         </td>
         <td class="style3" style="width: 22%">
-            <asp:RadioButton ID="rdoGroupPolicyYes" Text="Yes" runat="server" GroupName="Policy"
+            <asp:RadioButton ID="rdoGroupPolicyYes" Text="Yes" runat="server" GroupName="Policy" 
                 class="cmbField" onClick="ChangeGroupPolicy('Yes');" />
-            <asp:RadioButton ID="rdoGroupPolicyNo" Text="No" runat="server" GroupName="Policy"
-                Checked="true" class="cmbField" onClick="ChangeGroupPolicy('No');" />
+            <asp:RadioButton ID="rdoGroupPolicyNo" Text="No" runat="server" GroupName="Policy" Checked="true" 
+                 class="cmbField" onClick="ChangeGroupPolicy('No');" />
         </td>
         <td align="right" style="width: 15%">
             <asp:Label ID="lblTypeOfPolicy" runat="server" CssClass="FieldName" Text="Type of Policy:"></asp:Label>
