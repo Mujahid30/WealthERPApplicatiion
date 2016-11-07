@@ -331,6 +331,15 @@ namespace WealthERP.CustomerPortfolio {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+         protected global::System.Web.UI.WebControls.TextBox txtPansearch;
+
+        /// <summary>
+        /// TextBoxWatermarkExtender2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender2;
         
         /// <summary>
@@ -342,6 +351,15 @@ namespace WealthERP.CustomerPortfolio {
         /// </remarks>
         protected global::AjaxControlToolkit.AutoCompleteExtender txtClientCode_autoCompleteExtender;
         
+        /// <summary>
+        /// rbtnAll control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.AutoCompleteExtender txtPansearch_autoCompleteExtender;
+
         /// <summary>
         /// rbtnAll control.
         /// </summary>

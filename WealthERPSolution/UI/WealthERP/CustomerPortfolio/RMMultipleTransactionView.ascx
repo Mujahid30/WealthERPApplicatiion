@@ -486,7 +486,7 @@
                                                 OnSelectedIndexChanged="ddlOptionSearch_OnSelectedIndexChanged" Visible="false">
                                                 <asp:ListItem Selected="true" Text="Select" Value="Select" />
                                                 <asp:ListItem Text="Name" Value="Name" />
-                                                <%-- <asp:ListItem Text="PAN" Value="Panno" />--%>
+                                               <asp:ListItem Text="PAN" Value="Panno" />
                                                 <asp:ListItem Text="Client Code" Value="Clientcode" />
                                             </asp:DropDownList>
                                             <%-- </td> <td align="left">--%>
@@ -517,10 +517,20 @@
                                                 DelimiterCharacters="" EnableCaching="False" Enabled="True" MinimumPrefixLength="1"
                                                 OnClientItemSelected="GetCustomerId" ServiceMethod="GetCustCode" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
                                                 TargetControlID="txtCustCode" UseContextKey="True" />
-                                            <%--
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtCustCode"
-                ErrorMessage="<br />Please Enter Client Code" Display="Dynamic" runat="server" CssClass="rfvPCG"
-                ValidationGroup="btnGo"></asp:RequiredFieldValidator>--%>
+                                                
+            <asp:TextBox ID="txtPansearch" runat="server" CssClass="txtField"
+                AutoPostBack="true"></asp:TextBox>
+           
+            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" TargetControlID="txtPansearch"
+                WatermarkText="Enter few characters of Pan" runat="server" EnableViewState="false">
+            </cc1:TextBoxWatermarkExtender>
+            <cc1:AutoCompleteExtender ID="txtPansearch_autoCompleteExtender" runat="server"
+                TargetControlID="txtPansearch" ServiceMethod="GetAdviserCustomerPan" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
+                CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
+                Enabled="True"></cc1:AutoCompleteExtender>
                                         </td>
                                         <td>
                                             <asp:RadioButton ID="rbtnAll" runat="server" AutoPostBack="true" Checked="true" CssClass="cmbFielde"

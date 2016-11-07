@@ -84,6 +84,7 @@ namespace WealthERP.CustomerPortfolio
         DateTime transactionDateForMerge;
         string column;
         string custCode;
+        string pansearch;
         int IsfolioOnline;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -243,7 +244,8 @@ namespace WealthERP.CustomerPortfolio
                             txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
                             txtClientCode_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
                             txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
-
+                            txtPansearch_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                            txtPansearch_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerPan";
                         }
                         else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
                         {
@@ -299,10 +301,18 @@ namespace WealthERP.CustomerPortfolio
             {
                 txtcustomerName.Visible = true;
                 txtCustCode.Visible = false;
-
+                txtPansearch.Visible = false;
+                
             }
-            else
+            else if (ddlOptionSearch.SelectedValue == "Panno")
             {
+                txtPansearch.Visible = true;
+                txtCustCode.Visible = false;
+                txtcustomerName.Visible = false;
+            }
+            else 
+            { 
+                txtPansearch.Visible = false;
                 txtCustCode.Visible = true;
                 txtcustomerName.Visible = false;
             }
@@ -318,6 +328,7 @@ namespace WealthERP.CustomerPortfolio
                 lblCustomerSearch.Visible = true;
                 txtcustomerName.Text = "";
                 txtCustCode.Text = "";
+                txtPansearch.Text = "";
             }
             else
             {
@@ -1061,6 +1072,10 @@ namespace WealthERP.CustomerPortfolio
             if (!string.IsNullOrEmpty(txtCustCode.Text))
             {
                 string custCode = txtCustCode.Text;
+            }
+            if (!string.IsNullOrEmpty(txtPansearch.Text))
+            {
+                string pansearch = txtPansearch.Text;
             }
             //if (ddlType.SelectedValue=="Online")
             //{
