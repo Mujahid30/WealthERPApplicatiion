@@ -194,7 +194,7 @@ namespace WealthERP.CustomerPortfolio
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioGeneralInsuranceEntry','" + qryString + "');", true);
            
                 }
-                else if (ddlAction.SelectedItem.Value.ToString() == "View")
+                else if (ddlAction.SelectedItem.Value== "0")
                 {
                     insuranceVo.AccountId = accountId;
                     Session["insuranceId"] = insuranceId;

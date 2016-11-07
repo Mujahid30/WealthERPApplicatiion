@@ -5,8 +5,8 @@
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
-
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
+
 
 <script language="javascript" type="text/javascript">
     function Print_Click(div, btnID) {
