@@ -191,7 +191,7 @@
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="WealthERP Id" SortExpression="WealthERP Id" AutoPostBackOnFilter="true"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
-                                HeaderText="Id" UniqueName="WealthERP Id">
+                                HeaderText="Id" UniqueName="WealthERP Id" Visible="false">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="RoleList" SortExpression="RoleList" AutoPostBackOnFilter="true"

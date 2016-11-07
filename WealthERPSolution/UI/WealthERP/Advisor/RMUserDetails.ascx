@@ -143,7 +143,7 @@
                                 </telerik:GridTemplateColumn>
                                  <telerik:GridBoundColumn DataField="UserId" HeaderText="User Id" SortExpression="UserId"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                    UniqueName="UserId" FooterStyle-HorizontalAlign="Left">
+                                    UniqueName="UserId" FooterStyle-HorizontalAlign="Left" Visible="false">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                             </Columns>
