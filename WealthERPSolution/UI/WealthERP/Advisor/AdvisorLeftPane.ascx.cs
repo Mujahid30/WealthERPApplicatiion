@@ -333,7 +333,7 @@ namespace WealthERP.Advisor
                 RadPanelBar1.FindItemByValue("MFDashBoard").Selected = true;
                 RadPanelBar6.FindItemByValue("Business MIS").Expanded = true;
             }
-
+ 
             else if (Session["NodeType"] == "MessageInbox")
             {
                 RadPanelBar1.FindItemByValue("Message").Expanded = true;
