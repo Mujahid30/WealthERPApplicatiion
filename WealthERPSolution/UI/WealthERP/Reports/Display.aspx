@@ -92,7 +92,7 @@
 
     <script type="text/javascript" src="Colorbox/jquery.colorbox-min.js"></script>
 
-    <%--<script type="text/javascript">
+  <script type="text/javascript">
         $(document).ready(function() {
            
            if(<%= isMail %> == "1")
@@ -109,7 +109,7 @@
               }
         });
         
-    </script>--%>
+    </script>
 
 </head>
 <body>
