@@ -69,7 +69,7 @@
                                                 AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>--%>
-                                         <%--  <telerik:GridTemplateColumn HeaderText="Child code count" ItemStyle-HorizontalAlign="Right"
+                                           <telerik:GridTemplateColumn HeaderText="Child code count" ItemStyle-HorizontalAlign="Right"
                                                 HeaderStyle-Width="80px" AllowFiltering="true" DataField="ChildCount"
                                                 ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                                 <ItemTemplate>
@@ -96,6 +96,11 @@
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Address" DataField="Address"
                                                 UniqueName="Address" SortExpression="Address" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                                ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                                <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Pin Code" DataField="AA_CorrAdrPinCode"
+                                                UniqueName="AA_CorrAdrPinCode" SortExpression="AA_CorrAdrPinCode" AutoPostBackOnFilter="true" AllowFiltering="false"
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
