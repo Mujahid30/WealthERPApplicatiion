@@ -174,7 +174,11 @@
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            
+                                            <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Pin Code" DataField="AA_CorrAdrPinCode"
+                                                UniqueName="AA_CorrAdrPinCode" SortExpression="AA_CorrAdrPinCode" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                                ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                                <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
                                            <telerik:GridBoundColumn DataField="AA_AMFIregistrationNo" SortExpression="AA_AMFIregistrationNo" AutoPostBackOnFilter="true"
                                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
                                                 HeaderText="AMFI Registration No" UniqueName="AA_AMFIregistrationNo">
