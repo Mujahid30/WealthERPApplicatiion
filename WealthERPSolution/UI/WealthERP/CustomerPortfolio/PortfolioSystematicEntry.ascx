@@ -30,21 +30,9 @@
 
 
 
-<script type = "text/javascript">
 
-function Validate()
-{
-   var CHK = document.getElementById("<%=chkAutoTransaction.ClientID%>").checked;
-   if(CHK) {
-       return true;
-   }
-   else {
-       alert("Please select CheckBox");
-       return false;
-   }
-   }
-   </script>
- 
+   
+  
 <script type="text/javascript">
     //    $(document).ready(function() {
     //        $('.loadme').click(function() {
@@ -251,7 +239,7 @@ function Validate()
         </td>
         <td width="50%">
             <asp:DropDownList ID="ddlSystematicType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlSystematicType_SelectedIndexChanged"
-                AutoPostBack="true">
+                AutoPostBack="true" >
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="cvSystematicType" runat="server" ErrorMessage="<br />Select a Transaction Type"
@@ -352,7 +340,7 @@ function Validate()
             <asp:Label ID="lblStartDate" runat="server" Text="Start date:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtStartDate" runat="server" CssClass="txtField" AutoPostBack="true" 
+            <asp:TextBox ID="txtStartDate" runat="server" CssClass="txtField" AutoPostBack="true"  
                 OnTextChanged="txtStartDate_TextChanged"  ></asp:TextBox>
                 
                    
@@ -370,7 +358,7 @@ function Validate()
                 runat="server" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="cvStartDate" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
-                Type="Date" ControlToValidate="txtStartDate" Operator="DataTypeCheck" CssClass="cvPCG"
+                Type="Date" ControlToValidate="txtStartDate" Operator="DataTypeCheck" CssClass="cvPCG"  ValueToCompare="" 
                 Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
         </td>
         <td>
@@ -421,17 +409,16 @@ function Validate()
         <td width="25%" class="leftField">
              <asp:CheckBox ID="chkHistoricalCreated"   runat="server" CssClass="cmbFielde" Width="15px" onclick="this.checked = !this.checked"  ></asp:CheckBox>
     <asp:Label ID="lblHistoricalCreated" runat="server" Text="HistoricalCreated" CssClass="FieldName" ></asp:Label>
- 
+     
     </td>
+    
     <td width="25%" >
      <asp:CheckBox ID="chkAutoTransaction" runat="server" CssClass="cmbFielde" Width="15px" ></asp:CheckBox>
   
     <asp:Label ID="lblAutoTransaction" runat="server" Text="AutoTransaction" CssClass="FieldName" ></asp:Label>
-   
+ 
    </td>
     </tr>
-   
-  
     <tr>
         <td class="leftField" width="25%">
             <asp:Label ID="lblFrequency" runat="server" Text="Frequency:" CssClass="FieldName"></asp:Label>
@@ -452,7 +439,7 @@ function Validate()
             <asp:Label ID="lblAmount" runat="server" Text="Amount:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
+            <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField" MaxLength="10" ></asp:TextBox>
             <span id="Span4" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtAmount"
                 ErrorMessage="<br />Please Enter Amount" Display="Dynamic" runat="server" CssClass="rfvPCG"
@@ -625,10 +612,13 @@ function Validate()
         <td class="leftField" width="25%">
         </td>
         <td>
-            <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="loadme PCGButton" 
+           
+           <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="loadme PCGButton" ValidationGroup="MFSubmit" 
                 OnClick="btnSubmit_Click" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_PortfolioPropertyEntry_btnSubmit');"
-                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_PortfolioPropertyEntry_btnSubmit');"
-                OnClientClick ="return Validate()"  />
+                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_PortfolioPropertyEntry_btnSubmit');"  />
+             
+            
+             
         </td>
         <td>
         </td>
