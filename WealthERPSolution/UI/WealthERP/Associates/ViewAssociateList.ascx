@@ -202,7 +202,7 @@
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn DataField="ReportingManagerName" SortExpression="ReportingManagerName" AutoPostBackOnFilter="true"
                                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
-                                                HeaderText="Channel Manager Name" UniqueName="ReportingManagerName">
+                                                HeaderText="Reporting To" UniqueName="ReportingManagerName">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                           
