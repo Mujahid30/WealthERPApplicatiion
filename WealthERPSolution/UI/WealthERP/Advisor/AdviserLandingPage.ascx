@@ -14,7 +14,7 @@
 <script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function() {   
         $(".panel").show();
 
         $(".flip").click(function() { $(".panel").slideToggle(); });
