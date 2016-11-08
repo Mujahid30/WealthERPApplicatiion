@@ -1482,8 +1482,9 @@ namespace WealthERP.Admin
 
         protected void gvEquityRecord_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            DataSet dtGvSchemeDetails = new DataSet();
-            dtGvSchemeDetails = (DataSet)Cache["gvEquityRecord" + advisorVo.advisorId];
+            //DataSet dtGvSchemeDetails = new DataSet();
+            DataTable dtGvSchemeDetails = new DataTable();
+            dtGvSchemeDetails = (DataTable)Cache["gvEquityRecord" + advisorVo.advisorId];
             gvEquityRecord.DataSource = dtGvSchemeDetails;
 
             gvEquityRecord.ExportSettings.OpenInNewWindow = true;
