@@ -69,7 +69,7 @@
                                                 AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>--%>
-                                           <telerik:GridTemplateColumn HeaderText="Child code count" ItemStyle-HorizontalAlign="Right"
+                                         <%--  <telerik:GridTemplateColumn HeaderText="Child code count" ItemStyle-HorizontalAlign="Right"
                                                 HeaderStyle-Width="80px" AllowFiltering="true" DataField="ChildCount"
                                                 ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                                 <ItemTemplate>
@@ -77,7 +77,7 @@
                                                         Text='<%#Eval("ChildCount") %>' CommandName="childAgentcode">
                                                     </asp:LinkButton>
                                                 </ItemTemplate>
-                                            </telerik:GridTemplateColumn>
+                                            </telerik:GridTemplateColumn>--%>
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="PAN" DataField="AA_PAN"
                                                 UniqueName="AA_PAN" SortExpression="AA_PAN" AutoPostBackOnFilter="true" AllowFiltering="true"
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
@@ -126,7 +126,7 @@
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn DataField="ReportingManagerName" SortExpression="ReportingManagerName" AutoPostBackOnFilter="true"
                                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
-                                                HeaderText="Reporting To" UniqueName="ReportingManagerName">
+                                                HeaderText="Channel Manager Name" UniqueName="ReportingManagerName">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn DataField="ClusterManager" SortExpression="ClusterManager"
