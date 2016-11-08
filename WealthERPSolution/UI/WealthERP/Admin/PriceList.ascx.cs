@@ -414,7 +414,7 @@ namespace WealthERP.Admin
                         gvEquityRecord.DataSource = ds;
                         gvEquityRecord.DataBind();
                         gvEquityRecord.Visible = true;
-                        imgBtnrgHoldings.Visible = true;
+                        imgBtnrgHoldings.Visible = false;
                         // DivEquity.Style.Add("display", "visible");
                         DivPager.Style.Add("display", "visible");
                         DivMF.Style.Add("display", "none");
@@ -521,7 +521,7 @@ namespace WealthERP.Admin
                             gvEquityRecord.DataSource = ds;
                             gvEquityRecord.DataBind();
                             gvEquityRecord.Visible = true;
-                            imgBtnrgHoldings.Visible = true;
+                            imgBtnrgHoldings.Visible = false;
                             //  DivEquity.Style.Add("display", "visible");
                             DivMF.Style.Add("display", "none");
                             DivPager.Style.Add("display", "visible");
@@ -530,7 +530,7 @@ namespace WealthERP.Admin
                             btnSubmit.Visible = true;
 
                             if (ds != null)
-                                imgBtnrgHoldings.Visible = true;
+                                imgBtnrgHoldings.Visible = false;
                             if (Cache["gvEquityRecord" + advisorVo.advisorId] == null)
                             {
                                 Cache.Insert("gvEquityRecord" + advisorVo.advisorId, ds);
@@ -593,7 +593,7 @@ namespace WealthERP.Admin
                             Panel1.Visible = true;
 
                             if (ds.Tables[0] != null)
-                                imgBtnrgHoldings.Visible = true;
+                                imgBtnrgHoldings.Visible = false;
                             if (Cache["gvEquityRecord" + advisorVo.advisorId] == null)
                             {
                                 Cache.Insert("gvEquityRecord" + advisorVo.advisorId, ds.Tables[0]);
