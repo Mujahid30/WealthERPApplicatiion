@@ -64,11 +64,7 @@
                                                 AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                           <%--  <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Child code count" DataField="Childcodecount"
-                                                UniqueName="Childcodecount" SortExpression="Childcodecount" AutoPostBackOnFilter="true"
-                                                AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>--%>
+                                          
                                            <telerik:GridTemplateColumn HeaderText="Child code count" ItemStyle-HorizontalAlign="Right"
                                                 HeaderStyle-Width="80px" AllowFiltering="true" DataField="ChildCount"
                                                 ShowFilterIcon="false" AutoPostBackOnFilter="true">
@@ -77,7 +73,7 @@
                                                         Text='<%#Eval("ChildCount") %>' CommandName="childAgentcode">
                                                     </asp:LinkButton>
                                                 </ItemTemplate>
-                                            </telerik:GridTemplateColumn>--%>
+                                            </telerik:GridTemplateColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="PAN" DataField="AA_PAN"
                                                 UniqueName="AA_PAN" SortExpression="AA_PAN" AutoPostBackOnFilter="true" AllowFiltering="true"
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
