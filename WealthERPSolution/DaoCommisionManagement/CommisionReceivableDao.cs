@@ -108,6 +108,25 @@ namespace DaoCommisionManagement
 
             return ds;
         }
+        public DataSet GetModeTypes()
+        {
+            Database db;
+            DbCommand cmd;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_GetModeTypes");
+                ds = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return ds;
+        }
 
         public DataSet GetIssuesStructureMapings(int adviserId, string mappedType, string issueType, string product, int IsOnlineIssue, int structureId, string SubCategoryCode)
         {
@@ -734,7 +753,7 @@ namespace DaoCommisionManagement
             }
             return ds;
         }
-        public int CreateUpdateDeleteCommissionTypeBrokerage(int ruleId, int commissionType, string brokerageUnit, decimal brokeragageValue, string ruleName, string commandType, int RuleDetailsId, int structureRuleDetailsId, string BrokerIdentifier)
+        public int CreateUpdateDeleteCommissionTypeBrokerage(int ruleId, int commissionType,int ModeType, string brokerageUnit, decimal brokeragageValue, string ruleName, string commandType, int RuleDetailsId, int structureRuleDetailsId, string BrokerIdentifier)
             //string issuerName, string commandType)
         {
            
@@ -754,6 +773,7 @@ namespace DaoCommisionManagement
                 db.AddOutParameter(createCmd, "@structureRuleDetailsId", DbType.Int32, structureRuleDetailsId);
                 db.AddInParameter(createCmd, "@CSRD_RateName", DbType.String, ruleName);
                 db.AddInParameter(createCmd, "@XB_BrokerIdentifier", DbType.String, BrokerIdentifier);
+                db.AddInParameter(createCmd, "@CSRD_WCMV_Mode", DbType.Int32, ModeType);
                 
                 if (db.ExecuteNonQuery(createCmd) != 0)
                 {

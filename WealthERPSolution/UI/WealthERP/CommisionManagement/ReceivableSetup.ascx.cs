@@ -394,10 +394,11 @@ namespace WealthERP.Receivable
                 ruleId = Convert.ToInt32(HiddenField1.Value);
                 TextBox txtBrokerageValue = (TextBox)e.Item.FindControl("txtBrokerageValue");
                 DropDownList ddlCommissionype = (DropDownList)e.Item.FindControl("ddlCommissionype");
+                DropDownList ddlmode = (DropDownList)e.Item.FindControl("ddlmode");
                 DropDownList ddlBrokerageUnit = (DropDownList)e.Item.FindControl("ddlBrokerageUnit");
                 TextBox txtRateName = (TextBox)e.Item.FindControl("txtRateName");
                 DropDownList ddlBrokerCode = (DropDownList)e.Item.FindControl("ddlBrokerCode");
-                commisionReceivableBo.CreateUpdateDeleteCommissionTypeBrokerage(ruleId, Convert.ToInt32(ddlCommissionype.SelectedValue), ddlBrokerageUnit.SelectedValue, Convert.ToDecimal(txtBrokerageValue.Text), txtRateName.Text, "INSERT", 0, 0, ddlBrokerCode.SelectedValue);
+                commisionReceivableBo.CreateUpdateDeleteCommissionTypeBrokerage(ruleId, Convert.ToInt32(ddlCommissionype.SelectedValue), Convert.ToInt32(ddlmode.SelectedValue), ddlBrokerageUnit.SelectedValue, Convert.ToDecimal(txtBrokerageValue.Text), txtRateName.Text, "INSERT", 0, 0, ddlBrokerCode.SelectedValue);
                 BindRuleDetGrid(rgCommissionTypeCaliculation, ruleId);
             }
             else if (e.CommandName == RadGrid.UpdateCommandName)
@@ -408,11 +409,12 @@ namespace WealthERP.Receivable
 
                 TextBox txtBrokerageValue = (TextBox)e.Item.FindControl("txtBrokerageValue");
                 DropDownList ddlCommissionype = (DropDownList)e.Item.FindControl("ddlCommissionype");
+                DropDownList ddlmode = (DropDownList)e.Item.FindControl("ddlmode");
                 DropDownList ddlBrokerageUnit = (DropDownList)e.Item.FindControl("ddlBrokerageUnit");
                 TextBox txtRateName = (TextBox)e.Item.FindControl("txtRateName");
                 DropDownList ddlBrokerCode = (DropDownList)e.Item.FindControl("ddlBrokerCode");
 
-                commisionReceivableBo.CreateUpdateDeleteCommissionTypeBrokerage(ruleId, Convert.ToInt32(ddlCommissionype.SelectedValue), ddlBrokerageUnit.SelectedValue, Convert.ToDecimal(txtBrokerageValue.Text), txtRateName.Text, "UPDATE", ruledetId, 0, ddlBrokerCode.SelectedValue);
+                commisionReceivableBo.CreateUpdateDeleteCommissionTypeBrokerage(ruleId, Convert.ToInt32(ddlCommissionype.SelectedValue), Convert.ToInt32(ddlmode.SelectedValue), ddlBrokerageUnit.SelectedValue, Convert.ToDecimal(txtBrokerageValue.Text), txtRateName.Text, "UPDATE", ruledetId, 0, ddlBrokerCode.SelectedValue);
 
                 BindRuleDetGrid(rgCommissionTypeCaliculation, ruleId);
                 BindCommissionStructureRuleGrid(Convert.ToInt32(hidCommissionStructureName.Value));
@@ -430,12 +432,15 @@ namespace WealthERP.Receivable
                 DropDownList ddlCommissionype = (DropDownList)e.Item.FindControl("ddlCommissionype");
                 DropDownList ddlBrokerageUnit = (DropDownList)e.Item.FindControl("ddlBrokerageUnit");
                 DropDownList ddlBrokerCode = (DropDownList)e.Item.FindControl("ddlBrokerCode");
+                DropDownList ddlmode = (DropDownList)e.Item.FindControl("ddlmode");
                 System.Web.UI.HtmlControls.HtmlTableCell tdlblBrokerCode = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdlblBrokerCode");
                 System.Web.UI.HtmlControls.HtmlTableCell tdddlBrokerCode = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdddlBrokerCode");
                 tdlblBrokerCode.Visible = false;
                 tdddlBrokerCode.Visible = false;
                 DataSet dscommissionTypes;
                 dscommissionTypes = commisionReceivableBo.GetCommisionTypes();
+                DataSet dsModeTypes;
+                dsModeTypes = commisionReceivableBo.GetModeTypes();
                 if (ddlProductType.SelectedValue != "MF")
                 {
                     tdlblBrokerCode.Visible = true;
@@ -447,6 +452,13 @@ namespace WealthERP.Receivable
                 ddlCommissionype.DataTextField = "WCMV_Name";
                 ddlCommissionype.DataBind();
                 ddlCommissionype.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+                ddlmode.DataSource = dsModeTypes.Tables[0];
+                ddlmode.DataValueField = "WCMV_LookupId";
+                ddlmode.DataTextField = "WCMV_Name";
+                ddlmode.DataBind();
+                ddlmode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+
+
                 DataSet dsCommissionLookup;
                 dsCommissionLookup = (DataSet)Session["CommissionLookUpData"];
                 ddlBrokerageUnit.DataSource = dsCommissionLookup.Tables[3];

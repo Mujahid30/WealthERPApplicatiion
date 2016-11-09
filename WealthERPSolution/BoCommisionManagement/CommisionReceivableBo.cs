@@ -91,7 +91,21 @@ namespace BoCommisionManagement
             }
             return dsLookupData;
         }
+        public DataSet GetModeTypes()
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            DataSet ds;
+            try
+            {
+                ds = commisionReceivableDao.GetModeTypes();
 
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return ds;
+        }
         public DataSet GetIssuesStructureMapings(int adviserId, string mappedType, string issueType, string product, int isOnlineIssue, int structureId, string SubCategoryCode)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
@@ -537,13 +551,13 @@ namespace BoCommisionManagement
             return dsLookupData;
         }
 
-        public int CreateUpdateDeleteCommissionTypeBrokerage(int ruleId, int commissionType, string brokerageUnit, decimal brokeragageValue, string ruleName, string commandType, int RuleDetailsId, int structureRuleDetailsId, string BrokerIdentifier)
+        public int CreateUpdateDeleteCommissionTypeBrokerage(int ruleId, int commissionType, int ModeType, string brokerageUnit, decimal brokeragageValue, string ruleName, string commandType, int RuleDetailsId, int structureRuleDetailsId, string BrokerIdentifier)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
 
             try
             {
-                return commisionReceivableDao.CreateUpdateDeleteCommissionTypeBrokerage(ruleId, commissionType, brokerageUnit, brokeragageValue, ruleName, commandType, RuleDetailsId, structureRuleDetailsId, BrokerIdentifier);
+                return commisionReceivableDao.CreateUpdateDeleteCommissionTypeBrokerage(ruleId, commissionType, ModeType, brokerageUnit, brokeragageValue, ruleName, commandType, RuleDetailsId, structureRuleDetailsId, BrokerIdentifier);
             }
             catch (BaseApplicationException Ex)
             {

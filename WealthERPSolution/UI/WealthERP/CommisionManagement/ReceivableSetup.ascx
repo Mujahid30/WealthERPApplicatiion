@@ -1826,6 +1826,20 @@
                                                                                         InitialValue="Select" ValidationGroup="rgApllOk">
                                                                                     </asp:RequiredFieldValidator>
                                                                                 </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                 <td class="leftLabel">
+                                                                                    <asp:Label ID="Label17" runat="server" Text="Mode Type:" CssClass="FieldName"></asp:Label>
+                                                                                </td>
+                                                                                <td class="rightData">
+                                                                                    <asp:DropDownList ID="ddlmode" runat="server" CssClass="cmbField" AutoPostBack="false" >
+                                                                                    </asp:DropDownList>
+                                                                                    <br />
+                                                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator17" runat="server" CssClass="rfvPCG"
+                                                                                        ErrorMessage="Please Select Mode Type" Display="Dynamic" ControlToValidate="ddlmode"
+                                                                                        InitialValue="Select" ValidationGroup="rgApllOk">
+                                                                                    </asp:RequiredFieldValidator>
+                                                                                </td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td class="leftLabel" id="tdlblBrokerCode" runat="server" visible="true">
