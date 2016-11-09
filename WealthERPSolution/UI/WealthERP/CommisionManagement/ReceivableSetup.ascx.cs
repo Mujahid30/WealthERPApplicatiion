@@ -478,6 +478,7 @@ namespace WealthERP.Receivable
                 DataSet dsCommissionTypesAndBrokerage;
                 dsCommissionTypesAndBrokerage = commisionReceivableBo.GetCommissionTypeAndBrokerage(ruleID);
                 DropDownList ddlCommissionype = (DropDownList)editFormItem.FindControl("ddlCommissionype");
+                DropDownList ddlmode = (DropDownList)editFormItem.FindControl("ddlmode");
                 DropDownList ddlBrokerageUnit = (DropDownList)editFormItem.FindControl("ddlBrokerageUnit");
                 TextBox txtBrokerageValue = editFormItem.FindControl("txtBrokerageValue") as TextBox;
                 txtBrokerageValue.Text = parentItem["CSRD_BrokageValue"].Text;
@@ -495,6 +496,15 @@ namespace WealthERP.Receivable
                 ddlCommissionype.DataTextField = "WCMV_Name";
                 ddlCommissionype.DataBind();
                 ddlCommissionype.SelectedValue = dsCommissionTypesAndBrokerage.Tables[0].Rows[0].ItemArray[4].ToString();
+
+                DataSet dsModeTypes;
+                dsModeTypes = commisionReceivableBo.GetModeTypes();
+                ddlmode.DataSource = dsModeTypes.Tables[0];
+                ddlmode.DataValueField = "WCMV_LookupId";
+                ddlmode.DataTextField = "WCMV_Name";
+                ddlmode.DataBind();
+                ddlCommissionype.SelectedValue = dsCommissionTypesAndBrokerage.Tables[0].Rows[0].ItemArray[3].ToString();
+
                 DataSet dsCommissionLookup;
                 dsCommissionLookup = (DataSet)Session["CommissionLookUpData"];
                 ddlBrokerageUnit.DataSource = dsCommissionLookup.Tables[3];
