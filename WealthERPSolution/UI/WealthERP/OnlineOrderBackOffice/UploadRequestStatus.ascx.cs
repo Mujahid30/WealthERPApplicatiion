@@ -174,6 +174,16 @@ namespace WealthERP.OnlineOrderBackOffice
                                 rgRequests.MasterTableView.GetColumn("FolioCreated").Visible = false;
                                 rgRequests.MasterTableView.GetColumn("TransactionCreated").Visible = false;
                             }
+                            else if (ddlType.SelectedValue == "5")
+                            {
+                                rgRequests.MasterTableView.GetColumn("RTA").Visible = true;
+                                rgRequests.MasterTableView.GetColumn("TotalNoOfRecords").Visible = true;
+                                rgRequests.MasterTableView.GetColumn("RejectReseaon").Visible = true;
+                                rgRequests.MasterTableView.GetColumn("InputRejects").Visible = false;
+                                rgRequests.MasterTableView.GetColumn("StagingRejects").Visible = false;
+                                rgRequests.MasterTableView.GetColumn("Staging").Visible = false;
+                                //rgRequests.MasterTableView.GetColumn("Success").Visible = false;
+                            }
 
             }
             catch (BaseApplicationException Ex)

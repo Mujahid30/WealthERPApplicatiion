@@ -86,12 +86,12 @@
         </td>
     </tr>
 </table>
-<table width="99%" runat="server" id="tbIssue">
+<table  runat="server" id="tbIssue">
     <tr>
-        <td class="leftField" style="width: 70px">
+        <td >
             <asp:Label ID="lb1Type" runat="server" Text="Type:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField" style="width: 70px">
+        <td >
             <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" AutoPostBack="true" TabIndex="41"
                 Width="240px" OnSelectedIndexChanged="ddlType_OnSelectedIndexChanged">
             </asp:DropDownList>
@@ -138,13 +138,12 @@
                 CssClass="rfvPCG" ControlToValidate="ddlIsonline" ValidationGroup="btnGo" Display="Dynamic"
                 InitialValue="2"></asp:RequiredFieldValidator>
         </td>
-    </tr>
-</table>
-<table>
-    <tr>
+    
+
+    
         <td id="td1" runat="server" >
             <span class="FieldName">Filter On:</span>
-            <asp:DropDownList ID="DropDownList1" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="DropDownList1_OnSelectedIndexChanged">
+            <asp:DropDownList ID="DropDownList1" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="DropDownList1_OnSelectedIndexChanged" Width="100px">
                 <asp:ListItem Text="Select" Value="0"></asp:ListItem>
                 <asp:ListItem Text="Request Id" Value="1"></asp:ListItem>
                 <asp:ListItem Text="Request Date" Value="2"></asp:ListItem>
@@ -181,8 +180,7 @@
                 InitialValue="" ValidationGroup="btnGo">
             </asp:RequiredFieldValidator>
         </td>
-     
-     <td id="tdToDate" runat="server" visible="false">
+        <td id="tdToDate" runat="server" visible="false">
         <span class="FieldName">Requested From Date:</span>
             <telerik:RadDatePicker ID="rdpToDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"

@@ -28,10 +28,10 @@
 <table>
     <tr>
         <td align="right">
-            <asp:Label ID="lblSelect" runat="server" CssClass="FieldName" Text="Select:"></asp:Label>
+            <asp:Label ID="lblSelect" runat="server" CssClass="FieldName" Text="File Name:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlIssue" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlIssue" runat="server" CssClass="cmbField" Width="360px">
             </asp:DropDownList>
             <span id="Span26" class="spnRequiredField">*</span>
             <br />
@@ -44,7 +44,7 @@
                 ValidationGroup="btnbasicsubmit" Text="Go" />
         </td>
         <td align="right">
-            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Select:"></asp:Label>
+            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Holdings As On Date:"></asp:Label>
         </td>
         <td>
             <telerik:RadDatePicker ID="txtTo" CssClass="txtField" runat="server" Culture="English (United States)"
