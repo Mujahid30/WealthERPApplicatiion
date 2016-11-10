@@ -216,7 +216,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 fromDate = DateTime.Parse(txtFrom.SelectedDate.ToString());
             if (txtTo.SelectedDate != null)
                 toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
-            dsSIPBookMIS = OnlineOrderMISBo.GetSIPSummaryBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), fromDate, toDate, searchType, statusType, ddlSystematicType.SelectedValue, ddlMode.SelectedValue == "2" ? ddlSIP.SelectedValue : "RSIP", ddlMode.SelectedValue);
+            dsSIPBookMIS = OnlineOrderMISBo.GetSIPSummaryBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), fromDate, toDate, searchType, statusType, ddlSystematicType.SelectedValue, ddlMode.SelectedValue == "2" ? ddlSIP.SelectedValue : "RSIP",ddlMode.SelectedValue);
             dtSIPBookMIS = dsSIPBookMIS.Tables[0];
             dtSIPBookMIS = createSIPOrderBook(dsSIPBookMIS);
             if (dtSIPBookMIS.Rows.Count > 0)
@@ -230,6 +230,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     Cache.Remove("SIPSumList" + advisorVo.advisorId);
                     Cache.Insert("SIPSumList" + advisorVo.advisorId, dtSIPBookMIS);
                 }
+                
                 gvSIPSummaryBookMIS.DataSource = dtSIPBookMIS;
                 gvSIPSummaryBookMIS.DataBind();
                 gvSIPSummaryBookMIS.Visible = true;
@@ -395,7 +396,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 drSIPOrderBook["BMFSRD_BSESIPREGID"] = drSIP["BMFSRD_BSESIPREGID"];
                 dtFinalSIPOrderBook.Rows.Add(drSIPOrderBook);
             }
-            if (ddlMode.SelectedValue == "1")
+            if (ddlMode.SelectedValue == "1"||ddlMode.SelectedValue=="0")
             {
                 gvSIPSummaryBookMIS.Columns[2].Visible = false;
             }
@@ -539,11 +540,21 @@ namespace WealthERP.OnlineOrderBackOffice
                                 int schemeplanCode = int.Parse(gvr.GetDataKeyValue("PASP_SchemePlanCode").ToString());
                                 int IsSourceAA = int.Parse(gvr.GetDataKeyValue("CMFSS_IsSourceAA").ToString());
                                 int customerId = int.Parse(gvr.GetDataKeyValue("C_CustomerId").ToString());
+                                
                                 //int accept = int.Parse(gvr.GetDataKeyValue("AcceptCount").ToString());
                                 if (e.CommandName == "Select")
                                 {
                                     //  Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerTransactionBook&systematicId=" + systematicId + "", false);
-                                    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerSIPOrderBook&systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA + "&customerId=" + customerId + "", false);
+                                    if (ddlMode.SelectedValue == "0")
+                                    {
+
+                                        //Response.Redirect("ControlHost.aspx?pageid=OrderList&systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA + "&customerId=" + customerId + "&FromDate=" + txtFrom.SelectedDate + "&ToDate=" + txtTo.SelectedDate  + "&customerId=" + customerId + "&OrderType="+"SIP"+"", false);
+                                        Response.Redirect("ControlHost.aspx?pageid=OrderList&systematicId=" + systematicId + "&OrderType=" + "SIP" + "", false);
+
+                                    }
+                                    else
+                                        Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserCustomerSIPOrderBook&systematicId=" + systematicId + "&AccountId=" + AccountId + "&schemeplanCode=" + schemeplanCode + "&IsSourceAA=" + IsSourceAA + "&customerId=" + customerId + "", false);
+
                                 }
 
                                 // if (e.CommandName == "Accepted")

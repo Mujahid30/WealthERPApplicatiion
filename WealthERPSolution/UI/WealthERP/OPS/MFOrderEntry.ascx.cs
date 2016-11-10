@@ -664,8 +664,7 @@ namespace WealthERP.OPS
                     {
                         txtReceivedDate.SelectedDate = DateTime.Parse(dr["CO_ApplicationReceivedDate"].ToString());
                     }
-                    else
-                        txtReceivedDate.SelectedDate = DateTime.MinValue;
+                  
                     ddlPortfolio.SelectedValue = dr["CP_portfolioId"].ToString();
 
                     ddlPaymentMode.SelectedValue = dr["XPM_PaymentModeCode"].ToString();
