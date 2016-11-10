@@ -538,7 +538,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 todate = DateTime.Parse(txtToDate.SelectedDate.ToString());
                 string dailyDirName = ddlOrderType.SelectedItem.Text + @"_" + ddlType.SelectedItem.Text;
                 string extractPath = ConfigurationSettings.AppSettings["RTA_EXTRACT_PATH"];
-                string downloadFileName = ddlType.SelectedValue == "FCS" ? "CAMS_SM" : "DOC_0011" + todate.ToString("dd-MM-yyyy");
+                string downloadFileName = ddlType.SelectedValue == "FCS" ? "CAMS_SM" : "DOC_0011" + todate.ToString("ddMMyyy");
                 string localFilePath = onlineOrderBackOfficeBo.GenerateDailyOrderFATCASummaryFiles(Server.MapPath("~/ReferenceFiles/RTAExtractSampleFiles/"), ddlOrderType.SelectedValue, ddlType.SelectedValue, adviserVo.advisorId, fromdate,todate);
                 if (File.Exists(extractPath + @"\" + adviserVo.advisorId + @"\"+ downloadFileName + ".DBF") == true)
                 {
@@ -552,7 +552,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     return;
                 }
                 Response.ContentType = "application/dbf";
-                Response.AppendHeader("Content-Disposition", "attachment;filename=" + downloadFileName);
+                Response.AppendHeader("Content-Disposition", "attachment;filename=" + downloadFileName+".DBF");
                 string aaa = extractPath + @"\" + adviserVo.advisorId + @"\" + downloadFileName + ".DBF";
                 Response.TransmitFile(extractPath + @"\" + adviserVo.advisorId + @"\" + downloadFileName + ".DBF");
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
