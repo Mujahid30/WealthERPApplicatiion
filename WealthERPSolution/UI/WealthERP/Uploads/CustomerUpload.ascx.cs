@@ -5275,6 +5275,17 @@ namespace WealthERP.Uploads
 
                 Response.Redirect("Standard Upload Files/GeneralInsurance.xlsx");
             }
+            else if (File15.Checked)
+            {
+
+                Response.Redirect("Standard Upload Files/CML Format_Demat_9th Aug 2016.xlsx");
+            }
+            else if (File16.Checked)
+            {
+
+                Response.Redirect("Standard Upload Files/KYC upload- Format.xlsx");
+            }
+
             //else if (File13.Checked)
             //{
 

@@ -498,12 +498,7 @@
     <tr>
         <td>
             <asp:Panel ID="Panel1" runat="server" CssClass="ModelPup" Visible="false" Width="450px">
-                <asp:RadioButton ID="File1" Text="Equity Trade Account" Checked="false" GroupName="colors"
-                    runat="server" />
-                <br />
-                <asp:RadioButton ID="File2" Text="Equity Transaction" Checked="false" GroupName="colors"
-                    runat="server" />
-                <br />
+              
                 <asp:RadioButton ID="File3" Text="MF Folio" Checked="false" GroupName="colors" runat="server" />
                 <br />
                 <asp:RadioButton ID="File4" Text="MF Transaction" Checked="false" GroupName="colors"
@@ -515,22 +510,13 @@
                 <asp:RadioButton ID="File6" Text="Systematic" Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
-                <asp:RadioButton ID="File7" Text="ODIN (NSE)" Checked="false" GroupName="colors"
+                <asp:RadioButton ID="File15" Text="CML"  Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
-                <asp:RadioButton ID="File8" Text="ODIN (BSE)" Checked="false" GroupName="colors"
+                <asp:RadioButton ID="File16" Text="KYC"  Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
-                <%--<asp:RadioButton ID="File9" Text="Profile & MF Folio" Checked="false" GroupName="colors"
-                    runat="server" />
-                <br />--%>
-                <asp:RadioButton ID="File10" Text="FI *" Checked="false" GroupName="colors" runat="server" />
-                <br />
-                <asp:RadioButton ID="File11" Text="LI *" Checked="false" GroupName="colors" runat="server" />
-                <br />
-                <asp:RadioButton ID="File12" Text="GI *" Checked="false" GroupName="colors" runat="server" />
-                <br />
-                <asp:RadioButton ID="AllFiles" Text="All Standard Upload Files" Checked="false" GroupName="colors"
+                 <asp:RadioButton ID="AllFiles" Text="All Standard Upload Files" Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
                 <asp:Button ID="btnOk" runat="server" Text="Download" CausesValidation="false" CssClass="PCGButton" />
@@ -542,6 +528,28 @@
             </asp:Panel>
             <asp:Button class="ExportButton" ID="btnExportExcel" runat="server" Style="display: none"
                 OnClick="btnExportExcel_Click" CausesValidation="false" Height="31px" Width="35px" />
+                <asp:RadioButton ID="File7" Text="ODIN (NSE)" Visible="false" Checked="false" GroupName="colors"
+                    runat="server" />
+                <br />
+                <asp:RadioButton ID="File8" Text="ODIN (BSE)" Visible="false" Checked="false" GroupName="colors"
+                    runat="server" />
+                <br />
+                <%--<asp:RadioButton ID="File9" Text="Profile & MF Folio" Checked="false" GroupName="colors"
+                    runat="server" />
+                <br />--%>
+                <asp:RadioButton ID="File10" Text="FI *" Visible="false" Checked="false" GroupName="colors" runat="server" />
+                <br />
+                <asp:RadioButton ID="File11" Text="LI *" Visible="false" Checked="false" GroupName="colors" runat="server" />
+                <br />
+                <asp:RadioButton ID="File12" Text="GI *" Visible="false" Checked="false" GroupName="colors" runat="server" />
+                <br />
+                  <asp:RadioButton ID="File1" Text="Equity Trade Account" Visible="false" Checked="false" GroupName="colors"
+                    runat="server" />
+                <br />
+                <asp:RadioButton ID="File2" Text="Equity Transaction" Visible="false" Checked="false" GroupName="colors"
+                    runat="server" />
+                <br />
+               
         </td>
     </tr>
 </table>
