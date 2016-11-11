@@ -297,15 +297,8 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else
             {
-                //if (!string.IsNullOrEmpty(txtClientCode.Text))
-                //{
-                //    string ClientCode = txtClientCode.Text;
-                //}
-                //if (!string.IsNullOrEmpty(txtPansearch.Text))
-                //{
-                //    string pansearch = txtPansearch.Text;
-                //}
-                dtBindTransactionGrid = BindTransaction(adviserVo.advisorId, int.Parse(ddlAmc.SelectedValue), fromDate, toDate, gvTransationBookMIS.PageSize, gvTransationBookMIS.CurrentPageIndex + 1, customerNamefilter, txtClientCode.Text, txtPansearch.Text, null, null, null, null, null, 0, out rowCount);
+               
+                dtBindTransactionGrid = BindTransaction(adviserVo.advisorId, int.Parse(ddlAmc.SelectedValue), fromDate, toDate, gvTransationBookMIS.PageSize, gvTransationBookMIS.CurrentPageIndex + 1, txtCustomerName.Text, txtClientCode.Text, txtPansearch.Text, null, null, null, null, null, 0, out rowCount);
                 gvTransationBookMIS.DataSource = dtBindTransactionGrid;
                 gvTransationBookMIS.VirtualItemCount = rowCount;
                 gvTransationBookMIS.DataBind();
