@@ -90,8 +90,8 @@
     <tr>
         <td >
             <asp:Label ID="lb1Type" runat="server" Text="Type:" CssClass="FieldName"></asp:Label>
-        </td>
-        <td >
+       <%-- </td>
+        <td >--%>
             <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" AutoPostBack="true" TabIndex="41"
                 Width="240px" OnSelectedIndexChanged="ddlType_OnSelectedIndexChanged">
             </asp:DropDownList>
@@ -117,7 +117,7 @@
         </td>
         <td id="tdCategory" runat="server" visible="false">
             <span class="FieldName">Category:</span>
-            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="true">
+            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" >
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
             <br />
@@ -161,6 +161,8 @@
                 Display="Dynamic" runat="server" ValidationGroup="btnGo" CssClass="rfvPCG" >
             </asp:RequiredFieldValidator>
         </td>
+        </tr>
+        <tr>
         <td id="tdFromD" runat="server" visible="false">
          <span class="FieldName">Requested From Date:</span>
             <telerik:RadDatePicker ID="txtReqDate" CssClass="txtField" runat="server" Culture="English (United States)"
@@ -175,13 +177,15 @@
             </telerik:RadDatePicker>
             <span id="Span18" class="spnRequiredField">*</span>
             <br />
+             
             <asp:RequiredFieldValidator ID="RequiredFieldValidator21" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Enter Requested Date" Display="Dynamic" ControlToValidate="txtReqDate"
                 InitialValue="" ValidationGroup="btnGo">
             </asp:RequiredFieldValidator>
         </td>
+     
         <td id="tdToDate" runat="server" visible="false">
-        <span class="FieldName">Requested From Date:</span>
+        <span class="FieldName">Requested To Date:</span>
             <telerik:RadDatePicker ID="rdpToDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
                 TabIndex="17" Width="150px" AutoPostBack="false">
@@ -193,21 +197,23 @@
                 </DateInput>
             </telerik:RadDatePicker>
             <span id="Span4" class="spnRequiredField">*</span>
-            <br />
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" CssClass="rfvPCG"
+            <%--<br />--%>
+              <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Select a Date" Display="Dynamic" ControlToValidate="rdpToDate"
                 InitialValue="" ValidationGroup="btnGo">
-            
             </asp:RequiredFieldValidator>
-            <asp:CompareValidator ID="CompareValidator1" runat="server" CssClass="rfvPCG" ErrorMessage="To date must be greater than from date."
-                ControlToCompare="txtReqDate" ValidationGroup="btnGo" ControlToValidate="rdpToDate"
-                Type="Date" Operator="GreaterThanEqual"></asp:CompareValidator>
+               
+              <%-- <asp:CompareValidator ID="CompareValidator1" runat="server" CssClass="rfvPCG" ErrorMessage="To date must be greater than from date."
+                ControlToCompare="txtReqDate" ValidationGroup="btnGo" ControlToValidate="rdpToDate" 
+                Type="Date" Operator="GreaterThanEqual"></asp:CompareValidator>--%>
+                
         </td>
         <td>
             <asp:Button ID="btnGo" runat="server" Text="Go" CssClass="PCGButton" ValidationGroup="btnGo"
                 OnClick="btnGo_Click" />
         </td>
-    </tr>
+        </tr>
+  
 </table>
 <table>
     <tr id="tblMessagee" runat="server" visible="false">
@@ -229,8 +235,8 @@
     cellspacing="5">
     <tr>
         <td class="tdSectionHeading">
-            <div class="divSectionHeading" style="vertical-align: text-bottom;">
-                <table width="100%">
+<%--            <div class="divSectionHeading" style="vertical-align: text-bottom;">
+--%>                <table width="100%">
                     <tr>
                         <td align="right">
                             <asp:ImageButton ID="ImageButton1" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
@@ -256,7 +262,7 @@
                 <table>
                     <tr>
                         <td>
-                            <telerik:RadGrid ID="rgRequests" Visible="false" Width="1500px" runat="server" AllowSorting="True"
+                            <telerik:RadGrid ID="rgRequests" Visible="false" Width="1500px" runat="server" AllowSorting="True" 
                                 enableloadondemand="True" PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="true"
                                 ShowStatusBar="True" Skin="Telerik" AllowFilteringByColumn="true" OnItemDataBound="rgRequests_ItemDataBound"
@@ -369,7 +375,7 @@
                                     </Columns>
                                 </MasterTableView>
                             </telerik:RadGrid>
-                            <telerik:RadGrid Visible="false" ID="rgBondsGrid" Width="1500px" runat="server" AllowSorting="True"
+                            <telerik:RadGrid  ID="rgBondsGrid" Width="1500px" runat="server" AllowSorting="True" 
                                 enableloadondemand="True" PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="true"
                                 ShowStatusBar="True" Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgBondsGrid_OnNeedDataSource">
@@ -523,14 +529,16 @@ AIAUL_Brk3_Rec_Rate,AIAUL_Brk3_Rec,AIAUL_Total_Brk_rec,AIAUL_SvcTaxAM,AIAUL_Tds,
                                     </Columns>
                                 </MasterTableView>
                             </telerik:RadGrid>
-                            <telerik:RadGrid Visible="false" ID="radGridOrderDetails" Width="1200px" runat="server"
+                            <telerik:RadGrid Visible="false" ID="radGridOrderDetails" Width="1500px" runat="server" 
                                 AllowSorting="True" enableloadondemand="True" PageSize="5" AutoGenerateColumns="False"
                                 EnableEmbeddedSkins="False" GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true"
                                 AllowPaging="true" ShowStatusBar="True" Skin="Telerik" AllowFilteringByColumn="true"
-                                OnNeedDataSource="radGridOrderDetails_OnNeedDataSource">
-                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
+                                OnNeedDataSource="radGridOrderDetails_OnNeedDataSource"  >
+                                   
+                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false" 
                                     DataKeyNames="processid">
                                     <Columns>
+                                 
                                         <telerik:GridTemplateColumn DataField="processid" HeaderText="Processid" SortExpression="processid"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                             UniqueName="processid" FooterStyle-HorizontalAlign="Left">

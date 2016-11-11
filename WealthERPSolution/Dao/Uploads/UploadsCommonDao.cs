@@ -4494,7 +4494,10 @@ namespace DaoUploads
                 db.AddInParameter(dbCommand, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(dbCommand, "@category", DbType.String, category);
                 db.AddInParameter(dbCommand, "@ReqId", DbType.Int32, reqId);
+                dbCommand.CommandTimeout = 60 * 60;
+
                 dsData = db.ExecuteDataSet(dbCommand);
+                
             }
             catch (BaseApplicationException Ex)
             {
@@ -4502,7 +4505,8 @@ namespace DaoUploads
             }
             return dsData;
         }
-        public DataTable GetCMLBONCDData(int taskId, DateTime dtReqDate, int adviserId, string category, int isOnline)
+       
+        public DataTable GetCMLBONCDData(int taskId, int adviserId, string category, int isOnline)
         {
             DataSet dsData;
             Database db;
@@ -4512,7 +4516,6 @@ namespace DaoUploads
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbCommand = db.GetStoredProcCommand("SPROC_GetAllotmentLogDetails");
                 db.AddInParameter(dbCommand, "@processId", DbType.Int32, taskId);
-                db.AddInParameter(dbCommand, "@date", DbType.DateTime, dtReqDate);
                 db.AddInParameter(dbCommand, "@category", DbType.String, category);
                 db.AddInParameter(dbCommand, "@isonline", DbType.Int32, isOnline);
 

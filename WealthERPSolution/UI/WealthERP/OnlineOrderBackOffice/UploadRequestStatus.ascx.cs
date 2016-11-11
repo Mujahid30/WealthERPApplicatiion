@@ -37,23 +37,39 @@ namespace WealthERP.OnlineOrderBackOffice
             advisorVo = (AdvisorVo)Session["advisorVo"];
             txtReqDate.SelectedDate = DateTime.Now.Date.AddDays(-2);
             rdpToDate.SelectedDate = DateTime.Now.Date;
-           
+            //tdCategory.Visible = false;
+            radGridOrderDetails.Visible = false;
+            rgBondsGrid.Visible = false;
+            rgRequests.Visible = false;
+            pnlRequest.Visible = false;
+          
             if (!IsPostBack)
             {
+               
                 GetTypes();
                 GetRequests();
             }
         }
         protected void btnGo_Click(object sender, EventArgs e)
         {
+            DateTime dt1 = txtReqDate.SelectedDate.Value;
+            DateTime dt2 = rdpToDate.SelectedDate.Value;
+            if (dt2 <= dt1)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('To date must be greater than from date.');", true);
+                return;
+            }
+           
+            
             pnlRequest.Visible = true;
             btnexport.Visible = true;
             if (ddlType.SelectedValue != "11")
                 GetRequests();
             else
-                BindOrderReprocessDetails();
+                BindOrderReprocessDetails();   
 
         }
+
         protected void BindOrderReprocessDetails()
         {
             try
@@ -73,6 +89,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 throw ex;
             }
         }
+        
 
 
         private void GetTypes()
@@ -182,6 +199,11 @@ namespace WealthERP.OnlineOrderBackOffice
                                 rgRequests.MasterTableView.GetColumn("InputRejects").Visible = false;
                                 rgRequests.MasterTableView.GetColumn("StagingRejects").Visible = false;
                                 rgRequests.MasterTableView.GetColumn("Staging").Visible = false;
+                                rgRequests.MasterTableView.GetColumn("Cutomercreated").Visible = false;
+                                rgRequests.MasterTableView.GetColumn("FolioCreated").Visible = false;
+                                rgRequests.MasterTableView.GetColumn("TransactionCreated").Visible = false;
+                                rgRequests.MasterTableView.GetColumn("IsOnl").Visible = false;
+                                
                                 //rgRequests.MasterTableView.GetColumn("Success").Visible = false;
                             }
 
@@ -223,6 +245,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
             }
         }
+        
+        
         //protected void rgRequests_ItemCommand(object source, GridCommandEventArgs e)
         //{
         //    DataTable dt = (DataTable)Cache[userVo.UserId.ToString() + "Requests"];
@@ -341,19 +365,20 @@ namespace WealthERP.OnlineOrderBackOffice
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageProfileReject", "loadcontrol('ManageProfileReject','?ReqId=" + reqId + "&transactionId=" + transactionId + "');", true);
             }
         }
+       
 
         protected void ddlProduct_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlProduct.SelectedValue == "FI")
             {
                 tdCategory.Visible = true;
-                tdProductType.Visible = true;
+                //tdProductType.Visible = true;
                 BindNcdCategory();
             }
             else
             {
                 tdCategory.Visible = false;
-                tdProductType.Visible = true;
+                //tdProductType.Visible = true;
             }
         }
         protected void DropDownList1_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -385,8 +410,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 tdToDate.Visible = true;
                 tdFromD.Visible = true;
                 tdProduct.Visible = true;
-                tdCategory.Visible = true;
+                //tdCategory.Visible = true;
                 txtreqId.Visible = false;
+                tdProductType.Visible = true;
                
             }
             else
@@ -396,6 +422,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 tdToDate.Visible = false;
                 tdFromD.Visible = false;
                 txtreqId.Visible = true;
+                tdProductType.Visible = false;
+                tdCategory.Visible = false;
             }
 
 
@@ -670,17 +698,20 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void BindBondIPOProductrejectedData(int processId)
         {
-            DataTable dtType = uploadCommonBo.GetCMLBONCDData(processId, Convert.ToDateTime(txtReqDate.SelectedDate), advisorVo.advisorId, (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "IP", int.Parse(ddlIsonline.SelectedValue));
+            DataTable dtType = uploadCommonBo.GetCMLBONCDData(processId, advisorVo.advisorId, (ddlProduct.SelectedValue != "IP") ? ddlCategory.SelectedValue : "IP", int.Parse(ddlIsonline.SelectedValue));
+
             if (Cache[userVo.UserId.ToString() + "OrderRejectdtType"] != null)
                 Cache.Remove(userVo.UserId.ToString() + "OrderRejectdtType");
             Cache.Insert(userVo.UserId.ToString() + "OrderRejectdtType", dtType);
             rgRequests.Visible = false;
             radGridOrderDetails.Visible = false;
+            pnlRequest.Visible = true;
             rgBondsGrid.Visible = true;
             btnReprocess.Visible = true;
             rgBondsGrid.DataSource = dtType;
             rgBondsGrid.DataBind();
 
+           
         }
     }
 }
