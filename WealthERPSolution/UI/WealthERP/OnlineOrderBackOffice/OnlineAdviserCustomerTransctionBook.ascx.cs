@@ -64,7 +64,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtCustomerName_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
                 txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserAllCustomerName";
                 txtPansearch_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
-                txtPansearch_autoCompleteExtender.ServiceMethod = "GetAdviserAllCustomerPan";
+                txtPansearch_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerPan";
                 txtClientCode_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
                 txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
 

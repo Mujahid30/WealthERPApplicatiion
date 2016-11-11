@@ -9,7 +9,25 @@
 <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
 </Services>
 </asp:ScriptManager>
+<script type="text/javascript">
 
+    var isItemSelected = false;
+
+    //Handler for textbox blur event
+    function checkItemSelected(txtPanNumber) {
+        var returnValue = true;
+        if (!isItemSelected) {
+            if (txtPanNumber.value != "") {
+                txtPanNumber.focus();
+                alert("Please select Pan Number from the Pan list only");
+                txtPanNumber.value = "";
+                returnValue = false;
+            }
+        }
+        return returnValue;
+    }
+    
+</script>
 
 <script type="text/javascript" language="javascript">
     function GetCustomerId(source, eventArgs) {
@@ -156,7 +174,7 @@
                 WatermarkText="Enter few characters of Pan" runat="server" EnableViewState="false">
             </cc1:TextBoxWatermarkExtender>
             <ajaxToolkit:AutoCompleteExtender ID="txtPansearch_autoCompleteExtender" runat="server"
-                TargetControlID="txtPansearch" ServiceMethod="GetAdviserAllCustomerPan" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                TargetControlID="txtPansearch" ServiceMethod="GetAdviserCustomerPan" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
                 MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="1" CompletionInterval="0"
                 CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
                 CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
