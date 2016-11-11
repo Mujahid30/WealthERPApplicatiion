@@ -39,6 +39,9 @@ namespace WealthERP.OnlineOrderBackOffice
         VoCustomerPortfolio.MFTransactionVo mfTransactionVo = new VoCustomerPortfolio.MFTransactionVo();
         DateTime fromDate;
         DateTime toDate;
+         string customerNamefilter;
+         string custCode;
+        string panNo;
         int schemePlanCode = 0;
         int rowCount = 0;
         int AccountId = 0;
@@ -256,18 +259,18 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (!string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
                     customerId = int.Parse(txtCustomerId.Value);
             }
-            if (!string.IsNullOrEmpty(txtClientCode.Text))
-            {
-                string custCode = txtClientCode.Text;
-            }
-            if (!string.IsNullOrEmpty(txtPansearch.Text))
-            {
-                string pansearch = txtPansearch.Text;
-            }
-            if (!string.IsNullOrEmpty(ddlSchemeList.SelectedValue))
-            {
-                schemePlanCode = int.Parse(ddlSchemeList.SelectedValue);
-            }
+            //if (!string.IsNullOrEmpty(txtClientCode.Text))
+            //{
+            //    string ClientCode = txtClientCode.Text;
+            //}
+            //if (!string.IsNullOrEmpty(txtPansearch.Text))
+            //{
+            //    string pansearch = txtPansearch.Text;
+            //}
+            //if (!string.IsNullOrEmpty(ddlSchemeList.SelectedValue))
+            //{
+            //    schemePlanCode = int.Parse(ddlSchemeList.SelectedValue);
+            //}
             else
             {
                 ddlSchemeList.SelectedValue = "0";
@@ -294,7 +297,15 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else
             {
-                dtBindTransactionGrid = BindTransaction(adviserVo.advisorId, int.Parse(ddlAmc.SelectedValue), fromDate, toDate, gvTransationBookMIS.PageSize, gvTransationBookMIS.CurrentPageIndex + 1, null, null, null, null, null, null, null, null, 0, out rowCount);
+                //if (!string.IsNullOrEmpty(txtClientCode.Text))
+                //{
+                //    string ClientCode = txtClientCode.Text;
+                //}
+                //if (!string.IsNullOrEmpty(txtPansearch.Text))
+                //{
+                //    string pansearch = txtPansearch.Text;
+                //}
+                dtBindTransactionGrid = BindTransaction(adviserVo.advisorId, int.Parse(ddlAmc.SelectedValue), fromDate, toDate, gvTransationBookMIS.PageSize, gvTransationBookMIS.CurrentPageIndex + 1, customerNamefilter, txtClientCode.Text, txtPansearch.Text, null, null, null, null, null, 0, out rowCount);
                 gvTransationBookMIS.DataSource = dtBindTransactionGrid;
                 gvTransationBookMIS.VirtualItemCount = rowCount;
                 gvTransationBookMIS.DataBind();
@@ -310,6 +321,18 @@ namespace WealthERP.OnlineOrderBackOffice
                     fromDate = DateTime.Parse(txtFrom.SelectedDate.ToString());
                 if (txtTo.SelectedDate != null)
                     toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
+                if (!string.IsNullOrEmpty(txtClientCode.Text))
+                {
+                    string ClientCode = txtClientCode.Text;
+                }
+                if (!string.IsNullOrEmpty(txtPansearch.Text))
+                {
+                    string pansearch = txtPansearch.Text;
+                }
+                if (!string.IsNullOrEmpty(ddlSchemeList.SelectedValue))
+                {
+                    schemePlanCode = int.Parse(ddlSchemeList.SelectedValue);
+                }
 
                 dtIPOIssueList = OnlineOrderMISBo.GetAdviserCustomerTransaction(adviserVo.advisorId, int.Parse(ddlAmc.SelectedValue), fromDate, toDate, gvTransationBookMIS.PageSize, gvTransationBookMIS.CurrentPageIndex + 1, customerNamefilter, custCode, panNo, folioNo, schemeName, type, dividentType, fundName, orderNo, out rowCount);
 
