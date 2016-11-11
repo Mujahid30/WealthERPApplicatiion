@@ -526,6 +526,66 @@ namespace BoProductMaster
             }
             return amcCode;
         }
+        public string GetModefromFolioNo(int accountId)
+        {
+            ProductMFDao productMFDao = new ProductMFDao();
+            string mode = string.Empty;
+            try
+            {
+                mode = productMFDao.GetModefromFolioNo(accountId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "ProductMFBo.cs:GetModefromFolioNo()");
+
+                object[] objects = new object[2];
+
+                 objects[0] = accountId;
+                    objects[1]= 100;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return mode;
+        }
+        public DataSet GetMessagefromFolioNo(int schemePlanCode)
+        {
+            DataSet dsGetMessage;
+            ProductMFDao productMFDao = new ProductMFDao();
+            try
+            {
+                dsGetMessage = productMFDao.GetMessagefromFolioNo(schemePlanCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "ProductMFBo.cs:GetMessagefromFolioNo()");
+
+                object[] objects = new object[1];
+                objects[0] = schemePlanCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetMessage;
+        }
          public string GetSChemeName(int schemePlanCode)
         {
             ProductMFDao productMFDao = new ProductMFDao();
